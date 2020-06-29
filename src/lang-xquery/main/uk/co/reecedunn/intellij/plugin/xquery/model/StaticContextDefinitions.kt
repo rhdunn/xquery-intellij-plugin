@@ -58,7 +58,7 @@ object StaticContextDefinitions {
 object Annotations : JarModuleResolver() {
     override val classLoader: ClassLoader = this::class.java.classLoader
 
-    override val modules = mapOf(
+    override val modules: Map<String, String> = mapOf(
         "http://reecedunn.co.uk/xquery/annotations" to "uk/co/reecedunn/xquery/annotations.xqy"
     )
 }

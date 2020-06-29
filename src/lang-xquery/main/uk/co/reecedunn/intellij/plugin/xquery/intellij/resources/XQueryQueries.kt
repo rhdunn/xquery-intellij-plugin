@@ -27,5 +27,5 @@ object XQueryQueries {
         return file
     }
 
-    val ColorSettingsDemo = resourceFile("settings/xquery-color-demo.xq").decode()!!
+    val ColorSettingsDemo: String = resourceFile("settings/xquery-color-demo.xq").decode()!!
 }

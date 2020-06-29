@@ -65,22 +65,20 @@ class PluginCompatibilityAnnotationPsiImpl(node: ASTNode) :
     // endregion
     // region VersionConformance
 
-    override val requiresConformance
-        get(): List<Version> {
-            return when (conformanceElement.elementType) {
-                XQueryTokenType.K_PRIVATE -> MARKLOGIC_60
-                XQueryTokenType.K_UPDATING -> {
-                    val varDecl = parent.node.findChildByType(XQueryElementType.VAR_DECL)
-                    if (varDecl == null) UPDATE_10 else UPDATE_30
-                }
-                else -> SCRIPTING_10
+    override val requiresConformance: List<Version>
+        get() = when (conformanceElement.elementType) {
+            XQueryTokenType.K_PRIVATE -> MARKLOGIC_60
+            XQueryTokenType.K_UPDATING -> {
+                val varDecl = parent.node.findChildByType(XQueryElementType.VAR_DECL)
+                if (varDecl == null) UPDATE_10 else UPDATE_30
             }
+            else -> SCRIPTING_10
         }
 
     // endregion
     // region XpmSyntaxValidationElement
 
-    override val conformanceElement get(): PsiElement = firstChild
+    override val conformanceElement: PsiElement get() = firstChild
 
     // endregion
     // region ItemPresentation

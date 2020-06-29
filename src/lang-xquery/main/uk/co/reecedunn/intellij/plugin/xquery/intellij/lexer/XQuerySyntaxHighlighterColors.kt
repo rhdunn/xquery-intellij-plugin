@@ -25,128 +25,129 @@ import uk.co.reecedunn.intellij.plugin.xpath.intellij.lexer.XPathSyntaxHighlight
 object XQuerySyntaxHighlighterColors {
     // region Syntax Highlighting (Lexical Tokens)
 
-    val BAD_CHARACTER = TextAttributesKey.createTextAttributesKey(
+    val BAD_CHARACTER: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XQUERY_BAD_CHARACTER", XPathSyntaxHighlighterColors.BAD_CHARACTER
     )
 
-    val COMMENT = TextAttributesKey.createTextAttributesKey(
+    val COMMENT: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XQUERY_COMMENT", XPathSyntaxHighlighterColors.COMMENT
     )
 
-    val ENTITY_REFERENCE = TextAttributesKey.createTextAttributesKey(
+    val ENTITY_REFERENCE: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XQUERY_ENTITY_REFERENCE", DefaultLanguageHighlighterColors.VALID_STRING_ESCAPE
     )
 
-    val ESCAPED_CHARACTER = TextAttributesKey.createTextAttributesKey(
+    val ESCAPED_CHARACTER: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XQUERY_ESCAPED_CHARACTER", XPathSyntaxHighlighterColors.ESCAPED_CHARACTER
     )
 
-    val IDENTIFIER = TextAttributesKey.createTextAttributesKey(
+    val IDENTIFIER: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XQUERY_IDENTIFIER", XPathSyntaxHighlighterColors.IDENTIFIER
     )
 
-    val KEYWORD = TextAttributesKey.createTextAttributesKey(
+    val KEYWORD: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XQUERY_KEYWORD", XPathSyntaxHighlighterColors.KEYWORD
     )
 
-    val NUMBER = TextAttributesKey.createTextAttributesKey(
+    val NUMBER: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XQUERY_NUMBER", XPathSyntaxHighlighterColors.NUMBER
     )
 
-    val STRING = TextAttributesKey.createTextAttributesKey(
+    val STRING: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XQUERY_STRING", XPathSyntaxHighlighterColors.STRING
     )
 
-    val XQDOC_MARKUP = TextAttributesKey.createTextAttributesKey(
+    val XQDOC_MARKUP: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XQUERY_XQDOC_MARKUP", DefaultLanguageHighlighterColors.DOC_COMMENT_MARKUP
     )
 
-    val XQDOC_TAG = TextAttributesKey.createTextAttributesKey(
+    val XQDOC_TAG: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XQUERY_XQDOC_TAG", DefaultLanguageHighlighterColors.DOC_COMMENT_TAG
     )
-    val XQDOC_TAG_VALUE = TextAttributesKey.createTextAttributesKey(
+    val XQDOC_TAG_VALUE: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XQUERY_XQDOC_TAG_VALUE", DefaultLanguageHighlighterColors.DOC_COMMENT_TAG_VALUE
     )
 
-    val XML_ATTRIBUTE_NAME = TextAttributesKey.createTextAttributesKey(
+    val XML_ATTRIBUTE_NAME: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XQUERY_XML_ATTRIBUTE_NAME", XmlHighlighterColors.XML_ATTRIBUTE_NAME
     )
 
-    val XML_ATTRIBUTE_VALUE = TextAttributesKey.createTextAttributesKey(
+    val XML_ATTRIBUTE_VALUE: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XQUERY_XML_ATTRIBUTE_VALUE", XmlHighlighterColors.XML_ATTRIBUTE_VALUE
     )
 
-    val XML_ENTITY_REFERENCE = TextAttributesKey.createTextAttributesKey(
+    val XML_ENTITY_REFERENCE: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XQUERY_XML_ENTITY_REFERENCE", DefaultLanguageHighlighterColors.MARKUP_ENTITY
     )
 
-    val XML_ESCAPED_CHARACTER = TextAttributesKey.createTextAttributesKey(
+    val XML_ESCAPED_CHARACTER: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XQUERY_XML_ESCAPED_CHARACTER", DefaultLanguageHighlighterColors.VALID_STRING_ESCAPE
     )
 
-    val XML_TAG = TextAttributesKey.createTextAttributesKey(
+    val XML_TAG: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XQUERY_XML_TAG", XmlHighlighterColors.XML_TAG
     )
 
-    val XML_TAG_NAME = TextAttributesKey.createTextAttributesKey(
+    val XML_TAG_NAME: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XQUERY_XML_TAG_NAME", XmlHighlighterColors.XML_TAG_NAME
     )
 
     // endregion
     // region Semantic Highlighting (Usage and Reference Types)
 
-    val ANNOTATION = TextAttributesKey.createTextAttributesKey(
+    val ANNOTATION: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XQUERY_ANNOTATION", DefaultLanguageHighlighterColors.METADATA
     )
 
-    val ATTRIBUTE = TextAttributesKey.createTextAttributesKey(
+    val ATTRIBUTE: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XQUERY_ATTRIBUTE", XPathSyntaxHighlighterColors.ATTRIBUTE
     )
 
-    val DECIMAL_FORMAT = TextAttributesKey.createTextAttributesKey(
+    val DECIMAL_FORMAT: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XQUERY_DECIMAL_FORMAT", IDENTIFIER
     )
 
-    val ELEMENT = TextAttributesKey.createTextAttributesKey(
+    val ELEMENT: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XQUERY_ELEMENT", XPathSyntaxHighlighterColors.ELEMENT
     )
 
-    val FUNCTION_CALL = TextAttributesKey.createTextAttributesKey(
+    val FUNCTION_CALL: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XQUERY_FUNCTION_CALL", XPathSyntaxHighlighterColors.FUNCTION_CALL
     )
 
-    val FUNCTION_DECL = TextAttributesKey.createTextAttributesKey(
+    val FUNCTION_DECL: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XQUERY_FUNCTION_DECL", DefaultLanguageHighlighterColors.FUNCTION_DECLARATION
     )
 
-    val NS_PREFIX = TextAttributesKey.createTextAttributesKey(
+    val NS_PREFIX: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XQUERY_NS_PREFIX", XPathSyntaxHighlighterColors.NS_PREFIX
     )
 
-    val OPTION = TextAttributesKey.createTextAttributesKey(
+    val OPTION: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XQUERY_OPTION", IDENTIFIER
     )
 
-    val PARAMETER = TextAttributesKey.createTextAttributesKey(
+    val PARAMETER: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XQUERY_PARAMETER", XPathSyntaxHighlighterColors.PARAMETER
     )
 
-    val PRAGMA = TextAttributesKey.createTextAttributesKey(
+    val PRAGMA: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XQUERY_PRAGMA", XPathSyntaxHighlighterColors.PRAGMA
     )
 
-    val TYPE = TextAttributesKey.createTextAttributesKey(
+    val TYPE: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XQUERY_TYPE", XPathSyntaxHighlighterColors.TYPE
     )
 
-    val VARIABLE = TextAttributesKey.createTextAttributesKey(
+    val VARIABLE: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XQUERY_VARIABLE", XPathSyntaxHighlighterColors.VARIABLE
     )
 
     // endregion
     // region Descriptors
 
-    val DESCRIPTORS = arrayOf(
+    @Suppress("Reformat")
+    val DESCRIPTORS: Array<AttributesDescriptor> = arrayOf(
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.annotation"), ANNOTATION),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.attribute"), ATTRIBUTE),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.bad.character"), BAD_CHARACTER),
@@ -178,7 +179,7 @@ object XQuerySyntaxHighlighterColors {
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xqdoc.tag-value"), XQDOC_TAG_VALUE)
     )
 
-    val ADDITIONAL_DESCRIPTORS = mapOf(
+    val ADDITIONAL_DESCRIPTORS: Map<String, TextAttributesKey> = mapOf(
         "attribute" to ATTRIBUTE,
         "decimal-format" to DECIMAL_FORMAT,
         "element" to ELEMENT,

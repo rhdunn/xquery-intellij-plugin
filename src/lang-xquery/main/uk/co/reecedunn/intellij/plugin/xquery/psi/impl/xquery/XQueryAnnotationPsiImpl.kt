@@ -29,7 +29,6 @@ import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnnotation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyAtomicType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsStringValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotation
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import javax.swing.Icon
@@ -62,10 +61,10 @@ class XQueryAnnotationPsiImpl(node: ASTNode) :
     // endregion
     // region VersionConformance
 
-    override val requiresConformance get(): List<Version> = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
+    override val requiresConformance: List<Version> get() = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
 
-    override val conformanceElement
-        get(): PsiElement = findChildByType(XQueryTokenType.ANNOTATION_INDICATOR) ?: firstChild
+    override val conformanceElement: PsiElement
+        get() = findChildByType(XQueryTokenType.ANNOTATION_INDICATOR) ?: firstChild
 
     // endregion
     // region ItemPresentation

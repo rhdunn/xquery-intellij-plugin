@@ -51,5 +51,5 @@ class XQueryBreakpointProperties : XBreakpointProperties<XQueryBreakpointPropert
 
     override fun getState(): XQueryBreakpointProperties? = this
 
-    override fun loadState(state: XQueryBreakpointProperties) = XmlSerializerUtil.copyBean(state, this)
+    override fun loadState(state: XQueryBreakpointProperties): Unit = XmlSerializerUtil.copyBean(state, this)
 }

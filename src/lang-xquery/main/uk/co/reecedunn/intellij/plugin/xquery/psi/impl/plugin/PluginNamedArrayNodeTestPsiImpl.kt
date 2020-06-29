@@ -36,9 +36,9 @@ class PluginNamedArrayNodeTestPsiImpl(node: ASTNode) :
     // endregion
     // region XdmSequenceType
 
-    override val typeName get(): String = "array-node(\"${keyName.data}\")"
+    override val typeName: String get() = "array-node(\"${keyName.data}\")"
 
-    override val itemType get(): XdmItemType = this
+    override val itemType: XdmItemType get() = this
 
     override val lowerBound: Int? = 1
 
@@ -52,7 +52,7 @@ class PluginNamedArrayNodeTestPsiImpl(node: ASTNode) :
     // endregion
     // region XpmSyntaxValidationElement
 
-    override val conformanceElement get(): PsiElement = firstChild
+    override val conformanceElement: PsiElement get() = firstChild
 
     // endregion
 }

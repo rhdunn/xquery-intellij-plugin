@@ -59,16 +59,16 @@ class XQueryVarDeclPsiImpl(node: ASTNode) :
     // endregion
     // region VersionConformance
 
-    override val requiresConformance
-        get(): List<Version> {
+    override val requiresConformance: List<Version>
+        get() {
             if (conformanceElement === firstChild) {
                 return XQUERY10
             }
             return XQUERY30
         }
 
-    override val conformanceElement
-        get(): PsiElement {
+    override val conformanceElement: PsiElement
+        get() {
             val element = findChildByType<PsiElement>(XPathTokenType.ASSIGN_EQUAL)
             val previous = element?.siblings()?.reversed()?.filterNotWhitespace()?.firstOrNull()
             return if (previous == null || previous.elementType !== XQueryTokenType.K_EXTERNAL) firstChild else element
@@ -80,7 +80,7 @@ class XQueryVarDeclPsiImpl(node: ASTNode) :
     private val varName
         get(): XdmVariableName? = children().filterIsInstance<XPathVarName>().firstOrNull() as? XdmVariableName
 
-    override val variableName get(): XsQNameValue? = varName?.variableName
+    override val variableName: XsQNameValue? get() = varName?.variableName
 
     override val variableType: XdmSequenceType? get() = children().filterIsInstance<XdmSequenceType>().firstOrNull()
 

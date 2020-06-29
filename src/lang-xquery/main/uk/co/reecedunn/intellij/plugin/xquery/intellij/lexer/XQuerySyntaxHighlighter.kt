@@ -31,7 +31,7 @@ import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocLexer
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.*
 
 object XQuerySyntaxHighlighter : SyntaxHighlighterBase() {
-    val DEFAULT: Array<out TextAttributesKey> = emptyArray()
+    private val DEFAULT: Array<out TextAttributesKey> = emptyArray()
 
     override fun getHighlightingLexer(): Lexer {
         val lexer = CombinedLexer(XQueryLexer())

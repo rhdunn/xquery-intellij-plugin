@@ -23,9 +23,9 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.UpdateFacilitySpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
-class UpdateFacilityReplaceExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), UpdateFacilityReplaceExpr,
-    VersionConformance {
-    override val requiresConformance get(): List<Version> = listOf(UpdateFacilitySpec.REC_1_0_20110317)
+class UpdateFacilityReplaceExprPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node), UpdateFacilityReplaceExpr, VersionConformance {
+    override val requiresConformance: List<Version> get() = listOf(UpdateFacilitySpec.REC_1_0_20110317)
 
-    override val conformanceElement get(): PsiElement = firstChild
+    override val conformanceElement: PsiElement get() = firstChild
 }

@@ -28,8 +28,8 @@ class XQueryCountClausePsiImpl(node: ASTNode) :
     XQueryCountClause,
     XdmVariableBinding {
 
-    private val varName
-        get(): XdmVariableName? = children().filterIsInstance<XdmVariableName>().firstOrNull()
+    private val varName: XdmVariableName?
+        get() = children().filterIsInstance<XdmVariableName>().firstOrNull()
 
-    override val variableName get(): XsQNameValue? = varName?.variableName
+    override val variableName: XsQNameValue? get() = varName?.variableName
 }

@@ -34,8 +34,8 @@ class XQueryNamespaceDeclPsiImpl(node: ASTNode) :
     XdmNamespaceDeclaration {
     // region XQueryPrologResolver
 
-    override val prolog
-        get(): Sequence<XQueryProlog> {
+    override val prolog: Sequence<XQueryProlog>
+        get() {
             val file = namespaceUri?.let {
                 it.resolve() ?: it.resolveUri<XQueryModule>()
             }
@@ -46,11 +46,11 @@ class XQueryNamespaceDeclPsiImpl(node: ASTNode) :
     // endregion
     // region XdmNamespaceDeclaration
 
-    override val namespacePrefix
-        get(): XsNCNameValue? = children().filterIsInstance<XsQNameValue>().firstOrNull()?.localName
+    override val namespacePrefix: XsNCNameValue?
+        get() = children().filterIsInstance<XsQNameValue>().firstOrNull()?.localName
 
-    override val namespaceUri
-        get(): XsAnyUriValue? = children().filterIsInstance<XsAnyUriValue>().firstOrNull()
+    override val namespaceUri: XsAnyUriValue?
+        get() = children().filterIsInstance<XsAnyUriValue>().firstOrNull()
 
     // endregion
 }

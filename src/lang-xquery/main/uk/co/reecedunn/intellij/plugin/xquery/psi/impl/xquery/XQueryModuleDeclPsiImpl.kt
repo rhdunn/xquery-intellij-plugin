@@ -35,11 +35,11 @@ class XQueryModuleDeclPsiImpl(node: ASTNode) :
     XdmDefaultNamespaceDeclaration {
     // region XdmNamespaceDeclaration
 
-    override val namespacePrefix
-        get(): XsNCNameValue? = children().filterIsInstance<XsQNameValue>().firstOrNull()?.localName
+    override val namespacePrefix: XsNCNameValue?
+        get() = children().filterIsInstance<XsQNameValue>().firstOrNull()?.localName
 
-    override val namespaceUri
-        get(): XsAnyUriValue? = children().filterIsInstance<XsAnyUriValue>().firstOrNull()
+    override val namespaceUri: XsAnyUriValue?
+        get() = children().filterIsInstance<XsAnyUriValue>().firstOrNull()
 
     // MarkLogic treats NCName FunctionDecls as being in the ModuleDecl namespace.
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
@@ -53,7 +53,7 @@ class XQueryModuleDeclPsiImpl(node: ASTNode) :
     // endregion
     // region XQueryPrologResolver
 
-    override val prolog get(): Sequence<XQueryProlog> = siblings().filterIsInstance<XQueryProlog>()
+    override val prolog: Sequence<XQueryProlog> get() = siblings().filterIsInstance<XQueryProlog>()
 
     // endregion
 }

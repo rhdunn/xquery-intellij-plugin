@@ -19,10 +19,7 @@ import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.core.tests.lang.parameterInfo.MockCreateParameterInfoContext
-import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.codeInsight.hints.XPathInlayParameterHintsProvider
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
@@ -180,7 +177,9 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
             @Test
             @DisplayName("XQuery 3.1 EBNF (218) EQName ; XQuery 3.1 EBNF (223) URIQualifiedName")
             fun uriQualifiedName() {
-                val args = parse<XPathArgumentList>("declare function local:test(\$Q{http://www.example.com}x) {}; local:test(2)")[0]
+                val args = parse<XPathArgumentList>(
+                    "declare function local:test(\$Q{http://www.example.com}x) {}; local:test(2)"
+                )[0]
 
                 val info = provider.getHintInfo(args)!!
                 assertThat(info.fullyQualifiedName, `is`("Q{http://www.w3.org/2005/xquery-local-functions}test"))

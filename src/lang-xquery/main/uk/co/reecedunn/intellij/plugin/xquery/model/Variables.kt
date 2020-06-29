@@ -105,8 +105,12 @@ private fun PsiElement.windowClauseVariables(context: InScopeVariableContext): S
 
     return sequenceOf(
         if (context.visitedFlworBinding) emptySequence() else sequenceOf(node as XdmVariableBinding),
-        node.children().filterIsInstance<XQueryWindowStartCondition>().flatMap { e -> e.windowConditionVariables(context) },
-        node.children().filterIsInstance<XQueryWindowEndCondition>().flatMap { e -> e.windowConditionVariables(context) }
+        node.children().filterIsInstance<XQueryWindowStartCondition>().flatMap { e ->
+            e.windowConditionVariables(context)
+        },
+        node.children().filterIsInstance<XQueryWindowEndCondition>().flatMap { e ->
+            e.windowConditionVariables(context)
+        }
     ).filterNotNull().flatten()
 }
 

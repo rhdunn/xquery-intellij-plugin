@@ -22,5 +22,5 @@ import uk.co.reecedunn.intellij.plugin.core.lexer.entityReferenceCodePoint
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCharRef
 
 class XQueryCharRefImpl(type: IElementType, text: CharSequence) : LeafPsiElement(type, text), XQueryCharRef {
-    override val codepoint get(): XmlChar = XmlChar(node.chars.entityReferenceCodePoint())
+    override val codepoint: XmlChar get() = XmlChar(node.chars.entityReferenceCodePoint())
 }

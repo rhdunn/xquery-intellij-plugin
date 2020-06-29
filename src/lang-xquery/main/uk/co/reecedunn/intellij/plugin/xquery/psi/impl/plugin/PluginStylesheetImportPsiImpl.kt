@@ -28,13 +28,13 @@ class PluginStylesheetImportPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), PluginStylesheetImport, XpmSyntaxValidationElement {
     // region XpmSyntaxValidationElement
 
-    override val conformanceElement get(): PsiElement = findChildByType(XQueryTokenType.K_STYLESHEET)!!
+    override val conformanceElement: PsiElement get() = findChildByType(XQueryTokenType.K_STYLESHEET)!!
 
     // endregion
     // region XQueryImport
 
-    override val locationUris
-        get(): Sequence<XsAnyUriValue> = children().filterIsInstance<XsAnyUriValue>().filterNotNull()
+    override val locationUris: Sequence<XsAnyUriValue>
+        get() = children().filterIsInstance<XsAnyUriValue>().filterNotNull()
 
     // endregion
 }

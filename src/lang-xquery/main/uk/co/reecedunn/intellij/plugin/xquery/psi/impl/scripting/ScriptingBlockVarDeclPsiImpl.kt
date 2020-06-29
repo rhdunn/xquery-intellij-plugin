@@ -23,9 +23,9 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.ScriptingSpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
-class ScriptingBlockVarDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), ScriptingBlockVarDecl,
-    VersionConformance {
-    override val requiresConformance get(): List<Version> = listOf(ScriptingSpec.NOTE_1_0_20140918)
+class ScriptingBlockVarDeclPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node), ScriptingBlockVarDecl, VersionConformance {
+    override val requiresConformance: List<Version> get() = listOf(ScriptingSpec.NOTE_1_0_20140918)
 
-    override val conformanceElement get(): PsiElement = firstChild
+    override val conformanceElement: PsiElement get() = firstChild
 }

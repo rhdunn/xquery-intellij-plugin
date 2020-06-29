@@ -22,5 +22,5 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 private val XQUERY10 = listOf<Version>()
 
 class XQueryEnclosedContentExprPsiImpl(node: ASTNode) : XQueryEnclosedExprPsiImpl(node), XQueryEnclosedContentExpr {
-    override val requiresConformance get(): List<Version> = XQUERY10
+    override val requiresConformance: List<Version> get() = XQUERY10
 }

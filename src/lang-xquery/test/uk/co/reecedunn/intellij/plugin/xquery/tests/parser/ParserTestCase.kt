@@ -77,8 +77,16 @@ abstract class ParserTestCase :
         registerModulePathFactory(XpmModuleLocationPath, "")
 
         registerExtensionPoint(XpmModuleLoaderFactory.EP_NAME, XpmModuleLoaderFactoryBean::class.java)
-        registerModuleLoader("module", "uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.JspModuleSourceRootLoader\$Companion", "")
-        registerModuleLoader("relative", "uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.RelativeModuleLoader", "INSTANCE")
+        registerModuleLoader(
+            "module",
+            "uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.JspModuleSourceRootLoader\$Companion",
+            ""
+        )
+        registerModuleLoader(
+            "relative",
+            "uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.RelativeModuleLoader",
+            "INSTANCE"
+        )
 
         registerExtensionPoint(ImportPathResolver.EP_NAME, ImportPathResolverBean::class.java)
         registerBuiltInFunctions(uk.co.reecedunn.intellij.plugin.basex.model.BuiltInFunctions, "INSTANCE")
@@ -99,7 +107,7 @@ abstract class ParserTestCase :
         val bean = XpmModulePathFactoryBean()
         bean.implementationClass = factory.javaClass.name
         bean.fieldName = fieldName
-        bean.setPluginDescriptor(DefaultPluginDescriptor(PluginId.getId("registerModulePathFactory"), classLoader))
+        bean.pluginDescriptor = DefaultPluginDescriptor(PluginId.getId("registerModulePathFactory"), classLoader)
         registerExtension(XpmModulePathFactory.EP_NAME, bean)
     }
 
@@ -109,7 +117,7 @@ abstract class ParserTestCase :
         bean.name = name
         bean.implementationClass = implementation
         bean.fieldName = fieldName
-        bean.setPluginDescriptor(DefaultPluginDescriptor(PluginId.getId("registerModuleLoader"), classLoader))
+        bean.pluginDescriptor = DefaultPluginDescriptor(PluginId.getId("registerModuleLoader"), classLoader)
         registerExtension(XpmModuleLoaderFactory.EP_NAME, bean)
     }
 
@@ -118,9 +126,9 @@ abstract class ParserTestCase :
         val bean = ImportPathResolverBean()
         bean.implementationClass = resolver.javaClass.name
         bean.fieldName = fieldName
-        bean.setPluginDescriptor(DefaultPluginDescriptor(PluginId.getId("registerBuiltInFunctions"), classLoader))
+        bean.pluginDescriptor = DefaultPluginDescriptor(PluginId.getId("registerBuiltInFunctions"), classLoader)
         registerExtension(ImportPathResolver.EP_NAME, bean)
     }
 
-    protected val settings get(): XQueryProjectSettings = XQueryProjectSettings.getInstance(myProject)
+    protected val settings: XQueryProjectSettings get() = XQueryProjectSettings.getInstance(myProject)
 }

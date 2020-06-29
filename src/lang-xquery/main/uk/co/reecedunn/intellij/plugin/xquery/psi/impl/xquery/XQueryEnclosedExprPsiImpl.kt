@@ -57,8 +57,8 @@ open class XQueryEnclosedExprPsiImpl(node: ASTNode) :
         )
     }
 
-    override val requiresConformance
-        get(): List<Version> {
+    override val requiresConformance: List<Version>
+        get() {
             val parent = parent
             if (previousVersionSupportsOptionalExpr(parent) || conformanceElement !== firstChild) {
                 return XQUERY10
@@ -69,7 +69,7 @@ open class XQueryEnclosedExprPsiImpl(node: ASTNode) :
             return XQUERY31
         }
 
-    override val conformanceElement get(): PsiElement = findChildByType(XQueryElementType.EXPR) ?: firstChild
+    override val conformanceElement: PsiElement get() = findChildByType(XQueryElementType.EXPR) ?: firstChild
 
     // endregion
     // region FoldablePsiElement

@@ -31,11 +31,11 @@ class PluginUsingDeclPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), PluginUsingDecl, XdmDefaultNamespaceDeclaration, XpmSyntaxValidationElement {
     // region XdmNamespaceDeclaration
 
-    override val namespacePrefix
-        get(): XsNCNameValue? = children().filterIsInstance<XsQNameValue>().firstOrNull()?.localName
+    override val namespacePrefix: XsNCNameValue?
+        get() = children().filterIsInstance<XsQNameValue>().firstOrNull()?.localName
 
-    override val namespaceUri
-        get(): XsAnyUriValue? = children().filterIsInstance<XsAnyUriValue>().firstOrNull()
+    override val namespaceUri: XsAnyUriValue?
+        get() = children().filterIsInstance<XsAnyUriValue>().firstOrNull()
 
     override fun accepts(namespaceType: XdmNamespaceType): Boolean {
         return namespaceType === XdmNamespaceType.DefaultFunctionRef // Usage only, not declaration.
@@ -44,7 +44,7 @@ class PluginUsingDeclPsiImpl(node: ASTNode) :
     // endregion
     // region XpmSyntaxValidationElement
 
-    override val conformanceElement get(): PsiElement = firstChild
+    override val conformanceElement: PsiElement get() = firstChild
 
     // endregion
 }

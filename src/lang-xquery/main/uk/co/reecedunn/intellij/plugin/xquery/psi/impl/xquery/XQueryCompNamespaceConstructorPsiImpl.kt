@@ -21,9 +21,9 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompNamespaceConstructor
 
-class XQueryCompNamespaceConstructorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryCompNamespaceConstructor,
-    VersionConformance {
-    override val requiresConformance get(): List<Version> = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
+class XQueryCompNamespaceConstructorPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node), XQueryCompNamespaceConstructor, VersionConformance {
+    override val requiresConformance: List<Version> get() = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
 
-    override val conformanceElement get(): PsiElement = firstChild
+    override val conformanceElement: PsiElement get() = firstChild
 }

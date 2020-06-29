@@ -28,6 +28,6 @@ class XQueryPreviousItemPsiImpl(node: ASTNode) :
     XQueryPreviousItem,
     XdmVariableBinding {
 
-    override val variableName
-        get(): XsQNameValue? = children().filterIsInstance<XPathEQName>().firstOrNull() as? XsQNameValue
+    override val variableName: XsQNameValue?
+        get() = children().filterIsInstance<XPathEQName>().firstOrNull() as? XsQNameValue
 }

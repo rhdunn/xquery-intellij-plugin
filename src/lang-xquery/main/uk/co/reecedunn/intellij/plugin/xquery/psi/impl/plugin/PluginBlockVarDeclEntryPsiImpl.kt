@@ -30,5 +30,5 @@ class PluginBlockVarDeclEntryPsiImpl(node: ASTNode) :
     private val varName
         get(): XdmVariableName? = children().filterIsInstance<XPathVarName>().firstOrNull() as? XdmVariableName
 
-    override val variableName get(): XsQNameValue? = varName?.variableName
+    override val variableName: XsQNameValue? get() = varName?.variableName
 }

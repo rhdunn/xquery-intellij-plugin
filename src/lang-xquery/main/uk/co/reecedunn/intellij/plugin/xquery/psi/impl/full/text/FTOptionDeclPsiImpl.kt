@@ -25,8 +25,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
 class FTOptionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), FTOptionDecl, VersionConformance {
-    override val requiresConformance get(): List<Version> = listOf(FullTextSpec.REC_1_0_20110317)
+    override val requiresConformance: List<Version> get() = listOf(FullTextSpec.REC_1_0_20110317)
 
-    override val conformanceElement
-        get(): PsiElement = findChildByType(XQueryTokenType.K_FT_OPTION) ?: firstChild
+    override val conformanceElement: PsiElement
+        get() = findChildByType(XQueryTokenType.K_FT_OPTION) ?: firstChild
 }

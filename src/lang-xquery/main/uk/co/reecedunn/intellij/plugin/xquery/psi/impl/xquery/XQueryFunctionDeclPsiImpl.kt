@@ -50,17 +50,17 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
 
     private val paramList get(): XPathParamList? = children().filterIsInstance<XPathParamList>().firstOrNull()
 
-    override val functionName get(): XsQNameValue? = children().filterIsInstance<XsQNameValue>().firstOrNull()
+    override val functionName: XsQNameValue? get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
 
-    override val arity get(): Range<Int> = paramList?.arity ?: XdmFunctionDeclaration.ARITY_ZERO
+    override val arity: Range<Int> get() = paramList?.arity ?: XdmFunctionDeclaration.ARITY_ZERO
 
-    override val returnType get(): XdmSequenceType? = children().filterIsInstance<XdmSequenceType>().firstOrNull()
+    override val returnType: XdmSequenceType? get() = children().filterIsInstance<XdmSequenceType>().firstOrNull()
 
-    override val params get(): List<XdmVariableBinding> = paramList?.params ?: emptyList()
+    override val params: List<XdmVariableBinding> get() = paramList?.params ?: emptyList()
 
-    override val paramListPresentation get(): ItemPresentation? = paramList?.presentation
+    override val paramListPresentation: ItemPresentation? get() = paramList?.presentation
 
-    override val isVariadic get(): Boolean = paramList?.isVariadic == true
+    override val isVariadic: Boolean get() = paramList?.isVariadic == true
 
     override val functionRefPresentableText: String? get() = cachedFunctionRefPresentableText.get()
 

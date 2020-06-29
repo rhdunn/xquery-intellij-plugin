@@ -38,8 +38,8 @@ open class ScriptingApplyExprPsiImpl(node: ASTNode) :
     VersionConformance {
     // region VersionConformance
 
-    override val requiresConformance
-        get(): List<Version> {
+    override val requiresConformance: List<Version>
+        get() {
             val element = conformanceElement
             if (element === firstChild || element.elementType === XQueryElementType.TRANSACTION_SEPARATOR) {
                 return XQUERY
@@ -47,7 +47,7 @@ open class ScriptingApplyExprPsiImpl(node: ASTNode) :
             return SCRIPTING10
         }
 
-    override val conformanceElement get(): PsiElement = findChildByType(SEPARATOR_TOKENS) ?: firstChild
+    override val conformanceElement: PsiElement get() = findChildByType(SEPARATOR_TOKENS) ?: firstChild
 
     // endregion
 }

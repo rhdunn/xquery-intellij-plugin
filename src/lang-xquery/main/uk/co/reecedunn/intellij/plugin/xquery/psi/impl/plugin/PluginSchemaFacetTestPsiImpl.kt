@@ -39,7 +39,7 @@ class PluginSchemaFacetTestPsiImpl(node: ASTNode) :
     // endregion
     // region PluginSchemaFacetTest
 
-    override val nodeName get(): XsQNameValue? = children().filterIsInstance<XsQNameValue>().firstOrNull()
+    override val nodeName: XsQNameValue? get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
 
     // endregion
     // region XdmSequenceType
@@ -47,9 +47,9 @@ class PluginSchemaFacetTestPsiImpl(node: ASTNode) :
     private val cachedTypeName = CacheableProperty {
         nodeName?.let { "schema-facet(${op_qname_presentation(it)})" } ?: "schema-facet()"
     }
-    override val typeName get(): String = cachedTypeName.get()!!
+    override val typeName: String get() = cachedTypeName.get()!!
 
-    override val itemType get(): XdmItemType = this
+    override val itemType: XdmItemType get() = this
 
     override val lowerBound: Int? = 1
 
@@ -63,7 +63,7 @@ class PluginSchemaFacetTestPsiImpl(node: ASTNode) :
     // endregion
     // region XpmSyntaxValidationElement
 
-    override val conformanceElement get(): PsiElement = firstChild
+    override val conformanceElement: PsiElement get() = firstChild
 
     // endregion
 }

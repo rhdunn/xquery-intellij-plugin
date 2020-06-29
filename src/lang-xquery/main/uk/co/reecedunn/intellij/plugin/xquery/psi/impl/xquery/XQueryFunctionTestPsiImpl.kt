@@ -48,9 +48,9 @@ class XQueryFunctionTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
         val annotations = annotations.mapNotNull { (it as ItemPresentation).presentableText }.joinToString(" ")
         "$annotations ${(functionTest as XdmItemType).typeName}"
     }
-    override val typeName get(): String = cachedTypeName.get()!!
+    override val typeName: String get() = cachedTypeName.get()!!
 
-    override val itemType get(): XdmItemType = this
+    override val itemType: XdmItemType get() = this
 
     override val lowerBound: Int? = 1
 

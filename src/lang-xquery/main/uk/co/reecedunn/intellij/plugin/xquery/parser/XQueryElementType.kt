@@ -19,7 +19,6 @@ import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.IFileElementType
 import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
-import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginForMemberClause
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text.FTOptionDeclPsiImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.scripting.*
@@ -209,7 +208,7 @@ object XQueryElementType {
         XQuery
     )
 
-    val MODULE = IFileElementType(XQuery)
+    val MODULE: IFileElementType = IFileElementType(XQuery)
 
     val MODULE_DECL: IElementType = ICompositeElementType(
         "XQUERY_MODULE_DECL",

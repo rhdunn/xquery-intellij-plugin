@@ -15,12 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.intellij.spellchecker
 
-import com.intellij.psi.PsiElement
 import com.intellij.spellchecker.tokenizer.SpellcheckingStrategy
-import com.intellij.spellchecker.tokenizer.Tokenizer
 
-class XQuerySpellcheckingStrategy : SpellcheckingStrategy() {
-    override fun getTokenizer(element: PsiElement?): Tokenizer<*> {
-        return super.getTokenizer(element)
-    }
-}
+class XQuerySpellcheckingStrategy : SpellcheckingStrategy()

@@ -29,9 +29,9 @@ class UpdateFacilityTransformWithExprPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     UpdateFacilityTransformWithExpr,
     VersionConformance {
-    override val requiresConformance
-        get(): List<Version> = listOf(UpdateFacilitySpec.NOTE_3_0_20170124, BaseX.VERSION_8_5)
+    override val requiresConformance: List<Version>
+        get() = listOf(UpdateFacilitySpec.NOTE_3_0_20170124, BaseX.VERSION_8_5)
 
-    override val conformanceElement
-        get(): PsiElement = findChildByType(XQueryTokenType.K_TRANSFORM) ?: firstChild
+    override val conformanceElement: PsiElement
+        get() = findChildByType(XQueryTokenType.K_TRANSFORM) ?: firstChild
 }

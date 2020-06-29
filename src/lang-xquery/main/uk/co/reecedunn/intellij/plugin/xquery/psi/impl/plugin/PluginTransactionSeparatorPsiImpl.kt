@@ -34,19 +34,18 @@ private val XQUERY = listOf<Version>()
 
 class PluginTransactionSeparatorPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), PluginTransactionSeparator, XpmSyntaxValidationElement, VersionConformance {
-    override val requiresConformance
-        get(): List<Version> {
-            return when {
-                parent.elementType === XQueryElementType.MODULE ->
-                    // File-level TransactionSeparators are created when the following QueryBody has a Prolog.
-                    MARKLOGIC60
-                nextSibling === null ->
-                    // The last TransactionSeparator in a QueryBody.
-                    // NOTE: The behaviour differs from MarkLogic and Scripting Extension, so is checked in an inspection.
-                    XQUERY
-                else -> MARKLOGIC60_SCRIPTING
-            }
+
+    override val requiresConformance: List<Version>
+        get() = when {
+            parent.elementType === XQueryElementType.MODULE ->
+                // File-level TransactionSeparators are created when the following QueryBody has a Prolog.
+                MARKLOGIC60
+            nextSibling === null ->
+                // The last TransactionSeparator in a QueryBody.
+                // NOTE: The behaviour differs from MarkLogic and Scripting Extension, so is checked in an inspection.
+                XQUERY
+            else -> MARKLOGIC60_SCRIPTING
         }
 
-    override val conformanceElement get(): PsiElement = firstChild ?: this
+    override val conformanceElement: PsiElement get() = firstChild ?: this
 }

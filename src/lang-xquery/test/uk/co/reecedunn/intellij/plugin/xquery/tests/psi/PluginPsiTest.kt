@@ -1747,7 +1747,9 @@ private class PluginPsiTest : ParserTestCase() {
             @Test
             @DisplayName("MarkLogic")
             fun markLogic() {
-                val annotation = parse<PluginCompatibilityAnnotation>("declare private function f() {};")[0] as XdmAnnotation
+                val annotation = parse<PluginCompatibilityAnnotation>(
+                    "declare private function f() {};"
+                )[0] as XdmAnnotation
                 assertThat(op_qname_presentation(annotation.name!!), `is`("private"))
 
                 val values = annotation.values.toList()
@@ -1762,7 +1764,9 @@ private class PluginPsiTest : ParserTestCase() {
             @Test
             @DisplayName("XQuery Update Facility 3.0")
             fun updateFacility() {
-                val annotation = parse<PluginCompatibilityAnnotation>("declare updating function f() {};")[0] as XdmAnnotation
+                val annotation = parse<PluginCompatibilityAnnotation>(
+                    "declare updating function f() {};"
+                )[0] as XdmAnnotation
                 assertThat(op_qname_presentation(annotation.name!!), `is`("updating"))
 
                 val values = annotation.values.toList()
@@ -1777,7 +1781,9 @@ private class PluginPsiTest : ParserTestCase() {
             @Test
             @DisplayName("Scripting Extension 1.0")
             fun scriptingExtension() {
-                val annotation = parse<PluginCompatibilityAnnotation>("declare sequential function f() {};")[0] as XdmAnnotation
+                val annotation = parse<PluginCompatibilityAnnotation>(
+                    "declare sequential function f() {};"
+                )[0] as XdmAnnotation
                 assertThat(op_qname_presentation(annotation.name!!), `is`("sequential"))
 
                 val values = annotation.values.toList()

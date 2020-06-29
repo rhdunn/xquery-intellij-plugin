@@ -19,6 +19,7 @@ import com.intellij.extapi.psi.PsiFileBase
 import com.intellij.openapi.fileTypes.FileType
 import com.intellij.psi.FileViewProvider
 import com.intellij.psi.PsiElement
+import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
@@ -65,8 +66,8 @@ class XQueryModuleImpl(provider: FileViewProvider) :
     private var staticContextCache: XQueryProlog? = null
 
     @get:Synchronized
-    override val predefinedStaticContext
-        get(): XQueryProlog? {
+    override val predefinedStaticContext: XQueryProlog?
+        get() {
             val version: Specification = XQueryVersion.getVersionOrDefault(project)
             if (product !== settings.product || productVersion !== settings.productVersion || xquery !== version) {
                 product = settings.product
@@ -84,8 +85,8 @@ class XQueryModuleImpl(provider: FileViewProvider) :
         }
 
     @Suppress("PropertyName")
-    override val XQueryVersions
-        get(): Sequence<XQueryVersionRef> {
+    override val XQueryVersions: Sequence<XQueryVersionRef>
+        get() {
             var isFirst = true
             return children().map { child ->
                 when (child) {
@@ -108,11 +109,11 @@ class XQueryModuleImpl(provider: FileViewProvider) :
         }
 
     @Suppress("PropertyName")
-    override val XQueryVersion
-        get(): XQueryVersionRef = XQueryVersions.firstOrNull() ?: XQueryVersionRef(null, null)
+    override val XQueryVersion: XQueryVersionRef
+        get() = XQueryVersions.firstOrNull() ?: XQueryVersionRef(null, null)
 
-    override val mainOrLibraryModule
-        get(): XQueryPrologResolver? = children().filterIsInstance<XQueryPrologResolver>().firstOrNull()
+    override val mainOrLibraryModule: XQueryPrologResolver?
+        get() = children().filterIsInstance<XQueryPrologResolver>().firstOrNull()
 
     // endregion
     // region XstContext
@@ -180,7 +181,7 @@ class XQueryModuleImpl(provider: FileViewProvider) :
     // endregion
 
     companion object {
-        val USAGE_TYPES = mapOf(
+        val USAGE_TYPES: Map<IElementType, XstUsageType> = mapOf(
             XQueryElementType.ANNOTATION to XstUsageType.Annotation,
             XPathElementType.ARROW_FUNCTION_SPECIFIER to XstUsageType.FunctionRef,
             XPathElementType.ATOMIC_OR_UNION_TYPE to XstUsageType.Type,

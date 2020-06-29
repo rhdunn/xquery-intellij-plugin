@@ -37,15 +37,15 @@ private val XQUERY10: List<Version> = listOf()
 private val XQUERY30: List<Version> = listOf(XQuerySpec.REC_3_0_20140408)
 
 class XQueryVersionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryVersionDecl, VersionConformance {
-    override val version get(): XsStringValue? = getStringValueAfterKeyword(XQueryTokenType.K_VERSION)
+    override val version: XsStringValue? get() = getStringValueAfterKeyword(XQueryTokenType.K_VERSION)
 
-    override val encoding get(): XsStringValue? = getStringValueAfterKeyword(XQueryTokenType.K_ENCODING)
+    override val encoding: XsStringValue? get() = getStringValueAfterKeyword(XQueryTokenType.K_ENCODING)
 
-    override val requiresConformance
-        get(): List<Version> = if (conformanceElement === firstChild) XQUERY10 else XQUERY30
+    override val requiresConformance: List<Version>
+        get() = if (conformanceElement === firstChild) XQUERY10 else XQUERY30
 
-    override val conformanceElement
-        get(): PsiElement {
+    override val conformanceElement: PsiElement
+        get() {
             val encoding = node.findChildByType(XQueryTokenType.K_ENCODING) ?: return firstChild
 
             var previous = encoding.treePrev

@@ -69,9 +69,9 @@ class XQuerySequenceTypeUnionPsiImpl(node: ASTNode) :
         else
             name
     }
-    override val typeName get(): String = cachedTypeName.get()!!
+    override val typeName: String get() = cachedTypeName.get()!!
 
-    override val itemType get(): XdmItemType? = XdmSingleItemType
+    override val itemType: XdmItemType? get() = XdmSingleItemType
 
     override val lowerBound: Int? = 0
 
@@ -80,15 +80,15 @@ class XQuerySequenceTypeUnionPsiImpl(node: ASTNode) :
     // endregion
     // region VersionConformance
 
-    override val requiresConformance
-        get(): List<Version> {
+    override val requiresConformance: List<Version>
+        get() {
             return if (parent is XQueryCaseClause)
                 XQUERY30
             else
                 SEMANTICS
         }
 
-    override val conformanceElement get(): PsiElement = findChildByType(XPathTokenType.UNION)!!
+    override val conformanceElement: PsiElement get() = findChildByType(XPathTokenType.UNION)!!
 
     // endregion
 }

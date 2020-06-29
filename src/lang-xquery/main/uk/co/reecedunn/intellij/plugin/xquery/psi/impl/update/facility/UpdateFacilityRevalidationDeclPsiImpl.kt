@@ -24,10 +24,10 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
-class UpdateFacilityRevalidationDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), UpdateFacilityRevalidationDecl,
-    VersionConformance {
-    override val requiresConformance get(): List<Version> = listOf(UpdateFacilitySpec.REC_1_0_20110317)
+class UpdateFacilityRevalidationDeclPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node), UpdateFacilityRevalidationDecl, VersionConformance {
+    override val requiresConformance: List<Version> get() = listOf(UpdateFacilitySpec.REC_1_0_20110317)
 
-    override val conformanceElement
-        get(): PsiElement = findChildByType(XQueryTokenType.K_REVALIDATION) ?: firstChild
+    override val conformanceElement: PsiElement
+        get() = findChildByType(XQueryTokenType.K_REVALIDATION) ?: firstChild
 }

@@ -30,5 +30,5 @@ class XQueryGroupingVariablePsiImpl(node: ASTNode) :
     private val varName
         get(): XdmVariableName? = children().filterIsInstance<XdmVariableName>().firstOrNull()
 
-    override val variableName get(): XsQNameValue? = varName?.variableName
+    override val variableName: XsQNameValue? get() = varName?.variableName
 }

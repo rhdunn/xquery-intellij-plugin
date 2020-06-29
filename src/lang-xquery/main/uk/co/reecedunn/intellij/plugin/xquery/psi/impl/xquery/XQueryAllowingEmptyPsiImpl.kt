@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
 
 class XQueryAllowingEmptyPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryAllowingEmpty, VersionConformance {
-    override val requiresConformance get(): List<Version> = listOf(XQuerySpec.REC_3_0_20140408)
+    override val requiresConformance: List<Version> get() = listOf(XQuerySpec.REC_3_0_20140408)
 
-    override val conformanceElement get(): PsiElement = firstChild
+    override val conformanceElement: PsiElement get() = firstChild
 }

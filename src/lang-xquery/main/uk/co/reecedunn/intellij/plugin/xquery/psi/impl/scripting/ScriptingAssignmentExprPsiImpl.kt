@@ -24,9 +24,10 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
-class ScriptingAssignmentExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), ScriptingAssignmentExpr,
-    VersionConformance {
-    override val requiresConformance get(): List<Version> = listOf(ScriptingSpec.NOTE_1_0_20140918)
+class ScriptingAssignmentExprPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node), ScriptingAssignmentExpr, VersionConformance {
 
-    override val conformanceElement get(): PsiElement = findChildByType(XPathTokenType.ASSIGN_EQUAL) ?: firstChild
+    override val requiresConformance: List<Version> get() = listOf(ScriptingSpec.NOTE_1_0_20140918)
+
+    override val conformanceElement: PsiElement get() = findChildByType(XPathTokenType.ASSIGN_EQUAL) ?: firstChild
 }

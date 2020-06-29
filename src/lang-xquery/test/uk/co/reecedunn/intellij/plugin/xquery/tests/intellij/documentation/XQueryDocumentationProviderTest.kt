@@ -33,8 +33,6 @@ import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
-import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderFactory
-import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderFactoryBean
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationSourceProviderBean
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
@@ -52,7 +50,10 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
     override fun setUp() {
         super.setUp()
 
-        registerExtensionPoint(XQDocDocumentationSourceProvider.EP_NAME, XQDocDocumentationSourceProviderBean::class.java)
+        registerExtensionPoint(
+            XQDocDocumentationSourceProvider.EP_NAME,
+            XQDocDocumentationSourceProviderBean::class.java
+        )
         registerDocumentationSourceProvider(DocumentationSourceProvider::class.java, "INSTANCE")
     }
 
@@ -66,7 +67,9 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
         val bean = XQDocDocumentationSourceProviderBean()
         bean.implementationClass = implementation.name
         bean.fieldName = fieldName
-        bean.setPluginDescriptor(DefaultPluginDescriptor(PluginId.getId("registerDocumentationSourceProvider"), classLoader))
+        bean.pluginDescriptor = DefaultPluginDescriptor(
+            PluginId.getId("registerDocumentationSourceProvider"), classLoader
+        )
         registerExtension(XQDocDocumentationSourceProvider.EP_NAME, bean)
     }
 
@@ -316,7 +319,9 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
         @Test
         @DisplayName("generateDoc, generateHoverDoc, getUrlFor : URIQualifiedName")
         fun uriQualifiedName() {
-            val target = parse<XsQNameValue>("declare function Q{http://www.w3.org/2005/xpath-functions}true() {}; 2")[0]
+            val target = parse<XsQNameValue>(
+                "declare function Q{http://www.w3.org/2005/xpath-functions}true() {}; 2"
+            )[0]
 
             // Only the original element is used, but element is non-null for generateHoverDoc.
             val element = target.element?.containingFile as PsiElement

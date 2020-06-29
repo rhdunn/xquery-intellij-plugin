@@ -24,8 +24,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPredefinedEntityR
 
 class XQueryPredefinedEntityRefImpl(type: IElementType, text: CharSequence) :
     LeafPsiElement(type, text), XQueryPredefinedEntityRef {
-    override val entityRef
-        get(): EntityRef {
+    override val entityRef: EntityRef
+        get() {
             val entity = node.chars
             return ENTITIES!![entity] ?: EntityRef(entity, entity, EntityReferenceType.PredefinedEntityReference)
         }

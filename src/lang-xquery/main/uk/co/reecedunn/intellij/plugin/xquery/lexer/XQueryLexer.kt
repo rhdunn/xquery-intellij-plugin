@@ -1149,8 +1149,8 @@ class XQueryLexer : XPathLexer(CodePointRangeImpl()) {
         private const val STATE_DIR_ATTRIBUTE_LIST = 25
         private const val STATE_STRING_CONSTRUCTOR_CONTENTS = 27
         private const val STATE_DEFAULT_STRING_INTERPOLATION = 28
-        const val STATE_MAYBE_DIR_ELEM_CONSTRUCTOR = 29
-        const val STATE_START_DIR_ELEM_CONSTRUCTOR = 30
+        const val STATE_MAYBE_DIR_ELEM_CONSTRUCTOR: Int = 29
+        const val STATE_START_DIR_ELEM_CONSTRUCTOR: Int = 30
 
         // endregion
 

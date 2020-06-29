@@ -121,9 +121,9 @@ class PluginDirAttributePsiImpl(node: ASTNode) :
         }
     }
 
-    override val namespacePrefix get(): XsNCNameValue? = nodeName.takeIf { it.prefix?.data == "xmlns" }?.localName
+    override val namespacePrefix: XsNCNameValue? get() = nodeName.takeIf { it.prefix?.data == "xmlns" }?.localName
 
-    override val namespaceUri get(): XsAnyUriValue? = typedValue as? XsAnyUriValue
+    override val namespaceUri: XsAnyUriValue? get() = typedValue as? XsAnyUriValue
 
     // endregion
 }

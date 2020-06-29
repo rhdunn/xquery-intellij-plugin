@@ -29,7 +29,7 @@ class PluginBinaryTestPsiImpl(node: ASTNode) :
 
     override val typeName: String = "binary()"
 
-    override val itemType get(): XdmItemType = this
+    override val itemType: XdmItemType get() = this
 
     override val lowerBound: Int? = 1
 
@@ -43,7 +43,7 @@ class PluginBinaryTestPsiImpl(node: ASTNode) :
     // endregion
     // region XpmSyntaxValidationElement
 
-    override val conformanceElement get(): PsiElement = firstChild
+    override val conformanceElement: PsiElement get() = firstChild
 
     // endregion
 }

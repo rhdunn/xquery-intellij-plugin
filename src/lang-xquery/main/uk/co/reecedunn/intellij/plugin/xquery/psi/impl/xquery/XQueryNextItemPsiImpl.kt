@@ -28,6 +28,6 @@ class XQueryNextItemPsiImpl(node: ASTNode) :
     XQueryNextItem,
     XdmVariableBinding {
 
-    override val variableName
-        get(): XsQNameValue? = children().filterIsInstance<XPathEQName>().firstOrNull() as? XsQNameValue
+    override val variableName: XsQNameValue?
+        get() = children().filterIsInstance<XPathEQName>().firstOrNull() as? XsQNameValue
 }

@@ -43,19 +43,17 @@ class XQuerySchemaImportPsiImpl(node: ASTNode) :
         }
     }
 
-    override val namespacePrefix
-        get(): XsNCNameValue? {
-            return schemaPrefix?.let { it.children().filterIsInstance<XsQNameValue>().firstOrNull()?.localName }
-        }
+    override val namespacePrefix: XsNCNameValue?
+        get() = schemaPrefix?.let { it.children().filterIsInstance<XsQNameValue>().firstOrNull()?.localName }
 
-    override val namespaceUri
-        get(): XsAnyUriValue? = children().filterIsInstance<XsAnyUriValue>().firstOrNull()
+    override val namespaceUri: XsAnyUriValue?
+        get() = children().filterIsInstance<XsAnyUriValue>().firstOrNull()
 
     // endregion
     // region XQueryImport
 
-    override val locationUris
-        get(): Sequence<XsAnyUriValue> {
+    override val locationUris: Sequence<XsAnyUriValue>
+        get() {
             val uris = children().filterIsInstance<PluginLocationURIList>().firstOrNull()
             return uris?.children()?.filterIsInstance<XsAnyUriValue>()?.filterNotNull() ?: emptySequence()
         }

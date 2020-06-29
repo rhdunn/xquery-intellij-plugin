@@ -34,8 +34,8 @@ class XQueryDefaultNamespaceDeclPsiImpl(node: ASTNode) :
 
     override val namespacePrefix: XsNCNameValue? = null
 
-    override val namespaceUri
-        get(): XsAnyUriValue? = children().filterIsInstance<XsAnyUriValue>().filterNotNull().firstOrNull()
+    override val namespaceUri: XsAnyUriValue?
+        get() = children().filterIsInstance<XsAnyUriValue>().filterNotNull().firstOrNull()
 
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
     override fun accepts(namespaceType: XdmNamespaceType): Boolean {

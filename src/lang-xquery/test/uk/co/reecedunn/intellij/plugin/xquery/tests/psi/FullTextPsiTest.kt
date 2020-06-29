@@ -83,7 +83,9 @@ private class FullTextPsiTest : ParserTestCase() {
             @Test
             @DisplayName("stop words; multiple")
             fun wordList_multiple() {
-                val words = parse<FTStopWords>("x contains text 'test' using stop words ('lorem', 'ipsum', 'dolor'))")[0]
+                val words = parse<FTStopWords>(
+                    "x contains text 'test' using stop words ('lorem', 'ipsum', 'dolor'))"
+                )[0]
                 assertThat(words.source, `is`(nullValue()))
             }
         }

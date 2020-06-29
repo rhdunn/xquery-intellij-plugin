@@ -16,6 +16,8 @@
 package uk.co.reecedunn.intellij.plugin.xquery.completion
 
 import com.intellij.patterns.PlatformPatterns
+import com.intellij.patterns.PsiElementPattern
+import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionContributorEx
 import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.*
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathStaticallyKnownElementOrTypeNamespaces
@@ -30,7 +32,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.completion.providers.XQueryVarRefP
 
 class XQueryCompletionContributor : CompletionContributorEx() {
     @Suppress("PropertyName")
-    val XQuery = PlatformPatterns.psiElement().inFile(PlatformPatterns.psiFile(XQueryModule::class.java))
+    val XQuery: PsiElementPattern.Capture<PsiElement> =
+        PlatformPatterns.psiElement().inFile(PlatformPatterns.psiFile(XQueryModule::class.java))
 
     // The keyword completion lists are created at compile time, with some
     // runtime logic to select the correct lists. As such, these should be

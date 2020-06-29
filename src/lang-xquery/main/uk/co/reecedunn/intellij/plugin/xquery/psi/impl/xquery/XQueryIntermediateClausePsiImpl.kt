@@ -31,8 +31,8 @@ private val XQUERY30: List<Version> = listOf(XQuerySpec.REC_3_0_20140408)
 
 class XQueryIntermediateClausePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryIntermediateClause,
     VersionConformance {
-    override val requiresConformance
-        get(): List<Version> {
+    override val requiresConformance: List<Version>
+        get() {
             val current = firstChild.elementType
             if (current === XQueryElementType.COUNT_CLAUSE || current === XQueryElementType.GROUP_BY_CLAUSE) {
                 return XQUERY30
@@ -48,5 +48,5 @@ class XQueryIntermediateClausePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node
             return XQUERY10
         }
 
-    override val conformanceElement get(): PsiElement = firstChild.firstChild
+    override val conformanceElement: PsiElement get() = firstChild.firstChild
 }
