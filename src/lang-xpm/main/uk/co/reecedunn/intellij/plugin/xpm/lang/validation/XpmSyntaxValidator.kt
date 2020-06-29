@@ -19,7 +19,9 @@ import com.intellij.openapi.extensions.ExtensionPointName
 
 interface XpmSyntaxValidator {
     companion object {
-        val EP_NAME = ExtensionPointName.create<XpmSyntaxValidatorBean>("uk.co.reecedunn.intellij.syntaxValidator")
+        val EP_NAME: ExtensionPointName<XpmSyntaxValidatorBean> = ExtensionPointName.create(
+            "uk.co.reecedunn.intellij.syntaxValidator"
+        )
 
         val validators: Sequence<XpmSyntaxValidator> get() = EP_NAME.extensions.asSequence().map { it.getInstance() }
     }

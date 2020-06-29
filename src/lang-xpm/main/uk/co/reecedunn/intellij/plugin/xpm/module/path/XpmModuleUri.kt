@@ -26,37 +26,37 @@ import java.io.OutputStream
 class XpmModuleUri(val contextFile: VirtualFile?, private val path: String) : VirtualFile(), XsAnyUriValue {
     // region VirtualFile
 
-    override fun refresh(asynchronous: Boolean, recursive: Boolean, postRunnable: Runnable?) = TODO("not implemented")
+    override fun refresh(asynchronous: Boolean, recursive: Boolean, postRunnable: Runnable?): Unit = TODO()
 
-    override fun getLength(): Long = TODO("not implemented")
+    override fun getLength(): Long = TODO()
 
-    override fun getFileSystem(): VirtualFileSystem = TODO("not implemented")
+    override fun getFileSystem(): VirtualFileSystem = TODO()
 
     override fun getPath(): String = path
 
     override fun isDirectory(): Boolean = path.endsWith('/')
 
-    override fun getTimeStamp(): Long = TODO("not implemented")
+    override fun getTimeStamp(): Long = TODO()
 
     override fun getName(): String = path
 
-    override fun contentsToByteArray(): ByteArray = TODO("not implemented")
+    override fun contentsToByteArray(): ByteArray = TODO()
 
     override fun isValid(): Boolean = false
 
-    override fun getInputStream(): InputStream = TODO("not implemented")
+    override fun getInputStream(): InputStream = TODO()
 
     override fun getParent(): VirtualFile? = null
 
-    override fun getChildren(): Array<VirtualFile> = TODO("not implemented")
+    override fun getChildren(): Array<VirtualFile> = TODO()
 
-    override fun isWritable(): Boolean = TODO("not implemented")
+    override fun isWritable(): Boolean = TODO()
 
     override fun getOutputStream(
         requestor: Any?,
         newModificationStamp: Long,
         newTimeStamp: Long
-    ): OutputStream = TODO("not implemented")
+    ): OutputStream = TODO()
 
     // endregion
     // region XsAnyUriValue

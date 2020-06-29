@@ -20,7 +20,9 @@ import com.intellij.openapi.extensions.ExtensionPointName
 
 interface XpmVendorType {
     companion object {
-        val EP_NAME = ExtensionPointName.create<XpmVendorTypeBean>("uk.co.reecedunn.intellij.vendor")
+        val EP_NAME: ExtensionPointName<XpmVendorTypeBean> = ExtensionPointName.create(
+            "uk.co.reecedunn.intellij.vendor"
+        )
 
         val types: Sequence<XpmVendorType> get() = EP_NAME.extensions.asSequence().map { it.getInstance() }
     }

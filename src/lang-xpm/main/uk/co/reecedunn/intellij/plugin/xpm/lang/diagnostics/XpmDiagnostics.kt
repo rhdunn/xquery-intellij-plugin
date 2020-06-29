@@ -24,6 +24,6 @@ interface XpmDiagnostics {
 
     companion object {
         // It is a *static error* if an expression is not a valid instance of the grammar.
-        const val XPST0003 = "XPST0003"
+        const val XPST0003: String = "XPST0003"
     }
 }

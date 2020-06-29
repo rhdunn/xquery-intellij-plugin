@@ -30,6 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsAnyUri
 @DisplayName("Modules - Location Paths")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 private class XpmModuleLocationPathTest : PlatformLiteFixture() {
+    @Suppress("PrivatePropertyName")
     private val TEST_MODULE_TYPES = arrayOf(XdmModuleType.DotNet) // A unique object to this test.
 
     private fun anyURI(path: String, context: XdmUriContext): XsAnyUriValue {

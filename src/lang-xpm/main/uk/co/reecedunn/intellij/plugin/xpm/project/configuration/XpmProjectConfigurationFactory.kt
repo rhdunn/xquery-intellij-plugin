@@ -21,7 +21,9 @@ import com.intellij.openapi.vfs.VirtualFile
 
 interface XpmProjectConfigurationFactory {
     companion object {
-        val EP_NAME = ExtensionPointName.create<XpmProjectConfigurationFactoryBean>("uk.co.reecedunn.intellij.projectConfigurationFactory")
+        val EP_NAME: ExtensionPointName<XpmProjectConfigurationFactoryBean> = ExtensionPointName.create(
+            "uk.co.reecedunn.intellij.projectConfigurationFactory"
+        )
     }
 
     fun create(project: Project, baseDir: VirtualFile): XpmProjectConfiguration?

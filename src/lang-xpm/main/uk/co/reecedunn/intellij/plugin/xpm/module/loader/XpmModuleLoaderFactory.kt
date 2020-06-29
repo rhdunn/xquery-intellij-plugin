@@ -20,7 +20,9 @@ import com.intellij.util.xmlb.annotations.Tag
 
 interface XpmModuleLoaderFactory {
     companion object {
-        val EP_NAME = ExtensionPointName.create<XpmModuleLoaderFactoryBean>("uk.co.reecedunn.intellij.moduleLoaderFactory")
+        val EP_NAME: ExtensionPointName<XpmModuleLoaderFactoryBean> = ExtensionPointName.create(
+            "uk.co.reecedunn.intellij.moduleLoaderFactory"
+        )
 
         fun create(name: String, context: String?): XpmModuleLoader? {
             return EP_NAME.extensions.find { it.name == name }?.getInstance()?.loader(context)

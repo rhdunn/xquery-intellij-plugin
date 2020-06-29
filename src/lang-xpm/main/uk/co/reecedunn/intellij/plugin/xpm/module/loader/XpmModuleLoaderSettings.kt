@@ -39,7 +39,9 @@ data class XpmModuleLoaderSettingsData(
 )
 
 @State(name = "XIJPModuleLoaderSettings", storages = [Storage(StoragePathMacros.WORKSPACE_FILE)])
-class XpmModuleLoaderSettings(val project: Project) : XpmModuleLoader, PersistentStateComponent<XpmModuleLoaderSettingsData> {
+class XpmModuleLoaderSettings(val project: Project) :
+    XpmModuleLoader,
+    PersistentStateComponent<XpmModuleLoaderSettingsData> {
     // region Settings :: Module Loaders
 
     private val loaderBeans: List<XpmModuleLoaderBean> = arrayListOf(
@@ -90,12 +92,14 @@ class XpmModuleLoaderSettings(val project: Project) : XpmModuleLoader, Persisten
             runInEdt {
                 ApplicationManager.getApplication().runWriteAction {
                     val manager = ExternalResourceManagerEx.getInstanceEx()
-                    settings.unregisterVendor?.schemaFiles(settings.unregisterDatabasePath!!)?.forEach { schema ->
-                        manager.removeResource(schema.targetNamespace, project)
-                    }
-                    settings.registerVendor?.schemaFiles(settings.registerDatabasePath!!)?.forEach { schema ->
-                        manager.addResource(schema.targetNamespace, schema.location, project)
-                    }
+                    settings.unregisterVendor?.schemaFiles(settings.unregisterDatabasePath!!)
+                        ?.forEach { (_, targetNamespace) ->
+                            manager.removeResource(targetNamespace, project)
+                        }
+                    settings.registerVendor?.schemaFiles(settings.registerDatabasePath!!)
+                        ?.forEach { (location, targetNamespace) ->
+                            manager.addResource(targetNamespace, location, project)
+                        }
                 }
             }
         }
@@ -164,7 +168,7 @@ class XpmModuleLoaderSettings(val project: Project) : XpmModuleLoader, Persisten
 
     override fun getState(): XpmModuleLoaderSettingsData? = data
 
-    override fun loadState(state: XpmModuleLoaderSettingsData) = XmlSerializerUtil.copyBean(state, data)
+    override fun loadState(state: XpmModuleLoaderSettingsData): Unit = XmlSerializerUtil.copyBean(state, data)
 
     // endregion
 

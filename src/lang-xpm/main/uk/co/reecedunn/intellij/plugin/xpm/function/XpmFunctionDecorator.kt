@@ -21,7 +21,9 @@ import javax.swing.Icon
 
 interface XpmFunctionDecorator {
     companion object {
-        val EP_NAME = ExtensionPointName.create<XpmFunctionDecoratorBean>("uk.co.reecedunn.intellij.functionDecorator")
+        val EP_NAME: ExtensionPointName<XpmFunctionDecoratorBean> = ExtensionPointName.create(
+            "uk.co.reecedunn.intellij.functionDecorator"
+        )
 
         fun getIcon(function: XdmFunctionDeclaration): Icon? {
             return EP_NAME.extensions.asSequence().mapNotNull { it.getInstance().getIcon(function) }.firstOrNull()

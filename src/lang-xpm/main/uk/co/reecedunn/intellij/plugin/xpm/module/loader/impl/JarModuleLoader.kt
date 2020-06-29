@@ -54,7 +54,7 @@ class JarModuleLoader(val classLoader: ClassLoader) : VirtualFileSystemImpl("res
 
     override fun findFileByPath(path: String): VirtualFile? = findFileByPath(path, arrayOf())
 
-    override fun refresh(asynchronous: Boolean) = cache.clear()
+    override fun refresh(asynchronous: Boolean): Unit = cache.clear()
 
     // endregion
     // region XpmModuleLoader

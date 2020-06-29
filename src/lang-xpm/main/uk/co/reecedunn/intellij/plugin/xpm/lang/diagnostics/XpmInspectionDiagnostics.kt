@@ -23,7 +23,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.util.SmartList
 
 class XpmInspectionDiagnostics(val manager: InspectionManager, val isOnTheFly: Boolean) : XpmDiagnostics {
-    private val descriptors: SmartList<ProblemDescriptor> = SmartList<ProblemDescriptor>()
+    private val descriptors: SmartList<ProblemDescriptor> = SmartList()
 
     private fun report(element: PsiElement, code: String, description: String) {
         val descriptor = manager.createProblemDescriptor(
@@ -36,9 +36,13 @@ class XpmInspectionDiagnostics(val manager: InspectionManager, val isOnTheFly: B
         descriptors.add(descriptor)
     }
 
-    override fun error(element: PsiElement, code: String, description: String) = report(element, code, description)
+    override fun error(element: PsiElement, code: String, description: String) {
+        report(element, code, description)
+    }
 
-    override fun warning(element: PsiElement, code: String, description: String) = report(element, code, description)
+    override fun warning(element: PsiElement, code: String, description: String) {
+        report(element, code, description)
+    }
 
     fun toTypedArray(): Array<ProblemDescriptor> = descriptors.toTypedArray()
 }

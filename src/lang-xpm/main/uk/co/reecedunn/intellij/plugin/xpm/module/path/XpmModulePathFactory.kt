@@ -21,7 +21,9 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 
 interface XpmModulePathFactory {
     companion object {
-        val EP_NAME = ExtensionPointName.create<XpmModulePathFactoryBean>("uk.co.reecedunn.intellij.modulePathFactory")
+        val EP_NAME: ExtensionPointName<XpmModulePathFactoryBean> = ExtensionPointName.create(
+            "uk.co.reecedunn.intellij.modulePathFactory"
+        )
     }
 
     fun create(project: Project, uri: XsAnyUriValue): XpmModulePath?
