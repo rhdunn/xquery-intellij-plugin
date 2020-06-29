@@ -47,7 +47,7 @@ abstract class InspectionTestCase :
 
     private val inspectionManager get(): InspectionManager = InspectionManager.getInstance(myProject)
 
-    protected val settings get(): XQueryProjectSettings = XQueryProjectSettings.getInstance(myProject)
+    protected val settings: XQueryProjectSettings get() = XQueryProjectSettings.getInstance(myProject)
 
     @BeforeAll
     override fun setUp() {
@@ -70,7 +70,7 @@ abstract class InspectionTestCase :
         val bean = XpmSyntaxValidatorBean()
         bean.implementationClass = factory.javaClass.name
         bean.fieldName = fieldName
-        bean.setPluginDescriptor(DefaultPluginDescriptor(PluginId.getId("registerSyntaxValidator"), classLoader))
+        bean.pluginDescriptor = DefaultPluginDescriptor(PluginId.getId("registerSyntaxValidator"), classLoader)
         registerExtension(XpmSyntaxValidator.EP_NAME, bean)
     }
 
@@ -79,7 +79,7 @@ abstract class InspectionTestCase :
         super.tearDown()
     }
 
-    fun inspect(file: XQueryModule, inspection: LocalInspectionTool): Array<ProblemDescriptor>? {
-        return inspection.checkFile(file, inspectionManager as InspectionManagerEx, false)
+    fun inspect(file: XQueryModule, inspection: LocalInspectionTool): List<ProblemDescriptor>? {
+        return inspection.checkFile(file, inspectionManager as InspectionManagerEx, false)?.filterNotNull()
     }
 }
