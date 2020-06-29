@@ -22,7 +22,7 @@ object EXistDBIcons {
     private fun getIcon(path: String): Icon = IconLoader.getIcon(path, EXistDBIcons::class.java)
 
     object Product {
-        val EXistDB = getIcon("/icons/exist-db.png")
-        val FusionDB = getIcon("/icons/fusion-db.png")
+        val EXistDB: Icon = getIcon("/icons/exist-db.png")
+        val FusionDB: Icon = getIcon("/icons/fusion-db.png")
     }
 }

@@ -20,7 +20,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.module.JarModuleResolver
 object BuiltInFunctions : JarModuleResolver() {
     override val classLoader: ClassLoader = this::class.java.classLoader
 
-    override val modules = mapOf(
+    override val modules: Map<String, String> = mapOf(
         "http://exist-db.org/xquery/compression" to "org/exist-db/xquery/compression.xqy",
         "http://exist-db.org/xquery/console" to "org/exist-db/xquery/console.xqy",
         "http://exist-db.org/xquery/contextextraction" to "org/exist-db/xquery/contextextraction.xqy",

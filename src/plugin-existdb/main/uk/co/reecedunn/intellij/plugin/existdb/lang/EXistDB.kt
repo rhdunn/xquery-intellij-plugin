@@ -60,6 +60,7 @@ object EXistDB : ItemPresentation, XpmVendorType, XpmProductType {
     val VERSION_4_0: XpmProductVersion = EXistDBVersion(this, 4, 0, "XQuery 3.1 REC")
     val VERSION_4_3: XpmProductVersion = EXistDBVersion(this, 4, 0, "XMLSchema 1.1")
 
+    @Suppress("unused")
     val languageVersions: List<XpmProductVersion> = listOf(
         VERSION_3_0,
         VERSION_3_1,

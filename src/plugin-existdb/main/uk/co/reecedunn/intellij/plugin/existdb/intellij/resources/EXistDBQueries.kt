@@ -27,12 +27,12 @@ object EXistDBQueries {
         return file
     }
 
-    val Run = resourceFile("queries/existdb/run.xq").decode()!!
+    val Run: String = resourceFile("queries/existdb/run.xq").decode()!!
 
-    val Version = resourceFile("queries/existdb/version.xq")
+    val Version: VirtualFile = resourceFile("queries/existdb/version.xq")
 
     object Log {
-        val Logs = resourceFile("queries/existdb/log/logs.xq")
-        val Log = resourceFile("queries/existdb/log/log.xq")
+        val Logs: VirtualFile = resourceFile("queries/existdb/log/logs.xq")
+        val Log: VirtualFile = resourceFile("queries/existdb/log/log.xq")
     }
 }
