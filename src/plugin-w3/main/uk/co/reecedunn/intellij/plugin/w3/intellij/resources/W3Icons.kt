@@ -21,5 +21,5 @@ import javax.swing.Icon
 object W3Icons {
     private fun getIcon(path: String): Icon = IconLoader.getIcon(path, W3Icons::class.java)
 
-    val Product = getIcon("/icons/w3.png")
+    val Product: Icon = getIcon("/icons/w3.png")
 }

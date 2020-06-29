@@ -42,6 +42,7 @@ object W3CSpecifications : ItemPresentation, XpmProductType {
 
     val REC: XpmProductVersion = W3CSpecificationsVersion(this)
 
+    @Suppress("unused")
     val languageVersions: List<XpmProductVersion> = listOf(REC)
 
     // endregion
