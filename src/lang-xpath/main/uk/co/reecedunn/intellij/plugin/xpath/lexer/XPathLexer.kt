@@ -585,16 +585,16 @@ open class XPathLexer(tokenRange: CodePointRange) : LexerImpl(STATE_DEFAULT, tok
     companion object {
         // region State Constants
 
-        const val STATE_STRING_LITERAL_QUOTE = 1
-        const val STATE_STRING_LITERAL_APOSTROPHE = 2
-        const val STATE_DOUBLE_EXPONENT = 3
-        const val STATE_XQUERY_COMMENT = 4
-        const val STATE_UNEXPECTED_END_OF_BLOCK = 6
-        const val STATE_PRAGMA_PRE_QNAME = 8
-        const val STATE_PRAGMA_QNAME = 9
-        const val STATE_PRAGMA_CONTENTS = 10
-        const val STATE_BRACED_URI_LITERAL = 26
-        const val STATE_BRACED_URI_LITERAL_PRAGMA = 31
+        const val STATE_STRING_LITERAL_QUOTE: Int = 1
+        const val STATE_STRING_LITERAL_APOSTROPHE: Int = 2
+        const val STATE_DOUBLE_EXPONENT: Int = 3
+        const val STATE_XQUERY_COMMENT: Int = 4
+        const val STATE_UNEXPECTED_END_OF_BLOCK: Int = 6
+        const val STATE_PRAGMA_PRE_QNAME: Int = 8
+        const val STATE_PRAGMA_QNAME: Int = 9
+        const val STATE_PRAGMA_CONTENTS: Int = 10
+        const val STATE_BRACED_URI_LITERAL: Int = 26
+        const val STATE_BRACED_URI_LITERAL_PRAGMA: Int = 31
 
         // endregion
 

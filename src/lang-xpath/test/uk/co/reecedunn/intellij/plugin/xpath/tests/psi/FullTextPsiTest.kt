@@ -21,7 +21,6 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.findUsages.XPathFindUsagesProvider
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstUsageType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTStopWords
 import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTThesaurusID
@@ -88,7 +87,9 @@ private class FullTextPsiTest : ParserTestCase() {
             @Test
             @DisplayName("stop words; multiple")
             fun wordList_multiple() {
-                val words = parse<FTStopWords>("x contains text 'test' using stop words ('lorem', 'ipsum', 'dolor'))")[0]
+                val words = parse<FTStopWords>(
+                    "x contains text 'test' using stop words ('lorem', 'ipsum', 'dolor'))"
+                )[0]
                 assertThat(words.source, `is`(nullValue()))
             }
         }

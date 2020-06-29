@@ -29,13 +29,13 @@ private val MARKLOGIC80: List<Version> = listOf()
 
 class XPathCurlyArrayConstructorPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), XPathCurlyArrayConstructor, VersionConformance, XpmSyntaxValidationElement {
-    override val requiresConformance
-        get(): List<Version> {
+    override val requiresConformance: List<Version>
+        get() {
             if (conformanceElement.elementType === XPathTokenType.K_ARRAY_NODE) {
                 return MARKLOGIC80
             }
             return XQUERY31
         }
 
-    override val conformanceElement get(): PsiElement = firstChild
+    override val conformanceElement: PsiElement get() = firstChild
 }

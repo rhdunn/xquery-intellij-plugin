@@ -20,7 +20,6 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiNameIdentifierOwner
 import com.intellij.psi.PsiReference
-import com.intellij.util.IncorrectOperationException
 import org.jetbrains.annotations.NonNls
 import uk.co.reecedunn.intellij.plugin.core.psi.createElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
@@ -40,7 +39,7 @@ open class XPathNCNamePsiImpl(node: ASTNode) :
 
     override val prefix: XsNCNameValue? = null
 
-    override val localName get(): XsNCNameValue? = children().filterIsInstance<XsNCNameValue>().firstOrNull()
+    override val localName: XsNCNameValue? get() = children().filterIsInstance<XsNCNameValue>().firstOrNull()
 
     override val isLexicalQName: Boolean = true
 

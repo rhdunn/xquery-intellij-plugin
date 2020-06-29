@@ -20,7 +20,6 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiNameIdentifierOwner
 import com.intellij.psi.PsiReference
-import com.intellij.util.IncorrectOperationException
 import org.jetbrains.annotations.NonNls
 import uk.co.reecedunn.intellij.plugin.core.psi.createElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
@@ -28,7 +27,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQName
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 
 open class XPathQNamePsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
@@ -41,9 +39,9 @@ open class XPathQNamePsiImpl(node: ASTNode) :
 
     override val namespace: XsAnyUriValue? = null
 
-    override val prefix get(): XsNCNameValue? = names.first()
+    override val prefix: XsNCNameValue? get() = names.first()
 
-    override val localName get(): XsNCNameValue? = names.toList().let { if (it.size == 2) it[1] else null }
+    override val localName: XsNCNameValue? get() = names.toList().let { if (it.size == 2) it[1] else null }
 
     override val isLexicalQName: Boolean = true
 

@@ -30,13 +30,13 @@ class XPathArrowFunctionSpecifierPsiImpl(node: ASTNode) :
     XPathArrowFunctionSpecifier {
     // region XdmFunctionReference
 
-    override val arity
-        get(): Int {
+    override val arity: Int
+        get() {
             val args: XPathArgumentList? = siblings().filterIsInstance<XPathArgumentList>().firstOrNull()
             return args?.arity?.plus(1) ?: 1
         }
 
-    override val functionName get(): XsQNameValue? = firstChild as? XsQNameValue
+    override val functionName: XsQNameValue? get() = firstChild as? XsQNameValue
 
     // endregion
     // region XPathArrowFunctionSpecifier

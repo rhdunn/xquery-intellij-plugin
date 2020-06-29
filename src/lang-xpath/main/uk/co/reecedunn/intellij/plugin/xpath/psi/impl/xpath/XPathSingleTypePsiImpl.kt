@@ -23,9 +23,9 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 class XPathSingleTypePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathSingleType, XdmItemType {
     // region XdmSequenceType
 
-    override val typeName get(): String = "${itemType.typeName}?"
+    override val typeName: String get() = "${itemType.typeName}?"
 
-    override val itemType get(): XdmItemType = firstChild as XdmItemType
+    override val itemType: XdmItemType get() = firstChild as XdmItemType
 
     override val lowerBound: Int? = 0
 

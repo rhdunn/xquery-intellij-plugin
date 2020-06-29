@@ -26,13 +26,13 @@ private val XQUERY10: List<Version> = listOf()
 private val XQUERY31: List<Version> = listOf(XQuerySpec.REC_3_1_20170321, MarkLogic.VERSION_9_0)
 
 class XPathArrowExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathArrowExpr, VersionConformance {
-    override val requiresConformance
-        get(): List<Version> {
+    override val requiresConformance: List<Version>
+        get() {
             if (conformanceElement === firstChild) {
                 return XQUERY10
             }
             return XQUERY31
         }
 
-    override val conformanceElement get(): PsiElement = findChildByType(XPathTokenType.ARROW) ?: firstChild
+    override val conformanceElement: PsiElement get() = findChildByType(XPathTokenType.ARROW) ?: firstChild
 }

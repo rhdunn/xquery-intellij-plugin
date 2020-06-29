@@ -65,7 +65,7 @@ class PluginTupleFieldImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginTu
             else -> SAXON9_8
         }
 
-    override val conformanceElement get(): PsiElement = optional ?: asType ?: firstChild
+    override val conformanceElement: PsiElement get() = optional ?: asType ?: firstChild
 
     // endregion
 }

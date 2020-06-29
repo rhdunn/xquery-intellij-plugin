@@ -28,13 +28,13 @@ class XPathWildcardPsiImpl(node: ASTNode) :
     XsQNameValue,
     XPathWildcard {
 
-    private val names get(): Sequence<XsNCNameValue> = children().filterIsInstance<XsNCNameValue>()
+    private val names: Sequence<XsNCNameValue> get() = children().filterIsInstance<XsNCNameValue>()
 
-    override val namespace get(): XsAnyUriValue? = firstChild as? XsAnyUriValue
+    override val namespace: XsAnyUriValue? get() = firstChild as? XsAnyUriValue
 
-    override val prefix get(): XsNCNameValue? = if (isLexicalQName) names.first() else null
+    override val prefix: XsNCNameValue? get() = if (isLexicalQName) names.first() else null
 
-    override val localName get(): XsNCNameValue? = if (isLexicalQName) names.last() else names.first()
+    override val localName: XsNCNameValue? get() = if (isLexicalQName) names.last() else names.first()
 
-    override val isLexicalQName get(): Boolean = namespace == null
+    override val isLexicalQName: Boolean get() = namespace == null
 }

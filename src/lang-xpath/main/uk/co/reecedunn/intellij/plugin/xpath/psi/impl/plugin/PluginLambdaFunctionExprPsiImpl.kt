@@ -29,7 +29,7 @@ class PluginLambdaFunctionExprPsiImpl(node: ASTNode) :
 
     override val requiresConformance: List<Version> = listOf(Saxon.VERSION_10_0)
 
-    override val conformanceElement get(): PsiElement = firstChild
+    override val conformanceElement: PsiElement get() = firstChild
 
     // endregion
 }

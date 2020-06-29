@@ -43,15 +43,15 @@ private val XQUERY30: List<Version> = listOf(XQuerySpec.REC_3_0_20140408, MarkLo
 class XPathArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathArgumentList, VersionConformance {
     // region VersionConformance
 
-    override val requiresConformance
-        get(): List<Version> {
+    override val requiresConformance: List<Version>
+        get() {
             if (parent !is XPathPostfixExpr) {
                 return XQUERY10
             }
             return XQUERY30
         }
 
-    override val conformanceElement get(): PsiElement = firstChild
+    override val conformanceElement: PsiElement get() = firstChild
 
     // endregion
     // region XPathArgumentList
@@ -63,7 +63,7 @@ class XPathArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPat
             else -> null
         }
 
-    override val arity get(): Int = children().filterIsElementType(ARGUMENTS).count()
+    override val arity: Int get() = children().filterIsElementType(ARGUMENTS).count()
 
     override val bindings: List<XdmFunctionParamBinding>
         get() {

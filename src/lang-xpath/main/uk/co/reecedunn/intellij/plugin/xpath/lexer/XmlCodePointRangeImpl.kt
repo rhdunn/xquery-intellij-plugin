@@ -23,16 +23,16 @@ import uk.co.reecedunn.intellij.plugin.core.lexer.matchEntityReference
 class XmlCodePointRangeImpl : CodePointRange {
     private val range: CodePointRange = CodePointRangeImpl()
 
-    override val bufferSequence get(): CharSequence = range.bufferSequence
+    override val bufferSequence: CharSequence get() = range.bufferSequence
 
-    override val start get(): Int = range.start
+    override val start: Int get() = range.start
 
-    override val end get(): Int = range.end
+    override val end: Int get() = range.end
 
-    override val bufferEnd get(): Int = range.bufferEnd
+    override val bufferEnd: Int get() = range.bufferEnd
 
-    override val codePoint
-        get(): Int {
+    override val codePoint: Int
+        get() {
             val c = range.codePoint
             if (c == '&'.toInt()) {
                 val savedEnd = end

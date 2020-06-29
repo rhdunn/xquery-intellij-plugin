@@ -31,9 +31,9 @@ class PluginParamRefPsiImpl(node: ASTNode) :
     VersionConformance {
     // region VersionConformance
 
-    override val requiresConformance get(): List<Version> = listOf(Saxon.VERSION_10_0)
+    override val requiresConformance: List<Version> get() = listOf(Saxon.VERSION_10_0)
 
-    override val conformanceElement get(): PsiElement = children().filterIsInstance<XPathNCName>().first().firstChild
+    override val conformanceElement: PsiElement get() = children().filterIsInstance<XPathNCName>().first().firstChild
 
     // endregion
 }

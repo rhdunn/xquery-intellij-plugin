@@ -29,7 +29,7 @@ open class XPathLookupElement(lookupString: String) : LookupElement() {
     override fun getPsiElement(): PsiElement? = null
     override fun isValid(): Boolean = psiElement?.isValid ?: true
 
-    protected val presentation = LookupElementPresentation()
+    protected val presentation: LookupElementPresentation = LookupElementPresentation()
 
     init {
         presentation.itemText = lookupString

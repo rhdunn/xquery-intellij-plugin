@@ -41,15 +41,15 @@ class XPathInlineFunctionExprPsiImpl(node: ASTNode) :
     VersionConformance {
     // region VersionConformance
 
-    override val requiresConformance
-        get(): List<Version> {
+    override val requiresConformance: List<Version>
+        get() {
             if (findChildByType<PsiElement>(XPathTokenType.K_FUNCTION) == null) {
                 return XQUERY10 // Annotation with a missing 'function' keyword.
             }
             return XQUERY30
         }
 
-    override val conformanceElement get(): PsiElement = findChildByType(XPathTokenType.K_FUNCTION) ?: firstChild
+    override val conformanceElement: PsiElement get() = findChildByType(XPathTokenType.K_FUNCTION) ?: firstChild
 
     // endregion
     // region XdmFunctionDeclaration
@@ -58,15 +58,15 @@ class XPathInlineFunctionExprPsiImpl(node: ASTNode) :
 
     override val functionName: XsQNameValue? = null
 
-    override val arity get(): Range<Int> = paramList?.arity ?: XdmFunctionDeclaration.ARITY_ZERO
+    override val arity: Range<Int> get() = paramList?.arity ?: XdmFunctionDeclaration.ARITY_ZERO
 
-    override val returnType get(): XdmSequenceType? = children().filterIsInstance<XdmSequenceType>().firstOrNull()
+    override val returnType: XdmSequenceType? get() = children().filterIsInstance<XdmSequenceType>().firstOrNull()
 
-    override val params get(): List<XdmVariableBinding> = paramList?.params ?: emptyList()
+    override val params: List<XdmVariableBinding> get() = paramList?.params ?: emptyList()
 
-    override val paramListPresentation get(): ItemPresentation? = paramList?.presentation
+    override val paramListPresentation: ItemPresentation? get() = paramList?.presentation
 
-    override val isVariadic get(): Boolean = paramList?.isVariadic == true
+    override val isVariadic: Boolean get() = paramList?.isVariadic == true
 
     override val functionRefPresentableText: String? = null
 

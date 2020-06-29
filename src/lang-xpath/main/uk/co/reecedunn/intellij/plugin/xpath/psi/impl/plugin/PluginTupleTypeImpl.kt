@@ -69,9 +69,9 @@ class PluginTupleTypeImpl(node: ASTNode) :
         else
             "tuple($fields)"
     }
-    override val typeName get(): String = cachedTypeName.get()!!
+    override val typeName: String get() = cachedTypeName.get()!!
 
-    override val itemType get(): XdmItemType = this
+    override val itemType: XdmItemType get() = this
 
     override val lowerBound: Int? = 1
 
@@ -85,9 +85,9 @@ class PluginTupleTypeImpl(node: ASTNode) :
     // endregion
     // region VersionConformance
 
-    override val requiresConformance get(): List<Version> = if (isExtensible) SAXON99 else SAXON98
+    override val requiresConformance: List<Version> get() = if (isExtensible) SAXON99 else SAXON98
 
-    override val conformanceElement get(): PsiElement = findChildByType(XPathTokenType.STAR) ?: firstChild
+    override val conformanceElement: PsiElement get() = findChildByType(XPathTokenType.STAR) ?: firstChild
 
     // endregion
 }

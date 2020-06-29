@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.annotation.QNameAnnotator
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
+@Suppress("ClassName")
 @DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - XPath QNameAnnotator")
 private class QNameAnnotatorTest : AnnotatorTestCase() {
     @Nested
@@ -413,7 +414,8 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                 |() instance of schema-attribute(test),
                 |() instance of schema-attribute(ns:test),
                 |() instance of schema-attribute(Q{}test)
-                """.trimMargin())[0]
+                """.trimMargin()
+            )[0]
             val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
             assertThat(
                 annotations, `is`(
@@ -436,7 +438,8 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                 |() instance of attribute(ns:test),
                 |() instance of attribute(Q{}test),
                 |() instance of attribute(*)
-                """.trimMargin())[0]
+                """.trimMargin()
+            )[0]
             val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
             assertThat(
                 annotations, `is`(
@@ -498,7 +501,8 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                 |() instance of schema-element(test),
                 |() instance of schema-element(ns:test),
                 |() instance of schema-element(Q{}test)
-                """.trimMargin())[0]
+                """.trimMargin()
+            )[0]
             val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
             assertThat(
                 annotations, `is`(
@@ -521,7 +525,8 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                 |() instance of element(ns:test),
                 |() instance of element(Q{}test),
                 |() instance of element(*)
-                """.trimMargin())[0]
+                """.trimMargin()
+            )[0]
             val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
             assertThat(
                 annotations, `is`(

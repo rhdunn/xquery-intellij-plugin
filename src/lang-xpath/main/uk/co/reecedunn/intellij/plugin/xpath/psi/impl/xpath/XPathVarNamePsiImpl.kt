@@ -22,5 +22,5 @@ import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableName
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
 class XPathVarNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathVarName, XdmVariableName {
-    override val variableName get(): XsQNameValue? = firstChild as? XsQNameValue
+    override val variableName: XsQNameValue? get() = firstChild as? XsQNameValue
 }

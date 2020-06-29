@@ -30,14 +30,14 @@ private val XQUERY: List<Version> = listOf()
 
 class FTContainsExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
     FTContainsExpr, VersionConformance {
-    override val requiresConformance
-        get(): List<Version> {
+    override val requiresConformance: List<Version>
+        get() {
             return if (conformanceElement.elementType == XPathTokenType.K_CONTAINS)
                 FULL_TEXT
             else
                 XQUERY
         }
 
-    override val conformanceElement
-        get(): PsiElement = findChildByType(XPathTokenType.K_CONTAINS) ?: firstChild
+    override val conformanceElement: PsiElement
+        get() = findChildByType(XPathTokenType.K_CONTAINS) ?: firstChild
 }

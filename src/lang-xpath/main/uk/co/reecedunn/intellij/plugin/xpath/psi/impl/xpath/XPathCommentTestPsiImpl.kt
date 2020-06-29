@@ -26,7 +26,7 @@ class XPathCommentTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPath
 
     override val typeName: String = "comment()"
 
-    override val itemType get(): XdmItemType = this
+    override val itemType: XdmItemType get() = this
 
     override val lowerBound: Int? = 1
 

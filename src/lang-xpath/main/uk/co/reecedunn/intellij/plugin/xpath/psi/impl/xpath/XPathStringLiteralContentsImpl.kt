@@ -23,5 +23,5 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEscapeCharacter
 class XPathStringLiteralContentsImpl(type: IElementType, text: CharSequence) :
     LeafPsiElement(type, text), XPathEscapeCharacter, XdmLiteralTextPart {
 
-    override val unescapedValue get(): CharSequence = text
+    override val unescapedValue: CharSequence get() = text
 }

@@ -67,9 +67,9 @@ class PluginSequenceTypeListPsiImpl(node: ASTNode) :
         else
             name
     }
-    override val typeName get(): String = cachedTypeName.get()!!
+    override val typeName: String get() = cachedTypeName.get()!!
 
-    override val itemType get(): XdmItemType? = XdmSingleItemType
+    override val itemType: XdmItemType? get() = XdmSingleItemType
 
     override val lowerBound: Int? = 0
 
@@ -78,15 +78,15 @@ class PluginSequenceTypeListPsiImpl(node: ASTNode) :
     // endregion
     // region VersionConformance
 
-    override val requiresConformance
-        get(): List<Version> {
+    override val requiresConformance: List<Version>
+        get() {
             return if (parent.elementType === XPathElementType.TYPED_FUNCTION_TEST)
                 listOf()
             else
                 listOf(XQueryIntelliJPlugin.VERSION_1_3)
         }
 
-    override val conformanceElement get(): PsiElement = findChildByType(XPathTokenType.COMMA) ?: firstChild
+    override val conformanceElement: PsiElement get() = findChildByType(XPathTokenType.COMMA) ?: firstChild
 
     // endregion
 }

@@ -25,73 +25,73 @@ import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathBundle
 object XPathSyntaxHighlighterColors {
     // region Syntax Highlighting (Lexical Tokens)
 
-    val BAD_CHARACTER = TextAttributesKey.createTextAttributesKey(
+    val BAD_CHARACTER: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XPATH_BAD_CHARACTER", HighlighterColors.BAD_CHARACTER
     )
 
-    val COMMENT = TextAttributesKey.createTextAttributesKey(
+    val COMMENT: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XPATH_COMMENT", DefaultLanguageHighlighterColors.BLOCK_COMMENT
     )
 
-    val ESCAPED_CHARACTER = TextAttributesKey.createTextAttributesKey(
+    val ESCAPED_CHARACTER: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XPATH_ESCAPED_CHARACTER", DefaultLanguageHighlighterColors.VALID_STRING_ESCAPE
     )
 
-    val IDENTIFIER = TextAttributesKey.createTextAttributesKey(
+    val IDENTIFIER: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XPATH_IDENTIFIER", DefaultLanguageHighlighterColors.IDENTIFIER
     )
 
-    val KEYWORD = TextAttributesKey.createTextAttributesKey(
+    val KEYWORD: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XPATH_KEYWORD", DefaultLanguageHighlighterColors.KEYWORD
     )
 
-    val NUMBER = TextAttributesKey.createTextAttributesKey(
+    val NUMBER: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XPATH_NUMBER", DefaultLanguageHighlighterColors.NUMBER
     )
 
-    val STRING = TextAttributesKey.createTextAttributesKey(
+    val STRING: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XPATH_STRING", DefaultLanguageHighlighterColors.STRING
     )
 
     // endregion
     // region Semantic Highlighting (Usage and Reference Types)
 
-    val ATTRIBUTE = TextAttributesKey.createTextAttributesKey(
+    val ATTRIBUTE: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XPATH_ATTRIBUTE", XmlHighlighterColors.XML_ATTRIBUTE_NAME
     )
 
-    val ELEMENT = TextAttributesKey.createTextAttributesKey(
+    val ELEMENT: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XPATH_ELEMENT", XmlHighlighterColors.XML_TAG_NAME
     )
 
-    val FUNCTION_CALL = TextAttributesKey.createTextAttributesKey(
+    val FUNCTION_CALL: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XPATH_FUNCTION_CALL", DefaultLanguageHighlighterColors.FUNCTION_CALL
     )
 
-    val NS_PREFIX = TextAttributesKey.createTextAttributesKey(
+    val NS_PREFIX: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XPATH_NS_PREFIX", DefaultLanguageHighlighterColors.INSTANCE_FIELD
     )
 
-    val PARAMETER = TextAttributesKey.createTextAttributesKey(
+    val PARAMETER: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XPATH_PARAMETER", DefaultLanguageHighlighterColors.PARAMETER
     )
 
-    val PRAGMA = TextAttributesKey.createTextAttributesKey(
+    val PRAGMA: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XPATH_PRAGMA", IDENTIFIER
     )
 
-    val TYPE = TextAttributesKey.createTextAttributesKey(
+    val TYPE: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XPATH_TYPE", DefaultLanguageHighlighterColors.CLASS_NAME
     )
 
-    val VARIABLE = TextAttributesKey.createTextAttributesKey(
+    val VARIABLE: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XPATH_VARIABLE", DefaultLanguageHighlighterColors.LOCAL_VARIABLE
     )
 
     // endregion
     // region Descriptors
 
-    val DESCRIPTORS = arrayOf(
+    val DESCRIPTORS: Array<AttributesDescriptor> = arrayOf(
         AttributesDescriptor(XPathBundle.message("xpath.settings.colors.attribute"), ATTRIBUTE),
         AttributesDescriptor(XPathBundle.message("xpath.settings.colors.bad.character"), BAD_CHARACTER),
         AttributesDescriptor(XPathBundle.message("xpath.settings.colors.comment"), COMMENT),
@@ -109,7 +109,7 @@ object XPathSyntaxHighlighterColors {
         AttributesDescriptor(XPathBundle.message("xpath.settings.colors.variable"), VARIABLE)
     )
 
-    val ADDITIONAL_DESCRIPTORS = mapOf(
+    val ADDITIONAL_DESCRIPTORS: Map<String, TextAttributesKey> = mapOf(
         "attribute" to ATTRIBUTE,
         "element" to ELEMENT,
         "function-call" to FUNCTION_CALL,

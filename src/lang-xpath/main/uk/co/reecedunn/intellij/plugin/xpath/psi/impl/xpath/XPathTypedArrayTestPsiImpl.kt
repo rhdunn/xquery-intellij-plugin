@@ -31,14 +31,14 @@ class XPathTypedArrayTestPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), XPathTypedArrayTest, XdmItemType, VersionConformance {
     // region XPathTypedArrayTest
 
-    override val memberType get(): XdmSequenceType = children().filterIsInstance<XdmSequenceType>().first()
+    override val memberType: XdmSequenceType get() = children().filterIsInstance<XdmSequenceType>().first()
 
     // endregion
     // region XdmSequenceType
 
-    override val typeName get(): String = "array(${memberType.typeName})"
+    override val typeName: String get() = "array(${memberType.typeName})"
 
-    override val itemType get(): XdmItemType = this
+    override val itemType: XdmItemType get() = this
 
     override val lowerBound: Int? = 1
 
@@ -52,9 +52,9 @@ class XPathTypedArrayTestPsiImpl(node: ASTNode) :
     // endregion
     // region VersionConformance
 
-    override val requiresConformance get(): List<Version> = listOf(XQuerySpec.REC_3_1_20170321)
+    override val requiresConformance: List<Version> get() = listOf(XQuerySpec.REC_3_1_20170321)
 
-    override val conformanceElement get(): PsiElement = firstChild
+    override val conformanceElement: PsiElement get() = firstChild
 
     // endregion
 }

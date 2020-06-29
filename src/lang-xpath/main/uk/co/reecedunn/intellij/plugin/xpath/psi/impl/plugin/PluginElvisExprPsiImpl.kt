@@ -26,7 +26,7 @@ class PluginElvisExprPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), PluginElvisExpr, XpmSyntaxValidationElement {
     // region XpmSyntaxValidationElement
 
-    override val conformanceElement get(): PsiElement = findChildByType(XPathTokenType.ELVIS)!!
+    override val conformanceElement: PsiElement get() = findChildByType(XPathTokenType.ELVIS)!!
 
     // endregion
 }

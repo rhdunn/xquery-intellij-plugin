@@ -26,13 +26,13 @@ private val XQUERY10: List<Version> = listOf()
 private val XQUERY30: List<Version> = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
 
 class XPathSimpleMapExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathSimpleMapExpr, VersionConformance {
-    override val requiresConformance
-        get(): List<Version> {
+    override val requiresConformance: List<Version>
+        get() {
             if (conformanceElement === firstChild) {
                 return XQUERY10
             }
             return XQUERY30
         }
 
-    override val conformanceElement get(): PsiElement = findChildByType(XPathTokenType.MAP_OPERATOR) ?: firstChild
+    override val conformanceElement: PsiElement get() = findChildByType(XPathTokenType.MAP_OPERATOR) ?: firstChild
 }

@@ -65,7 +65,7 @@ class XPathTypedMapTestPsiImpl(node: ASTNode) :
             }
         }
 
-    override val itemType get(): XdmItemType = this
+    override val itemType: XdmItemType get() = this
 
     override val lowerBound: Int? = 1
 
@@ -79,9 +79,9 @@ class XPathTypedMapTestPsiImpl(node: ASTNode) :
     // endregion
     // region VersionConformance
 
-    override val requiresConformance get(): List<Version> = listOf(XQuerySpec.REC_3_1_20170321, Saxon.VERSION_9_4)
+    override val requiresConformance: List<Version> get() = listOf(XQuerySpec.REC_3_1_20170321, Saxon.VERSION_9_4)
 
-    override val conformanceElement get(): PsiElement = firstChild
+    override val conformanceElement: PsiElement get() = firstChild
 
     // endregion
 }

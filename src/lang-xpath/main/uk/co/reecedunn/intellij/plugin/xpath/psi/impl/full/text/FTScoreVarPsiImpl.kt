@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
 class FTScoreVarPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), FTScoreVar, VersionConformance {
-    override val requiresConformance get(): List<Version> = listOf(FullTextSpec.REC_1_0_20110317)
+    override val requiresConformance: List<Version> get() = listOf(FullTextSpec.REC_1_0_20110317)
 
-    override val conformanceElement get(): PsiElement = firstChild
+    override val conformanceElement: PsiElement get() = firstChild
 }

@@ -36,5 +36,5 @@ class PluginContextItemFunctionExprImpl(node: ASTNode) :
             }
         )
 
-    override val conformanceElement get(): PsiElement = firstChild
+    override val conformanceElement: PsiElement get() = firstChild
 }

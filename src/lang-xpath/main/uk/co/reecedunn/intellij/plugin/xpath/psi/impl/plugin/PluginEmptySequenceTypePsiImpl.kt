@@ -43,7 +43,7 @@ class PluginEmptySequenceTypePsiImpl(node: ASTNode) :
 
     override val typeName: String = "empty-sequence()"
 
-    override val itemType get(): XdmItemType? = null
+    override val itemType: XdmItemType? get() = null
 
     override val lowerBound: Int? = 0
 

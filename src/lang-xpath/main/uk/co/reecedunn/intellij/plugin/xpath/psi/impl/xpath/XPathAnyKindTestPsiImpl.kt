@@ -33,7 +33,7 @@ class XPathAnyKindTestPsiImpl(node: ASTNode) :
 
     override val typeName: String = "node()"
 
-    override val itemType get(): XdmItemType = this
+    override val itemType: XdmItemType get() = this
 
     override val lowerBound: Int? = 1
 
@@ -47,7 +47,7 @@ class XPathAnyKindTestPsiImpl(node: ASTNode) :
     // endregion
     // region XpmSyntaxValidationElement
 
-    override val conformanceElement get(): PsiElement = findChildByType(XPathTokenType.STAR) ?: firstChild
+    override val conformanceElement: PsiElement get() = findChildByType(XPathTokenType.STAR) ?: firstChild
 
     // endregion
 }

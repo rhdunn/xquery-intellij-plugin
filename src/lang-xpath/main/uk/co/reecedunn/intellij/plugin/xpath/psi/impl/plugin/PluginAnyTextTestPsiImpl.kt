@@ -26,7 +26,7 @@ class PluginAnyTextTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), Plug
 
     override val typeName: String = "text()"
 
-    override val itemType get(): XdmItemType = this
+    override val itemType: XdmItemType get() = this
 
     override val lowerBound: Int? = 1
 

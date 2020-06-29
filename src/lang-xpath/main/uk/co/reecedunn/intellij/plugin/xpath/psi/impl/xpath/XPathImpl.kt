@@ -19,6 +19,7 @@ import com.intellij.extapi.psi.PsiFileBase
 import com.intellij.openapi.fileTypes.FileType
 import com.intellij.psi.FileViewProvider
 import com.intellij.psi.PsiElement
+import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.fileTypes.XPathFileType
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
@@ -87,7 +88,7 @@ class XPathImpl(provider: FileViewProvider) :
     // endregion
 
     companion object {
-        val USAGE_TYPES = mapOf(
+        val USAGE_TYPES: Map<IElementType, XstUsageType> = mapOf(
             XPathElementType.ARROW_FUNCTION_SPECIFIER to XstUsageType.FunctionRef,
             XPathElementType.ATOMIC_OR_UNION_TYPE to XstUsageType.Type,
             XPathElementType.ATTRIBUTE_TEST to XstUsageType.Attribute,

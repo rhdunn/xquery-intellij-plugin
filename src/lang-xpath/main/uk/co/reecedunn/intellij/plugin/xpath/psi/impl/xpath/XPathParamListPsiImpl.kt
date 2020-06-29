@@ -97,7 +97,7 @@ class XPathParamListPsiImpl(node: ASTNode) :
         }
     }
 
-    override val arity get(): Range<Int> = cachedArity.get()!!
+    override val arity: Range<Int> get() = cachedArity.get()!!
 
     override val isVariadic: Boolean get() = conformanceElement.elementType == XPathTokenType.ELLIPSIS
 

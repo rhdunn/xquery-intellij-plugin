@@ -48,13 +48,13 @@ class XPathParenthesizedItemTypePsiImpl(node: ASTNode) :
     private val sequenceType: XdmSequenceType
         get() = children().filterIsInstance<XdmSequenceType>().firstOrNull() ?: XdmEmptySequence
 
-    override val typeName get(): String = "(${sequenceType.typeName})"
+    override val typeName: String get() = "(${sequenceType.typeName})"
 
-    override val itemType get(): XdmItemType? = sequenceType.itemType
+    override val itemType: XdmItemType? get() = sequenceType.itemType
 
-    override val lowerBound get(): Int? = sequenceType.lowerBound
+    override val lowerBound: Int? get() = sequenceType.lowerBound
 
-    override val upperBound get(): Int? = sequenceType.upperBound
+    override val upperBound: Int? get() = sequenceType.upperBound
 
     // endregion
     // region VersionConformance
@@ -62,7 +62,7 @@ class XPathParenthesizedItemTypePsiImpl(node: ASTNode) :
     override val requiresConformance: List<Version>
         get() = if (findChildByType<PsiElement>(SEQUENCE_TYPE) != null) SEMANTICS else XQUERY3
 
-    override val conformanceElement get(): PsiElement = firstChild
+    override val conformanceElement: PsiElement get() = firstChild
 
     // endregion
     // region VersionConformanceName

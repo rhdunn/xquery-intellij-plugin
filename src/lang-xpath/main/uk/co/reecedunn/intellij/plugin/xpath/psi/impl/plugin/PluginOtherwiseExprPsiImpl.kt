@@ -29,7 +29,7 @@ class PluginOtherwiseExprPsiImpl(node: ASTNode) :
     PluginOtherwiseExpr,
     VersionConformance {
 
-    override val requiresConformance get(): List<Version> = listOf(Saxon.VERSION_10_0)
+    override val requiresConformance: List<Version> get() = listOf(Saxon.VERSION_10_0)
 
-    override val conformanceElement get(): PsiElement = findChildByType(XPathTokenType.K_OTHERWISE)!!
+    override val conformanceElement: PsiElement get() = findChildByType(XPathTokenType.K_OTHERWISE)!!
 }

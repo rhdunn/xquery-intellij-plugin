@@ -28,13 +28,13 @@ private val XQUERY30: List<Version> = listOf(XQuerySpec.REC_3_0_20140408, MarkLo
 class XPathStringConcatExprPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), XPathStringConcatExpr, VersionConformance {
 
-    override val requiresConformance
-        get(): List<Version> {
+    override val requiresConformance: List<Version>
+        get() {
             if (findChildByType<PsiElement>(XPathTokenType.CONCATENATION) == null) {
                 return XQUERY10
             }
             return XQUERY30
         }
 
-    override val conformanceElement get(): PsiElement = findChildByType(XPathTokenType.CONCATENATION) ?: firstChild
+    override val conformanceElement: PsiElement get() = findChildByType(XPathTokenType.CONCATENATION) ?: firstChild
 }

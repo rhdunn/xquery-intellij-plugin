@@ -27,5 +27,5 @@ object XPathQueries {
         return file
     }
 
-    val ColorSettingsDemo = resourceFile("settings/xpath-color-demo.xq").decode()!!
+    val ColorSettingsDemo: String = resourceFile("settings/xpath-color-demo.xq").decode()!!
 }

@@ -28,14 +28,14 @@ class XPathAtomicOrUnionTypePsiImpl(node: ASTNode) :
     // region XPathAtomicOrUnionType
 
     // TODO: Provide a way of validating that the type is a generalized atomic type [XPST0051].
-    override val type get(): XsQNameValue = firstChild as XsQNameValue
+    override val type: XsQNameValue get() = firstChild as XsQNameValue
 
     // endregion
     // region XdmSequenceType
 
-    override val typeName get(): String = text
+    override val typeName: String get() = text
 
-    override val itemType get(): XdmItemType = this
+    override val itemType: XdmItemType get() = this
 
     override val lowerBound: Int? = 1
 
