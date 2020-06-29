@@ -21,7 +21,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 
 interface XQDocDocumentationSourceProvider {
     companion object {
-        val EP_NAME = ExtensionPointName.create<XQDocDocumentationSourceProviderBean>(
+        val EP_NAME: ExtensionPointName<XQDocDocumentationSourceProviderBean> = ExtensionPointName.create(
             "uk.co.reecedunn.intellij.documentationSourceProvider"
         )
 

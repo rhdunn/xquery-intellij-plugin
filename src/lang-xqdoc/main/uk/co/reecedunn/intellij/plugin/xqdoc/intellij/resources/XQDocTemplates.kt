@@ -28,5 +28,5 @@ object XQDocTemplates {
         return file
     }
 
-    val QuickDocumentation = resourceFile("templates/quick-documentation.html").decode()!!
+    val QuickDocumentation: String = resourceFile("templates/quick-documentation.html").decode()!!
 }

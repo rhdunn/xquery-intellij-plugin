@@ -34,9 +34,11 @@ class XQDocDocumentationDownloader : PersistentStateComponent<XQDocDocumentation
 
     private val tasks = TaskManager<XQDocDocumentationSource>()
 
-    fun addListener(listener: TaskProgressListener<XQDocDocumentationSource>) = tasks.addListener(listener)
+    fun addListener(listener: TaskProgressListener<XQDocDocumentationSource>): Boolean = tasks.addListener(listener)
 
-    fun removeListener(listener: TaskProgressListener<XQDocDocumentationSource>) = tasks.removeListener(listener)
+    fun removeListener(listener: TaskProgressListener<XQDocDocumentationSource>): Boolean {
+        return tasks.removeListener(listener)
+    }
 
     fun download(source: XQDocDocumentationSource): Boolean {
         return tasks.backgroundable(XQDocBundle.message("documentation-source.download.title"), source) { indicator ->
@@ -83,7 +85,7 @@ class XQDocDocumentationDownloader : PersistentStateComponent<XQDocDocumentation
 
     override fun getState(): XQDocDocumentationDownloader? = this
 
-    override fun loadState(state: XQDocDocumentationDownloader) = XmlSerializerUtil.copyBean(state, this)
+    override fun loadState(state: XQDocDocumentationDownloader): Unit = XmlSerializerUtil.copyBean(state, this)
 
     // endregion
 

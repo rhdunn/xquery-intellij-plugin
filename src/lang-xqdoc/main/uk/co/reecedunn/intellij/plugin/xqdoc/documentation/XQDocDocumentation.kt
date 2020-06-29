@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xqdoc.documentation
 
-import uk.co.reecedunn.intellij.plugin.xqdoc.intellij.resources.XQDocBundle
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 
 interface XQDocDocumentation {
