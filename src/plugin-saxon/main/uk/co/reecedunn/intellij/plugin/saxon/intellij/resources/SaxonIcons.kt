@@ -21,5 +21,5 @@ import javax.swing.Icon
 object SaxonIcons {
     private fun getIcon(path: String): Icon = IconLoader.getIcon(path, SaxonIcons::class.java)
 
-    val Product = getIcon("/icons/saxon.png")
+    val Product: Icon = getIcon("/icons/saxon.png")
 }

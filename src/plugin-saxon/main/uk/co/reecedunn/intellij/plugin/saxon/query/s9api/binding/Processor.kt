@@ -53,9 +53,11 @@ class Processor {
 
     val classLoader: ClassLoader get() = `class`.classLoader
 
-    private val saxonEdition: String? get() = `class`.getMethodOrNull("getSaxonEdition")?.invoke(`object`) as? String
+    private val saxonEdition: String?
+        get() = `class`.getMethodOrNull("getSaxonEdition")?.invoke(`object`) as? String
 
-    private val saxonProductVersion: String get() = `class`.getMethod("getSaxonProductVersion").invoke(`object`) as String
+    private val saxonProductVersion: String
+        get() = `class`.getMethod("getSaxonProductVersion").invoke(`object`) as String
 
     val version: String get() = saxonEdition?.let { "$saxonProductVersion ($it)" } ?: saxonProductVersion
 
@@ -63,8 +65,7 @@ class Processor {
         get() {
             val configurationClass = `class`.classLoader.loadClass("net.sf.saxon.Configuration")
             val configuration = `class`.getMethod("getUnderlyingConfiguration").invoke(`object`)
-            val hierarchy = configurationClass.getMethod("getTypeHierarchy").invoke(configuration)
-            return hierarchy
+            return configurationClass.getMethod("getTypeHierarchy").invoke(configuration)
         }
 
     fun setTraceListener(listener: TraceListener?) {

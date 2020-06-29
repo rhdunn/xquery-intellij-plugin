@@ -20,7 +20,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.module.JarModuleResolver
 object BuiltInFunctions : JarModuleResolver() {
     override val classLoader: ClassLoader = this::class.java.classLoader
 
-    override val modules = mapOf(
+    override val modules: Map<String, String> = mapOf(
         "http://saxon.sf.net/" to "net/sf/saxon/index.xqy"
     )
 }

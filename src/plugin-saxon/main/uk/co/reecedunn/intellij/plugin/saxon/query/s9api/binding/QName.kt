@@ -55,7 +55,7 @@ fun XsQNameValue.toQName(classLoader: ClassLoader): QName {
     return QName(`object`, qnameClass)
 }
 
-val SAXON_NAMESPACES = mapOf(
+val SAXON_NAMESPACES: Map<String, String> = mapOf(
     // XQuery 1.0
     "xml" to "http://www.w3.org/XML/1998/namespace",
     "xs" to "http://www.w3.org/2001/XMLSchema",

@@ -34,7 +34,8 @@ open class InstructionInfo(val saxonObject: Any, private val `class`: Class<*>) 
     }
 
     fun isClauseInfo(): Boolean {
-        return `class`.classLoader.loadClassOrNull("net.sf.saxon.expr.flwor.ClauseInfo")?.isInstance(saxonObject) == true
+        val clauseInfo = `class`.classLoader.loadClassOrNull("net.sf.saxon.expr.flwor.ClauseInfo")
+        return clauseInfo?.isInstance(saxonObject) == true
     }
 
     override fun getSystemId(): String? {

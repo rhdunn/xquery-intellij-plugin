@@ -15,17 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding
 
-import java.io.File
 import javax.xml.transform.Source
 
 class DocumentBuilder(private val `object`: Any, private val `class`: Class<*>) {
     fun build(source: Source): XdmNode {
         val node = `class`.getMethod("build", Source::class.java).invoke(`object`, source)
-        return XdmNode(node, `class`.classLoader.loadClass("net.sf.saxon.s9api.XdmNode"))
-    }
-
-    fun build(file: File): XdmNode {
-        val node = `class`.getMethod("build", File::class.java).invoke(`object`, file)
         return XdmNode(node, `class`.classLoader.loadClass("net.sf.saxon.s9api.XdmNode"))
     }
 

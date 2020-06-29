@@ -44,6 +44,7 @@ object SaxonHE : ItemPresentation, XpmProductType {
     val VERSION_9_7: XpmProductVersion = SaxonVersion(this, 9, 7, "XQuery 3.1 REC")
     val VERSION_10_0: XpmProductVersion = SaxonVersion(this, 10, 0, "XQuery 3.0 higher-order functions")
 
+    @Suppress("unused")
     val languageVersions: List<XpmProductVersion> = listOf(
         VERSION_9_6,
         VERSION_9_7,
