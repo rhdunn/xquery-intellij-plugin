@@ -20,7 +20,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.module.JarModuleResolver
 object BuiltInFunctions : JarModuleResolver() {
     override val classLoader: ClassLoader = this::class.java.classLoader
 
-    override val modules = mapOf(
+    override val modules: Map<String, String> = mapOf(
         "http://expath.org/ns/binary" to "org/expath/ns/binary.xqy",
         "http://expath.org/ns/crypto" to "org/expath/ns/crypto.xqy",
         "http://expath.org/ns/file" to "org/expath/ns/file.xqy",

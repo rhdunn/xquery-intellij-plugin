@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.expath.pkg
 
-import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue

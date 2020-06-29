@@ -23,7 +23,6 @@ import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
-import uk.co.reecedunn.intellij.plugin.core.vfs.ZipFileSystem
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.core.zip.toZipByteArray
 import uk.co.reecedunn.intellij.plugin.expath.pkg.EXPathPackage
