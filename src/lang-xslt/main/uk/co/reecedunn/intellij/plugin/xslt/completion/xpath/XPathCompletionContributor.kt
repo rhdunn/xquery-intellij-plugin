@@ -16,8 +16,10 @@
 package uk.co.reecedunn.intellij.plugin.xslt.completion.xpath
 
 import com.intellij.patterns.PlatformPatterns
+import com.intellij.patterns.PsiElementPattern
+import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionContributorEx
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath as XPathElement
 import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.*
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathStaticallyKnownElementOrTypeNamespaces
 import uk.co.reecedunn.intellij.plugin.xslt.completion.xpath.property.XPathVersion
@@ -26,7 +28,8 @@ import uk.co.reecedunn.intellij.plugin.xslt.dom.isIntellijXPathPluginEnabled
 
 class XPathCompletionContributor : CompletionContributorEx() {
     @Suppress("PropertyName")
-    val XPath = PlatformPatterns.psiElement().inFile(PlatformPatterns.psiFile(XPath::class.java))
+    val XPath: PsiElementPattern.Capture<PsiElement> =
+        PlatformPatterns.psiElement().inFile(PlatformPatterns.psiFile(XPathElement::class.java))
 
     // The keyword completion lists are created at compile time, with some
     // runtime logic to select the correct lists. As such, these should be

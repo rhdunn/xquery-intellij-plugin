@@ -21,11 +21,11 @@ import com.intellij.openapi.options.colors.AttributesDescriptor
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.resources.XsltBundle
 
 object XsltSyntaxHighlighterColors {
-    val XSLT_DIRECTIVE = TextAttributesKey.createTextAttributesKey(
+    val XSLT_DIRECTIVE: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XSLT_DIRECTIVE", DefaultLanguageHighlighterColors.TEMPLATE_LANGUAGE_COLOR
     )
 
-    val DESCRIPTORS = arrayOf(
+    val DESCRIPTORS: Array<AttributesDescriptor> = arrayOf(
         AttributesDescriptor(XsltBundle.message("xslt.settings.colors.directive"), XSLT_DIRECTIVE)
     )
 }
