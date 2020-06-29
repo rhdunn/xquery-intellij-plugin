@@ -27,32 +27,32 @@ object MarkLogicQueries {
         return file
     }
 
-    val Run = resourceFile("queries/marklogic/run.xq").decode()!!
+    val Run: String = resourceFile("queries/marklogic/run.xq").decode()!!
 
-    val Version = resourceFile("queries/marklogic/version.xq")
-    val Servers = resourceFile("queries/marklogic/servers.xq")
-    val Databases = resourceFile("queries/marklogic/databases.xq")
+    val Version: VirtualFile = resourceFile("queries/marklogic/version.xq")
+    val Servers: VirtualFile = resourceFile("queries/marklogic/servers.xq")
+    val Databases: VirtualFile = resourceFile("queries/marklogic/databases.xq")
 
-    val ApiDocs = resourceFile("queries/marklogic/apidocs.xq")
+    val ApiDocs: VirtualFile = resourceFile("queries/marklogic/apidocs.xq")
 
     object Debug {
-        val Breakpoint = resourceFile("queries/marklogic/debug/breakpoint.xq")
-        val Break = resourceFile("queries/marklogic/debug/break.xq")
-        val Continue = resourceFile("queries/marklogic/debug/continue.xq")
-        val Stack = resourceFile("queries/marklogic/debug/stack.xq")
-        val Status = resourceFile("queries/marklogic/debug/status.xq")
-        val StepInto = resourceFile("queries/marklogic/debug/step-into.xq")
-        val StepOver = resourceFile("queries/marklogic/debug/step-over.xq")
-        val StepOut = resourceFile("queries/marklogic/debug/step-out.xq")
-        val Value = resourceFile("queries/marklogic/debug/value.xq")
+        val Breakpoint: VirtualFile = resourceFile("queries/marklogic/debug/breakpoint.xq")
+        val Break: VirtualFile = resourceFile("queries/marklogic/debug/break.xq")
+        val Continue: VirtualFile = resourceFile("queries/marklogic/debug/continue.xq")
+        val Stack: VirtualFile = resourceFile("queries/marklogic/debug/stack.xq")
+        val Status: VirtualFile = resourceFile("queries/marklogic/debug/status.xq")
+        val StepInto: VirtualFile = resourceFile("queries/marklogic/debug/step-into.xq")
+        val StepOver: VirtualFile = resourceFile("queries/marklogic/debug/step-over.xq")
+        val StepOut: VirtualFile = resourceFile("queries/marklogic/debug/step-out.xq")
+        val Value: VirtualFile = resourceFile("queries/marklogic/debug/value.xq")
     }
 
     object Log {
-        val Logs = resourceFile("queries/marklogic/log/logs.xq")
-        val Log = resourceFile("queries/marklogic/log/log.xq")
+        val Logs: VirtualFile = resourceFile("queries/marklogic/log/logs.xq")
+        val Log: VirtualFile = resourceFile("queries/marklogic/log/log.xq")
     }
 
     object Request {
-        val Cancel = resourceFile("queries/marklogic/request/cancel.xq")
+        val Cancel: VirtualFile = resourceFile("queries/marklogic/request/cancel.xq")
     }
 }

@@ -103,9 +103,9 @@ class RewriterEndpoint(private val endpoint: XmlTag) : Endpoint(), DataProvider 
         get() = endpoint.ancestors(Rewriter.NAMESPACE, "match-cookie").firstOrNull()?.getAttributeValue("name")
 
     private val executePrivilege: String?
-        get() = endpoint.ancestors(Rewriter.NAMESPACE, "match-execute-privilege").firstOrNull()?.let { executePrivilege ->
-            val anyOf = executePrivilege.getAttributeValue("any-of")
-            val allOf = executePrivilege.getAttributeValue("all-of")
+        get() = endpoint.ancestors(Rewriter.NAMESPACE, "match-execute-privilege").firstOrNull()?.let { privilege ->
+            val anyOf = privilege.getAttributeValue("any-of")
+            val allOf = privilege.getAttributeValue("all-of")
             anyOf ?: allOf
         }
 

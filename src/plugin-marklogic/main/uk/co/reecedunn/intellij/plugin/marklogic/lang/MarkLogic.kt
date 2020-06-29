@@ -82,6 +82,7 @@ object MarkLogic : ItemPresentation, XpmVendorType, XpmProductType {
     val VERSION_8: XpmProductVersion = MarkLogicVersion(this, 8, "json kind tests and constructors: object-node, etc.")
     val VERSION_9: XpmProductVersion = MarkLogicVersion(this, 9, "arrow operator '=>'")
 
+    @Suppress("unused")
     val languageVersions: List<XpmProductVersion> = listOf(
         VERSION_6,
         VERSION_7,

@@ -25,7 +25,7 @@ import javax.swing.Icon
 object MarkLogicIcons {
     private fun getIcon(path: String): Icon = IconLoader.getIcon(path, MarkLogicIcons::class.java)
 
-    val Product = getIcon("/icons/marklogic.png")
+    val Product: Icon = getIcon("/icons/marklogic.png")
 
     object Markers {
         val Endpoint: Icon = AllIcons.General.Web

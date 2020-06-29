@@ -64,7 +64,7 @@ class MarkLogicSyntaxValidatorTest :
         val bean = XpmSyntaxValidatorBean()
         bean.implementationClass = factory.javaClass.name
         bean.fieldName = fieldName
-        bean.setPluginDescriptor(DefaultPluginDescriptor(PluginId.getId("registerSyntaxValidator"), classLoader))
+        bean.pluginDescriptor = DefaultPluginDescriptor(PluginId.getId("registerSyntaxValidator"), classLoader)
         registerExtension(XpmSyntaxValidator.EP_NAME, bean)
     }
 
@@ -76,7 +76,7 @@ class MarkLogicSyntaxValidatorTest :
     // endregion
     // region XpmDiagnostics
 
-    val report = StringBuffer()
+    val report: StringBuffer = StringBuffer()
 
     @BeforeEach
     fun reset() {
@@ -97,7 +97,7 @@ class MarkLogicSyntaxValidatorTest :
         report.append("W $code(${element.textOffset}:${element.textOffset + element.textLength}): $description")
     }
 
-    val validator = XpmSyntaxValidation()
+    val validator: XpmSyntaxValidation = XpmSyntaxValidation()
 
     // endregion
 

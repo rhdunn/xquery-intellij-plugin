@@ -37,7 +37,7 @@ import javax.swing.Icon
 @DisplayName("IntelliJ - Base Platform - Run Configuration - Query Debugger - Variables")
 class MarkLogicVariableTest : XValueNode {
     companion object {
-        val DEBUG_XML_NAMESPACES = mapOf("dbg" to "http://marklogic.com/xdmp/debug")
+        val DEBUG_XML_NAMESPACES: Map<String, String> = mapOf("dbg" to "http://marklogic.com/xdmp/debug")
     }
 
     // region XValueNode
@@ -57,7 +57,7 @@ class MarkLogicVariableTest : XValueNode {
         ValueTextRenderer.rendered
     }
 
-    override fun setFullValueEvaluator(fullValueEvaluator: XFullValueEvaluator) = TODO()
+    override fun setFullValueEvaluator(fullValueEvaluator: XFullValueEvaluator): Unit = TODO()
 
     override fun setPresentation(icon: Icon?, type: String?, value: String, hasChildren: Boolean) {
         setPresentation(icon, XRegularValuePresentation(value, type), hasChildren)

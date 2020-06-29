@@ -31,7 +31,10 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 
 object MarkLogicSyntaxValidator : XpmSyntaxValidator {
-    override fun validate(element: XpmSyntaxValidationElement, reporter: XpmSyntaxErrorReporter) = when (element) {
+    override fun validate(
+        element: XpmSyntaxValidationElement,
+        reporter: XpmSyntaxErrorReporter
+    ): Unit = when (element) {
         is PluginAnyArrayNodeTest -> reporter.requireProduct(element, MarkLogic.VERSION_8)
         is PluginAnyBooleanNodeTest -> reporter.requireProduct(element, MarkLogic.VERSION_8)
         is PluginAnyMapNodeTest -> reporter.requireProduct(element, MarkLogic.VERSION_8)
@@ -43,7 +46,8 @@ object MarkLogicSyntaxValidator : XpmSyntaxValidator {
         is PluginBooleanConstructor -> reporter.requireProduct(element, MarkLogic.VERSION_8)
         is PluginCompatibilityAnnotation -> when (element.conformanceElement.elementType) {
             XQueryTokenType.K_PRIVATE -> reporter.requireProduct(element, MarkLogic.VERSION_6)
-            else -> {}
+            else -> {
+            }
         }
         is PluginComplexTypeTest -> reporter.requireProduct(element, MarkLogic.VERSION_7)
         is PluginElementDeclTest -> reporter.requireProduct(element, MarkLogic.VERSION_7)
@@ -69,31 +73,38 @@ object MarkLogicSyntaxValidator : XpmSyntaxValidator {
         is PluginUsingDecl -> reporter.requireProduct(element, MarkLogic.VERSION_6)
         is XPathAnyKindTest -> when (element.conformanceElement.elementType) {
             XPathTokenType.STAR -> reporter.requireProduct(element, MarkLogic.VERSION_8)
-            else -> {}
+            else -> {
+            }
         }
         is XPathCurlyArrayConstructor -> when (element.conformanceElement.elementType) {
             XPathTokenType.K_ARRAY_NODE -> reporter.requireProduct(element, MarkLogic.VERSION_8)
-            else -> {}
+            else -> {
+            }
         }
         is XPathForwardAxis -> when (element.conformanceElement.elementType) {
             XPathTokenType.K_NAMESPACE -> reporter.requireProduct(element, MarkLogic.VERSION_6)
             XPathTokenType.K_PROPERTY -> reporter.requireProduct(element, MarkLogic.VERSION_6)
-            else -> {}
+            else -> {
+            }
         }
         is XPathMapConstructor -> when (element.conformanceElement.elementType) {
             XPathTokenType.K_OBJECT_NODE -> reporter.requireProduct(element, MarkLogic.VERSION_8)
-            else -> {}
+            else -> {
+            }
         }
         is XQueryCatchClause -> when (element.conformanceElement.elementType) {
             XPathTokenType.PARENTHESIS_OPEN -> reporter.requireProduct(element, MarkLogic.VERSION_6)
-            else -> {}
+            else -> {
+            }
         }
         is XQueryValidateExpr -> when (element.conformanceElement.elementType) {
             XPathTokenType.K_AS -> reporter.requireProduct(element, MarkLogic.VERSION_6)
             XQueryTokenType.K_FULL -> reporter.requireProduct(element, MarkLogic.VERSION_6)
-            else -> {}
+            else -> {
+            }
         }
-        else -> {}
+        else -> {
+        }
     }
 
     private fun validateTransaction(element: XpmSyntaxValidationElement, reporter: XpmSyntaxErrorReporter) {

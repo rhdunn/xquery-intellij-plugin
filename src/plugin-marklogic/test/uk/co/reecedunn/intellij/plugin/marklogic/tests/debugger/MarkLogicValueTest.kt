@@ -46,7 +46,7 @@ class MarkLogicValueTest : XValueNode {
         ValueTextRenderer.rendered
     }
 
-    override fun setFullValueEvaluator(fullValueEvaluator: XFullValueEvaluator) = TODO()
+    override fun setFullValueEvaluator(fullValueEvaluator: XFullValueEvaluator): Unit = TODO()
 
     override fun setPresentation(icon: Icon?, type: String?, value: String, hasChildren: Boolean) {
         setPresentation(icon, XRegularValuePresentation(value, type), hasChildren)

@@ -43,7 +43,7 @@ class MarkLogicDebugFrame private constructor(private val frame: XmlElement) : C
     }
 
     companion object {
-        fun create(frame: XmlElement, queryFile: VirtualFile, evaluator: XDebuggerEvaluator) : XStackFrame {
+        fun create(frame: XmlElement, queryFile: VirtualFile, evaluator: XDebuggerEvaluator): XStackFrame {
             val path = frame.child("dbg:uri")?.text()?.nullize()
             val line = (frame.child("dbg:line")?.text()?.toIntOrNull() ?: 1) - 1
             val column = frame.child("dbg:column")?.text()?.toIntOrNull() ?: 0

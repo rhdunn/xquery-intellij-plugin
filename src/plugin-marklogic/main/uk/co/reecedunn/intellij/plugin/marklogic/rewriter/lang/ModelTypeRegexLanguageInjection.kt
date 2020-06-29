@@ -46,5 +46,6 @@ class ModelTypeRegexLanguageInjection : MultiHostInjector {
         return tag.namespace == Rewriter.NAMESPACE && MODEL_TYPE_LOCAL_NAMES.contains(tag.localName)
     }
 
+    @Suppress("PrivatePropertyName")
     private val MODEL_TYPE_LOCAL_NAMES = setOf("match-header", "match-path", "match-string")
 }

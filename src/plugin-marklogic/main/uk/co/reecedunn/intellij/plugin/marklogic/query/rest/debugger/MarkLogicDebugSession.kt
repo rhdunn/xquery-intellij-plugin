@@ -31,7 +31,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicQueries
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicQueryProcessor
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.debugger.breakpoints.MarkLogicXQueryBreakpointHandler
-import uk.co.reecedunn.intellij.plugin.marklogic.roxy.configuration.RoxyConfiguration
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSession
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSessionListener
 import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame.QuerySuspendContext
@@ -45,8 +44,7 @@ internal class MarkLogicDebugSession(
     private val processor: MarkLogicQueryProcessor,
     private val query: VirtualFile
 ) : XDebuggerEvaluator(), DebugSession {
-    var modulePath: String = "/"
-
+    private var modulePath: String = "/"
     private var state: QueryProcessState = QueryProcessState.Starting
     private var requestId: String? = null
 

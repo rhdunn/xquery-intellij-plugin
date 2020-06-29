@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.lang
 
 object Rewriter {
-    const val NAMESPACE = "http://marklogic.com/xdmp/rewriter"
+    const val NAMESPACE: String = "http://marklogic.com/xdmp/rewriter"
 
-    val ENDPOINT_ELEMENTS = setOf("dispatch", "set-error-handler", "set-path")
+    val ENDPOINT_ELEMENTS: Set<String> = setOf("dispatch", "set-error-handler", "set-path")
 }
