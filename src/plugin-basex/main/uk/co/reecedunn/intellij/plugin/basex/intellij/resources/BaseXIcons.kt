@@ -21,5 +21,5 @@ import javax.swing.Icon
 object BaseXIcons {
     private fun getIcon(path: String): Icon = IconLoader.getIcon(path, BaseXIcons::class.java)
 
-    val Product = getIcon("/icons/basex.png")
+    val Product: Icon = getIcon("/icons/basex.png")
 }

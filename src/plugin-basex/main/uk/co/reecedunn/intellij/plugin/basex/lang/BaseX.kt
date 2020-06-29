@@ -68,6 +68,7 @@ object BaseX : ItemPresentation, XpmVendorType, XpmProductType {
     val VERSION_8_6: XpmProductVersion = BaseXVersion(this, 8, 6, "XQuery 3.1 REC")
     val VERSION_9_1: XpmProductVersion = BaseXVersion(this, 9, 1, "ternary if, ?:, if without else")
 
+    @Suppress("unused")
     val languageVersions: List<XpmProductVersion> = listOf(
         VERSION_6_1,
         VERSION_7_7,

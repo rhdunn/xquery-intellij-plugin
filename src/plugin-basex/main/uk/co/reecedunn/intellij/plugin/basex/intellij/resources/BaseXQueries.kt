@@ -26,10 +26,10 @@ object BaseXQueries {
         return file
     }
 
-    val Version = resourceFile("queries/basex/version.xq")
+    val Version: VirtualFile = resourceFile("queries/basex/version.xq")
 
     object Log {
-        val Logs = resourceFile("queries/basex/log/logs.xq")
-        val Log = resourceFile("queries/basex/log/log.xq")
+        val Logs: VirtualFile = resourceFile("queries/basex/log/logs.xq")
+        val Log: VirtualFile = resourceFile("queries/basex/log/log.xq")
     }
 }

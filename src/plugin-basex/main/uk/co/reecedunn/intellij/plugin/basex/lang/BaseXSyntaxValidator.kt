@@ -30,7 +30,10 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginUpdateExpr
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 object BaseXSyntaxValidator : XpmSyntaxValidator {
-    override fun validate(element: XpmSyntaxValidationElement, reporter: XpmSyntaxErrorReporter) = when (element) {
+    override fun validate(
+        element: XpmSyntaxValidationElement,
+        reporter: XpmSyntaxErrorReporter
+    ): Unit = when (element) {
         is PluginElvisExpr -> reporter.requireProduct(element, BaseX.VERSION_9_1)
         is PluginFTFuzzyOption -> reporter.requireProduct(element, BaseX.VERSION_6_1)
         is PluginNonDeterministicFunctionCall -> reporter.requireProduct(element, BaseX.VERSION_8_4)
@@ -43,8 +46,10 @@ object BaseXSyntaxValidator : XpmSyntaxValidator {
             XPathTokenType.K_IF -> reporter.requireProduct(
                 element, BaseX.VERSION_9_1, BaseXBundle.message("conformance.if-without-else")
             )
-            else -> {}
+            else -> {
+            }
         }
-        else -> {}
+        else -> {
+        }
     }
 }
