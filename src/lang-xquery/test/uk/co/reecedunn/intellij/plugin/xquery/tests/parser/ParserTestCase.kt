@@ -102,31 +102,34 @@ abstract class ParserTestCase :
         super.tearDown()
     }
 
+    @Suppress("UsePropertyAccessSyntax")
     private fun registerModulePathFactory(factory: XpmModulePathFactory, fieldName: String) {
         val classLoader = ParserTestCase::class.java.classLoader
         val bean = XpmModulePathFactoryBean()
         bean.implementationClass = factory.javaClass.name
         bean.fieldName = fieldName
-        bean.pluginDescriptor = DefaultPluginDescriptor(PluginId.getId("registerModulePathFactory"), classLoader)
+        bean.setPluginDescriptor(DefaultPluginDescriptor(PluginId.getId("registerModulePathFactory"), classLoader))
         registerExtension(XpmModulePathFactory.EP_NAME, bean)
     }
 
+    @Suppress("UsePropertyAccessSyntax")
     private fun registerModuleLoader(name: String, implementation: String, fieldName: String) {
         val classLoader = ParserTestCase::class.java.classLoader
         val bean = XpmModuleLoaderFactoryBean()
         bean.name = name
         bean.implementationClass = implementation
         bean.fieldName = fieldName
-        bean.pluginDescriptor = DefaultPluginDescriptor(PluginId.getId("registerModuleLoader"), classLoader)
+        bean.setPluginDescriptor(DefaultPluginDescriptor(PluginId.getId("registerModuleLoader"), classLoader))
         registerExtension(XpmModuleLoaderFactory.EP_NAME, bean)
     }
 
+    @Suppress("UsePropertyAccessSyntax")
     private fun registerBuiltInFunctions(resolver: ImportPathResolver, fieldName: String) {
         val classLoader = ParserTestCase::class.java.classLoader
         val bean = ImportPathResolverBean()
         bean.implementationClass = resolver.javaClass.name
         bean.fieldName = fieldName
-        bean.pluginDescriptor = DefaultPluginDescriptor(PluginId.getId("registerBuiltInFunctions"), classLoader)
+        bean.setPluginDescriptor(DefaultPluginDescriptor(PluginId.getId("registerBuiltInFunctions"), classLoader))
         registerExtension(ImportPathResolver.EP_NAME, bean)
     }
 

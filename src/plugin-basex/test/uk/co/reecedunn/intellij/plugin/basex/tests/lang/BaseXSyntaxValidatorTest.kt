@@ -59,12 +59,13 @@ class BaseXSyntaxValidatorTest :
         registerSyntaxValidator(BaseXSyntaxValidator, "INSTANCE")
     }
 
+    @Suppress("UsePropertyAccessSyntax")
     private fun registerSyntaxValidator(factory: XpmSyntaxValidator, fieldName: String) {
         val classLoader = BaseXSyntaxValidatorTest::class.java.classLoader
         val bean = XpmSyntaxValidatorBean()
         bean.implementationClass = factory.javaClass.name
         bean.fieldName = fieldName
-        bean.pluginDescriptor = DefaultPluginDescriptor(PluginId.getId("registerSyntaxValidator"), classLoader)
+        bean.setPluginDescriptor(DefaultPluginDescriptor(PluginId.getId("registerSyntaxValidator"), classLoader))
         registerExtension(XpmSyntaxValidator.EP_NAME, bean)
     }
 

@@ -62,13 +62,14 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
         super.tearDown()
     }
 
+    @Suppress("UsePropertyAccessSyntax")
     private fun registerDocumentationSourceProvider(implementation: Class<*>, fieldName: String) {
         val classLoader = XQueryDocumentationProviderTest::class.java.classLoader
         val bean = XQDocDocumentationSourceProviderBean()
         bean.implementationClass = implementation.name
         bean.fieldName = fieldName
-        bean.pluginDescriptor = DefaultPluginDescriptor(
-            PluginId.getId("registerDocumentationSourceProvider"), classLoader
+        bean.setPluginDescriptor(
+            DefaultPluginDescriptor(PluginId.getId("registerDocumentationSourceProvider"), classLoader)
         )
         registerExtension(XQDocDocumentationSourceProvider.EP_NAME, bean)
     }
