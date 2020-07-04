@@ -31,6 +31,7 @@ import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.evaluation.Q
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSession
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSessionListener
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebuggableQuery
+import uk.co.reecedunn.intellij.plugin.processor.debug.StepAction
 
 class QueryDebugProcess(
     session: XDebugSession,
@@ -65,11 +66,11 @@ class QueryDebugProcess(
 
     override fun resume(context: XSuspendContext?): Unit = debugger.resume()
 
-    override fun startStepInto(context: XSuspendContext?): Unit = debugger.stepInto()
+    override fun startStepInto(context: XSuspendContext?): Unit = debugger.step(StepAction.Into)
 
-    override fun startStepOver(context: XSuspendContext?): Unit = debugger.stepOver()
+    override fun startStepOver(context: XSuspendContext?): Unit = debugger.step(StepAction.Over)
 
-    override fun startStepOut(context: XSuspendContext?): Unit = debugger.stepOut()
+    override fun startStepOut(context: XSuspendContext?): Unit = debugger.step(StepAction.Out)
 
     override fun positionReached() {
         invokeLater(ModalityState.defaultModalityState()) {

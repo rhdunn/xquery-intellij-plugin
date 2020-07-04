@@ -33,6 +33,7 @@ import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicQueryProces
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.debugger.breakpoints.MarkLogicXQueryBreakpointHandler
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSession
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSessionListener
+import uk.co.reecedunn.intellij.plugin.processor.debug.StepAction
 import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame.QuerySuspendContext
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessState
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderSettings
@@ -95,16 +96,13 @@ internal class MarkLogicDebugSession(
         performAction(MarkLogicQueries.Debug.Continue, QueryProcessState.Suspended, QueryProcessState.Resuming)
     }
 
-    override fun stepInto() {
-        performAction(MarkLogicQueries.Debug.StepInto, QueryProcessState.Suspended, QueryProcessState.Resuming)
-    }
-
-    override fun stepOver() {
-        performAction(MarkLogicQueries.Debug.StepOver, QueryProcessState.Suspended, QueryProcessState.Resuming)
-    }
-
-    override fun stepOut() {
-        performAction(MarkLogicQueries.Debug.StepOut, QueryProcessState.Suspended, QueryProcessState.Resuming)
+    override fun step(action: StepAction) {
+        val query = when (action) {
+            StepAction.Into -> MarkLogicQueries.Debug.StepInto
+            StepAction.Over -> MarkLogicQueries.Debug.StepOver
+            StepAction.Out -> MarkLogicQueries.Debug.StepOut
+        }
+        performAction(query, QueryProcessState.Suspended, QueryProcessState.Resuming)
     }
 
     override val stackFrames: List<XStackFrame>

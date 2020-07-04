@@ -15,23 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.debug
 
-import com.intellij.lang.Language
-import com.intellij.xdebugger.breakpoints.XBreakpointHandler
-import com.intellij.xdebugger.frame.XStackFrame
-import com.intellij.xdebugger.frame.XSuspendContext
-
-interface DebugSession {
-    fun getBreakpointHandlers(language: Language): Array<XBreakpointHandler<*>>
-
-    var listener: DebugSessionListener?
-
-    fun suspend()
-
-    fun resume()
-
-    fun step(action: StepAction)
-
-    val stackFrames: List<XStackFrame>
-
-    val suspendContext: XSuspendContext
+enum class StepAction {
+    Into,
+    Over,
+    Out
 }

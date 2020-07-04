@@ -22,6 +22,7 @@ import com.intellij.xdebugger.frame.XStackFrame
 import com.intellij.xdebugger.frame.XSuspendContext
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSession
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSessionListener
+import uk.co.reecedunn.intellij.plugin.processor.debug.StepAction
 import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame.QuerySuspendContext
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessState
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trace.InstructionInfo
@@ -49,13 +50,7 @@ class SaxonDebugTraceListener(val query: VirtualFile) : SaxonTraceListener(), De
         }
     }
 
-    override fun stepInto() {
-    }
-
-    override fun stepOver() {
-    }
-
-    override fun stepOut() {
+    override fun step(action: StepAction) {
     }
 
     override val stackFrames: List<XStackFrame> get() = currentStackFrames.asReversed()
