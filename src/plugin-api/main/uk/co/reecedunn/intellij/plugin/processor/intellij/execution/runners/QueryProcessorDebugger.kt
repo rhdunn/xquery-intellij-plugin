@@ -41,6 +41,7 @@ class QueryProcessorDebugger : GenericProgramRunner<RunnerSettings>() {
     override fun doExecute(state: RunProfileState, environment: ExecutionEnvironment): RunContentDescriptor? {
         FileDocumentManager.getInstance().saveAllDocuments()
         return startDebugSession(environment) { session ->
+            session.setPauseActionSupported(true)
             val configuration = environment.runProfile as QueryProcessorRunConfiguration
             QueryDebugProcess(session, configuration.language, state as QueryProcessorRunState)
         }.runContentDescriptor
