@@ -32,6 +32,9 @@ import java.util.*
 class SaxonDebugTraceListener(val query: VirtualFile) : SaxonTraceListener(), DebugSession {
     // region DebugSession
 
+    private val currentStackFrames: Stack<XStackFrame> = Stack()
+    private var stepAction: StepAction? = null
+
     override fun getBreakpointHandlers(language: Language): Array<XBreakpointHandler<*>> {
         return arrayOf()
     }
@@ -51,11 +54,24 @@ class SaxonDebugTraceListener(val query: VirtualFile) : SaxonTraceListener(), De
     }
 
     override fun step(action: StepAction) {
+        if (state === QueryProcessState.Suspended) {
+            stepAction = action
+            resume()
+        }
     }
 
     override val stackFrames: List<XStackFrame> get() = currentStackFrames.asReversed()
 
     override val suspendContext: XSuspendContext get() = QuerySuspendContext(query.name, this)
+
+    private fun checkStepAction() = when (stepAction) {
+        StepAction.Into -> {
+            stepAction = null
+            suspend()
+        }
+        else -> {
+        }
+    }
 
     private fun checkIsSuspended() {
         if (state === QueryProcessState.Suspending) {
@@ -71,12 +87,11 @@ class SaxonDebugTraceListener(val query: VirtualFile) : SaxonTraceListener(), De
     // endregion
     // region TraceListener
 
-    private val currentStackFrames: Stack<XStackFrame> = Stack()
-
     override fun enter(instruction: InstructionInfo, properties: Map<String, Any>, context: Any) {
         super.enter(instruction, properties, context)
 
         currentStackFrames.push(SaxonStackFrame.create(instruction, query))
+        checkStepAction()
         checkIsSuspended()
     }
 
