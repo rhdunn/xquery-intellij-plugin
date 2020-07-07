@@ -75,6 +75,11 @@ class SaxonDebugTraceListener(val query: VirtualFile) : SaxonTraceListener(), De
                     suspend()
                 }
             }
+            StepAction.Over -> {
+                if (!enter && currentStackFrames.size < stepStackDepth) {
+                    stepAction = StepAction.Into
+                }
+            }
             StepAction.Out -> {
                 if (!enter && currentStackFrames.size < stepStackDepth) {
                     stepAction = null
