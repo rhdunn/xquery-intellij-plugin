@@ -34,6 +34,7 @@ class SaxonDebugTraceListener(val query: VirtualFile) : SaxonTraceListener(), De
 
     private val currentStackFrames: Stack<XStackFrame> = Stack()
     private var stepAction: StepAction? = null
+    private var stepStackDepth: Int = 0
 
     override fun getBreakpointHandlers(language: Language): Array<XBreakpointHandler<*>> {
         return arrayOf()
@@ -56,6 +57,7 @@ class SaxonDebugTraceListener(val query: VirtualFile) : SaxonTraceListener(), De
     override fun step(action: StepAction) {
         if (state === QueryProcessState.Suspended) {
             stepAction = action
+            stepStackDepth = currentStackFrames.size
             resume()
         }
     }
@@ -64,12 +66,24 @@ class SaxonDebugTraceListener(val query: VirtualFile) : SaxonTraceListener(), De
 
     override val suspendContext: XSuspendContext get() = QuerySuspendContext(query.name, this)
 
-    private fun checkStepAction() = when (stepAction) {
-        StepAction.Into -> {
-            stepAction = null
-            suspend()
-        }
-        else -> {
+    private fun checkStepAction(enter: Boolean) {
+        when (stepAction) {
+            StepAction.Into -> {
+                if (enter) {
+                    stepAction = null
+                    stepStackDepth = 0
+                    suspend()
+                }
+            }
+            StepAction.Out -> {
+                if (!enter && currentStackFrames.size < stepStackDepth) {
+                    stepAction = null
+                    stepStackDepth = 0
+                    suspend()
+                }
+            }
+            else -> {
+            }
         }
     }
 
@@ -91,7 +105,7 @@ class SaxonDebugTraceListener(val query: VirtualFile) : SaxonTraceListener(), De
         super.enter(instruction, properties, context)
 
         currentStackFrames.push(SaxonStackFrame.create(instruction, query))
-        checkStepAction()
+        checkStepAction(enter = true)
         checkIsSuspended()
     }
 
@@ -99,6 +113,7 @@ class SaxonDebugTraceListener(val query: VirtualFile) : SaxonTraceListener(), De
         super.leave(instruction)
 
         currentStackFrames.pop()
+        checkStepAction(enter = false)
         checkIsSuspended()
     }
 
