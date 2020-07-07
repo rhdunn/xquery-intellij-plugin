@@ -67,7 +67,7 @@ class RewriterEndpoint(private val endpoint: XmlTag) : Endpoint(), DataProvider 
             else -> ModuleUriElementReference(endpoint)
         }
 
-    override val element: PsiElement = endpoint
+    override val element: PsiElement = endpoint.value.textElements.firstOrNull() ?: endpoint
 
     override val method: String?
         get() = endpoint.ancestors(Rewriter.NAMESPACE, "match-method").firstOrNull()?.getAttributeValue("any-of")
