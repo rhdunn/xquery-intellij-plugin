@@ -21,8 +21,10 @@ import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.runners.RunContentBuilder
 import com.intellij.execution.ui.ConsoleView
 import com.intellij.execution.ui.RunnerLayoutUi
+import com.intellij.openapi.Disposable
 import com.intellij.openapi.actionSystem.ActionPlaces
 import com.intellij.openapi.actionSystem.DefaultActionGroup
+import com.intellij.openapi.util.Disposer
 import javax.swing.border.Border
 
 class ConsoleRunnerLayoutUiBuilder(primary: ConsoleView) : ConsoleViewWrapperBase(primary), ConsoleViewEx {
@@ -74,6 +76,7 @@ class ConsoleRunnerLayoutUiBuilder(primary: ConsoleView) : ConsoleViewWrapperBas
     // region ConsoleView
 
     override fun dispose() {
+        providers.forEach { provider -> (provider as? Disposable)?.let { Disposer.dispose(it) } }
         providers.clear()
         super.dispose()
     }
