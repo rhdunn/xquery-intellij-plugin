@@ -102,8 +102,8 @@ internal class MarkLogicRunQuery(
 
         return if (queryId != null) {
             val results = MimeResponse(response.allHeaders, body, Charsets.UTF_8).queryResults(queryFile).iterator()
-            val duration = (results.next().value as String).toXsDuration()
-            QueryResults(response.statusLine, results.asSequence().toList(), duration!!)
+            val duration = (results.next().value as String).toXsDuration() ?: XsDuration.ZERO
+            QueryResults(response.statusLine, results.asSequence().toList(), duration)
         } else {
             // The query has been cancelled.
             QueryResults(QueryResults.OK, listOf(), XsDuration.ZERO)
