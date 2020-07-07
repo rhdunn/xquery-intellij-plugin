@@ -55,8 +55,8 @@ internal class MarkLogicQueryProcessor(
 
     override val presentation: ItemPresentation
         get() {
-            val version = createRunnableQuery(MarkLogicQueries.Version, XQuery).run().results.first().value
-            return ItemPresentationImpl(MarkLogicIcons.Product, "MarkLogic $version")
+            val version = createRunnableQuery(MarkLogicQueries.Version, XQuery).run().results.firstOrNull()?.value
+            return ItemPresentationImpl(MarkLogicIcons.Product, version?.let { "MarkLogic $it" } ?: "MarkLogic")
         }
 
     override val servers: List<String>
