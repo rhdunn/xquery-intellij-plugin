@@ -16,9 +16,11 @@
 package uk.co.reecedunn.intellij.plugin.processor.intellij.log
 
 import com.intellij.execution.ui.ConsoleViewContentType
+import com.intellij.openapi.Disposable
 import com.intellij.openapi.actionSystem.ActionPlaces
 import com.intellij.openapi.application.ModalityState
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.util.Disposer
 import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewEx
@@ -35,7 +37,7 @@ import java.awt.Dimension
 import javax.swing.JComboBox
 import javax.swing.JPanel
 
-class QueryLogViewerUI(val project: Project) {
+class QueryLogViewerUI(val project: Project) : Disposable {
     // region Filter :: Server
 
     private var queryProcessor: JComboBox<CachedQueryProcessorSettings>? = null
@@ -163,6 +165,14 @@ class QueryLogViewerUI(val project: Project) {
         }
 
         populateLogFiles()
+    }
+
+    // endregion
+    // region Disposable
+
+    override fun dispose() {
+        logConsole?.let { Disposer.dispose(it) }
+        logConsole = null
     }
 
     // endregion
