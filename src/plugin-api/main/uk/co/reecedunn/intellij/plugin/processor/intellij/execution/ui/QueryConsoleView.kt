@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.util.Disposer
 import com.intellij.psi.PsiFile
 import com.intellij.ui.OnePixelSplitter
 import com.intellij.ui.components.panels.VerticalLayout
@@ -139,7 +140,7 @@ class QueryConsoleView(val project: Project, private val console: ConsoleViewEx)
 
     override fun dispose() {
         queryProcessHandler?.removeQueryResultListener(this)
-        console.dispose()
+        Disposer.dispose(console)
     }
 
     // endregion
