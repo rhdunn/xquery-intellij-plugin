@@ -15,5 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.expr.instruct
 
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.om.StructuredQName
+
 class SlotManager(private val `object`: Any, private val `class`: Class<*>) {
+    fun getVariableMap(): List<StructuredQName> {
+        val map = `class`.getMethod("getVariableMap").invoke(`object`) as List<*>
+        val structuredQNameClass = `class`.classLoader.loadClass("net.sf.saxon.om.StructuredQName")
+        return map.map { StructuredQName(it!!, structuredQNameClass) }
+    }
 }

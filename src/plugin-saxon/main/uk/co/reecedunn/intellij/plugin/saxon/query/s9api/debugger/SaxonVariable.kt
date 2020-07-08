@@ -21,9 +21,12 @@ import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame.QueryR
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.SaxonQueryResultIterator
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.Processor
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.om.Sequence
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.om.StructuredQName
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathIcons
 
-class SaxonVariable(name: String, private val results: Sequence, private val processor: Processor) : XNamedValue(name) {
+class SaxonVariable(name: StructuredQName, private val results: Sequence, private val processor: Processor) :
+    XNamedValue("\$$name") {
+
     var value: XValue? = null
 
     override fun computePresentation(node: XValueNode, place: XValuePlace) {

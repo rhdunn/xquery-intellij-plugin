@@ -39,9 +39,9 @@ class SaxonStackFrame private constructor(
 
     private fun computeStackVariables(): Sequence<XNamedValue> {
         val frame = xpathContext!!.getStackFrame()
-        val map = frame.getStackFrameMap()
-        return frame.getStackFrameValues().asSequence().mapNotNull {
-            SaxonVariable("", it, processor!!)
+        val names = frame.getStackFrameMap().getVariableMap()
+        return frame.getStackFrameValues().asSequence().withIndex().mapNotNull { (index, value) ->
+            SaxonVariable(names[index], value, processor!!)
         }
     }
 
