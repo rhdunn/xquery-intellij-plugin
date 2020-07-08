@@ -45,6 +45,7 @@ object QueryValuePresentation {
         subtypeItemType(aType, bType) -> bType
         subtypeItemType(bType, aType) -> aType
         isAtomicOrUnionType(aType) && isAtomicOrUnionType(bType) -> commonSimpleOrComplexType(aType, bType) ?: "item()"
+        aType.startsWith("element(") && bType.startsWith("element(") -> "element()"
         isKindTest(aType) && isKindTest(bType) -> "node()"
         else -> "item()"
     }
@@ -64,7 +65,11 @@ object QueryValuePresentation {
         return derivesFrom(type, "xs:anyAtomicType") || type == "xs:numeric"
     }
 
-    private fun isKindTest(type: String): Boolean = KIND_TYPES.contains(type)
+    private fun isKindTest(type: String): Boolean = when {
+        KIND_TYPES.contains(type) -> true
+        type.startsWith("element(") -> true // e.g. a named element test from Saxon
+        else -> false
+    }
 
     @Suppress("SameParameterValue")
     private fun derivesFromUnion(aType: String?, bType: String): Boolean = when (bType) {
