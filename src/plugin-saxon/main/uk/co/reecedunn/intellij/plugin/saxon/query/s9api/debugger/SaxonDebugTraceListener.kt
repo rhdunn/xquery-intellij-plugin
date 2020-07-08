@@ -110,7 +110,7 @@ class SaxonDebugTraceListener(val query: VirtualFile) : SaxonTraceListener(), De
     override fun enter(instruction: InstructionInfo, properties: Map<String, Any>, context: XPathContext) {
         super.enter(instruction, properties, context)
 
-        currentStackFrames.push(SaxonStackFrame.create(instruction, query))
+        currentStackFrames.push(SaxonStackFrame.create(instruction, context, query))
         checkStepAction(enter = true)
         checkIsSuspended()
     }

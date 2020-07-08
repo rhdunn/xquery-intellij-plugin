@@ -15,9 +15,4 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.expr
 
-class XPathContext(private val `object`: Any, private val `class`: Class<*>) {
-    fun getStackFrame(): StackFrame {
-        val stackFrame = `class`.getMethod("getStackFrame").invoke(`object`)
-        return StackFrame(stackFrame, `class`.classLoader.loadClass("net.sf.saxon.expr.StackFrame"))
-    }
-}
+class StackFrame(private val `object`: Any, private val `class`: Class<*>)

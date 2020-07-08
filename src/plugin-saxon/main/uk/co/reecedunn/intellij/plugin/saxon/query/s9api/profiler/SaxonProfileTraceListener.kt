@@ -96,7 +96,7 @@ fun SaxonProfileInstruction.toProfileEntry(query: VirtualFile): FlatProfileEntry
         count = count,
         selfTime = totalTimeDuration,
         totalTime = totalTimeDuration,
-        frame = SaxonStackFrame.create(instruction, query)
+        frame = SaxonStackFrame.create(instruction, null, query)
     )
 }
 
