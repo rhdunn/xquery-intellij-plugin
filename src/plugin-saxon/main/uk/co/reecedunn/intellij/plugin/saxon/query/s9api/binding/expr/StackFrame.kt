@@ -15,9 +15,15 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.expr
 
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.expr.instruct.SlotManager
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.om.Sequence
 
 class StackFrame(private val `object`: Any, private val `class`: Class<*>) {
+    fun getStackFrameMap(): SlotManager {
+        val map = `class`.getMethod("getStackFrameMap").invoke(`object`)
+        return SlotManager(map, `class`.classLoader.loadClass("net.sf.saxon.expr.instruct.SlotManager"))
+    }
+
     fun getStackFrameValues(): List<Sequence> {
         val values = `class`.getMethod("getStackFrameValues").invoke(`object`) as Array<*>
         return Sequence.create(values, `class`.classLoader)
