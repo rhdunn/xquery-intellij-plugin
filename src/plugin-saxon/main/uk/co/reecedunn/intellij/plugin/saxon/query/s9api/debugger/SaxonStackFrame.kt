@@ -18,9 +18,11 @@ package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.debugger
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.xdebugger.evaluation.XDebuggerEvaluator
 import com.intellij.xdebugger.frame.XCompositeNode
+import com.intellij.xdebugger.frame.XNamedValue
 import com.intellij.xdebugger.frame.XStackFrame
 import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame.ComputeChildren
 import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame.VirtualFileStackFrame
+import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame.addChildren
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.expr.XPathContext
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trace.InstructionInfo
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModuleUri
@@ -28,7 +30,14 @@ import javax.xml.transform.SourceLocator
 
 class SaxonStackFrame private constructor(private val xpathContext: XPathContext?) : ComputeChildren {
     override fun computeChildren(node: XCompositeNode, evaluator: XDebuggerEvaluator?) {
-        val frame = xpathContext?.getStackFrame() ?: return
+        node.addChildren(computeStackVariables(), true)
+    }
+
+    private fun computeStackVariables(): Sequence<XNamedValue> {
+        val frame = xpathContext!!.getStackFrame()
+        return frame.getStackFrameValues().asSequence().mapNotNull {
+            SaxonVariable("", it)
+        }
     }
 
     companion object {
