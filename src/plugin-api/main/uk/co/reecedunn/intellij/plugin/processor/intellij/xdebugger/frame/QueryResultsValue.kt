@@ -23,9 +23,7 @@ import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame.presen
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import javax.swing.Icon
 
-class QueryResultsValue(private val results: List<QueryResult>) : XValue() {
-    var icon: Icon? = null
-
+class QueryResultsValue(private val results: List<QueryResult>, var icon: Icon? = null) : XValue() {
     override fun computePresentation(node: XValueNode, place: XValuePlace) {
         val presentation = QueryValuePresentation.forResults(results)
         node.setPresentation(icon, presentation, results.size > 1)

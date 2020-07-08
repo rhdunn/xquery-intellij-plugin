@@ -23,12 +23,16 @@ import com.intellij.xdebugger.frame.XStackFrame
 import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame.ComputeChildren
 import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame.VirtualFileStackFrame
 import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame.addChildren
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.Processor
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.expr.XPathContext
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trace.InstructionInfo
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModuleUri
 import javax.xml.transform.SourceLocator
 
-class SaxonStackFrame private constructor(private val xpathContext: XPathContext?) : ComputeChildren {
+class SaxonStackFrame private constructor(
+    private val xpathContext: XPathContext?,
+    private val processor: Processor?
+) : ComputeChildren {
     override fun computeChildren(node: XCompositeNode, evaluator: XDebuggerEvaluator?) {
         node.addChildren(computeStackVariables(), true)
     }
@@ -36,17 +40,22 @@ class SaxonStackFrame private constructor(private val xpathContext: XPathContext
     private fun computeStackVariables(): Sequence<XNamedValue> {
         val frame = xpathContext!!.getStackFrame()
         return frame.getStackFrameValues().asSequence().mapNotNull {
-            SaxonVariable("", it)
+            SaxonVariable("", it, processor!!)
         }
     }
 
     companion object {
-        fun create(locator: SourceLocator, xpathContext: XPathContext?, queryFile: VirtualFile): XStackFrame {
+        fun create(
+            locator: SourceLocator,
+            xpathContext: XPathContext?,
+            processor: Processor?,
+            queryFile: VirtualFile
+        ): XStackFrame {
             val path = locator.systemId
             val line = locator.lineNumber.let { if (it == -1) 1 else it } - 1
             val column = locator.columnNumber.let { if (it == -1) 1 else it } - 1
             val context = (locator as? InstructionInfo)?.getObjectName()?.toString()
-            val children = SaxonStackFrame(xpathContext)
+            val children = SaxonStackFrame(xpathContext, processor)
             return when (path) {
                 null -> VirtualFileStackFrame(queryFile, line, column, context, children, null)
                 else -> VirtualFileStackFrame(XpmModuleUri(queryFile, path), line, column, context, children, null)

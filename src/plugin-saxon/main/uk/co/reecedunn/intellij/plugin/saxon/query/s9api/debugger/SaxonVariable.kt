@@ -15,12 +15,26 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.debugger
 
-import com.intellij.xdebugger.frame.XNamedValue
-import com.intellij.xdebugger.frame.XValueNode
-import com.intellij.xdebugger.frame.XValuePlace
+import com.intellij.xdebugger.frame.*
+import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
+import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame.QueryResultsValue
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.SaxonQueryResultIterator
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.Processor
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.om.Sequence
+import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathIcons
 
-class SaxonVariable(name: String, private val value: Sequence) : XNamedValue(name) {
+class SaxonVariable(name: String, private val results: Sequence, private val processor: Processor) : XNamedValue(name) {
+    var value: XValue? = null
+
     override fun computePresentation(node: XValueNode, place: XValuePlace) {
+        executeOnPooledThread {
+            val values = SaxonQueryResultIterator(results.getXdmValue().iterator(), processor).asSequence().toList()
+            value = QueryResultsValue(values, XPathIcons.Nodes.Variable)
+            value?.computePresentation(node, place)
+        }
+    }
+
+    override fun computeChildren(node: XCompositeNode) {
+        value?.computeChildren(node)
     }
 }
