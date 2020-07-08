@@ -15,23 +15,13 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.om
 
-import uk.co.reecedunn.intellij.plugin.core.reflection.loadClassOrNull
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.XdmValue
 
-open class Sequence(protected val `object`: Any, protected val saxonClass: Class<*>) {
-    open fun getXdmValue(): XdmValue {
+class ValueRepresentation(`object`: Any, `class`: Class<*>) : Sequence(`object`, `class`) {
+    override fun getXdmValue(): XdmValue {
         val xdmValueClass = saxonClass.classLoader.loadClass("net.sf.saxon.s9api.XdmValue")
-        return XdmValue(xdmValueClass.getMethod("wrap", saxonClass).invoke(null, `object`), xdmValueClass)
-    }
-
-    companion object {
-        fun create(sequence: Any, classLoader: ClassLoader): Sequence {
-            val sequenceClass = classLoader.loadClassOrNull("net.sf.saxon.om.Sequence") // Saxon >= 9.5
-            return if (sequenceClass != null) { // Saxon >= 9.5
-                Sequence(sequence, sequenceClass)
-            } else { // Saxon <= 9.4
-                ValueRepresentation(sequence, classLoader.loadClass("net.sf.saxon.om.ValueRepresentation"))
-            }
-        }
+        val wrap = xdmValueClass.getDeclaredMethod("wrap", saxonClass)
+        wrap.isAccessible = true // XdmValue.wrap is protected.
+        return XdmValue(wrap.invoke(null, `object`), xdmValueClass)
     }
 }

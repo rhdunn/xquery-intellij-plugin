@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.event
 
 import uk.co.reecedunn.intellij.plugin.core.reflection.getConstructorOrNull
 import uk.co.reecedunn.intellij.plugin.core.reflection.loadClassOrNull
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.om.Sequence
 
 class SequenceOutputter(pipe: Any, classLoader: ClassLoader) : Receiver {
     private val `class` =
@@ -38,7 +39,7 @@ class SequenceOutputter(pipe: Any, classLoader: ClassLoader) : Receiver {
         `class`.getMethod("close").invoke(saxonObject)
     }
 
-    fun getSequence(): Any {
-        return `class`.getMethod("getSequence").invoke(saxonObject)
+    fun getSequence(): Sequence {
+        return Sequence.create(`class`.getMethod("getSequence").invoke(saxonObject), `class`.classLoader)
     }
 }

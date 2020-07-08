@@ -30,17 +30,13 @@ class RawDestination(val classLoader: ClassLoader) : ProxyDestination {
 
     override val saxonObject: Any get() = this
 
-    fun getXdmValue(): XdmValue {
-        return XdmValue.wrap(outputter!!.getSequence(), classLoader)
-    }
+    fun getXdmValue(): XdmValue = outputter!!.getSequence().getXdmValue()
 
     override fun setDestinationBaseURI(baseURI: URI?) {
         this.baseURI = baseURI
     }
 
-    override fun getDestinationBaseURI(): URI? {
-        return baseURI
-    }
+    override fun getDestinationBaseURI(): URI? = baseURI
 
     override fun getReceiver(pipe: Any, params: Any?): Receiver {
         outputter = SequenceOutputter(pipe, classLoader)
