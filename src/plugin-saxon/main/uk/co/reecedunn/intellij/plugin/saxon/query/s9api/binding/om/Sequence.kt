@@ -33,5 +33,15 @@ open class Sequence(protected val `object`: Any, protected val saxonClass: Class
                 ValueRepresentation(sequence, classLoader.loadClass("net.sf.saxon.om.ValueRepresentation"))
             }
         }
+
+        fun create(sequence: Array<*>, classLoader: ClassLoader): List<Sequence> {
+            val sequenceClass = classLoader.loadClassOrNull("net.sf.saxon.om.Sequence") // Saxon >= 9.5
+            return if (sequenceClass != null) { // Saxon >= 9.5
+                sequence.map { Sequence(it!!, sequenceClass) }
+            } else { // Saxon <= 9.4
+                val valueRepresentationClass = classLoader.loadClass("net.sf.saxon.om.ValueRepresentation")
+                sequence.map { ValueRepresentation(it!!, valueRepresentationClass) }
+            }
+        }
     }
 }

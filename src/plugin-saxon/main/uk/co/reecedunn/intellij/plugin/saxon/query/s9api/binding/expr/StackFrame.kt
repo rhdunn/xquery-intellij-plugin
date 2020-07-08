@@ -15,4 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.expr
 
-class StackFrame(private val `object`: Any, private val `class`: Class<*>)
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.om.Sequence
+
+class StackFrame(private val `object`: Any, private val `class`: Class<*>) {
+    fun getStackFrameValues(): List<Sequence> {
+        val values = `class`.getMethod("getStackFrameValues").invoke(`object`) as Array<*>
+        return Sequence.create(values, `class`.classLoader)
+    }
+}
