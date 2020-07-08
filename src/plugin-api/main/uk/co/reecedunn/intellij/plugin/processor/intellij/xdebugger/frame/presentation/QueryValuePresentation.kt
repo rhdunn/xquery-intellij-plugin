@@ -48,6 +48,7 @@ object QueryValuePresentation {
         aType.startsWith(PI_TEST) && bType.startsWith(PI_TEST) -> "processing-instruction()"
         aType.startsWith(DOCUMENT_TEST) && bType.startsWith(DOCUMENT_TEST) -> "document-node()"
         aType.startsWith(ELEMENT_TEST) && bType.startsWith(ELEMENT_TEST) -> "element()"
+        aType.startsWith(ATTRIBUTE_TEST) && bType.startsWith(ATTRIBUTE_TEST) -> "attribute()"
         isKindTest(aType) && isKindTest(bType) -> "node()"
         else -> "item()"
     }
@@ -69,6 +70,7 @@ object QueryValuePresentation {
 
     private fun isKindTest(type: String): Boolean = when {
         KIND_TYPES.contains(type) -> true
+        type.startsWith(ATTRIBUTE_TEST) -> true
         type.startsWith(DOCUMENT_TEST) -> true
         type.startsWith(ELEMENT_TEST) -> true
         type.startsWith(PI_TEST) -> true
@@ -98,6 +100,7 @@ object QueryValuePresentation {
         else -> commonSimpleOrComplexType(aType, PARENT_TYPES[bType])
     }
 
+    private const val ATTRIBUTE_TEST = "attribute("
     private const val DOCUMENT_TEST = "document-node("
     private const val ELEMENT_TEST = "element("
     private const val PI_TEST = "processing-instruction("

@@ -359,4 +359,60 @@ class QueryResultsValueTest : XValueNode {
         assertThat(renderValue(), `is`("size = 3"))
         assertThat(hasChildren, `is`(true))
     }
+
+    @Test
+    @DisplayName("multiple attributes with different QNames")
+    fun multipleAttributesDifferentQName() {
+        val v = QueryResultsValue(
+            listOf(
+                QueryResult.fromItemType(0, "1", "attribute(Q{}a)"),
+                QueryResult.fromItemType(1, "2", "attribute(Q{}b)"),
+                QueryResult.fromItemType(2, "3", "attribute(Q{}c)")
+            )
+        )
+
+        computePresentation(v, XValuePlace.TREE)
+        assertThat(icon, `is`(nullValue()))
+        assertThat(presentation, `is`(instanceOf(XRegularValuePresentation::class.java)))
+        assertThat(presentation?.type, `is`("attribute()+"))
+        assertThat(presentation?.separator, `is`(" := "))
+        assertThat(renderValue(), `is`("size = 3"))
+        assertThat(hasChildren, `is`(true))
+
+        computePresentation(v, XValuePlace.TOOLTIP)
+        assertThat(icon, `is`(nullValue()))
+        assertThat(presentation, `is`(instanceOf(XRegularValuePresentation::class.java)))
+        assertThat(presentation?.type, `is`("attribute()+"))
+        assertThat(presentation?.separator, `is`(" := "))
+        assertThat(renderValue(), `is`("size = 3"))
+        assertThat(hasChildren, `is`(true))
+    }
+
+    @Test
+    @DisplayName("named attribute with other nodes")
+    fun namedAttributesWithOtherNodes() {
+        val v = QueryResultsValue(
+            listOf(
+                QueryResult.fromItemType(0, "1", "attribute(Q{}a)"),
+                QueryResult.fromItemType(1, "2", "comment()"),
+                QueryResult.fromItemType(2, "3", "text()")
+            )
+        )
+
+        computePresentation(v, XValuePlace.TREE)
+        assertThat(icon, `is`(nullValue()))
+        assertThat(presentation, `is`(instanceOf(XRegularValuePresentation::class.java)))
+        assertThat(presentation?.type, `is`("node()+"))
+        assertThat(presentation?.separator, `is`(" := "))
+        assertThat(renderValue(), `is`("size = 3"))
+        assertThat(hasChildren, `is`(true))
+
+        computePresentation(v, XValuePlace.TOOLTIP)
+        assertThat(icon, `is`(nullValue()))
+        assertThat(presentation, `is`(instanceOf(XRegularValuePresentation::class.java)))
+        assertThat(presentation?.type, `is`("node()+"))
+        assertThat(presentation?.separator, `is`(" := "))
+        assertThat(renderValue(), `is`("size = 3"))
+        assertThat(hasChildren, `is`(true))
+    }
 }
