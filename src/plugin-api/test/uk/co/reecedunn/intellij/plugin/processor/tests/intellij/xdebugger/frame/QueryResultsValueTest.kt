@@ -249,6 +249,62 @@ class QueryResultsValueTest : XValueNode {
     }
 
     @Test
+    @DisplayName("multiple document nodes with different element types")
+    fun multipleDocumentNodesDifferentTypes() {
+        val v = QueryResultsValue(
+            listOf(
+                QueryResult.fromItemType(0, "1", "document-node(element(Q{}a))"),
+                QueryResult.fromItemType(1, "2", "document-node(element(Q{}b))"),
+                QueryResult.fromItemType(2, "3", "document-node(element(Q{}c))")
+            )
+        )
+
+        computePresentation(v, XValuePlace.TREE)
+        assertThat(icon, `is`(nullValue()))
+        assertThat(presentation, `is`(instanceOf(XRegularValuePresentation::class.java)))
+        assertThat(presentation?.type, `is`("document-node()+"))
+        assertThat(presentation?.separator, `is`(" := "))
+        assertThat(renderValue(), `is`("size = 3"))
+        assertThat(hasChildren, `is`(true))
+
+        computePresentation(v, XValuePlace.TOOLTIP)
+        assertThat(icon, `is`(nullValue()))
+        assertThat(presentation, `is`(instanceOf(XRegularValuePresentation::class.java)))
+        assertThat(presentation?.type, `is`("document-node()+"))
+        assertThat(presentation?.separator, `is`(" := "))
+        assertThat(renderValue(), `is`("size = 3"))
+        assertThat(hasChildren, `is`(true))
+    }
+
+    @Test
+    @DisplayName("typed document nodes with other nodes")
+    fun typedDocumentNodesWithOtherNodes() {
+        val v = QueryResultsValue(
+            listOf(
+                QueryResult.fromItemType(0, "1", "document-node(element(Q{}a))"),
+                QueryResult.fromItemType(1, "2", "comment()"),
+                QueryResult.fromItemType(2, "3", "text()")
+            )
+        )
+
+        computePresentation(v, XValuePlace.TREE)
+        assertThat(icon, `is`(nullValue()))
+        assertThat(presentation, `is`(instanceOf(XRegularValuePresentation::class.java)))
+        assertThat(presentation?.type, `is`("node()+"))
+        assertThat(presentation?.separator, `is`(" := "))
+        assertThat(renderValue(), `is`("size = 3"))
+        assertThat(hasChildren, `is`(true))
+
+        computePresentation(v, XValuePlace.TOOLTIP)
+        assertThat(icon, `is`(nullValue()))
+        assertThat(presentation, `is`(instanceOf(XRegularValuePresentation::class.java)))
+        assertThat(presentation?.type, `is`("node()+"))
+        assertThat(presentation?.separator, `is`(" := "))
+        assertThat(renderValue(), `is`("size = 3"))
+        assertThat(hasChildren, `is`(true))
+    }
+
+    @Test
     @DisplayName("multiple elements with different QNames")
     fun multipleElementsDifferentQName() {
         val v = QueryResultsValue(
