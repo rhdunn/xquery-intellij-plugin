@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.marklogic.tests.debugger
+package uk.co.reecedunn.intellij.plugin.processor.tests.intellij.xdebugger.frame
 
 import com.intellij.xdebugger.frame.*
 import com.intellij.xdebugger.frame.presentation.XNumericValuePresentation
@@ -23,12 +23,12 @@ import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.debugger.MarkLogicValue
+import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame.QueryResultsValue
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import javax.swing.Icon
 
 @DisplayName("IntelliJ - Base Platform - Run Configuration - Query Debugger - Values")
-class MarkLogicValueTest : XValueNode {
+class QueryResultsValueTest : XValueNode {
     // region XValueNode
 
     private var icon: Icon? = null
@@ -67,7 +67,7 @@ class MarkLogicValueTest : XValueNode {
     @Test
     @DisplayName("empty sequence")
     fun emptySequence() {
-        val v = MarkLogicValue(listOf())
+        val v = QueryResultsValue(listOf())
 
         computePresentation(v, XValuePlace.TREE)
         assertThat(icon, `is`(nullValue()))
@@ -89,7 +89,7 @@ class MarkLogicValueTest : XValueNode {
     @Test
     @DisplayName("single item")
     fun singleItem() {
-        val v = MarkLogicValue(listOf(QueryResult.fromItemType(0, "1234", "xs:integer")))
+        val v = QueryResultsValue(listOf(QueryResult.fromItemType(0, "1234", "xs:integer")))
 
         computePresentation(v, XValuePlace.TREE)
         assertThat(icon, `is`(nullValue()))
@@ -111,7 +111,7 @@ class MarkLogicValueTest : XValueNode {
     @Test
     @DisplayName("multiple items of the same type")
     fun multipleItemsOfSameType() {
-        val v = MarkLogicValue(
+        val v = QueryResultsValue(
             listOf(
                 QueryResult.fromItemType(0, "1", "xs:integer"),
                 QueryResult.fromItemType(1, "2", "xs:integer"),
@@ -139,7 +139,7 @@ class MarkLogicValueTest : XValueNode {
     @Test
     @DisplayName("multiple items of different item() types")
     fun multipleItemsOfDifferentItemTypes() {
-        val v = MarkLogicValue(
+        val v = QueryResultsValue(
             listOf(
                 QueryResult.fromItemType(0, "1", "xs:integer"),
                 QueryResult.fromItemType(1, "2", "text()"),
@@ -167,7 +167,7 @@ class MarkLogicValueTest : XValueNode {
     @Test
     @DisplayName("multiple items with a type subtype-itemType to the other types")
     fun multipleItemsSubtypeItemType() {
-        val v = MarkLogicValue(
+        val v = QueryResultsValue(
             listOf(
                 QueryResult.fromItemType(0, "1", "xs:integer"),
                 QueryResult.fromItemType(1, "2.0", "xs:decimal"),

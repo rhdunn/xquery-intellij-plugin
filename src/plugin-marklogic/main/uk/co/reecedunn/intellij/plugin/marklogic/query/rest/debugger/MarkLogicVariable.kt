@@ -21,6 +21,7 @@ import com.intellij.xdebugger.frame.*
 import com.intellij.xdebugger.frame.presentation.XErrorValuePresentation
 import com.intellij.xdebugger.frame.presentation.XValuePresentation
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
+import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame.QueryResultsValue
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame.presentation.QueryValuePresentation
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
@@ -45,7 +46,7 @@ class MarkLogicVariable private constructor(
             evaluator?.evaluate(evaluationExpression!!, object : XDebuggerEvaluator.XEvaluationCallback {
                 override fun evaluated(result: XValue) {
                     value = result
-                    (result as? MarkLogicValue)?.icon = XPathIcons.Nodes.Variable
+                    (result as? QueryResultsValue)?.icon = XPathIcons.Nodes.Variable
                     result.computePresentation(node, place)
                 }
 

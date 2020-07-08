@@ -34,6 +34,7 @@ import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.debugger.breakpoints
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSession
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSessionListener
 import uk.co.reecedunn.intellij.plugin.processor.debug.StepAction
+import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame.QueryResultsValue
 import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame.QuerySuspendContext
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessState
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderSettings
@@ -61,7 +62,7 @@ internal class MarkLogicDebugSession(
         query.bindVariable("expression", expression, "xs:string")
         try {
             val results = query.run().results
-            callback.evaluated(MarkLogicValue(results))
+            callback.evaluated(QueryResultsValue(results))
         } catch (e: Throwable) {
             e.message?.let {
                 callback.errorOccurred(it)

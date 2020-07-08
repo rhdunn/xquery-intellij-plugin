@@ -13,16 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.marklogic.query.rest.debugger
+package uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame
 
-import com.intellij.xdebugger.frame.*
-import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame.QueryResultNamedValue
-import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame.addChildren
+import com.intellij.xdebugger.frame.XCompositeNode
+import com.intellij.xdebugger.frame.XValue
+import com.intellij.xdebugger.frame.XValueNode
+import com.intellij.xdebugger.frame.XValuePlace
 import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame.presentation.QueryValuePresentation
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import javax.swing.Icon
 
-class MarkLogicValue(private val results: List<QueryResult>) : XValue() {
+class QueryResultsValue(private val results: List<QueryResult>) : XValue() {
     var icon: Icon? = null
 
     override fun computePresentation(node: XValueNode, place: XValuePlace) {
