@@ -193,7 +193,63 @@ class QueryResultsValueTest : XValueNode {
     }
 
     @Test
-    @DisplayName("multiple elements with different qnames")
+    @DisplayName("multiple processing instructions with different NCNames")
+    fun multipleProcessingInstructionsDifferentNCName() {
+        val v = QueryResultsValue(
+            listOf(
+                QueryResult.fromItemType(0, "1", "processing-instruction(a)"),
+                QueryResult.fromItemType(1, "2", "processing-instruction(b)"),
+                QueryResult.fromItemType(2, "3", "processing-instruction(c)")
+            )
+        )
+
+        computePresentation(v, XValuePlace.TREE)
+        assertThat(icon, `is`(nullValue()))
+        assertThat(presentation, `is`(instanceOf(XRegularValuePresentation::class.java)))
+        assertThat(presentation?.type, `is`("processing-instruction()+"))
+        assertThat(presentation?.separator, `is`(" := "))
+        assertThat(renderValue(), `is`("size = 3"))
+        assertThat(hasChildren, `is`(true))
+
+        computePresentation(v, XValuePlace.TOOLTIP)
+        assertThat(icon, `is`(nullValue()))
+        assertThat(presentation, `is`(instanceOf(XRegularValuePresentation::class.java)))
+        assertThat(presentation?.type, `is`("processing-instruction()+"))
+        assertThat(presentation?.separator, `is`(" := "))
+        assertThat(renderValue(), `is`("size = 3"))
+        assertThat(hasChildren, `is`(true))
+    }
+
+    @Test
+    @DisplayName("named processing instrucuions with other nodes")
+    fun namedProcessingInstructionsWithOtherNodes() {
+        val v = QueryResultsValue(
+            listOf(
+                QueryResult.fromItemType(0, "1", "processing-instruction(a)"),
+                QueryResult.fromItemType(1, "2", "comment()"),
+                QueryResult.fromItemType(2, "3", "text()")
+            )
+        )
+
+        computePresentation(v, XValuePlace.TREE)
+        assertThat(icon, `is`(nullValue()))
+        assertThat(presentation, `is`(instanceOf(XRegularValuePresentation::class.java)))
+        assertThat(presentation?.type, `is`("node()+"))
+        assertThat(presentation?.separator, `is`(" := "))
+        assertThat(renderValue(), `is`("size = 3"))
+        assertThat(hasChildren, `is`(true))
+
+        computePresentation(v, XValuePlace.TOOLTIP)
+        assertThat(icon, `is`(nullValue()))
+        assertThat(presentation, `is`(instanceOf(XRegularValuePresentation::class.java)))
+        assertThat(presentation?.type, `is`("node()+"))
+        assertThat(presentation?.separator, `is`(" := "))
+        assertThat(renderValue(), `is`("size = 3"))
+        assertThat(hasChildren, `is`(true))
+    }
+
+    @Test
+    @DisplayName("multiple elements with different QNames")
     fun multipleElementsDifferentQName() {
         val v = QueryResultsValue(
             listOf(
