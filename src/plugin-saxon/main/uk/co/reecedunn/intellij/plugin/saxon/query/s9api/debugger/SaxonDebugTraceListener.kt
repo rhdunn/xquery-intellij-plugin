@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSessionListener
 import uk.co.reecedunn.intellij.plugin.processor.debug.StepAction
 import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame.QuerySuspendContext
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessState
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.expr.XPathContext
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trace.InstructionInfo
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.runner.SaxonTraceListener
 import java.util.*
@@ -106,7 +107,7 @@ class SaxonDebugTraceListener(val query: VirtualFile) : SaxonTraceListener(), De
     // endregion
     // region TraceListener
 
-    override fun enter(instruction: InstructionInfo, properties: Map<String, Any>, context: Any) {
+    override fun enter(instruction: InstructionInfo, properties: Map<String, Any>, context: XPathContext) {
         super.enter(instruction, properties, context)
 
         currentStackFrames.push(SaxonStackFrame.create(instruction, query))

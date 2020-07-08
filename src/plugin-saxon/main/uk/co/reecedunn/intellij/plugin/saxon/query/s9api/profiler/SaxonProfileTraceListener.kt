@@ -19,6 +19,7 @@ import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame.VirtualFileStackFrame
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileEntry
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileReport
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.expr.XPathContext
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trace.InstructionInfo
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.debugger.SaxonStackFrame
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.runner.SaxonTraceListener
@@ -59,7 +60,7 @@ class SaxonProfileTraceListener(val version: String, val query: VirtualFile) : S
         elapsed = System.nanoTime() - elapsed
     }
 
-    override fun enter(instruction: InstructionInfo, properties: Map<String, Any>, context: Any) {
+    override fun enter(instruction: InstructionInfo, properties: Map<String, Any>, context: XPathContext) {
         super.enter(instruction, properties, context)
 
         // The ClauseInfo instructions are different for each iteration, so ignore them.

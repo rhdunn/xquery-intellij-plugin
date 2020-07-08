@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.runner
 
 import uk.co.reecedunn.intellij.plugin.processor.query.ProcessTerminatedException
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessState
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.expr.XPathContext
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trace.InstructionInfo
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.proxy.TraceListener
 
@@ -64,7 +65,7 @@ open class SaxonTraceListener : TraceListener {
         onfinish()
     }
 
-    override fun enter(instruction: InstructionInfo, properties: Map<String, Any>, context: Any) {
+    override fun enter(instruction: InstructionInfo, properties: Map<String, Any>, context: XPathContext) {
         checkIsStopping()
     }
 

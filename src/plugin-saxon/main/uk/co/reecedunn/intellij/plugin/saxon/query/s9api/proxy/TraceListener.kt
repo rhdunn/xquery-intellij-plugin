@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.proxy
 
 import uk.co.reecedunn.intellij.plugin.core.reflection.loadClassOrNull
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.expr.XPathContext
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trace.InstructionInfo
 import java.lang.reflect.Proxy
 
@@ -26,7 +27,7 @@ interface TraceListener {
 
     fun close()
 
-    fun enter(instruction: InstructionInfo, properties: Map<String, Any>, context: Any)
+    fun enter(instruction: InstructionInfo, properties: Map<String, Any>, context: XPathContext)
 
     fun leave(instruction: InstructionInfo)
 
@@ -43,6 +44,7 @@ fun TraceListener.proxy(vararg classes: Class<*>): Any {
     val classLoader = classes[0].classLoader
     val traceableClass = classLoader.loadClassOrNull("net.sf.saxon.trace.Traceable")
     val instructionInfoClass = traceableClass ?: classLoader.loadClass("net.sf.saxon.trace.InstructionInfo")
+    val xpathContextClass = classLoader.loadClass("net.sf.saxon.expr.XPathContext")
     return Proxy.newProxyInstance(classLoader, classes) { _, method, params ->
         when (method.name) {
             "setOutputDestination" -> setOutputDestination(params[0])
@@ -51,10 +53,12 @@ fun TraceListener.proxy(vararg classes: Class<*>): Any {
             "enter" -> {
                 val instructionInfo = InstructionInfo(params[0], instructionInfoClass)
                 if (params.size == 2) { // Saxon < 10
-                    enter(instructionInfo, emptyMap(), params[1])
+                    val context = XPathContext(params[1], xpathContextClass)
+                    enter(instructionInfo, emptyMap(), context)
                 } else { // Saxon >= 10
+                    val context = XPathContext(params[2], xpathContextClass)
                     @Suppress("UNCHECKED_CAST") val properties = params[1] as Map<String, Any>
-                    enter(instructionInfo, properties, params[2])
+                    enter(instructionInfo, properties, context)
                 }
             }
             "leave" -> leave(InstructionInfo(params[0], instructionInfoClass))
