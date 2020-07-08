@@ -19,12 +19,13 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.util.text.nullize
 import com.intellij.xdebugger.evaluation.XDebuggerEvaluator
 import com.intellij.xdebugger.frame.XCompositeNode
+import com.intellij.xdebugger.frame.XNamedValue
 import com.intellij.xdebugger.frame.XStackFrame
-import com.intellij.xdebugger.frame.XValueChildrenList
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.core.xml.children
 import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame.ComputeChildren
 import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame.VirtualFileStackFrame
+import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame.addChildren
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModuleUri
 
 class MarkLogicDebugFrame private constructor(private val frame: XmlElement) : ComputeChildren {
@@ -34,12 +35,10 @@ class MarkLogicDebugFrame private constructor(private val frame: XmlElement) : C
         node.addChildren(computeVariables("dbg:variables", "dbg:variable", evaluator), true)
     }
 
-    private fun computeVariables(list: String, child: String, evaluator: XDebuggerEvaluator?): XValueChildrenList {
-        val children = XValueChildrenList()
-        frame.children(list).children(child).forEach { variable ->
-            children.add(MarkLogicVariable.create(variable, evaluator))
+    private fun computeVariables(list: String, child: String, evaluator: XDebuggerEvaluator?): Sequence<XNamedValue> {
+        return frame.children(list).children(child).map { variable ->
+            MarkLogicVariable.create(variable, evaluator)
         }
-        return children
     }
 
     companion object {

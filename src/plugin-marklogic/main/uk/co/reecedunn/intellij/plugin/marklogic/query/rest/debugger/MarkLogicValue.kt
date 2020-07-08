@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.query.rest.debugger
 
 import com.intellij.xdebugger.frame.*
+import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame.addChildren
 import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame.presentation.QueryValuePresentation
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import javax.swing.Icon
@@ -29,9 +30,8 @@ class MarkLogicValue(private val results: List<QueryResult>) : XValue() {
     }
 
     override fun computeChildren(node: XCompositeNode) {
-        val children = XValueChildrenList()
-        results.withIndex().forEach { (index, result) ->
-            children.add(MarkLogicNamedValue(index.toString(), listOf(result)))
+        val children = results.asSequence().withIndex().map { (index, result) ->
+            MarkLogicNamedValue(index.toString(), listOf(result))
         }
         node.addChildren(children, true)
     }
