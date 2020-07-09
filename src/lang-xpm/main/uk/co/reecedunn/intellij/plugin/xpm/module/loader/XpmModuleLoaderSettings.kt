@@ -168,7 +168,12 @@ class XpmModuleLoaderSettings(val project: Project) :
 
     override fun getState(): XpmModuleLoaderSettingsData? = data
 
-    override fun loadState(state: XpmModuleLoaderSettingsData): Unit = XmlSerializerUtil.copyBean(state, data)
+    override fun loadState(state: XpmModuleLoaderSettingsData): Unit {
+        XmlSerializerUtil.copyBean(state, data)
+
+        // Add the module path to the list of module loaders.
+        vendor?.modulePath?.let { registerModulePath("$databasePath$it") }
+    }
 
     // endregion
 
