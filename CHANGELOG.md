@@ -1,63 +1,8 @@
 # Change Log
 
-## 1.7 - (In Development)
-
-MarkLogic:
-
-1.  Support stopping MarkLogic queries.
-1.  Support registering MarkLogic schema files.
-1.  Support for debugging MarkLogic XQuery-based queries.
-
-eXist-db / FusionDB:
-
-1.  Detect FusionDB so it is correctly displayed in the query processor lists.
-1.  Display the log files in the Query Log panel.
-1.  Fixed calling APIs that require specific permissions that the query
-    processor user has.
-1.  Fix displaying `node()` and `function(*)` types in the query results view.
-
-BaseX:
-
-1.  Fix validating beta releases in the query processor UI.
-
-Run Configurations:
-
-1.  Fixed scrolling to an item in the results pane when the detected filetype
-    is plain text.
-1.  Fixed a null pointer exception when processing MarkLogic syntax error
-    responses.
-1.  Fixed navigating to module paths in query errors.
-1.  Add icons to the query processors.
-
-Module Imports:
-
-1.  Support resolving MarkLogic imports from a configured database install path.
-1.  Support resolving imports from the Roxy `xquery.dir` property path.
-1.  Support resolving imports from the ml-gradle `mlModulePaths` property paths.
-
-Endpoints:
-
-1.  Support autocompleting multi-valued `match-method` elements in MarkLogic rewriter files.
-1.  Support displaying MarkLogic rewriter files in the Endpoints tool window.
-1.  Support displaying EXQuery RESTXQ endpoints in the Endpoints tool window.
-
-Documentation:
-
-1.  Fix the return type in the MarkLogic documentation.
-1.  Add icons to the documentation sources.
-
-Code Completion:
-
-1.  Include declared variables without a namespace prefix in the completion list.
-
-Inlay Parameter Hints:
-
-1.  Don't display a hint when the variable name matches the parameter name.
-1.  Don't display a hint when the path step element/attribute name matches the parameter name.
-1.  Don't display a hint when the forward/reverse step name matches the parameter name.
-
 ## 2020
 
+*  [1.7 - 2020-03-21](docs/_posts/2020-07-10-release-1.7.md)
 *  [1.6.2 - 2020-05-04](docs/_posts/2020-05-04-release-1.6.2.md)
 *  [1.6.1 - 2020-04-09](docs/_posts/2020-04-09-release-1.6.1.md)
 *  [1.6 - 2020-03-21](docs/_posts/2020-03-21-release-1.6.md)

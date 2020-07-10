@@ -25,6 +25,7 @@ and tutorials.
 This plugin provides support for the following implementations of XQuery:
 1.  BaseX 7.0 &ndash; 9.3;
 1.  eXist-db 4.4 &ndash; 5.2;
+1.  FusionDB alpha;
 1.  MarkLogic 8.0 &ndash; 10.0;
 1.  Saxon 9.2 &ndash; 10.0.
 
@@ -32,13 +33,20 @@ For those XQuery implementations, this plugin supports:
 1.  Running XQuery, XSLT, XPath, SPARQL, SQL, and JavaScript queries where
     supported by the implementation;
 1.  Profiling XQuery and XSLT queries;
-1.  Debugging MarkLogic XQuery-based queries; __\[Next Release]__
+1.  Debugging MarkLogic XQuery-based queries, with experimental breakpoint
+    support;
 1.  Viewing access and error log files.
 
 This plugin provides additional integration support for the following query
 processor file types and standards:
 1.  MarkLogic rewriter XML files;
 1.  EXQuery RESTXQ 1.0.
+
+### Libraries and Frameworks
+
+This plugin adds support for the following project frameworks:
+1.  MarkLogic Roxy &ndash; source root detection;
+1.  MarkLogic ml-gradle &ndash; source root detection.
 
 ### IntelliJ Integration
 

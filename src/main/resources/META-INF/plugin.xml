@@ -2,7 +2,7 @@
 <idea-plugin xmlns:xi="http://www.w3.org/2001/XInclude">
   <id>uk.co.reecedunn.intellij.plugin.xquery</id>
   <!--suppress PluginXmlValidity -->
-  <name>xquery-intellij-plugin</name>
+  <name>XQuery IntelliJ Plugin</name>
   <version>VERSION</version>
   <vendor email="msclrhd@gmail.com" url="http://reecedunn.co.uk">Reece H. Dunn</vendor>
   <category>XML</category>
@@ -18,17 +18,23 @@
   <description><![CDATA[
     <p>
       XQuery 1.0-3.1, XPath 2.0-3.1, and XSLT 3.0 language support with BaseX,
-      MarkLogic, Saxon, and W3C extensions; run and profile queries; log viewer;
-      and more.
+      MarkLogic, Saxon, and W3C extensions; run, debug, and profile queries;
+      log viewer; and more.
     </p>
     <p>&#xA0;</p>
     <p>Query processor integration:</p>
     <ol>
-      <li>Run BaseX, eXist-db, MarkLogic, and Saxon queries.</li>
-      <li>Profile BaseX, MarkLogic, and Saxon XQuery and XSLT.</li>
+      <li>Run BaseX, eXist-db, FusionDB, MarkLogic, and Saxon queries.</li>
+      <li>Profile BaseX, MarkLogic, and Saxon XQuery and XSLT files.</li>
+      <li>Debug MarkLogic XQuery files, with experimental breakpoint support.</li>
       <li>Log viewer for BaseX and MarkLogic.</li>
       <li>Built-in namespace and function support for BaseX, eXist-db, MarkLogic, and Saxon.</li>
       <li>Support for MarkLogic rewriter XML files and EXQuery RESTXQ endpoints.</li>
+    </ol>
+    <p>Library and Framework integration:</p>
+    <ol>
+      <li>MarkLogic Roxy &ndash; source root detection.</li>
+      <li>MarkLogic ml-gradle &ndash; source root detection.</li>
     </ol>
     <p>XPath and XSLT:</p>
     <ol>
@@ -62,7 +68,14 @@
   ]]></description>
 
   <change-notes><![CDATA[
-    <h3>Release 1.7-dev:</h3>
+    <h3>Release 1.7:</h3>
+    <ol>
+      <li>Display MarkLogic rewriter and EXQuery RESTXQ endpoints in IntelliJ Ultimate's Endpoint tool window.</li>
+      <li>Support for debugging MarkLogic XQuery-based queries, with experimental expression breakpoint support.</li>
+      <li>Improved eXist-db and FusionDB support.</li>
+      <li>Support for MarkLogic Roxy and ml-gradle project source root detection.</li>
+      <li>Add icons to the query processors and document sources.</li>
+    </ol>
     <p>MarkLogic:</p>
     <ol>
       <li>Support stopping MarkLogic queries.</li>
