@@ -68,65 +68,7 @@
   ]]></description>
 
   <change-notes><![CDATA[
-    <h3>Release 1.7:</h3>
-    <ol>
-      <li>Display MarkLogic rewriter and EXQuery RESTXQ endpoints in IntelliJ Ultimate's Endpoint tool window.</li>
-      <li>Support for debugging MarkLogic XQuery-based queries, with experimental expression breakpoint support.</li>
-      <li>Improved eXist-db and FusionDB support.</li>
-      <li>Support for MarkLogic Roxy and ml-gradle project source root detection.</li>
-      <li>Add icons to the query processors and document sources.</li>
-    </ol>
-    <p>MarkLogic:</p>
-    <ol>
-      <li>Support stopping MarkLogic queries.</li>
-      <li>Support registering MarkLogic schema files.</li>
-      <li>Support for debugging MarkLogic XQuery-based queries.</li>
-    </ol>
-    <p>eXist-db / FusionDB:</p>
-    <ol>
-      <li>Detect FusionDB so it is correctly displayed in the query processor lists.</li>
-      <li>Display the log files in the Query Log panel.</li>
-      <li>Fixed calling APIs that require specific permissions that the query processor user has.</li>
-      <li>Fixed displaying <code>node()</code> and <code>function(*)</code> types in the query results view.</li>
-    </ol>
-    <p>BaseX:</p>
-    <ol>
-      <li>Fix validating beta releases in the query processor UI.</li>
-    </ol>
-    <p>Run Configurations:</p>
-    <ol>
-      <li>Fixed scrolling to an item in the results pane when the detected filetype is plain text.</li>
-      <li>Fixed a null pointer exception when processing MarkLogic syntax error responses.</li>
-      <li>Fixed navigating to module paths in query errors.</li>
-      <li>Add icons to the query processors.</li>
-    </ol>
-    <p>Module Imports:</p>
-    <ol>
-      <li>Support resolving MarkLogic imports from a configured database install path.</li>
-      <li>Support resolving imports from the Roxy <code>xquery.dir</code> property path.</li>
-      <li>Support resolving imports from the ml-gradle <code>mlModulePaths</code> property paths.</li>
-    </ol>
-    <p>Endpoints:</p>
-    <ol>
-      <li>Support autocompleting multi-valued <code>match-method</code> elements in MarkLogic rewriter files.</li>
-      <li>Support displaying MarkLogic rewriter files in the Endpoints tool window.</li>
-      <li>Support displaying EXQuery RESTXQ endpoints in the Endpoints tool window.</li>
-    </ol>
-    <p>Documentation:</p>
-    <ol>
-      <li>Fix the return type in the MarkLogic documentation.</li>
-      <li>Add icons to the documentation sources.</li>
-    </ol>
-    <p>Code Completion:</p>
-    <ol>
-      <li>Include declared variables without a namespace prefix in the completion list.</li>
-    </ol>
-    <p>Inlay Parameter Hints:</p>
-    <ol>
-      <li>Don't display a hint when the variable name matches the parameter name.</li>
-      <li>Don't display a hint when the path step element/attribute name matches the parameter name.</li>
-      <li>Don't display a hint when the forward/reverse step name matches the parameter name.</li>
-    </ol>
+    <h3>Release 1.8-dev:</h3>
   ]]></change-notes>
 
   <idea-version since-build="161"/>
