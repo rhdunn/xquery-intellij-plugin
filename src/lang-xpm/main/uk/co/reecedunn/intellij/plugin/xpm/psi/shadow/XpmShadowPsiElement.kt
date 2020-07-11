@@ -22,14 +22,20 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiElementVisitor
 import com.intellij.psi.PsiFile
 import com.intellij.psi.impl.light.LightElement
+import com.intellij.psi.util.parents
+import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 
 abstract class XpmShadowPsiElement(private val shadowed: PsiElement, language: Language) :
     LightElement(shadowed.manager, language) {
     // region LightElement
 
-    override fun getParent(): PsiElement? = shadowed.parent
+    override fun getParent(): PsiElement? {
+        return shadowed.parents.map { XpmShadowPsiElementFactory.create(it) }.firstOrNull()
+    }
 
-    override fun getChildren(): Array<PsiElement> = shadowed.children
+    override fun getChildren(): Array<PsiElement> {
+        return shadowed.children.mapNotNull { XpmShadowPsiElementFactory.create(it) }.toTypedArray()
+    }
 
     override fun getContainingFile(): PsiFile? = shadowed.containingFile
 
@@ -53,13 +59,19 @@ abstract class XpmShadowPsiElement(private val shadowed: PsiElement, language: L
 
     override fun accept(visitor: PsiElementVisitor): Unit = shadowed.accept(visitor)
 
-    override fun copy(): PsiElement? = shadowed.copy()
+    override fun copy(): PsiElement? {
+        return XpmShadowPsiElementFactory.create(shadowed.copy())
+    }
 
     override fun getNavigationElement(): PsiElement = shadowed.navigationElement
 
-    override fun getPrevSibling(): PsiElement? = shadowed.prevSibling
+    override fun getPrevSibling(): PsiElement? {
+        return shadowed.siblings().reversed().mapNotNull { XpmShadowPsiElementFactory.create(it) }.firstOrNull()
+    }
 
-    override fun getNextSibling(): PsiElement? = shadowed.nextSibling
+    override fun getNextSibling(): PsiElement? {
+        return shadowed.siblings().mapNotNull { XpmShadowPsiElementFactory.create(it) }.firstOrNull()
+    }
 
     // endregion
 }
