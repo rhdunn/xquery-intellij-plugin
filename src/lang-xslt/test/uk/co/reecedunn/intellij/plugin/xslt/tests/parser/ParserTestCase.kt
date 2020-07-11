@@ -20,6 +20,8 @@ import com.intellij.lang.injection.InjectedLanguageManager
 import com.intellij.lang.xml.XMLLanguage
 import com.intellij.lang.xml.XMLParserDefinition
 import com.intellij.lang.xml.XmlASTFactory
+import com.intellij.openapi.extensions.DefaultPluginDescriptor
+import com.intellij.openapi.extensions.PluginId
 import com.intellij.openapi.module.ModuleManager
 import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.psi.xml.StartTagEndTokenProvider
@@ -37,7 +39,12 @@ import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.roots.MockProjectRootsManager
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
+import uk.co.reecedunn.intellij.plugin.xpm.module.ImportPathResolver
+import uk.co.reecedunn.intellij.plugin.xpm.module.ImportPathResolverBean
+import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElementFactory
+import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElementFactoryBean
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
+import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.XsltShadowPsiElementFactory
 
 @Suppress("MemberVisibilityCanBePrivate", "SameParameterValue")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -53,11 +60,24 @@ abstract class ParserTestCase : ParsingTestCase<XmlFile>(null, XMLParserDefiniti
         myProject.registerService(ProjectRootManager::class.java, MockProjectRootsManager())
         myProject.registerService(ModuleManager::class.java, MockModuleManager(myProject))
         myProject.registerService(InjectedLanguageManager::class.java, MockInjectedLanguageManager())
+
+        registerExtensionPoint(XpmShadowPsiElementFactory.EP_NAME, XpmShadowPsiElementFactoryBean::class.java)
+        registerShadowPsiElementFactory(XsltShadowPsiElementFactory, "INSTANCE")
     }
 
     @AfterAll
     override fun tearDown() {
         super.tearDown()
+    }
+
+    @Suppress("UsePropertyAccessSyntax")
+    private fun registerShadowPsiElementFactory(factory: XpmShadowPsiElementFactory, fieldName: String) {
+        val classLoader = ParserTestCase::class.java.classLoader
+        val bean = XpmShadowPsiElementFactoryBean()
+        bean.implementationClass = factory.javaClass.name
+        bean.fieldName = fieldName
+        bean.setPluginDescriptor(DefaultPluginDescriptor(PluginId.getId("shadowPsiElementFactory"), classLoader))
+        registerExtension(XpmShadowPsiElementFactory.EP_NAME, bean)
     }
 
     fun parseXml(resource: String): XmlFile {
@@ -66,6 +86,15 @@ abstract class ParserTestCase : ParsingTestCase<XmlFile>(null, XMLParserDefiniti
             return file.toPsiFile(myProject) as XmlFile
         }
         return super.parseText(resource)
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    fun <T> parse(resource: String, namespaceUri: String, localName: String): List<T> {
+        return parseXml(resource).walkTree()
+            .filterIsInstance<XmlTag>()
+            .filter { it.namespace == namespaceUri && it.localName == localName }
+            .map { XpmShadowPsiElementFactory.create(it) as T }
+            .toList()
     }
 
     fun element(resource: String, localName: String): List<XmlTag> {

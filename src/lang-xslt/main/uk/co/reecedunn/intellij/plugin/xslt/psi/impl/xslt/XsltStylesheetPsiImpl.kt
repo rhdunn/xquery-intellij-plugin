@@ -13,23 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xslt.psi.impl
+package uk.co.reecedunn.intellij.plugin.xslt.psi.impl.xslt
 
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElement
-import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElementFactory
+import uk.co.reecedunn.intellij.plugin.xslt.ast.xslt.XsltStylesheet
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
-import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.xslt.XsltStylesheetPsiImpl
-import javax.xml.namespace.QName
 
-object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
-    override fun create(element: PsiElement, name: QName?): XpmShadowPsiElement? = when (name?.namespaceURI) {
-        XSLT.NAMESPACE -> createXsltElement(element, name.localPart)
-        else -> null
-    }
-
-    private fun createXsltElement(element: PsiElement, name: String): XpmShadowPsiElement? = when (name) {
-        "stylesheet" -> XsltStylesheetPsiImpl(element)
-        else -> null
-    }
-}
+class XsltStylesheetPsiImpl(element: PsiElement) : XpmShadowPsiElement(element, XSLT), XsltStylesheet

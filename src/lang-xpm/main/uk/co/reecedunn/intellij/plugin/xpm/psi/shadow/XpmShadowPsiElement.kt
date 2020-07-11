@@ -22,10 +22,11 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiElementVisitor
 import com.intellij.psi.PsiFile
 import com.intellij.psi.impl.light.LightElement
+import com.intellij.psi.util.elementType
 import com.intellij.psi.util.parents
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 
-abstract class XpmShadowPsiElement(private val shadowed: PsiElement, language: Language) :
+open class XpmShadowPsiElement(private val shadowed: PsiElement, language: Language) :
     LightElement(shadowed.manager, language) {
     // region LightElement
 
@@ -72,6 +73,8 @@ abstract class XpmShadowPsiElement(private val shadowed: PsiElement, language: L
     override fun getNextSibling(): PsiElement? {
         return shadowed.siblings().mapNotNull { XpmShadowPsiElementFactory.create(it) }.firstOrNull()
     }
+
+    override fun toString(): String = "${javaClass.simpleName}($elementType)"
 
     // endregion
 }
