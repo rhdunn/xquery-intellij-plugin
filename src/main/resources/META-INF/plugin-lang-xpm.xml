@@ -24,6 +24,11 @@
     <extensionPoint qualifiedName="uk.co.reecedunn.intellij.projectConfigurationFactory" beanClass="uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurationFactoryBean" dynamic="true">
       <with attribute="implementationClass" implements="uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurationFactory"/>
     </extensionPoint>
+
+    <!--suppress PluginXmlValidity -->
+    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.shadowPsiElementFactory" beanClass="uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElementFactoryBean" dynamic="true">
+      <with attribute="implementationClass" implements="uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElementFactory"/>
+    </extensionPoint>
   </extensionPoints>
 
   <extensions defaultExtensionNs="com.intellij">
