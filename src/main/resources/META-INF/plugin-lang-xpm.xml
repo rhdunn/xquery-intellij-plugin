@@ -69,6 +69,11 @@
     <importPathResolver implementationClass="uk.co.reecedunn.intellij.plugin.saxon.model.BuiltInFunctions" fieldName="INSTANCE"/>
 
     <!-- Function Decorators -->
+
     <functionDecorator implementationClass="uk.co.reecedunn.intellij.plugin.exquery.restxq.decorator.RestXqFunctionDecorator" fieldName="INSTANCE"/>
+
+    <!-- Shadow PSI Element Factories -->
+
+    <shadowPsiElementFactory implementationClass="uk.co.reecedunn.intellij.plugin.xslt.psi.impl.XsltShadowPsiElementFactory" fieldName="INSTANCE"/>
   </extensions>
 </idea-plugin>

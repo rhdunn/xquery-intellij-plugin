@@ -28,6 +28,8 @@ interface XpmShadowPsiElementFactory {
             "uk.co.reecedunn.intellij.shadowPsiElementFactory"
         )
 
+        private val factories: Sequence<XpmShadowPsiElementFactoryBean> get() = EP_NAME.extensionList.asSequence()
+
         private val SHADOW_PSI_ELEMENT: Key<Pair<QName?, XpmShadowPsiElement>> = Key.create("SHADOW_PSI_ELEMENT")
 
         fun create(element: PsiElement): XpmShadowPsiElement? {
@@ -39,12 +41,12 @@ interface XpmShadowPsiElementFactory {
                 }
             }
 
-            return EP_NAME.extensionList.asSequence().map { it.getInstance().create(element) }.firstOrNull()?.let {
+            return factories.map { it.getInstance().create(element, name) }.firstOrNull()?.let {
                 element.putUserData(SHADOW_PSI_ELEMENT, name to it)
                 it
             }
         }
     }
 
-    fun create(element: PsiElement): XpmShadowPsiElement?
+    fun create(element: PsiElement, name: QName?): XpmShadowPsiElement?
 }
