@@ -21,10 +21,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.xslt.ast.xslt.XsltImport
-import uk.co.reecedunn.intellij.plugin.xslt.ast.xslt.XsltInclude
-import uk.co.reecedunn.intellij.plugin.xslt.ast.xslt.XsltStylesheet
-import uk.co.reecedunn.intellij.plugin.xslt.ast.xslt.XsltTemplate
+import uk.co.reecedunn.intellij.plugin.xslt.ast.xslt.*
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
 import uk.co.reecedunn.intellij.plugin.xslt.tests.parser.ParserTestCase
 
@@ -138,6 +135,32 @@ private class XsltPsiTest : ParserTestCase() {
                 val psi = parse<XsltTemplate>(xml, XSLT.NAMESPACE, "template")[0]
 
                 assertThat(psi.parent, `is`(instanceOf(XsltStylesheet::class.java)))
+                assertThat(psi.children.size, `is`(0))
+                assertThat(psi.prevSibling, `is`(nullValue()))
+                assertThat(psi.nextSibling, `is`(nullValue()))
+
+                val parent = psi.parent!!
+                assertThat(parent.children.size, `is`(1))
+                assertThat(parent.children[0], `is`(sameInstance(psi)))
+            }
+        }
+
+        @Nested
+        @DisplayName("XSLT 3.0 (6.3) xsl:apply-templates")
+        internal inner class ApplyTemplates {
+            @Test
+            @DisplayName("hierarchy")
+            fun hierarchy() {
+                @Language("XML") val xml = """
+                    <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+                        <xsl:template match="lorem">
+                            <xsl:apply-templates select="ipsum"/>
+                        </xsl:template>
+                    </xsl:stylesheet>
+                """
+                val psi = parse<XsltApplyTemplates>(xml, XSLT.NAMESPACE, "apply-templates")[0]
+
+                assertThat(psi.parent, `is`(instanceOf(XsltTemplate::class.java)))
                 assertThat(psi.children.size, `is`(0))
                 assertThat(psi.prevSibling, `is`(nullValue()))
                 assertThat(psi.nextSibling, `is`(nullValue()))
