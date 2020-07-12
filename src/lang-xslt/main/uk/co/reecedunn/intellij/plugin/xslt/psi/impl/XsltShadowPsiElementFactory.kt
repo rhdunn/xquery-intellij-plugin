@@ -40,6 +40,7 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
         "namespace-alias" -> XsltNamespaceAliasPsiImpl(element)
         "stylesheet" -> XsltStylesheetPsiImpl(element)
         "template" -> XsltTemplatePsiImpl(element)
+        "text" -> XsltTextPsiImpl(element)
         "transform" -> XsltStylesheetPsiImpl(element)
         else -> null
     }
