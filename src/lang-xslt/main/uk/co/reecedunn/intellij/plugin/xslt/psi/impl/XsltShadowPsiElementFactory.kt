@@ -22,6 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.xslt.XsltImportPsiImpl
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.xslt.XsltIncludePsiImpl
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.xslt.XsltStylesheetPsiImpl
+import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.xslt.XsltTemplatePsiImpl
 import javax.xml.namespace.QName
 
 object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
@@ -34,6 +35,7 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
         "import" -> XsltImportPsiImpl(element)
         "include" -> XsltIncludePsiImpl(element)
         "stylesheet" -> XsltStylesheetPsiImpl(element)
+        "template" -> XsltTemplatePsiImpl(element)
         "transform" -> XsltStylesheetPsiImpl(element)
         else -> null
     }
