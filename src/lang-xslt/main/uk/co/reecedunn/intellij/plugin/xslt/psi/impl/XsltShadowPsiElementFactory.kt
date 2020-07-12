@@ -32,6 +32,7 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
         "apply-imports" -> XsltApplyImportsPsiImpl(element)
         "apply-templates" -> XsltApplyTemplatesPsiImpl(element)
         "call-template" -> XsltCallTemplatePsiImpl(element)
+        "element" -> XsltElementPsiImpl(element)
         "import" -> XsltImportPsiImpl(element)
         "include" -> XsltIncludePsiImpl(element)
         "namespace-alias" -> XsltNamespaceAliasPsiImpl(element)
