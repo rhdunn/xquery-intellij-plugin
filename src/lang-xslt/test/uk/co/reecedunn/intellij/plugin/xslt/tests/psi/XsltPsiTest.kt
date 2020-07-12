@@ -281,5 +281,31 @@ private class XsltPsiTest : ParserTestCase() {
                 assertThat(parent.children[0], `is`(sameInstance(psi)))
             }
         }
+
+        @Nested
+        @DisplayName("XSLT 3.0 (11.3) xsl:attribute")
+        internal inner class Attribute {
+            @Test
+            @DisplayName("hierarchy")
+            fun hierarchy() {
+                @Language("XML") val xml = """
+                    <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+                        <xsl:template match="lorem">
+                            <xsl:attribute name="ipsum"/>
+                        </xsl:template>
+                    </xsl:stylesheet>
+                """
+                val psi = parse<XsltAttribute>(xml, XSLT.NAMESPACE, "attribute")[0]
+
+                assertThat(psi.parent, `is`(instanceOf(XsltTemplate::class.java)))
+                assertThat(psi.children.size, `is`(0))
+                assertThat(psi.prevSibling, `is`(nullValue()))
+                assertThat(psi.nextSibling, `is`(nullValue()))
+
+                val parent = psi.parent!!
+                assertThat(parent.children.size, `is`(1))
+                assertThat(parent.children[0], `is`(sameInstance(psi)))
+            }
+        }
     }
 }
