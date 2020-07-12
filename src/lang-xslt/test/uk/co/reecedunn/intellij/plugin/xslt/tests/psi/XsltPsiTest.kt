@@ -227,4 +227,33 @@ private class XsltPsiTest : ParserTestCase() {
             }
         }
     }
+
+    @Nested
+    @DisplayName("XSLT 3.0 (11) Creating Nodes and Sequences")
+    internal inner class CreatingNodesAndSequences {
+        @Nested
+        @DisplayName("XSLT 3.0 (10.1) xsl:namespace-alias")
+        internal inner class NamespaceAlias {
+            @Test
+            @DisplayName("hierarchy")
+            fun hierarchy() {
+                @Language("XML") val xml = """
+                    <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                                    xmlns:axsl="urn:xslt:namespace-alias" version="1.0">
+                        <xsl:namespace-alias stylesheet-prefix="axsl" result-prefix="xsl"/>
+                    </xsl:stylesheet>
+                """
+                val psi = parse<XsltNamespaceAlias>(xml, XSLT.NAMESPACE, "namespace-alias")[0]
+
+                assertThat(psi.parent, `is`(instanceOf(XsltStylesheet::class.java)))
+                assertThat(psi.children.size, `is`(0))
+                assertThat(psi.prevSibling, `is`(nullValue()))
+                assertThat(psi.nextSibling, `is`(nullValue()))
+
+                val parent = psi.parent!!
+                assertThat(parent.children.size, `is`(1))
+                assertThat(parent.children[0], `is`(sameInstance(psi)))
+            }
+        }
+    }
 }
