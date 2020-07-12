@@ -30,6 +30,7 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
 
     private fun createXsltElement(element: PsiElement, name: String): XpmShadowPsiElement? = when (name) {
         "stylesheet" -> XsltStylesheetPsiImpl(element)
+        "transform" -> XsltStylesheetPsiImpl(element)
         else -> null
     }
 }
