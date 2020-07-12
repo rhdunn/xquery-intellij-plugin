@@ -170,5 +170,31 @@ private class XsltPsiTest : ParserTestCase() {
                 assertThat(parent.children[0], `is`(sameInstance(psi)))
             }
         }
+
+        @Nested
+        @DisplayName("XSLT 3.0 (6.8) xsl:apply-imports")
+        internal inner class ApplyImports {
+            @Test
+            @DisplayName("hierarchy")
+            fun hierarchy() {
+                @Language("XML") val xml = """
+                    <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+                        <xsl:template match="lorem">
+                            <xsl:apply-imports/>
+                        </xsl:template>
+                    </xsl:stylesheet>
+                """
+                val psi = parse<XsltApplyImports>(xml, XSLT.NAMESPACE, "apply-imports")[0]
+
+                assertThat(psi.parent, `is`(instanceOf(XsltTemplate::class.java)))
+                assertThat(psi.children.size, `is`(0))
+                assertThat(psi.prevSibling, `is`(nullValue()))
+                assertThat(psi.nextSibling, `is`(nullValue()))
+
+                val parent = psi.parent!!
+                assertThat(parent.children.size, `is`(1))
+                assertThat(parent.children[0], `is`(sameInstance(psi)))
+            }
+        }
     }
 }
