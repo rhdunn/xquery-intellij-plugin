@@ -19,6 +19,7 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElement
 import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElementFactory
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
+import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.xslt.XsltIncludePsiImpl
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.xslt.XsltStylesheetPsiImpl
 import javax.xml.namespace.QName
 
@@ -29,6 +30,7 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
     }
 
     private fun createXsltElement(element: PsiElement, name: String): XpmShadowPsiElement? = when (name) {
+        "include" -> XsltIncludePsiImpl(element)
         "stylesheet" -> XsltStylesheetPsiImpl(element)
         "transform" -> XsltStylesheetPsiImpl(element)
         else -> null

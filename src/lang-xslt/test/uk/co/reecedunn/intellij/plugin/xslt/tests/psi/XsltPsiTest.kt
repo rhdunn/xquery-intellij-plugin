@@ -21,6 +21,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.xslt.ast.xslt.XsltInclude
 import uk.co.reecedunn.intellij.plugin.xslt.ast.xslt.XsltStylesheet
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
 import uk.co.reecedunn.intellij.plugin.xslt.tests.parser.ParserTestCase
@@ -66,6 +67,30 @@ private class XsltPsiTest : ParserTestCase() {
                 assertThat(psi.children.size, `is`(0))
                 assertThat(psi.prevSibling, `is`(nullValue()))
                 assertThat(psi.nextSibling, `is`(nullValue()))
+            }
+        }
+
+        @Nested
+        @DisplayName("XSLT 3.0 (3.11.2) xsl:include")
+        internal inner class Include {
+            @Test
+            @DisplayName("hierarchy")
+            fun hierarchy() {
+                @Language("XML") val xml = """
+                    <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+                        <xsl:include href="test.xsl"/>
+                    </xsl:stylesheet>
+                """
+                val psi = parse<XsltInclude>(xml, XSLT.NAMESPACE, "include")[0]
+
+                assertThat(psi.parent, `is`(instanceOf(XsltStylesheet::class.java)))
+                assertThat(psi.children.size, `is`(0))
+                assertThat(psi.prevSibling, `is`(nullValue()))
+                assertThat(psi.nextSibling, `is`(nullValue()))
+
+                val parent = psi.parent!!
+                assertThat(parent.children.size, `is`(1))
+                assertThat(parent.children[0], `is`(sameInstance(psi)))
             }
         }
     }
