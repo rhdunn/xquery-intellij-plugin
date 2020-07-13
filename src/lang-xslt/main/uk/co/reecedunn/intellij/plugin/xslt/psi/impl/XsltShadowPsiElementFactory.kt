@@ -40,6 +40,7 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
         "copy-of" -> XsltCopyOfPsiImpl(element)
         "decimal-format" -> XsltDecimalFormatPsiImpl(element)
         "element" -> XsltElementPsiImpl(element)
+        "fallback" -> XsltFallbackPsiImpl(element)
         "for-each" -> XsltForEachPsiImpl(element)
         "if" -> XsltIfPsiImpl(element)
         "import" -> XsltImportPsiImpl(element)
