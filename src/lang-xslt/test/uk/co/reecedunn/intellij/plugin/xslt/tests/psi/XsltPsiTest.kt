@@ -140,6 +140,26 @@ private class XsltPsiTest : ParserTestCase() {
                 assertThat(psi.nextSibling, `is`(nullValue()))
             }
         }
+
+        @Nested
+        @DisplayName("XSLT 3.0 (4.4.2) xsl:preserve-space")
+        internal inner class PreserveSpace {
+            @Test
+            @DisplayName("hierarchy")
+            fun hierarchy() {
+                @Language("XML") val xml = """
+                    <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+                        <xsl:preserve-space/>
+                    </xsl:stylesheet>
+                """
+                val psi = parse<XsltPreserveSpace>(xml, XSLT.NAMESPACE, "preserve-space")[0]
+
+                assertThat(psi.parent, `is`(instanceOf(XsltStylesheet::class.java)))
+                assertThat(psi.children.size, `is`(0))
+                assertThat(psi.prevSibling, `is`(nullValue()))
+                assertThat(psi.nextSibling, `is`(nullValue()))
+            }
+        }
     }
 
     @Nested
