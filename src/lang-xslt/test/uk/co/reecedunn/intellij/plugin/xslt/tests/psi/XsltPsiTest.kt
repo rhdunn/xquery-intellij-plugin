@@ -886,4 +886,28 @@ private class XsltPsiTest : ParserTestCase() {
             }
         }
     }
+
+    @Nested
+    @DisplayName("XSLT 3.0 (26) Serialization")
+    internal inner class Serialization {
+        @Nested
+        @DisplayName("XSLT 3.0 (26) xsl:output")
+        internal inner class Output {
+            @Test
+            @DisplayName("hierarchy")
+            fun hierarchy() {
+                @Language("XML") val xml = """
+                    <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+                        <xsl:output method="xml"/>
+                    </xsl:stylesheet>
+                """
+                val psi = parse<XsltOutput>(xml, XSLT.NAMESPACE, "output")[0]
+
+                assertThat(psi.parent, `is`(instanceOf(XsltStylesheet::class.java)))
+                assertThat(psi.children.size, `is`(0))
+                assertThat(psi.prevSibling, `is`(nullValue()))
+                assertThat(psi.nextSibling, `is`(nullValue()))
+            }
+        }
+    }
 }
