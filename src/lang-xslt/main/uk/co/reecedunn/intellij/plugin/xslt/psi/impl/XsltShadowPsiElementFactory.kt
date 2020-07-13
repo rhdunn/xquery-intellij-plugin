@@ -38,6 +38,7 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
         "copy" -> XsltCopyPsiImpl(element)
         "element" -> XsltElementPsiImpl(element)
         "for-each" -> XsltForEachPsiImpl(element)
+        "if" -> XsltIfPsiImpl(element)
         "import" -> XsltImportPsiImpl(element)
         "include" -> XsltIncludePsiImpl(element)
         "namespace-alias" -> XsltNamespaceAliasPsiImpl(element)
