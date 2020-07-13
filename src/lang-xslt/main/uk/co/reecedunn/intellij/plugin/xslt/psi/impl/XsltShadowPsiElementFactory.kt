@@ -43,6 +43,7 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
         "if" -> XsltIfPsiImpl(element)
         "import" -> XsltImportPsiImpl(element)
         "include" -> XsltIncludePsiImpl(element)
+        "key" -> XsltKeyPsiImpl(element)
         "namespace-alias" -> XsltNamespaceAliasPsiImpl(element)
         "number" -> XsltNumberPsiImpl(element)
         "otherwise" -> XsltOtherwisePsiImpl(element)
