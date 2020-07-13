@@ -37,6 +37,7 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
         "choose" -> XsltChoosePsiImpl(element)
         "comment" -> XsltCommentPsiImpl(element)
         "copy" -> XsltCopyPsiImpl(element)
+        "copy-of" -> XsltCopyOfPsiImpl(element)
         "element" -> XsltElementPsiImpl(element)
         "for-each" -> XsltForEachPsiImpl(element)
         "if" -> XsltIfPsiImpl(element)
