@@ -38,6 +38,7 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
         "comment" -> XsltCommentPsiImpl(element)
         "copy" -> XsltCopyPsiImpl(element)
         "copy-of" -> XsltCopyOfPsiImpl(element)
+        "decimal-format" -> XsltDecimalFormatPsiImpl(element)
         "element" -> XsltElementPsiImpl(element)
         "for-each" -> XsltForEachPsiImpl(element)
         "if" -> XsltIfPsiImpl(element)
