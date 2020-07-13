@@ -45,6 +45,7 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
         "template" -> XsltTemplatePsiImpl(element)
         "text" -> XsltTextPsiImpl(element)
         "transform" -> XsltStylesheetPsiImpl(element)
+        "value-of" -> XsltValueOfPsiImpl(element)
         else -> null
     }
 }
