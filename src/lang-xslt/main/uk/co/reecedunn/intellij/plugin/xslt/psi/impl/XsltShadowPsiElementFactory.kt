@@ -54,6 +54,7 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
         "param" -> XsltParamPsiImpl(element)
         "processing-instruction" -> XsltProcessingInstructionPsiImpl(element)
         "sort" -> XsltSortPsiImpl(element)
+        "strip-space" -> XsltStripSpacePsiImpl(element)
         "stylesheet" -> XsltStylesheetPsiImpl(element)
         "template" -> XsltTemplatePsiImpl(element)
         "text" -> XsltTextPsiImpl(element)
