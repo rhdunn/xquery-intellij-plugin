@@ -52,6 +52,7 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
         "text" -> XsltTextPsiImpl(element)
         "transform" -> XsltStylesheetPsiImpl(element)
         "value-of" -> XsltValueOfPsiImpl(element)
+        "variable" -> XsltVariablePsiImpl(element)
         "when" -> XsltWhenPsiImpl(element)
         else -> null
     }
