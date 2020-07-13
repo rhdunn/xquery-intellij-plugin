@@ -462,4 +462,35 @@ private class XsltPsiTest : ParserTestCase() {
             }
         }
     }
+
+    @Nested
+    @DisplayName("XSLT 3.0 (12) Numbering")
+    internal inner class Numbering {
+        @Nested
+        @DisplayName("XSLT 3.0 (12) xsl:number")
+        internal inner class Number {
+            @Test
+            @DisplayName("hierarchy")
+            fun hierarchy() {
+                @Language("XML") val xml = """
+                    <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                                    xmlns:axsl="urn:xslt:namespace-alias" version="1.0">
+                        <xsl:template match="lorem">
+                            <xsl:number value="1234"/>
+                        </xsl:template>
+                    </xsl:stylesheet>
+                """
+                val psi = parse<XsltNumber>(xml, XSLT.NAMESPACE, "number")[0]
+
+                assertThat(psi.parent, `is`(instanceOf(XsltTemplate::class.java)))
+                assertThat(psi.children.size, `is`(0))
+                assertThat(psi.prevSibling, `is`(nullValue()))
+                assertThat(psi.nextSibling, `is`(nullValue()))
+
+                val parent = psi.parent!!
+                assertThat(parent.children.size, `is`(1))
+                assertThat(parent.children[0], `is`(sameInstance(psi)))
+            }
+        }
+    }
 }

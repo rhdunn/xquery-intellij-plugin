@@ -40,6 +40,7 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
         "import" -> XsltImportPsiImpl(element)
         "include" -> XsltIncludePsiImpl(element)
         "namespace-alias" -> XsltNamespaceAliasPsiImpl(element)
+        "number" -> XsltNumberPsiImpl(element)
         "processing-instruction" -> XsltProcessingInstructionPsiImpl(element)
         "stylesheet" -> XsltStylesheetPsiImpl(element)
         "template" -> XsltTemplatePsiImpl(element)
