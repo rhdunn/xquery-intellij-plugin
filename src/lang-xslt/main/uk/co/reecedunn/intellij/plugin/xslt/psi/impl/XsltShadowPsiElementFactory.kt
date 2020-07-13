@@ -45,6 +45,7 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
         "namespace-alias" -> XsltNamespaceAliasPsiImpl(element)
         "number" -> XsltNumberPsiImpl(element)
         "otherwise" -> XsltOtherwisePsiImpl(element)
+        "param" -> XsltParamPsiImpl(element)
         "processing-instruction" -> XsltProcessingInstructionPsiImpl(element)
         "sort" -> XsltSortPsiImpl(element)
         "stylesheet" -> XsltStylesheetPsiImpl(element)
