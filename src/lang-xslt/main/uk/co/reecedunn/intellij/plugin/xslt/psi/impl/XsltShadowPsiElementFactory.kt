@@ -46,6 +46,7 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
         "number" -> XsltNumberPsiImpl(element)
         "otherwise" -> XsltOtherwisePsiImpl(element)
         "processing-instruction" -> XsltProcessingInstructionPsiImpl(element)
+        "sort" -> XsltSortPsiImpl(element)
         "stylesheet" -> XsltStylesheetPsiImpl(element)
         "template" -> XsltTemplatePsiImpl(element)
         "text" -> XsltTextPsiImpl(element)
