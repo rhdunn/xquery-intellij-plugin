@@ -41,12 +41,19 @@ interface XpmShadowPsiElementFactory {
                 }
             }
 
-            return factories.map { it.getInstance().create(element, name) }.firstOrNull()?.let {
+            factories.map { it.getInstance().create(element, name) }.firstOrNull()?.let {
                 element.putUserData(SHADOW_PSI_ELEMENT, name to it)
-                it
+                return it
+            }
+
+            return factories.map { it.getInstance().createDefault(element) }.firstOrNull()?.let {
+                element.putUserData(SHADOW_PSI_ELEMENT, name to it)
+                return it
             }
         }
     }
 
     fun create(element: PsiElement, name: QName?): XpmShadowPsiElement?
+
+    fun createDefault(element: PsiElement): XpmShadowPsiElement?
 }

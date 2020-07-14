@@ -21,6 +21,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.xslt.ast.xml.XsltDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xslt.ast.xslt.*
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
 import uk.co.reecedunn.intellij.plugin.xslt.tests.parser.ParserTestCase
@@ -28,6 +29,32 @@ import uk.co.reecedunn.intellij.plugin.xslt.tests.parser.ParserTestCase
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("XSLT 3.0 - IntelliJ Program Structure Interface (PSI)")
 private class XsltPsiTest : ParserTestCase() {
+    @Nested
+    @DisplayName("XSLT 3.0 Direct XML Elements")
+    internal inner class DirectXmlElements {
+        @Test
+        @DisplayName("hierarchy")
+        fun hierarchy() {
+            @Language("XML") val xml = """
+                <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+                    <xsl:template match="lorem">
+                        <lorem-ipsum/>
+                    </xsl:template>
+                </xsl:stylesheet>
+            """
+            val psi = parse<XsltDirElemConstructor>(xml, "", "lorem-ipsum")[0]
+
+            assertThat(psi.parent, `is`(instanceOf(XsltTemplate::class.java)))
+            assertThat(psi.children.size, `is`(0))
+            assertThat(psi.prevSibling, `is`(nullValue()))
+            assertThat(psi.nextSibling, `is`(nullValue()))
+
+            val parent = psi.parent!!
+            assertThat(parent.children.size, `is`(1))
+            assertThat(parent.children[0], `is`(sameInstance(psi)))
+        }
+    }
+
     @Nested
     @DisplayName("XSLT 3.0 (3) Stylesheet Structure")
     internal inner class StylesheetStructure {
@@ -138,6 +165,10 @@ private class XsltPsiTest : ParserTestCase() {
                 assertThat(psi.children.size, `is`(0))
                 assertThat(psi.prevSibling, `is`(nullValue()))
                 assertThat(psi.nextSibling, `is`(nullValue()))
+
+                val parent = psi.parent!!
+                assertThat(parent.children.size, `is`(1))
+                assertThat(parent.children[0], `is`(sameInstance(psi)))
             }
         }
 
@@ -158,6 +189,10 @@ private class XsltPsiTest : ParserTestCase() {
                 assertThat(psi.children.size, `is`(0))
                 assertThat(psi.prevSibling, `is`(nullValue()))
                 assertThat(psi.nextSibling, `is`(nullValue()))
+
+                val parent = psi.parent!!
+                assertThat(parent.children.size, `is`(1))
+                assertThat(parent.children[0], `is`(sameInstance(psi)))
             }
         }
     }
@@ -923,10 +958,14 @@ private class XsltPsiTest : ParserTestCase() {
                 """
                 val psi = parse<XsltFallback>(xml, XSLT.NAMESPACE, "fallback")[0]
 
-                assertThat(psi.parent, `is`(nullValue()))
+                assertThat(psi.parent, `is`(instanceOf(XsltDirElemConstructor::class.java)))
                 assertThat(psi.children.size, `is`(0))
                 assertThat(psi.prevSibling, `is`(nullValue()))
                 assertThat(psi.nextSibling, `is`(nullValue()))
+
+                val parent = psi.parent!!
+                assertThat(parent.children.size, `is`(1))
+                assertThat(parent.children[0], `is`(sameInstance(psi)))
             }
         }
     }
@@ -951,6 +990,10 @@ private class XsltPsiTest : ParserTestCase() {
                 assertThat(psi.children.size, `is`(0))
                 assertThat(psi.prevSibling, `is`(nullValue()))
                 assertThat(psi.nextSibling, `is`(nullValue()))
+
+                val parent = psi.parent!!
+                assertThat(parent.children.size, `is`(1))
+                assertThat(parent.children[0], `is`(sameInstance(psi)))
             }
         }
     }

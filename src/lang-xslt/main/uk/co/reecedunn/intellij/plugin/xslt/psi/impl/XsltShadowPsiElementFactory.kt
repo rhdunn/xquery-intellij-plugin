@@ -16,15 +16,26 @@
 package uk.co.reecedunn.intellij.plugin.xslt.psi.impl
 
 import com.intellij.psi.PsiElement
+import com.intellij.psi.xml.XmlTag
+import com.intellij.psi.xml.XmlToken
+import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElement
 import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElementFactory
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
+import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.xml.XsltDirElemConstructorPsiImpl
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.xslt.*
 import javax.xml.namespace.QName
 
 object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
     override fun create(element: PsiElement, name: QName?): XpmShadowPsiElement? = when (name?.namespaceURI) {
         XSLT.NAMESPACE -> createXsltElement(element, name.localPart)
+        else -> null
+    }
+
+    override fun createDefault(element: PsiElement): XpmShadowPsiElement? = when (element) {
+        is XmlTag -> element.ancestors().filterIsInstance<XmlTag>().find { it.namespace == XSLT.NAMESPACE }?.let {
+            XsltDirElemConstructorPsiImpl(element)
+        }
         else -> null
     }
 
