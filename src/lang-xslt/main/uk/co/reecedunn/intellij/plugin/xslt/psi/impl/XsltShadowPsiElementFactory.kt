@@ -60,6 +60,7 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
         "key" -> XsltKeyPsiImpl(element)
         "message" -> XsltMessagePsiImpl(element)
         "namespace-alias" -> XsltNamespaceAliasPsiImpl(element)
+        "next-match" -> XsltNextMatchPsiImpl(element)
         "number" -> XsltNumberPsiImpl(element)
         "otherwise" -> XsltOtherwisePsiImpl(element)
         "output" -> XsltOutputPsiImpl(element)
