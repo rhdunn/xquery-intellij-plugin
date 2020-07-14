@@ -70,6 +70,7 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
         "param" -> XsltParamPsiImpl(element)
         "preserve-space" -> XsltPreserveSpacePsiImpl(element)
         "processing-instruction" -> XsltProcessingInstructionPsiImpl(element)
+        "sequence" -> XsltSequencePsiImpl(element)
         "sort" -> XsltSortPsiImpl(element)
         "strip-space" -> XsltStripSpacePsiImpl(element)
         "stylesheet" -> XsltStylesheetPsiImpl(element)
