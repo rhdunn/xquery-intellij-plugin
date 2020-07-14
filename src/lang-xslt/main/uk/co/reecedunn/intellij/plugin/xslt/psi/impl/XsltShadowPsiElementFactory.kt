@@ -55,6 +55,7 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
         "for-each" -> XsltForEachPsiImpl(element)
         "if" -> XsltIfPsiImpl(element)
         "import" -> XsltImportPsiImpl(element)
+        "import-schema" -> XsltImportSchemaPsiImpl(element)
         "include" -> XsltIncludePsiImpl(element)
         "key" -> XsltKeyPsiImpl(element)
         "message" -> XsltMessagePsiImpl(element)
