@@ -152,6 +152,32 @@ private class XsltPsiTest : ParserTestCase() {
         }
 
         @Nested
+        @DisplayName("XSLT 3.0 (3.5.3.3) xsl:override")
+        internal inner class Override {
+            @Test
+            @DisplayName("hierarchy")
+            fun hierarchy() {
+                @Language("XML") val xml = """
+                    <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="3.0">
+                        <xsl:use-package name="urn:lorem:ipsum">
+                            <xsl:override/>
+                        </xsl:use-package>
+                    </xsl:stylesheet>
+                """
+                val psi = parse<XsltOverride>(xml, XSLT.NAMESPACE, "override")[0]
+
+                assertThat(psi.parent, `is`(instanceOf(XsltUsePackage::class.java)))
+                assertThat(psi.children.size, `is`(0))
+                assertThat(psi.prevSibling, `is`(nullValue()))
+                assertThat(psi.nextSibling, `is`(nullValue()))
+
+                val parent = psi.parent!!
+                assertThat(parent.children.size, `is`(1))
+                assertThat(parent.children[0], `is`(sameInstance(psi)))
+            }
+        }
+
+        @Nested
         @DisplayName("XSLT 3.0 (3.7) xsl:stylesheet")
         internal inner class Stylesheet {
             @Test

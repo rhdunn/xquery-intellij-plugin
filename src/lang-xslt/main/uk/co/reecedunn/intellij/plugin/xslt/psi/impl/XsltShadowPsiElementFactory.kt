@@ -75,6 +75,7 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
         "otherwise" -> XsltOtherwisePsiImpl(element)
         "output" -> XsltOutputPsiImpl(element)
         "output-character" -> XsltOutputCharacterPsiImpl(element)
+        "override" -> XsltOverridePsiImpl(element)
         "package" -> XsltPackagePsiImpl(element)
         "param" -> XsltParamPsiImpl(element)
         "perform-sort" -> XsltPerformSortPsiImpl(element)
