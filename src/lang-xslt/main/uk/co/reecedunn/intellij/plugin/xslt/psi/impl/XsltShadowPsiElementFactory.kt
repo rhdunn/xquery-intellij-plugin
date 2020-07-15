@@ -68,6 +68,7 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
         "key" -> XsltKeyPsiImpl(element)
         "matching-substring" -> XsltMatchingSubstringPsiImpl(element)
         "message" -> XsltMessagePsiImpl(element)
+        "mode" -> XsltModePsiImpl(element)
         "namespace" -> XsltNamespacePsiImpl(element)
         "namespace-alias" -> XsltNamespaceAliasPsiImpl(element)
         "next-match" -> XsltNextMatchPsiImpl(element)
