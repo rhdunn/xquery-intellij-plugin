@@ -102,6 +102,30 @@ private class XsltPsiTest : ParserTestCase() {
         }
 
         @Nested
+        @DisplayName("XSLT 3.0 (3.5.3.1) xsl:expose")
+        internal inner class Expose {
+            @Test
+            @DisplayName("hierarchy")
+            fun hierarchy() {
+                @Language("XML") val xml = """
+                    <xsl:package xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="3.0">
+                        <xsl:expose names="lorem ipsum"/>
+                    </xsl:package>
+                """
+                val psi = parse<XsltExpose>(xml, XSLT.NAMESPACE, "expose")[0]
+
+                assertThat(psi.parent, `is`(instanceOf(XsltPackage::class.java)))
+                assertThat(psi.children.size, `is`(0))
+                assertThat(psi.prevSibling, `is`(nullValue()))
+                assertThat(psi.nextSibling, `is`(nullValue()))
+
+                val parent = psi.parent!!
+                assertThat(parent.children.size, `is`(1))
+                assertThat(parent.children[0], `is`(sameInstance(psi)))
+            }
+        }
+
+        @Nested
         @DisplayName("XSLT 3.0 (3.7) xsl:stylesheet")
         internal inner class Stylesheet {
             @Test
