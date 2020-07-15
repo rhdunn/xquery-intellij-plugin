@@ -59,6 +59,25 @@ private class XsltPsiTest : ParserTestCase() {
     @DisplayName("XSLT 3.0 (3) Stylesheet Structure")
     internal inner class StylesheetStructure {
         @Nested
+        @DisplayName("XSLT 3.0 (3.5) xsl:package")
+        internal inner class Package {
+            @Test
+            @DisplayName("hierarchy")
+            fun hierarchy() {
+                @Language("XML") val xml = """
+                    <xsl:package xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="3.0">
+                    </xsl:package>
+                """
+                val psi = parse<XsltPackage>(xml, XSLT.NAMESPACE, "package")[0]
+
+                assertThat(psi.parent, `is`(nullValue()))
+                assertThat(psi.children.size, `is`(0))
+                assertThat(psi.prevSibling, `is`(nullValue()))
+                assertThat(psi.nextSibling, `is`(nullValue()))
+            }
+        }
+
+        @Nested
         @DisplayName("XSLT 3.0 (3.7) xsl:stylesheet")
         internal inner class Stylesheet {
             @Test
