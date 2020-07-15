@@ -46,6 +46,7 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
         "attribute" -> XsltAttributePsiImpl(element)
         "attribute-set" -> XsltAttributeSetPsiImpl(element)
         "call-template" -> XsltCallTemplatePsiImpl(element)
+        "character-map" -> XsltCharacterMapPsiImpl(element)
         "choose" -> XsltChoosePsiImpl(element)
         "comment" -> XsltCommentPsiImpl(element)
         "copy" -> XsltCopyPsiImpl(element)
