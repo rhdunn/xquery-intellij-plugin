@@ -60,6 +60,7 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
         "for-each" -> XsltForEachPsiImpl(element)
         "for-each-group" -> XsltForEachGroupPsiImpl(element)
         "function" -> XsltFunctionPsiImpl(element)
+        "global-context-item" -> XsltGlobalContextItemPsiImpl(element)
         "if" -> XsltIfPsiImpl(element)
         "import" -> XsltImportPsiImpl(element)
         "import-schema" -> XsltImportSchemaPsiImpl(element)
