@@ -75,6 +75,7 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
         "perform-sort" -> XsltPerformSortPsiImpl(element)
         "preserve-space" -> XsltPreserveSpacePsiImpl(element)
         "processing-instruction" -> XsltProcessingInstructionPsiImpl(element)
+        "result-document" -> XsltResultDocumentPsiImpl(element)
         "sequence" -> XsltSequencePsiImpl(element)
         "sort" -> XsltSortPsiImpl(element)
         "strip-space" -> XsltStripSpacePsiImpl(element)
