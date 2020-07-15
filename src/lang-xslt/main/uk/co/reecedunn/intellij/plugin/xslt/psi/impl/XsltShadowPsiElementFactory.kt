@@ -62,6 +62,7 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
         "import-schema" -> XsltImportSchemaPsiImpl(element)
         "include" -> XsltIncludePsiImpl(element)
         "key" -> XsltKeyPsiImpl(element)
+        "matching-substring" -> XsltMatchingSubstringPsiImpl(element)
         "message" -> XsltMessagePsiImpl(element)
         "namespace" -> XsltNamespacePsiImpl(element)
         "namespace-alias" -> XsltNamespaceAliasPsiImpl(element)
