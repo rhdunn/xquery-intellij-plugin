@@ -40,6 +40,7 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
     }
 
     private fun createXsltElement(element: PsiElement, name: String): XpmShadowPsiElement? = when (name) {
+        "analyze-string" -> XsltAnalyzeStringPsiImpl(element)
         "apply-imports" -> XsltApplyImportsPsiImpl(element)
         "apply-templates" -> XsltApplyTemplatesPsiImpl(element)
         "attribute" -> XsltAttributePsiImpl(element)
