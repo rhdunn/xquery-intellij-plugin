@@ -1344,5 +1344,31 @@ private class XsltPsiTest : ParserTestCase() {
                 assertThat(parent.children[0], `is`(sameInstance(psi)))
             }
         }
+
+        @Nested
+        @DisplayName("XSLT 3.0 (26.1) xsl:output-character")
+        internal inner class OutputCharacter {
+            @Test
+            @DisplayName("hierarchy")
+            fun hierarchy() {
+                @Language("XML") val xml = """
+                    <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0">
+                        <xsl:character-map name="lorem-ipsum">
+                            <xsl:output-character character="<" string="&lt;"/>
+                        </xsl:character-map>
+                    </xsl:stylesheet>
+                """
+                val psi = parse<XsltOutputCharacter>(xml, XSLT.NAMESPACE, "output-character")[0]
+
+                assertThat(psi.parent, `is`(instanceOf(XsltCharacterMap::class.java)))
+                assertThat(psi.children.size, `is`(0))
+                assertThat(psi.prevSibling, `is`(nullValue()))
+                assertThat(psi.nextSibling, `is`(nullValue()))
+
+                val parent = psi.parent!!
+                assertThat(parent.children.size, `is`(1))
+                assertThat(parent.children[0], `is`(sameInstance(psi)))
+            }
+        }
     }
 }
