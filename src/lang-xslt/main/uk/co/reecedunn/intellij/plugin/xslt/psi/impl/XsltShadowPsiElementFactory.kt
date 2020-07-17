@@ -101,6 +101,7 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
         "value-of" -> XsltValueOfPsiImpl(element)
         "variable" -> XsltVariablePsiImpl(element)
         "when" -> XsltWhenPsiImpl(element)
+        "where-populated" -> XsltWherePopulatedPsiImpl(element)
         "with-param" -> XsltWithParamPsiImpl(element)
         else -> null
     }
