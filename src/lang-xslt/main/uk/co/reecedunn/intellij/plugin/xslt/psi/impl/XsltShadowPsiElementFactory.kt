@@ -51,6 +51,7 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
         "character-map" -> XsltCharacterMapPsiImpl(element)
         "choose" -> XsltChoosePsiImpl(element)
         "comment" -> XsltCommentPsiImpl(element)
+        "context-item" -> XsltContextItemPsiImpl(element)
         "copy" -> XsltCopyPsiImpl(element)
         "copy-of" -> XsltCopyOfPsiImpl(element)
         "decimal-format" -> XsltDecimalFormatPsiImpl(element)
