@@ -1554,6 +1554,36 @@ private class XsltPsiTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XSLT 3.0 (15) Merging")
+    internal inner class Merging {
+        @Nested
+        @DisplayName("XSLT 3.0 (15.2) xsl:merge")
+        internal inner class Merge {
+            @Test
+            @DisplayName("hierarchy")
+            fun hierarchy() {
+                @Language("XML") val xml = """
+                    <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="3.0">
+                        <xsl:template match="lorem">
+                            <xsl:merge/>
+                        </xsl:template>
+                    </xsl:stylesheet>
+                """
+                val psi = parse<XsltMerge>(xml, XSLT.NAMESPACE, "merge")[0]
+
+                assertThat(psi.parent, `is`(instanceOf(XsltTemplate::class.java)))
+                assertThat(psi.children.size, `is`(0))
+                assertThat(psi.prevSibling, `is`(nullValue()))
+                assertThat(psi.nextSibling, `is`(nullValue()))
+
+                val parent = psi.parent!!
+                assertThat(parent.children.size, `is`(1))
+                assertThat(parent.children[0], `is`(sameInstance(psi)))
+            }
+        }
+    }
+
+    @Nested
     @DisplayName("XSLT 3.0 (17) Regular Expressions")
     internal inner class RegularExpressions {
         @Nested
