@@ -99,6 +99,7 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
         "result-document" -> XsltResultDocumentPsiImpl(element)
         "sequence" -> XsltSequencePsiImpl(element)
         "sort" -> XsltSortPsiImpl(element)
+        "source-document" -> XsltSourceDocumentPsiImpl(element)
         "strip-space" -> XsltStripSpacePsiImpl(element)
         "stylesheet" -> XsltStylesheetPsiImpl(element)
         "template" -> XsltTemplatePsiImpl(element)
