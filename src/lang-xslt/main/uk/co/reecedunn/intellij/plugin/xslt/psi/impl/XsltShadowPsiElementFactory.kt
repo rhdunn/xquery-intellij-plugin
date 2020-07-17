@@ -17,7 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xslt.psi.impl
 
 import com.intellij.psi.PsiElement
 import com.intellij.psi.xml.XmlTag
-import com.intellij.psi.xml.XmlToken
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElement
 import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElementFactory
@@ -80,6 +79,7 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
         "number" -> XsltNumberPsiImpl(element)
         "on-completion" -> XsltOnCompletionPsiImpl(element)
         "on-empty" -> XsltOnEmptyPsiImpl(element)
+        "on-non-empty" -> XsltOnNonEmptyPsiImpl(element)
         "otherwise" -> XsltOtherwisePsiImpl(element)
         "output" -> XsltOutputPsiImpl(element)
         "output-character" -> XsltOutputCharacterPsiImpl(element)
