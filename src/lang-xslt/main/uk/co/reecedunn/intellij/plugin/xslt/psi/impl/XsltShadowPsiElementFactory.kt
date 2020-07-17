@@ -72,6 +72,7 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
         "key" -> XsltKeyPsiImpl(element)
         "matching-substring" -> XsltMatchingSubstringPsiImpl(element)
         "merge" -> XsltMergePsiImpl(element)
+        "merge-source" -> XsltMergeSourcePsiImpl(element)
         "message" -> XsltMessagePsiImpl(element)
         "mode" -> XsltModePsiImpl(element)
         "namespace" -> XsltNamespacePsiImpl(element)
