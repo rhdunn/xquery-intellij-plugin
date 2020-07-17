@@ -73,6 +73,7 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
         "include" -> XsltIncludePsiImpl(element)
         "iterate" -> XsltIteratePsiImpl(element)
         "key" -> XsltKeyPsiImpl(element)
+        "map" -> XsltMapPsiImpl(element)
         "matching-substring" -> XsltMatchingSubstringPsiImpl(element)
         "merge" -> XsltMergePsiImpl(element)
         "merge-action" -> XsltMergeActionPsiImpl(element)
