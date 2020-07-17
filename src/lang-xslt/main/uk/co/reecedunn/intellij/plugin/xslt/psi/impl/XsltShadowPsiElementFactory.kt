@@ -95,6 +95,7 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
         "template" -> XsltTemplatePsiImpl(element)
         "text" -> XsltTextPsiImpl(element)
         "transform" -> XsltStylesheetPsiImpl(element)
+        "try" -> XsltTryPsiImpl(element)
         "use-package" -> XsltUsePackagePsiImpl(element)
         "value-of" -> XsltValueOfPsiImpl(element)
         "variable" -> XsltVariablePsiImpl(element)
