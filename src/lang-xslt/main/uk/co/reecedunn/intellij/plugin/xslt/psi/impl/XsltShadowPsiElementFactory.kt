@@ -57,6 +57,7 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
         "decimal-format" -> XsltDecimalFormatPsiImpl(element)
         "document" -> XsltDocumentPsiImpl(element)
         "element" -> XsltElementPsiImpl(element)
+        "evaluate" -> XsltEvaluatePsiImpl(element)
         "expose" -> XsltExposePsiImpl(element)
         "fallback" -> XsltFallbackPsiImpl(element)
         "for-each" -> XsltForEachPsiImpl(element)
