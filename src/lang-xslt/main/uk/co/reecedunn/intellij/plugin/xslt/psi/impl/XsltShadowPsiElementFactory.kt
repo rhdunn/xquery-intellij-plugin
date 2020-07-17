@@ -45,6 +45,7 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
         "analyze-string" -> XsltAnalyzeStringPsiImpl(element)
         "apply-imports" -> XsltApplyImportsPsiImpl(element)
         "apply-templates" -> XsltApplyTemplatesPsiImpl(element)
+        "assert" -> XsltAssertPsiImpl(element)
         "attribute" -> XsltAttributePsiImpl(element)
         "attribute-set" -> XsltAttributeSetPsiImpl(element)
         "break" -> XsltBreakPsiImpl(element)
