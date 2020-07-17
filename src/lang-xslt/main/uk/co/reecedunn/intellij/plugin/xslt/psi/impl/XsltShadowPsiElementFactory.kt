@@ -79,6 +79,7 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
         "non-matching-substring" -> XsltNonMatchingSubstringPsiImpl(element)
         "number" -> XsltNumberPsiImpl(element)
         "on-completion" -> XsltOnCompletionPsiImpl(element)
+        "on-empty" -> XsltOnEmptyPsiImpl(element)
         "otherwise" -> XsltOtherwisePsiImpl(element)
         "output" -> XsltOutputPsiImpl(element)
         "output-character" -> XsltOutputCharacterPsiImpl(element)
