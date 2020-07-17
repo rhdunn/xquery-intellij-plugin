@@ -22,8 +22,8 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiElementVisitor
 import com.intellij.psi.PsiFile
 import com.intellij.psi.impl.light.LightElement
-import com.intellij.psi.util.elementType
-import com.intellij.psi.util.parents
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
+import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 
 open class XpmShadowPsiElement(private val shadowed: PsiElement, language: Language) :
@@ -31,7 +31,7 @@ open class XpmShadowPsiElement(private val shadowed: PsiElement, language: Langu
     // region LightElement
 
     override fun getParent(): PsiElement? {
-        return shadowed.parents.map { XpmShadowPsiElementFactory.create(it) }.firstOrNull()
+        return shadowed.ancestors().map { XpmShadowPsiElementFactory.create(it) }.firstOrNull()
     }
 
     override fun getChildren(): Array<PsiElement> {
