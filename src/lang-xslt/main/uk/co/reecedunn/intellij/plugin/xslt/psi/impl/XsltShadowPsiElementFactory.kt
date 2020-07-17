@@ -62,6 +62,7 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
         "fallback" -> XsltFallbackPsiImpl(element)
         "for-each" -> XsltForEachPsiImpl(element)
         "for-each-group" -> XsltForEachGroupPsiImpl(element)
+        "fork" -> XsltForkPsiImpl(element)
         "function" -> XsltFunctionPsiImpl(element)
         "global-context-item" -> XsltGlobalContextItemPsiImpl(element)
         "if" -> XsltIfPsiImpl(element)
