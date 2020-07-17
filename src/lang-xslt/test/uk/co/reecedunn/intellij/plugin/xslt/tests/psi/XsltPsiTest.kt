@@ -1609,6 +1609,36 @@ private class XsltPsiTest : ParserTestCase() {
                 assertThat(parent.children[0], `is`(sameInstance(psi)))
             }
         }
+
+        @Nested
+        @DisplayName("XSLT 3.0 (15.5) xsl:merge-key")
+        internal inner class MergeKey {
+            @Test
+            @DisplayName("hierarchy")
+            fun hierarchy() {
+                @Language("XML") val xml = """
+                    <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="3.0">
+                        <xsl:template match="lorem">
+                            <xsl:merge>
+                                <xsl:merge-source select="ipsum">
+                                    <xsl:merge-key select="dolor"/>
+                                </xsl:merge-source>
+                            </xsl:merge>
+                        </xsl:template>
+                    </xsl:stylesheet>
+                """
+                val psi = parse<XsltMergeKey>(xml, XSLT.NAMESPACE, "merge-key")[0]
+
+                assertThat(psi.parent, `is`(instanceOf(XsltMergeSource::class.java)))
+                assertThat(psi.children.size, `is`(0))
+                assertThat(psi.prevSibling, `is`(nullValue()))
+                assertThat(psi.nextSibling, `is`(nullValue()))
+
+                val parent = psi.parent!!
+                assertThat(parent.children.size, `is`(1))
+                assertThat(parent.children[0], `is`(sameInstance(psi)))
+            }
+        }
     }
 
     @Nested
