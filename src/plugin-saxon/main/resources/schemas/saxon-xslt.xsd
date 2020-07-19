@@ -47,6 +47,15 @@
     </xs:complexType>
   </xs:element>
 
+  <xs:element name="delete">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:attribute name="select" type="xsl:expression"/>
+        <xs:assert test="exists(@select)"/>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
   <xs:element name="do">
     <xs:complexType>
       <xs:complexContent>
@@ -119,6 +128,9 @@
       <xs:complexContent>
         <xs:attribute name="select" type="xsl:expression"/>
         <xs:assert test="exists(@select)"/>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element ref="saxon:delete"/>
+        </xs:choice>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>

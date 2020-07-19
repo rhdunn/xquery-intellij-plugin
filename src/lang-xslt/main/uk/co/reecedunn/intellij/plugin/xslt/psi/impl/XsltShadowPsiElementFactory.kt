@@ -128,6 +128,7 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
         "array-member" -> SaxonArrayMemberPsiImpl(element)
         "assign" -> SaxonAssignPsiImpl(element)
         "deep-update" -> SaxonDeepUpdatePsiImpl(element)
+        "delete" -> SaxonDeletePsiImpl(element)
         "do" -> SaxonDoPsiImpl(element)
         "doctype" -> SaxonDoctypePsiImpl(element)
         "entity-ref" -> SaxonEntityRefPsiImpl(element)
