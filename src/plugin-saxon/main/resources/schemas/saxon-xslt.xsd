@@ -56,4 +56,8 @@
     </xs:complexType>
   </xs:element>
 
+  <xs:element name="doctype">
+    <xs:complexType/>
+  </xs:element>
+
 </xs:schema>
