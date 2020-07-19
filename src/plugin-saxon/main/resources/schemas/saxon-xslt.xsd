@@ -101,4 +101,6 @@
     </xs:complexType>
   </xs:element>
 
+  <xs:element name="type-alias" substitutionGroup="saxon:item-type"/>
+
 </xs:schema>
