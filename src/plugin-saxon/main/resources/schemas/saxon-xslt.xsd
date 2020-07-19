@@ -99,6 +99,26 @@
     </xs:complexType>
   </xs:element>
 
+  <xs:element name="insert">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:attribute name="select" type="xsl:expression"/>
+        <xs:attribute name="position">
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="after"/>
+              <xs:enumeration value="before"/>
+              <xs:enumeration value="first"/>
+              <xs:enumeration value="last"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+        <xs:assert test="exists(@select)"/>
+        <xs:assert test="exists(@position)"/>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
   <xs:element name="item-type">
     <xs:complexType>
       <xs:complexContent>
@@ -142,6 +162,7 @@
         <xs:choice minOccurs="0" maxOccurs="unbounded">
           <xs:element ref="saxon:delete"/>
           <xs:element ref="saxon:rename"/>
+          <xs:element ref="saxon:insert"/>
         </xs:choice>
       </xs:complexContent>
     </xs:complexType>
