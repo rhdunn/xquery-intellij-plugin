@@ -30,6 +30,7 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
     override fun create(element: PsiElement, name: QName?): XpmShadowPsiElement? = when (name?.namespaceURI) {
         XSLT.NAMESPACE -> createXsltElement(element, name.localPart)
         SAXON_NAMESPACE -> createSaxonElement(element, name.localPart)
+        SAXON6_NAMESPACE -> createSaxon6Element(element, name.localPart)
         else -> null
     }
 
@@ -137,5 +138,11 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
         else -> null
     }
 
+    private fun createSaxon6Element(element: PsiElement, name: String): XpmShadowPsiElement? = when (name) {
+        "output" -> XsltResultDocumentPsiImpl(element)
+        else -> null
+    }
+
     private const val SAXON_NAMESPACE = "http://saxon.sf.net/"
+    private const val SAXON6_NAMESPACE = "http://icl.com/saxon"
 }

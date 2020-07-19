@@ -32,6 +32,7 @@ import uk.co.reecedunn.intellij.plugin.xslt.tests.parser.ParserTestCase
 private class PluginPsiTest : ParserTestCase() {
     companion object {
         private const val SAXON_NAMESPACE = "http://saxon.sf.net/"
+        private const val SAXON6_NAMESPACE = "http://icl.com/saxon"
     }
 
     @Nested
@@ -275,6 +276,31 @@ private class PluginPsiTest : ParserTestCase() {
                     </xsl:stylesheet>
                 """
                 val psi = parse<SaxonItemType>(xml, SAXON_NAMESPACE, "item-type")[0]
+
+                assertThat(psi.parent, `is`(instanceOf(XsltStylesheet::class.java)))
+                assertThat(psi.children.size, `is`(0))
+                assertThat(psi.prevSibling, `is`(nullValue()))
+                assertThat(psi.nextSibling, `is`(nullValue()))
+
+                val parent = psi.parent!!
+                assertThat(parent.children.size, `is`(1))
+                assertThat(parent.children[0], `is`(sameInstance(psi)))
+            }
+        }
+
+        @Nested
+        @DisplayName("saxon6:output")
+        internal inner class Output {
+            @Test
+            @DisplayName("hierarchy")
+            fun hierarchy() {
+                @Language("XML") val xml = """
+                    <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                                    xmlns:saxon="http://icl.com/saxon" version="3.0" extension-element-prefixes="saxon">
+                        <saxon:output/>
+                    </xsl:stylesheet>
+                """
+                val psi = parse<XsltResultDocument>(xml, SAXON6_NAMESPACE, "output")[0]
 
                 assertThat(psi.parent, `is`(instanceOf(XsltStylesheet::class.java)))
                 assertThat(psi.children.size, `is`(0))
