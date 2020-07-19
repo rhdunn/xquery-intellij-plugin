@@ -69,4 +69,15 @@
     </xs:complexType>
   </xs:element>
 
+  <xs:element name="for-each-member">
+    <xs:complexType>
+      <xs:complexContent mixed="true">
+        <xs:extension base="xsl:sequence-constructor-and-select">
+          <xs:attribute name="bind-to" type="xs:QName"/>
+          <xs:assert test="exists(@bind-to)"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
 </xs:schema>

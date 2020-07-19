@@ -130,6 +130,7 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
         "do" -> SaxonDoPsiImpl(element)
         "doctype" -> SaxonDoctypePsiImpl(element)
         "entity-ref" -> SaxonEntityRefPsiImpl(element)
+        "for-each-member" -> SaxonForEachMemberPsiImpl(element)
         else -> null
     }
 
