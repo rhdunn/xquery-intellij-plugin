@@ -129,6 +129,7 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
         "deep-update" -> SaxonDeepUpdatePsiImpl(element)
         "do" -> SaxonDoPsiImpl(element)
         "doctype" -> SaxonDoctypePsiImpl(element)
+        "entity-ref" -> SaxonEntityRefPsiImpl(element)
         else -> null
     }
 

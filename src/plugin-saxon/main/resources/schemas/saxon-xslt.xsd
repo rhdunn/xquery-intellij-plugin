@@ -60,4 +60,13 @@
     <xs:complexType/>
   </xs:element>
 
+  <xs:element name="entity-ref">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:attribute name="name" type="xsl:EQName"/>
+        <xs:assert test="exists(@name)"/>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
 </xs:schema>
