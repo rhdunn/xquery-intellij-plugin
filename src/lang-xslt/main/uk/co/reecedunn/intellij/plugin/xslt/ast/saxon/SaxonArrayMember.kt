@@ -13,11 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xslt.psi.impl.saxon
+package uk.co.reecedunn.intellij.plugin.xslt.ast.saxon
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElement
-import uk.co.reecedunn.intellij.plugin.xslt.ast.saxon.SaxonArray
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
 
-class SaxonArrayPsiImpl(element: PsiElement) : XpmShadowPsiElement(element, XSLT), SaxonArray
+/**
+ * A Saxon 9.8 `saxon:array-member` vendor extension node in the XSLT AST.
+ *
+ * Reference: https://saxonica.com/documentation/index.html#!extensions/instructions/array-member
+ */
+interface SaxonArrayMember : PsiElement

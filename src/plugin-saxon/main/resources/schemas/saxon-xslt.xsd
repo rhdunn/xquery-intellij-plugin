@@ -15,4 +15,12 @@
     </xs:complexType>
   </xs:element>
 
+  <xs:element name="array-member">
+    <xs:complexType>
+      <xs:complexContent mixed="true">
+        <xs:extension base="xsl:sequence-constructor-or-select"/>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
 </xs:schema>
