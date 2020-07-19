@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xslt.ast.saxon.SaxonArray
 import uk.co.reecedunn.intellij.plugin.xslt.ast.saxon.SaxonArrayMember
 import uk.co.reecedunn.intellij.plugin.xslt.ast.saxon.SaxonAssign
+import uk.co.reecedunn.intellij.plugin.xslt.ast.saxon.SaxonDeepUpdate
 import uk.co.reecedunn.intellij.plugin.xslt.ast.xml.XsltDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xslt.ast.xslt.*
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
@@ -47,7 +48,7 @@ private class PluginPsiTest : ParserTestCase() {
             fun hierarchy() {
                 @Language("XML") val xml = """
                     <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                                    xmlns:saxon="http://saxon.sf.net/" version="3.0">
+                                    xmlns:saxon="http://saxon.sf.net/" version="3.0" extension-element-prefixes="saxon">
                         <saxon:array/>
                     </xsl:stylesheet>
                 """
@@ -72,7 +73,7 @@ private class PluginPsiTest : ParserTestCase() {
             fun hierarchy() {
                 @Language("XML") val xml = """
                     <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                                    xmlns:saxon="http://saxon.sf.net/" version="3.0">
+                                    xmlns:saxon="http://saxon.sf.net/" version="3.0" extension-element-prefixes="saxon">
                         <saxon:array-member select="(1, 2, 3)"/>
                     </xsl:stylesheet>
                 """
@@ -97,11 +98,36 @@ private class PluginPsiTest : ParserTestCase() {
             fun hierarchy() {
                 @Language("XML") val xml = """
                     <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                                    xmlns:saxon="http://saxon.sf.net/" version="3.0">
+                                    xmlns:saxon="http://saxon.sf.net/" version="3.0" extension-element-prefixes="saxon">
                         <saxon:assign name="lorem-ipsum">Ipsum</saxon:assign>
                     </xsl:stylesheet>
                 """
                 val psi = parse<SaxonAssign>(xml, SAXON_NAMESPACE, "assign")[0]
+
+                assertThat(psi.parent, `is`(instanceOf(XsltStylesheet::class.java)))
+                assertThat(psi.children.size, `is`(0))
+                assertThat(psi.prevSibling, `is`(nullValue()))
+                assertThat(psi.nextSibling, `is`(nullValue()))
+
+                val parent = psi.parent!!
+                assertThat(parent.children.size, `is`(1))
+                assertThat(parent.children[0], `is`(sameInstance(psi)))
+            }
+        }
+
+        @Nested
+        @DisplayName("saxon:deep-update")
+        internal inner class DeepUpdate {
+            @Test
+            @DisplayName("hierarchy")
+            fun hierarchy() {
+                @Language("XML") val xml = """
+                    <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                                    xmlns:saxon="http://saxon.sf.net/" version="3.0" extension-element-prefixes="saxon">
+                        <saxon:deep-update root="${'$'}m" select="?*[?lorem = 'ipsum']" action="()"/>
+                    </xsl:stylesheet>
+                """
+                val psi = parse<SaxonDeepUpdate>(xml, SAXON_NAMESPACE, "deep-update")[0]
 
                 assertThat(psi.parent, `is`(instanceOf(XsltStylesheet::class.java)))
                 assertThat(psi.children.size, `is`(0))

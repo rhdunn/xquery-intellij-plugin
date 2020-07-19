@@ -34,4 +34,17 @@
     </xs:complexType>
   </xs:element>
 
+  <xs:element name="deep-update">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:attribute name="root" type="xsl:expression"/>
+        <xs:attribute name="select" type="xsl:expression"/>
+        <xs:attribute name="action" type="xsl:expression"/>
+        <xs:assert test="exists(@root)"/>
+        <xs:assert test="exists(@select)"/>
+        <xs:assert test="exists(@action)"/>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
 </xs:schema>
