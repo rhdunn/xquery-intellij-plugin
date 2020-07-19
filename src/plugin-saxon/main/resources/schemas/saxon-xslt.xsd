@@ -80,4 +80,14 @@
     </xs:complexType>
   </xs:element>
 
+  <xs:element name="import-query">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:attribute name="href" type="xs:anyURI"/>
+        <xs:attribute name="namespace" type="xs:anyURI"/>
+        <xs:assert test="exists(@namespace)"/>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
 </xs:schema>
