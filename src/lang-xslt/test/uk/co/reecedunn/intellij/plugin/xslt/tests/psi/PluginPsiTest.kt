@@ -314,6 +314,31 @@ private class PluginPsiTest : ParserTestCase() {
         }
 
         @Nested
+        @DisplayName("saxon:tabulate-maps")
+        internal inner class TabulateMaps {
+            @Test
+            @DisplayName("hierarchy")
+            fun hierarchy() {
+                @Language("XML") val xml = """
+                    <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                                    xmlns:saxon="http://saxon.sf.net/" version="3.0" extension-element-prefixes="saxon">
+                        <saxon:tabulate-maps root="${'$'}lorem" select="?ipsum"/>
+                    </xsl:stylesheet>
+                """
+                val psi = parse<SaxonTabulateMaps>(xml, SAXON_NAMESPACE, "tabulate-maps")[0]
+
+                assertThat(psi.parent, `is`(instanceOf(XsltStylesheet::class.java)))
+                assertThat(psi.children.size, `is`(0))
+                assertThat(psi.prevSibling, `is`(nullValue()))
+                assertThat(psi.nextSibling, `is`(nullValue()))
+
+                val parent = psi.parent!!
+                assertThat(parent.children.size, `is`(1))
+                assertThat(parent.children[0], `is`(sameInstance(psi)))
+            }
+        }
+
+        @Nested
         @DisplayName("saxon:type-alias")
         internal inner class TypeAlias {
             @Test
