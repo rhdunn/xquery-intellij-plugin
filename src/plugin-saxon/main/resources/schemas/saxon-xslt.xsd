@@ -141,6 +141,15 @@
     </xs:complexType>
   </xs:element>
 
+  <xs:element name="replace">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:attribute name="select" type="xsl:expression"/>
+        <xs:assert test="exists(@select)"/>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
   <xs:element name="tabulate-maps">
     <xs:complexType>
       <xs:complexContent>
@@ -161,8 +170,13 @@
         <xs:assert test="exists(@select)"/>
         <xs:choice minOccurs="0" maxOccurs="unbounded">
           <xs:element ref="saxon:delete"/>
-          <xs:element ref="saxon:rename"/>
           <xs:element ref="saxon:insert"/>
+          <xs:element ref="saxon:rename"/>
+          <xs:element ref="saxon:replace"/>
+          <xs:element ref="xsl:choose"/>
+          <xs:element ref="xsl:for-each"/>
+          <xs:element ref="xsl:if"/>
+          <xs:element ref="xsl:variable"/>
         </xs:choice>
       </xs:complexContent>
     </xs:complexType>
