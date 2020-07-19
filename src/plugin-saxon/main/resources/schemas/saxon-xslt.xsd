@@ -23,4 +23,15 @@
     </xs:complexType>
   </xs:element>
 
+  <xs:element name="assign">
+    <xs:complexType>
+      <xs:complexContent mixed="true">
+        <xs:extension base="xsl:sequence-constructor-or-select">
+          <xs:attribute name="name" type="xsl:EQName"/>
+          <xs:assert test="exists(@name)"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
 </xs:schema>

@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElementFactory
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.saxon.SaxonArrayMemberPsiImpl
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.saxon.SaxonArrayPsiImpl
+import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.saxon.SaxonAssignPsiImpl
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.xml.XsltDirElemConstructorPsiImpl
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.xslt.*
 import javax.xml.namespace.QName
@@ -126,6 +127,7 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
     private fun createSaxonElement(element: PsiElement, name: String): XpmShadowPsiElement? = when (name) {
         "array" -> SaxonArrayPsiImpl(element)
         "array-member" -> SaxonArrayMemberPsiImpl(element)
+        "assign" -> SaxonAssignPsiImpl(element)
         else -> null
     }
 

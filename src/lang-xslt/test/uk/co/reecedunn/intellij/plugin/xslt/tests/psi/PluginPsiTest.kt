@@ -23,6 +23,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xslt.ast.saxon.SaxonArray
 import uk.co.reecedunn.intellij.plugin.xslt.ast.saxon.SaxonArrayMember
+import uk.co.reecedunn.intellij.plugin.xslt.ast.saxon.SaxonAssign
 import uk.co.reecedunn.intellij.plugin.xslt.ast.xml.XsltDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xslt.ast.xslt.*
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
@@ -76,6 +77,31 @@ private class PluginPsiTest : ParserTestCase() {
                     </xsl:stylesheet>
                 """
                 val psi = parse<SaxonArrayMember>(xml, SAXON_NAMESPACE, "array-member")[0]
+
+                assertThat(psi.parent, `is`(instanceOf(XsltStylesheet::class.java)))
+                assertThat(psi.children.size, `is`(0))
+                assertThat(psi.prevSibling, `is`(nullValue()))
+                assertThat(psi.nextSibling, `is`(nullValue()))
+
+                val parent = psi.parent!!
+                assertThat(parent.children.size, `is`(1))
+                assertThat(parent.children[0], `is`(sameInstance(psi)))
+            }
+        }
+
+        @Nested
+        @DisplayName("saxon:assign")
+        internal inner class Assign {
+            @Test
+            @DisplayName("hierarchy")
+            fun hierarchy() {
+                @Language("XML") val xml = """
+                    <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                                    xmlns:saxon="http://saxon.sf.net/" version="3.0">
+                        <saxon:assign name="lorem-ipsum">Ipsum</saxon:assign>
+                    </xsl:stylesheet>
+                """
+                val psi = parse<SaxonAssign>(xml, SAXON_NAMESPACE, "assign")[0]
 
                 assertThat(psi.parent, `is`(instanceOf(XsltStylesheet::class.java)))
                 assertThat(psi.children.size, `is`(0))
