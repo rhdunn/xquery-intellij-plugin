@@ -90,4 +90,15 @@
     </xs:complexType>
   </xs:element>
 
+  <xs:element name="item-type">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:attribute name="name" type="xsl:EQName"/>
+        <xs:attribute name="as" type="xsl:item-type"/>
+        <xs:assert test="exists(@name)"/>
+        <xs:assert test="exists(@as)"/>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
 </xs:schema>

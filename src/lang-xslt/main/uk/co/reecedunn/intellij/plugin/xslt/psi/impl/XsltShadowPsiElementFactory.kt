@@ -132,6 +132,7 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
         "entity-ref" -> SaxonEntityRefPsiImpl(element)
         "for-each-member" -> SaxonForEachMemberPsiImpl(element)
         "import-query" -> SaxonImportQueryPsiImpl(element)
+        "item-type" -> SaxonItemTypePsiImpl(element)
         else -> null
     }
 
