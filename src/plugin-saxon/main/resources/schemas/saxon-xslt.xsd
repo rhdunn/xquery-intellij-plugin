@@ -194,4 +194,15 @@
     </xs:complexType>
   </xs:element>
 
+  <xs:element name="while">
+    <xs:complexType>
+      <xs:complexContent mixed="true">
+        <xs:extension base="xsl:sequence-constructor">
+          <xs:attribute name="test" type="xsl:expression"/>
+          <xs:assert test="exists(@test)"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
 </xs:schema>

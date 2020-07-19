@@ -71,6 +71,7 @@
     <h3>Release 1.8-dev:</h3>
     <ol>
       <li>Register the XSLT 3.0 schema file URI with IntelliJ.</li>
+      <li>Auto-complete support for Saxon XSLT extension elements.</li>
     </ol>
   ]]></change-notes>
 
