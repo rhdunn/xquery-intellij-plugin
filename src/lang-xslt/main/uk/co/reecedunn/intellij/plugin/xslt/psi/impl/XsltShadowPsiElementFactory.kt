@@ -21,10 +21,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElement
 import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElementFactory
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
-import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.saxon.SaxonArrayMemberPsiImpl
-import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.saxon.SaxonArrayPsiImpl
-import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.saxon.SaxonAssignPsiImpl
-import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.saxon.SaxonDeepUpdatePsiImpl
+import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.saxon.*
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.xml.XsltDirElemConstructorPsiImpl
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.xslt.*
 import javax.xml.namespace.QName
@@ -130,6 +127,7 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
         "array-member" -> SaxonArrayMemberPsiImpl(element)
         "assign" -> SaxonAssignPsiImpl(element)
         "deep-update" -> SaxonDeepUpdatePsiImpl(element)
+        "do" -> SaxonDoPsiImpl(element)
         else -> null
     }
 

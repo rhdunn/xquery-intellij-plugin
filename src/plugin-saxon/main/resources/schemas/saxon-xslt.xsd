@@ -47,4 +47,13 @@
     </xs:complexType>
   </xs:element>
 
+  <xs:element name="do">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:attribute name="action" type="xsl:expression"/>
+        <xs:assert test="exists(@action)"/>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
 </xs:schema>
