@@ -69,6 +69,9 @@
 
   <change-notes><![CDATA[
     <h3>Release 1.8-dev:</h3>
+    <ol>
+      <li>Register the XSLT 3.0 schema file URI with IntelliJ.</li>
+    </ol>
   ]]></change-notes>
 
   <idea-version since-build="161"/>

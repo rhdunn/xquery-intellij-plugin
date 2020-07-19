@@ -20,7 +20,12 @@ import com.intellij.javaee.StandardResourceProvider
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
 
 class XsltResourceProvider : StandardResourceProvider {
+    companion object {
+        private const val XSLT_30_URI = "https://www.w3.org/TR/xslt-30/schema-for-xslt30.xsd"
+    }
+
     override fun registerResources(registrar: ResourceRegistrar?) {
-        registrar!!.addStdResource(XSLT.NAMESPACE, "3.0", "/schemas/xslt-3_0.xsd", XsltResourceProvider::class.java)
+        registrar!!.addStdResource(XSLT_30_URI, "/schemas/xslt-3_0.xsd", XsltResourceProvider::class.java)
+        registrar.addStdResource(XSLT.NAMESPACE, "3.0", "/schemas/xslt-3_0.xsd", XsltResourceProvider::class.java)
     }
 }
