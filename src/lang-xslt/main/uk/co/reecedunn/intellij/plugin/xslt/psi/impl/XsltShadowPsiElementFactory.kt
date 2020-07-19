@@ -136,6 +136,7 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
         "item-type" -> SaxonItemTypePsiImpl(element)
         "tabulate-maps" -> SaxonTabulateMapsPsiImpl(element)
         "type-alias" -> SaxonItemTypePsiImpl(element)
+        "update" -> SaxonUpdatePsiImpl(element)
         else -> null
     }
 

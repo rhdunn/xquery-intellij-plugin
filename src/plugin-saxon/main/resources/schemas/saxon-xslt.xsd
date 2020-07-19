@@ -114,4 +114,13 @@
 
   <xs:element name="type-alias" substitutionGroup="saxon:item-type"/>
 
+  <xs:element name="update">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:attribute name="select" type="xsl:expression"/>
+        <xs:assert test="exists(@select)"/>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
 </xs:schema>
