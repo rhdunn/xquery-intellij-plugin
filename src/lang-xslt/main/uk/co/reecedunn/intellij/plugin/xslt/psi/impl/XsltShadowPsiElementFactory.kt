@@ -21,6 +21,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElement
 import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElementFactory
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
+import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.saxon.SaxonArrayPsiImpl
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.xml.XsltDirElemConstructorPsiImpl
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.xslt.*
 import javax.xml.namespace.QName
@@ -28,6 +29,7 @@ import javax.xml.namespace.QName
 object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
     override fun create(element: PsiElement, name: QName?): XpmShadowPsiElement? = when (name?.namespaceURI) {
         XSLT.NAMESPACE -> createXsltElement(element, name.localPart)
+        SAXON_NAMESPACE -> createSaxonElement(element, name.localPart)
         else -> null
     }
 
@@ -119,4 +121,11 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
         "with-param" -> XsltWithParamPsiImpl(element)
         else -> null
     }
+
+    private fun createSaxonElement(element: PsiElement, name: String): XpmShadowPsiElement? = when (name) {
+        "array" -> SaxonArrayPsiImpl(element)
+        else -> null
+    }
+
+    private const val SAXON_NAMESPACE = "http://saxon.sf.net/"
 }

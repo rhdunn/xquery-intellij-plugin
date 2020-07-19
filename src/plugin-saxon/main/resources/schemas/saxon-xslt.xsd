@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+           targetNamespace="http://saxon.sf.net/"
+           elementFormDefault="qualified">
+
+  <xs:import namespace="http://www.w3.org/1999/XSL/Transform"
+             schemaLocation="https://www.w3.org/TR/xslt-30/schema-for-xslt30.xsd"/>
+
+  <xs:element name="array">
+    <xs:complexType>
+      <xs:complexContent mixed="true">
+        <xs:extension base="xsl:sequence-constructor-or-select"/>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>
