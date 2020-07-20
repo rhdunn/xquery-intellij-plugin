@@ -20,6 +20,15 @@
     </xs:complexType>
   </xs:element>
 
+  <xs:element name="try">
+    <xs:complexType>
+      <xs:complexContent mixed="true">
+        <xs:extension base="xsl:sequence-constructor">
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
   <!-- MarkLogic Config/xdmp.xsd Element Definitions -->
 
   <xs:complexType name="empty"/>

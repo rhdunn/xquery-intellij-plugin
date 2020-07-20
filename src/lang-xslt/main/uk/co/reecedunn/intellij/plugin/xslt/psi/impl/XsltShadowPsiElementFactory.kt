@@ -22,6 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElement
 import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElementFactory
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.marklogic.MarkLogicImportModulePsiImpl
+import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.marklogic.MarkLogicTryPsiImpl
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.saxon.*
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.xml.XsltDirElemConstructorPsiImpl
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.xslt.*
@@ -137,6 +138,7 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
 
     private fun createMarkLogicElement(element: PsiElement, name: String): XpmShadowPsiElement? = when (name) {
         "import-module" -> MarkLogicImportModulePsiImpl(element)
+        "try" -> MarkLogicTryPsiImpl(element)
         else -> null
     }
 
