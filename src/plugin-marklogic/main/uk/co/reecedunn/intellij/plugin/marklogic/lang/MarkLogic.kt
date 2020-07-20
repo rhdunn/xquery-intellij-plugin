@@ -49,6 +49,7 @@ object MarkLogic : ItemPresentation, XpmVendorType, XpmProductType {
     )
 
     private val excludeSchemaNamespaces = listOf(
+        "http://marklogic.com/xdmp", // Registered by this plugin in order to support the XSLT 2.0 vendor extensions.
         "http://www.w3.org/1999/xhtml",
         "http://www.w3.org/1999/xlink",
         "http://www.w3.org/1999/XSL/Transform",

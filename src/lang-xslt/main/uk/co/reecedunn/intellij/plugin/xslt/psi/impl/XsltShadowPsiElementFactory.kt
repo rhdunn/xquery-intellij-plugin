@@ -21,14 +21,18 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElement
 import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElementFactory
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
+import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.marklogic.MarkLogicImportModulePsiImpl
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.saxon.*
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.xml.XsltDirElemConstructorPsiImpl
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.xslt.*
 import javax.xml.namespace.QName
 
 object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
+    // region XpmShadowPsiElementFactory
+
     override fun create(element: PsiElement, name: QName?): XpmShadowPsiElement? = when (name?.namespaceURI) {
         XSLT.NAMESPACE -> createXsltElement(element, name.localPart)
+        XDMP_NAMESPACE -> createMarkLogicElement(element, name.localPart)
         SAXON_NAMESPACE -> createSaxonElement(element, name.localPart)
         SAXON6_NAMESPACE -> createSaxon6Element(element, name.localPart)
         else -> null
@@ -40,6 +44,9 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
         }
         else -> null
     }
+
+    // endregion
+    // region XSLT Elements
 
     private fun createXsltElement(element: PsiElement, name: String): XpmShadowPsiElement? = when (name) {
         "accept" -> XsltAcceptPsiImpl(element)
@@ -123,6 +130,22 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
         else -> null
     }
 
+    // endregion
+    // region MarkLogic XSLT Extension Elements
+
+    private const val XDMP_NAMESPACE = "http://marklogic.com/xdmp"
+
+    private fun createMarkLogicElement(element: PsiElement, name: String): XpmShadowPsiElement? = when (name) {
+        "import-module" -> MarkLogicImportModulePsiImpl(element)
+        else -> null
+    }
+
+    // endregion
+    // region Saxon XSLT Extension Elements
+
+    private const val SAXON_NAMESPACE = "http://saxon.sf.net/"
+    private const val SAXON6_NAMESPACE = "http://icl.com/saxon"
+
     private fun createSaxonElement(element: PsiElement, name: String): XpmShadowPsiElement? = when (name) {
         "array" -> SaxonArrayPsiImpl(element)
         "array-member" -> SaxonArrayMemberPsiImpl(element)
@@ -151,6 +174,5 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
         else -> null
     }
 
-    private const val SAXON_NAMESPACE = "http://saxon.sf.net/"
-    private const val SAXON6_NAMESPACE = "http://icl.com/saxon"
+    // endregion
 }

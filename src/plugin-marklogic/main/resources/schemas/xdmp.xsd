@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+           targetNamespace="http://marklogic.com/xdmp"
+           elementFormDefault="qualified">
+
+  <xs:import namespace="http://www.w3.org/1999/XSL/Transform"
+             schemaLocation="https://www.w3.org/2007/schema-for-xslt20.xsd"/>
+
+  <!-- XSLT 2.0 Vendor Extensions -->
+
+  <xs:element name="import-module">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:attribute name="href" type="xs:anyURI"/>
+        <xs:attribute name="namespace" type="xs:anyURI"/>
+        <xs:assert test="exists(@href)"/>
+        <xs:assert test="exists(@namespace)"/>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- MarkLogic Config/xdmp.xsd Element Definitions -->
+
+  <xs:complexType name="empty"/>
+
+  <xs:element name="fragment-root" type="empty"/>
+  <xs:element name="fragment-parent" type="empty"/>
+
+</xs:schema>

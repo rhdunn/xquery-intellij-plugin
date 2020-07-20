@@ -21,6 +21,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.xslt.ast.marklogic.MarkLogicImportModule
 import uk.co.reecedunn.intellij.plugin.xslt.ast.saxon.*
 import uk.co.reecedunn.intellij.plugin.xslt.ast.xml.XsltDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xslt.ast.xslt.*
@@ -33,6 +34,36 @@ private class PluginPsiTest : ParserTestCase() {
     companion object {
         private const val SAXON_NAMESPACE = "http://saxon.sf.net/"
         private const val SAXON6_NAMESPACE = "http://icl.com/saxon"
+        private const val XDMP_NAMESPACE = "http://marklogic.com/xdmp"
+    }
+
+    @Nested
+    @DisplayName("MarkLogic")
+    internal inner class MarkLogic {
+        @Nested
+        @DisplayName("xdmp:import-module")
+        internal inner class ImportModule {
+            @Test
+            @DisplayName("hierarchy")
+            fun hierarchy() {
+                @Language("XML") val xml = """
+                    <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                                    xmlns:xdmp="http://marklogic.com/xdmp" version="2.0" extension-element-prefixes="xdmp">
+                        <xdmp:import-module namespace="urn:lorem:ipsum" href="lorem-ipsum.xqy"/>
+                    </xsl:stylesheet>
+                """
+                val psi = parse<MarkLogicImportModule>(xml, XDMP_NAMESPACE, "import-module")[0]
+
+                assertThat(psi.parent, `is`(instanceOf(XsltStylesheet::class.java)))
+                assertThat(psi.children.size, `is`(0))
+                assertThat(psi.prevSibling, `is`(nullValue()))
+                assertThat(psi.nextSibling, `is`(nullValue()))
+
+                val parent = psi.parent!!
+                assertThat(parent.children.size, `is`(1))
+                assertThat(parent.children[0], `is`(sameInstance(psi)))
+            }
+        }
     }
 
     @Nested
