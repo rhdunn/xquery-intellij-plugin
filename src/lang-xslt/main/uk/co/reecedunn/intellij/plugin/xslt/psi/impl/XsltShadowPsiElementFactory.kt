@@ -21,6 +21,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElement
 import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElementFactory
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
+import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.marklogic.MarkLogicCatchPsiImpl
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.marklogic.MarkLogicImportModulePsiImpl
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.marklogic.MarkLogicTryPsiImpl
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.saxon.*
@@ -137,6 +138,7 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
     private const val XDMP_NAMESPACE = "http://marklogic.com/xdmp"
 
     private fun createMarkLogicElement(element: PsiElement, name: String): XpmShadowPsiElement? = when (name) {
+        "catch" -> MarkLogicCatchPsiImpl(element)
         "import-module" -> MarkLogicImportModulePsiImpl(element)
         "try" -> MarkLogicTryPsiImpl(element)
         else -> null

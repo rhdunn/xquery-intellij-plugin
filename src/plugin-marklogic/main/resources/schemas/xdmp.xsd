@@ -9,6 +9,17 @@
 
   <!-- XSLT 2.0 Vendor Extensions -->
 
+  <xs:element name="catch">
+    <xs:complexType>
+      <xs:complexContent mixed="true">
+        <xs:extension base="xsl:sequence-constructor">
+          <xs:attribute name="name" type="xsl:QName"/>
+          <xs:assert test="exists(@name)"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
   <xs:element name="import-module">
     <xs:complexType>
       <xs:complexContent>
@@ -24,6 +35,9 @@
     <xs:complexType>
       <xs:complexContent mixed="true">
         <xs:extension base="xsl:sequence-constructor">
+          <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element ref="catch"/>
+          </xs:choice>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
