@@ -69,7 +69,7 @@ abstract class EndpointsProvider :
     }
 
     override fun getEndpointPresentation(group: EndpointsGroup, endpoint: Endpoint): ItemPresentation {
-        return endpoint.presentation
+        return EndpointPresentation(endpoint)
     }
 
     override fun getGroupData(group: EndpointsGroup, dataId: String): Any? {

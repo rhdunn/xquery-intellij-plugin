@@ -15,28 +15,17 @@
  */
 package uk.co.reecedunn.intellij.microservices.endpoints
 
-import com.intellij.microservices.endpoints.presentation.EndpointMethodPresentation
-import com.intellij.microservices.endpoints.presentation.HttpMethodPresentation
 import com.intellij.navigation.ItemPresentation
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
 import javax.swing.JPanel
 
-@Suppress("UnstableApiUsage")
-abstract class Endpoint : ItemPresentation, EndpointMethodPresentation {
+abstract class Endpoint : ItemPresentation {
     // region ItemPresentation
 
     override fun getLocationString(): String? = null
 
     override fun getPresentableText(): String? = path
-
-    // endregion
-    // region EndpointMethodPresentation
-
-    override val endpointMethod: String? get() = method
-
-    override val endpointMethodOrder: Int
-        get() = HttpMethodPresentation.getHttpMethodOrder(method?.split("\\s+")?.get(0))
 
     // endregion
     // region Endpoint
