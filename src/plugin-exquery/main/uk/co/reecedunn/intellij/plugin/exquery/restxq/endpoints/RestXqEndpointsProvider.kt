@@ -21,7 +21,7 @@ import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsGroup
 import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsProvider
 
 @Suppress("unused")
-class RestXqEndpointProvider : EndpointsProvider() {
+class RestXqEndpointsProvider : EndpointsProvider() {
     // region EndpointsFramework
 
     override val id: String get() = RestXqEndpointsFramework.id
