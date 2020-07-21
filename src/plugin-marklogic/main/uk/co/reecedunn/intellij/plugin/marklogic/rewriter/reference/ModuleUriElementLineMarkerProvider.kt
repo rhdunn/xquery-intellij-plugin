@@ -20,8 +20,8 @@ import com.intellij.codeInsight.daemon.LineMarkerProvider
 import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicIcons
+import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints.RewriterEndpointsFramework
 import uk.co.reecedunn.intellij.plugin.processor.intellij.resources.PluginApiBundle
-import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints.RewriterEndpointsProvider
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryQueryBody
 
 class ModuleUriElementLineMarkerProvider : LineMarkerProvider {
@@ -38,7 +38,7 @@ class ModuleUriElementLineMarkerProvider : LineMarkerProvider {
     }
 
     private fun getModuleUriElements(element: XQueryQueryBody): Sequence<PsiElement> {
-        return RewriterEndpointsProvider.find(element.project).asSequence().flatMap { group ->
+        return RewriterEndpointsFramework.groups(element.project).asSequence().flatMap { group ->
             group.endpoints.filter { it.reference?.resolve() === element }.map { it.element }
         }
     }

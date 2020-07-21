@@ -17,48 +17,17 @@ package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints
 
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.roots.ProjectRootManager
-import com.intellij.psi.xml.XmlFile
 import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsGroup
 import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsProvider
-import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
-import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicBundle
-import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicIcons
-import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.lang.Rewriter
-import javax.swing.Icon
 
-class RewriterEndpointsProvider : EndpointsProvider(), ItemPresentation {
-    // region ItemPresentation
-
-    override fun getIcon(unused: Boolean): Icon? = MarkLogicIcons.Rewriter.EndpointsFramework
-
-    override fun getLocationString(): String? = null
-
-    override fun getPresentableText(): String? = MarkLogicBundle.message("endpoints.rewriter.label")
-
-    // endregion
+class RewriterEndpointsProvider : EndpointsProvider() {
     // region EndpointsFramework
 
-    override val id: String = "xijp.marklogic-rewriter"
+    override val id: String get() = RewriterEndpointsFramework.id
 
-    override val presentation: ItemPresentation get() = this
+    override val presentation: ItemPresentation get() = RewriterEndpointsFramework.presentation
 
-    override fun groups(project: Project): List<EndpointsGroup> = find(project)
-
-    companion object {
-        fun find(project: Project): List<EndpointsGroup> {
-            val groups = ArrayList<EndpointsGroup>()
-            ProjectRootManager.getInstance(project).fileIndex.iterateContent {
-                val file = it.toPsiFile(project) as? XmlFile ?: return@iterateContent true
-                val root = file.rootTag ?: return@iterateContent true
-                if (root.namespace == Rewriter.NAMESPACE && root.localName == "rewriter") {
-                    groups.add(RewriterEndpointsGroup(root))
-                }
-                true
-            }
-            return groups
-        }
-    }
+    override fun groups(project: Project): List<EndpointsGroup> = RewriterEndpointsFramework.groups(project)
 
     // endregion
 }
