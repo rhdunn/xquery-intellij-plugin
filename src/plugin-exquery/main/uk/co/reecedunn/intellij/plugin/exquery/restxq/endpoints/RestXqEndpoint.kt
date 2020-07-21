@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.exquery.restxq.endpoints
 
+import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.actionSystem.DataProvider
 import com.intellij.psi.PsiElement
@@ -27,8 +28,10 @@ import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
 import javax.swing.Icon
 import javax.swing.JPanel
 
-class RestXqEndpoint(private val endpoint: XdmFunctionDeclaration) : Endpoint(), DataProvider {
+class RestXqEndpoint(private val endpoint: XdmFunctionDeclaration) : ItemPresentation, Endpoint, DataProvider {
     // region ItemPresentation
+
+    override fun getPresentableText(): String? = null
 
     override fun getLocationString(): String? = endpoint.functionRefPresentableText
 
@@ -36,6 +39,8 @@ class RestXqEndpoint(private val endpoint: XdmFunctionDeclaration) : Endpoint(),
 
     // endregion
     // region Endpoint
+
+    override val presentation: ItemPresentation get() = this
 
     override val details: JPanel
         get() = detailsPanel {

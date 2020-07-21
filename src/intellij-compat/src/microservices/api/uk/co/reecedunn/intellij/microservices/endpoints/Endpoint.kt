@@ -20,27 +20,16 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
 import javax.swing.JPanel
 
-abstract class Endpoint : ItemPresentation {
-    // region ItemPresentation
+interface Endpoint {
+    val presentation: ItemPresentation
 
-    override fun getLocationString(): String? = null
+    val details: JPanel
 
-    override fun getPresentableText(): String? = path
+    val reference: PsiReference?
 
-    // endregion
-    // region Endpoint
+    val element: PsiElement
 
-    open val presentation: ItemPresentation get() = this
+    val method: String?
 
-    abstract val details: JPanel
-
-    abstract val reference: PsiReference?
-
-    abstract val element: PsiElement
-
-    abstract val method: String?
-
-    abstract val path: String?
-
-    // endregion
+    val path: String?
 }

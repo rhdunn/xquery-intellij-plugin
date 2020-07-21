@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints
 
+import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.actionSystem.DataProvider
 import com.intellij.psi.PsiElement
@@ -30,8 +31,10 @@ import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.reference.ModuleUriEle
 import javax.swing.Icon
 import javax.swing.JPanel
 
-class RewriterEndpoint(private val endpoint: XmlTag) : Endpoint(), DataProvider {
+class RewriterEndpoint(private val endpoint: XmlTag) : ItemPresentation, Endpoint, DataProvider {
     // region ItemPresentation
+
+    override fun getPresentableText(): String? = null
 
     override fun getLocationString(): String? = dispatch.split("/").lastOrNull()
 
@@ -39,6 +42,8 @@ class RewriterEndpoint(private val endpoint: XmlTag) : Endpoint(), DataProvider 
 
     // endregion
     // region Endpoint
+
+    override val presentation: ItemPresentation get() = this
 
     override val details: JPanel
         get() = detailsPanel {
