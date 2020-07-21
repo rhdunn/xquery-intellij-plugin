@@ -72,7 +72,7 @@ class RewriterEndpoint(private val endpoint: XmlTag) : ItemPresentation, Endpoin
             else -> ModuleUriElementReference(endpoint)
         }
 
-    override val element: PsiElement = endpoint.value.textElements.firstOrNull() ?: endpoint
+    override val element: PsiElement = endpoint
 
     override val method: String?
         get() = endpoint.ancestors(Rewriter.NAMESPACE, "match-method").firstOrNull()?.getAttributeValue("any-of")
@@ -89,7 +89,7 @@ class RewriterEndpoint(private val endpoint: XmlTag) : ItemPresentation, Endpoin
     // region DataProvider
 
     override fun getData(dataId: String): Any? = when (dataId) {
-        CommonDataKeys.PSI_ELEMENT.name -> endpoint
+        CommonDataKeys.PSI_ELEMENT.name -> endpoint.value.textElements.firstOrNull() ?: endpoint
         else -> null
     }
 

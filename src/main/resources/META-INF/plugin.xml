@@ -71,6 +71,10 @@
     <h3>Release 1.8-dev:</h3>
     <ol>
       <li>Fix displaying the endpoints gutter icon when using IntelliJ Community Edition.</li>
+      <li>Fix displaying the endpoints list when clicking on the gutter icon.</li>
+    </ol>
+    <p>XSLT:</p>
+    <ol>
       <li>Register the XSLT 2.0 and XSLT 3.0 schema file URIs with IntelliJ.</li>
       <li>Auto-complete support for Saxon XSLT extension elements.</li>
     </ol>

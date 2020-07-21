@@ -4,6 +4,10 @@
 
 1. Fix displaying the endpoints gutter icon when using IntelliJ Community
    Edition.
+1. Fix displaying the endpoints list when clicking on the gutter icon.
+
+XSLT:
+
 1. Register the XSLT 2.0 and XSLT 3.0 schema file URIs with IntelliJ.
 1. Auto-complete support for Saxon XSLT extension elements.
 
