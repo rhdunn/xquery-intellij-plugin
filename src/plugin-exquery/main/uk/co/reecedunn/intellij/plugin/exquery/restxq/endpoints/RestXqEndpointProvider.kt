@@ -17,47 +17,18 @@ package uk.co.reecedunn.intellij.plugin.exquery.restxq.endpoints
 
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.roots.ProjectRootManager
 import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsGroup
 import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsProvider
-import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
-import uk.co.reecedunn.intellij.plugin.exquery.intellij.resources.EXQueryBundle
-import uk.co.reecedunn.intellij.plugin.exquery.intellij.resources.EXQueryIcons
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryLibraryModule
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
-import javax.swing.Icon
 
 @Suppress("unused")
-class RestXqEndpointProvider : EndpointsProvider(), ItemPresentation {
-    // region ItemPresentation
-
-    override fun getIcon(unused: Boolean): Icon? = EXQueryIcons.RESTXQ.EndpointsFramework
-
-    override fun getLocationString(): String? = null
-
-    override fun getPresentableText(): String? = EXQueryBundle.message("endpoints.restxq.label")
-
-    // endregion
+class RestXqEndpointProvider : EndpointsProvider() {
     // region EndpointsFramework
 
-    override val id: String = "xijp.exquery-restxq"
+    override val id: String get() = RestXqEndpointsFramework.id
 
-    override val presentation: ItemPresentation get() = this
+    override val presentation: ItemPresentation get() = RestXqEndpointsFramework.presentation
 
-    override fun groups(project: Project): List<EndpointsGroup> {
-        val groups = ArrayList<EndpointsGroup>()
-        ProjectRootManager.getInstance(project).fileIndex.iterateContent {
-            val module = it.toPsiFile(project) as? XQueryModule
-            (module?.mainOrLibraryModule as? XQueryLibraryModule)?.prolog?.forEach { prolog ->
-                val group = RestXqEndpointsGroup(prolog)
-                if (group.endpoints.any()) {
-                    groups.add(group)
-                }
-            }
-            true
-        }
-        return groups
-    }
+    override fun groups(project: Project): List<EndpointsGroup> = RestXqEndpointsFramework.groups(project)
 
     // endregion
 }
