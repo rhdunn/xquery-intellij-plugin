@@ -76,7 +76,7 @@
     <p>XSLT:</p>
     <ol>
       <li>Register the XSLT 2.0 and XSLT 3.0 schema file URIs with IntelliJ.</li>
-      <li>Auto-complete support for Saxon XSLT extension elements.</li>
+      <li>Auto-complete support for EXSL, MarkLogic, and Saxon XSLT extension elements.</li>
     </ol>
   ]]></change-notes>
 

@@ -9,7 +9,7 @@
 XSLT:
 
 1. Register the XSLT 2.0 and XSLT 3.0 schema file URIs with IntelliJ.
-1. Auto-complete support for Saxon XSLT extension elements.
+1. Auto-complete support for EXSL, MarkLogic, and Saxon XSLT extension elements.
 
 ## 2020
 
