@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning"
            xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
            targetNamespace="http://icl.com/saxon"
-           elementFormDefault="qualified">
+           elementFormDefault="qualified" vc:minVersion="1.1">
 
   <xs:import namespace="http://www.w3.org/1999/XSL/Transform"
              schemaLocation="https://www.w3.org/TR/xslt-30/schema-for-xslt30.xsd"/>
