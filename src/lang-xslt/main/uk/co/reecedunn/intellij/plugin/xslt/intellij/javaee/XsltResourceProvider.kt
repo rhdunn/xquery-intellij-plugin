@@ -24,6 +24,8 @@ class XsltResourceProvider : StandardResourceProvider {
     companion object {
         private const val XSLT_20_URI = "https://www.w3.org/2007/schema-for-xslt20.xsd"
         private const val XSLT_30_URI = "https://www.w3.org/TR/xslt-30/schema-for-xslt30.xsd"
+
+        private const val EXSL_COMMON_NAMESPACE = "http://exslt.org/common"
     }
 
     override fun registerResources(registrar: ResourceRegistrar?) {
@@ -33,5 +35,7 @@ class XsltResourceProvider : StandardResourceProvider {
         resources.addStdResource(XSLT_30_URI, "/schemas/xslt-3_0.xsd", XsltResourceProvider::class.java)
 
         resources.addStdResource(XSLT.NAMESPACE, "3.0", "/schemas/xslt-3_0.xsd", XsltResourceProvider::class.java)
+
+        resources.addStdResource(EXSL_COMMON_NAMESPACE, "/schemas/exsl-common.xsl", XsltResourceProvider::class.java)
     }
 }

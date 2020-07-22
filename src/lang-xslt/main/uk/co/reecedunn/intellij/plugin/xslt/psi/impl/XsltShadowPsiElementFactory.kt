@@ -21,6 +21,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElement
 import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElementFactory
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
+import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.exsl.EXslDocumentPsiImpl
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.marklogic.MarkLogicCatchPsiImpl
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.marklogic.MarkLogicImportModulePsiImpl
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.marklogic.MarkLogicTryPsiImpl
@@ -33,6 +34,7 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
     // region XpmShadowPsiElementFactory
 
     override fun create(element: PsiElement, name: QName?): XpmShadowPsiElement? = when (name?.namespaceURI) {
+        EXSL_COMMON_NAMESPACE -> createEXslCommonElement(element, name.localPart)
         XSLT.NAMESPACE -> createXsltElement(element, name.localPart)
         XDMP_NAMESPACE -> createMarkLogicElement(element, name.localPart)
         SAXON_NAMESPACE -> createSaxonElement(element, name.localPart)
@@ -129,6 +131,16 @@ object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
         "when" -> XsltWhenPsiImpl(element)
         "where-populated" -> XsltWherePopulatedPsiImpl(element)
         "with-param" -> XsltWithParamPsiImpl(element)
+        else -> null
+    }
+
+    // endregion
+    // region EXSL XSLT Extension Elements
+
+    private const val EXSL_COMMON_NAMESPACE = "http://exslt.org/common"
+
+    private fun createEXslCommonElement(element: PsiElement, name: String): XpmShadowPsiElement? = when (name) {
+        "document" -> EXslDocumentPsiImpl(element)
         else -> null
     }
 

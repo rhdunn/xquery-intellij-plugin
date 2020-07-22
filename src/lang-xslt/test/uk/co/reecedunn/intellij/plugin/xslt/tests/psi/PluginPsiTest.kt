@@ -21,6 +21,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.xslt.ast.exsl.EXslDocument
 import uk.co.reecedunn.intellij.plugin.xslt.ast.marklogic.MarkLogicCatch
 import uk.co.reecedunn.intellij.plugin.xslt.ast.marklogic.MarkLogicImportModule
 import uk.co.reecedunn.intellij.plugin.xslt.ast.marklogic.MarkLogicTry
@@ -34,9 +35,41 @@ import uk.co.reecedunn.intellij.plugin.xslt.tests.parser.ParserTestCase
 @DisplayName("XQuery IntelliJ Plugin - IntelliJ Program Structure Interface (PSI) - XSLT")
 private class PluginPsiTest : ParserTestCase() {
     companion object {
+        private const val EXSL_COMMON_NAMESPACE = "http://exslt.org/common"
         private const val SAXON_NAMESPACE = "http://saxon.sf.net/"
         private const val SAXON6_NAMESPACE = "http://icl.com/saxon"
         private const val XDMP_NAMESPACE = "http://marklogic.com/xdmp"
+    }
+
+    @Nested
+    @DisplayName("EXSL Common")
+    internal inner class EXSLCommon {
+        @Nested
+        @DisplayName("exsl:document")
+        internal inner class Document {
+            @Test
+            @DisplayName("hierarchy")
+            fun hierarchy() {
+                @Language("XML") val xml = """
+                    <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                                    xmlns:exsl="http://exslt.org/common" version="2.0" extension-element-prefixes="exsl">
+                        <xsl:template match="lorem">
+                            <exsl:document href="ipsum.xml"/>
+                        </xsl:template>
+                    </xsl:stylesheet>
+                """
+                val psi = parse<EXslDocument>(xml, EXSL_COMMON_NAMESPACE, "document")[0]
+
+                assertThat(psi.parent, `is`(instanceOf(XsltTemplate::class.java)))
+                assertThat(psi.children.size, `is`(0))
+                assertThat(psi.prevSibling, `is`(nullValue()))
+                assertThat(psi.nextSibling, `is`(nullValue()))
+
+                val parent = psi.parent!!
+                assertThat(parent.children.size, `is`(1))
+                assertThat(parent.children[0], `is`(sameInstance(psi)))
+            }
+        }
     }
 
     @Nested
