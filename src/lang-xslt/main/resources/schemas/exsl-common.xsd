@@ -11,18 +11,19 @@
   <xs:element name="document">
     <xs:complexType>
       <xs:complexContent mixed="true">
-        <xs:attribute name="href" type="xs:anyURI"/>
-        <xs:attribute name="method" type="xsl:method"/>
-        <xs:attribute name="version" type="xs:NMTOKEN"/>
-        <xs:attribute name="encoding" type="xs:string"/>
-        <xs:attribute name="omit-xml-declaration" type="xsl:yes-or-no"/>
-        <xs:attribute name="standalone" type="xsl:yes-or-no"/>
-        <xs:attribute name="doctype-public" type="xs:string"/>
-        <xs:attribute name="doctype-system" type="xs:string"/>
-        <xs:attribute name="cdata-section-elements" type="xsl:QNames"/>
-        <xs:attribute name="indent" type="xsl:yes-or-no"/>
-        <xs:attribute name="media-type" type="xs:string"/>
-        <xs:assert test="exists(@href)"/>
+        <xs:extension base="xsl:element-only-versioned-element-type">
+          <xs:attribute name="href" type="xs:anyURI"/>
+          <xs:attribute name="method" type="xsl:method"/>
+          <xs:attribute name="encoding" type="xs:string"/>
+          <xs:attribute name="omit-xml-declaration" type="xsl:yes-or-no"/>
+          <xs:attribute name="standalone" type="xsl:yes-or-no"/>
+          <xs:attribute name="doctype-public" type="xs:string"/>
+          <xs:attribute name="doctype-system" type="xs:string"/>
+          <xs:attribute name="cdata-section-elements" type="xsl:QNames"/>
+          <xs:attribute name="indent" type="xsl:yes-or-no"/>
+          <xs:attribute name="media-type" type="xs:string"/>
+          <xs:assert test="exists(@href)"/>
+        </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>

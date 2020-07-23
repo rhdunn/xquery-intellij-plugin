@@ -24,10 +24,12 @@
   <xs:element name="import-module">
     <xs:complexType>
       <xs:complexContent>
-        <xs:attribute name="href" type="xs:anyURI"/>
-        <xs:attribute name="namespace" type="xs:anyURI"/>
-        <xs:assert test="exists(@href)"/>
-        <xs:assert test="exists(@namespace)"/>
+        <xs:extension base="empty">
+          <xs:attribute name="href" type="xs:anyURI"/>
+          <xs:attribute name="namespace" type="xs:anyURI"/>
+          <xs:assert test="exists(@href)"/>
+          <xs:assert test="exists(@namespace)"/>
+        </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>

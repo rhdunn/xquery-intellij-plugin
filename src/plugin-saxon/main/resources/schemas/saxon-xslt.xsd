@@ -2,6 +2,7 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
            xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning"
            xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+           xmlns:saxon="http://saxon.sf.net/"
            targetNamespace="http://saxon.sf.net/"
            elementFormDefault="qualified" vc:minVersion="1.1">
 
@@ -38,10 +39,12 @@
   <xs:element name="change">
     <xs:complexType>
       <xs:complexContent>
-        <xs:attribute name="select" type="xsl:expression"/>
-        <xs:attribute name="to" type="xsl:expression"/>
-        <xs:assert test="exists(@select)"/>
-        <xs:assert test="exists(@to)"/>
+        <xs:extension base="empty">
+          <xs:attribute name="select" type="xsl:expression"/>
+          <xs:attribute name="to" type="xsl:expression"/>
+          <xs:assert test="exists(@select)"/>
+          <xs:assert test="exists(@to)"/>
+        </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
@@ -49,12 +52,14 @@
   <xs:element name="deep-update">
     <xs:complexType>
       <xs:complexContent>
-        <xs:attribute name="root" type="xsl:expression"/>
-        <xs:attribute name="select" type="xsl:expression"/>
-        <xs:attribute name="action" type="xsl:expression"/>
-        <xs:assert test="exists(@root)"/>
-        <xs:assert test="exists(@select)"/>
-        <xs:assert test="exists(@action)"/>
+        <xs:extension base="empty">
+          <xs:attribute name="root" type="xsl:expression"/>
+          <xs:attribute name="select" type="xsl:expression"/>
+          <xs:attribute name="action" type="xsl:expression"/>
+          <xs:assert test="exists(@root)"/>
+          <xs:assert test="exists(@select)"/>
+          <xs:assert test="exists(@action)"/>
+        </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
@@ -62,8 +67,10 @@
   <xs:element name="delete">
     <xs:complexType>
       <xs:complexContent>
-        <xs:attribute name="select" type="xsl:expression"/>
-        <xs:assert test="exists(@select)"/>
+        <xs:extension base="empty">
+          <xs:attribute name="select" type="xsl:expression"/>
+          <xs:assert test="exists(@select)"/>
+        </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
@@ -71,8 +78,10 @@
   <xs:element name="do">
     <xs:complexType>
       <xs:complexContent>
-        <xs:attribute name="action" type="xsl:expression"/>
-        <xs:assert test="exists(@action)"/>
+        <xs:extension base="empty">
+          <xs:attribute name="action" type="xsl:expression"/>
+          <xs:assert test="exists(@action)"/>
+        </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
@@ -84,8 +93,10 @@
   <xs:element name="entity-ref">
     <xs:complexType>
       <xs:complexContent>
-        <xs:attribute name="name" type="xsl:EQName"/>
-        <xs:assert test="exists(@name)"/>
+        <xs:extension base="empty">
+          <xs:attribute name="name" type="xsl:EQName"/>
+          <xs:assert test="exists(@name)"/>
+        </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
@@ -104,9 +115,11 @@
   <xs:element name="import-query">
     <xs:complexType>
       <xs:complexContent>
-        <xs:attribute name="href" type="xs:anyURI"/>
-        <xs:attribute name="namespace" type="xs:anyURI"/>
-        <xs:assert test="exists(@namespace)"/>
+        <xs:extension base="empty">
+          <xs:attribute name="href" type="xs:anyURI"/>
+          <xs:attribute name="namespace" type="xs:anyURI"/>
+          <xs:assert test="exists(@namespace)"/>
+        </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
@@ -114,19 +127,21 @@
   <xs:element name="insert">
     <xs:complexType>
       <xs:complexContent>
-        <xs:attribute name="select" type="xsl:expression"/>
-        <xs:attribute name="position">
-          <xs:simpleType>
-            <xs:restriction base="xs:string">
-              <xs:enumeration value="after"/>
-              <xs:enumeration value="before"/>
-              <xs:enumeration value="first"/>
-              <xs:enumeration value="last"/>
-            </xs:restriction>
-          </xs:simpleType>
-        </xs:attribute>
-        <xs:assert test="exists(@select)"/>
-        <xs:assert test="exists(@position)"/>
+        <xs:extension base="empty">
+          <xs:attribute name="select" type="xsl:expression"/>
+          <xs:attribute name="position">
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="after"/>
+                <xs:enumeration value="before"/>
+                <xs:enumeration value="first"/>
+                <xs:enumeration value="last"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+          <xs:assert test="exists(@select)"/>
+          <xs:assert test="exists(@position)"/>
+        </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
@@ -134,10 +149,12 @@
   <xs:element name="item-type">
     <xs:complexType>
       <xs:complexContent>
-        <xs:attribute name="name" type="xsl:EQName"/>
-        <xs:attribute name="as" type="xsl:item-type"/>
-        <xs:assert test="exists(@name)"/>
-        <xs:assert test="exists(@as)"/>
+        <xs:extension base="empty">
+          <xs:attribute name="name" type="xsl:EQName"/>
+          <xs:attribute name="as" type="xsl:item-type"/>
+          <xs:assert test="exists(@name)"/>
+          <xs:assert test="exists(@as)"/>
+        </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
@@ -145,10 +162,12 @@
   <xs:element name="rename">
     <xs:complexType>
       <xs:complexContent>
-        <xs:attribute name="select" type="xsl:expression"/>
-        <xs:attribute name="to" type="xsl:expression"/>
-        <xs:assert test="exists(@select)"/>
-        <xs:assert test="exists(@to)"/>
+        <xs:extension base="empty">
+          <xs:attribute name="select" type="xsl:expression"/>
+          <xs:attribute name="to" type="xsl:expression"/>
+          <xs:assert test="exists(@select)"/>
+          <xs:assert test="exists(@to)"/>
+        </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
@@ -156,8 +175,10 @@
   <xs:element name="replace">
     <xs:complexType>
       <xs:complexContent>
-        <xs:attribute name="select" type="xsl:expression"/>
-        <xs:assert test="exists(@select)"/>
+        <xs:extension base="empty">
+          <xs:attribute name="select" type="xsl:expression"/>
+          <xs:assert test="exists(@select)"/>
+        </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
@@ -165,10 +186,12 @@
   <xs:element name="tabulate-maps">
     <xs:complexType>
       <xs:complexContent>
-        <xs:attribute name="root" type="xsl:expression"/>
-        <xs:attribute name="select" type="xsl:expression"/>
-        <xs:assert test="exists(@root)"/>
-        <xs:assert test="exists(@select)"/>
+        <xs:extension base="empty">
+          <xs:attribute name="root" type="xsl:expression"/>
+          <xs:attribute name="select" type="xsl:expression"/>
+          <xs:assert test="exists(@root)"/>
+          <xs:assert test="exists(@select)"/>
+        </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
@@ -178,19 +201,21 @@
   <xs:element name="update">
     <xs:complexType>
       <xs:complexContent>
-        <xs:attribute name="select" type="xsl:expression"/>
-        <xs:assert test="exists(@select)"/>
-        <xs:choice minOccurs="0" maxOccurs="unbounded">
-          <xs:element ref="saxon:change"/>
-          <xs:element ref="saxon:delete"/>
-          <xs:element ref="saxon:insert"/>
-          <xs:element ref="saxon:rename"/>
-          <xs:element ref="saxon:replace"/>
-          <xs:element ref="xsl:choose"/>
-          <xs:element ref="xsl:for-each"/>
-          <xs:element ref="xsl:if"/>
-          <xs:element ref="xsl:variable"/>
-        </xs:choice>
+        <xs:extension base="empty">
+          <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element ref="saxon:change"/>
+            <xs:element ref="saxon:delete"/>
+            <xs:element ref="saxon:insert"/>
+            <xs:element ref="saxon:rename"/>
+            <xs:element ref="saxon:replace"/>
+            <xs:element ref="xsl:choose"/>
+            <xs:element ref="xsl:for-each"/>
+            <xs:element ref="xsl:if"/>
+            <xs:element ref="xsl:variable"/>
+          </xs:choice>
+          <xs:attribute name="select" type="xsl:expression"/>
+          <xs:assert test="exists(@select)"/>
+        </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
@@ -205,5 +230,7 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
+
+  <xs:complexType name="empty"/>
 
 </xs:schema>
