@@ -1420,6 +1420,7 @@ of problems processing the schema using various tools
             <xs:choice minOccurs="0" maxOccurs="unbounded">
               <xs:element ref="xsl:expose"/>
               <xs:element ref="xsl:declaration"/>
+              <xs:element ref="xsl:variable"/> <!-- IntelliJ does not support multiple substitution groups. -->
               <xs:any namespace="##other" processContents="lax"/>
             </xs:choice>
           </xs:sequence>
@@ -1820,6 +1821,7 @@ of problems processing the schema using various tools
           <xs:sequence>
             <xs:choice minOccurs="0" maxOccurs="unbounded">
               <xs:element ref="xsl:declaration"/>
+              <xs:element ref="xsl:variable"/> <!-- IntelliJ does not support multiple substitution groups. -->
               <xs:any namespace="##other" processContents="lax"/>
               <!-- weaker than XSLT 1.0 -->
             </xs:choice>
@@ -1930,7 +1932,7 @@ of problems processing the schema using various tools
     </xs:complexType>
   </xs:element>
 
-  <xs:element name="variable" substitutionGroup="xsl:declaration xsl:instruction">
+  <xs:element name="variable" substitutionGroup="xsl:instruction">
     <xs:annotation>
       <xs:documentation>
         <p>
@@ -1938,10 +1940,15 @@ of problems processing the schema using various tools
            variable bindings.
         </p>
         <p>
-           This definition takes advantage of the ability in XSD 1.1 for an element
-           to belong to more than one substitution group. A global variable is a
-           declaration, while a local variable can appear as an instruction in a
-           sequence constructor.
+           The original definition took advantage of the ability in XSD 1.1 for an
+           element to belong to more than one substitution group. A global variable
+           is a declaration, while a local variable can appear as an instruction in
+           a sequence constructor.
+        </p>
+        <p>
+           IntelliJ does not support this XSD 1.1 functionality. As such, this
+           element is added directly to the places that reference the xsl:declaration
+           substitution group.
         </p>
       </xs:documentation>
     </xs:annotation>

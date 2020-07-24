@@ -10,6 +10,8 @@ XSLT:
 
 1. Register the XSLT 2.0 and XSLT 3.0 schema file URIs with IntelliJ.
 1. Auto-complete support for EXSL, MarkLogic, and Saxon XSLT extension elements.
+1. Fix validating and completing XSLT 3.0 variable elements. This is a
+   workaround for IDEA-233695.
 
 ## 2020
 
