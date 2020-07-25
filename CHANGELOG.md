@@ -2,20 +2,10 @@
 
 ## 1.8 - (In Development)
 
-1. Fix displaying the endpoints gutter icon when using IntelliJ Community
-   Edition.
-1. Fix displaying the endpoints list when clicking on the gutter icon.
-
-XSLT:
-
-1. Register the XSLT 2.0 and XSLT 3.0 schema file URIs with IntelliJ.
-1. Auto-complete support for EXSL, MarkLogic, and Saxon XSLT extension elements.
-1. Fix validating and completing XSLT 3.0 variable elements. This is a
-   workaround for IDEA-233695.
-
 ## 2020
 
-*  [1.7 - 2020-03-21](docs/_posts/2020-07-10-release-1.7.md)
+*  [1.7.1 - 2020-07-25](docs/_posts/2020-07-25-release-1.7.1.md)
+*  [1.7 - 2020-07-10](docs/_posts/2020-07-10-release-1.7.md)
 *  [1.6.2 - 2020-05-04](docs/_posts/2020-05-04-release-1.6.2.md)
 *  [1.6.1 - 2020-04-09](docs/_posts/2020-04-09-release-1.6.1.md)
 *  [1.6 - 2020-03-21](docs/_posts/2020-03-21-release-1.6.md)
