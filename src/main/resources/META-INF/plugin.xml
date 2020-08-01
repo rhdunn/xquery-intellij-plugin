@@ -69,6 +69,12 @@
 
   <change-notes><![CDATA[
     <h3>Release 1.8-dev:</h3>
+    <ol>
+      <li>
+        Fix an IntelliJ issue displaying XML elements with name or id attributes in
+        the file structure dialog. This fixes IDEA-247202.
+      </li>
+    </ol>
   ]]></change-notes>
 
   <idea-version since-build="161"/>

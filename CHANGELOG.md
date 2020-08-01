@@ -2,6 +2,9 @@
 
 ## 1.8 - (In Development)
 
+1.  Fix an IntelliJ issue displaying XML elements with name or id attributes in
+    the file structure dialog. This fixes IDEA-247202.
+
 ## 2020
 
 *  [1.7.1 - 2020-07-25](docs/_posts/2020-07-25-release-1.7.1.md)
