@@ -20,12 +20,10 @@ import com.intellij.lang.injection.MultiHostRegistrar
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiLanguageInjectionHost
 import com.intellij.psi.xml.XmlAttributeValue
-import com.intellij.psi.xml.XmlFile
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.xslt.completion.xpath.property.XPathSyntaxSubset
 import uk.co.reecedunn.intellij.plugin.xslt.dom.isIntellijXPathPluginEnabled
-import uk.co.reecedunn.intellij.plugin.xslt.dom.isXslt
 
 class XPathInXsltLanguageInjection : MultiHostInjector {
     override fun elementsToInjectIn(): MutableList<out Class<out PsiElement>> {
@@ -33,7 +31,7 @@ class XPathInXsltLanguageInjection : MultiHostInjector {
     }
 
     override fun getLanguagesToInject(registrar: MultiHostRegistrar, context: PsiElement) {
-        if (isIntellijXPathPluginEnabled() || (context as? XmlFile)?.isXslt() == false)
+        if (isIntellijXPathPluginEnabled())
             return
 
         when (XPathSyntaxSubset.get(context)) {
