@@ -16,8 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xslt.psi.impl.xslt
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElement
 import uk.co.reecedunn.intellij.plugin.xslt.ast.xslt.XsltDecimalFormat
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
+import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.XsltShadowPsiElement
 
-class XsltDecimalFormatPsiImpl(element: PsiElement) : XpmShadowPsiElement(element, XSLT), XsltDecimalFormat
+class XsltDecimalFormatPsiImpl(element: PsiElement) : XsltShadowPsiElement(element), XsltDecimalFormat

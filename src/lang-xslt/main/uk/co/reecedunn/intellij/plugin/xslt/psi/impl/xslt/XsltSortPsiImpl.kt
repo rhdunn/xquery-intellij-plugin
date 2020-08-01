@@ -16,8 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xslt.psi.impl.xslt
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElement
 import uk.co.reecedunn.intellij.plugin.xslt.ast.xslt.XsltSort
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
+import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.XsltShadowPsiElement
 
-class XsltSortPsiImpl(element: PsiElement) : XpmShadowPsiElement(element, XSLT), XsltSort
+class XsltSortPsiImpl(element: PsiElement) : XsltShadowPsiElement(element), XsltSort

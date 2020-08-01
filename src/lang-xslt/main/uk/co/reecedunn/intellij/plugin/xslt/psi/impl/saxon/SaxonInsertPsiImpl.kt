@@ -16,8 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xslt.psi.impl.saxon
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElement
 import uk.co.reecedunn.intellij.plugin.xslt.ast.saxon.SaxonInsert
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
+import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.XsltShadowPsiElement
 
-class SaxonInsertPsiImpl(element: PsiElement) : XpmShadowPsiElement(element, XSLT), SaxonInsert
+class SaxonInsertPsiImpl(element: PsiElement) : XsltShadowPsiElement(element), SaxonInsert

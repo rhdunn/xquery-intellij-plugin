@@ -16,8 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xslt.psi.impl.xml
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElement
 import uk.co.reecedunn.intellij.plugin.xslt.ast.xml.XsltDirElemConstructor
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
+import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.XsltShadowPsiElement
 
-class XsltDirElemConstructorPsiImpl(element: PsiElement) : XpmShadowPsiElement(element, XSLT), XsltDirElemConstructor
+class XsltDirElemConstructorPsiImpl(element: PsiElement) : XsltShadowPsiElement(element), XsltDirElemConstructor

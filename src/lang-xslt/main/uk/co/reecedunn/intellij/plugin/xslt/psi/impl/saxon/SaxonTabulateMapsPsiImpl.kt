@@ -16,8 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xslt.psi.impl.saxon
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElement
 import uk.co.reecedunn.intellij.plugin.xslt.ast.saxon.SaxonTabulateMaps
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
+import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.XsltShadowPsiElement
 
-class SaxonTabulateMapsPsiImpl(element: PsiElement) : XpmShadowPsiElement(element, XSLT), SaxonTabulateMaps
+class SaxonTabulateMapsPsiImpl(element: PsiElement) : XsltShadowPsiElement(element), SaxonTabulateMaps

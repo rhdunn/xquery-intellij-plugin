@@ -16,10 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xslt.psi.impl.xslt
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElement
 import uk.co.reecedunn.intellij.plugin.xslt.ast.xslt.XsltProcessingInstruction
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
+import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.XsltShadowPsiElement
 
-class XsltProcessingInstructionPsiImpl(element: PsiElement) :
-    XpmShadowPsiElement(element, XSLT),
-    XsltProcessingInstruction
+class XsltProcessingInstructionPsiImpl(element: PsiElement) : XsltShadowPsiElement(element), XsltProcessingInstruction

@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xslt.psi.impl.xslt
+package uk.co.reecedunn.intellij.plugin.xslt.psi.impl
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xslt.ast.xslt.XsltFork
-import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.XsltShadowPsiElement
+import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElement
+import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
 
-class XsltForkPsiImpl(element: PsiElement) : XsltShadowPsiElement(element), XsltFork
+open class XsltShadowPsiElement(element: PsiElement) : XpmShadowPsiElement(element, XSLT)

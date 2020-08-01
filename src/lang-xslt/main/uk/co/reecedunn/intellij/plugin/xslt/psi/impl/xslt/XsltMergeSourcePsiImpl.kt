@@ -16,8 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xslt.psi.impl.xslt
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElement
 import uk.co.reecedunn.intellij.plugin.xslt.ast.xslt.XsltMergeSource
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
+import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.XsltShadowPsiElement
 
-class XsltMergeSourcePsiImpl(element: PsiElement) : XpmShadowPsiElement(element, XSLT), XsltMergeSource
+class XsltMergeSourcePsiImpl(element: PsiElement) : XsltShadowPsiElement(element), XsltMergeSource

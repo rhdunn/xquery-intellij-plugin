@@ -16,8 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xslt.psi.impl.marklogic
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElement
 import uk.co.reecedunn.intellij.plugin.xslt.ast.marklogic.MarkLogicImportModule
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
+import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.XsltShadowPsiElement
 
-class MarkLogicImportModulePsiImpl(element: PsiElement) : XpmShadowPsiElement(element, XSLT), MarkLogicImportModule
+class MarkLogicImportModulePsiImpl(element: PsiElement) : XsltShadowPsiElement(element), MarkLogicImportModule

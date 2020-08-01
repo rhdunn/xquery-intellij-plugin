@@ -16,8 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xslt.psi.impl.saxon
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElement
 import uk.co.reecedunn.intellij.plugin.xslt.ast.saxon.SaxonDeepUpdate
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
+import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.XsltShadowPsiElement
 
-class SaxonDeepUpdatePsiImpl(element: PsiElement) : XpmShadowPsiElement(element, XSLT), SaxonDeepUpdate
+class SaxonDeepUpdatePsiImpl(element: PsiElement) : XsltShadowPsiElement(element), SaxonDeepUpdate
