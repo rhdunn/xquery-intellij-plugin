@@ -20,7 +20,7 @@ import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.psi.xml.XmlElement
 import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
-import uk.co.reecedunn.intellij.plugin.xslt.dom.isIntellijXPathPluginEnabled
+import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.isIntellijXPathPluginEnabled
 
 class XsltNSColorProvider : XmlNSColorProvider {
     override fun getKeyForNamespace(namespace: String?, context: XmlElement?): TextAttributesKey? {

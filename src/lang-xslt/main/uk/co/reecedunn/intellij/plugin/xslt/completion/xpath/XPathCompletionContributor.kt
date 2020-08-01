@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.*
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathStaticallyKnownElementOrTypeNamespaces
 import uk.co.reecedunn.intellij.plugin.xslt.completion.xpath.property.XPathVersion
 import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.*
-import uk.co.reecedunn.intellij.plugin.xslt.dom.isIntellijXPathPluginEnabled
+import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.isIntellijXPathPluginEnabled
 
 class XPathCompletionContributor : CompletionContributorEx() {
     @Suppress("PropertyName")

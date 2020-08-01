@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xslt.dom
+package uk.co.reecedunn.intellij.plugin.xslt.intellij.lang
 
 import com.intellij.compat.ide.plugins.PluginManagerCore
 import com.intellij.openapi.extensions.PluginId

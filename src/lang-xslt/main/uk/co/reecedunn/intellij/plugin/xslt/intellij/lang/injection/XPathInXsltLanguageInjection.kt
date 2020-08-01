@@ -23,7 +23,7 @@ import com.intellij.psi.xml.XmlAttributeValue
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.xslt.completion.xpath.property.XPathSyntaxSubset
-import uk.co.reecedunn.intellij.plugin.xslt.dom.isIntellijXPathPluginEnabled
+import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.isIntellijXPathPluginEnabled
 
 class XPathInXsltLanguageInjection : MultiHostInjector {
     override fun elementsToInjectIn(): MutableList<out Class<out PsiElement>> {
