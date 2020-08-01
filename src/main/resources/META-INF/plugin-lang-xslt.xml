@@ -6,6 +6,8 @@
 
     <multiHostInjector implementation="uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.injection.XPathInXsltLanguageInjection"/>
 
+    <xmlStructureViewElementProvider implementation="uk.co.reecedunn.intellij.plugin.xslt.intellij.ide.structureView.XmlStructureViewElementProvider"/>
+
     <completion.contributor language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.completion.xpath.XPathCompletionContributor"/>
     <typedHandler implementation="uk.co.reecedunn.intellij.plugin.xpath.intellij.codeInsight.editorActions.XPathTypedHandler"/>
 
