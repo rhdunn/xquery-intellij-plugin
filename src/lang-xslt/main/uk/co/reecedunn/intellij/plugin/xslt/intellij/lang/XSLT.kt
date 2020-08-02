@@ -19,6 +19,8 @@ import com.intellij.lang.Language
 import com.intellij.openapi.fileTypes.ExtensionFileNameMatcher
 import com.intellij.openapi.fileTypes.FileNameMatcher
 import com.intellij.openapi.fileTypes.LanguageFileType
+import com.intellij.psi.PsiFile
+import com.intellij.psi.xml.XmlFile
 import uk.co.reecedunn.intellij.plugin.core.lang.LanguageData
 
 /**
@@ -26,6 +28,8 @@ import uk.co.reecedunn.intellij.plugin.core.lang.LanguageData
  */
 object XSLT : Language("XSLT") {
     const val NAMESPACE: String = "http://www.w3.org/1999/XSL/Transform"
+
+    fun isXsltFile(file: PsiFile): Boolean = (file as? XmlFile)?.rootTag?.namespace == NAMESPACE
 
     override fun isCaseSensitive(): Boolean = true
 

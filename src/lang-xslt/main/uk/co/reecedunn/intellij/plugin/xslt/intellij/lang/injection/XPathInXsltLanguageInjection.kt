@@ -38,7 +38,7 @@ class XPathInXsltLanguageInjection : MultiHostInjector {
             return
 
         val attr = context.toXmlAttributeValue()?.attribute ?: return
-        if (attr.parent.namespace != XSLT.NAMESPACE) return
+        if (!XSLT.isXsltFile(attr.containingFile)) return
 
         if (XsltSchemaType.create(attr.schemaType) != null) {
             val host = context as PsiLanguageInjectionHost
