@@ -25,8 +25,9 @@ import com.intellij.psi.impl.light.LightElement
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
+import javax.swing.Icon
 
-open class XpmShadowPsiElement(private val shadowed: PsiElement, language: Language) :
+open class XpmShadowPsiElement(val shadowed: PsiElement, language: Language) :
     LightElement(shadowed.manager, language) {
     // region LightElement
 
@@ -73,6 +74,8 @@ open class XpmShadowPsiElement(private val shadowed: PsiElement, language: Langu
     override fun getNextSibling(): PsiElement? {
         return shadowed.siblings().mapNotNull { XpmShadowPsiElementFactory.create(it) }.firstOrNull()
     }
+
+    override fun getIcon(flags: Int): Icon? = shadowed.getIcon(flags)
 
     override fun toString(): String = "${javaClass.simpleName}($elementType)"
 

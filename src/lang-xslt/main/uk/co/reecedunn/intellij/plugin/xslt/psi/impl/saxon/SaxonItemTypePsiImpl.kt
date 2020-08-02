@@ -16,7 +16,11 @@
 package uk.co.reecedunn.intellij.plugin.xslt.psi.impl.saxon
 
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.xslt.ast.saxon.SaxonItemType
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.XsltShadowPsiElement
+import javax.swing.Icon
 
-class SaxonItemTypePsiImpl(element: PsiElement) : XsltShadowPsiElement(element), SaxonItemType
+class SaxonItemTypePsiImpl(element: PsiElement) : XsltShadowPsiElement(element), SaxonItemType {
+    override fun getIcon(flags: Int): Icon? = XPathIcons.Nodes.TypeDecl
+}

@@ -69,11 +69,13 @@
 
   <change-notes><![CDATA[
     <h3>Release 1.8-dev:</h3>
+    <p>XML and XSLT:</p>
     <ol>
       <li>
         Fix an IntelliJ issue displaying XML elements with name or id attributes in
         the file structure dialog. This fixes IDEA-247202.
       </li>
+      <li>Set icons for XSLT function, parameter, variable, and item type elements.</li>
     </ol>
   ]]></change-notes>
 

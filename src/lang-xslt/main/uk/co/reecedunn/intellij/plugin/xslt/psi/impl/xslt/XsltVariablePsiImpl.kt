@@ -16,7 +16,11 @@
 package uk.co.reecedunn.intellij.plugin.xslt.psi.impl.xslt
 
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.xslt.ast.xslt.XsltVariable
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.XsltShadowPsiElement
+import javax.swing.Icon
 
-class XsltVariablePsiImpl(element: PsiElement) : XsltShadowPsiElement(element), XsltVariable
+class XsltVariablePsiImpl(element: PsiElement) : XsltShadowPsiElement(element), XsltVariable {
+    override fun getIcon(flags: Int): Icon? = XPathIcons.Nodes.VarDecl
+}

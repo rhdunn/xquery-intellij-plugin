@@ -17,12 +17,27 @@ package uk.co.reecedunn.intellij.plugin.xslt.intellij.ide.structureView
 
 import com.intellij.ide.structureView.StructureViewBundle
 import com.intellij.ide.structureView.impl.xml.XmlTagTreeElement
+import com.intellij.openapi.util.Iconable
+import com.intellij.psi.PsiFile
 import com.intellij.psi.xml.XmlTag
+import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElementFactory
+import javax.swing.Icon
 
 class XmlStructureViewTreeElement(tag: XmlTag) : XmlTagTreeElement(tag) {
     override fun getPresentableText(): String? {
         val element = element ?: return StructureViewBundle.message("node.structureview.invalid")
         val id = toCanonicalForm(element.getAttributeValue("id") ?: element.getAttributeValue("name"))
         return id?.let { "$id [${element.name}]" } ?: element.name
+    }
+
+    override fun getIcon(open: Boolean): Icon? {
+        return element?.let { XpmShadowPsiElementFactory.create(it) ?: it }?.let {
+            val file = element as? PsiFile
+            val flags = when {
+                file == null || !file.isWritable -> Iconable.ICON_FLAG_READ_STATUS or Iconable.ICON_FLAG_VISIBILITY
+                else -> Iconable.ICON_FLAG_READ_STATUS
+            }
+            return it.getIcon(flags)
+        }
     }
 }
