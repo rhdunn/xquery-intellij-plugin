@@ -83,13 +83,20 @@ open class XPathParser(private val context: XPathParserContext) : PsiParser {
     }
 
     open fun parse(builder: PsiBuilder, isFirst: Boolean): Boolean {
-        if (parseExpr(builder, null)) {
+        if (parseXsltSchemaType(builder, context.schemaType)) {
             return true
         }
         if (isFirst) {
-            builder.error(XPathBundle.message("parser.error.expected-expression"))
+            builder.error(XPathBundle.message("parser.error.expected", context.schemaType.type))
         }
         return false
+    }
+
+    private fun parseXsltSchemaType(builder: PsiBuilder, schemaType: XsltSchemaType): Boolean = when (schemaType) {
+        XsltSchemaType.Expression -> parseExpr(builder, null)
+        XsltSchemaType.ItemType -> parseItemType(builder)
+        XsltSchemaType.Pattern -> parseExpr(builder, null)
+        XsltSchemaType.SequenceType -> parseSequenceType(builder)
     }
 
     // endregion
