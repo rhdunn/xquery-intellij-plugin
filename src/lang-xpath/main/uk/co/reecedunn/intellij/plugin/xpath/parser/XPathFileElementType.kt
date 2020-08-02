@@ -17,7 +17,11 @@ package uk.co.reecedunn.intellij.plugin.xpath.parser
 
 import com.intellij.lang.*
 import com.intellij.psi.PsiElement
+import com.intellij.psi.impl.source.tree.injected.InjectedLanguageUtil
 import com.intellij.psi.tree.IFileElementType
+import uk.co.reecedunn.intellij.plugin.core.xml.attribute
+import uk.co.reecedunn.intellij.plugin.core.xml.schemaType
+import uk.co.reecedunn.intellij.plugin.core.xml.toXmlAttributeValue
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 
 class XPathFileElementType : IFileElementType(XPath) {
@@ -29,8 +33,15 @@ class XPathFileElementType : IFileElementType(XPath) {
         )
 
         val definition = LanguageParserDefinitions.INSTANCE.forLanguage(languageForParser) as XPathParserDefinition
-        val parser = definition.createParser(project)
+        val parser = definition.createParser(project, getParserContext(psi))
         val node = parser.parse(this, builder)
         return node.firstChildNode
+    }
+
+    private fun getParserContext(psi: PsiElement): XPathParserContext {
+        // NOTE: Using InjectedLanguageManager#getInjectionHost returns null.
+        val host = InjectedLanguageUtil.findInjectionHost(psi)
+        val schemaType = XsltSchemaType.create(host?.toXmlAttributeValue()?.attribute?.schemaType)
+        return schemaType?.let { XPathParserContext(it) } ?: XPathParserContext.DEFAULT
     }
 }

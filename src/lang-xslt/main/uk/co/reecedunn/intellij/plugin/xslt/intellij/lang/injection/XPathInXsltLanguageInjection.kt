@@ -40,17 +40,13 @@ class XPathInXsltLanguageInjection : MultiHostInjector {
         val attr = context.toXmlAttributeValue()?.attribute ?: return
         if (attr.parent.namespace != XSLT.NAMESPACE) return
 
-        when (XsltSchemaType.create(attr.schemaType)) {
-            XsltSchemaType.Expression, XsltSchemaType.Pattern -> {
-                val host = context as PsiLanguageInjectionHost
-                val range = host.textRange
+        if (XsltSchemaType.create(attr.schemaType) != null) {
+            val host = context as PsiLanguageInjectionHost
+            val range = host.textRange
 
-                registrar.startInjecting(XPath)
-                registrar.addPlace(null, null, host, range.shiftLeft(range.startOffset))
-                registrar.doneInjecting()
-            }
-            else -> {
-            }
+            registrar.startInjecting(XPath)
+            registrar.addPlace(null, null, host, range.shiftLeft(range.startOffset))
+            registrar.doneInjecting()
         }
     }
 }

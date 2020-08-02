@@ -8,6 +8,10 @@ XML and XSLT:
     the file structure dialog. This fixes IDEA-247202.
 1.  Set icons for XSLT function, parameter, variable, and item type elements.
 
+XSLT and XPath:
+
+1.  Parse and validate item and sequence type XSLT attributes (e.g. `as`).
+
 ## 2020
 
 *  [1.7.1 - 2020-07-25](docs/_posts/2020-07-25-release-1.7.1.md)

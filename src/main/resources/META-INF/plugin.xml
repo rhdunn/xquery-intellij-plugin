@@ -77,6 +77,10 @@
       </li>
       <li>Set icons for XSLT function, parameter, variable, and item type elements.</li>
     </ol>
+    <p>XSLT and XPath</p>
+    <ol>
+      <li>Parse and validate item and sequence type XSLT attributes (e.g. <code>as</code>).</li>
+    </ol>
   ]]></change-notes>
 
   <idea-version since-build="161"/>
