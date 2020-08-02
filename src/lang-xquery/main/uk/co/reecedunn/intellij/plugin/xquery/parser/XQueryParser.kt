@@ -28,6 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParser
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserContext
 import uk.co.reecedunn.intellij.plugin.xqdoc.parser.XQDocParser
 
 /**
@@ -54,7 +55,7 @@ import uk.co.reecedunn.intellij.plugin.xqdoc.parser.XQDocParser
  * for details of the grammar implemented by this parser.
  */
 @Suppress("FunctionName")
-class XQueryParser : XPathParser() {
+class XQueryParser : XPathParser(XPathParserContext.DEFAULT) {
     // region XPath/XQuery Element Types
     //
     // These element types have different PSI implementations in XPath and XQuery.

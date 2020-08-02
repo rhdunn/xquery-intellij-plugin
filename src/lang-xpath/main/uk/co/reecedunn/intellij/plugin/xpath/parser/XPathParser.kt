@@ -33,7 +33,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
  * A unified XPath parser for different XPath versions and dialects.
  */
 @Suppress("PropertyName", "PrivatePropertyName")
-open class XPathParser : PsiParser {
+open class XPathParser(private val context: XPathParserContext) : PsiParser {
     // region XPath/XQuery Element Types
     //
     // These element types have different PSI implementations in XPath and XQuery.
