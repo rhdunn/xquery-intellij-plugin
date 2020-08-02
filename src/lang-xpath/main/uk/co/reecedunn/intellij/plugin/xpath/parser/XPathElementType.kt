@@ -29,7 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.*
 object XPathElementType {
     // region XPath 1.0
 
-    val XPATH: IFileElementType = IFileElementType(XPath)
+    val XPATH: IFileElementType = XPathFileElementType()
 
     val EXPR: IElementType = ICompositeElementType(
         "XPATH_EXPR",
