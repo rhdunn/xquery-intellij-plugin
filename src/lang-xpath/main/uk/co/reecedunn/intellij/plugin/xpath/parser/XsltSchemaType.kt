@@ -15,10 +15,19 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.parser
 
-data class XPathParserContext(
-    val schemaType: XsltSchemaType = XsltSchemaType.Expression
-) {
+enum class XsltSchemaType(val type: String) {
+    Expression("xsl:expression"),
+    ItemType("xsl:item-type"),
+    Pattern("xsl:pattern"),
+    SequenceType("xsl:sequence-type");
+
     companion object {
-        val DEFAULT: XPathParserContext = XPathParserContext()
+        fun create(schemaType: String?): XsltSchemaType? = when (schemaType) {
+            Expression.type -> Expression
+            ItemType.type -> ItemType
+            Pattern.type -> Pattern
+            SequenceType.type -> SequenceType
+            else -> null
+        }
     }
 }

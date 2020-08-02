@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.core.xml.attribute
 import uk.co.reecedunn.intellij.plugin.core.xml.schemaType
 import uk.co.reecedunn.intellij.plugin.core.xml.toXmlAttributeValue
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XsltSchemaType
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.isIntellijXPathPluginEnabled
 
@@ -39,14 +40,16 @@ class XPathInXsltLanguageInjection : MultiHostInjector {
         val attr = context.toXmlAttributeValue()?.attribute ?: return
         if (attr.parent.namespace != XSLT.NAMESPACE) return
 
-        when (attr.schemaType) {
-            "xsl:expression", "xsl:pattern" -> {
+        when (XsltSchemaType.create(attr.schemaType)) {
+            XsltSchemaType.Expression, XsltSchemaType.Pattern -> {
                 val host = context as PsiLanguageInjectionHost
                 val range = host.textRange
 
                 registrar.startInjecting(XPath)
                 registrar.addPlace(null, null, host, range.shiftLeft(range.startOffset))
                 registrar.doneInjecting()
+            }
+            else -> {
             }
         }
     }
