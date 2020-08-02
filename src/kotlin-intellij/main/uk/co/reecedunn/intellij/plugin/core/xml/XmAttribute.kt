@@ -19,6 +19,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.util.PsiTreeUtil
 import com.intellij.psi.xml.XmlAttribute
 import com.intellij.psi.xml.XmlAttributeValue
+import com.intellij.psi.xml.XmlTag
 
 fun PsiElement.toXmlAttributeValue(): XmlAttributeValue? {
     // Case #1: The file is an XML file.
@@ -28,3 +29,5 @@ fun PsiElement.toXmlAttributeValue(): XmlAttributeValue? {
 }
 
 val XmlAttributeValue.attribute: XmlAttribute? get() = parent as? XmlAttribute
+
+val XmlAttribute.schemaType: String? get() = (descriptor?.declaration as? XmlTag)?.getAttributeValue("type")

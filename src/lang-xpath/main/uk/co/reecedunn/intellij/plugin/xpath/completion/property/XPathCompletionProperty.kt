@@ -24,8 +24,6 @@ import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 object XPathCompletionProperty {
     val XPATH_VERSION: Key<Version> = Key.create("uk.co.reecedunn.intellij.plugin.xpath.XPathVersion")
 
-    val XPATH_SUBSET: Key<XPathSubset> = Key.create("uk.co.reecedunn.intellij.plugin.xpath.XPathSubset")
-
     val XSLT_VERSION: Key<Version> = Key.create("uk.co.reecedunn.intellij.plugin.xpath.XsltVersion")
 
     val XPATH_PRODUCT: Key<Product> = Key.create("uk.co.reecedunn.intellij.plugin.xpath.XPathProduct")
