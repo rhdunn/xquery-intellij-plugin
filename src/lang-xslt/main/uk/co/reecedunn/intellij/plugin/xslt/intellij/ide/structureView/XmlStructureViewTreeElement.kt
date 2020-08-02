@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xslt.intellij.ide.structureView
 
-import com.intellij.ide.structureView.StructureViewBundle
 import com.intellij.ide.structureView.impl.xml.XmlTagTreeElement
 import com.intellij.openapi.util.Iconable
 import com.intellij.psi.PsiFile
@@ -25,9 +24,9 @@ import javax.swing.Icon
 
 class XmlStructureViewTreeElement(tag: XmlTag) : XmlTagTreeElement(tag) {
     override fun getPresentableText(): String? {
-        val element = element ?: return StructureViewBundle.message("node.structureview.invalid")
+        val element = element ?: return super.getPresentableText()
         val id = toCanonicalForm(element.getAttributeValue("id") ?: element.getAttributeValue("name"))
-        return id?.let { "$id [${element.name}]" } ?: element.name
+        return id?.let { "$id [${element.name}]" } ?: element.name // Fix IDEA-247202
     }
 
     override fun getIcon(open: Boolean): Icon? {
