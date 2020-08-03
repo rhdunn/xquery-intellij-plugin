@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.parser.valueTemplateExpressions
 
+@Suppress("ClassName")
 @DisplayName("IntelliJ - Custom Language Support - XPath Language Injection - Value Templates")
 class ValueTemplateExpressionsTest {
     @Test
@@ -79,6 +80,30 @@ class ValueTemplateExpressionsTest {
 
             assertThat(expressions[0].startOffset, `is`(0))
             assertThat(expressions[0].endOffset, `is`(5))
+        }
+    }
+
+    @Nested
+    @DisplayName("single expression; nested braces")
+    inner class SingleExpression_Nested {
+        @Test
+        @DisplayName("spanning the entire text")
+        fun span() {
+            val expressions = "{array {1, 2, 3}}".valueTemplateExpressions()
+            assertThat(expressions.size, `is`(1))
+
+            assertThat(expressions[0].startOffset, `is`(0))
+            assertThat(expressions[0].endOffset, `is`(17))
+        }
+
+        @Test
+        @DisplayName("missing closing brace")
+        fun missingClosingBrace() {
+            val expressions = "{array {1, 2, 3}".valueTemplateExpressions()
+            assertThat(expressions.size, `is`(1))
+
+            assertThat(expressions[0].startOffset, `is`(0))
+            assertThat(expressions[0].endOffset, `is`(16))
         }
     }
 }

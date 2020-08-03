@@ -22,12 +22,22 @@ fun String.valueTemplateExpressions(): List<TextRange> {
     val expressions = ArrayList<TextRange>()
 
     var start = -1
+    var depth = 0
     withIndex().forEach { (index, c) ->
         if (c == '{') {
-            start = index
+            if (start == -1) {
+                start = index
+                depth = 0
+            } else {
+                depth++
+            }
         } else if (c == '}') {
-            expressions.add(TextRange(start, index + 1))
-            start = -1
+            if (depth == 0) {
+                expressions.add(TextRange(start, index + 1))
+                start = -1
+            } else {
+                depth--
+            }
         }
     }
 
