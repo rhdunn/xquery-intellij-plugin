@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.core.xml.schemaType
 import uk.co.reecedunn.intellij.plugin.core.xml.toXmlAttributeValue
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XsltSchemaType
+import uk.co.reecedunn.intellij.plugin.xpath.parser.attributeValueTemplateExpressions
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.isIntellijXPathPluginEnabled
 
@@ -40,13 +41,19 @@ class XPathInXsltLanguageInjection : MultiHostInjector {
         val attr = context.toXmlAttributeValue()?.attribute ?: return
         if (!XSLT.isXsltFile(attr.containingFile)) return
 
+        val host = context as PsiLanguageInjectionHost
         if (XsltSchemaType.create(attr.schemaType) != null) {
-            val host = context as PsiLanguageInjectionHost
             val range = host.textRange
 
             registrar.startInjecting(XPath)
             registrar.addPlace(null, null, host, range.shiftLeft(range.startOffset))
             registrar.doneInjecting()
+        } else {
+            attr.attributeValueTemplateExpressions().forEach { expression ->
+                registrar.startInjecting(XPath)
+                registrar.addPlace(null, null, host, expression)
+                registrar.doneInjecting()
+            }
         }
     }
 }
