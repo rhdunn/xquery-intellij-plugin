@@ -106,4 +106,40 @@ class ValueTemplateExpressionsTest {
             assertThat(expressions[0].endOffset, `is`(16))
         }
     }
+
+    @Nested
+    @DisplayName("multiple expressions; no nested braces")
+    inner class MultipleExpressions {
+        @Test
+        @DisplayName("multiple expressions")
+        fun multiple() {
+            val expressions = "{1} + {2} = {1 + 2}".valueTemplateExpressions()
+            assertThat(expressions.size, `is`(3))
+
+            assertThat(expressions[0].startOffset, `is`(0))
+            assertThat(expressions[0].endOffset, `is`(3))
+
+            assertThat(expressions[1].startOffset, `is`(6))
+            assertThat(expressions[1].endOffset, `is`(9))
+
+            assertThat(expressions[2].startOffset, `is`(12))
+            assertThat(expressions[2].endOffset, `is`(19))
+        }
+
+        @Test
+        @DisplayName("missing closing brace")
+        fun missingClosingBrace() {
+            val expressions = "{1} + {2} = {1 + ".valueTemplateExpressions()
+            assertThat(expressions.size, `is`(3))
+
+            assertThat(expressions[0].startOffset, `is`(0))
+            assertThat(expressions[0].endOffset, `is`(3))
+
+            assertThat(expressions[1].startOffset, `is`(6))
+            assertThat(expressions[1].endOffset, `is`(9))
+
+            assertThat(expressions[2].startOffset, `is`(12))
+            assertThat(expressions[2].endOffset, `is`(17))
+        }
+    }
 }

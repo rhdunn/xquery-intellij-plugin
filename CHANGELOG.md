@@ -2,15 +2,16 @@
 
 ## 1.8 - (In Development)
 
-XML and XSLT:
+XML:
 
 1.  Fix an IntelliJ issue displaying XML elements with name or id attributes in
     the file structure dialog. This fixes IDEA-247202.
-1.  Set icons for XSLT function, parameter, variable, and item type elements.
 
 XSLT and XPath:
 
+1.  Set icons for XSLT function, parameter, variable, and item type elements.
 1.  Parse and validate item and sequence type XSLT attributes (e.g. `as`).
+1.  Support XPath expressions in attribute value templates.
 
 ## 2020
 
