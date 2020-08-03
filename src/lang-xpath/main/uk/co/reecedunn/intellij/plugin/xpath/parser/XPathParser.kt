@@ -83,7 +83,7 @@ open class XPathParser(private val context: XPathParserContext) : PsiParser {
     }
 
     open fun parse(builder: PsiBuilder, isFirst: Boolean): Boolean {
-        if (parseXsltSchemaType(builder, context.schemaType)) {
+        if (parseXsltSchemaType(builder)) {
             return true
         }
         if (isFirst) {
@@ -92,8 +92,13 @@ open class XPathParser(private val context: XPathParserContext) : PsiParser {
         return false
     }
 
-    private fun parseXsltSchemaType(builder: PsiBuilder, schemaType: XsltSchemaType): Boolean = when (schemaType) {
-        XsltSchemaType.Expression -> parseExpr(builder, null)
+    private fun parseXsltSchemaType(builder: PsiBuilder): Boolean = when (context.schemaType) {
+        XsltSchemaType.Expression -> {
+            if (context.isValueTemplateExpression)
+                parseEnclosedExprOrBlock(builder, null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)
+            else
+                parseExpr(builder, null)
+        }
         XsltSchemaType.ItemType -> parseItemType(builder)
         XsltSchemaType.Pattern -> parseExpr(builder, null)
         XsltSchemaType.SequenceType -> parseSequenceType(builder)

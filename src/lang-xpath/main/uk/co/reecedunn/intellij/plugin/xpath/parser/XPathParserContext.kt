@@ -16,9 +16,12 @@
 package uk.co.reecedunn.intellij.plugin.xpath.parser
 
 data class XPathParserContext(
-    val schemaType: XsltSchemaType = XsltSchemaType.Expression
+    val schemaType: XsltSchemaType = XsltSchemaType.Expression,
+    val isValueTemplateExpression: Boolean = false
 ) {
     companion object {
         val DEFAULT: XPathParserContext = XPathParserContext()
+
+        val VALUE_TEMPLATE_EXPRESSION: XPathParserContext = XPathParserContext(isValueTemplateExpression = true)
     }
 }

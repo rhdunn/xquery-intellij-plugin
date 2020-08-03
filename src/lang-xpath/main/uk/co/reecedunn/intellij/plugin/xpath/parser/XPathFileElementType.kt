@@ -17,9 +17,12 @@ package uk.co.reecedunn.intellij.plugin.xpath.parser
 
 import com.intellij.lang.*
 import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiFile
 import com.intellij.psi.impl.source.tree.injected.InjectedLanguageUtil
 import com.intellij.psi.tree.IFileElementType
+import com.intellij.psi.xml.XmlFile
 import uk.co.reecedunn.intellij.plugin.core.xml.attribute
+import uk.co.reecedunn.intellij.plugin.core.xml.isXsltFile
 import uk.co.reecedunn.intellij.plugin.core.xml.schemaType
 import uk.co.reecedunn.intellij.plugin.core.xml.toXmlAttributeValue
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
@@ -41,7 +44,13 @@ class XPathFileElementType : IFileElementType(XPath) {
     private fun getParserContext(psi: PsiElement): XPathParserContext {
         // NOTE: Using InjectedLanguageManager#getInjectionHost returns null.
         val host = InjectedLanguageUtil.findInjectionHost(psi)
-        val schemaType = XsltSchemaType.create(host?.toXmlAttributeValue()?.attribute?.schemaType)
-        return schemaType?.let { XPathParserContext(it) } ?: XPathParserContext.DEFAULT
+        val attr = host?.toXmlAttributeValue()?.attribute ?: return XPathParserContext.DEFAULT
+        val schemaType = XsltSchemaType.create(attr.schemaType)
+        if (schemaType != null) return XPathParserContext(schemaType)
+
+        if (attr.isXsltFile && attr.attributeValueTemplateExpressions().isNotEmpty()) {
+            return XPathParserContext.VALUE_TEMPLATE_EXPRESSION
+        }
+        return XPathParserContext.DEFAULT
     }
 }
