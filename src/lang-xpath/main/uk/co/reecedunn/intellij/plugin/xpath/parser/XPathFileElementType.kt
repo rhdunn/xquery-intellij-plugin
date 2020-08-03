@@ -48,7 +48,7 @@ class XPathFileElementType : IFileElementType(XPath) {
         val schemaType = XsltSchemaType.create(attr.schemaType)
         if (schemaType != null) return XPathParserContext(schemaType)
 
-        if (attr.isXsltFile && attr.attributeValueTemplateExpressions().isNotEmpty()) {
+        if (attr.isXsltFile) {
             return XPathParserContext.VALUE_TEMPLATE_EXPRESSION
         }
         return XPathParserContext.DEFAULT
