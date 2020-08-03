@@ -22,33 +22,43 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.parser.valueTemplateExpressions
 
-@DisplayName("IntelliJ - Custom Language Support - XPath Language Injection - Text Value Templates")
+@DisplayName("IntelliJ - Custom Language Support - XPath Language Injection - Value Templates")
 class ValueTemplateExpressionsTest {
     @Test
     @DisplayName("empty")
     fun empty() {
-        val blocks = "".valueTemplateExpressions()
-        assertThat(blocks.size, `is`(0))
+        val expressions = "".valueTemplateExpressions()
+        assertThat(expressions.size, `is`(0))
     }
 
     @Test
-    @DisplayName("no blocks")
-    fun noBlocks() {
-        val blocks = "Lorem ipsum dolor.".valueTemplateExpressions()
-        assertThat(blocks.size, `is`(0))
+    @DisplayName("no expressions")
+    fun noExpressions() {
+        val expressions = "Lorem ipsum dolor.".valueTemplateExpressions()
+        assertThat(expressions.size, `is`(0))
     }
 
     @Nested
-    @DisplayName("single block; no nested braces")
-    inner class SingleBlock {
+    @DisplayName("single expression; no nested braces")
+    inner class SingleExpression {
         @Test
-        @DisplayName("spanning the entire text block")
+        @DisplayName("spanning the entire text")
         fun span() {
-            val blocks = "{1234}".valueTemplateExpressions()
-            assertThat(blocks.size, `is`(1))
+            val expressions = "{1234}".valueTemplateExpressions()
+            assertThat(expressions.size, `is`(1))
 
-            assertThat(blocks[0].startOffset, `is`(0))
-            assertThat(blocks[0].endOffset, `is`(6))
+            assertThat(expressions[0].startOffset, `is`(0))
+            assertThat(expressions[0].endOffset, `is`(6))
+        }
+
+        @Test
+        @DisplayName("missing closing brace")
+        fun missingClosingBrace() {
+            val expressions = "{1234".valueTemplateExpressions()
+            assertThat(expressions.size, `is`(1))
+
+            assertThat(expressions[0].startOffset, `is`(0))
+            assertThat(expressions[0].endOffset, `is`(5))
         }
     }
 }

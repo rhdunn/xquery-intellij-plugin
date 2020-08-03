@@ -19,11 +19,11 @@ import com.intellij.openapi.util.TextRange
 import com.intellij.psi.xml.XmlAttribute
 
 fun String.valueTemplateExpressions(): List<TextRange> {
-    val blocks = ArrayList<TextRange>()
-    if (startsWith('{') && endsWith('}')) {
-        blocks.add(TextRange(0, length))
+    val expressions = ArrayList<TextRange>()
+    if (startsWith('{')) {
+        expressions.add(TextRange(0, length))
     }
-    return blocks
+    return expressions
 }
 
 fun XmlAttribute.attributeValueTemplateExpressions(): List<TextRange> {
