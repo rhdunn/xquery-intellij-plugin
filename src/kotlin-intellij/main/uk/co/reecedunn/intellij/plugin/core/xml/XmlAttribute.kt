@@ -16,10 +16,14 @@
 package uk.co.reecedunn.intellij.plugin.core.xml
 
 import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiFile
 import com.intellij.psi.util.PsiTreeUtil
 import com.intellij.psi.xml.XmlAttribute
 import com.intellij.psi.xml.XmlAttributeValue
+import com.intellij.psi.xml.XmlFile
 import com.intellij.psi.xml.XmlTag
+
+private const val XSLT_NAMESPACE: String = "http://www.w3.org/1999/XSL/Transform"
 
 fun PsiElement.toXmlAttributeValue(): XmlAttributeValue? {
     // Case #1: The file is an XML file.
@@ -31,3 +35,6 @@ fun PsiElement.toXmlAttributeValue(): XmlAttributeValue? {
 val XmlAttributeValue.attribute: XmlAttribute? get() = parent as? XmlAttribute
 
 val XmlAttribute.schemaType: String? get() = (descriptor?.declaration as? XmlTag)?.getAttributeValue("type")
+
+val XmlAttribute.isXsltFile: Boolean
+    get() = (containingFile as? XmlFile)?.rootTag?.namespace == XSLT_NAMESPACE
