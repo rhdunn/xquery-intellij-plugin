@@ -62,6 +62,16 @@ class ValueTemplateExpressionsTest {
         }
 
         @Test
+        @DisplayName("text after")
+        fun textAfter() {
+            val expressions = "{1234} is the value of x.".valueTemplateExpressions()
+            assertThat(expressions.size, `is`(1))
+
+            assertThat(expressions[0].startOffset, `is`(0))
+            assertThat(expressions[0].endOffset, `is`(6))
+        }
+
+        @Test
         @DisplayName("missing closing brace")
         fun missingClosingBrace() {
             val expressions = "{1234".valueTemplateExpressions()

@@ -20,10 +20,19 @@ import com.intellij.psi.xml.XmlAttribute
 
 fun String.valueTemplateExpressions(): List<TextRange> {
     val expressions = ArrayList<TextRange>()
+
+    var start = -1
     withIndex().forEach { (index, c) ->
         if (c == '{') {
-            expressions.add(TextRange(index, length))
+            start = index
+        } else if (c == '}') {
+            expressions.add(TextRange(start, index + 1))
+            start = -1
         }
+    }
+
+    if (start != -1) {
+        expressions.add(TextRange(start, length))
     }
     return expressions
 }
