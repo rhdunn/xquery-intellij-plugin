@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xslt.intellij.editor
+package uk.co.reecedunn.intellij.plugin.xslt.intellij.lexer
 
 import com.intellij.codeInsight.daemon.impl.analysis.XmlNSColorProvider
 import com.intellij.openapi.editor.colors.TextAttributesKey
