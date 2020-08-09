@@ -4,11 +4,11 @@ title: Specifications
 ---
 
 {: .toc }
-- [XPath and XQuery Vendor Extensions](#xpath-and-xquery-vendor-extensions)
+- [Vendor Extensions](#xpath-and-xquery-vendor-extensions)
 - [Specifications](#specifications)
 - [Grammar](#grammar)
 
-## XPath and XQuery Vendor Extensions
+## Vendor Extensions
 
 1. [XQuery IntelliJ Plugin 1.7 XPath](XQuery%20IntelliJ%20Plugin%20XPath.html)
 
@@ -37,6 +37,11 @@ title: Specifications
 
    Documents the BaseX, eXisit-db, EXPath, MarkLogic, and Saxon vendor
    extensions for XQuery supported by the XQuery IntelliJ Plugin.
+
+1. [XQuery IntelliJ Plugin 1.8 XSLT](XQuery%20IntelliJ%20Plugin%20XSLT.html)
+
+   Documents the value template EBNF grammar supported by the XQuery IntelliJ
+   Plugin.
 
 1. [XQuery IntelliJ Plugin 1.6 Data Model](XQuery%20IntelliJ%20Plugin%20Data%20Model.html)
 
