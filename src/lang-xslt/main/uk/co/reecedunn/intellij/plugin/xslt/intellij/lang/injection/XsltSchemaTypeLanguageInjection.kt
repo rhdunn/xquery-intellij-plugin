@@ -20,12 +20,8 @@ import com.intellij.lang.injection.MultiHostRegistrar
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiLanguageInjectionHost
 import com.intellij.psi.xml.XmlAttributeValue
-import uk.co.reecedunn.intellij.plugin.core.xml.attribute
-import uk.co.reecedunn.intellij.plugin.core.xml.schemaType
-import uk.co.reecedunn.intellij.plugin.core.xml.toXmlAttributeValue
-import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.isIntellijXPathPluginEnabled
+import uk.co.reecedunn.intellij.plugin.xslt.schema.XsltSchemaType
 
 class XsltSchemaTypeLanguageInjection : MultiHostInjector {
     override fun elementsToInjectIn(): MutableList<out Class<out PsiElement>> {
@@ -36,18 +32,11 @@ class XsltSchemaTypeLanguageInjection : MultiHostInjector {
         if (isIntellijXPathPluginEnabled())
             return
 
-        val attr = context.toXmlAttributeValue()?.attribute ?: return
-        if (attr.parent.namespace != XSLT.NAMESPACE) return
-
-        when (attr.schemaType) {
-            "xsl:expression", "xsl:pattern" -> {
-                val host = context as PsiLanguageInjectionHost
-                val range = host.textRange
-
-                registrar.startInjecting(XPath)
-                registrar.addPlace(null, null, host, range.shiftLeft(range.startOffset))
-                registrar.doneInjecting()
-            }
+        XsltSchemaType.create(context)?.let { schemaType ->
+            val host = context as PsiLanguageInjectionHost
+            registrar.startInjecting(schemaType.language)
+            registrar.addPlace(null, null, host, host.textRange.let { it.shiftLeft(it.startOffset) })
+            registrar.doneInjecting()
         }
     }
 }
