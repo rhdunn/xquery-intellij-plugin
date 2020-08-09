@@ -27,7 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.isIntellijXPathPluginEnabled
 
-class XPathInXsltLanguageInjection : MultiHostInjector {
+class XsltSchemaTypeLanguageInjection : MultiHostInjector {
     override fun elementsToInjectIn(): MutableList<out Class<out PsiElement>> {
         return mutableListOf(XmlAttributeValue::class.java)
     }
