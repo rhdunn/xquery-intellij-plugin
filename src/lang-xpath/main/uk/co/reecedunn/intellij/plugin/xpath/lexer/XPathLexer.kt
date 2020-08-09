@@ -563,21 +563,21 @@ open class XPathLexer(tokenRange: CodePointRange) : LexerImpl(STATE_DEFAULT, tok
     // endregion
     // region Lexer
 
-    override fun advance() {
-        when (nextState()) {
-            STATE_DEFAULT -> stateDefault()
-            STATE_STRING_LITERAL_QUOTE -> stateStringLiteral('"')
-            STATE_STRING_LITERAL_APOSTROPHE -> stateStringLiteral('\'')
-            STATE_DOUBLE_EXPONENT -> stateDoubleExponent()
-            STATE_XQUERY_COMMENT -> stateXQueryComment()
-            STATE_UNEXPECTED_END_OF_BLOCK -> stateUnexpectedEndOfBlock()
-            STATE_PRAGMA_PRE_QNAME -> statePragmaPreQName()
-            STATE_PRAGMA_QNAME -> statePragmaQName()
-            STATE_PRAGMA_CONTENTS -> statePragmaContents()
-            STATE_BRACED_URI_LITERAL -> stateStringLiteral('}')
-            STATE_BRACED_URI_LITERAL_PRAGMA -> stateStringLiteral('}')
-            else -> throw AssertionError("Invalid state: $state")
-        }
+    override fun advance(): Unit = advance(nextState())
+
+    open fun advance(state: Int): Unit = when (state) {
+        STATE_DEFAULT -> stateDefault()
+        STATE_STRING_LITERAL_QUOTE -> stateStringLiteral('"')
+        STATE_STRING_LITERAL_APOSTROPHE -> stateStringLiteral('\'')
+        STATE_DOUBLE_EXPONENT -> stateDoubleExponent()
+        STATE_XQUERY_COMMENT -> stateXQueryComment()
+        STATE_UNEXPECTED_END_OF_BLOCK -> stateUnexpectedEndOfBlock()
+        STATE_PRAGMA_PRE_QNAME -> statePragmaPreQName()
+        STATE_PRAGMA_QNAME -> statePragmaQName()
+        STATE_PRAGMA_CONTENTS -> statePragmaContents()
+        STATE_BRACED_URI_LITERAL -> stateStringLiteral('}')
+        STATE_BRACED_URI_LITERAL_PRAGMA -> stateStringLiteral('}')
+        else -> throw AssertionError("Invalid state: $state")
     }
 
     // endregion

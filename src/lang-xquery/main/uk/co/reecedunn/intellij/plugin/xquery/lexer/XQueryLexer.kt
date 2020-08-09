@@ -1086,43 +1086,41 @@ class XQueryLexer : XPathLexer(CodePointRangeImpl()) {
     // endregion
     // region Lexer
 
-    override fun advance() {
-        when (nextState()) {
-            STATE_DEFAULT,
-            STATE_DEFAULT_ATTRIBUTE_QUOT,
-            STATE_DEFAULT_ATTRIBUTE_APOSTROPHE,
-            STATE_DEFAULT_ELEM_CONTENT,
-            STATE_DEFAULT_STRING_INTERPOLATION,
-            STATE_MAYBE_DIR_ELEM_CONSTRUCTOR ->
-                stateDefault(state)
-            STATE_XML_COMMENT,
-            STATE_XML_COMMENT_ELEM_CONTENT ->
-                stateXmlComment()
-            STATE_CDATA_SECTION,
-            STATE_CDATA_SECTION_ELEM_CONTENT ->
-                stateCDataSection()
-            STATE_DIR_ELEM_CONSTRUCTOR,
-            STATE_DIR_ELEM_CONSTRUCTOR_CLOSING,
-            STATE_DIR_ATTRIBUTE_LIST ->
-                stateDirElemConstructor(state)
-            STATE_DIR_ATTRIBUTE_VALUE_QUOTE ->
-                stateDirAttributeValue('"')
-            STATE_DIR_ATTRIBUTE_VALUE_APOSTROPHE ->
-                stateDirAttributeValue('\'')
-            STATE_DIR_ELEM_CONTENT ->
-                stateDirElemContent()
-            STATE_PROCESSING_INSTRUCTION,
-            STATE_PROCESSING_INSTRUCTION_ELEM_CONTENT ->
-                stateProcessingInstruction(state)
-            STATE_PROCESSING_INSTRUCTION_CONTENTS,
-            STATE_PROCESSING_INSTRUCTION_CONTENTS_ELEM_CONTENT ->
-                stateProcessingInstructionContents()
-            STATE_STRING_CONSTRUCTOR_CONTENTS ->
-                stateStringConstructorContents()
-            STATE_START_DIR_ELEM_CONSTRUCTOR ->
-                stateStartDirElemConstructor()
-            else -> super.advance()
-        }
+    override fun advance(state: Int): Unit = when (state) {
+        STATE_DEFAULT,
+        STATE_DEFAULT_ATTRIBUTE_QUOT,
+        STATE_DEFAULT_ATTRIBUTE_APOSTROPHE,
+        STATE_DEFAULT_ELEM_CONTENT,
+        STATE_DEFAULT_STRING_INTERPOLATION,
+        STATE_MAYBE_DIR_ELEM_CONSTRUCTOR ->
+            stateDefault(state)
+        STATE_XML_COMMENT,
+        STATE_XML_COMMENT_ELEM_CONTENT ->
+            stateXmlComment()
+        STATE_CDATA_SECTION,
+        STATE_CDATA_SECTION_ELEM_CONTENT ->
+            stateCDataSection()
+        STATE_DIR_ELEM_CONSTRUCTOR,
+        STATE_DIR_ELEM_CONSTRUCTOR_CLOSING,
+        STATE_DIR_ATTRIBUTE_LIST ->
+            stateDirElemConstructor(state)
+        STATE_DIR_ATTRIBUTE_VALUE_QUOTE ->
+            stateDirAttributeValue('"')
+        STATE_DIR_ATTRIBUTE_VALUE_APOSTROPHE ->
+            stateDirAttributeValue('\'')
+        STATE_DIR_ELEM_CONTENT ->
+            stateDirElemContent()
+        STATE_PROCESSING_INSTRUCTION,
+        STATE_PROCESSING_INSTRUCTION_ELEM_CONTENT ->
+            stateProcessingInstruction(state)
+        STATE_PROCESSING_INSTRUCTION_CONTENTS,
+        STATE_PROCESSING_INSTRUCTION_CONTENTS_ELEM_CONTENT ->
+            stateProcessingInstructionContents()
+        STATE_STRING_CONSTRUCTOR_CONTENTS ->
+            stateStringConstructorContents()
+        STATE_START_DIR_ELEM_CONSTRUCTOR ->
+            stateStartDirElemConstructor()
+        else -> super.advance(state)
     }
 
     // endregion
