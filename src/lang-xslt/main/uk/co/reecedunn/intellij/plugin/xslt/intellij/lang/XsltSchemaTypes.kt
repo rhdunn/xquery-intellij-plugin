@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Reece H. Dunn
+ * Copyright (C) 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,31 +16,14 @@
 package uk.co.reecedunn.intellij.plugin.xslt.intellij.lang
 
 import com.intellij.lang.Language
-import com.intellij.openapi.fileTypes.ExtensionFileNameMatcher
-import com.intellij.openapi.fileTypes.FileNameMatcher
 import com.intellij.openapi.fileTypes.LanguageFileType
-import uk.co.reecedunn.intellij.plugin.core.lang.LanguageData
+import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
+import uk.co.reecedunn.intellij.plugin.xslt.intellij.resources.XsltBundle
 
-/**
- * XML Stylesheet Language: Transform
- */
-object XSLT : Language("XSLT") {
-    const val NAMESPACE: String = "http://www.w3.org/1999/XSL/Transform"
-
+object XsltSchemaTypes : Language(XPath, "XSLTSchemaTypes") {
     override fun isCaseSensitive(): Boolean = true
 
-    override fun getDisplayName(): String = "XSLT"
+    override fun getDisplayName(): String = XsltBundle.message("language.schema-types.name")
 
     override fun getAssociatedFileType(): LanguageFileType? = null
-
-    init {
-        putUserData(LanguageData.KEY, object : LanguageData {
-            override val associations: List<FileNameMatcher> = listOf(
-                ExtensionFileNameMatcher("xsl"),
-                ExtensionFileNameMatcher("xslt")
-            )
-
-            override val mimeTypes: Array<String> = arrayOf("application/xslt+xml")
-        })
-    }
 }
