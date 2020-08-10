@@ -20,8 +20,8 @@ import com.intellij.lang.injection.MultiHostRegistrar
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiLanguageInjectionHost
 import com.intellij.psi.xml.XmlAttributeValue
+import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XsltSchemaTypes
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.isIntellijXPathPluginEnabled
-import uk.co.reecedunn.intellij.plugin.xslt.schema.XsltSchemaType
 
 class XsltSchemaTypeLanguageInjection : MultiHostInjector {
     override fun elementsToInjectIn(): MutableList<out Class<out PsiElement>> {
@@ -32,7 +32,7 @@ class XsltSchemaTypeLanguageInjection : MultiHostInjector {
         if (isIntellijXPathPluginEnabled())
             return
 
-        XsltSchemaType.create(context)?.let { schemaType ->
+        XsltSchemaTypes.create(context)?.let { schemaType ->
             val host = context as PsiLanguageInjectionHost
             registrar.startInjecting(schemaType.language)
             registrar.addPlace(null, null, host, host.textRange.let { it.shiftLeft(it.startOffset) })
