@@ -13,18 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xslt.intellij.lang
+package uk.co.reecedunn.intellij.plugin.xslt.intellij.fileTypes
 
-import com.intellij.lang.Language
 import com.intellij.openapi.fileTypes.LanguageFileType
-import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.fileTypes.XsltSchemaTypesFileType
+import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathIcons
+import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XsltSchemaTypes
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.resources.XsltBundle
+import javax.swing.Icon
 
-object XsltSchemaTypes : Language(XPath, "XSLTSchemaTypes") {
-    override fun isCaseSensitive(): Boolean = true
+object XsltSchemaTypesFileType : LanguageFileType(XsltSchemaTypes) {
+    override fun getName(): String = "XSLTSchemaTypes"
 
-    override fun getDisplayName(): String = XsltBundle.message("language.schema-types.name")
+    override fun getDescription(): String = XsltBundle.message("language.schema-types.description")
 
-    override fun getAssociatedFileType(): LanguageFileType? = XsltSchemaTypesFileType
+    override fun getDefaultExtension(): String = "avt"
+
+    override fun getIcon(): Icon? = XPathIcons.FileType
 }
