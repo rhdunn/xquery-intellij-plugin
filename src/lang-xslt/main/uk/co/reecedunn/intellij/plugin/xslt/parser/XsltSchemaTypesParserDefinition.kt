@@ -28,17 +28,20 @@ import com.intellij.psi.tree.IFileElementType
 import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XmlCodePointRangeImpl
 import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
+import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
-import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParser
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathImpl
+import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XsltSchemaTypes
 
 class XsltSchemaTypesParserDefinition : ParserDefinition {
     override fun createLexer(project: Project): Lexer = XPathLexer(XmlCodePointRangeImpl())
 
-    override fun createParser(project: Project): PsiParser = XPathParser()
+    override fun createParser(project: Project): PsiParser = createParser(XsltSchemaTypes.Expression)
+
+    fun createParser(schemaType: ISchemaType): PsiParser = XsltSchemaTypesParser(schemaType)
 
     override fun getFileNodeType(): IFileElementType = XPathElementType.XPATH
 

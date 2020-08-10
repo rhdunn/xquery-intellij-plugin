@@ -27,7 +27,6 @@ import uk.co.reecedunn.intellij.plugin.core.tests.lang.MockASTNode
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
-import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParser
 import uk.co.reecedunn.intellij.plugin.xslt.parser.XsltSchemaTypesParser
 import uk.co.reecedunn.intellij.plugin.xslt.parser.XsltSchemaTypesParserDefinition
 
@@ -45,7 +44,7 @@ private class XsltValueTemplateParserDefinitionTest : ParserTestCase() {
     @Test
     @DisplayName("createParser")
     fun testParser() {
-        assertThat(definition.createParser(myProject).javaClass.name, `is`(XPathParser::class.java.name))
+        assertThat(definition.createParser(myProject).javaClass.name, `is`(XsltSchemaTypesParser::class.java.name))
     }
 
     @Test
