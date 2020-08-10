@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xslt.tests.psi
 
+import com.intellij.lang.xml.XMLParserDefinition
 import org.hamcrest.CoreMatchers.*
 import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.DisplayName
@@ -33,7 +34,7 @@ import uk.co.reecedunn.intellij.plugin.xslt.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("XQuery IntelliJ Plugin - IntelliJ Program Structure Interface (PSI) - XSLT")
-private class PluginPsiTest : ParserTestCase() {
+private class PluginPsiTest : ParserTestCase(XMLParserDefinition()) {
     companion object {
         private const val EXSL_COMMON_NAMESPACE = "http://exslt.org/common"
         private const val SAXON_NAMESPACE = "http://saxon.sf.net/"

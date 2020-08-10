@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xslt.tests.completion
 
+import com.intellij.lang.xml.XMLParserDefinition
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -27,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xslt.completion.xpath.property.XsltVersio
 import uk.co.reecedunn.intellij.plugin.xslt.tests.parser.ParserTestCase
 
 @DisplayName("XSLT 3.0 - Code Completion - Properties")
-private class XsltCompletionPropertyTest : ParserTestCase() {
+private class XsltCompletionPropertyTest : ParserTestCase(XMLParserDefinition()) {
     @Nested
     @DisplayName("generic-element-type")
     internal inner class GenericElementType {

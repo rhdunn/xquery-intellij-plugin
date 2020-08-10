@@ -32,7 +32,7 @@ import uk.co.reecedunn.intellij.plugin.xslt.parser.XsltSchemaTypesParserDefiniti
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("IntelliJ - Custom Language Support - Implementing a Parser and PSI - XSLT Schema Types ParserDefinition")
-private class XsltValueTemplateParserDefinitionTest : ParserTestCase() {
+private class XsltValueTemplateParserDefinitionTest : ParserTestCase(XsltSchemaTypesParserDefinition()) {
     val definition = XsltSchemaTypesParserDefinition()
 
     @Test

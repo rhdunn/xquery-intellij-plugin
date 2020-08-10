@@ -16,9 +16,9 @@
 package uk.co.reecedunn.intellij.plugin.xslt.tests.parser
 
 import com.intellij.lang.LanguageASTFactory
+import com.intellij.lang.ParserDefinition
 import com.intellij.lang.injection.InjectedLanguageManager
 import com.intellij.lang.xml.XMLLanguage
-import com.intellij.lang.xml.XMLParserDefinition
 import com.intellij.lang.xml.XmlASTFactory
 import com.intellij.openapi.extensions.DefaultPluginDescriptor
 import com.intellij.openapi.extensions.PluginId
@@ -39,8 +39,6 @@ import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.roots.MockProjectRootsManager
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
-import uk.co.reecedunn.intellij.plugin.xpm.module.ImportPathResolver
-import uk.co.reecedunn.intellij.plugin.xpm.module.ImportPathResolverBean
 import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElementFactory
 import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElementFactoryBean
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
@@ -48,7 +46,9 @@ import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.XsltShadowPsiElementFactory
 
 @Suppress("MemberVisibilityCanBePrivate", "SameParameterValue")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-abstract class ParserTestCase : ParsingTestCase<XmlFile>(null, XMLParserDefinition()) {
+abstract class ParserTestCase(vararg definitions: ParserDefinition) :
+    ParsingTestCase<XmlFile>(null, *definitions) {
+
     @BeforeAll
     override fun setUp() {
         super.setUp()
