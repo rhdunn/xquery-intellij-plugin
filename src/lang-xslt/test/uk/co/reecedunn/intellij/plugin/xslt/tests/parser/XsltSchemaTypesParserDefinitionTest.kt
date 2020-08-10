@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.MockASTNode
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
+import uk.co.reecedunn.intellij.plugin.xslt.parser.XsltSchemaTypesElementType
 import uk.co.reecedunn.intellij.plugin.xslt.parser.XsltSchemaTypesParser
 import uk.co.reecedunn.intellij.plugin.xslt.parser.XsltSchemaTypesParserDefinition
 
@@ -50,7 +50,7 @@ private class XsltValueTemplateParserDefinitionTest : ParserTestCase() {
     @Test
     @DisplayName("fileNodeType")
     fun testFileNodeType() {
-        assertThat(definition.fileNodeType, `is`(XPathElementType.XPATH))
+        assertThat(definition.fileNodeType, `is`(XsltSchemaTypesElementType.SCHEMA_TYPE))
     }
 
     @Test

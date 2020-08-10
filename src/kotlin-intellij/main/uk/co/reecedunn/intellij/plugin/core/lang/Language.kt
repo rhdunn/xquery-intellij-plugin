@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,8 @@ package uk.co.reecedunn.intellij.plugin.core.lang
 
 import com.intellij.compat.openapi.fileTypes.acceptsCharSequence
 import com.intellij.lang.Language
+import com.intellij.lang.LanguageParserDefinitions
+import com.intellij.lang.ParserDefinition
 import com.intellij.openapi.fileTypes.FileNameMatcher
 import com.intellij.openapi.fileTypes.FileTypeManager
 import com.intellij.openapi.util.Key
@@ -60,3 +62,5 @@ fun Array<out Language>.findByMimeType(predicate: (String) -> Boolean): Language
         language.getLanguageMimeTypes().find { predicate(it) } != null
     }
 }
+
+val Language.parserDefinition: ParserDefinition get() = LanguageParserDefinitions.INSTANCE.forLanguage(this)

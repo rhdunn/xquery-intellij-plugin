@@ -31,7 +31,6 @@ import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
 import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XsltSchemaTypes
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.schema.XsltSchemaTypePsiImpl
@@ -43,7 +42,7 @@ class XsltSchemaTypesParserDefinition : ParserDefinition {
 
     fun createParser(schemaType: ISchemaType): PsiParser = XsltSchemaTypesParser(schemaType)
 
-    override fun getFileNodeType(): IFileElementType = XPathElementType.XPATH
+    override fun getFileNodeType(): IFileElementType = XsltSchemaTypesElementType.SCHEMA_TYPE
 
     override fun getWhitespaceTokens(): TokenSet = TokenSet.EMPTY
 
