@@ -33,8 +33,8 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathImpl
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XsltSchemaTypes
+import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.schema.XsltSchemaTypePsiImpl
 
 class XsltSchemaTypesParserDefinition : ParserDefinition {
     override fun createLexer(project: Project): Lexer = XPathLexer(XmlCodePointRangeImpl())
@@ -60,7 +60,7 @@ class XsltSchemaTypesParserDefinition : ParserDefinition {
         throw AssertionError("Alien element type [$type]. Can't create XsltSchemaTypes PsiElement for that.")
     }
 
-    override fun createFile(viewProvider: FileViewProvider): PsiFile = XPathImpl(viewProvider)
+    override fun createFile(viewProvider: FileViewProvider): PsiFile = XsltSchemaTypePsiImpl(viewProvider)
 
     override fun spaceExistenceTypeBetweenTokens(left: ASTNode?, right: ASTNode?): ParserDefinition.SpaceRequirements {
         val leftType = left?.elementType ?: return ParserDefinition.SpaceRequirements.MAY
