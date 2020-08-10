@@ -39,12 +39,16 @@ object XsltSchemaTypes : Language(XPath, "XSLTSchemaTypes") {
     // endregion
     // region Schema Types
 
-    val Expression: ISchemaType = ISchemaType("xsl:expression", false, XPath)
-    val Pattern: ISchemaType = ISchemaType("xsl:pattern", false, XPath)
+    val Expression: ISchemaType = ISchemaType("xsl:expression", false, XsltSchemaTypes)
+    val ItemType: ISchemaType = ISchemaType("xsl:item-type", false, XsltSchemaTypes)
+    val Pattern: ISchemaType = ISchemaType("xsl:pattern", false, XsltSchemaTypes)
+    val SequenceType: ISchemaType = ISchemaType("xsl:sequence-type", false, XsltSchemaTypes)
 
     fun create(type: String?): ISchemaType? = when (type) {
         Expression.type -> Expression
+        ItemType.type -> ItemType
         Pattern.type -> Pattern
+        SequenceType.type -> SequenceType
         else -> null
     }
 
