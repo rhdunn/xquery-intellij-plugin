@@ -26,9 +26,11 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.MockASTNode
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
+import uk.co.reecedunn.intellij.plugin.xslt.intellij.fileTypes.XsltSchemaTypesFileType
 import uk.co.reecedunn.intellij.plugin.xslt.parser.XsltSchemaTypesElementType
 import uk.co.reecedunn.intellij.plugin.xslt.parser.XsltSchemaTypesParser
 import uk.co.reecedunn.intellij.plugin.xslt.parser.XsltSchemaTypesParserDefinition
+import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.schema.XsltSchemaTypePsiImpl
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("IntelliJ - Custom Language Support - Implementing a Parser and PSI - XSLT Schema Types ParserDefinition")
@@ -92,10 +94,10 @@ private class XsltValueTemplateParserDefinitionTest : ParserTestCase(XsltSchemaT
     @Test
     @DisplayName("createFile")
     fun testCreateFile() {
-        //val file = createVirtualFile("test.avt", "")
-        //val psiFile = definition.createFile(getFileViewProvider(myProject, file, false))
-        //assertThat(psiFile.javaClass.name, `is`(XPathImpl::class.java.name))
-        //assertThat(psiFile.fileType, `is`(XPathFileType))
+        val file = createVirtualFile("test.txt", "")
+        val psiFile = definition.createFile(getFileViewProvider(myProject, file, false))
+        assertThat(psiFile.javaClass.name, `is`(XsltSchemaTypePsiImpl::class.java.name))
+        assertThat(psiFile.fileType, `is`(XsltSchemaTypesFileType))
     }
 
     @Nested
