@@ -34,6 +34,7 @@ schema types from XSLT 1.0, 2.0, and 3.0:
 
 | Schema Type         | Start Symbol   | Reference                                                         |
 |---------------------|----------------|-------------------------------------------------------------------|
+| `xsl:EQName`        | `EQName`       | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-EQName]()\]       |
 | `xsl:expression`    | `XPath`        | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-XPath]()\]        |
 | `xsl:item-type`     | `ItemType`     | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-ItemType]()\]     |
 | `xsl:pattern`       | `XPath`        | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-XPath]()\]        |

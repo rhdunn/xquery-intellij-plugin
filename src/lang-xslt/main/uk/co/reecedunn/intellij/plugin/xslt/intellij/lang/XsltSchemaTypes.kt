@@ -40,6 +40,7 @@ object XsltSchemaTypes : Language(XPath, "XSLTSchemaTypes") {
     // region Schema Types
 
     fun create(type: String?): ISchemaType? = when (type) {
+        EQName.type -> EQName
         Expression.type -> Expression
         ItemType.type -> ItemType
         Pattern.type -> Pattern
@@ -69,6 +70,7 @@ object XsltSchemaTypes : Language(XPath, "XSLTSchemaTypes") {
     // endregion
     // region Schema Types :: XSLT 3.0
 
+    val EQName: ISchemaType = ISchemaType("xsl:EQName", false, XsltSchemaTypes)
     val ItemType: ISchemaType = ISchemaType("xsl:item-type", false, XsltSchemaTypes)
 
     // endregion

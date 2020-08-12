@@ -35,6 +35,7 @@ class XsltSchemaTypesParser(private val schemaType: ISchemaType) : XPathParser()
     }
 
     private fun parseSchemaType(builder: PsiBuilder): Boolean = when (schemaType) {
+        XsltSchemaTypes.EQName -> parseEQNameOrWildcard(builder, QNAME) != null
         XsltSchemaTypes.Expression -> parseExpr(builder, null)
         XsltSchemaTypes.ItemType -> parseItemType(builder)
         XsltSchemaTypes.Pattern -> parseExpr(builder, null)
