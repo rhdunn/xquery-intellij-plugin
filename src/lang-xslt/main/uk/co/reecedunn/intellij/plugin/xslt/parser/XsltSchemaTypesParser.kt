@@ -38,6 +38,7 @@ class XsltSchemaTypesParser(private val schemaType: ISchemaType) : XPathParser()
         XsltSchemaTypes.Expression -> parseExpr(builder, null)
         XsltSchemaTypes.ItemType -> parseItemType(builder)
         XsltSchemaTypes.Pattern -> parseExpr(builder, null)
+        XsltSchemaTypes.QName -> parseQNameOrWildcard(builder, QNAME) != null
         XsltSchemaTypes.SequenceType -> parseSequenceType(builder)
         else -> false
     }

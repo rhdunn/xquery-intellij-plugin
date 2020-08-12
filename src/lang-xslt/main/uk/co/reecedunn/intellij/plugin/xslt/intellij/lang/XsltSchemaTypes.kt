@@ -39,15 +39,11 @@ object XsltSchemaTypes : Language(XPath, "XSLTSchemaTypes") {
     // endregion
     // region Schema Types
 
-    val Expression: ISchemaType = ISchemaType("xsl:expression", false, XsltSchemaTypes)
-    val ItemType: ISchemaType = ISchemaType("xsl:item-type", false, XsltSchemaTypes)
-    val Pattern: ISchemaType = ISchemaType("xsl:pattern", false, XsltSchemaTypes)
-    val SequenceType: ISchemaType = ISchemaType("xsl:sequence-type", false, XsltSchemaTypes)
-
     fun create(type: String?): ISchemaType? = when (type) {
         Expression.type -> Expression
         ItemType.type -> ItemType
         Pattern.type -> Pattern
+        QName.type -> QName
         SequenceType.type -> SequenceType
         else -> null
     }
@@ -57,6 +53,23 @@ object XsltSchemaTypes : Language(XPath, "XSLTSchemaTypes") {
         if (attr.parent.namespace != XSLT.NAMESPACE) return null
         return create(attr.schemaType)
     }
+
+    // endregion
+    // region Schema Types :: XSLT 1.0
+
+    val Expression: ISchemaType = ISchemaType("xsl:expression", false, XsltSchemaTypes)
+    val Pattern: ISchemaType = ISchemaType("xsl:pattern", false, XsltSchemaTypes)
+    val QName: ISchemaType = ISchemaType("xsl:QName", false, XsltSchemaTypes)
+
+    // endregion
+    // region Schema Types :: XSLT 2.0
+
+    val SequenceType: ISchemaType = ISchemaType("xsl:sequence-type", false, XsltSchemaTypes)
+
+    // endregion
+    // region Schema Types :: XSLT 3.0
+
+    val ItemType: ISchemaType = ISchemaType("xsl:item-type", false, XsltSchemaTypes)
 
     // endregion
 }

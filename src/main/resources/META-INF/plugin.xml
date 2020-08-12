@@ -80,8 +80,8 @@
     <p>XSLT and XPath:</p>
     <ol>
       <li>
-        Support parsing <code>xsl:item-type</code> and <code>xsl:sequence-type</code>
-        XSLT schema types.
+        Support parsing <code>xsl:item-type</code>, <code>xsl:QName</code>, and
+        <code>xsl:sequence-type</code> XSLT schema types.
       </li>
     </ol>
   ]]></change-notes>

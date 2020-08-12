@@ -29,12 +29,16 @@ syntax that is supported by the XQuery IntelliJ Plugin.
 
 ### A.1 EBNF Start Symbol for Schema Types
 The EBNF symbol used to start parsing from is dependent on the schema type of the
-attribute or text node. This is determined by the following table:
+attribute or text node. This is determined by the following table, which includes
+schema types from XSLT 1.0, 2.0, and 3.0:
 
-| Schema Type      | Start Symbol | Reference                                                  |
-|------------------|--------------|------------------------------------------------------------|
-| `xsl:expression` | `XPath`      | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-XPath]()\] |
-| `xsl:pattern`    | `XPath`      | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-XPath]()\] |
+| Schema Type         | Start Symbol   | Reference                                                         |
+|---------------------|----------------|-------------------------------------------------------------------|
+| `xsl:expression`    | `XPath`        | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-XPath]()\]        |
+| `xsl:item-type`     | `ItemType`     | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-ItemType]()\]     |
+| `xsl:pattern`       | `XPath`        | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-XPath]()\]        |
+| `xsl:QName`         | `QName`        | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-QName]()\]        |
+| `xsl:sequence-type` | `SequenceType` | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-SequenceType]()\] |
 
 ## B References
 
