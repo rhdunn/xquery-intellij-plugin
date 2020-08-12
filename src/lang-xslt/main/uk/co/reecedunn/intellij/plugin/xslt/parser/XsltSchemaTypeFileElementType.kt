@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XsltSchemaTypes
 class XsltSchemaTypeFileElementType : IFileElementType(XsltSchemaTypes) {
     override fun doParseContents(chameleon: ASTNode, psi: PsiElement): ASTNode {
         // NOTE: Using InjectedLanguageManager#getInjectionHost returns null.
-        val host = InjectedLanguageUtil.findInjectionHost(psi)
+        val host = InjectedLanguageUtil.findInjectionHost(psi) ?: psi
 
         val languageForParser = getLanguageForParser(psi)
         val builder = PsiBuilderFactory.getInstance().createBuilder(
@@ -34,7 +34,7 @@ class XsltSchemaTypeFileElementType : IFileElementType(XsltSchemaTypes) {
         )
 
         val definition = languageForParser.parserDefinition as XsltSchemaTypesParserDefinition
-        val parser = definition.createParser(host?.let { XsltSchemaTypes.create(it) } ?: XsltSchemaTypes.Expression)
+        val parser = definition.createParser(XsltSchemaTypes.create(host) ?: XsltSchemaTypes.Expression)
         val node = parser.parse(this, builder)
         return node.firstChildNode
     }

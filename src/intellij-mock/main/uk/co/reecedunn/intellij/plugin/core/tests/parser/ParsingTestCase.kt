@@ -211,7 +211,7 @@ abstract class ParsingTestCase<File : PsiFile>(
         return viewProvider
     }
 
-    fun prettyPrintASTNode(file: File): String = file.toPsiTreeString()
+    fun prettyPrintASTNode(file: PsiFile): String = file.toPsiTreeString()
 
     @Suppress("UNCHECKED_CAST")
     fun parseText(text: String): File {

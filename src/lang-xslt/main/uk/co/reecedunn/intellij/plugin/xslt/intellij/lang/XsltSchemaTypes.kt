@@ -50,6 +50,9 @@ object XsltSchemaTypes : Language(XPath, "XSLTSchemaTypes") {
     }
 
     fun create(element: PsiElement): ISchemaType? {
+        val schemaType = element.containingFile.virtualFile.getUserData(ISchemaType.XDM_SCHEMA_TYPE)
+        if (schemaType != null) return schemaType
+
         val attr = element.toXmlAttributeValue()?.attribute ?: return null
         if (attr.parent.namespace != XSLT.NAMESPACE) return null
         return create(attr.schemaType)

@@ -16,5 +16,10 @@
 package uk.co.reecedunn.intellij.plugin.xdm.psi.tree
 
 import com.intellij.lang.Language
+import com.intellij.openapi.util.Key
 
-data class ISchemaType(val type: String, val allowEmpty: Boolean, val language: Language)
+data class ISchemaType(val type: String, val allowEmpty: Boolean, val language: Language) {
+    companion object {
+        val XDM_SCHEMA_TYPE: Key<ISchemaType> = Key.create("XDM_SCHEMA_TYPE")
+    }
+}
