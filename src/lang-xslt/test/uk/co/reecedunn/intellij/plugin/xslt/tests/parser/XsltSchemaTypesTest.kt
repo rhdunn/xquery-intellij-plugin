@@ -56,4 +56,12 @@ private class XsltSchemaTypesTest : ParserTestCase(XsltSchemaTypesParserDefiniti
         val actual = parseResource("tests/parser/schema-type/pattern/XPath.input", XsltSchemaTypes.Pattern)
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
+
+    @Test
+    @DisplayName("xsl:QName")
+    fun qname() {
+        val expected = loadResource("tests/parser/schema-type/qname/QName.txt")
+        val actual = parseResource("tests/parser/schema-type/qname/QName.input", XsltSchemaTypes.QName)
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
 }

@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xslt.intellij.lang
 import com.intellij.lang.Language
 import com.intellij.openapi.fileTypes.LanguageFileType
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.vfs.originalFile
 import uk.co.reecedunn.intellij.plugin.core.xml.attribute
 import uk.co.reecedunn.intellij.plugin.core.xml.schemaType
 import uk.co.reecedunn.intellij.plugin.core.xml.toXmlAttributeValue
@@ -50,7 +51,7 @@ object XsltSchemaTypes : Language(XPath, "XSLTSchemaTypes") {
     }
 
     fun create(element: PsiElement): ISchemaType? {
-        val schemaType = element.containingFile.virtualFile.getUserData(ISchemaType.XDM_SCHEMA_TYPE)
+        val schemaType = element.containingFile.virtualFile.originalFile.getUserData(ISchemaType.XDM_SCHEMA_TYPE)
         if (schemaType != null) return schemaType
 
         val attr = element.toXmlAttributeValue()?.attribute ?: return null
