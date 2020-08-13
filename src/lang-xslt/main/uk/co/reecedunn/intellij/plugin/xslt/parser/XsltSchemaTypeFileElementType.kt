@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.core.lang.parserDefinition
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XsltSchemaTypes
 
 class XsltSchemaTypeFileElementType : IFileElementType(XsltSchemaTypes) {
-    override fun doParseContents(chameleon: ASTNode, psi: PsiElement): ASTNode {
+    override fun doParseContents(chameleon: ASTNode, psi: PsiElement): ASTNode? {
         // NOTE: Using InjectedLanguageManager#getInjectionHost returns null.
         val host = InjectedLanguageUtil.findInjectionHost(psi) ?: psi
 
