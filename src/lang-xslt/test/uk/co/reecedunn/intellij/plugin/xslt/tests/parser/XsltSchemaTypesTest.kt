@@ -42,6 +42,34 @@ private class XsltSchemaTypesTest : ParserTestCase(XsltSchemaTypesParserDefiniti
         return ResourceVirtualFile.create(this::class.java.classLoader, resource).decode()
     }
 
+    @Nested
+    @DisplayName("xsl:EQName")
+    inner class EQName {
+        @Test
+        @DisplayName("XPath 3.1 EBNF (122) QName")
+        fun qname() {
+            val expected = loadResource("tests/parser/schema-type/qname/QName.txt")
+            val actual = parseResource("tests/parser/schema-type/qname/QName.input", XsltSchemaTypes.EQName)
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("XPath 3.1 EBNF (123) NCName")
+        fun ncname() {
+            val expected = loadResource("tests/parser/schema-type/qname/NCName.txt")
+            val actual = parseResource("tests/parser/schema-type/qname/NCName.input", XsltSchemaTypes.EQName)
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("XPath 3.1 EBNF (117) URIQualifiedName")
+        fun eqname() {
+            val expected = loadResource("tests/parser/schema-type/eqname/URIQualifiedName.txt")
+            val actual = parseResource("tests/parser/schema-type/eqname/URIQualifiedName.input", XsltSchemaTypes.EQName)
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
     @Test
     @DisplayName("xsl:expression")
     fun expression() {
