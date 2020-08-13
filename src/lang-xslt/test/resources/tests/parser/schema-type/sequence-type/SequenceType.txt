@@ -1,0 +1,8 @@
+XsltSchemaTypeImpl[FILE(0:11)]
+   XPathSequenceTypeImpl[XPATH_SEQUENCE_TYPE(0:11)]
+      XPathAtomicOrUnionTypeImpl[XPATH_ATOMIC_OR_UNION_TYPE(0:10)]
+         XPathQNameImpl[XPATH_QNAME(0:10)]
+            LeafPsiElement[XPATH_NCNAME_TOKEN(0:2)]('xs')
+            LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(2:3)](':')
+            LeafPsiElement[XPATH_NCNAME_TOKEN(3:10)]('integer')
+      LeafPsiElement[XPATH_PLUS_TOKEN(10:11)]('+')

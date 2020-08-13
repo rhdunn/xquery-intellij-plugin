@@ -30,6 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XsltSchemaTypes
 import uk.co.reecedunn.intellij.plugin.xslt.parser.XsltSchemaTypesParserDefinition
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
+@Suppress("Reformat")
 @DisplayName("XSLT 3.0 - Schema Types")
 private class XsltSchemaTypesTest : ParserTestCase(XsltSchemaTypesParserDefinition(), XPathParserDefinition()) {
     fun parseResource(resource: String, schemaType: ISchemaType): XsltSchemaType {
@@ -110,6 +111,26 @@ private class XsltSchemaTypesTest : ParserTestCase(XsltSchemaTypesParserDefiniti
         fun ncname() {
             val expected = loadResource("tests/parser/schema-type/qname/NCName.txt")
             val actual = parseResource("tests/parser/schema-type/qname/NCName.input", XsltSchemaTypes.QName)
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("xsl:sequence-type")
+    inner class SequenceType {
+        @Test
+        @DisplayName("XPath 3.1 EBNF (79) SequenceType")
+        fun sequenceType() {
+            val expected = loadResource("tests/parser/schema-type/sequence-type/SequenceType.txt")
+            val actual = parseResource("tests/parser/schema-type/sequence-type/SequenceType.input", XsltSchemaTypes.SequenceType)
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("XPath 3.1 EBNF (81) ItemType")
+        fun itemType() {
+            val expected = loadResource("tests/parser/schema-type/item-type/ItemType.txt")
+            val actual = parseResource("tests/parser/schema-type/item-type/ItemType.input", XsltSchemaTypes.SequenceType)
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }
