@@ -45,7 +45,7 @@ object XsltSchemaTypes : Language(XPath, "XSLTSchemaTypes") {
         Expression.type -> Expression
         ItemType.type -> ItemType
         Pattern.type -> Pattern
-        Prefixes.type -> Prefixes
+        Prefixes.type, "xsl:tokens" -> Prefixes
         QName.type -> QName
         SequenceType.type -> SequenceType
         else -> null

@@ -81,8 +81,8 @@
     <ol>
       <li>
         Support parsing <code>xsl:EQName</code>, <code>xsl:item-type</code>,
-        <code>xsl:prefixes</code>, <code>xsl:QName</code>, and <code>xsl:sequence-type</code>
-        XSLT schema types.
+        <code>xsl:prefixes</code>/<code>xsl:tokens</code>, <code>xsl:QName</code>,
+        and <code>xsl:sequence-type</code> XSLT schema types.
       </li>
     </ol>
   ]]></change-notes>

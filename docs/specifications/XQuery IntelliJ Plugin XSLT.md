@@ -17,6 +17,7 @@ functionality that extends XSLT and associated W3C extensions.
 - [Introduction](#1-introduction)
 - {: .toc-letter } [XQuery IntelliJ Plugin Grammar](#a-xquery-intellij-plugin-grammar)
   - [EBNF Start Symbol for Schema Types](#a1-ebnf-start-symbol-for-schema-types)
+  - [EBNF for XSLT Schema Types](#a2-ebnf-for-xslt-schema-types)
 - {: .toc-letter } [References](#b-references)
   - [W3C References](#b1-w3c-references)
 
@@ -38,8 +39,22 @@ schema types from XSLT 1.0, 2.0, and 3.0:
 | `xsl:expression`    | `XPath`        | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-XPath]()\]        |
 | `xsl:item-type`     | `ItemType`     | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-ItemType]()\]     |
 | `xsl:pattern`       | `XPath`        | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-XPath]()\]        |
+| `xsl:prefixes`      | `NCNameList`   |                                                                   |
 | `xsl:QName`         | `QName`        | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-QName]()\]        |
 | `xsl:sequence-type` | `SequenceType` | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-SequenceType]()\] |
+| `xsl:tokens`        | `NCNameList`   |                                                                   |
+
+### A.2 EBNF for XSLT Schema Types
+The EBNF symbols here define the syntax for the schema types not covered by the
+XPath and XSLT pattern syntax grammars. This is a formal definition of the syntax
+described in the XML schema files.
+
+{: .ebnf-symbols }
+| Ref      | Symbol                         |     | Expression                          | Options               |
+|----------|--------------------------------|-----|-------------------------------------|-----------------------|
+| \[1\]    | `S`                            | ::= | \[[https://www.w3.org/TR/REC-xml/#NT-S]()\] |               |
+| \[2\]    | `NCNameList`                   | ::= | `S? NCName (S NCName)* S?`          |                       |
+| \[3\]    | `NCName`                       | ::= | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-NCName]()\] | |
 
 ## B References
 
