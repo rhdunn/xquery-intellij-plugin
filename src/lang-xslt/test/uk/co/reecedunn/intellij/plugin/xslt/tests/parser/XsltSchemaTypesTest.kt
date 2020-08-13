@@ -79,6 +79,14 @@ private class XsltSchemaTypesTest : ParserTestCase(XsltSchemaTypesParserDefiniti
     }
 
     @Test
+    @DisplayName("xsl:item-type")
+    fun itemType() {
+        val expected = loadResource("tests/parser/schema-type/item-type/ItemType.txt")
+        val actual = parseResource("tests/parser/schema-type/item-type/ItemType.input", XsltSchemaTypes.ItemType)
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
     @DisplayName("xsl:pattern")
     fun pattern() {
         val expected = loadResource("tests/parser/schema-type/pattern/XPath.txt")
