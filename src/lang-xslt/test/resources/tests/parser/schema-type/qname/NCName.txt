@@ -1,0 +1,3 @@
+XsltSchemaTypeImpl[FILE(0:11)]
+   XPathNCNameImpl[XPATH_NCNAME(0:11)]
+      LeafPsiElement[XPATH_NCNAME_TOKEN(0:11)]('lorem-ipsum')

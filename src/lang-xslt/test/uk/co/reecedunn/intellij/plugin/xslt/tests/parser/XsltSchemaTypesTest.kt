@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xslt.tests.parser
 
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
@@ -57,11 +58,23 @@ private class XsltSchemaTypesTest : ParserTestCase(XsltSchemaTypesParserDefiniti
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
-    @Test
+    @Nested
     @DisplayName("xsl:QName")
-    fun qname() {
-        val expected = loadResource("tests/parser/schema-type/qname/QName.txt")
-        val actual = parseResource("tests/parser/schema-type/qname/QName.input", XsltSchemaTypes.QName)
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    inner class QName {
+        @Test
+        @DisplayName("XPath 3.1 EBNF (122) QName")
+        fun qname() {
+            val expected = loadResource("tests/parser/schema-type/qname/QName.txt")
+            val actual = parseResource("tests/parser/schema-type/qname/QName.input", XsltSchemaTypes.QName)
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("XPath 3.1 EBNF (123) NCName")
+        fun ncname() {
+            val expected = loadResource("tests/parser/schema-type/qname/NCName.txt")
+            val actual = parseResource("tests/parser/schema-type/qname/NCName.input", XsltSchemaTypes.QName)
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 }
