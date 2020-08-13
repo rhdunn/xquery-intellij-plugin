@@ -16,8 +16,10 @@
 package uk.co.reecedunn.intellij.plugin.xslt.parser
 
 import com.intellij.lang.PsiBuilder
+import uk.co.reecedunn.intellij.plugin.core.lang.matchTokenType
 import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaType
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathBundle
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParser
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XsltSchemaTypes
 
@@ -39,9 +41,22 @@ class XsltSchemaTypesParser(private val schemaType: ISchemaType) : XPathParser()
         XsltSchemaTypes.Expression -> parseExpr(builder, null)
         XsltSchemaTypes.ItemType -> parseItemType(builder)
         XsltSchemaTypes.Pattern -> parseExpr(builder, null)
+        XsltSchemaTypes.Prefixes -> parsePrefixes(builder)
         XsltSchemaTypes.QName -> parseQNameOrWildcard(builder, QNAME) != null
         XsltSchemaTypes.SequenceType -> parseSequenceType(builder)
         else -> false
+    }
+
+    // endregion
+    // region Grammar :: xsl:prefixes
+
+    private fun parsePrefixes(builder: PsiBuilder): Boolean {
+        var matched = false
+        while (parseNCName(builder)) {
+            matched = true
+            builder.matchTokenType(XPathTokenType.WHITE_SPACE)
+        }
+        return matched
     }
 
     // endregion

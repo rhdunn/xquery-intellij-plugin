@@ -3868,7 +3868,7 @@ open class XPathParser : PsiParser {
     open val NCNAME: IElementType = XPathElementType.NCNAME
     open val QNAME: IElementType = XPathElementType.QNAME
 
-    private fun parseNCName(builder: PsiBuilder): Boolean {
+    fun parseNCName(builder: PsiBuilder): Boolean {
         if (builder.tokenType is INCNameType) {
             val marker = builder.mark()
             builder.advanceLexer()

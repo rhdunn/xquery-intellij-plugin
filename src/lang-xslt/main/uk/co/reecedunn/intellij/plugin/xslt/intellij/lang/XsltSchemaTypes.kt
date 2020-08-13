@@ -45,6 +45,7 @@ object XsltSchemaTypes : Language(XPath, "XSLTSchemaTypes") {
         Expression.type -> Expression
         ItemType.type -> ItemType
         Pattern.type -> Pattern
+        Prefixes.type -> Prefixes
         QName.type -> QName
         SequenceType.type -> SequenceType
         else -> null
@@ -69,6 +70,7 @@ object XsltSchemaTypes : Language(XPath, "XSLTSchemaTypes") {
     // endregion
     // region Schema Types :: XSLT 2.0
 
+    val Prefixes: ISchemaType = ISchemaType("xsl:prefixes", false, XsltSchemaTypes)
     val SequenceType: ISchemaType = ISchemaType("xsl:sequence-type", false, XsltSchemaTypes)
 
     // endregion

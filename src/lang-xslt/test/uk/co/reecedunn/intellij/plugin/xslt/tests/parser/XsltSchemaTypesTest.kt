@@ -96,6 +96,26 @@ private class XsltSchemaTypesTest : ParserTestCase(XsltSchemaTypesParserDefiniti
     }
 
     @Nested
+    @DisplayName("xsl:prefixes")
+    inner class Prefixes {
+        @Test
+        @DisplayName("one")
+        fun one() {
+            val expected = loadResource("tests/parser/schema-type/qname/NCName.txt")
+            val actual = parseResource("tests/parser/schema-type/qname/NCName.input", XsltSchemaTypes.Prefixes)
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple")
+        fun multiple() {
+            val expected = loadResource("tests/parser/schema-type/prefixes/NCName_List.txt")
+            val actual = parseResource("tests/parser/schema-type/prefixes/NCName_List.input", XsltSchemaTypes.Prefixes)
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("xsl:QName")
     inner class QName {
         @Test
