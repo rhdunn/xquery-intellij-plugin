@@ -27,10 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaTypeImpl
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.fileTypes.XsltSchemaTypesFileType
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.resources.XsltBundle
-import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslEQName
-import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslItemType
-import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslQName
-import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslSequenceType
+import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.*
 
 @Suppress("MemberVisibilityCanBePrivate")
 object XsltSchemaTypes : Language(XPath, "XSLTSchemaTypes") {
@@ -50,7 +47,7 @@ object XsltSchemaTypes : Language(XPath, "XSLTSchemaTypes") {
         Expression.type -> Expression
         XslItemType.type -> XslItemType
         Pattern.type -> Pattern
-        Prefixes.type, "xsl:tokens" -> Prefixes
+        XslPrefixes.type, "xsl:tokens" -> XslPrefixes
         XslQName.type -> XslQName
         XslSequenceType.type -> XslSequenceType
         else -> null
@@ -70,11 +67,6 @@ object XsltSchemaTypes : Language(XPath, "XSLTSchemaTypes") {
 
     val Expression: ISchemaType = ISchemaTypeImpl("xsl:expression", false, XPath)
     val Pattern: ISchemaType = ISchemaTypeImpl("xsl:pattern", false, XPath)
-
-    // endregion
-    // region Schema Types :: XSLT 2.0
-
-    val Prefixes: ISchemaType = ISchemaTypeImpl("xsl:prefixes", false, XsltSchemaTypes)
 
     // endregion
 }

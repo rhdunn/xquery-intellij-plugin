@@ -22,10 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathBundle
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParser
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XsltSchemaTypes
-import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslEQName
-import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslItemType
-import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslQName
-import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslSequenceType
+import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.*
 
 class XsltSchemaTypesParser(private val schemaType: ISchemaType) : XPathParser() {
     // region Grammar
@@ -45,7 +42,7 @@ class XsltSchemaTypesParser(private val schemaType: ISchemaType) : XPathParser()
         XsltSchemaTypes.Expression -> parseExpr(builder, null)
         XslItemType -> parseItemType(builder)
         XsltSchemaTypes.Pattern -> parseExpr(builder, null)
-        XsltSchemaTypes.Prefixes -> parsePrefixes(builder)
+        XslPrefixes -> parsePrefixes(builder)
         XslQName -> parseQNameOrWildcard(builder, QNAME) != null
         XslSequenceType -> parseSequenceType(builder)
         else -> false
