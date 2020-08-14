@@ -63,8 +63,8 @@ object XsltSchemaTypes : Language(XPath, "XSLTSchemaTypes") {
     // endregion
     // region Schema Types :: XSLT 1.0
 
-    val Expression: ISchemaType = ISchemaType("xsl:expression", false, XsltSchemaTypes)
-    val Pattern: ISchemaType = ISchemaType("xsl:pattern", false, XsltSchemaTypes)
+    val Expression: ISchemaType = ISchemaType("xsl:expression", false, XPath)
+    val Pattern: ISchemaType = ISchemaType("xsl:pattern", false, XPath)
     val QName: ISchemaType = ISchemaType("xsl:QName", false, XsltSchemaTypes)
 
     // endregion
