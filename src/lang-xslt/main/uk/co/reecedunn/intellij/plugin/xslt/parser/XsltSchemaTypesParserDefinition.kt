@@ -23,6 +23,7 @@ import com.intellij.psi.PsiFile
 import com.intellij.psi.tree.IFileElementType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XmlCodePointRangeImpl
 import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaType
+import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XsltSchemaTypes
@@ -31,7 +32,7 @@ import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.schema.XsltSchemaTypePsiImp
 class XsltSchemaTypesParserDefinition : XPathParserDefinition() {
     override fun createLexer(project: Project): Lexer = XPathLexer(XmlCodePointRangeImpl())
 
-    override fun createParser(project: Project): PsiParser = createParser(XsltSchemaTypes.Expression)
+    override fun createParser(project: Project): PsiParser = createParser(XPath.Expression)
 
     fun createParser(schemaType: ISchemaType): PsiParser = XsltSchemaTypesParser(schemaType)
 

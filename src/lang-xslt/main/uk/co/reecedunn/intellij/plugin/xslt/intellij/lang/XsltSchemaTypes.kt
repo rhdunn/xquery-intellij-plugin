@@ -23,7 +23,6 @@ import uk.co.reecedunn.intellij.plugin.core.xml.attribute
 import uk.co.reecedunn.intellij.plugin.core.xml.schemaType
 import uk.co.reecedunn.intellij.plugin.core.xml.toXmlAttributeValue
 import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaType
-import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaTypeImpl
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.fileTypes.XsltSchemaTypesFileType
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.resources.XsltBundle
@@ -44,9 +43,9 @@ object XsltSchemaTypes : Language(XPath, "XSLTSchemaTypes") {
 
     fun create(type: String?): ISchemaType? = when (type) {
         XslEQName.type -> XslEQName
-        Expression.type -> Expression
+        XPath.Expression.type -> XPath.Expression
         XslItemType.type -> XslItemType
-        Pattern.type -> Pattern
+        XPath.Pattern.type -> XPath.Pattern
         XslPrefixes.type, "xsl:tokens" -> XslPrefixes
         XslQName.type -> XslQName
         XslSequenceType.type -> XslSequenceType
@@ -61,12 +60,6 @@ object XsltSchemaTypes : Language(XPath, "XSLTSchemaTypes") {
         if (attr.parent.namespace != XSLT.NAMESPACE) return null
         return create(attr.schemaType)
     }
-
-    // endregion
-    // region Schema Types :: XSLT 1.0
-
-    val Expression: ISchemaType = ISchemaTypeImpl("xsl:expression", false, XPath)
-    val Pattern: ISchemaType = ISchemaTypeImpl("xsl:pattern", false, XPath)
 
     // endregion
 }

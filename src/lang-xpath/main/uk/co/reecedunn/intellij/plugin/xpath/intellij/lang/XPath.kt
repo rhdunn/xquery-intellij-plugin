@@ -20,6 +20,7 @@ import com.intellij.openapi.fileTypes.ExtensionFileNameMatcher
 import com.intellij.openapi.fileTypes.FileNameMatcher
 import com.intellij.openapi.fileTypes.LanguageFileType
 import uk.co.reecedunn.intellij.plugin.core.lang.LanguageData
+import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaType
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.fileTypes.XPathFileType
 
 /**
@@ -29,6 +30,18 @@ import uk.co.reecedunn.intellij.plugin.xpath.intellij.fileTypes.XPathFileType
  * XPath 1.0 and 2.0 support. Using that causes those plugins to fail.
  */
 object XPath : Language("XMLPath") {
+    object Expression : ISchemaType {
+        override val type: String = "xsl:expression"
+        override val allowEmpty: Boolean = false
+        override val language: Language get() = XPath
+    }
+
+    object Pattern : ISchemaType {
+        override val type: String = "xsl:pattern"
+        override val allowEmpty: Boolean = false
+        override val language: Language get() = XPath
+    }
+
     override fun isCaseSensitive(): Boolean = true
 
     override fun getDisplayName(): String = "XPath"

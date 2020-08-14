@@ -21,6 +21,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.impl.source.tree.injected.InjectedLanguageUtil
 import com.intellij.psi.tree.IFileElementType
 import uk.co.reecedunn.intellij.plugin.core.lang.parserDefinition
+import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XsltSchemaTypes
 
 class XsltSchemaTypeFileElementType : IFileElementType(XsltSchemaTypes) {
@@ -34,7 +35,7 @@ class XsltSchemaTypeFileElementType : IFileElementType(XsltSchemaTypes) {
         )
 
         val definition = languageForParser.parserDefinition as XsltSchemaTypesParserDefinition
-        val parser = definition.createParser(XsltSchemaTypes.create(host) ?: XsltSchemaTypes.Expression)
+        val parser = definition.createParser(XsltSchemaTypes.create(host) ?: XPath.Expression)
         val node = parser.parse(this, builder)
         return node.firstChildNode
     }

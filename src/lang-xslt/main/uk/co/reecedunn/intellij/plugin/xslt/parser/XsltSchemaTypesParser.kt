@@ -18,10 +18,10 @@ package uk.co.reecedunn.intellij.plugin.xslt.parser
 import com.intellij.lang.PsiBuilder
 import uk.co.reecedunn.intellij.plugin.core.lang.matchTokenType
 import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaType
+import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathBundle
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParser
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XsltSchemaTypes
 import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.*
 
 class XsltSchemaTypesParser(private val schemaType: ISchemaType) : XPathParser() {
@@ -39,9 +39,9 @@ class XsltSchemaTypesParser(private val schemaType: ISchemaType) : XPathParser()
 
     private fun parseSchemaType(builder: PsiBuilder): Boolean = when (schemaType) {
         XslEQName -> parseEQNameOrWildcard(builder, QNAME) != null
-        XsltSchemaTypes.Expression -> parseExpr(builder, null)
+        XPath.Expression -> parseExpr(builder, null)
         XslItemType -> parseItemType(builder)
-        XsltSchemaTypes.Pattern -> parseExpr(builder, null)
+        XPath.Pattern -> parseExpr(builder, null)
         XslPrefixes -> parsePrefixes(builder)
         XslQName -> parseQNameOrWildcard(builder, QNAME) != null
         XslSequenceType -> parseSequenceType(builder)
