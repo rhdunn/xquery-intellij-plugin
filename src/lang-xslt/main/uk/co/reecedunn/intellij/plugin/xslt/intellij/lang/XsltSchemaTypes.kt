@@ -15,8 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xslt.intellij.lang
 
-import com.intellij.lang.Language
-import com.intellij.openapi.fileTypes.LanguageFileType
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.vfs.originalFile
 import uk.co.reecedunn.intellij.plugin.core.xml.attribute
@@ -24,23 +22,9 @@ import uk.co.reecedunn.intellij.plugin.core.xml.schemaType
 import uk.co.reecedunn.intellij.plugin.core.xml.toXmlAttributeValue
 import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaType
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.fileTypes.XsltSchemaTypesFileType
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.resources.XsltBundle
 import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.*
 
-@Suppress("MemberVisibilityCanBePrivate")
-object XsltSchemaTypes : Language(XPath, "XSLTSchemaTypes") {
-    // region Language
-
-    override fun isCaseSensitive(): Boolean = true
-
-    override fun getDisplayName(): String = XsltBundle.message("language.schema-types.name")
-
-    override fun getAssociatedFileType(): LanguageFileType? = XsltSchemaTypesFileType
-
-    // endregion
-    // region Schema Types
-
+object XsltSchemaTypes {
     fun create(type: String?): ISchemaType? = when (type) {
         XslEQName.type -> XslEQName
         XPath.Expression.type -> XPath.Expression
@@ -60,6 +44,4 @@ object XsltSchemaTypes : Language(XPath, "XSLTSchemaTypes") {
         if (attr.parent.namespace != XSLT.NAMESPACE) return null
         return create(attr.schemaType)
     }
-
-    // endregion
 }

@@ -23,13 +23,13 @@ import com.intellij.psi.FileViewProvider
 import com.intellij.psi.PsiFile
 import com.intellij.psi.tree.IFileElementType
 import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaType
+import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.fileTypes.XsltSchemaTypeFileType
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XsltSchemaTypes
 import uk.co.reecedunn.intellij.plugin.xslt.parser.XsltSchemaTypesParser
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.schema.XsltSchemaTypePsiImpl
 
-object XslSequenceType : Language(XsltSchemaTypes, "xsl:sequence-type"), ISchemaType {
+object XslSequenceType : Language(XPath, "xsl:sequence-type"), ISchemaType {
     // region Language
 
     val FileType: LanguageFileType = XsltSchemaTypeFileType(this)
