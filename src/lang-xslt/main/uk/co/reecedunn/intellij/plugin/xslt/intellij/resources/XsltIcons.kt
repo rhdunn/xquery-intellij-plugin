@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018, 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,8 @@ import javax.swing.Icon
 
 object XsltIcons {
     private fun getIcon(path: String): Icon = IconLoader.getIcon(path, XsltIcons::class.java)
+
+    val FileType: Icon = getIcon("/icons/xslt/fileType.svg")
 
     val RunConfiguration: Icon = getIcon("/icons/xslt/runConfiguration.svg")
 }
