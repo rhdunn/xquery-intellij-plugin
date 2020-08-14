@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaTypeImpl
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.fileTypes.XsltSchemaTypesFileType
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.resources.XsltBundle
+import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslEQName
 import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslItemType
 import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslQName
 import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslSequenceType
@@ -45,7 +46,7 @@ object XsltSchemaTypes : Language(XPath, "XSLTSchemaTypes") {
     // region Schema Types
 
     fun create(type: String?): ISchemaType? = when (type) {
-        EQName.type -> EQName
+        XslEQName.type -> XslEQName
         Expression.type -> Expression
         XslItemType.type -> XslItemType
         Pattern.type -> Pattern
@@ -74,11 +75,6 @@ object XsltSchemaTypes : Language(XPath, "XSLTSchemaTypes") {
     // region Schema Types :: XSLT 2.0
 
     val Prefixes: ISchemaType = ISchemaTypeImpl("xsl:prefixes", false, XsltSchemaTypes)
-
-    // endregion
-    // region Schema Types :: XSLT 3.0
-
-    val EQName: ISchemaType = ISchemaTypeImpl("xsl:EQName", false, XsltSchemaTypes)
 
     // endregion
 }
