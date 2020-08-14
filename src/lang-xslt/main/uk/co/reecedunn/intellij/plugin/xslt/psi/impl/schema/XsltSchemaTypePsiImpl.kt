@@ -16,14 +16,13 @@
 package uk.co.reecedunn.intellij.plugin.xslt.psi.impl.schema
 
 import com.intellij.extapi.psi.PsiFileBase
-import com.intellij.lang.Language
 import com.intellij.openapi.fileTypes.FileType
+import com.intellij.openapi.fileTypes.LanguageFileType
 import com.intellij.psi.FileViewProvider
 import uk.co.reecedunn.intellij.plugin.xslt.ast.schema.XsltSchemaType
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.fileTypes.XsltSchemaTypesFileType
 
-class XsltSchemaTypePsiImpl(provider: FileViewProvider, language: Language) :
-    PsiFileBase(provider, language),
+class XsltSchemaTypePsiImpl(provider: FileViewProvider, private val fileType: LanguageFileType) :
+    PsiFileBase(provider, fileType.language),
     XsltSchemaType {
     // region Object
 
@@ -32,7 +31,7 @@ class XsltSchemaTypePsiImpl(provider: FileViewProvider, language: Language) :
     // endregion
     // region PsiFile
 
-    override fun getFileType(): FileType = XsltSchemaTypesFileType
+    override fun getFileType(): FileType = fileType
 
     // endregion
 }

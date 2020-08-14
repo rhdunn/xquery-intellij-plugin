@@ -55,9 +55,7 @@ object XslSequenceType : Language(XsltSchemaTypes, "xsl:sequence-type"), ISchema
 
         override fun getFileNodeType(): IFileElementType = FileElementType
 
-        override fun createFile(viewProvider: FileViewProvider): PsiFile {
-            return XsltSchemaTypePsiImpl(viewProvider, XslSequenceType)
-        }
+        override fun createFile(viewProvider: FileViewProvider): PsiFile = XsltSchemaTypePsiImpl(viewProvider, FileType)
     }
 
     // endregion

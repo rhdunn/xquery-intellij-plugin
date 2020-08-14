@@ -55,9 +55,7 @@ object XslQName : Language(XsltSchemaTypes, "xsl:QName"), ISchemaType {
 
         override fun getFileNodeType(): IFileElementType = FileElementType
 
-        override fun createFile(viewProvider: FileViewProvider): PsiFile {
-            return XsltSchemaTypePsiImpl(viewProvider, XslQName)
-        }
+        override fun createFile(viewProvider: FileViewProvider): PsiFile = XsltSchemaTypePsiImpl(viewProvider, FileType)
     }
 
     // endregion
