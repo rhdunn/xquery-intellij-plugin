@@ -27,14 +27,14 @@ import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xslt.ast.schema.XsltSchemaType
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XsltSchemaTypes
 import uk.co.reecedunn.intellij.plugin.xslt.parser.XsltSchemaTypesParserDefinition
+import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslSequenceType
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("Reformat")
 @DisplayName("XSLT 3.0 - Schema Types - xsl:sequence-type")
-private class XslSequenceTypeTest : ParserTestCase(XsltSchemaTypesParserDefinition(), XPathParserDefinition()) {
+private class XslSequenceTypeTest : ParserTestCase(XslSequenceType.ParserDefinition(), XPathParserDefinition()) {
     fun parseResource(resource: String): XsltSchemaType {
         val file = ResourceVirtualFile.create(this::class.java.classLoader, resource)
-        file.putUserData(ISchemaType.XDM_SCHEMA_TYPE, XsltSchemaTypes.SequenceType)
         return file.toPsiFile(myProject) as XsltSchemaType
     }
 

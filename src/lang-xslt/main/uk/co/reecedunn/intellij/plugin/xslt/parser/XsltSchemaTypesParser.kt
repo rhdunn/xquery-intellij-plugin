@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParser
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XsltSchemaTypes
 import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslItemType
+import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslSequenceType
 
 class XsltSchemaTypesParser(private val schemaType: ISchemaType) : XPathParser() {
     // region Grammar
@@ -44,7 +45,7 @@ class XsltSchemaTypesParser(private val schemaType: ISchemaType) : XPathParser()
         XsltSchemaTypes.Pattern -> parseExpr(builder, null)
         XsltSchemaTypes.Prefixes -> parsePrefixes(builder)
         XsltSchemaTypes.QName -> parseQNameOrWildcard(builder, QNAME) != null
-        XsltSchemaTypes.SequenceType -> parseSequenceType(builder)
+        XslSequenceType -> parseSequenceType(builder)
         else -> false
     }
 
