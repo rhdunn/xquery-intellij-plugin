@@ -28,6 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.fileTypes.XsltSchemaTypesFileType
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.resources.XsltBundle
 import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslItemType
+import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslQName
 import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslSequenceType
 
 @Suppress("MemberVisibilityCanBePrivate")
@@ -49,7 +50,7 @@ object XsltSchemaTypes : Language(XPath, "XSLTSchemaTypes") {
         XslItemType.type -> XslItemType
         Pattern.type -> Pattern
         Prefixes.type, "xsl:tokens" -> Prefixes
-        QName.type -> QName
+        XslQName.type -> XslQName
         XslSequenceType.type -> XslSequenceType
         else -> null
     }
@@ -68,7 +69,6 @@ object XsltSchemaTypes : Language(XPath, "XSLTSchemaTypes") {
 
     val Expression: ISchemaType = ISchemaTypeImpl("xsl:expression", false, XPath)
     val Pattern: ISchemaType = ISchemaTypeImpl("xsl:pattern", false, XPath)
-    val QName: ISchemaType = ISchemaTypeImpl("xsl:QName", false, XsltSchemaTypes)
 
     // endregion
     // region Schema Types :: XSLT 2.0

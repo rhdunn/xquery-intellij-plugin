@@ -22,19 +22,16 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
-import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xslt.ast.schema.XsltSchemaType
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XsltSchemaTypes
-import uk.co.reecedunn.intellij.plugin.xslt.parser.XsltSchemaTypesParserDefinition
+import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslQName
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("Reformat")
 @DisplayName("XSLT 3.0 - Schema Types - xsl:QName")
-private class XslQNameTest : ParserTestCase(XsltSchemaTypesParserDefinition(), XPathParserDefinition()) {
+private class XslQNameTest : ParserTestCase(XslQName.ParserDefinition(), XPathParserDefinition()) {
     fun parseResource(resource: String): XsltSchemaType {
         val file = ResourceVirtualFile.create(this::class.java.classLoader, resource)
-        file.putUserData(ISchemaType.XDM_SCHEMA_TYPE, XsltSchemaTypes.QName)
         return file.toPsiFile(myProject) as XsltSchemaType
     }
 

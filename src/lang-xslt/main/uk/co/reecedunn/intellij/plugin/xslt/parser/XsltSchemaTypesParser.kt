@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParser
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XsltSchemaTypes
 import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslItemType
+import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslQName
 import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslSequenceType
 
 class XsltSchemaTypesParser(private val schemaType: ISchemaType) : XPathParser() {
@@ -44,7 +45,7 @@ class XsltSchemaTypesParser(private val schemaType: ISchemaType) : XPathParser()
         XslItemType -> parseItemType(builder)
         XsltSchemaTypes.Pattern -> parseExpr(builder, null)
         XsltSchemaTypes.Prefixes -> parsePrefixes(builder)
-        XsltSchemaTypes.QName -> parseQNameOrWildcard(builder, QNAME) != null
+        XslQName -> parseQNameOrWildcard(builder, QNAME) != null
         XslSequenceType -> parseSequenceType(builder)
         else -> false
     }
