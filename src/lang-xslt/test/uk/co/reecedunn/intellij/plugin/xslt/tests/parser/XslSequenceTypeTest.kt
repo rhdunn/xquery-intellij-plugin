@@ -22,11 +22,8 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
-import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xslt.ast.schema.XsltSchemaType
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XsltSchemaTypes
-import uk.co.reecedunn.intellij.plugin.xslt.parser.XsltSchemaTypesParserDefinition
 import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslSequenceType
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
