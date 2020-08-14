@@ -87,7 +87,7 @@ private class XPathParserDefinitionTest : ParserTestCase() {
         }
         assertThat(
             e.message,
-            `is`("Alien element type [XPATH_INTEGER_LITERAL_TOKEN]. Can't create XPath PsiElement for that.")
+            `is`("Alien element type [XPATH_INTEGER_LITERAL_TOKEN]. Can't create PsiElement for that.")
         )
     }
 

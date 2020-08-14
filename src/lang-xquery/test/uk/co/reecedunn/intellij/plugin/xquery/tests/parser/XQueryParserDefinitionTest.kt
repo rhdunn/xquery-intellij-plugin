@@ -15,12 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.parser
 
-import com.intellij.lang.ParserDefinition
-import com.intellij.psi.tree.IElementType
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.DisplayName
-import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.lexer.CombinedLexer
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
@@ -28,7 +25,6 @@ import uk.co.reecedunn.intellij.plugin.core.tests.lang.MockASTNode
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.fileTypes.XQueryFileType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
@@ -95,7 +91,7 @@ private class XQueryParserDefinitionTest : ParserTestCase() {
         }
         assertThat(
             e.message, `is`(
-                "Alien element type [XPATH_INTEGER_LITERAL_TOKEN]. Can't create XQuery PsiElement for that."
+                "Alien element type [XPATH_INTEGER_LITERAL_TOKEN]. Can't create PsiElement for that."
             )
         )
     }
@@ -107,109 +103,5 @@ private class XQueryParserDefinitionTest : ParserTestCase() {
         val psiFile = parserDefinition.createFile(getFileViewProvider(myProject, file, false))
         assertThat(psiFile.javaClass.name, `is`(XQueryModuleImpl::class.java.name))
         assertThat(psiFile.fileType, `is`(XQueryFileType))
-    }
-
-    @Nested
-    @DisplayName("XPath (A.2.2) Terminal Delimitation")
-    internal inner class TerminalDelimitation {
-        fun required(left: IElementType, right: IElementType) {
-            assertThat(
-                parserDefinition.spaceRequirements(left, right),
-                `is`(ParserDefinition.SpaceRequirements.MUST)
-            )
-        }
-
-        fun optional(left: IElementType, right: IElementType) {
-            assertThat(
-                XPathParserDefinition.spaceRequirements(left, right),
-                `is`(ParserDefinition.SpaceRequirements.MAY)
-            )
-        }
-
-        @Test
-        @DisplayName("T=IntegerLiteral")
-        fun integerLiteral() {
-            // T and U are both non-delimiting terminal symbols
-            required(XPathTokenType.INTEGER_LITERAL, XPathTokenType.INTEGER_LITERAL)
-            required(XPathTokenType.INTEGER_LITERAL, XPathTokenType.DECIMAL_LITERAL)
-            required(XPathTokenType.INTEGER_LITERAL, XPathTokenType.DOUBLE_LITERAL)
-            required(XPathTokenType.INTEGER_LITERAL, XPathTokenType.NCNAME)
-            required(XPathTokenType.INTEGER_LITERAL, XPathTokenType.K_CHILD) // keyword tokens
-            optional(XPathTokenType.INTEGER_LITERAL, XPathTokenType.VARIABLE_INDICATOR) // ':='
-
-            // T is a numeric literal and U is ".", or vice versa.
-            required(XPathTokenType.INTEGER_LITERAL, XPathTokenType.DOT)
-        }
-
-        @Test
-        @DisplayName("T=DecimalLiteral")
-        fun decimalLiteral() {
-            // T and U are both non-delimiting terminal symbols
-            required(XPathTokenType.DECIMAL_LITERAL, XPathTokenType.INTEGER_LITERAL)
-            required(XPathTokenType.DECIMAL_LITERAL, XPathTokenType.DECIMAL_LITERAL)
-            required(XPathTokenType.DECIMAL_LITERAL, XPathTokenType.DOUBLE_LITERAL)
-            required(XPathTokenType.DECIMAL_LITERAL, XPathTokenType.NCNAME)
-            required(XPathTokenType.DECIMAL_LITERAL, XPathTokenType.K_CHILD) // keyword tokens
-            optional(XPathTokenType.DECIMAL_LITERAL, XPathTokenType.VARIABLE_INDICATOR) // ':='
-
-            // T is a numeric literal and U is ".", or vice versa.
-            required(XPathTokenType.DECIMAL_LITERAL, XPathTokenType.DOT)
-        }
-
-        @Test
-        @DisplayName("T=DoubleLiteral")
-        fun doubleLiteral() {
-            // T and U are both non-delimiting terminal symbols
-            required(XPathTokenType.DOUBLE_LITERAL, XPathTokenType.INTEGER_LITERAL)
-            required(XPathTokenType.DOUBLE_LITERAL, XPathTokenType.DECIMAL_LITERAL)
-            required(XPathTokenType.DOUBLE_LITERAL, XPathTokenType.DOUBLE_LITERAL)
-            required(XPathTokenType.DOUBLE_LITERAL, XPathTokenType.NCNAME)
-            required(XPathTokenType.DOUBLE_LITERAL, XPathTokenType.K_CHILD) // keyword tokens
-            optional(XPathTokenType.DOUBLE_LITERAL, XPathTokenType.VARIABLE_INDICATOR) // ':='
-
-            // T is a numeric literal and U is ".", or vice versa.
-            required(XPathTokenType.DOUBLE_LITERAL, XPathTokenType.DOT)
-        }
-
-        @Test
-        @DisplayName("T=NCName")
-        fun ncname() {
-            // T and U are both non-delimiting terminal symbols
-            required(XPathTokenType.NCNAME, XPathTokenType.INTEGER_LITERAL)
-            required(XPathTokenType.NCNAME, XPathTokenType.DECIMAL_LITERAL)
-            required(XPathTokenType.NCNAME, XPathTokenType.DOUBLE_LITERAL)
-            required(XPathTokenType.NCNAME, XPathTokenType.NCNAME)
-            required(XPathTokenType.NCNAME, XPathTokenType.K_CHILD) // keyword tokens
-            optional(XPathTokenType.NCNAME, XPathTokenType.VARIABLE_INDICATOR) // ':='
-
-            // T is a QName or an NCName and U is "." or "-".
-            required(XPathTokenType.NCNAME, XPathTokenType.DOT)
-            required(XPathTokenType.NCNAME, XPathTokenType.MINUS)
-        }
-
-        @Test
-        @DisplayName("T=keyword")
-        fun keyword() {
-            // T and U are both non-delimiting terminal symbols
-            required(XPathTokenType.K_CHILD, XPathTokenType.INTEGER_LITERAL)
-            required(XPathTokenType.K_CHILD, XPathTokenType.DECIMAL_LITERAL)
-            required(XPathTokenType.K_CHILD, XPathTokenType.DOUBLE_LITERAL)
-            required(XPathTokenType.K_CHILD, XPathTokenType.NCNAME)
-            required(XPathTokenType.K_CHILD, XPathTokenType.K_CHILD) // keyword tokens
-            optional(XPathTokenType.K_CHILD, XPathTokenType.VARIABLE_INDICATOR) // ':='
-
-            // T is a QName or an NCName and U is "." or "-".
-            required(XPathTokenType.K_CHILD, XPathTokenType.DOT)
-            required(XPathTokenType.K_CHILD, XPathTokenType.MINUS)
-        }
-
-        @Test
-        @DisplayName("T=.")
-        fun dot() {
-            // T is a numeric literal and U is ".", or vice versa.
-            required(XPathTokenType.DOT, XPathTokenType.INTEGER_LITERAL)
-            required(XPathTokenType.DOT, XPathTokenType.DECIMAL_LITERAL)
-            required(XPathTokenType.DOT, XPathTokenType.DOUBLE_LITERAL)
-        }
     }
 }

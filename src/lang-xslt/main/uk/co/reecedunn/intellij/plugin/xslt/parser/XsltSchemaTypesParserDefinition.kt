@@ -15,27 +15,20 @@
  */
 package uk.co.reecedunn.intellij.plugin.xslt.parser
 
-import com.intellij.lang.ASTNode
-import com.intellij.lang.ParserDefinition
 import com.intellij.lang.PsiParser
 import com.intellij.lexer.Lexer
 import com.intellij.openapi.project.Project
 import com.intellij.psi.FileViewProvider
-import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
-import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.IFileElementType
-import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XmlCodePointRangeImpl
-import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
 import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
-import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XsltSchemaTypes
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.schema.XsltSchemaTypePsiImpl
 
-class XsltSchemaTypesParserDefinition : ParserDefinition {
+class XsltSchemaTypesParserDefinition : XPathParserDefinition() {
     override fun createLexer(project: Project): Lexer = XPathLexer(XmlCodePointRangeImpl())
 
     override fun createParser(project: Project): PsiParser = createParser(XsltSchemaTypes.Expression)
@@ -44,30 +37,5 @@ class XsltSchemaTypesParserDefinition : ParserDefinition {
 
     override fun getFileNodeType(): IFileElementType = XsltSchemaTypesElementType.SCHEMA_TYPE
 
-    override fun getWhitespaceTokens(): TokenSet = TokenSet.EMPTY
-
-    override fun getCommentTokens(): TokenSet = XPathTokenType.COMMENT_TOKENS
-
-    override fun getStringLiteralElements(): TokenSet = XPathTokenType.STRING_LITERAL_TOKENS
-
-    override fun createElement(node: ASTNode): PsiElement {
-        val type = node.elementType
-        if (type is ICompositeElementType) {
-            return type.createPsiElement(node)
-        }
-
-        throw AssertionError("Alien element type [$type]. Can't create XsltSchemaTypes PsiElement for that.")
-    }
-
     override fun createFile(viewProvider: FileViewProvider): PsiFile = XsltSchemaTypePsiImpl(viewProvider)
-
-    override fun spaceExistenceTypeBetweenTokens(left: ASTNode?, right: ASTNode?): ParserDefinition.SpaceRequirements {
-        val leftType = left?.elementType ?: return ParserDefinition.SpaceRequirements.MAY
-        val rightType = right?.elementType ?: return ParserDefinition.SpaceRequirements.MAY
-        return spaceRequirements(leftType, rightType)
-    }
-
-    fun spaceRequirements(left: IElementType, right: IElementType): ParserDefinition.SpaceRequirements {
-        return XPathParserDefinition.spaceRequirements(left, right)
-    }
 }

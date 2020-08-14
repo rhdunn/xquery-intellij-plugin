@@ -33,7 +33,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathImpl
 
-class XPathParserDefinition : ParserDefinition {
+open class XPathParserDefinition : ParserDefinition {
     override fun createLexer(project: Project): Lexer = XPathLexer(XmlCodePointRangeImpl())
 
     override fun createParser(project: Project): PsiParser = XPathParser()
@@ -52,7 +52,7 @@ class XPathParserDefinition : ParserDefinition {
             return type.createPsiElement(node)
         }
 
-        throw AssertionError("Alien element type [$type]. Can't create XPath PsiElement for that.")
+        throw AssertionError("Alien element type [$type]. Can't create PsiElement for that.")
     }
 
     override fun createFile(viewProvider: FileViewProvider): PsiFile = XPathImpl(viewProvider)
