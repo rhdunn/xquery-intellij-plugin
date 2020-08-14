@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.core.xml.attribute
 import uk.co.reecedunn.intellij.plugin.core.xml.schemaType
 import uk.co.reecedunn.intellij.plugin.core.xml.toXmlAttributeValue
 import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaType
+import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaTypeImpl
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.fileTypes.XsltSchemaTypesFileType
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.resources.XsltBundle
@@ -63,21 +64,21 @@ object XsltSchemaTypes : Language(XPath, "XSLTSchemaTypes") {
     // endregion
     // region Schema Types :: XSLT 1.0
 
-    val Expression: ISchemaType = ISchemaType("xsl:expression", false, XPath)
-    val Pattern: ISchemaType = ISchemaType("xsl:pattern", false, XPath)
-    val QName: ISchemaType = ISchemaType("xsl:QName", false, XsltSchemaTypes)
+    val Expression: ISchemaType = ISchemaTypeImpl("xsl:expression", false, XPath)
+    val Pattern: ISchemaType = ISchemaTypeImpl("xsl:pattern", false, XPath)
+    val QName: ISchemaType = ISchemaTypeImpl("xsl:QName", false, XsltSchemaTypes)
 
     // endregion
     // region Schema Types :: XSLT 2.0
 
-    val Prefixes: ISchemaType = ISchemaType("xsl:prefixes", false, XsltSchemaTypes)
-    val SequenceType: ISchemaType = ISchemaType("xsl:sequence-type", false, XsltSchemaTypes)
+    val Prefixes: ISchemaType = ISchemaTypeImpl("xsl:prefixes", false, XsltSchemaTypes)
+    val SequenceType: ISchemaType = ISchemaTypeImpl("xsl:sequence-type", false, XsltSchemaTypes)
 
     // endregion
     // region Schema Types :: XSLT 3.0
 
-    val EQName: ISchemaType = ISchemaType("xsl:EQName", false, XsltSchemaTypes)
-    val ItemType: ISchemaType = ISchemaType("xsl:item-type", false, XsltSchemaTypes)
+    val EQName: ISchemaType = ISchemaTypeImpl("xsl:EQName", false, XsltSchemaTypes)
+    val ItemType: ISchemaType = ISchemaTypeImpl("xsl:item-type", false, XsltSchemaTypes)
 
     // endregion
 }
