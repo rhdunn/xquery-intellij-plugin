@@ -37,5 +37,7 @@ class XsltSchemaTypesParserDefinition : XPathParserDefinition() {
 
     override fun getFileNodeType(): IFileElementType = XsltSchemaTypesElementType.SCHEMA_TYPE
 
-    override fun createFile(viewProvider: FileViewProvider): PsiFile = XsltSchemaTypePsiImpl(viewProvider)
+    override fun createFile(viewProvider: FileViewProvider): PsiFile {
+        return XsltSchemaTypePsiImpl(viewProvider, XsltSchemaTypes)
+    }
 }

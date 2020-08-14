@@ -22,6 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathBundle
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParser
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XsltSchemaTypes
+import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslItemType
 
 class XsltSchemaTypesParser(private val schemaType: ISchemaType) : XPathParser() {
     // region Grammar
@@ -39,7 +40,7 @@ class XsltSchemaTypesParser(private val schemaType: ISchemaType) : XPathParser()
     private fun parseSchemaType(builder: PsiBuilder): Boolean = when (schemaType) {
         XsltSchemaTypes.EQName -> parseEQNameOrWildcard(builder, QNAME) != null
         XsltSchemaTypes.Expression -> parseExpr(builder, null)
-        XsltSchemaTypes.ItemType -> parseItemType(builder)
+        XslItemType -> parseItemType(builder)
         XsltSchemaTypes.Pattern -> parseExpr(builder, null)
         XsltSchemaTypes.Prefixes -> parsePrefixes(builder)
         XsltSchemaTypes.QName -> parseQNameOrWildcard(builder, QNAME) != null

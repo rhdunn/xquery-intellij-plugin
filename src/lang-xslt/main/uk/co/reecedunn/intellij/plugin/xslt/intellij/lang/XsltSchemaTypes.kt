@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaTypeImpl
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.fileTypes.XsltSchemaTypesFileType
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.resources.XsltBundle
+import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslItemType
 
 @Suppress("MemberVisibilityCanBePrivate")
 object XsltSchemaTypes : Language(XPath, "XSLTSchemaTypes") {
@@ -44,7 +45,7 @@ object XsltSchemaTypes : Language(XPath, "XSLTSchemaTypes") {
     fun create(type: String?): ISchemaType? = when (type) {
         EQName.type -> EQName
         Expression.type -> Expression
-        ItemType.type -> ItemType
+        XslItemType.type -> XslItemType
         Pattern.type -> Pattern
         Prefixes.type, "xsl:tokens" -> Prefixes
         QName.type -> QName
@@ -78,7 +79,6 @@ object XsltSchemaTypes : Language(XPath, "XSLTSchemaTypes") {
     // region Schema Types :: XSLT 3.0
 
     val EQName: ISchemaType = ISchemaTypeImpl("xsl:EQName", false, XsltSchemaTypes)
-    val ItemType: ISchemaType = ISchemaTypeImpl("xsl:item-type", false, XsltSchemaTypes)
 
     // endregion
 }

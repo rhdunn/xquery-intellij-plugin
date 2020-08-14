@@ -16,5 +16,9 @@
     <xml.nsColorProvider implementation="uk.co.reecedunn.intellij.plugin.xslt.intellij.lexer.XsltNSColorProvider"/>
 
     <spellchecker.bundledDictionaryProvider implementation="uk.co.reecedunn.intellij.plugin.xslt.intellij.spellchecker.XsltBundledDictionaryProvider"/>
+
+    <!-- XSLT Schema Type -->
+
+    <lang.parserDefinition language="xsl:item-type" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslItemType$ParserDefinition"/>
   </extensions>
 </idea-plugin>
