@@ -27,7 +27,7 @@ open class XPathLexer(tokenRange: CodePointRange) : LexerImpl(STATE_DEFAULT, tok
         return KEYWORDS[name]
     }
 
-    private fun stateDefault() {
+    protected open fun stateDefault() {
         var c = mTokenRange.codePoint
         var cc = CharacterClass.getCharClass(c)
         when (cc) {
