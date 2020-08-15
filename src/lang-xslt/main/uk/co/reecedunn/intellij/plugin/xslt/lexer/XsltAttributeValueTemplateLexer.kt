@@ -31,12 +31,26 @@ class XsltAttributeValueTemplateLexer(tokenRange: CodePointRange) : XPathLexer(t
             }
             '{'.toInt() -> {
                 mTokenRange.match()
-                mType = XPathTokenType.BLOCK_OPEN
-                pushState(STATE_ATTRIBUTE_VALUE_TEMPLATE_EXPRESSION)
+                if (mTokenRange.codePoint == '{'.toInt()) {
+                    mTokenRange.match()
+                    mType = XsltSchemaTypesTokenType.ATTRIBUTE_ESCAPED_CHARACTER
+                } else {
+                    mType = XPathTokenType.BLOCK_OPEN
+                    pushState(STATE_ATTRIBUTE_VALUE_TEMPLATE_EXPRESSION)
+                }
+            }
+            '}'.toInt() -> {
+                mTokenRange.match()
+                mType = if (mTokenRange.codePoint == '}'.toInt()) {
+                    mTokenRange.match()
+                    XsltSchemaTypesTokenType.ATTRIBUTE_ESCAPED_CHARACTER
+                } else {
+                    XPathTokenType.BLOCK_CLOSE
+                }
             }
             else -> while (true) {
                 when (c) {
-                    CodePointRange.END_OF_BUFFER, '{'.toInt() -> {
+                    CodePointRange.END_OF_BUFFER, '{'.toInt(), '}'.toInt() -> {
                         mType = XsltSchemaTypesTokenType.ATTRIBUTE_VALUE_CONTENTS
                         return
                     }

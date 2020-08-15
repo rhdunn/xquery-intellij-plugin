@@ -22,6 +22,7 @@ object XsltSchemaTypesTokenType {
     // region xsl:avt
 
     val ATTRIBUTE_VALUE_CONTENTS: IElementType = IElementType("XSLT_ATTRIBUTE_VALUE_CONTENTS_TOKEN", XslAVT)
+    val ATTRIBUTE_ESCAPED_CHARACTER: IElementType = IElementType("XSLT_ATTRIBUTE_ESCAPED_CHARACTER_TOKEN", XslAVT)
 
     // endregion
 }

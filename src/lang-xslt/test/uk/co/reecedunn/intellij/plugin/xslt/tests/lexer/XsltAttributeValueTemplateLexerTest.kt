@@ -33,15 +33,45 @@ class XsltValueTemplateLexerTest : LexerTestCase() {
     @DisplayName("XQuery IntelliJ Plugin XSLT EBNF (4) AttributeValueTemplate")
     internal inner class AttributeValueTemplate {
         @Test
-        @DisplayName("XQuery IntelliJ Plugin XSLT EBNF (5) AttrContentChar")
-        fun attrContentChar() {
+        @DisplayName("escaped braces")
+        fun escapedBraces() {
             val lexer = createLexer()
 
-            lexer.start("Lorem ipsum dolor.")
-            matchToken(lexer, "Lorem ipsum dolor.", 0, 0, 18, XsltSchemaTypesTokenType.ATTRIBUTE_VALUE_CONTENTS)
-            matchToken(lexer, "", 0, 18, 18, null)
+            lexer.start("Lorem {{ipsum}} dolor.")
+            matchToken(lexer, "Lorem ", 0, 0, 6, XsltSchemaTypesTokenType.ATTRIBUTE_VALUE_CONTENTS)
+            matchToken(lexer, "{{", 0, 6, 8, XsltSchemaTypesTokenType.ATTRIBUTE_ESCAPED_CHARACTER)
+            matchToken(lexer, "ipsum", 0, 8, 13, XsltSchemaTypesTokenType.ATTRIBUTE_VALUE_CONTENTS)
+            matchToken(lexer, "}}", 0, 13, 15, XsltSchemaTypesTokenType.ATTRIBUTE_ESCAPED_CHARACTER)
+            matchToken(lexer, " dolor.", 0, 15, 22, XsltSchemaTypesTokenType.ATTRIBUTE_VALUE_CONTENTS)
+            matchToken(lexer, "", 0, 22, 22, null)
         }
 
+        @Test
+        @DisplayName("unpaired right brace")
+        fun unpairedRightBrace() {
+            val lexer = createLexer()
+
+            lexer.start("Lorem } ipsum")
+            matchToken(lexer, "Lorem ", 0, 0, 6, XsltSchemaTypesTokenType.ATTRIBUTE_VALUE_CONTENTS)
+            matchToken(lexer, "}", 0, 6, 7, XPathTokenType.BLOCK_CLOSE)
+            matchToken(lexer, " ipsum", 0, 7, 13, XsltSchemaTypesTokenType.ATTRIBUTE_VALUE_CONTENTS)
+            matchToken(lexer, "", 0, 13, 13, null)
+        }
+    }
+
+    @Test
+    @DisplayName("XQuery IntelliJ Plugin XSLT EBNF (5) AttrContentChar")
+    fun attrContentChar() {
+        val lexer = createLexer()
+
+        lexer.start("Lorem ipsum dolor.")
+        matchToken(lexer, "Lorem ipsum dolor.", 0, 0, 18, XsltSchemaTypesTokenType.ATTRIBUTE_VALUE_CONTENTS)
+        matchToken(lexer, "", 0, 18, 18, null)
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin XSLT EBNF (6) EnclosedExpr")
+    internal inner class EnclosedExpr {
         @Test
         @DisplayName("XPath 3.1 EBNF (5) EnclosedExpr")
         fun enclosedExpr() {
