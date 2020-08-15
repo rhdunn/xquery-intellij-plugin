@@ -16,17 +16,27 @@
 package uk.co.reecedunn.intellij.plugin.xslt.lexer
 
 import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange
+import uk.co.reecedunn.intellij.plugin.core.lexer.STATE_DEFAULT
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
 class XsltAttributeValueTemplateLexer(tokenRange: CodePointRange) : XPathLexer(tokenRange) {
-    override fun stateDefault() {
+    // region States
+
+    fun stateDefault() {
         var c = mTokenRange.codePoint
-        if (c == CodePointRange.END_OF_BUFFER) {
-            mType = null
-        } else {
-            while (true) {
+        when (c) {
+            CodePointRange.END_OF_BUFFER -> {
+                mType = null
+            }
+            '{'.toInt() -> {
+                mTokenRange.match()
+                mType = XPathTokenType.BLOCK_OPEN
+                pushState(STATE_ATTRIBUTE_VALUE_TEMPLATE_EXPRESSION)
+            }
+            else -> while (true) {
                 when (c) {
-                    CodePointRange.END_OF_BUFFER -> {
+                    CodePointRange.END_OF_BUFFER, '{'.toInt() -> {
                         mType = XsltSchemaTypesTokenType.ATTRIBUTE_VALUE_CONTENTS
                         return
                     }
@@ -37,5 +47,24 @@ class XsltAttributeValueTemplateLexer(tokenRange: CodePointRange) : XPathLexer(t
                 }
             }
         }
+    }
+
+    // endregion
+    // region Lexer
+
+    override fun advance(state: Int): Unit = when (state) {
+        STATE_DEFAULT -> stateDefault()
+        STATE_ATTRIBUTE_VALUE_TEMPLATE_EXPRESSION -> stateDefault(state)
+        else -> super.advance(state)
+    }
+
+    // endregion
+
+    companion object {
+        // region State Constants
+
+        const val STATE_ATTRIBUTE_VALUE_TEMPLATE_EXPRESSION: Int = 32
+
+        // endregion
     }
 }

@@ -25,7 +25,7 @@ class XQueryLexer : XPathLexer(CodePointRangeImpl()) {
         return KEYWORDS[name] ?: super.ncnameToKeyword(name)
     }
 
-    private fun stateDefault(mState: Int) {
+    override fun stateDefault(state: Int) {
         var c = mTokenRange.codePoint
         var cc = CharacterClass.getCharClass(c)
         when (cc) {
@@ -324,7 +324,7 @@ class XQueryLexer : XPathLexer(CodePointRangeImpl()) {
                         mType = XQueryTokenType.INVALID
                     }
                 } else {
-                    if (mState == STATE_MAYBE_DIR_ELEM_CONSTRUCTOR) {
+                    if (state == STATE_MAYBE_DIR_ELEM_CONSTRUCTOR) {
                         mType = XPathTokenType.LESS_THAN
                     } else {
                         matchOpenXmlTag()
@@ -359,11 +359,11 @@ class XQueryLexer : XPathLexer(CodePointRangeImpl()) {
             CharacterClass.CURLY_BRACE_OPEN -> {
                 mTokenRange.match()
                 mType = XPathTokenType.BLOCK_OPEN
-                pushState(mState)
+                pushState(state)
             }
             CharacterClass.CURLY_BRACE_CLOSE -> {
                 mTokenRange.match()
-                mType = if (mTokenRange.codePoint == '`'.toInt() && mState == STATE_DEFAULT_STRING_INTERPOLATION) {
+                mType = if (mTokenRange.codePoint == '`'.toInt() && state == STATE_DEFAULT_STRING_INTERPOLATION) {
                     mTokenRange.match()
                     XQueryTokenType.STRING_INTERPOLATION_CLOSE
                 } else {

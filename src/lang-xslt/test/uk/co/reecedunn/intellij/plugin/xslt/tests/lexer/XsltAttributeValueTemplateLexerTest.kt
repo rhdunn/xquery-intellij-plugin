@@ -20,6 +20,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XmlCodePointRangeImpl
 import uk.co.reecedunn.intellij.plugin.xslt.lexer.XsltAttributeValueTemplateLexer
 import uk.co.reecedunn.intellij.plugin.xslt.lexer.XsltSchemaTypesTokenType
@@ -39,6 +40,38 @@ class XsltValueTemplateLexerTest : LexerTestCase() {
             lexer.start("Lorem ipsum dolor.")
             matchToken(lexer, "Lorem ipsum dolor.", 0, 0, 18, XsltSchemaTypesTokenType.ATTRIBUTE_VALUE_CONTENTS)
             matchToken(lexer, "", 0, 18, 18, null)
+        }
+
+        @Test
+        @DisplayName("XPath 3.1 EBNF (5) EnclosedExpr")
+        fun enclosedExpr() {
+            val lexer = createLexer()
+
+            lexer.start("One {2} Three")
+            matchToken(lexer, "One ", 0, 0, 4, XsltSchemaTypesTokenType.ATTRIBUTE_VALUE_CONTENTS)
+            matchToken(lexer, "{", 0, 4, 5, XPathTokenType.BLOCK_OPEN)
+            matchToken(lexer, "2", 32, 5, 6, XPathTokenType.INTEGER_LITERAL)
+            matchToken(lexer, "}", 32, 6, 7, XPathTokenType.BLOCK_CLOSE)
+            matchToken(lexer, " Three", 0, 7, 13, XsltSchemaTypesTokenType.ATTRIBUTE_VALUE_CONTENTS)
+            matchToken(lexer, "", 0, 13, 13, null)
+        }
+
+        @Test
+        @DisplayName("XPath 3.1 EBNF (5) EnclosedExpr (nested)")
+        fun nestedEnclosedExpr() {
+            val lexer = createLexer()
+
+            lexer.start("One {2{3}4} Five")
+            matchToken(lexer, "One ", 0, 0, 4, XsltSchemaTypesTokenType.ATTRIBUTE_VALUE_CONTENTS)
+            matchToken(lexer, "{", 0, 4, 5, XPathTokenType.BLOCK_OPEN)
+            matchToken(lexer, "2", 32, 5, 6, XPathTokenType.INTEGER_LITERAL)
+            matchToken(lexer, "{", 32, 6, 7, XPathTokenType.BLOCK_OPEN)
+            matchToken(lexer, "3", 32, 7, 8, XPathTokenType.INTEGER_LITERAL)
+            matchToken(lexer, "}", 32, 8, 9, XPathTokenType.BLOCK_CLOSE)
+            matchToken(lexer, "4", 32, 9, 10, XPathTokenType.INTEGER_LITERAL)
+            matchToken(lexer, "}", 32, 10, 11, XPathTokenType.BLOCK_CLOSE)
+            matchToken(lexer, " Five", 0, 11, 16, XsltSchemaTypesTokenType.ATTRIBUTE_VALUE_CONTENTS)
+            matchToken(lexer, "", 0, 16, 16, null)
         }
     }
 }

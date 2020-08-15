@@ -27,7 +27,7 @@ open class XPathLexer(tokenRange: CodePointRange) : LexerImpl(STATE_DEFAULT, tok
         return KEYWORDS[name]
     }
 
-    protected open fun stateDefault() {
+    protected open fun stateDefault(state: Int) {
         var c = mTokenRange.codePoint
         var cc = CharacterClass.getCharClass(c)
         when (cc) {
@@ -65,10 +65,12 @@ open class XPathLexer(tokenRange: CodePointRange) : LexerImpl(STATE_DEFAULT, tok
             CharacterClass.CURLY_BRACE_CLOSE -> {
                 mTokenRange.match()
                 mType = XPathTokenType.BLOCK_CLOSE
+                popState()
             }
             CharacterClass.CURLY_BRACE_OPEN -> {
                 mTokenRange.match()
                 mType = XPathTokenType.BLOCK_OPEN
+                pushState(state)
             }
             CharacterClass.DIGIT -> {
                 mTokenRange.match()
@@ -566,7 +568,7 @@ open class XPathLexer(tokenRange: CodePointRange) : LexerImpl(STATE_DEFAULT, tok
     override fun advance(): Unit = advance(nextState())
 
     open fun advance(state: Int): Unit = when (state) {
-        STATE_DEFAULT -> stateDefault()
+        STATE_DEFAULT -> stateDefault(state)
         STATE_STRING_LITERAL_QUOTE -> stateStringLiteral('"')
         STATE_STRING_LITERAL_APOSTROPHE -> stateStringLiteral('\'')
         STATE_DOUBLE_EXPONENT -> stateDoubleExponent()
