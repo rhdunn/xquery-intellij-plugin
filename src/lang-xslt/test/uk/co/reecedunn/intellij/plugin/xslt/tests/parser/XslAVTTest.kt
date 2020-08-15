@@ -40,6 +40,26 @@ private class XslAVTTest : ParserTestCase(XslAVT.ParserDefinition(), XPathParser
         return ResourceVirtualFile.create(this::class.java.classLoader, resource).decode()
     }
 
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin XSLT EBNF (4) AttributeValueTemplate")
+    inner class AttributeValueTemplate {
+        @Test
+        @DisplayName("escaped characters")
+        fun escapedCharacters() {
+            val expected = loadResource("tests/parser/schema-type/avt/AttributeValueTemplate_EscapedChar.txt")
+            val actual = parseResource("tests/parser/schema-type/avt/AttributeValueTemplate_EscapedChar.input")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("unpaired right brace")
+        fun unpairedRightBrace() {
+            val expected = loadResource("tests/parser/schema-type/avt/AttributeValueTemplate_UnpairedRightBrace.txt")
+            val actual = parseResource("tests/parser/schema-type/avt/AttributeValueTemplate_UnpairedRightBrace.input")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
+
     @Test
     @DisplayName("XQuery IntelliJ Plugin XSLT EBNF (5) AttrContentChar")
     fun attrContentChar() {
