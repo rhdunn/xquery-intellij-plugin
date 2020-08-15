@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xslt.tests.parser
 
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
@@ -41,9 +42,29 @@ private class XslAVTTest : ParserTestCase(XslAVT.ParserDefinition(), XPathParser
 
     @Test
     @DisplayName("XQuery IntelliJ Plugin XSLT EBNF (5) AttrContentChar")
-    fun qname() {
+    fun attrContentChar() {
         val expected = loadResource("tests/parser/schema-type/avt/AttrContentChar.txt")
         val actual = parseResource("tests/parser/schema-type/avt/AttrContentChar.input")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin XSLT EBNF (6) EnclosedExpr")
+    inner class EnclosedExpr {
+        @Test
+        @DisplayName("after text")
+        fun afterText() {
+            val expected = loadResource("tests/parser/schema-type/avt/EnclosedExpr.txt")
+            val actual = parseResource("tests/parser/schema-type/avt/EnclosedExpr.input")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("EnclosedExpr only")
+        fun enclosedExprOnly() {
+            val expected = loadResource("tests/parser/schema-type/avt/EnclosedExpr_Only.txt")
+            val actual = parseResource("tests/parser/schema-type/avt/EnclosedExpr_Only.input")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 }

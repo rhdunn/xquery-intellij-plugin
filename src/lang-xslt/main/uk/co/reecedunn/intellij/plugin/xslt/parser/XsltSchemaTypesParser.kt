@@ -54,10 +54,14 @@ class XsltSchemaTypesParser(private val schemaType: ISchemaType) : XPathParser()
     // region Grammar :: xsl:avt
 
     private fun parseAVT(builder: PsiBuilder): Boolean {
-        if (builder.matchTokenType(XsltSchemaTypesTokenType.ATTRIBUTE_VALUE_CONTENTS)) {
-            return true
+        var matched = false
+        while (
+            builder.matchTokenType(XsltSchemaTypesTokenType.ATTRIBUTE_VALUE_CONTENTS) ||
+            parseEnclosedExprOrBlock(builder, null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)
+        ) {
+            matched = true
         }
-        return false
+        return matched
     }
 
     // endregion
