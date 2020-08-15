@@ -29,6 +29,8 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
 object XPathSyntaxHighlighter : SyntaxHighlighterBase() {
+    // region SyntaxHighlighter
+
     private val DEFAULT: Array<out TextAttributesKey> = emptyArray()
 
     override fun getHighlightingLexer(): Lexer = XPathLexer(XmlCodePointRangeImpl())
@@ -36,15 +38,64 @@ object XPathSyntaxHighlighter : SyntaxHighlighterBase() {
     override fun getTokenHighlights(type: IElementType): Array<out TextAttributesKey> {
         val default =
             if (type is IKeywordOrNCNameType && type !== XPathTokenType.K__)
-                XPathSyntaxHighlighterKeys.KEYWORD_KEYS
+                KEYWORD_KEYS
             else
                 DEFAULT
-        return XPathSyntaxHighlighterKeys.KEYS.getOrDefault(type, default)
+        return KEYS.getOrDefault(type, default)
     }
+
+    // endregion
+    // region SyntaxHighlighterFactory
 
     class Factory : SyntaxHighlighterFactory() {
         override fun getSyntaxHighlighter(project: Project?, virtualFile: VirtualFile?): SyntaxHighlighter {
             return XPathSyntaxHighlighter
         }
     }
+
+    // endregion
+    // region Syntax Highlighting (Lexical Tokens)
+
+    private val BAD_CHARACTER_KEYS = pack(XPathSyntaxHighlighterColors.BAD_CHARACTER)
+
+    private val COMMENT_KEYS = pack(XPathSyntaxHighlighterColors.COMMENT)
+
+    private val ESCAPED_CHARACTER_KEYS = pack(XPathSyntaxHighlighterColors.ESCAPED_CHARACTER)
+
+    private val IDENTIFIER_KEYS = pack(XPathSyntaxHighlighterColors.IDENTIFIER)
+
+    private val KEYWORD_KEYS = pack(XPathSyntaxHighlighterColors.KEYWORD)
+
+    private val NUMBER_KEYS = pack(XPathSyntaxHighlighterColors.NUMBER)
+
+    private val STRING_KEYS = pack(XPathSyntaxHighlighterColors.STRING)
+
+    // endregion
+    // region Semantic Highlighting (Usage and Reference Types)
+
+    private val ATTRIBUTE_KEYS = pack(XPathSyntaxHighlighterColors.ATTRIBUTE)
+
+    // endregion
+    // region Keys
+
+    private val KEYS = mapOf(
+        XPathTokenType.INTEGER_LITERAL to NUMBER_KEYS,
+        XPathTokenType.DECIMAL_LITERAL to NUMBER_KEYS,
+        XPathTokenType.DOUBLE_LITERAL to NUMBER_KEYS,
+        XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT to NUMBER_KEYS,
+        XPathTokenType.STRING_LITERAL_START to STRING_KEYS,
+        XPathTokenType.STRING_LITERAL_CONTENTS to STRING_KEYS,
+        XPathTokenType.STRING_LITERAL_END to STRING_KEYS,
+        XPathTokenType.BRACED_URI_LITERAL_START to STRING_KEYS,
+        XPathTokenType.BRACED_URI_LITERAL_END to STRING_KEYS,
+        XPathTokenType.ESCAPED_CHARACTER to ESCAPED_CHARACTER_KEYS,
+        XPathTokenType.COMMENT_START_TAG to COMMENT_KEYS,
+        XPathTokenType.COMMENT to COMMENT_KEYS,
+        XPathTokenType.COMMENT_END_TAG to COMMENT_KEYS,
+        XPathTokenType.NCNAME to IDENTIFIER_KEYS,
+        XPathTokenType.ATTRIBUTE_SELECTOR to ATTRIBUTE_KEYS,
+        XPathTokenType.BAD_CHARACTER to BAD_CHARACTER_KEYS
+    )
+
+    // endregion
 }
