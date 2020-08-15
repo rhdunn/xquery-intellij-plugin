@@ -16,6 +16,9 @@
 package uk.co.reecedunn.intellij.plugin.xslt.parser
 
 import com.intellij.psi.PsiElement
+import com.intellij.psi.xml.XmlAttribute
+import com.intellij.psi.xml.XmlTag
+import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.core.vfs.originalFile
 import uk.co.reecedunn.intellij.plugin.core.xml.attribute
 import uk.co.reecedunn.intellij.plugin.core.xml.schemaType
@@ -27,7 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.*
 
 object XsltSchemaTypes {
     fun create(type: String?): ISchemaType? = when (type) {
-        XslAVT.type -> XslAVT
+        XslAVT.type, "xsl:expr-avt" -> XslAVT
         XslEQName.type -> XslEQName
         XPath.Expression.type -> XPath.Expression
         XslItemType.type -> XslItemType
@@ -43,7 +46,16 @@ object XsltSchemaTypes {
         if (schemaType != null) return schemaType
 
         val attr = element.toXmlAttributeValue()?.attribute ?: return null
-        if (attr.parent.namespace != XSLT.NAMESPACE) return null
+        if (attr.parent.namespace != XSLT.NAMESPACE) return getAVTSchemaType(attr)
         return create(attr.schemaType)
+    }
+
+    private fun getAVTSchemaType(attribute: XmlAttribute): ISchemaType? {
+        return when {
+            attribute.isNamespaceDeclaration -> null
+            attribute.parent.ancestors().find { it is XmlTag && it.namespace == XSLT.NAMESPACE } == null -> null
+            attribute.value?.contains('{') == true -> XslAVT
+            else -> null
+        }
     }
 }
