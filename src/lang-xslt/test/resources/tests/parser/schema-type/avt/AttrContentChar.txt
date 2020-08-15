@@ -1,0 +1,2 @@
+XsltSchemaTypeImpl[FILE(0:12)]
+   LeafPsiElement[XSLT_ATTRIBUTE_VALUE_CONTENTS_TOKEN(0:12)]('Lorem ipsum.')

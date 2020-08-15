@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.*
 
 object XsltSchemaTypes {
     fun create(type: String?): ISchemaType? = when (type) {
+        XslAVT.type -> XslAVT
         XslEQName.type -> XslEQName
         XPath.Expression.type -> XPath.Expression
         XslItemType.type -> XslItemType

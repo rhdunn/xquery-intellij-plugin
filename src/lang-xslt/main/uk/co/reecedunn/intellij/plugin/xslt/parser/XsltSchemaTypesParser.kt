@@ -22,6 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathBundle
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParser
+import uk.co.reecedunn.intellij.plugin.xslt.lexer.XsltSchemaTypesTokenType
 import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.*
 
 class XsltSchemaTypesParser(private val schemaType: ISchemaType) : XPathParser() {
@@ -38,6 +39,7 @@ class XsltSchemaTypesParser(private val schemaType: ISchemaType) : XPathParser()
     }
 
     private fun parseSchemaType(builder: PsiBuilder): Boolean = when (schemaType) {
+        XslAVT -> parseAVT(builder)
         XslEQName -> parseEQNameOrWildcard(builder, QNAME) != null
         XPath.Expression -> parseExpr(builder, null)
         XslItemType -> parseItemType(builder)
@@ -46,6 +48,16 @@ class XsltSchemaTypesParser(private val schemaType: ISchemaType) : XPathParser()
         XslQName -> parseQNameOrWildcard(builder, QNAME) != null
         XslSequenceType -> parseSequenceType(builder)
         else -> false
+    }
+
+    // endregion
+    // region Grammar :: xsl:avt
+
+    private fun parseAVT(builder: PsiBuilder): Boolean {
+        if (builder.matchTokenType(XsltSchemaTypesTokenType.ATTRIBUTE_VALUE_CONTENTS)) {
+            return true
+        }
+        return false
     }
 
     // endregion

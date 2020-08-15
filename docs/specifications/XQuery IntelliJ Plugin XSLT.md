@@ -37,6 +37,7 @@ schema types from XSLT 1.0, 2.0, and 3.0:
 |---------------------|--------------------------|-------------------------------------------------------------------|
 | `xsl:avt`           | `AttributeValueTemplate` |                                                                   |
 | `xsl:EQName`        | `EQName`                 | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-EQName]()\]       |
+| `xsl:expr-avt`      | `AttributeValueTemplate` |                                                                   |
 | `xsl:expression`    | `XPath`                  | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-XPath]()\]        |
 | `xsl:item-type`     | `ItemType`               | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-ItemType]()\]     |
 | `xsl:pattern`       | `XPath`                  | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-XPath]()\]        |
