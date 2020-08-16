@@ -19,7 +19,6 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.xml.XmlAttribute
 import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
-import uk.co.reecedunn.intellij.plugin.core.vfs.originalFile
 import uk.co.reecedunn.intellij.plugin.core.xml.attribute
 import uk.co.reecedunn.intellij.plugin.core.xml.schemaType
 import uk.co.reecedunn.intellij.plugin.core.xml.toXmlAttributeValue
@@ -42,9 +41,6 @@ object XsltSchemaTypes {
     }
 
     fun create(element: PsiElement): ISchemaType? {
-        val schemaType = element.containingFile.virtualFile.originalFile.getUserData(ISchemaType.XDM_SCHEMA_TYPE)
-        if (schemaType != null) return schemaType
-
         val attr = element.toXmlAttributeValue()?.attribute ?: return null
         if (attr.parent.namespace != XSLT.NAMESPACE) return getAVTSchemaType(attr)
         return create(attr.schemaType)
