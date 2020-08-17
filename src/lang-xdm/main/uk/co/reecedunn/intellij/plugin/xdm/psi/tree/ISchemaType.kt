@@ -20,7 +20,5 @@ import com.intellij.lang.Language
 interface ISchemaType {
     val type: String
 
-    val allowEmpty: Boolean
-
     val language: Language
 }

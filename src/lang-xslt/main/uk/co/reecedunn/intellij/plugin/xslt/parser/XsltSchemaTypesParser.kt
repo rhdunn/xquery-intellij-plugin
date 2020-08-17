@@ -20,7 +20,6 @@ import uk.co.reecedunn.intellij.plugin.core.lang.errorOnTokenType
 import uk.co.reecedunn.intellij.plugin.core.lang.matchTokenType
 import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaType
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
-import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathBundle
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParser
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.resources.XsltBundle
@@ -33,9 +32,6 @@ class XsltSchemaTypesParser(private val schemaType: ISchemaType) : XPathParser()
     override fun parse(builder: PsiBuilder, isFirst: Boolean): Boolean {
         if (parseSchemaType(builder)) {
             return true
-        }
-        if (isFirst && !schemaType.allowEmpty) {
-            builder.error(XPathBundle.message("parser.error.expected", schemaType.type))
         }
         return false
     }

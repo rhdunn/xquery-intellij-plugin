@@ -41,8 +41,6 @@ object XslItemType : Language(XPath, "xsl:item-type"), ISchemaType {
 
     override val type: String get() = id
 
-    override val allowEmpty: Boolean = false
-
     override val language: Language get() = this
 
     // endregion

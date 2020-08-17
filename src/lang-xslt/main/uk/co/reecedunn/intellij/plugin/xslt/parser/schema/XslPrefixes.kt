@@ -41,8 +41,6 @@ object XslPrefixes : Language(XPath, "xsl:prefixes"), ISchemaType {
 
     override val type: String get() = id
 
-    override val allowEmpty: Boolean = false
-
     override val language: Language get() = this
 
     // endregion

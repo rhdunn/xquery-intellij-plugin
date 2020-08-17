@@ -32,13 +32,11 @@ import uk.co.reecedunn.intellij.plugin.xpath.intellij.fileTypes.XPathFileType
 object XPath : Language("XMLPath") {
     object Expression : ISchemaType {
         override val type: String = "xsl:expression"
-        override val allowEmpty: Boolean = false
         override val language: Language get() = XPath
     }
 
     object Pattern : ISchemaType {
         override val type: String = "xsl:pattern"
-        override val allowEmpty: Boolean = false
         override val language: Language get() = XPath
     }
 
