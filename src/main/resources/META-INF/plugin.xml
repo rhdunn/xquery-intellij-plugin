@@ -77,6 +77,10 @@
       </li>
       <li>Set icons for XSLT function, parameter, variable, and item type elements.</li>
     </ol>
+    <p>XQuery:</p>
+    <ol>
+      <li>Don't display the file path in query body elements in the navbar.</li>
+    </ol>
   ]]></change-notes>
 
   <idea-version since-build="161"/>

@@ -41,8 +41,8 @@ class XQueryQueryBodyPsiImpl(node: ASTNode) : XQueryExprPsiImpl(node), XQueryQue
     }
 
     override fun getPresentableText(type: ItemPresentationEx.Type): String? = when (type) {
-        ItemPresentationEx.Type.StructureView -> XQueryBundle.message("structure-view.query-body")
-        else -> presentableText
+        ItemPresentationEx.Type.Default -> presentableText
+        else -> XQueryBundle.message("structure-view.query-body")
     }
 
     // endregion

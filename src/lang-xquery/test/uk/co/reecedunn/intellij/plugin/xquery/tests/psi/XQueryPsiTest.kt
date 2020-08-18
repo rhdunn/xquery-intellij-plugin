@@ -4177,6 +4177,8 @@ private class XQueryPsiTest : ParserTestCase() {
             assertThat(presentation.getIcon(true), `is`(sameInstance(XQueryIcons.Nodes.QueryBody)))
             assertThat(presentation.getPresentableText(ItemPresentationEx.Type.Default), startsWith("query body ["))
             assertThat(presentation.getPresentableText(ItemPresentationEx.Type.StructureView), `is`("query body"))
+            assertThat(presentation.getPresentableText(ItemPresentationEx.Type.NavBar), `is`("query body"))
+            assertThat(presentation.getPresentableText(ItemPresentationEx.Type.NavBarPopup), `is`("query body"))
             assertThat(presentation.presentableText, startsWith("query body ["))
             assertThat(presentation.locationString, `is`(nullValue()))
         }
@@ -5132,6 +5134,8 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.FunctionDecl)))
                 assertThat(presentation.getPresentableText(ItemPresentationEx.Type.Default), `is`("fn:true"))
                 assertThat(presentation.getPresentableText(ItemPresentationEx.Type.StructureView), `is`("fn:true()"))
+                assertThat(presentation.getPresentableText(ItemPresentationEx.Type.NavBar), `is`("fn:true"))
+                assertThat(presentation.getPresentableText(ItemPresentationEx.Type.NavBarPopup), `is`("fn:true()"))
                 assertThat(presentation.presentableText, `is`("fn:true"))
                 assertThat(presentation.locationString, `is`(nullValue()))
             }
@@ -5158,6 +5162,8 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.FunctionDecl)))
                 assertThat(presentation.getPresentableText(ItemPresentationEx.Type.Default), `is`("test"))
                 assertThat(presentation.getPresentableText(ItemPresentationEx.Type.StructureView), `is`("test(\$one, \$two)"))
+                assertThat(presentation.getPresentableText(ItemPresentationEx.Type.NavBar), `is`("test"))
+                assertThat(presentation.getPresentableText(ItemPresentationEx.Type.NavBarPopup), `is`("test(\$one, \$two)"))
                 assertThat(presentation.presentableText, `is`("test"))
                 assertThat(presentation.locationString, `is`(nullValue()))
             }
@@ -5184,6 +5190,8 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.FunctionDecl)))
                 assertThat(presentation.getPresentableText(ItemPresentationEx.Type.Default), `is`("test"))
                 assertThat(presentation.getPresentableText(ItemPresentationEx.Type.StructureView), `is`("test(\$one as array(*), \$two as node())"))
+                assertThat(presentation.getPresentableText(ItemPresentationEx.Type.NavBar), `is`("test"))
+                assertThat(presentation.getPresentableText(ItemPresentationEx.Type.NavBarPopup), `is`("test(\$one as array(*), \$two as node())"))
                 assertThat(presentation.presentableText, `is`("test"))
                 assertThat(presentation.locationString, `is`(nullValue()))
             }
@@ -5207,6 +5215,8 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.FunctionDecl)))
                 assertThat(presentation.getPresentableText(ItemPresentationEx.Type.Default), `is`("fn:true"))
                 assertThat(presentation.getPresentableText(ItemPresentationEx.Type.StructureView), `is`("fn:true() as xs:boolean"))
+                assertThat(presentation.getPresentableText(ItemPresentationEx.Type.NavBar), `is`("fn:true"))
+                assertThat(presentation.getPresentableText(ItemPresentationEx.Type.NavBarPopup), `is`("fn:true() as xs:boolean"))
                 assertThat(presentation.presentableText, `is`("fn:true"))
                 assertThat(presentation.locationString, `is`(nullValue()))
             }
@@ -5227,6 +5237,8 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.FunctionDecl)))
                 assertThat(presentation.getPresentableText(ItemPresentationEx.Type.Default), `is`(nullValue()))
                 assertThat(presentation.getPresentableText(ItemPresentationEx.Type.StructureView), `is`(nullValue()))
+                assertThat(presentation.getPresentableText(ItemPresentationEx.Type.NavBar), `is`(nullValue()))
+                assertThat(presentation.getPresentableText(ItemPresentationEx.Type.NavBarPopup), `is`(nullValue()))
                 assertThat(presentation.presentableText, `is`(nullValue()))
                 assertThat(presentation.locationString, `is`(nullValue()))
             }
@@ -5251,6 +5263,8 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.FunctionDecl)))
                 assertThat(presentation.getPresentableText(ItemPresentationEx.Type.Default), `is`(nullValue()))
                 assertThat(presentation.getPresentableText(ItemPresentationEx.Type.StructureView), `is`(nullValue()))
+                assertThat(presentation.getPresentableText(ItemPresentationEx.Type.NavBar), `is`(nullValue()))
+                assertThat(presentation.getPresentableText(ItemPresentationEx.Type.NavBarPopup), `is`(nullValue()))
                 assertThat(presentation.presentableText, `is`(nullValue()))
                 assertThat(presentation.locationString, `is`(nullValue()))
             }

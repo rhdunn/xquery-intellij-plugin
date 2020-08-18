@@ -20,7 +20,9 @@ import com.intellij.navigation.ItemPresentation
 interface ItemPresentationEx : ItemPresentation {
     enum class Type {
         Default,
-        StructureView
+        StructureView,
+        NavBar,
+        NavBarPopup
     }
 
     fun getPresentableText(type: Type): String?

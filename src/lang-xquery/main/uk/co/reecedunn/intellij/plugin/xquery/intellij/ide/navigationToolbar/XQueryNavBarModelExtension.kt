@@ -30,9 +30,9 @@ class XQueryNavBarModelExtension : StructureAwareNavBarModelExtension() {
         return when (element) {
             is ItemPresentationEx -> {
                 if (forPopup)
-                    element.getPresentableText(ItemPresentationEx.Type.StructureView)
+                    element.getPresentableText(ItemPresentationEx.Type.NavBarPopup)
                 else
-                    element.presentableText
+                    element.getPresentableText(ItemPresentationEx.Type.NavBar)
             }
             is ItemPresentation -> element.presentableText
             else -> null

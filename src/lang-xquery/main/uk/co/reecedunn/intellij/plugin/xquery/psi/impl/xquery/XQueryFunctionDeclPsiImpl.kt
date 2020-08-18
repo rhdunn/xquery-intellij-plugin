@@ -110,6 +110,7 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
 
     override fun getPresentableText(type: ItemPresentationEx.Type): String? = when (type) {
         ItemPresentationEx.Type.StructureView -> cachedStructurePresentableText.get()
+        ItemPresentationEx.Type.NavBarPopup -> cachedStructurePresentableText.get()
         else -> presentableText
     }
 
