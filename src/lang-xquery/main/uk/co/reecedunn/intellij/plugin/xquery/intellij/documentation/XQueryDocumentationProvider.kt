@@ -54,7 +54,10 @@ class XQueryDocumentationProvider : AbstractDocumentationProvider() {
         fun getElementPresentationText(element: PsiElement?): String? {
             return when (val parent = element?.parent) {
                 is XQueryFunctionDecl -> {
-                    val sig = (parent.presentation as? ItemPresentationEx)?.structurePresentableText
+                    val sig = when (val presentation = parent.presentation) {
+                        is ItemPresentationEx -> presentation.getPresentableText(ItemPresentationEx.Type.StructureView)
+                        else -> null
+                    }
                     "declare function $sig"
                 }
                 is XPathInlineFunctionExpr -> {

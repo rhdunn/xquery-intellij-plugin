@@ -38,9 +38,9 @@ class StructureViewLeafNode(leaf: XQueryStructureViewElement) :
     // endregion
     // region ItemPresentation
 
-    override fun getPresentableText(): String? {
-        val presentation = element?.presentation
-        return (presentation as? ItemPresentationEx)?.structurePresentableText ?: presentation?.presentableText
+    override fun getPresentableText(): String? = when(val presentation = element?.presentation) {
+        is ItemPresentationEx -> presentation.getPresentableText(ItemPresentationEx.Type.StructureView)
+        else -> presentation?.presentableText
     }
 
     override fun getIcon(open: Boolean): Icon? = element?.presentation?.getIcon(open)

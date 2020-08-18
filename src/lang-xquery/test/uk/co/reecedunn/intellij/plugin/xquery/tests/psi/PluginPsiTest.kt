@@ -1852,7 +1852,10 @@ private class PluginPsiTest : ParserTestCase() {
                 val presentation = (decl as NavigatablePsiElement).presentation!! as ItemPresentationEx
                 assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.FunctionDecl)))
                 assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.FunctionDecl)))
-                assertThat(presentation.structurePresentableText, `is`("test(\$one, \$two ...)"))
+                assertThat(presentation.getPresentableText(ItemPresentationEx.Type.Default), `is`("test"))
+                assertThat(presentation.getPresentableText(ItemPresentationEx.Type.StructureView), `is`("test(\$one, \$two ...)"))
+                assertThat(presentation.getPresentableText(ItemPresentationEx.Type.NavBar), `is`("test"))
+                assertThat(presentation.getPresentableText(ItemPresentationEx.Type.NavBarPopup), `is`("test(\$one, \$two ...)"))
                 assertThat(presentation.presentableText, `is`("test"))
                 assertThat(presentation.locationString, `is`(nullValue()))
             }

@@ -14,6 +14,10 @@ XSLT and XPath:
     schema types.
 1.  Set icons for XSLT function, parameter, variable, and item type elements.
 
+XQuery:
+
+1.  Don't display the file path in query body elements in the navbar.
+
 ## 2020
 
 *  [1.7.1 - 2020-07-25](docs/_posts/2020-07-25-release-1.7.1.md)

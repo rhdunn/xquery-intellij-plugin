@@ -36,9 +36,14 @@ class XQueryQueryBodyPsiImpl(node: ASTNode) : XQueryExprPsiImpl(node), XQueryQue
 
     override fun getLocationString(): String? = null
 
-    override fun getPresentableText(): String? = "$structurePresentableText [${containingFile.resourcePath()}]"
+    override fun getPresentableText(): String? {
+        return "${getPresentableText(ItemPresentationEx.Type.StructureView)} [${containingFile.resourcePath()}]"
+    }
 
-    override val structurePresentableText: String? get() = XQueryBundle.message("structure-view.query-body")
+    override fun getPresentableText(type: ItemPresentationEx.Type): String? = when (type) {
+        ItemPresentationEx.Type.Default -> presentableText
+        else -> XQueryBundle.message("structure-view.query-body")
+    }
 
     // endregion
     // region SortableTreeElement

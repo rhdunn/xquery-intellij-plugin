@@ -108,7 +108,11 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
                 ?: "()"} as ${returnType.typeName}"
     }
 
-    override val structurePresentableText: String? get() = cachedStructurePresentableText.get()
+    override fun getPresentableText(type: ItemPresentationEx.Type): String? = when (type) {
+        ItemPresentationEx.Type.StructureView -> cachedStructurePresentableText.get()
+        ItemPresentationEx.Type.NavBarPopup -> cachedStructurePresentableText.get()
+        else -> presentableText
+    }
 
     // endregion
     // region SortableTreeElement

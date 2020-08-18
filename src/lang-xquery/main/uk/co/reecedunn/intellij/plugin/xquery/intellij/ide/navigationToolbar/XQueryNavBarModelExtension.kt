@@ -28,7 +28,12 @@ class XQueryNavBarModelExtension : StructureAwareNavBarModelExtension() {
     override fun getPresentableText(`object`: Any?, forPopup: Boolean): String? {
         val element = (`object` as? PsiElement)?.takeIf { acceptElement(it) } ?: return null
         return when (element) {
-            is ItemPresentationEx -> if (forPopup) element.structurePresentableText else element.presentableText
+            is ItemPresentationEx -> {
+                if (forPopup)
+                    element.getPresentableText(ItemPresentationEx.Type.NavBarPopup)
+                else
+                    element.getPresentableText(ItemPresentationEx.Type.NavBar)
+            }
             is ItemPresentation -> element.presentableText
             else -> null
         }

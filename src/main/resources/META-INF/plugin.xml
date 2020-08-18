@@ -85,6 +85,10 @@
         <code>xsl:QName</code>, and <code>xsl:sequence-type</code> XSLT schema types.
       </li>
     </ol>
+    <p>XQuery:</p>
+    <ol>
+      <li>Don't display the file path in query body elements in the navbar.</li>
+    </ol>
   ]]></change-notes>
 
   <idea-version since-build="161"/>
