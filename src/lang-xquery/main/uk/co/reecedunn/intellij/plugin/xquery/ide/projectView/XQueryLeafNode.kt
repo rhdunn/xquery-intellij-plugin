@@ -28,8 +28,10 @@ class XQueryLeafNode(node: XQueryStructureViewElement, viewSettings: ViewSetting
 
     override fun updateImpl(data: PresentationData) {
         val presentation = value.presentation!!
-        data.presentableText =
-            (presentation as? ItemPresentationEx)?.structurePresentableText ?: presentation.presentableText
+        data.presentableText = when (presentation) {
+            is ItemPresentationEx -> presentation.getPresentableText(ItemPresentationEx.Type.StructureView)
+            else -> presentation.presentableText
+        }
         data.setIcon(presentation.getIcon(false))
     }
 

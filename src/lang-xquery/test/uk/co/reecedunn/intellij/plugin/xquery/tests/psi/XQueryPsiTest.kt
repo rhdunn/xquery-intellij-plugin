@@ -4175,7 +4175,8 @@ private class XQueryPsiTest : ParserTestCase() {
             val presentation = decl.presentation!! as ItemPresentationEx
             assertThat(presentation.getIcon(false), `is`(sameInstance(XQueryIcons.Nodes.QueryBody)))
             assertThat(presentation.getIcon(true), `is`(sameInstance(XQueryIcons.Nodes.QueryBody)))
-            assertThat(presentation.structurePresentableText, `is`("query body"))
+            assertThat(presentation.getPresentableText(ItemPresentationEx.Type.Default), startsWith("query body ["))
+            assertThat(presentation.getPresentableText(ItemPresentationEx.Type.StructureView), `is`("query body"))
             assertThat(presentation.presentableText, startsWith("query body ["))
             assertThat(presentation.locationString, `is`(nullValue()))
         }
@@ -5129,7 +5130,8 @@ private class XQueryPsiTest : ParserTestCase() {
                 val presentation = (decl as NavigatablePsiElement).presentation!! as ItemPresentationEx
                 assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.FunctionDecl)))
                 assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.FunctionDecl)))
-                assertThat(presentation.structurePresentableText, `is`("fn:true()"))
+                assertThat(presentation.getPresentableText(ItemPresentationEx.Type.Default), `is`("fn:true"))
+                assertThat(presentation.getPresentableText(ItemPresentationEx.Type.StructureView), `is`("fn:true()"))
                 assertThat(presentation.presentableText, `is`("fn:true"))
                 assertThat(presentation.locationString, `is`(nullValue()))
             }
@@ -5154,7 +5156,8 @@ private class XQueryPsiTest : ParserTestCase() {
                 val presentation = (decl as NavigatablePsiElement).presentation!! as ItemPresentationEx
                 assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.FunctionDecl)))
                 assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.FunctionDecl)))
-                assertThat(presentation.structurePresentableText, `is`("test(\$one, \$two)"))
+                assertThat(presentation.getPresentableText(ItemPresentationEx.Type.Default), `is`("test"))
+                assertThat(presentation.getPresentableText(ItemPresentationEx.Type.StructureView), `is`("test(\$one, \$two)"))
                 assertThat(presentation.presentableText, `is`("test"))
                 assertThat(presentation.locationString, `is`(nullValue()))
             }
@@ -5179,7 +5182,8 @@ private class XQueryPsiTest : ParserTestCase() {
                 val presentation = (decl as NavigatablePsiElement).presentation!! as ItemPresentationEx
                 assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.FunctionDecl)))
                 assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.FunctionDecl)))
-                assertThat(presentation.structurePresentableText, `is`("test(\$one as array(*), \$two as node())"))
+                assertThat(presentation.getPresentableText(ItemPresentationEx.Type.Default), `is`("test"))
+                assertThat(presentation.getPresentableText(ItemPresentationEx.Type.StructureView), `is`("test(\$one as array(*), \$two as node())"))
                 assertThat(presentation.presentableText, `is`("test"))
                 assertThat(presentation.locationString, `is`(nullValue()))
             }
@@ -5201,7 +5205,8 @@ private class XQueryPsiTest : ParserTestCase() {
                 val presentation = (decl as NavigatablePsiElement).presentation!! as ItemPresentationEx
                 assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.FunctionDecl)))
                 assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.FunctionDecl)))
-                assertThat(presentation.structurePresentableText, `is`("fn:true() as xs:boolean"))
+                assertThat(presentation.getPresentableText(ItemPresentationEx.Type.Default), `is`("fn:true"))
+                assertThat(presentation.getPresentableText(ItemPresentationEx.Type.StructureView), `is`("fn:true() as xs:boolean"))
                 assertThat(presentation.presentableText, `is`("fn:true"))
                 assertThat(presentation.locationString, `is`(nullValue()))
             }
@@ -5220,7 +5225,8 @@ private class XQueryPsiTest : ParserTestCase() {
                 val presentation = (decl as NavigatablePsiElement).presentation!! as ItemPresentationEx
                 assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.FunctionDecl)))
                 assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.FunctionDecl)))
-                assertThat(presentation.structurePresentableText, `is`(nullValue()))
+                assertThat(presentation.getPresentableText(ItemPresentationEx.Type.Default), `is`(nullValue()))
+                assertThat(presentation.getPresentableText(ItemPresentationEx.Type.StructureView), `is`(nullValue()))
                 assertThat(presentation.presentableText, `is`(nullValue()))
                 assertThat(presentation.locationString, `is`(nullValue()))
             }
@@ -5243,7 +5249,8 @@ private class XQueryPsiTest : ParserTestCase() {
                 val presentation = (decl as NavigatablePsiElement).presentation!! as ItemPresentationEx
                 assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.FunctionDecl)))
                 assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.FunctionDecl)))
-                assertThat(presentation.structurePresentableText, `is`(nullValue()))
+                assertThat(presentation.getPresentableText(ItemPresentationEx.Type.Default), `is`(nullValue()))
+                assertThat(presentation.getPresentableText(ItemPresentationEx.Type.StructureView), `is`(nullValue()))
                 assertThat(presentation.presentableText, `is`(nullValue()))
                 assertThat(presentation.locationString, `is`(nullValue()))
             }

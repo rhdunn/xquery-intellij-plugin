@@ -18,5 +18,10 @@ package uk.co.reecedunn.intellij.plugin.core.navigation
 import com.intellij.navigation.ItemPresentation
 
 interface ItemPresentationEx : ItemPresentation {
-    val structurePresentableText: String?
+    enum class Type {
+        Default,
+        StructureView
+    }
+
+    fun getPresentableText(type: Type): String?
 }
