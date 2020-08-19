@@ -8,9 +8,10 @@ XML and XSLT:
     the file structure dialog. This fixes IDEA-247202.
 1.  Set icons for XSLT function, parameter, variable, and item type elements.
 
-XQuery:
+IntelliJ Integration:
 
 1.  Don't display the file path in query body elements in the navbar.
+1.  Check that a path in a profile can be navigated to before navigating to it.
 
 ## 2020
 
