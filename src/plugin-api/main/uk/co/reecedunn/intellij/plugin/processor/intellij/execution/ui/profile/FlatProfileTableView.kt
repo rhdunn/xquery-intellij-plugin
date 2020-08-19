@@ -74,7 +74,10 @@ class FlatProfileTableView(val project: Project) :
             if (row >= 0) {
                 val index = results!!.convertRowIndexToModel(row)
                 val item = (results!!.model as ListTableModel<*>).getItem(index) as FlatProfileEntry
-                item.frame.sourcePosition?.createNavigatable(project)?.navigate(true)
+                val navigatable = item.frame.sourcePosition?.createNavigatable(project)
+                if (navigatable?.canNavigate() == true) {
+                    navigatable.navigate(true)
+                }
             }
         }
 

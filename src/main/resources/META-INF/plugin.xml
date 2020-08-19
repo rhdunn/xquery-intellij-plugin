@@ -85,9 +85,10 @@
         <code>xsl:QName</code>, and <code>xsl:sequence-type</code> XSLT schema types.
       </li>
     </ol>
-    <p>XQuery:</p>
+    <p>IntelliJ Integration:</p>
     <ol>
       <li>Don't display the file path in query body elements in the navbar.</li>
+      <li>Check that a path in a profile can be navigated to before navigating to it.</li>
     </ol>
   ]]></change-notes>
 
