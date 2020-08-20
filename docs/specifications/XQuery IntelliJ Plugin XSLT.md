@@ -37,9 +37,11 @@ schema types from XSLT 1.0, 2.0, and 3.0:
 |---------------------|--------------------------|-------------------------------------------------------------------|
 | `xsl:avt`           | `AttributeValueTemplate` |                                                                   |
 | `xsl:EQName`        | `EQName`                 | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-EQName]()\]       |
+| `xsl:element-names` | `NameTestList`           |                                                                   |
 | `xsl:expr-avt`      | `AttributeValueTemplate` |                                                                   |
 | `xsl:expression`    | `XPath`                  | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-XPath]()\]        |
 | `xsl:item-type`     | `ItemType`               | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-ItemType]()\]     |
+| `xsl:nametests`     | `NameTestList`           |                                                                   |
 | `xsl:pattern`       | `XPath`                  | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-XPath]()\]        |
 | `xsl:prefixes`      | `NCNameList`             |                                                                   |
 | `xsl:QName`         | `QName`                  | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-QName]()\]        |
@@ -63,6 +65,8 @@ described in the XML schema files.
 | \[6\]    | `EnclosedExpr`                 | ::= | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-EnclosedExpr]()\] | |
 | \[7\]    | `QNameList`                    | ::= | `S? QName (S QName)* S?`            |                       |
 | \[8\]    | `QName`                        | ::= | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-QName]()\] | |
+| \[9\]    | `NameTestList`                 | ::= | `S? NameTest (S NameTest)* S?`      |                       |
+| \[10\]   | `NameTest`                     | ::= | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-NameTest]()\] | |
 
 ## B References
 

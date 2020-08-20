@@ -9,9 +9,7 @@ XML:
 
 XSLT and XPath:
 
-1.  Support parsing `xsl:avt`/`xsl:expr-avt`, `xsl:EQName`, `xsl:item-type`,
-    `xsl:prefixes`/`xsl:tokens`, `xsl:QName`, `xsl:QNames`, and `xsl:sequence-type`
-    XSLT schema types.
+1.  Support parsing XSLT 1.0, 2.0, and 3.0 schema types.
 1.  Set icons for XSLT function, parameter, variable, and item type elements.
 
 IntelliJ Integration:
