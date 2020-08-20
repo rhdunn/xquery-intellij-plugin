@@ -36,6 +36,7 @@ object XsltSchemaTypes {
         XPath.Pattern.type -> XPath.Pattern
         XslPrefixes.type, "xsl:tokens" -> XslPrefixes
         XslQName.type -> XslQName
+        XslQNames.type -> XslQNames
         XslSequenceType.type -> XslSequenceType
         else -> null
     }

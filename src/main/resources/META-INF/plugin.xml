@@ -82,7 +82,8 @@
       <li>
         Support parsing <code>xsl:avt</code>/<code>xsl:expr-avt</code>, <code>xsl:EQName</code>,
         <code>xsl:item-type</code>, <code>xsl:prefixes</code>/<code>xsl:tokens</code>,
-        <code>xsl:QName</code>, and <code>xsl:sequence-type</code> XSLT schema types.
+        <code>xsl:QName</code>, <code>xsl:QNames</code>, and <code>xsl:sequence-type</code>
+        XSLT schema types.
       </li>
     </ol>
     <p>IntelliJ Integration:</p>

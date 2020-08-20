@@ -43,6 +43,7 @@ schema types from XSLT 1.0, 2.0, and 3.0:
 | `xsl:pattern`       | `XPath`                  | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-XPath]()\]        |
 | `xsl:prefixes`      | `NCNameList`             |                                                                   |
 | `xsl:QName`         | `QName`                  | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-QName]()\]        |
+| `xsl:QNames`        | `QNameList`              |                                                                   |
 | `xsl:sequence-type` | `SequenceType`           | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-SequenceType]()\] |
 | `xsl:tokens`        | `NCNameList`             |                                                                   |
 
@@ -60,6 +61,8 @@ described in the XML schema files.
 | \[4\]    | `AttributeValueTemplate`       | ::= | `AttrContentChar | "{{" | "}}" | EnclosedExpr` |            |
 | \[5\]    | `AttrContentChar`              | ::= | `(Char - [{}])`                     |                       |
 | \[6\]    | `EnclosedExpr`                 | ::= | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-EnclosedExpr]()\] | |
+| \[7\]    | `QNameList`                    | ::= | `S? QName (S QName)* S?`            |                       |
+| \[8\]    | `QName`                        | ::= | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-QName]()\] | |
 
 ## B References
 

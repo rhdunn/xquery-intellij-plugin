@@ -43,13 +43,23 @@ class XsltSchemaTypesParser(private val schemaType: ISchemaType) : XPathParser()
         XslItemType -> parseItemType(builder)
         XPath.Pattern -> parseExpr(builder, null)
         XslPrefixes -> parsePrefixes(builder)
-        XslQName -> parseQNameOrWildcard(builder, QNAME) != null
+        XslQName -> parseQName(builder)
+        XslQNames -> parseQNames(builder)
         XslSequenceType -> parseSequenceType(builder)
         else -> false
     }
 
+    private fun parseSchemaList(builder: PsiBuilder, itemType: (PsiBuilder) -> Boolean): Boolean {
+        var matched = false
+        while (itemType(builder)) {
+            matched = true
+            builder.matchTokenType(XPathTokenType.WHITE_SPACE)
+        }
+        return matched
+    }
+
     // endregion
-    // region Grammar :: xsl:avt
+    // region Grammar :: schema types
 
     private fun parseAVT(builder: PsiBuilder): Boolean {
         var matched = false
@@ -67,17 +77,11 @@ class XsltSchemaTypesParser(private val schemaType: ISchemaType) : XPathParser()
         return matched
     }
 
-    // endregion
-    // region Grammar :: xsl:prefixes
+    private fun parsePrefixes(builder: PsiBuilder): Boolean = parseSchemaList(builder, ::parseNCName)
 
-    private fun parsePrefixes(builder: PsiBuilder): Boolean {
-        var matched = false
-        while (parseNCName(builder)) {
-            matched = true
-            builder.matchTokenType(XPathTokenType.WHITE_SPACE)
-        }
-        return matched
-    }
+    private fun parseQName(builder: PsiBuilder): Boolean = parseQNameOrWildcard(builder, QNAME) != null
+
+    private fun parseQNames(builder: PsiBuilder): Boolean = parseSchemaList(builder, ::parseQName)
 
     // endregion
 }
