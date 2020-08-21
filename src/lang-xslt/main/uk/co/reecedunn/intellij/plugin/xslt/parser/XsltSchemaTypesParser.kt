@@ -23,7 +23,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParser
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.resources.XsltBundle
-import uk.co.reecedunn.intellij.plugin.xslt.lexer.XsltSchemaTypesTokenType
 import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.*
 
 class XsltSchemaTypesParser(private val schemaType: ISchemaType) : XPathParser() {
@@ -65,8 +64,8 @@ class XsltSchemaTypesParser(private val schemaType: ISchemaType) : XPathParser()
     private fun parseAVT(builder: PsiBuilder): Boolean {
         var matched = false
         while (
-            builder.matchTokenType(XsltSchemaTypesTokenType.ATTRIBUTE_VALUE_CONTENTS) ||
-            builder.matchTokenType(XsltSchemaTypesTokenType.ATTRIBUTE_ESCAPED_CHARACTER) ||
+            builder.matchTokenType(XslAVT.ATTRIBUTE_VALUE_CONTENTS) ||
+            builder.matchTokenType(XslAVT.ATTRIBUTE_ESCAPED_CHARACTER) ||
             builder.errorOnTokenType(
                 XPathTokenType.BLOCK_CLOSE,
                 XsltBundle.message("parser.error.mismatched-exclosed-expr")

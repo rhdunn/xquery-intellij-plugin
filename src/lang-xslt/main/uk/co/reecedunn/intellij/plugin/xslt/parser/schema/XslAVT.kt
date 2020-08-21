@@ -22,6 +22,7 @@ import com.intellij.openapi.fileTypes.LanguageFileType
 import com.intellij.openapi.project.Project
 import com.intellij.psi.FileViewProvider
 import com.intellij.psi.PsiFile
+import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.IFileElementType
 import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaType
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
@@ -45,6 +46,12 @@ object XslAVT : Language(XPath, "xsl:avt"), ISchemaType {
     override val type: String get() = id
 
     override val language: Language get() = this
+
+    // endregion
+    // region Tokens
+
+    val ATTRIBUTE_VALUE_CONTENTS: IElementType = IElementType("XSLT_ATTRIBUTE_VALUE_CONTENTS_TOKEN", this)
+    val ATTRIBUTE_ESCAPED_CHARACTER: IElementType = IElementType("XSLT_ATTRIBUTE_ESCAPED_CHARACTER_TOKEN", this)
 
     // endregion
     // region ParserDefinition
