@@ -35,6 +35,7 @@ object XsltSchemaTypes {
         XslItemType.type -> XslItemType
         XslNameTests.type, "xsl:element-names" -> XslNameTests
         XPath.Pattern.type -> XPath.Pattern
+        XslPrefixOrDefault.type, "xsl:prefix" -> XslPrefixOrDefault
         XslPrefixes.type, "xsl:tokens" -> XslPrefixes
         XslQName.type -> XslQName
         XslQNames.type -> XslQNames

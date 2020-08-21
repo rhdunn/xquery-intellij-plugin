@@ -34,21 +34,23 @@ The EBNF symbol used to start parsing from is dependent on the schema type of th
 attribute or text node. This is determined by the following table, which includes
 schema types from XSLT 1.0, 2.0, and 3.0:
 
-| Schema Type         | Start Symbol             |
-|---------------------|--------------------------|
-| `xsl:avt`           | `AttributeValueTemplate` |
-| `xsl:EQName`        | `EQName`                 |
-| `xsl:element-names` | `NameTestList`           |
-| `xsl:expr-avt`      | `AttributeValueTemplate` |
-| `xsl:expression`    | `XPath`                  |
-| `xsl:item-type`     | `ItemType`               |
-| `xsl:nametests`     | `NameTestList`           |
-| `xsl:pattern`       | `XPath`                  |
-| `xsl:prefixes`      | `NCNameList`             |
-| `xsl:QName`         | `QName`                  |
-| `xsl:QNames`        | `QNameList`              |
-| `xsl:sequence-type` | `SequenceType`           |
-| `xsl:tokens`        | `NCNameList`             |
+| Schema Type             | Start Symbol             |
+|-------------------------|--------------------------|
+| `xsl:avt`               | `AttributeValueTemplate` |
+| `xsl:EQName`            | `EQName`                 |
+| `xsl:element-names`     | `NameTestList`           |
+| `xsl:expr-avt`          | `AttributeValueTemplate` |
+| `xsl:expression`        | `XPath`                  |
+| `xsl:item-type`         | `ItemType`               |
+| `xsl:nametests`         | `NameTestList`           |
+| `xsl:pattern`           | `XPath`                  |
+| `xsl:prefix`            | `PrefixOrDefault`        |
+| `xsl:prefix-or-default` | `PrefixOrDefault`        |
+| `xsl:prefixes`          | `NCNameList`             |
+| `xsl:QName`             | `QName`                  |
+| `xsl:QNames`            | `QNameList`              |
+| `xsl:sequence-type`     | `SequenceType`           |
+| `xsl:tokens`            | `NCNameList`             |
 
 ### A.2 EBNF for XSLT Schema Types
 The EBNF symbols here define the syntax for the schema types not covered by the
@@ -60,9 +62,10 @@ described in the XML schema files.
 |----------|--------------------------------|-----|-------------------------------------|-----------------------|
 | \[1\]    | `AttributeValueTemplate`       | ::= | `AttrContentChar | "{{" | "}}" | EnclosedExpr` |            |
 | \[2\]    | `AttrContentChar`              | ::= | `(Char - [{}])`                     |                       |
-| \[3\]    | `NCNameList`                   | ::= | `S? NCName (S NCName)* S?`          |                       |
-| \[4\]    | `QNameList`                    | ::= | `S? QName (S QName)* S?`            |                       |
-| \[5\]    | `NameTestList`                 | ::= | `S? NameTest (S NameTest)* S?`      |                       |
+| \[3\]    | `PrefixOrDefault`              | ::= | `NCName | "#default"`               |                       |
+| \[5\]    | `NCNameList`                   | ::= | `S? NCName (S NCName)* S?`          |                       |
+| \[6\]    | `QNameList`                    | ::= | `S? QName (S QName)* S?`            |                       |
+| \[7\]    | `NameTestList`                 | ::= | `S? NameTest (S NameTest)* S?`      |                       |
 
 ### A.3 EBNF External Symbols
 
