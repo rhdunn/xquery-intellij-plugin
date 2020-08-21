@@ -34,21 +34,21 @@ The EBNF symbol used to start parsing from is dependent on the schema type of th
 attribute or text node. This is determined by the following table, which includes
 schema types from XSLT 1.0, 2.0, and 3.0:
 
-| Schema Type         | Start Symbol             | Reference                                                         |
-|---------------------|--------------------------|-------------------------------------------------------------------|
-| `xsl:avt`           | `AttributeValueTemplate` |                                                                   |
-| `xsl:EQName`        | `EQName`                 | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-EQName]()\]       |
-| `xsl:element-names` | `NameTestList`           |                                                                   |
-| `xsl:expr-avt`      | `AttributeValueTemplate` |                                                                   |
-| `xsl:expression`    | `XPath`                  | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-XPath]()\]        |
-| `xsl:item-type`     | `ItemType`               | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-ItemType]()\]     |
-| `xsl:nametests`     | `NameTestList`           |                                                                   |
-| `xsl:pattern`       | `XPath`                  | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-XPath]()\]        |
-| `xsl:prefixes`      | `NCNameList`             |                                                                   |
-| `xsl:QName`         | `QName`                  | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-QName]()\]        |
-| `xsl:QNames`        | `QNameList`              |                                                                   |
-| `xsl:sequence-type` | `SequenceType`           | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-SequenceType]()\] |
-| `xsl:tokens`        | `NCNameList`             |                                                                   |
+| Schema Type         | Start Symbol             |
+|---------------------|--------------------------|
+| `xsl:avt`           | `AttributeValueTemplate` |
+| `xsl:EQName`        | `EQName`                 |
+| `xsl:element-names` | `NameTestList`           |
+| `xsl:expr-avt`      | `AttributeValueTemplate` |
+| `xsl:expression`    | `XPath`                  |
+| `xsl:item-type`     | `ItemType`               |
+| `xsl:nametests`     | `NameTestList`           |
+| `xsl:pattern`       | `XPath`                  |
+| `xsl:prefixes`      | `NCNameList`             |
+| `xsl:QName`         | `QName`                  |
+| `xsl:QNames`        | `QNameList`              |
+| `xsl:sequence-type` | `SequenceType`           |
+| `xsl:tokens`        | `NCNameList`             |
 
 ### A.2 EBNF for XSLT Schema Types
 The EBNF symbols here define the syntax for the schema types not covered by the
@@ -66,14 +66,25 @@ described in the XML schema files.
 
 ### A.3 EBNF External Symbols
 
+__Extensible Markup Language (XML) 1.0 (Fifth Edition)__
 {: .ebnf-symbols }
 | Ref      | Symbol                         |     | Expression                          | Options               |
 |----------|--------------------------------|-----|-------------------------------------|-----------------------|
+|          | `Char`                         | ::= | \[[https://www.w3.org/TR/REC-xml/#NT-Char]()\] |            |
 |          | `S`                            | ::= | \[[https://www.w3.org/TR/REC-xml/#NT-S]()\] |               |
+
+__XML Path Language (XPath) 3.1__
+{: .ebnf-symbols }
+| Ref      | Symbol                         |     | Expression                          | Options               |
+|----------|--------------------------------|-----|-------------------------------------|-----------------------|
 |          | `EnclosedExpr`                 | ::= | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-EnclosedExpr]()\] | |
+|          | `EQName`                       | ::= | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-EQName]()\] | |
+|          | `ItemType`                     | ::= | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-ItemType]()\] | |
 |          | `NameTest`                     | ::= | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-NameTest]()\] | |
 |          | `NCName`                       | ::= | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-NCName]()\] | |
 |          | `QName`                        | ::= | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-QName]()\] | |
+|          | `SequenceType`                 | ::= | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-SequenceType]()\] | |
+|          | `XPath`                        | ::= | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-XPath]()\] | |
 
 ## B References
 
