@@ -41,7 +41,7 @@ private class XslAVTTest : ParserTestCase(XslAVT.ParserDefinition(), XPathParser
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin XSLT EBNF (4) AttributeValueTemplate")
+    @DisplayName("XQuery IntelliJ Plugin XSLT EBNF (1) AttributeValueTemplate")
     inner class AttributeValueTemplate {
         @Test
         @DisplayName("escaped characters")
@@ -61,7 +61,7 @@ private class XslAVTTest : ParserTestCase(XslAVT.ParserDefinition(), XPathParser
     }
 
     @Test
-    @DisplayName("XQuery IntelliJ Plugin XSLT EBNF (5) AttrContentChar")
+    @DisplayName("XQuery IntelliJ Plugin XSLT EBNF (2) AttrContentChar")
     fun attrContentChar() {
         val expected = loadResource("tests/parser/schema-type/avt/AttrContentChar.txt")
         val actual = parseResource("tests/parser/schema-type/avt/AttrContentChar.input")
@@ -69,7 +69,7 @@ private class XslAVTTest : ParserTestCase(XslAVT.ParserDefinition(), XPathParser
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin XSLT EBNF (6) EnclosedExpr")
+    @DisplayName("XPath 3.1 EBNF (5) EnclosedExpr")
     inner class EnclosedExpr {
         @Test
         @DisplayName("after text")

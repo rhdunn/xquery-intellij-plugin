@@ -18,6 +18,7 @@ functionality that extends XSLT and associated W3C extensions.
 - {: .toc-letter } [XQuery IntelliJ Plugin Grammar](#a-xquery-intellij-plugin-grammar)
   - [EBNF Start Symbol for Schema Types](#a1-ebnf-start-symbol-for-schema-types)
   - [EBNF for XSLT Schema Types](#a2-ebnf-for-xslt-schema-types)
+  - [EBNF External Symbols](#a3-ebnf-external-symbols)
 - {: .toc-letter } [References](#b-references)
   - [W3C References](#b1-w3c-references)
 
@@ -57,16 +58,22 @@ described in the XML schema files.
 {: .ebnf-symbols }
 | Ref      | Symbol                         |     | Expression                          | Options               |
 |----------|--------------------------------|-----|-------------------------------------|-----------------------|
-| \[1\]    | `S`                            | ::= | \[[https://www.w3.org/TR/REC-xml/#NT-S]()\] |               |
-| \[2\]    | `NCNameList`                   | ::= | `S? NCName (S NCName)* S?`          |                       |
-| \[3\]    | `NCName`                       | ::= | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-NCName]()\] | |
-| \[4\]    | `AttributeValueTemplate`       | ::= | `AttrContentChar | "{{" | "}}" | EnclosedExpr` |            |
-| \[5\]    | `AttrContentChar`              | ::= | `(Char - [{}])`                     |                       |
-| \[6\]    | `EnclosedExpr`                 | ::= | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-EnclosedExpr]()\] | |
-| \[7\]    | `QNameList`                    | ::= | `S? QName (S QName)* S?`            |                       |
-| \[8\]    | `QName`                        | ::= | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-QName]()\] | |
-| \[9\]    | `NameTestList`                 | ::= | `S? NameTest (S NameTest)* S?`      |                       |
-| \[10\]   | `NameTest`                     | ::= | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-NameTest]()\] | |
+| \[1\]    | `AttributeValueTemplate`       | ::= | `AttrContentChar | "{{" | "}}" | EnclosedExpr` |            |
+| \[2\]    | `AttrContentChar`              | ::= | `(Char - [{}])`                     |                       |
+| \[3\]    | `NCNameList`                   | ::= | `S? NCName (S NCName)* S?`          |                       |
+| \[4\]    | `QNameList`                    | ::= | `S? QName (S QName)* S?`            |                       |
+| \[5\]    | `NameTestList`                 | ::= | `S? NameTest (S NameTest)* S?`      |                       |
+
+### A.3 EBNF External Symbols
+
+{: .ebnf-symbols }
+| Ref      | Symbol                         |     | Expression                          | Options               |
+|----------|--------------------------------|-----|-------------------------------------|-----------------------|
+|          | `S`                            | ::= | \[[https://www.w3.org/TR/REC-xml/#NT-S]()\] |               |
+|          | `EnclosedExpr`                 | ::= | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-EnclosedExpr]()\] | |
+|          | `NameTest`                     | ::= | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-NameTest]()\] | |
+|          | `NCName`                       | ::= | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-NCName]()\] | |
+|          | `QName`                        | ::= | \[[https://www.w3.org/TR/xpath-31/#prod-xpath31-QName]()\] | |
 
 ## B References
 

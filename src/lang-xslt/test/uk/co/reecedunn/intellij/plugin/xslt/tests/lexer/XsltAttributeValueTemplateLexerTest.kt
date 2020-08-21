@@ -30,7 +30,7 @@ class XsltValueTemplateLexerTest : LexerTestCase() {
     private fun createLexer(): Lexer = XsltAttributeValueTemplateLexer(XmlCodePointRangeImpl())
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin XSLT EBNF (4) AttributeValueTemplate")
+    @DisplayName("XQuery IntelliJ Plugin XSLT EBNF (1) AttributeValueTemplate")
     internal inner class AttributeValueTemplate {
         @Test
         @DisplayName("escaped braces")
@@ -60,7 +60,7 @@ class XsltValueTemplateLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery IntelliJ Plugin XSLT EBNF (5) AttrContentChar")
+    @DisplayName("XQuery IntelliJ Plugin XSLT EBNF (2) AttrContentChar")
     fun attrContentChar() {
         val lexer = createLexer()
 
@@ -70,10 +70,10 @@ class XsltValueTemplateLexerTest : LexerTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin XSLT EBNF (6) EnclosedExpr")
+    @DisplayName("XPath 3.1 EBNF (5) EnclosedExpr")
     internal inner class EnclosedExpr {
         @Test
-        @DisplayName("XPath 3.1 EBNF (5) EnclosedExpr")
+        @DisplayName("enclosed expression")
         fun enclosedExpr() {
             val lexer = createLexer()
 
@@ -87,8 +87,8 @@ class XsltValueTemplateLexerTest : LexerTestCase() {
         }
 
         @Test
-        @DisplayName("XPath 3.1 EBNF (5) EnclosedExpr (nested)")
-        fun nestedEnclosedExpr() {
+        @DisplayName("nested")
+        fun nested() {
             val lexer = createLexer()
 
             lexer.start("One {2{3}4} Five")
