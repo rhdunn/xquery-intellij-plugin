@@ -1,0 +1,3 @@
+XsltSchemaTypeImpl[FILE(0:8)]
+   LeafPsiElement[XPATH_FUNCTION_REF_OPERATOR_TOKEN(0:1)]('#')
+   LeafPsiElement[XPATH_KEYWORD_OR_NCNAME_DEFAULT(1:8)]('default')

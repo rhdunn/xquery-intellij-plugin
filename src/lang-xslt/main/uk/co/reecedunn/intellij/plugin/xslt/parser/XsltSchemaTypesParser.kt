@@ -42,7 +42,7 @@ class XsltSchemaTypesParser(private val schemaType: ISchemaType) : XPathParser()
         XslItemType -> parseItemType(builder)
         XslNameTests -> parseNameTests(builder)
         XPath.Pattern -> parseExpr(builder, null)
-        XslPrefixOrDefault -> parseNCName(builder)
+        XslPrefixOrDefault -> parsePrefixOrDefault(builder)
         XslPrefixes -> parsePrefixes(builder)
         XslQName -> parseQName(builder)
         XslQNames -> parseQNames(builder)
@@ -81,6 +81,15 @@ class XsltSchemaTypesParser(private val schemaType: ISchemaType) : XPathParser()
     private fun parseNameTest(builder: PsiBuilder): Boolean = parseNameTest(builder, null) != null
 
     private fun parseNameTests(builder: PsiBuilder): Boolean = parseSchemaList(builder, ::parseNameTest)
+
+    private fun parsePrefixOrDefault(builder: PsiBuilder): Boolean {
+        if (parseNCName(builder)) {
+            return true
+        } else if (builder.matchTokenType(XPathTokenType.FUNCTION_REF_OPERATOR)) {
+            return builder.matchTokenType(XPathTokenType.K_DEFAULT)
+        }
+        return false
+    }
 
     private fun parsePrefixes(builder: PsiBuilder): Boolean = parseSchemaList(builder, ::parseNCName)
 

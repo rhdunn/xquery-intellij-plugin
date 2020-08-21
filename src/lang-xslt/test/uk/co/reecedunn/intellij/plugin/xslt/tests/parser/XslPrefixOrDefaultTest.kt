@@ -46,4 +46,12 @@ private class XslPrefixOrDefaultTest : ParserTestCase(XslPrefixOrDefault.ParserD
         val actual = parseResource("tests/parser/schema-type/qname/NCName.input")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
+
+    @Test
+    @DisplayName("#default")
+    fun default() {
+        val expected = loadResource("tests/parser/schema-type/prefix-or-default/Default.txt")
+        val actual = parseResource("tests/parser/schema-type/prefix-or-default/Default.input")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
 }
