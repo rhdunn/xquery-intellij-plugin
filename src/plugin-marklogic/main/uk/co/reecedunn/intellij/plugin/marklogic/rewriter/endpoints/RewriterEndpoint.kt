@@ -34,7 +34,7 @@ import javax.swing.JPanel
 class RewriterEndpoint(private val endpoint: XmlTag) : ItemPresentation, Endpoint, DataProvider {
     // region ItemPresentation
 
-    override fun getPresentableText(): String? = null
+    override fun getPresentableText(): String? = path
 
     override fun getLocationString(): String? = dispatch.split("/").lastOrNull()
 

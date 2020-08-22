@@ -31,7 +31,7 @@ import javax.swing.JPanel
 class RestXqEndpoint(private val endpoint: XdmFunctionDeclaration) : ItemPresentation, Endpoint, DataProvider {
     // region ItemPresentation
 
-    override fun getPresentableText(): String? = null
+    override fun getPresentableText(): String? = path
 
     override fun getLocationString(): String? = endpoint.functionRefPresentableText
 

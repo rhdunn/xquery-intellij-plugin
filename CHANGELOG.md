@@ -12,6 +12,7 @@ IntelliJ Integration:
 
 1.  Don't display the file path in query body elements in the navbar.
 1.  Check that a path in a profile can be navigated to before navigating to it.
+1.  Fix displaying the endpoint path in the endpoints pane.
 
 ## 2020
 
