@@ -29,18 +29,23 @@ import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.*
 
 object XsltSchemaTypes {
     fun create(type: String?): ISchemaType? = when (type) {
-        XslAVT.type, "xsl:expr-avt" -> XslAVT
-        XslEQName.type -> XslEQName
-        XslEQNames.type -> XslEQNames
-        XPath.Expression.type -> XPath.Expression
-        XslItemType.type -> XslItemType
-        XslNameTests.type, "xsl:element-names" -> XslNameTests
-        XPath.Pattern.type -> XPath.Pattern
-        XslPrefixOrDefault.type, "xsl:prefix" -> XslPrefixOrDefault
-        XslPrefixes.type, "xsl:tokens" -> XslPrefixes
-        XslQName.type -> XslQName
-        XslQNames.type -> XslQNames
-        XslSequenceType.type -> XslSequenceType
+        "xsl:avt" -> XslAVT
+        "xsl:element-names" -> XslNameTests
+        "xsl:EQName" -> XslEQName
+        "xsl:EQName-in-namespace" -> XslEQName
+        "xsl:EQNames" -> XslEQNames
+        "xsl:expr-avt" -> XslAVT
+        "xsl:expression" -> XPath.Expression
+        "xsl:item-type" -> XslItemType
+        "xsl:nametests" -> XslNameTests
+        "xsl:pattern" -> XPath.Pattern
+        "xsl:prefix" -> XslPrefixOrDefault
+        "xsl:prefix-or-default" -> XslPrefixOrDefault
+        "xsl:prefixes" -> XslPrefixes
+        "xsl:QName" -> XslQName
+        "xsl:QNames" -> XslQNames
+        "xsl:sequence-type" -> XslSequenceType
+        "xsl:tokens" -> XslPrefixes
         else -> null
     }
 

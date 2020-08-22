@@ -34,24 +34,25 @@ The EBNF symbol used to start parsing from is dependent on the schema type of th
 attribute or text node. This is determined by the following table, which includes
 schema types from XSLT 1.0, 2.0, and 3.0:
 
-| Schema Type             | Start Symbol             |
-|-------------------------|--------------------------|
-| `xsl:avt`               | `AttributeValueTemplate` |
-| `xsl:EQName`            | `EQName`                 |
-| `xsl:EQNames`           | `EQNames`                |
-| `xsl:element-names`     | `NameTestList`           |
-| `xsl:expr-avt`          | `AttributeValueTemplate` |
-| `xsl:expression`        | `XPath`                  |
-| `xsl:item-type`         | `ItemType`               |
-| `xsl:nametests`         | `NameTestList`           |
-| `xsl:pattern`           | `XPath`                  |
-| `xsl:prefix`            | `PrefixOrDefault`        |
-| `xsl:prefix-or-default` | `PrefixOrDefault`        |
-| `xsl:prefixes`          | `NCNameList`             |
-| `xsl:QName`             | `QName`                  |
-| `xsl:QNames`            | `QNameList`              |
-| `xsl:sequence-type`     | `SequenceType`           |
-| `xsl:tokens`            | `NCNameList`             |
+| Schema Type               | Start Symbol             |
+|---------------------------|--------------------------|
+| `xsl:avt`                 | `AttributeValueTemplate` |
+| `xsl:element-names`       | `NameTestList`           |
+| `xsl:EQName`              | `EQName`                 |
+| `xsl:EQName-in-namespace` | `EQName`                 |
+| `xsl:EQNames`             | `EQNames`                |
+| `xsl:expr-avt`            | `AttributeValueTemplate` |
+| `xsl:expression`          | `XPath`                  |
+| `xsl:item-type`           | `ItemType`               |
+| `xsl:nametests`           | `NameTestList`           |
+| `xsl:pattern`             | `XPath`                  |
+| `xsl:prefix`              | `PrefixOrDefault`        |
+| `xsl:prefix-or-default`   | `PrefixOrDefault`        |
+| `xsl:prefixes`            | `NCNameList`             |
+| `xsl:QName`               | `QName`                  |
+| `xsl:QNames`              | `QNameList`              |
+| `xsl:sequence-type`       | `SequenceType`           |
+| `xsl:tokens`              | `NCNameList`             |
 
 ### A.2 EBNF for XSLT Schema Types
 The EBNF symbols here define the syntax for the schema types not covered by the
