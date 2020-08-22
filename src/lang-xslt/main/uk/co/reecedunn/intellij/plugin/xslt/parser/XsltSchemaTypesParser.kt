@@ -38,6 +38,7 @@ class XsltSchemaTypesParser(private val schemaType: ISchemaType) : XPathParser()
         XslNameTests -> parseNameTests(builder)
         XPath.Pattern -> parseExpr(builder, null)
         XslEQNameOrHashedKeyword -> parseEQNameOrHashedKeyword(builder)
+        XslEQNamesOrHashedKeywords -> parseEQNamesOrHashedKeywords(builder)
         XslPrefixes -> parsePrefixes(builder)
         XslQName -> parseQName(builder)
         XslQNames -> parseQNames(builder)
@@ -91,6 +92,10 @@ class XsltSchemaTypesParser(private val schemaType: ISchemaType) : XPathParser()
             }
         }
         return false
+    }
+
+    private fun parseEQNamesOrHashedKeywords(builder: PsiBuilder): Boolean {
+        return parseSchemaList(builder, ::parseEQNameOrHashedKeyword)
     }
 
     private fun parsePrefixes(builder: PsiBuilder): Boolean = parseSchemaList(builder, ::parseNCName)

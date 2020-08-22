@@ -45,6 +45,7 @@ schema types from XSLT 1.0, 2.0, and 3.0:
 | `xsl:expression`          | `XPath`                  |
 | `xsl:item-type`           | `ItemType`               |
 | `xsl:mode`                | `ModeOrCurrent`          |
+| `xsl:modes`               | `ModeListOrAll`          |
 | `xsl:nametests`           | `NameTestList`           |
 | `xsl:pattern`             | `XPath`                  |
 | `xsl:prefix`              | `PrefixOrDefault`        |
@@ -65,13 +66,15 @@ described in the XML schema files.
 |----------|--------------------------------|-----|-------------------------------------|-----------------------|
 | \[1\]    | `AttributeValueTemplate`       | ::= | `AttrContentChar | "{{" | "}}" | EnclosedExpr` |            |
 | \[2\]    | `AttrContentChar`              | ::= | `(Char - [{}])`                     |                       |
-| \[3\]    | `PrefixOrDefault`              | ::= | `NCName | "#default"`               |                       |
-| \[5\]    | `NCNameList`                   | ::= | `S? NCName (S NCName)* S?`          |                       |
-| \[6\]    | `QNameList`                    | ::= | `S? QName (S QName)* S?`            |                       |
-| \[7\]    | `EQNameList`                   | ::= | `S? EQName (S EQName)* S?`          |                       |
-| \[8\]    | `NameTestList`                 | ::= | `S? NameTest (S NameTest)* S?`      |                       |
+| \[3\]    | `NCNameList`                   | ::= | `S? NCName (S NCName)* S?`          |                       |
+| \[4\]    | `QNameList`                    | ::= | `S? QName (S QName)* S?`            |                       |
+| \[5\]    | `EQNameList`                   | ::= | `S? EQName (S EQName)* S?`          |                       |
+| \[6\]    | `NameTestList`                 | ::= | `S? NameTest (S NameTest)* S?`      |                       |
+| \[7\]    | `ModeList`                     | ::= | `S? Mode (S Mode)* S?`              |                       |
+| \[8\]    | `PrefixOrDefault`              | ::= | `NCName | "#default"`               |                       |
 | \[9\]    | `Mode`                         | ::= | `EQName | "#default"`               |                       |
 | \[10\]   | `ModeOrCurrent`                | ::= | `Mode | "#current"`                 |                       |
+| \[11\]   | `ModeListOrAll`                | ::= | `ModeList | "#all"`                 |                       |
 
 ### A.3 EBNF External Symbols
 

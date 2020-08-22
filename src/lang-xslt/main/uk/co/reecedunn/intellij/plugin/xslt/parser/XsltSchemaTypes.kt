@@ -38,6 +38,7 @@ object XsltSchemaTypes {
         "xsl:expression" -> XPath.Expression
         "xsl:item-type" -> XslItemType
         "xsl:mode" -> XslEQNameOrHashedKeyword
+        "xsl:modes" -> XslEQNamesOrHashedKeywords
         "xsl:nametests" -> XslNameTests
         "xsl:pattern" -> XPath.Pattern
         "xsl:prefix" -> XslEQNameOrHashedKeyword

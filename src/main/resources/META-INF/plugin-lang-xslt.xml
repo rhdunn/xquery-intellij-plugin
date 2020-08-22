@@ -18,6 +18,7 @@
     <!-- XSLT Schema Type -->
 
     <lang.parserDefinition language="EQName-or-hashed-keyword" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslEQNameOrHashedKeyword$ParserDefinition"/>
+    <lang.parserDefinition language="EQNames-or-hashed-keywords" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslEQNamesOrHashedKeywords$ParserDefinition"/>
     <lang.parserDefinition language="xsl:avt" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslAVT$ParserDefinition"/>
     <lang.parserDefinition language="xsl:EQName" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslEQName$ParserDefinition"/>
     <lang.parserDefinition language="xsl:EQNames" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslEQNames$ParserDefinition"/>
