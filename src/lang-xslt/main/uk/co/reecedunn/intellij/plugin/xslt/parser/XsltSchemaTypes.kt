@@ -37,6 +37,7 @@ object XsltSchemaTypes {
         "xsl:expr-avt" -> XslAVT
         "xsl:expression" -> XPath.Expression
         "xsl:item-type" -> XslItemType
+        "xsl:method" -> XslQName
         "xsl:mode" -> XslEQNameOrHashedKeyword
         "xsl:modes" -> XslEQNamesOrHashedKeywords
         "xsl:nametests" -> XslNameTests
