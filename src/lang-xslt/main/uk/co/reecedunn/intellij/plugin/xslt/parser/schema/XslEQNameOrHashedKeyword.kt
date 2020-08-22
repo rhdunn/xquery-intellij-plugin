@@ -29,7 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xslt.intellij.fileTypes.XsltSchemaTypeFil
 import uk.co.reecedunn.intellij.plugin.xslt.parser.XsltSchemaTypesParser
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.schema.XsltSchemaTypePsiImpl
 
-object XslPrefixOrDefault : Language(XPath, "xsl:prefix-or-default"), ISchemaType {
+object XslEQNameOrHashedKeyword : Language(XPath, "EQName-or-hashed-keyword"), ISchemaType {
     // region Language
 
     val FileType: LanguageFileType = XsltSchemaTypeFileType(this)
@@ -49,7 +49,7 @@ object XslPrefixOrDefault : Language(XPath, "xsl:prefix-or-default"), ISchemaTyp
     val FileElementType: IFileElementType = IFileElementType(this)
 
     class ParserDefinition : XPathParserDefinition() {
-        override fun createParser(project: Project): PsiParser = XsltSchemaTypesParser(XslPrefixOrDefault)
+        override fun createParser(project: Project): PsiParser = XsltSchemaTypesParser(XslEQNameOrHashedKeyword)
 
         override fun getFileNodeType(): IFileElementType = FileElementType
 

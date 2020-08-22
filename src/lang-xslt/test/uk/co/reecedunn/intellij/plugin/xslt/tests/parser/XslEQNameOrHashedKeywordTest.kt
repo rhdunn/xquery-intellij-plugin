@@ -24,12 +24,14 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xslt.ast.schema.XsltSchemaType
-import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslPrefixOrDefault
+import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslEQNameOrHashedKeyword
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("Reformat")
-@DisplayName("XSLT 3.0 - Schema Types - xsl:prefix-or-default")
-private class XslPrefixOrDefaultTest : ParserTestCase(XslPrefixOrDefault.ParserDefinition(), XPathParserDefinition()) {
+@DisplayName("XSLT 3.0 - Schema Types - EQName or hashed keyword")
+private class XslEQNameOrHashedKeywordTest :
+    ParserTestCase(XslEQNameOrHashedKeyword.ParserDefinition(), XPathParserDefinition()) {
+
     fun parseResource(resource: String): XsltSchemaType {
         val file = ResourceVirtualFile.create(this::class.java.classLoader, resource)
         return file.toPsiFile(myProject) as XsltSchemaType

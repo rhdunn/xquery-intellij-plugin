@@ -20,6 +20,7 @@ import uk.co.reecedunn.intellij.plugin.core.lang.errorOnTokenType
 import uk.co.reecedunn.intellij.plugin.core.lang.matchTokenType
 import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaType
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.INCNameType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParser
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.resources.XsltBundle
@@ -36,7 +37,7 @@ class XsltSchemaTypesParser(private val schemaType: ISchemaType) : XPathParser()
         XslItemType -> parseItemType(builder)
         XslNameTests -> parseNameTests(builder)
         XPath.Pattern -> parseExpr(builder, null)
-        XslPrefixOrDefault -> parsePrefixOrDefault(builder)
+        XslEQNameOrHashedKeyword -> parseEQNameOrHashedKeyword(builder)
         XslPrefixes -> parsePrefixes(builder)
         XslQName -> parseQName(builder)
         XslQNames -> parseQNames(builder)
@@ -80,7 +81,7 @@ class XsltSchemaTypesParser(private val schemaType: ISchemaType) : XPathParser()
 
     private fun parseNameTests(builder: PsiBuilder): Boolean = parseSchemaList(builder, ::parseNameTest)
 
-    private fun parsePrefixOrDefault(builder: PsiBuilder): Boolean {
+    private fun parseEQNameOrHashedKeyword(builder: PsiBuilder): Boolean {
         if (parseNCName(builder)) {
             return true
         } else if (builder.matchTokenType(XPathTokenType.FUNCTION_REF_OPERATOR)) {

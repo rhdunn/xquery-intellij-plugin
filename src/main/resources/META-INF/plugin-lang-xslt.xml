@@ -17,12 +17,12 @@
 
     <!-- XSLT Schema Type -->
 
+    <lang.parserDefinition language="EQName-or-hashed-keyword" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslEQNameOrHashedKeyword$ParserDefinition"/>
     <lang.parserDefinition language="xsl:avt" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslAVT$ParserDefinition"/>
     <lang.parserDefinition language="xsl:EQName" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslEQName$ParserDefinition"/>
     <lang.parserDefinition language="xsl:EQNames" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslEQNames$ParserDefinition"/>
     <lang.parserDefinition language="xsl:item-type" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslItemType$ParserDefinition"/>
     <lang.parserDefinition language="xsl:nametests" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslNameTests$ParserDefinition"/>
-    <lang.parserDefinition language="xsl:prefix-or-default" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslPrefixOrDefault$ParserDefinition"/>
     <lang.parserDefinition language="xsl:prefixes" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslPrefixes$ParserDefinition"/>
     <lang.parserDefinition language="xsl:QName" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslQName$ParserDefinition"/>
     <lang.parserDefinition language="xsl:QNames" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslQNames$ParserDefinition"/>

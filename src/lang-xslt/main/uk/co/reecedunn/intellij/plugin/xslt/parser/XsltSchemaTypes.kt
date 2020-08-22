@@ -39,8 +39,8 @@ object XsltSchemaTypes {
         "xsl:item-type" -> XslItemType
         "xsl:nametests" -> XslNameTests
         "xsl:pattern" -> XPath.Pattern
-        "xsl:prefix" -> XslPrefixOrDefault
-        "xsl:prefix-or-default" -> XslPrefixOrDefault
+        "xsl:prefix" -> XslEQNameOrHashedKeyword
+        "xsl:prefix-or-default" -> XslEQNameOrHashedKeyword
         "xsl:prefixes" -> XslPrefixes
         "xsl:QName" -> XslQName
         "xsl:QNames" -> XslQNames
