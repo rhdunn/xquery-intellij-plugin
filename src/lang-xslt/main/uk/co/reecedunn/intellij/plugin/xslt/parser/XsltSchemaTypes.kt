@@ -29,6 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.*
 
 object XsltSchemaTypes {
     fun create(type: String?): ISchemaType? = when (type) {
+        "xsl:accumulator-names" -> XslEQNamesOrHashedKeywords
         "xsl:avt" -> XslAVT
         "xsl:element-names" -> XslNameTests
         "xsl:EQName" -> XslEQName
