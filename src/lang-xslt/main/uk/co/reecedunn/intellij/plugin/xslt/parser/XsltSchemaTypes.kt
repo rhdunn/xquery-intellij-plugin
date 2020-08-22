@@ -52,6 +52,7 @@ object XsltSchemaTypes {
         "xsl:QName" -> XslQName
         "xsl:QNames" -> XslQNames
         "xsl:sequence-type" -> XslSequenceType
+        "xsl:streamability-type" -> XslEQName
         "xsl:tokens" -> XslPrefixes
         else -> null
     }

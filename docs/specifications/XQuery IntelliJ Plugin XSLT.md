@@ -46,6 +46,7 @@ schema types from XSLT 1.0, 2.0, and 3.0:
 | `xsl:expr-avt`            | `AttributeValueTemplate`   |
 | `xsl:expression`          | `XPath`                    |
 | `xsl:item-type`           | `ItemType`                 |
+| `xsl:method`              | `QName`                    |
 | `xsl:mode`                | `ModeOrCurrent`            |
 | `xsl:modes`               | `ModeListOrAll`            |
 | `xsl:nametests`           | `NameTestList`             |
@@ -58,6 +59,7 @@ schema types from XSLT 1.0, 2.0, and 3.0:
 | `xsl:QName`               | `QName`                    |
 | `xsl:QNames`              | `QNameList`                |
 | `xsl:sequence-type`       | `SequenceType`             |
+| `xsl:streamability-type`  | `EQName`                   |
 | `xsl:tokens`              | `NCNameList`               |
 
 ### A.2 EBNF for XSLT Schema Types
