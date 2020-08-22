@@ -50,6 +50,7 @@ schema types from XSLT 1.0, 2.0, and 3.0:
 | `xsl:pattern`             | `XPath`                  |
 | `xsl:prefix`              | `PrefixOrDefault`        |
 | `xsl:prefix-list`         | `PrefixList`             |
+| `xsl:prefix-list-or-all`  | `PrefixListOrAll`        |
 | `xsl:prefix-or-default`   | `PrefixOrDefault`        |
 | `xsl:prefixes`            | `NCNameList`             |
 | `xsl:QName`               | `QName`                  |
@@ -73,10 +74,11 @@ described in the XML schema files.
 | \[6\]    | `NameTestList`                 | ::= | `S? NameTest (S NameTest)* S?`      |                       |
 | \[7\]    | `PrefixOrDefault`              | ::= | `NCName | "#default"`               |                       |
 | \[8\]    | `PrefixList`                   | ::= | `S? PrefixOrDefault (S PrefixOrDefault)* S?` |              |
-| \[9\]    | `Mode`                         | ::= | `EQName | "#default"`               |                       |
-| \[10\]   | `ModeList`                     | ::= | `S? Mode (S Mode)* S?`              |                       |
-| \[11\]   | `ModeOrCurrent`                | ::= | `Mode | "#current"`                 |                       |
-| \[12\]   | `ModeListOrAll`                | ::= | `ModeList | "#all"`                 |                       |
+| \[9\]    | `PrefixListOrAll`              | ::= | `PrefixList | "#all"`               |                       |
+| \[10\]   | `Mode`                         | ::= | `EQName | "#default"`               |                       |
+| \[11\]   | `ModeList`                     | ::= | `S? Mode (S Mode)* S?`              |                       |
+| \[12\]   | `ModeOrCurrent`                | ::= | `Mode | "#current"`                 |                       |
+| \[13\]   | `ModeListOrAll`                | ::= | `ModeList | "#all"`                 |                       |
 
 ### A.3 EBNF External Symbols
 

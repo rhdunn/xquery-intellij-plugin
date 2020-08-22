@@ -43,6 +43,7 @@ object XsltSchemaTypes {
         "xsl:pattern" -> XPath.Pattern
         "xsl:prefix" -> XslEQNameOrHashedKeyword
         "xsl:prefix-list" -> XslEQNamesOrHashedKeywords
+        "xsl:prefix-list-or-all" -> XslEQNamesOrHashedKeywords
         "xsl:prefix-or-default" -> XslEQNameOrHashedKeyword
         "xsl:prefixes" -> XslPrefixes
         "xsl:QName" -> XslQName
