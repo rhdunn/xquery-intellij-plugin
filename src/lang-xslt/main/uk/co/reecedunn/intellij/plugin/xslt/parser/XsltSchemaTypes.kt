@@ -31,6 +31,7 @@ object XsltSchemaTypes {
     fun create(type: String?): ISchemaType? = when (type) {
         XslAVT.type, "xsl:expr-avt" -> XslAVT
         XslEQName.type -> XslEQName
+        XslEQNames.type -> XslEQNames
         XPath.Expression.type -> XPath.Expression
         XslItemType.type -> XslItemType
         XslNameTests.type, "xsl:element-names" -> XslNameTests

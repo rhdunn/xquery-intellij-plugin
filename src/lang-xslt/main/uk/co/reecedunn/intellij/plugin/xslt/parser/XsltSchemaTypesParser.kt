@@ -28,16 +28,10 @@ import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.*
 class XsltSchemaTypesParser(private val schemaType: ISchemaType) : XPathParser() {
     // region Grammar
 
-    override fun parse(builder: PsiBuilder, isFirst: Boolean): Boolean {
-        if (parseSchemaType(builder)) {
-            return true
-        }
-        return false
-    }
-
-    private fun parseSchemaType(builder: PsiBuilder): Boolean = when (schemaType) {
+    override fun parse(builder: PsiBuilder, isFirst: Boolean): Boolean = when (schemaType) {
         XslAVT -> parseAVT(builder)
-        XslEQName -> parseEQNameOrWildcard(builder, QNAME) != null
+        XslEQName -> parseEQName(builder)
+        XslEQNames -> parseEQNames(builder)
         XPath.Expression -> parseExpr(builder, null)
         XslItemType -> parseItemType(builder)
         XslNameTests -> parseNameTests(builder)
@@ -77,6 +71,10 @@ class XsltSchemaTypesParser(private val schemaType: ISchemaType) : XPathParser()
         }
         return matched
     }
+
+    private fun parseEQName(builder: PsiBuilder): Boolean = parseEQNameOrWildcard(builder, QNAME) != null
+
+    private fun parseEQNames(builder: PsiBuilder): Boolean = parseSchemaList(builder, ::parseEQName)
 
     private fun parseNameTest(builder: PsiBuilder): Boolean = parseNameTest(builder, null) != null
 

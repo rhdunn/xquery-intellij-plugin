@@ -38,6 +38,7 @@ schema types from XSLT 1.0, 2.0, and 3.0:
 |-------------------------|--------------------------|
 | `xsl:avt`               | `AttributeValueTemplate` |
 | `xsl:EQName`            | `EQName`                 |
+| `xsl:EQNames`           | `EQNames`                |
 | `xsl:element-names`     | `NameTestList`           |
 | `xsl:expr-avt`          | `AttributeValueTemplate` |
 | `xsl:expression`        | `XPath`                  |
@@ -65,7 +66,8 @@ described in the XML schema files.
 | \[3\]    | `PrefixOrDefault`              | ::= | `NCName | "#default"`               |                       |
 | \[5\]    | `NCNameList`                   | ::= | `S? NCName (S NCName)* S?`          |                       |
 | \[6\]    | `QNameList`                    | ::= | `S? QName (S QName)* S?`            |                       |
-| \[7\]    | `NameTestList`                 | ::= | `S? NameTest (S NameTest)* S?`      |                       |
+| \[7\]    | `EQNameList`                   | ::= | `S? EQName (S EQName)* S?`          |                       |
+| \[8\]    | `NameTestList`                 | ::= | `S? NameTest (S NameTest)* S?`      |                       |
 
 ### A.3 EBNF External Symbols
 

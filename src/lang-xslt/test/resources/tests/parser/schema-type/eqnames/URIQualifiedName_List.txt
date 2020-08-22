@@ -1,0 +1,14 @@
+XsltSchemaTypeImpl[FILE(0:73)]
+   XPathURIQualifiedNameImpl[XPATH_URI_QUALIFIED_NAME(0:36)]
+      XPathBracedURILiteralImpl[XPATH_BRACED_URI_LITERAL(0:33)]
+         LeafPsiElement[XPATH_BRACED_URI_LITERAL_START_TOKEN(0:2)]('Q{')
+         LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(2:32)]('http://www.example.co.uk/lorem')
+         LeafPsiElement[XPATH_BRACED_URI_LITERAL_END_TOKEN(32:33)]('}')
+      LeafPsiElement[XPATH_NCNAME_TOKEN(33:36)]('one')
+   PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
+   XPathURIQualifiedNameImpl[XPATH_URI_QUALIFIED_NAME(37:73)]
+      XPathBracedURILiteralImpl[XPATH_BRACED_URI_LITERAL(37:70)]
+         LeafPsiElement[XPATH_BRACED_URI_LITERAL_START_TOKEN(37:39)]('Q{')
+         LeafPsiElement[XPATH_STRING_LITERAL_CONTENTS_TOKEN(39:69)]('http://www.example.co.uk/lorem')
+         LeafPsiElement[XPATH_BRACED_URI_LITERAL_END_TOKEN(69:70)]('}')
+      LeafPsiElement[XPATH_NCNAME_TOKEN(70:73)]('two')
