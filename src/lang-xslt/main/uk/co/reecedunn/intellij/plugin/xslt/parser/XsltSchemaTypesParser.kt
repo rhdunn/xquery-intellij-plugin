@@ -82,10 +82,13 @@ class XsltSchemaTypesParser(private val schemaType: ISchemaType) : XPathParser()
     private fun parseNameTests(builder: PsiBuilder): Boolean = parseSchemaList(builder, ::parseNameTest)
 
     private fun parseEQNameOrHashedKeyword(builder: PsiBuilder): Boolean {
-        if (parseNCName(builder)) {
+        if (parseEQName(builder)) {
             return true
         } else if (builder.matchTokenType(XPathTokenType.FUNCTION_REF_OPERATOR)) {
-            return builder.matchTokenType(XPathTokenType.K_DEFAULT)
+            if (builder.tokenType is INCNameType) {
+                builder.advanceLexer()
+                return true
+            }
         }
         return false
     }

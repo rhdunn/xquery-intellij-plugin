@@ -42,10 +42,34 @@ private class XslEQNameOrHashedKeywordTest :
     }
 
     @Test
+    @DisplayName("XPath 3.1 EBNF (122) QName")
+    fun qname() {
+        val expected = loadResource("tests/parser/schema-type/qname/QName.txt")
+        val actual = parseResource("tests/parser/schema-type/qname/QName.input")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
     @DisplayName("XPath 3.1 EBNF (123) NCName")
     fun ncname() {
         val expected = loadResource("tests/parser/schema-type/qname/NCName.txt")
         val actual = parseResource("tests/parser/schema-type/qname/NCName.input")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    @DisplayName("XPath 3.1 EBNF (117) URIQualifiedName")
+    fun eqname() {
+        val expected = loadResource("tests/parser/schema-type/eqname/URIQualifiedName.txt")
+        val actual = parseResource("tests/parser/schema-type/eqname/URIQualifiedName.input")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Test
+    @DisplayName("#current")
+    fun current() {
+        val expected = loadResource("tests/parser/schema-type/mode/Current.txt")
+        val actual = parseResource("tests/parser/schema-type/mode/Current.input")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
