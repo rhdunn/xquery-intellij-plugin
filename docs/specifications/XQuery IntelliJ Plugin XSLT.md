@@ -49,6 +49,7 @@ schema types from XSLT 1.0, 2.0, and 3.0:
 | `xsl:nametests`           | `NameTestList`           |
 | `xsl:pattern`             | `XPath`                  |
 | `xsl:prefix`              | `PrefixOrDefault`        |
+| `xsl:prefix-list`         | `PrefixList`             |
 | `xsl:prefix-or-default`   | `PrefixOrDefault`        |
 | `xsl:prefixes`            | `NCNameList`             |
 | `xsl:QName`               | `QName`                  |
@@ -70,11 +71,12 @@ described in the XML schema files.
 | \[4\]    | `QNameList`                    | ::= | `S? QName (S QName)* S?`            |                       |
 | \[5\]    | `EQNameList`                   | ::= | `S? EQName (S EQName)* S?`          |                       |
 | \[6\]    | `NameTestList`                 | ::= | `S? NameTest (S NameTest)* S?`      |                       |
-| \[7\]    | `ModeList`                     | ::= | `S? Mode (S Mode)* S?`              |                       |
-| \[8\]    | `PrefixOrDefault`              | ::= | `NCName | "#default"`               |                       |
+| \[7\]    | `PrefixOrDefault`              | ::= | `NCName | "#default"`               |                       |
+| \[8\]    | `PrefixList`                   | ::= | `S? PrefixOrDefault (S PrefixOrDefault)* S?` |              |
 | \[9\]    | `Mode`                         | ::= | `EQName | "#default"`               |                       |
-| \[10\]   | `ModeOrCurrent`                | ::= | `Mode | "#current"`                 |                       |
-| \[11\]   | `ModeListOrAll`                | ::= | `ModeList | "#all"`                 |                       |
+| \[10\]   | `ModeList`                     | ::= | `S? Mode (S Mode)* S?`              |                       |
+| \[11\]   | `ModeOrCurrent`                | ::= | `Mode | "#current"`                 |                       |
+| \[12\]   | `ModeListOrAll`                | ::= | `ModeList | "#all"`                 |                       |
 
 ### A.3 EBNF External Symbols
 
