@@ -80,4 +80,12 @@ private class XslEQNameOrHashedKeywordTest :
         val actual = parseResource("tests/parser/schema-type/prefix-or-default/Default.input")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
+
+    @Test
+    @DisplayName("#unnamed")
+    fun unnamed() {
+        val expected = loadResource("tests/parser/schema-type/default-mode-type/Unnamed.txt")
+        val actual = parseResource("tests/parser/schema-type/default-mode-type/Unnamed.input")
+        assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
 }

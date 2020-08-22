@@ -38,6 +38,7 @@ schema types from XSLT 1.0, 2.0, and 3.0:
 |---------------------------|----------------------------|
 | `xsl:accumulator-names`   | `AccumulatorNameListOrAll` |
 | `xsl:avt`                 | `AttributeValueTemplate`   |
+| `xsl:default-mode-type`   | `DefaultModeType`          |
 | `xsl:element-names`       | `NameTestList`             |
 | `xsl:EQName`              | `EQName`                   |
 | `xsl:EQName-in-namespace` | `EQName`                   |
@@ -81,6 +82,7 @@ described in the XML schema files.
 | \[12\]   | `ModeOrCurrent`                | ::= | `Mode | "#current"`                 |                       |
 | \[13\]   | `ModeListOrAll`                | ::= | `ModeList | "#all"`                 |                       |
 | \[14\]   | `AccumulatorNameListOrAll`     | ::= | `EQNameList | "#all"`               |                       |
+| \[15\]   | `DefaultModeType`              | ::= | `EQName | "#unnamed"`               |                       |
 
 ### A.3 EBNF External Symbols
 

@@ -31,6 +31,7 @@ object XsltSchemaTypes {
     fun create(type: String?): ISchemaType? = when (type) {
         "xsl:accumulator-names" -> XslEQNamesOrHashedKeywords
         "xsl:avt" -> XslAVT
+        "xsl:default-mode-type" -> XslEQNameOrHashedKeyword
         "xsl:element-names" -> XslNameTests
         "xsl:EQName" -> XslEQName
         "xsl:EQName-in-namespace" -> XslEQName
