@@ -9,6 +9,7 @@ XML:
 
 XSLT and XPath:
 
+1.  Fix `saxon:type-alias` support for the `type` attribute.
 1.  Support parsing XSLT 1.0, 2.0, and 3.0 schema types.
 1.  Set icons for XSLT function, parameter, variable, and item type elements.
 

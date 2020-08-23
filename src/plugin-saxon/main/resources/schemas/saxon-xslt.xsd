@@ -196,7 +196,18 @@
     </xs:complexType>
   </xs:element>
 
-  <xs:element name="type-alias" substitutionGroup="saxon:item-type"/>
+  <xs:element name="type-alias">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="empty">
+          <xs:attribute name="name" type="xsl:EQName"/>
+          <xs:attribute name="type" type="xsl:item-type"/>
+          <xs:assert test="exists(@name)"/>
+          <xs:assert test="exists(@type)"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
 
   <xs:element name="update">
     <xs:complexType>
