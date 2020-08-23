@@ -41,7 +41,17 @@ object XslValueTemplate : Language(XPath, "xsl:value-template"), ISchemaType {
     override fun getAssociatedFileType(): LanguageFileType? = FileType
 
     // endregion
-    // region ISchemaType
+    // region Schema Types
+
+    object Attribute : ISchemaType {
+        override val type: String = "xsl:avt"
+        override val language: Language = XslValueTemplate
+    }
+
+    object Text : ISchemaType {
+        override val type: String = "xsl:text-value-template"
+        override val language: Language = XslValueTemplate
+    }
 
     override val type: String get() = id
 
