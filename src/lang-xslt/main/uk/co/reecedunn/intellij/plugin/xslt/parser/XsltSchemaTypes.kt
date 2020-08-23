@@ -64,10 +64,10 @@ object XsltSchemaTypes {
 
     private fun getSchemaType(element: PsiElement) = when (element) {
         is XmlAttributeValue -> element.attribute?.let { attr ->
-            if (attr.parent.namespace != XSLT.NAMESPACE)
-                getAVTSchemaType(attr)
-            else
-                create(attr.schemaType)
+            when (attr.parent.namespace) {
+                XSD_NAMESPACE -> getAVTSchemaType(attr) // Calling attr.schemaType here causes an infinite recursion.
+                else -> create(attr.schemaType) ?: getAVTSchemaType(attr)
+            }
         }
         else -> null
     }
@@ -78,4 +78,6 @@ object XsltSchemaTypes {
         attribute.value?.contains('{') == true -> XslValueTemplate
         else -> null
     }
+
+    private const val XSD_NAMESPACE = "http://www.w3.org/2001/XMLSchema"
 }
