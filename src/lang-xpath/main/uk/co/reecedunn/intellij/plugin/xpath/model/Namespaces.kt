@@ -17,9 +17,10 @@ package uk.co.reecedunn.intellij.plugin.xpath.model
 
 import com.intellij.psi.PsiElement
 import com.intellij.psi.xml.XmlAttribute
+import com.intellij.psi.xml.XmlAttributeValue
 import com.intellij.psi.xml.XmlTag
+import uk.co.reecedunn.intellij.plugin.core.psi.contextOfType
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
-import uk.co.reecedunn.intellij.plugin.core.xml.toXmlAttributeValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmDefaultNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
@@ -85,13 +86,13 @@ fun PsiElement.defaultFunctionXPathNamespace(): Sequence<XdmDefaultNamespaceDecl
 }
 
 fun PsiElement.defaultElementOrTypeXPathNamespace(): Sequence<XdmDefaultNamespaceDeclaration> {
-    return toXmlAttributeValue()?.ancestors()?.filterIsInstance<XmlTag>()?.flatMap { tag ->
+    return contextOfType<XmlAttributeValue>(false)?.ancestors()?.filterIsInstance<XmlTag>()?.flatMap { tag ->
         tag.attributes.asSequence().map { attribute -> attribute.toDefaultNamespaceDeclaration() }
     }?.filterNotNull() ?: sequenceOf()
 }
 
 fun PsiElement.staticallyKnownXPathNamespaces(): Sequence<XdmNamespaceDeclaration> {
-    return toXmlAttributeValue()?.ancestors()?.filterIsInstance<XmlTag>()?.flatMap { tag ->
+    return contextOfType<XmlAttributeValue>(false)?.ancestors()?.filterIsInstance<XmlTag>()?.flatMap { tag ->
         tag.attributes.asSequence().map { attribute -> attribute.toNamespaceDeclaration() }
     }?.filterNotNull() ?: sequenceOf()
 }

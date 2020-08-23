@@ -16,10 +16,11 @@
 package uk.co.reecedunn.intellij.plugin.xslt.completion.xpath.property
 
 import com.intellij.psi.PsiElement
+import com.intellij.psi.xml.XmlAttributeValue
 import com.intellij.psi.xml.XmlFile
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProperty
-import uk.co.reecedunn.intellij.plugin.core.xml.toXmlAttributeValue
+import uk.co.reecedunn.intellij.plugin.core.psi.contextOfType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XsltSpec
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathCompletionProperty
@@ -32,8 +33,8 @@ object XsltVersion : CompletionProperty {
     }
 
     fun get(element: PsiElement): Version {
-        val file = element.toXmlAttributeValue()?.containingFile as? XmlFile ?: return XsltSpec.REC_3_0_20170608
-        return when (file.rootTag?.getAttribute("version", "")?.value) {
+        val file = element.contextOfType<XmlAttributeValue>(false)?.containingFile as? XmlFile
+        return when (file?.rootTag?.getAttribute("version", "")?.value) {
             "1.0" -> XsltSpec.REC_1_0_19991116
             "2.0" -> XsltSpec.REC_2_0_20070123
             "3.0" -> XsltSpec.REC_3_0_20170608

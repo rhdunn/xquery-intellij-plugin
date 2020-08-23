@@ -17,11 +17,12 @@ package uk.co.reecedunn.intellij.plugin.xslt.parser
 
 import com.intellij.psi.PsiElement
 import com.intellij.psi.xml.XmlAttribute
+import com.intellij.psi.xml.XmlAttributeValue
 import com.intellij.psi.xml.XmlTag
+import uk.co.reecedunn.intellij.plugin.core.psi.contextOfType
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.core.xml.attribute
 import uk.co.reecedunn.intellij.plugin.core.xml.schemaType
-import uk.co.reecedunn.intellij.plugin.core.xml.toXmlAttributeValue
 import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaType
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
@@ -58,7 +59,7 @@ object XsltSchemaTypes {
     }
 
     fun create(element: PsiElement): ISchemaType? {
-        val attr = element.toXmlAttributeValue()?.attribute ?: return null
+        val attr = element.contextOfType<XmlAttributeValue>(false)?.attribute ?: return null
         if (attr.parent.namespace != XSLT.NAMESPACE) return getAVTSchemaType(attr)
         return create(attr.schemaType)
     }

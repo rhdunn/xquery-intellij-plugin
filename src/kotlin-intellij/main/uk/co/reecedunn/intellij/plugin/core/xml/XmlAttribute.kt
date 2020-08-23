@@ -15,18 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.xml
 
-import com.intellij.psi.PsiElement
-import com.intellij.psi.util.PsiTreeUtil
 import com.intellij.psi.xml.XmlAttribute
 import com.intellij.psi.xml.XmlAttributeValue
 import com.intellij.psi.xml.XmlTag
-
-fun PsiElement.toXmlAttributeValue(): XmlAttributeValue? {
-    // Case #1: The file is an XML file.
-    if (this is XmlAttributeValue) return this
-    // Case #2: The file is an injected language file.
-    return PsiTreeUtil.getContextOfType(this, XmlAttributeValue::class.java)
-}
 
 val XmlAttributeValue.attribute: XmlAttribute? get() = parent as? XmlAttribute
 

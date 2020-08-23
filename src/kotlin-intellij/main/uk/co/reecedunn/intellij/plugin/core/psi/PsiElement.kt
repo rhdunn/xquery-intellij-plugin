@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.core.psi
 
 import com.intellij.psi.*
 import com.intellij.psi.tree.IElementType
+import com.intellij.psi.util.PsiTreeUtil
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestorsAndSelf
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.vfs.originalFile
@@ -39,6 +40,10 @@ val PsiElement?.elementType: IElementType?
         is PsiFile -> this.fileElementType
         else -> node?.elementType
     }
+
+inline fun <reified T : PsiElement> PsiElement.contextOfType(strict: Boolean = true): T? {
+    return PsiTreeUtil.getContextOfType(this, T::class.java, strict)
+}
 
 fun <T> PsiElement.createElement(text: String, `class`: Class<T>): T? {
     val file = PsiFileFactory.getInstance(project).createFileFromText(text, containingFile)

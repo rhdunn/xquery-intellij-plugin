@@ -21,16 +21,17 @@ import com.intellij.codeInsight.completion.CompletionResultSet
 import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.lang.Language
+import com.intellij.psi.xml.XmlAttributeValue
 import uk.co.reecedunn.intellij.plugin.core.completion.schemaListCompletions
+import uk.co.reecedunn.intellij.plugin.core.psi.contextOfType
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.core.xml.attribute
-import uk.co.reecedunn.intellij.plugin.core.xml.toXmlAttributeValue
 import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.lang.Rewriter
 
 class RewriterCompletionContributor : CompletionContributor() {
     override fun fillCompletionVariants(parameters: CompletionParameters, result: CompletionResultSet) {
-        val attribute = parameters.position.toXmlAttributeValue()?.attribute ?: return
+        val attribute = parameters.position.contextOfType<XmlAttributeValue>(false)?.attribute ?: return
 
         val element = attribute.parent
         if (element.namespace != Rewriter.NAMESPACE) return

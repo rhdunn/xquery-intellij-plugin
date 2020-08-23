@@ -22,8 +22,8 @@ import com.intellij.psi.PsiLanguageInjectionHost
 import com.intellij.psi.xml.XmlAttributeValue
 import com.intellij.psi.xml.XmlTag
 import org.intellij.lang.regexp.RegExpLanguage
+import uk.co.reecedunn.intellij.plugin.core.psi.contextOfType
 import uk.co.reecedunn.intellij.plugin.core.xml.attribute
-import uk.co.reecedunn.intellij.plugin.core.xml.toXmlAttributeValue
 
 class ModelTypeRegexLanguageInjection : MultiHostInjector {
     override fun elementsToInjectIn(): MutableList<out Class<out PsiElement>> {
@@ -31,7 +31,7 @@ class ModelTypeRegexLanguageInjection : MultiHostInjector {
     }
 
     override fun getLanguagesToInject(registrar: MultiHostRegistrar, context: PsiElement) {
-        val attribute = context.toXmlAttributeValue()?.attribute ?: return
+        val attribute = context.contextOfType<XmlAttributeValue>(false)?.attribute ?: return
         if (attribute.localName != "matches" || !isModelTypeRegex(attribute.parent)) return
 
         val host = context as PsiLanguageInjectionHost
