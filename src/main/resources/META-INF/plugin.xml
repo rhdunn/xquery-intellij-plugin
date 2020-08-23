@@ -82,6 +82,7 @@
       <li>Use the XSLT directive highlighting for vendor extensions.</li>
       <li>Set icons for XSLT function, parameter, variable, and item type elements.</li>
       <li>Support parsing XSLT 1.0, 2.0, and 3.0 schema types.</li>
+      <li>Support XSLT 3.0 text value templates.</li>
     </ol>
     <p>IntelliJ Integration:</p>
     <ol>

@@ -19,6 +19,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.xml.XmlAttribute
 import com.intellij.psi.xml.XmlAttributeValue
 import com.intellij.psi.xml.XmlTag
+import com.intellij.psi.xml.XmlText
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.core.sequences.contexts
 import uk.co.reecedunn.intellij.plugin.core.xml.attribute
@@ -69,6 +70,12 @@ object XsltSchemaTypes {
                 else -> create(attr.schemaType) ?: getAVTSchemaType(attr)
             }
         }
+        is XmlText -> {
+            if ((element.parent as? XmlTag)?.expandText == true && element.value.contains(BRACES))
+                XslValueTemplate
+            else
+                null
+        }
         else -> null
     }
 
@@ -80,4 +87,5 @@ object XsltSchemaTypes {
     }
 
     private const val XSD_NAMESPACE = "http://www.w3.org/2001/XMLSchema"
+    private val BRACES = "[{}]".toRegex()
 }

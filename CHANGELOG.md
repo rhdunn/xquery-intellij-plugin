@@ -13,6 +13,7 @@ XSLT and XPath:
 1.  Use the XSLT directive highlighting for vendor extensions.
 1.  Set icons for XSLT function, parameter, variable, and item type elements.
 1.  Support parsing XSLT 1.0, 2.0, and 3.0 schema types.
+1.  Support XSLT 3.0 text value templates.
 
 IntelliJ Integration:
 
