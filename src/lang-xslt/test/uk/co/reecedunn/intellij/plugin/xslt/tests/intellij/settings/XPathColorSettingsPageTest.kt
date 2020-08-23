@@ -117,7 +117,7 @@ class XPathColorSettingsPageTest {
 
         val keys = tokens.union(additional).toMutableSet()
         keys.add(XsltSyntaxHighlighterColors.ATTRIBUTE_VALUE) // Not tokenized by XPath.
-        keys.add(XsltSyntaxHighlighterColors.XML_ESCAPED_CHARACTER) // Not tokenized by XPath.
+        keys.add(XsltSyntaxHighlighterColors.ESCAPED_CHARACTER) // Not tokenized by XPath.
         keys.add(XsltSyntaxHighlighterColors.XSLT_DIRECTIVE) // Not tokenized by XPath.
 
         val descriptorKeys = settings.attributeDescriptors.map { it.key }

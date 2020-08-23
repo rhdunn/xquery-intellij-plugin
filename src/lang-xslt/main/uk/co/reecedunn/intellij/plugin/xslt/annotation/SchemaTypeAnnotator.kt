@@ -20,15 +20,18 @@ import com.intellij.compat.lang.annotation.Annotator
 import com.intellij.lang.annotation.HighlightSeverity
 import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.psi.PsiElement
-import com.intellij.psi.PsiFile
+import com.intellij.psi.xml.XmlAttributeValue
+import uk.co.reecedunn.intellij.plugin.core.psi.contextOfType
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lexer.XsltSyntaxHighlighterColors
 import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslValueTemplate
 
 class SchemaTypeAnnotator : Annotator() {
-    private fun getHighlightType(element: PsiElement): TextAttributesKey? = when (element) {
-        is PsiFile -> when (element.language) {
-            XslValueTemplate -> XsltSyntaxHighlighterColors.XSLT_DIRECTIVE
-            else -> null
+    private fun getHighlightType(element: PsiElement): TextAttributesKey? = when (element.elementType) {
+        XslValueTemplate.FileElementType -> XsltSyntaxHighlighterColors.XSLT_DIRECTIVE
+        XslValueTemplate.ESCAPED_CHARACTER -> XsltSyntaxHighlighterColors.ESCAPED_CHARACTER
+        XslValueTemplate.VALUE_CONTENTS -> element.contextOfType<XmlAttributeValue>(false)?.let {
+            XsltSyntaxHighlighterColors.ATTRIBUTE_VALUE
         }
         else -> null
     }
