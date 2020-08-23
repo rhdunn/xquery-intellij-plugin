@@ -76,6 +76,7 @@
         the file structure dialog. This fixes IDEA-247202.
       </li>
       <li>Fix <code>saxon:type-alias</code> support for the <code>type</code> attribute.</li>
+      <li>Use the XSLT directive highlighting for vendor extensions.</li>
       <li>Set icons for XSLT function, parameter, variable, and item type elements.</li>
     </ol>
     <p>IntelliJ Integration:</p>
