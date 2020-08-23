@@ -37,13 +37,13 @@ schema types from XSLT 1.0, 2.0, and 3.0:
 | Schema Type               | Start Symbol               |
 |---------------------------|----------------------------|
 | `xsl:accumulator-names`   | `AccumulatorNameListOrAll` |
-| `xsl:avt`                 | `AttributeValueTemplate`   |
+| `xsl:avt`                 | `ValueTemplate`            |
 | `xsl:default-mode-type`   | `DefaultModeType`          |
 | `xsl:element-names`       | `NameTestList`             |
 | `xsl:EQName`              | `EQName`                   |
 | `xsl:EQName-in-namespace` | `EQName`                   |
 | `xsl:EQNames`             | `EQNames`                  |
-| `xsl:expr-avt`            | `AttributeValueTemplate`   |
+| `xsl:expr-avt`            | `ValueTemplate`            |
 | `xsl:expression`          | `XPath`                    |
 | `xsl:item-type`           | `ItemType`                 |
 | `xsl:method`              | `QName`                    |
@@ -70,7 +70,7 @@ described in the XML schema files.
 {: .ebnf-symbols }
 | Ref      | Symbol                         |     | Expression                          | Options               |
 |----------|--------------------------------|-----|-------------------------------------|-----------------------|
-| \[1\]    | `AttributeValueTemplate`       | ::= | `AttrContentChar | "{{" | "}}" | EnclosedExpr` |            |
+| \[1\]    | `ValueTemplate`                | ::= | `AttrContentChar | "{{" | "}}" | EnclosedExpr` |            |
 | \[2\]    | `AttrContentChar`              | ::= | `(Char - [{}])`                     |                       |
 | \[3\]    | `NCNameList`                   | ::= | `S? NCName (S NCName)* S?`          |                       |
 | \[4\]    | `QNameList`                    | ::= | `S? QName (S QName)* S?`            |                       |

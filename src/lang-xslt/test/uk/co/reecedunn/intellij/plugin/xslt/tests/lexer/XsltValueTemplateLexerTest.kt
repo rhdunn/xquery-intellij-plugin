@@ -25,13 +25,13 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XmlCodePointRangeImpl
 import uk.co.reecedunn.intellij.plugin.xslt.lexer.XsltValueTemplateLexer
 import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslAVT
 
-@DisplayName("XSLT 3.0 - Lexer - xsl:avt")
+@DisplayName("XSLT 3.0 - Lexer - Value Templates")
 class XsltValueTemplateLexerTest : LexerTestCase() {
     private fun createLexer(): Lexer = XsltValueTemplateLexer(XmlCodePointRangeImpl())
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin XSLT EBNF (1) AttributeValueTemplate")
-    internal inner class AttributeValueTemplate {
+    @DisplayName("XQuery IntelliJ Plugin XSLT EBNF (1) ValueTemplate")
+    internal inner class ValueTemplate {
         @Test
         @DisplayName("escaped braces")
         fun escapedBraces() {

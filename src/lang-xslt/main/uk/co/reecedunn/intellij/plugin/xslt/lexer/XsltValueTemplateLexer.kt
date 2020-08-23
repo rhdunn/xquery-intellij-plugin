@@ -37,7 +37,7 @@ class XsltValueTemplateLexer(tokenRange: CodePointRange) : XPathLexer(tokenRange
                     mType = XslAVT.ESCAPED_CHARACTER
                 } else {
                     mType = XPathTokenType.BLOCK_OPEN
-                    pushState(STATE_ATTRIBUTE_VALUE_TEMPLATE_EXPRESSION)
+                    pushState(STATE_VALUE_TEMPLATE_EXPRESSION)
                 }
             }
             '}'.toInt() -> {
@@ -69,7 +69,7 @@ class XsltValueTemplateLexer(tokenRange: CodePointRange) : XPathLexer(tokenRange
 
     override fun advance(state: Int): Unit = when (state) {
         STATE_DEFAULT -> stateDefault()
-        STATE_ATTRIBUTE_VALUE_TEMPLATE_EXPRESSION -> stateDefault(state)
+        STATE_VALUE_TEMPLATE_EXPRESSION -> stateDefault(state)
         else -> super.advance(state)
     }
 
@@ -78,7 +78,7 @@ class XsltValueTemplateLexer(tokenRange: CodePointRange) : XPathLexer(tokenRange
     companion object {
         // region State Constants
 
-        const val STATE_ATTRIBUTE_VALUE_TEMPLATE_EXPRESSION: Int = 32
+        private const val STATE_VALUE_TEMPLATE_EXPRESSION = 32
 
         // endregion
     }

@@ -41,8 +41,8 @@ private class XslAVTTest : ParserTestCase(XslAVT.ParserDefinition(), XPathParser
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin XSLT EBNF (1) AttributeValueTemplate")
-    inner class AttributeValueTemplate {
+    @DisplayName("XQuery IntelliJ Plugin XSLT EBNF (1) ValueTemplate")
+    inner class ValueTemplate {
         @Test
         @DisplayName("escaped characters")
         fun escapedCharacters() {
