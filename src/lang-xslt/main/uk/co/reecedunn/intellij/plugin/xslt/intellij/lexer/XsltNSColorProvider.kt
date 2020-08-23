@@ -21,14 +21,13 @@ import com.intellij.psi.xml.XmlElement
 import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElementFactory
 import uk.co.reecedunn.intellij.plugin.xslt.ast.xml.XsltDirElemConstructor
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.isIntellijXPathPluginEnabled
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.XsltShadowPsiElement
 
 class XsltNSColorProvider : XmlNSColorProvider {
     override fun getKeyForNamespace(namespace: String?, context: XmlElement?): TextAttributesKey? = when {
         isIntellijXPathPluginEnabled() -> null
-        context is XmlTag -> when(XpmShadowPsiElementFactory.create(context)) {
+        context is XmlTag -> when (XpmShadowPsiElementFactory.create(context)) {
             is XsltDirElemConstructor -> null
             is XsltShadowPsiElement -> XsltSyntaxHighlighterColors.XSLT_DIRECTIVE
             else -> null
