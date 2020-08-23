@@ -26,13 +26,13 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lexer.XPathSyntaxHighlighter
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XmlCodePointRangeImpl
-import uk.co.reecedunn.intellij.plugin.xslt.lexer.XsltAttributeValueTemplateLexer
+import uk.co.reecedunn.intellij.plugin.xslt.lexer.XsltValueTemplateLexer
 import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslAVT
 
 object XsltSyntaxHighlighter : SyntaxHighlighterBase() {
     // region SyntaxHighlighter
 
-    override fun getHighlightingLexer(): Lexer = XsltAttributeValueTemplateLexer(XmlCodePointRangeImpl())
+    override fun getHighlightingLexer(): Lexer = XsltValueTemplateLexer(XmlCodePointRangeImpl())
 
     override fun getTokenHighlights(type: IElementType): Array<out TextAttributesKey> {
         val default = XPathSyntaxHighlighter.getTokenHighlights(type)

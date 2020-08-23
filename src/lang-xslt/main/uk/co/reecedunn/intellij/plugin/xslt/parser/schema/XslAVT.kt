@@ -29,7 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XmlCodePointRangeImpl
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.fileTypes.XsltSchemaTypeFileType
-import uk.co.reecedunn.intellij.plugin.xslt.lexer.XsltAttributeValueTemplateLexer
+import uk.co.reecedunn.intellij.plugin.xslt.lexer.XsltValueTemplateLexer
 import uk.co.reecedunn.intellij.plugin.xslt.parser.XsltSchemaTypesParser
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.schema.XsltSchemaTypePsiImpl
 
@@ -59,7 +59,7 @@ object XslAVT : Language(XPath, "xsl:avt"), ISchemaType {
     val FileElementType: IFileElementType = IFileElementType(this)
 
     class ParserDefinition : XPathParserDefinition() {
-        override fun createLexer(project: Project): Lexer = XsltAttributeValueTemplateLexer(XmlCodePointRangeImpl())
+        override fun createLexer(project: Project): Lexer = XsltValueTemplateLexer(XmlCodePointRangeImpl())
 
         override fun createParser(project: Project): PsiParser = XsltSchemaTypesParser(XslAVT)
 

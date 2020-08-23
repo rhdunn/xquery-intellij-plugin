@@ -22,12 +22,12 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XmlCodePointRangeImpl
-import uk.co.reecedunn.intellij.plugin.xslt.lexer.XsltAttributeValueTemplateLexer
+import uk.co.reecedunn.intellij.plugin.xslt.lexer.XsltValueTemplateLexer
 import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslAVT
 
 @DisplayName("XSLT 3.0 - Lexer - xsl:avt")
 class XsltValueTemplateLexerTest : LexerTestCase() {
-    private fun createLexer(): Lexer = XsltAttributeValueTemplateLexer(XmlCodePointRangeImpl())
+    private fun createLexer(): Lexer = XsltValueTemplateLexer(XmlCodePointRangeImpl())
 
     @Nested
     @DisplayName("XQuery IntelliJ Plugin XSLT EBNF (1) AttributeValueTemplate")

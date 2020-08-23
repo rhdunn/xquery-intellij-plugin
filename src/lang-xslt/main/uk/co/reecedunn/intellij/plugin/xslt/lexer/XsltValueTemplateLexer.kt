@@ -21,7 +21,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslAVT
 
-class XsltAttributeValueTemplateLexer(tokenRange: CodePointRange) : XPathLexer(tokenRange) {
+class XsltValueTemplateLexer(tokenRange: CodePointRange) : XPathLexer(tokenRange) {
     // region States
 
     fun stateDefault() {
