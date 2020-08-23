@@ -62,7 +62,7 @@ class XsltSchemaTypesParser(private val schemaType: ISchemaType) : XPathParser()
         var matched = false
         while (
             builder.matchTokenType(XslAVT.VALUE_CONTENTS) ||
-            builder.matchTokenType(XslAVT.ATTRIBUTE_ESCAPED_CHARACTER) ||
+            builder.matchTokenType(XslAVT.ESCAPED_CHARACTER) ||
             builder.errorOnTokenType(
                 XPathTokenType.BLOCK_CLOSE,
                 XsltBundle.message("parser.error.mismatched-exclosed-expr")

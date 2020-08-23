@@ -34,7 +34,7 @@ class XsltAttributeValueTemplateLexer(tokenRange: CodePointRange) : XPathLexer(t
                 mTokenRange.match()
                 if (mTokenRange.codePoint == '{'.toInt()) {
                     mTokenRange.match()
-                    mType = XslAVT.ATTRIBUTE_ESCAPED_CHARACTER
+                    mType = XslAVT.ESCAPED_CHARACTER
                 } else {
                     mType = XPathTokenType.BLOCK_OPEN
                     pushState(STATE_ATTRIBUTE_VALUE_TEMPLATE_EXPRESSION)
@@ -44,7 +44,7 @@ class XsltAttributeValueTemplateLexer(tokenRange: CodePointRange) : XPathLexer(t
                 mTokenRange.match()
                 mType = if (mTokenRange.codePoint == '}'.toInt()) {
                     mTokenRange.match()
-                    XslAVT.ATTRIBUTE_ESCAPED_CHARACTER
+                    XslAVT.ESCAPED_CHARACTER
                 } else {
                     XPathTokenType.BLOCK_CLOSE
                 }

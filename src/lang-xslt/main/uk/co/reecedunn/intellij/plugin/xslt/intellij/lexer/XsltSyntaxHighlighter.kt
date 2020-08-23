@@ -66,7 +66,7 @@ object XsltSyntaxHighlighter : SyntaxHighlighterBase() {
 
     private val KEYS = mapOf(
         XslAVT.VALUE_CONTENTS to ATTRIBUTE_VALUE_KEYS,
-        XslAVT.ATTRIBUTE_ESCAPED_CHARACTER to XML_ESCAPED_CHARACTER_KEYS
+        XslAVT.ESCAPED_CHARACTER to XML_ESCAPED_CHARACTER_KEYS
     )
 
     // endregion

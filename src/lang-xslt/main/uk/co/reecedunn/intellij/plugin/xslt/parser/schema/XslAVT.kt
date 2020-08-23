@@ -51,7 +51,7 @@ object XslAVT : Language(XPath, "xsl:avt"), ISchemaType {
     // region Tokens
 
     val VALUE_CONTENTS: IElementType = IElementType("XSLT_VALUE_CONTENTS_TOKEN", this)
-    val ATTRIBUTE_ESCAPED_CHARACTER: IElementType = IElementType("XSLT_ATTRIBUTE_ESCAPED_CHARACTER_TOKEN", this)
+    val ESCAPED_CHARACTER: IElementType = IElementType("XSLT_ESCAPED_CHARACTER_TOKEN", this)
 
     // endregion
     // region ParserDefinition

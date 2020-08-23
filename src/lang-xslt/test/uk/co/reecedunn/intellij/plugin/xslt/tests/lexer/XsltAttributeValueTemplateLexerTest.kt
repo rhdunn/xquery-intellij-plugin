@@ -39,9 +39,9 @@ class XsltValueTemplateLexerTest : LexerTestCase() {
 
             lexer.start("Lorem {{ipsum}} dolor.")
             matchToken(lexer, "Lorem ", 0, 0, 6, XslAVT.VALUE_CONTENTS)
-            matchToken(lexer, "{{", 0, 6, 8, XslAVT.ATTRIBUTE_ESCAPED_CHARACTER)
+            matchToken(lexer, "{{", 0, 6, 8, XslAVT.ESCAPED_CHARACTER)
             matchToken(lexer, "ipsum", 0, 8, 13, XslAVT.VALUE_CONTENTS)
-            matchToken(lexer, "}}", 0, 13, 15, XslAVT.ATTRIBUTE_ESCAPED_CHARACTER)
+            matchToken(lexer, "}}", 0, 13, 15, XslAVT.ESCAPED_CHARACTER)
             matchToken(lexer, " dolor.", 0, 15, 22, XslAVT.VALUE_CONTENTS)
             matchToken(lexer, "", 0, 22, 22, null)
         }
