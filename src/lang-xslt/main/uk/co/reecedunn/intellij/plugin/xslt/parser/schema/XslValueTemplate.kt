@@ -33,7 +33,7 @@ import uk.co.reecedunn.intellij.plugin.xslt.lexer.XsltValueTemplateLexer
 import uk.co.reecedunn.intellij.plugin.xslt.parser.XsltSchemaTypesParser
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.schema.XsltSchemaTypePsiImpl
 
-object XslValueTemplate : Language(XPath, "xsl:avt"), ISchemaType {
+object XslValueTemplate : Language(XPath, "xsl:value-template"), ISchemaType {
     // region Language
 
     val FileType: LanguageFileType = XsltSchemaTypeFileType(this)

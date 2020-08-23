@@ -30,7 +30,7 @@ class XsltSchemaTypesParser(private val schemaType: ISchemaType) : XPathParser()
     // region Grammar
 
     override fun parse(builder: PsiBuilder, isFirst: Boolean): Boolean = when (schemaType) {
-        XslValueTemplate -> parseAVT(builder)
+        XslValueTemplate -> parseValueTemplate(builder)
         XslEQName -> parseEQName(builder)
         XslEQNames -> parseEQNames(builder)
         XPath.Expression -> parseExpr(builder, null)
@@ -58,7 +58,7 @@ class XsltSchemaTypesParser(private val schemaType: ISchemaType) : XPathParser()
     // endregion
     // region Grammar :: schema types
 
-    private fun parseAVT(builder: PsiBuilder): Boolean {
+    private fun parseValueTemplate(builder: PsiBuilder): Boolean {
         var matched = false
         while (
             builder.matchTokenType(XslValueTemplate.VALUE_CONTENTS) ||

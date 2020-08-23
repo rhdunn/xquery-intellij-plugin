@@ -19,7 +19,6 @@
 
     <lang.parserDefinition language="EQName-or-hashed-keyword" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslEQNameOrHashedKeyword$ParserDefinition"/>
     <lang.parserDefinition language="EQNames-or-hashed-keywords" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslEQNamesOrHashedKeywords$ParserDefinition"/>
-    <lang.parserDefinition language="xsl:avt" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslValueTemplate$ParserDefinition"/>
     <lang.parserDefinition language="xsl:EQName" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslEQName$ParserDefinition"/>
     <lang.parserDefinition language="xsl:EQNames" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslEQNames$ParserDefinition"/>
     <lang.parserDefinition language="xsl:item-type" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslItemType$ParserDefinition"/>
@@ -28,7 +27,8 @@
     <lang.parserDefinition language="xsl:QName" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslQName$ParserDefinition"/>
     <lang.parserDefinition language="xsl:QNames" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslQNames$ParserDefinition"/>
     <lang.parserDefinition language="xsl:sequence-type" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslSequenceType$ParserDefinition"/>
+    <lang.parserDefinition language="xsl:value-template" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslValueTemplate$ParserDefinition"/>
 
-    <lang.syntaxHighlighterFactory language="xsl:avt" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.intellij.lexer.XsltSyntaxHighlighter$XslAvtFactory"/>
+    <lang.syntaxHighlighterFactory language="xsl:value-template" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.intellij.lexer.XsltSyntaxHighlighter$XslAvtFactory"/>
   </extensions>
 </idea-plugin>
