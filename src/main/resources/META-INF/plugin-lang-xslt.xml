@@ -28,7 +28,5 @@
     <lang.parserDefinition language="xsl:QNames" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslQNames$ParserDefinition"/>
     <lang.parserDefinition language="xsl:sequence-type" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslSequenceType$ParserDefinition"/>
     <lang.parserDefinition language="xsl:value-template" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslValueTemplate$ParserDefinition"/>
-
-    <lang.syntaxHighlighterFactory language="xsl:value-template" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.intellij.lexer.XsltSyntaxHighlighter$XslAvtFactory"/>
   </extensions>
 </idea-plugin>
