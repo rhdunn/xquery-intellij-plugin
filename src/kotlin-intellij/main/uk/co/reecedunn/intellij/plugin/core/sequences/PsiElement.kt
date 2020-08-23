@@ -80,6 +80,13 @@ class PsiElementReversibleSequence(
     }
 }
 
+fun PsiElement.contexts(strict: Boolean): Sequence<PsiElement> {
+    return if (strict)
+        PsiElementIterator(context, PsiElement::getContext).asSequence()
+    else
+        PsiElementIterator(this, PsiElement::getContext).asSequence()
+}
+
 fun PsiElement.ancestors(): Sequence<PsiElement> {
     return PsiElementIterator(parent, PsiElement::getParent).asSequence()
 }
@@ -94,18 +101,9 @@ fun PsiElement.descendants(): Sequence<PsiElement> {
 
 fun PsiElement.children(): PsiElementReversibleSequence {
     return PsiElementReversibleSequence(this,
-        { e ->
-            PsiElementIterator(
-                e.firstChild,
-                PsiElement::getNextSibling
-            )
-        },
-        { e ->
-            PsiElementIterator(
-                e.lastChild,
-                PsiElement::getPrevSibling
-            )
-        })
+        { e -> PsiElementIterator(e.firstChild, PsiElement::getNextSibling) },
+        { e -> PsiElementIterator(e.lastChild, PsiElement::getPrevSibling) }
+    )
 }
 
 fun PsiElement.siblings(): PsiElementReversibleSequence {

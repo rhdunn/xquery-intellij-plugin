@@ -19,8 +19,8 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.xml.XmlAttribute
 import com.intellij.psi.xml.XmlAttributeValue
 import com.intellij.psi.xml.XmlTag
-import uk.co.reecedunn.intellij.plugin.core.psi.contextOfType
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
+import uk.co.reecedunn.intellij.plugin.core.sequences.contexts
 import uk.co.reecedunn.intellij.plugin.core.xml.attribute
 import uk.co.reecedunn.intellij.plugin.core.xml.schemaType
 import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaType
@@ -59,17 +59,24 @@ object XsltSchemaTypes {
     }
 
     fun create(element: PsiElement): ISchemaType? {
-        val attr = element.contextOfType<XmlAttributeValue>(false)?.attribute ?: return null
-        if (attr.parent.namespace != XSLT.NAMESPACE) return getAVTSchemaType(attr)
-        return create(attr.schemaType)
+        return element.contexts(false).mapNotNull { getSchemaType(it) }.firstOrNull()
     }
 
-    private fun getAVTSchemaType(attribute: XmlAttribute): ISchemaType? {
-        return when {
-            attribute.isNamespaceDeclaration -> null
-            attribute.parent.ancestors().find { it is XmlTag && it.namespace == XSLT.NAMESPACE } == null -> null
-            attribute.value?.contains('{') == true -> XslAVT
-            else -> null
+    private fun getSchemaType(element: PsiElement) = when (element) {
+        is XmlAttributeValue -> {
+            val attr = element.attribute
+            if (attr.parent.namespace != XSLT.NAMESPACE)
+                getAVTSchemaType(attr)
+            else
+                create(attr.schemaType)
         }
+        else -> null
+    }
+
+    private fun getAVTSchemaType(attribute: XmlAttribute): ISchemaType? = when {
+        attribute.isNamespaceDeclaration -> null
+        attribute.parent.ancestors().find { it is XmlTag && it.namespace == XSLT.NAMESPACE } == null -> null
+        attribute.value?.contains('{') == true -> XslAVT
+        else -> null
     }
 }
