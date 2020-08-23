@@ -63,8 +63,7 @@ object XsltSchemaTypes {
     }
 
     private fun getSchemaType(element: PsiElement) = when (element) {
-        is XmlAttributeValue -> {
-            val attr = element.attribute
+        is XmlAttributeValue -> element.attribute?.let { attr ->
             if (attr.parent.namespace != XSLT.NAMESPACE)
                 getAVTSchemaType(attr)
             else

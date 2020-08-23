@@ -19,6 +19,6 @@ import com.intellij.psi.xml.XmlAttribute
 import com.intellij.psi.xml.XmlAttributeValue
 import com.intellij.psi.xml.XmlTag
 
-val XmlAttributeValue.attribute: XmlAttribute get() = parent as XmlAttribute
+val XmlAttributeValue.attribute: XmlAttribute? get() = parent as? XmlAttribute
 
 val XmlAttribute.schemaType: String? get() = (descriptor?.declaration as? XmlTag)?.getAttributeValue("type")
