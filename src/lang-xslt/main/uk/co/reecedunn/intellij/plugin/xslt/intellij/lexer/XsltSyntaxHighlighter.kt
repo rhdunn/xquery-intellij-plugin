@@ -27,7 +27,7 @@ import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lexer.XPathSyntaxHighlighter
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XmlCodePointRangeImpl
 import uk.co.reecedunn.intellij.plugin.xslt.lexer.XsltValueTemplateLexer
-import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslAVT
+import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslValueTemplate
 
 object XsltSyntaxHighlighter : SyntaxHighlighterBase() {
     // region SyntaxHighlighter
@@ -65,8 +65,8 @@ object XsltSyntaxHighlighter : SyntaxHighlighterBase() {
     // region Keys
 
     private val KEYS = mapOf(
-        XslAVT.VALUE_CONTENTS to ATTRIBUTE_VALUE_KEYS,
-        XslAVT.ESCAPED_CHARACTER to XML_ESCAPED_CHARACTER_KEYS
+        XslValueTemplate.VALUE_CONTENTS to ATTRIBUTE_VALUE_KEYS,
+        XslValueTemplate.ESCAPED_CHARACTER to XML_ESCAPED_CHARACTER_KEYS
     )
 
     // endregion

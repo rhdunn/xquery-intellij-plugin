@@ -31,13 +31,13 @@ import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.*
 object XsltSchemaTypes {
     fun create(type: String?): ISchemaType? = when (type) {
         "xsl:accumulator-names" -> XslEQNamesOrHashedKeywords
-        "xsl:avt" -> XslAVT
+        "xsl:avt" -> XslValueTemplate
         "xsl:default-mode-type" -> XslEQNameOrHashedKeyword
         "xsl:element-names" -> XslNameTests
         "xsl:EQName" -> XslEQName
         "xsl:EQName-in-namespace" -> XslEQName
         "xsl:EQNames" -> XslEQNames
-        "xsl:expr-avt" -> XslAVT
+        "xsl:expr-avt" -> XslValueTemplate
         "xsl:expression" -> XPath.Expression
         "xsl:item-type" -> XslItemType
         "xsl:method" -> XslQName
@@ -76,7 +76,7 @@ object XsltSchemaTypes {
     private fun getAVTSchemaType(attribute: XmlAttribute): ISchemaType? = when {
         attribute.isNamespaceDeclaration -> null
         attribute.parent.ancestors().find { it is XmlTag && it.namespace == XSLT.NAMESPACE } == null -> null
-        attribute.value?.contains('{') == true -> XslAVT
+        attribute.value?.contains('{') == true -> XslValueTemplate
         else -> null
     }
 }

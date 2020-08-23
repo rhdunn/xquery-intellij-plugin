@@ -30,7 +30,7 @@ class XsltSchemaTypesParser(private val schemaType: ISchemaType) : XPathParser()
     // region Grammar
 
     override fun parse(builder: PsiBuilder, isFirst: Boolean): Boolean = when (schemaType) {
-        XslAVT -> parseAVT(builder)
+        XslValueTemplate -> parseAVT(builder)
         XslEQName -> parseEQName(builder)
         XslEQNames -> parseEQNames(builder)
         XPath.Expression -> parseExpr(builder, null)
@@ -61,8 +61,8 @@ class XsltSchemaTypesParser(private val schemaType: ISchemaType) : XPathParser()
     private fun parseAVT(builder: PsiBuilder): Boolean {
         var matched = false
         while (
-            builder.matchTokenType(XslAVT.VALUE_CONTENTS) ||
-            builder.matchTokenType(XslAVT.ESCAPED_CHARACTER) ||
+            builder.matchTokenType(XslValueTemplate.VALUE_CONTENTS) ||
+            builder.matchTokenType(XslValueTemplate.ESCAPED_CHARACTER) ||
             builder.errorOnTokenType(
                 XPathTokenType.BLOCK_CLOSE,
                 XsltBundle.message("parser.error.mismatched-exclosed-expr")

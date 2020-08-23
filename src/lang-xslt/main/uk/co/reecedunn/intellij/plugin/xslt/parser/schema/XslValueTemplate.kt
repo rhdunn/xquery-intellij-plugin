@@ -33,7 +33,7 @@ import uk.co.reecedunn.intellij.plugin.xslt.lexer.XsltValueTemplateLexer
 import uk.co.reecedunn.intellij.plugin.xslt.parser.XsltSchemaTypesParser
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.schema.XsltSchemaTypePsiImpl
 
-object XslAVT : Language(XPath, "xsl:avt"), ISchemaType {
+object XslValueTemplate : Language(XPath, "xsl:avt"), ISchemaType {
     // region Language
 
     val FileType: LanguageFileType = XsltSchemaTypeFileType(this)
@@ -61,7 +61,7 @@ object XslAVT : Language(XPath, "xsl:avt"), ISchemaType {
     class ParserDefinition : XPathParserDefinition() {
         override fun createLexer(project: Project): Lexer = XsltValueTemplateLexer(XmlCodePointRangeImpl())
 
-        override fun createParser(project: Project): PsiParser = XsltSchemaTypesParser(XslAVT)
+        override fun createParser(project: Project): PsiParser = XsltSchemaTypesParser(XslValueTemplate)
 
         override fun getFileNodeType(): IFileElementType = FileElementType
 
