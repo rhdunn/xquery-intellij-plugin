@@ -70,8 +70,8 @@ described in the XML schema files.
 {: .ebnf-symbols }
 | Ref      | Symbol                         |     | Expression                          | Options               |
 |----------|--------------------------------|-----|-------------------------------------|-----------------------|
-| \[1\]    | `ValueTemplate`                | ::= | `AttrContentChar | "{{" | "}}" | EnclosedExpr` |            |
-| \[2\]    | `AttrContentChar`              | ::= | `(Char - [{}])`                     |                       |
+| \[1\]    | `ValueTemplate`                | ::= | `ValueContentChar | "{{" | "}}" | EnclosedExpr` |           |
+| \[2\]    | `ValueContentChar`             | ::= | `(Char - [{}])`                     |                       |
 | \[3\]    | `NCNameList`                   | ::= | `S? NCName (S NCName)* S?`          |                       |
 | \[4\]    | `QNameList`                    | ::= | `S? QName (S QName)* S?`            |                       |
 | \[5\]    | `EQNameList`                   | ::= | `S? EQName (S EQName)* S?`          |                       |

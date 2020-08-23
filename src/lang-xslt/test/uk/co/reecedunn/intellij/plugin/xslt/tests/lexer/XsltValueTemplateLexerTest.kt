@@ -60,8 +60,8 @@ class XsltValueTemplateLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery IntelliJ Plugin XSLT EBNF (2) AttrContentChar")
-    fun attrContentChar() {
+    @DisplayName("XQuery IntelliJ Plugin XSLT EBNF (2) ValueContentChar")
+    fun valueContentChar() {
         val lexer = createLexer()
 
         lexer.start("Lorem ipsum dolor.")

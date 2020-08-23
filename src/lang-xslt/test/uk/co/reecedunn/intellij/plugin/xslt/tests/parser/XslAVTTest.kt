@@ -61,8 +61,8 @@ private class XslAVTTest : ParserTestCase(XslAVT.ParserDefinition(), XPathParser
     }
 
     @Test
-    @DisplayName("XQuery IntelliJ Plugin XSLT EBNF (2) AttrContentChar")
-    fun attrContentChar() {
+    @DisplayName("XQuery IntelliJ Plugin XSLT EBNF (2) ValueContentChar")
+    fun valueContentChar() {
         val expected = loadResource("tests/parser/schema-type/avt/AttrContentChar.txt")
         val actual = parseResource("tests/parser/schema-type/avt/AttrContentChar.input")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
