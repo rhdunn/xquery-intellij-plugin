@@ -61,7 +61,7 @@ class XsltSchemaTypesParser(private val schemaType: ISchemaType) : XPathParser()
     private fun parseAVT(builder: PsiBuilder): Boolean {
         var matched = false
         while (
-            builder.matchTokenType(XslAVT.ATTRIBUTE_VALUE_CONTENTS) ||
+            builder.matchTokenType(XslAVT.VALUE_CONTENTS) ||
             builder.matchTokenType(XslAVT.ATTRIBUTE_ESCAPED_CHARACTER) ||
             builder.errorOnTokenType(
                 XPathTokenType.BLOCK_CLOSE,

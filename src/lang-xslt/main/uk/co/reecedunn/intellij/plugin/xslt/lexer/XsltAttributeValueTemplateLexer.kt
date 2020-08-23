@@ -52,7 +52,7 @@ class XsltAttributeValueTemplateLexer(tokenRange: CodePointRange) : XPathLexer(t
             else -> while (true) {
                 when (c) {
                     CodePointRange.END_OF_BUFFER, '{'.toInt(), '}'.toInt() -> {
-                        mType = XslAVT.ATTRIBUTE_VALUE_CONTENTS
+                        mType = XslAVT.VALUE_CONTENTS
                         return
                     }
                     else -> {

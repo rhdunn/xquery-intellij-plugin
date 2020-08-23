@@ -38,11 +38,11 @@ class XsltValueTemplateLexerTest : LexerTestCase() {
             val lexer = createLexer()
 
             lexer.start("Lorem {{ipsum}} dolor.")
-            matchToken(lexer, "Lorem ", 0, 0, 6, XslAVT.ATTRIBUTE_VALUE_CONTENTS)
+            matchToken(lexer, "Lorem ", 0, 0, 6, XslAVT.VALUE_CONTENTS)
             matchToken(lexer, "{{", 0, 6, 8, XslAVT.ATTRIBUTE_ESCAPED_CHARACTER)
-            matchToken(lexer, "ipsum", 0, 8, 13, XslAVT.ATTRIBUTE_VALUE_CONTENTS)
+            matchToken(lexer, "ipsum", 0, 8, 13, XslAVT.VALUE_CONTENTS)
             matchToken(lexer, "}}", 0, 13, 15, XslAVT.ATTRIBUTE_ESCAPED_CHARACTER)
-            matchToken(lexer, " dolor.", 0, 15, 22, XslAVT.ATTRIBUTE_VALUE_CONTENTS)
+            matchToken(lexer, " dolor.", 0, 15, 22, XslAVT.VALUE_CONTENTS)
             matchToken(lexer, "", 0, 22, 22, null)
         }
 
@@ -52,9 +52,9 @@ class XsltValueTemplateLexerTest : LexerTestCase() {
             val lexer = createLexer()
 
             lexer.start("Lorem } ipsum")
-            matchToken(lexer, "Lorem ", 0, 0, 6, XslAVT.ATTRIBUTE_VALUE_CONTENTS)
+            matchToken(lexer, "Lorem ", 0, 0, 6, XslAVT.VALUE_CONTENTS)
             matchToken(lexer, "}", 0, 6, 7, XPathTokenType.BLOCK_CLOSE)
-            matchToken(lexer, " ipsum", 0, 7, 13, XslAVT.ATTRIBUTE_VALUE_CONTENTS)
+            matchToken(lexer, " ipsum", 0, 7, 13, XslAVT.VALUE_CONTENTS)
             matchToken(lexer, "", 0, 13, 13, null)
         }
     }
@@ -65,7 +65,7 @@ class XsltValueTemplateLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         lexer.start("Lorem ipsum dolor.")
-        matchToken(lexer, "Lorem ipsum dolor.", 0, 0, 18, XslAVT.ATTRIBUTE_VALUE_CONTENTS)
+        matchToken(lexer, "Lorem ipsum dolor.", 0, 0, 18, XslAVT.VALUE_CONTENTS)
         matchToken(lexer, "", 0, 18, 18, null)
     }
 
@@ -78,11 +78,11 @@ class XsltValueTemplateLexerTest : LexerTestCase() {
             val lexer = createLexer()
 
             lexer.start("One {2} Three")
-            matchToken(lexer, "One ", 0, 0, 4, XslAVT.ATTRIBUTE_VALUE_CONTENTS)
+            matchToken(lexer, "One ", 0, 0, 4, XslAVT.VALUE_CONTENTS)
             matchToken(lexer, "{", 0, 4, 5, XPathTokenType.BLOCK_OPEN)
             matchToken(lexer, "2", 32, 5, 6, XPathTokenType.INTEGER_LITERAL)
             matchToken(lexer, "}", 32, 6, 7, XPathTokenType.BLOCK_CLOSE)
-            matchToken(lexer, " Three", 0, 7, 13, XslAVT.ATTRIBUTE_VALUE_CONTENTS)
+            matchToken(lexer, " Three", 0, 7, 13, XslAVT.VALUE_CONTENTS)
             matchToken(lexer, "", 0, 13, 13, null)
         }
 
@@ -92,7 +92,7 @@ class XsltValueTemplateLexerTest : LexerTestCase() {
             val lexer = createLexer()
 
             lexer.start("One {2{3}4} Five")
-            matchToken(lexer, "One ", 0, 0, 4, XslAVT.ATTRIBUTE_VALUE_CONTENTS)
+            matchToken(lexer, "One ", 0, 0, 4, XslAVT.VALUE_CONTENTS)
             matchToken(lexer, "{", 0, 4, 5, XPathTokenType.BLOCK_OPEN)
             matchToken(lexer, "2", 32, 5, 6, XPathTokenType.INTEGER_LITERAL)
             matchToken(lexer, "{", 32, 6, 7, XPathTokenType.BLOCK_OPEN)
@@ -100,7 +100,7 @@ class XsltValueTemplateLexerTest : LexerTestCase() {
             matchToken(lexer, "}", 32, 8, 9, XPathTokenType.BLOCK_CLOSE)
             matchToken(lexer, "4", 32, 9, 10, XPathTokenType.INTEGER_LITERAL)
             matchToken(lexer, "}", 32, 10, 11, XPathTokenType.BLOCK_CLOSE)
-            matchToken(lexer, " Five", 0, 11, 16, XslAVT.ATTRIBUTE_VALUE_CONTENTS)
+            matchToken(lexer, " Five", 0, 11, 16, XslAVT.VALUE_CONTENTS)
             matchToken(lexer, "", 0, 16, 16, null)
         }
     }

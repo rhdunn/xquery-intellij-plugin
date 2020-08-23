@@ -1,5 +1,5 @@
 XsltSchemaTypeImpl[FILE(0:20)]
-   LeafPsiElement[XSLT_ATTRIBUTE_VALUE_CONTENTS_TOKEN(0:6)]('Lorem ')
+   LeafPsiElement[XSLT_VALUE_CONTENTS_TOKEN(0:6)]('Lorem ')
    LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(6:7)]('{')
    XPathExprImpl[XPATH_EXPR(7:12)]
       XPathAdditiveExprImpl[XPATH_ADDITIVE_EXPR(7:12)]
@@ -9,4 +9,4 @@ XsltSchemaTypeImpl[FILE(0:20)]
          PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
          LeafPsiElement[XPATH_INTEGER_LITERAL_TOKEN(11:12)]('2')
    LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(12:13)]('}')
-   LeafPsiElement[XSLT_ATTRIBUTE_VALUE_CONTENTS_TOKEN(13:20)](' ipsum.')
+   LeafPsiElement[XSLT_VALUE_CONTENTS_TOKEN(13:20)](' ipsum.')

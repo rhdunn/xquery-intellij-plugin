@@ -1,6 +1,6 @@
 XsltSchemaTypeImpl[FILE(0:22)]
-   LeafPsiElement[XSLT_ATTRIBUTE_VALUE_CONTENTS_TOKEN(0:6)]('Lorem ')
+   LeafPsiElement[XSLT_VALUE_CONTENTS_TOKEN(0:6)]('Lorem ')
    LeafPsiElement[XSLT_ATTRIBUTE_ESCAPED_CHARACTER_TOKEN(6:8)]('{{')
-   LeafPsiElement[XSLT_ATTRIBUTE_VALUE_CONTENTS_TOKEN(8:13)]('1 + 2')
+   LeafPsiElement[XSLT_VALUE_CONTENTS_TOKEN(8:13)]('1 + 2')
    LeafPsiElement[XSLT_ATTRIBUTE_ESCAPED_CHARACTER_TOKEN(13:15)]('}}')
-   LeafPsiElement[XSLT_ATTRIBUTE_VALUE_CONTENTS_TOKEN(15:22)](' ipsum.')
+   LeafPsiElement[XSLT_VALUE_CONTENTS_TOKEN(15:22)](' ipsum.')
