@@ -29,7 +29,15 @@ import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.*
 class XsltSchemaTypesParser(private val schemaType: ISchemaType) : XPathParser() {
     // region Grammar
 
-    override fun parse(builder: PsiBuilder, isFirst: Boolean): Boolean = when (schemaType) {
+    override fun parse(builder: PsiBuilder, isFirst: Boolean): Boolean {
+        if (parseSchemaType(builder)) {
+            builder.matchTokenType(XPathTokenType.WHITE_SPACE)
+            return true
+        }
+        return false
+    }
+
+    fun parseSchemaType(builder: PsiBuilder): Boolean = when (schemaType) {
         XslValueTemplate -> parseValueTemplate(builder)
         XslEQName -> parseEQName(builder)
         XslEQNames -> parseEQNames(builder)
