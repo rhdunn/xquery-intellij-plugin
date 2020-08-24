@@ -31,6 +31,6 @@
     <lang.parserDefinition language="xsl:sequence-type" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslSequenceType$ParserDefinition"/>
     <lang.parserDefinition language="xsl:value-template" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslValueTemplate$ParserDefinition"/>
 
-    <annotator language="xsl:value-template" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.annotation.SchemaTypeAnnotator"/>
+    <annotator language="xsl:value-template" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.annotation.ValueTemplateAnnotator"/>
   </extensions>
 </idea-plugin>

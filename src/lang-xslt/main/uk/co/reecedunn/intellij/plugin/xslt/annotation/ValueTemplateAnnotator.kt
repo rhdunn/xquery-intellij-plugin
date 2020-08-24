@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lexer.XsltSyntaxHighlighterColors
 import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslValueTemplate
 
-class SchemaTypeAnnotator : Annotator() {
+class ValueTemplateAnnotator : Annotator() {
     private fun getHighlightType(element: PsiElement): TextAttributesKey? = when (element.elementType) {
         XslValueTemplate.FileElementType -> XsltSyntaxHighlighterColors.XSLT_DIRECTIVE
         XslValueTemplate.ESCAPED_CHARACTER -> XsltSyntaxHighlighterColors.ESCAPED_CHARACTER
