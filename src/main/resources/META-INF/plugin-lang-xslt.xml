@@ -21,6 +21,7 @@
 
     <lang.parserDefinition language="EQName-or-hashed-keyword" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslEQNameOrHashedKeyword$ParserDefinition"/>
     <lang.parserDefinition language="EQNames-or-hashed-keywords" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslEQNamesOrHashedKeywords$ParserDefinition"/>
+
     <lang.parserDefinition language="xsl:EQName" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslEQName$ParserDefinition"/>
     <lang.parserDefinition language="xsl:EQNames" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslEQNames$ParserDefinition"/>
     <lang.parserDefinition language="xsl:item-type" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslItemType$ParserDefinition"/>
@@ -33,6 +34,8 @@
 
     <annotator language="EQName-or-hashed-keyword" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.annotation.HashedKeywordAnnotator"/>
     <annotator language="EQNames-or-hashed-keywords" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.annotation.HashedKeywordAnnotator"/>
+
+    <annotator language="xsl:QName" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.annotation.MethodKeywordAnnotator"/>
     <annotator language="xsl:value-template" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.annotation.ValueTemplateAnnotator"/>
   </extensions>
 </idea-plugin>
