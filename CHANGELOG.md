@@ -14,6 +14,7 @@ XSLT and XPath:
 1.  Set icons for XSLT function, parameter, variable, and item type elements.
 1.  Support parsing XSLT 1.0, 2.0, and 3.0 schema types.
 1.  Support XSLT 3.0 text value templates.
+1.  Set the XSLT file icon when the IntelliJ XPath plugin is not enabled.
 
 IntelliJ Integration:
 

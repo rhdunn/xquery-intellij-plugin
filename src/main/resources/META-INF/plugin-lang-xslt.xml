@@ -1,5 +1,7 @@
 <idea-plugin>
   <extensions defaultExtensionNs="com.intellij">
+    <fileIconPatcher implementation="uk.co.reecedunn.intellij.plugin.xslt.intellij.ide.XsltFileIconPatcher"/>
+
     <standardResourceProvider implementation="uk.co.reecedunn.intellij.plugin.xslt.intellij.javaee.XsltResourceProvider"/>
     <standardResourceProvider implementation="uk.co.reecedunn.intellij.plugin.marklogic.intellij.javaee.MarkLogicResourceProvider"/>
     <standardResourceProvider implementation="uk.co.reecedunn.intellij.plugin.saxon.intellij.javaee.SaxonResourceProvider"/>
