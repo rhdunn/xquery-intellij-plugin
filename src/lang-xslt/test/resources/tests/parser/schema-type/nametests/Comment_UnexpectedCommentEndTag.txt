@@ -1,0 +1,7 @@
+XsltSchemaTypeImpl[FILE(0:8)]
+   XPathNameTestImpl[XPATH_NAME_TEST(0:8)]
+      XPathNCNameImpl[XPATH_NCNAME(0:8)]
+         LeafPsiElement[XPATH_NCNAME_TOKEN(0:5)]('lorem')
+         PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
+         PsiErrorElementImpl[ERROR_ELEMENT(6:8)]('XPST0003: XPath comments are not allowed here.')
+            LeafPsiElement[XPATH_COMMENT_END_TAG_TOKEN(6:8)](':)')

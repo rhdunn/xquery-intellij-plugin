@@ -3754,7 +3754,7 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    fun parseComment(builder: PsiBuilder): Boolean {
+    open fun parseComment(builder: PsiBuilder): Boolean {
         if (builder.tokenType === XPathTokenType.COMMENT_START_TAG) {
             val commentMarker = builder.mark()
             builder.advanceLexer()

@@ -19,7 +19,6 @@ import com.intellij.lang.PsiBuilder
 import uk.co.reecedunn.intellij.plugin.core.lang.errorOnTokenType
 import uk.co.reecedunn.intellij.plugin.core.lang.matchTokenType
 import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaType
-import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.INCNameType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParser
@@ -31,7 +30,31 @@ class XsltSchemaTypesParser(private val schemaType: ISchemaType) : XPathParser()
 
     override fun parse(builder: PsiBuilder, isFirst: Boolean): Boolean {
         if (parseSchemaType(builder)) {
-            builder.matchTokenType(XPathTokenType.WHITE_SPACE)
+            parseWhiteSpaceAndCommentTokens(builder)
+            return true
+        }
+        return false
+    }
+
+    override fun parseComment(builder: PsiBuilder): Boolean = when (schemaType) {
+        XslValueTemplate -> super.parseComment(builder)
+        XslItemType -> super.parseComment(builder)
+        XslSequenceType -> super.parseComment(builder)
+        else -> parseSchemaComment(builder)
+    }
+
+    private fun parseSchemaComment(builder: PsiBuilder): Boolean {
+        if (builder.tokenType === XPathTokenType.COMMENT_START_TAG) {
+            val errorMarker = builder.mark()
+            builder.advanceLexer()
+            parseCommentContents(builder)
+            builder.advanceLexer() // COMMENT_END_TAG | UNEXPECTED_END_OF_BLOCK
+            errorMarker.error(XsltBundle.message("parser.error.comment-in-schema-type", "(:"))
+            return true
+        } else if (builder.tokenType === XPathTokenType.COMMENT_END_TAG) {
+            val errorMarker = builder.mark()
+            builder.advanceLexer()
+            errorMarker.error(XsltBundle.message("parser.error.comment-in-schema-type", "(:"))
             return true
         }
         return false
@@ -41,10 +64,8 @@ class XsltSchemaTypesParser(private val schemaType: ISchemaType) : XPathParser()
         XslValueTemplate -> parseValueTemplate(builder)
         XslEQName -> parseEQName(builder)
         XslEQNames -> parseEQNames(builder)
-        XPath.Expression -> parseExpr(builder, null)
         XslItemType -> parseItemType(builder)
         XslNameTests -> parseNameTests(builder)
-        XPath.Pattern -> parseExpr(builder, null)
         XslEQNameOrHashedKeyword -> parseEQNameOrHashedKeyword(builder)
         XslEQNamesOrHashedKeywords -> parseEQNamesOrHashedKeywords(builder)
         XslPrefixes -> parsePrefixes(builder)
@@ -58,7 +79,7 @@ class XsltSchemaTypesParser(private val schemaType: ISchemaType) : XPathParser()
         var matched = false
         while (itemType(builder)) {
             matched = true
-            builder.matchTokenType(XPathTokenType.WHITE_SPACE)
+            parseWhiteSpaceAndCommentTokens(builder)
         }
         return matched
     }

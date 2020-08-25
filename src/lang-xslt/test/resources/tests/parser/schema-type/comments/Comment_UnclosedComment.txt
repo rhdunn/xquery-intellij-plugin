@@ -1,0 +1,4 @@
+XsltSchemaTypeImpl[FILE(0:14)]
+   PsiErrorElementImpl[ERROR_ELEMENT(0:14)]('XPST0003: XPath comments are not allowed here.')
+      LeafPsiElement[XPATH_COMMENT_START_TAG_TOKEN(0:2)]('(:')
+      PsiCommentImpl[XPATH_COMMENT_TOKEN(2:14)](' lorem ipsum')

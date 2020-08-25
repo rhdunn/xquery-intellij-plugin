@@ -1,0 +1,9 @@
+XsltSchemaTypeImpl[FILE(0:17)]
+   XPathCommentImpl[XPATH_COMMENT(0:11)]
+      LeafPsiElement[XPATH_COMMENT_START_TAG_TOKEN(0:2)]('(:')
+      PsiCommentImpl[XPATH_COMMENT_TOKEN(2:9)](' lorem ')
+      LeafPsiElement[XPATH_COMMENT_END_TAG_TOKEN(9:11)](':)')
+   PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
+   XPathAtomicOrUnionTypeImpl[XPATH_ATOMIC_OR_UNION_TYPE(12:17)]
+      XPathNCNameImpl[XPATH_NCNAME(12:17)]
+         LeafPsiElement[XPATH_NCNAME_TOKEN(12:17)]('ipsum')

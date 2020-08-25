@@ -117,4 +117,32 @@ private class XslEQNamesOrHashedKeywordsTest :
         val actual = parseResource("tests/parser/schema-type/prefix-or-default/Default.input")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
+
+    @Nested
+    @DisplayName("XPath 2.0 EBNF (77) Comment ; XPath 2.0 EBNF (82) CommentContents")
+    internal inner class Comment {
+        @Test
+        @DisplayName("comment")
+        fun comment() {
+            val expected = loadResource("tests/parser/schema-type/comments/Comment.txt")
+            val actual = parseResource("tests/parser/schema-type/comments/Comment.input")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("unclosed comment")
+        fun unclosedComment() {
+            val expected = loadResource("tests/parser/schema-type/comments/Comment_UnclosedComment.txt")
+            val actual = parseResource("tests/parser/schema-type/comments/Comment_UnclosedComment.input")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("comment end tag without comment start tag")
+        fun unexpectedCommentEndTag() {
+            val expected = loadResource("tests/parser/schema-type/comments/Comment_UnexpectedCommentEndTag.txt")
+            val actual = parseResource("tests/parser/schema-type/comments/Comment_UnexpectedCommentEndTag.input")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+    }
 }

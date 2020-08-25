@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xslt.tests.parser
 
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
@@ -53,5 +54,33 @@ private class XslPrefixesTest : ParserTestCase(XslPrefixes.ParserDefinition(), X
         val expected = loadResource("tests/parser/schema-type/prefixes/NCName_List.txt")
         val actual = parseResource("tests/parser/schema-type/prefixes/NCName_List.input")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
+    }
+
+    @Nested
+    @DisplayName("XPath 2.0 EBNF (77) Comment ; XPath 2.0 EBNF (82) CommentContents")
+    internal inner class Comment {
+        @Test
+        @DisplayName("comment")
+        fun comment() {
+            val expected = loadResource("tests/parser/schema-type/comments/Comment.txt")
+            val actual = parseResource("tests/parser/schema-type/comments/Comment.input")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("unclosed comment")
+        fun unclosedComment() {
+            val expected = loadResource("tests/parser/schema-type/comments/Comment_UnclosedComment.txt")
+            val actual = parseResource("tests/parser/schema-type/comments/Comment_UnclosedComment.input")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("comment end tag without comment start tag")
+        fun unexpectedCommentEndTag() {
+            val expected = loadResource("tests/parser/schema-type/prefixes/Comment_UnexpectedCommentEndTag.txt")
+            val actual = parseResource("tests/parser/schema-type/comments/Comment_UnexpectedCommentEndTag.input")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 }
