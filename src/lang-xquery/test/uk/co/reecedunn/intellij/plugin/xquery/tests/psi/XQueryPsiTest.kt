@@ -1778,7 +1778,7 @@ private class XQueryPsiTest : ParserTestCase() {
             fun predefinedEntityRef() {
                 // entity reference types: XQuery, HTML4, HTML5, UTF-16 surrogate pair, multi-character entity, empty, partial
                 val literal = parse<XPathStringLiteral>("\"&lt;&aacute;&amacr;&Afr;&NotLessLess;&;&gt\"")[0] as XsStringValue
-                assertThat(literal.data, `is`("<áā\uD835\uDD04≪\u0338&;&gt"))
+                assertThat(literal.data, `is`("<áā\uD835\uDD04≪\u0338"))
                 assertThat(literal.element, sameInstance(literal as PsiElement))
             }
 

@@ -17,10 +17,17 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.tree.IElementType
+import uk.co.reecedunn.intellij.plugin.core.lang.injection.PsiElementTextDecoder
 import uk.co.reecedunn.intellij.plugin.core.lexer.XmlChar
 import uk.co.reecedunn.intellij.plugin.core.lexer.entityReferenceCodePoint
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCharRef
 
-class XQueryCharRefImpl(type: IElementType, text: CharSequence) : LeafPsiElement(type, text), XQueryCharRef {
+class XQueryCharRefImpl(type: IElementType, text: CharSequence) :
+    LeafPsiElement(type, text), XQueryCharRef, PsiElementTextDecoder {
+
     override val codepoint: XmlChar get() = XmlChar(node.chars.entityReferenceCodePoint())
+
+    override fun decode(decoded: StringBuilder) {
+        decoded.append(codepoint.toString())
+    }
 }

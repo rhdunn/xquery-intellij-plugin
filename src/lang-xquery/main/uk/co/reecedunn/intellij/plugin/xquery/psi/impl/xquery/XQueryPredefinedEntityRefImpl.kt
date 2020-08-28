@@ -17,16 +17,22 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.tree.IElementType
+import uk.co.reecedunn.intellij.plugin.core.lang.injection.PsiElementTextDecoder
 import uk.co.reecedunn.intellij.plugin.core.lexer.ENTITIES
 import uk.co.reecedunn.intellij.plugin.core.lexer.EntityRef
 import uk.co.reecedunn.intellij.plugin.core.lexer.EntityReferenceType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPredefinedEntityRef
 
 class XQueryPredefinedEntityRefImpl(type: IElementType, text: CharSequence) :
-    LeafPsiElement(type, text), XQueryPredefinedEntityRef {
+    LeafPsiElement(type, text), XQueryPredefinedEntityRef, PsiElementTextDecoder {
+
     override val entityRef: EntityRef
         get() {
             val entity = node.chars
             return ENTITIES!![entity] ?: EntityRef(entity, entity, EntityReferenceType.PredefinedEntityReference)
         }
+
+    override fun decode(decoded: StringBuilder) {
+        decoded.append(entityRef.value)
+    }
 }

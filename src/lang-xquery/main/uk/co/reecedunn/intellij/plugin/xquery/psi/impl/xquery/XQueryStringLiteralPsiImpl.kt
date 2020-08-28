@@ -18,15 +18,10 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
-import uk.co.reecedunn.intellij.plugin.core.psi.elementType
+import uk.co.reecedunn.intellij.plugin.core.lang.injection.PsiElementTextDecoder
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
-import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsStringValue
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEscapeCharacter
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCharRef
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPredefinedEntityRef
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 class XQueryStringLiteralPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathStringLiteral, XsStringValue {
     override fun subtreeChanged() {
@@ -37,19 +32,8 @@ class XQueryStringLiteralPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XP
     override val data: String get() = cachedData.get()!!
 
     private val cachedData: CacheableProperty<String> = CacheableProperty {
-        children().map { child ->
-            when (child.elementType) {
-                XPathTokenType.STRING_LITERAL_START, XPathTokenType.STRING_LITERAL_END ->
-                    null
-                XQueryTokenType.PREDEFINED_ENTITY_REFERENCE ->
-                    (child as XQueryPredefinedEntityRef).entityRef.value
-                XQueryTokenType.CHARACTER_REFERENCE ->
-                    (child as XQueryCharRef).codepoint.toString()
-                XPathTokenType.ESCAPED_CHARACTER ->
-                    (child as XPathEscapeCharacter).unescapedCharacter.toString()
-                else ->
-                    child.text
-            }
-        }.filterNotNull().joinToString(separator = "")
+        val decoded = StringBuilder()
+        children().filterIsInstance<PsiElementTextDecoder>().forEach { decoder -> decoder.decode(decoded) }
+        decoded.toString()
     }
 }
