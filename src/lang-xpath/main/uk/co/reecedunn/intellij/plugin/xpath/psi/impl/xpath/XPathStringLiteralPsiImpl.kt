@@ -18,15 +18,12 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
-import uk.co.reecedunn.intellij.plugin.core.psi.elementType
+import uk.co.reecedunn.intellij.plugin.core.lang.injection.PsiElementTextDecoder
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsStringValue
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEscapeCharacter
-import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
-class XPathStringLiteralPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), XPathStringLiteral, XsStringValue {
+class XPathStringLiteralPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathStringLiteral, XsStringValue {
     // region PsiElement
 
     override fun subtreeChanged() {
@@ -40,16 +37,9 @@ class XPathStringLiteralPsiImpl(node: ASTNode) :
     override val data: String get() = cachedData.get()!!
 
     private val cachedData: CacheableProperty<String> = CacheableProperty {
-        children().map { child ->
-            when (child.elementType) {
-                XPathTokenType.STRING_LITERAL_START, XPathTokenType.STRING_LITERAL_END ->
-                    null
-                XPathTokenType.ESCAPED_CHARACTER ->
-                    (child as XPathEscapeCharacter).unescapedCharacter.toString()
-                else ->
-                    child.text
-            }
-        }.filterNotNull().joinToString(separator = "")
+        val decoded = StringBuilder()
+        children().filterIsInstance<PsiElementTextDecoder>().forEach { decoder -> decoder.decode(decoded) }
+        decoded.toString()
     }
 
     // endregion

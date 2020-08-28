@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2020 Reece H. Dunn
+ * Copyright (C) 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,16 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
+package uk.co.reecedunn.intellij.plugin.core.lang.injection
 
-import com.intellij.psi.impl.source.tree.LeafPsiElement
-import com.intellij.psi.tree.IElementType
-import uk.co.reecedunn.intellij.plugin.core.lang.injection.PsiElementTextDecoder
-
-class XPathStringLiteralContentsImpl(type: IElementType, text: CharSequence) :
-    LeafPsiElement(type, text), PsiElementTextDecoder {
-
-    override fun decode(decoded: StringBuilder) {
-        decoded.append(text)
-    }
+interface PsiElementTextDecoder {
+    fun decode(decoded: StringBuilder)
 }
