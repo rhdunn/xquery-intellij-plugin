@@ -17,17 +17,36 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.psi.LiteralTextEscaper
+import com.intellij.psi.PsiLanguageInjectionHost
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.lang.injection.PsiElementTextDecoder
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsStringValue
 
-class XQueryStringLiteralPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathStringLiteral, XsStringValue {
+class XQueryStringLiteralPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node), PsiLanguageInjectionHost, XPathStringLiteral, XsStringValue {
+    // region PsiElement
+
     override fun subtreeChanged() {
         super.subtreeChanged()
         cachedData.invalidate()
     }
+
+    // endregion
+    // region PsiLanguageInjectionHost
+
+    override fun isValidHost(): Boolean = false
+
+    override fun updateText(text: String): PsiLanguageInjectionHost {
+        return this
+    }
+
+    override fun createLiteralTextEscaper(): LiteralTextEscaper<out PsiLanguageInjectionHost> = TODO()
+
+    // endregion
+    // region XsStringValue
 
     override val data: String get() = cachedData.get()!!
 
@@ -36,4 +55,6 @@ class XQueryStringLiteralPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XP
         children().filterIsInstance<PsiElementTextDecoder>().forEach { decoder -> decoder.decode(decoded) }
         decoded.toString()
     }
+
+    // endregion
 }
