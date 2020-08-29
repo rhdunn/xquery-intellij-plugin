@@ -17,17 +17,21 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.openapi.util.TextRange
 import com.intellij.psi.LiteralTextEscaper
 import com.intellij.psi.PsiLanguageInjectionHost
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.lang.injection.LiteralTextEscaperImpl
+import uk.co.reecedunn.intellij.plugin.core.lang.injection.LiteralTextHost
 import uk.co.reecedunn.intellij.plugin.core.lang.injection.PsiElementTextDecoder
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsStringValue
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
 class XPathStringLiteralPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PsiLanguageInjectionHost, XPathStringLiteral, XsStringValue {
+    ASTWrapperPsiElement(node), LiteralTextHost, XPathStringLiteral, XsStringValue {
     // region PsiElement
 
     override fun subtreeChanged() {
@@ -47,6 +51,17 @@ class XPathStringLiteralPsiImpl(node: ASTNode) :
     override fun createLiteralTextEscaper(): LiteralTextEscaper<out PsiLanguageInjectionHost> {
         return LiteralTextEscaperImpl(this)
     }
+
+    // endregion
+    // region LiteralTextHost
+
+    private val isClosed = children().find { it.elementType == XPathTokenType.STRING_LITERAL_END } != null
+
+    override val relevantTextRange: TextRange
+        get() = when {
+            isClosed -> TextRange(1, textLength - 1)
+            else -> TextRange(1, textLength)
+        }
 
     // endregion
     // region XsStringValue

@@ -16,21 +16,8 @@
 package uk.co.reecedunn.intellij.plugin.core.lang.injection
 
 import com.intellij.openapi.util.TextRange
-import com.intellij.psi.LiteralTextEscaper
-import java.lang.StringBuilder
+import com.intellij.psi.PsiLanguageInjectionHost
 
-class LiteralTextEscaperImpl<T : LiteralTextHost>(host: T) : LiteralTextEscaper<T>(host) {
-    override fun decode(rangeInsideHost: TextRange, outChars: StringBuilder): Boolean {
-        TODO()
-    }
-
-    override fun getOffsetInHost(offsetInDecoded: Int, rangeInsideHost: TextRange): Int {
-        TODO()
-    }
-
-    override fun getRelevantTextRange(): TextRange = myHost.relevantTextRange
-
-    override fun isOneLine(): Boolean {
-        TODO()
-    }
+interface LiteralTextHost : PsiLanguageInjectionHost {
+    val relevantTextRange: TextRange
 }
