@@ -20,11 +20,11 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginNamedKindTest
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsStringValue
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
 class PluginNamedKindTestPsiImpl(node: ASTNode) :
@@ -53,7 +53,7 @@ class PluginNamedKindTestPsiImpl(node: ASTNode) :
     // endregion
     // region XpmSyntaxValidationElement
 
-    override val conformanceElement: PsiElement get() = findChildByType(XQueryElementType.STRING_LITERAL)!!
+    override val conformanceElement: PsiElement get() = findChildByType(XPathElementType.STRING_LITERAL)!!
 
     // endregion
 }

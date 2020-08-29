@@ -3728,10 +3728,8 @@ open class XPathParser : PsiParser {
     // endregion
     // region Lexical Structure :: Terminal Symbols
 
-    open val STRING_LITERAL: IElementType = XPathElementType.STRING_LITERAL
-
     fun parseStringLiteral(builder: PsiBuilder): Boolean {
-        return parseStringLiteral(builder, STRING_LITERAL)
+        return parseStringLiteral(builder, XPathElementType.STRING_LITERAL)
     }
 
     open fun parseStringLiteral(builder: PsiBuilder, type: IElementType): Boolean {

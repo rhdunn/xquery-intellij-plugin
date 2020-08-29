@@ -5082,8 +5082,6 @@ class XQueryParser : XPathParser() {
     // endregion
     // region Lexical Structure :: Terminal Symbols
 
-    override val STRING_LITERAL: IElementType = XQueryElementType.STRING_LITERAL
-
     override fun parseStringLiteral(builder: PsiBuilder, type: IElementType): Boolean {
         val stringMarker = builder.matchTokenTypeWithMarker(XPathTokenType.STRING_LITERAL_START)
         while (stringMarker != null) {

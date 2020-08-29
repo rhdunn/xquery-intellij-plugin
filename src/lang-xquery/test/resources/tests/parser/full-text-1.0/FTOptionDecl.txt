@@ -11,7 +11,7 @@ XQueryModuleImpl[FILE(0:42)]
             FTLanguageOptionImpl[XPATH_FT_LANGUAGE_OPTION(24:40)]
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_LANGUAGE(24:32)]('language')
                PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')
-               XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(33:40)]
+               XPathStringLiteralImpl[XPATH_STRING_LITERAL(33:40)]
                   LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(33:34)]('"')
                   XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(34:39)]('en-IE')
                   LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(39:40)]('"')

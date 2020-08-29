@@ -5,7 +5,7 @@ XQueryModuleImpl[FILE(0:18)]
             PluginNamedMapNodeTestImpl[XQUERY_NAMED_MAP_NODE_TEST(0:18)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_OBJECT_NODE(0:11)]('object-node')
                LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(11:12)]('(')
-               XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(12:17)]
+               XPathStringLiteralImpl[XPATH_STRING_LITERAL(12:17)]
                   LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(12:13)]('"')
                   XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(13:16)]('key')
                   LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(16:17)]('"')

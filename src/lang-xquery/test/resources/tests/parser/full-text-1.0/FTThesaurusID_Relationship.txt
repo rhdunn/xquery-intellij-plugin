@@ -14,7 +14,7 @@ XQueryModuleImpl[FILE(0:97)]
             FTSelectionImpl[XPATH_FT_SELECTION(20:97)]
                FTPrimaryWithOptionsImpl[XPATH_FT_PRIMARY_WITH_OPTIONS(20:97)]
                   FTWordsValueImpl[XPATH_FT_WORDS_VALUE(20:27)]
-                     XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(20:27)]
+                     XPathStringLiteralImpl[XPATH_STRING_LITERAL(20:27)]
                         LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(20:21)]('"')
                         XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(21:26)]('lorem')
                         LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(26:27)]('"')
@@ -34,7 +34,7 @@ XQueryModuleImpl[FILE(0:97)]
                         PsiWhiteSpaceImpl[WHITE_SPACE(77:78)](' ')
                         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_RELATIONSHIP(78:90)]('relationship')
                         PsiWhiteSpaceImpl[WHITE_SPACE(90:91)](' ')
-                        XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(91:97)]
+                        XPathStringLiteralImpl[XPATH_STRING_LITERAL(91:97)]
                            LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(91:92)]('"')
                            XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(92:96)]('test')
                            LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(96:97)]('"')

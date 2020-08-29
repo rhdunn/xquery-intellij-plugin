@@ -14,7 +14,7 @@ XQueryModuleImpl[FILE(0:89)]
             FTSelectionImpl[XPATH_FT_SELECTION(20:89)]
                FTPrimaryWithOptionsImpl[XPATH_FT_PRIMARY_WITH_OPTIONS(20:89)]
                   FTWordsValueImpl[XPATH_FT_WORDS_VALUE(20:27)]
-                     XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(20:27)]
+                     XPathStringLiteralImpl[XPATH_STRING_LITERAL(20:27)]
                         LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(20:21)]('"')
                         XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(21:26)]('lorem')
                         LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(26:27)]('"')
@@ -34,7 +34,7 @@ XQueryModuleImpl[FILE(0:89)]
                         FTStopWordsImpl[XPATH_FT_STOP_WORDS(59:70)]
                            LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(59:60)]('(')
                            PsiWhiteSpaceImpl[WHITE_SPACE(60:61)](' ')
-                           XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(61:68)]
+                           XPathStringLiteralImpl[XPATH_STRING_LITERAL(61:68)]
                               LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(61:62)]('"')
                               XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(62:67)]('lorem')
                               LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(67:68)]('"')
@@ -47,7 +47,7 @@ XQueryModuleImpl[FILE(0:89)]
                         FTStopWordsImpl[XPATH_FT_STOP_WORDS(78:89)]
                            LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(78:79)]('(')
                            PsiWhiteSpaceImpl[WHITE_SPACE(79:80)](' ')
-                           XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(80:87)]
+                           XPathStringLiteralImpl[XPATH_STRING_LITERAL(80:87)]
                               LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(80:81)]('"')
                               XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(81:86)]('ipsum')
                               LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(86:87)]('"')

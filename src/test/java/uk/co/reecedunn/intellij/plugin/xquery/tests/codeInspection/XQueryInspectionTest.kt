@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.codeInspection.xqst.XQST0031
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.core.tests.codeInspection.InspectionTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.codeInspection.xqst.XQST0033
 import uk.co.reecedunn.intellij.plugin.xquery.codeInspection.xqst.XQST0118
@@ -64,7 +65,7 @@ private class XQueryInspectionTest : InspectionTestCase() {
                     problems[0].descriptionTemplate,
                     `is`("XQST0031: The implementation does not support this XQuery version.")
                 )
-                assertThat(problems[0].psiElement.elementType, `is`(XQueryElementType.STRING_LITERAL))
+                assertThat(problems[0].psiElement.elementType, `is`(XPathElementType.STRING_LITERAL))
                 assertThat(problems[0].psiElement.text, `is`("\"\""))
             }
 
@@ -82,7 +83,7 @@ private class XQueryInspectionTest : InspectionTestCase() {
                     problems[0].descriptionTemplate,
                     `is`("XQST0031: The implementation does not support this XQuery version.")
                 )
-                assertThat(problems[0].psiElement.elementType, `is`(XQueryElementType.STRING_LITERAL))
+                assertThat(problems[0].psiElement.elementType, `is`(XPathElementType.STRING_LITERAL))
                 assertThat(problems[0].psiElement.text, `is`("\"3.99\""))
             }
 
@@ -114,7 +115,7 @@ private class XQueryInspectionTest : InspectionTestCase() {
                     problems[0].descriptionTemplate,
                     `is`("XQST0031: The implementation does not support this XQuery version.")
                 )
-                assertThat(problems[0].psiElement.elementType, `is`(XQueryElementType.STRING_LITERAL))
+                assertThat(problems[0].psiElement.elementType, `is`(XPathElementType.STRING_LITERAL))
                 assertThat(problems[0].psiElement.text, `is`("\"1.0-ml\""))
             }
 
@@ -149,7 +150,7 @@ private class XQueryInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XQST0031: The implementation does not support this XQuery version.")
                     )
-                    assertThat(problems[0].psiElement.elementType, `is`(XQueryElementType.STRING_LITERAL))
+                    assertThat(problems[0].psiElement.elementType, `is`(XPathElementType.STRING_LITERAL))
                     assertThat(problems[0].psiElement.text, `is`("\"1.0-ml\""))
 
                     assertThat(problems[1].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR))
@@ -157,7 +158,7 @@ private class XQueryInspectionTest : InspectionTestCase() {
                         problems[1].descriptionTemplate,
                         `is`("XQST0031: The implementation does not support this XQuery version.")
                     )
-                    assertThat(problems[1].psiElement.elementType, `is`(XQueryElementType.STRING_LITERAL))
+                    assertThat(problems[1].psiElement.elementType, `is`(XPathElementType.STRING_LITERAL))
                     assertThat(problems[1].psiElement.text, `is`("\"1.0-ml\""))
                 }
 
@@ -177,7 +178,7 @@ private class XQueryInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XQST0031: The implementation does not support this XQuery version.")
                     )
-                    assertThat(problems[0].psiElement.elementType, `is`(XQueryElementType.STRING_LITERAL))
+                    assertThat(problems[0].psiElement.elementType, `is`(XPathElementType.STRING_LITERAL))
                     assertThat(problems[0].psiElement.text, `is`("\"0.2\""))
                 }
 
@@ -197,7 +198,7 @@ private class XQueryInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XQST0031: MarkLogic requires that XQuery versions are the same across different transactions.")
                     )
-                    assertThat(problems[0].psiElement.elementType, `is`(XQueryElementType.STRING_LITERAL))
+                    assertThat(problems[0].psiElement.elementType, `is`(XPathElementType.STRING_LITERAL))
                     assertThat(problems[0].psiElement.text, `is`("\"0.9-ml\""))
                 }
             }

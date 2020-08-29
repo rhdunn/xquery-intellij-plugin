@@ -27,7 +27,7 @@ XQueryModuleImpl[FILE(0:46)]
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AS(35:37)]('as')
                   PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
                   UpdateFacilityNewNameExprImpl[XQUERY_NEW_NAME_EXPR(38:45)]
-                     XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(38:44)]
+                     XPathStringLiteralImpl[XPATH_STRING_LITERAL(38:44)]
                         LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(38:39)]('"')
                         XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(39:43)]('test')
                         LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(43:44)]('"')

@@ -312,12 +312,6 @@ object XQueryElementType {
         XQuery
     )
 
-    val STRING_LITERAL: IElementType = ICompositeElementType(
-        "XQUERY_STRING_LITERAL",
-        XQueryStringLiteralPsiImpl::class.java,
-        XQuery
-    )
-
     val TYPESWITCH_EXPR: IElementType = ICompositeElementType(
         "XQUERY_TYPESWITCH_EXPR",
         XQueryTypeswitchExprPsiImpl::class.java,

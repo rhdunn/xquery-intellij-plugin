@@ -8,14 +8,14 @@ XQueryModuleImpl[FILE(0:25)]
             PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
             XPathMapConstructorEntryImpl[XPATH_MAP_CONSTRUCTOR_ENTRY(14:24)]
                XPathMapKeyExprImpl[XPATH_MAP_KEY_EXPR(14:18)]
-                  XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(14:17)]
+                  XPathStringLiteralImpl[XPATH_STRING_LITERAL(14:17)]
                      LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(14:15)]('"')
                      XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(15:16)]('1')
                      LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(16:17)]('"')
                   PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
                PsiErrorElementImpl[ERROR_ELEMENT(18:18)]('XPST0003: Expected ':' (XQuery 3.1/MarkLogic) or ':=' (Saxon 9.4-9.6).')
                XPathMapValueExprImpl[XPATH_MAP_VALUE_EXPR(18:24)]
-                  XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(18:23)]
+                  XPathStringLiteralImpl[XPATH_STRING_LITERAL(18:23)]
                      LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(18:19)]('"')
                      XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(19:22)]('one')
                      LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(22:23)]('"')

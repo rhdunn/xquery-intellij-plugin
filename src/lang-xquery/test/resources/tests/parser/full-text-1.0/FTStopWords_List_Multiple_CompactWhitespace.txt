@@ -13,7 +13,7 @@ XQueryModuleImpl[FILE(0:67)]
             FTSelectionImpl[XPATH_FT_SELECTION(19:67)]
                FTPrimaryWithOptionsImpl[XPATH_FT_PRIMARY_WITH_OPTIONS(19:67)]
                   FTWordsValueImpl[XPATH_FT_WORDS_VALUE(19:26)]
-                     XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(19:26)]
+                     XPathStringLiteralImpl[XPATH_STRING_LITERAL(19:26)]
                         LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(19:20)]('"')
                         XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(20:25)]('lorem')
                         LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(25:26)]('"')
@@ -25,17 +25,17 @@ XQueryModuleImpl[FILE(0:67)]
                      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_WORDS(37:42)]('words')
                      FTStopWordsImpl[XPATH_FT_STOP_WORDS(42:67)]
                         LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(42:43)]('(')
-                        XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(43:50)]
+                        XPathStringLiteralImpl[XPATH_STRING_LITERAL(43:50)]
                            LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(43:44)]('"')
                            XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(44:49)]('lorem')
                            LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(49:50)]('"')
                         LeafPsiElement[XPATH_COMMA_TOKEN(50:51)](',')
-                        XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(51:58)]
+                        XPathStringLiteralImpl[XPATH_STRING_LITERAL(51:58)]
                            LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(51:52)]('"')
                            XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(52:57)]('ipsum')
                            LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(57:58)]('"')
                         LeafPsiElement[XPATH_COMMA_TOKEN(58:59)](',')
-                        XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(59:66)]
+                        XPathStringLiteralImpl[XPATH_STRING_LITERAL(59:66)]
                            LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(59:60)]('"')
                            XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(60:65)]('dolor')
                            LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(65:66)]('"')

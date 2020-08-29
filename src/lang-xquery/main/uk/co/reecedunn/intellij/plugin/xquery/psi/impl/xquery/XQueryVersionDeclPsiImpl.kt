@@ -25,13 +25,12 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsStringValue
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 
-private val STRINGS = TokenSet.create(XQueryElementType.STRING_LITERAL)
+private val STRINGS = TokenSet.create(XPathElementType.STRING_LITERAL)
 
 private val XQUERY10: List<Version> = listOf()
 private val XQUERY30: List<Version> = listOf(XQuerySpec.REC_3_0_20140408)

@@ -13,7 +13,7 @@ XQueryModuleImpl[FILE(0:32)]
                   XmlNCNameImpl[XPATH_NCNAME_TOKEN(17:24)]('boolean')
             LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(24:25)]('{')
             XQueryExprImpl[XQUERY_EXPR(25:31)]
-               XQueryStringLiteralImpl[XQUERY_STRING_LITERAL(25:31)]
+               XPathStringLiteralImpl[XPATH_STRING_LITERAL(25:31)]
                   LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(25:26)]('"')
                   XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(26:30)]('true')
                   LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(30:31)]('"')
