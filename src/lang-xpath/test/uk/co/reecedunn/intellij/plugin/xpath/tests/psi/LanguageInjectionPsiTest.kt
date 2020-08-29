@@ -65,8 +65,14 @@ private class LanguageInjectionPsiTest : ParserTestCase() {
                 val range = escaper.relevantTextRange
                 val builder = StringBuilder()
                 assertThat(escaper.decode(range, builder), `is`(true))
-
                 assertThat(builder.toString(), `is`("test"))
+
+                assertThat(escaper.getOffsetInHost(-1, range), `is`(-1))
+                assertThat(escaper.getOffsetInHost(0, range), `is`(1)) // t
+                assertThat(escaper.getOffsetInHost(1, range), `is`(2)) // e
+                assertThat(escaper.getOffsetInHost(2, range), `is`(3)) // s
+                assertThat(escaper.getOffsetInHost(3, range), `is`(4)) // t
+                assertThat(escaper.getOffsetInHost(4, range), `is`(-1))
             }
 
             @Test

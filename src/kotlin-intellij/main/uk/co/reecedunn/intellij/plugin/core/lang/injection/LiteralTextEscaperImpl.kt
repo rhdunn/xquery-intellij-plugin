@@ -20,16 +20,25 @@ import com.intellij.psi.LiteralTextEscaper
 import java.lang.StringBuilder
 
 class LiteralTextEscaperImpl<T : LiteralTextHost>(host: T) : LiteralTextEscaper<T>(host) {
+    private var decoded: Array<Int>? = null
+
     override fun decode(rangeInsideHost: TextRange, outChars: StringBuilder): Boolean {
+        decoded = decodedOffsets(rangeInsideHost) ?: return false
         outChars.append(myHost.decoded)
         return true
     }
 
-    override fun getOffsetInHost(offsetInDecoded: Int, rangeInsideHost: TextRange): Int {
-        TODO()
+    override fun getOffsetInHost(offsetInDecoded: Int, rangeInsideHost: TextRange): Int = when {
+        offsetInDecoded < 0 -> -1
+        offsetInDecoded >= decoded!!.size -> -1
+        else -> decoded!![offsetInDecoded]
     }
 
     override fun getRelevantTextRange(): TextRange = myHost.relevantTextRange
 
     override fun isOneLine(): Boolean = myHost.isOneLine
+
+    private fun decodedOffsets(rangeInHost: TextRange): Array<Int>? {
+        return Array(rangeInHost.length) { it + rangeInHost.startOffset }
+    }
 }
