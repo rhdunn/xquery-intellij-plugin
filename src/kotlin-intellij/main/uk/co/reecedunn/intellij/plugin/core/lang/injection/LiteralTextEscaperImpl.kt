@@ -30,7 +30,5 @@ class LiteralTextEscaperImpl<T : LiteralTextHost>(host: T) : LiteralTextEscaper<
 
     override fun getRelevantTextRange(): TextRange = myHost.relevantTextRange
 
-    override fun isOneLine(): Boolean {
-        TODO()
-    }
+    override fun isOneLine(): Boolean = myHost.isOneLine
 }

@@ -19,5 +19,7 @@ import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiLanguageInjectionHost
 
 interface LiteralTextHost : PsiLanguageInjectionHost {
+    val isOneLine: Boolean
+
     val relevantTextRange: TextRange
 }

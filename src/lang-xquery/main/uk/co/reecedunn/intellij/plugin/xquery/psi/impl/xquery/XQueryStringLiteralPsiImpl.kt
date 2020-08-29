@@ -57,6 +57,8 @@ class XQueryStringLiteralPsiImpl(node: ASTNode) :
 
     private val isClosed = children().find { it.elementType == XPathTokenType.STRING_LITERAL_END } != null
 
+    override val isOneLine: Boolean = false
+
     override val relevantTextRange: TextRange
         get() = when {
             isClosed -> TextRange(1, textLength - 1)
