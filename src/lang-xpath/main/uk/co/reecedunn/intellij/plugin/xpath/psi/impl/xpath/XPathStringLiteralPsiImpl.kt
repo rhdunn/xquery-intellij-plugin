@@ -65,6 +65,8 @@ class XPathStringLiteralPsiImpl(node: ASTNode) :
             else -> TextRange(1, textLength)
         }
 
+    override val decoded: String get() = data
+
     // endregion
     // region XsStringValue
 

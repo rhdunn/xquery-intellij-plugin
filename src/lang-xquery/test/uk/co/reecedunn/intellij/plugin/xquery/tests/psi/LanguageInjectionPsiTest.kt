@@ -16,12 +16,15 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 
 import com.intellij.openapi.util.TextRange
+import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiLanguageInjectionHost
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsStringValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
@@ -32,7 +35,7 @@ private class LanguageInjectionPsiTest : ParserTestCase() {
     @DisplayName("relevant text range")
     internal inner class RelevantTextRange {
         @Nested
-        @DisplayName("XPath 3.1 EBNF (116) StringLiteral")
+        @DisplayName("XQuery 3.1 EBNF (222) StringLiteral")
         internal inner class StringLiteral {
             @Test
             @DisplayName("string literal content")
@@ -46,6 +49,80 @@ private class LanguageInjectionPsiTest : ParserTestCase() {
             fun unclosedStringLiteral() {
                 val host = parse<XPathStringLiteral>("\"Lorem ipsum.")[0] as PsiLanguageInjectionHost
                 assertThat(host.createLiteralTextEscaper().relevantTextRange, `is`(TextRange(1, 13)))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("decode")
+    internal inner class Decode {
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (222) StringLiteral")
+        internal inner class StringLiteral {
+            @Test
+            @DisplayName("string literal content")
+            fun stringLiteral() {
+                val host = parse<XPathStringLiteral>("\"test\"")[0] as PsiLanguageInjectionHost
+                val escaper = host.createLiteralTextEscaper()
+
+                val range = escaper.relevantTextRange
+                val builder = StringBuilder()
+                assertThat(escaper.decode(range, builder), `is`(true))
+
+                assertThat(builder.toString(), `is`("test"))
+            }
+
+            @Test
+            @DisplayName("EscapeApos tokens")
+            fun escapeApos() {
+                val host = parse<XPathStringLiteral>("'''\"\"'")[0] as PsiLanguageInjectionHost
+                val escaper = host.createLiteralTextEscaper()
+
+                val range = escaper.relevantTextRange
+                val builder = StringBuilder()
+                assertThat(escaper.decode(range, builder), `is`(true))
+
+                assertThat(builder.toString(), `is`("'\"\""))
+            }
+
+            @Test
+            @DisplayName("EscapeQuot tokens")
+            fun escapeQuot() {
+                val host = parse<XPathStringLiteral>("\"''\"\"\"")[0] as PsiLanguageInjectionHost
+                val escaper = host.createLiteralTextEscaper()
+
+                val range = escaper.relevantTextRange
+                val builder = StringBuilder()
+                assertThat(escaper.decode(range, builder), `is`(true))
+
+                assertThat(builder.toString(), `is`("''\""))
+            }
+
+            @Test
+            @DisplayName("PredefinedEntityRef tokens")
+            fun predefinedEntityRef() {
+                // entity reference types: BMP, UTF-16 surrogate pair, multi-character entity, empty, partial
+                val host = parse<XPathStringLiteral>("\"&lt;&Afr;&NotLessLess;&;&gt\"")[0] as PsiLanguageInjectionHost
+                val escaper = host.createLiteralTextEscaper()
+
+                val range = escaper.relevantTextRange
+                val builder = StringBuilder()
+                assertThat(escaper.decode(range, builder), `is`(true))
+
+                assertThat(builder.toString(), `is`("<\uD835\uDD04≪\u0338"))
+            }
+
+            @Test
+            @DisplayName("CharRef tokens")
+            fun charRef() {
+                val host = parse<XPathStringLiteral>("\"&#xA0;&#160;&#x20;\"")[0] as PsiLanguageInjectionHost
+                val escaper = host.createLiteralTextEscaper()
+
+                val range = escaper.relevantTextRange
+                val builder = StringBuilder()
+                assertThat(escaper.decode(range, builder), `is`(true))
+
+                assertThat(builder.toString(), `is`("\u00A0\u00A0\u0020"))
             }
         }
     }

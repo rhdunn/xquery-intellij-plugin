@@ -21,7 +21,8 @@ import java.lang.StringBuilder
 
 class LiteralTextEscaperImpl<T : LiteralTextHost>(host: T) : LiteralTextEscaper<T>(host) {
     override fun decode(rangeInsideHost: TextRange, outChars: StringBuilder): Boolean {
-        TODO()
+        outChars.append(myHost.decoded)
+        return true
     }
 
     override fun getOffsetInHost(offsetInDecoded: Int, rangeInsideHost: TextRange): Int {

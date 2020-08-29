@@ -49,4 +49,51 @@ private class LanguageInjectionPsiTest : ParserTestCase() {
             }
         }
     }
+
+    @Nested
+    @DisplayName("decode")
+    internal inner class Decode {
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (116) StringLiteral")
+        internal inner class StringLiteral {
+            @Test
+            @DisplayName("string literal content")
+            fun stringLiteral() {
+                val host = parse<XPathStringLiteral>("\"test\"")[0] as PsiLanguageInjectionHost
+                val escaper = host.createLiteralTextEscaper()
+
+                val range = escaper.relevantTextRange
+                val builder = StringBuilder()
+                assertThat(escaper.decode(range, builder), `is`(true))
+
+                assertThat(builder.toString(), `is`("test"))
+            }
+
+            @Test
+            @DisplayName("EscapeApos tokens")
+            fun escapeApos() {
+                val host = parse<XPathStringLiteral>("'''\"\"'")[0] as PsiLanguageInjectionHost
+                val escaper = host.createLiteralTextEscaper()
+
+                val range = escaper.relevantTextRange
+                val builder = StringBuilder()
+                assertThat(escaper.decode(range, builder), `is`(true))
+
+                assertThat(builder.toString(), `is`("'\"\""))
+            }
+
+            @Test
+            @DisplayName("EscapeQuot tokens")
+            fun escapeQuot() {
+                val host = parse<XPathStringLiteral>("\"''\"\"\"")[0] as PsiLanguageInjectionHost
+                val escaper = host.createLiteralTextEscaper()
+
+                val range = escaper.relevantTextRange
+                val builder = StringBuilder()
+                assertThat(escaper.decode(range, builder), `is`(true))
+
+                assertThat(builder.toString(), `is`("''\""))
+            }
+        }
+    }
 }

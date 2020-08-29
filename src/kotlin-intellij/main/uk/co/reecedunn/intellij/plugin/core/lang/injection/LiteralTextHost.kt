@@ -22,4 +22,6 @@ interface LiteralTextHost : PsiLanguageInjectionHost {
     val isOneLine: Boolean
 
     val relevantTextRange: TextRange
+
+    val decoded: String
 }
