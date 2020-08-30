@@ -33,8 +33,10 @@ class XQueryCharRefImpl(type: IElementType, text: CharSequence) :
     }
 
     override fun decode(offset: Int, rangeInsideHost: TextRange, decoded: StringBuilder, offsets: ArrayList<Int>) {
-        val text = codepoint.toString()
-        decoded.append(text)
-        repeat(text.length) { offsets.add(offset) }
+        if (offset >= rangeInsideHost.startOffset && offset + textLength <= rangeInsideHost.endOffset) {
+            val text = codepoint.toString()
+            decoded.append(text)
+            repeat(text.length) { offsets.add(offset) }
+        }
     }
 }

@@ -38,8 +38,8 @@ class XQueryPredefinedEntityRefImpl(type: IElementType, text: CharSequence) :
     }
 
     override fun decode(offset: Int, rangeInsideHost: TextRange, decoded: StringBuilder, offsets: ArrayList<Int>) {
-        val text = entityRef.value.toString()
         if (offset >= rangeInsideHost.startOffset && offset + textLength <= rangeInsideHost.endOffset) {
+            val text = entityRef.value.toString()
             decoded.append(text)
             repeat(text.length) { offsets.add(offset) }
         }
