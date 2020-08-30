@@ -31,7 +31,9 @@ class XPathEscapeCharacterImpl(type: IElementType, text: CharSequence) :
     }
 
     override fun decode(offset: Int, rangeInsideHost: TextRange, decoded: StringBuilder, offsets: ArrayList<Int>) {
-        decoded.append(unescapedCharacter)
-        offsets.add(offset)
+        if (offset >= rangeInsideHost.startOffset && offset + 2 <= rangeInsideHost.endOffset) {
+            decoded.append(unescapedCharacter)
+            offsets.add(offset)
+        }
     }
 }
