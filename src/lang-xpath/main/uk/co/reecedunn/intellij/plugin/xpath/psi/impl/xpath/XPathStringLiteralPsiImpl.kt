@@ -24,10 +24,11 @@ import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.lang.injection.LiteralTextEscaperImpl
 import uk.co.reecedunn.intellij.plugin.core.lang.injection.LiteralTextHost
 import uk.co.reecedunn.intellij.plugin.core.lang.injection.PsiElementTextDecoder
+import uk.co.reecedunn.intellij.plugin.core.psi.createElement
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsStringValue
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
 class XPathStringLiteralPsiImpl(node: ASTNode) :
@@ -42,10 +43,29 @@ class XPathStringLiteralPsiImpl(node: ASTNode) :
     // endregion
     // region PsiLanguageInjectionHost
 
-    override fun isValidHost(): Boolean = false
+    private fun encoded(text: String, quote: Char): String {
+        val out = StringBuilder()
+        out.append(quote)
+        text.forEach { c ->
+            when (c) {
+                quote -> {
+                    out.append(quote)
+                    out.append(quote)
+                }
+                '&' -> out.append("&amp;")
+                else -> out.append(c)
+            }
+        }
+        out.append(quote)
+        return out.toString()
+    }
+
+    override fun isValidHost(): Boolean = true
 
     override fun updateText(text: String): PsiLanguageInjectionHost {
-        return this
+        val quote = text[0]
+        val updated = createElement<XPathStringLiteral>("$quote${encoded(text, quote)}$quote") ?: return this
+        return replace(updated) as PsiLanguageInjectionHost
     }
 
     override fun createLiteralTextEscaper(): LiteralTextEscaper<out PsiLanguageInjectionHost> {
