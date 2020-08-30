@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
+import com.intellij.openapi.util.TextRange
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.core.lang.injection.PsiElementTextDecoder
@@ -31,5 +32,9 @@ class XQueryCharRefImpl(type: IElementType, text: CharSequence) :
         decoded.append(codepoint.toString())
     }
 
-    override fun decodedOffsets(offset: Int): Array<Int> = Array(codepoint.length) { offset }
+    override fun decode(offset: Int, rangeInsideHost: TextRange, decoded: StringBuilder, offsets: ArrayList<Int>) {
+        val text = codepoint.toString()
+        decoded.append(text)
+        repeat(text.length) { offsets.add(offset) }
+    }
 }

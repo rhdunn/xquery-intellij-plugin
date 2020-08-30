@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
+import com.intellij.openapi.util.TextRange
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.core.lang.injection.PsiElementTextDecoder
@@ -26,5 +27,8 @@ class XPathStringLiteralContentsImpl(type: IElementType, text: CharSequence) :
         decoded.append(text)
     }
 
-    override fun decodedOffsets(offset: Int): Array<Int> = Array(textLength) { it + offset }
+    override fun decode(offset: Int, rangeInsideHost: TextRange, decoded: StringBuilder, offsets: ArrayList<Int>) {
+        decoded.append(text)
+        (offset until offset + textLength).forEach { offsets.add(it) }
+    }
 }

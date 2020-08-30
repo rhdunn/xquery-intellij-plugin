@@ -15,8 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.lang.injection
 
+import com.intellij.openapi.util.TextRange
+
 interface PsiElementTextDecoder {
     fun decode(decoded: StringBuilder)
 
-    fun decodedOffsets(offset: Int): Array<Int>
+    fun decode(offset: Int, rangeInsideHost: TextRange, decoded: StringBuilder, offsets: ArrayList<Int>)
 }

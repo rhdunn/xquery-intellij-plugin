@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
+import com.intellij.openapi.util.TextRange
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.core.lang.injection.PsiElementTextDecoder
@@ -29,5 +30,8 @@ class XPathEscapeCharacterImpl(type: IElementType, text: CharSequence) :
         decoded.append(unescapedCharacter)
     }
 
-    override fun decodedOffsets(offset: Int): Array<Int> = arrayOf(offset)
+    override fun decode(offset: Int, rangeInsideHost: TextRange, decoded: StringBuilder, offsets: ArrayList<Int>) {
+        decoded.append(unescapedCharacter)
+        offsets.add(offset)
+    }
 }

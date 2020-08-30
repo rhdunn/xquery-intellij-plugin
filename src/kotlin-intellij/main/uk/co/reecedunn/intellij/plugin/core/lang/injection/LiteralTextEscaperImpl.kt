@@ -28,12 +28,11 @@ class LiteralTextEscaperImpl<T : LiteralTextHost>(host: T) : LiteralTextEscaper<
         val offsets = ArrayList<Int>()
         myHost.children().forEach { child ->
             if (child is PsiElementTextDecoder) {
-                offsets.addAll(child.decodedOffsets(currentOffset))
+                child.decode(currentOffset, rangeInsideHost, outChars, offsets)
             }
             currentOffset += child.textLength
         }
         decoded = offsets.toTypedArray()
-        outChars.append(myHost.decoded)
         return true
     }
 
