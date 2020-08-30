@@ -129,8 +129,8 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("CharRef tokens")
             fun charRef() {
-                val literal = parse<XPathUriLiteral>("module namespace test = \"&#xA0;&#160;&#x20;\"")[0] as XsAnyUriValue
-                assertThat(literal.data, `is`("\u00A0\u00A0\u0020"))
+                val literal = parse<XPathUriLiteral>("module namespace test = \"&#xA0;&#160;&#x20;&#x1D520;\"")[0] as XsAnyUriValue
+                assertThat(literal.data, `is`("\u00A0\u00A0\u0020\uD835\uDD20"))
                 assertThat(literal.element, sameInstance(literal as PsiElement))
             }
         }
@@ -298,8 +298,8 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("CharRef tokens")
             fun charRef() {
-                val literal = parse<XPathBracedURILiteral>("Q{&#xA0;&#160;&#x20;}")[0] as XsAnyUriValue
-                assertThat(literal.data, `is`("\u00A0\u00A0\u0020"))
+                val literal = parse<XPathBracedURILiteral>("Q{&#xA0;&#160;&#x20;&#x1D520;}")[0] as XsAnyUriValue
+                assertThat(literal.data, `is`("\u00A0\u00A0\u0020\uD835\uDD20"))
                 assertThat(literal.context, `is`(XdmUriContext.Namespace))
                 assertThat(literal.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))
                 assertThat(literal.element, sameInstance(literal as PsiElement))
@@ -1785,8 +1785,8 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("CharRef tokens")
             fun charRef() {
-                val literal = parse<XPathStringLiteral>("\"&#xA0;&#160;&#x20;\"")[0] as XsStringValue
-                assertThat(literal.data, `is`("\u00A0\u00A0\u0020"))
+                val literal = parse<XPathStringLiteral>("\"&#xA0;&#160;&#x20;&#x1D520;\"")[0] as XsStringValue
+                assertThat(literal.data, `is`("\u00A0\u00A0\u0020\uD835\uDD20"))
                 assertThat(literal.element, sameInstance(literal as PsiElement))
             }
         }
@@ -2780,9 +2780,9 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("CharRef tokens")
             fun charRef() {
-                val psi = parse<PluginDirAttribute>("<a b=\"&#xA0;&#160;&#x20;\"")[0] as XdmAttributeNode
+                val psi = parse<PluginDirAttribute>("<a b=\"&#xA0;&#160;&#x20;&#x1D520;\"")[0] as XdmAttributeNode
                 val literal = psi.typedValue as XsUntypedAtomicValue
-                assertThat(literal.data, `is`("\u00A0\u00A0\u0020"))
+                assertThat(literal.data, `is`("\u00A0\u00A0\u0020\uD835\uDD20"))
                 assertThat(literal.element, sameInstance(psi as PsiElement))
             }
 
