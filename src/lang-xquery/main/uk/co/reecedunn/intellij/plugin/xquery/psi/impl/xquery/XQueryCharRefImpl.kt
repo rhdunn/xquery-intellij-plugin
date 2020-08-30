@@ -31,5 +31,8 @@ class XQueryCharRefImpl(type: IElementType, text: CharSequence) :
         decoded.append(codepoint.toString())
     }
 
-    override fun decodedOffsets(offset: Int): Pair<Int, Array<Int>> = TODO()
+    override fun decodedOffsets(offset: Int): Pair<Int, Array<Int>> {
+        val length = codepoint.length
+        return offset + textLength to Array(length) { offset }
+    }
 }

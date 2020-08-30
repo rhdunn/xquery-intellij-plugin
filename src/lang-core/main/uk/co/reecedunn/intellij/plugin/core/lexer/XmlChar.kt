@@ -32,6 +32,13 @@ data class XmlChar(val codepoint: Int) {
         return hi.toChar().toString() + lo.toChar().toString()
     }
 
+    val length: Int
+        get() = when {
+            !isValid -> 1 // Replacement Codepoint
+            codepoint <= 0xFFFF -> 1 // Basic Multilingual Plane Codepoint
+            else -> 2 // Surrogate Pair Codepoint
+        }
+
     /**
      * Is this a valid codepoint?
      *

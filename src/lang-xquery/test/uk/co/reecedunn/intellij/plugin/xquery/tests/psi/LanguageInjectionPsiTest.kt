@@ -16,15 +16,12 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 
 import com.intellij.openapi.util.TextRange
-import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiLanguageInjectionHost
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsStringValue
-import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
@@ -135,14 +132,24 @@ private class LanguageInjectionPsiTest : ParserTestCase() {
             @Test
             @DisplayName("CharRef tokens")
             fun charRef() {
-                val host = parse<XPathStringLiteral>("\"&#xA0;&#160;&#x20;\"")[0] as PsiLanguageInjectionHost
+                val host = parse<XPathStringLiteral>(
+                    "\"a&#xA0;&;&#160;&#x&#x1D520;&#x;b\""
+                )[0] as PsiLanguageInjectionHost
                 val escaper = host.createLiteralTextEscaper()
 
                 val range = escaper.relevantTextRange
                 val builder = StringBuilder()
                 assertThat(escaper.decode(range, builder), `is`(true))
+                assertThat(builder.toString(), `is`("a\u00A0\u00A0\uD835\uDD20b"))
 
-                assertThat(builder.toString(), `is`("\u00A0\u00A0\u0020"))
+                assertThat(escaper.getOffsetInHost(-1, range), `is`(-1))
+                assertThat(escaper.getOffsetInHost(0, range), `is`(1)) // a
+                assertThat(escaper.getOffsetInHost(1, range), `is`(2)) // &#xA0;
+                assertThat(escaper.getOffsetInHost(2, range), `is`(10)) // &#160;
+                assertThat(escaper.getOffsetInHost(3, range), `is`(19)) // &#x1D520;
+                assertThat(escaper.getOffsetInHost(4, range), `is`(19)) // &#x1D520;
+                assertThat(escaper.getOffsetInHost(5, range), `is`(32)) // b
+                assertThat(escaper.getOffsetInHost(6, range), `is`(-1))
             }
         }
     }
