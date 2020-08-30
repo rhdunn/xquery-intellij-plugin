@@ -36,8 +36,5 @@ class XQueryPredefinedEntityRefImpl(type: IElementType, text: CharSequence) :
         decoded.append(entityRef.value)
     }
 
-    override fun decodedOffsets(offset: Int): Pair<Int, Array<Int>> {
-        val length = entityRef.value.length
-        return offset + textLength to Array(length) { offset }
-    }
+    override fun decodedOffsets(offset: Int): Array<Int> = Array(entityRef.value.length) { offset }
 }

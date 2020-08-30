@@ -29,7 +29,5 @@ class XPathEscapeCharacterImpl(type: IElementType, text: CharSequence) :
         decoded.append(unescapedCharacter)
     }
 
-    override fun decodedOffsets(offset: Int): Pair<Int, Array<Int>> {
-        return offset + textLength to arrayOf(offset)
-    }
+    override fun decodedOffsets(offset: Int): Array<Int> = arrayOf(offset)
 }

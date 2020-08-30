@@ -18,5 +18,5 @@ package uk.co.reecedunn.intellij.plugin.core.lang.injection
 interface PsiElementTextDecoder {
     fun decode(decoded: StringBuilder)
 
-    fun decodedOffsets(offset: Int): Pair<Int, Array<Int>>
+    fun decodedOffsets(offset: Int): Array<Int>
 }
