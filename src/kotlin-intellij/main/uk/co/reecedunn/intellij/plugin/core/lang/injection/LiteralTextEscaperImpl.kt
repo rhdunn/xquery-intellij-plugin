@@ -45,12 +45,9 @@ class LiteralTextEscaperImpl<T : LiteralTextHost>(host: T) : LiteralTextEscaper<
         myHost.children().forEach { child ->
             when (child) {
                 is PsiElementTextDecoder -> {
-                    try {
-                        val ret = child.decodedOffsets(currentOffset)
-                        offsets.addAll(ret.second)
-                        currentOffset = ret.first
-                    } catch (e: NotImplementedError) {
-                    }
+                    val ret = child.decodedOffsets(currentOffset)
+                    offsets.addAll(ret.second)
+                    currentOffset = ret.first
                 }
                 else -> {
                     currentOffset += child.textLength

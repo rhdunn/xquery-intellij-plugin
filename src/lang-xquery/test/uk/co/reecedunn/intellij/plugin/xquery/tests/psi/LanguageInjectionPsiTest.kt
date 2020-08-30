@@ -118,15 +118,24 @@ private class LanguageInjectionPsiTest : ParserTestCase() {
             @Test
             @DisplayName("PredefinedEntityRef tokens")
             fun predefinedEntityRef() {
-                // entity reference types: BMP, UTF-16 surrogate pair, multi-character entity, empty, partial
-                val host = parse<XPathStringLiteral>("\"&lt;&Afr;&NotLessLess;&;&gt\"")[0] as PsiLanguageInjectionHost
+                // entity reference types: BMP, UTF-16 surrogate pair, multi-character entity
+                val host = parse<XPathStringLiteral>("\"a&lt;&;&Afr;&gt&NotLessLess;b\"")[0] as PsiLanguageInjectionHost
                 val escaper = host.createLiteralTextEscaper()
 
                 val range = escaper.relevantTextRange
                 val builder = StringBuilder()
                 assertThat(escaper.decode(range, builder), `is`(true))
+                assertThat(builder.toString(), `is`("a<\uD835\uDD04≪\u0338b"))
 
-                assertThat(builder.toString(), `is`("<\uD835\uDD04≪\u0338"))
+                assertThat(escaper.getOffsetInHost(-1, range), `is`(-1))
+                assertThat(escaper.getOffsetInHost(0, range), `is`(1)) // a
+                assertThat(escaper.getOffsetInHost(1, range), `is`(2)) // &lt;
+                assertThat(escaper.getOffsetInHost(2, range), `is`(8)) // &Afr;
+                assertThat(escaper.getOffsetInHost(3, range), `is`(8)) // &Afr;
+                assertThat(escaper.getOffsetInHost(4, range), `is`(16)) // &NotLessLess;
+                assertThat(escaper.getOffsetInHost(5, range), `is`(16)) // &NotLessLess;
+                assertThat(escaper.getOffsetInHost(6, range), `is`(29)) // b
+                assertThat(escaper.getOffsetInHost(7, range), `is`(-1))
             }
 
             @Test
