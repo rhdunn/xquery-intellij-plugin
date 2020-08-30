@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.core.lang.injection
 
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.LiteralTextEscaper
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import java.lang.StringBuilder
 
 class LiteralTextEscaperImpl<T : LiteralTextHost>(host: T) : LiteralTextEscaper<T>(host) {
@@ -39,6 +40,23 @@ class LiteralTextEscaperImpl<T : LiteralTextHost>(host: T) : LiteralTextEscaper<
     override fun isOneLine(): Boolean = myHost.isOneLine
 
     private fun decodedOffsets(rangeInHost: TextRange): Array<Int>? {
-        return Array(rangeInHost.length) { it + rangeInHost.startOffset }
+        var currentOffset = 0
+        val offsets = ArrayList<Int>()
+        myHost.children().forEach { child ->
+            when (child) {
+                is PsiElementTextDecoder -> {
+                    try {
+                        val ret = child.decodedOffsets(currentOffset)
+                        offsets.addAll(ret.second)
+                        currentOffset = ret.first
+                    } catch (e: NotImplementedError) {
+                    }
+                }
+                else -> {
+                    currentOffset += child.textLength
+                }
+            }
+        }
+        return offsets.toTypedArray()
     }
 }

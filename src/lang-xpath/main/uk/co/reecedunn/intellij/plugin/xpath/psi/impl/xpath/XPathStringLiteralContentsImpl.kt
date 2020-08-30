@@ -25,4 +25,8 @@ class XPathStringLiteralContentsImpl(type: IElementType, text: CharSequence) :
     override fun decode(decoded: StringBuilder) {
         decoded.append(text)
     }
+
+    override fun decodedOffsets(offset: Int): Pair<Int, Array<Int>> {
+        return offset + textLength to Array(textLength) { it + offset }
+    }
 }

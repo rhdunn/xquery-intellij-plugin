@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017, 2019 Reece H. Dunn
+ * Copyright (C) 2016-2017, 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,4 +35,6 @@ class XQueryPredefinedEntityRefImpl(type: IElementType, text: CharSequence) :
     override fun decode(decoded: StringBuilder) {
         decoded.append(entityRef.value)
     }
+
+    override fun decodedOffsets(offset: Int): Pair<Int, Array<Int>> = TODO()
 }
