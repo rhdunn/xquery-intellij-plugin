@@ -102,12 +102,12 @@ private class LanguageInjectionPsiTest : ParserTestCase() {
             @Nested
             @DisplayName("EscapeApos tokens")
             internal inner class EscapeApos {
+                val host = parse<XPathStringLiteral>("'a''\"\"b'")[0] as PsiLanguageInjectionHost
+                val escaper = host.createLiteralTextEscaper()
+
                 @Test
                 @DisplayName("relevant text range")
                 fun relevantTextRange() {
-                    val host = parse<XPathStringLiteral>("'a''\"\"b'")[0] as PsiLanguageInjectionHost
-                    val escaper = host.createLiteralTextEscaper()
-
                     val range = escaper.relevantTextRange
                     val builder = StringBuilder()
                     assertThat(escaper.decode(range, builder), `is`(true))
@@ -125,9 +125,6 @@ private class LanguageInjectionPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("subrange inside")
                 fun subrangeInside() {
-                    val host = parse<XPathStringLiteral>("'a''\"\"b'")[0] as PsiLanguageInjectionHost
-                    val escaper = host.createLiteralTextEscaper()
-
                     val range = TextRange(2, 4)
                     val builder = StringBuilder()
                     assertThat(escaper.decode(range, builder), `is`(true))
@@ -141,9 +138,6 @@ private class LanguageInjectionPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("subrange incomplete")
                 fun subrangeIncomplete() {
-                    val host = parse<XPathStringLiteral>("'a''\"\"b'")[0] as PsiLanguageInjectionHost
-                    val escaper = host.createLiteralTextEscaper()
-
                     val range = TextRange(1, 3)
                     val builder = StringBuilder()
                     assertThat(escaper.decode(range, builder), `is`(true))
@@ -158,12 +152,12 @@ private class LanguageInjectionPsiTest : ParserTestCase() {
             @Nested
             @DisplayName("EscapeQuot tokens")
             internal inner class EscapeQuot {
+                val host = parse<XPathStringLiteral>("\"a''\"\"b\"")[0] as PsiLanguageInjectionHost
+                val escaper = host.createLiteralTextEscaper()
+
                 @Test
                 @DisplayName("relevant text range")
                 fun relevantTextRange() {
-                    val host = parse<XPathStringLiteral>("\"a''\"\"b\"")[0] as PsiLanguageInjectionHost
-                    val escaper = host.createLiteralTextEscaper()
-
                     val range = escaper.relevantTextRange
                     val builder = StringBuilder()
                     assertThat(escaper.decode(range, builder), `is`(true))
@@ -181,9 +175,6 @@ private class LanguageInjectionPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("subrange inside")
                 fun subrangeInside() {
-                    val host = parse<XPathStringLiteral>("\"a''\"\"b\"")[0] as PsiLanguageInjectionHost
-                    val escaper = host.createLiteralTextEscaper()
-
                     val range = TextRange(4, 6)
                     val builder = StringBuilder()
                     assertThat(escaper.decode(range, builder), `is`(true))
@@ -197,16 +188,13 @@ private class LanguageInjectionPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("subrange incomplete")
                 fun subrangeIncomplete() {
-                    val host = parse<XPathStringLiteral>("\"a''\"\"b\"")[0] as PsiLanguageInjectionHost
-                    val escaper = host.createLiteralTextEscaper()
-
                     val range = TextRange(5, 7)
                     val builder = StringBuilder()
                     assertThat(escaper.decode(range, builder), `is`(true))
                     assertThat(builder.toString(), `is`("b"))
 
                     assertThat(escaper.getOffsetInHost(-1, range), `is`(-1))
-                    assertThat(escaper.getOffsetInHost(0, range), `is`(6)) // a
+                    assertThat(escaper.getOffsetInHost(0, range), `is`(6)) // b
                     assertThat(escaper.getOffsetInHost(1, range), `is`(-1))
                 }
             }

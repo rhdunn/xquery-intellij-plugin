@@ -102,12 +102,12 @@ private class LanguageInjectionPsiTest : ParserTestCase() {
             @Nested
             @DisplayName("EscapeApos tokens")
             internal inner class EscapeApos {
+                val host = parse<XPathStringLiteral>("'a''\"\"b'")[0] as PsiLanguageInjectionHost
+                val escaper = host.createLiteralTextEscaper()
+
                 @Test
                 @DisplayName("relevant text range")
                 fun relevantTextRange() {
-                    val host = parse<XPathStringLiteral>("'a''\"\"b'")[0] as PsiLanguageInjectionHost
-                    val escaper = host.createLiteralTextEscaper()
-
                     val range = escaper.relevantTextRange
                     val builder = StringBuilder()
                     assertThat(escaper.decode(range, builder), `is`(true))
@@ -125,9 +125,6 @@ private class LanguageInjectionPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("subrange inside")
                 fun subrangeInside() {
-                    val host = parse<XPathStringLiteral>("'a''\"\"b'")[0] as PsiLanguageInjectionHost
-                    val escaper = host.createLiteralTextEscaper()
-
                     val range = TextRange(2, 4)
                     val builder = StringBuilder()
                     assertThat(escaper.decode(range, builder), `is`(true))
@@ -141,9 +138,6 @@ private class LanguageInjectionPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("subrange incomplete")
                 fun subrangeIncomplete() {
-                    val host = parse<XPathStringLiteral>("'a''\"\"b'")[0] as PsiLanguageInjectionHost
-                    val escaper = host.createLiteralTextEscaper()
-
                     val range = TextRange(1, 3)
                     val builder = StringBuilder()
                     assertThat(escaper.decode(range, builder), `is`(true))
@@ -158,12 +152,12 @@ private class LanguageInjectionPsiTest : ParserTestCase() {
             @Nested
             @DisplayName("EscapeQuot tokens")
             internal inner class EscapeQuot {
+                val host = parse<XPathStringLiteral>("\"a''\"\"b\"")[0] as PsiLanguageInjectionHost
+                val escaper = host.createLiteralTextEscaper()
+
                 @Test
                 @DisplayName("relevant text range")
                 fun relevantTextRange() {
-                    val host = parse<XPathStringLiteral>("\"a''\"\"b\"")[0] as PsiLanguageInjectionHost
-                    val escaper = host.createLiteralTextEscaper()
-
                     val range = escaper.relevantTextRange
                     val builder = StringBuilder()
                     assertThat(escaper.decode(range, builder), `is`(true))
@@ -181,9 +175,6 @@ private class LanguageInjectionPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("subrange inside")
                 fun subrangeInside() {
-                    val host = parse<XPathStringLiteral>("\"a''\"\"b\"")[0] as PsiLanguageInjectionHost
-                    val escaper = host.createLiteralTextEscaper()
-
                     val range = TextRange(4, 6)
                     val builder = StringBuilder()
                     assertThat(escaper.decode(range, builder), `is`(true))
@@ -197,41 +188,69 @@ private class LanguageInjectionPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("subrange incomplete")
                 fun subrangeIncomplete() {
-                    val host = parse<XPathStringLiteral>("\"a''\"\"b\"")[0] as PsiLanguageInjectionHost
-                    val escaper = host.createLiteralTextEscaper()
-
                     val range = TextRange(5, 7)
                     val builder = StringBuilder()
                     assertThat(escaper.decode(range, builder), `is`(true))
                     assertThat(builder.toString(), `is`("b"))
 
                     assertThat(escaper.getOffsetInHost(-1, range), `is`(-1))
-                    assertThat(escaper.getOffsetInHost(0, range), `is`(6)) // a
+                    assertThat(escaper.getOffsetInHost(0, range), `is`(6)) // b
                     assertThat(escaper.getOffsetInHost(1, range), `is`(-1))
                 }
             }
 
-            @Test
+            @Nested
             @DisplayName("PredefinedEntityRef tokens")
-            fun predefinedEntityRef() {
+            internal inner class PredefinedEntityRef {
                 // entity reference types: BMP, UTF-16 surrogate pair, multi-character entity
                 val host = parse<XPathStringLiteral>("\"a&lt;&;&Afr;&gt&NotLessLess;b\"")[0] as PsiLanguageInjectionHost
                 val escaper = host.createLiteralTextEscaper()
 
-                val range = escaper.relevantTextRange
-                val builder = StringBuilder()
-                assertThat(escaper.decode(range, builder), `is`(true))
-                assertThat(builder.toString(), `is`("a<\uD835\uDD04≪\u0338b"))
+                @Test
+                @DisplayName("relevant text range")
+                fun relevantTextRange() {
+                    val range = escaper.relevantTextRange
+                    val builder = StringBuilder()
+                    assertThat(escaper.decode(range, builder), `is`(true))
+                    assertThat(builder.toString(), `is`("a<\uD835\uDD04≪\u0338b"))
 
-                assertThat(escaper.getOffsetInHost(-1, range), `is`(-1))
-                assertThat(escaper.getOffsetInHost(0, range), `is`(1)) // a
-                assertThat(escaper.getOffsetInHost(1, range), `is`(2)) // &lt;
-                assertThat(escaper.getOffsetInHost(2, range), `is`(8)) // &Afr;
-                assertThat(escaper.getOffsetInHost(3, range), `is`(8)) // &Afr;
-                assertThat(escaper.getOffsetInHost(4, range), `is`(16)) // &NotLessLess;
-                assertThat(escaper.getOffsetInHost(5, range), `is`(16)) // &NotLessLess;
-                assertThat(escaper.getOffsetInHost(6, range), `is`(29)) // b
-                assertThat(escaper.getOffsetInHost(7, range), `is`(-1))
+                    assertThat(escaper.getOffsetInHost(-1, range), `is`(-1))
+                    assertThat(escaper.getOffsetInHost(0, range), `is`(1)) // a
+                    assertThat(escaper.getOffsetInHost(1, range), `is`(2)) // &lt;
+                    assertThat(escaper.getOffsetInHost(2, range), `is`(8)) // &Afr;
+                    assertThat(escaper.getOffsetInHost(3, range), `is`(8)) // &Afr;
+                    assertThat(escaper.getOffsetInHost(4, range), `is`(16)) // &NotLessLess;
+                    assertThat(escaper.getOffsetInHost(5, range), `is`(16)) // &NotLessLess;
+                    assertThat(escaper.getOffsetInHost(6, range), `is`(29)) // b
+                    assertThat(escaper.getOffsetInHost(7, range), `is`(-1))
+                }
+
+                @Test
+                @DisplayName("subrange inside")
+                fun subrangeInside() {
+                    val range = TextRange(1, 6)
+                    val builder = StringBuilder()
+                    assertThat(escaper.decode(range, builder), `is`(true))
+                    assertThat(builder.toString(), `is`("a<"))
+
+                    assertThat(escaper.getOffsetInHost(-1, range), `is`(-1))
+                    assertThat(escaper.getOffsetInHost(0, range), `is`(1)) // a
+                    assertThat(escaper.getOffsetInHost(1, range), `is`(2)) // &lt;
+                    assertThat(escaper.getOffsetInHost(2, range), `is`(-1))
+                }
+
+                @Test
+                @DisplayName("subrange incomplete")
+                fun subrangeIncomplete() {
+                    val range = TextRange(1, 5)
+                    val builder = StringBuilder()
+                    assertThat(escaper.decode(range, builder), `is`(true))
+                    assertThat(builder.toString(), `is`("a"))
+
+                    assertThat(escaper.getOffsetInHost(-1, range), `is`(-1))
+                    assertThat(escaper.getOffsetInHost(0, range), `is`(1)) // a
+                    assertThat(escaper.getOffsetInHost(1, range), `is`(-1))
+                }
             }
 
             @Test
