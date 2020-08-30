@@ -19,6 +19,8 @@ import com.intellij.openapi.util.TextRange
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.core.lang.injection.PsiElementTextDecoder
+import kotlin.math.max
+import kotlin.math.min
 
 class XPathStringLiteralContentsImpl(type: IElementType, text: CharSequence) :
     LeafPsiElement(type, text), PsiElementTextDecoder {
@@ -28,7 +30,13 @@ class XPathStringLiteralContentsImpl(type: IElementType, text: CharSequence) :
     }
 
     override fun decode(offset: Int, rangeInsideHost: TextRange, decoded: StringBuilder, offsets: ArrayList<Int>) {
-        decoded.append(text)
-        (offset until offset + textLength).forEach { offsets.add(it) }
+        val endOffset = offset + textLength
+        if (rangeInsideHost.endOffset > offset && rangeInsideHost.startOffset < endOffset) {
+            val start = max(0, rangeInsideHost.startOffset - offset)
+            val end = min(textLength, rangeInsideHost.endOffset - offset)
+
+            decoded.append(text.subSequence(start, end))
+            (start until end).forEach { offsets.add(it + offset) }
+        }
     }
 }
