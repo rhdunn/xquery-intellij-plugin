@@ -24,7 +24,15 @@ class LiteralTextEscaperImpl<T : LiteralTextHost>(host: T) : LiteralTextEscaper<
     private var decoded: Array<Int>? = null
 
     override fun decode(rangeInsideHost: TextRange, outChars: StringBuilder): Boolean {
-        decoded = decodedOffsets(rangeInsideHost) ?: return false
+        var currentOffset = 0
+        val offsets = ArrayList<Int>()
+        myHost.children().forEach { child ->
+            if (child is PsiElementTextDecoder) {
+                offsets.addAll(child.decodedOffsets(currentOffset))
+            }
+            currentOffset += child.textLength
+        }
+        decoded = offsets.toTypedArray()
         outChars.append(myHost.decoded)
         return true
     }
@@ -38,16 +46,4 @@ class LiteralTextEscaperImpl<T : LiteralTextHost>(host: T) : LiteralTextEscaper<
     override fun getRelevantTextRange(): TextRange = myHost.relevantTextRange
 
     override fun isOneLine(): Boolean = myHost.isOneLine
-
-    private fun decodedOffsets(rangeInHost: TextRange): Array<Int>? {
-        var currentOffset = 0
-        val offsets = ArrayList<Int>()
-        myHost.children().forEach { child ->
-            if (child is PsiElementTextDecoder) {
-                offsets.addAll(child.decodedOffsets(currentOffset))
-            }
-            currentOffset += child.textLength
-        }
-        return offsets.toTypedArray()
-    }
 }
