@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xqdoc.tests.parser
+package uk.co.reecedunn.intellij.plugin.xquery.tests.parser
 
 import com.intellij.util.Range
 import org.hamcrest.CoreMatchers.`is`
@@ -22,7 +22,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.xqdoc.parser.XQDocCommentLineExtractor
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQDocCommentLineExtractor
 
 @DisplayName("IntelliJ - Custom Language Support - Code Folding - XQueryCommentLineExtractor")
 class XQDocCommentLineExtractorTest {

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016; 2018-2019 Reece H. Dunn
+ * Copyright (C) 2016; 2018-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,8 +20,6 @@ import com.intellij.lang.ASTNode
 import com.intellij.openapi.util.TextRange
 import uk.co.reecedunn.intellij.plugin.core.lang.foldable.FoldablePsiElement
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathComment
-import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType
-import uk.co.reecedunn.intellij.plugin.xqdoc.parser.XQDocCommentLineExtractor
 
 class XPathCommentPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
@@ -29,30 +27,14 @@ class XPathCommentPsiImpl(node: ASTNode) :
     FoldablePsiElement {
     // region XPathComment
 
-    override val isXQDoc: Boolean
-        get() = firstChild.nextSibling?.node?.elementType === XQDocTokenType.XQDOC_COMMENT_MARKER
+    override val isXQDoc: Boolean = false
 
     // endregion
     // region FoldablePsiElement
 
     override val foldingRange: TextRange? get() = textRange
 
-    override val foldingPlaceholderText: String?
-        get() {
-            val text = this.text
-            val parser =
-                if (text.endsWith(":)"))
-                    XQDocCommentLineExtractor(text.subSequence(2, text.length - 2))
-                else
-                    XQDocCommentLineExtractor(text.subSequence(2, text.length))
-            return if (parser.next()) {
-                if (parser.isXQDoc)
-                    "(:~ ${parser.text} :)"
-                else
-                    "(: ${parser.text} :)"
-            } else
-                "(:...:)"
-        }
+    override val foldingPlaceholderText: String? = "(:...:)"
 
     // endregion
 }

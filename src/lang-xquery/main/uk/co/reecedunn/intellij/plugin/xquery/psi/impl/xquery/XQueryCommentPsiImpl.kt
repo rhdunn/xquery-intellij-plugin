@@ -21,7 +21,7 @@ import com.intellij.openapi.util.TextRange
 import uk.co.reecedunn.intellij.plugin.core.lang.foldable.FoldablePsiElement
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathComment
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType
-import uk.co.reecedunn.intellij.plugin.xqdoc.parser.XQDocCommentLineExtractor
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQDocCommentLineExtractor
 
 class XQueryCommentPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),

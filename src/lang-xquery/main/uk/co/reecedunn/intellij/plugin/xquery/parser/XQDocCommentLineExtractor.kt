@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xqdoc.parser
+package uk.co.reecedunn.intellij.plugin.xquery.parser
 
 import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocLexer
