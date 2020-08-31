@@ -2,29 +2,19 @@
 
 ## 1.8 - (In Development)
 
-XML:
-
-1.  Fix an IntelliJ issue displaying XML elements with name or id attributes in
-    the file structure dialog. This fixes IDEA-247202.
-
 XSLT and XPath:
 
-1.  Fix `saxon:type-alias` support for the `type` attribute.
-1.  Use the XSLT directive highlighting for vendor extensions.
-1.  Set icons for XSLT function, parameter, variable, and item type elements.
 1.  Support parsing XSLT 1.0, 2.0, and 3.0 schema types.
-1.  Support XSLT 3.0 text value templates.
+1.  Support XSLT 3.0 text value templates via the `expand-text` attribute.
 1.  Set the XSLT file icon when the IntelliJ XPath plugin is not enabled.
 
 IntelliJ Integration:
 
-1.  Don't display the file path in query body elements in the navbar.
-1.  Check that a path in a profile can be navigated to before navigating to it.
-1.  Fix displaying the endpoint path in the endpoints pane.
 1.  Support language injections on StringLiteral elements.
 
 ## 2020
 
+*  [1.7.2 - 2020-08-31](docs/_posts/2020-08-31-release-1.7.2.md)
 *  [1.7.1 - 2020-07-25](docs/_posts/2020-07-25-release-1.7.1.md)
 *  [1.7 - 2020-07-10](docs/_posts/2020-07-10-release-1.7.md)
 *  [1.6.2 - 2020-05-04](docs/_posts/2020-05-04-release-1.6.2.md)

@@ -69,27 +69,14 @@
 
   <change-notes><![CDATA[
     <h3>Release 1.8-dev:</h3>
-    <p>XML:</p>
-    <ol>
-      <li>
-        Fix an IntelliJ issue displaying XML elements with name or id attributes in
-        the file structure dialog. This fixes IDEA-247202.
-      </li>
-    </ol>
     <p>XSLT and XPath:</p>
     <ol>
-      <li>Fix <code>saxon:type-alias</code> support for the <code>type</code> attribute.</li>
-      <li>Use the XSLT directive highlighting for vendor extensions.</li>
-      <li>Set icons for XSLT function, parameter, variable, and item type elements.</li>
       <li>Support parsing XSLT 1.0, 2.0, and 3.0 schema types.</li>
       <li>Support XSLT 3.0 text value templates.</li>
       <li>Set the XSLT file icon when the IntelliJ XPath plugin is not enabled.</li>
     </ol>
     <p>IntelliJ Integration:</p>
     <ol>
-      <li>Don't display the file path in query body elements in the navbar.</li>
-      <li>Check that a path in a profile can be navigated to before navigating to it.</li>
-      <li>Fix displaying the endpoint path in the endpoints pane.</li>
       <li>Support language injections on StringLiteral elements.</li>
     </ol>
   ]]></change-notes>
