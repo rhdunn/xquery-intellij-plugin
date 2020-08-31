@@ -2,5 +2,5 @@ XQueryModuleImpl[FILE(0:7)]
    XQueryCommentImpl[XQUERY_COMMENT(0:7)]
       LeafPsiElement[XPATH_COMMENT_START_TAG_TOKEN(0:2)]('(:')
       PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
-      LeafPsiElement[XQDOC_CONTENTS(3:7)]('Test')
+      PsiCommentImpl[XQDOC_CONTENTS(3:7)]('Test')
    PsiErrorElementImpl[ERROR_ELEMENT(7:7)]('XPST0003: Unclosed XPath/XQuery comment.')

@@ -2,6 +2,6 @@ XQueryModuleImpl[FILE(0:10)]
    XQueryCommentImpl[XQUERY_COMMENT(0:10)]
       LeafPsiElement[XPATH_COMMENT_START_TAG_TOKEN(0:2)]('(:')
       PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
-      LeafPsiElement[XQDOC_CONTENTS(3:8)]('Test ')
+      PsiCommentImpl[XQDOC_CONTENTS(3:8)]('Test ')
       LeafPsiElement[XPATH_COMMENT_END_TAG_TOKEN(8:10)](':)')
    PsiErrorElementImpl[ERROR_ELEMENT(10:10)]('XPST0003: Missing library 'module' declaration or main module query body.')

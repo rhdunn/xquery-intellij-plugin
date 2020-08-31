@@ -24,6 +24,7 @@ import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathEscapeCharacterImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQDocTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.XQueryDirWhiteSpaceImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryCharRefImpl
@@ -43,6 +44,7 @@ class XQueryASTFactory : ASTFactory() {
             XQueryTokenType.XML_ESCAPED_CHARACTER -> XPathEscapeCharacterImpl(type, text)
             XQueryTokenType.XML_TAG_NCNAME -> XmlNCNameImpl(type, text)
             XQueryTokenType.XML_ATTRIBUTE_NCNAME -> XmlNCNameImpl(type, text)
+            XQDocTokenType.CONTENTS -> PsiCommentImpl(type, text)
             is IKeywordOrNCNameType -> XmlNCNameImpl(type, text)
             else -> LeafPsiElement(type, text)
         }
