@@ -19,7 +19,7 @@ import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQDocTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lexer.XQuerySyntaxHighlighter
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lexer.XQuerySyntaxHighlighterColors
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType

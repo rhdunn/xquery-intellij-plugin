@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.parser
 
 import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQDocLexer
-import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQDocTokenType
 
 class XQDocCommentLineExtractor(private val comment: CharSequence) {
     private val lexer = XQDocLexer()

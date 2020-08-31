@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQDocLexer
-import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQDocTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.*
 
 object XQuerySyntaxHighlighter : SyntaxHighlighterBase() {

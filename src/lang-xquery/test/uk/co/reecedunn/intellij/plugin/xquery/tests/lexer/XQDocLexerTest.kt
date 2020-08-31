@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQDocLexer
-import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQDocTokenType
 
 @DisplayName("xqDoc - Lexer")
 class XQDocLexerTest : LexerTestCase() {

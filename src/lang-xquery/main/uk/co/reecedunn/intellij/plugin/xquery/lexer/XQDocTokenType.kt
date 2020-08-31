@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xqdoc.lexer
+package uk.co.reecedunn.intellij.plugin.xquery.lexer
 
 import com.intellij.lang.Language
 import com.intellij.psi.TokenType

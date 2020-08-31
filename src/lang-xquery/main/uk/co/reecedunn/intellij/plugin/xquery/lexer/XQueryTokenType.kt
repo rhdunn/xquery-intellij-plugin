@@ -21,7 +21,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.INCNameType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType
 
 @Suppress("Reformat")
 object XQueryTokenType {
