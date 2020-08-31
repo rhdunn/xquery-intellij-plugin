@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.core.lexer.CombinedLexer
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
-import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocLexer
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQDocLexer
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.*
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryModuleImpl
 

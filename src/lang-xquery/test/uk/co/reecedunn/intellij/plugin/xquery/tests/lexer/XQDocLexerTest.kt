@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xqdoc.tests.lexer
+package uk.co.reecedunn.intellij.plugin.xquery.tests.lexer
 
 import org.hamcrest.core.Is.`is`
 import org.junit.jupiter.api.Assertions.assertThrows
@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase
-import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocLexer
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQDocLexer
 import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType
 
 @DisplayName("xqDoc - Lexer")

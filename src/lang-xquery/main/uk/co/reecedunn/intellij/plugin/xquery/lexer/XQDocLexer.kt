@@ -13,9 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xqdoc.lexer
+package uk.co.reecedunn.intellij.plugin.xquery.lexer
 
 import uk.co.reecedunn.intellij.plugin.core.lexer.*
+import uk.co.reecedunn.intellij.plugin.xqdoc.lexer.XQDocTokenType
 
 class XQDocLexer : LexerImpl(STATE_CONTENTS, CodePointRangeImpl()) {
     // region States
