@@ -28,6 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsStringValue
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathComment
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 
 private val STRINGS = TokenSet.create(XPathElementType.STRING_LITERAL)
@@ -48,7 +49,7 @@ class XQueryVersionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQue
             val encoding = node.findChildByType(XQueryTokenType.K_ENCODING) ?: return firstChild
 
             var previous = encoding.treePrev
-            while (previous.elementType === XPathTokenType.WHITE_SPACE || previous.elementType === XPathElementType.COMMENT) {
+            while (previous.elementType === XPathTokenType.WHITE_SPACE || previous.psi is XPathComment) {
                 previous = previous.treePrev
             }
 
@@ -58,7 +59,7 @@ class XQueryVersionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQue
     private fun getStringValueAfterKeyword(type: IKeywordOrNCNameType): XsStringValue? {
         for (child in node.getChildren(STRINGS)) {
             var previous = child.treePrev
-            while (previous.elementType === XPathTokenType.WHITE_SPACE || previous.elementType === XPathElementType.COMMENT) {
+            while (previous.elementType === XPathTokenType.WHITE_SPACE || previous.psi is XPathComment) {
                 previous = previous.treePrev
             }
 

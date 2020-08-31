@@ -32,6 +32,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmWildcardValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathComment
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathWildcard
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.getUsageType
@@ -65,7 +66,7 @@ class QNameAnnotator : Annotator() {
 
     private fun checkQNameWhitespaceBefore(qname: XsQNameValue, separator: PsiElement, holder: AnnotationHolder) {
         val before = separator.prevSibling
-        if (before.elementType === XPathTokenType.WHITE_SPACE || before.elementType === XPathElementType.COMMENT) {
+        if (before.elementType === XPathTokenType.WHITE_SPACE || before is XPathComment) {
             val message =
                 if (qname is XPathWildcard)
                     XPathBundle.message("parser.error.wildcard.whitespace-before-local-part")
@@ -77,7 +78,7 @@ class QNameAnnotator : Annotator() {
 
     private fun checkQNameWhitespaceAfter(qname: XsQNameValue, separator: PsiElement, holder: AnnotationHolder) {
         val after = separator.nextSibling
-        if (after.elementType === XPathTokenType.WHITE_SPACE || after.elementType === XPathElementType.COMMENT) {
+        if (after.elementType === XPathTokenType.WHITE_SPACE || after is XPathComment) {
             val message =
                 if (qname is XPathWildcard)
                     XPathBundle.message("parser.error.wildcard.whitespace-after-local-part")
