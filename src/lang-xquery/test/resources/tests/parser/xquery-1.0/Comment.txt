@@ -1,5 +1,5 @@
 XQueryModuleImpl[FILE(0:10)]
-   XPathCommentImpl[XPATH_COMMENT(0:10)]
+   XQueryCommentImpl[XQUERY_COMMENT(0:10)]
       LeafPsiElement[XPATH_COMMENT_START_TAG_TOKEN(0:2)]('(:')
       PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
       LeafPsiElement[XQDOC_CONTENTS(3:8)]('Test ')

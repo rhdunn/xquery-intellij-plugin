@@ -3728,6 +3728,8 @@ open class XPathParser : PsiParser {
     // endregion
     // region Lexical Structure :: Terminal Symbols
 
+    open val COMMENT: IElementType = XPathElementType.COMMENT
+
     fun parseStringLiteral(builder: PsiBuilder): Boolean {
         return parseStringLiteral(builder, XPathElementType.STRING_LITERAL)
     }
@@ -3759,10 +3761,10 @@ open class XPathParser : PsiParser {
             parseCommentContents(builder)
             if (builder.tokenType === XPathTokenType.COMMENT_END_TAG) {
                 builder.advanceLexer()
-                commentMarker.done(XPathElementType.COMMENT)
+                commentMarker.done(COMMENT)
             } else {
                 builder.advanceLexer() // XQueryTokenType.UNEXPECTED_END_OF_BLOCK
-                commentMarker.done(XPathElementType.COMMENT)
+                commentMarker.done(COMMENT)
                 builder.error(XPathBundle.message("parser.error.incomplete-comment"))
             }
             return true

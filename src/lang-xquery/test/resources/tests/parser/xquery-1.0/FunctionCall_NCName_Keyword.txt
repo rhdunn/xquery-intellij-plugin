@@ -74,7 +74,7 @@ XQueryModuleImpl[FILE(0:4650)]
                   LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(91:92)](')')
             LeafPsiElement[XPATH_COMMA_TOKEN(92:93)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(93:94)]('\n')
-            XPathCommentImpl[XPATH_COMMENT(94:158)]
+            XQueryCommentImpl[XQUERY_COMMENT(94:158)]
                LeafPsiElement[XPATH_COMMENT_START_TAG_TOKEN(94:96)]('(:')
                PsiWhiteSpaceImpl[WHITE_SPACE(96:97)](' ')
                LeafPsiElement[XQDOC_CONTENTS(97:156)]('array-node(), (: Reserved Function Name - MarkLogic 8.0 :) ')
@@ -112,13 +112,13 @@ XQueryModuleImpl[FILE(0:4650)]
                   LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(195:196)](')')
             LeafPsiElement[XPATH_COMMA_TOKEN(196:197)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(197:198)]('\n')
-            XPathCommentImpl[XPATH_COMMENT(198:272)]
+            XQueryCommentImpl[XQUERY_COMMENT(198:272)]
                LeafPsiElement[XPATH_COMMENT_START_TAG_TOKEN(198:200)]('(:')
                PsiWhiteSpaceImpl[WHITE_SPACE(200:201)](' ')
                LeafPsiElement[XQDOC_CONTENTS(201:270)]('attribute(), (: Reserved Function Name - XPath 2.0 and XQuery 1.0 :) ')
                LeafPsiElement[XPATH_COMMENT_END_TAG_TOKEN(270:272)](':)')
             PsiWhiteSpaceImpl[WHITE_SPACE(272:273)]('\n')
-            XPathCommentImpl[XPATH_COMMENT(273:341)]
+            XQueryCommentImpl[XQUERY_COMMENT(273:341)]
                LeafPsiElement[XPATH_COMMENT_START_TAG_TOKEN(273:275)]('(:')
                PsiWhiteSpaceImpl[WHITE_SPACE(275:276)](' ')
                LeafPsiElement[XQDOC_CONTENTS(276:339)]('attribute-decl(), (: Reserved Function Name - MarkLogic 7.0 :) ')
@@ -140,7 +140,7 @@ XQueryModuleImpl[FILE(0:4650)]
                   LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(361:362)](')')
             LeafPsiElement[XPATH_COMMA_TOKEN(362:363)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(363:364)]('\n')
-            XPathCommentImpl[XPATH_COMMENT(364:424)]
+            XQueryCommentImpl[XQUERY_COMMENT(364:424)]
                LeafPsiElement[XPATH_COMMENT_START_TAG_TOKEN(364:366)]('(:')
                PsiWhiteSpaceImpl[WHITE_SPACE(366:367)](' ')
                LeafPsiElement[XQDOC_CONTENTS(367:422)]('binary(), (: Reserved Function Name - MarkLogic 6.0 :) ')
@@ -154,7 +154,7 @@ XQueryModuleImpl[FILE(0:4650)]
                   LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(431:432)](')')
             LeafPsiElement[XPATH_COMMA_TOKEN(432:433)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(433:434)]('\n')
-            XPathCommentImpl[XPATH_COMMENT(434:500)]
+            XQueryCommentImpl[XQUERY_COMMENT(434:500)]
                LeafPsiElement[XPATH_COMMENT_START_TAG_TOKEN(434:436)]('(:')
                PsiWhiteSpaceImpl[WHITE_SPACE(436:437)](' ')
                LeafPsiElement[XQDOC_CONTENTS(437:498)]('boolean-node(), (: Reserved Function Name - MarkLogic 8.0 :) ')
@@ -224,13 +224,13 @@ XQueryModuleImpl[FILE(0:4650)]
                   LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(581:582)](')')
             LeafPsiElement[XPATH_COMMA_TOKEN(582:583)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(583:584)]('\n')
-            XPathCommentImpl[XPATH_COMMENT(584:656)]
+            XQueryCommentImpl[XQUERY_COMMENT(584:656)]
                LeafPsiElement[XPATH_COMMENT_START_TAG_TOKEN(584:586)]('(:')
                PsiWhiteSpaceImpl[WHITE_SPACE(586:587)](' ')
                LeafPsiElement[XQDOC_CONTENTS(587:654)]('comment(), (: Reserved Function Name - XPath 1.0 and XQuery 1.0 :) ')
                LeafPsiElement[XPATH_COMMENT_END_TAG_TOKEN(654:656)](':)')
             PsiWhiteSpaceImpl[WHITE_SPACE(656:657)]('\n')
-            XPathCommentImpl[XPATH_COMMENT(657:723)]
+            XQueryCommentImpl[XQUERY_COMMENT(657:723)]
                LeafPsiElement[XPATH_COMMENT_START_TAG_TOKEN(657:659)]('(:')
                PsiWhiteSpaceImpl[WHITE_SPACE(659:660)](' ')
                LeafPsiElement[XQDOC_CONTENTS(660:721)]('complex-type(), (: Reserved Function Name - MarkLogic 7.0 :) ')
@@ -404,19 +404,19 @@ XQueryModuleImpl[FILE(0:4650)]
                   LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(995:996)](')')
             LeafPsiElement[XPATH_COMMA_TOKEN(996:997)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(997:998)]('\n')
-            XPathCommentImpl[XPATH_COMMENT(998:1076)]
+            XQueryCommentImpl[XQUERY_COMMENT(998:1076)]
                LeafPsiElement[XPATH_COMMENT_START_TAG_TOKEN(998:1000)]('(:')
                PsiWhiteSpaceImpl[WHITE_SPACE(1000:1001)](' ')
                LeafPsiElement[XQDOC_CONTENTS(1001:1074)]('document-node(), (: Reserved Function Name - XPath 2.0 and XQuery 1.0 :) ')
                LeafPsiElement[XPATH_COMMENT_END_TAG_TOKEN(1074:1076)](':)')
             PsiWhiteSpaceImpl[WHITE_SPACE(1076:1077)]('\n')
-            XPathCommentImpl[XPATH_COMMENT(1077:1149)]
+            XQueryCommentImpl[XQUERY_COMMENT(1077:1149)]
                LeafPsiElement[XPATH_COMMENT_START_TAG_TOKEN(1077:1079)]('(:')
                PsiWhiteSpaceImpl[WHITE_SPACE(1079:1080)](' ')
                LeafPsiElement[XQDOC_CONTENTS(1080:1147)]('element(), (: Reserved Function Name - XPath 2.0 and XQuery 1.0 :) ')
                LeafPsiElement[XPATH_COMMENT_END_TAG_TOKEN(1147:1149)](':)')
             PsiWhiteSpaceImpl[WHITE_SPACE(1149:1150)]('\n')
-            XPathCommentImpl[XPATH_COMMENT(1150:1216)]
+            XQueryCommentImpl[XQUERY_COMMENT(1150:1216)]
                LeafPsiElement[XPATH_COMMENT_START_TAG_TOKEN(1150:1152)]('(:')
                PsiWhiteSpaceImpl[WHITE_SPACE(1152:1153)](' ')
                LeafPsiElement[XQDOC_CONTENTS(1153:1214)]('element-decl(), (: Reserved Function Name - MarkLogic 7.0 :) ')
@@ -430,13 +430,13 @@ XQueryModuleImpl[FILE(0:4650)]
                   LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(1222:1223)](')')
             LeafPsiElement[XPATH_COMMA_TOKEN(1223:1224)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1224:1225)]('\n')
-            XPathCommentImpl[XPATH_COMMENT(1225:1311)]
+            XQueryCommentImpl[XQUERY_COMMENT(1225:1311)]
                LeafPsiElement[XPATH_COMMENT_START_TAG_TOKEN(1225:1227)]('(:')
                PsiWhiteSpaceImpl[WHITE_SPACE(1227:1228)](' ')
                LeafPsiElement[XQDOC_CONTENTS(1228:1309)]('empty(), (: Reserved Function Name - XPath 2.0 WD 2003 and XQuery 1.0 WD 2003 :) ')
                LeafPsiElement[XPATH_COMMENT_END_TAG_TOKEN(1309:1311)](':)')
             PsiWhiteSpaceImpl[WHITE_SPACE(1311:1312)]('\n')
-            XPathCommentImpl[XPATH_COMMENT(1312:1391)]
+            XQueryCommentImpl[XQUERY_COMMENT(1312:1391)]
                LeafPsiElement[XPATH_COMMENT_START_TAG_TOKEN(1312:1314)]('(:')
                PsiWhiteSpaceImpl[WHITE_SPACE(1314:1315)](' ')
                LeafPsiElement[XQDOC_CONTENTS(1315:1389)]('empty-sequence(), (: Reserved Function Name - XPath 2.0 and XQuery 1.0 :) ')
@@ -610,7 +610,7 @@ XQueryModuleImpl[FILE(0:4650)]
                   LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(1607:1608)](')')
             LeafPsiElement[XPATH_COMMA_TOKEN(1608:1609)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1609:1610)]('\n')
-            XPathCommentImpl[XPATH_COMMENT(1610:1683)]
+            XQueryCommentImpl[XQUERY_COMMENT(1610:1683)]
                LeafPsiElement[XPATH_COMMENT_START_TAG_TOKEN(1610:1612)]('(:')
                PsiWhiteSpaceImpl[WHITE_SPACE(1612:1613)](' ')
                LeafPsiElement[XQDOC_CONTENTS(1613:1681)]('function(), (: Reserved Function Name - XPath 3.0 and XQuery 3.0 :) ')
@@ -672,7 +672,7 @@ XQueryModuleImpl[FILE(0:4650)]
                   LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(1753:1754)](')')
             LeafPsiElement[XPATH_COMMA_TOKEN(1754:1755)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1755:1756)]('\n')
-            XPathCommentImpl[XPATH_COMMENT(1756:1823)]
+            XQueryCommentImpl[XQUERY_COMMENT(1756:1823)]
                LeafPsiElement[XPATH_COMMENT_START_TAG_TOKEN(1756:1758)]('(:')
                PsiWhiteSpaceImpl[WHITE_SPACE(1758:1759)](' ')
                LeafPsiElement[XQDOC_CONTENTS(1759:1821)]('if(), (: Reserved Function Name - XPath 2.0 and XQuery 1.0 :) ')
@@ -766,7 +766,7 @@ XQueryModuleImpl[FILE(0:4650)]
                   LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(1934:1935)](')')
             LeafPsiElement[XPATH_COMMA_TOKEN(1935:1936)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(1936:1937)]('\n')
-            XPathCommentImpl[XPATH_COMMENT(1937:2006)]
+            XQueryCommentImpl[XQUERY_COMMENT(1937:2006)]
                LeafPsiElement[XPATH_COMMENT_START_TAG_TOKEN(1937:1939)]('(:')
                PsiWhiteSpaceImpl[WHITE_SPACE(1939:1940)](' ')
                LeafPsiElement[XQDOC_CONTENTS(1940:2004)]('item(), (: Reserved Function Name - XPath 2.0 and XQuery 1.0 :) ')
@@ -876,7 +876,7 @@ XQueryModuleImpl[FILE(0:4650)]
                   LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(2120:2121)](')')
             LeafPsiElement[XPATH_COMMA_TOKEN(2121:2122)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(2122:2123)]('\n')
-            XPathCommentImpl[XPATH_COMMENT(2123:2188)]
+            XQueryCommentImpl[XQUERY_COMMENT(2123:2188)]
                LeafPsiElement[XPATH_COMMENT_START_TAG_TOKEN(2123:2125)]('(:')
                PsiWhiteSpaceImpl[WHITE_SPACE(2125:2126)](' ')
                LeafPsiElement[XQDOC_CONTENTS(2126:2186)]('model-group(), (: Reserved Function Name - MarkLogic 7.0 :) ')
@@ -914,7 +914,7 @@ XQueryModuleImpl[FILE(0:4650)]
                   LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(2227:2228)](')')
             LeafPsiElement[XPATH_COMMA_TOKEN(2228:2229)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(2229:2230)]('\n')
-            XPathCommentImpl[XPATH_COMMENT(2230:2309)]
+            XQueryCommentImpl[XQUERY_COMMENT(2230:2309)]
                LeafPsiElement[XPATH_COMMENT_START_TAG_TOKEN(2230:2232)]('(:')
                PsiWhiteSpaceImpl[WHITE_SPACE(2232:2233)](' ')
                LeafPsiElement[XQDOC_CONTENTS(2233:2307)]('namespace-node(), (: Reserved Function Name - XPath 3.0 and XQuery 3.0 :) ')
@@ -968,7 +968,7 @@ XQueryModuleImpl[FILE(0:4650)]
                   LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(2363:2364)](')')
             LeafPsiElement[XPATH_COMMA_TOKEN(2364:2365)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(2365:2366)]('\n')
-            XPathCommentImpl[XPATH_COMMENT(2366:2435)]
+            XQueryCommentImpl[XQUERY_COMMENT(2366:2435)]
                LeafPsiElement[XPATH_COMMENT_START_TAG_TOKEN(2366:2368)]('(:')
                PsiWhiteSpaceImpl[WHITE_SPACE(2368:2369)](' ')
                LeafPsiElement[XQDOC_CONTENTS(2369:2433)]('node(), (: Reserved Function Name - XPath 1.0 and XQuery 1.0 :) ')
@@ -998,19 +998,19 @@ XQueryModuleImpl[FILE(0:4650)]
                   LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(2470:2471)](')')
             LeafPsiElement[XPATH_COMMA_TOKEN(2471:2472)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(2472:2473)]('\n')
-            XPathCommentImpl[XPATH_COMMENT(2473:2536)]
+            XQueryCommentImpl[XQUERY_COMMENT(2473:2536)]
                LeafPsiElement[XPATH_COMMENT_START_TAG_TOKEN(2473:2475)]('(:')
                PsiWhiteSpaceImpl[WHITE_SPACE(2475:2476)](' ')
                LeafPsiElement[XQDOC_CONTENTS(2476:2534)]('null-node(), (: Reserved Function Name - MarkLogic 8.0 :) ')
                LeafPsiElement[XPATH_COMMENT_END_TAG_TOKEN(2534:2536)](':)')
             PsiWhiteSpaceImpl[WHITE_SPACE(2536:2537)]('\n')
-            XPathCommentImpl[XPATH_COMMENT(2537:2602)]
+            XQueryCommentImpl[XQUERY_COMMENT(2537:2602)]
                LeafPsiElement[XPATH_COMMENT_START_TAG_TOKEN(2537:2539)]('(:')
                PsiWhiteSpaceImpl[WHITE_SPACE(2539:2540)](' ')
                LeafPsiElement[XQDOC_CONTENTS(2540:2600)]('number-node(), (: Reserved Function Name - MarkLogic 8.0 :) ')
                LeafPsiElement[XPATH_COMMENT_END_TAG_TOKEN(2600:2602)](':)')
             PsiWhiteSpaceImpl[WHITE_SPACE(2602:2603)]('\n')
-            XPathCommentImpl[XPATH_COMMENT(2603:2668)]
+            XQueryCommentImpl[XQUERY_COMMENT(2603:2668)]
                LeafPsiElement[XPATH_COMMENT_START_TAG_TOKEN(2603:2605)]('(:')
                PsiWhiteSpaceImpl[WHITE_SPACE(2605:2606)](' ')
                LeafPsiElement[XQDOC_CONTENTS(2606:2666)]('object-node(), (: Reserved Function Name - MarkLogic 8.0 :) ')
@@ -1192,7 +1192,7 @@ XQueryModuleImpl[FILE(0:4650)]
                   LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(2922:2923)](')')
             LeafPsiElement[XPATH_COMMA_TOKEN(2923:2924)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(2924:2925)]('\n')
-            XPathCommentImpl[XPATH_COMMENT(2925:3012)]
+            XQueryCommentImpl[XQUERY_COMMENT(2925:3012)]
                LeafPsiElement[XPATH_COMMENT_START_TAG_TOKEN(2925:2927)]('(:')
                PsiWhiteSpaceImpl[WHITE_SPACE(2927:2928)](' ')
                LeafPsiElement[XQDOC_CONTENTS(2928:3010)]('processing-instruction(), (: Reserved Function Name - XPath 1.0 and XQuery 1.0 :) ')
@@ -1286,49 +1286,49 @@ XQueryModuleImpl[FILE(0:4650)]
                   LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(3139:3140)](')')
             LeafPsiElement[XPATH_COMMA_TOKEN(3140:3141)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(3141:3142)]('\n')
-            XPathCommentImpl[XPATH_COMMENT(3142:3223)]
+            XQueryCommentImpl[XQUERY_COMMENT(3142:3223)]
                LeafPsiElement[XPATH_COMMENT_START_TAG_TOKEN(3142:3144)]('(:')
                PsiWhiteSpaceImpl[WHITE_SPACE(3144:3145)](' ')
                LeafPsiElement[XQDOC_CONTENTS(3145:3221)]('schema-attribute(), (: Reserved Function Name - XPath 2.0 and XQuery 1.0 :) ')
                LeafPsiElement[XPATH_COMMENT_END_TAG_TOKEN(3221:3223)](':)')
             PsiWhiteSpaceImpl[WHITE_SPACE(3223:3224)]('\n')
-            XPathCommentImpl[XPATH_COMMENT(3224:3294)]
+            XQueryCommentImpl[XQUERY_COMMENT(3224:3294)]
                LeafPsiElement[XPATH_COMMENT_START_TAG_TOKEN(3224:3226)]('(:')
                PsiWhiteSpaceImpl[WHITE_SPACE(3226:3227)](' ')
                LeafPsiElement[XQDOC_CONTENTS(3227:3292)]('schema-component(), (: Reserved Function Name - MarkLogic 7.0 :) ')
                LeafPsiElement[XPATH_COMMENT_END_TAG_TOKEN(3292:3294)](':)')
             PsiWhiteSpaceImpl[WHITE_SPACE(3294:3295)]('\n')
-            XPathCommentImpl[XPATH_COMMENT(3295:3374)]
+            XQueryCommentImpl[XQUERY_COMMENT(3295:3374)]
                LeafPsiElement[XPATH_COMMENT_START_TAG_TOKEN(3295:3297)]('(:')
                PsiWhiteSpaceImpl[WHITE_SPACE(3297:3298)](' ')
                LeafPsiElement[XQDOC_CONTENTS(3298:3372)]('schema-element(), (: Reserved Function Name - XPath 2.0 and XQuery 1.0 :) ')
                LeafPsiElement[XPATH_COMMENT_END_TAG_TOKEN(3372:3374)](':)')
             PsiWhiteSpaceImpl[WHITE_SPACE(3374:3375)]('\n')
-            XPathCommentImpl[XPATH_COMMENT(3375:3441)]
+            XQueryCommentImpl[XQUERY_COMMENT(3375:3441)]
                LeafPsiElement[XPATH_COMMENT_START_TAG_TOKEN(3375:3377)]('(:')
                PsiWhiteSpaceImpl[WHITE_SPACE(3377:3378)](' ')
                LeafPsiElement[XQDOC_CONTENTS(3378:3439)]('schema-facet(), (: Reserved Function Name - MarkLogic 7.0 :) ')
                LeafPsiElement[XPATH_COMMENT_END_TAG_TOKEN(3439:3441)](':)')
             PsiWhiteSpaceImpl[WHITE_SPACE(3441:3442)]('\n')
-            XPathCommentImpl[XPATH_COMMENT(3442:3511)]
+            XQueryCommentImpl[XQUERY_COMMENT(3442:3511)]
                LeafPsiElement[XPATH_COMMENT_START_TAG_TOKEN(3442:3444)]('(:')
                PsiWhiteSpaceImpl[WHITE_SPACE(3444:3445)](' ')
                LeafPsiElement[XQDOC_CONTENTS(3445:3509)]('schema-particle(), (: Reserved Function Name - MarkLogic 7.0 :) ')
                LeafPsiElement[XPATH_COMMENT_END_TAG_TOKEN(3509:3511)](':)')
             PsiWhiteSpaceImpl[WHITE_SPACE(3511:3512)]('\n')
-            XPathCommentImpl[XPATH_COMMENT(3512:3577)]
+            XQueryCommentImpl[XQUERY_COMMENT(3512:3577)]
                LeafPsiElement[XPATH_COMMENT_START_TAG_TOKEN(3512:3514)]('(:')
                PsiWhiteSpaceImpl[WHITE_SPACE(3514:3515)](' ')
                LeafPsiElement[XQDOC_CONTENTS(3515:3575)]('schema-root(), (: Reserved Function Name - MarkLogic 7.0 :) ')
                LeafPsiElement[XPATH_COMMENT_END_TAG_TOKEN(3575:3577)](':)')
             PsiWhiteSpaceImpl[WHITE_SPACE(3577:3578)]('\n')
-            XPathCommentImpl[XPATH_COMMENT(3578:3643)]
+            XQueryCommentImpl[XQUERY_COMMENT(3578:3643)]
                LeafPsiElement[XPATH_COMMENT_START_TAG_TOKEN(3578:3580)]('(:')
                PsiWhiteSpaceImpl[WHITE_SPACE(3580:3581)](' ')
                LeafPsiElement[XQDOC_CONTENTS(3581:3641)]('schema-type(), (: Reserved Function Name - MarkLogic 7.0 :) ')
                LeafPsiElement[XPATH_COMMENT_END_TAG_TOKEN(3641:3643)](':)')
             PsiWhiteSpaceImpl[WHITE_SPACE(3643:3644)]('\n')
-            XPathCommentImpl[XPATH_COMMENT(3644:3713)]
+            XQueryCommentImpl[XQUERY_COMMENT(3644:3713)]
                LeafPsiElement[XPATH_COMMENT_START_TAG_TOKEN(3644:3646)]('(:')
                PsiWhiteSpaceImpl[WHITE_SPACE(3646:3647)](' ')
                LeafPsiElement[XQDOC_CONTENTS(3647:3711)]('schema-wildcard(), (: Reserved Function Name - MarkLogic 7.0 :) ')
@@ -1390,7 +1390,7 @@ XQueryModuleImpl[FILE(0:4650)]
                   LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(3790:3791)](')')
             LeafPsiElement[XPATH_COMMA_TOKEN(3791:3792)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(3792:3793)]('\n')
-            XPathCommentImpl[XPATH_COMMENT(3793:3858)]
+            XQueryCommentImpl[XQUERY_COMMENT(3793:3858)]
                LeafPsiElement[XPATH_COMMENT_START_TAG_TOKEN(3793:3795)]('(:')
                PsiWhiteSpaceImpl[WHITE_SPACE(3795:3796)](' ')
                LeafPsiElement[XQDOC_CONTENTS(3796:3856)]('simple-type(), (: Reserved Function Name - MarkLogic 7.0 :) ')
@@ -1532,13 +1532,13 @@ XQueryModuleImpl[FILE(0:4650)]
                   LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(4024:4025)](')')
             LeafPsiElement[XPATH_COMMA_TOKEN(4025:4026)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(4026:4027)]('\n')
-            XPathCommentImpl[XPATH_COMMENT(4027:4098)]
+            XQueryCommentImpl[XQUERY_COMMENT(4027:4098)]
                LeafPsiElement[XPATH_COMMENT_START_TAG_TOKEN(4027:4029)]('(:')
                PsiWhiteSpaceImpl[WHITE_SPACE(4029:4030)](' ')
                LeafPsiElement[XQDOC_CONTENTS(4030:4096)]('switch(), (: Reserved Function Name - XPath 3.0 and XQuery 3.0 :) ')
                LeafPsiElement[XPATH_COMMENT_END_TAG_TOKEN(4096:4098)](':)')
             PsiWhiteSpaceImpl[WHITE_SPACE(4098:4099)]('\n')
-            XPathCommentImpl[XPATH_COMMENT(4099:4168)]
+            XQueryCommentImpl[XQUERY_COMMENT(4099:4168)]
                LeafPsiElement[XPATH_COMMENT_START_TAG_TOKEN(4099:4101)]('(:')
                PsiWhiteSpaceImpl[WHITE_SPACE(4101:4102)](' ')
                LeafPsiElement[XQDOC_CONTENTS(4102:4166)]('text(), (: Reserved Function Name - XPath 1.0 and XQuery 1.0 :) ')
@@ -1624,7 +1624,7 @@ XQueryModuleImpl[FILE(0:4650)]
                   LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(4260:4261)](')')
             LeafPsiElement[XPATH_COMMA_TOKEN(4261:4262)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(4262:4263)]('\n')
-            XPathCommentImpl[XPATH_COMMENT(4263:4338)]
+            XQueryCommentImpl[XQUERY_COMMENT(4263:4338)]
                LeafPsiElement[XPATH_COMMENT_START_TAG_TOKEN(4263:4265)]('(:')
                PsiWhiteSpaceImpl[WHITE_SPACE(4265:4266)](' ')
                LeafPsiElement[XQDOC_CONTENTS(4266:4336)]('typeswitch(), (: Reserved Function Name - XPath 2.0 and XQuery 1.0 :) ')
@@ -1742,7 +1742,7 @@ XQueryModuleImpl[FILE(0:4650)]
                   LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(4489:4490)](')')
             LeafPsiElement[XPATH_COMMA_TOKEN(4490:4491)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(4491:4492)]('\n')
-            XPathCommentImpl[XPATH_COMMENT(4492:4568)]
+            XQueryCommentImpl[XQUERY_COMMENT(4492:4568)]
                LeafPsiElement[XPATH_COMMENT_START_TAG_TOKEN(4492:4494)]('(:')
                PsiWhiteSpaceImpl[WHITE_SPACE(4494:4495)](' ')
                LeafPsiElement[XQDOC_CONTENTS(4495:4566)]('while(), (: Reserved Function Name - XQuery 1.0 Scripting Extension :) ')

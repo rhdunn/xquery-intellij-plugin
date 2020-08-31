@@ -18,6 +18,8 @@ package uk.co.reecedunn.intellij.plugin.xquery.parser
 import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.IFileElementType
 import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
+import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathCommentPsiImpl
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text.FTOptionDeclPsiImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.*
@@ -49,6 +51,12 @@ object XQueryElementType {
     val CDATA_SECTION: IElementType = ICompositeElementType(
         "XQUERY_CDATA_SECTION",
         XQueryCDataSectionPsiImpl::class.java,
+        XQuery
+    )
+
+    val COMMENT: IElementType = ICompositeElementType(
+        "XQUERY_COMMENT",
+        XQueryCommentPsiImpl::class.java,
         XQuery
     )
 
