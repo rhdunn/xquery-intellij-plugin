@@ -32,6 +32,7 @@ class LiteralTextEscaperImpl<T : LiteralTextHost>(host: T) : LiteralTextEscaper<
             }
             currentOffset += child.textLength
         }
+        offsets.add(rangeInsideHost.endOffset)
         decoded = offsets.toTypedArray()
         return true
     }

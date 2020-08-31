@@ -79,6 +79,7 @@
     <p>IntelliJ Integration:</p>
     <ol>
       <li>Support language injections on StringLiteral elements.</li>
+      <li>Support <code>language=Language</code> injection marker comments.</li>
     </ol>
   ]]></change-notes>
 

@@ -75,7 +75,8 @@ private class LanguageInjectionPsiTest : ParserTestCase() {
                     assertThat(escaper.getOffsetInHost(1, range), `is`(2)) // e
                     assertThat(escaper.getOffsetInHost(2, range), `is`(3)) // s
                     assertThat(escaper.getOffsetInHost(3, range), `is`(4)) // t
-                    assertThat(escaper.getOffsetInHost(4, range), `is`(-1))
+                    assertThat(escaper.getOffsetInHost(4, range), `is`(5)) // -- (end offset)
+                    assertThat(escaper.getOffsetInHost(5, range), `is`(-1))
                 }
 
                 @Test
@@ -95,7 +96,8 @@ private class LanguageInjectionPsiTest : ParserTestCase() {
                     assertThat(escaper.getOffsetInHost(2, range), `is`(9)) // s
                     assertThat(escaper.getOffsetInHost(3, range), `is`(10)) // u
                     assertThat(escaper.getOffsetInHost(4, range), `is`(11)) // m
-                    assertThat(escaper.getOffsetInHost(5, range), `is`(-1))
+                    assertThat(escaper.getOffsetInHost(5, range), `is`(12)) // -- (end offset)
+                    assertThat(escaper.getOffsetInHost(6, range), `is`(-1))
                 }
             }
 
@@ -119,7 +121,8 @@ private class LanguageInjectionPsiTest : ParserTestCase() {
                     assertThat(escaper.getOffsetInHost(2, range), `is`(4)) // "
                     assertThat(escaper.getOffsetInHost(3, range), `is`(5)) // "
                     assertThat(escaper.getOffsetInHost(4, range), `is`(6)) // b
-                    assertThat(escaper.getOffsetInHost(5, range), `is`(-1))
+                    assertThat(escaper.getOffsetInHost(5, range), `is`(7)) // -- (end offset)
+                    assertThat(escaper.getOffsetInHost(6, range), `is`(-1))
                 }
 
                 @Test
@@ -132,7 +135,8 @@ private class LanguageInjectionPsiTest : ParserTestCase() {
 
                     assertThat(escaper.getOffsetInHost(-1, range), `is`(-1))
                     assertThat(escaper.getOffsetInHost(0, range), `is`(2)) // '
-                    assertThat(escaper.getOffsetInHost(1, range), `is`(-1))
+                    assertThat(escaper.getOffsetInHost(1, range), `is`(4)) // -- (end offset)
+                    assertThat(escaper.getOffsetInHost(2, range), `is`(-1))
                 }
 
                 @Test
@@ -145,7 +149,8 @@ private class LanguageInjectionPsiTest : ParserTestCase() {
 
                     assertThat(escaper.getOffsetInHost(-1, range), `is`(-1))
                     assertThat(escaper.getOffsetInHost(0, range), `is`(1)) // a
-                    assertThat(escaper.getOffsetInHost(1, range), `is`(-1))
+                    assertThat(escaper.getOffsetInHost(1, range), `is`(3)) // -- (end offset)
+                    assertThat(escaper.getOffsetInHost(2, range), `is`(-1))
                 }
             }
 
@@ -169,7 +174,8 @@ private class LanguageInjectionPsiTest : ParserTestCase() {
                     assertThat(escaper.getOffsetInHost(2, range), `is`(3)) // '
                     assertThat(escaper.getOffsetInHost(3, range), `is`(4)) // "
                     assertThat(escaper.getOffsetInHost(4, range), `is`(6)) // b
-                    assertThat(escaper.getOffsetInHost(5, range), `is`(-1))
+                    assertThat(escaper.getOffsetInHost(5, range), `is`(7)) // -- (end offset)
+                    assertThat(escaper.getOffsetInHost(6, range), `is`(-1))
                 }
 
                 @Test
@@ -182,7 +188,8 @@ private class LanguageInjectionPsiTest : ParserTestCase() {
 
                     assertThat(escaper.getOffsetInHost(-1, range), `is`(-1))
                     assertThat(escaper.getOffsetInHost(0, range), `is`(4)) // "
-                    assertThat(escaper.getOffsetInHost(1, range), `is`(-1))
+                    assertThat(escaper.getOffsetInHost(1, range), `is`(6)) // -- (end offset)
+                    assertThat(escaper.getOffsetInHost(2, range), `is`(-1))
                 }
 
                 @Test
@@ -195,7 +202,8 @@ private class LanguageInjectionPsiTest : ParserTestCase() {
 
                     assertThat(escaper.getOffsetInHost(-1, range), `is`(-1))
                     assertThat(escaper.getOffsetInHost(0, range), `is`(6)) // b
-                    assertThat(escaper.getOffsetInHost(1, range), `is`(-1))
+                    assertThat(escaper.getOffsetInHost(1, range), `is`(7)) // -- (end offset)
+                    assertThat(escaper.getOffsetInHost(2, range), `is`(-1))
                 }
             }
 
@@ -222,7 +230,8 @@ private class LanguageInjectionPsiTest : ParserTestCase() {
                     assertThat(escaper.getOffsetInHost(4, range), `is`(16)) // &NotLessLess;
                     assertThat(escaper.getOffsetInHost(5, range), `is`(16)) // &NotLessLess;
                     assertThat(escaper.getOffsetInHost(6, range), `is`(29)) // b
-                    assertThat(escaper.getOffsetInHost(7, range), `is`(-1))
+                    assertThat(escaper.getOffsetInHost(7, range), `is`(30)) // -- (end offset)
+                    assertThat(escaper.getOffsetInHost(8, range), `is`(-1))
                 }
 
                 @Test
@@ -236,7 +245,8 @@ private class LanguageInjectionPsiTest : ParserTestCase() {
                     assertThat(escaper.getOffsetInHost(-1, range), `is`(-1))
                     assertThat(escaper.getOffsetInHost(0, range), `is`(1)) // a
                     assertThat(escaper.getOffsetInHost(1, range), `is`(2)) // &lt;
-                    assertThat(escaper.getOffsetInHost(2, range), `is`(-1))
+                    assertThat(escaper.getOffsetInHost(2, range), `is`(6)) // -- (end offset)
+                    assertThat(escaper.getOffsetInHost(3, range), `is`(-1))
                 }
 
                 @Test
@@ -249,7 +259,8 @@ private class LanguageInjectionPsiTest : ParserTestCase() {
 
                     assertThat(escaper.getOffsetInHost(-1, range), `is`(-1))
                     assertThat(escaper.getOffsetInHost(0, range), `is`(1)) // a
-                    assertThat(escaper.getOffsetInHost(1, range), `is`(-1))
+                    assertThat(escaper.getOffsetInHost(1, range), `is`(5)) // -- (end offset)
+                    assertThat(escaper.getOffsetInHost(2, range), `is`(-1))
                 }
             }
 
@@ -276,7 +287,8 @@ private class LanguageInjectionPsiTest : ParserTestCase() {
                     assertThat(escaper.getOffsetInHost(3, range), `is`(19)) // &#x1D520;
                     assertThat(escaper.getOffsetInHost(4, range), `is`(19)) // &#x1D520;
                     assertThat(escaper.getOffsetInHost(5, range), `is`(32)) // b
-                    assertThat(escaper.getOffsetInHost(6, range), `is`(-1))
+                    assertThat(escaper.getOffsetInHost(6, range), `is`(33)) // -- (end offset)
+                    assertThat(escaper.getOffsetInHost(7, range), `is`(-1))
                 }
 
                 @Test
@@ -290,7 +302,8 @@ private class LanguageInjectionPsiTest : ParserTestCase() {
                     assertThat(escaper.getOffsetInHost(-1, range), `is`(-1))
                     assertThat(escaper.getOffsetInHost(0, range), `is`(1)) // a
                     assertThat(escaper.getOffsetInHost(1, range), `is`(2)) // &#xA0;
-                    assertThat(escaper.getOffsetInHost(2, range), `is`(-1))
+                    assertThat(escaper.getOffsetInHost(2, range), `is`(8)) // -- (end offset)
+                    assertThat(escaper.getOffsetInHost(3, range), `is`(-1))
                 }
 
                 @Test
@@ -303,7 +316,8 @@ private class LanguageInjectionPsiTest : ParserTestCase() {
 
                     assertThat(escaper.getOffsetInHost(-1, range), `is`(-1))
                     assertThat(escaper.getOffsetInHost(0, range), `is`(1)) // a
-                    assertThat(escaper.getOffsetInHost(1, range), `is`(-1))
+                    assertThat(escaper.getOffsetInHost(1, range), `is`(7)) // -- (end offset)
+                    assertThat(escaper.getOffsetInHost(2, range), `is`(-1))
                 }
             }
         }

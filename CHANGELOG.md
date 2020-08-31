@@ -11,6 +11,7 @@ XSLT and XPath:
 IntelliJ Integration:
 
 1.  Support language injections on StringLiteral elements.
+1.  Support `language=Language` injection marker comments.
 
 ## 2020
 
