@@ -10,6 +10,8 @@ processResources {
     }
 }
 
+intellij.plugins = ['org.intellij.intelliLang']
+
 dependencies {
     compile project(':src:lang-xpm')
     compile project(':src:lang-xqdoc')

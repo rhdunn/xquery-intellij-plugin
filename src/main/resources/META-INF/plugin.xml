@@ -12,6 +12,7 @@
   <depends>com.intellij.modules.xml</depends>
   <depends>com.intellij.properties</depends>
 
+  <depends optional="true" config-file="plugin-depends-intellilang.xml">org.intellij.intelliLang</depends>
   <depends optional="true" config-file="plugin-depends-java.xml">com.intellij.modules.java</depends>
   <depends optional="true" config-file="plugin-depends-microservices.xml">com.intellij.modules.microservices</depends>
 

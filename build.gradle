@@ -148,7 +148,8 @@ dependencies {
 
 intellij.plugins = [
     'coverage',
-    'com.intellij.properties'
+    'com.intellij.properties',
+    'org.intellij.intelliLang'
 ]
 
 idea_version = project.property('idea_since_build').toInteger()
