@@ -28,11 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
-open class XPathQNamePsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node),
-    XPathQName,
-    XsQNameValue,
-    PsiNameIdentifierOwner {
+open class XPathQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathQName, XsQNameValue {
     // region XsQNameValue
 
     private val names get(): Sequence<XsNCNameValue> = children().filterIsInstance<XsNCNameValue>()

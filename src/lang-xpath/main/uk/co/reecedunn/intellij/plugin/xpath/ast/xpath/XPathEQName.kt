@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
-import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiNameIdentifierOwner
 
 /**
  * An XPath 3.0 and XQuery 3.0 <code>EQName</code> node in the XQuery AST.
@@ -27,4 +27,4 @@ import com.intellij.psi.PsiElement
  * This may be an instance of an <code>NCName</code>, <code>QName</code> or
  * <code>URIQualifiedName</code>.
  */
-interface XPathEQName : PsiElement
+interface XPathEQName : PsiNameIdentifierOwner

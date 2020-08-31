@@ -28,11 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
-open class XPathNCNamePsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node),
-    XPathNCName,
-    XsQNameValue,
-    PsiNameIdentifierOwner {
+open class XPathNCNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathNCName, XsQNameValue {
     // region XsQNameValue
 
     override val namespace: XsAnyUriValue? = null

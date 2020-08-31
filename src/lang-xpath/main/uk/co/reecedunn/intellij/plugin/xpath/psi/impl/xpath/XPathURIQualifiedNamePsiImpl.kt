@@ -32,8 +32,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
 open class XPathURIQualifiedNamePsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XPathURIQualifiedName,
-    XsQNameValue,
-    PsiNameIdentifierOwner {
+    XsQNameValue {
     // region XsQNameValue
 
     override val namespace: XsAnyUriValue?
