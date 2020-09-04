@@ -70,6 +70,94 @@ private class LanguageInjectionPsiTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("is valid host")
+    internal inner class IsValidHost {
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (144) DirAttributeValue")
+        internal inner class DirAttributeValue {
+            @Test
+            @DisplayName("attribute content")
+            fun attributeContent() {
+                val host = parse<XQueryDirAttributeValue>("<a test=\"test\"/>")[0] as PsiLanguageInjectionHost
+                assertThat(host.isValidHost, `is`(true))
+            }
+
+            @Test
+            @DisplayName("EscapeApos tokens")
+            fun escapeApos() {
+                val host = parse<XQueryDirAttributeValue>("<a test='a''\"\"b'/>")[0] as PsiLanguageInjectionHost
+                assertThat(host.isValidHost, `is`(true))
+            }
+
+            @Test
+            @DisplayName("EscapeQuot tokens")
+            fun escapeQuot() {
+                val host = parse<XQueryDirAttributeValue>("<a test=\"a''\"\"b\"/>")[0] as PsiLanguageInjectionHost
+                assertThat(host.isValidHost, `is`(true))
+            }
+
+            @Test
+            @DisplayName("PredefinedEntityRef tokens")
+            fun predefinedEntityRef() {
+                val host = parse<XQueryDirAttributeValue>(
+                    "<a test=\"a&lt;&;&Afr;&gt&NotLessLess;b\"/>"
+                )[0] as PsiLanguageInjectionHost
+                assertThat(host.isValidHost, `is`(true))
+            }
+
+            @Test
+            @DisplayName("CharRef tokens")
+            fun charRef() {
+                val host = parse<XQueryDirAttributeValue>(
+                    "<a test=\"a&#xA0;&;&#160;&#x&#x1D520;&#x;b\"/>"
+                )[0] as PsiLanguageInjectionHost
+                assertThat(host.isValidHost, `is`(true))
+            }
+        }
+
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (116) StringLiteral")
+        internal inner class StringLiteral {
+            @Test
+            @DisplayName("string literal content")
+            fun stringLiteralContent() {
+                val host = parse<XPathStringLiteral>("\"test\"")[0] as PsiLanguageInjectionHost
+                assertThat(host.isValidHost, `is`(true))
+            }
+
+            @Test
+            @DisplayName("EscapeApos tokens")
+            fun escapeApos() {
+                val host = parse<XPathStringLiteral>("'a''\"\"b'")[0] as PsiLanguageInjectionHost
+                assertThat(host.isValidHost, `is`(true))
+            }
+
+            @Test
+            @DisplayName("EscapeQuot tokens")
+            fun escapeQuot() {
+                val host = parse<XPathStringLiteral>("\"a''\"\"b\"")[0] as PsiLanguageInjectionHost
+                assertThat(host.isValidHost, `is`(true))
+            }
+
+            @Test
+            @DisplayName("PredefinedEntityRef tokens")
+            fun predefinedEntityRef() {
+                val host = parse<XPathStringLiteral>("\"a&lt;&;&Afr;&gt&NotLessLess;b\"")[0] as PsiLanguageInjectionHost
+                assertThat(host.isValidHost, `is`(true))
+            }
+
+            @Test
+            @DisplayName("CharRef tokens")
+            fun charRef() {
+                val host = parse<XPathStringLiteral>(
+                    "\"a&#xA0;&;&#160;&#x&#x1D520;&#x;b\""
+                )[0] as PsiLanguageInjectionHost
+                assertThat(host.isValidHost, `is`(true))
+            }
+        }
+    }
+
+    @Nested
     @DisplayName("decode")
     internal inner class Decode {
         @Nested

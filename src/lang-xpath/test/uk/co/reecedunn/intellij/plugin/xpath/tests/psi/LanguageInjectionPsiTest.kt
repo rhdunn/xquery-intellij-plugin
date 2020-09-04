@@ -51,6 +51,35 @@ private class LanguageInjectionPsiTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("is valid host")
+    internal inner class IsValidHost {
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (116) StringLiteral")
+        internal inner class StringLiteral {
+            @Test
+            @DisplayName("string literal content")
+            fun stringLiteralContent() {
+                val host = parse<XPathStringLiteral>("\"test\"")[0] as PsiLanguageInjectionHost
+                assertThat(host.isValidHost, `is`(true))
+            }
+
+            @Test
+            @DisplayName("EscapeApos tokens")
+            fun escapeApos() {
+                val host = parse<XPathStringLiteral>("'a''\"\"b'")[0] as PsiLanguageInjectionHost
+                assertThat(host.isValidHost, `is`(true))
+            }
+
+            @Test
+            @DisplayName("EscapeQuot tokens")
+            fun escapeQuot() {
+                val host = parse<XPathStringLiteral>("\"a''\"\"b\"")[0] as PsiLanguageInjectionHost
+                assertThat(host.isValidHost, `is`(true))
+            }
+        }
+    }
+
+    @Nested
     @DisplayName("decode")
     internal inner class Decode {
         @Nested
@@ -58,7 +87,7 @@ private class LanguageInjectionPsiTest : ParserTestCase() {
         internal inner class StringLiteral {
             @Nested
             @DisplayName("string literal content")
-            internal inner class StringLiteral {
+            internal inner class StringLiteralContent {
                 @Test
                 @DisplayName("relevant text range")
                 fun relevantTextRange() {
