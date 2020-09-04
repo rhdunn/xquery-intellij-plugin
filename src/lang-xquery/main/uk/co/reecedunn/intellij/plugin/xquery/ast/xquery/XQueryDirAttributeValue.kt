@@ -15,9 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
-import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiLanguageInjectionHost
 
 /**
  * An XQuery 1.0 `DirAttributeValue` node in the XQuery AST.
  */
-interface XQueryDirAttributeValue : PsiElement
+interface XQueryDirAttributeValue : PsiLanguageInjectionHost
