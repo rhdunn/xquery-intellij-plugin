@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.core.lang.injection.LiteralTextHost
 import uk.co.reecedunn.intellij.plugin.core.lang.injection.PsiElementTextDecoder
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeValue
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
@@ -32,7 +33,7 @@ class XQueryDirAttributeValuePsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), XQueryDirAttributeValue, LiteralTextHost {
     // region PsiLanguageInjectionHost
 
-    override fun isValidHost(): Boolean = true
+    override fun isValidHost(): Boolean = children().none { it.elementType === XPathElementType.ENCLOSED_EXPR }
 
     override fun updateText(text: String): PsiLanguageInjectionHost {
         return this
