@@ -3808,6 +3808,7 @@ class XQueryParser : XPathParser() {
     private fun parseDirElemContent(builder: PsiBuilder, depth: Int): Boolean {
         val marker = builder.mark()
         var matched = false
+        var includeNode = false
         while (true) {
             if (
                 builder.matchTokenType(XQueryTokenType.XML_ELEMENT_CONTENTS) ||
@@ -3823,25 +3824,28 @@ class XQueryParser : XPathParser() {
                 )
             ) {
                 matched = true
+                includeNode = true
             } else if (builder.matchTokenType(XQueryTokenType.PARTIAL_ENTITY_REFERENCE)) {
                 builder.error(XQueryBundle.message("parser.error.incomplete-entity"))
+                matched = true
+                includeNode = true
+            } else if (parseCDataSection(builder, XQueryElementType.DIR_ELEM_CONTENT)) {
                 matched = true
             } else if (
                 parseEnclosedExprOrBlock(
                     builder, XQueryElementType.ENCLOSED_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL
                 ) ||
-                parseCDataSection(builder, XQueryElementType.DIR_ELEM_CONTENT) ||
                 parseDirectConstructor(builder, depth)
             ) {
                 matched = true
+                includeNode = true
             } else {
-                if (matched) {
+                if (matched && includeNode) {
                     marker.done(XQueryElementType.DIR_ELEM_CONTENT)
-                    return true
+                } else {
+                    marker.drop()
                 }
-
-                marker.drop()
-                return false
+                return matched
             }
         }
     }
