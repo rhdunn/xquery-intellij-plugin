@@ -3830,17 +3830,13 @@ class XQueryParser : XPathParser() {
                 matched = true
                 includeNode = true
             } else if (
+                parseEnclosedExprOrBlock(
+                    builder, XQueryElementType.ENCLOSED_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL
+                ) ||
                 parseCDataSection(builder, XQueryElementType.DIR_ELEM_CONTENT) ||
                 parseDirectConstructor(builder, depth)
             ) {
                 matched = true
-            } else if (
-                parseEnclosedExprOrBlock(
-                    builder, XQueryElementType.ENCLOSED_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL
-                )
-            ) {
-                matched = true
-                includeNode = true
             } else {
                 if (matched && includeNode) {
                     marker.done(XQueryElementType.DIR_ELEM_CONTENT)

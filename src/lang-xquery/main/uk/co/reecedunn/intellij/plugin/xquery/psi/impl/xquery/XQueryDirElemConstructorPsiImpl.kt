@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Reece H. Dunn
+ * Copyright (C) 2016-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,12 +19,14 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
+import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.lang.foldable.FoldablePsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyAtomicType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
@@ -45,19 +47,22 @@ class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
     // endregion
     // region FoldablePsiElement
 
-    override val foldingRange: TextRange?
+    private val hasEnclosedExprOnlyContent: Boolean
         get() {
-            var hasEnclosedExprOnlyContent = false
-            var hasMultiLineAttributes = false
-
-            val contents = node.findChildByType(XQueryElementType.DIR_ELEM_CONTENT)
-            if (contents != null) {
-                val first = contents.firstChildNode
-                val last = contents.lastChildNode
-                if (first === last && first.elementType === XQueryElementType.ENCLOSED_EXPR) {
-                    hasEnclosedExprOnlyContent = true
+            var n = 0
+            children().forEach { child ->
+                n += when (child.elementType) {
+                    in ELEMENT_CONSTRUCTOR_TOKENS -> 0
+                    XQueryElementType.ENCLOSED_EXPR -> 1
+                    else -> return false
                 }
             }
+            return n == 1
+        }
+
+    override val foldingRange: TextRange?
+        get() {
+            var hasMultiLineAttributes = false
 
             var start: PsiElement? = firstChild
             if (start!!.elementType === XQueryTokenType.OPEN_XML_TAG)
@@ -96,6 +101,19 @@ class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
         }
 
     override val foldingPlaceholderText: String? = "..."
+
+    companion object {
+        private val ELEMENT_CONSTRUCTOR_TOKENS = TokenSet.create(
+            XQueryTokenType.OPEN_XML_TAG,
+            XQueryTokenType.XML_WHITE_SPACE,
+            XQueryElementType.NCNAME,
+            XQueryElementType.QNAME,
+            XQueryElementType.DIR_ATTRIBUTE_LIST,
+            XQueryTokenType.END_XML_TAG,
+            XQueryTokenType.CLOSE_XML_TAG,
+            XQueryTokenType.SELF_CLOSING_XML_TAG
+        )
+    }
 
     // endregion
 }
