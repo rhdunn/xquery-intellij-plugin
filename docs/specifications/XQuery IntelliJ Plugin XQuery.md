@@ -1,6 +1,6 @@
 ---
 layout: page
-title: XQuery IntelliJ Plugin 1.7 XQuery
+title: XQuery IntelliJ Plugin 1.8 XQuery
 ---
 
 This document includes material copied from or derived from the XQuery
@@ -37,6 +37,8 @@ plugin-specific extensions are provided to support IntelliJ integration.
       - [Type Alias](#2129-type-alias)
 - [Expressions](#3-expressions)
   - [Node Constructors](#31-node-constructors)
+    - [Attributes](#311-attributes)
+    - [Direct Text Constructors](#312-direct-text-constructors)
   - [Quantified Expressions](#32-quantified-expressions)
   - [Expressions on SequenceTypes](#33-expressions-on-sequencetypes)
     - [Typeswitch](#331-typeswitch)
@@ -455,6 +457,8 @@ Saxon 9.8 uses the `~type` syntax, while Saxon 10.0 uses the `type(...)` syntax.
 
 ### 3.1 Node Constructors
 
+### 3.1.1 Attributes
+
 {: .ebnf-symbols }
 | Ref   | Symbol             |     | Expression                          | Options              |
 |-------|--------------------|-----|-------------------------------------|----------------------|
@@ -464,6 +468,23 @@ Saxon 9.8 uses the `~type` syntax, while Saxon 10.0 uses the `type(...)` syntax.
 This follows the grammar production pattern used in other constructs like
 `ParamList`, making it easier to support namespace declaration lookup on
 `xmlns` attributes.
+
+### 3.1.2 Direct Text Constructors
+
+{: .ebnf-symbols }
+| Ref     | Symbol               |     | Expression                          | Options              |
+|---------|----------------------|-----|-------------------------------------|----------------------|
+| \[122\] | `DirElemContent`     | ::= | `DirectConstructor \| CDataSection \| EnclosedExpr \| DirTextConstructor` | |
+| \[123\] | `DirTextConstructor` | ::= | `ElementContentChar \| PredefinedEntityRef \| CharRef \| "{{" \| "}}"` | |
+
+This separates the text node content into a separate symbol, allowing features
+like language injection (e.g. CSS and JavaScript) to be implemented on that
+text content.
+
+Enclosed expressions are not part of the text content as they can contain mixed
+content. When building the infoset/PSVI, adjacent text nodes (including nodes
+created from converting atomic types to strings) will typically be merged into
+a single text node.
 
 ### 3.2 Quantified Expressions
 
@@ -1310,6 +1331,8 @@ These changes include support for:
 | \[119\]  | `ArrowFunctionSpecifier`       | ::= | `EQName \| VarRef \| ParamRef \| ParenthesizedExpr` |       |
 | \[120\]  | `InitialClause`                | ::= | `ForClause \| LetClause \| WindowClause \| ForMemberClause` | |
 | \[121\]  | `ForMemberClause`              | ::= | `"for" "member" ForBinding ( "," ForBinding )*` |           |
+| \[122\]  | `DirElemContent`               | ::= | `DirectConstructor \| CDataSection \| EnclosedExpr \| DirTextConstructor` | |
+| \[123\]  | `DirTextConstructor`           | ::= | `ElementContentChar \| PredefinedEntityRef \| CharRef \| "{{" \| "}}"` | |
 
 ### A.2 Reserved Function Names
 
@@ -1506,7 +1529,7 @@ Older versions of Saxon support the following working draft syntax:
 The following constructs have had their grammar modified to make it easier to
 implement features such as variable lookup. These changes do not modify the
 behaviour of those constructs:
-1.  [Node Constructors](#31-node-constructors) \[1.1\]
+1.  [Direct Attribute Constructors](#311-attributes) \[1.1\]
 1.  [Quantified Expressions](#32-quantified-expressions) \[1.1\]
 1.  [Typeswitch](#331-typeswitch) \[1.1\]
 1.  [Block Expressions](#34-block-expressions) \[1.1\]
@@ -1517,6 +1540,7 @@ behaviour of those constructs:
 1.  [Schema Import](#47-schema-import) \[1.6\]
 1.  [Module Import](#48-module-import) \[1.6\]
 1.  [Arrow Function Call](#315-arrow-operator-) \[1.6\]
+1.  [Direct Text Constructors](#312-direct-text-constructors) \[1.8\]
 
 The XQuery IntelliJ Plugin supports the following vendor extensions described
 in this document:
