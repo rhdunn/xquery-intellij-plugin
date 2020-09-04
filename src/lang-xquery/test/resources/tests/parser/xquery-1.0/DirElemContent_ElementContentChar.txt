@@ -7,7 +7,7 @@ XQueryModuleImpl[FILE(0:12)]
                XQueryNCNameImpl[XQUERY_NCNAME(1:2)]
                   XmlNCNameImpl[XQUERY_XML_TAG_NCNAME_TOKEN(1:2)]('a')
                LeafPsiElement[XQUERY_END_XML_TAG_TOKEN(2:3)]('>')
-               XQueryDirElemContentImpl[XQUERY_DIR_ELEM_CONTENT(3:8)]
+               PluginDirTextConstructorImpl[XQUERY_DIR_TEXT_CONSTRUCTOR(3:8)]
                   LeafPsiElement[XQUERY_XML_ELEMENT_CONTENTS_TOKEN(3:4)]('1')
                   LeafPsiElement[BAD_CHARACTER(4:5)]('<')
                   LeafPsiElement[XQUERY_XML_ELEMENT_CONTENTS_TOKEN(5:6)]('2')

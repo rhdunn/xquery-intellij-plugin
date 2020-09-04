@@ -52,7 +52,7 @@ open class XQueryEnclosedExprPsiImpl(node: ASTNode) :
         return (
             parent is XQueryCompTextConstructor ||
             parent is XQueryDirAttributeValue ||
-            parent is XQueryDirElemContent ||
+            parent is XQueryDirElemConstructor ||
             parent is XQueryCatchClause
         )
     }

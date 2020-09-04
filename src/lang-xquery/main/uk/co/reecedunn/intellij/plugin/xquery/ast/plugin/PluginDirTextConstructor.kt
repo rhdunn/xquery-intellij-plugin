@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
+package uk.co.reecedunn.intellij.plugin.xquery.ast.plugin
 
 import com.intellij.psi.PsiElement
 
 /**
- * An XQuery 1.0 `DirElemContent` node in the XQuery AST.
+ * A `DirTextConstructor` node in the XQuery AST.
  */
-interface XQueryDirElemContent : PsiElement
+interface PluginDirTextConstructor : PsiElement

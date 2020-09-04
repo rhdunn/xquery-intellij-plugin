@@ -18,8 +18,6 @@ package uk.co.reecedunn.intellij.plugin.xquery.parser
 import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.IFileElementType
 import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
-import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathCommentPsiImpl
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text.FTOptionDeclPsiImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.*
@@ -141,12 +139,6 @@ object XQueryElementType {
     val DIR_ELEM_CONSTRUCTOR: IElementType = ICompositeElementType(
         "XQUERY_DIR_ELEM_CONSTRUCTOR",
         XQueryDirElemConstructorPsiImpl::class.java,
-        XQuery
-    )
-
-    val DIR_ELEM_CONTENT: IElementType = ICompositeElementType(
-        "XQUERY_DIR_ELEM_CONTENT",
-        XQueryDirElemContentPsiImpl::class.java,
         XQuery
     )
 
@@ -889,6 +881,12 @@ object XQueryElementType {
     val DIR_ATTRIBUTE: IElementType = ICompositeElementType(
         "XQUERY_DIR_ATTRIBUTE",
         PluginDirAttributePsiImpl::class.java,
+        XQuery
+    )
+
+    val DIR_TEXT_CONSTRUCTOR: IElementType = ICompositeElementType(
+        "XQUERY_DIR_TEXT_CONSTRUCTOR",
+        PluginDirTextConstructorPsiImpl::class.java,
         XQuery
     )
 
