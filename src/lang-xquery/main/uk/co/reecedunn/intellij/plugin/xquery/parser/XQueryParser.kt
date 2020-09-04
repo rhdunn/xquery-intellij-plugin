@@ -3829,13 +3829,15 @@ class XQueryParser : XPathParser() {
                 builder.error(XQueryBundle.message("parser.error.incomplete-entity"))
                 matched = true
                 includeNode = true
-            } else if (parseCDataSection(builder, XQueryElementType.DIR_ELEM_CONTENT)) {
+            } else if (
+                parseCDataSection(builder, XQueryElementType.DIR_ELEM_CONTENT) ||
+                parseDirectConstructor(builder, depth)
+            ) {
                 matched = true
             } else if (
                 parseEnclosedExprOrBlock(
                     builder, XQueryElementType.ENCLOSED_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL
-                ) ||
-                parseDirectConstructor(builder, depth)
+                )
             ) {
                 matched = true
                 includeNode = true
