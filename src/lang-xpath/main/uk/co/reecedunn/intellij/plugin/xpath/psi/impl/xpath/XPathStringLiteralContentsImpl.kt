@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.lang.injection.PsiElementTextDecoder
 import kotlin.math.max
 import kotlin.math.min
 
-class XPathStringLiteralContentsImpl(type: IElementType, text: CharSequence) :
+open class XPathStringLiteralContentsImpl(type: IElementType, text: CharSequence) :
     LeafPsiElement(type, text), PsiElementTextDecoder {
 
     override fun decode(decoded: StringBuilder) {
