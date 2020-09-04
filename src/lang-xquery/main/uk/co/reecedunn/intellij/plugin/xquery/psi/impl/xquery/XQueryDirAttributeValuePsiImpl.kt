@@ -22,9 +22,10 @@ import com.intellij.psi.LiteralTextEscaper
 import com.intellij.psi.PsiLanguageInjectionHost
 import uk.co.reecedunn.intellij.plugin.core.lang.injection.LiteralTextEscaperImpl
 import uk.co.reecedunn.intellij.plugin.core.lang.injection.LiteralTextHost
-import uk.co.reecedunn.intellij.plugin.core.lang.injection.PsiElementTextDecoder
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeValue
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 class XQueryDirAttributeValuePsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), XQueryDirAttributeValue, LiteralTextHost {
@@ -43,10 +44,15 @@ class XQueryDirAttributeValuePsiImpl(node: ASTNode) :
     // endregion
     // region LiteralTextHost
 
+    private val isClosed = children().find { it.elementType == XQueryTokenType.XML_ATTRIBUTE_VALUE_END } != null
+
     override val isOneLine: Boolean = false
 
     override val relevantTextRange: TextRange
-        get() = TODO()
+        get() = when {
+            isClosed -> TextRange(1, textLength - 1)
+            else -> TextRange(1, textLength)
+        }
 
     override val decoded: String
         get() = TODO()

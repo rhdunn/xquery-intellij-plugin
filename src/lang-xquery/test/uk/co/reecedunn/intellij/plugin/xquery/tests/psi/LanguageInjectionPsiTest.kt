@@ -23,6 +23,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeValue
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
@@ -31,6 +32,24 @@ private class LanguageInjectionPsiTest : ParserTestCase() {
     @Nested
     @DisplayName("relevant text range")
     internal inner class RelevantTextRange {
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (144) DirAttributeValue")
+        internal inner class DirAttributeValue {
+            @Test
+            @DisplayName("string literal content")
+            fun stringLiteral() {
+                val host = parse<XQueryDirAttributeValue>("<a test=\"Lorem ipsum.\"/>")[0] as PsiLanguageInjectionHost
+                assertThat(host.createLiteralTextEscaper().relevantTextRange, `is`(TextRange(1, 13)))
+            }
+
+            @Test
+            @DisplayName("unclosed string literal content")
+            fun unclosedStringLiteral() {
+                val host = parse<XQueryDirAttributeValue>("<a test=\"Lorem ipsum.")[0] as PsiLanguageInjectionHost
+                assertThat(host.createLiteralTextEscaper().relevantTextRange, `is`(TextRange(1, 13)))
+            }
+        }
+
         @Nested
         @DisplayName("XQuery 3.1 EBNF (222) StringLiteral")
         internal inner class StringLiteral {
