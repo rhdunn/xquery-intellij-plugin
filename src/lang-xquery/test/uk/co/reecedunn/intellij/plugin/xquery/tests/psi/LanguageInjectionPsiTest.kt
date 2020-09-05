@@ -524,6 +524,59 @@ private class LanguageInjectionPsiTest : ParserTestCase() {
                     assertThat(escaper.getOffsetInHost(6, range), `is`(-1))
                 }
             }
+
+
+            @Nested
+            @DisplayName("escape '{' and '}'")
+            internal inner class EscapeCharacters {
+                val host = parse<PluginDirTextConstructor>("<a>a{{}}b</a>")[0] as PsiLanguageInjectionHost
+                val escaper = host.createLiteralTextEscaper()
+
+                @Test
+                @DisplayName("relevant text range")
+                fun relevantTextRange() {
+                    val range = escaper.relevantTextRange
+                    val builder = StringBuilder()
+                    assertThat(escaper.decode(range, builder), `is`(true))
+                    assertThat(builder.toString(), `is`("a{}b"))
+
+                    assertThat(escaper.getOffsetInHost(-1, range), `is`(-1))
+                    assertThat(escaper.getOffsetInHost(0, range), `is`(0)) // a
+                    assertThat(escaper.getOffsetInHost(1, range), `is`(1)) // {
+                    assertThat(escaper.getOffsetInHost(2, range), `is`(3)) // }
+                    assertThat(escaper.getOffsetInHost(3, range), `is`(5)) // b
+                    assertThat(escaper.getOffsetInHost(4, range), `is`(6)) // -- (end offset)
+                    assertThat(escaper.getOffsetInHost(5, range), `is`(-1))
+                }
+
+                @Test
+                @DisplayName("subrange inside")
+                fun subrangeInside() {
+                    val range = TextRange(1, 3)
+                    val builder = StringBuilder()
+                    assertThat(escaper.decode(range, builder), `is`(true))
+                    assertThat(builder.toString(), `is`("{"))
+
+                    assertThat(escaper.getOffsetInHost(-1, range), `is`(-1))
+                    assertThat(escaper.getOffsetInHost(0, range), `is`(1)) // '
+                    assertThat(escaper.getOffsetInHost(1, range), `is`(3)) // -- (end offset)
+                    assertThat(escaper.getOffsetInHost(2, range), `is`(-1))
+                }
+
+                @Test
+                @DisplayName("subrange incomplete")
+                fun subrangeIncomplete() {
+                    val range = TextRange(0, 2)
+                    val builder = StringBuilder()
+                    assertThat(escaper.decode(range, builder), `is`(true))
+                    assertThat(builder.toString(), `is`("a"))
+
+                    assertThat(escaper.getOffsetInHost(-1, range), `is`(-1))
+                    assertThat(escaper.getOffsetInHost(0, range), `is`(0)) // a
+                    assertThat(escaper.getOffsetInHost(1, range), `is`(2)) // -- (end offset)
+                    assertThat(escaper.getOffsetInHost(2, range), `is`(-1))
+                }
+            }
         }
 
         @Nested
