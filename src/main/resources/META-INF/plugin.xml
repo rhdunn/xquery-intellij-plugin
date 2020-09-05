@@ -78,7 +78,10 @@
     </ol>
     <p>IntelliJ Integration:</p>
     <ol>
-      <li>Support language injections on <code>StringLiteral</code> and <code>DirAttributeValue</code> elements.</li>
+      <li>
+        Support language injections on <code>StringLiteral</code>, <code>DirAttributeValue</code>,
+        and <code>DirElemContent</code>/<code>DirTextConstructor</code> elements.
+      </li>
       <li>Support <code>language=Language</code> injection marker comments.</li>
     </ol>
   ]]></change-notes>

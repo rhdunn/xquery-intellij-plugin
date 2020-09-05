@@ -23,17 +23,36 @@ import com.intellij.psi.PsiLanguageInjectionHost
 import uk.co.reecedunn.intellij.plugin.core.lang.injection.LiteralTextEscaperImpl
 import uk.co.reecedunn.intellij.plugin.core.lang.injection.LiteralTextHost
 import uk.co.reecedunn.intellij.plugin.core.lang.injection.PsiElementTextDecoder
+import uk.co.reecedunn.intellij.plugin.core.psi.createElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirTextConstructor
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeValue
 
 class PluginDirTextConstructorPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), PluginDirTextConstructor, LiteralTextHost {
     // region PsiLanguageInjectionHost
 
+    private fun encoded(text: String): String {
+        val out = StringBuilder()
+        text.forEach { c ->
+            when (c) {
+                '{' -> out.append("{{")
+                '}' -> out.append("}}")
+                '&' -> out.append("&amp;")
+                '<' -> out.append("&lt;")
+                '>' -> out.append("&gt;")
+                else -> out.append(c)
+            }
+        }
+        return out.toString()
+    }
+
     override fun isValidHost(): Boolean = true
 
     override fun updateText(text: String): PsiLanguageInjectionHost {
-        return this
+        val updated = createElement<PluginDirTextConstructor>("<a>${encoded(text)}</a>") ?: return this
+        return replace(updated) as PsiLanguageInjectionHost
     }
 
     override fun createLiteralTextEscaper(): LiteralTextEscaper<out PsiLanguageInjectionHost> {

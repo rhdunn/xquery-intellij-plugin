@@ -10,7 +10,8 @@ XSLT and XPath:
 
 IntelliJ Integration:
 
-1.  Support language injections on `StringLiteral` and `DirAttributeValue` elements.
+1.  Support language injections on `StringLiteral`, `DirAttributeValue`, and
+    `DirElemContent`/`DirTextConstructor` elements.
 1.  Support `language=Language` injection marker comments.
 
 ## 2020
