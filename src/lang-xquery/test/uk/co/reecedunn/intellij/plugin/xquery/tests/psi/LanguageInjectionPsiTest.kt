@@ -23,6 +23,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirTextConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeValue
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
@@ -36,17 +37,42 @@ private class LanguageInjectionPsiTest : ParserTestCase() {
         @DisplayName("XQuery 3.1 EBNF (144) DirAttributeValue")
         internal inner class DirAttributeValue {
             @Test
-            @DisplayName("string literal content")
-            fun stringLiteral() {
+            @DisplayName("attribute value content")
+            fun attributeValueContent() {
                 val host = parse<XQueryDirAttributeValue>("<a test=\"Lorem ipsum.\"/>")[0] as PsiLanguageInjectionHost
                 assertThat(host.createLiteralTextEscaper().relevantTextRange, `is`(TextRange(1, 13)))
             }
 
             @Test
-            @DisplayName("unclosed string literal content")
-            fun unclosedStringLiteral() {
+            @DisplayName("unclosed attribute value content")
+            fun unclosedAttributeValueContent() {
                 val host = parse<XQueryDirAttributeValue>("<a test=\"Lorem ipsum.")[0] as PsiLanguageInjectionHost
                 assertThat(host.createLiteralTextEscaper().relevantTextRange, `is`(TextRange(1, 13)))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (147) DirElemContent ; XQuery IntelliJ Plugin XQuery EBNF (123) DirTextConstructor")
+        internal inner class DirTextConstructor {
+            @Test
+            @DisplayName("element")
+            fun element() {
+                val host = parse<PluginDirTextConstructor>("<a>Lorem ipsum.</a>")[0] as PsiLanguageInjectionHost
+                assertThat(host.createLiteralTextEscaper().relevantTextRange, `is`(TextRange(0, 12)))
+            }
+
+            @Test
+            @DisplayName("unclosed element")
+            fun unclosedElement() {
+                val host = parse<PluginDirTextConstructor>("<a>Lorem ipsum.")[0] as PsiLanguageInjectionHost
+                assertThat(host.createLiteralTextEscaper().relevantTextRange, `is`(TextRange(0, 12)))
+            }
+
+            @Test
+            @DisplayName("enclosed expression")
+            fun enclosedExpr() {
+                val host = parse<PluginDirTextConstructor>("<a>Lorem{1}ipsum.</a>")[0] as PsiLanguageInjectionHost
+                assertThat(host.createLiteralTextEscaper().relevantTextRange, `is`(TextRange(0, 5)))
             }
         }
 
