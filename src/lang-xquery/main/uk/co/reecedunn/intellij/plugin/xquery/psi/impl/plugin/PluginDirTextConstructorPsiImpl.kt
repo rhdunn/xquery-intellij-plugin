@@ -22,6 +22,8 @@ import com.intellij.psi.LiteralTextEscaper
 import com.intellij.psi.PsiLanguageInjectionHost
 import uk.co.reecedunn.intellij.plugin.core.lang.injection.LiteralTextEscaperImpl
 import uk.co.reecedunn.intellij.plugin.core.lang.injection.LiteralTextHost
+import uk.co.reecedunn.intellij.plugin.core.lang.injection.PsiElementTextDecoder
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirTextConstructor
 
 class PluginDirTextConstructorPsiImpl(node: ASTNode) :
@@ -46,7 +48,11 @@ class PluginDirTextConstructorPsiImpl(node: ASTNode) :
     override val relevantTextRange: TextRange get() = TextRange(0, textLength)
 
     override val decoded: String
-        get() = TODO()
+        get() {
+            val decoded = StringBuilder()
+            children().filterIsInstance<PsiElementTextDecoder>().forEach { decoder -> decoder.decode(decoded) }
+            return decoded.toString()
+        }
 
     // endregion
 }
