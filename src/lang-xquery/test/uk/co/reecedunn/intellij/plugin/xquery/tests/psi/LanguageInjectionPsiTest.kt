@@ -149,6 +149,17 @@ private class LanguageInjectionPsiTest : ParserTestCase() {
         }
 
         @Nested
+        @DisplayName("XQuery 3.1 EBNF (147) DirElemContent ; XQuery IntelliJ Plugin XQuery EBNF (123) DirTextConstructor")
+        internal inner class DirTextConstructor {
+            @Test
+            @DisplayName("element content")
+            fun elementContent() {
+                val host = parse<PluginDirTextConstructor>("<a>Lorem ipsum.</a>")[0] as PsiLanguageInjectionHost
+                assertThat(host.isValidHost, `is`(true))
+            }
+        }
+
+        @Nested
         @DisplayName("XPath 3.1 EBNF (116) StringLiteral")
         internal inner class StringLiteral {
             @Test
@@ -460,6 +471,57 @@ private class LanguageInjectionPsiTest : ParserTestCase() {
                     assertThat(escaper.getOffsetInHost(0, range), `is`(1)) // a
                     assertThat(escaper.getOffsetInHost(1, range), `is`(7)) // -- (end offset)
                     assertThat(escaper.getOffsetInHost(2, range), `is`(-1))
+                }
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (147) DirElemContent ; XQuery IntelliJ Plugin XQuery EBNF (123) DirTextConstructor")
+        internal inner class DirTextConstructor {
+            @Nested
+            @DisplayName("element content")
+            internal inner class ElementContent {
+                @Test
+                @DisplayName("relevant text range")
+                fun relevantTextRange() {
+                    val host = parse<PluginDirTextConstructor>("<a>test</a>")[0] as PsiLanguageInjectionHost
+                    val escaper = host.createLiteralTextEscaper()
+
+                    val range = escaper.relevantTextRange
+                    val builder = StringBuilder()
+                    assertThat(escaper.decode(range, builder), `is`(true))
+                    assertThat(builder.toString(), `is`("test"))
+
+                    assertThat(escaper.getOffsetInHost(-1, range), `is`(-1))
+                    assertThat(escaper.getOffsetInHost(0, range), `is`(0)) // t
+                    assertThat(escaper.getOffsetInHost(1, range), `is`(1)) // e
+                    assertThat(escaper.getOffsetInHost(2, range), `is`(2)) // s
+                    assertThat(escaper.getOffsetInHost(3, range), `is`(3)) // t
+                    assertThat(escaper.getOffsetInHost(4, range), `is`(4)) // -- (end offset)
+                    assertThat(escaper.getOffsetInHost(5, range), `is`(-1))
+                }
+
+                @Test
+                @DisplayName("subrange")
+                fun subrange() {
+                    val host = parse<PluginDirTextConstructor>(
+                        "<a>Lorem ipsum dolor.</a>"
+                    )[0] as PsiLanguageInjectionHost
+                    val escaper = host.createLiteralTextEscaper()
+
+                    val range = TextRange(6, 11)
+                    val builder = StringBuilder()
+                    assertThat(escaper.decode(range, builder), `is`(true))
+                    assertThat(builder.toString(), `is`("ipsum"))
+
+                    assertThat(escaper.getOffsetInHost(-1, range), `is`(-1))
+                    assertThat(escaper.getOffsetInHost(0, range), `is`(6)) // i
+                    assertThat(escaper.getOffsetInHost(1, range), `is`(7)) // p
+                    assertThat(escaper.getOffsetInHost(2, range), `is`(8)) // s
+                    assertThat(escaper.getOffsetInHost(3, range), `is`(9)) // u
+                    assertThat(escaper.getOffsetInHost(4, range), `is`(10)) // m
+                    assertThat(escaper.getOffsetInHost(5, range), `is`(11)) // -- (end offset)
+                    assertThat(escaper.getOffsetInHost(6, range), `is`(-1))
                 }
             }
         }
