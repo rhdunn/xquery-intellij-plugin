@@ -37,7 +37,6 @@ class XQueryDirAttributeValuePsiImpl(node: ASTNode) :
 
     private fun encoded(text: String, quote: Char): String {
         val out = StringBuilder()
-        out.append(quote)
         text.forEach { c ->
             when (c) {
                 quote -> {
@@ -50,7 +49,6 @@ class XQueryDirAttributeValuePsiImpl(node: ASTNode) :
                 else -> out.append(c)
             }
         }
-        out.append(quote)
         return out.toString()
     }
 
