@@ -80,8 +80,8 @@
     <ol>
       <li>
         Support language injections on <code>StringLiteral</code>, <code>DirAttributeValue</code>,
-        <code>DirElemContent</code>/<code>DirTextConstructor</code>, and <code>CDataSection</code>
-        elements.
+        <code>DirElemContent</code>/<code>DirTextConstructor</code>, <code>CDataSection</code>,
+        and <code>Pragma</code> elements.
       </li>
       <li>Support <code>language=Language</code> injection marker comments.</li>
     </ol>

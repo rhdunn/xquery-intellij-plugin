@@ -32,6 +32,38 @@ private class LanguageInjectionPsiTest : ParserTestCase() {
     @DisplayName("relevant text range")
     internal inner class RelevantTextRange {
         @Nested
+        @DisplayName("XPath Full Text 3.0 EBNF (36) Pragma")
+        internal inner class Pragma {
+            @Test
+            @DisplayName("pragma without contents")
+            fun pragmaWithoutContents() {
+                val host = parse<XPathPragma>("2 contains text (# test #)")[0] as PsiLanguageInjectionHost
+                assertThat(host.createLiteralTextEscaper().relevantTextRange, `is`(TextRange(8, 8)))
+            }
+
+            @Test
+            @DisplayName("unclosed pragma without contents")
+            fun unclosedPragmaWithoutContents() {
+                val host = parse<XPathPragma>("2 contains text (# test ")[0] as PsiLanguageInjectionHost
+                assertThat(host.createLiteralTextEscaper().relevantTextRange, `is`(TextRange(8, 8)))
+            }
+
+            @Test
+            @DisplayName("pragma contents")
+            fun pragmaContents() {
+                val host = parse<XPathPragma>("2 contains text (# test Lorem ipsum. #)")[0] as PsiLanguageInjectionHost
+                assertThat(host.createLiteralTextEscaper().relevantTextRange, `is`(TextRange(8, 21)))
+            }
+
+            @Test
+            @DisplayName("unclosed pragma contents")
+            fun unclosedPragmaContents() {
+                val host = parse<XPathPragma>("2 contains text (# test Lorem ipsum. #)")[0] as PsiLanguageInjectionHost
+                assertThat(host.createLiteralTextEscaper().relevantTextRange, `is`(TextRange(8, 21)))
+            }
+        }
+
+        @Nested
         @DisplayName("XPath 3.1 EBNF (116) StringLiteral")
         internal inner class StringLiteral {
             @Test
@@ -53,6 +85,31 @@ private class LanguageInjectionPsiTest : ParserTestCase() {
     @Nested
     @DisplayName("is valid host")
     internal inner class IsValidHost {
+        @Nested
+        @DisplayName("XPath Full Text 3.0 EBNF (36) Pragma")
+        internal inner class Pragma {
+            @Test
+            @DisplayName("pragma without contents")
+            fun pragmaWithoutContents() {
+                val host = parse<XPathPragma>("2 contains text (# test #)")[0] as PsiLanguageInjectionHost
+                assertThat(host.isValidHost, `is`(false))
+            }
+
+            @Test
+            @DisplayName("pragma contents")
+            fun pragmaContents() {
+                val host = parse<XPathPragma>("2 contains text (# test Lorem ipsum. #)")[0] as PsiLanguageInjectionHost
+                assertThat(host.isValidHost, `is`(true))
+            }
+
+            @Test
+            @DisplayName("unclosed pragma contents")
+            fun unclosedPragmaContents() {
+                val host = parse<XPathPragma>("2 contains text (# test Lorem ipsum. #)")[0] as PsiLanguageInjectionHost
+                assertThat(host.isValidHost, `is`(true))
+            }
+        }
+
         @Nested
         @DisplayName("XPath 3.1 EBNF (116) StringLiteral")
         internal inner class StringLiteral {
@@ -82,6 +139,51 @@ private class LanguageInjectionPsiTest : ParserTestCase() {
     @Nested
     @DisplayName("decode")
     internal inner class Decode {
+        @Nested
+        @DisplayName("XPath Full Text 3.0 EBNF (36) Pragma")
+        internal inner class Pragma {
+            @Test
+            @DisplayName("relevant text range")
+            fun relevantTextRange() {
+                val host = parse<XPathPragma>("2 contains text (# pragma test#)")[0] as PsiLanguageInjectionHost
+                val escaper = host.createLiteralTextEscaper()
+
+                val range = escaper.relevantTextRange
+                val builder = StringBuilder()
+                assertThat(escaper.decode(range, builder), `is`(true))
+                assertThat(builder.toString(), `is`("test"))
+
+                assertThat(escaper.getOffsetInHost(-1, range), `is`(-1))
+                assertThat(escaper.getOffsetInHost(0, range), `is`(10)) // t
+                assertThat(escaper.getOffsetInHost(1, range), `is`(11)) // e
+                assertThat(escaper.getOffsetInHost(2, range), `is`(12)) // s
+                assertThat(escaper.getOffsetInHost(3, range), `is`(13)) // t
+                assertThat(escaper.getOffsetInHost(4, range), `is`(14)) // -- (end offset)
+                assertThat(escaper.getOffsetInHost(5, range), `is`(-1))
+            }
+
+            @Test
+            @DisplayName("subrange")
+            fun subrange() {
+                val host = parse<XPathPragma>("2 contains text (# pragma Lorem ipsum dolor.#)")[0] as PsiLanguageInjectionHost
+                val escaper = host.createLiteralTextEscaper()
+
+                val range = TextRange(16, 21)
+                val builder = StringBuilder()
+                assertThat(escaper.decode(range, builder), `is`(true))
+                assertThat(builder.toString(), `is`("ipsum"))
+
+                assertThat(escaper.getOffsetInHost(-1, range), `is`(-1))
+                assertThat(escaper.getOffsetInHost(0, range), `is`(16)) // i
+                assertThat(escaper.getOffsetInHost(1, range), `is`(17)) // p
+                assertThat(escaper.getOffsetInHost(2, range), `is`(18)) // s
+                assertThat(escaper.getOffsetInHost(3, range), `is`(19)) // u
+                assertThat(escaper.getOffsetInHost(4, range), `is`(20)) // m
+                assertThat(escaper.getOffsetInHost(5, range), `is`(21)) // -- (end offset)
+                assertThat(escaper.getOffsetInHost(6, range), `is`(-1))
+            }
+        }
+
         @Nested
         @DisplayName("XPath 3.1 EBNF (116) StringLiteral")
         internal inner class StringLiteral {
