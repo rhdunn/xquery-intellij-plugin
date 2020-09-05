@@ -20,8 +20,8 @@ import com.intellij.psi.LiteralTextEscaper
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import java.lang.StringBuilder
 
-class LiteralTextEscaperImpl<T : LiteralTextHost>(host: T) : LiteralTextEscaper<T>(host) {
-    private var decoded: Array<Int>? = null
+open class LiteralTextEscaperImpl<T : LiteralTextHost>(host: T) : LiteralTextEscaper<T>(host) {
+    protected var decoded: Array<Int>? = null
 
     override fun decode(rangeInsideHost: TextRange, outChars: StringBuilder): Boolean {
         var currentOffset = 0

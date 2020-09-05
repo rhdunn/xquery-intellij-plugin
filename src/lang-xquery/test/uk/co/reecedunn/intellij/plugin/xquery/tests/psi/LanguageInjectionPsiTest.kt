@@ -24,6 +24,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirTextConstructor
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCDataSection
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeValue
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
@@ -33,6 +34,24 @@ private class LanguageInjectionPsiTest : ParserTestCase() {
     @Nested
     @DisplayName("relevant text range")
     internal inner class RelevantTextRange {
+        @Nested
+        @DisplayName("XQuery 1.0 EBNF (107) CDataSection")
+        internal inner class CDataSection {
+            @Test
+            @DisplayName("cdata section")
+            fun cdataSection() {
+                val host = parse<XQueryCDataSection>("<![CDATA[Lorem ipsum.]]>")[0] as PsiLanguageInjectionHost
+                assertThat(host.createLiteralTextEscaper().relevantTextRange, `is`(TextRange(9, 21)))
+            }
+
+            @Test
+            @DisplayName("unclosed cdata section")
+            fun unclosedCDataSection() {
+                val host = parse<XQueryCDataSection>("<![CDATA[Lorem ipsum.")[0] as PsiLanguageInjectionHost
+                assertThat(host.createLiteralTextEscaper().relevantTextRange, `is`(TextRange(9, 21)))
+            }
+        }
+
         @Nested
         @DisplayName("XQuery 3.1 EBNF (144) DirAttributeValue")
         internal inner class DirAttributeValue {
@@ -199,11 +218,63 @@ private class LanguageInjectionPsiTest : ParserTestCase() {
                 assertThat(host.isValidHost, `is`(true))
             }
         }
+
+        @Test
+        @DisplayName("XQuery 1.0 EBNF (107) CDataSection")
+        fun cdataSection() {
+            val host = parse<XQueryCDataSection>("<![CDATA[Lorem ipsum.]]>")[0] as PsiLanguageInjectionHost
+            assertThat(host.isValidHost, `is`(true))
+        }
     }
 
     @Nested
     @DisplayName("decode")
     internal inner class Decode {
+        @Nested
+        @DisplayName("XQuery 1.0 EBNF (107) CDataSection")
+        internal inner class CDataSection {
+            @Test
+            @DisplayName("relevant text range")
+            fun relevantTextRange() {
+                val host = parse<XQueryCDataSection>("<![CDATA[test]]>")[0] as PsiLanguageInjectionHost
+                val escaper = host.createLiteralTextEscaper()
+
+                val range = escaper.relevantTextRange
+                val builder = StringBuilder()
+                assertThat(escaper.decode(range, builder), `is`(true))
+                assertThat(builder.toString(), `is`("test"))
+
+                assertThat(escaper.getOffsetInHost(-1, range), `is`(-1))
+                assertThat(escaper.getOffsetInHost(0, range), `is`(9)) // t
+                assertThat(escaper.getOffsetInHost(1, range), `is`(10)) // e
+                assertThat(escaper.getOffsetInHost(2, range), `is`(11)) // s
+                assertThat(escaper.getOffsetInHost(3, range), `is`(12)) // t
+                assertThat(escaper.getOffsetInHost(4, range), `is`(13)) // -- (end offset)
+                assertThat(escaper.getOffsetInHost(5, range), `is`(-1))
+            }
+
+            @Test
+            @DisplayName("subrange")
+            fun subrange() {
+                val host = parse<XQueryCDataSection>("<![CDATA[Lorem ipsum dolor.]]>")[0] as PsiLanguageInjectionHost
+                val escaper = host.createLiteralTextEscaper()
+
+                val range = TextRange(15, 20)
+                val builder = StringBuilder()
+                assertThat(escaper.decode(range, builder), `is`(true))
+                assertThat(builder.toString(), `is`("ipsum"))
+
+                assertThat(escaper.getOffsetInHost(-1, range), `is`(-1))
+                assertThat(escaper.getOffsetInHost(0, range), `is`(15)) // i
+                assertThat(escaper.getOffsetInHost(1, range), `is`(16)) // p
+                assertThat(escaper.getOffsetInHost(2, range), `is`(17)) // s
+                assertThat(escaper.getOffsetInHost(3, range), `is`(18)) // u
+                assertThat(escaper.getOffsetInHost(4, range), `is`(19)) // m
+                assertThat(escaper.getOffsetInHost(5, range), `is`(20)) // -- (end offset)
+                assertThat(escaper.getOffsetInHost(6, range), `is`(-1))
+            }
+        }
+
         @Nested
         @DisplayName("XQuery 3.1 EBNF (144) DirAttributeValue")
         internal inner class DirAttributeValue {
