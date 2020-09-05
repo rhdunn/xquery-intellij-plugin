@@ -18,7 +18,6 @@ package uk.co.reecedunn.intellij.plugin.xpath.completion.property
 import com.intellij.openapi.util.Key
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Product
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 
 object XPathCompletionProperty {

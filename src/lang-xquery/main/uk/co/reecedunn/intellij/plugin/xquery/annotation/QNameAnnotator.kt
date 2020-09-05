@@ -38,7 +38,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathComment
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathWildcard
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.getUsageType
-import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 
 class QNameAnnotator : Annotator() {
     private fun getHighlightAttributes(element: PsiElement, resolveReferences: Boolean = true): TextAttributesKey {

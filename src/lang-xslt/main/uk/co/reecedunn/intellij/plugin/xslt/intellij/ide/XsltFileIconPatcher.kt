@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.xslt.intellij.ide
 
 import com.intellij.ide.FileIconPatcher
-import com.intellij.ide.FileIconProvider
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiManager
