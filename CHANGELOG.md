@@ -15,6 +15,11 @@ IntelliJ Integration:
     elements.
 1.  Support `language=Language` injection marker comments.
 
+MarkLogic:
+
+1.  Register the `sjs` and `mjs` extensions with IntelliJ Ultimate's
+    JavaScript plugin for full JavaScript language support.
+
 ## 2020
 
 *  [1.7.2 - 2020-08-31](docs/_posts/2020-08-31-release-1.7.2.md)

@@ -1,11 +1,8 @@
-<!-- MarkLogic Server-Side JavaScript -->
 <idea-plugin>
   <extensions defaultExtensionNs="com.intellij">
-    <fileType name="Server-side JavaScript" language="MLJavaScript" extensions="sjs"
-              implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.intellij.fileTypes.ServerSideJavaScriptFileType"
-              fieldName="INSTANCE"/>
-    <fileType name="MarkLogic JavaScript Module" language="MLJavaScriptModule" extensions="mjs"
-              implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.intellij.fileTypes.JavaScriptModuleFileType"
+    <!-- MarkLogic Server-Side JavaScript -->
+    <fileType name="JavaScript" language="JavaScript" extensions="sjs;mjs"
+              implementationClass="com.intellij.lang.javascript.JavaScriptFileType"
               fieldName="INSTANCE"/>
   </extensions>
 </idea-plugin>

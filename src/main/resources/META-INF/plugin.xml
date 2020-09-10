@@ -15,6 +15,7 @@
   <depends optional="true" config-file="plugin-depends-intellilang.xml">org.intellij.intelliLang</depends>
   <depends optional="true" config-file="plugin-depends-java.xml">com.intellij.modules.java</depends>
   <depends optional="true" config-file="plugin-depends-microservices.xml">com.intellij.modules.microservices</depends>
+  <depends optional="true" config-file="plugin-lang-sjs.xml">JavaScript</depends>
 
   <description><![CDATA[
     <p>
@@ -85,6 +86,13 @@
       </li>
       <li>Support <code>language=Language</code> injection marker comments.</li>
     </ol>
+    <p>MarkLogic:</p>
+    <ol>
+      <li>
+        Register the <code>sjs</code> and <code>mjs</code> extensions with IntelliJ Ultimate's
+        JavaScript plugin for full JavaScript language support.
+      </li>
+    </ol>
   ]]></change-notes>
 
   <idea-version since-build="161"/>
@@ -92,7 +100,6 @@
   <xi:include href="plugin-compat.xml" xpointer="xpointer(/idea-plugin/*)"/>
 
   <xi:include href="plugin-lang-xpm.xml" xpointer="xpointer(/idea-plugin/*)"/>
-  <xi:include href="plugin-lang-sjs.xml" xpointer="xpointer(/idea-plugin/*)"/>
   <xi:include href="plugin-lang-xpath.xml" xpointer="xpointer(/idea-plugin/*)"/>
   <xi:include href="plugin-lang-xquery.xml" xpointer="xpointer(/idea-plugin/*)"/>
   <xi:include href="plugin-lang-xslt.xml" xpointer="xpointer(/idea-plugin/*)"/>
