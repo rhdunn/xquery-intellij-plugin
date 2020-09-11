@@ -36,13 +36,11 @@ class QueryProcessorDataSource(private val allowUnspecified: Boolean = false) {
     internal lateinit var activeEditorFileType: JRadioButton
 
     var path: String?
-        get() {
-            return when (type) {
-                null -> null
-                QueryProcessorDataSourceType.LocalFile -> localFilePath.textField.text.nullize()
-                QueryProcessorDataSourceType.DatabaseModule -> databaseModulePath.text.nullize()
-                QueryProcessorDataSourceType.ActiveEditorFile -> null
-            }
+        get() = when (type) {
+            null -> null
+            QueryProcessorDataSourceType.LocalFile -> localFilePath.textField.text.nullize()
+            QueryProcessorDataSourceType.DatabaseModule -> databaseModulePath.text.nullize()
+            QueryProcessorDataSourceType.ActiveEditorFile -> null
         }
         set(value) {
             when (type) {
@@ -54,14 +52,12 @@ class QueryProcessorDataSource(private val allowUnspecified: Boolean = false) {
         }
 
     var type: QueryProcessorDataSourceType?
-        get() {
-            return when {
-                notSpecifiedType.isSelected -> null
-                localFileType.isSelected -> QueryProcessorDataSourceType.LocalFile
-                databaseModuleType.isSelected -> QueryProcessorDataSourceType.DatabaseModule
-                activeEditorFileType.isSelected -> QueryProcessorDataSourceType.ActiveEditorFile
-                else -> QueryProcessorDataSourceType.LocalFile
-            }
+        get() = when {
+            notSpecifiedType.isSelected -> null
+            localFileType.isSelected -> QueryProcessorDataSourceType.LocalFile
+            databaseModuleType.isSelected -> QueryProcessorDataSourceType.DatabaseModule
+            activeEditorFileType.isSelected -> QueryProcessorDataSourceType.ActiveEditorFile
+            else -> QueryProcessorDataSourceType.LocalFile
         }
         set(value) {
             when (value) {

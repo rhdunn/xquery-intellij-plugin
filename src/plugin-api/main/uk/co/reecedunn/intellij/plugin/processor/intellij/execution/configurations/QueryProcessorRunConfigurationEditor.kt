@@ -255,19 +255,17 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
     private lateinit var contextItem: QueryProcessorDataSource
 
     private val inputLabel: String?
-        get() {
-            return when {
-                languages.findByMimeType { it == "application/xslt+xml" } != null -> {
-                    // Use "Input" instead of "Context Item" for XSLT queries.
-                    PluginApiBundle.message("xquery.configurations.processor.group.input.label")
-                }
-                languages.findByMimeType { it == "application/xquery" || it == "application/vnd+xpath" } == null -> {
-                    // Server-side JS, SPARQL, and SQL queries don't support an input/context item;
-                    // XSLT, XQuery, and XPath do.
-                    null
-                }
-                else -> PluginApiBundle.message("xquery.configurations.processor.group.context-item.label")
+        get() = when {
+            languages.findByMimeType { it == "application/xslt+xml" } != null -> {
+                // Use "Input" instead of "Context Item" for XSLT queries.
+                PluginApiBundle.message("xquery.configurations.processor.group.input.label")
             }
+            languages.findByMimeType { it == "application/xquery" || it == "application/vnd+xpath" } == null -> {
+                // Server-side JS, SPARQL, and SQL queries don't support an input/context item;
+                // XSLT, XQuery, and XPath do.
+                null
+            }
+            else -> PluginApiBundle.message("xquery.configurations.processor.group.context-item.label")
         }
 
     private val inputPanel: JPanel = panel {

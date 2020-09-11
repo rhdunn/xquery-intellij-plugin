@@ -49,15 +49,13 @@ class XQueryAnnotationPsiImpl(node: ASTNode) :
         get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
 
     override val values: Sequence<XsAnyAtomicType>
-        get() {
-            return children().map {
-                when (it) {
-                    is XPathNumericLiteral -> it as XsAnyAtomicType
-                    is XPathStringLiteral -> it as XsAnyAtomicType
-                    else -> null
-                }
-            }.filterNotNull()
-        }
+        get() = children().map {
+            when (it) {
+                is XPathNumericLiteral -> it as XsAnyAtomicType
+                is XPathStringLiteral -> it as XsAnyAtomicType
+                else -> null
+            }
+        }.filterNotNull()
 
     // endregion
     // region VersionConformance

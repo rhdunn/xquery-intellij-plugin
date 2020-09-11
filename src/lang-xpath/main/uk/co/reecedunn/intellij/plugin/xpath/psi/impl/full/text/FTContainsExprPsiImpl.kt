@@ -28,14 +28,11 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 private val FULL_TEXT: List<Version> = listOf(FullTextSpec.REC_1_0_20110317)
 private val XQUERY: List<Version> = listOf()
 
-class FTContainsExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
-    FTContainsExpr, VersionConformance {
+class FTContainsExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), FTContainsExpr, VersionConformance {
     override val requiresConformance: List<Version>
-        get() {
-            return if (conformanceElement.elementType == XPathTokenType.K_CONTAINS)
-                FULL_TEXT
-            else
-                XQUERY
+        get() = when (conformanceElement.elementType) {
+            XPathTokenType.K_CONTAINS -> FULL_TEXT
+            else -> XQUERY
         }
 
     override val conformanceElement: PsiElement

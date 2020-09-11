@@ -27,42 +27,37 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 class XPathSequenceTypePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathSequenceType, XdmSequenceType {
     // region XdmSequenceType
 
+    private val itemTypeName: String
+        get() = (firstChild as XdmSequenceType).typeName
+
     private val occurrenceIndicator: IElementType?
         get() = findChildByType<PsiElement>(XPathTokenType.OCCURRENCE_INDICATOR_TOKENS)?.node?.elementType
 
     override val typeName: String
-        get() {
-            return (firstChild as XdmSequenceType).typeName.let {
-                when (occurrenceIndicator) {
-                    XPathTokenType.OPTIONAL -> "$it?"
-                    XPathTokenType.STAR -> "$it*"
-                    XPathTokenType.PLUS -> "$it+"
-                    else -> it
-                }
-            }
+        get() = when (occurrenceIndicator) {
+            XPathTokenType.OPTIONAL -> "$itemTypeName?"
+            XPathTokenType.STAR -> "$itemTypeName*"
+            XPathTokenType.PLUS -> "$itemTypeName+"
+            else -> itemTypeName
         }
 
     override val itemType: XdmItemType?
         get() = (firstChild as XdmSequenceType).itemType
 
     override val lowerBound: Int?
-        get() {
-            return when (occurrenceIndicator) {
-                XPathTokenType.OPTIONAL -> 0
-                XPathTokenType.STAR -> 0
-                XPathTokenType.PLUS -> 1
-                else -> 1
-            }
+        get() = when (occurrenceIndicator) {
+            XPathTokenType.OPTIONAL -> 0
+            XPathTokenType.STAR -> 0
+            XPathTokenType.PLUS -> 1
+            else -> 1
         }
 
     override val upperBound: Int?
-        get() {
-            return when (occurrenceIndicator) {
-                XPathTokenType.OPTIONAL -> 1
-                XPathTokenType.STAR -> Int.MAX_VALUE
-                XPathTokenType.PLUS -> Int.MAX_VALUE
-                else -> 1
-            }
+        get() = when (occurrenceIndicator) {
+            XPathTokenType.OPTIONAL -> 1
+            XPathTokenType.STAR -> Int.MAX_VALUE
+            XPathTokenType.PLUS -> Int.MAX_VALUE
+            else -> 1
         }
 
     // endregion

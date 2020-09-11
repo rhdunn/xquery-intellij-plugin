@@ -47,12 +47,9 @@ class QueryProcessorRunConfiguration(
         get() = getState()!!
 
     val language: Language
-        get() {
-            return if (languages.size == 1) {
-                languages[0]
-            } else {
-                languages.findByAssociations(scriptFilePath ?: "") ?: languages[0]
-            }
+        get() = when (languages.size) {
+            1 -> languages[0]
+            else -> languages.findByAssociations(scriptFilePath ?: "") ?: languages[0]
         }
 
     // region Query Processor

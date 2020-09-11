@@ -83,11 +83,9 @@ class PluginSequenceTypeListPsiImpl(node: ASTNode) :
     // region VersionConformance
 
     override val requiresConformance: List<Version>
-        get() {
-            return if (parent.elementType === XPathElementType.TYPED_FUNCTION_TEST)
-                listOf()
-            else
-                listOf(XQueryIntelliJPlugin.VERSION_1_3)
+        get() = when (parent.elementType) {
+            XPathElementType.TYPED_FUNCTION_TEST -> listOf()
+            else -> listOf(XQueryIntelliJPlugin.VERSION_1_3)
         }
 
     override val conformanceElement: PsiElement

@@ -85,11 +85,9 @@ class XQuerySequenceTypeUnionPsiImpl(node: ASTNode) :
     // region VersionConformance
 
     override val requiresConformance: List<Version>
-        get() {
-            return if (parent is XQueryCaseClause)
-                XQUERY30
-            else
-                SEMANTICS
+        get() = when (parent) {
+            is XQueryCaseClause -> XQUERY30
+            else -> SEMANTICS
         }
 
     override val conformanceElement: PsiElement

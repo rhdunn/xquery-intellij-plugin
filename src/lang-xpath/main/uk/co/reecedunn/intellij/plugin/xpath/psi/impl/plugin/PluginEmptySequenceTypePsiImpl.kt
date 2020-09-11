@@ -54,11 +54,9 @@ class PluginEmptySequenceTypePsiImpl(node: ASTNode) :
     // region VersionConformance
 
     override val requiresConformance: List<Version>
-        get() {
-            return if (conformanceElement.elementType == XPathTokenType.K_EMPTY)
-                XQUERY10_WD_EMPTY
-            else
-                XQUERY10_REC_EMPTY
+        get() = when (conformanceElement.elementType) {
+            XPathTokenType.K_EMPTY -> XQUERY10_WD_EMPTY
+            else -> XQUERY10_REC_EMPTY
         }
 
     override val conformanceElement: PsiElement

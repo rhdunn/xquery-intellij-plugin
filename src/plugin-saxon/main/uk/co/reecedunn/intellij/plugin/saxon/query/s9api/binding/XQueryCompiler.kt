@@ -23,9 +23,7 @@ class XQueryCompiler(private val `object`: Any, private val `class`: Class<*>) {
     }
 
     var updatingEnabled: Boolean
-        get() {
-            return `class`.getMethod("isUpdatingEnabled").invoke(`object`) as Boolean
-        }
+        get() = `class`.getMethod("isUpdatingEnabled").invoke(`object`) as Boolean
         set(value) {
             `class`.getMethod("setUpdatingEnabled", Boolean::class.java).invoke(`object`, value)
         }

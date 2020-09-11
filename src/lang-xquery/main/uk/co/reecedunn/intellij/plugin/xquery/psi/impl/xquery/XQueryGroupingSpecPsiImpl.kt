@@ -35,9 +35,7 @@ class XQueryGroupingSpecPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
     // region XPathVariableBinding
 
     private val varName: XdmVariableName?
-        get() {
-            return children().filterIsInstance<XQueryGroupingVariable>().firstOrNull() as? XdmVariableName
-        }
+        get() = children().filterIsInstance<XQueryGroupingVariable>().firstOrNull() as? XdmVariableName
 
     override val variableName: XsQNameValue?
         get() = varName?.variableName

@@ -73,11 +73,9 @@ class XPathParenthesizedItemTypePsiImpl(node: ASTNode) :
     // region VersionConformanceName
 
     override val conformanceName: String?
-        get() {
-            return if (findChildByType<PsiElement>(SEQUENCE_TYPE) != null)
-                XPathBundle.message("construct.parenthesized-sequence-type")
-            else
-                null
+        get() = when {
+            findChildByType<PsiElement>(SEQUENCE_TYPE) != null -> XPathBundle.message("construct.parenthesized-sequence-type")
+            else -> null
         }
 
     // endregion
