@@ -42,26 +42,20 @@ fun NodeList.asSequence(): Sequence<Node> = NodeListIterator(this).asSequence()
 
 fun <E> NodeList.elements(map: (Element) -> E): Sequence<E> = asSequence().filterIsInstance<Element>().map(map)
 
-fun String.toQName(namespaces: Map<String, String>): QName {
-    return when {
-        contains(':') -> split(":").let { QName(namespaces[it[0]], it[1], it[0]) }
-        else -> QName(this)
-    }
+fun String.toQName(namespaces: Map<String, String>): QName = when {
+    contains(':') -> split(":").let { QName(namespaces[it[0]], it[1], it[0]) }
+    else -> QName(this)
 }
 
 class XmlElement(val element: Element, private val namespaces: Map<String, String>) {
-    fun children(): Sequence<XmlElement> {
-        return element.childNodes.elements { XmlElement(it, namespaces) }
-    }
+    fun children(): Sequence<XmlElement> = element.childNodes.elements { XmlElement(it, namespaces) }
 
     fun children(qname: String): Sequence<XmlElement> = children(qname.toQName(namespaces))
 
-    fun children(qname: QName): Sequence<XmlElement> {
-        return when {
-            qname.namespaceURI.isEmpty() -> element.getElementsByTagName(qname.localPart)
-            else -> element.getElementsByTagNameNS(qname.namespaceURI, qname.localPart)
-        }.elements { XmlElement(it, namespaces) }
-    }
+    fun children(qname: QName): Sequence<XmlElement> = when {
+        qname.namespaceURI.isEmpty() -> element.getElementsByTagName(qname.localPart)
+        else -> element.getElementsByTagNameNS(qname.namespaceURI, qname.localPart)
+    }.elements { XmlElement(it, namespaces) }
 
     fun child(qname: String): XmlElement? = children(qname).firstOrNull()
 
@@ -71,11 +65,9 @@ class XmlElement(val element: Element, private val namespaces: Map<String, Strin
 
     fun attribute(qname: String): String? = attribute(qname.toQName(namespaces))
 
-    fun attribute(qname: QName): String? {
-        return when {
-            qname.namespaceURI.isEmpty() -> element.getAttribute(qname.localPart)?.nullize()
-            else -> element.getAttributeNS(qname.namespaceURI, qname.localPart)?.nullize()
-        }
+    fun attribute(qname: QName): String? = when {
+        qname.namespaceURI.isEmpty() -> element.getAttribute(qname.localPart)?.nullize()
+        else -> element.getAttributeNS(qname.namespaceURI, qname.localPart)?.nullize()
     }
 
     fun appendChild(child: Node): Node? = element.appendChild(child)

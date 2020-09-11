@@ -52,9 +52,7 @@ object SaxonS9API : ItemPresentation, QueryProcessorApi {
 
     override fun canOutputRdf(language: Language?): Boolean = false
 
-    override fun canUpdate(language: Language?): Boolean {
-        return language == XQuery
-    }
+    override fun canUpdate(language: Language?): Boolean = language == XQuery
 
     override fun canExecute(language: Language, executorId: String): Boolean {
         val run = executorId == DefaultRunExecutor.EXECUTOR_ID

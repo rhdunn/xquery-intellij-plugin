@@ -23,22 +23,16 @@ open class XdmValue(val saxonObject: Any, private val `class`: Class<*>) {
         return XdmSequenceIterator(`class`.getMethod("iterator").invoke(saxonObject), xdmSequenceIteratorClass)
     }
 
-    private fun getUnderlyingValue(): Any {
-        return `class`.getMethod("getUnderlyingValue").invoke(saxonObject)
-    }
+    private fun getUnderlyingValue(): Any = `class`.getMethod("getUnderlyingValue").invoke(saxonObject)
 
     fun getItemType(typeHierarchy: Any?): Any {
         val value = getUnderlyingValue()
         return Type.getItemType(value, typeHierarchy, `class`.classLoader)
     }
 
-    override fun toString(): String {
-        return saxonObject.toString()
-    }
+    override fun toString(): String = saxonObject.toString()
 
-    override fun hashCode(): Int {
-        return saxonObject.hashCode()
-    }
+    override fun hashCode(): Int = saxonObject.hashCode()
 
     override fun equals(other: Any?): Boolean {
         if (other !is XdmItem) return false
@@ -46,11 +40,9 @@ open class XdmValue(val saxonObject: Any, private val `class`: Class<*>) {
     }
 
     companion object {
-        fun newInstance(value: Any?, type: String, processor: Processor): XdmValue {
-            return when {
-                type == "empty-sequence()" || value == null -> XdmEmptySequence.getInstance(processor.classLoader)
-                else -> XdmItem.newInstance(value, type, processor)
-            }
+        fun newInstance(value: Any?, type: String, processor: Processor): XdmValue = when {
+            type == "empty-sequence()" || value == null -> XdmEmptySequence.getInstance(processor.classLoader)
+            else -> XdmItem.newInstance(value, type, processor)
         }
     }
 }

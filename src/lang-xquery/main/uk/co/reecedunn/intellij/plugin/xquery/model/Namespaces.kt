@@ -103,35 +103,31 @@ fun XsQNameValue.getNamespaceType(): XdmNamespaceType {
     return (this as? PsiElement)?.getUsageType()?.namespaceType ?: return XdmNamespaceType.Undefined
 }
 
-fun XsQNameValue.expandQName(): Sequence<XsQNameValue> {
-    return when {
-        isLexicalQName && prefix == null /* NCName */ -> {
-            when (val type = getNamespaceType()) {
-                XdmNamespaceType.DefaultElementOrType -> element!!.defaultNamespace(type).expandNCName(this)
-                XdmNamespaceType.DefaultFunctionDecl -> element!!.defaultNamespace(type).expandNCName(this)
-                XdmNamespaceType.DefaultFunctionRef -> element!!.defaultNamespace(type).expandNCName(this)
-                XdmNamespaceType.None -> sequenceOf(XsQName(EMPTY_NAMESPACE, null, localName, false, element))
-                XdmNamespaceType.XQuery -> sequenceOf(XsQName(XQUERY_NAMESPACE, null, localName, false, element))
-                else -> sequenceOf(this)
-            }
+fun XsQNameValue.expandQName(): Sequence<XsQNameValue> = when {
+    isLexicalQName && prefix == null /* NCName */ -> when (val type = getNamespaceType()) {
+        XdmNamespaceType.DefaultElementOrType -> element!!.defaultNamespace(type).expandNCName(this)
+        XdmNamespaceType.DefaultFunctionDecl -> element!!.defaultNamespace(type).expandNCName(this)
+        XdmNamespaceType.DefaultFunctionRef -> element!!.defaultNamespace(type).expandNCName(this)
+        XdmNamespaceType.None -> sequenceOf(XsQName(EMPTY_NAMESPACE, null, localName, false, element))
+        XdmNamespaceType.XQuery -> sequenceOf(XsQName(XQUERY_NAMESPACE, null, localName, false, element))
+        else -> sequenceOf(this)
+    }
+    isLexicalQName /* QName */ -> {
+        element!!.staticallyKnownNamespaces().filter { ns ->
+            ns.namespacePrefix?.data == prefix!!.data
+        }.map { ns ->
+            XsQName(ns.namespaceUri, prefix, localName, false, element)
         }
-        isLexicalQName /* QName */ -> {
-            element!!.staticallyKnownNamespaces().filter { ns ->
-                ns.namespacePrefix?.data == prefix!!.data
-            }.map { ns ->
-                XsQName(ns.namespaceUri, prefix, localName, false, element)
-            }
+    }
+    else /* URIQualifiedName */ -> {
+        val expanded = element!!.staticallyKnownNamespaces().filter { ns ->
+            ns.namespaceUri?.data == namespace!!.data
+        }.map { ns ->
+            XsQName(ns.namespaceUri, prefix, localName, false, element)
         }
-        else /* URIQualifiedName */ -> {
-            val expanded = element!!.staticallyKnownNamespaces().filter { ns ->
-                ns.namespaceUri?.data == namespace!!.data
-            }.map { ns ->
-                XsQName(ns.namespaceUri, prefix, localName, false, element)
-            }
-            if (expanded.any())
-                expanded
-            else
-                sequenceOf(this)
-        }
+        if (expanded.any())
+            expanded
+        else
+            sequenceOf(this)
     }
 }

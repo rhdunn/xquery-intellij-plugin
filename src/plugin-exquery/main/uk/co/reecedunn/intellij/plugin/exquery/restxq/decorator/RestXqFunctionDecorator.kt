@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionDecorator
 import javax.swing.Icon
 
 object RestXqFunctionDecorator : XpmFunctionDecorator {
-    override fun getIcon(function: XdmFunctionDeclaration): Icon? {
-        return RestXqAnnotations.create(function)?.let { XQueryIcons.Endpoints.FunctionEndpoint }
+    override fun getIcon(function: XdmFunctionDeclaration): Icon? = RestXqAnnotations.create(function)?.let {
+        XQueryIcons.Endpoints.FunctionEndpoint
     }
 }

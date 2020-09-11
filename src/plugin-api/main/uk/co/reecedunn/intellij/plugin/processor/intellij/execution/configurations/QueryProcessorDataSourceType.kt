@@ -26,14 +26,12 @@ import java.io.File
 enum class QueryProcessorDataSourceType {
     LocalFile, DatabaseModule, ActiveEditorFile;
 
-    fun find(path: String?, project: Project): VirtualFile? {
-        return when (this) {
-            LocalFile -> path?.let {
-                val url = VfsUtil.pathToUrl(path.replace(File.separatorChar, '/'))
-                url.let { VirtualFileManager.getInstance().findFileByUrl(url) }
-            }
-            DatabaseModule -> path?.let { XpmModuleUri(null, path) }
-            ActiveEditorFile -> FileEditorManager.getInstance(project).selectedFiles.firstOrNull()
+    fun find(path: String?, project: Project): VirtualFile? = when (this) {
+        LocalFile -> path?.let {
+            val url = VfsUtil.pathToUrl(path.replace(File.separatorChar, '/'))
+            url.let { VirtualFileManager.getInstance().findFileByUrl(url) }
         }
+        DatabaseModule -> path?.let { XpmModuleUri(null, path) }
+        ActiveEditorFile -> FileEditorManager.getInstance(project).selectedFiles.firstOrNull()
     }
 }

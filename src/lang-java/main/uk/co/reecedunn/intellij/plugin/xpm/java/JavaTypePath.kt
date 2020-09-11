@@ -38,15 +38,13 @@ data class JavaTypePath(val project: Project) : XpmModulePath, XpmStaticContext 
         null
     }
 
-    fun findClass(qualifiedName: String): PsiElement? {
-        return facade?.let {
-            val scope = GlobalSearchScope.allScope(project)
-            try {
-                facadeClass?.getMethod("findClass", String::class.java, GlobalSearchScope::class.java)
-                    ?.invoke(it, qualifiedName, scope) as PsiElement?
-            } catch (e: InvocationTargetException) {
-                throw e.targetException // e.g. ProcessCancelledException, or IndexNotReadyException
-            }
+    fun findClass(qualifiedName: String): PsiElement? = facade?.let {
+        val scope = GlobalSearchScope.allScope(project)
+        try {
+            facadeClass?.getMethod("findClass", String::class.java, GlobalSearchScope::class.java)
+                ?.invoke(it, qualifiedName, scope) as PsiElement?
+        } catch (e: InvocationTargetException) {
+            throw e.targetException // e.g. ProcessCancelledException, or IndexNotReadyException
         }
     }
 
@@ -66,20 +64,16 @@ data class JavaTypePath(val project: Project) : XpmModulePath, XpmStaticContext 
     companion object : XpmModulePathFactory {
         private const val JAVA_TYPE_NS = "http://saxon.sf.net/java-type"
 
-        fun getInstance(project: Project): JavaTypePath {
-            return ServiceManager.getService(project, JavaTypePath::class.java)
-        }
+        fun getInstance(project: Project): JavaTypePath = ServiceManager.getService(project, JavaTypePath::class.java)
 
-        override fun create(project: Project, uri: XsAnyUriValue): JavaTypePath? {
-            return when (uri.context) {
-                XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
-                    if (uri.data == JAVA_TYPE_NS)
-                        getInstance(project)
-                    else
-                        null
-                }
-                else -> null
+        override fun create(project: Project, uri: XsAnyUriValue): JavaTypePath? = when (uri.context) {
+            XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
+                if (uri.data == JAVA_TYPE_NS)
+                    getInstance(project)
+                else
+                    null
             }
+            else -> null
         }
     }
 }

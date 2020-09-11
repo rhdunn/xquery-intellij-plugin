@@ -59,18 +59,14 @@ class JarModuleLoader(val classLoader: ClassLoader) : VirtualFileSystemImpl("res
     // endregion
     // region XpmModuleLoader
 
-    override fun resolve(path: XpmModulePath, context: VirtualFile?): PsiElement? {
-        return when (path) {
-            is XpmModuleLocationPath -> findFileByPath(path.path, path.moduleTypes)?.toPsiFile(path.project)
-            else -> null
-        }
+    override fun resolve(path: XpmModulePath, context: VirtualFile?): PsiElement? = when (path) {
+        is XpmModuleLocationPath -> findFileByPath(path.path, path.moduleTypes)?.toPsiFile(path.project)
+        else -> null
     }
 
-    override fun context(path: XpmModulePath, context: VirtualFile?): XpmStaticContext? {
-        return when (path) {
-            is XpmModuleLocationPath -> resolve(path, context) as? XpmStaticContext
-            else -> null
-        }
+    override fun context(path: XpmModulePath, context: VirtualFile?): XpmStaticContext? = when (path) {
+        is XpmModuleLocationPath -> resolve(path, context) as? XpmStaticContext
+        else -> null
     }
 
     override fun relativePathTo(file: VirtualFile, project: Project): String? = null

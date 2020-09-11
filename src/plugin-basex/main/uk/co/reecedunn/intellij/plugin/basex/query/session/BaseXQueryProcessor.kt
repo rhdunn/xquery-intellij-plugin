@@ -50,40 +50,32 @@ internal class BaseXQueryProcessor(
     // endregion
     // region ProfileableQueryProvider
 
-    override fun createProfileableQuery(query: VirtualFile, language: Language): ProfileableQuery {
-        return when (language) {
-            XQuery -> BaseXProfileableQuery(session, query.decode()!!, query, classLoader)
-            else -> throw UnsupportedQueryType(language)
-        }
+    override fun createProfileableQuery(query: VirtualFile, language: Language): ProfileableQuery = when (language) {
+        XQuery -> BaseXProfileableQuery(session, query.decode()!!, query, classLoader)
+        else -> throw UnsupportedQueryType(language)
     }
 
     // endregion
     // region RunnableQueryProvider
 
-    override fun createRunnableQuery(query: VirtualFile, language: Language): RunnableQuery {
-        return when (language) {
-            XQuery -> BaseXRunnableQuery(session, query.decode()!!, query, classLoader)
-            else -> throw UnsupportedQueryType(language)
-        }
+    override fun createRunnableQuery(query: VirtualFile, language: Language): RunnableQuery = when (language) {
+        XQuery -> BaseXRunnableQuery(session, query.decode()!!, query, classLoader)
+        else -> throw UnsupportedQueryType(language)
     }
 
     // endregion
     // region LogViewProvider
 
-    override fun logs(): List<String> {
-        return createRunnableQuery(BaseXQueries.Log.Logs, XQuery).run().results.map { it.value as String }
+    override fun logs(): List<String> = createRunnableQuery(BaseXQueries.Log.Logs, XQuery).run().results.map {
+        it.value as String
     }
 
-    override fun log(name: String): List<String> {
-        return createRunnableQuery(BaseXQueries.Log.Log, XQuery).use { query ->
-            query.bindVariable("name", name, "xs:string")
-            query.run().results.map { it.value as String }
-        }
+    override fun log(name: String): List<String> = createRunnableQuery(BaseXQueries.Log.Log, XQuery).use { query ->
+        query.bindVariable("name", name, "xs:string")
+        query.run().results.map { it.value as String }
     }
 
-    override fun defaultLogFile(logs: List<String>): String? {
-        return logs.lastOrNull()
-    }
+    override fun defaultLogFile(logs: List<String>): String? = logs.lastOrNull()
 
     // endregion
     // region Closeable

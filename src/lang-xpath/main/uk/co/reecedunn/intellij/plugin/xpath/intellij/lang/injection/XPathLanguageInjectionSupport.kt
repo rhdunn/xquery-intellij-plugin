@@ -24,7 +24,5 @@ class XPathLanguageInjectionSupport : AbstractLanguageInjectionSupport() {
 
     override fun getPatternClasses(): Array<Class<*>> = arrayOf()
 
-    override fun isApplicableTo(host: PsiLanguageInjectionHost?): Boolean {
-        return host is XPathStringLiteral
-    }
+    override fun isApplicableTo(host: PsiLanguageInjectionHost?): Boolean = host is XPathStringLiteral
 }

@@ -32,24 +32,22 @@ data class XpmModuleLocationPath internal constructor(
         private const val EXISTDB_PATH = "xmldb:exist://"
         private const val RES_PATH = "resource:"
 
-        override fun create(project: Project, uri: XsAnyUriValue): XpmModuleLocationPath? {
-            return when (uri.context) {
-                XdmUriContext.Location -> {
-                    val path = uri.data
-                    when {
-                        path.isEmpty() -> null
-                        path.startsWith(EXISTDB_PATH) /* eXist-db */ -> {
-                            XpmModuleLocationPath(project, path.substring(14), uri.moduleTypes, false)
-                        }
-                        path.startsWith(RES_PATH) /* eXist-db */ -> {
-                            XpmModuleLocationPath(project, path.substring(9), uri.moduleTypes, true)
-                        }
-                        path.contains(':') && !path.contains('/') -> null
-                        else -> XpmModuleLocationPath(project, path, uri.moduleTypes, false) // eXist-db, MarkLogic
+        override fun create(project: Project, uri: XsAnyUriValue): XpmModuleLocationPath? = when (uri.context) {
+            XdmUriContext.Location -> {
+                val path = uri.data
+                when {
+                    path.isEmpty() -> null
+                    path.startsWith(EXISTDB_PATH) /* eXist-db */ -> {
+                        XpmModuleLocationPath(project, path.substring(14), uri.moduleTypes, false)
                     }
+                    path.startsWith(RES_PATH) /* eXist-db */ -> {
+                        XpmModuleLocationPath(project, path.substring(9), uri.moduleTypes, true)
+                    }
+                    path.contains(':') && !path.contains('/') -> null
+                    else -> XpmModuleLocationPath(project, path, uri.moduleTypes, false) // eXist-db, MarkLogic
                 }
-                else -> null
             }
+            else -> null
         }
     }
 

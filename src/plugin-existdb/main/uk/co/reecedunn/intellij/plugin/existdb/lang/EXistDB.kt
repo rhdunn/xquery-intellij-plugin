@@ -44,9 +44,7 @@ object EXistDB : ItemPresentation, XpmVendorType, XpmProductType {
     // endregion
     // region XpmVendorType
 
-    override fun isValidInstallDir(installDir: String): Boolean {
-        return File("$installDir/exist.log").exists()
-    }
+    override fun isValidInstallDir(installDir: String): Boolean = File("$installDir/exist.log").exists()
 
     override val modulePath: String? = null
 

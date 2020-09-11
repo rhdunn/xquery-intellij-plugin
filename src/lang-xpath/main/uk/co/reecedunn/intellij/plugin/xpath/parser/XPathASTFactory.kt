@@ -30,19 +30,17 @@ import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.*
 class XPathASTFactory : ASTFactory() {
     override fun createComposite(type: IElementType): CompositeElement? = CompositeElement(type)
 
-    override fun createLeaf(type: IElementType, text: CharSequence): LeafElement? {
-        return when (type) {
-            XPathTokenType.INTEGER_LITERAL -> XPathIntegerLiteralImpl(type, text)
-            XPathTokenType.DECIMAL_LITERAL -> XPathDecimalLiteralImpl(type, text)
-            XPathTokenType.DOUBLE_LITERAL -> XPathDoubleLiteralImpl(type, text)
-            XPathTokenType.ESCAPED_CHARACTER -> XPathEscapeCharacterImpl(type, text)
-            XPathTokenType.STRING_LITERAL_CONTENTS -> XPathStringLiteralContentsImpl(type, text)
-            XPathTokenType.DOT -> XPathContextItemExprPsiImpl(type, text)
-            XPathTokenType.COMMENT -> PsiCommentImpl(type, text)
-            XPathTokenType.STAR -> PluginWildcardIndicatorPsiImpl(type, text)
-            XPathTokenType.NCNAME -> XmlNCNameImpl(type, text)
-            is IKeywordOrNCNameType -> XmlNCNameImpl(type, text)
-            else -> LeafPsiElement(type, text)
-        }
+    override fun createLeaf(type: IElementType, text: CharSequence): LeafElement? = when (type) {
+        XPathTokenType.INTEGER_LITERAL -> XPathIntegerLiteralImpl(type, text)
+        XPathTokenType.DECIMAL_LITERAL -> XPathDecimalLiteralImpl(type, text)
+        XPathTokenType.DOUBLE_LITERAL -> XPathDoubleLiteralImpl(type, text)
+        XPathTokenType.ESCAPED_CHARACTER -> XPathEscapeCharacterImpl(type, text)
+        XPathTokenType.STRING_LITERAL_CONTENTS -> XPathStringLiteralContentsImpl(type, text)
+        XPathTokenType.DOT -> XPathContextItemExprPsiImpl(type, text)
+        XPathTokenType.COMMENT -> PsiCommentImpl(type, text)
+        XPathTokenType.STAR -> PluginWildcardIndicatorPsiImpl(type, text)
+        XPathTokenType.NCNAME -> XmlNCNameImpl(type, text)
+        is IKeywordOrNCNameType -> XmlNCNameImpl(type, text)
+        else -> LeafPsiElement(type, text)
     }
 }

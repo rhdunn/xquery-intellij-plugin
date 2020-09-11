@@ -34,12 +34,10 @@ class GradleConfiguration(private val project: Project, override val baseDir: Vi
     private val build: PropertiesFile? = getPropertiesFile("default") // Project-specific properties
     private var env: PropertiesFile? = getPropertiesFile("local") // Environment-specific properties
 
-    private fun getProperty(property: String): Sequence<IProperty> {
-        return sequenceOf(
-            env?.findPropertyByKey(property),
-            build?.findPropertyByKey(property)
-        ).filterNotNull()
-    }
+    private fun getProperty(property: String): Sequence<IProperty> = sequenceOf(
+        env?.findPropertyByKey(property),
+        build?.findPropertyByKey(property)
+    ).filterNotNull()
 
     private fun getPropertyValue(property: String): String? = getProperty(property).firstOrNull()?.value
 

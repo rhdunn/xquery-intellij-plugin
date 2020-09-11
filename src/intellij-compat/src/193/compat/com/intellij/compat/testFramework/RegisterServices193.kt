@@ -28,9 +28,7 @@ fun MutablePicoContainer.registerProgressManager() {
     if (component == null) {
         registerComponent(object : AbstractComponentAdapter(ProgressManager::class.java.name, Any::class.java) {
             @Throws(PicoInitializationException::class, PicoIntrospectionException::class)
-            override fun getComponentInstance(container: PicoContainer): Any {
-                return ProgressManagerImpl()
-            }
+            override fun getComponentInstance(container: PicoContainer): Any = ProgressManagerImpl()
 
             @Throws(PicoIntrospectionException::class)
             override fun verify(container: PicoContainer) {

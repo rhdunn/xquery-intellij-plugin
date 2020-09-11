@@ -52,28 +52,24 @@ internal class EXistDBQueryProcessor(
     // endregion
     // region RunnableQueryProvider
 
-    override fun createRunnableQuery(query: VirtualFile, language: Language): RunnableQuery {
-        return when (language) {
-            XQuery -> {
-                val builder = RequestBuilder.post("$baseUri/db")
-                EXistDBQuery(builder, query, connection, settings)
-            }
-            else -> throw UnsupportedQueryType(language)
+    override fun createRunnableQuery(query: VirtualFile, language: Language): RunnableQuery = when (language) {
+        XQuery -> {
+            val builder = RequestBuilder.post("$baseUri/db")
+            EXistDBQuery(builder, query, connection, settings)
         }
+        else -> throw UnsupportedQueryType(language)
     }
 
     // endregion
     // region LogViewProvider
 
-    override fun logs(): List<String> {
-        return createRunnableQuery(EXistDBQueries.Log.Logs, XQuery).run().results.map { it.value as String }
+    override fun logs(): List<String> = createRunnableQuery(EXistDBQueries.Log.Logs, XQuery).run().results.map {
+        it.value as String
     }
 
-    override fun log(name: String): List<String> {
-        return createRunnableQuery(EXistDBQueries.Log.Log, XQuery).use { query ->
-            query.bindVariable("name", name, "xs:string")
-            query.run().results.map { it.value as String }
-        }
+    override fun log(name: String): List<String> = createRunnableQuery(EXistDBQueries.Log.Log, XQuery).use { query ->
+        query.bindVariable("name", name, "xs:string")
+        query.run().results.map { it.value as String }
     }
 
     override fun defaultLogFile(logs: List<String>): String? = "exist.log"

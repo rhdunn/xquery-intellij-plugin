@@ -156,9 +156,7 @@ open class TextConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleVie
         return actions
     }
 
-    open fun createAdditionalConsoleActions(): Array<AnAction> {
-        return arrayOf()
-    }
+    open fun createAdditionalConsoleActions(): Array<AnAction> = arrayOf()
 
     override fun getComponent(): JComponent {
         if (editor == null) {
@@ -190,20 +188,18 @@ open class TextConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleVie
     // endregion
     // region DataProvider
 
-    override fun getData(dataId: String): Any? {
-        return when (dataId) {
-            CommonDataKeys.EDITOR.name -> editor
-            CommonDataKeys.NAVIGATABLE.name -> {
-                val pos = editor!!.caretModel.logicalPosition
-                val info = hyperlinks!!.getHyperlinkInfoByLineAndCol(pos.line, pos.column)
-                val openFileDescriptor = (info as? FileHyperlinkInfo)?.descriptor
-                return if (openFileDescriptor?.file?.isValid == true)
-                    openFileDescriptor
-                else
-                    null
-            }
-            else -> super.getData(dataId)
+    override fun getData(dataId: String): Any? = when (dataId) {
+        CommonDataKeys.EDITOR.name -> editor
+        CommonDataKeys.NAVIGATABLE.name -> {
+            val pos = editor!!.caretModel.logicalPosition
+            val info = hyperlinks!!.getHyperlinkInfoByLineAndCol(pos.line, pos.column)
+            val openFileDescriptor = (info as? FileHyperlinkInfo)?.descriptor
+            if (openFileDescriptor?.file?.isValid == true)
+                openFileDescriptor
+            else
+                null
         }
+        else -> super.getData(dataId)
     }
 
     // endregion

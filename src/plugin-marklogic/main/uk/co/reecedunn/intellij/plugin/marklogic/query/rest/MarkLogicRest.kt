@@ -48,11 +48,9 @@ object MarkLogicRest : QueryProcessorApi {
         return language == null || language.getLanguageMimeTypes().any { RDF_MIMETYPES.contains(it) }
     }
 
-    override fun canUpdate(language: Language?): Boolean {
-        return when (language) {
-            ServerSideJavaScript, XQuery, XSLT -> true
-            else -> false
-        }
+    override fun canUpdate(language: Language?): Boolean = when (language) {
+        ServerSideJavaScript, XQuery, XSLT -> true
+        else -> false
     }
 
     override fun canExecute(language: Language, executorId: String): Boolean {

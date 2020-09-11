@@ -50,9 +50,7 @@ class HttpConnection(val settings: ConnectionSettings) : Closeable {
             return client!!
         }
 
-    fun execute(request: HttpUriRequest): CloseableHttpResponse {
-        return httpClient.execute(request)
-    }
+    fun execute(request: HttpUriRequest): CloseableHttpResponse = httpClient.execute(request)
 
     override fun close() {
         if (client != null) {

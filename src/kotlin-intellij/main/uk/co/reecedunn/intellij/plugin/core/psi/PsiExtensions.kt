@@ -21,9 +21,7 @@ import com.intellij.psi.PsiErrorElement
 import com.intellij.psi.impl.source.tree.LeafElement
 import com.intellij.psi.tree.IElementType
 
-fun PsiElement.contains(type: IElementType): Boolean {
-    return node.findChildByType(type) != null
-}
+fun PsiElement.contains(type: IElementType): Boolean = node.findChildByType(type) != null
 
 private fun prettyPrintASTNode(prettyPrinted: StringBuilder, node: ASTNode, depth: Int) {
     for (i in 0 until depth) {

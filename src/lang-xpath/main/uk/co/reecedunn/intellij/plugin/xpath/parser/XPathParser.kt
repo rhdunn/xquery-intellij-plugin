@@ -239,9 +239,7 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    fun parseExprSingle(builder: PsiBuilder): Boolean {
-        return parseExprSingleImpl(builder, null)
-    }
+    fun parseExprSingle(builder: PsiBuilder): Boolean = parseExprSingleImpl(builder, null)
 
     fun parseExprSingle(builder: PsiBuilder, type: IElementType?, parentType: IElementType? = null): Boolean {
         if (type == null) {
@@ -1161,17 +1159,11 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    fun parseGeneralComp(builder: PsiBuilder): Boolean {
-        return builder.matchTokenType(XPathTokenType.GENERAL_COMP_TOKENS)
-    }
+    fun parseGeneralComp(builder: PsiBuilder): Boolean = builder.matchTokenType(XPathTokenType.GENERAL_COMP_TOKENS)
 
-    fun parseValueComp(builder: PsiBuilder): Boolean {
-        return builder.matchTokenType(XPathTokenType.VALUE_COMP_TOKENS)
-    }
+    fun parseValueComp(builder: PsiBuilder): Boolean = builder.matchTokenType(XPathTokenType.VALUE_COMP_TOKENS)
 
-    fun parseNodeComp(builder: PsiBuilder): Boolean {
-        return builder.matchTokenType(XPathTokenType.NODE_COMP_TOKENS)
-    }
+    fun parseNodeComp(builder: PsiBuilder): Boolean = builder.matchTokenType(XPathTokenType.NODE_COMP_TOKENS)
 
     fun parseArrowExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
@@ -1233,9 +1225,7 @@ open class XPathParser : PsiParser {
     // endregion
     // region Grammar :: Expr :: OrExpr :: ValueExpr
 
-    open fun parseValueExpr(builder: PsiBuilder, type: IElementType?): Boolean {
-        return parseSimpleMapExpr(builder, type)
-    }
+    open fun parseValueExpr(builder: PsiBuilder, type: IElementType?): Boolean = parseSimpleMapExpr(builder, type)
 
     fun parseSimpleMapExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
@@ -3070,9 +3060,7 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    open fun parseAnnotatedFunction(builder: PsiBuilder): Boolean {
-        return parseAnyOrTypedFunctionTest(builder)
-    }
+    open fun parseAnnotatedFunction(builder: PsiBuilder): Boolean = parseAnyOrTypedFunctionTest(builder)
 
     fun parseAnyOrTypedFunctionTest(builder: PsiBuilder): Boolean {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_FUNCTION)
@@ -3733,9 +3721,7 @@ open class XPathParser : PsiParser {
 
     open val COMMENT: IElementType = XPathElementType.COMMENT
 
-    fun parseStringLiteral(builder: PsiBuilder): Boolean {
-        return parseStringLiteral(builder, XPathElementType.STRING_LITERAL)
-    }
+    fun parseStringLiteral(builder: PsiBuilder): Boolean = parseStringLiteral(builder, XPathElementType.STRING_LITERAL)
 
     open fun parseStringLiteral(builder: PsiBuilder, type: IElementType): Boolean {
         val stringMarker = builder.matchTokenTypeWithMarker(XPathTokenType.STRING_LITERAL_START)

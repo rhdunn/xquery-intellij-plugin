@@ -112,16 +112,14 @@ fun CodePointRange.matchEntityReference(): EntityReferenceType {
 
 data class EntityRef(val name: CharSequence, val value: CharSequence, val type: EntityReferenceType)
 
-fun CharSequence.entityReferenceCodePoint(): Int {
-    return when {
-        startsWith("&#x") -> { // `&#x...;` hexadecimal character reference
-            subSequence(3, length - 1).toString().toInt(radix = 16)
-        }
-        startsWith("&#") -> { // `&#...;` decimal character reference
-            subSequence(2, length - 1).toString().toInt(radix = 10)
-        }
-        else -> 0xFFFE
+fun CharSequence.entityReferenceCodePoint(): Int = when {
+    startsWith("&#x") -> { // `&#x...;` hexadecimal character reference
+        subSequence(3, length - 1).toString().toInt(radix = 16)
     }
+    startsWith("&#") -> { // `&#...;` decimal character reference
+        subSequence(2, length - 1).toString().toInt(radix = 10)
+    }
+    else -> 0xFFFE
 }
 
 private fun loadPredefinedEntities(entities: HashMap<String, EntityRef>, path: String, type: EntityReferenceType) {

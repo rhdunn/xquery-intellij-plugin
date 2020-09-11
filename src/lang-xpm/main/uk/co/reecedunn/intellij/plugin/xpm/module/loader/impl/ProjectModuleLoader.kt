@@ -30,24 +30,20 @@ import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfi
 object ProjectModuleLoader : XpmModuleLoader, XpmModuleLoaderFactory {
     // region XpmModuleLoader
 
-    override fun resolve(path: XpmModulePath, context: VirtualFile?): PsiElement? {
-        return when (path) {
-            is XpmModuleLocationPath -> {
-                XpmProjectConfigurations.getInstance(path.project).configurations.flatMap { configuration ->
-                    configuration.modulePaths.map { root ->
-                        root.findFileByRelativePath(path.path)?.toPsiFile(path.project)
-                    }
-                }.firstOrNull()
-            }
-            else -> null
+    override fun resolve(path: XpmModulePath, context: VirtualFile?): PsiElement? = when (path) {
+        is XpmModuleLocationPath -> {
+            XpmProjectConfigurations.getInstance(path.project).configurations.flatMap { configuration ->
+                configuration.modulePaths.map { root ->
+                    root.findFileByRelativePath(path.path)?.toPsiFile(path.project)
+                }
+            }.firstOrNull()
         }
+        else -> null
     }
 
-    override fun context(path: XpmModulePath, context: VirtualFile?): XpmStaticContext? {
-        return when (path) {
-            is XpmModuleLocationPath -> resolve(path, context) as? XpmStaticContext
-            else -> null
-        }
+    override fun context(path: XpmModulePath, context: VirtualFile?): XpmStaticContext? = when (path) {
+        is XpmModuleLocationPath -> resolve(path, context) as? XpmStaticContext
+        else -> null
     }
 
     override fun relativePathTo(file: VirtualFile, project: Project): String? {

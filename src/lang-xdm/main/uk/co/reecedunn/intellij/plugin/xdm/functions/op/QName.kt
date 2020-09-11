@@ -44,29 +44,27 @@ fun op_qname_equal(arg1: XsQNameValue, arg2: XsQNameValue): Boolean {
 private fun anyURI(uri: String): XsAnyUriValue = XsAnyUri(uri, XdmUriContext.Namespace, XdmModuleType.NONE)
 
 @Suppress("FunctionName")
-fun op_qname_parse(qname: String, namespaces: Map<String, String>): XsQNameValue {
-    return when {
-        qname.startsWith("Q{") /* URIQualifiedName */ -> {
-            val ns = anyURI(qname.substringBefore('}').substring(2))
-            val localName = XsNCName(qname.substringAfter('}'))
-            XsQName(ns, null, localName, false)
-        }
-        qname.startsWith('{') /* Clark Notation */ -> {
-            val ns = anyURI(qname.substringBefore('}').substring(1))
-            val localName = XsNCName(qname.substringAfter('}'))
-            XsQName(ns, null, localName, false)
-        }
-        qname.contains(':') /* QName */ -> {
-            val prefix = XsNCName(qname.substringBefore(':'))
-            val ns = namespaces[prefix.data]?.let { anyURI(it) }
-                ?: throw UndeclaredNamespacePrefixException(prefix.data)
-            val localName = XsNCName(qname.substringAfter(':'))
-            XsQName(ns, prefix, localName, true)
-        }
-        else /* NCName */ -> {
-            val localName = XsNCName(qname)
-            XsQName(anyURI(""), null, localName, true)
-        }
+fun op_qname_parse(qname: String, namespaces: Map<String, String>): XsQNameValue = when {
+    qname.startsWith("Q{") /* URIQualifiedName */ -> {
+        val ns = anyURI(qname.substringBefore('}').substring(2))
+        val localName = XsNCName(qname.substringAfter('}'))
+        XsQName(ns, null, localName, false)
+    }
+    qname.startsWith('{') /* Clark Notation */ -> {
+        val ns = anyURI(qname.substringBefore('}').substring(1))
+        val localName = XsNCName(qname.substringAfter('}'))
+        XsQName(ns, null, localName, false)
+    }
+    qname.contains(':') /* QName */ -> {
+        val prefix = XsNCName(qname.substringBefore(':'))
+        val ns = namespaces[prefix.data]?.let { anyURI(it) }
+            ?: throw UndeclaredNamespacePrefixException(prefix.data)
+        val localName = XsNCName(qname.substringAfter(':'))
+        XsQName(ns, prefix, localName, true)
+    }
+    else /* NCName */ -> {
+        val localName = XsNCName(qname)
+        XsQName(anyURI(""), null, localName, true)
     }
 }
 
@@ -74,17 +72,13 @@ fun op_qname_parse(qname: String, namespaces: Map<String, String>): XsQNameValue
 // region XQuery IntelliJ Plugin Functions and Operators (3.2) op:QName-presentation
 
 @Suppress("FunctionName")
-fun op_qname_presentation(qname: XsQNameValue, expanded: Boolean = false): String? {
-    return when {
-        qname.localName == null -> null
-        qname.prefix == null || expanded -> {
-            when (qname.namespace) {
-                null -> qname.localName!!.data
-                else -> "Q{${qname.namespace!!.data}}${qname.localName!!.data}"
-            }
-        }
-        else -> "${qname.prefix!!.data}:${qname.localName!!.data}"
+fun op_qname_presentation(qname: XsQNameValue, expanded: Boolean = false): String? = when {
+    qname.localName == null -> null
+    qname.prefix == null || expanded -> when (qname.namespace) {
+        null -> qname.localName!!.data
+        else -> "Q{${qname.namespace!!.data}}${qname.localName!!.data}"
     }
+    else -> "${qname.prefix!!.data}:${qname.localName!!.data}"
 }
 
 // endregion

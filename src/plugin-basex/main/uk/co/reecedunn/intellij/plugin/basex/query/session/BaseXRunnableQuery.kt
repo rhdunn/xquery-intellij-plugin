@@ -59,19 +59,17 @@ internal class BaseXRunnableQuery(
         }
     }
 
-    override fun run(): QueryResults {
-        return check(classLoader, queryFile) {
-            session.execute("set queryinfo off")
-            session.execute("set xmlplan off")
-            val query: Query = session.query(queryString)
+    override fun run(): QueryResults = check(classLoader, queryFile) {
+        session.execute("set queryinfo off")
+        session.execute("set xmlplan off")
+        val query: Query = session.query(queryString)
 
-            contextItem?.let { query.context(it.first, it.second) }
-            variables.forEach { query.bind(it.key, it.value.first, it.value.second) }
+        contextItem?.let { query.context(it.first, it.second) }
+        variables.forEach { query.bind(it.key, it.value.first, it.value.second) }
 
-            val results = BaseXQueryResultIterator(query, queryFile, classLoader).asSequence().toList()
-            val info = query.info()!!.toBaseXInfo()
-            QueryResults(QueryResults.OK, results, info["Total Time"] as XsDurationValue)
-        }
+        val results = BaseXQueryResultIterator(query, queryFile, classLoader).asSequence().toList()
+        val info = query.info()!!.toBaseXInfo()
+        QueryResults(QueryResults.OK, results, info["Total Time"] as XsDurationValue)
     }
 
     override fun close() {

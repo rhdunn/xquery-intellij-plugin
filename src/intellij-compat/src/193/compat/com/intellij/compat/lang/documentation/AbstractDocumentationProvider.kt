@@ -19,7 +19,5 @@ import com.intellij.psi.PsiElement
 
 // IntelliJ >= 2019.3 support generateHoverDoc
 abstract class AbstractDocumentationProvider : com.intellij.lang.documentation.AbstractDocumentationProvider() {
-    open fun generateHoverDoc(element: PsiElement, originalElement: PsiElement?): String? {
-        return null
-    }
+    open fun generateHoverDoc(element: PsiElement, originalElement: PsiElement?): String? = null
 }

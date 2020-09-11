@@ -31,18 +31,14 @@ object JavaModuleLoader : XpmModuleLoaderFactory, XpmModuleLoader {
     // endregion
     // region XpmModuleLoader
 
-    override fun resolve(path: XpmModulePath, context: VirtualFile?): PsiElement? {
-        return when (path) {
-            is JavaModulePath -> JavaTypePath.getInstance(path.project).findClass(path.classPath)
-            else -> null
-        }
+    override fun resolve(path: XpmModulePath, context: VirtualFile?): PsiElement? = when (path) {
+        is JavaModulePath -> JavaTypePath.getInstance(path.project).findClass(path.classPath)
+        else -> null
     }
 
-    override fun context(path: XpmModulePath, context: VirtualFile?): XpmStaticContext? {
-        return when (path) {
-            is JavaTypePath -> path
-            else -> null
-        }
+    override fun context(path: XpmModulePath, context: VirtualFile?): XpmStaticContext? = when (path) {
+        is JavaTypePath -> path
+        else -> null
     }
 
     override fun relativePathTo(file: VirtualFile, project: Project): String? = null

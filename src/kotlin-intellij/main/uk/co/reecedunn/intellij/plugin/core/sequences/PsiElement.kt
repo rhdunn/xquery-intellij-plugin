@@ -75,16 +75,12 @@ class PsiElementReversibleSequence(
 ) : Sequence<PsiElement> {
     override fun iterator(): Iterator<PsiElement> = gen(node)
 
-    fun reversed(): PsiElementReversibleSequence {
-        return PsiElementReversibleSequence(node, rgen, gen)
-    }
+    fun reversed(): PsiElementReversibleSequence = PsiElementReversibleSequence(node, rgen, gen)
 }
 
-fun PsiElement.contexts(strict: Boolean): Sequence<PsiElement> {
-    return if (strict)
-        PsiElementIterator(context, PsiElement::getContext).asSequence()
-    else
-        PsiElementIterator(this, PsiElement::getContext).asSequence()
+fun PsiElement.contexts(strict: Boolean): Sequence<PsiElement> = when (strict) {
+    true -> PsiElementIterator(context, PsiElement::getContext).asSequence()
+    else -> PsiElementIterator(this, PsiElement::getContext).asSequence()
 }
 
 fun PsiElement.ancestors(): Sequence<PsiElement> {
@@ -99,40 +95,35 @@ fun PsiElement.descendants(): Sequence<PsiElement> {
     return PsiElementIterator(firstChild, PsiElement::getFirstChild).asSequence()
 }
 
-fun PsiElement.children(): PsiElementReversibleSequence {
-    return PsiElementReversibleSequence(this,
-        { e -> PsiElementIterator(e.firstChild, PsiElement::getNextSibling) },
-        { e -> PsiElementIterator(e.lastChild, PsiElement::getPrevSibling) }
-    )
+fun PsiElement.children(): PsiElementReversibleSequence = PsiElementReversibleSequence(this,
+    { e -> PsiElementIterator(e.firstChild, PsiElement::getNextSibling) },
+    { e -> PsiElementIterator(e.lastChild, PsiElement::getPrevSibling) }
+)
+
+fun PsiElement.siblings(): PsiElementReversibleSequence = PsiElementReversibleSequence(this,
+    { e -> PsiElementIterator(e.nextSibling, PsiElement::getNextSibling) },
+    { e -> PsiElementIterator(e.prevSibling, PsiElement::getPrevSibling) }
+)
+
+fun PsiElement.walkTree(): PsiElementReversibleSequence = PsiElementReversibleSequence(this,
+    { element -> PsiElementTreeIterator(element) },
+    { element ->
+        PsiElementIterator(element) { e ->
+            val parent = e.parent
+            // An element (file) with a directory as a parent may be part of a
+            // resource JAR file. This can cause the file to have a different
+            // object location to the child in the parent directory, which will
+            // result in prevSibling logging a "Cannot find element among its
+            // parent' children." error.
+            (if (parent is PsiDirectory) null else e.prevSibling) ?: parent
+        }
+    }
+)
+
+fun Sequence<PsiElement>.filterIsElementType(elementType: IElementType): Sequence<PsiElement> = filter {
+    it.elementType === elementType
 }
 
-fun PsiElement.siblings(): PsiElementReversibleSequence {
-    return PsiElementReversibleSequence(this,
-        { e -> PsiElementIterator(e.nextSibling, PsiElement::getNextSibling) },
-        { e -> PsiElementIterator(e.prevSibling, PsiElement::getPrevSibling) }
-    )
-}
-
-fun PsiElement.walkTree(): PsiElementReversibleSequence {
-    return PsiElementReversibleSequence(this,
-        { element -> PsiElementTreeIterator(element) },
-        { element ->
-            PsiElementIterator(element) { e ->
-                val parent = e.parent
-                // An element (file) with a directory as a parent may be part of a
-                // resource JAR file. This can cause the file to have a different
-                // object location to the child in the parent directory, which will
-                // result in prevSibling logging a "Cannot find element among its
-                // parent' children." error.
-                (if (parent is PsiDirectory) null else e.prevSibling) ?: parent
-            }
-        })
-}
-
-fun Sequence<PsiElement>.filterIsElementType(elementType: IElementType): Sequence<PsiElement> {
-    return filter { it.elementType === elementType }
-}
-
-fun Sequence<PsiElement>.filterIsElementType(tokens: TokenSet): Sequence<PsiElement> {
-    return filter { tokens.contains(it.elementType) }
+fun Sequence<PsiElement>.filterIsElementType(tokens: TokenSet): Sequence<PsiElement> = filter {
+    tokens.contains(it.elementType)
 }

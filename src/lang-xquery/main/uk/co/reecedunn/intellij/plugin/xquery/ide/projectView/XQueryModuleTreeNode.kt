@@ -27,11 +27,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 class XQueryModuleTreeNode(module: XQueryModule, viewSettings: ViewSettings) :
     PsiFileNode(module.project, module, viewSettings) {
 
-    override fun getChildrenImpl(): MutableCollection<AbstractTreeNode<Any>> {
-        return if (settings.isShowMembers)
-            getPrologDeclarations()?.toMutableList() ?: mutableListOf()
-        else
-            mutableListOf()
+    override fun getChildrenImpl(): MutableCollection<AbstractTreeNode<Any>> = when (settings.isShowMembers) {
+        true -> getPrologDeclarations()?.toMutableList() ?: mutableListOf()
+        else -> mutableListOf()
     }
 
     @Suppress("UNCHECKED_CAST")

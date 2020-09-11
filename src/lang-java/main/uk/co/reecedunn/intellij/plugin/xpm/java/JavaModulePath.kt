@@ -37,11 +37,11 @@ data class JavaModulePath internal constructor(
     companion object : XpmModulePathFactory {
         private val SPECIAL_CHARACTERS = "[^\\w.-/]".toRegex()
 
-        private fun createJava(project: Project, path: String): JavaModulePath? {
-            return if (path.endsWith("?void=this")) // Saxon 9.7
-                JavaModulePath(project, path.substring(5, path.length - 10), true)
-            else // BaseX, eXist-db, Saxon
-                JavaModulePath(project, path.substring(5), false)
+        private fun createJava(project: Project, path: String): JavaModulePath? = when {
+            // Saxon 9.7
+            path.endsWith("?void=this") -> JavaModulePath(project, path.substring(5, path.length - 10), true)
+            // BaseX, eXist-db, Saxon
+            else -> JavaModulePath(project, path.substring(5), false)
         }
 
         private fun createJava(project: Project, path: String, modulePaths: List<String>): JavaModulePath? {
@@ -75,24 +75,22 @@ data class JavaModulePath internal constructor(
             }
         }
 
-        override fun create(project: Project, uri: XsAnyUriValue): JavaModulePath? {
-            return when (uri.context) {
-                XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
-                    val path = uri.data
-                    when {
-                        path.isEmpty() -> null
-                        path.startsWith("java:") -> createJava(project, path) // BaseX, eXist-db, Saxon
-                        path.startsWith("xmldb:exist://") -> null // Ignore eXist-db database paths.
-                        path.startsWith("file://") -> null // Don't map file URLs to Java namespaces.
-                        path.contains("://") -> createUri(project, path) // BaseX
-                        path.contains(":") -> createUrn(project, path) // BaseX
-                        path.startsWith("/") -> createRelative(project, path.substring(1).split('/')) // BaseX
-                        path.contains("/") -> createRelative(project, path.split('/')) // BaseX
-                        else -> JavaModulePath(project, path, false) // BaseX, Saxon
-                    }
+        override fun create(project: Project, uri: XsAnyUriValue): JavaModulePath? = when (uri.context) {
+            XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
+                val path = uri.data
+                when {
+                    path.isEmpty() -> null
+                    path.startsWith("java:") -> createJava(project, path) // BaseX, eXist-db, Saxon
+                    path.startsWith("xmldb:exist://") -> null // Ignore eXist-db database paths.
+                    path.startsWith("file://") -> null // Don't map file URLs to Java namespaces.
+                    path.contains("://") -> createUri(project, path) // BaseX
+                    path.contains(":") -> createUrn(project, path) // BaseX
+                    path.startsWith("/") -> createRelative(project, path.substring(1).split('/')) // BaseX
+                    path.contains("/") -> createRelative(project, path.split('/')) // BaseX
+                    else -> JavaModulePath(project, path, false) // BaseX, Saxon
                 }
-                else -> null
             }
+            else -> null
         }
     }
 }

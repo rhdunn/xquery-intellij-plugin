@@ -67,9 +67,7 @@ class XQueryParser : XPathParser() {
     // endregion
     // region Grammar
 
-    override fun parse(builder: PsiBuilder, isFirst: Boolean): Boolean {
-        return parseTransactions(builder, isFirst)
-    }
+    override fun parse(builder: PsiBuilder, isFirst: Boolean): Boolean = parseTransactions(builder, isFirst)
 
     private enum class ParseStatus {
         MATCHED,
@@ -4875,9 +4873,7 @@ class XQueryParser : XPathParser() {
         return status
     }
 
-    private fun parseAnyArrayNodeTest(builder: PsiBuilder): ParseStatus {
-        return parseArrayNodeTest(builder, true)
-    }
+    private fun parseAnyArrayNodeTest(builder: PsiBuilder): ParseStatus = parseArrayNodeTest(builder, true)
 
     private fun parseArrayNodeTest(builder: PsiBuilder, isAnyOnly: Boolean = false): ParseStatus {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_ARRAY_NODE)
@@ -4963,9 +4959,7 @@ class XQueryParser : XPathParser() {
         return ParseStatus.NOT_MATCHED
     }
 
-    private fun parseAnyMapNodeTest(builder: PsiBuilder): ParseStatus {
-        return parseMapNodeTest(builder, true)
-    }
+    private fun parseAnyMapNodeTest(builder: PsiBuilder): ParseStatus = parseMapNodeTest(builder, true)
 
     private fun parseMapNodeTest(builder: PsiBuilder, isAnyOnly: Boolean = false): ParseStatus {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_OBJECT_NODE)

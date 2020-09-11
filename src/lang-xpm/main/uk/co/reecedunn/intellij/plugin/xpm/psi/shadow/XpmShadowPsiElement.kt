@@ -61,9 +61,7 @@ open class XpmShadowPsiElement(val shadowed: PsiElement, language: Language) :
 
     override fun accept(visitor: PsiElementVisitor): Unit = shadowed.accept(visitor)
 
-    override fun copy(): PsiElement? {
-        return XpmShadowPsiElementFactory.create(shadowed.copy())
-    }
+    override fun copy(): PsiElement? = XpmShadowPsiElementFactory.create(shadowed.copy())
 
     override fun getNavigationElement(): PsiElement = shadowed.navigationElement
 

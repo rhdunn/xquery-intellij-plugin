@@ -20,20 +20,20 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 
 // region XPath Selectors :: self
 
-fun XmlTag?.self(namespace: String, localName: String): XmlTag? {
-    return takeIf { it?.namespace == namespace && it.localName == localName }
+fun XmlTag?.self(namespace: String, localName: String): XmlTag? = takeIf {
+    it?.namespace == namespace && it.localName == localName
 }
 
-fun XmlTag?.self(namespace: String, localName: Set<String>): XmlTag? {
-    return takeIf { it?.namespace == namespace && localName.contains(it.localName) }
+fun XmlTag?.self(namespace: String, localName: Set<String>): XmlTag? = takeIf {
+    it?.namespace == namespace && localName.contains(it.localName)
 }
 
-fun Sequence<XmlTag>.self(namespace: String, localName: String): Sequence<XmlTag> {
-    return filter { it.namespace == namespace && it.localName == localName }
+fun Sequence<XmlTag>.self(namespace: String, localName: String): Sequence<XmlTag> = filter {
+    it.namespace == namespace && it.localName == localName
 }
 
-fun Sequence<XmlTag>.self(namespace: String, localName: Set<String>): Sequence<XmlTag> {
-    return filter { it.namespace == namespace && localName.contains(it.localName) }
+fun Sequence<XmlTag>.self(namespace: String, localName: Set<String>): Sequence<XmlTag> = filter {
+    it.namespace == namespace && localName.contains(it.localName)
 }
 
 // endregion

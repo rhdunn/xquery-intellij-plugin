@@ -21,7 +21,5 @@ import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePathFactory
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 
 object XpmModuleUriPath : XpmModulePathFactory {
-    override fun create(project: Project, uri: XsAnyUriValue): XpmModulePath? {
-        return uri as? XpmModulePath
-    }
+    override fun create(project: Project, uri: XsAnyUriValue): XpmModulePath? = uri as? XpmModulePath
 }

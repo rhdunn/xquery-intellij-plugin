@@ -23,9 +23,7 @@ import uk.co.reecedunn.intellij.plugin.core.lexer.STATE_DEFAULT
 open class XPathLexer(tokenRange: CodePointRange) : LexerImpl(STATE_DEFAULT, tokenRange) {
     // region States
 
-    protected open fun ncnameToKeyword(name: CharSequence): IKeywordOrNCNameType? {
-        return KEYWORDS[name]
-    }
+    protected open fun ncnameToKeyword(name: CharSequence): IKeywordOrNCNameType? = KEYWORDS[name]
 
     protected open fun stateDefault(state: Int) {
         var c = mTokenRange.codePoint

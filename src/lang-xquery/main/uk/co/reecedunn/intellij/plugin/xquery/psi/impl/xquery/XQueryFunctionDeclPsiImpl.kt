@@ -87,9 +87,7 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
     // endregion
     // region ItemPresentation
 
-    override fun getIcon(unused: Boolean): Icon? {
-        return XpmFunctionDecorator.getIcon(this) ?: XPathIcons.Nodes.FunctionDecl
-    }
+    override fun getIcon(unused: Boolean): Icon? = XpmFunctionDecorator.getIcon(this) ?: XPathIcons.Nodes.FunctionDecl
 
     override fun getLocationString(): String? = null
 

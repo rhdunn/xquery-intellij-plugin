@@ -19,11 +19,9 @@ import com.intellij.psi.xml.XmlAttribute
 import com.intellij.psi.xml.XmlTag
 import javax.xml.namespace.QName
 
-fun Map<String, String>.qname(name: String): QName {
-    return when {
-        name.contains(':') -> name.split(":").let { QName(get(it[0]), it[1]) }
-        else -> QName("", name)
-    }
+fun Map<String, String>.qname(name: String): QName = when {
+    name.contains(':') -> name.split(":").let { QName(get(it[0]), it[1]) }
+    else -> QName("", name)
 }
 
 fun XmlTag.qname(): QName = QName(namespace, localName)

@@ -34,11 +34,9 @@ fun VirtualFile.isAncestorOf(file: VirtualFile): Boolean {
     return this == fileParent || isAncestorOf(fileParent)
 }
 
-fun VirtualFile.relativePathTo(file: VirtualFile): String? {
-    return if (isAncestorOf(file))
-        relativePathTo(file.parent, file.name)
-    else
-        null
+fun VirtualFile.relativePathTo(file: VirtualFile): String? = when (isAncestorOf(file)) {
+    true -> relativePathTo(file.parent, file.name)
+    else -> null
 }
 
 private fun VirtualFile.relativePathTo(file: VirtualFile?, path: String): String {

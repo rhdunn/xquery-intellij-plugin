@@ -27,9 +27,7 @@ class XpmLanguageConfigurable : Configurable {
     override fun createComponent(): JComponent? = panel {
     }
 
-    override fun isModified(): Boolean {
-        return false
-    }
+    override fun isModified(): Boolean = false
 
     override fun apply() {
     }

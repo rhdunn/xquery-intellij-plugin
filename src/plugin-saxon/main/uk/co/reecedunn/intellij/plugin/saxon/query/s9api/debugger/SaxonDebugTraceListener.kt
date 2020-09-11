@@ -40,9 +40,7 @@ class SaxonDebugTraceListener(val query: VirtualFile, private val processor: Pro
     private var stepAction: StepAction? = null
     private var stepStackDepth: Int = 0
 
-    override fun getBreakpointHandlers(language: Language): Array<XBreakpointHandler<*>> {
-        return arrayOf()
-    }
+    override fun getBreakpointHandlers(language: Language): Array<XBreakpointHandler<*>> = arrayOf()
 
     override var listener: DebugSessionListener? = null
 

@@ -78,9 +78,7 @@ class MockModuleRootsManager(private val module: Module) : ModuleRootManager() {
         TODO("not implemented")
     }
 
-    override fun getContentEntries(): Array<ContentEntry> {
-        return arrayOf(MockContentEntry(module.moduleFile!!))
-    }
+    override fun getContentEntries(): Array<ContentEntry> = arrayOf(MockContentEntry(module.moduleFile!!))
 
     override fun getExcludeRootUrls(): Array<String> {
         TODO("not implemented")
@@ -104,9 +102,7 @@ class MockModuleRootsManager(private val module: Module) : ModuleRootManager() {
 
     override fun getSourceRoots(): Array<VirtualFile> = getSourceRoots(true)
 
-    override fun getSourceRoots(includingTests: Boolean): Array<VirtualFile> {
-        return arrayOf(module.moduleFile!!)
-    }
+    override fun getSourceRoots(includingTests: Boolean): Array<VirtualFile> = arrayOf(module.moduleFile!!)
 
     override fun getSourceRoots(rootType: JpsModuleSourceRootType<*>): MutableList<VirtualFile> {
         TODO("not implemented")

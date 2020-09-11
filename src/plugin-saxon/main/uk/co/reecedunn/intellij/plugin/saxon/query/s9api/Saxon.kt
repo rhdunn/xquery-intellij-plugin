@@ -26,9 +26,7 @@ import javax.xml.transform.stream.StreamSource
 class Saxon(private val classLoader: ClassLoader, private val config: InputStream?) : QueryProcessorInstanceManager {
     constructor(path: File, config: InputStream?) : this(URLClassLoader(arrayOf(path.toURI().toURL())), config)
 
-    override fun create(): QueryProcessor {
-        return SaxonQueryProcessor(classLoader, config?.let { StreamSource(it) })
-    }
+    override fun create(): QueryProcessor = SaxonQueryProcessor(classLoader, config?.let { StreamSource(it) })
 
     override fun connect(settings: ConnectionSettings): QueryProcessor {
         // Saxon does not provide support for running it as a database server.

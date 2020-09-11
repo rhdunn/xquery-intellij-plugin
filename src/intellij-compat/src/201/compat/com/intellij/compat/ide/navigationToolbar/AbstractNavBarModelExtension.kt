@@ -27,9 +27,7 @@ abstract class AbstractNavBarModelExtension : AbstractNavBarModelExtension() {
 
     open fun getLeafElement(dataContext: DataContext): PsiElement? = null
 
-    override fun processChildren(`object`: Any?, rootElement: Any?, processor: Processor<Any?>?): Boolean {
-        return true
-    }
+    override fun processChildren(`object`: Any?, rootElement: Any?, processor: Processor<Any?>?): Boolean = true
 
     open fun normalizeChildren(): Boolean = true
 }

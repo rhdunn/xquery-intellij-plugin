@@ -28,64 +28,60 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 object XPathAtomicOrUnionTypeProvider : CompletionProviderEx {
     private const val XS_NAMESPACE_URI = "http://www.w3.org/2001/XMLSchema"
 
-    private fun createXsd10Types(prefix: String?): List<LookupElement> {
-        return listOf(
-            XPathAtomicOrUnionTypeLookup("anyAtomicType", prefix), // XSD 1.1 type supported in XPath/XQuery
-            XPathAtomicOrUnionTypeLookup("anySimpleType", prefix),
-            XPathAtomicOrUnionTypeLookup("anyURI", prefix),
-            XPathAtomicOrUnionTypeLookup("base64Binary", prefix),
-            XPathAtomicOrUnionTypeLookup("boolean", prefix),
-            XPathAtomicOrUnionTypeLookup("byte", prefix),
-            XPathAtomicOrUnionTypeLookup("date", prefix),
-            XPathAtomicOrUnionTypeLookup("dateTime", prefix),
-            XPathAtomicOrUnionTypeLookup("dayTimeDuration", prefix), // XSD 1.1 type supported in XPath/XQuery
-            XPathAtomicOrUnionTypeLookup("decimal", prefix),
-            XPathAtomicOrUnionTypeLookup("double", prefix),
-            XPathAtomicOrUnionTypeLookup("duration", prefix),
-            XPathAtomicOrUnionTypeLookup("ENTITY", prefix),
-            XPathAtomicOrUnionTypeLookup("float", prefix),
-            XPathAtomicOrUnionTypeLookup("gDay", prefix),
-            XPathAtomicOrUnionTypeLookup("gMonth", prefix),
-            XPathAtomicOrUnionTypeLookup("gMonthDay", prefix),
-            XPathAtomicOrUnionTypeLookup("gYear", prefix),
-            XPathAtomicOrUnionTypeLookup("gYearMonth", prefix),
-            XPathAtomicOrUnionTypeLookup("hexBinary", prefix),
-            XPathAtomicOrUnionTypeLookup("ID", prefix),
-            XPathAtomicOrUnionTypeLookup("IDREF", prefix),
-            XPathAtomicOrUnionTypeLookup("int", prefix),
-            XPathAtomicOrUnionTypeLookup("integer", prefix),
-            XPathAtomicOrUnionTypeLookup("language", prefix),
-            XPathAtomicOrUnionTypeLookup("long", prefix),
-            XPathAtomicOrUnionTypeLookup("Name", prefix),
-            XPathAtomicOrUnionTypeLookup("NCName", prefix),
-            XPathAtomicOrUnionTypeLookup("negativeInteger", prefix),
-            XPathAtomicOrUnionTypeLookup("NMTOKEN", prefix),
-            XPathAtomicOrUnionTypeLookup("nonNegativeInteger", prefix),
-            XPathAtomicOrUnionTypeLookup("nonPositiveInteger", prefix),
-            XPathAtomicOrUnionTypeLookup("normalizedString", prefix),
-            XPathAtomicOrUnionTypeLookup("NOTATION", prefix),
-            XPathAtomicOrUnionTypeLookup("numeric", prefix),
-            XPathAtomicOrUnionTypeLookup("positiveInteger", prefix),
-            XPathAtomicOrUnionTypeLookup("QName", prefix),
-            XPathAtomicOrUnionTypeLookup("short", prefix),
-            XPathAtomicOrUnionTypeLookup("string", prefix),
-            XPathAtomicOrUnionTypeLookup("time", prefix),
-            XPathAtomicOrUnionTypeLookup("token", prefix),
-            XPathAtomicOrUnionTypeLookup("unsignedByte", prefix),
-            XPathAtomicOrUnionTypeLookup("unsignedInt", prefix),
-            XPathAtomicOrUnionTypeLookup("unsignedLong", prefix),
-            XPathAtomicOrUnionTypeLookup("unsignedShort", prefix),
-            XPathAtomicOrUnionTypeLookup("untypedAtomic", prefix),
-            XPathAtomicOrUnionTypeLookup("yearMonthDuration", prefix) // XSD 1.1 type supported in XPath/XQuery
-        )
-    }
+    private fun createXsd10Types(prefix: String?): List<LookupElement> = listOf(
+        XPathAtomicOrUnionTypeLookup("anyAtomicType", prefix), // XSD 1.1 type supported in XPath/XQuery
+        XPathAtomicOrUnionTypeLookup("anySimpleType", prefix),
+        XPathAtomicOrUnionTypeLookup("anyURI", prefix),
+        XPathAtomicOrUnionTypeLookup("base64Binary", prefix),
+        XPathAtomicOrUnionTypeLookup("boolean", prefix),
+        XPathAtomicOrUnionTypeLookup("byte", prefix),
+        XPathAtomicOrUnionTypeLookup("date", prefix),
+        XPathAtomicOrUnionTypeLookup("dateTime", prefix),
+        XPathAtomicOrUnionTypeLookup("dayTimeDuration", prefix), // XSD 1.1 type supported in XPath/XQuery
+        XPathAtomicOrUnionTypeLookup("decimal", prefix),
+        XPathAtomicOrUnionTypeLookup("double", prefix),
+        XPathAtomicOrUnionTypeLookup("duration", prefix),
+        XPathAtomicOrUnionTypeLookup("ENTITY", prefix),
+        XPathAtomicOrUnionTypeLookup("float", prefix),
+        XPathAtomicOrUnionTypeLookup("gDay", prefix),
+        XPathAtomicOrUnionTypeLookup("gMonth", prefix),
+        XPathAtomicOrUnionTypeLookup("gMonthDay", prefix),
+        XPathAtomicOrUnionTypeLookup("gYear", prefix),
+        XPathAtomicOrUnionTypeLookup("gYearMonth", prefix),
+        XPathAtomicOrUnionTypeLookup("hexBinary", prefix),
+        XPathAtomicOrUnionTypeLookup("ID", prefix),
+        XPathAtomicOrUnionTypeLookup("IDREF", prefix),
+        XPathAtomicOrUnionTypeLookup("int", prefix),
+        XPathAtomicOrUnionTypeLookup("integer", prefix),
+        XPathAtomicOrUnionTypeLookup("language", prefix),
+        XPathAtomicOrUnionTypeLookup("long", prefix),
+        XPathAtomicOrUnionTypeLookup("Name", prefix),
+        XPathAtomicOrUnionTypeLookup("NCName", prefix),
+        XPathAtomicOrUnionTypeLookup("negativeInteger", prefix),
+        XPathAtomicOrUnionTypeLookup("NMTOKEN", prefix),
+        XPathAtomicOrUnionTypeLookup("nonNegativeInteger", prefix),
+        XPathAtomicOrUnionTypeLookup("nonPositiveInteger", prefix),
+        XPathAtomicOrUnionTypeLookup("normalizedString", prefix),
+        XPathAtomicOrUnionTypeLookup("NOTATION", prefix),
+        XPathAtomicOrUnionTypeLookup("numeric", prefix),
+        XPathAtomicOrUnionTypeLookup("positiveInteger", prefix),
+        XPathAtomicOrUnionTypeLookup("QName", prefix),
+        XPathAtomicOrUnionTypeLookup("short", prefix),
+        XPathAtomicOrUnionTypeLookup("string", prefix),
+        XPathAtomicOrUnionTypeLookup("time", prefix),
+        XPathAtomicOrUnionTypeLookup("token", prefix),
+        XPathAtomicOrUnionTypeLookup("unsignedByte", prefix),
+        XPathAtomicOrUnionTypeLookup("unsignedInt", prefix),
+        XPathAtomicOrUnionTypeLookup("unsignedLong", prefix),
+        XPathAtomicOrUnionTypeLookup("unsignedShort", prefix),
+        XPathAtomicOrUnionTypeLookup("untypedAtomic", prefix),
+        XPathAtomicOrUnionTypeLookup("yearMonthDuration", prefix) // XSD 1.1 type supported in XPath/XQuery
+    )
 
-    private fun createXsd11Types(prefix: String?): List<LookupElement> {
-        return listOf(
-            XPathAtomicOrUnionTypeLookup("dateTimeStamp", prefix),
-            XPathAtomicOrUnionTypeLookup("error", prefix)
-        )
-    }
+    private fun createXsd11Types(prefix: String?): List<LookupElement> = listOf(
+        XPathAtomicOrUnionTypeLookup("dateTimeStamp", prefix),
+        XPathAtomicOrUnionTypeLookup("error", prefix)
+    )
 
     private fun addXsdTypes(context: ProcessingContext, result: CompletionResultSet, prefix: String?) {
         val product = context[XPathCompletionProperty.XPATH_PRODUCT] ?: W3C.SPECIFICATIONS

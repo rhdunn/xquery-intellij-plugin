@@ -25,11 +25,9 @@ import java.io.File
 import java.net.URLClassLoader
 import java.net.UnknownHostException
 
-internal fun mapType(type: String?): String? {
-    return if (type == "xs:dateTimeStamp") // BaseX does not support XML Schema 1.1 Part 2
-        "xs:dateTime"
-    else
-        type
+internal fun mapType(type: String?): String? = when (type) {
+    "xs:dateTimeStamp" -> "xs:dateTime" // BaseX does not support XML Schema 1.1 Part 2
+    else -> type
 }
 
 class BaseX(private val classLoader: ClassLoader) : QueryProcessorInstanceManager {
@@ -37,9 +35,7 @@ class BaseX(private val classLoader: ClassLoader) : QueryProcessorInstanceManage
 
     private val context = Context(classLoader, true)
 
-    override fun create(): QueryProcessor {
-        return BaseXQueryProcessor(LocalSession(context), classLoader)
-    }
+    override fun create(): QueryProcessor = BaseXQueryProcessor(LocalSession(context), classLoader)
 
     override fun connect(settings: ConnectionSettings): QueryProcessor {
         if (settings.hostname.isEmpty())

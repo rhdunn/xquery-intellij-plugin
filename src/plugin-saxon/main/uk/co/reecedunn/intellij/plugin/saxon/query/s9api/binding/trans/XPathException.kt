@@ -23,13 +23,9 @@ import javax.xml.transform.TransformerException
 class XPathException(private val `object`: TransformerException?, private val `class`: Class<*>) :
     TransformerException(`object`?.message) {
 
-    override fun getLocator(): SourceLocator? {
-        return `object`?.locator
-    }
+    override fun getLocator(): SourceLocator? = `object`?.locator
 
-    override fun getException(): Throwable? {
-        return cause
-    }
+    override fun getException(): Throwable? = cause
 
     override val cause: Throwable? = `object`?.cause
 

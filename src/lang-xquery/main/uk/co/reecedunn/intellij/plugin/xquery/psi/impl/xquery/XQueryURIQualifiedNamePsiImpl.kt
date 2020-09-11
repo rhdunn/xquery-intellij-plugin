@@ -67,11 +67,9 @@ class XQueryURIQualifiedNamePsiImpl(node: ASTNode) : XPathURIQualifiedNamePsiImp
     // endregion
     // region NavigationItem
 
-    override fun getPresentation(): ItemPresentation? {
-        return when (parent) {
-            is XPathVarName -> (parent.parent as NavigatablePsiElement).presentation
-            else -> (parent as NavigatablePsiElement).presentation
-        }
+    override fun getPresentation(): ItemPresentation? = when (parent) {
+        is XPathVarName -> (parent.parent as NavigatablePsiElement).presentation
+        else -> (parent as NavigatablePsiElement).presentation
     }
 
     // endregion

@@ -31,13 +31,11 @@ class XQueryBreadcrumbProvider : BreadcrumbsProvider {
 
     override fun getLanguages(): Array<Language> = languages
 
-    override fun acceptElement(element: PsiElement): Boolean {
-        return when (element) {
-            is XQueryFunctionDecl -> true
-            is XPathInlineFunctionExpr -> true
-            is XdmElementNode -> true
-            else -> false
-        }
+    override fun acceptElement(element: PsiElement): Boolean = when (element) {
+        is XQueryFunctionDecl -> true
+        is XPathInlineFunctionExpr -> true
+        is XdmElementNode -> true
+        else -> false
     }
 
     override fun getElementInfo(element: PsiElement): String {

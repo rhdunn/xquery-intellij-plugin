@@ -88,18 +88,16 @@ class QueryProcessorRunState(private val environment: ExecutionEnvironment) : Ru
         }
     }
 
-    override fun createConsole(executor: Executor): ConsoleView {
-        return when (executor.id) {
-            DefaultRunExecutor.EXECUTOR_ID, DefaultDebugExecutor.EXECUTOR_ID -> {
-                QueryConsoleView(environment.project, QueryTextConsoleView(environment.project))
-            }
-            DefaultProfileExecutor.EXECUTOR_ID -> {
-                val console = QueryConsoleView(environment.project, QueryTextConsoleView(environment.project))
-                ConsoleRunnerLayoutUiBuilder(console)
-                    .contentProvider(FlatProfileTableView(environment.project), active = true)
-                    .consoleView()
-            }
-            else -> throw UnsupportedOperationException()
+    override fun createConsole(executor: Executor): ConsoleView = when (executor.id) {
+        DefaultRunExecutor.EXECUTOR_ID, DefaultDebugExecutor.EXECUTOR_ID -> {
+            QueryConsoleView(environment.project, QueryTextConsoleView(environment.project))
         }
+        DefaultProfileExecutor.EXECUTOR_ID -> {
+            val console = QueryConsoleView(environment.project, QueryTextConsoleView(environment.project))
+            ConsoleRunnerLayoutUiBuilder(console)
+                .contentProvider(FlatProfileTableView(environment.project), active = true)
+                .consoleView()
+        }
+        else -> throw UnsupportedOperationException()
     }
 }

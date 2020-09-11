@@ -214,18 +214,14 @@ abstract class ParsingTestCase<File : PsiFile>(
     fun prettyPrintASTNode(file: PsiFile): String = file.toPsiTreeString()
 
     @Suppress("UNCHECKED_CAST")
-    fun parseText(text: String): File {
-        return createVirtualFile("testcase.xqy", text).toPsiFile(myProject) as File
-    }
+    fun parseText(text: String): File = createVirtualFile("testcase.xqy", text).toPsiFile(myProject) as File
 
     protected inline fun <reified T> parse(xquery: String): List<T> {
         return parseText(xquery).walkTree().filterIsInstance<T>().toList()
     }
 
     @Suppress("MemberVisibilityCanBePrivate")
-    fun getEditor(file: PsiFile): Editor {
-        return EditorFactory.getInstance().createEditor(file.document!!)
-    }
+    fun getEditor(file: PsiFile): Editor = EditorFactory.getInstance().createEditor(file.document!!)
 
     fun completion(text: String, completionPoint: String = "completion-point"): PsiElement {
         return parse<LeafPsiElement>(text).find { it.text == completionPoint }!!

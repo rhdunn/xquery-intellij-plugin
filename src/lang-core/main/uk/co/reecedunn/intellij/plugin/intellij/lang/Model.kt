@@ -29,9 +29,7 @@ interface Versioned {
 }
 
 sealed class Version(val id: String, val value: Double, val kind: Versioned, val features: String? = null) {
-    fun toFeatureString(): String {
-        return features?.let { "$this - $it" } ?: toString()
-    }
+    fun toFeatureString(): String = features?.let { "$this - $it" } ?: toString()
 }
 
 class ProductVersion(id: String, kind: Versioned, features: String? = null) :

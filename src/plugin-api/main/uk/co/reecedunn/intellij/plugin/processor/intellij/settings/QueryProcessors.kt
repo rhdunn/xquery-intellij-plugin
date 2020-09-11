@@ -59,9 +59,7 @@ class QueryProcessors : PersistentStateComponent<QueryProcessorsData> {
     // region Instance
 
     companion object {
-        fun getInstance(): QueryProcessors {
-            return ServiceManager.getService(QueryProcessors::class.java)
-        }
+        fun getInstance(): QueryProcessors = ServiceManager.getService(QueryProcessors::class.java)
     }
 
     // endregion

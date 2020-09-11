@@ -20,11 +20,7 @@ class XdmSequenceIterator(private val `object`: Any, private val `class`: Class<
 
     private val xdmItemClass = `class`.classLoader.loadClass("net.sf.saxon.s9api.XdmItem")
 
-    override fun hasNext(): Boolean {
-        return `class`.getMethod("hasNext").invoke(`object`) as Boolean
-    }
+    override fun hasNext(): Boolean = `class`.getMethod("hasNext").invoke(`object`) as Boolean
 
-    override fun next(): XdmItem {
-        return XdmItem(`class`.getMethod("next").invoke(`object`), xdmItemClass)
-    }
+    override fun next(): XdmItem = XdmItem(`class`.getMethod("next").invoke(`object`), xdmItemClass)
 }

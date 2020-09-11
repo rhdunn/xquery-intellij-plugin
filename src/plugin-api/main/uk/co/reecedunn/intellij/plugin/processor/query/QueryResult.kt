@@ -73,13 +73,11 @@ fun primitiveToItemType(primitive: String): String {
     }
 }
 
-fun mimetypeFromXQueryItemType(type: String): String {
-    return when (type.substringBefore("(")) {
-        "array-node", "boolean-node", "null-node", "number-node", "object-node" -> "application/json"
-        "binary" -> "application/octet-stream"
-        "document-node", "element" -> "application/xml"
-        else -> "text/plain"
-    }
+fun mimetypeFromXQueryItemType(type: String): String = when (type.substringBefore("(")) {
+    "array-node", "boolean-node", "null-node", "number-node", "object-node" -> "application/json"
+    "binary" -> "application/octet-stream"
+    "document-node", "element" -> "application/xml"
+    else -> "text/plain"
 }
 
 data class QueryResult(val position: Long, val value: Any, val type: String, val mimetype: String) {

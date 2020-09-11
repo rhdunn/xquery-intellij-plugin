@@ -69,16 +69,12 @@ class XQDocDocumentationDownloader : PersistentStateComponent<XQDocDocumentation
         return LocalFileSystem.getInstance().findFileByIoFile(file)
     }
 
-    fun file(source: XQDocDocumentationSource): File {
-        return File("$basePath/${source.path}")
-    }
+    fun file(source: XQDocDocumentationSource): File = File("$basePath/${source.path}")
 
-    fun status(source: XQDocDocumentationSource): XQDocDocumentationDownloadStatus {
-        return when {
-            tasks.isActive(source) -> XQDocDocumentationDownloadStatus.Downloading
-            file(source).exists() -> XQDocDocumentationDownloadStatus.Downloaded
-            else -> XQDocDocumentationDownloadStatus.NotDownloaded
-        }
+    fun status(source: XQDocDocumentationSource): XQDocDocumentationDownloadStatus = when {
+        tasks.isActive(source) -> XQDocDocumentationDownloadStatus.Downloading
+        file(source).exists() -> XQDocDocumentationDownloadStatus.Downloaded
+        else -> XQDocDocumentationDownloadStatus.NotDownloaded
     }
 
     // region PersistentStateComponent

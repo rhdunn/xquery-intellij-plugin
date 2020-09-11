@@ -31,21 +31,17 @@ object XPathVersion : CompletionProperty {
         }
     }
 
-    fun get(element: PsiElement): Version {
-        return get(XQueryVersion.get(element))
-    }
+    fun get(element: PsiElement): Version = get(XQueryVersion.get(element))
 
-    private fun get(xqueryVersion: Version): Version {
-        return when (xqueryVersion) {
-            XQuerySpec.REC_1_0_20070123 -> XPathSpec.REC_2_0_20070123
-            XQuerySpec.REC_1_0_20101214 -> XPathSpec.REC_2_0_20101214
-            XQuerySpec.WD_1_0_20030502 -> XPathSpec.WD_2_0_20030502
-            XQuerySpec.REC_3_0_20140408 -> XPathSpec.REC_3_0_20140408
-            XQuerySpec.CR_3_1_20151217 -> XPathSpec.CR_3_1_20151217
-            XQuerySpec.REC_3_1_20170321 -> XPathSpec.REC_3_1_20170321
-            XQuerySpec.MARKLOGIC_0_9 -> XPathSpec.WD_2_0_20030502
-            XQuerySpec.MARKLOGIC_1_0 -> XPathSpec.REC_3_0_20140408
-            else -> XPathSpec.REC_3_1_20170321
-        }
+    private fun get(xqueryVersion: Version): Version = when (xqueryVersion) {
+        XQuerySpec.REC_1_0_20070123 -> XPathSpec.REC_2_0_20070123
+        XQuerySpec.REC_1_0_20101214 -> XPathSpec.REC_2_0_20101214
+        XQuerySpec.WD_1_0_20030502 -> XPathSpec.WD_2_0_20030502
+        XQuerySpec.REC_3_0_20140408 -> XPathSpec.REC_3_0_20140408
+        XQuerySpec.CR_3_1_20151217 -> XPathSpec.CR_3_1_20151217
+        XQuerySpec.REC_3_1_20170321 -> XPathSpec.REC_3_1_20170321
+        XQuerySpec.MARKLOGIC_0_9 -> XPathSpec.WD_2_0_20030502
+        XQuerySpec.MARKLOGIC_1_0 -> XPathSpec.REC_3_0_20140408
+        else -> XPathSpec.REC_3_1_20170321
     }
 }

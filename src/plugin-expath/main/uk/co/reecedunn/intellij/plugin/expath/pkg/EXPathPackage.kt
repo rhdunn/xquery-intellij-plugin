@@ -95,19 +95,17 @@ data class EXPathPackage internal constructor(
     // endregion
     // region XpmModuleLoader
 
-    override fun resolve(path: XpmModulePath, context: VirtualFile?): PsiElement? {
-        return when (path) {
-            is XsAnyUriPsiElement -> {
-                val component = components.find {
-                    path.moduleTypes.contains(it.moduleType) && when (it) {
-                        is EXPathPackageImport -> path.data == it.importUri?.data
-                        else -> false
-                    }
+    override fun resolve(path: XpmModulePath, context: VirtualFile?): PsiElement? = when (path) {
+        is XsAnyUriPsiElement -> {
+            val component = components.find {
+                path.moduleTypes.contains(it.moduleType) && when (it) {
+                    is EXPathPackageImport -> path.data == it.importUri?.data
+                    else -> false
                 }
-                component?.let { load(it)?.toPsiFile(path.project) }
             }
-            else -> null
+            component?.let { load(it)?.toPsiFile(path.project) }
         }
+        else -> null
     }
 
     override fun context(path: XpmModulePath, context: VirtualFile?): XpmStaticContext? {
@@ -125,18 +123,16 @@ data class EXPathPackage internal constructor(
         private const val DESCRIPTOR_FILE = "expath-pkg.xml"
 
         @Suppress("MemberVisibilityCanBePrivate")
-        fun create(pkg: VirtualFile): EXPathPackage {
-            return if (pkg.isDirectory) {
+        fun create(pkg: VirtualFile): EXPathPackage = when (pkg.isDirectory) {
+            true -> {
                 val descriptor = pkg.findFileByRelativePath(DESCRIPTOR_FILE)?.let { XmlDocument.parse(it, NAMESPACES) }
                     ?: throw EXPathPackageMissingDescriptor()
                 EXPathPackage(pkg.fileSystem, pkg, descriptor)
-            } else
-                create(ZipFileSystem(pkg))
+            }
+            else -> create(ZipFileSystem(pkg))
         }
 
-        fun create(pkg: ByteArray): EXPathPackage {
-            return create(ZipFileSystem(pkg))
-        }
+        fun create(pkg: ByteArray): EXPathPackage = create(ZipFileSystem(pkg))
 
         private fun create(pkg: ZipFileSystem): EXPathPackage {
             val descriptor = pkg.findFileByPath(DESCRIPTOR_FILE)?.let { XmlDocument.parse(it, NAMESPACES) }

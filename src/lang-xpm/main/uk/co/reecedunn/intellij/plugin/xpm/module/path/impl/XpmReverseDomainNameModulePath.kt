@@ -38,32 +38,28 @@ object XpmReverseDomainNameModulePath : XpmModulePathFactory {
         return createRelative(project, path.replace(':', '/'), uri)
     }
 
-    private fun createRelative(project: Project, path: String, uri: XsAnyUriValue): XpmModuleLocationPath? {
-        return when {
-            path.isEmpty() -> null
-            path.endsWith('/') -> {
-                XpmModuleLocationPath(project, "${path.replace(SPECIAL_CHARACTERS, "-")}index", uri.moduleTypes, null)
-            }
-            else -> XpmModuleLocationPath(project, path.replace(SPECIAL_CHARACTERS, "-"), uri.moduleTypes, null)
+    private fun createRelative(project: Project, path: String, uri: XsAnyUriValue): XpmModuleLocationPath? = when {
+        path.isEmpty() -> null
+        path.endsWith('/') -> {
+            XpmModuleLocationPath(project, "${path.replace(SPECIAL_CHARACTERS, "-")}index", uri.moduleTypes, null)
         }
+        else -> XpmModuleLocationPath(project, path.replace(SPECIAL_CHARACTERS, "-"), uri.moduleTypes, null)
     }
 
-    override fun create(project: Project, uri: XsAnyUriValue): XpmModuleLocationPath? {
-        return when (uri.context) {
-            XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
-                val path = uri.data
-                when {
-                    path.startsWith("java:") /* Java paths are not converted by BaseX. */ -> null
-                    path.startsWith("xmldb:exist://") /* Ignore eXist-db database paths. */ -> null
-                    path.startsWith("file://") /* Keep file URLs intact. */ -> {
-                        XpmModuleLocationPath(project, path, uri.moduleTypes, null)
-                    }
-                    path.contains("://") /* BaseX */ -> createUri(project, path, uri)
-                    path.contains(":") /* BaseX */ -> createUrn(project, path, uri)
-                    else /* BaseX */ -> createRelative(project, path, uri)
+    override fun create(project: Project, uri: XsAnyUriValue): XpmModuleLocationPath? = when (uri.context) {
+        XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
+            val path = uri.data
+            when {
+                path.startsWith("java:") /* Java paths are not converted by BaseX. */ -> null
+                path.startsWith("xmldb:exist://") /* Ignore eXist-db database paths. */ -> null
+                path.startsWith("file://") /* Keep file URLs intact. */ -> {
+                    XpmModuleLocationPath(project, path, uri.moduleTypes, null)
                 }
+                path.contains("://") /* BaseX */ -> createUri(project, path, uri)
+                path.contains(":") /* BaseX */ -> createUrn(project, path, uri)
+                else /* BaseX */ -> createRelative(project, path, uri)
             }
-            else -> null
         }
+        else -> null
     }
 }

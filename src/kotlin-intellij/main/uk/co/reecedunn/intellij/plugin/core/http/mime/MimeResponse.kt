@@ -21,9 +21,7 @@ import java.nio.charset.Charset
 
 import java.util.ArrayList
 
-private fun String.decode(charset: Charset): String {
-    return String(toByteArray(Charsets.ISO_8859_1), charset)
-}
+private fun String.decode(charset: Charset): String = String(toByteArray(Charsets.ISO_8859_1), charset)
 
 class MimeResponse(headers: Array<Header>, body: String, private val defaultEncoding: Charset) {
     private val message: Message = Message(headers, body)

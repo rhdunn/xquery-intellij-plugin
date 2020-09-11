@@ -28,21 +28,13 @@ class LocalQuery(private val `object`: Any, private val `class`: Class<*>) : Que
         `class`.getMethod("context", Any::class.java, String::class.java).invoke(`object`, value, type)
     }
 
-    override fun more(): Boolean {
-        return `class`.getMethod("more").invoke(`object`) as Boolean
-    }
+    override fun more(): Boolean = `class`.getMethod("more").invoke(`object`) as Boolean
 
-    override fun next(): String? {
-        return `class`.getMethod("next").invoke(`object`) as String?
-    }
+    override fun next(): String? = `class`.getMethod("next").invoke(`object`) as String?
 
-    override fun type(): Any? {
-        return `class`.getMethodOrNull("type")?.invoke(`object`)
-    }
+    override fun type(): Any? = `class`.getMethodOrNull("type")?.invoke(`object`)
 
-    override fun info(): String? {
-        return `class`.getMethod("info").invoke(`object`) as String?
-    }
+    override fun info(): String? = `class`.getMethod("info").invoke(`object`) as String?
 
     override fun close() {
         `class`.getMethod("close").invoke(`object`)

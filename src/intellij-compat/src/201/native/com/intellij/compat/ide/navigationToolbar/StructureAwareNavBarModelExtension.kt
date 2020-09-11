@@ -94,9 +94,7 @@ abstract class StructureAwareNavBarModelExtension : AbstractNavBarModelExtension
         return super.getParent(psiElement)
     }
 
-    protected open fun acceptParentFromModel(psiElement: PsiElement?): Boolean {
-        return true
-    }
+    protected open fun acceptParentFromModel(psiElement: PsiElement?): Boolean = true
 
     private fun findParentInModel(root: StructureViewTreeElement, psiElement: PsiElement): PsiElement? {
         for (child in childrenFromNodeAndProviders(root)) {

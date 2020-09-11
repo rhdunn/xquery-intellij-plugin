@@ -68,14 +68,12 @@ private class PrologVisitor(
     override fun next(): Pair<XsQNameValue?, XQueryProlog> = item!!
 }
 
-fun XQueryProlog.importedPrologs(): Sequence<XQueryProlog> {
-    return sequenceOf(
-        sequenceOf(this),
-        staticallyKnownNamespaces().flatMap { ns ->
-            (ns.namespaceUri?.element?.parent as? XQueryPrologResolver)?.prolog ?: emptySequence()
-        }
-    ).flatten()
-}
+fun XQueryProlog.importedPrologs(): Sequence<XQueryProlog> = sequenceOf(
+    sequenceOf(this),
+    staticallyKnownNamespaces().flatMap { ns ->
+        (ns.namespaceUri?.element?.parent as? XQueryPrologResolver)?.prolog ?: emptySequence()
+    }
+).flatten()
 
 fun XPathEQName.importedPrologsForQName(): Sequence<Pair<XsQNameValue?, XQueryProlog>> {
     val thisProlog = fileProlog()

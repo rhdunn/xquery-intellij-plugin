@@ -44,9 +44,7 @@ class XQueryExpressionBreakpointType :
         return createProperties()
     }
 
-    override fun createProperties(): XQueryBreakpointProperties? {
-        return XQueryBreakpointProperties()
-    }
+    override fun createProperties(): XQueryBreakpointProperties? = XQueryBreakpointProperties()
 
     override fun canPutAt(file: VirtualFile, line: Int, project: Project): Boolean {
         val module = file.toPsiFile(project) as? XQueryModule ?: return false

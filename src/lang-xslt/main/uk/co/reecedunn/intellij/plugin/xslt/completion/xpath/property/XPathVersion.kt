@@ -33,16 +33,12 @@ object XPathVersion : CompletionProperty {
         }
     }
 
-    fun get(element: PsiElement): Version {
-        return get(XsltVersion.get(element))
-    }
+    fun get(element: PsiElement): Version = get(XsltVersion.get(element))
 
-    private fun get(xsltVersion: Version): Version {
-        return when (xsltVersion) {
-            XsltSpec.REC_1_0_19991116 -> XPathSpec.REC_1_0_19991116
-            XsltSpec.REC_2_0_20070123 -> XPathSpec.REC_2_0_20070123
-            XsltSpec.REC_3_0_20170608 -> XPathSpec.REC_3_1_20170321 // TODO: Can be XPath 3.0 + maps on some processors.
-            else -> XPathSpec.REC_3_1_20170321
-        }
+    private fun get(xsltVersion: Version): Version = when (xsltVersion) {
+        XsltSpec.REC_1_0_19991116 -> XPathSpec.REC_1_0_19991116
+        XsltSpec.REC_2_0_20070123 -> XPathSpec.REC_2_0_20070123
+        XsltSpec.REC_3_0_20170608 -> XPathSpec.REC_3_1_20170321 // TODO: Can be XPath 3.0 + maps on some processors.
+        else -> XPathSpec.REC_3_1_20170321
     }
 }

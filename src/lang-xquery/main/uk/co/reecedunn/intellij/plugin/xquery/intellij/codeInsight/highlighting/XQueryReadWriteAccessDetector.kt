@@ -30,9 +30,7 @@ class XQueryReadWriteAccessDetector : ReadWriteAccessDetector() {
         return element is XPathEQName && (element.parent is XPathVarName || element.parent is XPathParam)
     }
 
-    override fun isDeclarationWriteAccess(element: PsiElement): Boolean {
-        return true
-    }
+    override fun isDeclarationWriteAccess(element: PsiElement): Boolean = true
 
     override fun getReferenceAccess(referencedElement: PsiElement, reference: PsiReference): Access {
         return getExpressionAccess(reference.element)

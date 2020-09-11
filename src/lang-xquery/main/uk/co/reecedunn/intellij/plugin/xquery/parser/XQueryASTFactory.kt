@@ -35,22 +35,20 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryPredefinedEn
 class XQueryASTFactory : ASTFactory() {
     override fun createComposite(type: IElementType): CompositeElement? = CompositeElement(type)
 
-    override fun createLeaf(type: IElementType, text: CharSequence): LeafElement? {
-        return when (type) {
-            XQueryTokenType.CHARACTER_REFERENCE -> XQueryCharRefImpl(type, text)
-            XQueryTokenType.PREDEFINED_ENTITY_REFERENCE -> XQueryPredefinedEntityRefImpl(type, text)
-            XQueryTokenType.XML_ATTRIBUTE_NCNAME -> XmlNCNameImpl(type, text)
-            XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS -> XQueryDirAttributeValueContentsImpl(type, text)
-            XQueryTokenType.XML_ELEMENT_CONTENTS -> XQueryDirElemContentsImpl(type, text)
-            XQueryTokenType.XML_ESCAPED_CHARACTER -> XPathEscapeCharacterImpl(type, text)
-            XQueryTokenType.XML_CHARACTER_REFERENCE -> XQueryCharRefImpl(type, text)
-            XQueryTokenType.XML_COMMENT -> PsiCommentImpl(type, text)
-            XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE -> XQueryPredefinedEntityRefImpl(type, text)
-            XQueryTokenType.XML_TAG_NCNAME -> XmlNCNameImpl(type, text)
-            XQueryTokenType.XML_WHITE_SPACE -> XQueryDirWhiteSpaceImpl(text)
-            XQDocTokenType.CONTENTS -> PsiCommentImpl(type, text)
-            is IKeywordOrNCNameType -> XmlNCNameImpl(type, text)
-            else -> LeafPsiElement(type, text)
-        }
+    override fun createLeaf(type: IElementType, text: CharSequence): LeafElement? = when (type) {
+        XQueryTokenType.CHARACTER_REFERENCE -> XQueryCharRefImpl(type, text)
+        XQueryTokenType.PREDEFINED_ENTITY_REFERENCE -> XQueryPredefinedEntityRefImpl(type, text)
+        XQueryTokenType.XML_ATTRIBUTE_NCNAME -> XmlNCNameImpl(type, text)
+        XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS -> XQueryDirAttributeValueContentsImpl(type, text)
+        XQueryTokenType.XML_ELEMENT_CONTENTS -> XQueryDirElemContentsImpl(type, text)
+        XQueryTokenType.XML_ESCAPED_CHARACTER -> XPathEscapeCharacterImpl(type, text)
+        XQueryTokenType.XML_CHARACTER_REFERENCE -> XQueryCharRefImpl(type, text)
+        XQueryTokenType.XML_COMMENT -> PsiCommentImpl(type, text)
+        XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE -> XQueryPredefinedEntityRefImpl(type, text)
+        XQueryTokenType.XML_TAG_NCNAME -> XmlNCNameImpl(type, text)
+        XQueryTokenType.XML_WHITE_SPACE -> XQueryDirWhiteSpaceImpl(text)
+        XQDocTokenType.CONTENTS -> PsiCommentImpl(type, text)
+        is IKeywordOrNCNameType -> XmlNCNameImpl(type, text)
+        else -> LeafPsiElement(type, text)
     }
 }

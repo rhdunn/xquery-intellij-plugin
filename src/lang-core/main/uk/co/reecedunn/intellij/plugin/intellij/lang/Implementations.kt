@@ -345,24 +345,22 @@ private class W3CProduct(id: String, name: String, implementation: Implementatio
 
     override fun supportsFeature(version: Version, feature: XQueryFeature): Boolean = true
 
-    override fun conformsTo(productVersion: Version, ref: Version): Boolean {
-        return when (ref) {
-            XmlSchemaSpec.REC_1_0_20041028, XmlSchemaSpec.REC_1_1_20120405 ->
-                true
-            XQuerySpec.WD_1_0_20030502 ->
-                productVersion === W3C.WORKING_DRAFT
-            XQuerySpec.REC_1_0_20070123, XQuerySpec.REC_3_0_20140408, XQuerySpec.REC_3_1_20170321 ->
-                productVersion === W3C.FIRST_EDITION
-            XQuerySpec.REC_1_0_20101214 ->
-                productVersion === W3C.SECOND_EDITION
-            FullTextSpec.REC_1_0_20110317, FullTextSpec.REC_3_0_20151124 ->
-                productVersion === W3C.FIRST_EDITION
-            UpdateFacilitySpec.REC_1_0_20110317, UpdateFacilitySpec.NOTE_3_0_20170124 ->
-                productVersion === W3C.FIRST_EDITION
-            ScriptingSpec.NOTE_1_0_20140918 ->
-                productVersion === W3C.FIRST_EDITION
-            else -> false // NOTE: 1ed/2ed conformance is done at the Specification level.
-        }
+    override fun conformsTo(productVersion: Version, ref: Version): Boolean = when (ref) {
+        XmlSchemaSpec.REC_1_0_20041028, XmlSchemaSpec.REC_1_1_20120405 ->
+            true
+        XQuerySpec.WD_1_0_20030502 ->
+            productVersion === W3C.WORKING_DRAFT
+        XQuerySpec.REC_1_0_20070123, XQuerySpec.REC_3_0_20140408, XQuerySpec.REC_3_1_20170321 ->
+            productVersion === W3C.FIRST_EDITION
+        XQuerySpec.REC_1_0_20101214 ->
+            productVersion === W3C.SECOND_EDITION
+        FullTextSpec.REC_1_0_20110317, FullTextSpec.REC_3_0_20151124 ->
+            productVersion === W3C.FIRST_EDITION
+        UpdateFacilitySpec.REC_1_0_20110317, UpdateFacilitySpec.NOTE_3_0_20170124 ->
+            productVersion === W3C.FIRST_EDITION
+        ScriptingSpec.NOTE_1_0_20140918 ->
+            productVersion === W3C.FIRST_EDITION
+        else -> false // NOTE: 1ed/2ed conformance is done at the Specification level.
     }
 
     @Suppress("PropertyName")
@@ -456,12 +454,10 @@ fun defaultStaticContext(xquery: Specification?): String? = when (xquery) {
     else -> null
 }
 
-fun defaultProductVersion(product: Product): Version {
-    return when (product) {
-        BaseX.BASEX -> BaseX.VERSION_9_1
-        MarkLogic.MARKLOGIC -> MarkLogic.VERSION_9_0
-        Saxon.HE, Saxon.PE, Saxon.EE, Saxon.EE_Q, Saxon.EE_T, Saxon.EE_V -> Saxon.VERSION_9_9
-        W3C.SPECIFICATIONS -> W3C.FIRST_EDITION
-        else -> throw RuntimeException("Unknown product: $product")
-    }
+fun defaultProductVersion(product: Product): Version = when (product) {
+    BaseX.BASEX -> BaseX.VERSION_9_1
+    MarkLogic.MARKLOGIC -> MarkLogic.VERSION_9_0
+    Saxon.HE, Saxon.PE, Saxon.EE, Saxon.EE_Q, Saxon.EE_T, Saxon.EE_V -> Saxon.VERSION_9_9
+    W3C.SPECIFICATIONS -> W3C.FIRST_EDITION
+    else -> throw RuntimeException("Unknown product: $product")
 }

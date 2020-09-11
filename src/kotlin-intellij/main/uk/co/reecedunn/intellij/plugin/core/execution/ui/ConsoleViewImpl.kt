@@ -82,12 +82,10 @@ open class ConsoleViewImpl : JPanel(BorderLayout()), ConsoleView, DataProvider {
     // endregion
     // region DataProvider
 
-    override fun getData(dataId: String): Any? {
-        return when (dataId) {
-            PlatformDataKeys.HELP_ID.name -> helpId
-            LangDataKeys.CONSOLE_VIEW.name -> this
-            else -> null
-        }
+    override fun getData(dataId: String): Any? = when (dataId) {
+        PlatformDataKeys.HELP_ID.name -> helpId
+        LangDataKeys.CONSOLE_VIEW.name -> this
+        else -> null
     }
 
     // endregion

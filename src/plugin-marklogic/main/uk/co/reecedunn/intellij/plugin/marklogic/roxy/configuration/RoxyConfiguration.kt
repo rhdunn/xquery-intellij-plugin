@@ -37,13 +37,11 @@ class RoxyConfiguration(private val project: Project, override val baseDir: Virt
     private val build: PropertiesFile? = getPropertiesFile("build") // Project-specific properties
     private var env: PropertiesFile? = getPropertiesFile("local") // Environment-specific properties
 
-    fun getProperty(property: String): Sequence<IProperty> {
-        return sequenceOf(
-            env?.findPropertyByKey(property),
-            build?.findPropertyByKey(property),
-            default?.findPropertyByKey(property)
-        ).filterNotNull()
-    }
+    fun getProperty(property: String): Sequence<IProperty> = sequenceOf(
+        env?.findPropertyByKey(property),
+        build?.findPropertyByKey(property),
+        default?.findPropertyByKey(property)
+    ).filterNotNull()
 
     fun getPropertyValue(property: String): String? = getProperty(property).firstOrNull()?.value
 

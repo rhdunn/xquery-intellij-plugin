@@ -74,8 +74,9 @@ data class ZipFile(
         if (parts.isEmpty()) "" else "${parts.joinToString("/")}/"
     }
 
-    override fun getParent(): VirtualFile? {
-        return if (path.isEmpty()) null else fileSystem.get()?.findFileByPath(parentPath)
+    override fun getParent(): VirtualFile? = when (path.isEmpty()) {
+        true -> null
+        else -> fileSystem.get()?.findFileByPath(parentPath)
     }
 
     override fun getChildren(): Array<VirtualFile> {
@@ -101,8 +102,9 @@ data class ZipFile(
 
     override fun refresh(asynchronous: Boolean, recursive: Boolean, postRunnable: Runnable?): Unit = TODO()
 
-    override fun getInputStream(): InputStream {
-        return if (isDirectory) throw UnsupportedOperationException() else ByteArrayInputStream(contents)
+    override fun getInputStream(): InputStream = when (isDirectory) {
+        true -> throw UnsupportedOperationException()
+        else -> ByteArrayInputStream(contents)
     }
 
     // endregion

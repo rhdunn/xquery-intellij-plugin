@@ -44,30 +44,20 @@ open class InstructionInfo(val saxonObject: Any, private val `class`: Class<*>) 
         return if (id == "*module with no systemId*") null else id
     }
 
-    override fun getPublicId(): String? {
-        return locationClass.getMethod("getPublicId").invoke(location) as String?
-    }
+    override fun getPublicId(): String? = locationClass.getMethod("getPublicId").invoke(location) as String?
 
-    override fun getLineNumber(): Int {
-        return locationClass.getMethod("getLineNumber").invoke(location) as Int
-    }
+    override fun getLineNumber(): Int = locationClass.getMethod("getLineNumber").invoke(location) as Int
 
-    override fun getColumnNumber(): Int {
-        return locationClass.getMethod("getColumnNumber").invoke(location) as Int
-    }
+    override fun getColumnNumber(): Int = locationClass.getMethod("getColumnNumber").invoke(location) as Int
 
     fun getObjectName(): QName? {
         val qname = `class`.getMethod("getObjectName").invoke(saxonObject)
         return qname?.let { StructuredQName(it, `class`.classLoader.loadClass("net.sf.saxon.om.StructuredQName")) }
     }
 
-    override fun toString(): String {
-        return saxonObject.toString()
-    }
+    override fun toString(): String = saxonObject.toString()
 
-    override fun hashCode(): Int {
-        return saxonObject.hashCode()
-    }
+    override fun hashCode(): Int = saxonObject.hashCode()
 
     override fun equals(other: Any?): Boolean {
         if (other !is InstructionInfo) return false

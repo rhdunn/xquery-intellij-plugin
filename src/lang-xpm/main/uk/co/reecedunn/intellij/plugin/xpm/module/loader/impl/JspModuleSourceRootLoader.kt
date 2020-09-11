@@ -50,26 +50,22 @@ class JspModuleSourceRootLoader(private val rootType: JpsModuleSourceRootType<*>
         }.filterNotNull().firstOrNull()
     }
 
-    override fun resolve(path: XpmModulePath, context: VirtualFile?): PsiElement? {
-        return when (path) {
-            is XpmModuleLocationPath -> {
-                if (rootType === JavaSourceRootType.SOURCE || rootType === context?.getSourceRootType(path.project)) {
-                    if (path.isResource == null) // BaseX reverse domain name module path
-                        findFileByPath(path.project, path.path, path.moduleTypes)?.toPsiFile(path.project)
-                    else
-                        findFileByPath(path.project, path.path, null)?.toPsiFile(path.project)
-                } else
-                    null
-            }
-            else -> null
+    override fun resolve(path: XpmModulePath, context: VirtualFile?): PsiElement? = when (path) {
+        is XpmModuleLocationPath -> {
+            if (rootType === JavaSourceRootType.SOURCE || rootType === context?.getSourceRootType(path.project)) {
+                if (path.isResource == null) // BaseX reverse domain name module path
+                    findFileByPath(path.project, path.path, path.moduleTypes)?.toPsiFile(path.project)
+                else
+                    findFileByPath(path.project, path.path, null)?.toPsiFile(path.project)
+            } else
+                null
         }
+        else -> null
     }
 
-    override fun context(path: XpmModulePath, context: VirtualFile?): XpmStaticContext? {
-        return when (path) {
-            is XpmModuleLocationPath -> resolve(path, context) as? XpmStaticContext
-            else -> null
-        }
+    override fun context(path: XpmModulePath, context: VirtualFile?): XpmStaticContext? = when (path) {
+        is XpmModuleLocationPath -> resolve(path, context) as? XpmStaticContext
+        else -> null
     }
 
     override fun relativePathTo(file: VirtualFile, project: Project): String? {
@@ -82,12 +78,10 @@ class JspModuleSourceRootLoader(private val rootType: JpsModuleSourceRootType<*>
     // region XpmModuleLoaderFactory
 
     companion object : XpmModuleLoaderFactory {
-        override fun loader(context: String?): XpmModuleLoader? {
-            return when (context) {
-                "java:source" -> JspModuleSourceRootLoader(JavaSourceRootType.SOURCE)
-                "java:test-source" -> JspModuleSourceRootLoader(JavaSourceRootType.TEST_SOURCE)
-                else -> null
-            }
+        override fun loader(context: String?): XpmModuleLoader? = when (context) {
+            "java:source" -> JspModuleSourceRootLoader(JavaSourceRootType.SOURCE)
+            "java:test-source" -> JspModuleSourceRootLoader(JavaSourceRootType.TEST_SOURCE)
+            else -> null
         }
     }
 

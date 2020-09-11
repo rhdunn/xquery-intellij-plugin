@@ -83,82 +83,70 @@ internal class MarkLogicQueryProcessor(
     // endregion
     // region ProfileableQueryProvider
 
-    override fun createProfileableQuery(query: VirtualFile, language: Language): ProfileableQuery {
-        return when (language) {
-            XQuery, XSLT -> {
-                val builder = RequestBuilder.post("$baseUri/v1/eval")
-                val queryId = "(: xijp:queryId=${builder.hashCode()}:${System.nanoTime()} :)"
-                val params = buildParameters(query, language, "profile")
-                builder.addParameter("xquery", "$queryId${MarkLogicQueries.Run}")
-                MarkLogicProfileQuery(builder, params, query, connection, this, queryId)
-            }
-            else -> throw UnsupportedQueryType(language)
+    override fun createProfileableQuery(query: VirtualFile, language: Language): ProfileableQuery = when (language) {
+        XQuery, XSLT -> {
+            val builder = RequestBuilder.post("$baseUri/v1/eval")
+            val queryId = "(: xijp:queryId=${builder.hashCode()}:${System.nanoTime()} :)"
+            val params = buildParameters(query, language, "profile")
+            builder.addParameter("xquery", "$queryId${MarkLogicQueries.Run}")
+            MarkLogicProfileQuery(builder, params, query, connection, this, queryId)
         }
+        else -> throw UnsupportedQueryType(language)
     }
 
     // endregion
     // region RunnableQueryProvider
 
-    override fun createRunnableQuery(query: VirtualFile, language: Language): RunnableQuery {
-        return when (language) {
-            ServerSideJavaScript, SPARQLQuery, SPARQLUpdate, SQL, XQuery, XSLT -> {
-                val builder = RequestBuilder.post("$baseUri/v1/eval")
-                val queryId = "(: xijp:queryId=${builder.hashCode()}:${System.nanoTime()} :)"
-                val params = buildParameters(query, language, "run")
-                builder.addParameter("xquery", "$queryId${MarkLogicQueries.Run}")
-                MarkLogicRunQuery(builder, params, query, connection, this, queryId)
-            }
-            else -> throw UnsupportedQueryType(language)
+    override fun createRunnableQuery(query: VirtualFile, language: Language): RunnableQuery = when (language) {
+        ServerSideJavaScript, SPARQLQuery, SPARQLUpdate, SQL, XQuery, XSLT -> {
+            val builder = RequestBuilder.post("$baseUri/v1/eval")
+            val queryId = "(: xijp:queryId=${builder.hashCode()}:${System.nanoTime()} :)"
+            val params = buildParameters(query, language, "run")
+            builder.addParameter("xquery", "$queryId${MarkLogicQueries.Run}")
+            MarkLogicRunQuery(builder, params, query, connection, this, queryId)
         }
+        else -> throw UnsupportedQueryType(language)
     }
 
     // endregion
     // region DebuggableQueryProvider
 
-    override fun createDebuggableQuery(query: VirtualFile, language: Language): DebuggableQuery {
-        return when (language) {
-            XQuery, XSLT -> {
-                val builder = RequestBuilder.post("$baseUri/v1/eval")
-                builder.addParameter("xquery", MarkLogicQueries.Run)
-                MarkLogicDebugQuery(builder, buildParameters(query, language, "debug"), query, connection, this)
-            }
-            else -> throw UnsupportedQueryType(language)
+    override fun createDebuggableQuery(query: VirtualFile, language: Language): DebuggableQuery = when (language) {
+        XQuery, XSLT -> {
+            val builder = RequestBuilder.post("$baseUri/v1/eval")
+            builder.addParameter("xquery", MarkLogicQueries.Run)
+            MarkLogicDebugQuery(builder, buildParameters(query, language, "debug"), query, connection, this)
         }
+        else -> throw UnsupportedQueryType(language)
     }
 
     // endregion
     // region ValidatableQueryProvider
 
-    override fun createValidatableQuery(query: VirtualFile, language: Language): ValidatableQuery {
-        return when (language) {
-            XQuery, XSLT -> {
-                val builder = RequestBuilder.post("$baseUri/v1/eval")
-                builder.addParameter("xquery", MarkLogicQueries.Run)
-                MarkLogicRunQuery(builder, buildParameters(query, language, "validate"), query, connection, this, null)
-            }
-            else -> throw UnsupportedQueryType(language)
+    override fun createValidatableQuery(query: VirtualFile, language: Language): ValidatableQuery = when (language) {
+        XQuery, XSLT -> {
+            val builder = RequestBuilder.post("$baseUri/v1/eval")
+            builder.addParameter("xquery", MarkLogicQueries.Run)
+            MarkLogicRunQuery(builder, buildParameters(query, language, "validate"), query, connection, this, null)
         }
+        else -> throw UnsupportedQueryType(language)
     }
 
     // endregion
     // region LogViewProvider
 
-    override fun logs(): List<String> {
-        return createRunnableQuery(MarkLogicQueries.Log.Logs, XQuery).run().results.map { it.value as String }
+    override fun logs(): List<String> = createRunnableQuery(MarkLogicQueries.Log.Logs, XQuery).run().results.map {
+        it.value as String
     }
 
-    override fun log(name: String): List<String> {
-        return createRunnableQuery(MarkLogicQueries.Log.Log, XQuery).use { query ->
-            query.bindVariable("name", name, "xs:string")
-            query.run().results.map { it.value as String }
-        }
+    override fun log(name: String): List<String> = createRunnableQuery(MarkLogicQueries.Log.Log, XQuery).use { query ->
+        query.bindVariable("name", name, "xs:string")
+        query.run().results.map { it.value as String }
     }
 
-    override fun defaultLogFile(logs: List<String>): String? {
-        return if (logs.contains("ErrorLog.txt"))
-            "ErrorLog.txt" // The log has not rolled over.
-        else
-            "ErrorLog_1.txt" // The log has rolled over, and no new log entries have been added.
+    override fun defaultLogFile(logs: List<String>): String? = when {
+        logs.contains("ErrorLog.txt") -> "ErrorLog.txt" // The log has not rolled over.
+        else -> "ErrorLog_1.txt" // The log has rolled over, and no new log entries have been added.
     }
 
     // endregion

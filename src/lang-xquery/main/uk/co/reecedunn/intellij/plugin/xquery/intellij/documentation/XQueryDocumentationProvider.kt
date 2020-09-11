@@ -51,48 +51,40 @@ class XQueryDocumentationProvider : AbstractDocumentationProvider() {
                 prefix?.let { "namespace $it = \"$uri\"" } ?: "namespace \"{$uri}\""
         }
 
-        fun getElementPresentationText(element: PsiElement?): String? {
-            return when (val parent = element?.parent) {
-                is XQueryFunctionDecl -> {
-                    val sig = when (val presentation = parent.presentation) {
-                        is ItemPresentationEx -> presentation.getPresentableText(ItemPresentationEx.Type.StructureView)
-                        else -> null
-                    }
-                    "declare function $sig"
+        fun getElementPresentationText(element: PsiElement?): String? = when (val parent = element?.parent) {
+            is XQueryFunctionDecl -> {
+                val sig = when (val presentation = parent.presentation) {
+                    is ItemPresentationEx -> presentation.getPresentableText(ItemPresentationEx.Type.StructureView)
+                    else -> null
                 }
-                is XPathInlineFunctionExpr -> {
-                    (parent as XdmFunctionDeclaration).let {
-                        val params = it.paramListPresentation?.presentableText ?: "()"
-                        val returnType = it.returnType
-                        if (returnType == null)
-                            "function $params"
-                        else
-                            "function $params as ${returnType.typeName}"
+                "declare function $sig"
+            }
+            is XPathInlineFunctionExpr -> (parent as XdmFunctionDeclaration).let {
+                val params = it.paramListPresentation?.presentableText ?: "()"
+                val returnType = it.returnType
+                if (returnType == null)
+                    "function $params"
+                else
+                    "function $params as ${returnType.typeName}"
+            }
+            is XPathVarName -> (parent.parent as? XQueryVarDecl)?.let {
+                val sig = it.presentation?.presentableText
+                "declare variable \$$sig"
+            }
+            is XPathNCName -> (parent.parent as? XdmNamespaceDeclaration)?.let { decl ->
+                getElementPresentationText(decl, parent.parent)
+            }
+            is XdmElementNode -> {
+                val dynamic = XQueryBundle.message("element.dynamic")
+                "element ${parent.nodeName?.let { op_qname_presentation(it) } ?: dynamic} {...}"
+            }
+            else -> (element as? XQueryModule)?.let {
+                when (val module = it.mainOrLibraryModule) {
+                    is XQueryLibraryModule -> {
+                        val moduleDecl = module.firstChild
+                        getElementPresentationText(moduleDecl as XdmNamespaceDeclaration, moduleDecl)
                     }
-                }
-                is XPathVarName -> {
-                    (parent.parent as? XQueryVarDecl)?.let {
-                        val sig = it.presentation?.presentableText
-                        "declare variable \$$sig"
-                    }
-                }
-                is XPathNCName -> {
-                    (parent.parent as? XdmNamespaceDeclaration)?.let { decl ->
-                        getElementPresentationText(decl, parent.parent)
-                    }
-                }
-                is XdmElementNode -> {
-                    val dynamic = XQueryBundle.message("element.dynamic")
-                    "element ${parent.nodeName?.let { op_qname_presentation(it) } ?: dynamic} {...}"
-                }
-                else -> (element as? XQueryModule)?.let {
-                    when (val module = it.mainOrLibraryModule) {
-                        is XQueryLibraryModule -> {
-                            val moduleDecl = module.firstChild
-                            getElementPresentationText(moduleDecl as XdmNamespaceDeclaration, moduleDecl)
-                        }
-                        else -> null
-                    }
+                    else -> null
                 }
             }
         }
@@ -103,19 +95,15 @@ class XQueryDocumentationProvider : AbstractDocumentationProvider() {
     }
 
     // Generate the main documentation for the documentation pane.
-    override fun generateDoc(element: PsiElement?, originalElement: PsiElement?): String? {
-        return originalElement?.let {
-            val text = lookup(it).firstOrNull()?.sections ?: return@let null
-            return XQDocTemplates.QuickDocumentation.replace("[CONTENTS]", text)
-        }
+    override fun generateDoc(element: PsiElement?, originalElement: PsiElement?): String? = originalElement?.let {
+        val text = lookup(it).firstOrNull()?.sections ?: return@let null
+        return XQDocTemplates.QuickDocumentation.replace("[CONTENTS]", text)
     }
 
     // Generate the summary documentation for the documentation hover tooltip.
-    override fun generateHoverDoc(element: PsiElement, originalElement: PsiElement?): String? {
-        return originalElement?.let {
-            val text = lookup(it).firstOrNull()?.sections ?: return@let null
-            return XQDocTemplates.QuickDocumentation.replace("[CONTENTS]", text)
-        }
+    override fun generateHoverDoc(element: PsiElement, originalElement: PsiElement?): String? = originalElement?.let {
+        val text = lookup(it).firstOrNull()?.sections ?: return@let null
+        return XQDocTemplates.QuickDocumentation.replace("[CONTENTS]", text)
     }
 
     // Generate the external documentation links displayed below the main/summary documentation.

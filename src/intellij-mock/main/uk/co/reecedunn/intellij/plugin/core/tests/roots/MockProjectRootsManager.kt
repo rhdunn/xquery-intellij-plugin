@@ -57,9 +57,7 @@ class MockProjectRootsManager : ProjectRootManager() {
         TODO("not implemented")
     }
 
-    override fun getContentSourceRoots(): Array<VirtualFile> {
-        return arrayOf()
-    }
+    override fun getContentSourceRoots(): Array<VirtualFile> = arrayOf()
 
     override fun getFileIndex(): ProjectFileIndex {
         TODO("not implemented")

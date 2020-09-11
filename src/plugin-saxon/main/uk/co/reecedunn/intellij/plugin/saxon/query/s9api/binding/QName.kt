@@ -18,21 +18,13 @@ package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
 open class QName(val `object`: Any, val saxonClass: Class<*>) {
-    open fun getNamespaceURI(): String {
-        return saxonClass.getMethod("getNamespaceURI").invoke(`object`) as String
-    }
+    open fun getNamespaceURI(): String = saxonClass.getMethod("getNamespaceURI").invoke(`object`) as String
 
-    fun getPrefix(): String {
-        return saxonClass.getMethod("getPrefix").invoke(`object`) as String
-    }
+    fun getPrefix(): String = saxonClass.getMethod("getPrefix").invoke(`object`) as String
 
-    open fun getLocalName(): String {
-        return saxonClass.getMethod("getLocalName").invoke(`object`) as String
-    }
+    open fun getLocalName(): String = saxonClass.getMethod("getLocalName").invoke(`object`) as String
 
-    override fun toString(): String {
-        return `object`.toString()
-    }
+    override fun toString(): String = `object`.toString()
 }
 
 fun XsQNameValue.toQName(classLoader: ClassLoader): QName {

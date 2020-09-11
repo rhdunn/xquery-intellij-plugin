@@ -71,9 +71,7 @@ class XQDocDocumentationSourcesConfigurable : Configurable, TaskProgressListener
         XQDocDocumentationDownloader.getInstance().removeListener(this)
     }
 
-    override fun isModified(): Boolean {
-        return XQDocDocumentationDownloader.getInstance().basePath != cachePath.text
-    }
+    override fun isModified(): Boolean = XQDocDocumentationDownloader.getInstance().basePath != cachePath.text
 
     override fun apply() {
         XQDocDocumentationDownloader.getInstance().basePath = cachePath.text.nullize()

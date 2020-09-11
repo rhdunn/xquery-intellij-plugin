@@ -27,19 +27,16 @@ enum class EQNameCompletionType {
     URIQualifiedNameLocalName
 }
 
-fun XsQNameValue.completionType(element: PsiElement): EQNameCompletionType? {
-    return if (isLexicalQName) {
-        when {
-            prefix == null -> EQNameCompletionType.NCName
-            prefix?.element === element -> EQNameCompletionType.QNamePrefix
-            localName?.element === element -> EQNameCompletionType.QNameLocalName
-            else -> null
-        }
-    } else {
-        when {
-            namespace?.element === element -> EQNameCompletionType.URIQualifiedNameBracedURI
-            localName?.element === element -> EQNameCompletionType.URIQualifiedNameLocalName
-            else -> null
-        }
+fun XsQNameValue.completionType(element: PsiElement): EQNameCompletionType? = when (isLexicalQName) {
+    true -> when {
+        prefix == null -> EQNameCompletionType.NCName
+        prefix?.element === element -> EQNameCompletionType.QNamePrefix
+        localName?.element === element -> EQNameCompletionType.QNameLocalName
+        else -> null
+    }
+    else -> when {
+        namespace?.element === element -> EQNameCompletionType.URIQualifiedNameBracedURI
+        localName?.element === element -> EQNameCompletionType.URIQualifiedNameLocalName
+        else -> null
     }
 }

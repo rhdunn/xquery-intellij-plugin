@@ -44,25 +44,21 @@ private class ZipEntryIterator(private val zip: ZipInputStream) : Iterator<ZipEn
 val ZipInputStream.entries: Sequence<ZipEntry>
     get() = ZipEntryIterator(this).asSequence()
 
-fun Sequence<Pair<ZipEntry, ByteArray>>.toZipByteArray(): ByteArray {
-    return ByteArrayOutputStream().use { stream ->
-        ZipOutputStream(stream).use { zip ->
-            forEach { (entry, contents) ->
-                zip.putNextEntry(entry)
-                zip.write(contents)
-                zip.closeEntry()
-            }
+fun Sequence<Pair<ZipEntry, ByteArray>>.toZipByteArray(): ByteArray = ByteArrayOutputStream().use { stream ->
+    ZipOutputStream(stream).use { zip ->
+        forEach { (entry, contents) ->
+            zip.putNextEntry(entry)
+            zip.write(contents)
+            zip.closeEntry()
         }
-        stream.toByteArray()
     }
+    stream.toByteArray()
 }
 
-fun InputStream.unzip(f: (ZipEntry, InputStream) -> Unit) {
-    return use { stream ->
-        ZipInputStream(stream).use { zip ->
-            val input = NonClosingInputStream(zip)
-            zip.entries.forEach { entry -> f(entry, input) }
-        }
+fun InputStream.unzip(f: (ZipEntry, InputStream) -> Unit) = use { stream ->
+    ZipInputStream(stream).use { zip ->
+        val input = NonClosingInputStream(zip)
+        zip.entries.forEach { entry -> f(entry, input) }
     }
 }
 

@@ -40,9 +40,7 @@ object StaticContextDefinitions {
         }
     }
 
-    fun resolve(path: String): VirtualFile? {
-        return MODULES[path]?.let { filesystem.findFileByPath(it) }
-    }
+    fun resolve(path: String): VirtualFile? = MODULES[path]?.let { filesystem.findFileByPath(it) }
 
     private val MODULES = mapOf(
         "urn:static-context:basex" to "static-context/basex.org/xquery.xqy",

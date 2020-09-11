@@ -64,13 +64,11 @@ class XPathImpl(provider: FileViewProvider) :
     override fun defaultNamespace(
         context: PsiElement,
         type: XdmNamespaceType
-    ): Sequence<XdmDefaultNamespaceDeclaration> {
-        return when (type) {
-            XdmNamespaceType.DefaultElementOrType -> context.defaultElementOrTypeXPathNamespace()
-            XdmNamespaceType.DefaultFunctionDecl -> context.defaultFunctionXPathNamespace()
-            XdmNamespaceType.DefaultFunctionRef -> context.defaultFunctionXPathNamespace()
-            else -> emptySequence()
-        }
+    ): Sequence<XdmDefaultNamespaceDeclaration> = when (type) {
+        XdmNamespaceType.DefaultElementOrType -> context.defaultElementOrTypeXPathNamespace()
+        XdmNamespaceType.DefaultFunctionDecl -> context.defaultFunctionXPathNamespace()
+        XdmNamespaceType.DefaultFunctionRef -> context.defaultFunctionXPathNamespace()
+        else -> emptySequence()
     }
 
     override fun staticallyKnownFunctions(): Sequence<XdmFunctionDeclaration?> {

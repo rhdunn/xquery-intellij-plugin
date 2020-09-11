@@ -59,8 +59,9 @@ class ResourceVirtualFile private constructor(
 
     override fun isValid(): Boolean = mFile != null
 
-    override fun getParent(): VirtualFile? {
-        return if (mParent == null) null else create(mLoader, mParent!!, mFileSystem)
+    override fun getParent(): VirtualFile? = when (mParent) {
+        null -> null
+        else -> create(mLoader, mParent!!, mFileSystem)
     }
 
     override fun getChildren(): Array<VirtualFile>? {
@@ -94,8 +95,9 @@ class ResourceVirtualFile private constructor(
     override fun refresh(asynchronous: Boolean, recursive: Boolean, postRunnable: Runnable?): Unit = TODO()
 
     @Throws(IOException::class)
-    override fun getInputStream(): InputStream? {
-        return if (isDirectory) null else mLoader.getResourceAsStream(mResource)
+    override fun getInputStream(): InputStream? = when (isDirectory) {
+        true -> null
+        else -> mLoader.getResourceAsStream(mResource)
     }
 
     companion object {

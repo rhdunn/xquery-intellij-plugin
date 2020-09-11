@@ -29,9 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownFunctions
 class XPathParameterInfoHandler : ParameterInfoHandler<XPathArgumentList, XdmFunctionDeclaration> {
     override fun couldShowInLookup(): Boolean = true
 
-    override fun getParametersForLookup(item: LookupElement?, context: ParameterInfoContext?): Array<Any>? {
-        return null
-    }
+    override fun getParametersForLookup(item: LookupElement?, context: ParameterInfoContext?): Array<Any>? = null
 
     override fun findElementForParameterInfo(context: CreateParameterInfoContext): XPathArgumentList? {
         val e = context.file.findElementAt(context.offset)
