@@ -71,7 +71,8 @@ open class TextConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleVie
 
     // region ConsoleViewEx
 
-    override val offset: Int get() = editor!!.caretModel.offset
+    override val offset: Int
+        get() = editor!!.caretModel.offset
 
     override fun scrollToTop(offset: Int) {
         ApplicationManager.getApplication().invokeLater {

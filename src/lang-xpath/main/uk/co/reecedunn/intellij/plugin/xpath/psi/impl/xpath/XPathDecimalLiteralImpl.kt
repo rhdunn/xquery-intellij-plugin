@@ -26,5 +26,6 @@ class XPathDecimalLiteralImpl(type: IElementType, text: CharSequence) :
     XPathDecimalLiteral,
     XsDecimalValue {
 
-    override val data: BigDecimal get() = text.toBigDecimal()
+    override val data: BigDecimal
+        get() = text.toBigDecimal()
 }

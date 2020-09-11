@@ -55,7 +55,8 @@ class PluginSequenceTypeListPsiImpl(node: ASTNode) :
     // endregion
     // region XdmSequenceTypeList
 
-    override val types: Sequence<XdmSequenceType> get() = children().filterIsInstance<XdmSequenceType>()
+    override val types: Sequence<XdmSequenceType>
+        get() = children().filterIsInstance<XdmSequenceType>()
 
     // endregion
     // region XdmSequenceType
@@ -67,9 +68,12 @@ class PluginSequenceTypeListPsiImpl(node: ASTNode) :
         else
             name
     }
-    override val typeName: String get() = cachedTypeName.get()!!
 
-    override val itemType: XdmItemType? get() = XdmSingleItemType
+    override val typeName: String
+        get() = cachedTypeName.get()!!
+
+    override val itemType: XdmItemType?
+        get() = XdmSingleItemType
 
     override val lowerBound: Int? = 0
 
@@ -86,7 +90,8 @@ class PluginSequenceTypeListPsiImpl(node: ASTNode) :
                 listOf(XQueryIntelliJPlugin.VERSION_1_3)
         }
 
-    override val conformanceElement: PsiElement get() = findChildByType(XPathTokenType.COMMA) ?: firstChild
+    override val conformanceElement: PsiElement
+        get() = findChildByType(XPathTokenType.COMMA) ?: firstChild
 
     // endregion
 }

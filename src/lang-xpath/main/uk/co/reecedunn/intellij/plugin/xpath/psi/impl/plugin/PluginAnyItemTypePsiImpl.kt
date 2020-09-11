@@ -26,7 +26,8 @@ class PluginAnyItemTypePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), Plug
 
     override val typeName: String = "item()"
 
-    override val itemType: XdmItemType get() = this
+    override val itemType: XdmItemType
+        get() = this
 
     override val lowerBound: Int? = 1
 

@@ -27,11 +27,13 @@ class XQueryCompElemConstructorPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), XQueryCompElemConstructor, XdmElementNode {
     // region XdmElementNode
 
-    override val nodeName: XsQNameValue? get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
+    override val nodeName: XsQNameValue?
+        get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
 
     override val typedValue: XsAnyAtomicType? = null
 
-    override val closingTag: XsQNameValue? get() = nodeName
+    override val closingTag: XsQNameValue?
+        get() = nodeName
 
     // endregion
 }

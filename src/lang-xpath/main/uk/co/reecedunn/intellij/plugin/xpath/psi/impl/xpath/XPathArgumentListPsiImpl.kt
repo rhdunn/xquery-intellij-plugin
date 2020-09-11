@@ -51,7 +51,8 @@ class XPathArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPat
             return XQUERY30
         }
 
-    override val conformanceElement: PsiElement get() = firstChild
+    override val conformanceElement: PsiElement
+        get() = firstChild
 
     // endregion
     // region XPathArgumentList
@@ -63,7 +64,8 @@ class XPathArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPat
             else -> null
         }
 
-    override val arity: Int get() = children().filterIsElementType(ARGUMENTS).count()
+    override val arity: Int
+        get() = children().filterIsElementType(ARGUMENTS).count()
 
     override val bindings: List<XdmFunctionParamBinding>
         get() {

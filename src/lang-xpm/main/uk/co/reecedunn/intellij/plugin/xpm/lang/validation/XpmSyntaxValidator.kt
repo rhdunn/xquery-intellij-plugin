@@ -23,7 +23,8 @@ interface XpmSyntaxValidator {
             "uk.co.reecedunn.intellij.syntaxValidator"
         )
 
-        val validators: Sequence<XpmSyntaxValidator> get() = EP_NAME.extensions.asSequence().map { it.getInstance() }
+        val validators: Sequence<XpmSyntaxValidator>
+            get() = EP_NAME.extensions.asSequence().map { it.getInstance() }
     }
 
     fun validate(element: XpmSyntaxValidationElement, reporter: XpmSyntaxErrorReporter)

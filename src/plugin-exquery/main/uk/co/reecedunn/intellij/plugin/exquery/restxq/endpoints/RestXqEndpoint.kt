@@ -40,7 +40,8 @@ class RestXqEndpoint(private val endpoint: XdmFunctionDeclaration) : ItemPresent
     // endregion
     // region Endpoint
 
-    override val presentation: ItemPresentation get() = this
+    override val presentation: ItemPresentation
+        get() = this
 
     override val details: JPanel
         get() = detailsPanel {
@@ -74,7 +75,8 @@ class RestXqEndpoint(private val endpoint: XdmFunctionDeclaration) : ItemPresent
     // endregion
     // region RestXqEndpoint
 
-    val rest: RestXqAnnotations? get() = RestXqAnnotations.create(endpoint)
+    val rest: RestXqAnnotations?
+        get() = RestXqAnnotations.create(endpoint)
 
     // endregion
 }

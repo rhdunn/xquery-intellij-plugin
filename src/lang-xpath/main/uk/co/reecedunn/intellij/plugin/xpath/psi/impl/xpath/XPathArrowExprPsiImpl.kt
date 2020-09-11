@@ -34,5 +34,6 @@ class XPathArrowExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathAr
             return XQUERY31
         }
 
-    override val conformanceElement: PsiElement get() = findChildByType(XPathTokenType.ARROW) ?: firstChild
+    override val conformanceElement: PsiElement
+        get() = findChildByType(XPathTokenType.ARROW) ?: firstChild
 }

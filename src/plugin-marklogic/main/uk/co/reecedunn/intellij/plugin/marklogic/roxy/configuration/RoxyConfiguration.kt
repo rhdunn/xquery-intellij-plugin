@@ -56,7 +56,8 @@ class RoxyConfiguration(private val project: Project, override val baseDir: Virt
     // endregion
     // region XpmProjectConfiguration
 
-    override val applicationName: String? get() = getPropertyValue(APP_NAME)
+    override val applicationName: String?
+        get() = getPropertyValue(APP_NAME)
 
     override var environmentName: String = "local"
         set(name) {

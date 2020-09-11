@@ -117,7 +117,8 @@ internal class MarkLogicDebugSession(
             }.toList()
         }
 
-    override val suspendContext: XSuspendContext get() = QuerySuspendContext(query.name, this)
+    override val suspendContext: XSuspendContext
+        get() = QuerySuspendContext(query.name, this)
 
     // endregion
 

@@ -58,7 +58,8 @@ class XPathAttributeTestPsiImpl(node: ASTNode) :
     // endregion
     // region XPathAttributeTest
 
-    override val nodeName: XsQNameValue? get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
+    override val nodeName: XsQNameValue?
+        get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
 
     override val nodeType: XdmSequenceType?
         get() = when (val type = children().filterIsInstance<XdmSequenceType>().firstOrNull()) {
@@ -80,9 +81,12 @@ class XPathAttributeTestPsiImpl(node: ASTNode) :
             else -> "attribute(${op_qname_presentation(name)},${type.typeName})"
         }
     }
-    override val typeName: String get() = cachedTypeName.get()!!
 
-    override val itemType: XdmItemType get() = this
+    override val typeName: String
+        get() = cachedTypeName.get()!!
+
+    override val itemType: XdmItemType
+        get() = this
 
     override val lowerBound: Int? = 1
 

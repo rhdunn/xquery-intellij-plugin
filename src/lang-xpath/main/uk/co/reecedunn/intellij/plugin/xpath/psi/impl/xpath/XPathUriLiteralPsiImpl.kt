@@ -51,7 +51,8 @@ class XPathUriLiteralPsiImpl(node: ASTNode) :
 
     override val moduleTypes: Array<XdmModuleType> = XdmModuleType.NONE
 
-    override val data: String get() = cachedData.get()!!
+    override val data: String
+        get() = cachedData.get()!!
 
     private val cachedData: CacheableProperty<String> = CacheableProperty {
         children().map { child ->

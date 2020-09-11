@@ -68,7 +68,8 @@ class XPathPragmaPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathPragm
             return TextRange(startOffset, end.textOffset).shiftLeft(textOffset)
         }
 
-    override val decoded: String get() = relevantTextRange.substring(text)
+    override val decoded: String
+        get() = relevantTextRange.substring(text)
 
     // endregion
 }

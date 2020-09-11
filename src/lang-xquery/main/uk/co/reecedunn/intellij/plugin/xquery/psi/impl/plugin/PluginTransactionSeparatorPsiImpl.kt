@@ -47,5 +47,6 @@ class PluginTransactionSeparatorPsiImpl(node: ASTNode) :
             else -> MARKLOGIC60_SCRIPTING
         }
 
-    override val conformanceElement: PsiElement get() = firstChild ?: this
+    override val conformanceElement: PsiElement
+        get() = firstChild ?: this
 }

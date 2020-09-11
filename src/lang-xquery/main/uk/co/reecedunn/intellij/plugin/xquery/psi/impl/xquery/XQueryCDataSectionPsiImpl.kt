@@ -62,7 +62,8 @@ class XQueryCDataSectionPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
             else -> TextRange(9, textLength)
         }
 
-    override val decoded: String get() = relevantTextRange.substring(text)
+    override val decoded: String
+        get() = relevantTextRange.substring(text)
 
     // endregion
 }

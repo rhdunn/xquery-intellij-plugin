@@ -21,9 +21,12 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentPlaceholder
 
-class XPathArgumentPlaceholderPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathArgumentPlaceholder,
-    VersionConformance {
-    override val requiresConformance: List<Version> get() = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
+class XPathArgumentPlaceholderPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node), XPathArgumentPlaceholder, VersionConformance {
 
-    override val conformanceElement: PsiElement get() = firstChild
+    override val requiresConformance: List<Version>
+        get() = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
+
+    override val conformanceElement: PsiElement
+        get() = firstChild
 }

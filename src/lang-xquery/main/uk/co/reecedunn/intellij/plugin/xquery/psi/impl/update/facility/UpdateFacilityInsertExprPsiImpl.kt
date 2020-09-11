@@ -25,7 +25,10 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
 class UpdateFacilityInsertExprPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), UpdateFacilityInsertExpr, VersionConformance {
-    override val requiresConformance: List<Version> get() = listOf(UpdateFacilitySpec.REC_1_0_20110317)
 
-    override val conformanceElement: PsiElement get() = firstChild
+    override val requiresConformance: List<Version>
+        get() = listOf(UpdateFacilitySpec.REC_1_0_20110317)
+
+    override val conformanceElement: PsiElement
+        get() = firstChild
 }

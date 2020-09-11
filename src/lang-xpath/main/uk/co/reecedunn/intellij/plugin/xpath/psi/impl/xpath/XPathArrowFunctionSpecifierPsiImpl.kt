@@ -36,7 +36,8 @@ class XPathArrowFunctionSpecifierPsiImpl(node: ASTNode) :
             return args?.arity?.plus(1) ?: 1
         }
 
-    override val functionName: XsQNameValue? get() = firstChild as? XsQNameValue
+    override val functionName: XsQNameValue?
+        get() = firstChild as? XsQNameValue
 
     // endregion
     // region XPathArrowFunctionSpecifier

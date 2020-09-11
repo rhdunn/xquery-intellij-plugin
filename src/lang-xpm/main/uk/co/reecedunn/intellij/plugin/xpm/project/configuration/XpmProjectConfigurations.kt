@@ -57,7 +57,8 @@ class XpmProjectConfigurations(private val project: Project) :
         configurations
     }
 
-    val configurations: Sequence<XpmProjectConfiguration> get() = cachedConfigurations.get()!!.asSequence()
+    val configurations: Sequence<XpmProjectConfiguration>
+        get() = cachedConfigurations.get()!!.asSequence()
 
     init {
         XpmProjectConfigurationFactory.EP_NAME.extensionPoint.addExtensionPointListener(this, false, this)

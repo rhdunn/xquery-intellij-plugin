@@ -53,9 +53,11 @@ object XslValueTemplate : Language(XPath, "xsl:value-template"), ISchemaType {
         override val language: Language = XslValueTemplate
     }
 
-    override val type: String get() = id
+    override val type: String
+        get() = id
 
-    override val language: Language get() = this
+    override val language: Language
+        get() = this
 
     // endregion
     // region Tokens

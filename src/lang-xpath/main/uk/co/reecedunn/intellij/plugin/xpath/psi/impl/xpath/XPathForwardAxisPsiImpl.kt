@@ -24,5 +24,6 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationEl
 class XPathForwardAxisPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), XPathForwardAxis, XpmSyntaxValidationElement {
 
-    override val conformanceElement: PsiElement get() = firstChild
+    override val conformanceElement: PsiElement
+        get() = firstChild
 }

@@ -46,7 +46,8 @@ class GradleConfiguration(private val project: Project, override val baseDir: Vi
     // endregion
     // region XpmProjectConfiguration
 
-    override val applicationName: String? get() = getPropertyValue(ML_APP_NAME)
+    override val applicationName: String?
+        get() = getPropertyValue(ML_APP_NAME)
 
     override var environmentName: String = "local"
         set(name) {

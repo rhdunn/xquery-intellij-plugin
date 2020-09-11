@@ -3425,8 +3425,11 @@ open class XPathParser : PsiParser {
     // endregion
     // region Grammar :: TypeDeclaration :: KindTest
 
-    private val ATTRIBUTE_DECLARATION: IElementType get() = QNAME
-    private val ELEMENT_DECLARATION: IElementType get() = QNAME
+    private val ATTRIBUTE_DECLARATION: IElementType
+        get() = QNAME
+
+    private val ELEMENT_DECLARATION: IElementType
+        get() = QNAME
 
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
     open fun parseKindTest(builder: PsiBuilder): Boolean {

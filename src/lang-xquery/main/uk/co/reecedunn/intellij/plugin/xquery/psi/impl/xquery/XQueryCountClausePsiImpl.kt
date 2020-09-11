@@ -31,5 +31,6 @@ class XQueryCountClausePsiImpl(node: ASTNode) :
     private val varName: XdmVariableName?
         get() = children().filterIsInstance<XdmVariableName>().firstOrNull()
 
-    override val variableName: XsQNameValue? get() = varName?.variableName
+    override val variableName: XsQNameValue?
+        get() = varName?.variableName
 }

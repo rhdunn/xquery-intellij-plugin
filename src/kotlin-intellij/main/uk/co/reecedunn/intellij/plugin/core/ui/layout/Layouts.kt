@@ -176,7 +176,8 @@ fun GridPanel.row(init: GridPanel.() -> Unit): GridPanel {
     return this
 }
 
-val GridPanel.column: GridBagConstraints get() = grid(currentCol++, currentRow)
+val GridPanel.column: GridBagConstraints
+    get() = grid(currentCol++, currentRow)
 
 // endregion
 // region details panel

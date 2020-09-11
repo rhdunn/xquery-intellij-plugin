@@ -19,4 +19,5 @@ import com.intellij.openapi.extensions.ExtensionPoint
 import com.intellij.openapi.extensions.ExtensionPointName
 
 // IntelliJ 2020.2 deprecates the ExtensionPointName<T>.getPoint(area) function.
-val <T> ExtensionPointName<T>.extensionPoint: ExtensionPoint<T> get() = point
+val <T> ExtensionPointName<T>.extensionPoint: ExtensionPoint<T>
+    get() = point

@@ -22,5 +22,6 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDefaultCollationDecl
 
 class XQueryDefaultCollationDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryDefaultCollationDecl {
-    override val collation: XsAnyUriValue? get() = children().filterIsInstance<XsAnyUriValue>().firstOrNull()
+    override val collation: XsAnyUriValue?
+        get() = children().filterIsInstance<XsAnyUriValue>().firstOrNull()
 }

@@ -24,5 +24,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginBinaryConstructor
 class PluginBinaryConstructorPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), PluginBinaryConstructor, XpmSyntaxValidationElement {
 
-    override val conformanceElement: PsiElement get() = firstChild
+    override val conformanceElement: PsiElement
+        get() = firstChild
 }

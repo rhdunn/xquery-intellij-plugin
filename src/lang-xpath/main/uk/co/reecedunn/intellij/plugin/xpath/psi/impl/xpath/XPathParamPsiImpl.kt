@@ -52,7 +52,8 @@ class XPathParamPsiImpl(node: ASTNode) :
     // endregion
     // region XPathVariableType
 
-    override val variableType: XdmSequenceType? get() = children().filterIsInstance<XdmSequenceType>().firstOrNull()
+    override val variableType: XdmSequenceType?
+        get() = children().filterIsInstance<XdmSequenceType>().firstOrNull()
 
     // endregion
     // region NavigationItem

@@ -26,7 +26,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCharRef
 class XQueryCharRefImpl(type: IElementType, text: CharSequence) :
     LeafPsiElement(type, text), XQueryCharRef, PsiElementTextDecoder {
 
-    override val codepoint: XmlChar get() = XmlChar(node.chars.entityReferenceCodePoint())
+    override val codepoint: XmlChar
+        get() = XmlChar(node.chars.entityReferenceCodePoint())
 
     override fun decode(decoded: StringBuilder) {
         decoded.append(codepoint.toString())

@@ -48,23 +48,32 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
     // endregion
     // region XdmFunctionDeclaration
 
-    private val paramList get(): XPathParamList? = children().filterIsInstance<XPathParamList>().firstOrNull()
+    private val paramList
+        get(): XPathParamList? = children().filterIsInstance<XPathParamList>().firstOrNull()
 
-    override val functionName: XsQNameValue? get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
+    override val functionName: XsQNameValue?
+        get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
 
-    override val arity: Range<Int> get() = paramList?.arity ?: XdmFunctionDeclaration.ARITY_ZERO
+    override val arity: Range<Int>
+        get() = paramList?.arity ?: XdmFunctionDeclaration.ARITY_ZERO
 
-    override val returnType: XdmSequenceType? get() = children().filterIsInstance<XdmSequenceType>().firstOrNull()
+    override val returnType: XdmSequenceType?
+        get() = children().filterIsInstance<XdmSequenceType>().firstOrNull()
 
-    override val params: List<XdmVariableBinding> get() = paramList?.params ?: emptyList()
+    override val params: List<XdmVariableBinding>
+        get() = paramList?.params ?: emptyList()
 
-    override val paramListPresentation: ItemPresentation? get() = paramList?.presentation
+    override val paramListPresentation: ItemPresentation?
+        get() = paramList?.presentation
 
-    override val isVariadic: Boolean get() = paramList?.isVariadic == true
+    override val isVariadic: Boolean
+        get() = paramList?.isVariadic == true
 
-    override val functionRefPresentableText: String? get() = cachedFunctionRefPresentableText.get()
+    override val functionRefPresentableText: String?
+        get() = cachedFunctionRefPresentableText.get()
 
-    override val annotations: Sequence<XdmAnnotation> get() = parent.children().filterIsInstance<XdmAnnotation>()
+    override val annotations: Sequence<XdmAnnotation>
+        get() = parent.children().filterIsInstance<XdmAnnotation>()
 
     private val cachedFunctionRefPresentableText = CacheableProperty {
         functionName?.let { "${op_qname_presentation(it)}#${arity.from}" } ?: ""

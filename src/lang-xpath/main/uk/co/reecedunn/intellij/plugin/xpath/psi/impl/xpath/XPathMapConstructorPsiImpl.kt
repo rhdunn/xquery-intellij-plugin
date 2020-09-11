@@ -38,5 +38,6 @@ class XPathMapConstructorPsiImpl(node: ASTNode) :
             return XQUERY31
         }
 
-    override val conformanceElement: PsiElement get() = firstChild
+    override val conformanceElement: PsiElement
+        get() = firstChild
 }

@@ -41,7 +41,8 @@ object SaxonS9API : ItemPresentation, QueryProcessorApi {
     // region QueryProcessorApi
 
     override val id: String = "saxon.s9api"
-    override val presentation: ItemPresentation get() = this
+    override val presentation: ItemPresentation
+        get() = this
 
     override val requireJar: Boolean = true
     override val hasConfiguration: Boolean = true

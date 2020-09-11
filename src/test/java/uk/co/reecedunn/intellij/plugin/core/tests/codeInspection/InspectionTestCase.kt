@@ -45,9 +45,11 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidatorBea
 abstract class InspectionTestCase :
     ParsingTestCase<XQueryModule>("xqy", XQueryParserDefinition(), XPathParserDefinition()) {
 
-    private val inspectionManager get(): InspectionManager = InspectionManager.getInstance(myProject)
+    private val inspectionManager
+        get(): InspectionManager = InspectionManager.getInstance(myProject)
 
-    protected val settings: XQueryProjectSettings get() = XQueryProjectSettings.getInstance(myProject)
+    protected val settings: XQueryProjectSettings
+        get() = XQueryProjectSettings.getInstance(myProject)
 
     @BeforeAll
     override fun setUp() {

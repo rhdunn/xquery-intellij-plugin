@@ -45,25 +45,33 @@ internal class W3CFunctionReference(private val node: Element, baseHref: String)
         return section?.let { normalize(it).html() }
     }
 
-    override val summary: String? get() = section("Summary")
+    override val summary: String?
+        get() = section("Summary")
 
-    override val notes: String? get() = section("Notes")
+    override val notes: String?
+        get() = section("Notes")
 
-    override val examples: String? get() = section("Examples")
+    override val examples: String?
+        get() = section("Examples")
 
-    override val operatorMapping: String? get() = section("Operator Mapping")
+    override val operatorMapping: String?
+        get() = section("Operator Mapping")
 
-    override val signatures: String? get() = section("Signatures") ?: section("Signature")
+    override val signatures: String?
+        get() = section("Signatures") ?: section("Signature")
 
     override val parameters: String? = null
 
-    override val properties: String? get() = section("Properties")
+    override val properties: String?
+        get() = section("Properties")
 
     override val privileges: String? = null
 
-    override val rules: String? get() = section("Rules")
+    override val rules: String?
+        get() = section("Rules")
 
-    override val errorConditions: String? get() = section("Error Conditions")
+    override val errorConditions: String?
+        get() = section("Error Conditions")
 }
 
 internal data class W3CSpecificationDocument(

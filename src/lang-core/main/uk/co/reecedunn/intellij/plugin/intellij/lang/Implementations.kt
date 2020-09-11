@@ -418,11 +418,15 @@ object XQueryIntelliJPlugin :
     val VERSION_1_3: Version = ProductVersion("1.3", this)
     val VERSION_1_4: Version = ProductVersion("1.4", this)
 
-    override val versions: List<Version> get() = listOf()
-    override val products: List<Product> get() = listOf()
+    override val versions: List<Version>
+        get() = listOf()
 
-    override fun staticContext(product: Product?, productVersion: Version?, xqueryVersion: Specification?): String? =
-        null
+    override val products: List<Product>
+        get() = listOf()
+
+    override fun staticContext(product: Product?, productVersion: Version?, xqueryVersion: Specification?): String? {
+        return null
+    }
 }
 
 // endregion

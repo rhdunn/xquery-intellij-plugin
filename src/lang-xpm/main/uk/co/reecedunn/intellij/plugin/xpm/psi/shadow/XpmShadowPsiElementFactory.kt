@@ -28,7 +28,8 @@ interface XpmShadowPsiElementFactory {
             "uk.co.reecedunn.intellij.shadowPsiElementFactory"
         )
 
-        private val factories: Sequence<XpmShadowPsiElementFactoryBean> get() = EP_NAME.extensionList.asSequence()
+        private val factories: Sequence<XpmShadowPsiElementFactoryBean>
+            get() = EP_NAME.extensionList.asSequence()
 
         private val SHADOW_PSI_ELEMENT: Key<Pair<QName?, XpmShadowPsiElement>> = Key.create("SHADOW_PSI_ELEMENT")
 

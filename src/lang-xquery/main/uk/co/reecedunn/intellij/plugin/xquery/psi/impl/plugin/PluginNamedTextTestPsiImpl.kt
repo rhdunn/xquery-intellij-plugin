@@ -37,9 +37,11 @@ class PluginNamedTextTestPsiImpl(node: ASTNode) :
     // endregion
     // region XdmSequenceType
 
-    override val typeName: String get() = "text(\"${keyName.data}\")"
+    override val typeName: String
+        get() = "text(\"${keyName.data}\")"
 
-    override val itemType: XdmItemType get() = this
+    override val itemType: XdmItemType
+        get() = this
 
     override val lowerBound: Int? = 1
 
@@ -53,7 +55,8 @@ class PluginNamedTextTestPsiImpl(node: ASTNode) :
     // endregion
     // region XpmSyntaxValidationElement
 
-    override val conformanceElement: PsiElement get() = findChildByType(XPathElementType.STRING_LITERAL)!!
+    override val conformanceElement: PsiElement
+        get() = findChildByType(XPathElementType.STRING_LITERAL)!!
 
     // endregion
 }

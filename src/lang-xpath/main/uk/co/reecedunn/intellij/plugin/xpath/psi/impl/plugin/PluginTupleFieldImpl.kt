@@ -50,13 +50,17 @@ class PluginTupleFieldImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginTu
     override val fieldType: XdmSequenceType?
         get() = children().filterIsInstance<XdmSequenceType>().firstOrNull()
 
-    override val isOptional: Boolean get() = optional != null
+    override val isOptional: Boolean
+        get() = optional != null
 
     // endregion
     // region VersionConformance
 
-    private val optional: PsiElement? get() = findChildByType(OPTIONAL_TOKENS)
-    private val asType: PsiElement? get() = findChildByType(XPathTokenType.K_AS)
+    private val optional: PsiElement?
+        get() = findChildByType(OPTIONAL_TOKENS)
+
+    private val asType: PsiElement?
+        get() = findChildByType(XPathTokenType.K_AS)
 
     override val requiresConformance: List<Version>
         get() = when {
@@ -65,7 +69,8 @@ class PluginTupleFieldImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginTu
             else -> SAXON9_8
         }
 
-    override val conformanceElement: PsiElement get() = optional ?: asType ?: firstChild
+    override val conformanceElement: PsiElement
+        get() = optional ?: asType ?: firstChild
 
     // endregion
 }

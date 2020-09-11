@@ -27,14 +27,17 @@ open class XPathTypeNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPa
     // region XPathTypeName
 
     // TODO: Provide a way of validating that the type is in the in-scope schema types [XPST0008].
-    override val type: XsQNameValue get() = firstChild as XsQNameValue
+    override val type: XsQNameValue
+        get() = firstChild as XsQNameValue
 
     // endregion
     // region XdmSequenceType
 
-    override val typeName: String get() = op_qname_presentation(type) ?: ""
+    override val typeName: String
+        get() = op_qname_presentation(type) ?: ""
 
-    override val itemType: XdmItemType get() = this
+    override val itemType: XdmItemType
+        get() = this
 
     override val lowerBound: Int? = 1
 

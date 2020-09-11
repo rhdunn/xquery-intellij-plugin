@@ -29,7 +29,8 @@ class PluginSchemaComponentTestPsiImpl(node: ASTNode) :
 
     override val typeName: String = "schema-component()"
 
-    override val itemType: XdmItemType get() = this
+    override val itemType: XdmItemType
+        get() = this
 
     override val lowerBound: Int? = 1
 
@@ -43,7 +44,8 @@ class PluginSchemaComponentTestPsiImpl(node: ASTNode) :
     // endregion
     // region XpmSyntaxValidationElement
 
-    override val conformanceElement: PsiElement get() = firstChild
+    override val conformanceElement: PsiElement
+        get() = firstChild
 
     // endregion
 }

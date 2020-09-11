@@ -47,7 +47,8 @@ open class ScriptingApplyExprPsiImpl(node: ASTNode) :
             return SCRIPTING10
         }
 
-    override val conformanceElement: PsiElement get() = findChildByType(SEPARATOR_TOKENS) ?: firstChild
+    override val conformanceElement: PsiElement
+        get() = findChildByType(SEPARATOR_TOKENS) ?: firstChild
 
     // endregion
 }

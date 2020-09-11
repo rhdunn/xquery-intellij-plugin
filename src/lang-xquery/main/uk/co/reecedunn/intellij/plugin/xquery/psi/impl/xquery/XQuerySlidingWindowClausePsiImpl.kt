@@ -35,9 +35,11 @@ class XQuerySlidingWindowClausePsiImpl(node: ASTNode) :
     XdmVariableBinding {
     // region VersionConformance
 
-    override val requiresConformance: List<Version> get() = listOf(XQuerySpec.REC_3_0_20140408)
+    override val requiresConformance: List<Version>
+        get() = listOf(XQuerySpec.REC_3_0_20140408)
 
-    override val conformanceElement: PsiElement get() = firstChild
+    override val conformanceElement: PsiElement
+        get() = firstChild
 
     // endregion
     // region XPathVariableBinding
@@ -45,7 +47,8 @@ class XQuerySlidingWindowClausePsiImpl(node: ASTNode) :
     private val varName
         get(): XdmVariableName? = children().filterIsInstance<XPathVarName>().firstOrNull() as? XdmVariableName
 
-    override val variableName: XsQNameValue? get() = varName?.variableName
+    override val variableName: XsQNameValue?
+        get() = varName?.variableName
 
     // endregion
 }

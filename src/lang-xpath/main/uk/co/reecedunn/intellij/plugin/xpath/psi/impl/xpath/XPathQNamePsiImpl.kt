@@ -30,13 +30,16 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 open class XPathQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathQName, XsQNameValue {
     // region XsQNameValue
 
-    private val names get(): Sequence<XsNCNameValue> = children().filterIsInstance<XsNCNameValue>()
+    private val names
+        get(): Sequence<XsNCNameValue> = children().filterIsInstance<XsNCNameValue>()
 
     override val namespace: XsAnyUriValue? = null
 
-    override val prefix: XsNCNameValue? get() = names.first()
+    override val prefix: XsNCNameValue?
+        get() = names.first()
 
-    override val localName: XsNCNameValue? get() = names.toList().let { if (it.size == 2) it[1] else null }
+    override val localName: XsNCNameValue?
+        get() = names.toList().let { if (it.size == 2) it[1] else null }
 
     override val isLexicalQName: Boolean = true
 

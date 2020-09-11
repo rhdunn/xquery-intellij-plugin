@@ -89,7 +89,8 @@ class ConsoleRunnerLayoutUiBuilder(primary: ConsoleView) : ConsoleViewWrapperBas
     // endregion
     // region ConsoleViewEx
 
-    override val offset: Int get() = (delegate as? ConsoleViewEx)?.offset ?: 0
+    override val offset: Int
+        get() = (delegate as? ConsoleViewEx)?.offset ?: 0
 
     override fun scrollToTop(offset: Int) {
         (delegate as? ConsoleViewEx)?.scrollToTop(offset)

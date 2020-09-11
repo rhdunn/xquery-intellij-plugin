@@ -31,7 +31,8 @@ class XPathAnyArrayTestPsiImpl(node: ASTNode) :
 
     override val typeName: String = "array(*)"
 
-    override val itemType: XdmItemType get() = this
+    override val itemType: XdmItemType
+        get() = this
 
     override val lowerBound: Int? = 1
 
@@ -45,9 +46,11 @@ class XPathAnyArrayTestPsiImpl(node: ASTNode) :
     // endregion
     // region VersionConformance
 
-    override val requiresConformance: List<Version> get() = listOf(XQuerySpec.REC_3_1_20170321)
+    override val requiresConformance: List<Version>
+        get() = listOf(XQuerySpec.REC_3_1_20170321)
 
-    override val conformanceElement: PsiElement get() = firstChild
+    override val conformanceElement: PsiElement
+        get() = firstChild
 
     // endregion
 }

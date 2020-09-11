@@ -28,7 +28,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryGroupingVariable
 class XQueryGroupingSpecPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryGroupingSpec, XdmVariableBinding {
     // region XQueryGroupingSpec
 
-    override val collation: XsAnyUriValue? get() = children().filterIsInstance<XsAnyUriValue>().firstOrNull()
+    override val collation: XsAnyUriValue?
+        get() = children().filterIsInstance<XsAnyUriValue>().firstOrNull()
 
     // endregion
     // region XPathVariableBinding
@@ -38,7 +39,8 @@ class XQueryGroupingSpecPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
             return children().filterIsInstance<XQueryGroupingVariable>().firstOrNull() as? XdmVariableName
         }
 
-    override val variableName: XsQNameValue? get() = varName?.variableName
+    override val variableName: XsQNameValue?
+        get() = varName?.variableName
 
     // endregion
 }

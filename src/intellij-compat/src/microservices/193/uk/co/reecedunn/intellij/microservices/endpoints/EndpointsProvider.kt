@@ -36,7 +36,8 @@ abstract class EndpointsProvider :
 
     override val endpointType: EndpointType = EndpointType.SERVER
 
-    override val viewProvider: EndpointsViewProvider<EndpointsGroup, Endpoint> get() = this
+    override val viewProvider: EndpointsViewProvider<EndpointsGroup, Endpoint>
+        get() = this
 
     override fun getEndpointGroups(project: Project, scope: VisibilityScope): List<EndpointsGroup> {
         return cachedEndpointGroups
@@ -54,9 +55,11 @@ abstract class EndpointsProvider :
     // endregion
     // region EndpointsViewProvider
 
-    override val frameworkPresentation: ItemPresentation get() = presentation
+    override val frameworkPresentation: ItemPresentation
+        get() = presentation
 
-    override val frameworkTag: String get() = id
+    override val frameworkTag: String
+        get() = id
 
     override fun getEndpointData(group: EndpointsGroup, endpoint: Endpoint, dataId: String): Any? {
         return (endpoint as? DataProvider)?.getData(dataId)

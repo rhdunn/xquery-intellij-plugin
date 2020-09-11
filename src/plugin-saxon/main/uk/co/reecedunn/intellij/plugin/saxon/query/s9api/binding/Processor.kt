@@ -51,7 +51,8 @@ class Processor {
         setConfigurationProperty("OPTIMIZATION_LEVEL", "0")
     }
 
-    val classLoader: ClassLoader get() = `class`.classLoader
+    val classLoader: ClassLoader
+        get() = `class`.classLoader
 
     private val saxonEdition: String?
         get() = `class`.getMethodOrNull("getSaxonEdition")?.invoke(`object`) as? String
@@ -59,7 +60,8 @@ class Processor {
     private val saxonProductVersion: String
         get() = `class`.getMethod("getSaxonProductVersion").invoke(`object`) as String
 
-    val version: String get() = saxonEdition?.let { "$saxonProductVersion ($it)" } ?: saxonProductVersion
+    val version: String
+        get() = saxonEdition?.let { "$saxonProductVersion ($it)" } ?: saxonProductVersion
 
     val typeHierarchy: Any
         get() {

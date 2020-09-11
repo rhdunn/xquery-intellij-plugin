@@ -41,7 +41,8 @@ object RewriterEndpointsFramework : EndpointsFramework, ItemPresentation {
 
     override val id: String = "xijp.marklogic-rewriter"
 
-    override val presentation: ItemPresentation get() = this
+    override val presentation: ItemPresentation
+        get() = this
 
     override fun groups(project: Project): List<EndpointsGroup> {
         val groups = ArrayList<EndpointsGroup>()

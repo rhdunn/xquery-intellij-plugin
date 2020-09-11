@@ -22,5 +22,6 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryBaseURIDecl
 
 class XQueryBaseURIDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryBaseURIDecl {
-    override val baseUri: XsAnyUriValue? get() = children().filterIsInstance<XsAnyUriValue>().firstOrNull()
+    override val baseUri: XsAnyUriValue?
+        get() = children().filterIsInstance<XsAnyUriValue>().firstOrNull()
 }

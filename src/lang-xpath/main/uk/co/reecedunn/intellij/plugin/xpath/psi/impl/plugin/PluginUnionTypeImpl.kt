@@ -41,7 +41,8 @@ class PluginUnionTypeImpl(node: ASTNode) :
     // endregion
     // region PluginUnionType
 
-    override val memberTypes: Sequence<XsQNameValue> get() = children().filterIsInstance<XsQNameValue>()
+    override val memberTypes: Sequence<XsQNameValue>
+        get() = children().filterIsInstance<XsQNameValue>()
 
     // endregion
     // region XdmSequenceType
@@ -49,9 +50,12 @@ class PluginUnionTypeImpl(node: ASTNode) :
     private val cachedTypeName = CacheableProperty {
         "union(${memberTypes.mapNotNull { op_qname_presentation(it) }.joinToString()})"
     }
-    override val typeName: String get() = cachedTypeName.get()!!
 
-    override val itemType: XdmItemType get() = this
+    override val typeName: String
+        get() = cachedTypeName.get()!!
+
+    override val itemType: XdmItemType
+        get() = this
 
     override val lowerBound: Int? = 1
 
@@ -65,9 +69,11 @@ class PluginUnionTypeImpl(node: ASTNode) :
     // endregion
     // region VersionConformance
 
-    override val requiresConformance: List<Version> get() = listOf(Saxon.VERSION_9_8)
+    override val requiresConformance: List<Version>
+        get() = listOf(Saxon.VERSION_9_8)
 
-    override val conformanceElement: PsiElement get() = firstChild
+    override val conformanceElement: PsiElement
+        get() = firstChild
 
     // endregion
 }

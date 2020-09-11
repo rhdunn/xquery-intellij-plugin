@@ -53,7 +53,8 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
             myProjectEx = value
         }
 
-    val project: Project get() = myProject
+    val project: Project
+        get() = myProject
 
     // endregion
     // region JUnit

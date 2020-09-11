@@ -25,5 +25,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 private val ASSIGNMENT = TokenSet.create(XPathTokenType.QNAME_SEPARATOR, XPathTokenType.ASSIGN_EQUAL)
 
 class XPathMapConstructorEntryPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathMapConstructorEntry {
-    override val separator: PsiElement get() = findChildByType(ASSIGNMENT) ?: firstChild
+    override val separator: PsiElement
+        get() = findChildByType(ASSIGNMENT) ?: firstChild
 }

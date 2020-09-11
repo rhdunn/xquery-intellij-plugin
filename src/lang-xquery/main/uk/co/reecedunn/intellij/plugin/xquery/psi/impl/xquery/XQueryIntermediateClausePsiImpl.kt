@@ -29,8 +29,9 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
 private val XQUERY10: List<Version> = listOf()
 private val XQUERY30: List<Version> = listOf(XQuerySpec.REC_3_0_20140408)
 
-class XQueryIntermediateClausePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryIntermediateClause,
-    VersionConformance {
+class XQueryIntermediateClausePsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node), XQueryIntermediateClause, VersionConformance {
+
     override val requiresConformance: List<Version>
         get() {
             val current = firstChild.elementType
@@ -48,5 +49,6 @@ class XQueryIntermediateClausePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node
             return XQUERY10
         }
 
-    override val conformanceElement: PsiElement get() = firstChild.firstChild
+    override val conformanceElement: PsiElement
+        get() = firstChild.firstChild
 }

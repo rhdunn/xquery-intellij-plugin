@@ -86,7 +86,8 @@ internal class SaxonQueryDebugger(val runner: RunnableQuery) : DebuggableQuery, 
     // endregion
     // region DebuggableQuery
 
-    override val session: DebugSession get() = (runner as SaxonRunner).traceListener as DebugSession
+    override val session: DebugSession
+        get() = (runner as SaxonRunner).traceListener as DebugSession
 
     // endregion
     // region Closeable

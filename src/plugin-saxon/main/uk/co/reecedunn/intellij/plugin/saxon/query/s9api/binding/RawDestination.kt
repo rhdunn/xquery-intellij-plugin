@@ -28,7 +28,8 @@ class RawDestination(val classLoader: ClassLoader) : ProxyDestination {
     private val listeners = ArrayList<Action>()
     private var outputter: SequenceOutputter? = null
 
-    override val saxonObject: Any get() = this
+    override val saxonObject: Any
+        get() = this
 
     fun getXdmValue(): XdmValue = outputter!!.getSequence().getXdmValue()
 

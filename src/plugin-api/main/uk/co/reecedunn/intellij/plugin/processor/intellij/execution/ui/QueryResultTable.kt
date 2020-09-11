@@ -25,7 +25,8 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import javax.swing.JScrollPane
 
 data class QueryResultReference(private val textOffset: Int, internal var element: PsiElement? = null) {
-    val offset: Int get() = element?.textOffset ?: textOffset
+    val offset: Int
+        get() = element?.textOffset ?: textOffset
 }
 
 private val RESULT_INDEX_COLUMN = columnInfo<Pair<QueryResult, QueryResultReference>, Long>(
@@ -84,7 +85,8 @@ class QueryResultTable : TableView<Pair<QueryResult, QueryResultReference>>(), Q
             updateEmptyText(isRunning, hasException)
         }
 
-    override val itemCount: Int get() = rowCount
+    override val itemCount: Int
+        get() = rowCount
 
     fun addRow(entry: QueryResult, offset: Int) {
         listTableModel.addRow(Pair(entry, QueryResultReference(offset)))

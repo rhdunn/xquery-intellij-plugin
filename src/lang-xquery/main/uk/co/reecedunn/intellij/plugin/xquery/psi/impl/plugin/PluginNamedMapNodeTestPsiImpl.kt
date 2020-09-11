@@ -36,9 +36,11 @@ class PluginNamedMapNodeTestPsiImpl(node: ASTNode) :
     // endregion
     // region XdmSequenceType
 
-    override val typeName: String get() = "object-node(\"${keyName.data}\")"
+    override val typeName: String
+        get() = "object-node(\"${keyName.data}\")"
 
-    override val itemType: XdmItemType get() = this
+    override val itemType: XdmItemType
+        get() = this
 
     override val lowerBound: Int? = 1
 
@@ -52,7 +54,8 @@ class PluginNamedMapNodeTestPsiImpl(node: ASTNode) :
     // endregion
     // region XpmSyntaxValidationElement
 
-    override val conformanceElement: PsiElement get() = firstChild
+    override val conformanceElement: PsiElement
+        get() = firstChild
 
     // endregion
 }

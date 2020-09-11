@@ -29,7 +29,8 @@ class QueryProcessors : PersistentStateComponent<QueryProcessorsData> {
 
     // region Processors
 
-    val processors: List<QueryProcessorSettings> get() = data.processors
+    val processors: List<QueryProcessorSettings>
+        get() = data.processors
 
     fun addProcessor(processor: QueryProcessorSettings) {
         (processors as ArrayList<QueryProcessorSettings>).add(processor)

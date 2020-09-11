@@ -44,9 +44,11 @@ class PluginTupleTypeImpl(node: ASTNode) :
     // endregion
     // region PluginTupleType
 
-    override val fields: Sequence<PluginTupleField> get() = children().filterIsInstance<PluginTupleField>()
+    override val fields: Sequence<PluginTupleField>
+        get() = children().filterIsInstance<PluginTupleField>()
 
-    override val isExtensible: Boolean get() = conformanceElement !== firstChild
+    override val isExtensible: Boolean
+        get() = conformanceElement !== firstChild
 
     // endregion
     // region XdmSequenceType
@@ -69,9 +71,12 @@ class PluginTupleTypeImpl(node: ASTNode) :
         else
             "tuple($fields)"
     }
-    override val typeName: String get() = cachedTypeName.get()!!
 
-    override val itemType: XdmItemType get() = this
+    override val typeName: String
+        get() = cachedTypeName.get()!!
+
+    override val itemType: XdmItemType
+        get() = this
 
     override val lowerBound: Int? = 1
 
@@ -85,9 +90,11 @@ class PluginTupleTypeImpl(node: ASTNode) :
     // endregion
     // region VersionConformance
 
-    override val requiresConformance: List<Version> get() = if (isExtensible) SAXON99 else SAXON98
+    override val requiresConformance: List<Version>
+        get() = if (isExtensible) SAXON99 else SAXON98
 
-    override val conformanceElement: PsiElement get() = findChildByType(XPathTokenType.STAR) ?: firstChild
+    override val conformanceElement: PsiElement
+        get() = findChildByType(XPathTokenType.STAR) ?: firstChild
 
     // endregion
 }

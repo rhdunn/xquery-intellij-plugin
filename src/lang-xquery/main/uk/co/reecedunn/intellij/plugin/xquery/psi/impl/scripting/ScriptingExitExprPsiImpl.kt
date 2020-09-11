@@ -24,7 +24,9 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
 class ScriptingExitExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), ScriptingExitExpr, VersionConformance {
-    override val requiresConformance: List<Version> get() = listOf(ScriptingSpec.NOTE_1_0_20140918)
+    override val requiresConformance: List<Version>
+        get() = listOf(ScriptingSpec.NOTE_1_0_20140918)
 
-    override val conformanceElement: PsiElement get() = firstChild
+    override val conformanceElement: PsiElement
+        get() = firstChild
 }

@@ -43,7 +43,8 @@ class PluginEmptySequenceTypePsiImpl(node: ASTNode) :
 
     override val typeName: String = "empty-sequence()"
 
-    override val itemType: XdmItemType? get() = null
+    override val itemType: XdmItemType?
+        get() = null
 
     override val lowerBound: Int? = 0
 
@@ -60,7 +61,8 @@ class PluginEmptySequenceTypePsiImpl(node: ASTNode) :
                 XQUERY10_REC_EMPTY
         }
 
-    override val conformanceElement: PsiElement get() = firstChild
+    override val conformanceElement: PsiElement
+        get() = firstChild
 
     // endregion
 }

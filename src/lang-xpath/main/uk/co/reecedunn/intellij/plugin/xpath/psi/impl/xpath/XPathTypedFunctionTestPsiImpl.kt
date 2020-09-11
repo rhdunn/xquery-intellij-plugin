@@ -66,9 +66,12 @@ class XPathTypedFunctionTestPsiImpl(node: ASTNode) :
         val returnType = returnType?.typeName ?: "item()*"
         "function(${paramTypes.joinToString { it.typeName }}) as $returnType"
     }
-    override val typeName: String get() = cachedTypeName.get()!!
 
-    override val itemType: XdmItemType get() = this
+    override val typeName: String
+        get() = cachedTypeName.get()!!
+
+    override val itemType: XdmItemType
+        get() = this
 
     override val lowerBound: Int? = 1
 
@@ -82,9 +85,11 @@ class XPathTypedFunctionTestPsiImpl(node: ASTNode) :
     // endregion
     // region VersionConformance
 
-    override val requiresConformance: List<Version> get() = XQUERY30
+    override val requiresConformance: List<Version>
+        get() = XQUERY30
 
-    override val conformanceElement: PsiElement get() = firstChild
+    override val conformanceElement: PsiElement
+        get() = firstChild
 
     // endregion
 }

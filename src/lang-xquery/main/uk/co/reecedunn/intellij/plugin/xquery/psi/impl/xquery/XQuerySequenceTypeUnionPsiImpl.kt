@@ -57,7 +57,8 @@ class XQuerySequenceTypeUnionPsiImpl(node: ASTNode) :
     // endregion
     // region XdmSequenceTypeUnion
 
-    override val types: Sequence<XdmSequenceType> get() = children().filterIsInstance<XdmSequenceType>()
+    override val types: Sequence<XdmSequenceType>
+        get() = children().filterIsInstance<XdmSequenceType>()
 
     // endregion
     // region XdmSequenceType
@@ -69,9 +70,12 @@ class XQuerySequenceTypeUnionPsiImpl(node: ASTNode) :
         else
             name
     }
-    override val typeName: String get() = cachedTypeName.get()!!
 
-    override val itemType: XdmItemType? get() = XdmSingleItemType
+    override val typeName: String
+        get() = cachedTypeName.get()!!
+
+    override val itemType: XdmItemType?
+        get() = XdmSingleItemType
 
     override val lowerBound: Int? = 0
 
@@ -88,7 +92,8 @@ class XQuerySequenceTypeUnionPsiImpl(node: ASTNode) :
                 SEMANTICS
         }
 
-    override val conformanceElement: PsiElement get() = findChildByType(XPathTokenType.UNION)!!
+    override val conformanceElement: PsiElement
+        get() = findChildByType(XPathTokenType.UNION)!!
 
     // endregion
 }

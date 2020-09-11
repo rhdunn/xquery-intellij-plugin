@@ -44,7 +44,8 @@ class XQueryBracedURILiteralPsiImpl(node: ASTNode) :
     // endregion
     // region XsAnyUriValue
 
-    override val data: String get() = cachedContent.get()!!
+    override val data: String
+        get() = cachedContent.get()!!
 
     override val context: XdmUriContext = XdmUriContext.Namespace
 
@@ -68,9 +69,11 @@ class XQueryBracedURILiteralPsiImpl(node: ASTNode) :
     // endregion
     // region VersionConformance
 
-    override val requiresConformance: List<Version> get() = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
+    override val requiresConformance: List<Version>
+        get() = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
 
-    override val conformanceElement: PsiElement get() = firstChild
+    override val conformanceElement: PsiElement
+        get() = firstChild
 
     // endregion
 }

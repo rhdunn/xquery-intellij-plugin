@@ -95,7 +95,8 @@ object FunctionsAndOperatorsDocumentation :
 
     override val id: String = "xpath-functions"
 
-    override val presentation: ItemPresentation get() = this
+    override val presentation: ItemPresentation
+        get() = this
 
     // endregion
     // region XQDocDocumentationSourceProvider
@@ -159,7 +160,8 @@ object XsltDocumentation : ItemPresentation, XpmSpecificationType, XQDocDocument
 
     override val id: String = "xslt"
 
-    override val presentation: ItemPresentation get() = this
+    override val presentation: ItemPresentation
+        get() = this
 
     // endregion
     // region XQDocDocumentationSourceProvider

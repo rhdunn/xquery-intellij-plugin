@@ -38,7 +38,8 @@ class RewriterEndpointsGroup(private val rewriter: XmlTag) : EndpointsGroup, Ite
     // endregion
     // region EndpointsGroup
 
-    override val presentation: ItemPresentation get() = this
+    override val presentation: ItemPresentation
+        get() = this
 
     override val endpoints: Sequence<Endpoint>
         get() = rewriter.descendants(Rewriter.NAMESPACE, Rewriter.ENDPOINT_ELEMENTS).map { RewriterEndpoint(it) }

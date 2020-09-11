@@ -34,5 +34,6 @@ interface XpmModuleLoaderFactory {
 
 @Tag("moduleLoader")
 data class XpmModuleLoaderBean(var name: String = "", var context: String? = null) {
-    val loader: XpmModuleLoader? get() = XpmModuleLoaderFactory.create(name, context)
+    val loader: XpmModuleLoader?
+        get() = XpmModuleLoaderFactory.create(name, context)
 }

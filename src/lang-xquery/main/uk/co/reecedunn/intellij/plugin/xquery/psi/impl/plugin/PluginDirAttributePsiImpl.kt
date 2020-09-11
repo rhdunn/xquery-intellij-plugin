@@ -53,9 +53,11 @@ class PluginDirAttributePsiImpl(node: ASTNode) :
     // endregion
     // region XdmAttributeNode
 
-    override val nodeName: XsQNameValue get() = firstChild as XsQNameValue
+    override val nodeName: XsQNameValue
+        get() = firstChild as XsQNameValue
 
-    override val typedValue: XsAnyAtomicType? get() = cachedNodeValue.get()
+    override val typedValue: XsAnyAtomicType?
+        get() = cachedNodeValue.get()
 
     private val cachedNodeValue = CacheableProperty {
         val attrValue = children().filterIsInstance<XQueryDirAttributeValue>().firstOrNull()
@@ -121,9 +123,11 @@ class PluginDirAttributePsiImpl(node: ASTNode) :
         }
     }
 
-    override val namespacePrefix: XsNCNameValue? get() = nodeName.takeIf { it.prefix?.data == "xmlns" }?.localName
+    override val namespacePrefix: XsNCNameValue?
+        get() = nodeName.takeIf { it.prefix?.data == "xmlns" }?.localName
 
-    override val namespaceUri: XsAnyUriValue? get() = typedValue as? XsAnyUriValue
+    override val namespaceUri: XsAnyUriValue?
+        get() = typedValue as? XsAnyUriValue
 
     // endregion
 }

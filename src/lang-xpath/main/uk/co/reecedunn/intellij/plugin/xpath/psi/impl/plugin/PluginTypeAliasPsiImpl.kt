@@ -39,7 +39,8 @@ class PluginTypeAliasPsiImpl(node: ASTNode) :
     // endregion
     // region PluginTypeAlias
 
-    override val type: XsQNameValue get() = children().filterIsInstance<XsQNameValue>().first()
+    override val type: XsQNameValue
+        get() = children().filterIsInstance<XsQNameValue>().first()
 
     // endregion
     // region XdmSequenceType
@@ -48,9 +49,11 @@ class PluginTypeAliasPsiImpl(node: ASTNode) :
         "type(${op_qname_presentation(type)})"
     }
 
-    override val typeName: String get() = cachedTypeName.get()!!
+    override val typeName: String
+        get() = cachedTypeName.get()!!
 
-    override val itemType: XdmItemType get() = this
+    override val itemType: XdmItemType
+        get() = this
 
     override val lowerBound: Int? = 1
 
@@ -64,9 +67,11 @@ class PluginTypeAliasPsiImpl(node: ASTNode) :
     // endregion
     // region VersionConformance
 
-    override val requiresConformance: List<Version> get() = listOf(Saxon.VERSION_9_8)
+    override val requiresConformance: List<Version>
+        get() = listOf(Saxon.VERSION_9_8)
 
-    override val conformanceElement: PsiElement get() = firstChild
+    override val conformanceElement: PsiElement
+        get() = firstChild
 
     // endregion
 }

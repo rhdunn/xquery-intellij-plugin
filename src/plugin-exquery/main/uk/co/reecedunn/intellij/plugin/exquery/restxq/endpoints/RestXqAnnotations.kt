@@ -34,29 +34,36 @@ class RestXqAnnotations(private val annotations: List<XdmAnnotation>) {
     }
 
     // 3.2.1 Path Annotation
-    val path: String? get() = strings("path").firstOrNull()
+    val path: String?
+        get() = strings("path").firstOrNull()
 
     // 3.2.2 Method Annotation
     val methods: Sequence<String>
         get() = annotations.asSequence().mapNotNull { it.name?.localName?.data }.filter { METHODS.contains(it) }
 
     // 3.2.3 Consumes Annotation
-    val consumes: Sequence<String> get() = strings("consumes")
+    val consumes: Sequence<String>
+        get() = strings("consumes")
 
     // 3.2.4 Produces Annotation
-    val produces: Sequence<String> get() = strings("produces")
+    val produces: Sequence<String>
+        get() = strings("produces")
 
     // 3.3.1 Query Parameters
-    val queryParams: Sequence<String> get() = params("query-param")
+    val queryParams: Sequence<String>
+        get() = params("query-param")
 
     // 3.3.2 Form Parameters
-    val formParams: Sequence<String> get() = params("form-param")
+    val formParams: Sequence<String>
+        get() = params("form-param")
 
     // 3.3.3 HTTP Header Parameters
-    val headerParams: Sequence<String> get() = params("header-param")
+    val headerParams: Sequence<String>
+        get() = params("header-param")
 
     // 3.3.4 Cookie Parameters
-    val cookieParams: Sequence<String> get() = params("cookie-param")
+    val cookieParams: Sequence<String>
+        get() = params("cookie-param")
 
     companion object {
         // NOTE: RESTXQ only supports HTTP 1.1 methods, excluding TRACE and CONNECT.

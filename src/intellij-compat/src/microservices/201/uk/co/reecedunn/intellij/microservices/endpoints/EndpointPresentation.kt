@@ -33,7 +33,8 @@ class EndpointPresentation(private val endpoint: Endpoint) : ItemPresentation, E
     // endregion
     // region EndpointMethodPresentation
 
-    override val endpointMethod: String? get() = endpoint.method
+    override val endpointMethod: String?
+        get() = endpoint.method
 
     override val endpointMethodOrder: Int
         get() = HttpMethodPresentation.getHttpMethodOrder(endpointMethod?.split("\\s+")?.get(0))

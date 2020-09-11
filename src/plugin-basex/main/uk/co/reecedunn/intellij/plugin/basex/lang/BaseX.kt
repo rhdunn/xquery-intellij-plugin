@@ -38,7 +38,8 @@ object BaseX : ItemPresentation, XpmVendorType, XpmProductType {
 
     override val id: String = "basex"
 
-    override val presentation: ItemPresentation get() = this
+    override val presentation: ItemPresentation
+        get() = this
 
     // endregion
     // region XpmVendorType

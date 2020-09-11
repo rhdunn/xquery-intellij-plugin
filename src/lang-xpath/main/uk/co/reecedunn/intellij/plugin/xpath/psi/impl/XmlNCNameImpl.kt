@@ -23,7 +23,8 @@ class XmlNCNameImpl(type: IElementType, text: CharSequence) :
     LeafPsiElement(type, text),
     XsNCNameValue {
 
-    override val data: String get() = text
+    override val data: String
+        get() = text
 
     override fun toString(): String = "XmlNCNameImpl"
 }

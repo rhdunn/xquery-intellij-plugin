@@ -39,7 +39,8 @@ class PluginSchemaTypeTestPsiImpl(node: ASTNode) :
     // endregion
     // region PluginSchemaTypeTest
 
-    override val schemaType: XPathTypeName? get() = children().filterIsInstance<XPathTypeName>().firstOrNull()
+    override val schemaType: XPathTypeName?
+        get() = children().filterIsInstance<XPathTypeName>().firstOrNull()
 
     // endregion
     // region XdmSequenceType
@@ -47,9 +48,12 @@ class PluginSchemaTypeTestPsiImpl(node: ASTNode) :
     private val cachedTypeName = CacheableProperty {
         schemaType?.type?.let { "schema-type(${op_qname_presentation(it)})" } ?: "schema-type()"
     }
-    override val typeName: String get() = cachedTypeName.get()!!
 
-    override val itemType: XdmItemType get() = this
+    override val typeName: String
+        get() = cachedTypeName.get()!!
+
+    override val itemType: XdmItemType
+        get() = this
 
     override val lowerBound: Int? = 1
 
@@ -63,7 +67,8 @@ class PluginSchemaTypeTestPsiImpl(node: ASTNode) :
     // endregion
     // region XpmSyntaxValidationElement
 
-    override val conformanceElement: PsiElement get() = firstChild
+    override val conformanceElement: PsiElement
+        get() = firstChild
 
     // endregion
 }

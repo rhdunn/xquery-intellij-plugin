@@ -43,7 +43,8 @@ class XPathParamListPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), XPathParamList, ItemPresentation, VersionConformance {
     // region VersionConformance
 
-    override val requiresConformance: List<Version> get() = if (isVariadic) EXPATH else XQUERY1
+    override val requiresConformance: List<Version>
+        get() = if (isVariadic) EXPATH else XQUERY1
 
     override val conformanceElement: PsiElement
         get() = children().reversed().firstOrNull { e -> PARAM_OR_VARIADIC.contains(e.elementType) } ?: firstChild
@@ -86,7 +87,8 @@ class XPathParamListPsiImpl(node: ASTNode) :
         children().filterIsInstance<XPathParam>().map { param -> param as XdmVariableBinding }.toList()
     }
 
-    override val params: List<XdmVariableBinding> get() = cachedParams.get()!!
+    override val params: List<XdmVariableBinding>
+        get() = cachedParams.get()!!
 
     private val cachedArity = CacheableProperty {
         params.size.let {
@@ -97,9 +99,11 @@ class XPathParamListPsiImpl(node: ASTNode) :
         }
     }
 
-    override val arity: Range<Int> get() = cachedArity.get()!!
+    override val arity: Range<Int>
+        get() = cachedArity.get()!!
 
-    override val isVariadic: Boolean get() = conformanceElement.elementType == XPathTokenType.ELLIPSIS
+    override val isVariadic: Boolean
+        get() = conformanceElement.elementType == XPathTokenType.ELLIPSIS
 
     // endregion
 }

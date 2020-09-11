@@ -83,12 +83,14 @@ class XPathStringLiteralPsiImpl(node: ASTNode) :
             else -> TextRange(1, textLength)
         }
 
-    override val decoded: String get() = data
+    override val decoded: String
+        get() = data
 
     // endregion
     // region XsStringValue
 
-    override val data: String get() = cachedData.get()!!
+    override val data: String
+        get() = cachedData.get()!!
 
     private val cachedData: CacheableProperty<String> = CacheableProperty {
         val decoded = StringBuilder()

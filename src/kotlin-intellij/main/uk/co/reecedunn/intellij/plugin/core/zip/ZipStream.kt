@@ -41,7 +41,8 @@ private class ZipEntryIterator(private val zip: ZipInputStream) : Iterator<ZipEn
     }
 }
 
-val ZipInputStream.entries: Sequence<ZipEntry> get() = ZipEntryIterator(this).asSequence()
+val ZipInputStream.entries: Sequence<ZipEntry>
+    get() = ZipEntryIterator(this).asSequence()
 
 fun Sequence<Pair<ZipEntry, ByteArray>>.toZipByteArray(): ByteArray {
     return ByteArrayOutputStream().use { stream ->

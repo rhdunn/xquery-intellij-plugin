@@ -38,7 +38,8 @@ object MarkLogic : ItemPresentation, XpmVendorType, XpmProductType {
 
     override val id: String = "marklogic"
 
-    override val presentation: ItemPresentation get() = this
+    override val presentation: ItemPresentation
+        get() = this
 
     // endregion
     // region XpmVendorType

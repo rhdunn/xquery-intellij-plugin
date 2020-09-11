@@ -22,5 +22,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryMainModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
 
 class XQueryMainModulePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryMainModule {
-    override val prolog: Sequence<XQueryProlog> get() = children().filterIsInstance<XQueryProlog>()
+    override val prolog: Sequence<XQueryProlog>
+        get() = children().filterIsInstance<XQueryProlog>()
 }

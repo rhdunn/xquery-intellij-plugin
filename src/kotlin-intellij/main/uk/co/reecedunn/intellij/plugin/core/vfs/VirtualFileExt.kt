@@ -26,7 +26,8 @@ fun VirtualFile.toPsiFile(project: Project): PsiFile? = PsiManager.getInstance(p
 
 fun VirtualFile.decode(): String? = inputStream?.decode(charset)
 
-val VirtualFile.originalFile: VirtualFile get() = (this as? LightVirtualFileBase)?.originalFile ?: this
+val VirtualFile.originalFile: VirtualFile
+    get() = (this as? LightVirtualFileBase)?.originalFile ?: this
 
 fun VirtualFile.isAncestorOf(file: VirtualFile): Boolean {
     val fileParent = file.parent ?: return false

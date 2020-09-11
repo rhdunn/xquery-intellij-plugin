@@ -27,7 +27,9 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 class ScriptingAssignmentExprPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), ScriptingAssignmentExpr, VersionConformance {
 
-    override val requiresConformance: List<Version> get() = listOf(ScriptingSpec.NOTE_1_0_20140918)
+    override val requiresConformance: List<Version>
+        get() = listOf(ScriptingSpec.NOTE_1_0_20140918)
 
-    override val conformanceElement: PsiElement get() = findChildByType(XPathTokenType.ASSIGN_EQUAL) ?: firstChild
+    override val conformanceElement: PsiElement
+        get() = findChildByType(XPathTokenType.ASSIGN_EQUAL) ?: firstChild
 }

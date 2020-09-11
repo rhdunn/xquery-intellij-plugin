@@ -69,12 +69,14 @@ open class XQueryEnclosedExprPsiImpl(node: ASTNode) :
             return XQUERY31
         }
 
-    override val conformanceElement: PsiElement get() = findChildByType(XQueryElementType.EXPR) ?: firstChild
+    override val conformanceElement: PsiElement
+        get() = findChildByType(XQueryElementType.EXPR) ?: firstChild
 
     // endregion
     // region FoldablePsiElement
 
-    override val foldingRange: TextRange? get() = textRange
+    override val foldingRange: TextRange?
+        get() = textRange
 
     override val foldingPlaceholderText: String? = "{...}"
 

@@ -42,7 +42,8 @@ class XPathSequenceTypePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPat
             }
         }
 
-    override val itemType: XdmItemType? get() = (firstChild as XdmSequenceType).itemType
+    override val itemType: XdmItemType?
+        get() = (firstChild as XdmSequenceType).itemType
 
     override val lowerBound: Int?
         get() {

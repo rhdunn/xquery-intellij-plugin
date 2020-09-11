@@ -23,9 +23,11 @@ import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsProvider
 class RewriterEndpointsProvider : EndpointsProvider() {
     // region EndpointsFramework
 
-    override val id: String get() = RewriterEndpointsFramework.id
+    override val id: String
+        get() = RewriterEndpointsFramework.id
 
-    override val presentation: ItemPresentation get() = RewriterEndpointsFramework.presentation
+    override val presentation: ItemPresentation
+        get() = RewriterEndpointsFramework.presentation
 
     override fun groups(project: Project): List<EndpointsGroup> = RewriterEndpointsFramework.groups(project)
 

@@ -35,7 +35,8 @@ class XQueryCommentPsiImpl(node: ASTNode) :
     // endregion
     // region FoldablePsiElement
 
-    override val foldingRange: TextRange? get() = textRange
+    override val foldingRange: TextRange?
+        get() = textRange
 
     override val foldingPlaceholderText: String?
         get() {

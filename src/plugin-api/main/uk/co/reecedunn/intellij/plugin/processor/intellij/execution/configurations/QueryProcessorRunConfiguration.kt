@@ -147,7 +147,8 @@ class QueryProcessorRunConfiguration(
             data.scriptSource = value
         }
 
-    val scriptFile: VirtualFile? get() = data.scriptSource.find(data.scriptFile, project)
+    val scriptFile: VirtualFile?
+        get() = data.scriptSource.find(data.scriptFile, project)
 
     // endregion
     // region Context Item
@@ -164,7 +165,8 @@ class QueryProcessorRunConfiguration(
             data.contextItemSource = value
         }
 
-    val contextItem: VirtualFile? get() = data.contextItemSource?.find(data.contextItem, project)
+    val contextItem: VirtualFile?
+        get() = data.contextItemSource?.find(data.contextItem, project)
 
     // endregion
     // region RunConfigurationBase

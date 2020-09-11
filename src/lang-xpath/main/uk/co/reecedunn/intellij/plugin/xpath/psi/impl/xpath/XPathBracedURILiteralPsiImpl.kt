@@ -39,7 +39,8 @@ class XPathBracedURILiteralPsiImpl(node: ASTNode) :
     // endregion
     // region XsAnyUriValue
 
-    override val data: String get() = cachedContent.get()!!
+    override val data: String
+        get() = cachedContent.get()!!
 
     override val context: XdmUriContext = XdmUriContext.Namespace
 

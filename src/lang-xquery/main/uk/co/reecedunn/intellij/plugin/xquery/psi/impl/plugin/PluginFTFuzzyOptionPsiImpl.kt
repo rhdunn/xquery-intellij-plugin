@@ -25,7 +25,8 @@ class PluginFTFuzzyOptionPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), PluginFTFuzzyOption, XpmSyntaxValidationElement {
     // region XpmSyntaxValidationElement
 
-    override val conformanceElement: PsiElement get() = firstChild
+    override val conformanceElement: PsiElement
+        get() = firstChild
 
     // endregion
 }

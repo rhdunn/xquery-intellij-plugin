@@ -25,5 +25,6 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationEl
 class XQueryCatchClausePsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), XQueryCatchClause, XpmSyntaxValidationElement {
 
-    override val conformanceElement: PsiElement get() = findChildByType(XPathTokenType.PARENTHESIS_OPEN) ?: firstChild
+    override val conformanceElement: PsiElement
+        get() = findChildByType(XPathTokenType.PARENTHESIS_OPEN) ?: firstChild
 }

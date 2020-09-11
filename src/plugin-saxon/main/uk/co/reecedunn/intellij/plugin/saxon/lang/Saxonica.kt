@@ -35,7 +35,8 @@ object Saxonica : ItemPresentation, XpmVendorType {
 
     override val id: String = "saxon"
 
-    override val presentation: ItemPresentation get() = this
+    override val presentation: ItemPresentation
+        get() = this
 
     // endregion
     // region XpmVendorType

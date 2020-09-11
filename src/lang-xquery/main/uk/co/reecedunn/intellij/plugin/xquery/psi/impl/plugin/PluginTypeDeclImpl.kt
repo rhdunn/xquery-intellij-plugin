@@ -43,14 +43,17 @@ class PluginTypeDeclImpl(node: ASTNode) :
     // endregion
     // region PluginTypeDecl
 
-    override val typeName: XsQNameValue? get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
+    override val typeName: XsQNameValue?
+        get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
 
     // endregion
     // region VersionConformance
 
-    override val requiresConformance: List<Version> get() = listOf(Saxon.VERSION_9_8)
+    override val requiresConformance: List<Version>
+        get() = listOf(Saxon.VERSION_9_8)
 
-    override val conformanceElement: PsiElement get() = findChildByType(XPathTokenType.K_TYPE) ?: firstChild
+    override val conformanceElement: PsiElement
+        get() = findChildByType(XPathTokenType.K_TYPE) ?: firstChild
 
     // endregion
     // region NavigationItem

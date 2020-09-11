@@ -25,5 +25,6 @@ class XPathDoubleLiteralImpl(type: IElementType, text: CharSequence) :
     XPathDoubleLiteral,
     XsDoubleValue {
 
-    override val data: Double get() = text.toDouble()
+    override val data: Double
+        get() = text.toDouble()
 }

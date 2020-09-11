@@ -25,9 +25,11 @@ class PluginNillableTypeNamePsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), PluginNillableTypeName, XdmSequenceType {
     // region XdmSequenceType
 
-    override val typeName: String get() = "${itemType.typeName}?"
+    override val typeName: String
+        get() = "${itemType.typeName}?"
 
-    override val itemType: XdmItemType get() = firstChild as XdmItemType
+    override val itemType: XdmItemType
+        get() = firstChild as XdmItemType
 
     override val lowerBound: Int? = 0
 

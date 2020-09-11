@@ -133,5 +133,6 @@ abstract class ParserTestCase :
         registerExtension(ImportPathResolver.EP_NAME, bean)
     }
 
-    protected val settings: XQueryProjectSettings get() = XQueryProjectSettings.getInstance(myProject)
+    protected val settings: XQueryProjectSettings
+        get() = XQueryProjectSettings.getInstance(myProject)
 }

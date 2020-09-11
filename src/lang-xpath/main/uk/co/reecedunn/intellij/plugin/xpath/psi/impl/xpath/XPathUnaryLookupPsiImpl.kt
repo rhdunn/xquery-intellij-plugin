@@ -24,7 +24,9 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
 
 class XPathUnaryLookupPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathUnaryLookup, VersionConformance {
-    override val requiresConformance: List<Version> get() = listOf(XQuerySpec.REC_3_1_20170321)
+    override val requiresConformance: List<Version>
+        get() = listOf(XQuerySpec.REC_3_1_20170321)
 
-    override val conformanceElement: PsiElement get() = firstChild
+    override val conformanceElement: PsiElement
+        get() = firstChild
 }

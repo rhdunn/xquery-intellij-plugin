@@ -27,7 +27,10 @@ class UpdateFacilityUpdatingFunctionCallPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     UpdateFacilityUpdatingFunctionCall,
     VersionConformance {
-    override val requiresConformance: List<Version> get() = listOf(UpdateFacilitySpec.NOTE_3_0_20170124)
 
-    override val conformanceElement: PsiElement get() = firstChild
+    override val requiresConformance: List<Version>
+        get() = listOf(UpdateFacilitySpec.NOTE_3_0_20170124)
+
+    override val conformanceElement: PsiElement
+        get() = firstChild
 }

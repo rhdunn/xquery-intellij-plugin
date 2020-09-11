@@ -23,7 +23,8 @@ abstract class Stopwatch {
 
     private var endTime: Long = 0
 
-    val elapsedTime: Long get() = endTime - startTime
+    val elapsedTime: Long
+        get() = endTime - startTime
 
     fun start(interval: Long): Future<*> = ApplicationManager.getApplication().executeOnPooledThread {
         startTime = System.nanoTime()

@@ -31,7 +31,8 @@ class XPathNamespaceNodeTestPsiImpl(node: ASTNode) :
 
     override val typeName: String = "namespace-node()"
 
-    override val itemType: XdmItemType get() = this
+    override val itemType: XdmItemType
+        get() = this
 
     override val lowerBound: Int? = 1
 
@@ -45,9 +46,11 @@ class XPathNamespaceNodeTestPsiImpl(node: ASTNode) :
     // endregion
     // region VersionConformance
 
-    override val requiresConformance: List<Version> get() = listOf(XQuerySpec.REC_3_0_20140408)
+    override val requiresConformance: List<Version>
+        get() = listOf(XQuerySpec.REC_3_0_20140408)
 
-    override val conformanceElement: PsiElement get() = firstChild
+    override val conformanceElement: PsiElement
+        get() = firstChild
 
     // endregion
 }

@@ -35,7 +35,8 @@ object SaxonEE : ItemPresentation, XpmProductType {
 
     override val id: String = "saxon/EE"
 
-    override val presentation: ItemPresentation get() = this
+    override val presentation: ItemPresentation
+        get() = this
 
     // endregion
     // region Language Versions

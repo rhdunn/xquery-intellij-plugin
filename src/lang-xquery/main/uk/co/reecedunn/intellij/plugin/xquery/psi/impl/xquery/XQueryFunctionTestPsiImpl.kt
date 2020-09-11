@@ -37,9 +37,11 @@ class XQueryFunctionTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
     // endregion
     // region XQueryFunctionTest
 
-    override val annotations: Sequence<XdmAnnotation> get() = children().filterIsInstance<XdmAnnotation>()
+    override val annotations: Sequence<XdmAnnotation>
+        get() = children().filterIsInstance<XdmAnnotation>()
 
-    override val functionTest: XPathFunctionTest get() = children().filterIsInstance<XPathFunctionTest>().first()
+    override val functionTest: XPathFunctionTest
+        get() = children().filterIsInstance<XPathFunctionTest>().first()
 
     // endregion
     // region XdmSequenceType
@@ -48,9 +50,12 @@ class XQueryFunctionTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
         val annotations = annotations.mapNotNull { (it as ItemPresentation).presentableText }.joinToString(" ")
         "$annotations ${(functionTest as XdmItemType).typeName}"
     }
-    override val typeName: String get() = cachedTypeName.get()!!
 
-    override val itemType: XdmItemType get() = this
+    override val typeName: String
+        get() = cachedTypeName.get()!!
+
+    override val itemType: XdmItemType
+        get() = this
 
     override val lowerBound: Int? = 1
 

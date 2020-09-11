@@ -26,5 +26,6 @@ class XPathIntegerLiteralImpl(type: IElementType, text: CharSequence) :
     XPathIntegerLiteral,
     XsIntegerValue {
 
-    override val data: BigInteger get() = text.toBigInteger()
+    override val data: BigInteger
+        get() = text.toBigInteger()
 }

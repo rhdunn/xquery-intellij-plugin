@@ -66,9 +66,11 @@ class SaxonDebugTraceListener(val query: VirtualFile, private val processor: Pro
         }
     }
 
-    override val stackFrames: List<XStackFrame> get() = currentStackFrames.asReversed()
+    override val stackFrames: List<XStackFrame>
+        get() = currentStackFrames.asReversed()
 
-    override val suspendContext: XSuspendContext get() = QuerySuspendContext(query.name, this)
+    override val suspendContext: XSuspendContext
+        get() = QuerySuspendContext(query.name, this)
 
     private fun checkStepAction(enter: Boolean) {
         when (stepAction) {

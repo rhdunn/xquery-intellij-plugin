@@ -25,7 +25,8 @@ class PluginNonDeterministicFunctionCallPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), PluginNonDeterministicFunctionCall, XpmSyntaxValidationElement {
     // region XpmSyntaxValidationElement
 
-    override val conformanceElement: PsiElement get() = firstChild
+    override val conformanceElement: PsiElement
+        get() = firstChild
 
     // endregion
 }

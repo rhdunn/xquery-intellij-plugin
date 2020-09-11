@@ -26,7 +26,10 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
 
 class XQueryContextItemDeclPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), XQueryContextItemDecl, VersionConformance {
-    override val requiresConformance: List<Version> get() = listOf(XQuerySpec.REC_3_0_20140408)
 
-    override val conformanceElement: PsiElement get() = findChildByType(XQueryTokenType.K_CONTEXT) ?: firstChild
+    override val requiresConformance: List<Version>
+        get() = listOf(XQuerySpec.REC_3_0_20140408)
+
+    override val conformanceElement: PsiElement
+        get() = findChildByType(XQueryTokenType.K_CONTEXT) ?: firstChild
 }

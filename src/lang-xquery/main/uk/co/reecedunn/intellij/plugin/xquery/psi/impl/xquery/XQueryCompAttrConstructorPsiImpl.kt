@@ -29,9 +29,11 @@ class XQueryCompAttrConstructorPsiImpl(node: ASTNode) :
     XdmAttributeNode {
     // region XdmAttributeNode
 
-    override val nodeName: XsQNameValue? get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
+    override val nodeName: XsQNameValue?
+        get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
 
-    override val typedValue: XsAnyAtomicType? get() = null
+    override val typedValue: XsAnyAtomicType?
+        get() = null
 
     // endregion
 }

@@ -62,7 +62,8 @@ class PluginDirTextConstructorPsiImpl(node: ASTNode) :
 
     override val isOneLine: Boolean = false
 
-    override val relevantTextRange: TextRange get() = TextRange(0, textLength)
+    override val relevantTextRange: TextRange
+        get() = TextRange(0, textLength)
 
     override val decoded: String
         get() {

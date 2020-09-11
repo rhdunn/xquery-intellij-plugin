@@ -45,7 +45,8 @@ class XQueryAnnotationPsiImpl(node: ASTNode) :
     // endregion
     // region XdmAnnotation
 
-    override val name: XsQNameValue? get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
+    override val name: XsQNameValue?
+        get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
 
     override val values: Sequence<XsAnyAtomicType>
         get() {
@@ -61,7 +62,8 @@ class XQueryAnnotationPsiImpl(node: ASTNode) :
     // endregion
     // region VersionConformance
 
-    override val requiresConformance: List<Version> get() = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
+    override val requiresConformance: List<Version>
+        get() = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
 
     override val conformanceElement: PsiElement
         get() = findChildByType(XQueryTokenType.ANNOTATION_INDICATOR) ?: firstChild

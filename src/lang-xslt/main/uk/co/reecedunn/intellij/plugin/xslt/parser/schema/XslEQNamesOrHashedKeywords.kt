@@ -39,9 +39,11 @@ object XslEQNamesOrHashedKeywords : Language(XPath, "EQNames-or-hashed-keywords"
     // endregion
     // region ISchemaType
 
-    override val type: String get() = id
+    override val type: String
+        get() = id
 
-    override val language: Language get() = this
+    override val language: Language
+        get() = this
 
     // endregion
     // region ParserDefinition

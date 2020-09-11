@@ -26,7 +26,8 @@ class PluginTernaryIfExprPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), PluginTernaryIfExpr, XpmSyntaxValidationElement {
     // region XpmSyntaxValidationElement
 
-    override val conformanceElement: PsiElement get() = findChildByType(XPathTokenType.TERNARY_IF)!!
+    override val conformanceElement: PsiElement
+        get() = findChildByType(XPathTokenType.TERNARY_IF)!!
 
     // endregion
 }

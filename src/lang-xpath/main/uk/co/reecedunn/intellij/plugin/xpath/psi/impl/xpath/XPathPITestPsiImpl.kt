@@ -45,7 +45,9 @@ class XPathPITestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathPITes
             }
         }.filterNotNull().firstOrNull()
     }
-    override val nodeName: XsAnyAtomicType? get() = cachedNodeName.get()
+
+    override val nodeName: XsAnyAtomicType?
+        get() = cachedNodeName.get()
 
     // endregion
     // region XdmSequenceType
@@ -56,7 +58,8 @@ class XPathPITestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathPITes
             else -> "processing-instruction()"
         }
 
-    override val itemType: XdmItemType get() = this
+    override val itemType: XdmItemType
+        get() = this
 
     override val lowerBound: Int? = 1
 

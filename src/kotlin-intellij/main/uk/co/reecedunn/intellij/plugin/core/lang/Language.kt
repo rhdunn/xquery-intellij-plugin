@@ -63,4 +63,5 @@ fun Array<out Language>.findByMimeType(predicate: (String) -> Boolean): Language
     }
 }
 
-val Language.parserDefinition: ParserDefinition get() = LanguageParserDefinitions.INSTANCE.forLanguage(this)
+val Language.parserDefinition: ParserDefinition
+    get() = LanguageParserDefinitions.INSTANCE.forLanguage(this)

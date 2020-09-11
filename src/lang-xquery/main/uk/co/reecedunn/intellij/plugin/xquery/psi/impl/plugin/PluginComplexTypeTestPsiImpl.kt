@@ -39,7 +39,8 @@ class PluginComplexTypeTestPsiImpl(node: ASTNode) :
     // endregion
     // region PluginComplexTypeTest
 
-    override val schemaType: XPathTypeName? get() = children().filterIsInstance<XPathTypeName>().firstOrNull()
+    override val schemaType: XPathTypeName?
+        get() = children().filterIsInstance<XPathTypeName>().firstOrNull()
 
     // endregion
     // region XdmSequenceType
@@ -47,9 +48,12 @@ class PluginComplexTypeTestPsiImpl(node: ASTNode) :
     private val cachedTypeName = CacheableProperty {
         schemaType?.type?.let { "complex-type(${op_qname_presentation(it)})" } ?: "complex-type()"
     }
-    override val typeName: String get() = cachedTypeName.get()!!
 
-    override val itemType: XdmItemType get() = this
+    override val typeName: String
+        get() = cachedTypeName.get()!!
+
+    override val itemType: XdmItemType
+        get() = this
 
     override val lowerBound: Int? = 1
 
@@ -63,7 +67,8 @@ class PluginComplexTypeTestPsiImpl(node: ASTNode) :
     // endregion
     // region XpmSyntaxValidationElement
 
-    override val conformanceElement: PsiElement get() = firstChild
+    override val conformanceElement: PsiElement
+        get() = firstChild
 
     // endregion
 }

@@ -35,7 +35,8 @@ object W3CSpecifications : ItemPresentation, XpmProductType {
 
     override val id: String = "w3c"
 
-    override val presentation: ItemPresentation get() = this
+    override val presentation: ItemPresentation
+        get() = this
 
     // endregion
     // region Language Versions

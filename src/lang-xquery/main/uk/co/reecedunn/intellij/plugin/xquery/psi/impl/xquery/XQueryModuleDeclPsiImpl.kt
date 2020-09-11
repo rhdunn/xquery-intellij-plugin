@@ -53,7 +53,8 @@ class XQueryModuleDeclPsiImpl(node: ASTNode) :
     // endregion
     // region XQueryPrologResolver
 
-    override val prolog: Sequence<XQueryProlog> get() = siblings().filterIsInstance<XQueryProlog>()
+    override val prolog: Sequence<XQueryProlog>
+        get() = siblings().filterIsInstance<XQueryProlog>()
 
     // endregion
 }

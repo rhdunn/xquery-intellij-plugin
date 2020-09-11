@@ -43,7 +43,8 @@ class RewriterEndpoint(private val endpoint: XmlTag) : ItemPresentation, Endpoin
     // endregion
     // region Endpoint
 
-    override val presentation: ItemPresentation get() = this
+    override val presentation: ItemPresentation
+        get() = this
 
     override val details: JPanel
         get() = detailsPanel {
@@ -96,7 +97,8 @@ class RewriterEndpoint(private val endpoint: XmlTag) : ItemPresentation, Endpoin
     // endregion
     // region RewriterEndpoint
 
-    private val dispatch: String get() = endpoint.value.text
+    private val dispatch: String
+        get() = endpoint.value.text
 
     private val accept: String?
         get() = endpoint.ancestors(Rewriter.NAMESPACE, "match-accept").firstOrNull()?.getAttributeValue("any-of")

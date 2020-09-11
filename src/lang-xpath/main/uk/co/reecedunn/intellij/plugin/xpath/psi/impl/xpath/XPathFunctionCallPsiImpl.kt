@@ -24,9 +24,12 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
 class XPathFunctionCallPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XdmFunctionReference, XPathFunctionCall {
-    override val argumentList: XPathArgumentList get() = children().filterIsInstance<XPathArgumentList>().first()
+    override val argumentList: XPathArgumentList
+        get() = children().filterIsInstance<XPathArgumentList>().first()
 
-    override val functionName: XsQNameValue? get() = firstChild as? XsQNameValue
+    override val functionName: XsQNameValue?
+        get() = firstChild as? XsQNameValue
 
-    override val arity: Int get() = argumentList.arity
+    override val arity: Int
+        get() = argumentList.arity
 }

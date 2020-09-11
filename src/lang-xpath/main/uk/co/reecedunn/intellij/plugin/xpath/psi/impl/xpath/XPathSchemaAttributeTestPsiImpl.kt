@@ -37,7 +37,8 @@ class XPathSchemaAttributeTestPsiImpl(node: ASTNode) :
     // endregion
     // region XPathSchemaAttributeTest
 
-    override val nodeName: XsQNameValue? get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
+    override val nodeName: XsQNameValue?
+        get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
 
     // endregion
     // region XdmSequenceType
@@ -47,9 +48,12 @@ class XPathSchemaAttributeTestPsiImpl(node: ASTNode) :
             "schema-attribute(${op_qname_presentation(it)})"
         } ?: "schema-attribute(<unknown>)"
     }
-    override val typeName: String get() = cachedTypeName.get()!!
 
-    override val itemType: XdmItemType get() = this
+    override val typeName: String
+        get() = cachedTypeName.get()!!
+
+    override val itemType: XdmItemType
+        get() = this
 
     override val lowerBound: Int? = 1
 

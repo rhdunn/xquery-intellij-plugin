@@ -25,14 +25,17 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 class XPathDocumentTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathDocumentTest, XdmItemType {
     // region XPathDocumentTest
 
-    override val rootNodeType: XdmItemType? get() = children().filterIsInstance<XdmItemType>().firstOrNull()
+    override val rootNodeType: XdmItemType?
+        get() = children().filterIsInstance<XdmItemType>().firstOrNull()
 
     // endregion
     // region XdmSequenceType
 
-    override val typeName: String get() = rootNodeType?.let { "document-node(${it.typeName})" } ?: "document-node()"
+    override val typeName: String
+        get() = rootNodeType?.let { "document-node(${it.typeName})" } ?: "document-node()"
 
-    override val itemType: XdmItemType get() = this
+    override val itemType: XdmItemType
+        get() = this
 
     override val lowerBound: Int? = 1
 

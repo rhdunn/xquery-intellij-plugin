@@ -24,7 +24,8 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEscapeCharacter
 class XPathEscapeCharacterImpl(type: IElementType, text: CharSequence) :
     LeafPsiElement(type, text), XPathEscapeCharacter, PsiElementTextDecoder {
 
-    override val unescapedCharacter: Char get() = text[0]
+    override val unescapedCharacter: Char
+        get() = text[0]
 
     override fun decode(decoded: StringBuilder) {
         decoded.append(unescapedCharacter)

@@ -38,7 +38,8 @@ class RestXqEndpointsGroup(private val prolog: XQueryProlog) : EndpointsGroup, I
     // endregion
     // region EndpointsGroup
 
-    override val presentation: ItemPresentation get() = this
+    override val presentation: ItemPresentation
+        get() = this
 
     override val endpoints: Sequence<Endpoint>
         get() {

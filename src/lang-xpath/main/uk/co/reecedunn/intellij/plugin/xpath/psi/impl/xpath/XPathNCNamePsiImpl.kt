@@ -34,7 +34,8 @@ open class XPathNCNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPath
 
     override val prefix: XsNCNameValue? = null
 
-    override val localName: XsNCNameValue? get() = children().filterIsInstance<XsNCNameValue>().firstOrNull()
+    override val localName: XsNCNameValue?
+        get() = children().filterIsInstance<XsNCNameValue>().firstOrNull()
 
     override val isLexicalQName: Boolean = true
 

@@ -34,7 +34,8 @@ class XQuerySchemaImportPsiImpl(node: ASTNode) :
     XdmDefaultNamespaceDeclaration {
     // region XdmDefaultNamespaceDeclaration
 
-    private val schemaPrefix get() = children().filterIsInstance<XQuerySchemaPrefix>().firstOrNull()
+    private val schemaPrefix
+        get() = children().filterIsInstance<XQuerySchemaPrefix>().firstOrNull()
 
     override fun accepts(namespaceType: XdmNamespaceType): Boolean {
         return when (schemaPrefix?.firstChild?.node?.elementType) {

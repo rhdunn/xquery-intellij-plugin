@@ -47,18 +47,23 @@ class PluginCompatibilityAnnotationPsiImpl(node: ASTNode) :
     ItemPresentation {
     // region XsQNameValue
 
-    override val namespace: XsAnyUriValue? get() = null
+    override val namespace: XsAnyUriValue?
+        get() = null
 
-    override val prefix: XsNCNameValue? get() = null
+    override val prefix: XsNCNameValue?
+        get() = null
 
-    override val localName: XsNCNameValue? get() = firstChild as XsNCNameValue
+    override val localName: XsNCNameValue?
+        get() = firstChild as XsNCNameValue
 
-    override val isLexicalQName: Boolean get() = true
+    override val isLexicalQName: Boolean
+        get() = true
 
     // endregion
     // region XdmAnnotation
 
-    override val name: XsQNameValue? get() = this
+    override val name: XsQNameValue?
+        get() = this
 
     override val values: Sequence<XsAnyAtomicType> = emptySequence()
 
@@ -78,7 +83,8 @@ class PluginCompatibilityAnnotationPsiImpl(node: ASTNode) :
     // endregion
     // region XpmSyntaxValidationElement
 
-    override val conformanceElement: PsiElement get() = firstChild
+    override val conformanceElement: PsiElement
+        get() = firstChild
 
     // endregion
     // region ItemPresentation

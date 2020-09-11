@@ -39,7 +39,8 @@ class PluginModelGroupTestPsiImpl(node: ASTNode) :
     // endregion
     // region PluginModelGroupTest
 
-    override val nodeName: XsQNameValue? get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
+    override val nodeName: XsQNameValue?
+        get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
 
     // endregion
     // region XdmSequenceType
@@ -47,9 +48,12 @@ class PluginModelGroupTestPsiImpl(node: ASTNode) :
     private val cachedTypeName = CacheableProperty {
         nodeName?.let { "model-group(${op_qname_presentation(it)})" } ?: "model-group()"
     }
-    override val typeName: String get() = cachedTypeName.get()!!
 
-    override val itemType: XdmItemType get() = this
+    override val typeName: String
+        get() = cachedTypeName.get()!!
+
+    override val itemType: XdmItemType
+        get() = this
 
     override val lowerBound: Int? = 1
 
@@ -63,7 +67,8 @@ class PluginModelGroupTestPsiImpl(node: ASTNode) :
     // endregion
     // region XpmSyntaxValidationElement
 
-    override val conformanceElement: PsiElement get() = firstChild
+    override val conformanceElement: PsiElement
+        get() = firstChild
 
     // endregion
 }

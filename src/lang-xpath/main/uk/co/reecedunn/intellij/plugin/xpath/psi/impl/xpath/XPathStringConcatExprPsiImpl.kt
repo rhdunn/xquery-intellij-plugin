@@ -36,5 +36,6 @@ class XPathStringConcatExprPsiImpl(node: ASTNode) :
             return XQUERY30
         }
 
-    override val conformanceElement: PsiElement get() = findChildByType(XPathTokenType.CONCATENATION) ?: firstChild
+    override val conformanceElement: PsiElement
+        get() = findChildByType(XPathTokenType.CONCATENATION) ?: firstChild
 }

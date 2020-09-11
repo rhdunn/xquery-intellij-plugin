@@ -24,9 +24,11 @@ import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsProvider
 class RestXqEndpointsProvider : EndpointsProvider() {
     // region EndpointsFramework
 
-    override val id: String get() = RestXqEndpointsFramework.id
+    override val id: String
+        get() = RestXqEndpointsFramework.id
 
-    override val presentation: ItemPresentation get() = RestXqEndpointsFramework.presentation
+    override val presentation: ItemPresentation
+        get() = RestXqEndpointsFramework.presentation
 
     override fun groups(project: Project): List<EndpointsGroup> = RestXqEndpointsFramework.groups(project)
 

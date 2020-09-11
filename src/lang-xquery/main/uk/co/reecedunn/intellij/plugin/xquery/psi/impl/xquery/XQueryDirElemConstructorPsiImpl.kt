@@ -37,11 +37,13 @@ class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
     FoldablePsiElement {
     // region XdmElementNode
 
-    override val nodeName: XsQNameValue? get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
+    override val nodeName: XsQNameValue?
+        get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
 
     override val typedValue: XsAnyAtomicType? = null
 
-    override val closingTag: XsQNameValue? get() = children().filterIsInstance<XsQNameValue>().lastOrNull()
+    override val closingTag: XsQNameValue?
+        get() = children().filterIsInstance<XsQNameValue>().lastOrNull()
 
     // endregion
     // region FoldablePsiElement

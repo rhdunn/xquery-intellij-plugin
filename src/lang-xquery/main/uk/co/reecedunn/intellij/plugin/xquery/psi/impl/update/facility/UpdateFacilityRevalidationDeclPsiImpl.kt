@@ -26,7 +26,9 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
 class UpdateFacilityRevalidationDeclPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), UpdateFacilityRevalidationDecl, VersionConformance {
-    override val requiresConformance: List<Version> get() = listOf(UpdateFacilitySpec.REC_1_0_20110317)
+
+    override val requiresConformance: List<Version>
+        get() = listOf(UpdateFacilitySpec.REC_1_0_20110317)
 
     override val conformanceElement: PsiElement
         get() = findChildByType(XQueryTokenType.K_REVALIDATION) ?: firstChild

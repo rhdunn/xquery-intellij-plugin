@@ -34,5 +34,6 @@ class XPathSimpleMapExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPa
             return XQUERY30
         }
 
-    override val conformanceElement: PsiElement get() = findChildByType(XPathTokenType.MAP_OPERATOR) ?: firstChild
+    override val conformanceElement: PsiElement
+        get() = findChildByType(XPathTokenType.MAP_OPERATOR) ?: firstChild
 }

@@ -25,7 +25,8 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationEl
 class XPathIfExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathIfExpr, XpmSyntaxValidationElement {
     // region XpmSyntaxValidationElement
 
-    override val conformanceElement: PsiElement get() = findChildByType(XPathTokenType.K_ELSE) ?: firstChild
+    override val conformanceElement: PsiElement
+        get() = findChildByType(XPathTokenType.K_ELSE) ?: firstChild
 
     // endregion
 }

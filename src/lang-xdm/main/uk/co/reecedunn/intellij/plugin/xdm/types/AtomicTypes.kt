@@ -128,7 +128,8 @@ interface XsNameValue : XsTokenValue
 
 interface XsNCNameValue : XsNameValue
 
-val XsNCNameValue.element: PsiElement? get() = (this as XdmItem).element
+val XsNCNameValue.element: PsiElement?
+    get() = (this as XdmItem).element
 
 // endregion
 // region XML Schema 1.1 Part 2 (3.4.8) xs:ID

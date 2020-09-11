@@ -144,7 +144,8 @@ class XpmModuleLoaderSettings(val project: Project) :
             }
         }
 
-    val vendor: XpmVendorType? get() = XpmVendorType.types.find { it.isValidInstallDir(databasePath) }
+    val vendor: XpmVendorType?
+        get() = XpmVendorType.types.find { it.isValidInstallDir(databasePath) }
 
     // endregion
     // region XpmModuleLoader

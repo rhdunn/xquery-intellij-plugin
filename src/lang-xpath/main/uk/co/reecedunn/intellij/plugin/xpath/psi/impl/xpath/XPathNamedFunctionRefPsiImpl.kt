@@ -35,14 +35,17 @@ class XPathNamedFunctionRefPsiImpl(node: ASTNode) :
     VersionConformance {
     // region VersionConformance
 
-    override val requiresConformance: List<Version> get() = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
+    override val requiresConformance: List<Version>
+        get() = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
 
-    override val conformanceElement: PsiElement get() = findChildByType(XPathTokenType.FUNCTION_REF_OPERATOR) ?: this
+    override val conformanceElement: PsiElement
+        get() = findChildByType(XPathTokenType.FUNCTION_REF_OPERATOR) ?: this
 
     // endregion
     // region XdmFunctionReference
 
-    override val functionName: XsQNameValue? get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
+    override val functionName: XsQNameValue?
+        get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
 
     override val arity: Int
         get() = (children().filterIsInstance<XPathIntegerLiteral>().firstOrNull() as? XsIntegerValue)?.toInt() ?: 0

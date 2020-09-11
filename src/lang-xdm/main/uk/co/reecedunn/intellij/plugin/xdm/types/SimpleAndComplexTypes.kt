@@ -47,7 +47,8 @@ interface XsAnySimpleType : XsAnyType
 
 interface XsAnyAtomicType : XsAnySimpleType, XdmItem
 
-val XsAnyAtomicType.element: PsiElement? get() = (this as XdmItem).element
+val XsAnyAtomicType.element: PsiElement?
+    get() = (this as XdmItem).element
 
 // endregion
 // region XQuery IntelliJ Plugin (2.2.2) xdm:anyListType

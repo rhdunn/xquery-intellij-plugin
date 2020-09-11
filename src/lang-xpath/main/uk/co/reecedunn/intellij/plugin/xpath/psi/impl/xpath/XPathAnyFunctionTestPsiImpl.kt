@@ -34,7 +34,8 @@ class XPathAnyFunctionTestPsiImpl(node: ASTNode) :
 
     override val typeName: String = "function(*)"
 
-    override val itemType: XdmItemType get() = this
+    override val itemType: XdmItemType
+        get() = this
 
     override val lowerBound: Int? = 1
 
@@ -48,9 +49,11 @@ class XPathAnyFunctionTestPsiImpl(node: ASTNode) :
     // endregion
     // region VersionConformance
 
-    override val requiresConformance: List<Version> get() = XQUERY30
+    override val requiresConformance: List<Version>
+        get() = XQUERY30
 
-    override val conformanceElement: PsiElement get() = firstChild
+    override val conformanceElement: PsiElement
+        get() = firstChild
 
     // endregion
 }
