@@ -30,5 +30,7 @@ interface XpmModulePathFactory {
 }
 
 fun XsAnyUriValue.paths(project: Project): Sequence<XpmModulePath> {
-    return XpmModulePathFactory.EP_NAME.extensions.asSequence().mapNotNull { it.getInstance().create(project, this) }
+    return XpmModulePathFactory.EP_NAME.extensionList.asSequence().mapNotNull {
+        it.getInstance().create(project, this)
+    }
 }

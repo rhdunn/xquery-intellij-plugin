@@ -27,7 +27,7 @@ interface QueryProcessorApi {
         )
 
         val apis: Sequence<QueryProcessorApi>
-            get() = EP_NAME.extensions.asSequence().map { it.getInstance() }.sortedBy {api ->
+            get() = EP_NAME.extensionList.asSequence().map { it.getInstance() }.sortedBy { api ->
                 api.presentation.presentableText
             }
     }

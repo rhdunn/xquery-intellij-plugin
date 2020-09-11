@@ -24,7 +24,7 @@ interface XpmSyntaxValidator {
         )
 
         val validators: Sequence<XpmSyntaxValidator>
-            get() = EP_NAME.extensions.asSequence().map { it.getInstance() }
+            get() = EP_NAME.extensionList.asSequence().map { it.getInstance() }
     }
 
     fun validate(element: XpmSyntaxValidationElement, reporter: XpmSyntaxErrorReporter)

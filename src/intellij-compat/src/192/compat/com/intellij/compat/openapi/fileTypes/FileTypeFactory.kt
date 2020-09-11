@@ -26,7 +26,7 @@ class FileTypeFactory : com.intellij.openapi.fileTypes.FileTypeFactory() {
     }
 
     override fun createFileTypes(consumer: FileTypeConsumer) {
-        EP_NAME.extensions.forEach { bean ->
+        EP_NAME.extensionList.forEach { bean ->
             val type = bean.instantiate<FileType>(
                 bean.implementationClass,
                 ApplicationManager.getApplication().picoContainer

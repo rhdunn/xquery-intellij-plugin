@@ -25,7 +25,7 @@ interface XpmVendorType {
         )
 
         val types: Sequence<XpmVendorType>
-            get() = EP_NAME.extensions.asSequence().map { it.getInstance() }
+            get() = EP_NAME.extensionList.asSequence().map { it.getInstance() }
     }
 
     val id: String

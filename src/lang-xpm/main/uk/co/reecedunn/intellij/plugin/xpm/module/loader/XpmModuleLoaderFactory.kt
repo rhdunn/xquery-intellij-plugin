@@ -25,7 +25,7 @@ interface XpmModuleLoaderFactory {
         )
 
         fun create(name: String, context: String?): XpmModuleLoader? {
-            return EP_NAME.extensions.find { it.name == name }?.getInstance()?.loader(context)
+            return EP_NAME.extensionList.find { it.name == name }?.getInstance()?.loader(context)
         }
     }
 

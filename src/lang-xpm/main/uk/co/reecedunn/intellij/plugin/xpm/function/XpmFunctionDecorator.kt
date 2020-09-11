@@ -26,7 +26,7 @@ interface XpmFunctionDecorator {
         )
 
         fun getIcon(function: XdmFunctionDeclaration): Icon? {
-            return EP_NAME.extensions.asSequence().mapNotNull { it.getInstance().getIcon(function) }.firstOrNull()
+            return EP_NAME.extensionList.asSequence().mapNotNull { it.getInstance().getIcon(function) }.firstOrNull()
         }
     }
 
