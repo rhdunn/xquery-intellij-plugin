@@ -55,8 +55,8 @@ class XPathInlineFunctionExprPsiImpl(node: ASTNode) :
     // endregion
     // region XdmFunctionDeclaration
 
-    private val paramList
-        get(): XPathParamList? = children().filterIsInstance<XPathParamList>().firstOrNull()
+    private val paramList: XPathParamList?
+        get() = children().filterIsInstance<XPathParamList>().firstOrNull()
 
     override val functionName: XsQNameValue? = null
 

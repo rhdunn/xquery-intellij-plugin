@@ -30,8 +30,8 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 open class XPathQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathQName, XsQNameValue {
     // region XsQNameValue
 
-    private val names
-        get(): Sequence<XsNCNameValue> = children().filterIsInstance<XsNCNameValue>()
+    private val names: Sequence<XsNCNameValue>
+        get() = children().filterIsInstance<XsNCNameValue>()
 
     override val namespace: XsAnyUriValue? = null
 

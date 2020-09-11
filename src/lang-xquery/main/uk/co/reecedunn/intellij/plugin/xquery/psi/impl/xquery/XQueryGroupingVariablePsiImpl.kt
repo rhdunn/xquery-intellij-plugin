@@ -27,8 +27,8 @@ class XQueryGroupingVariablePsiImpl(node: ASTNode) :
     XQueryGroupingVariable,
     XdmVariableName {
 
-    private val varName
-        get(): XdmVariableName? = children().filterIsInstance<XdmVariableName>().firstOrNull()
+    private val varName: XdmVariableName?
+        get() = children().filterIsInstance<XdmVariableName>().firstOrNull()
 
     override val variableName: XsQNameValue?
         get() = varName?.variableName

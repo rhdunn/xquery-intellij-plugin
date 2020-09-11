@@ -29,8 +29,8 @@ class PluginQuantifiedExprBindingPsiImpl(node: ASTNode) :
     PluginQuantifiedExprBinding,
     XdmVariableBinding {
 
-    private val varName
-        get(): XdmVariableName? = children().filterIsInstance<XPathVarName>().firstOrNull() as? XdmVariableName
+    private val varName: XdmVariableName?
+        get() = children().filterIsInstance<XPathVarName>().firstOrNull() as? XdmVariableName
 
     override val variableName: XsQNameValue?
         get() = varName?.variableName
