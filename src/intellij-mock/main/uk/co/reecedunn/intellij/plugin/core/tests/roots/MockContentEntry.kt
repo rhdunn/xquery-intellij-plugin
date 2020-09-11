@@ -25,127 +25,74 @@ import org.jetbrains.jps.model.module.JpsModuleSourceRootType
 import com.intellij.compat.openapi.roots.ContentEntry
 
 @Suppress("NonExtendableApiUsage")
-class MockContentEntry(private val file: VirtualFile) :
-    ContentEntry {
-    override fun setExcludePatterns(patterns: MutableList<String>) {
-        TODO("not implemented")
-    }
+class MockContentEntry(private val file: VirtualFile) : ContentEntry {
+    override fun setExcludePatterns(patterns: MutableList<String>): Unit = TODO()
 
-    override fun getUrl(): String {
-        TODO("not implemented")
-    }
+    override fun getUrl(): String = TODO()
 
-    override fun getExcludeFolders(): Array<ExcludeFolder> {
-        TODO("not implemented")
-    }
+    override fun getExcludeFolders(): Array<ExcludeFolder> = TODO()
 
-    override fun addExcludePattern(pattern: String) {
-        TODO("not implemented")
-    }
+    override fun addExcludePattern(pattern: String): Unit = TODO()
 
-    override fun getFile(): VirtualFile? {
-        TODO("not implemented")
-    }
+    override fun getFile(): VirtualFile? = TODO()
 
-    override fun removeExcludeFolder(excludeFolder: ExcludeFolder) {
-        TODO("not implemented")
-    }
+    override fun removeExcludeFolder(excludeFolder: ExcludeFolder): Unit = TODO()
 
-    override fun removeExcludeFolder(url: String): Boolean {
-        TODO("not implemented")
-    }
+    override fun removeExcludeFolder(url: String): Boolean = TODO()
 
-    override fun getExcludeFolderFiles(): Array<VirtualFile> {
-        TODO("not implemented")
-    }
+    override fun getExcludeFolderFiles(): Array<VirtualFile> = TODO()
 
-    override fun getSourceFolderFiles(): Array<VirtualFile> {
-        TODO("not implemented")
-    }
+    override fun getSourceFolderFiles(): Array<VirtualFile> = TODO()
 
-    override fun clearExcludeFolders() {
-        TODO("not implemented")
-    }
+    override fun clearExcludeFolders(): Unit = TODO()
 
-    override fun removeExcludePattern(pattern: String) {
-        TODO("not implemented")
-    }
+    override fun removeExcludePattern(pattern: String): Unit = TODO()
 
-    override fun getExcludePatterns(): MutableList<String> {
-        TODO("not implemented")
-    }
+    override fun getExcludePatterns(): MutableList<String> = TODO()
 
-    override fun addSourceFolder(file: VirtualFile, isTestSource: Boolean): SourceFolder {
-        TODO("not implemented")
-    }
+    override fun addSourceFolder(file: VirtualFile, isTestSource: Boolean): SourceFolder = TODO()
 
-    override fun addSourceFolder(file: VirtualFile, isTestSource: Boolean, packagePrefix: String): SourceFolder {
-        TODO("not implemented")
-    }
+    override fun addSourceFolder(file: VirtualFile, isTestSource: Boolean, packagePrefix: String): SourceFolder = TODO()
 
     override fun <P : JpsElement?> addSourceFolder(
         file: VirtualFile,
         type: JpsModuleSourceRootType<P>,
         properties: P
-    ): SourceFolder {
-        TODO("not implemented")
-    }
+    ): SourceFolder = TODO()
 
     override fun <P : JpsElement?> addSourceFolder(file: VirtualFile, type: JpsModuleSourceRootType<P>): SourceFolder {
-        TODO("not implemented")
+        TODO()
     }
 
-    override fun addSourceFolder(url: String, isTestSource: Boolean): SourceFolder {
-        TODO("not implemented")
-    }
+    override fun addSourceFolder(url: String, isTestSource: Boolean): SourceFolder = TODO()
 
-    override fun <P : JpsElement?> addSourceFolder(url: String, type: JpsModuleSourceRootType<P>): SourceFolder {
-        TODO("not implemented")
-    }
+    override fun <P : JpsElement?> addSourceFolder(url: String, type: JpsModuleSourceRootType<P>): SourceFolder = TODO()
 
     override fun <P : JpsElement?> addSourceFolder(
         url: String,
         type: JpsModuleSourceRootType<P>,
         properties: P
-    ): SourceFolder {
-        TODO("not implemented")
-    }
+    ): SourceFolder = TODO()
 
-    override fun clearSourceFolders() {
-        TODO("not implemented")
-    }
+    override fun clearSourceFolders(): Unit = TODO()
 
     override fun getSourceFolders(): Array<SourceFolder> = arrayOf(MockSourceFolder(file, JavaSourceRootType.SOURCE))
 
-    override fun getSourceFolders(rootType: JpsModuleSourceRootType<*>): MutableList<SourceFolder> {
-        TODO("not implemented")
-    }
+    override fun getSourceFolders(rootType: JpsModuleSourceRootType<*>): MutableList<SourceFolder> = TODO()
 
     override fun getSourceFolders(rootTypes: MutableSet<out JpsModuleSourceRootType<*>>): MutableList<SourceFolder> {
-        TODO("not implemented")
+        TODO()
     }
 
-    override fun getExcludeFolderUrls(): MutableList<String> {
-        TODO("not implemented")
-    }
+    override fun getExcludeFolderUrls(): MutableList<String> = TODO()
 
-    override fun addExcludeFolder(file: VirtualFile): ExcludeFolder {
-        TODO("not implemented")
-    }
+    override fun addExcludeFolder(file: VirtualFile): ExcludeFolder = TODO()
 
-    override fun addExcludeFolder(url: String): ExcludeFolder {
-        TODO("not implemented")
-    }
+    override fun addExcludeFolder(url: String): ExcludeFolder = TODO()
 
-    override fun isSynthetic(): Boolean {
-        TODO("not implemented")
-    }
+    override fun isSynthetic(): Boolean = TODO()
 
-    override fun removeSourceFolder(sourceFolder: SourceFolder) {
-        TODO("not implemented")
-    }
+    override fun removeSourceFolder(sourceFolder: SourceFolder): Unit = TODO()
 
-    override fun getRootModel(): ModuleRootModel {
-        TODO("not implemented")
-    }
+    override fun getRootModel(): ModuleRootModel = TODO()
 }

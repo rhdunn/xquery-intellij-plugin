@@ -35,83 +35,49 @@ class MockModuleManager(private val project: Project) : ModuleManager() {
     }
 
     @Suppress("UnstableApiUsage")
-    override fun setUnloadedModules(unloadedModuleNames: MutableList<String>) {
-        TODO("not implemented")
-    }
+    override fun setUnloadedModules(unloadedModuleNames: MutableList<String>): Unit = TODO()
 
-    override fun getModifiableModel(): ModifiableModuleModel {
-        TODO("not implemented")
-    }
+    override fun getModifiableModel(): ModifiableModuleModel = TODO()
 
-    override fun newModule(filePath: String, moduleTypeId: String): Module {
-        TODO("not implemented")
-    }
+    override fun newModule(filePath: String, moduleTypeId: String): Module = TODO()
 
-    override fun getModuleDependentModules(module: Module): MutableList<Module> {
-        TODO("not implemented")
-    }
+    override fun getModuleDependentModules(module: Module): MutableList<Module> = TODO()
 
-    override fun moduleDependencyComparator(): Comparator<Module> {
-        TODO("not implemented")
-    }
+    override fun moduleDependencyComparator(): Comparator<Module> = TODO()
 
-    override fun moduleGraph(): Graph<Module> {
-        TODO("not implemented")
-    }
+    override fun moduleGraph(): Graph<Module> = TODO()
 
-    override fun moduleGraph(includeTests: Boolean): Graph<Module> {
-        TODO("not implemented")
-    }
+    override fun moduleGraph(includeTests: Boolean): Graph<Module> = TODO()
 
     @ApiStatus.Experimental
     @Suppress("UnstableApiUsage")
-    override fun getUnloadedModuleDescriptions(): MutableCollection<UnloadedModuleDescription> {
-        TODO("not implemented")
-    }
+    override fun getUnloadedModuleDescriptions(): MutableCollection<UnloadedModuleDescription> = TODO()
 
-    override fun hasModuleGroups(): Boolean {
-        TODO("not implemented")
-    }
+    override fun hasModuleGroups(): Boolean = TODO()
 
-    override fun isModuleDependent(module: Module, onModule: Module): Boolean {
-        TODO("not implemented")
-    }
+    override fun isModuleDependent(module: Module, onModule: Module): Boolean = TODO()
 
     @ApiStatus.Experimental
     @Suppress("UnstableApiUsage")
-    override fun getAllModuleDescriptions(): MutableCollection<ModuleDescription> {
-        TODO("not implemented")
-    }
+    override fun getAllModuleDescriptions(): MutableCollection<ModuleDescription> = TODO()
 
-    override fun getModuleGroupPath(module: Module): Array<String>? {
-        TODO("not implemented")
-    }
+    override fun getModuleGroupPath(module: Module): Array<String>? = TODO()
 
     @ApiStatus.Experimental
     @Suppress("UnstableApiUsage")
-    override fun getModuleGrouper(model: ModifiableModuleModel?): ModuleGrouper {
-        TODO("not implemented")
-    }
+    override fun getModuleGrouper(model: ModifiableModuleModel?): ModuleGrouper = TODO()
 
-    override fun loadModule(filePath: String): Module {
-        TODO("not implemented")
-    }
+    override fun loadModule(filePath: String): Module = TODO()
 
     @ApiStatus.Experimental
     @Suppress("UnstableApiUsage")
-    override fun getUnloadedModuleDescription(moduleName: String): UnloadedModuleDescription? {
-        TODO("not implemented")
-    }
+    override fun getUnloadedModuleDescription(moduleName: String): UnloadedModuleDescription? = TODO()
 
     override fun getModules(): Array<Module> = modules
 
     override fun getSortedModules(): Array<Module> = modules
 
-    override fun findModuleByName(name: String): Module? {
-        TODO("not implemented")
-    }
+    override fun findModuleByName(name: String): Module? = TODO()
 
-    override fun disposeModule(module: Module) {
-        TODO("not implemented")
-    }
+    override fun disposeModule(module: Module) = TODO()
 }

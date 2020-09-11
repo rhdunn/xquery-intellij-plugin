@@ -25,57 +25,33 @@ import org.jetbrains.jps.model.module.JpsModuleSourceRootType
 
 @Suppress("NonExtendableApiUsage")
 class MockProjectRootsManager : ProjectRootManager() {
-    override fun setProjectSdkName(name: String) {
-        TODO("not implemented")
-    }
+    override fun setProjectSdkName(name: String): Unit = TODO()
 
-    override fun setProjectSdkName(name: String, sdkTypeName: String) {
-        TODO("not implemented")
-    }
+    override fun setProjectSdkName(name: String, sdkTypeName: String): Unit = TODO()
 
-    override fun orderEntries(): OrderEnumerator {
-        TODO("not implemented")
-    }
+    override fun orderEntries(): OrderEnumerator = TODO()
 
-    override fun orderEntries(modules: MutableCollection<out Module>): OrderEnumerator {
-        TODO("not implemented")
-    }
+    override fun orderEntries(modules: MutableCollection<out Module>): OrderEnumerator = TODO()
 
-    override fun getContentRootsFromAllModules(): Array<VirtualFile> {
-        TODO("not implemented")
-    }
+    override fun getContentRootsFromAllModules(): Array<VirtualFile> = TODO()
 
-    override fun getProjectSdkTypeName(): String? {
-        TODO("not implemented")
-    }
+    override fun getProjectSdkTypeName(): String? = TODO()
 
-    override fun setProjectSdk(sdk: Sdk?) {
-        TODO("not implemented")
-    }
+    override fun setProjectSdk(sdk: Sdk?): Unit = TODO()
 
     override fun getModuleSourceRoots(rootTypes: MutableSet<out JpsModuleSourceRootType<*>>): MutableList<VirtualFile> {
-        TODO("not implemented")
+        TODO()
     }
 
     override fun getContentSourceRoots(): Array<VirtualFile> = arrayOf()
 
-    override fun getFileIndex(): ProjectFileIndex {
-        TODO("not implemented")
-    }
+    override fun getFileIndex(): ProjectFileIndex = TODO()
 
-    override fun getProjectSdkName(): String {
-        TODO("not implemented")
-    }
+    override fun getProjectSdkName(): String = TODO()
 
-    override fun getProjectSdk(): Sdk? {
-        TODO("not implemented")
-    }
+    override fun getProjectSdk(): Sdk? = TODO()
 
-    override fun getContentRoots(): Array<VirtualFile> {
-        TODO("not implemented")
-    }
+    override fun getContentRoots(): Array<VirtualFile> = TODO()
 
-    override fun getContentRootUrls(): MutableList<String> {
-        TODO("not implemented")
-    }
+    override fun getContentRootUrls(): MutableList<String> = TODO()
 }
