@@ -13,17 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpm.lang.validation
+package uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires
 
-import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
-import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires.XpmRequiresConformanceTo
+import uk.co.reecedunn.intellij.plugin.xpm.intellij.resources.XpmBundle
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxErrorReporter
 
-interface XpmSyntaxErrorReporter {
-    val product: XpmProductVersion?
+class XpmRequiresAny(private vararg val requires: XpmRequiresConformanceTo) : XpmRequiresConformanceTo {
+    override fun conformanceTo(reporter: XpmSyntaxErrorReporter): Boolean {
+        return requires.any { it.conformanceTo(reporter) }
+    }
 
-    fun requires(
-        element: XpmSyntaxValidationElement,
-        requires: XpmRequiresConformanceTo,
-        conformanceName: String? = null
-    )
+    override fun toString(): String = requires.joinToString(XpmBundle.message("diagnostic.or"))
 }

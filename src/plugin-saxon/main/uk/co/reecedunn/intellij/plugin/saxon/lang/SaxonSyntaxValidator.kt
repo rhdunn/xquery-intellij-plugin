@@ -20,17 +20,22 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginParamRef
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxErrorReporter
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires.XpmRequiresAny
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires.XpmRequiresProductVersion
 
 object SaxonSyntaxValidator : XpmSyntaxValidator {
     override fun validate(
         element: XpmSyntaxValidationElement,
         reporter: XpmSyntaxErrorReporter
     ): Unit = when (element) {
-        is PluginOtherwiseExpr -> reporter.requireAnyProduct(element, PE_or_EE_10)
-        is PluginParamRef -> reporter.requireAnyProduct(element, PE_or_EE_10)
+        is PluginOtherwiseExpr -> reporter.requires(element, SAXON_PE_10)
+        is PluginParamRef -> reporter.requires(element, SAXON_PE_10)
         else -> {
         }
     }
 
-    private val PE_or_EE_10 = arrayOf(SaxonPE.VERSION_10_0, SaxonEE.VERSION_10_0)
+    private val SAXON_PE_10 = XpmRequiresAny(
+        XpmRequiresProductVersion(SaxonPE.VERSION_10_0),
+        XpmRequiresProductVersion(SaxonEE.VERSION_10_0)
+    )
 }
