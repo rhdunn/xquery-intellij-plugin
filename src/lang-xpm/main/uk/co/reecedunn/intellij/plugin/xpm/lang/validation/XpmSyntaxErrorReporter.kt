@@ -23,4 +23,10 @@ interface XpmSyntaxErrorReporter {
         productVersion: XpmProductVersion,
         conformanceName: String? = null
     )
+
+    fun requireAnyProduct(
+        element: XpmSyntaxValidationElement,
+        productVersion: Array<XpmProductVersion>,
+        conformanceName: String? = null
+    )
 }

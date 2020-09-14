@@ -23,11 +23,12 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
 import uk.co.reecedunn.intellij.plugin.xpm.lang.diagnostics.XpmDiagnostics
 import uk.co.reecedunn.intellij.plugin.xpm.lang.displayName
 import uk.co.reecedunn.intellij.plugin.xpm.lang.ge
+import java.lang.UnsupportedOperationException
 
 class XpmSyntaxValidation : XpmSyntaxErrorReporter {
     var product: XpmProductVersion? = null
 
-    private var requiredProduct: XpmProductVersion? = null
+    private var required: Any? = null
     private var conformanceElement: PsiElement? = null
     private var conformanceName: String? = null
 
@@ -37,7 +38,19 @@ class XpmSyntaxValidation : XpmSyntaxErrorReporter {
         conformanceName: String?
     ) {
         if (!(product?.product === productVersion.product && product!!.ge(productVersion))) {
-            this.requiredProduct = productVersion
+            this.required = productVersion
+            this.conformanceElement = element.conformanceElement
+            this.conformanceName = conformanceName
+        }
+    }
+
+    override fun requireAnyProduct(
+        element: XpmSyntaxValidationElement,
+        productVersion: Array<XpmProductVersion>,
+        conformanceName: String?
+    ) {
+        if (!productVersion.any { product?.product === it.product && product!!.ge(it) }) {
+            this.required = productVersion
             this.conformanceElement = element.conformanceElement
             this.conformanceName = conformanceName
         }
@@ -50,24 +63,28 @@ class XpmSyntaxValidation : XpmSyntaxErrorReporter {
     }
 
     fun validate(element: XpmSyntaxValidationElement, diagnostics: XpmDiagnostics) {
-        requiredProduct = null
+        required = null
 
         XpmSyntaxValidator.validators.forEach {
             it.validate(element, this)
         }
 
-        if (requiredProduct != null) {
+        if (required != null) {
+            val name = when (val required = required) {
+                is XpmProductVersion -> required.displayName
+                is Array<*> -> required.joinToString(XpmBundle.message("diagnostic.or")) {
+                    (it as XpmProductVersion).displayName
+                }
+                else -> throw UnsupportedOperationException()
+            }
             val message =
                 if (conformanceName != null)
                     XpmBundle.message(
                         "diagnostic.unsupported-syntax-name",
-                        product!!.displayName, requiredProduct!!.displayName, conformanceName!!
+                        product!!.displayName, name, conformanceName!!
                     )
                 else
-                    XpmBundle.message(
-                        "diagnostic.unsupported-syntax",
-                        product!!.displayName, requiredProduct!!.displayName
-                    )
+                    XpmBundle.message("diagnostic.unsupported-syntax", product!!.displayName, name)
             diagnostics.error(conformanceElement!!, XpmDiagnostics.XPST0003, message)
         }
     }

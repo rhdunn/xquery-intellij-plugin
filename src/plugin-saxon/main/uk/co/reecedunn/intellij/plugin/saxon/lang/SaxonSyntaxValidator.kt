@@ -25,8 +25,10 @@ object SaxonSyntaxValidator : XpmSyntaxValidator {
         element: XpmSyntaxValidationElement,
         reporter: XpmSyntaxErrorReporter
     ): Unit = when (element) {
-        is PluginOtherwiseExpr -> reporter.requireProduct(element, SaxonPE.VERSION_10_0)
+        is PluginOtherwiseExpr -> reporter.requireAnyProduct(element, PE_or_EE_10)
         else -> {
         }
     }
+
+    private val PE_or_EE_10 = arrayOf(SaxonPE.VERSION_10_0, SaxonEE.VERSION_10_0)
 }

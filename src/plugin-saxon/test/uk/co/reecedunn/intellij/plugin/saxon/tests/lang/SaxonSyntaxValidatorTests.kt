@@ -114,7 +114,7 @@ class SaxonSyntaxValidatorTest :
             assertThat(
                 report.toString(), `is`(
                     """
-                    E XPST0003(2:11): Saxon Home Edition 10.0 does not support Saxon Professional Edition 10.0 constructs.
+                    E XPST0003(2:11): Saxon Home Edition 10.0 does not support Saxon Professional Edition 10.0, or Saxon Enterprise Edition 10.0 constructs.
                     """.trimIndent()
                 )
             )
@@ -138,7 +138,7 @@ class SaxonSyntaxValidatorTest :
             assertThat(
                 report.toString(), `is`(
                     """
-                    E XPST0003(2:11): Saxon Professional Edition 9.9 does not support Saxon Professional Edition 10.0 constructs.
+                    E XPST0003(2:11): Saxon Professional Edition 9.9 does not support Saxon Professional Edition 10.0, or Saxon Enterprise Edition 10.0 constructs.
                     """.trimIndent()
                 )
             )
@@ -150,13 +150,7 @@ class SaxonSyntaxValidatorTest :
             val file = parse<XQueryModule>("1 otherwise 2")[0]
             validator.product = SaxonEE.VERSION_10_0
             validator.validate(file, this@SaxonSyntaxValidatorTest)
-            assertThat(
-                report.toString(), `is`(
-                    """
-                    E XPST0003(2:11): Saxon Enterprise Edition 10.0 does not support Saxon Professional Edition 10.0 constructs.
-                    """.trimIndent()
-                )
-            )
+            assertThat(report.toString(), `is`(""))
         }
 
         @Test
@@ -168,7 +162,7 @@ class SaxonSyntaxValidatorTest :
             assertThat(
                 report.toString(), `is`(
                     """
-                    E XPST0003(2:11): Saxon Enterprise Edition 9.9 does not support Saxon Professional Edition 10.0 constructs.
+                    E XPST0003(2:11): Saxon Enterprise Edition 9.9 does not support Saxon Professional Edition 10.0, or Saxon Enterprise Edition 10.0 constructs.
                     """.trimIndent()
                 )
             )
