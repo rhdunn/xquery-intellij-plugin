@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.saxon.lang
 
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginOtherwiseExpr
+import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginParamRef
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxErrorReporter
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
@@ -26,6 +27,7 @@ object SaxonSyntaxValidator : XpmSyntaxValidator {
         reporter: XpmSyntaxErrorReporter
     ): Unit = when (element) {
         is PluginOtherwiseExpr -> reporter.requireAnyProduct(element, PE_or_EE_10)
+        is PluginParamRef -> reporter.requireAnyProduct(element, PE_or_EE_10)
         else -> {
         }
     }
