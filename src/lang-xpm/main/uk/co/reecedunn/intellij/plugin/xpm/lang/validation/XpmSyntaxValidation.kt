@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
 import uk.co.reecedunn.intellij.plugin.xpm.lang.diagnostics.XpmDiagnostics
 import uk.co.reecedunn.intellij.plugin.xpm.lang.displayName
 import uk.co.reecedunn.intellij.plugin.xpm.lang.ge
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires.XpmRequiresConformanceTo
 import java.lang.UnsupportedOperationException
 
 class XpmSyntaxValidation : XpmSyntaxErrorReporter {
@@ -32,13 +33,13 @@ class XpmSyntaxValidation : XpmSyntaxErrorReporter {
     private var conformanceElement: PsiElement? = null
     private var conformanceName: String? = null
 
-    override fun requireProduct(
+    override fun requires(
         element: XpmSyntaxValidationElement,
-        productVersion: XpmProductVersion,
+        requires: XpmRequiresConformanceTo,
         conformanceName: String?
     ) {
-        if (!(product?.product === productVersion.product && product!!.ge(productVersion))) {
-            this.required = productVersion
+        if (!requires.conformanceTo(this)) {
+            this.required = requires
             this.conformanceElement = element.conformanceElement
             this.conformanceName = conformanceName
         }
@@ -71,7 +72,7 @@ class XpmSyntaxValidation : XpmSyntaxErrorReporter {
 
         if (required != null) {
             val name = when (val required = required) {
-                is XpmProductVersion -> required.displayName
+                is XpmRequiresConformanceTo -> required.toString()
                 is Array<*> -> required.joinToString(XpmBundle.message("diagnostic.or")) {
                     (it as XpmProductVersion).displayName
                 }

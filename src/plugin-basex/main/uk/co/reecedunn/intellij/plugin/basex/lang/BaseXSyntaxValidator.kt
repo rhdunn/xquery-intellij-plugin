@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxErrorReporter
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires.XpmRequiresProductVersion
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginFTFuzzyOption
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginNonDeterministicFunctionCall
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginUpdateExpr
@@ -34,17 +35,17 @@ object BaseXSyntaxValidator : XpmSyntaxValidator {
         element: XpmSyntaxValidationElement,
         reporter: XpmSyntaxErrorReporter
     ): Unit = when (element) {
-        is PluginElvisExpr -> reporter.requireProduct(element, BaseX.VERSION_9_1)
-        is PluginFTFuzzyOption -> reporter.requireProduct(element, BaseX.VERSION_6_1)
-        is PluginNonDeterministicFunctionCall -> reporter.requireProduct(element, BaseX.VERSION_8_4)
-        is PluginTernaryIfExpr -> reporter.requireProduct(element, BaseX.VERSION_9_1)
+        is PluginElvisExpr -> reporter.requires(element, BASEX_9_1)
+        is PluginFTFuzzyOption -> reporter.requires(element, BASEX_6_1)
+        is PluginNonDeterministicFunctionCall -> reporter.requires(element, BASEX_8_4)
+        is PluginTernaryIfExpr -> reporter.requires(element, BASEX_9_1)
         is PluginUpdateExpr -> when (element.conformanceElement.elementType) {
-            XQueryTokenType.K_UPDATE -> reporter.requireProduct(element, BaseX.VERSION_7_8)
-            else -> reporter.requireProduct(element, BaseX.VERSION_8_5)
+            XQueryTokenType.K_UPDATE -> reporter.requires(element, BASEX_7_8)
+            else -> reporter.requires(element, BASEX_8_5)
         }
         is XPathIfExpr -> when (element.conformanceElement.elementType) {
-            XPathTokenType.K_IF -> reporter.requireProduct(
-                element, BaseX.VERSION_9_1, BaseXBundle.message("conformance.if-without-else")
+            XPathTokenType.K_IF -> reporter.requires(
+                element, BASEX_9_1, BaseXBundle.message("conformance.if-without-else")
             )
             else -> {
             }
@@ -52,4 +53,10 @@ object BaseXSyntaxValidator : XpmSyntaxValidator {
         else -> {
         }
     }
+
+    private val BASEX_6_1 = XpmRequiresProductVersion(BaseX.VERSION_6_1)
+    private val BASEX_7_8 = XpmRequiresProductVersion(BaseX.VERSION_7_8)
+    private val BASEX_8_4 = XpmRequiresProductVersion(BaseX.VERSION_8_4)
+    private val BASEX_8_5 = XpmRequiresProductVersion(BaseX.VERSION_8_5)
+    private val BASEX_9_1 = XpmRequiresProductVersion(BaseX.VERSION_9_1)
 }

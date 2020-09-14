@@ -13,23 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpm.lang.validation
+package uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires
 
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
-import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires.XpmRequiresConformanceTo
+import uk.co.reecedunn.intellij.plugin.xpm.lang.displayName
+import uk.co.reecedunn.intellij.plugin.xpm.lang.ge
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxErrorReporter
 
-interface XpmSyntaxErrorReporter {
-    val product: XpmProductVersion?
+class XpmRequiresProductVersion(private val productVersion: XpmProductVersion) : XpmRequiresConformanceTo {
+    override fun conformanceTo(reporter: XpmSyntaxErrorReporter): Boolean {
+        return reporter.product?.let { it.product === productVersion.product && it.ge(productVersion) } == true
+    }
 
-    fun requires(
-        element: XpmSyntaxValidationElement,
-        requires: XpmRequiresConformanceTo,
-        conformanceName: String? = null
-    )
-
-    fun requireAnyProduct(
-        element: XpmSyntaxValidationElement,
-        productVersion: Array<XpmProductVersion>,
-        conformanceName: String? = null
-    )
+    override fun toString(): String = productVersion.displayName
 }

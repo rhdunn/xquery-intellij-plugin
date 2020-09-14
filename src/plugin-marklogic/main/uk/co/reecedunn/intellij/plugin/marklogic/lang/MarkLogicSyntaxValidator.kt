@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxErrorReporter
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires.XpmRequiresProductVersion
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCatchClause
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryValidateExpr
@@ -35,71 +36,71 @@ object MarkLogicSyntaxValidator : XpmSyntaxValidator {
         element: XpmSyntaxValidationElement,
         reporter: XpmSyntaxErrorReporter
     ): Unit = when (element) {
-        is PluginAnyArrayNodeTest -> reporter.requireProduct(element, MarkLogic.VERSION_8)
-        is PluginAnyBooleanNodeTest -> reporter.requireProduct(element, MarkLogic.VERSION_8)
-        is PluginAnyMapNodeTest -> reporter.requireProduct(element, MarkLogic.VERSION_8)
-        is PluginAnyNullNodeTest -> reporter.requireProduct(element, MarkLogic.VERSION_8)
-        is PluginAnyNumberNodeTest -> reporter.requireProduct(element, MarkLogic.VERSION_8)
-        is PluginAttributeDeclTest -> reporter.requireProduct(element, MarkLogic.VERSION_7)
-        is PluginBinaryConstructor -> reporter.requireProduct(element, MarkLogic.VERSION_6)
-        is PluginBinaryTest -> reporter.requireProduct(element, MarkLogic.VERSION_6)
-        is PluginBooleanConstructor -> reporter.requireProduct(element, MarkLogic.VERSION_8)
+        is PluginAnyArrayNodeTest -> reporter.requires(element, MARKLOGIC_8)
+        is PluginAnyBooleanNodeTest -> reporter.requires(element, MARKLOGIC_8)
+        is PluginAnyMapNodeTest -> reporter.requires(element, MARKLOGIC_8)
+        is PluginAnyNullNodeTest -> reporter.requires(element, MARKLOGIC_8)
+        is PluginAnyNumberNodeTest -> reporter.requires(element, MARKLOGIC_8)
+        is PluginAttributeDeclTest -> reporter.requires(element, MARKLOGIC_7)
+        is PluginBinaryConstructor -> reporter.requires(element, MARKLOGIC_6)
+        is PluginBinaryTest -> reporter.requires(element, MARKLOGIC_6)
+        is PluginBooleanConstructor -> reporter.requires(element, MARKLOGIC_8)
         is PluginCompatibilityAnnotation -> when (element.conformanceElement.elementType) {
-            XQueryTokenType.K_PRIVATE -> reporter.requireProduct(element, MarkLogic.VERSION_6)
+            XQueryTokenType.K_PRIVATE -> reporter.requires(element, MARKLOGIC_6)
             else -> {
             }
         }
-        is PluginComplexTypeTest -> reporter.requireProduct(element, MarkLogic.VERSION_7)
-        is PluginElementDeclTest -> reporter.requireProduct(element, MarkLogic.VERSION_7)
-        is PluginModelGroupTest -> reporter.requireProduct(element, MarkLogic.VERSION_7)
-        is PluginNamedArrayNodeTest -> reporter.requireProduct(element, MarkLogic.VERSION_8)
-        is PluginNamedBooleanNodeTest -> reporter.requireProduct(element, MarkLogic.VERSION_8)
-        is PluginNamedKindTest -> reporter.requireProduct(element, MarkLogic.VERSION_8)
-        is PluginNamedMapNodeTest -> reporter.requireProduct(element, MarkLogic.VERSION_8)
-        is PluginNamedNullNodeTest -> reporter.requireProduct(element, MarkLogic.VERSION_8)
-        is PluginNamedNumberNodeTest -> reporter.requireProduct(element, MarkLogic.VERSION_8)
-        is PluginNamedTextTest -> reporter.requireProduct(element, MarkLogic.VERSION_8)
-        is PluginNullConstructor -> reporter.requireProduct(element, MarkLogic.VERSION_8)
-        is PluginNumberConstructor -> reporter.requireProduct(element, MarkLogic.VERSION_8)
-        is PluginSchemaComponentTest -> reporter.requireProduct(element, MarkLogic.VERSION_7)
-        is PluginSchemaFacetTest -> reporter.requireProduct(element, MarkLogic.VERSION_7)
-        is PluginSchemaParticleTest -> reporter.requireProduct(element, MarkLogic.VERSION_7)
-        is PluginSchemaRootTest -> reporter.requireProduct(element, MarkLogic.VERSION_7)
-        is PluginSchemaTypeTest -> reporter.requireProduct(element, MarkLogic.VERSION_7)
-        is PluginSchemaWildcardTest -> reporter.requireProduct(element, MarkLogic.VERSION_7)
-        is PluginSimpleTypeTest -> reporter.requireProduct(element, MarkLogic.VERSION_7)
-        is PluginStylesheetImport -> reporter.requireProduct(element, MarkLogic.VERSION_6)
+        is PluginComplexTypeTest -> reporter.requires(element, MARKLOGIC_7)
+        is PluginElementDeclTest -> reporter.requires(element, MARKLOGIC_7)
+        is PluginModelGroupTest -> reporter.requires(element, MARKLOGIC_7)
+        is PluginNamedArrayNodeTest -> reporter.requires(element, MARKLOGIC_8)
+        is PluginNamedBooleanNodeTest -> reporter.requires(element, MARKLOGIC_8)
+        is PluginNamedKindTest -> reporter.requires(element, MARKLOGIC_8)
+        is PluginNamedMapNodeTest -> reporter.requires(element, MARKLOGIC_8)
+        is PluginNamedNullNodeTest -> reporter.requires(element, MARKLOGIC_8)
+        is PluginNamedNumberNodeTest -> reporter.requires(element, MARKLOGIC_8)
+        is PluginNamedTextTest -> reporter.requires(element, MARKLOGIC_8)
+        is PluginNullConstructor -> reporter.requires(element, MARKLOGIC_8)
+        is PluginNumberConstructor -> reporter.requires(element, MARKLOGIC_8)
+        is PluginSchemaComponentTest -> reporter.requires(element, MARKLOGIC_7)
+        is PluginSchemaFacetTest -> reporter.requires(element, MARKLOGIC_7)
+        is PluginSchemaParticleTest -> reporter.requires(element, MARKLOGIC_7)
+        is PluginSchemaRootTest -> reporter.requires(element, MARKLOGIC_7)
+        is PluginSchemaTypeTest -> reporter.requires(element, MARKLOGIC_7)
+        is PluginSchemaWildcardTest -> reporter.requires(element, MARKLOGIC_7)
+        is PluginSimpleTypeTest -> reporter.requires(element, MARKLOGIC_7)
+        is PluginStylesheetImport -> reporter.requires(element, MARKLOGIC_6)
         is PluginTransactionSeparator -> validateTransaction(element, reporter)
-        is PluginUsingDecl -> reporter.requireProduct(element, MarkLogic.VERSION_6)
+        is PluginUsingDecl -> reporter.requires(element, MARKLOGIC_6)
         is XPathAnyKindTest -> when (element.conformanceElement.elementType) {
-            XPathTokenType.STAR -> reporter.requireProduct(element, MarkLogic.VERSION_8)
+            XPathTokenType.STAR -> reporter.requires(element, MARKLOGIC_8)
             else -> {
             }
         }
         is XPathCurlyArrayConstructor -> when (element.conformanceElement.elementType) {
-            XPathTokenType.K_ARRAY_NODE -> reporter.requireProduct(element, MarkLogic.VERSION_8)
+            XPathTokenType.K_ARRAY_NODE -> reporter.requires(element, MARKLOGIC_8)
             else -> {
             }
         }
         is XPathForwardAxis -> when (element.conformanceElement.elementType) {
-            XPathTokenType.K_NAMESPACE -> reporter.requireProduct(element, MarkLogic.VERSION_6)
-            XPathTokenType.K_PROPERTY -> reporter.requireProduct(element, MarkLogic.VERSION_6)
+            XPathTokenType.K_NAMESPACE -> reporter.requires(element, MARKLOGIC_6)
+            XPathTokenType.K_PROPERTY -> reporter.requires(element, MARKLOGIC_6)
             else -> {
             }
         }
         is XPathMapConstructor -> when (element.conformanceElement.elementType) {
-            XPathTokenType.K_OBJECT_NODE -> reporter.requireProduct(element, MarkLogic.VERSION_8)
+            XPathTokenType.K_OBJECT_NODE -> reporter.requires(element, MARKLOGIC_8)
             else -> {
             }
         }
         is XQueryCatchClause -> when (element.conformanceElement.elementType) {
-            XPathTokenType.PARENTHESIS_OPEN -> reporter.requireProduct(element, MarkLogic.VERSION_6)
+            XPathTokenType.PARENTHESIS_OPEN -> reporter.requires(element, MARKLOGIC_6)
             else -> {
             }
         }
         is XQueryValidateExpr -> when (element.conformanceElement.elementType) {
-            XPathTokenType.K_AS -> reporter.requireProduct(element, MarkLogic.VERSION_6)
-            XQueryTokenType.K_FULL -> reporter.requireProduct(element, MarkLogic.VERSION_6)
+            XPathTokenType.K_AS -> reporter.requires(element, MARKLOGIC_6)
+            XQueryTokenType.K_FULL -> reporter.requires(element, MARKLOGIC_6)
             else -> {
             }
         }
@@ -111,13 +112,17 @@ object MarkLogicSyntaxValidator : XpmSyntaxValidator {
         when {
             element.parent.elementType === XQueryElementType.MODULE -> {
                 // File-level TransactionSeparators are created when the following QueryBody has a Prolog.
-                reporter.requireProduct(element, MarkLogic.VERSION_6)
+                reporter.requires(element, MARKLOGIC_6)
             }
             element.nextSibling === null -> {
                 // The last TransactionSeparator in a QueryBody.
                 // NOTE: The behaviour differs from MarkLogic and Scripting Extension, so is checked in an inspection.
             }
-            else -> reporter.requireProduct(element, MarkLogic.VERSION_6)
+            else -> reporter.requires(element, MARKLOGIC_6)
         }
     }
+
+    private val MARKLOGIC_6 = XpmRequiresProductVersion(MarkLogic.VERSION_6)
+    private val MARKLOGIC_7 = XpmRequiresProductVersion(MarkLogic.VERSION_7)
+    private val MARKLOGIC_8 = XpmRequiresProductVersion(MarkLogic.VERSION_8)
 }
