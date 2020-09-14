@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.ge
 import java.lang.UnsupportedOperationException
 
 class XpmSyntaxValidation : XpmSyntaxErrorReporter {
-    var product: XpmProductVersion? = null
+    override var product: XpmProductVersion? = null
 
     private var required: Any? = null
     private var conformanceElement: PsiElement? = null
