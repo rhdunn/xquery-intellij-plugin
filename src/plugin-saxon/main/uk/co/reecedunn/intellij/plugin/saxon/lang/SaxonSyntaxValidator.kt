@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.saxon.lang
 
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginContextItemFunctionExpr
+import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginLambdaFunctionExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginOtherwiseExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginParamRef
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
@@ -36,6 +37,7 @@ object SaxonSyntaxValidator : XpmSyntaxValidator {
             XPathTokenType.DOT, XPathTokenType.CONTEXT_FUNCTION -> reporter.requires(element, SAXON_PE_10)
             else -> reporter.requires(element, SAXON_PE_9_9_ONLY)
         }
+        is PluginLambdaFunctionExpr -> reporter.requires(element, SAXON_PE_10)
         is PluginOtherwiseExpr -> reporter.requires(element, SAXON_PE_10)
         is PluginParamRef -> reporter.requires(element, SAXON_PE_10)
         else -> {

@@ -18,16 +18,12 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Saxon
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginLambdaFunctionExpr
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
 class PluginLambdaFunctionExprPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PluginLambdaFunctionExpr, VersionConformance {
+    ASTWrapperPsiElement(node), PluginLambdaFunctionExpr, XpmSyntaxValidationElement {
     // region VersionConformance
-
-    override val requiresConformance: List<Version> = listOf(Saxon.VERSION_10_0)
 
     override val conformanceElement: PsiElement
         get() = firstChild
