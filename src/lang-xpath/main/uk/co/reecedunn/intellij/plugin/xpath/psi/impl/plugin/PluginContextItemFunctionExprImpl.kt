@@ -18,24 +18,17 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.core.psi.elementType
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Saxon
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginContextItemFunctionExpr
-import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
 class PluginContextItemFunctionExprImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PluginContextItemFunctionExpr, VersionConformance {
-
-    override val requiresConformance: List<Version>
-        get() = listOf(
-            when (conformanceElement.elementType) {
-                XPathTokenType.DOT, XPathTokenType.CONTEXT_FUNCTION -> Saxon.VERSION_10_0
-                else -> Saxon.VERSION_9_9
-            }
-        )
+    ASTWrapperPsiElement(node),
+    PluginContextItemFunctionExpr,
+    XpmSyntaxValidationElement {
+    // region XpmSyntaxValidationElement
 
     override val conformanceElement: PsiElement
         get() = firstChild
+
+    // endregion
 }

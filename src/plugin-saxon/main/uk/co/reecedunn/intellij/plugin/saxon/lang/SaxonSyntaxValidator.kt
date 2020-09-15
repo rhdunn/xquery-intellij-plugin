@@ -15,24 +15,37 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.lang
 
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
+import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginContextItemFunctionExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginOtherwiseExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginParamRef
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxErrorReporter
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires.XpmRequiresAny
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires.XpmRequiresProductVersion
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires.XpmRequiresProductVersionRange
 
 object SaxonSyntaxValidator : XpmSyntaxValidator {
     override fun validate(
         element: XpmSyntaxValidationElement,
         reporter: XpmSyntaxErrorReporter
     ): Unit = when (element) {
+        is PluginContextItemFunctionExpr -> when (element.conformanceElement.elementType) {
+            XPathTokenType.DOT, XPathTokenType.CONTEXT_FUNCTION -> reporter.requires(element, SAXON_PE_10)
+            else -> reporter.requires(element, SAXON_PE_9_9_ONLY)
+        }
         is PluginOtherwiseExpr -> reporter.requires(element, SAXON_PE_10)
         is PluginParamRef -> reporter.requires(element, SAXON_PE_10)
         else -> {
         }
     }
+
+    private val SAXON_PE_9_9_ONLY = XpmRequiresAny(
+        XpmRequiresProductVersionRange(SaxonPE.VERSION_9_9, SaxonPE.VERSION_9_9),
+        XpmRequiresProductVersionRange(SaxonEE.VERSION_9_9, SaxonEE.VERSION_9_9)
+    )
 
     private val SAXON_PE_10 = XpmRequiresAny(
         XpmRequiresProductVersion(SaxonPE.VERSION_10_0),

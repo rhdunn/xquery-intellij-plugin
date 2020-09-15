@@ -279,46 +279,6 @@ private class PluginConformanceTest : ParserTestCase() {
         }
     }
 
-    @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (81) ContextItemFunctionExpr")
-    internal inner class ContextItemFunctionExpr {
-        @Test
-        @DisplayName("simple inline function expression")
-        fun simpleInlineFunctionExpr() {
-            val file = parseResource("tests/parser/xpath-ng/proposal-5/SimpleInlineFunctionExpr.xq")
-            val versioned = file.walkTree().filterIsInstance<PluginContextItemFunctionExpr>().first() as VersionConformance
-
-            assertThat(versioned.requiresConformance.size, `is`(1))
-            assertThat(versioned.requiresConformance[0], `is`(Saxon.VERSION_9_9))
-
-            assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.K_FN))
-        }
-
-        @Test
-        @DisplayName("context item function expression")
-        fun contextItemFunctionExpr() {
-            val file = parseResource("tests/parser/xpath-ng/proposal-5/ContextItemFunctionExpr.xq")
-            val versioned = file.walkTree().filterIsInstance<PluginContextItemFunctionExpr>().first() as VersionConformance
-
-            assertThat(versioned.requiresConformance.size, `is`(1))
-            assertThat(versioned.requiresConformance[0], `is`(Saxon.VERSION_10_0))
-
-            assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.CONTEXT_FUNCTION))
-        }
-
-        @Test
-        @DisplayName("context item function expression; space between dot and brace")
-        fun contextItemFunctionExpr_spaceBetweenDotAndBrace() {
-            val file = parseResource("tests/parser/xpath-ng/proposal-5/ContextItemFunctionExpr_SpaceBetweenDotAndBrace.xq")
-            val versioned = file.walkTree().filterIsInstance<PluginContextItemFunctionExpr>().first() as VersionConformance
-
-            assertThat(versioned.requiresConformance.size, `is`(1))
-            assertThat(versioned.requiresConformance[0], `is`(Saxon.VERSION_10_0))
-
-            assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.DOT))
-        }
-    }
-
     @Test
     @DisplayName("XQuery IntelliJ Plugin EBNF (86) SequenceTypeUnion")
     fun testSequenceTypeUnion() {

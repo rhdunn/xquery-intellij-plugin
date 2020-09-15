@@ -31,5 +31,9 @@ fun XpmProductVersion.ge(other: XpmProductVersion): Boolean {
     return (this.major > other.major) || (this.major == other.major && this.minor >= other.minor)
 }
 
+fun XpmProductVersion.le(other: XpmProductVersion): Boolean {
+    return (this.major < other.major) || (this.major == other.major && this.minor <= other.minor)
+}
+
 val XpmProductVersion.displayName: String
     get() = "${product.presentation.presentableText} $id"
