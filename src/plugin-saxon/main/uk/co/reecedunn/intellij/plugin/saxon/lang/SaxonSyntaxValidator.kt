@@ -16,10 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.saxon.lang
 
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
-import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginContextItemFunctionExpr
-import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginLambdaFunctionExpr
-import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginOtherwiseExpr
-import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginParamRef
+import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxErrorReporter
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
@@ -40,9 +37,15 @@ object SaxonSyntaxValidator : XpmSyntaxValidator {
         is PluginLambdaFunctionExpr -> reporter.requires(element, SAXON_PE_10)
         is PluginOtherwiseExpr -> reporter.requires(element, SAXON_PE_10)
         is PluginParamRef -> reporter.requires(element, SAXON_PE_10)
+        is PluginUnionType -> reporter.requires(element, SAXON_PE_9_8)
         else -> {
         }
     }
+
+    private val SAXON_PE_9_8 = XpmRequiresAny(
+        XpmRequiresProductVersion(SaxonPE.VERSION_9_8),
+        XpmRequiresProductVersion(SaxonEE.VERSION_9_8)
+    )
 
     private val SAXON_PE_9_9_ONLY = XpmRequiresAny(
         XpmRequiresProductVersionRange(SaxonPE.VERSION_9_9, SaxonPE.VERSION_9_9),

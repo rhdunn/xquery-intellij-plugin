@@ -144,21 +144,6 @@ private class PluginConformanceTest : ParserTestCase() {
         assertThat(conformance.conformanceElement.elementType, `is`(XPathTokenType.K_TYPE))
     }
 
-    @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (22) UnionType")
-    fun testUnionType() {
-        val file = parseResource("tests/parser/xpath-ng/proposal-6/UnionType.xq")
-
-        val unionTypePsi = file.walkTree().filterIsInstance<PluginUnionType>().first()
-        val conformance = unionTypePsi as VersionConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(Saxon.VERSION_9_8))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.elementType, `is`(XPathTokenType.K_UNION))
-    }
-
     @Nested
     @DisplayName("XQuery IntelliJ Plugin EBNF (78) SequenceType")
     internal inner class SequenceType {
