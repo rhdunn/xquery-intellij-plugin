@@ -182,7 +182,7 @@ class SaxonSyntaxValidatorTest :
             @Test
             @DisplayName("Saxon HE")
             fun notSupportedHE() {
-                val file = parse<XQueryModule>("1 instance of tuple()")[0]
+                val file = parse<XQueryModule>("1 instance of tuple(a: xs:string, b: xs:string)")[0]
                 validator.product = SAXON_HE_9_8
                 validator.validate(file, this@SaxonSyntaxValidatorTest)
                 assertThat(
@@ -197,7 +197,7 @@ class SaxonSyntaxValidatorTest :
             @Test
             @DisplayName("Saxon PE >= 9.8")
             fun supportedPE() {
-                val file = parse<XQueryModule>("1 instance of tuple()")[0]
+                val file = parse<XQueryModule>("1 instance of tuple(a: xs:string, b: xs:string)")[0]
                 validator.product = SaxonPE.VERSION_9_8
                 validator.validate(file, this@SaxonSyntaxValidatorTest)
                 assertThat(report.toString(), `is`(""))
@@ -206,7 +206,7 @@ class SaxonSyntaxValidatorTest :
             @Test
             @DisplayName("Saxon PE < 9.8")
             fun notSupportedPE() {
-                val file = parse<XQueryModule>("1 instance of tuple()")[0]
+                val file = parse<XQueryModule>("1 instance of tuple(a: xs:string, b: xs:string)")[0]
                 validator.product = SaxonPE.VERSION_9_7
                 validator.validate(file, this@SaxonSyntaxValidatorTest)
                 assertThat(
@@ -221,7 +221,7 @@ class SaxonSyntaxValidatorTest :
             @Test
             @DisplayName("Saxon EE >= 9.8")
             fun supportedEE() {
-                val file = parse<XQueryModule>("1 instance of tuple()")[0]
+                val file = parse<XQueryModule>("1 instance of tuple(a: xs:string, b: xs:string)")[0]
                 validator.product = SaxonEE.VERSION_9_8
                 validator.validate(file, this@SaxonSyntaxValidatorTest)
                 assertThat(report.toString(), `is`(""))
@@ -230,7 +230,7 @@ class SaxonSyntaxValidatorTest :
             @Test
             @DisplayName("Saxon EE < 9.8")
             fun notSupportedEE() {
-                val file = parse<XQueryModule>("1 instance of tuple()")[0]
+                val file = parse<XQueryModule>("1 instance of tuple(a: xs:string, b: xs:string)")[0]
                 validator.product = SaxonEE.VERSION_9_7
                 validator.validate(file, this@SaxonSyntaxValidatorTest)
                 assertThat(
@@ -304,6 +304,150 @@ class SaxonSyntaxValidatorTest :
                     report.toString(), `is`(
                         """
                         E XPST0003(23:24): Saxon Enterprise Edition 9.8 does not support Saxon Professional Edition 9.9, or Saxon Enterprise Edition 9.9 constructs.
+                        """.trimIndent()
+                    )
+                )
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (24) TupleField")
+    internal inner class TupleField {
+        @Nested
+        @DisplayName("optional tuple field")
+        internal inner class Optional {
+            @Test
+            @DisplayName("Saxon HE")
+            fun notSupportedHE() {
+                val file = parse<XQueryModule>("1 instance of tuple(a?: xs:string, b? : xs:string)")[0]
+                validator.product = SAXON_HE_9_9
+                validator.validate(file, this@SaxonSyntaxValidatorTest)
+                assertThat(
+                    report.toString(), `is`(
+                        """
+                        E XPST0003(14:19): Saxon Home Edition 9.9 does not support Saxon Professional Edition 9.8, or Saxon Enterprise Edition 9.8 constructs.
+                        E XPST0003(21:23): Saxon Home Edition 9.9 does not support Saxon Professional Edition 9.9, or Saxon Enterprise Edition 9.9 constructs.
+                        E XPST0003(36:37): Saxon Home Edition 9.9 does not support Saxon Professional Edition 9.9, or Saxon Enterprise Edition 9.9 constructs.
+                        """.trimIndent()
+                    )
+                )
+            }
+
+            @Test
+            @DisplayName("Saxon PE >= 9.9")
+            fun supportedPE() {
+                val file = parse<XQueryModule>("1 instance of tuple(a?: xs:string, b? : xs:string)")[0]
+                validator.product = SaxonPE.VERSION_9_9
+                validator.validate(file, this@SaxonSyntaxValidatorTest)
+                assertThat(report.toString(), `is`(""))
+            }
+
+            @Test
+            @DisplayName("Saxon PE < 9.9")
+            fun notSupportedPE() {
+                val file = parse<XQueryModule>("1 instance of tuple(a?: xs:string, b? : xs:string)")[0]
+                validator.product = SaxonPE.VERSION_9_8
+                validator.validate(file, this@SaxonSyntaxValidatorTest)
+                assertThat(
+                    report.toString(), `is`(
+                        """
+                        E XPST0003(21:23): Saxon Professional Edition 9.8 does not support Saxon Professional Edition 9.9, or Saxon Enterprise Edition 9.9 constructs.
+                        E XPST0003(36:37): Saxon Professional Edition 9.8 does not support Saxon Professional Edition 9.9, or Saxon Enterprise Edition 9.9 constructs.
+                        """.trimIndent()
+                    )
+                )
+            }
+
+            @Test
+            @DisplayName("Saxon EE >= 9.9")
+            fun supportedEE() {
+                val file = parse<XQueryModule>("1 instance of tuple(a?: xs:string, b? : xs:string)")[0]
+                validator.product = SaxonEE.VERSION_9_9
+                validator.validate(file, this@SaxonSyntaxValidatorTest)
+                assertThat(report.toString(), `is`(""))
+            }
+
+            @Test
+            @DisplayName("Saxon EE < 9.9")
+            fun notSupportedEE() {
+                val file = parse<XQueryModule>("1 instance of tuple(a?: xs:string, b? : xs:string)")[0]
+                validator.product = SaxonEE.VERSION_9_8
+                validator.validate(file, this@SaxonSyntaxValidatorTest)
+                assertThat(
+                    report.toString(), `is`(
+                        """
+                        E XPST0003(21:23): Saxon Enterprise Edition 9.8 does not support Saxon Professional Edition 9.9, or Saxon Enterprise Edition 9.9 constructs.
+                        E XPST0003(36:37): Saxon Enterprise Edition 9.8 does not support Saxon Professional Edition 9.9, or Saxon Enterprise Edition 9.9 constructs.
+                        """.trimIndent()
+                    )
+                )
+            }
+        }
+
+        @Nested
+        @DisplayName("as SequenceType")
+        internal inner class AsSequenceType {
+            @Test
+            @DisplayName("Saxon HE")
+            fun notSupportedHE() {
+                val file = parse<XQueryModule>("1 instance of tuple(a as xs:string, b? as xs:string)")[0]
+                validator.product = SAXON_HE_9_9
+                validator.validate(file, this@SaxonSyntaxValidatorTest)
+                assertThat(
+                    report.toString(), `is`(
+                        """
+                        E XPST0003(14:19): Saxon Home Edition 9.9 does not support Saxon Professional Edition 9.8, or Saxon Enterprise Edition 9.8 constructs.
+                        E XPST0003(22:24): Saxon Home Edition 9.9 does not support Saxon Professional Edition 10.0, or Saxon Enterprise Edition 10.0 constructs.
+                        E XPST0003(37:38): Saxon Home Edition 9.9 does not support Saxon Professional Edition 9.9, or Saxon Enterprise Edition 9.9 constructs.
+                        """.trimIndent()
+                    )
+                )
+            }
+
+            @Test
+            @DisplayName("Saxon PE >= 10.0")
+            fun supportedPE() {
+                val file = parse<XQueryModule>("1 instance of tuple(a as xs:string, b? as xs:string)")[0]
+                validator.product = SaxonPE.VERSION_10_0
+                validator.validate(file, this@SaxonSyntaxValidatorTest)
+                assertThat(report.toString(), `is`(""))
+            }
+
+            @Test
+            @DisplayName("Saxon PE < 10.0")
+            fun notSupportedPE() {
+                val file = parse<XQueryModule>("1 instance of tuple(a as xs:string, b? as xs:string)")[0]
+                validator.product = SaxonPE.VERSION_9_9
+                validator.validate(file, this@SaxonSyntaxValidatorTest)
+                assertThat(
+                    report.toString(), `is`(
+                        """
+                        E XPST0003(22:24): Saxon Professional Edition 9.9 does not support Saxon Professional Edition 10.0, or Saxon Enterprise Edition 10.0 constructs.
+                        """.trimIndent()
+                    )
+                )
+            }
+
+            @Test
+            @DisplayName("Saxon EE >= 10.0")
+            fun supportedEE() {
+                val file = parse<XQueryModule>("1 instance of tuple(a as xs:string, b? as xs:string)")[0]
+                validator.product = SaxonEE.VERSION_10_0
+                validator.validate(file, this@SaxonSyntaxValidatorTest)
+                assertThat(report.toString(), `is`(""))
+            }
+
+            @Test
+            @DisplayName("Saxon EE < 10.0")
+            fun notSupportedEE() {
+                val file = parse<XQueryModule>("1 instance of tuple(a as xs:string, b? as xs:string)")[0]
+                validator.product = SaxonEE.VERSION_9_9
+                validator.validate(file, this@SaxonSyntaxValidatorTest)
+                assertThat(
+                    report.toString(), `is`(
+                        """
+                        E XPST0003(22:24): Saxon Enterprise Edition 9.9 does not support Saxon Professional Edition 10.0, or Saxon Enterprise Edition 10.0 constructs.
                         """.trimIndent()
                     )
                 )

@@ -20,25 +20,14 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Saxon
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginTupleField
-import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsStringValue
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
-private val SAXON9_8: List<Version> = listOf()
-private val SAXON9_9: List<Version> = listOf(Saxon.VERSION_9_9)
-private val SAXON10_0: List<Version> = listOf(Saxon.VERSION_10_0)
-
-private val OPTIONAL_TOKENS = TokenSet.create(
-    XPathTokenType.OPTIONAL,
-    XPathTokenType.ELVIS // ?: for compact whitespace
-)
-
-class PluginTupleFieldImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginTupleField, VersionConformance {
+class PluginTupleFieldImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginTupleField, XpmSyntaxValidationElement {
     // region PluginTupleField
 
     override val fieldName: XsStringValue
@@ -51,26 +40,26 @@ class PluginTupleFieldImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginTu
         get() = children().filterIsInstance<XdmSequenceType>().firstOrNull()
 
     override val isOptional: Boolean
-        get() = optional != null
+        get() = findChildByType<PsiElement>(OPTIONAL_TOKENS) != null
+
+    companion object {
+        private val OPTIONAL_TOKENS = TokenSet.create(
+            XPathTokenType.OPTIONAL,
+            XPathTokenType.ELVIS // ?: for compact whitespace
+        )
+
+        private val CONFORMANCE_ELEMENT_TOKENS = TokenSet.create(
+            XPathTokenType.OPTIONAL,
+            XPathTokenType.ELVIS, // ?: for compact whitespace
+            XPathTokenType.K_AS
+        )
+    }
 
     // endregion
-    // region VersionConformance
-
-    private val optional: PsiElement?
-        get() = findChildByType(OPTIONAL_TOKENS)
-
-    private val asType: PsiElement?
-        get() = findChildByType(XPathTokenType.K_AS)
-
-    override val requiresConformance: List<Version>
-        get() = when {
-            optional != null -> SAXON9_9
-            asType != null -> SAXON10_0
-            else -> SAXON9_8
-        }
+    // region XpmSyntaxValidationElement
 
     override val conformanceElement: PsiElement
-        get() = optional ?: asType ?: firstChild
+        get() = findChildByType(CONFORMANCE_ELEMENT_TOKENS) ?: firstChild
 
     // endregion
 }
