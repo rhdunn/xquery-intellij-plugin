@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires.XpmRequiresAny
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires.XpmRequiresProductVersion
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires.XpmRequiresProductVersionRange
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginTypeDecl
 
 object SaxonSyntaxValidator : XpmSyntaxValidator {
     override fun validate(
@@ -47,6 +48,7 @@ object SaxonSyntaxValidator : XpmSyntaxValidator {
             true -> reporter.requires(element, SAXON_PE_9_9)
             else -> reporter.requires(element, SAXON_PE_9_8)
         }
+        is PluginTypeDecl -> reporter.requires(element, SAXON_PE_9_8)
         is PluginUnionType -> reporter.requires(element, SAXON_PE_9_8)
         else -> {
         }

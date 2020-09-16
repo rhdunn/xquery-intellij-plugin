@@ -22,17 +22,15 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginTypeDecl
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Saxon
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import javax.swing.Icon
 
 class PluginTypeDeclImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PluginTypeDecl, VersionConformance, ItemPresentation {
+    ASTWrapperPsiElement(node), PluginTypeDecl, XpmSyntaxValidationElement, ItemPresentation {
     // region ASTDelegatePsiElement
 
     override fun subtreeChanged() {
@@ -47,10 +45,7 @@ class PluginTypeDeclImpl(node: ASTNode) :
         get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
 
     // endregion
-    // region VersionConformance
-
-    override val requiresConformance: List<Version>
-        get() = listOf(Saxon.VERSION_9_8)
+    // region XpmSyntaxValidationElement
 
     override val conformanceElement: PsiElement
         get() = findChildByType(XPathTokenType.K_TYPE) ?: firstChild
