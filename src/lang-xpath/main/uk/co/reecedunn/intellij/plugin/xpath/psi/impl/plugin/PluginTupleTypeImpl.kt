@@ -21,19 +21,14 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginTupleType
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Saxon
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmMap
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginTupleField
-
-private val SAXON98: List<Version> = listOf(Saxon.VERSION_9_8)
-private val SAXON99: List<Version> = listOf(Saxon.VERSION_9_9)
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
 class PluginTupleTypeImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PluginTupleType, XdmItemType, VersionConformance {
+    ASTWrapperPsiElement(node), PluginTupleType, XdmItemType, XpmSyntaxValidationElement {
     // region ASTDelegatePsiElement
 
     override fun subtreeChanged() {
@@ -88,10 +83,7 @@ class PluginTupleTypeImpl(node: ASTNode) :
     override val typeClass: Class<*> = XdmMap::class.java
 
     // endregion
-    // region VersionConformance
-
-    override val requiresConformance: List<Version>
-        get() = if (isExtensible) SAXON99 else SAXON98
+    // region XpmSyntaxValidationElement
 
     override val conformanceElement: PsiElement
         get() = findChildByType(XPathTokenType.STAR) ?: firstChild

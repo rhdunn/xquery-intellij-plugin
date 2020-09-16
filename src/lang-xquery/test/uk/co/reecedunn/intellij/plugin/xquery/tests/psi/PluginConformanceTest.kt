@@ -46,38 +46,6 @@ private class PluginConformanceTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (23) TupleType")
-    internal inner class TupleType {
-        @Test
-        @DisplayName("tuple type")
-        fun tupleType() {
-            val file = parseResource("tests/parser/saxon-9.8/TupleType.xq")
-
-            val tupleTypePsi = file.walkTree().filterIsInstance<PluginTupleType>().first()
-            val conformance = tupleTypePsi as VersionConformance
-
-            assertThat(conformance.requiresConformance.size, `is`(1))
-            assertThat(conformance.requiresConformance[0], `is`(Saxon.VERSION_9_8))
-
-            assertThat(conformance.conformanceElement, `is`(notNullValue()))
-            assertThat(conformance.conformanceElement.elementType, `is`(XPathTokenType.K_TUPLE))
-        }
-
-        @Test
-        @DisplayName("extensible tuple type")
-        fun extensible() {
-            val file = parseResource("tests/parser/saxon-9.9/TupleType_Extensible.xq")
-            val conformance = file.walkTree().filterIsInstance<PluginTupleType>().first() as VersionConformance
-
-            assertThat(conformance.requiresConformance.size, `is`(1))
-            assertThat(conformance.requiresConformance[0], `is`(Saxon.VERSION_9_9))
-
-            assertThat(conformance.conformanceElement, `is`(notNullValue()))
-            assertThat(conformance.conformanceElement.elementType, `is`(XPathTokenType.STAR))
-        }
-    }
-
-    @Nested
     @DisplayName("XQuery IntelliJ Plugin EBNF (24) TupleField")
     internal inner class TupleField {
         @Test

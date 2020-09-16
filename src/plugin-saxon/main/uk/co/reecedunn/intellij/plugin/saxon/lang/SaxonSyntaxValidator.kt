@@ -37,6 +37,10 @@ object SaxonSyntaxValidator : XpmSyntaxValidator {
         is PluginLambdaFunctionExpr -> reporter.requires(element, SAXON_PE_10)
         is PluginOtherwiseExpr -> reporter.requires(element, SAXON_PE_10)
         is PluginParamRef -> reporter.requires(element, SAXON_PE_10)
+        is PluginTupleType -> when (element.isExtensible) {
+            true -> reporter.requires(element, SAXON_PE_9_9)
+            else -> reporter.requires(element, SAXON_PE_9_8)
+        }
         is PluginUnionType -> reporter.requires(element, SAXON_PE_9_8)
         else -> {
         }
@@ -45,6 +49,11 @@ object SaxonSyntaxValidator : XpmSyntaxValidator {
     private val SAXON_PE_9_8 = XpmRequiresAny(
         XpmRequiresProductVersion(SaxonPE.VERSION_9_8),
         XpmRequiresProductVersion(SaxonEE.VERSION_9_8)
+    )
+
+    private val SAXON_PE_9_9 = XpmRequiresAny(
+        XpmRequiresProductVersion(SaxonPE.VERSION_9_9),
+        XpmRequiresProductVersion(SaxonEE.VERSION_9_9)
     )
 
     private val SAXON_PE_9_9_ONLY = XpmRequiresAny(
