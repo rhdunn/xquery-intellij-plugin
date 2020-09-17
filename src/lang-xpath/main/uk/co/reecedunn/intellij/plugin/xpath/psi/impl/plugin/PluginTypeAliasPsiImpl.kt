@@ -20,15 +20,13 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Saxon
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginTypeAlias
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
 class PluginTypeAliasPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PluginTypeAlias, XdmItemType, VersionConformance {
+    ASTWrapperPsiElement(node), PluginTypeAlias, XdmItemType, XpmSyntaxValidationElement {
     // region ASTDelegatePsiElement
 
     override fun subtreeChanged() {
@@ -65,10 +63,7 @@ class PluginTypeAliasPsiImpl(node: ASTNode) :
     override val typeClass: Class<*> = XdmItem::class.java
 
     // endregion
-    // region VersionConformance
-
-    override val requiresConformance: List<Version>
-        get() = listOf(Saxon.VERSION_9_8)
+    // region XpmSyntaxValidationElement
 
     override val conformanceElement: PsiElement
         get() = firstChild

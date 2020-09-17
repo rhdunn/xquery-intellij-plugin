@@ -48,6 +48,10 @@ object SaxonSyntaxValidator : XpmSyntaxValidator {
             true -> reporter.requires(element, SAXON_PE_9_9)
             else -> reporter.requires(element, SAXON_PE_9_8)
         }
+        is PluginTypeAlias -> when (element.conformanceElement.elementType) {
+            XPathTokenType.TYPE_ALIAS -> reporter.requires(element, SAXON_PE_9_8_TO_9_9) // ~T
+            else -> reporter.requires(element, SAXON_PE_10) // type(T)
+        }
         is PluginTypeDecl -> reporter.requires(element, SAXON_PE_9_8)
         is PluginUnionType -> reporter.requires(element, SAXON_PE_9_8)
         else -> {
@@ -57,6 +61,11 @@ object SaxonSyntaxValidator : XpmSyntaxValidator {
     private val SAXON_PE_9_8 = XpmRequiresAny(
         XpmRequiresProductVersion(SaxonPE.VERSION_9_8),
         XpmRequiresProductVersion(SaxonEE.VERSION_9_8)
+    )
+
+    private val SAXON_PE_9_8_TO_9_9 = XpmRequiresAny(
+        XpmRequiresProductVersionRange(SaxonPE.VERSION_9_8, SaxonPE.VERSION_9_9),
+        XpmRequiresProductVersionRange(SaxonEE.VERSION_9_8, SaxonEE.VERSION_9_9)
     )
 
     private val SAXON_PE_9_9 = XpmRequiresAny(
