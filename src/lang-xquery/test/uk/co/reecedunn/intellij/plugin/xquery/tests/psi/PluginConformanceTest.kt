@@ -216,16 +216,4 @@ private class PluginConformanceTest : ParserTestCase() {
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.elementType, `is`(XPathTokenType.ELLIPSIS))
     }
-
-    @Test
-    @DisplayName("XQuery 3.1 EBNF (199) ElementTest ; XQuery IntelliJ Plugin EBNF (111) ElementNameOrWildcard")
-    fun elementTest() {
-        val conformance = parse<XPathElementTest>("() instance of element(*:test)")[0] as VersionConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(Saxon.VERSION_10_0))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.elementType, `is`(XPathElementType.WILDCARD))
-    }
 }

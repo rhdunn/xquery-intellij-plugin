@@ -20,8 +20,6 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.intellij.lang.*
-import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathBundle
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathElementTest
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
@@ -30,9 +28,10 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathTypeName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathWildcard
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
 class XPathElementTestPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), VersionConformance, VersionConformanceName, XPathElementTest, XdmItemType {
+    ASTWrapperPsiElement(node), XpmSyntaxValidationElement, XPathElementTest, XdmItemType {
     // region ASTDelegatePsiElement
 
     override fun subtreeChanged() {
@@ -41,16 +40,10 @@ class XPathElementTestPsiImpl(node: ASTNode) :
     }
 
     // endregion
-    // region VersionConformance
-
-    override val requiresConformance: List<Version>
-        get() = if (conformanceElement is XPathWildcard) listOf(Saxon.VERSION_10_0) else listOf()
+    // region XpmSyntaxValidationElement
 
     override val conformanceElement: PsiElement
         get() = children().filterIsInstance<XPathWildcard>().firstOrNull() ?: firstChild
-
-    override val conformanceName: String?
-        get() = XPathBundle.message("construct.wildcard-element-test")
 
     // endregion
     // region XPathElementTest
