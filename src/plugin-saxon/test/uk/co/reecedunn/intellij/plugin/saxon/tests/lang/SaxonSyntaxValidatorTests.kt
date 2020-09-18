@@ -697,6 +697,103 @@ class SaxonSyntaxValidatorTest :
     }
 
     @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (112) AttribNameOrWildcard ; XQuery 3.1 EBNF (195) AttributeTest")
+    internal inner class AttributeTest {
+        @Test
+        @DisplayName("Saxon HE")
+        fun notSupportedHE() {
+            val file = parse<XQueryModule>(
+                """
+                1 instance of attribute(), (: XPath/XQuery :)
+                2 instance of attribute(ns:test), (: XPath/XQuery :)
+                3 instance of attribute(test:*) (: Saxon :)
+                """.trimIndent()
+            )[0]
+            validator.product = SaxonHE.VERSION_10_0
+            validator.validate(file, this@SaxonSyntaxValidatorTest)
+            assertThat(
+                report.toString(), `is`(
+                    """
+                    E XPST0003(123:129): Saxon Home Edition 10.0 does not support Saxon Professional Edition 10.0, or Saxon Enterprise Edition 10.0 wildcard local or prefix part in 'AttributeTest' constructs.
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("Saxon PE >= 10.0")
+        fun supportedPE() {
+            val file = parse<XQueryModule>(
+                """
+                1 instance of attribute(), (: XPath/XQuery :)
+                2 instance of attribute(ns:test), (: XPath/XQuery :)
+                3 instance of attribute(test:*) (: Saxon :)
+                """.trimIndent()
+            )[0]
+            validator.product = SaxonPE.VERSION_10_0
+            validator.validate(file, this@SaxonSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("Saxon PE < 10.0")
+        fun notSupportedPE() {
+            val file = parse<XQueryModule>(
+                """
+                1 instance of attribute(), (: XPath/XQuery :)
+                2 instance of attribute(ns:test), (: XPath/XQuery :)
+                3 instance of attribute(test:*) (: Saxon :)
+                """.trimIndent()
+            )[0]
+            validator.product = SaxonPE.VERSION_9_9
+            validator.validate(file, this@SaxonSyntaxValidatorTest)
+            assertThat(
+                report.toString(), `is`(
+                    """
+                    E XPST0003(123:129): Saxon Professional Edition 9.9 does not support Saxon Professional Edition 10.0, or Saxon Enterprise Edition 10.0 wildcard local or prefix part in 'AttributeTest' constructs.
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("Saxon EE >= 10.0")
+        fun supportedEE() {
+            val file = parse<XQueryModule>(
+                """
+                1 instance of attribute(), (: XPath/XQuery :)
+                2 instance of attribute(ns:test), (: XPath/XQuery :)
+                3 instance of attribute(test:*) (: Saxon :)
+                """.trimIndent()
+            )[0]
+            validator.product = SaxonEE.VERSION_10_0
+            validator.validate(file, this@SaxonSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("Saxon EE < 10.0")
+        fun notSupportedEE() {
+            val file = parse<XQueryModule>(
+                """
+                1 instance of attribute(), (: XPath/XQuery :)
+                2 instance of attribute(ns:test), (: XPath/XQuery :)
+                3 instance of attribute(test:*) (: Saxon :)
+                """.trimIndent()
+            )[0]
+            validator.product = SaxonEE.VERSION_9_9
+            validator.validate(file, this@SaxonSyntaxValidatorTest)
+            assertThat(
+                report.toString(), `is`(
+                    """
+                    E XPST0003(123:129): Saxon Enterprise Edition 9.9 does not support Saxon Professional Edition 10.0, or Saxon Enterprise Edition 10.0 wildcard local or prefix part in 'AttributeTest' constructs.
+                    """.trimIndent()
+                )
+            )
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery IntelliJ Plugin EBNF (114) OtherwiseExpr")
     internal inner class OtherwiseExpr {
         @Test

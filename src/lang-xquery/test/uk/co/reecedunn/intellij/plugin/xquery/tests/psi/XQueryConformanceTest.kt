@@ -1879,24 +1879,4 @@ private class XQueryConformanceTest : ParserTestCase() {
             assertThat(conformance.conformanceElement.elementType, `is`(XPathTokenType.K_ELEMENT))
         }
     }
-
-    @Nested
-    @DisplayName("XQuery 3.1 EBNF (195) AttributeTest ; XQuery 3.1 EBNF (196) AttribNameOrWildcard")
-    internal inner class AttributeTest {
-        @Test
-        @DisplayName("any")
-        fun any() {
-            val conformance = parse<XPathAttributeTest>("() instance of attribute()")[0] as VersionConformance
-            assertThat(conformance.requiresConformance.size, `is`(0))
-            assertThat(conformance.conformanceElement.elementType, `is`(XPathTokenType.K_ATTRIBUTE))
-        }
-
-        @Test
-        @DisplayName("EQName")
-        fun eqname() {
-            val conformance = parse<XPathAttributeTest>("() instance of attribute(ns:test)")[0] as VersionConformance
-            assertThat(conformance.requiresConformance.size, `is`(0))
-            assertThat(conformance.conformanceElement.elementType, `is`(XPathTokenType.K_ATTRIBUTE))
-        }
-    }
 }

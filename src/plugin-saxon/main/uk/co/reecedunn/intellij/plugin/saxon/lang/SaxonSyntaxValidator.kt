@@ -17,6 +17,9 @@ package uk.co.reecedunn.intellij.plugin.saxon.lang
 
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.*
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAttributeTest
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathWildcard
+import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathBundle
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxErrorReporter
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
@@ -54,6 +57,14 @@ object SaxonSyntaxValidator : XpmSyntaxValidator {
         }
         is PluginTypeDecl -> reporter.requires(element, SAXON_PE_9_8)
         is PluginUnionType -> reporter.requires(element, SAXON_PE_9_8)
+        is XPathAttributeTest -> when (element.conformanceElement) {
+            is XPathWildcard -> {
+                val name = XPathBundle.message("construct.wildcard-attribute-test")
+                reporter.requires(element, SAXON_PE_10, name)
+            }
+            else -> {
+            }
+        }
         else -> {
         }
     }
