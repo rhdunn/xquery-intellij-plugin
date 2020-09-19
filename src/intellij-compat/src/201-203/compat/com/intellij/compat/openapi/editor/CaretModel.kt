@@ -20,4 +20,6 @@ import com.intellij.openapi.editor.LogicalPosition
 
 interface CaretModel : com.intellij.openapi.editor.CaretModel {
     fun addCaret(pos: LogicalPosition, makePrimary: Boolean): Caret?
+
+    fun getMaxCaretCount(): Int
 }

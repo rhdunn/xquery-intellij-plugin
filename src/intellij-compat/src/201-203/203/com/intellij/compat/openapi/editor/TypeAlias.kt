@@ -15,6 +15,4 @@
  */
 package com.intellij.compat.openapi.editor
 
-interface CaretModel : com.intellij.openapi.editor.CaretModel {
-    fun getMaxCaretCount(): Int
-}
+typealias CaretModel = com.intellij.openapi.editor.CaretModel

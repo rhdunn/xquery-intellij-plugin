@@ -101,4 +101,6 @@ class MockCaretModel(private val editor: Editor) : CaretModel {
     override fun getCurrentCaret(): Caret = TODO()
 
     override fun getVisualPosition(): VisualPosition = TODO()
+
+    override fun getMaxCaretCount(): Int = TODO()
 }
