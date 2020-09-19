@@ -61,57 +61,6 @@ private class PluginConformanceTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (79) OrExpr")
-    internal inner class OrExpr {
-        @Test
-        @DisplayName("or only")
-        fun or() {
-            val file = parseResource("tests/parser/xquery-1.0/OrExpr.xq")
-            val versioned = file.walkTree().filterIsInstance<XPathOrExpr>().first() as VersionConformance
-
-            assertThat(versioned.requiresConformance.size, `is`(0))
-
-            assertThat(versioned.conformanceElement.elementType, `is`(XPathElementType.NODE_TEST))
-        }
-
-        @Test
-        @DisplayName("orElse only")
-        fun orElse() {
-            val file = parseResource("tests/parser/saxon-9.9/OrExpr_SingleOrElse.xq")
-            val versioned = file.walkTree().filterIsInstance<XPathOrExpr>().first() as VersionConformance
-
-            assertThat(versioned.requiresConformance.size, `is`(1))
-            assertThat(versioned.requiresConformance[0], `is`(Saxon.VERSION_9_9))
-
-            assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.K_ORELSE))
-        }
-
-        @Test
-        @DisplayName("orElse first")
-        fun orElseFirst() {
-            val file = parseResource("tests/parser/saxon-9.9/OrExpr_Mixed_OrElseFirst.xq")
-            val versioned = file.walkTree().filterIsInstance<XPathOrExpr>().first() as VersionConformance
-
-            assertThat(versioned.requiresConformance.size, `is`(1))
-            assertThat(versioned.requiresConformance[0], `is`(Saxon.VERSION_9_9))
-
-            assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.K_ORELSE))
-        }
-
-        @Test
-        @DisplayName("orElse last")
-        fun orElseLast() {
-            val file = parseResource("tests/parser/saxon-9.9/OrExpr_Mixed_OrElseLast.xq")
-            val versioned = file.walkTree().filterIsInstance<XPathOrExpr>().first() as VersionConformance
-
-            assertThat(versioned.requiresConformance.size, `is`(1))
-            assertThat(versioned.requiresConformance[0], `is`(Saxon.VERSION_9_9))
-
-            assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.K_ORELSE))
-        }
-    }
-
-    @Nested
     @DisplayName("XQuery IntelliJ Plugin EBNF (11) AndExpr")
     internal inner class AndExpr {
         @Test
