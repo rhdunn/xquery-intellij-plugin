@@ -17,10 +17,7 @@ package uk.co.reecedunn.intellij.plugin.saxon.lang
 
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.*
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAttributeTest
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathElementTest
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathOrExpr
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathWildcard
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathBundle
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxErrorReporter
@@ -60,6 +57,11 @@ object SaxonSyntaxValidator : XpmSyntaxValidator {
         }
         is PluginTypeDecl -> reporter.requires(element, SAXON_PE_9_8)
         is PluginUnionType -> reporter.requires(element, SAXON_PE_9_8)
+        is XPathAndExpr -> when (element.conformanceElement.elementType) {
+            XPathTokenType.K_ANDALSO -> reporter.requires(element, SAXON_PE_9_9)
+            else -> {
+            }
+        }
         is XPathAttributeTest -> when (element.conformanceElement) {
             is XPathWildcard -> {
                 val name = XPathBundle.message("construct.wildcard-attribute-test")

@@ -110,6 +110,73 @@ class SaxonSyntaxValidatorTest :
     private val SAXON_HE_10_0: XpmProductVersion = SaxonVersion(SaxonHE, 10, 0, "")
 
     @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (11) OrExpr")
+    internal inner class AndExpr {
+        @Test
+        @DisplayName("Saxon HE")
+        fun notSupportedHE() {
+            val file = parse<XQueryModule>("1 and 2, 3 andAlso 4")[0]
+            validator.product = SAXON_HE_9_9
+            validator.validate(file, this@SaxonSyntaxValidatorTest)
+            assertThat(
+                report.toString(), `is`(
+                    """
+                    E XPST0003(11:18): Saxon Home Edition 9.9 does not support Saxon Professional Edition 9.9, or Saxon Enterprise Edition 9.9 constructs.
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("Saxon PE >= 9.9")
+        fun supportedPE() {
+            val file = parse<XQueryModule>("1 and 2, 3 andAlso 4")[0]
+            validator.product = SaxonPE.VERSION_9_9
+            validator.validate(file, this@SaxonSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("Saxon PE < 9.9")
+        fun notSupportedPE() {
+            val file = parse<XQueryModule>("1 and 2, 3 andAlso 4")[0]
+            validator.product = SaxonPE.VERSION_9_8
+            validator.validate(file, this@SaxonSyntaxValidatorTest)
+            assertThat(
+                report.toString(), `is`(
+                    """
+                    E XPST0003(11:18): Saxon Professional Edition 9.8 does not support Saxon Professional Edition 9.9, or Saxon Enterprise Edition 9.9 constructs.
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("Saxon EE >= 9.9")
+        fun supportedEE() {
+            val file = parse<XQueryModule>("1 and 2, 3 andAlso 4")[0]
+            validator.product = SaxonEE.VERSION_9_9
+            validator.validate(file, this@SaxonSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("Saxon EE < 9.9")
+        fun notSupportedEE() {
+            val file = parse<XQueryModule>("1 and 2, 3 andAlso 4")[0]
+            validator.product = SaxonEE.VERSION_9_8
+            validator.validate(file, this@SaxonSyntaxValidatorTest)
+            assertThat(
+                report.toString(), `is`(
+                    """
+                    E XPST0003(11:18): Saxon Enterprise Edition 9.8 does not support Saxon Professional Edition 9.9, or Saxon Enterprise Edition 9.9 constructs.
+                    """.trimIndent()
+                )
+            )
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery IntelliJ Plugin EBNF (19) TypeDecl")
     internal inner class TypeDecl {
         @Test

@@ -60,57 +60,6 @@ private class PluginConformanceTest : ParserTestCase() {
         }
     }
 
-    @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (11) AndExpr")
-    internal inner class AndExpr {
-        @Test
-        @DisplayName("and only")
-        fun and() {
-            val file = parseResource("tests/parser/xquery-1.0/AndExpr.xq")
-            val versioned = file.walkTree().filterIsInstance<XPathAndExpr>().first() as VersionConformance
-
-            assertThat(versioned.requiresConformance.size, `is`(0))
-
-            assertThat(versioned.conformanceElement.elementType, `is`(XPathElementType.NODE_TEST))
-        }
-
-        @Test
-        @DisplayName("andAlso only")
-        fun andAlso() {
-            val file = parseResource("tests/parser/saxon-9.9/AndExpr_SingleAndAlso.xq")
-            val versioned = file.walkTree().filterIsInstance<XPathAndExpr>().first() as VersionConformance
-
-            assertThat(versioned.requiresConformance.size, `is`(1))
-            assertThat(versioned.requiresConformance[0], `is`(Saxon.VERSION_9_9))
-
-            assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.K_ANDALSO))
-        }
-
-        @Test
-        @DisplayName("andAlso first")
-        fun andAlsoFirst() {
-            val file = parseResource("tests/parser/saxon-9.9/AndExpr_Mixed_AndAlsoFirst.xq")
-            val versioned = file.walkTree().filterIsInstance<XPathAndExpr>().first() as VersionConformance
-
-            assertThat(versioned.requiresConformance.size, `is`(1))
-            assertThat(versioned.requiresConformance[0], `is`(Saxon.VERSION_9_9))
-
-            assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.K_ANDALSO))
-        }
-
-        @Test
-        @DisplayName("andAlso last")
-        fun andAlsoLast() {
-            val file = parseResource("tests/parser/saxon-9.9/AndExpr_Mixed_AndAlsoLast.xq")
-            val versioned = file.walkTree().filterIsInstance<XPathAndExpr>().first() as VersionConformance
-
-            assertThat(versioned.requiresConformance.size, `is`(1))
-            assertThat(versioned.requiresConformance[0], `is`(Saxon.VERSION_9_9))
-
-            assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.K_ANDALSO))
-        }
-    }
-
     @Test
     @DisplayName("XQuery IntelliJ Plugin EBNF (86) SequenceTypeUnion")
     fun testSequenceTypeUnion() {
