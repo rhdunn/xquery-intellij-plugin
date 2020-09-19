@@ -32,6 +32,12 @@ if (ext.intellij_version >= 202) {
     sourceSets.main.java.srcDirs += 'src/202/compat'
 }
 
+if (ext.intellij_version >= 203) {
+    sourceSets.main.java.srcDirs += 'src/203/native'
+} else {
+    sourceSets.main.java.srcDirs += 'src/203/compat'
+}
+
 // Microservices
 
 sourceSets.main.java.srcDirs += 'src/microservices/api'

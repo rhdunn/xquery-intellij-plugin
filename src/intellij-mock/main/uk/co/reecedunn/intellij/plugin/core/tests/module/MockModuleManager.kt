@@ -20,8 +20,11 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ModuleRootManager
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.util.graph.Graph
+import com.intellij.compat.openapi.module.ModuleManager
 import org.jetbrains.annotations.ApiStatus
 import uk.co.reecedunn.intellij.plugin.core.tests.roots.MockModuleRootsManager
+
+import java.nio.file.Path
 import java.util.Comparator
 
 class MockModuleManager(private val project: Project) : ModuleManager() {
@@ -68,6 +71,8 @@ class MockModuleManager(private val project: Project) : ModuleManager() {
     override fun getModuleGrouper(model: ModifiableModuleModel?): ModuleGrouper = TODO()
 
     override fun loadModule(filePath: String): Module = TODO()
+
+    override fun loadModule(file: Path): Module = TODO()
 
     @ApiStatus.Experimental
     @Suppress("UnstableApiUsage")
