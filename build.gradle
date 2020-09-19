@@ -37,10 +37,16 @@ buildscript {
         return "1.3.72"
     }
 
+    ext.java_from_build = { build ->
+        if (build >= 203) return "11"
+        return "1.8"
+    }
+
     ext.idea_version = System.getenv("IDEA_VERSION") ?: '2020.2'
     ext.idea_since_build = ext.since_from_version(ext.idea_version)
     ext.junit_milestone = ''
     ext.kotlin_version = ext.kotlin_from_build(ext.idea_since_build.toInteger())
+    ext.java_version = ext.java_from_build(ext.idea_since_build.toInteger())
 
     ext.plugin_version = '1.8'
     ext.suffix = '-dev'
@@ -82,13 +88,13 @@ configure(allprojects - project(':src')) {
 
     compileKotlin {
         kotlinOptions {
-            jvmTarget = "1.8"
+            jvmTarget = java_version
         }
     }
 
     compileTestKotlin {
         kotlinOptions {
-            jvmTarget = "1.8"
+            jvmTarget = java_version
         }
     }
 
