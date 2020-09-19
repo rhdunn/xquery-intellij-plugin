@@ -30,7 +30,7 @@ interface ContentProvider {
 
     fun createRunnerLayoutActions(): Array<AnAction>
 
-    fun attachToProcess(processHandler: ProcessHandler?)
+    fun attachToProcess(processHandler: ProcessHandler)
 
     fun attachToConsole(consoleView: ConsoleView)
 }

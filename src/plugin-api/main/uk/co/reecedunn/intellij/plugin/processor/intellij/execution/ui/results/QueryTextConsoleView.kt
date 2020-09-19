@@ -53,7 +53,7 @@ class QueryTextConsoleView(project: Project) : TextConsoleView(project), QueryRe
         return component
     }
 
-    override fun attachToProcess(processHandler: ProcessHandler?) {
+    override fun attachToProcess(processHandler: ProcessHandler) {
         queryProcessHandler = processHandler as? QueryProcessHandlerBase
         queryProcessHandler?.addQueryResultListener(this)
     }

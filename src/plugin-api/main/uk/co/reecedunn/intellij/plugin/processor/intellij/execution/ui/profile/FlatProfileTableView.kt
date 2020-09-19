@@ -121,7 +121,7 @@ class FlatProfileTableView(val project: Project) :
         return arrayOf(save!!)
     }
 
-    override fun attachToProcess(processHandler: ProcessHandler?) {
+    override fun attachToProcess(processHandler: ProcessHandler) {
         queryProcessHandler = processHandler as? ProfileableQueryProcessHandler
         queryProcessHandler?.addProfileReportListener(this)
     }

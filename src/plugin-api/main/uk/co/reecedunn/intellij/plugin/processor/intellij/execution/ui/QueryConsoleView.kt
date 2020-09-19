@@ -112,7 +112,7 @@ class QueryConsoleView(val project: Project, private val console: ConsoleViewEx)
 
     override fun getContentSize(): Int = console.contentSize
 
-    override fun attachToProcess(processHandler: ProcessHandler?) {
+    override fun attachToProcess(processHandler: ProcessHandler) {
         console.attachToProcess(processHandler)
         queryProcessHandler = processHandler as? QueryProcessHandlerBase
         queryProcessHandler?.addQueryResultListener(this)

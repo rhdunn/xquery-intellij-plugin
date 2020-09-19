@@ -81,7 +81,7 @@ class ConsoleRunnerLayoutUiBuilder(primary: ConsoleView) : ConsoleViewWrapperBas
         super.dispose()
     }
 
-    override fun attachToProcess(processHandler: ProcessHandler?) {
+    override fun attachToProcess(processHandler: ProcessHandler) {
         super.attachToProcess(processHandler)
         providers.forEach { it.attachToProcess(processHandler) }
     }

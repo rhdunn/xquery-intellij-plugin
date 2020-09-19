@@ -54,7 +54,7 @@ open class ConsoleViewImpl : JPanel(BorderLayout()), ConsoleView, DataProvider {
     override fun performWhenNoDeferredOutput(runnable: Runnable) {
     }
 
-    override fun attachToProcess(processHandler: ProcessHandler?) {
+    override fun attachToProcess(processHandler: ProcessHandler) {
     }
 
     override fun getPreferredFocusableComponent(): JComponent = this
