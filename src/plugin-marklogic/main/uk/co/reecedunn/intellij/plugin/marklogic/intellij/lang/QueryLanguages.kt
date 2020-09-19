@@ -27,12 +27,6 @@ object ServerSideJavaScript : Language("MLJavaScript", "application/vnd.marklogi
     override fun getDisplayName(): String = MarkLogicBundle.message("language.sjs.display-name")
 }
 
-object JavaScriptModule : Language("MLJavaScriptModule", "application/vnd.marklogic-js-module") {
-    override fun isCaseSensitive(): Boolean = true
-
-    override fun getDisplayName(): String = MarkLogicBundle.message("language.mjs.display-name")
-}
-
 val SPARQLQuery: Language by lazy {
     Language.findInstancesByMimeType("application/sparql-query").firstOrNull() ?: {
         val language = Language.findLanguageByID("SPARQLQuery") ?: object : Language("SPARQLQuery") {
