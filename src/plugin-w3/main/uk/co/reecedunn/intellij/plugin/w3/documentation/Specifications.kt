@@ -48,7 +48,24 @@ object FunctionsAndOperatorsDocumentation :
     )
 
     // endregion
-    // region Specifications
+    // region ItemPresentation
+
+    override fun getPresentableText(): String? = "XQuery and XPath Functions and Operators"
+
+    override fun getLocationString(): String? = null
+
+    override fun getIcon(unused: Boolean): Icon? = W3Icons.Product
+
+    // endregion
+    // region XpmSpecificationType
+
+    override val id: String = "xpath-functions"
+
+    override val presentation: ItemPresentation
+        get() = this
+
+    // endregion
+    // region XQDocDocumentationSourceProvider
 
     val WD_1_0_20030502: XQDocDocumentationSource = W3CSpecificationDocument(
         this, "https://www.w3.org/TR/2003/WD-xpath-functions-20030502/",
@@ -81,26 +98,6 @@ object FunctionsAndOperatorsDocumentation :
         "3.1-20170321", "3.1", NAMESPACES_31
     )
 
-    // endregion
-    // region ItemPresentation
-
-    override fun getPresentableText(): String? = "XQuery and XPath Functions and Operators"
-
-    override fun getLocationString(): String? = null
-
-    override fun getIcon(unused: Boolean): Icon? = W3Icons.Product
-
-    // endregion
-    // region XpmSpecificationType
-
-    override val id: String = "xpath-functions"
-
-    override val presentation: ItemPresentation
-        get() = this
-
-    // endregion
-    // region XQDocDocumentationSourceProvider
-
     override val sources: List<XQDocDocumentationSource> = listOf(
         WD_1_0_20030502,
         REC_1_0_20070123,
@@ -132,21 +129,6 @@ object XsltDocumentation : ItemPresentation, XpmSpecificationType, XQDocDocument
     private val NAMESPACES = mapOf<String, String>()
 
     // endregion
-    // region Specifications
-
-    val REC_1_0_19991116: XQDocDocumentationSource = W3CSpecificationDocument(
-        this, "http://www.w3.org/TR/1999/REC-xslt-19991116/", "1.0-19991116", "1.0", NAMESPACES
-    )
-
-    val REC_2_0_20070123: XQDocDocumentationSource = W3CSpecificationDocument(
-        this, "http://www.w3.org/TR/2007/REC-xslt20-20070123/", "2.0-20070123", "2.0", NAMESPACES
-    )
-
-    val REC_3_0_20170608: XQDocDocumentationSource = W3CSpecificationDocument(
-        this, "https://www.w3.org/TR/2017/REC-xslt-30-20170608/", "3.0-20170608", "3.0", NAMESPACES
-    )
-
-    // endregion
     // region ItemPresentation
 
     override fun getPresentableText(): String? = "XSL Transformations (XSLT)"
@@ -165,6 +147,18 @@ object XsltDocumentation : ItemPresentation, XpmSpecificationType, XQDocDocument
 
     // endregion
     // region XQDocDocumentationSourceProvider
+
+    val REC_1_0_19991116: XQDocDocumentationSource = W3CSpecificationDocument(
+        this, "http://www.w3.org/TR/1999/REC-xslt-19991116/", "1.0-19991116", "1.0", NAMESPACES
+    )
+
+    val REC_2_0_20070123: XQDocDocumentationSource = W3CSpecificationDocument(
+        this, "http://www.w3.org/TR/2007/REC-xslt20-20070123/", "2.0-20070123", "2.0", NAMESPACES
+    )
+
+    val REC_3_0_20170608: XQDocDocumentationSource = W3CSpecificationDocument(
+        this, "https://www.w3.org/TR/2017/REC-xslt-30-20170608/", "3.0-20170608", "3.0", NAMESPACES
+    )
 
     override val sources: List<XQDocDocumentationSource> = listOf(
         REC_1_0_19991116,
