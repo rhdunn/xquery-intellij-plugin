@@ -1,12 +1,14 @@
 language: java
 sudo: required
-jdk:
-  - openjdk8
 
-env:
-  - IDEA_VERSION=LATEST-EAP-SNAPSHOT
-  - IDEA_VERSION=IC-2020.2 # Current
-  - IDEA_VERSION=IC-2019.1 # Minimum Supported
+jobs:
+  include:
+    - jdk: openjdk8
+      env: IDEA_VERSION=LATEST-EAP-SNAPSHOT
+    - jdk: openjdk8
+      env: IDEA_VERSION=IC-2020.2 # Current
+    - jdk: openjdk8
+      env: IDEA_VERSION=IC-2019.1 # Minimum Supported
 
 install: true
 
