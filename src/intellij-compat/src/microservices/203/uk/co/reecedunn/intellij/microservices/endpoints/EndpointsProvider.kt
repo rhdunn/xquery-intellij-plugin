@@ -17,76 +17,54 @@ package uk.co.reecedunn.intellij.microservices.endpoints
 
 import com.intellij.microservices.endpoints.*
 import com.intellij.microservices.endpoints.EndpointsProvider
-import com.intellij.microservices.endpoints.EndpointsViewProvider
-import com.intellij.microservices.endpoints.VisibilityScope
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.actionSystem.DataProvider
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.util.ModificationTracker
 import com.intellij.ui.components.JBScrollPane
 import javax.swing.JComponent
 
 @Suppress("UnstableApiUsage")
-abstract class EndpointsProvider :
-    EndpointsProvider<EndpointsGroup, Endpoint>,
-    EndpointsViewProvider<EndpointsGroup, Endpoint>,
-    EndpointsFramework {
-    // region EndpointsProvider
-
+abstract class EndpointsProvider : EndpointsProvider<EndpointsGroup, Endpoint>, EndpointsFramework {
     private var cachedEndpointGroups: List<EndpointsGroup> = listOf()
 
-    override val endpointType: EndpointType = EndpointType.SERVER
-
-    abstract override val id: String
-
-    override val viewProvider: EndpointsViewProvider<EndpointsGroup, Endpoint>
-        get() = this
+    override val endpointType: EndpointType = HTTP_SERVER_TYPE
 
     override val presentation: FrameworkPresentation
         get() = FrameworkPresentation(presentableText!!, locationString!!, getIcon(false))
-
-    override fun getEndpointGroups(project: Project, scope: VisibilityScope): List<EndpointsGroup> {
-        return cachedEndpointGroups
-    }
-
-    override fun getEndpoints(group: EndpointsGroup): List<Endpoint> = group.endpoints.toList()
-
-    override fun hasEndpointGroups(project: Project, scope: VisibilityScope): Boolean {
-        cachedEndpointGroups = groups(project)
-        return cachedEndpointGroups.isNotEmpty()
-    }
-
-    override fun isAvailable(project: Project): Boolean = true
-
-    // endregion
-    // region EndpointsViewProvider
-
-    override val frameworkTag: String
-        get() = id
 
     override fun getEndpointData(group: EndpointsGroup, endpoint: Endpoint, dataId: String): Any? {
         return (endpoint as? DataProvider)?.getData(dataId)
     }
 
-    override fun getEndpointDetails(
+    override fun getEndpointDocumentation(
         group: EndpointsGroup, endpoint: Endpoint, parentDisposable: Disposable
     ): JComponent? {
         return JBScrollPane(endpoint.details)
+    }
+
+    override fun getEndpointGroups(project: Project, filter: EndpointsFilter): List<EndpointsGroup> {
+        return cachedEndpointGroups
     }
 
     override fun getEndpointPresentation(group: EndpointsGroup, endpoint: Endpoint): ItemPresentation {
         return EndpointPresentation(endpoint)
     }
 
-    override fun getGroupData(group: EndpointsGroup, dataId: String): Any? {
-        return (group as? DataProvider)?.getData(dataId)
+    override fun getEndpoints(group: EndpointsGroup): List<Endpoint> = group.endpoints.toList()
+
+    override fun getModificationTracker(project: Project): ModificationTracker {
+        return ModificationTracker.NEVER_CHANGED
     }
 
-    override fun getGroupPresentation(group: EndpointsGroup): ItemPresentation = group.presentation
+    override fun getStatus(project: Project): EndpointsProvider.Status {
+        cachedEndpointGroups = groups(project)
+        return if (cachedEndpointGroups.isNotEmpty())
+            EndpointsProvider.Status.AVAILABLE
+        else
+            EndpointsProvider.Status.HAS_ENDPOINTS
+    }
 
     override fun isValidEndpoint(group: EndpointsGroup, endpoint: Endpoint): Boolean = true
-
-    override fun isValidGroup(group: EndpointsGroup): Boolean = true
-
-    // endregion
 }
