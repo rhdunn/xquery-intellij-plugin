@@ -1,8 +1,0 @@
-<idea-plugin>
-  <extensions defaultExtensionNs="com.intellij">
-    <!-- MarkLogic Server-Side JavaScript -->
-    <fileType name="JavaScript" language="JavaScript" extensions="sjs;mjs"
-              implementationClass="com.intellij.lang.javascript.JavaScriptFileType"
-              fieldName="INSTANCE"/>
-  </extensions>
-</idea-plugin>
