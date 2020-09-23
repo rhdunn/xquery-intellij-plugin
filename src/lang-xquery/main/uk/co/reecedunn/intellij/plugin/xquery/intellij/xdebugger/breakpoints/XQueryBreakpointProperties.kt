@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.xquery.intellij.xdebugger.breakpoints
 
 import com.intellij.openapi.project.Project
-import com.intellij.psi.PsiElement
 import com.intellij.util.xmlb.XmlSerializerUtil
 import com.intellij.util.xmlb.annotations.OptionTag
 import com.intellij.xdebugger.XSourcePosition
@@ -33,13 +32,13 @@ class XQueryBreakpointProperties : XBreakpointProperties<XQueryBreakpointPropert
     @OptionTag("expr-offset")
     var exprOffset: Int = -1
 
-    fun getExpression(breakpoint: XLineBreakpoint<XQueryBreakpointProperties>?): PsiElement? {
+    fun getExpression(breakpoint: XLineBreakpoint<XQueryBreakpointProperties>?): XpmExpression? {
         val position = breakpoint?.sourcePosition ?: return null
         val project = getProject(breakpoint) ?: return null
         return getExpression(project, position)
     }
 
-    private fun getExpression(project: Project, position: XSourcePosition): PsiElement? {
+    private fun getExpression(project: Project, position: XSourcePosition): XpmExpression? {
         val module = position.file.toPsiFile(project) as? XQueryModule ?: return null
         return module.findElementAt(exprOffset)?.ancestorsAndSelf()?.filterIsInstance<XpmExpression>()?.firstOrNull()
     }

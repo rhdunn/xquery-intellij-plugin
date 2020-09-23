@@ -19,7 +19,6 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.TextRange
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.NavigatablePsiElement
-import com.intellij.psi.PsiElement
 import com.intellij.xdebugger.XSourcePosition
 import com.intellij.xdebugger.breakpoints.XLineBreakpoint
 import com.intellij.xdebugger.breakpoints.XLineBreakpointType
@@ -75,7 +74,7 @@ class XQueryExpressionBreakpointType :
 
     inner class ExpressionBreakpointVariant(
         position: XSourcePosition,
-        private val element: PsiElement
+        private val element: XpmExpression
     ) : XLinePsiElementBreakpointVariant(position, element) {
         override fun createProperties(): XQueryBreakpointProperties? {
             val properties = super.createProperties() ?: return null

@@ -19,7 +19,6 @@ import com.intellij.lang.Language
 import com.intellij.openapi.application.runInEdt
 import com.intellij.openapi.application.runReadAction
 import com.intellij.openapi.vfs.VirtualFile
-import com.intellij.psi.PsiElement
 import com.intellij.xdebugger.XSourcePosition
 import com.intellij.xdebugger.breakpoints.XBreakpointHandler
 import com.intellij.xdebugger.evaluation.XDebuggerEvaluator
@@ -38,6 +37,7 @@ import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame.QueryR
 import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame.QuerySuspendContext
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessState
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderSettings
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.xdebugger.breakpoints.XQueryExpressionBreakpointType
 import java.lang.RuntimeException
 import java.lang.ref.WeakReference
@@ -122,7 +122,7 @@ internal class MarkLogicDebugSession(
 
     // endregion
 
-    private fun getModuleUri(element: PsiElement): String? {
+    private fun getModuleUri(element: XpmExpression): String? {
         val file = element.containingFile.virtualFile
         if (file == query) return ""
 
@@ -146,7 +146,7 @@ internal class MarkLogicDebugSession(
         return query.run().results.first().value == "true"
     }
 
-    fun updateBreakpoint(element: PsiElement, register: Boolean, initializing: Boolean = false): Boolean {
+    fun updateBreakpoint(element: XpmExpression, register: Boolean, initializing: Boolean = false): Boolean {
         if (!initializing && state === QueryProcessState.Starting) return true
 
         val uri = getModuleUri(element) ?: return false

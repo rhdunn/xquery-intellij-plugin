@@ -15,11 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.query.rest.debugger.breakpoints
 
-import com.intellij.psi.PsiElement
 import com.intellij.xdebugger.breakpoints.XBreakpointHandler
 import com.intellij.xdebugger.breakpoints.XBreakpointType
 import com.intellij.xdebugger.breakpoints.XLineBreakpoint
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.debugger.MarkLogicDebugSession
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.xdebugger.breakpoints.XQueryBreakpointProperties
 import java.lang.ref.WeakReference
 
@@ -29,7 +29,7 @@ internal class MarkLogicXQueryBreakpointHandler(
 ) : XBreakpointHandler<XLineBreakpoint<XQueryBreakpointProperties>>(type) {
     // region XBreakpointHandler
 
-    val expressionBreakpoints = ArrayList<PsiElement>()
+    val expressionBreakpoints = ArrayList<XpmExpression>()
 
     override fun registerBreakpoint(breakpoint: XLineBreakpoint<XQueryBreakpointProperties>) {
         val expr = breakpoint.properties.getExpression(breakpoint) ?: return
