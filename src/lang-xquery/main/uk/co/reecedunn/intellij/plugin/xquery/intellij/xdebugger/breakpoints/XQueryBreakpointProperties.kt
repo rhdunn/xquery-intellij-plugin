@@ -26,7 +26,7 @@ import com.intellij.xdebugger.breakpoints.XLineBreakpoint
 import com.intellij.xdebugger.impl.breakpoints.XBreakpointBase
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestorsAndSelf
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExpr
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 
 class XQueryBreakpointProperties : XBreakpointProperties<XQueryBreakpointProperties>() {
@@ -41,7 +41,7 @@ class XQueryBreakpointProperties : XBreakpointProperties<XQueryBreakpointPropert
 
     private fun getExpression(project: Project, position: XSourcePosition): PsiElement? {
         val module = position.file.toPsiFile(project) as? XQueryModule ?: return null
-        return module.findElementAt(exprOffset)?.ancestorsAndSelf()?.filterIsInstance<XPathExpr>()?.firstOrNull()
+        return module.findElementAt(exprOffset)?.ancestorsAndSelf()?.filterIsInstance<XpmExpression>()?.firstOrNull()
     }
 
     private fun getProject(breakpoint: XLineBreakpoint<XQueryBreakpointProperties>): Project? {
