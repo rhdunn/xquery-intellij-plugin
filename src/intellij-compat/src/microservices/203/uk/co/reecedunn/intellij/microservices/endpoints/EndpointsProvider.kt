@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.microservices.endpoints
 
-import com.intellij.microservices.endpoints.EndpointType
+import com.intellij.microservices.endpoints.*
 import com.intellij.microservices.endpoints.EndpointsProvider
 import com.intellij.microservices.endpoints.EndpointsViewProvider
 import com.intellij.microservices.endpoints.VisibilityScope
@@ -42,6 +42,9 @@ abstract class EndpointsProvider :
     override val viewProvider: EndpointsViewProvider<EndpointsGroup, Endpoint>
         get() = this
 
+    override val presentation: FrameworkPresentation
+        get() = FrameworkPresentation(presentableText!!, locationString!!, getIcon(false))
+
     override fun getEndpointGroups(project: Project, scope: VisibilityScope): List<EndpointsGroup> {
         return cachedEndpointGroups
     }
@@ -57,9 +60,6 @@ abstract class EndpointsProvider :
 
     // endregion
     // region EndpointsViewProvider
-
-    override val frameworkPresentation: ItemPresentation
-        get() = presentation
 
     override val frameworkTag: String
         get() = id

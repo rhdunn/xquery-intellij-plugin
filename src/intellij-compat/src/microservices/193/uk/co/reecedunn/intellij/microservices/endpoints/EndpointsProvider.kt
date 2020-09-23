@@ -56,7 +56,7 @@ abstract class EndpointsProvider :
     // region EndpointsViewProvider
 
     override val frameworkPresentation: ItemPresentation
-        get() = presentation
+        get() = this
 
     override val frameworkTag: String
         get() = id

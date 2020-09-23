@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.exquery.restxq.endpoints
 
-import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ProjectRootManager
 import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsFramework
@@ -27,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryLibraryModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import javax.swing.Icon
 
-object RestXqEndpointsFramework : EndpointsFramework, ItemPresentation {
+object RestXqEndpointsFramework : EndpointsFramework {
     // region ItemPresentation
 
     override fun getIcon(unused: Boolean): Icon? = EXQueryIcons.RESTXQ.EndpointsFramework
@@ -40,9 +39,6 @@ object RestXqEndpointsFramework : EndpointsFramework, ItemPresentation {
     // region EndpointsFramework
 
     override val id: String = "xijp.exquery-restxq"
-
-    override val presentation: ItemPresentation
-        get() = this
 
     override fun groups(project: Project): List<EndpointsGroup> {
         val groups = ArrayList<EndpointsGroup>()

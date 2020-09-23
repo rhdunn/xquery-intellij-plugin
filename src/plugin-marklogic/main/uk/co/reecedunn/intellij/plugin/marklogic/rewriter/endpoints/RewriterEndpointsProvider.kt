@@ -15,19 +15,25 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints
 
-import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.project.Project
 import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsGroup
 import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsProvider
+import javax.swing.Icon
 
 class RewriterEndpointsProvider : EndpointsProvider() {
+    // region ItemPresentation
+
+    override fun getPresentableText(): String? = RewriterEndpointsFramework.presentableText
+
+    override fun getLocationString(): String? = RewriterEndpointsFramework.locationString
+
+    override fun getIcon(unused: Boolean): Icon? = RewriterEndpointsFramework.getIcon(unused)
+
+    // endregion
     // region EndpointsFramework
 
     override val id: String
         get() = RewriterEndpointsFramework.id
-
-    override val presentation: ItemPresentation
-        get() = RewriterEndpointsFramework.presentation
 
     override fun groups(project: Project): List<EndpointsGroup> = RewriterEndpointsFramework.groups(project)
 

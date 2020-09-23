@@ -18,10 +18,8 @@ package uk.co.reecedunn.intellij.microservices.endpoints
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.project.Project
 
-interface EndpointsFramework {
+interface EndpointsFramework : ItemPresentation {
     val id: String
-
-    val presentation: ItemPresentation
 
     fun groups(project: Project): List<EndpointsGroup>
 }

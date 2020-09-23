@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints
 
-import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.psi.xml.XmlFile
@@ -27,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicIco
 import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.lang.Rewriter
 import javax.swing.Icon
 
-object RewriterEndpointsFramework : EndpointsFramework, ItemPresentation {
+object RewriterEndpointsFramework : EndpointsFramework {
     // region ItemPresentation
 
     override fun getIcon(unused: Boolean): Icon? = MarkLogicIcons.Rewriter.EndpointsFramework
@@ -40,9 +39,6 @@ object RewriterEndpointsFramework : EndpointsFramework, ItemPresentation {
     // region EndpointsFramework
 
     override val id: String = "xijp.marklogic-rewriter"
-
-    override val presentation: ItemPresentation
-        get() = this
 
     override fun groups(project: Project): List<EndpointsGroup> {
         val groups = ArrayList<EndpointsGroup>()
