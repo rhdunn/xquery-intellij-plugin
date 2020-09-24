@@ -15,9 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.ast.plugin
 
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExprSingle
+import com.intellij.psi.PsiElement
 
 /**
  * A `QuantifiedExprBinding` node in the XQuery AST.
  */
-interface PluginQuantifiedExprBinding : XPathExprSingle
+interface PluginQuantifiedExprBinding : PsiElement
