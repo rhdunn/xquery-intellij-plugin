@@ -15,9 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
-import com.intellij.psi.PsiElement
-
 /**
  * An XPath 3.0 `LetExpr` node in the XPath AST.
  */
-interface XPathLetExpr : PsiElement
+interface XPathLetExpr : XPathExprSingle
