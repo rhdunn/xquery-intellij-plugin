@@ -15,6 +15,10 @@ IntelliJ Integration:
     elements.
 1.  Support `language=Language` injection marker comments.
 
+Saxon:
+
+1.  Include ClauseInfo objects in the flat profile table results.
+
 ## 2020
 
 *  [1.7.2 - 2020-08-31](docs/_posts/2020-08-31-release-1.7.2.md)

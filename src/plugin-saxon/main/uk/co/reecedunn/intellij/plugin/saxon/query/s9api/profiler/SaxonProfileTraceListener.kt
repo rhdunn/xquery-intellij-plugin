@@ -63,17 +63,11 @@ class SaxonProfileTraceListener(val version: String, val query: VirtualFile) : S
     override fun enter(instruction: InstructionInfo, properties: Map<String, Any>, context: XPathContext) {
         super.enter(instruction, properties, context)
 
-        // The ClauseInfo instructions are different for each iteration, so ignore them.
-        if (instruction.isClauseInfo()) return
-
         instructions.push(SaxonProfileInstruction(instruction, System.nanoTime()))
     }
 
     override fun leave(instruction: InstructionInfo) {
         super.leave(instruction)
-
-        // The ClauseInfo instructions are different for each iteration, so ignore them.
-        if (instruction.isClauseInfo()) return
 
         val current = instructions.pop()
         current.totalTime = System.nanoTime() - current.totalTime

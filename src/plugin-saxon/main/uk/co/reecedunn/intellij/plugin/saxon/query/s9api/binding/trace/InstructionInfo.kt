@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trace
 
 import uk.co.reecedunn.intellij.plugin.core.reflection.getMethodOrNull
-import uk.co.reecedunn.intellij.plugin.core.reflection.loadClassOrNull
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.Location
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.QName
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.om.StructuredQName
@@ -31,11 +30,6 @@ open class InstructionInfo(val saxonObject: Any, private val `class`: Class<*>) 
 
     private val location: Any by lazy {
         `class`.getMethodOrNull("getLocation")?.invoke(saxonObject) ?: saxonObject
-    }
-
-    fun isClauseInfo(): Boolean {
-        val clauseInfo = `class`.classLoader.loadClassOrNull("net.sf.saxon.expr.flwor.ClauseInfo")
-        return clauseInfo?.isInstance(saxonObject) == true
     }
 
     override fun getSystemId(): String? {
@@ -57,10 +51,25 @@ open class InstructionInfo(val saxonObject: Any, private val `class`: Class<*>) 
 
     override fun toString(): String = saxonObject.toString()
 
-    override fun hashCode(): Int = saxonObject.hashCode()
+    override fun hashCode(): Int {
+        // NOTE: Using saxonObject.hashCode results in ClauseInfo objects not to be grouped.
+        var result = systemId.hashCode()
+        result = 31 * result + publicId.hashCode()
+        result = 31 * result + lineNumber.hashCode()
+        result = 31 * result + columnNumber.hashCode()
+        return result
+    }
 
     override fun equals(other: Any?): Boolean {
         if (other !is InstructionInfo) return false
-        return saxonObject == other.saxonObject
+
+        // NOTE: Using saxonObject.equals results in ClauseInfo objects not to be grouped.
+        return when {
+            systemId != other.systemId -> false
+            publicId != other.publicId -> false
+            lineNumber != other.lineNumber -> false
+            columnNumber != other.columnNumber -> false
+            else -> true
+        }
     }
 }
