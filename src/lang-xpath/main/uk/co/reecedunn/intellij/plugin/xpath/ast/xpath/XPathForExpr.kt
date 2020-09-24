@@ -15,9 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
-import com.intellij.psi.PsiElement
-
 /**
  * An XPath 2.0 `ForExpr` node in the XPath AST.
  */
-interface XPathForExpr : PsiElement
+interface XPathForExpr : XPathExprSingle
