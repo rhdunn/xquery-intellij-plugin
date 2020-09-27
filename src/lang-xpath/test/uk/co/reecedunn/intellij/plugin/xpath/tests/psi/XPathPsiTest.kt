@@ -2086,6 +2086,19 @@ private class XPathPsiTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 3.1 (3.6) String Concatenation Expressions")
+    internal inner class StringConcatenationExpressions {
+        @Test
+        @DisplayName("XPath 3.1 EBNF (19) StringConcatExpr")
+        fun stringConcatExpr() {
+            val expr = parse<XPathStringConcatExpr>("1 || 2")[0] as XpmExpression
+
+            assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.CONCATENATION))
+            assertThat(expr.expressionElement?.textOffset, `is`(2))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 3.1 (3.7) Comparison Expressions")
     internal inner class ComparisonExpressions {
         @Nested

@@ -22,20 +22,19 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringConcatExpr
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
-private val XQUERY10: List<Version> = listOf()
-private val XQUERY30: List<Version> = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
-
 class XPathStringConcatExprPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), XPathStringConcatExpr, VersionConformance {
 
+    override val expressionElement: PsiElement
+        get() = findChildByType(XPathTokenType.CONCATENATION)!!
+
     override val requiresConformance: List<Version>
-        get() {
-            if (findChildByType<PsiElement>(XPathTokenType.CONCATENATION) == null) {
-                return XQUERY10
-            }
-            return XQUERY30
-        }
+        get() = XQUERY30
 
     override val conformanceElement: PsiElement
-        get() = findChildByType(XPathTokenType.CONCATENATION) ?: firstChild
+        get() = expressionElement
+
+    companion object {
+        private val XQUERY30: List<Version> = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
+    }
 }
