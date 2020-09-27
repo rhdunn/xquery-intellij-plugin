@@ -47,6 +47,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
 import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 import java.math.BigDecimal
 import java.math.BigInteger
 
@@ -2080,6 +2081,19 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(steps[0].getUsageType(), `is`(XstUsageType.Element))
                 assertThat(steps[1].getUsageType(), `is`(XstUsageType.Attribute))
             }
+        }
+    }
+
+    @Nested
+    @DisplayName("XPath 3.1 (3.8) Logical Expressions")
+    internal inner class LogicalExpressions {
+        @Test
+        @DisplayName("XPath 3.1 EBNF (16) OrExpr")
+        fun orExpr() {
+            val expr = parse<XPathOrExpr>("1 or 2")[0] as XpmExpression
+
+            assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_OR))
+            assertThat(expr.expressionElement?.textOffset, `is`(2))
         }
     }
 

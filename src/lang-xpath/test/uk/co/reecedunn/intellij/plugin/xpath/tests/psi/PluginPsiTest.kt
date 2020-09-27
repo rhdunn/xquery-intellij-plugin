@@ -21,6 +21,7 @@ import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstUsageType
@@ -31,8 +32,10 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginTypeAlias
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginUnionType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.getUsageType
 import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("XQuery IntelliJ Plugin - IntelliJ Program Structure Interface (PSI) - XPath")
@@ -228,6 +231,19 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(type.lowerBound, `is`(1))
                 assertThat(type.upperBound, `is`(1))
             }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin XPath (3.4) Logical Expressions")
+    internal inner class LogicalExpressions {
+        @Test
+        @DisplayName("XQuery IntelliJ Plugin XPath EBNF (19) OrExpr")
+        fun orExpr() {
+            val expr = parse<XPathOrExpr>("1 or 2")[0] as XpmExpression
+
+            assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_OR))
+            assertThat(expr.expressionElement?.textOffset, `is`(2))
         }
     }
 

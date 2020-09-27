@@ -58,6 +58,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.reference.XPathFunctionNameReference
 import uk.co.reecedunn.intellij.plugin.xpm.context.expand
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.xquery.model.getNamespaceType
@@ -2526,6 +2527,19 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(steps[0].getUsageType(), `is`(XstUsageType.Element))
                 assertThat(steps[1].getUsageType(), `is`(XstUsageType.Attribute))
             }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.1 (3.8) Logical Expressions")
+    internal inner class LogicalExpressions {
+        @Test
+        @DisplayName("XQuery 1.0 EBNF (83) OrExpr")
+        fun orExpr() {
+            val expr = parse<XPathOrExpr>("1 or 2")[0] as XpmExpression
+
+            assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_OR))
+            assertThat(expr.expressionElement?.textOffset, `is`(2))
         }
     }
 
