@@ -2531,6 +2531,19 @@ private class XQueryPsiTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery 3.1 (3.4.1) Constructing Sequences")
+    internal inner class ConstructingSequences {
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (20) RangeExpr")
+        fun rangeExpr() {
+            val expr = parse<XPathRangeExpr>("1 to 2")[0] as XpmExpression
+
+            assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_TO))
+            assertThat(expr.expressionElement?.textOffset, `is`(2))
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.1 (3.6) String Concatenation Expressions")
     internal inner class StringConcatenationExpressions {
         @Test
