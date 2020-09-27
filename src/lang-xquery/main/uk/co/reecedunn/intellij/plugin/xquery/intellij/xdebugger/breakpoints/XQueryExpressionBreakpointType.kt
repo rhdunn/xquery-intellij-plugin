@@ -66,7 +66,9 @@ class XQueryExpressionBreakpointType :
     }
 
     private fun getExpressionsAt(module: XQueryModule, line: Int): Sequence<XpmExpression> {
-        return module.lineElements(line).flatMap { it.ancestorsAndSelf().filterIsInstance<XpmExpression>() }
+        return module.lineElements(line).flatMap {
+            it.ancestorsAndSelf().filterIsInstance<XpmExpression>().filter { expr -> expr.expressionElement != null }
+        }
     }
 
     // endregion

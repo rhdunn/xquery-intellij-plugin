@@ -151,7 +151,7 @@ internal class MarkLogicDebugSession(
 
         val uri = getModuleUri(element) ?: return false
         val document = element.containingFile.document ?: return false
-        val offset = element.textOffset
+        val offset = element.expressionElement?.textOffset ?: return false
         val line = document.getLineNumber(offset)
         val column = offset - document.getLineStartOffset(line)
 

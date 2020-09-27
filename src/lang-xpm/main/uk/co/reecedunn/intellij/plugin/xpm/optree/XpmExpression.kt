@@ -17,4 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xpm.optree
 
 import com.intellij.psi.PsiElement
 
-interface XpmExpression : PsiElement
+interface XpmExpression : PsiElement {
+    val expressionElement: PsiElement?
+}

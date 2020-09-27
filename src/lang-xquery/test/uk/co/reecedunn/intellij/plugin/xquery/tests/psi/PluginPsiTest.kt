@@ -57,7 +57,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("XQuery IntelliJ Plugin - IntelliJ Program Structure Interface (PSI) - XQuery")
-private class PluginPsiTest : ParserTestCase() {
+private class PluginPsiTest : ParserTestCase()  {
     fun parseResource(resource: String): XQueryModule {
         val file = ResourceVirtualFile.create(this::class.java.classLoader, resource)
         return file.toPsiFile(myProject) as XQueryModule
