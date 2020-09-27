@@ -1673,6 +1673,15 @@ private class PluginPsiTest : ParserTestCase()  {
             assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_ORELSE))
             assertThat(expr.expressionElement?.textOffset, `is`(2))
         }
+
+        @Test
+        @DisplayName("XQuery IntelliJ Plugin XQuery EBNF (11) AndExpr")
+        fun andExpr() {
+            val expr = parse<XPathAndExpr>("1 andAlso 2")[0] as XpmExpression
+
+            assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_ANDALSO))
+            assertThat(expr.expressionElement?.textOffset, `is`(2))
+        }
     }
 
     @Nested

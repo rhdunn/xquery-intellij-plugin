@@ -2095,6 +2095,15 @@ private class XPathPsiTest : ParserTestCase() {
             assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_OR))
             assertThat(expr.expressionElement?.textOffset, `is`(2))
         }
+
+        @Test
+        @DisplayName("XPath 3.1 EBNF (17) AndExpr")
+        fun andExpr() {
+            val expr = parse<XPathAndExpr>("1 and 2")[0] as XpmExpression
+
+            assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_AND))
+            assertThat(expr.expressionElement?.textOffset, `is`(2))
+        }
     }
 
     @Nested

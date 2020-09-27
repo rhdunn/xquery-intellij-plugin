@@ -2541,6 +2541,15 @@ private class XQueryPsiTest : ParserTestCase() {
             assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_OR))
             assertThat(expr.expressionElement?.textOffset, `is`(2))
         }
+
+        @Test
+        @DisplayName("XQuery 1.0 EBNF (83) AndExpr")
+        fun andExpr() {
+            val expr = parse<XPathAndExpr>("1 and 2")[0] as XpmExpression
+
+            assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_AND))
+            assertThat(expr.expressionElement?.textOffset, `is`(2))
+        }
     }
 
     @Nested
