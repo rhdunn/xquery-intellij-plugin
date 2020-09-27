@@ -52,6 +52,7 @@ import java.math.BigDecimal
 import java.math.BigInteger
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
+@Suppress("ClassName")
 @DisplayName("XPath 3.1 - IntelliJ Program Structure Interface (PSI)")
 private class XPathPsiTest : ParserTestCase() {
     @Nested
@@ -2080,6 +2081,157 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(steps.size, `is`(2))
                 assertThat(steps[0].getUsageType(), `is`(XstUsageType.Element))
                 assertThat(steps[1].getUsageType(), `is`(XstUsageType.Attribute))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XPath 3.1 (3.7) Comparison Expressions")
+    internal inner class ComparisonExpressions {
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (18) ComparisonExpr ; XPath 3.1 EBNF (32) GeneralComp")
+        internal inner class ComparisonExpr_GeneralComp {
+            @Test
+            @DisplayName("eq")
+            fun eq() {
+                val expr = parse<XPathComparisonExpr>("1 = 2")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.EQUAL))
+                assertThat(expr.expressionElement?.textOffset, `is`(2))
+            }
+
+            @Test
+            @DisplayName("ne")
+            fun ne() {
+                val expr = parse<XPathComparisonExpr>("1 != 2")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.NOT_EQUAL))
+                assertThat(expr.expressionElement?.textOffset, `is`(2))
+            }
+
+            @Test
+            @DisplayName("lt")
+            fun lt() {
+                val expr = parse<XPathComparisonExpr>("1 < 2")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.LESS_THAN))
+                assertThat(expr.expressionElement?.textOffset, `is`(2))
+            }
+
+            @Test
+            @DisplayName("le")
+            fun le() {
+                val expr = parse<XPathComparisonExpr>("1 <= 2")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.LESS_THAN_OR_EQUAL))
+                assertThat(expr.expressionElement?.textOffset, `is`(2))
+            }
+
+            @Test
+            @DisplayName("gt")
+            fun gt() {
+                val expr = parse<XPathComparisonExpr>("1 > 2")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.GREATER_THAN))
+                assertThat(expr.expressionElement?.textOffset, `is`(2))
+            }
+
+            @Test
+            @DisplayName("ge")
+            fun ge() {
+                val expr = parse<XPathComparisonExpr>("1 >= 2")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.GREATER_THAN_OR_EQUAL))
+                assertThat(expr.expressionElement?.textOffset, `is`(2))
+            }
+        }
+
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (18) ComparisonExpr ; XPath 3.1 EBNF (33) ValueComp")
+        internal inner class ComparisonExpr_ValueComp {
+            @Test
+            @DisplayName("eq")
+            fun eq() {
+                val expr = parse<XPathComparisonExpr>("1 eq 2")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_EQ))
+                assertThat(expr.expressionElement?.textOffset, `is`(2))
+            }
+
+            @Test
+            @DisplayName("ne")
+            fun ne() {
+                val expr = parse<XPathComparisonExpr>("1 ne 2")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_NE))
+                assertThat(expr.expressionElement?.textOffset, `is`(2))
+            }
+
+            @Test
+            @DisplayName("lt")
+            fun lt() {
+                val expr = parse<XPathComparisonExpr>("1 lt 2")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_LT))
+                assertThat(expr.expressionElement?.textOffset, `is`(2))
+            }
+
+            @Test
+            @DisplayName("le")
+            fun le() {
+                val expr = parse<XPathComparisonExpr>("1 le 2")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_LE))
+                assertThat(expr.expressionElement?.textOffset, `is`(2))
+            }
+
+            @Test
+            @DisplayName("gt")
+            fun gt() {
+                val expr = parse<XPathComparisonExpr>("1 gt 2")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_GT))
+                assertThat(expr.expressionElement?.textOffset, `is`(2))
+            }
+
+            @Test
+            @DisplayName("ge")
+            fun ge() {
+                val expr = parse<XPathComparisonExpr>("1 ge 2")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_GE))
+                assertThat(expr.expressionElement?.textOffset, `is`(2))
+            }
+        }
+
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (18) ComparisonExpr ; XPath 3.1 EBNF (34) NodeComp")
+        internal inner class ComparisonExpr_NodeComp {
+            @Test
+            @DisplayName("is")
+            fun eq() {
+                val expr = parse<XPathComparisonExpr>("a is b")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_IS))
+                assertThat(expr.expressionElement?.textOffset, `is`(2))
+            }
+
+            @Test
+            @DisplayName("<<")
+            fun before() {
+                val expr = parse<XPathComparisonExpr>("a << b")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.NODE_BEFORE))
+                assertThat(expr.expressionElement?.textOffset, `is`(2))
+            }
+
+            @Test
+            @DisplayName(">>")
+            fun after() {
+                val expr = parse<XPathComparisonExpr>("a >> b")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.NODE_AFTER))
+                assertThat(expr.expressionElement?.textOffset, `is`(2))
             }
         }
     }

@@ -250,6 +250,12 @@ object XPathTokenType {
         NODE_AFTER
     )
 
+    val COMPARISON_EXPR_TOKENS: TokenSet = TokenSet.create(
+        EQUAL, NOT_EQUAL, LESS_THAN, LESS_THAN_OR_EQUAL, GREATER_THAN, GREATER_THAN_OR_EQUAL, // GeneralComp
+        K_IS, NODE_BEFORE, NODE_AFTER, // NodeComp
+        K_EQ, K_NE, K_LT, K_LE, K_GT, K_GE // ValueComp
+    )
+
     val FORWARD_AXIS_TOKENS: TokenSet = TokenSet.create(
         K_ATTRIBUTE,
         K_CHILD,
