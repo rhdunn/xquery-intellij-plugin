@@ -3154,7 +3154,7 @@ class XQueryParser : XPathParser() {
 
                 parseWhiteSpaceAndCommentTokens(builder)
                 parseSequenceType(builder)
-                marker.done(XPathElementType.TREAT_EXPR)
+                marker.drop()
             } else {
                 marker.drop()
             }
