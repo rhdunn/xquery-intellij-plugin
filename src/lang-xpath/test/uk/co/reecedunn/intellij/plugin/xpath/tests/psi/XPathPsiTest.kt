@@ -2506,8 +2506,17 @@ private class XPathPsiTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XPath 3.1 (3.18.3) Cast")
+    @DisplayName("XPath 3.1 (3.14.2) Cast")
     internal inner class Cast {
+        @Test
+        @DisplayName("XPath 3.1 EBNF (28) CastExpr")
+        fun castExpr() {
+            val expr = parse<XPathCastExpr>("1 cast as xs:string")[0] as XpmExpression
+
+            assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_CAST))
+            assertThat(expr.expressionElement?.textOffset, `is`(2))
+        }
+
         @Nested
         @DisplayName("XPath 3.1 EBNF (100) SimpleTypeName")
         internal inner class SimpleTypeName {

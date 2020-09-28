@@ -3913,37 +3913,6 @@ private class XQueryPsiTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery 3.1 (3.18) Expressions on SequenceTypes")
-    internal inner class ExpressionsOnSequenceTypes {
-        @Test
-        @DisplayName("XQuery 3.1 EBNF (92) InstanceofExpr")
-        fun instanceOfExpr() {
-            val expr = parse<XPathInstanceofExpr>("1 instance of xs:string")[0] as XpmExpression
-
-            assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_INSTANCE))
-            assertThat(expr.expressionElement?.textOffset, `is`(2))
-        }
-
-        @Test
-        @DisplayName("XQuery 3.1 EBNF (93) TreatExpr")
-        fun treatExpr() {
-            val expr = parse<XPathTreatExpr>("1 treat as xs:string")[0] as XpmExpression
-
-            assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_TREAT))
-            assertThat(expr.expressionElement?.textOffset, `is`(2))
-        }
-
-        @Test
-        @DisplayName("XQuery 3.1 EBNF (94) CastableExpr")
-        fun castableExpr() {
-            val expr = parse<XPathCastableExpr>("1 castable as xs:string")[0] as XpmExpression
-
-            assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_CASTABLE))
-            assertThat(expr.expressionElement?.textOffset, `is`(2))
-        }
-    }
-
-    @Nested
     @DisplayName("XQuery 3.1 (3.16) Quantified Expressions")
     internal inner class QuantifiedExpressions {
         @Nested
@@ -3990,6 +3959,37 @@ private class XQueryPsiTest : ParserTestCase() {
                 val expr = parse<PluginQuantifiedExprBinding>("some \$")[0] as XdmVariableBinding
                 assertThat(expr.variableName, `is`(nullValue()))
             }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.1 (3.18) Expressions on SequenceTypes")
+    internal inner class ExpressionsOnSequenceTypes {
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (92) InstanceofExpr")
+        fun instanceOfExpr() {
+            val expr = parse<XPathInstanceofExpr>("1 instance of xs:string")[0] as XpmExpression
+
+            assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_INSTANCE))
+            assertThat(expr.expressionElement?.textOffset, `is`(2))
+        }
+
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (93) TreatExpr")
+        fun treatExpr() {
+            val expr = parse<XPathTreatExpr>("1 treat as xs:string")[0] as XpmExpression
+
+            assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_TREAT))
+            assertThat(expr.expressionElement?.textOffset, `is`(2))
+        }
+
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (94) CastableExpr")
+        fun castableExpr() {
+            val expr = parse<XPathCastableExpr>("1 castable as xs:string")[0] as XpmExpression
+
+            assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_CASTABLE))
+            assertThat(expr.expressionElement?.textOffset, `is`(2))
         }
     }
 
@@ -4074,6 +4074,15 @@ private class XQueryPsiTest : ParserTestCase() {
     @Nested
     @DisplayName("XQuery 3.1 (3.18.3) Cast")
     internal inner class Cast {
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (95) CastExpr")
+        fun castExpr() {
+            val expr = parse<XPathCastExpr>("1 cast as xs:string")[0] as XpmExpression
+
+            assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_CAST))
+            assertThat(expr.expressionElement?.textOffset, `is`(2))
+        }
+
         @Nested
         @DisplayName("XQuery 3.1 EBNF (205) SimpleTypeName")
         internal inner class SimpleTypeName {
