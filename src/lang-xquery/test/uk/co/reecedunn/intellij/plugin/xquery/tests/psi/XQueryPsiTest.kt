@@ -3915,25 +3915,13 @@ private class XQueryPsiTest : ParserTestCase() {
     @Nested
     @DisplayName("XQuery 3.1 (3.18) Expressions on SequenceTypes")
     internal inner class ExpressionsOnSequenceTypes {
-        @Nested
+        @Test
         @DisplayName("XPath 3.1 EBNF (92) InstanceofExpr")
-        internal inner class InstanceofExpr {
-            @Test
-            @DisplayName("instance of")
-            fun instanceOf() {
-                val expr = parse<XPathInstanceofExpr>("1 instance of xs:string")[0] as XpmExpression
+        fun instanceOfExpr() {
+            val expr = parse<XPathInstanceofExpr>("1 instance of xs:string")[0] as XpmExpression
 
-                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_INSTANCE))
-                assertThat(expr.expressionElement?.textOffset, `is`(2))
-            }
-
-            @Test
-            @DisplayName("missing instance keyword")
-            fun missingInstanceKeyword() {
-                val expr = parse<XPathInstanceofExpr>("1 of 2")[0] as XpmExpression
-
-                assertThat(expr.expressionElement.elementType, `is`(nullValue()))
-            }
+            assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_INSTANCE))
+            assertThat(expr.expressionElement?.textOffset, `is`(2))
         }
     }
 

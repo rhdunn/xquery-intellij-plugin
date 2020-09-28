@@ -22,6 +22,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathInstanceofExpr
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
 class XPathInstanceofExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathInstanceofExpr {
-    override val expressionElement: PsiElement?
-        get() = findChildByType(XPathTokenType.K_INSTANCE)
+    override val expressionElement: PsiElement
+        get() = findChildByType(XPathTokenType.K_INSTANCE)!!
 }
