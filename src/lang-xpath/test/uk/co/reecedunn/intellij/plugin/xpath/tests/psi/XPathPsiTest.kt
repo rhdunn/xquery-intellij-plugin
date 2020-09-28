@@ -2099,6 +2099,32 @@ private class XPathPsiTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 3.1 (3.4.2) Combining Node Sequences")
+    internal inner class CombiningNodeSequences {
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (23) UnionExpr")
+        internal inner class UnionExpr {
+            @Test
+            @DisplayName("keyword")
+            fun keyword() {
+                val expr = parse<XPathUnionExpr>("1 union 2")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_UNION))
+                assertThat(expr.expressionElement?.textOffset, `is`(2))
+            }
+
+            @Test
+            @DisplayName("symbol")
+            fun symbol() {
+                val expr = parse<XPathUnionExpr>("1 | 2")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.UNION))
+                assertThat(expr.expressionElement?.textOffset, `is`(2))
+            }
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 3.1 (3.5) Arithmetic Expressions")
     internal inner class ArithmeticExpressions {
         @Nested
