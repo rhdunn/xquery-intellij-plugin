@@ -2544,6 +2544,32 @@ private class XQueryPsiTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery 3.1 (3.5) Arithmetic Expressions")
+    internal inner class ArithmeticExpressions {
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (88) AdditiveExpr")
+        internal inner class AdditiveExpr {
+            @Test
+            @DisplayName("plus")
+            fun plus() {
+                val expr = parse<XPathAdditiveExpr>("1 + 2")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.PLUS))
+                assertThat(expr.expressionElement?.textOffset, `is`(2))
+            }
+
+            @Test
+            @DisplayName("minus")
+            fun minus() {
+                val expr = parse<XPathAdditiveExpr>("1 - 2")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.MINUS))
+                assertThat(expr.expressionElement?.textOffset, `is`(2))
+            }
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.1 (3.6) String Concatenation Expressions")
     internal inner class StringConcatenationExpressions {
         @Test
