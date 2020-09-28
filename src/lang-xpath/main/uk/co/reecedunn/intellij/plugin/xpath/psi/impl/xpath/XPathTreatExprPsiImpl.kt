@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016, 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,11 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathTreatExpr
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
-class XPathTreatExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathTreatExpr
+class XPathTreatExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathTreatExpr {
+    override val expressionElement: PsiElement
+        get() = findChildByType(XPathTokenType.K_TREAT)!!
+}

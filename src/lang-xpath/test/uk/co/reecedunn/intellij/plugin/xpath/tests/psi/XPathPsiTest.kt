@@ -2485,6 +2485,15 @@ private class XPathPsiTest : ParserTestCase() {
             assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_INSTANCE))
             assertThat(expr.expressionElement?.textOffset, `is`(2))
         }
+
+        @Test
+        @DisplayName("XPath 3.1 EBNF (26) TreatExpr")
+        fun treatExpr() {
+            val expr = parse<XPathTreatExpr>("1 treat as xs:string")[0] as XpmExpression
+
+            assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_TREAT))
+            assertThat(expr.expressionElement?.textOffset, `is`(2))
+        }
     }
 
     @Nested
