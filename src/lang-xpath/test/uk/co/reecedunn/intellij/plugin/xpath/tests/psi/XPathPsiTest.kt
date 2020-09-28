@@ -2577,10 +2577,32 @@ private class XPathPsiTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XPath 3.1 (3.20) Arrow Operator")
+    @DisplayName("XPath 3.1 (3.16) Arrow Operator")
     internal inner class ArrowOperator {
         @Nested
-        @DisplayName("XPath 3.1 EBNF (127) ArrowFunctionSpecifier")
+        @DisplayName("XPath 3.1 EBNF (29) ArrowExpr")
+        internal inner class ArrowExpr {
+            @Test
+            @DisplayName("single function")
+            fun singleFunction() {
+                val expr = parse<XPathArrowExpr>("1 => fn:abs()")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARROW_FUNCTION_CALL))
+                assertThat(expr.expressionElement?.textOffset, `is`(5))
+            }
+
+            @Test
+            @DisplayName("multiple functions")
+            fun multipleFunctions() {
+                val expr = parse<XPathArrowExpr>("1 => fn:abs() => fn:boolean()")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARROW_FUNCTION_CALL))
+                assertThat(expr.expressionElement?.textOffset, `is`(17))
+            }
+        }
+
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (55) ArrowFunctionSpecifier")
         internal inner class ArrowFunctionSpecifier {
             @Test
             @DisplayName("EQName specifier, non-empty ArgumentList")

@@ -1173,12 +1173,12 @@ open class XPathParser : PsiParser {
 
             parseWhiteSpaceAndCommentTokens(builder)
             while (builder.matchTokenType(XPathTokenType.ARROW)) {
-                haveArrowExpr = true
-
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (!parseArrowFunctionCall(builder) && !haveErrors) {
                     builder.error(XPathBundle.message("parser.error.expected", "ArrowFunctionSpecifier"))
                     haveErrors = true
+                } else {
+                    haveArrowExpr = true
                 }
 
                 parseWhiteSpaceAndCommentTokens(builder)

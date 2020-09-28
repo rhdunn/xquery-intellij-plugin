@@ -4181,6 +4181,28 @@ private class XQueryPsiTest : ParserTestCase() {
     @DisplayName("XQuery 3.1 (3.20) Arrow Operator")
     internal inner class ArrowOperator {
         @Nested
+        @DisplayName("XQuery 3.1 EBNF (96) ArrowExpr")
+        internal inner class ArrowExpr {
+            @Test
+            @DisplayName("single function")
+            fun singleFunction() {
+                val expr = parse<XPathArrowExpr>("1 => fn:abs()")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARROW_FUNCTION_CALL))
+                assertThat(expr.expressionElement?.textOffset, `is`(5))
+            }
+
+            @Test
+            @DisplayName("multiple functions")
+            fun multipleFunctions() {
+                val expr = parse<XPathArrowExpr>("1 => fn:abs() => fn:boolean()")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARROW_FUNCTION_CALL))
+                assertThat(expr.expressionElement?.textOffset, `is`(17))
+            }
+        }
+
+        @Nested
         @DisplayName("XQuery 3.1 EBNF (127) ArrowFunctionSpecifier")
         internal inner class ArrowFunctionSpecifier {
             @Test
