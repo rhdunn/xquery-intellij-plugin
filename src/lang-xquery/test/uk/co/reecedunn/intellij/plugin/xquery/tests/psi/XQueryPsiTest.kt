@@ -2567,6 +2567,46 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(expr.expressionElement?.textOffset, `is`(2))
             }
         }
+
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (89) MultiplicativeExpr")
+        internal inner class MultiplicativeExpr {
+            @Test
+            @DisplayName("multiply")
+            fun multiply() {
+                val expr = parse<XPathMultiplicativeExpr>("1 * 2")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.STAR))
+                assertThat(expr.expressionElement?.textOffset, `is`(2))
+            }
+
+            @Test
+            @DisplayName("div")
+            fun div() {
+                val expr = parse<XPathMultiplicativeExpr>("1 div 2")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_DIV))
+                assertThat(expr.expressionElement?.textOffset, `is`(2))
+            }
+
+            @Test
+            @DisplayName("idiv")
+            fun idiv() {
+                val expr = parse<XPathMultiplicativeExpr>("1 idiv 2")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_IDIV))
+                assertThat(expr.expressionElement?.textOffset, `is`(2))
+            }
+
+            @Test
+            @DisplayName("mod")
+            fun mod() {
+                val expr = parse<XPathMultiplicativeExpr>("1 mod 2")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_MOD))
+                assertThat(expr.expressionElement?.textOffset, `is`(2))
+            }
+        }
     }
 
     @Nested
