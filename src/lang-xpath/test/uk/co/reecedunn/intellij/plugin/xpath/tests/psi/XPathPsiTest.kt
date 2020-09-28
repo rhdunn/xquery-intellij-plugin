@@ -2122,6 +2122,28 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(expr.expressionElement?.textOffset, `is`(2))
             }
         }
+
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (24) IntersectExceptExpr")
+        internal inner class IntersectExceptExpr {
+            @Test
+            @DisplayName("intersect")
+            fun intersect() {
+                val expr = parse<XPathIntersectExceptExpr>("1 intersect 2")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_INTERSECT))
+                assertThat(expr.expressionElement?.textOffset, `is`(2))
+            }
+
+            @Test
+            @DisplayName("except")
+            fun except() {
+                val expr = parse<XPathIntersectExceptExpr>("1 except 2")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_EXCEPT))
+                assertThat(expr.expressionElement?.textOffset, `is`(2))
+            }
+        }
     }
 
     @Nested

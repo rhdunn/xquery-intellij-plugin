@@ -2567,6 +2567,28 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(expr.expressionElement?.textOffset, `is`(2))
             }
         }
+
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (91) IntersectExceptExpr")
+        internal inner class IntersectExceptExpr {
+            @Test
+            @DisplayName("intersect")
+            fun intersect() {
+                val expr = parse<XPathIntersectExceptExpr>("1 intersect 2")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_INTERSECT))
+                assertThat(expr.expressionElement?.textOffset, `is`(2))
+            }
+
+            @Test
+            @DisplayName("except")
+            fun except() {
+                val expr = parse<XPathIntersectExceptExpr>("1 except 2")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_EXCEPT))
+                assertThat(expr.expressionElement?.textOffset, `is`(2))
+            }
+        }
     }
 
     @Nested
