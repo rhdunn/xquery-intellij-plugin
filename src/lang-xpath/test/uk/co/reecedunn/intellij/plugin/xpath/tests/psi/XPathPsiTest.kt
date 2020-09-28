@@ -2224,6 +2224,28 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(expr.expressionElement?.textOffset, `is`(2))
             }
         }
+
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (30) UnaryExpr")
+        internal inner class UnaryExpr {
+            @Test
+            @DisplayName("plus")
+            fun plus() {
+                val expr = parse<XPathUnaryExpr>("+3")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.PLUS))
+                assertThat(expr.expressionElement?.textOffset, `is`(0))
+            }
+
+            @Test
+            @DisplayName("minus")
+            fun minus() {
+                val expr = parse<XPathUnaryExpr>("-3")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.MINUS))
+                assertThat(expr.expressionElement?.textOffset, `is`(0))
+            }
+        }
     }
 
     @Nested
