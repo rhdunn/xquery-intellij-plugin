@@ -19,5 +19,8 @@ import com.intellij.psi.PsiElement
 
 /**
  * An XPath 2.0 and XQuery 1.0 `RelativePathExpr` node in the XQuery AST.
+ *
+ * The `RelativePathExpr` node is not added to the AST. It is
+ * combined with `PathExpr`.
  */
 interface XPathRelativePathExpr : PsiElement

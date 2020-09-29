@@ -80,12 +80,6 @@ object XPathElementType {
         XPath
     )
 
-    val RELATIVE_PATH_EXPR: IElementType = ICompositeElementType(
-        "XPATH_RELATIVE_PATH_EXPR",
-        XPathRelativePathExprPsiImpl::class.java,
-        XPath
-    )
-
     val AXIS_STEP: IElementType = ICompositeElementType(
         "XPATH_AXIS_STEP",
         XPathAxisStepPsiImpl::class.java,

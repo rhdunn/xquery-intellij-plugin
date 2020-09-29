@@ -1257,37 +1257,30 @@ open class XPathParser : PsiParser {
 
     private fun parsePathExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
-        when {
+        return when {
             builder.matchTokenType(XPathTokenType.DIRECT_DESCENDANTS_PATH) -> {
                 parseWhiteSpaceAndCommentTokens(builder)
-                parseRelativePathExpr(builder, null, false)
-
-                marker.done(XPathElementType.PATH_EXPR)
-                return true
+                parseRelativePathExpr(builder, null, marker, XPathTokenType.DIRECT_DESCENDANTS_PATH)
+                true
             }
             builder.matchTokenType(XPathTokenType.ALL_DESCENDANTS_PATH) -> {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseRelativePathExpr(builder, null, false)) {
+                if (!parseRelativePathExpr(builder, null, marker, XPathTokenType.ALL_DESCENDANTS_PATH)) {
                     builder.error(XPathBundle.message("parser.error.expected", "RelativePathExpr"))
                 }
-
-                marker.done(XPathElementType.PATH_EXPR)
-                return true
+                true
             }
-            parseRelativePathExpr(builder, type, true) -> {
-                marker.drop()
-                return true
-            }
-            else -> {
-                marker.drop()
-                return false
-            }
+            else -> parseRelativePathExpr(builder, type, marker, null)
         }
     }
 
-    private fun parseRelativePathExpr(builder: PsiBuilder, type: IElementType?, keepExpr: Boolean): Boolean {
-        val marker = builder.mark()
-        if (parseStepExpr(builder, type)) {
+    private fun parseRelativePathExpr(
+        builder: PsiBuilder,
+        type: IElementType?,
+        marker: PsiBuilder.Marker,
+        pathExprStartToken: IElementType?
+    ): Boolean = when {
+        parseStepExpr(builder, type) -> {
             parseWhiteSpaceAndCommentTokens(builder)
             var haveRelativePathExpr = false
             while (builder.matchTokenType(XPathTokenType.RELATIVE_PATH_EXPR_TOKENS)) {
@@ -1297,18 +1290,23 @@ open class XPathParser : PsiParser {
                 } else {
                     haveRelativePathExpr = true
                 }
-
                 parseWhiteSpaceAndCommentTokens(builder)
             }
 
-            if (haveRelativePathExpr && keepExpr)
-                marker.done(XPathElementType.RELATIVE_PATH_EXPR)
+            if (haveRelativePathExpr || pathExprStartToken != null)
+                marker.done(XPathElementType.PATH_EXPR)
             else
                 marker.drop()
-            return true
+            true
         }
-        marker.drop()
-        return false
+        pathExprStartToken === XPathTokenType.DIRECT_DESCENDANTS_PATH -> {
+            marker.done(XPathElementType.PATH_EXPR)
+            true
+        }
+        else -> {
+            marker.drop()
+            false
+        }
     }
 
     fun parsePragma(builder: PsiBuilder): Boolean {
