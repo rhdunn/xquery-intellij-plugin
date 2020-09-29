@@ -1260,21 +1260,21 @@ open class XPathParser : PsiParser {
         when {
             builder.matchTokenType(XPathTokenType.DIRECT_DESCENDANTS_PATH) -> {
                 parseWhiteSpaceAndCommentTokens(builder)
-                parseRelativePathExpr(builder, null)
+                parseRelativePathExpr(builder, null, false)
 
                 marker.done(XPathElementType.PATH_EXPR)
                 return true
             }
             builder.matchTokenType(XPathTokenType.ALL_DESCENDANTS_PATH) -> {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseRelativePathExpr(builder, null)) {
+                if (!parseRelativePathExpr(builder, null, false)) {
                     builder.error(XPathBundle.message("parser.error.expected", "RelativePathExpr"))
                 }
 
                 marker.done(XPathElementType.PATH_EXPR)
                 return true
             }
-            parseRelativePathExpr(builder, type) -> {
+            parseRelativePathExpr(builder, type, true) -> {
                 marker.drop()
                 return true
             }
@@ -1285,7 +1285,7 @@ open class XPathParser : PsiParser {
         }
     }
 
-    private fun parseRelativePathExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    private fun parseRelativePathExpr(builder: PsiBuilder, type: IElementType?, keepExpr: Boolean): Boolean {
         val marker = builder.mark()
         if (parseStepExpr(builder, type)) {
             parseWhiteSpaceAndCommentTokens(builder)
@@ -1300,7 +1300,7 @@ open class XPathParser : PsiParser {
                 haveRelativePathExpr = true
             }
 
-            if (haveRelativePathExpr)
+            if (haveRelativePathExpr && keepExpr)
                 marker.done(XPathElementType.RELATIVE_PATH_EXPR)
             else
                 marker.drop()
