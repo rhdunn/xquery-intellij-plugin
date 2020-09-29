@@ -1294,10 +1294,11 @@ open class XPathParser : PsiParser {
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (!parseStepExpr(builder, null)) {
                     builder.error(XPathBundle.message("parser.error.expected", "StepExpr"))
+                } else {
+                    haveRelativePathExpr = true
                 }
 
                 parseWhiteSpaceAndCommentTokens(builder)
-                haveRelativePathExpr = true
             }
 
             if (haveRelativePathExpr && keepExpr)
