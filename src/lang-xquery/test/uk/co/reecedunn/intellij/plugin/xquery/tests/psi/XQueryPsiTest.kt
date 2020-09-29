@@ -4200,6 +4200,19 @@ private class XQueryPsiTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery 3.1 (3.19) Simple Map Operator")
+    internal inner class SimpleMapOperator {
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (107) SimpleMapExpr")
+        fun simpleMapExpr() {
+            val expr = parse<XPathSimpleMapExpr>("/lorem ! fn:abs(.)")[0] as XpmExpression
+
+            assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.MAP_OPERATOR))
+            assertThat(expr.expressionElement?.textOffset, `is`(7))
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.1 (3.20) Arrow Operator")
     internal inner class ArrowOperator {
         @Nested

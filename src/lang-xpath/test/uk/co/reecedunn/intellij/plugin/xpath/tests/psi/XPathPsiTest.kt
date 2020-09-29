@@ -2599,6 +2599,19 @@ private class XPathPsiTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 3.1 (3.15) Simple Map Operator")
+    internal inner class SimpleMapOperator {
+        @Test
+        @DisplayName("XPath 3.1 EBNF (35) SimpleMapExpr")
+        fun simpleMapExpr() {
+            val expr = parse<XPathSimpleMapExpr>("/lorem ! fn:abs(.)")[0] as XpmExpression
+
+            assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.MAP_OPERATOR))
+            assertThat(expr.expressionElement?.textOffset, `is`(7))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 3.1 (3.16) Arrow Operator")
     internal inner class ArrowOperator {
         @Nested

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2017, 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,18 +22,17 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathSimpleMapExpr
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
-private val XQUERY10: List<Version> = listOf()
-private val XQUERY30: List<Version> = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
-
 class XPathSimpleMapExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathSimpleMapExpr, VersionConformance {
+    override val expressionElement: PsiElement
+        get() = findChildByType(XPathTokenType.MAP_OPERATOR)!!
+
     override val requiresConformance: List<Version>
-        get() {
-            if (conformanceElement === firstChild) {
-                return XQUERY10
-            }
-            return XQUERY30
-        }
+        get() = XQUERY30
 
     override val conformanceElement: PsiElement
-        get() = findChildByType(XPathTokenType.MAP_OPERATOR) ?: firstChild
+        get() = expressionElement
+
+    companion object {
+        private val XQUERY30: List<Version> = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
+    }
 }

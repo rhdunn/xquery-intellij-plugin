@@ -1239,9 +1239,10 @@ open class XPathParser : PsiParser {
                 if (!parsePathExpr(builder, null) && !haveErrors) {
                     builder.error(XPathBundle.message("parser.error.expected", "PathExpr"))
                     haveErrors = true
+                } else {
+                    haveSimpleMapExpr = true
                 }
                 parseWhiteSpaceAndCommentTokens(builder)
-                haveSimpleMapExpr = true
             }
 
             if (haveSimpleMapExpr)
