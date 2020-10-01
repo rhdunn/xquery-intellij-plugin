@@ -1656,14 +1656,17 @@ open class XPathParser : PsiParser {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.PARENTHESIS_OPEN)
         if (marker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
-            parseExpr(builder, EXPR)
+            val haveExpr = parseExpr(builder, EXPR)
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE)) {
                 builder.error(XPathBundle.message("parser.error.expected", ")"))
             }
 
-            marker.done(XPathElementType.PARENTHESIZED_EXPR)
+            if (haveExpr)
+                marker.drop()
+            else
+                marker.done(XPathElementType.PARENTHESIZED_EXPR)
             return true
         }
         return false

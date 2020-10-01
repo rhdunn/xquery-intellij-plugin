@@ -1,13 +1,12 @@
 XQueryModuleImpl[FILE(0:13)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:4)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:4)]
-         XPathParenthesizedExprImpl[XPATH_PARENTHESIZED_EXPR(0:4)]
-            LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(0:1)]('(')
-            PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
-            XQueryExprImpl[XQUERY_EXPR(2:4)]
-               XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(2:3)]('2')
-               PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
-            PsiErrorElementImpl[ERROR_ELEMENT(4:4)]('XPST0003: Expected ')'.')
+         LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(0:1)]('(')
+         PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+         XQueryExprImpl[XQUERY_EXPR(2:4)]
+            XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(2:3)]('2')
+            PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
+         PsiErrorElementImpl[ERROR_ELEMENT(4:4)]('XPST0003: Expected ')'.')
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(4:12)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(4:12)]
          XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(4:5)]('3')

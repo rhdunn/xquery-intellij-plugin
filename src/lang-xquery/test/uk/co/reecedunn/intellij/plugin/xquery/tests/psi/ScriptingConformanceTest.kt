@@ -23,6 +23,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
+import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
@@ -55,11 +56,10 @@ private class ScriptingConformanceTest : ParserTestCase() {
         @DisplayName("single expression; no semicolon at end")
         fun testApplyExpr_Single_NoSemicolon() {
             val file = parseResource("tests/parser/xquery-1.0/ParenthesizedExpr_Expr_Single.xq")
+            val applyExprs = file.walkTree().filterIsInstance<ScriptingApplyExpr>().toList()
+            assertThat(applyExprs.size, `is`(2)) // QueryBody and ParenthesizedExpr
 
-            val parenthesizedExpr = file.descendants().filterIsInstance<XPathParenthesizedExpr>().first()
-            val applyExpr = parenthesizedExpr.children().filterIsInstance<ScriptingApplyExpr>().first()
-            val conformance = applyExpr as VersionConformance
-
+            val conformance = applyExprs[1] as VersionConformance
             assertThat(conformance.requiresConformance.size, `is`(0))
 
             assertThat(conformance.conformanceElement, `is`(notNullValue()))
@@ -70,10 +70,10 @@ private class ScriptingConformanceTest : ParserTestCase() {
         @DisplayName("single expression; semicolon at end")
         fun testApplyExpr_Single_Semicolon() {
             val file = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Single_SemicolonAtEnd.xq")
+            val applyExprs = file.walkTree().filterIsInstance<ScriptingApplyExpr>().toList()
+            assertThat(applyExprs.size, `is`(2)) // QueryBody and ParenthesizedExpr
 
-            val parenthesizedExpr = file.descendants().filterIsInstance<XPathParenthesizedExpr>().first()
-            val applyExpr = parenthesizedExpr.children().filterIsInstance<ScriptingApplyExpr>().first()
-            val conformance = applyExpr as VersionConformance
+            val conformance = applyExprs[1] as VersionConformance
 
             assertThat(conformance.requiresConformance.size, `is`(1))
             assertThat(conformance.requiresConformance[0], `is`(ScriptingSpec.NOTE_1_0_20140918))
@@ -86,10 +86,10 @@ private class ScriptingConformanceTest : ParserTestCase() {
         @DisplayName("multiple expressions; semicolon at end")
         fun testApplyExpr_Multiple() {
             val file = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Multiple_SemicolonAtEnd.xq")
+            val applyExprs = file.walkTree().filterIsInstance<ScriptingApplyExpr>().toList()
+            assertThat(applyExprs.size, `is`(2)) // QueryBody and ParenthesizedExpr
 
-            val parenthesizedExpr = file.descendants().filterIsInstance<XPathParenthesizedExpr>().first()
-            val applyExpr = parenthesizedExpr.children().filterIsInstance<ScriptingApplyExpr>().first()
-            val conformance = applyExpr as VersionConformance
+            val conformance = applyExprs[1] as VersionConformance
 
             assertThat(conformance.requiresConformance.size, `is`(1))
             assertThat(conformance.requiresConformance[0], `is`(ScriptingSpec.NOTE_1_0_20140918))
@@ -102,10 +102,10 @@ private class ScriptingConformanceTest : ParserTestCase() {
         @DisplayName("multiple expressions; no semicolon at end")
         fun testApplyExpr_Multiple_NoSemicolonAtEnd() {
             val file = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Multiple_NoSemicolonAtEnd.xq")
+            val applyExprs = file.walkTree().filterIsInstance<ScriptingApplyExpr>().toList()
+            assertThat(applyExprs.size, `is`(2)) // QueryBody and ParenthesizedExpr
 
-            val parenthesizedExpr = file.descendants().filterIsInstance<XPathParenthesizedExpr>().first()
-            val applyExpr = parenthesizedExpr.children().filterIsInstance<ScriptingApplyExpr>().last()
-            val conformance = applyExpr as VersionConformance
+            val conformance = applyExprs[1] as VersionConformance
 
             assertThat(conformance.requiresConformance.size, `is`(1))
             assertThat(conformance.requiresConformance[0], `is`(ScriptingSpec.NOTE_1_0_20140918))
