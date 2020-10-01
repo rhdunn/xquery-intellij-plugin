@@ -4002,6 +4002,19 @@ private class XQueryPsiTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery 3.1 (3.15) Switch Expression")
+    internal inner class SwitchExpression {
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (71) SwitchExpr")
+        fun switchExpr() {
+            val expr = parse<XQuerySwitchExpr>("switch (1) case 1 return 1 default return 2")[0] as XpmExpression
+
+            assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.SWITCH_EXPR))
+            assertThat(expr.expressionElement?.textOffset, `is`(0))
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.1 (3.16) Quantified Expressions")
     internal inner class QuantifiedExpressions {
         @Nested
