@@ -3985,6 +3985,28 @@ private class XQueryPsiTest : ParserTestCase() {
         @DisplayName("XQuery 3.1 EBNF (70) QuantifiedExpr")
         internal inner class QuantifiedExpr {
             @Test
+            @DisplayName("some")
+            fun some() {
+                val expr = parse<XPathQuantifiedExpr>("some \$x in (1, 2, 3) satisfies \$x = 1")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.QUANTIFIED_EXPR))
+                assertThat(expr.expressionElement?.textOffset, `is`(0))
+            }
+
+            @Test
+            @DisplayName("every")
+            fun every() {
+                val expr = parse<XPathQuantifiedExpr>("every \$x in (1, 2, 3) satisfies \$x = 1")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.QUANTIFIED_EXPR))
+                assertThat(expr.expressionElement?.textOffset, `is`(0))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (70) QuantifiedExpr ; XQuery IntelliJ Plugin EBNF (4) QuantifiedExprBinding")
+        internal inner class QuantifiedExprBinding {
+            @Test
             @DisplayName("NCName")
             fun ncname() {
                 val expr = parse<PluginQuantifiedExprBinding>("some \$x in \$y satisfies \$z")[0] as XdmVariableBinding
