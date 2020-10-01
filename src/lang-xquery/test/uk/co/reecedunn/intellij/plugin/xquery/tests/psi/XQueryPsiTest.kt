@@ -4087,6 +4087,19 @@ private class XQueryPsiTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery 3.1 (3.17) Try/Catch Expressions")
+    internal inner class TryCatchExpressions {
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (78) TryCatchExpr")
+        fun tryCatchExpr() {
+            val expr = parse<XQueryTryCatchExpr>("try { 1 } catch * { 2 }")[0] as XpmExpression
+
+            assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.TRY_CATCH_EXPR))
+            assertThat(expr.expressionElement?.textOffset, `is`(0))
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.1 (3.18) Expressions on SequenceTypes")
     internal inner class ExpressionsOnSequenceTypes {
         @Test
