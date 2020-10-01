@@ -150,11 +150,24 @@ abstract class ParsingTestCase<File : PsiFile>(
 
         registerExtensionPoint(TreeCopyHandler.EP_NAME, TreeCopyHandler::class.java)
         registerApplicationService(IndentHelper::class.java, IndentHelperImpl())
+
+        registerCodeSettingsService()
         registerCodeStyleSettingsManager()
 
         val schemeManagerFactory = MockSchemeManagerFactory()
         registerApplicationService(SchemeManagerFactory::class.java, schemeManagerFactory)
         registerApplicationService(CodeStyleSchemes::class.java, PersistableCodeStyleSchemes(schemeManagerFactory))
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    private fun registerCodeSettingsService() {
+        try {
+            val service = Class.forName("com.intellij.psi.codeStyle.CodeStyleSettingsService") as Class<Any>
+            val `class` = Class.forName("com.intellij.psi.codeStyle.CodeStyleSettingsServiceImpl") as Class<Any>
+            val `object` = `class`.getConstructor().newInstance()
+            registerApplicationService(service, `object`)
+        } catch (e: ClassNotFoundException) {
+        }
     }
 
     private fun registerCodeStyleSettingsManager() {
