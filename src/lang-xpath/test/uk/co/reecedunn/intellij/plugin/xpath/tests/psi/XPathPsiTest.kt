@@ -2435,6 +2435,19 @@ private class XPathPsiTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 3.1 (3.9) For Expressions")
+    internal inner class ForExpressions {
+        @Test
+        @DisplayName("XPath 3.1 EBNF (8) ForExpr")
+        fun forExpr() {
+            val expr = parse<XPathForExpr>("for \$x in (1, 2, 3) return \$x")[0] as XpmExpression
+
+            assertThat(expr.expressionElement.elementType, `is`(XPathElementType.FOR_EXPR))
+            assertThat(expr.expressionElement?.textOffset, `is`(0))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 3.1 (3.11.1) Maps")
     internal inner class Maps {
         @Nested
