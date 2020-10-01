@@ -23,10 +23,9 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
 class XPathIfExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathIfExpr, XpmSyntaxValidationElement {
-    // region XpmSyntaxValidationElement
+    override val expressionElement: PsiElement
+        get() = this
 
     override val conformanceElement: PsiElement
         get() = findChildByType(XPathTokenType.K_ELSE) ?: firstChild
-
-    // endregion
 }

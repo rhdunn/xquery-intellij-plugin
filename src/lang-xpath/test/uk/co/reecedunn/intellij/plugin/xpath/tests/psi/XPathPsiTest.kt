@@ -2457,6 +2457,19 @@ private class XPathPsiTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 3.1 (3.12) Conditional Expressions")
+    internal inner class ConditionalExpressions {
+        @Test
+        @DisplayName("XPath 3.1 EBNF (15) IfExpr")
+        fun ifExpr() {
+            val expr = parse<XPathIfExpr>("if (true()) then 1 else 2")[0] as XpmExpression
+
+            assertThat(expr.expressionElement.elementType, `is`(XPathElementType.IF_EXPR))
+            assertThat(expr.expressionElement?.textOffset, `is`(0))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 3.1 (3.13) Quantified Expressions")
     internal inner class QuantifiedExpressions {
         @Nested

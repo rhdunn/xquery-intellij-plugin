@@ -3966,6 +3966,19 @@ private class XQueryPsiTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery 3.1 (3.14) Conditional Expressions")
+    internal inner class ConditionalExpressions {
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (77) IfExpr")
+        fun ifExpr() {
+            val expr = parse<XPathIfExpr>("if (true()) then 1 else 2")[0] as XpmExpression
+
+            assertThat(expr.expressionElement.elementType, `is`(XPathElementType.IF_EXPR))
+            assertThat(expr.expressionElement?.textOffset, `is`(0))
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.1 (3.16) Quantified Expressions")
     internal inner class QuantifiedExpressions {
         @Nested
