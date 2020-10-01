@@ -4119,6 +4119,17 @@ private class XQueryPsiTest : ParserTestCase() {
         @Nested
         @DisplayName("XQuery 3.1 (3.18.2) Typeswitch")
         internal inner class Typeswitch {
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (74) TypeswitchExpr")
+            fun typeswitchExpr() {
+                val expr = parse<XQueryTypeswitchExpr>(
+                    "typeswitch (1) case xs:string return 2 default return 3"
+                )[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.TYPESWITCH_EXPR))
+                assertThat(expr.expressionElement?.textOffset, `is`(0))
+            }
+
             @Nested
             @DisplayName("XQuery 3.1 EBNF (75) CaseClause")
             internal inner class CaseClause {
