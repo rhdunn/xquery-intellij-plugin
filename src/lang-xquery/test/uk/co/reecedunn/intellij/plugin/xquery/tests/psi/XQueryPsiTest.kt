@@ -62,6 +62,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.xquery.model.getNamespaceType
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.reference.XQueryVariableNameReference
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 import java.math.BigDecimal
@@ -3287,6 +3288,28 @@ private class XQueryPsiTest : ParserTestCase() {
     @Nested
     @DisplayName("XQuery 3.1 (3.12) FLWORExpressions")
     internal inner class FLWORExpressions {
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (41) FLWORExpr")
+        internal inner class FLWORExpr {
+            @Test
+            @DisplayName("for")
+            fun `for`() {
+                val expr = parse<XQueryFLWORExpr>("for \$x in (1, 2, 3) return \$x = 1")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.FLWOR_EXPR))
+                assertThat(expr.expressionElement?.textOffset, `is`(0))
+            }
+
+            @Test
+            @DisplayName("let")
+            fun let() {
+                val expr = parse<XQueryFLWORExpr>("let \$x := 1 return \$x = 1")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.FLWOR_EXPR))
+                assertThat(expr.expressionElement?.textOffset, `is`(0))
+            }
+        }
+
         @Nested
         @DisplayName("XQuery 3.1 EBNF (47) PositionalVar")
         internal inner class PositionalVar {
