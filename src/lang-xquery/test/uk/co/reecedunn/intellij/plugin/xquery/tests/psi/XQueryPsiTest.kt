@@ -1844,6 +1844,13 @@ private class XQueryPsiTest : ParserTestCase() {
             @DisplayName("XQuery 3.1 EBNF (131) VarRef")
             internal inner class VarRef {
                 @Test
+                @DisplayName("expression")
+                fun expression() {
+                    val expr = parse<XPathVarRef>("let \$x := 2 return \$y")[0] as XpmExpression
+                    assertThat(expr.expressionElement, `is`(nullValue()))
+                }
+
+                @Test
                 @DisplayName("NCName")
                 fun ncname() {
                     val expr = parse<XPathVarRef>("let \$x := 2 return \$y")[0] as XdmVariableReference
