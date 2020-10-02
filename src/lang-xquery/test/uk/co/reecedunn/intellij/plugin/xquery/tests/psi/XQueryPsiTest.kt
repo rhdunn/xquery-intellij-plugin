@@ -4520,6 +4520,15 @@ private class XQueryPsiTest : ParserTestCase() {
     @Nested
     @DisplayName("XQuery 3.1 (3.22) Extension Expressions")
     internal inner class ExtensionExpressions {
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (104) ExtensionExpr")
+        fun extensionExpr() {
+            val expr = parse<XQueryExtensionExpr>("(# test #) { () }")[0] as XpmExpression
+
+            assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.EXTENSION_EXPR))
+            assertThat(expr.expressionElement?.textOffset, `is`(0))
+        }
+
         @Nested
         @DisplayName("XQuery 3.1 EBNF (105) Pragma")
         internal inner class Pragma {
