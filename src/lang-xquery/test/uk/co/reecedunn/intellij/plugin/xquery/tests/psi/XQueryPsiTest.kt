@@ -1964,6 +1964,21 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
+        @DisplayName("XQuery 3.1 (3.1.4) Context Item Expression")
+        internal inner class ContextItemExpression {
+            @Nested
+            @DisplayName("XQuery 3.1 EBNF (134) ContextItemExpr")
+            internal inner class ContextItemExpr {
+                @Test
+                @DisplayName("expression")
+                fun expression() {
+                    val expr = parse<XPathContextItemExpr>("() ! .")[0] as XpmExpression
+                    assertThat(expr.expressionElement, `is`(nullValue()))
+                }
+            }
+        }
+
+        @Nested
         @DisplayName("XQuery 3.1 (3.1.5) Static Function Calls")
         internal inner class StaticFunctionCalls {
             @Nested
