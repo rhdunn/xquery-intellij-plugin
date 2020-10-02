@@ -1719,12 +1719,23 @@ private class XQueryPsiTest : ParserTestCase() {
         @Nested
         @DisplayName("XQuery 3.1 (3.1.1) Literals")
         internal inner class Literals {
-            @Test
+            @Nested
             @DisplayName("XQuery 3.1 EBNF (219) IntegerLiteral")
-            fun integerLiteral() {
-                val literal = parse<XPathIntegerLiteral>("123")[0] as XsIntegerValue
-                assertThat(literal.data, `is`(BigInteger.valueOf(123)))
-                assertThat(literal.toInt(), `is`(123))
+            internal inner class IntegerLiteral {
+                @Test
+                @DisplayName("expression")
+                fun expression() {
+                    val expr = parse<XPathIntegerLiteral>("123")[0] as XpmExpression
+                    assertThat(expr.expressionElement, `is`(nullValue()))
+                }
+
+                @Test
+                @DisplayName("xs:integer")
+                fun integer() {
+                    val literal = parse<XPathIntegerLiteral>("123")[0] as XsIntegerValue
+                    assertThat(literal.data, `is`(BigInteger.valueOf(123)))
+                    assertThat(literal.toInt(), `is`(123))
+                }
             }
 
             @Test
