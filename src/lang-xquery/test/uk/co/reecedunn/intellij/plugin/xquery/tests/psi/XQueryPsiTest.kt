@@ -1756,11 +1756,22 @@ private class XQueryPsiTest : ParserTestCase() {
                 }
             }
 
-            @Test
+            @Nested
             @DisplayName("XQuery 3.1 EBNF (221) DoubleLiteral")
-            fun doubleLiteral() {
-                val literal = parse<XPathDoubleLiteral>("1e3")[0] as XsDoubleValue
-                assertThat(literal.data, `is`(1e3))
+            internal inner class DoubleLiteral {
+                @Test
+                @DisplayName("expression")
+                fun expression() {
+                    val expr = parse<XPathDoubleLiteral>("1e3")[0] as XpmExpression
+                    assertThat(expr.expressionElement, `is`(nullValue()))
+                }
+
+                @Test
+                @DisplayName("xs:double")
+                fun double() {
+                    val literal = parse<XPathDoubleLiteral>("1e3")[0] as XsDoubleValue
+                    assertThat(literal.data, `is`(1e3))
+                }
             }
 
             @Nested
