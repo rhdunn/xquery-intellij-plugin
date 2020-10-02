@@ -19,6 +19,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.LiteralTextEscaper
+import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiLanguageInjectionHost
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.lang.injection.LiteralTextEscaperImpl
@@ -85,6 +86,11 @@ class XPathStringLiteralPsiImpl(node: ASTNode) :
 
     override val decoded: String
         get() = data
+
+    // endregion
+    // region XpmExpression
+
+    override val expressionElement: PsiElement? = null
 
     // endregion
     // region XsStringValue

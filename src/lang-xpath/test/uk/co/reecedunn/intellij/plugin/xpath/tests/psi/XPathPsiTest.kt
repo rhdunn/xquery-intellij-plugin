@@ -1369,6 +1369,13 @@ private class XPathPsiTest : ParserTestCase() {
             @DisplayName("XPath 3.1 EBNF (116) StringLiteral")
             internal inner class StringLiteral {
                 @Test
+                @DisplayName("expression")
+                fun expression() {
+                    val expr = parse<XPathStringLiteral>("\"Lorem ipsum.\"")[0] as XpmExpression
+                    assertThat(expr.expressionElement, `is`(nullValue()))
+                }
+
+                @Test
                 @DisplayName("string literal content")
                 fun stringLiteral() {
                     val literal = parse<XPathStringLiteral>("\"Lorem ipsum.\uFFFF\"")[0] as XsStringValue
