@@ -4505,6 +4505,19 @@ private class XQueryPsiTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery 3.1 (3.21) Validate Expressions")
+    internal inner class ValidateExpressions {
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (102) ValidateExpr")
+        fun validateExpr() {
+            val expr = parse<XQueryValidateExpr>("validate lax { () }")[0] as XpmExpression
+
+            assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.VALIDATE_EXPR))
+            assertThat(expr.expressionElement?.textOffset, `is`(0))
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.1 (3.22) Extension Expressions")
     internal inner class ExtensionExpressions {
         @Nested

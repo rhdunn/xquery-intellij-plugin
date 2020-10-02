@@ -31,6 +31,10 @@ private val MARKLOGIC60: List<Version> = listOf()
 
 class XQueryValidateExprPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), XQueryValidateExpr, XpmSyntaxValidationElement, VersionConformance {
+
+    override val expressionElement: PsiElement
+        get() = this
+
     override val requiresConformance: List<Version>
         get() {
             val element = conformanceElement
