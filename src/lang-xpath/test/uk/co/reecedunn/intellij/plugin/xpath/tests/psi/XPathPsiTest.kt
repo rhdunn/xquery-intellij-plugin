@@ -1329,11 +1329,22 @@ private class XPathPsiTest : ParserTestCase() {
                 }
             }
 
-            @Test
+            @Nested
             @DisplayName("XPath 3.1 EBNF (114) DecimalLiteral")
-            fun decimalLiteral() {
-                val literal = parse<XPathDecimalLiteral>("12.34")[0] as XsDecimalValue
-                assertThat(literal.data, `is`(BigDecimal(BigInteger.valueOf(1234), 2)))
+            internal inner class DecimalLiteral {
+                @Test
+                @DisplayName("expression")
+                fun expression() {
+                    val expr = parse<XPathDecimalLiteral>("12.34")[0] as XpmExpression
+                    assertThat(expr.expressionElement, `is`(nullValue()))
+                }
+
+                @Test
+                @DisplayName("xs:decimal")
+                fun decimal() {
+                    val literal = parse<XPathDecimalLiteral>("12.34")[0] as XsDecimalValue
+                    assertThat(literal.data, `is`(BigDecimal(BigInteger.valueOf(1234), 2)))
+                }
             }
 
             @Test
