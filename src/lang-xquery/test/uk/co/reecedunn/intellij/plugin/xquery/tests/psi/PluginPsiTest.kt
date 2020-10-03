@@ -1594,23 +1594,38 @@ private class PluginPsiTest : ParserTestCase()  {
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin (3.7.2) Inline Function Expressions")
-    internal inner class InlineFunctionExpressions {
+    @DisplayName("XQuery IntelliJ Plugin (3.7) Primary Expressions")
+    internal inner class PrimaryExpressions {
         @Nested
-        @DisplayName("XQuery 3.1 EBNF (169) InlineFunctionExpr ; XQuery IntelliJ Plugin EBNF (95) ParamList")
-        internal inner class InlineFunctionExpr {
+        @DisplayName("XQuery IntelliJ Plugin (3.7.1) Non-Deterministic Function Calls")
+        internal inner class NonDeterministicFunctionCalls {
             @Test
-            @DisplayName("variadic")
-            fun variadic() {
-                val decl = parse<XdmFunctionDeclaration>("function (\$one, \$two ...) {}")[0]
-                assertThat(decl.functionName, `is`(nullValue()))
-                assertThat(decl.returnType, `is`(nullValue()))
-                assertThat(decl.arity, `is`(Range(1, Int.MAX_VALUE)))
-                assertThat(decl.isVariadic, `is`(true))
+            @DisplayName("XQuery 3.1 EBNF (122) ArgumentList")
+            fun argumentList() {
+                val expr = parse<XPathArgumentList>("non-deterministic \$x()")[0] as XpmExpression
+                assertThat(expr.expressionElement, `is`(nullValue()))
+            }
+        }
 
-                assertThat(decl.params.size, `is`(2))
-                assertThat(op_qname_presentation(decl.params[0].variableName!!), `is`("one"))
-                assertThat(op_qname_presentation(decl.params[1].variableName!!), `is`("two"))
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin (3.7.2) Inline Function Expressions")
+        internal inner class InlineFunctionExpressions {
+            @Nested
+            @DisplayName("XQuery 3.1 EBNF (169) InlineFunctionExpr ; XQuery IntelliJ Plugin EBNF (95) ParamList")
+            internal inner class InlineFunctionExpr {
+                @Test
+                @DisplayName("variadic")
+                fun variadic() {
+                    val decl = parse<XdmFunctionDeclaration>("function (\$one, \$two ...) {}")[0]
+                    assertThat(decl.functionName, `is`(nullValue()))
+                    assertThat(decl.returnType, `is`(nullValue()))
+                    assertThat(decl.arity, `is`(Range(1, Int.MAX_VALUE)))
+                    assertThat(decl.isVariadic, `is`(true))
+
+                    assertThat(decl.params.size, `is`(2))
+                    assertThat(op_qname_presentation(decl.params[0].variableName!!), `is`("one"))
+                    assertThat(op_qname_presentation(decl.params[1].variableName!!), `is`("two"))
+                }
             }
         }
     }

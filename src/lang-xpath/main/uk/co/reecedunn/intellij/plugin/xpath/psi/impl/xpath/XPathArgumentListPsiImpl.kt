@@ -29,7 +29,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPostfixExpr
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionParamBinding
-import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownFunctions
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 
@@ -99,6 +98,15 @@ class XPathArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPat
                     }
                 }
             }
+        }
+
+    // endregion
+    // region XpmExpression
+
+    override val expressionElement: PsiElement?
+        get() = when (parent) {
+            is XPathPostfixExpr -> this
+            else -> null
         }
 
     // endregion
