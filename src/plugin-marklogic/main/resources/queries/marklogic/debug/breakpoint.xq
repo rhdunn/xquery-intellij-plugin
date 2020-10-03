@@ -29,17 +29,19 @@ let $status := dbg:status($requestId)/dbg:request/dbg:request-status
 let $_ := if ($status = "running") then dbg:break($requestId) else ()
 
 let $result := try {
-    let $expr :=
+    (: NOTE: There may be more than one expression ID for a given line/column, e.g. `$x[1][2]` :)
+    let $exprs :=
         for $expressionId in dbg:line($requestId, $exprUri, $exprLine)
         let $expr := dbg:expr($requestId, $expressionId)
         where $expr/dbg:line eq $exprLine and $expr/dbg:column eq $exprColumn
         return $expr
-    return if (exists($expr)) then
+    return if (exists($exprs)) then
         let $_ :=
-            if ($register) then
-                dbg:break($requestId, $expr[1]/dbg:expr-id)
+            for $expr in $exprs
+            return if ($register) then
+                dbg:break($requestId, $expr/dbg:expr-id)
             else
-                dbg:clear($requestId, $expr[1]/dbg:expr-id)
+                dbg:clear($requestId, $expr/dbg:expr-id)
         return true()
     else
         false()
