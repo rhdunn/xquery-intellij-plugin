@@ -1560,6 +1560,10 @@ private class XPathPsiTest : ParserTestCase() {
 
                     val bindings = args.bindings
                     assertThat(bindings.size, `is`(0))
+
+                    val expr = f as XpmExpression
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.FUNCTION_CALL))
+                    assertThat(expr.expressionElement?.textOffset, `is`(0))
                 }
 
                 @Test
@@ -1581,11 +1585,15 @@ private class XPathPsiTest : ParserTestCase() {
 
                     val bindings = args.bindings
                     assertThat(bindings.size, `is`(0))
+
+                    val expr = f as XpmExpression
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.FUNCTION_CALL))
+                    assertThat(expr.expressionElement?.textOffset, `is`(0))
                 }
 
                 @Test
-                @DisplayName("ArgumentPlaceholder")
-                fun argumentPlaceholder() {
+                @DisplayName("partial function application")
+                fun partialFunctionApplication() {
                     val f = parse<XPathFunctionCall>("math:sin(?)")[0] as XdmFunctionReference
                     assertThat(f.arity, `is`(1))
 
@@ -1602,6 +1610,10 @@ private class XPathPsiTest : ParserTestCase() {
 
                     val bindings = args.bindings
                     assertThat(bindings.size, `is`(0))
+
+                    val expr = f as XpmExpression
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
+                    assertThat(expr.expressionElement?.textOffset, `is`(8))
                 }
 
                 @Test
@@ -1650,6 +1662,7 @@ private class XPathPsiTest : ParserTestCase() {
                 fun empty() {
                     val args = parse<XPathArgumentList>("fn:true()")[0]
                     assertThat(args.arity, `is`(0))
+                    assertThat(args.isPartialFunctionApplication, `is`(false))
                 }
 
                 @Test
@@ -1657,6 +1670,7 @@ private class XPathPsiTest : ParserTestCase() {
                 fun multiple() {
                     val args = parse<XPathArgumentList>("math:pow(2, 8)")[0]
                     assertThat(args.arity, `is`(2))
+                    assertThat(args.isPartialFunctionApplication, `is`(false))
                 }
 
                 @Test
@@ -1664,6 +1678,7 @@ private class XPathPsiTest : ParserTestCase() {
                 fun argumentPlaceholder() {
                     val args = parse<XPathArgumentList>("math:sin(?)")[0]
                     assertThat(args.arity, `is`(1))
+                    assertThat(args.isPartialFunctionApplication, `is`(true))
                 }
             }
         }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017, 2019 Reece H. Dunn
+ * Copyright (C) 2016-2017, 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,8 @@ interface XPathArgumentList : PsiElement {
     val functionReference: XdmFunctionReference?
 
     val arity: Int
+
+    val isPartialFunctionApplication: Boolean
 
     val bindings: List<XdmFunctionParamBinding>
 }
