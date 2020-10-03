@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2017, 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,9 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
 
 class XPathLookupPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathLookup, VersionConformance {
+    override val expressionElement: PsiElement
+        get() = this
+
     override val requiresConformance: List<Version>
         get() = listOf(XQuerySpec.REC_3_1_20170321)
 

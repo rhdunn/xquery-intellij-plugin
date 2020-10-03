@@ -3448,6 +3448,15 @@ private class XQueryPsiTest : ParserTestCase() {
         @DisplayName("XQuery 3.1 (3.11.3) The Lookup Operator for Maps and Arrays")
         internal inner class LookupOperator {
             @Test
+            @DisplayName("XQuery 3.1 EBNF (125) Lookup")
+            fun postfixLookup() {
+                val expr = parse<XPathLookup>("map{}?name")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.LOOKUP))
+                assertThat(expr.expressionElement?.textOffset, `is`(5))
+            }
+
+            @Test
             @DisplayName("XQuery 3.1 EBNF (181) UnaryLookup")
             fun unaryLookup() {
                 val expr = parse<XPathUnaryLookup>("map{} ! ?name")[0] as XpmExpression
