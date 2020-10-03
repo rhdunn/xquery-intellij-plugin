@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Reece H. Dunn
+ * Copyright (C) 2016-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -79,6 +79,12 @@ class XPathInlineFunctionExprPsiImpl(node: ASTNode) :
 
     override val annotations: Sequence<XdmAnnotation>
         get() = children().filterIsInstance<XdmAnnotation>()
+
+    // endregion
+    // region XpmExpression
+
+    override val expressionElement: PsiElement?
+        get() = null
 
     // endregion
 }
