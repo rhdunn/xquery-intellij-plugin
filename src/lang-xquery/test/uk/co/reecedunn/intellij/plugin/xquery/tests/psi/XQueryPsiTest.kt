@@ -3353,8 +3353,8 @@ private class XQueryPsiTest : ParserTestCase() {
     @DisplayName("XQuery 3.1 (3.11) Maps and Arrays")
     internal inner class MapsAndArrays {
         @Nested
-        @DisplayName("XQuery 3.1 (3.11.1.1) Map Constructors")
-        internal inner class MapConstructors {
+        @DisplayName("XQuery 3.1 (3.11.1) Maps")
+        internal inner class Maps {
             @Nested
             @DisplayName("XQuery 3.1 EBNF (170) MapConstructor")
             internal inner class MapConstructor {
@@ -3397,8 +3397,8 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XPath 3.1 (3.11.2.1) Array Constructors")
-        internal inner class ArrayConstructors {
+        @DisplayName("XQuery 3.1 (3.11.2) Arrays")
+        internal inner class Arrays {
             @Nested
             @DisplayName("XQuery 3.1 EBNF (175) SquareArrayConstructor")
             internal inner class SquareArrayConstructor {
@@ -3441,6 +3441,19 @@ private class XQueryPsiTest : ParserTestCase() {
                     assertThat(expr.expressionElement.elementType, `is`(XPathElementType.CURLY_ARRAY_CONSTRUCTOR))
                     assertThat(expr.expressionElement?.textOffset, `is`(0))
                 }
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.1 (3.11.3) The Lookup Operator for Maps and Arrays")
+        internal inner class LookupOperator {
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (181) UnaryLookup")
+            fun unaryLookup() {
+                val expr = parse<XPathUnaryLookup>("map{} ! ?name")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.UNARY_LOOKUP))
+                assertThat(expr.expressionElement?.textOffset, `is`(8))
             }
         }
     }
