@@ -1917,6 +1917,56 @@ private class XPathPsiTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 3.1 (3.2) Postfix Expressions")
+    internal inner class PostfixExpressions {
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (52) Predicate")
+        internal inner class Predicate {
+            @Test
+            @DisplayName("single ; non-null PrimaryExpr expressionElement")
+            fun singleWithExpressionElement() {
+                val expr = parse<XPathPredicate>("map { \"one\": 1 }[1]")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.MAP_CONSTRUCTOR_ENTRY))
+                assertThat(expr.expressionElement?.textOffset, `is`(6))
+            }
+
+            @Test
+            @DisplayName("single ; null PrimaryExpr expressionElement")
+            fun singleWithoutExpressionElement() {
+                val expr = parse<XPathPredicate>("\$x[1]")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.VAR_REF))
+                assertThat(expr.expressionElement?.textOffset, `is`(0))
+            }
+
+            @Test
+            @DisplayName("multiple ; non-null PrimaryExpr expressionElement")
+            fun multipleWithExpressionElement() {
+                val exprs = parse<XPathPredicate>("map { \"one\": 1 }[1][2]")
+
+                assertThat(exprs[0].expressionElement.elementType, `is`(XPathElementType.MAP_CONSTRUCTOR_ENTRY))
+                assertThat(exprs[0].expressionElement?.textOffset, `is`(6))
+
+                assertThat(exprs[1].expressionElement.elementType, `is`(XPathElementType.MAP_CONSTRUCTOR_ENTRY))
+                assertThat(exprs[1].expressionElement?.textOffset, `is`(6))
+            }
+
+            @Test
+            @DisplayName("multiple ; null PrimaryExpr expressionElement")
+            fun multipleWithoutExpressionElement() {
+                val exprs = parse<XPathPredicate>("\$x[1][2]")
+
+                assertThat(exprs[0].expressionElement.elementType, `is`(XPathElementType.VAR_REF))
+                assertThat(exprs[0].expressionElement?.textOffset, `is`(0))
+
+                assertThat(exprs[1].expressionElement.elementType, `is`(XPathElementType.VAR_REF))
+                assertThat(exprs[1].expressionElement?.textOffset, `is`(0))
+            }
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 3.1 (3.3) Path Expressions")
     internal inner class PathExpressions {
         @Nested
@@ -2147,6 +2197,29 @@ private class XPathPsiTest : ParserTestCase() {
 
                     assertThat(qname.localName, `is`(instanceOf(XdmWildcardValue::class.java)))
                     assertThat(qname.localName!!.data, `is`("*"))
+                }
+            }
+        }
+
+        @Nested
+        @DisplayName("XPath 3.1 (3.3.3) Predicates within Steps")
+        internal inner class PredicatesWithinSteps {
+            @Nested
+            @DisplayName("XPath 3.1 EBNF (52) Predicate")
+            internal inner class Predicate {
+                @Test
+                @DisplayName("single")
+                fun single() {
+                    val expr = parse<XPathPredicate>("/test[1]")[0] as XpmExpression
+                    assertThat(expr.expressionElement, `is`(nullValue()))
+                }
+
+                @Test
+                @DisplayName("multiple")
+                fun multiple() {
+                    val exprs = parse<XPathPredicate>("/test[1][2]")
+                    assertThat(exprs[0].expressionElement, `is`(nullValue()))
+                    assertThat(exprs[1].expressionElement, `is`(nullValue()))
                 }
             }
         }
