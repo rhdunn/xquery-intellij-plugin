@@ -3350,45 +3350,75 @@ private class XQueryPsiTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery 3.1 (3.11.1) Maps")
-    internal inner class Maps {
+    @DisplayName("XQuery 3.1 (3.11) Maps and Arrays")
+    internal inner class MapsAndArrays {
         @Nested
-        @DisplayName("XQuery 3.1 EBNF (170) MapConstructor")
-        internal inner class MapConstructor {
-            @Test
-            @DisplayName("empty")
-            fun empty() {
-                val expr = parse<XPathMapConstructor>("map {}")[0] as XpmExpression
+        @DisplayName("XQuery 3.1 (3.11.1.1) Map Constructors")
+        internal inner class MapConstructors {
+            @Nested
+            @DisplayName("XQuery 3.1 EBNF (170) MapConstructor")
+            internal inner class MapConstructor {
+                @Test
+                @DisplayName("empty")
+                fun empty() {
+                    val expr = parse<XPathMapConstructor>("map {}")[0] as XpmExpression
 
-                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.MAP_CONSTRUCTOR))
-                assertThat(expr.expressionElement?.textOffset, `is`(0))
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.MAP_CONSTRUCTOR))
+                    assertThat(expr.expressionElement?.textOffset, `is`(0))
+                }
+
+                @Test
+                @DisplayName("with entry")
+                fun withEntry() {
+                    val expr = parse<XPathMapConstructor>("map { \"1\" : \"one\" }")[0] as XpmExpression
+
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.MAP_CONSTRUCTOR_ENTRY))
+                    assertThat(expr.expressionElement?.textOffset, `is`(6))
+                }
             }
 
-            @Test
-            @DisplayName("with entry")
-            fun withEntry() {
-                val expr = parse<XPathMapConstructor>("map { \"1\" : \"one\" }")[0] as XpmExpression
+            @Nested
+            @DisplayName("XQuery 3.1 EBNF (171) MapConstructorEntry")
+            internal inner class MapConstructorEntry {
+                @Test
+                @DisplayName("key, value")
+                fun keyValue() {
+                    val entry = parse<XPathMapConstructorEntry>("map { \"1\" : \"one\" }")[0]
+                    assertThat(entry.separator.elementType, `is`(XPathTokenType.QNAME_SEPARATOR))
+                }
 
-                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.MAP_CONSTRUCTOR_ENTRY))
-                assertThat(expr.expressionElement?.textOffset, `is`(6))
+                @Test
+                @DisplayName("key, no value")
+                fun noValue() {
+                    val entry = parse<XPathMapConstructorEntry>("map { \$ a }")[0]
+                    assertThat(entry.separator.elementType, `is`(XPathElementType.MAP_KEY_EXPR))
+                }
             }
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 EBNF (171) MapConstructorEntry")
-        internal inner class MapConstructorEntry {
-            @Test
-            @DisplayName("key, value")
-            fun keyValue() {
-                val entry = parse<XPathMapConstructorEntry>("map { \"1\" : \"one\" }")[0]
-                assertThat(entry.separator.elementType, `is`(XPathTokenType.QNAME_SEPARATOR))
-            }
+        @DisplayName("XPath 3.1 (3.11.2.1) Map Constructors")
+        internal inner class ArrayConstructors {
+            @Nested
+            @DisplayName("XQuery 3.1 EBNF (175) SquareArrayConstructor")
+            internal inner class SquareArrayConstructor {
+                @Test
+                @DisplayName("empty")
+                fun empty() {
+                    val expr = parse<XPathSquareArrayConstructor>("[]")[0] as XpmExpression
 
-            @Test
-            @DisplayName("key, no value")
-            fun noValue() {
-                val entry = parse<XPathMapConstructorEntry>("map { \$ a }")[0]
-                assertThat(entry.separator.elementType, `is`(XPathElementType.MAP_KEY_EXPR))
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.SQUARE_ARRAY_CONSTRUCTOR))
+                    assertThat(expr.expressionElement?.textOffset, `is`(0))
+                }
+
+                @Test
+                @DisplayName("with members")
+                fun withMembers() {
+                    val expr = parse<XPathSquareArrayConstructor>("[ 1, 2, 3 ]")[0] as XpmExpression
+
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.SQUARE_ARRAY_CONSTRUCTOR))
+                    assertThat(expr.expressionElement?.textOffset, `is`(0))
+                }
             }
         }
     }
