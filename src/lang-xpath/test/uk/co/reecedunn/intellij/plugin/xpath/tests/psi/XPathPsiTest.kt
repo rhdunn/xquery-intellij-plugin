@@ -1310,77 +1310,49 @@ private class XPathPsiTest : ParserTestCase() {
         @Nested
         @DisplayName("XPath 3.1 (3.1.1) Literals")
         internal inner class Literals {
-            @Nested
+            @Test
             @DisplayName("XPath 3.1 EBNF (113) IntegerLiteral")
-            internal inner class IntegerLiteral {
-                @Test
-                @DisplayName("expression")
-                fun expression() {
-                    val expr = parse<XPathIntegerLiteral>("123")[0] as XpmExpression
-                    assertThat(expr.expressionElement, `is`(nullValue()))
-                }
+            fun integerLiteral() {
+                val literal = parse<XPathIntegerLiteral>("123")[0] as XsIntegerValue
+                assertThat(literal.data, `is`(BigInteger.valueOf(123)))
+                assertThat(literal.toInt(), `is`(123))
 
-                @Test
-                @DisplayName("xs:integer")
-                fun integer() {
-                    val literal = parse<XPathIntegerLiteral>("123")[0] as XsIntegerValue
-                    assertThat(literal.data, `is`(BigInteger.valueOf(123)))
-                    assertThat(literal.toInt(), `is`(123))
-                }
+                val expr = literal as XpmExpression
+                assertThat(expr.expressionElement, `is`(nullValue()))
             }
 
-            @Nested
+            @Test
             @DisplayName("XPath 3.1 EBNF (114) DecimalLiteral")
-            internal inner class DecimalLiteral {
-                @Test
-                @DisplayName("expression")
-                fun expression() {
-                    val expr = parse<XPathDecimalLiteral>("12.34")[0] as XpmExpression
-                    assertThat(expr.expressionElement, `is`(nullValue()))
-                }
+            fun decimalLiteral() {
+                val literal = parse<XPathDecimalLiteral>("12.34")[0] as XsDecimalValue
+                assertThat(literal.data, `is`(BigDecimal(BigInteger.valueOf(1234), 2)))
 
-                @Test
-                @DisplayName("xs:decimal")
-                fun decimal() {
-                    val literal = parse<XPathDecimalLiteral>("12.34")[0] as XsDecimalValue
-                    assertThat(literal.data, `is`(BigDecimal(BigInteger.valueOf(1234), 2)))
-                }
+                val expr = literal as XpmExpression
+                assertThat(expr.expressionElement, `is`(nullValue()))
             }
 
-            @Nested
+            @Test
             @DisplayName("XPath 3.1 EBNF (115) DoubleLiteral")
-            internal inner class DoubleLiteral {
-                @Test
-                @DisplayName("expression")
-                fun expression() {
-                    val expr = parse<XPathDoubleLiteral>("1e3")[0] as XpmExpression
-                    assertThat(expr.expressionElement, `is`(nullValue()))
-                }
+            fun doubleLiteral() {
+                val literal = parse<XPathDoubleLiteral>("1e3")[0] as XsDoubleValue
+                assertThat(literal.data, `is`(1e3))
 
-                @Test
-                @DisplayName("xs:double")
-                fun double() {
-                    val literal = parse<XPathDoubleLiteral>("1e3")[0] as XsDoubleValue
-                    assertThat(literal.data, `is`(1e3))
-                }
+                val expr = literal as XpmExpression
+                assertThat(expr.expressionElement, `is`(nullValue()))
             }
 
             @Nested
             @DisplayName("XPath 3.1 EBNF (116) StringLiteral")
             internal inner class StringLiteral {
                 @Test
-                @DisplayName("expression")
-                fun expression() {
-                    val expr = parse<XPathStringLiteral>("\"Lorem ipsum.\"")[0] as XpmExpression
-                    assertThat(expr.expressionElement, `is`(nullValue()))
-                }
-
-                @Test
                 @DisplayName("string literal content")
                 fun stringLiteral() {
                     val literal = parse<XPathStringLiteral>("\"Lorem ipsum.\uFFFF\"")[0] as XsStringValue
                     assertThat(literal.data, `is`("Lorem ipsum.\uFFFF")) // U+FFFF = BAD_CHARACTER token.
                     assertThat(literal.element, sameInstance(literal as PsiElement))
+
+                    val expr = literal as XpmExpression
+                    assertThat(expr.expressionElement, `is`(nullValue()))
                 }
 
                 @Test
@@ -1389,6 +1361,9 @@ private class XPathPsiTest : ParserTestCase() {
                     val literal = parse<XPathStringLiteral>("\"Lorem ipsum.")[0] as XsStringValue
                     assertThat(literal.data, `is`("Lorem ipsum."))
                     assertThat(literal.element, sameInstance(literal as PsiElement))
+
+                    val expr = literal as XpmExpression
+                    assertThat(expr.expressionElement, `is`(nullValue()))
                 }
 
                 @Test
@@ -1397,6 +1372,9 @@ private class XPathPsiTest : ParserTestCase() {
                     val literal = parse<XPathStringLiteral>("'''\"\"'")[0] as XsStringValue
                     assertThat(literal.data, `is`("'\"\""))
                     assertThat(literal.element, sameInstance(literal as PsiElement))
+
+                    val expr = literal as XpmExpression
+                    assertThat(expr.expressionElement, `is`(nullValue()))
                 }
 
                 @Test
@@ -1405,6 +1383,9 @@ private class XPathPsiTest : ParserTestCase() {
                     val literal = parse<XPathStringLiteral>("\"''\"\"\"")[0] as XsStringValue
                     assertThat(literal.data, `is`("''\""))
                     assertThat(literal.element, sameInstance(literal as PsiElement))
+
+                    val expr = literal as XpmExpression
+                    assertThat(expr.expressionElement, `is`(nullValue()))
                 }
             }
         }
@@ -1416,45 +1397,47 @@ private class XPathPsiTest : ParserTestCase() {
             @DisplayName("XPath 3.1 EBNF (59) VarRef")
             internal inner class VarRef {
                 @Test
-                @DisplayName("expression")
-                fun expression() {
-                    val expr = parse<XPathVarRef>("let \$x := 2 return \$y")[0] as XpmExpression
-                    assertThat(expr.expressionElement, `is`(nullValue()))
-                }
-
-                @Test
                 @DisplayName("NCName")
                 fun ncname() {
-                    val expr = parse<XPathVarRef>("let \$x := 2 return \$y")[0] as XdmVariableReference
+                    val ref = parse<XPathVarRef>("let \$x := 2 return \$y")[0] as XdmVariableReference
 
-                    val qname = expr.variableName!!
+                    val qname = ref.variableName!!
                     assertThat(qname.prefix, `is`(nullValue()))
                     assertThat(qname.namespace, `is`(nullValue()))
                     assertThat(qname.localName!!.data, `is`("y"))
+
+                    val expr = ref as XpmExpression
+                    assertThat(expr.expressionElement, `is`(nullValue()))
                 }
 
                 @Test
                 @DisplayName("QName")
                 fun qname() {
-                    val expr = parse<XPathVarRef>("let \$a:x := 2 return \$a:y")[0] as XdmVariableReference
+                    val ref = parse<XPathVarRef>("let \$a:x := 2 return \$a:y")[0] as XdmVariableReference
 
-                    val qname = expr.variableName!!
+                    val qname = ref.variableName!!
                     assertThat(qname.namespace, `is`(nullValue()))
                     assertThat(qname.prefix!!.data, `is`("a"))
                     assertThat(qname.localName!!.data, `is`("y"))
+
+                    val expr = ref as XpmExpression
+                    assertThat(expr.expressionElement, `is`(nullValue()))
                 }
 
                 @Test
                 @DisplayName("URIQualifiedName")
                 fun uriQualifiedName() {
-                    val expr = parse<XPathVarRef>(
+                    val ref = parse<XPathVarRef>(
                         "let \$Q{http://www.example.com}x := 2 return \$Q{http://www.example.com}y"
                     )[0] as XdmVariableReference
 
-                    val qname = expr.variableName!!
+                    val qname = ref.variableName!!
                     assertThat(qname.prefix, `is`(nullValue()))
                     assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
                     assertThat(qname.localName!!.data, `is`("y"))
+
+                    val expr = ref as XpmExpression
+                    assertThat(expr.expressionElement, `is`(nullValue()))
                 }
             }
 
@@ -1523,15 +1506,11 @@ private class XPathPsiTest : ParserTestCase() {
         @Nested
         @DisplayName("XPath 3.1 (3.1.4) Context Item Expression")
         internal inner class ContextItemExpression {
-            @Nested
+            @Test
             @DisplayName("XPath 3.1 EBNF (62) ContextItemExpr")
-            internal inner class ContextItemExpr {
-                @Test
-                @DisplayName("expression")
-                fun expression() {
-                    val expr = parse<XPathContextItemExpr>("() ! .")[0] as XpmExpression
-                    assertThat(expr.expressionElement, `is`(nullValue()))
-                }
+            fun contextItemExpr() {
+                val expr = parse<XPathContextItemExpr>("() ! .")[0] as XpmExpression
+                assertThat(expr.expressionElement, `is`(nullValue()))
             }
         }
 
