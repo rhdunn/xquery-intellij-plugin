@@ -47,6 +47,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpm.context.expand
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.*
@@ -1617,6 +1618,28 @@ private class PluginPsiTest : ParserTestCase()  {
     @Nested
     @DisplayName("XQuery IntelliJ Plugin (3.8.1) Maps")
     internal inner class Maps {
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (66) MapConstructor")
+        internal inner class MapConstructor {
+            @Test
+            @DisplayName("empty")
+            fun empty() {
+                val expr = parse<XPathMapConstructor>("object-node {}")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.MAP_CONSTRUCTOR))
+                assertThat(expr.expressionElement?.textOffset, `is`(0))
+            }
+
+            @Test
+            @DisplayName("with entry")
+            fun withEntry() {
+                val expr = parse<XPathMapConstructor>("object-node { \"1\" : \"one\" }")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.MAP_CONSTRUCTOR_ENTRY))
+                assertThat(expr.expressionElement?.textOffset, `is`(14))
+            }
+        }
+
         @Nested
         @DisplayName("XQuery IntelliJ Plugin EBNF (17) MapConstructorEntry")
         internal inner class MapConstructorEntry {

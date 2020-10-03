@@ -3353,6 +3353,28 @@ private class XQueryPsiTest : ParserTestCase() {
     @DisplayName("XQuery 3.1 (3.11.1) Maps")
     internal inner class Maps {
         @Nested
+        @DisplayName("XQuery 3.1 EBNF (170) MapConstructor")
+        internal inner class MapConstructor {
+            @Test
+            @DisplayName("empty")
+            fun empty() {
+                val expr = parse<XPathMapConstructor>("map {}")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.MAP_CONSTRUCTOR))
+                assertThat(expr.expressionElement?.textOffset, `is`(0))
+            }
+
+            @Test
+            @DisplayName("with entry")
+            fun withEntry() {
+                val expr = parse<XPathMapConstructor>("map { \"1\" : \"one\" }")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.MAP_CONSTRUCTOR_ENTRY))
+                assertThat(expr.expressionElement?.textOffset, `is`(6))
+            }
+        }
+
+        @Nested
         @DisplayName("XQuery 3.1 EBNF (171) MapConstructorEntry")
         internal inner class MapConstructorEntry {
             @Test
