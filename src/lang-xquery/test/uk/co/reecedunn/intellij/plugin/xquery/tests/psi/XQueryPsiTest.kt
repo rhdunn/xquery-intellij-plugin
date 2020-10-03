@@ -2162,6 +2162,10 @@ private class XQueryPsiTest : ParserTestCase() {
                     assertThat(qname.prefix, `is`(nullValue()))
                     assertThat(qname.localName!!.data, `is`("true"))
                     assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                    val expr = f as XpmExpression
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.NAMED_FUNCTION_REF))
+                    assertThat(expr.expressionElement?.textOffset, `is`(0))
                 }
 
                 @Test
@@ -2176,6 +2180,10 @@ private class XQueryPsiTest : ParserTestCase() {
                     assertThat(qname.prefix, `is`(nullValue()))
                     assertThat(qname.localName!!.data, `is`("true"))
                     assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                    val expr = f as XpmExpression
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.NAMED_FUNCTION_REF))
+                    assertThat(expr.expressionElement?.textOffset, `is`(0))
                 }
 
                 @Test
@@ -2184,6 +2192,10 @@ private class XQueryPsiTest : ParserTestCase() {
                     val f = parse<XPathNamedFunctionRef>(":true#0")[0] as XdmFunctionReference
                     assertThat(f.arity, `is`(0))
                     assertThat(f.functionName, `is`(nullValue()))
+
+                    val expr = f as XpmExpression
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.NAMED_FUNCTION_REF))
+                    assertThat(expr.expressionElement?.textOffset, `is`(0))
                 }
 
                 @Test
