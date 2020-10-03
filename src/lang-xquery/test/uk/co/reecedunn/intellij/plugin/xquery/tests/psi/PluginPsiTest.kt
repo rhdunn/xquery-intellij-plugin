@@ -1616,45 +1616,71 @@ private class PluginPsiTest : ParserTestCase()  {
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin (3.8.1) Maps")
-    internal inner class Maps {
+    @DisplayName("XQuery IntelliJ Plugin (3.8) JSON Constructors")
+    internal inner class JSONConstructors {
         @Nested
-        @DisplayName("XQuery IntelliJ Plugin EBNF (66) MapConstructor")
-        internal inner class MapConstructor {
-            @Test
-            @DisplayName("empty")
-            fun empty() {
-                val expr = parse<XPathMapConstructor>("object-node {}")[0] as XpmExpression
+        @DisplayName("XQuery IntelliJ Plugin (3.8.1) Maps")
+        internal inner class Maps {
+            @Nested
+            @DisplayName("XQuery IntelliJ Plugin EBNF (66) MapConstructor")
+            internal inner class MapConstructor {
+                @Test
+                @DisplayName("empty")
+                fun empty() {
+                    val expr = parse<XPathMapConstructor>("object-node {}")[0] as XpmExpression
 
-                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.MAP_CONSTRUCTOR))
-                assertThat(expr.expressionElement?.textOffset, `is`(0))
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.MAP_CONSTRUCTOR))
+                    assertThat(expr.expressionElement?.textOffset, `is`(0))
+                }
+
+                @Test
+                @DisplayName("with entry")
+                fun withEntry() {
+                    val expr = parse<XPathMapConstructor>("object-node { \"1\" : \"one\" }")[0] as XpmExpression
+
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.MAP_CONSTRUCTOR_ENTRY))
+                    assertThat(expr.expressionElement?.textOffset, `is`(14))
+                }
             }
 
-            @Test
-            @DisplayName("with entry")
-            fun withEntry() {
-                val expr = parse<XPathMapConstructor>("object-node { \"1\" : \"one\" }")[0] as XpmExpression
+            @Nested
+            @DisplayName("XQuery IntelliJ Plugin EBNF (17) MapConstructorEntry")
+            internal inner class MapConstructorEntry {
+                @Test
+                @DisplayName("MarkLogic")
+                fun markLogic() {
+                    val entry = parse<XPathMapConstructorEntry>("object-node { \"1\" : \"one\" }")[0]
+                    assertThat(entry.separator.elementType, `is`(XPathTokenType.QNAME_SEPARATOR))
+                }
 
-                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.MAP_CONSTRUCTOR_ENTRY))
-                assertThat(expr.expressionElement?.textOffset, `is`(14))
+                @Test
+                @DisplayName("Saxon")
+                fun saxon() {
+                    val entry = parse<XPathMapConstructorEntry>("map { \"1\" := \"one\" }")[0]
+                    assertThat(entry.separator.elementType, `is`(XPathTokenType.ASSIGN_EQUAL))
+                }
             }
         }
 
         @Nested
-        @DisplayName("XQuery IntelliJ Plugin EBNF (17) MapConstructorEntry")
-        internal inner class MapConstructorEntry {
+        @DisplayName("XQuery IntelliJ Plugin EBNF (62) ArrayConstructor")
+        internal inner class CurlyArrayConstructor {
             @Test
-            @DisplayName("MarkLogic")
-            fun markLogic() {
-                val entry = parse<XPathMapConstructorEntry>("object-node { \"1\" : \"one\" }")[0]
-                assertThat(entry.separator.elementType, `is`(XPathTokenType.QNAME_SEPARATOR))
+            @DisplayName("empty")
+            fun empty() {
+                val expr = parse<XPathCurlyArrayConstructor>("array-node {}")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.CURLY_ARRAY_CONSTRUCTOR))
+                assertThat(expr.expressionElement?.textOffset, `is`(0))
             }
 
             @Test
-            @DisplayName("Saxon")
-            fun saxon() {
-                val entry = parse<XPathMapConstructorEntry>("map { \"1\" := \"one\" }")[0]
-                assertThat(entry.separator.elementType, `is`(XPathTokenType.ASSIGN_EQUAL))
+            @DisplayName("with members")
+            fun withMembers() {
+                val expr = parse<XPathCurlyArrayConstructor>("array-node { 1, 2, 3 }")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.CURLY_ARRAY_CONSTRUCTOR))
+                assertThat(expr.expressionElement?.textOffset, `is`(0))
             }
         }
     }

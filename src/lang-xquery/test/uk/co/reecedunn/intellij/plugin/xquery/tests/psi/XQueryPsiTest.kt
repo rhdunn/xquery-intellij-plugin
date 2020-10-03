@@ -3397,7 +3397,7 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XPath 3.1 (3.11.2.1) Map Constructors")
+        @DisplayName("XPath 3.1 (3.11.2.1) Array Constructors")
         internal inner class ArrayConstructors {
             @Nested
             @DisplayName("XQuery 3.1 EBNF (175) SquareArrayConstructor")
@@ -3417,6 +3417,28 @@ private class XQueryPsiTest : ParserTestCase() {
                     val expr = parse<XPathSquareArrayConstructor>("[ 1, 2, 3 ]")[0] as XpmExpression
 
                     assertThat(expr.expressionElement.elementType, `is`(XPathElementType.SQUARE_ARRAY_CONSTRUCTOR))
+                    assertThat(expr.expressionElement?.textOffset, `is`(0))
+                }
+            }
+
+            @Nested
+            @DisplayName("XQuery 3.1 EBNF (176) CurlyArrayConstructor")
+            internal inner class CurlyArrayConstructor {
+                @Test
+                @DisplayName("empty")
+                fun empty() {
+                    val expr = parse<XPathCurlyArrayConstructor>("array {}")[0] as XpmExpression
+
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.CURLY_ARRAY_CONSTRUCTOR))
+                    assertThat(expr.expressionElement?.textOffset, `is`(0))
+                }
+
+                @Test
+                @DisplayName("with members")
+                fun withMembers() {
+                    val expr = parse<XPathCurlyArrayConstructor>("array { 1, 2, 3 }")[0] as XpmExpression
+
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.CURLY_ARRAY_CONSTRUCTOR))
                     assertThat(expr.expressionElement?.textOffset, `is`(0))
                 }
             }
