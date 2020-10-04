@@ -104,12 +104,6 @@ object XPathElementType {
         XPath
     )
 
-    val REVERSE_AXIS: IElementType = ICompositeElementType(
-        "XPATH_REVERSE_AXIS",
-        XPathReverseAxisPsiImpl::class.java,
-        XPath
-    )
-
     val ABBREV_REVERSE_STEP: IElementType = ICompositeElementType(
         "XPATH_ABBREV_REVERSE_STEP",
         XPathAbbrevReverseStepPsiImpl::class.java,

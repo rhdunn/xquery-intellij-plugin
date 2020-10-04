@@ -2,10 +2,9 @@ XQueryModuleImpl[FILE(0:25)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:25)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:25)]
          XPathReverseStepImpl[XPATH_REVERSE_STEP(0:25)]
-            XPathReverseAxisImpl[XPATH_REVERSE_AXIS(0:20)]
-               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_PRECEDING_SIBLING(0:17)]('preceding-sibling')
-               PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
-               LeafPsiElement[XPATH_AXIS_SEPARATOR_TOKEN(18:20)]('::')
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_PRECEDING_SIBLING(0:17)]('preceding-sibling')
+            PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
+            LeafPsiElement[XPATH_AXIS_SEPARATOR_TOKEN(18:20)]('::')
             PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
             XPathNodeTestImpl[XPATH_NODE_TEST(21:25)]
                XPathNameTestImpl[XPATH_NAME_TEST(21:25)]
