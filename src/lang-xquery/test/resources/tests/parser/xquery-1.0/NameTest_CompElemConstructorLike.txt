@@ -14,11 +14,12 @@ XQueryModuleImpl[FILE(0:27)]
                         PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_IN(8:10)]('in')
                   PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
-                  XPathNodeTestImpl[XPATH_NODE_TEST(11:19)]
-                     XPathNameTestImpl[XPATH_NAME_TEST(11:19)]
-                        XQueryNCNameImpl[XQUERY_NCNAME(11:19)]
-                           XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ELEMENT(11:18)]('element')
-                           PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
+                  XPathPathExprImpl[XPATH_PATH_EXPR(11:19)]
+                     XPathNodeTestImpl[XPATH_NODE_TEST(11:19)]
+                        XPathNameTestImpl[XPATH_NAME_TEST(11:19)]
+                           XQueryNCNameImpl[XQUERY_NCNAME(11:19)]
+                              XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ELEMENT(11:18)]('element')
+                              PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
             PluginReturnClauseImpl[XPATH_RETURN_CLAUSE(19:27)]
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_RETURN(19:25)]('return')
                PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')

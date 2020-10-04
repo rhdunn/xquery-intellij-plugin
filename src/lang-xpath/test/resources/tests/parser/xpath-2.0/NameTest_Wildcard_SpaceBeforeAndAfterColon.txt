@@ -1,9 +1,10 @@
 XPathImpl[FILE(0:8)]
-   XPathNodeTestImpl[XPATH_NODE_TEST(0:8)]
-      XPathNameTestImpl[XPATH_NAME_TEST(0:8)]
-         XPathWildcardImpl[XPATH_WILDCARD(0:8)]
-            PluginWildcardIndicatorImpl[XPATH_STAR_TOKEN(0:1)]('*')
-            PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
-            LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(2:3)](':')
-            PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
-            XmlNCNameImpl[XPATH_NCNAME_TOKEN(4:8)]('test')
+   XPathPathExprImpl[XPATH_PATH_EXPR(0:8)]
+      XPathNodeTestImpl[XPATH_NODE_TEST(0:8)]
+         XPathNameTestImpl[XPATH_NAME_TEST(0:8)]
+            XPathWildcardImpl[XPATH_WILDCARD(0:8)]
+               PluginWildcardIndicatorImpl[XPATH_STAR_TOKEN(0:1)]('*')
+               PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+               LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(2:3)](':')
+               PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(4:8)]('test')

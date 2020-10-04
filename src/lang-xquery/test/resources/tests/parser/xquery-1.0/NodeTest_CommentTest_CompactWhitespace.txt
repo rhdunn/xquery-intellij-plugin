@@ -1,8 +1,9 @@
 XQueryModuleImpl[FILE(0:9)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:9)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:9)]
-         XPathNodeTestImpl[XPATH_NODE_TEST(0:9)]
-            XPathCommentTestImpl[XPATH_COMMENT_TEST(0:9)]
-               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_COMMENT(0:7)]('comment')
-               LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(7:8)]('(')
-               LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(8:9)](')')
+         XPathPathExprImpl[XPATH_PATH_EXPR(0:9)]
+            XPathNodeTestImpl[XPATH_NODE_TEST(0:9)]
+               XPathCommentTestImpl[XPATH_COMMENT_TEST(0:9)]
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_COMMENT(0:7)]('comment')
+                  LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(7:8)]('(')
+                  LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(8:9)](')')

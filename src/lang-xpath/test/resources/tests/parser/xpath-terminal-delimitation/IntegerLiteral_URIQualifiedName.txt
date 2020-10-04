@@ -1,11 +1,12 @@
 XPathImpl[FILE(0:33)]
    XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(0:4)]('1234')
    PsiErrorElementImpl[ERROR_ELEMENT(4:4)]('XPST0003: Whitespace or a comment is required here.')
-   XPathNodeTestImpl[XPATH_NODE_TEST(4:33)]
-      XPathNameTestImpl[XPATH_NAME_TEST(4:33)]
-         XPathURIQualifiedNameImpl[XPATH_URI_QUALIFIED_NAME(4:33)]
-            XPathBracedURILiteralImpl[XPATH_BRACED_URI_LITERAL(4:29)]
-               LeafPsiElement[XPATH_BRACED_URI_LITERAL_START_TOKEN(4:6)]('Q{')
-               XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(6:28)]('http://www.example.com')
-               LeafPsiElement[XPATH_BRACED_URI_LITERAL_END_TOKEN(28:29)]('}')
-            XmlNCNameImpl[XPATH_NCNAME_TOKEN(29:33)]('test')
+   XPathPathExprImpl[XPATH_PATH_EXPR(4:33)]
+      XPathNodeTestImpl[XPATH_NODE_TEST(4:33)]
+         XPathNameTestImpl[XPATH_NAME_TEST(4:33)]
+            XPathURIQualifiedNameImpl[XPATH_URI_QUALIFIED_NAME(4:33)]
+               XPathBracedURILiteralImpl[XPATH_BRACED_URI_LITERAL(4:29)]
+                  LeafPsiElement[XPATH_BRACED_URI_LITERAL_START_TOKEN(4:6)]('Q{')
+                  XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(6:28)]('http://www.example.com')
+                  LeafPsiElement[XPATH_BRACED_URI_LITERAL_END_TOKEN(28:29)]('}')
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(29:33)]('test')

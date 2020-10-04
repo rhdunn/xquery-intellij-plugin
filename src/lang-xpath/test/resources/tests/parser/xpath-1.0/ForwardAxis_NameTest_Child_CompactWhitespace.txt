@@ -1,8 +1,9 @@
 XPathImpl[FILE(0:11)]
-   XPathForwardStepImpl[XPATH_FORWARD_STEP(0:11)]
-      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_CHILD(0:5)]('child')
-      LeafPsiElement[XPATH_AXIS_SEPARATOR_TOKEN(5:7)]('::')
-      XPathNodeTestImpl[XPATH_NODE_TEST(7:11)]
-         XPathNameTestImpl[XPATH_NAME_TEST(7:11)]
-            XPathNCNameImpl[XPATH_NCNAME(7:11)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(7:11)]('para')
+   XPathPathExprImpl[XPATH_PATH_EXPR(0:11)]
+      XPathForwardStepImpl[XPATH_FORWARD_STEP(0:11)]
+         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_CHILD(0:5)]('child')
+         LeafPsiElement[XPATH_AXIS_SEPARATOR_TOKEN(5:7)]('::')
+         XPathNodeTestImpl[XPATH_NODE_TEST(7:11)]
+            XPathNameTestImpl[XPATH_NAME_TEST(7:11)]
+               XPathNCNameImpl[XPATH_NCNAME(7:11)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(7:11)]('para')

@@ -1278,33 +1278,36 @@ open class XPathParser : PsiParser {
         type: IElementType?,
         marker: PsiBuilder.Marker,
         pathExprStartToken: IElementType?
-    ): Boolean = when {
-        parseStepExpr(builder, type) -> {
-            parseWhiteSpaceAndCommentTokens(builder)
-            var haveRelativePathExpr = false
-            while (builder.matchTokenType(XPathTokenType.RELATIVE_PATH_EXPR_TOKENS)) {
+    ): Boolean {
+        val step = parseStepExpr(builder, type)
+        return when {
+            step !== ParsedStepExpr.None -> {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseStepExpr(builder, null)) {
-                    builder.error(XPathBundle.message("parser.error.expected", "StepExpr"))
-                } else {
-                    haveRelativePathExpr = true
+                var haveRelativePathExpr = step === ParsedStepExpr.Step
+                while (builder.matchTokenType(XPathTokenType.RELATIVE_PATH_EXPR_TOKENS)) {
+                    parseWhiteSpaceAndCommentTokens(builder)
+                    if (parseStepExpr(builder, null) === ParsedStepExpr.None) {
+                        builder.error(XPathBundle.message("parser.error.expected", "StepExpr"))
+                    } else {
+                        haveRelativePathExpr = true
+                    }
+                    parseWhiteSpaceAndCommentTokens(builder)
                 }
-                parseWhiteSpaceAndCommentTokens(builder)
-            }
 
-            if (haveRelativePathExpr || pathExprStartToken != null)
+                if (haveRelativePathExpr || pathExprStartToken != null)
+                    marker.done(XPathElementType.PATH_EXPR)
+                else
+                    marker.drop()
+                true
+            }
+            pathExprStartToken === XPathTokenType.DIRECT_DESCENDANTS_PATH -> {
                 marker.done(XPathElementType.PATH_EXPR)
-            else
+                true
+            }
+            else -> {
                 marker.drop()
-            true
-        }
-        pathExprStartToken === XPathTokenType.DIRECT_DESCENDANTS_PATH -> {
-            marker.done(XPathElementType.PATH_EXPR)
-            true
-        }
-        else -> {
-            marker.drop()
-            false
+                false
+            }
         }
     }
 
@@ -1337,8 +1340,16 @@ open class XPathParser : PsiParser {
     // endregion
     // region Grammar :: Expr :: OrExpr :: StepExpr
 
-    open fun parseStepExpr(builder: PsiBuilder, type: IElementType?): Boolean {
-        return parseAxisStep(builder, type) || parsePostfixExpr(builder, type)
+    enum class ParsedStepExpr {
+        Step,
+        Expression,
+        None
+    }
+
+    open fun parseStepExpr(builder: PsiBuilder, type: IElementType?): ParsedStepExpr = when {
+        parseAxisStep(builder, type) -> ParsedStepExpr.Step
+        parsePostfixExpr(builder, type) -> ParsedStepExpr.Expression
+        else -> ParsedStepExpr.None
     }
 
     fun parseAxisStep(builder: PsiBuilder, type: IElementType?): Boolean {
