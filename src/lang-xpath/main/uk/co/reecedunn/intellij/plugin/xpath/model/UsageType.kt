@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 
 fun XPathNodeTest.getPrincipalNodeKind(): XstUsageType = when (parent.elementType) {
     XPathElementType.ABBREV_FORWARD_STEP -> XstUsageType.Attribute
-    XPathElementType.FORWARD_STEP -> when (parent.firstChild.firstChild.elementType) {
+    XPathElementType.FORWARD_STEP -> when (parent.firstChild.elementType) {
         XPathTokenType.K_ATTRIBUTE -> XstUsageType.Attribute
         XPathTokenType.K_NAMESPACE -> XstUsageType.Namespace
         else -> XstUsageType.Element

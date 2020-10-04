@@ -16,10 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.lang
 
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAnyKindTest
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathCurlyArrayConstructor
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathForwardAxis
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathMapConstructor
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxErrorReporter
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
@@ -82,7 +79,7 @@ object MarkLogicSyntaxValidator : XpmSyntaxValidator {
             else -> {
             }
         }
-        is XPathForwardAxis -> when (element.conformanceElement.elementType) {
+        is XPathForwardStep -> when (element.conformanceElement.elementType) {
             XPathTokenType.K_NAMESPACE -> reporter.requires(element, MARKLOGIC_6)
             XPathTokenType.K_PROPERTY -> reporter.requires(element, MARKLOGIC_6)
             else -> {

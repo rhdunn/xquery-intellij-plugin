@@ -1384,8 +1384,7 @@ open class XPathParser : PsiParser {
                 marker.rollbackTo()
                 return false
             }
-
-            marker.done(XPathElementType.FORWARD_AXIS)
+            marker.drop()
             return true
         }
         marker.drop()

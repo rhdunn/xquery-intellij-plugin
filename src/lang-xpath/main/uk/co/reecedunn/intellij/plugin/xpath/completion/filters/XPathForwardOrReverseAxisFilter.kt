@@ -28,7 +28,7 @@ object XPathForwardOrReverseAxisFilter : CompletionFilter {
     override fun accepts(element: PsiElement, context: ProcessingContext): Boolean {
         return element.ancestors().find {
             when (it) {
-                is XPathForwardAxis -> true
+                is XPathForwardStep -> it.firstChild === element
                 is XPathReverseAxis -> true
                 is XPathAxisStep -> {
                     val parent = element.parent
