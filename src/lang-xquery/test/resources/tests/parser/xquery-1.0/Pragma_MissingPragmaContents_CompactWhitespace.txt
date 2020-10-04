@@ -10,6 +10,5 @@ XQueryModuleImpl[FILE(0:15)]
                   XmlNCNameImpl[XPATH_NCNAME_TOKEN(6:10)]('test')
                LeafPsiElement[XPATH_PRAGMA_END_TOKEN(10:12)]('#)')
             LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(12:13)]('{')
-            XQueryExprImpl[XQUERY_EXPR(13:14)]
-               XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(13:14)]('2')
+            XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(13:14)]('2')
             LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(14:15)]('}')

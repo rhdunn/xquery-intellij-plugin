@@ -4,11 +4,10 @@ XQueryModuleImpl[FILE(0:9)]
          XPathPostfixExprImpl[XPATH_POSTFIX_EXPR(0:9)]
             PluginContextItemFunctionExprImpl[XPATH_CONTEXT_ITEM_FUNCTION_EXPR(0:6)]
                LeafPsiElement[XPATH_CONTEXT_FUNCTION(0:2)]('.{')
-               XQueryExprImpl[XQUERY_EXPR(2:5)]
-                  XPathAdditiveExprImpl[XPATH_ADDITIVE_EXPR(2:5)]
-                     XPathContextItemExprImpl[XPATH_DOT_TOKEN(2:3)]('.')
-                     LeafPsiElement[XPATH_PLUS_TOKEN(3:4)]('+')
-                     XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(4:5)]('1')
+               XPathAdditiveExprImpl[XPATH_ADDITIVE_EXPR(2:5)]
+                  XPathContextItemExprImpl[XPATH_DOT_TOKEN(2:3)]('.')
+                  LeafPsiElement[XPATH_PLUS_TOKEN(3:4)]('+')
+                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(4:5)]('1')
                LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(5:6)]('}')
             XPathArgumentListImpl[XPATH_ARGUMENT_LIST(6:9)]
                LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(6:7)]('(')

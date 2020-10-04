@@ -355,7 +355,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         assertThat(versioned.requiresConformance.size, `is`(0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XQueryElementType.EXPR))
+        assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.INTEGER_LITERAL))
     }
 
     @Test
@@ -389,7 +389,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         assertThat(versioned.requiresConformance.size, `is`(0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XQueryElementType.EXPR))
+        assertThat(versioned.conformanceElement.elementType, `is`(XPathElementType.STRING_LITERAL))
     }
 
     @Test
@@ -420,7 +420,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         assertThat(versioned.requiresConformance.size, `is`(0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XQueryElementType.EXPR))
+        assertThat(versioned.conformanceElement.elementType, `is`(XPathElementType.STRING_LITERAL))
     }
 
     @Test
@@ -452,7 +452,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         assertThat(versioned.requiresConformance.size, `is`(0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XQueryElementType.EXPR))
+        assertThat(versioned.conformanceElement.elementType, `is`(XPathElementType.PARENTHESIZED_EXPR))
     }
 
     @Test
@@ -484,7 +484,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         assertThat(versioned.requiresConformance.size, `is`(0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XQueryElementType.EXPR))
+        assertThat(versioned.conformanceElement.elementType, `is`(XPathElementType.PARENTHESIZED_EXPR))
     }
 
     @Test
@@ -515,7 +515,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         assertThat(versioned.requiresConformance.size, `is`(0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XQueryElementType.EXPR))
+        assertThat(versioned.conformanceElement.elementType, `is`(XPathElementType.STRING_LITERAL))
     }
 
     @Test
@@ -547,7 +547,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         assertThat(versioned.requiresConformance.size, `is`(0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XQueryElementType.EXPR))
+        assertThat(versioned.conformanceElement.elementType, `is`(XPathElementType.STRING_LITERAL))
     }
 
     @Test
@@ -579,7 +579,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         assertThat(versioned.requiresConformance.size, `is`(0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XQueryElementType.EXPR))
+        assertThat(versioned.conformanceElement.elementType, `is`(XPathElementType.STRING_LITERAL))
     }
 
     @Test
@@ -610,7 +610,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         assertThat(versioned.requiresConformance.size, `is`(0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XQueryElementType.EXPR))
+        assertThat(versioned.conformanceElement.elementType, `is`(XPathElementType.STRING_LITERAL))
     }
 
     @Test
@@ -643,7 +643,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         assertThat(versioned.requiresConformance.size, `is`(0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XQueryElementType.EXPR))
+        assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.INTEGER_LITERAL))
     }
 
     @Test
@@ -677,7 +677,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         assertThat(versioned.requiresConformance.size, `is`(0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XQueryElementType.EXPR))
+        assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.INTEGER_LITERAL))
     }
 
     @Test
@@ -713,7 +713,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         assertThat(versioned.requiresConformance.size, `is`(0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XQueryElementType.EXPR))
+        assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.INTEGER_LITERAL))
     }
 
     @Test
@@ -747,7 +747,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         assertThat(versioned.requiresConformance.size, `is`(0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XQueryElementType.EXPR))
+        assertThat(versioned.conformanceElement.elementType, `is`(XPathElementType.STRING_LITERAL))
     }
 
     @Test
@@ -780,7 +780,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         assertThat(versioned.requiresConformance.size, `is`(0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XQueryElementType.EXPR))
+        assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.INTEGER_LITERAL))
     }
 
     @Test
@@ -813,7 +813,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         assertThat(versioned.requiresConformance.size, `is`(0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XQueryElementType.EXPR))
+        assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.INTEGER_LITERAL))
     }
 
     @Test
@@ -846,7 +846,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         assertThat(versioned.requiresConformance.size, `is`(0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XQueryElementType.EXPR))
+        assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.INTEGER_LITERAL))
     }
 
     @Test

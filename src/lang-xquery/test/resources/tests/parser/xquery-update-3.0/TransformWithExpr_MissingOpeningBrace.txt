@@ -14,21 +14,20 @@ XQueryModuleImpl[FILE(0:44)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_WITH(14:18)]('with')
             PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
             PsiErrorElementImpl[ERROR_ELEMENT(19:19)]('XPST0003: Expected '{'.')
-            XQueryExprImpl[XQUERY_EXPR(19:43)]
-               UpdateFacilityRenameExprImpl[XQUERY_RENAME_EXPR(19:43)]
-                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_RENAME(19:25)]('rename')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
-                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_NODE(26:30)]('node')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
-                  UpdateFacilityTargetExprImpl[XQUERY_TARGET_EXPR(31:33)]
-                     XPathContextItemExprImpl[XPATH_DOT_TOKEN(31:32)]('.')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')
-                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AS(33:35)]('as')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
-                  UpdateFacilityNewNameExprImpl[XQUERY_NEW_NAME_EXPR(36:43)]
-                     XPathStringLiteralImpl[XPATH_STRING_LITERAL(36:42)]
-                        LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(36:37)]('"')
-                        XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(37:41)]('test')
-                        LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(41:42)]('"')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(42:43)](' ')
+            UpdateFacilityRenameExprImpl[XQUERY_RENAME_EXPR(19:43)]
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_RENAME(19:25)]('rename')
+               PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_NODE(26:30)]('node')
+               PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
+               UpdateFacilityTargetExprImpl[XQUERY_TARGET_EXPR(31:33)]
+                  XPathContextItemExprImpl[XPATH_DOT_TOKEN(31:32)]('.')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AS(33:35)]('as')
+               PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
+               UpdateFacilityNewNameExprImpl[XQUERY_NEW_NAME_EXPR(36:43)]
+                  XPathStringLiteralImpl[XPATH_STRING_LITERAL(36:42)]
+                     LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(36:37)]('"')
+                     XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(37:41)]('test')
+                     LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(41:42)]('"')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(42:43)](' ')
             LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(43:44)]('}')

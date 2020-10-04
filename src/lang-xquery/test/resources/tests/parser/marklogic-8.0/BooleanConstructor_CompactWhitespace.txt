@@ -4,9 +4,8 @@ XQueryModuleImpl[FILE(0:20)]
          PluginBooleanConstructorImpl[XQUERY_BOOLEAN_CONSTRUCTOR(0:20)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BOOLEAN_NODE(0:12)]('boolean-node')
             LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(12:13)]('{')
-            XQueryExprImpl[XQUERY_EXPR(13:19)]
-               XPathStringLiteralImpl[XPATH_STRING_LITERAL(13:19)]
-                  LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(13:14)]('"')
-                  XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(14:18)]('true')
-                  LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(18:19)]('"')
+            XPathStringLiteralImpl[XPATH_STRING_LITERAL(13:19)]
+               LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(13:14)]('"')
+               XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(14:18)]('true')
+               LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(18:19)]('"')
             LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(19:20)]('}')

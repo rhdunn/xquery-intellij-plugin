@@ -4,11 +4,10 @@ XQueryModuleImpl[FILE(0:8)]
          PluginContextItemFunctionExprImpl[XPATH_CONTEXT_ITEM_FUNCTION_EXPR(0:8)]
             LeafPsiElement[XPATH_CONTEXT_FUNCTION(0:2)]('.{')
             PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
-            XQueryExprImpl[XQUERY_EXPR(3:8)]
-               XPathAdditiveExprImpl[XPATH_ADDITIVE_EXPR(3:8)]
-                  XPathContextItemExprImpl[XPATH_DOT_TOKEN(3:4)]('.')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
-                  LeafPsiElement[XPATH_PLUS_TOKEN(5:6)]('+')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(7:8)]('1')
+            XPathAdditiveExprImpl[XPATH_ADDITIVE_EXPR(3:8)]
+               XPathContextItemExprImpl[XPATH_DOT_TOKEN(3:4)]('.')
+               PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
+               LeafPsiElement[XPATH_PLUS_TOKEN(5:6)]('+')
+               PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
+               XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(7:8)]('1')
             PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('XPST0003: Expected '}'.')

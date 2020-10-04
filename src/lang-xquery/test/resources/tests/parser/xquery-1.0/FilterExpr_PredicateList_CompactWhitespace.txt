@@ -11,6 +11,5 @@ XQueryModuleImpl[FILE(0:11)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(5:8)]('two')
             XPathPredicateImpl[XPATH_PREDICATE(8:11)]
                LeafPsiElement[XPATH_SQUARE_OPEN_TOKEN(8:9)]('[')
-               XQueryExprImpl[XQUERY_EXPR(9:10)]
-                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(9:10)]('3')
+               XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(9:10)]('3')
                LeafPsiElement[XPATH_SQUARE_CLOSE_TOKEN(10:11)](']')

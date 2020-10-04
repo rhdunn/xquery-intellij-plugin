@@ -8,9 +8,8 @@ XQueryModuleImpl[FILE(0:23)]
                XQueryStringConstructorInterpolationImpl[XQUERY_STRING_CONSTRUCTOR_INTERPOLATION(7:14)]
                   LeafPsiElement[XQUERY_STRING_INTERPOLATION_OPEN_TOKEN(7:9)]('`{')
                   PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
-                  XQueryExprImpl[XQUERY_EXPR(10:12)]
-                     XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(10:11)]('2')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
+                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(10:11)]('2')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
                   LeafPsiElement[XQUERY_STRING_INTERPOLATION_CLOSE_TOKEN(12:14)]('}`')
                LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_CONTENTS_TOKEN(14:20)](' Three')
             LeafPsiElement[XQUERY_STRING_CONSTRUCTOR_END_TOKEN(20:23)](']``')

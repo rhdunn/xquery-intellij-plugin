@@ -8,9 +8,8 @@ XQueryModuleImpl[FILE(0:63)]
                XQueryEnclosedTryTargetExprImpl[XQUERY_ENCLOSED_TRY_TARGET_EXPR(4:9)]
                   LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(4:5)]('{')
                   PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
-                  XQueryExprImpl[XQUERY_EXPR(6:8)]
-                     XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(6:7)]('2')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(6:7)]('2')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
                   LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(8:9)]('}')
             PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
             XQueryCatchClauseImpl[XQUERY_CATCH_CLAUSE(10:36)]
@@ -26,9 +25,8 @@ XQueryModuleImpl[FILE(0:63)]
                XQueryEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(31:36)]
                   LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(31:32)]('{')
                   PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')
-                  XQueryExprImpl[XQUERY_EXPR(33:35)]
-                     XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(33:34)]('2')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
+                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(33:34)]('2')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
                   LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(35:36)]('}')
             PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
             XQueryCatchClauseImpl[XQUERY_CATCH_CLAUSE(37:63)]
@@ -44,7 +42,6 @@ XQueryModuleImpl[FILE(0:63)]
                XQueryEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(58:63)]
                   LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(58:59)]('{')
                   PsiWhiteSpaceImpl[WHITE_SPACE(59:60)](' ')
-                  XQueryExprImpl[XQUERY_EXPR(60:62)]
-                     XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(60:61)]('2')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(61:62)](' ')
+                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(60:61)]('2')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(61:62)](' ')
                   LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(62:63)]('}')

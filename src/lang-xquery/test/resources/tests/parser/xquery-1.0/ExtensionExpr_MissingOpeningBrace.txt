@@ -14,7 +14,6 @@ XQueryModuleImpl[FILE(0:37)]
                LeafPsiElement[XPATH_PRAGMA_END_TOKEN(31:33)]('#)')
             PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
             PsiErrorElementImpl[ERROR_ELEMENT(34:34)]('XPST0003: Expected '{'.')
-            XQueryExprImpl[XQUERY_EXPR(34:36)]
-               XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(34:35)]('2')
-               PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
+            XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(34:35)]('2')
+            PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
             LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(36:37)]('}')

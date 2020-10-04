@@ -57,13 +57,13 @@ private class ScriptingConformanceTest : ParserTestCase() {
         fun testApplyExpr_Single_NoSemicolon() {
             val file = parseResource("tests/parser/xquery-1.0/ParenthesizedExpr_Expr_Single.xq")
             val applyExprs = file.walkTree().filterIsInstance<ScriptingApplyExpr>().toList()
-            assertThat(applyExprs.size, `is`(2)) // QueryBody and ParenthesizedExpr
+            assertThat(applyExprs.size, `is`(1)) // QueryBody
 
-            val conformance = applyExprs[1] as VersionConformance
+            val conformance = applyExprs[0] as VersionConformance
             assertThat(conformance.requiresConformance.size, `is`(0))
 
             assertThat(conformance.conformanceElement, `is`(notNullValue()))
-            assertThat(conformance.conformanceElement.elementType, `is`(XPathTokenType.INTEGER_LITERAL))
+            assertThat(conformance.conformanceElement.elementType, `is`(XPathTokenType.PARENTHESIS_OPEN))
         }
 
         @Test
@@ -71,9 +71,9 @@ private class ScriptingConformanceTest : ParserTestCase() {
         fun testApplyExpr_Single_Semicolon() {
             val file = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Single_SemicolonAtEnd.xq")
             val applyExprs = file.walkTree().filterIsInstance<ScriptingApplyExpr>().toList()
-            assertThat(applyExprs.size, `is`(2)) // QueryBody and ParenthesizedExpr
+            assertThat(applyExprs.size, `is`(1)) // QueryBody
 
-            val conformance = applyExprs[1] as VersionConformance
+            val conformance = applyExprs[0] as VersionConformance
 
             assertThat(conformance.requiresConformance.size, `is`(1))
             assertThat(conformance.requiresConformance[0], `is`(ScriptingSpec.NOTE_1_0_20140918))

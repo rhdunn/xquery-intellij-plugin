@@ -4,8 +4,7 @@ XQueryModuleImpl[FILE(0:41)]
          XQuerySwitchExprImpl[XQUERY_SWITCH_EXPR(0:41)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SWITCH(0:6)]('switch')
             LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(6:7)]('(')
-            XQueryExprImpl[XQUERY_EXPR(7:8)]
-               XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(7:8)]('2')
+            XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(7:8)]('2')
             LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(8:9)](')')
             XQuerySwitchCaseClauseImpl[XQUERY_SWITCH_CASE_CLAUSE(9:25)]
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_CASE(9:13)]('case')

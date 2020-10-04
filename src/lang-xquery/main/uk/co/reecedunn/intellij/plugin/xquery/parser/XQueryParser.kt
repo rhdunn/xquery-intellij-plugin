@@ -1408,20 +1408,37 @@ class XQueryParser : XPathParser() {
     // endregion
     // region Grammar :: Expr
 
-    override fun parseExpr(builder: PsiBuilder, type: IElementType?, functionDeclRecovery: Boolean): Boolean {
-        val marker = builder.mark()
-        if (parseApplyExpr(builder, type!!, functionDeclRecovery)) {
-            marker.done(type)
-            return true
-        }
-        marker.drop()
-        return false
+    enum class HaveConcatExpr {
+        None,
+        Single,
+        Multiple
     }
 
-    private fun parseApplyExpr(builder: PsiBuilder, type: IElementType, functionDeclRecovery: Boolean): Boolean {
+    override fun parseExpr(builder: PsiBuilder, type: IElementType?, functionDeclRecovery: Boolean): Boolean {
+        val marker = builder.mark()
+        return when (parseApplyExpr(builder, type!!, functionDeclRecovery)) {
+            HaveConcatExpr.Multiple -> {
+                marker.done(type)
+                true
+            }
+            HaveConcatExpr.Single -> {
+                if (type !== EXPR)
+                    marker.done(type)
+                else
+                    marker.drop()
+                true
+            }
+            HaveConcatExpr.None -> {
+                marker.drop()
+                false
+            }
+        }
+    }
+
+    private fun parseApplyExpr(builder: PsiBuilder, type: IElementType, functionDeclRecovery: Boolean): HaveConcatExpr {
         // NOTE: No marker is captured here because the Expr node is an instance
         // of the ApplyExpr node and there are no other uses of ApplyExpr.
-        var haveConcatExpr = false
+        var haveConcatExpr: HaveConcatExpr = HaveConcatExpr.None
         while (true) {
             if (!parseConcatExpr(builder)) {
                 parseWhiteSpaceAndCommentTokens(builder)
@@ -1445,7 +1462,7 @@ class XQueryParser : XPathParser() {
                 TransactionType.WITH_PROLOG -> {
                     // MarkLogic transaction containing a Prolog/Module statement.
                     marker.rollbackTo()
-                    return true
+                    return HaveConcatExpr.Multiple
                 }
                 TransactionType.WITHOUT_PROLOG -> {
                     if (type !== XQueryElementType.QUERY_BODY) {
@@ -1460,7 +1477,7 @@ class XQueryParser : XPathParser() {
                 }
                 TransactionType.NONE -> {
                     marker.rollbackTo()
-                    if (haveConcatExpr) {
+                    if (haveConcatExpr !== HaveConcatExpr.None) {
                         if (type !== XQueryElementType.QUERY_BODY) {
                             // Scripting Extension: The semicolon is required to end a ConcatExpr.
                             builder.error(XPathBundle.message("parser.error.expected", ";"))
@@ -1471,11 +1488,17 @@ class XQueryParser : XPathParser() {
                             marker2.done(XQueryElementType.TRANSACTION_SEPARATOR)
                         }
                     }
-                    return true
+                    return when (haveConcatExpr) {
+                        HaveConcatExpr.None -> HaveConcatExpr.Single
+                        else -> HaveConcatExpr.Multiple
+                    }
                 }
             }
 
-            haveConcatExpr = true
+            haveConcatExpr = when (haveConcatExpr) {
+                HaveConcatExpr.None -> HaveConcatExpr.Single
+                else -> HaveConcatExpr.Multiple
+            }
         }
     }
 

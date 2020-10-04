@@ -4,6 +4,5 @@ XQueryModuleImpl[FILE(0:14)]
          PluginNumberConstructorImpl[XQUERY_NUMBER_CONSTRUCTOR(0:14)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_NUMBER_NODE(0:11)]('number-node')
             LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(11:12)]('{')
-            XQueryExprImpl[XQUERY_EXPR(12:13)]
-               XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(12:13)]('2')
+            XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(12:13)]('2')
             LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(13:14)]('}')

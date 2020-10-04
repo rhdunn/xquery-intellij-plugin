@@ -17,7 +17,6 @@ XQueryModuleImpl[FILE(0:66)]
             PsiWhiteSpaceImpl[WHITE_SPACE(60:61)](' ')
             LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(61:62)]('{')
             PsiWhiteSpaceImpl[WHITE_SPACE(62:63)](' ')
-            XQueryExprImpl[XQUERY_EXPR(63:65)]
-               XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(63:64)]('2')
-               PsiWhiteSpaceImpl[WHITE_SPACE(64:65)](' ')
+            XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(63:64)]('2')
+            PsiWhiteSpaceImpl[WHITE_SPACE(64:65)](' ')
             LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(65:66)]('}')

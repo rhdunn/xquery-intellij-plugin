@@ -12,6 +12,5 @@ XQueryModuleImpl[FILE(0:34)]
                LeafPsiElement[XPATH_PRAGMA_CONTENTS_TOKEN(11:29)]('Lorem ipsum dolor.')
                LeafPsiElement[XPATH_PRAGMA_END_TOKEN(29:31)]('#)')
             LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(31:32)]('{')
-            XQueryExprImpl[XQUERY_EXPR(32:33)]
-               XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(32:33)]('2')
+            XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(32:33)]('2')
             LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(33:34)]('}')

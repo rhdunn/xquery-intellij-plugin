@@ -11,11 +11,10 @@ XQueryModuleImpl[FILE(0:27)]
                         PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_UPDATE(7:13)]('update')
             PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
-            XQueryExprImpl[XQUERY_EXPR(14:27)]
-               UpdateFacilityDeleteExprImpl[XQUERY_DELETE_EXPR(14:27)]
-                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DELETE(14:20)]('delete')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
-                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_NODE(21:25)]('node')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
-                  UpdateFacilityTargetExprImpl[XQUERY_TARGET_EXPR(26:27)]
-                     XPathContextItemExprImpl[XPATH_DOT_TOKEN(26:27)]('.')
+            UpdateFacilityDeleteExprImpl[XQUERY_DELETE_EXPR(14:27)]
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DELETE(14:20)]('delete')
+               PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_NODE(21:25)]('node')
+               PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
+               UpdateFacilityTargetExprImpl[XQUERY_TARGET_EXPR(26:27)]
+                  XPathContextItemExprImpl[XPATH_DOT_TOKEN(26:27)]('.')

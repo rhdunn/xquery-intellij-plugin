@@ -12,6 +12,5 @@ XQueryModuleImpl[FILE(0:21)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(13:18)]('dolor')
             XPathPredicateImpl[XPATH_PREDICATE(18:21)]
                LeafPsiElement[XPATH_SQUARE_OPEN_TOKEN(18:19)]('[')
-               XQueryExprImpl[XQUERY_EXPR(19:20)]
-                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(19:20)]('1')
+               XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(19:20)]('1')
                LeafPsiElement[XPATH_SQUARE_CLOSE_TOKEN(20:21)](']')

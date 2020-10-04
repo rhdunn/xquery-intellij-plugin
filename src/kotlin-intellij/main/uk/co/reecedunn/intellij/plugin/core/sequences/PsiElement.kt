@@ -127,3 +127,11 @@ fun Sequence<PsiElement>.filterIsElementType(elementType: IElementType): Sequenc
 fun Sequence<PsiElement>.filterIsElementType(tokens: TokenSet): Sequence<PsiElement> = filter {
     tokens.contains(it.elementType)
 }
+
+fun Sequence<PsiElement>.filterIsNotElementType(elementType: IElementType): Sequence<PsiElement> = filter {
+    it.elementType !== elementType
+}
+
+fun Sequence<PsiElement>.filterIsNotElementType(tokens: TokenSet): Sequence<PsiElement> = filter {
+    !tokens.contains(it.elementType)
+}

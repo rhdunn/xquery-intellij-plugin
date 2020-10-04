@@ -9,8 +9,7 @@ XQueryModuleImpl[FILE(0:10)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(1:2)]('f')
             XPathPredicateImpl[XPATH_PREDICATE(2:5)]
                LeafPsiElement[XPATH_SQUARE_OPEN_TOKEN(2:3)]('[')
-               XQueryExprImpl[XQUERY_EXPR(3:4)]
-                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(3:4)]('2')
+               XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(3:4)]('2')
                LeafPsiElement[XPATH_SQUARE_CLOSE_TOKEN(4:5)](']')
             XPathArgumentListImpl[XPATH_ARGUMENT_LIST(5:10)]
                LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(5:6)]('(')
