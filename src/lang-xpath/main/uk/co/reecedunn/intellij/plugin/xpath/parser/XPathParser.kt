@@ -1363,9 +1363,10 @@ open class XPathParser : PsiParser {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!parseNodeTest(builder, null)) {
                 builder.error(XPathBundle.message("parser.error.expected", "NodeTest"))
+                marker.drop()
+            } else {
+                marker.done(XPathElementType.FORWARD_STEP)
             }
-
-            marker.done(XPathElementType.FORWARD_STEP)
             return true
         } else if (parseAbbrevForwardStep(builder, type)) {
             marker.drop()
@@ -1418,9 +1419,10 @@ open class XPathParser : PsiParser {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!parseNodeTest(builder, null)) {
                 builder.error(XPathBundle.message("parser.error.expected", "NodeTest"))
+                marker.drop()
+            } else {
+                marker.done(XPathElementType.REVERSE_STEP)
             }
-
-            marker.done(XPathElementType.REVERSE_STEP)
             return true
         } else if (parseAbbrevReverseStep(builder)) {
             marker.drop()
