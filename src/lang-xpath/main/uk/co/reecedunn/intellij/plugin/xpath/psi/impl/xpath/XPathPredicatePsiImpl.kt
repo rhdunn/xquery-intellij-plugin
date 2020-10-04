@@ -18,14 +18,14 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAxisStep
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPredicate
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPredicateList
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 
 class XPathPredicatePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathPredicate {
     override val expressionElement: PsiElement?
         get() = when (parent) {
-            is XPathPredicateList /* AxisStep */ -> null
+            is XPathAxisStep /* AxisStep */ -> null
             else /* PostfixExpr */ -> parent.firstChild.let { (it as? XpmExpression)?.expressionElement ?: it }
         }
 }

@@ -128,12 +128,6 @@ object XPathElementType {
         XPath
     )
 
-    val PREDICATE_LIST: IElementType = ICompositeElementType(
-        "XPATH_PREDICATE_LIST",
-        XPathPredicateListPsiImpl::class.java,
-        XPath
-    )
-
     val PREDICATE: IElementType = ICompositeElementType(
         "XPATH_PREDICATE",
         XPathPredicatePsiImpl::class.java,

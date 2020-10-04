@@ -12,9 +12,8 @@ XQueryModuleImpl[FILE(0:17)]
                      XQueryNCNameImpl[XQUERY_NCNAME(10:14)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(10:13)]('two')
                         PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
-            XPathPredicateListImpl[XPATH_PREDICATE_LIST(14:17)]
-               XPathPredicateImpl[XPATH_PREDICATE(14:17)]
-                  LeafPsiElement[XPATH_SQUARE_OPEN_TOKEN(14:15)]('[')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
-                  PsiErrorElementImpl[ERROR_ELEMENT(16:16)]('XPST0003: Missing expression.')
-                  LeafPsiElement[XPATH_SQUARE_CLOSE_TOKEN(16:17)](']')
+            XPathPredicateImpl[XPATH_PREDICATE(14:17)]
+               LeafPsiElement[XPATH_SQUARE_OPEN_TOKEN(14:15)]('[')
+               PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
+               PsiErrorElementImpl[ERROR_ELEMENT(16:16)]('XPST0003: Missing expression.')
+               LeafPsiElement[XPATH_SQUARE_CLOSE_TOKEN(16:17)](']')

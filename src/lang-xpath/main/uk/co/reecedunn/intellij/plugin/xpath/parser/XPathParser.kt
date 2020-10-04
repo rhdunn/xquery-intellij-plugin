@@ -1539,16 +1539,11 @@ open class XPathParser : PsiParser {
     }
 
     private fun parsePredicateList(builder: PsiBuilder): Boolean {
-        val marker = builder.mark()
         var havePredicate = false
         while (parsePredicate(builder)) {
             parseWhiteSpaceAndCommentTokens(builder)
             havePredicate = true
         }
-        if (havePredicate)
-            marker.done(XPathElementType.PREDICATE_LIST)
-        else
-            marker.drop()
         return havePredicate
     }
 
