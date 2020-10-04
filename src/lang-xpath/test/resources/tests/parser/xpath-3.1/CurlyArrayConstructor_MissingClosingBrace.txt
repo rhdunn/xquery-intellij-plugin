@@ -5,6 +5,5 @@ XPathImpl[FILE(0:9)]
       XPathEnclosedExprImpl[XPATH_ENCLOSED_EXPR(6:9)]
          LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(6:7)]('{')
          PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-         XPathExprImpl[XPATH_EXPR(8:9)]
-            XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(8:9)]('1')
+         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(8:9)]('1')
          PsiErrorElementImpl[ERROR_ELEMENT(9:9)]('XPST0003: Expected '}'.')

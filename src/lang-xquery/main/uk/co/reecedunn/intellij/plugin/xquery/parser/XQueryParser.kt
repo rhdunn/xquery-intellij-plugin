@@ -61,7 +61,6 @@ class XQueryParser : XPathParser() {
 
     override val ENCLOSED_EXPR: IElementType = XQueryElementType.ENCLOSED_EXPR
     override val EXPR: IElementType = XQueryElementType.EXPR
-    override val CONCAT_EXPR: IElementType? = XQueryElementType.CONCAT_EXPR
     override val FUNCTION_BODY: IElementType = XQueryElementType.FUNCTION_BODY
 
     // endregion

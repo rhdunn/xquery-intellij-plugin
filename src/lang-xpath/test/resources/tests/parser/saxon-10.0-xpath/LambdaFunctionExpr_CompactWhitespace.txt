@@ -2,13 +2,12 @@ XPathImpl[FILE(0:11)]
    XPathPostfixExprImpl[XPATH_POSTFIX_EXPR(0:11)]
       PluginLambdaFunctionExprImpl[XPATH_LAMBDA_FUNCTION_EXPR(0:9)]
          LeafPsiElement[XPATH_LAMBDA_FUNCTION(0:2)]('_{')
-         XPathExprImpl[XPATH_EXPR(2:8)]
-            XPathFunctionCallImpl[XPATH_FUNCTION_CALL(2:8)]
-               XPathNCNameImpl[XPATH_NCNAME(2:6)]
-                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(2:6)]('true')
-               XPathArgumentListImpl[XPATH_ARGUMENT_LIST(6:8)]
-                  LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(6:7)]('(')
-                  LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(7:8)](')')
+         XPathFunctionCallImpl[XPATH_FUNCTION_CALL(2:8)]
+            XPathNCNameImpl[XPATH_NCNAME(2:6)]
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(2:6)]('true')
+            XPathArgumentListImpl[XPATH_ARGUMENT_LIST(6:8)]
+               LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(6:7)]('(')
+               LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(7:8)](')')
          LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(8:9)]('}')
       XPathArgumentListImpl[XPATH_ARGUMENT_LIST(9:11)]
          LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(9:10)]('(')

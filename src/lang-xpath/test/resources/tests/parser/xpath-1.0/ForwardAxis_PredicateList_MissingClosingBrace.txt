@@ -13,6 +13,5 @@ XPathImpl[FILE(0:15)]
       XPathPredicateImpl[XPATH_PREDICATE(12:15)]
          LeafPsiElement[XPATH_SQUARE_OPEN_TOKEN(12:13)]('[')
          PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
-         XPathExprImpl[XPATH_EXPR(14:15)]
-            XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(14:15)]('3')
+         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(14:15)]('3')
          PsiErrorElementImpl[ERROR_ELEMENT(15:15)]('XPST0003: Expected ']'.')

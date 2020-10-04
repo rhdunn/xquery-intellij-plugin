@@ -5,6 +5,5 @@ XPathImpl[FILE(0:13)]
       LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(9:10)](')')
       XPathFunctionBodyImpl[XPATH_FUNCTION_BODY(10:13)]
          LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(10:11)]('{')
-         XPathExprImpl[XPATH_EXPR(11:12)]
-            XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(11:12)]('2')
+         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(11:12)]('2')
          LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(12:13)]('}')

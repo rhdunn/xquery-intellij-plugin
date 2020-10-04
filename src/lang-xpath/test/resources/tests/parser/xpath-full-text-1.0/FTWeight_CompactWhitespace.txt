@@ -18,6 +18,5 @@ XPathImpl[FILE(0:35)]
             FTWeightImpl[XPATH_FT_WEIGHT(26:35)]
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_WEIGHT(26:32)]('weight')
                LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(32:33)]('{')
-               XPathExprImpl[XPATH_EXPR(33:34)]
-                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(33:34)]('5')
+               XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(33:34)]('5')
                LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(34:35)]('}')

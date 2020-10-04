@@ -2,11 +2,10 @@ XPathImpl[FILE(0:9)]
    PluginLambdaFunctionExprImpl[XPATH_LAMBDA_FUNCTION_EXPR(0:9)]
       LeafPsiElement[XPATH_LAMBDA_FUNCTION(0:2)]('_{')
       PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
-      XPathExprImpl[XPATH_EXPR(3:9)]
-         XPathFunctionCallImpl[XPATH_FUNCTION_CALL(3:9)]
-            XPathNCNameImpl[XPATH_NCNAME(3:7)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(3:7)]('true')
-            XPathArgumentListImpl[XPATH_ARGUMENT_LIST(7:9)]
-               LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(7:8)]('(')
-               LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(8:9)](')')
+      XPathFunctionCallImpl[XPATH_FUNCTION_CALL(3:9)]
+         XPathNCNameImpl[XPATH_NCNAME(3:7)]
+            XmlNCNameImpl[XPATH_NCNAME_TOKEN(3:7)]('true')
+         XPathArgumentListImpl[XPATH_ARGUMENT_LIST(7:9)]
+            LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(7:8)]('(')
+            LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(8:9)](')')
       PsiErrorElementImpl[ERROR_ELEMENT(9:9)]('XPST0003: Expected '}'.')

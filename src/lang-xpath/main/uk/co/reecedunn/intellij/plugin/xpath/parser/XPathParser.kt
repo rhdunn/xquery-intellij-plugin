@@ -40,7 +40,6 @@ open class XPathParser : PsiParser {
 
     open val ENCLOSED_EXPR: IElementType = XPathElementType.ENCLOSED_EXPR
     open val EXPR: IElementType = XPathElementType.EXPR
-    open val CONCAT_EXPR: IElementType? = null
     open val FUNCTION_BODY: IElementType = XPathElementType.FUNCTION_BODY
 
     // endregion
@@ -229,7 +228,7 @@ open class XPathParser : PsiParser {
                 parseWhiteSpaceAndCommentTokens(builder)
             }
 
-            if (type == null || (!multipleExprSingles && type === CONCAT_EXPR))
+            if (type == null || !multipleExprSingles)
                 marker.drop()
             else
                 marker.done(type)

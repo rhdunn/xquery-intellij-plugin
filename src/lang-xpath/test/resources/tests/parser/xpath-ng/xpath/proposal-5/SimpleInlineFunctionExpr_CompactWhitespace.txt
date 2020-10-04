@@ -3,11 +3,10 @@ XPathImpl[FILE(0:10)]
       PluginContextItemFunctionExprImpl[XPATH_CONTEXT_ITEM_FUNCTION_EXPR(0:7)]
          XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FN(0:2)]('fn')
          LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(2:3)]('{')
-         XPathExprImpl[XPATH_EXPR(3:6)]
-            XPathAdditiveExprImpl[XPATH_ADDITIVE_EXPR(3:6)]
-               XPathContextItemExprImpl[XPATH_DOT_TOKEN(3:4)]('.')
-               LeafPsiElement[XPATH_PLUS_TOKEN(4:5)]('+')
-               XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(5:6)]('1')
+         XPathAdditiveExprImpl[XPATH_ADDITIVE_EXPR(3:6)]
+            XPathContextItemExprImpl[XPATH_DOT_TOKEN(3:4)]('.')
+            LeafPsiElement[XPATH_PLUS_TOKEN(4:5)]('+')
+            XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(5:6)]('1')
          LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(6:7)]('}')
       XPathArgumentListImpl[XPATH_ARGUMENT_LIST(7:10)]
          LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(7:8)]('(')
