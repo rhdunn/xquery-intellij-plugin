@@ -1562,7 +1562,10 @@ open class XPathParser : PsiParser {
                 builder.error(XPathBundle.message("parser.error.expected", "]"))
             }
 
-            marker.done(XPathElementType.PREDICATE)
+            if (haveErrors)
+                marker.drop()
+            else
+                marker.done(XPathElementType.PREDICATE)
             return true
         }
 
