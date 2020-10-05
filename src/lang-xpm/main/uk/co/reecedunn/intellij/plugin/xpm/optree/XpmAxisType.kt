@@ -18,4 +18,5 @@ package uk.co.reecedunn.intellij.plugin.xpm.optree
 enum class XpmAxisType {
     Attribute,
     Child,
+    Namespace,
 }

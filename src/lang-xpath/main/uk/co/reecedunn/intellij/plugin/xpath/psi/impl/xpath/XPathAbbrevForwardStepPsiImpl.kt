@@ -22,6 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAbbrevForwardStep
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNameTest
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPredicate
 
@@ -29,9 +30,10 @@ class XPathAbbrevForwardStepPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
     override val axisType: XpmAxisType = XpmAxisType.Attribute
 
     override val nodeName: XsQNameValue?
-        get() = (lastChild as XPathNameTest).nodeName
+        get() = (lastChild as? XPathNameTest)?.nodeName
 
-    override val nodeType: XdmItemType = XdmAttributeItem
+    override val nodeType: XdmItemType
+        get() = (lastChild as? XPathNodeTest)?.nodeType ?: XdmAttributeItem
 
     override val predicates: Sequence<XpmPredicate> = emptySequence()
 }
