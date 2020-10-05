@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016, 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,20 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementItem
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNameTest
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAxisType
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPredicate
 
-class XPathNameTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathNameTest
+class XPathNameTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathNameTest {
+    override val axisType: XpmAxisType = XpmAxisType.Child
+
+    override val nodeName: XsQNameValue?
+        get() = firstChild as XsQNameValue
+
+    override val nodeType: XdmItemType = XdmElementItem
+
+    override val predicates: Sequence<XpmPredicate> = emptySequence()
+}

@@ -47,7 +47,9 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
 import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPathStep
 import java.math.BigDecimal
 import java.math.BigInteger
 
@@ -2245,6 +2247,26 @@ private class XPathPsiTest : ParserTestCase() {
         @Nested
         @DisplayName("XPath 3.1 (3.3.5) Abbreviated Syntax")
         internal inner class AbbreviatedSyntax {
+            @Test
+            @DisplayName("element name test")
+            fun elementNameTest() {
+                val step = parse<XPathNameTest>("test")[0] as XpmPathStep
+
+                assertThat(step.axisType, `is`(XpmAxisType.Child))
+
+                val qname = step.nodeName!!
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                assertThat(step.nodeType, sameInstance(XdmElementItem))
+
+                val predicates = step.predicates.toList()
+                assertThat(predicates.size, `is`(0))
+            }
+
             @Nested
             @DisplayName("XPath 3.1 EBNF (42) AbbrevForwardStep")
             internal inner class AbbrevForwardStep {

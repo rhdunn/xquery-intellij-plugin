@@ -39,6 +39,14 @@ interface XdmElementNode : XdmNode, XdmAccessors {
     val closingTag: XsQNameValue?
 }
 
+object XdmElementItem : XdmItemType {
+    override val typeName: String = "element()"
+    override val itemType: XdmItemType? get() = this
+    override val lowerBound: Int? = 1
+    override val upperBound: Int? = 1
+    override val typeClass: Class<*> = XdmElementNode::class.java
+}
+
 // endregion
 // region XQuery and XPath 3.1 Data Model (2.7.4) : comment()
 

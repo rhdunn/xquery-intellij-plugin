@@ -58,7 +58,9 @@ import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.reference.XPathFunctionNameReference
 import uk.co.reecedunn.intellij.plugin.xpm.context.expand
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPathStep
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.xquery.model.getNamespaceType
@@ -2478,10 +2480,10 @@ private class XQueryPsiTest : ParserTestCase() {
                 fun elementNcname() {
                     val qname = parse<XPathEQName>(
                         """
-                    declare default function namespace "http://www.example.co.uk/function";
-                    declare default element namespace "http://www.example.co.uk/element";
-                    ancestor::test
-                    """
+                        declare default function namespace "http://www.example.co.uk/function";
+                        declare default element namespace "http://www.example.co.uk/element";
+                        ancestor::test
+                        """
                     )[0] as XsQNameValue
                     assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.DefaultElementOrType))
                     assertThat(qname.element!!.getUsageType(), `is`(XstUsageType.Element))
@@ -2507,10 +2509,10 @@ private class XQueryPsiTest : ParserTestCase() {
                 fun attributeNcname() {
                     val qname = parse<XPathEQName>(
                         """
-                    declare default function namespace "http://www.example.co.uk/function";
-                    declare default element namespace "http://www.example.co.uk/element";
-                    attribute::test
-                    """
+                        declare default function namespace "http://www.example.co.uk/function";
+                        declare default element namespace "http://www.example.co.uk/element";
+                        attribute::test
+                        """
                     )[0] as XsQNameValue
                     assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.None))
                     assertThat(qname.element!!.getUsageType(), `is`(XstUsageType.Attribute))
@@ -2536,10 +2538,10 @@ private class XQueryPsiTest : ParserTestCase() {
                 fun namespaceNcname() {
                     val qname = parse<XPathEQName>(
                         """
-                    declare default function namespace "http://www.example.co.uk/function";
-                    declare default element namespace "http://www.example.co.uk/element";
-                    namespace::test
-                    """
+                        declare default function namespace "http://www.example.co.uk/function";
+                        declare default element namespace "http://www.example.co.uk/element";
+                        namespace::test
+                        """
                     )[0] as XsQNameValue
                     assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.None))
                     assertThat(qname.element!!.getUsageType(), `is`(XstUsageType.Namespace))
@@ -2693,6 +2695,26 @@ private class XQueryPsiTest : ParserTestCase() {
         @Nested
         @DisplayName("XQuery 3.1 (3.3.5) Abbreviated Syntax")
         internal inner class AbbreviatedSyntax {
+            @Test
+            @DisplayName("element name test")
+            fun elementNameTest() {
+                val step = parse<XPathNameTest>("test")[0] as XpmPathStep
+
+                assertThat(step.axisType, `is`(XpmAxisType.Child))
+
+                val qname = step.nodeName!!
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                assertThat(step.nodeType, sameInstance(XdmElementItem))
+
+                val predicates = step.predicates.toList()
+                assertThat(predicates.size, `is`(0))
+            }
+
             @Nested
             @DisplayName("XQuery 3.1 EBNF (114) AbbrevForwardStep")
             internal inner class AbbrevForwardStep {
