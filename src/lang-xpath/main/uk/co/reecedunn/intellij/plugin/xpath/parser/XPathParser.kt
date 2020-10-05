@@ -1415,12 +1415,9 @@ open class XPathParser : PsiParser {
             return true
         } else if (matched) {
             builder.error(XPathBundle.message("parser.error.expected", "NodeTest"))
-
-            marker.done(XPathElementType.ABBREV_FORWARD_STEP)
-            return true
         }
         marker.drop()
-        return false
+        return matched
     }
 
     private fun parseReverseStep(builder: PsiBuilder): Boolean {
