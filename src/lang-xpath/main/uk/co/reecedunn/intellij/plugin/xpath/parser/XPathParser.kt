@@ -1474,14 +1474,8 @@ open class XPathParser : PsiParser {
             return true
         }
 
-        val nameTest = parseNameTest(builder, type)
-        if (nameTest === XPathElementType.NAME_TEST) {
-            marker.done(XPathElementType.NODE_TEST)
-            return true
-        }
-
         marker.drop()
-        return nameTest === XPathElementType.AXIS_STEP // Invalid/unknown axis name.
+        return parseNameTest(builder, type) != null
     }
 
     fun parseNameTest(builder: PsiBuilder, type: IElementType?): IElementType? {

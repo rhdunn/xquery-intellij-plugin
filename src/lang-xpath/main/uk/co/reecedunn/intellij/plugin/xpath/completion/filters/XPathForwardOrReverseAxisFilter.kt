@@ -39,14 +39,12 @@ object XPathForwardOrReverseAxisFilter : CompletionFilter {
                     val fn = it as XdmFunctionReference
                     fn.functionName?.isPrefixOrNCName(element) == true
                 }
-                is XPathNodeTest -> {
-                    when (it.parent) {
-                        is XPathAxisStep -> false // Incomplete axis step.
-                        is XPathForwardStep -> false
-                        is XPathAbbrevForwardStep -> false
-                        is XPathReverseStep -> false
-                        else -> (element.parent as? XsQNameValue)?.isPrefixOrNCName(element) == true
-                    }
+                is XPathNameTest -> when (it.parent) {
+                    is XPathAxisStep -> false // Incomplete axis step.
+                    is XPathForwardStep -> false
+                    is XPathAbbrevForwardStep -> false
+                    is XPathReverseStep -> false
+                    else -> (element.parent as? XsQNameValue)?.isPrefixOrNCName(element) == true
                 }
                 else -> false
             }

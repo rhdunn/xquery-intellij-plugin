@@ -27,7 +27,7 @@ object XPathFunctionCallFilter : CompletionFilter {
     override fun accepts(element: PsiElement, context: ProcessingContext): Boolean {
         return element.ancestors().find {
             when (it) {
-                is XPathNodeTest -> { // FunctionCall missing parenthesis
+                is XPathNameTest -> { // FunctionCall missing parenthesis
                     (element.parent as? XsQNameValue)?.isLocalNameOrNCName(element) == true &&
                             element.ancestors().find { node -> node is XPathAbbrevForwardStep } == null
                 }

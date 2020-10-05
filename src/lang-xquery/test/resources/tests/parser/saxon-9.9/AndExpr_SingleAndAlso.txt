@@ -3,15 +3,13 @@ XQueryModuleImpl[FILE(0:11)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:11)]
          XPathAndExprImpl[XPATH_AND_EXPR(0:11)]
             XPathPathExprImpl[XPATH_PATH_EXPR(0:2)]
-               XPathNodeTestImpl[XPATH_NODE_TEST(0:2)]
-                  XPathNameTestImpl[XPATH_NAME_TEST(0:2)]
-                     XQueryNCNameImpl[XQUERY_NCNAME(0:2)]
-                        XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:1)]('a')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+               XPathNameTestImpl[XPATH_NAME_TEST(0:2)]
+                  XQueryNCNameImpl[XQUERY_NCNAME(0:2)]
+                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:1)]('a')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
             XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ANDALSO(2:9)]('andAlso')
             PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
             XPathPathExprImpl[XPATH_PATH_EXPR(10:11)]
-               XPathNodeTestImpl[XPATH_NODE_TEST(10:11)]
-                  XPathNameTestImpl[XPATH_NAME_TEST(10:11)]
-                     XQueryNCNameImpl[XQUERY_NCNAME(10:11)]
-                        XmlNCNameImpl[XPATH_NCNAME_TOKEN(10:11)]('b')
+               XPathNameTestImpl[XPATH_NAME_TEST(10:11)]
+                  XQueryNCNameImpl[XQUERY_NCNAME(10:11)]
+                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(10:11)]('b')

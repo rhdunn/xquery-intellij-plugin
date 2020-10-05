@@ -25,13 +25,14 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.isPrefixOrNCName
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNameTest
 
 object XPathKindTestFilter : CompletionFilter {
     override fun accepts(element: PsiElement, context: ProcessingContext): Boolean {
         return element.ancestors().find {
             when (it) {
                 is XPathAtomicOrUnionType, // KindTest as ItemType without '()'
-                is XPathNodeTest -> { // KindTest as NodeTest
+                is XPathNameTest -> { // KindTest as NodeTest
                     (element.parent as? XsQNameValue)?.isPrefixOrNCName(element) == true
                 }
                 is XPathFunctionCall -> { // Unknown KindTest with '()'

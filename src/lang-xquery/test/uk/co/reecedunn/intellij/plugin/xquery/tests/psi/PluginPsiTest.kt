@@ -1709,7 +1709,7 @@ private class PluginPsiTest : ParserTestCase()  {
             @Test
             @DisplayName("principal node kind")
             fun principalNodeKind() {
-                val steps = parse<XPathNodeTest>("property::one")
+                val steps = parse<XPathNameTest>("property::one")
                 assertThat(steps.size, `is`(1))
                 assertThat(steps[0].getPrincipalNodeKind(), `is`(XstUsageType.Element)) // property
             }
@@ -1717,7 +1717,7 @@ private class PluginPsiTest : ParserTestCase()  {
             @Test
             @DisplayName("usage type")
             fun usageType() {
-                val steps = parse<XPathNodeTest>("property::one").map {
+                val steps = parse<XPathNameTest>("property::one").map {
                     it.walkTree().filterIsInstance<XsQNameValue>().first().element!!
                 }
                 assertThat(steps.size, `is`(1))

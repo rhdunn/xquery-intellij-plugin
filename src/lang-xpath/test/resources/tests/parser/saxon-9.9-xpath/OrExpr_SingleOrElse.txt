@@ -1,15 +1,13 @@
 XPathImpl[FILE(0:10)]
    XPathOrExprImpl[XPATH_OR_EXPR(0:10)]
       XPathPathExprImpl[XPATH_PATH_EXPR(0:2)]
-         XPathNodeTestImpl[XPATH_NODE_TEST(0:2)]
-            XPathNameTestImpl[XPATH_NAME_TEST(0:2)]
-               XPathNCNameImpl[XPATH_NCNAME(0:2)]
-                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:1)]('a')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+         XPathNameTestImpl[XPATH_NAME_TEST(0:2)]
+            XPathNCNameImpl[XPATH_NCNAME(0:2)]
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:1)]('a')
+               PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
       XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ORELSE(2:8)]('orElse')
       PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
       XPathPathExprImpl[XPATH_PATH_EXPR(9:10)]
-         XPathNodeTestImpl[XPATH_NODE_TEST(9:10)]
-            XPathNameTestImpl[XPATH_NAME_TEST(9:10)]
-               XPathNCNameImpl[XPATH_NCNAME(9:10)]
-                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(9:10)]('b')
+         XPathNameTestImpl[XPATH_NAME_TEST(9:10)]
+            XPathNCNameImpl[XPATH_NCNAME(9:10)]
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(9:10)]('b')

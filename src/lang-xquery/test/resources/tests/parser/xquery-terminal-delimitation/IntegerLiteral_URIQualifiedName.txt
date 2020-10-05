@@ -6,11 +6,10 @@ XQueryModuleImpl[FILE(0:33)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(4:33)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(4:33)]
          XPathPathExprImpl[XPATH_PATH_EXPR(4:33)]
-            XPathNodeTestImpl[XPATH_NODE_TEST(4:33)]
-               XPathNameTestImpl[XPATH_NAME_TEST(4:33)]
-                  XQueryURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(4:33)]
-                     XQueryBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(4:29)]
-                        LeafPsiElement[XPATH_BRACED_URI_LITERAL_START_TOKEN(4:6)]('Q{')
-                        XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(6:28)]('http://www.example.com')
-                        LeafPsiElement[XPATH_BRACED_URI_LITERAL_END_TOKEN(28:29)]('}')
-                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(29:33)]('test')
+            XPathNameTestImpl[XPATH_NAME_TEST(4:33)]
+               XQueryURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(4:33)]
+                  XQueryBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(4:29)]
+                     LeafPsiElement[XPATH_BRACED_URI_LITERAL_START_TOKEN(4:6)]('Q{')
+                     XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(6:28)]('http://www.example.com')
+                     LeafPsiElement[XPATH_BRACED_URI_LITERAL_END_TOKEN(28:29)]('}')
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(29:33)]('test')

@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 
-fun XPathNodeTest.getPrincipalNodeKind(): XstUsageType = when (parent.elementType) {
+fun PsiElement.getPrincipalNodeKind(): XstUsageType = when (parent.elementType) {
     XPathElementType.ABBREV_FORWARD_STEP -> XstUsageType.Attribute
     XPathElementType.FORWARD_STEP -> when (parent.firstChild.elementType) {
         XPathTokenType.K_ATTRIBUTE -> XstUsageType.Attribute
@@ -34,6 +34,6 @@ fun XPathNodeTest.getPrincipalNodeKind(): XstUsageType = when (parent.elementTyp
 }
 
 fun PsiElement.getUsageType(): XstUsageType = when (parent.elementType) {
-    XPathElementType.NAME_TEST -> (parent.parent as? XPathNodeTest)?.getPrincipalNodeKind() ?: XstUsageType.Unknown
+    XPathElementType.NAME_TEST -> parent.getPrincipalNodeKind()
     else -> staticContext?.getUsageType(this) ?: XstUsageType.Unknown
 }

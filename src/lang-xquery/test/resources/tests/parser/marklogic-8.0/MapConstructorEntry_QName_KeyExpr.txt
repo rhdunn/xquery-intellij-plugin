@@ -9,20 +9,18 @@ XQueryModuleImpl[FILE(0:25)]
             XPathMapConstructorEntryImpl[XPATH_MAP_CONSTRUCTOR_ENTRY(14:24)]
                XPathMapKeyExprImpl[XPATH_MAP_KEY_EXPR(14:18)]
                   XPathPathExprImpl[XPATH_PATH_EXPR(14:18)]
-                     XPathNodeTestImpl[XPATH_NODE_TEST(14:17)]
-                        XPathNameTestImpl[XPATH_NAME_TEST(14:17)]
-                           XQueryQNameImpl[XQUERY_QNAME(14:17)]
-                              XmlNCNameImpl[XPATH_NCNAME_TOKEN(14:15)]('a')
-                              LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(15:16)](':')
-                              XmlNCNameImpl[XPATH_NCNAME_TOKEN(16:17)]('b')
+                     XPathNameTestImpl[XPATH_NAME_TEST(14:17)]
+                        XQueryQNameImpl[XQUERY_QNAME(14:17)]
+                           XmlNCNameImpl[XPATH_NCNAME_TOKEN(14:15)]('a')
+                           LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(15:16)](':')
+                           XmlNCNameImpl[XPATH_NCNAME_TOKEN(16:17)]('b')
                      PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
                LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(18:19)](':')
                PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
                XPathMapValueExprImpl[XPATH_MAP_VALUE_EXPR(20:24)]
                   XPathPathExprImpl[XPATH_PATH_EXPR(20:24)]
-                     XPathNodeTestImpl[XPATH_NODE_TEST(20:24)]
-                        XPathNameTestImpl[XPATH_NAME_TEST(20:24)]
-                           XQueryNCNameImpl[XQUERY_NCNAME(20:24)]
-                              XmlNCNameImpl[XPATH_NCNAME_TOKEN(20:23)]('one')
-                              PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
+                     XPathNameTestImpl[XPATH_NAME_TEST(20:24)]
+                        XQueryNCNameImpl[XQUERY_NCNAME(20:24)]
+                           XmlNCNameImpl[XPATH_NCNAME_TOKEN(20:23)]('one')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
             LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(24:25)]('}')

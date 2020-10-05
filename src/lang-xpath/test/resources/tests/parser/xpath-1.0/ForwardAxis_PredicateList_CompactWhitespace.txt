@@ -4,10 +4,9 @@ XPathImpl[FILE(0:12)]
          XPathForwardStepImpl[XPATH_FORWARD_STEP(0:9)]
             XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_SELF(0:4)]('self')
             LeafPsiElement[XPATH_AXIS_SEPARATOR_TOKEN(4:6)]('::')
-            XPathNodeTestImpl[XPATH_NODE_TEST(6:9)]
-               XPathNameTestImpl[XPATH_NAME_TEST(6:9)]
-                  XPathNCNameImpl[XPATH_NCNAME(6:9)]
-                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(6:9)]('two')
+            XPathNameTestImpl[XPATH_NAME_TEST(6:9)]
+               XPathNCNameImpl[XPATH_NCNAME(6:9)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(6:9)]('two')
          XPathPredicateImpl[XPATH_PREDICATE(9:12)]
             LeafPsiElement[XPATH_SQUARE_OPEN_TOKEN(9:10)]('[')
             XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(10:11)]('3')

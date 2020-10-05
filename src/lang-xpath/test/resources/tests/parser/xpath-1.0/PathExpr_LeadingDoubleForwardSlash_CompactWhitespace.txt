@@ -1,10 +1,9 @@
 XPathImpl[FILE(0:15)]
    XPathPathExprImpl[XPATH_PATH_EXPR(0:15)]
       LeafPsiElement[XPATH_ALL_DESCENDANTS_PATH_TOKEN(0:2)]('//')
-      XPathNodeTestImpl[XPATH_NODE_TEST(2:6)]
-         XPathNameTestImpl[XPATH_NAME_TEST(2:6)]
-            XPathNCNameImpl[XPATH_NCNAME(2:6)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(2:6)]('test')
+      XPathNameTestImpl[XPATH_NAME_TEST(2:6)]
+         XPathNCNameImpl[XPATH_NCNAME(2:6)]
+            XmlNCNameImpl[XPATH_NCNAME_TOKEN(2:6)]('test')
       LeafPsiElement[XPATH_DIRECT_DESCENDANTS_PATH_TOKEN(6:7)]('/')
       XPathFunctionCallImpl[XPATH_FUNCTION_CALL(7:15)]
          XPathNCNameImpl[XPATH_NCNAME(7:13)]

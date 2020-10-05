@@ -4,11 +4,10 @@ XPathImpl[FILE(0:11)]
          LeafPsiElement[XPATH_NODE_BEFORE_TOKEN(0:2)]('<<')
       PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
       XPathPathExprImpl[XPATH_PATH_EXPR(3:5)]
-         XPathNodeTestImpl[XPATH_NODE_TEST(3:5)]
-            XPathNameTestImpl[XPATH_NAME_TEST(3:5)]
-               XPathNCNameImpl[XPATH_NCNAME(3:5)]
-                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(3:4)]('a')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
+         XPathNameTestImpl[XPATH_NAME_TEST(3:5)]
+            XPathNCNameImpl[XPATH_NCNAME(3:5)]
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(3:4)]('a')
+               PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
    LeafPsiElement[XPATH_COMMA_TOKEN(5:6)](',')
    PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
    XPathComparisonExprImpl[XPATH_COMPARISON_EXPR(7:11)]
@@ -16,7 +15,6 @@ XPathImpl[FILE(0:11)]
          LeafPsiElement[XPATH_NODE_AFTER_TOKEN(7:9)]('>>')
       PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
       XPathPathExprImpl[XPATH_PATH_EXPR(10:11)]
-         XPathNodeTestImpl[XPATH_NODE_TEST(10:11)]
-            XPathNameTestImpl[XPATH_NAME_TEST(10:11)]
-               XPathNCNameImpl[XPATH_NCNAME(10:11)]
-                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(10:11)]('a')
+         XPathNameTestImpl[XPATH_NAME_TEST(10:11)]
+            XPathNCNameImpl[XPATH_NCNAME(10:11)]
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(10:11)]('a')

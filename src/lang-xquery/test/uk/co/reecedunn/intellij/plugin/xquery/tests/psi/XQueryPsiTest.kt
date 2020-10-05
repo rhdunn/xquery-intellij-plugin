@@ -2398,11 +2398,11 @@ private class XQueryPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("principal node kind")
                 fun principalNodeKind() {
-                    val steps = parse<XPathNodeTest>(
+                    val steps = parse<XPathNameTest>(
                         """
-                    child::one, descendant::two, attribute::three, self::four, descendant-or-self::five,
-                    following-sibling::six, following::seven, namespace::eight
-                """
+                        child::one, descendant::two, attribute::three, self::four, descendant-or-self::five,
+                        following-sibling::six, following::seven, namespace::eight
+                        """
                     )
                     assertThat(steps.size, `is`(8))
                     assertThat(steps[0].getPrincipalNodeKind(), `is`(XstUsageType.Element)) // child
@@ -2418,11 +2418,11 @@ private class XQueryPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("usage type")
                 fun usageType() {
-                    val steps = parse<XPathNodeTest>(
+                    val steps = parse<XPathNameTest>(
                         """
-                    child::one, descendant::two, attribute::three, self::four, descendant-or-self::five,
-                    following-sibling::six, following::seven, namespace::eight
-                    """
+                        child::one, descendant::two, attribute::three, self::four, descendant-or-self::five,
+                        following-sibling::six, following::seven, namespace::eight
+                        """
                     ).map { it.walkTree().filterIsInstance<XsQNameValue>().first().element!! }
                     assertThat(steps.size, `is`(8))
                     assertThat(steps[0].getUsageType(), `is`(XstUsageType.Element)) // child
@@ -2442,7 +2442,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("principal node kind")
                 fun principalNodeKind() {
-                    val steps = parse<XPathNodeTest>(
+                    val steps = parse<XPathNameTest>(
                         "parent::one, ancestor::two, preceding-sibling::three, preceding::four, ancestor-or-self::five"
                     )
                     assertThat(steps.size, `is`(5))
@@ -2456,7 +2456,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("usage type")
                 fun usageType() {
-                    val steps = parse<XPathNodeTest>(
+                    val steps = parse<XPathNameTest>(
                         "parent::one, ancestor::two, preceding-sibling::three, preceding::four, ancestor-or-self::five"
                     ).map { it.walkTree().filterIsInstance<XsQNameValue>().first().element!! }
                     assertThat(steps.size, `is`(5))
@@ -2721,7 +2721,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("principal node kind")
                 fun principalNodeKind() {
-                    val steps = parse<XPathNodeTest>("one, @two")
+                    val steps = parse<XPathNameTest>("one, @two")
                     assertThat(steps.size, `is`(2))
                     assertThat(steps[0].getPrincipalNodeKind(), `is`(XstUsageType.Element))
                     assertThat(steps[1].getPrincipalNodeKind(), `is`(XstUsageType.Attribute))
@@ -2730,7 +2730,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("usage type")
                 fun usageType() {
-                    val steps = parse<XPathNodeTest>("one, @two").map {
+                    val steps = parse<XPathNameTest>("one, @two").map {
                         it.walkTree().filterIsInstance<XsQNameValue>().first().element!!
                     }
                     assertThat(steps.size, `is`(2))

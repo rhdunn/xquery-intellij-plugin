@@ -5,7 +5,6 @@ XQueryModuleImpl[FILE(0:10)]
             XPathForwardStepImpl[XPATH_FORWARD_STEP(0:10)]
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_SELF(0:4)]('self')
                LeafPsiElement[XPATH_AXIS_SEPARATOR_TOKEN(4:6)]('::')
-               XPathNodeTestImpl[XPATH_NODE_TEST(6:10)]
-                  XPathNameTestImpl[XPATH_NAME_TEST(6:10)]
-                     XQueryNCNameImpl[XQUERY_NCNAME(6:10)]
-                        XmlNCNameImpl[XPATH_NCNAME_TOKEN(6:10)]('para')
+               XPathNameTestImpl[XPATH_NAME_TEST(6:10)]
+                  XQueryNCNameImpl[XQUERY_NCNAME(6:10)]
+                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(6:10)]('para')
