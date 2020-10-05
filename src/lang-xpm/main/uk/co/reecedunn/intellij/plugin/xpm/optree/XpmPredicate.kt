@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2020 Reece H. Dunn
+ * Copyright (C) 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,13 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
+package uk.co.reecedunn.intellij.plugin.xpm.optree
 
-import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
-import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPredicate
-
-/**
- * An XPath 2.0 and XQuery 1.0 `Predicate` node in the XQuery AST.
- */
-interface XPathPredicate : PsiElement, XpmPredicate
+interface XpmPredicate : XpmExpression
