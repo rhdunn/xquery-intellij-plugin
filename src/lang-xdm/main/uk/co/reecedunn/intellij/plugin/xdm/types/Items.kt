@@ -27,6 +27,14 @@ interface XdmNode : XdmItem
 
 interface XdmAttributeNode : XdmNode, XdmAccessors
 
+object XdmAttributeItem : XdmItemType {
+    override val typeName: String = "attribute()"
+    override val itemType: XdmItemType? get() = this
+    override val lowerBound: Int? = 1
+    override val upperBound: Int? = 1
+    override val typeClass: Class<*> = XdmAttributeNode::class.java
+}
+
 // endregion
 // region XQuery and XPath 3.1 Data Model (2.7.4) : document-node()
 

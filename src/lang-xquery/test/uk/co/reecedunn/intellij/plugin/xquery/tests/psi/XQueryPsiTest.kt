@@ -2696,7 +2696,27 @@ private class XQueryPsiTest : ParserTestCase() {
         @DisplayName("XQuery 3.1 (3.3.5) Abbreviated Syntax")
         internal inner class AbbreviatedSyntax {
             @Test
-            @DisplayName("element name test")
+            @DisplayName("1. The attribute axis attribute:: can be abbreviated by @.")
+            fun attributeNameTest() {
+                val step = parse<XPathAbbrevForwardStep>("@test")[0] as XpmPathStep
+
+                assertThat(step.axisType, `is`(XpmAxisType.Attribute))
+
+                val qname = step.nodeName!!
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("test"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                assertThat(step.nodeType, sameInstance(XdmAttributeItem))
+
+                val predicates = step.predicates.toList()
+                assertThat(predicates.size, `is`(0))
+            }
+
+            @Test
+            @DisplayName("2. If the axis name is omitted from an axis step, the default axis is child.")
             fun elementNameTest() {
                 val step = parse<XPathNameTest>("test")[0] as XpmPathStep
 
