@@ -1456,12 +1456,7 @@ open class XPathParser : PsiParser {
     }
 
     private fun parseAbbrevReverseStep(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.PARENT_SELECTOR)
-        if (marker != null) {
-            marker.done(XPathElementType.ABBREV_REVERSE_STEP)
-            return true
-        }
-        return false
+        return builder.matchTokenType(XPathTokenType.PARENT_SELECTOR)
     }
 
     private fun parseNodeTest(builder: PsiBuilder, type: IElementType?): Boolean {
