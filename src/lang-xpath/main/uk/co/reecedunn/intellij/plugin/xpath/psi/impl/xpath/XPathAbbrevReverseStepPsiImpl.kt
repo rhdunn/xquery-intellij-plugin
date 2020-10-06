@@ -17,7 +17,21 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.tree.IElementType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNodeItem
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAbbrevReverseStep
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAxisType
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPredicate
 
 class XPathAbbrevReverseStepPsiImpl(type: IElementType, text: CharSequence) :
-    LeafPsiElement(type, text), XPathAbbrevReverseStep
+    LeafPsiElement(type, text), XPathAbbrevReverseStep {
+
+    override val axisType: XpmAxisType = XpmAxisType.Parent
+
+    override val nodeName: XsQNameValue? = null
+
+    override val nodeType: XdmItemType = XdmNodeItem
+
+    override val predicates: Sequence<XpmPredicate> = emptySequence()
+}

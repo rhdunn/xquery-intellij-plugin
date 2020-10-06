@@ -22,6 +22,14 @@ package uk.co.reecedunn.intellij.plugin.xdm.types
 
 interface XdmNode : XdmItem
 
+object XdmNodeItem : XdmItemType {
+    override val typeName: String = "node()"
+    override val itemType: XdmItemType? get() = this
+    override val lowerBound: Int? = 1
+    override val upperBound: Int? = 1
+    override val typeClass: Class<*> = XdmNode::class.java
+}
+
 // endregion
 // region XQuery and XPath 3.1 Data Model (2.7.4) : attribute()
 

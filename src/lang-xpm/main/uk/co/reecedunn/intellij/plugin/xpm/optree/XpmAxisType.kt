@@ -19,4 +19,5 @@ enum class XpmAxisType {
     Attribute,
     Child,
     Namespace,
+    Parent,
 }

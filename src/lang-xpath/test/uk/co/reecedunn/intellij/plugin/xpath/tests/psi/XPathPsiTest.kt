@@ -2405,6 +2405,16 @@ private class XPathPsiTest : ParserTestCase() {
                 }
             }
 
+            @Test
+            @DisplayName("4. A step consisting of .. is short for parent::node().")
+            fun abbrevReverseStep() {
+                val step = parse<XPathAbbrevReverseStep>("..")[0] as XpmPathStep
+                assertThat(step.axisType, `is`(XpmAxisType.Parent))
+                assertThat(step.nodeName, `is`(nullValue()))
+                assertThat(step.nodeType, sameInstance(XdmNodeItem))
+                assertThat(step.predicates.count(), `is`(0))
+            }
+
             @Nested
             @DisplayName("XPath 3.1 EBNF (42) AbbrevForwardStep")
             internal inner class AbbrevForwardStep {
