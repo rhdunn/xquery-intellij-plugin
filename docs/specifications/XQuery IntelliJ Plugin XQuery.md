@@ -63,6 +63,7 @@ plugin-specific extensions are provided to support IntelliJ integration.
   - [Path Expressions](#39-path-expressions)
     - [Axes](#391-axes)
     - [Node Tests](#392-node-tests)
+    - [Abbreviated Syntax](#393-abbreviated-syntax)
   - [Validate Expressions](#310-validate-expressions)
   - [Try/Catch Expressions](#311-trycatch-expressions)
   - [Binary Constructors](#312-binary-constructors)
@@ -857,6 +858,31 @@ name (but not both) can be `WildcardIndicator`.
 
 A `WildcardIndicator` is an instance of `xdm:wildcard`.
 
+#### 3.9.3 Abbreviated Syntax
+
+{: .ebnf-symbols }
+| Ref     | Symbol                         |     | Expression                                | Options |
+|---------|--------------------------------|-----|-------------------------------------------|---------|
+| \[124\] | `PathExpr`                     | ::= | `("/" RelativePathExpr?) \| (AbbrevDescendantOrSelfStep RelativePathExpr) \| RelativePathExpr` | /\* xgc: leading-lone-slash \*/ |
+| \[125\] | `RelativePathExpr`             | ::= | `StepExpr (("/" \| AbbrevDescendantOrSelfStep) StepExpr)*` | |
+| \[126\] | `AbbrevDescendantOrSelfStep`   | ::= | `"//"`                                    |         |
+
+The abbreviated descendant-or-self selector `//` is split out into a separate
+EBNF symbol.
+
+The abbreviated syntax permits the following additional abbreviations:
+
+1. Per item 4 of section 3.3.5 and paragraph 4 of section 3.3 of the XQuery
+   specification, the `AbbrevDescendantOrSelfStep` symbol is equivalent to
+   `/descendant-or-self::node()/`.
+
+1. A `/` or `//` at the beginning of a path expression is an abbreviation for
+   the following root step before the `/` or `//`:
+   1. `(fn:root(self::node()) treat as document-node())` for standard XQuery
+      expressions;
+   1. `fn:collection()` for MarkLogic XQuery expressions evaluated against a
+      MarkLogic database.
+
 ### 3.10 Validate Expressions
 
 {: .ebnf-symbols }
@@ -1333,6 +1359,9 @@ These changes include support for:
 | \[121\]  | `ForMemberClause`              | ::= | `"for" "member" ForBinding ( "," ForBinding )*` |           |
 | \[122\]  | `DirElemContent`               | ::= | `DirectConstructor \| CDataSection \| EnclosedExpr \| DirTextConstructor` | |
 | \[123\]  | `DirTextConstructor`           | ::= | `ElementContentChar \| PredefinedEntityRef \| CharRef \| "{{" \| "}}"` | |
+| \[124\]  | `PathExpr`                     | ::= | `("/" RelativePathExpr?) \| (AbbrevDescendantOrSelfStep RelativePathExpr) \| RelativePathExpr` | /\* xgc: leading-lone-slash \*/ |
+| \[125\]  | `RelativePathExpr`             | ::= | `StepExpr (("/" \| AbbrevDescendantOrSelfStep) StepExpr)*` | |
+| \[126\]  | `AbbrevDescendantOrSelfStep`   | ::= | `"//"`                                    |                 |
 
 ### A.2 Reserved Function Names
 
@@ -1541,6 +1570,7 @@ behaviour of those constructs:
 1.  [Module Import](#48-module-import) \[1.6\]
 1.  [Arrow Function Call](#315-arrow-operator-) \[1.6\]
 1.  [Direct Text Constructors](#312-direct-text-constructors) \[1.8\]
+1.  [Abbreviated Syntax](#393-abbreviated-syntax) \[1.8\]
 
 The XQuery IntelliJ Plugin supports the following vendor extensions described
 in this document:

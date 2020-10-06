@@ -53,6 +53,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xdm.variables.*
+import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginAbbrevDescendantOrSelfStep
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
@@ -2390,6 +2391,20 @@ private class XQueryPsiTest : ParserTestCase() {
     @DisplayName("XQuery 3.1 (3.3) Path Expressions")
     internal inner class PathExpressions {
         @Nested
+        @DisplayName("A '//' at the beginning of a path expression")
+        internal inner class LeadingDoubleForwardSlash {
+            @Test
+            @DisplayName("XQuery IntelliJ Plugin EBNF (126) AbbrevDescendantOrSelfStep")
+            fun abbrevDescendantOrSelfStep() {
+                val step = parse<PluginAbbrevDescendantOrSelfStep>("//test")[0] as XpmPathStep
+                assertThat(step.axisType, `is`(XpmAxisType.DescendantOrSelf))
+                assertThat(step.nodeName, `is`(nullValue()))
+                assertThat(step.nodeType, sameInstance(XdmNodeItem))
+                assertThat(step.predicates.count(), `is`(0))
+            }
+        }
+
+        @Nested
         @DisplayName("XQuery 3.1 (3.3.2.1) Axes")
         internal inner class Axes {
             @Nested
@@ -2851,6 +2866,16 @@ private class XQueryPsiTest : ParserTestCase() {
                     assertThat(step.nodeType, sameInstance(step.walkTree().filterIsInstance<XdmItemType>().first()))
                     assertThat(step.predicates.count(), `is`(0))
                 }
+            }
+
+            @Test
+            @DisplayName("3. Each non-initial occurrence of // is effectively replaced by /descendant-or-self::node()/ during processing of a path expression.")
+            fun abbrevDescendantOrSelfStep() {
+                val step = parse<PluginAbbrevDescendantOrSelfStep>("lorem//ipsum")[0] as XpmPathStep
+                assertThat(step.axisType, `is`(XpmAxisType.DescendantOrSelf))
+                assertThat(step.nodeName, `is`(nullValue()))
+                assertThat(step.nodeType, sameInstance(XdmNodeItem))
+                assertThat(step.predicates.count(), `is`(0))
             }
 
             @Test

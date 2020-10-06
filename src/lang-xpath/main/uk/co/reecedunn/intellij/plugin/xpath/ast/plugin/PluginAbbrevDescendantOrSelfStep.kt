@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpm.optree
+package uk.co.reecedunn.intellij.plugin.xpath.ast.plugin
 
-enum class XpmAxisType {
-    Attribute,
-    Child,
-    DescendantOrSelf,
-    Namespace,
-    Parent,
-}
+import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPathStep
+
+/**
+ * An XPath 2.0 and XQuery 1.0 `AbbrevDescendantOrSelfStep` node in the XQuery AST.
+ */
+interface PluginAbbrevDescendantOrSelfStep : PsiElement, XpmPathStep

@@ -1,6 +1,6 @@
 ---
 layout: page
-title: XQuery IntelliJ Plugin 1.7 XPath
+title: XQuery IntelliJ Plugin 1.8 XPath
 ---
 
 This document includes material copied from or derived from the XPath
@@ -28,6 +28,7 @@ plugin-specific extensions are provided to support IntelliJ integration.
   - [Quantified Expressions](#31-quantified-expressions)
   - [Path Expressions](#32-path-expressions)
     - [Node Tests](#321-node-tests)
+    - [Abbreviated Syntax](#322-abbreviated-syntax)
   - [FLWOR Expressions](#33-flwor-expressions)
     - [For Expressions](#331-for-expressions)
     - [For Member Expressions](#332-for-member-expressions)
@@ -239,6 +240,31 @@ productions. This is such that `WildcardIndicator` is placed wherever an
 name (but not both) can be `WildcardIndicator`.
 
 A `WildcardIndicator` is an instance of `xdm:wildcard`.
+
+#### 3.2.2 Abbreviated Syntax
+
+{: .ebnf-symbols }
+| Ref     | Symbol                         |     | Expression                                | Options |
+|---------|--------------------------------|-----|-------------------------------------------|---------|
+| \[42\]  | `PathExpr`                     | ::= | `("/" RelativePathExpr?) \| (AbbrevDescendantOrSelfStep RelativePathExpr) \| RelativePathExpr` | /\* xgc: leading-lone-slash \*/ |
+| \[43\]  | `RelativePathExpr`             | ::= | `StepExpr (("/" \| AbbrevDescendantOrSelfStep) StepExpr)*` | |
+| \[44\]  | `AbbrevDescendantOrSelfStep`   | ::= | `"//"`                                    |         |
+
+The abbreviated descendant-or-self selector `//` is split out into a separate
+EBNF symbol.
+
+The abbreviated syntax permits the following additional abbreviations:
+
+1. Per item 4 of section 3.3.5 and paragraph 4 of section 3.3 of the XPath
+   specification, the `AbbrevDescendantOrSelfStep` symbol is equivalent to
+   `/descendant-or-self::node()/`.
+
+1. A `/` or `//` at the beginning of a path expression is an abbreviation for
+   the following root step before the `/` or `//`:
+   1. `(fn:root(self::node()) treat as document-node())` for standard XPath
+      expressions;
+   1. `fn:collection()` for MarkLogic XPath expressions evaluated against a
+      MarkLogic database.
 
 ### 3.3 FLWOR Expressions
 
@@ -537,6 +563,9 @@ These changes include support for:
 | \[39\]  | `LetExpr`                      | ::= | `SimpleLetClause ReturnClause`          |                  |
 | \[40\]  | `ForMemberExpr`                | ::= | `SimpleForMemberClause ReturnClause`    |                  |
 | \[41\]  | `SimpleForMemberClause`        | ::= | `"for" "member" SimpleForBinding ( "," SimpleForBinding )*` | |
+| \[42\]  | `PathExpr`                     | ::= | `("/" RelativePathExpr?) \| (AbbrevDescendantOrSelfStep RelativePathExpr) \| RelativePathExpr` | /\* xgc: leading-lone-slash \*/ |
+| \[43\]  | `RelativePathExpr`             | ::= | `StepExpr (("/" \| AbbrevDescendantOrSelfStep) StepExpr)*` | |
+| \[44\]  | `AbbrevDescendantOrSelfStep`   | ::= | `"//"`                                  |                  |
 
 ### A.2 Reserved Function Names
 
@@ -656,9 +685,10 @@ behaviour of those constructs:
 1.  [Quantified Expressions](#31-quantified-expressions) \[1.1\]
 1.  [Node Tests](#321-node-tests) \[1.3\]
 1.  [Any Item Type](#211-sequencetype-syntax) \[1.3\]
-1.  [For Expressions](#33-for-expressions) \[1.4\]
+1.  [For Expressions](#331-for-expressions) \[1.4\]
 1.  [Nillable Type Names](#211-sequencetype-syntax) \[1.5\]
 1.  [Arrow Function Call](#37-arrow-operator-) \[1.6\]
+1.  [Abbreviated Syntax](#322-abbreviated-syntax) \[1.8\]
 
 ### C.2 Saxon Vendor Extensions
 The Saxon XQuery Processor supports the following vendor extensions described

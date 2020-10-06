@@ -2,7 +2,7 @@ XQueryModuleImpl[FILE(0:15)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:15)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:15)]
          XPathPathExprImpl[XPATH_PATH_EXPR(0:15)]
-            LeafPsiElement[XPATH_ALL_DESCENDANTS_PATH_TOKEN(0:2)]('//')
+            PluginAbbrevDescendantOrSelfStepImpl[XPATH_ALL_DESCENDANTS_PATH_TOKEN(0:2)]('//')
             XPathNameTestImpl[XPATH_NAME_TEST(2:6)]
                XQueryNCNameImpl[XQUERY_NCNAME(2:6)]
                   XmlNCNameImpl[XPATH_NCNAME_TOKEN(2:6)]('test')

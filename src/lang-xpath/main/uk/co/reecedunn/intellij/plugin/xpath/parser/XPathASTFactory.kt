@@ -24,6 +24,7 @@ import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.PluginAbbrevDescendantOrSelfStepPsiImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.PluginWildcardIndicatorPsiImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.*
 
@@ -31,6 +32,7 @@ class XPathASTFactory : ASTFactory() {
     override fun createComposite(type: IElementType): CompositeElement? = CompositeElement(type)
 
     override fun createLeaf(type: IElementType, text: CharSequence): LeafElement? = when (type) {
+        XPathTokenType.ALL_DESCENDANTS_PATH -> PluginAbbrevDescendantOrSelfStepPsiImpl(type, text)
         XPathTokenType.COMMENT -> PsiCommentImpl(type, text)
         XPathTokenType.DECIMAL_LITERAL -> XPathDecimalLiteralImpl(type, text)
         XPathTokenType.DOT -> XPathContextItemExprPsiImpl(type, text)
