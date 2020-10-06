@@ -1713,6 +1713,7 @@ private class PluginPsiTest : ParserTestCase()  {
             fun namespaceAxis() {
                 val step = parse<XPathForwardStep>("namespace::test")[0] as XpmPathStep
                 assertThat(step.axisType, `is`(XpmAxisType.Namespace))
+                assertThat(step.nodeType, sameInstance(XdmNamespaceItem))
             }
 
             @Test
@@ -1720,6 +1721,7 @@ private class PluginPsiTest : ParserTestCase()  {
             fun propertyAxis() {
                 val step = parse<XPathForwardStep>("property::test")[0] as XpmPathStep
                 assertThat(step.axisType, `is`(XpmAxisType.Property))
+                assertThat(step.nodeType, sameInstance(XdmElementItem))
             }
 
             @Test

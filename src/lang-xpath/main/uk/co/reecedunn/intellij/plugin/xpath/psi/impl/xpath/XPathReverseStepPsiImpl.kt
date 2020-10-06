@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016, 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,33 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNameTest
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathReverseStep
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAxisType
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPredicate
+import java.lang.UnsupportedOperationException
 
-class XPathReverseStepPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathReverseStep
+class XPathReverseStepPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathReverseStep {
+    override val axisType: XpmAxisType
+        get() = when (firstChild.elementType) {
+            XPathTokenType.K_ANCESTOR -> XpmAxisType.Ancestor
+            XPathTokenType.K_ANCESTOR_OR_SELF -> XpmAxisType.AncestorOrSelf
+            XPathTokenType.K_PARENT -> XpmAxisType.Parent
+            XPathTokenType.K_PRECEDING -> XpmAxisType.Preceding
+            XPathTokenType.K_PRECEDING_SIBLING -> XpmAxisType.PrecedingSibling
+            else -> throw UnsupportedOperationException()
+        }
+
+    override val nodeName: XsQNameValue?
+        get() = (lastChild as? XPathNameTest)?.nodeName
+
+    override val nodeType: XdmItemType
+        get() = (lastChild as? XPathNodeTest)?.nodeType ?: axisType.principalNodeKind
+
+    override val predicates: Sequence<XpmPredicate> = emptySequence()
+}

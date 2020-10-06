@@ -21,6 +21,8 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNamespaceItem
 
 enum class XpmAxisType(val principalNodeKind: XdmItemType) {
+    Ancestor(XdmElementItem),
+    AncestorOrSelf(XdmElementItem),
     Attribute(XdmAttributeItem),
     Child(XdmElementItem),
     Descendant(XdmElementItem),
@@ -29,6 +31,8 @@ enum class XpmAxisType(val principalNodeKind: XdmItemType) {
     FollowingSibling(XdmElementItem),
     Namespace(XdmNamespaceItem),
     Parent(XdmElementItem),
+    Preceding(XdmElementItem),
+    PrecedingSibling(XdmElementItem),
     Property(XdmElementItem),
     Self(XdmElementItem),
 }

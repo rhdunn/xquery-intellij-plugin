@@ -2036,6 +2036,7 @@ private class XPathPsiTest : ParserTestCase() {
                 fun attributeAxis() {
                     val step = parse<XPathForwardStep>("attribute::test")[0] as XpmPathStep
                     assertThat(step.axisType, `is`(XpmAxisType.Attribute))
+                    assertThat(step.nodeType, sameInstance(XdmAttributeItem))
                 }
 
                 @Test
@@ -2043,6 +2044,7 @@ private class XPathPsiTest : ParserTestCase() {
                 fun childAxis() {
                     val step = parse<XPathForwardStep>("child::test")[0] as XpmPathStep
                     assertThat(step.axisType, `is`(XpmAxisType.Child))
+                    assertThat(step.nodeType, sameInstance(XdmElementItem))
                 }
 
                 @Test
@@ -2050,6 +2052,7 @@ private class XPathPsiTest : ParserTestCase() {
                 fun descendantAxis() {
                     val step = parse<XPathForwardStep>("descendant::test")[0] as XpmPathStep
                     assertThat(step.axisType, `is`(XpmAxisType.Descendant))
+                    assertThat(step.nodeType, sameInstance(XdmElementItem))
                 }
 
                 @Test
@@ -2057,6 +2060,7 @@ private class XPathPsiTest : ParserTestCase() {
                 fun descendantOrSelfAxis() {
                     val step = parse<XPathForwardStep>("descendant-or-self::test")[0] as XpmPathStep
                     assertThat(step.axisType, `is`(XpmAxisType.DescendantOrSelf))
+                    assertThat(step.nodeType, sameInstance(XdmElementItem))
                 }
 
                 @Test
@@ -2064,6 +2068,7 @@ private class XPathPsiTest : ParserTestCase() {
                 fun followingAxis() {
                     val step = parse<XPathForwardStep>("following::test")[0] as XpmPathStep
                     assertThat(step.axisType, `is`(XpmAxisType.Following))
+                    assertThat(step.nodeType, sameInstance(XdmElementItem))
                 }
 
                 @Test
@@ -2071,6 +2076,7 @@ private class XPathPsiTest : ParserTestCase() {
                 fun followingSiblingAxis() {
                     val step = parse<XPathForwardStep>("following-sibling::test")[0] as XpmPathStep
                     assertThat(step.axisType, `is`(XpmAxisType.FollowingSibling))
+                    assertThat(step.nodeType, sameInstance(XdmElementItem))
                 }
 
                 @Test
@@ -2078,6 +2084,7 @@ private class XPathPsiTest : ParserTestCase() {
                 fun namespaceAxis() {
                     val step = parse<XPathForwardStep>("namespace::test")[0] as XpmPathStep
                     assertThat(step.axisType, `is`(XpmAxisType.Namespace))
+                    assertThat(step.nodeType, sameInstance(XdmNamespaceItem))
                 }
 
                 @Test
@@ -2085,6 +2092,7 @@ private class XPathPsiTest : ParserTestCase() {
                 fun selfAxis() {
                     val step = parse<XPathForwardStep>("self::test")[0] as XpmPathStep
                     assertThat(step.axisType, `is`(XpmAxisType.Self))
+                    assertThat(step.nodeType, sameInstance(XdmElementItem))
                 }
 
                 @Test
@@ -2131,6 +2139,67 @@ private class XPathPsiTest : ParserTestCase() {
             @Nested
             @DisplayName("XPath 3.1 EBNF (44) ReverseAxis")
             internal inner class ReverseAxis {
+                @Test
+                @DisplayName("XPath 3.1 EBNF (47) NameTest")
+                fun nameTest() {
+                    val step = parse<XPathReverseStep>("parent::test")[0] as XpmPathStep
+                    val qname = step.walkTree().filterIsInstance<XsQNameValue>().first()
+                    assertThat(step.axisType, `is`(XpmAxisType.Parent))
+                    assertThat(step.nodeName, sameInstance(qname))
+                    assertThat(step.nodeType, sameInstance(XdmElementItem))
+                    assertThat(step.predicates.count(), `is`(0))
+                }
+
+                @Test
+                @DisplayName("XPath 3.1 EBNF (83) KindTest")
+                fun kindTest() {
+                    val step = parse<XPathReverseStep>("parent::node()")[0] as XpmPathStep
+                    assertThat(step.axisType, `is`(XpmAxisType.Parent))
+                    assertThat(step.nodeName, `is`(nullValue()))
+                    assertThat(step.nodeType, sameInstance(step.walkTree().filterIsInstance<XdmItemType>().first()))
+                    assertThat(step.predicates.count(), `is`(0))
+                }
+
+                @Test
+                @DisplayName("ancestor axis")
+                fun ancestorAxis() {
+                    val step = parse<XPathReverseStep>("ancestor::test")[0] as XpmPathStep
+                    assertThat(step.axisType, `is`(XpmAxisType.Ancestor))
+                    assertThat(step.nodeType, sameInstance(XdmElementItem))
+                }
+
+                @Test
+                @DisplayName("child axis")
+                fun ancestorOrSelfAxis() {
+                    val step = parse<XPathReverseStep>("ancestor-or-self::test")[0] as XpmPathStep
+                    assertThat(step.axisType, `is`(XpmAxisType.AncestorOrSelf))
+                    assertThat(step.nodeType, sameInstance(XdmElementItem))
+                }
+
+                @Test
+                @DisplayName("parent axis")
+                fun parentAxis() {
+                    val step = parse<XPathReverseStep>("parent::test")[0] as XpmPathStep
+                    assertThat(step.axisType, `is`(XpmAxisType.Parent))
+                    assertThat(step.nodeType, sameInstance(XdmElementItem))
+                }
+
+                @Test
+                @DisplayName("preceding axis")
+                fun precedingAxis() {
+                    val step = parse<XPathReverseStep>("preceding::test")[0] as XpmPathStep
+                    assertThat(step.axisType, `is`(XpmAxisType.Preceding))
+                    assertThat(step.nodeType, sameInstance(XdmElementItem))
+                }
+
+                @Test
+                @DisplayName("preceding-sibling axis")
+                fun precedingSiblingAxis() {
+                    val step = parse<XPathReverseStep>("preceding-sibling::test")[0] as XpmPathStep
+                    assertThat(step.axisType, `is`(XpmAxisType.PrecedingSibling))
+                    assertThat(step.nodeType, sameInstance(XdmElementItem))
+                }
+
                 @Test
                 @DisplayName("principal node kind")
                 fun principalNodeKind() {
