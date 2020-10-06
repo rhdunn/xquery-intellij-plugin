@@ -43,10 +43,10 @@ title: Specifications
    Documents the value template EBNF grammar supported by the XQuery IntelliJ
    Plugin.
 
-1. [XQuery IntelliJ Plugin 1.6 Data Model](XQuery%20IntelliJ%20Plugin%20Data%20Model.html)
+1. [XQuery IntelliJ Plugin 1.8 Data and Processing Model](XQuery%20IntelliJ%20Plugin%20Data%20Model.html)
 
-   Documents the internal data model extensions supported by the XQuery
-   IntelliJ Plugin.
+   Documents the internal data model extensions and processing model supported
+   by the XQuery IntelliJ Plugin.
 
 1. [XQuery IntelliJ Plugin 1.5 Functions and Operators](XQuery%20IntelliJ%20Plugin%20Functions%20and%20Operators.html)
 

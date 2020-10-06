@@ -1,6 +1,6 @@
 ---
 layout: page
-title: XQuery IntelliJ Plugin 1.6 Data Model
+title: XQuery IntelliJ Plugin 1.8 Data and Processing Model
 ---
 
 This document includes material copied from or derived from the XPath and
@@ -8,9 +8,9 @@ XQuery specifications. Copyright © 1999-2017 W3C® (MIT, ERCIM, Keio,
 Beihang).
 
 ## Abstract
-This document defines the data model for vendor and plugin specific
-functionality that extends XQuery and associated W3C extensions. The
-plugin data model extensions are to fill in gaps within the type
+This document defines the data and processing model for vendor and plugin
+specific functionality that extends XQuery and associated W3C extensions.
+The plugin data model extensions are to fill in gaps within the type
 system and to provide static type analysis.
 
 This document also documents the internals of how the plugin models and
@@ -51,6 +51,8 @@ various inspections.
     - [Comment Nodes](#436-comment-nodes)
     - [Text Nodes](#437-text-nodes)
   - [Annotations](#44-annotations)
+- [Processing Model](#5-processing-model)
+  - [Path Steps](#51-path-steps)
 - {: .toc-letter } [References](#a-references)
   - [W3C References](#a1-w3c-references)
   - [XPath NG Proposals](#a2-xpath-ng-proposals)
@@ -664,6 +666,26 @@ The *name* of the annotation is the unexpanded `xs:QName` annotation name.
 The *values* of the annotation is the list of `xs:string`, `xs:integer`,
 `xs:decimal`, and `xs:decimal` arguments passed to the annotation. For
 `CompatibilityAnnotation` this is always empty.
+
+## 5 Processing Model
+
+### 5.1 Path Steps
+
+The `XpmPathStep` interface defines several properties that describe a step in
+a path expression. Note that this does not apply to
+
+The *axis type* property is the forward or reverse axis associated with the
+step in its unabbreviated form.
+
+The *node name* property is the `EQName` associated with the `NameTest` if one
+is present.
+
+The *node type* property is the `KindTest` associated with the given step. If the
+`NodeTest` is a `KindTest`, then the *node type* is that `KindTest`. Otherwise, it
+is the principal node kind associated with the *axis type*.
+
+The *predicates* property is the list of `Predicate` nodes associated with the
+step.
 
 ## A References
 
