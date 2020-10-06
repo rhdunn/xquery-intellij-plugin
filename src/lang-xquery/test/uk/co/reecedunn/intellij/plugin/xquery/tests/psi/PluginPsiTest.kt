@@ -49,7 +49,9 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpm.context.expand
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPathStep
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySequenceTypeUnion
@@ -1706,6 +1708,20 @@ private class PluginPsiTest : ParserTestCase()  {
         @Nested
         @DisplayName("XQuery IntelliJ Plugin EBNF (25) ForwardAxis")
         internal inner class ForwardAxis {
+            @Test
+            @DisplayName("namespace axis")
+            fun namespaceAxis() {
+                val step = parse<XPathForwardStep>("namespace::test")[0] as XpmPathStep
+                assertThat(step.axisType, `is`(XpmAxisType.Namespace))
+            }
+
+            @Test
+            @DisplayName("property axis")
+            fun propertyAxis() {
+                val step = parse<XPathForwardStep>("property::test")[0] as XpmPathStep
+                assertThat(step.axisType, `is`(XpmAxisType.Property))
+            }
+
             @Test
             @DisplayName("principal node kind")
             fun principalNodeKind() {

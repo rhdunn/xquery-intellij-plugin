@@ -2411,6 +2411,76 @@ private class XQueryPsiTest : ParserTestCase() {
             @DisplayName("XQuery 3.1 EBNF (113) ForwardAxis")
             internal inner class ForwardAxis {
                 @Test
+                @DisplayName("XQuery 3.1 EBNF (119) NameTest")
+                fun nameTest() {
+                    val step = parse<XPathForwardStep>("child::test")[0] as XpmPathStep
+                    val qname = step.walkTree().filterIsInstance<XsQNameValue>().first()
+                    assertThat(step.axisType, `is`(XpmAxisType.Child))
+                    assertThat(step.nodeName, sameInstance(qname))
+                    assertThat(step.nodeType, sameInstance(XdmElementItem))
+                    assertThat(step.predicates.count(), `is`(0))
+                }
+
+                @Test
+                @DisplayName("XQuery 3.1 EBNF (188) KindTest")
+                fun kindTest() {
+                    val step = parse<XPathForwardStep>("child::node()")[0] as XpmPathStep
+                    assertThat(step.axisType, `is`(XpmAxisType.Child))
+                    assertThat(step.nodeName, `is`(nullValue()))
+                    assertThat(step.nodeType, sameInstance(step.walkTree().filterIsInstance<XdmItemType>().first()))
+                    assertThat(step.predicates.count(), `is`(0))
+                }
+
+                @Test
+                @DisplayName("attribute axis")
+                fun attributeAxis() {
+                    val step = parse<XPathForwardStep>("attribute::test")[0] as XpmPathStep
+                    assertThat(step.axisType, `is`(XpmAxisType.Attribute))
+                }
+
+                @Test
+                @DisplayName("child axis")
+                fun childAxis() {
+                    val step = parse<XPathForwardStep>("child::test")[0] as XpmPathStep
+                    assertThat(step.axisType, `is`(XpmAxisType.Child))
+                }
+
+                @Test
+                @DisplayName("descendant axis")
+                fun descendantAxis() {
+                    val step = parse<XPathForwardStep>("descendant::test")[0] as XpmPathStep
+                    assertThat(step.axisType, `is`(XpmAxisType.Descendant))
+                }
+
+                @Test
+                @DisplayName("descendant-or-self axis")
+                fun descendantOrSelfAxis() {
+                    val step = parse<XPathForwardStep>("descendant-or-self::test")[0] as XpmPathStep
+                    assertThat(step.axisType, `is`(XpmAxisType.DescendantOrSelf))
+                }
+
+                @Test
+                @DisplayName("following axis")
+                fun followingAxis() {
+                    val step = parse<XPathForwardStep>("following::test")[0] as XpmPathStep
+                    assertThat(step.axisType, `is`(XpmAxisType.Following))
+                }
+
+                @Test
+                @DisplayName("following-sibling axis")
+                fun followingSiblingAxis() {
+                    val step = parse<XPathForwardStep>("following-sibling::test")[0] as XpmPathStep
+                    assertThat(step.axisType, `is`(XpmAxisType.FollowingSibling))
+                }
+
+                @Test
+                @DisplayName("self axis")
+                fun selfAxis() {
+                    val step = parse<XPathForwardStep>("self::test")[0] as XpmPathStep
+                    assertThat(step.axisType, `is`(XpmAxisType.Self))
+                }
+
+                @Test
                 @DisplayName("principal node kind")
                 fun principalNodeKind() {
                     val steps = parse<XPathNameTest>(
@@ -2717,16 +2787,11 @@ private class XQueryPsiTest : ParserTestCase() {
                 @DisplayName("XQuery 3.1 EBNF (119) NameTest")
                 fun nameTest() {
                     val step = parse<XPathAbbrevForwardStep>("@test")[0] as XpmPathStep
+                    val qname = step.walkTree().filterIsInstance<XsQNameValue>().first()
                     assertThat(step.axisType, `is`(XpmAxisType.Attribute))
+                    assertThat(step.nodeName, sameInstance(qname))
                     assertThat(step.nodeType, sameInstance(XdmAttributeItem))
                     assertThat(step.predicates.count(), `is`(0))
-
-                    val qname = step.nodeName!!
-                    assertThat(qname.isLexicalQName, `is`(true))
-                    assertThat(qname.namespace, `is`(nullValue()))
-                    assertThat(qname.prefix, `is`(nullValue()))
-                    assertThat(qname.localName!!.data, `is`("test"))
-                    assertThat(qname.element, sameInstance(qname as PsiElement))
                 }
 
                 @Test
@@ -2750,16 +2815,11 @@ private class XQueryPsiTest : ParserTestCase() {
                     @DisplayName("XQuery 3.1 EBNF (119) NameTest")
                     fun nameTest() {
                         val step = parse<XPathNameTest>("test")[0] as XpmPathStep
+                        val qname = step.walkTree().filterIsInstance<XsQNameValue>().first()
                         assertThat(step.axisType, `is`(XpmAxisType.Child))
+                        assertThat(step.nodeName, sameInstance(qname))
                         assertThat(step.nodeType, sameInstance(XdmElementItem))
                         assertThat(step.predicates.count(), `is`(0))
-
-                        val qname = step.nodeName!!
-                        assertThat(qname.isLexicalQName, `is`(true))
-                        assertThat(qname.namespace, `is`(nullValue()))
-                        assertThat(qname.prefix, `is`(nullValue()))
-                        assertThat(qname.localName!!.data, `is`("test"))
-                        assertThat(qname.element, sameInstance(qname as PsiElement))
                     }
 
                     @Test

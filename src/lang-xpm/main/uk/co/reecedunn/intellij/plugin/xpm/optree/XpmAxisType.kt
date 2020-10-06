@@ -15,10 +15,20 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.optree
 
-enum class XpmAxisType {
-    Attribute,
-    Child,
-    DescendantOrSelf,
-    Namespace,
-    Parent,
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAttributeItem
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementItem
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNamespaceItem
+
+enum class XpmAxisType(val principalNodeKind: XdmItemType) {
+    Attribute(XdmAttributeItem),
+    Child(XdmElementItem),
+    Descendant(XdmElementItem),
+    DescendantOrSelf(XdmElementItem),
+    Following(XdmElementItem),
+    FollowingSibling(XdmElementItem),
+    Namespace(XdmNamespaceItem),
+    Parent(XdmElementItem),
+    Property(XdmElementItem),
+    Self(XdmElementItem),
 }

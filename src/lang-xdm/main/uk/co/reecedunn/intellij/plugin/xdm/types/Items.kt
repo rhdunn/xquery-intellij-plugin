@@ -73,6 +73,14 @@ interface XdmCommentNode : XdmNode, XdmAccessors
 
 interface XdmNamespaceNode : XdmNode, XdmAccessors
 
+object XdmNamespaceItem : XdmItemType {
+    override val typeName: String = "namespace-node()"
+    override val itemType: XdmItemType? get() = this
+    override val lowerBound: Int? = 1
+    override val upperBound: Int? = 1
+    override val typeClass: Class<*> = XdmElementNode::class.java
+}
+
 // endregion
 // region XQuery and XPath 3.1 Data Model (2.7.4) : processing-instruction()
 
