@@ -70,6 +70,7 @@ declare %a:since("basex", "7.8.2") function db:copy($db as xs:string, $name as x
 declare %a:since("basex", "7.8.2") function db:alter($db as xs:string, $name as xs:string) as empty-sequence() external;
 declare %a:since("basex", "7.8.2") function db:create-backup($db as xs:string) as empty-sequence() external;
 declare %a:since("basex", "7.8.2") function db:drop-backup($name as xs:string) as empty-sequence() external;
+declare %a:since("basex", "9.3") function db:alter-backup($name as xs:string, $new-name as xs:string) as empty-sequence() external;
 declare %a:since("basex", "7.8.2") function db:restore($name as xs:string) as empty-sequence() external;
 declare %a:since("basex", "7.0") function db:optimize($db as xs:string) as empty-sequence() external;
 declare %a:since("basex", "7.0") function db:optimize($db as xs:string, $all as xs:boolean) as empty-sequence() external;
