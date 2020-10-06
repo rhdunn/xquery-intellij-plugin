@@ -51,6 +51,7 @@ declare %a:since("expath-file", "1.0-20131203") %a:since("basex", "7.7") functio
 declare %a:until("expath-file", "1.0-20150220") function file:current-dir() as xs:string external;
 declare %a:since("expath-file", "1.0-20120614") %a:since("basex", "7.0") function file:delete($path as xs:string) as empty-sequence() external;
 declare %a:since("expath-file", "1.0-20120614") %a:since("basex", "7.2.1") function file:delete($path as xs:string, $recursive as xs:boolean) as empty-sequence() external;
+declare %a:since("basex", "9.3") function file:descendants($dir as xs:string) as xs:string* external;
 declare %a:since("expath-file", "1.0-20120614") %a:since("basex", "7.0") %a:until("expath-file", "1.0-20131203", "file:parent#1") %a:until("basex", "7.8", "file:parent#1") function file:dir-name($path as xs:string) as xs:string external;
 declare %a:since("expath-file", "1.0-20120614") %a:since("basex", "7.0") function file:dir-separator() as xs:string external;
 declare %a:since("expath-file", "1.0-20100517") function file:exists($path as xs:string) as xs:boolean external;
