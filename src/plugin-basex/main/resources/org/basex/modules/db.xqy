@@ -26,8 +26,10 @@ declare %a:since("basex", "7.0") function db:backups() as element(backup)* exter
 declare %a:since("basex", "7.0") function db:backups($db as xs:string) as element(backup)* external;
 declare %a:since("basex", "7.0") function db:open($db as xs:string) as document-node()* external;
 declare %a:since("basex", "7.0") function db:open($db as xs:string, $path as xs:string) as document-node()* external;
-declare %a:since("basex", "7.0") function db:open-pre($db as xs:string, $pre as xs:integer) as node() external;
-declare %a:since("basex", "7.0") function db:open-id($db as xs:string, $id as xs:integer) as node() external;
+declare %a:restrict-since("$pre", "basex", "9.3", "xs:integer*")
+        %a:since("basex", "7.0") function db:open-pre($db as xs:string, $pre as xs:integer) as node()* external;
+declare %a:restrict-since("$id", "basex", "9.3", "xs:integer*")
+        %a:since("basex", "7.0") function db:open-id($db as xs:string, $id as xs:integer) as node()* external;
 declare %a:since("basex", "7.0") function db:node-pre($nodes as node()*) as xs:integer* external;
 declare %a:since("basex", "7.0") function db:node-id($nodes as node()*) as xs:integer* external;
 declare %a:since("basex", "7.0") function db:retrieve($db as xs:string, $path as xs:string) as xs:base64Binary external;
