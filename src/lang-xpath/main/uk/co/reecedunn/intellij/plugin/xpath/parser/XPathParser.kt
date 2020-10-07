@@ -1514,17 +1514,25 @@ open class XPathParser : PsiParser {
         val marker = builder.mark()
         if (parsePrimaryExpr(builder, type)) {
             parseWhiteSpaceAndCommentTokens(builder)
-            var havePostfixExpr = false
+
+            // Keep PostfixExpr if the PrimaryExpr is in a non-initial StepExpr.
+            var havePostfixExpr = type === XPathElementType.PATH_EXPR
             while (
                 parsePredicate(builder) ||
                 parseArgumentList(builder) ||
                 parseLookup(builder, XPathElementType.LOOKUP)
             ) {
                 parseWhiteSpaceAndCommentTokens(builder)
+                // Keep PostfixExpr if there is a filter, dynamic function call, or lookup.
                 havePostfixExpr = true
             }
 
-            if (havePostfixExpr || type === XPathElementType.PATH_EXPR)
+            if (XPathTokenType.RELATIVE_PATH_EXPR_TOKENS.contains(builder.tokenType)) {
+                // Keep PostfixExpr if a StepExpr follows the PrimaryExpr (i.e. this is the first step).
+                havePostfixExpr = true
+            }
+
+            if (havePostfixExpr)
                 marker.done(XPathElementType.POSTFIX_EXPR)
             else
                 marker.drop()
