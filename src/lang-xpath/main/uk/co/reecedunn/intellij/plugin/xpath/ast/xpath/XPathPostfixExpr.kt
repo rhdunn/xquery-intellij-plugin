@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPathStep
 
 /**
@@ -23,4 +24,4 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPathStep
  * This is a replacement for the XPath 2.0 and XQuery 1.0 `FilterExpr`
  * grammar construct.
  */
-interface XPathPostfixExpr : XPathStepExpr, XpmPathStep
+interface XPathPostfixExpr : XPathStepExpr, XpmPathStep, XpmExpression

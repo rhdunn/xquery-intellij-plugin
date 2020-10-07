@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNodeItem
@@ -26,6 +27,8 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPredicate
 
 class XPathPostfixExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathPostfixExpr {
+    // region XpmPathStep
+
     override val axisType: XpmAxisType = XpmAxisType.Self
 
     override val nodeName: XsQNameValue? = null
@@ -34,4 +37,11 @@ class XPathPostfixExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPath
 
     override val predicates: Sequence<XpmPredicate>
         get() = children().filterIsInstance<XpmPredicate>()
+
+    // endregion
+    // region XpmExpression
+
+    override val expressionElement: PsiElement? = null
+
+    // endregion
 }

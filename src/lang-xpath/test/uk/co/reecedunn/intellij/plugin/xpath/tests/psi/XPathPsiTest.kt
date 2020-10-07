@@ -1942,6 +1942,9 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(step.nodeName, `is`(nullValue()))
                 assertThat(step.nodeType, sameInstance(XdmNodeItem))
                 assertThat(step.predicates.count(), `is`(0))
+
+                val expr = step as XpmExpression
+                assertThat(expr.expressionElement, `is`(nullValue()))
             }
 
             @Test
@@ -1952,6 +1955,9 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(step.nodeName, `is`(nullValue()))
                 assertThat(step.nodeType, sameInstance(XdmNodeItem))
                 assertThat(step.predicates.count(), `is`(0))
+
+                val expr = step as XpmExpression
+                assertThat(expr.expressionElement, `is`(nullValue()))
             }
 
             @Test
@@ -1962,6 +1968,9 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(step.nodeName, `is`(nullValue()))
                 assertThat(step.nodeType, sameInstance(XdmNodeItem))
                 assertThat(step.predicates.count(), `is`(0))
+
+                val expr = step as XpmExpression
+                assertThat(expr.expressionElement, `is`(nullValue()))
             }
         }
 
@@ -1979,6 +1988,9 @@ private class XPathPsiTest : ParserTestCase() {
                 val predicates = step.predicates.toList()
                 assertThat(predicates.size, `is`(1))
                 assertThat(predicates[0].text, `is`("[1]"))
+
+                val expr = step as XpmExpression
+                assertThat(expr.expressionElement, `is`(nullValue()))
             }
 
             @Test
@@ -1993,6 +2005,9 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(predicates.size, `is`(2))
                 assertThat(predicates[0].text, `is`("[1]"))
                 assertThat(predicates[1].text, `is`("[2]"))
+
+                val expr = step as XpmExpression
+                assertThat(expr.expressionElement, `is`(nullValue()))
             }
         }
 
