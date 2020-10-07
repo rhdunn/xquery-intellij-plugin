@@ -1931,6 +1931,71 @@ private class XPathPsiTest : ParserTestCase() {
     @Nested
     @DisplayName("XPath 3.1 (3.2) Postfix Expressions")
     internal inner class PostfixExpressions {
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (49) PostfixExpr")
+        internal inner class PostfixExpr {
+            @Test
+            @DisplayName("initial step")
+            fun initialStep() {
+                val step = parse<XPathPostfixExpr>("\$x/test")[0] as XpmPathStep
+                assertThat(step.axisType, `is`(XpmAxisType.Self))
+                assertThat(step.nodeName, `is`(nullValue()))
+                assertThat(step.nodeType, sameInstance(XdmNodeItem))
+                assertThat(step.predicates.count(), `is`(0))
+            }
+
+            @Test
+            @DisplayName("intermediate step")
+            fun intermediateStep() {
+                val step = parse<XPathPostfixExpr>("/test/./self::node()")[0] as XpmPathStep
+                assertThat(step.axisType, `is`(XpmAxisType.Self))
+                assertThat(step.nodeName, `is`(nullValue()))
+                assertThat(step.nodeType, sameInstance(XdmNodeItem))
+                assertThat(step.predicates.count(), `is`(0))
+            }
+
+            @Test
+            @DisplayName("final step")
+            fun finalStep() {
+                val step = parse<XPathPostfixExpr>("/test/string()")[0] as XpmPathStep
+                assertThat(step.axisType, `is`(XpmAxisType.Self))
+                assertThat(step.nodeName, `is`(nullValue()))
+                assertThat(step.nodeType, sameInstance(XdmNodeItem))
+                assertThat(step.predicates.count(), `is`(0))
+            }
+        }
+
+        @Nested
+        @DisplayName("XPath 3.1 (3.2.1) Filter Expressions")
+        internal inner class FilterExpressions {
+            @Test
+            @DisplayName("single predicate")
+            fun singlePredicate() {
+                val step = parse<XPathPostfixExpr>("\$x[1]")[0] as XpmPathStep
+                assertThat(step.axisType, `is`(XpmAxisType.Self))
+                assertThat(step.nodeName, `is`(nullValue()))
+                assertThat(step.nodeType, sameInstance(XdmNodeItem))
+
+                val predicates = step.predicates.toList()
+                assertThat(predicates.size, `is`(1))
+                assertThat(predicates[0].text, `is`("[1]"))
+            }
+
+            @Test
+            @DisplayName("multiple predicates")
+            fun multiplePredicates() {
+                val step = parse<XPathPostfixExpr>("\$x[1][2]")[0] as XpmPathStep
+                assertThat(step.axisType, `is`(XpmAxisType.Self))
+                assertThat(step.nodeName, `is`(nullValue()))
+                assertThat(step.nodeType, sameInstance(XdmNodeItem))
+
+                val predicates = step.predicates.toList()
+                assertThat(predicates.size, `is`(2))
+                assertThat(predicates[0].text, `is`("[1]"))
+                assertThat(predicates[1].text, `is`("[2]"))
+            }
+        }
+
         @Test
         @DisplayName("XPath 3.1 EBNF (50) ArgumentList")
         fun argumentList() {

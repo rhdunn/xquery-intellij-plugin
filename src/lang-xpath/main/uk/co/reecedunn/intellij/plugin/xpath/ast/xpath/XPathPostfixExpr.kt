@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016, 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,10 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPathStep
+
 /**
  * An XPath 3.0 and XQuery 3.0 `PostfixExpr` node in the XQuery AST.
  *
  * This is a replacement for the XPath 2.0 and XQuery 1.0 `FilterExpr`
  * grammar construct.
  */
-interface XPathPostfixExpr : XPathStepExpr
+interface XPathPostfixExpr : XPathStepExpr, XpmPathStep

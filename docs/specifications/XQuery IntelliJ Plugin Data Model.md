@@ -51,7 +51,7 @@ various inspections.
     - [Comment Nodes](#436-comment-nodes)
     - [Text Nodes](#437-text-nodes)
   - [Annotations](#44-annotations)
-- [Processing Model](#5-processing-model)
+- [Operation Tree](#5-operation-tree)
   - [Path Steps](#51-path-steps)
 - {: .toc-letter } [References](#a-references)
   - [W3C References](#a1-w3c-references)
@@ -63,10 +63,14 @@ that extends XQuery 3.1, XQuery and XPath Full Text 3.0, XQuery Update Facility
 3.0, and XQuery Scripting Extension 1.0.
 
 The plugin supports BaseX, eXist-db, MarkLogic, and Saxon vendor extensions. The
-data model needed to support these extensions is detailed in this document.
+type system extensions needed to support these extensions is detailed in this
+document.
 
-The plugin data model extensions are to fill in gaps within the type system and
-to provide static type analysis.
+The plugin-specific data model extensions are to fill in gaps within the type
+system and to support static type analysis.
+
+This document also defines the processing model (operation tree) used by the
+plugin to integrate with the IDE and provide static analysis.
 
 ### 1.1 PSI Tree and Data Model Construction
 An XQuery document is parsed according to the combined XQuery, Full Text,
@@ -667,12 +671,21 @@ The *values* of the annotation is the list of `xs:string`, `xs:integer`,
 `xs:decimal`, and `xs:decimal` arguments passed to the annotation. For
 `CompatibilityAnnotation` this is always empty.
 
-## 5 Processing Model
+## 5 Operation Tree
 
 ### 5.1 Path Steps
 
-The `XpmPathStep` interface defines several properties that describe a step in
-a path expression. Note that this does not apply to
+| Symbol                       | Interface     |
+|------------------------------|---------------|
+| `AxisStep`                   | `XpmPathStep` |
+| `ForwardStep`                | `XpmPathStep` |
+| `AbbrevForwardStep`          | `XpmPathStep` |
+| `ReverseStep`                | `XpmPathStep` |
+| `AbbrevReverseStep`          | `XpmPathStep` |
+| `NodeTest`                   | `XpmPathStep` |
+| `NameTest`                   | `XpmPathStep` |
+| `AbbrevDescendantOrSelfStep` | `XpmPathStep` |
+| `PostfixExpr`                | `XpmPathStep` |
 
 The *axis type* property is the forward or reverse axis associated with the
 step in its unabbreviated form.
@@ -686,6 +699,12 @@ is the principal node kind associated with the *axis type*.
 
 The *predicates* property is the list of `Predicate` nodes associated with the
 step.
+
+A `PostfixExpr` is treated as a path step as it may occur anywhere in a path
+expression. It is not added to the PSI tree if the `PrimaryExpr` is not preceded
+or followed by another step, and does not contain a `Predicate`, `ArgumentList`,
+or `Lookup`. The *axis type* is `self`, the *predicates* are the predicates in
+the filter expression, and the *node type* is `node()`.
 
 ## A References
 
