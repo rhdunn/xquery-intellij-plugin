@@ -1286,7 +1286,7 @@ open class XPathParser : PsiParser {
                 var haveRelativePathExpr = step === ParsedStepExpr.Step
                 while (builder.matchTokenType(XPathTokenType.RELATIVE_PATH_EXPR_TOKENS)) {
                     parseWhiteSpaceAndCommentTokens(builder)
-                    if (parseStepExpr(builder, null) === ParsedStepExpr.None) {
+                    if (parseStepExpr(builder, XPathElementType.PATH_EXPR) === ParsedStepExpr.None) {
                         builder.error(XPathBundle.message("parser.error.expected", "StepExpr"))
                     } else {
                         haveRelativePathExpr = true
@@ -1524,7 +1524,7 @@ open class XPathParser : PsiParser {
                 havePostfixExpr = true
             }
 
-            if (havePostfixExpr)
+            if (havePostfixExpr || type === XPathElementType.PATH_EXPR)
                 marker.done(XPathElementType.POSTFIX_EXPR)
             else
                 marker.drop()

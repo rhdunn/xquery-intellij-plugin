@@ -8,9 +8,10 @@ XQueryModuleImpl[FILE(0:15)]
                   XQueryNCNameImpl[XQUERY_NCNAME(1:5)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(1:5)]('test')
             PluginAbbrevDescendantOrSelfStepImpl[XPATH_ALL_DESCENDANTS_PATH_TOKEN(5:7)]('//')
-            XPathFunctionCallImpl[XPATH_FUNCTION_CALL(7:15)]
-               XQueryNCNameImpl[XQUERY_NCNAME(7:13)]
-                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(7:13)]('string')
-               XPathArgumentListImpl[XPATH_ARGUMENT_LIST(13:15)]
-                  LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(13:14)]('(')
-                  LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(14:15)](')')
+            XPathPostfixExprImpl[XPATH_POSTFIX_EXPR(7:15)]
+               XPathFunctionCallImpl[XPATH_FUNCTION_CALL(7:15)]
+                  XQueryNCNameImpl[XQUERY_NCNAME(7:13)]
+                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(7:13)]('string')
+                  XPathArgumentListImpl[XPATH_ARGUMENT_LIST(13:15)]
+                     LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(13:14)]('(')
+                     LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(14:15)](')')
