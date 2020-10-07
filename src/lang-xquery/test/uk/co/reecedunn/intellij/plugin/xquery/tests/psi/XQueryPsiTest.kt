@@ -2405,6 +2405,69 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
+        @DisplayName("XQuery 3.1 (3.3.2) Axes")
+        internal inner class Steps {
+            @Nested
+            @DisplayName("XQuery 3.1 EBNF (39) AxisStep")
+            internal inner class AxisStep {
+                @Test
+                @DisplayName("multiple predicates")
+                fun multiplePredicates() {
+                    val step = parse<XPathAxisStep>("child::test[1][2]")[0] as XpmPathStep
+                    val qname = step.walkTree().filterIsInstance<XsQNameValue>().first()
+                    assertThat(step.axisType, `is`(XpmAxisType.Child))
+                    assertThat(step.nodeName, sameInstance(qname))
+                    assertThat(step.nodeType, sameInstance(XdmElementItem))
+
+                    val predicates = step.predicates.toList()
+                    assertThat(predicates.size, `is`(2))
+                    assertThat(predicates[0].text, `is`("[1]"))
+                    assertThat(predicates[1].text, `is`("[2]"))
+                }
+
+                @Test
+                @DisplayName("XQuery 3.1 EBNF (117) AbbrevReverseStep")
+                fun abbrevReverseStep() {
+                    val step = parse<XPathAxisStep>("..[1]")[0] as XpmPathStep
+                    assertThat(step.axisType, `is`(XpmAxisType.Parent))
+                    assertThat(step.nodeName, `is`(nullValue()))
+                    assertThat(step.nodeType, sameInstance(XdmNodeItem))
+
+                    val predicates = step.predicates.toList()
+                    assertThat(predicates.size, `is`(1))
+                    assertThat(predicates[0].text, `is`("[1]"))
+                }
+
+                @Test
+                @DisplayName("XQuery 3.1 EBNF (119) NameTest")
+                fun nameTest() {
+                    val step = parse<XPathAxisStep>("child::test[1]")[0] as XpmPathStep
+                    val qname = step.walkTree().filterIsInstance<XsQNameValue>().first()
+                    assertThat(step.axisType, `is`(XpmAxisType.Child))
+                    assertThat(step.nodeName, sameInstance(qname))
+                    assertThat(step.nodeType, sameInstance(XdmElementItem))
+
+                    val predicates = step.predicates.toList()
+                    assertThat(predicates.size, `is`(1))
+                    assertThat(predicates[0].text, `is`("[1]"))
+                }
+
+                @Test
+                @DisplayName("XQuery 3.1 EBNF (188) KindTest")
+                fun kindTest() {
+                    val step = parse<XPathAxisStep>("child::node()[1]")[0] as XpmPathStep
+                    assertThat(step.axisType, `is`(XpmAxisType.Child))
+                    assertThat(step.nodeName, `is`(nullValue()))
+                    assertThat(step.nodeType, sameInstance(step.walkTree().filterIsInstance<XdmItemType>().first()))
+
+                    val predicates = step.predicates.toList()
+                    assertThat(predicates.size, `is`(1))
+                    assertThat(predicates[0].text, `is`("[1]"))
+                }
+            }
+        }
+
+        @Nested
         @DisplayName("XQuery 3.1 (3.3.2.1) Axes")
         internal inner class Axes {
             @Nested
