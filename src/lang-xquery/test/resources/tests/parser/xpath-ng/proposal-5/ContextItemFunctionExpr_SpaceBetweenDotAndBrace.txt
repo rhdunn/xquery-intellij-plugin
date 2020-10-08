@@ -1,7 +1,7 @@
 XQueryModuleImpl[FILE(0:17)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:17)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:17)]
-         XPathPostfixExprImpl[XPATH_POSTFIX_EXPR(0:17)]
+         PluginDynamicFunctionCallImpl[XPATH_DYNAMIC_FUNCTION_CALL(0:17)]
             PluginContextItemFunctionExprImpl[XPATH_CONTEXT_ITEM_FUNCTION_EXPR(0:11)]
                XPathContextItemExprImpl[XPATH_DOT_TOKEN(0:1)]('.')
                PsiErrorElementImpl[ERROR_ELEMENT(1:2)]('XPST0003: A space is not allowed between '.' and '{' in context functions.')

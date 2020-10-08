@@ -2426,13 +2426,30 @@ private class XQueryPsiTest : ParserTestCase() {
             }
         }
 
-        @Test
-        @DisplayName("XQuery 3.1 EBNF (122) ArgumentList")
-        fun argumentList() {
-            val expr = parse<XPathArgumentList>("fn:abs#1()")[0] as XpmExpression
+        @Nested
+        @DisplayName("XQuery 3.1 (3.2.2) Dynamic Function Calls")
+        internal inner class DynamicFunctionCalls {
+            @Test
+            @DisplayName("dynamic function call")
+            fun dynamicFunctionCall() {
+                val step = parse<XPathPostfixExpr>("\$x(1)")[0] as XpmPathStep
+                assertThat(step.axisType, `is`(XpmAxisType.Self))
+                assertThat(step.nodeName, `is`(nullValue()))
+                assertThat(step.nodeType, sameInstance(XdmNodeItem))
+                assertThat(step.predicates.count(), `is`(0))
 
-            assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
-            assertThat(expr.expressionElement?.textOffset, `is`(8))
+                val expr = step as XpmExpression
+                assertThat(expr.expressionElement, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (122) ArgumentList")
+            fun argumentList() {
+                val expr = parse<XPathArgumentList>("fn:abs#1()")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
+                assertThat(expr.expressionElement?.textOffset, `is`(8))
+            }
         }
 
         @Nested

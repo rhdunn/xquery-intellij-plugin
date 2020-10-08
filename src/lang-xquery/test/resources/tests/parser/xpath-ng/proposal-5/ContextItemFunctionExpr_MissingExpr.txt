@@ -1,7 +1,7 @@
 XQueryModuleImpl[FILE(0:10)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:10)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:10)]
-         XPathPostfixExprImpl[XPATH_POSTFIX_EXPR(0:10)]
+         PluginDynamicFunctionCallImpl[XPATH_DYNAMIC_FUNCTION_CALL(0:10)]
             PluginContextItemFunctionExprImpl[XPATH_CONTEXT_ITEM_FUNCTION_EXPR(0:4)]
                LeafPsiElement[XPATH_CONTEXT_FUNCTION(0:2)]('.{')
                PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')

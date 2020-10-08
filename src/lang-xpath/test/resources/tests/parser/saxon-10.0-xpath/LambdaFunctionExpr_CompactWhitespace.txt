@@ -1,5 +1,5 @@
 XPathImpl[FILE(0:11)]
-   XPathPostfixExprImpl[XPATH_POSTFIX_EXPR(0:11)]
+   PluginDynamicFunctionCallImpl[XPATH_DYNAMIC_FUNCTION_CALL(0:11)]
       PluginLambdaFunctionExprImpl[XPATH_LAMBDA_FUNCTION_EXPR(0:9)]
          LeafPsiElement[XPATH_LAMBDA_FUNCTION(0:2)]('_{')
          XPathFunctionCallImpl[XPATH_FUNCTION_CALL(2:8)]

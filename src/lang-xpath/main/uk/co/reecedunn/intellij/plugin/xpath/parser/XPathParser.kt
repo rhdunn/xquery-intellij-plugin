@@ -1533,7 +1533,7 @@ open class XPathParser : PsiParser {
                     parseArgumentList(builder) -> {
                         parseWhiteSpaceAndCommentTokens(builder)
 
-                        marker.done(XPathElementType.POSTFIX_EXPR)
+                        marker.done(XPathElementType.DYNAMIC_FUNCTION_CALL)
                         marker = marker.precede()
 
                         // Keep PostfixExpr if there is a dynamic function call.

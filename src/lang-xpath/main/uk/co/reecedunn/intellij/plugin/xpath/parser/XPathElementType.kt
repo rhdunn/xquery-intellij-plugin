@@ -902,6 +902,12 @@ object XPathElementType {
         XPath
     )
 
+    val DYNAMIC_FUNCTION_CALL: IElementType = ICompositeElementType(
+        "XPATH_DYNAMIC_FUNCTION_CALL",
+        PluginDynamicFunctionCallPsiImpl::class.java,
+        XPath
+    )
+
     val TUPLE_FIELD: IElementType = ICompositeElementType(
         "XPATH_TUPLE_FIELD",
         PluginTupleFieldImpl::class.java,

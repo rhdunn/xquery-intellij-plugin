@@ -1,5 +1,5 @@
 XPathImpl[FILE(0:13)]
-   XPathPostfixExprImpl[XPATH_POSTFIX_EXPR(0:13)]
+   PluginDynamicFunctionCallImpl[XPATH_DYNAMIC_FUNCTION_CALL(0:13)]
       XPathVarRefImpl[XPATH_VAR_REF(0:4)]
          LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(0:1)]('$')
          PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
