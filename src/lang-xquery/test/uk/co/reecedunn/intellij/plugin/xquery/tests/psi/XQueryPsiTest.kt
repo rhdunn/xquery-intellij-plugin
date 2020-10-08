@@ -2377,52 +2377,56 @@ private class XQueryPsiTest : ParserTestCase() {
         @Nested
         @DisplayName("XQuery 3.1 (3.2.1) Filter Expressions")
         internal inner class FilterExpressions {
-            @Test
-            @DisplayName("single predicate")
-            fun singlePredicate() {
-                val step = parse<XPathPostfixExpr>("\$x[1]")[0] as XpmPathStep
-                assertThat(step.axisType, `is`(XpmAxisType.Self))
-                assertThat(step.nodeName, `is`(nullValue()))
-                assertThat(step.nodeType, sameInstance(XdmNodeItem))
+            @Nested
+            @DisplayName("XQuery IntelliJ Plugin EBNF (128) FilterExpr")
+            internal inner class FilterExpr {
+                @Test
+                @DisplayName("single predicate")
+                fun singlePredicate() {
+                    val step = parse<XPathPostfixExpr>("\$x[1]")[0] as XpmPathStep
+                    assertThat(step.axisType, `is`(XpmAxisType.Self))
+                    assertThat(step.nodeName, `is`(nullValue()))
+                    assertThat(step.nodeType, sameInstance(XdmNodeItem))
 
-                val predicates = step.predicates.toList()
-                assertThat(predicates.size, `is`(1))
-                assertThat(predicates[0].text, `is`("[1]"))
+                    val predicates = step.predicates.toList()
+                    assertThat(predicates.size, `is`(1))
+                    assertThat(predicates[0].text, `is`("[1]"))
 
-                val expr = step as XpmExpression
-                assertThat(expr.expressionElement, `is`(nullValue()))
-            }
+                    val expr = step as XpmExpression
+                    assertThat(expr.expressionElement, `is`(nullValue()))
+                }
 
-            @Test
-            @DisplayName("multiple predicates; inner")
-            fun multiplePredicatesInner() {
-                val step = parse<XPathPostfixExpr>("\$x[1][2]")[1] as XpmPathStep
-                assertThat(step.axisType, `is`(XpmAxisType.Self))
-                assertThat(step.nodeName, `is`(nullValue()))
-                assertThat(step.nodeType, sameInstance(XdmNodeItem))
+                @Test
+                @DisplayName("multiple predicates; inner")
+                fun multiplePredicatesInner() {
+                    val step = parse<XPathPostfixExpr>("\$x[1][2]")[1] as XpmPathStep
+                    assertThat(step.axisType, `is`(XpmAxisType.Self))
+                    assertThat(step.nodeName, `is`(nullValue()))
+                    assertThat(step.nodeType, sameInstance(XdmNodeItem))
 
-                val predicates = step.predicates.toList()
-                assertThat(predicates.size, `is`(1))
-                assertThat(predicates[0].text, `is`("[1]"))
+                    val predicates = step.predicates.toList()
+                    assertThat(predicates.size, `is`(1))
+                    assertThat(predicates[0].text, `is`("[1]"))
 
-                val expr = step as XpmExpression
-                assertThat(expr.expressionElement, `is`(nullValue()))
-            }
+                    val expr = step as XpmExpression
+                    assertThat(expr.expressionElement, `is`(nullValue()))
+                }
 
-            @Test
-            @DisplayName("multiple predicates; outer")
-            fun multiplePredicatesOuter() {
-                val step = parse<XPathPostfixExpr>("\$x[1][2]")[0] as XpmPathStep
-                assertThat(step.axisType, `is`(XpmAxisType.Self))
-                assertThat(step.nodeName, `is`(nullValue()))
-                assertThat(step.nodeType, sameInstance(XdmNodeItem))
+                @Test
+                @DisplayName("multiple predicates; outer")
+                fun multiplePredicatesOuter() {
+                    val step = parse<XPathPostfixExpr>("\$x[1][2]")[0] as XpmPathStep
+                    assertThat(step.axisType, `is`(XpmAxisType.Self))
+                    assertThat(step.nodeName, `is`(nullValue()))
+                    assertThat(step.nodeType, sameInstance(XdmNodeItem))
 
-                val predicates = step.predicates.toList()
-                assertThat(predicates.size, `is`(1))
-                assertThat(predicates[0].text, `is`("[2]"))
+                    val predicates = step.predicates.toList()
+                    assertThat(predicates.size, `is`(1))
+                    assertThat(predicates[0].text, `is`("[2]"))
 
-                val expr = step as XpmExpression
-                assertThat(expr.expressionElement, `is`(nullValue()))
+                    val expr = step as XpmExpression
+                    assertThat(expr.expressionElement, `is`(nullValue()))
+                }
             }
         }
 
@@ -2430,7 +2434,7 @@ private class XQueryPsiTest : ParserTestCase() {
         @DisplayName("XQuery 3.1 (3.2.2) Dynamic Function Calls")
         internal inner class DynamicFunctionCalls {
             @Test
-            @DisplayName("dynamic function call")
+            @DisplayName("XQuery IntelliJ Plugin EBNF (129) DynamicFunctionCall")
             fun dynamicFunctionCall() {
                 val step = parse<XPathPostfixExpr>("\$x(1)")[0] as XpmPathStep
                 assertThat(step.axisType, `is`(XpmAxisType.Self))
@@ -4050,7 +4054,7 @@ private class XQueryPsiTest : ParserTestCase() {
         @DisplayName("XQuery 3.1 (3.11.3.2) Postfix Lookup")
         internal inner class PostfixLookup {
             @Test
-            @DisplayName("postfix lookup")
+            @DisplayName("XQuery IntelliJ Plugin EBNF (130) PostfixLookup")
             fun postfixLookup() {
                 val step = parse<XPathPostfixExpr>("\$x?name")[0] as XpmPathStep
                 assertThat(step.axisType, `is`(XpmAxisType.Self))

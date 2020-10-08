@@ -41,6 +41,7 @@ plugin-specific extensions are provided to support IntelliJ integration.
       - [Lambda Function Expressions](#3612-lambda-function-expressions)
   - [Arrow Operator (=>)](#37-arrow-operator-)
   - [Otherwise Operator](#38-otherwise-operator)
+  - [Postfix Expressions](#39-postfix-expressions)
 - {: .toc-letter } [XQuery IntelliJ Plugin Grammar](#a-xquery-intellij-plugin-grammar)
   - [EBNF for XPath 3.1 with Vendor Extensions](#a1-ebnf-for-xpath-31-with-vendor-extensions)
   - [Reserved Function Names](#a2-reserved-function-names)
@@ -499,6 +500,21 @@ Otherwise, if either `A` or `B` have more than one item, the expression
 > item in the non-empty sequence, not the entire sequence. This is why the more
 > complicated expression is needed for that case.
 
+### 3.9 Postfix Expressions
+
+{: .ebnf-symbols }
+| Ref     | Symbol                         |     | Expression                          | Options              |
+|---------|--------------------------------|-----|-------------------------------------|----------------------|
+| \[45\]  | `PostfixExpr`                  | ::= | `FilterExpr \| DynamicFunctionCall \| PostfixLookup \| PrimaryExpr` | |
+| \[46\]  | `FilterExpr`                   | ::= | `PostfixExpr Predicate`             |                      |
+| \[47\]  | `DynamicFunctionCall`          | ::= | `PostfixExpr ArgumentList`          |                      |
+| \[48\]  | `PostfixLookup`                | ::= | `PostfixExpr Lookup`                |                      |
+
+The XPath 3.1 PostfixExpr is modified so that each filter expression, dynamic
+function call, and postfix lookup can be associated with their own EBNF symbol.
+This is how the XQuery IntelliJ Plugin models these expressions in the internal
+operation tree.
+
 ## A XQuery IntelliJ Plugin Grammar
 
 ### A.1 EBNF for XPath 3.1 with Vendor Extensions
@@ -566,6 +582,10 @@ These changes include support for:
 | \[42\]  | `PathExpr`                     | ::= | `("/" RelativePathExpr?) \| (AbbrevDescendantOrSelfStep RelativePathExpr) \| RelativePathExpr` | /\* xgc: leading-lone-slash \*/ |
 | \[43\]  | `RelativePathExpr`             | ::= | `StepExpr (("/" \| AbbrevDescendantOrSelfStep) StepExpr)*` | |
 | \[44\]  | `AbbrevDescendantOrSelfStep`   | ::= | `"//"`                                  |                  |
+| \[45\]  | `PostfixExpr`                  | ::= | `FilterExpr \| DynamicFunctionCall \| PostfixLookup \| PrimaryExpr` | |
+| \[46\]  | `FilterExpr`                   | ::= | `PostfixExpr Predicate`                 |                  |
+| \[47\]  | `DynamicFunctionCall`          | ::= | `PostfixExpr ArgumentList`              |                  |
+| \[48\]  | `PostfixLookup`                | ::= | `PostfixExpr Lookup`                    |                  |
 
 ### A.2 Reserved Function Names
 
@@ -689,6 +709,7 @@ behaviour of those constructs:
 1.  [Nillable Type Names](#211-sequencetype-syntax) \[1.5\]
 1.  [Arrow Function Call](#37-arrow-operator-) \[1.6\]
 1.  [Abbreviated Syntax](#322-abbreviated-syntax) \[1.8\]
+1.  [Postfix Expressions](#39-postfix-expressions) \[1.8\]
 
 ### C.2 Saxon Vendor Extensions
 The Saxon XQuery Processor supports the following vendor extensions described

@@ -73,6 +73,7 @@ plugin-specific extensions are provided to support IntelliJ integration.
   - [Otherwise Operator](#316-otherwise-operator)
   - [FLWOR Expressions](#317-flwor-expressions)
     - [For Member Clause](#3171-for-member-clause)
+  - [Postfix Expressions](#318-postfix-expressions)
 - [Modules and Prologs](#4-modules-and-prologs)
   - [Type Declaration](#41-type-declaration)
   - [Annotations](#42-annotations)
@@ -1086,6 +1087,21 @@ is equivalent to:
     return for member $m_n in E_n
     return R
 
+### 3.18 Postfix Expressions
+
+{: .ebnf-symbols }
+| Ref     | Symbol                         |     | Expression                                | Options |
+|---------|--------------------------------|-----|-------------------------------------------|---------|
+| \[127\] | `PostfixExpr`                  | ::= | `FilterExpr \| DynamicFunctionCall \| PostfixLookup \| PrimaryExpr` | |
+| \[128\] | `FilterExpr`                   | ::= | `PostfixExpr Predicate`                   |         |
+| \[129\] | `DynamicFunctionCall`          | ::= | `PostfixExpr ArgumentList`                |         |
+| \[130\] | `PostfixLookup`                | ::= | `PostfixExpr Lookup`                      |         |
+
+The XQuery 3.1 PostfixExpr is modified so that each filter expression, dynamic
+function call, and postfix lookup can be associated with their own EBNF symbol.
+This is how the XQuery IntelliJ Plugin models these expressions in the internal
+operation tree.
+
 ## 4 Modules and Prologs
 
 {: .ebnf-symbols }
@@ -1362,6 +1378,10 @@ These changes include support for:
 | \[124\]  | `PathExpr`                     | ::= | `("/" RelativePathExpr?) \| (AbbrevDescendantOrSelfStep RelativePathExpr) \| RelativePathExpr` | /\* xgc: leading-lone-slash \*/ |
 | \[125\]  | `RelativePathExpr`             | ::= | `StepExpr (("/" \| AbbrevDescendantOrSelfStep) StepExpr)*` | |
 | \[126\]  | `AbbrevDescendantOrSelfStep`   | ::= | `"//"`                                    |                 |
+| \[127\]  | `PostfixExpr`                  | ::= | `FilterExpr \| DynamicFunctionCall \| PostfixLookup \| PrimaryExpr` | |
+| \[128\]  | `FilterExpr`                   | ::= | `PostfixExpr Predicate`                   |                 |
+| \[129\]  | `DynamicFunctionCall`          | ::= | `PostfixExpr ArgumentList`                |                 |
+| \[130\]  | `PostfixLookup`                | ::= | `PostfixExpr Lookup`                      |                 |
 
 ### A.2 Reserved Function Names
 
@@ -1571,6 +1591,7 @@ behaviour of those constructs:
 1.  [Arrow Function Call](#315-arrow-operator-) \[1.6\]
 1.  [Direct Text Constructors](#312-direct-text-constructors) \[1.8\]
 1.  [Abbreviated Syntax](#393-abbreviated-syntax) \[1.8\]
+1.  [Postfix Expressions](#318-postfix-expressions) \[1.8\]
 
 The XQuery IntelliJ Plugin supports the following vendor extensions described
 in this document:
