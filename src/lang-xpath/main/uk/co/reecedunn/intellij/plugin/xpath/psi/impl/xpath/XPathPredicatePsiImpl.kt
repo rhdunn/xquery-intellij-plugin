@@ -19,6 +19,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAxisStep
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPostfixExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPredicate
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 
@@ -26,6 +27,12 @@ class XPathPredicatePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathPr
     override val expressionElement: PsiElement?
         get() = when (parent) {
             is XPathAxisStep /* AxisStep */ -> null
-            else /* PostfixExpr */ -> parent.firstChild.let { (it as? XpmExpression)?.expressionElement ?: it }
+            else /* PostfixExpr */ -> {
+                var child = parent.firstChild
+                while (child is XPathPostfixExpr) {
+                    child = child.firstChild
+                }
+                (child as? XpmExpression)?.expressionElement ?: child
+            }
         }
 }

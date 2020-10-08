@@ -1994,17 +1994,32 @@ private class XPathPsiTest : ParserTestCase() {
             }
 
             @Test
-            @DisplayName("multiple predicates")
-            fun multiplePredicates() {
+            @DisplayName("multiple predicates; inner")
+            fun multiplePredicatesInner() {
+                val step = parse<XPathPostfixExpr>("\$x[1][2]")[1] as XpmPathStep
+                assertThat(step.axisType, `is`(XpmAxisType.Self))
+                assertThat(step.nodeName, `is`(nullValue()))
+                assertThat(step.nodeType, sameInstance(XdmNodeItem))
+
+                val predicates = step.predicates.toList()
+                assertThat(predicates.size, `is`(1))
+                assertThat(predicates[0].text, `is`("[1]"))
+
+                val expr = step as XpmExpression
+                assertThat(expr.expressionElement, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("multiple predicates; outer")
+            fun multiplePredicatesOuter() {
                 val step = parse<XPathPostfixExpr>("\$x[1][2]")[0] as XpmPathStep
                 assertThat(step.axisType, `is`(XpmAxisType.Self))
                 assertThat(step.nodeName, `is`(nullValue()))
                 assertThat(step.nodeType, sameInstance(XdmNodeItem))
 
                 val predicates = step.predicates.toList()
-                assertThat(predicates.size, `is`(2))
-                assertThat(predicates[0].text, `is`("[1]"))
-                assertThat(predicates[1].text, `is`("[2]"))
+                assertThat(predicates.size, `is`(1))
+                assertThat(predicates[0].text, `is`("[2]"))
 
                 val expr = step as XpmExpression
                 assertThat(expr.expressionElement, `is`(nullValue()))

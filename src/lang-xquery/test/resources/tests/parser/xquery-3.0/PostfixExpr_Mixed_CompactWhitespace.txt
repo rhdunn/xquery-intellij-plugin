@@ -2,15 +2,16 @@ XQueryModuleImpl[FILE(0:10)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:10)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:10)]
          XPathPostfixExprImpl[XPATH_POSTFIX_EXPR(0:10)]
-            XPathVarRefImpl[XPATH_VAR_REF(0:2)]
-               LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(0:1)]('$')
-               XPathVarNameImpl[XPATH_VAR_NAME(1:2)]
-                  XQueryNCNameImpl[XQUERY_NCNAME(1:2)]
-                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(1:2)]('f')
-            XPathPredicateImpl[XPATH_PREDICATE(2:5)]
-               LeafPsiElement[XPATH_SQUARE_OPEN_TOKEN(2:3)]('[')
-               XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(3:4)]('2')
-               LeafPsiElement[XPATH_SQUARE_CLOSE_TOKEN(4:5)](']')
+            XPathPostfixExprImpl[XPATH_POSTFIX_EXPR(0:5)]
+               XPathVarRefImpl[XPATH_VAR_REF(0:2)]
+                  LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(0:1)]('$')
+                  XPathVarNameImpl[XPATH_VAR_NAME(1:2)]
+                     XQueryNCNameImpl[XQUERY_NCNAME(1:2)]
+                        XmlNCNameImpl[XPATH_NCNAME_TOKEN(1:2)]('f')
+               XPathPredicateImpl[XPATH_PREDICATE(2:5)]
+                  LeafPsiElement[XPATH_SQUARE_OPEN_TOKEN(2:3)]('[')
+                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(3:4)]('2')
+                  LeafPsiElement[XPATH_SQUARE_CLOSE_TOKEN(4:5)](']')
             XPathArgumentListImpl[XPATH_ARGUMENT_LIST(5:10)]
                LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(5:6)]('(')
                XPathArgumentImpl[XPATH_ARGUMENT(6:7)]

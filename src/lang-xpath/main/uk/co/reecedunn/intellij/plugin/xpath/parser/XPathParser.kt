@@ -1514,7 +1514,7 @@ open class XPathParser : PsiParser {
     // region Grammar :: Expr :: OrExpr :: PostfixExpr
 
     fun parsePostfixExpr(builder: PsiBuilder, type: IElementType?): Boolean {
-        val marker = builder.mark()
+        var marker = builder.mark()
         if (parsePrimaryExpr(builder, type)) {
             parseWhiteSpaceAndCommentTokens(builder)
 
@@ -1523,21 +1523,33 @@ open class XPathParser : PsiParser {
                 when {
                     parsePredicate(builder) -> {
                         parseWhiteSpaceAndCommentTokens(builder)
+
+                        marker.done(XPathElementType.POSTFIX_EXPR)
+                        marker = marker.precede()
+
                         // Keep PostfixExpr if there is a filter expression.
                         havePostfixExpr = true
                     }
                     parseArgumentList(builder) -> {
                         parseWhiteSpaceAndCommentTokens(builder)
+
+                        marker.done(XPathElementType.POSTFIX_EXPR)
+                        marker = marker.precede()
+
                         // Keep PostfixExpr if there is a dynamic function call.
                         havePostfixExpr = true
                     }
                     parseLookup(builder, XPathElementType.LOOKUP) -> {
                         parseWhiteSpaceAndCommentTokens(builder)
+
+                        marker.done(XPathElementType.POSTFIX_EXPR)
+                        marker = marker.precede()
+
                         // Keep PostfixExpr if there is a postfix lookup.
                         havePostfixExpr = true
                     }
                     havePostfixExpr -> {
-                        marker.done(XPathElementType.POSTFIX_EXPR)
+                        marker.drop()
                         return true
                     }
                     type === XPathElementType.PATH_EXPR -> {
