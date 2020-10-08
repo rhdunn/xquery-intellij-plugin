@@ -1542,7 +1542,7 @@ open class XPathParser : PsiParser {
                     parseLookup(builder, XPathElementType.LOOKUP) -> {
                         parseWhiteSpaceAndCommentTokens(builder)
 
-                        marker.done(XPathElementType.POSTFIX_EXPR)
+                        marker.done(XPathElementType.POSTFIX_LOOKUP)
                         marker = marker.precede()
 
                         // Keep PostfixExpr if there is a postfix lookup.

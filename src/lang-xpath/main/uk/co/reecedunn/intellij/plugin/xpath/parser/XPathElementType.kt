@@ -896,6 +896,12 @@ object XPathElementType {
         XPath
     )
 
+    val POSTFIX_LOOKUP: IElementType = ICompositeElementType(
+        "XPATH_POSTFIX_LOOKUP",
+        PluginPostfixLookupPsiImpl::class.java,
+        XPath
+    )
+
     val TUPLE_FIELD: IElementType = ICompositeElementType(
         "XPATH_TUPLE_FIELD",
         PluginTupleFieldImpl::class.java,

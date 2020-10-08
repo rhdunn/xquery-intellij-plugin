@@ -2,7 +2,7 @@ XQueryModuleImpl[FILE(0:16)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:16)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:16)]
          XPathComparisonExprImpl[XPATH_COMPARISON_EXPR(0:16)]
-            XPathPostfixExprImpl[XPATH_POSTFIX_EXPR(0:8)]
+            PluginPostfixLookupImpl[XPATH_POSTFIX_LOOKUP(0:8)]
                XPathVarRefImpl[XPATH_VAR_REF(0:4)]
                   LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(0:1)]('$')
                   PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')

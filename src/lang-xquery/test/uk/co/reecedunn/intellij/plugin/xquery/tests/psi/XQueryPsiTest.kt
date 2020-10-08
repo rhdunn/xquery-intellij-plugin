@@ -4017,17 +4017,8 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (3.11.3) The Lookup Operator for Maps and Arrays")
-        internal inner class LookupOperator {
-            @Test
-            @DisplayName("XQuery 3.1 EBNF (125) Lookup")
-            fun postfixLookup() {
-                val expr = parse<XPathLookup>("map{}?name")[0] as XpmExpression
-
-                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.LOOKUP))
-                assertThat(expr.expressionElement?.textOffset, `is`(5))
-            }
-
+        @DisplayName("XQuery 3.1 (3.11.3.1) Unary Lookup")
+        internal inner class UnaryLookup {
             @Test
             @DisplayName("XQuery 3.1 EBNF (181) UnaryLookup")
             fun unaryLookup() {
@@ -4035,6 +4026,32 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 assertThat(expr.expressionElement.elementType, `is`(XPathElementType.UNARY_LOOKUP))
                 assertThat(expr.expressionElement?.textOffset, `is`(8))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.1 (3.11.3.2) Postfix Lookup")
+        internal inner class PostfixLookup {
+            @Test
+            @DisplayName("postfix lookup")
+            fun postfixLookup() {
+                val step = parse<XPathPostfixExpr>("\$x?name")[0] as XpmPathStep
+                assertThat(step.axisType, `is`(XpmAxisType.Self))
+                assertThat(step.nodeName, `is`(nullValue()))
+                assertThat(step.nodeType, sameInstance(XdmNodeItem))
+                assertThat(step.predicates.count(), `is`(0))
+
+                val expr = step as XpmExpression
+                assertThat(expr.expressionElement, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (125) Lookup")
+            fun lookup() {
+                val expr = parse<XPathLookup>("map{}?name")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.LOOKUP))
+                assertThat(expr.expressionElement?.textOffset, `is`(5))
             }
         }
     }
