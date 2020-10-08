@@ -1,5 +1,5 @@
 XPathImpl[FILE(0:11)]
-   XPathPostfixExprImpl[XPATH_POSTFIX_EXPR(0:11)]
+   XPathFilterExprImpl[XPATH_FILTER_EXPR(0:11)]
       XPathVarRefImpl[XPATH_VAR_REF(0:8)]
          LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(0:1)]('$')
          XPathVarNameImpl[XPATH_VAR_NAME(1:8)]

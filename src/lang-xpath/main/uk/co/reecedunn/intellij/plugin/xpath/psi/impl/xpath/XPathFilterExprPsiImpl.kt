@@ -18,14 +18,16 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNodeItem
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFilterExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPostfixExpr
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPredicate
 
-class XPathPostfixExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathPostfixExpr {
+class XPathFilterExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathFilterExpr {
     // region XpmPathStep
 
     override val axisType: XpmAxisType = XpmAxisType.Self
@@ -34,7 +36,8 @@ class XPathPostfixExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPath
 
     override val nodeType: XdmItemType = XdmNodeItem
 
-    override val predicates: Sequence<XpmPredicate> = emptySequence()
+    override val predicates: Sequence<XpmPredicate>
+        get() = children().filterIsInstance<XpmPredicate>()
 
     // endregion
     // region XpmExpression

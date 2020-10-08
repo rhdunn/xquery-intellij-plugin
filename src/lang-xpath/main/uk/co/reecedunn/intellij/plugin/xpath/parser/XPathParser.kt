@@ -1524,7 +1524,7 @@ open class XPathParser : PsiParser {
                     parsePredicate(builder) -> {
                         parseWhiteSpaceAndCommentTokens(builder)
 
-                        marker.done(XPathElementType.POSTFIX_EXPR)
+                        marker.done(XPathElementType.FILTER_EXPR)
                         marker = marker.precede()
 
                         // Keep PostfixExpr if there is a filter expression.

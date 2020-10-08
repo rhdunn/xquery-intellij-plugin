@@ -251,6 +251,12 @@ object XPathElementType {
         XPath
     )
 
+    val FILTER_EXPR: IElementType = ICompositeElementType(
+        "XPATH_FILTER_EXPR",
+        XPathFilterExprPsiImpl::class.java,
+        XPath
+    )
+
     val SINGLE_TYPE: IElementType = ICompositeElementType(
         "XPATH_SINGLE_TYPE",
         XPathSingleTypePsiImpl::class.java,
