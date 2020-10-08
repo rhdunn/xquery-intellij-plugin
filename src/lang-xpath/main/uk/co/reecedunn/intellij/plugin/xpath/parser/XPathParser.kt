@@ -1510,33 +1510,52 @@ open class XPathParser : PsiParser {
         return null
     }
 
+    // endregion
+    // region Grammar :: Expr :: OrExpr :: PostfixExpr
+
     fun parsePostfixExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
         if (parsePrimaryExpr(builder, type)) {
             parseWhiteSpaceAndCommentTokens(builder)
 
-            // Keep PostfixExpr if the PrimaryExpr is in a non-initial StepExpr.
-            var havePostfixExpr = type === XPathElementType.PATH_EXPR
-            while (
-                parsePredicate(builder) ||
-                parseArgumentList(builder) ||
-                parseLookup(builder, XPathElementType.LOOKUP)
-            ) {
-                parseWhiteSpaceAndCommentTokens(builder)
-                // Keep PostfixExpr if there is a filter, dynamic function call, or lookup.
-                havePostfixExpr = true
+            var havePostfixExpr = false
+            while (true) {
+                when {
+                    parsePredicate(builder) -> {
+                        parseWhiteSpaceAndCommentTokens(builder)
+                        // Keep PostfixExpr if there is a filter expression.
+                        havePostfixExpr = true
+                    }
+                    parseArgumentList(builder) -> {
+                        parseWhiteSpaceAndCommentTokens(builder)
+                        // Keep PostfixExpr if there is a dynamic function call.
+                        havePostfixExpr = true
+                    }
+                    parseLookup(builder, XPathElementType.LOOKUP) -> {
+                        parseWhiteSpaceAndCommentTokens(builder)
+                        // Keep PostfixExpr if there is a postfix lookup.
+                        havePostfixExpr = true
+                    }
+                    havePostfixExpr -> {
+                        marker.done(XPathElementType.POSTFIX_EXPR)
+                        return true
+                    }
+                    type === XPathElementType.PATH_EXPR -> {
+                        // Keep PostfixExpr if the PrimaryExpr is in a non-initial StepExpr.
+                        marker.done(XPathElementType.POSTFIX_EXPR)
+                        return true
+                    }
+                    XPathTokenType.RELATIVE_PATH_EXPR_TOKENS.contains(builder.tokenType) -> {
+                        // Keep PostfixExpr if a StepExpr follows the PrimaryExpr (i.e. this is the first step).
+                        marker.done(XPathElementType.POSTFIX_EXPR)
+                        return true
+                    }
+                    else -> {
+                        marker.drop()
+                        return true
+                    }
+                }
             }
-
-            if (XPathTokenType.RELATIVE_PATH_EXPR_TOKENS.contains(builder.tokenType)) {
-                // Keep PostfixExpr if a StepExpr follows the PrimaryExpr (i.e. this is the first step).
-                havePostfixExpr = true
-            }
-
-            if (havePostfixExpr)
-                marker.done(XPathElementType.POSTFIX_EXPR)
-            else
-                marker.drop()
-            return true
         }
         marker.drop()
         return false
