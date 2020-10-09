@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
+
 /**
  * An XPath 2.0 and XQuery 1.0 `PathExpr` node in the XQuery AST.
  *
@@ -24,4 +26,4 @@ package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
  * The `RelativePathExpr` node is not added to the AST. It is
  * combined with `PathExpr`.
  */
-interface XPathPathExpr : XPathRelativePathExpr
+interface XPathPathExpr : XPathRelativePathExpr, XpmExpression

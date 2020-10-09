@@ -2098,6 +2098,73 @@ private class XPathPsiTest : ParserTestCase() {
     @DisplayName("XPath 3.1 (3.3) Path Expressions")
     internal inner class PathExpressions {
         @Nested
+        @DisplayName("XPath 3.1 EBNF (36) PathExpr")
+        internal inner class PathExpr {
+            @Test
+            @DisplayName("last step is ForwardStep")
+            fun lastStepIsForwardStep() {
+                val expr = parse<XPathPathExpr>("/lorem/ipsum/parent::dolor")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.REVERSE_STEP))
+                assertThat(expr.expressionElement?.textOffset, `is`(13))
+            }
+
+            @Test
+            @DisplayName("last step is ReverseStep")
+            fun lastStepIsReverseStep() {
+                val expr = parse<XPathPathExpr>("/lorem/ipsum/parent::dolor")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.REVERSE_STEP))
+                assertThat(expr.expressionElement?.textOffset, `is`(13))
+            }
+
+            @Test
+            @DisplayName("last step is FilterStep")
+            fun lastStepIsFilterStep() {
+                val expr = parse<XPathPathExpr>("/lorem/ipsum/dolor[1]")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.FILTER_STEP))
+                assertThat(expr.expressionElement?.textOffset, `is`(13))
+            }
+
+            @Test
+            @DisplayName("last step is PrimaryExpr")
+            fun lastStepIsPrimaryExpr() {
+                val expr = parse<XPathPathExpr>("/lorem/ipsum/dolor/.")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.NAME_TEST))
+                assertThat(expr.expressionElement?.textOffset, `is`(13))
+            }
+
+            @Test
+            @DisplayName("last step is FilterExpr")
+            fun lastStepIsFilterExpr() {
+                val expr = parse<XPathPathExpr>("/lorem/ipsum/dolor/.[1]")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.NAME_TEST))
+                assertThat(expr.expressionElement?.textOffset, `is`(13))
+            }
+
+            @Test
+            @DisplayName("last step is DynamicFunctionCall")
+            fun lastStepIsDynamicFunctionCall() {
+                val expr = parse<XPathPathExpr>("/lorem/ipsum/dolor/.(1)")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.NAME_TEST))
+                assertThat(expr.expressionElement?.textOffset, `is`(13))
+            }
+
+            @Test
+            @DisplayName("last step is PostfixLookup")
+            fun lastStepIsPostfixLookup() {
+                val expr = parse<XPathPathExpr>("/lorem/ipsum/dolor/.?test")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.NAME_TEST))
+                assertThat(expr.expressionElement?.textOffset, `is`(13))
+            }
+        }
+
+        @Nested
         @DisplayName("A '//' at the beginning of a path expression")
         internal inner class LeadingDoubleForwardSlash {
             @Test
