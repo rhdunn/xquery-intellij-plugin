@@ -1574,7 +1574,7 @@ open class XPathParser : PsiParser {
         var havePredicate = false
         while (parsePredicate(builder)) {
             parseWhiteSpaceAndCommentTokens(builder)
-            inner.done(XPathElementType.AXIS_STEP)
+            inner.done(XPathElementType.FILTER_STEP)
             inner = inner.precede()
             havePredicate = true
         }

@@ -896,6 +896,12 @@ object XPathElementType {
         XPath
     )
 
+    val FILTER_STEP: IElementType = ICompositeElementType(
+        "XPATH_FILTER_STEP",
+        PluginFilterStepPsiImpl::class.java,
+        XPath
+    )
+
     val POSTFIX_LOOKUP: IElementType = ICompositeElementType(
         "XPATH_POSTFIX_LOOKUP",
         PluginPostfixLookupPsiImpl::class.java,

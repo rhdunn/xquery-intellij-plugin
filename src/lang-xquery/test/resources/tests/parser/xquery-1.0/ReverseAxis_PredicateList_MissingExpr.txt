@@ -2,7 +2,7 @@ XQueryModuleImpl[FILE(0:17)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:17)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:17)]
          XPathPathExprImpl[XPATH_PATH_EXPR(0:17)]
-            XPathAxisStepImpl[XPATH_AXIS_STEP(0:17)]
+            PluginFilterStepImpl[XPATH_FILTER_STEP(0:17)]
                XPathReverseStepImpl[XPATH_REVERSE_STEP(0:14)]
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_PARENT(0:6)]('parent')
                   PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')

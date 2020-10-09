@@ -1,7 +1,7 @@
 XPathImpl[FILE(0:25)]
    XPathPathExprImpl[XPATH_PATH_EXPR(0:25)]
-      XPathAxisStepImpl[XPATH_AXIS_STEP(0:25)]
-         XPathAxisStepImpl[XPATH_AXIS_STEP(0:20)]
+      PluginFilterStepImpl[XPATH_FILTER_STEP(0:25)]
+         PluginFilterStepImpl[XPATH_FILTER_STEP(0:20)]
             XPathReverseStepImpl[XPATH_REVERSE_STEP(0:14)]
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_PARENT(0:6)]('parent')
                PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
