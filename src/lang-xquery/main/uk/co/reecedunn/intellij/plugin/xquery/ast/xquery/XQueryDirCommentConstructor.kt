@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016, 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
+
 /**
  * An XQuery 1.0 `DirCommentConstructor` node in the XQuery AST.
  */
-interface XQueryDirCommentConstructor : XQueryDirectConstructor
+interface XQueryDirCommentConstructor : XQueryDirectConstructor, XpmExpression

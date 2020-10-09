@@ -3912,6 +3912,19 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
+        @DisplayName("XQuery 3.1 (3.9.2) Other Direct Constructors")
+        internal inner class OtherDirectConstructors {
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (149) DirCommentConstructor")
+            fun dirCommentConstructor() {
+                val expr = parse<XQueryDirCommentConstructor>("<!-- test -->")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.DIR_COMMENT_CONSTRUCTOR))
+                assertThat(expr.expressionElement?.textOffset, `is`(0))
+            }
+        }
+
+        @Nested
         @DisplayName("XQuery 3.1 (3.9.3) Computed Constructors")
         internal inner class ComputedElementConstructors {
             @Nested
