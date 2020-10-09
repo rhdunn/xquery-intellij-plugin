@@ -1356,10 +1356,7 @@ open class XPathParser : PsiParser {
         val marker = builder.mark()
         if (parseReverseStep(builder) || parseForwardStep(builder, type)) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (parsePredicateList(builder))
-                marker.done(XPathElementType.AXIS_STEP)
-            else
-                marker.drop()
+            parsePredicateList(builder, marker, recover = false)
             return true
         }
 
@@ -1498,8 +1495,7 @@ open class XPathParser : PsiParser {
                 parseNodeTest(builder, null)
 
                 parseWhiteSpaceAndCommentTokens(builder)
-                parsePredicateList(builder)
-                marker.done(XPathElementType.AXIS_STEP)
+                parsePredicateList(builder, marker, recover = true)
                 return XPathElementType.AXIS_STEP
             } else {
                 marker.done(XPathElementType.NAME_TEST)
@@ -1573,12 +1569,20 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    private fun parsePredicateList(builder: PsiBuilder): Boolean {
+    private fun parsePredicateList(builder: PsiBuilder, marker: PsiBuilder.Marker, recover: Boolean): Boolean {
+        var inner = marker
         var havePredicate = false
         while (parsePredicate(builder)) {
             parseWhiteSpaceAndCommentTokens(builder)
+            inner.done(XPathElementType.AXIS_STEP)
+            inner = inner.precede()
             havePredicate = true
         }
+
+        if (recover && !havePredicate)
+            inner.done(XPathElementType.AXIS_STEP)
+        else
+            inner.drop()
         return havePredicate
     }
 

@@ -63,7 +63,8 @@ plugin-specific extensions are provided to support IntelliJ integration.
   - [Path Expressions](#39-path-expressions)
     - [Axes](#391-axes)
     - [Node Tests](#392-node-tests)
-    - [Abbreviated Syntax](#393-abbreviated-syntax)
+    - [Filter Steps](#393-filter-steps)
+    - [Abbreviated Syntax](#394-abbreviated-syntax)
   - [Validate Expressions](#310-validate-expressions)
   - [Try/Catch Expressions](#311-trycatch-expressions)
   - [Binary Constructors](#312-binary-constructors)
@@ -859,7 +860,19 @@ name (but not both) can be `WildcardIndicator`.
 
 A `WildcardIndicator` is an instance of `xdm:wildcard`.
 
-#### 3.9.3 Abbreviated Syntax
+#### 3.9.3 Filter Steps
+
+{: .ebnf-symbols }
+| Ref     | Symbol                         |     | Expression                                | Options |
+|---------|--------------------------------|-----|-------------------------------------------|---------|
+| \[131\] | `AxisStep`                     | ::= | `FilterStep \| ReverseStep \| ForwardStep` |        |
+| \[132\] | `FilterStep`                   | ::= | `AxisStep Predicate`                      |         |
+
+The XQuery 3.1 `AxisStep` is modified so that each filter step (`Predicate`) can
+be associated with their own EBNF symbol. This is how the XQuery IntelliJ Plugin
+models these expressions in the internal operation tree.
+
+#### 3.9.4 Abbreviated Syntax
 
 {: .ebnf-symbols }
 | Ref     | Symbol                         |     | Expression                                | Options |
@@ -1097,7 +1110,7 @@ is equivalent to:
 | \[129\] | `DynamicFunctionCall`          | ::= | `PostfixExpr ArgumentList`                |         |
 | \[130\] | `PostfixLookup`                | ::= | `PostfixExpr Lookup`                      |         |
 
-The XQuery 3.1 PostfixExpr is modified so that each filter expression, dynamic
+The XQuery 3.1 `PostfixExpr` is modified so that each filter expression, dynamic
 function call, and postfix lookup can be associated with their own EBNF symbol.
 This is how the XQuery IntelliJ Plugin models these expressions in the internal
 operation tree.
@@ -1382,6 +1395,8 @@ These changes include support for:
 | \[128\]  | `FilterExpr`                   | ::= | `PostfixExpr Predicate`                   |                 |
 | \[129\]  | `DynamicFunctionCall`          | ::= | `PostfixExpr ArgumentList`                |                 |
 | \[130\]  | `PostfixLookup`                | ::= | `PostfixExpr Lookup`                      |                 |
+| \[131\]  | `AxisStep`                     | ::= | `FilterStep \| ReverseStep \| ForwardStep` |                |
+| \[132\]  | `FilterStep`                   | ::= | `AxisStep Predicate`                      |                 |
 
 ### A.2 Reserved Function Names
 
@@ -1590,8 +1605,9 @@ behaviour of those constructs:
 1.  [Module Import](#48-module-import) \[1.6\]
 1.  [Arrow Function Call](#315-arrow-operator-) \[1.6\]
 1.  [Direct Text Constructors](#312-direct-text-constructors) \[1.8\]
-1.  [Abbreviated Syntax](#393-abbreviated-syntax) \[1.8\]
+1.  [Abbreviated Syntax](#394-abbreviated-syntax) \[1.8\]
 1.  [Postfix Expressions](#318-postfix-expressions) \[1.8\]
+1.  [Filter Steps](#393-filter-steps) \[1.8\]
 
 The XQuery IntelliJ Plugin supports the following vendor extensions described
 in this document:

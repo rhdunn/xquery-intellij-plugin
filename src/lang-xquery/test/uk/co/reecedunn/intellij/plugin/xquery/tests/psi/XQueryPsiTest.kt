@@ -2527,8 +2527,22 @@ private class XQueryPsiTest : ParserTestCase() {
             @DisplayName("XQuery 3.1 EBNF (39) AxisStep")
             internal inner class AxisStep {
                 @Test
-                @DisplayName("multiple predicates")
-                fun multiplePredicates() {
+                @DisplayName("multiple predicates; inner")
+                fun multiplePredicatesInner() {
+                    val step = parse<XPathAxisStep>("child::test[1][2]")[1] as XpmPathStep
+                    val qname = step.walkTree().filterIsInstance<XsQNameValue>().first()
+                    assertThat(step.axisType, `is`(XpmAxisType.Child))
+                    assertThat(step.nodeName, sameInstance(qname))
+                    assertThat(step.nodeType, sameInstance(XdmElementItem))
+
+                    val predicates = step.predicates.toList()
+                    assertThat(predicates.size, `is`(1))
+                    assertThat(predicates[0].text, `is`("[1]"))
+                }
+
+                @Test
+                @DisplayName("multiple predicates; outer")
+                fun multiplePredicatesOuter() {
                     val step = parse<XPathAxisStep>("child::test[1][2]")[0] as XpmPathStep
                     val qname = step.walkTree().filterIsInstance<XsQNameValue>().first()
                     assertThat(step.axisType, `is`(XpmAxisType.Child))
@@ -2536,9 +2550,8 @@ private class XQueryPsiTest : ParserTestCase() {
                     assertThat(step.nodeType, sameInstance(XdmElementItem))
 
                     val predicates = step.predicates.toList()
-                    assertThat(predicates.size, `is`(2))
-                    assertThat(predicates[0].text, `is`("[1]"))
-                    assertThat(predicates[1].text, `is`("[2]"))
+                    assertThat(predicates.size, `is`(1))
+                    assertThat(predicates[0].text, `is`("[2]"))
                 }
 
                 @Test
