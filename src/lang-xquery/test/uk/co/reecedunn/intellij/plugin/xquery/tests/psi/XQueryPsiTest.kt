@@ -4837,6 +4837,17 @@ private class XQueryPsiTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery 3.1 (3.13) Ordered and Unordered Expressions")
+    internal inner class OrderedAndUnorderedExpressions {
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (135) OrderedExpr")
+        fun orderedExpr() {
+            val expr = parse<XQueryOrderedExpr>("ordered { 1, 2, 3 }")[0] as XpmExpression
+            assertThat(expr.expressionElement, `is`(nullValue()))
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.1 (3.14) Conditional Expressions")
     internal inner class ConditionalExpressions {
         @Test
