@@ -35,6 +35,6 @@ class PluginFilterStepPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), Plugi
     override val nodeType: XdmItemType
         get() = (firstChild as XpmPathStep).nodeType
 
-    override val predicates: Sequence<XpmPredicate>
-        get() = children().filterIsInstance<XpmPredicate>()
+    override val predicate: XpmPredicate?
+        get() = children().filterIsInstance<XpmPredicate>().firstOrNull()
 }

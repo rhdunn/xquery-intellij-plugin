@@ -38,5 +38,5 @@ class XPathNodeTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathNod
     override val nodeType: XdmItemType
         get() = firstChild as XdmItemType
 
-    override val predicates: Sequence<XpmPredicate> = emptySequence()
+    override val predicate: XpmPredicate? = null
 }

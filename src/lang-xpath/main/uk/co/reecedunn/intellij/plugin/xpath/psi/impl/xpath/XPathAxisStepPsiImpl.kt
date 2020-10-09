@@ -35,5 +35,5 @@ class XPathAxisStepPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathAxi
     override val nodeType: XdmItemType
         get() = (firstChild as XpmPathStep).nodeType
 
-    override val predicates: Sequence<XpmPredicate> = emptySequence()
+    override val predicate: XpmPredicate? = null
 }

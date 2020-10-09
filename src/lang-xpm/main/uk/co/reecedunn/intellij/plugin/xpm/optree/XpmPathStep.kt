@@ -26,5 +26,5 @@ interface XpmPathStep : PsiElement {
 
     val nodeType: XdmItemType
 
-    val predicates: Sequence<XpmPredicate>
+    val predicate: XpmPredicate?
 }

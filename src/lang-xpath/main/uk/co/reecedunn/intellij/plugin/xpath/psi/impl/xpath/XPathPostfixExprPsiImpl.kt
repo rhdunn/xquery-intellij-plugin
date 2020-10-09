@@ -34,7 +34,7 @@ class XPathPostfixExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPath
 
     override val nodeType: XdmItemType = XdmNodeItem
 
-    override val predicates: Sequence<XpmPredicate> = emptySequence()
+    override val predicate: XpmPredicate? = null
 
     // endregion
     // region XpmExpression

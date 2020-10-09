@@ -34,7 +34,7 @@ class PluginDynamicFunctionCallPsiImpl(node: ASTNode) : ASTWrapperPsiElement(nod
 
     override val nodeType: XdmItemType = XdmNodeItem
 
-    override val predicates: Sequence<XpmPredicate> = emptySequence()
+    override val predicate: XpmPredicate? = null
 
     // endregion
     // region XpmExpression

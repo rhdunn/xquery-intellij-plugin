@@ -19,7 +19,6 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
-import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAttributeItem
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathForwardStep
@@ -54,7 +53,7 @@ class XPathForwardStepPsiImpl(node: ASTNode) :
     override val nodeType: XdmItemType
         get() = (lastChild as? XPathNodeTest)?.nodeType ?: axisType.principalNodeKind
 
-    override val predicates: Sequence<XpmPredicate> = emptySequence()
+    override val predicate: XpmPredicate? = null
 
     override val conformanceElement: PsiElement
         get() = firstChild

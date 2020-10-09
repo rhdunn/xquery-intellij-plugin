@@ -35,5 +35,5 @@ class XPathAbbrevForwardStepPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
     override val nodeType: XdmItemType
         get() = (lastChild as? XPathNodeTest)?.nodeType ?: XdmAttributeItem
 
-    override val predicates: Sequence<XpmPredicate> = emptySequence()
+    override val predicate: XpmPredicate? = null
 }

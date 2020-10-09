@@ -678,6 +678,7 @@ The *values* of the annotation is the list of `xs:string`, `xs:integer`,
 | Symbol                       | Interface     |
 |------------------------------|---------------|
 | `AxisStep`                   | `XpmPathStep` |
+| `FilterStep`                 | `XpmPathStep` |
 | `ForwardStep`                | `XpmPathStep` |
 | `AbbrevForwardStep`          | `XpmPathStep` |
 | `ReverseStep`                | `XpmPathStep` |
@@ -686,6 +687,9 @@ The *values* of the annotation is the list of `xs:string`, `xs:integer`,
 | `NameTest`                   | `XpmPathStep` |
 | `AbbrevDescendantOrSelfStep` | `XpmPathStep` |
 | `PostfixExpr`                | `XpmPathStep` |
+| `FilterExpr`                 | `XpmPathStep` |
+| `DynamicFunctionCall`        | `XpmPathStep` |
+| `PostfixLookup`              | `XpmPathStep` |
 
 The *axis type* property is the forward or reverse axis associated with the
 step in its unabbreviated form.
@@ -697,14 +701,12 @@ The *node type* property is the `KindTest` associated with the given step. If th
 `NodeTest` is a `KindTest`, then the *node type* is that `KindTest`. Otherwise, it
 is the principal node kind associated with the *axis type*.
 
-The *predicates* property is the list of `Predicate` nodes associated with the
-step.
+The *predicate* property is the `Predicate` node associated with the step.
 
 A `PostfixExpr` is treated as a path step as it may occur anywhere in a path
 expression. It is not added to the PSI tree if the `PrimaryExpr` is not preceded
-or followed by another step, and does not contain a `Predicate`, `ArgumentList`,
-or `Lookup`. The *axis type* is `self`, the *predicates* are the predicates in
-the filter expression, and the *node type* is `node()`.
+or followed by another step. The *axis type* is `self`, the *predicates* are the
+predicates in the filter expression, and the *node type* is `node()`.
 
 ## A References
 

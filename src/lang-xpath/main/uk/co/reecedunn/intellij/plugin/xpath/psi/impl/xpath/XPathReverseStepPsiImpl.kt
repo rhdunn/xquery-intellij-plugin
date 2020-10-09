@@ -45,5 +45,5 @@ class XPathReverseStepPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPath
     override val nodeType: XdmItemType
         get() = (lastChild as? XPathNodeTest)?.nodeType ?: axisType.principalNodeKind
 
-    override val predicates: Sequence<XpmPredicate> = emptySequence()
+    override val predicate: XpmPredicate? = null
 }

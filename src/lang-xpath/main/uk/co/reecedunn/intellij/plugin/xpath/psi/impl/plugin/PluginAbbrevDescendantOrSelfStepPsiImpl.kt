@@ -33,5 +33,5 @@ class PluginAbbrevDescendantOrSelfStepPsiImpl(type: IElementType, text: CharSequ
 
     override val nodeType: XdmItemType = XdmNodeItem
 
-    override val predicates: Sequence<XpmPredicate> = emptySequence()
+    override val predicate: XpmPredicate? = null
 }

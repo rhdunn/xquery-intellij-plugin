@@ -36,8 +36,8 @@ class XPathFilterExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathF
 
     override val nodeType: XdmItemType = XdmNodeItem
 
-    override val predicates: Sequence<XpmPredicate>
-        get() = children().filterIsInstance<XpmPredicate>()
+    override val predicate: XpmPredicate?
+        get() = children().filterIsInstance<XpmPredicate>().firstOrNull()
 
     // endregion
     // region XpmExpression
