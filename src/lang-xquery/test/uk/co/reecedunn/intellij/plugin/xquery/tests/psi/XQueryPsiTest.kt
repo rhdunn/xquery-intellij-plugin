@@ -3613,387 +3613,424 @@ private class XQueryPsiTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery 3.1 (3.9.1) Direct Element Constructors")
-    internal inner class DirectElementConstructors {
+    @DisplayName("XQuery 3.1 (3.9) Node Constructors")
+    internal inner class NodeConstructors {
         @Nested
-        @DisplayName("XQuery 3.1 EBNF (142) DirElemConstructor")
-        internal inner class DirElemConstructor {
-            @Test
-            @DisplayName("open and close tags")
-            fun openAndCloseTags() {
-                val element = parse<XQueryDirElemConstructor>("<a:b></a:b>")[0] as XdmElementNode
+        @DisplayName("XQuery 3.1 (3.9.1) Direct Element Constructors")
+        internal inner class DirectElementConstructors {
+            @Nested
+            @DisplayName("XQuery 3.1 EBNF (142) DirElemConstructor")
+            internal inner class DirElemConstructor {
+                @Test
+                @DisplayName("open and close tags")
+                fun openAndCloseTags() {
+                    val element = parse<XQueryDirElemConstructor>("<a:b></a:b>")[0] as XdmElementNode
 
-                val open = element.nodeName!!
-                assertThat(open.prefix!!.data, `is`("a"))
-                assertThat(open.localName!!.data, `is`("b"))
+                    val open = element.nodeName!!
+                    assertThat(open.prefix!!.data, `is`("a"))
+                    assertThat(open.localName!!.data, `is`("b"))
 
-                val close = element.closingTag!!
-                assertThat(close, `is`(not(sameInstance(open))))
-                assertThat(close.prefix!!.data, `is`("a"))
-                assertThat(close.localName!!.data, `is`("b"))
-            }
+                    val close = element.closingTag!!
+                    assertThat(close, `is`(not(sameInstance(open))))
+                    assertThat(close.prefix!!.data, `is`("a"))
+                    assertThat(close.localName!!.data, `is`("b"))
 
-            @Test
-            @DisplayName("self-closing")
-            fun selfClosing() {
-                val element = parse<XQueryDirElemConstructor>("<h:br/>")[0] as XdmElementNode
+                    val expr = element as XpmExpression
+                    assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.DIR_ELEM_CONSTRUCTOR))
+                    assertThat(expr.expressionElement?.textOffset, `is`(0))
+                }
 
-                val open = element.nodeName!!
-                assertThat(open.prefix!!.data, `is`("h"))
-                assertThat(open.localName!!.data, `is`("br"))
+                @Test
+                @DisplayName("self-closing")
+                fun selfClosing() {
+                    val element = parse<XQueryDirElemConstructor>("<h:br/>")[0] as XdmElementNode
 
-                val close = element.closingTag
-                assertThat(close, `is`(sameInstance(open)))
-            }
+                    val open = element.nodeName!!
+                    assertThat(open.prefix!!.data, `is`("h"))
+                    assertThat(open.localName!!.data, `is`("br"))
 
-            @Test
-            @DisplayName("error recovery: missing close tag")
-            fun missingClosingTag() {
-                val element = parse<XQueryDirElemConstructor>("<a:b>")[0] as XdmElementNode
+                    val close = element.closingTag
+                    assertThat(close, `is`(sameInstance(open)))
 
-                val open = element.nodeName!!
-                assertThat(open.prefix!!.data, `is`("a"))
-                assertThat(open.localName!!.data, `is`("b"))
+                    val expr = element as XpmExpression
+                    assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.DIR_ELEM_CONSTRUCTOR))
+                    assertThat(expr.expressionElement?.textOffset, `is`(0))
+                }
 
-                val close = element.closingTag
-                assertThat(close, `is`(sameInstance(open)))
-            }
+                @Test
+                @DisplayName("error recovery: missing close tag")
+                fun missingClosingTag() {
+                    val element = parse<XQueryDirElemConstructor>("<a:b>")[0] as XdmElementNode
 
-            @Test
-            @DisplayName("error recovery: incomplete open tag")
-            fun incompleteOpenTag() {
-                val element = parse<XQueryDirElemConstructor>("<a:></a:b>")[0] as XdmElementNode
+                    val open = element.nodeName!!
+                    assertThat(open.prefix!!.data, `is`("a"))
+                    assertThat(open.localName!!.data, `is`("b"))
 
-                val open = element.nodeName!!
-                assertThat(open.prefix!!.data, `is`("a"))
-                assertThat(open.localName, `is`(nullValue()))
+                    val close = element.closingTag
+                    assertThat(close, `is`(sameInstance(open)))
 
-                val close = element.closingTag!!
-                assertThat(close, `is`(not(sameInstance(open))))
-                assertThat(close.prefix!!.data, `is`("a"))
-                assertThat(close.localName!!.data, `is`("b"))
-            }
+                    val expr = element as XpmExpression
+                    assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.DIR_ELEM_CONSTRUCTOR))
+                    assertThat(expr.expressionElement?.textOffset, `is`(0))
+                }
 
-            @Test
-            @DisplayName("error recovery: incomplete close tag")
-            fun incompleteCloseTag() {
-                val element = parse<XQueryDirElemConstructor>("<a:b></a:>")[0] as XdmElementNode
+                @Test
+                @DisplayName("error recovery: incomplete open tag")
+                fun incompleteOpenTag() {
+                    val element = parse<XQueryDirElemConstructor>("<a:></a:b>")[0] as XdmElementNode
 
-                val open = element.nodeName!!
-                assertThat(open.prefix!!.data, `is`("a"))
-                assertThat(open.localName!!.data, `is`("b"))
+                    val open = element.nodeName!!
+                    assertThat(open.prefix!!.data, `is`("a"))
+                    assertThat(open.localName, `is`(nullValue()))
 
-                val close = element.closingTag!!
-                assertThat(close, `is`(not(sameInstance(open))))
-                assertThat(close.prefix!!.data, `is`("a"))
-                assertThat(close.localName, `is`(nullValue()))
-            }
+                    val close = element.closingTag!!
+                    assertThat(close, `is`(not(sameInstance(open))))
+                    assertThat(close.prefix!!.data, `is`("a"))
+                    assertThat(close.localName!!.data, `is`("b"))
 
-            @Test
-            @DisplayName("error recovery: partial close tag only")
-            fun partialCloseTagOnly() {
-                val element = parse<XQueryDirElemConstructor>("</<test>")[0] as XdmElementNode
+                    val expr = element as XpmExpression
+                    assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.DIR_ELEM_CONSTRUCTOR))
+                    assertThat(expr.expressionElement?.textOffset, `is`(0))
+                }
 
-                val open = element.nodeName
-                assertThat(open, `is`(nullValue()))
+                @Test
+                @DisplayName("error recovery: incomplete close tag")
+                fun incompleteCloseTag() {
+                    val element = parse<XQueryDirElemConstructor>("<a:b></a:>")[0] as XdmElementNode
 
-                val close = element.closingTag
-                assertThat(close, `is`(nullValue()))
-            }
+                    val open = element.nodeName!!
+                    assertThat(open.prefix!!.data, `is`("a"))
+                    assertThat(open.localName!!.data, `is`("b"))
 
-            @Test
-            @DisplayName("error recovery: close tag only")
-            fun soloCloseTag() {
-                val element = parse<XQueryDirElemConstructor>("</a:b>")[0] as XdmElementNode
+                    val close = element.closingTag!!
+                    assertThat(close, `is`(not(sameInstance(open))))
+                    assertThat(close.prefix!!.data, `is`("a"))
+                    assertThat(close.localName, `is`(nullValue()))
 
-                val open = element.nodeName!!
-                assertThat(open.prefix!!.data, `is`("a"))
-                assertThat(open.localName!!.data, `is`("b"))
+                    val expr = element as XpmExpression
+                    assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.DIR_ELEM_CONSTRUCTOR))
+                    assertThat(expr.expressionElement?.textOffset, `is`(0))
+                }
 
-                val close = element.closingTag!!
-                assertThat(close, `is`(sameInstance(open)))
-            }
+                @Test
+                @DisplayName("error recovery: partial close tag only")
+                fun partialCloseTagOnly() {
+                    val element = parse<XQueryDirElemConstructor>("</<test>")[0] as XdmElementNode
 
-            @Test
-            @DisplayName("NCName namespace resolution")
-            fun ncname() {
-                val qname = parse<XPathEQName>(
-                    """
+                    val open = element.nodeName
+                    assertThat(open, `is`(nullValue()))
+
+                    val close = element.closingTag
+                    assertThat(close, `is`(nullValue()))
+
+                    val expr = element as XpmExpression
+                    assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.DIR_ELEM_CONSTRUCTOR))
+                    assertThat(expr.expressionElement?.textOffset, `is`(0))
+                }
+
+                @Test
+                @DisplayName("error recovery: close tag only")
+                fun soloCloseTag() {
+                    val element = parse<XQueryDirElemConstructor>("</a:b>")[0] as XdmElementNode
+
+                    val open = element.nodeName!!
+                    assertThat(open.prefix!!.data, `is`("a"))
+                    assertThat(open.localName!!.data, `is`("b"))
+
+                    val close = element.closingTag!!
+                    assertThat(close, `is`(sameInstance(open)))
+
+                    val expr = element as XpmExpression
+                    assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.DIR_ELEM_CONSTRUCTOR))
+                    assertThat(expr.expressionElement?.textOffset, `is`(0))
+                }
+
+                @Test
+                @DisplayName("NCName namespace resolution")
+                fun ncname() {
+                    val qname = parse<XPathEQName>(
+                        """
                     declare default function namespace "http://www.example.co.uk/function";
                     declare default element namespace "http://www.example.co.uk/element";
                     <test/>
                     """
-                )[0] as XsQNameValue
-                assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.DefaultElementOrType))
-                assertThat(qname.element!!.getUsageType(), `is`(XstUsageType.Element))
+                    )[0] as XsQNameValue
+                    assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.DefaultElementOrType))
+                    assertThat(qname.element!!.getUsageType(), `is`(XstUsageType.Element))
 
-                assertThat(qname.isLexicalQName, `is`(true))
-                assertThat(qname.namespace, `is`(nullValue()))
-                assertThat(qname.prefix, `is`(nullValue()))
-                assertThat(qname.localName!!.data, `is`("test"))
-                assertThat(qname.element, sameInstance(qname as PsiElement))
+                    assertThat(qname.isLexicalQName, `is`(true))
+                    assertThat(qname.namespace, `is`(nullValue()))
+                    assertThat(qname.prefix, `is`(nullValue()))
+                    assertThat(qname.localName!!.data, `is`("test"))
+                    assertThat(qname.element, sameInstance(qname as PsiElement))
 
-                val expanded = qname.expand().toList()
-                assertThat(expanded.size, `is`(1))
+                    val expanded = qname.expand().toList()
+                    assertThat(expanded.size, `is`(1))
 
-                assertThat(expanded[0].isLexicalQName, `is`(false))
-                assertThat(expanded[0].namespace!!.data, `is`("http://www.example.co.uk/element"))
-                assertThat(expanded[0].prefix, `is`(nullValue()))
-                assertThat(expanded[0].localName!!.data, `is`("test"))
-                assertThat(expanded[0].element, sameInstance(qname as PsiElement))
+                    assertThat(expanded[0].isLexicalQName, `is`(false))
+                    assertThat(expanded[0].namespace!!.data, `is`("http://www.example.co.uk/element"))
+                    assertThat(expanded[0].prefix, `is`(nullValue()))
+                    assertThat(expanded[0].localName!!.data, `is`("test"))
+                    assertThat(expanded[0].element, sameInstance(qname as PsiElement))
+                }
+            }
+
+            @Nested
+            @DisplayName("XQuery 3.1 EBNF (143) DirAttributeList")
+            internal inner class DirAttributeList {
+                @Test
+                @DisplayName("NCName namespace resolution")
+                fun ncname() {
+                    val qname = parse<XPathNCName>("<elem test=\"\"/>")[1] as XsQNameValue
+                    assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.None))
+                    assertThat(qname.element!!.getUsageType(), `is`(XstUsageType.Attribute))
+
+                    assertThat(qname.isLexicalQName, `is`(true))
+                    assertThat(qname.namespace, `is`(nullValue()))
+                    assertThat(qname.prefix, `is`(nullValue()))
+                    assertThat(qname.localName!!.data, `is`("test"))
+                    assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                    val expanded = qname.expand().toList()
+                    assertThat(expanded.size, `is`(1))
+
+                    assertThat(expanded[0].isLexicalQName, `is`(false))
+                    assertThat(expanded[0].namespace!!.data, `is`(""))
+                    assertThat(expanded[0].prefix, `is`(nullValue()))
+                    assertThat(expanded[0].localName!!.data, `is`("test"))
+                    assertThat(expanded[0].element, sameInstance(qname as PsiElement))
+                }
+
+                @Test
+                @DisplayName("QName")
+                fun qname() {
+                    val qname = parse<XPathQName>("<elem fn:test=\"\"/>")[0] as XsQNameValue
+                    assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.None))
+                    assertThat(qname.element!!.getUsageType(), `is`(XstUsageType.Attribute))
+
+                    assertThat(qname.isLexicalQName, `is`(true))
+                    assertThat(qname.namespace, `is`(nullValue()))
+                    assertThat(qname.prefix!!.data, `is`("fn"))
+                    assertThat(qname.localName!!.data, `is`("test"))
+                    assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                    val expanded = qname.expand().toList()
+                    assertThat(expanded.size, `is`(1))
+
+                    assertThat(expanded[0].isLexicalQName, `is`(false))
+                    assertThat(expanded[0].namespace!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
+                    assertThat(expanded[0].prefix!!.data, `is`("fn"))
+                    assertThat(expanded[0].localName!!.data, `is`("test"))
+                    assertThat(expanded[0].element, sameInstance(qname as PsiElement))
+                }
+
+                @Test
+                @DisplayName("namespace declaration attributes")
+                fun namespaceDeclarationAttributes() {
+                    val qname = parse<XPathQName>("<elem xmlns:abc=\"http://www.example.com\"/>")[0] as XsQNameValue
+                    assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.None))
+                    assertThat(qname.element!!.getUsageType(), `is`(XstUsageType.Namespace))
+
+                    assertThat(qname.isLexicalQName, `is`(true))
+                    assertThat(qname.namespace, `is`(nullValue()))
+                    assertThat(qname.prefix!!.data, `is`("xmlns"))
+                    assertThat(qname.localName!!.data, `is`("abc"))
+                    assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                    val expanded = qname.expand().toList()
+                    assertThat(expanded.size, `is`(0))
+                }
+            }
+
+            @Nested
+            @DisplayName("XQuery 3.1 EBNF (144) DirAttributeValue")
+            internal inner class DirAttributeValue {
+                @Test
+                @DisplayName("attribute value content")
+                fun attributeValue() {
+                    val psi =
+                        parse<PluginDirAttribute>("<a b=\"http://www.example.com\uFFFF\"/>")[0] as XdmAttributeNode
+                    val literal = psi.typedValue as XsUntypedAtomicValue
+                    assertThat(literal.data, `is`("http://www.example.com\uFFFF")) // U+FFFF = BAD_CHARACTER token.
+                    assertThat(literal.element, sameInstance(psi as PsiElement))
+                }
+
+                @Test
+                @DisplayName("unclosed attribute value content")
+                fun unclosedAttributeValue() {
+                    val psi = parse<PluginDirAttribute>("<a b=\"http://www.example.com")[0] as XdmAttributeNode
+                    val literal = psi.typedValue as XsUntypedAtomicValue
+                    assertThat(literal.data, `is`("http://www.example.com"))
+                    assertThat(literal.element, sameInstance(psi as PsiElement))
+                }
+
+                @Test
+                @DisplayName("EscapeApos tokens")
+                fun escapeApos() {
+                    val psi = parse<PluginDirAttribute>("<a b='''\"\"{{}}'")[0] as XdmAttributeNode
+                    val literal = psi.typedValue as XsUntypedAtomicValue
+                    assertThat(literal.data, `is`("'\"\"{}"))
+                    assertThat(literal.element, sameInstance(psi as PsiElement))
+                }
+
+                @Test
+                @DisplayName("EscapeQuot tokens")
+                fun escapeQuot() {
+                    val psi = parse<PluginDirAttribute>("<a b=\"''\"\"{{}}\"")[0] as XdmAttributeNode
+                    val literal = psi.typedValue as XsUntypedAtomicValue
+                    assertThat(literal.data, `is`("''\"{}"))
+                    assertThat(literal.element, sameInstance(psi as PsiElement))
+                }
+
+                @Test
+                @DisplayName("PredefinedEntityRef tokens")
+                fun predefinedEntityRef() {
+                    // entity reference types: XQuery, HTML4, HTML5, UTF-16 surrogate pair, multi-character entity, empty, partial
+                    val psi =
+                        parse<PluginDirAttribute>("<a b=\"&lt;&aacute;&amacr;&Afr;&NotLessLess;&;&gt\"")[0] as XdmAttributeNode
+                    val literal = psi.typedValue as XsUntypedAtomicValue
+                    assertThat(literal.data, `is`("<áā\uD835\uDD04≪\u0338&;&gt"))
+                    assertThat(literal.element, sameInstance(psi as PsiElement))
+                }
+
+                @Test
+                @DisplayName("CharRef tokens")
+                fun charRef() {
+                    val psi = parse<PluginDirAttribute>("<a b=\"&#xA0;&#160;&#x20;&#x1D520;\"")[0] as XdmAttributeNode
+                    val literal = psi.typedValue as XsUntypedAtomicValue
+                    assertThat(literal.data, `is`("\u00A0\u00A0\u0020\uD835\uDD20"))
+                    assertThat(literal.element, sameInstance(psi as PsiElement))
+                }
+
+                @Test
+                @DisplayName("EnclosedExpr tokens")
+                fun enclosedExpr() {
+                    val psi = parse<PluginDirAttribute>("<a b=\"x{\$y}z\"")[0] as XdmAttributeNode
+                    assertThat(psi.typedValue, `is`(nullValue()))
+                }
             }
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 EBNF (143) DirAttributeList")
-        internal inner class DirAttributeList {
-            @Test
-            @DisplayName("NCName namespace resolution")
-            fun ncname() {
-                val qname = parse<XPathNCName>("<elem test=\"\"/>")[1] as XsQNameValue
-                assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.None))
-                assertThat(qname.element!!.getUsageType(), `is`(XstUsageType.Attribute))
+        @DisplayName("XQuery 3.1 (3.9.3) Computed Constructors")
+        internal inner class ComputedElementConstructors {
+            @Nested
+            @DisplayName("XQuery 3.1 EBNF (157) CompElemConstructor")
+            internal inner class CompElemConstructor {
+                @Test
+                @DisplayName("name")
+                fun name() {
+                    val element = parse<XQueryCompElemConstructor>("element a:b {}")[0] as XdmElementNode
 
-                assertThat(qname.isLexicalQName, `is`(true))
-                assertThat(qname.namespace, `is`(nullValue()))
-                assertThat(qname.prefix, `is`(nullValue()))
-                assertThat(qname.localName!!.data, `is`("test"))
-                assertThat(qname.element, sameInstance(qname as PsiElement))
+                    val name = element.nodeName!!
+                    assertThat(name.prefix!!.data, `is`("a"))
+                    assertThat(name.localName!!.data, `is`("b"))
 
-                val expanded = qname.expand().toList()
-                assertThat(expanded.size, `is`(1))
+                    assertThat(element.closingTag, `is`(sameInstance(element.nodeName)))
+                }
 
-                assertThat(expanded[0].isLexicalQName, `is`(false))
-                assertThat(expanded[0].namespace!!.data, `is`(""))
-                assertThat(expanded[0].prefix, `is`(nullValue()))
-                assertThat(expanded[0].localName!!.data, `is`("test"))
-                assertThat(expanded[0].element, sameInstance(qname as PsiElement))
-            }
+                @Test
+                @DisplayName("expression")
+                fun expr() {
+                    val element =
+                        parse<XQueryCompElemConstructor>("element { \"a:\" || \"b\" } {}")[0] as XdmElementNode
+                    assertThat(element.nodeName, `is`(nullValue()))
+                    assertThat(element.closingTag, `is`(nullValue()))
+                }
 
-            @Test
-            @DisplayName("QName")
-            fun qname() {
-                val qname = parse<XPathQName>("<elem fn:test=\"\"/>")[0] as XsQNameValue
-                assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.None))
-                assertThat(qname.element!!.getUsageType(), `is`(XstUsageType.Attribute))
-
-                assertThat(qname.isLexicalQName, `is`(true))
-                assertThat(qname.namespace, `is`(nullValue()))
-                assertThat(qname.prefix!!.data, `is`("fn"))
-                assertThat(qname.localName!!.data, `is`("test"))
-                assertThat(qname.element, sameInstance(qname as PsiElement))
-
-                val expanded = qname.expand().toList()
-                assertThat(expanded.size, `is`(1))
-
-                assertThat(expanded[0].isLexicalQName, `is`(false))
-                assertThat(expanded[0].namespace!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
-                assertThat(expanded[0].prefix!!.data, `is`("fn"))
-                assertThat(expanded[0].localName!!.data, `is`("test"))
-                assertThat(expanded[0].element, sameInstance(qname as PsiElement))
-            }
-
-            @Test
-            @DisplayName("namespace declaration attributes")
-            fun namespaceDeclarationAttributes() {
-                val qname = parse<XPathQName>("<elem xmlns:abc=\"http://www.example.com\"/>")[0] as XsQNameValue
-                assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.None))
-                assertThat(qname.element!!.getUsageType(), `is`(XstUsageType.Namespace))
-
-                assertThat(qname.isLexicalQName, `is`(true))
-                assertThat(qname.namespace, `is`(nullValue()))
-                assertThat(qname.prefix!!.data, `is`("xmlns"))
-                assertThat(qname.localName!!.data, `is`("abc"))
-                assertThat(qname.element, sameInstance(qname as PsiElement))
-
-                val expanded = qname.expand().toList()
-                assertThat(expanded.size, `is`(0))
-            }
-        }
-
-        @Nested
-        @DisplayName("XQuery 3.1 EBNF (144) DirAttributeValue")
-        internal inner class DirAttributeValue {
-            @Test
-            @DisplayName("attribute value content")
-            fun attributeValue() {
-                val psi = parse<PluginDirAttribute>("<a b=\"http://www.example.com\uFFFF\"/>")[0] as XdmAttributeNode
-                val literal = psi.typedValue as XsUntypedAtomicValue
-                assertThat(literal.data, `is`("http://www.example.com\uFFFF")) // U+FFFF = BAD_CHARACTER token.
-                assertThat(literal.element, sameInstance(psi as PsiElement))
-            }
-
-            @Test
-            @DisplayName("unclosed attribute value content")
-            fun unclosedAttributeValue() {
-                val psi = parse<PluginDirAttribute>("<a b=\"http://www.example.com")[0] as XdmAttributeNode
-                val literal = psi.typedValue as XsUntypedAtomicValue
-                assertThat(literal.data, `is`("http://www.example.com"))
-                assertThat(literal.element, sameInstance(psi as PsiElement))
-            }
-
-            @Test
-            @DisplayName("EscapeApos tokens")
-            fun escapeApos() {
-                val psi = parse<PluginDirAttribute>("<a b='''\"\"{{}}'")[0] as XdmAttributeNode
-                val literal = psi.typedValue as XsUntypedAtomicValue
-                assertThat(literal.data, `is`("'\"\"{}"))
-                assertThat(literal.element, sameInstance(psi as PsiElement))
-            }
-
-            @Test
-            @DisplayName("EscapeQuot tokens")
-            fun escapeQuot() {
-                val psi = parse<PluginDirAttribute>("<a b=\"''\"\"{{}}\"")[0] as XdmAttributeNode
-                val literal = psi.typedValue as XsUntypedAtomicValue
-                assertThat(literal.data, `is`("''\"{}"))
-                assertThat(literal.element, sameInstance(psi as PsiElement))
-            }
-
-            @Test
-            @DisplayName("PredefinedEntityRef tokens")
-            fun predefinedEntityRef() {
-                // entity reference types: XQuery, HTML4, HTML5, UTF-16 surrogate pair, multi-character entity, empty, partial
-                val psi = parse<PluginDirAttribute>("<a b=\"&lt;&aacute;&amacr;&Afr;&NotLessLess;&;&gt\"")[0] as XdmAttributeNode
-                val literal = psi.typedValue as XsUntypedAtomicValue
-                assertThat(literal.data, `is`("<áā\uD835\uDD04≪\u0338&;&gt"))
-                assertThat(literal.element, sameInstance(psi as PsiElement))
-            }
-
-            @Test
-            @DisplayName("CharRef tokens")
-            fun charRef() {
-                val psi = parse<PluginDirAttribute>("<a b=\"&#xA0;&#160;&#x20;&#x1D520;\"")[0] as XdmAttributeNode
-                val literal = psi.typedValue as XsUntypedAtomicValue
-                assertThat(literal.data, `is`("\u00A0\u00A0\u0020\uD835\uDD20"))
-                assertThat(literal.element, sameInstance(psi as PsiElement))
-            }
-
-            @Test
-            @DisplayName("EnclosedExpr tokens")
-            fun enclosedExpr() {
-                val psi = parse<PluginDirAttribute>("<a b=\"x{\$y}z\"")[0] as XdmAttributeNode
-                assertThat(psi.typedValue, `is`(nullValue()))
-            }
-        }
-    }
-
-    @Nested
-    @DisplayName("XQuery 3.1 (3.9.3) Computed Constructors")
-    internal inner class ComputedElementConstructors {
-        @Nested
-        @DisplayName("XQuery 3.1 EBNF (157) CompElemConstructor")
-        internal inner class CompElemConstructor {
-            @Test
-            @DisplayName("name")
-            fun name() {
-                val element = parse<XQueryCompElemConstructor>("element a:b {}")[0] as XdmElementNode
-
-                val name = element.nodeName!!
-                assertThat(name.prefix!!.data, `is`("a"))
-                assertThat(name.localName!!.data, `is`("b"))
-
-                assertThat(element.closingTag, `is`(sameInstance(element.nodeName)))
-            }
-
-            @Test
-            @DisplayName("expression")
-            fun expr() {
-                val element = parse<XQueryCompElemConstructor>("element { \"a:\" || \"b\" } {}")[0] as XdmElementNode
-                assertThat(element.nodeName, `is`(nullValue()))
-                assertThat(element.closingTag, `is`(nullValue()))
-            }
-
-            @Test
-            @DisplayName("NCName namespace resolution")
-            fun ncname() {
-                val qname = parse<XPathEQName>(
-                    """
+                @Test
+                @DisplayName("NCName namespace resolution")
+                fun ncname() {
+                    val qname = parse<XPathEQName>(
+                        """
                     declare default function namespace "http://www.example.co.uk/function";
                     declare default element namespace "http://www.example.co.uk/element";
                     element test {}
                     """
-                )[0] as XsQNameValue
-                assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.DefaultElementOrType))
-                assertThat(qname.element!!.getUsageType(), `is`(XstUsageType.Element))
+                    )[0] as XsQNameValue
+                    assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.DefaultElementOrType))
+                    assertThat(qname.element!!.getUsageType(), `is`(XstUsageType.Element))
 
-                assertThat(qname.isLexicalQName, `is`(true))
-                assertThat(qname.namespace, `is`(nullValue()))
-                assertThat(qname.prefix, `is`(nullValue()))
-                assertThat(qname.localName!!.data, `is`("test"))
-                assertThat(qname.element, sameInstance(qname as PsiElement))
+                    assertThat(qname.isLexicalQName, `is`(true))
+                    assertThat(qname.namespace, `is`(nullValue()))
+                    assertThat(qname.prefix, `is`(nullValue()))
+                    assertThat(qname.localName!!.data, `is`("test"))
+                    assertThat(qname.element, sameInstance(qname as PsiElement))
 
-                val expanded = qname.expand().toList()
-                assertThat(expanded.size, `is`(1))
+                    val expanded = qname.expand().toList()
+                    assertThat(expanded.size, `is`(1))
 
-                assertThat(expanded[0].isLexicalQName, `is`(false))
-                assertThat(expanded[0].namespace!!.data, `is`("http://www.example.co.uk/element"))
-                assertThat(expanded[0].prefix, `is`(nullValue()))
-                assertThat(expanded[0].localName!!.data, `is`("test"))
-                assertThat(expanded[0].element, sameInstance(qname as PsiElement))
-            }
-        }
-
-        @Nested
-        @DisplayName("XQuery 3.1 EBNF (159) CompAttrConstructor")
-        internal inner class CompAttrConstructor {
-            @Test
-            @DisplayName("nodeName as an EQName")
-            fun nodeNameEQName() {
-                val attr = parse<XQueryCompAttrConstructor>("attribute a:b {}")[0] as XdmAttributeNode
-
-                val name = attr.nodeName!!
-                assertThat(name.prefix!!.data, `is`("a"))
-                assertThat(name.localName!!.data, `is`("b"))
-
-                assertThat(attr.typedValue, `is`(nullValue()))
+                    assertThat(expanded[0].isLexicalQName, `is`(false))
+                    assertThat(expanded[0].namespace!!.data, `is`("http://www.example.co.uk/element"))
+                    assertThat(expanded[0].prefix, `is`(nullValue()))
+                    assertThat(expanded[0].localName!!.data, `is`("test"))
+                    assertThat(expanded[0].element, sameInstance(qname as PsiElement))
+                }
             }
 
-            @Test
-            @DisplayName("nodeName as an expression")
-            fun nodeNameExpr() {
-                val attr = parse<XQueryCompAttrConstructor>("attribute { \"a:\" || \"b\" } {}")[0] as XdmAttributeNode
-                assertThat(attr.nodeName, `is`(nullValue()))
-                assertThat(attr.typedValue, `is`(nullValue()))
-            }
+            @Nested
+            @DisplayName("XQuery 3.1 EBNF (159) CompAttrConstructor")
+            internal inner class CompAttrConstructor {
+                @Test
+                @DisplayName("nodeName as an EQName")
+                fun nodeNameEQName() {
+                    val attr = parse<XQueryCompAttrConstructor>("attribute a:b {}")[0] as XdmAttributeNode
 
-            @Test
-            @DisplayName("nodeValue as a StringLiteral")
-            fun nodeValueStringLiteral() {
-                val attr = parse<XQueryCompAttrConstructor>("attribute test { \"lorem-ipsum\" }")[0] as XdmAttributeNode
-                assertThat(op_qname_presentation(attr.nodeName!!), `is`("test"))
-                assertThat(attr.typedValue, `is`(nullValue()))
-            }
+                    val name = attr.nodeName!!
+                    assertThat(name.prefix!!.data, `is`("a"))
+                    assertThat(name.localName!!.data, `is`("b"))
 
-            @Test
-            @DisplayName("nodeValue as an expression")
-            fun nodeValueExpr() {
-                val attr = parse<XQueryCompAttrConstructor>("attribute test { 1 + 2 }")[0] as XdmAttributeNode
-                assertThat(op_qname_presentation(attr.nodeName!!), `is`("test"))
-                assertThat(attr.typedValue, `is`(nullValue()))
-            }
+                    assertThat(attr.typedValue, `is`(nullValue()))
+                }
 
-            @Test
-            @DisplayName("NCName namespace resolution")
-            fun ncname() {
-                val qname = parse<XPathNCName>("attribute test {}")[0] as XsQNameValue
-                assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.None))
-                assertThat(qname.element!!.getUsageType(), `is`(XstUsageType.Attribute))
+                @Test
+                @DisplayName("nodeName as an expression")
+                fun nodeNameExpr() {
+                    val attr =
+                        parse<XQueryCompAttrConstructor>("attribute { \"a:\" || \"b\" } {}")[0] as XdmAttributeNode
+                    assertThat(attr.nodeName, `is`(nullValue()))
+                    assertThat(attr.typedValue, `is`(nullValue()))
+                }
 
-                assertThat(qname.isLexicalQName, `is`(true))
-                assertThat(qname.namespace, `is`(nullValue()))
-                assertThat(qname.prefix, `is`(nullValue()))
-                assertThat(qname.localName!!.data, `is`("test"))
-                assertThat(qname.element, sameInstance(qname as PsiElement))
+                @Test
+                @DisplayName("nodeValue as a StringLiteral")
+                fun nodeValueStringLiteral() {
+                    val attr =
+                        parse<XQueryCompAttrConstructor>("attribute test { \"lorem-ipsum\" }")[0] as XdmAttributeNode
+                    assertThat(op_qname_presentation(attr.nodeName!!), `is`("test"))
+                    assertThat(attr.typedValue, `is`(nullValue()))
+                }
 
-                val expanded = qname.expand().toList()
-                assertThat(expanded.size, `is`(1))
+                @Test
+                @DisplayName("nodeValue as an expression")
+                fun nodeValueExpr() {
+                    val attr = parse<XQueryCompAttrConstructor>("attribute test { 1 + 2 }")[0] as XdmAttributeNode
+                    assertThat(op_qname_presentation(attr.nodeName!!), `is`("test"))
+                    assertThat(attr.typedValue, `is`(nullValue()))
+                }
 
-                assertThat(expanded[0].isLexicalQName, `is`(false))
-                assertThat(expanded[0].namespace!!.data, `is`(""))
-                assertThat(expanded[0].prefix, `is`(nullValue()))
-                assertThat(expanded[0].localName!!.data, `is`("test"))
-                assertThat(expanded[0].element, sameInstance(qname as PsiElement))
+                @Test
+                @DisplayName("NCName namespace resolution")
+                fun ncname() {
+                    val qname = parse<XPathNCName>("attribute test {}")[0] as XsQNameValue
+                    assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.None))
+                    assertThat(qname.element!!.getUsageType(), `is`(XstUsageType.Attribute))
+
+                    assertThat(qname.isLexicalQName, `is`(true))
+                    assertThat(qname.namespace, `is`(nullValue()))
+                    assertThat(qname.prefix, `is`(nullValue()))
+                    assertThat(qname.localName!!.data, `is`("test"))
+                    assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                    val expanded = qname.expand().toList()
+                    assertThat(expanded.size, `is`(1))
+
+                    assertThat(expanded[0].isLexicalQName, `is`(false))
+                    assertThat(expanded[0].namespace!!.data, `is`(""))
+                    assertThat(expanded[0].prefix, `is`(nullValue()))
+                    assertThat(expanded[0].localName!!.data, `is`("test"))
+                    assertThat(expanded[0].element, sameInstance(qname as PsiElement))
+                }
             }
         }
     }

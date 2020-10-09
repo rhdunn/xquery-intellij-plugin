@@ -35,6 +35,12 @@ class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
     XQueryDirElemConstructor,
     XdmElementNode,
     FoldablePsiElement {
+    // region XpmExpression
+
+    override val expressionElement: PsiElement
+        get() = this
+
+    // endregion
     // region XdmElementNode
 
     override val nodeName: XsQNameValue?
