@@ -3922,6 +3922,15 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.DIR_COMMENT_CONSTRUCTOR))
                 assertThat(expr.expressionElement?.textOffset, `is`(0))
             }
+
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (151) DirPIConstructor")
+            fun dirPIConstructor() {
+                val expr = parse<XQueryDirPIConstructor>("<?test?>")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.DIR_PI_CONSTRUCTOR))
+                assertThat(expr.expressionElement?.textOffset, `is`(0))
+            }
         }
 
         @Nested
