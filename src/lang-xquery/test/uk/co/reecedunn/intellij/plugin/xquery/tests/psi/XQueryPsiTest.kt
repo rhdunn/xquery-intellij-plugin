@@ -4845,6 +4845,13 @@ private class XQueryPsiTest : ParserTestCase() {
             val expr = parse<XQueryOrderedExpr>("ordered { 1, 2, 3 }")[0] as XpmExpression
             assertThat(expr.expressionElement, `is`(nullValue()))
         }
+
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (136) UnorderedExpr")
+        fun unorderedExpr() {
+            val expr = parse<XQueryUnorderedExpr>("unordered { 1, 2, 3 }")[0] as XpmExpression
+            assertThat(expr.expressionElement, `is`(nullValue()))
+        }
     }
 
     @Nested
