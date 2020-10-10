@@ -20,6 +20,4 @@ import com.intellij.psi.PsiElement
 /**
  * An XPath 3.1 and XQuery 3.1 <code>ArrowFunctionSpecifier</code> node in the XQuery AST.
  */
-interface XPathArrowFunctionSpecifier : PsiElement {
-    val argumentList: XPathArgumentList?
-}
+interface XPathArrowFunctionSpecifier : PsiElement

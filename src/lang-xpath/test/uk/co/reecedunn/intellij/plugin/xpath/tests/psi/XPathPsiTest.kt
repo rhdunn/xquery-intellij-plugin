@@ -3510,7 +3510,7 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(qname.localName!!.data, `is`("format-date"))
                 assertThat(qname.element, sameInstance(qname as PsiElement))
 
-                val args = (f as XPathArrowFunctionSpecifier).argumentList!!
+                val args = (f as PsiElement).parent.children().filterIsInstance<XPathArgumentList>().first()
                 assertThat(args.arity, `is`(4))
                 assertThat(args.functionReference, `is`(sameInstance(f)))
 
@@ -3531,7 +3531,7 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(qname.localName!!.data, `is`("upper-case"))
                 assertThat(qname.element, sameInstance(qname as PsiElement))
 
-                val args = (f as XPathArrowFunctionSpecifier).argumentList!!
+                val args = (f as PsiElement).parent.children().filterIsInstance<XPathArgumentList>().first()
                 assertThat(args.arity, `is`(0))
                 assertThat(args.functionReference, `is`(sameInstance(f)))
 
@@ -3554,7 +3554,7 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(qname.localName!!.data, `is`("string-to-codepoints"))
                 assertThat(qname.element, sameInstance(qname as PsiElement))
 
-                val args = (f as XPathArrowFunctionSpecifier).argumentList!!
+                val args = (f as PsiElement).parent.children().filterIsInstance<XPathArgumentList>().first()
                 assertThat(args.arity, `is`(0))
                 assertThat(args.functionReference, `is`(sameInstance(f)))
 
@@ -3575,7 +3575,8 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(qname.localName!!.data, `is`("upper-case"))
                 assertThat(qname.element, sameInstance(qname as PsiElement))
 
-                assertThat((f as XPathArrowFunctionSpecifier).argumentList, `is`(nullValue()))
+                val args = (f as PsiElement).parent.children().filterIsInstance<XPathArgumentList>().firstOrNull()
+                assertThat(args, `is`(nullValue()))
             }
 
             @Test
@@ -3585,7 +3586,7 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(f.arity, `is`(1))
                 assertThat(f.functionName, `is`(nullValue()))
 
-                val args = (f as XPathArrowFunctionSpecifier).argumentList!!
+                val args = (f as PsiElement).parent.children().filterIsInstance<XPathArgumentList>().first()
                 assertThat(args.arity, `is`(0))
                 assertThat(args.functionReference, `is`(sameInstance(f)))
 

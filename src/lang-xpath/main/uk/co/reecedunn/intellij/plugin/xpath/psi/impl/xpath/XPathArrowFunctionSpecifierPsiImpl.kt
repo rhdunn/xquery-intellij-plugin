@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2017, 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,6 @@ import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArrowFunctionSpecifier
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
-import uk.co.reecedunn.intellij.plugin.xpath.parser.filterNotWhitespace
 
 class XPathArrowFunctionSpecifierPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
@@ -38,12 +37,6 @@ class XPathArrowFunctionSpecifierPsiImpl(node: ASTNode) :
 
     override val functionName: XsQNameValue?
         get() = firstChild as? XsQNameValue
-
-    // endregion
-    // region XPathArrowFunctionSpecifier
-
-    override val argumentList: XPathArgumentList?
-        get() = siblings().filterNotWhitespace().firstOrNull() as? XPathArgumentList
 
     // endregion
 }
