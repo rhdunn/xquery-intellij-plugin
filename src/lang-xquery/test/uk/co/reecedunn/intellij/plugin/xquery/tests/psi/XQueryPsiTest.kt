@@ -4164,6 +4164,19 @@ private class XQueryPsiTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery 3.1 (3.10) String Constructors")
+    internal inner class StringConstructors {
+        @Test
+        @DisplayName("XQuery 1.0 EBNF (177) StringConstructor")
+        fun stringConstructor() {
+            val expr = parse<XQueryStringConstructor>("``[`{1}` + `{2}`]``")[0] as XpmExpression
+
+            assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.STRING_CONSTRUCTOR))
+            assertThat(expr.expressionElement?.textOffset, `is`(0))
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.1 (3.11) Maps and Arrays")
     internal inner class MapsAndArrays {
         @Nested
