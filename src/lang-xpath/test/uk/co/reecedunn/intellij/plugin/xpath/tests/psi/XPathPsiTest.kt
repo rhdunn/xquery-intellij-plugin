@@ -3533,18 +3533,14 @@ private class XPathPsiTest : ParserTestCase() {
             @DisplayName("single function")
             fun singleFunction() {
                 val expr = parse<XPathArrowExpr>("1 => fn:abs()")[0] as XpmExpression
-
-                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARROW_FUNCTION_CALL))
-                assertThat(expr.expressionElement?.textOffset, `is`(5))
+                assertThat(expr.expressionElement, `is`(nullValue()))
             }
 
             @Test
             @DisplayName("multiple functions")
             fun multipleFunctions() {
                 val expr = parse<XPathArrowExpr>("1 => fn:abs() => fn:boolean()")[0] as XpmExpression
-
-                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARROW_FUNCTION_CALL))
-                assertThat(expr.expressionElement?.textOffset, `is`(17))
+                assertThat(expr.expressionElement, `is`(nullValue()))
             }
         }
 
