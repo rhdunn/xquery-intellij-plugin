@@ -30,7 +30,7 @@ class PluginArrowFunctionCallPsiImpl(node: ASTNode) :
     // region XpmExpression
 
     override val expressionElement: PsiElement
-        get() = when (firstChild.firstChild) {
+        get() = when (firstChild) {
             is XPathEQName -> this
             else -> children().filterIsInstance<XPathArgumentList>().first()
         }
@@ -45,7 +45,7 @@ class PluginArrowFunctionCallPsiImpl(node: ASTNode) :
         }
 
     override val functionName: XsQNameValue?
-        get() = firstChild.firstChild as? XsQNameValue
+        get() = firstChild as? XsQNameValue
 
     // endregion
 }

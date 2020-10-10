@@ -5,11 +5,10 @@ XPathImpl[FILE(0:11)]
          LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(1:2)](')')
       LeafPsiElement[XPATH_ARROW_TOKEN(2:4)]('=>')
       PluginArrowFunctionCallImpl[XPATH_ARROW_FUNCTION_CALL(4:11)]
-         XPathArrowFunctionSpecifierImpl[XPATH_ARROW_FUNCTION_SPECIFIER(4:9)]
-            PluginParamRefImpl[XPATH_PARAM_REF(4:9)]
-               LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(4:5)]('$')
-               XPathNCNameImpl[XPATH_NCNAME(5:9)]
-                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(5:9)]('1234')
+         PluginParamRefImpl[XPATH_PARAM_REF(4:9)]
+            LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(4:5)]('$')
+            XPathNCNameImpl[XPATH_NCNAME(5:9)]
+               XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(5:9)]('1234')
          XPathArgumentListImpl[XPATH_ARGUMENT_LIST(9:11)]
             LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(9:10)]('(')
             LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(10:11)](')')

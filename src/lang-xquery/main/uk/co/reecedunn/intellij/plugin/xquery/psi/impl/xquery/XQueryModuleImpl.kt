@@ -183,7 +183,7 @@ class XQueryModuleImpl(provider: FileViewProvider) :
     companion object {
         val USAGE_TYPES: Map<IElementType, XstUsageType> = mapOf(
             XQueryElementType.ANNOTATION to XstUsageType.Annotation,
-            XPathElementType.ARROW_FUNCTION_SPECIFIER to XstUsageType.FunctionRef,
+            XPathElementType.ARROW_FUNCTION_CALL to XstUsageType.FunctionRef,
             XPathElementType.ATOMIC_OR_UNION_TYPE to XstUsageType.Type,
             XPathElementType.ATTRIBUTE_TEST to XstUsageType.Attribute,
             XQueryElementType.COMP_ATTR_CONSTRUCTOR to XstUsageType.Attribute,

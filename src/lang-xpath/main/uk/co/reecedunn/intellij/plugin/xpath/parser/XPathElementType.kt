@@ -485,12 +485,6 @@ object XPathElementType {
         XPath
     )
 
-    val ARROW_FUNCTION_SPECIFIER: IElementType = ICompositeElementType(
-        "XPATH_ARROW_FUNCTION_SPECIFIER",
-        XPathArrowFunctionSpecifierPsiImpl::class.java,
-        XPath
-    )
-
     val MAP_CONSTRUCTOR: IElementType = ICompositeElementType(
         "XPATH_MAP_CONSTRUCTOR",
         XPathMapConstructorPsiImpl::class.java,

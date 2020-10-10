@@ -15,10 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.ast.plugin
 
-import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArrowFunctionSpecifier
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 
 /**
  * An `ArrowFunctionCall` node in the XPath and XQuery AST.
  */
-interface PluginArrowFunctionCall : PsiElement, XpmExpression
+interface PluginArrowFunctionCall : XPathArrowFunctionSpecifier, XpmExpression

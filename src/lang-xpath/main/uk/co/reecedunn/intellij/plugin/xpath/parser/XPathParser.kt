@@ -1210,17 +1210,11 @@ open class XPathParser : PsiParser {
     }
 
     private fun parseArrowFunctionSpecifier(builder: PsiBuilder): Boolean {
-        val marker = builder.mark()
-        if (
+        return (
             this.parseEQNameOrWildcard(builder, QNAME, false) != null ||
             parseVarOrParamRef(builder, null) ||
             parseParenthesizedExpr(builder)
-        ) {
-            marker.done(XPathElementType.ARROW_FUNCTION_SPECIFIER)
-            return true
-        }
-        marker.drop()
-        return false
+        )
     }
 
     // endregion

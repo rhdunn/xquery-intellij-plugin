@@ -12,9 +12,8 @@ XQueryModuleImpl[FILE(0:55)]
                LeafPsiElement[XPATH_ARROW_TOKEN(3:5)]('=>')
                PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
                PluginArrowFunctionCallImpl[XPATH_ARROW_FUNCTION_CALL(6:12)]
-                  XPathArrowFunctionSpecifierImpl[XPATH_ARROW_FUNCTION_SPECIFIER(6:10)]
-                     XQueryNCNameImpl[XQUERY_NCNAME(6:10)]
-                        XmlNCNameImpl[XPATH_NCNAME_TOKEN(6:10)]('root')
+                  XQueryNCNameImpl[XQUERY_NCNAME(6:10)]
+                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(6:10)]('root')
                   XPathArgumentListImpl[XPATH_ARGUMENT_LIST(10:12)]
                      LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(10:11)]('(')
                      LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(11:12)](')')
