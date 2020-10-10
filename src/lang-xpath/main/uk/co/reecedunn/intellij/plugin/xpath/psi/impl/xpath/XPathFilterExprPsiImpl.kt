@@ -24,7 +24,9 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNodeItem
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFilterExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPostfixExpr
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPrimaryExpr
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAxisType
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPredicate
 
 class XPathFilterExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathFilterExpr {
@@ -42,7 +44,14 @@ class XPathFilterExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathF
     // endregion
     // region XpmExpression
 
-    override val expressionElement: PsiElement? = null
+    override val expressionElement: PsiElement?
+        get() {
+            var step: PsiElement = this
+            while (step.firstChild !is XPathPrimaryExpr) {
+                step = step.firstChild!!
+            }
+            return (step.firstChild as? XpmExpression)?.expressionElement ?: step.firstChild
+        }
 
     // endregion
 }

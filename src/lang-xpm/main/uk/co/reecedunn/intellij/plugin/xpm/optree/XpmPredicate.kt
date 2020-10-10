@@ -15,4 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.optree
 
-interface XpmPredicate : XpmExpression
+import com.intellij.psi.PsiElement
+
+interface XpmPredicate : PsiElement

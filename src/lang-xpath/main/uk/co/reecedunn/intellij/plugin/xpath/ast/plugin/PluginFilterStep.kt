@@ -16,9 +16,10 @@
 package uk.co.reecedunn.intellij.plugin.xpath.ast.plugin
 
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAxisStep
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 
 /**
  * An XPath 3.0 and XQuery 3.0 `AxisStep` node in the XPath and XQuery AST
  * that is associated with a `Predicate` node.
  */
-interface PluginFilterStep : XPathAxisStep
+interface PluginFilterStep : XPathAxisStep, XpmExpression

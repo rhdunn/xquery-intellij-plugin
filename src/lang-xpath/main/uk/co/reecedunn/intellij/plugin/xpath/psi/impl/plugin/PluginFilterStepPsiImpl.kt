@@ -17,15 +17,25 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginFilterStep
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPostfixExpr
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAxisType
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPathStep
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPredicate
 
 class PluginFilterStepPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginFilterStep {
+    // region XpmExpression
+
+    override val expressionElement: PsiElement? = null
+
+    // endregion
+    // region XpmPathStep
+
     override val axisType: XpmAxisType
         get() = (firstChild as XpmPathStep).axisType
 
@@ -37,4 +47,6 @@ class PluginFilterStepPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), Plugi
 
     override val predicate: XpmPredicate?
         get() = children().filterIsInstance<XpmPredicate>().firstOrNull()
+
+    // endregion
 }

@@ -2369,8 +2369,8 @@ private class XQueryPsiTest : ParserTestCase() {
             @DisplayName("XQuery IntelliJ Plugin EBNF (128) FilterExpr")
             internal inner class FilterExpr {
                 @Test
-                @DisplayName("single predicate")
-                fun singlePredicate() {
+                @DisplayName("single predicate; null PrimaryExpr expressionElement")
+                fun singlePredicate_nullExpressionElement() {
                     val step = parse<XPathPostfixExpr>("\$x[1]")[0] as XpmPathStep
                     assertThat(step.axisType, `is`(XpmAxisType.Self))
                     assertThat(step.nodeName, `is`(nullValue()))
@@ -2378,7 +2378,22 @@ private class XQueryPsiTest : ParserTestCase() {
                     assertThat(step.predicate?.text, `is`("[1]"))
 
                     val expr = step as XpmExpression
-                    assertThat(expr.expressionElement, `is`(nullValue()))
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.VAR_REF))
+                    assertThat(expr.expressionElement?.textOffset, `is`(0))
+                }
+
+                @Test
+                @DisplayName("single predicate; non-null PrimaryExpr expressionElement")
+                fun singlePredicate_nonNullExpressionElement() {
+                    val step = parse<XPathPostfixExpr>("map { \"one\": 1 }[1]")[0] as XpmPathStep
+                    assertThat(step.axisType, `is`(XpmAxisType.Self))
+                    assertThat(step.nodeName, `is`(nullValue()))
+                    assertThat(step.nodeType, sameInstance(XdmNodeItem))
+                    assertThat(step.predicate?.text, `is`("[1]"))
+
+                    val expr = step as XpmExpression
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.MAP_CONSTRUCTOR_ENTRY))
+                    assertThat(expr.expressionElement?.textOffset, `is`(6))
                 }
 
                 @Test
@@ -2391,7 +2406,8 @@ private class XQueryPsiTest : ParserTestCase() {
                     assertThat(step.predicate?.text, `is`("[1]"))
 
                     val expr = step as XpmExpression
-                    assertThat(expr.expressionElement, `is`(nullValue()))
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.VAR_REF))
+                    assertThat(expr.expressionElement?.textOffset, `is`(0))
                 }
 
                 @Test
@@ -2404,7 +2420,8 @@ private class XQueryPsiTest : ParserTestCase() {
                     assertThat(step.predicate?.text, `is`("[2]"))
 
                     val expr = step as XpmExpression
-                    assertThat(expr.expressionElement, `is`(nullValue()))
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.VAR_REF))
+                    assertThat(expr.expressionElement?.textOffset, `is`(0))
                 }
             }
         }
@@ -2424,52 +2441,6 @@ private class XQueryPsiTest : ParserTestCase() {
                 val expr = step as XpmExpression
                 assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
                 assertThat(expr.expressionElement?.textOffset, `is`(2))
-            }
-        }
-
-        @Nested
-        @DisplayName("XQuery 3.1 EBNF (124) Predicate")
-        internal inner class Predicate {
-            @Test
-            @DisplayName("single ; non-null PrimaryExpr expressionElement")
-            fun singleWithExpressionElement() {
-                val expr = parse<XPathPredicate>("map { \"one\": 1 }[1]")[0] as XpmExpression
-
-                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.MAP_CONSTRUCTOR_ENTRY))
-                assertThat(expr.expressionElement?.textOffset, `is`(6))
-            }
-
-            @Test
-            @DisplayName("single ; null PrimaryExpr expressionElement")
-            fun singleWithoutExpressionElement() {
-                val expr = parse<XPathPredicate>("\$x[1]")[0] as XpmExpression
-
-                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.VAR_REF))
-                assertThat(expr.expressionElement?.textOffset, `is`(0))
-            }
-
-            @Test
-            @DisplayName("multiple ; non-null PrimaryExpr expressionElement")
-            fun multipleWithExpressionElement() {
-                val exprs = parse<XPathPredicate>("map { \"one\": 1 }[1][2]")
-
-                assertThat(exprs[0].expressionElement.elementType, `is`(XPathElementType.MAP_CONSTRUCTOR_ENTRY))
-                assertThat(exprs[0].expressionElement?.textOffset, `is`(6))
-
-                assertThat(exprs[1].expressionElement.elementType, `is`(XPathElementType.MAP_CONSTRUCTOR_ENTRY))
-                assertThat(exprs[1].expressionElement?.textOffset, `is`(6))
-            }
-
-            @Test
-            @DisplayName("multiple ; null PrimaryExpr expressionElement")
-            fun multipleWithoutExpressionElement() {
-                val exprs = parse<XPathPredicate>("\$x[1][2]")
-
-                assertThat(exprs[0].expressionElement.elementType, `is`(XPathElementType.VAR_REF))
-                assertThat(exprs[0].expressionElement?.textOffset, `is`(0))
-
-                assertThat(exprs[1].expressionElement.elementType, `is`(XPathElementType.VAR_REF))
-                assertThat(exprs[1].expressionElement?.textOffset, `is`(0))
             }
         }
     }
@@ -3046,14 +3017,14 @@ private class XQueryPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("single")
                 fun single() {
-                    val expr = parse<XPathPredicate>("/test[1]")[0] as XpmExpression
+                    val expr = parse<PluginFilterStep>("/test[1]")[0] as XpmExpression
                     assertThat(expr.expressionElement, `is`(nullValue()))
                 }
 
                 @Test
                 @DisplayName("multiple")
                 fun multiple() {
-                    val exprs = parse<XPathPredicate>("/test[1][2]")
+                    val exprs = parse<PluginFilterStep>("/test[1][2]").filterIsInstance<XpmExpression>()
                     assertThat(exprs[0].expressionElement, `is`(nullValue()))
                     assertThat(exprs[1].expressionElement, `is`(nullValue()))
                 }

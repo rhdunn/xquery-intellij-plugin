@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2020 Reece H. Dunn
+ * Copyright (C) 2016 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,22 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAxisStep
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPostfixExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPredicate
-import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 
-class XPathPredicatePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathPredicate {
-    override val expressionElement: PsiElement?
-        get() = when (parent) {
-            is XPathAxisStep /* AxisStep */ -> null
-            else /* PostfixExpr */ -> {
-                var child = parent.firstChild
-                while (child is XPathPostfixExpr) {
-                    child = child.firstChild
-                }
-                (child as? XpmExpression)?.expressionElement ?: child
-            }
-        }
-}
+class XPathPredicatePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathPredicate
