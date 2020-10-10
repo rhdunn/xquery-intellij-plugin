@@ -4123,6 +4123,15 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.COMP_TEXT_CONSTRUCTOR))
                 assertThat(expr.expressionElement?.textOffset, `is`(0))
             }
+
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (165) CompCommentConstructor")
+            fun compCommentConstructor() {
+                val expr = parse<XQueryCompCommentConstructor>("comment { 1 }")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.COMP_COMMENT_CONSTRUCTOR))
+                assertThat(expr.expressionElement?.textOffset, `is`(0))
+            }
         }
     }
 
