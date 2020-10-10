@@ -2425,7 +2425,8 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(step.predicate, `is`(nullValue()))
 
                 val expr = step as XpmExpression
-                assertThat(expr.expressionElement, `is`(nullValue()))
+                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
+                assertThat(expr.expressionElement?.textOffset, `is`(2))
             }
         }
 
