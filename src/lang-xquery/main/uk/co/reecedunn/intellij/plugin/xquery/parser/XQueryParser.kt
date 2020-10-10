@@ -3374,9 +3374,10 @@ class XQueryParser : XPathParser() {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!parseArgumentList(builder)) {
                 builder.error(XPathBundle.message("parser.error.expected", "ArgumentList"))
+                marker.drop()
+            } else {
+                marker.done(XQueryElementType.NON_DETERMINISTIC_FUNCTION_CALL)
             }
-
-            marker.done(XQueryElementType.NON_DETERMINISTIC_FUNCTION_CALL)
             return true
         }
         return false
