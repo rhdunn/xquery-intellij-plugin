@@ -4132,6 +4132,34 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.COMP_COMMENT_CONSTRUCTOR))
                 assertThat(expr.expressionElement?.textOffset, `is`(0))
             }
+
+            @Nested
+            @DisplayName("XQuery 3.1 EBNF (166) CompPIConstructor")
+            internal inner class CompPIConstructor {
+                @Test
+                @DisplayName("nodeName as an EQName")
+                fun nodeNameEQName() {
+                    val ns = parse<XQueryCompPIConstructor>(
+                        "processing-instruction test {}"
+                    )[0]
+
+                    val expr = ns as XpmExpression
+                    assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.COMP_PI_CONSTRUCTOR))
+                    assertThat(expr.expressionElement?.textOffset, `is`(0))
+                }
+
+                @Test
+                @DisplayName("nodeName as an expression")
+                fun nodeNameExpr() {
+                    val ns = parse<XQueryCompPIConstructor>(
+                        "processing-instruction { \"test\" } {}"
+                    )[0]
+
+                    val expr = ns as XpmExpression
+                    assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.COMP_PI_CONSTRUCTOR))
+                    assertThat(expr.expressionElement?.textOffset, `is`(0))
+                }
+            }
         }
     }
 
