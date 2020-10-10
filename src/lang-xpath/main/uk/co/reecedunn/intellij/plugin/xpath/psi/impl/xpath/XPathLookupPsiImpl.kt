@@ -24,9 +24,6 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
 
 class XPathLookupPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathLookup, VersionConformance {
-    override val expressionElement: PsiElement
-        get() = this
-
     override val requiresConformance: List<Version>
         get() = listOf(XQuerySpec.REC_3_1_20170321)
 

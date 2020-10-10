@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017, 2020 Reece H. Dunn
+ * Copyright (C) 2016-2017 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,4 +21,4 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 /**
  * An XPath 3.1 and XQuery 3.1 `Lookup` node in the XQuery AST.
  */
-interface XPathLookup : PsiElement, XpmExpression
+interface XPathLookup : PsiElement

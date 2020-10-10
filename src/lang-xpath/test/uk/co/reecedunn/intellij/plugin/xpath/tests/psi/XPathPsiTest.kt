@@ -3299,16 +3299,8 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(step.predicate, `is`(nullValue()))
 
                 val expr = step as XpmExpression
-                assertThat(expr.expressionElement, `is`(nullValue()))
-            }
-
-            @Test
-            @DisplayName("XPath 3.1 EBNF (53) Lookup")
-            fun lookup() {
-                val expr = parse<XPathLookup>("map{}?name")[0] as XpmExpression
-
                 assertThat(expr.expressionElement.elementType, `is`(XPathElementType.LOOKUP))
-                assertThat(expr.expressionElement?.textOffset, `is`(5))
+                assertThat(expr.expressionElement?.textOffset, `is`(2))
             }
         }
     }

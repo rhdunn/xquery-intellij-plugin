@@ -18,10 +18,12 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNodeItem
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginPostfixLookup
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathLookup
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPredicate
 
@@ -40,7 +42,7 @@ class PluginPostfixLookupPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), Pl
     // region XpmExpression
 
     override val expressionElement: PsiElement?
-        get() = null
+        get() = children().filterIsInstance<XPathLookup>().firstOrNull()
 
     // endregion
 }
