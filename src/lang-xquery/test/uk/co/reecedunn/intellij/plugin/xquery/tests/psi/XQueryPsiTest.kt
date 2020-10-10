@@ -43,9 +43,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.intellij.resources.XQueryIcons
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstUsageType
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
-import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginAnyItemType
-import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginAnyTextTest
-import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginQuantifiedExprBinding
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmDefaultNamespaceDeclaration
@@ -53,7 +50,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xdm.variables.*
-import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginAbbrevDescendantOrSelfStep
+import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
@@ -5341,22 +5338,29 @@ private class XQueryPsiTest : ParserTestCase() {
         @DisplayName("XQuery 3.1 EBNF (96) ArrowExpr")
         internal inner class ArrowExpr {
             @Test
-            @DisplayName("single function")
-            fun singleFunction() {
+            @DisplayName("XQuery 3.1 EBNF (218) EQName")
+            fun eqname() {
                 val expr = parse<XPathArrowExpr>("1 => fn:abs()")[0] as XpmExpression
                 assertThat(expr.expressionElement, `is`(nullValue()))
             }
 
             @Test
-            @DisplayName("multiple functions")
-            fun multipleFunctions() {
-                val expr = parse<XPathArrowExpr>("1 => fn:abs() => fn:boolean()")[0] as XpmExpression
+            @DisplayName("XQuery 3.1 EBNF (131) VarRef")
+            fun varRef() {
+                val expr = parse<XPathArrowExpr>("let \$x := fn:abs#1 return 1 => \$x()")[0] as XpmExpression
+                assertThat(expr.expressionElement, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (133) ParenthesizedExpr")
+            fun parenthesizedExpr() {
+                val expr = parse<XPathArrowExpr>("1 => (fn:abs#1)()")[0] as XpmExpression
                 assertThat(expr.expressionElement, `is`(nullValue()))
             }
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 EBNF (127) ArrowFunctionSpecifier")
+        @DisplayName("XQuery 3.1 EBNF (127) ArrowFunctionSpecifier; XQuery 3.1 EBNF (218) EQName")
         internal inner class ArrowFunctionSpecifier {
             @Test
             @DisplayName("EQName specifier, non-empty ArgumentList")
@@ -5523,6 +5527,112 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(renamed, `is`(instanceOf(XPathNCName::class.java)))
                 assertThat(renamed.text, `is`("lorem-ipsum"))
                 assertThat((renamed as PsiNameIdentifierOwner).name, `is`("lorem-ipsum"))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (95) ArrowFunctionCall; XQuery 3.1 EBNF (218) EQName")
+        internal inner class ArrowFunctionCall_EQName {
+            @Test
+            @DisplayName("single function call")
+            fun singleFunctionCall() {
+                val expr = parse<PluginArrowFunctionCall>("1 => fn:abs()")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARROW_FUNCTION_CALL))
+                assertThat(expr.expressionElement?.textOffset, `is`(5))
+            }
+
+            @Test
+            @DisplayName("multiple function call; inner")
+            fun multipleFunctionCallInner() {
+                val expr = parse<PluginArrowFunctionCall>("1 => fn:abs() => math:pow(2)")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARROW_FUNCTION_CALL))
+                assertThat(expr.expressionElement?.textOffset, `is`(5))
+            }
+
+            @Test
+            @DisplayName("multiple function call; outer")
+            fun multipleFunctionCallOuter() {
+                val expr = parse<PluginArrowFunctionCall>("1 => fn:abs() => math:pow(2)")[1] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARROW_FUNCTION_CALL))
+                assertThat(expr.expressionElement?.textOffset, `is`(17))
+            }
+
+            @Test
+            @DisplayName("invalid EQName")
+            fun invalidEQName() {
+                val expr = parse<PluginArrowFunctionCall>("1 => :abs()")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
+                assertThat(expr.expressionElement?.textOffset, `is`(9))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (95) ArrowFunctionCall; XQuery 3.1 EBNF (131) VarRef")
+        internal inner class ArrowFunctionCall_VarRef {
+            @Test
+            @DisplayName("single function call")
+            fun singleFunctionCall() {
+                val expr = parse<PluginArrowFunctionCall>("let \$x := fn:abs#1 return 1 => \$x()")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
+                assertThat(expr.expressionElement?.textOffset, `is`(33))
+            }
+
+            @Test
+            @DisplayName("multiple function call; inner")
+            fun multipleFunctionCallInner() {
+                val expr = parse<PluginArrowFunctionCall>(
+                    "let \$x := fn:abs#1 let \$y := math:pow#2 return 1 => \$x() => \$y(2)"
+                )[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
+                assertThat(expr.expressionElement?.textOffset, `is`(54))
+            }
+
+            @Test
+            @DisplayName("multiple function call; outer")
+            fun multipleFunctionCallOuter() {
+                val expr = parse<PluginArrowFunctionCall>(
+                    "let \$x := fn:abs#1 let \$y := math:pow#2 return 1 => \$x() => \$y(2)"
+                )[1] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
+                assertThat(expr.expressionElement?.textOffset, `is`(62))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (95) ArrowFunctionCall; XQuery 3.1 EBNF (133) ParenthesizedExpr")
+        internal inner class ArrowFunctionCall_ParenthesizedExpr {
+            @Test
+            @DisplayName("single function call")
+            fun singleFunctionCall() {
+                val expr = parse<PluginArrowFunctionCall>("1 => (fn:abs#1)()")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
+                assertThat(expr.expressionElement?.textOffset, `is`(15))
+            }
+
+            @Test
+            @DisplayName("multiple function call; inner")
+            fun multipleFunctionCallInner() {
+                val expr = parse<PluginArrowFunctionCall>("1 => (fn:abs#1)() => (math:pow#2)(2)")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
+                assertThat(expr.expressionElement?.textOffset, `is`(15))
+            }
+
+            @Test
+            @DisplayName("multiple function call; outer")
+            fun multipleFunctionCallOuter() {
+                val expr = parse<PluginArrowFunctionCall>("1 => (fn:abs#1)() => (math:pow#2)(2)")[1] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
+                assertThat(expr.expressionElement?.textOffset, `is`(33))
             }
         }
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,16 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowFunctionCall
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 
-class PluginArrowFunctionCallPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginArrowFunctionCall
+class PluginArrowFunctionCallPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginArrowFunctionCall {
+    override val expressionElement: PsiElement
+        get() = when (firstChild.firstChild) {
+            is XPathEQName -> this
+            else -> children().filterIsInstance<XPathArgumentList>().first()
+        }
+}
