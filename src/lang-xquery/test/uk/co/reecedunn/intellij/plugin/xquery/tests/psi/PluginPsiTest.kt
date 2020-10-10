@@ -1599,17 +1599,6 @@ private class PluginPsiTest : ParserTestCase()  {
     @DisplayName("XQuery IntelliJ Plugin (3.7) Primary Expressions")
     internal inner class PrimaryExpressions {
         @Nested
-        @DisplayName("XQuery IntelliJ Plugin (3.7.1) Non-Deterministic Function Calls")
-        internal inner class NonDeterministicFunctionCalls {
-            @Test
-            @DisplayName("XQuery 3.1 EBNF (122) ArgumentList")
-            fun argumentList() {
-                val expr = parse<XPathArgumentList>("non-deterministic \$x()")[0] as XpmExpression
-                assertThat(expr.expressionElement, `is`(nullValue()))
-            }
-        }
-
-        @Nested
         @DisplayName("XQuery IntelliJ Plugin (3.7.2) Inline Function Expressions")
         internal inner class InlineFunctionExpressions {
             @Nested

@@ -18,12 +18,11 @@ package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionParamBinding
-import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 
 /**
  * An XPath 3.0 and XQuery 3.0 `ArgumentList` node in the XQuery AST.
  */
-interface XPathArgumentList : PsiElement, XpmExpression {
+interface XPathArgumentList : PsiElement {
     val functionReference: XdmFunctionReference?
 
     val arity: Int

@@ -1645,9 +1645,6 @@ private class XPathPsiTest : ParserTestCase() {
                     val args = parse<XPathArgumentList>("fn:true()")[0]
                     assertThat(args.arity, `is`(0))
                     assertThat(args.isPartialFunctionApplication, `is`(false))
-
-                    val expr = args as XpmExpression
-                    assertThat(expr.expressionElement, `is`(nullValue()))
                 }
 
                 @Test
@@ -1656,9 +1653,6 @@ private class XPathPsiTest : ParserTestCase() {
                     val args = parse<XPathArgumentList>("math:pow(2, 8)")[0]
                     assertThat(args.arity, `is`(2))
                     assertThat(args.isPartialFunctionApplication, `is`(false))
-
-                    val expr = args as XpmExpression
-                    assertThat(expr.expressionElement, `is`(nullValue()))
                 }
 
                 @Test
@@ -1667,9 +1661,6 @@ private class XPathPsiTest : ParserTestCase() {
                     val args = parse<XPathArgumentList>("math:sin(?)")[0]
                     assertThat(args.arity, `is`(1))
                     assertThat(args.isPartialFunctionApplication, `is`(true))
-
-                    val expr = args as XpmExpression
-                    assertThat(expr.expressionElement, `is`(nullValue()))
                 }
             }
         }
@@ -2035,15 +2026,6 @@ private class XPathPsiTest : ParserTestCase() {
 
                 val expr = step as XpmExpression
                 assertThat(expr.expressionElement, `is`(nullValue()))
-            }
-
-            @Test
-            @DisplayName("XPath 3.1 EBNF (50) ArgumentList")
-            fun argumentList() {
-                val expr = parse<XPathArgumentList>("fn:abs#1()")[0] as XpmExpression
-
-                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
-                assertThat(expr.expressionElement?.textOffset, `is`(8))
             }
         }
 
@@ -3542,13 +3524,6 @@ private class XPathPsiTest : ParserTestCase() {
                 val expr = parse<XPathArrowExpr>("1 => fn:abs() => fn:boolean()")[0] as XpmExpression
                 assertThat(expr.expressionElement, `is`(nullValue()))
             }
-        }
-
-        @Test
-        @DisplayName("XPath 3.1 EBNF (50) ArgumentList")
-        fun argumentList() {
-            val expr = parse<XPathArgumentList>("1 => fn:abs()")[0] as XpmExpression
-            assertThat(expr.expressionElement, `is`(nullValue()))
         }
 
         @Nested

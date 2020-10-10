@@ -101,13 +101,4 @@ class XPathArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPat
         }
 
     // endregion
-    // region XpmExpression
-
-    override val expressionElement: PsiElement?
-        get() = when (parent) {
-            is XPathPostfixExpr -> this
-            else -> null
-        }
-
-    // endregion
 }
