@@ -17,26 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
-import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArrowFunctionSpecifier
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
-class XPathArrowFunctionSpecifierPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node),
-    XdmFunctionReference,
-    XPathArrowFunctionSpecifier {
-    // region XdmFunctionReference
-
-    override val arity: Int
-        get() {
-            val args: XPathArgumentList? = siblings().filterIsInstance<XPathArgumentList>().firstOrNull()
-            return args?.arity?.plus(1) ?: 1
-        }
-
-    override val functionName: XsQNameValue?
-        get() = firstChild as? XsQNameValue
-
-    // endregion
-}
+class XPathArrowFunctionSpecifierPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathArrowFunctionSpecifier

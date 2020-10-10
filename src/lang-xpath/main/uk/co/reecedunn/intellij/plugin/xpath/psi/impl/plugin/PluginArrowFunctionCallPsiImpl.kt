@@ -19,14 +19,33 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 
-class PluginArrowFunctionCallPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginArrowFunctionCall {
+class PluginArrowFunctionCallPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node), PluginArrowFunctionCall, XdmFunctionReference {
+    // region XpmExpression
+
     override val expressionElement: PsiElement
         get() = when (firstChild.firstChild) {
             is XPathEQName -> this
             else -> children().filterIsInstance<XPathArgumentList>().first()
         }
+
+    // endregion
+    // region XdmFunctionReference
+
+    override val arity: Int
+        get() {
+            val args: XPathArgumentList? = children().filterIsInstance<XPathArgumentList>().firstOrNull()
+            return args?.arity?.plus(1) ?: 1
+        }
+
+    override val functionName: XsQNameValue?
+        get() = firstChild.firstChild as? XsQNameValue
+
+    // endregion
 }

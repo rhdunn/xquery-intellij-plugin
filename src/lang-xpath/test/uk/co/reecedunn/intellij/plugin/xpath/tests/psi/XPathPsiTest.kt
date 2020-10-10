@@ -3500,7 +3500,7 @@ private class XPathPsiTest : ParserTestCase() {
             @Test
             @DisplayName("non-empty ArgumentList")
             fun nonEmptyArgumentList() {
-                val f = parse<XPathArrowFunctionSpecifier>("\$x => format-date(1, 2, 3,  4)")[0] as XdmFunctionReference
+                val f = parse<PluginArrowFunctionCall>("\$x => format-date(1, 2, 3,  4)")[0] as XdmFunctionReference
                 assertThat(f.arity, `is`(5))
 
                 val qname = f.functionName!!
@@ -3510,7 +3510,7 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(qname.localName!!.data, `is`("format-date"))
                 assertThat(qname.element, sameInstance(qname as PsiElement))
 
-                val args = (f as PsiElement).parent.children().filterIsInstance<XPathArgumentList>().first()
+                val args = (f as PsiElement).children().filterIsInstance<XPathArgumentList>().first()
                 assertThat(args.arity, `is`(4))
                 assertThat(args.functionReference, `is`(sameInstance(f)))
 
@@ -3521,7 +3521,7 @@ private class XPathPsiTest : ParserTestCase() {
             @Test
             @DisplayName("empty ArgumentList")
             fun emptyArgumentList() {
-                val f = parse<XPathArrowFunctionSpecifier>("\$x => upper-case()")[0] as XdmFunctionReference
+                val f = parse<PluginArrowFunctionCall>("\$x => upper-case()")[0] as XdmFunctionReference
                 assertThat(f.arity, `is`(1))
 
                 val qname = f.functionName!!
@@ -3531,7 +3531,7 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(qname.localName!!.data, `is`("upper-case"))
                 assertThat(qname.element, sameInstance(qname as PsiElement))
 
-                val args = (f as PsiElement).parent.children().filterIsInstance<XPathArgumentList>().first()
+                val args = (f as PsiElement).children().filterIsInstance<XPathArgumentList>().first()
                 assertThat(args.arity, `is`(0))
                 assertThat(args.functionReference, `is`(sameInstance(f)))
 
@@ -3542,7 +3542,7 @@ private class XPathPsiTest : ParserTestCase() {
             @Test
             @DisplayName("empty ArgumentList, second call in the chain")
             fun secondFunctionSpecifier() {
-                val f = parse<XPathArrowFunctionSpecifier>(
+                val f = parse<PluginArrowFunctionCall>(
                     "\$x => upper-case() => string-to-codepoints()"
                 )[1] as XdmFunctionReference
                 assertThat(f.arity, `is`(1))
@@ -3554,7 +3554,7 @@ private class XPathPsiTest : ParserTestCase() {
                 assertThat(qname.localName!!.data, `is`("string-to-codepoints"))
                 assertThat(qname.element, sameInstance(qname as PsiElement))
 
-                val args = (f as PsiElement).parent.children().filterIsInstance<XPathArgumentList>().first()
+                val args = (f as PsiElement).children().filterIsInstance<XPathArgumentList>().first()
                 assertThat(args.arity, `is`(0))
                 assertThat(args.functionReference, `is`(sameInstance(f)))
 
@@ -3563,30 +3563,13 @@ private class XPathPsiTest : ParserTestCase() {
             }
 
             @Test
-            @DisplayName("missing ArgumentList")
-            fun missingArgumentList() {
-                val f = parse<XPathArrowFunctionSpecifier>("\$x => upper-case")[0] as XdmFunctionReference
-                assertThat(f.arity, `is`(1))
-
-                val qname = f.functionName!!
-                assertThat(qname.isLexicalQName, `is`(true))
-                assertThat(qname.namespace, `is`(nullValue()))
-                assertThat(qname.prefix, `is`(nullValue()))
-                assertThat(qname.localName!!.data, `is`("upper-case"))
-                assertThat(qname.element, sameInstance(qname as PsiElement))
-
-                val args = (f as PsiElement).parent.children().filterIsInstance<XPathArgumentList>().firstOrNull()
-                assertThat(args, `is`(nullValue()))
-            }
-
-            @Test
             @DisplayName("invalid EQName")
             fun invalidEQName() {
-                val f = parse<XPathArrowFunctionSpecifier>("\$x => :upper-case()")[0] as XdmFunctionReference
+                val f = parse<PluginArrowFunctionCall>("\$x => :upper-case()")[0] as XdmFunctionReference
                 assertThat(f.arity, `is`(1))
                 assertThat(f.functionName, `is`(nullValue()))
 
-                val args = (f as PsiElement).parent.children().filterIsInstance<XPathArgumentList>().first()
+                val args = (f as PsiElement).children().filterIsInstance<XPathArgumentList>().first()
                 assertThat(args.arity, `is`(0))
                 assertThat(args.functionReference, `is`(sameInstance(f)))
 
@@ -3610,7 +3593,7 @@ private class XPathPsiTest : ParserTestCase() {
             @Test
             @DisplayName("reference rename")
             fun referenceRename() {
-                val expr = parse<XPathArrowFunctionSpecifier>("1 => test()")[0] as XdmFunctionReference
+                val expr = parse<PluginArrowFunctionCall>("1 => test()")[0] as XdmFunctionReference
 
                 val ref = (expr.functionName as PsiElement).reference
                 assertThat(ref, `is`(nullValue()))

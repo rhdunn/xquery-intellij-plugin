@@ -23,6 +23,7 @@ import com.intellij.psi.PsiReference
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableName
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArrowFunctionSpecifier
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathNCNamePsiImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.reference.XPathFunctionNameReference
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.reference.XQueryVariableNameReference
@@ -32,6 +33,10 @@ open class XQueryNCNamePsiImpl(node: ASTNode) : XPathNCNamePsiImpl(node) {
 
     override fun getReferences(): Array<PsiReference> {
         return (localName as? PsiElement)?.let {
+            var parent = parent
+            if (parent is XPathArrowFunctionSpecifier) {
+                parent = parent.parent
+            }
             when (parent) {
                 is XdmFunctionReference -> {
                     val ref = XPathFunctionNameReference(this, it.textRange.shiftRight(-node.startOffset))

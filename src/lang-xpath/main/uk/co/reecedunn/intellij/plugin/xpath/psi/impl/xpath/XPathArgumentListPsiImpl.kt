@@ -58,11 +58,7 @@ class XPathArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPat
     // region XPathArgumentList
 
     override val functionReference: XdmFunctionReference?
-        get() = when (parent) {
-            is XPathFunctionCall -> parent as XdmFunctionReference
-            is PluginArrowFunctionCall -> parent.firstChild as XdmFunctionReference
-            else -> null
-        }
+        get() = parent as? XdmFunctionReference
 
     override val arity: Int
         get() = children().filterIsElementType(ARGUMENTS).count()
