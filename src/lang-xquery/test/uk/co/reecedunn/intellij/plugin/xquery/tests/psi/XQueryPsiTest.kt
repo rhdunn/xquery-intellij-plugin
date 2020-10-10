@@ -3949,8 +3949,8 @@ private class XQueryPsiTest : ParserTestCase() {
             @DisplayName("XQuery 3.1 EBNF (157) CompElemConstructor")
             internal inner class CompElemConstructor {
                 @Test
-                @DisplayName("name")
-                fun name() {
+                @DisplayName("name is an EQName")
+                fun nameEQName() {
                     val element = parse<XQueryCompElemConstructor>("element a:b {}")[0] as XdmElementNode
 
                     val name = element.nodeName!!
@@ -3958,15 +3958,24 @@ private class XQueryPsiTest : ParserTestCase() {
                     assertThat(name.localName!!.data, `is`("b"))
 
                     assertThat(element.closingTag, `is`(sameInstance(element.nodeName)))
+
+                    val expr = element as XpmExpression
+                    assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.COMP_ELEM_CONSTRUCTOR))
+                    assertThat(expr.expressionElement?.textOffset, `is`(0))
                 }
 
                 @Test
-                @DisplayName("expression")
-                fun expr() {
-                    val element =
-                        parse<XQueryCompElemConstructor>("element { \"a:\" || \"b\" } {}")[0] as XdmElementNode
+                @DisplayName("element name is an expression")
+                fun nameExpression() {
+                    val element = parse<XQueryCompElemConstructor>(
+                        "element { \"a:\" || \"b\" } {}"
+                    )[0] as XdmElementNode
                     assertThat(element.nodeName, `is`(nullValue()))
                     assertThat(element.closingTag, `is`(nullValue()))
+
+                    val expr = element as XpmExpression
+                    assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.COMP_ELEM_CONSTRUCTOR))
+                    assertThat(expr.expressionElement?.textOffset, `is`(0))
                 }
 
                 @Test
@@ -3974,10 +3983,10 @@ private class XQueryPsiTest : ParserTestCase() {
                 fun ncname() {
                     val qname = parse<XPathEQName>(
                         """
-                    declare default function namespace "http://www.example.co.uk/function";
-                    declare default element namespace "http://www.example.co.uk/element";
-                    element test {}
-                    """
+                        declare default function namespace "http://www.example.co.uk/function";
+                        declare default element namespace "http://www.example.co.uk/element";
+                        element test {}
+                        """
                     )[0] as XsQNameValue
                     assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.DefaultElementOrType))
                     assertThat(qname.element!!.getUsageType(), `is`(XstUsageType.Element))
