@@ -4088,6 +4088,32 @@ private class XQueryPsiTest : ParserTestCase() {
                     assertThat(expanded[0].element, sameInstance(qname as PsiElement))
                 }
             }
+
+            @Nested
+            @DisplayName("XQuery 3.1 EBNF (160) CompNamespaceConstructor")
+            internal inner class CompNamespaceConstructor {
+                @Test
+                @DisplayName("nodeName as an EQName")
+                fun nodeNameEQName() {
+                    val ns = parse<XQueryCompNamespaceConstructor>(
+                        "namespace test { \"http://www.example.co.uk\" }"
+                    )[0]
+
+                    val expr = ns as XpmExpression
+                    assertThat(expr.expressionElement, `is`(nullValue()))
+                }
+
+                @Test
+                @DisplayName("nodeName as an expression")
+                fun nodeNameExpr() {
+                    val ns = parse<XQueryCompNamespaceConstructor>(
+                        "namespace { \"test\" } { \"http://www.example.co.uk\" }"
+                    )[0]
+
+                    val expr = ns as XpmExpression
+                    assertThat(expr.expressionElement, `is`(nullValue()))
+                }
+            }
         }
     }
 
