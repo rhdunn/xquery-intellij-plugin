@@ -3936,6 +3936,15 @@ private class XQueryPsiTest : ParserTestCase() {
         @Nested
         @DisplayName("XQuery 3.1 (3.9.3) Computed Constructors")
         internal inner class ComputedElementConstructors {
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (156) CompDocConstructor")
+            fun compDocConstructor() {
+                val expr = parse<XQueryCompDocConstructor>("document { <test/> }")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.COMP_DOC_CONSTRUCTOR))
+                assertThat(expr.expressionElement?.textOffset, `is`(0))
+            }
+
             @Nested
             @DisplayName("XQuery 3.1 EBNF (157) CompElemConstructor")
             internal inner class CompElemConstructor {
