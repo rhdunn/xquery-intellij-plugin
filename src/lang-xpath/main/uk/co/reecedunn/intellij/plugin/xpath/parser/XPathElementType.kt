@@ -830,6 +830,12 @@ object XPathElementType {
         XPath
     )
 
+    val ARROW_DYNAMIC_FUNCTION_CALL: IElementType = ICompositeElementType(
+        "XPATH_ARROW_DYNAMIC_FUNCTION_CALL",
+        PluginArrowDynamicFunctionCallPsiImpl::class.java,
+        XPath
+    )
+
     val ARROW_FUNCTION_CALL: IElementType = ICompositeElementType(
         "XPATH_ARROW_FUNCTION_CALL",
         PluginArrowFunctionCallPsiImpl::class.java,

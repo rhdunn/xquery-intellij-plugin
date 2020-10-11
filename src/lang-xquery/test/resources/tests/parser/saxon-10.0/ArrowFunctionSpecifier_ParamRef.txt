@@ -9,7 +9,7 @@ XQueryModuleImpl[FILE(0:17)]
             PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
             LeafPsiElement[XPATH_ARROW_TOKEN(4:6)]('=>')
             PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-            PluginArrowFunctionCallImpl[XPATH_ARROW_FUNCTION_CALL(7:17)]
+            PluginArrowDynamicFunctionCallImpl[XPATH_ARROW_DYNAMIC_FUNCTION_CALL(7:17)]
                PluginParamRefImpl[XPATH_PARAM_REF(7:14)]
                   LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(7:8)]('$')
                   PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')

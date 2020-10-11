@@ -8,7 +8,7 @@ XPathImpl[FILE(0:12)]
                PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
       LeafPsiElement[XPATH_ARROW_TOKEN(3:5)]('=>')
       PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
-      PluginArrowFunctionCallImpl[XPATH_ARROW_FUNCTION_CALL(6:12)]
+      PluginArrowDynamicFunctionCallImpl[XPATH_ARROW_DYNAMIC_FUNCTION_CALL(6:12)]
          LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(6:7)]('(')
          XPathVarRefImpl[XPATH_VAR_REF(7:9)]
             LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(7:8)]('$')

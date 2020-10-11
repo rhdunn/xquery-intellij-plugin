@@ -1195,26 +1195,23 @@ open class XPathParser : PsiParser {
 
     private fun parseArrowFunctionCall(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
-        if (parseArrowFunctionSpecifier(builder)) {
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseArgumentList(builder)) {
-                builder.error(XPathBundle.message("parser.error.expected", "ArgumentList"))
+        val elementType = when {
+            this.parseEQNameOrWildcard(builder, QNAME, false) != null -> XPathElementType.ARROW_FUNCTION_CALL
+            parseVarOrParamRef(builder, null) -> XPathElementType.ARROW_DYNAMIC_FUNCTION_CALL
+            parseParenthesizedExpr(builder) -> XPathElementType.ARROW_DYNAMIC_FUNCTION_CALL
+            else -> {
                 marker.drop()
-            } else {
-                marker.done(XPathElementType.ARROW_FUNCTION_CALL)
+                return false
             }
-            return true
         }
-        marker.drop()
-        return false
-    }
-
-    private fun parseArrowFunctionSpecifier(builder: PsiBuilder): Boolean {
-        return (
-            this.parseEQNameOrWildcard(builder, QNAME, false) != null ||
-            parseVarOrParamRef(builder, null) ||
-            parseParenthesizedExpr(builder)
-        )
+        parseWhiteSpaceAndCommentTokens(builder)
+        if (!parseArgumentList(builder)) {
+            builder.error(XPathBundle.message("parser.error.expected", "ArgumentList"))
+            marker.drop()
+        } else {
+            marker.done(elementType)
+        }
+        return true
     }
 
     // endregion

@@ -443,7 +443,6 @@ are equivalent to:
 |--------|--------------------------------|-----|-------------------------------------------|---------|
 | \[35\] | `LambdaFunctionExpr`           | ::= | `"_" "{" Expr "}"`                        |         |
 | \[37\] | `ParamRef`                     | ::= | `"$" Digits`                              |         |
-| \[38\] | `ArrowFunctionSpecifier`       | ::= | `EQName \| VarRef \| ParamRef \| ParenthesizedExpr` | |
 
 This is a Saxon 10.0 extension. This is a simplified syntax for *inline
 function expressions*.
@@ -478,12 +477,23 @@ expressions in the lambda function body expression.
 {: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
-| \[27\] | `ArrowExpr`                    | ::= | `UnaryExpr ( "=>" ArrowFunctionCall )*`   |         |
-| \[28\] | `ArrowFunctionCall`            | ::= | `ArrowFunctionSpecifier ArgumentList`     |         |
+| \[27\] | `ArrowExpr`                    | ::= | `UnaryExpr ( "=>" ( ArrowFunctionCall | ArrowDynamicFunctionCall ) )*` | |
+| \[28\] | `ArrowFunctionCall`            | ::= | `EQName ArgumentList`                     |         |
+| \[38\] | `ArrowDynamicFunctionCall`     | ::= | `( VarRef \| ParamRef \| ParenthesizedExpr ) ArgumentList` | |
 
 This splits out the arrow function call grammar into a separate symbol, making
-it easier to bind the first argument of the referenced functions to the correct
-expression in the arrow sequence.
+it easier to bind the first parameter of the referenced functions to the correct
+argument expression in the arrow expression.
+
+The `ArrowFunctionCall` symbol mirrors the `FunctionCall` symbol, and is used
+for static function calls in the XQuery IntelliJ Plugin operation tree.
+
+The `ArrowDynamicFunctionCall` symbol mirrors the `DynamicFunctionCall` symbol,
+and is used for dynamic function calls in the XQuery IntelliJ Plugin operation
+tree.
+
+The `ParamRef` is for [Lambda Function Expressions](#3612-lambda-function-expressions)
+support in Saxon 10.0.
 
 ### 3.8 Otherwise Operator
 
@@ -577,8 +587,8 @@ These changes include support for:
 | \[24\]  | `ContextItemFunctionExpr`      | ::= | `(( "fn" "{" ) | ".{" ) Expr "}"`       |                  |
 | \[25\]  | `TupleType`                    | ::= | `"tuple" "(" TupleField ("," TupleField)* ("," "*")? ")"` | |
 | \[26\]  | `TupleField`                   | ::= | `TupleFieldName "?"? ( ( ":" | "as" ) SequenceType )?` |   |
-| \[27\]  | `ArrowExpr`                    | ::= | `UnaryExpr ( "=>" ArrowFunctionCall )*` |                  |
-| \[28\]  | `ArrowFunctionCall`            | ::= | `ArrowFunctionSpecifier ArgumentList`   |                  |
+| \[27\]  | `ArrowExpr`                    | ::= | `UnaryExpr ( "=>" ( ArrowFunctionCall | ArrowDynamicFunctionCall ) )*` | |
+| \[28\]  | `ArrowFunctionCall`            | ::= | `EQName ArgumentList`                   |                  |
 | \[29\]  | `ElementNameOrWildcard`        | ::= | `NameTest`                              |                  |
 | \[30\]  | `AttribNameOrWildcard`         | ::= | `NameTest`                              |                  |
 | \[31\]  | `MultiplicativeExpr`           | ::= | `OtherwiseExpr ( ("*" | "div" | "idiv" | "mod") OtherwiseExpr )*` | |
@@ -588,7 +598,7 @@ These changes include support for:
 | \[35\]  | `LambdaFunctionExpr`           | ::= | `"_{" Expr "}"`                         |                  |
 | \[36\]  | `PrimaryExpr`                  | ::= | `Literal \| VarRef \| ParamRef \| ParenthesizedExpr \| ContextItemExpr \| FunctionCall \| FunctionItemExpr \| MapConstructor \| ArrayConstructor \| UnaryLookup` | |
 | \[37\]  | `ParamRef`                     | ::= | `"$" Digits`                            |                  |
-| \[38\]  | `ArrowFunctionSpecifier`       | ::= | `EQName \| VarRef \| ParamRef \| ParenthesizedExpr` |      |
+| \[38\]  | `ArrowDynamicFunctionCall`     | ::= | `( VarRef \| ParamRef \| ParenthesizedExpr )` |            |
 | \[39\]  | `LetExpr`                      | ::= | `SimpleLetClause ReturnClause`          |                  |
 | \[40\]  | `ForMemberExpr`                | ::= | `SimpleForMemberClause ReturnClause`    |                  |
 | \[41\]  | `SimpleForMemberClause`        | ::= | `"for" "member" SimpleForBinding ( "," SimpleForBinding )*` | |
@@ -722,7 +732,7 @@ behaviour of those constructs:
 1.  [Any Item Type](#211-sequencetype-syntax) \[1.3\]
 1.  [For Expressions](#331-for-expressions) \[1.4\]
 1.  [Nillable Type Names](#211-sequencetype-syntax) \[1.5\]
-1.  [Arrow Function Call](#37-arrow-operator-) \[1.6\]
+1.  [Arrow Function Call](#37-arrow-operator-) \[1.6\], \[1.8\]
 1.  [Abbreviated Syntax](#323-abbreviated-syntax) \[1.8\]
 1.  [Postfix Expressions](#39-postfix-expressions) \[1.8\]
 1.  [Filter Steps](#322-filter-steps) \[1.8\]

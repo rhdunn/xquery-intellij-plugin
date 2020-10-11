@@ -17,31 +17,26 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
-import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowFunctionCall
+import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowDynamicFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 
-class PluginArrowFunctionCallPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PluginArrowFunctionCall, XdmFunctionReference {
+class PluginArrowDynamicFunctionCallPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node), PluginArrowDynamicFunctionCall, XdmFunctionReference {
     // region XpmExpression
 
-    override val expressionElement: PsiElement
-        get() = this
+    override val expressionElement: XPathArgumentList
+        get() = children().filterIsInstance<XPathArgumentList>().first()
 
     // endregion
     // region XdmFunctionReference
 
     override val arity: Int
-        get() {
-            val args = children().filterIsInstance<XPathArgumentList>().first()
-            return args.arity + 1
-        }
+        get() = expressionElement.arity + 1
 
-    override val functionName: XsQNameValue?
-        get() = firstChild as? XsQNameValue
+    override val functionName: XsQNameValue? = null
 
     // endregion
 }

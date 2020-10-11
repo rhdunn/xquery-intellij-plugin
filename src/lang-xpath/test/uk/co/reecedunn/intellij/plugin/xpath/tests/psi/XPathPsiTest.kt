@@ -3635,8 +3635,8 @@ private class XPathPsiTest : ParserTestCase() {
             fun invalidEQName() {
                 val expr = parse<PluginArrowFunctionCall>("1 => :abs()")[0] as XpmExpression
 
-                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
-                assertThat(expr.expressionElement?.textOffset, `is`(9))
+                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARROW_FUNCTION_CALL))
+                assertThat(expr.expressionElement?.textOffset, `is`(5))
             }
         }
 
@@ -3646,7 +3646,9 @@ private class XPathPsiTest : ParserTestCase() {
             @Test
             @DisplayName("single function call")
             fun singleFunctionCall() {
-                val expr = parse<PluginArrowFunctionCall>("let \$x := fn:abs#1 return 1 => \$x()")[0] as XpmExpression
+                val expr = parse<PluginArrowDynamicFunctionCall>(
+                    "let \$x := fn:abs#1 return 1 => \$x()"
+                )[0] as XpmExpression
 
                 assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
                 assertThat(expr.expressionElement?.textOffset, `is`(33))
@@ -3655,7 +3657,7 @@ private class XPathPsiTest : ParserTestCase() {
             @Test
             @DisplayName("multiple function call; inner")
             fun multipleFunctionCallInner() {
-                val expr = parse<PluginArrowFunctionCall>(
+                val expr = parse<PluginArrowDynamicFunctionCall>(
                     "let \$x := fn:abs#1 let \$y := math:pow#2 return 1 => \$x() => \$y(2)"
                 )[0] as XpmExpression
 
@@ -3666,7 +3668,7 @@ private class XPathPsiTest : ParserTestCase() {
             @Test
             @DisplayName("multiple function call; outer")
             fun multipleFunctionCallOuter() {
-                val expr = parse<PluginArrowFunctionCall>(
+                val expr = parse<PluginArrowDynamicFunctionCall>(
                     "let \$x := fn:abs#1 let \$y := math:pow#2 return 1 => \$x() => \$y(2)"
                 )[1] as XpmExpression
 
@@ -3681,7 +3683,7 @@ private class XPathPsiTest : ParserTestCase() {
             @Test
             @DisplayName("single function call")
             fun singleFunctionCall() {
-                val expr = parse<PluginArrowFunctionCall>("1 => (fn:abs#1)()")[0] as XpmExpression
+                val expr = parse<PluginArrowDynamicFunctionCall>("1 => (fn:abs#1)()")[0] as XpmExpression
 
                 assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
                 assertThat(expr.expressionElement?.textOffset, `is`(15))
@@ -3690,7 +3692,9 @@ private class XPathPsiTest : ParserTestCase() {
             @Test
             @DisplayName("multiple function call; inner")
             fun multipleFunctionCallInner() {
-                val expr = parse<PluginArrowFunctionCall>("1 => (fn:abs#1)() => (math:pow#2)(2)")[0] as XpmExpression
+                val expr = parse<PluginArrowDynamicFunctionCall>(
+                    "1 => (fn:abs#1)() => (math:pow#2)(2)"
+                )[0] as XpmExpression
 
                 assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
                 assertThat(expr.expressionElement?.textOffset, `is`(15))
@@ -3699,7 +3703,9 @@ private class XPathPsiTest : ParserTestCase() {
             @Test
             @DisplayName("multiple function call; outer")
             fun multipleFunctionCallOuter() {
-                val expr = parse<PluginArrowFunctionCall>("1 => (fn:abs#1)() => (math:pow#2)(2)")[1] as XpmExpression
+                val expr = parse<PluginArrowDynamicFunctionCall>(
+                    "1 => (fn:abs#1)() => (math:pow#2)(2)"
+                )[1] as XpmExpression
 
                 assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
                 assertThat(expr.expressionElement?.textOffset, `is`(33))

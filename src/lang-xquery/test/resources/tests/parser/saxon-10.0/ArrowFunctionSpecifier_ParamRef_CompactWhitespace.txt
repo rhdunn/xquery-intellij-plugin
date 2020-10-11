@@ -6,7 +6,7 @@ XQueryModuleImpl[FILE(0:11)]
                LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(0:1)]('(')
                LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(1:2)](')')
             LeafPsiElement[XPATH_ARROW_TOKEN(2:4)]('=>')
-            PluginArrowFunctionCallImpl[XPATH_ARROW_FUNCTION_CALL(4:11)]
+            PluginArrowDynamicFunctionCallImpl[XPATH_ARROW_DYNAMIC_FUNCTION_CALL(4:11)]
                PluginParamRefImpl[XPATH_PARAM_REF(4:9)]
                   LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(4:5)]('$')
                   XQueryNCNameImpl[XQUERY_NCNAME(5:9)]

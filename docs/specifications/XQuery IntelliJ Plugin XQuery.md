@@ -691,7 +691,6 @@ are equivalent to:
 |---------|--------------------------------|-----|-------------------------------------------|---------|
 | \[117\] | `LambdaFunctionExpr`           | ::= | `"_" "{" Expr "}"`                        |         |
 | \[118\] | `ParamRef`                     | ::= | `"$" Digits`                              |         |
-| \[119\] | `ArrowFunctionSpecifier`       | ::= | `EQName \| VarRef \| ParamRef \| ParenthesizedExpr` | |
 
 This is a Saxon 10.0 extension. This is a simplified syntax for *inline
 function expressions*.
@@ -1022,12 +1021,23 @@ the equivalent `IfExpr` is:
 {: .ebnf-symbols }
 | Ref     | Symbol                         |     | Expression                                | Options |
 |---------|--------------------------------|-----|-------------------------------------------|---------|
-| \[109\] | `ArrowExpr`                    | ::= | `UnaryExpr ( "=>" ArrowFunctionCall )*`   |         |
-| \[110\] | `ArrowFunctionCall`            | ::= | `ArrowFunctionSpecifier ArgumentList`     |         |
+| \[109\] | `ArrowExpr`                    | ::= | `UnaryExpr ( "=>" ( ArrowFunctionCall | ArrowDynamicFunctionCall ) )*` | |
+| \[110\] | `ArrowFunctionCall`            | ::= | `EQName ArgumentList`                     |         |
+| \[119\] | `ArrowDynamicFunctionCall`     | ::= | `( VarRef \| ParamRef \| ParenthesizedExpr ) ArgumentList` | |
 
 This splits out the arrow function call grammar into a separate symbol, making
-it easier to bind the first argument of the referenced functions to the correct
-expression in the arrow sequence.
+it easier to bind the first parameter of the referenced functions to the correct
+argument expression in the arrow expression.
+
+The `ArrowFunctionCall` symbol mirrors the `FunctionCall` symbol, and is used
+for static function calls in the XQuery IntelliJ Plugin operation tree.
+
+The `ArrowDynamicFunctionCall` symbol mirrors the `DynamicFunctionCall` symbol,
+and is used for dynamic function calls in the XQuery IntelliJ Plugin operation
+tree.
+
+The `ParamRef` is for [Lambda Function Expressions](#3722-lambda-function-expressions)
+support in Saxon 10.0.
 
 ### 3.16 Otherwise Operator
 
@@ -1373,8 +1383,8 @@ These changes include support for:
 | \[106\]  | `SchemaImport`                 | ::= | `"import" "schema" SchemaPrefix? URILiteral LocationURIList?` | |
 | \[107\]  | `LocationURIList`              | ::= | `"at" URILiteral ("," URILiteral)*`       |                 |
 | \[108\]  | `ModuleImport`                 | ::= | `"import" "module" ("namespace" NCName "=")? URILiteral LocationURIList?` | |
-| \[109\]  | `ArrowExpr`                    | ::= | `UnaryExpr ( "=>" ArrowFunctionCall )*`   |                 |
-| \[110\]  | `ArrowFunctionCall`            | ::= | `ArrowFunctionSpecifier ArgumentList`     |                 |
+| \[109\]  | `ArrowExpr`                    | ::= | `UnaryExpr ( "=>" ( ArrowFunctionCall | ArrowDynamicFunctionCall ) )*` | |
+| \[110\]  | `ArrowFunctionCall`            | ::= | `EQName ArgumentList`                     |                 |
 | \[111\]  | `ElementNameOrWildcard`        | ::= | `NameTest`                                |                 |
 | \[112\]  | `AttribNameOrWildcard`         | ::= | `NameTest`                                |                 |
 | \[113\]  | `MultiplicativeExpr`           | ::= | `OtherwiseExpr ( ("*" | "div" | "idiv" | "mod") OtherwiseExpr )*` | |
@@ -1383,7 +1393,7 @@ These changes include support for:
 | \[116\]  | `TypeAlias`                    | ::= | `( "~" EQName ) | ( "type" "(" EQName ")" )` |              |
 | \[117\]  | `LambdaFunctionExpr`           | ::= | `"_{" Expr "}"`                           |                 |
 | \[118\]  | `ParamRef`                     | ::= | `"$" Digits`                              |                 |
-| \[119\]  | `ArrowFunctionSpecifier`       | ::= | `EQName \| VarRef \| ParamRef \| ParenthesizedExpr` |       |
+| \[119\]  | `ArrowDynamicFunctionCall`     | ::= | `( VarRef \| ParamRef \| ParenthesizedExpr ) ArgumentList` | |
 | \[120\]  | `InitialClause`                | ::= | `ForClause \| LetClause \| WindowClause \| ForMemberClause` | |
 | \[121\]  | `ForMemberClause`              | ::= | `"for" "member" ForBinding ( "," ForBinding )*` |           |
 | \[122\]  | `DirElemContent`               | ::= | `DirectConstructor \| CDataSection \| EnclosedExpr \| DirTextConstructor` | |
@@ -1603,7 +1613,7 @@ behaviour of those constructs:
 1.  [Empty Sequence Types](#2126-sequence-types) \[1.5\]
 1.  [Schema Import](#47-schema-import) \[1.6\]
 1.  [Module Import](#48-module-import) \[1.6\]
-1.  [Arrow Function Call](#315-arrow-operator-) \[1.6\]
+1.  [Arrow Function Call](#315-arrow-operator-) \[1.6\], \[1.8\]
 1.  [Direct Text Constructors](#312-direct-text-constructors) \[1.8\]
 1.  [Abbreviated Syntax](#394-abbreviated-syntax) \[1.8\]
 1.  [Postfix Expressions](#318-postfix-expressions) \[1.8\]
