@@ -1682,6 +1682,15 @@ private class PluginPsiTest : ParserTestCase()  {
             }
         }
 
+        @Test
+        @DisplayName("XQuery IntelliJ Plugin XQuery EBNF (50) BooleanConstructor")
+        fun booleanConstructor() {
+            val expr = parse<PluginBooleanConstructor>("boolean-node { true() }")[0] as XpmExpression
+
+            assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.BOOLEAN_CONSTRUCTOR))
+            assertThat(expr.expressionElement?.textOffset, `is`(0))
+        }
+
         @Nested
         @DisplayName("XQuery IntelliJ Plugin EBNF (62) ArrayConstructor")
         internal inner class CurlyArrayConstructor {
