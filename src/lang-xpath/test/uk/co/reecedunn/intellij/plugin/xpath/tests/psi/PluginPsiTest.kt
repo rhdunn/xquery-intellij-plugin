@@ -29,10 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
-import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginContextItemFunctionExpr
-import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginTernaryIfExpr
-import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginTypeAlias
-import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginUnionType
+import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.getUsageType
@@ -269,6 +266,15 @@ private class PluginPsiTest : ParserTestCase() {
 
             assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.TERNARY_IF))
             assertThat(expr.expressionElement?.textOffset, `is`(7))
+        }
+
+        @Test
+        @DisplayName("XQuery IntelliJ Plugin XPath EBNF (11) ElvisExpr")
+        fun elvisExpr() {
+            val expr = parse<PluginElvisExpr>("1 ?: 2")[0] as XpmExpression
+
+            assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.ELVIS))
+            assertThat(expr.expressionElement?.textOffset, `is`(2))
         }
     }
 

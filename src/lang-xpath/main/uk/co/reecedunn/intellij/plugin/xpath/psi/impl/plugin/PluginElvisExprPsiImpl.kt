@@ -24,10 +24,16 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationEl
 
 class PluginElvisExprPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), PluginElvisExpr, XpmSyntaxValidationElement {
+    // region XpmExpression
+
+    override val expressionElement: PsiElement
+        get() = findChildByType(XPathTokenType.ELVIS)!!
+
+    // endregion
     // region XpmSyntaxValidationElement
 
     override val conformanceElement: PsiElement
-        get() = findChildByType(XPathTokenType.ELVIS)!!
+        get() = expressionElement
 
     // endregion
 }
