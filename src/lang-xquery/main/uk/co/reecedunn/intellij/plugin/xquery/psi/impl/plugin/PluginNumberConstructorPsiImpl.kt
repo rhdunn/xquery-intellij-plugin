@@ -24,6 +24,9 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationEl
 class PluginNumberConstructorPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), PluginNumberConstructor, XpmSyntaxValidationElement {
 
+    override val expressionElement: PsiElement?
+        get() = this
+
     override val conformanceElement: PsiElement
         get() = firstChild
 }

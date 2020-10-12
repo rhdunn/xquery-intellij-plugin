@@ -1691,6 +1691,15 @@ private class PluginPsiTest : ParserTestCase()  {
             assertThat(expr.expressionElement?.textOffset, `is`(0))
         }
 
+        @Test
+        @DisplayName("XQuery IntelliJ Plugin XQuery EBNF (54) NumberConstructor")
+        fun numberConstructor() {
+            val expr = parse<PluginNumberConstructor>("number-node { 1 }")[0] as XpmExpression
+
+            assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.NUMBER_CONSTRUCTOR))
+            assertThat(expr.expressionElement?.textOffset, `is`(0))
+        }
+
         @Nested
         @DisplayName("XQuery IntelliJ Plugin EBNF (62) ArrayConstructor")
         internal inner class CurlyArrayConstructor {
