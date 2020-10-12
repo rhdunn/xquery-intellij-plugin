@@ -57,6 +57,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySequenceTypeUnion
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.xquery.model.getNamespaceType
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
@@ -1743,6 +1744,19 @@ private class PluginPsiTest : ParserTestCase()  {
                 assertThat(steps.size, `is`(1))
                 assertThat(steps[0].getUsageType(), `is`(XstUsageType.Element)) // property
             }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin (3.12) Binary Constructors")
+    internal inner class BinaryConstructors {
+        @Test
+        @DisplayName("XQuery IntelliJ Plugin XQuery EBNF (30) BinaryConstructor")
+        fun binaryConstructor() {
+            val expr = parse<PluginBinaryConstructor>("binary { \"AF\" }")[0] as XpmExpression
+
+            assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.BINARY_CONSTRUCTOR))
+            assertThat(expr.expressionElement?.textOffset, `is`(0))
         }
     }
 
