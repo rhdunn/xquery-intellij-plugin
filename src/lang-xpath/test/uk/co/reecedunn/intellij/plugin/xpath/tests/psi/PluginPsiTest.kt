@@ -29,11 +29,13 @@ import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
+import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginContextItemFunctionExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginTypeAlias
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginUnionType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.getUsageType
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 
@@ -257,90 +259,103 @@ private class PluginPsiTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin XPath (3.6.1) Inline Function Expressions")
-    internal inner class InlineFunctionExpressions {
+    @DisplayName("XQuery IntelliJ Plugin (3.6) Primary Expressions")
+    internal inner class PrimaryExpressions {
         @Nested
-        @DisplayName("XQuery 3.1 EBNF (169) InlineFunctionExpr ; XQuery IntelliJ Plugin XPath EBNF (22) ParamList")
-        internal inner class InlineFunctionExpr {
-            @Test
-            @DisplayName("variadic")
-            fun variadic() {
-                val decl = parse<XdmFunctionDeclaration>("function (\$one, \$two ...) {}")[0]
-                assertThat(decl.functionName, `is`(nullValue()))
-                assertThat(decl.returnType, `is`(nullValue()))
-                assertThat(decl.arity, `is`(Range(1, Int.MAX_VALUE)))
-                assertThat(decl.isVariadic, `is`(true))
+        @DisplayName("XQuery IntelliJ Plugin XPath (3.6.1) Inline Function Expressions")
+        internal inner class InlineFunctionExpressions {
+            @Nested
+            @DisplayName("XQuery 3.1 EBNF (169) InlineFunctionExpr ; XQuery IntelliJ Plugin XPath EBNF (22) ParamList")
+            internal inner class InlineFunctionExpr {
+                @Test
+                @DisplayName("variadic")
+                fun variadic() {
+                    val decl = parse<XdmFunctionDeclaration>("function (\$one, \$two ...) {}")[0]
+                    assertThat(decl.functionName, `is`(nullValue()))
+                    assertThat(decl.returnType, `is`(nullValue()))
+                    assertThat(decl.arity, `is`(Range(1, Int.MAX_VALUE)))
+                    assertThat(decl.isVariadic, `is`(true))
 
-                assertThat(decl.params.size, `is`(2))
-                assertThat(op_qname_presentation(decl.params[0].variableName!!), `is`("one"))
-                assertThat(op_qname_presentation(decl.params[1].variableName!!), `is`("two"))
-            }
-        }
-
-        @Nested
-        @DisplayName("XQuery 3.1 EBNF (137) FunctionCall ; XQuery IntelliJ Plugin EBNF (22) ParamList")
-        internal inner class FunctionCall {
-            @Test
-            @DisplayName("variadic; no arguments specified for the variadic parameter")
-            fun variadicEmpty() {
-                val f = parse<XPathFunctionCall>("concat(2, 4)")[0] as XdmFunctionReference
-                assertThat(f.arity, `is`(2))
-
-                val qname = f.functionName!!
-                assertThat(qname.isLexicalQName, `is`(true))
-                assertThat(qname.namespace, `is`(nullValue()))
-                assertThat(qname.prefix, `is`(nullValue()))
-                assertThat(qname.localName!!.data, `is`("concat"))
-                assertThat(qname.element, sameInstance(qname as PsiElement))
-
-                val args = (f as XPathFunctionCall).argumentList
-                assertThat(args.arity, `is`(2))
-                assertThat(args.functionReference, `is`(sameInstance(f)))
-
-                val bindings = args.bindings
-                assertThat(bindings.size, `is`(0))
+                    assertThat(decl.params.size, `is`(2))
+                    assertThat(op_qname_presentation(decl.params[0].variableName!!), `is`("one"))
+                    assertThat(op_qname_presentation(decl.params[1].variableName!!), `is`("two"))
+                }
             }
 
-            @Test
-            @DisplayName("variadic; single argument specified for the variadic parameter")
-            fun variadicSingle() {
-                val f = parse<XPathFunctionCall>("concat(2, 4, 6)")[0] as XdmFunctionReference
-                assertThat(f.arity, `is`(3))
+            @Nested
+            @DisplayName("XQuery 3.1 EBNF (137) FunctionCall ; XQuery IntelliJ Plugin EBNF (22) ParamList")
+            internal inner class FunctionCall {
+                @Test
+                @DisplayName("variadic; no arguments specified for the variadic parameter")
+                fun variadicEmpty() {
+                    val f = parse<XPathFunctionCall>("concat(2, 4)")[0] as XdmFunctionReference
+                    assertThat(f.arity, `is`(2))
 
-                val qname = f.functionName!!
-                assertThat(qname.isLexicalQName, `is`(true))
-                assertThat(qname.namespace, `is`(nullValue()))
-                assertThat(qname.prefix, `is`(nullValue()))
-                assertThat(qname.localName!!.data, `is`("concat"))
-                assertThat(qname.element, sameInstance(qname as PsiElement))
+                    val qname = f.functionName!!
+                    assertThat(qname.isLexicalQName, `is`(true))
+                    assertThat(qname.namespace, `is`(nullValue()))
+                    assertThat(qname.prefix, `is`(nullValue()))
+                    assertThat(qname.localName!!.data, `is`("concat"))
+                    assertThat(qname.element, sameInstance(qname as PsiElement))
 
-                val args = (f as XPathFunctionCall).argumentList
-                assertThat(args.arity, `is`(3))
-                assertThat(args.functionReference, `is`(sameInstance(f)))
+                    val args = (f as XPathFunctionCall).argumentList
+                    assertThat(args.arity, `is`(2))
+                    assertThat(args.functionReference, `is`(sameInstance(f)))
 
-                val bindings = args.bindings
-                assertThat(bindings.size, `is`(0))
+                    val bindings = args.bindings
+                    assertThat(bindings.size, `is`(0))
+                }
+
+                @Test
+                @DisplayName("variadic; single argument specified for the variadic parameter")
+                fun variadicSingle() {
+                    val f = parse<XPathFunctionCall>("concat(2, 4, 6)")[0] as XdmFunctionReference
+                    assertThat(f.arity, `is`(3))
+
+                    val qname = f.functionName!!
+                    assertThat(qname.isLexicalQName, `is`(true))
+                    assertThat(qname.namespace, `is`(nullValue()))
+                    assertThat(qname.prefix, `is`(nullValue()))
+                    assertThat(qname.localName!!.data, `is`("concat"))
+                    assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                    val args = (f as XPathFunctionCall).argumentList
+                    assertThat(args.arity, `is`(3))
+                    assertThat(args.functionReference, `is`(sameInstance(f)))
+
+                    val bindings = args.bindings
+                    assertThat(bindings.size, `is`(0))
+                }
+
+                @Test
+                @DisplayName("variadic; multiple arguments specified for the variadic parameter")
+                fun variadicMultiple() {
+                    val f = parse<XPathFunctionCall>("concat(2, 4, 6, 8)")[0] as XdmFunctionReference
+                    assertThat(f.arity, `is`(4))
+
+                    val qname = f.functionName!!
+                    assertThat(qname.isLexicalQName, `is`(true))
+                    assertThat(qname.namespace, `is`(nullValue()))
+                    assertThat(qname.prefix, `is`(nullValue()))
+                    assertThat(qname.localName!!.data, `is`("concat"))
+                    assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                    val args = (f as XPathFunctionCall).argumentList
+                    assertThat(args.arity, `is`(4))
+                    assertThat(args.functionReference, `is`(sameInstance(f)))
+
+                    val bindings = args.bindings
+                    assertThat(bindings.size, `is`(0))
+                }
             }
 
             @Test
-            @DisplayName("variadic; multiple arguments specified for the variadic parameter")
-            fun variadicMultiple() {
-                val f = parse<XPathFunctionCall>("concat(2, 4, 6, 8)")[0] as XdmFunctionReference
-                assertThat(f.arity, `is`(4))
+            @DisplayName("XQuery IntelliJ Plugin XPath EBNF (24) ContextItemFunctionExpr")
+            fun contextItemFunctionExpr() {
+                val expr = parse<PluginContextItemFunctionExpr>(".{ () }")[0] as XpmExpression
 
-                val qname = f.functionName!!
-                assertThat(qname.isLexicalQName, `is`(true))
-                assertThat(qname.namespace, `is`(nullValue()))
-                assertThat(qname.prefix, `is`(nullValue()))
-                assertThat(qname.localName!!.data, `is`("concat"))
-                assertThat(qname.element, sameInstance(qname as PsiElement))
-
-                val args = (f as XPathFunctionCall).argumentList
-                assertThat(args.arity, `is`(4))
-                assertThat(args.functionReference, `is`(sameInstance(f)))
-
-                val bindings = args.bindings
-                assertThat(bindings.size, `is`(0))
+                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.CONTEXT_ITEM_FUNCTION_EXPR))
+                assertThat(expr.expressionElement?.textOffset, `is`(0))
             }
         }
     }

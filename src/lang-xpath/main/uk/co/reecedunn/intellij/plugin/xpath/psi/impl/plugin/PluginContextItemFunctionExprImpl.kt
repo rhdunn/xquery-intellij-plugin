@@ -25,6 +25,12 @@ class PluginContextItemFunctionExprImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     PluginContextItemFunctionExpr,
     XpmSyntaxValidationElement {
+    // region XpmExpression
+
+    override val expressionElement: PsiElement?
+        get() = this
+
+    // endregion
     // region XpmSyntaxValidationElement
 
     override val conformanceElement: PsiElement

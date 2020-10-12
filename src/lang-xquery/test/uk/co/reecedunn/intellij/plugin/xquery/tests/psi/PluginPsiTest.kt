@@ -1632,6 +1632,15 @@ private class PluginPsiTest : ParserTestCase()  {
                     assertThat(op_qname_presentation(decl.params[1].variableName!!), `is`("two"))
                 }
             }
+
+            @Test
+            @DisplayName("XQuery IntelliJ Plugin XQuery EBNF (81) ContextItemFunctionExpr")
+            fun contextItemFunctionExpr() {
+                val expr = parse<PluginContextItemFunctionExpr>(".{ () }")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.CONTEXT_ITEM_FUNCTION_EXPR))
+                assertThat(expr.expressionElement?.textOffset, `is`(0))
+            }
         }
     }
 
