@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018, 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,8 +16,9 @@
 package uk.co.reecedunn.intellij.plugin.xpath.ast.plugin
 
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 
 /**
  * A `TernaryIfExpr` node in the XQuery AST.
  */
-interface PluginTernaryIfExpr : PsiElement
+interface PluginTernaryIfExpr : PsiElement, XpmExpression

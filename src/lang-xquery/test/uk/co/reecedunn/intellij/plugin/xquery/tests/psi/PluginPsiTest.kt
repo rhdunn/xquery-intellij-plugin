@@ -1819,6 +1819,19 @@ private class PluginPsiTest : ParserTestCase()  {
     }
 
     @Nested
+    @DisplayName("XQuery IntelliJ Plugin (3.14) Conditional Expressions")
+    internal inner class ConditionalExpressions {
+        @Test
+        @DisplayName("XQuery IntelliJ Plugin XQuery EBNF (92) TernaryIfExpr")
+        fun ternaryIfExpr() {
+            val expr = parse<PluginTernaryIfExpr>("true() ?? 1 !! 2")[0] as XpmExpression
+
+            assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.TERNARY_IF))
+            assertThat(expr.expressionElement?.textOffset, `is`(7))
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery IntelliJ Plugin (4.1) Type Declaration")
     internal inner class TypeDeclaration {
         @Nested

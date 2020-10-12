@@ -24,10 +24,16 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationEl
 
 class PluginTernaryIfExprPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), PluginTernaryIfExpr, XpmSyntaxValidationElement {
+    // region XpmExpression
+
+    override val expressionElement: PsiElement
+        get() = findChildByType(XPathTokenType.TERNARY_IF)!!
+
+    // endregion
     // region XpmSyntaxValidationElement
 
     override val conformanceElement: PsiElement
-        get() = findChildByType(XPathTokenType.TERNARY_IF)!!
+        get() = expressionElement
 
     // endregion
 }

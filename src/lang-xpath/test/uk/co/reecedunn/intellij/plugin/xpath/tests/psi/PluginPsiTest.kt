@@ -30,6 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginContextItemFunctionExpr
+import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginTernaryIfExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginTypeAlias
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginUnionType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
@@ -255,6 +256,19 @@ private class PluginPsiTest : ParserTestCase() {
 
             assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_ANDALSO))
             assertThat(expr.expressionElement?.textOffset, `is`(2))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin (3.5) Conditional Expressions")
+    internal inner class ConditionalExpressions {
+        @Test
+        @DisplayName("XQuery IntelliJ Plugin XPath EBNF (10) TernaryIfExpr")
+        fun ternaryIfExpr() {
+            val expr = parse<PluginTernaryIfExpr>("true() ?? 1 !! 2")[0] as XpmExpression
+
+            assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.TERNARY_IF))
+            assertThat(expr.expressionElement?.textOffset, `is`(7))
         }
     }
 
