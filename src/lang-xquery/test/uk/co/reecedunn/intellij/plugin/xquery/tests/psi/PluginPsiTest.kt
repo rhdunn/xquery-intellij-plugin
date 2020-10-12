@@ -1641,6 +1641,15 @@ private class PluginPsiTest : ParserTestCase()  {
                 assertThat(expr.expressionElement.elementType, `is`(XPathElementType.CONTEXT_ITEM_FUNCTION_EXPR))
                 assertThat(expr.expressionElement?.textOffset, `is`(0))
             }
+
+            @Test
+            @DisplayName("XQuery IntelliJ Plugin XQuery EBNF (117) LambdaFunctionExpr")
+            fun lambdaFunctionExpr() {
+                val expr = parse<PluginLambdaFunctionExpr>("_{ $1 }")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.LAMBDA_FUNCTION_EXPR))
+                assertThat(expr.expressionElement?.textOffset, `is`(0))
+            }
         }
     }
 

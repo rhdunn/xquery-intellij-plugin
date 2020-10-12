@@ -19,10 +19,17 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginLambdaFunctionExpr
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
 class PluginLambdaFunctionExprPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), PluginLambdaFunctionExpr, XpmSyntaxValidationElement {
+    // region XpmExpression
+
+    override val expressionElement: PsiElement
+        get() = this
+
+    // endregion
     // region VersionConformance
 
     override val conformanceElement: PsiElement
