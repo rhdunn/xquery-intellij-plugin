@@ -16,8 +16,9 @@
 package uk.co.reecedunn.intellij.plugin.xpath.ast.plugin
 
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 
 /**
  * A Saxon 10.0 `ForMemberExpr` node in the XPath AST.
  */
-interface PluginForMemberExpr : PsiElement
+interface PluginForMemberExpr : PsiElement, XpmExpression
