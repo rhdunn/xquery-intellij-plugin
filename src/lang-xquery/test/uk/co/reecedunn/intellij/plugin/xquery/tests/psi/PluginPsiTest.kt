@@ -55,6 +55,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPathStep
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySequenceTypeUnion
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.xquery.model.getNamespaceType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
@@ -1592,6 +1593,32 @@ private class PluginPsiTest : ParserTestCase()  {
                     "block { declare \$ := \$y; 2 }"
                 )[0] as XdmVariableDeclaration
                 assertThat(expr.variableName, `is`(nullValue()))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin (3.5) Update Expressions")
+    internal inner class UpdateExpressions {
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin XQuery EBNF (12) UpdateExpr")
+        internal inner class UpdateExpr {
+            @Test
+            @DisplayName("enclosed expression")
+            fun enclosedExpr() {
+                val expr = parse<PluginUpdateExpr>("() update { () }")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XQueryTokenType.K_UPDATE))
+                assertThat(expr.expressionElement?.textOffset, `is`(3))
+            }
+
+            @Test
+            @DisplayName("expression")
+            fun expr() {
+                val expr = parse<PluginUpdateExpr>("() update ()")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XQueryTokenType.K_UPDATE))
+                assertThat(expr.expressionElement?.textOffset, `is`(3))
             }
         }
     }

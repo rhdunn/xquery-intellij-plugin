@@ -25,6 +25,12 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationEl
 
 class PluginUpdateExprPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), PluginUpdateExpr, XpmSyntaxValidationElement {
+    // region XpmExpression
+
+    override val expressionElement: PsiElement?
+        get() = findChildByType(XQueryTokenType.K_UPDATE)
+
+    // endregion
     // region XpmSyntaxValidationElement
 
     override val conformanceElement: PsiElement
