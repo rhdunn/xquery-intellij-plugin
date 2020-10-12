@@ -36,13 +36,13 @@ plugin-specific extensions are provided to support IntelliJ integration.
     - [Let Expressions](#333-let-expressions)
   - [Logical Expressions](#34-logical-expressions)
   - [Conditional Expressions](#35-conditional-expressions)
+    - [Otherwise Expressions](#351-otherwise-expressions)
   - [Primary Expressions](#36-primary-expressions)
     - [Inline Function Expressions](#361-inline-function-expressions)
       - [Context Item Function Expressions](#3611-context-item-function-expressions)
       - [Lambda Function Expressions](#3612-lambda-function-expressions)
   - [Arrow Operator (=>)](#37-arrow-operator-)
-  - [Otherwise Operator](#38-otherwise-operator)
-  - [Postfix Expressions](#39-postfix-expressions)
+  - [Postfix Expressions](#38-postfix-expressions)
 - {: .toc-letter } [XQuery IntelliJ Plugin Grammar](#a-xquery-intellij-plugin-grammar)
   - [EBNF for XPath 3.1 with Vendor Extensions](#a1-ebnf-for-xpath-31-with-vendor-extensions)
   - [Reserved Function Names](#a2-reserved-function-names)
@@ -371,7 +371,6 @@ equivalent to:
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
 | \[10\] | `TernaryIfExpr`                | ::= | `ElvisExpr "??" ElvisExpr "!!" ElvisExpr` |         |
-| \[11\] | `ElvisExpr`                    | ::= | `OrExpr "?!" OrExpr`                      |         |
 | \[21\] | `IfExpr`                       | ::= | `"if" "(" Expr ")" "then" ExprSingle ("else" ExprSingle)?` | |
 
 The `IfExpr` without the else branch is defined in proposal 7 of the EXPath
@@ -389,14 +388,37 @@ the equivalent `IfExpr` is:
 
     if (C) then A else B
 
-Given the `ElvisExpr`:
+#### 3.5.1 Otherwise Expressions
 
-    A ?: B
+{: .ebnf-symbols }
+| Ref     | Symbol                         |     | Expression                                | Options |
+|---------|--------------------------------|-----|-------------------------------------------|---------|
+| \[11\]  | `ElvisExpr`                    | ::= | `OrExpr "?!" OrExpr`                      |         |
+| \[31\]  | `MultiplicativeExpr`           | ::= | `OtherwiseExpr ( ("*" | "div" | "idiv" | "mod") OtherwiseExpr )*` | |
+| \[32\]  | `OtherwiseExpr`                | ::= | `UnionExpr ( "otherwise" UnionExpr )*`    |         |
 
-the equivalent `IfExpr` is:
+The `ElvisExpr` expression is a BaseX 9.1 extension defined in proposal 2 of the
+EXPath syntax extensions for XPath and XQuery.
+
+The `OtherwiseExpr` expression is a Saxon 10.0 extension that returns the first
+non-empty sequence in the otherwise expression.
+
+For two items or empty sequences `A` and `B`, the expressions `A otherwise B`
+and `A ?: B` are equivalent to:
+
+    (A, B)[1]
+
+Otherwise, if either `A` or `B` have more than one item, the expressions
+`A otherwise B` and `A ?: B` are equivalent to:
 
     let $a := A
     return if (exists($a)) then $a else B
+
+> __Note:__
+>
+> For sequences with more than one item `(A, B)[1]` will only return the first
+> item in the non-empty sequence, not the entire sequence. This is why the more
+> complicated expression is needed for that case.
 
 ### 3.6 Primary Expressions
 
@@ -495,35 +517,7 @@ tree.
 The `ParamRef` is for [Lambda Function Expressions](#3612-lambda-function-expressions)
 support in Saxon 10.0.
 
-### 3.8 Otherwise Operator
-
-{: .ebnf-symbols }
-| Ref     | Symbol                         |     | Expression                                | Options |
-|---------|--------------------------------|-----|-------------------------------------------|---------|
-| \[31\]  | `MultiplicativeExpr`           | ::= | `OtherwiseExpr ( ("*" | "div" | "idiv" | "mod") OtherwiseExpr )*` | |
-| \[32\]  | `OtherwiseExpr`                | ::= | `UnionExpr ( "otherwise" UnionExpr )*`    |         |
-
-This is a Saxon 10.0 extension that returns the first non-empty sequence in the
-otherwise expression.
-
-For two items or empty sequences `A` and `B`, the expression `A otherwise B` is
-equivalent to:
-
-    (A, B)[1]
-
-Otherwise, if either `A` or `B` have more than one item, the expression
-`A otherwise B` is equivalent to:
-
-    let $a := A
-    return if (exists($a)) then $a else B
-
-> __Note:__
->
-> For sequences with more than one item `(A, B)[1]` will only return the first
-> item in the non-empty sequence, not the entire sequence. This is why the more
-> complicated expression is needed for that case.
-
-### 3.9 Postfix Expressions
+### 3.8 Postfix Expressions
 
 {: .ebnf-symbols }
 | Ref     | Symbol                         |     | Expression                          | Options              |
@@ -734,7 +728,7 @@ behaviour of those constructs:
 1.  [Nillable Type Names](#211-sequencetype-syntax) \[1.5\]
 1.  [Arrow Function Call](#37-arrow-operator-) \[1.6\], \[1.8\]
 1.  [Abbreviated Syntax](#323-abbreviated-syntax) \[1.8\]
-1.  [Postfix Expressions](#39-postfix-expressions) \[1.8\]
+1.  [Postfix Expressions](#38-postfix-expressions) \[1.8\]
 1.  [Filter Steps](#322-filter-steps) \[1.8\]
 
 ### C.2 Saxon Vendor Extensions
@@ -743,7 +737,7 @@ in this document:
 1.  [Tuple Type](#2122-tuple-type) \[Saxon 9.8\]
 1.  [Type Alias](#2125-type-alias) \[Saxon 9.8\]
 1.  [Logical Expressions](#34-logical-expressions) \[Saxon 9.9\] -- `orElse` and `andAlso`
-1.  [Otherwise Operator](#38-otherwise-operator) \[Saxon 10.0\]
+1.  [Otherwise Expressions](#351-otherwise-expressions) \[Saxon 10.0\]
 1.  [For Member Expressions](#332-for-member-expressions) \[Saxon 10.0\]
 
 Saxon implements the following [EXPath Syntax Extensions](https://github.com/expath/xpath-ng):

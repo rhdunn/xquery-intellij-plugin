@@ -70,11 +70,11 @@ plugin-specific extensions are provided to support IntelliJ integration.
   - [Binary Constructors](#312-binary-constructors)
   - [Logical Expressions](#313-logical-expressions)
   - [Conditional Expressions](#314-conditional-expressions)
+    - [Otherwise Expressions](#3141-otherwise-expressions)
   - [Arrow Operator (=>)](#315-arrow-operator-)
-  - [Otherwise Operator](#316-otherwise-operator)
+  - [Postfix Expressions](#316-postfix-expressions)
   - [FLWOR Expressions](#317-flwor-expressions)
     - [For Member Clause](#3171-for-member-clause)
-  - [Postfix Expressions](#318-postfix-expressions)
 - [Modules and Prologs](#4-modules-and-prologs)
   - [Type Declaration](#41-type-declaration)
   - [Annotations](#42-annotations)
@@ -985,7 +985,6 @@ equivalent to:
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
 | \[92\] | `TernaryIfExpr`                | ::= | `ElvisExpr "??" ElvisExpr "!!" ElvisExpr` |         |
-| \[93\] | `ElvisExpr`                    | ::= | `OrExpr "?!" OrExpr`                      |         |
 | \[94\] | `IfExpr`                       | ::= | `"if" "(" Expr ")" "then" ExprSingle ("else" ExprSingle)?` | |
 
 The `IfExpr` without the else branch is supported by BaseX 9.1. It is defined
@@ -995,9 +994,8 @@ When the else branch of an `IfExpr` is not present, an empty sequence is
 returned if the effective boolean value of the`IfExpr` condition evaluates
 to false.
 
-The `TernaryIfExpr` and `ElvisExpr` expressions are new expressions supported
-by BaseX 9.1. They are defined in proposal 2 of the EXPath syntax extensions
-for XPath and XQuery.
+The `TernaryIfExpr` expression is a BaseX 9.1 extension defined in proposal 2
+of the EXPath syntax extensions for XPath and XQuery.
 
 Given the `TernaryIfExpr`:
 
@@ -1007,14 +1005,37 @@ the equivalent `IfExpr` is:
 
     if (C) then A else B
 
-Given the `ElvisExpr`:
+### 3.14.1 Otherwise Expressions
 
-    A ?: B
+{: .ebnf-symbols }
+| Ref     | Symbol                         |     | Expression                                | Options |
+|---------|--------------------------------|-----|-------------------------------------------|---------|
+| \[93\]  | `ElvisExpr`                    | ::= | `OrExpr "?!" OrExpr`                      |         |
+| \[113\] | `MultiplicativeExpr`           | ::= | `OtherwiseExpr ( ("*" | "div" | "idiv" | "mod") OtherwiseExpr )*` | |
+| \[114\] | `OtherwiseExpr`                | ::= | `UnionExpr ( "otherwise" UnionExpr )*`    |         |
 
-the equivalent `IfExpr` is:
+The `ElvisExpr` expression is a BaseX 9.1 extension defined in proposal 2 of the
+EXPath syntax extensions for XPath and XQuery.
+
+The `OtherwiseExpr` expression is a Saxon 10.0 extension that returns the first
+non-empty sequence in the otherwise expression.
+
+For two items or empty sequences `A` and `B`, the expressions `A otherwise B`
+and `A ?: B` are equivalent to:
+
+    (A, B)[1]
+
+Otherwise, if either `A` or `B` have more than one item, the expressions
+`A otherwise B` and `A ?: B` are equivalent to:
 
     let $a := A
     return if (exists($a)) then $a else B
+
+> __Note:__
+>
+> For sequences with more than one item `(A, B)[1]` will only return the first
+> item in the non-empty sequence, not the entire sequence. This is why the more
+> complicated expression is needed for that case.
 
 ### 3.15 Arrow Operator (=>)
 
@@ -1039,33 +1060,20 @@ tree.
 The `ParamRef` is for [Lambda Function Expressions](#3722-lambda-function-expressions)
 support in Saxon 10.0.
 
-### 3.16 Otherwise Operator
+### 3.16 Postfix Expressions
 
 {: .ebnf-symbols }
 | Ref     | Symbol                         |     | Expression                                | Options |
 |---------|--------------------------------|-----|-------------------------------------------|---------|
-| \[113\] | `MultiplicativeExpr`           | ::= | `OtherwiseExpr ( ("*" | "div" | "idiv" | "mod") OtherwiseExpr )*` | |
-| \[114\] | `OtherwiseExpr`                | ::= | `UnionExpr ( "otherwise" UnionExpr )*`    |         |
+| \[127\] | `PostfixExpr`                  | ::= | `FilterExpr \| DynamicFunctionCall \| PostfixLookup \| PrimaryExpr` | |
+| \[128\] | `FilterExpr`                   | ::= | `PostfixExpr Predicate`                   |         |
+| \[129\] | `DynamicFunctionCall`          | ::= | `PostfixExpr ArgumentList`                |         |
+| \[130\] | `PostfixLookup`                | ::= | `PostfixExpr Lookup`                      |         |
 
-This is a Saxon 10.0 extension that returns the first non-empty sequence in the
-otherwise expression.
-
-For two items or empty sequences `A` and `B`, the expression `A otherwise B` is
-equivalent to:
-
-    (A, B)[1]
-
-Otherwise, if either `A` or `B` have more than one item, the expression
-`A otherwise B` is equivalent to:
-
-    let $a := A
-    return if (exists($a)) then $a else B
-
-> __Note:__
->
-> For sequences with more than one item `(A, B)[1]` will only return the first
-> item in the non-empty sequence, not the entire sequence. This is why the more
-> complicated expression is needed for that case.
+The XQuery 3.1 `PostfixExpr` is modified so that each filter expression, dynamic
+function call, and postfix lookup can be associated with their own EBNF symbol.
+This is how the XQuery IntelliJ Plugin models these expressions in the internal
+operation tree.
 
 ### 3.17 FLWOR Expressions
 
@@ -1109,21 +1117,6 @@ is equivalent to:
     ...
     return for member $m_n in E_n
     return R
-
-### 3.18 Postfix Expressions
-
-{: .ebnf-symbols }
-| Ref     | Symbol                         |     | Expression                                | Options |
-|---------|--------------------------------|-----|-------------------------------------------|---------|
-| \[127\] | `PostfixExpr`                  | ::= | `FilterExpr \| DynamicFunctionCall \| PostfixLookup \| PrimaryExpr` | |
-| \[128\] | `FilterExpr`                   | ::= | `PostfixExpr Predicate`                   |         |
-| \[129\] | `DynamicFunctionCall`          | ::= | `PostfixExpr ArgumentList`                |         |
-| \[130\] | `PostfixLookup`                | ::= | `PostfixExpr Lookup`                      |         |
-
-The XQuery 3.1 `PostfixExpr` is modified so that each filter expression, dynamic
-function call, and postfix lookup can be associated with their own EBNF symbol.
-This is how the XQuery IntelliJ Plugin models these expressions in the internal
-operation tree.
 
 ## 4 Modules and Prologs
 
@@ -1587,7 +1580,7 @@ in this document:
 1.  [Tuple Type](#2122-tuple-type) \[Saxon 9.8\]
 1.  [Type Declaration](#41-type-declaration) and [Type Alias](#2129-type-alias) \[Saxon 9.8\]
 1.  [Logical Expressions](#313-logical-expressions) \[Saxon 9.9\] -- `orElse` and `andAlso`
-1.  [Otherwise Operator](#316-otherwise-operator) \[Saxon 10.0\]
+1.  [Otherwise Expressions](#3141-otherwise-expressions) \[Saxon 10.0\]
 1.  [For Member Expressions](#3171-for-member-clause) \[Saxon 10.0\]
 
 Saxon implements the following [EXPath Syntax Extensions](https://github.com/expath/xpath-ng):
@@ -1616,7 +1609,7 @@ behaviour of those constructs:
 1.  [Arrow Function Call](#315-arrow-operator-) \[1.6\], \[1.8\]
 1.  [Direct Text Constructors](#312-direct-text-constructors) \[1.8\]
 1.  [Abbreviated Syntax](#394-abbreviated-syntax) \[1.8\]
-1.  [Postfix Expressions](#318-postfix-expressions) \[1.8\]
+1.  [Postfix Expressions](#316-postfix-expressions) \[1.8\]
 1.  [Filter Steps](#393-filter-steps) \[1.8\]
 
 The XQuery IntelliJ Plugin supports the following vendor extensions described

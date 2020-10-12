@@ -26,10 +26,16 @@ class PluginOtherwiseExprPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     PluginOtherwiseExpr,
     XpmSyntaxValidationElement {
+    // region XpmExpression
+
+    override val expressionElement: PsiElement
+        get() = findChildByType(XPathTokenType.K_OTHERWISE)!!
+
+    // endregion
     // region XpmSyntaxValidationElement
 
     override val conformanceElement: PsiElement
-        get() = findChildByType(XPathTokenType.K_OTHERWISE)!!
+        get() = expressionElement
 
     // endregion
 }

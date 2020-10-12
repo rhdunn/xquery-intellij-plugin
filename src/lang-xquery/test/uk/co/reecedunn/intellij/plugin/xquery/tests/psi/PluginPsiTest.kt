@@ -1838,6 +1838,15 @@ private class PluginPsiTest : ParserTestCase()  {
             assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.ELVIS))
             assertThat(expr.expressionElement?.textOffset, `is`(2))
         }
+
+        @Test
+        @DisplayName("XQuery IntelliJ Plugin XQuery EBNF (114) OtherwiseExpr")
+        fun otherwiseExpr() {
+            val expr = parse<PluginOtherwiseExpr>("1 otherwise 2")[0] as XpmExpression
+
+            assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_OTHERWISE))
+            assertThat(expr.expressionElement?.textOffset, `is`(2))
+        }
     }
 
     @Nested
