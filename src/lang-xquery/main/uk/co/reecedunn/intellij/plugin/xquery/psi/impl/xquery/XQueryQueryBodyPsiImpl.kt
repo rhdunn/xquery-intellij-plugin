@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
+import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
 import com.intellij.psi.PsiElement
@@ -27,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.intellij.resources.XQueryIcons
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryQueryBody
 import javax.swing.Icon
 
-class XQueryQueryBodyPsiImpl(node: ASTNode) : XQueryExprPsiImpl(node), XQueryQueryBody, ItemPresentationEx {
+class XQueryQueryBodyPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryQueryBody, ItemPresentationEx {
     // region XpmExpression
 
     override val expressionElement: PsiElement?
