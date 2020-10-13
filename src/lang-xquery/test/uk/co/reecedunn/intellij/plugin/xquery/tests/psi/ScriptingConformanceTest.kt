@@ -70,9 +70,9 @@ private class ScriptingConformanceTest : ParserTestCase() {
         fun testApplyExpr_Single_Semicolon() {
             val file = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Single_SemicolonAtEnd.xq")
             val applyExprs = file.walkTree().filterIsInstance<ScriptingApplyExpr>().toList()
-            assertThat(applyExprs.size, `is`(1)) // QueryBody
+            assertThat(applyExprs.size, `is`(2)) // QueryBody and ApplyExpr
 
-            val conformance = applyExprs[0] as VersionConformance
+            val conformance = applyExprs[1] as VersionConformance
 
             assertThat(conformance.requiresConformance.size, `is`(1))
             assertThat(conformance.requiresConformance[0], `is`(ScriptingSpec.NOTE_1_0_20140918))
@@ -237,9 +237,10 @@ private class ScriptingConformanceTest : ParserTestCase() {
         @DisplayName("single expression; semicolon at end")
         fun testQueryBody_Single_Semicolon() {
             val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_Single_SemicolonAtEnd.xq")
+            val applyExprs = file.walkTree().filterIsInstance<ScriptingApplyExpr>().toList()
+            assertThat(applyExprs.size, `is`(2)) // QueryBody and ApplyExpr
 
-            val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
-            val conformance = applyExpr as VersionConformance
+            val conformance = applyExprs[1] as VersionConformance
 
             assertThat(conformance.requiresConformance.size, `is`(0))
 

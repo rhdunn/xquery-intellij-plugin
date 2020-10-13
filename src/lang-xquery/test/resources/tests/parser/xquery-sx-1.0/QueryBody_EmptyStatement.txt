@@ -1,10 +1,11 @@
 XQueryModuleImpl[FILE(0:5)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:5)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:5)]
-         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(0:1)]('1')
-         PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
-         PluginTransactionSeparatorImpl[XQUERY_TRANSACTION_SEPARATOR(2:4)]
-            LeafPsiElement[XQUERY_SEPARATOR_TOKEN(2:3)](';')
-            PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
-         PsiErrorElementImpl[ERROR_ELEMENT(4:5)]('XPST0003: Empty query statement before ';'.')
-            LeafPsiElement[XQUERY_SEPARATOR_TOKEN(4:5)](';')
+         ScriptingApplyExprImpl[XQUERY_APPLY_EXPR(0:5)]
+            XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(0:1)]('1')
+            PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+            PluginTransactionSeparatorImpl[XQUERY_TRANSACTION_SEPARATOR(2:4)]
+               LeafPsiElement[XQUERY_SEPARATOR_TOKEN(2:3)](';')
+               PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
+            PsiErrorElementImpl[ERROR_ELEMENT(4:5)]('XPST0003: Empty query statement before ';'.')
+               LeafPsiElement[XQUERY_SEPARATOR_TOKEN(4:5)](';')

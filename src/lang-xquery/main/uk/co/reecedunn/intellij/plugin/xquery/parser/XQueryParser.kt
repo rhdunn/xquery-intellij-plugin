@@ -1442,7 +1442,7 @@ class XQueryParser : XPathParser() {
                         XQueryTokenType.SEPARATOR, XQueryBundle.message("parser.error.expected-query-statement", ";")
                     )
                 ) {
-                    if (haveConcatExpr == HaveConcatExpr.Multiple)
+                    if (haveConcatExpr != HaveConcatExpr.None)
                         marker.done(XQueryElementType.APPLY_EXPR)
                     else
                         marker.drop()

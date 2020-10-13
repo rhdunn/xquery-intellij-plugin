@@ -160,10 +160,8 @@ private class ScriptingParserTest : ParserTestCase() {
         @Test
         @DisplayName("single expression; semicolon at end; compact whitespace")
         fun testQueryBody_Single_SemicolonAtEnd_CompactWhitespace() {
-            val expected =
-                loadResource("tests/parser/xquery-sx-1.0/QueryBody_Single_SemicolonAtEnd_CompactWhitespace.txt")
-            val actual =
-                parseResource("tests/parser/xquery-sx-1.0/QueryBody_Single_SemicolonAtEnd_CompactWhitespace.xq")
+            val expected = loadResource("tests/parser/xquery-sx-1.0/QueryBody_Single_SemicolonAtEnd_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-sx-1.0/QueryBody_Single_SemicolonAtEnd_CompactWhitespace.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
 
