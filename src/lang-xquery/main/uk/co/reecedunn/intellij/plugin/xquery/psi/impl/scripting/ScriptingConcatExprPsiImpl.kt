@@ -17,6 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.scripting
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import uk.co.reecedunn.intellij.plugin.xpath.ast.scripting.ScriptingConcatExpr
+import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingConcatExpr
 
 class ScriptingConcatExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), ScriptingConcatExpr
