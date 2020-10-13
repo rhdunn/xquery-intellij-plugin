@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
-import uk.co.reecedunn.intellij.plugin.xpath.ast.scripting.ScriptingApplyExpr
+import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 
 /**
@@ -25,4 +25,4 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
  * `QueryBody`), the `Expr` node is not stored directly
  * in the AST. Instead, it is exposed as an instance of that specialised node.
  */
-interface XPathExpr : ScriptingApplyExpr, XpmExpression
+interface XPathExpr : PsiElement, XpmExpression
