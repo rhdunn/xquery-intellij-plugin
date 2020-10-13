@@ -84,6 +84,11 @@ class XPathImpl(provider: FileViewProvider) :
     }
 
     // endregion
+    // region XpmExpression
+
+    override val expressionElement: PsiElement? = null
+
+    // endregion
 
     companion object {
         val USAGE_TYPES: Map<IElementType, XstUsageType> = mapOf(

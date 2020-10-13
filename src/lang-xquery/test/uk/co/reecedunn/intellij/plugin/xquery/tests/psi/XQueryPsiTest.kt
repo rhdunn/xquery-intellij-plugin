@@ -1714,6 +1714,17 @@ private class XQueryPsiTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery 3.1 (3) Expressions")
+    internal inner class Expressions {
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (39) Expr")
+        fun expr() {
+            val expr = parse<XPathExpr>("(1, 2 + 3, 4)")[0] as XpmExpression
+            assertThat(expr.expressionElement, `is`(nullValue()))
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.1 (3.1) Primary Expressions")
     internal inner class PrimaryExpressions {
         @Nested

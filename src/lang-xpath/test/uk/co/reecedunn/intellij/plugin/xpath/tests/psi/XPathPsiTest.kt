@@ -1305,6 +1305,24 @@ private class XPathPsiTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 3.1 (3) Expressions")
+    internal inner class Expressions {
+        @Test
+        @DisplayName("XPath 3.1 EBNF (1) XPath")
+        fun xpath() {
+            val expr = parse<XPath>("1, 2 + 3, 4")[0] as XpmExpression
+            assertThat(expr.expressionElement, `is`(nullValue()))
+        }
+
+        @Test
+        @DisplayName("XPath 3.1 EBNF (6) Expr")
+        fun expr() {
+            val expr = parse<XPathExpr>("(1, 2 + 3, 4)")[1] as XpmExpression
+            assertThat(expr.expressionElement, `is`(nullValue()))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 3.1 (3.1) Primary Expressions")
     internal inner class PrimaryExpressions {
         @Nested

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016, 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
 import uk.co.reecedunn.intellij.plugin.xpath.ast.scripting.ScriptingApplyExpr
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 
 /**
  * An XPath 2.0 and XQuery 1.0 `Expr` node in the XQuery AST.
@@ -24,4 +25,4 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.scripting.ScriptingApplyExpr
  * `QueryBody`), the `Expr` node is not stored directly
  * in the AST. Instead, it is exposed as an instance of that specialised node.
  */
-interface XPathExpr : ScriptingApplyExpr
+interface XPathExpr : ScriptingApplyExpr, XpmExpression
