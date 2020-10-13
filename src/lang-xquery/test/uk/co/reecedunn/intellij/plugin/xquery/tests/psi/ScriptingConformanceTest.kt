@@ -251,9 +251,10 @@ private class ScriptingConformanceTest : ParserTestCase() {
         @DisplayName("multiple expressions; semicolon at end")
         fun testQueryBody_Multiple() {
             val file = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd.xq")
+            val applyExprs = file.walkTree().filterIsInstance<ScriptingApplyExpr>().toList()
+            assertThat(applyExprs.size, `is`(2)) // QueryBody, ApplyExpr
 
-            val applyExpr = file.descendants().filterIsInstance<ScriptingApplyExpr>().first()
-            val conformance = applyExpr as VersionConformance
+            val conformance = applyExprs[1] as VersionConformance
 
             assertThat(conformance.requiresConformance.size, `is`(0))
 

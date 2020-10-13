@@ -186,10 +186,8 @@ private class ScriptingParserTest : ParserTestCase() {
         @Test
         @DisplayName("two expressions; semicolon at end; compact whitespace")
         fun testQueryBody_TwoExpr_SemicolonAtEnd_CompactWhitespace() {
-            val expected =
-                loadResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd_CompactWhitespace.txt")
-            val actual =
-                parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd_CompactWhitespace.xq")
+            val expected = loadResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd_CompactWhitespace.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
 
@@ -212,10 +210,8 @@ private class ScriptingParserTest : ParserTestCase() {
         @Test
         @DisplayName("multiple expressions; semicolon at end; compact whitespace")
         fun testQueryBody_Multiple_SemicolonAtEnd_CompactWhitespace() {
-            val expected =
-                loadResource("tests/parser/xquery-sx-1.0/QueryBody_Multiple_SemicolonAtEnd_CompactWhitespace.txt")
-            val actual =
-                parseResource("tests/parser/xquery-sx-1.0/QueryBody_Multiple_SemicolonAtEnd_CompactWhitespace.xq")
+            val expected = loadResource("tests/parser/xquery-sx-1.0/QueryBody_Multiple_SemicolonAtEnd_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-sx-1.0/QueryBody_Multiple_SemicolonAtEnd_CompactWhitespace.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
 
