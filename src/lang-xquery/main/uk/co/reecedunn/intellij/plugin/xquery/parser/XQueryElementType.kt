@@ -666,6 +666,12 @@ object XQueryElementType {
     // endregion
     // region Scripting Extension 1.0
 
+    val APPLY_EXPR: IElementType = ICompositeElementType(
+        "XQUERY_APPLY_EXPR",
+        ScriptingApplyExprPsiImpl::class.java,
+        XQuery
+    )
+
     val ASSIGNMENT_EXPR: IElementType = ICompositeElementType(
         "XQUERY_ASSIGNMENT_EXPR",
         ScriptingAssignmentExprPsiImpl::class.java,

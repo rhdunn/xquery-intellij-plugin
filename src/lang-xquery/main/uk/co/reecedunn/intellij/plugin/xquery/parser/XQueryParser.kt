@@ -1418,7 +1418,10 @@ class XQueryParser : XPathParser() {
         val marker = builder.mark()
         return when (parseApplyExpr(builder, type!!, functionDeclRecovery)) {
             HaveConcatExpr.Multiple -> {
-                marker.done(type)
+                if (type === XQueryElementType.QUERY_BODY)
+                    marker.done(XQueryElementType.QUERY_BODY)
+                else
+                    marker.done(XQueryElementType.APPLY_EXPR)
                 true
             }
             HaveConcatExpr.Single -> {
