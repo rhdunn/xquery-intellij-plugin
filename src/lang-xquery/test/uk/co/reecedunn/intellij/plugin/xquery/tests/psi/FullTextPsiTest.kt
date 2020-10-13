@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,17 +21,34 @@ import org.hamcrest.CoreMatchers.nullValue
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTStopWords
 import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTThesaurusID
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
+import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTContainsExpr
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("ClassName")
 @DisplayName("XQuery 3.1 with Full Text 3.0 - IntelliJ Program Structure Interface (PSI)")
 private class FullTextPsiTest : ParserTestCase() {
+    @Nested
+    @DisplayName("XQuery and XPath Full Text 3.0 (2.2) Full-Text Contains Expression")
+    internal inner class FullTextContainsExpression {
+        @Test
+        @DisplayName("Full Text 3.0 EBNF (88) FTContainsExpr")
+        fun ftContainsExpr() {
+            val expr = parse<FTContainsExpr>("1 contains text \"test\"")[0] as XpmExpression
+
+            assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_CONTAINS))
+            assertThat(expr.expressionElement?.textOffset, `is`(2))
+        }
+    }
+
     @Nested
     @DisplayName("XQuery and XPath Full Text 3.0 (3.4.3) Thesaurus Option")
     internal inner class ThesaurusOption {
