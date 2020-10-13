@@ -5814,20 +5814,65 @@ private class XQueryPsiTest : ParserTestCase() {
             }
         }
 
-        @Test
+        @Nested
         @DisplayName("XQuery 3.1 EBNF (38) QueryBody")
-        fun queryBody() {
-            val decl = parse<XQueryQueryBody>("1 div 2")[0]
+        internal inner class QueryBody {
+            @Test
+            @DisplayName("item presentation")
+            fun itemPresentation() {
+                val decl = parse<XQueryQueryBody>("1 div 2")[0]
 
-            val presentation = decl.presentation!! as ItemPresentationEx
-            assertThat(presentation.getIcon(false), `is`(sameInstance(XQueryIcons.Nodes.QueryBody)))
-            assertThat(presentation.getIcon(true), `is`(sameInstance(XQueryIcons.Nodes.QueryBody)))
-            assertThat(presentation.getPresentableText(ItemPresentationEx.Type.Default), startsWith("query body ["))
-            assertThat(presentation.getPresentableText(ItemPresentationEx.Type.StructureView), `is`("query body"))
-            assertThat(presentation.getPresentableText(ItemPresentationEx.Type.NavBar), `is`("query body"))
-            assertThat(presentation.getPresentableText(ItemPresentationEx.Type.NavBarPopup), `is`("query body"))
-            assertThat(presentation.presentableText, startsWith("query body ["))
-            assertThat(presentation.locationString, `is`(nullValue()))
+                val presentation = decl.presentation!! as ItemPresentationEx
+                assertThat(presentation.getIcon(false), `is`(sameInstance(XQueryIcons.Nodes.QueryBody)))
+                assertThat(presentation.getIcon(true), `is`(sameInstance(XQueryIcons.Nodes.QueryBody)))
+                assertThat(presentation.getPresentableText(ItemPresentationEx.Type.Default), startsWith("query body ["))
+                assertThat(presentation.getPresentableText(ItemPresentationEx.Type.StructureView), `is`("query body"))
+                assertThat(presentation.getPresentableText(ItemPresentationEx.Type.NavBar), `is`("query body"))
+                assertThat(presentation.getPresentableText(ItemPresentationEx.Type.NavBarPopup), `is`("query body"))
+                assertThat(presentation.presentableText, startsWith("query body ["))
+                assertThat(presentation.locationString, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("literal-only expression")
+            fun literalOnly() {
+                val expr = parse<XQueryQueryBody>("  1, 2, 3.5, 4e2, \"test\"")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.QUERY_BODY))
+                assertThat(expr.expressionElement?.textOffset, `is`(2))
+            }
+
+            @Test
+            @DisplayName("literal-only parenthesized expression")
+            fun literalOnlyParenthesized() {
+                val expr = parse<XQueryQueryBody>("  (1, 2, 3.5, 4e2, \"test\")")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.QUERY_BODY))
+                assertThat(expr.expressionElement?.textOffset, `is`(2))
+            }
+
+            @Test
+            @DisplayName("literal-only nested expression")
+            fun literalOnlyNested() {
+                val expr = parse<XQueryQueryBody>("  (1, 2, 3.5, (4e2, \"test\"))")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.QUERY_BODY))
+                assertThat(expr.expressionElement?.textOffset, `is`(2))
+            }
+
+            @Test
+            @DisplayName("with non-literal sub-expression")
+            fun nonLiteralSubExpression() {
+                val expr = parse<XQueryQueryBody>("  (1, 2, (3, 4 + 5))")[0] as XpmExpression
+                assertThat(expr.expressionElement, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("with non-literal expression")
+            fun nonLiteralExpression() {
+                val expr = parse<XQueryQueryBody>("  1, 2, 3 + 4")[0] as XpmExpression
+                assertThat(expr.expressionElement, `is`(nullValue()))
+            }
         }
     }
 

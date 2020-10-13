@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2019 Reece H. Dunn
+ * Copyright (C) 2016, 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,14 +17,31 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
+import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationEx
 import uk.co.reecedunn.intellij.plugin.core.psi.resourcePath
+import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.resources.XQueryIcons
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryQueryBody
 import javax.swing.Icon
 
 class XQueryQueryBodyPsiImpl(node: ASTNode) : XQueryExprPsiImpl(node), XQueryQueryBody, ItemPresentationEx {
+    // region XpmExpression
+
+    override val expressionElement: PsiElement?
+        get() {
+            val expr = walkTree().mapNotNull {
+                if (it !== this)
+                    (it as? XpmExpression)?.expressionElement
+                else
+                    null
+            }.firstOrNull()
+            return if (expr == null) this else null
+        }
+
+    // endregion
     // region NavigationItem
 
     override fun getPresentation(): ItemPresentation? = this
