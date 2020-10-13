@@ -60,7 +60,7 @@ class XQueryParser : XPathParser() {
     // These element types have different PSI implementations in XPath and XQuery.
 
     override val ENCLOSED_EXPR: IElementType = XQueryElementType.ENCLOSED_EXPR
-    override val EXPR: IElementType = XQueryElementType.EXPR
+    override val EXPR: IElementType = XQueryElementType.CONCAT_EXPR
     override val FUNCTION_BODY: IElementType = XQueryElementType.FUNCTION_BODY
 
     // endregion
@@ -1184,7 +1184,7 @@ class XQueryParser : XPathParser() {
                 !haveErrors
             ) {
                 builder.error(XQueryBundle.message("parser.error.expected-enclosed-expression-or-keyword", "external"))
-                parseExpr(builder, XQueryElementType.EXPR, true)
+                parseExpr(builder, EXPR, true)
 
                 parseWhiteSpaceAndCommentTokens(builder)
                 builder.matchTokenType(XPathTokenType.BLOCK_CLOSE)
@@ -1277,7 +1277,7 @@ class XQueryParser : XPathParser() {
             }
         }
 
-        var exprType = XQueryElementType.EXPR
+        var exprType = EXPR
         if (type === XQueryElementType.BLOCK || type === XQueryElementType.WHILE_BODY) {
             parseWhiteSpaceAndCommentTokens(builder)
             parseBlockDecls(builder)
@@ -2317,7 +2317,7 @@ class XQueryParser : XPathParser() {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseExpr(builder, XQueryElementType.EXPR)) {
+            if (!parseExpr(builder, EXPR)) {
                 builder.error(XPathBundle.message("parser.error.expected-expression"))
                 haveErrors = true
             }
@@ -2421,7 +2421,7 @@ class XQueryParser : XPathParser() {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseExpr(builder, XQueryElementType.EXPR)) {
+            if (!parseExpr(builder, EXPR)) {
                 builder.error(XPathBundle.message("parser.error.expected-expression"))
                 haveErrors = true
             }
@@ -3106,7 +3106,7 @@ class XQueryParser : XPathParser() {
                 if (builder.tokenType === XPathTokenType.BLOCK_OPEN) {
                     haveUpdateExpr = true
                     parseEnclosedExprOrBlock(builder, null, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)
-                } else if (!parseExpr(builder, XQueryElementType.EXPR)) {
+                } else if (!parseExpr(builder, EXPR)) {
                     builder.error(XPathBundle.message("parser.error.expected-expression"))
                 } else {
                     haveUpdateExpr = true
@@ -3473,7 +3473,7 @@ class XQueryParser : XPathParser() {
         val marker = builder.matchTokenTypeWithMarker(XQueryTokenType.STRING_INTERPOLATION_OPEN)
         if (marker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
-            parseExpr(builder, XQueryElementType.EXPR)
+            parseExpr(builder, EXPR)
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XQueryTokenType.STRING_INTERPOLATION_CLOSE)) {
@@ -3537,7 +3537,7 @@ class XQueryParser : XPathParser() {
                 ) && !haveErrors
             ) {
                 builder.error(XPathBundle.message("parser.error.expected", "{"))
-                parseExpr(builder, XQueryElementType.EXPR)
+                parseExpr(builder, EXPR)
 
                 parseWhiteSpaceAndCommentTokens(builder)
                 builder.matchTokenType(XPathTokenType.BLOCK_CLOSE)
