@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2017, 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 class ScriptingAssignmentExprPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), ScriptingAssignmentExpr, VersionConformance {
 
+    override val expressionElement: PsiElement
+        get() = findChildByType(XPathTokenType.ASSIGN_EQUAL)!!
+
     override val requiresConformance: List<Version>
         get() = listOf(ScriptingSpec.NOTE_1_0_20140918)
 
     override val conformanceElement: PsiElement
-        get() = findChildByType(XPathTokenType.ASSIGN_EQUAL) ?: firstChild
+        get() = expressionElement
 }

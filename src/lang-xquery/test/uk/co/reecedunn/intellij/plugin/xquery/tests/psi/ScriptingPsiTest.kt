@@ -22,8 +22,10 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingApplyExpr
+import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingAssignmentExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockBody
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.*
@@ -65,6 +67,19 @@ private class ScriptingPsiTest : ParserTestCase() {
         fun blockBody() {
             val expr = parse<ScriptingBlockBody>("block { 1, 2 }")[0] as XpmExpression
             assertThat(expr.expressionElement, `is`(nullValue()))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery Scripting Extension 1.0 (5.3) Assignment Expression")
+    internal inner class AssignmentExpression {
+        @Test
+        @DisplayName("XQuery Scripting Extension 1.0 EBNF (158) AssignmentExpr")
+        fun assignmentExpr() {
+            val expr = parse<ScriptingAssignmentExpr>("\$x := 2")[0] as XpmExpression
+
+            assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.ASSIGN_EQUAL))
+            assertThat(expr.expressionElement?.textOffset, `is`(3))
         }
     }
 }
