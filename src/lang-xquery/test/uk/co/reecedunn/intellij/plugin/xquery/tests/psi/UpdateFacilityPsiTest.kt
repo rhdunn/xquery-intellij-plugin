@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.UpdateFacilityCopyModifyExpr
+import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.UpdateFacilityDeleteExpr
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
@@ -30,6 +31,19 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 @Suppress("ClassName")
 @DisplayName("XQuery Update Facility 3.0 - IntelliJ Program Structure Interface (PSI)")
 private class UpdateFacilityPsiTest : ParserTestCase() {
+    @Nested
+    @DisplayName("XQuery Update Facility 3.0 (5.2) Delete")
+    internal inner class Delete {
+        @Test
+        @DisplayName("XQuery Update Facility 3.0 EBNF (201) DeleteExpr")
+        fun deleteExpr() {
+            val expr = parse<UpdateFacilityDeleteExpr>("delete node \$x/test")[0] as XpmExpression
+
+            assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.DELETE_EXPR))
+            assertThat(expr.expressionElement?.textOffset, `is`(0))
+        }
+    }
+
     @Nested
     @DisplayName("XQuery Update Facility 3.0 (5.6) Copy Modify")
     internal inner class CopyModify {
