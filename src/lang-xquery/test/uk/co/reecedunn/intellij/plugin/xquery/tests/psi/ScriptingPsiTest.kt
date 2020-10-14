@@ -24,10 +24,7 @@ import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
-import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingApplyExpr
-import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingAssignmentExpr
-import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockBody
-import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockExpr
+import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.*
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
@@ -80,6 +77,19 @@ private class ScriptingPsiTest : ParserTestCase() {
 
             assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.ASSIGN_EQUAL))
             assertThat(expr.expressionElement?.textOffset, `is`(3))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery Scripting Extension 1.0 (5.4) While Expression")
+    internal inner class WhileExpression {
+        @Test
+        @DisplayName("XQuery Scripting Extension 1.0 EBNF (160) WhileExpr")
+        fun whileExpr() {
+            val expr = parse<ScriptingWhileExpr>("while (false()) { 1 }")[0] as XpmExpression
+
+            assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.WHILE_EXPR))
+            assertThat(expr.expressionElement?.textOffset, `is`(0))
         }
     }
 }
