@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 
 import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.CoreMatchers.nullValue
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -79,6 +80,13 @@ private class UpdateFacilityPsiTest : ParserTestCase() {
 
             assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.RENAME_EXPR))
             assertThat(expr.expressionElement?.textOffset, `is`(0))
+        }
+
+        @Test
+        @DisplayName("XQuery Update Facility 3.0 EBNF (206) NewNameExpr")
+        fun newNameExpr() {
+            val expr = parse<UpdateFacilityNewNameExpr>("rename node <a/> as \"b\"")[0] as XpmExpression
+            assertThat(expr.expressionElement, `is`(nullValue()))
         }
     }
 
