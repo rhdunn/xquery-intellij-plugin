@@ -36,6 +36,12 @@ open class ScriptingApplyExprPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     ScriptingApplyExpr,
     VersionConformance {
+    // region XpmExpression
+
+    override val expressionElement: PsiElement?
+        get() = this
+
+    // endregion
     // region VersionConformance
 
     override val requiresConformance: List<Version>

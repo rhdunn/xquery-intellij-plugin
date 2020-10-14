@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Reece H. Dunn
+ * Copyright (C) 2016, 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.scripting
 
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 
 /**
  * An XQuery Scripting Extension 1.0 `ApplyExpr` node in the XQuery AST.
@@ -23,4 +24,4 @@ import com.intellij.psi.PsiElement
  * The `ApplyExpr` node is not stored directly in the AST. Instead, it
  * is exposed as an instance of the `Expr` node.
  */
-interface ScriptingApplyExpr : PsiElement
+interface ScriptingApplyExpr : PsiElement, XpmExpression
