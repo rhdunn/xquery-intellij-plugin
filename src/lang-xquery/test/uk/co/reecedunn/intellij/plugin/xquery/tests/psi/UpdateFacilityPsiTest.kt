@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.UpdateFacilityCopyModifyExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.UpdateFacilityDeleteExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.UpdateFacilityInsertExpr
+import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.UpdateFacilityReplaceExpr
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
@@ -54,6 +55,19 @@ private class UpdateFacilityPsiTest : ParserTestCase() {
             val expr = parse<UpdateFacilityDeleteExpr>("delete node \$x/test")[0] as XpmExpression
 
             assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.DELETE_EXPR))
+            assertThat(expr.expressionElement?.textOffset, `is`(0))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery Update Facility 3.0 (5.3) Replace")
+    internal inner class Replace {
+        @Test
+        @DisplayName("XQuery Update Facility 3.0 EBNF (202) ReplaceExpr")
+        fun replaceExpr() {
+            val expr = parse<UpdateFacilityReplaceExpr>("replace node <a/> with <b/>")[0] as XpmExpression
+
+            assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.REPLACE_EXPR))
             assertThat(expr.expressionElement?.textOffset, `is`(0))
         }
     }
