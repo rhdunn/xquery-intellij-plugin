@@ -105,4 +105,15 @@ private class ScriptingPsiTest : ParserTestCase() {
             assertThat(expr.expressionElement?.textOffset, `is`(0))
         }
     }
+
+    @Nested
+    @DisplayName("XQuery Scripting Extension 1.0 (6.5) Concatenation Expression")
+    internal inner class ConcatenationExpression {
+        @Test
+        @DisplayName("XQuery Scripting Extension 1.0 EBNF (33) ConcatExpr")
+        fun concatExpr() {
+            val expr = parse<ScriptingConcatExpr>("1, 2")[0] as XpmExpression
+            assertThat(expr.expressionElement, `is`(nullValue()))
+        }
+    }
 }
