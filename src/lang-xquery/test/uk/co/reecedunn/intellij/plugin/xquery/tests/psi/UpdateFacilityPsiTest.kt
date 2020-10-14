@@ -50,6 +50,13 @@ private class UpdateFacilityPsiTest : ParserTestCase() {
             val expr = parse<UpdateFacilitySourceExpr>("insert node text <a/> after \$x/b")[0] as XpmExpression
             assertThat(expr.expressionElement, `is`(nullValue()))
         }
+
+        @Test
+        @DisplayName("XQuery Update Facility 3.0 EBNF (205) TargetExpr")
+        fun targetExpr() {
+            val expr = parse<UpdateFacilityTargetExpr>("insert node text <a/> after \$x/b")[0] as XpmExpression
+            assertThat(expr.expressionElement, `is`(nullValue()))
+        }
     }
 
     @Nested
