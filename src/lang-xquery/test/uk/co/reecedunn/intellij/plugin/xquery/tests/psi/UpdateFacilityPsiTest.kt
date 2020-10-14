@@ -22,10 +22,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
-import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.UpdateFacilityCopyModifyExpr
-import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.UpdateFacilityDeleteExpr
-import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.UpdateFacilityInsertExpr
-import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.UpdateFacilityReplaceExpr
+import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.*
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
@@ -68,6 +65,19 @@ private class UpdateFacilityPsiTest : ParserTestCase() {
             val expr = parse<UpdateFacilityReplaceExpr>("replace node <a/> with <b/>")[0] as XpmExpression
 
             assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.REPLACE_EXPR))
+            assertThat(expr.expressionElement?.textOffset, `is`(0))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery Update Facility 3.0 (5.4) Rename")
+    internal inner class Rename {
+        @Test
+        @DisplayName("XQuery Update Facility 3.0 EBNF (203) RenameExpr")
+        fun replaceExpr() {
+            val expr = parse<UpdateFacilityRenameExpr>("rename node <a/> as \"b\"")[0] as XpmExpression
+
+            assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.RENAME_EXPR))
             assertThat(expr.expressionElement?.textOffset, `is`(0))
         }
     }

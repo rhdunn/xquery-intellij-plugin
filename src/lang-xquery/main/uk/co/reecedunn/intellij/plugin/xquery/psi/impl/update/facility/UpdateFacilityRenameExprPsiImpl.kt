@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2017, 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,9 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
 class UpdateFacilityRenameExprPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), UpdateFacilityRenameExpr, VersionConformance {
+
+    override val expressionElement: PsiElement?
+        get() = this
 
     override val requiresConformance: List<Version>
         get() = listOf(UpdateFacilitySpec.REC_1_0_20110317)
