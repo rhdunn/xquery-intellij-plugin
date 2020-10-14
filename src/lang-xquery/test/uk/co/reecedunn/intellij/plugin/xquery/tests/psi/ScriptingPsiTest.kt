@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingApplyExpr
+import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockBody
 import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.*
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
@@ -43,6 +44,17 @@ private class ScriptingPsiTest : ParserTestCase() {
 
             assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.APPLY_EXPR))
             assertThat(expr.expressionElement?.textOffset, `is`(0))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery Scripting Extension 1.0 (5.2) Block Expressions")
+    internal inner class BlockExpressions {
+        @Test
+        @DisplayName("XQuery Scripting Extension 1.0 EBNF (157) BlockBody")
+        fun blockBody() {
+            val expr = parse<ScriptingBlockBody>("block { 1, 2 }")[0] as XpmExpression
+            assertThat(expr.expressionElement, `is`(nullValue()))
         }
     }
 }
