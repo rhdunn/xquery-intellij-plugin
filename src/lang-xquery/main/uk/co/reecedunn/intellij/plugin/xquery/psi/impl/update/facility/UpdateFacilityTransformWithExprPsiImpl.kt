@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2017, 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,9 +29,13 @@ class UpdateFacilityTransformWithExprPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     UpdateFacilityTransformWithExpr,
     VersionConformance {
+
+    override val expressionElement: PsiElement
+        get() = findChildByType(XQueryTokenType.K_TRANSFORM)!!
+
     override val requiresConformance: List<Version>
         get() = listOf(UpdateFacilitySpec.NOTE_3_0_20170124, BaseX.VERSION_8_5)
 
     override val conformanceElement: PsiElement
-        get() = findChildByType(XQueryTokenType.K_TRANSFORM) ?: firstChild
+        get() = expressionElement
 }

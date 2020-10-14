@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.*
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
@@ -115,6 +116,19 @@ private class UpdateFacilityPsiTest : ParserTestCase() {
 
             assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.COPY_MODIFY_EXPR))
             assertThat(expr.expressionElement?.textOffset, `is`(0))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery Update Facility 3.0 (5.7) Transform With")
+    internal inner class TransformWith {
+        @Test
+        @DisplayName("XQuery Update Facility 3.0 EBNF (97) TransformWithExpr")
+        fun transformWithExpr() {
+            val expr = parse<UpdateFacilityTransformWithExpr>("<a/> transform with {}")[0] as XpmExpression
+
+            assertThat(expr.expressionElement.elementType, `is`(XQueryTokenType.K_TRANSFORM))
+            assertThat(expr.expressionElement?.textOffset, `is`(5))
         }
     }
 }
