@@ -92,4 +92,17 @@ private class ScriptingPsiTest : ParserTestCase() {
             assertThat(expr.expressionElement?.textOffset, `is`(0))
         }
     }
+
+    @Nested
+    @DisplayName("XQuery Scripting Extension 1.0 (5.5) Exit Expression")
+    internal inner class ExitExpression {
+        @Test
+        @DisplayName("XQuery Scripting Extension 1.0 EBNF (159) ExitExpr")
+        fun exitExpr() {
+            val expr = parse<ScriptingExitExpr>("exit returning 1")[0] as XpmExpression
+
+            assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.EXIT_EXPR))
+            assertThat(expr.expressionElement?.textOffset, `is`(0))
+        }
+    }
 }
