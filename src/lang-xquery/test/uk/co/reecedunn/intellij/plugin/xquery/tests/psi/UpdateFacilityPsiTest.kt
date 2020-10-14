@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.UpdateFacilityCopyModifyExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.UpdateFacilityDeleteExpr
+import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.UpdateFacilityInsertExpr
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
@@ -31,6 +32,19 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 @Suppress("ClassName")
 @DisplayName("XQuery Update Facility 3.0 - IntelliJ Program Structure Interface (PSI)")
 private class UpdateFacilityPsiTest : ParserTestCase() {
+    @Nested
+    @DisplayName("XQuery Update Facility 3.0 (5.1) Insert")
+    internal inner class Insert {
+        @Test
+        @DisplayName("XQuery Update Facility 3.0 EBNF (200) InsertExpr")
+        fun insertExpr() {
+            val expr = parse<UpdateFacilityInsertExpr>("insert node text <a/> after \$x/b")[0] as XpmExpression
+
+            assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.INSERT_EXPR))
+            assertThat(expr.expressionElement?.textOffset, `is`(0))
+        }
+    }
+
     @Nested
     @DisplayName("XQuery Update Facility 3.0 (5.2) Delete")
     internal inner class Delete {
