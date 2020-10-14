@@ -91,6 +91,19 @@ private class UpdateFacilityPsiTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery Update Facility 3.0 (5.5) Dynamic Updating Function Invocation")
+    internal inner class DynamicUpdatingFunctionInvocation {
+        @Test
+        @DisplayName("XQuery Update Facility 3.0 EBNF (207) UpdatingFunctionCall")
+        fun updatingFunctionCall() {
+            val expr = parse<UpdateFacilityUpdatingFunctionCall>("invoke updating \$f(1, 2)")[0] as XpmExpression
+
+            assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.UPDATING_FUNCTION_CALL))
+            assertThat(expr.expressionElement?.textOffset, `is`(0))
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery Update Facility 3.0 (5.6) Copy Modify")
     internal inner class CopyModify {
         @Test
