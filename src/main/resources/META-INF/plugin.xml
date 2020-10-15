@@ -85,6 +85,14 @@
       </li>
       <li>Support <code>language=Language</code> injection marker comments.</li>
     </ol>
+    <p>Saxon:</p>
+    <ol>
+      <li>Include ClauseInfo objects in the flat profile table results.</li>
+    </ol>
+    <p>MarkLogic:</p>
+    <ol>
+      <li>Support attaching breakpoints to all expressions in the MarkLogic debugger.</li>
+    </ol>
   ]]></change-notes>
 
   <idea-version since-build="161"/>

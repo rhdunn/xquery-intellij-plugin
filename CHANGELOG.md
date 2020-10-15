@@ -19,6 +19,11 @@ Saxon:
 
 1.  Include ClauseInfo objects in the flat profile table results.
 
+MarkLogic:
+
+1.  Support attaching breakpoints to all expressions in the MarkLogic
+    debugger.
+
 ## 2020
 
 *  [1.7.2 - 2020-08-31](docs/_posts/2020-08-31-release-1.7.2.md)
