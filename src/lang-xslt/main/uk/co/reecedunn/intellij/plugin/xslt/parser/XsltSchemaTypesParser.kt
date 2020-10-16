@@ -22,10 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.lang.matchTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.INCNameType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParser
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.ValueTemplate
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.EQName
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.EQNameOrHashedKeyword
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.EQNames
+import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.resources.XsltBundle
 import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.*
 
@@ -71,7 +68,7 @@ class XsltSchemaTypesParser(private val schemaType: Language) : XPathParser() {
         XslItemType -> parseItemType(builder)
         XslNameTests -> parseNameTests(builder)
         EQNameOrHashedKeyword -> parseEQNameOrHashedKeyword(builder)
-        XslEQNamesOrHashedKeywords -> parseEQNamesOrHashedKeywords(builder)
+        EQNamesOrHashedKeywords -> parseEQNamesOrHashedKeywords(builder)
         XslPrefixes -> parsePrefixes(builder)
         XslQName -> parseQName(builder)
         XslQNames -> parseQNames(builder)

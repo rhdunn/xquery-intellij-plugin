@@ -20,7 +20,7 @@
     <!-- XSLT Schema Type -->
 
     <lang.parserDefinition language="EQName-or-hashed-keyword" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.EQNameOrHashedKeyword$ParserDefinition"/>
-    <lang.parserDefinition language="EQNames-or-hashed-keywords" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslEQNamesOrHashedKeywords$ParserDefinition"/>
+    <lang.parserDefinition language="EQNames-or-hashed-keywords" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.EQNamesOrHashedKeywords$ParserDefinition"/>
 
     <lang.parserDefinition language="xsl:EQName" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.EQName$ParserDefinition"/>
     <lang.parserDefinition language="xsl:EQNames" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.EQNames$ParserDefinition"/>

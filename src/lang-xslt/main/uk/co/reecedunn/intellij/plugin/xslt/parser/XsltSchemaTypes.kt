@@ -26,11 +26,12 @@ import uk.co.reecedunn.intellij.plugin.core.xml.attribute
 import uk.co.reecedunn.intellij.plugin.core.xml.schemaType
 import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaType
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
+import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.EQNamesOrHashedKeywords
 import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.*
-    
+
 object XsltSchemaTypes {
     fun create(type: String?): ISchemaType? = when (type) {
-        "xsl:accumulator-names" -> XslEQNamesOrHashedKeywords
+        "xsl:accumulator-names" -> XslAccumulatorNames
         "xsl:avt" -> XslAVT
         "xsl:default-mode-type" -> XslDefaultModeType
         "xsl:element-names" -> XslNameTests
@@ -42,12 +43,12 @@ object XsltSchemaTypes {
         "xsl:item-type" -> XslItemType
         "xsl:method" -> XslQName
         "xsl:mode" -> XslMode
-        "xsl:modes" -> XslEQNamesOrHashedKeywords
+        "xsl:modes" -> XslModes
         "xsl:nametests" -> XslNameTests
         "xsl:pattern" -> XslPattern
         "xsl:prefix" -> XslPrefix
-        "xsl:prefix-list" -> XslEQNamesOrHashedKeywords
-        "xsl:prefix-list-or-all" -> XslEQNamesOrHashedKeywords
+        "xsl:prefix-list" -> XslPrefixList
+        "xsl:prefix-list-or-all" -> XslPrefixListOrAll
         "xsl:prefix-or-default" -> XslPrefixOrDefault
         "xsl:prefixes" -> XslPrefixes
         "xsl:QName" -> XslQName

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xslt.parser.schema
+package uk.co.reecedunn.intellij.plugin.xslt.intellij.lang
 
 import com.intellij.lang.Language
 import com.intellij.lang.PsiParser
@@ -22,14 +22,13 @@ import com.intellij.openapi.project.Project
 import com.intellij.psi.FileViewProvider
 import com.intellij.psi.PsiFile
 import com.intellij.psi.tree.IFileElementType
-import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaType
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.fileTypes.XsltSchemaTypeFileType
 import uk.co.reecedunn.intellij.plugin.xslt.parser.XsltSchemaTypesParser
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.schema.XsltSchemaTypePsiImpl
 
-object XslEQNamesOrHashedKeywords : Language(XPath, "EQNames-or-hashed-keywords"), ISchemaType {
+object EQNamesOrHashedKeywords : Language(XPath, "EQNames-or-hashed-keywords") {
     // region Language
 
     val FileType: LanguageFileType = XsltSchemaTypeFileType(this)
@@ -37,21 +36,12 @@ object XslEQNamesOrHashedKeywords : Language(XPath, "EQNames-or-hashed-keywords"
     override fun getAssociatedFileType(): LanguageFileType? = FileType
 
     // endregion
-    // region ISchemaType
-
-    override val type: String
-        get() = id
-
-    override val language: Language
-        get() = this
-
-    // endregion
     // region ParserDefinition
 
     val FileElementType: IFileElementType = IFileElementType(this)
 
     class ParserDefinition : XPathParserDefinition() {
-        override fun createParser(project: Project): PsiParser = XsltSchemaTypesParser(XslEQNamesOrHashedKeywords)
+        override fun createParser(project: Project): PsiParser = XsltSchemaTypesParser(EQNamesOrHashedKeywords)
 
         override fun getFileNodeType(): IFileElementType = FileElementType
 
