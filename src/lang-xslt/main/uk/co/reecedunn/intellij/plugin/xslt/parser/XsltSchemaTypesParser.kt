@@ -15,17 +15,17 @@
  */
 package uk.co.reecedunn.intellij.plugin.xslt.parser
 
+import com.intellij.lang.Language
 import com.intellij.lang.PsiBuilder
 import uk.co.reecedunn.intellij.plugin.core.lang.errorOnTokenType
 import uk.co.reecedunn.intellij.plugin.core.lang.matchTokenType
-import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.INCNameType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParser
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.resources.XsltBundle
 import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.*
 
-class XsltSchemaTypesParser(private val schemaType: ISchemaType) : XPathParser() {
+class XsltSchemaTypesParser(private val schemaType: Language) : XPathParser() {
     // region Grammar
 
     override fun parse(builder: PsiBuilder, isFirst: Boolean): Boolean {

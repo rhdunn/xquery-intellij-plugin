@@ -24,7 +24,6 @@ import com.intellij.psi.FileViewProvider
 import com.intellij.psi.PsiFile
 import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.IFileElementType
-import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaType
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XmlCodePointRangeImpl
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
@@ -33,31 +32,12 @@ import uk.co.reecedunn.intellij.plugin.xslt.lexer.XsltValueTemplateLexer
 import uk.co.reecedunn.intellij.plugin.xslt.parser.XsltSchemaTypesParser
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.schema.XsltSchemaTypePsiImpl
 
-object XslValueTemplate : Language(XPath, "xsl:value-template"), ISchemaType {
+object XslValueTemplate : Language(XPath, "xsl:value-template") {
     // region Language
 
     val FileType: LanguageFileType = XsltSchemaTypeFileType(this)
 
     override fun getAssociatedFileType(): LanguageFileType? = FileType
-
-    // endregion
-    // region Schema Types
-
-    object Attribute : ISchemaType {
-        override val type: String = "xsl:avt"
-        override val language: Language = XslValueTemplate
-    }
-
-    object Text : ISchemaType {
-        override val type: String = "xsl:text-value-template"
-        override val language: Language = XslValueTemplate
-    }
-
-    override val type: String
-        get() = id
-
-    override val language: Language
-        get() = this
 
     // endregion
     // region Tokens
