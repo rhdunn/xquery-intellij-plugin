@@ -25,7 +25,7 @@
     <lang.parserDefinition language="xsl:EQName" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.EQName$ParserDefinition"/>
     <lang.parserDefinition language="xsl:EQNames" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.EQNames$ParserDefinition"/>
     <lang.parserDefinition language="xsl:item-type" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.ItemType$ParserDefinition"/>
-    <lang.parserDefinition language="xsl:nametests" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslNameTests$ParserDefinition"/>
+    <lang.parserDefinition language="xsl:nametests" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.NameTests$ParserDefinition"/>
     <lang.parserDefinition language="xsl:prefixes" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslPrefixes$ParserDefinition"/>
     <lang.parserDefinition language="xsl:QName" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslQName$ParserDefinition"/>
     <lang.parserDefinition language="xsl:QNames" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslQNames$ParserDefinition"/>

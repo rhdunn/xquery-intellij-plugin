@@ -19,8 +19,8 @@ import com.intellij.lang.Language
 import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaType
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.NameTests
 
-object XslNameTests : ISchemaType {
-    override val type: String = "xsl:nametests"
+object XslElementNames : ISchemaType {
+    override val type: String = "xsl:element-names"
     override val language: Language
         get() = NameTests
 }
