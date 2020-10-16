@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xslt.intellij.fileTypes.XsltSchemaTypeFil
 import uk.co.reecedunn.intellij.plugin.xslt.parser.XsltSchemaTypesParser
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.schema.XsltSchemaTypePsiImpl
 
-object EQName : Language(XPath, "xsl:EQName") {
+object EQNames : Language(XPath, "xsl:EQNames") {
     // region Language
 
     val FileType: LanguageFileType = XsltSchemaTypeFileType(this)
@@ -41,7 +41,7 @@ object EQName : Language(XPath, "xsl:EQName") {
     val FileElementType: IFileElementType = IFileElementType(this)
 
     class ParserDefinition : XPathParserDefinition() {
-        override fun createParser(project: Project): PsiParser = XsltSchemaTypesParser(EQName)
+        override fun createParser(project: Project): PsiParser = XsltSchemaTypesParser(EQNames)
 
         override fun getFileNodeType(): IFileElementType = FileElementType
 

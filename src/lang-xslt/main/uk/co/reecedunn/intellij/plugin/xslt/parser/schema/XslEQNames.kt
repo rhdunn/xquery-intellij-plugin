@@ -16,47 +16,11 @@
 package uk.co.reecedunn.intellij.plugin.xslt.parser.schema
 
 import com.intellij.lang.Language
-import com.intellij.lang.PsiParser
-import com.intellij.openapi.fileTypes.LanguageFileType
-import com.intellij.openapi.project.Project
-import com.intellij.psi.FileViewProvider
-import com.intellij.psi.PsiFile
-import com.intellij.psi.tree.IFileElementType
 import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaType
-import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
-import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.fileTypes.XsltSchemaTypeFileType
-import uk.co.reecedunn.intellij.plugin.xslt.parser.XsltSchemaTypesParser
-import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.schema.XsltSchemaTypePsiImpl
+import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.EQNames
 
-object XslEQNames : Language(XPath, "xsl:EQNames"), ISchemaType {
-    // region Language
-
-    val FileType: LanguageFileType = XsltSchemaTypeFileType(this)
-
-    override fun getAssociatedFileType(): LanguageFileType? = FileType
-
-    // endregion
-    // region ISchemaType
-
-    override val type: String
-        get() = id
-
+object XslEQNames : ISchemaType {
+    override val type: String = "xsl:EQNames"
     override val language: Language
-        get() = this
-
-    // endregion
-    // region ParserDefinition
-
-    val FileElementType: IFileElementType = IFileElementType(this)
-
-    class ParserDefinition : XPathParserDefinition() {
-        override fun createParser(project: Project): PsiParser = XsltSchemaTypesParser(XslEQNames)
-
-        override fun getFileNodeType(): IFileElementType = FileElementType
-
-        override fun createFile(viewProvider: FileViewProvider): PsiFile = XsltSchemaTypePsiImpl(viewProvider, FileType)
-    }
-
-    // endregion
+        get() = EQNames
 }

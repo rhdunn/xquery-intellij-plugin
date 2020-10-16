@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParser
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.ValueTemplate
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.EQName
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.EQNameOrHashedKeyword
+import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.EQNames
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.resources.XsltBundle
 import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.*
 
@@ -66,7 +67,7 @@ class XsltSchemaTypesParser(private val schemaType: Language) : XPathParser() {
     fun parseSchemaType(builder: PsiBuilder): Boolean = when (schemaType) {
         ValueTemplate -> parseValueTemplate(builder)
         EQName -> parseEQName(builder)
-        XslEQNames -> parseEQNames(builder)
+        EQNames -> parseEQNames(builder)
         XslItemType -> parseItemType(builder)
         XslNameTests -> parseNameTests(builder)
         EQNameOrHashedKeyword -> parseEQNameOrHashedKeyword(builder)
