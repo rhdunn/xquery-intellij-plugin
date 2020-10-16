@@ -32,7 +32,7 @@ object XsltSchemaTypes {
     fun create(type: String?): ISchemaType? = when (type) {
         "xsl:accumulator-names" -> XslEQNamesOrHashedKeywords
         "xsl:avt" -> XslAVT
-        "xsl:default-mode-type" -> XslEQNameOrHashedKeyword
+        "xsl:default-mode-type" -> XslDefaultModeType
         "xsl:element-names" -> XslNameTests
         "xsl:EQName" -> XslEQName
         "xsl:EQName-in-namespace" -> XslEQNameInNamespace
@@ -41,14 +41,14 @@ object XsltSchemaTypes {
         "xsl:expression" -> XslExpression
         "xsl:item-type" -> XslItemType
         "xsl:method" -> XslQName
-        "xsl:mode" -> XslEQNameOrHashedKeyword
+        "xsl:mode" -> XslMode
         "xsl:modes" -> XslEQNamesOrHashedKeywords
         "xsl:nametests" -> XslNameTests
         "xsl:pattern" -> XslPattern
-        "xsl:prefix" -> XslEQNameOrHashedKeyword
+        "xsl:prefix" -> XslPrefix
         "xsl:prefix-list" -> XslEQNamesOrHashedKeywords
         "xsl:prefix-list-or-all" -> XslEQNamesOrHashedKeywords
-        "xsl:prefix-or-default" -> XslEQNameOrHashedKeyword
+        "xsl:prefix-or-default" -> XslPrefixOrDefault
         "xsl:prefixes" -> XslPrefixes
         "xsl:QName" -> XslQName
         "xsl:QNames" -> XslQNames
