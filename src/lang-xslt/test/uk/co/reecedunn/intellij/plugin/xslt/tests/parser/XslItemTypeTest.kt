@@ -25,12 +25,12 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xslt.ast.schema.XsltSchemaType
-import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslItemType
+import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.ItemType
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("Reformat")
 @DisplayName("XSLT 3.0 - Schema Types - xsl:item-type")
-private class XslItemTypeTest : ParserTestCase(XslItemType.ParserDefinition(), XPathParserDefinition()) {
+private class XslItemTypeTest : ParserTestCase(ItemType.ParserDefinition(), XPathParserDefinition()) {
     fun parseResource(resource: String): XsltSchemaType {
         val file = ResourceVirtualFile.create(this::class.java.classLoader, resource)
         return file.toPsiFile(myProject) as XsltSchemaType
