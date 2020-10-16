@@ -24,7 +24,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParser
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.resources.XsltBundle
-import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.*
 
 class XsltSchemaTypesParser(private val schemaType: Language) : XPathParser() {
     // region Grammar
@@ -40,7 +39,7 @@ class XsltSchemaTypesParser(private val schemaType: Language) : XPathParser() {
     override fun parseComment(builder: PsiBuilder): Boolean = when (schemaType) {
         ValueTemplate -> super.parseComment(builder)
         ItemType -> super.parseComment(builder)
-        XslSequenceType -> super.parseComment(builder)
+        SequenceType -> super.parseComment(builder)
         else -> parseSchemaComment(builder)
     }
 
@@ -72,7 +71,7 @@ class XsltSchemaTypesParser(private val schemaType: Language) : XPathParser() {
         Prefixes -> parsePrefixes(builder)
         QName -> parseQName(builder)
         QNames -> parseQNames(builder)
-        XslSequenceType -> parseSequenceType(builder)
+        SequenceType -> parseSequenceType(builder)
         else -> false
     }
 
