@@ -69,7 +69,7 @@ class XsltSchemaTypesParser(private val schemaType: Language) : XPathParser() {
         NameTests -> parseNameTests(builder)
         EQNameOrHashedKeyword -> parseEQNameOrHashedKeyword(builder)
         EQNamesOrHashedKeywords -> parseEQNamesOrHashedKeywords(builder)
-        XslPrefixes -> parsePrefixes(builder)
+        Prefixes -> parsePrefixes(builder)
         QName -> parseQName(builder)
         QNames -> parseQNames(builder)
         XslSequenceType -> parseSequenceType(builder)

@@ -19,8 +19,8 @@ import com.intellij.lang.Language
 import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaType
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.Prefixes
 
-object XslPrefixes : ISchemaType {
-    override val type: String = "xsl:prefixes"
+object XslTokens : ISchemaType {
+    override val type: String = "xsl:tokens"
     override val language: Language
         get() = Prefixes
 }
