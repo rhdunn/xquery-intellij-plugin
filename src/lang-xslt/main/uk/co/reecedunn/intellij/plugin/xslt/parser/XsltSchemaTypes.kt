@@ -37,7 +37,7 @@ object XsltSchemaTypes {
         "xsl:EQName" -> XslEQName
         "xsl:EQName-in-namespace" -> XslEQNameInNamespace
         "xsl:EQNames" -> XslEQNames
-        "xsl:expr-avt" -> XslAVT
+        "xsl:expr-avt" -> XslExprAVT
         "xsl:expression" -> XslExpression
         "xsl:item-type" -> XslItemType
         "xsl:method" -> XslQName
