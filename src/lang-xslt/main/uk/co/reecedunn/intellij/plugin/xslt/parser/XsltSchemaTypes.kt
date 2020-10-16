@@ -39,13 +39,13 @@ object XsltSchemaTypes {
         "xsl:EQName-in-namespace" -> XslEQName
         "xsl:EQNames" -> XslEQNames
         "xsl:expr-avt" -> XslValueTemplate.Attribute
-        "xsl:expression" -> XPath.Expression
+        "xsl:expression" -> XslExpression
         "xsl:item-type" -> XslItemType
         "xsl:method" -> XslQName
         "xsl:mode" -> XslEQNameOrHashedKeyword
         "xsl:modes" -> XslEQNamesOrHashedKeywords
         "xsl:nametests" -> XslNameTests
-        "xsl:pattern" -> XPath.Pattern
+        "xsl:pattern" -> XslPattern
         "xsl:prefix" -> XslEQNameOrHashedKeyword
         "xsl:prefix-list" -> XslEQNamesOrHashedKeywords
         "xsl:prefix-list-or-all" -> XslEQNamesOrHashedKeywords
