@@ -22,6 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.lang.matchTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.INCNameType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParser
+import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.ValueTemplate
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.resources.XsltBundle
 import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.*
 
@@ -37,7 +38,7 @@ class XsltSchemaTypesParser(private val schemaType: Language) : XPathParser() {
     }
 
     override fun parseComment(builder: PsiBuilder): Boolean = when (schemaType) {
-        XslValueTemplate -> super.parseComment(builder)
+        ValueTemplate -> super.parseComment(builder)
         XslItemType -> super.parseComment(builder)
         XslSequenceType -> super.parseComment(builder)
         else -> parseSchemaComment(builder)
@@ -61,7 +62,7 @@ class XsltSchemaTypesParser(private val schemaType: Language) : XPathParser() {
     }
 
     fun parseSchemaType(builder: PsiBuilder): Boolean = when (schemaType) {
-        XslValueTemplate -> parseValueTemplate(builder)
+        ValueTemplate -> parseValueTemplate(builder)
         XslEQName -> parseEQName(builder)
         XslEQNames -> parseEQNames(builder)
         XslItemType -> parseItemType(builder)
@@ -90,8 +91,8 @@ class XsltSchemaTypesParser(private val schemaType: Language) : XPathParser() {
     private fun parseValueTemplate(builder: PsiBuilder): Boolean {
         var matched = false
         while (
-            builder.matchTokenType(XslValueTemplate.VALUE_CONTENTS) ||
-            builder.matchTokenType(XslValueTemplate.ESCAPED_CHARACTER) ||
+            builder.matchTokenType(ValueTemplate.VALUE_CONTENTS) ||
+            builder.matchTokenType(ValueTemplate.ESCAPED_CHARACTER) ||
             builder.errorOnTokenType(
                 XPathTokenType.BLOCK_CLOSE,
                 XsltBundle.message("parser.error.mismatched-exclosed-expr")

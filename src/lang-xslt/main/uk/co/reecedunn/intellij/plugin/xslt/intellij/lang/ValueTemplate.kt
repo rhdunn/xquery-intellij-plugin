@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xslt.parser.schema
+package uk.co.reecedunn.intellij.plugin.xslt.intellij.lang
 
 import com.intellij.lang.Language
 import com.intellij.lang.PsiParser
@@ -32,7 +32,7 @@ import uk.co.reecedunn.intellij.plugin.xslt.lexer.XsltValueTemplateLexer
 import uk.co.reecedunn.intellij.plugin.xslt.parser.XsltSchemaTypesParser
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.schema.XsltSchemaTypePsiImpl
 
-object XslValueTemplate : Language(XPath, "xsl:value-template") {
+object ValueTemplate : Language(XPath, "xsl:value-template") {
     // region Language
 
     val FileType: LanguageFileType = XsltSchemaTypeFileType(this)
@@ -53,7 +53,7 @@ object XslValueTemplate : Language(XPath, "xsl:value-template") {
     class ParserDefinition : XPathParserDefinition() {
         override fun createLexer(project: Project): Lexer = XsltValueTemplateLexer(XmlCodePointRangeImpl())
 
-        override fun createParser(project: Project): PsiParser = XsltSchemaTypesParser(XslValueTemplate)
+        override fun createParser(project: Project): PsiParser = XsltSchemaTypesParser(ValueTemplate)
 
         override fun getFileNodeType(): IFileElementType = FileElementType
 

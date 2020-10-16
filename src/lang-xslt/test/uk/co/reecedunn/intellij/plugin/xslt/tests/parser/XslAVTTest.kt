@@ -25,12 +25,12 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xslt.ast.schema.XsltSchemaType
-import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslValueTemplate
+import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.ValueTemplate
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("Reformat")
 @DisplayName("XSLT 3.0 - Schema Types - xsl:avt")
-private class XslAVTTest : ParserTestCase(XslValueTemplate.ParserDefinition(), XPathParserDefinition()) {
+private class XslAVTTest : ParserTestCase(ValueTemplate.ParserDefinition(), XPathParserDefinition()) {
     fun parseResource(resource: String): XsltSchemaType {
         val file = ResourceVirtualFile.create(this::class.java.classLoader, resource)
         return file.toPsiFile(myProject) as XsltSchemaType
@@ -42,7 +42,7 @@ private class XslAVTTest : ParserTestCase(XslValueTemplate.ParserDefinition(), X
 
     @Nested
     @DisplayName("XQuery IntelliJ Plugin XSLT EBNF (1) ValueTemplate")
-    inner class ValueTemplate {
+    inner class ValueTemplateTest {
         @Test
         @DisplayName("escaped characters")
         fun escapedCharacters() {

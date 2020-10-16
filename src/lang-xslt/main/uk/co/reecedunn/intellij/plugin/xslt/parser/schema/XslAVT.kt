@@ -17,9 +17,10 @@ package uk.co.reecedunn.intellij.plugin.xslt.parser.schema
 
 import com.intellij.lang.Language
 import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaType
+import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.ValueTemplate
 
 object XslAVT : ISchemaType {
     override val type: String = "xsl:avt"
     override val language: Language
-        get() = XslValueTemplate
+        get() = ValueTemplate
 }

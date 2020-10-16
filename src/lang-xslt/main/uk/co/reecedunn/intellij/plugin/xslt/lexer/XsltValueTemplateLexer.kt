@@ -19,7 +19,7 @@ import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange
 import uk.co.reecedunn.intellij.plugin.core.lexer.STATE_DEFAULT
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.XslValueTemplate
+import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.ValueTemplate
 
 class XsltValueTemplateLexer(tokenRange: CodePointRange) : XPathLexer(tokenRange) {
     // region States
@@ -34,7 +34,7 @@ class XsltValueTemplateLexer(tokenRange: CodePointRange) : XPathLexer(tokenRange
                 mTokenRange.match()
                 if (mTokenRange.codePoint == '{'.toInt()) {
                     mTokenRange.match()
-                    mType = XslValueTemplate.ESCAPED_CHARACTER
+                    mType = ValueTemplate.ESCAPED_CHARACTER
                 } else {
                     mType = XPathTokenType.BLOCK_OPEN
                     pushState(STATE_VALUE_TEMPLATE_EXPRESSION)
@@ -44,7 +44,7 @@ class XsltValueTemplateLexer(tokenRange: CodePointRange) : XPathLexer(tokenRange
                 mTokenRange.match()
                 mType = if (mTokenRange.codePoint == '}'.toInt()) {
                     mTokenRange.match()
-                    XslValueTemplate.ESCAPED_CHARACTER
+                    ValueTemplate.ESCAPED_CHARACTER
                 } else {
                     XPathTokenType.BLOCK_CLOSE
                 }
@@ -52,7 +52,7 @@ class XsltValueTemplateLexer(tokenRange: CodePointRange) : XPathLexer(tokenRange
             else -> while (true) {
                 when (c) {
                     CodePointRange.END_OF_BUFFER, '{'.toInt(), '}'.toInt() -> {
-                        mType = XslValueTemplate.VALUE_CONTENTS
+                        mType = ValueTemplate.VALUE_CONTENTS
                         return
                     }
                     else -> {
