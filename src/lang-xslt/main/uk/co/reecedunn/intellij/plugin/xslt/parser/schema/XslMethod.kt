@@ -19,8 +19,8 @@ import com.intellij.lang.Language
 import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaType
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.QName
 
-object XslQName : ISchemaType {
-    override val type: String = "xsl:QName"
+object XslMethod : ISchemaType {
+    override val type: String = "xsl:method"
     override val language: Language
         get() = QName
 }
