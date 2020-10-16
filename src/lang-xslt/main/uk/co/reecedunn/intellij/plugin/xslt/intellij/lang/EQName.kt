@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xslt.parser.schema
+package uk.co.reecedunn.intellij.plugin.xslt.intellij.lang
 
 import com.intellij.lang.Language
 import com.intellij.lang.PsiParser
@@ -29,7 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xslt.intellij.fileTypes.XsltSchemaTypeFil
 import uk.co.reecedunn.intellij.plugin.xslt.parser.XsltSchemaTypesParser
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.schema.XsltSchemaTypePsiImpl
 
-object XslEQName : Language(XPath, "xsl:EQName"), ISchemaType {
+object EQName : Language(XPath, "xsl:EQName") {
     // region Language
 
     val FileType: LanguageFileType = XsltSchemaTypeFileType(this)
@@ -37,21 +37,12 @@ object XslEQName : Language(XPath, "xsl:EQName"), ISchemaType {
     override fun getAssociatedFileType(): LanguageFileType? = FileType
 
     // endregion
-    // region ISchemaType
-
-    override val type: String
-        get() = id
-
-    override val language: Language
-        get() = this
-
-    // endregion
     // region ParserDefinition
 
     val FileElementType: IFileElementType = IFileElementType(this)
 
     class ParserDefinition : XPathParserDefinition() {
-        override fun createParser(project: Project): PsiParser = XsltSchemaTypesParser(XslEQName)
+        override fun createParser(project: Project): PsiParser = XsltSchemaTypesParser(EQName)
 
         override fun getFileNodeType(): IFileElementType = FileElementType
 
