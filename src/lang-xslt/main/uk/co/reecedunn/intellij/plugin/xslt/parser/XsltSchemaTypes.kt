@@ -35,7 +35,7 @@ object XsltSchemaTypes {
         "xsl:default-mode-type" -> XslEQNameOrHashedKeyword
         "xsl:element-names" -> XslNameTests
         "xsl:EQName" -> XslEQName
-        "xsl:EQName-in-namespace" -> XslEQName
+        "xsl:EQName-in-namespace" -> XslEQNameInNamespace
         "xsl:EQNames" -> XslEQNames
         "xsl:expr-avt" -> XslAVT
         "xsl:expression" -> XslExpression
@@ -53,7 +53,7 @@ object XsltSchemaTypes {
         "xsl:QName" -> XslQName
         "xsl:QNames" -> XslQNames
         "xsl:sequence-type" -> XslSequenceType
-        "xsl:streamability-type" -> XslEQName
+        "xsl:streamability-type" -> XslStreamabilityType
         "xsl:tokens" -> XslPrefixes
         else -> null
     }
