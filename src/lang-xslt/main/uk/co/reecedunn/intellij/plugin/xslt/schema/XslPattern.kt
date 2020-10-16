@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xslt.parser.schema
+package uk.co.reecedunn.intellij.plugin.xslt.schema
 
 import com.intellij.lang.Language
 import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaType
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.EQNamesOrHashedKeywords
+import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 
-object XslPrefixListOrAll : ISchemaType {
-    override val type: String = "xsl:prefix-list-or-all"
+object XslPattern : ISchemaType {
+    override val type: String = "xsl:pattern"
     override val language: Language
-        get() = EQNamesOrHashedKeywords
+        get() = XPath
 }

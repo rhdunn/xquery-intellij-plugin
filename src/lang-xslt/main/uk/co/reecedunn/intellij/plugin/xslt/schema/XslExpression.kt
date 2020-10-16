@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xslt.parser.schema
+package uk.co.reecedunn.intellij.plugin.xslt.schema
 
 import com.intellij.lang.Language
 import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaType
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.QNames
+import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 
-object XslQNames : ISchemaType {
-    override val type: String = "xsl:QNames"
+object XslExpression : ISchemaType {
+    override val type: String = "xsl:expression"
     override val language: Language
-        get() = QNames
+        get() = XPath
 }

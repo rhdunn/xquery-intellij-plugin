@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xslt.parser.schema
+package uk.co.reecedunn.intellij.plugin.xslt.schema
 
 import com.intellij.lang.Language
 import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaType
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.SequenceType
+import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.EQNamesOrHashedKeywords
 
-object XslSequenceType : ISchemaType {
-    override val type: String = "xsl:sequence-type"
+object XslPrefixList : ISchemaType {
+    override val type: String = "xsl:prefix-list"
     override val language: Language
-        get() = SequenceType
+        get() = EQNamesOrHashedKeywords
 }

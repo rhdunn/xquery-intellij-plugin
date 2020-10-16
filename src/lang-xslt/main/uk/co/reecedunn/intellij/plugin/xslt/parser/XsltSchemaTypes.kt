@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.core.xml.attribute
 import uk.co.reecedunn.intellij.plugin.core.xml.schemaType
 import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaType
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
-import uk.co.reecedunn.intellij.plugin.xslt.parser.schema.*
+import uk.co.reecedunn.intellij.plugin.xslt.schema.*
 
 object XsltSchemaTypes {
     fun create(type: String?): ISchemaType? = when (type) {

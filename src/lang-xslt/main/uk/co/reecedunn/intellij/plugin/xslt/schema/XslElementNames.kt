@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xslt.parser.schema
+package uk.co.reecedunn.intellij.plugin.xslt.schema
 
 import com.intellij.lang.Language
 import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaType
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.ValueTemplate
+import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.NameTests
 
-object XslExprAVT : ISchemaType {
-    override val type: String = "xsl:expr-avt"
+object XslElementNames : ISchemaType {
+    override val type: String = "xsl:element-names"
     override val language: Language
-        get() = ValueTemplate
+        get() = NameTests
 }

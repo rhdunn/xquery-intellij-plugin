@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xslt.parser.schema
+package uk.co.reecedunn.intellij.plugin.xslt.schema
 
 import com.intellij.lang.Language
 import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaType
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.EQName
+import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.Prefixes
 
-object XslEQNameInNamespace : ISchemaType {
-    override val type: String = "xsl:EQName-in-namespace"
+object XslPrefixes : ISchemaType {
+    override val type: String = "xsl:prefixes"
     override val language: Language
-        get() = EQName
+        get() = Prefixes
 }
