@@ -17,10 +17,10 @@ package uk.co.reecedunn.intellij.plugin.xslt.schema
 
 import com.intellij.lang.Language
 import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaType
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.ItemType
+import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.SequenceType
 
 object XslItemType : ISchemaType {
     override val type: String = "xsl:item-type"
     override val language: Language
-        get() = ItemType
+        get() = SequenceType
 }

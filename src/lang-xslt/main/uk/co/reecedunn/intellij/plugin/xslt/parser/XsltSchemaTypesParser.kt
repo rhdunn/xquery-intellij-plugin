@@ -38,7 +38,6 @@ class XsltSchemaTypesParser(private val schemaType: Language) : XPathParser() {
 
     override fun parseComment(builder: PsiBuilder): Boolean = when (schemaType) {
         ValueTemplate -> super.parseComment(builder)
-        ItemType -> super.parseComment(builder)
         SequenceType -> super.parseComment(builder)
         else -> parseSchemaComment(builder)
     }
@@ -64,7 +63,6 @@ class XsltSchemaTypesParser(private val schemaType: Language) : XPathParser() {
         ValueTemplate -> parseValueTemplate(builder)
         EQName -> parseEQName(builder)
         EQNames -> parseEQNames(builder)
-        ItemType -> parseItemType(builder)
         NameTests -> parseNameTests(builder)
         EQNameOrHashedKeyword -> parseEQNameOrHashedKeyword(builder)
         EQNamesOrHashedKeywords -> parseEQNamesOrHashedKeywords(builder)

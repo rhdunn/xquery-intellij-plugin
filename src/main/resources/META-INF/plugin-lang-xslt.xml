@@ -24,13 +24,14 @@
 
     <lang.parserDefinition language="xsl:EQName" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.EQName$ParserDefinition"/>
     <lang.parserDefinition language="xsl:EQNames" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.EQNames$ParserDefinition"/>
-    <lang.parserDefinition language="xsl:item-type" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.ItemType$ParserDefinition"/>
     <lang.parserDefinition language="xsl:nametests" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.NameTests$ParserDefinition"/>
     <lang.parserDefinition language="xsl:prefixes" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.Prefixes$ParserDefinition"/>
     <lang.parserDefinition language="xsl:QName" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.QName$ParserDefinition"/>
     <lang.parserDefinition language="xsl:QNames" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.QNames$ParserDefinition"/>
     <lang.parserDefinition language="xsl:sequence-type" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.SequenceType$ParserDefinition"/>
     <lang.parserDefinition language="xsl:value-template" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.ValueTemplate$ParserDefinition"/>
+
+    <annotator language="xsl:sequence-type" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.annotation.SchemaTypeAnnotator"/>
 
     <annotator language="EQName-or-hashed-keyword" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.annotation.HashedKeywordAnnotator"/>
     <annotator language="EQNames-or-hashed-keywords" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.annotation.HashedKeywordAnnotator"/>
