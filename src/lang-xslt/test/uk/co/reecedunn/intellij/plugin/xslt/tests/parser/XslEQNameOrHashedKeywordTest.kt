@@ -66,28 +66,32 @@ private class XslEQNameOrHashedKeywordTest :
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
-    @Test
-    @DisplayName("#current")
-    fun current() {
-        val expected = loadResource("tests/parser/schema-type/mode/Current.txt")
-        val actual = parseResource("tests/parser/schema-type/mode/Current.input")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
+    @Nested
+    @DisplayName("HashedKeyword")
+    internal inner class HashedKeyword {
+        @Test
+        @DisplayName("#current [xsl:mode]")
+        fun current() {
+            val expected = loadResource("tests/parser/schema-type/hashed-keyword/Current.txt")
+            val actual = parseResource("tests/parser/schema-type/hashed-keyword/Current.input")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
 
-    @Test
-    @DisplayName("#default")
-    fun default() {
-        val expected = loadResource("tests/parser/schema-type/prefix-or-default/Default.txt")
-        val actual = parseResource("tests/parser/schema-type/prefix-or-default/Default.input")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
+        @Test
+        @DisplayName("#default [xsl:prefix-or-default]")
+        fun default() {
+            val expected = loadResource("tests/parser/schema-type/hashed-keyword/Default.txt")
+            val actual = parseResource("tests/parser/schema-type/hashed-keyword/Default.input")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
 
-    @Test
-    @DisplayName("#unnamed")
-    fun unnamed() {
-        val expected = loadResource("tests/parser/schema-type/default-mode-type/Unnamed.txt")
-        val actual = parseResource("tests/parser/schema-type/default-mode-type/Unnamed.input")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+        @Test
+        @DisplayName("#unnamed [xsl:default-mode-type]")
+        fun unnamed() {
+            val expected = loadResource("tests/parser/schema-type/hashed-keyword/Unnamed.txt")
+            val actual = parseResource("tests/parser/schema-type/hashed-keyword/Unnamed.input")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
     @Nested

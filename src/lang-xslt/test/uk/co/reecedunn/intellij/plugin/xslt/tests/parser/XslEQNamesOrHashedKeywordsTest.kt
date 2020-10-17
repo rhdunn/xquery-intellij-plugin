@@ -102,20 +102,24 @@ private class XslEQNamesOrHashedKeywordsTest :
         }
     }
 
-    @Test
-    @DisplayName("#all")
-    fun all() {
-        val expected = loadResource("tests/parser/schema-type/modes/All.txt")
-        val actual = parseResource("tests/parser/schema-type/modes/All.input")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
-    }
+    @Nested
+    @DisplayName("HashedKeyword")
+    internal inner class HashedKeyword {
+        @Test
+        @DisplayName("#all [xsl:modes]")
+        fun all() {
+            val expected = loadResource("tests/parser/schema-type/hashed-keyword/All.txt")
+            val actual = parseResource("tests/parser/schema-type/hashed-keyword/All.input")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
 
-    @Test
-    @DisplayName("#default")
-    fun default() {
-        val expected = loadResource("tests/parser/schema-type/prefix-or-default/Default.txt")
-        val actual = parseResource("tests/parser/schema-type/prefix-or-default/Default.input")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+        @Test
+        @DisplayName("#default [xsl:modes]")
+        fun default() {
+            val expected = loadResource("tests/parser/schema-type/hashed-keyword/Default.txt")
+            val actual = parseResource("tests/parser/schema-type/hashed-keyword/Default.input")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
     @Nested
