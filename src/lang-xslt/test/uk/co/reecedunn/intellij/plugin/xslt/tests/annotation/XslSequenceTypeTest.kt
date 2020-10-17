@@ -31,9 +31,69 @@ import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.SequenceType
 @DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - SequenceType Schema Type Annotator")
 private class XslSequenceTypeTest : AnnotatorTestCase(SequenceType.ParserDefinition(), XPathParserDefinition()) {
     @Nested
+    @DisplayName("xsl:item-type")
+    internal inner class ItemTypeTest {
+        val annotator = SchemaTypeAnnotator("xsl:item-type")
+
+        @Test
+        @DisplayName("XPath 3.1 EBNF (81) ItemType")
+        fun itemType() {
+            val file = parse<XsltSchemaType>("item()")[0]
+            val annotations = annotateTree(file, annotator).prettyPrint()
+            assertThat(annotations, `is`(""))
+        }
+
+        @Nested
+        @DisplayName("XPath 3.1 EBNF (79) SequenceType")
+        internal inner class SequenceTypeTest {
+            @Test
+            @DisplayName("zero or more")
+            fun zeroOrMore() {
+                val file = parse<XsltSchemaType>("item()*")[0]
+                val annotations = annotateTree(file, annotator).prettyPrint()
+                assertThat(
+                    annotations, `is`(
+                        """
+                        ERROR (0:7) "SequenceType is not supported for the xsl:item-type schema type."
+                        """.trimIndent()
+                    )
+                )
+            }
+
+            @Test
+            @DisplayName("one or more")
+            fun oneOrMore() {
+                val file = parse<XsltSchemaType>("item()+")[0]
+                val annotations = annotateTree(file, annotator).prettyPrint()
+                assertThat(
+                    annotations, `is`(
+                        """
+                        ERROR (0:7) "SequenceType is not supported for the xsl:item-type schema type."
+                        """.trimIndent()
+                    )
+                )
+            }
+
+            @Test
+            @DisplayName("zero or one")
+            fun zeroOrOne() {
+                val file = parse<XsltSchemaType>("item()?")[0]
+                val annotations = annotateTree(file, annotator).prettyPrint()
+                assertThat(
+                    annotations, `is`(
+                        """
+                        ERROR (0:7) "SequenceType is not supported for the xsl:item-type schema type."
+                        """.trimIndent()
+                    )
+                )
+            }
+        }
+    }
+
+    @Nested
     @DisplayName("xsl:sequence-type")
     internal inner class SequenceTypeTest {
-        val annotator = SchemaTypeAnnotator()
+        val annotator = SchemaTypeAnnotator("xsl:sequence-type")
 
         @Test
         @DisplayName("XPath 3.1 EBNF (81) ItemType")

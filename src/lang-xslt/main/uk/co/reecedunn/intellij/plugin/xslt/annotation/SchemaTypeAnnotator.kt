@@ -17,9 +17,43 @@ package uk.co.reecedunn.intellij.plugin.xslt.annotation
 
 import com.intellij.compat.lang.annotation.AnnotationHolder
 import com.intellij.compat.lang.annotation.Annotator
+import com.intellij.lang.annotation.HighlightSeverity
 import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiFile
+import com.intellij.psi.xml.XmlAttributeValue
+import uk.co.reecedunn.intellij.plugin.core.psi.contextOfType
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.core.xml.attribute
+import uk.co.reecedunn.intellij.plugin.core.xml.schemaType
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathSequenceType
+import uk.co.reecedunn.intellij.plugin.xslt.intellij.resources.XsltBundle
+import java.lang.UnsupportedOperationException
 
-class SchemaTypeAnnotator : Annotator() {
+class SchemaTypeAnnotator(val schemaType: String? = null) : Annotator() {
+    companion object {
+        val REMOVE_START = "^(Plugin|Scripting|UpdateFacility|XPath|XQuery)".toRegex()
+        val REMOVE_END = "(PsiImpl|Impl)$".toRegex()
+    }
+
+    fun getSymbolName(element: PsiElement): String {
+        return element.javaClass.name.split('.').last().replace(REMOVE_START, "").replace(REMOVE_END, "")
+    }
+
+    fun accept(schemaType: String, element: PsiElement): Boolean = when (schemaType) {
+        "xsl:item-type" -> element !is XPathSequenceType
+        "xsl:sequence-type" -> true
+        else -> throw UnsupportedOperationException()
+    }
+
     override fun annotateElement(element: PsiElement, holder: AnnotationHolder) {
+        if (element !is PsiFile) return
+        val schemaType = schemaType ?: element.contextOfType<XmlAttributeValue>(false)?.attribute?.schemaType ?: return
+        element.children().forEach { child ->
+            if (!accept(schemaType, child)) {
+                val symbol = getSymbolName(child)
+                val message = XsltBundle.message("schema.validation.unsupported", symbol, schemaType)
+                holder.newAnnotation(HighlightSeverity.ERROR, message).range(element).create()
+            }
+        }
     }
 }
