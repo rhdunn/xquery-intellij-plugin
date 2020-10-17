@@ -51,8 +51,8 @@ private class XslSequenceTypeTest : ParserTestCase(SequenceType.ParserDefinition
     @Test
     @DisplayName("XPath 3.1 EBNF (81) ItemType")
     fun itemType() {
-        val expected = loadResource("tests/parser/schema-type/item-type/ItemType.txt")
-        val actual = parseResource("tests/parser/schema-type/item-type/ItemType.input")
+        val expected = loadResource("tests/parser/schema-type/sequence-type/ItemType.txt")
+        val actual = parseResource("tests/parser/schema-type/sequence-type/ItemType.input")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
@@ -62,7 +62,7 @@ private class XslSequenceTypeTest : ParserTestCase(SequenceType.ParserDefinition
         @Test
         @DisplayName("comment")
         fun comment() {
-            val expected = loadResource("tests/parser/schema-type/item-type/Comment.txt")
+            val expected = loadResource("tests/parser/schema-type/sequence-type/Comment.txt")
             val actual = parseResource("tests/parser/schema-type/comments/Comment.input")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
@@ -70,7 +70,7 @@ private class XslSequenceTypeTest : ParserTestCase(SequenceType.ParserDefinition
         @Test
         @DisplayName("unclosed comment")
         fun unclosedComment() {
-            val expected = loadResource("tests/parser/schema-type/item-type/Comment_UnclosedComment.txt")
+            val expected = loadResource("tests/parser/schema-type/sequence-type/Comment_UnclosedComment.txt")
             val actual = parseResource("tests/parser/schema-type/comments/Comment_UnclosedComment.input")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
@@ -78,7 +78,7 @@ private class XslSequenceTypeTest : ParserTestCase(SequenceType.ParserDefinition
         @Test
         @DisplayName("comment end tag without comment start tag")
         fun unexpectedCommentEndTag() {
-            val expected = loadResource("tests/parser/schema-type/item-type/Comment_UnexpectedCommentEndTag.txt")
+            val expected = loadResource("tests/parser/schema-type/sequence-type/Comment_UnexpectedCommentEndTag.txt")
             val actual = parseResource("tests/parser/schema-type/comments/Comment_UnexpectedCommentEndTag.input")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
