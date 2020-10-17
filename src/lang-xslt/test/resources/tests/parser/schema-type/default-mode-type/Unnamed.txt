@@ -1,3 +1,4 @@
 XsltSchemaTypeImpl[FILE(0:8)]
-   LeafPsiElement[XPATH_FUNCTION_REF_OPERATOR_TOKEN(0:1)]('#')
-   LeafPsiElement[XPATH_NCNAME_TOKEN(1:8)]('unnamed')
+   XsltHashedKeywordImpl[SCHEMA_TYPE_HASHED_KEYWORD(0:8)]
+      LeafPsiElement[XPATH_FUNCTION_REF_OPERATOR_TOKEN(0:1)]('#')
+      LeafPsiElement[XPATH_NCNAME_TOKEN(1:8)]('unnamed')

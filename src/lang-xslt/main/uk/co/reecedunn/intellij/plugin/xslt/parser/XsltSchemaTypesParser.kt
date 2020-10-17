@@ -17,15 +17,20 @@ package uk.co.reecedunn.intellij.plugin.xslt.parser
 
 import com.intellij.lang.Language
 import com.intellij.lang.PsiBuilder
+import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.core.lang.errorOnTokenType
 import uk.co.reecedunn.intellij.plugin.core.lang.matchTokenType
+import uk.co.reecedunn.intellij.plugin.core.lang.matchTokenTypeWithMarker
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.INCNameType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParser
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.resources.XsltBundle
 
-class XsltSchemaTypesParser(private val schemaType: Language) : XPathParser() {
+class XsltSchemaTypesParser(
+    private val schemaType: Language,
+    private val HASHED_KEYWORD_TOKEN: IElementType? = null
+) : XPathParser() {
     // region Grammar
 
     override fun parse(builder: PsiBuilder, isFirst: Boolean): Boolean {
@@ -110,11 +115,15 @@ class XsltSchemaTypesParser(private val schemaType: Language) : XPathParser() {
     private fun parseNameTests(builder: PsiBuilder): Boolean = parseSchemaList(builder, ::parseNameTest)
 
     private fun parseEQNameOrHashedKeyword(builder: PsiBuilder): Boolean {
-        if (parseEQName(builder)) {
-            return true
-        } else if (builder.matchTokenType(XPathTokenType.FUNCTION_REF_OPERATOR)) {
+        return parseEQName(builder) || parseHashedKeyword(builder)
+    }
+
+    private fun parseHashedKeyword(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.FUNCTION_REF_OPERATOR)
+        if (marker != null) {
             if (builder.tokenType is INCNameType) {
                 builder.advanceLexer()
+                marker.done(HASHED_KEYWORD_TOKEN!!)
                 return true
             }
         }

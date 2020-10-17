@@ -1,3 +1,4 @@
 XsltSchemaTypeImpl[FILE(0:4)]
-   LeafPsiElement[XPATH_FUNCTION_REF_OPERATOR_TOKEN(0:1)]('#')
-   LeafPsiElement[XPATH_KEYWORD_OR_NCNAME_ALL(1:4)]('all')
+   XsltHashedKeywordImpl[SCHEMA_TYPE_HASHED_KEYWORD(0:4)]
+      LeafPsiElement[XPATH_FUNCTION_REF_OPERATOR_TOKEN(0:1)]('#')
+      LeafPsiElement[XPATH_KEYWORD_OR_NCNAME_ALL(1:4)]('all')
