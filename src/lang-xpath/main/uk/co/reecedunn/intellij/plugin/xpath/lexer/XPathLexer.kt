@@ -619,6 +619,7 @@ open class XPathLexer(tokenRange: CodePointRange) : LexerImpl(STATE_DEFAULT, tok
             "comment" to XPathTokenType.K_COMMENT, // XPath 1.0
             "contains" to XPathTokenType.K_CONTAINS, // Full Text 1.0
             "content" to XPathTokenType.K_CONTENT, // Full Text 1.0
+            "current" to XPathTokenType.K_CURRENT, // xsl:mode
             "default" to XPathTokenType.K_DEFAULT, // Full Text 1.0; XQuery 1.0
             "descendant" to XPathTokenType.K_DESCENDANT, // XPath 1.0
             "descendant-or-self" to XPathTokenType.K_DESCENDANT_OR_SELF, // XPath 1.0
@@ -715,6 +716,7 @@ open class XPathLexer(tokenRange: CodePointRange) : LexerImpl(STATE_DEFAULT, tok
             "tuple" to XPathTokenType.K_TUPLE, // Saxon 9.8
             "type" to XPathTokenType.K_TYPE, // XQuery 3.0 ; Saxon 10.0
             "union" to XPathTokenType.K_UNION, // XPath 2.0
+            "unnamed" to XPathTokenType.K_UNNAMED, // xsl:default-mode-type
             "uppercase" to XPathTokenType.K_UPPERCASE, // Full Text 1.0
             "using" to XPathTokenType.K_USING, // Full Text 1.0 ; MarkLogic 6.0
             "weight" to XPathTokenType.K_WEIGHT, // Full Text 1.0

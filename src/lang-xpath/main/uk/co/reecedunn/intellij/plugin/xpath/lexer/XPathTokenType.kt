@@ -87,6 +87,7 @@ object XPathTokenType {
     val K_COMMENT: IKeywordOrNCNameType = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_COMMENT", XPath, IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME) // XPath 1.0
     val K_CONTAINS: IKeywordOrNCNameType = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_CONTAINS", XPath) // Full Text 1.0
     val K_CONTENT: IKeywordOrNCNameType = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_CONTENT", XPath) // Full Text 1.0
+    val K_CURRENT: IKeywordOrNCNameType = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_CURRENT", XPath) // xsl:mode
     val K_DEFAULT: IKeywordOrNCNameType = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_DEFAULT", XPath) // Full Text 1.0; XQuery 1.0
     val K_DESCENDANT: IKeywordOrNCNameType = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_DESCENDANT", XPath) // XPath 1.0
     val K_DESCENDANT_OR_SELF: IKeywordOrNCNameType = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_DESCENDANT_OR_SELF", XPath) // XPath 1.0
@@ -183,6 +184,7 @@ object XPathTokenType {
     val K_TUPLE: IKeywordOrNCNameType = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_TUPLE", XPath) // Saxon 9.8
     val K_TYPE: IKeywordOrNCNameType = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_TYPE", XPath) // XQuery 3.0 ; Saxon 10.0
     val K_UNION: IKeywordOrNCNameType = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_UNION", XPath) // XPath 2.0
+    val K_UNNAMED: IKeywordOrNCNameType = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_UNNAMED", XPath) // xsl:default-mode-type
     val K_UPPERCASE: IKeywordOrNCNameType = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_UPPERCASE", XPath) // Full Text 1.0
     val K_USING: IKeywordOrNCNameType = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_USING", XPath) // Full Text 1.0 ; MarkLogic 6.0
     val K_WEIGHT: IKeywordOrNCNameType = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_WEIGHT", XPath) // Full Text 1.0
