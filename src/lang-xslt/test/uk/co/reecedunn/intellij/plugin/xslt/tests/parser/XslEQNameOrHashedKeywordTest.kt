@@ -45,24 +45,24 @@ private class XslEQNameOrHashedKeywordTest :
     @Test
     @DisplayName("XPath 3.1 EBNF (122) QName")
     fun qname() {
-        val expected = loadResource("tests/parser/schema-type/qname/QName.txt")
-        val actual = parseResource("tests/parser/schema-type/qname/QName.input")
+        val expected = loadResource("tests/parser/schema-type/eqnames/QName.txt")
+        val actual = parseResource("tests/parser/schema-type/eqnames/QName.input")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
     @Test
     @DisplayName("XPath 3.1 EBNF (123) NCName")
     fun ncname() {
-        val expected = loadResource("tests/parser/schema-type/qname/NCName.txt")
-        val actual = parseResource("tests/parser/schema-type/qname/NCName.input")
+        val expected = loadResource("tests/parser/schema-type/eqnames/NCName.txt")
+        val actual = parseResource("tests/parser/schema-type/eqnames/NCName.input")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
     @Test
     @DisplayName("XPath 3.1 EBNF (117) URIQualifiedName")
     fun eqname() {
-        val expected = loadResource("tests/parser/schema-type/eqname/URIQualifiedName.txt")
-        val actual = parseResource("tests/parser/schema-type/eqname/URIQualifiedName.input")
+        val expected = loadResource("tests/parser/schema-type/eqnames/URIQualifiedName.txt")
+        val actual = parseResource("tests/parser/schema-type/eqnames/URIQualifiedName.input")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 

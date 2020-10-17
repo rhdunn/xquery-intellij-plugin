@@ -46,8 +46,8 @@ private class XslEQNamesTest : ParserTestCase(EQNames.ParserDefinition(), XPathP
         @Test
         @DisplayName("one")
         fun one() {
-            val expected = loadResource("tests/parser/schema-type/eqname/URIQualifiedName.txt")
-            val actual = parseResource("tests/parser/schema-type/eqname/URIQualifiedName.input")
+            val expected = loadResource("tests/parser/schema-type/eqnames/URIQualifiedName.txt")
+            val actual = parseResource("tests/parser/schema-type/eqnames/URIQualifiedName.input")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
 
@@ -66,16 +66,16 @@ private class XslEQNamesTest : ParserTestCase(EQNames.ParserDefinition(), XPathP
         @Test
         @DisplayName("one")
         fun one() {
-            val expected = loadResource("tests/parser/schema-type/qname/QName.txt")
-            val actual = parseResource("tests/parser/schema-type/qname/QName.input")
+            val expected = loadResource("tests/parser/schema-type/eqnames/QName.txt")
+            val actual = parseResource("tests/parser/schema-type/eqnames/QName.input")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
 
         @Test
         @DisplayName("multiple")
         fun multiple() {
-            val expected = loadResource("tests/parser/schema-type/qnames/QName_List.txt")
-            val actual = parseResource("tests/parser/schema-type/qnames/QName_List.input")
+            val expected = loadResource("tests/parser/schema-type/eqnames/QName_List.txt")
+            val actual = parseResource("tests/parser/schema-type/eqnames/QName_List.input")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }
@@ -86,16 +86,16 @@ private class XslEQNamesTest : ParserTestCase(EQNames.ParserDefinition(), XPathP
         @Test
         @DisplayName("one")
         fun one() {
-            val expected = loadResource("tests/parser/schema-type/qname/NCName.txt")
-            val actual = parseResource("tests/parser/schema-type/qname/NCName.input")
+            val expected = loadResource("tests/parser/schema-type/eqnames/NCName.txt")
+            val actual = parseResource("tests/parser/schema-type/eqnames/NCName.input")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
 
         @Test
         @DisplayName("multiple")
         fun multiple() {
-            val expected = loadResource("tests/parser/schema-type/qnames/NCName_List.txt")
-            val actual = parseResource("tests/parser/schema-type/prefixes/NCName_List.input")
+            val expected = loadResource("tests/parser/schema-type/eqnames/NCName_List.txt")
+            val actual = parseResource("tests/parser/schema-type/eqnames/NCName_List.input")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }

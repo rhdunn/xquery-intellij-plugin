@@ -67,7 +67,7 @@ private class XslNameTestsTest : ParserTestCase(NameTests.ParserDefinition(), XP
         @DisplayName("one")
         fun one() {
             val expected = loadResource("tests/parser/schema-type/nametests/QName.txt")
-            val actual = parseResource("tests/parser/schema-type/qname/QName.input")
+            val actual = parseResource("tests/parser/schema-type/eqnames/QName.input")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
 
@@ -75,7 +75,7 @@ private class XslNameTestsTest : ParserTestCase(NameTests.ParserDefinition(), XP
         @DisplayName("multiple")
         fun multiple() {
             val expected = loadResource("tests/parser/schema-type/nametests/QName_List.txt")
-            val actual = parseResource("tests/parser/schema-type/qnames/QName_List.input")
+            val actual = parseResource("tests/parser/schema-type/eqnames/QName_List.input")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }
@@ -87,7 +87,7 @@ private class XslNameTestsTest : ParserTestCase(NameTests.ParserDefinition(), XP
         @DisplayName("one")
         fun one() {
             val expected = loadResource("tests/parser/schema-type/nametests/NCName.txt")
-            val actual = parseResource("tests/parser/schema-type/qname/NCName.input")
+            val actual = parseResource("tests/parser/schema-type/eqnames/NCName.input")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
 
@@ -95,7 +95,7 @@ private class XslNameTestsTest : ParserTestCase(NameTests.ParserDefinition(), XP
         @DisplayName("multiple")
         fun multiple() {
             val expected = loadResource("tests/parser/schema-type/nametests/NCName_List.txt")
-            val actual = parseResource("tests/parser/schema-type/prefixes/NCName_List.input")
+            val actual = parseResource("tests/parser/schema-type/eqnames/NCName_List.input")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
     }

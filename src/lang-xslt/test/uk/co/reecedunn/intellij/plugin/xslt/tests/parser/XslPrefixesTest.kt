@@ -43,8 +43,8 @@ private class XslPrefixesTest : ParserTestCase(Prefixes.ParserDefinition(), XPat
     @Test
     @DisplayName("one")
     fun one() {
-        val expected = loadResource("tests/parser/schema-type/qname/NCName.txt")
-        val actual = parseResource("tests/parser/schema-type/qname/NCName.input")
+        val expected = loadResource("tests/parser/schema-type/eqnames/NCName.txt")
+        val actual = parseResource("tests/parser/schema-type/eqnames/NCName.input")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
@@ -52,7 +52,7 @@ private class XslPrefixesTest : ParserTestCase(Prefixes.ParserDefinition(), XPat
     @DisplayName("multiple")
     fun multiple() {
         val expected = loadResource("tests/parser/schema-type/prefixes/NCName_List.txt")
-        val actual = parseResource("tests/parser/schema-type/prefixes/NCName_List.input")
+        val actual = parseResource("tests/parser/schema-type/eqnames/NCName_List.input")
         assertThat(prettyPrintASTNode(actual), `is`(expected))
     }
 
@@ -78,7 +78,7 @@ private class XslPrefixesTest : ParserTestCase(Prefixes.ParserDefinition(), XPat
         @Test
         @DisplayName("comment end tag without comment start tag")
         fun unexpectedCommentEndTag() {
-            val expected = loadResource("tests/parser/schema-type/prefixes/Comment_UnexpectedCommentEndTag.txt")
+            val expected = loadResource("tests/parser/schema-type/eqnames/Comment_UnexpectedCommentEndTag.txt")
             val actual = parseResource("tests/parser/schema-type/comments/Comment_UnexpectedCommentEndTag.input")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
