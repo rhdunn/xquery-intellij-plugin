@@ -20,12 +20,15 @@ import com.intellij.compat.lang.annotation.Annotator
 import com.intellij.lang.annotation.HighlightSeverity
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
+import com.intellij.psi.PsiWhiteSpace
 import com.intellij.psi.xml.XmlAttributeValue
 import uk.co.reecedunn.intellij.plugin.core.psi.contextOfType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.xml.attribute
 import uk.co.reecedunn.intellij.plugin.core.xml.schemaType
 import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaType
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xslt.ast.schema.XsltHashedKeyword
@@ -71,6 +74,12 @@ class SchemaTypeAnnotator(val schemaType: ISchemaType? = null) : Annotator() {
                 else -> false
             }
             else -> true
+        }
+        XslQNames -> when (element) {
+            is XPathNCName -> true
+            is XPathQName -> true
+            is PsiWhiteSpace -> true
+            else -> false
         }
         XslSequenceType -> true
         else -> throw UnsupportedOperationException()
