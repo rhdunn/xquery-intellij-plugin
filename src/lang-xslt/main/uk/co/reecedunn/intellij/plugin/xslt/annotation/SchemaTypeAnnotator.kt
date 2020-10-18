@@ -21,11 +21,8 @@ import com.intellij.lang.annotation.HighlightSeverity
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.psi.PsiWhiteSpace
-import com.intellij.psi.xml.XmlAttributeValue
-import uk.co.reecedunn.intellij.plugin.core.psi.contextOfType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.core.xml.attribute
-import uk.co.reecedunn.intellij.plugin.core.xml.schemaType
+import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaListType
 import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQName
@@ -107,14 +104,6 @@ class SchemaTypeAnnotator(val schemaType: ISchemaType? = null) : Annotator() {
         else -> throw UnsupportedOperationException()
     }
 
-    fun acceptsMultipleItems(schemaType: ISchemaType, element: PsiElement): Boolean = when (schemaType) {
-        XslDefaultModeType -> false
-        XslMode -> false
-        XslPrefix -> false
-        XslPrefixOrDefault -> false
-        else -> true
-    }
-
     override fun annotateElement(element: PsiElement, holder: AnnotationHolder) {
         if (element !is PsiFile) return
         val schemaType = schemaType ?: XsltSchemaTypes.create(element) ?: return
@@ -124,7 +113,7 @@ class SchemaTypeAnnotator(val schemaType: ISchemaType? = null) : Annotator() {
             if (accept(schemaType, child)) {
                 if (child !is PsiWhiteSpace) {
                     itemCount += 1
-                    if (itemCount > 1 && !acceptsMultipleItems(schemaType, element)) {
+                    if (itemCount > 1 && schemaType !is ISchemaListType) {
                         val message = XsltBundle.message("schema.validation.multiple-items", schemaType.type)
                         holder.newAnnotation(HighlightSeverity.ERROR, message).range(child).create()
                     }

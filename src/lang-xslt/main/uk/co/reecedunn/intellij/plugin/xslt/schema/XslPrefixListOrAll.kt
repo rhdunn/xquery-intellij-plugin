@@ -16,10 +16,10 @@
 package uk.co.reecedunn.intellij.plugin.xslt.schema
 
 import com.intellij.lang.Language
-import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaType
+import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaListType
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.EQNamesOrHashedKeywords
 
-object XslPrefixListOrAll : ISchemaType {
+object XslPrefixListOrAll : ISchemaListType {
     override val type: String = "xsl:prefix-list-or-all"
     override val language: Language
         get() = EQNamesOrHashedKeywords
