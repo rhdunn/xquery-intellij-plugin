@@ -77,9 +77,11 @@ class SchemaTypeAnnotator(val schemaType: ISchemaType? = null) : Annotator() {
             is PsiWhiteSpace -> true
             else -> false
         }
-        XslPrefixList -> when (element) {
+        XslPrefixList, XslPrefixOrDefault -> when (element) {
             is XsltHashedKeyword -> element.keyword === XPathTokenType.K_DEFAULT
-            else -> true
+            is XPathNCName -> true
+            is PsiWhiteSpace -> true
+            else -> false
         }
         XslPrefixListOrAll -> when (element) {
             is XsltHashedKeyword -> when (element.keyword) {
@@ -87,7 +89,9 @@ class SchemaTypeAnnotator(val schemaType: ISchemaType? = null) : Annotator() {
                 XPathTokenType.K_DEFAULT -> true
                 else -> false
             }
-            else -> true
+            is XPathNCName -> true
+            is PsiWhiteSpace -> true
+            else -> false
         }
         XslQNames -> when (element) {
             is XPathNCName -> true
@@ -101,6 +105,7 @@ class SchemaTypeAnnotator(val schemaType: ISchemaType? = null) : Annotator() {
 
     fun acceptsMultipleItems(schemaType: ISchemaType, element: PsiElement): Boolean = when (schemaType) {
         XslMode -> false
+        XslPrefixOrDefault -> false
         else -> true
     }
 
