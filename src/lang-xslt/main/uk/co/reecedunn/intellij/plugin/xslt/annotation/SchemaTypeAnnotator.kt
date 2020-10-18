@@ -18,6 +18,8 @@ package uk.co.reecedunn.intellij.plugin.xslt.annotation
 import com.intellij.compat.lang.annotation.AnnotationHolder
 import com.intellij.compat.lang.annotation.Annotator
 import com.intellij.lang.annotation.HighlightSeverity
+import com.intellij.openapi.editor.XmlHighlighterColors
+import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.psi.PsiWhiteSpace
@@ -110,6 +112,13 @@ class SchemaTypeAnnotator(val schemaType: ISchemaType? = null) : Annotator() {
 
         var itemCount = 0
         element.children().forEach { child ->
+            if (child is XsltHashedKeyword) {
+                holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
+                    .range(child)
+                    .textAttributes(XmlHighlighterColors.XML_ATTRIBUTE_VALUE)
+                    .create()
+            }
+
             if (accept(schemaType, child)) {
                 if (child !is PsiWhiteSpace) {
                     itemCount += 1

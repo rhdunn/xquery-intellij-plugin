@@ -30,8 +30,6 @@
     <annotator language="EQNames-or-hashed-keywords" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.annotation.SchemaTypeAnnotator"/>
     <annotator language="xsl:sequence-type" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.annotation.SchemaTypeAnnotator"/>
 
-    <annotator language="EQNames-or-hashed-keywords" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.annotation.HashedKeywordAnnotator"/>
-
     <annotator language="xsl:QName" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.annotation.MethodKeywordAnnotator"/>
     <annotator language="xsl:value-template" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.annotation.ValueTemplateAnnotator"/>
   </extensions>

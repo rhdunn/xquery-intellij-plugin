@@ -78,9 +78,14 @@ private class EQNamesOrHashedKeywordsTest :
             assertThat(
                 annotations, `is`(
                     """
+                    INFORMATION (0:4) XML_ATTRIBUTE_VALUE
+                    INFORMATION (5:13) XML_ATTRIBUTE_VALUE
                     ERROR (5:13) "Keyword '#current' is not supported for the xsl:accumulator-names schema type."
+                    INFORMATION (14:22) XML_ATTRIBUTE_VALUE
                     ERROR (14:22) "Keyword '#default' is not supported for the xsl:accumulator-names schema type."
+                    INFORMATION (23:31) XML_ATTRIBUTE_VALUE
                     ERROR (23:31) "Keyword '#unnamed' is not supported for the xsl:accumulator-names schema type."
+                    INFORMATION (32:40) XML_ATTRIBUTE_VALUE
                     ERROR (32:40) "Keyword '#unknown' is not supported for the xsl:accumulator-names schema type."
                     """.trimIndent()
                 )
@@ -151,9 +156,14 @@ private class EQNamesOrHashedKeywordsTest :
             assertThat(
                 annotations, `is`(
                     """
+                    INFORMATION (0:4) XML_ATTRIBUTE_VALUE
                     ERROR (0:4) "Keyword '#all' is not supported for the xsl:default-mode-type schema type."
+                    INFORMATION (5:13) XML_ATTRIBUTE_VALUE
                     ERROR (5:13) "Keyword '#current' is not supported for the xsl:default-mode-type schema type."
+                    INFORMATION (14:22) XML_ATTRIBUTE_VALUE
                     ERROR (14:22) "Keyword '#default' is not supported for the xsl:default-mode-type schema type."
+                    INFORMATION (23:31) XML_ATTRIBUTE_VALUE
+                    INFORMATION (32:40) XML_ATTRIBUTE_VALUE
                     ERROR (32:40) "Keyword '#unknown' is not supported for the xsl:default-mode-type schema type."
                     """.trimIndent()
                 )
@@ -206,10 +216,15 @@ private class EQNamesOrHashedKeywordsTest :
             assertThat(
                 annotations, `is`(
                     """
+                    INFORMATION (0:4) XML_ATTRIBUTE_VALUE
                     ERROR (0:4) "Keyword '#all' is not supported for the xsl:EQNames schema type."
+                    INFORMATION (5:13) XML_ATTRIBUTE_VALUE
                     ERROR (5:13) "Keyword '#current' is not supported for the xsl:EQNames schema type."
+                    INFORMATION (14:22) XML_ATTRIBUTE_VALUE
                     ERROR (14:22) "Keyword '#default' is not supported for the xsl:EQNames schema type."
+                    INFORMATION (23:31) XML_ATTRIBUTE_VALUE
                     ERROR (23:31) "Keyword '#unnamed' is not supported for the xsl:EQNames schema type."
+                    INFORMATION (32:40) XML_ATTRIBUTE_VALUE
                     ERROR (32:40) "Keyword '#unknown' is not supported for the xsl:EQNames schema type."
                     """.trimIndent()
                 )
@@ -280,9 +295,14 @@ private class EQNamesOrHashedKeywordsTest :
             assertThat(
                 annotations, `is`(
                     """
+                    INFORMATION (0:4) XML_ATTRIBUTE_VALUE
                     ERROR (0:4) "Keyword '#all' is not supported for the xsl:mode schema type."
+                    INFORMATION (5:13) XML_ATTRIBUTE_VALUE
+                    INFORMATION (14:22) XML_ATTRIBUTE_VALUE
                     ERROR (14:22) "The xsl:mode schema type only supports a single item."
+                    INFORMATION (23:31) XML_ATTRIBUTE_VALUE
                     ERROR (23:31) "The xsl:mode schema type only supports a single item."
+                    INFORMATION (32:40) XML_ATTRIBUTE_VALUE
                     ERROR (32:40) "Keyword '#unknown' is not supported for the xsl:mode schema type."
                     """.trimIndent()
                 )
@@ -335,7 +355,12 @@ private class EQNamesOrHashedKeywordsTest :
             assertThat(
                 annotations, `is`(
                     """
+                    INFORMATION (0:4) XML_ATTRIBUTE_VALUE
+                    INFORMATION (5:13) XML_ATTRIBUTE_VALUE
                     ERROR (5:13) "Keyword '#current' is not supported for the xsl:modes schema type."
+                    INFORMATION (14:22) XML_ATTRIBUTE_VALUE
+                    INFORMATION (23:31) XML_ATTRIBUTE_VALUE
+                    INFORMATION (32:40) XML_ATTRIBUTE_VALUE
                     ERROR (32:40) "Keyword '#unknown' is not supported for the xsl:modes schema type."
                     """.trimIndent()
                 )
@@ -408,9 +433,14 @@ private class EQNamesOrHashedKeywordsTest :
             assertThat(
                 annotations, `is`(
                     """
+                    INFORMATION (0:4) XML_ATTRIBUTE_VALUE
                     ERROR (0:4) "Keyword '#all' is not supported for the xsl:prefix schema type."
+                    INFORMATION (5:13) XML_ATTRIBUTE_VALUE
                     ERROR (5:13) "Keyword '#current' is not supported for the xsl:prefix schema type."
+                    INFORMATION (14:22) XML_ATTRIBUTE_VALUE
+                    INFORMATION (23:31) XML_ATTRIBUTE_VALUE
                     ERROR (23:31) "Keyword '#unnamed' is not supported for the xsl:prefix schema type."
+                    INFORMATION (32:40) XML_ATTRIBUTE_VALUE
                     ERROR (32:40) "Keyword '#unknown' is not supported for the xsl:prefix schema type."
                     """.trimIndent()
                 )
@@ -477,10 +507,15 @@ private class EQNamesOrHashedKeywordsTest :
             assertThat(
                 annotations, `is`(
                     """
+                    INFORMATION (0:4) XML_ATTRIBUTE_VALUE
                     ERROR (0:4) "Keyword '#all' is not supported for the xsl:prefixes schema type."
+                    INFORMATION (5:13) XML_ATTRIBUTE_VALUE
                     ERROR (5:13) "Keyword '#current' is not supported for the xsl:prefixes schema type."
+                    INFORMATION (14:22) XML_ATTRIBUTE_VALUE
                     ERROR (14:22) "Keyword '#default' is not supported for the xsl:prefixes schema type."
+                    INFORMATION (23:31) XML_ATTRIBUTE_VALUE
                     ERROR (23:31) "Keyword '#unnamed' is not supported for the xsl:prefixes schema type."
+                    INFORMATION (32:40) XML_ATTRIBUTE_VALUE
                     ERROR (32:40) "Keyword '#unknown' is not supported for the xsl:prefixes schema type."
                     """.trimIndent()
                 )
@@ -547,9 +582,14 @@ private class EQNamesOrHashedKeywordsTest :
             assertThat(
                 annotations, `is`(
                     """
+                    INFORMATION (0:4) XML_ATTRIBUTE_VALUE
                     ERROR (0:4) "Keyword '#all' is not supported for the xsl:prefix-list schema type."
+                    INFORMATION (5:13) XML_ATTRIBUTE_VALUE
                     ERROR (5:13) "Keyword '#current' is not supported for the xsl:prefix-list schema type."
+                    INFORMATION (14:22) XML_ATTRIBUTE_VALUE
+                    INFORMATION (23:31) XML_ATTRIBUTE_VALUE
                     ERROR (23:31) "Keyword '#unnamed' is not supported for the xsl:prefix-list schema type."
+                    INFORMATION (32:40) XML_ATTRIBUTE_VALUE
                     ERROR (32:40) "Keyword '#unknown' is not supported for the xsl:prefix-list schema type."
                     """.trimIndent()
                 )
@@ -616,8 +656,13 @@ private class EQNamesOrHashedKeywordsTest :
             assertThat(
                 annotations, `is`(
                     """
+                    INFORMATION (0:4) XML_ATTRIBUTE_VALUE
+                    INFORMATION (5:13) XML_ATTRIBUTE_VALUE
                     ERROR (5:13) "Keyword '#current' is not supported for the xsl:prefix-list-or-all schema type."
+                    INFORMATION (14:22) XML_ATTRIBUTE_VALUE
+                    INFORMATION (23:31) XML_ATTRIBUTE_VALUE
                     ERROR (23:31) "Keyword '#unnamed' is not supported for the xsl:prefix-list-or-all schema type."
+                    INFORMATION (32:40) XML_ATTRIBUTE_VALUE
                     ERROR (32:40) "Keyword '#unknown' is not supported for the xsl:prefix-list-or-all schema type."
                     """.trimIndent()
                 )
@@ -690,9 +735,14 @@ private class EQNamesOrHashedKeywordsTest :
             assertThat(
                 annotations, `is`(
                     """
+                    INFORMATION (0:4) XML_ATTRIBUTE_VALUE
                     ERROR (0:4) "Keyword '#all' is not supported for the xsl:prefix-or-default schema type."
+                    INFORMATION (5:13) XML_ATTRIBUTE_VALUE
                     ERROR (5:13) "Keyword '#current' is not supported for the xsl:prefix-or-default schema type."
+                    INFORMATION (14:22) XML_ATTRIBUTE_VALUE
+                    INFORMATION (23:31) XML_ATTRIBUTE_VALUE
                     ERROR (23:31) "Keyword '#unnamed' is not supported for the xsl:prefix-or-default schema type."
+                    INFORMATION (32:40) XML_ATTRIBUTE_VALUE
                     ERROR (32:40) "Keyword '#unknown' is not supported for the xsl:prefix-or-default schema type."
                     """.trimIndent()
                 )
@@ -752,10 +802,15 @@ private class EQNamesOrHashedKeywordsTest :
             assertThat(
                 annotations, `is`(
                     """
+                    INFORMATION (0:4) XML_ATTRIBUTE_VALUE
                     ERROR (0:4) "Keyword '#all' is not supported for the xsl:QNames schema type."
+                    INFORMATION (5:13) XML_ATTRIBUTE_VALUE
                     ERROR (5:13) "Keyword '#current' is not supported for the xsl:QNames schema type."
+                    INFORMATION (14:22) XML_ATTRIBUTE_VALUE
                     ERROR (14:22) "Keyword '#default' is not supported for the xsl:QNames schema type."
+                    INFORMATION (23:31) XML_ATTRIBUTE_VALUE
                     ERROR (23:31) "Keyword '#unnamed' is not supported for the xsl:QNames schema type."
+                    INFORMATION (32:40) XML_ATTRIBUTE_VALUE
                     ERROR (32:40) "Keyword '#unknown' is not supported for the xsl:QNames schema type."
                     """.trimIndent()
                 )
@@ -822,10 +877,15 @@ private class EQNamesOrHashedKeywordsTest :
             assertThat(
                 annotations, `is`(
                     """
+                    INFORMATION (0:4) XML_ATTRIBUTE_VALUE
                     ERROR (0:4) "Keyword '#all' is not supported for the xsl:tokens schema type."
+                    INFORMATION (5:13) XML_ATTRIBUTE_VALUE
                     ERROR (5:13) "Keyword '#current' is not supported for the xsl:tokens schema type."
+                    INFORMATION (14:22) XML_ATTRIBUTE_VALUE
                     ERROR (14:22) "Keyword '#default' is not supported for the xsl:tokens schema type."
+                    INFORMATION (23:31) XML_ATTRIBUTE_VALUE
                     ERROR (23:31) "Keyword '#unnamed' is not supported for the xsl:tokens schema type."
+                    INFORMATION (32:40) XML_ATTRIBUTE_VALUE
                     ERROR (32:40) "Keyword '#unknown' is not supported for the xsl:tokens schema type."
                     """.trimIndent()
                 )
