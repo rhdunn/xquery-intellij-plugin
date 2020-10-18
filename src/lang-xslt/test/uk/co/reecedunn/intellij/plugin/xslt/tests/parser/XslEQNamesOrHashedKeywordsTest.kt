@@ -130,7 +130,7 @@ private class XslEQNamesOrHashedKeywordsTest :
         }
 
         @Test
-        @DisplayName("#unnamed [xsl:mode, xsl:modes]")
+        @DisplayName("#unnamed [xsl:default-mode-type, xsl:mode, xsl:modes]")
         fun unnamed() {
             val expected = loadResource("tests/parser/schema-type/hashed-keyword/Unnamed.txt")
             val actual = parseResource("tests/parser/schema-type/hashed-keyword/Unnamed.input")

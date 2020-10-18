@@ -52,6 +52,10 @@ class SchemaTypeAnnotator(val schemaType: ISchemaType? = null) : Annotator() {
             is XsltHashedKeyword -> element.keyword === XPathTokenType.K_ALL
             else -> true
         }
+        XslDefaultModeType -> when (element) {
+            is XsltHashedKeyword -> element.keyword === XPathTokenType.K_UNNAMED
+            else -> true
+        }
         XslEQNames -> element !is XsltHashedKeyword
         XslItemType -> element !is XPathSequenceType
         XslMode -> when (element) {
@@ -104,6 +108,7 @@ class SchemaTypeAnnotator(val schemaType: ISchemaType? = null) : Annotator() {
     }
 
     fun acceptsMultipleItems(schemaType: ISchemaType, element: PsiElement): Boolean = when (schemaType) {
+        XslDefaultModeType -> false
         XslMode -> false
         XslPrefix -> false
         XslPrefixOrDefault -> false
