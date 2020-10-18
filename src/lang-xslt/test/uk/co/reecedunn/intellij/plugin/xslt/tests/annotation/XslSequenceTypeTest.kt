@@ -25,6 +25,8 @@ import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xslt.annotation.SchemaTypeAnnotator
 import uk.co.reecedunn.intellij.plugin.xslt.ast.schema.XsltSchemaType
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.SequenceType
+import uk.co.reecedunn.intellij.plugin.xslt.schema.XslItemType
+import uk.co.reecedunn.intellij.plugin.xslt.schema.XslSequenceType
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("Reformat")
@@ -33,7 +35,7 @@ private class XslSequenceTypeTest : AnnotatorTestCase(SequenceType.ParserDefinit
     @Nested
     @DisplayName("xsl:item-type")
     internal inner class ItemTypeTest {
-        val annotator = SchemaTypeAnnotator("xsl:item-type")
+        val annotator = SchemaTypeAnnotator(XslItemType)
 
         @Test
         @DisplayName("XPath 3.1 EBNF (81) ItemType")
@@ -93,7 +95,7 @@ private class XslSequenceTypeTest : AnnotatorTestCase(SequenceType.ParserDefinit
     @Nested
     @DisplayName("xsl:sequence-type")
     internal inner class SequenceTypeTest {
-        val annotator = SchemaTypeAnnotator("xsl:sequence-type")
+        val annotator = SchemaTypeAnnotator(XslSequenceType)
 
         @Test
         @DisplayName("XPath 3.1 EBNF (81) ItemType")

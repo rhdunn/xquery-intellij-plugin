@@ -25,11 +25,15 @@ import uk.co.reecedunn.intellij.plugin.core.psi.contextOfType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.xml.attribute
 import uk.co.reecedunn.intellij.plugin.core.xml.schemaType
+import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathSequenceType
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.resources.XsltBundle
+import uk.co.reecedunn.intellij.plugin.xslt.parser.XsltSchemaTypes
+import uk.co.reecedunn.intellij.plugin.xslt.schema.XslItemType
+import uk.co.reecedunn.intellij.plugin.xslt.schema.XslSequenceType
 import java.lang.UnsupportedOperationException
 
-class SchemaTypeAnnotator(val schemaType: String? = null) : Annotator() {
+class SchemaTypeAnnotator(val schemaType: ISchemaType? = null) : Annotator() {
     companion object {
         val REMOVE_START = "^(Plugin|Scripting|UpdateFacility|XPath|XQuery)".toRegex()
         val REMOVE_END = "(PsiImpl|Impl)$".toRegex()
@@ -39,19 +43,19 @@ class SchemaTypeAnnotator(val schemaType: String? = null) : Annotator() {
         return element.javaClass.name.split('.').last().replace(REMOVE_START, "").replace(REMOVE_END, "")
     }
 
-    fun accept(schemaType: String, element: PsiElement): Boolean = when (schemaType) {
-        "xsl:item-type" -> element !is XPathSequenceType
-        "xsl:sequence-type" -> true
+    fun accept(schemaType: ISchemaType, element: PsiElement): Boolean = when (schemaType) {
+        XslItemType -> element !is XPathSequenceType
+        XslSequenceType -> true
         else -> throw UnsupportedOperationException()
     }
 
     override fun annotateElement(element: PsiElement, holder: AnnotationHolder) {
         if (element !is PsiFile) return
-        val schemaType = schemaType ?: element.contextOfType<XmlAttributeValue>(false)?.attribute?.schemaType ?: return
+        val schemaType = schemaType ?: XsltSchemaTypes.create(element) ?: return
         element.children().forEach { child ->
             if (!accept(schemaType, child)) {
                 val symbol = getSymbolName(child)
-                val message = XsltBundle.message("schema.validation.unsupported", symbol, schemaType)
+                val message = XsltBundle.message("schema.validation.unsupported", symbol, schemaType.type)
                 holder.newAnnotation(HighlightSeverity.ERROR, message).range(element).create()
             }
         }
