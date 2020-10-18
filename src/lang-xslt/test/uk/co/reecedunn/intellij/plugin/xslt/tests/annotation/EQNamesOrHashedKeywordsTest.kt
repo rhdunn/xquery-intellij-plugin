@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xslt.annotation.SchemaTypeAnnotator
 import uk.co.reecedunn.intellij.plugin.xslt.ast.schema.XsltSchemaType
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.EQNamesOrHashedKeywords
 import uk.co.reecedunn.intellij.plugin.xslt.schema.XslAccumulatorNames
+import uk.co.reecedunn.intellij.plugin.xslt.schema.XslModes
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("Reformat")
@@ -82,6 +83,59 @@ private class EQNamesOrHashedKeywordsTest :
                     ERROR (14:22) "Keyword '#default' is not supported for the xsl:accumulator-names schema type."
                     ERROR (23:31) "Keyword '#unnamed' is not supported for the xsl:accumulator-names schema type."
                     ERROR (32:40) "Keyword '#unknown' is not supported for the xsl:accumulator-names schema type."
+                    """.trimIndent()
+                )
+            )
+        }
+    }
+
+    @Nested
+    @DisplayName("xsl:modes")
+    inner class ModesTest {
+        val annotator = SchemaTypeAnnotator(XslModes)
+
+        @Test
+        @DisplayName("XPath 2.0 EBNF (77) Comment ; XPath 2.0 EBNF (82) CommentContents")
+        fun comment() {
+            val file = parse<XsltSchemaType>("lorem (: ipsum :)")[0]
+            val annotations = annotateTree(file, annotator).prettyPrint()
+            assertThat(annotations, `is`(""))
+        }
+
+        @Test
+        @DisplayName("XPath 3.1 EBNF (122) URIQualifiedName")
+        fun uriQualifiedName() {
+            val file = parse<XsltSchemaType>("Q{http://www.example.co.uk}one Q{http://www.example.co.uk}two")[0]
+            val annotations = annotateTree(file, annotator).prettyPrint()
+            assertThat(annotations, `is`(""))
+        }
+
+        @Test
+        @DisplayName("XPath 3.1 EBNF (122) QName")
+        fun qname() {
+            val file = parse<XsltSchemaType>("lorem:one lorem:two")[0]
+            val annotations = annotateTree(file, annotator).prettyPrint()
+            assertThat(annotations, `is`(""))
+        }
+
+        @Test
+        @DisplayName("XPath 3.1 EBNF (123) NCName")
+        fun ncname() {
+            val file = parse<XsltSchemaType>("lorem ipsum")[0]
+            val annotations = annotateTree(file, annotator).prettyPrint()
+            assertThat(annotations, `is`(""))
+        }
+
+        @Test
+        @DisplayName("hashed keywords")
+        fun hashedKeywords() {
+            val file = parse<XsltSchemaType>("#all #current #default #unnamed #unknown")[0]
+            val annotations = annotateTree(file, annotator).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    ERROR (5:13) "Keyword '#current' is not supported for the xsl:modes schema type."
+                    ERROR (32:40) "Keyword '#unknown' is not supported for the xsl:modes schema type."
                     """.trimIndent()
                 )
             )

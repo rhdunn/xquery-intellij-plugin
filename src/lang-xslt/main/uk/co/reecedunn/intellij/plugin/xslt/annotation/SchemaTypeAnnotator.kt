@@ -33,6 +33,7 @@ import uk.co.reecedunn.intellij.plugin.xslt.intellij.resources.XsltBundle
 import uk.co.reecedunn.intellij.plugin.xslt.parser.XsltSchemaTypes
 import uk.co.reecedunn.intellij.plugin.xslt.schema.XslAccumulatorNames
 import uk.co.reecedunn.intellij.plugin.xslt.schema.XslItemType
+import uk.co.reecedunn.intellij.plugin.xslt.schema.XslModes
 import uk.co.reecedunn.intellij.plugin.xslt.schema.XslSequenceType
 import java.lang.UnsupportedOperationException
 
@@ -47,12 +48,21 @@ class SchemaTypeAnnotator(val schemaType: ISchemaType? = null) : Annotator() {
     }
 
     fun accept(schemaType: ISchemaType, element: PsiElement): Boolean = when (schemaType) {
-        XslItemType -> element !is XPathSequenceType
-        XslSequenceType -> true
         XslAccumulatorNames -> when (element) {
             is XsltHashedKeyword -> element.keyword === XPathTokenType.K_ALL
             else -> true
         }
+        XslItemType -> element !is XPathSequenceType
+        XslModes -> when (element) {
+            is XsltHashedKeyword -> when (element.keyword) {
+                XPathTokenType.K_ALL -> true
+                XPathTokenType.K_DEFAULT -> true
+                XPathTokenType.K_UNNAMED -> true
+                else -> false
+            }
+            else -> true
+        }
+        XslSequenceType -> true
         else -> throw UnsupportedOperationException()
     }
 

@@ -120,6 +120,14 @@ private class XslEQNamesOrHashedKeywordsTest :
             val actual = parseResource("tests/parser/schema-type/hashed-keyword/Default.input")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
+
+        @Test
+        @DisplayName("#unnamed [xsl:modes]")
+        fun unnamed() {
+            val expected = loadResource("tests/parser/schema-type/hashed-keyword/Unnamed.txt")
+            val actual = parseResource("tests/parser/schema-type/hashed-keyword/Unnamed.input")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
     @Nested
