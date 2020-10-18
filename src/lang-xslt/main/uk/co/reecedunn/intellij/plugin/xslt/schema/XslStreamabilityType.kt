@@ -17,10 +17,10 @@ package uk.co.reecedunn.intellij.plugin.xslt.schema
 
 import com.intellij.lang.Language
 import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaType
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.EQName
+import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.EQNamesOrHashedKeywords
 
 object XslStreamabilityType : ISchemaType {
     override val type: String = "xsl:streamability-type"
     override val language: Language
-        get() = EQName
+        get() = EQNamesOrHashedKeywords
 }

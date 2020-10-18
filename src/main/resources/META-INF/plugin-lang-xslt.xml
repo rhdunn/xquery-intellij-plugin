@@ -21,7 +21,6 @@
 
     <lang.parserDefinition language="EQNames-or-hashed-keywords" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.EQNamesOrHashedKeywords$ParserDefinition"/>
 
-    <lang.parserDefinition language="xsl:EQName" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.EQName$ParserDefinition"/>
     <lang.parserDefinition language="xsl:nametests" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.NameTests$ParserDefinition"/>
     <lang.parserDefinition language="xsl:QName" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.QName$ParserDefinition"/>
     <lang.parserDefinition language="xsl:sequence-type" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.SequenceType$ParserDefinition"/>
