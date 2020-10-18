@@ -72,7 +72,6 @@ class XsltSchemaTypesParser(
         EQNamesOrHashedKeywords -> parseEQNamesOrHashedKeywords(builder)
         Prefixes -> parsePrefixes(builder)
         QName -> parseQName(builder)
-        QNames -> parseQNames(builder)
         SequenceType -> parseSequenceType(builder)
         else -> false
     }
@@ -107,8 +106,6 @@ class XsltSchemaTypesParser(
 
     private fun parseEQName(builder: PsiBuilder): Boolean = parseEQNameOrWildcard(builder, QNAME) != null
 
-    private fun parseEQNames(builder: PsiBuilder): Boolean = parseSchemaList(builder, ::parseEQName)
-
     private fun parseNameTest(builder: PsiBuilder): Boolean = parseNameTest(builder, null) != null
 
     private fun parseNameTests(builder: PsiBuilder): Boolean = parseSchemaList(builder, ::parseNameTest)
@@ -136,8 +133,6 @@ class XsltSchemaTypesParser(
     private fun parsePrefixes(builder: PsiBuilder): Boolean = parseSchemaList(builder, ::parseNCName)
 
     private fun parseQName(builder: PsiBuilder): Boolean = parseQNameOrWildcard(builder, QNAME) != null
-
-    private fun parseQNames(builder: PsiBuilder): Boolean = parseSchemaList(builder, ::parseQName)
 
     // endregion
 }
