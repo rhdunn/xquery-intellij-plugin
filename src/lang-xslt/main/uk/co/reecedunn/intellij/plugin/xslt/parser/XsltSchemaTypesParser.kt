@@ -68,7 +68,6 @@ class XsltSchemaTypesParser(
         ValueTemplate -> parseValueTemplate(builder)
         EQName -> parseEQName(builder)
         NameTests -> parseNameTests(builder)
-        EQNameOrHashedKeyword -> parseEQNameOrHashedKeyword(builder)
         EQNamesOrHashedKeywords -> parseEQNamesOrHashedKeywords(builder)
         QName -> parseQName(builder)
         SequenceType -> parseSequenceType(builder)

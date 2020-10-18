@@ -19,7 +19,6 @@
 
     <!-- XSLT Schema Type -->
 
-    <lang.parserDefinition language="EQName-or-hashed-keyword" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.EQNameOrHashedKeyword$ParserDefinition"/>
     <lang.parserDefinition language="EQNames-or-hashed-keywords" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.EQNamesOrHashedKeywords$ParserDefinition"/>
 
     <lang.parserDefinition language="xsl:EQName" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.EQName$ParserDefinition"/>
@@ -31,7 +30,6 @@
     <annotator language="EQNames-or-hashed-keywords" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.annotation.SchemaTypeAnnotator"/>
     <annotator language="xsl:sequence-type" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.annotation.SchemaTypeAnnotator"/>
 
-    <annotator language="EQName-or-hashed-keyword" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.annotation.HashedKeywordAnnotator"/>
     <annotator language="EQNames-or-hashed-keywords" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.annotation.HashedKeywordAnnotator"/>
 
     <annotator language="xsl:QName" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.annotation.MethodKeywordAnnotator"/>
