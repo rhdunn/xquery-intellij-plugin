@@ -27,15 +27,18 @@ import uk.co.reecedunn.intellij.plugin.core.xml.attribute
 import uk.co.reecedunn.intellij.plugin.core.xml.schemaType
 import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathSequenceType
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
+import uk.co.reecedunn.intellij.plugin.xslt.ast.schema.XsltHashedKeyword
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.resources.XsltBundle
 import uk.co.reecedunn.intellij.plugin.xslt.parser.XsltSchemaTypes
+import uk.co.reecedunn.intellij.plugin.xslt.schema.XslAccumulatorNames
 import uk.co.reecedunn.intellij.plugin.xslt.schema.XslItemType
 import uk.co.reecedunn.intellij.plugin.xslt.schema.XslSequenceType
 import java.lang.UnsupportedOperationException
 
 class SchemaTypeAnnotator(val schemaType: ISchemaType? = null) : Annotator() {
     companion object {
-        val REMOVE_START = "^(Plugin|Scripting|UpdateFacility|XPath|XQuery)".toRegex()
+        val REMOVE_START = "^(Plugin|Scripting|UpdateFacility|XPath|XQuery|Xslt)".toRegex()
         val REMOVE_END = "(PsiImpl|Impl)$".toRegex()
     }
 
@@ -46,6 +49,10 @@ class SchemaTypeAnnotator(val schemaType: ISchemaType? = null) : Annotator() {
     fun accept(schemaType: ISchemaType, element: PsiElement): Boolean = when (schemaType) {
         XslItemType -> element !is XPathSequenceType
         XslSequenceType -> true
+        XslAccumulatorNames -> when (element) {
+            is XsltHashedKeyword -> element.keyword === XPathTokenType.K_ALL
+            else -> true
+        }
         else -> throw UnsupportedOperationException()
     }
 
@@ -55,8 +62,12 @@ class SchemaTypeAnnotator(val schemaType: ISchemaType? = null) : Annotator() {
         element.children().forEach { child ->
             if (!accept(schemaType, child)) {
                 val symbol = getSymbolName(child)
-                val message = XsltBundle.message("schema.validation.unsupported", symbol, schemaType.type)
-                holder.newAnnotation(HighlightSeverity.ERROR, message).range(element).create()
+                val message =
+                    if (child is XsltHashedKeyword)
+                        XsltBundle.message("schema.validation.unsupported-keyword", child.text, schemaType.type)
+                    else
+                        XsltBundle.message("schema.validation.unsupported", symbol, schemaType.type)
+                holder.newAnnotation(HighlightSeverity.ERROR, message).range(child).create()
             }
         }
     }

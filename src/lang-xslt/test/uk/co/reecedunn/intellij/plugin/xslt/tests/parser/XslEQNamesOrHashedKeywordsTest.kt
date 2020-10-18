@@ -106,7 +106,7 @@ private class XslEQNamesOrHashedKeywordsTest :
     @DisplayName("HashedKeyword")
     internal inner class HashedKeyword {
         @Test
-        @DisplayName("#all [xsl:modes]")
+        @DisplayName("#all [xsl:accumulator-names, xsl:modes, xsl:prefix-list-or-all]")
         fun all() {
             val expected = loadResource("tests/parser/schema-type/hashed-keyword/All.txt")
             val actual = parseResource("tests/parser/schema-type/hashed-keyword/All.input")
