@@ -63,6 +63,11 @@ class SchemaTypeAnnotator(val schemaType: ISchemaType? = null) : Annotator() {
             }
             else -> true
         }
+        XslPrefixes -> when (element) {
+            is XPathNCName -> true
+            is PsiWhiteSpace -> true
+            else -> false
+        }
         XslPrefixList -> when (element) {
             is XsltHashedKeyword -> element.keyword === XPathTokenType.K_DEFAULT
             else -> true
