@@ -49,6 +49,7 @@ class SchemaTypeAnnotator(val schemaType: ISchemaType? = null) : Annotator() {
             is XsltHashedKeyword -> element.keyword === XPathTokenType.K_ALL
             else -> true
         }
+        XslEQNames -> element !is XsltHashedKeyword
         XslItemType -> element !is XPathSequenceType
         XslModes -> when (element) {
             is XsltHashedKeyword -> when (element.keyword) {
