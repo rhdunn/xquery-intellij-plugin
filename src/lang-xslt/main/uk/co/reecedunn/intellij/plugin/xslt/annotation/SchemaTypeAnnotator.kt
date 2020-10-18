@@ -31,10 +31,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xslt.ast.schema.XsltHashedKeyword
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.resources.XsltBundle
 import uk.co.reecedunn.intellij.plugin.xslt.parser.XsltSchemaTypes
-import uk.co.reecedunn.intellij.plugin.xslt.schema.XslAccumulatorNames
-import uk.co.reecedunn.intellij.plugin.xslt.schema.XslItemType
-import uk.co.reecedunn.intellij.plugin.xslt.schema.XslModes
-import uk.co.reecedunn.intellij.plugin.xslt.schema.XslSequenceType
+import uk.co.reecedunn.intellij.plugin.xslt.schema.*
 import java.lang.UnsupportedOperationException
 
 class SchemaTypeAnnotator(val schemaType: ISchemaType? = null) : Annotator() {
@@ -60,6 +57,10 @@ class SchemaTypeAnnotator(val schemaType: ISchemaType? = null) : Annotator() {
                 XPathTokenType.K_UNNAMED -> true
                 else -> false
             }
+            else -> true
+        }
+        XslPrefixList -> when (element) {
+            is XsltHashedKeyword -> element.keyword === XPathTokenType.K_DEFAULT
             else -> true
         }
         XslSequenceType -> true
