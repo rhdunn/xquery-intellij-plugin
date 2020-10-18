@@ -63,6 +63,14 @@ class SchemaTypeAnnotator(val schemaType: ISchemaType? = null) : Annotator() {
             is XsltHashedKeyword -> element.keyword === XPathTokenType.K_DEFAULT
             else -> true
         }
+        XslPrefixListOrAll -> when (element) {
+            is XsltHashedKeyword -> when (element.keyword) {
+                XPathTokenType.K_ALL -> true
+                XPathTokenType.K_DEFAULT -> true
+                else -> false
+            }
+            else -> true
+        }
         XslSequenceType -> true
         else -> throw UnsupportedOperationException()
     }
