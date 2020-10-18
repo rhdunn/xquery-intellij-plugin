@@ -95,7 +95,7 @@ class SchemaTypeAnnotator(val schemaType: ISchemaType? = null) : Annotator() {
             is PsiWhiteSpace -> true
             else -> false
         }
-        XslQNames -> when (element) {
+        XslQName, XslQNames -> when (element) {
             is XPathNCName -> true
             is XPathQName -> true
             is PsiWhiteSpace -> true
