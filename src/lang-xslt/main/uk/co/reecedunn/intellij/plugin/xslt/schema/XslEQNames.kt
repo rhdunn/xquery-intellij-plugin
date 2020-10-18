@@ -17,10 +17,10 @@ package uk.co.reecedunn.intellij.plugin.xslt.schema
 
 import com.intellij.lang.Language
 import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaType
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.EQNames
+import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.EQNamesOrHashedKeywords
 
 object XslEQNames : ISchemaType {
     override val type: String = "xsl:EQNames"
     override val language: Language
-        get() = EQNames
+        get() = EQNamesOrHashedKeywords
 }
