@@ -63,7 +63,7 @@ class SchemaTypeAnnotator(val schemaType: ISchemaType? = null) : Annotator() {
             }
             else -> true
         }
-        XslPrefixes -> when (element) {
+        XslPrefixes, XslTokens -> when (element) {
             is XPathNCName -> true
             is PsiWhiteSpace -> true
             else -> false
