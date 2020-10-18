@@ -172,6 +172,85 @@ private class EQNamesOrHashedKeywordsTest :
     }
 
     @Nested
+    @DisplayName("xsl:EQName")
+    inner class EQNameTest {
+        val annotator = SchemaTypeAnnotator(XslEQName)
+
+        @Test
+        @DisplayName("XPath 2.0 EBNF (77) Comment ; XPath 2.0 EBNF (82) CommentContents")
+        fun comment() {
+            val file = parse<XsltSchemaType>("lorem (: ipsum :)")[0]
+            val annotations = annotateTree(file, annotator).prettyPrint()
+            assertThat(annotations, `is`(""))
+        }
+
+        @Test
+        @DisplayName("XPath 3.1 EBNF (122) URIQualifiedName")
+        fun uriQualifiedName() {
+            val file = parse<XsltSchemaType>("Q{http://www.example.co.uk}one Q{http://www.example.co.uk}two")[0]
+            val annotations = annotateTree(file, annotator).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    ERROR (31:61) "The xsl:EQName schema type only supports a single item."
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XPath 3.1 EBNF (122) QName")
+        fun qname() {
+            val file = parse<XsltSchemaType>("lorem:one lorem:two")[0]
+            val annotations = annotateTree(file, annotator).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    ERROR (10:19) "The xsl:EQName schema type only supports a single item."
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XPath 3.1 EBNF (123) NCName")
+        fun ncname() {
+            val file = parse<XsltSchemaType>("lorem ipsum")[0]
+            val annotations = annotateTree(file, annotator).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    ERROR (6:11) "The xsl:EQName schema type only supports a single item."
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("hashed keywords")
+        fun hashedKeywords() {
+            val file = parse<XsltSchemaType>("#all #current #default #unnamed #unknown")[0]
+            val annotations = annotateTree(file, annotator).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (0:4) XML_ATTRIBUTE_VALUE
+                    ERROR (0:4) "Keyword '#all' is not supported for the xsl:EQName schema type."
+                    INFORMATION (5:13) XML_ATTRIBUTE_VALUE
+                    ERROR (5:13) "Keyword '#current' is not supported for the xsl:EQName schema type."
+                    INFORMATION (14:22) XML_ATTRIBUTE_VALUE
+                    ERROR (14:22) "Keyword '#default' is not supported for the xsl:EQName schema type."
+                    INFORMATION (23:31) XML_ATTRIBUTE_VALUE
+                    ERROR (23:31) "Keyword '#unnamed' is not supported for the xsl:EQName schema type."
+                    INFORMATION (32:40) XML_ATTRIBUTE_VALUE
+                    ERROR (32:40) "Keyword '#unknown' is not supported for the xsl:EQName schema type."
+                    """.trimIndent()
+                )
+            )
+        }
+    }
+
+    @Nested
     @DisplayName("xsl:EQNames")
     inner class EQNamesTest {
         val annotator = SchemaTypeAnnotator(XslEQNames)

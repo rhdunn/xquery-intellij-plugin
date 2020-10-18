@@ -19,7 +19,6 @@ import com.intellij.compat.lang.annotation.AnnotationHolder
 import com.intellij.compat.lang.annotation.Annotator
 import com.intellij.lang.annotation.HighlightSeverity
 import com.intellij.openapi.editor.XmlHighlighterColors
-import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.psi.PsiWhiteSpace
@@ -55,7 +54,7 @@ class SchemaTypeAnnotator(val schemaType: ISchemaType? = null) : Annotator() {
             is XsltHashedKeyword -> element.keyword === XPathTokenType.K_UNNAMED
             else -> true
         }
-        XslEQNames -> element !is XsltHashedKeyword
+        XslEQName, XslEQNames -> element !is XsltHashedKeyword
         XslItemType -> element !is XPathSequenceType
         XslMode -> when (element) {
             is XsltHashedKeyword -> when (element.keyword) {
