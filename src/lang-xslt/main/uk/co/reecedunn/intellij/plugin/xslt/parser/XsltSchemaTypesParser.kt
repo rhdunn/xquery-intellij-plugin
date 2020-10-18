@@ -68,7 +68,6 @@ class XsltSchemaTypesParser(
         ValueTemplate -> parseValueTemplate(builder)
         NameTests -> parseNameTests(builder)
         EQNamesOrHashedKeywords -> parseEQNamesOrHashedKeywords(builder)
-        QName -> parseQName(builder)
         SequenceType -> parseSequenceType(builder)
         else -> false
     }
@@ -126,8 +125,6 @@ class XsltSchemaTypesParser(
     private fun parseEQNamesOrHashedKeywords(builder: PsiBuilder): Boolean {
         return parseSchemaList(builder, ::parseEQNameOrHashedKeyword)
     }
-
-    private fun parseQName(builder: PsiBuilder): Boolean = parseQNameOrWildcard(builder, QNAME) != null
 
     // endregion
 }
