@@ -114,7 +114,15 @@ private class XslEQNamesOrHashedKeywordsTest :
         }
 
         @Test
-        @DisplayName("#default [xsl:modes, xsl:prefix-list, xsl:prefix-list-or-all]")
+        @DisplayName("#current [xsl:mode]")
+        fun current() {
+            val expected = loadResource("tests/parser/schema-type/hashed-keyword/Current.txt")
+            val actual = parseResource("tests/parser/schema-type/hashed-keyword/Current.input")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("#default [xsl:mode, xsl:modes, xsl:prefix-list, xsl:prefix-list-or-all]")
         fun default() {
             val expected = loadResource("tests/parser/schema-type/hashed-keyword/Default.txt")
             val actual = parseResource("tests/parser/schema-type/hashed-keyword/Default.input")
@@ -122,7 +130,7 @@ private class XslEQNamesOrHashedKeywordsTest :
         }
 
         @Test
-        @DisplayName("#unnamed [xsl:modes]")
+        @DisplayName("#unnamed [xsl:mode, xsl:modes]")
         fun unnamed() {
             val expected = loadResource("tests/parser/schema-type/hashed-keyword/Unnamed.txt")
             val actual = parseResource("tests/parser/schema-type/hashed-keyword/Unnamed.input")

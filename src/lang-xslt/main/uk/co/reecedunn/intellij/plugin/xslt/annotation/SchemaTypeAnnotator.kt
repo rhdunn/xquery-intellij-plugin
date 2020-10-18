@@ -54,6 +54,15 @@ class SchemaTypeAnnotator(val schemaType: ISchemaType? = null) : Annotator() {
         }
         XslEQNames -> element !is XsltHashedKeyword
         XslItemType -> element !is XPathSequenceType
+        XslMode -> when (element) {
+            is XsltHashedKeyword -> when (element.keyword) {
+                XPathTokenType.K_CURRENT -> true
+                XPathTokenType.K_DEFAULT -> true
+                XPathTokenType.K_UNNAMED -> true
+                else -> false
+            }
+            else -> true
+        }
         XslModes -> when (element) {
             is XsltHashedKeyword -> when (element.keyword) {
                 XPathTokenType.K_ALL -> true
@@ -90,11 +99,26 @@ class SchemaTypeAnnotator(val schemaType: ISchemaType? = null) : Annotator() {
         else -> throw UnsupportedOperationException()
     }
 
+    fun acceptsMultipleItems(schemaType: ISchemaType, element: PsiElement): Boolean = when (schemaType) {
+        XslMode -> false
+        else -> true
+    }
+
     override fun annotateElement(element: PsiElement, holder: AnnotationHolder) {
         if (element !is PsiFile) return
         val schemaType = schemaType ?: XsltSchemaTypes.create(element) ?: return
+
+        var itemCount = 0
         element.children().forEach { child ->
-            if (!accept(schemaType, child)) {
+            if (accept(schemaType, child)) {
+                if (child !is PsiWhiteSpace) {
+                    itemCount += 1
+                    if (itemCount > 1 && !acceptsMultipleItems(schemaType, element)) {
+                        val message = XsltBundle.message("schema.validation.multiple-items", schemaType.type)
+                        holder.newAnnotation(HighlightSeverity.ERROR, message).range(child).create()
+                    }
+                }
+            } else {
                 val symbol = getSymbolName(child)
                 val message =
                     if (child is XsltHashedKeyword)
