@@ -271,6 +271,81 @@ private class EQNamesOrHashedKeywordsTest :
     }
 
     @Nested
+    @DisplayName("xsl:prefix")
+    inner class PrefixTest {
+        val annotator = SchemaTypeAnnotator(XslPrefix)
+
+        @Test
+        @DisplayName("XPath 2.0 EBNF (77) Comment ; XPath 2.0 EBNF (82) CommentContents")
+        fun comment() {
+            val file = parse<XsltSchemaType>("lorem (: ipsum :)")[0]
+            val annotations = annotateTree(file, annotator).prettyPrint()
+            assertThat(annotations, `is`(""))
+        }
+
+        @Test
+        @DisplayName("XPath 3.1 EBNF (122) URIQualifiedName")
+        fun uriQualifiedName() {
+            val file = parse<XsltSchemaType>("Q{http://www.example.co.uk}one Q{http://www.example.co.uk}two")[0]
+            val annotations = annotateTree(file, annotator).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    ERROR (0:30) "URIQualifiedName is not supported for the xsl:prefix schema type."
+                    ERROR (31:61) "URIQualifiedName is not supported for the xsl:prefix schema type."
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XPath 3.1 EBNF (122) QName")
+        fun qname() {
+            val file = parse<XsltSchemaType>("lorem:one lorem:two")[0]
+            val annotations = annotateTree(file, annotator).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    ERROR (0:9) "QName is not supported for the xsl:prefix schema type."
+                    ERROR (10:19) "QName is not supported for the xsl:prefix schema type."
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XPath 3.1 EBNF (123) NCName")
+        fun ncname() {
+            val file = parse<XsltSchemaType>("lorem ipsum")[0]
+            val annotations = annotateTree(file, annotator).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    ERROR (6:11) "The xsl:prefix schema type only supports a single item."
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("hashed keywords")
+        fun hashedKeywords() {
+            val file = parse<XsltSchemaType>("#all #current #default #unnamed #unknown")[0]
+            val annotations = annotateTree(file, annotator).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    ERROR (0:4) "Keyword '#all' is not supported for the xsl:prefix schema type."
+                    ERROR (5:13) "Keyword '#current' is not supported for the xsl:prefix schema type."
+                    ERROR (23:31) "Keyword '#unnamed' is not supported for the xsl:prefix schema type."
+                    ERROR (32:40) "Keyword '#unknown' is not supported for the xsl:prefix schema type."
+                    """.trimIndent()
+                )
+            )
+        }
+    }
+
+    @Nested
     @DisplayName("xsl:prefixes")
     inner class PrefixesTest {
         val annotator = SchemaTypeAnnotator(XslPrefixes)

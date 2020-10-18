@@ -122,7 +122,7 @@ private class XslEQNamesOrHashedKeywordsTest :
         }
 
         @Test
-        @DisplayName("#default [xsl:mode, xsl:modes, xsl:prefix-list, xsl:prefix-list-or-all]")
+        @DisplayName("#default [xsl:mode, xsl:modes, xsl:prefix, xsl:prefix-or-default, xsl:prefix-list, xsl:prefix-list-or-all]")
         fun default() {
             val expected = loadResource("tests/parser/schema-type/hashed-keyword/Default.txt")
             val actual = parseResource("tests/parser/schema-type/hashed-keyword/Default.input")
