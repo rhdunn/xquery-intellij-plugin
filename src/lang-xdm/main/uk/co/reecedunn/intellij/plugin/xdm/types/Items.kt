@@ -33,7 +33,11 @@ object XdmNodeItem : XdmItemType {
 // endregion
 // region XQuery and XPath 3.1 Data Model (2.7.4) : attribute()
 
-interface XdmAttributeNode : XdmNode, XdmAccessors
+interface XdmAttributeNode : XdmNode {
+    val nodeName: XsQNameValue?
+
+    val typedValue: XsAnyAtomicType?
+}
 
 object XdmAttributeItem : XdmItemType {
     override val typeName: String = "attribute()"
@@ -46,12 +50,14 @@ object XdmAttributeItem : XdmItemType {
 // endregion
 // region XQuery and XPath 3.1 Data Model (2.7.4) : document-node()
 
-interface XdmDocumentNode : XdmNode, XdmAccessors
+interface XdmDocumentNode : XdmNode
 
 // endregion
 // region XQuery and XPath 3.1 Data Model (2.7.4) : element()
 
-interface XdmElementNode : XdmNode, XdmAccessors {
+interface XdmElementNode : XdmNode {
+    val nodeName: XsQNameValue?
+
     val closingTag: XsQNameValue?
 }
 
@@ -66,12 +72,12 @@ object XdmElementItem : XdmItemType {
 // endregion
 // region XQuery and XPath 3.1 Data Model (2.7.4) : comment()
 
-interface XdmCommentNode : XdmNode, XdmAccessors
+interface XdmCommentNode : XdmNode
 
 // endregion
 // region XQuery and XPath 3.1 Data Model (2.7.4) : namespace-node()
 
-interface XdmNamespaceNode : XdmNode, XdmAccessors
+interface XdmNamespaceNode : XdmNode
 
 object XdmNamespaceItem : XdmItemType {
     override val typeName: String = "namespace-node()"
@@ -84,12 +90,12 @@ object XdmNamespaceItem : XdmItemType {
 // endregion
 // region XQuery and XPath 3.1 Data Model (2.7.4) : processing-instruction()
 
-interface XdmProcessingInstructionNode : XdmNode, XdmAccessors
+interface XdmProcessingInstructionNode : XdmNode
 
 // endregion
 // region XQuery and XPath 3.1 Data Model (2.7.4) : text()
 
-interface XdmTextNode : XdmNode, XdmAccessors
+interface XdmTextNode : XdmNode
 
 // endregion
 // region XQuery IntelliJ Plugin Data Model (2.1) : array-node() [MarkLogic]
