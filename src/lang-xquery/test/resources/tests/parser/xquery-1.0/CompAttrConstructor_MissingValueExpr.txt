@@ -1,16 +1,15 @@
 XQueryModuleImpl[FILE(0:20)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:20)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:20)]
-         XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:20)]
-            XQueryCompAttrConstructorImpl[XQUERY_COMP_ATTR_CONSTRUCTOR(0:20)]
-               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ATTRIBUTE(0:9)]('attribute')
-               PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
-               LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(10:11)]('{')
-               PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
-               XPathStringLiteralImpl[XPATH_STRING_LITERAL(12:18)]
-                  LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(12:13)]('"')
-                  XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(13:17)]('test')
-                  LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(17:18)]('"')
-               PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
-               LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(19:20)]('}')
-               PsiErrorElementImpl[ERROR_ELEMENT(20:20)]('XPST0003: Missing enclosed expression start '{'.')
+         XQueryCompAttrConstructorImpl[XQUERY_COMP_ATTR_CONSTRUCTOR(0:20)]
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ATTRIBUTE(0:9)]('attribute')
+            PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
+            LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(10:11)]('{')
+            PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
+            XPathStringLiteralImpl[XPATH_STRING_LITERAL(12:18)]
+               LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(12:13)]('"')
+               XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(13:17)]('test')
+               LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(17:18)]('"')
+            PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
+            LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(19:20)]('}')
+            PsiErrorElementImpl[ERROR_ELEMENT(20:20)]('XPST0003: Missing enclosed expression start '{'.')

@@ -1,20 +1,19 @@
 XQueryModuleImpl[FILE(0:25)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:25)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:25)]
-         XQueryNodeConstructorImpl[XQUERY_NODE_CONSTRUCTOR(0:25)]
-            XQueryCompAttrConstructorImpl[XQUERY_COMP_ATTR_CONSTRUCTOR(0:25)]
-               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ATTRIBUTE(0:9)]('attribute')
-               PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
-               XQueryQNameImpl[XQUERY_QNAME(10:16)]
-                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(10:13)]('xml')
-                  LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(13:14)](':')
-                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(14:16)]('id')
-               PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
-               XQueryEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(17:25)]
-                  LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(17:18)]('{')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
-                  XPathStringLiteralImpl[XPATH_STRING_LITERAL(19:25)]
-                     LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(19:20)]('"')
-                     XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(20:24)]('test')
-                     LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(24:25)]('"')
-                  PsiErrorElementImpl[ERROR_ELEMENT(25:25)]('XPST0003: Expected '}'.')
+         XQueryCompAttrConstructorImpl[XQUERY_COMP_ATTR_CONSTRUCTOR(0:25)]
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ATTRIBUTE(0:9)]('attribute')
+            PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
+            XQueryQNameImpl[XQUERY_QNAME(10:16)]
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(10:13)]('xml')
+               LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(13:14)](':')
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(14:16)]('id')
+            PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
+            XQueryEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(17:25)]
+               LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(17:18)]('{')
+               PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
+               XPathStringLiteralImpl[XPATH_STRING_LITERAL(19:25)]
+                  LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(19:20)]('"')
+                  XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(20:24)]('test')
+                  LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(24:25)]('"')
+               PsiErrorElementImpl[ERROR_ELEMENT(25:25)]('XPST0003: Expected '}'.')

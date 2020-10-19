@@ -3588,14 +3588,7 @@ class XQueryParser : XPathParser() {
     }
 
     private fun parseNodeConstructor(builder: PsiBuilder): Boolean {
-        val marker = builder.mark()
-        if (parseDirectConstructor(builder, 0) || parseComputedConstructor(builder)) {
-            marker.done(XQueryElementType.NODE_CONSTRUCTOR)
-            return true
-        }
-
-        marker.drop()
-        return false
+        return parseDirectConstructor(builder, 0) || parseComputedConstructor(builder)
     }
 
     private fun parseNullConstructor(builder: PsiBuilder): Boolean {

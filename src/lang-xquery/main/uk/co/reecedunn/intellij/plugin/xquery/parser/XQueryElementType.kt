@@ -624,12 +624,6 @@ object XQueryElementType {
         XQuery
     )
 
-    val NODE_CONSTRUCTOR: IElementType = ICompositeElementType(
-        "XQUERY_NODE_CONSTRUCTOR",
-        XQueryNodeConstructorPsiImpl::class.java,
-        XQuery
-    )
-
     val STRING_CONSTRUCTOR_CONTENT: IElementType = ICompositeElementType(
         "XQUERY_STRING_CONSTRUCTOR_CONTENT",
         XQueryStringConstructorContentPsiImpl::class.java,
