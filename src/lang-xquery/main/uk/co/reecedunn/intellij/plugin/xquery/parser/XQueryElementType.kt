@@ -118,12 +118,6 @@ object XQueryElementType {
         XQuery
     )
 
-    val DIR_ATTRIBUTE_LIST: IElementType = ICompositeElementType(
-        "XQUERY_DIR_ATTRIBUTE_LIST",
-        XQueryDirAttributeListPsiImpl::class.java,
-        XQuery
-    )
-
     val DIR_ATTRIBUTE_VALUE: IElementType = ICompositeElementType(
         "XQUERY_DIR_ATTRIBUTE_VALUE",
         XQueryDirAttributeValuePsiImpl::class.java,

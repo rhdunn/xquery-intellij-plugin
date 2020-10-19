@@ -66,8 +66,6 @@ class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
 
     override val foldingRange: TextRange?
         get() {
-            var hasMultiLineAttributes = false
-
             var start: PsiElement? = firstChild
             if (start!!.elementType === XQueryTokenType.OPEN_XML_TAG)
                 start = start!!.nextSibling
@@ -80,11 +78,11 @@ class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
                 start = start!!.nextSibling
             if (start?.elementType === XQueryTokenType.XML_WHITE_SPACE)
                 start = start.nextSibling
-            if (start?.elementType === XQueryElementType.DIR_ATTRIBUTE_LIST) {
-                hasMultiLineAttributes = start.textContains('\n')
-                if (!hasMultiLineAttributes) {
-                    start = start.nextSibling
-                }
+
+            val dirAttributeList = parseDirAttributeList(start)
+            val hasMultiLineAttributes = dirAttributeList.first
+            if (!hasMultiLineAttributes) {
+                start = dirAttributeList.second
             }
 
             val end = lastChild
@@ -107,12 +105,31 @@ class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
     override val foldingPlaceholderText: String? = "..."
 
     companion object {
+        private fun parseDirAttributeList(first: PsiElement?): Pair<Boolean, PsiElement?> {
+            var start = first
+            var hasMultiLineAttributes = false
+            while (start?.elementType === XQueryElementType.DIR_ATTRIBUTE) {
+                if (start.textContains('\n')) {
+                    hasMultiLineAttributes = true
+                }
+                start = start.nextSibling
+
+                if (start?.elementType === XQueryTokenType.XML_WHITE_SPACE) {
+                    if (start.textContains('\n')) {
+                        hasMultiLineAttributes = true
+                    }
+                    start = start.nextSibling
+                }
+            }
+            return hasMultiLineAttributes to start
+        }
+
         private val ELEMENT_CONSTRUCTOR_TOKENS = TokenSet.create(
             XQueryTokenType.OPEN_XML_TAG,
             XQueryTokenType.XML_WHITE_SPACE,
             XQueryElementType.NCNAME,
             XQueryElementType.QNAME,
-            XQueryElementType.DIR_ATTRIBUTE_LIST,
+            XQueryElementType.DIR_ATTRIBUTE,
             XQueryTokenType.END_XML_TAG,
             XQueryTokenType.CLOSE_XML_TAG,
             XQueryTokenType.SELF_CLOSING_XML_TAG

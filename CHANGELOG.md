@@ -2,11 +2,15 @@
 
 ## 1.8 - (In Development)
 
-XSLT and XPath:
+XSLT:
 
 1.  Support parsing XSLT 1.0, 2.0, and 3.0 schema types.
 1.  Support XSLT 3.0 text value templates via the `expand-text` attribute.
 1.  Set the XSLT file icon when the IntelliJ XPath plugin is not enabled.
+
+XPath and XQuery:
+
+1.  Further reduce memory usage by removing additional nodes from the PSI tree.
 
 IntelliJ Integration:
 

@@ -27,7 +27,7 @@
     <ol>
       <li>Run BaseX, eXist-db, FusionDB, MarkLogic, and Saxon queries.</li>
       <li>Profile BaseX, MarkLogic, and Saxon XQuery and XSLT files.</li>
-      <li>Debug MarkLogic XQuery files, with experimental breakpoint support.</li>
+      <li>Debug MarkLogic XQuery files, with expression breakpoint support.</li>
       <li>Log viewer for BaseX and MarkLogic.</li>
       <li>Built-in namespace and function support for BaseX, eXist-db, MarkLogic, and Saxon.</li>
       <li>Support for MarkLogic rewriter XML files and EXQuery RESTXQ endpoints.</li>
@@ -41,6 +41,8 @@
     <ol>
       <li>XSLT 3.0 XMLSchema support.</li>
       <li>Experimental XPath support when the XPathView plugin is disabled.</li>
+      <li>Support parsing XSLT 1.0, 2.0, and 3.0 schema types.</li>
+      <li>Support XSLT 3.0 text value templates.</li>
     </ol>
     <p>IntelliJ integration:</p>
     <ol>
@@ -70,11 +72,15 @@
 
   <change-notes><![CDATA[
     <h3>Release 1.8-dev:</h3>
-    <p>XSLT and XPath:</p>
+    <p>XSLT:</p>
     <ol>
       <li>Support parsing XSLT 1.0, 2.0, and 3.0 schema types.</li>
       <li>Support XSLT 3.0 text value templates.</li>
       <li>Set the XSLT file icon when the IntelliJ XPath plugin is not enabled.</li>
+    </ol>
+    <p>XPath and XQuery:</p>
+    <ol>
+      <li>Further reduce memory usage by removing additional nodes from the PSI tree.</li>
     </ol>
     <p>IntelliJ Integration:</p>
     <ol>

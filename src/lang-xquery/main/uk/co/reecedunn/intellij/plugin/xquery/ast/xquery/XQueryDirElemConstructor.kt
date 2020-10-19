@@ -20,4 +20,4 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 /**
  * An XQuery 1.0 `DirElemConstructor` node in the XQuery AST.
  */
-interface XQueryDirElemConstructor : XQueryDirectConstructor, XpmExpression
+interface XQueryDirElemConstructor : XQueryDirectConstructor, XQueryDirAttributeList, XpmExpression

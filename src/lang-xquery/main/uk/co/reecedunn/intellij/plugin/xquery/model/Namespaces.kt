@@ -62,8 +62,7 @@ fun PsiElement.defaultNamespace(
                 else
                     emptySequence()
             is XQueryDirElemConstructor ->
-                node.children().filterIsInstance<XQueryDirAttributeList>().firstOrNull()
-                    ?.children()?.filterIsInstance<XdmDefaultNamespaceDeclaration>() ?: emptySequence()
+                node.children().filterIsInstance<XdmDefaultNamespaceDeclaration>()
             else -> emptySequence()
         }
     }.filter { ns -> ns.accepts(type) && ns.namespaceUri?.data != null }

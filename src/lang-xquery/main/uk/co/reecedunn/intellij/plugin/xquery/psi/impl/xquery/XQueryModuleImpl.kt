@@ -142,9 +142,7 @@ class XQueryModuleImpl(provider: FileViewProvider) :
             when (node) {
                 is XdmNamespaceDeclaration -> sequenceOf(node as XdmNamespaceDeclaration)
                 is XQueryDirElemConstructor ->
-                    node.children().filterIsInstance<XQueryDirAttributeList>().firstOrNull()
-                        ?.children()?.filterIsInstance<PluginDirAttribute>()?.map { it as XdmNamespaceDeclaration }
-                        ?: emptySequence()
+                    node.children().filterIsInstance<PluginDirAttribute>().map { it as XdmNamespaceDeclaration }
                 is XQueryProlog -> node.children().reversed().filterIsInstance<XdmNamespaceDeclaration>()
                 is XQueryModule ->
                     node.predefinedStaticContext?.children()?.reversed()?.filterIsInstance<XdmNamespaceDeclaration>()

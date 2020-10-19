@@ -3689,8 +3689,6 @@ class XQueryParser : XPathParser() {
     }
 
     private fun parseDirAttributeList(builder: PsiBuilder): Boolean {
-        val marker = builder.mark()
-
         // NOTE: The XQuery grammar uses whitespace as the token to start the next iteration of the matching loop.
         // Because the parseQName function can consume that whitespace during error handling, the QName tokens are
         // used as the next iteration marker in this implementation.
@@ -3699,14 +3697,7 @@ class XQueryParser : XPathParser() {
             parsed = true
             builder.matchTokenType(XQueryTokenType.XML_WHITE_SPACE)
         }
-
-        if (parsed) {
-            marker.done(XQueryElementType.DIR_ATTRIBUTE_LIST)
-            return true
-        }
-
-        marker.drop()
-        return false
+        return parsed
     }
 
     private fun parseDirAttribute(builder: PsiBuilder): Boolean {
