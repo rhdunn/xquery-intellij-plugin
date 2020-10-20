@@ -18,8 +18,8 @@ IntelliJ Integration:
     `DirElemContent`/`DirTextConstructor`, `CDataSection`, and `Pragma`
     elements.
 1.  Support `language=Language` injection marker comments.
-1.  Don't add inlay parameter hints when element node names match the
-    parameter name.
+1.  Don't add inlay parameter hints when element and attribute node names
+    match the parameter name.
 
 Saxon:
 
