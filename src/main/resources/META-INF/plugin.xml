@@ -90,7 +90,7 @@
         and <code>Pragma</code> elements.
       </li>
       <li>Support <code>language=Language</code> injection marker comments.</li>
-      <li>Don't add inlay parameter hints when <code>DirElemConstructor</code> node names match the parameter name.</li>
+      <li>Don't add inlay parameter hints when element node names match the parameter name.</li>
     </ol>
     <p>Saxon:</p>
     <ol>
