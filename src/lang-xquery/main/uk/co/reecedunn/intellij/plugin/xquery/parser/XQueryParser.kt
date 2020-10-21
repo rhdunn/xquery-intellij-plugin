@@ -1254,29 +1254,7 @@ class XQueryParser : XPathParser() {
     // endregion
     // region Grammar :: EnclosedExpr|Block
 
-    override fun parseEnclosedExprOrBlock(
-        builder: PsiBuilder,
-        type: IElementType?,
-        blockOpen: BlockOpen,
-        blockExpr: BlockExpr
-    ): Boolean {
-        var haveErrors = false
-        val marker = if (type == null) null else builder.mark()
-        val openToken = when (blockOpen) {
-            BlockOpen.CONTEXT_FUNCTION -> XPathTokenType.CONTEXT_FUNCTION
-            BlockOpen.LAMBDA_FUNCTION -> XPathTokenType.LAMBDA_FUNCTION
-            else -> XPathTokenType.BLOCK_OPEN
-        }
-        if (!builder.matchTokenType(openToken)) {
-            if (blockOpen == BlockOpen.OPTIONAL) {
-                builder.error(XPathBundle.message("parser.error.expected", "{"))
-                haveErrors = true
-            } else {
-                marker?.drop()
-                return false
-            }
-        }
-
+    override fun parseEnclosedExprOrBlockExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         var exprType = EXPR
         if (type === XQueryElementType.BLOCK || type === XQueryElementType.WHILE_BODY) {
             parseWhiteSpaceAndCommentTokens(builder)
@@ -1285,27 +1263,7 @@ class XQueryParser : XPathParser() {
         }
 
         parseWhiteSpaceAndCommentTokens(builder)
-        var haveExpr = parseExpr(builder, exprType)
-        if (!haveExpr && blockExpr == BlockExpr.REQUIRED) {
-            builder.error(XPathBundle.message("parser.error.expected-expression"))
-            haveErrors = true
-        }
-
-        parseWhiteSpaceAndCommentTokens(builder)
-        if (builder.matchTokenType(XPathTokenType.BLOCK_CLOSE)) {
-            haveExpr = true
-        } else if (!haveErrors) {
-            builder.error(XPathBundle.message("parser.error.expected", "}"))
-        }
-
-        if (marker != null) {
-            if (haveExpr) {
-                marker.done(type!!)
-                return true
-            }
-            marker.drop()
-        }
-        return haveExpr
+        return parseExpr(builder, exprType)
     }
 
     private fun parseBlockDecls(builder: PsiBuilder): Boolean {

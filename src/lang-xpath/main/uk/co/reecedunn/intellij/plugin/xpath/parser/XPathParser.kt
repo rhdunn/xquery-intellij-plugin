@@ -158,7 +158,7 @@ open class XPathParser : PsiParser {
         OPTIONAL
     }
 
-    open fun parseEnclosedExprOrBlock(
+    fun parseEnclosedExprOrBlock(
         builder: PsiBuilder,
         type: IElementType?,
         blockOpen: BlockOpen,
@@ -182,7 +182,7 @@ open class XPathParser : PsiParser {
         }
 
         parseWhiteSpaceAndCommentTokens(builder)
-        var haveExpr = parseExpr(builder, EXPR)
+        var haveExpr = parseEnclosedExprOrBlockExpr(builder, type)
         if (!haveExpr && blockExpr == BlockExpr.REQUIRED) {
             builder.error(XPathBundle.message("parser.error.expected-expression"))
             haveErrors = true
@@ -203,6 +203,10 @@ open class XPathParser : PsiParser {
             marker.drop()
         }
         return haveExpr
+    }
+
+    open fun parseEnclosedExprOrBlockExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+        return parseExpr(builder, EXPR)
     }
 
     // endregion
