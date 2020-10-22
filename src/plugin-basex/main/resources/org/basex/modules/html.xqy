@@ -14,3 +14,5 @@ declare option o:requires "basex/7.6";
 declare %a:since("basex", "7.6") function html:parser() as xs:string external;
 declare %a:since("basex", "7.6") function html:parse($input as xs:anyAtomicType) as document-node() external;
 declare %a:since("basex", "7.6") function html:parse($input as xs:anyAtomicType, $options as map(*)?) as document-node() external;
+declare %a:since("basex", "9.4") function html:doc($uri as xs:string?) as document-node()? external;
+declare %a:since("basex", "9.4") function html:doc($uri as xs:string?, $options as map(*)?) as document-node()? external;
