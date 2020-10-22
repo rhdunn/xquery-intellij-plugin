@@ -42,15 +42,7 @@ various inspections.
 - [Data Model](#4-data-model)
   - [Literals](#41-literals)
   - [EQNames and Wildcards](#42-eqnames-and-wildcards)
-  - [Accessors](#43-accessors)
-    - [Document Nodes](#431-document-nodes)
-    - [Element Nodes](#432-element-nodes)
-    - [Attribute Nodes](#433-attribute-nodes)
-    - [Namespace Nodes](#434-namespace-nodes)
-    - [Processing Instruction Nodes](#435-processing-instruction-nodes)
-    - [Comment Nodes](#436-comment-nodes)
-    - [Text Nodes](#437-text-nodes)
-  - [Annotations](#44-annotations)
+  - [Annotations](#43-annotations)
 - [Operation Tree](#5-operation-tree)
   - [Path Steps](#51-path-steps)
 - {: .toc-letter } [References](#a-references)
@@ -601,64 +593,7 @@ The `Wildcard` symbol is also an `XsQNameValue`, with the properties mirroring
 the `NCName`, `QName`, or `URIQualifiedName`. The prefix or local parts can be
 an instance of `xdm:wildcard` to indicate that any value matches.
 
-### 4.3 Accessors
-
-The `XdmAccessors` interface defines support for the XQuery and XPath Data
-Model Accessors properties. These are mapped as follows:
-
-| Accessor         | Property     | Return Type        |
-|------------------|--------------|--------------------|
-| `dm:node-name`   | `nodeName`   | `XsQNameValue?`    |
-| `dm:typed-value` | `typedValue` | `XsAnyAtomicType?` |
-
-__NOTE:__ The *typed value* property only returns a single item, compared to
-the XQuery and XPath Data Model accessor property which returns a sequence of
-values.
-
-#### 4.3.1 Document Nodes
-
-#### 4.3.2 Element Nodes
-
-| Symbol                | Interface          |
-|-----------------------|--------------------|
-| `CompElemConstructor` | `XdmElementNode`   |
-| `DirElemConstructor`  | `XdmElementNode`   |
-
-The `XdmElementNode` interface has an additional *closing tag* property. This
-is used for the `err:XQST0118` error condition inspection. For a
-`CompElemConstructor` or self-closing `DirElemConstructor` the *closing tag*
-property is the same as the*node name* property.
-
-#### 4.3.3 Attribute Nodes
-
-| Symbol                | Interface          |
-|-----------------------|--------------------|
-| `CompAttrConstructor` | `XdmAttributeNode` |
-| `DirAttribute`        | `XdmAttributeNode` |
-
-The type of the *node value* property for `DirAttribute` depends on the *node
-name* property, and is determined as follows.
-
-| node name | Type               | Interface              | Representation |
-|-----------|--------------------|------------------------|----------------|
-| `xmlns:*` | `xs:anyURI`        | `XsAnyURIValue`        | `String`       |
-| `xmlns`   | `xs:anyURI`        | `XsAnyURIValue`        | `String`       |
-| `xml:id`  | `xs:ID`            | `XsIDValue`            | `String`       |
-| `*`       | `xs:untypedAtomic` | `XsUntypedAtomicValue` | `String`       |
-
-If the `DirAttributeValue` contains an `EnclosedExpr`, the *node value* of the
-element at static evaluation time (accessible in the `DirAttribute` PSI element)
-is `null`.
-
-#### 4.3.4 Namespace Nodes
-
-#### 4.3.5 Processing Instruction Nodes
-
-#### 4.3.6 Comment Nodes
-
-#### 4.3.7 Text Nodes
-
-### 4.4 Annotations
+### 4.3 Annotations
 
 | Symbol                    | Interface       |
 |---------------------------|-----------------|
