@@ -30,3 +30,5 @@ declare %a:restrict-until("$options", "basex", "8.2.1", "item()")
         %a:since("basex", "7.7.2") function json:serialize($input as item()?, $options as item()?) as xs:string external;
 declare %a:since("basex", "7.0") %a:deprecated("basex", "7.7.2") function json:serialize-ml($input as node()) as xs:string external;
 declare %a:since("basex", "7.0") %a:deprecated("basex", "7.7.2") function json:parse-ml($input as xs:string) as element() external;
+declare %a:since("basex", "9.4") function json:doc($uri as xs:string) as item()? external;
+declare %a:since("basex", "9.4") function json:doc($uri as xs:string, $options as map(*)?) as item()? external;
