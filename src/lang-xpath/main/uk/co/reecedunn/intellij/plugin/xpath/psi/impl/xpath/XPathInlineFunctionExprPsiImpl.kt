@@ -22,7 +22,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
-import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnnotation
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathInlineFunctionExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
@@ -37,7 +37,7 @@ private val XQUERY30: List<Version> = listOf(XQuerySpec.REC_3_0_20140408, MarkLo
 class XPathInlineFunctionExprPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XPathInlineFunctionExpr,
-    XdmFunctionDeclaration,
+    XpmFunctionDeclaration,
     VersionConformance {
     // region VersionConformance
 
@@ -61,7 +61,7 @@ class XPathInlineFunctionExprPsiImpl(node: ASTNode) :
     override val functionName: XsQNameValue? = null
 
     override val arity: Range<Int>
-        get() = paramList?.arity ?: XdmFunctionDeclaration.ARITY_ZERO
+        get() = paramList?.arity ?: XpmFunctionDeclaration.ARITY_ZERO
 
     override val returnType: XdmSequenceType?
         get() = children().filterIsInstance<XdmSequenceType>().firstOrNull()

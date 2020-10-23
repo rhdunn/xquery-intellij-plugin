@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.exquery.restxq.endpoints
 
-import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnnotation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsStringValue
 import uk.co.reecedunn.intellij.plugin.xpm.context.expand
@@ -78,7 +78,7 @@ class RestXqAnnotations(private val annotations: List<XdmAnnotation>) {
 
         private const val RESTXQ_NAMESPACE: String = "http://exquery.org/ns/restxq"
 
-        fun create(function: XdmFunctionDeclaration): RestXqAnnotations? {
+        fun create(function: XpmFunctionDeclaration): RestXqAnnotations? {
             val annotations = function.annotations.filter { annotation ->
                 annotation.name?.expand()?.find { it.namespace?.data == RESTXQ_NAMESPACE } != null
             }

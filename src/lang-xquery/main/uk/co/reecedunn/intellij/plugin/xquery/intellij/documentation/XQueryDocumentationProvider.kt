@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xqdoc.intellij.resources.XQDocTemplates
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentation
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationSourceProvider
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.sections
-import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathInlineFunctionExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
@@ -59,7 +59,7 @@ class XQueryDocumentationProvider : AbstractDocumentationProvider() {
                 }
                 "declare function $sig"
             }
-            is XPathInlineFunctionExpr -> (parent as XdmFunctionDeclaration).let {
+            is XPathInlineFunctionExpr -> (parent as XpmFunctionDeclaration).let {
                 val params = it.paramListPresentation?.presentableText ?: "()"
                 val returnType = it.returnType
                 if (returnType == null)
@@ -130,7 +130,7 @@ class XQueryDocumentationProvider : AbstractDocumentationProvider() {
     private fun lookupLocalName(qname: XsQNameValue): Sequence<XQDocDocumentation> {
         return when (val ref = qname.element?.parent) {
             is XpmFunctionReference -> lookupFunction(ref.functionName, ref.arity)
-            is XdmFunctionDeclaration -> lookupFunction(ref.functionName, ref.arity.from)
+            is XpmFunctionDeclaration -> lookupFunction(ref.functionName, ref.arity.from)
             is XdmNamespaceDeclaration -> XQDocDocumentationSourceProvider.lookup(ref)
             else -> emptySequence()
         }

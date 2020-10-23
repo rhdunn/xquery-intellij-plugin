@@ -19,7 +19,7 @@ import com.intellij.ide.projectView.ViewSettings
 import com.intellij.ide.projectView.impl.nodes.PsiFileNode
 import com.intellij.ide.util.treeView.AbstractTreeNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginTypeDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
@@ -41,7 +41,7 @@ class XQueryModuleTreeNode(module: XQueryModule, viewSettings: ViewSettings) :
                     decl.children().map { annotatedDecl ->
                         when (annotatedDecl) {
                             is XQueryFunctionDecl -> {
-                                (annotatedDecl as XdmFunctionDeclaration).functionName?.localName?.let {
+                                (annotatedDecl as XpmFunctionDeclaration).functionName?.localName?.let {
                                     XQueryLeafNode(annotatedDecl, settings) as AbstractTreeNode<Any>
                                 }
                             }

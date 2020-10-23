@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.xpm.function
 
 import com.intellij.openapi.extensions.ExtensionPointName
-import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
 import javax.swing.Icon
 
 interface XpmFunctionDecorator {
@@ -25,10 +24,10 @@ interface XpmFunctionDecorator {
             "uk.co.reecedunn.intellij.functionDecorator"
         )
 
-        fun getIcon(function: XdmFunctionDeclaration): Icon? {
+        fun getIcon(function: XpmFunctionDeclaration): Icon? {
             return EP_NAME.extensionList.asSequence().mapNotNull { it.getInstance().getIcon(function) }.firstOrNull()
         }
     }
 
-    fun getIcon(function: XdmFunctionDeclaration): Icon?
+    fun getIcon(function: XpmFunctionDeclaration): Icon?
 }

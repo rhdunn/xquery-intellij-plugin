@@ -41,7 +41,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.resources.XQueryIcons
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstUsageType
-import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
@@ -2263,7 +2263,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("empty ParamList")
                 fun emptyParamList() {
-                    val decl = parse<XdmFunctionDeclaration>("function () {}")[0]
+                    val decl = parse<XpmFunctionDeclaration>("function () {}")[0]
                     assertThat(decl.functionName, `is`(nullValue()))
                     assertThat(decl.returnType, `is`(nullValue()))
                     assertThat(decl.arity, `is`(Range(0, 0)))
@@ -2277,7 +2277,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("non-empty ParamList")
                 fun nonEmptyParamList() {
-                    val decl = parse<XdmFunctionDeclaration>("function (\$one, \$two) {}")[0]
+                    val decl = parse<XpmFunctionDeclaration>("function (\$one, \$two) {}")[0]
                     assertThat(decl.functionName, `is`(nullValue()))
                     assertThat(decl.returnType, `is`(nullValue()))
                     assertThat(decl.arity, `is`(Range(2, 2)))
@@ -2294,7 +2294,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("non-empty ParamList with types")
                 fun nonEmptyParamListWithTypes() {
-                    val decl = parse<XdmFunctionDeclaration>(
+                    val decl = parse<XpmFunctionDeclaration>(
                         "function (\$one  as  array ( * ), \$two  as  node((::))) {}"
                     )[0]
                     assertThat(decl.functionName, `is`(nullValue()))
@@ -2313,7 +2313,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("return type")
                 fun returnType() {
-                    val decl = parse<XdmFunctionDeclaration>("function ()  as  xs:boolean  {}")[0]
+                    val decl = parse<XpmFunctionDeclaration>("function ()  as  xs:boolean  {}")[0]
                     assertThat(decl.functionName, `is`(nullValue()))
                     assertThat(decl.returnType?.typeName, `is`("xs:boolean"))
                     assertThat(decl.arity, `is`(Range(0, 0)))
@@ -6821,7 +6821,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("empty ParamList")
             fun emptyParamList() {
-                val decl = parse<XdmFunctionDeclaration>("declare function fn:true() external;")[0]
+                val decl = parse<XpmFunctionDeclaration>("declare function fn:true() external;")[0]
                 assertThat(decl.returnType, `is`(nullValue()))
                 assertThat(decl.arity, `is`(Range(0, 0)))
                 assertThat(decl.params.size, `is`(0))
@@ -6846,7 +6846,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("non-empty ParamList")
             fun nonEmptyParamList() {
-                val decl = parse<XdmFunctionDeclaration>("declare function test(\$one, \$two) external;")[0]
+                val decl = parse<XpmFunctionDeclaration>("declare function test(\$one, \$two) external;")[0]
                 assertThat(decl.returnType, `is`(nullValue()))
                 assertThat(decl.arity, `is`(Range(2, 2)))
                 assertThat(decl.isVariadic, `is`(false))
@@ -6874,7 +6874,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("non-empty ParamList with types")
             fun nonEmptyParamListWithTypes() {
-                val decl = parse<XdmFunctionDeclaration>("declare function test(\$one  as  array ( * ), \$two  as  node((::))) external;")[0]
+                val decl = parse<XpmFunctionDeclaration>("declare function test(\$one  as  array ( * ), \$two  as  node((::))) external;")[0]
                 assertThat(decl.returnType, `is`(nullValue()))
                 assertThat(decl.arity, `is`(Range(2, 2)))
                 assertThat(decl.isVariadic, `is`(false))
@@ -6902,7 +6902,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("return type")
             fun returnType() {
-                val decl = parse<XdmFunctionDeclaration>("declare function fn:true()  as  xs:boolean  external;")[0]
+                val decl = parse<XpmFunctionDeclaration>("declare function fn:true()  as  xs:boolean  external;")[0]
                 assertThat(decl.returnType?.typeName, `is`("xs:boolean"))
                 assertThat(decl.arity, `is`(Range(0, 0)))
                 assertThat(decl.params.size, `is`(0))
@@ -6927,7 +6927,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("invalid EQName")
             fun invalidEQName() {
-                val decl = parse<XdmFunctionDeclaration>("declare function :true() external;")[0]
+                val decl = parse<XpmFunctionDeclaration>("declare function :true() external;")[0]
                 assertThat(decl.returnType, `is`(nullValue()))
                 assertThat(decl.arity, `is`(Range(0, 0)))
                 assertThat(decl.functionName, `is`(nullValue()))
@@ -6950,7 +6950,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @DisplayName("invalid local name")
             fun invalidLocalName() {
                 // e.g. MarkLogic's roxy framework has template files declaring 'c:#function-name'.
-                val decl = parse<XdmFunctionDeclaration>("declare function fn:() external;")[0]
+                val decl = parse<XpmFunctionDeclaration>("declare function fn:() external;")[0]
                 assertThat(decl.returnType, `is`(nullValue()))
                 assertThat(decl.arity, `is`(Range(0, 0)))
                 assertThat(decl.params.size, `is`(0))

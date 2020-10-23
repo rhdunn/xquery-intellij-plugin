@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstUsageType
-import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
@@ -312,7 +312,7 @@ private class PluginPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("variadic")
                 fun variadic() {
-                    val decl = parse<XdmFunctionDeclaration>("function (\$one, \$two ...) {}")[0]
+                    val decl = parse<XpmFunctionDeclaration>("function (\$one, \$two ...) {}")[0]
                     assertThat(decl.functionName, `is`(nullValue()))
                     assertThat(decl.returnType, `is`(nullValue()))
                     assertThat(decl.arity, `is`(Range(1, Int.MAX_VALUE)))

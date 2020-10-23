@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parameterInfo.MockCreateParameterInfoContext
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPathParameterInfoHandler
-import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
@@ -53,7 +53,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(context.highlightedElement, `is`(nullValue()))
                 assertThat(context.parameterListStart, `is`(4))
 
-                val items = context.itemsToShow!!.map { it as XdmFunctionDeclaration }
+                val items = context.itemsToShow!!.map { it as XpmFunctionDeclaration }
                 assertThat(items.size, `is`(1))
 
                 assertThat(op_qname_presentation(items[0].functionName!!), `is`("fn:abs"))
@@ -76,7 +76,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(context.highlightedElement, `is`(nullValue()))
                 assertThat(context.parameterListStart, `is`(7))
 
-                val items = context.itemsToShow!!.map { it as XdmFunctionDeclaration }
+                val items = context.itemsToShow!!.map { it as XpmFunctionDeclaration }
                 assertThat(items.size, `is`(1))
 
                 assertThat(op_qname_presentation(items[0].functionName!!), `is`("fn:abs"))
@@ -99,7 +99,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(context.highlightedElement, `is`(nullValue()))
                 assertThat(context.parameterListStart, `is`(45))
 
-                val items = context.itemsToShow!!.map { it as XdmFunctionDeclaration }
+                val items = context.itemsToShow!!.map { it as XpmFunctionDeclaration }
                 assertThat(items.size, `is`(1))
 
                 assertThat(op_qname_presentation(items[0].functionName!!), `is`("fn:abs"))
@@ -122,7 +122,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(context.highlightedElement, `is`(nullValue()))
                 assertThat(context.parameterListStart, `is`(7))
 
-                val items = context.itemsToShow!!.map { it as XdmFunctionDeclaration }
+                val items = context.itemsToShow!!.map { it as XpmFunctionDeclaration }
                 assertThat(items.size, `is`(2))
 
                 assertThat(op_qname_presentation(items[0].functionName!!), `is`("fn:string"))
@@ -154,7 +154,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(context.highlightedElement, `is`(nullValue()))
                 assertThat(context.parameterListStart, `is`(161))
 
-                val items = context.itemsToShow!!.map { it as XdmFunctionDeclaration }
+                val items = context.itemsToShow!!.map { it as XpmFunctionDeclaration }
                 assertThat(items.size, `is`(1))
 
                 assertThat(op_qname_presentation(items[0].functionName!!), `is`("f"))
@@ -181,7 +181,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(context.highlightedElement, `is`(nullValue()))
                 assertThat(context.parameterListStart, `is`(26))
 
-                val items = context.itemsToShow!!.map { it as XdmFunctionDeclaration }
+                val items = context.itemsToShow!!.map { it as XpmFunctionDeclaration }
                 assertThat(items.size, `is`(0))
 
                 val hint = context as MockCreateParameterInfoContext
@@ -201,7 +201,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(context.highlightedElement, `is`(nullValue()))
                 assertThat(context.parameterListStart, `is`(6))
 
-                val items = context.itemsToShow!!.map { it as XdmFunctionDeclaration }
+                val items = context.itemsToShow!!.map { it as XpmFunctionDeclaration }
                 assertThat(items.size, `is`(0))
 
                 val hint = context as MockCreateParameterInfoContext
@@ -225,7 +225,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(context.highlightedElement, `is`(nullValue()))
                 assertThat(context.parameterListStart, `is`(31))
 
-                val items = context.itemsToShow!!.map { it as XdmFunctionDeclaration }
+                val items = context.itemsToShow!!.map { it as XpmFunctionDeclaration }
                 assertThat(items.size, `is`(0))
 
                 val hint = context as MockCreateParameterInfoContext
@@ -245,7 +245,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(context.highlightedElement, `is`(nullValue()))
                 assertThat(context.parameterListStart, `is`(9))
 
-                val items = context.itemsToShow!!.map { it as XdmFunctionDeclaration }
+                val items = context.itemsToShow!!.map { it as XpmFunctionDeclaration }
                 assertThat(items.size, `is`(1))
 
                 assertThat(op_qname_presentation(items[0].functionName!!), `is`("fn:abs"))
@@ -268,7 +268,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(context.highlightedElement, `is`(nullValue()))
                 assertThat(context.parameterListStart, `is`(12))
 
-                val items = context.itemsToShow!!.map { it as XdmFunctionDeclaration }
+                val items = context.itemsToShow!!.map { it as XpmFunctionDeclaration }
                 assertThat(items.size, `is`(1))
 
                 assertThat(op_qname_presentation(items[0].functionName!!), `is`("fn:abs"))
@@ -291,7 +291,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(context.highlightedElement, `is`(nullValue()))
                 assertThat(context.parameterListStart, `is`(50))
 
-                val items = context.itemsToShow!!.map { it as XdmFunctionDeclaration }
+                val items = context.itemsToShow!!.map { it as XpmFunctionDeclaration }
                 assertThat(items.size, `is`(1))
 
                 assertThat(op_qname_presentation(items[0].functionName!!), `is`("fn:abs"))
@@ -314,7 +314,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(context.highlightedElement, `is`(nullValue()))
                 assertThat(context.parameterListStart, `is`(16))
 
-                val items = context.itemsToShow!!.map { it as XdmFunctionDeclaration }
+                val items = context.itemsToShow!!.map { it as XpmFunctionDeclaration }
                 assertThat(items.size, `is`(0))
 
                 val hint = context as MockCreateParameterInfoContext
@@ -334,7 +334,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(context.highlightedElement, `is`(nullValue()))
                 assertThat(context.parameterListStart, `is`(29))
 
-                val items = context.itemsToShow!!.map { it as XdmFunctionDeclaration }
+                val items = context.itemsToShow!!.map { it as XpmFunctionDeclaration }
                 assertThat(items.size, `is`(2))
 
                 assertThat(op_qname_presentation(items[0].functionName!!), `is`("fn:adjust-date-to-timezone"))
@@ -366,7 +366,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(context.highlightedElement, `is`(nullValue()))
                 assertThat(context.parameterListStart, `is`(166))
 
-                val items = context.itemsToShow!!.map { it as XdmFunctionDeclaration }
+                val items = context.itemsToShow!!.map { it as XpmFunctionDeclaration }
                 assertThat(items.size, `is`(1))
 
                 assertThat(op_qname_presentation(items[0].functionName!!), `is`("f"))
@@ -389,7 +389,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(context.highlightedElement, `is`(nullValue()))
                 assertThat(context.parameterListStart, `is`(12))
 
-                val items = context.itemsToShow!!.map { it as XdmFunctionDeclaration }
+                val items = context.itemsToShow!!.map { it as XpmFunctionDeclaration }
                 assertThat(items.size, `is`(1))
 
                 assertThat(op_qname_presentation(items[0].functionName!!), `is`("fn:string"))
@@ -1090,7 +1090,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 val ui = MockParameterInfoUIContext<XPathArgumentList>(function)
                 ui.currentParameterIndex = -1
 
-                parameterInfoHandler.updateUI(context.itemsToShow?.first() as XdmFunctionDeclaration, ui)
+                parameterInfoHandler.updateUI(context.itemsToShow?.first() as XpmFunctionDeclaration, ui)
                 assertThat(ui.currentParameterIndex, `is`(-1))
                 assertThat(ui.parameterOwner, `is`(sameInstance(function)))
                 assertThat(ui.isSingleOverload, `is`(false))
@@ -1111,7 +1111,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 val ui = MockParameterInfoUIContext<XPathArgumentList>(function)
                 ui.currentParameterIndex = -1
 
-                parameterInfoHandler.updateUI(context.itemsToShow?.first() as XdmFunctionDeclaration, ui)
+                parameterInfoHandler.updateUI(context.itemsToShow?.first() as XpmFunctionDeclaration, ui)
                 assertThat(ui.currentParameterIndex, `is`(-1))
                 assertThat(ui.parameterOwner, `is`(sameInstance(function)))
                 assertThat(ui.isSingleOverload, `is`(false))
@@ -1132,7 +1132,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 val ui = MockParameterInfoUIContext<XPathArgumentList>(function)
                 ui.currentParameterIndex = 0
 
-                parameterInfoHandler.updateUI(context.itemsToShow?.first() as XdmFunctionDeclaration, ui)
+                parameterInfoHandler.updateUI(context.itemsToShow?.first() as XpmFunctionDeclaration, ui)
                 assertThat(ui.currentParameterIndex, `is`(0))
                 assertThat(ui.parameterOwner, `is`(sameInstance(function)))
                 assertThat(ui.isSingleOverload, `is`(false))
@@ -1153,7 +1153,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 val ui = MockParameterInfoUIContext<XPathArgumentList>(function)
                 ui.currentParameterIndex = 2
 
-                parameterInfoHandler.updateUI(context.itemsToShow?.first() as XdmFunctionDeclaration, ui)
+                parameterInfoHandler.updateUI(context.itemsToShow?.first() as XpmFunctionDeclaration, ui)
                 assertThat(ui.currentParameterIndex, `is`(2))
                 assertThat(ui.parameterOwner, `is`(sameInstance(function)))
                 assertThat(ui.isSingleOverload, `is`(false))
@@ -1174,7 +1174,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 val ui = MockParameterInfoUIContext<XPathArgumentList>(function)
                 ui.currentParameterIndex = 3
 
-                parameterInfoHandler.updateUI(context.itemsToShow?.first() as XdmFunctionDeclaration, ui)
+                parameterInfoHandler.updateUI(context.itemsToShow?.first() as XpmFunctionDeclaration, ui)
                 assertThat(ui.currentParameterIndex, `is`(3))
                 assertThat(ui.parameterOwner, `is`(sameInstance(function)))
                 assertThat(ui.isSingleOverload, `is`(false))
@@ -1195,7 +1195,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 val ui = MockParameterInfoUIContext<XPathArgumentList>(function)
                 ui.currentParameterIndex = 4
 
-                parameterInfoHandler.updateUI(context.itemsToShow?.last() as XdmFunctionDeclaration, ui)
+                parameterInfoHandler.updateUI(context.itemsToShow?.last() as XpmFunctionDeclaration, ui)
                 assertThat(ui.currentParameterIndex, `is`(4))
                 assertThat(ui.parameterOwner, `is`(sameInstance(function)))
                 assertThat(ui.isSingleOverload, `is`(false))
@@ -1223,7 +1223,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 val ui = MockParameterInfoUIContext<XPathArgumentList>(function)
                 ui.currentParameterIndex = -1
 
-                parameterInfoHandler.updateUI(context.itemsToShow?.first() as XdmFunctionDeclaration, ui)
+                parameterInfoHandler.updateUI(context.itemsToShow?.first() as XpmFunctionDeclaration, ui)
                 assertThat(ui.currentParameterIndex, `is`(-1))
                 assertThat(ui.parameterOwner, `is`(sameInstance(function)))
                 assertThat(ui.isSingleOverload, `is`(false))
@@ -1244,7 +1244,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 val ui = MockParameterInfoUIContext<XPathArgumentList>(function)
                 ui.currentParameterIndex = 0
 
-                parameterInfoHandler.updateUI(context.itemsToShow?.first() as XdmFunctionDeclaration, ui)
+                parameterInfoHandler.updateUI(context.itemsToShow?.first() as XpmFunctionDeclaration, ui)
                 assertThat(ui.currentParameterIndex, `is`(0))
                 assertThat(ui.parameterOwner, `is`(sameInstance(function)))
                 assertThat(ui.isSingleOverload, `is`(false))
@@ -1265,7 +1265,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 val ui = MockParameterInfoUIContext<XPathArgumentList>(function)
                 ui.currentParameterIndex = 2
 
-                parameterInfoHandler.updateUI(context.itemsToShow?.first() as XdmFunctionDeclaration, ui)
+                parameterInfoHandler.updateUI(context.itemsToShow?.first() as XpmFunctionDeclaration, ui)
                 assertThat(ui.currentParameterIndex, `is`(2))
                 assertThat(ui.parameterOwner, `is`(sameInstance(function)))
                 assertThat(ui.isSingleOverload, `is`(false))
@@ -1286,7 +1286,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 val ui = MockParameterInfoUIContext<XPathArgumentList>(function)
                 ui.currentParameterIndex = 3
 
-                parameterInfoHandler.updateUI(context.itemsToShow?.first() as XdmFunctionDeclaration, ui)
+                parameterInfoHandler.updateUI(context.itemsToShow?.first() as XpmFunctionDeclaration, ui)
                 assertThat(ui.currentParameterIndex, `is`(3))
                 assertThat(ui.parameterOwner, `is`(sameInstance(function)))
                 assertThat(ui.isSingleOverload, `is`(false))
@@ -1307,7 +1307,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 val ui = MockParameterInfoUIContext<XPathArgumentList>(function)
                 ui.currentParameterIndex = 4
 
-                parameterInfoHandler.updateUI(context.itemsToShow?.last() as XdmFunctionDeclaration, ui)
+                parameterInfoHandler.updateUI(context.itemsToShow?.last() as XpmFunctionDeclaration, ui)
                 assertThat(ui.currentParameterIndex, `is`(4))
                 assertThat(ui.parameterOwner, `is`(sameInstance(function)))
                 assertThat(ui.isSingleOverload, `is`(false))

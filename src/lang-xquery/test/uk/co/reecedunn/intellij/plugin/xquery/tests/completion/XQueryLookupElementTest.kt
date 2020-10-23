@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathIcons
-import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
@@ -143,11 +143,11 @@ private class XQueryLookupElementTest : ParserTestCase() {
     @Nested
     @DisplayName("XQuery 3.1 EBNF (137) FunctionCall (empty parameters)")
     internal inner class FunctionCall_EmptyParams {
-        fun parse(text: String): Pair<XQueryModule, XdmFunctionDeclaration> {
+        fun parse(text: String): Pair<XQueryModule, XpmFunctionDeclaration> {
             val module = parseText(text)
             val call = module.walkTree().filterIsInstance<XPathFunctionCall>().first() as XpmFunctionReference
             val ref = call.functionName?.element?.references?.get(1)?.resolve()?.parent!!
-            return module to ref as XdmFunctionDeclaration
+            return module to ref as XpmFunctionDeclaration
         }
 
         @Test
@@ -273,11 +273,11 @@ private class XQueryLookupElementTest : ParserTestCase() {
     @Nested
     @DisplayName("XQuery 3.1 EBNF (137) FunctionCall (with parameters)")
     internal inner class FunctionCall_WithParams {
-        fun parse(text: String): Pair<XQueryModule, XdmFunctionDeclaration> {
+        fun parse(text: String): Pair<XQueryModule, XpmFunctionDeclaration> {
             val module = parseText(text)
             val call = module.walkTree().filterIsInstance<XPathFunctionCall>().first() as XpmFunctionReference
             val ref = call.functionName?.element?.references?.get(1)?.resolve()?.parent!!
-            return module to ref as XdmFunctionDeclaration
+            return module to ref as XpmFunctionDeclaration
         }
 
         @Test

@@ -20,7 +20,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.ui.breadcrumbs.BreadcrumbsProvider
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.documentation.XQueryDocumentationProvider
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
-import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathInlineFunctionExpr
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
@@ -40,7 +40,7 @@ class XQueryBreadcrumbProvider : BreadcrumbsProvider {
 
     override fun getElementInfo(element: PsiElement): String {
         val name = when (element) {
-            is XQueryFunctionDecl -> (element as XdmFunctionDeclaration).functionName
+            is XQueryFunctionDecl -> (element as XpmFunctionDeclaration).functionName
             is XPathInlineFunctionExpr -> return "function"
             is XdmElementNode -> element.nodeName ?: return "element"
             else -> null

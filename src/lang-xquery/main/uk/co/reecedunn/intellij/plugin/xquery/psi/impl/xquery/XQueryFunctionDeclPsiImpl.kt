@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationEx
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathIcons
-import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnnotation
@@ -35,7 +35,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 import javax.swing.Icon
 
 class XQueryFunctionDeclPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), XQueryFunctionDecl, XdmFunctionDeclaration, ItemPresentationEx {
+    ASTWrapperPsiElement(node), XQueryFunctionDecl, XpmFunctionDeclaration, ItemPresentationEx {
     // region ASTDelegatePsiElement
 
     override fun subtreeChanged() {
@@ -55,7 +55,7 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
         get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
 
     override val arity: Range<Int>
-        get() = paramList?.arity ?: XdmFunctionDeclaration.ARITY_ZERO
+        get() = paramList?.arity ?: XpmFunctionDeclaration.ARITY_ZERO
 
     override val returnType: XdmSequenceType?
         get() = children().filterIsInstance<XdmSequenceType>().firstOrNull()

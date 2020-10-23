@@ -15,14 +15,14 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.model
 
-import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_equal
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpm.context.expand
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 
-fun XQueryProlog.staticallyKnownFunctions(name: XsQNameValue): Sequence<XdmFunctionDeclaration?> {
-    return annotatedDeclarations<XdmFunctionDeclaration>().filter { function ->
+fun XQueryProlog.staticallyKnownFunctions(name: XsQNameValue): Sequence<XpmFunctionDeclaration?> {
+    return annotatedDeclarations<XpmFunctionDeclaration>().filter { function ->
         val functionName = function?.functionName
         // NOTE: Opening the context menu on a call to MarkLogic's `xdmp:version()`
         // is slow (~10 seconds) when just checking the expanded QName, so check

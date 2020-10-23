@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xdm.functions
+package uk.co.reecedunn.intellij.plugin.xpm.function
 
 import com.intellij.navigation.ItemPresentation
 import com.intellij.util.Range
@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableBinding
 
-interface XdmFunctionDeclaration {
+interface XpmFunctionDeclaration {
     companion object {
         val ARITY_ZERO: Range<Int> = Range(0, 0)
     }

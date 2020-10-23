@@ -29,7 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.intellij.fileTypes.XQueryFileType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.settings.XQueryProjectSettings
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstUsageType
-import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmDefaultNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
@@ -159,14 +159,14 @@ class XQueryModuleImpl(provider: FileViewProvider) :
         return context.defaultNamespace(type, true)
     }
 
-    override fun staticallyKnownFunctions(): Sequence<XdmFunctionDeclaration?> {
+    override fun staticallyKnownFunctions(): Sequence<XpmFunctionDeclaration?> {
         val prolog = mainOrLibraryModule?.prolog?.firstOrNull() ?: predefinedStaticContext ?: return emptySequence()
         return prolog.importedPrologs().flatMap {
-            it.annotatedDeclarations<XdmFunctionDeclaration>()
+            it.annotatedDeclarations<XpmFunctionDeclaration>()
         }.filter { decl -> decl?.functionName != null }
     }
 
-    override fun staticallyKnownFunctions(eqname: XPathEQName): Sequence<XdmFunctionDeclaration> {
+    override fun staticallyKnownFunctions(eqname: XPathEQName): Sequence<XpmFunctionDeclaration> {
         return eqname.importedPrologsForQName().flatMap { (name, prolog) ->
             prolog.staticallyKnownFunctions(name!!)
         }.filterNotNull()

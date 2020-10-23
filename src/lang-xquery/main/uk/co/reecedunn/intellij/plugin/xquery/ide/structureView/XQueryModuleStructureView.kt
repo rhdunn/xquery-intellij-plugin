@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.ide.structureView
 import com.intellij.ide.structureView.StructureViewTreeElement
 import com.intellij.ide.structureView.impl.common.PsiTreeElementBase
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginTypeDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
@@ -34,7 +34,7 @@ class XQueryModuleStructureView(module: XQueryModule) : PsiTreeElementBase<XQuer
                             decl.children().map { annotatedDecl ->
                                 when (annotatedDecl) {
                                     is XQueryFunctionDecl -> {
-                                        (annotatedDecl as XdmFunctionDeclaration).functionName?.localName?.let {
+                                        (annotatedDecl as XpmFunctionDeclaration).functionName?.localName?.let {
                                             StructureViewLeafNode(annotatedDecl)
                                         }
                                     }

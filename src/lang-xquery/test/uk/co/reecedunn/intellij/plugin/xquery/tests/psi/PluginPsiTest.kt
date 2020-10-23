@@ -34,7 +34,7 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.resources.XQueryIcons
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstUsageType
-import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
@@ -1648,7 +1648,7 @@ private class PluginPsiTest : ParserTestCase()  {
                 @Test
                 @DisplayName("variadic")
                 fun variadic() {
-                    val decl = parse<XdmFunctionDeclaration>("function (\$one, \$two ...) {}")[0]
+                    val decl = parse<XpmFunctionDeclaration>("function (\$one, \$two ...) {}")[0]
                     assertThat(decl.functionName, `is`(nullValue()))
                     assertThat(decl.returnType, `is`(nullValue()))
                     assertThat(decl.arity, `is`(Range(1, Int.MAX_VALUE)))
@@ -2059,7 +2059,7 @@ private class PluginPsiTest : ParserTestCase()  {
             @Test
             @DisplayName("variadic")
             fun variadic() {
-                val decl = parse<XdmFunctionDeclaration>("declare function test(\$one, \$two ...) external;")[0]
+                val decl = parse<XpmFunctionDeclaration>("declare function test(\$one, \$two ...) external;")[0]
                 assertThat(decl.returnType, `is`(nullValue()))
                 assertThat(decl.arity, `is`(Range(1, Int.MAX_VALUE)))
                 assertThat(decl.isVariadic, `is`(true))

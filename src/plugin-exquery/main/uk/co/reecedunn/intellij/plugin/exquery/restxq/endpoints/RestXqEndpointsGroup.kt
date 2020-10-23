@@ -21,7 +21,7 @@ import com.intellij.openapi.actionSystem.DataProvider
 import uk.co.reecedunn.intellij.microservices.endpoints.Endpoint
 import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsGroup
 import uk.co.reecedunn.intellij.plugin.exquery.intellij.resources.EXQueryIcons
-import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
 import uk.co.reecedunn.intellij.plugin.xquery.model.annotatedDeclarations
 import javax.swing.Icon
@@ -42,7 +42,7 @@ class RestXqEndpointsGroup(private val prolog: XQueryProlog) : EndpointsGroup, I
         get() = this
 
     override val endpoints: Sequence<Endpoint>
-        get() = prolog.annotatedDeclarations<XdmFunctionDeclaration>().mapNotNull { function ->
+        get() = prolog.annotatedDeclarations<XpmFunctionDeclaration>().mapNotNull { function ->
             function?.functionName?.let { RestXqEndpoint(function) }
         }.filter { it.rest != null }
 
