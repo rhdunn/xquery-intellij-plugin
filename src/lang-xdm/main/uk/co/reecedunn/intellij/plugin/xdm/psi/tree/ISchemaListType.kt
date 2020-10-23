@@ -15,4 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.psi.tree
 
+import uk.co.reecedunn.intellij.plugin.xdm.schema.ISchemaType
+
 interface ISchemaListType : ISchemaType
