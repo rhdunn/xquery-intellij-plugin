@@ -20,15 +20,15 @@ import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableDeclaration
-import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableName
+import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableName
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginBlockVarDeclEntry
 
 class PluginBlockVarDeclEntryPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), PluginBlockVarDeclEntry, XpmVariableDeclaration {
 
-    private val varName: XdmVariableName?
-        get() = children().filterIsInstance<XPathVarName>().firstOrNull() as? XdmVariableName
+    private val varName: XpmVariableName?
+        get() = children().filterIsInstance<XPathVarName>().firstOrNull() as? XpmVariableName
 
     override val variableName: XsQNameValue?
         get() = varName?.variableName

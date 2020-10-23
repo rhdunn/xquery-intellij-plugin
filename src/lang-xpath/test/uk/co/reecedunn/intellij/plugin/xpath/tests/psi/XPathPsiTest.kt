@@ -36,7 +36,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableBinding
-import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableName
+import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableName
 import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableReference
 import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.*
@@ -1465,7 +1465,7 @@ private class XPathPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("NCName")
                 fun ncname() {
-                    val expr = parse<XPathVarName>("let \$x := 2 return \$y")[0] as XdmVariableName
+                    val expr = parse<XPathVarName>("let \$x := 2 return \$y")[0] as XpmVariableName
 
                     val qname = expr.variableName!!
                     assertThat(qname.prefix, `is`(nullValue()))
@@ -1476,7 +1476,7 @@ private class XPathPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("QName")
                 fun qname() {
-                    val expr = parse<XPathVarName>("let \$a:x := 2 return \$a:y")[0] as XdmVariableName
+                    val expr = parse<XPathVarName>("let \$a:x := 2 return \$a:y")[0] as XpmVariableName
 
                     val qname = expr.variableName!!
                     assertThat(qname.namespace, `is`(nullValue()))
@@ -1489,7 +1489,7 @@ private class XPathPsiTest : ParserTestCase() {
                 fun uriQualifiedName() {
                     val expr = parse<XPathVarName>(
                         "let \$Q{http://www.example.com}x := 2 return \$Q{http://www.example.com}y"
-                    )[0] as XdmVariableName
+                    )[0] as XpmVariableName
 
                     val qname = expr.variableName!!
                     assertThat(qname.prefix, `is`(nullValue()))
@@ -1513,7 +1513,7 @@ private class XPathPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("reference rename")
                 fun referenceRename() {
-                    val expr = parse<XPathVarName>("let \$x := 2 return \$y")[0] as XdmVariableName
+                    val expr = parse<XPathVarName>("let \$x := 2 return \$y")[0] as XpmVariableName
 
                     val ref = (expr.variableName as PsiElement).reference
                     assertThat(ref, `is`(nullValue()))

@@ -30,7 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableDeclaration
-import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableName
+import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableName
 import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarDecl
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
@@ -77,8 +77,8 @@ class XQueryVarDeclPsiImpl(node: ASTNode) :
     // endregion
     // region XPathVariableDeclaration
 
-    private val varName: XdmVariableName?
-        get() = children().filterIsInstance<XPathVarName>().firstOrNull() as? XdmVariableName
+    private val varName: XpmVariableName?
+        get() = children().filterIsInstance<XPathVarName>().firstOrNull() as? XpmVariableName
 
     override val variableName: XsQNameValue?
         get() = varName?.variableName

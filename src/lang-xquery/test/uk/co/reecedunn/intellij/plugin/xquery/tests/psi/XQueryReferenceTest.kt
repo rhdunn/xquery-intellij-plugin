@@ -27,7 +27,7 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
-import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableName
+import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableName
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
@@ -229,7 +229,7 @@ private class XQueryReferenceTest : ParserTestCase() {
         @Test
         @DisplayName("XQuery 3.1 EBNF (28) VarDecl")
         fun varDecl() {
-            val vars = parse<XdmVariableName>(
+            val vars = parse<XpmVariableName>(
                 """
                 declare variable ${'$'}value := 2;
                 ${'$'}value
@@ -264,7 +264,7 @@ private class XQueryReferenceTest : ParserTestCase() {
         @Test
         @DisplayName("XQuery 3.1 EBNF (34) Param")
         fun param() {
-            val vars = parse<XdmVariableName>(
+            val vars = parse<XpmVariableName>(
                 """
                 declare function f(${'$'}x) { ${'$'}x };
                 ${'$'}x (: ${'$'}x is not in scope here :)
@@ -299,7 +299,7 @@ private class XQueryReferenceTest : ParserTestCase() {
         @Test
         @DisplayName("XQuery 3.1 EBNF (43) IntermediateClause")
         fun intermediateClause() {
-            val vars = parse<XdmVariableName>(
+            val vars = parse<XpmVariableName>(
                 """
                 for ${'$'}x in ${'$'}y
                 for ${'$'}z in ${'$'}x
@@ -335,7 +335,7 @@ private class XQueryReferenceTest : ParserTestCase() {
         @Test
         @DisplayName("XQuery 3.1 EBNF (45) ForBinding")
         fun forBinding() {
-            val vars = parse<XdmVariableName>(
+            val vars = parse<XpmVariableName>(
                 """
                 for ${'$'}x in ${'$'}y
                 return ${'$'}x
@@ -370,7 +370,7 @@ private class XQueryReferenceTest : ParserTestCase() {
         @Test
         @DisplayName("XQuery 3.1 EBNF (47) PositionalVar")
         fun positionalVar() {
-            val vars = parse<XdmVariableName>(
+            val vars = parse<XpmVariableName>(
                 """
                 for ${'$'}x at ${'$'}i in ${'$'}y
                 return ${'$'}i
@@ -405,7 +405,7 @@ private class XQueryReferenceTest : ParserTestCase() {
         @Test
         @DisplayName("XQuery 3.1 EBNF (49) LetBinding")
         fun letBinding() {
-            val vars = parse<XdmVariableName>(
+            val vars = parse<XpmVariableName>(
                 """
                 let ${'$'}x := ${'$'}y
                 return ${'$'}x
@@ -440,7 +440,7 @@ private class XQueryReferenceTest : ParserTestCase() {
         @Test
         @DisplayName("XQuery 3.1 EBNF (51) TumblingWindowClause")
         fun tumblingWindowClause() {
-            val vars = parse<XdmVariableName>(
+            val vars = parse<XpmVariableName>(
                 """
                 for tumbling window ${'$'}x in ${'$'}y start when true()
                 return ${'$'}x
@@ -475,7 +475,7 @@ private class XQueryReferenceTest : ParserTestCase() {
         @Test
         @DisplayName("XQuery 3.1 EBNF (52) SlidingWindowClause")
         fun slidingWindowClause() {
-            val vars = parse<XdmVariableName>(
+            val vars = parse<XpmVariableName>(
                 """
                 for tumbling window ${'$'}x in ${'$'}y start when true()
                 return ${'$'}x

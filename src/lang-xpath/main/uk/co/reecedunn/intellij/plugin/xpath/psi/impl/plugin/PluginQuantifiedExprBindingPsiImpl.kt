@@ -21,7 +21,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginQuantifiedExprBinding
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableBinding
-import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableName
+import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableName
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
 class PluginQuantifiedExprBindingPsiImpl(node: ASTNode) :
@@ -29,8 +29,8 @@ class PluginQuantifiedExprBindingPsiImpl(node: ASTNode) :
     PluginQuantifiedExprBinding,
     XpmVariableBinding {
 
-    private val varName: XdmVariableName?
-        get() = children().filterIsInstance<XPathVarName>().firstOrNull() as? XdmVariableName
+    private val varName: XpmVariableName?
+        get() = children().filterIsInstance<XPathVarName>().firstOrNull() as? XpmVariableName
 
     override val variableName: XsQNameValue?
         get() = varName?.variableName

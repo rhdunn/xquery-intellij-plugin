@@ -18,10 +18,10 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
-import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableName
+import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableName
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
-class XPathVarNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathVarName, XdmVariableName {
+class XPathVarNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathVarName, XpmVariableName {
     override val variableName: XsQNameValue?
         get() = firstChild as? XsQNameValue
 }

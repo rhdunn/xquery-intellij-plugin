@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAttributeNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
-import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableName
+import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpm.context.expand
@@ -61,7 +61,7 @@ class XPathInlayParameterHintsProvider : InlayParameterHintsProvider {
         )
 
         private fun getName(element: PsiElement): XsQNameValue? = when (element) {
-            is XdmVariableName -> element.variableName
+            is XpmVariableName -> element.variableName
             is XPathRelativePathExpr -> when (val step = element.lastChild) {
                 is XPathNameTest -> step.firstChild as? XsQNameValue
                 is XPathAbbrevForwardStep, is XPathForwardStep, is XPathReverseStep -> when (step.lastChild) {

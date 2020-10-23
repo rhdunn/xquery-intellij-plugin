@@ -19,7 +19,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableBinding
-import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableName
+import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableName
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryGroupingSpec
@@ -34,8 +34,8 @@ class XQueryGroupingSpecPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
     // endregion
     // region XPathVariableBinding
 
-    private val varName: XdmVariableName?
-        get() = children().filterIsInstance<XQueryGroupingVariable>().firstOrNull() as? XdmVariableName
+    private val varName: XpmVariableName?
+        get() = children().filterIsInstance<XQueryGroupingVariable>().firstOrNull() as? XpmVariableName
 
     override val variableName: XsQNameValue?
         get() = varName?.variableName
