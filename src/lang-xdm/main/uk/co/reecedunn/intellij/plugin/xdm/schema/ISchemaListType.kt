@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xdm.psi.tree
+package uk.co.reecedunn.intellij.plugin.xdm.schema
 
 import uk.co.reecedunn.intellij.plugin.xdm.schema.ISchemaType
 

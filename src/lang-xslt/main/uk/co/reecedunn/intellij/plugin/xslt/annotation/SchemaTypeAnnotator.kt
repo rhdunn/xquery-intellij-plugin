@@ -23,7 +23,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.psi.PsiWhiteSpace
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xdm.psi.tree.ISchemaListType
+import uk.co.reecedunn.intellij.plugin.xdm.schema.ISchemaListType
 import uk.co.reecedunn.intellij.plugin.xdm.schema.ISchemaType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQName
