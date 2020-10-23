@@ -23,7 +23,7 @@ import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.fileTypes.XPathFileType
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
-import uk.co.reecedunn.intellij.plugin.xdm.context.XstUsageType
+import uk.co.reecedunn.intellij.plugin.xpm.context.XpmUsageType
 import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmDefaultNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
@@ -50,7 +50,7 @@ class XPathImpl(provider: FileViewProvider) :
     // endregion
     // region XstContext
 
-    override fun getUsageType(element: PsiElement): XstUsageType? = USAGE_TYPES[element.parent.elementType]
+    override fun getUsageType(element: PsiElement): XpmUsageType? = USAGE_TYPES[element.parent.elementType]
 
     override fun expandQName(qname: XsQNameValue): Sequence<XsQNameValue> = emptySequence()
 
@@ -91,22 +91,22 @@ class XPathImpl(provider: FileViewProvider) :
     // endregion
 
     companion object {
-        val USAGE_TYPES: Map<IElementType, XstUsageType> = mapOf(
-            XPathElementType.ARROW_FUNCTION_CALL to XstUsageType.FunctionRef,
-            XPathElementType.ATOMIC_OR_UNION_TYPE to XstUsageType.Type,
-            XPathElementType.ATTRIBUTE_TEST to XstUsageType.Attribute,
-            XPathElementType.ELEMENT_TEST to XstUsageType.Element,
-            XPathElementType.FUNCTION_CALL to XstUsageType.FunctionRef,
-            XPathElementType.NAMED_FUNCTION_REF to XstUsageType.FunctionRef,
-            XPathElementType.PARAM to XstUsageType.Parameter,
-            XPathElementType.PRAGMA to XstUsageType.Pragma,
-            XPathElementType.SCHEMA_ATTRIBUTE_TEST to XstUsageType.Attribute,
-            XPathElementType.SCHEMA_ELEMENT_TEST to XstUsageType.Element,
-            XPathElementType.SIMPLE_TYPE_NAME to XstUsageType.Type,
-            XPathElementType.TYPE_ALIAS to XstUsageType.Type,
-            XPathElementType.TYPE_NAME to XstUsageType.Type,
-            XPathElementType.UNION_TYPE to XstUsageType.Type,
-            XPathElementType.VAR_NAME to XstUsageType.Variable
+        val USAGE_TYPES: Map<IElementType, XpmUsageType> = mapOf(
+            XPathElementType.ARROW_FUNCTION_CALL to XpmUsageType.FunctionRef,
+            XPathElementType.ATOMIC_OR_UNION_TYPE to XpmUsageType.Type,
+            XPathElementType.ATTRIBUTE_TEST to XpmUsageType.Attribute,
+            XPathElementType.ELEMENT_TEST to XpmUsageType.Element,
+            XPathElementType.FUNCTION_CALL to XpmUsageType.FunctionRef,
+            XPathElementType.NAMED_FUNCTION_REF to XpmUsageType.FunctionRef,
+            XPathElementType.PARAM to XpmUsageType.Parameter,
+            XPathElementType.PRAGMA to XpmUsageType.Pragma,
+            XPathElementType.SCHEMA_ATTRIBUTE_TEST to XpmUsageType.Attribute,
+            XPathElementType.SCHEMA_ELEMENT_TEST to XpmUsageType.Element,
+            XPathElementType.SIMPLE_TYPE_NAME to XpmUsageType.Type,
+            XPathElementType.TYPE_ALIAS to XpmUsageType.Type,
+            XPathElementType.TYPE_NAME to XpmUsageType.Type,
+            XPathElementType.UNION_TYPE to XpmUsageType.Type,
+            XPathElementType.VAR_NAME to XpmUsageType.Variable
         )
     }
 }

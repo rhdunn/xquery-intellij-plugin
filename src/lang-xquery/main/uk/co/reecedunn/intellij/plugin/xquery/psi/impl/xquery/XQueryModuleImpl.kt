@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.fileTypes.XQueryFileType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.settings.XQueryProjectSettings
-import uk.co.reecedunn.intellij.plugin.xdm.context.XstUsageType
+import uk.co.reecedunn.intellij.plugin.xpm.context.XpmUsageType
 import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmDefaultNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
@@ -118,15 +118,15 @@ class XQueryModuleImpl(provider: FileViewProvider) :
     // endregion
     // region XstContext
 
-    override fun getUsageType(element: PsiElement): XstUsageType? {
+    override fun getUsageType(element: PsiElement): XpmUsageType? {
         val parentType = element.parent.elementType
         return when {
-            element.elementType === XQueryElementType.COMPATIBILITY_ANNOTATION -> XstUsageType.Annotation
+            element.elementType === XQueryElementType.COMPATIBILITY_ANNOTATION -> XpmUsageType.Annotation
             parentType === XQueryElementType.DIR_ATTRIBUTE -> {
                 if ((element as? XsQNameValue)?.prefix?.data == "xmlns")
-                    XstUsageType.Namespace
+                    XpmUsageType.Namespace
                 else
-                    XstUsageType.Attribute
+                    XpmUsageType.Attribute
             }
             else -> USAGE_TYPES[parentType]
         }
@@ -179,37 +179,37 @@ class XQueryModuleImpl(provider: FileViewProvider) :
     // endregion
 
     companion object {
-        val USAGE_TYPES: Map<IElementType, XstUsageType> = mapOf(
-            XQueryElementType.ANNOTATION to XstUsageType.Annotation,
-            XPathElementType.ARROW_FUNCTION_CALL to XstUsageType.FunctionRef,
-            XPathElementType.ATOMIC_OR_UNION_TYPE to XstUsageType.Type,
-            XPathElementType.ATTRIBUTE_TEST to XstUsageType.Attribute,
-            XQueryElementType.COMP_ATTR_CONSTRUCTOR to XstUsageType.Attribute,
-            XQueryElementType.COMP_ELEM_CONSTRUCTOR to XstUsageType.Element,
-            XQueryElementType.CURRENT_ITEM to XstUsageType.Variable,
-            XQueryElementType.DECIMAL_FORMAT_DECL to XstUsageType.DecimalFormat,
-            XQueryElementType.DIR_ELEM_CONSTRUCTOR to XstUsageType.Element,
-            XPathElementType.ELEMENT_TEST to XstUsageType.Element,
-            XPathElementType.FUNCTION_CALL to XstUsageType.FunctionRef,
-            XQueryElementType.FUNCTION_DECL to XstUsageType.FunctionDecl,
-            XQueryElementType.MODULE_DECL to XstUsageType.Namespace,
-            XQueryElementType.MODULE_IMPORT to XstUsageType.Namespace,
-            XPathElementType.NAMED_FUNCTION_REF to XstUsageType.FunctionRef,
-            XQueryElementType.NAMESPACE_DECL to XstUsageType.Namespace,
-            XQueryElementType.NEXT_ITEM to XstUsageType.Variable,
-            XQueryElementType.OPTION_DECL to XstUsageType.Option,
-            XPathElementType.PARAM to XstUsageType.Parameter,
-            XPathElementType.PRAGMA to XstUsageType.Pragma,
-            XQueryElementType.PREVIOUS_ITEM to XstUsageType.Variable,
-            XPathElementType.SCHEMA_ATTRIBUTE_TEST to XstUsageType.Attribute,
-            XPathElementType.SCHEMA_ELEMENT_TEST to XstUsageType.Element,
-            XQueryElementType.SCHEMA_PREFIX to XstUsageType.Namespace,
-            XPathElementType.SIMPLE_TYPE_NAME to XstUsageType.Type,
-            XPathElementType.TYPE_ALIAS to XstUsageType.Type,
-            XQueryElementType.TYPE_DECL to XstUsageType.Type,
-            XPathElementType.TYPE_NAME to XstUsageType.Type,
-            XPathElementType.UNION_TYPE to XstUsageType.Type,
-            XPathElementType.VAR_NAME to XstUsageType.Variable
+        val USAGE_TYPES: Map<IElementType, XpmUsageType> = mapOf(
+            XQueryElementType.ANNOTATION to XpmUsageType.Annotation,
+            XPathElementType.ARROW_FUNCTION_CALL to XpmUsageType.FunctionRef,
+            XPathElementType.ATOMIC_OR_UNION_TYPE to XpmUsageType.Type,
+            XPathElementType.ATTRIBUTE_TEST to XpmUsageType.Attribute,
+            XQueryElementType.COMP_ATTR_CONSTRUCTOR to XpmUsageType.Attribute,
+            XQueryElementType.COMP_ELEM_CONSTRUCTOR to XpmUsageType.Element,
+            XQueryElementType.CURRENT_ITEM to XpmUsageType.Variable,
+            XQueryElementType.DECIMAL_FORMAT_DECL to XpmUsageType.DecimalFormat,
+            XQueryElementType.DIR_ELEM_CONSTRUCTOR to XpmUsageType.Element,
+            XPathElementType.ELEMENT_TEST to XpmUsageType.Element,
+            XPathElementType.FUNCTION_CALL to XpmUsageType.FunctionRef,
+            XQueryElementType.FUNCTION_DECL to XpmUsageType.FunctionDecl,
+            XQueryElementType.MODULE_DECL to XpmUsageType.Namespace,
+            XQueryElementType.MODULE_IMPORT to XpmUsageType.Namespace,
+            XPathElementType.NAMED_FUNCTION_REF to XpmUsageType.FunctionRef,
+            XQueryElementType.NAMESPACE_DECL to XpmUsageType.Namespace,
+            XQueryElementType.NEXT_ITEM to XpmUsageType.Variable,
+            XQueryElementType.OPTION_DECL to XpmUsageType.Option,
+            XPathElementType.PARAM to XpmUsageType.Parameter,
+            XPathElementType.PRAGMA to XpmUsageType.Pragma,
+            XQueryElementType.PREVIOUS_ITEM to XpmUsageType.Variable,
+            XPathElementType.SCHEMA_ATTRIBUTE_TEST to XpmUsageType.Attribute,
+            XPathElementType.SCHEMA_ELEMENT_TEST to XpmUsageType.Element,
+            XQueryElementType.SCHEMA_PREFIX to XpmUsageType.Namespace,
+            XPathElementType.SIMPLE_TYPE_NAME to XpmUsageType.Type,
+            XPathElementType.TYPE_ALIAS to XpmUsageType.Type,
+            XQueryElementType.TYPE_DECL to XpmUsageType.Type,
+            XPathElementType.TYPE_NAME to XpmUsageType.Type,
+            XPathElementType.UNION_TYPE to XpmUsageType.Type,
+            XPathElementType.VAR_NAME to XpmUsageType.Variable
         )
     }
 }

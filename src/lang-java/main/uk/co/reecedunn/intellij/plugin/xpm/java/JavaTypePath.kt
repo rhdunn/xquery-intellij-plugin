@@ -21,7 +21,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.search.GlobalSearchScope
 import uk.co.reecedunn.intellij.plugin.core.reflection.loadClassOrNull
 import uk.co.reecedunn.intellij.plugin.xpm.context.XpmStaticContext
-import uk.co.reecedunn.intellij.plugin.xdm.context.XstUsageType
+import uk.co.reecedunn.intellij.plugin.xpm.context.XpmUsageType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePath
@@ -55,7 +55,7 @@ data class JavaTypePath(val project: Project) : XpmModulePath, XpmStaticContext 
     // endregion
     // region XstContext
 
-    override fun getUsageType(element: PsiElement): XstUsageType? = null
+    override fun getUsageType(element: PsiElement): XpmUsageType? = null
 
     override fun expandQName(qname: XsQNameValue): Sequence<XsQNameValue> = emptySequence()
 

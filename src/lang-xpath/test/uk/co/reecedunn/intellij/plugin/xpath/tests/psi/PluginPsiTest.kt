@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.xdm.context.XstUsageType
+import uk.co.reecedunn.intellij.plugin.xpm.context.XpmUsageType
 import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
@@ -50,7 +50,7 @@ private class PluginPsiTest : ParserTestCase() {
             @DisplayName("NCName namespace resolution")
             fun ncname() {
                 val qname = parse<XPathEQName>("() instance of union(test)")[0] as XsQNameValue
-                assertThat(qname.element!!.getUsageType(), `is`(XstUsageType.Type))
+                assertThat(qname.element!!.getUsageType(), `is`(XpmUsageType.Type))
 
                 assertThat(qname.isLexicalQName, `is`(true))
                 assertThat(qname.namespace, `is`(nullValue()))
@@ -193,7 +193,7 @@ private class PluginPsiTest : ParserTestCase() {
             @DisplayName("NCName namespace resolution")
             fun ncname() {
                 val qname = parse<XPathEQName>("() instance of ~ test")[0] as XsQNameValue
-                assertThat(qname.element!!.getUsageType(), `is`(XstUsageType.Type))
+                assertThat(qname.element!!.getUsageType(), `is`(XpmUsageType.Type))
 
                 assertThat(qname.isLexicalQName, `is`(true))
                 assertThat(qname.namespace, `is`(nullValue()))

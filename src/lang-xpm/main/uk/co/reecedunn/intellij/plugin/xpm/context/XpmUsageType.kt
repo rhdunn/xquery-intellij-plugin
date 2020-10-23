@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xdm.context
+package uk.co.reecedunn.intellij.plugin.xpm.context
 
 import uk.co.reecedunn.intellij.plugin.xdm.intellij.resources.XdmBundle
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
 
-enum class XstUsageType(val label: String, val namespaceType: XdmNamespaceType) {
+enum class XpmUsageType(val label: String, val namespaceType: XdmNamespaceType) {
     Annotation(XdmBundle.message("usage-type.annotation"), XdmNamespaceType.XQuery),
     Attribute(XdmBundle.message("usage-type.attribute"), XdmNamespaceType.None),
     DecimalFormat(XdmBundle.message("usage-type.decimal-format"), XdmNamespaceType.None),

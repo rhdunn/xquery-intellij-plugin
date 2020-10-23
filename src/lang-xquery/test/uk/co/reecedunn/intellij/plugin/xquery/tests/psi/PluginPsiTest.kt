@@ -33,7 +33,7 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.resources.XQueryIcons
-import uk.co.reecedunn.intellij.plugin.xdm.context.XstUsageType
+import uk.co.reecedunn.intellij.plugin.xpm.context.XpmUsageType
 import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
@@ -154,7 +154,7 @@ private class PluginPsiTest : ParserTestCase()  {
                     """
                 )[1] as XsQNameValue
                 assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.DefaultElementOrType))
-                assertThat(qname.element!!.getUsageType(), `is`(XstUsageType.Type))
+                assertThat(qname.element!!.getUsageType(), `is`(XpmUsageType.Type))
 
                 assertThat(qname.isLexicalQName, `is`(true))
                 assertThat(qname.namespace, `is`(nullValue()))
@@ -1210,7 +1210,7 @@ private class PluginPsiTest : ParserTestCase()  {
                     """
                 )[0] as XsQNameValue
                 assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.DefaultElementOrType))
-                assertThat(qname.element!!.getUsageType(), `is`(XstUsageType.Type))
+                assertThat(qname.element!!.getUsageType(), `is`(XpmUsageType.Type))
 
                 assertThat(qname.isLexicalQName, `is`(true))
                 assertThat(qname.namespace, `is`(nullValue()))
@@ -1804,7 +1804,7 @@ private class PluginPsiTest : ParserTestCase()  {
             fun principalNodeKind() {
                 val steps = parse<XPathNameTest>("property::one")
                 assertThat(steps.size, `is`(1))
-                assertThat(steps[0].getPrincipalNodeKind(), `is`(XstUsageType.Element)) // property
+                assertThat(steps[0].getPrincipalNodeKind(), `is`(XpmUsageType.Element)) // property
             }
 
             @Test
@@ -1814,7 +1814,7 @@ private class PluginPsiTest : ParserTestCase()  {
                     it.walkTree().filterIsInstance<XsQNameValue>().first().element!!
                 }
                 assertThat(steps.size, `is`(1))
-                assertThat(steps[0].getUsageType(), `is`(XstUsageType.Element)) // property
+                assertThat(steps[0].getUsageType(), `is`(XpmUsageType.Element)) // property
             }
         }
     }
@@ -1919,7 +1919,7 @@ private class PluginPsiTest : ParserTestCase()  {
                     """
                 )[0] as XsQNameValue
                 assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.DefaultElementOrType))
-                assertThat(qname.element!!.getUsageType(), `is`(XstUsageType.Type))
+                assertThat(qname.element!!.getUsageType(), `is`(XpmUsageType.Type))
 
                 assertThat(qname.isLexicalQName, `is`(true))
                 assertThat(qname.namespace, `is`(nullValue()))
@@ -1950,7 +1950,7 @@ private class PluginPsiTest : ParserTestCase()  {
             fun ncname() {
                 val qname = parse<PluginCompatibilityAnnotation>("declare private function f() {};")[0] as XsQNameValue
                 assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.XQuery))
-                assertThat(qname.element!!.getUsageType(), `is`(XstUsageType.Annotation))
+                assertThat(qname.element!!.getUsageType(), `is`(XpmUsageType.Annotation))
 
                 assertThat(qname.isLexicalQName, `is`(true))
                 assertThat(qname.namespace, `is`(nullValue()))

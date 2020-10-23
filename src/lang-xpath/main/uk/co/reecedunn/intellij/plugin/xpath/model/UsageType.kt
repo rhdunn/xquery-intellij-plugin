@@ -17,23 +17,22 @@ package uk.co.reecedunn.intellij.plugin.xpath.model
 
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
-import uk.co.reecedunn.intellij.plugin.xdm.context.XstUsageType
+import uk.co.reecedunn.intellij.plugin.xpm.context.XpmUsageType
 import uk.co.reecedunn.intellij.plugin.xpm.context.staticContext
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 
-fun PsiElement.getPrincipalNodeKind(): XstUsageType = when (parent.elementType) {
-    XPathElementType.ABBREV_FORWARD_STEP -> XstUsageType.Attribute
+fun PsiElement.getPrincipalNodeKind(): XpmUsageType = when (parent.elementType) {
+    XPathElementType.ABBREV_FORWARD_STEP -> XpmUsageType.Attribute
     XPathElementType.FORWARD_STEP -> when (parent.firstChild.elementType) {
-        XPathTokenType.K_ATTRIBUTE -> XstUsageType.Attribute
-        XPathTokenType.K_NAMESPACE -> XstUsageType.Namespace
-        else -> XstUsageType.Element
+        XPathTokenType.K_ATTRIBUTE -> XpmUsageType.Attribute
+        XPathTokenType.K_NAMESPACE -> XpmUsageType.Namespace
+        else -> XpmUsageType.Element
     }
-    else -> XstUsageType.Element
+    else -> XpmUsageType.Element
 }
 
-fun PsiElement.getUsageType(): XstUsageType = when (parent.elementType) {
+fun PsiElement.getUsageType(): XpmUsageType = when (parent.elementType) {
     XPathElementType.NAME_TEST -> parent.getPrincipalNodeKind()
-    else -> staticContext?.getUsageType(this) ?: XstUsageType.Unknown
+    else -> staticContext?.getUsageType(this) ?: XpmUsageType.Unknown
 }

@@ -31,7 +31,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructo
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lexer.XQuerySyntaxHighlighterColors
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathBundle
-import uk.co.reecedunn.intellij.plugin.xdm.context.XstUsageType
+import uk.co.reecedunn.intellij.plugin.xpm.context.XpmUsageType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmWildcardValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathComment
@@ -42,18 +42,18 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.getUsageType
 class QNameAnnotator : Annotator() {
     private fun getHighlightAttributes(element: PsiElement, resolveReferences: Boolean = true): TextAttributesKey {
         return when (element.getUsageType()) {
-            XstUsageType.Annotation -> XQuerySyntaxHighlighterColors.ANNOTATION
-            XstUsageType.Attribute -> XQuerySyntaxHighlighterColors.ATTRIBUTE
-            XstUsageType.DecimalFormat -> XQuerySyntaxHighlighterColors.DECIMAL_FORMAT
-            XstUsageType.Element -> XQuerySyntaxHighlighterColors.ELEMENT
-            XstUsageType.FunctionDecl -> XQuerySyntaxHighlighterColors.FUNCTION_DECL
-            XstUsageType.FunctionRef -> XQuerySyntaxHighlighterColors.FUNCTION_CALL
-            XstUsageType.Namespace -> XQuerySyntaxHighlighterColors.NS_PREFIX
-            XstUsageType.Option -> XQuerySyntaxHighlighterColors.OPTION
-            XstUsageType.Parameter -> XQuerySyntaxHighlighterColors.PARAMETER
-            XstUsageType.Pragma -> XQuerySyntaxHighlighterColors.PRAGMA
-            XstUsageType.Type -> XQuerySyntaxHighlighterColors.TYPE
-            XstUsageType.Variable -> {
+            XpmUsageType.Annotation -> XQuerySyntaxHighlighterColors.ANNOTATION
+            XpmUsageType.Attribute -> XQuerySyntaxHighlighterColors.ATTRIBUTE
+            XpmUsageType.DecimalFormat -> XQuerySyntaxHighlighterColors.DECIMAL_FORMAT
+            XpmUsageType.Element -> XQuerySyntaxHighlighterColors.ELEMENT
+            XpmUsageType.FunctionDecl -> XQuerySyntaxHighlighterColors.FUNCTION_DECL
+            XpmUsageType.FunctionRef -> XQuerySyntaxHighlighterColors.FUNCTION_CALL
+            XpmUsageType.Namespace -> XQuerySyntaxHighlighterColors.NS_PREFIX
+            XpmUsageType.Option -> XQuerySyntaxHighlighterColors.OPTION
+            XpmUsageType.Parameter -> XQuerySyntaxHighlighterColors.PARAMETER
+            XpmUsageType.Pragma -> XQuerySyntaxHighlighterColors.PRAGMA
+            XpmUsageType.Type -> XQuerySyntaxHighlighterColors.TYPE
+            XpmUsageType.Variable -> {
                 if (resolveReferences)
                     element.reference?.resolve()?.let {
                         getHighlightAttributes(it, false)
@@ -61,7 +61,7 @@ class QNameAnnotator : Annotator() {
                 else
                     XQuerySyntaxHighlighterColors.VARIABLE
             }
-            XstUsageType.Unknown -> XQuerySyntaxHighlighterColors.IDENTIFIER
+            XpmUsageType.Unknown -> XQuerySyntaxHighlighterColors.IDENTIFIER
         }
     }
 

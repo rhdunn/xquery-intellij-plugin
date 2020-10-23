@@ -16,11 +16,10 @@
 package uk.co.reecedunn.intellij.plugin.xpm.context
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xdm.context.XstUsageType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
 interface XpmStaticContext {
-    fun getUsageType(element: PsiElement): XstUsageType?
+    fun getUsageType(element: PsiElement): XpmUsageType?
 
     fun expandQName(qname: XsQNameValue): Sequence<XsQNameValue>
 }
