@@ -42,7 +42,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xpm.namespace.XpmDefaultNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.namespace.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
-import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableBinding
+import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableBinding
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
@@ -1471,7 +1471,7 @@ private class PluginPsiTest : ParserTestCase()  {
             fun testDefaultCaseClause_NCName() {
                 val expr = parse<PluginDefaultCaseClause>(
                     "typeswitch (\$x) default \$y return \$z"
-                )[0] as XdmVariableBinding
+                )[0] as XpmVariableBinding
 
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -1484,7 +1484,7 @@ private class PluginPsiTest : ParserTestCase()  {
             fun testDefaultCaseClause_QName() {
                 val expr = parse<PluginDefaultCaseClause>(
                     "typeswitch (\$a:x) default \$a:y return \$a:z"
-                )[0] as XdmVariableBinding
+                )[0] as XpmVariableBinding
 
                 val qname = expr.variableName!!
                 assertThat(qname.namespace, `is`(nullValue()))
@@ -1501,7 +1501,7 @@ private class PluginPsiTest : ParserTestCase()  {
                     default ${'$'}Q{http://www.example.com}y
                     return ${'$'}Q{http://www.example.com}z
                     """
-                )[0] as XdmVariableBinding
+                )[0] as XpmVariableBinding
 
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -1514,7 +1514,7 @@ private class PluginPsiTest : ParserTestCase()  {
             fun testDefaultCaseClause_NoVarName() {
                 val expr = parse<PluginDefaultCaseClause>(
                     "typeswitch (\$x) default return \$z"
-                )[0] as XdmVariableBinding
+                )[0] as XpmVariableBinding
                 assertThat(expr.variableName, `is`(nullValue()))
             }
         }

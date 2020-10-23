@@ -27,7 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnnotation
-import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableBinding
+import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableBinding
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionDecorator
@@ -60,7 +60,7 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
     override val returnType: XdmSequenceType?
         get() = children().filterIsInstance<XdmSequenceType>().firstOrNull()
 
-    override val params: List<XdmVariableBinding>
+    override val params: List<XpmVariableBinding>
         get() = paramList?.params ?: emptyList()
 
     override val paramListPresentation: ItemPresentation?

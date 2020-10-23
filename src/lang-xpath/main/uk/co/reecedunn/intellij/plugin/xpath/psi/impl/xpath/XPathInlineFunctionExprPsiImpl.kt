@@ -27,7 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnnotation
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathInlineFunctionExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableBinding
+import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableBinding
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
@@ -66,7 +66,7 @@ class XPathInlineFunctionExprPsiImpl(node: ASTNode) :
     override val returnType: XdmSequenceType?
         get() = children().filterIsInstance<XdmSequenceType>().firstOrNull()
 
-    override val params: List<XdmVariableBinding>
+    override val params: List<XpmVariableBinding>
         get() = paramList?.params ?: emptyList()
 
     override val paramListPresentation: ItemPresentation?

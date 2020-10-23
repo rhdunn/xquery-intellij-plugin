@@ -20,14 +20,14 @@ import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginQuantifiedExprBinding
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
-import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableBinding
+import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableBinding
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableName
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
 class PluginQuantifiedExprBindingPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     PluginQuantifiedExprBinding,
-    XdmVariableBinding {
+    XpmVariableBinding {
 
     private val varName: XdmVariableName?
         get() = children().filterIsInstance<XPathVarName>().firstOrNull() as? XdmVariableName

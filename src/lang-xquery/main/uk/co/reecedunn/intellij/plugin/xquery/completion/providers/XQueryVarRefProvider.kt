@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathVarNameLooku
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathCompletionProperty
 import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.EQNameCompletionType
 import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.completionType
-import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableBinding
+import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableBinding
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.inScopeVariables
 import uk.co.reecedunn.intellij.plugin.xpm.context.expand
@@ -40,7 +40,7 @@ object XQueryVarRefProvider : CompletionProviderEx {
                 element.inScopeVariables().forEachCancellable { variable ->
                     val localName = variable.variableName?.localName?.data ?: return@forEachCancellable
                     val prefix = variable.variableName?.prefix?.data
-                    if (variable is XdmVariableBinding) { // Locally declared, does not require prefix rebinding.
+                    if (variable is XpmVariableBinding) { // Locally declared, does not require prefix rebinding.
                         result.addElement(XPathVarNameLookup(localName, prefix, variable))
                     } else { // Variable declaration may have a different prefix to the current module.
                         variable.variableName?.expand()?.firstOrNull()?.let { name ->

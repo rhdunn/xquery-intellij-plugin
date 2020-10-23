@@ -20,7 +20,7 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
-import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableBinding
+import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableBinding
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableName
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryTumblingWindowClause
@@ -32,7 +32,7 @@ class XQueryTumblingWindowClausePsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XQueryTumblingWindowClause,
     VersionConformance,
-    XdmVariableBinding {
+    XpmVariableBinding {
     // region VersionConformance
 
     override val requiresConformance: List<Version>

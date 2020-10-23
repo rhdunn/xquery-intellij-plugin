@@ -16,13 +16,13 @@
 package uk.co.reecedunn.intellij.plugin.xpm.function
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableBinding
+import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableBinding
 
 data class XpmFunctionParamBinding(
-    val param: XdmVariableBinding,
+    val param: XpmVariableBinding,
     private val values: List<PsiElement>
 ) : List<PsiElement> {
-    constructor(param: XdmVariableBinding, value: PsiElement) : this(param, listOf(value))
+    constructor(param: XpmVariableBinding, value: PsiElement) : this(param, listOf(value))
 
     // region List<PsiElement>
 

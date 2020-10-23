@@ -20,7 +20,7 @@ import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnnotation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
-import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableBinding
+import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableBinding
 
 interface XpmFunctionDeclaration {
     companion object {
@@ -33,7 +33,7 @@ interface XpmFunctionDeclaration {
 
     val returnType: XdmSequenceType?
 
-    val params: List<XdmVariableBinding>
+    val params: List<XpmVariableBinding>
 
     val paramListPresentation: ItemPresentation?
 

@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_equal
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
-import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableBinding
+import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableBinding
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableDefinition
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
@@ -53,7 +53,7 @@ private class InScopeVariableContext {
 private fun PsiElement.flworBindingVariables(
     node: PsiElement,
     context: InScopeVariableContext
-): Sequence<XdmVariableBinding> {
+): Sequence<XpmVariableBinding> {
     if (node is XQueryForBinding || node is XQueryLetBinding || node is XQueryGroupingSpec) {
         context.visitedFlworClause = true
         if (context.visitedFlworBinding) {
@@ -62,15 +62,15 @@ private fun PsiElement.flworBindingVariables(
         }
     }
 
-    val pos = children().filterIsInstance<XdmVariableBinding>().firstOrNull()
+    val pos = children().filterIsInstance<XpmVariableBinding>().firstOrNull()
     return if (pos != null)
-        sequenceOf(this as XdmVariableBinding, pos)
+        sequenceOf(this as XpmVariableBinding, pos)
     else
-        sequenceOf(this as XdmVariableBinding)
+        sequenceOf(this as XpmVariableBinding)
 }
 
 // ForClause, LetClause, GroupingSpecList
-private fun PsiElement.flworClauseVariables(context: InScopeVariableContext): Sequence<XdmVariableBinding> {
+private fun PsiElement.flworClauseVariables(context: InScopeVariableContext): Sequence<XpmVariableBinding> {
     return if (context.visitedFlworClause) {
         context.visitedFlworClause = false
         emptySequence()
@@ -86,16 +86,16 @@ private fun PsiElement.flworClauseVariables(context: InScopeVariableContext): Se
     }
 }
 
-private fun PsiElement.windowConditionVariables(context: InScopeVariableContext): Sequence<XdmVariableBinding> {
+private fun PsiElement.windowConditionVariables(context: InScopeVariableContext): Sequence<XpmVariableBinding> {
     if (context.visitedFlworWindowConditions) {
         return emptySequence()
     }
     return children().filterIsInstance<XQueryWindowVars>().firstOrNull()
-        ?.children()?.filterIsInstance<XdmVariableBinding>() ?: emptySequence()
+        ?.children()?.filterIsInstance<XpmVariableBinding>() ?: emptySequence()
 }
 
 // WindowClause + (SlidingWindowClause | TumblingWindowClause)
-private fun PsiElement.windowClauseVariables(context: InScopeVariableContext): Sequence<XdmVariableBinding> {
+private fun PsiElement.windowClauseVariables(context: InScopeVariableContext): Sequence<XpmVariableBinding> {
     val node = children().map { e ->
         when (e) {
             is XQuerySlidingWindowClause, is XQueryTumblingWindowClause -> e
@@ -104,7 +104,7 @@ private fun PsiElement.windowClauseVariables(context: InScopeVariableContext): S
     }.filterNotNull().firstOrNull() ?: return emptySequence()
 
     return sequenceOf(
-        if (context.visitedFlworBinding) emptySequence() else sequenceOf(node as XdmVariableBinding),
+        if (context.visitedFlworBinding) emptySequence() else sequenceOf(node as XpmVariableBinding),
         node.children().filterIsInstance<XQueryWindowStartCondition>().flatMap { e ->
             e.windowConditionVariables(context)
         },
@@ -114,12 +114,12 @@ private fun PsiElement.windowClauseVariables(context: InScopeVariableContext): S
     ).filterNotNull().flatten()
 }
 
-private fun PsiElement.groupByClauseVariables(context: InScopeVariableContext): Sequence<XdmVariableBinding> {
+private fun PsiElement.groupByClauseVariables(context: InScopeVariableContext): Sequence<XpmVariableBinding> {
     return children().filterIsInstance<XQueryGroupingSpecList>().firstOrNull()?.flworClauseVariables(context)
         ?: emptySequence()
 }
 
-private fun PsiElement.intermediateClauseVariables(context: InScopeVariableContext): Sequence<XdmVariableBinding> {
+private fun PsiElement.intermediateClauseVariables(context: InScopeVariableContext): Sequence<XpmVariableBinding> {
     return children().flatMap { node ->
         when (node) {
             is XQueryForClause, is XQueryLetClause, is PluginForMemberClause ->
@@ -135,7 +135,7 @@ private fun PsiElement.intermediateClauseVariables(context: InScopeVariableConte
                 } else
                     node.groupByClauseVariables(context)
             is XQueryWindowClause -> node.windowClauseVariables(context)
-            is XdmVariableBinding -> sequenceOf(node as XdmVariableBinding)
+            is XpmVariableBinding -> sequenceOf(node as XpmVariableBinding)
             else -> emptySequence()
         }
     }
@@ -197,14 +197,14 @@ fun PsiElement.xqueryInScopeVariables(): Sequence<XdmVariableDefinition> {
                         context.visitedQuantifiedBinding = false
                         emptySequence()
                     } else
-                        sequenceOf(node as XdmVariableBinding)
+                        sequenceOf(node as XpmVariableBinding)
                 }
                 is XQueryIntermediateClause -> node.intermediateClauseVariables(context)
                 is XQueryCaseClause, is PluginDefaultCaseClause -> {
                     // Only the `case`/`default` clause variable of the return expression is in scope.
                     if (!context.visitedTypeswitch) {
                         context.visitedTypeswitch = true
-                        sequenceOf(node as XdmVariableBinding)
+                        sequenceOf(node as XpmVariableBinding)
                     } else
                         emptySequence()
                 }
@@ -212,7 +212,7 @@ fun PsiElement.xqueryInScopeVariables(): Sequence<XdmVariableDefinition> {
                     context.visitedTypeswitch = false // Reset the visited logic now the `typeswitch` has been resolved.
                     emptySequence()
                 }
-                is XPathParamList -> node.children().filterIsInstance<XdmVariableBinding>()
+                is XPathParamList -> node.children().filterIsInstance<XpmVariableBinding>()
                 is PluginBlockVarDeclEntry -> node.blockVarDeclEntry(context)
                 is ScriptingBlockVarDecl -> node.blockVarDecl(context)
                 is ScriptingBlockDecls -> node.blockDecls(context)
@@ -254,7 +254,7 @@ fun XPathEQName.variableDefinition(): XdmVariableDefinition? {
     val name = this as XsQNameValue
     return inScopeVariables().find { variable ->
         val qname = variable.variableName!!
-        if (variable is XdmVariableBinding) { // Locally defined, so can compare the prefix name.
+        if (variable is XpmVariableBinding) { // Locally defined, so can compare the prefix name.
             val matchPrefix = name.prefix?.data == qname.prefix?.data
             val matchLocalName = name.localName?.data == qname.localName?.data
             matchPrefix && matchLocalName
