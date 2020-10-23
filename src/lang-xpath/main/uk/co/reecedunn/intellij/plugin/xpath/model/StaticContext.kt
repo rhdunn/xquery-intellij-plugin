@@ -20,7 +20,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.context.XpmStaticContext
 import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.namespace.XpmDefaultNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.namespace.XpmNamespaceDeclaration
-import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
+import uk.co.reecedunn.intellij.plugin.xpm.namespace.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableDefinition

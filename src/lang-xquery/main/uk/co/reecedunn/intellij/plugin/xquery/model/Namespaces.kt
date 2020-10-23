@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xpm.namespace.XpmDefaultNamespaceDeclaration
-import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
+import uk.co.reecedunn.intellij.plugin.xpm.namespace.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.psi.XsQName
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsAnyUri

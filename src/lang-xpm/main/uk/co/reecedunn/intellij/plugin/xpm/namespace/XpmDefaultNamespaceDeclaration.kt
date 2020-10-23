@@ -15,8 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.namespace
 
-import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
-
 interface XpmDefaultNamespaceDeclaration : XpmNamespaceDeclaration {
     fun accepts(namespaceType: XdmNamespaceType): Boolean
 }
