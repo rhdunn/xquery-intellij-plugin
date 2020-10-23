@@ -43,7 +43,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.namespace.XpmDefaultNamespaceDeclarat
 import uk.co.reecedunn.intellij.plugin.xpm.namespace.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableBinding
-import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
@@ -1532,12 +1532,12 @@ private class PluginPsiTest : ParserTestCase()  {
                 val decls = parse<PluginBlockVarDeclEntry>("block { declare \$x := 1, \$y := 2; 3 }")
                 assertThat(decls.size, `is`(2))
 
-                var qname = (decls[0] as XdmVariableDeclaration).variableName!!
+                var qname = (decls[0] as XpmVariableDeclaration).variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("x"))
 
-                qname = (decls[1] as XdmVariableDeclaration).variableName!!
+                qname = (decls[1] as XpmVariableDeclaration).variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("y"))
@@ -1552,7 +1552,7 @@ private class PluginPsiTest : ParserTestCase()  {
             fun testBlockVarDeclEntry_NCName() {
                 val expr = parse<PluginBlockVarDeclEntry>(
                     "block { declare \$x := \$y; 2 }"
-                )[0] as XdmVariableDeclaration
+                )[0] as XpmVariableDeclaration
 
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -1565,7 +1565,7 @@ private class PluginPsiTest : ParserTestCase()  {
             fun testBlockVarDeclEntry_QName() {
                 val expr = parse<PluginBlockVarDeclEntry>(
                     "block { declare \$a:x := \$a:y; 2 }"
-                )[0] as XdmVariableDeclaration
+                )[0] as XpmVariableDeclaration
 
                 val qname = expr.variableName!!
                 assertThat(qname.namespace, `is`(nullValue()))
@@ -1578,7 +1578,7 @@ private class PluginPsiTest : ParserTestCase()  {
             fun testBlockVarDeclEntry_URIQualifiedName() {
                 val expr = parse<PluginBlockVarDeclEntry>(
                     "block { declare \$Q{http://www.example.com}x := \$Q{http://www.example.com}y; 2 }"
-                )[0] as XdmVariableDeclaration
+                )[0] as XpmVariableDeclaration
 
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -1591,7 +1591,7 @@ private class PluginPsiTest : ParserTestCase()  {
             fun testBlockVarDeclEntry_MissingVarName() {
                 val expr = parse<PluginBlockVarDeclEntry>(
                     "block { declare \$ := \$y; 2 }"
-                )[0] as XdmVariableDeclaration
+                )[0] as XpmVariableDeclaration
                 assertThat(expr.variableName, `is`(nullValue()))
             }
         }

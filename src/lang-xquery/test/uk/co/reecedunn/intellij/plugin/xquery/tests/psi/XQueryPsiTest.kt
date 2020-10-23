@@ -59,6 +59,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.context.expand
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPathStep
+import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableBinding
 import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableReference
 import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableType
@@ -6714,7 +6715,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("NCName")
             fun ncname() {
-                val decl = parse<XdmVariableDeclaration>("declare variable \$x := \$y;")[0]
+                val decl = parse<XpmVariableDeclaration>("declare variable \$x := \$y;")[0]
                 assertThat((decl as XpmVariableType).variableType?.typeName, `is`(nullValue()))
 
                 val qname = decl.variableName!!
@@ -6732,7 +6733,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("QName")
             fun qname() {
-                val decl = parse<XdmVariableDeclaration>("declare variable \$a:x := \$a:y;")[0]
+                val decl = parse<XpmVariableDeclaration>("declare variable \$a:x := \$a:y;")[0]
                 assertThat((decl as XpmVariableType).variableType?.typeName, `is`(nullValue()))
 
                 val qname = decl.variableName!!
@@ -6750,7 +6751,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("URIQualifiedName")
             fun uriQualifiedName() {
-                val decl = parse<XdmVariableDeclaration>(
+                val decl = parse<XpmVariableDeclaration>(
                     "declare variable \$Q{http://www.example.com}x := \$Q{http://www.example.com}y;"
                 )[0]
                 assertThat((decl as XpmVariableType).variableType?.typeName, `is`(nullValue()))
@@ -6770,7 +6771,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("missing VarName")
             fun missingVarName() {
-                val decl = parse<XdmVariableDeclaration>("declare variable \$ := \$y;")[0]
+                val decl = parse<XpmVariableDeclaration>("declare variable \$ := \$y;")[0]
                 assertThat(decl.variableName, `is`(nullValue()))
                 assertThat((decl as XpmVariableType).variableType?.typeName, `is`(nullValue()))
 
@@ -6784,7 +6785,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("invalid VarName")
             fun invalidVarName() {
-                val decl = parse<XdmVariableDeclaration>("declare variable \$: := \$y;")[0]
+                val decl = parse<XpmVariableDeclaration>("declare variable \$: := \$y;")[0]
                 assertThat(decl.variableName, `is`(nullValue()))
                 assertThat((decl as XpmVariableType).variableType?.typeName, `is`(nullValue()))
 
@@ -6798,7 +6799,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("with type")
             fun withType() {
-                val decl = parse<XdmVariableDeclaration>("declare variable \$a:x  as  node ( (::) )? := \$a:y;")[0]
+                val decl = parse<XpmVariableDeclaration>("declare variable \$a:x  as  node ( (::) )? := \$a:y;")[0]
                 assertThat((decl as XpmVariableType).variableType?.typeName, `is`("node()?"))
 
                 val qname = decl.variableName!!

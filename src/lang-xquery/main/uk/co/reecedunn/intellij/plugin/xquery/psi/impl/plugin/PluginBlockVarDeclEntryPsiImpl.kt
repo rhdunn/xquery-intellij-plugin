@@ -19,13 +19,13 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
-import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableName
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginBlockVarDeclEntry
 
 class PluginBlockVarDeclEntryPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PluginBlockVarDeclEntry, XdmVariableDeclaration {
+    ASTWrapperPsiElement(node), PluginBlockVarDeclEntry, XpmVariableDeclaration {
 
     private val varName: XdmVariableName?
         get() = children().filterIsInstance<XPathVarName>().firstOrNull() as? XdmVariableName

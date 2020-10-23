@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_equal
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableBinding
-import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableDefinition
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xpm.context.expand
@@ -141,15 +141,15 @@ private fun PsiElement.intermediateClauseVariables(context: InScopeVariableConte
     }
 }
 
-private fun PsiElement.blockVarDeclEntry(context: InScopeVariableContext): Sequence<XdmVariableDeclaration> {
+private fun PsiElement.blockVarDeclEntry(context: InScopeVariableContext): Sequence<XpmVariableDeclaration> {
     return if (context.visitedBlockVarDeclEntry) {
         context.visitedBlockVarDeclEntry = false
         emptySequence()
     } else
-        sequenceOf(this as XdmVariableDeclaration)
+        sequenceOf(this as XpmVariableDeclaration)
 }
 
-private fun PsiElement.blockVarDecl(context: InScopeVariableContext): Sequence<XdmVariableDeclaration> {
+private fun PsiElement.blockVarDecl(context: InScopeVariableContext): Sequence<XpmVariableDeclaration> {
     return if (context.visitedBlockVarDecl) {
         context.visitedBlockVarDecl = false
         emptySequence()
@@ -160,7 +160,7 @@ private fun PsiElement.blockVarDecl(context: InScopeVariableContext): Sequence<X
     }
 }
 
-private fun PsiElement.blockDecls(context: InScopeVariableContext): Sequence<XdmVariableDeclaration> {
+private fun PsiElement.blockDecls(context: InScopeVariableContext): Sequence<XpmVariableDeclaration> {
     return if (context.visitedBlockDecls) {
         context.visitedBlockDecls = false
         emptySequence()
@@ -171,9 +171,9 @@ private fun PsiElement.blockDecls(context: InScopeVariableContext): Sequence<Xdm
     }
 }
 
-private fun XQueryProlog.varDecls(): Sequence<XdmVariableDeclaration?> {
+private fun XQueryProlog.varDecls(): Sequence<XpmVariableDeclaration?> {
     return importedPrologs().flatMap { prolog ->
-        prolog.annotatedDeclarations<XdmVariableDeclaration>()
+        prolog.annotatedDeclarations<XpmVariableDeclaration>()
     }.filter { variable -> variable?.variableName != null }
 }
 

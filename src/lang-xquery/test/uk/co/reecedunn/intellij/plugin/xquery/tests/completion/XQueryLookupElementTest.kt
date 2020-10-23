@@ -33,7 +33,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
 import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathFunctionCallLookup
 import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathVarNameLookup
-import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableReference
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
@@ -45,11 +45,11 @@ private class XQueryLookupElementTest : ParserTestCase() {
     @Nested
     @DisplayName("XQuery 3.1 EBNF (131) VarRef")
     internal inner class VarRef {
-        fun parse(text: String): Pair<XQueryModule, XdmVariableDeclaration> {
+        fun parse(text: String): Pair<XQueryModule, XpmVariableDeclaration> {
             val module = parseText(text)
             val call = module.walkTree().filterIsInstance<XPathVarRef>().first() as XpmVariableReference
             val ref = call.variableName?.element?.references?.get(1)?.resolve()?.parent?.parent!!
-            return module to ref as XdmVariableDeclaration
+            return module to ref as XpmVariableDeclaration
         }
 
         @Test
