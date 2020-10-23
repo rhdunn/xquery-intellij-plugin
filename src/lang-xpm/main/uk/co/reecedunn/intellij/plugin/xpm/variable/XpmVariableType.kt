@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xdm.variables
+package uk.co.reecedunn.intellij.plugin.xpm.variable
 
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 
-interface XdmVariableType {
+interface XpmVariableType {
     val variableType: XdmSequenceType?
 }

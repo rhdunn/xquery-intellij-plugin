@@ -38,7 +38,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableBinding
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableName
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableReference
-import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableType
+import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
@@ -1768,7 +1768,7 @@ private class XPathPsiTest : ParserTestCase() {
                 @DisplayName("NCName")
                 fun ncname() {
                     val expr = parse<XPathParam>("function (\$x) {}")[0] as XdmVariableBinding
-                    assertThat((expr as XdmVariableType).variableType?.typeName, `is`(nullValue()))
+                    assertThat((expr as XpmVariableType).variableType?.typeName, `is`(nullValue()))
 
                     val qname = expr.variableName!!
                     assertThat(qname.prefix, `is`(nullValue()))
@@ -1786,7 +1786,7 @@ private class XPathPsiTest : ParserTestCase() {
                 @DisplayName("QName")
                 fun qname() {
                     val expr = parse<XPathParam>("function (\$a:x) {}")[0] as XdmVariableBinding
-                    assertThat((expr as XdmVariableType).variableType?.typeName, `is`(nullValue()))
+                    assertThat((expr as XpmVariableType).variableType?.typeName, `is`(nullValue()))
 
                     val qname = expr.variableName!!
                     assertThat(qname.namespace, `is`(nullValue()))
@@ -1804,7 +1804,7 @@ private class XPathPsiTest : ParserTestCase() {
                 @DisplayName("URIQualifiedName")
                 fun uriQualifiedName() {
                     val expr = parse<XPathParam>("function (\$Q{http://www.example.com}x) {}")[0] as XdmVariableBinding
-                    assertThat((expr as XdmVariableType).variableType?.typeName, `is`(nullValue()))
+                    assertThat((expr as XpmVariableType).variableType?.typeName, `is`(nullValue()))
 
                     val qname = expr.variableName!!
                     assertThat(qname.prefix, `is`(nullValue()))
@@ -1823,7 +1823,7 @@ private class XPathPsiTest : ParserTestCase() {
                 fun missingVarName() {
                     val expr = parse<XPathParam>("function (\$) {}")[0] as XdmVariableBinding
                     assertThat(expr.variableName, `is`(nullValue()))
-                    assertThat((expr as XdmVariableType).variableType?.typeName, `is`(nullValue()))
+                    assertThat((expr as XpmVariableType).variableType?.typeName, `is`(nullValue()))
 
                     val presentation = (expr as NavigatablePsiElement).presentation!!
                     assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.Param)))
@@ -1836,7 +1836,7 @@ private class XPathPsiTest : ParserTestCase() {
                 @DisplayName("with type")
                 fun withType() {
                     val expr = parse<XPathParam>("function ( \$x  as  element() ) {}")[0] as XdmVariableBinding
-                    assertThat((expr as XdmVariableType).variableType?.typeName, `is`("element()"))
+                    assertThat((expr as XpmVariableType).variableType?.typeName, `is`("element()"))
 
                     val qname = expr.variableName!!
                     assertThat(qname.prefix, `is`(nullValue()))
