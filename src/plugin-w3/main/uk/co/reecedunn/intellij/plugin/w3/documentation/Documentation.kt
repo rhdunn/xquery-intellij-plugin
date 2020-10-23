@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.*
 import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
-import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.namespace.XpmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmSpecificationType
 
 internal class W3CFunctionReference(private val node: Element, baseHref: String) :
@@ -109,7 +109,7 @@ internal data class W3CSpecificationDocument(
         return match?.let { W3CFunctionReference(it.parent().parent(), href) }
     }
 
-    override fun lookup(decl: XdmNamespaceDeclaration): XQDocDocumentation? = null
+    override fun lookup(decl: XpmNamespaceDeclaration): XQDocDocumentation? = null
 
     // endregion
 }

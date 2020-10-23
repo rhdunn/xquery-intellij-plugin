@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQueryProvider
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.*
 import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
-import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.namespace.XpmNamespaceDeclaration
 import java.io.File
 
 private class FunctionDocumentation(docs: List<String?>) : XQDocFunctionDocumentation {
@@ -115,7 +115,7 @@ private data class MarkLogicZippedDocumentation(
             null
     }
 
-    override fun lookup(decl: XdmNamespaceDeclaration): XQDocDocumentation? = null
+    override fun lookup(decl: XpmNamespaceDeclaration): XQDocDocumentation? = null
 
     // endregion
 
@@ -155,7 +155,7 @@ object MarkLogicProductDocumentation : XQDocDocumentationSourceProvider, XQDocDo
         return (MARKLOGIC_10 as XQDocDocumentationIndex).lookup(ref)
     }
 
-    override fun lookup(decl: XdmNamespaceDeclaration): XQDocDocumentation? {
+    override fun lookup(decl: XpmNamespaceDeclaration): XQDocDocumentation? {
         return (MARKLOGIC_10 as XQDocDocumentationIndex).lookup(decl)
     }
 

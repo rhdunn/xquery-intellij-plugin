@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.intellij.documentation
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.*
 import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
-import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.namespace.XpmNamespaceDeclaration
 
 object DocumentationSourceProvider : XQDocDocumentationSourceProvider, XQDocDocumentationIndex {
     // region XdmDocumentationSourceProvider
@@ -62,7 +62,7 @@ object DocumentationSourceProvider : XQDocDocumentationSourceProvider, XQDocDocu
         }
     }
 
-    override fun lookup(decl: XdmNamespaceDeclaration): XQDocDocumentation? {
+    override fun lookup(decl: XpmNamespaceDeclaration): XQDocDocumentation? {
         return object : XQDocDocumentation {
             override val moduleTypes: Array<XdmModuleType> = XdmModuleType.XPATH_OR_XQUERY
 

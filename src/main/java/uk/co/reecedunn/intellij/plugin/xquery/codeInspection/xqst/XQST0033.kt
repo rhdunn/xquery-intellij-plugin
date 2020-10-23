@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModuleDecl
 import uk.co.reecedunn.intellij.plugin.core.codeInspection.Inspection
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryPluginBundle
-import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.namespace.XpmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 
 class XQST0033 : Inspection("xqst/XQST0033.md", XQST0033::class.java.classLoader) {
@@ -40,7 +40,7 @@ class XQST0033 : Inspection("xqst/XQST0033.md", XQST0033::class.java.classLoader
             val prefices = HashMap<String, XsAnyUriValue?>()
 
             val moduleDecl =
-                module.children().filterIsInstance<XQueryModuleDecl>().firstOrNull() as? XdmNamespaceDeclaration
+                module.children().filterIsInstance<XQueryModuleDecl>().firstOrNull() as? XpmNamespaceDeclaration
             if (moduleDecl != null) {
                 val prefix = moduleDecl.namespacePrefix?.data
                 val uri = moduleDecl.namespaceUri
@@ -51,7 +51,7 @@ class XQST0033 : Inspection("xqst/XQST0033.md", XQST0033::class.java.classLoader
 
             val prolog = (module as? XQueryPrologResolver)?.prolog?.firstOrNull()
             prolog?.children()?.forEach(fun(child) {
-                val ns = child as? XdmNamespaceDeclaration
+                val ns = child as? XpmNamespaceDeclaration
                 val prefix = ns?.namespacePrefix?.data
 
                 if (ns == null || prefix == null)

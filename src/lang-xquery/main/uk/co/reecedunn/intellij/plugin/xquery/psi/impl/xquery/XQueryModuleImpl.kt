@@ -31,7 +31,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.intellij.settings.XQueryProjectSet
 import uk.co.reecedunn.intellij.plugin.xpm.context.XpmUsageType
 import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.namespace.XpmDefaultNamespaceDeclaration
-import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.namespace.XpmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableDefinition
@@ -137,15 +137,15 @@ class XQueryModuleImpl(provider: FileViewProvider) :
     // endregion
     // region XPathStaticContext
 
-    override fun staticallyKnownNamespaces(context: PsiElement): Sequence<XdmNamespaceDeclaration> {
+    override fun staticallyKnownNamespaces(context: PsiElement): Sequence<XpmNamespaceDeclaration> {
         return context.walkTree().reversed().flatMap { node ->
             when (node) {
-                is XdmNamespaceDeclaration -> sequenceOf(node as XdmNamespaceDeclaration)
+                is XpmNamespaceDeclaration -> sequenceOf(node as XpmNamespaceDeclaration)
                 is XQueryDirElemConstructor ->
-                    node.children().filterIsInstance<PluginDirAttribute>().map { it as XdmNamespaceDeclaration }
-                is XQueryProlog -> node.children().reversed().filterIsInstance<XdmNamespaceDeclaration>()
+                    node.children().filterIsInstance<PluginDirAttribute>().map { it as XpmNamespaceDeclaration }
+                is XQueryProlog -> node.children().reversed().filterIsInstance<XpmNamespaceDeclaration>()
                 is XQueryModule ->
-                    node.predefinedStaticContext?.children()?.reversed()?.filterIsInstance<XdmNamespaceDeclaration>()
+                    node.predefinedStaticContext?.children()?.reversed()?.filterIsInstance<XpmNamespaceDeclaration>()
                         ?: emptySequence()
                 else -> emptySequence()
             }

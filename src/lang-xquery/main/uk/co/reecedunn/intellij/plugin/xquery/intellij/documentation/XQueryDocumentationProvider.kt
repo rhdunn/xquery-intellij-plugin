@@ -31,7 +31,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
-import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.namespace.XpmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
@@ -40,7 +40,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 
 class XQueryDocumentationProvider : AbstractDocumentationProvider() {
     companion object {
-        private fun getElementPresentationText(decl: XdmNamespaceDeclaration, element: PsiElement): String? {
+        private fun getElementPresentationText(decl: XpmNamespaceDeclaration, element: PsiElement): String? {
             val prefix = decl.namespacePrefix?.data
             val uri = decl.namespaceUri?.data ?: return null
             val path = decl.namespaceUri?.element?.containingFile?.resourcePath()
@@ -71,7 +71,7 @@ class XQueryDocumentationProvider : AbstractDocumentationProvider() {
                 val sig = it.presentation?.presentableText
                 "declare variable \$$sig"
             }
-            is XPathNCName -> (parent.parent as? XdmNamespaceDeclaration)?.let { decl ->
+            is XPathNCName -> (parent.parent as? XpmNamespaceDeclaration)?.let { decl ->
                 getElementPresentationText(decl, parent.parent)
             }
             is XdmElementNode -> {
@@ -82,7 +82,7 @@ class XQueryDocumentationProvider : AbstractDocumentationProvider() {
                 when (val module = it.mainOrLibraryModule) {
                     is XQueryLibraryModule -> {
                         val moduleDecl = module.firstChild
-                        getElementPresentationText(moduleDecl as XdmNamespaceDeclaration, moduleDecl)
+                        getElementPresentationText(moduleDecl as XpmNamespaceDeclaration, moduleDecl)
                     }
                     else -> null
                 }
@@ -123,7 +123,7 @@ class XQueryDocumentationProvider : AbstractDocumentationProvider() {
     }
 
     private fun lookupPrefix(qname: XsQNameValue): Sequence<XQDocDocumentation> {
-        val decl = qname.expand().firstOrNull()?.namespace?.element?.parent as? XdmNamespaceDeclaration
+        val decl = qname.expand().firstOrNull()?.namespace?.element?.parent as? XpmNamespaceDeclaration
         return decl?.let { XQDocDocumentationSourceProvider.lookup(it) } ?: emptySequence()
     }
 
@@ -131,7 +131,7 @@ class XQueryDocumentationProvider : AbstractDocumentationProvider() {
         return when (val ref = qname.element?.parent) {
             is XpmFunctionReference -> lookupFunction(ref.functionName, ref.arity)
             is XpmFunctionDeclaration -> lookupFunction(ref.functionName, ref.arity.from)
-            is XdmNamespaceDeclaration -> XQDocDocumentationSourceProvider.lookup(ref)
+            is XpmNamespaceDeclaration -> XQDocDocumentationSourceProvider.lookup(ref)
             else -> emptySequence()
         }
     }

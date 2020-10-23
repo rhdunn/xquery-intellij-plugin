@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.core.psi.contextOfType
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xpm.namespace.XpmDefaultNamespaceDeclaration
-import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.namespace.XpmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.psi.XsAnyUri
@@ -48,7 +48,7 @@ private fun XmlAttribute.toDefaultNamespaceDeclaration(): XpmDefaultNamespaceDec
     }
 }
 
-private fun XmlAttribute.toNamespaceDeclaration(): XdmNamespaceDeclaration? {
+private fun XmlAttribute.toNamespaceDeclaration(): XpmNamespaceDeclaration? {
     if (!isNamespaceDeclaration) return null
     val prefix = namespacePrefix
     val localName = localName
@@ -56,7 +56,7 @@ private fun XmlAttribute.toNamespaceDeclaration(): XdmNamespaceDeclaration? {
     return if (prefix.isEmpty()) {
         null
     } else {
-        object : XdmNamespaceDeclaration {
+        object : XpmNamespaceDeclaration {
             override val namespacePrefix: XsNCNameValue? = XsNCName(localName, originalElement)
             override val namespaceUri: XsAnyUriValue? =
                 XsAnyUri(value, XdmUriContext.Namespace, XdmModuleType.MODULE, originalElement)
@@ -91,7 +91,7 @@ fun PsiElement.defaultElementOrTypeXPathNamespace(): Sequence<XpmDefaultNamespac
     }?.filterNotNull() ?: sequenceOf()
 }
 
-fun PsiElement.staticallyKnownXPathNamespaces(): Sequence<XdmNamespaceDeclaration> {
+fun PsiElement.staticallyKnownXPathNamespaces(): Sequence<XpmNamespaceDeclaration> {
     return contextOfType<XmlAttributeValue>(false)?.ancestors()?.filterIsInstance<XmlTag>()?.flatMap { tag ->
         tag.attributes.asSequence().map { attribute -> attribute.toNamespaceDeclaration() }
     }?.filterNotNull() ?: sequenceOf()

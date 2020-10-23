@@ -19,7 +19,7 @@ import com.intellij.navigation.ItemPresentation
 import uk.co.reecedunn.intellij.plugin.w3.intellij.resources.W3Icons
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.*
 import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionReference
-import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.namespace.XpmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmSpecificationType
 import javax.swing.Icon
 
@@ -116,7 +116,7 @@ object FunctionsAndOperatorsDocumentation :
         return (REC_3_1_20170321 as XQDocDocumentationIndex).lookup(ref)
     }
 
-    override fun lookup(decl: XdmNamespaceDeclaration): XQDocDocumentation? {
+    override fun lookup(decl: XpmNamespaceDeclaration): XQDocDocumentation? {
         return (REC_3_1_20170321 as XQDocDocumentationIndex).lookup(decl)
     }
 

@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xqdoc.documentation
 
 import com.intellij.openapi.extensions.ExtensionPointName
 import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionReference
-import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.namespace.XpmNamespaceDeclaration
 
 interface XQDocDocumentationSourceProvider {
     companion object {
@@ -35,7 +35,7 @@ interface XQDocDocumentationSourceProvider {
             (it as? XQDocDocumentationIndex)?.lookup(ref)
         }
 
-        fun lookup(decl: XdmNamespaceDeclaration): Sequence<XQDocDocumentation> = providers.mapNotNull {
+        fun lookup(decl: XpmNamespaceDeclaration): Sequence<XQDocDocumentation> = providers.mapNotNull {
             (it as? XQDocDocumentationIndex)?.lookup(decl)
         }
     }

@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpm.module.resolveUri
-import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.namespace.XpmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.resolve
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
@@ -31,7 +31,7 @@ class XQueryNamespaceDeclPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XQueryNamespaceDecl,
     XQueryPrologResolver,
-    XdmNamespaceDeclaration {
+    XpmNamespaceDeclaration {
     // region XQueryPrologResolver
 
     override val prolog: Sequence<XQueryProlog>

@@ -27,7 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModuleImport
 import uk.co.reecedunn.intellij.plugin.core.codeInspection.Inspection
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryPluginBundle
-import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.namespace.XpmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 
 class XQST0047 : Inspection("xqst/XQST0047.md", XQST0047::class.java.classLoader) {
@@ -36,11 +36,11 @@ class XQST0047 : Inspection("xqst/XQST0047.md", XQST0047::class.java.classLoader
 
         val descriptors = SmartList<ProblemDescriptor>()
         file.children().forEach { module ->
-            val uris = HashMap<String, XdmNamespaceDeclaration>()
+            val uris = HashMap<String, XpmNamespaceDeclaration>()
 
             val prolog = (module as? XQueryPrologResolver)?.prolog?.firstOrNull()
             prolog?.children()?.filterIsInstance<XQueryModuleImport>()?.forEach(fun(child) {
-                val ns = child as? XdmNamespaceDeclaration
+                val ns = child as? XpmNamespaceDeclaration
                 val uri = ns?.namespaceUri?.data
 
                 // NOTE: A ModuleImport without a namespace prefix can import
@@ -48,7 +48,7 @@ class XQST0047 : Inspection("xqst/XQST0047.md", XQST0047::class.java.classLoader
                 if (ns == null || uri == null || ns.namespacePrefix == null)
                     return
 
-                val duplicate: XdmNamespaceDeclaration? = uris[uri]
+                val duplicate: XpmNamespaceDeclaration? = uris[uri]
                 if (duplicate != null) {
                     val description =
                         XQueryPluginBundle.message("inspection.XQST0047.duplicate-namespace-uri.message", uri)
