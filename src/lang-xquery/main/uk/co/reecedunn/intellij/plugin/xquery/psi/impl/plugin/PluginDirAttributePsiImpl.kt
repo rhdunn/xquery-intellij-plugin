@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xpm.module.resolveUri
-import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmDefaultNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.namespace.XpmDefaultNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.psi.XsAnyUri
@@ -42,7 +42,7 @@ class PluginDirAttributePsiImpl(node: ASTNode) :
     PluginDirAttribute,
     XdmAttributeNode,
     XQueryPrologResolver,
-    XdmDefaultNamespaceDeclaration {
+    XpmDefaultNamespaceDeclaration {
     // region PsiElement
 
     override fun subtreeChanged() {

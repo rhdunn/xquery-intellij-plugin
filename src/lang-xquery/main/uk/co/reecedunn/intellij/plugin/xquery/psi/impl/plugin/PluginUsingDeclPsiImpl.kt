@@ -19,7 +19,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmDefaultNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.namespace.XpmDefaultNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationEl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginUsingDecl
 
 class PluginUsingDeclPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PluginUsingDecl, XdmDefaultNamespaceDeclaration, XpmSyntaxValidationElement {
+    ASTWrapperPsiElement(node), PluginUsingDecl, XpmDefaultNamespaceDeclaration, XpmSyntaxValidationElement {
     // region XdmNamespaceDeclaration
 
     override val namespacePrefix: XsNCNameValue?

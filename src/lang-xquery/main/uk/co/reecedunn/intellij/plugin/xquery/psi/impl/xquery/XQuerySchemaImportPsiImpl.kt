@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmDefaultNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.namespace.XpmDefaultNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
@@ -31,7 +31,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginLocationURIList
 class XQuerySchemaImportPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XQuerySchemaImport,
-    XdmDefaultNamespaceDeclaration {
+    XpmDefaultNamespaceDeclaration {
     // region XdmDefaultNamespaceDeclaration
 
     private val schemaPrefix

@@ -30,7 +30,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.settings.XQueryProjectSettings
 import uk.co.reecedunn.intellij.plugin.xpm.context.XpmUsageType
 import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionDeclaration
-import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmDefaultNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.namespace.XpmDefaultNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
@@ -155,7 +155,7 @@ class XQueryModuleImpl(provider: FileViewProvider) :
     override fun defaultNamespace(
         context: PsiElement,
         type: XdmNamespaceType
-    ): Sequence<XdmDefaultNamespaceDeclaration> {
+    ): Sequence<XpmDefaultNamespaceDeclaration> {
         return context.defaultNamespace(type, true)
     }
 

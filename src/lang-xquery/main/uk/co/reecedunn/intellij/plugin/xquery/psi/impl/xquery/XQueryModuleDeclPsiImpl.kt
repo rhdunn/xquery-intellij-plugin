@@ -19,7 +19,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
-import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmDefaultNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.namespace.XpmDefaultNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
@@ -32,7 +32,7 @@ class XQueryModuleDeclPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XQueryModuleDecl,
     XQueryPrologResolver,
-    XdmDefaultNamespaceDeclaration {
+    XpmDefaultNamespaceDeclaration {
     // region XdmNamespaceDeclaration
 
     override val namespacePrefix: XsNCNameValue?

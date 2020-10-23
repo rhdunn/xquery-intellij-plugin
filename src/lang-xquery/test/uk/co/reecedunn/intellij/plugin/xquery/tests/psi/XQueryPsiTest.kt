@@ -45,7 +45,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
-import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmDefaultNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.namespace.XpmDefaultNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
@@ -6115,7 +6115,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("specified namespace prefix and uri")
             fun namespacePrefixAndUri() {
-                val import = parse<XQuerySchemaImport>("import schema namespace test = 'http://www.example.com';")[0] as XdmDefaultNamespaceDeclaration
+                val import = parse<XQuerySchemaImport>("import schema namespace test = 'http://www.example.com';")[0] as XpmDefaultNamespaceDeclaration
                 assertThat(import.namespacePrefix!!.data, `is`("test"))
                 assertThat(import.namespaceUri!!.data, `is`("http://www.example.com"))
                 assertThat(import.namespaceUri!!.context, `is`(XdmUriContext.TargetNamespace))
@@ -6139,7 +6139,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("missing namespace prefix")
             fun noNamespacePrefix() {
-                val import = parse<XQuerySchemaImport>("import schema namespace = 'http://www.example.com';")[0] as XdmDefaultNamespaceDeclaration
+                val import = parse<XQuerySchemaImport>("import schema namespace = 'http://www.example.com';")[0] as XpmDefaultNamespaceDeclaration
                 assertThat(import.namespacePrefix, `is`(nullValue()))
                 assertThat(import.namespaceUri!!.data, `is`("http://www.example.com"))
                 assertThat(import.namespaceUri!!.context, `is`(XdmUriContext.TargetNamespace))
@@ -6160,7 +6160,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("missing namespace uri")
             fun noNamespaceUri() {
-                val import = parse<XQuerySchemaImport>("import schema namespace test = ;")[0] as XdmDefaultNamespaceDeclaration
+                val import = parse<XQuerySchemaImport>("import schema namespace test = ;")[0] as XpmDefaultNamespaceDeclaration
                 assertThat(import.namespacePrefix!!.data, `is`("test"))
                 assertThat(import.namespaceUri, `is`(nullValue()))
 
@@ -6179,7 +6179,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("default element namespace")
             fun defaultElementNamespace() {
-                val import = parse<XQuerySchemaImport>("import schema default element namespace 'http://www.example.com';")[0] as XdmDefaultNamespaceDeclaration
+                val import = parse<XQuerySchemaImport>("import schema default element namespace 'http://www.example.com';")[0] as XpmDefaultNamespaceDeclaration
                 assertThat(import.namespacePrefix, `is`(nullValue()))
                 assertThat(import.namespaceUri!!.data, `is`("http://www.example.com"))
                 assertThat(import.namespaceUri!!.context, `is`(XdmUriContext.TargetNamespace))
@@ -6545,7 +6545,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("default element/type namespace declaration")
             fun element() {
-                val decl = parse<XdmDefaultNamespaceDeclaration>(
+                val decl = parse<XpmDefaultNamespaceDeclaration>(
                     "declare default element namespace 'http://www.w3.org/1999/xhtml';"
                 )[0]
 
@@ -6566,7 +6566,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("default function namespace declaration")
             fun function() {
-                val decl = parse<XdmDefaultNamespaceDeclaration>(
+                val decl = parse<XpmDefaultNamespaceDeclaration>(
                     "declare default function namespace 'http://www.w3.org/2005/xpath-functions/math';"
                 )[0]
 
@@ -6587,7 +6587,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("empty namespace")
             fun emptyNamespace() {
-                val decl = parse<XdmDefaultNamespaceDeclaration>("declare default element namespace '';")[0]
+                val decl = parse<XpmDefaultNamespaceDeclaration>("declare default element namespace '';")[0]
 
                 assertThat(decl.namespacePrefix, `is`(nullValue()))
                 assertThat(decl.namespaceUri!!.data, `is`(""))
@@ -6606,7 +6606,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("missing namespace")
             fun missingNamespace() {
-                val decl = parse<XdmDefaultNamespaceDeclaration>("declare default element namespace;")[0]
+                val decl = parse<XpmDefaultNamespaceDeclaration>("declare default element namespace;")[0]
 
                 assertThat(decl.namespacePrefix, `is`(nullValue()))
                 assertThat(decl.namespaceUri, `is`(nullValue()))

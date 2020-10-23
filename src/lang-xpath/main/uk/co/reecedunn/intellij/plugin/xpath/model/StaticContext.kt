@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.model
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xpm.context.XpmStaticContext
 import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionDeclaration
-import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmDefaultNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.namespace.XpmDefaultNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
@@ -29,7 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 interface XPathStaticContext : XpmStaticContext {
     fun staticallyKnownNamespaces(context: PsiElement): Sequence<XdmNamespaceDeclaration>
 
-    fun defaultNamespace(context: PsiElement, type: XdmNamespaceType): Sequence<XdmDefaultNamespaceDeclaration>
+    fun defaultNamespace(context: PsiElement, type: XdmNamespaceType): Sequence<XpmDefaultNamespaceDeclaration>
 
     fun staticallyKnownFunctions(): Sequence<XpmFunctionDeclaration?>
 
@@ -42,7 +42,7 @@ fun PsiElement.staticallyKnownNamespaces(): Sequence<XdmNamespaceDeclaration> {
     return (containingFile as XPathStaticContext).staticallyKnownNamespaces(this)
 }
 
-fun PsiElement.defaultNamespace(type: XdmNamespaceType): Sequence<XdmDefaultNamespaceDeclaration> {
+fun PsiElement.defaultNamespace(type: XdmNamespaceType): Sequence<XpmDefaultNamespaceDeclaration> {
     return (containingFile as XPathStaticContext).defaultNamespace(this, type)
 }
 

@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.intellij.fileTypes.XPathFileType
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xpm.context.XpmUsageType
 import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionDeclaration
-import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmDefaultNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.namespace.XpmDefaultNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
@@ -64,7 +64,7 @@ class XPathImpl(provider: FileViewProvider) :
     override fun defaultNamespace(
         context: PsiElement,
         type: XdmNamespaceType
-    ): Sequence<XdmDefaultNamespaceDeclaration> = when (type) {
+    ): Sequence<XpmDefaultNamespaceDeclaration> = when (type) {
         XdmNamespaceType.DefaultElementOrType -> context.defaultElementOrTypeXPathNamespace()
         XdmNamespaceType.DefaultFunctionDecl -> context.defaultFunctionXPathNamespace()
         XdmNamespaceType.DefaultFunctionRef -> context.defaultFunctionXPathNamespace()

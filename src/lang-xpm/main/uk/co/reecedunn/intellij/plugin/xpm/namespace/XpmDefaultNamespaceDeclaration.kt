@@ -13,8 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xdm.namespaces
+package uk.co.reecedunn.intellij.plugin.xpm.namespace
 
-interface XdmDefaultNamespaceDeclaration : XdmNamespaceDeclaration {
+import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceType
+
+interface XpmDefaultNamespaceDeclaration : XdmNamespaceDeclaration {
     fun accepts(namespaceType: XdmNamespaceType): Boolean
 }
