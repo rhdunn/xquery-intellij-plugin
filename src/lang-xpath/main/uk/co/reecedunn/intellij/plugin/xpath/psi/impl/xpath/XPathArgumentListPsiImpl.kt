@@ -27,7 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPostfixExpr
-import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionParamBinding
+import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionParamBinding
 import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownFunctions
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 
@@ -65,7 +65,7 @@ class XPathArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPat
     override val isPartialFunctionApplication: Boolean
         get() = findChildByType<PsiElement>(XPathElementType.ARGUMENT_PLACEHOLDER) != null
 
-    override val bindings: List<XdmFunctionParamBinding>
+    override val bindings: List<XpmFunctionParamBinding>
         get() {
             val ref = functionReference
             val target = ref?.functionName?.staticallyKnownFunctions()?.firstOrNull { f ->
@@ -81,15 +81,15 @@ class XPathArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPat
                         val context = parent.siblings().reversed().filter {
                             it is PluginArrowFunctionCall
                         }.firstOrNull() ?: parent.parent.firstChild
-                        XdmFunctionParamBinding(param, context)
+                        XpmFunctionParamBinding(param, context)
                     }
                     index == params.size - 1 -> {
                         // Last argument, maybe variadic.
-                        XdmFunctionParamBinding(param, args.asSequence().toList())
+                        XpmFunctionParamBinding(param, args.asSequence().toList())
                     }
                     else -> {
                         // Other argument bound to the relevant parameter.
-                        XdmFunctionParamBinding(param, args.next())
+                        XpmFunctionParamBinding(param, args.next())
                     }
                 }
             }
