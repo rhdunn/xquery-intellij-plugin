@@ -13,6 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xdm.variables
+package uk.co.reecedunn.intellij.plugin.xpm.variable
 
-interface XdmVariableDefinition : XdmVariableName
+import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableName
+
+interface XpmVariableDefinition : XdmVariableName

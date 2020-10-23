@@ -15,6 +15,4 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.variable
 
-import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableDefinition
-
-interface XpmVariableBinding : XdmVariableDefinition
+interface XpmVariableBinding : XpmVariableDefinition
