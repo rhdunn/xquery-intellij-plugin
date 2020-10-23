@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.documentation.XQueryDocumentationProvider
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationSourceProvider
-import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
+import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableReference
@@ -100,7 +100,7 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
     internal inner class ModuleImport {
         fun parse(text: String): Pair<PsiElement?, PsiElement?> {
             val module = parseText(text)
-            val call = module.walkTree().filterIsInstance<XPathFunctionCall>().first() as XdmFunctionReference
+            val call = module.walkTree().filterIsInstance<XPathFunctionCall>().first() as XpmFunctionReference
             val element = call.functionName?.element!!
             val ref = element.references[0].resolve()
             return element to ref
@@ -166,7 +166,7 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
     internal inner class NamespaceDecl {
         fun parse(text: String): Pair<PsiElement?, PsiElement?> {
             val module = parseText(text)
-            val call = module.walkTree().filterIsInstance<XPathFunctionCall>().first() as XdmFunctionReference
+            val call = module.walkTree().filterIsInstance<XPathFunctionCall>().first() as XpmFunctionReference
             val element = call.functionName?.element!!
             val ref = element.references[0].resolve()
             return element to ref
@@ -379,7 +379,7 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
     internal inner class FunctionCall {
         fun parse(text: String): Pair<PsiElement?, PsiElement?> {
             val module = parseText(text)
-            val call = module.walkTree().filterIsInstance<XPathFunctionCall>().first() as XdmFunctionReference
+            val call = module.walkTree().filterIsInstance<XPathFunctionCall>().first() as XpmFunctionReference
             val element = call.functionName?.element!!
             val ref = element.references[1].resolve()
             return element to ref

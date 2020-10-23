@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xdm.context.XstUsageType
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
-import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
+import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.*
@@ -330,7 +330,7 @@ private class PluginPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("variadic; no arguments specified for the variadic parameter")
                 fun variadicEmpty() {
-                    val f = parse<XPathFunctionCall>("concat(2, 4)")[0] as XdmFunctionReference
+                    val f = parse<XPathFunctionCall>("concat(2, 4)")[0] as XpmFunctionReference
                     assertThat(f.arity, `is`(2))
 
                     val qname = f.functionName!!
@@ -351,7 +351,7 @@ private class PluginPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("variadic; single argument specified for the variadic parameter")
                 fun variadicSingle() {
-                    val f = parse<XPathFunctionCall>("concat(2, 4, 6)")[0] as XdmFunctionReference
+                    val f = parse<XPathFunctionCall>("concat(2, 4, 6)")[0] as XpmFunctionReference
                     assertThat(f.arity, `is`(3))
 
                     val qname = f.functionName!!
@@ -372,7 +372,7 @@ private class PluginPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("variadic; multiple arguments specified for the variadic parameter")
                 fun variadicMultiple() {
-                    val f = parse<XPathFunctionCall>("concat(2, 4, 6, 8)")[0] as XdmFunctionReference
+                    val f = parse<XPathFunctionCall>("concat(2, 4, 6, 8)")[0] as XpmFunctionReference
                     assertThat(f.arity, `is`(4))
 
                     val qname = f.functionName!!

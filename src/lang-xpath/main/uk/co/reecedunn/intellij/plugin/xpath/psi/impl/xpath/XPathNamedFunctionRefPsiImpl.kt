@@ -20,7 +20,7 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
-import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
+import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathIntegerLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNamedFunctionRef
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsIntegerValue
@@ -30,7 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
 class XPathNamedFunctionRefPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
-    XdmFunctionReference,
+    XpmFunctionReference,
     XPathNamedFunctionRef,
     VersionConformance {
     // region VersionConformance

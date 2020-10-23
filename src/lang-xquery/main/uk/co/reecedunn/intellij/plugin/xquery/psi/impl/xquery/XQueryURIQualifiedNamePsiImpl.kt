@@ -21,7 +21,7 @@ import com.intellij.openapi.util.TextRange
 import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
-import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
+import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableName
@@ -39,7 +39,7 @@ class XQueryURIQualifiedNamePsiImpl(node: ASTNode) : XPathURIQualifiedNamePsiImp
         val localName = localName as? PsiElement
         val localNameRef: PsiReference? =
             if (localName != null) when (parent) {
-                is XdmFunctionReference ->
+                is XpmFunctionReference ->
                     XPathFunctionNameReference(this, localName.textRange.shiftRight(-eqnameStart))
                 is XdmVariableName ->
                     XQueryVariableNameReference(this, localName.textRange.shiftRight(-eqnameStart))

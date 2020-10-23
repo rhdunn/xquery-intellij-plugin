@@ -15,13 +15,13 @@
  */
 package uk.co.reecedunn.intellij.plugin.xqdoc.documentation
 
-import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
+import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 
 interface XQDocDocumentationIndex {
     fun invalidate()
 
-    fun lookup(ref: XdmFunctionReference): XQDocFunctionDocumentation?
+    fun lookup(ref: XpmFunctionReference): XQDocFunctionDocumentation?
 
     fun lookup(decl: XdmNamespaceDeclaration): XQDocDocumentation?
 }

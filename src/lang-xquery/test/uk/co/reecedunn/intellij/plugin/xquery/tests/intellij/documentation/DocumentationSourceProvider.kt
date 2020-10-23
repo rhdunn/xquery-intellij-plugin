@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.intellij.documentation
 
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.*
-import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
+import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 
@@ -30,7 +30,7 @@ object DocumentationSourceProvider : XQDocDocumentationSourceProvider, XQDocDocu
 
     override fun invalidate() {}
 
-    override fun lookup(ref: XdmFunctionReference): XQDocFunctionDocumentation? {
+    override fun lookup(ref: XpmFunctionReference): XQDocFunctionDocumentation? {
         return object : XQDocFunctionDocumentation {
             override val moduleTypes: Array<XdmModuleType> = XdmModuleType.XPATH_OR_XQUERY
 

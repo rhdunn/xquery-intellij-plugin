@@ -18,13 +18,13 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
+import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowDynamicFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 
 class PluginArrowDynamicFunctionCallPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PluginArrowDynamicFunctionCall, XdmFunctionReference {
+    ASTWrapperPsiElement(node), PluginArrowDynamicFunctionCall, XpmFunctionReference {
     // region XpmExpression
 
     override val expressionElement: XPathArgumentList

@@ -19,7 +19,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionFilter
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
-import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
+import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.isPrefixOrNCName
@@ -36,7 +36,7 @@ object XPathForwardOrReverseAxisFilter : CompletionFilter {
                     parent is XPathNCName && parent.parent is XPathAxisStep
                 }
                 is XPathFunctionCall -> { // QName prefix part as axis missing the second ':', or NCName.
-                    val fn = it as XdmFunctionReference
+                    val fn = it as XpmFunctionReference
                     fn.functionName?.isPrefixOrNCName(element) == true
                 }
                 is XPathNameTest -> when (it.parent) {

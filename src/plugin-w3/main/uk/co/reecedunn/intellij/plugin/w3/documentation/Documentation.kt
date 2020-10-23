@@ -21,7 +21,7 @@ import org.jsoup.nodes.Element
 import org.jsoup.nodes.TextNode
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.*
-import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
+import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmSpecificationType
@@ -97,7 +97,7 @@ internal data class W3CSpecificationDocument(
 
     override fun invalidate() = doc.invalidate()
 
-    override fun lookup(ref: XdmFunctionReference): XQDocFunctionDocumentation? {
+    override fun lookup(ref: XpmFunctionReference): XQDocFunctionDocumentation? {
         val prefix = namespaces[ref.functionName?.namespace?.data] ?: return null
         val localName = ref.functionName?.localName?.data ?: return null
         val lookupName = "$prefix:$localName"

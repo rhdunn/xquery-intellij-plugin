@@ -19,7 +19,7 @@ import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiNamedElement
 import com.intellij.psi.PsiReferenceBase
-import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
+import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownFunctions
 
@@ -27,7 +27,7 @@ class XPathFunctionNameReference(element: XPathEQName, range: TextRange) :
     PsiReferenceBase<XPathEQName>(element, range) {
 
     override fun resolve(): PsiElement? {
-        val arity = (element.parent as? XdmFunctionReference)?.arity ?: -1
+        val arity = (element.parent as? XpmFunctionReference)?.arity ?: -1
         return element.staticallyKnownFunctions().firstOrNull { f ->
             f.arity.isWithin(arity)
         }?.functionName as? PsiElement

@@ -23,10 +23,9 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.filterIsElementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
-import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
+import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPostfixExpr
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionParamBinding
 import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownFunctions
@@ -57,8 +56,8 @@ class XPathArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPat
     // endregion
     // region XPathArgumentList
 
-    override val functionReference: XdmFunctionReference?
-        get() = parent as? XdmFunctionReference
+    override val functionReference: XpmFunctionReference?
+        get() = parent as? XpmFunctionReference
 
     override val arity: Int
         get() = children().filterIsElementType(ARGUMENTS).count()

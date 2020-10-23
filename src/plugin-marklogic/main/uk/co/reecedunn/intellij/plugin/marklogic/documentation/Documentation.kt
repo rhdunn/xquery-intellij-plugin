@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.marklogic.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorApi
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQueryProvider
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.*
-import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
+import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 import java.io.File
@@ -102,7 +102,7 @@ private data class MarkLogicZippedDocumentation(
         else -> false
     }
 
-    override fun lookup(ref: XdmFunctionReference): XQDocFunctionDocumentation? = ref.functionName?.let {
+    override fun lookup(ref: XpmFunctionReference): XQDocFunctionDocumentation? = ref.functionName?.let {
         if (isMarkLogicNamespace(it.namespace?.data)) {
             apidocs.get()
             query.get()?.bindVariable("namespace", it.namespace?.data, "xs:string")
@@ -151,7 +151,7 @@ object MarkLogicProductDocumentation : XQDocDocumentationSourceProvider, XQDocDo
 
     override fun invalidate() {}
 
-    override fun lookup(ref: XdmFunctionReference): XQDocFunctionDocumentation? {
+    override fun lookup(ref: XpmFunctionReference): XQDocFunctionDocumentation? {
         return (MARKLOGIC_10 as XQDocDocumentationIndex).lookup(ref)
     }
 

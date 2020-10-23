@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xdm.functions
+package uk.co.reecedunn.intellij.plugin.xpm.function
 
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
-interface XdmFunctionReference {
+interface XpmFunctionReference {
     val functionName: XsQNameValue?
 
     val arity: Int

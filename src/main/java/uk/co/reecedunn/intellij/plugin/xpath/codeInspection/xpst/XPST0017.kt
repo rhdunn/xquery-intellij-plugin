@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.core.codeInspection.Inspection
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryPluginBundle
-import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
+import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownFunctions
 
@@ -35,7 +35,7 @@ class XPST0017 : Inspection("xpst/XPST0017.md", XPST0017::class.java.classLoader
         if (file !is XQueryModule) return null
 
         val descriptors = SmartList<ProblemDescriptor>()
-        file.walkTree().filterIsInstance<XdmFunctionReference>()
+        file.walkTree().filterIsInstance<XpmFunctionReference>()
             .forEach { ref ->
                 val qname = ref.functionName ?: return@forEach
                 if (qname.localName == null) return@forEach
@@ -54,7 +54,7 @@ class XPST0017 : Inspection("xpst/XPST0017.md", XPST0017::class.java.classLoader
                     )
                 } else {
                     // 2. The number of arguments does not match the arity of a function signature in the static context.
-                    val arity = (qname.parent as? XdmFunctionReference)?.arity ?: -1
+                    val arity = (qname.parent as? XpmFunctionReference)?.arity ?: -1
                     if (declarations.firstOrNull { f -> f.arity.isWithin(arity) } == null) {
                         descriptors.add(
                             manager.createProblemDescriptor(

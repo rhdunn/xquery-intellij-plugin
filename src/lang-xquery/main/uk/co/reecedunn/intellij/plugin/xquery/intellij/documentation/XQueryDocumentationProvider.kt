@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentation
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationSourceProvider
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.sections
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
-import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
+import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathInlineFunctionExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
@@ -129,7 +129,7 @@ class XQueryDocumentationProvider : AbstractDocumentationProvider() {
 
     private fun lookupLocalName(qname: XsQNameValue): Sequence<XQDocDocumentation> {
         return when (val ref = qname.element?.parent) {
-            is XdmFunctionReference -> lookupFunction(ref.functionName, ref.arity)
+            is XpmFunctionReference -> lookupFunction(ref.functionName, ref.arity)
             is XdmFunctionDeclaration -> lookupFunction(ref.functionName, ref.arity.from)
             is XdmNamespaceDeclaration -> XQDocDocumentationSourceProvider.lookup(ref)
             else -> emptySequence()
@@ -139,7 +139,7 @@ class XQueryDocumentationProvider : AbstractDocumentationProvider() {
     private fun lookupFunction(functionName: XsQNameValue?, arity: Int): Sequence<XQDocDocumentation> {
         // NOTE: NCName may bind to the current module (MarkLogic behaviour) and the default function namespace.
         return functionName?.expand()?.flatMap {
-            XQDocDocumentationSourceProvider.lookup(object : XdmFunctionReference {
+            XQDocDocumentationSourceProvider.lookup(object : XpmFunctionReference {
                 override val functionName: XsQNameValue? = it
                 override val arity: Int = arity
             })

@@ -35,7 +35,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryPluginBundle
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.settings.XQueryProjectSettings
 import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionDeclaration
-import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
+import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 
 class IJVS0002 : Inspection("ijvs/IJVS0002.md", IJVS0002::class.java.classLoader) {
@@ -60,7 +60,7 @@ class IJVS0002 : Inspection("ijvs/IJVS0002.md", IJVS0002::class.java.classLoader
         val descriptors = SmartList<ProblemDescriptor>()
         file.walkTree().forEach { element ->
             val localname = when (element) {
-                is XdmFunctionReference -> getLocalName(element.functionName)
+                is XpmFunctionReference -> getLocalName(element.functionName)
                 is XdmFunctionDeclaration -> getLocalName(element.functionName)
                 else -> null
             }

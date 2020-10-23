@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xqdoc.documentation
 
 import com.intellij.openapi.extensions.ExtensionPointName
-import uk.co.reecedunn.intellij.plugin.xdm.functions.XdmFunctionReference
+import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.namespaces.XdmNamespaceDeclaration
 
 interface XQDocDocumentationSourceProvider {
@@ -31,7 +31,7 @@ interface XQDocDocumentationSourceProvider {
         val allSources: Sequence<XQDocDocumentationSource>
             get() = providers.flatMap { it.sources.asSequence() }
 
-        fun lookup(ref: XdmFunctionReference): Sequence<XQDocDocumentation> = providers.mapNotNull {
+        fun lookup(ref: XpmFunctionReference): Sequence<XQDocDocumentation> = providers.mapNotNull {
             (it as? XQDocDocumentationIndex)?.lookup(ref)
         }
 
