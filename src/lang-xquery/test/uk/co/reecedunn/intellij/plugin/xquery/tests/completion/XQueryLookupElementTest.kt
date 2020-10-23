@@ -34,7 +34,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
 import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathFunctionCallLookup
 import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathVarNameLookup
 import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableDeclaration
-import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableReference
+import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableReference
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
@@ -47,7 +47,7 @@ private class XQueryLookupElementTest : ParserTestCase() {
     internal inner class VarRef {
         fun parse(text: String): Pair<XQueryModule, XdmVariableDeclaration> {
             val module = parseText(text)
-            val call = module.walkTree().filterIsInstance<XPathVarRef>().first() as XdmVariableReference
+            val call = module.walkTree().filterIsInstance<XPathVarRef>().first() as XpmVariableReference
             val ref = call.variableName?.element?.references?.get(1)?.resolve()?.parent?.parent!!
             return module to ref as XdmVariableDeclaration
         }

@@ -29,7 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationSou
 import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
-import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableReference
+import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
@@ -349,7 +349,7 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
     internal inner class VarRef {
         fun parse(text: String): Pair<PsiElement?, PsiElement?> {
             val module = parseText(text)
-            val call = module.walkTree().filterIsInstance<XPathVarRef>().first() as XdmVariableReference
+            val call = module.walkTree().filterIsInstance<XPathVarRef>().first() as XpmVariableReference
             val element = call.variableName?.element!!
             val ref = element.references[1].resolve()
             return element to ref

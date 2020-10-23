@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.intellij.codeInsight.highlighting.
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
-import uk.co.reecedunn.intellij.plugin.xdm.variables.XdmVariableReference
+import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableReference
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 import com.intellij.codeInsight.highlighting.ReadWriteAccessDetector.Access as Access
 
@@ -39,7 +39,7 @@ private class XQueryReadWriteAccessDetectorTest : ParserTestCase() {
 
     fun variable(text: String): Pair<PsiElement, PsiReference> {
         val module = parseText(text)
-        val call = module.walkTree().filterIsInstance<XPathVarRef>().first() as XdmVariableReference
+        val call = module.walkTree().filterIsInstance<XPathVarRef>().first() as XpmVariableReference
         val element = call.variableName?.element!! as XPathEQName
         val references = element.references
         return when (references.size) {

@@ -59,6 +59,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.context.expand
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPathStep
+import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableReference
 import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
@@ -1845,7 +1846,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("NCName")
                 fun ncname() {
-                    val ref = parse<XPathVarRef>("let \$x := 2 return \$y")[0] as XdmVariableReference
+                    val ref = parse<XPathVarRef>("let \$x := 2 return \$y")[0] as XpmVariableReference
 
                     val qname = ref.variableName!!
                     assertThat(qname.prefix, `is`(nullValue()))
@@ -1859,7 +1860,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("QName")
                 fun qname() {
-                    val ref = parse<XPathVarRef>("let \$a:x := 2 return \$a:y")[0] as XdmVariableReference
+                    val ref = parse<XPathVarRef>("let \$a:x := 2 return \$a:y")[0] as XpmVariableReference
 
                     val qname = ref.variableName!!
                     assertThat(qname.namespace, `is`(nullValue()))
@@ -1875,7 +1876,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 fun uriQualifiedName() {
                     val ref = parse<XPathVarRef>(
                         "let \$Q{http://www.example.com}x := 2 return \$Q{http://www.example.com}y"
-                    )[0] as XdmVariableReference
+                    )[0] as XpmVariableReference
 
                     val qname = ref.variableName!!
                     assertThat(qname.prefix, `is`(nullValue()))
