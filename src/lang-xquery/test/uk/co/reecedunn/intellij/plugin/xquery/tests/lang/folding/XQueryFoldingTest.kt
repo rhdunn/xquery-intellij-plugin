@@ -37,8 +37,8 @@ private class XQueryFoldingTest : ParserTestCase() {
     }
 
     @Test
-    @DisplayName("no foldable elements")
-    fun noFoldingDescriptors() {
+    @DisplayName("XQuery 3.1 EBNF (9) BoundarySpaceDecl")
+    fun boundarySpaceDecl() {
         val file = parseResource("tests/folding/BoundarySpaceDecl.xq")
         val builder = FoldingBuilderImpl()
 
@@ -51,7 +51,7 @@ private class XQueryFoldingTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("FunctionBody")
+    @DisplayName("XQuery 3.1 EBNF (35) FunctionBody")
     internal inner class FunctionBody {
         @Test
         @DisplayName("single line")
@@ -88,7 +88,7 @@ private class XQueryFoldingTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("DirElemConstructor")
+    @DisplayName("XQuery 3.1 EBNF (142) DirElemConstructor")
     internal inner class DirElemConstructor {
         @Test
         @DisplayName("single line")
@@ -268,7 +268,7 @@ private class XQueryFoldingTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("DirCommentConstructor")
+    @DisplayName("XQuery 3.1 EBNF (149) DirCommentConstructor")
     internal inner class DirCommentConstructor {
         @Test
         @DisplayName("single line")
@@ -349,7 +349,7 @@ private class XQueryFoldingTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("Comment")
+    @DisplayName("XQuery 3.1 EBNF (231) Comment")
     internal inner class Comment {
         @Test
         @DisplayName("single line")
