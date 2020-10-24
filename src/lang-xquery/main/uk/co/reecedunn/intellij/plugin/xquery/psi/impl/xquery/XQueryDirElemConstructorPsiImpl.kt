@@ -118,11 +118,16 @@ class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
                     if (start.textContains('\n')) {
                         hasMultiLineAttributes = true
                     }
+                    if (start.nextSibling?.elementType in CLOSE_TAG) {
+                        return hasMultiLineAttributes to start
+                    }
                     start = start.nextSibling
                 }
             }
             return hasMultiLineAttributes to start
         }
+
+        private val CLOSE_TAG = TokenSet.create(XQueryTokenType.END_XML_TAG, XQueryTokenType.SELF_CLOSING_XML_TAG)
 
         private val ELEMENT_CONSTRUCTOR_TOKENS = TokenSet.create(
             XQueryTokenType.OPEN_XML_TAG,
