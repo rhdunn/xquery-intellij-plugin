@@ -8,10 +8,9 @@ XPathImpl[FILE(0:21)]
       XPathArgumentListImpl[XPATH_ARGUMENT_LIST(11:21)]
          LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(11:12)]('(')
          PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
-         XPathArgumentImpl[XPATH_ARGUMENT(13:20)]
-            XPathStringLiteralImpl[XPATH_STRING_LITERAL(13:19)]
-               LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(13:14)]('"')
-               XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(14:18)]('true')
-               LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(18:19)]('"')
-            PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
+         XPathStringLiteralImpl[XPATH_STRING_LITERAL(13:19)]
+            LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(13:14)]('"')
+            XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(14:18)]('true')
+            LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(18:19)]('"')
+         PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
          LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(20:21)](')')

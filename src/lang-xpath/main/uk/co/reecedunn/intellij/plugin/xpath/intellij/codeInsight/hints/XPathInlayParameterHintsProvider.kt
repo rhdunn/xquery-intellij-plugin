@@ -37,7 +37,7 @@ class XPathInlayParameterHintsProvider : InlayParameterHintsProvider {
                 binding.param.variableName == null -> null // Parameter with incomplete variable name.
                 binding.isEmpty() -> null // Empty variadic parameter.
                 index == 0 && element.parent is PluginArrowFunctionCall -> null // Arrow function call context argument.
-                getName(binding[0].firstChild)?.localName?.data == binding.param.variableName?.localName?.data -> null
+                getName(binding[0])?.localName?.data == binding.param.variableName?.localName?.data -> null
                 else -> op_qname_presentation(binding.param.variableName!!)?.let {
                     InlayInfo(it, binding[0].textOffset, false)
                 }

@@ -1773,13 +1773,7 @@ open class XPathParser : PsiParser {
     }
 
     private fun parseArgument(builder: PsiBuilder): Boolean {
-        val marker = builder.mark()
-        if (parseExprSingle(builder)) {
-            marker.done(XPathElementType.ARGUMENT)
-            return true
-        }
-        marker.drop()
-        return parseArgumentPlaceholder(builder)
+        return parseExprSingle(builder) || parseArgumentPlaceholder(builder)
     }
 
     private fun parseArgumentPlaceholder(builder: PsiBuilder): Boolean {

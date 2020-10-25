@@ -410,12 +410,6 @@ object XPathElementType {
         XPath
     )
 
-    val ARGUMENT: IElementType = ICompositeElementType(
-        "XPATH_ARGUMENT",
-        XPathArgumentPsiImpl::class.java,
-        XPath
-    )
-
     val ARGUMENT_PLACEHOLDER: IElementType = ICompositeElementType(
         "XPATH_ARGUMENT_PLACEHOLDER",
         XPathArgumentPlaceholderPsiImpl::class.java,

@@ -8,7 +8,6 @@ XQueryModuleImpl[FILE(0:11)]
             XPathArgumentListImpl[XPATH_ARGUMENT_LIST(6:11)]
                LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(6:7)]('(')
                PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-               XPathArgumentImpl[XPATH_ARGUMENT(8:10)]
-                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(8:9)]('1')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
+               XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(8:9)]('1')
+               PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
                LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(10:11)](')')

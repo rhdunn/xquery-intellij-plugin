@@ -18,23 +18,18 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.core.sequences.filterIsElementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentPlaceholder
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPostfixExpr
 import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionParamBinding
 import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownFunctions
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
-
-private val ARGUMENTS = TokenSet.create(
-    XPathElementType.ARGUMENT,
-    XPathElementType.ARGUMENT_PLACEHOLDER
-)
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 
 private val XQUERY10: List<Version> = listOf()
 private val XQUERY30: List<Version> = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
@@ -56,11 +51,14 @@ class XPathArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPat
     // endregion
     // region XPathArgumentList
 
+    private val arguments: Sequence<PsiElement>
+        get() = children().filter { it is XpmExpression || it is XPathArgumentPlaceholder }
+
     override val functionReference: XpmFunctionReference?
         get() = parent as? XpmFunctionReference
 
     override val arity: Int
-        get() = children().filterIsElementType(ARGUMENTS).count()
+        get() = arguments.count()
 
     override val isPartialFunctionApplication: Boolean
         get() = findChildByType<PsiElement>(XPathElementType.ARGUMENT_PLACEHOLDER) != null
@@ -72,7 +70,7 @@ class XPathArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPat
                 f.arity.isWithin(ref.arity)
             } ?: return listOf()
 
-            val args = children().filterIsElementType(ARGUMENTS).iterator()
+            val args = arguments.iterator()
             val params = target.params
             return params.mapIndexed { index, param ->
                 when {

@@ -965,8 +965,7 @@ private class PluginParserTest : ParserTestCase() {
             @Test
             @DisplayName("FunctionCall like")
             fun functionCallLike() {
-                val expected =
-                    loadResource("tests/parser/marklogic-8.0/NodeTest_AnyBooleanNodeTest_FunctionCallLike.txt")
+                val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_AnyBooleanNodeTest_FunctionCallLike.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_AnyBooleanNodeTest_FunctionCallLike.xq")
                 assertThat(prettyPrintASTNode(actual), `is`(expected))
             }
