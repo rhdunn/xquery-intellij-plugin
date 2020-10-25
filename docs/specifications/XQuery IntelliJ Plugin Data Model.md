@@ -44,7 +44,8 @@ various inspections.
   - [EQNames and Wildcards](#42-eqnames-and-wildcards)
   - [Annotations](#43-annotations)
 - [Operation Tree](#5-operation-tree)
-  - [Path Steps](#51-path-steps)
+  - [Expressions](#51-expressions)
+  - [Path Steps](#52-path-steps)
 - {: .toc-letter } [References](#a-references)
   - [W3C References](#a1-w3c-references)
   - [XPath NG Proposals](#a2-xpath-ng-proposals)
@@ -608,7 +609,19 @@ The *values* of the annotation is the list of `xs:string`, `xs:integer`,
 
 ## 5 Operation Tree
 
-### 5.1 Path Steps
+### 5.1 Expressions
+
+An *expression* is any EBNF symbol that is documented in the *Expressions*
+section of the XPath and XQuery specifications, and the *New Kinds of
+Expressions* section of the Update Facility and Scripting extensions.
+
+The `XpmExpression` interface is used to denote an expression in the AST.
+
+The *expression element* property identifies the element (token or AST node)
+that is used to locate this expression. This property is used by the plugin
+to correctly map to MarkLogic expression breakpoints.
+
+### 5.2 Path Steps
 
 | Symbol                       | Interface     |
 |------------------------------|---------------|
