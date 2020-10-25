@@ -46,6 +46,7 @@ various inspections.
 - [Operation Tree](#5-operation-tree)
   - [Expressions](#51-expressions)
   - [Path Steps](#52-path-steps)
+    - [Predicates](#521-predicates)
 - {: .toc-letter } [References](#a-references)
   - [W3C References](#a1-w3c-references)
   - [XPath NG Proposals](#a2-xpath-ng-proposals)
@@ -653,8 +654,16 @@ The *predicate* property is the `Predicate` node associated with the step.
 
 A `PostfixExpr` is treated as a path step as it may occur anywhere in a path
 expression. It is not added to the PSI tree if the `PrimaryExpr` is not preceded
-or followed by another step. The *axis type* is `self`, the *predicates* are the
-predicates in the filter expression, and the *node type* is `node()`.
+or followed by another step. The *axis type* is `self` and the *node type* is
+`node()`.
+
+### 5.2.1 Predicates
+
+| Symbol                       | Interface      |
+|------------------------------|----------------|
+| `Predicate`                  | `XpmPredicate` |
+
+A *predicate* is associated with a `FilterStep` or `FilterExpr` node.
 
 ## A References
 
