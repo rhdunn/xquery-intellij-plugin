@@ -1964,6 +1964,17 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
+        @DisplayName("XQuery 3.1 (3.1.3) Parenthesized Expressions")
+        internal inner class ParenthesizedExpressions {
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (133) ParenthesizedExpr ; XQuery IntelliJ Plugin XQuery EBNF (134) EmptyExpr")
+            fun emptyExpr() {
+                val expr = parse<PluginEmptyExpr>("()")[0] as XpmExpression
+                assertThat(expr.expressionElement, `is`(nullValue()))
+            }
+        }
+
+        @Nested
         @DisplayName("XQuery 3.1 (3.1.4) Context Item Expression")
         internal inner class ContextItemExpression {
             @Test

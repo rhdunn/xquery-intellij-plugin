@@ -1522,6 +1522,17 @@ private class XPathPsiTest : ParserTestCase() {
         }
 
         @Nested
+        @DisplayName("XPath 3.1 (3.1.3) Parenthesized Expressions")
+        internal inner class ParenthesizedExpressions {
+            @Test
+            @DisplayName("XPath 3.1 EBNF (61) ParenthesizedExpr ; XQuery IntelliJ Plugin XPath EBNF (52) EmptyExpr")
+            fun emptyExpr() {
+                val expr = parse<PluginEmptyExpr>("()")[0] as XpmExpression
+                assertThat(expr.expressionElement, `is`(nullValue()))
+            }
+        }
+
+        @Nested
         @DisplayName("XPath 3.1 (3.1.4) Context Item Expression")
         internal inner class ContextItemExpression {
             @Test
