@@ -18,6 +18,8 @@ package uk.co.reecedunn.intellij.plugin.xquery.intellij.ui.breadcrumbs
 import com.intellij.psi.PsiElement
 import com.intellij.xml.breadcrumbs.BreadcrumbsPresentationProvider
 import com.intellij.xml.breadcrumbs.CrumbPresentation
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
+import uk.co.reecedunn.intellij.plugin.xquery.intellij.codeInsight.highlighting.getBaseColors
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.codeInsight.highlighting.isTagTreeHighlightingActive
 
 class XQueryBreadcrumbsPresentationProvider : BreadcrumbsPresentationProvider() {
@@ -26,6 +28,12 @@ class XQueryBreadcrumbsPresentationProvider : BreadcrumbsPresentationProvider() 
             return null
         }
 
-        return null
+        val baseColors = getBaseColors()
+        return Array(elements.size) {
+            if (elements[it] is XQueryDirElemConstructor) {
+                ColoredCrumbPresentation(baseColors[it % baseColors.size])
+            } else
+                null
+        }
     }
 }

@@ -16,9 +16,12 @@
 package uk.co.reecedunn.intellij.plugin.xquery.intellij.codeInsight.highlighting
 
 import com.intellij.application.options.editor.WebEditorOptions
+import com.intellij.codeInsight.daemon.impl.tagTreeHighlighting.XmlTagTreeHighlightingColors
 import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.editor.colors.EditorColorsManager
 import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
+import java.awt.Color
 
 // NOTE: The IntelliJ XmlTagTreeHighlightingUtil methods are package private.
 
@@ -26,4 +29,10 @@ fun isTagTreeHighlightingActive(file: PsiFile?): Boolean = when {
     ApplicationManager.getApplication().isUnitTestMode -> false
     file !is XQueryModule -> false
     else -> WebEditorOptions.getInstance().isTagTreeHighlightingEnabled
+}
+
+fun getBaseColors(): Array<Color?> {
+    val colorKeys = XmlTagTreeHighlightingColors.getColorKeys()
+    val colorsScheme = EditorColorsManager.getInstance().globalScheme
+    return Array(colorKeys.size) { colorsScheme.getColor(colorKeys[it]) }
 }
