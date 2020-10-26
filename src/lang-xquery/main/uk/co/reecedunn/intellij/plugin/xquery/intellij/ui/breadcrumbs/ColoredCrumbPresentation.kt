@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,11 +15,18 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.intellij.ui.breadcrumbs
 
+import com.intellij.util.ui.UIUtil
 import com.intellij.xml.breadcrumbs.DefaultCrumbsPresentation
+import uk.co.reecedunn.intellij.plugin.xquery.intellij.codeInsight.highlighting.toLineMarkerColor
 import java.awt.Color
 
-class ColoredCrumbPresentation(color: Color?) : DefaultCrumbsPresentation() {
-    override fun getBackgroundColor(selected: Boolean, hovered: Boolean, light: Boolean): Color {
-        return super.getBackgroundColor(selected, hovered, light)
+class ColoredCrumbPresentation(val color: Color?) : DefaultCrumbsPresentation() {
+    override fun getBackgroundColor(selected: Boolean, hovered: Boolean, light: Boolean): Color? {
+        val baseColor = super.getBackgroundColor(selected, hovered, light)
+        return when {
+            baseColor == null -> toLineMarkerColor(0x92, color)
+            color != null -> UIUtil.makeTransparent(color, baseColor, 0.1)
+            else -> baseColor
+        }
     }
 }

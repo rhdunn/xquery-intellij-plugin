@@ -22,8 +22,9 @@ import com.intellij.openapi.editor.colors.EditorColorsManager
 import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import java.awt.Color
+import kotlin.math.min
 
-// NOTE: The IntelliJ XmlTagTreeHighlightingUtil methods are package private.
+// NOTE: The IntelliJ XmlTagTreeHighlightingUtil helper methods are package private.
 
 fun isTagTreeHighlightingActive(file: PsiFile?): Boolean = when {
     ApplicationManager.getApplication().isUnitTestMode -> false
@@ -35,4 +36,19 @@ fun getBaseColors(): Array<Color?> {
     val colorKeys = XmlTagTreeHighlightingColors.getColorKeys()
     val colorsScheme = EditorColorsManager.getInstance().globalScheme
     return Array(colorKeys.size) { colorsScheme.getColor(colorKeys[it]) }
+}
+
+// NOTE: The IntelliJ XmlTagTreeHighlightingPass helper methods are package private.
+
+fun toLineMarkerColor(gray: Int, color: Color?): Color? {
+    return if (color == null) null else Color(
+        toLineMarkerColor(gray, color.red),
+        toLineMarkerColor(gray, color.green),
+        toLineMarkerColor(gray, color.blue)
+    )
+}
+
+private fun toLineMarkerColor(gray: Int, color: Int): Int {
+    val value = (gray * 0.6 + 0.32 * color).toInt()
+    return if (value < 0) 0 else min(value, 255)
 }
