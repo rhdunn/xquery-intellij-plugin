@@ -31,8 +31,9 @@ class XQueryBreadcrumbsPresentationProvider : BreadcrumbsPresentationProvider() 
         else -> {
             val baseColors = getBaseColors()
             Array(elements.size) {
-                if (elements[it] is XQueryDirElemConstructor) {
-                    ColoredCrumbPresentation(baseColors[it % baseColors.size])
+                val index = elements.size - it - 1
+                if (elements[index] is XQueryDirElemConstructor) {
+                    ColoredCrumbPresentation(baseColors[index % baseColors.size])
                 } else
                     null
             }
