@@ -19,6 +19,7 @@ package uk.co.reecedunn.intellij.plugin.core.tests.parser
 import com.intellij.codeInsight.completion.InsertionContext
 import com.intellij.codeInsight.completion.OffsetMap
 import com.intellij.codeInsight.lookup.LookupElement
+import com.intellij.compat.mock.MockFileDocumentManagerImpl
 import com.intellij.compat.psi.impl.PsiCachedValuesFactory
 import com.intellij.compat.testFramework.PlatformLiteFixture
 import com.intellij.compat.testFramework.registerCodeStyleSettingsModifier
@@ -108,9 +109,9 @@ abstract class ParsingTestCase<File : PsiFile>(
         registerApplicationService(CommandProcessor::class.java, CoreCommandProcessor())
         app.registerService(
             FileDocumentManager::class.java,
-            MockFileDocumentManagerImpl(
-                { editorFactory.createDocument(it) }, FileDocumentManagerImpl.HARD_REF_TO_DOCUMENT_KEY
-            )
+            MockFileDocumentManagerImpl(FileDocumentManagerImpl.HARD_REF_TO_DOCUMENT_KEY) {
+                editorFactory.createDocument(it)
+            }
         )
 
         registerApplicationService(PsiBuilderFactory::class.java, PsiBuilderFactoryImpl())
