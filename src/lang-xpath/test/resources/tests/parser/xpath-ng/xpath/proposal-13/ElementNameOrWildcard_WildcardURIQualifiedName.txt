@@ -1,6 +1,6 @@
 XPathImpl[FILE(0:50)]
    XPathInstanceofExprImpl[XPATH_INSTANCEOF_EXPR(0:50)]
-      XPathParenthesizedExprImpl[XPATH_PARENTHESIZED_EXPR(0:2)]
+      PluginEmptyExprImpl[XPATH_EMPTY_EXPR(0:2)]
          LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(0:1)]('(')
          LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(1:2)](')')
       PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')

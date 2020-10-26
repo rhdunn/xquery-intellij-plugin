@@ -54,6 +54,7 @@ plugin-specific extensions are provided to support IntelliJ integration.
       - [Context Item Function Expressions](#3721-context-item-function-expressions)
       - [Lambda Function Expressions](#3722-lambda-function-expressions)
     - [Literals](#374-literals)
+    - [Parenthesized Expressions](#375-parenthesized-expressions)
   - [JSON Constructors](#38-json-constructors)
     - [Maps](#381-maps)
     - [Arrays](#382-arrays)
@@ -735,6 +736,19 @@ references (`&lt;`, `&gt;`, `&amp;`, `&quot;`, and `&apos;`). An `XPST0003`
 static error is raised if the XQuery processor does not support the predefined
 entity reference, which this plugin reports as an `ije:IJVS0003` static error.
 
+#### 3.7.5 Parenthesized Expressions
+
+{: .ebnf-symbols }
+| Ref     | Symbol                         |     | Expression                                | Options |
+|---------|--------------------------------|-----|-------------------------------------------|---------|
+| \[133\] | `ParenthesizedExpr`            | ::= | `EmptyExpr | ( "(" Expr ")" )`            |         |
+| \[134\] | `EmptyExpr`                    | ::= | `"(" ")"`                                 |         |
+
+The `EmptyExpr` construct has been separated out to make it easier to denote the
+semantics of empty expressions. This is primarily because the IntelliJ plugin
+only keeps the original `ParenthesizedExpr` node when it denotes an empty
+expression.
+
 ### 3.8 JSON Constructors
 
 #### 3.8.1 Maps
@@ -1400,6 +1414,8 @@ These changes include support for:
 | \[130\]  | `PostfixLookup`                | ::= | `PostfixExpr Lookup`                      |                 |
 | \[131\]  | `AxisStep`                     | ::= | `FilterStep \| ReverseStep \| ForwardStep` |                |
 | \[132\]  | `FilterStep`                   | ::= | `AxisStep Predicate`                      |                 |
+| \[133\]  | `ParenthesizedExpr`            | ::= | `EmptyExpr | ( "(" Expr ")" )`            |                 |
+| \[134\]  | `EmptyExpr`                    | ::= | `"(" ")"`                                 |                 |
 
 ### A.2 Reserved Function Names
 
@@ -1611,6 +1627,7 @@ behaviour of those constructs:
 1.  [Abbreviated Syntax](#394-abbreviated-syntax) \[1.8\]
 1.  [Postfix Expressions](#316-postfix-expressions) \[1.8\]
 1.  [Filter Steps](#393-filter-steps) \[1.8\]
+1.  [Parenthesized Expressions](#375-parenthesized-expressions) \[1.8\]
 
 The XQuery IntelliJ Plugin supports the following vendor extensions described
 in this document:

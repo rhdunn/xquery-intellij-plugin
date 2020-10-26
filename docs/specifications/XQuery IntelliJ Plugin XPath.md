@@ -41,6 +41,7 @@ plugin-specific extensions are provided to support IntelliJ integration.
     - [Inline Function Expressions](#361-inline-function-expressions)
       - [Context Item Function Expressions](#3611-context-item-function-expressions)
       - [Lambda Function Expressions](#3612-lambda-function-expressions)
+    - [Parenthesized Expressions](#362-parenthesized-expressions)
   - [Arrow Operator (=>)](#37-arrow-operator-)
   - [Postfix Expressions](#38-postfix-expressions)
 - {: .toc-letter } [XQuery IntelliJ Plugin Grammar](#a-xquery-intellij-plugin-grammar)
@@ -443,7 +444,7 @@ When `...` is added after the last parameter in a parameter list, that parameter
 contains the arguments passed after the previous parameter as an `array`. If the
 variadic parameter has a type, the elements in that array have that type.
 
-#### 3.6.1.1 Context Item Function Expressions
+##### 3.6.1.1 Context Item Function Expressions
 
 {: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
@@ -458,7 +459,7 @@ The expressions `fn{E}` (from Saxon 9.8) and `.{E}` (from Saxon 10.0)
 are equivalent to:
 >     function ($arg as item()) as item()* { $arg ! (E) }
 
-#### 3.6.1.2 Lambda Function Expressions
+##### 3.6.1.2 Lambda Function Expressions
 
 {: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
@@ -493,6 +494,19 @@ expressions in the lambda function body expression.
 >
 > If there are no `ParamRef` primary expressions in the lambda function body
 > expression, the lambda function has an arity of 0.
+
+#### 3.6.2 Parenthesized Expressions
+
+{: .ebnf-symbols }
+| Ref    | Symbol                         |     | Expression                                | Options |
+|--------|--------------------------------|-----|-------------------------------------------|---------|
+| \[51\] | `ParenthesizedExpr`            | ::= | `EmptyExpr | ( "(" Expr ")" )`            |         |
+| \[52\] | `EmptyExpr`                    | ::= | `"(" ")"`                                 |         |
+
+The `EmptyExpr` construct has been separated out to make it easier to denote the
+semantics of empty expressions. This is primarily because the IntelliJ plugin
+only keeps the original `ParenthesizedExpr` node when it denotes an empty
+expression.
 
 ### 3.7 Arrow Operator (=>)
 
@@ -603,8 +617,10 @@ These changes include support for:
 | \[46\]  | `FilterExpr`                   | ::= | `PostfixExpr Predicate`                 |                  |
 | \[47\]  | `DynamicFunctionCall`          | ::= | `PostfixExpr ArgumentList`              |                  |
 | \[48\]  | `PostfixLookup`                | ::= | `PostfixExpr Lookup`                    |                  |
-| \[49\]  | `AxisStep`                     | ::= | `FilterStep \| ReverseStep \| ForwardStep` |                |
-| \[50\]  | `FilterStep`                   | ::= | `AxisStep Predicate`                      |                 |
+| \[49\]  | `AxisStep`                     | ::= | `FilterStep \| ReverseStep \| ForwardStep` |               |
+| \[50\]  | `FilterStep`                   | ::= | `AxisStep Predicate`                      |                |
+| \[51\]  | `ParenthesizedExpr`            | ::= | `EmptyExpr | ( "(" Expr ")" )`            |                |
+| \[52\]  | `EmptyExpr`                    | ::= | `"(" ")"`                                 |                |
 
 ### A.2 Reserved Function Names
 
@@ -730,6 +746,7 @@ behaviour of those constructs:
 1.  [Abbreviated Syntax](#323-abbreviated-syntax) \[1.8\]
 1.  [Postfix Expressions](#38-postfix-expressions) \[1.8\]
 1.  [Filter Steps](#322-filter-steps) \[1.8\]
+1.  [Empty Expressions](#362-parenthesized-expressions) \[1.8\]
 
 ### C.2 Saxon Vendor Extensions
 The Saxon XQuery Processor supports the following vendor extensions described

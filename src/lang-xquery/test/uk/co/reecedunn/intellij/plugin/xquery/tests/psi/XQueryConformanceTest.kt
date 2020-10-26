@@ -452,7 +452,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         assertThat(versioned.requiresConformance.size, `is`(0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XPathElementType.PARENTHESIZED_EXPR))
+        assertThat(versioned.conformanceElement.elementType, `is`(XPathElementType.EMPTY_EXPR))
     }
 
     @Test
@@ -484,7 +484,7 @@ private class XQueryConformanceTest : ParserTestCase() {
         assertThat(versioned.requiresConformance.size, `is`(0))
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XPathElementType.PARENTHESIZED_EXPR))
+        assertThat(versioned.conformanceElement.elementType, `is`(XPathElementType.EMPTY_EXPR))
     }
 
     @Test

@@ -140,12 +140,6 @@ object XPathElementType {
         XPath
     )
 
-    val PARENTHESIZED_EXPR: IElementType = ICompositeElementType(
-        "XPATH_PARENTHESIZED_EXPR",
-        XPathParenthesizedExprPsiImpl::class.java,
-        XPath
-    )
-
     val FUNCTION_CALL: IElementType = ICompositeElementType(
         "XPATH_FUNCTION_CALL",
         XPathFunctionCallPsiImpl::class.java,
@@ -833,6 +827,12 @@ object XPathElementType {
     val ARROW_FUNCTION_CALL: IElementType = ICompositeElementType(
         "XPATH_ARROW_FUNCTION_CALL",
         PluginArrowFunctionCallPsiImpl::class.java,
+        XPath
+    )
+
+    val EMPTY_EXPR: IElementType = ICompositeElementType(
+        "XPATH_EMPTY_EXPR",
+        PluginEmptyExprPsiImpl::class.java,
         XPath
     )
 

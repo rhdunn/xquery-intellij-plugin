@@ -12,7 +12,7 @@ XQueryModuleImpl[FILE(0:19)]
             XQueryEnclosedContentExprImpl[XQUERY_ENCLOSED_CONTENT_EXPR(12:19)]
                LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(12:13)]('{')
                PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
-               XPathParenthesizedExprImpl[XPATH_PARENTHESIZED_EXPR(14:17)]
+               PluginEmptyExprImpl[XPATH_EMPTY_EXPR(14:17)]
                   LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(14:15)]('(')
                   PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
                   LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(16:17)](')')

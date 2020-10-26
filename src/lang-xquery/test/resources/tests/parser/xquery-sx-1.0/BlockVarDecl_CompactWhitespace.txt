@@ -26,7 +26,7 @@ XQueryModuleImpl[FILE(0:46)]
                                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(40:41)]('x')
                      LeafPsiElement[XQUERY_SEPARATOR_TOKEN(41:42)](';')
                   ScriptingBlockBodyImpl[XQUERY_BLOCK_BODY(42:44)]
-                     XPathParenthesizedExprImpl[XPATH_PARENTHESIZED_EXPR(42:44)]
+                     PluginEmptyExprImpl[XPATH_EMPTY_EXPR(42:44)]
                         LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(42:43)]('(')
                         LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(43:44)](')')
                   LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(44:45)]('}')

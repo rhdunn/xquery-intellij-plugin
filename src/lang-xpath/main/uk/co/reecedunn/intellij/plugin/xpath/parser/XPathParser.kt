@@ -1700,7 +1700,7 @@ open class XPathParser : PsiParser {
             if (haveExpr)
                 marker.drop()
             else
-                marker.done(XPathElementType.PARENTHESIZED_EXPR)
+                marker.done(XPathElementType.EMPTY_EXPR)
             return true
         }
         return false

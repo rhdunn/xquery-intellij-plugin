@@ -40,7 +40,7 @@ XQueryModuleImpl[FILE(0:69)]
                                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(54:61)]('integer')
                            PsiWhiteSpaceImpl[WHITE_SPACE(61:62)](' ')
                            PsiErrorElementImpl[ERROR_ELEMENT(62:62)]('XPST0003: Missing ':=' variable assignment, ',' or ';'.')
-                           XPathParenthesizedExprImpl[XPATH_PARENTHESIZED_EXPR(62:65)]
+                           PluginEmptyExprImpl[XPATH_EMPTY_EXPR(62:65)]
                               LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(62:63)]('(')
                               PsiWhiteSpaceImpl[WHITE_SPACE(63:64)](' ')
                               LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(64:65)](')')
