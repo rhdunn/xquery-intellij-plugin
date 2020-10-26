@@ -19,21 +19,23 @@ import com.intellij.psi.PsiElement
 import com.intellij.xml.breadcrumbs.BreadcrumbsPresentationProvider
 import com.intellij.xml.breadcrumbs.CrumbPresentation
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
+import uk.co.reecedunn.intellij.plugin.xquery.intellij.codeInsight.highlighting.containsTagsWithSameName
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.codeInsight.highlighting.getBaseColors
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.codeInsight.highlighting.isTagTreeHighlightingActive
 
 class XQueryBreadcrumbsPresentationProvider : BreadcrumbsPresentationProvider() {
-    override fun getCrumbPresentations(elements: Array<out PsiElement>): Array<CrumbPresentation?>? {
-        if (elements.isEmpty() || !isTagTreeHighlightingActive(elements.last().containingFile)) {
-            return null
-        }
-
-        val baseColors = getBaseColors()
-        return Array(elements.size) {
-            if (elements[it] is XQueryDirElemConstructor) {
-                ColoredCrumbPresentation(baseColors[it % baseColors.size])
-            } else
-                null
+    override fun getCrumbPresentations(elements: Array<out PsiElement>): Array<CrumbPresentation?>? = when {
+        elements.isEmpty() -> null
+        !isTagTreeHighlightingActive(elements.last().containingFile) -> null
+        !containsTagsWithSameName(elements) -> null
+        else -> {
+            val baseColors = getBaseColors()
+            Array(elements.size) {
+                if (elements[it] is XQueryDirElemConstructor) {
+                    ColoredCrumbPresentation(baseColors[it % baseColors.size])
+                } else
+                    null
+            }
         }
     }
 }

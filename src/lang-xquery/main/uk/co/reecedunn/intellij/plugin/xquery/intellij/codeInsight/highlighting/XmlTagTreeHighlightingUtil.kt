@@ -19,9 +19,15 @@ import com.intellij.application.options.editor.WebEditorOptions
 import com.intellij.codeInsight.daemon.impl.tagTreeHighlighting.XmlTagTreeHighlightingColors
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.editor.colors.EditorColorsManager
+import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
+import com.intellij.psi.xml.XmlTag
+import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import java.awt.Color
+import java.util.*
 import kotlin.math.min
 
 // NOTE: The IntelliJ XmlTagTreeHighlightingUtil helper methods are package private.
@@ -36,6 +42,14 @@ fun getBaseColors(): Array<Color?> {
     val colorKeys = XmlTagTreeHighlightingColors.getColorKeys()
     val colorsScheme = EditorColorsManager.getInstance().globalScheme
     return Array(colorKeys.size) { colorsScheme.getColor(colorKeys[it]) }
+}
+
+fun containsTagsWithSameName(elements: Array<out PsiElement>): Boolean {
+    val names: MutableSet<String> = HashSet()
+    return elements.asSequence().filterIsInstance<XQueryDirElemConstructor>().any { element ->
+        val name = (element as XdmElementNode).nodeName?.let { op_qname_presentation(it) }
+        name != null && !names.add(name)
+    }
 }
 
 // NOTE: The IntelliJ XmlTagTreeHighlightingPass helper methods are package private.
