@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.intellij.ui.breadcrumbs
 
-import com.intellij.util.ui.UIUtil
+import com.intellij.compat.util.ui.UIUtil.makeTransparent
 import com.intellij.xml.breadcrumbs.DefaultCrumbsPresentation
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.codeInsight.highlighting.toLineMarkerColor
 import java.awt.Color
@@ -25,7 +25,7 @@ class ColoredCrumbPresentation(val color: Color?) : DefaultCrumbsPresentation() 
         val baseColor = super.getBackgroundColor(selected, hovered, light)
         return when {
             baseColor == null -> toLineMarkerColor(0x92, color)
-            color != null -> UIUtil.makeTransparent(color, baseColor, 0.1)
+            color != null -> makeTransparent(color, baseColor, 0.1)
             else -> baseColor
         }
     }
