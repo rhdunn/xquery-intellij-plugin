@@ -18,9 +18,14 @@ package uk.co.reecedunn.intellij.plugin.xquery.intellij.ui.breadcrumbs
 import com.intellij.psi.PsiElement
 import com.intellij.xml.breadcrumbs.BreadcrumbsPresentationProvider
 import com.intellij.xml.breadcrumbs.CrumbPresentation
+import uk.co.reecedunn.intellij.plugin.xquery.intellij.codeInsight.highlighting.isTagTreeHighlightingActive
 
 class XQueryBreadcrumbsPresentationProvider : BreadcrumbsPresentationProvider() {
     override fun getCrumbPresentations(elements: Array<out PsiElement>): Array<CrumbPresentation?>? {
+        if (elements.isEmpty() || !isTagTreeHighlightingActive(elements.last().containingFile)) {
+            return null
+        }
+
         return null
     }
 }
