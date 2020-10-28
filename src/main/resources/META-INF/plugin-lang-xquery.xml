@@ -33,6 +33,7 @@
 
     <lang.documentationProvider language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.intellij.documentation.XQueryDocumentationProvider"/>
 
+    <highlightingPassFactory implementation="uk.co.reecedunn.intellij.plugin.xquery.intellij.codeInsight.highlighting.XQueryElemTagTreeHighlightingPassFactory"/>
     <breadcrumbsInfoProvider implementation="uk.co.reecedunn.intellij.plugin.xquery.intellij.ui.breadcrumbs.XQueryBreadcrumbProvider"/>
     <breadcrumbsPresentationProvider implementation="uk.co.reecedunn.intellij.plugin.xquery.intellij.ui.breadcrumbs.XQueryBreadcrumbsPresentationProvider"/>
 
