@@ -33,6 +33,6 @@ class XQueryElemTagTreeHighlightingPassFactory :
         editor.isOneLineMode -> null
         editor !is EditorEx -> null
         !isTagTreeHighlightingActive(file) -> null
-        else -> null
+        else -> XQueryElemTagTreeHighlightingPass(file, editor)
     }
 }
