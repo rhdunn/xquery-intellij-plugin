@@ -15,17 +15,44 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.intellij.codeInsight.highlighting
 
+import com.intellij.application.options.editor.WebEditorOptions
 import com.intellij.codeHighlighting.TextEditorHighlightingPass
 import com.intellij.openapi.editor.ex.EditorEx
 import com.intellij.openapi.progress.ProgressIndicator
+import com.intellij.openapi.util.TextRange
+import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
+import com.intellij.xml.breadcrumbs.BreadcrumbsUtilEx
+import com.intellij.xml.breadcrumbs.PsiFileBreadcrumbsCollector.getLinePsiElements
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
+import uk.co.reecedunn.intellij.plugin.xquery.intellij.codeInsight.highlighting.XQueryElemTagRangesProvider.getElementTagRanges
 
 class XQueryElemTagTreeHighlightingPass(val file: PsiFile, val editor: EditorEx) :
     TextEditorHighlightingPass(file.project, editor.document, true) {
 
+    val provider = BreadcrumbsUtilEx.findProvider(false, file.manager.findViewProvider(file.virtualFile)!!)
+    var tagsToHighlight: List<Pair<TextRange?, TextRange?>> = listOf()
+
     override fun doCollectInformation(progress: ProgressIndicator) {
+        if (WebEditorOptions.getInstance().isTagTreeHighlightingEnabled) {
+            val offset: Int = editor.caretModel.offset
+            val elements = getLinePsiElements(document, offset, file.virtualFile, file.project, provider)
+            tagsToHighlight = getElementRanges(elements)
+        }
     }
 
     override fun doApplyInformationToEditor() {
+    }
+
+    private fun getElementRanges(elements: Array<out PsiElement?>?): List<Pair<TextRange?, TextRange?>> = when {
+        elements.isNullOrEmpty() -> listOf()
+        !isTagTreeHighlightingActive(elements.last()!!.containingFile) -> listOf()
+        !containsTagsWithSameName(elements) -> listOf()
+        else -> elements.reversed().mapNotNull {
+            if (it is XQueryDirElemConstructor)
+                getElementTagRanges(it)
+            else
+                null
+        }
     }
 }

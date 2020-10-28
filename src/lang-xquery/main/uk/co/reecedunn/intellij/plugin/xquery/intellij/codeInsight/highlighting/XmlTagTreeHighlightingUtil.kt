@@ -45,7 +45,7 @@ fun getBaseColors(): Array<Color?> {
     return Array(colorKeys.size) { colorsScheme.getColor(colorKeys[it]) }
 }
 
-fun containsTagsWithSameName(elements: Array<out PsiElement>): Boolean {
+fun containsTagsWithSameName(elements: Array<out PsiElement?>): Boolean {
     val names: MutableSet<String> = HashSet()
     return elements.asSequence().filterIsInstance<XQueryDirElemConstructor>().any { element ->
         val name = (element as XdmElementNode).nodeName?.let { op_qname_presentation(it) }
