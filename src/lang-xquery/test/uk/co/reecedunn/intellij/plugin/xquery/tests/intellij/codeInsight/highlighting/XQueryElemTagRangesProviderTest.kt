@@ -88,7 +88,7 @@ private class XQueryElemTagRangesProviderTest : ParserTestCase() {
             @DisplayName("with space after")
             fun withSpaceAfter() {
                 val element = parse<XQueryDirElemConstructor>("<a:b  ></a:b  >")[0]
-                assertThat(getElementTagRanges(element), `is`(TextRange(0, 7) to TextRange(7, 15)))
+                assertThat(getElementTagRanges(element), `is`(TextRange(0, 4) to TextRange(7, 12)))
             }
 
             @Test

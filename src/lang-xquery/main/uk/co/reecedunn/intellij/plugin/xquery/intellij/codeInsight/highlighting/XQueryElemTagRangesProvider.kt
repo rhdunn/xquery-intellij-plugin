@@ -45,13 +45,13 @@ object XQueryElemTagRangesProvider {
         }
 
         var end: PsiElement = tag
-        if (end.nextSibling.elementType === XQueryTokenType.XML_WHITE_SPACE) {
-            end = end.nextSibling
-        }
         if (end.nextSibling.elementType in END_TAG_TOKENS) {
             end = end.nextSibling
-        } else if (end.elementType === XQueryTokenType.XML_WHITE_SPACE) {
-            end = end.prevSibling // Don't include the space for open tags with attributes.
+        } else {
+            end = end.lastChild
+            if (end.elementType === XQueryTokenType.XML_WHITE_SPACE) {
+                end = end.prevSibling
+            }
         }
 
         return TextRange(start.textRange.startOffset, end.textRange.endOffset)
