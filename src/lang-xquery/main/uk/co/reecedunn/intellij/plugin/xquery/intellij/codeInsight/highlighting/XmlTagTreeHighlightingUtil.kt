@@ -22,7 +22,7 @@ import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.editor.colors.EditorColorsManager
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
-import com.intellij.psi.xml.XmlTag
+import com.intellij.util.ui.UIUtil
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
@@ -66,4 +66,12 @@ fun toLineMarkerColor(gray: Int, color: Color?): Color? {
 private fun toLineMarkerColor(gray: Int, color: Int): Int {
     val value = (gray * 0.6 + 0.32 * color).toInt()
     return if (value < 0) 0 else min(value, 255)
+}
+
+fun toColorsForEditor(baseColors: Array<Color?>, tagBackground: Color): Array<Color?> {
+    val transparency = WebEditorOptions.getInstance().tagTreeHighlightingOpacity * 0.01
+    return Array(baseColors.size) {
+        val color = baseColors[it]
+        if (color != null) UIUtil.makeTransparent(color, tagBackground, transparency) else null
+    }
 }
