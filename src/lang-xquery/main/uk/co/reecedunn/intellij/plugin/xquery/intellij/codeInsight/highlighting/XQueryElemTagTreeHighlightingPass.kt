@@ -23,8 +23,10 @@ import com.intellij.codeInsight.daemon.impl.UpdateHighlightersUtil.setHighlighte
 import com.intellij.codeInsight.daemon.impl.tagTreeHighlighting.XmlTagTreeHighlightingPass
 import com.intellij.lang.annotation.HighlightSeverity
 import com.intellij.openapi.editor.ex.EditorEx
-import com.intellij.openapi.editor.markup.TextAttributes
+import com.intellij.openapi.editor.ex.MarkupModelEx
+import com.intellij.openapi.editor.markup.*
 import com.intellij.openapi.progress.ProgressIndicator
+import com.intellij.openapi.util.Key
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
@@ -58,6 +60,20 @@ class XQueryElemTagTreeHighlightingPass(val file: PsiFile, val editor: EditorEx)
             return highlights
         }
 
+    val lineMarkers: List<RangeHighlighter>
+        get() {
+            val colors = toColorsForLineMarkers(getBaseColors())
+            return tagsToHighlight.withIndex().mapNotNull { (index, ranges) ->
+                val color = colors[index % colors.size] ?: return@mapNotNull null
+                val start = ranges.first?.startOffset ?: ranges.second?.startOffset ?: return@mapNotNull null
+                val end = ranges.second?.endOffset ?: ranges.first?.endOffset ?: return@mapNotNull null
+                if (tagsToHighlight.size > 1 && start != end)
+                    createHighlighter(editor.markupModel, start, end, color)
+                else
+                    null
+            }
+        }
+
     override fun doCollectInformation(progress: ProgressIndicator) {
         if (WebEditorOptions.getInstance().isTagTreeHighlightingEnabled) {
             val offset: Int = editor.caretModel.offset
@@ -68,6 +84,9 @@ class XQueryElemTagTreeHighlightingPass(val file: PsiFile, val editor: EditorEx)
 
     override fun doApplyInformationToEditor() {
         setHighlightersToSingleEditor(myProject, editor, 0, file.textLength, highlights, colorsScheme, id)
+
+        clearLineMarkers()
+        editor.putUserData(XQUERY_TAG_TREE_HIGHLIGHTERS_IN_EDITOR_KEY, lineMarkers)
     }
 
     private fun getElementRanges(elements: Array<out PsiElement?>?): List<Pair<TextRange?, TextRange?>> = when {
@@ -82,19 +101,46 @@ class XQueryElemTagTreeHighlightingPass(val file: PsiFile, val editor: EditorEx)
         }
     }
 
-    private fun createHighlightInfo(color: Color, range: TextRange): HighlightInfo {
-        return HighlightInfo.newHighlightInfo(TYPE)
-            .range(range)
-            .textAttributes(TextAttributes(null, color, null, null, Font.PLAIN))
-            .severity(HighlightSeverity.INFORMATION)
-            .createUnconditionally()
+    private fun clearLineMarkers() {
+        val markupModel = editor.markupModel
+        editor.getUserData(XQUERY_TAG_TREE_HIGHLIGHTERS_IN_EDITOR_KEY)?.forEach {
+            if (markupModel.containsHighlighter(it)) {
+                it.dispose()
+            }
+        }
     }
 
     companion object {
+        private fun createHighlightInfo(color: Color, range: TextRange): HighlightInfo {
+            return HighlightInfo.newHighlightInfo(TYPE)
+                .range(range)
+                .textAttributes(TextAttributes(null, color, null, null, Font.PLAIN))
+                .severity(HighlightSeverity.INFORMATION)
+                .createUnconditionally()
+        }
+
+        private fun createHighlighter(markupModel: MarkupModel, start: Int, end: Int, color: Color): RangeHighlighter {
+            val highlighter = markupModel.addRangeHighlighter(
+                null,
+                start,
+                end,
+                0,
+                HighlighterTargetArea.LINES_IN_RANGE
+            )
+            highlighter.lineMarkerRenderer = LineMarkerRenderer { _, g, r ->
+                g.color = color
+                g.fillRect(r.x - 1, r.y, 2, r.height)
+            }
+            return highlighter
+        }
+
         // NOTE: XmlTagTreeHighlightingPass.TYPE is private, so we need to redefine it here.
         private val TYPE = HighlightInfoType.HighlightInfoTypeImpl(
             HighlightSeverity.INFORMATION,
             XmlTagTreeHighlightingPass.TAG_TREE_HIGHLIGHTING_KEY
         )
+
+        private val XQUERY_TAG_TREE_HIGHLIGHTERS_IN_EDITOR_KEY =
+            Key.create<List<RangeHighlighter>>("XQUERY_TAG_TREE_HIGHLIGHTERS_IN_EDITOR_KEY")
     }
 }

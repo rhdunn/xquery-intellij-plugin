@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.intellij.codeInsight.highlighting
 
 import com.intellij.application.options.editor.WebEditorOptions
 import com.intellij.codeInsight.daemon.impl.tagTreeHighlighting.XmlTagTreeHighlightingColors
+import com.intellij.codeInsight.daemon.impl.tagTreeHighlighting.XmlTagTreeHighlightingPass
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.editor.colors.EditorColorsManager
 import com.intellij.psi.PsiElement
@@ -74,4 +75,8 @@ fun toColorsForEditor(baseColors: Array<Color?>, tagBackground: Color): Array<Co
         val color = baseColors[it]
         if (color != null) UIUtil.makeTransparent(color, tagBackground, transparency) else null
     }
+}
+
+fun toColorsForLineMarkers(baseColors: Array<Color?>): Array<Color?> {
+    return Array(baseColors.size) { toLineMarkerColor(239, baseColors[it]) }
 }

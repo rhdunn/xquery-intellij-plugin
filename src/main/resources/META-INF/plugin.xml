@@ -91,6 +91,7 @@
       </li>
       <li>Support <code>language=Language</code> injection marker comments.</li>
       <li>Don't add inlay parameter hints when element and attribute node names match the parameter name.</li>
+      <li>Use the tag tree highlight colours for XML names in the breadcrumb bar and editor.</li>
     </ol>
     <p>Saxon:</p>
     <ol>

@@ -20,7 +20,8 @@ IntelliJ Integration:
 1.  Support `language=Language` injection marker comments.
 1.  Don't add inlay parameter hints when element and attribute node names
     match the parameter name.
-1.  Use the tag tree highlight colours for XML names in the breadcrumb bar.
+1.  Use the tag tree highlight colours for XML names in the breadcrumb bar
+    and editor.
 
 Saxon:
 
