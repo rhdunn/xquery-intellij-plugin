@@ -16,12 +16,13 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.intellij.codeInsight.highlighting
 
 import com.intellij.openapi.util.TextRange
-import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
+import uk.co.reecedunn.intellij.plugin.xquery.intellij.codeInsight.highlighting.XQueryElemTagRangesProvider.getElementAtOffset
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.codeInsight.highlighting.XQueryElemTagRangesProvider.getElementTagRanges
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
@@ -29,69 +30,144 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 @DisplayName("IntelliJ - Custom Language Support - XQuery Element Tag Ranges Provider")
 private class XQueryElemTagRangesProviderTest : ParserTestCase() {
     @Nested
-    @DisplayName("XQuery 3.1 EBNF (142) DirElemConstructor")
-    internal inner class DirElemConstructor {
-        @Test
-        @DisplayName("open and close tag")
-        fun openAndCloseTag() {
-            val element = parse<XQueryDirElemConstructor>("<a:b></a:b>")[0]
-            assertThat(getElementTagRanges(element), `is`(TextRange(0, 5) to TextRange(5, 11)))
-        }
+    @DisplayName("getElementTagRanges")
+    internal inner class GetElementTagRanges {
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (142) DirElemConstructor")
+        internal inner class DirElemConstructor {
+            @Test
+            @DisplayName("open and close tag")
+            fun openAndCloseTag() {
+                val element = parse<XQueryDirElemConstructor>("<a:b></a:b>")[0]
+                assertThat(getElementTagRanges(element), `is`(TextRange(0, 5) to TextRange(5, 11)))
+            }
 
-        @Test
-        @DisplayName("self-closing")
-        fun selfClosing() {
-            val element = parse<XQueryDirElemConstructor>("<a:b/>")[0]
-            assertThat(getElementTagRanges(element), `is`(TextRange(0, 6) to null))
-        }
+            @Test
+            @DisplayName("self-closing")
+            fun selfClosing() {
+                val element = parse<XQueryDirElemConstructor>("<a:b/>")[0]
+                assertThat(getElementTagRanges(element), `is`(TextRange(0, 6) to null))
+            }
 
-        @Test
-        @DisplayName("missing closing tag")
-        fun missingClosingTag() {
-            val element = parse<XQueryDirElemConstructor>("<a:b>")[0]
-            assertThat(getElementTagRanges(element), `is`(TextRange(0, 5) to null))
-        }
+            @Test
+            @DisplayName("missing closing tag")
+            fun missingClosingTag() {
+                val element = parse<XQueryDirElemConstructor>("<a:b>")[0]
+                assertThat(getElementTagRanges(element), `is`(TextRange(0, 5) to null))
+            }
 
-        @Test
-        @DisplayName("incomplete open tag")
-        fun incompleteOpenTag() {
-            val element = parse<XQueryDirElemConstructor>("<a:></a:b>")[0]
-            assertThat(getElementTagRanges(element), `is`(TextRange(0, 4) to TextRange(4, 10)))
-        }
+            @Test
+            @DisplayName("incomplete open tag")
+            fun incompleteOpenTag() {
+                val element = parse<XQueryDirElemConstructor>("<a:></a:b>")[0]
+                assertThat(getElementTagRanges(element), `is`(TextRange(0, 4) to TextRange(4, 10)))
+            }
 
-        @Test
-        @DisplayName("incomplete close tag")
-        fun incompleteCloseTag() {
-            val element = parse<XQueryDirElemConstructor>("<a:b></a:>")[0]
-            assertThat(getElementTagRanges(element), `is`(TextRange(0, 5) to TextRange(5, 10)))
-        }
+            @Test
+            @DisplayName("incomplete close tag")
+            fun incompleteCloseTag() {
+                val element = parse<XQueryDirElemConstructor>("<a:b></a:>")[0]
+                assertThat(getElementTagRanges(element), `is`(TextRange(0, 5) to TextRange(5, 10)))
+            }
 
-        @Test
-        @DisplayName("with attributes")
-        fun withAttributes() {
-            val element = parse<XQueryDirElemConstructor>("<a:b test='abc'></a:b>")[0]
-            assertThat(getElementTagRanges(element), `is`(TextRange(0, 4) to TextRange(16, 22)))
-        }
+            @Test
+            @DisplayName("with attributes")
+            fun withAttributes() {
+                val element = parse<XQueryDirElemConstructor>("<a:b test='abc'></a:b>")[0]
+                assertThat(getElementTagRanges(element), `is`(TextRange(0, 4) to TextRange(16, 22)))
+            }
 
-        @Test
-        @DisplayName("with space before")
-        fun withSpaceBefore() {
-            val element = parse<XQueryDirElemConstructor>("<  a:b></a:b>")[0]
-            assertThat(getElementTagRanges(element), `is`(TextRange(0, 7) to TextRange(7, 13)))
-        }
+            @Test
+            @DisplayName("with space before")
+            fun withSpaceBefore() {
+                val element = parse<XQueryDirElemConstructor>("<  a:b></a:b>")[0]
+                assertThat(getElementTagRanges(element), `is`(TextRange(0, 7) to TextRange(7, 13)))
+            }
 
-        @Test
-        @DisplayName("with space after")
-        fun withSpaceAfter() {
-            val element = parse<XQueryDirElemConstructor>("<a:b  ></a:b  >")[0]
-            assertThat(getElementTagRanges(element), `is`(TextRange(0, 7) to TextRange(7, 15)))
-        }
+            @Test
+            @DisplayName("with space after")
+            fun withSpaceAfter() {
+                val element = parse<XQueryDirElemConstructor>("<a:b  ></a:b  >")[0]
+                assertThat(getElementTagRanges(element), `is`(TextRange(0, 7) to TextRange(7, 15)))
+            }
 
-        @Test
-        @DisplayName("close tag without NCName")
-        fun closeTagWithoutNCName() {
-            val element = parse<XQueryDirElemConstructor>("<a:b></>")[0]
-            assertThat(getElementTagRanges(element), `is`(TextRange(0, 5) to null))
+            @Test
+            @DisplayName("close tag without NCName")
+            fun closeTagWithoutNCName() {
+                val element = parse<XQueryDirElemConstructor>("<a:b></>")[0]
+                assertThat(getElementTagRanges(element), `is`(TextRange(0, 5) to null))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("getElementTagRanges")
+    internal inner class GetElementWithinTagRanges {
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (142) DirElemConstructor")
+        internal inner class DirElemConstructor {
+            @Test
+            @DisplayName("open and close tag")
+            fun openAndCloseTag() {
+                val elements = parse<XQueryDirElemConstructor>(" <a:b>cd</a:b> ")
+                val provider = elements[0].containingFile.viewProvider
+
+                assertThat(getElementAtOffset(provider, -1), `is`(nullValue()))
+                assertThat(getElementAtOffset(provider, 0), `is`(nullValue()))
+                assertThat(getElementAtOffset(provider, 1), `is`(sameInstance(elements[0]))) // '<'
+                assertThat(getElementAtOffset(provider, 2), `is`(sameInstance(elements[0]))) // 'a'
+                assertThat(getElementAtOffset(provider, 3), `is`(sameInstance(elements[0]))) // ':'
+                assertThat(getElementAtOffset(provider, 4), `is`(sameInstance(elements[0]))) // 'b'
+                assertThat(getElementAtOffset(provider, 5), `is`(sameInstance(elements[0]))) // '>'
+                assertThat(getElementAtOffset(provider, 6), `is`(nullValue()))
+                assertThat(getElementAtOffset(provider, 7), `is`(nullValue()))
+                assertThat(getElementAtOffset(provider, 8), `is`(sameInstance(elements[0]))) // '<'
+                assertThat(getElementAtOffset(provider, 9), `is`(sameInstance(elements[0]))) // '/'
+                assertThat(getElementAtOffset(provider, 10), `is`(sameInstance(elements[0]))) // 'a'
+                assertThat(getElementAtOffset(provider, 11), `is`(sameInstance(elements[0]))) // ':'
+                assertThat(getElementAtOffset(provider, 12), `is`(sameInstance(elements[0]))) // 'b'
+                assertThat(getElementAtOffset(provider, 13), `is`(sameInstance(elements[0]))) // '>'
+                assertThat(getElementAtOffset(provider, 14), `is`(nullValue()))
+                assertThat(getElementAtOffset(provider, 15), `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("self-closing tag")
+            fun selfClosingTag() {
+                val elements = parse<XQueryDirElemConstructor>(" <a:b/> ")
+                val provider = elements[0].containingFile.viewProvider
+
+                assertThat(getElementAtOffset(provider, -1), `is`(nullValue()))
+                assertThat(getElementAtOffset(provider, 0), `is`(nullValue()))
+                assertThat(getElementAtOffset(provider, 1), `is`(sameInstance(elements[0]))) // '<'
+                assertThat(getElementAtOffset(provider, 2), `is`(sameInstance(elements[0]))) // 'a'
+                assertThat(getElementAtOffset(provider, 3), `is`(sameInstance(elements[0]))) // ':'
+                assertThat(getElementAtOffset(provider, 4), `is`(sameInstance(elements[0]))) // 'b'
+                assertThat(getElementAtOffset(provider, 5), `is`(sameInstance(elements[0]))) // '/'
+                assertThat(getElementAtOffset(provider, 6), `is`(sameInstance(elements[0]))) // '>'
+                assertThat(getElementAtOffset(provider, 7), `is`(nullValue()))
+                assertThat(getElementAtOffset(provider, 8), `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("with spaces")
+            fun withSpaces() {
+                val elements = parse<XQueryDirElemConstructor>("< a ></a >")
+                val provider = elements[0].containingFile.viewProvider
+
+                assertThat(getElementAtOffset(provider, -1), `is`(sameInstance(elements[0])))
+                assertThat(getElementAtOffset(provider, 0), `is`(sameInstance(elements[0]))) // '<'
+                assertThat(getElementAtOffset(provider, 1), `is`(nullValue())) // ' '
+                assertThat(getElementAtOffset(provider, 2), `is`(sameInstance(elements[0]))) // 'a'
+                assertThat(getElementAtOffset(provider, 3), `is`(nullValue())) // ' '
+                assertThat(getElementAtOffset(provider, 4), `is`(sameInstance(elements[0]))) // '>'
+                assertThat(getElementAtOffset(provider, 5), `is`(sameInstance(elements[0]))) // '<'
+                assertThat(getElementAtOffset(provider, 6), `is`(sameInstance(elements[0]))) // '/'
+                assertThat(getElementAtOffset(provider, 7), `is`(sameInstance(elements[0]))) // 'a'
+                assertThat(getElementAtOffset(provider, 8), `is`(nullValue())) // ' '
+                assertThat(getElementAtOffset(provider, 9), `is`(sameInstance(elements[0]))) // '>'
+                assertThat(getElementAtOffset(provider, 10), `is`(nullValue()))
+            }
         }
     }
 }

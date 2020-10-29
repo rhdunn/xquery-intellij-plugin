@@ -22,8 +22,8 @@ import com.intellij.codeInsight.daemon.impl.HighlightInfoType
 import com.intellij.codeInsight.daemon.impl.UpdateHighlightersUtil.setHighlightersToSingleEditor
 import com.intellij.codeInsight.daemon.impl.tagTreeHighlighting.XmlTagTreeHighlightingPass
 import com.intellij.lang.annotation.HighlightSeverity
+import com.intellij.openapi.editor.XmlHighlighterColors
 import com.intellij.openapi.editor.ex.EditorEx
-import com.intellij.openapi.editor.ex.MarkupModelEx
 import com.intellij.openapi.editor.markup.*
 import com.intellij.openapi.progress.ProgressIndicator
 import com.intellij.openapi.util.Key
@@ -32,7 +32,9 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.xml.breadcrumbs.BreadcrumbsUtilEx
 import com.intellij.xml.breadcrumbs.PsiFileBreadcrumbsCollector.getLinePsiElements
+import uk.co.reecedunn.intellij.plugin.core.sequences.ancestorsAndSelf
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
+import uk.co.reecedunn.intellij.plugin.xquery.intellij.codeInsight.highlighting.XQueryElemTagRangesProvider.getElementAtOffset
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.codeInsight.highlighting.XQueryElemTagRangesProvider.getElementTagRanges
 import java.awt.Color
 import java.awt.Font
@@ -45,7 +47,10 @@ class XQueryElemTagTreeHighlightingPass(val file: PsiFile, val editor: EditorEx)
 
     val highlights: List<HighlightInfo>
         get() {
-            val colors = toColorsForEditor(getBaseColors(), editor.backgroundColor)
+            val colors = when (tagsToHighlight.size) {
+                1 -> arrayOf(editor.colorsScheme.getAttributes(XmlHighlighterColors.MATCHED_TAG_NAME).backgroundColor)
+                else -> toColorsForEditor(getBaseColors(), editor.backgroundColor)
+            }
 
             val highlights = ArrayList<HighlightInfo>(tagsToHighlight.size * 2)
             tagsToHighlight.withIndex().forEach { (index, ranges) ->
@@ -78,7 +83,7 @@ class XQueryElemTagTreeHighlightingPass(val file: PsiFile, val editor: EditorEx)
         if (WebEditorOptions.getInstance().isTagTreeHighlightingEnabled) {
             val offset: Int = editor.caretModel.offset
             val elements = getLinePsiElements(document, offset, file.virtualFile, file.project, provider)
-            tagsToHighlight = getElementRanges(elements)
+            tagsToHighlight = getElementRanges(elements, offset)
         }
     }
 
@@ -89,16 +94,25 @@ class XQueryElemTagTreeHighlightingPass(val file: PsiFile, val editor: EditorEx)
         editor.putUserData(XQUERY_TAG_TREE_HIGHLIGHTERS_IN_EDITOR_KEY, lineMarkers)
     }
 
-    private fun getElementRanges(elements: Array<out PsiElement?>?): List<Pair<TextRange?, TextRange?>> = when {
-        elements.isNullOrEmpty() -> listOf()
-        !isTagTreeHighlightingActive(elements.last()!!.containingFile) -> listOf()
-        !containsTagsWithSameName(elements) -> listOf()
+    private fun getElementRanges(
+        elements: Array<out PsiElement?>?,
+        offset: Int
+    ): List<Pair<TextRange?, TextRange?>> = when {
+        elements.isNullOrEmpty() -> getActiveElementRange(offset)
+        !isTagTreeHighlightingActive(elements.last()!!.containingFile) -> getActiveElementRange(offset)
+        !containsTagsWithSameName(elements) -> getActiveElementRange(offset)
         else -> elements.reversed().mapNotNull {
             if (it is XQueryDirElemConstructor)
                 getElementTagRanges(it)
             else
                 null
         }
+    }
+
+    private fun getActiveElementRange(offset: Int): List<Pair<TextRange?, TextRange?>> {
+        val provider = file.viewProvider
+        val element = getElementAtOffset(provider, offset) ?: getElementAtOffset(provider, offset - 1)
+        return if (element == null) listOf() else listOf(getElementTagRanges(element))
     }
 
     private fun clearLineMarkers() {

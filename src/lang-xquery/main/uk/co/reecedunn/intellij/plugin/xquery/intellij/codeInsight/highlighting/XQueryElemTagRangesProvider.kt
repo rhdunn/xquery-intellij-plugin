@@ -16,10 +16,13 @@
 package uk.co.reecedunn.intellij.plugin.xquery.intellij.codeInsight.highlighting
 
 import com.intellij.openapi.util.TextRange
+import com.intellij.psi.FileViewProvider
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiErrorElement
+import com.intellij.psi.TokenType
 import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
+import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
@@ -52,6 +55,29 @@ object XQueryElemTagRangesProvider {
         }
 
         return TextRange(start.textRange.startOffset, end.textRange.endOffset)
+    }
+
+    fun getElementAtOffset(viewProvider: FileViewProvider, offset: Int): XQueryDirElemConstructor? {
+        return getElementAtOffset(viewProvider.findElementAt(offset))
+    }
+
+    fun getElementAtOffset(
+        element: PsiElement?,
+        skipWhitespace: Boolean = false
+    ): XQueryDirElemConstructor? = when (element.elementType) {
+        XQueryTokenType.OPEN_XML_TAG,
+        XQueryTokenType.END_XML_TAG,
+        XQueryTokenType.CLOSE_XML_TAG,
+        XQueryTokenType.SELF_CLOSING_XML_TAG -> {
+            element!!.ancestors().filterIsInstance<XQueryDirElemConstructor>().firstOrNull()
+        }
+        XQueryTokenType.XML_TAG_NCNAME, XQueryTokenType.XML_TAG_QNAME_SEPARATOR -> { // tag name
+            getElementAtOffset(element!!.parent.prevSibling, true)
+        }
+        TokenType.ERROR_ELEMENT -> {
+            if (skipWhitespace) getElementAtOffset(element?.prevSibling) else null
+        }
+        else -> null
     }
 
     private val END_TAG_TOKENS = TokenSet.create(XQueryTokenType.END_XML_TAG, XQueryTokenType.SELF_CLOSING_XML_TAG)
