@@ -32,7 +32,6 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.xml.breadcrumbs.BreadcrumbsUtilEx
 import com.intellij.xml.breadcrumbs.PsiFileBreadcrumbsCollector.getLinePsiElements
-import uk.co.reecedunn.intellij.plugin.core.sequences.ancestorsAndSelf
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.codeInsight.highlighting.XQueryElemTagRangesProvider.getElementAtOffset
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.codeInsight.highlighting.XQueryElemTagRangesProvider.getElementTagRanges
@@ -112,7 +111,10 @@ class XQueryElemTagTreeHighlightingPass(val file: PsiFile, val editor: EditorEx)
     private fun getActiveElementRange(offset: Int): List<Pair<TextRange?, TextRange?>> {
         val provider = file.viewProvider
         val element = getElementAtOffset(provider, offset) ?: getElementAtOffset(provider, offset - 1)
-        return if (element == null) listOf() else listOf(getElementTagRanges(element))
+        return if (element == null || element.nodeName === element.closingTag)
+            listOf()
+        else
+            listOf(getElementTagRanges(element))
     }
 
     private fun clearLineMarkers() {
