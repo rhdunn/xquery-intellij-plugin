@@ -137,10 +137,10 @@ class XQueryElemTagTreeHighlightingPass(val file: PsiFile, val editor: EditorEx)
 
         private fun createHighlighter(markupModel: MarkupModel, start: Int, end: Int, color: Color): RangeHighlighter {
             val highlighter = markupModel.addRangeHighlighter(
-                null,
                 start,
                 end,
                 0,
+                null,
                 HighlighterTargetArea.LINES_IN_RANGE
             )
             highlighter.lineMarkerRenderer = LineMarkerRenderer { _, g, r ->
