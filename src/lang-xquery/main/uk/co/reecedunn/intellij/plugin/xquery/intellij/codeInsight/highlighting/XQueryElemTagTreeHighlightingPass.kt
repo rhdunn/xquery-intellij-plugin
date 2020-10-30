@@ -20,9 +20,9 @@ import com.intellij.codeHighlighting.TextEditorHighlightingPass
 import com.intellij.codeInsight.daemon.impl.HighlightInfo
 import com.intellij.codeInsight.daemon.impl.HighlightInfoType
 import com.intellij.codeInsight.daemon.impl.UpdateHighlightersUtil.setHighlightersToSingleEditor
-import com.intellij.codeInsight.daemon.impl.tagTreeHighlighting.XmlTagTreeHighlightingPass
 import com.intellij.lang.annotation.HighlightSeverity
 import com.intellij.openapi.editor.XmlHighlighterColors
+import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.editor.ex.EditorEx
 import com.intellij.openapi.editor.markup.*
 import com.intellij.openapi.progress.ProgressIndicator
@@ -150,10 +150,13 @@ class XQueryElemTagTreeHighlightingPass(val file: PsiFile, val editor: EditorEx)
             return highlighter
         }
 
+        // NOTE: XmlTagTreeHighlightingPass.TAG_TREE_HIGHLIGHTING_KEY is private in IntelliJ <= 2020.1.
+        private val TAG_TREE_HIGHLIGHTING_KEY = TextAttributesKey.createTextAttributesKey("TAG_TREE_HIGHLIGHTING_KEY")
+
         // NOTE: XmlTagTreeHighlightingPass.TYPE is private, so we need to redefine it here.
         private val TYPE = HighlightInfoType.HighlightInfoTypeImpl(
             HighlightSeverity.INFORMATION,
-            XmlTagTreeHighlightingPass.TAG_TREE_HIGHLIGHTING_KEY
+            TAG_TREE_HIGHLIGHTING_KEY
         )
 
         private val XQUERY_TAG_TREE_HIGHLIGHTERS_IN_EDITOR_KEY =
