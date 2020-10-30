@@ -21,6 +21,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 /**
  * XML Query Language
  */
-object XQuery : Language(findLanguageByID(XPath.id), "XQuery", "application/xquery") {
+object XQuery : Language(XPath, "XQuery", "application/xquery") {
     override fun isCaseSensitive(): Boolean = true
 }
