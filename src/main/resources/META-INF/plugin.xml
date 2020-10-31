@@ -105,8 +105,6 @@
 
   <idea-version since-build="161"/>
 
-  <xi:include href="plugin-compat.xml" xpointer="xpointer(/idea-plugin/*)"/>
-
   <xi:include href="plugin-lang-xpm.xml" xpointer="xpointer(/idea-plugin/*)"/>
   <xi:include href="plugin-lang-xpath.xml" xpointer="xpointer(/idea-plugin/*)"/>
   <xi:include href="plugin-lang-xquery.xml" xpointer="xpointer(/idea-plugin/*)"/>

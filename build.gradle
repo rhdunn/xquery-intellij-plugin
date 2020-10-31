@@ -155,14 +155,6 @@ if (idea_version >= 192) {
     intellij.plugins += 'java'
 }
 
-// region resources
-
-if (idea_version >= 192) {
-    sourceSets.main.resources.srcDirs += 'src/main/resources-192'
-} else {
-    sourceSets.main.resources.srcDirs += 'src/main/resources-191'
-}
-
 if (intellij.type == 'IU') {
     if (idea_version >= 193) {
         sourceSets.main.resources.srcDirs += 'src/main/resources-microservices/193'
@@ -172,8 +164,6 @@ if (intellij.type == 'IU') {
 } else {
     sourceSets.main.resources.srcDirs += 'src/main/resources-microservices/compat'
 }
-
-// endregion
 
 tasks {
     // Using the IntelliJ gradle plugin to provide the IntelliJ platform SDK in
