@@ -22,7 +22,6 @@ import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.compat.mock.MockFileDocumentManagerImpl
 import com.intellij.compat.psi.impl.PsiCachedValuesFactory
 import com.intellij.compat.testFramework.PlatformLiteFixture
-import com.intellij.compat.testFramework.registerCodeStyleSettingsModifier
 import com.intellij.compat.testFramework.registerProgressManager
 import com.intellij.ide.startup.impl.StartupManagerImpl
 import com.intellij.lang.*
@@ -49,6 +48,7 @@ import com.intellij.openapi.vfs.encoding.EncodingManager
 import com.intellij.openapi.vfs.encoding.EncodingManagerImpl
 import com.intellij.psi.*
 import com.intellij.psi.codeStyle.*
+import com.intellij.psi.codeStyle.modifier.CodeStyleSettingsModifier
 import com.intellij.psi.impl.PsiFileFactoryImpl
 import com.intellij.psi.impl.source.codeStyle.IndentHelper
 import com.intellij.psi.impl.source.codeStyle.IndentHelperImpl
@@ -184,7 +184,8 @@ abstract class ParsingTestCase<File : PsiFile>(
             com.intellij.compat.psi.codeStyle.ProjectCodeStyleSettingsManager(myProject)
         )
 
-        registerCodeStyleSettingsModifier()
+        @Suppress("UnstableApiUsage")
+        registerExtensionPoint(CodeStyleSettingsModifier.EP_NAME, CodeStyleSettingsModifier::class.java)
     }
 
     private fun configureFromParserDefinition(definition: ParserDefinition, extension: String?) {
