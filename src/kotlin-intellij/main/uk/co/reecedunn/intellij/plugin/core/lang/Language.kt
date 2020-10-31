@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.lang
 
-import com.intellij.compat.openapi.fileTypes.acceptsCharSequence
 import com.intellij.lang.Language
 import com.intellij.lang.LanguageParserDefinitions
 import com.intellij.lang.ParserDefinition
@@ -46,7 +45,7 @@ fun Array<out Language>.getAssociations(): List<FileNameMatcher> {
 }
 
 fun Array<out Language>.findByAssociations(path: String): Language? = find { language ->
-    language.getAssociations().acceptsCharSequence(path)
+    language.getAssociations().find { association -> association.acceptsCharSequence(path) } != null
 }
 
 fun Language.getLanguageMimeTypes(): Array<String> {
