@@ -22,7 +22,7 @@ import com.intellij.openapi.vfs.VirtualFile
 import org.jetbrains.jps.model.JpsElement
 import org.jetbrains.jps.model.java.JavaSourceRootType
 import org.jetbrains.jps.model.module.JpsModuleSourceRootType
-import com.intellij.compat.openapi.roots.ContentEntry
+import com.intellij.openapi.roots.ContentEntry
 
 @Suppress("NonExtendableApiUsage")
 class MockContentEntry(private val file: VirtualFile) : ContentEntry {
