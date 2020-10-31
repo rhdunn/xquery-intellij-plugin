@@ -21,7 +21,7 @@ import org.hamcrest.CoreMatchers.*
 import org.jdom.Element
 import org.jdom.output.XMLOutputter
 import org.junit.jupiter.api.*
-import com.intellij.compat.execution.configurations.RunConfigurationBase
+import uk.co.reecedunn.intellij.plugin.core.execution.configurations.RunConfigurationBase
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.execution.configurations.type.XPathConfigurationType

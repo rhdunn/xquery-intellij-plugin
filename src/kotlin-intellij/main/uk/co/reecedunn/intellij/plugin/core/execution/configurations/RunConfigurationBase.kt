@@ -13,13 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.intellij.compat.execution.configurations
+package uk.co.reecedunn.intellij.plugin.core.execution.configurations
 
 import com.intellij.execution.configurations.ConfigurationFactory
 import com.intellij.openapi.project.Project
 import com.intellij.util.xmlb.BeanBinding
 import com.intellij.util.xmlb.Binding
-import com.intellij.util.xmlb.MutableAccessor
 import com.intellij.util.xmlb.XmlSerializerImpl
 import org.jdom.Element
 import java.lang.reflect.Type
@@ -33,15 +32,14 @@ abstract class RunConfigurationBase<T>(project: Project, factory: ConfigurationF
         super.writeExternal(element)
 
         // IntelliJ >= 183 does not serialize the settings for the configuration state object.
-        val beanBinding = serializer.getClassBinding(optionsClass) as BeanBinding
+        val beanBinding = serializer.getRootBinding(optionsClass) as BeanBinding
         beanBinding.serializeInto(options, element, null)
     }
 }
 
 private val serializer = object : XmlSerializerImpl.XmlSerializerBase() {
-    @Suppress("ScheduledForRemoval")
-    override fun getClassBinding(aClass: Class<*>, originalType: Type, accessor: MutableAccessor?): Binding {
-        val beanBinding = BeanBinding(aClass, accessor)
+    override fun getRootBinding(aClass: Class<*>, originalType: Type): Binding {
+        val beanBinding = BeanBinding(aClass)
         beanBinding.init(aClass, this)
         return beanBinding
     }
