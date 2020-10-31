@@ -18,12 +18,9 @@ package uk.co.reecedunn.intellij.microservices.endpoints
 import com.intellij.microservices.endpoints.*
 import com.intellij.microservices.endpoints.EndpointsProvider
 import com.intellij.navigation.ItemPresentation
-import com.intellij.openapi.Disposable
 import com.intellij.openapi.actionSystem.DataProvider
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.ModificationTracker
-import com.intellij.ui.components.JBScrollPane
-import javax.swing.JComponent
 
 @Suppress("UnstableApiUsage")
 abstract class EndpointsProvider : EndpointsProvider<EndpointsGroup, Endpoint>, EndpointsFramework {
@@ -36,12 +33,6 @@ abstract class EndpointsProvider : EndpointsProvider<EndpointsGroup, Endpoint>, 
 
     override fun getEndpointData(group: EndpointsGroup, endpoint: Endpoint, dataId: String): Any? {
         return (endpoint as? DataProvider)?.getData(dataId)
-    }
-
-    override fun getEndpointDocumentation(
-        group: EndpointsGroup, endpoint: Endpoint, parentDisposable: Disposable
-    ): JComponent? {
-        return JBScrollPane(endpoint.details)
     }
 
     override fun getEndpointGroups(project: Project, filter: EndpointsFilter): List<EndpointsGroup> {
