@@ -23,11 +23,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.ui.layout
 
-import com.intellij.compat.ui.scale.JBUIScale
 import com.intellij.openapi.ui.DialogBuilder
 import com.intellij.ui.components.JBPanel
 import com.intellij.ui.components.JBScrollPane
 import com.intellij.ui.components.JBTabbedPane
+import com.intellij.ui.scale.JBUIScale
 import com.intellij.uiDesigner.core.Spacer
 import com.intellij.util.ui.JBInsets
 import uk.co.reecedunn.intellij.plugin.core.ui.Borders
