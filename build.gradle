@@ -146,15 +146,11 @@ dependencies {
 intellij.plugins = [
     'coverage',
     'com.intellij.properties',
-    'org.intellij.intelliLang'
+    'org.intellij.intelliLang',
+    'java'
 ]
 
 idea_version = project.property('idea_since_build').toInteger()
-if (idea_version >= 192) {
-    // 'java' is a separate plugin in IntelliJ >= 2019.2
-    intellij.plugins += 'java'
-}
-
 if (intellij.type == 'IU') {
     if (idea_version >= 193) {
         sourceSets.main.resources.srcDirs += 'src/main/resources-microservices/193'
