@@ -8,7 +8,7 @@ jobs:
     - jdk: openjdk8
       env: IDEA_VERSION=IC-2020.2 # Current
     - jdk: openjdk8
-      env: IDEA_VERSION=IC-2019.1 # Minimum Supported
+      env: IDEA_VERSION=IC-2019.2 # Minimum Supported
 
 install: true
 
