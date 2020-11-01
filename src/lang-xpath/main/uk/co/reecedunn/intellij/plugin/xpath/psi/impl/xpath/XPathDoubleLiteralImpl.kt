@@ -19,12 +19,10 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathDoubleLiteral
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsDoubleValue
 
 class XPathDoubleLiteralImpl(type: IElementType, text: CharSequence) :
     LeafPsiElement(type, text),
-    XPathDoubleLiteral,
-    XsDoubleValue {
+    XPathDoubleLiteral {
 
     override val expressionElement: PsiElement? = null
 

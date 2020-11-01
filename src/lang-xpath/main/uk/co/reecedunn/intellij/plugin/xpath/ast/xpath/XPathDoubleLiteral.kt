@@ -15,9 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsDoubleValue
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 
 /**
  * An XPath 2.0 and XQuery 1.0 `DoubleLiteral` node in the XQuery AST.
  */
-interface XPathDoubleLiteral : XPathNumericLiteral, XpmExpression
+interface XPathDoubleLiteral : XPathNumericLiteral, XsDoubleValue, XpmExpression
