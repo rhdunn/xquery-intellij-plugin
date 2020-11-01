@@ -19,13 +19,11 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathDecimalLiteral
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsDecimalValue
 import java.math.BigDecimal
 
 class XPathDecimalLiteralImpl(type: IElementType, text: CharSequence) :
     LeafPsiElement(type, text),
-    XPathDecimalLiteral,
-    XsDecimalValue {
+    XPathDecimalLiteral {
 
     override val expressionElement: PsiElement? = null
 

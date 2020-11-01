@@ -15,9 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsDecimalValue
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 
 /**
  * An XPath 2.0 and XQuery 1.0 `DecimalLiteral` node in the XQuery AST.
  */
-interface XPathDecimalLiteral : XPathNumericLiteral, XpmExpression
+interface XPathDecimalLiteral : XPathNumericLiteral, XsDecimalValue, XpmExpression
