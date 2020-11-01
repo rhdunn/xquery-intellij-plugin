@@ -41,7 +41,6 @@ class PluginCompatibilityAnnotationPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     PluginCompatibilityAnnotation,
     XsQNameValue,
-    XdmAnnotation,
     XpmSyntaxValidationElement,
     VersionConformance,
     ItemPresentation {

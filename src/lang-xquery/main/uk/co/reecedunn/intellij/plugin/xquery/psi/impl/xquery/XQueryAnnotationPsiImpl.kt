@@ -26,7 +26,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.intellij.resources.XQueryIcons
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNumericLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
-import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnnotation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyAtomicType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotation
@@ -34,7 +33,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import javax.swing.Icon
 
 class XQueryAnnotationPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), XQueryAnnotation, XdmAnnotation, VersionConformance, ItemPresentation {
+    ASTWrapperPsiElement(node), XQueryAnnotation, VersionConformance, ItemPresentation {
     // region ASTDelegatePsiElement
 
     override fun subtreeChanged() {
