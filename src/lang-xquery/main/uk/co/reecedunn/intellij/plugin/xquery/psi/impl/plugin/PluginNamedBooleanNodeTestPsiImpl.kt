@@ -31,7 +31,7 @@ class PluginNamedBooleanNodeTestPsiImpl(node: ASTNode) :
     // region PluginNamedBooleanNodeTest
 
     override val keyName: XsStringValue
-        get() = children().filterIsInstance<XPathStringLiteral>().first() as XsStringValue
+        get() = children().filterIsInstance<XPathStringLiteral>().first()
 
     // endregion
     // region XdmSequenceType

@@ -28,12 +28,11 @@ import uk.co.reecedunn.intellij.plugin.core.lang.injection.PsiElementTextDecoder
 import uk.co.reecedunn.intellij.plugin.core.psi.createElement
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsStringValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
 class XPathStringLiteralPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), LiteralTextHost, XPathStringLiteral, XsStringValue {
+    ASTWrapperPsiElement(node), LiteralTextHost, XPathStringLiteral {
     // region PsiElement
 
     override fun subtreeChanged() {
