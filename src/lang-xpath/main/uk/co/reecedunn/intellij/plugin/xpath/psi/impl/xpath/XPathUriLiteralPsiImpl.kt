@@ -26,12 +26,11 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriPsiElement
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEscapeCharacter
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
 class XPathUriLiteralPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), XPathUriLiteral, XsAnyUriPsiElement, XpmModulePath {
+    ASTWrapperPsiElement(node), XPathUriLiteral, XpmModulePath {
     // region PsiElement
 
     override fun subtreeChanged() {

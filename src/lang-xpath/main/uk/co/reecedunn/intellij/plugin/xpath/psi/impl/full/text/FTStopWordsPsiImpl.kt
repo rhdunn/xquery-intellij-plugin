@@ -24,5 +24,5 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 
 class FTStopWordsPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), FTStopWords {
     override val source: XsAnyUriValue?
-        get() = children().filterIsInstance<XPathUriLiteral>().firstOrNull() as? XsAnyUriValue
+        get() = children().filterIsInstance<XPathUriLiteral>().firstOrNull()
 }
