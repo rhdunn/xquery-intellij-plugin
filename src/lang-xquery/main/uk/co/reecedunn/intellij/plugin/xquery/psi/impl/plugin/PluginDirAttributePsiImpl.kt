@@ -40,7 +40,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 class PluginDirAttributePsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     PluginDirAttribute,
-    XdmAttributeNode,
     XQueryPrologResolver,
     XpmDefaultNamespaceDeclaration {
     // region PsiElement

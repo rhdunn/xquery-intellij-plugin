@@ -19,15 +19,11 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAttributeNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyAtomicType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompAttrConstructor
 
-class XQueryCompAttrConstructorPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node),
-    XQueryCompAttrConstructor,
-    XdmAttributeNode {
+class XQueryCompAttrConstructorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryCompAttrConstructor {
     // region XpmExpression
 
     override val expressionElement: PsiElement? = null
