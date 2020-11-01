@@ -15,10 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmFunction
 import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 
 /**
  * An XPath 3.0 and XQuery 3.0 `InlineFunctionExpr` node in the XQuery AST.
  */
-interface XPathInlineFunctionExpr : XPathFunctionItemExpr, XpmFunctionDeclaration, XpmExpression
+interface XPathInlineFunctionExpr : XPathFunctionItemExpr, XdmFunction, XpmFunctionDeclaration, XpmExpression
