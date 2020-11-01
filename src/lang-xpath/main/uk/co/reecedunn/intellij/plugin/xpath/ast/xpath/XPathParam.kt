@@ -17,8 +17,9 @@ package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
 import com.intellij.psi.NavigatablePsiElement
 import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableBinding
+import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableType
 
 /**
  * An XPath 3.0 and XQuery 1.0 `Param` node in the XQuery AST.
  */
-interface XPathParam : NavigatablePsiElement, XpmVariableBinding
+interface XPathParam : NavigatablePsiElement, XpmVariableBinding, XpmVariableType

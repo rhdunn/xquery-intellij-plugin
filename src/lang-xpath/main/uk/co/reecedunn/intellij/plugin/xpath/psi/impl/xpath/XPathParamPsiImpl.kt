@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Reece H. Dunn
+ * Copyright (C) 2016-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,17 +24,11 @@ import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParam
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
-import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableBinding
-import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import javax.swing.Icon
 
-class XPathParamPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node),
-    XPathParam,
-    XpmVariableType,
-    ItemPresentation {
+class XPathParamPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathParam, ItemPresentation {
     // region ASTDelegatePsiElement
 
     override fun subtreeChanged() {

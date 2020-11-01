@@ -30,7 +30,6 @@ import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableName
-import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarDecl
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.filterNotWhitespace
@@ -44,7 +43,6 @@ class XQueryVarDeclPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XQueryVarDecl,
     VersionConformance,
-    XpmVariableType,
     ItemPresentation {
     // region ASTDelegatePsiElement
 

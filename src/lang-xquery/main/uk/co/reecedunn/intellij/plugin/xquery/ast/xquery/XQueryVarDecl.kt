@@ -16,9 +16,10 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
 import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableType
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.ide.structureView.XQueryStructureViewElement
 
 /**
  * An XQuery 1.0 `VarDecl` node in the XQuery AST.
  */
-interface XQueryVarDecl : XQueryStructureViewElement, XpmVariableDeclaration
+interface XQueryVarDecl : XQueryStructureViewElement, XpmVariableDeclaration, XpmVariableType
