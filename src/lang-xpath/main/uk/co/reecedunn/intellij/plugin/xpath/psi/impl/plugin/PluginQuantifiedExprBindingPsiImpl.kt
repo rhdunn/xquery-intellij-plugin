@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018, 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,15 +20,10 @@ import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginQuantifiedExprBinding
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
-import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableBinding
 import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableName
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
-class PluginQuantifiedExprBindingPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node),
-    PluginQuantifiedExprBinding,
-    XpmVariableBinding {
-
+class PluginQuantifiedExprBindingPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginQuantifiedExprBinding {
     private val varName: XpmVariableName?
         get() = children().filterIsInstance<XPathVarName>().firstOrNull() as? XpmVariableName
 

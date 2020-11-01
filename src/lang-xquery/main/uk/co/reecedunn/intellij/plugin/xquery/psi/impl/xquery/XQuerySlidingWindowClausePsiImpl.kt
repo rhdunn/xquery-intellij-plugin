@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2018, 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,6 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
-import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableBinding
 import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableName
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySlidingWindowClause
@@ -31,8 +30,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
 class XQuerySlidingWindowClausePsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XQuerySlidingWindowClause,
-    VersionConformance,
-    XpmVariableBinding {
+    VersionConformance {
     // region VersionConformance
 
     override val requiresConformance: List<Version>

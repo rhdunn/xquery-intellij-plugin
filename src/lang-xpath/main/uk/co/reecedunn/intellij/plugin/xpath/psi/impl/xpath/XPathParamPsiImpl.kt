@@ -33,7 +33,6 @@ import javax.swing.Icon
 class XPathParamPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XPathParam,
-    XpmVariableBinding,
     XpmVariableType,
     ItemPresentation {
     // region ASTDelegatePsiElement
