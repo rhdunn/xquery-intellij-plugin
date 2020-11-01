@@ -16,9 +16,10 @@
 package uk.co.reecedunn.intellij.plugin.xpath.ast.plugin
 
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmFunction
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 
 /**
  * A `LambdaFunctionExpr` node in the XPath/XQuery AST.
  */
-interface PluginLambdaFunctionExpr : PsiElement, XpmExpression
+interface PluginLambdaFunctionExpr : PsiElement, XdmFunction, XpmExpression
