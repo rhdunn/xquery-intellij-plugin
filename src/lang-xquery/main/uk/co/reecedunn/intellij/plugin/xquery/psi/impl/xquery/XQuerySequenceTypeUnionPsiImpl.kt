@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017, 2019 Reece H. Dunn
+ * Copyright (C) 2016-2017, 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCaseClause
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceTypeUnion
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSingleItemType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.filterNotWhitespace
 
@@ -37,7 +36,7 @@ private val SEMANTICS: List<Version> = listOf(XQueryIntelliJPlugin.VERSION_1_3)
 private val XQUERY30: List<Version> = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
 
 class XQuerySequenceTypeUnionPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), XQuerySequenceTypeUnion, XdmSequenceTypeUnion, VersionConformance {
+    ASTWrapperPsiElement(node), XQuerySequenceTypeUnion, VersionConformance {
     // region ASTDelegatePsiElement
 
     override fun subtreeChanged() {
