@@ -15,9 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmProcessingInstructionNode
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 
 /**
  * An XQuery 1.0 `CompPIConstructor` node in the XQuery AST.
  */
-interface XQueryCompPIConstructor : XQueryComputedConstructor, XpmExpression
+interface XQueryCompPIConstructor : XQueryComputedConstructor, XdmProcessingInstructionNode, XpmExpression
