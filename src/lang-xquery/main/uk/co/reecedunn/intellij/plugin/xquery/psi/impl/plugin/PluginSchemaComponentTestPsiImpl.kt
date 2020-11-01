@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSchemaComponent
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
 class PluginSchemaComponentTestPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PluginSchemaComponentTest, XdmItemType, XpmSyntaxValidationElement {
+    ASTWrapperPsiElement(node), PluginSchemaComponentTest, XpmSyntaxValidationElement {
     // region XdmSequenceType
 
     override val typeName: String = "schema-component()"

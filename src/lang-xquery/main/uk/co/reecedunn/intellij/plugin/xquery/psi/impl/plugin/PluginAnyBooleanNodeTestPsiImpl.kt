@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
 class PluginAnyBooleanNodeTestPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PluginAnyBooleanNodeTest, XdmItemType, XpmSyntaxValidationElement {
+    ASTWrapperPsiElement(node), PluginAnyBooleanNodeTest, XpmSyntaxValidationElement {
     // region XdmSequenceType
 
     override val typeName: String = "boolean-node()"

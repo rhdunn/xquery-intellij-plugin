@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationEl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginBinaryTest
 
 class PluginBinaryTestPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PluginBinaryTest, XdmItemType, XpmSyntaxValidationElement {
+    ASTWrapperPsiElement(node), PluginBinaryTest, XpmSyntaxValidationElement {
     // region XdmSequenceType
 
     override val typeName: String = "binary()"

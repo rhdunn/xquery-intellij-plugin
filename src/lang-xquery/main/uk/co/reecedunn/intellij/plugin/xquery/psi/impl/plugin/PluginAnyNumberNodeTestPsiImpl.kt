@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNumberNode
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
 class PluginAnyNumberNodeTestPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PluginAnyNumberNodeTest, XdmItemType, XpmSyntaxValidationElement {
+    ASTWrapperPsiElement(node), PluginAnyNumberNodeTest, XpmSyntaxValidationElement {
     // region XdmSequenceType
 
     override val typeName: String = "number-node()"

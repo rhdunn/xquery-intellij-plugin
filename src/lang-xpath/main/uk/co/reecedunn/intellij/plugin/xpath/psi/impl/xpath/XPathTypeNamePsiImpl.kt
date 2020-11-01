@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
-open class XPathTypeNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathTypeName, XdmItemType {
+open class XPathTypeNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathTypeName {
     // region XPathTypeName
 
     // TODO: Provide a way of validating that the type is in the in-scope schema types [XPST0008].

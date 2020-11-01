@@ -18,11 +18,12 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionTest
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnnotation
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 
 /**
  * An XQuery 3.0 `FunctionTest` node in the XQuery AST.
  */
-interface XQueryFunctionTest : PsiElement {
+interface XQueryFunctionTest : PsiElement, XdmItemType {
     val annotations: Sequence<XdmAnnotation>
 
     val functionTest: XPathFunctionTest

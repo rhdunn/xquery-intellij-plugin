@@ -21,7 +21,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginAnyItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItem
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 
-class PluginAnyItemTypePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginAnyItemType, XdmItemType {
+class PluginAnyItemTypePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginAnyItemType {
     // region XdmSequenceType
 
     override val typeName: String = "item()"

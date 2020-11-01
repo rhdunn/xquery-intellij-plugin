@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationEl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginSchemaWildcardTest
 
 class PluginSchemaWildcardTestPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PluginSchemaWildcardTest, XdmItemType, XpmSyntaxValidationElement {
+    ASTWrapperPsiElement(node), PluginSchemaWildcardTest, XpmSyntaxValidationElement {
     // region XdmSequenceType
 
     override val typeName: String = "schema-wildcard()"

@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationEl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginModelGroupTest
 
 class PluginModelGroupTestPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PluginModelGroupTest, XdmItemType, XpmSyntaxValidationElement {
+    ASTWrapperPsiElement(node), PluginModelGroupTest, XpmSyntaxValidationElement {
     // region ASTDelegatePsiElement
 
     override fun subtreeChanged() {

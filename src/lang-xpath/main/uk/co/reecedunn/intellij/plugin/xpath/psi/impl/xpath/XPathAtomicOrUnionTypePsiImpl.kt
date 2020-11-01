@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnySimpleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
 class XPathAtomicOrUnionTypePsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), XPathAtomicOrUnionType, XPathAtomicType, XdmItemType {
+    ASTWrapperPsiElement(node), XPathAtomicOrUnionType, XPathAtomicType {
     // region XPathAtomicOrUnionType
 
     // TODO: Provide a way of validating that the type is a generalized atomic type [XPST0051].

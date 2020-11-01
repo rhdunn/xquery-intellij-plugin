@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginTypeAlias
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
 class PluginTypeAliasPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PluginTypeAlias, XdmItemType, XpmSyntaxValidationElement {
+    ASTWrapperPsiElement(node), PluginTypeAlias, XpmSyntaxValidationElement {
     // region ASTDelegatePsiElement
 
     override fun subtreeChanged() {

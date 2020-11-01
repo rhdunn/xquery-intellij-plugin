@@ -16,11 +16,12 @@
 package uk.co.reecedunn.intellij.plugin.xpath.ast.plugin
 
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
 /**
  * A Saxon 9.8 `TypeAlias` node in the XPath/XQuery AST.
  */
-interface PluginTypeAlias : PsiElement {
+interface PluginTypeAlias : PsiElement, XdmItemType {
     val type: XsQNameValue
 }

@@ -27,7 +27,6 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationEl
 class XPathAnyKindTestPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XPathAnyKindTest,
-    XdmItemType,
     XpmSyntaxValidationElement {
     // region XdmSequenceType
 

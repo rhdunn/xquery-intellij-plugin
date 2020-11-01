@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2019 Reece H. Dunn
+ * Copyright (C) 2016, 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,8 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
-class XPathSchemaElementTestPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), XPathSchemaElementTest, XdmItemType {
+class XPathSchemaElementTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathSchemaElementTest {
     // region ASTDelegatePsiElement
 
     override fun subtreeChanged() {

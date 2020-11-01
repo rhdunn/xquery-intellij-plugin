@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSchemaRoot
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
 class PluginSchemaRootTestPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PluginSchemaRootTest, XdmItemType, XpmSyntaxValidationElement {
+    ASTWrapperPsiElement(node), PluginSchemaRootTest, XpmSyntaxValidationElement {
     // region XdmSequenceType
 
     override val typeName: String = "schema-root()"

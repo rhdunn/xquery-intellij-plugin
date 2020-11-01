@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017, 2019 Reece H. Dunn
+ * Copyright (C) 2017, 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,11 +16,12 @@
 package uk.co.reecedunn.intellij.plugin.xpath.ast.plugin
 
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
 /**
  * A Saxon 9.8 `UnionType` node in the XQuery AST.
  */
-interface PluginUnionType : PsiElement {
+interface PluginUnionType : PsiElement, XdmItemType {
     val memberTypes: Sequence<XsQNameValue>
 }

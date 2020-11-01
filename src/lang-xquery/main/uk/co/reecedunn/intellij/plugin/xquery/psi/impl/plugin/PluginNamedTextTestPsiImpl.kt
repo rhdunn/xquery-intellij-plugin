@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
 class PluginNamedTextTestPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PluginNamedTextTest, XdmItemType, XpmSyntaxValidationElement {
+    ASTWrapperPsiElement(node), PluginNamedTextTest, XpmSyntaxValidationElement {
     // region PluginNamedArrayNodeTest
 
     override val keyName: XsStringValue

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017, 2019 Reece H. Dunn
+ * Copyright (C) 2016-2017, 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,8 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmMap
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 
-class XPathTypedMapTestPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), XPathTypedMapTest, XdmItemType, VersionConformance {
+class XPathTypedMapTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathTypedMapTest, VersionConformance {
     // region XPathTypedMapTest
 
     override val keyType: XdmItemType?

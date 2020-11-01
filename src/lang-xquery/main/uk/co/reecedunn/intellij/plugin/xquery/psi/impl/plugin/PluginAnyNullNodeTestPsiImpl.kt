@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNullNode
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
 class PluginAnyNullNodeTestPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PluginAnyNullNodeTest, XdmItemType, XpmSyntaxValidationElement {
+    ASTWrapperPsiElement(node), PluginAnyNullNodeTest, XpmSyntaxValidationElement {
     // region XdmSequenceType
 
     override val typeName: String = "null-node()"

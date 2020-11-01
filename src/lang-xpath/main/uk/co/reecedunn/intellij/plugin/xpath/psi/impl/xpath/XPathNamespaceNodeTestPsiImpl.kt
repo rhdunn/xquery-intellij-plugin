@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Reece H. Dunn
+ * Copyright (C) 2016-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNamespaceNode
 
 class XPathNamespaceNodeTestPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), XPathNamespaceNodeTest, XdmItemType, VersionConformance {
+    ASTWrapperPsiElement(node), XPathNamespaceNodeTest, VersionConformance {
     // region XdmSequenceType
 
     override val typeName: String = "namespace-node()"

@@ -31,7 +31,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathWildcard
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
 class XPathElementTestPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), XpmSyntaxValidationElement, XPathElementTest, XdmItemType {
+    ASTWrapperPsiElement(node), XpmSyntaxValidationElement, XPathElementTest {
     // region ASTDelegatePsiElement
 
     override fun subtreeChanged() {

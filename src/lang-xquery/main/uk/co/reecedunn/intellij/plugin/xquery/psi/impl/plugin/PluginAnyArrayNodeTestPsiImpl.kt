@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
 class PluginAnyArrayNodeTestPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PluginAnyArrayNodeTest, XdmItemType, XpmSyntaxValidationElement {
+    ASTWrapperPsiElement(node), PluginAnyArrayNodeTest, XpmSyntaxValidationElement {
     // region XdmSequenceType
 
     override val typeName: String = "array-node()"

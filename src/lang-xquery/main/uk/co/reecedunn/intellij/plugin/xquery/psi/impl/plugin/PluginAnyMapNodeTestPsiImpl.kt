@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmObjectNode
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
 class PluginAnyMapNodeTestPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PluginAnyMapNodeTest, XdmItemType, XpmSyntaxValidationElement {
+    ASTWrapperPsiElement(node), PluginAnyMapNodeTest, XpmSyntaxValidationElement {
     // region XdmSequenceType
 
     override val typeName: String = "object-node()"

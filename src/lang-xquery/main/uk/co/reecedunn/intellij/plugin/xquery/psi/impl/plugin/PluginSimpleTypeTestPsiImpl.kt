@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSimpleType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
 class PluginSimpleTypeTestPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PluginSimpleTypeTest, XdmItemType, XpmSyntaxValidationElement {
+    ASTWrapperPsiElement(node), PluginSimpleTypeTest, XpmSyntaxValidationElement {
     // region ASTDelegatePsiElement
 
     override fun subtreeChanged() {

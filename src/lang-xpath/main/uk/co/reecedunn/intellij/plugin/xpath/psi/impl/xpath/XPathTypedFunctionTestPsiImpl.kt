@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Reece H. Dunn
+ * Copyright (C) 2018-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 private val XQUERY30 = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
 
 class XPathTypedFunctionTestPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), XPathTypedFunctionTest, XdmItemType, VersionConformance {
+    ASTWrapperPsiElement(node), XPathTypedFunctionTest, VersionConformance {
     // region ASTDelegatePsiElement
 
     override fun subtreeChanged() {
