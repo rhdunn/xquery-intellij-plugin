@@ -15,11 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
+import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 
 /**
  * An XPath 2.0 and XQuery 1.0 `FunctionCall` node in the XQuery AST.
  */
-interface XPathFunctionCall : XPathPrimaryExpr, XpmExpression {
+interface XPathFunctionCall : XPathPrimaryExpr, XpmFunctionReference, XpmExpression {
     val argumentList: XPathArgumentList
 }
