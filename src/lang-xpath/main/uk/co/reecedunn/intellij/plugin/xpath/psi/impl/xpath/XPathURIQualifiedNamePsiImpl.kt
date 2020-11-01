@@ -24,14 +24,10 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathURIQualifiedName
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
 
-open class XPathURIQualifiedNamePsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node),
-    XPathURIQualifiedName,
-    XsQNameValue {
+open class XPathURIQualifiedNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathURIQualifiedName {
     // region XsQNameValue
 
     override val namespace: XsAnyUriValue?

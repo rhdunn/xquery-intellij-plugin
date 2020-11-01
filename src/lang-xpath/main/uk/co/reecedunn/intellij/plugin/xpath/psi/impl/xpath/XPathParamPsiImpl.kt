@@ -47,7 +47,7 @@ class XPathParamPsiImpl(node: ASTNode) :
     // region XPathVariableBinding
 
     override val variableName: XsQNameValue?
-        get() = children().filterIsInstance<XPathEQName>().firstOrNull() as? XsQNameValue
+        get() = children().filterIsInstance<XPathEQName>().firstOrNull()
 
     // endregion
     // region XPathVariableType

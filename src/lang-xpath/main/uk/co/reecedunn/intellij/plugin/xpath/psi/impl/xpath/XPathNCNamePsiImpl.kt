@@ -25,9 +25,8 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
-open class XPathNCNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathNCName, XsQNameValue {
+open class XPathNCNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathNCName {
     // region XsQNameValue
 
     override val namespace: XsAnyUriValue? = null

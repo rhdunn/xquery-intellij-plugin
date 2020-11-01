@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2018 Reece H. Dunn
+ * Copyright (C) 2016, 2018, 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,13 +21,8 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathWildcard
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
-class XPathWildcardPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node),
-    XsQNameValue,
-    XPathWildcard {
-
+class XPathWildcardPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathWildcard {
     private val names: Sequence<XsNCNameValue>
         get() = children().filterIsInstance<XsNCNameValue>()
 

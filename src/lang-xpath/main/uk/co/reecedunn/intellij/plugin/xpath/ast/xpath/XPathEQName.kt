@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2018, 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
 import com.intellij.psi.PsiNameIdentifierOwner
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
 /**
  * An XPath 3.0 and XQuery 3.0 <code>EQName</code> node in the XQuery AST.
@@ -27,4 +28,4 @@ import com.intellij.psi.PsiNameIdentifierOwner
  * This may be an instance of an <code>NCName</code>, <code>QName</code> or
  * <code>URIQualifiedName</code>.
  */
-interface XPathEQName : PsiNameIdentifierOwner
+interface XPathEQName : PsiNameIdentifierOwner, XsQNameValue

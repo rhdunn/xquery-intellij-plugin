@@ -25,9 +25,8 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQName
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
-open class XPathQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathQName, XsQNameValue {
+open class XPathQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathQName {
     // region XsQNameValue
 
     private val names: Sequence<XsNCNameValue>
