@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Reece H. Dunn
+ * Copyright (C) 2018-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,13 +29,12 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginSequenceTypeList
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceTypeList
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSingleItemType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.filterNotWhitespace
 
 class PluginSequenceTypeListPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PluginSequenceTypeList, XdmSequenceTypeList, VersionConformance {
+    ASTWrapperPsiElement(node), PluginSequenceTypeList, VersionConformance {
     // region ASTDelegatePsiElement
 
     override fun subtreeChanged() {
