@@ -21,14 +21,9 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
 import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableName
-import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableReference
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
-class XPathVarRefPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node),
-    XPathVarRef,
-    XpmVariableReference {
-
+class XPathVarRefPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathVarRef {
     override val expressionElement: PsiElement? = null
 
     private val varName: XpmVariableName?
