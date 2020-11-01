@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginBlockVarDeclEntry
 
 class PluginBlockVarDeclEntryPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginBlockVarDeclEntry {
     private val varName: XpmVariableName?
-        get() = children().filterIsInstance<XPathVarName>().firstOrNull() as? XpmVariableName
+        get() = children().filterIsInstance<XPathVarName>().firstOrNull()
 
     override val variableName: XsQNameValue?
         get() = varName?.variableName

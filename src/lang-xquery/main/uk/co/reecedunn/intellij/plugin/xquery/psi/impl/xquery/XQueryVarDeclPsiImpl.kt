@@ -76,7 +76,7 @@ class XQueryVarDeclPsiImpl(node: ASTNode) :
     // region XPathVariableDeclaration
 
     private val varName: XpmVariableName?
-        get() = children().filterIsInstance<XPathVarName>().firstOrNull() as? XpmVariableName
+        get() = children().filterIsInstance<XPathVarName>().firstOrNull()
 
     override val variableName: XsQNameValue?
         get() = varName?.variableName

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2018, 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,8 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryGroupingVariable
 
 class XQueryGroupingVariablePsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
-    XQueryGroupingVariable,
-    XpmVariableName {
+    XQueryGroupingVariable {
 
     private val varName: XpmVariableName?
         get() = children().filterIsInstance<XpmVariableName>().firstOrNull()

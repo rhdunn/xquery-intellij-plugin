@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCaseClause
 
 class XQueryCaseClausePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryCaseClause {
     private val varName: XpmVariableName?
-        get() = children().filterIsInstance<XPathVarName>().firstOrNull() as? XpmVariableName
+        get() = children().filterIsInstance<XPathVarName>().firstOrNull()
 
     override val variableName: XsQNameValue?
         get() = varName?.variableName
