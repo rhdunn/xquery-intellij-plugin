@@ -15,9 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNamespaceNode
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 
 /**
  * An XQuery 3.0 `CompNamespaceConstructor` node in the XQuery AST.
  */
-interface XQueryCompNamespaceConstructor : XQueryComputedConstructor, XpmExpression
+interface XQueryCompNamespaceConstructor : XQueryComputedConstructor, XdmNamespaceNode, XpmExpression
