@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Reece H. Dunn
+ * Copyright (C) 2016-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,7 +39,6 @@ private val SEQUENCE_TYPE = TokenSet.create(
 class XPathParenthesizedItemTypePsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XPathParenthesizedItemType,
-    XdmSequenceType,
     VersionConformance,
     VersionConformanceName {
     // region XdmSequenceType

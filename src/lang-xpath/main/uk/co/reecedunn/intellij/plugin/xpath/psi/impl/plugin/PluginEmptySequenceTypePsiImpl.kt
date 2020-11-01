@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019, 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginEmptySequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
-import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 
 private val XQUERY10_REC_EMPTY: List<Version> = listOf(
     XQuerySpec.REC_1_0_20070123,
@@ -38,7 +37,7 @@ private val XQUERY10_WD_EMPTY: List<Version> = listOf(
 )
 
 class PluginEmptySequenceTypePsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PluginEmptySequenceType, XdmSequenceType, VersionConformance {
+    ASTWrapperPsiElement(node), PluginEmptySequenceType, VersionConformance {
     // region XdmSequenceType
 
     override val typeName: String = "empty-sequence()"

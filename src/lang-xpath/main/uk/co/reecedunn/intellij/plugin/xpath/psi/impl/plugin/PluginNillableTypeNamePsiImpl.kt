@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,10 +19,8 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginNillableTypeName
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
-import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 
-class PluginNillableTypeNamePsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PluginNillableTypeName, XdmSequenceType {
+class PluginNillableTypeNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginNillableTypeName {
     // region XdmSequenceType
 
     override val typeName: String
