@@ -15,10 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.plugin
 
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmBinary
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPrimaryExpr
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 
 /**
  * A MarkLogic `BinaryConstructor` node in the XQuery AST.
  */
-interface PluginBinaryConstructor : XPathPrimaryExpr, XpmExpression
+interface PluginBinaryConstructor : XPathPrimaryExpr, XdmBinary, XpmExpression
