@@ -31,6 +31,7 @@ MarkLogic:
 
 1.  Support attaching breakpoints to all expressions in the MarkLogic
     debugger.
+1.  Better report `SEC-PRIV` errors when adding a query processor.
 
 ## 2020
 

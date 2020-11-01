@@ -100,6 +100,7 @@
     <p>MarkLogic:</p>
     <ol>
       <li>Support attaching breakpoints to all expressions in the MarkLogic debugger.</li>
+      <li>Better report <code>SEC-PRIV</code> errors when adding a query processor.</li>
     </ol>
   ]]></change-notes>
 

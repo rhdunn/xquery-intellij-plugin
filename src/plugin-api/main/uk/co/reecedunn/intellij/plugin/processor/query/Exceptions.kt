@@ -58,8 +58,12 @@ fun Throwable.toQueryUserMessage(): String = when (this) {
         PluginApiBundle.message("processor.exception.host-connection-error", message ?: "")
     is UnsupportedSaxonConfiguration ->
         PluginApiBundle.message("processor.exception.saxon.unsupported-edition", this.edition)
-    is QueryError ->
-        description!!
+    is QueryError -> {
+        if (vendorCode == "SEC-PRIV") // MarkLogic "Needs privilege"
+            "$description ${value[0].replace("http://marklogic.com/xdmp/privileges/", "")}"
+        else
+            description!!
+    }
     is UnsupportedJarFileException ->
         PluginApiBundle.message("processor.exception.unsupported-jar")
     is UnsupportedOperationException ->
