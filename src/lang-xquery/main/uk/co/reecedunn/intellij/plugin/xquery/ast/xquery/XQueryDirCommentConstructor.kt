@@ -15,9 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmCommentNode
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 
 /**
  * An XQuery 1.0 `DirCommentConstructor` node in the XQuery AST.
  */
-interface XQueryDirCommentConstructor : XQueryDirectConstructor, XpmExpression
+interface XQueryDirCommentConstructor : XQueryDirectConstructor, XdmCommentNode, XpmExpression
