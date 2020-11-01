@@ -16,9 +16,10 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
 import com.intellij.psi.PsiLanguageInjectionHost
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmTextNode
 
 /**
  * An XQuery 1.0 `CDataSection` node in the XQuery AST containing
  * `CDataSectionContents`.
  */
-interface XQueryCDataSection : PsiLanguageInjectionHost
+interface XQueryCDataSection : PsiLanguageInjectionHost, XdmTextNode
