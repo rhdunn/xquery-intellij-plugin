@@ -34,8 +34,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionDecorator
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 import javax.swing.Icon
 
-class XQueryFunctionDeclPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), XQueryFunctionDecl, XpmFunctionDeclaration, ItemPresentationEx {
+class XQueryFunctionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryFunctionDecl, ItemPresentationEx {
     // region ASTDelegatePsiElement
 
     override fun subtreeChanged() {

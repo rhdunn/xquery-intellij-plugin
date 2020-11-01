@@ -37,7 +37,6 @@ private val XQUERY30: List<Version> = listOf(XQuerySpec.REC_3_0_20140408, MarkLo
 class XPathInlineFunctionExprPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XPathInlineFunctionExpr,
-    XpmFunctionDeclaration,
     VersionConformance {
     // region VersionConformance
 
