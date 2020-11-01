@@ -19,13 +19,11 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathIntegerLiteral
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsIntegerValue
 import java.math.BigInteger
 
 class XPathIntegerLiteralImpl(type: IElementType, text: CharSequence) :
     LeafPsiElement(type, text),
-    XPathIntegerLiteral,
-    XsIntegerValue {
+    XPathIntegerLiteral {
 
     override val expressionElement: PsiElement? = null
 
