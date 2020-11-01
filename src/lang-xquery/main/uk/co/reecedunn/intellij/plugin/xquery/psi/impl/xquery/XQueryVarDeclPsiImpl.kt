@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Reece H. Dunn
+ * Copyright (C) 2016-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
-import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableName
 import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarDecl
@@ -45,7 +44,6 @@ class XQueryVarDeclPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XQueryVarDecl,
     VersionConformance,
-    XpmVariableDeclaration,
     XpmVariableType,
     ItemPresentation {
     // region ASTDelegatePsiElement
