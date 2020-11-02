@@ -141,8 +141,7 @@ class XQueryModuleImpl(provider: FileViewProvider) :
         return context.walkTree().reversed().flatMap { node ->
             when (node) {
                 is XpmNamespaceDeclaration -> sequenceOf(node as XpmNamespaceDeclaration)
-                is XQueryDirElemConstructor ->
-                    node.children().filterIsInstance<PluginDirAttribute>().map { it as XpmNamespaceDeclaration }
+                is XQueryDirElemConstructor -> node.attributes.filterIsInstance<XpmNamespaceDeclaration>()
                 is XQueryProlog -> node.children().reversed().filterIsInstance<XpmNamespaceDeclaration>()
                 is XQueryModule ->
                     node.predefinedStaticContext?.children()?.reversed()?.filterIsInstance<XpmNamespaceDeclaration>()

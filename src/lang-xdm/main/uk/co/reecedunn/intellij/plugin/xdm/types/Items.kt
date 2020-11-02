@@ -56,6 +56,8 @@ interface XdmDocumentNode : XdmNode
 // region XQuery and XPath 3.1 Data Model (2.7.4) : element()
 
 interface XdmElementNode : XdmNode {
+    val attributes: Sequence<XdmAttributeNode>
+
     val nodeName: XsQNameValue?
 
     val closingTag: XsQNameValue?

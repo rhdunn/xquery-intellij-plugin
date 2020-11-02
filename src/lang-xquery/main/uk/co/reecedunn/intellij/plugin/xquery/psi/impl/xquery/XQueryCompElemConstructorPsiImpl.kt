@@ -19,6 +19,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAttributeNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompElemConstructor
 
@@ -30,6 +31,9 @@ class XQueryCompElemConstructorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(nod
 
     // endregion
     // region XdmElementNode
+
+    override val attributes: Sequence<XdmAttributeNode>
+        get() = TODO()
 
     override val nodeName: XsQNameValue?
         get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
