@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.lang.foldable.FoldablePsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAttributeNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEnclosedExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
@@ -42,7 +43,13 @@ class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
     // region XdmElementNode
 
     override val attributes: Sequence<XdmAttributeNode>
-        get() = children().filterIsInstance<XdmAttributeNode>()
+        get() {
+            val direct = children().filterIsInstance<XdmAttributeNode>()
+            val constructed = children().filterIsInstance<XPathEnclosedExpr>().flatMap {
+                it.children().filterIsInstance<XdmAttributeNode>()
+            }
+            return sequenceOf(direct, constructed).flatten()
+        }
 
     override val nodeName: XsQNameValue?
         get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
