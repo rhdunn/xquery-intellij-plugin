@@ -52,13 +52,14 @@ class PluginDirAttributePsiImpl(node: ASTNode) :
     // endregion
     // region XdmAttributeNode
 
-    override val nodeName: XsQNameValue
-        get() = firstChild as XsQNameValue
+    override val nodeName: XsQNameValue?
+        get() = firstChild as? XsQNameValue
 
     override val typedValue: XsAnyAtomicType?
         get() = cachedNodeValue.get()
 
     private val cachedNodeValue = CacheableProperty {
+        val qname = nodeName ?: return@CacheableProperty null
         val attrValue = children().filterIsInstance<XQueryDirAttributeValue>().firstOrNull()
             ?: return@CacheableProperty null
         val contents =
@@ -79,7 +80,6 @@ class PluginDirAttributePsiImpl(node: ASTNode) :
                             child.text
                     }
                 }.filterNotNull().joinToString(separator = "")
-        val qname = nodeName
         when {
             contents == null -> {
                 @Suppress("USELESS_CAST") // Needed, otherwise type inference results in `Any?` with warnings.
@@ -114,7 +114,7 @@ class PluginDirAttributePsiImpl(node: ASTNode) :
     // region XQueryNamespaceDeclaration
 
     override fun accepts(namespaceType: XdmNamespaceType): Boolean {
-        val qname = nodeName
+        val qname = nodeName ?: return false
         return when {
             qname.prefix?.data == "xmlns" -> namespaceType === XdmNamespaceType.Prefixed
             qname.localName?.data == "xmlns" -> namespaceType === XdmNamespaceType.DefaultElementOrType
@@ -123,7 +123,7 @@ class PluginDirAttributePsiImpl(node: ASTNode) :
     }
 
     override val namespacePrefix: XsNCNameValue?
-        get() = nodeName.takeIf { it.prefix?.data == "xmlns" }?.localName
+        get() = nodeName?.takeIf { it.prefix?.data == "xmlns" }?.localName
 
     override val namespaceUri: XsAnyUriValue?
         get() = typedValue as? XsAnyUriValue

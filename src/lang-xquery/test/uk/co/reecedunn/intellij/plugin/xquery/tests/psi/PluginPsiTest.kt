@@ -1412,6 +1412,29 @@ private class PluginPsiTest : ParserTestCase()  {
                 assertThat(value.element, `is`(expr as PsiElement))
             }
 
+            @Test
+            @DisplayName("non-namespace declaration attribute; missing QName prefix")
+            fun missingPrefix() {
+                val expr = parse<PluginDirAttribute>(
+                    "<a one='http://www.example.com/one' :two='http://www.example.com/two'/>"
+                )[1] as XpmDefaultNamespaceDeclaration
+
+                assertThat(expr.namespacePrefix, `is`(nullValue()))
+                assertThat(expr.namespaceUri, `is`(nullValue()))
+
+                assertThat(expr.accepts(XdmNamespaceType.DefaultElementOrType), `is`(false))
+                assertThat(expr.accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(expr.accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(expr.accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(expr.accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(expr.accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(expr.accepts(XdmNamespaceType.XQuery), `is`(false))
+
+                val node = expr as XdmAttributeNode
+                assertThat(node.nodeName, `is`(nullValue()))
+                assertThat(node.typedValue, `is`(nullValue()))
+            }
+
             @Nested
             @DisplayName("resolve uri")
             internal inner class ResolveUri {
