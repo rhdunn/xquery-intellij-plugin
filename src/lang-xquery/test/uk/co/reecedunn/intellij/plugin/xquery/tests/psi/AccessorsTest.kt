@@ -85,6 +85,29 @@ private class AccessorsTest : ParserTestCase() {
 
                 assertThat(attributes.size, `is`(2))
             }
+
+            @Test
+            @DisplayName("with direct and constructed attributes")
+            fun withDirectAndConstructedAttributes() {
+                val element = parse<XQueryDirElemConstructor>(
+                    "<a one='1' two='2'>{attribute three{'3'}, attribute four{'4'}}</a>"
+                )[0] as XdmElementNode
+                val attributes = element.attributes.toList()
+
+                assertThat(op_qname_presentation(attributes[0].nodeName!!), `is`("one"))
+                assertThat((attributes[0].typedValue as? XsUntypedAtomicValue)?.data, `is`("1"))
+
+                assertThat(op_qname_presentation(attributes[1].nodeName!!), `is`("two"))
+                assertThat((attributes[1].typedValue as? XsUntypedAtomicValue)?.data, `is`("2"))
+
+                assertThat(op_qname_presentation(attributes[2].nodeName!!), `is`("three"))
+                assertThat(attributes[2].typedValue, `is`(nullValue()))
+
+                assertThat(op_qname_presentation(attributes[3].nodeName!!), `is`("four"))
+                assertThat(attributes[3].typedValue, `is`(nullValue()))
+
+                assertThat(attributes.size, `is`(4))
+            }
         }
     }
 }
