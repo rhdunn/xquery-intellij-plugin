@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.lang.foldable.FoldablePsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAttributeNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xpath.ast.filterExpressions
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEnclosedExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
@@ -45,10 +46,11 @@ class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
     override val attributes: Sequence<XdmAttributeNode>
         get() {
             val direct = children().filterIsInstance<XdmAttributeNode>()
-            val constructed = children().filterIsInstance<XPathEnclosedExpr>().flatMap {
-                it.children().filterIsInstance<XdmAttributeNode>()
-            }
-            return sequenceOf(direct, constructed).flatten()
+            val constructed = children().filterIsInstance<XPathEnclosedExpr>().firstOrNull()
+            return if (constructed != null)
+                sequenceOf(direct, constructed.filterExpressions()).flatten()
+            else
+                direct
         }
 
     override val nodeName: XsQNameValue?
