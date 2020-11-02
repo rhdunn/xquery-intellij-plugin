@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.ast
 
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEnclosedExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExpr
 
 fun <T> PsiElement.filterExpressions(klass: Class<T>): Sequence<T> {
@@ -29,3 +30,10 @@ fun <T> PsiElement.filterExpressions(klass: Class<T>): Sequence<T> {
 }
 
 inline fun <reified T> PsiElement.filterExpressions(): Sequence<T> = filterExpressions(T::class.java)
+
+fun <T> PsiElement.filterEnclosedExpressions(klass: Class<T>): Sequence<T> {
+    val enclosed = children().filterIsInstance<XPathEnclosedExpr>().firstOrNull()
+    return enclosed?.filterExpressions(klass) ?: sequenceOf()
+}
+
+inline fun <reified T> PsiElement.filterEnclosedExpressions(): Sequence<T> = filterEnclosedExpressions(T::class.java)
