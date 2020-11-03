@@ -16,11 +16,16 @@
 package uk.co.reecedunn.intellij.plugin.xpath.ast
 
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowDynamicFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowFunctionCall
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEnclosedExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExpr
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
+import uk.co.reecedunn.intellij.plugin.xpath.parser.filterNotWhitespace
 
 fun <T> PsiElement.filterExpressions(klass: Class<T>): Sequence<T> {
     val item = children().filterIsInstance(klass)
@@ -45,4 +50,16 @@ val PsiElement.isArrowFunctionCall: Boolean
         is PluginArrowFunctionCall -> true
         is PluginArrowDynamicFunctionCall -> true
         else -> false
+    }
+
+val PsiElement.parenthesizedExprTextOffset: Int?
+    get() {
+        val pref = siblings().reversed().filterNotWhitespace().firstOrNull()
+        return when {
+            pref == null -> null
+            pref.elementType !== XPathTokenType.PARENTHESIS_OPEN -> null
+            pref.parent !is XPathArgumentList -> pref.textOffset
+            pref.parent.firstChild !== pref -> pref.textOffset
+            else -> null
+        }
     }
