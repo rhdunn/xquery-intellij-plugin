@@ -30,8 +30,8 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSingleItemType
+import uk.co.reecedunn.intellij.plugin.xpath.ast.filterNotWhitespace
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
-import uk.co.reecedunn.intellij.plugin.xpath.parser.filterNotWhitespace
 
 class PluginSequenceTypeListPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), PluginSequenceTypeList, VersionConformance {

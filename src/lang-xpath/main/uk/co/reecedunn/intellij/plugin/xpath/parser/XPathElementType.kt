@@ -15,14 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.parser
 
-import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.IFileElementType
 import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
-import uk.co.reecedunn.intellij.plugin.core.psi.elementType
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathComment
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
-import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.full.text.*
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.*
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.*
@@ -927,8 +923,4 @@ object XPathElementType {
     )
 
     // endregion
-}
-
-fun Sequence<PsiElement>.filterNotWhitespace(): Sequence<PsiElement> = filterNot { e ->
-    e.elementType === XPathTokenType.WHITE_SPACE || e is XPathComment
 }

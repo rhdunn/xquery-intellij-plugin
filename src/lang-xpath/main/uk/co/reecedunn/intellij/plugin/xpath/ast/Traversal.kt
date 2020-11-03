@@ -22,10 +22,10 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowDynamicFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathComment
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEnclosedExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExpr
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import uk.co.reecedunn.intellij.plugin.xpath.parser.filterNotWhitespace
 
 fun <T> PsiElement.filterExpressions(klass: Class<T>): Sequence<T> {
     val item = children().filterIsInstance(klass)
@@ -44,6 +44,10 @@ fun <T> PsiElement.filterEnclosedExpressions(klass: Class<T>): Sequence<T> {
 }
 
 inline fun <reified T> PsiElement.filterEnclosedExpressions(): Sequence<T> = filterEnclosedExpressions(T::class.java)
+
+fun Sequence<PsiElement>.filterNotWhitespace(): Sequence<PsiElement> = filterNot { e ->
+    e.elementType === XPathTokenType.WHITE_SPACE || e is XPathComment
+}
 
 val PsiElement.isArrowFunctionCall: Boolean
     get() = when (this) {

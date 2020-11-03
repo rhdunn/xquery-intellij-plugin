@@ -30,7 +30,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSingleItemType
-import uk.co.reecedunn.intellij.plugin.xpath.parser.filterNotWhitespace
+import uk.co.reecedunn.intellij.plugin.xpath.ast.filterNotWhitespace
 
 private val SEMANTICS: List<Version> = listOf(XQueryIntelliJPlugin.VERSION_1_3)
 private val XQUERY30: List<Version> = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
