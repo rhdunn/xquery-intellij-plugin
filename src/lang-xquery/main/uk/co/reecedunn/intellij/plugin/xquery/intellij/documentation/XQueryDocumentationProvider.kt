@@ -36,6 +36,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpm.context.expand
+import uk.co.reecedunn.intellij.plugin.xpm.function.impl.XpmFunctionReferenceImpl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 
 class XQueryDocumentationProvider : AbstractDocumentationProvider() {
@@ -139,10 +140,7 @@ class XQueryDocumentationProvider : AbstractDocumentationProvider() {
     private fun lookupFunction(functionName: XsQNameValue?, arity: Int): Sequence<XQDocDocumentation> {
         // NOTE: NCName may bind to the current module (MarkLogic behaviour) and the default function namespace.
         return functionName?.expand()?.flatMap {
-            XQDocDocumentationSourceProvider.lookup(object : XpmFunctionReference {
-                override val functionName: XsQNameValue? = it
-                override val arity: Int = arity
-            })
+            XQDocDocumentationSourceProvider.lookup(XpmFunctionReferenceImpl(it, arity))
         }?.filter { it.moduleTypes.contains(XdmModuleType.XQuery) } ?: emptySequence()
     }
 }
