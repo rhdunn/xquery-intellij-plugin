@@ -35,6 +35,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.getUsageType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
+import uk.co.reecedunn.intellij.plugin.xpm.function.XpmDynamicFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
@@ -407,6 +408,45 @@ private class PluginPsiTest : ParserTestCase() {
 
                 assertThat(expr.expressionElement.elementType, `is`(XPathElementType.LAMBDA_FUNCTION_EXPR))
                 assertThat(expr.expressionElement?.textOffset, `is`(0))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin (3.8) Postfix Expressions")
+    internal inner class PostfixExpressions {
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin XPath EBNF (47) DynamicFunctionCall")
+        internal inner class DynamicFunctionCall {
+            @Test
+            @DisplayName("XPath 3.1 EBNF (67) NamedFunctionRef")
+            fun namedFunctionRef() {
+                val f = parse<PluginDynamicFunctionCall>("fn:abs#1(1)")[0]
+
+                val ref = f.functionReference
+                assertThat(op_qname_presentation(ref?.functionName!!), `is`("fn:abs"))
+                assertThat(ref.arity, `is`(1))
+            }
+
+            @Nested
+            @DisplayName("XPath 3.1 EBNF (61) ParenthesizedExpr ; XPath 3.1 EBNF (67) NamedFunctionRef")
+            internal inner class ParenthesizedExprWithNamedFunctionRef {
+                @Test
+                @DisplayName("single")
+                fun single() {
+                    val f = parse<PluginDynamicFunctionCall>("(fn:abs#1)(1)")[0]
+
+                    val ref = f.functionReference
+                    assertThat(op_qname_presentation(ref?.functionName!!), `is`("fn:abs"))
+                    assertThat(ref.arity, `is`(1))
+                }
+
+                @Test
+                @DisplayName("multiple")
+                fun multiple() {
+                    val f = parse<PluginDynamicFunctionCall>("(fn:abs#1, fn:count#1)(1)")[0]
+                    assertThat(f.functionReference, `is`(nullValue()))
+                }
             }
         }
     }
