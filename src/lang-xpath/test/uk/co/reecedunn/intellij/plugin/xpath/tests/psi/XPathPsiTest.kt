@@ -3630,6 +3630,33 @@ private class XPathPsiTest : ParserTestCase() {
         }
 
         @Nested
+        @DisplayName("XPath 3.1 EBNF (55) ArrowFunctionSpecifier; XPath 3.1 EBNF (61) ParenthesizedExpr")
+        internal inner class ArrowFunctionSpecifier_ParenthesizedExpr {
+            @Test
+            @DisplayName("non-empty ArgumentList")
+            fun nonEmptyArgumentList() {
+                val f = parse<PluginArrowDynamicFunctionCall>("\$x => (format-date#5)(1, 2, 3,  4)")[0]
+
+                val ref = f.functionReference!!
+                assertThat(ref.arity, `is`(5))
+
+                val qname = ref.functionName!!
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("format-date"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                val args = (f as PsiElement).children().filterIsInstance<XPathArgumentList>().first()
+                assertThat(args.arity, `is`(4))
+                assertThat(args.functionReference, `is`(sameInstance(ref)))
+
+                val bindings = args.bindings
+                assertThat(bindings.size, `is`(0))
+            }
+        }
+
+        @Nested
         @DisplayName("XQuery IntelliJ Plugin XPath EBNF (28) ArrowFunctionCall; XPath 3.1 EBNF (112) EQName")
         internal inner class ArrowFunctionCall_EQName {
             @Test

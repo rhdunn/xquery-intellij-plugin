@@ -16,10 +16,10 @@
 package uk.co.reecedunn.intellij.plugin.xpath.ast.plugin
 
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArrowFunctionSpecifier
-import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionReference
+import uk.co.reecedunn.intellij.plugin.xpm.function.XpmDynamicFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 
 /**
  * An `ArrowDynamicFunctionCall` node in the XPath and XQuery AST.
  */
-interface PluginArrowDynamicFunctionCall : XPathArrowFunctionSpecifier, XpmFunctionReference, XpmExpression
+interface PluginArrowDynamicFunctionCall : XPathArrowFunctionSpecifier, XpmDynamicFunctionReference, XpmExpression

@@ -90,8 +90,12 @@
         and <code>Pragma</code> elements.
       </li>
       <li>Support <code>language=Language</code> injection marker comments.</li>
-      <li>Don't add inlay parameter hints when element and attribute node names match the parameter name.</li>
       <li>Use the tag tree highlight colours for XML names in the breadcrumb bar and editor.</li>
+    </ol>
+    <p>Inlay Parameters and Parameter Hints:</p>
+    <ol>
+      <li>Don't add inlay parameter hints when element and attribute node names match the parameter name.</li>
+      <li>Support expressions like <code>f#1(2)</code>, <code>(f#1(2))</code>, and <code>1 => (f#2(2))</code>.</li>
     </ol>
     <p>Saxon:</p>
     <ol>

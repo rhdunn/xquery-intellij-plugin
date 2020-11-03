@@ -17,6 +17,8 @@ package uk.co.reecedunn.intellij.plugin.xpath.ast
 
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowDynamicFunctionCall
+import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEnclosedExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExpr
 
@@ -37,3 +39,10 @@ fun <T> PsiElement.filterEnclosedExpressions(klass: Class<T>): Sequence<T> {
 }
 
 inline fun <reified T> PsiElement.filterEnclosedExpressions(): Sequence<T> = filterEnclosedExpressions(T::class.java)
+
+val PsiElement.isArrowFunctionCall: Boolean
+    get() = when (this) {
+        is PluginArrowFunctionCall -> true
+        is PluginArrowDynamicFunctionCall -> true
+        else -> false
+    }

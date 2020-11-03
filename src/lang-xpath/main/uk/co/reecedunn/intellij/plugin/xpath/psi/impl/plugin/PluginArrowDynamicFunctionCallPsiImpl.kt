@@ -18,9 +18,9 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowDynamicFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
+import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionReference
 
 class PluginArrowDynamicFunctionCallPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), PluginArrowDynamicFunctionCall {
@@ -30,12 +30,10 @@ class PluginArrowDynamicFunctionCallPsiImpl(node: ASTNode) :
         get() = children().filterIsInstance<XPathArgumentList>().first()
 
     // endregion
-    // region XdmFunctionReference
+    // region XdmDynamicFunctionReference
 
-    override val arity: Int
-        get() = expressionElement.arity + 1
-
-    override val functionName: XsQNameValue? = null
+    override val functionReference: XpmFunctionReference?
+        get() = children().filterIsInstance<XpmFunctionReference>().firstOrNull()
 
     // endregion
 }
