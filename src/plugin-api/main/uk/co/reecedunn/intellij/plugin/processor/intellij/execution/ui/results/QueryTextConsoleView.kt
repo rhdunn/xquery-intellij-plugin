@@ -100,7 +100,7 @@ class QueryTextConsoleView(project: Project) : TextConsoleView(project), QueryRe
             else -> {
                 val newLanguage = Language.getRegisteredLanguages().find { it.mimeTypes.contains(result.mimetype) }
                 when {
-                    newLanguage == null -> { // No language found to highlight.
+                    newLanguage?.associatedFileType == null -> { // No language found to highlight.
                     }
                     newLanguage === activeLanguage -> { // Same language as the current highlight language.
                     }
