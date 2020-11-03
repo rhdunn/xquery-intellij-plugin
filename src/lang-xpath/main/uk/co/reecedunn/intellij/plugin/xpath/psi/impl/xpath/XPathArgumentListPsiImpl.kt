@@ -29,6 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPostfixExpr
 import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionParamBinding
 import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownFunctions
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
+import uk.co.reecedunn.intellij.plugin.xpm.function.XpmDynamicFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 
 private val XQUERY10: List<Version> = listOf()
@@ -55,7 +56,11 @@ class XPathArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPat
         get() = children().filter { it is XpmExpression || it is XPathArgumentPlaceholder }
 
     override val functionReference: XpmFunctionReference?
-        get() = parent as? XpmFunctionReference
+        get() = when (val parent = parent) {
+            is XpmFunctionReference -> parent
+            is XpmDynamicFunctionReference -> parent.functionReference
+            else -> null
+        }
 
     override val arity: Int
         get() = arguments.count()

@@ -426,6 +426,13 @@ private class PluginPsiTest : ParserTestCase() {
                 val ref = f.functionReference
                 assertThat(op_qname_presentation(ref?.functionName!!), `is`("fn:abs"))
                 assertThat(ref.arity, `is`(1))
+
+                val args = f.children().filterIsInstance<XPathArgumentList>().first()
+                assertThat(args.arity, `is`(1))
+                assertThat(args.functionReference, `is`(sameInstance(ref)))
+
+                val bindings = args.bindings
+                assertThat(bindings.size, `is`(0))
             }
 
             @Nested
@@ -439,6 +446,13 @@ private class PluginPsiTest : ParserTestCase() {
                     val ref = f.functionReference
                     assertThat(op_qname_presentation(ref?.functionName!!), `is`("fn:abs"))
                     assertThat(ref.arity, `is`(1))
+
+                    val args = f.children().filterIsInstance<XPathArgumentList>().first()
+                    assertThat(args.arity, `is`(1))
+                    assertThat(args.functionReference, `is`(sameInstance(ref)))
+
+                    val bindings = args.bindings
+                    assertThat(bindings.size, `is`(0))
                 }
 
                 @Test
@@ -446,6 +460,11 @@ private class PluginPsiTest : ParserTestCase() {
                 fun multiple() {
                     val f = parse<PluginDynamicFunctionCall>("(fn:abs#1, fn:count#1)(1)")[0]
                     assertThat(f.functionReference, `is`(nullValue()))
+
+                    val args = f.children().filterIsInstance<XPathArgumentList>().first()
+                    assertThat(args.arity, `is`(1))
+                    assertThat(args.functionReference, `is`(nullValue()))
+                    assertThat(args.bindings.size, `is`(0))
                 }
             }
         }
