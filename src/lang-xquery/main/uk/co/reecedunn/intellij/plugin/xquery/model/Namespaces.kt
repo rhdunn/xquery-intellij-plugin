@@ -21,7 +21,6 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
-import uk.co.reecedunn.intellij.plugin.xpm.namespace.XpmDefaultNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.namespace.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.psi.XsQName
@@ -39,23 +38,23 @@ private val XQUERY_NAMESPACE = XsAnyUri("http://www.w3.org/2012/xquery", XdmUriC
 fun PsiElement.defaultNamespace(
     type: XdmNamespaceType,
     resolveProlog: Boolean
-): Sequence<XpmDefaultNamespaceDeclaration> {
+): Sequence<XpmNamespaceDeclaration> {
     var visitedProlog = false
     return walkTree().reversed().flatMap { node ->
         when (node) {
             is XQueryProlog -> {
                 visitedProlog = true
-                node.children().reversed().filterIsInstance<XpmDefaultNamespaceDeclaration>()
+                node.children().reversed().filterIsInstance<XpmNamespaceDeclaration>()
             }
             is XQueryModule -> {
                 if (resolveProlog)
                     node.predefinedStaticContext?.children()?.reversed()
-                        ?.filterIsInstance<XpmDefaultNamespaceDeclaration>() ?: emptySequence()
+                        ?.filterIsInstance<XpmNamespaceDeclaration>() ?: emptySequence()
                 else
                     emptySequence()
             }
             is XQueryModuleDecl -> {
-                sequenceOf(node as XpmDefaultNamespaceDeclaration)
+                sequenceOf(node as XpmNamespaceDeclaration)
             }
             is XQueryMainModule ->
                 if (resolveProlog && !visitedProlog)
@@ -63,7 +62,7 @@ fun PsiElement.defaultNamespace(
                 else
                     emptySequence()
             is XQueryDirElemConstructor ->
-                node.children().filterIsInstance<XpmDefaultNamespaceDeclaration>()
+                node.children().filterIsInstance<XpmNamespaceDeclaration>()
             else -> emptySequence()
         }
     }.filter { ns -> ns.accepts(type) && ns.namespaceUri?.data != null }
