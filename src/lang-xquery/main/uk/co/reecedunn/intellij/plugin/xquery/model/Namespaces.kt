@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.psi.XsQName
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsAnyUri
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
+import uk.co.reecedunn.intellij.plugin.xpm.namespace.XpmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 
 private val EMPTY_NAMESPACE = XsAnyUri("", XdmUriContext.Namespace, XdmModuleType.NONE)
@@ -70,8 +71,8 @@ fun PsiElement.defaultNamespace(
 
 // endregion
 
-private fun Sequence<XpmDefaultNamespaceDeclaration>.expandNCName(ncname: XsQNameValue): Sequence<XsQNameValue> {
-    var seenDefaultNamespace: XpmDefaultNamespaceDeclaration? = null
+private fun Sequence<XpmNamespaceDeclaration>.expandNCName(ncname: XsQNameValue): Sequence<XsQNameValue> {
+    var seenDefaultNamespace: XpmNamespaceDeclaration? = null
     val expanded = flatMap { decl ->
         val isDefaultNamespace = decl is XQueryDefaultNamespaceDecl
         if ((isDefaultNamespace && seenDefaultNamespace == null) || !isDefaultNamespace) {
