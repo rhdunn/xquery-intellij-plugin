@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpm.module.resolveUri
 import uk.co.reecedunn.intellij.plugin.xpm.namespace.XpmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.resolve
+import uk.co.reecedunn.intellij.plugin.xpm.namespace.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 
@@ -51,6 +52,10 @@ class XQueryNamespaceDeclPsiImpl(node: ASTNode) :
 
     override val namespaceUri: XsAnyUriValue?
         get() = children().filterIsInstance<XsAnyUriValue>().firstOrNull()
+
+    override fun accepts(namespaceType: XdmNamespaceType): Boolean {
+        return namespaceType === XdmNamespaceType.Prefixed
+    }
 
     // endregion
 }

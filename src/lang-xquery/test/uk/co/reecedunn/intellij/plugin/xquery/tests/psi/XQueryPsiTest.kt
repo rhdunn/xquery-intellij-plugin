@@ -6313,6 +6313,14 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 val prefix = import.namespacePrefix?.element?.parent!!
                 assertThat(prefix.getUsageType(), `is`(XpmUsageType.Namespace))
+
+                assertThat(import.accepts(XdmNamespaceType.DefaultElementOrType), `is`(false))
+                assertThat(import.accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(import.accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(import.accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(import.accepts(XdmNamespaceType.Prefixed), `is`(true))
+                assertThat(import.accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(import.accepts(XdmNamespaceType.XQuery), `is`(false))
             }
 
             @Test
@@ -6328,6 +6336,14 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 val uris = (import as XQueryImport).locationUris.toList()
                 assertThat(uris.size, `is`(0))
+
+                assertThat(import.accepts(XdmNamespaceType.DefaultElementOrType), `is`(false))
+                assertThat(import.accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(import.accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(import.accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(import.accepts(XdmNamespaceType.Prefixed), `is`(true))
+                assertThat(import.accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(import.accepts(XdmNamespaceType.XQuery), `is`(false))
             }
 
             @Test
@@ -6343,6 +6359,14 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 val uris = (import as XQueryImport).locationUris.toList()
                 assertThat(uris.size, `is`(0))
+
+                assertThat(import.accepts(XdmNamespaceType.DefaultElementOrType), `is`(false))
+                assertThat(import.accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(import.accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(import.accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(import.accepts(XdmNamespaceType.Prefixed), `is`(true))
+                assertThat(import.accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(import.accepts(XdmNamespaceType.XQuery), `is`(false))
             }
 
             @Test
@@ -6354,6 +6378,14 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 val uris = (import as XQueryImport).locationUris.toList()
                 assertThat(uris.size, `is`(0))
+
+                assertThat(import.accepts(XdmNamespaceType.DefaultElementOrType), `is`(false))
+                assertThat(import.accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(import.accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(import.accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(import.accepts(XdmNamespaceType.Prefixed), `is`(true))
+                assertThat(import.accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(import.accepts(XdmNamespaceType.XQuery), `is`(false))
             }
 
             @Test
@@ -6529,6 +6561,14 @@ private class XQueryPsiTest : ParserTestCase() {
 
                 val prefix = decl.namespacePrefix?.element?.parent!!
                 assertThat(prefix.getUsageType(), `is`(XpmUsageType.Namespace))
+
+                assertThat(decl.accepts(XdmNamespaceType.DefaultElementOrType), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.Prefixed), `is`(true))
+                assertThat(decl.accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.XQuery), `is`(false))
             }
 
             @Test
@@ -6539,14 +6579,30 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(decl.namespaceUri!!.data, `is`("http://www.example.com"))
                 assertThat(decl.namespaceUri!!.context, `is`(XdmUriContext.NamespaceDeclaration))
                 assertThat(decl.namespaceUri!!.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))
+
+                assertThat(decl.accepts(XdmNamespaceType.DefaultElementOrType), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.Prefixed), `is`(true))
+                assertThat(decl.accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.XQuery), `is`(false))
             }
 
             @Test
             @DisplayName("missing namespace uri")
             fun noNamespaceUri() {
-                val expr = parse<XQueryNamespaceDecl>("declare namespace test = ;")[0] as XpmNamespaceDeclaration
-                assertThat(expr.namespacePrefix!!.data, `is`("test"))
-                assertThat(expr.namespaceUri, `is`(nullValue()))
+                val decl = parse<XQueryNamespaceDecl>("declare namespace test = ;")[0] as XpmNamespaceDeclaration
+                assertThat(decl.namespacePrefix!!.data, `is`("test"))
+                assertThat(decl.namespaceUri, `is`(nullValue()))
+
+                assertThat(decl.accepts(XdmNamespaceType.DefaultElementOrType), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.Prefixed), `is`(true))
+                assertThat(decl.accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(decl.accepts(XdmNamespaceType.XQuery), `is`(false))
             }
 
             @Nested

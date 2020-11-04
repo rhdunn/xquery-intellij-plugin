@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017-2019 Reece H. Dunn
+ * Copyright (C) 2017-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,4 +22,6 @@ interface XpmNamespaceDeclaration {
     val namespacePrefix: XsNCNameValue?
 
     val namespaceUri: XsAnyUriValue?
+
+    fun accepts(namespaceType: XdmNamespaceType): Boolean
 }

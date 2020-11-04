@@ -60,6 +60,10 @@ private fun XmlAttribute.toNamespaceDeclaration(): XpmNamespaceDeclaration? {
             override val namespacePrefix: XsNCNameValue? = XsNCName(localName, originalElement)
             override val namespaceUri: XsAnyUriValue? =
                 XsAnyUri(value, XdmUriContext.Namespace, XdmModuleType.MODULE, originalElement)
+
+            override fun accepts(namespaceType: XdmNamespaceType): Boolean {
+                return namespaceType === XdmNamespaceType.Prefixed
+            }
         }
     }
 }
