@@ -17,8 +17,9 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.plugin
 
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAttributeNode
+import uk.co.reecedunn.intellij.plugin.xpm.namespace.XpmNamespaceDeclaration
 
 /**
  * A `DirAttribute` node in the XQuery AST.
  */
-interface PluginDirAttribute : PsiElement, XdmAttributeNode
+interface PluginDirAttribute : PsiElement, XdmAttributeNode, XpmNamespaceDeclaration

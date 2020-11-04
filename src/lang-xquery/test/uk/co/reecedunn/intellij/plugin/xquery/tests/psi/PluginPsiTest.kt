@@ -49,7 +49,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpm.context.expand
-import uk.co.reecedunn.intellij.plugin.xpm.function.XpmDynamicFunctionReference
+import uk.co.reecedunn.intellij.plugin.xpm.namespace.XpmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPathStep
@@ -1272,7 +1272,7 @@ private class PluginPsiTest : ParserTestCase()  {
             fun namespacePrefix() {
                 val expr = parse<PluginDirAttribute>(
                     "<a xmlns:b='http://www.example.com'/>"
-                )[0] as XpmDefaultNamespaceDeclaration
+                )[0] as XpmNamespaceDeclaration
 
                 assertThat(expr.namespacePrefix!!.data, `is`("b"))
                 assertThat(expr.namespaceUri!!.data, `is`("http://www.example.com"))
@@ -1303,7 +1303,7 @@ private class PluginPsiTest : ParserTestCase()  {
             @Test
             @DisplayName("namespace prefix, missing DirAttributeValue")
             fun namespacePrefixMissingDirAttributeValue() {
-                val expr = parse<PluginDirAttribute>("<a xmlns:b=>")[0] as XpmDefaultNamespaceDeclaration
+                val expr = parse<PluginDirAttribute>("<a xmlns:b=>")[0] as XpmNamespaceDeclaration
 
                 assertThat(expr.namespacePrefix!!.data, `is`("b"))
                 assertThat(expr.namespaceUri, `is`(nullValue()))
@@ -1330,7 +1330,7 @@ private class PluginPsiTest : ParserTestCase()  {
             fun defaultElementTypeNamespace() {
                 val expr = parse<PluginDirAttribute>(
                     "<a xmlns='http://www.example.com'/>"
-                )[0] as XpmDefaultNamespaceDeclaration
+                )[0] as XpmNamespaceDeclaration
 
                 assertThat(expr.namespacePrefix, `is`(nullValue()))
                 assertThat(expr.namespaceUri!!.data, `is`("http://www.example.com"))
@@ -1361,7 +1361,7 @@ private class PluginPsiTest : ParserTestCase()  {
             @Test
             @DisplayName("xml:id")
             fun id() {
-                val expr = parse<PluginDirAttribute>("<a xml:id='lorem-ipsum'/>")[0] as XpmDefaultNamespaceDeclaration
+                val expr = parse<PluginDirAttribute>("<a xml:id='lorem-ipsum'/>")[0] as XpmNamespaceDeclaration
                 assertThat(expr.namespacePrefix, `is`(nullValue()))
                 assertThat(expr.namespaceUri, `is`(nullValue()))
 
@@ -1389,7 +1389,7 @@ private class PluginPsiTest : ParserTestCase()  {
             fun attribute() {
                 val expr = parse<PluginDirAttribute>(
                     "<a b='http://www.example.com'/>"
-                )[0] as XpmDefaultNamespaceDeclaration
+                )[0] as XpmNamespaceDeclaration
 
                 assertThat(expr.namespacePrefix, `is`(nullValue()))
                 assertThat(expr.namespaceUri, `is`(nullValue()))
@@ -1418,7 +1418,7 @@ private class PluginPsiTest : ParserTestCase()  {
             fun missingPrefix() {
                 val expr = parse<PluginDirAttribute>(
                     "<a one='http://www.example.com/one' :two='http://www.example.com/two'/>"
-                )[1] as XpmDefaultNamespaceDeclaration
+                )[1] as XpmNamespaceDeclaration
 
                 assertThat(expr.namespacePrefix, `is`(nullValue()))
                 assertThat(expr.namespaceUri, `is`(nullValue()))
