@@ -47,6 +47,7 @@ various inspections.
   - [Expressions](#51-expressions)
   - [Path Steps](#52-path-steps)
     - [Predicates](#521-predicates)
+  - [Namespace Declarations](#53-namespace-declarations)
 - {: .toc-letter } [References](#a-references)
   - [W3C References](#a1-w3c-references)
   - [XPath NG Proposals](#a2-xpath-ng-proposals)
@@ -657,13 +658,36 @@ expression. It is not added to the PSI tree if the `PrimaryExpr` is not preceded
 or followed by another step. The *axis type* is `self` and the *node type* is
 `node()`.
 
-### 5.2.1 Predicates
+#### 5.2.1 Predicates
 
 | Symbol                       | Interface      |
 |------------------------------|----------------|
 | `Predicate`                  | `XpmPredicate` |
 
 A *predicate* is associated with a `FilterStep` or `FilterExpr` node.
+
+### 5.3 Namespace Declarations
+
+| Symbol                 | Interface                 |
+|------------------------|---------------------------|
+| `DefaultNamespaceDecl` | `XpmNamespaceDeclaration` |
+| `DirAttribute`         | `XpmNamespaceDeclaration` |
+| `ModuleDecl`           | `XpmNamespaceDeclaration` |
+| `ModuleImport`         | `XpmNamespaceDeclaration` |
+| `NamespaceDecl`        | `XpmNamespaceDeclaration` |
+| `SchemaImport`         | `XpmNamespaceDeclaration` |
+| `UsingDecl`            | `XpmNamespaceDeclaration` |
+
+A *namespace declaration* is an EBNF symbol that adds a namespace to the
+*statically-known namespaces* for the scope that it is contained in.
+
+The *namespace prefix* of a namespace declaration is the `xs:NCName` used
+to resolve the *prefix* part of a QName. If the declaration is a default
+namespace declaration, then this is `null`.
+
+The *namespace uri* of a namespace declaration is the `xs:anyURI` that
+the namespace resolves to. When a QName or NCName matches the declaration,
+the *namespace* of the *expanded QName* binds to this value.
 
 ## A References
 
