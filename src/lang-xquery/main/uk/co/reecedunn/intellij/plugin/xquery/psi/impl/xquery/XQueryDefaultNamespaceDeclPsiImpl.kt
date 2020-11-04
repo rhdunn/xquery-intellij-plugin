@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2018-2019 Reece H. Dunn
+ * Copyright (C) 2016, 2018-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,17 +19,13 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xpm.namespace.XpmDefaultNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.namespace.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 
-class XQueryDefaultNamespaceDeclPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node),
-    XpmDefaultNamespaceDeclaration,
-    XQueryDefaultNamespaceDecl {
+class XQueryDefaultNamespaceDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryDefaultNamespaceDecl {
     // region XdmDefaultNamespaceDeclaration
 
     override val namespacePrefix: XsNCNameValue? = null

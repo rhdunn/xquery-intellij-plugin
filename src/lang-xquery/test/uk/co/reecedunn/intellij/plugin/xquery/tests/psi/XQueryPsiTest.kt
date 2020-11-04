@@ -6659,7 +6659,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("default element/type namespace declaration")
             fun element() {
-                val decl = parse<XpmDefaultNamespaceDeclaration>(
+                val decl = parse<XpmNamespaceDeclaration>(
                     "declare default element namespace 'http://www.w3.org/1999/xhtml';"
                 )[0]
 
@@ -6680,7 +6680,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("default function namespace declaration")
             fun function() {
-                val decl = parse<XpmDefaultNamespaceDeclaration>(
+                val decl = parse<XpmNamespaceDeclaration>(
                     "declare default function namespace 'http://www.w3.org/2005/xpath-functions/math';"
                 )[0]
 
@@ -6701,7 +6701,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("empty namespace")
             fun emptyNamespace() {
-                val decl = parse<XpmDefaultNamespaceDeclaration>("declare default element namespace '';")[0]
+                val decl = parse<XpmNamespaceDeclaration>("declare default element namespace '';")[0]
 
                 assertThat(decl.namespacePrefix, `is`(nullValue()))
                 assertThat(decl.namespaceUri!!.data, `is`(""))
@@ -6720,7 +6720,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("missing namespace")
             fun missingNamespace() {
-                val decl = parse<XpmDefaultNamespaceDeclaration>("declare default element namespace;")[0]
+                val decl = parse<XpmNamespaceDeclaration>("declare default element namespace;")[0]
 
                 assertThat(decl.namespacePrefix, `is`(nullValue()))
                 assertThat(decl.namespaceUri, `is`(nullValue()))
