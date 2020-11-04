@@ -29,12 +29,12 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.psi.XsAnyUri
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.psi.XsNCName
 
-private fun XmlAttribute.toDefaultNamespaceDeclaration(): XpmDefaultNamespaceDeclaration? {
+private fun XmlAttribute.toDefaultNamespaceDeclaration(): XpmNamespaceDeclaration? {
     if (!isNamespaceDeclaration) return null
     val prefix = namespacePrefix
     val value = value ?: return null
     return if (prefix.isEmpty()) {
-        object : XpmDefaultNamespaceDeclaration {
+        object : XpmNamespaceDeclaration {
             override val namespacePrefix: XsNCNameValue? = null
             override val namespaceUri: XsAnyUriValue? =
                 XsAnyUri(value, XdmUriContext.Namespace, XdmModuleType.NONE, originalElement)
@@ -89,7 +89,7 @@ fun PsiElement.defaultFunctionXPathNamespace(): Sequence<XpmDefaultNamespaceDecl
     return sequenceOf(DefaultFunctionXPathNamespace)
 }
 
-fun PsiElement.defaultElementOrTypeXPathNamespace(): Sequence<XpmDefaultNamespaceDeclaration> {
+fun PsiElement.defaultElementOrTypeXPathNamespace(): Sequence<XpmNamespaceDeclaration> {
     return contextOfType<XmlAttributeValue>(false)?.ancestors()?.filterIsInstance<XmlTag>()?.flatMap { tag ->
         tag.attributes.asSequence().map { attribute -> attribute.toDefaultNamespaceDeclaration() }
     }?.filterNotNull() ?: sequenceOf()
