@@ -39,7 +39,6 @@ import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
-import uk.co.reecedunn.intellij.plugin.xpm.namespace.XpmDefaultNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.namespace.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableBinding
@@ -2288,7 +2287,7 @@ private class PluginPsiTest : ParserTestCase()  {
             @Test
             @DisplayName("using declaration")
             fun using() {
-                val decl = parse<XpmDefaultNamespaceDeclaration>(
+                val decl = parse<XpmNamespaceDeclaration>(
                     "using namespace 'http://www.w3.org/2005/xpath-functions/math';"
                 )[0]
 
@@ -2309,7 +2308,7 @@ private class PluginPsiTest : ParserTestCase()  {
             @Test
             @DisplayName("empty namespace")
             fun emptyNamespace() {
-                val decl = parse<XpmDefaultNamespaceDeclaration>("using namespace '';")[0]
+                val decl = parse<XpmNamespaceDeclaration>("using namespace '';")[0]
 
                 assertThat(decl.namespacePrefix, `is`(nullValue()))
                 assertThat(decl.namespaceUri!!.data, `is`(""))
@@ -2328,7 +2327,7 @@ private class PluginPsiTest : ParserTestCase()  {
             @Test
             @DisplayName("missing namespace")
             fun missingNamespace() {
-                val decl = parse<XpmDefaultNamespaceDeclaration>("using namespace;")[0]
+                val decl = parse<XpmNamespaceDeclaration>("using namespace;")[0]
 
                 assertThat(decl.namespacePrefix, `is`(nullValue()))
                 assertThat(decl.namespaceUri, `is`(nullValue()))
