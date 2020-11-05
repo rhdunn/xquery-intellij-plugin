@@ -48,7 +48,7 @@ private class XQueryLookupElementTest : ParserTestCase() {
         fun parse(text: String): Pair<XQueryModule, XpmVariableDeclaration> {
             val module = parseText(text)
             val call = module.walkTree().filterIsInstance<XPathVarRef>().first() as XpmVariableReference
-            val ref = call.variableName?.element?.references?.get(1)?.resolve()?.parent?.parent!!
+            val ref = call.variableName?.element?.references?.get(1)?.resolve()?.parent!!
             return module to ref as XpmVariableDeclaration
         }
 

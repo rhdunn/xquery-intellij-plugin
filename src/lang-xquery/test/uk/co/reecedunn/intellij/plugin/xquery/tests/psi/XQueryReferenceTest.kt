@@ -236,8 +236,11 @@ private class XQueryReferenceTest : ParserTestCase() {
                 """
             )
 
-            val ref = vars[1].variableName?.element?.reference!!
-            assertThat(ref.element, `is`(sameInstance(vars[1].variableName?.element)))
+            val varRef = vars[1]
+            val varDecl = vars[0]
+
+            val ref = varRef.variableName?.element?.reference!!
+            assertThat(ref.element, `is`(sameInstance(varRef.variableName?.element)))
             assertThat(ref.canonicalText, `is`("value"))
             assertThat(ref.rangeInElement.startOffset, `is`(0))
             assertThat(ref.rangeInElement.endOffset, `is`(5))
@@ -245,12 +248,12 @@ private class XQueryReferenceTest : ParserTestCase() {
 
             var resolved: PsiElement = ref.resolve()!!
             assertThat(resolved, `is`(instanceOf<PsiElement>(XPathNCName::class.java)))
-            assertThat(resolved, `is`(vars[0].variableName?.element))
+            assertThat(resolved, `is`(varDecl.variableName?.element))
 
-            val refs = vars[1].variableName?.element?.references!!
+            val refs = varRef.variableName?.element?.references!!
             assertThat(refs.size, `is`(1))
 
-            assertThat(refs[0].element, `is`(sameInstance(vars[1].variableName?.element)))
+            assertThat(refs[0].element, `is`(sameInstance(varRef.variableName?.element)))
             assertThat(refs[0].canonicalText, `is`("value"))
             assertThat(refs[0].rangeInElement.startOffset, `is`(0))
             assertThat(refs[0].rangeInElement.endOffset, `is`(5))
@@ -258,7 +261,7 @@ private class XQueryReferenceTest : ParserTestCase() {
 
             resolved = refs[0].resolve()!!
             assertThat(resolved, `is`(instanceOf<PsiElement>(XPathNCName::class.java)))
-            assertThat(resolved, `is`(vars[0].variableName?.element))
+            assertThat(resolved, `is`(varDecl.variableName?.element))
         }
 
         @Test

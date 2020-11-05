@@ -19,16 +19,13 @@ import com.intellij.codeInsight.highlighting.ReadWriteAccessDetector
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParam
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
+import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 
 class XQueryReadWriteAccessDetector : ReadWriteAccessDetector() {
     private fun isVariable(element: PsiElement): Boolean = when (element.parent) {
-        is XPathVarName -> true
-        is XPathVarRef -> true
-        is XPathParam -> true
+        is XpmVariableName -> true
         else -> false
     }
 

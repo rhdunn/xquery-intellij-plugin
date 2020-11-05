@@ -113,8 +113,7 @@ private class UpdateFacilityParserTest : ParserTestCase() {
         @Test
         @DisplayName("prolog body statements before")
         fun testRevalidationDecl_PrologBodyStatementsBefore() {
-            val expected =
-                loadResource("tests/parser/xquery-update-1.0/RevalidationDecl_PrologBodyStatementsBefore.txt")
+            val expected = loadResource("tests/parser/xquery-update-1.0/RevalidationDecl_PrologBodyStatementsBefore.txt")
             val actual = parseResource("tests/parser/xquery-update-1.0/RevalidationDecl_PrologBodyStatementsBefore.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }

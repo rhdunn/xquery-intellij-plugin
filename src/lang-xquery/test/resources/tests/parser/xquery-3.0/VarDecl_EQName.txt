@@ -9,13 +9,12 @@ XQueryModuleImpl[FILE(0:60)]
                PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
                LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(17:18)]('$')
                PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
-               XPathVarNameImpl[XPATH_VAR_NAME(19:53)]
-                  XQueryURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(19:53)]
-                     XQueryBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(19:50)]
-                        LeafPsiElement[XPATH_BRACED_URI_LITERAL_START_TOKEN(19:21)]('Q{')
-                        XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(21:49)]('http://www.example.com/test#')
-                        LeafPsiElement[XPATH_BRACED_URI_LITERAL_END_TOKEN(49:50)]('}')
-                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(50:53)]('one')
+               XQueryURIQualifiedNameImpl[XQUERY_URI_QUALIFIED_NAME(19:53)]
+                  XQueryBracedURILiteralImpl[XQUERY_BRACED_URI_LITERAL(19:50)]
+                     LeafPsiElement[XPATH_BRACED_URI_LITERAL_START_TOKEN(19:21)]('Q{')
+                     XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(21:49)]('http://www.example.com/test#')
+                     LeafPsiElement[XPATH_BRACED_URI_LITERAL_END_TOKEN(49:50)]('}')
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(50:53)]('one')
                PsiWhiteSpaceImpl[WHITE_SPACE(53:54)](' ')
                LeafPsiElement[XPATH_ASSIGN_EQUAL_TOKEN(54:56)](':=')
                PsiWhiteSpaceImpl[WHITE_SPACE(56:57)](' ')

@@ -25,12 +25,10 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathIcons
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.filterNotWhitespace
-import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarDecl
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
@@ -73,11 +71,8 @@ class XQueryVarDeclPsiImpl(node: ASTNode) :
     // endregion
     // region XPathVariableDeclaration
 
-    private val varName: XpmVariableName?
-        get() = children().filterIsInstance<XPathVarName>().firstOrNull()
-
     override val variableName: XsQNameValue?
-        get() = varName?.variableName
+        get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
 
     override val variableType: XdmSequenceType?
         get() = children().filterIsInstance<XdmSequenceType>().firstOrNull()
@@ -95,7 +90,7 @@ class XQueryVarDeclPsiImpl(node: ASTNode) :
     override fun getLocationString(): String? = null
 
     private val cachedPresentableText = CacheableProperty {
-        varName?.variableName?.let { name ->
+        variableName?.let { name ->
             val type = variableType
             if (type == null)
                 op_qname_presentation(name)
@@ -110,7 +105,7 @@ class XQueryVarDeclPsiImpl(node: ASTNode) :
     // region SortableTreeElement
 
     private val cachedAlphaSortKey = CacheableProperty {
-        varName?.variableName?.let { op_qname_presentation(it) } ?: ""
+        variableName?.let { op_qname_presentation(it) } ?: ""
     }
 
     override fun getAlphaSortKey(): String = cachedAlphaSortKey.get()!!
