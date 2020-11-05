@@ -5,10 +5,9 @@ XPathImpl[FILE(0:96)]
       PluginQuantifiedExprBindingImpl[XPATH_QUANTIFIED_EXPR_BINDING(5:16)]
          LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(5:6)]('$')
          PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-         XPathVarNameImpl[XPATH_VAR_NAME(7:9)]
-            XPathNCNameImpl[XPATH_NCNAME(7:9)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(7:8)]('x')
-               PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
+         XPathNCNameImpl[XPATH_NCNAME(7:9)]
+            XmlNCNameImpl[XPATH_NCNAME_TOKEN(7:8)]('x')
+            PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
          XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_IN(9:11)]('in')
          PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
          XPathVarRefImpl[XPATH_VAR_REF(12:16)]
@@ -21,10 +20,9 @@ XPathImpl[FILE(0:96)]
       PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
       PluginQuantifiedExprBindingImpl[XPATH_QUANTIFIED_EXPR_BINDING(18:27)]
          PsiErrorElementImpl[ERROR_ELEMENT(18:18)]('XPST0003: Expected '$'.')
-         XPathVarNameImpl[XPATH_VAR_NAME(18:20)]
-            XPathNCNameImpl[XPATH_NCNAME(18:20)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(18:19)]('v')
-               PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
+         XPathNCNameImpl[XPATH_NCNAME(18:20)]
+            XmlNCNameImpl[XPATH_NCNAME_TOKEN(18:19)]('v')
+            PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
          XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_IN(20:22)]('in')
          PsiWhiteSpaceImpl[WHITE_SPACE(22:23)](' ')
          XPathVarRefImpl[XPATH_VAR_REF(23:27)]
@@ -54,10 +52,9 @@ XPathImpl[FILE(0:96)]
       PluginQuantifiedExprBindingImpl[XPATH_QUANTIFIED_EXPR_BINDING(55:66)]
          LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(55:56)]('$')
          PsiWhiteSpaceImpl[WHITE_SPACE(56:57)](' ')
-         XPathVarNameImpl[XPATH_VAR_NAME(57:59)]
-            XPathNCNameImpl[XPATH_NCNAME(57:59)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(57:58)]('x')
-               PsiWhiteSpaceImpl[WHITE_SPACE(58:59)](' ')
+         XPathNCNameImpl[XPATH_NCNAME(57:59)]
+            XmlNCNameImpl[XPATH_NCNAME_TOKEN(57:58)]('x')
+            PsiWhiteSpaceImpl[WHITE_SPACE(58:59)](' ')
          XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_IN(59:61)]('in')
          PsiWhiteSpaceImpl[WHITE_SPACE(61:62)](' ')
          XPathVarRefImpl[XPATH_VAR_REF(62:66)]
@@ -70,10 +67,9 @@ XPathImpl[FILE(0:96)]
       PsiWhiteSpaceImpl[WHITE_SPACE(67:68)](' ')
       PluginQuantifiedExprBindingImpl[XPATH_QUANTIFIED_EXPR_BINDING(68:77)]
          PsiErrorElementImpl[ERROR_ELEMENT(68:68)]('XPST0003: Expected '$'.')
-         XPathVarNameImpl[XPATH_VAR_NAME(68:70)]
-            XPathNCNameImpl[XPATH_NCNAME(68:70)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(68:69)]('v')
-               PsiWhiteSpaceImpl[WHITE_SPACE(69:70)](' ')
+         XPathNCNameImpl[XPATH_NCNAME(68:70)]
+            XmlNCNameImpl[XPATH_NCNAME_TOKEN(68:69)]('v')
+            PsiWhiteSpaceImpl[WHITE_SPACE(69:70)](' ')
          XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_IN(70:72)]('in')
          PsiWhiteSpaceImpl[WHITE_SPACE(72:73)](' ')
          XPathVarRefImpl[XPATH_VAR_REF(73:77)]

@@ -6,10 +6,9 @@ XPathImpl[FILE(0:30)]
       PluginQuantifiedExprBindingImpl[XPATH_QUANTIFIED_EXPR_BINDING(6:12)]
          LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(6:7)]('$')
          PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-         XPathVarNameImpl[XPATH_VAR_NAME(8:10)]
-            XPathNCNameImpl[XPATH_NCNAME(8:10)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(8:9)]('x')
-               PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
+         XPathNCNameImpl[XPATH_NCNAME(8:10)]
+            XmlNCNameImpl[XPATH_NCNAME_TOKEN(8:9)]('x')
+            PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
          XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_IN(10:12)]('in')
          PsiErrorElementImpl[ERROR_ELEMENT(12:12)]('XPST0003: Missing expression.')
    LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(12:13)](')')
@@ -23,10 +22,9 @@ XPathImpl[FILE(0:30)]
       PluginQuantifiedExprBindingImpl[XPATH_QUANTIFIED_EXPR_BINDING(23:29)]
          LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(23:24)]('$')
          PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
-         XPathVarNameImpl[XPATH_VAR_NAME(25:27)]
-            XPathNCNameImpl[XPATH_NCNAME(25:27)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(25:26)]('x')
-               PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
+         XPathNCNameImpl[XPATH_NCNAME(25:27)]
+            XmlNCNameImpl[XPATH_NCNAME_TOKEN(25:26)]('x')
+            PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
          XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_IN(27:29)]('in')
          PsiErrorElementImpl[ERROR_ELEMENT(29:29)]('XPST0003: Missing expression.')
    LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(29:30)](')')

@@ -19,14 +19,9 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginQuantifiedExprBinding
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
-import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableName
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
 class PluginQuantifiedExprBindingPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginQuantifiedExprBinding {
-    private val varName: XpmVariableName?
-        get() = children().filterIsInstance<XPathVarName>().firstOrNull()
-
     override val variableName: XsQNameValue?
-        get() = varName?.variableName
+        get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
 }
