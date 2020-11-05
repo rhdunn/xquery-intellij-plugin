@@ -1458,67 +1458,6 @@ private class XPathPsiTest : ParserTestCase() {
                     assertThat(expr.expressionElement, `is`(nullValue()))
                 }
             }
-
-            @Nested
-            @DisplayName("XPath 3.1 EBNF (60) VarName")
-            internal inner class VarName {
-                @Test
-                @DisplayName("NCName")
-                fun ncname() {
-                    val expr = parse<XPathVarName>("let \$x := 2 return \$y")[0] as XpmVariableName
-
-                    val qname = expr.variableName!!
-                    assertThat(qname.prefix, `is`(nullValue()))
-                    assertThat(qname.namespace, `is`(nullValue()))
-                    assertThat(qname.localName!!.data, `is`("x"))
-                }
-
-                @Test
-                @DisplayName("QName")
-                fun qname() {
-                    val expr = parse<XPathVarName>("let \$a:x := 2 return \$a:y")[0] as XpmVariableName
-
-                    val qname = expr.variableName!!
-                    assertThat(qname.namespace, `is`(nullValue()))
-                    assertThat(qname.prefix!!.data, `is`("a"))
-                    assertThat(qname.localName!!.data, `is`("x"))
-                }
-
-                @Test
-                @DisplayName("URIQualifiedName")
-                fun uriQualifiedName() {
-                    val expr = parse<XPathVarName>(
-                        "let \$Q{http://www.example.com}x := 2 return \$Q{http://www.example.com}y"
-                    )[0] as XpmVariableName
-
-                    val qname = expr.variableName!!
-                    assertThat(qname.prefix, `is`(nullValue()))
-                    assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
-                    assertThat(qname.localName!!.data, `is`("x"))
-                }
-
-                @Test
-                @DisplayName("NCName namespace resolution")
-                fun ncnameNamespaceResolution() {
-                    val qname = parse<XPathNCName>("\$test")[0] as XsQNameValue
-                    assertThat(qname.element!!.getUsageType(), `is`(XpmUsageType.Variable))
-
-                    assertThat(qname.isLexicalQName, `is`(true))
-                    assertThat(qname.namespace, `is`(nullValue()))
-                    assertThat(qname.prefix, `is`(nullValue()))
-                    assertThat(qname.localName!!.data, `is`("test"))
-                    assertThat(qname.element, sameInstance(qname as PsiElement))
-                }
-
-                @Test
-                @DisplayName("reference rename")
-                fun referenceRename() {
-                    val expr = parse<XPathVarName>("let \$x := 2 return \$y")[0] as XpmVariableName
-
-                    val ref = (expr.variableName as PsiElement).reference
-                    assertThat(ref, `is`(nullValue()))
-                }
-            }
         }
 
         @Nested

@@ -4,9 +4,8 @@ XPathImpl[FILE(0:25)]
          XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_LET(0:3)]('let')
          XPathSimpleLetBindingImpl[XPATH_SIMPLE_LET_BINDING(3:9)]
             LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(3:4)]('$')
-            XPathVarNameImpl[XPATH_VAR_NAME(4:5)]
-               XPathNCNameImpl[XPATH_NCNAME(4:5)]
-                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(4:5)]('x')
+            XPathNCNameImpl[XPATH_NCNAME(4:5)]
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(4:5)]('x')
             LeafPsiElement[XPATH_ASSIGN_EQUAL_TOKEN(5:7)](':=')
             XPathVarRefImpl[XPATH_VAR_REF(7:9)]
                LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(7:8)]('$')
@@ -15,9 +14,8 @@ XPathImpl[FILE(0:25)]
          LeafPsiElement[XPATH_COMMA_TOKEN(9:10)](',')
          XPathSimpleLetBindingImpl[XPATH_SIMPLE_LET_BINDING(10:17)]
             LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(10:11)]('$')
-            XPathVarNameImpl[XPATH_VAR_NAME(11:12)]
-               XPathNCNameImpl[XPATH_NCNAME(11:12)]
-                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(11:12)]('v')
+            XPathNCNameImpl[XPATH_NCNAME(11:12)]
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(11:12)]('v')
             LeafPsiElement[XPATH_ASSIGN_EQUAL_TOKEN(12:14)](':=')
             XPathVarRefImpl[XPATH_VAR_REF(14:17)]
                LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(14:15)]('$')

@@ -96,6 +96,7 @@ class XPathImpl(provider: FileViewProvider) :
             XPathElementType.ATTRIBUTE_TEST to XpmUsageType.Attribute,
             XPathElementType.ELEMENT_TEST to XpmUsageType.Element,
             XPathElementType.FUNCTION_CALL to XpmUsageType.FunctionRef,
+            XPathElementType.SIMPLE_LET_BINDING to XpmUsageType.Variable,
             XPathElementType.NAMED_FUNCTION_REF to XpmUsageType.FunctionRef,
             XPathElementType.PARAM to XpmUsageType.Parameter,
             XPathElementType.PRAGMA to XpmUsageType.Pragma,
