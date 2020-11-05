@@ -83,7 +83,7 @@ class PluginDirAttributePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), Plu
             qname.prefix?.data == "xmlns" -> {
                 XsAnyUri(contents, XdmUriContext.NamespaceDeclaration, XdmModuleType.MODULE_OR_SCHEMA, this)
             }
-            qname.localName?.data == "xmlns" -> {
+            qname.localName?.data == "xmlns" && qname.prefix == null -> {
                 XsAnyUri(contents, XdmUriContext.NamespaceDeclaration, XdmModuleType.MODULE_OR_SCHEMA, this)
             }
             qname.prefix?.data == "xml" && qname.localName?.data == "id" -> {
@@ -110,10 +110,10 @@ class PluginDirAttributePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), Plu
 
     override fun accepts(namespaceType: XdmNamespaceType): Boolean {
         val qname = nodeName ?: return false
-        return when {
-            qname.prefix?.data == "xmlns" -> namespaceType === XdmNamespaceType.Prefixed
-            qname.localName?.data == "xmlns" -> namespaceType === XdmNamespaceType.DefaultElementOrType
-            else -> namespaceType === XdmNamespaceType.Undefined
+        return namespaceType === when {
+            qname.prefix?.data == "xmlns" -> XdmNamespaceType.Prefixed
+            qname.localName?.data == "xmlns" && qname.prefix == null -> XdmNamespaceType.DefaultElementOrType
+            else -> XdmNamespaceType.Undefined
         }
     }
 

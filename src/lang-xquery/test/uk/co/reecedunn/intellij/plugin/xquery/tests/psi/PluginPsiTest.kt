@@ -1413,6 +1413,35 @@ private class PluginPsiTest : ParserTestCase()  {
             }
 
             @Test
+            @DisplayName("attribute with an xmlns local name and a prefix")
+            fun attributeWithXmlnsLocalName() {
+                val expr = parse<PluginDirAttribute>(
+                    "<a b:xmlns='http://www.example.com'/>"
+                )[0] as XpmNamespaceDeclaration
+
+                assertThat(expr.namespacePrefix, `is`(nullValue()))
+                assertThat(expr.namespaceUri, `is`(nullValue()))
+
+                assertThat(expr.accepts(XdmNamespaceType.DefaultElementOrType), `is`(false))
+                assertThat(expr.accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(expr.accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(expr.accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(expr.accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(expr.accepts(XdmNamespaceType.Undefined), `is`(true))
+                assertThat(expr.accepts(XdmNamespaceType.XQuery), `is`(false))
+
+                val node = expr as XdmAttributeNode
+                assertThat(node.nodeName?.prefix?.data, `is`("b"))
+                assertThat(node.nodeName?.localName?.data, `is`("xmlns"))
+                assertThat(node.nodeName?.namespace, `is`(nullValue()))
+                assertThat(node.nodeName?.isLexicalQName, `is`(true))
+
+                val value = node.typedValue as XsUntypedAtomicValue
+                assertThat(value.data, `is`("http://www.example.com"))
+                assertThat(value.element, `is`(expr as PsiElement))
+            }
+
+            @Test
             @DisplayName("non-namespace declaration attribute; missing QName prefix")
             fun missingPrefix() {
                 val expr = parse<PluginDirAttribute>(
