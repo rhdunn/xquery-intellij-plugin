@@ -346,7 +346,7 @@ open class XPathParser : PsiParser {
     }
 
     fun parseForClause(builder: PsiBuilder): Boolean {
-        if (parseForBinding(builder, true)) {
+        if (parseForBinding(builder,     true)) {
             parseWhiteSpaceAndCommentTokens(builder)
             while (builder.matchTokenType(XPathTokenType.COMMA)) {
                 parseWhiteSpaceAndCommentTokens(builder)
@@ -370,7 +370,7 @@ open class XPathParser : PsiParser {
 
         if (matched || !isFirst) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (this.parseEQNameOrWildcard(builder, XPathElementType.VAR_NAME, false) == null) {
+            if (this.parseEQNameOrWildcard(builder, XPathElementType.VAR_REF, false) == null) {
                 builder.error(XPathBundle.message("parser.error.expected-eqname"))
                 haveErrors = true
             }
