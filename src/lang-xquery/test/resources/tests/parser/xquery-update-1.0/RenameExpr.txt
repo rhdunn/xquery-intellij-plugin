@@ -10,16 +10,14 @@ XQueryModuleImpl[FILE(0:22)]
                XPathVarRefImpl[XPATH_VAR_REF(12:16)]
                   LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(12:13)]('$')
                   PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
-                  XPathVarNameImpl[XPATH_VAR_NAME(14:16)]
-                     XQueryNCNameImpl[XQUERY_NCNAME(14:16)]
-                        XmlNCNameImpl[XPATH_NCNAME_TOKEN(14:15)]('x')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
+                  XQueryNCNameImpl[XQUERY_NCNAME(14:16)]
+                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(14:15)]('x')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
             XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AS(16:18)]('as')
             PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
             UpdateFacilityNewNameExprImpl[XQUERY_NEW_NAME_EXPR(19:22)]
                XPathVarRefImpl[XPATH_VAR_REF(19:22)]
                   LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(19:20)]('$')
                   PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
-                  XPathVarNameImpl[XPATH_VAR_NAME(21:22)]
-                     XQueryNCNameImpl[XQUERY_NCNAME(21:22)]
-                        XmlNCNameImpl[XPATH_NCNAME_TOKEN(21:22)]('y')
+                  XQueryNCNameImpl[XQUERY_NCNAME(21:22)]
+                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(21:22)]('y')

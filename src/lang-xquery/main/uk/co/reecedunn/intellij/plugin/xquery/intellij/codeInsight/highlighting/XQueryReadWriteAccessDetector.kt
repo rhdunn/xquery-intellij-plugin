@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,9 +25,16 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 
 class XQueryReadWriteAccessDetector : ReadWriteAccessDetector() {
+    private fun isVariable(element: PsiElement): Boolean = when (element.parent) {
+        is XPathVarName -> true
+        is XPathVarRef -> true
+        is XPathParam -> true
+        else -> false
+    }
+
     override fun isReadWriteAccessible(element: PsiElement): Boolean {
         if (element.containingFile !is XQueryModule) return false
-        return element is XPathEQName && (element.parent is XPathVarName || element.parent is XPathParam)
+        return element is XPathEQName && isVariable(element)
     }
 
     override fun isDeclarationWriteAccess(element: PsiElement): Boolean = true
@@ -37,9 +44,10 @@ class XQueryReadWriteAccessDetector : ReadWriteAccessDetector() {
     }
 
     override fun getExpressionAccess(expression: PsiElement): Access {
-        if (expression.parent !is XPathVarName && expression.parent !is XPathParam) return Access.Read
-        return when (expression.parent.parent) {
-            is XPathVarRef -> Access.Read
+        if (!isVariable(expression)) return Access.Read
+        return when {
+            expression.parent is XPathVarRef -> Access.Read
+            expression.parent.parent is XPathVarRef -> Access.Read
             else -> Access.Write
         }
     }

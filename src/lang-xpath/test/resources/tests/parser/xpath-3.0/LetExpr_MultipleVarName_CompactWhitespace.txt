@@ -10,9 +10,8 @@ XPathImpl[FILE(0:25)]
             LeafPsiElement[XPATH_ASSIGN_EQUAL_TOKEN(5:7)](':=')
             XPathVarRefImpl[XPATH_VAR_REF(7:9)]
                LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(7:8)]('$')
-               XPathVarNameImpl[XPATH_VAR_NAME(8:9)]
-                  XPathNCNameImpl[XPATH_NCNAME(8:9)]
-                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(8:9)]('y')
+               XPathNCNameImpl[XPATH_NCNAME(8:9)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(8:9)]('y')
          LeafPsiElement[XPATH_COMMA_TOKEN(9:10)](',')
          XPathSimpleLetBindingImpl[XPATH_SIMPLE_LET_BINDING(10:17)]
             LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(10:11)]('$')
@@ -22,14 +21,12 @@ XPathImpl[FILE(0:25)]
             LeafPsiElement[XPATH_ASSIGN_EQUAL_TOKEN(12:14)](':=')
             XPathVarRefImpl[XPATH_VAR_REF(14:17)]
                LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(14:15)]('$')
-               XPathVarNameImpl[XPATH_VAR_NAME(15:17)]
-                  XPathNCNameImpl[XPATH_NCNAME(15:17)]
-                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(15:16)]('w')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
+               XPathNCNameImpl[XPATH_NCNAME(15:17)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(15:16)]('w')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
       PluginReturnClauseImpl[XPATH_RETURN_CLAUSE(17:25)]
          XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_RETURN(17:23)]('return')
          XPathVarRefImpl[XPATH_VAR_REF(23:25)]
             LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(23:24)]('$')
-            XPathVarNameImpl[XPATH_VAR_NAME(24:25)]
-               XPathNCNameImpl[XPATH_NCNAME(24:25)]
-                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(24:25)]('x')
+            XPathNCNameImpl[XPATH_NCNAME(24:25)]
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(24:25)]('x')

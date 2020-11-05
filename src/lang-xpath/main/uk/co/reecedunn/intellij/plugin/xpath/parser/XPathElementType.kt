@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.parser
 
 import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.IFileElementType
+import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.full.text.*
@@ -923,4 +924,6 @@ object XPathElementType {
     )
 
     // endregion
+
+    val VARIABLE_NAME = TokenSet.create(VAR_NAME, VAR_REF)
 }

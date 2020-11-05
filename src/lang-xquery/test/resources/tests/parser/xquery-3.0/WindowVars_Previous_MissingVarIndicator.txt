@@ -21,10 +21,9 @@ XQueryModuleImpl[FILE(0:72)]
                   XPathVarRefImpl[XPATH_VAR_REF(27:31)]
                      LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(27:28)]('$')
                      PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
-                     XPathVarNameImpl[XPATH_VAR_NAME(29:31)]
-                        XQueryNCNameImpl[XQUERY_NCNAME(29:31)]
-                           XmlNCNameImpl[XPATH_NCNAME_TOKEN(29:30)]('y')
-                           PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
+                     XQueryNCNameImpl[XQUERY_NCNAME(29:31)]
+                        XmlNCNameImpl[XPATH_NCNAME_TOKEN(29:30)]('y')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
                   XQueryWindowStartConditionImpl[XQUERY_WINDOW_START_CONDITION(31:62)]
                      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_START(31:36)]('start')
                      PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
@@ -53,6 +52,5 @@ XQueryModuleImpl[FILE(0:72)]
                XPathVarRefImpl[XPATH_VAR_REF(69:72)]
                   LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(69:70)]('$')
                   PsiWhiteSpaceImpl[WHITE_SPACE(70:71)](' ')
-                  XPathVarNameImpl[XPATH_VAR_NAME(71:72)]
-                     XQueryNCNameImpl[XQUERY_NCNAME(71:72)]
-                        XmlNCNameImpl[XPATH_NCNAME_TOKEN(71:72)]('x')
+                  XQueryNCNameImpl[XQUERY_NCNAME(71:72)]
+                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(71:72)]('x')

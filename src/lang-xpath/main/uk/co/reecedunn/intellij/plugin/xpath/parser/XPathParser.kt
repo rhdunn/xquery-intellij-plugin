@@ -1670,7 +1670,7 @@ open class XPathParser : PsiParser {
         if (marker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             val eqnameType = this.parseEQNameOrWildcard(
-                builder, XPathElementType.VAR_NAME,
+                builder, XPathElementType.VAR_REF,
                 type === XPathElementType.MAP_CONSTRUCTOR_ENTRY
             )
             when (eqnameType) {
@@ -3836,6 +3836,7 @@ open class XPathParser : PsiParser {
                 type === QNAME -> marker.drop()
                 type === NCNAME -> marker.drop()
                 type === XPathElementType.WILDCARD -> marker.drop()
+                type === XPathElementType.VAR_REF -> marker.drop()
                 type === XPathElementType.VAR_NAME && eqnameType === XPathElementType.PARAM_REF -> marker.drop()
                 else -> marker.done(type)
             }
@@ -4019,7 +4020,7 @@ open class XPathParser : PsiParser {
             builder.advanceLexer()
             return tokenType
         } else if (tokenType == XPathTokenType.INTEGER_LITERAL) {
-            if (partType == QNamePart.Prefix && elementType === XPathElementType.VAR_NAME) {
+            if (partType == QNamePart.Prefix && elementType in XPathElementType.VARIABLE_NAME) {
                 builder.advanceLexer()
                 return XPathElementType.PARAM_REF
             } else if (partType == QNamePart.LocalName) {

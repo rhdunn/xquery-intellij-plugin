@@ -20,15 +20,11 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
-import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableName
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
 class XPathVarRefPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathVarRef {
     override val expressionElement: PsiElement? = null
 
-    private val varName: XpmVariableName?
-        get() = children().filterIsInstance<XpmVariableName>().firstOrNull()
-
     override val variableName: XsQNameValue?
-        get() = varName?.variableName
+        get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
 }

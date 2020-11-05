@@ -105,7 +105,8 @@ class XPathImpl(provider: FileViewProvider) :
             XPathElementType.TYPE_ALIAS to XpmUsageType.Type,
             XPathElementType.TYPE_NAME to XpmUsageType.Type,
             XPathElementType.UNION_TYPE to XpmUsageType.Type,
-            XPathElementType.VAR_NAME to XpmUsageType.Variable
+            XPathElementType.VAR_NAME to XpmUsageType.Variable,
+            XPathElementType.VAR_REF to XpmUsageType.Variable
         )
     }
 }
