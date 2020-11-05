@@ -42,6 +42,7 @@ various inspections.
 - [Data Model](#4-data-model)
   - [Literals](#41-literals)
   - [EQNames and Wildcards](#42-eqnames-and-wildcards)
+    - [Accepts Namespace Types](#421-accepts-namespace-types)
   - [Annotations](#43-annotations)
 - [Operation Tree](#5-operation-tree)
   - [Expressions](#51-expressions)
@@ -596,6 +597,25 @@ The `Wildcard` symbol is also an `XsQNameValue`, with the properties mirroring
 the `NCName`, `QName`, or `URIQualifiedName`. The prefix or local parts can be
 an instance of `xdm:wildcard` to indicate that any value matches.
 
+### 4.2.1 Accepts Namespace Types
+
+An EQName accepts *prefixed* namespace declarations if it is a QName. It
+matches if the *namespace prefix* of the declaration is the same as the
+*prefix* of the QName.
+
+An EQName accepts *default element\/type* namespace declarations if it is
+an NCName that is either an *element* or *type*.
+
+An EQName accepts *default function declaration* namespace declarations if
+it is an NCName that is a *function declaration*.
+
+An EQName accepts *default function reference* namespace declarations if
+it is an NCName that is a *function reference*.
+
+When evaluating the *expanded QName* (such as when resolving function calls),
+the *namespace uri* of any matching namespace declaration is added to the
+expanded QName's *namespace*.
+
 ### 4.3 Annotations
 
 | Symbol                    | Interface       |
@@ -668,15 +688,15 @@ A *predicate* is associated with a `FilterStep` or `FilterExpr` node.
 
 ### 5.3 Namespace Declarations
 
-| Symbol                 | Interface                 |
-|------------------------|---------------------------|
-| `DefaultNamespaceDecl` | `XpmNamespaceDeclaration` |
-| `DirAttribute`         | `XpmNamespaceDeclaration` |
-| `ModuleDecl`           | `XpmNamespaceDeclaration` |
-| `ModuleImport`         | `XpmNamespaceDeclaration` |
-| `NamespaceDecl`        | `XpmNamespaceDeclaration` |
-| `SchemaImport`         | `XpmNamespaceDeclaration` |
-| `UsingDecl`            | `XpmNamespaceDeclaration` |
+| Symbol                 | Interface                 | Accepts EQName Type                    |
+|------------------------|---------------------------|----------------------------------------|
+| `DefaultNamespaceDecl` | `XpmNamespaceDeclaration` | see below                              |
+| `DirAttribute`         | `XpmNamespaceDeclaration` | see below                              |
+| `ModuleDecl`           | `XpmNamespaceDeclaration` | default function declaration/reference |
+| `ModuleImport`         | `XpmNamespaceDeclaration` | prefixed                               |
+| `NamespaceDecl`        | `XpmNamespaceDeclaration` | prefixed                               |
+| `SchemaImport`         | `XpmNamespaceDeclaration` | see below                              |
+| `UsingDecl`            | `XpmNamespaceDeclaration` | default function reference             |
 
 A *namespace declaration* is an EBNF symbol that adds a namespace to the
 *statically-known namespaces* for the scope that it is contained in.
@@ -688,6 +708,18 @@ namespace declaration, then this is `null`.
 The *namespace uri* of a namespace declaration is the `xs:anyURI` that
 the namespace resolves to. When a QName or NCName matches the declaration,
 the *namespace* of the *expanded QName* binds to this value.
+
+If a `DefaultNamespaceDecl` is a `default element` declaration then it
+accepts *default element\/type* EQNames. If it is a `default function`
+declaration then it accepts *default function declaration* or *default
+function reference* EQNames.
+
+If the *prefix* of a `DirAttribute` is `xmlns` then it accepts *prefixed*
+EQNames. If the *local name* is `xmlns` without a prefix then it accepts
+*default element\/type* EQNames. Otherwise, it does not accept any EQNames.
+
+If a `SchemaImport` contains a `SchemaPrefix` then it accepts *prefixed*
+EQNames. Otherwise, it accepts *default element\/type* EQNames.
 
 ## A References
 
