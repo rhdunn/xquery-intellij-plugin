@@ -22,10 +22,9 @@ XQueryModuleImpl[FILE(0:33)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BY(17:19)]('by')
                   XQueryGroupingSpecListImpl[XQUERY_GROUPING_SPEC_LIST(19:25)]
                      XQueryGroupingSpecImpl[XQUERY_GROUPING_SPEC(19:25)]
-                        XQueryGroupingVariableImpl[XQUERY_GROUPING_VARIABLE(19:21)]
-                           LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(19:20)]('$')
-                           XQueryNCNameImpl[XQUERY_NCNAME(20:21)]
-                              XmlNCNameImpl[XPATH_NCNAME_TOKEN(20:21)]('x')
+                        LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(19:20)]('$')
+                        XQueryNCNameImpl[XQUERY_NCNAME(20:21)]
+                           XmlNCNameImpl[XPATH_NCNAME_TOKEN(20:21)]('x')
                         LeafPsiElement[XPATH_ASSIGN_EQUAL_TOKEN(21:23)](':=')
                         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(23:24)]('2')
                         PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')

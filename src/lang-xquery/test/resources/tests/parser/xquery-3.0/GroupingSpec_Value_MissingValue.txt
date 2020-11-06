@@ -27,11 +27,10 @@ XQueryModuleImpl[FILE(0:30)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
                   XQueryGroupingSpecListImpl[XQUERY_GROUPING_SPEC_LIST(24:30)]
                      XQueryGroupingSpecImpl[XQUERY_GROUPING_SPEC(24:30)]
-                        XQueryGroupingVariableImpl[XQUERY_GROUPING_VARIABLE(24:28)]
-                           LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(24:25)]('$')
-                           PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
-                           XQueryNCNameImpl[XQUERY_NCNAME(26:28)]
-                              XmlNCNameImpl[XPATH_NCNAME_TOKEN(26:27)]('x')
-                              PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
+                        LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(24:25)]('$')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
+                        XQueryNCNameImpl[XQUERY_NCNAME(26:28)]
+                           XmlNCNameImpl[XPATH_NCNAME_TOKEN(26:27)]('x')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
                         LeafPsiElement[XPATH_ASSIGN_EQUAL_TOKEN(28:30)](':=')
                         PsiErrorElementImpl[ERROR_ELEMENT(30:30)]('XPST0003: Missing expression.')

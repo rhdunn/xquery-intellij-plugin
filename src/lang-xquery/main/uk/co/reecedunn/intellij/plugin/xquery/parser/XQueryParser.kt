@@ -2098,14 +2098,11 @@ class XQueryParser : XPathParser() {
     }
 
     private fun parseGroupingVariable(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.VARIABLE_INDICATOR)
-        if (marker != null) {
+        if (builder.matchTokenType(XPathTokenType.VARIABLE_INDICATOR)) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (parseEQNameOrWildcard(builder, XPathElementType.VAR_REF, false) == null) {
                 builder.error(XPathBundle.message("parser.error.expected-eqname"))
             }
-
-            marker.done(XQueryElementType.GROUPING_VARIABLE)
             return true
         }
         return false

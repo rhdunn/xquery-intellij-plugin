@@ -4821,58 +4821,6 @@ private class XQueryPsiTest : ParserTestCase() {
                     assertThat(expr.collation, `is`(nullValue()))
                 }
             }
-
-            @Nested
-            @DisplayName("XQuery 3.1 EBNF (64) GroupingVariable")
-            internal inner class GroupingVariable {
-                @Test
-                @DisplayName("NCName")
-                fun ncname() {
-                    val expr = parse<XQueryGroupingVariable>(
-                        "for \$x in \$y group by \$z return \$w"
-                    )[0] as XpmVariableName
-
-                    val qname = expr.variableName!!
-                    assertThat(qname.prefix, `is`(nullValue()))
-                    assertThat(qname.namespace, `is`(nullValue()))
-                    assertThat(qname.localName!!.data, `is`("z"))
-                }
-
-                @Test
-                @DisplayName("QName")
-                fun qname() {
-                    val expr = parse<XQueryGroupingVariable>(
-                        "for \$a:x in \$a:y group by \$a:z return \$a:w"
-                    )[0] as XpmVariableName
-
-                    val qname = expr.variableName!!
-                    assertThat(qname.namespace, `is`(nullValue()))
-                    assertThat(qname.prefix!!.data, `is`("a"))
-                    assertThat(qname.localName!!.data, `is`("z"))
-                }
-
-                @Test
-                @DisplayName("URIQualifiedName")
-                fun uriQualifiedName() {
-                    val expr = parse<XQueryGroupingVariable>(
-                        "for \$Q{http://www.example.com}x in \$Q{http://www.example.com}y " +
-                                "group by \$Q{http://www.example.com}z " +
-                                "return \$Q{http://www.example.com}w"
-                    )[0] as XpmVariableName
-
-                    val qname = expr.variableName!!
-                    assertThat(qname.prefix, `is`(nullValue()))
-                    assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
-                    assertThat(qname.localName!!.data, `is`("z"))
-                }
-
-                @Test
-                @DisplayName("missing VarName")
-                fun missingVarName() {
-                    val expr = parse<XQueryGroupingVariable>("for \$x in \$y group by \$")[0] as XpmVariableName
-                    assertThat(expr.variableName, `is`(nullValue()))
-                }
-            }
         }
 
         @Nested

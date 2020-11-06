@@ -459,12 +459,6 @@ object XQueryElementType {
         XQuery
     )
 
-    val GROUPING_VARIABLE: IElementType = ICompositeElementType(
-        "XQUERY_GROUPING_VARIABLE",
-        XQueryGroupingVariablePsiImpl::class.java,
-        XQuery
-    )
-
     val INTERMEDIATE_CLAUSE: IElementType = ICompositeElementType(
         "XQUERY_INTERMEDIATE_CLAUSE",
         XQueryIntermediateClausePsiImpl::class.java,

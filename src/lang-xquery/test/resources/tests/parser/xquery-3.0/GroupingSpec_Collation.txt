@@ -27,12 +27,11 @@ XQueryModuleImpl[FILE(0:53)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
                   XQueryGroupingSpecListImpl[XQUERY_GROUPING_SPEC_LIST(24:43)]
                      XQueryGroupingSpecImpl[XQUERY_GROUPING_SPEC(24:42)]
-                        XQueryGroupingVariableImpl[XQUERY_GROUPING_VARIABLE(24:28)]
-                           LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(24:25)]('$')
-                           PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
-                           XQueryNCNameImpl[XQUERY_NCNAME(26:28)]
-                              XmlNCNameImpl[XPATH_NCNAME_TOKEN(26:27)]('x')
-                              PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
+                        LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(24:25)]('$')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
+                        XQueryNCNameImpl[XQUERY_NCNAME(26:28)]
+                           XmlNCNameImpl[XPATH_NCNAME_TOKEN(26:27)]('x')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
                         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_COLLATION(28:37)]('collation')
                         PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
                         XQueryUriLiteralImpl[XQUERY_URI_LITERAL(38:42)]
