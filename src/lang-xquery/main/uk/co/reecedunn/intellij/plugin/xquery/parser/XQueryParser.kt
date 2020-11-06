@@ -1701,7 +1701,7 @@ class XQueryParser : XPathParser() {
             val errorMessage: String
             if (haveVariableIndicator) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (parseEQNameOrWildcard(builder, XPathElementType.VAR_NAME, false) == null) {
+                if (parseEQNameOrWildcard(builder, XPathElementType.VAR_REF, false) == null) {
                     builder.error(XPathBundle.message("parser.error.expected-eqname"))
                     haveErrors = true
                 }

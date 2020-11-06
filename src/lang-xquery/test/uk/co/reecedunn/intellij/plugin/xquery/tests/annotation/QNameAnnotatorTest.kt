@@ -1006,6 +1006,21 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
     @DisplayName("Usage Type: Variable")
     internal inner class UsageType_Variable {
         @Test
+        @DisplayName("XQuery 3.1 EBNF (49) LetBinding")
+        fun letBinding() {
+            val file = parse<XQueryModule>("let \$test := 2 return \$test")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (5:9) ERASED/DEFAULT + XQUERY_VARIABLE
+                    INFORMATION (23:27) ERASED/DEFAULT + XQUERY_VARIABLE
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
         @DisplayName("XQuery 3.1 EBNF (56) CurrentItem")
         fun currentItem() {
             val file = parse<XQueryModule>(
@@ -1051,21 +1066,6 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                     """
                     INFORMATION (20:21) ERASED/DEFAULT + XQUERY_VARIABLE
                     INFORMATION (40:44) ERASED/DEFAULT + XQUERY_VARIABLE
-                    """.trimIndent()
-                )
-            )
-        }
-
-        @Test
-        @DisplayName("XQuery 3.1 EBNF (132) VarName")
-        fun varName() {
-            val file = parse<XQueryModule>("let \$test := 2 return \$test")[0]
-            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
-            assertThat(
-                annotations, `is`(
-                    """
-                    INFORMATION (5:9) ERASED/DEFAULT + XQUERY_VARIABLE
-                    INFORMATION (23:27) ERASED/DEFAULT + XQUERY_VARIABLE
                     """.trimIndent()
                 )
             )

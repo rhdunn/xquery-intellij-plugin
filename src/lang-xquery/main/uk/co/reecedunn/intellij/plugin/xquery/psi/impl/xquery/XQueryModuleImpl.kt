@@ -189,6 +189,7 @@ class XQueryModuleImpl(provider: FileViewProvider) :
             XPathElementType.ELEMENT_TEST to XpmUsageType.Element,
             XPathElementType.FUNCTION_CALL to XpmUsageType.FunctionRef,
             XQueryElementType.FUNCTION_DECL to XpmUsageType.FunctionDecl,
+            XQueryElementType.LET_BINDING to XpmUsageType.Variable,
             XQueryElementType.MODULE_DECL to XpmUsageType.Namespace,
             XQueryElementType.MODULE_IMPORT to XpmUsageType.Namespace,
             XPathElementType.NAMED_FUNCTION_REF to XpmUsageType.FunctionRef,
