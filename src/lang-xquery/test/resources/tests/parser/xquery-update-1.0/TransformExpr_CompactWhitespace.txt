@@ -4,9 +4,8 @@ XQueryModuleImpl[FILE(0:28)]
          UpdateFacilityCopyModifyExprImpl[XQUERY_COPY_MODIFY_EXPR(0:28)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_COPY(0:4)]('copy')
             LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(4:5)]('$')
-            XPathVarNameImpl[XPATH_VAR_NAME(5:6)]
-               XQueryNCNameImpl[XQUERY_NCNAME(5:6)]
-                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(5:6)]('x')
+            XQueryNCNameImpl[XQUERY_NCNAME(5:6)]
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(5:6)]('x')
             LeafPsiElement[XPATH_ASSIGN_EQUAL_TOKEN(6:8)](':=')
             XPathVarRefImpl[XPATH_VAR_REF(8:11)]
                LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(8:9)]('$')

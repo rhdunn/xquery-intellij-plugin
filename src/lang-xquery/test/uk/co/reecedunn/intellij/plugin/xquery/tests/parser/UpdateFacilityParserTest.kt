@@ -479,20 +479,16 @@ private class UpdateFacilityParserTest : ParserTestCase() {
         @Test
         @DisplayName("multiple VarName; compact whitespace")
         fun testTransformExpr_MultipleVarName_CompactWhitespace() {
-            val expected =
-                loadResource("tests/parser/xquery-update-1.0/TransformExpr_MultipleVarName_CompactWhitespace.txt")
-            val actual =
-                parseResource("tests/parser/xquery-update-1.0/TransformExpr_MultipleVarName_CompactWhitespace.xq")
+            val expected = loadResource("tests/parser/xquery-update-1.0/TransformExpr_MultipleVarName_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-update-1.0/TransformExpr_MultipleVarName_CompactWhitespace.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
 
         @Test
         @DisplayName("multiple VarName; missing '$' variable indicator")
         fun testTransformExpr_MultipleVarName_MissingVarIndicator() {
-            val expected =
-                loadResource("tests/parser/xquery-update-1.0/TransformExpr_MultipleVarName_MissingVarIndicator.txt")
-            val actual =
-                parseResource("tests/parser/xquery-update-1.0/TransformExpr_MultipleVarName_MissingVarIndicator.xq")
+            val expected = loadResource("tests/parser/xquery-update-1.0/TransformExpr_MultipleVarName_MissingVarIndicator.txt")
+            val actual = parseResource("tests/parser/xquery-update-1.0/TransformExpr_MultipleVarName_MissingVarIndicator.xq")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
 
