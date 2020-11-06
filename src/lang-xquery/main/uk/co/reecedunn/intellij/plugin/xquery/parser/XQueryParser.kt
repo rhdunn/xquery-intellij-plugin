@@ -1974,7 +1974,7 @@ class XQueryParser : XPathParser() {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (parseEQNameOrWildcard(builder, XPathElementType.VAR_NAME, false) == null && !haveErrors) {
+            if (parseEQNameOrWildcard(builder, XPathElementType.VAR_REF, false) == null && !haveErrors) {
                 builder.error(XQueryBundle.message("parser.error.expected-qname"))
             }
 
