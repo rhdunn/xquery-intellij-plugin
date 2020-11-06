@@ -386,7 +386,7 @@ private class XQueryReferenceTest : ParserTestCase() {
                 """
             )
 
-            val varRef = vars[4]
+            val varRef = vars[3]
             val varDecl = vars[1]
 
             val ref = varRef.variableName?.element?.reference!!

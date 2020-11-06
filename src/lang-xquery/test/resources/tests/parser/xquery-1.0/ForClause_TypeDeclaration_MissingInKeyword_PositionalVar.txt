@@ -27,10 +27,9 @@ XQueryModuleImpl[FILE(0:44)]
                      PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
                      LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(26:27)]('$')
                      PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
-                     XPathVarNameImpl[XPATH_VAR_NAME(28:30)]
-                        XQueryNCNameImpl[XQUERY_NCNAME(28:30)]
-                           XmlNCNameImpl[XPATH_NCNAME_TOKEN(28:29)]('i')
-                           PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
+                     XQueryNCNameImpl[XQUERY_NCNAME(28:30)]
+                        XmlNCNameImpl[XPATH_NCNAME_TOKEN(28:29)]('i')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
                   PsiErrorElementImpl[ERROR_ELEMENT(30:30)]('XPST0003: Expected keyword: in, score.')
                   XPathVarRefImpl[XPATH_VAR_REF(30:34)]
                      LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(30:31)]('$')
