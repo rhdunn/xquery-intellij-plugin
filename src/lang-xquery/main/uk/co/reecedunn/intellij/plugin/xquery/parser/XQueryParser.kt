@@ -2101,7 +2101,7 @@ class XQueryParser : XPathParser() {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.VARIABLE_INDICATOR)
         if (marker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (parseEQNameOrWildcard(builder, XPathElementType.VAR_NAME, false) == null) {
+            if (parseEQNameOrWildcard(builder, XPathElementType.VAR_REF, false) == null) {
                 builder.error(XPathBundle.message("parser.error.expected-eqname"))
             }
 
