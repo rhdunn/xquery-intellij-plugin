@@ -2923,7 +2923,7 @@ class XQueryParser : XPathParser() {
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (parseEQNameOrWildcard(builder, XPathElementType.VAR_NAME, false) == null) {
+            if (parseEQNameOrWildcard(builder, XPathElementType.VAR_REF, false) == null) {
                 builder.error(XPathBundle.message("parser.error.expected-eqname"))
                 haveErrors = true
             }
