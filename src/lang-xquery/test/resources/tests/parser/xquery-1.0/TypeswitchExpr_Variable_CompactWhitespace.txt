@@ -24,10 +24,9 @@ XQueryModuleImpl[FILE(0:53)]
             PluginDefaultCaseClauseImpl[XQUERY_DEFAULT_CASE_CLAUSE(35:53)]
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_DEFAULT(35:42)]('default')
                LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(42:43)]('$')
-               XPathVarNameImpl[XPATH_VAR_NAME(43:45)]
-                  XQueryNCNameImpl[XQUERY_NCNAME(43:45)]
-                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(43:44)]('y')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(44:45)](' ')
+               XQueryNCNameImpl[XQUERY_NCNAME(43:45)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(43:44)]('y')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(44:45)](' ')
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_RETURN(45:51)]('return')
                PsiWhiteSpaceImpl[WHITE_SPACE(51:52)](' ')
                XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(52:53)]('2')

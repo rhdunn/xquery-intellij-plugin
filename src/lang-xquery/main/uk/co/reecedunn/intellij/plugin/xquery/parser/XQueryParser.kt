@@ -2459,7 +2459,7 @@ class XQueryParser : XPathParser() {
             parseWhiteSpaceAndCommentTokens(builder)
             if (builder.matchTokenType(XPathTokenType.VARIABLE_INDICATOR)) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (parseEQNameOrWildcard(builder, XPathElementType.VAR_NAME, false) == null) {
+                if (parseEQNameOrWildcard(builder, XPathElementType.VAR_REF, false) == null) {
                     builder.error(XPathBundle.message("parser.error.expected-eqname"))
                     haveErrors = true
                 }
