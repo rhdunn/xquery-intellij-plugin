@@ -17,6 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xpm.variable
 
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
-interface XpmVariableName {
+interface XpmVariable {
     val variableName: XsQNameValue?
 }

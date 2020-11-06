@@ -15,4 +15,4 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.variable
 
-interface XpmVariableDefinition : XpmVariableName
+interface XpmVariableDefinition : XpmVariable
