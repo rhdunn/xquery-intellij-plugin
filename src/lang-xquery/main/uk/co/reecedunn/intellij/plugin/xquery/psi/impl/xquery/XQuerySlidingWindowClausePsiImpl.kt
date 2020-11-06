@@ -19,8 +19,6 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
-import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableName
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySlidingWindowClause
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
@@ -42,11 +40,8 @@ class XQuerySlidingWindowClausePsiImpl(node: ASTNode) :
     // endregion
     // region XPathVariableBinding
 
-    private val varName: XpmVariableName?
-        get() = children().filterIsInstance<XPathVarName>().firstOrNull()
-
     override val variableName: XsQNameValue?
-        get() = varName?.variableName
+        get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
 
     // endregion
 }

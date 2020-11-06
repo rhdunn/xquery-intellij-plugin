@@ -203,6 +203,7 @@ class XQueryModuleImpl(provider: FileViewProvider) :
             XPathElementType.SCHEMA_ELEMENT_TEST to XpmUsageType.Element,
             XQueryElementType.SCHEMA_PREFIX to XpmUsageType.Namespace,
             XPathElementType.SIMPLE_TYPE_NAME to XpmUsageType.Type,
+            XQueryElementType.SLIDING_WINDOW_CLAUSE to XpmUsageType.Variable,
             XPathElementType.TYPE_ALIAS to XpmUsageType.Type,
             XQueryElementType.TYPE_DECL to XpmUsageType.Type,
             XPathElementType.TYPE_NAME to XpmUsageType.Type,
