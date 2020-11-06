@@ -3837,7 +3837,6 @@ open class XPathParser : PsiParser {
                 type === NCNAME -> marker.drop()
                 type === XPathElementType.WILDCARD -> marker.drop()
                 type === XPathElementType.VAR_REF -> marker.drop()
-                type === XPathElementType.VAR_NAME && eqnameType === XPathElementType.PARAM_REF -> marker.drop()
                 else -> marker.done(type)
             }
             return eqnameType
@@ -4020,7 +4019,7 @@ open class XPathParser : PsiParser {
             builder.advanceLexer()
             return tokenType
         } else if (tokenType == XPathTokenType.INTEGER_LITERAL) {
-            if (partType == QNamePart.Prefix && elementType in XPathElementType.VARIABLE_NAME) {
+            if (partType == QNamePart.Prefix && elementType === XPathElementType.VAR_REF) {
                 builder.advanceLexer()
                 return XPathElementType.PARAM_REF
             } else if (partType == QNamePart.LocalName) {

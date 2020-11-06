@@ -209,7 +209,6 @@ class XQueryModuleImpl(provider: FileViewProvider) :
             XPathElementType.TYPE_NAME to XpmUsageType.Type,
             XPathElementType.UNION_TYPE to XpmUsageType.Type,
             XQueryElementType.VAR_DECL to XpmUsageType.Variable,
-            XPathElementType.VAR_NAME to XpmUsageType.Variable,
             XPathElementType.VAR_REF to XpmUsageType.Variable
         )
     }

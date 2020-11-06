@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Reece H. Dunn
+ * Copyright (C) 2016-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,6 @@ import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
 import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionReference
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarName
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableName
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
@@ -67,10 +66,7 @@ class XQueryURIQualifiedNamePsiImpl(node: ASTNode) : XPathURIQualifiedNamePsiImp
     // endregion
     // region NavigationItem
 
-    override fun getPresentation(): ItemPresentation? = when (parent) {
-        is XPathVarName -> (parent.parent as NavigatablePsiElement).presentation
-        else -> (parent as NavigatablePsiElement).presentation
-    }
+    override fun getPresentation(): ItemPresentation? = (parent as NavigatablePsiElement).presentation
 
     // endregion
 }
