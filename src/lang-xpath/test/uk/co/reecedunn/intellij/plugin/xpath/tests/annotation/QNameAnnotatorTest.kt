@@ -733,8 +733,23 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
     @DisplayName("Usage Type: Variable")
     internal inner class UsageType_Variable {
         @Test
-        @DisplayName("XPath 3.1 EBNF (60) VarName")
-        fun varName() {
+        @DisplayName("XPath 3.1 EBNF (10) SimpleForBinding")
+        fun simpleForBinding() {
+            val file = parse<XPath>("for \$test in 2 return \$test")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (5:9) ERASED/DEFAULT + XPATH_VARIABLE
+                    INFORMATION (23:27) ERASED/DEFAULT + XPATH_VARIABLE
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XPath 3.1 EBNF (13) SimpleLetBinding")
+        fun simpleLetBinding() {
             val file = parse<XPath>("let \$test := 2 return \$test")[0]
             val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
             assertThat(
@@ -742,6 +757,37 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                     """
                     INFORMATION (5:9) ERASED/DEFAULT + XPATH_VARIABLE
                     INFORMATION (23:27) ERASED/DEFAULT + XPATH_VARIABLE
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XPath 3.1 EBNF (14) QuantifiedExpr ; XQuery IntelliJ Plugin XPath EBNF (2) QuantifiedExprBinding")
+        fun quantifiedExprBinding() {
+            val file = parse<XPath>("some \$test in 2 satisfies \$test = 2")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (6:10) ERASED/DEFAULT + XPATH_VARIABLE
+                    INFORMATION (27:31) ERASED/DEFAULT + XPATH_VARIABLE
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XPath 2.0 with Full Text EBNF (6) FTScoreVar")
+        fun ftScoreVar() {
+            val file = parse<XPath>("for \$test score \$s in 2 return \$test")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (5:9) ERASED/DEFAULT + XPATH_VARIABLE
+                    INFORMATION (17:18) ERASED/DEFAULT + XPATH_VARIABLE
+                    INFORMATION (32:36) ERASED/DEFAULT + XPATH_VARIABLE
                     """.trimIndent()
                 )
             )

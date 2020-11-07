@@ -1516,7 +1516,7 @@ private class PluginPsiTest : ParserTestCase()  {
     @DisplayName("XQuery IntelliJ Plugin (3.3.1) Typeswitch")
     internal inner class Typeswitch {
         @Nested
-        @DisplayName("XQuery IntelliJ Plugin EBNF (75) DefaultCaseClause")
+        @DisplayName("XQuery IntelliJ Plugin EBNF (6) DefaultCaseClause")
         internal inner class DefaultCaseClause {
             @Test
             @DisplayName("NCName")
@@ -1597,7 +1597,7 @@ private class PluginPsiTest : ParserTestCase()  {
         }
 
         @Nested
-        @DisplayName("XQuery IntelliJ Plugin EBNF (10) BlockVarDeclEntry")
+        @DisplayName("XQuery Scripting Extensions 1.0 EBNF (156) BlockVarDecl")
         internal inner class BlockVarDeclEntry {
             @Test
             @DisplayName("NCName")

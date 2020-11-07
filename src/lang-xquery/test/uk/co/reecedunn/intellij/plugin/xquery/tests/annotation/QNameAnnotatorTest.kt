@@ -1006,6 +1006,86 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
     @DisplayName("Usage Type: Variable")
     internal inner class UsageType_Variable {
         @Test
+        @DisplayName("XQuery 3.1 EBNF (28) VarDecl")
+        fun varDecl() {
+            val file = parse<XQueryModule>("declare variable \$test := 2; \$test")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (18:22) ERASED/DEFAULT + XQUERY_VARIABLE
+                    INFORMATION (30:34) ERASED/DEFAULT + XQUERY_VARIABLE
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XQuery 1.0 EBNF (43) TypeswitchExpr ; XQuery 3.1 EBNF (44) CaseClause")
+        fun caseClause() {
+            val file = parse<XQueryModule>("typeswitch (\$x) case \$test as xs:string return \$test")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (13:14) ERASED/DEFAULT + XQUERY_VARIABLE
+                    INFORMATION (22:26) ERASED/DEFAULT + XQUERY_VARIABLE
+                    INFORMATION (30:32) ERASED/DEFAULT + XQUERY_NS_PREFIX
+                    INFORMATION (33:39) ERASED/DEFAULT + XQUERY_TYPE
+                    INFORMATION (48:52) ERASED/DEFAULT + XQUERY_VARIABLE
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XQuery 1.0 EBNF (43) TypeswitchExpr ; XQuery IntelliJ Plugin EBNF (6) DefaultCaseClause")
+        fun defaultCaseClause() {
+            val file = parse<XQueryModule>("typeswitch (\$x) default \$test return \$test")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (13:14) ERASED/DEFAULT + XQUERY_VARIABLE
+                    INFORMATION (25:29) ERASED/DEFAULT + XQUERY_VARIABLE
+                    INFORMATION (38:42) ERASED/DEFAULT + XQUERY_VARIABLE
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (45) ForBinding")
+        fun forBinding() {
+            val file = parse<XQueryModule>("for \$test in 2 return \$test")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (5:9) ERASED/DEFAULT + XQUERY_VARIABLE
+                    INFORMATION (23:27) ERASED/DEFAULT + XQUERY_VARIABLE
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (47) PositionalVar")
+        fun positionalVar() {
+            val file = parse<XQueryModule>("for \$test at \$i in 2 return \$i")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (5:9) ERASED/DEFAULT + XQUERY_VARIABLE
+                    INFORMATION (14:15) ERASED/DEFAULT + XQUERY_VARIABLE
+                    INFORMATION (29:30) ERASED/DEFAULT + XQUERY_VARIABLE
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
         @DisplayName("XQuery 3.1 EBNF (49) LetBinding")
         fun letBinding() {
             val file = parse<XQueryModule>("let \$test := 2 return \$test")[0]
@@ -1015,6 +1095,36 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                     """
                     INFORMATION (5:9) ERASED/DEFAULT + XQUERY_VARIABLE
                     INFORMATION (23:27) ERASED/DEFAULT + XQUERY_VARIABLE
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (51) TumblingWindowClause")
+        fun tumblingWindowClause() {
+            val file = parse<XQueryModule>("for tumbling window \$test in 2 return \$test")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (21:25) ERASED/DEFAULT + XQUERY_VARIABLE
+                    INFORMATION (39:43) ERASED/DEFAULT + XQUERY_VARIABLE
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (52) SlidingWindowClause")
+        fun slidingWindowClause() {
+            val file = parse<XQueryModule>("for sliding window \$test in 2 return \$test")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (20:24) ERASED/DEFAULT + XQUERY_VARIABLE
+                    INFORMATION (38:42) ERASED/DEFAULT + XQUERY_VARIABLE
                     """.trimIndent()
                 )
             )
@@ -1066,6 +1176,129 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                     """
                     INFORMATION (20:21) ERASED/DEFAULT + XQUERY_VARIABLE
                     INFORMATION (40:44) ERASED/DEFAULT + XQUERY_VARIABLE
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (59) CountClause")
+        fun countClause() {
+            val file = parse<XQueryModule>("for \$test in 2 count \$c return \$c")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (5:9) ERASED/DEFAULT + XQUERY_VARIABLE
+                    INFORMATION (22:23) ERASED/DEFAULT + XQUERY_VARIABLE
+                    INFORMATION (32:33) ERASED/DEFAULT + XQUERY_VARIABLE
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (63) GroupingSpec ; XQuery 3.1 EBNF (64) GroupingVariable")
+        fun groupingVariable() {
+            val file = parse<XQueryModule>("for \$test in 2 group by \$c return \$c")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (5:9) ERASED/DEFAULT + XQUERY_VARIABLE
+                    INFORMATION (25:26) ERASED/DEFAULT + XQUERY_VARIABLE
+                    INFORMATION (35:36) ERASED/DEFAULT + XQUERY_VARIABLE
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (70) QuantifiedExpr ; XQuery IntelliJ Plugin XQuery EBNF (4) QuantifiedExprBinding")
+        fun quantifiedExprBinding() {
+            val file = parse<XQueryModule>("some \$test in 2 satisfies \$test = 2")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (6:10) ERASED/DEFAULT + XQUERY_VARIABLE
+                    INFORMATION (27:31) ERASED/DEFAULT + XQUERY_VARIABLE
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XQuery IntelliJ Plugin EBNF (31) CatchClause")
+        fun catchClause() {
+            val file = parse<XQueryModule>("try { () } catch (\$test) { \$test }")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (19:23) ERASED/DEFAULT + XQUERY_VARIABLE
+                    INFORMATION (28:32) ERASED/DEFAULT + XQUERY_VARIABLE
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XPath 2.0 with Full Text EBNF (6) FTScoreVar")
+        fun ftScoreVar() {
+            val file = parse<XQueryModule>("for \$test score \$s in 2 return \$test")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (5:9) ERASED/DEFAULT + XQUERY_VARIABLE
+                    INFORMATION (17:18) ERASED/DEFAULT + XQUERY_VARIABLE
+                    INFORMATION (32:36) ERASED/DEFAULT + XQUERY_VARIABLE
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XQuery Update Facility 1.0 EBNF (150) TransformExpr ; XQuery Update Facility 3.0 EBNF (208) CopyModifyExpr")
+        fun transformExpr() {
+            val file = parse<XQueryModule>("copy \$test := () modify \$test return \$test")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (6:10) ERASED/DEFAULT + XQUERY_VARIABLE
+                    INFORMATION (25:29) ERASED/DEFAULT + XQUERY_VARIABLE
+                    INFORMATION (38:42) ERASED/DEFAULT + XQUERY_VARIABLE
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XQuery Scripting Extensions 1.0 EBNF (156) BlockVarDecl ; XQuery Scripting Extensions 1.0 EBNF (156) BlockVarDecl")
+        fun blockVarDecl() {
+            val file = parse<XQueryModule>("block { declare \$test := 2; \$test }")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (17:21) ERASED/DEFAULT + XQUERY_VARIABLE
+                    INFORMATION (29:33) ERASED/DEFAULT + XQUERY_VARIABLE
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XQuery Scripting Extension 1.0 EBNF (158) AssignmentExpr")
+        fun assignmentExpr() {
+            val file = parse<XQueryModule>("\$test := 2")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (1:5) ERASED/DEFAULT + XQUERY_VARIABLE
                     """.trimIndent()
                 )
             )
