@@ -23,6 +23,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableBinding
 import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.*
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
@@ -121,15 +122,63 @@ private class UpdateFacilityPsiTest : ParserTestCase() {
     @Nested
     @DisplayName("XQuery Update Facility 3.0 (5.6) Copy Modify")
     internal inner class CopyModify {
-        @Test
+        @Nested
         @DisplayName("XQuery Update Facility 3.0 EBNF (208) CopyModifyExpr")
-        fun copyModifyExpr() {
-            val expr = parse<UpdateFacilityCopyModifyExpr>(
-                "copy \$x := () modify delete node \$x/test return \$x"
-            )[0] as XpmExpression
+        internal inner class CopyModifyExpr {
+            @Test
+            @DisplayName("NCName")
+            fun ncname() {
+                val binding = parse<UpdateFacilityCopyModifyExpr>(
+                    "copy \$x := () modify delete node \$y return \$z"
+                )[0] as XpmVariableBinding
 
-            assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.COPY_MODIFY_EXPR))
-            assertThat(expr.expressionElement?.textOffset, `is`(0))
+                val qname = binding.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("x"))
+
+                val expr = binding as XpmExpression
+                assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.COPY_MODIFY_EXPR))
+                assertThat(expr.expressionElement?.textOffset, `is`(0))
+            }
+
+            @Test
+            @DisplayName("QName")
+            fun qname() {
+                val binding = parse<UpdateFacilityCopyModifyExpr>(
+                    "copy \$a:x := () modify delete node \$a:y return \$a:z"
+                )[0] as XpmVariableBinding
+
+                val qname = binding.variableName!!
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("a"))
+                assertThat(qname.localName!!.data, `is`("x"))
+
+                val expr = binding as XpmExpression
+                assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.COPY_MODIFY_EXPR))
+                assertThat(expr.expressionElement?.textOffset, `is`(0))
+            }
+
+            @Test
+            @DisplayName("URIQualifiedName")
+            fun uriQualifiedName() {
+                val binding = parse<UpdateFacilityCopyModifyExpr>(
+                    """
+                    copy ${'$'}Q{http://www.example.com}x := ()
+                    modify delete node ${'$'}Q{http://www.example.com}y
+                    return ${'$'}Q{http://www.example.com}z
+                    """.trimIndent()
+                )[0] as XpmVariableBinding
+
+                val qname = binding.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+                assertThat(qname.localName!!.data, `is`("x"))
+
+                val expr = binding as XpmExpression
+                assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.COPY_MODIFY_EXPR))
+                assertThat(expr.expressionElement?.textOffset, `is`(0))
+            }
         }
     }
 
