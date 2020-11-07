@@ -49,6 +49,8 @@ various inspections.
   - [Path Steps](#52-path-steps)
     - [Predicates](#521-predicates)
   - [Namespace Declarations](#53-namespace-declarations)
+  - [Variables](#54-variables)
+    - [Variable Types](#541-variable-types)
 - {: .toc-letter } [References](#a-references)
   - [W3C References](#a1-w3c-references)
   - [XPath NG Proposals](#a2-xpath-ng-proposals)
@@ -720,6 +722,59 @@ EQNames. If the *local name* is `xmlns` without a prefix then it accepts
 
 If a `SchemaImport` contains a `SchemaPrefix` then it accepts *prefixed*
 EQNames. Otherwise, it accepts *default element\/type* EQNames.
+
+### 5.4 Variables
+
+| Symbol                  | Interface                |
+|-------------------------|--------------------------|
+| `BlockVarDecl`          | `XpmVariableDeclaration` |
+| `CaseClause`            | `XpmVariableBinding`     |
+| `CatchClause`           | `XpmVariableBinding`     |
+| `CopyModifyExpr`        | `XpmVariableBinding`     |
+| `CountClause`           | `XpmVariableBinding`     |
+| `CurrentItem`           | `XpmVariableBinding`     |
+| `DefaultCaseClause`     | `XpmVariableBinding`     |
+| `ForBinding`            | `XpmVariableBinding`     |
+| `FTScoreVar`            | `XpmVariableBinding`     |
+| `GroupingSpec`          | `XpmVariableBinding`     |
+| `LetBinding`            | `XpmVariableBinding`     |
+| `NextItem`              | `XpmVariableBinding`     |
+| `Param`                 | `XpmVariableBinding`     |
+| `PositionalVar`         | `XpmVariableBinding`     |
+| `PreviousItem`          | `XpmVariableBinding`     |
+| `QuantifiedExprBinding` | `XpmVariableBinding`     |
+| `SimpleForBinding`      | `XpmVariableBinding`     |
+| `SimpleLetBinding`      | `XpmVariableBinding`     |
+| `SlidingWindowClause`   | `XpmVariableBinding`     |
+| `TumblingWindowClause`  | `XpmVariableBinding`     |
+| `VarDecl`               | `XpmVariableDeclaration` |
+| `VarRef`                | `XpmVariableReference`   |
+
+A *variable definition* is a construct that introduces a variable that can be
+referenced in the scope the variable is valid for.
+
+A *variable declaration* is a *variable definition* that specifies a variable
+in the prolog or scripting block scope.
+
+A *variable binding* is a variable in an expression that is bound to the
+result of an expression or other context (such as the position of an item
+in a FLWOR expression) for the scope of the expression.
+
+A *variable reference* is an expression that references a *variable definition*.
+
+The *variable name* of a *variable definition* is the `xs:QName` associated
+with that definition. The *variable name* of a *variable reference* is the
+`xs:QName` associated with that reference.
+
+#### 5.4.1 Variable Types
+
+| Symbol    | Interface         |
+|-----------|-------------------|
+| `Param`   | `XpmVariableType` |
+| `VarDecl` | `XpmVariableType` |
+
+The *variable type* of a *variable definition* is the `SequenceType` associated
+with that variable if specified.
 
 ## A References
 
