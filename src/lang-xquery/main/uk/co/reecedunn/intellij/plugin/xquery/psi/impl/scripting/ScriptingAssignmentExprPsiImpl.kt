@@ -18,21 +18,35 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.scripting
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingAssignmentExpr
 import uk.co.reecedunn.intellij.plugin.intellij.lang.ScriptingSpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
 class ScriptingAssignmentExprPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), ScriptingAssignmentExpr, VersionConformance {
+    // region XpmExpression
 
     override val expressionElement: PsiElement
         get() = findChildByType(XPathTokenType.ASSIGN_EQUAL)!!
+
+    // endregion
+    // region XpmVariableBinding
+
+    override val variableName: XsQNameValue?
+        get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
+
+    // endregion
+    // region VersionConformance
 
     override val requiresConformance: List<Version>
         get() = listOf(ScriptingSpec.NOTE_1_0_20140918)
 
     override val conformanceElement: PsiElement
         get() = expressionElement
+
+    // endregion
 }

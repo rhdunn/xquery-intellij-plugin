@@ -24,9 +24,8 @@ import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableBinding
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.*
-import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.*
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
@@ -70,13 +69,55 @@ private class ScriptingPsiTest : ParserTestCase() {
     @Nested
     @DisplayName("XQuery Scripting Extension 1.0 (5.3) Assignment Expression")
     internal inner class AssignmentExpression {
-        @Test
+        @Nested
         @DisplayName("XQuery Scripting Extension 1.0 EBNF (158) AssignmentExpr")
-        fun assignmentExpr() {
-            val expr = parse<ScriptingAssignmentExpr>("\$x := 2")[0] as XpmExpression
+        internal inner class AssignmentExpr {
+            @Test
+            @DisplayName("NCName")
+            fun ncname() {
+                val binding = parse<ScriptingAssignmentExpr>("\$x := \$y")[0] as XpmVariableBinding
 
-            assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.ASSIGN_EQUAL))
-            assertThat(expr.expressionElement?.textOffset, `is`(3))
+                val qname = binding.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("x"))
+
+                val expr = binding as XpmExpression
+                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.ASSIGN_EQUAL))
+                assertThat(expr.expressionElement?.textOffset, `is`(3))
+            }
+
+            @Test
+            @DisplayName("QName")
+            fun qname() {
+                val binding = parse<ScriptingAssignmentExpr>("\$a:x := \$a:y")[0] as XpmVariableBinding
+
+                val qname = binding.variableName!!
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("a"))
+                assertThat(qname.localName!!.data, `is`("x"))
+
+                val expr = binding as XpmExpression
+                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.ASSIGN_EQUAL))
+                assertThat(expr.expressionElement?.textOffset, `is`(5))
+            }
+
+            @Test
+            @DisplayName("URIQualifiedName")
+            fun uriQualifiedName() {
+                val binding = parse<ScriptingAssignmentExpr>(
+                    "\$Q{http://www.example.com}x := \$Q{http://www.example.com}y"
+                )[0] as XpmVariableBinding
+
+                val qname = binding.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+                assertThat(qname.localName!!.data, `is`("x"))
+
+                val expr = binding as XpmExpression
+                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.ASSIGN_EQUAL))
+                assertThat(expr.expressionElement?.textOffset, `is`(28))
+            }
         }
     }
 

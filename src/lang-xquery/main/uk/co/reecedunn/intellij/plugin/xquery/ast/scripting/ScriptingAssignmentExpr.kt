@@ -17,8 +17,9 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.scripting
 
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExprSingle
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableBinding
 
 /**
  * An XQuery Scripting Extension 1.0 `AssignmentExpr` node in the XQuery AST.
  */
-interface ScriptingAssignmentExpr : XPathExprSingle, XpmExpression
+interface ScriptingAssignmentExpr : XPathExprSingle, XpmExpression, XpmVariableBinding
