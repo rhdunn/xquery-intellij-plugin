@@ -53,6 +53,8 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPathStep
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.*
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCaseClause
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCatchClause
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySequenceTypeUnion
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
@@ -1867,6 +1869,56 @@ private class PluginPsiTest : ParserTestCase()  {
                 }
                 assertThat(steps.size, `is`(1))
                 assertThat(steps[0].getUsageType(), `is`(XpmUsageType.Element)) // property
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin (3.12) Binary Constructors")
+    internal inner class TryCatchExpressions {
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (31) CatchClause")
+        internal inner class CatchClause {
+            @Test
+            @DisplayName("NCName")
+            fun ncname() {
+                val expr = parse<XQueryCatchClause>("try { () } catch (\$x) { \$y }")[0] as XpmVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("x"))
+            }
+
+            @Test
+            @DisplayName("QName")
+            fun qname() {
+                val expr = parse<XQueryCatchClause>("try { () } catch (\$a:x) { \$a:y }")[0] as XpmVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("a"))
+                assertThat(qname.localName!!.data, `is`("x"))
+            }
+
+            @Test
+            @DisplayName("URIQualifiedName")
+            fun uriQualifiedName() {
+                val expr = parse<XQueryCatchClause>(
+                    "try { () } catch (\$Q{http://www.example.com}x) { \$Q{http://www.example.com}y }"
+                )[0] as XpmVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+                assertThat(qname.localName!!.data, `is`("x"))
+            }
+
+            @Test
+            @DisplayName("missing VarName")
+            fun noVarName() {
+                val expr = parse<XQueryCatchClause>("try { () } catch () { \$x }")[0] as XpmVariableBinding
+                assertThat(expr.variableName, `is`(nullValue()))
             }
         }
     }

@@ -62,7 +62,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.xquery.model.getNamespaceType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.reference.XQueryVariableNameReference
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 import java.math.BigDecimal
 import java.math.BigInteger
@@ -4976,6 +4975,13 @@ private class XQueryPsiTest : ParserTestCase() {
 
             assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.TRY_CATCH_EXPR))
             assertThat(expr.expressionElement?.textOffset, `is`(0))
+        }
+
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (81) CatchClause")
+        fun catchClause() {
+            val expr = parse<XQueryCatchClause>("try { \$x } catch err:XPTY0004 { \$y }")[0] as XpmVariableBinding
+            assertThat(expr.variableName, `is`(nullValue()))
         }
     }
 

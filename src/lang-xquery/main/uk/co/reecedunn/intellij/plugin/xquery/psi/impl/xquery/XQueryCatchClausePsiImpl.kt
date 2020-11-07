@@ -18,13 +18,24 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCatchClause
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
 class XQueryCatchClausePsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), XQueryCatchClause, XpmSyntaxValidationElement {
+    // region XpmVariableBinding
+
+    override val variableName: XsQNameValue?
+        get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
+
+    // endregion
+    // region XpmSyntaxValidationElement
 
     override val conformanceElement: PsiElement
         get() = findChildByType(XPathTokenType.PARENTHESIS_OPEN) ?: firstChild
+
+    // endregion
 }
