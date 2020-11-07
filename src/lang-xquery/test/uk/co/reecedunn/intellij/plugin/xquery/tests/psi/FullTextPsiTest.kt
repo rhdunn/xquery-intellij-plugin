@@ -28,8 +28,10 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTThesaurusID
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTContainsExpr
+import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTScoreVar
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableBinding
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
@@ -50,60 +52,119 @@ private class FullTextPsiTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery and XPath Full Text 3.0 (3.4.3) Thesaurus Option")
-    internal inner class ThesaurusOption {
+    @DisplayName("XQuery and XPath Full Text 3.0 (2.3) Score Variables")
+    internal inner class ScoreVariables {
         @Nested
-        @DisplayName("Full Text 3.0 EBNF (227) FTThesaurusID")
-        internal inner class FTThesaurusID_XPath31 {
+        @DisplayName("Full Text 3.0 EBNF (49) FTScoreVar")
+        internal inner class FTScoreVarTest {
             @Test
-            @DisplayName("thesaurus uri")
-            fun uri() {
-                val thesaurus = parse<FTThesaurusID>(
-                    "x contains text 'test' using thesaurus at 'http://www.example.com'"
-                )[0]
-                assertThat(thesaurus.source!!.data, `is`("http://www.example.com"))
-                assertThat(thesaurus.source!!.context, `is`(XdmUriContext.Thesaurus))
-                assertThat(thesaurus.source!!.moduleTypes, `is`(CoreMatchers.sameInstance(XdmModuleType.NONE)))
+            @DisplayName("NCName")
+            fun ncname() {
+                val expr = parse<FTScoreVar>(
+                    "for \$x score \$y in () return \$z"
+                )[0] as XpmVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("y"))
             }
 
             @Test
-            @DisplayName("missing thesaurus uri")
-            fun wordList_single() {
-                val thesaurus = parse<FTThesaurusID>("x contains text 'test' using thesaurus at")[0]
-                assertThat(thesaurus.source, `is`(nullValue()))
+            @DisplayName("QName")
+            fun qname() {
+                val expr = parse<FTScoreVar>(
+                    "for \$a:x score \$a:y in () return \$a:z"
+                )[0] as XpmVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("a"))
+                assertThat(qname.localName!!.data, `is`("y"))
+            }
+
+            @Test
+            @DisplayName("URIQualifiedName")
+            fun uriQualifiedName() {
+                val expr = parse<FTScoreVar>(
+                    "for \$Q{http://www.example.com}x score \$Q{http://www.example.com}y in () return \$Q{http://www.example.com}z"
+                )[0] as XpmVariableBinding
+
+                val qname = expr.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+                assertThat(qname.localName!!.data, `is`("y"))
+            }
+
+            @Test
+            @DisplayName("missing VarName")
+            fun missingVarName() {
+                val expr = parse<FTScoreVar>("for \$x score \$")[0] as XpmVariableBinding
+                assertThat(expr.variableName, `is`(nullValue()))
             }
         }
     }
 
     @Nested
-    @DisplayName("XQuery and XPath Full Text 3.0 (3.4.7) Stop Word Option")
-    internal inner class StopWordOption {
+    @DisplayName("XQuery and XPath Full Text 3.0 (3.4) Match Options")
+    internal inner class MatchOptions {
         @Nested
-        @DisplayName("Full Text 3.0 EBNF (230) FTStopWords")
-        internal inner class FTStopWords_XPath31 {
-            @Test
-            @DisplayName("stop word uri")
-            fun uri() {
-                val words = parse<FTStopWords>("x contains text 'test' using stop words at 'http://www.example.com'")[0]
-                assertThat(words.source!!.data, `is`("http://www.example.com"))
-                assertThat(words.source!!.context, `is`(XdmUriContext.StopWords))
-                assertThat(words.source!!.moduleTypes, `is`(CoreMatchers.sameInstance(XdmModuleType.NONE)))
-            }
+        @DisplayName("XQuery and XPath Full Text 3.0 (3.4.3) Thesaurus Option")
+        internal inner class ThesaurusOption {
+            @Nested
+            @DisplayName("Full Text 3.0 EBNF (227) FTThesaurusID")
+            internal inner class FTThesaurusIDTest {
+                @Test
+                @DisplayName("thesaurus uri")
+                fun uri() {
+                    val thesaurus = parse<FTThesaurusID>(
+                        "x contains text 'test' using thesaurus at 'http://www.example.com'"
+                    )[0]
+                    assertThat(thesaurus.source!!.data, `is`("http://www.example.com"))
+                    assertThat(thesaurus.source!!.context, `is`(XdmUriContext.Thesaurus))
+                    assertThat(thesaurus.source!!.moduleTypes, `is`(CoreMatchers.sameInstance(XdmModuleType.NONE)))
+                }
 
-            @Test
-            @DisplayName("stop words; single")
-            fun wordList_single() {
-                val words = parse<FTStopWords>("x contains text 'test' using stop words ('lorem'))")[0]
-                assertThat(words.source, `is`(nullValue()))
+                @Test
+                @DisplayName("missing thesaurus uri")
+                fun wordList_single() {
+                    val thesaurus = parse<FTThesaurusID>("x contains text 'test' using thesaurus at")[0]
+                    assertThat(thesaurus.source, `is`(nullValue()))
+                }
             }
+        }
 
-            @Test
-            @DisplayName("stop words; multiple")
-            fun wordList_multiple() {
-                val words = parse<FTStopWords>(
-                    "x contains text 'test' using stop words ('lorem', 'ipsum', 'dolor'))"
-                )[0]
-                assertThat(words.source, `is`(nullValue()))
+        @Nested
+        @DisplayName("XQuery and XPath Full Text 3.0 (3.4.7) Stop Word Option")
+        internal inner class StopWordOption {
+            @Nested
+            @DisplayName("Full Text 3.0 EBNF (230) FTStopWords")
+            internal inner class FTStopWordsTest {
+                @Test
+                @DisplayName("stop word uri")
+                fun uri() {
+                    val words =
+                        parse<FTStopWords>("x contains text 'test' using stop words at 'http://www.example.com'")[0]
+                    assertThat(words.source!!.data, `is`("http://www.example.com"))
+                    assertThat(words.source!!.context, `is`(XdmUriContext.StopWords))
+                    assertThat(words.source!!.moduleTypes, `is`(CoreMatchers.sameInstance(XdmModuleType.NONE)))
+                }
+
+                @Test
+                @DisplayName("stop words; single")
+                fun wordList_single() {
+                    val words = parse<FTStopWords>("x contains text 'test' using stop words ('lorem'))")[0]
+                    assertThat(words.source, `is`(nullValue()))
+                }
+
+                @Test
+                @DisplayName("stop words; multiple")
+                fun wordList_multiple() {
+                    val words = parse<FTStopWords>(
+                        "x contains text 'test' using stop words ('lorem', 'ipsum', 'dolor'))"
+                    )[0]
+                    assertThat(words.source, `is`(nullValue()))
+                }
             }
         }
     }
