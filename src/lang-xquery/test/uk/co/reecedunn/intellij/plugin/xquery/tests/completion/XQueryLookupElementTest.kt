@@ -36,7 +36,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathVarNameLooku
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableReference
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
-import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryInScopeVariableProvider
+import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryVariableProvider
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryFunctionProvider
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
@@ -45,7 +45,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 @DisplayName("XQuery 3.1 - Code Completion - Lookup Element")
 private class XQueryLookupElementTest : ParserTestCase() {
     override fun registerExtensions() {
-        registerInScopeVariableProvider(XQueryInScopeVariableProvider, "INSTANCE")
+        registerInScopeVariableProvider(XQueryVariableProvider, "INSTANCE")
         registerStaticallyKnownFunctionProvider(XQueryFunctionProvider, "INSTANCE")
     }
 

@@ -32,7 +32,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableProviderBean
-import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryInScopeVariableProvider
+import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryVariableProvider
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -47,7 +47,7 @@ abstract class AnnotatorTestCase :
         addExplicitExtension(LanguageASTFactory.INSTANCE, XQuery, XQueryASTFactory())
 
         registerExtensionPoint(XpmVariableProvider.EP_NAME, XpmVariableProviderBean::class.java)
-        registerInScopeVariableProvider(XQueryInScopeVariableProvider, "INSTANCE")
+        registerInScopeVariableProvider(XQueryVariableProvider, "INSTANCE")
     }
 
     @AfterAll

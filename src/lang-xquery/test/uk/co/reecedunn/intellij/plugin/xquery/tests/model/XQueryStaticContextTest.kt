@@ -35,7 +35,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.staticallyKnownFunctions
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryMainModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
-import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryInScopeVariableProvider
+import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryVariableProvider
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryFunctionProvider
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
@@ -48,7 +48,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
     }
 
     override fun registerExtensions() {
-        registerInScopeVariableProvider(XQueryInScopeVariableProvider, "INSTANCE")
+        registerInScopeVariableProvider(XQueryVariableProvider, "INSTANCE")
         registerStaticallyKnownFunctionProvider(XQueryFunctionProvider, "INSTANCE")
     }
 

@@ -21,7 +21,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableDefinition
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.model.xqueryInScopeVariables
 
-object XQueryInScopeVariableProvider : XpmVariableProvider {
+object XQueryVariableProvider : XpmVariableProvider {
     override fun inScopeVariables(context: PsiElement): Sequence<XpmVariableDefinition> {
         if (context.containingFile !is XQueryModule) return emptySequence()
         return context.xqueryInScopeVariables()
