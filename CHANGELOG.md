@@ -11,6 +11,7 @@ XSLT:
 XPath and XQuery:
 
 1.  Further reduce memory usage by removing additional nodes from the PSI tree.
+1.  Auto-complete support for `CatchClause` variables.
 
 IntelliJ Integration:
 
