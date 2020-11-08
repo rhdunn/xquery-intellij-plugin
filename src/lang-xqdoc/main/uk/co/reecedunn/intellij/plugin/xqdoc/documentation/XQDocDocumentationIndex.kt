@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xqdoc.documentation
 
-import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionReference
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpm.namespace.XpmNamespaceDeclaration
 
 interface XQDocDocumentationIndex {

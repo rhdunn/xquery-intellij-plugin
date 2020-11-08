@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmFunction
-import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 
 /**

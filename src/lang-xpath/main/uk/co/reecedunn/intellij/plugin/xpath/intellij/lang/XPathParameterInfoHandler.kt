@@ -21,7 +21,7 @@ import com.intellij.lang.parameterInfo.*
 import com.intellij.psi.NavigatablePsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.xpath.ast.isArrowFunctionCall
-import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownFunctions

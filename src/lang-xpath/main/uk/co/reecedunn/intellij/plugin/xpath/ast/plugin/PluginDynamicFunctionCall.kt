@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpath.ast.plugin
 
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPostfixExpr
-import uk.co.reecedunn.intellij.plugin.xpm.function.XpmDynamicFunctionReference
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmDynamicFunctionReference
 
 /**
  * An XPath 3.0 and XQuery 3.0 `PostfixExpr` node in the XPath and XQuery AST

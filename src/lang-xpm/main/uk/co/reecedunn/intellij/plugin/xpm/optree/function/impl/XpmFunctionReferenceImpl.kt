@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpm.function.impl
+package uk.co.reecedunn.intellij.plugin.xpm.optree.function.impl
 
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
-import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionReference
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
 
 data class XpmFunctionReferenceImpl(
     override val functionName: XsQNameValue,

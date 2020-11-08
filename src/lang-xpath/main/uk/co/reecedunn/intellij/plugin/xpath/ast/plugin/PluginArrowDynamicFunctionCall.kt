@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpath.ast.plugin
 
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArrowFunctionSpecifier
-import uk.co.reecedunn.intellij.plugin.xpm.function.XpmDynamicFunctionReference
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmDynamicFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 
 /**

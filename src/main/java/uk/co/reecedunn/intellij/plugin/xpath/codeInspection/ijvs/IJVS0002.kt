@@ -34,8 +34,8 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryPluginBundle
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.settings.XQueryProjectSettings
-import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionDeclaration
-import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionReference
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 
 class IJVS0002 : Inspection("ijvs/IJVS0002.md", IJVS0002::class.java.classLoader) {

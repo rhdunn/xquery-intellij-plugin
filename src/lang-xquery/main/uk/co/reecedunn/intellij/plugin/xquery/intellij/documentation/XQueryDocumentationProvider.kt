@@ -24,8 +24,8 @@ import uk.co.reecedunn.intellij.plugin.xqdoc.intellij.resources.XQDocTemplates
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentation
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationSourceProvider
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.sections
-import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionDeclaration
-import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionReference
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathInlineFunctionExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
@@ -35,7 +35,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpm.context.expand
-import uk.co.reecedunn.intellij.plugin.xpm.function.impl.XpmFunctionReferenceImpl
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.impl.XpmFunctionReferenceImpl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 
 class XQueryDocumentationProvider : AbstractDocumentationProvider() {

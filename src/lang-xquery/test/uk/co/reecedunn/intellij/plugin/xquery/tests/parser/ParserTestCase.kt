@@ -40,8 +40,8 @@ import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderFactoryB
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePathFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
-import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionDecorator
-import uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionDecoratorBean
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDecorator
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDecoratorBean
 import uk.co.reecedunn.intellij.plugin.xpm.module.ImportPathResolverBean
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderFactory
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderSettings

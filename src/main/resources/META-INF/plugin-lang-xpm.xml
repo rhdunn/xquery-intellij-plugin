@@ -16,8 +16,8 @@
     </extensionPoint>
 
     <!--suppress PluginXmlValidity -->
-    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.functionDecorator" beanClass="uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionDecoratorBean" dynamic="true">
-      <with attribute="implementationClass" implements="uk.co.reecedunn.intellij.plugin.xpm.function.XpmFunctionDecorator"/>
+    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.functionDecorator" beanClass="uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDecoratorBean" dynamic="true">
+      <with attribute="implementationClass" implements="uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDecorator"/>
     </extensionPoint>
 
     <!--suppress PluginXmlValidity -->
