@@ -20,11 +20,11 @@ import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProvider
-import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmInScopeVariableProvider
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableDefinition
 
 fun PsiElement.inScopeVariables(): Sequence<XpmVariableDefinition> {
-    return XpmInScopeVariableProvider.EP_NAME.extensionList.asSequence().flatMap {
+    return XpmVariableProvider.EP_NAME.extensionList.asSequence().flatMap {
         it.getInstance().inScopeVariables(this)
     }
 }

@@ -30,8 +30,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.settings.XQueryProjectSettings
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
-import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmInScopeVariableProvider
-import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmInScopeVariableProviderBean
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableProvider
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableProviderBean
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryInScopeVariableProvider
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
@@ -46,7 +46,7 @@ abstract class AnnotatorTestCase :
         addExplicitExtension(LanguageASTFactory.INSTANCE, XPath, XPathASTFactory())
         addExplicitExtension(LanguageASTFactory.INSTANCE, XQuery, XQueryASTFactory())
 
-        registerExtensionPoint(XpmInScopeVariableProvider.EP_NAME, XpmInScopeVariableProviderBean::class.java)
+        registerExtensionPoint(XpmVariableProvider.EP_NAME, XpmVariableProviderBean::class.java)
         registerInScopeVariableProvider(XQueryInScopeVariableProvider, "INSTANCE")
     }
 
@@ -56,12 +56,12 @@ abstract class AnnotatorTestCase :
     }
 
     @Suppress("UsePropertyAccessSyntax")
-    protected fun registerInScopeVariableProvider(provider: XpmInScopeVariableProvider, fieldName: String) {
+    protected fun registerInScopeVariableProvider(provider: XpmVariableProvider, fieldName: String) {
         val classLoader = ParserTestCase::class.java.classLoader
-        val bean = XpmInScopeVariableProviderBean()
+        val bean = XpmVariableProviderBean()
         bean.implementationClass = provider.javaClass.name
         bean.fieldName = fieldName
         bean.setPluginDescriptor(DefaultPluginDescriptor(PluginId.getId("registerInScopeVariables"), classLoader))
-        registerExtension(XpmInScopeVariableProvider.EP_NAME, bean)
+        registerExtension(XpmVariableProvider.EP_NAME, bean)
     }
 }

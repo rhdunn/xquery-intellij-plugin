@@ -49,8 +49,8 @@ import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePathFactoryBean
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.impl.XpmModuleLocationPath
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProviderBean
-import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmInScopeVariableProvider
-import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmInScopeVariableProviderBean
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableProvider
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableProviderBean
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 abstract class ParserTestCase :
@@ -99,7 +99,7 @@ abstract class ParserTestCase :
         registerBuiltInFunctions(uk.co.reecedunn.intellij.plugin.w3.model.BuiltInFunctions, "INSTANCE")
 
         registerExtensionPoint(XpmFunctionDecorator.EP_NAME, XpmFunctionDecoratorBean::class.java)
-        registerExtensionPoint(XpmInScopeVariableProvider.EP_NAME, XpmInScopeVariableProviderBean::class.java)
+        registerExtensionPoint(XpmVariableProvider.EP_NAME, XpmVariableProviderBean::class.java)
         registerExtensionPoint(XpmFunctionProvider.EP_NAME, XpmFunctionProviderBean::class.java)
 
         registerExtensions()
@@ -145,13 +145,13 @@ abstract class ParserTestCase :
     }
 
     @Suppress("UsePropertyAccessSyntax")
-    protected fun registerInScopeVariableProvider(provider: XpmInScopeVariableProvider, fieldName: String) {
+    protected fun registerInScopeVariableProvider(provider: XpmVariableProvider, fieldName: String) {
         val classLoader = ParserTestCase::class.java.classLoader
-        val bean = XpmInScopeVariableProviderBean()
+        val bean = XpmVariableProviderBean()
         bean.implementationClass = provider.javaClass.name
         bean.fieldName = fieldName
         bean.setPluginDescriptor(DefaultPluginDescriptor(PluginId.getId("registerInScopeVariables"), classLoader))
-        registerExtension(XpmInScopeVariableProvider.EP_NAME, bean)
+        registerExtension(XpmVariableProvider.EP_NAME, bean)
     }
 
     @Suppress("UsePropertyAccessSyntax")

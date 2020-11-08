@@ -18,10 +18,10 @@ package uk.co.reecedunn.intellij.plugin.xpm.optree.variable
 import com.intellij.openapi.extensions.ExtensionPointName
 import com.intellij.psi.PsiElement
 
-interface XpmInScopeVariableProvider {
+interface XpmVariableProvider {
     companion object {
-        val EP_NAME: ExtensionPointName<XpmInScopeVariableProviderBean> = ExtensionPointName.create(
-            "uk.co.reecedunn.intellij.inScopeVariableProvider"
+        val EP_NAME: ExtensionPointName<XpmVariableProviderBean> = ExtensionPointName.create(
+            "uk.co.reecedunn.intellij.variableProvider"
         )
     }
 

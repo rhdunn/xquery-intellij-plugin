@@ -31,8 +31,8 @@
     </extensionPoint>
 
     <!--suppress PluginXmlValidity -->
-    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.inScopeVariableProvider" beanClass="uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmInScopeVariableProviderBean" dynamic="true">
-      <with attribute="implementationClass" implements="uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmInScopeVariableProvider"/>
+    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.variableProvider" beanClass="uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableProviderBean" dynamic="true">
+      <with attribute="implementationClass" implements="uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableProvider"/>
     </extensionPoint>
 
     <!--suppress PluginXmlValidity -->

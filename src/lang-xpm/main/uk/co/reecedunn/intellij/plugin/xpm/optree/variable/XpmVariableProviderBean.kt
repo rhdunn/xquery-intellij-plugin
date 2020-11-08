@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xpm.optree.variable
 import com.intellij.util.xmlb.annotations.Attribute
 import uk.co.reecedunn.intellij.plugin.core.serviceContainer.KotlinLazyInstance
 
-class XpmInScopeVariableProviderBean : KotlinLazyInstance<XpmInScopeVariableProvider>() {
+class XpmVariableProviderBean : KotlinLazyInstance<XpmVariableProvider>() {
     @Attribute("implementationClass")
     override var implementationClass: String = ""
 
