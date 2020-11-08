@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpm.optree.function
 
 import com.intellij.openapi.extensions.ExtensionPointName
+import com.intellij.psi.PsiFile
 
 interface XpmStaticallyKnownFunctionProvider {
     companion object {
@@ -23,4 +24,6 @@ interface XpmStaticallyKnownFunctionProvider {
             "uk.co.reecedunn.intellij.staticallyKnownFunctionProvider"
         )
     }
+
+    fun staticallyKnownFunctions(file: PsiFile): Sequence<XpmFunctionDeclaration?>
 }

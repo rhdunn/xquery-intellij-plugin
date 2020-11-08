@@ -155,13 +155,6 @@ class XQueryModuleImpl(provider: FileViewProvider) :
         return context.defaultNamespace(type, true)
     }
 
-    override fun staticallyKnownFunctions(): Sequence<XpmFunctionDeclaration?> {
-        val prolog = mainOrLibraryModule?.prolog?.firstOrNull() ?: predefinedStaticContext ?: return emptySequence()
-        return prolog.importedPrologs().flatMap {
-            it.annotatedDeclarations<XpmFunctionDeclaration>()
-        }.filter { decl -> decl?.functionName != null }
-    }
-
     override fun staticallyKnownFunctions(eqname: XPathEQName): Sequence<XpmFunctionDeclaration> {
         return eqname.importedPrologsForQName().flatMap { (name, prolog) ->
             prolog.staticallyKnownFunctions(name!!)

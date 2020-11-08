@@ -26,8 +26,8 @@ import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.EQNameCompleti
 import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.completionType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathFunctionCallLookup
-import uk.co.reecedunn.intellij.plugin.xpath.model.XPathStaticContext
 import uk.co.reecedunn.intellij.plugin.xpm.context.expand
+import uk.co.reecedunn.intellij.plugin.xpm.staticallyKnownFunctions
 
 object XQueryFunctionCallProvider : CompletionProviderEx {
     override fun apply(element: PsiElement, context: ProcessingContext, result: CompletionResultSet) {
@@ -35,11 +35,10 @@ object XQueryFunctionCallProvider : CompletionProviderEx {
         val isArrowExpr = element.parent.parent is XPathArrowFunctionSpecifier
 
         val ref = element.parent as XsQNameValue
-        val staticContext = (element.containingFile as? XPathStaticContext)
         when (ref.completionType(element)) {
             EQNameCompletionType.QNamePrefix, EQNameCompletionType.NCName -> {
                 // Without prefix context, so include all functions.
-                staticContext?.staticallyKnownFunctions()?.forEachCancellable { function ->
+                element.containingFile.staticallyKnownFunctions().forEachCancellable { function ->
                     val localName = function?.functionName?.localName?.data ?: return@forEachCancellable
                     function.functionName?.expand()?.firstOrNull()?.let { name ->
                         namespaces.forEach { ns ->
@@ -55,7 +54,7 @@ object XQueryFunctionCallProvider : CompletionProviderEx {
             }
             EQNameCompletionType.QNameLocalName -> {
                 // With prefix context, so only include functions with a matching expanded QName namespace URI.
-                staticContext?.staticallyKnownFunctions()?.forEachCancellable { function ->
+                element.containingFile.staticallyKnownFunctions().forEachCancellable { function ->
                     val localName = function?.functionName?.localName?.data ?: return@forEachCancellable
                     if (function.functionName?.prefix != null || function.functionName?.namespace != null) {
                         function.functionName?.expand()?.firstOrNull()?.let { name ->
@@ -74,7 +73,7 @@ object XQueryFunctionCallProvider : CompletionProviderEx {
             }
             EQNameCompletionType.URIQualifiedNameLocalName -> {
                 // With namespace context, so only include functions with a matching expanded QName namespace URI.
-                staticContext?.staticallyKnownFunctions()?.forEachCancellable { function ->
+                element.containingFile.staticallyKnownFunctions().forEachCancellable { function ->
                     val localName = function?.functionName?.localName?.data ?: return@forEachCancellable
                     if (function.functionName?.prefix != null || function.functionName?.namespace != null) {
                         val expanded = function.functionName?.expand()?.firstOrNull()

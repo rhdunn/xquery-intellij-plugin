@@ -13,23 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpm
+package uk.co.reecedunn.intellij.plugin.xquery.optree
 
-import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmStaticallyKnownFunctionProvider
-import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmInScopeVariableProvider
-import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableDefinition
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
+import uk.co.reecedunn.intellij.plugin.xquery.model.annotatedDeclarations
+import uk.co.reecedunn.intellij.plugin.xquery.model.importedPrologs
 
-fun PsiElement.inScopeVariables(): Sequence<XpmVariableDefinition> {
-    return XpmInScopeVariableProvider.EP_NAME.extensionList.asSequence().flatMap {
-        it.getInstance().inScopeVariables(this)
-    }
-}
+object XQueryStaticallyKnownFunctionProvider : XpmStaticallyKnownFunctionProvider {
+    override fun staticallyKnownFunctions(file: PsiFile): Sequence<XpmFunctionDeclaration?> {
+        val module = file as? XQueryModule
+        val prolog = module?.mainOrLibraryModule?.prolog?.firstOrNull()
+            ?: module?.predefinedStaticContext
+            ?: return emptySequence()
 
-fun PsiFile.staticallyKnownFunctions(): Sequence<XpmFunctionDeclaration?> {
-    return XpmStaticallyKnownFunctionProvider.EP_NAME.extensionList.asSequence().flatMap {
-        it.getInstance().staticallyKnownFunctions(this)
+        return prolog.importedPrologs().flatMap {
+            it.annotatedDeclarations<XpmFunctionDeclaration>()
+        }.filter { decl -> decl?.functionName != null }
     }
 }

@@ -69,10 +69,6 @@ class XPathImpl(provider: FileViewProvider) :
         else -> emptySequence()
     }
 
-    override fun staticallyKnownFunctions(): Sequence<XpmFunctionDeclaration?> {
-        return emptySequence() // TODO
-    }
-
     override fun staticallyKnownFunctions(eqname: XPathEQName): Sequence<XpmFunctionDeclaration> {
         return emptySequence() // TODO
     }

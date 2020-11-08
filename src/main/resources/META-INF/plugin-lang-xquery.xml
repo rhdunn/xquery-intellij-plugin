@@ -53,5 +53,7 @@
 
   <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
     <inScopeVariableProvider implementationClass="uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryInScopeVariableProvider" fieldName="INSTANCE"/>
+
+    <staticallyKnownFunctionProvider implementationClass="uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryStaticallyKnownFunctionProvider" fieldName="INSTANCE"/>
   </extensions>
 </idea-plugin>

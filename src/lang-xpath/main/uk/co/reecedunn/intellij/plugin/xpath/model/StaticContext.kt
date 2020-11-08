@@ -29,8 +29,6 @@ interface XPathStaticContext : XpmStaticContext {
 
     fun defaultNamespace(context: PsiElement, type: XdmNamespaceType): Sequence<XpmNamespaceDeclaration>
 
-    fun staticallyKnownFunctions(): Sequence<XpmFunctionDeclaration?>
-
     fun staticallyKnownFunctions(eqname: XPathEQName): Sequence<XpmFunctionDeclaration>
 }
 
