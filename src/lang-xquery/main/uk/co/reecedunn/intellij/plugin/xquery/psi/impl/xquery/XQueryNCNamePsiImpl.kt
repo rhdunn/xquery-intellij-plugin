@@ -21,9 +21,9 @@ import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
-import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariable
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathNCNamePsiImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.reference.XPathFunctionNameReference
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableReference
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.reference.XQueryVariableNameReference
 
 open class XQueryNCNamePsiImpl(node: ASTNode) : XPathNCNamePsiImpl(node) {
@@ -36,7 +36,7 @@ open class XQueryNCNamePsiImpl(node: ASTNode) : XPathNCNamePsiImpl(node) {
                     val ref = XPathFunctionNameReference(this, it.textRange.shiftRight(-node.startOffset))
                     arrayOf(ref as PsiReference)
                 }
-                is XpmVariable -> {
+                is XpmVariableReference -> {
                     val ref = XQueryVariableNameReference(this, it.textRange.shiftRight(-node.startOffset))
                     arrayOf(ref as PsiReference)
                 }

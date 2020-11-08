@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017-2019 Reece H. Dunn
+ * Copyright (C) 2017-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,4 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.optree.variable
 
-interface XpmVariableDefinition : XpmVariable
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
+
+interface XpmVariableDefinition {
+    val variableName: XsQNameValue?
+}

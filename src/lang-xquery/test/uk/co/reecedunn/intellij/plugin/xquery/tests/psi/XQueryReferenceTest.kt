@@ -27,8 +27,10 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
-import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariable
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableDefinition
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableReference
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryVariableProvider
@@ -236,15 +238,15 @@ private class XQueryReferenceTest : ParserTestCase() {
         @Test
         @DisplayName("XQuery 3.1 EBNF (28) VarDecl")
         fun varDecl() {
-            val vars = parse<XpmVariable>(
+            val file = parse<XQueryModule>(
                 """
                 declare variable ${'$'}value := 2;
                 ${'$'}value
                 """
-            )
+            )[0]
 
-            val varRef = vars[1]
-            val varDecl = vars[0]
+            val varRef = file.walkTree().filterIsInstance<XpmVariableReference>().toList()[0]
+            val varDecl = file.walkTree().filterIsInstance<XpmVariableDeclaration>().toList()[0]
 
             val ref = varRef.variableName?.element?.reference!!
             assertThat(ref.element, `is`(sameInstance(varRef.variableName?.element)))
@@ -274,15 +276,18 @@ private class XQueryReferenceTest : ParserTestCase() {
         @Test
         @DisplayName("XQuery 3.1 EBNF (34) Param")
         fun param() {
-            val vars = parse<XpmVariable>(
+            val file = parse<XQueryModule>(
                 """
                 declare function f(${'$'}x) { ${'$'}x };
                 ${'$'}x (: ${'$'}x is not in scope here :)
                 """
-            )
+            )[0]
 
-            val ref = vars[1].variableName?.element?.reference!!
-            assertThat(ref.element, `is`(sameInstance(vars[1].variableName?.element)))
+            val varRef = file.walkTree().filterIsInstance<XpmVariableReference>().toList()[0]
+            val varDecl = file.walkTree().filterIsInstance<XpmVariableDefinition>().toList()[0]
+
+            val ref = varRef.variableName?.element?.reference!!
+            assertThat(ref.element, `is`(sameInstance(varRef.variableName?.element)))
             assertThat(ref.canonicalText, `is`("x"))
             assertThat(ref.rangeInElement.startOffset, `is`(0))
             assertThat(ref.rangeInElement.endOffset, `is`(1))
@@ -290,12 +295,12 @@ private class XQueryReferenceTest : ParserTestCase() {
 
             var resolved: PsiElement = ref.resolve()!!
             assertThat(resolved, `is`(instanceOf<PsiElement>(XPathNCName::class.java)))
-            assertThat(resolved, `is`(vars[0].variableName?.element))
+            assertThat(resolved, `is`(varDecl.variableName?.element))
 
-            val refs = vars[1].variableName?.element?.references!!
+            val refs = varRef.variableName?.element?.references!!
             assertThat(refs.size, `is`(1))
 
-            assertThat(refs[0].element, `is`(sameInstance(vars[1].variableName?.element)))
+            assertThat(refs[0].element, `is`(sameInstance(varRef.variableName?.element)))
             assertThat(refs[0].canonicalText, `is`("x"))
             assertThat(refs[0].rangeInElement.startOffset, `is`(0))
             assertThat(refs[0].rangeInElement.endOffset, `is`(1))
@@ -303,22 +308,22 @@ private class XQueryReferenceTest : ParserTestCase() {
 
             resolved = refs[0].resolve()!!
             assertThat(resolved, `is`(instanceOf<PsiElement>(XPathNCName::class.java)))
-            assertThat(resolved, `is`(vars[0].variableName?.element))
+            assertThat(resolved, `is`(varDecl.variableName?.element))
         }
 
         @Test
         @DisplayName("XQuery 3.1 EBNF (43) IntermediateClause")
         fun intermediateClause() {
-            val vars = parse<XpmVariable>(
+            val file = parse<XQueryModule>(
                 """
                 for ${'$'}x in ${'$'}y
                 for ${'$'}z in ${'$'}x
                 return ${'$'}z
                 """
-            )
+            )[0]
 
-            val varRef = vars[4]
-            val varDecl = vars[2]
+            val varRef = file.walkTree().filterIsInstance<XpmVariableReference>().toList()[2]
+            val varDecl = file.walkTree().filterIsInstance<XpmVariableDefinition>().toList()[1]
 
             val ref = varRef.variableName?.element?.reference!!
             assertThat(ref.element, `is`(sameInstance(varRef.variableName?.element)))
@@ -348,15 +353,15 @@ private class XQueryReferenceTest : ParserTestCase() {
         @Test
         @DisplayName("XQuery 3.1 EBNF (45) ForBinding")
         fun forBinding() {
-            val vars = parse<XpmVariable>(
+            val file = parse<XQueryModule>(
                 """
                 for ${'$'}x in ${'$'}y
                 return ${'$'}x
                 """
-            )
+            )[0]
 
-            val varRef = vars[2]
-            val varDecl = vars[0]
+            val varRef = file.walkTree().filterIsInstance<XpmVariableReference>().toList()[1]
+            val varDecl = file.walkTree().filterIsInstance<XpmVariableDefinition>().toList()[0]
 
             val ref = varRef.variableName?.element?.reference!!
             assertThat(ref.element, `is`(sameInstance(varRef.variableName?.element)))
@@ -386,15 +391,15 @@ private class XQueryReferenceTest : ParserTestCase() {
         @Test
         @DisplayName("XQuery 3.1 EBNF (47) PositionalVar")
         fun positionalVar() {
-            val vars = parse<XpmVariable>(
+            val file = parse<XQueryModule>(
                 """
                 for ${'$'}x at ${'$'}i in ${'$'}y
                 return ${'$'}i
                 """
-            )
+            )[0]
 
-            val varRef = vars[3]
-            val varDecl = vars[1]
+            val varRef = file.walkTree().filterIsInstance<XpmVariableReference>().toList()[1]
+            val varDecl = file.walkTree().filterIsInstance<XpmVariableDefinition>().toList()[1]
 
             val ref = varRef.variableName?.element?.reference!!
             assertThat(ref.element, `is`(sameInstance(varRef.variableName?.element)))
@@ -424,15 +429,15 @@ private class XQueryReferenceTest : ParserTestCase() {
         @Test
         @DisplayName("XQuery 3.1 EBNF (49) LetBinding")
         fun letBinding() {
-            val vars = parse<XpmVariable>(
+            val file = parse<XQueryModule>(
                 """
                 let ${'$'}x := ${'$'}y
                 return ${'$'}x
                 """
-            )
+            )[0]
 
-            val varRef = vars[2]
-            val varDecl = vars[0]
+            val varRef = file.walkTree().filterIsInstance<XpmVariableReference>().toList()[1]
+            val varDecl = file.walkTree().filterIsInstance<XpmVariableDefinition>().toList()[0]
 
             val ref = varRef.variableName?.element?.reference!!
             assertThat(ref.element, `is`(sameInstance(varRef.variableName?.element)))
@@ -462,15 +467,15 @@ private class XQueryReferenceTest : ParserTestCase() {
         @Test
         @DisplayName("XQuery 3.1 EBNF (51) TumblingWindowClause")
         fun tumblingWindowClause() {
-            val vars = parse<XpmVariable>(
+            val file = parse<XQueryModule>(
                 """
                 for tumbling window ${'$'}x in ${'$'}y start when true()
                 return ${'$'}x
                 """
-            )
+            )[0]
 
-            val varRef = vars[2]
-            val varDecl = vars[0]
+            val varRef = file.walkTree().filterIsInstance<XpmVariableReference>().toList()[1]
+            val varDecl = file.walkTree().filterIsInstance<XpmVariableDefinition>().toList()[0]
 
             val ref = varRef.variableName?.element?.reference!!
             assertThat(ref.element, `is`(sameInstance(varRef.variableName?.element)))
@@ -500,15 +505,15 @@ private class XQueryReferenceTest : ParserTestCase() {
         @Test
         @DisplayName("XQuery 3.1 EBNF (52) SlidingWindowClause")
         fun slidingWindowClause() {
-            val vars = parse<XpmVariable>(
+            val file = parse<XQueryModule>(
                 """
                 for sliding window ${'$'}x in ${'$'}y start when true()
                 return ${'$'}x
                 """
-            )
+            )[0]
 
-            val varRef = vars[2]
-            val varDecl = vars[0]
+            val varRef = file.walkTree().filterIsInstance<XpmVariableReference>().toList()[1]
+            val varDecl = file.walkTree().filterIsInstance<XpmVariableDefinition>().toList()[0]
 
             val ref = varRef.variableName?.element?.reference!!
             assertThat(ref.element, `is`(sameInstance(varRef.variableName?.element)))

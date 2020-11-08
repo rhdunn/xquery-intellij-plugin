@@ -20,12 +20,14 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
-import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariable
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableDefinition
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableReference
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 
 class XQueryReadWriteAccessDetector : ReadWriteAccessDetector() {
     private fun isVariable(element: PsiElement): Boolean = when (element.parent) {
-        is XpmVariable -> true
+        is XpmVariableDefinition -> true
+        is XpmVariableReference -> true
         else -> false
     }
 
@@ -44,7 +46,6 @@ class XQueryReadWriteAccessDetector : ReadWriteAccessDetector() {
         if (!isVariable(expression)) return Access.Read
         return when {
             expression.parent is XPathVarRef -> Access.Read
-            expression.parent.parent is XPathVarRef -> Access.Read
             else -> Access.Write
         }
     }
