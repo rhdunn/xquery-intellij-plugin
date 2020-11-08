@@ -81,6 +81,7 @@
     <p>XPath and XQuery:</p>
     <ol>
       <li>Further reduce memory usage by removing additional nodes from the PSI tree.</li>
+      <li>Auto-complete support for <code>CatchClause</code> variables.</li>
     </ol>
     <p>IntelliJ Integration:</p>
     <ol>

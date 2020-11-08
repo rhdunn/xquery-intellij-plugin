@@ -18,14 +18,29 @@ package uk.co.reecedunn.intellij.plugin.xquery.intellij.resources
 import com.intellij.openapi.vfs.CharsetToolkit
 import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
+import uk.co.reecedunn.intellij.plugin.core.vfs.VirtualFileSystemImpl
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 
-object XQueryQueries {
-    private fun resourceFile(path: String): VirtualFile {
-        val file = ResourceVirtualFile.create(this::class.java.classLoader, path)
+object XQueryQueries : VirtualFileSystemImpl("res") {
+    private val cache: HashMap<String, VirtualFile?> = HashMap()
+
+    fun resourceFile(path: String): VirtualFile? {
+        val file = ResourceVirtualFile.createIfValid(this::class.java.classLoader, path, this) ?: return null
         file.charset = CharsetToolkit.UTF8_CHARSET
         return file
     }
 
-    val ColorSettingsDemo: String = resourceFile("settings/xquery-color-demo.xq").decode()!!
+    override fun findFileByPath(path: String): VirtualFile? {
+        return cache[path] ?: resourceFile(path).let {
+            cache[path] = it
+            it
+        }
+    }
+
+    override fun refresh(asynchronous: Boolean) {
+    }
+
+    val ColorSettingsDemo: String = findFileByPath("settings/xquery-color-demo.xq")?.decode()!!
+
+    val CatchClauseVariables: VirtualFile = findFileByPath("static-context/www.w3.org/catch-clause-variables.xqy")!!
 }
