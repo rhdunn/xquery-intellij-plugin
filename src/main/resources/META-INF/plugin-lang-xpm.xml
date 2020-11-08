@@ -34,6 +34,11 @@
     <extensionPoint qualifiedName="uk.co.reecedunn.intellij.inScopeVariableProvider" beanClass="uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmInScopeVariableProviderBean" dynamic="true">
       <with attribute="implementationClass" implements="uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmInScopeVariableProvider"/>
     </extensionPoint>
+
+    <!--suppress PluginXmlValidity -->
+    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.staticallyKnownFunctionProvider" beanClass="uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmStaticallyKnownFunctionProviderBean" dynamic="true">
+      <with attribute="implementationClass" implements="uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmStaticallyKnownFunctionProvider"/>
+    </extensionPoint>
   </extensionPoints>
 
   <extensions defaultExtensionNs="com.intellij">
