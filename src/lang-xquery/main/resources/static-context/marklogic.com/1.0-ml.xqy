@@ -32,14 +32,14 @@ declare namespace xdmp = "http://marklogic.com/xdmp";
 (: MarkLogic 6.0 :)
 declare namespace dav = "DAV:";
 declare namespace dir = "http://marklogic.com/xdmp/directory";
-declare namespace err = "http://www.w3.org/2005/xqt-error";
+declare namespace err = "http://www.w3.org/2005/xqt-errors";
 declare namespace error = "http://marklogic.com/xdmp/error";
 declare namespace json = "http://marklogic.com/xdmp/json";
 declare namespace lock = "http://marklogic.com/xdmp/lock";
 declare namespace prop = "http://marklogic.com/xdmp/property";
 declare namespace sec = "http://marklogic.com/security";
 declare namespace xqe = "http://marklogic.com/xqe";
-declare namespace xqterr = "http://www.w3.org/2005/xqt-error";
+declare namespace xqterr = "http://www.w3.org/2005/xqt-errors";
 
 (: MarkLogic 7.0 :)
 declare namespace rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
