@@ -22,14 +22,13 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclarat
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 
 interface XPathStaticContext : XpmStaticContext {
     fun staticallyKnownNamespaces(context: PsiElement): Sequence<XpmNamespaceDeclaration>
 
     fun defaultNamespace(context: PsiElement, type: XdmNamespaceType): Sequence<XpmNamespaceDeclaration>
 
-    fun staticallyKnownFunctions(eqname: XPathEQName): Sequence<XpmFunctionDeclaration>
+    fun staticallyKnownFunctions(eqname: XsQNameValue): Sequence<XpmFunctionDeclaration>
 }
 
 fun PsiElement.staticallyKnownNamespaces(): Sequence<XpmNamespaceDeclaration> {
@@ -40,10 +39,6 @@ fun PsiElement.defaultNamespace(type: XdmNamespaceType): Sequence<XpmNamespaceDe
     return (containingFile as XPathStaticContext).defaultNamespace(this, type)
 }
 
-fun XPathEQName.staticallyKnownFunctions(): Sequence<XpmFunctionDeclaration> {
-    return (containingFile as XPathStaticContext).staticallyKnownFunctions(this)
-}
-
 fun XsQNameValue.staticallyKnownFunctions(): Sequence<XpmFunctionDeclaration> {
-    return (element as XPathEQName).staticallyKnownFunctions()
+    return (element!!.containingFile as XPathStaticContext).staticallyKnownFunctions(this)
 }

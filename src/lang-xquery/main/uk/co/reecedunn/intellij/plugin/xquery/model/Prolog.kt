@@ -20,7 +20,6 @@ import uk.co.reecedunn.intellij.plugin.core.psi.resourcePath
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownNamespaces
@@ -76,9 +75,9 @@ fun XQueryProlog.importedPrologs(): Sequence<XQueryProlog> = sequenceOf(
     }
 ).flatten()
 
-fun XPathEQName.importedPrologsForQName(): Sequence<Pair<XsQNameValue?, XQueryProlog>> {
-    val thisProlog = fileProlog()
-    val prologs = (this as XsQNameValue).expand().flatMap { name ->
+fun XsQNameValue.importedPrologsForQName(): Sequence<Pair<XsQNameValue?, XQueryProlog>> {
+    val thisProlog = element?.fileProlog()
+    val prologs = this.expand().flatMap { name ->
         sequenceOf(
             // 1. Imported modules in the current module.
             thisProlog?.children()?.reversed()?.flatMap { child ->
