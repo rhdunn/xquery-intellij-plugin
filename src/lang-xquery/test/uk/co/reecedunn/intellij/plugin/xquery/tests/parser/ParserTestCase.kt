@@ -47,8 +47,8 @@ import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderFactory
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderSettings
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePathFactoryBean
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.impl.XpmModuleLocationPath
-import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmStaticallyKnownFunctionProvider
-import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmStaticallyKnownFunctionProviderBean
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProvider
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProviderBean
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmInScopeVariableProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmInScopeVariableProviderBean
 
@@ -100,10 +100,7 @@ abstract class ParserTestCase :
 
         registerExtensionPoint(XpmFunctionDecorator.EP_NAME, XpmFunctionDecoratorBean::class.java)
         registerExtensionPoint(XpmInScopeVariableProvider.EP_NAME, XpmInScopeVariableProviderBean::class.java)
-        registerExtensionPoint(
-            XpmStaticallyKnownFunctionProvider.EP_NAME,
-            XpmStaticallyKnownFunctionProviderBean::class.java
-        )
+        registerExtensionPoint(XpmFunctionProvider.EP_NAME, XpmFunctionProviderBean::class.java)
 
         registerExtensions()
     }
@@ -159,14 +156,14 @@ abstract class ParserTestCase :
 
     @Suppress("UsePropertyAccessSyntax")
     protected fun registerStaticallyKnownFunctionProvider(
-        provider: XpmStaticallyKnownFunctionProvider, fieldName: String
+        provider: XpmFunctionProvider, fieldName: String
     ) {
         val classLoader = ParserTestCase::class.java.classLoader
-        val bean = XpmStaticallyKnownFunctionProviderBean()
+        val bean = XpmFunctionProviderBean()
         bean.implementationClass = provider.javaClass.name
         bean.fieldName = fieldName
         bean.setPluginDescriptor(DefaultPluginDescriptor(PluginId.getId("registerFunctions"), classLoader))
-        registerExtension(XpmStaticallyKnownFunctionProvider.EP_NAME, bean)
+        registerExtension(XpmFunctionProvider.EP_NAME, bean)
     }
 
     protected val settings: XQueryProjectSettings

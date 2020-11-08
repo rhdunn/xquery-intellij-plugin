@@ -19,7 +19,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
-import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmStaticallyKnownFunctionProvider
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmInScopeVariableProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableDefinition
 
@@ -30,13 +30,13 @@ fun PsiElement.inScopeVariables(): Sequence<XpmVariableDefinition> {
 }
 
 fun PsiFile.staticallyKnownFunctions(): Sequence<XpmFunctionDeclaration> {
-    return XpmStaticallyKnownFunctionProvider.EP_NAME.extensionList.asSequence().flatMap {
+    return XpmFunctionProvider.EP_NAME.extensionList.asSequence().flatMap {
         it.getInstance().staticallyKnownFunctions(this)
     }
 }
 
 fun XsQNameValue.staticallyKnownFunctions(): Sequence<XpmFunctionDeclaration> {
-    return XpmStaticallyKnownFunctionProvider.EP_NAME.extensionList.asSequence().flatMap {
+    return XpmFunctionProvider.EP_NAME.extensionList.asSequence().flatMap {
         it.getInstance().staticallyKnownFunctions(this)
     }
 }

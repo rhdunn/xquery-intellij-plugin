@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xpm.optree.function
 import com.intellij.util.xmlb.annotations.Attribute
 import uk.co.reecedunn.intellij.plugin.core.serviceContainer.KotlinLazyInstance
 
-class XpmStaticallyKnownFunctionProviderBean : KotlinLazyInstance<XpmStaticallyKnownFunctionProvider>() {
+class XpmFunctionProviderBean : KotlinLazyInstance<XpmFunctionProvider>() {
     @Attribute("implementationClass")
     override var implementationClass: String = ""
 

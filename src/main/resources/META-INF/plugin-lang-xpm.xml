@@ -36,8 +36,8 @@
     </extensionPoint>
 
     <!--suppress PluginXmlValidity -->
-    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.staticallyKnownFunctionProvider" beanClass="uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmStaticallyKnownFunctionProviderBean" dynamic="true">
-      <with attribute="implementationClass" implements="uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmStaticallyKnownFunctionProvider"/>
+    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.functionProvider" beanClass="uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProviderBean" dynamic="true">
+      <with attribute="implementationClass" implements="uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProvider"/>
     </extensionPoint>
   </extensionPoints>
 

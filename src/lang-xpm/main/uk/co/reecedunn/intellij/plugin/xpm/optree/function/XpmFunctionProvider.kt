@@ -19,10 +19,10 @@ import com.intellij.openapi.extensions.ExtensionPointName
 import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
-interface XpmStaticallyKnownFunctionProvider {
+interface XpmFunctionProvider {
     companion object {
-        val EP_NAME: ExtensionPointName<XpmStaticallyKnownFunctionProviderBean> = ExtensionPointName.create(
-            "uk.co.reecedunn.intellij.staticallyKnownFunctionProvider"
+        val EP_NAME: ExtensionPointName<XpmFunctionProviderBean> = ExtensionPointName.create(
+            "uk.co.reecedunn.intellij.functionProvider"
         )
     }
 

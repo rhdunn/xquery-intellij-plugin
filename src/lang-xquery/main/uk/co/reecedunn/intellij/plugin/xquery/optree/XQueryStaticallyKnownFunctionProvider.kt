@@ -19,14 +19,14 @@ import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
-import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmStaticallyKnownFunctionProvider
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProvider
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.model.annotatedDeclarations
 import uk.co.reecedunn.intellij.plugin.xquery.model.importedPrologs
 import uk.co.reecedunn.intellij.plugin.xquery.model.importedPrologsForQName
 import uk.co.reecedunn.intellij.plugin.xquery.model.staticallyKnownFunctions
 
-object XQueryStaticallyKnownFunctionProvider : XpmStaticallyKnownFunctionProvider {
+object XQueryStaticallyKnownFunctionProvider : XpmFunctionProvider {
     override fun staticallyKnownFunctions(file: PsiFile): Sequence<XpmFunctionDeclaration> {
         val module = file as? XQueryModule
         val prolog = module?.mainOrLibraryModule?.prolog?.firstOrNull()
