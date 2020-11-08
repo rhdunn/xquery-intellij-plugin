@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQueryProvider
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.*
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
-import uk.co.reecedunn.intellij.plugin.xpm.namespace.XpmNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
 import java.io.File
 
 private class FunctionDocumentation(docs: List<String?>) : XQDocFunctionDocumentation {

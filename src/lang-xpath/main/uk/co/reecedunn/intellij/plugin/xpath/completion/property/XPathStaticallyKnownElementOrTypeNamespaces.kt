@@ -18,8 +18,8 @@ package uk.co.reecedunn.intellij.plugin.xpath.completion.property
 import com.intellij.psi.PsiElement
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProperty
-import uk.co.reecedunn.intellij.plugin.xpm.namespace.XpmNamespaceDeclaration
-import uk.co.reecedunn.intellij.plugin.xpm.namespace.XdmNamespaceType
+import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 
 object XPathStaticallyKnownElementOrTypeNamespaces : CompletionProperty {

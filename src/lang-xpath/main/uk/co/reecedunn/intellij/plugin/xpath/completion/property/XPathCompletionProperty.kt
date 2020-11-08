@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.completion.property
 import com.intellij.openapi.util.Key
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Product
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.xpm.namespace.XpmNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
 
 object XPathCompletionProperty {
     val XPATH_VERSION: Key<Version> = Key.create("uk.co.reecedunn.intellij.plugin.xpath.XPathVersion")

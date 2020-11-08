@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017-2019 Reece H. Dunn
+ * Copyright (C) 2017-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,14 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpm.namespace
+package uk.co.reecedunn.intellij.plugin.xpm.optree.namespace
 
-enum class XdmNamespaceType {
-    DefaultElementOrType,
-    DefaultFunctionDecl,
-    DefaultFunctionRef,
-    None,
-    Prefixed,
-    Undefined,
-    XQuery,
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
+
+interface XpmNamespaceDeclaration {
+    val namespacePrefix: XsNCNameValue?
+
+    val namespaceUri: XsAnyUriValue?
+
+    fun accepts(namespaceType: XdmNamespaceType): Boolean
 }

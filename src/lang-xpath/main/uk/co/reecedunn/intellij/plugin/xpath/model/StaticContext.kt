@@ -18,8 +18,8 @@ package uk.co.reecedunn.intellij.plugin.xpath.model
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xpm.context.XpmStaticContext
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
-import uk.co.reecedunn.intellij.plugin.xpm.namespace.XpmNamespaceDeclaration
-import uk.co.reecedunn.intellij.plugin.xpm.namespace.XdmNamespaceType
+import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableDefinition

@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xqdoc.documentation
 
 import com.intellij.openapi.extensions.ExtensionPointName
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
-import uk.co.reecedunn.intellij.plugin.xpm.namespace.XpmNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
 
 interface XQDocDocumentationSourceProvider {
     companion object {
