@@ -174,7 +174,7 @@ private fun PsiElement.blockDecls(context: InScopeVariableContext): Sequence<Xpm
 private fun XQueryProlog.varDecls(): Sequence<XpmVariableDeclaration?> {
     return importedPrologs().flatMap { prolog ->
         prolog.annotatedDeclarations<XpmVariableDeclaration>()
-    }.filter { variable -> variable?.variableName != null }
+    }.filter { variable -> variable.variableName != null }
 }
 
 // endregion

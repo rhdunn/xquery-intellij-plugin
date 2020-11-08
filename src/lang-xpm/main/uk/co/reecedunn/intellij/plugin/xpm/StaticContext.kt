@@ -28,7 +28,7 @@ fun PsiElement.inScopeVariables(): Sequence<XpmVariableDefinition> {
     }
 }
 
-fun PsiFile.staticallyKnownFunctions(): Sequence<XpmFunctionDeclaration?> {
+fun PsiFile.staticallyKnownFunctions(): Sequence<XpmFunctionDeclaration> {
     return XpmStaticallyKnownFunctionProvider.EP_NAME.extensionList.asSequence().flatMap {
         it.getInstance().staticallyKnownFunctions(this)
     }

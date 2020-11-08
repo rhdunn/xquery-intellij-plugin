@@ -30,14 +30,15 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryLibraryModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryMainModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
 
-fun <Decl> XQueryProlog.annotatedDeclarations(klass: Class<Decl>): Sequence<Decl?> {
-    return children().reversed().filterIsInstance<XQueryAnnotatedDecl>().map { annotation ->
+fun <Decl : Any> XQueryProlog.annotatedDeclarations(klass: Class<Decl>): Sequence<Decl> {
+    return children().reversed().filterIsInstance<XQueryAnnotatedDecl>().mapNotNull { annotation ->
         annotation.children().filterIsInstance(klass).firstOrNull()
     }
 }
 
-inline fun <reified Decl> XQueryProlog.annotatedDeclarations(): Sequence<Decl?> =
-    annotatedDeclarations(Decl::class.java)
+inline fun <reified Decl : Any> XQueryProlog.annotatedDeclarations(): Sequence<Decl> {
+    return annotatedDeclarations(Decl::class.java)
+}
 
 fun PsiElement.fileProlog(): XQueryProlog? {
     val module = ancestors().filter { it is XQueryMainModule || it is XQueryLibraryModule }.first()

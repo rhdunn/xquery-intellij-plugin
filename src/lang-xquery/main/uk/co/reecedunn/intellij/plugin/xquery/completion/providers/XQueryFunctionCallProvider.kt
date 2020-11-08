@@ -39,7 +39,7 @@ object XQueryFunctionCallProvider : CompletionProviderEx {
             EQNameCompletionType.QNamePrefix, EQNameCompletionType.NCName -> {
                 // Without prefix context, so include all functions.
                 element.containingFile.staticallyKnownFunctions().forEachCancellable { function ->
-                    val localName = function?.functionName?.localName?.data ?: return@forEachCancellable
+                    val localName = function.functionName?.localName?.data ?: return@forEachCancellable
                     function.functionName?.expand()?.firstOrNull()?.let { name ->
                         namespaces.forEach { ns ->
                             if (ns.namespaceUri?.data == name.namespace?.data) {
@@ -55,7 +55,7 @@ object XQueryFunctionCallProvider : CompletionProviderEx {
             EQNameCompletionType.QNameLocalName -> {
                 // With prefix context, so only include functions with a matching expanded QName namespace URI.
                 element.containingFile.staticallyKnownFunctions().forEachCancellable { function ->
-                    val localName = function?.functionName?.localName?.data ?: return@forEachCancellable
+                    val localName = function.functionName?.localName?.data ?: return@forEachCancellable
                     if (function.functionName?.prefix != null || function.functionName?.namespace != null) {
                         function.functionName?.expand()?.firstOrNull()?.let { name ->
                             namespaces.forEach { ns ->
@@ -74,7 +74,7 @@ object XQueryFunctionCallProvider : CompletionProviderEx {
             EQNameCompletionType.URIQualifiedNameLocalName -> {
                 // With namespace context, so only include functions with a matching expanded QName namespace URI.
                 element.containingFile.staticallyKnownFunctions().forEachCancellable { function ->
-                    val localName = function?.functionName?.localName?.data ?: return@forEachCancellable
+                    val localName = function.functionName?.localName?.data ?: return@forEachCancellable
                     if (function.functionName?.prefix != null || function.functionName?.namespace != null) {
                         val expanded = function.functionName?.expand()?.firstOrNull()
                         if (expanded?.namespace?.data == ref.namespace?.data) {

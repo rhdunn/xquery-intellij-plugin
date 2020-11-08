@@ -43,7 +43,7 @@ class RestXqEndpointsGroup(private val prolog: XQueryProlog) : EndpointsGroup, I
 
     override val endpoints: Sequence<Endpoint>
         get() = prolog.annotatedDeclarations<XpmFunctionDeclaration>().mapNotNull { function ->
-            function?.functionName?.let { RestXqEndpoint(function) }
+            function.functionName?.let { RestXqEndpoint(function) }
         }.filter { it.rest != null }
 
     // endregion

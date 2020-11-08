@@ -25,5 +25,5 @@ interface XpmStaticallyKnownFunctionProvider {
         )
     }
 
-    fun staticallyKnownFunctions(file: PsiFile): Sequence<XpmFunctionDeclaration?>
+    fun staticallyKnownFunctions(file: PsiFile): Sequence<XpmFunctionDeclaration>
 }

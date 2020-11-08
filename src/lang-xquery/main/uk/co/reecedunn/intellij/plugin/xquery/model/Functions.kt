@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 
 fun XQueryProlog.staticallyKnownFunctions(name: XsQNameValue): Sequence<XpmFunctionDeclaration?> {
     return annotatedDeclarations<XpmFunctionDeclaration>().filter { function ->
-        val functionName = function?.functionName
+        val functionName = function.functionName
         // NOTE: Opening the context menu on a call to MarkLogic's `xdmp:version()`
         // is slow (~10 seconds) when just checking the expanded QName, so check
         // local-name first ...
