@@ -25,13 +25,13 @@ import uk.co.reecedunn.intellij.plugin.xpath.intellij.fileTypes.XPathFileType
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xpm.context.XpmUsageType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
-import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
+import uk.co.reecedunn.intellij.plugin.xpm.context.XpmStaticContext
 
 class XPathImpl(provider: FileViewProvider) :
     PsiFileBase(provider, XPath),
     uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath,
-    XPathStaticContext {
+    XpmStaticContext {
     // region Object
 
     override fun toString(): String = "XPath(" + containingFile.name + ")"

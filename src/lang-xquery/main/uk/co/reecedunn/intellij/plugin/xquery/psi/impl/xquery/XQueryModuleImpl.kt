@@ -29,14 +29,14 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.settings.XQueryProjectSettings
 import uk.co.reecedunn.intellij.plugin.xpm.context.XpmUsageType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
-import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
+import uk.co.reecedunn.intellij.plugin.xpm.context.XpmStaticContext
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 
 class XQueryModuleImpl(provider: FileViewProvider) :
-    PsiFileBase(provider, XQuery), XQueryModule, XPathStaticContext {
+    PsiFileBase(provider, XQuery), XQueryModule, XpmStaticContext {
     // region Object
 
     override fun toString(): String = "XQueryModule(" + containingFile.name + ")"
