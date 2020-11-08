@@ -31,6 +31,11 @@
     </extensionPoint>
 
     <!--suppress PluginXmlValidity -->
+    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.namespaceProvider" beanClass="uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProviderBean" dynamic="true">
+      <with attribute="implementationClass" implements="uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider"/>
+    </extensionPoint>
+
+    <!--suppress PluginXmlValidity -->
     <extensionPoint qualifiedName="uk.co.reecedunn.intellij.variableProvider" beanClass="uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableProviderBean" dynamic="true">
       <with attribute="implementationClass" implements="uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableProvider"/>
     </extensionPoint>
