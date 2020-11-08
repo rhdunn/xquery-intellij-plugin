@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.codeInsight.hints.XPathInlayParameterHintsProvider
-import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryStaticallyKnownFunctionProvider
+import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryFunctionProvider
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
@@ -32,7 +32,7 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
     val provider = XPathInlayParameterHintsProvider()
 
     override fun registerExtensions() {
-        registerStaticallyKnownFunctionProvider(XQueryStaticallyKnownFunctionProvider, "INSTANCE")
+        registerStaticallyKnownFunctionProvider(XQueryFunctionProvider, "INSTANCE")
     }
 
     @Nested

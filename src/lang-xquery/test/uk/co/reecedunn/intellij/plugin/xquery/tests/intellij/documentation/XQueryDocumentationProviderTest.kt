@@ -35,7 +35,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationSourceProviderBean
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryInScopeVariableProvider
-import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryStaticallyKnownFunctionProvider
+import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryFunctionProvider
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
@@ -59,7 +59,7 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
         registerDocumentationSourceProvider(DocumentationSourceProvider::class.java, "INSTANCE")
 
         registerInScopeVariableProvider(XQueryInScopeVariableProvider, "INSTANCE")
-        registerStaticallyKnownFunctionProvider(XQueryStaticallyKnownFunctionProvider, "INSTANCE")
+        registerStaticallyKnownFunctionProvider(XQueryFunctionProvider, "INSTANCE")
     }
 
     @AfterAll

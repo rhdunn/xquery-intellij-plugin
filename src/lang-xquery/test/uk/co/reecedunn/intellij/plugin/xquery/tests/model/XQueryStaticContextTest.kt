@@ -36,7 +36,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryMainModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryInScopeVariableProvider
-import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryStaticallyKnownFunctionProvider
+import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryFunctionProvider
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
@@ -49,7 +49,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
 
     override fun registerExtensions() {
         registerInScopeVariableProvider(XQueryInScopeVariableProvider, "INSTANCE")
-        registerStaticallyKnownFunctionProvider(XQueryStaticallyKnownFunctionProvider, "INSTANCE")
+        registerStaticallyKnownFunctionProvider(XQueryFunctionProvider, "INSTANCE")
     }
 
     @Nested
