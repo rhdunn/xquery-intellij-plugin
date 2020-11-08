@@ -17,7 +17,10 @@ package uk.co.reecedunn.intellij.plugin.xpath.optree
 
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath
+import uk.co.reecedunn.intellij.plugin.xpath.model.defaultElementOrTypeXPathNamespace
+import uk.co.reecedunn.intellij.plugin.xpath.model.defaultFunctionXPathNamespace
 import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownXPathNamespaces
+import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
 
@@ -25,5 +28,15 @@ object XPathNamespaceProvider : XpmNamespaceProvider {
     override fun staticallyKnownNamespaces(context: PsiElement): Sequence<XpmNamespaceDeclaration> {
         if (context.containingFile !is XPath) return emptySequence()
         return context.staticallyKnownXPathNamespaces()
+    }
+
+    override fun defaultNamespace(context: PsiElement, type: XdmNamespaceType): Sequence<XpmNamespaceDeclaration> {
+        if (context.containingFile !is XPath) return emptySequence()
+        return when (type) {
+            XdmNamespaceType.DefaultElementOrType -> context.defaultElementOrTypeXPathNamespace()
+            XdmNamespaceType.DefaultFunctionDecl -> context.defaultFunctionXPathNamespace()
+            XdmNamespaceType.DefaultFunctionRef -> context.defaultFunctionXPathNamespace()
+            else -> emptySequence()
+        }
     }
 }

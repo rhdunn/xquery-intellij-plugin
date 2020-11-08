@@ -19,7 +19,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProperty
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XdmNamespaceType
-import uk.co.reecedunn.intellij.plugin.xpath.model.*
+import uk.co.reecedunn.intellij.plugin.xpm.defaultNamespace
 import uk.co.reecedunn.intellij.plugin.xpm.staticallyKnownNamespaces
 
 @Suppress("unused")

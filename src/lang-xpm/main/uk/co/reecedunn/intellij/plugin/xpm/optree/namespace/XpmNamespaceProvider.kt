@@ -26,4 +26,6 @@ interface XpmNamespaceProvider {
     }
 
     fun staticallyKnownNamespaces(context: PsiElement): Sequence<XpmNamespaceDeclaration>
+
+    fun defaultNamespace(context: PsiElement, type: XdmNamespaceType): Sequence<XpmNamespaceDeclaration>
 }

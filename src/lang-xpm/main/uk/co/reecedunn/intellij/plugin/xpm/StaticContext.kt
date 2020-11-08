@@ -20,6 +20,7 @@ import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProvider
+import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableProvider
@@ -28,6 +29,12 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableDefinition
 fun PsiElement.staticallyKnownNamespaces(): Sequence<XpmNamespaceDeclaration> {
     return XpmNamespaceProvider.EP_NAME.extensionList.asSequence().flatMap {
         it.getInstance().staticallyKnownNamespaces(this)
+    }
+}
+
+fun PsiElement.defaultNamespace(type: XdmNamespaceType): Sequence<XpmNamespaceDeclaration> {
+    return XpmNamespaceProvider.EP_NAME.extensionList.asSequence().flatMap {
+        it.getInstance().defaultNamespace(this, type)
     }
 }
 

@@ -24,8 +24,6 @@ import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.fileTypes.XPathFileType
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xpm.context.XpmUsageType
-import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
-import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
@@ -49,19 +47,6 @@ class XPathImpl(provider: FileViewProvider) :
     override fun getUsageType(element: PsiElement): XpmUsageType? = USAGE_TYPES[element.parent.elementType]
 
     override fun expandQName(qname: XsQNameValue): Sequence<XsQNameValue> = emptySequence()
-
-    // endregion
-    // region XPathStaticContext
-
-    override fun defaultNamespace(
-        context: PsiElement,
-        type: XdmNamespaceType
-    ): Sequence<XpmNamespaceDeclaration> = when (type) {
-        XdmNamespaceType.DefaultElementOrType -> context.defaultElementOrTypeXPathNamespace()
-        XdmNamespaceType.DefaultFunctionDecl -> context.defaultFunctionXPathNamespace()
-        XdmNamespaceType.DefaultFunctionRef -> context.defaultFunctionXPathNamespace()
-        else -> emptySequence()
-    }
 
     // endregion
     // region XpmExpression

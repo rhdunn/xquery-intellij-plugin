@@ -15,15 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.model
 
-import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xpm.context.XpmStaticContext
-import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
-import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XdmNamespaceType
 
-interface XPathStaticContext : XpmStaticContext {
-    fun defaultNamespace(context: PsiElement, type: XdmNamespaceType): Sequence<XpmNamespaceDeclaration>
-}
-
-fun PsiElement.defaultNamespace(type: XdmNamespaceType): Sequence<XpmNamespaceDeclaration> {
-    return (containingFile as XPathStaticContext).defaultNamespace(this, type)
-}
+interface XPathStaticContext : XpmStaticContext

@@ -28,8 +28,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.intellij.fileTypes.XQueryFileType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.settings.XQueryProjectSettings
 import uk.co.reecedunn.intellij.plugin.xpm.context.XpmUsageType
-import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
-import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
@@ -127,16 +125,6 @@ class XQueryModuleImpl(provider: FileViewProvider) :
     }
 
     override fun expandQName(qname: XsQNameValue): Sequence<XsQNameValue> = qname.expandQName()
-
-    // endregion
-    // region XPathStaticContext
-
-    override fun defaultNamespace(
-        context: PsiElement,
-        type: XdmNamespaceType
-    ): Sequence<XpmNamespaceDeclaration> {
-        return context.defaultNamespace(type, true)
-    }
 
     // endregion
 
