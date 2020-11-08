@@ -22,7 +22,6 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.fileTypes.XQueryFileType
@@ -131,20 +130,6 @@ class XQueryModuleImpl(provider: FileViewProvider) :
 
     // endregion
     // region XPathStaticContext
-
-    override fun staticallyKnownNamespaces(context: PsiElement): Sequence<XpmNamespaceDeclaration> {
-        return context.walkTree().reversed().flatMap { node ->
-            when (node) {
-                is XpmNamespaceDeclaration -> sequenceOf(node as XpmNamespaceDeclaration)
-                is XQueryDirElemConstructor -> node.attributes.filterIsInstance<XpmNamespaceDeclaration>()
-                is XQueryProlog -> node.children().reversed().filterIsInstance<XpmNamespaceDeclaration>()
-                is XQueryModule ->
-                    node.predefinedStaticContext?.children()?.reversed()?.filterIsInstance<XpmNamespaceDeclaration>()
-                        ?: emptySequence()
-                else -> emptySequence()
-            }
-        }.filterNotNull().distinct().filter { node -> node.namespacePrefix != null && node.namespaceUri != null }
-    }
 
     override fun defaultNamespace(
         context: PsiElement,

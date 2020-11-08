@@ -60,6 +60,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.xquery.model.getNamespaceType
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryFunctionProvider
+import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
@@ -72,6 +73,7 @@ private class PluginPsiTest : ParserTestCase()  {
     }
 
     override fun registerExtensions() {
+        registerNamespaceProvider(XQueryNamespaceProvider, "INSTANCE")
         registerStaticallyKnownFunctionProvider(XQueryFunctionProvider, "INSTANCE")
     }
 

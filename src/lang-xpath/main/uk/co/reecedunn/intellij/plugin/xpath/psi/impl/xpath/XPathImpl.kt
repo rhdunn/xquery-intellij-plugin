@@ -53,10 +53,6 @@ class XPathImpl(provider: FileViewProvider) :
     // endregion
     // region XPathStaticContext
 
-    override fun staticallyKnownNamespaces(context: PsiElement): Sequence<XpmNamespaceDeclaration> {
-        return context.staticallyKnownXPathNamespaces()
-    }
-
     override fun defaultNamespace(
         context: PsiElement,
         type: XdmNamespaceType

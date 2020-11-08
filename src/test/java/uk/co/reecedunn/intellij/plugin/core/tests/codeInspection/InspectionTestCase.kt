@@ -40,6 +40,9 @@ import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidatorBean
+import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
+import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProviderBean
+import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryNamespaceProvider
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 abstract class InspectionTestCase :
@@ -65,6 +68,9 @@ abstract class InspectionTestCase :
         registerExtensionPoint(XpmSyntaxValidator.EP_NAME, XpmSyntaxValidatorBean::class.java)
         registerSyntaxValidator(BaseXSyntaxValidator, "INSTANCE")
         registerSyntaxValidator(MarkLogicSyntaxValidator, "INSTANCE")
+
+        registerExtensionPoint(XpmNamespaceProvider.EP_NAME, XpmNamespaceProviderBean::class.java)
+        registerNamespaceProvider(XQueryNamespaceProvider, "INSTANCE")
     }
 
     @Suppress("UsePropertyAccessSyntax")
@@ -75,6 +81,16 @@ abstract class InspectionTestCase :
         bean.fieldName = fieldName
         bean.setPluginDescriptor(DefaultPluginDescriptor(PluginId.getId("registerSyntaxValidator"), classLoader))
         registerExtension(XpmSyntaxValidator.EP_NAME, bean)
+    }
+
+    @Suppress("UsePropertyAccessSyntax")
+    private fun registerNamespaceProvider(provider: XpmNamespaceProvider, fieldName: String) {
+        val classLoader = InspectionTestCase::class.java.classLoader
+        val bean = XpmNamespaceProviderBean()
+        bean.implementationClass = provider.javaClass.name
+        bean.fieldName = fieldName
+        bean.setPluginDescriptor(DefaultPluginDescriptor(PluginId.getId("registerNamespaceProvider"), classLoader))
+        registerExtension(XpmNamespaceProvider.EP_NAME, bean)
     }
 
     @AfterAll

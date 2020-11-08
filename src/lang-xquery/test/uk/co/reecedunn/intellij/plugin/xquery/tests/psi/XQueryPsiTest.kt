@@ -62,6 +62,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.xquery.model.getNamespaceType
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryFunctionProvider
+import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 import java.math.BigDecimal
@@ -81,6 +82,7 @@ private class XQueryPsiTest : ParserTestCase() {
     }
 
     override fun registerExtensions() {
+        registerNamespaceProvider(XQueryNamespaceProvider, "INSTANCE")
         registerStaticallyKnownFunctionProvider(XQueryFunctionProvider, "INSTANCE")
     }
 

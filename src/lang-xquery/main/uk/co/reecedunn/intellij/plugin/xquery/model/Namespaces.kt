@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.impl.psi.XsQName
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsAnyUri
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.staticallyKnownNamespaces
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 
 private val EMPTY_NAMESPACE = XsAnyUri("", XdmUriContext.Namespace, XdmModuleType.NONE)

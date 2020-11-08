@@ -36,6 +36,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationSourceProviderBean
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryVariableProvider
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryFunctionProvider
+import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
@@ -44,6 +45,10 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 private class XQueryDocumentationProviderTest : ParserTestCase() {
     companion object {
         fun body(substring: String): Matcher<out String?> = StringContains.containsString("<body>$substring</body>")
+    }
+
+    override fun registerExtensions() {
+        registerNamespaceProvider(XQueryNamespaceProvider, "INSTANCE")
     }
 
     private val documentationProvider = XQueryDocumentationProvider()

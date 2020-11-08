@@ -29,14 +29,15 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.model.defaultNamespace
-import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownNamespaces
 import uk.co.reecedunn.intellij.plugin.xpm.inScopeVariables
 import uk.co.reecedunn.intellij.plugin.xpm.staticallyKnownFunctions
+import uk.co.reecedunn.intellij.plugin.xpm.staticallyKnownNamespaces
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryMainModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryVariableProvider
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryFunctionProvider
+import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
@@ -48,6 +49,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
     }
 
     override fun registerExtensions() {
+        registerNamespaceProvider(XQueryNamespaceProvider, "INSTANCE")
         registerInScopeVariableProvider(XQueryVariableProvider, "INSTANCE")
         registerStaticallyKnownFunctionProvider(XQueryFunctionProvider, "INSTANCE")
     }

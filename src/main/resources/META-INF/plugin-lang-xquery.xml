@@ -52,6 +52,7 @@
   </extensions>
 
   <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
+    <namespaceProvider implementationClass="uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryNamespaceProvider" fieldName="INSTANCE"/>
     <variableProvider implementationClass="uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryVariableProvider" fieldName="INSTANCE"/>
     <functionProvider implementationClass="uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryFunctionProvider" fieldName="INSTANCE"/>
   </extensions>

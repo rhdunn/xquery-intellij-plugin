@@ -30,6 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariable
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
+import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryVariableProvider
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
@@ -37,6 +38,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 @DisplayName("IntelliJ - Custom Language Support - References and Resolve - XQuery")
 private class XQueryReferenceTest : ParserTestCase() {
     override fun registerExtensions() {
+        registerNamespaceProvider(XQueryNamespaceProvider, "INSTANCE")
         registerInScopeVariableProvider(XQueryVariableProvider, "INSTANCE")
     }
 

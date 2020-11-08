@@ -30,6 +30,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.settings.XQueryProjectSettings
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
+import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
+import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProviderBean
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableProviderBean
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryVariableProvider
@@ -48,6 +50,8 @@ abstract class AnnotatorTestCase :
 
         registerExtensionPoint(XpmVariableProvider.EP_NAME, XpmVariableProviderBean::class.java)
         registerInScopeVariableProvider(XQueryVariableProvider, "INSTANCE")
+
+        registerExtensionPoint(XpmNamespaceProvider.EP_NAME, XpmNamespaceProviderBean::class.java)
     }
 
     @AfterAll

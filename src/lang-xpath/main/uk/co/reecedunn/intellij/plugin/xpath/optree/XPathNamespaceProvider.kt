@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Reece H. Dunn
+ * Copyright (C) 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.model
+package uk.co.reecedunn.intellij.plugin.xpath.optree
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xpm.context.XpmStaticContext
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath
+import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownXPathNamespaces
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
-import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XdmNamespaceType
+import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
 
-interface XPathStaticContext : XpmStaticContext {
-    fun defaultNamespace(context: PsiElement, type: XdmNamespaceType): Sequence<XpmNamespaceDeclaration>
-}
-
-fun PsiElement.defaultNamespace(type: XdmNamespaceType): Sequence<XpmNamespaceDeclaration> {
-    return (containingFile as XPathStaticContext).defaultNamespace(this, type)
+object XPathNamespaceProvider : XpmNamespaceProvider {
+    override fun staticallyKnownNamespaces(context: PsiElement): Sequence<XpmNamespaceDeclaration> {
+        if (context.containingFile !is XPath) return emptySequence()
+        return context.staticallyKnownXPathNamespaces()
+    }
 }

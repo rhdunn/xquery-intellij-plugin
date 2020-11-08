@@ -18,16 +18,16 @@ package uk.co.reecedunn.intellij.plugin.xpath.completion.property
 import com.intellij.psi.PsiElement
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProperty
-import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
+import uk.co.reecedunn.intellij.plugin.xpm.staticallyKnownNamespaces
 
 @Suppress("unused")
 object XPathStaticallyKnownFunctionNamespaces : CompletionProperty {
     override fun computeProperty(element: PsiElement, context: ProcessingContext) {
         if (context[XPathCompletionProperty.STATICALLY_KNOWN_FUNCTION_NAMESPACES] == null) {
             val namespaces = element.defaultNamespace(XdmNamespaceType.DefaultFunctionRef).firstOrNull()?.let {
-                val list = mutableListOf<XpmNamespaceDeclaration>(it)
+                val list = mutableListOf(it)
                 list.addAll(element.staticallyKnownNamespaces())
                 list
             } ?: mutableListOf()

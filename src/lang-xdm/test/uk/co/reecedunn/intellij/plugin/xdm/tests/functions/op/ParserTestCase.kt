@@ -16,6 +16,8 @@
 package uk.co.reecedunn.intellij.plugin.xdm.tests.functions.op
 
 import com.intellij.lang.LanguageASTFactory
+import com.intellij.openapi.extensions.DefaultPluginDescriptor
+import com.intellij.openapi.extensions.PluginId
 import com.intellij.openapi.module.ModuleManager
 import com.intellij.openapi.roots.ProjectRootManager
 import org.junit.jupiter.api.AfterAll
@@ -34,6 +36,9 @@ import uk.co.reecedunn.intellij.plugin.xpm.module.ImportPathResolver
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xpm.module.ImportPathResolverBean
+import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
+import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProviderBean
+import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryNamespaceProvider
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 abstract class ParserTestCase :
@@ -54,10 +59,23 @@ abstract class ParserTestCase :
         myProject.registerService(ModuleManager::class.java, manager)
 
         registerExtensionPoint(ImportPathResolver.EP_NAME, ImportPathResolverBean::class.java)
+
+        registerExtensionPoint(XpmNamespaceProvider.EP_NAME, XpmNamespaceProviderBean::class.java)
+        registerNamespaceProvider(XQueryNamespaceProvider, "INSTANCE")
     }
 
     @AfterAll
     override fun tearDown() {
         super.tearDown()
+    }
+
+    @Suppress("UsePropertyAccessSyntax")
+    private fun registerNamespaceProvider(provider: XpmNamespaceProvider, fieldName: String) {
+        val classLoader = ParserTestCase::class.java.classLoader
+        val bean = XpmNamespaceProviderBean()
+        bean.implementationClass = provider.javaClass.name
+        bean.fieldName = fieldName
+        bean.setPluginDescriptor(DefaultPluginDescriptor(PluginId.getId("registerNamespaceProvider"), classLoader))
+        registerExtension(XpmNamespaceProvider.EP_NAME, bean)
     }
 }

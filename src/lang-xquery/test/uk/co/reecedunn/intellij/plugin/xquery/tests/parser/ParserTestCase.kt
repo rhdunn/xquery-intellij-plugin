@@ -49,6 +49,8 @@ import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePathFactoryBean
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.impl.XpmModuleLocationPath
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProviderBean
+import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
+import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProviderBean
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableProviderBean
 
@@ -99,6 +101,7 @@ abstract class ParserTestCase :
         registerBuiltInFunctions(uk.co.reecedunn.intellij.plugin.w3.model.BuiltInFunctions, "INSTANCE")
 
         registerExtensionPoint(XpmFunctionDecorator.EP_NAME, XpmFunctionDecoratorBean::class.java)
+        registerExtensionPoint(XpmNamespaceProvider.EP_NAME, XpmNamespaceProviderBean::class.java)
         registerExtensionPoint(XpmVariableProvider.EP_NAME, XpmVariableProviderBean::class.java)
         registerExtensionPoint(XpmFunctionProvider.EP_NAME, XpmFunctionProviderBean::class.java)
 
@@ -164,6 +167,16 @@ abstract class ParserTestCase :
         bean.fieldName = fieldName
         bean.setPluginDescriptor(DefaultPluginDescriptor(PluginId.getId("registerFunctions"), classLoader))
         registerExtension(XpmFunctionProvider.EP_NAME, bean)
+    }
+
+    @Suppress("UsePropertyAccessSyntax")
+    protected fun registerNamespaceProvider(provider: XpmNamespaceProvider, fieldName: String) {
+        val classLoader = ParserTestCase::class.java.classLoader
+        val bean = XpmNamespaceProviderBean()
+        bean.implementationClass = provider.javaClass.name
+        bean.fieldName = fieldName
+        bean.setPluginDescriptor(DefaultPluginDescriptor(PluginId.getId("registerNamespaceProvider"), classLoader))
+        registerExtension(XpmNamespaceProvider.EP_NAME, bean)
     }
 
     protected val settings: XQueryProjectSettings

@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpm.optree.namespace
 
 import com.intellij.openapi.extensions.ExtensionPointName
+import com.intellij.psi.PsiElement
 
 interface XpmNamespaceProvider {
     companion object {
@@ -23,4 +24,6 @@ interface XpmNamespaceProvider {
             "uk.co.reecedunn.intellij.namespaceProvider"
         )
     }
+
+    fun staticallyKnownNamespaces(context: PsiElement): Sequence<XpmNamespaceDeclaration>
 }

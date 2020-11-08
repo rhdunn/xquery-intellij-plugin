@@ -30,6 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaratio
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryFunctionProvider
+import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
@@ -38,6 +39,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
     val parameterInfoHandler = XPathParameterInfoHandler()
 
     override fun registerExtensions() {
+        registerNamespaceProvider(XQueryNamespaceProvider, "INSTANCE")
         registerStaticallyKnownFunctionProvider(XQueryFunctionProvider, "INSTANCE")
     }
 
