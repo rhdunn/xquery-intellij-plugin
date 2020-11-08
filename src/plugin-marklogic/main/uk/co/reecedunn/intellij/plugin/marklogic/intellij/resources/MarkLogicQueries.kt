@@ -49,6 +49,9 @@ object MarkLogicQueries : VirtualFileSystemImpl("res") {
 
     val ApiDocs: VirtualFile = resourceFile("queries/marklogic/apidocs.xq")!!
 
+    val CtsElementWalkVariables: VirtualFile =
+        resourceFile("queries/marklogic/static-context/cts-element-walk-variables.xq")!!
+
     val CtsHighlightVariables: VirtualFile =
         resourceFile("queries/marklogic/static-context/cts-highlight-variables.xq")!!
 

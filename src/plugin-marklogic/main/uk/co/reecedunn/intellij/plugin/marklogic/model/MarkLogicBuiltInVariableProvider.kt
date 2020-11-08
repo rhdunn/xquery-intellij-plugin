@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.model
 
+import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestorsAndSelf
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
@@ -26,24 +27,32 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableDefinition
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 
-object MarkLogicCtsHighlightVariableProvider : XpmVariableProvider {
+object MarkLogicBuiltInVariableProvider : XpmVariableProvider {
     override fun inScopeVariables(context: PsiElement): Sequence<XpmVariableDefinition> {
-        if (!inCtsHighlight(context)) return emptySequence()
-
-        val file = MarkLogicQueries.CtsHighlightVariables.toPsiFile(context.project) as XQueryModule
+        val file = inCtsFunction(context)?.toPsiFile(context.project) as? XQueryModule ?: return emptySequence()
         return file.walkTree().filterIsInstance<XpmVariableDefinition>()
     }
 
-    private fun inCtsHighlight(context: PsiElement): Boolean {
-        return context.ancestorsAndSelf().filterIsInstance<XpmFunctionReference>().any {
+    private fun inCtsFunction(context: PsiElement): VirtualFile? {
+        val name = context.ancestorsAndSelf().filterIsInstance<XpmFunctionReference>().find {
             val functionName = it.functionName
-            return when {
-                functionName?.localName?.data != HIGHLIGHT -> false
-                else -> functionName.expand().any { name -> name.namespace?.data == CTS_NAMESPACE }
+            when (functionName?.localName?.data) {
+                !in FUNCTIONS -> false
+                else -> functionName?.expand()?.any { name -> name.namespace?.data == CTS_NAMESPACE } == true
             }
+        }?.functionName?.localName?.data
+
+        return when (name) {
+            ELEMENT_WALK -> MarkLogicQueries.CtsElementWalkVariables
+            HIGHLIGHT -> MarkLogicQueries.CtsHighlightVariables
+            else -> null
         }
     }
 
     private const val CTS_NAMESPACE = "http://marklogic.com/cts"
+
+    private const val ELEMENT_WALK = "element-walk"
     private const val HIGHLIGHT = "highlight"
+
+    private val FUNCTIONS = setOf(ELEMENT_WALK, HIGHLIGHT)
 }
