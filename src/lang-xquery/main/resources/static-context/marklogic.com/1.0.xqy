@@ -21,6 +21,6 @@ declare namespace fn = "http://www.w3.org/2005/xpath-functions";
 declare namespace local = "http://www.w3.org/2005/xquery-local-functions";
 
 (: MarkLogic 6.0 :)
-declare namespace err = "http://www.w3.org/2005/xqt-error";
+declare namespace err = "http://www.w3.org/2005/xqt-errors";
 
 ()

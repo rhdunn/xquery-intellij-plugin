@@ -546,7 +546,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(namespace(namespaces, "dav"), `is`("DAV:"))
                 assertThat(namespace(namespaces, "dbg"), `is`("http://marklogic.com/xdmp/dbg"))
                 assertThat(namespace(namespaces, "dir"), `is`("http://marklogic.com/xdmp/directory"))
-                assertThat(namespace(namespaces, "err"), `is`("http://www.w3.org/2005/xqt-error"))
+                assertThat(namespace(namespaces, "err"), `is`("http://www.w3.org/2005/xqt-errors"))
                 assertThat(namespace(namespaces, "error"), `is`("http://marklogic.com/xdmp/error"))
                 assertThat(namespace(namespaces, "fn"), `is`("http://www.w3.org/2005/xpath-functions"))
                 assertThat(namespace(namespaces, "geo"), `is`("http://marklogic.com/geospatial"))
@@ -569,7 +569,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(namespace(namespaces, "xdmp"), `is`("http://marklogic.com/xdmp"))
                 assertThat(namespace(namespaces, "xml"), `is`("http://www.w3.org/XML/1998/namespace"))
                 assertThat(namespace(namespaces, "xqe"), `is`("http://marklogic.com/xqe"))
-                assertThat(namespace(namespaces, "xqterr"), `is`("http://www.w3.org/2005/xqt-error"))
+                assertThat(namespace(namespaces, "xqterr"), `is`("http://www.w3.org/2005/xqt-errors"))
                 assertThat(namespace(namespaces, "xs"), `is`("http://www.w3.org/2001/XMLSchema"))
                 assertThat(namespace(namespaces, "xsi"), `is`("http://www.w3.org/2001/XMLSchema-instance"))
             }

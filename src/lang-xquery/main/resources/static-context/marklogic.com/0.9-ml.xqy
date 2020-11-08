@@ -23,7 +23,7 @@ declare namespace cts = "http://marklogic.com/cts";
 declare namespace dav = "DAV:";
 declare namespace dbg = "http://marklogic.com/xdmp/dbg";
 declare namespace dir = "http://marklogic.com/xdmp/directory";
-declare namespace err = "http://www.w3.org/2005/xqt-error";
+declare namespace err = "http://www.w3.org/2005/xqt-errors";
 declare namespace error = "http://marklogic.com/xdmp/error";
 declare namespace lock = "http://marklogic.com/xdmp/lock";
 declare namespace map = "http://marklogic.com/xdmp/map";
@@ -35,6 +35,6 @@ declare namespace spell = "http://marklogic.com/xdmp/spell";
 declare namespace xdt = "http://www.w3.org/2003/05/xpath-datatypes";
 declare namespace xdmp = "http://marklogic.com/xdmp";
 declare namespace xqe = "http://marklogic.com/xqe";
-declare namespace xqterr = "http://www.w3.org/2005/xqt-error";
+declare namespace xqterr = "http://www.w3.org/2005/xqt-errors";
 
 ()

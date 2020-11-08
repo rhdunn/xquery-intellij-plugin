@@ -105,6 +105,7 @@
     <ol>
       <li>Support attaching breakpoints to all expressions in the MarkLogic debugger.</li>
       <li>Better report <code>SEC-PRIV</code> errors when adding a query processor.</li>
+      <li>Fix the URI of the <code>xqterr</code> and <code>err</code> namespaces.</li>
     </ol>
   ]]></change-notes>
 
