@@ -51,6 +51,7 @@ various inspections.
   - [Namespace Declarations](#53-namespace-declarations)
   - [Variables](#54-variables)
     - [Variable Types](#541-variable-types)
+  - [Functions](#55-functions)
 - {: .toc-letter } [References](#a-references)
   - [W3C References](#a1-w3c-references)
   - [XPath NG Proposals](#a2-xpath-ng-proposals)
@@ -775,6 +776,27 @@ with that definition. The *variable name* of a *variable reference* is the
 
 The *variable type* of a *variable definition* is the `SequenceType` associated
 with that variable if specified.
+
+### 5.5 Functions
+
+| Symbol                     | Interface                     |
+|----------------------------|-------------------------------|
+| `ArrowFunctionCall`        | `XpmFunctionReference`        |
+| `ArrowDynamicFunctionCall` | `XpmDynamicFunctionReference` |
+| `DynamicFunctionCall`      | `XpmDynamicFunctionReference` |
+| `FunctionCall`             | `XpmFunctionReference`        |
+| `FunctionDecl`             | `XpmFunctionDeclaration`      |
+| `InlineFunctionExpr`       | `XpmFunctionDeclaration`      |
+| `NamedFunctionRef`         | `XpmFunctionReference`        |
+
+A *function declaration* is a declaration or expression that introduces a named
+or anonymous function.
+
+A *function reference* is an expression that specifies the name and arity of a
+function.
+
+A *dynamic function reference* is an expression that evaluates to a *function
+reference*.
 
 ## A References
 
