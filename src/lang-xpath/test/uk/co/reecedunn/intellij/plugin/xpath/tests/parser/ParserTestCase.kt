@@ -30,6 +30,8 @@ import uk.co.reecedunn.intellij.plugin.core.tests.roots.MockProjectRootsManager
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmStaticallyKnownFunctionProvider
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmStaticallyKnownFunctionProviderBean
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 abstract class ParserTestCase : ParsingTestCase<PsiFile>(null, XPathParserDefinition()) {
@@ -43,6 +45,11 @@ abstract class ParserTestCase : ParsingTestCase<PsiFile>(null, XPathParserDefini
         addExplicitExtension(LanguageASTFactory.INSTANCE, XPath, XPathASTFactory())
         myProject.registerService(ProjectRootManager::class.java, MockProjectRootsManager())
         myProject.registerService(ModuleManager::class.java, MockModuleManager(myProject))
+
+        registerExtensionPoint(
+            XpmStaticallyKnownFunctionProvider.EP_NAME,
+            XpmStaticallyKnownFunctionProviderBean::class.java
+        )
     }
 
     @AfterAll

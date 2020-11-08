@@ -16,11 +16,14 @@
 package uk.co.reecedunn.intellij.plugin.xquery.optree
 
 import com.intellij.psi.PsiFile
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmStaticallyKnownFunctionProvider
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.model.annotatedDeclarations
 import uk.co.reecedunn.intellij.plugin.xquery.model.importedPrologs
+import uk.co.reecedunn.intellij.plugin.xquery.model.importedPrologsForQName
+import uk.co.reecedunn.intellij.plugin.xquery.model.staticallyKnownFunctions
 
 object XQueryStaticallyKnownFunctionProvider : XpmStaticallyKnownFunctionProvider {
     override fun staticallyKnownFunctions(file: PsiFile): Sequence<XpmFunctionDeclaration> {
@@ -32,5 +35,11 @@ object XQueryStaticallyKnownFunctionProvider : XpmStaticallyKnownFunctionProvide
         return prolog.importedPrologs().flatMap {
             it.annotatedDeclarations<XpmFunctionDeclaration>()
         }.filter { decl -> decl.functionName != null }
+    }
+
+    override fun staticallyKnownFunctions(eqname: XsQNameValue): Sequence<XpmFunctionDeclaration> {
+        return eqname.importedPrologsForQName().flatMap { (name, prolog) ->
+            prolog.staticallyKnownFunctions(name!!)
+        }.filterNotNull()
     }
 }

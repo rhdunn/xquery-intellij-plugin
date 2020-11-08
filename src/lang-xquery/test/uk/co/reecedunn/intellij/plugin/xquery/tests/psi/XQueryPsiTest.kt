@@ -61,6 +61,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.xquery.model.getNamespaceType
+import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryStaticallyKnownFunctionProvider
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 import java.math.BigDecimal
@@ -77,6 +78,10 @@ private class XQueryPsiTest : ParserTestCase() {
 
     override fun registerModules(manager: MockModuleManager) {
         manager.addModule(ResourceVirtualFile.create(this::class.java.classLoader, "tests/module-xquery"))
+    }
+
+    override fun registerExtensions() {
+        registerStaticallyKnownFunctionProvider(XQueryStaticallyKnownFunctionProvider, "INSTANCE")
     }
 
     @Nested

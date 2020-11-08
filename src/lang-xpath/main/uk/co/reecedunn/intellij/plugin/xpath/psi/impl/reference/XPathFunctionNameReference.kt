@@ -21,7 +21,7 @@ import com.intellij.psi.PsiNamedElement
 import com.intellij.psi.PsiReferenceBase
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
-import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownFunctions
+import uk.co.reecedunn.intellij.plugin.xpm.staticallyKnownFunctions
 
 class XPathFunctionNameReference(element: XPathEQName, range: TextRange) :
     PsiReferenceBase<XPathEQName>(element, range) {

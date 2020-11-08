@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xpm.optree.function
 
 import com.intellij.openapi.extensions.ExtensionPointName
 import com.intellij.psi.PsiFile
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
 interface XpmStaticallyKnownFunctionProvider {
     companion object {
@@ -26,4 +27,6 @@ interface XpmStaticallyKnownFunctionProvider {
     }
 
     fun staticallyKnownFunctions(file: PsiFile): Sequence<XpmFunctionDeclaration>
+
+    fun staticallyKnownFunctions(eqname: XsQNameValue): Sequence<XpmFunctionDeclaration>
 }

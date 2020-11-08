@@ -27,10 +27,10 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentPlaceholder
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPostfixExpr
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionParamBinding
-import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownFunctions
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmDynamicFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.staticallyKnownFunctions
 
 private val XQUERY10: List<Version> = listOf()
 private val XQUERY30: List<Version> = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)

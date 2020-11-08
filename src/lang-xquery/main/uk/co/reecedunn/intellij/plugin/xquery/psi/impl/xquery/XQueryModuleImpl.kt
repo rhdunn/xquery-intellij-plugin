@@ -29,12 +29,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.intellij.fileTypes.XQueryFileType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.settings.XQueryProjectSettings
 import uk.co.reecedunn.intellij.plugin.xpm.context.XpmUsageType
-import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
-import uk.co.reecedunn.intellij.plugin.xdm.types.element
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
@@ -154,12 +151,6 @@ class XQueryModuleImpl(provider: FileViewProvider) :
         type: XdmNamespaceType
     ): Sequence<XpmNamespaceDeclaration> {
         return context.defaultNamespace(type, true)
-    }
-
-    override fun staticallyKnownFunctions(eqname: XsQNameValue): Sequence<XpmFunctionDeclaration> {
-        return eqname.importedPrologsForQName().flatMap { (name, prolog) ->
-            prolog.staticallyKnownFunctions(name!!)
-        }.filterNotNull()
     }
 
     // endregion

@@ -59,6 +59,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySequenceTypeUnion
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.xquery.model.getNamespaceType
+import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryStaticallyKnownFunctionProvider
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
@@ -68,6 +69,10 @@ private class PluginPsiTest : ParserTestCase()  {
     fun parseResource(resource: String): XQueryModule {
         val file = ResourceVirtualFile.create(this::class.java.classLoader, resource)
         return file.toPsiFile(myProject) as XQueryModule
+    }
+
+    override fun registerExtensions() {
+        registerStaticallyKnownFunctionProvider(XQueryStaticallyKnownFunctionProvider, "INSTANCE")
     }
 
     @Nested

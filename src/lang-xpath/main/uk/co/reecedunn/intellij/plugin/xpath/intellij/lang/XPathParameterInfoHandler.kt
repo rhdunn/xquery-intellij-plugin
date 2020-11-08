@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.isArrowFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownFunctions
+import uk.co.reecedunn.intellij.plugin.xpm.staticallyKnownFunctions
 
 class XPathParameterInfoHandler : ParameterInfoHandler<XPathArgumentList, XpmFunctionDeclaration> {
     override fun couldShowInLookup(): Boolean = true
