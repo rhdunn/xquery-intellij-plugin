@@ -44,6 +44,7 @@ object MarkLogicBuiltInVariableProvider : XpmVariableProvider {
 
         return when (name) {
             ELEMENT_WALK -> MarkLogicQueries.CtsElementWalkVariables
+            ENTITY_HIGHLIGHT -> MarkLogicQueries.CtsEntityHighlightVariables
             HIGHLIGHT -> MarkLogicQueries.CtsHighlightVariables
             WALK -> MarkLogicQueries.CtsHighlightVariables
             else -> null
@@ -53,8 +54,9 @@ object MarkLogicBuiltInVariableProvider : XpmVariableProvider {
     private const val CTS_NAMESPACE = "http://marklogic.com/cts"
 
     private const val ELEMENT_WALK = "element-walk"
+    private const val ENTITY_HIGHLIGHT = "entity-highlight"
     private const val HIGHLIGHT = "highlight"
     private const val WALK = "walk"
 
-    private val FUNCTIONS = setOf(ELEMENT_WALK, HIGHLIGHT, WALK)
+    private val FUNCTIONS = setOf(ELEMENT_WALK, ENTITY_HIGHLIGHT, HIGHLIGHT, WALK)
 }
