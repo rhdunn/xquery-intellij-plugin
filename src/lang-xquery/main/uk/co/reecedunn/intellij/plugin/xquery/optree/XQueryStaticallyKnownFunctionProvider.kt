@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.optree
 
 import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmStaticallyKnownFunctionProvider
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
@@ -38,6 +39,7 @@ object XQueryStaticallyKnownFunctionProvider : XpmStaticallyKnownFunctionProvide
     }
 
     override fun staticallyKnownFunctions(eqname: XsQNameValue): Sequence<XpmFunctionDeclaration> {
+        if (eqname.element?.containingFile !is XQueryModule) return emptySequence()
         return eqname.importedPrologsForQName().flatMap { (name, prolog) ->
             prolog.staticallyKnownFunctions(name!!)
         }.filterNotNull()

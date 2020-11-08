@@ -18,10 +18,12 @@ package uk.co.reecedunn.intellij.plugin.xquery.optree
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmInScopeVariableProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableDefinition
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.model.xqueryInScopeVariables
 
 object XQueryInScopeVariableProvider : XpmInScopeVariableProvider {
     override fun inScopeVariables(context: PsiElement): Sequence<XpmVariableDefinition> {
+        if (context.containingFile !is XQueryModule) return emptySequence()
         return context.xqueryInScopeVariables()
     }
 }
