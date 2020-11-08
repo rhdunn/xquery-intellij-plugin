@@ -107,7 +107,10 @@
       <li>Support attaching breakpoints to all expressions in the MarkLogic debugger.</li>
       <li>Better report <code>SEC-PRIV</code> errors when adding a query processor.</li>
       <li>Fix the URI of the <code>xqterr</code> and <code>err</code> namespaces.</li>
-      <li>Auto-complete support for <code>cts:element-walk</code>, and <code>cts:highlight</code> built-in variables.</li>
+      <li>
+        Auto-complete support for <code>cts:element-walk</code>, <code>cts:highlight</code>,
+        and <code>cts:walk</code> built-in variables.
+      </li>
     </ol>
   ]]></change-notes>
 

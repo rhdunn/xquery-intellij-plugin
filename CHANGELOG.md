@@ -38,8 +38,8 @@ MarkLogic:
     debugger.
 1.  Better report `SEC-PRIV` errors when adding a query processor.
 1.  Fix the URI of the `xqterr` and `err` namespaces.
-1.  Auto-complete support for `cts:element-walk`, and `cts:highlight` built-in
-    variables.
+1.  Auto-complete support for `cts:element-walk`, `cts:highlight`, and
+    `cts:walk` built-in variables.
 
 ## 2020
 
