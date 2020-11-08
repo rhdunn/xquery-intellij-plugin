@@ -13,5 +13,8 @@
 
     <!-- ml-gradle -->
     <projectConfigurationFactory implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.gradle.configuration.GradleConfiguration$Companion"/>
+
+    <!-- Static Context -->
+    <variableProvider implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.model.MarkLogicCtsHighlightVariableProvider" fieldName="INSTANCE"/>
   </extensions>
 </idea-plugin>
