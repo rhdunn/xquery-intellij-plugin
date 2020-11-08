@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathSimpleLetBinding
-import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableBinding
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableBinding
 
 /**
  * An XQuery 3.0 `LetBinding` node in the XQuery AST.

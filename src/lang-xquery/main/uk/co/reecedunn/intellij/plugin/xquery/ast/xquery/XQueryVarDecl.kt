@@ -15,8 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
-import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableDeclaration
-import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableType
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableType
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.ide.structureView.XQueryStructureViewElement
 
 /**

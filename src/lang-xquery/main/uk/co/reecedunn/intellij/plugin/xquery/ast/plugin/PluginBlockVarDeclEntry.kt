@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.plugin
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableDeclaration
 
 /**
  * An XQuery Scripting Extension `BlockVarDeclBinding` node in the XQuery AST.

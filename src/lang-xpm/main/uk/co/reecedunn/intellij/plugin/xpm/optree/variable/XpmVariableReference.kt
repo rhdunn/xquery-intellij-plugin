@@ -13,6 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpm.variable
+package uk.co.reecedunn.intellij.plugin.xpm.optree.variable
 
-interface XpmVariableDeclaration : XpmVariableDefinition
+interface XpmVariableReference : XpmVariable

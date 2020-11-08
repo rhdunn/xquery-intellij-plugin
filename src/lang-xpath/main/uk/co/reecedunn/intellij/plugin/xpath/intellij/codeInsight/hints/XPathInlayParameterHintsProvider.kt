@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.isArrowFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.parenthesizedExprTextOffset
-import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariable
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariable
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpm.context.expand
 

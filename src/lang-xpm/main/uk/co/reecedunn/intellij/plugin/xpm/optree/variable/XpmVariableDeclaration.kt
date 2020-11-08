@@ -13,10 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpm.variable
+package uk.co.reecedunn.intellij.plugin.xpm.optree.variable
 
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
-
-interface XpmVariable {
-    val variableName: XsQNameValue?
-}
+interface XpmVariableDeclaration : XpmVariableDefinition

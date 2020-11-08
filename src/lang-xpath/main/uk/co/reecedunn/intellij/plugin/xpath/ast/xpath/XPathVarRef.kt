@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
-import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableReference
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableReference
 
 /**
  * An XPath 2.0 and XQuery 1.0 `VarRef` node in the XQuery AST.

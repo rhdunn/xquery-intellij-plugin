@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.intellij.codeInsight.highlighting.
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
-import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableReference
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableReference
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 import com.intellij.codeInsight.highlighting.ReadWriteAccessDetector.Access as Access
 

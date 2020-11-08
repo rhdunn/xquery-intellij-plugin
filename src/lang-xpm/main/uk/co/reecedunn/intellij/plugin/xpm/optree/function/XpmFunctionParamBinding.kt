@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpm.optree.function
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xpm.variable.XpmVariableBinding
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableBinding
 
 data class XpmFunctionParamBinding(
     val param: XpmVariableBinding,
