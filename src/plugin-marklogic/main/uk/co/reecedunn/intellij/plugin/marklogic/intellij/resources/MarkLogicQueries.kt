@@ -18,41 +18,58 @@ package uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources
 import com.intellij.openapi.vfs.CharsetToolkit
 import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
+import uk.co.reecedunn.intellij.plugin.core.vfs.VirtualFileSystemImpl
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
+import uk.co.reecedunn.intellij.plugin.xquery.intellij.resources.XQueryQueries
 
-object MarkLogicQueries {
-    private fun resourceFile(path: String): VirtualFile {
-        val file = ResourceVirtualFile.create(this::class.java.classLoader, path)
+object MarkLogicQueries : VirtualFileSystemImpl("res") {
+    private val cache: HashMap<String, VirtualFile?> = HashMap()
+
+    private fun resourceFile(path: String): VirtualFile? {
+        val file = ResourceVirtualFile.createIfValid(this::class.java.classLoader, path, this) ?: return null
         file.charset = CharsetToolkit.UTF8_CHARSET
         return file
     }
 
-    val Run: String = resourceFile("queries/marklogic/run.xq").decode()!!
+    override fun findFileByPath(path: String): VirtualFile? {
+        return cache[path] ?: XQueryQueries.resourceFile(path).let {
+            cache[path] = it
+            it
+        }
+    }
 
-    val Version: VirtualFile = resourceFile("queries/marklogic/version.xq")
-    val Servers: VirtualFile = resourceFile("queries/marklogic/servers.xq")
-    val Databases: VirtualFile = resourceFile("queries/marklogic/databases.xq")
+    override fun refresh(asynchronous: Boolean) {
+    }
 
-    val ApiDocs: VirtualFile = resourceFile("queries/marklogic/apidocs.xq")
+    val Run: String = resourceFile("queries/marklogic/run.xq")?.decode()!!
+
+    val Version: VirtualFile = resourceFile("queries/marklogic/version.xq")!!
+    val Servers: VirtualFile = resourceFile("queries/marklogic/servers.xq")!!
+    val Databases: VirtualFile = resourceFile("queries/marklogic/databases.xq")!!
+
+    val ApiDocs: VirtualFile = resourceFile("queries/marklogic/apidocs.xq")!!
+
+    val CtsHighlightVariables: VirtualFile =
+        resourceFile("queries/marklogic/static-context/cts-highlight-variables.xq")!!
 
     object Debug {
-        val Breakpoint: VirtualFile = resourceFile("queries/marklogic/debug/breakpoint.xq")
-        val Break: VirtualFile = resourceFile("queries/marklogic/debug/break.xq")
-        val Continue: VirtualFile = resourceFile("queries/marklogic/debug/continue.xq")
-        val Stack: VirtualFile = resourceFile("queries/marklogic/debug/stack.xq")
-        val Status: VirtualFile = resourceFile("queries/marklogic/debug/status.xq")
-        val StepInto: VirtualFile = resourceFile("queries/marklogic/debug/step-into.xq")
-        val StepOver: VirtualFile = resourceFile("queries/marklogic/debug/step-over.xq")
-        val StepOut: VirtualFile = resourceFile("queries/marklogic/debug/step-out.xq")
-        val Value: VirtualFile = resourceFile("queries/marklogic/debug/value.xq")
+        val Breakpoint: VirtualFile = resourceFile("queries/marklogic/debug/breakpoint.xq")!!
+        val Break: VirtualFile = resourceFile("queries/marklogic/debug/break.xq")!!
+        val Continue: VirtualFile = resourceFile("queries/marklogic/debug/continue.xq")!!
+        val Stack: VirtualFile = resourceFile("queries/marklogic/debug/stack.xq")!!
+        val Status: VirtualFile = resourceFile("queries/marklogic/debug/status.xq")!!
+        val StepInto: VirtualFile = resourceFile("queries/marklogic/debug/step-into.xq")!!
+        val StepOver: VirtualFile = resourceFile("queries/marklogic/debug/step-over.xq")!!
+        val StepOut: VirtualFile = resourceFile("queries/marklogic/debug/step-out.xq")!!
+        val Value: VirtualFile = resourceFile("queries/marklogic/debug/value.xq")!!
     }
 
     object Log {
-        val Logs: VirtualFile = resourceFile("queries/marklogic/log/logs.xq")
-        val Log: VirtualFile = resourceFile("queries/marklogic/log/log.xq")
+        val Logs: VirtualFile = resourceFile("queries/marklogic/log/logs.xq")!!
+        val Log: VirtualFile = resourceFile("queries/marklogic/log/log.xq")!!
     }
 
     object Request {
-        val Cancel: VirtualFile = resourceFile("queries/marklogic/request/cancel.xq")
+        val Cancel: VirtualFile = resourceFile("queries/marklogic/request/cancel.xq")!!
     }
 }
