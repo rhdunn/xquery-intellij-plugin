@@ -36,12 +36,17 @@ import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathVarNameLooku
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableReference
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
+import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryInScopeVariableProvider
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("ClassName")
 @DisplayName("XQuery 3.1 - Code Completion - Lookup Element")
 private class XQueryLookupElementTest : ParserTestCase() {
+    override fun registerExtensions() {
+        registerInScopeVariableProvider(XQueryInScopeVariableProvider, "INSTANCE")
+    }
+
     @Nested
     @DisplayName("XQuery 3.1 EBNF (131) VarRef")
     internal inner class VarRef {

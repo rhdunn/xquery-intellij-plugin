@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.parser.prettyPrint
 import uk.co.reecedunn.intellij.plugin.xslt.annotation.ValueTemplateAnnotator as XPathQNameAnnotator
 import uk.co.reecedunn.intellij.plugin.xquery.annotation.QNameAnnotator
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
+import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryInScopeVariableProvider
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("ClassName")

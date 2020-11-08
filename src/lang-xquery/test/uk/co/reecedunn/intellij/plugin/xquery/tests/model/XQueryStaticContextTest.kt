@@ -29,9 +29,11 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
+import uk.co.reecedunn.intellij.plugin.xpm.inScopeVariables
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryMainModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
+import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryInScopeVariableProvider
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
@@ -40,6 +42,10 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 private class XQueryStaticContextTest : ParserTestCase() {
     override fun registerModules(manager: MockModuleManager) {
         manager.addModule(ResourceVirtualFile.create(this::class.java.classLoader, "tests/module-xquery"))
+    }
+
+    override fun registerExtensions() {
+        registerInScopeVariableProvider(XQueryInScopeVariableProvider, "INSTANCE")
     }
 
     @Nested

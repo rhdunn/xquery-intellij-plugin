@@ -30,11 +30,16 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariable
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
+import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryInScopeVariableProvider
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("IntelliJ - Custom Language Support - References and Resolve - XQuery")
 private class XQueryReferenceTest : ParserTestCase() {
+    override fun registerExtensions() {
+        registerInScopeVariableProvider(XQueryInScopeVariableProvider, "INSTANCE")
+    }
+
     fun parseResource(resource: String): XQueryModule {
         val file = ResourceVirtualFile.create(this::class.java.classLoader, resource)
         return file.toPsiFile(myProject) as XQueryModule

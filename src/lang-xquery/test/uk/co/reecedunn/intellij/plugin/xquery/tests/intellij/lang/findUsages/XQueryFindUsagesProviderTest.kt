@@ -29,12 +29,17 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableReference
+import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryInScopeVariableProvider
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("IntelliJ - Custom Language Support - Find Usages - FindUsagesProvider")
 private class XQueryFindUsagesProviderTest : ParserTestCase() {
     val provider = XQueryFindUsagesProvider()
+
+    override fun registerExtensions() {
+        registerInScopeVariableProvider(XQueryInScopeVariableProvider, "INSTANCE")
+    }
 
     @Nested
     @DisplayName("XQuery 3.1 EBNF (131) VarRef")

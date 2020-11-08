@@ -50,4 +50,8 @@
 
     <projectConfigurable groupId="language" displayName="XQuery" instance="uk.co.reecedunn.intellij.plugin.xquery.intellij.settings.XQueryProjectSettingsConfigurable"/>
   </extensions>
+
+  <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
+    <inScopeVariableProvider implementationClass="uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryInScopeVariableProvider" fieldName="INSTANCE"/>
+  </extensions>
 </idea-plugin>

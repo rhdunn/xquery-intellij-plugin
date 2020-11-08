@@ -28,7 +28,6 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaratio
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
-import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableDefinition
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
@@ -75,10 +74,6 @@ class XPathImpl(provider: FileViewProvider) :
     }
 
     override fun staticallyKnownFunctions(eqname: XPathEQName): Sequence<XpmFunctionDeclaration> {
-        return emptySequence() // TODO
-    }
-
-    override fun inScopeVariables(context: PsiElement): Sequence<XpmVariableDefinition> {
         return emptySequence() // TODO
     }
 

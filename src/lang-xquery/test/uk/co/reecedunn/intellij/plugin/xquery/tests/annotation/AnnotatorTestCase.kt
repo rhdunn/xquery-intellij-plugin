@@ -16,6 +16,8 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.annotation
 
 import com.intellij.lang.LanguageASTFactory
+import com.intellij.openapi.extensions.DefaultPluginDescriptor
+import com.intellij.openapi.extensions.PluginId
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.TestInstance
@@ -28,6 +30,10 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.settings.XQueryProjectSettings
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmInScopeVariableProvider
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmInScopeVariableProviderBean
+import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryInScopeVariableProvider
+import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 abstract class AnnotatorTestCase :
@@ -39,10 +45,23 @@ abstract class AnnotatorTestCase :
         myProject.registerService(XQueryProjectSettings::class.java, XQueryProjectSettings())
         addExplicitExtension(LanguageASTFactory.INSTANCE, XPath, XPathASTFactory())
         addExplicitExtension(LanguageASTFactory.INSTANCE, XQuery, XQueryASTFactory())
+
+        registerExtensionPoint(XpmInScopeVariableProvider.EP_NAME, XpmInScopeVariableProviderBean::class.java)
+        registerInScopeVariableProvider(XQueryInScopeVariableProvider, "INSTANCE")
     }
 
     @AfterAll
     override fun tearDown() {
         super.tearDown()
+    }
+
+    @Suppress("UsePropertyAccessSyntax")
+    protected fun registerInScopeVariableProvider(provider: XpmInScopeVariableProvider, fieldName: String) {
+        val classLoader = ParserTestCase::class.java.classLoader
+        val bean = XpmInScopeVariableProviderBean()
+        bean.implementationClass = provider.javaClass.name
+        bean.fieldName = fieldName
+        bean.setPluginDescriptor(DefaultPluginDescriptor(PluginId.getId("registerInScopeVariables"), classLoader))
+        registerExtension(XpmInScopeVariableProvider.EP_NAME, bean)
     }
 }

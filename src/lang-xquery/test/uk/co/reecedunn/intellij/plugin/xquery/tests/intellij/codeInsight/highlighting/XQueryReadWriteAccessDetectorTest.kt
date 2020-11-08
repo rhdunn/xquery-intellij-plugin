@@ -29,12 +29,17 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableReference
+import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryInScopeVariableProvider
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 import com.intellij.codeInsight.highlighting.ReadWriteAccessDetector.Access as Access
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("IntelliJ - Custom Language Support - Read/Write Usage Detector - XQuery")
 private class XQueryReadWriteAccessDetectorTest : ParserTestCase() {
+    override fun registerExtensions() {
+        registerInScopeVariableProvider(XQueryInScopeVariableProvider, "INSTANCE")
+    }
+
     val detector: ReadWriteAccessDetector = XQueryReadWriteAccessDetector()
 
     fun variable(text: String): Pair<PsiElement, PsiReference> {
