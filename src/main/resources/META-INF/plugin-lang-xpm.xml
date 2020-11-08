@@ -29,6 +29,11 @@
     <extensionPoint qualifiedName="uk.co.reecedunn.intellij.shadowPsiElementFactory" beanClass="uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElementFactoryBean" dynamic="true">
       <with attribute="implementationClass" implements="uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElementFactory"/>
     </extensionPoint>
+
+    <!--suppress PluginXmlValidity -->
+    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.inScopeVariableProvider" beanClass="uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmInScopeVariableProviderBean" dynamic="true">
+      <with attribute="implementationClass" implements="uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmInScopeVariableProvider"/>
+    </extensionPoint>
   </extensionPoints>
 
   <extensions defaultExtensionNs="com.intellij">
