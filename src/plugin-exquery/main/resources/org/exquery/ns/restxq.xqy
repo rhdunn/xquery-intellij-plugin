@@ -37,3 +37,4 @@ declare %a:since("exquery-restxq", "1.0-20160321") %a:since("basex", "7.7") func
 
 declare %a:since("basex", "7.7") function rest:wadl() as element(wadl:application) external;
 declare %a:since("basex", "8.6") function rest:init() as empty-sequence() external;
+declare %a:since("basex", "9.4") function rest:init($update as xs:boolean) as empty-sequence() external;
