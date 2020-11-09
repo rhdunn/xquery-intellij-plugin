@@ -14,7 +14,11 @@ declare namespace http = "http://expath.org/ns/http-client";
 declare option o:requires-import "basex/7.5; until=basex/9.2; location-uri=(none)";
 
 declare %a:since("exquery-request", "1.0-20130804") %a:since("basex", "7.5") function request:address() as xs:string external;
-declare %a:since("basex", "7.7") function request:attribute($name as xs:string) as xs:string external;
+declare %a:restrict-until("return", "basex", "9.2", "xs:string")
+        %a:since("basex", "7.7") function request:attribute($name as xs:string) as item()* external;
+declare %a:since("basex", "9.3") function request:attribute($name as xs:string, $default as item()*) as item()* external;
+declare %a:since("basex", "9.3") function request:attribute-names() as xs:string* external;
+declare %a:since("basex", "9.3") function request:set-attribute($name as xs:string, $value as item()*) as empty-sequence() external;
 declare %a:restrict-since("return", "exquery-request", "1.0-20130804", "xs:string?")
         %a:since("exquery-request", "1.0-20130804") %a:since("basex", "7.5") function request:cookie($name as xs:string) as xs:string* external;
 declare %a:since("exquery-request", "1.0-20130804") %a:since("basex", "7.5") function request:cookie($name as xs:string, $default as xs:string) as xs:string external;
