@@ -18,10 +18,12 @@ declare %a:restrict-until("$parameters", "basex", "8.2", "map(*)")
         %a:restrict-until("$parameters", "basex", "9.0", "map(item(), item()*)")
         %a:restrict-since("$parameters", "basex", "8.5", "map(*)")
         %a:since("basex", "8.1") function web:create-url($url as xs:string, $parameters as map(*)) as xs:string external;
+declare %a:since("basex", "9.2") function web:create-url($url as xs:string, $parameters as map(*), $anchor as xs:string) as xs:string external;
 declare %a:since("basex", "8.2") function web:encode-url($string as xs:string) as xs:string external;
 declare %a:since("basex", "8.2") function web:decode-url($string as xs:string) as xs:string external;
 declare %a:since("basex", "8.1") function web:redirect($location as xs:string) as element(rest:response) external;
 declare %a:since("basex", "8.1") function web:redirect($location as xs:string, $parameters as map(*)) as element(rest:response) external;
+declare %a:since("basex", "9.2") function web:redirect($location as xs:string, $parameters as map(*), $anchor as xs:string) as element(rest:response) external;
 declare %a:since("basex", "8.1") function web:response-header() as element(rest:response) external;
 declare %a:restrict-until("$output", "basex", "9.0", "map(*)")
         %a:since("basex", "8.1") function web:response-header($output as map(*)?) as element(rest:response) external;
@@ -30,3 +32,6 @@ declare %a:restrict-until("$output", "basex", "9.0", "map(*)")
         %a:restrict-until("$headers", "basex", "9.0", "map(xs:string, xs:string)")
         %a:since("basex", "8.1") function web:response-header($output as map(*)?, $headers as map(*)?) as element(rest:response) external;
 declare %a:since("basex", "9.0") function web:response-header($output as map(*)?, $headers as map(*)?, $atts as map(*)?) as element(rest:response) external;
+declare %a:since("basex", "9.3") function web:error($status as xs:integer, $message as xs:string) as none external;
+declare %a:since("basex", "9.3") function web:forward($path as xs:string) as element(rest:forward) external;
+declare %a:since("basex", "9.3") function web:forward($path as xs:string, $parameters as map(*)) as element(rest:forward) external;
