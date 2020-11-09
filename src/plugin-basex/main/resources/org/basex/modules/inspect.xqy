@@ -21,3 +21,4 @@ declare %a:since("basex", "7.7") function inspect:function($function as function
 declare %a:since("basex", "7.7") function inspect:context() as element(context) external;
 declare %a:since("basex", "7.7") function inspect:module($uri as xs:string) as element(module) external;
 declare %a:since("basex", "7.7") function inspect:xqdoc($uri as xs:string) as element(xqdoc:xqdoc) external;
+declare %a:since("basex", "9.3") function inspect:type($value as item()*) as xs:string external;
