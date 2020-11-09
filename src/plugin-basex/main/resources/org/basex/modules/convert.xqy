@@ -34,3 +34,7 @@ declare %a:since("basex", "7.5") function convert:integer-to-dateTime($milliseco
 declare %a:since("basex", "7.5") function convert:dateTime-to-integer($dateTime as xs:dateTime) as xs:integer external;
 declare %a:since("basex", "7.5") function convert:integer-to-dayTime($milliseconds as xs:integer) as xs:dayTimeDuration external;
 declare %a:since("basex", "7.5") function convert:dayTime-to-integer($dayTime as xs:dayTimeDuration) as xs:integer external;
+declare %a:since("basex", "9.4") function convert:encode-key($key as xs:string) as xs:string external;
+declare %a:since("basex", "9.4") function convert:encode-key($key as xs:string, $lax as xs:boolean) as xs:string external;
+declare %a:since("basex", "9.4") function convert:decode-key($key as xs:string) as xs:string external;
+declare %a:since("basex", "9.4") function convert:decode-key($key as xs:string, $lax as xs:boolean) as xs:string external;
