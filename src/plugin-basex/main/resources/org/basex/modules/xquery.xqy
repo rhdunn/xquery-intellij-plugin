@@ -17,12 +17,12 @@ declare %a:since("basex", "7.8.2") function xquery:eval($query as xs:string, $bi
 declare %a:since("basex", "7.3") function xquery:eval-update($query as xs:string) as item()* external;
 declare %a:since("basex", "7.3") function xquery:eval-update($query as xs:string, $bindings as map(*)?) as item()* external;
 declare %a:since("basex", "7.8.2") function xquery:eval-update($query as xs:string, $bindings as map(*)?, $options as map(*)?) as item() external;
-declare %a:since("basex", "7.3") function xquery:invoke($uri as xs:string) as item()* external;
-declare %a:since("basex", "7.3") function xquery:invoke($uri as xs:string, $bindings as map(*)?) as item()* external;
-declare %a:since("basex", "7.3") function xquery:invoke($uri as xs:string, $bindings as map(*)?, $options as map(*)?) as item()* external;
-declare %a:since("basex", "9.0") function xquery:invoke-update($uri as xs:string) as item()* external;
-declare %a:since("basex", "9.0") function xquery:invoke-update($uri as xs:string, $bindings as map(*)?) as item()* external;
-declare %a:since("basex", "9.0") function xquery:invoke-update($uri as xs:string, $bindings as map(*)?, $options as map(*)?) as item()* external;
+declare %a:since("basex", "7.3") %a:until("basex", "9.2", "xquery:eval") function xquery:invoke($uri as xs:string) as item()* external;
+declare %a:since("basex", "7.3") %a:until("basex", "9.2", "xquery:eval") function xquery:invoke($uri as xs:string, $bindings as map(*)?) as item()* external;
+declare %a:since("basex", "7.3") %a:until("basex", "9.2", "xquery:eval") function xquery:invoke($uri as xs:string, $bindings as map(*)?, $options as map(*)?) as item()* external;
+declare %a:since("basex", "9.0") %a:until("basex", "9.2", "xquery:eval-update") function xquery:invoke-update($uri as xs:string) as item()* external;
+declare %a:since("basex", "9.0") %a:until("basex", "9.2", "xquery:eval-update") function xquery:invoke-update($uri as xs:string, $bindings as map(*)?) as item()* external;
+declare %a:since("basex", "9.0") %a:until("basex", "9.2", "xquery:eval-update") function xquery:invoke-update($uri as xs:string, $bindings as map(*)?, $options as map(*)?) as item()* external;
 declare %a:since("basex", "8.0") function xquery:parse($query as xs:string) as item()? external;
 declare %a:since("basex", "8.0") function xquery:parse($query as xs:string, $options as map(*)?) as item()? external;
 declare %a:since("basex", "7.3") function xquery:parse-uri($uri as xs:string) as item()? external;
