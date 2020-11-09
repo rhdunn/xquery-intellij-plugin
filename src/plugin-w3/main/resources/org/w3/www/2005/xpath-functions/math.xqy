@@ -29,3 +29,11 @@ declare %a:since("xpath-functions", "3.0-20140408") function math:pow($x as xs:d
 declare %a:since("xpath-functions", "3.0-20140408") function math:sin($θ as xs:double?) as xs:double? external;
 declare %a:since("xpath-functions", "3.0-20140408") function math:sqrt($arg as xs:double?) as xs:double? external;
 declare %a:since("xpath-functions", "3.0-20140408") function math:tan($θ as xs:double?) as xs:double? external;
+declare %a:since("basex", "7.0") function math:e() as xs:double external;
+declare %a:since("basex", "7.0") function math:sinh($arg as xs:double?) as xs:double? external;
+declare %a:since("basex", "7.0") function math:cosh($arg as xs:double?) as xs:double? external;
+declare %a:since("basex", "7.0") function math:tanh($arg as xs:double?) as xs:double? external;
+declare %a:restrict-until("$string", "basex", "9.1", "xs:string")
+        %a:since("basex", "7.3") function math:crc32($string as xs:string?) as xs:hexBinary? external;
+declare %a:since("basex", "7.3") %a:until("basex", "7.5") %a:see-also("basex", "7.5", "random:uuid") function math:uuid() external;
+declare %a:since("basex", "7.0") %a:until("basex", "7.5") %a:see-also("basex", "7.5", "random:double") function math:random() external;
