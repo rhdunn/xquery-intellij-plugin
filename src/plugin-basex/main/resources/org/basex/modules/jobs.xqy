@@ -20,9 +20,9 @@ declare %a:since("basex", "8.5") function jobs:services() as element(job)* exter
 declare %a:since("basex", "8.5") function jobs:eval($query as xs:string) as xs:string external;
 declare %a:since("basex", "8.5") function jobs:eval($query as xs:string, $bindings as map(*)?) as xs:string external;
 declare %a:since("basex", "8.5") function jobs:eval($query as xs:string, $bindings as map(*)?, $options as map(*)?) as xs:string external;
-declare %a:since("basex", "9.0") function jobs:invoke($uri as xs:string) as xs:string external;
-declare %a:since("basex", "9.0") function jobs:invoke($uri as xs:string, $bindings as map(*)?) as xs:string external;
-declare %a:since("basex", "9.0") function jobs:invoke($uri as xs:string, $bindings as map(*)?, $options as map(*)?) as xs:string external;
+declare %a:since("basex", "9.0") %a:deprecated("basex", "9.2", "jobs:eval") function jobs:invoke($uri as xs:string) as xs:string external;
+declare %a:since("basex", "9.0") %a:deprecated("basex", "9.2", "jobs:eval") function jobs:invoke($uri as xs:string, $bindings as map(*)?) as xs:string external;
+declare %a:since("basex", "9.0") %a:deprecated("basex", "9.2", "jobs:eval") function jobs:invoke($uri as xs:string, $bindings as map(*)?, $options as map(*)?) as xs:string external;
 declare %a:since("basex", "8.5") function jobs:result($id as xs:string) as item()* external;
 declare %a:since("basex", "8.5") function jobs:stop($id as xs:string) as empty-sequence() external;
 declare %a:since("basex", "8.5") function jobs:wait($id as xs:string) as empty-sequence() external;
