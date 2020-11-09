@@ -118,6 +118,7 @@ class XsltSchemaTypesParser(
                 marker.done(HASHED_KEYWORD_TOKEN!!)
                 return true
             }
+            marker.drop()
         }
         return false
     }

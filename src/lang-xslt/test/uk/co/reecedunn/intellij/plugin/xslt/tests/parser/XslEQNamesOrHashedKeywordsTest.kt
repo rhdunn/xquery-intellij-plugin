@@ -136,6 +136,14 @@ private class XslEQNamesOrHashedKeywordsTest :
             val actual = parseResource("tests/parser/schema-type/hashed-keyword/Unnamed.input")
             assertThat(prettyPrintASTNode(actual), `is`(expected))
         }
+
+        @Test
+        @DisplayName("missing NCName")
+        fun missingNCName() {
+            val expected = loadResource("tests/parser/schema-type/hashed-keyword/MissingNCName.txt")
+            val actual = parseResource("tests/parser/schema-type/hashed-keyword/MissingNCName.input")
+            assertThat(prettyPrintASTNode(actual), `is`(expected))
+        }
     }
 
     @Nested
