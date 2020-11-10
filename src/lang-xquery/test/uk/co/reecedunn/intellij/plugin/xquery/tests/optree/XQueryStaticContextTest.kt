@@ -23,6 +23,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
+import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
@@ -1356,6 +1357,14 @@ private class XQueryStaticContextTest : ParserTestCase() {
     @Nested
     @DisplayName("XQuery 3.1 (2.1.1) In-scope variables")
     internal inner class InScopeVariables {
+        fun variables(query: String, expected: List<String>) {
+            val ctx = parse<XPathFunctionCall>(query)[0]
+            val variables = ctx.inScopeVariables().mapNotNull { variable ->
+                variable.variableName?.let { name -> op_qname_presentation(name) }
+            }.toList()
+            assertThat(variables, `is`(expected))
+        }
+
         @Nested
         @DisplayName("XQuery 3.1 (3.12.2) For Clause")
         internal inner class ForClause {
@@ -1365,81 +1374,43 @@ private class XQueryStaticContextTest : ParserTestCase() {
                 @Test
                 @DisplayName("from VarName expression")
                 fun inExpr() {
-                    val element = parse<XPathFunctionCall>("for \$x in test() return 1")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(0))
+                    variables("for \$x in test() return 1", listOf())
                 }
 
                 @Test
                 @DisplayName("from VarName expression; previous binding in scope")
                 fun inExpr_PreviousBindingInScope() {
-                    val element = parse<XPathFunctionCall>("for \$x in 2, \$y in test() return 1")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(1))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                    variables("for \$x in 2, \$y in test() return 1", listOf("x"))
                 }
 
                 @Test
                 @DisplayName("from VarName expression; inner VarName expression of nested FLWOR")
                 fun nestedFLWORExpr() {
-                    val element = parse<XPathFunctionCall>("for \$x in for \$y in test() return 1 return 2")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(0))
+                    variables("for \$x in for \$y in test() return 1 return 2", listOf())
                 }
 
                 @Test
                 @DisplayName("from return expression")
                 fun returnExpr() {
-                    val element = parse<XPathFunctionCall>("for \$x in 1 return test()")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(1))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                    variables("for \$x in 1 return test()", listOf("x"))
                 }
 
                 @Test
                 @DisplayName("from return expression; return expression of inner nested FLWOR")
                 fun innerReturnExpr() {
-                    val element = parse<XPathFunctionCall>("for \$x in for \$y in 2 return test() return 2")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(1))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("y"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                    variables("for \$x in for \$y in 2 return test() return 2", listOf("y"))
                 }
 
                 @Test
                 @DisplayName("from return expression; return expression of outer nested FLWOR")
                 fun outerReturnExpr() {
-                    val element = parse<XPathFunctionCall>("for \$x in for \$y in 2 return 1 return test()")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(1))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                    variables("for \$x in for \$y in 2 return 1 return test()", listOf("x"))
                 }
 
                 @Test
                 @DisplayName("from return expression; multiple bindings")
                 fun returnExpr_multipleBindings() {
-                    val element = parse<XPathFunctionCall>("for \$x in 1, \$y in 2 return test()")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(2))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                    assertThat(variables[1].variableName?.localName?.data, `is`("y"))
-                    assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                    variables("for \$x in 1, \$y in 2 return test()", listOf("x", "y"))
                 }
             }
 
@@ -1449,115 +1420,43 @@ private class XQueryStaticContextTest : ParserTestCase() {
                 @Test
                 @DisplayName("from VarName expression")
                 fun inExpr() {
-                    val element = parse<XPathFunctionCall>("for \$x in 1 for \$y in test() return 1")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(1))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                    variables("for \$x in 1 for \$y in test() return 1", listOf("x"))
                 }
 
                 @Test
                 @DisplayName("from VarName expression; previous binding in scope")
                 fun inExpr_PreviousBindingInScope() {
-                    val element = parse<XPathFunctionCall>("for \$x in 2 for \$y in 3, \$z in test() return 1")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(2))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("y"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                    assertThat(variables[1].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                    variables("for \$x in 2 for \$y in 3, \$z in test() return 1", listOf("y", "x"))
                 }
 
                 @Test
                 @DisplayName("from VarName expression; inner VarName expression of nested FLWOR")
                 fun nestedFLWORExpr() {
-                    val element = parse<XPathFunctionCall>(
-                        "for \$x in 1 for \$y in for \$z in test() return 1 return 2"
-                    )[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(1))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                    variables("for \$x in 1 for \$y in for \$z in test() return 1 return 2", listOf("x"))
                 }
 
                 @Test
                 @DisplayName("from return expression")
                 fun returnExpr() {
-                    val element = parse<XPathFunctionCall>("for \$x in 1 for \$y in 2 return test()")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(2))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("y"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                    assertThat(variables[1].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                    variables("for \$x in 1 for \$y in 2 return test()", listOf("y", "x"))
                 }
 
                 @Test
                 @DisplayName("from return expression; return expression of inner nested FLWOR")
                 fun innerReturnExpr() {
-                    val element = parse<XPathFunctionCall>(
-                        "for \$x in 1 for \$y in for \$z in 2 return test() return 2"
-                    )[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(2))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("z"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                    assertThat(variables[1].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                    variables("for \$x in 1 for \$y in for \$z in 2 return test() return 2", listOf("z", "x"))
                 }
 
                 @Test
                 @DisplayName("from return expression; return expression of outer nested FLWOR")
                 fun outerReturnExpr() {
-                    val element = parse<XPathFunctionCall>(
-                        "for \$x in 1 for \$y in for \$z in 2 return 1 return test()"
-                    )[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(2))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("y"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                    assertThat(variables[1].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                    variables("for \$x in 1 for \$y in for \$z in 2 return 1 return test()", listOf("y", "x"))
                 }
 
                 @Test
                 @DisplayName("from return expression; multiple bindings")
                 fun returnExpr_multipleBindings() {
-                    val element = parse<XPathFunctionCall>("for \$x in 1 for \$y in 2, \$z in 3 return test()")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(3))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("y"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                    assertThat(variables[1].variableName?.localName?.data, `is`("z"))
-                    assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
-
-                    assertThat(variables[2].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[2].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[2].variableName?.namespace, `is`(nullValue()))
+                    variables("for \$x in 1 for \$y in 2, \$z in 3 return test()", listOf("y", "z", "x"))
                 }
             }
 
@@ -1567,111 +1466,43 @@ private class XQueryStaticContextTest : ParserTestCase() {
                 @Test
                 @DisplayName("from VarName expression")
                 fun inExpr() {
-                    val element = parse<XPathFunctionCall>("for \$x at \$a in test() return 1")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(0))
+                    variables("for \$x at \$a in test() return 1", listOf())
                 }
 
                 @Test
                 @DisplayName("from VarName expression; previous binding in scope")
                 fun inExpr_PreviousBindingInScope() {
-                    val element = parse<XPathFunctionCall>("for \$x at \$a in 2, \$y at \$b in test() return 1")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(2))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                    assertThat(variables[1].variableName?.localName?.data, `is`("a"))
-                    assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                    variables("for \$x at \$a in 2, \$y at \$b in test() return 1", listOf("x", "a"))
                 }
 
                 @Test
                 @DisplayName("from VarName expression; inner VarName expression of nested FLWOR")
                 fun nestedFLWORExpr() {
-                    val element = parse<XPathFunctionCall>(
-                        "for \$x at \$a in for \$y at \$b in test() return 1 return 2"
-                    )[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(0))
+                    variables("for \$x at \$a in for \$y at \$b in test() return 1 return 2", listOf())
                 }
 
                 @Test
                 @DisplayName("from return expression")
                 fun returnExpr() {
-                    val element = parse<XPathFunctionCall>("for \$x at \$a in 1 return test()")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(2))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                    assertThat(variables[1].variableName?.localName?.data, `is`("a"))
-                    assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                    variables("for \$x at \$a in 1 return test()", listOf("x", "a"))
                 }
 
                 @Test
                 @DisplayName("from return expression; return expression of inner nested FLWOR")
                 fun innerReturnExpr() {
-                    val element = parse<XPathFunctionCall>(
-                        "for \$x at \$a in for \$y at \$b in 2 return test() return 2"
-                    )[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(2))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("y"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                    assertThat(variables[1].variableName?.localName?.data, `is`("b"))
-                    assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                    variables("for \$x at \$a in for \$y at \$b in 2 return test() return 2", listOf("y", "b"))
                 }
 
                 @Test
                 @DisplayName("from return expression; return expression of outer nested FLWOR")
                 fun outerReturnExpr() {
-                    val element = parse<XPathFunctionCall>(
-                        "for \$x at \$a in for \$y at \$b in 2 return 1 return test()"
-                    )[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(2))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                    assertThat(variables[1].variableName?.localName?.data, `is`("a"))
-                    assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                    variables("for \$x at \$a in for \$y at \$b in 2 return 1 return test()", listOf("x", "a"))
                 }
 
                 @Test
                 @DisplayName("from return expression; multiple bindings")
                 fun returnExpr_multipleBindings() {
-                    val element = parse<XPathFunctionCall>("for \$x at \$a in 1, \$y at \$b in 2 return test()")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(4))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                    assertThat(variables[1].variableName?.localName?.data, `is`("a"))
-                    assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
-
-                    assertThat(variables[2].variableName?.localName?.data, `is`("y"))
-                    assertThat(variables[2].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[2].variableName?.namespace, `is`(nullValue()))
-
-                    assertThat(variables[3].variableName?.localName?.data, `is`("b"))
-                    assertThat(variables[3].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[3].variableName?.namespace, `is`(nullValue()))
+                    variables("for \$x at \$a in 1, \$y at \$b in 2 return test()", listOf("x", "a", "y", "b"))
                 }
             }
         }
@@ -1685,81 +1516,43 @@ private class XQueryStaticContextTest : ParserTestCase() {
                 @Test
                 @DisplayName("from VarName expression")
                 fun inExpr() {
-                    val element = parse<XPathFunctionCall>("let \$x := test() return 1")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(0))
+                    variables("let \$x := test() return 1", listOf())
                 }
 
                 @Test
                 @DisplayName("from VarName expression; previous binding in scope")
                 fun inExpr_PreviousBindingInScope() {
-                    val element = parse<XPathFunctionCall>("let \$x := 2, \$y := test() return 1")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(1))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                    variables("let \$x := 2, \$y := test() return 1", listOf("x"))
                 }
 
                 @Test
                 @DisplayName("from VarName expression; inner VarName expression of nested FLWOR")
                 fun nestedFLWORExpr() {
-                    val element = parse<XPathFunctionCall>("let \$x := let \$y := test() return 1 return 2")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(0))
+                    variables("let \$x := let \$y := test() return 1 return 2", listOf())
                 }
 
                 @Test
                 @DisplayName("from return expression")
                 fun returnExpr() {
-                    val element = parse<XPathFunctionCall>("let \$x := 1 return test()")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(1))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                    variables("let \$x := 1 return test()", listOf("x"))
                 }
 
                 @Test
                 @DisplayName("from return expression; return expression of inner nested FLWOR")
                 fun innerReturnExpr() {
-                    val element = parse<XPathFunctionCall>("let \$x := let \$y := 2 return test() return 2")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(1))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("y"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                    variables("let \$x := let \$y := 2 return test() return 2", listOf("y"))
                 }
 
                 @Test
                 @DisplayName("from return expression; return expression of outer nested FLWOR")
                 fun outerReturnExpr() {
-                    val element = parse<XPathFunctionCall>("let \$x := let \$y := 2 return 1 return test()")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(1))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                    variables("let \$x := let \$y := 2 return 1 return test()", listOf("x"))
                 }
 
                 @Test
                 @DisplayName("from return expression; multiple bindings")
                 fun returnExpr_multipleBindings() {
-                    val element = parse<XPathFunctionCall>("let \$x := 1, \$y := 2 return test()")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(2))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                    assertThat(variables[1].variableName?.localName?.data, `is`("y"))
-                    assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                    variables("let \$x := 1, \$y := 2 return test()", listOf("x", "y"))
                 }
             }
 
@@ -1769,115 +1562,43 @@ private class XQueryStaticContextTest : ParserTestCase() {
                 @Test
                 @DisplayName("from VarName expression")
                 fun inExpr() {
-                    val element = parse<XPathFunctionCall>("let \$x := 1 let \$y := test() return 1")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(1))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                    variables("let \$x := 1 let \$y := test() return 1", listOf("x"))
                 }
 
                 @Test
                 @DisplayName("from VarName expression; previous binding in scope")
                 fun inExpr_PreviousBindingInScope() {
-                    val element = parse<XPathFunctionCall>("let \$x := 1 let \$y := 2, \$z := test() return 1")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(2))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("y"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                    assertThat(variables[1].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                    variables("let \$x := 1 let \$y := 2, \$z := test() return 1", listOf("y", "x"))
                 }
 
                 @Test
                 @DisplayName("from VarName expression; inner VarName expression of nested FLWOR")
                 fun nestedFLWORExpr() {
-                    val element = parse<XPathFunctionCall>(
-                        "let \$x := 1 let \$y := let \$z := test() return 1 return 2"
-                    )[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(1))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                    variables("let \$x := 1 let \$y := let \$z := test() return 1 return 2", listOf("x"))
                 }
 
                 @Test
                 @DisplayName("from return expression")
                 fun returnExpr() {
-                    val element = parse<XPathFunctionCall>("let \$x := 1 let \$y := 2 return test()")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(2))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("y"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                    assertThat(variables[1].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                    variables("let \$x := 1 let \$y := 2 return test()", listOf("y", "x"))
                 }
 
                 @Test
                 @DisplayName("from return expression; return expression of inner nested FLWOR")
                 fun innerReturnExpr() {
-                    val element = parse<XPathFunctionCall>(
-                        "let \$x := 1 let \$y := let \$z := 2 return test() return 2"
-                    )[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(2))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("z"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                    assertThat(variables[1].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                    variables("let \$x := 1 let \$y := let \$z := 2 return test() return 2", listOf("z", "x"))
                 }
 
                 @Test
                 @DisplayName("from return expression; return expression of outer nested FLWOR")
                 fun outerReturnExpr() {
-                    val element = parse<XPathFunctionCall>(
-                        "let \$x := 1 let \$y := let \$z := 2 return 1 return test()"
-                    )[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(2))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("y"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                    assertThat(variables[1].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                    variables("let \$x := 1 let \$y := let \$z := 2 return 1 return test()", listOf("y", "x"))
                 }
 
                 @Test
                 @DisplayName("from return expression; multiple bindings")
                 fun returnExpr_multipleBindings() {
-                    val element = parse<XPathFunctionCall>("let \$x := 1 let \$y := 2, \$z := 3 return test()")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(3))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("y"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                    assertThat(variables[1].variableName?.localName?.data, `is`("z"))
-                    assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
-
-                    assertThat(variables[2].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[2].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[2].variableName?.namespace, `is`(nullValue()))
+                    variables("let \$x := 1 let \$y := 2, \$z := 3 return test()", listOf("y", "z", "x"))
                 }
             }
         }
@@ -1894,51 +1615,28 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     @Test
                     @DisplayName("from VarName expression")
                     fun inExpr() {
-                        val element = parse<XPathFunctionCall>(
-                            "for sliding window \$x in test() start \$y at \$z when 1 return 2"
-                        )[0]
-                        val variables = element.inScopeVariables().toList()
-                        assertThat(variables.size, `is`(0))
+                        variables(
+                            "for sliding window \$x in test() start \$y at \$z when 1 return 2",
+                            listOf()
+                        )
                     }
 
                     @Test
                     @DisplayName("from when expression")
                     fun whenExpr() {
-                        val element = parse<XPathFunctionCall>(
-                            "for sliding window \$x in 1 start \$y at \$z when test() return 2"
-                        )[0]
-                        val variables = element.inScopeVariables().toList()
-                        assertThat(variables.size, `is`(2))
-
-                        assertThat(variables[0].variableName?.localName?.data, `is`("y"))
-                        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[1].variableName?.localName?.data, `is`("z"))
-                        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                        variables(
+                            "for sliding window \$x in 1 start \$y at \$z when test() return 2",
+                            listOf("y", "z")
+                        )
                     }
 
                     @Test
                     @DisplayName("from return expression")
                     fun returnExpr() {
-                        val element = parse<XPathFunctionCall>(
-                            "for sliding window \$x in 1 start \$y at \$z when 2 return test()"
-                        )[0]
-                        val variables = element.inScopeVariables().toList()
-                        assertThat(variables.size, `is`(3))
-
-                        assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[1].variableName?.localName?.data, `is`("y"))
-                        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[2].variableName?.localName?.data, `is`("z"))
-                        assertThat(variables[2].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[2].variableName?.namespace, `is`(nullValue()))
+                        variables(
+                            "for sliding window \$x in 1 start \$y at \$z when 2 return test()",
+                            listOf("x", "y", "z")
+                        )
                     }
                 }
 
@@ -1948,43 +1646,28 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     @Test
                     @DisplayName("from VarName expression")
                     fun inExpr() {
-                        val element = parse<XPathFunctionCall>(
-                            "for sliding window \$x in test() start \$y when 1 return 2"
-                        )[0]
-                        val variables = element.inScopeVariables().toList()
-                        assertThat(variables.size, `is`(0))
+                        variables(
+                            "for sliding window \$x in test() start \$y when 1 return 2",
+                            listOf()
+                        )
                     }
 
                     @Test
                     @DisplayName("from when expression")
                     fun whenExpr() {
-                        val element = parse<XPathFunctionCall>(
-                            "for sliding window \$x in 1 start \$y when test() return 2"
-                        )[0]
-                        val variables = element.inScopeVariables().toList()
-                        assertThat(variables.size, `is`(1))
-
-                        assertThat(variables[0].variableName?.localName?.data, `is`("y"))
-                        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                        variables(
+                            "for sliding window \$x in 1 start \$y when test() return 2",
+                            listOf("y")
+                        )
                     }
 
                     @Test
                     @DisplayName("from return expression")
                     fun returnExpr() {
-                        val element = parse<XPathFunctionCall>(
-                            "for sliding window \$x in 1 start \$y when 2 return test()"
-                        )[0]
-                        val variables = element.inScopeVariables().toList()
-                        assertThat(variables.size, `is`(2))
-
-                        assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[1].variableName?.localName?.data, `is`("y"))
-                        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                        variables(
+                            "for sliding window \$x in 1 start \$y when 2 return test()",
+                            listOf("x", "y")
+                        )
                     }
                 }
 
@@ -1994,51 +1677,28 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     @Test
                     @DisplayName("from VarName expression")
                     fun inExpr() {
-                        val element = parse<XPathFunctionCall>(
-                            "for sliding window \$x in test() start \$y previous \$z when 1 return 2"
-                        )[0]
-                        val variables = element.inScopeVariables().toList()
-                        assertThat(variables.size, `is`(0))
+                        variables(
+                            "for sliding window \$x in test() start \$y previous \$z when 1 return 2",
+                            listOf()
+                        )
                     }
 
                     @Test
                     @DisplayName("from when expression")
                     fun whenExpr() {
-                        val element = parse<XPathFunctionCall>(
-                            "for sliding window \$x in 1 start \$y previous \$z when test() return 2"
-                        )[0]
-                        val variables = element.inScopeVariables().toList()
-                        assertThat(variables.size, `is`(2))
-
-                        assertThat(variables[0].variableName?.localName?.data, `is`("y"))
-                        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[1].variableName?.localName?.data, `is`("z"))
-                        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                        variables(
+                            "for sliding window \$x in 1 start \$y previous \$z when test() return 2",
+                            listOf("y", "z")
+                        )
                     }
 
                     @Test
                     @DisplayName("from return expression")
                     fun returnExpr() {
-                        val element = parse<XPathFunctionCall>(
-                            "for sliding window \$x in 1 start \$y previous \$z when 2 return test()"
-                        )[0]
-                        val variables = element.inScopeVariables().toList()
-                        assertThat(variables.size, `is`(3))
-
-                        assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[1].variableName?.localName?.data, `is`("y"))
-                        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[2].variableName?.localName?.data, `is`("z"))
-                        assertThat(variables[2].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[2].variableName?.namespace, `is`(nullValue()))
+                        variables(
+                            "for sliding window \$x in 1 start \$y previous \$z when 2 return test()",
+                            listOf("x", "y", "z")
+                        )
                     }
                 }
 
@@ -2048,51 +1708,28 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     @Test
                     @DisplayName("from VarName expression")
                     fun inExpr() {
-                        val element = parse<XPathFunctionCall>(
-                            "for sliding window \$x in test() start \$y next \$z when 1 return 2"
-                        )[0]
-                        val variables = element.inScopeVariables().toList()
-                        assertThat(variables.size, `is`(0))
+                        variables(
+                            "for sliding window \$x in test() start \$y next \$z when 1 return 2",
+                            listOf()
+                        )
                     }
 
                     @Test
                     @DisplayName("from when expression")
                     fun whenExpr() {
-                        val element = parse<XPathFunctionCall>(
-                            "for sliding window \$x in 1 start \$y next \$z when test() return 2"
-                        )[0]
-                        val variables = element.inScopeVariables().toList()
-                        assertThat(variables.size, `is`(2))
-
-                        assertThat(variables[0].variableName?.localName?.data, `is`("y"))
-                        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[1].variableName?.localName?.data, `is`("z"))
-                        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                        variables(
+                            "for sliding window \$x in 1 start \$y next \$z when test() return 2",
+                            listOf("y", "z")
+                        )
                     }
 
                     @Test
                     @DisplayName("from return expression")
                     fun returnExpr() {
-                        val element = parse<XPathFunctionCall>(
-                            "for sliding window \$x in 1 start \$y next \$z when 2 return test()"
-                        )[0]
-                        val variables = element.inScopeVariables().toList()
-                        assertThat(variables.size, `is`(3))
-
-                        assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[1].variableName?.localName?.data, `is`("y"))
-                        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[2].variableName?.localName?.data, `is`("z"))
-                        assertThat(variables[2].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[2].variableName?.namespace, `is`(nullValue()))
+                        variables(
+                            "for sliding window \$x in 1 start \$y next \$z when 2 return test()",
+                            listOf("x", "y", "z")
+                        )
                     }
                 }
             }
@@ -2106,63 +1743,28 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     @Test
                     @DisplayName("from VarName expression")
                     fun inExpr() {
-                        val element = parse<XPathFunctionCall>(
-                            "for \$x in 1 for sliding window \$y in test() start \$z at \$w when 1 return 2"
-                        )[0]
-                        val variables = element.inScopeVariables().toList()
-                        assertThat(variables.size, `is`(1))
-
-                        assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                        variables(
+                            "for \$x in 1 for sliding window \$y in test() start \$z at \$w when 1 return 2",
+                            listOf("x")
+                        )
                     }
 
                     @Test
                     @DisplayName("from when expression")
                     fun whenExpr() {
-                        val element = parse<XPathFunctionCall>(
-                            "for \$x in 1 for sliding window \$y in 1 start \$z at \$w when test() return 2"
-                        )[0]
-                        val variables = element.inScopeVariables().toList()
-                        assertThat(variables.size, `is`(3))
-
-                        assertThat(variables[0].variableName?.localName?.data, `is`("z"))
-                        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[1].variableName?.localName?.data, `is`("w"))
-                        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[2].variableName?.localName?.data, `is`("x"))
-                        assertThat(variables[2].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[2].variableName?.namespace, `is`(nullValue()))
+                        variables(
+                            "for \$x in 1 for sliding window \$y in 1 start \$z at \$w when test() return 2",
+                            listOf("z", "w", "x")
+                        )
                     }
 
                     @Test
                     @DisplayName("from return expression")
                     fun returnExpr() {
-                        val element = parse<XPathFunctionCall>(
-                            "for \$x in 1 for sliding window \$y in 1 start \$z at \$w when 2 return test()"
-                        )[0]
-                        val variables = element.inScopeVariables().toList()
-                        assertThat(variables.size, `is`(4))
-
-                        assertThat(variables[0].variableName?.localName?.data, `is`("y"))
-                        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[1].variableName?.localName?.data, `is`("z"))
-                        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[2].variableName?.localName?.data, `is`("w"))
-                        assertThat(variables[2].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[2].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[3].variableName?.localName?.data, `is`("x"))
-                        assertThat(variables[3].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[3].variableName?.namespace, `is`(nullValue()))
+                        variables(
+                            "for \$x in 1 for sliding window \$y in 1 start \$z at \$w when 2 return test()",
+                            listOf("y", "z", "w", "x")
+                        )
                     }
                 }
 
@@ -2172,55 +1774,28 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     @Test
                     @DisplayName("from VarName expression")
                     fun inExpr() {
-                        val element = parse<XPathFunctionCall>(
-                            "for \$x in 1 for sliding window \$y in test() start \$z when 1 return 2"
-                        )[0]
-                        val variables = element.inScopeVariables().toList()
-                        assertThat(variables.size, `is`(1))
-
-                        assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                        variables(
+                            "for \$x in 1 for sliding window \$y in test() start \$z when 1 return 2",
+                            listOf("x")
+                        )
                     }
 
                     @Test
                     @DisplayName("from when expression")
                     fun whenExpr() {
-                        val element = parse<XPathFunctionCall>(
-                            "for \$x in 1 for sliding window \$y in 1 start \$z when test() return 2"
-                        )[0]
-                        val variables = element.inScopeVariables().toList()
-                        assertThat(variables.size, `is`(2))
-
-                        assertThat(variables[0].variableName?.localName?.data, `is`("z"))
-                        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[1].variableName?.localName?.data, `is`("x"))
-                        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                        variables(
+                            "for \$x in 1 for sliding window \$y in 1 start \$z when test() return 2",
+                            listOf("z", "x")
+                        )
                     }
 
                     @Test
                     @DisplayName("from return expression")
                     fun returnExpr() {
-                        val element = parse<XPathFunctionCall>(
-                            "for \$x in 1 for sliding window \$y in 1 start \$z when 2 return test()"
-                        )[0]
-                        val variables = element.inScopeVariables().toList()
-                        assertThat(variables.size, `is`(3))
-
-                        assertThat(variables[0].variableName?.localName?.data, `is`("y"))
-                        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[1].variableName?.localName?.data, `is`("z"))
-                        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[2].variableName?.localName?.data, `is`("x"))
-                        assertThat(variables[2].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[2].variableName?.namespace, `is`(nullValue()))
+                        variables(
+                            "for \$x in 1 for sliding window \$y in 1 start \$z when 2 return test()",
+                            listOf("y", "z", "x")
+                        )
                     }
                 }
 
@@ -2230,63 +1805,28 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     @Test
                     @DisplayName("from VarName expression")
                     fun inExpr() {
-                        val element = parse<XPathFunctionCall>(
-                            "for \$x in 1 for sliding window \$y in test() start \$z previous \$w when 1 return 2"
-                        )[0]
-                        val variables = element.inScopeVariables().toList()
-                        assertThat(variables.size, `is`(1))
-
-                        assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                        variables(
+                            "for \$x in 1 for sliding window \$y in test() start \$z previous \$w when 1 return 2",
+                            listOf("x")
+                        )
                     }
 
                     @Test
                     @DisplayName("from when expression")
                     fun whenExpr() {
-                        val element = parse<XPathFunctionCall>(
-                            "for \$x in 1 for sliding window \$y in 1 start \$z previous \$w when test() return 2"
-                        )[0]
-                        val variables = element.inScopeVariables().toList()
-                        assertThat(variables.size, `is`(3))
-
-                        assertThat(variables[0].variableName?.localName?.data, `is`("z"))
-                        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[1].variableName?.localName?.data, `is`("w"))
-                        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[2].variableName?.localName?.data, `is`("x"))
-                        assertThat(variables[2].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[2].variableName?.namespace, `is`(nullValue()))
+                        variables(
+                            "for \$x in 1 for sliding window \$y in 1 start \$z previous \$w when test() return 2",
+                            listOf("z", "w", "x")
+                        )
                     }
 
                     @Test
                     @DisplayName("from return expression")
                     fun returnExpr() {
-                        val element = parse<XPathFunctionCall>(
-                            "for \$x in 1 for sliding window \$y in 1 start \$z previous \$w when 2 return test()"
-                        )[0]
-                        val variables = element.inScopeVariables().toList()
-                        assertThat(variables.size, `is`(4))
-
-                        assertThat(variables[0].variableName?.localName?.data, `is`("y"))
-                        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[1].variableName?.localName?.data, `is`("z"))
-                        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[2].variableName?.localName?.data, `is`("w"))
-                        assertThat(variables[2].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[2].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[3].variableName?.localName?.data, `is`("x"))
-                        assertThat(variables[3].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[3].variableName?.namespace, `is`(nullValue()))
+                        variables(
+                            "for \$x in 1 for sliding window \$y in 1 start \$z previous \$w when 2 return test()",
+                            listOf("y", "z", "w", "x")
+                        )
                     }
                 }
 
@@ -2296,63 +1836,28 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     @Test
                     @DisplayName("from VarName expression")
                     fun inExpr() {
-                        val element = parse<XPathFunctionCall>(
-                            "for \$x in 1 for sliding window \$y in test() start \$z next \$w when 1 return 2"
-                        )[0]
-                        val variables = element.inScopeVariables().toList()
-                        assertThat(variables.size, `is`(1))
-
-                        assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                        variables(
+                            "for \$x in 1 for sliding window \$y in test() start \$z next \$w when 1 return 2",
+                            listOf("x")
+                        )
                     }
 
                     @Test
                     @DisplayName("from when expression")
                     fun whenExpr() {
-                        val element = parse<XPathFunctionCall>(
-                            "for \$x in 1 for sliding window \$y in 1 start \$z next \$w when test() return 2"
-                        )[0]
-                        val variables = element.inScopeVariables().toList()
-                        assertThat(variables.size, `is`(3))
-
-                        assertThat(variables[0].variableName?.localName?.data, `is`("z"))
-                        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[1].variableName?.localName?.data, `is`("w"))
-                        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[2].variableName?.localName?.data, `is`("x"))
-                        assertThat(variables[2].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[2].variableName?.namespace, `is`(nullValue()))
+                        variables(
+                            "for \$x in 1 for sliding window \$y in 1 start \$z next \$w when test() return 2",
+                            listOf("z", "w", "x")
+                        )
                     }
 
                     @Test
                     @DisplayName("from return expression")
                     fun returnExpr() {
-                        val element = parse<XPathFunctionCall>(
-                            "for \$x in 1 for sliding window \$y in 1 start \$z next \$w when 2 return test()"
-                        )[0]
-                        val variables = element.inScopeVariables().toList()
-                        assertThat(variables.size, `is`(4))
-
-                        assertThat(variables[0].variableName?.localName?.data, `is`("y"))
-                        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[1].variableName?.localName?.data, `is`("z"))
-                        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[2].variableName?.localName?.data, `is`("w"))
-                        assertThat(variables[2].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[2].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[3].variableName?.localName?.data, `is`("x"))
-                        assertThat(variables[3].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[3].variableName?.namespace, `is`(nullValue()))
+                        variables(
+                            "for \$x in 1 for sliding window \$y in 1 start \$z next \$w when 2 return test()",
+                            listOf("y", "z", "w", "x")
+                        )
                     }
                 }
             }
@@ -2366,51 +1871,28 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     @Test
                     @DisplayName("from VarName expression")
                     fun inExpr() {
-                        val element = parse<XPathFunctionCall>(
-                            "for sliding window \$x in test() end \$y at \$z when 1 return 2"
-                        )[0]
-                        val variables = element.inScopeVariables().toList()
-                        assertThat(variables.size, `is`(0))
+                        variables(
+                            "for sliding window \$x in test() end \$y at \$z when 1 return 2",
+                            listOf()
+                        )
                     }
 
                     @Test
                     @DisplayName("from when expression")
                     fun whenExpr() {
-                        val element = parse<XPathFunctionCall>(
-                            "for sliding window \$x in 1 end \$y at \$z when test() return 2"
-                        )[0]
-                        val variables = element.inScopeVariables().toList()
-                        assertThat(variables.size, `is`(2))
-
-                        assertThat(variables[0].variableName?.localName?.data, `is`("y"))
-                        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[1].variableName?.localName?.data, `is`("z"))
-                        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                        variables(
+                            "for sliding window \$x in 1 end \$y at \$z when test() return 2",
+                            listOf("y", "z")
+                        )
                     }
 
                     @Test
                     @DisplayName("from return expression")
                     fun returnExpr() {
-                        val element = parse<XPathFunctionCall>(
-                            "for sliding window \$x in 1 end \$y at \$z when 2 return test()"
-                        )[0]
-                        val variables = element.inScopeVariables().toList()
-                        assertThat(variables.size, `is`(3))
-
-                        assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[1].variableName?.localName?.data, `is`("y"))
-                        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[2].variableName?.localName?.data, `is`("z"))
-                        assertThat(variables[2].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[2].variableName?.namespace, `is`(nullValue()))
+                        variables(
+                            "for sliding window \$x in 1 end \$y at \$z when 2 return test()",
+                            listOf("x", "y", "z")
+                        )
                     }
                 }
 
@@ -2420,43 +1902,28 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     @Test
                     @DisplayName("from VarName expression")
                     fun inExpr() {
-                        val element = parse<XPathFunctionCall>(
-                            "for sliding window \$x in test() end \$y when 1 return 2"
-                        )[0]
-                        val variables = element.inScopeVariables().toList()
-                        assertThat(variables.size, `is`(0))
+                        variables(
+                            "for sliding window \$x in test() end \$y when 1 return 2",
+                            listOf()
+                        )
                     }
 
                     @Test
                     @DisplayName("from when expression")
                     fun whenExpr() {
-                        val element = parse<XPathFunctionCall>(
-                            "for sliding window \$x in 1 end \$y when test() return 2"
-                        )[0]
-                        val variables = element.inScopeVariables().toList()
-                        assertThat(variables.size, `is`(1))
-
-                        assertThat(variables[0].variableName?.localName?.data, `is`("y"))
-                        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                        variables(
+                            "for sliding window \$x in 1 end \$y when test() return 2",
+                            listOf("y")
+                        )
                     }
 
                     @Test
                     @DisplayName("from return expression")
                     fun returnExpr() {
-                        val element = parse<XPathFunctionCall>(
-                            "for sliding window \$x in 1 end \$y when 2 return test()"
-                        )[0]
-                        val variables = element.inScopeVariables().toList()
-                        assertThat(variables.size, `is`(2))
-
-                        assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[1].variableName?.localName?.data, `is`("y"))
-                        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                        variables(
+                            "for sliding window \$x in 1 end \$y when 2 return test()",
+                            listOf("x", "y")
+                        )
                     }
                 }
 
@@ -2466,51 +1933,28 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     @Test
                     @DisplayName("from VarName expression")
                     fun inExpr() {
-                        val element = parse<XPathFunctionCall>(
-                            "for sliding window \$x in test() end \$y previous \$z when 1 return 2"
-                        )[0]
-                        val variables = element.inScopeVariables().toList()
-                        assertThat(variables.size, `is`(0))
+                        variables(
+                            "for sliding window \$x in test() end \$y previous \$z when 1 return 2",
+                            listOf()
+                        )
                     }
 
                     @Test
                     @DisplayName("from when expression")
                     fun whenExpr() {
-                        val element = parse<XPathFunctionCall>(
-                            "for sliding window \$x in 1 end \$y previous \$z when test() return 2"
-                        )[0]
-                        val variables = element.inScopeVariables().toList()
-                        assertThat(variables.size, `is`(2))
-
-                        assertThat(variables[0].variableName?.localName?.data, `is`("y"))
-                        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[1].variableName?.localName?.data, `is`("z"))
-                        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                        variables(
+                            "for sliding window \$x in 1 end \$y previous \$z when test() return 2",
+                            listOf("y", "z")
+                        )
                     }
 
                     @Test
                     @DisplayName("from return expression")
                     fun returnExpr() {
-                        val element = parse<XPathFunctionCall>(
-                            "for sliding window \$x in 1 end \$y previous \$z when 2 return test()"
-                        )[0]
-                        val variables = element.inScopeVariables().toList()
-                        assertThat(variables.size, `is`(3))
-
-                        assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[1].variableName?.localName?.data, `is`("y"))
-                        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[2].variableName?.localName?.data, `is`("z"))
-                        assertThat(variables[2].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[2].variableName?.namespace, `is`(nullValue()))
+                        variables(
+                            "for sliding window \$x in 1 end \$y previous \$z when 2 return test()",
+                            listOf("x", "y", "z")
+                        )
                     }
                 }
 
@@ -2520,51 +1964,28 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     @Test
                     @DisplayName("from VarName expression")
                     fun inExpr() {
-                        val element = parse<XPathFunctionCall>(
-                            "for sliding window \$x in test() end \$y next \$z when 1 return 2"
-                        )[0]
-                        val variables = element.inScopeVariables().toList()
-                        assertThat(variables.size, `is`(0))
+                        variables(
+                            "for sliding window \$x in test() end \$y next \$z when 1 return 2",
+                            listOf()
+                        )
                     }
 
                     @Test
                     @DisplayName("from when expression")
                     fun whenExpr() {
-                        val element = parse<XPathFunctionCall>(
-                            "for sliding window \$x in 1 end \$y next \$z when test() return 2"
-                        )[0]
-                        val variables = element.inScopeVariables().toList()
-                        assertThat(variables.size, `is`(2))
-
-                        assertThat(variables[0].variableName?.localName?.data, `is`("y"))
-                        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[1].variableName?.localName?.data, `is`("z"))
-                        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                        variables(
+                            "for sliding window \$x in 1 end \$y next \$z when test() return 2",
+                            listOf("y", "z")
+                        )
                     }
 
                     @Test
                     @DisplayName("from return expression")
                     fun returnExpr() {
-                        val element = parse<XPathFunctionCall>(
-                            "for sliding window \$x in 1 end \$y next \$z when 2 return test()"
-                        )[0]
-                        val variables = element.inScopeVariables().toList()
-                        assertThat(variables.size, `is`(3))
-
-                        assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[1].variableName?.localName?.data, `is`("y"))
-                        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[2].variableName?.localName?.data, `is`("z"))
-                        assertThat(variables[2].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[2].variableName?.namespace, `is`(nullValue()))
+                        variables(
+                            "for sliding window \$x in 1 end \$y next \$z when 2 return test()",
+                            listOf("x", "y", "z")
+                        )
                     }
                 }
             }
@@ -2578,63 +1999,28 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     @Test
                     @DisplayName("from VarName expression")
                     fun inExpr() {
-                        val element = parse<XPathFunctionCall>(
-                            "for \$x in 1 for sliding window \$y in test() end \$z at \$w when 1 return 2"
-                        )[0]
-                        val variables = element.inScopeVariables().toList()
-                        assertThat(variables.size, `is`(1))
-
-                        assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                        variables(
+                            "for \$x in 1 for sliding window \$y in test() end \$z at \$w when 1 return 2",
+                            listOf("x")
+                        )
                     }
 
                     @Test
                     @DisplayName("from when expression")
                     fun whenExpr() {
-                        val element = parse<XPathFunctionCall>(
-                            "for \$x in 1 for sliding window \$y in 1 end \$z at \$w when test() return 2"
-                        )[0]
-                        val variables = element.inScopeVariables().toList()
-                        assertThat(variables.size, `is`(3))
-
-                        assertThat(variables[0].variableName?.localName?.data, `is`("z"))
-                        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[1].variableName?.localName?.data, `is`("w"))
-                        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[2].variableName?.localName?.data, `is`("x"))
-                        assertThat(variables[2].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[2].variableName?.namespace, `is`(nullValue()))
+                        variables(
+                            "for \$x in 1 for sliding window \$y in 1 end \$z at \$w when test() return 2",
+                            listOf("z", "w", "x")
+                        )
                     }
 
                     @Test
                     @DisplayName("from return expression")
                     fun returnExpr() {
-                        val element = parse<XPathFunctionCall>(
-                            "for \$x in 1 for sliding window \$y in 1 end \$z at \$w when 2 return test()"
-                        )[0]
-                        val variables = element.inScopeVariables().toList()
-                        assertThat(variables.size, `is`(4))
-
-                        assertThat(variables[0].variableName?.localName?.data, `is`("y"))
-                        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[1].variableName?.localName?.data, `is`("z"))
-                        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[2].variableName?.localName?.data, `is`("w"))
-                        assertThat(variables[2].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[2].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[3].variableName?.localName?.data, `is`("x"))
-                        assertThat(variables[3].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[3].variableName?.namespace, `is`(nullValue()))
+                        variables(
+                            "for \$x in 1 for sliding window \$y in 1 end \$z at \$w when 2 return test()",
+                            listOf("y", "z", "w", "x")
+                        )
                     }
                 }
 
@@ -2644,55 +2030,28 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     @Test
                     @DisplayName("from VarName expression")
                     fun inExpr() {
-                        val element = parse<XPathFunctionCall>(
-                            "for \$x in 1 for sliding window \$y in test() end \$z when 1 return 2"
-                        )[0]
-                        val variables = element.inScopeVariables().toList()
-                        assertThat(variables.size, `is`(1))
-
-                        assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                        variables(
+                            "for \$x in 1 for sliding window \$y in test() end \$z when 1 return 2",
+                            listOf("x")
+                        )
                     }
 
                     @Test
                     @DisplayName("from when expression")
                     fun whenExpr() {
-                        val element = parse<XPathFunctionCall>(
-                            "for \$x in 1 for sliding window \$y in 1 end \$z when test() return 2"
-                        )[0]
-                        val variables = element.inScopeVariables().toList()
-                        assertThat(variables.size, `is`(2))
-
-                        assertThat(variables[0].variableName?.localName?.data, `is`("z"))
-                        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[1].variableName?.localName?.data, `is`("x"))
-                        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                        variables(
+                            "for \$x in 1 for sliding window \$y in 1 end \$z when test() return 2",
+                            listOf("z", "x")
+                        )
                     }
 
                     @Test
                     @DisplayName("from return expression")
                     fun returnExpr() {
-                        val element = parse<XPathFunctionCall>(
-                            "for \$x in 1 for sliding window \$y in 1 end \$z when 2 return test()"
-                        )[0]
-                        val variables = element.inScopeVariables().toList()
-                        assertThat(variables.size, `is`(3))
-
-                        assertThat(variables[0].variableName?.localName?.data, `is`("y"))
-                        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[1].variableName?.localName?.data, `is`("z"))
-                        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[2].variableName?.localName?.data, `is`("x"))
-                        assertThat(variables[2].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[2].variableName?.namespace, `is`(nullValue()))
+                        variables(
+                            "for \$x in 1 for sliding window \$y in 1 end \$z when 2 return test()",
+                            listOf("y", "z", "x")
+                        )
                     }
                 }
 
@@ -2702,63 +2061,28 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     @Test
                     @DisplayName("from VarName expression")
                     fun inExpr() {
-                        val element = parse<XPathFunctionCall>(
-                            "for \$x in 1 for sliding window \$y in test() end \$z previous \$w when 1 return 2"
-                        )[0]
-                        val variables = element.inScopeVariables().toList()
-                        assertThat(variables.size, `is`(1))
-
-                        assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                        variables(
+                            "for \$x in 1 for sliding window \$y in test() end \$z previous \$w when 1 return 2",
+                            listOf("x")
+                        )
                     }
 
                     @Test
                     @DisplayName("from when expression")
                     fun whenExpr() {
-                        val element = parse<XPathFunctionCall>(
-                            "for \$x in 1 for sliding window \$y in 1 end \$z previous \$w when test() return 2"
-                        )[0]
-                        val variables = element.inScopeVariables().toList()
-                        assertThat(variables.size, `is`(3))
-
-                        assertThat(variables[0].variableName?.localName?.data, `is`("z"))
-                        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[1].variableName?.localName?.data, `is`("w"))
-                        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[2].variableName?.localName?.data, `is`("x"))
-                        assertThat(variables[2].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[2].variableName?.namespace, `is`(nullValue()))
+                        variables(
+                            "for \$x in 1 for sliding window \$y in 1 end \$z previous \$w when test() return 2",
+                            listOf("z", "w", "x")
+                        )
                     }
 
                     @Test
                     @DisplayName("from return expression")
                     fun returnExpr() {
-                        val element = parse<XPathFunctionCall>(
-                            "for \$x in 1 for sliding window \$y in 1 end \$z previous \$w when 2 return test()"
-                        )[0]
-                        val variables = element.inScopeVariables().toList()
-                        assertThat(variables.size, `is`(4))
-
-                        assertThat(variables[0].variableName?.localName?.data, `is`("y"))
-                        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[1].variableName?.localName?.data, `is`("z"))
-                        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[2].variableName?.localName?.data, `is`("w"))
-                        assertThat(variables[2].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[2].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[3].variableName?.localName?.data, `is`("x"))
-                        assertThat(variables[3].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[3].variableName?.namespace, `is`(nullValue()))
+                        variables(
+                            "for \$x in 1 for sliding window \$y in 1 end \$z previous \$w when 2 return test()",
+                            listOf("y", "z", "w", "x")
+                        )
                     }
                 }
 
@@ -2768,63 +2092,28 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     @Test
                     @DisplayName("from VarName expression")
                     fun inExpr() {
-                        val element = parse<XPathFunctionCall>(
-                            "for \$x in 1 for sliding window \$y in test() end \$z next \$w when 1 return 2"
-                        )[0]
-                        val variables = element.inScopeVariables().toList()
-                        assertThat(variables.size, `is`(1))
-
-                        assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                        variables(
+                            "for \$x in 1 for sliding window \$y in test() end \$z next \$w when 1 return 2",
+                            listOf("x")
+                        )
                     }
 
                     @Test
                     @DisplayName("from when expression")
                     fun whenExpr() {
-                        val element = parse<XPathFunctionCall>(
-                            "for \$x in 1 for sliding window \$y in 1 end \$z next \$w when test() return 2"
-                        )[0]
-                        val variables = element.inScopeVariables().toList()
-                        assertThat(variables.size, `is`(3))
-
-                        assertThat(variables[0].variableName?.localName?.data, `is`("z"))
-                        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[1].variableName?.localName?.data, `is`("w"))
-                        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[2].variableName?.localName?.data, `is`("x"))
-                        assertThat(variables[2].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[2].variableName?.namespace, `is`(nullValue()))
+                        variables(
+                            "for \$x in 1 for sliding window \$y in 1 end \$z next \$w when test() return 2",
+                            listOf("z", "w", "x")
+                        )
                     }
 
                     @Test
                     @DisplayName("from return expression")
                     fun returnExpr() {
-                        val element = parse<XPathFunctionCall>(
-                            "for \$x in 1 for sliding window \$y in 1 end \$z next \$w when 2 return test()"
-                        )[0]
-                        val variables = element.inScopeVariables().toList()
-                        assertThat(variables.size, `is`(4))
-
-                        assertThat(variables[0].variableName?.localName?.data, `is`("y"))
-                        assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[1].variableName?.localName?.data, `is`("z"))
-                        assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[2].variableName?.localName?.data, `is`("w"))
-                        assertThat(variables[2].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[2].variableName?.namespace, `is`(nullValue()))
-
-                        assertThat(variables[3].variableName?.localName?.data, `is`("x"))
-                        assertThat(variables[3].variableName?.prefix, `is`(nullValue()))
-                        assertThat(variables[3].variableName?.namespace, `is`(nullValue()))
+                        variables(
+                            "for \$x in 1 for sliding window \$y in 1 end \$z next \$w when 2 return test()",
+                            listOf("y", "z", "w", "x")
+                        )
                     }
                 }
             }
@@ -2839,21 +2128,13 @@ private class XQueryStaticContextTest : ParserTestCase() {
                 @Test
                 @DisplayName("from VarName expression")
                 fun inExpr() {
-                    val element = parse<XPathFunctionCall>("for tumbling window \$x in test() return 1")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(0))
+                    variables("for tumbling window \$x in test() return 1", listOf())
                 }
 
                 @Test
                 @DisplayName("from return expression")
                 fun returnExpr() {
-                    val element = parse<XPathFunctionCall>("for tumbling window \$x in 1 return test()")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(1))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                    variables("for tumbling window \$x in 1 return test()", listOf("x"))
                 }
             }
 
@@ -2863,29 +2144,13 @@ private class XQueryStaticContextTest : ParserTestCase() {
                 @Test
                 @DisplayName("from VarName expression")
                 fun inExpr() {
-                    val element = parse<XPathFunctionCall>("for \$x in 1 for tumbling window \$y in test() return 1")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(1))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                    variables("for \$x in 1 for tumbling window \$y in test() return 1", listOf("x"))
                 }
 
                 @Test
                 @DisplayName("from return expression")
                 fun returnExpr() {
-                    val element = parse<XPathFunctionCall>("for \$x in 1 for tumbling window \$y in 1 return test()")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(2))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("y"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                    assertThat(variables[1].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                    variables("for \$x in 1 for tumbling window \$y in 1 return test()", listOf("y", "x"))
                 }
             }
         }
@@ -2899,21 +2164,13 @@ private class XQueryStaticContextTest : ParserTestCase() {
                 @Test
                 @DisplayName("from VarName expression")
                 fun inExpr() {
-                    val element = parse<XPathFunctionCall>("for sliding window \$x in test() return 1")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(0))
+                    variables("for sliding window \$x in test() return 1", listOf())
                 }
 
                 @Test
                 @DisplayName("from return expression")
                 fun returnExpr() {
-                    val element = parse<XPathFunctionCall>("for sliding window \$x in 1 return test()")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(1))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                    variables("for sliding window \$x in 1 return test()", listOf("x"))
                 }
             }
 
@@ -2923,29 +2180,13 @@ private class XQueryStaticContextTest : ParserTestCase() {
                 @Test
                 @DisplayName("from VarName expression")
                 fun inExpr() {
-                    val element = parse<XPathFunctionCall>("for \$x in 1 for sliding window \$y in test() return 1")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(1))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                    variables("for \$x in 1 for sliding window \$y in test() return 1", listOf("x"))
                 }
 
                 @Test
                 @DisplayName("from return expression")
                 fun returnExpr() {
-                    val element = parse<XPathFunctionCall>("for \$x in 1 for sliding window \$y in 1 return test()")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(2))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("y"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                    assertThat(variables[1].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                    variables("for \$x in 1 for sliding window \$y in 1 return test()", listOf("y", "x"))
                 }
             }
         }
@@ -2956,17 +2197,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
             @Test
             @DisplayName("XQuery 3.1 EBNF (59) CountClause")
             fun countClause() {
-                val element = parse<XPathFunctionCall>("for \$x in 1 count \$y return test()")[0]
-                val variables = element.inScopeVariables().toList()
-                assertThat(variables.size, `is`(2))
-
-                assertThat(variables[0].variableName?.localName?.data, `is`("y"))
-                assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                assertThat(variables[1].variableName?.localName?.data, `is`("x"))
-                assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                variables("for \$x in 1 count \$y return test()", listOf("y", "x"))
             }
         }
 
@@ -2976,65 +2207,25 @@ private class XQueryStaticContextTest : ParserTestCase() {
             @Test
             @DisplayName("from return expression")
             fun returnExpr() {
-                val element = parse<XPathFunctionCall>("for \$x in 1 group by \$y return test()")[0]
-                val variables = element.inScopeVariables().toList()
-                assertThat(variables.size, `is`(2))
-
-                assertThat(variables[0].variableName?.localName?.data, `is`("y"))
-                assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                assertThat(variables[1].variableName?.localName?.data, `is`("x"))
-                assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                variables("for \$x in 1 group by \$y return test()", listOf("y", "x"))
             }
 
             @Test
             @DisplayName("from return expression; multiple group by variables")
             fun multiple() {
-                val element = parse<XPathFunctionCall>("for \$x in 1 group by \$y, \$z return test()")[0]
-                val variables = element.inScopeVariables().toList()
-                assertThat(variables.size, `is`(3))
-
-                assertThat(variables[0].variableName?.localName?.data, `is`("y"))
-                assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                assertThat(variables[1].variableName?.localName?.data, `is`("z"))
-                assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
-
-                assertThat(variables[2].variableName?.localName?.data, `is`("x"))
-                assertThat(variables[2].variableName?.prefix, `is`(nullValue()))
-                assertThat(variables[2].variableName?.namespace, `is`(nullValue()))
+                variables("for \$x in 1 group by \$y, \$z return test()", listOf("y", "z", "x"))
             }
 
             @Test
             @DisplayName("from group specification expression")
             fun valueExpr() {
-                val element = parse<XPathFunctionCall>("for \$x in 1 group by \$y := test() return 1")[0]
-                val variables = element.inScopeVariables().toList()
-                assertThat(variables.size, `is`(1))
-
-                assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                variables("for \$x in 1 group by \$y := test() return 1", listOf("x"))
             }
 
             @Test
             @DisplayName("from group by expression; previous group specification in scope")
             fun valueExpr_PreviousSpecInScope() {
-                val element = parse<XPathFunctionCall>("for \$x in 1 group by \$y := 2, \$z := test() return 1")[0]
-                val variables = element.inScopeVariables().toList()
-                assertThat(variables.size, `is`(2))
-
-                assertThat(variables[0].variableName?.localName?.data, `is`("y"))
-                assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                assertThat(variables[1].variableName?.localName?.data, `is`("x"))
-                assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                variables("for \$x in 1 group by \$y := 2, \$z := test() return 1", listOf("y", "x"))
             }
         }
 
@@ -3047,57 +2238,31 @@ private class XQueryStaticContextTest : ParserTestCase() {
                 @Test
                 @DisplayName("single binding; 'in' Expr")
                 fun testQuantifiedExpr_SingleBinding_InExpr() {
-                    val element = parse<XPathFunctionCall>("some \$x in test() satisfies 1")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(0))
+                    variables("some \$x in test() satisfies 1", listOf())
                 }
 
                 @Test
                 @DisplayName("single binding; 'satisfies' Expr")
                 fun testQuantifiedExpr_SingleBinding_SatisfiesExpr() {
-                    val element = parse<XPathFunctionCall>("some \$x in 1 satisfies test()")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(1))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                    variables("some \$x in 1 satisfies test()", listOf("x"))
                 }
 
                 @Test
                 @DisplayName("multiple bindings; first 'in' Expr")
                 fun testQuantifiedExpr_MultipleBindings_FirstInExpr() {
-                    val element = parse<XPathFunctionCall>("some \$x in test(), \$y in 1 satisfies 2")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(0))
+                    variables("some \$x in test(), \$y in 1 satisfies 2", listOf())
                 }
 
                 @Test
                 @DisplayName("multiple bindings; last 'in' Expr")
                 fun testQuantifiedExpr_MultipleBindings_LastInExpr() {
-                    val element = parse<XPathFunctionCall>("some \$x in 1, \$y in test() satisfies 2")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(1))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                    variables("some \$x in 1, \$y in test() satisfies 2", listOf("x"))
                 }
 
                 @Test
                 @DisplayName("multiple bindings; 'satisfies' Expr")
                 fun testQuantifiedExpr_MultipleBindings_SatisfiesExpr() {
-                    val element = parse<XPathFunctionCall>("some \$x in 1, \$y in 2 satisfies test()")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(2))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("y"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                    assertThat(variables[1].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                    variables("some \$x in 1, \$y in 2 satisfies test()", listOf("y", "x"))
                 }
             }
         }
@@ -3108,44 +2273,28 @@ private class XQueryStaticContextTest : ParserTestCase() {
             @Test
             @DisplayName("case clause; first clause")
             fun caseClause() {
-                val element = parse<XPathFunctionCall>(
-                    "typeswitch (2) case \$x as xs:string return test() case \$y as xs:int return 2 default \$z return 3"
-                )[0]
-                val variables = element.inScopeVariables().toList()
-                assertThat(variables.size, `is`(1))
-
-                assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                variables(
+                    "typeswitch (2) case \$x as xs:string return test() case \$y as xs:int return 2 default \$z return 3",
+                    listOf("x")
+                )
             }
 
             @Test
             @DisplayName("case clause; non-first clause")
             fun caseClause_NotFirst() {
-                val element = parse<XPathFunctionCall>(
-                    "typeswitch (2) case \$x as xs:string return 1 case \$y as xs:int return test() default \$z return 3"
-                )[0]
-                val variables = element.inScopeVariables().toList()
-                assertThat(variables.size, `is`(1))
-
-                // Only variable `y` is in scope.
-                assertThat(variables[0].variableName?.localName?.data, `is`("y"))
-                assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                variables(
+                    "typeswitch (2) case \$x as xs:string return 1 case \$y as xs:int return test() default \$z return 3",
+                    listOf("y")
+                )
             }
 
             @Test
             @DisplayName("default case clause")
             fun defaultCaseClause() {
-                val element = parse<XPathFunctionCall>(
-                    "typeswitch (2) case \$x as xs:string return 1 case \$y as xs:int return 2 default \$z return test()"
-                )[0]
-                val variables = element.inScopeVariables().toList()
-                assertThat(variables.size, `is`(1))
-
-                assertThat(variables[0].variableName?.localName?.data, `is`("z"))
-                assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                variables(
+                    "typeswitch (2) case \$x as xs:string return 1 case \$y as xs:int return 2 default \$z return test()",
+                    listOf("z")
+                )
             }
         }
 
@@ -3158,81 +2307,43 @@ private class XQueryStaticContextTest : ParserTestCase() {
                 @Test
                 @DisplayName("no variable declarations; in function body (prolog)")
                 fun noVarDecls_InProlog() {
-                    val element = parse<XPathFunctionCall>("declare function f() { test() }; 1")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(0))
+                    variables("declare function f() { test() }; 1", listOf())
                 }
 
                 @Test
                 @DisplayName("no variable declarations; in query body")
                 fun noVarDecls_QueryBodyExpr() {
-                    val element = parse<XPathFunctionCall>("declare function f() {}; test()")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(0))
+                    variables("declare function f() {}; test()", listOf())
                 }
 
                 @Test
                 @DisplayName("single variable declaration; in function body (prolog)")
                 fun singleVarDecl_InProlog() {
-                    val element = parse<XPathFunctionCall>(
-                        "declare function f() { test() }; declare variable \$x := 1; 2"
-                    )[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(1))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                    variables("declare function f() { test() }; declare variable \$x := 1; 2", listOf("x"))
                 }
 
                 @Test
                 @DisplayName("single variable declaration; in query body")
                 fun singleVarDecl_QueryBodyExpr() {
-                    val element = parse<XPathFunctionCall>(
-                        "declare function f() {}; declare variable \$x := 1; test()"
-                    )[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(1))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                    variables("declare function f() {}; declare variable \$x := 1; test()", listOf("x"))
                 }
 
                 @Test
                 @DisplayName("multiple variable declarations; in function body (prolog)")
                 fun multipleVarDecls_InProlog() {
-                    val element = parse<XPathFunctionCall>(
-                        "declare function f() { test() }; declare variable \$x := 1; declare variable \$y := 2; 3"
-                    )[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(2))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("y"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                    assertThat(variables[1].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                    variables(
+                        "declare function f() { test() }; declare variable \$x := 1; declare variable \$y := 2; 3",
+                        listOf("y", "x")
+                    )
                 }
 
                 @Test
                 @DisplayName("multiple variable declarations; in query body")
                 fun multipleVarDecls_QueryBodyExpr() {
-                    val element = parse<XPathFunctionCall>(
-                        "declare function f() {}; declare variable \$x := 1; declare variable \$y := 2; test()"
-                    )[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(2))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("y"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                    assertThat(variables[1].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                    variables(
+                        "declare function f() {}; declare variable \$x := 1; declare variable \$y := 2; test()",
+                        listOf("y", "x")
+                    )
                 }
             }
         }
@@ -3246,45 +2357,25 @@ private class XQueryStaticContextTest : ParserTestCase() {
                 @Test
                 @DisplayName("no parameters")
                 fun noParameters() {
-                    val element = parse<XPathFunctionCall>("declare function f() { test() }; 1")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(0))
+                    variables("declare function f() { test() }; 1", listOf())
                 }
 
                 @Test
                 @DisplayName("single parameter")
                 fun singleParameter() {
-                    val element = parse<XPathFunctionCall>("declare function f(\$x) { test() }; 1")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(1))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                    variables("declare function f(\$x) { test() }; 1", listOf("x"))
                 }
 
                 @Test
                 @DisplayName("multiple parameters")
                 fun multipleParameters() {
-                    val element = parse<XPathFunctionCall>("declare function f(\$x, \$y) { test() }; 1")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(2))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                    assertThat(variables[1].variableName?.localName?.data, `is`("y"))
-                    assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                    variables("declare function f(\$x, \$y) { test() }; 1", listOf("x", "y"))
                 }
 
                 @Test
                 @DisplayName("outside function body")
                 fun outsideFunctionBody() {
-                    val element = parse<XPathFunctionCall>("declare function f(\$x) {}; test()")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(0))
+                    variables("declare function f(\$x) {}; test()", listOf())
                 }
             }
 
@@ -3294,45 +2385,25 @@ private class XQueryStaticContextTest : ParserTestCase() {
                 @Test
                 @DisplayName("in FunctionBody; no parameters")
                 fun testInlineFunctionExpr_FunctionBody_NoParameters() {
-                    val element = parse<XPathFunctionCall>("function () { test() }")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(0))
+                    variables("function () { test() }", listOf())
                 }
 
                 @Test
                 @DisplayName("in FunctionBody; single parameter")
                 fun testInlineFunctionExpr_FunctionBody_SingleParameter() {
-                    val element = parse<XPathFunctionCall>("function (\$x) { test() }")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(1))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                    variables("function (\$x) { test() }", listOf("x"))
                 }
 
                 @Test
                 @DisplayName("in FunctionBody; multiple parameters")
                 fun testInlineFunctionExpr_FunctionBody_MultipleParameters() {
-                    val element = parse<XPathFunctionCall>("function (\$x, \$y) { test() }")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(2))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                    assertThat(variables[1].variableName?.localName?.data, `is`("y"))
-                    assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                    variables("function (\$x, \$y) { test() }", listOf("x", "y"))
                 }
 
                 @Test
                 @DisplayName("outside FunctionBody")
                 fun testInlineFunctionExpr_OutsideFunctionBody() {
-                    val element = parse<XPathFunctionCall>("function (\$x) {}(test())")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(0))
+                    variables("function (\$x) {}(test())", listOf())
                 }
             }
         }
@@ -3346,101 +2417,55 @@ private class XQueryStaticContextTest : ParserTestCase() {
                 @Test
                 @DisplayName("no declarations")
                 fun noDeclarations() {
-                    val element = parse<XPathFunctionCall>("block { test() }")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(0))
+                    variables("block { test() }", listOf())
                 }
 
                 @Test
                 @DisplayName("single declaration; from value expression")
                 fun singleVarDecl_ValueExpr() {
-                    val element = parse<XPathFunctionCall>("block { declare \$x := test(); 1 }")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(0))
+                    variables("block { declare \$x := test(); 1 }", listOf())
                 }
 
                 @Test
                 @DisplayName("single declaration; from block expression")
                 fun singleVarDecl_BlockExpr() {
-                    val element = parse<XPathFunctionCall>("block { declare \$x := 1; test() }")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(1))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                    variables("block { declare \$x := 1; test() }", listOf("x"))
                 }
 
                 @Test
                 @DisplayName("multiple entries in a declaration; from value expression of first variable")
                 fun multipleVarDeclEntries_ValueExpr_FirstDecl() {
-                    val element = parse<XPathFunctionCall>("block { declare \$x := test(), \$y := 1; 2 }")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(0))
+                    variables("block { declare \$x := test(), \$y := 1; 2 }", listOf())
                 }
 
                 @Test
                 @DisplayName("multiple entries in a declaration; from value expression of last variable")
                 fun multipleVarDeclEntries_ValueExpr_LastDecl() {
-                    val element = parse<XPathFunctionCall>("block { declare \$x := 1, \$y := test(); 2 }")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(1))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                    variables("block { declare \$x := 1, \$y := test(); 2 }", listOf("x"))
                 }
 
                 @Test
                 @DisplayName("multiple entries in a declaration; from block expression")
                 fun multipleVarDeclEntries_BlockExpr() {
-                    val element = parse<XPathFunctionCall>("block { declare \$x := 1, \$y := 2; test() }")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(2))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                    assertThat(variables[1].variableName?.localName?.data, `is`("y"))
-                    assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                    variables("block { declare \$x := 1, \$y := 2; test() }", listOf("x", "y"))
                 }
 
                 @Test
                 @DisplayName("multiple declarations; from value expression of first variable")
                 fun multipleVarDecl_ValueExpr_FirstDecl() {
-                    val element = parse<XPathFunctionCall>("block { declare \$x := test(); declare \$y := 1; 2 }")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(0))
+                    variables("block { declare \$x := test(); declare \$y := 1; 2 }", listOf())
                 }
 
                 @Test
                 @DisplayName("multiple declarations; from value expression of last variable")
                 fun multipleVarDecl_ValueExpr_LastDecl() {
-                    val element = parse<XPathFunctionCall>("block { declare \$x := 1; declare \$y := test(); 2 }")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(1))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                    variables("block { declare \$x := 1; declare \$y := test(); 2 }", listOf("x"))
                 }
 
                 @Test
                 @DisplayName("multiple declarations; from block expression")
                 fun multipleVarDecl_BlockExpr() {
-                    val element = parse<XPathFunctionCall>("block { declare \$x := 1; declare \$y := 2; test() }")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(2))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                    assertThat(variables[1].variableName?.localName?.data, `is`("y"))
-                    assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                    variables("block { declare \$x := 1; declare \$y := 2; test() }", listOf("x", "y"))
                 }
             }
         }
@@ -3454,87 +2479,43 @@ private class XQueryStaticContextTest : ParserTestCase() {
                 @Test
                 @DisplayName("from VarName expression")
                 fun inExpr() {
-                    val element = parse<XPathFunctionCall>("for member \$x in test() return 1")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(0))
+                    variables("for member \$x in test() return 1", listOf())
                 }
 
                 @Test
                 @DisplayName("from VarName expression; previous binding in scope")
                 fun inExpr_PreviousBindingInScope() {
-                    val element = parse<XPathFunctionCall>("for member \$x in 2, \$y in test() return 1")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(1))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                    variables("for member \$x in 2, \$y in test() return 1", listOf("x"))
                 }
 
                 @Test
                 @DisplayName("from VarName expression; inner VarName expression of nested FLWOR")
                 fun nestedFLWORExpr() {
-                    val element = parse<XPathFunctionCall>(
-                        "for member \$x in for member \$y in test() return 1 return 2"
-                    )[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(0))
+                    variables("for member \$x in for member \$y in test() return 1 return 2", listOf())
                 }
 
                 @Test
                 @DisplayName("from return expression")
                 fun returnExpr() {
-                    val element = parse<XPathFunctionCall>("for member \$x in 1 return test()")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(1))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                    variables("for member \$x in 1 return test()", listOf("x"))
                 }
 
                 @Test
                 @DisplayName("from return expression; return expression of inner nested FLWOR")
                 fun innerReturnExpr() {
-                    val element = parse<XPathFunctionCall>(
-                        "for member \$x in for member \$y in 2 return test() return 2"
-                    )[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(1))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("y"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                    variables("for member \$x in for member \$y in 2 return test() return 2", listOf("y"))
                 }
 
                 @Test
                 @DisplayName("from return expression; return expression of outer nested FLWOR")
                 fun outerReturnExpr() {
-                    val element = parse<XPathFunctionCall>(
-                        "for member \$x in for member \$y in 2 return 1 return test()"
-                    )[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(1))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                    variables("for member \$x in for member \$y in 2 return 1 return test()", listOf("x"))
                 }
 
                 @Test
                 @DisplayName("from return expression; multiple bindings")
                 fun returnExpr_multipleBindings() {
-                    val element = parse<XPathFunctionCall>("for member \$x in 1, \$y in 2 return test()")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(2))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                    assertThat(variables[1].variableName?.localName?.data, `is`("y"))
-                    assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                    variables("for member \$x in 1, \$y in 2 return test()", listOf("x", "y"))
                 }
             }
 
@@ -3544,119 +2525,55 @@ private class XQueryStaticContextTest : ParserTestCase() {
                 @Test
                 @DisplayName("from VarName expression")
                 fun inExpr() {
-                    val element = parse<XPathFunctionCall>("for member \$x in 1 for member \$y in test() return 1")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(1))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                    variables("for member \$x in 1 for member \$y in test() return 1", listOf("x"))
                 }
 
                 @Test
                 @DisplayName("from VarName expression; previous binding in scope")
                 fun inExpr_PreviousBindingInScope() {
-                    val element = parse<XPathFunctionCall>(
-                        "for member \$x in 2 for member \$y in 3, \$z in test() return 1"
-                    )[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(2))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("y"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                    assertThat(variables[1].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                    variables("for member \$x in 2 for member \$y in 3, \$z in test() return 1", listOf("y", "x"))
                 }
 
                 @Test
                 @DisplayName("from VarName expression; inner VarName expression of nested FLWOR")
                 fun nestedFLWORExpr() {
-                    val element = parse<XPathFunctionCall>(
-                        "for member \$x in 1 for member \$y in for member \$z in test() return 1 return 2"
-                    )[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(1))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
+                    variables(
+                        "for member \$x in 1 for member \$y in for member \$z in test() return 1 return 2",
+                        listOf("x")
+                    )
                 }
 
                 @Test
                 @DisplayName("from return expression")
                 fun returnExpr() {
-                    val element = parse<XPathFunctionCall>("for member \$x in 1 for member \$y in 2 return test()")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(2))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("y"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                    assertThat(variables[1].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                    variables("for member \$x in 1 for member \$y in 2 return test()", listOf("y", "x"))
                 }
 
                 @Test
                 @DisplayName("from return expression; return expression of inner nested FLWOR")
                 fun innerReturnExpr() {
-                    val element = parse<XPathFunctionCall>(
-                        "for member \$x in 1 for member \$y in for member \$z in 2 return test() return 2"
-                    )[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(2))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("z"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                    assertThat(variables[1].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                    variables(
+                        "for member \$x in 1 for member \$y in for member \$z in 2 return test() return 2",
+                        listOf("z", "x")
+                    )
                 }
 
                 @Test
                 @DisplayName("from return expression; return expression of outer nested FLWOR")
                 fun outerReturnExpr() {
-                    val element = parse<XPathFunctionCall>(
-                        "for member \$x in 1 for member \$y in for member \$z in 2 return 1 return test()"
-                    )[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(2))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("y"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                    assertThat(variables[1].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                    variables(
+                        "for member \$x in 1 for member \$y in for member \$z in 2 return 1 return test()",
+                        listOf("y", "x")
+                    )
                 }
 
                 @Test
                 @DisplayName("from return expression; multiple bindings")
                 fun returnExpr_multipleBindings() {
-                    val element = parse<XPathFunctionCall>(
-                        "for member \$x in 1 for member \$y in 2, \$z in 3 return test()"
-                    )[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(3))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("y"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                    assertThat(variables[1].variableName?.localName?.data, `is`("z"))
-                    assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
-
-                    assertThat(variables[2].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[2].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[2].variableName?.namespace, `is`(nullValue()))
+                    variables(
+                        "for member \$x in 1 for member \$y in 2, \$z in 3 return test()",
+                        listOf("y", "z", "x")
+                    )
                 }
             }
 
@@ -3666,115 +2583,52 @@ private class XQueryStaticContextTest : ParserTestCase() {
                 @Test
                 @DisplayName("from VarName expression")
                 fun inExpr() {
-                    val element = parse<XPathFunctionCall>("for member \$x at \$a in test() return 1")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(0))
+                    variables("for member \$x at \$a in test() return 1", listOf())
                 }
 
                 @Test
                 @DisplayName("from VarName expression; previous binding in scope")
                 fun inExpr_PreviousBindingInScope() {
-                    val element = parse<XPathFunctionCall>(
-                        "for member \$x at \$a in 2, \$y at \$b in test() return 1"
-                    )[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(2))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                    assertThat(variables[1].variableName?.localName?.data, `is`("a"))
-                    assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                    variables("for member \$x at \$a in 2, \$y at \$b in test() return 1", listOf("x", "a"))
                 }
 
                 @Test
                 @DisplayName("from VarName expression; inner VarName expression of nested FLWOR")
                 fun nestedFLWORExpr() {
-                    val element = parse<XPathFunctionCall>(
-                        "for member \$x at \$a in for member \$y at \$b in test() return 1 return 2"
-                    )[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(0))
+                    variables("for member \$x at \$a in for member \$y at \$b in test() return 1 return 2", listOf())
                 }
 
                 @Test
                 @DisplayName("from return expression")
                 fun returnExpr() {
-                    val element = parse<XPathFunctionCall>("for member \$x at \$a in 1 return test()")[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(2))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                    assertThat(variables[1].variableName?.localName?.data, `is`("a"))
-                    assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                    variables("for member \$x at \$a in 1 return test()", listOf("x", "a"))
                 }
 
                 @Test
                 @DisplayName("from return expression; return expression of inner nested FLWOR")
                 fun innerReturnExpr() {
-                    val element = parse<XPathFunctionCall>(
-                        "for member \$x at \$a in for member \$y at \$b in 2 return test() return 2"
-                    )[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(2))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("y"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                    assertThat(variables[1].variableName?.localName?.data, `is`("b"))
-                    assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                    variables(
+                        "for member \$x at \$a in for member \$y at \$b in 2 return test() return 2",
+                        listOf("y", "b")
+                    )
                 }
 
                 @Test
                 @DisplayName("from return expression; return expression of outer nested FLWOR")
                 fun outerReturnExpr() {
-                    val element = parse<XPathFunctionCall>(
-                        "for member \$x at \$a in for member \$y at \$b in 2 return 1 return test()"
-                    )[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(2))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                    assertThat(variables[1].variableName?.localName?.data, `is`("a"))
-                    assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
+                    variables(
+                        "for member \$x at \$a in for member \$y at \$b in 2 return 1 return test()",
+                        listOf("x", "a")
+                    )
                 }
 
                 @Test
                 @DisplayName("from return expression; multiple bindings")
                 fun returnExpr_multipleBindings() {
-                    val element = parse<XPathFunctionCall>(
-                        "for member \$x at \$a in 1, \$y at \$b in 2 return test()"
-                    )[0]
-                    val variables = element.inScopeVariables().toList()
-                    assertThat(variables.size, `is`(4))
-
-                    assertThat(variables[0].variableName?.localName?.data, `is`("x"))
-                    assertThat(variables[0].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[0].variableName?.namespace, `is`(nullValue()))
-
-                    assertThat(variables[1].variableName?.localName?.data, `is`("a"))
-                    assertThat(variables[1].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[1].variableName?.namespace, `is`(nullValue()))
-
-                    assertThat(variables[2].variableName?.localName?.data, `is`("y"))
-                    assertThat(variables[2].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[2].variableName?.namespace, `is`(nullValue()))
-
-                    assertThat(variables[3].variableName?.localName?.data, `is`("b"))
-                    assertThat(variables[3].variableName?.prefix, `is`(nullValue()))
-                    assertThat(variables[3].variableName?.namespace, `is`(nullValue()))
+                    variables(
+                        "for member \$x at \$a in 1, \$y at \$b in 2 return test()",
+                        listOf("x", "a", "y", "b")
+                    )
                 }
             }
         }
