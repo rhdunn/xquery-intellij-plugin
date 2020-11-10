@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xslt.psi.impl
 
 import com.intellij.psi.PsiElement
+import com.intellij.psi.xml.XmlAttribute
 import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElement
@@ -33,12 +34,16 @@ import javax.xml.namespace.QName
 object XsltShadowPsiElementFactory : XpmShadowPsiElementFactory {
     // region XpmShadowPsiElementFactory
 
-    override fun create(element: PsiElement, name: QName?): XpmShadowPsiElement? = when (name?.namespaceURI) {
-        EXSL_COMMON_NAMESPACE -> createEXslCommonElement(element, name.localPart)
-        XSLT.NAMESPACE -> createXsltElement(element, name.localPart)
-        XDMP_NAMESPACE -> createMarkLogicElement(element, name.localPart)
-        SAXON_NAMESPACE -> createSaxonElement(element, name.localPart)
-        SAXON6_NAMESPACE -> createSaxon6Element(element, name.localPart)
+    override fun create(element: PsiElement, name: QName?): XpmShadowPsiElement? = when (element) {
+        is XmlTag -> when (name?.namespaceURI) {
+            EXSL_COMMON_NAMESPACE -> createEXslCommonElement(element, name.localPart)
+            XSLT.NAMESPACE -> createXsltElement(element, name.localPart)
+            XDMP_NAMESPACE -> createMarkLogicElement(element, name.localPart)
+            SAXON_NAMESPACE -> createSaxonElement(element, name.localPart)
+            SAXON6_NAMESPACE -> createSaxon6Element(element, name.localPart)
+            else -> null
+        }
+        is XmlAttribute -> null
         else -> null
     }
 
