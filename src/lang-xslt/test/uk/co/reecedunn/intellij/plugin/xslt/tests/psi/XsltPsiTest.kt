@@ -324,7 +324,7 @@ private class XsltPsiTest : ParserTestCase(XMLParserDefinition()) {
             fun hierarchy() {
                 @Language("XML") val xml = """
                     <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
-                        <xsl:strip-space/>
+                        <xsl:strip-space elements=""/>
                     </xsl:stylesheet>
                 """
                 val psi = parse<XsltStripSpace>(xml, XSLT.NAMESPACE, "strip-space")[0]
@@ -348,7 +348,7 @@ private class XsltPsiTest : ParserTestCase(XMLParserDefinition()) {
             fun hierarchy() {
                 @Language("XML") val xml = """
                     <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
-                        <xsl:preserve-space/>
+                        <xsl:preserve-space elements=""/>
                     </xsl:stylesheet>
                 """
                 val psi = parse<XsltPreserveSpace>(xml, XSLT.NAMESPACE, "preserve-space")[0]
