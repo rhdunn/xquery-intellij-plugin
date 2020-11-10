@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.tests.model
+package uk.co.reecedunn.intellij.plugin.xquery.tests.optree
 
 import com.intellij.util.Range
 import org.hamcrest.CoreMatchers.*
@@ -35,7 +35,6 @@ import uk.co.reecedunn.intellij.plugin.xpm.staticallyKnownNamespaces
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryMainModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
-import uk.co.reecedunn.intellij.plugin.xquery.model.defaultNamespace
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryVariableProvider
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryFunctionProvider
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryNamespaceProvider
