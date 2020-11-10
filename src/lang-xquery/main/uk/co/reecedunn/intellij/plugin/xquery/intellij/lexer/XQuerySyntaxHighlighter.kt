@@ -34,8 +34,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.*
 object XQuerySyntaxHighlighter : SyntaxHighlighterBase() {
     // region SyntaxHighlighter
 
-    private val DEFAULT: Array<out TextAttributesKey> = emptyArray()
-
     override fun getHighlightingLexer(): Lexer {
         val lexer = CombinedLexer(XQueryLexer())
         lexer.addState(
@@ -57,7 +55,7 @@ object XQuerySyntaxHighlighter : SyntaxHighlighterBase() {
             if (type is IKeywordOrNCNameType && type !== XPathTokenType.K__)
                 KEYWORD_KEYS
             else
-                DEFAULT
+                TextAttributesKey.EMPTY_ARRAY
         return KEYS.getOrDefault(type, default)
     }
 
