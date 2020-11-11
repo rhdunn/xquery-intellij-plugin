@@ -223,8 +223,10 @@ declare function local:eval-options() {
             (),
         if (exists($server)) then
             <modules>{xdmp:server-modules-database($server)}</modules>
+        else if (string-length($module-root) ne 0) then
+            <modules>0</modules> (: file system :)
         else
-            <modules>0</modules> (: file system :),
+            (),
         if (exists($server) or string-length($module-root) ne 0) then
             <root>{(local:nullize($module-root), xdmp:server-root($server))[1]}</root>
         else
