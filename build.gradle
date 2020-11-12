@@ -48,8 +48,8 @@ buildscript {
     ext.kotlin_version = ext.kotlin_from_build(ext.idea_since_build.toInteger())
     ext.java_version = ext.java_from_build(ext.idea_since_build.toInteger())
 
-    ext.plugin_version = '1.8.0'
-    ext.suffix = ''
+    ext.plugin_version = '1.9.0'
+    ext.suffix = '-dev'
 
     repositories {
         maven { url 'http://dl.bintray.com/jetbrains/intellij-plugin-service' }
