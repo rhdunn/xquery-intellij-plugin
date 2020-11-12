@@ -1,48 +1,8 @@
 # Change Log
 
-## 1.8 - (In Development)
-
-XSLT:
-
-1.  Support parsing XSLT 1.0, 2.0, and 3.0 schema types.
-1.  Support XSLT 3.0 text value templates via the `expand-text` attribute.
-1.  Set the XSLT file icon when the IntelliJ XPath plugin is not enabled.
-
-XPath and XQuery:
-
-1.  Further reduce memory usage by removing additional nodes from the PSI tree.
-1.  Auto-complete support for `CatchClause` variables.
-
-IntelliJ Integration:
-
-1.  Support language injections on `StringLiteral`, `DirAttributeValue`,
-    `DirElemContent`/`DirTextConstructor`, `CDataSection`, and `Pragma`
-    elements.
-1.  Support `language=Language` injection marker comments.
-1.  Use the tag tree highlight colours for XML names in the breadcrumb bar
-    and editor.
-
-Inlay Parameters and Parameter Hints:
-
-1.  Don't add inlay parameter hints when element and attribute node names
-    match the parameter name.
-1.  Support expressions like `f#1(2)`, `(f#1(2))`, and `1 => (f#2(2))`.
-
-Saxon:
-
-1.  Include ClauseInfo objects in the flat profile table results.
-
-MarkLogic:
-
-1.  Support attaching breakpoints to all expressions in the MarkLogic
-    debugger.
-1.  Better report `SEC-PRIV` errors when adding a query processor.
-1.  Fix the URI of the `xqterr` and `err` namespaces.
-1.  Auto-complete support for `cts:element-walk`, `cts:entity-highlight`,
-    `cts:highlight`, and `cts:walk` built-in variables.
-
 ## 2020
 
+*  [1.8.0 - 2020-11-12](docs/_posts/2020-11-12-release-1.8.0.md)
 *  [1.7.2 - 2020-08-31](docs/_posts/2020-08-31-release-1.7.2.md)
 *  [1.7.1 - 2020-07-25](docs/_posts/2020-07-25-release-1.7.1.md)
 *  [1.7 - 2020-07-10](docs/_posts/2020-07-10-release-1.7.md)

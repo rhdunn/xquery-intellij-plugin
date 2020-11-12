@@ -40,7 +40,7 @@
     <p>XPath and XSLT:</p>
     <ol>
       <li>XSLT 3.0 XMLSchema support.</li>
-      <li>Experimental XPath support when the XPathView plugin is disabled.</li>
+      <li>Experimental XPath support when the IntelliJ XPathView plugin is disabled.</li>
       <li>Support parsing XSLT 1.0, 2.0, and 3.0 schema types.</li>
       <li>Support XSLT 3.0 text value templates.</li>
     </ol>
@@ -56,12 +56,13 @@
       <li>Code completion.</li>
       <li>Parameter information tooltips and inlay hints.</li>
       <li>Structure view, including on the navigation bar in IntelliJ 2020.1+.</li>
-      <li>Breadcrumb navigation.</li>
+      <li>Breadcrumb navigation, including highlighting XML tags in the editor like the IntelliJ XML plugin.</li>
       <li>Paired brace matching.</li>
       <li>Commenting code.</li>
       <li>Integrated function documentation ("Quick Documentation", Ctrl+Q).</li>
       <li>Context information (Alt+Q) for XQuery function declarations.</li>
       <li>Spellchecking support with bundle dictionaries with XPath, XQuery, and XSLT terms.</li>
+      <li>Language injection support on various elements, including string literals.</li>
     </ol>
     <p>IntelliJ Ultimate integration:</p>
     <ol>
@@ -71,7 +72,23 @@
   ]]></description>
 
   <change-notes><![CDATA[
-    <h3>Release 1.8-dev:</h3>
+    <ol>
+      <li>
+        Support parsing XSLT schema types such as <code>xsl:sequence-type</code> in <code>@as</code> attributes,
+        attribute (XSLT 1.0+) and text (XSLT 3.0+) value templates.
+      </li>
+      <li>Full expression breakpoint support for debugging MarkLogic queries.</li>
+      <li>Support language injections on various elements, including string literals.</li>
+      <li>Support XML tag tree highlighting in the breadcrumb bar and editor.</li>
+      <li>
+        Auto-complete support for built-in context variables (<code>err:</code> in <code>CatchClause</code>,
+        and MarkLogic <code>cts:</code> variables).
+      </li>
+      <li>
+        Support inlay parameters and parameter hints for named function reference based expressions like
+        <code>f#1(2)</code>.
+      </li>
+    </ol>
     <p>XSLT:</p>
     <ol>
       <li>Support parsing XSLT 1.0, 2.0, and 3.0 schema types.</li>

@@ -8,14 +8,23 @@
 
 ## IntelliJ XQuery Plugin
 
-This is a plugin for IntelliJ IDE 2019.2 &ndash; 2020.2 that adds support
-for the XML Query (XQuery) language. This covers support for:
+This is a plugin for IntelliJ IDE 2019.2 &ndash; 2020.3 that adds support
+for the XML Query (XQuery) and XML Path (XPath) languages. This covers
+support for:
+1.  XPath 2.0, 3.0, and 3.1;
 1.  XQuery 1.0, 3.0, and 3.1;
 1.  XQuery and XPath Full Text extension;
 1.  XQuery Update Facility 1.0, and 3.0 extension;
 1.  XQuery Scripting extension;
 1.  EXPath extensions;
 1.  BaseX, MarkLogic, and Saxon vendor extensions.
+
+In addition, the plugin provides experimental integration for XSLT
+when the IntelliJ XPathView plugin is disabled:
+1. Support parsing XSLT schema types such as `xsl:sequence-type` in `@as`
+   attributes;
+1. Support for attribute value templates;
+1. Support for XSLT 3.0 text value templates.
 
 See https://rhdunn.github.io/xquery-intellij-plugin/ for the plugin documentation
 and tutorials.
@@ -59,13 +68,15 @@ This plugin provides support for the following IntelliJ features:
 1.  Parameter information;
 1.  Parameter inlay hints;
 1.  Structure view;
-1.  Breadcrumb navigation;
+1.  Breadcrumb navigation, including highlighting XML tags in the editor like
+    the IntelliJ XML plugin;
 1.  Paired brace matching;
 1.  Commenting code;
 1.  Integrated function documentation ("Quick Documentation", Ctrl+Q);
 1.  Context information (Alt+Q) for XQuery function declarations;
 1.  Spellchecking support with bundle dictionaries with XPath, XQuery, and XSLT
     terms.
+1.  Language injection support on various elements, including string literals.
 
 The plugin also supports the following IntelliJ Ultimate features:
 1.  Support displaying MarkLogic rewriter files in the Endpoints tool window;
