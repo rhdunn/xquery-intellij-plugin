@@ -17,9 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xslt.optree
 
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath
-import uk.co.reecedunn.intellij.plugin.xpath.model.defaultElementOrTypeXPathNamespace
-import uk.co.reecedunn.intellij.plugin.xpath.model.defaultFunctionXPathNamespace
-import uk.co.reecedunn.intellij.plugin.xpath.model.staticallyKnownXPathNamespaces
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider

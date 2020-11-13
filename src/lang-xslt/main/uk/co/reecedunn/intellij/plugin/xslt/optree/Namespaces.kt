@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.model
+package uk.co.reecedunn.intellij.plugin.xslt.optree
 
 import com.intellij.psi.PsiElement
 import com.intellij.psi.xml.XmlAttribute
