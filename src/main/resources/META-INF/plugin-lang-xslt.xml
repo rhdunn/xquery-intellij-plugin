@@ -31,4 +31,8 @@
     <annotator language="EQNames-or-hashed-keywords" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.annotation.MethodKeywordAnnotator"/>
     <annotator language="xsl:value-template" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.annotation.ValueTemplateAnnotator"/>
   </extensions>
+
+  <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
+    <namespaceProvider implementationClass="uk.co.reecedunn.intellij.plugin.xslt.optree.XsltNamespaceProvider" fieldName="INSTANCE"/>
+  </extensions>
 </idea-plugin>

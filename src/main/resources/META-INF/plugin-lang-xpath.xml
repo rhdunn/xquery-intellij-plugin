@@ -18,8 +18,4 @@
     <spellchecker.support language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.intellij.spellchecker.XPathSpellcheckingStrategy"/>
     <spellchecker.bundledDictionaryProvider implementation="uk.co.reecedunn.intellij.plugin.xpath.intellij.spellchecker.XPathBundledDictionaryProvider"/>
   </extensions>
-
-  <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
-    <namespaceProvider implementationClass="uk.co.reecedunn.intellij.plugin.xpath.optree.XPathNamespaceProvider" fieldName="INSTANCE"/>
-  </extensions>
 </idea-plugin>

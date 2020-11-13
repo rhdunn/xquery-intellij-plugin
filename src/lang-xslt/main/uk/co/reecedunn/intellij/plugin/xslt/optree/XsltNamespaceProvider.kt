@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.optree
+package uk.co.reecedunn.intellij.plugin.xslt.optree
 
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath
@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
 
-object XPathNamespaceProvider : XpmNamespaceProvider {
+object XsltNamespaceProvider : XpmNamespaceProvider {
     override fun staticallyKnownNamespaces(context: PsiElement): Sequence<XpmNamespaceDeclaration> {
         if (context.containingFile !is XPath) return emptySequence()
         return context.staticallyKnownXPathNamespaces()
