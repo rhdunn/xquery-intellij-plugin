@@ -19,6 +19,7 @@ import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import uk.co.reecedunn.intellij.plugin.core.psi.toPsiTreeString
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
@@ -46,7 +47,7 @@ private class PluginParserTest : ParserTestCase() {
         fun singleAndAlso() {
             val expected = loadResource("tests/parser/saxon-9.9-xpath/AndExpr_SingleAndAlso.txt")
             val actual = parseResource("tests/parser/saxon-9.9-xpath/AndExpr_SingleAndAlso.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -54,7 +55,7 @@ private class PluginParserTest : ParserTestCase() {
         fun missingUpdateExpr() {
             val expected = loadResource("tests/parser/saxon-9.9-xpath/AndExpr_MissingComparisonExpr.txt")
             val actual = parseResource("tests/parser/saxon-9.9-xpath/AndExpr_MissingComparisonExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -62,7 +63,7 @@ private class PluginParserTest : ParserTestCase() {
         fun multipleAndAlso() {
             val expected = loadResource("tests/parser/saxon-9.9-xpath/AndExpr_MultipleAndAlso.txt")
             val actual = parseResource("tests/parser/saxon-9.9-xpath/AndExpr_MultipleAndAlso.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -70,7 +71,7 @@ private class PluginParserTest : ParserTestCase() {
         fun mixedAndAlsoFirst() {
             val expected = loadResource("tests/parser/saxon-9.9-xpath/AndExpr_Mixed_AndAlsoFirst.txt")
             val actual = parseResource("tests/parser/saxon-9.9-xpath/AndExpr_Mixed_AndAlsoFirst.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -78,7 +79,7 @@ private class PluginParserTest : ParserTestCase() {
         fun mixedAndAlsoLast() {
             val expected = loadResource("tests/parser/saxon-9.9-xpath/AndExpr_Mixed_AndAlsoLast.txt")
             val actual = parseResource("tests/parser/saxon-9.9-xpath/AndExpr_Mixed_AndAlsoLast.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -90,7 +91,7 @@ private class PluginParserTest : ParserTestCase() {
         fun ncname() {
             val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-6/UnionType_NCName.txt")
             val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-6/UnionType_NCName.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -98,7 +99,7 @@ private class PluginParserTest : ParserTestCase() {
         fun ncname_CompactWhitespace() {
             val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-6/UnionType_NCName_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-6/UnionType_NCName_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -106,7 +107,7 @@ private class PluginParserTest : ParserTestCase() {
         fun qname() {
             val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-6/UnionType.txt")
             val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-6/UnionType.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -114,7 +115,7 @@ private class PluginParserTest : ParserTestCase() {
         fun qname_CompactWhitespace() {
             val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-6/UnionType_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-6/UnionType_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -122,7 +123,7 @@ private class PluginParserTest : ParserTestCase() {
         fun uriQualifiedName() {
             val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-6/UnionType_URIQualifiedName.txt")
             val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-6/UnionType_URIQualifiedName.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -130,7 +131,7 @@ private class PluginParserTest : ParserTestCase() {
         fun uriQualifiedName_CompactWhitespace() {
             val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-6/UnionType_URIQualifiedName_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-6/UnionType_URIQualifiedName_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -138,7 +139,7 @@ private class PluginParserTest : ParserTestCase() {
         fun testUnionType_MissingClosingParenthesis() {
             val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-6/UnionType_MissingClosingParenthesis.txt")
             val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-6/UnionType_MissingClosingParenthesis.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -146,7 +147,7 @@ private class PluginParserTest : ParserTestCase() {
         fun testUnionType_MissingFirstType() {
             val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-6/UnionType_MissingFirstType.txt")
             val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-6/UnionType_MissingFirstType.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -154,7 +155,7 @@ private class PluginParserTest : ParserTestCase() {
         fun testUnionType_MissingNextType() {
             val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-6/UnionType_MissingNextType.txt")
             val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-6/UnionType_MissingNextType.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -163,7 +164,7 @@ private class PluginParserTest : ParserTestCase() {
             // This is testing handling of whitespace before parsing the next comma.
             val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-6/UnionType_Multiple.txt")
             val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-6/UnionType_Multiple.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -175,7 +176,7 @@ private class PluginParserTest : ParserTestCase() {
         fun singleType() {
             val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-6/UnionType_InSingleType.txt")
             val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-6/UnionType_InSingleType.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -183,7 +184,7 @@ private class PluginParserTest : ParserTestCase() {
         fun optional() {
             val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-6/UnionType_InSingleType_Optional.txt")
             val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-6/UnionType_InSingleType_Optional.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -192,7 +193,7 @@ private class PluginParserTest : ParserTestCase() {
     fun unionType_typedMapTest() {
         val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-6/UnionType_InTypedMapTest.txt")
         val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-6/UnionType_InTypedMapTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+        assertThat(actual.toPsiTreeString(), `is`(expected))
     }
 
     @Nested
@@ -203,7 +204,7 @@ private class PluginParserTest : ParserTestCase() {
         fun tupleType() {
             val expected = loadResource("tests/parser/saxon-9.8-xpath/TupleType.txt")
             val actual = parseResource("tests/parser/saxon-9.8-xpath/TupleType.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -211,7 +212,7 @@ private class PluginParserTest : ParserTestCase() {
         fun tupleType_CompactWhitespace() {
             val expected = loadResource("tests/parser/saxon-9.8-xpath/TupleType_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/saxon-9.8-xpath/TupleType_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -219,7 +220,7 @@ private class PluginParserTest : ParserTestCase() {
         fun missingClosingParenthesis() {
             val expected = loadResource("tests/parser/saxon-9.8-xpath/TupleType_MissingClosingParenthesis.txt")
             val actual = parseResource("tests/parser/saxon-9.8-xpath/TupleType_MissingClosingParenthesis.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -227,7 +228,7 @@ private class PluginParserTest : ParserTestCase() {
         fun extensible() {
             val expected = loadResource("tests/parser/saxon-9.9-xpath/TupleType_Extensible.txt")
             val actual = parseResource("tests/parser/saxon-9.9-xpath/TupleType_Extensible.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -235,7 +236,7 @@ private class PluginParserTest : ParserTestCase() {
         fun extensible_CompactWhitespace() {
             val expected = loadResource("tests/parser/saxon-9.9-xpath/TupleType_Extensible_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/saxon-9.9-xpath/TupleType_Extensible_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -243,7 +244,7 @@ private class PluginParserTest : ParserTestCase() {
         fun extensible_NotLast() {
             val expected = loadResource("tests/parser/saxon-9.9-xpath/TupleType_Extensible_NotLast.txt")
             val actual = parseResource("tests/parser/saxon-9.9-xpath/TupleType_Extensible_NotLast.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -255,7 +256,7 @@ private class PluginParserTest : ParserTestCase() {
         fun noSequenceType() {
             val expected = loadResource("tests/parser/saxon-9.8-xpath/TupleField_NoSequenceType.txt")
             val actual = parseResource("tests/parser/saxon-9.8-xpath/TupleField_NoSequenceType.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Nested
@@ -266,7 +267,7 @@ private class PluginParserTest : ParserTestCase() {
             fun single() {
                 val expected = loadResource("tests/parser/saxon-9.8-xpath/TupleField.txt")
                 val actual = parseResource("tests/parser/saxon-9.8-xpath/TupleField.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -274,7 +275,7 @@ private class PluginParserTest : ParserTestCase() {
             fun single_compactWhitespace() {
                 val expected = loadResource("tests/parser/saxon-9.8-xpath/TupleField_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/saxon-9.8-xpath/TupleField_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -282,7 +283,7 @@ private class PluginParserTest : ParserTestCase() {
             fun multiple() {
                 val expected = loadResource("tests/parser/saxon-9.8-xpath/TupleField_Multiple.txt")
                 val actual = parseResource("tests/parser/saxon-9.8-xpath/TupleField_Multiple.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -290,7 +291,7 @@ private class PluginParserTest : ParserTestCase() {
             fun multiple_compactWhitespace() {
                 val expected = loadResource("tests/parser/saxon-9.8-xpath/TupleField_Multiple_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/saxon-9.8-xpath/TupleField_Multiple_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -299,7 +300,7 @@ private class PluginParserTest : ParserTestCase() {
                 // This is testing handling of whitespace before parsing the next comma.
                 val expected = loadResource("tests/parser/saxon-9.8-xpath/TupleField_MultipleWithOccurrenceIndicator.txt")
                 val actual = parseResource("tests/parser/saxon-9.8-xpath/TupleField_MultipleWithOccurrenceIndicator.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -307,7 +308,7 @@ private class PluginParserTest : ParserTestCase() {
             fun missingColon() {
                 val expected = loadResource("tests/parser/saxon-9.8-xpath/TupleField_MissingColon.txt")
                 val actual = parseResource("tests/parser/saxon-9.8-xpath/TupleField_MissingColon.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -315,7 +316,7 @@ private class PluginParserTest : ParserTestCase() {
             fun missingSequenceType() {
                 val expected = loadResource("tests/parser/saxon-9.8-xpath/TupleField_MissingSequenceType.txt")
                 val actual = parseResource("tests/parser/saxon-9.8-xpath/TupleField_MissingSequenceType.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
 
@@ -327,7 +328,7 @@ private class PluginParserTest : ParserTestCase() {
             fun single() {
                 val expected = loadResource("tests/parser/saxon-10.0-xpath/TupleField.txt")
                 val actual = parseResource("tests/parser/saxon-10.0-xpath/TupleField.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -335,7 +336,7 @@ private class PluginParserTest : ParserTestCase() {
             fun single_compactWhitespace() {
                 val expected = loadResource("tests/parser/saxon-10.0-xpath/TupleField_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/saxon-10.0-xpath/TupleField_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -343,7 +344,7 @@ private class PluginParserTest : ParserTestCase() {
             fun multiple() {
                 val expected = loadResource("tests/parser/saxon-10.0-xpath/TupleField_Multiple.txt")
                 val actual = parseResource("tests/parser/saxon-10.0-xpath/TupleField_Multiple.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -351,7 +352,7 @@ private class PluginParserTest : ParserTestCase() {
             fun multiple_compactWhitespace() {
                 val expected = loadResource("tests/parser/saxon-10.0-xpath/TupleField_Multiple_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/saxon-10.0-xpath/TupleField_Multiple_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -359,7 +360,7 @@ private class PluginParserTest : ParserTestCase() {
             fun missingSequenceType() {
                 val expected = loadResource("tests/parser/saxon-10.0-xpath/TupleField_MissingSequenceType.txt")
                 val actual = parseResource("tests/parser/saxon-10.0-xpath/TupleField_MissingSequenceType.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
 
@@ -371,7 +372,7 @@ private class PluginParserTest : ParserTestCase() {
             fun optionalFieldName() {
                 val expected = loadResource("tests/parser/saxon-9.9-xpath/TupleField_OptionalFieldName.txt")
                 val actual = parseResource("tests/parser/saxon-9.9-xpath/TupleField_OptionalFieldName.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -379,7 +380,7 @@ private class PluginParserTest : ParserTestCase() {
             fun optionalFieldName_compactWhitespace() {
                 val expected = loadResource("tests/parser/saxon-9.9-xpath/TupleField_OptionalFieldName_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/saxon-9.9-xpath/TupleField_OptionalFieldName_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -387,7 +388,7 @@ private class PluginParserTest : ParserTestCase() {
             fun optionalFieldName_noSequenceType() {
                 val expected = loadResource("tests/parser/saxon-9.9-xpath/TupleField_OptionalFieldName_NoSequenceType.txt")
                 val actual = parseResource("tests/parser/saxon-9.9-xpath/TupleField_OptionalFieldName_NoSequenceType.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
 
@@ -399,7 +400,7 @@ private class PluginParserTest : ParserTestCase() {
             fun fieldName() {
                 val expected = loadResource("tests/parser/saxon-10.0-xpath/TupleField_StringLiteralFieldName.txt")
                 val actual = parseResource("tests/parser/saxon-10.0-xpath/TupleField_StringLiteralFieldName.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -407,7 +408,7 @@ private class PluginParserTest : ParserTestCase() {
             fun fieldName_compactWhitespace() {
                 val expected = loadResource("tests/parser/saxon-10.0-xpath/TupleField_StringLiteralFieldName_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/saxon-10.0-xpath/TupleField_StringLiteralFieldName_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
     }
@@ -420,7 +421,7 @@ private class PluginParserTest : ParserTestCase() {
         fun singleOrElse() {
             val expected = loadResource("tests/parser/saxon-9.9-xpath/OrExpr_SingleOrElse.txt")
             val actual = parseResource("tests/parser/saxon-9.9-xpath/OrExpr_SingleOrElse.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -428,7 +429,7 @@ private class PluginParserTest : ParserTestCase() {
         fun missingAndExpr() {
             val expected = loadResource("tests/parser/saxon-9.9-xpath/OrExpr_MissingAndExpr.txt")
             val actual = parseResource("tests/parser/saxon-9.9-xpath/OrExpr_MissingAndExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -436,7 +437,7 @@ private class PluginParserTest : ParserTestCase() {
         fun multipleOrElse() {
             val expected = loadResource("tests/parser/saxon-9.9-xpath/OrExpr_MultipleOrElse.txt")
             val actual = parseResource("tests/parser/saxon-9.9-xpath/OrExpr_MultipleOrElse.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -444,7 +445,7 @@ private class PluginParserTest : ParserTestCase() {
         fun mixedOrElseFirst() {
             val expected = loadResource("tests/parser/saxon-9.9-xpath/OrExpr_Mixed_OrElseFirst.txt")
             val actual = parseResource("tests/parser/saxon-9.9-xpath/OrExpr_Mixed_OrElseFirst.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -452,7 +453,7 @@ private class PluginParserTest : ParserTestCase() {
         fun mixedOrElseLast() {
             val expected = loadResource("tests/parser/saxon-9.9-xpath/OrExpr_Mixed_OrElseLast.txt")
             val actual = parseResource("tests/parser/saxon-9.9-xpath/OrExpr_Mixed_OrElseLast.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -467,7 +468,7 @@ private class PluginParserTest : ParserTestCase() {
             fun simpleInlineFunctionExpr() {
                 val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-5/SimpleInlineFunctionExpr.txt")
                 val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-5/SimpleInlineFunctionExpr.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -475,7 +476,7 @@ private class PluginParserTest : ParserTestCase() {
             fun simpleInlineFunctionExpr_CompactWhitespace() {
                 val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-5/SimpleInlineFunctionExpr_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-5/SimpleInlineFunctionExpr_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -483,7 +484,7 @@ private class PluginParserTest : ParserTestCase() {
             fun missingExpr() {
                 val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-5/SimpleInlineFunctionExpr_MissingExpr.txt")
                 val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-5/SimpleInlineFunctionExpr_MissingExpr.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -491,7 +492,7 @@ private class PluginParserTest : ParserTestCase() {
             fun missingClosingBrace() {
                 val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-5/SimpleInlineFunctionExpr_MissingClosingBrace.txt")
                 val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-5/SimpleInlineFunctionExpr_MissingClosingBrace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
 
@@ -503,7 +504,7 @@ private class PluginParserTest : ParserTestCase() {
             fun contextItemFunctionExpr() {
                 val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-5/ContextItemFunctionExpr.txt")
                 val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-5/ContextItemFunctionExpr.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -511,7 +512,7 @@ private class PluginParserTest : ParserTestCase() {
             fun contextItemFunctionExpr_CompactWhitespace() {
                 val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-5/ContextItemFunctionExpr_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-5/ContextItemFunctionExpr_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -519,7 +520,7 @@ private class PluginParserTest : ParserTestCase() {
             fun missingExpr() {
                 val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-5/ContextItemFunctionExpr_MissingExpr.txt")
                 val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-5/ContextItemFunctionExpr_MissingExpr.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -527,7 +528,7 @@ private class PluginParserTest : ParserTestCase() {
             fun missingClosingBrace() {
                 val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-5/ContextItemFunctionExpr_MissingClosingBrace.txt")
                 val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-5/ContextItemFunctionExpr_MissingClosingBrace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -535,7 +536,7 @@ private class PluginParserTest : ParserTestCase() {
             fun spaceBetweenDotAndBrace() {
                 val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-5/ContextItemFunctionExpr_SpaceBetweenDotAndBrace.txt")
                 val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-5/ContextItemFunctionExpr_SpaceBetweenDotAndBrace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
     }
@@ -548,7 +549,7 @@ private class PluginParserTest : ParserTestCase() {
         fun ternaryIf() {
             val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-2/TernaryIfExpr.txt")
             val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-2/TernaryIfExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -556,7 +557,7 @@ private class PluginParserTest : ParserTestCase() {
         fun ternaryIf_CompactWhitespace() {
             val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-2/TernaryIfExpr_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-2/TernaryIfExpr_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Nested
@@ -567,7 +568,7 @@ private class PluginParserTest : ParserTestCase() {
             fun missingThenExpr() {
                 val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-2/TernaryIfExpr_MissingThenExpr.txt")
                 val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-2/TernaryIfExpr_MissingThenExpr.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -575,7 +576,7 @@ private class PluginParserTest : ParserTestCase() {
             fun missingElseOperator() {
                 val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-2/TernaryIfExpr_MissingElseOperator.txt")
                 val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-2/TernaryIfExpr_MissingElseOperator.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -583,7 +584,7 @@ private class PluginParserTest : ParserTestCase() {
             fun missingElseExpr() {
                 val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-2/TernaryIfExpr_MissingElseExpr.txt")
                 val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-2/TernaryIfExpr_MissingElseExpr.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
     }
@@ -596,7 +597,7 @@ private class PluginParserTest : ParserTestCase() {
         fun elvis() {
             val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-2/ElvisExpr.txt")
             val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-2/ElvisExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -604,7 +605,7 @@ private class PluginParserTest : ParserTestCase() {
         fun elvis_CompactWhitespace() {
             val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-2/ElvisExpr_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-2/ElvisExpr_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Nested
@@ -615,7 +616,7 @@ private class PluginParserTest : ParserTestCase() {
             fun missingElseExpr() {
                 val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-2/ElvisExpr_MissingElseExpr.txt")
                 val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-2/ElvisExpr_MissingElseExpr.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
     }
@@ -628,7 +629,7 @@ private class PluginParserTest : ParserTestCase() {
         fun ifWithoutElse() {
             val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-7/IfExpr_WithoutElse.txt")
             val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-7/IfExpr_WithoutElse.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -636,7 +637,7 @@ private class PluginParserTest : ParserTestCase() {
         fun ifWithoutElse_CompactWhitespace() {
             val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-7/IfExpr_WithoutElse_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-7/IfExpr_WithoutElse_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -644,7 +645,7 @@ private class PluginParserTest : ParserTestCase() {
         fun ifWithoutElse_Nested() {
             val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-7/IfExpr_WithoutElse_Nested.txt")
             val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-7/IfExpr_WithoutElse_Nested.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -656,7 +657,7 @@ private class PluginParserTest : ParserTestCase() {
         fun untyped() {
             val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-1/ParamList_Variadic_Untyped.txt")
             val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-1/ParamList_Variadic_Untyped.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -664,7 +665,7 @@ private class PluginParserTest : ParserTestCase() {
         fun untyped_compactWhitespace() {
             val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-1/ParamList_Variadic_Untyped_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-1/ParamList_Variadic_Untyped_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -672,7 +673,7 @@ private class PluginParserTest : ParserTestCase() {
         fun multipleParams() {
             val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-1/ParamList_Variadic_Multiple_LastParam.txt")
             val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-1/ParamList_Variadic_Multiple_LastParam.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -684,7 +685,7 @@ private class PluginParserTest : ParserTestCase() {
         fun prefix() {
             val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-13/ElementNameOrWildcard_WildcardPrefix.txt")
             val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-13/ElementNameOrWildcard_WildcardPrefix.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -692,7 +693,7 @@ private class PluginParserTest : ParserTestCase() {
         fun localName() {
             val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-13/ElementNameOrWildcard_WildcardLocalName.txt")
             val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-13/ElementNameOrWildcard_WildcardLocalName.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -700,7 +701,7 @@ private class PluginParserTest : ParserTestCase() {
         fun uriQualifiedName() {
             val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-13/ElementNameOrWildcard_WildcardURIQualifiedName.txt")
             val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-13/ElementNameOrWildcard_WildcardURIQualifiedName.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -712,7 +713,7 @@ private class PluginParserTest : ParserTestCase() {
         fun prefix() {
             val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-13/AttribNameOrWildcard_WildcardPrefix.txt")
             val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-13/AttribNameOrWildcard_WildcardPrefix.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -720,7 +721,7 @@ private class PluginParserTest : ParserTestCase() {
         fun localName() {
             val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-13/AttribNameOrWildcard_WildcardLocalName.txt")
             val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-13/AttribNameOrWildcard_WildcardLocalName.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -728,7 +729,7 @@ private class PluginParserTest : ParserTestCase() {
         fun uriQualifiedName() {
             val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-13/AttribNameOrWildcard_WildcardURIQualifiedName.txt")
             val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-13/AttribNameOrWildcard_WildcardURIQualifiedName.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -740,7 +741,7 @@ private class PluginParserTest : ParserTestCase() {
         fun single() {
             val expected = loadResource("tests/parser/saxon-10.0-xpath/OtherwiseExpr.txt")
             val actual = parseResource("tests/parser/saxon-10.0-xpath/OtherwiseExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -748,7 +749,7 @@ private class PluginParserTest : ParserTestCase() {
         fun missingUnionExpr() {
             val expected = loadResource("tests/parser/saxon-10.0-xpath/OtherwiseExpr_MissingUnionExpr.txt")
             val actual = parseResource("tests/parser/saxon-10.0-xpath/OtherwiseExpr_MissingUnionExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -756,7 +757,7 @@ private class PluginParserTest : ParserTestCase() {
         fun multiple() {
             val expected = loadResource("tests/parser/saxon-10.0-xpath/OtherwiseExpr_Multiple.txt")
             val actual = parseResource("tests/parser/saxon-10.0-xpath/OtherwiseExpr_Multiple.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -771,7 +772,7 @@ private class PluginParserTest : ParserTestCase() {
             fun typeAlias() {
                 val expected = loadResource("tests/parser/saxon-9.8-xpath/TypeAlias.txt")
                 val actual = parseResource("tests/parser/saxon-9.8-xpath/TypeAlias.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -779,7 +780,7 @@ private class PluginParserTest : ParserTestCase() {
             fun typeAlias_compactWhitespace() {
                 val expected = loadResource("tests/parser/saxon-9.8-xpath/TypeAlias_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/saxon-9.8-xpath/TypeAlias_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -787,7 +788,7 @@ private class PluginParserTest : ParserTestCase() {
             fun missingEQName() {
                 val expected = loadResource("tests/parser/saxon-9.8-xpath/TypeAlias_MissingEQName.txt")
                 val actual = parseResource("tests/parser/saxon-9.8-xpath/TypeAlias_MissingEQName.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
 
@@ -799,7 +800,7 @@ private class PluginParserTest : ParserTestCase() {
             fun typeAlias() {
                 val expected = loadResource("tests/parser/saxon-10.0-xpath/TypeAlias.txt")
                 val actual = parseResource("tests/parser/saxon-10.0-xpath/TypeAlias.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -807,7 +808,7 @@ private class PluginParserTest : ParserTestCase() {
             fun typeAlias_compactWhitespace() {
                 val expected = loadResource("tests/parser/saxon-10.0-xpath/TypeAlias_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/saxon-10.0-xpath/TypeAlias_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -815,7 +816,7 @@ private class PluginParserTest : ParserTestCase() {
             fun missingEQName() {
                 val expected = loadResource("tests/parser/saxon-10.0-xpath/TypeAlias_MissingEQName.txt")
                 val actual = parseResource("tests/parser/saxon-10.0-xpath/TypeAlias_MissingEQName.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -823,7 +824,7 @@ private class PluginParserTest : ParserTestCase() {
             fun missingClosingParenthesis() {
                 val expected = loadResource("tests/parser/saxon-10.0-xpath/TypeAlias_MissingClosingParenthesis.txt")
                 val actual = parseResource("tests/parser/saxon-10.0-xpath/TypeAlias_MissingClosingParenthesis.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
     }
@@ -836,7 +837,7 @@ private class PluginParserTest : ParserTestCase() {
         fun lambdaFunctionExpr() {
             val expected = loadResource("tests/parser/saxon-10.0-xpath/LambdaFunctionExpr.txt")
             val actual = parseResource("tests/parser/saxon-10.0-xpath/LambdaFunctionExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -844,7 +845,7 @@ private class PluginParserTest : ParserTestCase() {
         fun lambdaFunctionExpr_CompactWhitespace() {
             val expected = loadResource("tests/parser/saxon-10.0-xpath/LambdaFunctionExpr_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/saxon-10.0-xpath/LambdaFunctionExpr_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -852,7 +853,7 @@ private class PluginParserTest : ParserTestCase() {
         fun spaceBetweenUnderscoreAndBrace() {
             val expected = loadResource("tests/parser/saxon-10.0-xpath/LambdaFunctionExpr_SpaceBetweenUnderscoreAndBrace.txt")
             val actual = parseResource("tests/parser/saxon-10.0-xpath/LambdaFunctionExpr_SpaceBetweenUnderscoreAndBrace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -860,7 +861,7 @@ private class PluginParserTest : ParserTestCase() {
         fun missingExpr() {
             val expected = loadResource("tests/parser/saxon-10.0-xpath/LambdaFunctionExpr_MissingExpr.txt")
             val actual = parseResource("tests/parser/saxon-10.0-xpath/LambdaFunctionExpr_MissingExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -868,7 +869,7 @@ private class PluginParserTest : ParserTestCase() {
         fun missingClosingBrace() {
             val expected = loadResource("tests/parser/saxon-10.0-xpath/LambdaFunctionExpr_MissingClosingBrace.txt")
             val actual = parseResource("tests/parser/saxon-10.0-xpath/LambdaFunctionExpr_MissingClosingBrace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -880,7 +881,7 @@ private class PluginParserTest : ParserTestCase() {
         fun paramRef() {
             val expected = loadResource("tests/parser/saxon-10.0-xpath/PrimaryExpr_ParamRef.txt")
             val actual = parseResource("tests/parser/saxon-10.0-xpath/PrimaryExpr_ParamRef.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -888,7 +889,7 @@ private class PluginParserTest : ParserTestCase() {
         fun compactWhitespace() {
             val expected = loadResource("tests/parser/saxon-10.0-xpath/PrimaryExpr_ParamRef_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/saxon-10.0-xpath/PrimaryExpr_ParamRef_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -900,7 +901,7 @@ private class PluginParserTest : ParserTestCase() {
         fun paramRef() {
             val expected = loadResource("tests/parser/saxon-10.0-xpath/ArrowFunctionSpecifier_ParamRef.txt")
             val actual = parseResource("tests/parser/saxon-10.0-xpath/ArrowFunctionSpecifier_ParamRef.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -908,7 +909,7 @@ private class PluginParserTest : ParserTestCase() {
         fun compactWhitespace() {
             val expected = loadResource("tests/parser/saxon-10.0-xpath/ArrowFunctionSpecifier_ParamRef_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/saxon-10.0-xpath/ArrowFunctionSpecifier_ParamRef_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -920,7 +921,7 @@ private class PluginParserTest : ParserTestCase() {
         fun singleBinding() {
             val expected = loadResource("tests/parser/saxon-10.0-xpath/ForMemberClause_SingleBinding.txt")
             val actual = parseResource("tests/parser/saxon-10.0-xpath/ForMemberClause_SingleBinding.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -928,7 +929,7 @@ private class PluginParserTest : ParserTestCase() {
         fun singleBinding_compactWhitespace() {
             val expected = loadResource("tests/parser/saxon-10.0-xpath/ForMemberClause_SingleBinding_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/saxon-10.0-xpath/ForMemberClause_SingleBinding_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -936,7 +937,7 @@ private class PluginParserTest : ParserTestCase() {
         fun multipleBindings() {
             val expected = loadResource("tests/parser/saxon-10.0-xpath/ForMemberClause_MultipleBindings.txt")
             val actual = parseResource("tests/parser/saxon-10.0-xpath/ForMemberClause_MultipleBindings.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -944,7 +945,7 @@ private class PluginParserTest : ParserTestCase() {
         fun multipleBindings_compactWhitespace() {
             val expected = loadResource("tests/parser/saxon-10.0-xpath/ForMemberClause_MultipleBindings_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/saxon-10.0-xpath/ForMemberClause_MultipleBindings_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -952,7 +953,7 @@ private class PluginParserTest : ParserTestCase() {
         fun missingForBinding() {
             val expected = loadResource("tests/parser/saxon-10.0-xpath/ForMemberClause_MissingForBinding.txt")
             val actual = parseResource("tests/parser/saxon-10.0-xpath/ForMemberClause_MissingForBinding.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 }

@@ -19,6 +19,7 @@ import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import uk.co.reecedunn.intellij.plugin.core.psi.toPsiTreeString
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
@@ -48,7 +49,7 @@ private class XslNameTestsTest : ParserTestCase(NameTests.ParserDefinition(), XP
         fun one() {
             val expected = loadResource("tests/parser/schema-type/nametests/Wildcard.txt")
             val actual = parseResource("tests/parser/schema-type/nametests/Wildcard.input")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -56,7 +57,7 @@ private class XslNameTestsTest : ParserTestCase(NameTests.ParserDefinition(), XP
         fun multiple() {
             val expected = loadResource("tests/parser/schema-type/nametests/Wildcard_List.txt")
             val actual = parseResource("tests/parser/schema-type/nametests/Wildcard_List.input")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -68,7 +69,7 @@ private class XslNameTestsTest : ParserTestCase(NameTests.ParserDefinition(), XP
         fun one() {
             val expected = loadResource("tests/parser/schema-type/nametests/QName.txt")
             val actual = parseResource("tests/parser/schema-type/eqnames/QName.input")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -76,7 +77,7 @@ private class XslNameTestsTest : ParserTestCase(NameTests.ParserDefinition(), XP
         fun multiple() {
             val expected = loadResource("tests/parser/schema-type/nametests/QName_List.txt")
             val actual = parseResource("tests/parser/schema-type/eqnames/QName_List.input")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -88,7 +89,7 @@ private class XslNameTestsTest : ParserTestCase(NameTests.ParserDefinition(), XP
         fun one() {
             val expected = loadResource("tests/parser/schema-type/nametests/NCName.txt")
             val actual = parseResource("tests/parser/schema-type/eqnames/NCName.input")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -96,7 +97,7 @@ private class XslNameTestsTest : ParserTestCase(NameTests.ParserDefinition(), XP
         fun multiple() {
             val expected = loadResource("tests/parser/schema-type/nametests/NCName_List.txt")
             val actual = parseResource("tests/parser/schema-type/eqnames/NCName_List.input")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -108,7 +109,7 @@ private class XslNameTestsTest : ParserTestCase(NameTests.ParserDefinition(), XP
         fun comment() {
             val expected = loadResource("tests/parser/schema-type/nametests/Comment.txt")
             val actual = parseResource("tests/parser/schema-type/comments/Comment.input")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -116,7 +117,7 @@ private class XslNameTestsTest : ParserTestCase(NameTests.ParserDefinition(), XP
         fun unclosedComment() {
             val expected = loadResource("tests/parser/schema-type/comments/Comment_UnclosedComment.txt")
             val actual = parseResource("tests/parser/schema-type/comments/Comment_UnclosedComment.input")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -124,7 +125,7 @@ private class XslNameTestsTest : ParserTestCase(NameTests.ParserDefinition(), XP
         fun unexpectedCommentEndTag() {
             val expected = loadResource("tests/parser/schema-type/nametests/Comment_UnexpectedCommentEndTag.txt")
             val actual = parseResource("tests/parser/schema-type/comments/Comment_UnexpectedCommentEndTag.input")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 }

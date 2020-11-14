@@ -19,6 +19,7 @@ import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import uk.co.reecedunn.intellij.plugin.core.psi.toPsiTreeString
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
@@ -46,7 +47,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testApplyExpr_Single_SemicolonAtEnd() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/ApplyExpr_Single_SemicolonAtEnd.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Single_SemicolonAtEnd.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -54,7 +55,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testApplyExpr_Single_SemicolonAtEnd_CompactWhitespace() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/ApplyExpr_Single_SemicolonAtEnd_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Single_SemicolonAtEnd_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -62,7 +63,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testApplyExpr_Single_NoSemicolonAtEnd() {
             val expected = loadResource("tests/parser/xquery-1.0/IntegerLiteral.txt")
             val actual = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -70,7 +71,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testApplyExpr_TwoExpr_SemicolonAtEnd() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/ApplyExpr_TwoExpr_SemicolonAtEnd.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_TwoExpr_SemicolonAtEnd.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -78,7 +79,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testApplyExpr_TwoExpr_SemicolonAtEnd_CompactWhitespace() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/ApplyExpr_TwoExpr_SemicolonAtEnd_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_TwoExpr_SemicolonAtEnd_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -86,7 +87,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testApplyExpr_TwoExpr_NoSemicolonAtEnd() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/ApplyExpr_TwoExpr_NoSemicolonAtEnd.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_TwoExpr_NoSemicolonAtEnd.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -94,7 +95,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testApplyExpr_Multiple_SemicolonAtEnd() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/ApplyExpr_Multiple_SemicolonAtEnd.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Multiple_SemicolonAtEnd.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -102,7 +103,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testApplyExpr_Multiple_SemicolonAtEnd_CompactWhitespace() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/ApplyExpr_Multiple_SemicolonAtEnd_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Multiple_SemicolonAtEnd_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -110,7 +111,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testApplyExpr_Multiple_NoSemicolonAtEnd() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/ApplyExpr_Multiple_NoSemicolonAtEnd.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_Multiple_NoSemicolonAtEnd.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -118,7 +119,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testApplyExpr_NoSemicolonBetweenExpr_First() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/ApplyExpr_NoSemicolonBetweenExpr_First.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_NoSemicolonBetweenExpr_First.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -126,7 +127,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testApplyExpr_NoSemicolonBetweenExpr_Last() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/ApplyExpr_NoSemicolonBetweenExpr_Last.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_NoSemicolonBetweenExpr_Last.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -134,7 +135,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testApplyExpr_EmptyStatement() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/ApplyExpr_EmptyStatement.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_EmptyStatement.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -142,7 +143,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testApplyExpr_EmptyMiddleStatement() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/ApplyExpr_EmptyMiddleStatement.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/ApplyExpr_EmptyMiddleStatement.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -154,7 +155,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testQueryBody_Single_SemicolonAtEnd() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/QueryBody_Single_SemicolonAtEnd.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/QueryBody_Single_SemicolonAtEnd.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -162,7 +163,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testQueryBody_Single_SemicolonAtEnd_CompactWhitespace() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/QueryBody_Single_SemicolonAtEnd_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/QueryBody_Single_SemicolonAtEnd_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -170,7 +171,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testQueryBody_Single_NoSemicolonAtEnd() {
             val expected = loadResource("tests/parser/xquery-1.0/IntegerLiteral.txt")
             val actual = parseResource("tests/parser/xquery-1.0/IntegerLiteral.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -178,7 +179,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testQueryBody_TwoExpr_SemicolonAtEnd() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -186,7 +187,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testQueryBody_TwoExpr_SemicolonAtEnd_CompactWhitespace() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_SemicolonAtEnd_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -194,7 +195,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testQueryBody_TwoExpr_NoSemicolonAtEnd() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_NoSemicolonAtEnd.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/QueryBody_TwoExpr_NoSemicolonAtEnd.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -202,7 +203,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testQueryBody_Multiple_SemicolonAtEnd() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/QueryBody_Multiple_SemicolonAtEnd.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/QueryBody_Multiple_SemicolonAtEnd.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -210,7 +211,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testQueryBody_Multiple_SemicolonAtEnd_CompactWhitespace() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/QueryBody_Multiple_SemicolonAtEnd_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/QueryBody_Multiple_SemicolonAtEnd_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -218,7 +219,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testQueryBody_Multiple_NoSemicolonAtEnd() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/QueryBody_Multiple_NoSemicolonAtEnd.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/QueryBody_Multiple_NoSemicolonAtEnd.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -226,7 +227,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testQueryBody_NoSemicolonBetweenExpr_First() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/QueryBody_NoSemicolonBetweenExpr_First.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/QueryBody_NoSemicolonBetweenExpr_First.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -234,7 +235,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testQueryBody_NoSemicolonBetweenExpr_Last() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/QueryBody_NoSemicolonBetweenExpr_Last.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/QueryBody_NoSemicolonBetweenExpr_Last.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -242,7 +243,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testQueryBody_EmptyStatement() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/QueryBody_EmptyStatement.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/QueryBody_EmptyStatement.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -250,7 +251,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testQueryBody_EmptyMiddleStatement() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/QueryBody_EmptyMiddleStatement.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/QueryBody_EmptyMiddleStatement.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -262,7 +263,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testVarDecl_Assignable() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/VarDecl_Assignable.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/VarDecl_Assignable.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -270,7 +271,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testVarDecl_Unassignable() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/VarDecl_Unassignable.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/VarDecl_Unassignable.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -282,7 +283,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testFunctionDecl() {
             val expected = loadResource("tests/parser/xquery-1.0/FunctionDecl.txt")
             val actual = parseResource("tests/parser/xquery-1.0/FunctionDecl.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -290,7 +291,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testFunctionDecl_EnclosedExpr() {
             val expected = loadResource("tests/parser/xquery-1.0/EnclosedExpr.txt")
             val actual = parseResource("tests/parser/xquery-1.0/EnclosedExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -298,7 +299,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testFunctionDecl_Simple() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/FunctionDecl_Simple.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/FunctionDecl_Simple.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -306,7 +307,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testFunctionDecl_Simple_EnclosedExpr() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/FunctionDecl_Simple_EnclosedExpr.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/FunctionDecl_Simple_EnclosedExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -314,7 +315,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testFunctionDecl_Updating() {
             val expected = loadResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating.txt")
             val actual = parseResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -322,7 +323,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testFunctionDecl_Updating_EnclosedExpr() {
             val expected = loadResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating_EnclosedExpr.txt")
             val actual = parseResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating_EnclosedExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -330,7 +331,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testFunctionDecl_Sequential() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/FunctionDecl_Sequential.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/FunctionDecl_Sequential.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -338,7 +339,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testFunctionDecl_Sequential_Block() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/FunctionDecl_Sequential_Block.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/FunctionDecl_Sequential_Block.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -350,7 +351,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testBlockExpr() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/BlockExpr.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/BlockExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -358,7 +359,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testBlockExpr_CompactWhitespace() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/BlockExpr_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/BlockExpr_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -366,7 +367,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testBlockExpr_MissingOpeningBrace() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/BlockExpr_MissingOpeningBrace.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/BlockExpr_MissingOpeningBrace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -374,7 +375,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testBlockExpr_MissingBlockBody() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/BlockExpr_MissingBlockBody.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/BlockExpr_MissingBlockBody.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -382,7 +383,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testBlockExpr_MissingClosingBrace() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/BlockExpr_MissingClosingBrace.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/BlockExpr_MissingClosingBrace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -394,7 +395,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testBlockDecls_Empty() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/FunctionDecl_Sequential_Block.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/FunctionDecl_Sequential_Block.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -402,7 +403,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testBlockDecls_Single() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/BlockVarDecl.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -410,7 +411,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testBlockDecls_Multiple() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/BlockDecls_Multiple.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/BlockDecls_Multiple.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -422,7 +423,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testBlockDecls_WhileBody_Empty() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/WhileExpr.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/WhileExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -430,7 +431,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testBlockDecls_WhileBody_Single() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/WhileBody_BlockVarDecl.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/WhileBody_BlockVarDecl.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -438,7 +439,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testBlockDecls_WhileBody_Multiple() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/WhileBody_BlockVarDecl_Multiple.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/WhileBody_BlockVarDecl_Multiple.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -450,7 +451,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testBlockVarDecl() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/BlockVarDecl.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -458,7 +459,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testBlockVarDecl_CompactWhitespace() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/BlockVarDecl_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -466,7 +467,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testBlockVarDecl_MissingVarIndicator() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/BlockVarDecl_MissingVarIndicator.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl_MissingVarIndicator.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -474,7 +475,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testBlockVarDecl_MissingVarName() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/BlockVarDecl_MissingVarName.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl_MissingVarName.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -482,7 +483,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testBlockVarDecl_MissingSemicolon() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/BlockVarDecl_MissingSemicolon.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl_MissingSemicolon.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -490,7 +491,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testBlockVarDecl_DeclareAsFunctionCall_NCName() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/BlockVarDecl_DeclareAsFunctionCall_NCName.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl_DeclareAsFunctionCall_NCName.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -498,7 +499,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testBlockVarDecl_DeclareAsFunctionCall_QNamePrefix() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/BlockVarDecl_DeclareAsFunctionCall_QNamePrefix.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl_DeclareAsFunctionCall_QNamePrefix.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -506,7 +507,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testBlockVarDecl_TypeDeclaration() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/BlockVarDecl_TypeDeclaration.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl_TypeDeclaration.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -514,7 +515,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testBlockVarDecl_TypeDeclaration_MissingSemicolon() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/BlockVarDecl_TypeDeclaration_MissingSemicolon.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl_TypeDeclaration_MissingSemicolon.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -522,7 +523,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testBlockVarDecl_Assignment() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/BlockVarDecl_Assignment.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl_Assignment.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -530,7 +531,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testBlockVarDecl_Assignment_Equals() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/BlockVarDecl_Assignment_Equals.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl_Assignment_Equals.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -538,7 +539,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testBlockVarDecl_Assignment_MissingExpr() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/BlockVarDecl_Assignment_MissingExpr.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl_Assignment_MissingExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -546,7 +547,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testBlockVarDecl_MultipleVars() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/BlockVarDecl_MultipleVars.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl_MultipleVars.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -554,7 +555,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testBlockVarDecl_MultipleVars_NothingAfterComma() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/BlockVarDecl_MultipleVars_NothingAfterComma.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/BlockVarDecl_MultipleVars_NothingAfterComma.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -566,7 +567,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testAssignmentExpr() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/AssignmentExpr.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/AssignmentExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -574,7 +575,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testAssignmentExpr_CompactWhitespace() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/AssignmentExpr_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/AssignmentExpr_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -582,7 +583,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testAssignmentExpr_MissingVarName() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/AssignmentExpr_MissingVarName.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/AssignmentExpr_MissingVarName.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -590,7 +591,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testAssignmentExpr_MissingExpr() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/AssignmentExpr_MissingExpr.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/AssignmentExpr_MissingExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -598,7 +599,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testAssignmentExpr_Nested() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/AssignmentExpr_Nested.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/AssignmentExpr_Nested.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -610,7 +611,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testExitExpr() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/ExitExpr.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/ExitExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -618,7 +619,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testExitExpr_CompactWhitespace() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/ExitExpr_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/ExitExpr_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -626,7 +627,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testExitExpr_MissingReturningKeyword() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/ExitExpr_MissingReturningKeyword.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/ExitExpr_MissingReturningKeyword.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -634,7 +635,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testExitExpr_MissingExpr() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/ExitExpr_MissingExpr.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/ExitExpr_MissingExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -646,7 +647,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testWhileExpr() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/WhileExpr.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/WhileExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -654,7 +655,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testWhileExpr_CompactWhitespace() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/WhileExpr_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/WhileExpr_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -662,7 +663,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testWhileExpr_MissingConditionExpr() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/WhileExpr_MissingConditionExpr.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/WhileExpr_MissingConditionExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -670,7 +671,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testWhileExpr_MissingClosingParenthesis() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/WhileExpr_MissingClosingParenthesis.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/WhileExpr_MissingClosingParenthesis.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -678,7 +679,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testFunctionCall_WhileKeyword_NoParams() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/FunctionCall_WhileKeyword_NoParams.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/FunctionCall_WhileKeyword_NoParams.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -686,7 +687,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testFunctionCall_WhileKeyword_SingleParam() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/FunctionCall_WhileKeyword_SingleParam.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/FunctionCall_WhileKeyword_SingleParam.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -694,7 +695,7 @@ private class ScriptingParserTest : ParserTestCase() {
         fun testFunctionCall_WhileKeyword_MultipleParams() {
             val expected = loadResource("tests/parser/xquery-sx-1.0/FunctionCall_WhileKeyword_MultipleParams.txt")
             val actual = parseResource("tests/parser/xquery-sx-1.0/FunctionCall_WhileKeyword_MultipleParams.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 }

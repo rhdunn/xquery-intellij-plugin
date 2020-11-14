@@ -65,7 +65,6 @@ import com.intellij.util.CachedValuesManagerImpl
 import com.intellij.util.messages.MessageBus
 import org.jetbrains.annotations.NonNls
 import uk.co.reecedunn.intellij.plugin.core.psi.document
-import uk.co.reecedunn.intellij.plugin.core.psi.toPsiTreeString
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.editor.MockEditorFactoryEx
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parameterInfo.MockCreateParameterInfoContext
@@ -225,8 +224,6 @@ abstract class ParsingTestCase<File : PsiFile>(
         if (viewProvider == null) viewProvider = SingleRootFileViewProvider(manager, file, physical)
         return viewProvider
     }
-
-    fun prettyPrintASTNode(file: PsiFile): String = file.toPsiTreeString()
 
     @Suppress("UNCHECKED_CAST")
     fun parseText(text: String): File = createVirtualFile("testcase.xqy", text).toPsiFile(myProject) as File

@@ -19,6 +19,7 @@ import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import uk.co.reecedunn.intellij.plugin.core.psi.toPsiTreeString
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
@@ -48,7 +49,7 @@ private class XslAVTTest : ParserTestCase(ValueTemplate.ParserDefinition(), XPat
         fun escapedCharacters() {
             val expected = loadResource("tests/parser/schema-type/avt/AttributeValueTemplate_EscapedChar.txt")
             val actual = parseResource("tests/parser/schema-type/avt/AttributeValueTemplate_EscapedChar.input")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -56,7 +57,7 @@ private class XslAVTTest : ParserTestCase(ValueTemplate.ParserDefinition(), XPat
         fun unpairedRightBrace() {
             val expected = loadResource("tests/parser/schema-type/avt/AttributeValueTemplate_UnpairedRightBrace.txt")
             val actual = parseResource("tests/parser/schema-type/avt/AttributeValueTemplate_UnpairedRightBrace.input")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -65,7 +66,7 @@ private class XslAVTTest : ParserTestCase(ValueTemplate.ParserDefinition(), XPat
     fun valueContentChar() {
         val expected = loadResource("tests/parser/schema-type/avt/AttrContentChar.txt")
         val actual = parseResource("tests/parser/schema-type/avt/AttrContentChar.input")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+        assertThat(actual.toPsiTreeString(), `is`(expected))
     }
 
     @Nested
@@ -76,7 +77,7 @@ private class XslAVTTest : ParserTestCase(ValueTemplate.ParserDefinition(), XPat
         fun afterText() {
             val expected = loadResource("tests/parser/schema-type/avt/EnclosedExpr.txt")
             val actual = parseResource("tests/parser/schema-type/avt/EnclosedExpr.input")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -84,7 +85,7 @@ private class XslAVTTest : ParserTestCase(ValueTemplate.ParserDefinition(), XPat
         fun enclosedExprOnly() {
             val expected = loadResource("tests/parser/schema-type/avt/EnclosedExpr_Only.txt")
             val actual = parseResource("tests/parser/schema-type/avt/EnclosedExpr_Only.input")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 }

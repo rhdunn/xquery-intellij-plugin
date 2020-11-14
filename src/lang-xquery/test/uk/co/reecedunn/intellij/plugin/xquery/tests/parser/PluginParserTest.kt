@@ -19,6 +19,7 @@ import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import uk.co.reecedunn.intellij.plugin.core.psi.toPsiTreeString
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
@@ -46,7 +47,7 @@ private class PluginParserTest : ParserTestCase() {
         fun singleAndAlso() {
             val expected = loadResource("tests/parser/saxon-9.9/AndExpr_SingleAndAlso.txt")
             val actual = parseResource("tests/parser/saxon-9.9/AndExpr_SingleAndAlso.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -54,7 +55,7 @@ private class PluginParserTest : ParserTestCase() {
         fun missingUpdateExpr() {
             val expected = loadResource("tests/parser/saxon-9.9/AndExpr_MissingUpdateExpr.txt")
             val actual = parseResource("tests/parser/saxon-9.9/AndExpr_MissingUpdateExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -62,7 +63,7 @@ private class PluginParserTest : ParserTestCase() {
         fun multipleAndAlso() {
             val expected = loadResource("tests/parser/saxon-9.9/AndExpr_MultipleAndAlso.txt")
             val actual = parseResource("tests/parser/saxon-9.9/AndExpr_MultipleAndAlso.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -70,7 +71,7 @@ private class PluginParserTest : ParserTestCase() {
         fun mixedAndAlsoFirst() {
             val expected = loadResource("tests/parser/saxon-9.9/AndExpr_Mixed_AndAlsoFirst.txt")
             val actual = parseResource("tests/parser/saxon-9.9/AndExpr_Mixed_AndAlsoFirst.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -78,7 +79,7 @@ private class PluginParserTest : ParserTestCase() {
         fun mixedAndAlsoLast() {
             val expected = loadResource("tests/parser/saxon-9.9/AndExpr_Mixed_AndAlsoLast.txt")
             val actual = parseResource("tests/parser/saxon-9.9/AndExpr_Mixed_AndAlsoLast.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -90,7 +91,7 @@ private class PluginParserTest : ParserTestCase() {
         fun updateExpr() {
             val expected = loadResource("tests/parser/basex-7.8/UpdateExpr.txt")
             val actual = parseResource("tests/parser/basex-7.8/UpdateExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -98,7 +99,7 @@ private class PluginParserTest : ParserTestCase() {
         fun missingExpr() {
             val expected = loadResource("tests/parser/basex-7.8/UpdateExpr_MissingExpr.txt")
             val actual = parseResource("tests/parser/basex-7.8/UpdateExpr_MissingExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -106,7 +107,7 @@ private class PluginParserTest : ParserTestCase() {
         fun multiple() {
             val expected = loadResource("tests/parser/basex-7.8/UpdateExpr_Multiple.txt")
             val actual = parseResource("tests/parser/basex-7.8/UpdateExpr_Multiple.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -114,7 +115,7 @@ private class PluginParserTest : ParserTestCase() {
         fun block() {
             val expected = loadResource("tests/parser/basex-8.5/UpdateExpr.txt")
             val actual = parseResource("tests/parser/basex-8.5/UpdateExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -122,7 +123,7 @@ private class PluginParserTest : ParserTestCase() {
         fun block_MissingExpr() {
             val expected = loadResource("tests/parser/basex-8.5/UpdateExpr_MissingExpr.txt")
             val actual = parseResource("tests/parser/basex-8.5/UpdateExpr_MissingExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -130,7 +131,7 @@ private class PluginParserTest : ParserTestCase() {
         fun block_MissingClosingBrace() {
             val expected = loadResource("tests/parser/basex-8.5/UpdateExpr_MissingClosingBrace.txt")
             val actual = parseResource("tests/parser/basex-8.5/UpdateExpr_MissingClosingBrace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -138,7 +139,7 @@ private class PluginParserTest : ParserTestCase() {
         fun block_Multiple() {
             val expected = loadResource("tests/parser/basex-8.5/UpdateExpr_Multiple.txt")
             val actual = parseResource("tests/parser/basex-8.5/UpdateExpr_Multiple.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -150,7 +151,7 @@ private class PluginParserTest : ParserTestCase() {
         fun fuzzyOption() {
             val expected = loadResource("tests/parser/basex-6.1/FTFuzzyOption.txt")
             val actual = parseResource("tests/parser/basex-6.1/FTFuzzyOption.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -158,7 +159,7 @@ private class PluginParserTest : ParserTestCase() {
         fun fuzzyOption_MissingUsingKeyword() {
             val expected = loadResource("tests/parser/basex-6.1/FTFuzzyOption_MissingUsingKeyword.txt")
             val actual = parseResource("tests/parser/basex-6.1/FTFuzzyOption_MissingUsingKeyword.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -170,7 +171,7 @@ private class PluginParserTest : ParserTestCase() {
         fun nonDeterministicFunctionCall() {
             val expected = loadResource("tests/parser/basex-8.4/NonDeterministicFunctionCall.txt")
             val actual = parseResource("tests/parser/basex-8.4/NonDeterministicFunctionCall.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -178,7 +179,7 @@ private class PluginParserTest : ParserTestCase() {
         fun nonDeterministicFunctionCall_CompactWhitespace() {
             val expected = loadResource("tests/parser/basex-8.4/NonDeterministicFunctionCall_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/basex-8.4/NonDeterministicFunctionCall_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -186,7 +187,7 @@ private class PluginParserTest : ParserTestCase() {
         fun missingVariableIndicator() {
             val expected = loadResource("tests/parser/basex-8.4/NonDeterministicFunctionCall_MissingVariableIndicator.txt")
             val actual = parseResource("tests/parser/basex-8.4/NonDeterministicFunctionCall_MissingVariableIndicator.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -194,7 +195,7 @@ private class PluginParserTest : ParserTestCase() {
         fun missingArgumentList() {
             val expected = loadResource("tests/parser/basex-8.4/NonDeterministicFunctionCall_MissingArgumentList.txt")
             val actual = parseResource("tests/parser/basex-8.4/NonDeterministicFunctionCall_MissingArgumentList.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -206,7 +207,7 @@ private class PluginParserTest : ParserTestCase() {
         fun mapConstructorEntry() {
             val expected = loadResource("tests/parser/saxon-9.4/MapConstructorEntry.txt")
             val actual = parseResource("tests/parser/saxon-9.4/MapConstructorEntry.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -214,7 +215,7 @@ private class PluginParserTest : ParserTestCase() {
         fun mapConstructorEntry_CompactWhitespace() {
             val expected = loadResource("tests/parser/saxon-9.4/MapConstructorEntry_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/saxon-9.4/MapConstructorEntry_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -222,7 +223,7 @@ private class PluginParserTest : ParserTestCase() {
         fun mapConstructorEntry_MissingSeparator() {
             val expected = loadResource("tests/parser/saxon-9.4/MapConstructorEntry_MissingSeparator.txt")
             val actual = parseResource("tests/parser/saxon-9.4/MapConstructorEntry_MissingSeparator.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -230,7 +231,7 @@ private class PluginParserTest : ParserTestCase() {
         fun mapConstructorEntry_MissingValueExpr() {
             val expected = loadResource("tests/parser/saxon-9.4/MapConstructorEntry_MissingValueExpr.txt")
             val actual = parseResource("tests/parser/saxon-9.4/MapConstructorEntry_MissingValueExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -238,7 +239,7 @@ private class PluginParserTest : ParserTestCase() {
         fun mapConstructorEntry_Multiple() {
             val expected = loadResource("tests/parser/saxon-9.4/MapConstructorEntry_Multiple.txt")
             val actual = parseResource("tests/parser/saxon-9.4/MapConstructorEntry_Multiple.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -246,7 +247,7 @@ private class PluginParserTest : ParserTestCase() {
         fun mapConstructorEntry_Multiple_CompactWhitespace() {
             val expected = loadResource("tests/parser/saxon-9.4/MapConstructorEntry_Multiple_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/saxon-9.4/MapConstructorEntry_Multiple_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -254,7 +255,7 @@ private class PluginParserTest : ParserTestCase() {
         fun mapConstructorEntry_Multiple_MissingEntry() {
             val expected = loadResource("tests/parser/saxon-9.4/MapConstructorEntry_Multiple_MissingEntry.txt")
             val actual = parseResource("tests/parser/saxon-9.4/MapConstructorEntry_Multiple_MissingEntry.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -266,7 +267,7 @@ private class PluginParserTest : ParserTestCase() {
         fun typeDecl() {
             val expected = loadResource("tests/parser/saxon-9.8/TypeDecl.txt")
             val actual = parseResource("tests/parser/saxon-9.8/TypeDecl.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -274,7 +275,7 @@ private class PluginParserTest : ParserTestCase() {
         fun typeDecl_CompactWhitespace() {
             val expected = loadResource("tests/parser/saxon-9.8/TypeDecl_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/saxon-9.8/TypeDecl_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -282,7 +283,7 @@ private class PluginParserTest : ParserTestCase() {
         fun missingQName() {
             val expected = loadResource("tests/parser/saxon-9.8/TypeDecl_MissingQName.txt")
             val actual = parseResource("tests/parser/saxon-9.8/TypeDecl_MissingQName.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -290,7 +291,7 @@ private class PluginParserTest : ParserTestCase() {
         fun missingEquals() {
             val expected = loadResource("tests/parser/saxon-9.8/TypeDecl_MissingEquals.txt")
             val actual = parseResource("tests/parser/saxon-9.8/TypeDecl_MissingEquals.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -298,7 +299,7 @@ private class PluginParserTest : ParserTestCase() {
         fun missingItemType() {
             val expected = loadResource("tests/parser/saxon-9.8/TypeDecl_MissingItemType.txt")
             val actual = parseResource("tests/parser/saxon-9.8/TypeDecl_MissingItemType.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -306,7 +307,7 @@ private class PluginParserTest : ParserTestCase() {
         fun assignEquals() {
             val expected = loadResource("tests/parser/saxon-9.8/TypeDecl_AssignEquals.txt")
             val actual = parseResource("tests/parser/saxon-9.8/TypeDecl_AssignEquals.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -318,7 +319,7 @@ private class PluginParserTest : ParserTestCase() {
         fun ncname() {
             val expected = loadResource("tests/parser/xpath-ng/proposal-6/UnionType_NCName.txt")
             val actual = parseResource("tests/parser/xpath-ng/proposal-6/UnionType_NCName.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -326,7 +327,7 @@ private class PluginParserTest : ParserTestCase() {
         fun ncname_CompactWhitespace() {
             val expected = loadResource("tests/parser/xpath-ng/proposal-6/UnionType_NCName_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/xpath-ng/proposal-6/UnionType_NCName_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -334,7 +335,7 @@ private class PluginParserTest : ParserTestCase() {
         fun qname() {
             val expected = loadResource("tests/parser/xpath-ng/proposal-6/UnionType.txt")
             val actual = parseResource("tests/parser/xpath-ng/proposal-6/UnionType.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -342,7 +343,7 @@ private class PluginParserTest : ParserTestCase() {
         fun qname_CompactWhitespace() {
             val expected = loadResource("tests/parser/xpath-ng/proposal-6/UnionType_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/xpath-ng/proposal-6/UnionType_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -350,7 +351,7 @@ private class PluginParserTest : ParserTestCase() {
         fun uriQualifiedName() {
             val expected = loadResource("tests/parser/xpath-ng/proposal-6/UnionType_URIQualifiedName.txt")
             val actual = parseResource("tests/parser/xpath-ng/proposal-6/UnionType_URIQualifiedName.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -358,7 +359,7 @@ private class PluginParserTest : ParserTestCase() {
         fun uriQualifiedName_CompactWhitespace() {
             val expected = loadResource("tests/parser/xpath-ng/proposal-6/UnionType_URIQualifiedName_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/xpath-ng/proposal-6/UnionType_URIQualifiedName_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -366,7 +367,7 @@ private class PluginParserTest : ParserTestCase() {
         fun testUnionType_MissingClosingParenthesis() {
             val expected = loadResource("tests/parser/xpath-ng/proposal-6/UnionType_MissingClosingParenthesis.txt")
             val actual = parseResource("tests/parser/xpath-ng/proposal-6/UnionType_MissingClosingParenthesis.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -374,7 +375,7 @@ private class PluginParserTest : ParserTestCase() {
         fun testUnionType_MissingFirstType() {
             val expected = loadResource("tests/parser/xpath-ng/proposal-6/UnionType_MissingFirstType.txt")
             val actual = parseResource("tests/parser/xpath-ng/proposal-6/UnionType_MissingFirstType.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -382,7 +383,7 @@ private class PluginParserTest : ParserTestCase() {
         fun testUnionType_MissingNextType() {
             val expected = loadResource("tests/parser/xpath-ng/proposal-6/UnionType_MissingNextType.txt")
             val actual = parseResource("tests/parser/xpath-ng/proposal-6/UnionType_MissingNextType.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -391,7 +392,7 @@ private class PluginParserTest : ParserTestCase() {
             // This is testing handling of whitespace before parsing the next comma.
             val expected = loadResource("tests/parser/xpath-ng/proposal-6/UnionType_Multiple.txt")
             val actual = parseResource("tests/parser/xpath-ng/proposal-6/UnionType_Multiple.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -403,7 +404,7 @@ private class PluginParserTest : ParserTestCase() {
         fun singleType() {
             val expected = loadResource("tests/parser/xpath-ng/proposal-6/UnionType_InSingleType.txt")
             val actual = parseResource("tests/parser/xpath-ng/proposal-6/UnionType_InSingleType.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -411,7 +412,7 @@ private class PluginParserTest : ParserTestCase() {
         fun optional() {
             val expected = loadResource("tests/parser/xpath-ng/proposal-6/UnionType_InSingleType_Optional.txt")
             val actual = parseResource("tests/parser/xpath-ng/proposal-6/UnionType_InSingleType_Optional.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -420,7 +421,7 @@ private class PluginParserTest : ParserTestCase() {
     fun unionType_typedMapTest() {
         val expected = loadResource("tests/parser/xpath-ng/proposal-6/UnionType_InTypedMapTest.txt")
         val actual = parseResource("tests/parser/xpath-ng/proposal-6/UnionType_InTypedMapTest.xq")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+        assertThat(actual.toPsiTreeString(), `is`(expected))
     }
 
     @Nested
@@ -431,7 +432,7 @@ private class PluginParserTest : ParserTestCase() {
         fun tupleType() {
             val expected = loadResource("tests/parser/saxon-9.8/TupleType.txt")
             val actual = parseResource("tests/parser/saxon-9.8/TupleType.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -439,7 +440,7 @@ private class PluginParserTest : ParserTestCase() {
         fun tupleType_CompactWhitespace() {
             val expected = loadResource("tests/parser/saxon-9.8/TupleType_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/saxon-9.8/TupleType_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -447,7 +448,7 @@ private class PluginParserTest : ParserTestCase() {
         fun missingClosingParenthesis() {
             val expected = loadResource("tests/parser/saxon-9.8/TupleType_MissingClosingParenthesis.txt")
             val actual = parseResource("tests/parser/saxon-9.8/TupleType_MissingClosingParenthesis.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -455,7 +456,7 @@ private class PluginParserTest : ParserTestCase() {
         fun extensible() {
             val expected = loadResource("tests/parser/saxon-9.9/TupleType_Extensible.txt")
             val actual = parseResource("tests/parser/saxon-9.9/TupleType_Extensible.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -463,7 +464,7 @@ private class PluginParserTest : ParserTestCase() {
         fun extensible_CompactWhitespace() {
             val expected = loadResource("tests/parser/saxon-9.9/TupleType_Extensible_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/saxon-9.9/TupleType_Extensible_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -471,7 +472,7 @@ private class PluginParserTest : ParserTestCase() {
         fun extensible_NotLast() {
             val expected = loadResource("tests/parser/saxon-9.9/TupleType_Extensible_NotLast.txt")
             val actual = parseResource("tests/parser/saxon-9.9/TupleType_Extensible_NotLast.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -483,7 +484,7 @@ private class PluginParserTest : ParserTestCase() {
         fun noSequenceType() {
             val expected = loadResource("tests/parser/saxon-9.8/TupleField_NoSequenceType.txt")
             val actual = parseResource("tests/parser/saxon-9.8/TupleField_NoSequenceType.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Nested
@@ -494,7 +495,7 @@ private class PluginParserTest : ParserTestCase() {
             fun single() {
                 val expected = loadResource("tests/parser/saxon-9.8/TupleField.txt")
                 val actual = parseResource("tests/parser/saxon-9.8/TupleField.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -502,7 +503,7 @@ private class PluginParserTest : ParserTestCase() {
             fun single_compactWhitespace() {
                 val expected = loadResource("tests/parser/saxon-9.8/TupleField_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/saxon-9.8/TupleField_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -510,7 +511,7 @@ private class PluginParserTest : ParserTestCase() {
             fun multiple() {
                 val expected = loadResource("tests/parser/saxon-9.8/TupleField_Multiple.txt")
                 val actual = parseResource("tests/parser/saxon-9.8/TupleField_Multiple.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -518,7 +519,7 @@ private class PluginParserTest : ParserTestCase() {
             fun multiple_compactWhitespace() {
                 val expected = loadResource("tests/parser/saxon-9.8/TupleField_Multiple_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/saxon-9.8/TupleField_Multiple_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -527,7 +528,7 @@ private class PluginParserTest : ParserTestCase() {
                 // This is testing handling of whitespace before parsing the next comma.
                 val expected = loadResource("tests/parser/saxon-9.8/TupleField_MultipleWithOccurrenceIndicator.txt")
                 val actual = parseResource("tests/parser/saxon-9.8/TupleField_MultipleWithOccurrenceIndicator.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -535,7 +536,7 @@ private class PluginParserTest : ParserTestCase() {
             fun missingColon() {
                 val expected = loadResource("tests/parser/saxon-9.8/TupleField_MissingColon.txt")
                 val actual = parseResource("tests/parser/saxon-9.8/TupleField_MissingColon.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -543,7 +544,7 @@ private class PluginParserTest : ParserTestCase() {
             fun missingSequenceType() {
                 val expected = loadResource("tests/parser/saxon-9.8/TupleField_MissingSequenceType.txt")
                 val actual = parseResource("tests/parser/saxon-9.8/TupleField_MissingSequenceType.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
 
@@ -555,7 +556,7 @@ private class PluginParserTest : ParserTestCase() {
             fun single() {
                 val expected = loadResource("tests/parser/saxon-10.0/TupleField.txt")
                 val actual = parseResource("tests/parser/saxon-10.0/TupleField.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -563,7 +564,7 @@ private class PluginParserTest : ParserTestCase() {
             fun single_compactWhitespace() {
                 val expected = loadResource("tests/parser/saxon-10.0/TupleField_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/saxon-10.0/TupleField_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -571,7 +572,7 @@ private class PluginParserTest : ParserTestCase() {
             fun multiple() {
                 val expected = loadResource("tests/parser/saxon-10.0/TupleField_Multiple.txt")
                 val actual = parseResource("tests/parser/saxon-10.0/TupleField_Multiple.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -579,7 +580,7 @@ private class PluginParserTest : ParserTestCase() {
             fun multiple_compactWhitespace() {
                 val expected = loadResource("tests/parser/saxon-10.0/TupleField_Multiple_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/saxon-10.0/TupleField_Multiple_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -587,7 +588,7 @@ private class PluginParserTest : ParserTestCase() {
             fun missingSequenceType() {
                 val expected = loadResource("tests/parser/saxon-10.0/TupleField_MissingSequenceType.txt")
                 val actual = parseResource("tests/parser/saxon-10.0/TupleField_MissingSequenceType.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
 
@@ -599,7 +600,7 @@ private class PluginParserTest : ParserTestCase() {
             fun optionalFieldName() {
                 val expected = loadResource("tests/parser/saxon-9.9/TupleField_OptionalFieldName.txt")
                 val actual = parseResource("tests/parser/saxon-9.9/TupleField_OptionalFieldName.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -607,7 +608,7 @@ private class PluginParserTest : ParserTestCase() {
             fun optionalFieldName_compactWhitespace() {
                 val expected = loadResource("tests/parser/saxon-9.9/TupleField_OptionalFieldName_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/saxon-9.9/TupleField_OptionalFieldName_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -615,7 +616,7 @@ private class PluginParserTest : ParserTestCase() {
             fun optionalFieldName_noSequenceType() {
                 val expected = loadResource("tests/parser/saxon-9.9/TupleField_OptionalFieldName_NoSequenceType.txt")
                 val actual = parseResource("tests/parser/saxon-9.9/TupleField_OptionalFieldName_NoSequenceType.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
 
@@ -627,7 +628,7 @@ private class PluginParserTest : ParserTestCase() {
             fun fieldName() {
                 val expected = loadResource("tests/parser/saxon-10.0/TupleField_StringLiteralFieldName.txt")
                 val actual = parseResource("tests/parser/saxon-10.0/TupleField_StringLiteralFieldName.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -635,7 +636,7 @@ private class PluginParserTest : ParserTestCase() {
             fun fieldName_compactWhitespace() {
                 val expected = loadResource("tests/parser/saxon-10.0/TupleField_StringLiteralFieldName_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/saxon-10.0/TupleField_StringLiteralFieldName_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
     }
@@ -648,7 +649,7 @@ private class PluginParserTest : ParserTestCase() {
         fun namespace() {
             val expected = loadResource("tests/parser/marklogic-6.0/ForwardAxis_Namespace.txt")
             val actual = parseResource("tests/parser/marklogic-6.0/ForwardAxis_Namespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -656,7 +657,7 @@ private class PluginParserTest : ParserTestCase() {
         fun namespace_CompactWhitespace() {
             val expected = loadResource("tests/parser/marklogic-6.0/ForwardAxis_Namespace_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/marklogic-6.0/ForwardAxis_Namespace_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -664,7 +665,7 @@ private class PluginParserTest : ParserTestCase() {
         fun property() {
             val expected = loadResource("tests/parser/marklogic-6.0/ForwardAxis_Property.txt")
             val actual = parseResource("tests/parser/marklogic-6.0/ForwardAxis_Property.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -672,7 +673,7 @@ private class PluginParserTest : ParserTestCase() {
         fun property_CompactWhitespace() {
             val expected = loadResource("tests/parser/marklogic-6.0/ForwardAxis_Property_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/marklogic-6.0/ForwardAxis_Property_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -684,7 +685,7 @@ private class PluginParserTest : ParserTestCase() {
         fun functionDecl() {
             val expected = loadResource("tests/parser/marklogic-6.0/CompatibilityAnnotation_FunctionDecl.txt")
             val actual = parseResource("tests/parser/marklogic-6.0/CompatibilityAnnotation_FunctionDecl.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -692,7 +693,7 @@ private class PluginParserTest : ParserTestCase() {
         fun functionDecl_MissingFunctionKeyword() {
             val expected = loadResource("tests/parser/marklogic-6.0/CompatibilityAnnotation_FunctionDecl_MissingFunctionKeyword.txt")
             val actual = parseResource("tests/parser/marklogic-6.0/CompatibilityAnnotation_FunctionDecl_MissingFunctionKeyword.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -700,7 +701,7 @@ private class PluginParserTest : ParserTestCase() {
         fun varDecl() {
             val expected = loadResource("tests/parser/marklogic-6.0/CompatibilityAnnotation_VarDecl.txt")
             val actual = parseResource("tests/parser/marklogic-6.0/CompatibilityAnnotation_VarDecl.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -708,7 +709,7 @@ private class PluginParserTest : ParserTestCase() {
         fun varDecl_MissingVariableKeyword() {
             val expected = loadResource("tests/parser/marklogic-6.0/CompatibilityAnnotation_VarDecl_MissingVariableKeyword.txt")
             val actual = parseResource("tests/parser/marklogic-6.0/CompatibilityAnnotation_VarDecl_MissingVariableKeyword.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -720,7 +721,7 @@ private class PluginParserTest : ParserTestCase() {
         fun validateAs() {
             val expected = loadResource("tests/parser/marklogic-6.0/ValidateExpr_ValidateAs.txt")
             val actual = parseResource("tests/parser/marklogic-6.0/ValidateExpr_ValidateAs.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -728,7 +729,7 @@ private class PluginParserTest : ParserTestCase() {
         fun validateAs_CompactWhitespace() {
             val expected = loadResource("tests/parser/marklogic-6.0/ValidateExpr_ValidateAs_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/marklogic-6.0/ValidateExpr_ValidateAs_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -736,7 +737,7 @@ private class PluginParserTest : ParserTestCase() {
         fun missingTypeName() {
             val expected = loadResource("tests/parser/marklogic-6.0/ValidateExpr_ValidateAs_MissingTypeName.txt")
             val actual = parseResource("tests/parser/marklogic-6.0/ValidateExpr_ValidateAs_MissingTypeName.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -744,7 +745,7 @@ private class PluginParserTest : ParserTestCase() {
         fun missingOpeningBrace() {
             val expected = loadResource("tests/parser/marklogic-6.0/ValidateExpr_ValidateAs_MissingOpeningBrace.txt")
             val actual = parseResource("tests/parser/marklogic-6.0/ValidateExpr_ValidateAs_MissingOpeningBrace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -752,7 +753,7 @@ private class PluginParserTest : ParserTestCase() {
         fun eqname() {
             val expected = loadResource("tests/parser/marklogic-6.0/ValidateExpr_ValidateAs_EQName.txt")
             val actual = parseResource("tests/parser/marklogic-6.0/ValidateExpr_ValidateAs_EQName.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -760,7 +761,7 @@ private class PluginParserTest : ParserTestCase() {
         fun full() {
             val expected = loadResource("tests/parser/marklogic-6.0/ValidateExpr_ValidateFull.txt")
             val actual = parseResource("tests/parser/marklogic-6.0/ValidateExpr_ValidateFull.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -772,7 +773,7 @@ private class PluginParserTest : ParserTestCase() {
         fun binaryConstructor() {
             val expected = loadResource("tests/parser/marklogic-6.0/BinaryConstructor.txt")
             val actual = parseResource("tests/parser/marklogic-6.0/BinaryConstructor.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -780,7 +781,7 @@ private class PluginParserTest : ParserTestCase() {
         fun binaryConstructor_CompactWhitespace() {
             val expected = loadResource("tests/parser/marklogic-6.0/BinaryConstructor_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/marklogic-6.0/BinaryConstructor_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -788,7 +789,7 @@ private class PluginParserTest : ParserTestCase() {
         fun noExpr() {
             val expected = loadResource("tests/parser/marklogic-6.0/BinaryConstructor_NoExpr.txt")
             val actual = parseResource("tests/parser/marklogic-6.0/BinaryConstructor_NoExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -796,7 +797,7 @@ private class PluginParserTest : ParserTestCase() {
         fun missingClosingBrace() {
             val expected = loadResource("tests/parser/marklogic-6.0/BinaryConstructor_MissingClosingBrace.txt")
             val actual = parseResource("tests/parser/marklogic-6.0/BinaryConstructor_MissingClosingBrace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -808,7 +809,7 @@ private class PluginParserTest : ParserTestCase() {
         fun catchClause() {
             val expected = loadResource("tests/parser/marklogic-6.0/CatchClause.txt")
             val actual = parseResource("tests/parser/marklogic-6.0/CatchClause.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -816,7 +817,7 @@ private class PluginParserTest : ParserTestCase() {
         fun catchClause_CompactWhitespace() {
             val expected = loadResource("tests/parser/marklogic-6.0/CatchClause_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/marklogic-6.0/CatchClause_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -824,7 +825,7 @@ private class PluginParserTest : ParserTestCase() {
         fun missingVariableIndicator() {
             val expected = loadResource("tests/parser/marklogic-6.0/CatchClause_MissingVariableIndicator.txt")
             val actual = parseResource("tests/parser/marklogic-6.0/CatchClause_MissingVariableIndicator.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -832,7 +833,7 @@ private class PluginParserTest : ParserTestCase() {
         fun missingVarName() {
             val expected = loadResource("tests/parser/marklogic-6.0/CatchClause_MissingVarName.txt")
             val actual = parseResource("tests/parser/marklogic-6.0/CatchClause_MissingVarName.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -840,7 +841,7 @@ private class PluginParserTest : ParserTestCase() {
         fun missingClosingParenthesis() {
             val expected = loadResource("tests/parser/marklogic-6.0/CatchClause_MissingClosingParenthesis.txt")
             val actual = parseResource("tests/parser/marklogic-6.0/CatchClause_MissingClosingParenthesis.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -848,7 +849,7 @@ private class PluginParserTest : ParserTestCase() {
         fun emptyExpr() {
             val expected = loadResource("tests/parser/marklogic-6.0/CatchClause_EmptyExpr.txt")
             val actual = parseResource("tests/parser/marklogic-6.0/CatchClause_EmptyExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -856,7 +857,7 @@ private class PluginParserTest : ParserTestCase() {
         fun multiple() {
             val expected = loadResource("tests/parser/marklogic-6.0/CatchClause_Multiple.txt")
             val actual = parseResource("tests/parser/marklogic-6.0/CatchClause_Multiple.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -868,7 +869,7 @@ private class PluginParserTest : ParserTestCase() {
         fun stylesheetImport() {
             val expected = loadResource("tests/parser/marklogic-6.0/StylesheetImport.txt")
             val actual = parseResource("tests/parser/marklogic-6.0/StylesheetImport.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -876,7 +877,7 @@ private class PluginParserTest : ParserTestCase() {
         fun stylesheetImport_CompactWhitespace() {
             val expected = loadResource("tests/parser/marklogic-6.0/StylesheetImport_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/marklogic-6.0/StylesheetImport_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -884,7 +885,7 @@ private class PluginParserTest : ParserTestCase() {
         fun missingAtKeyword() {
             val expected = loadResource("tests/parser/marklogic-6.0/StylesheetImport_MissingAtKeyword.txt")
             val actual = parseResource("tests/parser/marklogic-6.0/StylesheetImport_MissingAtKeyword.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -892,7 +893,7 @@ private class PluginParserTest : ParserTestCase() {
         fun missingUriLiteral() {
             val expected = loadResource("tests/parser/marklogic-6.0/StylesheetImport_MissingUriLiteral.txt")
             val actual = parseResource("tests/parser/marklogic-6.0/StylesheetImport_MissingUriLiteral.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -904,7 +905,7 @@ private class PluginParserTest : ParserTestCase() {
         fun withVersionDecl() {
             val expected = loadResource("tests/parser/marklogic-6.0/Transactions_WithVersionDecl.txt")
             val actual = parseResource("tests/parser/marklogic-6.0/Transactions_WithVersionDecl.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -912,7 +913,7 @@ private class PluginParserTest : ParserTestCase() {
         fun libraryModule() {
             val expected = loadResource("tests/parser/marklogic-6.0/Transactions_LibraryModule.txt")
             val actual = parseResource("tests/parser/marklogic-6.0/Transactions_LibraryModule.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -920,7 +921,7 @@ private class PluginParserTest : ParserTestCase() {
         fun prolog_ImportStatement() {
             val expected = loadResource("tests/parser/marklogic-6.0/Transactions_Prolog_ImportStatement.txt")
             val actual = parseResource("tests/parser/marklogic-6.0/Transactions_Prolog_ImportStatement.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -928,7 +929,7 @@ private class PluginParserTest : ParserTestCase() {
         fun prolog_DeclareStatement() {
             val expected = loadResource("tests/parser/marklogic-6.0/Transactions_Prolog_DeclareStatement.txt")
             val actual = parseResource("tests/parser/marklogic-6.0/Transactions_Prolog_DeclareStatement.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -936,7 +937,7 @@ private class PluginParserTest : ParserTestCase() {
         fun afterApplyExpr() {
             val expected = loadResource("tests/parser/marklogic-6.0/Transactions_AfterApplyExpr.txt")
             val actual = parseResource("tests/parser/marklogic-6.0/Transactions_AfterApplyExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -948,7 +949,7 @@ private class PluginParserTest : ParserTestCase() {
         fun binaryTest() {
             val expected = loadResource("tests/parser/marklogic-6.0/NodeTest_BinaryTest.txt")
             val actual = parseResource("tests/parser/marklogic-6.0/NodeTest_BinaryTest.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Nested
@@ -959,7 +960,7 @@ private class PluginParserTest : ParserTestCase() {
             fun anyBooleanNodeTest() {
                 val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_AnyBooleanNodeTest.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_AnyBooleanNodeTest.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -967,7 +968,7 @@ private class PluginParserTest : ParserTestCase() {
             fun functionCallLike() {
                 val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_AnyBooleanNodeTest_FunctionCallLike.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_AnyBooleanNodeTest_FunctionCallLike.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
 
@@ -976,7 +977,7 @@ private class PluginParserTest : ParserTestCase() {
         fun namedBooleanNodeTest() {
             val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_NamedBooleanNodeTest.txt")
             val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_NamedBooleanNodeTest.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Nested
@@ -987,7 +988,7 @@ private class PluginParserTest : ParserTestCase() {
             fun anyNumberNodeTest() {
                 val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_AnyNumberNodeTest.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_AnyNumberNodeTest.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -995,7 +996,7 @@ private class PluginParserTest : ParserTestCase() {
             fun functionCallLike() {
                 val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_AnyNumberNodeTest_FunctionCallLike.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_AnyNumberNodeTest_FunctionCallLike.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
 
@@ -1004,7 +1005,7 @@ private class PluginParserTest : ParserTestCase() {
         fun namedNumberNodeTest() {
             val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_NamedNumberNodeTest.txt")
             val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_NamedNumberNodeTest.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Nested
@@ -1015,7 +1016,7 @@ private class PluginParserTest : ParserTestCase() {
             fun anyNullNodeTest() {
                 val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_AnyNullNodeTest.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_AnyNullNodeTest.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1023,7 +1024,7 @@ private class PluginParserTest : ParserTestCase() {
             fun functionCallLike() {
                 val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_AnyNullNodeTest_FunctionCallLike.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_AnyNullNodeTest_FunctionCallLike.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
 
@@ -1032,7 +1033,7 @@ private class PluginParserTest : ParserTestCase() {
         fun namedNullNodeTest() {
             val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_NamedNullNodeTest.txt")
             val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_NamedNullNodeTest.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Nested
@@ -1043,7 +1044,7 @@ private class PluginParserTest : ParserTestCase() {
             fun anyArrayNodeTest() {
                 val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_AnyArrayNodeTest.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_AnyArrayNodeTest.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1051,7 +1052,7 @@ private class PluginParserTest : ParserTestCase() {
             fun functionCallLike() {
                 val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_AnyArrayNodeTest_FunctionCallLike.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_AnyArrayNodeTest_FunctionCallLike.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
 
@@ -1060,7 +1061,7 @@ private class PluginParserTest : ParserTestCase() {
         fun namedArrayNodeTest() {
             val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_NamedArrayNodeTest.txt")
             val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_NamedArrayNodeTest.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Nested
@@ -1071,7 +1072,7 @@ private class PluginParserTest : ParserTestCase() {
             fun anyMapNodeTest() {
                 val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_AnyMapNodeTest.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_AnyMapNodeTest.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1079,7 +1080,7 @@ private class PluginParserTest : ParserTestCase() {
             fun functionCallLike() {
                 val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_AnyMapNodeTest_FunctionCallLike.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_AnyMapNodeTest_FunctionCallLike.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
 
@@ -1088,7 +1089,7 @@ private class PluginParserTest : ParserTestCase() {
         fun namedMapNodeTest() {
             val expected = loadResource("tests/parser/marklogic-8.0/NodeTest_NamedMapNodeTest.txt")
             val actual = parseResource("tests/parser/marklogic-8.0/NodeTest_NamedMapNodeTest.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -1103,7 +1104,7 @@ private class PluginParserTest : ParserTestCase() {
             fun binaryTest() {
                 val expected = loadResource("tests/parser/marklogic-6.0/BinaryTest.txt")
                 val actual = parseResource("tests/parser/marklogic-6.0/BinaryTest.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1111,7 +1112,7 @@ private class PluginParserTest : ParserTestCase() {
             fun binaryTest_CompactWhitespace() {
                 val expected = loadResource("tests/parser/marklogic-6.0/BinaryTest_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/marklogic-6.0/BinaryTest_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1119,7 +1120,7 @@ private class PluginParserTest : ParserTestCase() {
             fun missingClosingParenthesis() {
                 val expected = loadResource("tests/parser/marklogic-6.0/BinaryTest_MissingClosingParenthesis.txt")
                 val actual = parseResource("tests/parser/marklogic-6.0/BinaryTest_MissingClosingParenthesis.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
 
@@ -1131,7 +1132,7 @@ private class PluginParserTest : ParserTestCase() {
             fun attributeDeclTest() {
                 val expected = loadResource("tests/parser/marklogic-7.0/AttributeDeclTest.txt")
                 val actual = parseResource("tests/parser/marklogic-7.0/AttributeDeclTest.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1139,7 +1140,7 @@ private class PluginParserTest : ParserTestCase() {
             fun attributeDeclTest_CompactWhitespace() {
                 val expected = loadResource("tests/parser/marklogic-7.0/AttributeDeclTest_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/marklogic-7.0/AttributeDeclTest_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1147,7 +1148,7 @@ private class PluginParserTest : ParserTestCase() {
             fun missingClosingParenthesis() {
                 val expected = loadResource("tests/parser/marklogic-7.0/AttributeDeclTest_MissingClosingParenthesis.txt")
                 val actual = parseResource("tests/parser/marklogic-7.0/AttributeDeclTest_MissingClosingParenthesis.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Nested
@@ -1158,7 +1159,7 @@ private class PluginParserTest : ParserTestCase() {
                 fun attributeName() {
                     val expected = loadResource("tests/parser/marklogic-7.0/AttributeDeclTest_AttributeName.txt")
                     val actual = parseResource("tests/parser/marklogic-7.0/AttributeDeclTest_AttributeName.xq")
-                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
                 }
 
                 @Test
@@ -1166,7 +1167,7 @@ private class PluginParserTest : ParserTestCase() {
                 fun attributeName_compactWhitespace() {
                     val expected = loadResource("tests/parser/marklogic-7.0/AttributeDeclTest_AttributeName_CompactWhitespace.txt")
                     val actual = parseResource("tests/parser/marklogic-7.0/AttributeDeclTest_AttributeName_CompactWhitespace.xq")
-                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
                 }
 
                 @Test
@@ -1174,7 +1175,7 @@ private class PluginParserTest : ParserTestCase() {
                 fun wildcard() {
                     val expected = loadResource("tests/parser/marklogic-7.0/AttributeDeclTest_Wildcard.txt")
                     val actual = parseResource("tests/parser/marklogic-7.0/AttributeDeclTest_Wildcard.xq")
-                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
                 }
 
                 @Test
@@ -1182,7 +1183,7 @@ private class PluginParserTest : ParserTestCase() {
                 fun wildcard_compactWhitespace() {
                     val expected = loadResource("tests/parser/marklogic-7.0/AttributeDeclTest_Wildcard_CompactWhitespace.txt")
                     val actual = parseResource("tests/parser/marklogic-7.0/AttributeDeclTest_Wildcard_CompactWhitespace.xq")
-                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
                 }
             }
         }
@@ -1195,7 +1196,7 @@ private class PluginParserTest : ParserTestCase() {
             fun complexTypeTest() {
                 val expected = loadResource("tests/parser/marklogic-7.0/ComplexTypeTest.txt")
                 val actual = parseResource("tests/parser/marklogic-7.0/ComplexTypeTest.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1203,7 +1204,7 @@ private class PluginParserTest : ParserTestCase() {
             fun complexTypeTest_CompactWhitespace() {
                 val expected = loadResource("tests/parser/marklogic-7.0/ComplexTypeTest_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/marklogic-7.0/ComplexTypeTest_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1211,7 +1212,7 @@ private class PluginParserTest : ParserTestCase() {
             fun missingClosingParenthesis() {
                 val expected = loadResource("tests/parser/marklogic-7.0/ComplexTypeTest_MissingClosingParenthesis.txt")
                 val actual = parseResource("tests/parser/marklogic-7.0/ComplexTypeTest_MissingClosingParenthesis.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Nested
@@ -1222,7 +1223,7 @@ private class PluginParserTest : ParserTestCase() {
                 fun typeName() {
                     val expected = loadResource("tests/parser/marklogic-7.0/ComplexTypeTest_TypeName.txt")
                     val actual = parseResource("tests/parser/marklogic-7.0/ComplexTypeTest_TypeName.xq")
-                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
                 }
 
                 @Test
@@ -1230,7 +1231,7 @@ private class PluginParserTest : ParserTestCase() {
                 fun typeName_compactWhitespace() {
                     val expected = loadResource("tests/parser/marklogic-7.0/ComplexTypeTest_TypeName_CompactWhitespace.txt")
                     val actual = parseResource("tests/parser/marklogic-7.0/ComplexTypeTest_TypeName_CompactWhitespace.xq")
-                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
                 }
 
                 @Test
@@ -1238,7 +1239,7 @@ private class PluginParserTest : ParserTestCase() {
                 fun wildcard() {
                     val expected = loadResource("tests/parser/marklogic-7.0/ComplexTypeTest_Wildcard.txt")
                     val actual = parseResource("tests/parser/marklogic-7.0/ComplexTypeTest_Wildcard.xq")
-                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
                 }
 
                 @Test
@@ -1246,7 +1247,7 @@ private class PluginParserTest : ParserTestCase() {
                 fun wildcard_compactWhitespace() {
                     val expected = loadResource("tests/parser/marklogic-7.0/ComplexTypeTest_Wildcard_CompactWhitespace.txt")
                     val actual = parseResource("tests/parser/marklogic-7.0/ComplexTypeTest_Wildcard_CompactWhitespace.xq")
-                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
                 }
             }
         }
@@ -1259,7 +1260,7 @@ private class PluginParserTest : ParserTestCase() {
             fun elementDeclTest() {
                 val expected = loadResource("tests/parser/marklogic-7.0/ElementDeclTest.txt")
                 val actual = parseResource("tests/parser/marklogic-7.0/ElementDeclTest.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1267,7 +1268,7 @@ private class PluginParserTest : ParserTestCase() {
             fun elementDeclTest_CompactWhitespace() {
                 val expected = loadResource("tests/parser/marklogic-7.0/ElementDeclTest_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/marklogic-7.0/ElementDeclTest_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1275,7 +1276,7 @@ private class PluginParserTest : ParserTestCase() {
             fun missingClosingParenthesis() {
                 val expected = loadResource("tests/parser/marklogic-7.0/ElementDeclTest_MissingClosingParenthesis.txt")
                 val actual = parseResource("tests/parser/marklogic-7.0/ElementDeclTest_MissingClosingParenthesis.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Nested
@@ -1286,7 +1287,7 @@ private class PluginParserTest : ParserTestCase() {
                 fun elementName() {
                     val expected = loadResource("tests/parser/marklogic-7.0/ElementDeclTest_ElementName.txt")
                     val actual = parseResource("tests/parser/marklogic-7.0/ElementDeclTest_ElementName.xq")
-                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
                 }
 
                 @Test
@@ -1294,7 +1295,7 @@ private class PluginParserTest : ParserTestCase() {
                 fun elementName_compactWhitespace() {
                     val expected = loadResource("tests/parser/marklogic-7.0/ElementDeclTest_ElementName_CompactWhitespace.txt")
                     val actual = parseResource("tests/parser/marklogic-7.0/ElementDeclTest_ElementName_CompactWhitespace.xq")
-                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
                 }
 
                 @Test
@@ -1302,7 +1303,7 @@ private class PluginParserTest : ParserTestCase() {
                 fun wildcard() {
                     val expected = loadResource("tests/parser/marklogic-7.0/ElementDeclTest_Wildcard.txt")
                     val actual = parseResource("tests/parser/marklogic-7.0/ElementDeclTest_Wildcard.xq")
-                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
                 }
 
                 @Test
@@ -1310,7 +1311,7 @@ private class PluginParserTest : ParserTestCase() {
                 fun wildcard_compactWhitespace() {
                     val expected = loadResource("tests/parser/marklogic-7.0/ElementDeclTest_Wildcard_CompactWhitespace.txt")
                     val actual = parseResource("tests/parser/marklogic-7.0/ElementDeclTest_Wildcard_CompactWhitespace.xq")
-                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
                 }
             }
         }
@@ -1323,7 +1324,7 @@ private class PluginParserTest : ParserTestCase() {
             fun schemaComponentTest() {
                 val expected = loadResource("tests/parser/marklogic-7.0/SchemaComponentTest.txt")
                 val actual = parseResource("tests/parser/marklogic-7.0/SchemaComponentTest.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1331,7 +1332,7 @@ private class PluginParserTest : ParserTestCase() {
             fun schemaComponentTest_CompactWhitespace() {
                 val expected = loadResource("tests/parser/marklogic-7.0/SchemaComponentTest_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/marklogic-7.0/SchemaComponentTest_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1341,7 +1342,7 @@ private class PluginParserTest : ParserTestCase() {
                     loadResource("tests/parser/marklogic-7.0/SchemaComponentTest_MissingClosingParenthesis.txt")
                 val actual =
                     parseResource("tests/parser/marklogic-7.0/SchemaComponentTest_MissingClosingParenthesis.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
 
@@ -1353,7 +1354,7 @@ private class PluginParserTest : ParserTestCase() {
             fun schemaParticleTest() {
                 val expected = loadResource("tests/parser/marklogic-7.0/SchemaParticleTest.txt")
                 val actual = parseResource("tests/parser/marklogic-7.0/SchemaParticleTest.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1361,7 +1362,7 @@ private class PluginParserTest : ParserTestCase() {
             fun schemaParticleTest_CompactWhitespace() {
                 val expected = loadResource("tests/parser/marklogic-7.0/SchemaParticleTest_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/marklogic-7.0/SchemaParticleTest_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1369,7 +1370,7 @@ private class PluginParserTest : ParserTestCase() {
             fun missingClosingParenthesis() {
                 val expected = loadResource("tests/parser/marklogic-7.0/SchemaParticleTest_MissingClosingParenthesis.txt")
                 val actual = parseResource("tests/parser/marklogic-7.0/SchemaParticleTest_MissingClosingParenthesis.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Nested
@@ -1380,7 +1381,7 @@ private class PluginParserTest : ParserTestCase() {
                 fun elementName() {
                     val expected = loadResource("tests/parser/marklogic-7.0/SchemaParticleTest_ElementName.txt")
                     val actual = parseResource("tests/parser/marklogic-7.0/SchemaParticleTest_ElementName.xq")
-                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
                 }
 
                 @Test
@@ -1388,7 +1389,7 @@ private class PluginParserTest : ParserTestCase() {
                 fun elementName_compactWhitespace() {
                     val expected = loadResource("tests/parser/marklogic-7.0/SchemaParticleTest_ElementName_CompactWhitespace.txt")
                     val actual = parseResource("tests/parser/marklogic-7.0/SchemaParticleTest_ElementName_CompactWhitespace.xq")
-                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
                 }
 
                 @Test
@@ -1396,7 +1397,7 @@ private class PluginParserTest : ParserTestCase() {
                 fun wildcard() {
                     val expected = loadResource("tests/parser/marklogic-7.0/SchemaParticleTest_Wildcard.txt")
                     val actual = parseResource("tests/parser/marklogic-7.0/SchemaParticleTest_Wildcard.xq")
-                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
                 }
 
                 @Test
@@ -1404,7 +1405,7 @@ private class PluginParserTest : ParserTestCase() {
                 fun wildcard_compactWhitespace() {
                     val expected = loadResource("tests/parser/marklogic-7.0/SchemaParticleTest_Wildcard_CompactWhitespace.txt")
                     val actual = parseResource("tests/parser/marklogic-7.0/SchemaParticleTest_Wildcard_CompactWhitespace.xq")
-                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
                 }
             }
         }
@@ -1417,7 +1418,7 @@ private class PluginParserTest : ParserTestCase() {
             fun schemaRootTest() {
                 val expected = loadResource("tests/parser/marklogic-7.0/SchemaRootTest.txt")
                 val actual = parseResource("tests/parser/marklogic-7.0/SchemaRootTest.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1425,7 +1426,7 @@ private class PluginParserTest : ParserTestCase() {
             fun schemaRootTest_CompactWhitespace() {
                 val expected = loadResource("tests/parser/marklogic-7.0/SchemaRootTest_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/marklogic-7.0/SchemaRootTest_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1433,7 +1434,7 @@ private class PluginParserTest : ParserTestCase() {
             fun missingClosingParenthesis() {
                 val expected = loadResource("tests/parser/marklogic-7.0/SchemaRootTest_MissingClosingParenthesis.txt")
                 val actual = parseResource("tests/parser/marklogic-7.0/SchemaRootTest_MissingClosingParenthesis.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
 
@@ -1445,7 +1446,7 @@ private class PluginParserTest : ParserTestCase() {
             fun schemaTypeTest() {
                 val expected = loadResource("tests/parser/marklogic-7.0/SchemaTypeTest.txt")
                 val actual = parseResource("tests/parser/marklogic-7.0/SchemaTypeTest.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1453,7 +1454,7 @@ private class PluginParserTest : ParserTestCase() {
             fun schemaTypeTest_CompactWhitespace() {
                 val expected = loadResource("tests/parser/marklogic-7.0/SchemaTypeTest_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/marklogic-7.0/SchemaTypeTest_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1461,7 +1462,7 @@ private class PluginParserTest : ParserTestCase() {
             fun missingClosingParenthesis() {
                 val expected = loadResource("tests/parser/marklogic-7.0/SchemaTypeTest_MissingClosingParenthesis.txt")
                 val actual = parseResource("tests/parser/marklogic-7.0/SchemaTypeTest_MissingClosingParenthesis.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Nested
@@ -1472,7 +1473,7 @@ private class PluginParserTest : ParserTestCase() {
                 fun typeName() {
                     val expected = loadResource("tests/parser/marklogic-7.0/SchemaTypeTest_TypeName.txt")
                     val actual = parseResource("tests/parser/marklogic-7.0/SchemaTypeTest_TypeName.xq")
-                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
                 }
 
                 @Test
@@ -1480,7 +1481,7 @@ private class PluginParserTest : ParserTestCase() {
                 fun typeName_compactWhitespace() {
                     val expected = loadResource("tests/parser/marklogic-7.0/SchemaTypeTest_TypeName_CompactWhitespace.txt")
                     val actual = parseResource("tests/parser/marklogic-7.0/SchemaTypeTest_TypeName_CompactWhitespace.xq")
-                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
                 }
 
                 @Test
@@ -1488,7 +1489,7 @@ private class PluginParserTest : ParserTestCase() {
                 fun wildcard() {
                     val expected = loadResource("tests/parser/marklogic-7.0/SchemaTypeTest_Wildcard.txt")
                     val actual = parseResource("tests/parser/marklogic-7.0/SchemaTypeTest_Wildcard.xq")
-                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
                 }
 
                 @Test
@@ -1496,7 +1497,7 @@ private class PluginParserTest : ParserTestCase() {
                 fun wildcard_compactWhitespace() {
                     val expected = loadResource("tests/parser/marklogic-7.0/SchemaTypeTest_Wildcard_CompactWhitespace.txt")
                     val actual = parseResource("tests/parser/marklogic-7.0/SchemaTypeTest_Wildcard_CompactWhitespace.xq")
-                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
                 }
             }
         }
@@ -1509,7 +1510,7 @@ private class PluginParserTest : ParserTestCase() {
             fun simpleTypeTest() {
                 val expected = loadResource("tests/parser/marklogic-7.0/SimpleTypeTest.txt")
                 val actual = parseResource("tests/parser/marklogic-7.0/SimpleTypeTest.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1517,7 +1518,7 @@ private class PluginParserTest : ParserTestCase() {
             fun simpleTypeTest_CompactWhitespace() {
                 val expected = loadResource("tests/parser/marklogic-7.0/SimpleTypeTest_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/marklogic-7.0/SimpleTypeTest_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1525,7 +1526,7 @@ private class PluginParserTest : ParserTestCase() {
             fun missingClosingParenthesis() {
                 val expected = loadResource("tests/parser/marklogic-7.0/SimpleTypeTest_MissingClosingParenthesis.txt")
                 val actual = parseResource("tests/parser/marklogic-7.0/SimpleTypeTest_MissingClosingParenthesis.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Nested
@@ -1536,7 +1537,7 @@ private class PluginParserTest : ParserTestCase() {
                 fun typeName() {
                     val expected = loadResource("tests/parser/marklogic-7.0/SimpleTypeTest_TypeName.txt")
                     val actual = parseResource("tests/parser/marklogic-7.0/SimpleTypeTest_TypeName.xq")
-                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
                 }
 
                 @Test
@@ -1544,7 +1545,7 @@ private class PluginParserTest : ParserTestCase() {
                 fun typeName_compactWhitespace() {
                     val expected = loadResource("tests/parser/marklogic-7.0/SimpleTypeTest_TypeName_CompactWhitespace.txt")
                     val actual = parseResource("tests/parser/marklogic-7.0/SimpleTypeTest_TypeName_CompactWhitespace.xq")
-                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
                 }
 
                 @Test
@@ -1552,7 +1553,7 @@ private class PluginParserTest : ParserTestCase() {
                 fun wildcard() {
                     val expected = loadResource("tests/parser/marklogic-7.0/SimpleTypeTest_Wildcard.txt")
                     val actual = parseResource("tests/parser/marklogic-7.0/SimpleTypeTest_Wildcard.xq")
-                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
                 }
 
                 @Test
@@ -1560,7 +1561,7 @@ private class PluginParserTest : ParserTestCase() {
                 fun wildcard_compactWhitespace() {
                     val expected = loadResource("tests/parser/marklogic-7.0/SimpleTypeTest_Wildcard_CompactWhitespace.txt")
                     val actual = parseResource("tests/parser/marklogic-7.0/SimpleTypeTest_Wildcard_CompactWhitespace.xq")
-                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
                 }
             }
         }
@@ -1573,7 +1574,7 @@ private class PluginParserTest : ParserTestCase() {
             fun schemaFacetTest() {
                 val expected = loadResource("tests/parser/marklogic-7.0/SchemaFacetTest.txt")
                 val actual = parseResource("tests/parser/marklogic-7.0/SchemaFacetTest.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1581,7 +1582,7 @@ private class PluginParserTest : ParserTestCase() {
             fun schemaFacetTest_CompactWhitespace() {
                 val expected = loadResource("tests/parser/marklogic-7.0/SchemaFacetTest_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/marklogic-7.0/SchemaFacetTest_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1589,7 +1590,7 @@ private class PluginParserTest : ParserTestCase() {
             fun missingClosingParenthesis() {
                 val expected = loadResource("tests/parser/marklogic-7.0/SchemaFacetTest_MissingClosingParenthesis.txt")
                 val actual = parseResource("tests/parser/marklogic-7.0/SchemaFacetTest_MissingClosingParenthesis.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Nested
@@ -1600,7 +1601,7 @@ private class PluginParserTest : ParserTestCase() {
                 fun elementName() {
                     val expected = loadResource("tests/parser/marklogic-7.0/SchemaFacetTest_ElementName.txt")
                     val actual = parseResource("tests/parser/marklogic-7.0/SchemaFacetTest_ElementName.xq")
-                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
                 }
 
                 @Test
@@ -1608,7 +1609,7 @@ private class PluginParserTest : ParserTestCase() {
                 fun elementName_compactWhitespace() {
                     val expected = loadResource("tests/parser/marklogic-7.0/SchemaFacetTest_ElementName_CompactWhitespace.txt")
                     val actual = parseResource("tests/parser/marklogic-7.0/SchemaFacetTest_ElementName_CompactWhitespace.xq")
-                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
                 }
 
                 @Test
@@ -1616,7 +1617,7 @@ private class PluginParserTest : ParserTestCase() {
                 fun wildcard() {
                     val expected = loadResource("tests/parser/marklogic-7.0/SchemaFacetTest_Wildcard.txt")
                     val actual = parseResource("tests/parser/marklogic-7.0/SchemaFacetTest_Wildcard.xq")
-                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
                 }
 
                 @Test
@@ -1624,7 +1625,7 @@ private class PluginParserTest : ParserTestCase() {
                 fun wildcard_compactWhitespace() {
                     val expected = loadResource("tests/parser/marklogic-7.0/SchemaFacetTest_Wildcard_CompactWhitespace.txt")
                     val actual = parseResource("tests/parser/marklogic-7.0/SchemaFacetTest_Wildcard_CompactWhitespace.xq")
-                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
                 }
             }
         }
@@ -1637,7 +1638,7 @@ private class PluginParserTest : ParserTestCase() {
             fun anyBooleanNodeTest() {
                 val expected = loadResource("tests/parser/marklogic-8.0/AnyBooleanNodeTest.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/AnyBooleanNodeTest.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1645,7 +1646,7 @@ private class PluginParserTest : ParserTestCase() {
             fun anyBooleanNodeTest_CompactWhitespace() {
                 val expected = loadResource("tests/parser/marklogic-8.0/AnyBooleanNodeTest_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/AnyBooleanNodeTest_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1654,7 +1655,7 @@ private class PluginParserTest : ParserTestCase() {
                 val expected =
                     loadResource("tests/parser/marklogic-8.0/AnyBooleanNodeTest_MissingClosingParenthesis.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/AnyBooleanNodeTest_MissingClosingParenthesis.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1662,7 +1663,7 @@ private class PluginParserTest : ParserTestCase() {
             fun wildcard() {
                 val expected = loadResource("tests/parser/marklogic-8.0/AnyBooleanNodeTest_Wildcard.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/AnyBooleanNodeTest_Wildcard.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1672,7 +1673,7 @@ private class PluginParserTest : ParserTestCase() {
                     loadResource("tests/parser/marklogic-8.0/AnyBooleanNodeTest_Wildcard_CompactWhitespace.txt")
                 val actual =
                     parseResource("tests/parser/marklogic-8.0/AnyBooleanNodeTest_Wildcard_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
 
@@ -1684,7 +1685,7 @@ private class PluginParserTest : ParserTestCase() {
             fun namedBooleanNodeTest() {
                 val expected = loadResource("tests/parser/marklogic-8.0/NamedBooleanNodeTest.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/NamedBooleanNodeTest.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1692,7 +1693,7 @@ private class PluginParserTest : ParserTestCase() {
             fun namedBooleanNodeTest_CompactWhitespace() {
                 val expected = loadResource("tests/parser/marklogic-8.0/NamedBooleanNodeTest_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/NamedBooleanNodeTest_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
 
@@ -1704,7 +1705,7 @@ private class PluginParserTest : ParserTestCase() {
             fun anyNumberNodeTest() {
                 val expected = loadResource("tests/parser/marklogic-8.0/AnyNumberNodeTest.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/AnyNumberNodeTest.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1712,7 +1713,7 @@ private class PluginParserTest : ParserTestCase() {
             fun anyNumberNodeTest_CompactWhitespace() {
                 val expected = loadResource("tests/parser/marklogic-8.0/AnyNumberNodeTest_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/AnyNumberNodeTest_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1721,7 +1722,7 @@ private class PluginParserTest : ParserTestCase() {
                 val expected =
                     loadResource("tests/parser/marklogic-8.0/AnyNumberNodeTest_MissingClosingParenthesis.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/AnyNumberNodeTest_MissingClosingParenthesis.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1729,7 +1730,7 @@ private class PluginParserTest : ParserTestCase() {
             fun wildcard() {
                 val expected = loadResource("tests/parser/marklogic-8.0/AnyNumberNodeTest_Wildcard.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/AnyNumberNodeTest_Wildcard.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1738,7 +1739,7 @@ private class PluginParserTest : ParserTestCase() {
                 val expected =
                     loadResource("tests/parser/marklogic-8.0/AnyNumberNodeTest_Wildcard_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/AnyNumberNodeTest_Wildcard_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
 
@@ -1750,7 +1751,7 @@ private class PluginParserTest : ParserTestCase() {
             fun namedNumberNodeTest() {
                 val expected = loadResource("tests/parser/marklogic-8.0/NamedNumberNodeTest.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/NamedNumberNodeTest.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1758,7 +1759,7 @@ private class PluginParserTest : ParserTestCase() {
             fun namedNumberNodeTest_CompactWhitespace() {
                 val expected = loadResource("tests/parser/marklogic-8.0/NamedNumberNodeTest_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/NamedNumberNodeTest_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
 
@@ -1770,7 +1771,7 @@ private class PluginParserTest : ParserTestCase() {
             fun anyNullNodeTest() {
                 val expected = loadResource("tests/parser/marklogic-8.0/AnyNullNodeTest.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/AnyNullNodeTest.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1778,7 +1779,7 @@ private class PluginParserTest : ParserTestCase() {
             fun anyNullNodeTest_CompactWhitespace() {
                 val expected = loadResource("tests/parser/marklogic-8.0/AnyNullNodeTest_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/AnyNullNodeTest_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1786,7 +1787,7 @@ private class PluginParserTest : ParserTestCase() {
             fun missingClosingParenthesis() {
                 val expected = loadResource("tests/parser/marklogic-8.0/AnyNullNodeTest_MissingClosingParenthesis.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/AnyNullNodeTest_MissingClosingParenthesis.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1794,7 +1795,7 @@ private class PluginParserTest : ParserTestCase() {
             fun wildcard() {
                 val expected = loadResource("tests/parser/marklogic-8.0/AnyNullNodeTest_Wildcard.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/AnyNullNodeTest_Wildcard.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1802,7 +1803,7 @@ private class PluginParserTest : ParserTestCase() {
             fun wildcard_CompactWhitespace() {
                 val expected = loadResource("tests/parser/marklogic-8.0/AnyNullNodeTest_Wildcard_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/AnyNullNodeTest_Wildcard_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
 
@@ -1814,7 +1815,7 @@ private class PluginParserTest : ParserTestCase() {
             fun namedNullNodeTest() {
                 val expected = loadResource("tests/parser/marklogic-8.0/NamedNullNodeTest.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/NamedNullNodeTest.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1822,7 +1823,7 @@ private class PluginParserTest : ParserTestCase() {
             fun namedNullNodeTest_CompactWhitespace() {
                 val expected = loadResource("tests/parser/marklogic-8.0/NamedNullNodeTest_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/NamedNullNodeTest_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
 
@@ -1834,7 +1835,7 @@ private class PluginParserTest : ParserTestCase() {
             fun anyArrayNodeTest() {
                 val expected = loadResource("tests/parser/marklogic-8.0/AnyArrayNodeTest.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/AnyArrayNodeTest.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1842,7 +1843,7 @@ private class PluginParserTest : ParserTestCase() {
             fun anyArrayNodeTest_CompactWhitespace() {
                 val expected = loadResource("tests/parser/marklogic-8.0/AnyArrayNodeTest_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/AnyArrayNodeTest_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1850,7 +1851,7 @@ private class PluginParserTest : ParserTestCase() {
             fun missingClosingParenthesis() {
                 val expected = loadResource("tests/parser/marklogic-8.0/AnyArrayNodeTest_MissingClosingParenthesis.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/AnyArrayNodeTest_MissingClosingParenthesis.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1858,7 +1859,7 @@ private class PluginParserTest : ParserTestCase() {
             fun wildcard() {
                 val expected = loadResource("tests/parser/marklogic-8.0/AnyArrayNodeTest_Wildcard.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/AnyArrayNodeTest_Wildcard.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1866,7 +1867,7 @@ private class PluginParserTest : ParserTestCase() {
             fun wildcard_CompactWhitespace() {
                 val expected = loadResource("tests/parser/marklogic-8.0/AnyArrayNodeTest_Wildcard_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/AnyArrayNodeTest_Wildcard_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
 
@@ -1878,7 +1879,7 @@ private class PluginParserTest : ParserTestCase() {
             fun namedArrayNodeTest() {
                 val expected = loadResource("tests/parser/marklogic-8.0/NamedArrayNodeTest.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/NamedArrayNodeTest.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1886,7 +1887,7 @@ private class PluginParserTest : ParserTestCase() {
             fun namedArrayNodeTest_CompactWhitespace() {
                 val expected = loadResource("tests/parser/marklogic-8.0/NamedArrayNodeTest_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/NamedArrayNodeTest_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
 
@@ -1898,7 +1899,7 @@ private class PluginParserTest : ParserTestCase() {
             fun anyMapNodeTest() {
                 val expected = loadResource("tests/parser/marklogic-8.0/AnyMapNodeTest.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/AnyMapNodeTest.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1906,7 +1907,7 @@ private class PluginParserTest : ParserTestCase() {
             fun anyMapNodeTest_CompactWhitespace() {
                 val expected = loadResource("tests/parser/marklogic-8.0/AnyMapNodeTest_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/AnyMapNodeTest_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1914,7 +1915,7 @@ private class PluginParserTest : ParserTestCase() {
             fun missingClosingParenthesis() {
                 val expected = loadResource("tests/parser/marklogic-8.0/AnyMapNodeTest_MissingClosingParenthesis.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/AnyMapNodeTest_MissingClosingParenthesis.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1922,7 +1923,7 @@ private class PluginParserTest : ParserTestCase() {
             fun wildcard() {
                 val expected = loadResource("tests/parser/marklogic-8.0/AnyMapNodeTest_Wildcard.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/AnyMapNodeTest_Wildcard.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1930,7 +1931,7 @@ private class PluginParserTest : ParserTestCase() {
             fun wildcard_CompactWhitespace() {
                 val expected = loadResource("tests/parser/marklogic-8.0/AnyMapNodeTest_Wildcard_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/AnyMapNodeTest_Wildcard_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
 
@@ -1942,7 +1943,7 @@ private class PluginParserTest : ParserTestCase() {
             fun namedMapNodeTest() {
                 val expected = loadResource("tests/parser/marklogic-8.0/NamedMapNodeTest.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/NamedMapNodeTest.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1950,7 +1951,7 @@ private class PluginParserTest : ParserTestCase() {
             fun namedMapNodeTest_CompactWhitespace() {
                 val expected = loadResource("tests/parser/marklogic-8.0/NamedMapNodeTest_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/NamedMapNodeTest_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
 
@@ -1962,7 +1963,7 @@ private class PluginParserTest : ParserTestCase() {
             fun wildcard() {
                 val expected = loadResource("tests/parser/marklogic-8.0/AnyKindTest_Wildcard.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/AnyKindTest_Wildcard.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1970,7 +1971,7 @@ private class PluginParserTest : ParserTestCase() {
             fun wildcard_CompactWhitespace() {
                 val expected = loadResource("tests/parser/marklogic-8.0/AnyKindTest_Wildcard_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/AnyKindTest_Wildcard_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
 
@@ -1982,7 +1983,7 @@ private class PluginParserTest : ParserTestCase() {
             fun namedKindTest() {
                 val expected = loadResource("tests/parser/marklogic-8.0/NamedKindTest.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/NamedKindTest.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -1990,7 +1991,7 @@ private class PluginParserTest : ParserTestCase() {
             fun namedKindTest_CompactWhitespace() {
                 val expected = loadResource("tests/parser/marklogic-8.0/NamedKindTest_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/NamedKindTest_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
 
@@ -2002,7 +2003,7 @@ private class PluginParserTest : ParserTestCase() {
             fun wildcard() {
                 val expected = loadResource("tests/parser/marklogic-8.0/TextTest_Wildcard.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/TextTest_Wildcard.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -2010,7 +2011,7 @@ private class PluginParserTest : ParserTestCase() {
             fun wildcard_CompactWhitespace() {
                 val expected = loadResource("tests/parser/marklogic-8.0/TextTest_Wildcard_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/TextTest_Wildcard_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
 
@@ -2022,7 +2023,7 @@ private class PluginParserTest : ParserTestCase() {
             fun namedTextTest() {
                 val expected = loadResource("tests/parser/marklogic-8.0/NamedTextTest.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/NamedTextTest.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -2030,7 +2031,7 @@ private class PluginParserTest : ParserTestCase() {
             fun namedTextTest_CompactWhitespace() {
                 val expected = loadResource("tests/parser/marklogic-8.0/NamedTextTest_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/NamedTextTest_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
 
@@ -2042,7 +2043,7 @@ private class PluginParserTest : ParserTestCase() {
             fun anyArrayTest() {
                 val expected = loadResource("tests/parser/marklogic-8.0/DocumentTest_AnyArrayTest.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/DocumentTest_AnyArrayTest.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -2050,7 +2051,7 @@ private class PluginParserTest : ParserTestCase() {
             fun anyArrayTest_Wildcard() {
                 val expected = loadResource("tests/parser/marklogic-8.0/DocumentTest_AnyArrayTest_Wildcard.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/DocumentTest_AnyArrayTest_Wildcard.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -2058,7 +2059,7 @@ private class PluginParserTest : ParserTestCase() {
             fun namedArrayTest() {
                 val expected = loadResource("tests/parser/marklogic-8.0/DocumentTest_NamedArrayTest.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/DocumentTest_NamedArrayTest.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -2066,7 +2067,7 @@ private class PluginParserTest : ParserTestCase() {
             fun anyMapTest() {
                 val expected = loadResource("tests/parser/marklogic-8.0/DocumentTest_AnyMapTest.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/DocumentTest_AnyMapTest.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -2074,7 +2075,7 @@ private class PluginParserTest : ParserTestCase() {
             fun anyMapTest_Wildcard() {
                 val expected = loadResource("tests/parser/marklogic-8.0/DocumentTest_AnyMapTest_Wildcard.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/DocumentTest_MapTest_Wildcard.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -2082,7 +2083,7 @@ private class PluginParserTest : ParserTestCase() {
             fun namedMapTest() {
                 val expected = loadResource("tests/parser/marklogic-8.0/DocumentTest_NamedMapTest.txt")
                 val actual = parseResource("tests/parser/marklogic-8.0/DocumentTest_NamedMapTest.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
 
@@ -2094,7 +2095,7 @@ private class PluginParserTest : ParserTestCase() {
             fun schemaWildcardTest() {
                 val expected = loadResource("tests/parser/marklogic-7.0/SchemaWildcardTest.txt")
                 val actual = parseResource("tests/parser/marklogic-7.0/SchemaWildcardTest.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -2102,7 +2103,7 @@ private class PluginParserTest : ParserTestCase() {
             fun schemaWildcardTest_CompactWhitespace() {
                 val expected = loadResource("tests/parser/marklogic-7.0/SchemaWildcardTest_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/marklogic-7.0/SchemaWildcardTest_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -2110,7 +2111,7 @@ private class PluginParserTest : ParserTestCase() {
             fun missingClosingParenthesis() {
                 val expected = loadResource("tests/parser/marklogic-7.0/SchemaWildcardTest_MissingClosingParenthesis.txt")
                 val actual = parseResource("tests/parser/marklogic-7.0/SchemaWildcardTest_MissingClosingParenthesis.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
 
@@ -2122,7 +2123,7 @@ private class PluginParserTest : ParserTestCase() {
             fun modelGroupTest() {
                 val expected = loadResource("tests/parser/marklogic-7.0/ModelGroupTest.txt")
                 val actual = parseResource("tests/parser/marklogic-7.0/ModelGroupTest.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -2130,7 +2131,7 @@ private class PluginParserTest : ParserTestCase() {
             fun modelGroupTest_CompactWhitespace() {
                 val expected = loadResource("tests/parser/marklogic-7.0/ModelGroupTest_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/marklogic-7.0/ModelGroupTest_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -2138,7 +2139,7 @@ private class PluginParserTest : ParserTestCase() {
             fun missingClosingParenthesis() {
                 val expected = loadResource("tests/parser/marklogic-7.0/ModelGroupTest_MissingClosingParenthesis.txt")
                 val actual = parseResource("tests/parser/marklogic-7.0/ModelGroupTest_MissingClosingParenthesis.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Nested
@@ -2149,7 +2150,7 @@ private class PluginParserTest : ParserTestCase() {
                 fun elementName() {
                     val expected = loadResource("tests/parser/marklogic-7.0/ModelGroupTest_ElementName.txt")
                     val actual = parseResource("tests/parser/marklogic-7.0/ModelGroupTest_ElementName.xq")
-                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
                 }
 
                 @Test
@@ -2157,7 +2158,7 @@ private class PluginParserTest : ParserTestCase() {
                 fun elementName_compactWhitespace() {
                     val expected = loadResource("tests/parser/marklogic-7.0/ModelGroupTest_ElementName_CompactWhitespace.txt")
                     val actual = parseResource("tests/parser/marklogic-7.0/ModelGroupTest_ElementName_CompactWhitespace.xq")
-                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
                 }
 
                 @Test
@@ -2165,7 +2166,7 @@ private class PluginParserTest : ParserTestCase() {
                 fun wildcard() {
                     val expected = loadResource("tests/parser/marklogic-7.0/ModelGroupTest_Wildcard.txt")
                     val actual = parseResource("tests/parser/marklogic-7.0/ModelGroupTest_Wildcard.xq")
-                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
                 }
 
                 @Test
@@ -2173,7 +2174,7 @@ private class PluginParserTest : ParserTestCase() {
                 fun wildcard_compactWhitespace() {
                     val expected = loadResource("tests/parser/marklogic-7.0/ModelGroupTest_Wildcard_CompactWhitespace.txt")
                     val actual = parseResource("tests/parser/marklogic-7.0/ModelGroupTest_Wildcard_CompactWhitespace.xq")
-                    assertThat(prettyPrintASTNode(actual), `is`(expected))
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
                 }
             }
         }
@@ -2187,7 +2188,7 @@ private class PluginParserTest : ParserTestCase() {
         fun booleanConstructor() {
             val expected = loadResource("tests/parser/marklogic-8.0/BooleanConstructor.txt")
             val actual = parseResource("tests/parser/marklogic-8.0/BooleanConstructor.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2195,7 +2196,7 @@ private class PluginParserTest : ParserTestCase() {
         fun booleanConstructor_CompactWhitespace() {
             val expected = loadResource("tests/parser/marklogic-8.0/BooleanConstructor_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/marklogic-8.0/BooleanConstructor_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2203,7 +2204,7 @@ private class PluginParserTest : ParserTestCase() {
         fun missingExpr() {
             val expected = loadResource("tests/parser/marklogic-8.0/BooleanConstructor_MissingExpr.txt")
             val actual = parseResource("tests/parser/marklogic-8.0/BooleanConstructor_MissingExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2211,7 +2212,7 @@ private class PluginParserTest : ParserTestCase() {
         fun missingClosingBrace() {
             val expected = loadResource("tests/parser/marklogic-8.0/BooleanConstructor_MissingClosingBrace.txt")
             val actual = parseResource("tests/parser/marklogic-8.0/BooleanConstructor_MissingClosingBrace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -2223,7 +2224,7 @@ private class PluginParserTest : ParserTestCase() {
         fun numberConstructor() {
             val expected = loadResource("tests/parser/marklogic-8.0/NumberConstructor.txt")
             val actual = parseResource("tests/parser/marklogic-8.0/NumberConstructor.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2231,7 +2232,7 @@ private class PluginParserTest : ParserTestCase() {
         fun numberConstructor_CompactWhitespace() {
             val expected = loadResource("tests/parser/marklogic-8.0/NumberConstructor_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/marklogic-8.0/NumberConstructor_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2239,7 +2240,7 @@ private class PluginParserTest : ParserTestCase() {
         fun missingExpr() {
             val expected = loadResource("tests/parser/marklogic-8.0/NumberConstructor_MissingExpr.txt")
             val actual = parseResource("tests/parser/marklogic-8.0/NumberConstructor_MissingExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2247,7 +2248,7 @@ private class PluginParserTest : ParserTestCase() {
         fun missingClosingBrace() {
             val expected = loadResource("tests/parser/marklogic-8.0/NumberConstructor_MissingClosingBrace.txt")
             val actual = parseResource("tests/parser/marklogic-8.0/NumberConstructor_MissingClosingBrace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -2259,7 +2260,7 @@ private class PluginParserTest : ParserTestCase() {
         fun nullConstructor() {
             val expected = loadResource("tests/parser/marklogic-8.0/NullConstructor.txt")
             val actual = parseResource("tests/parser/marklogic-8.0/NullConstructor.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2267,7 +2268,7 @@ private class PluginParserTest : ParserTestCase() {
         fun nullConstructor_CompactWhitespace() {
             val expected = loadResource("tests/parser/marklogic-8.0/NullConstructor_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/marklogic-8.0/NullConstructor_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2275,7 +2276,7 @@ private class PluginParserTest : ParserTestCase() {
         fun missingClosingBrace() {
             val expected = loadResource("tests/parser/marklogic-8.0/NullConstructor_MissingClosingBrace.txt")
             val actual = parseResource("tests/parser/marklogic-8.0/NullConstructor_MissingClosingBrace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -2287,7 +2288,7 @@ private class PluginParserTest : ParserTestCase() {
         fun arrayConstructor() {
             val expected = loadResource("tests/parser/marklogic-8.0/ArrayConstructor.txt")
             val actual = parseResource("tests/parser/marklogic-8.0/ArrayConstructor.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2295,7 +2296,7 @@ private class PluginParserTest : ParserTestCase() {
         fun arrayConstructor_CompactWhitespace() {
             val expected = loadResource("tests/parser/marklogic-8.0/ArrayConstructor_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/marklogic-8.0/ArrayConstructor_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2303,7 +2304,7 @@ private class PluginParserTest : ParserTestCase() {
         fun missingExpr() {
             val expected = loadResource("tests/parser/marklogic-8.0/ArrayConstructor_MissingExpr.txt")
             val actual = parseResource("tests/parser/marklogic-8.0/ArrayConstructor_MissingExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2311,7 +2312,7 @@ private class PluginParserTest : ParserTestCase() {
         fun missingClosingBrace() {
             val expected = loadResource("tests/parser/marklogic-8.0/ArrayConstructor_MissingClosingBrace.txt")
             val actual = parseResource("tests/parser/marklogic-8.0/ArrayConstructor_MissingClosingBrace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2319,7 +2320,7 @@ private class PluginParserTest : ParserTestCase() {
         fun multiple() {
             val expected = loadResource("tests/parser/marklogic-8.0/ArrayConstructor_Multiple.txt")
             val actual = parseResource("tests/parser/marklogic-8.0/ArrayConstructor_Multiple.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2327,7 +2328,7 @@ private class PluginParserTest : ParserTestCase() {
         fun multiple_CompactWhitespace() {
             val expected = loadResource("tests/parser/marklogic-8.0/ArrayConstructor_Multiple_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/marklogic-8.0/ArrayConstructor_Multiple_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2335,7 +2336,7 @@ private class PluginParserTest : ParserTestCase() {
         fun multiple_MissingExpr() {
             val expected = loadResource("tests/parser/marklogic-8.0/ArrayConstructor_Multiple_MissingExpr.txt")
             val actual = parseResource("tests/parser/marklogic-8.0/ArrayConstructor_Multiple_MissingExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -2347,7 +2348,7 @@ private class PluginParserTest : ParserTestCase() {
         fun empty() {
             val expected = loadResource("tests/parser/marklogic-8.0/MapConstructor.txt")
             val actual = parseResource("tests/parser/marklogic-8.0/MapConstructor.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2355,7 +2356,7 @@ private class PluginParserTest : ParserTestCase() {
         fun empty_CompactWhitespace() {
             val expected = loadResource("tests/parser/marklogic-8.0/MapConstructor_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/marklogic-8.0/MapConstructor_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2363,7 +2364,7 @@ private class PluginParserTest : ParserTestCase() {
         fun missingClosingBrace() {
             val expected = loadResource("tests/parser/marklogic-8.0/MapConstructor_MissingClosingBrace.txt")
             val actual = parseResource("tests/parser/marklogic-8.0/MapConstructor_MissingClosingBrace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2371,7 +2372,7 @@ private class PluginParserTest : ParserTestCase() {
         fun stringLiteral() {
             val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry.txt")
             val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2379,7 +2380,7 @@ private class PluginParserTest : ParserTestCase() {
         fun stringLiteral_CompactWhitespace() {
             val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2387,7 +2388,7 @@ private class PluginParserTest : ParserTestCase() {
         fun missingSeparator() {
             val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_MissingSeparator.txt")
             val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_MissingSeparator.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2395,7 +2396,7 @@ private class PluginParserTest : ParserTestCase() {
         fun missingValueExpr() {
             val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_MissingValueExpr.txt")
             val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_MissingValueExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2403,7 +2404,7 @@ private class PluginParserTest : ParserTestCase() {
         fun multiple() {
             val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_Multiple.txt")
             val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_Multiple.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2411,7 +2412,7 @@ private class PluginParserTest : ParserTestCase() {
         fun multiple_CompactWhitespace() {
             val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_Multiple_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_Multiple_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2419,7 +2420,7 @@ private class PluginParserTest : ParserTestCase() {
         fun missingEntry() {
             val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_Multiple_MissingEntry.txt")
             val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_Multiple_MissingEntry.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2427,7 +2428,7 @@ private class PluginParserTest : ParserTestCase() {
         fun ncname() {
             val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_NCName.txt")
             val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_NCName.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2435,7 +2436,7 @@ private class PluginParserTest : ParserTestCase() {
         fun ncname_WhitespaceAfterColon() {
             val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_NCName_WhitespaceAfterColon.txt")
             val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_NCName_WhitespaceAfterColon.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2443,7 +2444,7 @@ private class PluginParserTest : ParserTestCase() {
         fun ncname_CompactWhitespace() {
             val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_NCName_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_NCName_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2451,7 +2452,7 @@ private class PluginParserTest : ParserTestCase() {
         fun qname_KeyExpr() {
             val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_QName_KeyExpr.txt")
             val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_QName_KeyExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2459,7 +2460,7 @@ private class PluginParserTest : ParserTestCase() {
         fun qname_ValueExpr() {
             val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_QName_ValueExpr.txt")
             val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_QName_ValueExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2467,7 +2468,7 @@ private class PluginParserTest : ParserTestCase() {
         fun qname_CompactWhitespace() {
             val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_QName_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_QName_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2475,7 +2476,7 @@ private class PluginParserTest : ParserTestCase() {
         fun varRef_NCName() {
             val expected = loadResource("tests/parser/marklogic-8.0/MapConstructorEntry_VarRef_NCName.txt")
             val actual = parseResource("tests/parser/marklogic-8.0/MapConstructorEntry_VarRef_NCName.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -2487,7 +2488,7 @@ private class PluginParserTest : ParserTestCase() {
         fun testSequenceType_Empty() {
             val expected = loadResource("tests/parser/xquery-1.0-20030502/SequenceType_Empty.txt")
             val actual = parseResource("tests/parser/xquery-1.0-20030502/SequenceType_Empty.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2495,7 +2496,7 @@ private class PluginParserTest : ParserTestCase() {
         fun testSequenceType_Empty_CompactWhitespace() {
             val expected = loadResource("tests/parser/xquery-1.0-20030502/SequenceType_Empty_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/xquery-1.0-20030502/SequenceType_Empty_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2503,7 +2504,7 @@ private class PluginParserTest : ParserTestCase() {
         fun testSequenceType_Empty_MissingClosingParenthesis() {
             val expected = loadResource("tests/parser/xquery-1.0-20030502/SequenceType_Empty_MissingClosingParenthesis.txt")
             val actual = parseResource("tests/parser/xquery-1.0-20030502/SequenceType_Empty_MissingClosingParenthesis.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -2515,7 +2516,7 @@ private class PluginParserTest : ParserTestCase() {
         fun singleOrElse() {
             val expected = loadResource("tests/parser/saxon-9.9/OrExpr_SingleOrElse.txt")
             val actual = parseResource("tests/parser/saxon-9.9/OrExpr_SingleOrElse.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2523,7 +2524,7 @@ private class PluginParserTest : ParserTestCase() {
         fun missingAndExpr() {
             val expected = loadResource("tests/parser/saxon-9.9/OrExpr_MissingAndExpr.txt")
             val actual = parseResource("tests/parser/saxon-9.9/OrExpr_MissingAndExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2531,7 +2532,7 @@ private class PluginParserTest : ParserTestCase() {
         fun multipleOrElse() {
             val expected = loadResource("tests/parser/saxon-9.9/OrExpr_MultipleOrElse.txt")
             val actual = parseResource("tests/parser/saxon-9.9/OrExpr_MultipleOrElse.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2539,7 +2540,7 @@ private class PluginParserTest : ParserTestCase() {
         fun mixedOrElseFirst() {
             val expected = loadResource("tests/parser/saxon-9.9/OrExpr_Mixed_OrElseFirst.txt")
             val actual = parseResource("tests/parser/saxon-9.9/OrExpr_Mixed_OrElseFirst.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2547,7 +2548,7 @@ private class PluginParserTest : ParserTestCase() {
         fun mixedOrElseLast() {
             val expected = loadResource("tests/parser/saxon-9.9/OrExpr_Mixed_OrElseLast.txt")
             val actual = parseResource("tests/parser/saxon-9.9/OrExpr_Mixed_OrElseLast.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -2562,7 +2563,7 @@ private class PluginParserTest : ParserTestCase() {
             fun simpleInlineFunctionExpr() {
                 val expected = loadResource("tests/parser/xpath-ng/proposal-5/SimpleInlineFunctionExpr.txt")
                 val actual = parseResource("tests/parser/xpath-ng/proposal-5/SimpleInlineFunctionExpr.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -2570,7 +2571,7 @@ private class PluginParserTest : ParserTestCase() {
             fun simpleInlineFunctionExpr_CompactWhitespace() {
                 val expected = loadResource("tests/parser/xpath-ng/proposal-5/SimpleInlineFunctionExpr_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/xpath-ng/proposal-5/SimpleInlineFunctionExpr_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -2578,7 +2579,7 @@ private class PluginParserTest : ParserTestCase() {
             fun missingExpr() {
                 val expected = loadResource("tests/parser/xpath-ng/proposal-5/SimpleInlineFunctionExpr_MissingExpr.txt")
                 val actual = parseResource("tests/parser/xpath-ng/proposal-5/SimpleInlineFunctionExpr_MissingExpr.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -2586,7 +2587,7 @@ private class PluginParserTest : ParserTestCase() {
             fun missingClosingBrace() {
                 val expected = loadResource("tests/parser/xpath-ng/proposal-5/SimpleInlineFunctionExpr_MissingClosingBrace.txt")
                 val actual = parseResource("tests/parser/xpath-ng/proposal-5/SimpleInlineFunctionExpr_MissingClosingBrace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
 
@@ -2598,7 +2599,7 @@ private class PluginParserTest : ParserTestCase() {
             fun contextItemFunctionExpr() {
                 val expected = loadResource("tests/parser/xpath-ng/proposal-5/ContextItemFunctionExpr.txt")
                 val actual = parseResource("tests/parser/xpath-ng/proposal-5/ContextItemFunctionExpr.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -2606,7 +2607,7 @@ private class PluginParserTest : ParserTestCase() {
             fun contextItemFunctionExpr_CompactWhitespace() {
                 val expected = loadResource("tests/parser/xpath-ng/proposal-5/ContextItemFunctionExpr_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/xpath-ng/proposal-5/ContextItemFunctionExpr_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -2614,7 +2615,7 @@ private class PluginParserTest : ParserTestCase() {
             fun missingExpr() {
                 val expected = loadResource("tests/parser/xpath-ng/proposal-5/ContextItemFunctionExpr_MissingExpr.txt")
                 val actual = parseResource("tests/parser/xpath-ng/proposal-5/ContextItemFunctionExpr_MissingExpr.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -2622,7 +2623,7 @@ private class PluginParserTest : ParserTestCase() {
             fun missingClosingBrace() {
                 val expected = loadResource("tests/parser/xpath-ng/proposal-5/ContextItemFunctionExpr_MissingClosingBrace.txt")
                 val actual = parseResource("tests/parser/xpath-ng/proposal-5/ContextItemFunctionExpr_MissingClosingBrace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -2630,7 +2631,7 @@ private class PluginParserTest : ParserTestCase() {
             fun spaceBetweenDotAndBrace() {
                 val expected = loadResource("tests/parser/xpath-ng/proposal-5/ContextItemFunctionExpr_SpaceBetweenDotAndBrace.txt")
                 val actual = parseResource("tests/parser/xpath-ng/proposal-5/ContextItemFunctionExpr_SpaceBetweenDotAndBrace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
     }
@@ -2643,7 +2644,7 @@ private class PluginParserTest : ParserTestCase() {
         fun sequenceTypeUnion() {
             val expected = loadResource("tests/parser/xquery-semantics-1.0/SequenceTypeUnion.txt")
             val actual = parseResource("tests/parser/xquery-semantics-1.0/SequenceTypeUnion.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2651,7 +2652,7 @@ private class PluginParserTest : ParserTestCase() {
         fun sequenceTypeUnion_CompactWhitespace() {
             val expected = loadResource("tests/parser/xquery-semantics-1.0/SequenceTypeUnion_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/xquery-semantics-1.0/SequenceTypeUnion_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2659,7 +2660,7 @@ private class PluginParserTest : ParserTestCase() {
         fun multiple() {
             val expected = loadResource("tests/parser/xquery-semantics-1.0/SequenceTypeUnion_Multiple.txt")
             val actual = parseResource("tests/parser/xquery-semantics-1.0/SequenceTypeUnion_Multiple.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2667,7 +2668,7 @@ private class PluginParserTest : ParserTestCase() {
         fun multiple_CompactWhitespace() {
             val expected = loadResource("tests/parser/xquery-semantics-1.0/SequenceTypeUnion_Multiple_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/xquery-semantics-1.0/SequenceTypeUnion_Multiple_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Nested
@@ -2678,7 +2679,7 @@ private class PluginParserTest : ParserTestCase() {
             fun missingItemType() {
                 val expected = loadResource("tests/parser/xquery-semantics-1.0/SequenceTypeUnion_MissingItemType.txt")
                 val actual = parseResource("tests/parser/xquery-semantics-1.0/SequenceTypeUnion_MissingItemType.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -2686,7 +2687,7 @@ private class PluginParserTest : ParserTestCase() {
             fun missingClosingParenthesis() {
                 val expected = loadResource("tests/parser/xquery-semantics-1.0/SequenceTypeUnion_MissingClosingParenthesis.txt")
                 val actual = parseResource("tests/parser/xquery-semantics-1.0/SequenceTypeUnion_MissingClosingParenthesis.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
 
@@ -2695,7 +2696,7 @@ private class PluginParserTest : ParserTestCase() {
         fun mixedWithSequenceTypeList() {
             val expected = loadResource("tests/parser/xquery-semantics-1.0/SequenceTypeUnion_MixedWithSequenceTypeList.txt")
             val actual = parseResource("tests/parser/xquery-semantics-1.0/SequenceTypeUnion_MixedWithSequenceTypeList.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Nested
@@ -2706,7 +2707,7 @@ private class PluginParserTest : ParserTestCase() {
             fun emptySequence() {
                 val expected = loadResource("tests/parser/xquery-semantics-1.0/SequenceTypeUnion_EmptySequence.txt")
                 val actual = parseResource("tests/parser/xquery-semantics-1.0/SequenceTypeUnion_EmptySequence.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -2714,7 +2715,7 @@ private class PluginParserTest : ParserTestCase() {
             fun occurrenceIndicator() {
                 val expected = loadResource("tests/parser/xquery-semantics-1.0/SequenceTypeUnion_OccurrenceIndicator.txt")
                 val actual = parseResource("tests/parser/xquery-semantics-1.0/SequenceTypeUnion_OccurrenceIndicator.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
     }
@@ -2727,7 +2728,7 @@ private class PluginParserTest : ParserTestCase() {
         fun tupleSequenceType() {
             val expected = loadResource("tests/parser/xquery-semantics-1.0/SequenceTypeList.txt")
             val actual = parseResource("tests/parser/xquery-semantics-1.0/SequenceTypeList.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2735,7 +2736,7 @@ private class PluginParserTest : ParserTestCase() {
         fun tupleSequenceType_CompactWhitespace() {
             val expected = loadResource("tests/parser/xquery-semantics-1.0/SequenceTypeList_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/xquery-semantics-1.0/SequenceTypeList_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2743,7 +2744,7 @@ private class PluginParserTest : ParserTestCase() {
         fun multiple() {
             val expected = loadResource("tests/parser/xquery-semantics-1.0/SequenceTypeList_Multiple.txt")
             val actual = parseResource("tests/parser/xquery-semantics-1.0/SequenceTypeList_Multiple.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2751,7 +2752,7 @@ private class PluginParserTest : ParserTestCase() {
         fun multiple_CompactWhitespace() {
             val expected = loadResource("tests/parser/xquery-semantics-1.0/SequenceTypeList_Multiple_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/xquery-semantics-1.0/SequenceTypeList_Multiple_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Nested
@@ -2762,7 +2763,7 @@ private class PluginParserTest : ParserTestCase() {
             fun missingItemType() {
                 val expected = loadResource("tests/parser/xquery-semantics-1.0/SequenceTypeList_MissingItemType.txt")
                 val actual = parseResource("tests/parser/xquery-semantics-1.0/SequenceTypeList_MissingItemType.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -2772,7 +2773,7 @@ private class PluginParserTest : ParserTestCase() {
                     loadResource("tests/parser/xquery-semantics-1.0/SequenceTypeList_MissingClosingParenthesis.txt")
                 val actual =
                     parseResource("tests/parser/xquery-semantics-1.0/SequenceTypeList_MissingClosingParenthesis.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
 
@@ -2781,7 +2782,7 @@ private class PluginParserTest : ParserTestCase() {
         fun mixedWithSequenceTypeUnion() {
             val expected = loadResource("tests/parser/xquery-semantics-1.0/SequenceTypeList_MixedWithSequenceTypeUnion.txt")
             val actual = parseResource("tests/parser/xquery-semantics-1.0/SequenceTypeList_MixedWithSequenceTypeUnion.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Nested
@@ -2792,7 +2793,7 @@ private class PluginParserTest : ParserTestCase() {
             fun emptySequence() {
                 val expected = loadResource("tests/parser/xquery-semantics-1.0/SequenceTypeList_EmptySequence.txt")
                 val actual = parseResource("tests/parser/xquery-semantics-1.0/SequenceTypeList_EmptySequence.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -2800,7 +2801,7 @@ private class PluginParserTest : ParserTestCase() {
             fun occurrenceIndicator() {
                 val expected = loadResource("tests/parser/xquery-semantics-1.0/SequenceTypeList_OccurrenceIndicator.txt")
                 val actual = parseResource("tests/parser/xquery-semantics-1.0/SequenceTypeList_OccurrenceIndicator.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
     }
@@ -2813,7 +2814,7 @@ private class PluginParserTest : ParserTestCase() {
         fun ternaryIf() {
             val expected = loadResource("tests/parser/xpath-ng/proposal-2/TernaryIfExpr.txt")
             val actual = parseResource("tests/parser/xpath-ng/proposal-2/TernaryIfExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2821,7 +2822,7 @@ private class PluginParserTest : ParserTestCase() {
         fun ternaryIf_CompactWhitespace() {
             val expected = loadResource("tests/parser/xpath-ng/proposal-2/TernaryIfExpr_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/xpath-ng/proposal-2/TernaryIfExpr_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Nested
@@ -2832,7 +2833,7 @@ private class PluginParserTest : ParserTestCase() {
             fun missingThenExpr() {
                 val expected = loadResource("tests/parser/xpath-ng/proposal-2/TernaryIfExpr_MissingThenExpr.txt")
                 val actual = parseResource("tests/parser/xpath-ng/proposal-2/TernaryIfExpr_MissingThenExpr.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -2840,7 +2841,7 @@ private class PluginParserTest : ParserTestCase() {
             fun missingElseOperator() {
                 val expected = loadResource("tests/parser/xpath-ng/proposal-2/TernaryIfExpr_MissingElseOperator.txt")
                 val actual = parseResource("tests/parser/xpath-ng/proposal-2/TernaryIfExpr_MissingElseOperator.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -2848,7 +2849,7 @@ private class PluginParserTest : ParserTestCase() {
             fun missingElseExpr() {
                 val expected = loadResource("tests/parser/xpath-ng/proposal-2/TernaryIfExpr_MissingElseExpr.txt")
                 val actual = parseResource("tests/parser/xpath-ng/proposal-2/TernaryIfExpr_MissingElseExpr.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
     }
@@ -2861,7 +2862,7 @@ private class PluginParserTest : ParserTestCase() {
         fun elvis() {
             val expected = loadResource("tests/parser/xpath-ng/proposal-2/ElvisExpr.txt")
             val actual = parseResource("tests/parser/xpath-ng/proposal-2/ElvisExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2869,7 +2870,7 @@ private class PluginParserTest : ParserTestCase() {
         fun elvis_CompactWhitespace() {
             val expected = loadResource("tests/parser/xpath-ng/proposal-2/ElvisExpr_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/xpath-ng/proposal-2/ElvisExpr_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Nested
@@ -2880,7 +2881,7 @@ private class PluginParserTest : ParserTestCase() {
             fun missingElseExpr() {
                 val expected = loadResource("tests/parser/xpath-ng/proposal-2/ElvisExpr_MissingElseExpr.txt")
                 val actual = parseResource("tests/parser/xpath-ng/proposal-2/ElvisExpr_MissingElseExpr.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
     }
@@ -2893,7 +2894,7 @@ private class PluginParserTest : ParserTestCase() {
         fun ifWithoutElse() {
             val expected = loadResource("tests/parser/xpath-ng/proposal-7/IfExpr_WithoutElse.txt")
             val actual = parseResource("tests/parser/xpath-ng/proposal-7/IfExpr_WithoutElse.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2901,7 +2902,7 @@ private class PluginParserTest : ParserTestCase() {
         fun ifWithoutElse_CompactWhitespace() {
             val expected = loadResource("tests/parser/xpath-ng/proposal-7/IfExpr_WithoutElse_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/xpath-ng/proposal-7/IfExpr_WithoutElse_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2909,7 +2910,7 @@ private class PluginParserTest : ParserTestCase() {
         fun ifWithoutElse_Nested() {
             val expected = loadResource("tests/parser/xpath-ng/proposal-7/IfExpr_WithoutElse_Nested.txt")
             val actual = parseResource("tests/parser/xpath-ng/proposal-7/IfExpr_WithoutElse_Nested.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -2921,7 +2922,7 @@ private class PluginParserTest : ParserTestCase() {
         fun untyped() {
             val expected = loadResource("tests/parser/xpath-ng/proposal-1/ParamList_Variadic_Untyped.txt")
             val actual = parseResource("tests/parser/xpath-ng/proposal-1/ParamList_Variadic_Untyped.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2929,7 +2930,7 @@ private class PluginParserTest : ParserTestCase() {
         fun untyped_compactWhitespace() {
             val expected = loadResource("tests/parser/xpath-ng/proposal-1/ParamList_Variadic_Untyped_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/xpath-ng/proposal-1/ParamList_Variadic_Untyped_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2937,7 +2938,7 @@ private class PluginParserTest : ParserTestCase() {
         fun typed() {
             val expected = loadResource("tests/parser/xpath-ng/proposal-1/ParamList_Variadic_Typed.txt")
             val actual = parseResource("tests/parser/xpath-ng/proposal-1/ParamList_Variadic_Typed.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2945,7 +2946,7 @@ private class PluginParserTest : ParserTestCase() {
         fun typed_compactWhitespace() {
             val expected = loadResource("tests/parser/xpath-ng/proposal-1/ParamList_Variadic_Typed_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/xpath-ng/proposal-1/ParamList_Variadic_Typed_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2953,7 +2954,7 @@ private class PluginParserTest : ParserTestCase() {
         fun multipleParams() {
             val expected = loadResource("tests/parser/xpath-ng/proposal-1/ParamList_Variadic_Multiple_LastParam.txt")
             val actual = parseResource("tests/parser/xpath-ng/proposal-1/ParamList_Variadic_Multiple_LastParam.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -2965,7 +2966,7 @@ private class PluginParserTest : ParserTestCase() {
         fun using() {
             val expected = loadResource("tests/parser/marklogic-6.0/UsingDecl.txt")
             val actual = parseResource("tests/parser/marklogic-6.0/UsingDecl.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2973,7 +2974,7 @@ private class PluginParserTest : ParserTestCase() {
         fun using_compactWhitespace() {
             val expected = loadResource("tests/parser/marklogic-6.0/UsingDecl_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/marklogic-6.0/UsingDecl_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2981,7 +2982,7 @@ private class PluginParserTest : ParserTestCase() {
         fun missingNamespaceKeyword() {
             val expected = loadResource("tests/parser/marklogic-6.0/UsingDecl_MissingNamespaceKeyword.txt")
             val actual = parseResource("tests/parser/marklogic-6.0/UsingDecl_MissingNamespaceKeyword.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -2989,7 +2990,7 @@ private class PluginParserTest : ParserTestCase() {
         fun missingNamespaceUri() {
             val expected = loadResource("tests/parser/marklogic-6.0/UsingDecl_MissingNamespaceUri.txt")
             val actual = parseResource("tests/parser/marklogic-6.0/UsingDecl_MissingNamespaceUri.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -3001,7 +3002,7 @@ private class PluginParserTest : ParserTestCase() {
         fun prefix() {
             val expected = loadResource("tests/parser/xpath-ng/proposal-13/ElementNameOrWildcard_WildcardPrefix.txt")
             val actual = parseResource("tests/parser/xpath-ng/proposal-13/ElementNameOrWildcard_WildcardPrefix.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -3009,7 +3010,7 @@ private class PluginParserTest : ParserTestCase() {
         fun localName() {
             val expected = loadResource("tests/parser/xpath-ng/proposal-13/ElementNameOrWildcard_WildcardLocalName.txt")
             val actual = parseResource("tests/parser/xpath-ng/proposal-13/ElementNameOrWildcard_WildcardLocalName.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -3017,7 +3018,7 @@ private class PluginParserTest : ParserTestCase() {
         fun uriQualifiedName() {
             val expected = loadResource("tests/parser/xpath-ng/proposal-13/ElementNameOrWildcard_WildcardURIQualifiedName.txt")
             val actual = parseResource("tests/parser/xpath-ng/proposal-13/ElementNameOrWildcard_WildcardURIQualifiedName.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -3029,7 +3030,7 @@ private class PluginParserTest : ParserTestCase() {
         fun prefix() {
             val expected = loadResource("tests/parser/xpath-ng/proposal-13/AttribNameOrWildcard_WildcardPrefix.txt")
             val actual = parseResource("tests/parser/xpath-ng/proposal-13/AttribNameOrWildcard_WildcardPrefix.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -3037,7 +3038,7 @@ private class PluginParserTest : ParserTestCase() {
         fun localName() {
             val expected = loadResource("tests/parser/xpath-ng/proposal-13/AttribNameOrWildcard_WildcardLocalName.txt")
             val actual = parseResource("tests/parser/xpath-ng/proposal-13/AttribNameOrWildcard_WildcardLocalName.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -3045,7 +3046,7 @@ private class PluginParserTest : ParserTestCase() {
         fun uriQualifiedName() {
             val expected = loadResource("tests/parser/xpath-ng/proposal-13/AttribNameOrWildcard_WildcardURIQualifiedName.txt")
             val actual = parseResource("tests/parser/xpath-ng/proposal-13/AttribNameOrWildcard_WildcardURIQualifiedName.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -3057,7 +3058,7 @@ private class PluginParserTest : ParserTestCase() {
         fun single() {
             val expected = loadResource("tests/parser/saxon-10.0/OtherwiseExpr.txt")
             val actual = parseResource("tests/parser/saxon-10.0/OtherwiseExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -3065,7 +3066,7 @@ private class PluginParserTest : ParserTestCase() {
         fun missingUnionExpr() {
             val expected = loadResource("tests/parser/saxon-10.0/OtherwiseExpr_MissingUnionExpr.txt")
             val actual = parseResource("tests/parser/saxon-10.0/OtherwiseExpr_MissingUnionExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -3073,7 +3074,7 @@ private class PluginParserTest : ParserTestCase() {
         fun multiple() {
             val expected = loadResource("tests/parser/saxon-10.0/OtherwiseExpr_Multiple.txt")
             val actual = parseResource("tests/parser/saxon-10.0/OtherwiseExpr_Multiple.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -3088,7 +3089,7 @@ private class PluginParserTest : ParserTestCase() {
             fun typeAlias() {
                 val expected = loadResource("tests/parser/saxon-9.8/TypeAlias.txt")
                 val actual = parseResource("tests/parser/saxon-9.8/TypeAlias.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -3096,7 +3097,7 @@ private class PluginParserTest : ParserTestCase() {
             fun typeAlias_compactWhitespace() {
                 val expected = loadResource("tests/parser/saxon-9.8/TypeAlias_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/saxon-9.8/TypeAlias_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -3104,7 +3105,7 @@ private class PluginParserTest : ParserTestCase() {
             fun missingEQName() {
                 val expected = loadResource("tests/parser/saxon-9.8/TypeAlias_MissingEQName.txt")
                 val actual = parseResource("tests/parser/saxon-9.8/TypeAlias_MissingEQName.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
 
@@ -3116,7 +3117,7 @@ private class PluginParserTest : ParserTestCase() {
             fun typeAlias() {
                 val expected = loadResource("tests/parser/saxon-10.0/TypeAlias.txt")
                 val actual = parseResource("tests/parser/saxon-10.0/TypeAlias.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -3124,7 +3125,7 @@ private class PluginParserTest : ParserTestCase() {
             fun typeAlias_compactWhitespace() {
                 val expected = loadResource("tests/parser/saxon-10.0/TypeAlias_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/saxon-10.0/TypeAlias_CompactWhitespace.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -3132,7 +3133,7 @@ private class PluginParserTest : ParserTestCase() {
             fun missingEQName() {
                 val expected = loadResource("tests/parser/saxon-10.0/TypeAlias_MissingEQName.txt")
                 val actual = parseResource("tests/parser/saxon-10.0/TypeAlias_MissingEQName.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
@@ -3140,7 +3141,7 @@ private class PluginParserTest : ParserTestCase() {
             fun missingClosingParenthesis() {
                 val expected = loadResource("tests/parser/saxon-10.0/TypeAlias_MissingClosingParenthesis.txt")
                 val actual = parseResource("tests/parser/saxon-10.0/TypeAlias_MissingClosingParenthesis.xq")
-                assertThat(prettyPrintASTNode(actual), `is`(expected))
+                assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
     }
@@ -3153,7 +3154,7 @@ private class PluginParserTest : ParserTestCase() {
         fun lambdaFunctionExpr() {
             val expected = loadResource("tests/parser/saxon-10.0/LambdaFunctionExpr.txt")
             val actual = parseResource("tests/parser/saxon-10.0/LambdaFunctionExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -3161,7 +3162,7 @@ private class PluginParserTest : ParserTestCase() {
         fun lambdaFunctionExpr_CompactWhitespace() {
             val expected = loadResource("tests/parser/saxon-10.0/LambdaFunctionExpr_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/saxon-10.0/LambdaFunctionExpr_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -3169,7 +3170,7 @@ private class PluginParserTest : ParserTestCase() {
         fun spaceBetweenUnderscoreAndBrace() {
             val expected = loadResource("tests/parser/saxon-10.0/LambdaFunctionExpr_SpaceBetweenUnderscoreAndBrace.txt")
             val actual = parseResource("tests/parser/saxon-10.0/LambdaFunctionExpr_SpaceBetweenUnderscoreAndBrace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -3177,7 +3178,7 @@ private class PluginParserTest : ParserTestCase() {
         fun missingExpr() {
             val expected = loadResource("tests/parser/saxon-10.0/LambdaFunctionExpr_MissingExpr.txt")
             val actual = parseResource("tests/parser/saxon-10.0/LambdaFunctionExpr_MissingExpr.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -3185,7 +3186,7 @@ private class PluginParserTest : ParserTestCase() {
         fun missingClosingBrace() {
             val expected = loadResource("tests/parser/saxon-10.0/LambdaFunctionExpr_MissingClosingBrace.txt")
             val actual = parseResource("tests/parser/saxon-10.0/LambdaFunctionExpr_MissingClosingBrace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -3197,7 +3198,7 @@ private class PluginParserTest : ParserTestCase() {
         fun paramRef() {
             val expected = loadResource("tests/parser/saxon-10.0/PrimaryExpr_ParamRef.txt")
             val actual = parseResource("tests/parser/saxon-10.0/PrimaryExpr_ParamRef.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -3205,7 +3206,7 @@ private class PluginParserTest : ParserTestCase() {
         fun compactWhitespace() {
             val expected = loadResource("tests/parser/saxon-10.0/PrimaryExpr_ParamRef_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/saxon-10.0/PrimaryExpr_ParamRef_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -3217,7 +3218,7 @@ private class PluginParserTest : ParserTestCase() {
         fun paramRef() {
             val expected = loadResource("tests/parser/saxon-10.0/ArrowFunctionSpecifier_ParamRef.txt")
             val actual = parseResource("tests/parser/saxon-10.0/ArrowFunctionSpecifier_ParamRef.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -3225,7 +3226,7 @@ private class PluginParserTest : ParserTestCase() {
         fun compactWhitespace() {
             val expected = loadResource("tests/parser/saxon-10.0/ArrowFunctionSpecifier_ParamRef_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/saxon-10.0/ArrowFunctionSpecifier_ParamRef_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -3237,7 +3238,7 @@ private class PluginParserTest : ParserTestCase() {
         fun singleBinding() {
             val expected = loadResource("tests/parser/saxon-10.0/ForMemberClause_SingleBinding.txt")
             val actual = parseResource("tests/parser/saxon-10.0/ForMemberClause_SingleBinding.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -3245,7 +3246,7 @@ private class PluginParserTest : ParserTestCase() {
         fun singleBinding_compactWhitespace() {
             val expected = loadResource("tests/parser/saxon-10.0/ForMemberClause_SingleBinding_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/saxon-10.0/ForMemberClause_SingleBinding_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -3253,7 +3254,7 @@ private class PluginParserTest : ParserTestCase() {
         fun multipleBindings() {
             val expected = loadResource("tests/parser/saxon-10.0/ForMemberClause_MultipleBindings.txt")
             val actual = parseResource("tests/parser/saxon-10.0/ForMemberClause_MultipleBindings.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -3261,7 +3262,7 @@ private class PluginParserTest : ParserTestCase() {
         fun multipleBindings_compactWhitespace() {
             val expected = loadResource("tests/parser/saxon-10.0/ForMemberClause_MultipleBindings_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/saxon-10.0/ForMemberClause_MultipleBindings_CompactWhitespace.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -3269,7 +3270,7 @@ private class PluginParserTest : ParserTestCase() {
         fun missingForBinding() {
             val expected = loadResource("tests/parser/saxon-10.0/ForMemberClause_MissingForBinding.txt")
             val actual = parseResource("tests/parser/saxon-10.0/ForMemberClause_MissingForBinding.xq")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 }

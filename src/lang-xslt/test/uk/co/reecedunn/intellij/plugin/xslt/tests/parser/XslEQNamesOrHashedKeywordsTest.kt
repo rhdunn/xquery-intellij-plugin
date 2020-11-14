@@ -19,6 +19,7 @@ import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import uk.co.reecedunn.intellij.plugin.core.psi.toPsiTreeString
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
@@ -50,7 +51,7 @@ private class XslEQNamesOrHashedKeywordsTest :
         fun one() {
             val expected = loadResource("tests/parser/schema-type/eqnames/URIQualifiedName.txt")
             val actual = parseResource("tests/parser/schema-type/eqnames/URIQualifiedName.input")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -58,7 +59,7 @@ private class XslEQNamesOrHashedKeywordsTest :
         fun multiple() {
             val expected = loadResource("tests/parser/schema-type/eqnames/URIQualifiedName_List.txt")
             val actual = parseResource("tests/parser/schema-type/eqnames/URIQualifiedName_List.input")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -70,7 +71,7 @@ private class XslEQNamesOrHashedKeywordsTest :
         fun one() {
             val expected = loadResource("tests/parser/schema-type/eqnames/QName.txt")
             val actual = parseResource("tests/parser/schema-type/eqnames/QName.input")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -78,7 +79,7 @@ private class XslEQNamesOrHashedKeywordsTest :
         fun multiple() {
             val expected = loadResource("tests/parser/schema-type/eqnames/QName_List.txt")
             val actual = parseResource("tests/parser/schema-type/eqnames/QName_List.input")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -90,7 +91,7 @@ private class XslEQNamesOrHashedKeywordsTest :
         fun one() {
             val expected = loadResource("tests/parser/schema-type/eqnames/NCName.txt")
             val actual = parseResource("tests/parser/schema-type/eqnames/NCName.input")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -98,7 +99,7 @@ private class XslEQNamesOrHashedKeywordsTest :
         fun multiple() {
             val expected = loadResource("tests/parser/schema-type/eqnames/NCName_List.txt")
             val actual = parseResource("tests/parser/schema-type/eqnames/NCName_List.input")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -110,7 +111,7 @@ private class XslEQNamesOrHashedKeywordsTest :
         fun all() {
             val expected = loadResource("tests/parser/schema-type/hashed-keyword/All.txt")
             val actual = parseResource("tests/parser/schema-type/hashed-keyword/All.input")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -118,7 +119,7 @@ private class XslEQNamesOrHashedKeywordsTest :
         fun current() {
             val expected = loadResource("tests/parser/schema-type/hashed-keyword/Current.txt")
             val actual = parseResource("tests/parser/schema-type/hashed-keyword/Current.input")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -126,7 +127,7 @@ private class XslEQNamesOrHashedKeywordsTest :
         fun default() {
             val expected = loadResource("tests/parser/schema-type/hashed-keyword/Default.txt")
             val actual = parseResource("tests/parser/schema-type/hashed-keyword/Default.input")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -134,7 +135,7 @@ private class XslEQNamesOrHashedKeywordsTest :
         fun unnamed() {
             val expected = loadResource("tests/parser/schema-type/hashed-keyword/Unnamed.txt")
             val actual = parseResource("tests/parser/schema-type/hashed-keyword/Unnamed.input")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -142,7 +143,7 @@ private class XslEQNamesOrHashedKeywordsTest :
         fun missingNCName() {
             val expected = loadResource("tests/parser/schema-type/hashed-keyword/MissingNCName.txt")
             val actual = parseResource("tests/parser/schema-type/hashed-keyword/MissingNCName.input")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 
@@ -154,7 +155,7 @@ private class XslEQNamesOrHashedKeywordsTest :
         fun comment() {
             val expected = loadResource("tests/parser/schema-type/comments/Comment.txt")
             val actual = parseResource("tests/parser/schema-type/comments/Comment.input")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -162,7 +163,7 @@ private class XslEQNamesOrHashedKeywordsTest :
         fun unclosedComment() {
             val expected = loadResource("tests/parser/schema-type/comments/Comment_UnclosedComment.txt")
             val actual = parseResource("tests/parser/schema-type/comments/Comment_UnclosedComment.input")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -170,7 +171,7 @@ private class XslEQNamesOrHashedKeywordsTest :
         fun unexpectedCommentEndTag() {
             val expected = loadResource("tests/parser/schema-type/comments/Comment_UnexpectedCommentEndTag.txt")
             val actual = parseResource("tests/parser/schema-type/comments/Comment_UnexpectedCommentEndTag.input")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 }

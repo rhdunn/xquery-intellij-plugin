@@ -19,6 +19,7 @@ import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import uk.co.reecedunn.intellij.plugin.core.psi.toPsiTreeString
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
@@ -45,7 +46,7 @@ private class XslSequenceTypeTest : ParserTestCase(SequenceType.ParserDefinition
     fun sequenceType() {
         val expected = loadResource("tests/parser/schema-type/sequence-type/SequenceType.txt")
         val actual = parseResource("tests/parser/schema-type/sequence-type/SequenceType.input")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+        assertThat(actual.toPsiTreeString(), `is`(expected))
     }
 
     @Test
@@ -53,7 +54,7 @@ private class XslSequenceTypeTest : ParserTestCase(SequenceType.ParserDefinition
     fun itemType() {
         val expected = loadResource("tests/parser/schema-type/sequence-type/ItemType.txt")
         val actual = parseResource("tests/parser/schema-type/sequence-type/ItemType.input")
-        assertThat(prettyPrintASTNode(actual), `is`(expected))
+        assertThat(actual.toPsiTreeString(), `is`(expected))
     }
 
     @Nested
@@ -64,7 +65,7 @@ private class XslSequenceTypeTest : ParserTestCase(SequenceType.ParserDefinition
         fun comment() {
             val expected = loadResource("tests/parser/schema-type/sequence-type/Comment.txt")
             val actual = parseResource("tests/parser/schema-type/comments/Comment.input")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -72,7 +73,7 @@ private class XslSequenceTypeTest : ParserTestCase(SequenceType.ParserDefinition
         fun unclosedComment() {
             val expected = loadResource("tests/parser/schema-type/sequence-type/Comment_UnclosedComment.txt")
             val actual = parseResource("tests/parser/schema-type/comments/Comment_UnclosedComment.input")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
@@ -80,7 +81,7 @@ private class XslSequenceTypeTest : ParserTestCase(SequenceType.ParserDefinition
         fun unexpectedCommentEndTag() {
             val expected = loadResource("tests/parser/schema-type/sequence-type/Comment_UnexpectedCommentEndTag.txt")
             val actual = parseResource("tests/parser/schema-type/comments/Comment_UnexpectedCommentEndTag.input")
-            assertThat(prettyPrintASTNode(actual), `is`(expected))
+            assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
 }
