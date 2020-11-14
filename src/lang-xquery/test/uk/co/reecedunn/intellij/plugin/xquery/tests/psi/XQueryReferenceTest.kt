@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Reece H. Dunn
+ * Copyright (C) 2016-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,8 +23,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
-import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
+import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
@@ -39,14 +38,13 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("IntelliJ - Custom Language Support - References and Resolve - XQuery")
 private class XQueryReferenceTest : ParserTestCase() {
+    private val res = ResourceVirtualFileSystem(this::class.java.classLoader)
+
+    fun parseResource(resource: String): XQueryModule = res.toPsiFile(resource, project)
+
     override fun registerExtensions() {
         registerNamespaceProvider(XQueryNamespaceProvider, "INSTANCE")
         registerInScopeVariableProvider(XQueryVariableProvider, "INSTANCE")
-    }
-
-    fun parseResource(resource: String): XQueryModule {
-        val file = ResourceVirtualFile.create(this::class.java.classLoader, resource)
-        return file.toPsiFile(myProject) as XQueryModule
     }
 
     @Nested

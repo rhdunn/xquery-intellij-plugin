@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017-2019 Reece H. Dunn
+ * Copyright (C) 2017-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,23 +21,19 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.psi.toPsiTreeString
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
+import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
-import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("ClassName", "Reformat")
 @DisplayName("XQuery 3.1 with Full Text 3.0 - Parser")
 private class FullTextParserTest : ParserTestCase() {
-    fun parseResource(resource: String): XQueryModule {
-        val file = ResourceVirtualFile.create(this::class.java.classLoader, resource)
-        return file.toPsiFile(myProject) as XQueryModule
-    }
+    private val res = ResourceVirtualFileSystem(this::class.java.classLoader)
 
-    fun loadResource(resource: String): String? {
-        return ResourceVirtualFile.create(this::class.java.classLoader, resource).decode()
-    }
+    fun parseResource(resource: String): XQueryModule = res.toPsiFile(resource, project)
+
+    fun loadResource(resource: String): String? = res.findFileByPath(resource)!!.decode()
 
     @Nested
     @DisplayName("XQuery Full Text 1.0 EBNF (24) FTOptionDecl ; XQuery Full Text 1.0 EBNF (167) FTMatchOptions")

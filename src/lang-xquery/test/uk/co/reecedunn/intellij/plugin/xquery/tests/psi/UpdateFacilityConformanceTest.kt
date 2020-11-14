@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2018, 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,8 +24,7 @@ import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
-import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
+import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginCompatibilityAnnotation
 import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
@@ -39,10 +38,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("XQuery Update Facility 3.0 - Implementation Conformance Checks")
 private class UpdateFacilityConformanceTest : ParserTestCase() {
-    fun parseResource(resource: String): XQueryModule {
-        val file = ResourceVirtualFile.create(this::class.java.classLoader, resource)
-        return file.toPsiFile(myProject) as XQueryModule
-    }
+    private val res = ResourceVirtualFileSystem(this::class.java.classLoader)
+
+    fun parseResource(resource: String): XQueryModule = res.toPsiFile(resource, project)
 
     @Nested
     @DisplayName("XQuery Update Facility 3.0 EBNF (27) CompatibilityAnnotation")

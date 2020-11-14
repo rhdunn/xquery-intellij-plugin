@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Reece H. Dunn
+ * Copyright (C) 2018-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.psi.toPsiTreeString
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
+import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath
@@ -30,14 +31,11 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath
 @DisplayName("XPath 3.1 - Parser")
 @Suppress("ClassName", "Reformat")
 private class XPathParserTest : ParserTestCase() {
-    fun parseResource(resource: String): XPath {
-        val file = ResourceVirtualFile.create(this::class.java.classLoader, resource)
-        return file.toPsiFile(myProject) as XPath
-    }
+    private val res = ResourceVirtualFileSystem(this::class.java.classLoader)
 
-    fun loadResource(resource: String): String? {
-        return ResourceVirtualFile.create(this::class.java.classLoader, resource).decode()
-    }
+    fun parseResource(resource: String): XPath = res.toPsiFile(resource, project)
+
+    fun loadResource(resource: String): String? = res.findFileByPath(resource)!!.decode()
 
     @Nested
     @DisplayName("Parser")

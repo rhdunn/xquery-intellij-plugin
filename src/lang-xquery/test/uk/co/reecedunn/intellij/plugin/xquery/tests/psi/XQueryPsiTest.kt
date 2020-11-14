@@ -32,8 +32,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.psi.resourcePath
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
-import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
-import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
+import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
@@ -72,13 +71,12 @@ import java.math.BigInteger
 @Suppress("Reformat", "ClassName")
 @DisplayName("XQuery 3.1 - IntelliJ Program Structure Interface (PSI)")
 private class XQueryPsiTest : ParserTestCase() {
-    fun parseResource(resource: String): XQueryModule {
-        val file = ResourceVirtualFile.create(this::class.java.classLoader, resource)
-        return file.toPsiFile(myProject) as XQueryModule
-    }
+    private val res = ResourceVirtualFileSystem(this::class.java.classLoader)
+
+    fun parseResource(resource: String): XQueryModule = res.toPsiFile(resource, project)
 
     override fun registerModules(manager: MockModuleManager) {
-        manager.addModule(ResourceVirtualFile.create(this::class.java.classLoader, "tests/module-xquery"))
+        manager.addModule(res.findFileByPath("tests/module-xquery")!!)
     }
 
     override fun registerExtensions() {

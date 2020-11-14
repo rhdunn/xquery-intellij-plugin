@@ -20,10 +20,9 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
-import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.core.lang.foldable.FoldingBuilderImpl
 import uk.co.reecedunn.intellij.plugin.core.psi.document
+import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
@@ -31,10 +30,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("IntelliJ - Custom Language Support - Code Folding - XQuery FoldingBuilder")
 private class XQueryFoldingTest : ParserTestCase() {
-    fun parseResource(resource: String): XQueryModule {
-        val file = ResourceVirtualFile.create(this::class.java.classLoader, resource)
-        return file.toPsiFile(myProject) as XQueryModule
-    }
+    private val res = ResourceVirtualFileSystem(this::class.java.classLoader)
+
+    fun parseResource(resource: String): XQueryModule = res.toPsiFile(resource, project)
 
     @Test
     @DisplayName("XQuery 3.1 EBNF (9) BoundarySpaceDecl")

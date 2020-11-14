@@ -21,9 +21,8 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.psi.toPsiTreeString
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
+import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
-import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xslt.ast.schema.XsltSchemaType
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.NameTests
@@ -32,14 +31,11 @@ import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.NameTests
 @Suppress("Reformat")
 @DisplayName("XSLT 3.0 - Schema Types - xsl:nametests")
 private class XslNameTestsTest : ParserTestCase(NameTests.ParserDefinition(), XPathParserDefinition()) {
-    fun parseResource(resource: String): XsltSchemaType {
-        val file = ResourceVirtualFile.create(this::class.java.classLoader, resource)
-        return file.toPsiFile(myProject) as XsltSchemaType
-    }
+    private val res = ResourceVirtualFileSystem(this::class.java.classLoader)
 
-    fun loadResource(resource: String): String? {
-        return ResourceVirtualFile.create(this::class.java.classLoader, resource).decode()
-    }
+    fun parseResource(resource: String): XsltSchemaType = res.toPsiFile(resource, project)
+
+    fun loadResource(resource: String): String? = res.findFileByPath(resource)!!.decode()
 
     @Nested
     @DisplayName("XPath 3.1 EBNF (48) Wildcard")
