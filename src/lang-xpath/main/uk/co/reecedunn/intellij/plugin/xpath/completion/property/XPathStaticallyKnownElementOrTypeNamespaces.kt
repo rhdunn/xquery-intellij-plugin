@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.staticallyKnownNamespaces
 object XPathStaticallyKnownElementOrTypeNamespaces : CompletionProperty {
     override fun computeProperty(element: PsiElement, context: ProcessingContext) {
         if (context[XPathCompletionProperty.STATICALLY_KNOWN_ELEMENT_OR_TYPE_NAMESPACES] == null) {
-            val namespaces = element.defaultNamespace(XdmNamespaceType.DefaultElementOrType).firstOrNull()?.let {
+            val namespaces = element.defaultNamespace(XdmNamespaceType.DefaultElement).firstOrNull()?.let {
                 val list = mutableListOf(it)
                 list.addAll(element.staticallyKnownNamespaces())
                 list

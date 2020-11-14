@@ -33,14 +33,16 @@ class XQueryDefaultNamespaceDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(no
     override val namespaceUri: XsAnyUriValue?
         get() = children().filterIsInstance<XsAnyUriValue>().filterNotNull().firstOrNull()
 
-    @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
     override fun accepts(namespaceType: XdmNamespaceType): Boolean {
         return children().map { child ->
             when (child.elementType) {
-                XPathTokenType.K_ELEMENT -> namespaceType === XdmNamespaceType.DefaultElementOrType
-                XPathTokenType.K_FUNCTION -> {
-                    namespaceType === XdmNamespaceType.DefaultFunctionDecl ||
-                    namespaceType === XdmNamespaceType.DefaultFunctionRef
+                XPathTokenType.K_ELEMENT -> when (namespaceType) {
+                    XdmNamespaceType.DefaultElement, XdmNamespaceType.DefaultType -> true
+                    else -> false
+                }
+                XPathTokenType.K_FUNCTION -> when (namespaceType) {
+                    XdmNamespaceType.DefaultFunctionDecl, XdmNamespaceType.DefaultFunctionRef -> true
+                    else -> false
                 }
                 else -> null
             }

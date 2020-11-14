@@ -30,9 +30,10 @@ object XsltNamespaceProvider : XpmNamespaceProvider {
     override fun defaultNamespace(context: PsiElement, type: XdmNamespaceType): Sequence<XpmNamespaceDeclaration> {
         if (context.containingFile !is XPath) return emptySequence()
         return when (type) {
-            XdmNamespaceType.DefaultElementOrType -> context.defaultElementOrTypeXPathNamespace()
+            XdmNamespaceType.DefaultElement -> context.defaultElementOrTypeXPathNamespace()
             XdmNamespaceType.DefaultFunctionDecl -> context.defaultFunctionXPathNamespace()
             XdmNamespaceType.DefaultFunctionRef -> context.defaultFunctionXPathNamespace()
+            XdmNamespaceType.DefaultType -> context.defaultElementOrTypeXPathNamespace()
             else -> emptySequence()
         }
     }

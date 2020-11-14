@@ -38,8 +38,9 @@ private fun XmlAttribute.toDefaultNamespaceDeclaration(): XpmNamespaceDeclaratio
             override val namespaceUri: XsAnyUriValue? =
                 XsAnyUri(value, XdmUriContext.Namespace, XdmModuleType.NONE, originalElement)
 
-            override fun accepts(namespaceType: XdmNamespaceType): Boolean {
-                return namespaceType === XdmNamespaceType.DefaultElementOrType
+            override fun accepts(namespaceType: XdmNamespaceType): Boolean = when (namespaceType) {
+                XdmNamespaceType.DefaultElement, XdmNamespaceType.DefaultType -> true
+                else -> false
             }
         }
     } else {

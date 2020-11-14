@@ -106,9 +106,10 @@ fun XsQNameValue.getNamespaceType(): XdmNamespaceType {
 
 fun XsQNameValue.expandQName(): Sequence<XsQNameValue> = when {
     isLexicalQName && prefix == null /* NCName */ -> when (val type = getNamespaceType()) {
-        XdmNamespaceType.DefaultElementOrType -> element!!.defaultNamespace(type).expandNCName(this)
+        XdmNamespaceType.DefaultElement -> element!!.defaultNamespace(type).expandNCName(this)
         XdmNamespaceType.DefaultFunctionDecl -> element!!.defaultNamespace(type).expandNCName(this)
         XdmNamespaceType.DefaultFunctionRef -> element!!.defaultNamespace(type).expandNCName(this)
+        XdmNamespaceType.DefaultType -> element!!.defaultNamespace(type).expandNCName(this)
         XdmNamespaceType.None -> sequenceOf(XsQName(EMPTY_NAMESPACE, null, localName, false, element))
         XdmNamespaceType.XQuery -> sequenceOf(XsQName(XQUERY_NAMESPACE, null, localName, false, element))
         else -> sequenceOf(this)

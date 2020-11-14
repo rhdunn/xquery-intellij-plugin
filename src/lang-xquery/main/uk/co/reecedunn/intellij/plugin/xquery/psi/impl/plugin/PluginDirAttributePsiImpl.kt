@@ -110,10 +110,13 @@ class PluginDirAttributePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), Plu
 
     override fun accepts(namespaceType: XdmNamespaceType): Boolean {
         val qname = nodeName ?: return false
-        return namespaceType === when {
-            qname.prefix?.data == "xmlns" -> XdmNamespaceType.Prefixed
-            qname.localName?.data == "xmlns" && qname.prefix == null -> XdmNamespaceType.DefaultElementOrType
-            else -> XdmNamespaceType.Undefined
+        return when {
+            qname.prefix?.data == "xmlns" -> namespaceType === XdmNamespaceType.Prefixed
+            qname.localName?.data == "xmlns" && qname.prefix == null -> when (namespaceType) {
+                XdmNamespaceType.DefaultElement, XdmNamespaceType.DefaultType -> true
+                else -> false
+            }
+            else -> namespaceType === XdmNamespaceType.Undefined
         }
     }
 

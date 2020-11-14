@@ -22,14 +22,14 @@ enum class XpmUsageType(val label: String, val namespaceType: XdmNamespaceType) 
     Annotation(XdmBundle.message("usage-type.annotation"), XdmNamespaceType.XQuery),
     Attribute(XdmBundle.message("usage-type.attribute"), XdmNamespaceType.None),
     DecimalFormat(XdmBundle.message("usage-type.decimal-format"), XdmNamespaceType.None),
-    Element(XdmBundle.message("usage-type.element"), XdmNamespaceType.DefaultElementOrType),
+    Element(XdmBundle.message("usage-type.element"), XdmNamespaceType.DefaultElement),
     FunctionDecl(XdmBundle.message("usage-type.function"), XdmNamespaceType.DefaultFunctionDecl),
     FunctionRef(XdmBundle.message("usage-type.function"), XdmNamespaceType.DefaultFunctionRef),
     Namespace(XdmBundle.message("usage-type.namespace"), XdmNamespaceType.None),
     Option(XdmBundle.message("usage-type.option"), XdmNamespaceType.XQuery),
     Parameter(XdmBundle.message("usage-type.parameter"), XdmNamespaceType.None),
     Pragma(XdmBundle.message("usage-type.pragma"), XdmNamespaceType.None),
-    Type(XdmBundle.message("usage-type.type"), XdmNamespaceType.DefaultElementOrType),
+    Type(XdmBundle.message("usage-type.type"), XdmNamespaceType.DefaultType),
     Unknown(XdmBundle.message("usage-type.identifier"), XdmNamespaceType.Undefined),
     Variable(XdmBundle.message("usage-type.variable"), XdmNamespaceType.None)
 }

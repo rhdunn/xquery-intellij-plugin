@@ -36,7 +36,10 @@ class XQuerySchemaImportPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
     override fun accepts(namespaceType: XdmNamespaceType): Boolean {
         return when (schemaPrefix?.firstChild?.node?.elementType) {
             XPathTokenType.K_NAMESPACE -> namespaceType === XdmNamespaceType.Prefixed
-            else -> namespaceType === XdmNamespaceType.DefaultElementOrType
+            else -> when (namespaceType) {
+                XdmNamespaceType.DefaultElement, XdmNamespaceType.DefaultType -> true
+                else -> false
+            }
         }
     }
 
