@@ -21,11 +21,13 @@ import com.intellij.codeInsight.completion.PrefixMatcher
 import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.patterns.ElementPattern
 
-class MockCompletionResultSet : CompletionResultSet(null, null, null) {
+class MockCompletionResultSet(prefixMatcher: PrefixMatcher) : CompletionResultSet(prefixMatcher, null, null) {
     val elements = mutableListOf<LookupElement>()
 
     override fun addElement(element: LookupElement) {
-        elements.add(element)
+        if (prefixMatcher.prefixMatches(element)) {
+            elements.add(element)
+        }
     }
 
     override fun addLookupAdvertisement(text: String) = TODO()

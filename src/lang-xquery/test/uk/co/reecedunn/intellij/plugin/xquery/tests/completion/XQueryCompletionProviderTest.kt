@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.completion
 
+import com.intellij.codeInsight.completion.PlainPrefixMatcher
 import com.intellij.util.ProcessingContext
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
@@ -41,16 +42,216 @@ private class XQueryCompletionProviderTest : ParserTestCase() {
     @Nested
     @DisplayName("XQuery 3.1 EBNF (187) AtomicOrUnionType")
     internal inner class AtomicOrUnionType {
-        @Test
-        @DisplayName("XQuery 3.1 EBNF (182) SingleType ; XQuery 3.1 EBNF (187) AtomicOrUnionType")
-        fun singleType() {
-            val element = completion("2 cast as in", "in")
+        fun completionResults(query: String, completionPoint: String): List<String> {
+            val element = completion(query, completionPoint)
             val context = ProcessingContext()
-            val results = MockCompletionResultSet()
+            val results = MockCompletionResultSet(PlainPrefixMatcher(completionPoint))
             XPathStaticallyKnownElementOrTypeNamespaces.computeProperty(element, context)
             XPathAtomicOrUnionTypeProvider.apply(element, context, results)
+            return results.elements.map { it.lookupString }
+        }
 
-            assertThat(results.elements.size, `is`(49))
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (235) NCName")
+        internal inner class NCName {
+            @Test
+            @DisplayName("built-in prefix")
+            fun builtInPrefix() {
+                val results = completionResults("2 cast as inte", "inte")
+                assertThat(results.size, `is`(5))
+                assertThat(results[0], `is`("xs:integer"))
+                assertThat(results[1], `is`("xs:negativeInteger"))
+                assertThat(results[2], `is`("xs:nonNegativeInteger"))
+                assertThat(results[3], `is`("xs:nonPositiveInteger"))
+                assertThat(results[4], `is`("xs:positiveInteger"))
+            }
+
+            @Test
+            @DisplayName("custom prefix")
+            fun customPrefix() {
+                val results = completionResults(
+                    """
+                    declare namespace xsd = "http://www.w3.org/2001/XMLSchema";
+                    2 cast as inte
+                    """.trimIndent(),
+                    "inte"
+                )
+                assertThat(results.size, `is`(5))
+                assertThat(results[0], `is`("xsd:integer"))
+                assertThat(results[1], `is`("xsd:negativeInteger"))
+                assertThat(results[2], `is`("xsd:nonNegativeInteger"))
+                assertThat(results[3], `is`("xsd:nonPositiveInteger"))
+                assertThat(results[4], `is`("xsd:positiveInteger"))
+            }
+
+            @Test
+            @DisplayName("default element/type namespace")
+            fun defaultElementTypeNamespace() {
+                val results = completionResults(
+                    """
+                    declare default element namespace "http://www.w3.org/2001/XMLSchema";
+                    2 cast as inte
+                    """.trimIndent(),
+                    "inte"
+                )
+                assertThat(results.size, `is`(5))
+                assertThat(results[0], `is`("integer"))
+                assertThat(results[1], `is`("negativeInteger"))
+                assertThat(results[2], `is`("nonNegativeInteger"))
+                assertThat(results[3], `is`("nonPositiveInteger"))
+                assertThat(results[4], `is`("positiveInteger"))
+            }
+
+            @Test
+            @DisplayName("custom prefix and default element/type namespace")
+            fun customPrefixAndDefaultElementTypeNamespace() {
+                val results = completionResults(
+                    """
+                    declare default element namespace "http://www.w3.org/2001/XMLSchema";
+                    declare namespace xsd = "http://www.w3.org/2001/XMLSchema";
+                    2 cast as inte
+                    """.trimIndent(),
+                    "inte"
+                )
+                assertThat(results.size, `is`(5))
+                assertThat(results[0], `is`("integer"))
+                assertThat(results[1], `is`("negativeInteger"))
+                assertThat(results[2], `is`("nonNegativeInteger"))
+                assertThat(results[3], `is`("nonPositiveInteger"))
+                assertThat(results[4], `is`("positiveInteger"))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (234) QName")
+        internal inner class QName {
+            @Test
+            @DisplayName("built-in prefix")
+            fun builtInPrefix() {
+                val results = completionResults("2 cast as xs:inte", "inte")
+                assertThat(results.size, `is`(5))
+                assertThat(results[0], `is`("integer"))
+                assertThat(results[1], `is`("negativeInteger"))
+                assertThat(results[2], `is`("nonNegativeInteger"))
+                assertThat(results[3], `is`("nonPositiveInteger"))
+                assertThat(results[4], `is`("positiveInteger"))
+            }
+
+            @Test
+            @DisplayName("custom prefix")
+            fun customPrefix() {
+                val results = completionResults(
+                    """
+                    declare namespace xsd = "http://www.w3.org/2001/XMLSchema";
+                    2 cast as xsd:inte
+                    """.trimIndent(),
+                    "inte"
+                )
+                assertThat(results.size, `is`(5))
+                assertThat(results[0], `is`("integer"))
+                assertThat(results[1], `is`("negativeInteger"))
+                assertThat(results[2], `is`("nonNegativeInteger"))
+                assertThat(results[3], `is`("nonPositiveInteger"))
+                assertThat(results[4], `is`("positiveInteger"))
+            }
+
+            @Test
+            @DisplayName("default element/type namespace")
+            fun defaultElementTypeNamespace() {
+                val results = completionResults(
+                    """
+                    declare default element namespace "http://www.w3.org/2001/XMLSchema";
+                    2 cast as xs:inte
+                    """.trimIndent(),
+                    "inte"
+                )
+                assertThat(results.size, `is`(0))
+            }
+
+            @Test
+            @DisplayName("custom prefix and default element/type namespace")
+            fun customPrefixAndDefaultElementTypeNamespace() {
+                val results = completionResults(
+                    """
+                    declare default element namespace "http://www.w3.org/2001/XMLSchema";
+                    declare namespace xsd = "http://www.w3.org/2001/XMLSchema";
+                    2 cast as xsd:inte
+                    """.trimIndent(),
+                    "inte"
+                )
+                assertThat(results.size, `is`(0))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (223) URIQualifiedName")
+        internal inner class URIQualifiedName {
+            @Test
+            @DisplayName("built-in prefix")
+            fun builtInPrefix() {
+                val results = completionResults("2 cast as Q{http://www.w3.org/2001/XMLSchema}inte", "inte")
+                assertThat(results.size, `is`(5))
+                assertThat(results[0], `is`("integer"))
+                assertThat(results[1], `is`("negativeInteger"))
+                assertThat(results[2], `is`("nonNegativeInteger"))
+                assertThat(results[3], `is`("nonPositiveInteger"))
+                assertThat(results[4], `is`("positiveInteger"))
+            }
+
+            @Test
+            @DisplayName("custom prefix")
+            fun customPrefix() {
+                val results = completionResults(
+                    """
+                    declare namespace xsd = "http://www.w3.org/2001/XMLSchema";
+                    2 cast as Q{http://www.w3.org/2001/XMLSchema}inte
+                    """.trimIndent(),
+                    "inte"
+                )
+                assertThat(results.size, `is`(5))
+                assertThat(results[0], `is`("integer"))
+                assertThat(results[1], `is`("negativeInteger"))
+                assertThat(results[2], `is`("nonNegativeInteger"))
+                assertThat(results[3], `is`("nonPositiveInteger"))
+                assertThat(results[4], `is`("positiveInteger"))
+            }
+
+            @Test
+            @DisplayName("default element/type namespace")
+            fun defaultElementTypeNamespace() {
+                val results = completionResults(
+                    """
+                    declare default element namespace "http://www.w3.org/2001/XMLSchema";
+                    2 cast as Q{http://www.w3.org/2001/XMLSchema}inte
+                    """.trimIndent(),
+                    "inte"
+                )
+                assertThat(results.size, `is`(5))
+                assertThat(results[0], `is`("integer"))
+                assertThat(results[1], `is`("negativeInteger"))
+                assertThat(results[2], `is`("nonNegativeInteger"))
+                assertThat(results[3], `is`("nonPositiveInteger"))
+                assertThat(results[4], `is`("positiveInteger"))
+            }
+
+            @Test
+            @DisplayName("custom prefix and default element/type namespace")
+            fun customPrefixAndDefaultElementTypeNamespace() {
+                val results = completionResults(
+                    """
+                    declare default element namespace "http://www.w3.org/2001/XMLSchema";
+                    declare namespace xsd = "http://www.w3.org/2001/XMLSchema";
+                    2 cast as Q{http://www.w3.org/2001/XMLSchema}inte
+                    """.trimIndent(),
+                    "inte"
+                )
+                assertThat(results.size, `is`(5))
+                assertThat(results[0], `is`("integer"))
+                assertThat(results[1], `is`("negativeInteger"))
+                assertThat(results[2], `is`("nonNegativeInteger"))
+                assertThat(results[3], `is`("nonPositiveInteger"))
+                assertThat(results[4], `is`("positiveInteger"))
+            }
         }
     }
 }
