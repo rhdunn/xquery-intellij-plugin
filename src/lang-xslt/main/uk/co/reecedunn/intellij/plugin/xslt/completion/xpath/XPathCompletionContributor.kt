@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,8 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionContributorEx
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath as XPathElement
 import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.*
+import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathCompletionProperty
+import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathDefaultNamespace
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathStaticallyKnownElementOrTypeNamespaces
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathStaticallyKnownNamespaces
 import uk.co.reecedunn.intellij.plugin.xslt.completion.xpath.property.XPathVersion
@@ -58,6 +60,7 @@ class XPathCompletionContributor : CompletionContributorEx() {
         // XPath 3.1 EBNF (82) AtomicOrUnionType ; XPath 3.1 EBNF (100) SimpleTypeName
         builder(XPath).withFilter(XPathAtomicOrUnionTypeFilter)
             .withProperty(XPathStaticallyKnownNamespaces)
+            .withProperty(XPathDefaultNamespace(XPathCompletionProperty.DEFAULT_TYPE_NAMESPACE))
             .addCompletions(XPathAtomicOrUnionTypeProvider)
 
         // XQuery 3.1 EBNF (234) QName

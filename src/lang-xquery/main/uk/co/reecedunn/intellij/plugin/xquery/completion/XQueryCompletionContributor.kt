@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,9 +20,7 @@ import com.intellij.patterns.PsiElementPattern
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionContributorEx
 import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.*
-import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathStaticallyKnownElementOrTypeNamespaces
-import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathStaticallyKnownFunctionNamespaces
-import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathStaticallyKnownNamespaces
+import uk.co.reecedunn.intellij.plugin.xpath.completion.property.*
 import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.completion.property.*
@@ -67,6 +65,7 @@ class XQueryCompletionContributor : CompletionContributorEx() {
         builder(XQuery).withFilter(XPathAtomicOrUnionTypeFilter)
             .withProperty(XQueryProduct).withProperty(XQueryProductVersion)
             .withProperty(XPathStaticallyKnownNamespaces)
+            .withProperty(XPathDefaultNamespace(XPathCompletionProperty.DEFAULT_TYPE_NAMESPACE))
             .addCompletions(XPathUnionTypeProvider)
             .addCompletions(XPathAtomicOrUnionTypeProvider)
 

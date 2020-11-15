@@ -98,7 +98,14 @@ object XPathAtomicOrUnionTypeProvider : CompletionProviderEx {
 
         val qname = element.parent as XsQNameValue
         when (qname.completionType(element)) {
-            EQNameCompletionType.QNamePrefix, EQNameCompletionType.NCName -> addXsdTypes(context, result, prefixName)
+            EQNameCompletionType.QNamePrefix, EQNameCompletionType.NCName -> {
+                addXsdTypes(context, result, prefixName)
+
+                val defaultNamespace = context[XPathCompletionProperty.DEFAULT_TYPE_NAMESPACE]
+                if (defaultNamespace?.namespaceUri?.data == XS_NAMESPACE_URI) {
+                    addXsdTypes(context, result, null) // The XMLSchema namespace is the default type namespace.
+                }
+            }
             EQNameCompletionType.QNameLocalName -> {
                 if (qname.prefix?.data == prefixName) {
                     addXsdTypes(context, result, null) // Prefix already specified.
