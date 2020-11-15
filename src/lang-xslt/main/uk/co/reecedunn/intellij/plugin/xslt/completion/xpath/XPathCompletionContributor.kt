@@ -22,6 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.completion.CompletionContributorEx
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath as XPathElement
 import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.*
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathStaticallyKnownElementOrTypeNamespaces
+import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathStaticallyKnownNamespaces
 import uk.co.reecedunn.intellij.plugin.xslt.completion.xpath.property.XPathVersion
 import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.*
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.isIntellijXPathPluginEnabled
@@ -56,7 +57,7 @@ class XPathCompletionContributor : CompletionContributorEx() {
     private fun registerXPathStaticContextCompletionProviders() {
         // XPath 3.1 EBNF (82) AtomicOrUnionType ; XPath 3.1 EBNF (100) SimpleTypeName
         builder(XPath).withFilter(XPathAtomicOrUnionTypeFilter)
-            .withProperty(XPathStaticallyKnownElementOrTypeNamespaces)
+            .withProperty(XPathStaticallyKnownNamespaces)
             .addCompletions(XPathAtomicOrUnionTypeProvider)
 
         // XQuery 3.1 EBNF (234) QName

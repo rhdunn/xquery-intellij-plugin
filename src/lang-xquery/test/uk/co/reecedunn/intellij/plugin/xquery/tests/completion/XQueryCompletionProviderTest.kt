@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.codeInsight.completion.MockCompletionResultSet
-import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathStaticallyKnownElementOrTypeNamespaces
+import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathStaticallyKnownNamespaces
 import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.XPathAtomicOrUnionTypeProvider
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryFunctionProvider
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryNamespaceProvider
@@ -46,7 +46,7 @@ private class XQueryCompletionProviderTest : ParserTestCase() {
             val element = completion(query, completionPoint)
             val context = ProcessingContext()
             val results = MockCompletionResultSet(PlainPrefixMatcher(completionPoint))
-            XPathStaticallyKnownElementOrTypeNamespaces.computeProperty(element, context)
+            XPathStaticallyKnownNamespaces.computeProperty(element, context)
             XPathAtomicOrUnionTypeProvider.apply(element, context, results)
             return results.elements.map { it.lookupString }
         }
@@ -95,11 +95,11 @@ private class XQueryCompletionProviderTest : ParserTestCase() {
                     "inte"
                 )
                 assertThat(results.size, `is`(5))
-                assertThat(results[0], `is`("integer"))
-                assertThat(results[1], `is`("negativeInteger"))
-                assertThat(results[2], `is`("nonNegativeInteger"))
-                assertThat(results[3], `is`("nonPositiveInteger"))
-                assertThat(results[4], `is`("positiveInteger"))
+                assertThat(results[0], `is`("xs:integer"))
+                assertThat(results[1], `is`("xs:negativeInteger"))
+                assertThat(results[2], `is`("xs:nonNegativeInteger"))
+                assertThat(results[3], `is`("xs:nonPositiveInteger"))
+                assertThat(results[4], `is`("xs:positiveInteger"))
             }
 
             @Test
@@ -114,11 +114,11 @@ private class XQueryCompletionProviderTest : ParserTestCase() {
                     "inte"
                 )
                 assertThat(results.size, `is`(5))
-                assertThat(results[0], `is`("integer"))
-                assertThat(results[1], `is`("negativeInteger"))
-                assertThat(results[2], `is`("nonNegativeInteger"))
-                assertThat(results[3], `is`("nonPositiveInteger"))
-                assertThat(results[4], `is`("positiveInteger"))
+                assertThat(results[0], `is`("xsd:integer"))
+                assertThat(results[1], `is`("xsd:negativeInteger"))
+                assertThat(results[2], `is`("xsd:nonNegativeInteger"))
+                assertThat(results[3], `is`("xsd:nonPositiveInteger"))
+                assertThat(results[4], `is`("xsd:positiveInteger"))
             }
         }
 
@@ -165,7 +165,12 @@ private class XQueryCompletionProviderTest : ParserTestCase() {
                     """.trimIndent(),
                     "inte"
                 )
-                assertThat(results.size, `is`(0))
+                assertThat(results.size, `is`(5))
+                assertThat(results[0], `is`("integer"))
+                assertThat(results[1], `is`("negativeInteger"))
+                assertThat(results[2], `is`("nonNegativeInteger"))
+                assertThat(results[3], `is`("nonPositiveInteger"))
+                assertThat(results[4], `is`("positiveInteger"))
             }
 
             @Test
@@ -179,7 +184,12 @@ private class XQueryCompletionProviderTest : ParserTestCase() {
                     """.trimIndent(),
                     "inte"
                 )
-                assertThat(results.size, `is`(0))
+                assertThat(results.size, `is`(5))
+                assertThat(results[0], `is`("integer"))
+                assertThat(results[1], `is`("negativeInteger"))
+                assertThat(results[2], `is`("nonNegativeInteger"))
+                assertThat(results[3], `is`("nonPositiveInteger"))
+                assertThat(results[4], `is`("positiveInteger"))
             }
         }
 

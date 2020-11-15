@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ object XPathCompletionProperty {
     val XPATH_PRODUCT: Key<Product> = Key.create("uk.co.reecedunn.intellij.plugin.xpath.XPathProduct")
 
     val XPATH_PRODUCT_VERSION: Key<Version> = Key.create("uk.co.reecedunn.intellij.plugin.xpath.XPathProductVersion")
+
+    val STATICALLY_KNOWN_NAMESPACES: Key<List<XpmNamespaceDeclaration>> =
+        Key.create("uk.co.reecedunn.intellij.plugin.xpath.StaticallyKnownNamespaces")
 
     val STATICALLY_KNOWN_ELEMENT_OR_TYPE_NAMESPACES: Key<List<XpmNamespaceDeclaration>> =
         Key.create("uk.co.reecedunn.intellij.plugin.xpath.StaticallyKnownElementOrTypeNamespaces")

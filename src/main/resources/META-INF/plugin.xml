@@ -72,61 +72,11 @@
   ]]></description>
 
   <change-notes><![CDATA[
+    <p>Code Completion:</p>
     <ol>
       <li>
-        Support parsing XSLT schema types such as <code>xsl:sequence-type</code> in <code>@as</code> attributes,
-        attribute (XSLT 1.0+) and text (XSLT 3.0+) value templates.
-      </li>
-      <li>Full expression breakpoint support for debugging MarkLogic queries.</li>
-      <li>Support language injections on various elements, including string literals.</li>
-      <li>Support XML tag tree highlighting in the breadcrumb bar and editor.</li>
-      <li>
-        Auto-complete support for built-in context variables (<code>err:</code> in <code>CatchClause</code>,
-        and MarkLogic <code>cts:</code> variables).
-      </li>
-      <li>
-        Support inlay parameters and parameter hints for named function reference based expressions like
-        <code>f#1(2)</code>.
-      </li>
-    </ol>
-    <p>XSLT:</p>
-    <ol>
-      <li>Support parsing XSLT 1.0, 2.0, and 3.0 schema types.</li>
-      <li>Support XSLT 3.0 text value templates.</li>
-      <li>Set the XSLT file icon when the IntelliJ XPath plugin is not enabled.</li>
-    </ol>
-    <p>XPath and XQuery:</p>
-    <ol>
-      <li>Further reduce memory usage by removing additional nodes from the PSI tree.</li>
-      <li>Auto-complete support for <code>CatchClause</code> variables.</li>
-    </ol>
-    <p>IntelliJ Integration:</p>
-    <ol>
-      <li>
-        Support language injections on <code>StringLiteral</code>, <code>DirAttributeValue</code>,
-        <code>DirElemContent</code>/<code>DirTextConstructor</code>, <code>CDataSection</code>,
-        and <code>Pragma</code> elements.
-      </li>
-      <li>Support <code>language=Language</code> injection marker comments.</li>
-      <li>Use the tag tree highlight colours for XML names in the breadcrumb bar and editor.</li>
-    </ol>
-    <p>Inlay Parameters and Parameter Hints:</p>
-    <ol>
-      <li>Don't add inlay parameter hints when element and attribute node names match the parameter name.</li>
-      <li>Support expressions like <code>f#1(2)</code>, <code>(f#1(2))</code>, and <code>1 => (f#2(2))</code>.</li>
-    </ol>
-    <p>Saxon:</p>
-    <ol>
-      <li>Include ClauseInfo objects in the flat profile table results.</li>
-    </ol>
-    <p>MarkLogic:</p>
-    <ol>
-      <li>Support attaching breakpoints to all expressions in the MarkLogic debugger.</li>
-      <li>Better report <code>SEC-PRIV</code> errors when adding a query processor.</li>
-      <li>Fix the URI of the <code>xqterr</code> and <code>err</code> namespaces.</li>
-      <li>
-        Auto-complete support for <code>cts:element-walk</code>, <code>cts:entity-highlight</code>,
-        <code>cts:highlight</code>, and <code>cts:walk</code> built-in variables.
+        Fix completing <code>AtomicOrUnionType</code> names when a prefix is specified, and the
+        default type namespace is the XMLSchema namespace.
       </li>
     </ol>
   ]]></change-notes>

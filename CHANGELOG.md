@@ -2,6 +2,10 @@
 
 ## 1.9.0 - (In Development)
 
+Code Completion:
+1. Fix completing `AtomicOrUnionType` names when a prefix is specified, and the
+   default type namespace is the XMLSchema namespace.
+
 ## 2020
 
 *  [1.8.0 - 2020-11-12](docs/_posts/2020-11-12-release-1.8.0.md)

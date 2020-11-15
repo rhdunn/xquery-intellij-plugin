@@ -22,6 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.completion.CompletionContributorEx
 import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.*
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathStaticallyKnownElementOrTypeNamespaces
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathStaticallyKnownFunctionNamespaces
+import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathStaticallyKnownNamespaces
 import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.completion.property.*
@@ -65,7 +66,7 @@ class XQueryCompletionContributor : CompletionContributorEx() {
         // XQuery 3.1 EBNF (187) AtomicOrUnionType ; XQuery 3.1 EBNF (205) SimpleTypeName
         builder(XQuery).withFilter(XPathAtomicOrUnionTypeFilter)
             .withProperty(XQueryProduct).withProperty(XQueryProductVersion)
-            .withProperty(XPathStaticallyKnownElementOrTypeNamespaces)
+            .withProperty(XPathStaticallyKnownNamespaces)
             .addCompletions(XPathUnionTypeProvider)
             .addCompletions(XPathAtomicOrUnionTypeProvider)
 
