@@ -22,7 +22,11 @@ import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.patterns.ElementPattern
 
 class MockCompletionResultSet : CompletionResultSet(null, null, null) {
-    override fun addElement(element: LookupElement) = TODO()
+    val elements = mutableListOf<LookupElement>()
+
+    override fun addElement(element: LookupElement) {
+        elements.add(element)
+    }
 
     override fun addLookupAdvertisement(text: String) = TODO()
 
