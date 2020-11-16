@@ -43,10 +43,10 @@ buildscript {
     }
 
     ext.idea_version = System.getenv("IDEA_VERSION") ?: '2020.2'
-    ext.idea_since_build = ext.since_from_version(ext.idea_version)
+    ext.idea_since_build = ext.since_from_version(ext.idea_version).toInteger()
     ext.junit_milestone = ''
-    ext.kotlin_version = ext.kotlin_from_build(ext.idea_since_build.toInteger())
-    ext.java_version = ext.java_from_build(ext.idea_since_build.toInteger())
+    ext.kotlin_version = ext.kotlin_from_build(ext.idea_since_build)
+    ext.java_version = ext.java_from_build(ext.idea_since_build)
 
     ext.plugin_version = '1.9.0'
     ext.suffix = '-dev'

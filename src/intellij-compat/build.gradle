@@ -1,4 +1,4 @@
-ext.intellij_version = project.property('idea_since_build').toInteger()
+ext.intellij_version = project.property('idea_since_build')
 
 version = ext.intellij_version
 
