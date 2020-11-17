@@ -17,10 +17,12 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.annotation
 
 import com.intellij.lang.LanguageASTFactory
 import com.intellij.openapi.extensions.DefaultPluginDescriptor
+import com.intellij.openapi.extensions.PluginDescriptor
 import com.intellij.openapi.extensions.PluginId
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.TestInstance
+import uk.co.reecedunn.intellij.plugin.core.extensions.PluginDescriptorProvider
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.AnnotatorTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
@@ -39,7 +41,11 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 abstract class AnnotatorTestCase :
-    AnnotatorTestCase<XQueryModule>("xqy", XQueryParserDefinition(), XPathParserDefinition()) {
+    AnnotatorTestCase<XQueryModule>("xqy", XQueryParserDefinition(), XPathParserDefinition()),
+    PluginDescriptorProvider {
+
+    override val pluginDescriptor: PluginDescriptor
+        get() = DefaultPluginDescriptor(pluginId, this::class.java.classLoader)
 
     @BeforeAll
     override fun setUp() {
@@ -61,11 +67,10 @@ abstract class AnnotatorTestCase :
 
     @Suppress("UsePropertyAccessSyntax")
     protected fun registerVariableProvider(provider: XpmVariableProvider, fieldName: String) {
-        val classLoader = ParserTestCase::class.java.classLoader
         val bean = XpmVariableProviderBean()
         bean.implementationClass = provider.javaClass.name
         bean.fieldName = fieldName
-        bean.setPluginDescriptor(DefaultPluginDescriptor(PluginId.getId("registerInScopeVariables"), classLoader))
+        bean.setPluginDescriptor(pluginDescriptor)
         registerExtension(XpmVariableProvider.EP_NAME, bean)
     }
 }

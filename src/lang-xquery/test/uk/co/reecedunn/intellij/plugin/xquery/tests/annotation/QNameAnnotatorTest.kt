@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.annotation
 
+import com.intellij.openapi.extensions.PluginId
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -29,6 +30,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 @Suppress("ClassName")
 @DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - XQuery QNameAnnotator")
 private class QNameAnnotatorTest : AnnotatorTestCase() {
+    override val pluginId: PluginId = PluginId.getId("QNameAnnotatorTest")
+
     @Nested
     @DisplayName("XQuery 3.1 EBNF (120) Wildcard")
     internal inner class Wildcard {
