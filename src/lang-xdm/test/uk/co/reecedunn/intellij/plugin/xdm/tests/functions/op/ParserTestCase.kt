@@ -17,12 +17,13 @@ package uk.co.reecedunn.intellij.plugin.xdm.tests.functions.op
 
 import com.intellij.lang.LanguageASTFactory
 import com.intellij.openapi.extensions.DefaultPluginDescriptor
-import com.intellij.openapi.extensions.PluginId
+import com.intellij.openapi.extensions.PluginDescriptor
 import com.intellij.openapi.module.ModuleManager
 import com.intellij.openapi.roots.ProjectRootManager
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.TestInstance
+import uk.co.reecedunn.intellij.plugin.core.extensions.PluginDescriptorProvider
 import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.roots.MockProjectRootsManager
@@ -42,7 +43,11 @@ import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryNamespaceProvider
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 abstract class ParserTestCase :
-    ParsingTestCase<XQueryModule>("xqy", XQueryParserDefinition(), XPathParserDefinition()) {
+    ParsingTestCase<XQueryModule>("xqy", XQueryParserDefinition(), XPathParserDefinition()),
+    PluginDescriptorProvider {
+
+    override val pluginDescriptor: PluginDescriptor
+        get() = DefaultPluginDescriptor(pluginId, this::class.java.classLoader)
 
     open fun registerModules(manager: MockModuleManager) {}
 
@@ -71,11 +76,10 @@ abstract class ParserTestCase :
 
     @Suppress("UsePropertyAccessSyntax")
     private fun registerNamespaceProvider(provider: XpmNamespaceProvider, fieldName: String) {
-        val classLoader = ParserTestCase::class.java.classLoader
         val bean = XpmNamespaceProviderBean()
         bean.implementationClass = provider.javaClass.name
         bean.fieldName = fieldName
-        bean.setPluginDescriptor(DefaultPluginDescriptor(PluginId.getId("registerNamespaceProvider"), classLoader))
+        bean.setPluginDescriptor(pluginDescriptor)
         registerExtension(XpmNamespaceProvider.EP_NAME, bean)
     }
 }

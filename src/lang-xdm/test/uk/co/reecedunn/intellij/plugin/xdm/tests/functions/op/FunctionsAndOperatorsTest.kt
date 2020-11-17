@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.tests.functions.op
 
+import com.intellij.openapi.extensions.PluginId
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -27,6 +28,8 @@ import uk.co.reecedunn.intellij.plugin.xpm.context.expand
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("XPath and XQuery Functions and Operators 3.1")
 private class FunctionsAndOperatorsTest : ParserTestCase() {
+    override val pluginId: PluginId = PluginId.getId("FunctionsAndOperatorsTest")
+
     @Nested
     @DisplayName("XPath and XQuery Functions and Operators 3.1 (10.2.1) op:QName-equal")
     internal inner class OpQNameEqual {
