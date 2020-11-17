@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xslt.tests.parser
 
+import com.intellij.openapi.extensions.PluginId
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -31,6 +32,8 @@ import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.NameTests
 @Suppress("Reformat")
 @DisplayName("XSLT 3.0 - Schema Types - xsl:nametests")
 private class XslNameTestsTest : ParserTestCase(NameTests.ParserDefinition(), XPathParserDefinition()) {
+    override val pluginId: PluginId = PluginId.getId("XslNameTestsTest")
+
     private val res = ResourceVirtualFileSystem(this::class.java.classLoader)
 
     fun parseResource(resource: String): XsltSchemaType = res.toPsiFile(resource, project)

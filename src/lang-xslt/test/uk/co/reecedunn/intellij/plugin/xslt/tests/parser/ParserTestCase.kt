@@ -21,7 +21,7 @@ import com.intellij.lang.injection.InjectedLanguageManager
 import com.intellij.lang.xml.XMLLanguage
 import com.intellij.lang.xml.XmlASTFactory
 import com.intellij.openapi.extensions.DefaultPluginDescriptor
-import com.intellij.openapi.extensions.PluginId
+import com.intellij.openapi.extensions.PluginDescriptor
 import com.intellij.openapi.module.ModuleManager
 import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.psi.xml.StartTagEndTokenProvider
@@ -32,6 +32,7 @@ import com.intellij.xml.XmlExtension
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.TestInstance
+import uk.co.reecedunn.intellij.plugin.core.extensions.PluginDescriptorProvider
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.injecton.MockInjectedLanguageManager
 import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
@@ -47,7 +48,11 @@ import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.XsltShadowPsiElementFactory
 @Suppress("MemberVisibilityCanBePrivate", "SameParameterValue")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 abstract class ParserTestCase(vararg definitions: ParserDefinition) :
-    ParsingTestCase<XmlFile>(null, *definitions) {
+    ParsingTestCase<XmlFile>(null, *definitions),
+    PluginDescriptorProvider {
+
+    override val pluginDescriptor: PluginDescriptor
+        get() = DefaultPluginDescriptor(pluginId, this::class.java.classLoader)
 
     @BeforeAll
     override fun setUp() {
@@ -72,11 +77,10 @@ abstract class ParserTestCase(vararg definitions: ParserDefinition) :
 
     @Suppress("UsePropertyAccessSyntax")
     private fun registerShadowPsiElementFactory(factory: XpmShadowPsiElementFactory, fieldName: String) {
-        val classLoader = ParserTestCase::class.java.classLoader
         val bean = XpmShadowPsiElementFactoryBean()
         bean.implementationClass = factory.javaClass.name
         bean.fieldName = fieldName
-        bean.setPluginDescriptor(DefaultPluginDescriptor(PluginId.getId("shadowPsiElementFactory"), classLoader))
+        bean.setPluginDescriptor(pluginDescriptor)
         registerExtension(XpmShadowPsiElementFactory.EP_NAME, bean)
     }
 

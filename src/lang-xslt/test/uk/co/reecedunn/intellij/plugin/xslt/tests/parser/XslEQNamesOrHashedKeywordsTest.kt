@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xslt.tests.parser
 
+import com.intellij.openapi.extensions.PluginId
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -32,6 +33,8 @@ import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.EQNamesOrHashedKeyword
 @DisplayName("XSLT 3.0 - Schema Types - EQNames or hashed keywords")
 private class XslEQNamesOrHashedKeywordsTest :
     ParserTestCase(EQNamesOrHashedKeywords.ParserDefinition(), XPathParserDefinition()) {
+
+    override val pluginId: PluginId = PluginId.getId("XslEQNamesOrHashedKeywordsTest")
 
     private val res = ResourceVirtualFileSystem(this::class.java.classLoader)
 

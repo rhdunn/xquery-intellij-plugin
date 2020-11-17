@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xslt.tests.psi
 
 import com.intellij.lang.xml.XMLParserDefinition
+import com.intellij.openapi.extensions.PluginId
 import org.hamcrest.CoreMatchers.*
 import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.DisplayName
@@ -30,6 +31,8 @@ import uk.co.reecedunn.intellij.plugin.xslt.tests.parser.ParserTestCase
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("XSLT 3.0 - IntelliJ Program Structure Interface (PSI)")
 private class XsltPsiTest : ParserTestCase(XMLParserDefinition()) {
+    override val pluginId: PluginId = PluginId.getId("XsltPsiTest")
+
     @Nested
     @DisplayName("XSLT 3.0 Direct XML Elements")
     internal inner class DirectXmlElements {

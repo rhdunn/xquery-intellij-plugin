@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xslt.tests.psi
 
 import com.intellij.lang.xml.XMLParserDefinition
+import com.intellij.openapi.extensions.PluginId
 import org.hamcrest.CoreMatchers.*
 import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.DisplayName
@@ -39,6 +40,8 @@ private class PluginPsiTest : ParserTestCase(XMLParserDefinition()) {
         private const val SAXON6_NAMESPACE = "http://icl.com/saxon"
         private const val XDMP_NAMESPACE = "http://marklogic.com/xdmp"
     }
+
+    override val pluginId: PluginId = PluginId.getId("PluginPsiTest")
 
     @Nested
     @DisplayName("EXSL Common")
