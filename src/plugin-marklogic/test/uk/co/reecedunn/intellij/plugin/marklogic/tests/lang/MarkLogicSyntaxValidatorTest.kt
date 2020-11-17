@@ -17,10 +17,12 @@ package uk.co.reecedunn.intellij.plugin.marklogic.tests.lang
 
 import com.intellij.lang.LanguageASTFactory
 import com.intellij.openapi.extensions.DefaultPluginDescriptor
+import com.intellij.openapi.extensions.PluginDescriptor
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.PsiElement
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.*
+import uk.co.reecedunn.intellij.plugin.core.extensions.PluginDescriptorProvider
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
@@ -45,6 +47,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidatorBea
 @DisplayName("XQuery IntelliJ Plugin - Syntax Validation - MarkLogic")
 class MarkLogicSyntaxValidatorTest :
     ParsingTestCase<XQueryModule>("xqy", XQueryParserDefinition(), XPathParserDefinition()),
+    PluginDescriptorProvider,
     XpmDiagnostics {
     // region ParsingTestCase
 
@@ -61,11 +64,10 @@ class MarkLogicSyntaxValidatorTest :
 
     @Suppress("UsePropertyAccessSyntax")
     private fun registerSyntaxValidator(factory: XpmSyntaxValidator, fieldName: String) {
-        val classLoader = MarkLogicSyntaxValidatorTest::class.java.classLoader
         val bean = XpmSyntaxValidatorBean()
         bean.implementationClass = factory.javaClass.name
         bean.fieldName = fieldName
-        bean.setPluginDescriptor(DefaultPluginDescriptor(PluginId.getId("registerSyntaxValidator"), classLoader))
+        bean.setPluginDescriptor(pluginDescriptor)
         registerExtension(XpmSyntaxValidator.EP_NAME, bean)
     }
 
@@ -73,6 +75,14 @@ class MarkLogicSyntaxValidatorTest :
     override fun tearDown() {
         super.tearDown()
     }
+
+    // endregion
+    // region PluginDescriptorProvider
+
+    override val pluginId: PluginId = PluginId.getId("MarkLogicSyntaxValidatorTest")
+
+    override val pluginDescriptor: PluginDescriptor
+        get() = DefaultPluginDescriptor(pluginId, this::class.java.classLoader)
 
     // endregion
     // region XpmDiagnostics
