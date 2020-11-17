@@ -32,6 +32,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpm.defaultNamespace
 import uk.co.reecedunn.intellij.plugin.xpm.inScopeVariables
+import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xpm.staticallyKnownFunctions
 import uk.co.reecedunn.intellij.plugin.xpm.staticallyKnownNamespaces
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
@@ -53,7 +54,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
     }
 
     override fun registerExtensions() {
-        registerNamespaceProvider(XQueryNamespaceProvider, "INSTANCE")
+        XpmNamespaceProvider.register(this, XQueryNamespaceProvider)
         registerVariableProvider(XQueryVariableProvider, "INSTANCE")
         registerFunctionProvider(XQueryFunctionProvider, "INSTANCE")
     }

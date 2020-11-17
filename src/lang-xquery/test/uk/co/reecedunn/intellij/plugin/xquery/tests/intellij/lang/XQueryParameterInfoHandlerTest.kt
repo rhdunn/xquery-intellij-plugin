@@ -30,6 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPathParameterInfoHan
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
+import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryFunctionProvider
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
@@ -42,7 +43,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
     val parameterInfoHandler = XPathParameterInfoHandler()
 
     override fun registerExtensions() {
-        registerNamespaceProvider(XQueryNamespaceProvider, "INSTANCE")
+        XpmNamespaceProvider.register(this, XQueryNamespaceProvider)
         registerFunctionProvider(XQueryFunctionProvider, "INSTANCE")
     }
 

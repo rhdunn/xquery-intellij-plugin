@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,6 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.intellij.codeInsight.highlighting.
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
+import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableReference
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryVariableProvider
@@ -41,7 +42,7 @@ private class XQueryReadWriteAccessDetectorTest : ParserTestCase() {
     override val pluginId: PluginId = PluginId.getId("XQueryReadWriteAccessDetectorTest")
 
     override fun registerExtensions() {
-        registerNamespaceProvider(XQueryNamespaceProvider, "INSTANCE")
+        XpmNamespaceProvider.register(this, XQueryNamespaceProvider)
         registerVariableProvider(XQueryVariableProvider, "INSTANCE")
     }
 

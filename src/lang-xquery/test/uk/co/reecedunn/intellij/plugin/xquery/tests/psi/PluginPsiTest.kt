@@ -52,6 +52,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclarat
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPathStep
+import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCatchClause
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
@@ -74,7 +75,7 @@ private class PluginPsiTest : ParserTestCase()  {
     fun parseResource(resource: String): XQueryModule = res.toPsiFile(resource, project)
 
     override fun registerExtensions() {
-        registerNamespaceProvider(XQueryNamespaceProvider, "INSTANCE")
+        XpmNamespaceProvider.register(this, XQueryNamespaceProvider)
         registerFunctionProvider(XQueryFunctionProvider, "INSTANCE")
     }
 

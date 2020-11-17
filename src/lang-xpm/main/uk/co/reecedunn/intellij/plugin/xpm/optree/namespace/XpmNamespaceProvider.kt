@@ -15,14 +15,32 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.optree.namespace
 
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.ExtensionPointName
 import com.intellij.psi.PsiElement
+import com.intellij.testFramework.registerExtension
+import org.jetbrains.annotations.TestOnly
+import uk.co.reecedunn.intellij.plugin.core.extensions.PluginDescriptorProvider
 
 interface XpmNamespaceProvider {
     companion object {
         val EP_NAME: ExtensionPointName<XpmNamespaceProviderBean> = ExtensionPointName.create(
             "uk.co.reecedunn.intellij.namespaceProvider"
         )
+
+        @TestOnly
+        @Suppress("UsePropertyAccessSyntax")
+        fun register(
+            plugin: PluginDescriptorProvider,
+            provider: XpmNamespaceProvider,
+            fieldName: String = "INSTANCE"
+        ) {
+            val bean = XpmNamespaceProviderBean()
+            bean.implementationClass = provider.javaClass.name
+            bean.fieldName = fieldName
+            bean.setPluginDescriptor(plugin.pluginDescriptor)
+            ApplicationManager.getApplication().registerExtension(EP_NAME, bean, plugin.pluginDisposable)
+        }
     }
 
     fun staticallyKnownNamespaces(context: PsiElement): Sequence<XpmNamespaceDeclaration>

@@ -29,6 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
+import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableReference
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryVariableProvider
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryFunctionProvider
@@ -43,7 +44,7 @@ private class XQueryFindUsagesProviderTest : ParserTestCase() {
     val provider = XQueryFindUsagesProvider()
 
     override fun registerExtensions() {
-        registerNamespaceProvider(XQueryNamespaceProvider, "INSTANCE")
+        XpmNamespaceProvider.register(this, XQueryNamespaceProvider)
         registerVariableProvider(XQueryVariableProvider, "INSTANCE")
         registerFunctionProvider(XQueryFunctionProvider, "INSTANCE")
     }

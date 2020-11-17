@@ -33,6 +33,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
+import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationSourceProviderBean
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryVariableProvider
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryFunctionProvider
@@ -50,7 +51,7 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
     override val pluginId: PluginId = PluginId.getId("XQueryDocumentationProviderTest")
 
     override fun registerExtensions() {
-        registerNamespaceProvider(XQueryNamespaceProvider, "INSTANCE")
+        XpmNamespaceProvider.register(this, XQueryNamespaceProvider)
     }
 
     private val documentationProvider = XQueryDocumentationProvider()

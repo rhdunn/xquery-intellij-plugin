@@ -82,16 +82,7 @@ abstract class InspectionTestCase :
         XpmSyntaxValidator.register(this, MarkLogicSyntaxValidator)
 
         registerExtensionPoint(XpmNamespaceProvider.EP_NAME, XpmNamespaceProviderBean::class.java)
-        registerNamespaceProvider(XQueryNamespaceProvider, "INSTANCE")
-    }
-
-    @Suppress("UsePropertyAccessSyntax")
-    private fun registerNamespaceProvider(provider: XpmNamespaceProvider, fieldName: String) {
-        val bean = XpmNamespaceProviderBean()
-        bean.implementationClass = provider.javaClass.name
-        bean.fieldName = fieldName
-        bean.setPluginDescriptor(pluginDescriptor)
-        registerExtension(XpmNamespaceProvider.EP_NAME, bean)
+        XpmNamespaceProvider.register(this, XQueryNamespaceProvider)
     }
 
     @AfterAll

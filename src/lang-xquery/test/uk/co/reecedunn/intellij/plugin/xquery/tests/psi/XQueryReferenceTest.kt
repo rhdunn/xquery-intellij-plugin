@@ -28,6 +28,7 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
+import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableDefinition
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableReference
@@ -46,7 +47,7 @@ private class XQueryReferenceTest : ParserTestCase() {
     fun parseResource(resource: String): XQueryModule = res.toPsiFile(resource, project)
 
     override fun registerExtensions() {
-        registerNamespaceProvider(XQueryNamespaceProvider, "INSTANCE")
+        XpmNamespaceProvider.register(this, XQueryNamespaceProvider)
         registerVariableProvider(XQueryVariableProvider, "INSTANCE")
     }
 
