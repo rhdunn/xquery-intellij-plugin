@@ -21,12 +21,14 @@ import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ex.InspectionManagerEx
 import com.intellij.lang.LanguageASTFactory
 import com.intellij.openapi.extensions.DefaultPluginDescriptor
+import com.intellij.openapi.extensions.PluginDescriptor
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.SmartPointerManager
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.TestInstance
 import uk.co.reecedunn.intellij.plugin.basex.lang.BaseXSyntaxValidator
+import uk.co.reecedunn.intellij.plugin.core.extensions.PluginDescriptorProvider
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockSmartPointerManager
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
@@ -46,7 +48,11 @@ import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryNamespaceProvider
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 abstract class InspectionTestCase :
-    ParsingTestCase<XQueryModule>("xqy", XQueryParserDefinition(), XPathParserDefinition()) {
+    ParsingTestCase<XQueryModule>("xqy", XQueryParserDefinition(), XPathParserDefinition()),
+    PluginDescriptorProvider {
+
+    override val pluginDescriptor: PluginDescriptor
+        get() = DefaultPluginDescriptor(pluginId, this::class.java.classLoader)
 
     private val inspectionManager: InspectionManager
         get() = InspectionManager.getInstance(myProject)
@@ -75,21 +81,19 @@ abstract class InspectionTestCase :
 
     @Suppress("UsePropertyAccessSyntax")
     private fun registerSyntaxValidator(factory: XpmSyntaxValidator, fieldName: String) {
-        val classLoader = InspectionTestCase::class.java.classLoader
         val bean = XpmSyntaxValidatorBean()
         bean.implementationClass = factory.javaClass.name
         bean.fieldName = fieldName
-        bean.setPluginDescriptor(DefaultPluginDescriptor(PluginId.getId("registerSyntaxValidator"), classLoader))
+        bean.setPluginDescriptor(pluginDescriptor)
         registerExtension(XpmSyntaxValidator.EP_NAME, bean)
     }
 
     @Suppress("UsePropertyAccessSyntax")
     private fun registerNamespaceProvider(provider: XpmNamespaceProvider, fieldName: String) {
-        val classLoader = InspectionTestCase::class.java.classLoader
         val bean = XpmNamespaceProviderBean()
         bean.implementationClass = provider.javaClass.name
         bean.fieldName = fieldName
-        bean.setPluginDescriptor(DefaultPluginDescriptor(PluginId.getId("registerNamespaceProvider"), classLoader))
+        bean.setPluginDescriptor(pluginDescriptor)
         registerExtension(XpmNamespaceProvider.EP_NAME, bean)
     }
 

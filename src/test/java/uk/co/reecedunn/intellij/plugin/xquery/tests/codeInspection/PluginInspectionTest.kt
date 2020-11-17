@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.codeInspection
 
 import com.intellij.codeInspection.ProblemHighlightType
+import com.intellij.openapi.extensions.PluginId
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -2187,6 +2188,8 @@ private val HTML5_ENTITIES = listOf(
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("XQuery IntelliJ Plugin - Error and Warning Conditions")
 private class PluginInspectionTest : InspectionTestCase() {
+    override val pluginId: PluginId = PluginId.getId("PluginInspectionTest")
+
     @Nested
     @DisplayName("XQuery IntelliJ Plugin (D.1) Vendor-Specific Behaviour")
     internal inner class IJVSTest {

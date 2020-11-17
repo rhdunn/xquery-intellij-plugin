@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.codeInspection
 
 import com.intellij.codeInspection.ProblemHighlightType
+import com.intellij.openapi.extensions.PluginId
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
 import org.junit.jupiter.api.DisplayName
@@ -35,6 +36,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.codeInspection.xqst.XQST0118
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("XQuery 3.1 - Error Conditions")
 private class XQueryInspectionTest : InspectionTestCase() {
+    override val pluginId: PluginId = PluginId.getId("XQueryInspectionTest")
+
     @Nested
     @DisplayName("XQuery (F) XQST - static errors")
     internal inner class XQSTTest {

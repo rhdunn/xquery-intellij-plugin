@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.codeInspection
 
 import com.intellij.codeInspection.ProblemHighlightType
+import com.intellij.openapi.extensions.PluginId
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
 import org.junit.jupiter.api.DisplayName
@@ -32,6 +33,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("XPath 3.1 - Error Conditions")
 private class XPathInspectionTest : InspectionTestCase() {
+    override val pluginId: PluginId = PluginId.getId("XPathInspectionTest")
+
     @Nested
     @DisplayName("XPath (F) XPST - static errors")
     internal inner class XPSTTest {
