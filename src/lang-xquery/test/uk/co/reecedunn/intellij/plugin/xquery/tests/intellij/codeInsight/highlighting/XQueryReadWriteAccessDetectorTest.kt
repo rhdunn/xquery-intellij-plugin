@@ -39,7 +39,7 @@ import com.intellij.codeInsight.highlighting.ReadWriteAccessDetector.Access as A
 private class XQueryReadWriteAccessDetectorTest : ParserTestCase() {
     override fun registerExtensions() {
         registerNamespaceProvider(XQueryNamespaceProvider, "INSTANCE")
-        registerInScopeVariableProvider(XQueryVariableProvider, "INSTANCE")
+        registerVariableProvider(XQueryVariableProvider, "INSTANCE")
     }
 
     val detector: ReadWriteAccessDetector = XQueryReadWriteAccessDetector()

@@ -44,7 +44,7 @@ private class XQueryReferenceTest : ParserTestCase() {
 
     override fun registerExtensions() {
         registerNamespaceProvider(XQueryNamespaceProvider, "INSTANCE")
-        registerInScopeVariableProvider(XQueryVariableProvider, "INSTANCE")
+        registerVariableProvider(XQueryVariableProvider, "INSTANCE")
     }
 
     @Nested

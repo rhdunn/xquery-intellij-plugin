@@ -113,8 +113,7 @@ abstract class ParserTestCase :
         super.tearDown()
     }
 
-    open fun registerExtensions() {
-    }
+    open fun registerExtensions() {}
 
     @Suppress("UsePropertyAccessSyntax")
     private fun registerModulePathFactory(factory: XpmModulePathFactory, fieldName: String) {
@@ -148,7 +147,7 @@ abstract class ParserTestCase :
     }
 
     @Suppress("UsePropertyAccessSyntax")
-    protected fun registerInScopeVariableProvider(provider: XpmVariableProvider, fieldName: String) {
+    protected fun registerVariableProvider(provider: XpmVariableProvider, fieldName: String) {
         val classLoader = ParserTestCase::class.java.classLoader
         val bean = XpmVariableProviderBean()
         bean.implementationClass = provider.javaClass.name

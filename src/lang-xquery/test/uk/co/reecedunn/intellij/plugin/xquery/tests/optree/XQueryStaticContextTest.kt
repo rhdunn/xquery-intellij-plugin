@@ -51,7 +51,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
 
     override fun registerExtensions() {
         registerNamespaceProvider(XQueryNamespaceProvider, "INSTANCE")
-        registerInScopeVariableProvider(XQueryVariableProvider, "INSTANCE")
+        registerVariableProvider(XQueryVariableProvider, "INSTANCE")
         registerStaticallyKnownFunctionProvider(XQueryFunctionProvider, "INSTANCE")
     }
 
