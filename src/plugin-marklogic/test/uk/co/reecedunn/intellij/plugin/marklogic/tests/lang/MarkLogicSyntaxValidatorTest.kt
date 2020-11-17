@@ -60,16 +60,7 @@ class MarkLogicSyntaxValidatorTest :
         addExplicitExtension(LanguageASTFactory.INSTANCE, XQuery, XQueryASTFactory())
 
         registerExtensionPoint(XpmSyntaxValidator.EP_NAME, XpmSyntaxValidatorBean::class.java)
-        registerSyntaxValidator(MarkLogicSyntaxValidator, "INSTANCE")
-    }
-
-    @Suppress("UsePropertyAccessSyntax")
-    private fun registerSyntaxValidator(factory: XpmSyntaxValidator, fieldName: String) {
-        val bean = XpmSyntaxValidatorBean()
-        bean.implementationClass = factory.javaClass.name
-        bean.fieldName = fieldName
-        bean.setPluginDescriptor(pluginDescriptor)
-        registerExtension(XpmSyntaxValidator.EP_NAME, bean)
+        XpmSyntaxValidator.register(this, MarkLogicSyntaxValidator)
     }
 
     @AfterAll

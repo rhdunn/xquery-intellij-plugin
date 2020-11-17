@@ -23,7 +23,6 @@ import com.intellij.lang.LanguageASTFactory
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.extensions.DefaultPluginDescriptor
 import com.intellij.openapi.extensions.PluginDescriptor
-import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.SmartPointerManager
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
@@ -79,20 +78,11 @@ abstract class InspectionTestCase :
         addExplicitExtension(LanguageASTFactory.INSTANCE, XQuery, XQueryASTFactory())
 
         registerExtensionPoint(XpmSyntaxValidator.EP_NAME, XpmSyntaxValidatorBean::class.java)
-        registerSyntaxValidator(BaseXSyntaxValidator, "INSTANCE")
-        registerSyntaxValidator(MarkLogicSyntaxValidator, "INSTANCE")
+        XpmSyntaxValidator.register(this, BaseXSyntaxValidator)
+        XpmSyntaxValidator.register(this, MarkLogicSyntaxValidator)
 
         registerExtensionPoint(XpmNamespaceProvider.EP_NAME, XpmNamespaceProviderBean::class.java)
         registerNamespaceProvider(XQueryNamespaceProvider, "INSTANCE")
-    }
-
-    @Suppress("UsePropertyAccessSyntax")
-    private fun registerSyntaxValidator(factory: XpmSyntaxValidator, fieldName: String) {
-        val bean = XpmSyntaxValidatorBean()
-        bean.implementationClass = factory.javaClass.name
-        bean.fieldName = fieldName
-        bean.setPluginDescriptor(pluginDescriptor)
-        registerExtension(XpmSyntaxValidator.EP_NAME, bean)
     }
 
     @Suppress("UsePropertyAccessSyntax")

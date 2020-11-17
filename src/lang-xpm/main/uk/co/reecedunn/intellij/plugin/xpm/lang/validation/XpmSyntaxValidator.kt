@@ -15,7 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.lang.validation
 
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.ExtensionPointName
+import com.intellij.testFramework.registerExtension
+import org.jetbrains.annotations.TestOnly
+import uk.co.reecedunn.intellij.plugin.core.extensions.PluginDescriptorProvider
 
 interface XpmSyntaxValidator {
     companion object {
@@ -25,6 +29,16 @@ interface XpmSyntaxValidator {
 
         val validators: Sequence<XpmSyntaxValidator>
             get() = EP_NAME.extensionList.asSequence().map { it.getInstance() }
+
+        @TestOnly
+        @Suppress("UsePropertyAccessSyntax")
+        fun register(plugin: PluginDescriptorProvider, factory: XpmSyntaxValidator, fieldName: String = "INSTANCE") {
+            val bean = XpmSyntaxValidatorBean()
+            bean.implementationClass = factory.javaClass.name
+            bean.fieldName = fieldName
+            bean.setPluginDescriptor(plugin.pluginDescriptor)
+            ApplicationManager.getApplication().registerExtension(EP_NAME, bean, plugin.pluginDisposable)
+        }
     }
 
     fun validate(element: XpmSyntaxValidationElement, reporter: XpmSyntaxErrorReporter)
