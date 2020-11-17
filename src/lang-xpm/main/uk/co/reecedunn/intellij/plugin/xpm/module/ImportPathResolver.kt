@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Reece H. Dunn
+ * Copyright (C) 2018-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,14 +15,28 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.module
 
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.ExtensionPointName
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.testFramework.registerExtension
+import org.jetbrains.annotations.TestOnly
+import uk.co.reecedunn.intellij.plugin.core.extensions.PluginDescriptorProvider
 
 interface ImportPathResolver {
     companion object {
         val EP_NAME: ExtensionPointName<ImportPathResolverBean> = ExtensionPointName.create(
             "uk.co.reecedunn.intellij.importPathResolver"
         )
+
+        @TestOnly
+        @Suppress("UsePropertyAccessSyntax")
+        fun register(plugin: PluginDescriptorProvider, resolver: ImportPathResolver, fieldName: String = "INSTANCE") {
+            val bean = ImportPathResolverBean()
+            bean.implementationClass = resolver.javaClass.name
+            bean.fieldName = fieldName
+            bean.setPluginDescriptor(plugin.pluginDescriptor)
+            ApplicationManager.getApplication().registerExtension(EP_NAME, bean, plugin.pluginDisposable)
+        }
     }
 
     fun match(path: String): Boolean

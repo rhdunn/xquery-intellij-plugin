@@ -101,10 +101,10 @@ abstract class ParserTestCase :
         XpmModuleLoaderFactory.register(this, "relative", RelativeModuleLoader)
 
         registerExtensionPoint(ImportPathResolver.EP_NAME, ImportPathResolverBean::class.java)
-        registerBuiltInFunctions(uk.co.reecedunn.intellij.plugin.basex.model.BuiltInFunctions, "INSTANCE")
-        registerBuiltInFunctions(uk.co.reecedunn.intellij.plugin.marklogic.model.BuiltInFunctions, "INSTANCE")
-        registerBuiltInFunctions(uk.co.reecedunn.intellij.plugin.saxon.model.BuiltInFunctions, "INSTANCE")
-        registerBuiltInFunctions(uk.co.reecedunn.intellij.plugin.w3.model.BuiltInFunctions, "INSTANCE")
+        ImportPathResolver.register(this, uk.co.reecedunn.intellij.plugin.basex.model.BuiltInFunctions)
+        ImportPathResolver.register(this, uk.co.reecedunn.intellij.plugin.marklogic.model.BuiltInFunctions)
+        ImportPathResolver.register(this, uk.co.reecedunn.intellij.plugin.saxon.model.BuiltInFunctions)
+        ImportPathResolver.register(this, uk.co.reecedunn.intellij.plugin.w3.model.BuiltInFunctions)
 
         registerExtensionPoint(XpmFunctionDecorator.EP_NAME, XpmFunctionDecoratorBean::class.java)
         registerExtensionPoint(XpmNamespaceProvider.EP_NAME, XpmNamespaceProviderBean::class.java)
@@ -120,15 +120,6 @@ abstract class ParserTestCase :
     }
 
     open fun registerExtensions() {}
-
-    @Suppress("UsePropertyAccessSyntax")
-    private fun registerBuiltInFunctions(resolver: ImportPathResolver, fieldName: String) {
-        val bean = ImportPathResolverBean()
-        bean.implementationClass = resolver.javaClass.name
-        bean.fieldName = fieldName
-        bean.setPluginDescriptor(pluginDescriptor)
-        registerExtension(ImportPathResolver.EP_NAME, bean)
-    }
 
     @Suppress("UsePropertyAccessSyntax")
     protected fun registerFunctionProvider(provider: XpmFunctionProvider, fieldName: String) {
