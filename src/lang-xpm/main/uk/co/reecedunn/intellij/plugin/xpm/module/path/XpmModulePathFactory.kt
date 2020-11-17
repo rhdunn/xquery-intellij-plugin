@@ -15,8 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.module.path
 
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.ExtensionPointName
 import com.intellij.openapi.project.Project
+import com.intellij.testFramework.registerExtension
+import org.jetbrains.annotations.TestOnly
+import uk.co.reecedunn.intellij.plugin.core.extensions.PluginDescriptorProvider
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 
 interface XpmModulePathFactory {
@@ -24,6 +28,16 @@ interface XpmModulePathFactory {
         val EP_NAME: ExtensionPointName<XpmModulePathFactoryBean> = ExtensionPointName.create(
             "uk.co.reecedunn.intellij.modulePathFactory"
         )
+
+        @TestOnly
+        @Suppress("UsePropertyAccessSyntax")
+        fun register(plugin: PluginDescriptorProvider, factory: XpmModulePathFactory, fieldName: String = "INSTANCE") {
+            val bean = XpmModulePathFactoryBean()
+            bean.implementationClass = factory.javaClass.name
+            bean.fieldName = fieldName
+            bean.setPluginDescriptor(plugin.pluginDescriptor)
+            ApplicationManager.getApplication().registerExtension(EP_NAME, bean, plugin.pluginDisposable)
+        }
     }
 
     fun create(project: Project, uri: XsAnyUriValue): XpmModulePath?

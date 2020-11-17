@@ -92,7 +92,7 @@ abstract class ParserTestCase :
         myProject.registerService(XpmModuleLoaderSettings::class.java, XpmModuleLoaderSettings(myProject))
 
         registerExtensionPoint(XpmModulePathFactory.EP_NAME, XpmModulePathFactoryBean::class.java)
-        registerModulePathFactory(XpmModuleLocationPath, "")
+        XpmModulePathFactory.register(this, XpmModuleLocationPath, "")
 
         registerExtensionPoint(XpmModuleLoaderFactory.EP_NAME, XpmModuleLoaderFactoryBean::class.java)
         registerModuleLoader(
@@ -126,15 +126,6 @@ abstract class ParserTestCase :
     }
 
     open fun registerExtensions() {}
-
-    @Suppress("UsePropertyAccessSyntax")
-    private fun registerModulePathFactory(factory: XpmModulePathFactory, fieldName: String) {
-        val bean = XpmModulePathFactoryBean()
-        bean.implementationClass = factory.javaClass.name
-        bean.fieldName = fieldName
-        bean.setPluginDescriptor(pluginDescriptor)
-        registerExtension(XpmModulePathFactory.EP_NAME, bean)
-    }
 
     @Suppress("UsePropertyAccessSyntax")
     private fun registerModuleLoader(name: String, implementation: String, fieldName: String) {
