@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.extensions
 
+import com.intellij.openapi.Disposable
 import com.intellij.openapi.extensions.PluginDescriptor
 import com.intellij.openapi.extensions.PluginId
 
@@ -22,4 +23,6 @@ interface PluginDescriptorProvider {
     val pluginId: PluginId
 
     val pluginDescriptor: PluginDescriptor
+
+    val pluginDisposable: Disposable
 }

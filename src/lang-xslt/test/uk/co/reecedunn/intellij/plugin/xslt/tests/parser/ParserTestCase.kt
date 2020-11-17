@@ -20,6 +20,7 @@ import com.intellij.lang.ParserDefinition
 import com.intellij.lang.injection.InjectedLanguageManager
 import com.intellij.lang.xml.XMLLanguage
 import com.intellij.lang.xml.XmlASTFactory
+import com.intellij.openapi.Disposable
 import com.intellij.openapi.extensions.DefaultPluginDescriptor
 import com.intellij.openapi.extensions.PluginDescriptor
 import com.intellij.openapi.module.ModuleManager
@@ -50,9 +51,15 @@ import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.XsltShadowPsiElementFactory
 abstract class ParserTestCase(vararg definitions: ParserDefinition) :
     ParsingTestCase<XmlFile>(null, *definitions),
     PluginDescriptorProvider {
+    // region PluginDescriptorProvider
 
     override val pluginDescriptor: PluginDescriptor
         get() = DefaultPluginDescriptor(pluginId, this::class.java.classLoader)
+
+    override val pluginDisposable: Disposable
+        get() = testRootDisposable
+
+    // endregion
 
     @BeforeAll
     override fun setUp() {

@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.parser
 import com.intellij.compat.testFramework.registerCodeStyleCachingService
 import com.intellij.compat.testFramework.registerPomModel
 import com.intellij.lang.LanguageASTFactory
+import com.intellij.openapi.Disposable
 import com.intellij.openapi.extensions.DefaultPluginDescriptor
 import com.intellij.openapi.extensions.PluginDescriptor
 import com.intellij.openapi.module.ModuleManager
@@ -59,9 +60,15 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableProviderBe
 abstract class ParserTestCase :
     ParsingTestCase<XQueryModule>("xqy", XQueryParserDefinition(), XPathParserDefinition()),
     PluginDescriptorProvider {
+    // region PluginDescriptorProvider
 
     override val pluginDescriptor: PluginDescriptor
         get() = DefaultPluginDescriptor(pluginId, this::class.java.classLoader)
+
+    override val pluginDisposable: Disposable
+        get() = testRootDisposable
+
+    // endregion
 
     open fun registerModules(manager: MockModuleManager) {}
 

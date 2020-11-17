@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.saxon.tests.lang
 
 import com.intellij.lang.LanguageASTFactory
+import com.intellij.openapi.Disposable
 import com.intellij.openapi.extensions.DefaultPluginDescriptor
 import com.intellij.openapi.extensions.PluginDescriptor
 import com.intellij.openapi.extensions.PluginId
@@ -81,6 +82,9 @@ class SaxonSyntaxValidatorTest :
 
     override val pluginDescriptor: PluginDescriptor
         get() = DefaultPluginDescriptor(pluginId, this::class.java.classLoader)
+
+    override val pluginDisposable: Disposable
+        get() = testRootDisposable
 
     // endregion
     // region XpmDiagnostics

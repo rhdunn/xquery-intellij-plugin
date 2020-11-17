@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.annotation
 
 import com.intellij.lang.LanguageASTFactory
+import com.intellij.openapi.Disposable
 import com.intellij.openapi.extensions.DefaultPluginDescriptor
 import com.intellij.openapi.extensions.PluginDescriptor
 import com.intellij.openapi.extensions.PluginId
@@ -43,9 +44,15 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 abstract class AnnotatorTestCase :
     AnnotatorTestCase<XQueryModule>("xqy", XQueryParserDefinition(), XPathParserDefinition()),
     PluginDescriptorProvider {
+    // region PluginDescriptorProvider
 
     override val pluginDescriptor: PluginDescriptor
         get() = DefaultPluginDescriptor(pluginId, this::class.java.classLoader)
+
+    override val pluginDisposable: Disposable
+        get() = testRootDisposable
+
+    // endregion
 
     @BeforeAll
     override fun setUp() {

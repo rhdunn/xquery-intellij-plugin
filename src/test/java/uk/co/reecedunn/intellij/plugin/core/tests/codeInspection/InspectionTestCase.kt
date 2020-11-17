@@ -20,6 +20,7 @@ import com.intellij.codeInspection.LocalInspectionTool
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ex.InspectionManagerEx
 import com.intellij.lang.LanguageASTFactory
+import com.intellij.openapi.Disposable
 import com.intellij.openapi.extensions.DefaultPluginDescriptor
 import com.intellij.openapi.extensions.PluginDescriptor
 import com.intellij.openapi.extensions.PluginId
@@ -50,9 +51,15 @@ import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryNamespaceProvider
 abstract class InspectionTestCase :
     ParsingTestCase<XQueryModule>("xqy", XQueryParserDefinition(), XPathParserDefinition()),
     PluginDescriptorProvider {
+    // region PluginDescriptorProvider
 
     override val pluginDescriptor: PluginDescriptor
         get() = DefaultPluginDescriptor(pluginId, this::class.java.classLoader)
+
+    override val pluginDisposable: Disposable
+        get() = testRootDisposable
+
+    // endregion
 
     private val inspectionManager: InspectionManager
         get() = InspectionManager.getInstance(myProject)
