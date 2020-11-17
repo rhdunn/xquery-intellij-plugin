@@ -23,6 +23,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.codeInsight.hints.XPathInlayParameterHintsProvider
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryFunctionProvider
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryNamespaceProvider
@@ -38,7 +39,7 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
 
     override fun registerExtensions() {
         XpmNamespaceProvider.register(this, XQueryNamespaceProvider)
-        registerFunctionProvider(XQueryFunctionProvider, "INSTANCE")
+        XpmFunctionProvider.register(this, XQueryFunctionProvider)
     }
 
     @Nested

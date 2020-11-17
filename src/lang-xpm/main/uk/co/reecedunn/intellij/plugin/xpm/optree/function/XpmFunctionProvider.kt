@@ -15,8 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.optree.function
 
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.ExtensionPointName
 import com.intellij.psi.PsiFile
+import com.intellij.testFramework.registerExtension
+import org.jetbrains.annotations.TestOnly
+import uk.co.reecedunn.intellij.plugin.core.extensions.PluginDescriptorProvider
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
 interface XpmFunctionProvider {
@@ -24,6 +28,16 @@ interface XpmFunctionProvider {
         val EP_NAME: ExtensionPointName<XpmFunctionProviderBean> = ExtensionPointName.create(
             "uk.co.reecedunn.intellij.functionProvider"
         )
+
+        @TestOnly
+        @Suppress("UsePropertyAccessSyntax")
+        fun register(plugin: PluginDescriptorProvider, provider: XpmFunctionProvider, fieldName: String = "INSTANCE") {
+            val bean = XpmFunctionProviderBean()
+            bean.implementationClass = provider.javaClass.name
+            bean.fieldName = fieldName
+            bean.setPluginDescriptor(plugin.pluginDescriptor)
+            ApplicationManager.getApplication().registerExtension(EP_NAME, bean, plugin.pluginDisposable)
+        }
     }
 
     fun staticallyKnownFunctions(file: PsiFile): Sequence<XpmFunctionDeclaration>

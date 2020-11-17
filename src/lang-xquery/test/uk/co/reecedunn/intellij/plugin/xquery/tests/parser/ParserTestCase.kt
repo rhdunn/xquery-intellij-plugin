@@ -121,15 +121,6 @@ abstract class ParserTestCase :
 
     open fun registerExtensions() {}
 
-    @Suppress("UsePropertyAccessSyntax")
-    protected fun registerFunctionProvider(provider: XpmFunctionProvider, fieldName: String) {
-        val bean = XpmFunctionProviderBean()
-        bean.implementationClass = provider.javaClass.name
-        bean.fieldName = fieldName
-        bean.setPluginDescriptor(pluginDescriptor)
-        registerExtension(XpmFunctionProvider.EP_NAME, bean)
-    }
-
     protected val settings: XQueryProjectSettings
         get() = XQueryProjectSettings.getInstance(myProject)
 }
