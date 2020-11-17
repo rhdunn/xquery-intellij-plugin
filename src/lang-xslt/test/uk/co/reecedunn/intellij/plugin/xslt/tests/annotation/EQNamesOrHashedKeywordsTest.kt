@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xslt.tests.annotation
 
+import com.intellij.openapi.extensions.PluginId
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -32,6 +33,8 @@ import uk.co.reecedunn.intellij.plugin.xslt.schema.*
 @DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - EQNames-or-hashed-keywords Schema Type Annotator")
 private class EQNamesOrHashedKeywordsTest :
     AnnotatorTestCase(EQNamesOrHashedKeywords.ParserDefinition(), XPathParserDefinition()) {
+
+    override val pluginId: PluginId = PluginId.getId("EQNamesOrHashedKeywordsTest")
 
     @Nested
     @DisplayName("xsl:accumulator-names")

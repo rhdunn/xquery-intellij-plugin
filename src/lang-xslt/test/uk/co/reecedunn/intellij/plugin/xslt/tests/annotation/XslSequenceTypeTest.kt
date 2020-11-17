@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xslt.tests.annotation
 
+import com.intellij.openapi.extensions.PluginId
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -32,6 +33,8 @@ import uk.co.reecedunn.intellij.plugin.xslt.schema.XslSequenceType
 @Suppress("Reformat")
 @DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - SequenceType Schema Type Annotator")
 private class XslSequenceTypeTest : AnnotatorTestCase(SequenceType.ParserDefinition(), XPathParserDefinition()) {
+    override val pluginId: PluginId = PluginId.getId("XslSequenceTypeTest")
+
     @Nested
     @DisplayName("xsl:item-type")
     internal inner class ItemTypeTest {
