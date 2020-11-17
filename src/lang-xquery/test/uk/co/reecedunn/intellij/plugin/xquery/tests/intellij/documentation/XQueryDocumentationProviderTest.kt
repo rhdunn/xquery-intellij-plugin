@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.intellij.documentation
 
-import com.intellij.openapi.extensions.DefaultPluginDescriptor
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.PsiElement
 import org.hamcrest.CoreMatchers.*
@@ -66,7 +65,7 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
             XQDocDocumentationSourceProvider.EP_NAME,
             XQDocDocumentationSourceProviderBean::class.java
         )
-        registerDocumentationSourceProvider(DocumentationSourceProvider::class.java, "INSTANCE")
+        XQDocDocumentationSourceProvider.register(this, DocumentationSourceProvider)
 
         XpmVariableProvider.register(this, XQueryVariableProvider)
         XpmFunctionProvider.register(this, XQueryFunctionProvider)
@@ -75,18 +74,6 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
     @AfterAll
     override fun tearDown() {
         super.tearDown()
-    }
-
-    @Suppress("UsePropertyAccessSyntax")
-    private fun registerDocumentationSourceProvider(implementation: Class<*>, fieldName: String) {
-        val classLoader = XQueryDocumentationProviderTest::class.java.classLoader
-        val bean = XQDocDocumentationSourceProviderBean()
-        bean.implementationClass = implementation.name
-        bean.fieldName = fieldName
-        bean.setPluginDescriptor(
-            DefaultPluginDescriptor(PluginId.getId("registerDocumentationSourceProvider"), classLoader)
-        )
-        registerExtension(XQDocDocumentationSourceProvider.EP_NAME, bean)
     }
 
     @Nested

@@ -15,7 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.xqdoc.documentation
 
+import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.extensions.DefaultPluginDescriptor
 import com.intellij.openapi.extensions.ExtensionPointName
+import com.intellij.openapi.extensions.PluginId
+import com.intellij.testFramework.registerExtension
+import uk.co.reecedunn.intellij.plugin.core.extensions.PluginDescriptorProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
 
@@ -37,6 +42,19 @@ interface XQDocDocumentationSourceProvider {
 
         fun lookup(decl: XpmNamespaceDeclaration): Sequence<XQDocDocumentation> = providers.mapNotNull {
             (it as? XQDocDocumentationIndex)?.lookup(decl)
+        }
+
+        @Suppress("UsePropertyAccessSyntax")
+        fun register(
+            plugin: PluginDescriptorProvider,
+            provider: XQDocDocumentationSourceProvider,
+            fieldName: String = "INSTANCE"
+        ) {
+            val bean = XQDocDocumentationSourceProviderBean()
+            bean.implementationClass = provider::class.java.name
+            bean.fieldName = fieldName
+            bean.setPluginDescriptor(plugin.pluginDescriptor)
+            ApplicationManager.getApplication().registerExtension(EP_NAME, bean, plugin.pluginDisposable)
         }
     }
 
