@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.intellij.lang.findUsages
 
 import com.intellij.lang.HelpID
+import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.PsiElement
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
@@ -37,6 +38,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("IntelliJ - Custom Language Support - Find Usages - FindUsagesProvider")
 private class XQueryFindUsagesProviderTest : ParserTestCase() {
+    override val pluginId: PluginId = PluginId.getId("XQueryFindUsagesProviderTest")
+
     val provider = XQueryFindUsagesProvider()
 
     override fun registerExtensions() {

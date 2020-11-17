@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 
+import com.intellij.openapi.extensions.PluginId
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
 import org.junit.jupiter.api.DisplayName
@@ -33,6 +34,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 @Suppress("ClassName")
 @DisplayName("XQuery Scripting Extension 1.0 - IntelliJ Program Structure Interface (PSI)")
 private class ScriptingPsiTest : ParserTestCase() {
+    override val pluginId: PluginId = PluginId.getId("ScriptingPsiTest")
+
     @Nested
     @DisplayName("XQuery Scripting Extension 1.0 (5.1) Apply Expression")
     internal inner class ApplyExpression {

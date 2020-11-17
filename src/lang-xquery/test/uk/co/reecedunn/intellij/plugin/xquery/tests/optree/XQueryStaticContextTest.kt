@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.optree
 
+import com.intellij.openapi.extensions.PluginId
 import com.intellij.util.Range
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
@@ -45,6 +46,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 @Suppress("ClassName")
 @DisplayName("XQuery 3.1 - Static Context")
 private class XQueryStaticContextTest : ParserTestCase() {
+    override val pluginId: PluginId = PluginId.getId("XQueryStaticContextTest")
+
     override fun registerModules(manager: MockModuleManager) {
         manager.addModule(ResourceVirtualFile.create(this::class.java.classLoader, "tests/module-xquery"))
     }

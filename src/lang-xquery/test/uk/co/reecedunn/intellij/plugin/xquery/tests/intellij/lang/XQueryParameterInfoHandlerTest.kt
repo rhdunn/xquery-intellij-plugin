@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.intellij.lang
 
+import com.intellij.openapi.extensions.PluginId
 import com.intellij.testFramework.utils.parameterInfo.MockParameterInfoUIContext
 import com.intellij.testFramework.utils.parameterInfo.MockUpdateParameterInfoContext
 import com.intellij.util.Range
@@ -36,6 +37,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("IntelliJ - Custom Language Support - Parameter Info - XPath ParameterInfoHandler")
 private class XQueryParameterInfoHandlerTest : ParserTestCase() {
+    override val pluginId: PluginId = PluginId.getId("XQueryParameterInfoHandlerTest")
+
     val parameterInfoHandler = XPathParameterInfoHandler()
 
     override fun registerExtensions() {

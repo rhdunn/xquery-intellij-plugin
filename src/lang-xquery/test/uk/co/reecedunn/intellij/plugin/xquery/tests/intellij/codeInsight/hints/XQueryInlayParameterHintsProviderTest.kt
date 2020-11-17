@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.intellij.codeInsight.hints
 
+import com.intellij.openapi.extensions.PluginId
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -30,6 +31,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 @Suppress("UnstableApiUsage")
 @DisplayName("IntelliJ - Custom Language Support - Inlay Hints - XPath Parameter Hints Provider")
 private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
+    override val pluginId: PluginId = PluginId.getId("XQueryInlayParameterHintsProviderTest")
+
     val provider = XPathInlayParameterHintsProvider()
 
     override fun registerExtensions() {

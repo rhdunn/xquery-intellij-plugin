@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.intellij.ui
 
+import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.PsiElement
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.*
@@ -29,6 +30,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("IntelliJ - Custom Language Support - Breadcrumb Provider - XQuery")
 private class XQueryBreadcrumbProviderTest : ParserTestCase() {
+    override val pluginId: PluginId = PluginId.getId("XQueryFindUsagesProviderTest")
+
     private val breadcrumbProvider = XQueryBreadcrumbProvider()
 
     fun breadcrumbs(text: String, name: String = "breadcrumbs"): List<PsiElement> {

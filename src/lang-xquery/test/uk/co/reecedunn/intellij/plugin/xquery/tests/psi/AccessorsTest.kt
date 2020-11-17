@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 
+import com.intellij.openapi.extensions.PluginId
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -29,6 +30,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 @Suppress("Reformat", "ClassName")
 @DisplayName("XQuery 3.1 - XDM Accessors")
 private class AccessorsTest : ParserTestCase() {
+    override val pluginId: PluginId = PluginId.getId("AccessorsTest")
+
     @Nested
     @DisplayName("XQuery and XPath Data Model 3.1 (5.1) attributes Accessor")
     internal inner class AttributesAccessor {

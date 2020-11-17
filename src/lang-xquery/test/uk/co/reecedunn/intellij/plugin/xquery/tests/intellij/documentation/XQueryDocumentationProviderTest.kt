@@ -47,6 +47,8 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
         fun body(substring: String): Matcher<out String?> = StringContains.containsString("<body>$substring</body>")
     }
 
+    override val pluginId: PluginId = PluginId.getId("XQueryDocumentationProviderTest")
+
     override fun registerExtensions() {
         registerNamespaceProvider(XQueryNamespaceProvider, "INSTANCE")
     }

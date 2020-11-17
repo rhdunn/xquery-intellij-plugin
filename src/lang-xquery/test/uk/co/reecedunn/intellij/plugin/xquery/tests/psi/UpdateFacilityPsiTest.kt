@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 
+import com.intellij.openapi.extensions.PluginId
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
 import org.junit.jupiter.api.DisplayName
@@ -33,6 +34,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 @Suppress("ClassName")
 @DisplayName("XQuery Update Facility 3.0 - IntelliJ Program Structure Interface (PSI)")
 private class UpdateFacilityPsiTest : ParserTestCase() {
+    override val pluginId: PluginId = PluginId.getId("UpdateFacilityPsiTest")
+
     @Nested
     @DisplayName("XQuery Update Facility 3.0 (5.1) Insert")
     internal inner class Insert {

@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.completion
 import com.intellij.codeInsight.lookup.AutoCompletionPolicy
 import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.codeInsight.lookup.LookupElementPresentation
+import com.intellij.openapi.extensions.PluginId
 import com.intellij.ui.JBColor
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
@@ -45,6 +46,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 @Suppress("ClassName")
 @DisplayName("XQuery 3.1 - Code Completion - Lookup Element")
 private class XQueryLookupElementTest : ParserTestCase() {
+    override val pluginId: PluginId = PluginId.getId("XQueryLookupElementTest")
+
     override fun registerExtensions() {
         registerNamespaceProvider(XQueryNamespaceProvider, "INSTANCE")
         registerVariableProvider(XQueryVariableProvider, "INSTANCE")

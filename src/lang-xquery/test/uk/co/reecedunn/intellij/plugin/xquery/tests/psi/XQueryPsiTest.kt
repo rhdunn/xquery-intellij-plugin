@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 
 import com.intellij.navigation.ItemPresentation
+import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiNameIdentifierOwner
@@ -71,6 +72,8 @@ import java.math.BigInteger
 @Suppress("Reformat", "ClassName")
 @DisplayName("XQuery 3.1 - IntelliJ Program Structure Interface (PSI)")
 private class XQueryPsiTest : ParserTestCase() {
+    override val pluginId: PluginId = PluginId.getId("XQueryPsiTest")
+
     private val res = ResourceVirtualFileSystem(this::class.java.classLoader)
 
     fun parseResource(resource: String): XQueryModule = res.toPsiFile(resource, project)

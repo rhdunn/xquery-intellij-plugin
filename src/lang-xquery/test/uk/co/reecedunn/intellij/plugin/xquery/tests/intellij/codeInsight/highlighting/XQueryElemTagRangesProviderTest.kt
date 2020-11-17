@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.intellij.codeInsight.highlighting
 
+import com.intellij.openapi.extensions.PluginId
 import com.intellij.openapi.util.TextRange
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
@@ -29,6 +30,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("IntelliJ - Custom Language Support - XQuery Element Tag Ranges Provider")
 private class XQueryElemTagRangesProviderTest : ParserTestCase() {
+    override val pluginId: PluginId = PluginId.getId("XQueryElemTagRangesProviderTest")
+
     @Nested
     @DisplayName("getElementTagRanges")
     internal inner class GetElementTagRanges {

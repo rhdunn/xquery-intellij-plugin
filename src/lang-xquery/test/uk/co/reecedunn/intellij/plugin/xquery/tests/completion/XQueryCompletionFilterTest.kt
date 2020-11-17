@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.completion
 
+import com.intellij.openapi.extensions.PluginId
 import com.intellij.util.ProcessingContext
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
@@ -27,6 +28,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("XQuery 3.1 - Code Completion - Completion Filters")
 private class XQueryCompletionFilterTest : ParserTestCase() {
+    override val pluginId: PluginId = PluginId.getId("XQueryCompletionFilterTest")
+
     @Nested
     @DisplayName("XQuery 3.1 EBNF (113) ForwardAxis ; XQuery 3.1 EBNF (44) ReverseAxis")
     internal inner class ForwardOrReverseAxis {

@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.completion
 
 import com.intellij.codeInsight.completion.PlainPrefixMatcher
+import com.intellij.openapi.extensions.PluginId
 import com.intellij.util.ProcessingContext
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
@@ -35,6 +36,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("XQuery 3.1 - Code Completion - Completion Providers")
 private class XQueryCompletionProviderTest : ParserTestCase() {
+    override val pluginId: PluginId = PluginId.getId("XQueryCompletionProviderTest")
+
     override fun registerExtensions() {
         registerNamespaceProvider(XQueryNamespaceProvider, "INSTANCE")
         registerVariableProvider(XQueryVariableProvider, "INSTANCE")

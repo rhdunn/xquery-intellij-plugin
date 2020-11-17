@@ -19,12 +19,13 @@ import com.intellij.compat.testFramework.registerCodeStyleCachingService
 import com.intellij.compat.testFramework.registerPomModel
 import com.intellij.lang.LanguageASTFactory
 import com.intellij.openapi.extensions.DefaultPluginDescriptor
-import com.intellij.openapi.extensions.PluginId
+import com.intellij.openapi.extensions.PluginDescriptor
 import com.intellij.openapi.module.ModuleManager
 import com.intellij.openapi.roots.ProjectRootManager
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.TestInstance
+import uk.co.reecedunn.intellij.plugin.core.extensions.PluginDescriptorProvider
 import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.roots.MockProjectRootsManager
@@ -56,7 +57,11 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableProviderBe
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 abstract class ParserTestCase :
-    ParsingTestCase<XQueryModule>("xqy", XQueryParserDefinition(), XPathParserDefinition()) {
+    ParsingTestCase<XQueryModule>("xqy", XQueryParserDefinition(), XPathParserDefinition()),
+    PluginDescriptorProvider {
+
+    override val pluginDescriptor: PluginDescriptor
+        get() = DefaultPluginDescriptor(pluginId, this::class.java.classLoader)
 
     open fun registerModules(manager: MockModuleManager) {}
 
@@ -117,62 +122,56 @@ abstract class ParserTestCase :
 
     @Suppress("UsePropertyAccessSyntax")
     private fun registerModulePathFactory(factory: XpmModulePathFactory, fieldName: String) {
-        val classLoader = ParserTestCase::class.java.classLoader
         val bean = XpmModulePathFactoryBean()
         bean.implementationClass = factory.javaClass.name
         bean.fieldName = fieldName
-        bean.setPluginDescriptor(DefaultPluginDescriptor(PluginId.getId("registerModulePathFactory"), classLoader))
+        bean.setPluginDescriptor(pluginDescriptor)
         registerExtension(XpmModulePathFactory.EP_NAME, bean)
     }
 
     @Suppress("UsePropertyAccessSyntax")
     private fun registerModuleLoader(name: String, implementation: String, fieldName: String) {
-        val classLoader = ParserTestCase::class.java.classLoader
         val bean = XpmModuleLoaderFactoryBean()
         bean.name = name
         bean.implementationClass = implementation
         bean.fieldName = fieldName
-        bean.setPluginDescriptor(DefaultPluginDescriptor(PluginId.getId("registerModuleLoader"), classLoader))
+        bean.setPluginDescriptor(pluginDescriptor)
         registerExtension(XpmModuleLoaderFactory.EP_NAME, bean)
     }
 
     @Suppress("UsePropertyAccessSyntax")
     private fun registerBuiltInFunctions(resolver: ImportPathResolver, fieldName: String) {
-        val classLoader = ParserTestCase::class.java.classLoader
         val bean = ImportPathResolverBean()
         bean.implementationClass = resolver.javaClass.name
         bean.fieldName = fieldName
-        bean.setPluginDescriptor(DefaultPluginDescriptor(PluginId.getId("registerBuiltInFunctions"), classLoader))
+        bean.setPluginDescriptor(pluginDescriptor)
         registerExtension(ImportPathResolver.EP_NAME, bean)
     }
 
     @Suppress("UsePropertyAccessSyntax")
     protected fun registerVariableProvider(provider: XpmVariableProvider, fieldName: String) {
-        val classLoader = ParserTestCase::class.java.classLoader
         val bean = XpmVariableProviderBean()
         bean.implementationClass = provider.javaClass.name
         bean.fieldName = fieldName
-        bean.setPluginDescriptor(DefaultPluginDescriptor(PluginId.getId("registerInScopeVariables"), classLoader))
+        bean.setPluginDescriptor(pluginDescriptor)
         registerExtension(XpmVariableProvider.EP_NAME, bean)
     }
 
     @Suppress("UsePropertyAccessSyntax")
     protected fun registerFunctionProvider(provider: XpmFunctionProvider, fieldName: String) {
-        val classLoader = ParserTestCase::class.java.classLoader
         val bean = XpmFunctionProviderBean()
         bean.implementationClass = provider.javaClass.name
         bean.fieldName = fieldName
-        bean.setPluginDescriptor(DefaultPluginDescriptor(PluginId.getId("registerFunctions"), classLoader))
+        bean.setPluginDescriptor(pluginDescriptor)
         registerExtension(XpmFunctionProvider.EP_NAME, bean)
     }
 
     @Suppress("UsePropertyAccessSyntax")
     protected fun registerNamespaceProvider(provider: XpmNamespaceProvider, fieldName: String) {
-        val classLoader = ParserTestCase::class.java.classLoader
         val bean = XpmNamespaceProviderBean()
         bean.implementationClass = provider.javaClass.name
         bean.fieldName = fieldName
-        bean.setPluginDescriptor(DefaultPluginDescriptor(PluginId.getId("registerNamespaceProvider"), classLoader))
+        bean.setPluginDescriptor(pluginDescriptor)
         registerExtension(XpmNamespaceProvider.EP_NAME, bean)
     }
 

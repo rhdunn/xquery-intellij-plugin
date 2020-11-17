@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 
+import com.intellij.openapi.extensions.PluginId
 import org.hamcrest.CoreMatchers
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
@@ -38,6 +39,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 @Suppress("ClassName")
 @DisplayName("XQuery 3.1 with Full Text 3.0 - IntelliJ Program Structure Interface (PSI)")
 private class FullTextPsiTest : ParserTestCase() {
+    override val pluginId: PluginId = PluginId.getId("FullTextPsiTest")
+
     @Nested
     @DisplayName("XQuery and XPath Full Text 3.0 (2.2) Full-Text Contains Expression")
     internal inner class FullTextContainsExpression {

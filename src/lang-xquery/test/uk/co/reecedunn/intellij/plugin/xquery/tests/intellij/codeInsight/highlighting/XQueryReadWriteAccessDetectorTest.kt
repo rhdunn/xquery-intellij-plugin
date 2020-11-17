@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.intellij.codeInsight.highlighting
 
 import com.intellij.codeInsight.highlighting.ReadWriteAccessDetector
+import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
 import org.hamcrest.CoreMatchers.`is`
@@ -37,6 +38,8 @@ import com.intellij.codeInsight.highlighting.ReadWriteAccessDetector.Access as A
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("IntelliJ - Custom Language Support - Read/Write Usage Detector - XQuery")
 private class XQueryReadWriteAccessDetectorTest : ParserTestCase() {
+    override val pluginId: PluginId = PluginId.getId("XQueryReadWriteAccessDetectorTest")
+
     override fun registerExtensions() {
         registerNamespaceProvider(XQueryNamespaceProvider, "INSTANCE")
         registerVariableProvider(XQueryVariableProvider, "INSTANCE")

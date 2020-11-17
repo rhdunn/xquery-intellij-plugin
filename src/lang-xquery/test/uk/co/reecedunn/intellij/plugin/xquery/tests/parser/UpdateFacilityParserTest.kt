@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.parser
 
+import com.intellij.openapi.extensions.PluginId
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -28,6 +29,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("XQuery Update Facility 3.0 - Parser")
 private class UpdateFacilityParserTest : ParserTestCase() {
+    override val pluginId: PluginId = PluginId.getId("UpdateFacilityParserTest")
+
     private val res = ResourceVirtualFileSystem(this::class.java.classLoader)
 
     fun parseResource(resource: String): XQueryModule = res.toPsiFile(resource, project)

@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.intellij.codeInsight.hint
 
+import com.intellij.openapi.extensions.PluginId
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
 import org.junit.jupiter.api.DisplayName
@@ -28,6 +29,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("IntelliJ - Custom Language Support - Declaration Range Handler")
 private class XQueryDeclarationRangeHandlerTest : ParserTestCase() {
+    override val pluginId: PluginId = PluginId.getId("XQueryDeclarationRangeHandlerTest")
+
     @Nested
     @DisplayName("XQuery 3.1 EBNF (32) FunctionDecl")
     internal inner class FunctionDecl {

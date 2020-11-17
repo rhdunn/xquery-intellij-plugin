@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 
+import com.intellij.openapi.extensions.PluginId
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -26,6 +27,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("xqDoc - IntelliJ Program Structure Interface (PSI)")
 private class XQDocPsiTest : ParserTestCase() {
+    override val pluginId: PluginId = PluginId.getId("XQDocPsiTest")
+
     @Nested
     @DisplayName("Comment")
     internal inner class Comment {
