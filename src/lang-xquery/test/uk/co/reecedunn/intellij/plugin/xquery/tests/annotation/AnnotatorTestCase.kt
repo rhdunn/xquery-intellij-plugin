@@ -19,7 +19,6 @@ import com.intellij.lang.LanguageASTFactory
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.extensions.DefaultPluginDescriptor
 import com.intellij.openapi.extensions.PluginDescriptor
-import com.intellij.openapi.extensions.PluginId
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.TestInstance
@@ -38,7 +37,6 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableProviderBean
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryVariableProvider
-import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 abstract class AnnotatorTestCase :
@@ -62,7 +60,7 @@ abstract class AnnotatorTestCase :
         addExplicitExtension(LanguageASTFactory.INSTANCE, XQuery, XQueryASTFactory())
 
         registerExtensionPoint(XpmVariableProvider.EP_NAME, XpmVariableProviderBean::class.java)
-        registerVariableProvider(XQueryVariableProvider, "INSTANCE")
+        XpmVariableProvider.register(this, XQueryVariableProvider)
 
         registerExtensionPoint(XpmNamespaceProvider.EP_NAME, XpmNamespaceProviderBean::class.java)
     }
@@ -70,14 +68,5 @@ abstract class AnnotatorTestCase :
     @AfterAll
     override fun tearDown() {
         super.tearDown()
-    }
-
-    @Suppress("UsePropertyAccessSyntax")
-    protected fun registerVariableProvider(provider: XpmVariableProvider, fieldName: String) {
-        val bean = XpmVariableProviderBean()
-        bean.implementationClass = provider.javaClass.name
-        bean.fieldName = fieldName
-        bean.setPluginDescriptor(pluginDescriptor)
-        registerExtension(XpmVariableProvider.EP_NAME, bean)
     }
 }

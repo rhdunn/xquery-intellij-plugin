@@ -29,6 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathDefaultNam
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathStaticallyKnownNamespaces
 import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.XPathAtomicOrUnionTypeProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableProvider
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryFunctionProvider
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryVariableProvider
@@ -41,7 +42,7 @@ private class XQueryCompletionProviderTest : ParserTestCase() {
 
     override fun registerExtensions() {
         XpmNamespaceProvider.register(this, XQueryNamespaceProvider)
-        registerVariableProvider(XQueryVariableProvider, "INSTANCE")
+        XpmVariableProvider.register(this, XQueryVariableProvider)
         registerFunctionProvider(XQueryFunctionProvider, "INSTANCE")
     }
 

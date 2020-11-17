@@ -31,6 +31,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableDefinition
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableReference
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryNamespaceProvider
@@ -48,7 +49,7 @@ private class XQueryReferenceTest : ParserTestCase() {
 
     override fun registerExtensions() {
         XpmNamespaceProvider.register(this, XQueryNamespaceProvider)
-        registerVariableProvider(XQueryVariableProvider, "INSTANCE")
+        XpmVariableProvider.register(this, XQueryVariableProvider)
     }
 
     @Nested

@@ -15,14 +15,26 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.optree.variable
 
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.ExtensionPointName
 import com.intellij.psi.PsiElement
+import com.intellij.testFramework.registerExtension
+import uk.co.reecedunn.intellij.plugin.core.extensions.PluginDescriptorProvider
 
 interface XpmVariableProvider {
     companion object {
         val EP_NAME: ExtensionPointName<XpmVariableProviderBean> = ExtensionPointName.create(
             "uk.co.reecedunn.intellij.variableProvider"
         )
+
+        @Suppress("UsePropertyAccessSyntax")
+        fun register(plugin: PluginDescriptorProvider, provider: XpmVariableProvider, fieldName: String = "INSTANCE") {
+            val bean = XpmVariableProviderBean()
+            bean.implementationClass = provider.javaClass.name
+            bean.fieldName = fieldName
+            bean.setPluginDescriptor(plugin.pluginDescriptor)
+            ApplicationManager.getApplication().registerExtension(EP_NAME, bean, plugin.pluginDisposable)
+        }
     }
 
     fun inScopeVariables(context: PsiElement): Sequence<XpmVariableDefinition>

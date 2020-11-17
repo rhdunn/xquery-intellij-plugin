@@ -36,6 +36,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathVarNameLookup
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableReference
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryVariableProvider
@@ -51,7 +52,7 @@ private class XQueryLookupElementTest : ParserTestCase() {
 
     override fun registerExtensions() {
         XpmNamespaceProvider.register(this, XQueryNamespaceProvider)
-        registerVariableProvider(XQueryVariableProvider, "INSTANCE")
+        XpmVariableProvider.register(this, XQueryVariableProvider)
         registerFunctionProvider(XQueryFunctionProvider, "INSTANCE")
     }
 

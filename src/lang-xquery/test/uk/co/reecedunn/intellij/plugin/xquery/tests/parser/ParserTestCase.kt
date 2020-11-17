@@ -156,15 +156,6 @@ abstract class ParserTestCase :
     }
 
     @Suppress("UsePropertyAccessSyntax")
-    protected fun registerVariableProvider(provider: XpmVariableProvider, fieldName: String) {
-        val bean = XpmVariableProviderBean()
-        bean.implementationClass = provider.javaClass.name
-        bean.fieldName = fieldName
-        bean.setPluginDescriptor(pluginDescriptor)
-        registerExtension(XpmVariableProvider.EP_NAME, bean)
-    }
-
-    @Suppress("UsePropertyAccessSyntax")
     protected fun registerFunctionProvider(provider: XpmFunctionProvider, fieldName: String) {
         val bean = XpmFunctionProviderBean()
         bean.implementationClass = provider.javaClass.name
