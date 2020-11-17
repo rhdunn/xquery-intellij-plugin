@@ -47,6 +47,8 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDecoratorB
 import uk.co.reecedunn.intellij.plugin.xpm.module.ImportPathResolverBean
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderFactory
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderSettings
+import uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.JspModuleSourceRootLoader
+import uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.RelativeModuleLoader
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePathFactoryBean
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.impl.XpmModuleLocationPath
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProvider
@@ -95,16 +97,8 @@ abstract class ParserTestCase :
         XpmModulePathFactory.register(this, XpmModuleLocationPath, "")
 
         registerExtensionPoint(XpmModuleLoaderFactory.EP_NAME, XpmModuleLoaderFactoryBean::class.java)
-        registerModuleLoader(
-            "module",
-            "uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.JspModuleSourceRootLoader\$Companion",
-            ""
-        )
-        registerModuleLoader(
-            "relative",
-            "uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.RelativeModuleLoader",
-            "INSTANCE"
-        )
+        XpmModuleLoaderFactory.register(this, "module", JspModuleSourceRootLoader, "")
+        XpmModuleLoaderFactory.register(this, "relative", RelativeModuleLoader)
 
         registerExtensionPoint(ImportPathResolver.EP_NAME, ImportPathResolverBean::class.java)
         registerBuiltInFunctions(uk.co.reecedunn.intellij.plugin.basex.model.BuiltInFunctions, "INSTANCE")
@@ -126,16 +120,6 @@ abstract class ParserTestCase :
     }
 
     open fun registerExtensions() {}
-
-    @Suppress("UsePropertyAccessSyntax")
-    private fun registerModuleLoader(name: String, implementation: String, fieldName: String) {
-        val bean = XpmModuleLoaderFactoryBean()
-        bean.name = name
-        bean.implementationClass = implementation
-        bean.fieldName = fieldName
-        bean.setPluginDescriptor(pluginDescriptor)
-        registerExtension(XpmModuleLoaderFactory.EP_NAME, bean)
-    }
 
     @Suppress("UsePropertyAccessSyntax")
     private fun registerBuiltInFunctions(resolver: ImportPathResolver, fieldName: String) {

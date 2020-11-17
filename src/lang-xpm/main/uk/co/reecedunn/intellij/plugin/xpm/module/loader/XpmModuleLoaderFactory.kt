@@ -15,8 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.module.loader
 
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.ExtensionPointName
+import com.intellij.testFramework.registerExtension
 import com.intellij.util.xmlb.annotations.Tag
+import org.jetbrains.annotations.TestOnly
+import uk.co.reecedunn.intellij.plugin.core.extensions.PluginDescriptorProvider
 
 interface XpmModuleLoaderFactory {
     companion object {
@@ -26,6 +30,22 @@ interface XpmModuleLoaderFactory {
 
         fun create(name: String, context: String?): XpmModuleLoader? {
             return EP_NAME.extensionList.find { it.name == name }?.getInstance()?.loader(context)
+        }
+
+        @TestOnly
+        @Suppress("UsePropertyAccessSyntax")
+        fun register(
+            plugin: PluginDescriptorProvider,
+            name: String,
+            factory: XpmModuleLoaderFactory,
+            fieldName: String = "INSTANCE"
+        ) {
+            val bean = XpmModuleLoaderFactoryBean()
+            bean.name = name
+            bean.implementationClass = factory::class.java.name
+            bean.fieldName = fieldName
+            bean.setPluginDescriptor(plugin.pluginDescriptor)
+            ApplicationManager.getApplication().registerExtension(EP_NAME, bean, plugin.pluginDisposable)
         }
     }
 
