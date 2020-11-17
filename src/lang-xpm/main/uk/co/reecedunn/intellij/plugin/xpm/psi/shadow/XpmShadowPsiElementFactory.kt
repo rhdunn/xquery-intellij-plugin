@@ -15,11 +15,15 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.psi.shadow
 
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.ExtensionPointName
 import com.intellij.openapi.util.Key
 import com.intellij.psi.PsiElement
 import com.intellij.psi.xml.XmlAttribute
 import com.intellij.psi.xml.XmlTag
+import com.intellij.testFramework.registerExtension
+import org.jetbrains.annotations.TestOnly
+import uk.co.reecedunn.intellij.plugin.core.extensions.PluginDescriptorProvider
 import uk.co.reecedunn.intellij.plugin.core.xml.qname
 import javax.xml.namespace.QName
 
@@ -52,6 +56,20 @@ interface XpmShadowPsiElementFactory {
                 element.putUserData(SHADOW_PSI_ELEMENT, name to it)
                 return it
             }
+        }
+
+        @TestOnly
+        @Suppress("UsePropertyAccessSyntax")
+        fun register(
+            plugin: PluginDescriptorProvider,
+            factory: XpmShadowPsiElementFactory,
+            fieldName: String = "INSTANCE"
+        ) {
+            val bean = XpmShadowPsiElementFactoryBean()
+            bean.implementationClass = factory.javaClass.name
+            bean.fieldName = fieldName
+            bean.setPluginDescriptor(plugin.pluginDescriptor)
+            ApplicationManager.getApplication().registerExtension(EP_NAME, bean, plugin.pluginDisposable)
         }
     }
 

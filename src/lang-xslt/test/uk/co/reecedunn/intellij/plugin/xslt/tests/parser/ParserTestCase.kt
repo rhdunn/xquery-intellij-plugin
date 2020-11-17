@@ -74,21 +74,12 @@ abstract class ParserTestCase(vararg definitions: ParserDefinition) :
         myProject.registerService(InjectedLanguageManager::class.java, MockInjectedLanguageManager())
 
         registerExtensionPoint(XpmShadowPsiElementFactory.EP_NAME, XpmShadowPsiElementFactoryBean::class.java)
-        registerShadowPsiElementFactory(XsltShadowPsiElementFactory, "INSTANCE")
+        XpmShadowPsiElementFactory.register(this, XsltShadowPsiElementFactory)
     }
 
     @AfterAll
     override fun tearDown() {
         super.tearDown()
-    }
-
-    @Suppress("UsePropertyAccessSyntax")
-    private fun registerShadowPsiElementFactory(factory: XpmShadowPsiElementFactory, fieldName: String) {
-        val bean = XpmShadowPsiElementFactoryBean()
-        bean.implementationClass = factory.javaClass.name
-        bean.fieldName = fieldName
-        bean.setPluginDescriptor(pluginDescriptor)
-        registerExtension(XpmShadowPsiElementFactory.EP_NAME, bean)
     }
 
     fun parseXml(resource: String): XmlFile {
