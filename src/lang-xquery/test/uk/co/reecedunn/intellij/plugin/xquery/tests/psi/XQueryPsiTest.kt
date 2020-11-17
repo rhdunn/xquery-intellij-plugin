@@ -81,7 +81,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
     override fun registerExtensions() {
         registerNamespaceProvider(XQueryNamespaceProvider, "INSTANCE")
-        registerStaticallyKnownFunctionProvider(XQueryFunctionProvider, "INSTANCE")
+        registerFunctionProvider(XQueryFunctionProvider, "INSTANCE")
     }
 
     @Nested

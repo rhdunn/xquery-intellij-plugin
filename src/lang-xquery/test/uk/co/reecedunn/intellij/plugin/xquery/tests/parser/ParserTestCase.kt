@@ -157,9 +157,7 @@ abstract class ParserTestCase :
     }
 
     @Suppress("UsePropertyAccessSyntax")
-    protected fun registerStaticallyKnownFunctionProvider(
-        provider: XpmFunctionProvider, fieldName: String
-    ) {
+    protected fun registerFunctionProvider(provider: XpmFunctionProvider, fieldName: String) {
         val classLoader = ParserTestCase::class.java.classLoader
         val bean = XpmFunctionProviderBean()
         bean.implementationClass = provider.javaClass.name

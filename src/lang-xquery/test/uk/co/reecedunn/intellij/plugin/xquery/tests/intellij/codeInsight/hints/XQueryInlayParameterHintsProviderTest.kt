@@ -34,7 +34,7 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
 
     override fun registerExtensions() {
         registerNamespaceProvider(XQueryNamespaceProvider, "INSTANCE")
-        registerStaticallyKnownFunctionProvider(XQueryFunctionProvider, "INSTANCE")
+        registerFunctionProvider(XQueryFunctionProvider, "INSTANCE")
     }
 
     @Nested

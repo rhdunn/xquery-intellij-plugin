@@ -38,7 +38,7 @@ private class XQueryCompletionProviderTest : ParserTestCase() {
     override fun registerExtensions() {
         registerNamespaceProvider(XQueryNamespaceProvider, "INSTANCE")
         registerVariableProvider(XQueryVariableProvider, "INSTANCE")
-        registerStaticallyKnownFunctionProvider(XQueryFunctionProvider, "INSTANCE")
+        registerFunctionProvider(XQueryFunctionProvider, "INSTANCE")
     }
 
     @Nested

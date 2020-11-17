@@ -64,7 +64,7 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
         registerDocumentationSourceProvider(DocumentationSourceProvider::class.java, "INSTANCE")
 
         registerVariableProvider(XQueryVariableProvider, "INSTANCE")
-        registerStaticallyKnownFunctionProvider(XQueryFunctionProvider, "INSTANCE")
+        registerFunctionProvider(XQueryFunctionProvider, "INSTANCE")
     }
 
     @AfterAll
