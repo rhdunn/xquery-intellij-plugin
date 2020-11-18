@@ -20,5 +20,5 @@ import com.intellij.xdebugger.frame.presentation.XStringValuePresentation
 internal class StringValuePresentation(value: String, private val type: String) : XStringValuePresentation(value) {
     override fun getSeparator(): String = QueryValuePresentation.SEPARATOR
 
-    override fun getType(): String? = type
+    override fun getType(): String = type
 }

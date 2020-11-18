@@ -25,6 +25,6 @@ data class QueryError(
     val frames: List<XStackFrame>
 ) : RuntimeException() {
 
-    override val message: String?
+    override val message: String
         get() = description?.let { "[$standardCode] $it" } ?: standardCode
 }

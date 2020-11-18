@@ -21,7 +21,7 @@ import com.intellij.openapi.fileTypes.FileNameMatcher
 import uk.co.reecedunn.intellij.plugin.core.lang.LanguageData
 
 val N3: Language by lazy {
-    Language.findInstancesByMimeType("text/n3").firstOrNull() ?: {
+    Language.findInstancesByMimeType("text/n3").firstOrNull() ?: run {
         val language = Language.findLanguageByID("N3") ?: object : Language("N3") {}
         language.putUserData(LanguageData.KEY, object : LanguageData {
             override val associations: List<FileNameMatcher> = listOf(
@@ -31,11 +31,11 @@ val N3: Language by lazy {
             override val mimeTypes: Array<String> = arrayOf("text/n3")
         })
         language
-    }()
+    }
 }
 
 val NQuads: Language by lazy {
-    Language.findInstancesByMimeType("application/n-quads").firstOrNull() ?: {
+    Language.findInstancesByMimeType("application/n-quads").firstOrNull() ?: run {
         val language = Language.findLanguageByID("NQuads") ?: object : Language("NQuads") {
             override fun getDisplayName(): String = "N-Quads"
         }
@@ -47,11 +47,11 @@ val NQuads: Language by lazy {
             override val mimeTypes: Array<String> = arrayOf("application/n-quads")
         })
         language
-    }()
+    }
 }
 
 val NTriples: Language by lazy {
-    Language.findInstancesByMimeType("application/n-triples").firstOrNull() ?: {
+    Language.findInstancesByMimeType("application/n-triples").firstOrNull() ?: run {
         val language = Language.findLanguageByID("NTriples") ?: object : Language("NTriples") {
             override fun getDisplayName(): String = "N-Triples"
         }
@@ -63,11 +63,11 @@ val NTriples: Language by lazy {
             override val mimeTypes: Array<String> = arrayOf("application/n-triples")
         })
         language
-    }()
+    }
 }
 
 val RdfJson: Language by lazy {
-    Language.findInstancesByMimeType("application/rdf+json").firstOrNull() ?: {
+    Language.findInstancesByMimeType("application/rdf+json").firstOrNull() ?: run {
         val language = Language.findLanguageByID("RDFJSON") ?: object : Language("RDFJSON") {
             override fun getDisplayName(): String = "RDF/JSON"
         }
@@ -79,11 +79,11 @@ val RdfJson: Language by lazy {
             override val mimeTypes: Array<String> = arrayOf("application/rdf+json")
         })
         language
-    }()
+    }
 }
 
 val RdfXml: Language by lazy {
-    Language.findInstancesByMimeType("application/rdf+xml").firstOrNull() ?: {
+    Language.findInstancesByMimeType("application/rdf+xml").firstOrNull() ?: run {
         val language = Language.findLanguageByID("RDFXML") ?: object : Language("RDFXML") {
             override fun getDisplayName(): String = "RDF/XML"
         }
@@ -95,11 +95,11 @@ val RdfXml: Language by lazy {
             override val mimeTypes: Array<String> = arrayOf("application/rdf+xml")
         })
         language
-    }()
+    }
 }
 
 val TriG: Language by lazy {
-    Language.findInstancesByMimeType("application/trig").firstOrNull() ?: {
+    Language.findInstancesByMimeType("application/trig").firstOrNull() ?: run {
         val language = Language.findLanguageByID("TriG") ?: object : Language("TriG") {
             override fun getDisplayName(): String = "TriG"
         }
@@ -111,11 +111,11 @@ val TriG: Language by lazy {
             override val mimeTypes: Array<String> = arrayOf("application/trig")
         })
         language
-    }()
+    }
 }
 
 val TripleXml: Language by lazy {
-    Language.findInstancesByMimeType("application/vnd.marklogic.triples+xml").firstOrNull() ?: {
+    Language.findInstancesByMimeType("application/vnd.marklogic.triples+xml").firstOrNull() ?: run {
         val language = Language.findLanguageByID("TripleXml") ?: object : Language("TripleXml") {
             override fun getDisplayName(): String = "MarkLogic Triple/XML"
         }
@@ -127,11 +127,11 @@ val TripleXml: Language by lazy {
             override val mimeTypes: Array<String> = arrayOf("application/vnd.marklogic.triples+xml")
         })
         language
-    }()
+    }
 }
 
 val Turtle: Language by lazy {
-    Language.findInstancesByMimeType("text/turtle").firstOrNull() ?: {
+    Language.findInstancesByMimeType("text/turtle").firstOrNull() ?: run {
         val language = Language.findLanguageByID("Turtle") ?: object : Language("Turtle") {
             override fun getDisplayName(): String = "Turtle"
         }
@@ -143,7 +143,7 @@ val Turtle: Language by lazy {
             override val mimeTypes: Array<String> = arrayOf("text/turtle")
         })
         language
-    }()
+    }
 }
 
 val RDF_FORMATS: List<Language> by lazy {

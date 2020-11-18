@@ -40,7 +40,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQueryProvider
 
 class QueryProcessorRunState(private val environment: ExecutionEnvironment) : RunProfileStateEx {
-    override fun execute(executor: Executor?, runner: ProgramRunner<*>): ExecutionResult? {
+    override fun execute(executor: Executor?, runner: ProgramRunner<*>): ExecutionResult {
         val processHandler = createProcessHandler(createQuery())
         val console = createConsole(executor!!)
         console.attachToProcess(processHandler)

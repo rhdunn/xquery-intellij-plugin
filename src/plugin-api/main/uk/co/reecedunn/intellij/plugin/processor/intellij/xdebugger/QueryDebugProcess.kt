@@ -56,7 +56,7 @@ class QueryDebugProcess(
         return console
     }
 
-    override fun doGetProcessHandler(): ProcessHandler? = state.createProcessHandler(query)
+    override fun doGetProcessHandler(): ProcessHandler = state.createProcessHandler(query)
 
     override fun stop() {
         debugger.listener = null

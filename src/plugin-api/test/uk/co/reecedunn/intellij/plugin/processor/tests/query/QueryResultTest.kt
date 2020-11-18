@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 
+@Suppress("RedundantInnerClassModifier")
 @DisplayName("IntelliJ - Base Platform - Run Configuration - XQuery Processor - QueryResult")
 class QueryResultTest {
     @Nested

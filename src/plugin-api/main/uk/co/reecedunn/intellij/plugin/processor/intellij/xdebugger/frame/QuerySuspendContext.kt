@@ -22,5 +22,5 @@ import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSession
 class QuerySuspendContext(displayName: String, session: DebugSession) : XSuspendContext() {
     private val activeExecutionStack = QueryExecutionStack(displayName, session)
 
-    override fun getActiveExecutionStack(): XExecutionStack? = activeExecutionStack
+    override fun getActiveExecutionStack(): XExecutionStack = activeExecutionStack
 }

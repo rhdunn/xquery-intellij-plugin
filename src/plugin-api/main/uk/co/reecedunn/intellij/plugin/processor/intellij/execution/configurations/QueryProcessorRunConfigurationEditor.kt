@@ -174,6 +174,7 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
 
     private lateinit var database: JComboBox<String>
 
+    @Suppress("DuplicatedCode")
     private fun populateServerUI() {
         val settings =
             (queryProcessor.childComponent.selectedItem as? CachedQueryProcessorSettings?)?.settings
@@ -197,6 +198,7 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
         }
     }
 
+    @Suppress("DuplicatedCode")
     private fun populateDatabaseUI() {
         val settings =
             (queryProcessor.childComponent.selectedItem as? CachedQueryProcessorSettings?)?.settings

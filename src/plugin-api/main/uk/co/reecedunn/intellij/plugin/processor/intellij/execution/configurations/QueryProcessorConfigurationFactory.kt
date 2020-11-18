@@ -32,5 +32,5 @@ class QueryProcessorConfigurationFactory(type: ConfigurationType, private vararg
         return QueryProcessorRunConfiguration(project, this, *language)
     }
 
-    override fun getOptionsClass(): Class<out BaseState>? = QueryProcessorRunConfigurationData::class.java
+    override fun getOptionsClass(): Class<out BaseState> = QueryProcessorRunConfigurationData::class.java
 }

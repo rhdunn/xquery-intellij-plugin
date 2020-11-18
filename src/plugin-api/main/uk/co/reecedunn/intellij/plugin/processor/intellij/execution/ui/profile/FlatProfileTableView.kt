@@ -158,10 +158,9 @@ class FlatProfileTableView(val project: Project) :
         when {
             report?.xml == null -> return
             file.isDirectory -> {
-                val name = "profile-report-${formatDate(
-                    report!!.created,
-                    FILE_DATE_FORMAT
-                )}.xml"
+                val name = "profile-report-${
+                    formatDate(report!!.created, FILE_DATE_FORMAT)
+                }.xml"
                 runUndoTransparentWriteAction {
                     onSaveProfileReport(file.createChildData(this, name))
                 }

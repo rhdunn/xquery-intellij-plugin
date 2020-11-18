@@ -38,7 +38,7 @@ class QueryProcessorDebugger : GenericProgramRunner<RunnerSettings>() {
         return profile.processor?.api?.canExecute(profile.language, executorId) == true
     }
 
-    override fun doExecute(state: RunProfileState, environment: ExecutionEnvironment): RunContentDescriptor? {
+    override fun doExecute(state: RunProfileState, environment: ExecutionEnvironment): RunContentDescriptor {
         FileDocumentManager.getInstance().saveAllDocuments()
         return startDebugSession(environment) { session ->
             session.setPauseActionSupported(true)
