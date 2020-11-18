@@ -34,7 +34,7 @@ class MockModuleRootsManager(private val module: Module) : ModuleRootManager() {
 
     @ApiStatus.Experimental
     @Suppress("UnstableApiUsage")
-    override fun getExternalSource(): ProjectModelExternalSource? = TODO()
+    override fun getExternalSource(): ProjectModelExternalSource = TODO()
 
     override fun <T : Any?> getModuleExtension(klass: Class<T>): T = TODO()
 
@@ -58,7 +58,7 @@ class MockModuleRootsManager(private val module: Module) : ModuleRootManager() {
 
     override fun getFileIndex(): ModuleFileIndex = TODO()
 
-    override fun getSdk(): Sdk? = TODO()
+    override fun getSdk(): Sdk = TODO()
 
     override fun getDependencies(): Array<Module> = TODO()
 

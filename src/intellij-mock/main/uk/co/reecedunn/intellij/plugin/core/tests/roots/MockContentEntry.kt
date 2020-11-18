@@ -34,7 +34,7 @@ class MockContentEntry(private val file: VirtualFile) : ContentEntry {
 
     override fun addExcludePattern(pattern: String): Unit = TODO()
 
-    override fun getFile(): VirtualFile? = TODO()
+    override fun getFile(): VirtualFile = TODO()
 
     override fun removeExcludeFolder(excludeFolder: ExcludeFolder): Unit = TODO()
 

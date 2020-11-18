@@ -67,7 +67,7 @@ class MockEditor(private val document: Document) : Editor {
 
     override fun getLineHeight(): Int = TODO()
 
-    override fun getProject(): Project? = TODO()
+    override fun getProject(): Project = TODO()
 
     override fun getColorsScheme(): EditorColorsScheme = TODO()
 
@@ -97,7 +97,7 @@ class MockEditor(private val document: Document) : Editor {
 
     override fun isColumnMode(): Boolean = TODO()
 
-    override fun getMouseEventArea(e: MouseEvent): EditorMouseEventArea? = TODO()
+    override fun getMouseEventArea(e: MouseEvent): EditorMouseEventArea = TODO()
 
     override fun setBorder(border: Border?): Unit = TODO()
 
@@ -118,9 +118,9 @@ class MockEditor(private val document: Document) : Editor {
 
     override fun setHeaderComponent(header: JComponent?): Unit = TODO()
 
-    override fun <T : Any?> getUserData(key: Key<T>): T? = TODO()
+    override fun <T : Any?> getUserData(key: Key<T>): T = TODO()
 
-    override fun getHeaderComponent(): JComponent? = TODO()
+    override fun getHeaderComponent(): JComponent = TODO()
 
     override fun removeEditorMouseMotionListener(listener: EditorMouseMotionListener): Unit = TODO()
 

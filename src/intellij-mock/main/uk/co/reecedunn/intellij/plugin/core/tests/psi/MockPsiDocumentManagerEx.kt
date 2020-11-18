@@ -28,7 +28,7 @@ import com.intellij.psi.PsiFile
 // MockPsiDocumentManager does not derive from.
 class MockPsiDocumentManagerEx(project: Project) : PsiDocumentManagerBase(project) {
 
-    override fun getPsiFile(document: Document): PsiFile? = TODO()
+    override fun getPsiFile(document: Document): PsiFile = TODO()
 
     override fun getDocument(file: PsiFile): Document? {
         val vFile = file.viewProvider.virtualFile

@@ -25,9 +25,9 @@ import com.intellij.psi.SmartPsiElementPointer
 class MockSmartPsiElementPointer<E : PsiElement>(private val mElement: E, private val mContainingFile: PsiFile) :
     SmartPsiElementPointer<E> {
 
-    override fun getElement(): E? = mElement
+    override fun getElement(): E = mElement
 
-    override fun getContainingFile(): PsiFile? = mContainingFile
+    override fun getContainingFile(): PsiFile = mContainingFile
 
     override fun getProject(): Project = mContainingFile.project
 

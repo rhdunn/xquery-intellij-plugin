@@ -22,7 +22,7 @@ import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.patterns.ElementPattern
 
 class MockCompletionResultSet(prefixMatcher: PrefixMatcher) : CompletionResultSet(prefixMatcher, null, null) {
-    val elements = mutableListOf<LookupElement>()
+    val elements: MutableList<LookupElement> = mutableListOf()
 
     override fun addElement(element: LookupElement) {
         if (prefixMatcher.prefixMatches(element)) {
@@ -30,13 +30,13 @@ class MockCompletionResultSet(prefixMatcher: PrefixMatcher) : CompletionResultSe
         }
     }
 
-    override fun addLookupAdvertisement(text: String) = TODO()
+    override fun addLookupAdvertisement(text: String): Unit = TODO()
 
     override fun caseInsensitive(): CompletionResultSet = TODO()
 
-    override fun restartCompletionOnPrefixChange(prefixCondition: ElementPattern<String>?) = TODO()
+    override fun restartCompletionOnPrefixChange(prefixCondition: ElementPattern<String>?): Unit = TODO()
 
-    override fun restartCompletionWhenNothingMatches() = TODO()
+    override fun restartCompletionWhenNothingMatches(): Unit = TODO()
 
     override fun withPrefixMatcher(prefix: String): CompletionResultSet = TODO()
 

@@ -38,7 +38,7 @@ class MockInjectedLanguageManager : InjectedLanguageManager() {
 
     override fun getInjectionHost(injectedProvider: FileViewProvider): PsiLanguageInjectionHost = TODO()
 
-    override fun getInjectionHost(injectedElement: PsiElement): PsiLanguageInjectionHost? = TODO()
+    override fun getInjectionHost(injectedElement: PsiElement): PsiLanguageInjectionHost = TODO()
 
     override fun getInjectedPsiFiles(host: PsiElement): MutableList<Pair<PsiElement, TextRange>> = TODO()
 
@@ -77,7 +77,7 @@ class MockInjectedLanguageManager : InjectedLanguageManager() {
 
     override fun freezeWindow(document: DocumentWindow): DocumentWindow = TODO()
 
-    override fun findInjectedElementAt(hostFile: PsiFile, hostDocumentOffset: Int): PsiElement? = TODO()
+    override fun findInjectedElementAt(hostFile: PsiFile, hostDocumentOffset: Int): PsiElement = TODO()
 
     override fun injectedToHost(injectedContext: PsiElement, injectedTextRange: TextRange): TextRange = TODO()
 

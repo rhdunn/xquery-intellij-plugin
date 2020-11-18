@@ -35,7 +35,7 @@ class MockProjectRootsManager : ProjectRootManager() {
 
     override fun getContentRootsFromAllModules(): Array<VirtualFile> = TODO()
 
-    override fun getProjectSdkTypeName(): String? = TODO()
+    override fun getProjectSdkTypeName(): String = TODO()
 
     override fun setProjectSdk(sdk: Sdk?): Unit = TODO()
 
@@ -49,7 +49,7 @@ class MockProjectRootsManager : ProjectRootManager() {
 
     override fun getProjectSdkName(): String = TODO()
 
-    override fun getProjectSdk(): Sdk? = TODO()
+    override fun getProjectSdk(): Sdk = TODO()
 
     override fun getContentRoots(): Array<VirtualFile> = TODO()
 

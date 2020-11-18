@@ -27,7 +27,7 @@ import org.jetbrains.jps.model.module.JpsModuleSourceRootType
 class MockSourceFolder(private val file: VirtualFile, private val rootType: JpsModuleSourceRootType<*>) : SourceFolder {
     override fun getUrl(): String = TODO()
 
-    override fun getFile(): VirtualFile? = file
+    override fun getFile(): VirtualFile = file
 
     override fun getPackagePrefix(): String = TODO()
 
@@ -43,5 +43,6 @@ class MockSourceFolder(private val file: VirtualFile, private val rootType: JpsM
 
     override fun getJpsElement(): JpsModuleSourceRoot = TODO()
 
+    @Suppress("UnstableApiUsage")
     override fun <P : JpsElement?> changeType(newType: JpsModuleSourceRootType<P>?, properties: P): Unit = TODO()
 }

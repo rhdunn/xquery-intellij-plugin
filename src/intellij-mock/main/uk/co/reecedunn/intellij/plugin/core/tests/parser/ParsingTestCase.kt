@@ -90,6 +90,7 @@ abstract class ParsingTestCase<File : PsiFile>(
 
     private val mDefinitions: Array<out ParserDefinition> = definitions
 
+    @Suppress("UnstableApiUsage")
     override fun setUp() {
         super.setUp()
 

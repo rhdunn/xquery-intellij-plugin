@@ -64,7 +64,7 @@ class MockModuleManager(private val project: Project) : ModuleManager() {
     @Suppress("UnstableApiUsage")
     override fun getAllModuleDescriptions(): MutableCollection<ModuleDescription> = TODO()
 
-    override fun getModuleGroupPath(module: Module): Array<String>? = TODO()
+    override fun getModuleGroupPath(module: Module): Array<String> = TODO()
 
     @ApiStatus.Experimental
     @Suppress("UnstableApiUsage")
@@ -76,13 +76,13 @@ class MockModuleManager(private val project: Project) : ModuleManager() {
 
     @ApiStatus.Experimental
     @Suppress("UnstableApiUsage")
-    override fun getUnloadedModuleDescription(moduleName: String): UnloadedModuleDescription? = TODO()
+    override fun getUnloadedModuleDescription(moduleName: String): UnloadedModuleDescription = TODO()
 
     override fun getModules(): Array<Module> = modules
 
     override fun getSortedModules(): Array<Module> = modules
 
-    override fun findModuleByName(name: String): Module? = TODO()
+    override fun findModuleByName(name: String): Module = TODO()
 
-    override fun disposeModule(module: Module) = TODO()
+    override fun disposeModule(module: Module): Unit = TODO()
 }

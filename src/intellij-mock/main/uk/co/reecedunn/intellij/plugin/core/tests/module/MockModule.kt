@@ -21,5 +21,5 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 
 class MockModule(project: Project, private val moduleFile: VirtualFile) : MockModule(project, Disposable {}) {
-    override fun getModuleFile(): VirtualFile? = moduleFile
+    override fun getModuleFile(): VirtualFile = moduleFile
 }

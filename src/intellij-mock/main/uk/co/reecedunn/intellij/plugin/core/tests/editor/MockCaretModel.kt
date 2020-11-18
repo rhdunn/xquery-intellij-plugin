@@ -38,7 +38,7 @@ class MockCaretModel(private val editor: Editor) : CaretModel {
 
     override fun removeCaretListener(listener: CaretListener): Unit = TODO()
 
-    override fun getCaretAt(pos: VisualPosition): Caret? = TODO()
+    override fun getCaretAt(pos: VisualPosition): Caret = TODO()
 
     override fun isUpToDate(): Boolean = TODO()
 
@@ -72,11 +72,11 @@ class MockCaretModel(private val editor: Editor) : CaretModel {
 
     override fun getVisualLineEnd(): Int = TODO()
 
-    override fun addCaret(pos: VisualPosition): Caret? = TODO()
+    override fun addCaret(pos: VisualPosition): Caret = TODO()
 
-    override fun addCaret(pos: VisualPosition, makePrimary: Boolean): Caret? = TODO()
+    override fun addCaret(pos: VisualPosition, makePrimary: Boolean): Caret = TODO()
 
-    override fun addCaret(pos: LogicalPosition, makePrimary: Boolean): Caret? = TODO()
+    override fun addCaret(pos: LogicalPosition, makePrimary: Boolean): Caret = TODO()
 
     override fun runForEachCaret(action: CaretAction): Unit = TODO()
 
