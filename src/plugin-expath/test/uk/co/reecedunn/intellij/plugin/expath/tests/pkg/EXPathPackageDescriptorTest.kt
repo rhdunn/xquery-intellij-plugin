@@ -33,6 +33,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import java.util.zip.ZipEntry
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
+@Suppress("RedundantVisibilityModifier")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("EXPath Packaging System 9 May 2012")
 private class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLParserDefinition()) {
