@@ -72,7 +72,7 @@ internal class EXistDBQueryProcessor(
         query.run().results.map { it.value as String }
     }
 
-    override fun defaultLogFile(logs: List<String>): String? = "exist.log"
+    override fun defaultLogFile(logs: List<String>): String = "exist.log"
 
     // endregion
     // region Closeable

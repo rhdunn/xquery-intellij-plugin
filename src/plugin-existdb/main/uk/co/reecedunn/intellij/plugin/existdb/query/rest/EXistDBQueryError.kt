@@ -21,9 +21,11 @@ import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame.Virtua
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModuleUri
 
+@Suppress("RegExpAnonymousGroup")
 private val RE_EXISTDB_MESSAGE =
     "^(exerr:ERROR )?(org.exist.xquery.XPathException: )?([^ ]+) (.*)\n?$".toRegex()
 
+@Suppress("RegExpAnonymousGroup")
 private val RE_EXISTDB_LOCATION =
     "^line ([0-9]+), column ([0-9]+).*$".toRegex()
 
