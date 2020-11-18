@@ -37,14 +37,14 @@ data class JavaModulePath internal constructor(
     companion object : XpmModulePathFactory {
         private val SPECIAL_CHARACTERS = "[^\\w.-/]".toRegex()
 
-        private fun createJava(project: Project, path: String): JavaModulePath? = when {
+        private fun createJava(project: Project, path: String): JavaModulePath = when {
             // Saxon 9.7
             path.endsWith("?void=this") -> JavaModulePath(project, path.substring(5, path.length - 10), true)
             // BaseX, eXist-db, Saxon
             else -> JavaModulePath(project, path.substring(5), false)
         }
 
-        private fun createJava(project: Project, path: String, modulePaths: List<String>): JavaModulePath? {
+        private fun createJava(project: Project, path: String, modulePaths: List<String>): JavaModulePath {
             val module = modulePaths.last().pascalCase()
             return when (modulePaths.size) {
                 1 -> JavaModulePath(project, "$path.$module", false)
