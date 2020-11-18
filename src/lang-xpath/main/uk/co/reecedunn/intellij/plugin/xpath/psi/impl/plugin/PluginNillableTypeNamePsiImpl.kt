@@ -29,7 +29,7 @@ class PluginNillableTypeNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
     override val itemType: XdmItemType
         get() = firstChild as XdmItemType
 
-    override val lowerBound: Int? = 0
+    override val lowerBound: Int = 0
 
     override val upperBound: Int? = itemType.upperBound
 

@@ -37,7 +37,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathWildcard
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.getUsageType
 
-class QNameAnnotator : Annotator() {
+open class QNameAnnotator : Annotator() {
     private fun getHighlightAttributes(element: PsiElement, resolveReferences: Boolean = true): TextAttributesKey {
         return when (element.getUsageType()) {
             XpmUsageType.Annotation -> XPathSyntaxHighlighterColors.IDENTIFIER // XQuery
@@ -63,7 +63,7 @@ class QNameAnnotator : Annotator() {
         }
     }
 
-    private fun checkQNameWhitespaceBefore(qname: XsQNameValue, separator: PsiElement, holder: AnnotationHolder) {
+    protected fun checkQNameWhitespaceBefore(qname: XsQNameValue, separator: PsiElement, holder: AnnotationHolder) {
         val before = separator.prevSibling
         if (before.elementType === XPathTokenType.WHITE_SPACE || before is XPathComment) {
             val message =
@@ -75,7 +75,7 @@ class QNameAnnotator : Annotator() {
         }
     }
 
-    private fun checkQNameWhitespaceAfter(qname: XsQNameValue, separator: PsiElement, holder: AnnotationHolder) {
+    protected fun checkQNameWhitespaceAfter(qname: XsQNameValue, separator: PsiElement, holder: AnnotationHolder) {
         val after = separator.nextSibling
         if (after.elementType === XPathTokenType.WHITE_SPACE || after is XPathComment) {
             val message =

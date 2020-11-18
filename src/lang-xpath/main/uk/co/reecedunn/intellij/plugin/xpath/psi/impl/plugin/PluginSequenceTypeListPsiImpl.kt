@@ -71,12 +71,12 @@ class PluginSequenceTypeListPsiImpl(node: ASTNode) :
     override val typeName: String
         get() = cachedTypeName.get()!!
 
-    override val itemType: XdmItemType?
+    override val itemType: XdmItemType
         get() = XdmSingleItemType
 
-    override val lowerBound: Int? = 0
+    override val lowerBound: Int = 0
 
-    override val upperBound: Int? = Int.MAX_VALUE
+    override val upperBound: Int = Int.MAX_VALUE
 
     // endregion
     // region VersionConformance

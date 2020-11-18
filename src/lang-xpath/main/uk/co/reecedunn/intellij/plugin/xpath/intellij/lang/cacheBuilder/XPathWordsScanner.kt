@@ -17,17 +17,18 @@ package uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.cacheBuilder
 
 import com.intellij.compat.lang.cacheBuilder.WordsScanner
 import com.intellij.lang.cacheBuilder.WordOccurrence
+import com.intellij.lexer.Lexer
 import com.intellij.util.Processor
 import uk.co.reecedunn.intellij.plugin.core.lexer.CharacterClass
+import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange
 import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRangeImpl
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XmlCodePointRangeImpl
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
-class XPathWordsScanner : WordsScanner() {
-    private val mLexer = XPathLexer(XmlCodePointRangeImpl())
-    private val mOccurrence = WordOccurrence(null, 0, 0, null)
-    private val mRange = CodePointRangeImpl()
+open class XPathWordsScanner(protected val mLexer: Lexer = XPathLexer(XmlCodePointRangeImpl())) : WordsScanner() {
+    protected val mOccurrence: WordOccurrence = WordOccurrence(null, 0, 0, null)
+    protected val mRange: CodePointRange = CodePointRangeImpl()
 
     override fun processWordsEx(fileText: CharSequence, processor: Processor<in WordOccurrence>) {
         mLexer.start(fileText)
@@ -50,7 +51,7 @@ class XPathWordsScanner : WordsScanner() {
         }
     }
 
-    private fun processToken(processor: Processor<in WordOccurrence>, kind: WordOccurrence.Kind): Boolean {
+    protected fun processToken(processor: Processor<in WordOccurrence>, kind: WordOccurrence.Kind): Boolean {
         var inWord = false
         while (true)
             when (CharacterClass.getCharClass(mRange.codePoint)) {

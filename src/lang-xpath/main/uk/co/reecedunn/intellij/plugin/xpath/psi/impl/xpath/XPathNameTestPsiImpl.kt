@@ -27,7 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPredicate
 class XPathNameTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathNameTest {
     override val axisType: XpmAxisType = XpmAxisType.Child
 
-    override val nodeName: XsQNameValue?
+    override val nodeName: XsQNameValue
         get() = firstChild as XsQNameValue
 
     override val nodeType: XdmItemType = XdmElementItem

@@ -27,7 +27,7 @@ class PluginContextItemFunctionExprImpl(node: ASTNode) :
     XpmSyntaxValidationElement {
     // region XpmExpression
 
-    override val expressionElement: PsiElement?
+    override val expressionElement: PsiElement
         get() = this
 
     // endregion

@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.xquery.annotation
 
 import com.intellij.compat.lang.annotation.AnnotationHolder
-import com.intellij.compat.lang.annotation.Annotator
 import com.intellij.lang.annotation.HighlightSeverity
 import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.editor.markup.TextAttributes
@@ -30,16 +29,14 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lexer.XQuerySyntaxHighlighterColors
-import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathBundle
 import uk.co.reecedunn.intellij.plugin.xpm.context.XpmUsageType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmWildcardValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathComment
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathWildcard
+import uk.co.reecedunn.intellij.plugin.xpath.annotation.QNameAnnotator
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.getUsageType
 
-class QNameAnnotator : Annotator() {
+class QNameAnnotator : QNameAnnotator() {
     private fun getHighlightAttributes(element: PsiElement, resolveReferences: Boolean = true): TextAttributesKey {
         return when (element.getUsageType()) {
             XpmUsageType.Annotation -> XQuerySyntaxHighlighterColors.ANNOTATION
@@ -75,30 +72,6 @@ class QNameAnnotator : Annotator() {
                 XQuerySyntaxHighlighterColors.XML_ATTRIBUTE_NAME -> XQuerySyntaxHighlighterColors.ATTRIBUTE
                 else -> ret[1]
             }
-        }
-    }
-
-    private fun checkQNameWhitespaceBefore(qname: XsQNameValue, separator: PsiElement, holder: AnnotationHolder) {
-        val before = separator.prevSibling
-        if (before.elementType === XPathTokenType.WHITE_SPACE || before is XPathComment) {
-            val message =
-                if (qname is XPathWildcard)
-                    XPathBundle.message("parser.error.wildcard.whitespace-before-local-part")
-                else
-                    XPathBundle.message("parser.error.qname.whitespace-before-local-part")
-            holder.newAnnotation(HighlightSeverity.ERROR, message).range(before).create()
-        }
-    }
-
-    private fun checkQNameWhitespaceAfter(qname: XsQNameValue, separator: PsiElement, holder: AnnotationHolder) {
-        val after = separator.nextSibling
-        if (after.elementType === XPathTokenType.WHITE_SPACE || after is XPathComment) {
-            val message =
-                if (qname is XPathWildcard)
-                    XPathBundle.message("parser.error.wildcard.whitespace-after-local-part")
-                else
-                    XPathBundle.message("parser.error.qname.whitespace-after-local-part")
-            holder.newAnnotation(HighlightSeverity.ERROR, message).range(after).create()
         }
     }
 

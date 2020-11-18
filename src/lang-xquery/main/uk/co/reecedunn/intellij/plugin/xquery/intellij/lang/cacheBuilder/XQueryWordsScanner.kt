@@ -15,19 +15,13 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.cacheBuilder
 
-import com.intellij.compat.lang.cacheBuilder.WordsScanner
 import com.intellij.lang.cacheBuilder.WordOccurrence
 import com.intellij.util.Processor
-import uk.co.reecedunn.intellij.plugin.core.lexer.CharacterClass
-import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRangeImpl
+import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.cacheBuilder.XPathWordsScanner
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.*
 
-class XQueryWordsScanner : WordsScanner() {
-    private val mLexer = XQueryLexer()
-    private val mOccurrence = WordOccurrence(null, 0, 0, null)
-    private val mRange = CodePointRangeImpl()
-
+class XQueryWordsScanner : XPathWordsScanner(XQueryLexer()) {
     override fun processWordsEx(fileText: CharSequence, processor: Processor<in WordOccurrence>) {
         mLexer.start(fileText)
         while (mLexer.tokenType != null) {
@@ -47,35 +41,5 @@ class XQueryWordsScanner : WordsScanner() {
 
             mLexer.advance()
         }
-    }
-
-    private fun processToken(processor: Processor<in WordOccurrence>, kind: WordOccurrence.Kind): Boolean {
-        var inWord = false
-        while (true)
-            when (CharacterClass.getCharClass(mRange.codePoint)) {
-                CharacterClass.NAME_START_CHAR -> {
-                    if (!inWord) {
-                        inWord = true
-                        mRange.flush()
-                    }
-                    mRange.match()
-                }
-                CharacterClass.END_OF_BUFFER -> {
-                    if (inWord) {
-                        mOccurrence.init(mRange.bufferSequence, mRange.start, mRange.end, kind)
-                        return processor.process(mOccurrence)
-                    }
-                    return true
-                }
-                CharacterClass.DIGIT, CharacterClass.DOT, CharacterClass.HYPHEN_MINUS, CharacterClass.NAME_CHAR -> mRange.match()
-                else -> {
-                    if (inWord) {
-                        mOccurrence.init(mRange.bufferSequence, mRange.start, mRange.end, kind)
-                        if (!processor.process(mOccurrence)) return false
-                        inWord = false
-                    }
-                    mRange.match()
-                }
-            }
     }
 }

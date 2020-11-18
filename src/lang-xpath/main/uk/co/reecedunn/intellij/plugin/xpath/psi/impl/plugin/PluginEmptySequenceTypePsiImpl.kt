@@ -45,9 +45,9 @@ class PluginEmptySequenceTypePsiImpl(node: ASTNode) :
     override val itemType: XdmItemType?
         get() = null
 
-    override val lowerBound: Int? = 0
+    override val lowerBound: Int = 0
 
-    override val upperBound: Int? = 0
+    override val upperBound: Int = 0
 
     // endregion
     // region VersionConformance

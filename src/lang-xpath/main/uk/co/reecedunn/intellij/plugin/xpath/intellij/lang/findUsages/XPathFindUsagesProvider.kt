@@ -24,11 +24,11 @@ import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.cacheBuilder.XPathWor
 import uk.co.reecedunn.intellij.plugin.xpath.model.getUsageType
 
 class XPathFindUsagesProvider : FindUsagesProvider {
-    override fun getWordsScanner(): WordsScanner? = XPathWordsScanner()
+    override fun getWordsScanner(): WordsScanner = XPathWordsScanner()
 
     override fun canFindUsagesFor(psiElement: PsiElement): Boolean = psiElement is PsiNamedElement
 
-    override fun getHelpId(psiElement: PsiElement): String? = HelpID.FIND_OTHER_USAGES
+    override fun getHelpId(psiElement: PsiElement): String = HelpID.FIND_OTHER_USAGES
 
     override fun getType(element: PsiElement): String = element.getUsageType().label
 

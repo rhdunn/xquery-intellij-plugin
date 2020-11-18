@@ -35,9 +35,9 @@ class XPathAnyKindTestPsiImpl(node: ASTNode) :
     override val itemType: XdmItemType
         get() = this
 
-    override val lowerBound: Int? = 1
+    override val lowerBound: Int = 1
 
-    override val upperBound: Int? = 1
+    override val upperBound: Int = 1
 
     // endregion
     // region XdmItemType

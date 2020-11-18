@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPostfixExpr
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPathStep
 
 class XPathPathExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathPathExpr {
-    override val expressionElement: PsiElement?
+    override val expressionElement: PsiElement
         get() = when (val lastStep = children().reversed().first { it is XpmPathStep }) {
             is XPathPostfixExpr -> lastStep.siblings().reversed().first { it is XpmPathStep }
             else -> lastStep

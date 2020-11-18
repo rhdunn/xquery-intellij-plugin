@@ -51,12 +51,12 @@ class XPathParamPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathParam,
     // endregion
     // region NavigationItem
 
-    override fun getPresentation(): ItemPresentation? = this
+    override fun getPresentation(): ItemPresentation = this
 
     // endregion
     // region ItemPresentation
 
-    override fun getIcon(unused: Boolean): Icon? = XPathIcons.Nodes.Param
+    override fun getIcon(unused: Boolean): Icon = XPathIcons.Nodes.Param
 
     override fun getLocationString(): String? = null
 

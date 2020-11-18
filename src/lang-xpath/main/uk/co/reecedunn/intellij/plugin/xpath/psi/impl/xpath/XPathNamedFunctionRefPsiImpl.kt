@@ -51,7 +51,7 @@ class XPathNamedFunctionRefPsiImpl(node: ASTNode) :
     // endregion
     // region XpmExpression
 
-    override val expressionElement: PsiElement?
+    override val expressionElement: PsiElement
         get() = this
 
     // endregion

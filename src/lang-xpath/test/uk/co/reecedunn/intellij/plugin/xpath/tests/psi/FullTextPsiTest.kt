@@ -39,7 +39,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableBinding
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
-@Suppress("ClassName")
+@Suppress("ClassName", "RedundantVisibilityModifier")
 @DisplayName("XPath 3.1 with Full Text 3.0 - IntelliJ Program Structure Interface (PSI)")
 private class FullTextPsiTest : ParserTestCase() {
     @Nested

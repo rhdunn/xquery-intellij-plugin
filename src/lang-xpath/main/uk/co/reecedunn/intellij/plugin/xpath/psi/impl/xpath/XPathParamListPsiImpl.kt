@@ -62,7 +62,7 @@ class XPathParamListPsiImpl(node: ASTNode) :
     // endregion
     // region NavigationItem
 
-    override fun getPresentation(): ItemPresentation? = this
+    override fun getPresentation(): ItemPresentation = this
 
     // endregion
     // region ItemPresentation

@@ -42,7 +42,7 @@ class PluginDynamicFunctionCallPsiImpl(node: ASTNode) : ASTWrapperPsiElement(nod
     // endregion
     // region XpmExpression
 
-    override val expressionElement: PsiElement?
+    override val expressionElement: PsiElement
         get() = children().filterIsInstance<XPathArgumentList>().first()
 
     // endregion

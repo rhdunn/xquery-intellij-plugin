@@ -32,7 +32,7 @@ class XPathWildcardPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathWil
     override val prefix: XsNCNameValue?
         get() = if (isLexicalQName) names.first() else null
 
-    override val localName: XsNCNameValue?
+    override val localName: XsNCNameValue
         get() = if (isLexicalQName) names.last() else names.first()
 
     override val isLexicalQName: Boolean

@@ -35,7 +35,7 @@ class XPathCommentPsiImpl(node: ASTNode) :
     override val foldingRange: TextRange?
         get() = textRange
 
-    override val foldingPlaceholderText: String? = "(:...:)"
+    override val foldingPlaceholderText: String = "(:...:)"
 
     // endregion
 }

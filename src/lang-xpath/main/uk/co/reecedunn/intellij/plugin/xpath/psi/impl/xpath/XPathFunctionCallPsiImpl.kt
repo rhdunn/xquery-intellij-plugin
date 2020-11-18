@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
 class XPathFunctionCallPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathFunctionCall {
-    override val expressionElement: PsiElement?
+    override val expressionElement: PsiElement
         get() {
             val argumentList = argumentList
             return when {

@@ -346,7 +346,7 @@ open class XPathParser : PsiParser {
     }
 
     fun parseForClause(builder: PsiBuilder): Boolean {
-        if (parseForBinding(builder,     true)) {
+        if (parseForBinding(builder, true)) {
             parseWhiteSpaceAndCommentTokens(builder)
             while (builder.matchTokenType(XPathTokenType.COMMA)) {
                 parseWhiteSpaceAndCommentTokens(builder)
@@ -3888,7 +3888,7 @@ open class XPathParser : PsiParser {
     open val NCNAME: IElementType = XPathElementType.NCNAME
     open val QNAME: IElementType = XPathElementType.QNAME
 
-    fun parseNCName(builder: PsiBuilder): Boolean {
+    private fun parseNCName(builder: PsiBuilder): Boolean {
         if (builder.tokenType is INCNameType) {
             val marker = builder.mark()
             builder.advanceLexer()

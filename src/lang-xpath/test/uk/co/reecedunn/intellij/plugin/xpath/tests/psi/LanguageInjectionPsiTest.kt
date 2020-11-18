@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
+@Suppress("RedundantVisibilityModifier")
 @DisplayName("XQuery IntelliJ Plugin - Language Injection Host - XPath")
 private class LanguageInjectionPsiTest : ParserTestCase() {
     @Nested
@@ -165,7 +166,9 @@ private class LanguageInjectionPsiTest : ParserTestCase() {
             @Test
             @DisplayName("subrange")
             fun subrange() {
-                val host = parse<XPathPragma>("2 contains text (# pragma Lorem ipsum dolor.#)")[0] as PsiLanguageInjectionHost
+                val host = parse<XPathPragma>(
+                    "2 contains text (# pragma Lorem ipsum dolor.#)"
+                )[0] as PsiLanguageInjectionHost
                 val escaper = host.createLiteralTextEscaper()
 
                 val range = TextRange(16, 21)

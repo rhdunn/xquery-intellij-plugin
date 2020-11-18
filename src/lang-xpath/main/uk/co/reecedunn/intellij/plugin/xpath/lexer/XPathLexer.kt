@@ -20,6 +20,7 @@ import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange
 import uk.co.reecedunn.intellij.plugin.core.lexer.LexerImpl
 import uk.co.reecedunn.intellij.plugin.core.lexer.STATE_DEFAULT
 
+@Suppress("DuplicatedCode")
 open class XPathLexer(tokenRange: CodePointRange) : LexerImpl(STATE_DEFAULT, tokenRange) {
     // region States
 

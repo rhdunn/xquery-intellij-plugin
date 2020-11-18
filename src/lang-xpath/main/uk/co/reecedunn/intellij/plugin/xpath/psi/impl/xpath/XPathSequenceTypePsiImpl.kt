@@ -44,7 +44,7 @@ class XPathSequenceTypePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPat
     override val itemType: XdmItemType?
         get() = (firstChild as XdmSequenceType).itemType
 
-    override val lowerBound: Int?
+    override val lowerBound: Int
         get() = when (occurrenceIndicator) {
             XPathTokenType.OPTIONAL -> 0
             XPathTokenType.STAR -> 0
@@ -52,7 +52,7 @@ class XPathSequenceTypePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPat
             else -> 1
         }
 
-    override val upperBound: Int?
+    override val upperBound: Int
         get() = when (occurrenceIndicator) {
             XPathTokenType.OPTIONAL -> 1
             XPathTokenType.STAR -> Int.MAX_VALUE

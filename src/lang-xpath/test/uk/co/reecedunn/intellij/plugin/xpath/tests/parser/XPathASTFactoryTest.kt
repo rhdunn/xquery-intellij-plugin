@@ -31,7 +31,7 @@ class XPathASTFactoryTest {
     fun createComposite() {
         val factory = XPathASTFactory()
         assertThat(
-            factory.createComposite(XPathTokenType.INTEGER_LITERAL)!!.javaClass.name,
+            factory.createComposite(XPathTokenType.INTEGER_LITERAL).javaClass.name,
             `is`(CompositeElement::class.java.name)
         )
     }
@@ -41,7 +41,7 @@ class XPathASTFactoryTest {
     fun createLeaf() {
         val factory = XPathASTFactory()
         assertThat(
-            factory.createLeaf(XPathTokenType.COMMA, ",")!!.javaClass.name,
+            factory.createLeaf(XPathTokenType.COMMA, ",").javaClass.name,
             `is`(LeafPsiElement::class.java.name)
         )
     }

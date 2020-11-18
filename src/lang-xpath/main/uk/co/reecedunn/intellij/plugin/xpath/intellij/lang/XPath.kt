@@ -33,7 +33,7 @@ object XPath : Language("XMLPath") {
 
     override fun getDisplayName(): String = "XPath"
 
-    override fun getAssociatedFileType(): LanguageFileType? = XPathFileType
+    override fun getAssociatedFileType(): LanguageFileType = XPathFileType
 
     init {
         putUserData(LanguageData.KEY, object : LanguageData {

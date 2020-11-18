@@ -19,7 +19,6 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginForMemberExpr
-import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
 class PluginForMemberExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginForMemberExpr {
     override val expressionElement: PsiElement
