@@ -15,9 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.module.loader
 
+import com.intellij.compat.testFramework.registerExtension
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.ExtensionPointName
-import com.intellij.testFramework.registerExtension
 import com.intellij.util.xmlb.annotations.Tag
 import org.jetbrains.annotations.TestOnly
 import uk.co.reecedunn.intellij.plugin.core.extensions.PluginDescriptorProvider

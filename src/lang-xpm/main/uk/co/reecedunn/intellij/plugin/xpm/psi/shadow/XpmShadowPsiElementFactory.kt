@@ -15,13 +15,13 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.psi.shadow
 
+import com.intellij.compat.testFramework.registerExtension
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.ExtensionPointName
 import com.intellij.openapi.util.Key
 import com.intellij.psi.PsiElement
 import com.intellij.psi.xml.XmlAttribute
 import com.intellij.psi.xml.XmlTag
-import com.intellij.testFramework.registerExtension
 import org.jetbrains.annotations.TestOnly
 import uk.co.reecedunn.intellij.plugin.core.extensions.PluginDescriptorProvider
 import uk.co.reecedunn.intellij.plugin.core.xml.qname

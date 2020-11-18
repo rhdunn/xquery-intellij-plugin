@@ -15,10 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.optree.function
 
+import com.intellij.compat.testFramework.registerExtension
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.ExtensionPointName
 import com.intellij.psi.PsiFile
-import com.intellij.testFramework.registerExtension
 import org.jetbrains.annotations.TestOnly
 import uk.co.reecedunn.intellij.plugin.core.extensions.PluginDescriptorProvider
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue

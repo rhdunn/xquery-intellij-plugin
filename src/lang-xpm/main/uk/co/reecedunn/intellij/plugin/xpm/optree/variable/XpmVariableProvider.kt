@@ -15,10 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.optree.variable
 
+import com.intellij.compat.testFramework.registerExtension
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.ExtensionPointName
 import com.intellij.psi.PsiElement
-import com.intellij.testFramework.registerExtension
 import uk.co.reecedunn.intellij.plugin.core.extensions.PluginDescriptorProvider
 
 interface XpmVariableProvider {
