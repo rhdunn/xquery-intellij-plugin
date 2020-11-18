@@ -27,7 +27,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import javax.swing.Icon
 
-open class XpmShadowPsiElement(val shadowed: PsiElement, language: Language) :
+open class XpmShadowPsiElement(private val shadowed: PsiElement, language: Language) :
     LightElement(shadowed.manager, language) {
     // region LightElement
 

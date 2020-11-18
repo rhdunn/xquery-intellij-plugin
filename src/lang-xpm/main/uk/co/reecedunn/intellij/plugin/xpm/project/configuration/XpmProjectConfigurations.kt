@@ -40,7 +40,6 @@ class XpmProjectConfigurations(private val project: Project) :
     // region Disposable
 
     override fun dispose() {
-        XpmProjectConfigurationFactory.EP_NAME.extensionPoint.removeExtensionPointListener(this)
     }
 
     // endregion

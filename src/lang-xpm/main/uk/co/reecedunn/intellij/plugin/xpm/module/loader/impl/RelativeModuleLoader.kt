@@ -50,7 +50,7 @@ object RelativeModuleLoader : XpmModuleLoader, XpmModuleLoaderFactory {
     // endregion
     // region XpmModuleLoaderFactory
 
-    override fun loader(context: String?): XpmModuleLoader? = this
+    override fun loader(context: String?): XpmModuleLoader = this
 
     // endregion
 }

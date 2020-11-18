@@ -24,7 +24,7 @@ class XpmLanguageConfigurable : Configurable {
 
     override fun getDisplayName(): String = "XQuery and XSLT"
 
-    override fun createComponent(): JComponent? = panel {
+    override fun createComponent(): JComponent = panel {
     }
 
     override fun isModified(): Boolean = false

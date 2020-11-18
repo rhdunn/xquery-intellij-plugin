@@ -77,7 +77,7 @@ class XpmModuleLoaderSettings(val project: Project) :
             data.registerSchemaFile = value
         }
 
-    private inner class SchemaFileRegistration {
+    private class SchemaFileRegistration {
         var unregisterVendor: XpmVendorType? = null
         var unregisterDatabasePath: String? = null
 
@@ -167,9 +167,9 @@ class XpmModuleLoaderSettings(val project: Project) :
 
     private val data = XpmModuleLoaderSettingsData()
 
-    override fun getState(): XpmModuleLoaderSettingsData? = data
+    override fun getState(): XpmModuleLoaderSettingsData = data
 
-    override fun loadState(state: XpmModuleLoaderSettingsData): Unit {
+    override fun loadState(state: XpmModuleLoaderSettingsData) {
         XmlSerializerUtil.copyBean(state, data)
 
         // Add the module path to the list of module loaders.

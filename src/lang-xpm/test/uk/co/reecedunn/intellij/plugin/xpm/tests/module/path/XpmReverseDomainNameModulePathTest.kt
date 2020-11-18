@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.module.path.impl.XpmReverseDomainName
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsAnyUri
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
+@Suppress("RedundantVisibilityModifier")
 @DisplayName("Modules - BaseX Reverse Domain Name Paths")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 private class XpmReverseDomainNameModulePathTest : PlatformLiteFixture() {

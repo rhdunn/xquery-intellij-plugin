@@ -69,7 +69,7 @@ class FixedModuleLoader(val root: VirtualFile) : XpmModuleLoader {
             }
         }
 
-        fun loader(file: VirtualFile): XpmModuleLoader? = FixedModuleLoader(file.originalFile)
+        fun loader(file: VirtualFile): XpmModuleLoader = FixedModuleLoader(file.originalFile)
     }
 
     // endregion

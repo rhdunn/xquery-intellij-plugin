@@ -35,7 +35,7 @@ class XpmModuleConfigurable(val project: Project) : Configurable {
 
     override fun getDisplayName(): String = XpmBundle.message("preferences.module.title")
 
-    override fun createComponent(): JComponent? = panel {
+    override fun createComponent(): JComponent = panel {
         row {
             label(XpmBundle.message("preferences.module.database-path.label"), column.vgap())
             databasePath = textFieldWithBrowseButton(column.vgap().hgap().horizontal()) {

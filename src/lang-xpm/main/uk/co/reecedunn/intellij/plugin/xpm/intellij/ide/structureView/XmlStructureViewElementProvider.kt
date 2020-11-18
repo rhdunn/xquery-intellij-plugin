@@ -20,7 +20,7 @@ import com.intellij.ide.structureView.xml.XmlStructureViewElementProvider
 import com.intellij.psi.xml.XmlTag
 
 class XmlStructureViewElementProvider : XmlStructureViewElementProvider {
-    override fun createCustomXmlTagTreeElement(tag: XmlTag): StructureViewTreeElement? {
+    override fun createCustomXmlTagTreeElement(tag: XmlTag): StructureViewTreeElement {
         return XmlStructureViewTreeElement(tag)
     }
 }

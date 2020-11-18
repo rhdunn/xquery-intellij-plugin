@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires
 
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
-import uk.co.reecedunn.intellij.plugin.xpm.lang.displayName
 import uk.co.reecedunn.intellij.plugin.xpm.lang.ge
 import uk.co.reecedunn.intellij.plugin.xpm.lang.le
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxErrorReporter

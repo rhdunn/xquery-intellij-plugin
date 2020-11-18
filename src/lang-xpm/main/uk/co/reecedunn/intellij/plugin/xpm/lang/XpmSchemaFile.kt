@@ -24,6 +24,7 @@ data class XpmSchemaFile(val location: String, val targetNamespace: String) {
     constructor(file: File) : this(file.canonicalPath)
 
     companion object {
+        @Suppress("RegExpAnonymousGroup")
         private val TARGET_NAMESPACE_RE = "[ \t\r\n]targetNamespace=[\"']([^\"']*)[\"']".toRegex()
 
         private fun getTargetNamespace(location: String): String {
