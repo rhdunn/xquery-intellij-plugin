@@ -13,19 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.core.navigation
+package com.intellij.compat.execution
 
-import com.intellij.navigation.ItemPresentation
-import javax.swing.Icon
-
-class ItemPresentationImpl(
-    private val icon: Icon,
-    private val presentableText: String,
-    private val locationString: String? = null
-) : ItemPresentation {
-    override fun getIcon(unused: Boolean): Icon = icon
-
-    override fun getLocationString(): String? = locationString
-
-    override fun getPresentableText(): String = presentableText
-}
+typealias ExecutionBundle = com.intellij.execution.ExecutionBundle

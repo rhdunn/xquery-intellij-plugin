@@ -33,6 +33,7 @@ import java.util.zip.ZipEntry
 class ZipFileSystemTest {
     @Nested
     @DisplayName("from ByteArray")
+    @Suppress("RedundantInnerClassModifier")
     internal inner class FromByteArray {
         @Test
         @DisplayName("empty")

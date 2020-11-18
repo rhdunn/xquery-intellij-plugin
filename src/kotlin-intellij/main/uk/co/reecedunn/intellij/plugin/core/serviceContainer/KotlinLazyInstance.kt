@@ -19,6 +19,7 @@ import com.intellij.compat.serviceContainer.BaseKeyedLazyInstance
 import com.intellij.diagnostic.PluginException
 import com.intellij.openapi.application.ApplicationManager
 
+@Suppress("UsePropertyAccessSyntax") // getImplementationClassName is not available as a property on IntelliJ <= 2020.1
 abstract class KotlinLazyInstance<T> : BaseKeyedLazyInstance<T>() {
     // region Bean Properties
 

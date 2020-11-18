@@ -59,17 +59,10 @@ class ResourceVirtualFile private constructor(
 
     override fun isValid(): Boolean = mFile != null
 
-    override fun getParent(): VirtualFile? = when (mParent) {
-        null -> null
-        else -> create(mLoader, mParent!!, mFileSystem)
-    }
+    override fun getParent(): VirtualFile? = mParent?.let { create(mLoader, it, mFileSystem) }
 
     override fun getChildren(): Array<VirtualFile>? {
-        if (mFile == null) {
-            return null
-        }
-
-        val children = mFile!!.list() ?: return null
+        val children = mFile?.list() ?: return null
         return children.map { child -> create(mLoader, "$mResource/$child", mFileSystem) }.toTypedArray()
     }
 

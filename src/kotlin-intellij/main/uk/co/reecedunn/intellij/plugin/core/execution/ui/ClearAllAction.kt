@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.execution.ui
 
-import com.intellij.execution.ExecutionBundle
+import com.intellij.compat.execution.ExecutionBundle
 import com.intellij.execution.ui.ConsoleView
 import com.intellij.icons.AllIcons
 import com.intellij.openapi.actionSystem.AnActionEvent
@@ -25,7 +25,7 @@ import com.intellij.openapi.project.DumbAwareAction
 
 class ClearAllAction internal constructor(private val consoleView: ConsoleView?) : DumbAwareAction(
     ExecutionBundle.message("clear.all.from.console.action.name"),
-    "Clear the contents of the console",
+    ExecutionBundle.message("clear.all.from.console.action.description"),
     AllIcons.Actions.GC
 ) {
     override fun update(e: AnActionEvent) {

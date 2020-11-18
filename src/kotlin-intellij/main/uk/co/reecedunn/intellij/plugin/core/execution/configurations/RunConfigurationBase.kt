@@ -28,6 +28,7 @@ abstract class RunConfigurationBase<T>(project: Project, factory: ConfigurationF
     com.intellij.execution.configurations.RunConfigurationBase<T>(project, factory, name) {
 
     // Settings serialization bug: https://youtrack.jetbrains.com/issue/IDEA-207705
+    @Suppress("UnstableApiUsage")
     override fun writeExternal(element: Element) {
         super.writeExternal(element)
 
@@ -38,6 +39,7 @@ abstract class RunConfigurationBase<T>(project: Project, factory: ConfigurationF
 }
 
 private val serializer = object : XmlSerializerImpl.XmlSerializerBase() {
+    @Suppress("UnstableApiUsage")
     override fun getRootBinding(aClass: Class<*>, originalType: Type): Binding {
         val beanBinding = BeanBinding(aClass)
         beanBinding.init(aClass, this)

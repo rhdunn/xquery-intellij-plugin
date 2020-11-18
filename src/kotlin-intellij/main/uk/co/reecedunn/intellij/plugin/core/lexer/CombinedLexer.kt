@@ -28,7 +28,7 @@ class CombinedLexer(private val mLanguage: Lexer) : LexerBase() {
     private var mActiveLexer: Lexer? = null
     private var mState: Int = 0
 
-    internal inner class State(
+    internal class State(
         val lexer: Lexer,
         val state: Int,
         val parentState: Int,

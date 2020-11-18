@@ -55,7 +55,7 @@ fun Sequence<Pair<ZipEntry, ByteArray>>.toZipByteArray(): ByteArray = ByteArrayO
     stream.toByteArray()
 }
 
-fun InputStream.unzip(f: (ZipEntry, InputStream) -> Unit) = use { stream ->
+fun InputStream.unzip(f: (ZipEntry, InputStream) -> Unit): Unit = use { stream ->
     ZipInputStream(stream).use { zip ->
         val input = NonClosingInputStream(zip)
         zip.entries.forEach { entry -> f(entry, input) }
