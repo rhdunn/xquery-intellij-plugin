@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationSou
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmSpecificationType
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
+@Suppress("RedundantInnerClassModifier", "RedundantVisibilityModifier")
 @DisplayName("IntelliJ - Custom Language Support - Documentation - W3C Specification Document")
 private class W3CSpecificationDocumentationTest {
     @Nested

@@ -50,11 +50,11 @@ object FunctionsAndOperatorsDocumentation :
     // endregion
     // region ItemPresentation
 
-    override fun getPresentableText(): String? = "XQuery and XPath Functions and Operators"
+    override fun getPresentableText(): String = "XQuery and XPath Functions and Operators"
 
     override fun getLocationString(): String? = null
 
-    override fun getIcon(unused: Boolean): Icon? = W3Icons.Product
+    override fun getIcon(unused: Boolean): Icon = W3Icons.Product
 
     // endregion
     // region XpmSpecificationType
@@ -131,11 +131,11 @@ object XsltDocumentation : ItemPresentation, XpmSpecificationType, XQDocDocument
     // endregion
     // region ItemPresentation
 
-    override fun getPresentableText(): String? = "XSL Transformations (XSLT)"
+    override fun getPresentableText(): String = "XSL Transformations (XSLT)"
 
     override fun getLocationString(): String? = null
 
-    override fun getIcon(unused: Boolean): Icon? = W3Icons.Product
+    override fun getIcon(unused: Boolean): Icon = W3Icons.Product
 
     // endregion
     // region XpmSpecificationType

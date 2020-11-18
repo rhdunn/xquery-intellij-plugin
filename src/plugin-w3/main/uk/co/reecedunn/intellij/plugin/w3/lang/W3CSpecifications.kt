@@ -24,11 +24,11 @@ import javax.swing.Icon
 object W3CSpecifications : ItemPresentation, XpmProductType {
     // region ItemPresentation
 
-    override fun getPresentableText(): String? = "W3C Specifications"
+    override fun getPresentableText(): String = "W3C Specifications"
 
     override fun getLocationString(): String? = null
 
-    override fun getIcon(unused: Boolean): Icon? = W3Icons.Product
+    override fun getIcon(unused: Boolean): Icon = W3Icons.Product
 
     // endregion
     // region XpmProductType
