@@ -19,6 +19,7 @@ import com.intellij.openapi.module.*
 import java.io.IOException
 import java.nio.file.Path
 
+@Suppress("NonExtendableApiUsage")
 abstract class ModuleManager : com.intellij.openapi.module.ModuleManager() {
     @Throws(IOException::class, ModuleWithNameAlreadyExists::class)
     abstract fun loadModule(file: Path): Module

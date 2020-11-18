@@ -122,6 +122,7 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
         registerExtensionPoint(ApplicationManager.getApplication().extensionArea, epClassName, epField, aClass)
     }
 
+    @Suppress("UnstableApiUsage")
     fun <T> registerExtensionPoint(
         area: ExtensionsArea,
         extensionPointName: ExtensionPointName<T>,
@@ -144,12 +145,12 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
     fun registerExtensionPoint(area: ExtensionsArea, epClassName: String, epField: String, aClass: Class<*>? = null) {
         try {
             val epClass = Class.forName(epClassName)
-            val epname = epClass.getDeclaredField(epField)
+            val epName = epClass.getDeclaredField(epField)
             val register = PlatformLiteFixture::class.java.getDeclaredMethod(
                 "registerExtensionPoint", ExtensionsArea::class.java, ExtensionPointName::class.java, Class::class.java
             )
-            epname.isAccessible = true
-            register.invoke(this, area, epname.get(null), aClass ?: epClass)
+            epName.isAccessible = true
+            register.invoke(this, area, epName.get(null), aClass ?: epClass)
         } catch (e: Exception) {
             // Don't register the extension point, as the associated class is not found.
         }
@@ -196,9 +197,9 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
     ) {
         try {
             val epClass = Class.forName(epClassName)
-            val epname = epClass.getDeclaredField(epField)
+            val epName = epClass.getDeclaredField(epField)
             @Suppress("UNCHECKED_CAST")
-            registerExtension(area, epname.get(null) as ExtensionPointName<T>, extension)
+            registerExtension(area, epName.get(null) as ExtensionPointName<T>, extension)
         } catch (e: Exception) {
             // Don't register the extension point, as the associated class is not found.
         }
