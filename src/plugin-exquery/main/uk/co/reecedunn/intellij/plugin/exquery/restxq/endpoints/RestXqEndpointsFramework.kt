@@ -29,11 +29,11 @@ import javax.swing.Icon
 object RestXqEndpointsFramework : EndpointsFramework {
     // region ItemPresentation
 
-    override fun getIcon(unused: Boolean): Icon? = EXQueryIcons.RESTXQ.EndpointsFramework
+    override fun getIcon(unused: Boolean): Icon = EXQueryIcons.RESTXQ.EndpointsFramework
 
     override fun getLocationString(): String? = null
 
-    override fun getPresentableText(): String? = EXQueryBundle.message("endpoints.restxq.label")
+    override fun getPresentableText(): String = EXQueryBundle.message("endpoints.restxq.label")
 
     // endregion
     // region EndpointsFramework

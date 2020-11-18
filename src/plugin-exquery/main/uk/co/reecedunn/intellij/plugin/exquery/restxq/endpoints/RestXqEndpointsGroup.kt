@@ -29,11 +29,11 @@ import javax.swing.Icon
 class RestXqEndpointsGroup(private val prolog: XQueryProlog) : EndpointsGroup, ItemPresentation, DataProvider {
     // region ItemPresentation
 
-    override fun getIcon(unused: Boolean): Icon? = EXQueryIcons.RESTXQ.EndpointsGroup
+    override fun getIcon(unused: Boolean): Icon = EXQueryIcons.RESTXQ.EndpointsGroup
 
-    override fun getLocationString(): String? = prolog.containingFile.name
+    override fun getLocationString(): String = prolog.containingFile.name
 
-    override fun getPresentableText(): String? = EndpointsGroup.ROOT_PATH
+    override fun getPresentableText(): String = EndpointsGroup.ROOT_PATH
 
     // endregion
     // region EndpointsGroup

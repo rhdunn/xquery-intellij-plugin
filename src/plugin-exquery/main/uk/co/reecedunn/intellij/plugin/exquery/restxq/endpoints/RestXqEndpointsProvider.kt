@@ -24,11 +24,11 @@ import javax.swing.Icon
 class RestXqEndpointsProvider : EndpointsProvider() {
     // region ItemPresentation
 
-    override fun getPresentableText(): String? = RestXqEndpointsFramework.presentableText
+    override fun getPresentableText(): String = RestXqEndpointsFramework.presentableText
 
     override fun getLocationString(): String? = RestXqEndpointsFramework.locationString
 
-    override fun getIcon(unused: Boolean): Icon? = RestXqEndpointsFramework.getIcon(unused)
+    override fun getIcon(unused: Boolean): Icon = RestXqEndpointsFramework.getIcon(unused)
 
     // endregion
     // region EndpointsFramework

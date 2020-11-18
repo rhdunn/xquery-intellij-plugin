@@ -35,7 +35,7 @@ class RestXqEndpoint(private val endpoint: XpmFunctionDeclaration) : ItemPresent
 
     override fun getLocationString(): String? = endpoint.functionRefPresentableText
 
-    override fun getIcon(unused: Boolean): Icon? = EXQueryIcons.RESTXQ.Endpoint
+    override fun getIcon(unused: Boolean): Icon = EXQueryIcons.RESTXQ.Endpoint
 
     // endregion
     // region Endpoint
