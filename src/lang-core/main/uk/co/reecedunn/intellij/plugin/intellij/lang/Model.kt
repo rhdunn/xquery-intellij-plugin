@@ -195,9 +195,10 @@ class VersionedProductId {
                 if (parts[1].startsWith("v")) {
                     val versionId = parts[1].substring(1)
                     product = vendor!!.products[0]
+                    // Support MarkLogic compatibility IDs -- e.g. mapping from v9 (old) to v9.0 (new).
                     version =
                         vendor!!.versions.find { v -> v.id == versionId }
-                            ?: vendor!!.versions.find { v -> v.id == "$versionId.0" } // MarkLogic compatibility IDs (e.g. `v9`).
+                            ?: vendor!!.versions.find { v -> v.id == "$versionId.0" }
                 } else {
                     product = vendor!!.products.find { p -> p.id == parts[1] }
                 }

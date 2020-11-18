@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 
-@Suppress("JoinDeclarationAndAssignment")
+@Suppress("JoinDeclarationAndAssignment", "RedundantInnerClassModifier")
 @DisplayName("IntelliJ - Settings - Languages and Frameworks - Vendor Implementations")
 class ModelTest {
     @Nested

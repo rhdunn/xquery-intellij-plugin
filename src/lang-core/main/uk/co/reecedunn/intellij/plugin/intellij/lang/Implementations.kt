@@ -267,10 +267,12 @@ private class SaxonProduct(id: String, name: String, implementation: Implementat
         else -> ref.kind === implementation && ref.value <= productVersion.value
     }
 
-    // UpdateFacilitySpec support requires EE (http://www.saxonica.com/products/feature-matrix-9-8.xml)
-    // Saxon extensions require PE or EE (http://www.saxonica.com/documentation/index.html#!extensions/syntax-extensions)
     @Suppress("PropertyName")
-    val FLAVOURS_EE: List<Versioned> = listOf(Saxon, XQuerySpec, UpdateFacilitySpec)
+    val FLAVOURS_EE: List<Versioned> = listOf(
+        Saxon, // requires PE or EE -- http://www.saxonica.com/documentation/index.html#!extensions/syntax-extensions
+        XQuerySpec,
+        UpdateFacilitySpec // requires EE -- http://www.saxonica.com/products/feature-matrix-9-8.xml
+    )
 
     @Suppress("PropertyName")
     val FLAVOURS_PE: List<Versioned> = listOf(Saxon, XQuerySpec)
