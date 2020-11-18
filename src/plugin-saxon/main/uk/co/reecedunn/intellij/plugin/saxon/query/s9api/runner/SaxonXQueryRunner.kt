@@ -79,6 +79,7 @@ internal class SaxonXQueryRunner(
         evaluator.setExternalVariable(qname, XdmValue.newInstance(value, type ?: "xs:string", processor))
     }
 
+    @Suppress("DuplicatedCode")
     override fun bindContextItem(value: Any?, type: String?): Unit = check(queryFile, processor.classLoader) {
         context = when (value) {
             is XpmModuleUri -> XdmItem.newInstance(value.path, type ?: "xs:string", processor)

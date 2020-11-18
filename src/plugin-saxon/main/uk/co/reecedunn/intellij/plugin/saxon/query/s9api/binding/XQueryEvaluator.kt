@@ -31,6 +31,7 @@ class XQueryEvaluator(private val `object`: Any, private val `class`: Class<*>) 
         )
     }
 
+    @Suppress("DuplicatedCode")
     fun setDestination(destination: Destination) {
         val destinationClass = `class`.classLoader.loadClass("net.sf.saxon.s9api.Destination")
         if (destination is ProxyDestination) {

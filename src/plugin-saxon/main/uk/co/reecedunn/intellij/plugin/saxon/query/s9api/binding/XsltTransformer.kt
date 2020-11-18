@@ -25,6 +25,7 @@ class XsltTransformer(private val `object`: Any, private val `class`: Class<*>) 
         `class`.getMethod("setSource", Source::class.java).invoke(`object`, source)
     }
 
+    @Suppress("DuplicatedCode")
     fun setDestination(destination: Destination) {
         val destinationClass = `class`.classLoader.loadClass("net.sf.saxon.s9api.Destination")
         if (destination is ProxyDestination) {

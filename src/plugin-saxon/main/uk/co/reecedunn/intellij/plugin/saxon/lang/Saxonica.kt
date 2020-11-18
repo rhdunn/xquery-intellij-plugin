@@ -24,11 +24,11 @@ import javax.swing.Icon
 object Saxonica : ItemPresentation, XpmVendorType {
     // region ItemPresentation
 
-    override fun getPresentableText(): String? = "Saxonica"
+    override fun getPresentableText(): String = "Saxonica"
 
     override fun getLocationString(): String? = null
 
-    override fun getIcon(unused: Boolean): Icon? = SaxonIcons.Product
+    override fun getIcon(unused: Boolean): Icon = SaxonIcons.Product
 
     // endregion
     // region XpmVendorType
