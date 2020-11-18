@@ -64,7 +64,7 @@ class XsltSchemaTypesParser(
         return false
     }
 
-    fun parseSchemaType(builder: PsiBuilder): Boolean = when (schemaType) {
+    private fun parseSchemaType(builder: PsiBuilder): Boolean = when (schemaType) {
         ValueTemplate -> parseValueTemplate(builder)
         NameTests -> parseNameTests(builder)
         EQNamesOrHashedKeywords -> parseEQNamesOrHashedKeywords(builder)

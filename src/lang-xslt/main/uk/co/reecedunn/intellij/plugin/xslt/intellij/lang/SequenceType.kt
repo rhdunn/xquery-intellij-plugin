@@ -33,7 +33,7 @@ object SequenceType : Language(XPath, "xsl:sequence-type") {
 
     val FileType: LanguageFileType = XsltSchemaTypeFileType(this)
 
-    override fun getAssociatedFileType(): LanguageFileType? = FileType
+    override fun getAssociatedFileType(): LanguageFileType = FileType
 
     // endregion
     // region ParserDefinition

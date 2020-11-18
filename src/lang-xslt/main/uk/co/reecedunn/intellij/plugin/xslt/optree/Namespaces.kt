@@ -35,7 +35,7 @@ private fun XmlAttribute.toDefaultNamespaceDeclaration(): XpmNamespaceDeclaratio
     return if (prefix.isEmpty()) {
         object : XpmNamespaceDeclaration {
             override val namespacePrefix: XsNCNameValue? = null
-            override val namespaceUri: XsAnyUriValue? =
+            override val namespaceUri: XsAnyUriValue =
                 XsAnyUri(value, XdmUriContext.Namespace, XdmModuleType.NONE, originalElement)
 
             override fun accepts(namespaceType: XdmNamespaceType): Boolean = when (namespaceType) {
@@ -57,8 +57,8 @@ private fun XmlAttribute.toNamespaceDeclaration(): XpmNamespaceDeclaration? {
         null
     } else {
         object : XpmNamespaceDeclaration {
-            override val namespacePrefix: XsNCNameValue? = XsNCName(localName, originalElement)
-            override val namespaceUri: XsAnyUriValue? =
+            override val namespacePrefix: XsNCNameValue = XsNCName(localName, originalElement)
+            override val namespaceUri: XsAnyUriValue =
                 XsAnyUri(value, XdmUriContext.Namespace, XdmModuleType.MODULE, originalElement)
 
             override fun accepts(namespaceType: XdmNamespaceType): Boolean {
@@ -72,7 +72,7 @@ private object DefaultFunctionXPathNamespace : XpmNamespaceDeclaration {
     private const val FN_NAMESPACE_URI = "http://www.w3.org/2005/xpath-functions"
 
     override val namespacePrefix: XsNCNameValue? = null
-    override val namespaceUri: XsAnyUriValue? =
+    override val namespaceUri: XsAnyUriValue =
         XsAnyUri(FN_NAMESPACE_URI, XdmUriContext.Namespace, XdmModuleType.MODULE, null as PsiElement?)
 
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518

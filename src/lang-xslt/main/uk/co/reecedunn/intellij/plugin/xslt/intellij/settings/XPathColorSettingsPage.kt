@@ -33,7 +33,7 @@ class XPathColorSettingsPage : ColorSettingsPage {
 
     override fun getDemoText(): String = demo
 
-    override fun getAdditionalHighlightingTagToDescriptorMap(): Map<String, TextAttributesKey>? =
+    override fun getAdditionalHighlightingTagToDescriptorMap(): Map<String, TextAttributesKey> =
         XPathSyntaxHighlighterColors.ADDITIONAL_DESCRIPTORS
 
     override fun getAttributeDescriptors(): Array<AttributesDescriptor> = DESCRIPTORS
@@ -48,6 +48,7 @@ class XPathColorSettingsPage : ColorSettingsPage {
             XsltSyntaxHighlighterColors.DESCRIPTORS
         ).flatten().toTypedArray()
 
+        @Suppress("RegExpAnonymousGroup")
         private val demo: String by lazy {
             var ret = XPathQueries.ColorSettingsDemo
             ret = ret.replace("\r\n", "\n")

@@ -37,7 +37,7 @@ object EQNamesOrHashedKeywords : Language(XPath, "EQNames-or-hashed-keywords") {
 
     val FileType: LanguageFileType = XsltSchemaTypeFileType(this)
 
-    override fun getAssociatedFileType(): LanguageFileType? = FileType
+    override fun getAssociatedFileType(): LanguageFileType = FileType
 
     // endregion
     // region ParserDefinition

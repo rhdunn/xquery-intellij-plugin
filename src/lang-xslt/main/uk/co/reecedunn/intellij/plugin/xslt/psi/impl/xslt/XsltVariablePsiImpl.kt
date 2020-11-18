@@ -22,5 +22,5 @@ import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.XsltShadowPsiElement
 import javax.swing.Icon
 
 class XsltVariablePsiImpl(element: PsiElement) : XsltShadowPsiElement(element), XsltVariable {
-    override fun getIcon(flags: Int): Icon? = XPathIcons.Nodes.VarDecl
+    override fun getIcon(flags: Int): Icon = XPathIcons.Nodes.VarDecl
 }

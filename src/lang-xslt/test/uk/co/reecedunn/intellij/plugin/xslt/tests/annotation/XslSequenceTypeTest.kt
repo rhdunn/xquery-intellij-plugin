@@ -30,7 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xslt.schema.XslItemType
 import uk.co.reecedunn.intellij.plugin.xslt.schema.XslSequenceType
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
-@Suppress("Reformat")
+@Suppress("Reformat", "RedundantVisibilityModifier")
 @DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - SequenceType Schema Type Annotator")
 private class XslSequenceTypeTest : AnnotatorTestCase(SequenceType.ParserDefinition(), XPathParserDefinition()) {
     override val pluginId: PluginId = PluginId.getId("XslSequenceTypeTest")

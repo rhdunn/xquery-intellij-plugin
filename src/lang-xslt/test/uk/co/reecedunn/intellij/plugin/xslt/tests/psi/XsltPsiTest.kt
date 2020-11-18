@@ -29,6 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
 import uk.co.reecedunn.intellij.plugin.xslt.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
+@Suppress("RedundantVisibilityModifier")
 @DisplayName("XSLT 3.0 - IntelliJ Program Structure Interface (PSI)")
 private class XsltPsiTest : ParserTestCase(XMLParserDefinition()) {
     override val pluginId: PluginId = PluginId.getId("XsltPsiTest")
@@ -1132,6 +1133,7 @@ private class XsltPsiTest : ParserTestCase(XMLParserDefinition()) {
         internal inner class NamespaceAlias {
             @Test
             @DisplayName("hierarchy")
+            @Suppress("XmlUnusedNamespaceDeclaration")
             fun hierarchy() {
                 @Language("XML") val xml = """
                     <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
@@ -1278,7 +1280,7 @@ private class XsltPsiTest : ParserTestCase(XMLParserDefinition()) {
 
                 val parent = psi.parent!!
                 assertThat(parent.children.size, `is`(1))
-                    assertThat(parent.children[0], `is`(sameInstance(psi)))
+                assertThat(parent.children[0], `is`(sameInstance(psi)))
             }
         }
 
@@ -1884,7 +1886,7 @@ private class XsltPsiTest : ParserTestCase(XMLParserDefinition()) {
             fun hierarchy() {
                 @Language("XML") val xml = """
                     <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
-                        <xsl:key name="lorem" use="ipsum"/>
+                        <xsl:key name="lorem" use="ipsum" match="dolor"/>
                     </xsl:stylesheet>
                 """
                 val psi = parse<XsltKey>(xml, XSLT.NAMESPACE, "key")[0]

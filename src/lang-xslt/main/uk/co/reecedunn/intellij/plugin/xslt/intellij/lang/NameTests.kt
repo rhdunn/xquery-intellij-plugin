@@ -33,7 +33,7 @@ object NameTests : Language(XPath, "xsl:nametests") {
 
     val FileType: LanguageFileType = XsltSchemaTypeFileType(this)
 
-    override fun getAssociatedFileType(): LanguageFileType? = FileType
+    override fun getAssociatedFileType(): LanguageFileType = FileType
 
     // endregion
     // region ParserDefinition

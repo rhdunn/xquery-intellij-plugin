@@ -22,5 +22,5 @@ import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.XsltShadowPsiElement
 import javax.swing.Icon
 
 class SaxonItemTypePsiImpl(element: PsiElement) : XsltShadowPsiElement(element), SaxonItemType {
-    override fun getIcon(flags: Int): Icon? = XPathIcons.Nodes.TypeDecl
+    override fun getIcon(flags: Int): Icon = XPathIcons.Nodes.TypeDecl
 }

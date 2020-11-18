@@ -29,7 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xslt.ast.schema.XsltSchemaType
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.EQNamesOrHashedKeywords
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
-@Suppress("Reformat")
+@Suppress("Reformat", "RedundantVisibilityModifier")
 @DisplayName("XSLT 3.0 - Schema Types - EQNames or hashed keywords")
 private class XslEQNamesOrHashedKeywordsTest :
     ParserTestCase(EQNamesOrHashedKeywords.ParserDefinition(), XPathParserDefinition()) {

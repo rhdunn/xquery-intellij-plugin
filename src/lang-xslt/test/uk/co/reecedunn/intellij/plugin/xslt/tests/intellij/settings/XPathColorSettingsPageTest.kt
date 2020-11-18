@@ -30,9 +30,10 @@ import java.util.*
 class XPathColorSettingsPageTest {
     private val settings = XPathColorSettingsPage()
 
+    @Suppress("RegExpAnonymousGroup")
     private fun getTextAttributeKeysForTokens(text: String): List<TextAttributesKey> {
         var withoutHighlightElements = text
-        settings.additionalHighlightingTagToDescriptorMap!!.forEach { (name, _) ->
+        settings.additionalHighlightingTagToDescriptorMap.forEach { (name, _) ->
             withoutHighlightElements = "<$name>([^<]*)</$name>".toRegex().replace(withoutHighlightElements) {
                 it.groups[1]!!.value
             }
@@ -55,8 +56,9 @@ class XPathColorSettingsPageTest {
         return keys
     }
 
+    @Suppress("RegExpAnonymousGroup")
     private fun getTextAttributeKeysForAdditionalDescriptors(text: String): List<Pair<String, TextAttributesKey>> {
-        return settings.additionalHighlightingTagToDescriptorMap!!.asSequence().flatMap { (name, attributesKey) ->
+        return settings.additionalHighlightingTagToDescriptorMap.asSequence().flatMap { (name, attributesKey) ->
             val matches = "<$name>([^<]*)</$name>".toRegex().findAll(text)
             assertThat("additional highlight '$name' XML annotation is present", matches.any(), `is`(true))
             matches.map { match ->

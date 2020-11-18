@@ -37,11 +37,14 @@ import java.lang.UnsupportedOperationException
 
 class SchemaTypeAnnotator(val schemaType: ISchemaType? = null) : Annotator() {
     companion object {
-        val REMOVE_START = "^(Plugin|Scripting|UpdateFacility|XPath|XQuery|Xslt)".toRegex()
-        val REMOVE_END = "(PsiImpl|Impl)$".toRegex()
+        @Suppress("RegExpAnonymousGroup")
+        val REMOVE_START: Regex = "^(Plugin|Scripting|UpdateFacility|XPath|XQuery|Xslt)".toRegex()
+
+        @Suppress("RegExpAnonymousGroup")
+        val REMOVE_END: Regex = "(PsiImpl|Impl)$".toRegex()
     }
 
-    fun getSymbolName(element: PsiElement): String {
+    private fun getSymbolName(element: PsiElement): String {
         return element.javaClass.name.split('.').last().replace(REMOVE_START, "").replace(REMOVE_END, "")
     }
 

@@ -28,6 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xslt.completion.xpath.property.XPathVersi
 import uk.co.reecedunn.intellij.plugin.xslt.completion.xpath.property.XsltVersion
 import uk.co.reecedunn.intellij.plugin.xslt.tests.parser.ParserTestCase
 
+@Suppress("RedundantVisibilityModifier")
 @DisplayName("XSLT 3.0 - Code Completion - Properties")
 private class XsltCompletionPropertyTest : ParserTestCase(XMLParserDefinition()) {
     override val pluginId: PluginId = PluginId.getId("XsltCompletionPropertyTest")

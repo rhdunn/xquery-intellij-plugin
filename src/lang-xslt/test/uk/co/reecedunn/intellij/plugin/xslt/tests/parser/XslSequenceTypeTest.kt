@@ -29,7 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xslt.ast.schema.XsltSchemaType
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.SequenceType
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
-@Suppress("Reformat")
+@Suppress("Reformat", "RedundantVisibilityModifier")
 @DisplayName("XSLT 3.0 - Schema Types - xsl:sequence-type")
 private class XslSequenceTypeTest : ParserTestCase(SequenceType.ParserDefinition(), XPathParserDefinition()) {
     override val pluginId: PluginId = PluginId.getId("XslSequenceTypeTest")

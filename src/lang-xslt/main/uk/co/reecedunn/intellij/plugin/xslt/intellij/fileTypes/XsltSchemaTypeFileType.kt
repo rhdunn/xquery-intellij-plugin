@@ -28,5 +28,5 @@ class XsltSchemaTypeFileType(language: Language) : LanguageFileType(language) {
 
     override fun getDefaultExtension(): String = ""
 
-    override fun getIcon(): Icon? = XsltIcons.FileType
+    override fun getIcon(): Icon = XsltIcons.FileType
 }
