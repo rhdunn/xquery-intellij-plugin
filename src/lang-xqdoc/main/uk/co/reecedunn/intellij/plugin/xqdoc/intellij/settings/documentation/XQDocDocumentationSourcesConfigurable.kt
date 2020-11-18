@@ -36,7 +36,7 @@ class XQDocDocumentationSourcesConfigurable : Configurable, TaskProgressListener
 
     override fun getDisplayName(): String = XQDocBundle.message("settings.document-sources.title")
 
-    override fun createComponent(): JComponent? = panel {
+    override fun createComponent(): JComponent = panel {
         row {
             label(XQDocBundle.message("documentation-source.cache-path.label"), column.vgap())
             cachePath = textFieldWithBrowseButton(column.horizontal().hgap().vgap()) {

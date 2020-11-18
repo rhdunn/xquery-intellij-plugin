@@ -79,7 +79,7 @@ class XQDocDocumentationDownloader : PersistentStateComponent<XQDocDocumentation
 
     // region PersistentStateComponent
 
-    override fun getState(): XQDocDocumentationDownloader? = this
+    override fun getState(): XQDocDocumentationDownloader = this
 
     override fun loadState(state: XQDocDocumentationDownloader): Unit = XmlSerializerUtil.copyBean(state, this)
 
