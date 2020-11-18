@@ -34,6 +34,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.codeInspection.xqst.XQST0033
 import uk.co.reecedunn.intellij.plugin.xquery.codeInspection.xqst.XQST0118
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
+@Suppress("RedundantVisibilityModifier")
 @DisplayName("XQuery 3.1 - Error Conditions")
 private class XQueryInspectionTest : InspectionTestCase() {
     override val pluginId: PluginId = PluginId.getId("XQueryInspectionTest")

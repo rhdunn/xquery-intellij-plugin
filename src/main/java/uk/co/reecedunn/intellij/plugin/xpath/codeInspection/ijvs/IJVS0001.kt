@@ -59,7 +59,7 @@ private fun supports(a: Specification, b: Version): Boolean {
 }
 
 class IJVS0001 : Inspection("ijvs/IJVS0001.md", IJVS0001::class.java.classLoader) {
-    private fun getProductVersion(product: Product, version: Version): XpmProductVersion? = when (version) {
+    private fun getProductVersion(product: Product, version: Version): XpmProductVersion = when (version) {
         BaseX.VERSION_6_1 -> BaseXProduct.VERSION_6_1
         BaseX.VERSION_7_7 -> BaseXProduct.VERSION_7_7
         BaseX.VERSION_7_8 -> BaseXProduct.VERSION_7_8
