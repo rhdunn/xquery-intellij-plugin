@@ -38,7 +38,7 @@ class XQueryCommentPsiImpl(node: ASTNode) :
     override val foldingRange: TextRange?
         get() = textRange
 
-    override val foldingPlaceholderText: String?
+    override val foldingPlaceholderText: String
         get() {
             val text = this.text
             val parser =

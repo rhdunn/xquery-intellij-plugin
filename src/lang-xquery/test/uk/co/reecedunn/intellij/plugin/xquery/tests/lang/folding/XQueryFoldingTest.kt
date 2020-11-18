@@ -29,6 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
+@Suppress("RedundantVisibilityModifier")
 @DisplayName("IntelliJ - Custom Language Support - Code Folding - XQuery FoldingBuilder")
 private class XQueryFoldingTest : ParserTestCase() {
     override val pluginId: PluginId = PluginId.getId("XQueryFoldingTest")

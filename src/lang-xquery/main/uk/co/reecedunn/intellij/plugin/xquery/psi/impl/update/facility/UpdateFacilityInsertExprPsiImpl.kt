@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 class UpdateFacilityInsertExprPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), UpdateFacilityInsertExpr, VersionConformance {
 
-    override val expressionElement: PsiElement?
+    override val expressionElement: PsiElement
         get() = this
 
     override val requiresConformance: List<Version>

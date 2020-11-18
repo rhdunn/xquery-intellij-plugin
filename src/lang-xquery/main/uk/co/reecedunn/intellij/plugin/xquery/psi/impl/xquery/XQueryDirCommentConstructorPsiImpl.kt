@@ -30,7 +30,7 @@ class XQueryDirCommentConstructorPsiImpl(node: ASTNode) :
     FoldablePsiElement {
     // region XpmExpression
 
-    override val expressionElement: PsiElement?
+    override val expressionElement: PsiElement
         get() = this
 
     // endregion
@@ -39,7 +39,7 @@ class XQueryDirCommentConstructorPsiImpl(node: ASTNode) :
     override val foldingRange: TextRange?
         get() = textRange
 
-    override val foldingPlaceholderText: String?
+    override val foldingPlaceholderText: String
         get() {
             var length = textRange.length
             if (lastChild.elementType === XQueryTokenType.XML_COMMENT_END_TAG)

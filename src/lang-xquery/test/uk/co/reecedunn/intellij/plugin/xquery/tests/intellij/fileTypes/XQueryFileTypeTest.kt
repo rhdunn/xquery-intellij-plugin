@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.intellij.fileTypes.XQueryFileType
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
+@Suppress("RedundantVisibilityModifier")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("IntelliJ - Custom Language Support - Registering a File Type - XQuery")
 private class XQueryFileTypeTest : ParsingTestCase<PsiFile>(".xqy", XQuery) {

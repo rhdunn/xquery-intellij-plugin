@@ -71,7 +71,7 @@ import java.math.BigDecimal
 import java.math.BigInteger
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
-@Suppress("Reformat", "ClassName")
+@Suppress("Reformat", "ClassName", "RedundantVisibilityModifier")
 @DisplayName("XQuery 3.1 - IntelliJ Program Structure Interface (PSI)")
 private class XQueryPsiTest : ParserTestCase() {
     override val pluginId: PluginId = PluginId.getId("XQueryPsiTest")
@@ -2978,7 +2978,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("multiple")
                 fun multiple() {
-                    val exprs = parse<PluginFilterStep>("/test[1][2]").filterIsInstance<XpmExpression>()
+                    val exprs = parse<PluginFilterStep>("/test[1][2]")
                     assertThat(exprs[0].expressionElement, `is`(nullValue()))
                     assertThat(exprs[1].expressionElement, `is`(nullValue()))
                 }

@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
 
+@Suppress("RedundantInnerClassModifier")
 @DisplayName("IntelliJ - Custom Language Support - Language")
 class LanguageTest {
     @Nested

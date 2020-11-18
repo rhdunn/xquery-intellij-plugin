@@ -30,7 +30,7 @@ object DocumentationSourceProvider : XQDocDocumentationSourceProvider, XQDocDocu
 
     override fun invalidate() {}
 
-    override fun lookup(ref: XpmFunctionReference): XQDocFunctionDocumentation? {
+    override fun lookup(ref: XpmFunctionReference): XQDocFunctionDocumentation {
         return object : XQDocFunctionDocumentation {
             override val moduleTypes: Array<XdmModuleType> = XdmModuleType.XPATH_OR_XQUERY
 
@@ -62,7 +62,7 @@ object DocumentationSourceProvider : XQDocDocumentationSourceProvider, XQDocDocu
         }
     }
 
-    override fun lookup(decl: XpmNamespaceDeclaration): XQDocDocumentation? {
+    override fun lookup(decl: XpmNamespaceDeclaration): XQDocDocumentation {
         return object : XQDocDocumentation {
             override val moduleTypes: Array<XdmModuleType> = XdmModuleType.XPATH_OR_XQUERY
 

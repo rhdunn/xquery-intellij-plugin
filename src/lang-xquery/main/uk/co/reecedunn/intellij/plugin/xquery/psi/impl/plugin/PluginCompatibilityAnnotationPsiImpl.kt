@@ -52,7 +52,7 @@ class PluginCompatibilityAnnotationPsiImpl(node: ASTNode) :
     override val prefix: XsNCNameValue?
         get() = null
 
-    override val localName: XsNCNameValue?
+    override val localName: XsNCNameValue
         get() = firstChild as XsNCNameValue
 
     override val isLexicalQName: Boolean
@@ -61,7 +61,7 @@ class PluginCompatibilityAnnotationPsiImpl(node: ASTNode) :
     // endregion
     // region XdmAnnotation
 
-    override val name: XsQNameValue?
+    override val name: XsQNameValue
         get() = this
 
     override val values: Sequence<XsAnyAtomicType> = emptySequence()
@@ -88,7 +88,7 @@ class PluginCompatibilityAnnotationPsiImpl(node: ASTNode) :
     // endregion
     // region ItemPresentation
 
-    override fun getIcon(unused: Boolean): Icon? = XQueryIcons.Nodes.Annotation
+    override fun getIcon(unused: Boolean): Icon = XQueryIcons.Nodes.Annotation
 
     override fun getLocationString(): String? = null
 

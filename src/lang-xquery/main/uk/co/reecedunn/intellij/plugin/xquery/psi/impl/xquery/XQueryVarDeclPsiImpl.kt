@@ -80,12 +80,12 @@ class XQueryVarDeclPsiImpl(node: ASTNode) :
     // endregion
     // region NavigationItem
 
-    override fun getPresentation(): ItemPresentation? = this
+    override fun getPresentation(): ItemPresentation = this
 
     // endregion
     // region ItemPresentation
 
-    override fun getIcon(unused: Boolean): Icon? = XPathIcons.Nodes.VarDecl
+    override fun getIcon(unused: Boolean): Icon = XPathIcons.Nodes.VarDecl
 
     override fun getLocationString(): String? = null
 

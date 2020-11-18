@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 
 class ScriptingBlockExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), ScriptingBlockExpr, VersionConformance {
-    override val expressionElement: PsiElement?
+    override val expressionElement: PsiElement
         get() = this
 
     override val requiresConformance: List<Version>

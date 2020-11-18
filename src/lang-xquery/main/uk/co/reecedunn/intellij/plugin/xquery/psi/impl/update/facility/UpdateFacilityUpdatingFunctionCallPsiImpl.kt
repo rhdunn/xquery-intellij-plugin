@@ -28,7 +28,7 @@ class UpdateFacilityUpdatingFunctionCallPsiImpl(node: ASTNode) :
     UpdateFacilityUpdatingFunctionCall,
     VersionConformance {
 
-    override val expressionElement: PsiElement?
+    override val expressionElement: PsiElement
         get() = this
 
     override val requiresConformance: List<Version>

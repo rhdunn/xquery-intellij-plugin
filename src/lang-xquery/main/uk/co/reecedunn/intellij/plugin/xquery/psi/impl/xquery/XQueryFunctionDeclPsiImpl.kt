@@ -81,12 +81,12 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
     // endregion
     // region NavigationItem
 
-    override fun getPresentation(): ItemPresentation? = this
+    override fun getPresentation(): ItemPresentation = this
 
     // endregion
     // region ItemPresentation
 
-    override fun getIcon(unused: Boolean): Icon? = XpmFunctionDecorator.getIcon(this) ?: XPathIcons.Nodes.FunctionDecl
+    override fun getIcon(unused: Boolean): Icon = XpmFunctionDecorator.getIcon(this) ?: XPathIcons.Nodes.FunctionDecl
 
     override fun getLocationString(): String? = null
 
@@ -110,8 +110,9 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
         if (returnType == null)
             "${op_qname_presentation(name)}${paramList?.presentation?.presentableText ?: "()"}"
         else
-            "${op_qname_presentation(name)}${paramList?.presentation?.presentableText
-                ?: "()"} as ${returnType.typeName}"
+            "${op_qname_presentation(name)}${
+                paramList?.presentation?.presentableText ?: "()"
+            } as ${returnType.typeName}"
     }
 
     override fun getPresentableText(type: ItemPresentationEx.Type): String? = when (type) {

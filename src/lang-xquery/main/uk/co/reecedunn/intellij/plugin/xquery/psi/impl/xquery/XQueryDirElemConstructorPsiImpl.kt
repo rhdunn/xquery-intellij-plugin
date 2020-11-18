@@ -105,7 +105,7 @@ class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
             return TextRange(start.textRange.startOffset, endOffset)
         }
 
-    override val foldingPlaceholderText: String? = "..."
+    override val foldingPlaceholderText: String = "..."
 
     companion object {
         private fun parseDirAttributeList(first: PsiElement?): Pair<Boolean, PsiElement?> {

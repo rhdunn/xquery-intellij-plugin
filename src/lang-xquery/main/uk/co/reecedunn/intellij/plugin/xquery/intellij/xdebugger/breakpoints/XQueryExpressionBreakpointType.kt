@@ -39,11 +39,11 @@ class XQueryExpressionBreakpointType :
     ) {
     // region XLineBreakpointType
 
-    override fun createBreakpointProperties(file: VirtualFile, line: Int): XQueryBreakpointProperties? {
+    override fun createBreakpointProperties(file: VirtualFile, line: Int): XQueryBreakpointProperties {
         return createProperties()
     }
 
-    override fun createProperties(): XQueryBreakpointProperties? = XQueryBreakpointProperties()
+    override fun createProperties(): XQueryBreakpointProperties = XQueryBreakpointProperties()
 
     override fun canPutAt(file: VirtualFile, line: Int, project: Project): Boolean {
         val module = file.toPsiFile(project) as? XQueryModule ?: return false
@@ -84,7 +84,7 @@ class XQueryExpressionBreakpointType :
             return properties
         }
 
-        override fun getIcon(): Icon? {
+        override fun getIcon(): Icon {
             return (element as? NavigatablePsiElement)?.presentation?.getIcon(false) ?: XPathIcons.Nodes.Expr
         }
     }

@@ -37,6 +37,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryVariableProvider
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
+@Suppress("RedundantVisibilityModifier")
 @DisplayName("XQuery 3.1 - Code Completion - Completion Providers")
 private class XQueryCompletionProviderTest : ParserTestCase() {
     override val pluginId: PluginId = PluginId.getId("XQueryCompletionProviderTest")

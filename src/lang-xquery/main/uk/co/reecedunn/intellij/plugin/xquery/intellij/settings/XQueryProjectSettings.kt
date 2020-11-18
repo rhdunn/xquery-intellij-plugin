@@ -60,7 +60,7 @@ class XQueryProjectSettings : PersistentStateComponent<XQueryProjectSettings> {
     // endregion
     // region PersistentStateComponent
 
-    override fun getState(): XQueryProjectSettings? = this
+    override fun getState(): XQueryProjectSettings = this
 
     override fun loadState(state: XQueryProjectSettings): Unit = XmlSerializerUtil.copyBean(state, this)
 

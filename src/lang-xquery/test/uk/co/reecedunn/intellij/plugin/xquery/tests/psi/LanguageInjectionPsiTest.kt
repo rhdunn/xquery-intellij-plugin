@@ -30,6 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeValue
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
+@Suppress("RedundantVisibilityModifier")
 @DisplayName("XQuery IntelliJ Plugin - Language Injection Host - XPath")
 private class LanguageInjectionPsiTest : ParserTestCase() {
     override val pluginId: PluginId = PluginId.getId("LanguageInjectionPsiTest")

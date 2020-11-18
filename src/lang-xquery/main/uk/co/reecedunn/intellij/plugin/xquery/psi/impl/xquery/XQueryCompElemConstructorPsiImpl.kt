@@ -27,7 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompElemConstruct
 class XQueryCompElemConstructorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryCompElemConstructor {
     // region XpmExpression
 
-    override val expressionElement: PsiElement?
+    override val expressionElement: PsiElement
         get() = this
 
     // endregion

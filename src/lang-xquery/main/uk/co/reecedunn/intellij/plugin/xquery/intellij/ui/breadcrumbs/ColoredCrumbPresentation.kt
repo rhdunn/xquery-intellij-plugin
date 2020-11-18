@@ -20,7 +20,7 @@ import com.intellij.xml.breadcrumbs.DefaultCrumbsPresentation
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.codeInsight.highlighting.toLineMarkerColor
 import java.awt.Color
 
-class ColoredCrumbPresentation(val color: Color?) : DefaultCrumbsPresentation() {
+class ColoredCrumbPresentation(private val color: Color?) : DefaultCrumbsPresentation() {
     override fun getBackgroundColor(selected: Boolean, hovered: Boolean, light: Boolean): Color? {
         val baseColor = super.getBackgroundColor(selected, hovered, light)
         return when {

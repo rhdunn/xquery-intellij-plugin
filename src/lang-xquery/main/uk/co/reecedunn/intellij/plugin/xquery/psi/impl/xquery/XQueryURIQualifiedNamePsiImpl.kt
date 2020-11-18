@@ -33,6 +33,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.reference.*
 class XQueryURIQualifiedNamePsiImpl(node: ASTNode) : XPathURIQualifiedNamePsiImpl(node) {
     // region PsiElement
 
+    @Suppress("DuplicatedCode") // Same logic in XQueryQNamePsiImpl.
     override fun getReferences(): Array<PsiReference> {
         val eqnameStart = node.startOffset
         val localName = localName as? PsiElement
@@ -60,7 +61,7 @@ class XQueryURIQualifiedNamePsiImpl(node: ASTNode) : XPathURIQualifiedNamePsiImp
     // endregion
     // region XsQNameValue
 
-    override val namespace: XsAnyUriValue?
+    override val namespace: XsAnyUriValue
         get() = findChildByType<PsiElement>(XQueryElementType.BRACED_URI_LITERAL) as XsAnyUriValue
 
     // endregion

@@ -29,7 +29,7 @@ class UpdateFacilityCopyModifyExprPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), UpdateFacilityCopyModifyExpr, VersionConformance {
     // region XpmExpression
 
-    override val expressionElement: PsiElement?
+    override val expressionElement: PsiElement
         get() = this
 
     // endregion

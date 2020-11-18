@@ -41,10 +41,10 @@ import java.awt.Font
 class XQueryElemTagTreeHighlightingPass(val file: PsiFile, val editor: EditorEx) :
     TextEditorHighlightingPass(file.project, editor.document, true) {
 
-    val provider = BreadcrumbsUtilEx.findProvider(false, file.manager.findViewProvider(file.virtualFile)!!)
-    var tagsToHighlight: List<Pair<TextRange?, TextRange?>> = listOf()
+    private val provider = BreadcrumbsUtilEx.findProvider(false, file.manager.findViewProvider(file.virtualFile)!!)
+    private var tagsToHighlight: List<Pair<TextRange?, TextRange?>> = listOf()
 
-    val highlights: List<HighlightInfo>
+    private val highlights: List<HighlightInfo>
         get() {
             val colors = when (tagsToHighlight.size) {
                 1 -> arrayOf(editor.colorsScheme.getAttributes(XmlHighlighterColors.MATCHED_TAG_NAME).backgroundColor)
@@ -64,7 +64,7 @@ class XQueryElemTagTreeHighlightingPass(val file: PsiFile, val editor: EditorEx)
             return highlights
         }
 
-    val lineMarkers: List<RangeHighlighter>
+    private val lineMarkers: List<RangeHighlighter>
         get() {
             val colors = toColorsForLineMarkers(getBaseColors())
             return tagsToHighlight.withIndex().mapNotNull { (index, ranges) ->

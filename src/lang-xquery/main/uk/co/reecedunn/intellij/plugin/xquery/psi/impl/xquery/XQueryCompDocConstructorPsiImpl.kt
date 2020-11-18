@@ -21,6 +21,6 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompDocConstructor
 
 class XQueryCompDocConstructorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryCompDocConstructor {
-    override val expressionElement: PsiElement?
+    override val expressionElement: PsiElement
         get() = this
 }

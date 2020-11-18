@@ -45,20 +45,20 @@ class XQueryQueryBodyPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQuery
     // endregion
     // region NavigationItem
 
-    override fun getPresentation(): ItemPresentation? = this
+    override fun getPresentation(): ItemPresentation = this
 
     // endregion
     // region ItemPresentation
 
-    override fun getIcon(unused: Boolean): Icon? = XQueryIcons.Nodes.QueryBody
+    override fun getIcon(unused: Boolean): Icon = XQueryIcons.Nodes.QueryBody
 
     override fun getLocationString(): String? = null
 
-    override fun getPresentableText(): String? {
+    override fun getPresentableText(): String {
         return "${getPresentableText(ItemPresentationEx.Type.StructureView)} [${containingFile.resourcePath()}]"
     }
 
-    override fun getPresentableText(type: ItemPresentationEx.Type): String? = when (type) {
+    override fun getPresentableText(type: ItemPresentationEx.Type): String = when (type) {
         ItemPresentationEx.Type.Default -> presentableText
         else -> XQueryBundle.message("structure-view.query-body")
     }
@@ -66,7 +66,7 @@ class XQueryQueryBodyPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQuery
     // endregion
     // region SortableTreeElement
 
-    override fun getAlphaSortKey(): String = presentableText!!
+    override fun getAlphaSortKey(): String = presentableText
 
     // endregion
 }

@@ -38,6 +38,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 import com.intellij.codeInsight.highlighting.ReadWriteAccessDetector.Access as Access
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
+@Suppress("RedundantVisibilityModifier")
 @DisplayName("IntelliJ - Custom Language Support - Read/Write Usage Detector - XQuery")
 private class XQueryReadWriteAccessDetectorTest : ParserTestCase() {
     override val pluginId: PluginId = PluginId.getId("XQueryReadWriteAccessDetectorTest")

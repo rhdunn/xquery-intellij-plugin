@@ -34,7 +34,7 @@ class XQueryStructureViewBuilder(private val psiFile: PsiFile) : TreeBasedStruct
     }
 
     class Factory : PsiStructureViewFactory {
-        override fun getStructureViewBuilder(psiFile: PsiFile): StructureViewBuilder? {
+        override fun getStructureViewBuilder(psiFile: PsiFile): StructureViewBuilder {
             return XQueryStructureViewBuilder(psiFile)
         }
     }

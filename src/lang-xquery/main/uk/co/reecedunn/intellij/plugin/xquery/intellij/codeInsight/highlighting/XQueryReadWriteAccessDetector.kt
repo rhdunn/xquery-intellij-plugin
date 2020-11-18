@@ -44,8 +44,8 @@ class XQueryReadWriteAccessDetector : ReadWriteAccessDetector() {
 
     override fun getExpressionAccess(expression: PsiElement): Access {
         if (!isVariable(expression)) return Access.Read
-        return when {
-            expression.parent is XPathVarRef -> Access.Read
+        return when (expression.parent) {
+            is XPathVarRef -> Access.Read
             else -> Access.Write
         }
     }

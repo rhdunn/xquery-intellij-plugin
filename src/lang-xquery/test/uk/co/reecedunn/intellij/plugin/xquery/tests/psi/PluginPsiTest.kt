@@ -67,8 +67,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
+@Suppress("RedundantVisibilityModifier", "Reformat")
 @DisplayName("XQuery IntelliJ Plugin - IntelliJ Program Structure Interface (PSI) - XQuery")
-private class PluginPsiTest : ParserTestCase()  {
+private class PluginPsiTest : ParserTestCase() {
     override val pluginId: PluginId = PluginId.getId("PluginPsiTest")
 
     private val res = ResourceVirtualFileSystem(this::class.java.classLoader)

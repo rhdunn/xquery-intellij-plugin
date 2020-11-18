@@ -48,7 +48,7 @@ class XQueryBreadcrumbProvider : BreadcrumbsProvider {
         return name?.let { op_qname_presentation(it) } ?: ""
     }
 
-    override fun getElementTooltip(element: PsiElement): String? {
+    override fun getElementTooltip(element: PsiElement): String {
         return XQueryDocumentationProvider.getElementPresentationText(element.firstChild) ?: ""
     }
 }

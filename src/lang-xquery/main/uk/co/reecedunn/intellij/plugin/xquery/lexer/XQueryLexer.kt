@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.lexer
 import uk.co.reecedunn.intellij.plugin.core.lexer.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.*
 
+@Suppress("DuplicatedCode")
 class XQueryLexer : XPathLexer(CodePointRangeImpl()) {
     // region States
 

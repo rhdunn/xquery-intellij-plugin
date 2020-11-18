@@ -962,24 +962,24 @@ class XQueryParser : XPathParser() {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (builder.matchTokenType(XPathTokenType.ASSIGN_EQUAL) || {
+            if (builder.matchTokenType(XPathTokenType.ASSIGN_EQUAL) || run {
                     haveErrors = builder.errorOnTokenType(
                         XPathTokenType.EQUAL, XQueryBundle.message("parser.error.expected-variable-value")
                     )
                     haveErrors
-                }()) {
+                }) {
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (!parseExprSingle(builder, XQueryElementType.VAR_VALUE) && !haveErrors) {
                     builder.error(XPathBundle.message("parser.error.expected-expression"))
                 }
             } else if (builder.matchTokenType(XQueryTokenType.K_EXTERNAL)) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (builder.matchTokenType(XPathTokenType.ASSIGN_EQUAL) || {
+                if (builder.matchTokenType(XPathTokenType.ASSIGN_EQUAL) || run {
                         haveErrors = builder.errorOnTokenType(
                             XPathTokenType.EQUAL, XQueryBundle.message("parser.error.expected-variable-value")
                         )
                         haveErrors
-                    }()) {
+                    }) {
                     parseWhiteSpaceAndCommentTokens(builder)
                     if (!parseExprSingle(builder, XQueryElementType.VAR_DEFAULT_VALUE) && !haveErrors) {
                         builder.error(XPathBundle.message("parser.error.expected-expression"))
@@ -1098,12 +1098,12 @@ class XQueryParser : XPathParser() {
             parseTypeDeclaration(builder)
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (builder.matchTokenType(XPathTokenType.ASSIGN_EQUAL) || {
+            if (builder.matchTokenType(XPathTokenType.ASSIGN_EQUAL) || run {
                     haveErrors = haveErrors or builder.errorOnTokenType(
                         XPathTokenType.EQUAL, XQueryBundle.message("parser.error.expected-variable-value")
                     )
                     haveErrors
-                }()) {
+                }) {
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (!parseExprSingle(builder, XQueryElementType.VAR_VALUE) && !haveErrors) {
                     builder.error(XPathBundle.message("parser.error.expected-expression"))
@@ -1230,12 +1230,12 @@ class XQueryParser : XPathParser() {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.EQUAL) && !{
+            if (!builder.matchTokenType(XPathTokenType.EQUAL) && run {
                     haveErrors = builder.errorOnTokenType(
                         XPathTokenType.ASSIGN_EQUAL, XPathBundle.message("parser.error.expected", "=")
                     )
-                    haveErrors
-                }()) {
+                    !haveErrors
+                }) {
                 builder.error(XPathBundle.message("parser.error.expected", "="))
                 haveErrors = true
             }
@@ -1342,12 +1342,12 @@ class XQueryParser : XPathParser() {
             "parser.error.expected-variable-assign-scripting-no-type-decl"
 
         parseWhiteSpaceAndCommentTokens(builder)
-        if (builder.matchTokenType(XPathTokenType.ASSIGN_EQUAL) || {
+        if (builder.matchTokenType(XPathTokenType.ASSIGN_EQUAL) || run {
                 haveErrors = builder.errorOnTokenType(
                     XPathTokenType.EQUAL, XQueryBundle.message(errorMessage)
                 )
                 haveErrors
-            }()) {
+            }) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!parseExprSingle(builder) && !haveErrors) {
                 builder.error(XPathBundle.message("parser.error.expected-expression"))
@@ -2070,12 +2070,12 @@ class XQueryParser : XPathParser() {
                     builder.error(XPathBundle.message("parser.error.expected-expression"))
                     haveErrors = true
                 }
-            } else if (builder.matchTokenType(XPathTokenType.ASSIGN_EQUAL) || {
+            } else if (builder.matchTokenType(XPathTokenType.ASSIGN_EQUAL) || run {
                     haveErrors = builder.errorOnTokenType(
                         XPathTokenType.EQUAL, XPathBundle.message("parser.error.expected", ":=")
                     )
                     haveErrors
-                }()) {
+                }) {
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (!parseExprSingle(builder) && !haveErrors) {
                     builder.error(XPathBundle.message("parser.error.expected-expression"))

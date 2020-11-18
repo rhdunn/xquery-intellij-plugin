@@ -68,7 +68,7 @@ class XQueryAnnotationPsiImpl(node: ASTNode) :
     // endregion
     // region ItemPresentation
 
-    override fun getIcon(unused: Boolean): Icon? = XQueryIcons.Nodes.Annotation
+    override fun getIcon(unused: Boolean): Icon = XQueryIcons.Nodes.Annotation
 
     override fun getLocationString(): String? = null
 

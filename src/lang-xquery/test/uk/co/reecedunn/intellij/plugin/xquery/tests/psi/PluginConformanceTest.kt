@@ -34,7 +34,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
-@Suppress("Reformat")
+@Suppress("Reformat", "RedundantVisibilityModifier")
 @DisplayName("XQuery IntelliJ Plugin - Implementation Conformance Checks")
 private class PluginConformanceTest : ParserTestCase() {
     override val pluginId: PluginId = PluginId.getId("PluginConformanceTest")

@@ -25,7 +25,7 @@ object StaticContextDefinitions {
         private val cache: HashMap<String, VirtualFile?> = HashMap()
 
         fun findCacheableFile(path: String): VirtualFile? {
-            return ResourceVirtualFile.create(this::class.java.classLoader, path, this)
+            return ResourceVirtualFile.createIfValid(this::class.java.classLoader, path, this)
         }
 
         override fun findFileByPath(path: String): VirtualFile? {

@@ -33,9 +33,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryDirElemConte
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryPredefinedEntityRefImpl
 
 class XQueryASTFactory : ASTFactory() {
-    override fun createComposite(type: IElementType): CompositeElement? = CompositeElement(type)
+    override fun createComposite(type: IElementType): CompositeElement = CompositeElement(type)
 
-    override fun createLeaf(type: IElementType, text: CharSequence): LeafElement? = when (type) {
+    override fun createLeaf(type: IElementType, text: CharSequence): LeafElement = when (type) {
         XQueryTokenType.CHARACTER_REFERENCE -> XQueryCharRefImpl(type, text)
         XQueryTokenType.PREDEFINED_ENTITY_REFERENCE -> XQueryPredefinedEntityRefImpl(type, text)
         XQueryTokenType.XML_ATTRIBUTE_NCNAME -> XmlNCNameImpl(type, text)

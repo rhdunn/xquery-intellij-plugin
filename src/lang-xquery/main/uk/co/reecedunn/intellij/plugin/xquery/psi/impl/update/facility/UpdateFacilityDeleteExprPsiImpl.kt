@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 class UpdateFacilityDeleteExprPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), UpdateFacilityDeleteExpr, VersionConformance {
 
-    override val expressionElement: PsiElement?
+    override val expressionElement: PsiElement
         get() = this
 
     override val requiresConformance: List<Version>
