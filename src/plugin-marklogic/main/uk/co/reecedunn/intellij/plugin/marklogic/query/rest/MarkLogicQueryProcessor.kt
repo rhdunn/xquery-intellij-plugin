@@ -144,7 +144,7 @@ internal class MarkLogicQueryProcessor(
         query.run().results.map { it.value as String }
     }
 
-    override fun defaultLogFile(logs: List<String>): String? = when {
+    override fun defaultLogFile(logs: List<String>): String = when {
         logs.contains("ErrorLog.txt") -> "ErrorLog.txt" // The log has not rolled over.
         else -> "ErrorLog_1.txt" // The log has rolled over, and no new log entries have been added.
     }

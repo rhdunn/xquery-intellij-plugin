@@ -20,14 +20,15 @@ import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsGroup
 import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsProvider
 import javax.swing.Icon
 
+@Suppress("unused")
 class RewriterEndpointsProvider : EndpointsProvider() {
     // region ItemPresentation
 
-    override fun getPresentableText(): String? = RewriterEndpointsFramework.presentableText
+    override fun getPresentableText(): String = RewriterEndpointsFramework.presentableText
 
     override fun getLocationString(): String? = RewriterEndpointsFramework.locationString
 
-    override fun getIcon(unused: Boolean): Icon? = RewriterEndpointsFramework.getIcon(unused)
+    override fun getIcon(unused: Boolean): Icon = RewriterEndpointsFramework.getIcon(unused)
 
     // endregion
     // region EndpointsFramework

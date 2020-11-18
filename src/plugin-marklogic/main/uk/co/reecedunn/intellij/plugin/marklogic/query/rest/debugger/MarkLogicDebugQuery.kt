@@ -79,6 +79,7 @@ internal class MarkLogicDebugQuery(
     // endregion
     // region BuildableQuery
 
+    @Suppress("DuplicatedCode")
     override fun request(): HttpUriRequest {
         val params = queryParams.deepCopy()
         params.addProperty("vars", variables.toString())

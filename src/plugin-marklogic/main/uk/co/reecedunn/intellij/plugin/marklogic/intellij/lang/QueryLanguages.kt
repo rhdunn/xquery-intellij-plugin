@@ -28,7 +28,7 @@ object ServerSideJavaScript : Language("MLJavaScript", "application/vnd.marklogi
 }
 
 val SPARQLQuery: Language by lazy {
-    Language.findInstancesByMimeType("application/sparql-query").firstOrNull() ?: {
+    Language.findInstancesByMimeType("application/sparql-query").firstOrNull() ?: run {
         val language = Language.findLanguageByID("SPARQLQuery") ?: object : Language("SPARQLQuery") {
             override fun getDisplayName(): String = "SPARQL Query"
         }
@@ -41,11 +41,11 @@ val SPARQLQuery: Language by lazy {
             override val mimeTypes: Array<String> = arrayOf("application/sparql-query")
         })
         language
-    }()
+    }
 }
 
 val SPARQLUpdate: Language by lazy {
-    Language.findInstancesByMimeType("application/sparql-update").firstOrNull() ?: {
+    Language.findInstancesByMimeType("application/sparql-update").firstOrNull() ?: run {
         val language = Language.findLanguageByID("SPARQLUpdate") ?: object : Language("SPARQLUpdate") {
             override fun getDisplayName(): String = "SPARQL Update"
         }
@@ -57,11 +57,11 @@ val SPARQLUpdate: Language by lazy {
             override val mimeTypes: Array<String> = arrayOf("application/sparql-update")
         })
         language
-    }()
+    }
 }
 
 val SQL: Language by lazy {
-    Language.findInstancesByMimeType("application/sql").firstOrNull() ?: {
+    Language.findInstancesByMimeType("application/sql").firstOrNull() ?: run {
         val language = Language.findLanguageByID("SQL") ?: object : Language("SQL") {}
         language.putUserData(LanguageData.KEY, object : LanguageData {
             override val associations: List<FileNameMatcher> = listOf(
@@ -71,5 +71,5 @@ val SQL: Language by lazy {
             override val mimeTypes: Array<String> = arrayOf("application/sql")
         })
         language
-    }()
+    }
 }

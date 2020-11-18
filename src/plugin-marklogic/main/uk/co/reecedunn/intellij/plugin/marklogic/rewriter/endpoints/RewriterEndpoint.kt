@@ -38,7 +38,7 @@ class RewriterEndpoint(private val endpoint: XmlTag) : ItemPresentation, Endpoin
 
     override fun getLocationString(): String? = dispatch.split("/").lastOrNull()
 
-    override fun getIcon(unused: Boolean): Icon? = MarkLogicIcons.Rewriter.Endpoint
+    override fun getIcon(unused: Boolean): Icon = MarkLogicIcons.Rewriter.Endpoint
 
     // endregion
     // region Endpoint

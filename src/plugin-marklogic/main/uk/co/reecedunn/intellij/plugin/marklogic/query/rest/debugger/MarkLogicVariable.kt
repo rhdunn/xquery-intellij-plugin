@@ -43,7 +43,7 @@ class MarkLogicVariable private constructor(
         if (presentation != null) {
             node.setPresentation(XPathIcons.Nodes.Variable, presentation, false)
         } else {
-            evaluator?.evaluate(evaluationExpression!!, object : XDebuggerEvaluator.XEvaluationCallback {
+            evaluator?.evaluate(evaluationExpression, object : XDebuggerEvaluator.XEvaluationCallback {
                 override fun evaluated(result: XValue) {
                     value = result
                     (result as? QueryResultsValue)?.icon = XPathIcons.Nodes.Variable
@@ -85,12 +85,13 @@ class MarkLogicVariable private constructor(
         else -> QueryValuePresentation.forValue(value)
     }
 
-    override fun getEvaluationExpression(): String? = name
+    override fun getEvaluationExpression(): String = name
 
     override fun computeChildren(node: XCompositeNode) {
         (value as? XValue)?.computeChildren(node)
     }
 
+    @Suppress("RegExpAnonymousGroup")
     companion object {
         private val CONSTRUCTED_FROM_STRING = "^([a-zA-Z\\-]+:[a-zA-Z\\-]+)\\(\"([^\"]+)\"\\)$".toRegex()
         private val CONSTRUCTED = "^([a-zA-Z\\-]+:[a-zA-Z\\-]+)\\(.*$".toRegex()

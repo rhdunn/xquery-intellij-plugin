@@ -79,6 +79,7 @@ internal class MarkLogicProfileQuery(
         }
     }
 
+    @Suppress("DuplicatedCode")
     override fun request(): HttpUriRequest {
         val params = queryParams.deepCopy()
         params.addProperty("vars", variables.toString())
@@ -115,6 +116,7 @@ internal class MarkLogicProfileQuery(
         }
     }
 
+    @Suppress("DuplicatedCode")
     override fun stop() {
         val query = processor.createRunnableQuery(MarkLogicQueries.Request.Cancel, XQuery)
         query.bindVariable("server", "App-Services", "xs:string")

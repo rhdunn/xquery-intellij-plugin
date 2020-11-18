@@ -29,11 +29,11 @@ import javax.swing.Icon
 object RewriterEndpointsFramework : EndpointsFramework {
     // region ItemPresentation
 
-    override fun getIcon(unused: Boolean): Icon? = MarkLogicIcons.Rewriter.EndpointsFramework
+    override fun getIcon(unused: Boolean): Icon = MarkLogicIcons.Rewriter.EndpointsFramework
 
     override fun getLocationString(): String? = null
 
-    override fun getPresentableText(): String? = MarkLogicBundle.message("endpoints.rewriter.label")
+    override fun getPresentableText(): String = MarkLogicBundle.message("endpoints.rewriter.label")
 
     // endregion
     // region EndpointsFramework

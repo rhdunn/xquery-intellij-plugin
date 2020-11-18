@@ -27,11 +27,11 @@ import javax.swing.Icon
 object MarkLogic : ItemPresentation, XpmVendorType, XpmProductType {
     // region ItemPresentation
 
-    override fun getPresentableText(): String? = "MarkLogic"
+    override fun getPresentableText(): String = "MarkLogic"
 
     override fun getLocationString(): String? = null
 
-    override fun getIcon(unused: Boolean): Icon? = MarkLogicIcons.Product
+    override fun getIcon(unused: Boolean): Icon = MarkLogicIcons.Product
 
     // endregion
     // region XpmVendorType / XpmProductType
@@ -62,7 +62,7 @@ object MarkLogic : ItemPresentation, XpmVendorType, XpmProductType {
         return markLogicExecutable.find { File("$installDir/$it").exists() } != null
     }
 
-    override val modulePath: String? = "/Modules"
+    override val modulePath: String = "/Modules"
 
     private fun isMarkLogicSchemaFile(targetNamespace: String): Boolean {
         return !excludeSchemaNamespaces.contains(targetNamespace)
