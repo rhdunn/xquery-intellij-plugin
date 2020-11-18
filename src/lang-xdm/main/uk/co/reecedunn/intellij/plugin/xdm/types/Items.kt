@@ -24,9 +24,9 @@ interface XdmNode : XdmItem
 
 object XdmNodeItem : XdmItemType {
     override val typeName: String = "node()"
-    override val itemType: XdmItemType? get() = this
-    override val lowerBound: Int? = 1
-    override val upperBound: Int? = 1
+    override val itemType: XdmItemType get() = this
+    override val lowerBound: Int = 1
+    override val upperBound: Int = 1
     override val typeClass: Class<*> = XdmNode::class.java
 }
 
@@ -41,9 +41,9 @@ interface XdmAttributeNode : XdmNode {
 
 object XdmAttributeItem : XdmItemType {
     override val typeName: String = "attribute()"
-    override val itemType: XdmItemType? get() = this
-    override val lowerBound: Int? = 1
-    override val upperBound: Int? = 1
+    override val itemType: XdmItemType get() = this
+    override val lowerBound: Int = 1
+    override val upperBound: Int = 1
     override val typeClass: Class<*> = XdmAttributeNode::class.java
 }
 
@@ -65,9 +65,9 @@ interface XdmElementNode : XdmNode {
 
 object XdmElementItem : XdmItemType {
     override val typeName: String = "element()"
-    override val itemType: XdmItemType? get() = this
-    override val lowerBound: Int? = 1
-    override val upperBound: Int? = 1
+    override val itemType: XdmItemType get() = this
+    override val lowerBound: Int = 1
+    override val upperBound: Int = 1
     override val typeClass: Class<*> = XdmElementNode::class.java
 }
 
@@ -83,9 +83,9 @@ interface XdmNamespaceNode : XdmNode
 
 object XdmNamespaceItem : XdmItemType {
     override val typeName: String = "namespace-node()"
-    override val itemType: XdmItemType? get() = this
-    override val lowerBound: Int? = 1
-    override val upperBound: Int? = 1
+    override val itemType: XdmItemType get() = this
+    override val lowerBound: Int = 1
+    override val upperBound: Int = 1
     override val typeClass: Class<*> = XdmElementNode::class.java
 }
 

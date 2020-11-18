@@ -41,9 +41,10 @@ data class XsDuration(
     }
 }
 
+@Suppress("RegExpAnonymousGroup")
 private val RE_INVALID_PARTIAL_DURATION = """^-?P(.*T)?${'$'}""".toRegex()
 
-@Suppress("RegExpRepeatedSpace")
+@Suppress("RegExpRepeatedSpace", "RegExpAnonymousGroup")
 private val RE_DURATION = """^
     (-)?
     P (([0-9]+)Y)? # years

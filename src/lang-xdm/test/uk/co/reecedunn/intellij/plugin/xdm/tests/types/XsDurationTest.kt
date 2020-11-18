@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.toXsDuration
 import java.math.BigDecimal
 import java.math.BigInteger
 
+@Suppress("RedundantInnerClassModifier")
 @DisplayName("XQuery 3.1 - Data Model - xs:duration")
 class XsDurationTest {
     @Nested

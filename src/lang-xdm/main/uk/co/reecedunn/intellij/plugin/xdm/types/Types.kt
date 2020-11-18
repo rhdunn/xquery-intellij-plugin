@@ -39,15 +39,15 @@ interface XdmSequenceTypeUnion : XdmSequenceType {
 
 object XdmSingleItemType : XdmItemType {
     override val typeName: String = "item()"
-    override val itemType: XdmItemType? get() = this
-    override val lowerBound: Int? = 1
-    override val upperBound: Int? = 1
+    override val itemType: XdmItemType get() = this
+    override val lowerBound: Int = 1
+    override val upperBound: Int = 1
     override val typeClass: Class<*> = XdmItem::class.java
 }
 
 object XdmEmptySequence : XdmSequenceType {
     override val typeName: String = "empty-sequence()"
     override val itemType: XdmItemType? = null
-    override val lowerBound: Int? = 0
-    override val upperBound: Int? = 0
+    override val lowerBound: Int = 0
+    override val upperBound: Int = 0
 }

@@ -29,10 +29,13 @@ class UndeclaredNamespacePrefixException(prefix: String) :
 @Suppress("FunctionName")
 fun op_qname_equal(arg1: XsQNameValue, arg2: XsQNameValue): Boolean {
     if (arg1.localName?.data?.equals(arg2.localName?.data) == true) {
-        return if (arg1.isLexicalQName && arg2.isLexicalQName) {
-            (arg1.prefix == null && arg2.prefix == null) || arg1.prefix?.data?.equals(arg2.prefix?.data) == true
-        } else {
-            (arg1.namespace == null && arg2.namespace == null) || arg1.namespace?.data?.equals(arg2.namespace?.data) == true
+        return when {
+            arg1.isLexicalQName && arg2.isLexicalQName -> {
+                (arg1.prefix == null && arg2.prefix == null) || arg1.prefix?.data?.equals(arg2.prefix?.data) == true
+            }
+            arg1.namespace == null && arg2.namespace == null -> true
+            arg1.namespace?.data?.equals(arg2.namespace?.data) == true -> true
+            else -> false
         }
     }
     return false

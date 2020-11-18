@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_parse
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 
+@Suppress("RedundantInnerClassModifier")
 @DisplayName("XQuery IntelliJ Plugin Functions and Operators")
 class PluginFunctionsAndOperatorsTest {
     @Nested

@@ -15,6 +15,4 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.schema
 
-import uk.co.reecedunn.intellij.plugin.xdm.schema.ISchemaType
-
 interface ISchemaListType : ISchemaType

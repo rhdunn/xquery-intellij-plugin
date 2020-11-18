@@ -39,6 +39,7 @@ data class XsAnyUri(
     override val element: PsiElement?
         get() = reference?.get()
 
+    @Suppress("DuplicatedCode") // PSI and value are separate implementations of the same interface.
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
