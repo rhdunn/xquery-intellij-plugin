@@ -59,6 +59,7 @@ internal class BaseXProfileableQuery(
         }
     }
 
+    @Suppress("DuplicatedCode")
     override fun profile(): ProfileQueryResults = check(classLoader, queryFile) {
         session.execute("set queryinfo on")
         session.execute("set xmlplan off")

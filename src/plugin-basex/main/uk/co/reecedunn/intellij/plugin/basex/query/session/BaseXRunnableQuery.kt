@@ -59,6 +59,7 @@ internal class BaseXRunnableQuery(
         }
     }
 
+    @Suppress("DuplicatedCode")
     override fun run(): QueryResults = check(classLoader, queryFile) {
         session.execute("set queryinfo off")
         session.execute("set xmlplan off")

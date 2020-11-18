@@ -21,8 +21,11 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModuleUri
 import java.lang.reflect.InvocationTargetException
 
+@Suppress("RegExpAnonymousGroup")
 private val RE_BASEX_EXCEPTION =
     "^(.* (.+), ([0-9]+)/([0-9]+):[\r\n]+)?\\[([^]]+)] (.*)".toRegex()
+
+@Suppress("RegExpAnonymousGroup")
 private val RE_BASEX_EXCEPTION_LINE_COL =
     "^(.* ()([0-9]+), .* ([0-9]+):[\r\n]+)?\\[([^]]+)] (.*)".toRegex()
 

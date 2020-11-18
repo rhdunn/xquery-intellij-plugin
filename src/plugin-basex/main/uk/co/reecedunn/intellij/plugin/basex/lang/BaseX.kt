@@ -27,11 +27,11 @@ import javax.swing.Icon
 object BaseX : ItemPresentation, XpmVendorType, XpmProductType {
     // region ItemPresentation
 
-    override fun getPresentableText(): String? = "BaseX"
+    override fun getPresentableText(): String = "BaseX"
 
     override fun getLocationString(): String? = null
 
-    override fun getIcon(unused: Boolean): Icon? = BaseXIcons.Product
+    override fun getIcon(unused: Boolean): Icon = BaseXIcons.Product
 
     // endregion
     // region XpmVendorType / XpmProductType

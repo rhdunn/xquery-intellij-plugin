@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.basex.query.session
 
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsDuration
 
+@Suppress("RegExpAnonymousGroup")
 private val RE_TOTAL_TIME = "([0-9.]+) ms[ .]".toRegex()
 
 private fun String.toBaseXInfoBlocks(): Sequence<String> {
