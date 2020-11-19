@@ -34,12 +34,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.settings.XQueryProjectSettings
-import uk.co.reecedunn.intellij.plugin.xpm.module.ImportPathResolver
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
-import uk.co.reecedunn.intellij.plugin.xpm.module.ImportPathResolverBean
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
-import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProviderBean
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryNamespaceProvider
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -70,7 +67,6 @@ abstract class ParserTestCase :
         registerModules(manager)
         myProject.registerService(ModuleManager::class.java, manager)
 
-        registerExtensionPoint(XpmNamespaceProvider.EP_NAME, XpmNamespaceProviderBean::class.java)
         XpmNamespaceProvider.register(this, XQueryNamespaceProvider)
     }
 

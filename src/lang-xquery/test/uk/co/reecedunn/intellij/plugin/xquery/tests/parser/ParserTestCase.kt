@@ -48,8 +48,6 @@ import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderSettings
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.JspModuleSourceRootLoader
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.RelativeModuleLoader
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.impl.XpmModuleLocationPath
-import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
-import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProviderBean
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableProviderBean
 
@@ -99,7 +97,6 @@ abstract class ParserTestCase :
         ImportPathResolver.register(this, uk.co.reecedunn.intellij.plugin.w3.model.BuiltInFunctions)
 
         registerExtensionPoint(XpmFunctionDecorator.EP_NAME, XpmFunctionDecoratorBean::class.java)
-        registerExtensionPoint(XpmNamespaceProvider.EP_NAME, XpmNamespaceProviderBean::class.java)
         registerExtensionPoint(XpmVariableProvider.EP_NAME, XpmVariableProviderBean::class.java)
 
         registerExtensions()
