@@ -34,7 +34,6 @@ buildscript {
 
     ext.idea_version = System.getenv("IDEA_VERSION") ?: '2020.2'
     ext.idea_since_build = ext.since_from_version(ext.idea_version).toInteger()
-    ext.junit_milestone = ''
 
     if (ext.idea_since_build >= 203) {
         ext.kotlin_version = "1.4.0"
@@ -99,10 +98,10 @@ configure(allprojects - project(':src')) {
         compile "org.jsoup:jsoup:1.12.1"
         compile "net.sf.saxon:Saxon-HE:9.9.1-7"
 
-        testCompile "org.junit.jupiter:junit-jupiter-api:5.4.0$junit_milestone"
+        testCompile "org.junit.jupiter:junit-jupiter-api:5.7.0"
 
-        testRuntime("org.junit.platform:junit-platform-launcher:1.4.0$junit_milestone")
-        testRuntime("org.junit.jupiter:junit-jupiter-engine:5.4.0$junit_milestone")
+        testRuntime("org.junit.platform:junit-platform-launcher:1.7.0")
+        testRuntime("org.junit.jupiter:junit-jupiter-engine:5.7.0")
     }
 
     tasks {
