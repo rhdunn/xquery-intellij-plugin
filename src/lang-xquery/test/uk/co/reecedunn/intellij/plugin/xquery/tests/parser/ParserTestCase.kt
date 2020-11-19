@@ -38,13 +38,11 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.settings.XQueryProjectSettings
 import uk.co.reecedunn.intellij.plugin.xpm.java.JavaTypePath
 import uk.co.reecedunn.intellij.plugin.xpm.module.ImportPathResolver
-import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderFactoryBean
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePathFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDecorator
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDecoratorBean
-import uk.co.reecedunn.intellij.plugin.xpm.module.ImportPathResolverBean
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderFactory
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderSettings
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.JspModuleSourceRootLoader
@@ -96,7 +94,6 @@ abstract class ParserTestCase :
         registerExtensionPoint(XpmModulePathFactory.EP_NAME, XpmModulePathFactoryBean::class.java)
         XpmModulePathFactory.register(this, XpmModuleLocationPath, "")
 
-        registerExtensionPoint(XpmModuleLoaderFactory.EP_NAME, XpmModuleLoaderFactoryBean::class.java)
         XpmModuleLoaderFactory.register(this, "module", JspModuleSourceRootLoader, "")
         XpmModuleLoaderFactory.register(this, "relative", RelativeModuleLoader)
 

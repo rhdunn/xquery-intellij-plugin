@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpm.module.loader
 
 import com.intellij.compat.testFramework.registerExtension
+import com.intellij.compat.testFramework.registerExtensionPointBean
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.ExtensionPointName
 import com.intellij.util.xmlb.annotations.Tag
@@ -45,7 +46,10 @@ interface XpmModuleLoaderFactory {
             bean.implementationClass = factory::class.java.name
             bean.fieldName = fieldName
             bean.setPluginDescriptor(plugin.pluginDescriptor)
-            ApplicationManager.getApplication().registerExtension(EP_NAME, bean, plugin.pluginDisposable)
+
+            val app = ApplicationManager.getApplication()
+            app.registerExtensionPointBean(EP_NAME, XpmModuleLoaderFactoryBean::class.java, plugin.pluginDisposable)
+            app.registerExtension(EP_NAME, bean, plugin.pluginDisposable)
         }
     }
 
