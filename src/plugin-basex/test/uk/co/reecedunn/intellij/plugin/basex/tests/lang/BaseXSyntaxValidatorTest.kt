@@ -42,7 +42,6 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
 import uk.co.reecedunn.intellij.plugin.xpm.lang.diagnostics.XpmDiagnostics
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidation
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
-import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidatorBean
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("XQuery IntelliJ Plugin - Syntax Validation - BaseX")
@@ -59,7 +58,6 @@ class BaseXSyntaxValidatorTest :
         addExplicitExtension(LanguageASTFactory.INSTANCE, XPath, XPathASTFactory())
         addExplicitExtension(LanguageASTFactory.INSTANCE, XQuery, XQueryASTFactory())
 
-        registerExtensionPoint(XpmSyntaxValidator.EP_NAME, XpmSyntaxValidatorBean::class.java)
         XpmSyntaxValidator.register(this, BaseXSyntaxValidator)
     }
 

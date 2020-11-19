@@ -41,7 +41,6 @@ import uk.co.reecedunn.intellij.plugin.marklogic.lang.MarkLogicSyntaxValidator
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
-import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidatorBean
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProviderBean
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryNamespaceProvider
@@ -77,7 +76,6 @@ abstract class InspectionTestCase :
         addExplicitExtension(LanguageASTFactory.INSTANCE, XPath, XPathASTFactory())
         addExplicitExtension(LanguageASTFactory.INSTANCE, XQuery, XQueryASTFactory())
 
-        registerExtensionPoint(XpmSyntaxValidator.EP_NAME, XpmSyntaxValidatorBean::class.java)
         XpmSyntaxValidator.register(this, BaseXSyntaxValidator)
         XpmSyntaxValidator.register(this, MarkLogicSyntaxValidator)
 

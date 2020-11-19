@@ -19,8 +19,27 @@ package com.intellij.compat.testFramework
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.application.Application
 import com.intellij.openapi.extensions.BaseExtensionPointName
+import com.intellij.openapi.extensions.ExtensionPoint
+import com.intellij.openapi.extensions.ExtensionPointName
 import com.intellij.openapi.extensions.Extensions
+import com.intellij.openapi.util.Disposer
 import org.jetbrains.annotations.TestOnly
+
+@TestOnly
+@Suppress("unused")
+fun <T : Any> Application.registerExtensionPointBean(
+    name: ExtensionPointName<*>,
+    aClass: Class<T>,
+    parentDisposable: Disposable
+) {
+    val area = Extensions.getRootArea()
+    if (!area.hasExtensionPoint(name)) {
+        area.registerExtensionPoint(name.name, aClass.name, ExtensionPoint.Kind.BEAN_CLASS)
+        Disposer.register(parentDisposable, Disposable {
+            area.unregisterExtensionPoint(name.name)
+        })
+    }
+}
 
 @TestOnly
 @Suppress("unused")
