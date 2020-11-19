@@ -35,7 +35,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableProvider
-import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationSourceProviderBean
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryVariableProvider
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryFunctionProvider
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryNamespaceProvider
@@ -62,10 +61,6 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
     override fun setUp() {
         super.setUp()
 
-        registerExtensionPoint(
-            XQDocDocumentationSourceProvider.EP_NAME,
-            XQDocDocumentationSourceProviderBean::class.java
-        )
         XQDocDocumentationSourceProvider.register(this, DocumentationSourceProvider)
 
         XpmVariableProvider.register(this, XQueryVariableProvider)

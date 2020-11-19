@@ -16,11 +16,14 @@
 package uk.co.reecedunn.intellij.plugin.xqdoc.documentation
 
 import com.intellij.compat.testFramework.registerExtension
+import com.intellij.compat.testFramework.registerExtensionPointBean
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.ExtensionPointName
 import uk.co.reecedunn.intellij.plugin.core.extensions.PluginDescriptorProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElementFactory
+import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElementFactoryBean
 
 interface XQDocDocumentationSourceProvider {
     companion object {
@@ -52,7 +55,12 @@ interface XQDocDocumentationSourceProvider {
             bean.implementationClass = provider::class.java.name
             bean.fieldName = fieldName
             bean.setPluginDescriptor(plugin.pluginDescriptor)
-            ApplicationManager.getApplication().registerExtension(EP_NAME, bean, plugin.pluginDisposable)
+
+            val app = ApplicationManager.getApplication()
+            app.registerExtensionPointBean(
+                EP_NAME, XQDocDocumentationSourceProviderBean::class.java, plugin.pluginDisposable
+            )
+            app.registerExtension(EP_NAME, bean, plugin.pluginDisposable)
         }
     }
 
