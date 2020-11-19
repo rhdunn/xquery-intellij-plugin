@@ -47,10 +47,14 @@ abstract class ParserTestCase : ParsingTestCase<PsiFile>(null, XPathParserDefini
         myProject.registerService(ModuleManager::class.java, MockModuleManager(myProject))
 
         registerExtensionPoint(XpmFunctionProvider.EP_NAME, XpmFunctionProviderBean::class.java)
+
+        registerExtensions()
     }
 
     @AfterAll
     override fun tearDown() {
         super.tearDown()
     }
+
+    open fun registerExtensions() {}
 }

@@ -34,6 +34,10 @@ import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("XPath 3.1 - Code Completion - Lookup Element")
 private class XPathLookupElementTest : ParserTestCase() {
+    override fun registerExtensions() {
+        registerExtensionPoint("com.intellij.openapi.editor.impl.DocumentWriteAccessGuard", "EP_NAME")
+    }
+
     @Nested
     @DisplayName("XPath 3.1 EBNF (41) ForwardAxis ; XPath 3.1 EBNF (44) ReverseAxis")
     internal inner class ForwardOrReverseAxis {

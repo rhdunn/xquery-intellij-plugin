@@ -52,6 +52,8 @@ private class XQueryLookupElementTest : ParserTestCase() {
     override val pluginId: PluginId = PluginId.getId("XQueryLookupElementTest")
 
     override fun registerExtensions() {
+        registerExtensionPoint("com.intellij.openapi.editor.impl.DocumentWriteAccessGuard", "EP_NAME")
+
         XpmNamespaceProvider.register(this, XQueryNamespaceProvider)
         XpmVariableProvider.register(this, XQueryVariableProvider)
         XpmFunctionProvider.register(this, XQueryFunctionProvider)
