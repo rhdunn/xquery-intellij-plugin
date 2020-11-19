@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpm.module.path
 
 import com.intellij.compat.testFramework.registerExtension
+import com.intellij.compat.testFramework.registerExtensionPointBean
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.ExtensionPointName
 import com.intellij.openapi.project.Project
@@ -36,7 +37,10 @@ interface XpmModulePathFactory {
             bean.implementationClass = factory.javaClass.name
             bean.fieldName = fieldName
             bean.setPluginDescriptor(plugin.pluginDescriptor)
-            ApplicationManager.getApplication().registerExtension(EP_NAME, bean, plugin.pluginDisposable)
+
+            val app = ApplicationManager.getApplication()
+            app.registerExtensionPointBean(EP_NAME, XpmModulePathFactoryBean::class.java, plugin.pluginDisposable)
+            app.registerExtension(EP_NAME, bean, plugin.pluginDisposable)
         }
     }
 
