@@ -61,7 +61,7 @@ buildscript {
 }
 
 plugins {
-    id "org.jetbrains.intellij" version "0.4.26"
+    id "org.jetbrains.intellij" version "0.6.3"
 }
 
 configure(allprojects - project(':src')) {
