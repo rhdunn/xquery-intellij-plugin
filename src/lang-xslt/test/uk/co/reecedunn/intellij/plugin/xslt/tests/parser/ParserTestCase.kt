@@ -42,7 +42,6 @@ import uk.co.reecedunn.intellij.plugin.core.tests.roots.MockProjectRootsManager
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElementFactory
-import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElementFactoryBean
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.XsltShadowPsiElementFactory
 
@@ -73,7 +72,6 @@ abstract class ParserTestCase(vararg definitions: ParserDefinition) :
         myProject.registerService(ModuleManager::class.java, MockModuleManager(myProject))
         myProject.registerService(InjectedLanguageManager::class.java, MockInjectedLanguageManager())
 
-        registerExtensionPoint(XpmShadowPsiElementFactory.EP_NAME, XpmShadowPsiElementFactoryBean::class.java)
         XpmShadowPsiElementFactory.register(this, XsltShadowPsiElementFactory)
     }
 

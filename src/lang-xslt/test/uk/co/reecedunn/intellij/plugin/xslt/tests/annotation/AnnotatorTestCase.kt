@@ -36,7 +36,6 @@ import uk.co.reecedunn.intellij.plugin.core.tests.injecton.MockInjectedLanguageM
 import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
 import uk.co.reecedunn.intellij.plugin.core.tests.roots.MockProjectRootsManager
 import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElementFactory
-import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElementFactoryBean
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.XsltShadowPsiElementFactory
 
 @Suppress("MemberVisibilityCanBePrivate", "SameParameterValue")
@@ -66,7 +65,6 @@ abstract class AnnotatorTestCase(vararg definitions: ParserDefinition) :
         myProject.registerService(ModuleManager::class.java, MockModuleManager(myProject))
         myProject.registerService(InjectedLanguageManager::class.java, MockInjectedLanguageManager())
 
-        registerExtensionPoint(XpmShadowPsiElementFactory.EP_NAME, XpmShadowPsiElementFactoryBean::class.java)
         XpmShadowPsiElementFactory.register(this, XsltShadowPsiElementFactory)
     }
 
