@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpm.optree.function
 
 import com.intellij.compat.testFramework.registerExtension
+import com.intellij.compat.testFramework.registerExtensionPointBean
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.ExtensionPointName
 import com.intellij.psi.PsiFile
@@ -36,7 +37,10 @@ interface XpmFunctionProvider {
             bean.implementationClass = provider.javaClass.name
             bean.fieldName = fieldName
             bean.setPluginDescriptor(plugin.pluginDescriptor)
-            ApplicationManager.getApplication().registerExtension(EP_NAME, bean, plugin.pluginDisposable)
+
+            val app = ApplicationManager.getApplication()
+            app.registerExtensionPointBean(EP_NAME, XpmFunctionProviderBean::class.java, plugin.pluginDisposable)
+            app.registerExtension(EP_NAME, bean, plugin.pluginDisposable)
         }
     }
 
