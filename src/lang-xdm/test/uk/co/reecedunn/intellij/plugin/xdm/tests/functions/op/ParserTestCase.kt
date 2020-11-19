@@ -70,8 +70,6 @@ abstract class ParserTestCase :
         registerModules(manager)
         myProject.registerService(ModuleManager::class.java, manager)
 
-        registerExtensionPoint(ImportPathResolver.EP_NAME, ImportPathResolverBean::class.java)
-
         registerExtensionPoint(XpmNamespaceProvider.EP_NAME, XpmNamespaceProviderBean::class.java)
         XpmNamespaceProvider.register(this, XQueryNamespaceProvider)
     }

@@ -100,7 +100,6 @@ abstract class ParserTestCase :
         XpmModuleLoaderFactory.register(this, "module", JspModuleSourceRootLoader, "")
         XpmModuleLoaderFactory.register(this, "relative", RelativeModuleLoader)
 
-        registerExtensionPoint(ImportPathResolver.EP_NAME, ImportPathResolverBean::class.java)
         ImportPathResolver.register(this, uk.co.reecedunn.intellij.plugin.basex.model.BuiltInFunctions)
         ImportPathResolver.register(this, uk.co.reecedunn.intellij.plugin.marklogic.model.BuiltInFunctions)
         ImportPathResolver.register(this, uk.co.reecedunn.intellij.plugin.saxon.model.BuiltInFunctions)
