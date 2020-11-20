@@ -25,25 +25,16 @@ plugin-specific extensions are provided to support IntelliJ integration.
       - [Attribute Test](#2124-attribute-test)
       - [Type Alias](#2125-type-alias)
 - [Expressions](#3-expressions)
-  - [Quantified Expressions](#31-quantified-expressions)
-  - [Path Expressions](#32-path-expressions)
-    - [Node Tests](#321-node-tests)
-    - [Filter Steps](#322-filter-steps)
-    - [Abbreviated Syntax](#323-abbreviated-syntax)
-  - [FLWOR Expressions](#33-flwor-expressions)
-    - [For Expressions](#331-for-expressions)
-    - [For Member Expressions](#332-for-member-expressions)
-    - [Let Expressions](#333-let-expressions)
-  - [Logical Expressions](#34-logical-expressions)
-  - [Conditional Expressions](#35-conditional-expressions)
-    - [Otherwise Expressions](#351-otherwise-expressions)
-  - [Primary Expressions](#36-primary-expressions)
-    - [Inline Function Expressions](#361-inline-function-expressions)
-      - [Context Item Function Expressions](#3611-context-item-function-expressions)
-      - [Lambda Function Expressions](#3612-lambda-function-expressions)
-    - [Parenthesized Expressions](#362-parenthesized-expressions)
-  - [Arrow Operator (=>)](#37-arrow-operator-)
-  - [Postfix Expressions](#38-postfix-expressions)
+  - [FLWOR Expressions](#31-flwor-expressions)
+    - [For Member Expressions](#311-for-member-expressions)
+  - [Logical Expressions](#32-logical-expressions)
+  - [Conditional Expressions](#33-conditional-expressions)
+    - [Otherwise Expressions](#331-otherwise-expressions)
+  - [Primary Expressions](#34-primary-expressions)
+    - [Inline Function Expressions](#341-inline-function-expressions)
+      - [Context Item Function Expressions](#3411-context-item-function-expressions)
+      - [Lambda Function Expressions](#3412-lambda-function-expressions)
+  - [Arrow Operator (=>)](#35-arrow-operator-)
 - {: .toc-letter } [XQuery IntelliJ Plugin Grammar](#a-xquery-intellij-plugin-grammar)
   - [EBNF for XPath 3.1 with Vendor Extensions](#a1-ebnf-for-xpath-31-with-vendor-extensions)
   - [Reserved Function Names](#a2-reserved-function-names)
@@ -53,18 +44,12 @@ plugin-specific extensions are provided to support IntelliJ integration.
   - [EXPath References](#b3-expath-references)
   - [Saxon References](#b4-saxon-references)
 - {: .toc-letter } [Vendor Extensions](#c-vendor-extensions)
-  - [IntelliJ Plugin Extensions](#c1-intellij-plugin-extensions)
-  - [Saxon Vendor Extensions](#c2-saxon-vendor-extensions)
+  - [Saxon Vendor Extensions](#c1-saxon-vendor-extensions)
 
 ## 1 Introduction
 This document defines the syntax and semantics for vendor and plugin specific
 functionality that extends XPath 2.0. The syntax described here is the syntax
 that is supported by the XQuery IntelliJ Plugin.
-
-The plugin provides plugin-specific extensions to support IntelliJ
-integration. These are listed in appendix
-[C.1 IntelliJ Plugin Extensions](#c1-intellij-plugin-extensions), with links to
-the relevant parts of this document that describe the specific extensions.
 
 ## 2 Basics
 This document uses the following namespace prefixes to represent the namespace
@@ -216,85 +201,9 @@ Saxon 9.8 uses the `~type` syntax, while Saxon 10.0 uses the `type(...)` syntax.
 |--------|-------------------------|-----|-------------------------------------|-----------|
 | \[9\]  | `ExprSingle`            | ::= | `ForExpr \| LetExpr \| ForMemberExpr \| QuantifiedExpr \| IfExpr \| TernaryIfExpr` | |
 
-### 3.1 Quantified Expressions
+### 3.1 FLWOR Expressions
 
-{: .ebnf-symbols }
-| Ref   | Symbol                  |     | Expression                          | Options              |
-|-------|-------------------------|-----|-------------------------------------|----------------------|
-| \[1\] | `QuantifiedExpr`        | ::= | `("some" \| "every") QuantifiedExprBinding ("," QuantifiedExprBinding)* "satisfies" ExprSingle` | |
-| \[2\] | `QuantifiedExprBinding` | ::= | `"$" VarName "in" ExprSingle` | |
-
-This follows the grammar production pattern used in other constructs like
-`LetClause` and `ForClause`, making it easier to support variable bindings.
-
-### 3.2 Path Expressions
-
-#### 3.2.1 Node Tests
-
-{: .ebnf-symbols }
-| Ref    | Symbol                         |     | Expression                                | Options |
-|--------|--------------------------------|-----|-------------------------------------------|---------|
-| \[3\]  | `Wildcard`                     | ::= | `WildcardIndicator \| (NCName ":" WildcardIndicator) \| (WildcardIndicator ":" NCName) \| (BracedURILiteral WildcardIndicator)` | /\* ws: explicit \*/ |
-| \[4\]  | `WildcardIndicator`            | ::= | `"*"`                                     |         |
-
-The changes to `Wildcard` are to make it work like the `EQName` grammar
-productions. This is such that `WildcardIndicator` is placed wherever an
-`NCName` can occur in an `EQName`. That is, either the prefix or local
-name (but not both) can be `WildcardIndicator`.
-
-A `WildcardIndicator` is an instance of `xdm:wildcard`.
-
-#### 3.2.2 Filter Steps
-
-{: .ebnf-symbols }
-| Ref     | Symbol                         |     | Expression                                | Options |
-|---------|--------------------------------|-----|-------------------------------------------|---------|
-| \[49\]  | `AxisStep`                     | ::= | `FilterStep \| ReverseStep \| ForwardStep` |        |
-| \[50\]  | `FilterStep`                   | ::= | `AxisStep Predicate`                      |         |
-
-The XPath 3.1 `AxisStep` is modified so that each filter step (`Predicate`) can
-be associated with their own EBNF symbol. This is how the XQuery IntelliJ Plugin
-models these expressions in the internal operation tree.
-
-#### 3.2.3 Abbreviated Syntax
-
-{: .ebnf-symbols }
-| Ref     | Symbol                         |     | Expression                                | Options |
-|---------|--------------------------------|-----|-------------------------------------------|---------|
-| \[42\]  | `PathExpr`                     | ::= | `("/" RelativePathExpr?) \| (AbbrevDescendantOrSelfStep RelativePathExpr) \| RelativePathExpr` | /\* xgc: leading-lone-slash \*/ |
-| \[43\]  | `RelativePathExpr`             | ::= | `StepExpr (("/" \| AbbrevDescendantOrSelfStep) StepExpr)*` | |
-| \[44\]  | `AbbrevDescendantOrSelfStep`   | ::= | `"//"`                                    |         |
-
-The abbreviated descendant-or-self selector `//` is split out into a separate
-EBNF symbol.
-
-The abbreviated syntax permits the following additional abbreviations:
-
-1. Per item 4 of section 3.3.5 and paragraph 4 of section 3.3 of the XPath
-   specification, the `AbbrevDescendantOrSelfStep` symbol is equivalent to
-   `/descendant-or-self::node()/`.
-
-1. A `/` or `//` at the beginning of a path expression is an abbreviation for
-   the following root step before the `/` or `//`:
-   1. `(fn:root(self::node()) treat as document-node())` for standard XPath
-      expressions;
-   1. `fn:collection()` for MarkLogic XPath expressions evaluated against a
-      MarkLogic database.
-
-### 3.3 FLWOR Expressions
-
-### 3.3.1 For Expressions
-
-{: .ebnf-symbols }
-| Ref    | Symbol                         |     | Expression                                | Options |
-|--------|--------------------------------|-----|-------------------------------------------|---------|
-| \[7\]  | `ForExpr`                      | ::= | `SimpleForClause ReturnClause`            |         |
-| \[8\]  | `ReturnClause`                 | ::= | `"return" ExprSingle`                     |         |
-
-The `ForExpr` follows the grammar production pattern used in XQuery 3.0 for
-`FLWORExpr` grammar productions.
-
-### 3.3.2 For Member Expressions
+#### 3.1.1 For Member Expressions
 
 {: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
@@ -335,18 +244,7 @@ is equivalent to:
     return for member $m_n in E_n
     return R
 
-### 3.3.3 Let Expressions
-
-{: .ebnf-symbols }
-| Ref    | Symbol                         |     | Expression                                | Options |
-|--------|--------------------------------|-----|-------------------------------------------|---------|
-| \[39\] | `LetExpr`                      | ::= | `SimpleLetClause ReturnClause`            |         |
-| \[8\]  | `ReturnClause`                 | ::= | `"return" ExprSingle`                     |         |
-
-The `LetExpr` follows the grammar production pattern used in XQuery 3.0 for
-`FLWORExpr` grammar productions.
-
-### 3.4 Logical Expressions
+### 3.2 Logical Expressions
 
 {: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
@@ -366,7 +264,7 @@ evaluates the right hand side (`rhs`) if the left hand side is true. This is
 equivalent to:
 >     if (lhs) then xs:boolean(rhs) else fn:false()
 
-### 3.5 Conditional Expressions
+### 3.3 Conditional Expressions
 
 {: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
@@ -389,7 +287,7 @@ the equivalent `IfExpr` is:
 
     if (C) then A else B
 
-#### 3.5.1 Otherwise Expressions
+#### 3.3.1 Otherwise Expressions
 
 {: .ebnf-symbols }
 | Ref     | Symbol                         |     | Expression                                | Options |
@@ -421,7 +319,7 @@ Otherwise, if either `A` or `B` have more than one item, the expressions
 > item in the non-empty sequence, not the entire sequence. This is why the more
 > complicated expression is needed for that case.
 
-### 3.6 Primary Expressions
+### 3.4 Primary Expressions
 
 {: .ebnf-symbols }
 | Ref    | Symbol                  |     | Expression                          | Options   |
@@ -429,7 +327,7 @@ Otherwise, if either `A` or `B` have more than one item, the expressions
 | \[36\] | `PrimaryExpr`           | ::= | `Literal \| VarRef \| ParamRef \| ParenthesizedExpr \| ContextItemExpr \| FunctionCall \| FunctionItemExpr \| MapConstructor \| ArrayConstructor \| UnaryLookup` | |
 | \[23\] | `FunctionItemExpr`      | ::= | `NamedFunctionRef \| InlineFunctionExpr \| ContextItemFunctionExpr \| LambdaFunctionExpr` | |
 
-#### 3.6.1 Inline Function Expressions
+#### 3.4.1 Inline Function Expressions
 
 {: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
@@ -444,7 +342,7 @@ When `...` is added after the last parameter in a parameter list, that parameter
 contains the arguments passed after the previous parameter as an `array`. If the
 variadic parameter has a type, the elements in that array have that type.
 
-##### 3.6.1.1 Context Item Function Expressions
+##### 3.4.1.1 Context Item Function Expressions
 
 {: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
@@ -459,7 +357,7 @@ The expressions `fn{E}` (from Saxon 9.8) and `.{E}` (from Saxon 10.0)
 are equivalent to:
 >     function ($arg as item()) as item()* { $arg ! (E) }
 
-##### 3.6.1.2 Lambda Function Expressions
+##### 3.4.1.2 Lambda Function Expressions
 
 {: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
@@ -495,20 +393,7 @@ expressions in the lambda function body expression.
 > If there are no `ParamRef` primary expressions in the lambda function body
 > expression, the lambda function has an arity of 0.
 
-#### 3.6.2 Parenthesized Expressions
-
-{: .ebnf-symbols }
-| Ref    | Symbol                         |     | Expression                                | Options |
-|--------|--------------------------------|-----|-------------------------------------------|---------|
-| \[51\] | `ParenthesizedExpr`            | ::= | `EmptyExpr | ( "(" Expr ")" )`            |         |
-| \[52\] | `EmptyExpr`                    | ::= | `"(" ")"`                                 |         |
-
-The `EmptyExpr` construct has been separated out to make it easier to denote the
-semantics of empty expressions. This is primarily because the IntelliJ plugin
-only keeps the original `ParenthesizedExpr` node when it denotes an empty
-expression.
-
-### 3.7 Arrow Operator (=>)
+### 3.5 Arrow Operator (=>)
 
 {: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
@@ -517,34 +402,8 @@ expression.
 | \[28\] | `ArrowFunctionCall`            | ::= | `EQName ArgumentList`                     |         |
 | \[38\] | `ArrowDynamicFunctionCall`     | ::= | `( VarRef \| ParamRef \| ParenthesizedExpr ) ArgumentList` | |
 
-This splits out the arrow function call grammar into a separate symbol, making
-it easier to bind the first parameter of the referenced functions to the correct
-argument expression in the arrow expression.
-
-The `ArrowFunctionCall` symbol mirrors the `FunctionCall` symbol, and is used
-for static function calls in the XQuery IntelliJ Plugin operation tree.
-
-The `ArrowDynamicFunctionCall` symbol mirrors the `DynamicFunctionCall` symbol,
-and is used for dynamic function calls in the XQuery IntelliJ Plugin operation
-tree.
-
-The `ParamRef` is for [Lambda Function Expressions](#3612-lambda-function-expressions)
+The `ParamRef` is for [Lambda Function Expressions](#3412-lambda-function-expressions)
 support in Saxon 10.0.
-
-### 3.8 Postfix Expressions
-
-{: .ebnf-symbols }
-| Ref     | Symbol                         |     | Expression                          | Options              |
-|---------|--------------------------------|-----|-------------------------------------|----------------------|
-| \[45\]  | `PostfixExpr`                  | ::= | `FilterExpr \| DynamicFunctionCall \| PostfixLookup \| PrimaryExpr` | |
-| \[46\]  | `FilterExpr`                   | ::= | `PostfixExpr Predicate`             |                      |
-| \[47\]  | `DynamicFunctionCall`          | ::= | `PostfixExpr ArgumentList`          |                      |
-| \[48\]  | `PostfixLookup`                | ::= | `PostfixExpr Lookup`                |                      |
-
-The XPath 3.1 `PostfixExpr` is modified so that each filter expression, dynamic
-function call, and postfix lookup can be associated with their own EBNF symbol.
-This is how the XQuery IntelliJ Plugin models these expressions in the internal
-operation tree.
 
 ## A XQuery IntelliJ Plugin Grammar
 
@@ -733,32 +592,17 @@ __Papers:__
 
 ## C Vendor Extensions
 
-### C.1 IntelliJ Plugin Extensions
-The following constructs have had their grammar modified to make it easier to
-implement features such as variable lookup. These changes do not modify the
-behaviour of those constructs:
-1.  [Quantified Expressions](#31-quantified-expressions) \[1.1\]
-1.  [Node Tests](#321-node-tests) \[1.3\]
-1.  [Any Item Type](#211-sequencetype-syntax) \[1.3\]
-1.  [For Expressions](#331-for-expressions) \[1.4\]
-1.  [Nillable Type Names](#211-sequencetype-syntax) \[1.5\]
-1.  [Arrow Function Call](#37-arrow-operator-) \[1.6\], \[1.8\]
-1.  [Abbreviated Syntax](#323-abbreviated-syntax) \[1.8\]
-1.  [Postfix Expressions](#38-postfix-expressions) \[1.8\]
-1.  [Filter Steps](#322-filter-steps) \[1.8\]
-1.  [Empty Expressions](#362-parenthesized-expressions) \[1.8\]
-
-### C.2 Saxon Vendor Extensions
+### C.1 Saxon Vendor Extensions
 The Saxon XQuery Processor supports the following vendor extensions described
 in this document:
 1.  [Tuple Type](#2122-tuple-type) \[Saxon 9.8\]
 1.  [Type Alias](#2125-type-alias) \[Saxon 9.8\]
-1.  [Logical Expressions](#34-logical-expressions) \[Saxon 9.9\] -- `orElse` and `andAlso`
-1.  [Otherwise Expressions](#351-otherwise-expressions) \[Saxon 10.0\]
-1.  [For Member Expressions](#332-for-member-expressions) \[Saxon 10.0\]
+1.  [Logical Expressions](#32-logical-expressions) \[Saxon 9.9\] -- `orElse` and `andAlso`
+1.  [Otherwise Expressions](#331-otherwise-expressions) \[Saxon 10.0\]
+1.  [For Member Expressions](#311-for-member-expressions) \[Saxon 10.0\]
 
 Saxon implements the following [EXPath Syntax Extensions](https://github.com/expath/xpath-ng):
 1.  [Union Type](#2121-union-type) \[Saxon 9.8\]
-1.  [Context Item Function Expressions](#3611-context-item-function-expressions) \[Saxon 9.8\]
-1.  [Lambda Function Expressions](#3612-lambda-function-expressions) \[Saxon 10.0\]
+1.  [Context Item Function Expressions](#3411-context-item-function-expressions) \[Saxon 9.8\]
+1.  [Lambda Function Expressions](#3412-lambda-function-expressions) \[Saxon 10.0\]
 1.  [Element Test](#2123-element-test) and [Attribute Test](#2124-attribute-test) \[Saxon 10.0\] -- wildcard names

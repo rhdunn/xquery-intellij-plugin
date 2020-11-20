@@ -36,46 +36,35 @@ plugin-specific extensions are provided to support IntelliJ integration.
       - [Attribute Test](#2128-attribute-test)
       - [Type Alias](#2129-type-alias)
 - [Expressions](#3-expressions)
-  - [Node Constructors](#31-node-constructors)
-    - [Attributes](#311-attributes)
-    - [Direct Text Constructors](#312-direct-text-constructors)
-  - [Quantified Expressions](#32-quantified-expressions)
-  - [Expressions on SequenceTypes](#33-expressions-on-sequencetypes)
-    - [Typeswitch](#331-typeswitch)
-    - [Cast](#332-cast)
-  - [Block Expressions](#34-block-expressions)
-  - [Update Expressions](#35-update-expressions)
-  - [Full Text Selections](#36-full-text-selections)
-    - [Match Options](#361-match-options)
-      - [Fuzzy Option](#3611-fuzzy-option)
-  - [Primary Expressions](#37-primary-expressions)
-    - [Non-Deterministic Function Calls](#371-non-deterministic-function-calls)
-    - [Inline Function Expressions](#372-inline-function-expressions)
-      - [Context Item Function Expressions](#3721-context-item-function-expressions)
-      - [Lambda Function Expressions](#3722-lambda-function-expressions)
-    - [Literals](#374-literals)
-    - [Parenthesized Expressions](#375-parenthesized-expressions)
-  - [JSON Constructors](#38-json-constructors)
-    - [Maps](#381-maps)
-    - [Arrays](#382-arrays)
-    - [Booleans](#383-booleans)
-    - [Numbers](#384-numbers)
-    - [Nulls](#385-nulls)
-  - [Path Expressions](#39-path-expressions)
-    - [Axes](#391-axes)
-    - [Node Tests](#392-node-tests)
-    - [Filter Steps](#393-filter-steps)
-    - [Abbreviated Syntax](#394-abbreviated-syntax)
-  - [Validate Expressions](#310-validate-expressions)
-  - [Try/Catch Expressions](#311-trycatch-expressions)
-  - [Binary Constructors](#312-binary-constructors)
-  - [Logical Expressions](#313-logical-expressions)
-  - [Conditional Expressions](#314-conditional-expressions)
-    - [Otherwise Expressions](#3141-otherwise-expressions)
-  - [Arrow Operator (=>)](#315-arrow-operator-)
-  - [Postfix Expressions](#316-postfix-expressions)
-  - [FLWOR Expressions](#317-flwor-expressions)
-    - [For Member Clause](#3171-for-member-clause)
+  - [Expressions on SequenceTypes](#31-expressions-on-sequencetypes)
+    - [Cast](#311-cast)
+  - [Update Expressions](#32-update-expressions)
+  - [Full Text Selections](#33-full-text-selections)
+    - [Match Options](#331-match-options)
+      - [Fuzzy Option](#3311-fuzzy-option)
+  - [Primary Expressions](#34-primary-expressions)
+    - [Non-Deterministic Function Calls](#341-non-deterministic-function-calls)
+    - [Inline Function Expressions](#342-inline-function-expressions)
+      - [Context Item Function Expressions](#3421-context-item-function-expressions)
+      - [Lambda Function Expressions](#3422-lambda-function-expressions)
+    - [Literals](#343-literals)
+  - [JSON Constructors](#35-json-constructors)
+    - [Maps](#351-maps)
+    - [Arrays](#352-arrays)
+    - [Booleans](#353-booleans)
+    - [Numbers](#354-numbers)
+    - [Nulls](#355-nulls)
+  - [Path Expressions](#36-path-expressions)
+    - [Axes](#361-axes)
+  - [Validate Expressions](#37-validate-expressions)
+  - [Try/Catch Expressions](#38-trycatch-expressions)
+  - [Binary Constructors](#39-binary-constructors)
+  - [Logical Expressions](#310-logical-expressions)
+  - [Conditional Expressions](#311-conditional-expressions)
+    - [Otherwise Expressions](#3111-otherwise-expressions)
+  - [Arrow Operator (=>)](#312-arrow-operator-)
+  - [FLWOR Expressions](#313-flwor-expressions)
+    - [For Member Clause](#3131-for-member-clause)
 - [Modules and Prologs](#4-modules-and-prologs)
   - [Type Declaration](#41-type-declaration)
   - [Annotations](#42-annotations)
@@ -83,8 +72,6 @@ plugin-specific extensions are provided to support IntelliJ integration.
   - [Transactions](#44-transactions)
   - [Function Declaration](#45-function-declaration)
   - [Using Declaration](#46-using-declaration)
-  - [Schema Import](#47-schema-import)
-  - [Module Import](#48-module-import)
 - {: .toc-letter } [XQuery IntelliJ Plugin Grammar](#a-xquery-intellij-plugin-grammar)
   - [EBNF for XQuery 3.1 with Vendor Extensions](#a1-ebnf-for-xquery-31-with-vendor-extensions)
   - [Reserved Function Names](#a2-reserved-function-names)
@@ -98,9 +85,8 @@ plugin-specific extensions are provided to support IntelliJ integration.
   - [BaseX Vendor Extensions](#c1-basex-vendor-extensions)
   - [MarkLogic Vendor Extensions](#c2-marklogic-vendor-extensions)
   - [Saxon Vendor Extensions](#c3-saxon-vendor-extensions)
-  - [IntelliJ Plugin Extensions](#c4-intellij-plugin-extensions)
-  - [eXist-db Extensions](#c5-exist-db-extensions)
-  - [EXPath Syntax Extensions](#c6-expath-syntax-extensions)
+  - [eXist-db Extensions](#c4-exist-db-extensions)
+  - [EXPath Syntax Extensions](#c5-expath-syntax-extensions)
 - {: .toc-letter } [Error and Warning Conditions](#d-error-and-warning-conditions)
   - [Vendor-Specific Behaviour](#d1-vendor-specific-behaviour)
 
@@ -114,11 +100,6 @@ The plugin supports BaseX, eXist-db, MarkLogic, and Saxon vendor extensions.
 These are listed in appendix [C Vendor Extensions](#c-vendor-extensions),
 grouped by the XQuery vendor, with links to the relevant parts of this document
 that describe the specific extensions.
-
-The plugin also provides plugin-specific extensions to support IntelliJ
-integration. These are listed in appendix
-[C.4 IntelliJ Plugin Extensions](#c4-intellij-plugin-extensions), with links to
-the relevant parts of this document that describe the specific extensions.
 
 ## 2 Basics
 This document uses the following namespace prefixes to represent the namespace
@@ -296,7 +277,7 @@ If the `ElementName` in `ModelGroupTest` is not a valid group type (e.g.
 
 ##### 2.1.2.5 JSON Node Test
 
-##### 2.1.2.5.1 Boolean Node Test
+###### 2.1.2.5.1 Boolean Node Test
 
 {: .ebnf-symbols }
 | Ref     | Symbol                  |     | Expression                          | Options |
@@ -309,7 +290,7 @@ MarkLogic 8.0 provides `BooleanNodeTest` types for working with boolean (`true`
 and `false`) JSON values. The `NamedBooleanNodeTest` variant selects JSON
 boolean nodes in objects by the key name.
 
-##### 2.1.2.5.2 Number Node Test
+###### 2.1.2.5.2 Number Node Test
 
 {: .ebnf-symbols }
 | Ref     | Symbol                  |     | Expression                          | Options |
@@ -322,7 +303,7 @@ MarkLogic 8.0 provides `NumberNodeTest` types for working with numeric JSON
 values. The `NamedNumberNodeTest` variant selects JSON number nodes in objects
 by the key name.
 
-##### 2.1.2.5.3 Null Node Test
+###### 2.1.2.5.3 Null Node Test
 
 {: .ebnf-symbols }
 | Ref     | Symbol                  |     | Expression                          | Options |
@@ -334,7 +315,7 @@ by the key name.
 MarkLogic 8.0 provides `NullNodeTest` types for working with `null` JSON values.
 The `NamedNullNodeTest` variant selects JSON null nodes in objects by the key name.
 
-##### 2.1.2.5.4 Array Node Test
+###### 2.1.2.5.4 Array Node Test
 
 {: .ebnf-symbols }
 | Ref     | Symbol                  |     | Expression                          | Options |
@@ -346,7 +327,7 @@ The `NamedNullNodeTest` variant selects JSON null nodes in objects by the key na
 MarkLogic 8.0 provides `ArrayNodeTest` types for working with JSON arrays. The
 `NamedArrayNodeTest` variant selects JSON array nodes in objects by the key name.
 
-##### 2.1.2.5.5 Map Node Test
+###### 2.1.2.5.5 Map Node Test
 
 {: .ebnf-symbols }
 | Ref     | Symbol                  |     | Expression                          | Options |
@@ -459,63 +440,9 @@ Saxon 9.8 uses the `~type` syntax, while Saxon 10.0 uses the `type(...)` syntax.
 |--------|-------------------------|-----|-------------------------------------|-----------|
 | \[91\] | `ExprSingle`            | ::= | `FLWORExpr \| QuantifiedExpr \| SwitchExpr \| TypeswitchExpr \| IfExpr \| TryCatchExpr \| TernaryIfExpr` | | 
 
-### 3.1 Node Constructors
+### 3.1 Expressions on SequenceTypes
 
-### 3.1.1 Attributes
-
-{: .ebnf-symbols }
-| Ref   | Symbol             |     | Expression                          | Options              |
-|-------|--------------------|-----|-------------------------------------|----------------------|
-| \[1\] | `DirAttributeList` | ::= | `(S DirAttribute?)*`                | /\* ws: explicit \*/ |
-| \[2\] | `DirAttribute`     | ::= | `QName S? "=" S? DirAttributeValue` | /\* ws: explicit \*/ |
-
-This follows the grammar production pattern used in other constructs like
-`ParamList`, making it easier to support namespace declaration lookup on
-`xmlns` attributes.
-
-### 3.1.2 Direct Text Constructors
-
-{: .ebnf-symbols }
-| Ref     | Symbol               |     | Expression                          | Options              |
-|---------|----------------------|-----|-------------------------------------|----------------------|
-| \[122\] | `DirElemContent`     | ::= | `DirectConstructor \| CDataSection \| EnclosedExpr \| DirTextConstructor` | |
-| \[123\] | `DirTextConstructor` | ::= | `ElementContentChar \| PredefinedEntityRef \| CharRef \| "{{" \| "}}"` | |
-
-This separates the text node content into a separate symbol, allowing features
-like language injection (e.g. CSS and JavaScript) to be implemented on that
-text content.
-
-Enclosed expressions are not part of the text content as they can contain mixed
-content. When building the infoset/PSVI, adjacent text nodes (including nodes
-created from converting atomic types to strings) will typically be merged into
-a single text node.
-
-### 3.2 Quantified Expressions
-
-{: .ebnf-symbols }
-| Ref   | Symbol                  |     | Expression                          | Options              |
-|-------|-------------------------|-----|-------------------------------------|----------------------|
-| \[3\] | `QuantifiedExpr`        | ::= | `("some" \| "every") QuantifiedExprBinding ("," QuantifiedExprBinding)* "satisfies" ExprSingle` | |
-| \[4\] | `QuantifiedExprBinding` | ::= | `"$" VarName TypeDeclaration? "in" ExprSingle` | |
-
-This follows the grammar production pattern used in other constructs like
-`LetClause` and `ForClause`, making it easier to support variable bindings.
-
-### 3.3 Expressions on SequenceTypes
-
-#### 3.3.1 Typeswitch
-
-{: .ebnf-symbols }
-| Ref   | Symbol                  |     | Expression                          | Options               |
-|-------|-------------------------|-----|-------------------------------------|-----------------------|
-| \[5\] | `TypeswitchExpr`        | ::= | `"typeswitch" "(" Expr ")" CaseClause+ DefaultCaseClause` | |
-| \[6\] | `DefaultCaseClause`     | ::= | `"default" ("$" VarName)? "return" ExprSingle` |            |
-
-The default case expression is factored out here into a separate grammar
-production similar to the `CaseClause` expression, making it easier to
-support variable bindings.
-
-#### 3.3.2 Cast
+#### 3.1.1 Cast
 
 {: .ebnf-symbols }
 | Ref   | Symbol                  |     | Expression                          | Options               |
@@ -540,18 +467,7 @@ it is supported by BaseX.
 >     <lorem>ipsum</lorem>/text() => root() transform with { rename node . as "test" }
 >     (: returns: <test>ipsum</test> :)
 
-### 3.4 Block Expressions
-
-{: .ebnf-symbols }
-| Ref    | Symbol                  |     | Expression                          | Options               |
-|--------|-------------------------|-----|-------------------------------------|-----------------------|
-| \[9\]  | `BlockVarDecl`          | ::= | `"declare" BlockVarDeclEntry ("," BlockVarDeclEntry)*` |    |
-| \[10\] | `BlockVarDeclEntry`     | ::= | `"$" VarName TypeDeclaration? (":=" ExprSingle)?` |         |
-
-This follows the grammar production pattern used in other constructs like
-`LetClause` and `ForClause`, making it easier to support variable declarations.
-
-### 3.5 Update Expressions
+### 3.2 Update Expressions
 
 {: .ebnf-symbols }
 | Ref    | Symbol                  |     | Expression                          | Options               |
@@ -609,9 +525,9 @@ are equivalent to the `TransformWithExpr`:
 
     N transform with { U }
 
-### 3.6 Full Text Selections
+### 3.3 Full Text Selections
 
-#### 3.6.1 Match Options
+#### 3.3.1 Match Options
 
 {: .ebnf-symbols }
 | Ref    | Symbol                  |     | Expression                          | Options               |
@@ -620,7 +536,7 @@ are equivalent to the `TransformWithExpr`:
 
 The `FTFuzzyOption` is a new option that is supported by BaseX.
 
-##### 3.6.1.1 Fuzzy Option
+##### 3.3.1.1 Fuzzy Option
 
 {: .ebnf-symbols }
 | Ref    | Symbol                  |     | Expression                          | Options               |
@@ -632,7 +548,7 @@ Levenshtein distance algorithm.\]
 
 This is a BaseX Full Text extension.
 
-### 3.7 Primary Expressions
+### 3.4 Primary Expressions
 
 {: .ebnf-symbols }
 | Ref    | Symbol                  |     | Expression                          | Options   |
@@ -640,7 +556,7 @@ This is a BaseX Full Text extension.
 | \[15\] | `PrimaryExpr`           | ::= | `Literal \| VarRef \| ParamRef \| ParenthesizedExpr \| ContextItemExpr \| FunctionCall \| NonDeterministicFunctionCall \| OrderedExpr \| UnorderedExpr \| NodeConstructor \| FunctionItemExpr \| MapConstructor \| ArrayConstructor \| BooleanConstructor \| NumberConstructor \| NullConstructor \| BinaryConstructor \| StringConstructor \| UnaryLookup` | |
 | \[80\] | `FunctionItemExpr`      | ::= | `NamedFunctionRef \| InlineFunctionExpr \| ContextItemFunctionExpr \| LambdaFunctionExpr` | |
 
-### 3.7.1 Non-Deterministic Function Calls
+#### 3.4.1 Non-Deterministic Function Calls
 
 {: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
@@ -655,7 +571,7 @@ This is a BaseX 8.4 extension to help the query compiler identify
 non-deterministic function calls, where the non-deterministic property cannot
 be determined statically.
 
-#### 3.7.2 Inline Function Expressions
+#### 3.4.2 Inline Function Expressions
 
 {: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
@@ -670,7 +586,7 @@ When `...` is added after the last parameter in a parameter list, that parameter
 contains the arguments passed after the previous parameter as an `array`. If the
 variadic parameter has a type, the elements in that array have that type.
 
-#### 3.7.2.1 Context Item Function Expressions
+##### 3.4.2.1 Context Item Function Expressions
 
 {: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
@@ -685,7 +601,7 @@ The expressions `fn{E}` (from Saxon 9.8) and `.{E}` (from Saxon 10.0)
 are equivalent to:
 >     function ($arg as item()) as item()* { $arg ! (E) }
 
-#### 3.7.2.2 Lambda Function Expressions
+##### 3.4.2.2 Lambda Function Expressions
 
 {: .ebnf-symbols }
 | Ref     | Symbol                         |     | Expression                                | Options |
@@ -721,7 +637,7 @@ expressions in the lambda function body expression.
 > If there are no `ParamRef` primary expressions in the lambda function body
 > expression, the lambda function has an arity of 0.
 
-#### 3.7.4 Literals
+#### 3.4.3 Literals
 
 {: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
@@ -736,22 +652,9 @@ references (`&lt;`, `&gt;`, `&amp;`, `&quot;`, and `&apos;`). An `XPST0003`
 static error is raised if the XQuery processor does not support the predefined
 entity reference, which this plugin reports as an `ije:IJVS0003` static error.
 
-#### 3.7.5 Parenthesized Expressions
+### 3.5 JSON Constructors
 
-{: .ebnf-symbols }
-| Ref     | Symbol                         |     | Expression                                | Options |
-|---------|--------------------------------|-----|-------------------------------------------|---------|
-| \[133\] | `ParenthesizedExpr`            | ::= | `EmptyExpr | ( "(" Expr ")" )`            |         |
-| \[134\] | `EmptyExpr`                    | ::= | `"(" ")"`                                 |         |
-
-The `EmptyExpr` construct has been separated out to make it easier to denote the
-semantics of empty expressions. This is primarily because the IntelliJ plugin
-only keeps the original `ParenthesizedExpr` node when it denotes an empty
-expression.
-
-### 3.8 JSON Constructors
-
-#### 3.8.1 Maps
+#### 3.5.1 Maps
 
 {: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
@@ -765,7 +668,7 @@ XQuery 3.1 syntax (`:`) for map entries.
 Saxon versions 9.4 to 9.6 used `:=` to separate the key and value in a map entry.
 From 9.7, the XQuery 3.1 syntax (`:`) is used.
 
-#### 3.8.2 Arrays
+#### 3.5.2 Arrays
 
 {: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
@@ -775,7 +678,7 @@ From 9.7, the XQuery 3.1 syntax (`:`) is used.
 MarkLogic 8.0 uses the `array-node` keyword for defining JSON arrays. It does
 not support the square array style constructors.
 
-#### 3.8.3 Booleans
+#### 3.5.3 Booleans
 
 {: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
@@ -796,7 +699,7 @@ A boolean node follows the rules for casting from an `xs:boolean` type, using
 the content of the boolean node in the cast. However, a boolean node is not an
 instance of `xs:boolean`.
 
-#### 3.8.4 Numbers
+#### 3.5.4 Numbers
 
 {: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
@@ -816,7 +719,7 @@ A number node follows the rules for casting from an `xs:double` type, using
 the content of the number node in the cast. However, a number node is not an
 instance of `xs:double`.
 
-#### 3.8.5 Nulls
+#### 3.5.5 Nulls
 
 {: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
@@ -827,9 +730,9 @@ MarkLogic 8.0 provides `NullTest` types for working with `null` JSON values.
 
 Null nodes are not removed from sequences, such as when used in arrays and maps.
 
-### 3.9 Path Expressions
+### 3.6 Path Expressions
 
-#### 3.9.1 Axes
+#### 3.6.1 Axes
 
 {: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
@@ -858,59 +761,7 @@ The *principal node kind* is determined as per the XPath specification. Thus:
 > This means that the `property` axis uses the default element namespace to
 > resolve an unprefixed QName into an expanded QName.
 
-#### 3.9.2 Node Tests
-
-{: .ebnf-symbols }
-| Ref    | Symbol                         |     | Expression                                | Options |
-|--------|--------------------------------|-----|-------------------------------------------|---------|
-| \[76\] | `Wildcard`                     | ::= | `WildcardIndicator \| (NCName ":" WildcardIndicator) \| (WildcardIndicator ":" NCName) \| (BracedURILiteral WildcardIndicator)` | /\* ws: explicit \*/ |
-| \[77\] | `WildcardIndicator`            | ::= | `"*"`                                     |         |
-
-The changes to `Wildcard` are to make it work like the `EQName` grammar
-productions. This is such that `WildcardIndicator` is placed wherever an
-`NCName` can occur in an `EQName`. That is, either the prefix or local
-name (but not both) can be `WildcardIndicator`.
-
-A `WildcardIndicator` is an instance of `xdm:wildcard`.
-
-#### 3.9.3 Filter Steps
-
-{: .ebnf-symbols }
-| Ref     | Symbol                         |     | Expression                                | Options |
-|---------|--------------------------------|-----|-------------------------------------------|---------|
-| \[131\] | `AxisStep`                     | ::= | `FilterStep \| ReverseStep \| ForwardStep` |        |
-| \[132\] | `FilterStep`                   | ::= | `AxisStep Predicate`                      |         |
-
-The XQuery 3.1 `AxisStep` is modified so that each filter step (`Predicate`) can
-be associated with their own EBNF symbol. This is how the XQuery IntelliJ Plugin
-models these expressions in the internal operation tree.
-
-#### 3.9.4 Abbreviated Syntax
-
-{: .ebnf-symbols }
-| Ref     | Symbol                         |     | Expression                                | Options |
-|---------|--------------------------------|-----|-------------------------------------------|---------|
-| \[124\] | `PathExpr`                     | ::= | `("/" RelativePathExpr?) \| (AbbrevDescendantOrSelfStep RelativePathExpr) \| RelativePathExpr` | /\* xgc: leading-lone-slash \*/ |
-| \[125\] | `RelativePathExpr`             | ::= | `StepExpr (("/" \| AbbrevDescendantOrSelfStep) StepExpr)*` | |
-| \[126\] | `AbbrevDescendantOrSelfStep`   | ::= | `"//"`                                    |         |
-
-The abbreviated descendant-or-self selector `//` is split out into a separate
-EBNF symbol.
-
-The abbreviated syntax permits the following additional abbreviations:
-
-1. Per item 4 of section 3.3.5 and paragraph 4 of section 3.3 of the XQuery
-   specification, the `AbbrevDescendantOrSelfStep` symbol is equivalent to
-   `/descendant-or-self::node()/`.
-
-1. A `/` or `//` at the beginning of a path expression is an abbreviation for
-   the following root step before the `/` or `//`:
-   1. `(fn:root(self::node()) treat as document-node())` for standard XQuery
-      expressions;
-   1. `fn:collection()` for MarkLogic XQuery expressions evaluated against a
-      MarkLogic database.
-
-### 3.10 Validate Expressions
+### 3.7 Validate Expressions
 
 {: .ebnf-symbols }
 | Ref     | Symbol                         |     | Expression                                | Options |
@@ -923,7 +774,7 @@ typed validation expressions.
 
 MarkLogic supports the `full` validation mode.
 
-### 3.11 Try/Catch Expressions
+### 3.8 Try/Catch Expressions
 
 {: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
@@ -937,7 +788,7 @@ style catch clauses using a `CatchErrorList`.
 The variable name in the MarkLogic style catch clause has the type
 `element(error:error)`, which contains the details of the error.
 
-### 3.12 Binary Constructors
+### 3.9 Binary Constructors
 
 {: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
@@ -973,7 +824,7 @@ Casting from a binary node to a target type is performed as follows:
 
 A binary node is not an instance of `xs:hexBinary`.
 
-### 3.13 Logical Expressions
+### 3.10 Logical Expressions
 
 {: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
@@ -993,7 +844,7 @@ evaluates the right hand side (`rhs`) if the left hand side is true. This is
 equivalent to:
 >     if (lhs) then xs:boolean(rhs) else fn:false()
 
-### 3.14 Conditional Expressions
+### 3.11 Conditional Expressions
 
 {: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
@@ -1019,7 +870,7 @@ the equivalent `IfExpr` is:
 
     if (C) then A else B
 
-### 3.14.1 Otherwise Expressions
+#### 3.11.1 Otherwise Expressions
 
 {: .ebnf-symbols }
 | Ref     | Symbol                         |     | Expression                                | Options |
@@ -1051,7 +902,7 @@ Otherwise, if either `A` or `B` have more than one item, the expressions
 > item in the non-empty sequence, not the entire sequence. This is why the more
 > complicated expression is needed for that case.
 
-### 3.15 Arrow Operator (=>)
+### 3.12 Arrow Operator (=>)
 
 {: .ebnf-symbols }
 | Ref     | Symbol                         |     | Expression                                | Options |
@@ -1060,38 +911,12 @@ Otherwise, if either `A` or `B` have more than one item, the expressions
 | \[110\] | `ArrowFunctionCall`            | ::= | `EQName ArgumentList`                     |         |
 | \[119\] | `ArrowDynamicFunctionCall`     | ::= | `( VarRef \| ParamRef \| ParenthesizedExpr ) ArgumentList` | |
 
-This splits out the arrow function call grammar into a separate symbol, making
-it easier to bind the first parameter of the referenced functions to the correct
-argument expression in the arrow expression.
-
-The `ArrowFunctionCall` symbol mirrors the `FunctionCall` symbol, and is used
-for static function calls in the XQuery IntelliJ Plugin operation tree.
-
-The `ArrowDynamicFunctionCall` symbol mirrors the `DynamicFunctionCall` symbol,
-and is used for dynamic function calls in the XQuery IntelliJ Plugin operation
-tree.
-
-The `ParamRef` is for [Lambda Function Expressions](#3722-lambda-function-expressions)
+The `ParamRef` is for [Lambda Function Expressions](#3422-lambda-function-expressions)
 support in Saxon 10.0.
 
-### 3.16 Postfix Expressions
+### 3.13 FLWOR Expressions
 
-{: .ebnf-symbols }
-| Ref     | Symbol                         |     | Expression                                | Options |
-|---------|--------------------------------|-----|-------------------------------------------|---------|
-| \[127\] | `PostfixExpr`                  | ::= | `FilterExpr \| DynamicFunctionCall \| PostfixLookup \| PrimaryExpr` | |
-| \[128\] | `FilterExpr`                   | ::= | `PostfixExpr Predicate`                   |         |
-| \[129\] | `DynamicFunctionCall`          | ::= | `PostfixExpr ArgumentList`                |         |
-| \[130\] | `PostfixLookup`                | ::= | `PostfixExpr Lookup`                      |         |
-
-The XQuery 3.1 `PostfixExpr` is modified so that each filter expression, dynamic
-function call, and postfix lookup can be associated with their own EBNF symbol.
-This is how the XQuery IntelliJ Plugin models these expressions in the internal
-operation tree.
-
-### 3.17 FLWOR Expressions
-
-### 3.17.1 For Member Clause
+#### 3.13.1 For Member Clause
 
 {: .ebnf-symbols }
 | Ref     | Symbol                        |     | Expression                                | Options |
@@ -1235,28 +1060,6 @@ variadic parameter has a type, the elements in that array have that type.
 MarkLogic supports importing the functions and variables from an XQuery module
 without setting the default element/type or function namespace.
 
-### 4.7 Schema Import
-
-{: .ebnf-symbols }
-| Ref     | Symbol                         |     | Expression                                | Options |
-|---------|--------------------------------|-----|-------------------------------------------|---------|
-| \[106\] | `SchemaImport`                 | ::= | `"import" "schema" SchemaPrefix? URILiteral LocationURIList?` | |
-| \[107\] | `LocationURIList`              | ::= | `"at" URILiteral ("," URILiteral)*`       |         |
-
-This splits out the location URI grammar into a separate symbol, making it
-easier to differentiate the target namespace from location URIs.
-
-### 4.8 Module Import
-
-{: .ebnf-symbols }
-| Ref     | Symbol                         |     | Expression                                | Options |
-|---------|--------------------------------|-----|-------------------------------------------|---------|
-| \[107\] | `LocationURIList`              | ::= | `"at" URILiteral ("," URILiteral)*`       |         |
-| \[108\] | `ModuleImport`                 | ::= | `"import" "module" ("namespace" NCName "=")? URILiteral LocationURIList?` | |
-
-This splits out the location URI grammar into a separate symbol, making it
-easier to differentiate the target namespace from location URIs.
-
 ## A XQuery IntelliJ Plugin Grammar
 
 ### A.1 EBNF for XQuery 3.1 with Vendor Extensions
@@ -1281,8 +1084,7 @@ These changes include support for:
 1.  XQuery 1.0 Working Draft 02 May 2003 syntax;
 1.  BaseX Vendor Extensions;
 1.  MarkLogic Vendor Extensions;
-1.  Saxon Vendor Extensions;
-1.  XQuery IntelliJ Plugin Vendor Extensions.
+1.  Saxon Vendor Extensions.
 
 {: .ebnf-symbols }
 | Ref      | Symbol                         |     | Expression                          | Options               |
@@ -1553,41 +1355,41 @@ __XPath NG__
 ### C.1 BaseX Vendor Extensions
 The BaseX XQuery Processor supports the following vendor extensions described
 in this document:
-1.  [Cast Expressions](#332-cast) -- Combining XQuery 3.1 and XQuery Update Facility.
-1.  [Full Text Fuzzy Option](#3611-fuzzy-option)
-1.  [Non-Deterministic Function Calls](#371-non-deterministic-function-calls) \[BaseX 8.4\]
-1.  [Update Expressions](#35-update-expressions) \[BaseX 7.8\]
+1.  [Cast Expressions](#311-cast) -- Combining XQuery 3.1 and XQuery Update Facility.
+1.  [Full Text Fuzzy Option](#3311-fuzzy-option)
+1.  [Non-Deterministic Function Calls](#341-non-deterministic-function-calls) \[BaseX 8.4\]
+1.  [Update Expressions](#32-update-expressions) \[BaseX 7.8\]
 
 BaseX implements the following [EXPath Syntax Extensions](https://github.com/expath/xpath-ng):
-1.  [Elvis](#314-conditional-expressions) expressions \[BaseX 9.1\]
-1.  [Ternary If](#314-conditional-expressions) expressions \[BaseX 9.1\]
-1.  [If Without Else](#314-conditional-expressions) expressions \[BaseX 9.1\]
+1.  [Elvis](#311-conditional-expressions) expressions \[BaseX 9.1\]
+1.  [Ternary If](#311-conditional-expressions) expressions \[BaseX 9.1\]
+1.  [If Without Else](#311-conditional-expressions) expressions \[BaseX 9.1\]
 
 ### C.2 MarkLogic Vendor Extensions
 The MarkLogic XQuery Processor supports the following vendor extensions described
 in this document:
 1.  [Annotations](#42-annotations) -- `private` compatibility annotation
-1.  [Binary Test](#2123-binary-test) and [Binary Constructors](#312-binary-constructors)
-1.  [Forward Axes](#391-axes) -- `namespace` and `property` forward axes
-1.  [Predefined Entity References](#374-literals) -- HTML4 and HTML5 predefined entities
+1.  [Binary Test](#2123-binary-test) and [Binary Constructors](#39-binary-constructors)
+1.  [Forward Axes](#361-axes) -- `namespace` and `property` forward axes
+1.  [Predefined Entity References](#343-literals) -- HTML4 and HTML5 predefined entities
 1.  [Schema Kind Tests](#2124-schema-kind-tests) \[MarkLogic 7.0\] -- schema components type system
 1.  [Stylesheet Import](#43-stylesheet-import)
 1.  [Transactions](#44-transactions)
 1.  [Using Declaration](#46-using-declaration)
-1.  [Validate Expressions](#310-validate-expressions) -- full validation mode
+1.  [Validate Expressions](#37-validate-expressions) -- full validation mode
 
 MarkLogic also supports the following syntax for XQuery 3.0 constructs:
-1.  [Try/Catch Expressions](#311-trycatch-expressions)
-1.  [Validate Expressions](#310-validate-expressions) -- alternate syntax for typed validations
+1.  [Try/Catch Expressions](#38-trycatch-expressions)
+1.  [Validate Expressions](#37-validate-expressions) -- alternate syntax for typed validations
 
 MarkLogic 8.0 supports the following JSON syntax extensions:
-1.  [Array Node Test](#21254-array-node-test) and [Array Constructors](#382-arrays)
-1.  [Boolean Node Test](#21251-boolean-node-test) and [Boolean Constructors](#383-booleans)
+1.  [Array Node Test](#21254-array-node-test) and [Array Constructors](#352-arrays)
+1.  [Boolean Node Test](#21251-boolean-node-test) and [Boolean Constructors](#353-booleans)
 1.  [Document Tests](#211-sequencetype-syntax)
-1.  [Map Node Test](#21255-map-node-test) and [Map Constructors](#381-maps)
+1.  [Map Node Test](#21255-map-node-test) and [Map Constructors](#351-maps)
 1.  [Named Kind Tests](#211-sequencetype-syntax) \[MarkLogic 8.0\]
-1.  [Null Node Test](#21253-null-node-test) and [Null Constructors](#385-nulls)
-1.  [Number Node Test](#21252-number-node-test) and [Number Constructors](#384-numbers)
+1.  [Null Node Test](#21253-null-node-test) and [Null Constructors](#355-nulls)
+1.  [Number Node Test](#21252-number-node-test) and [Number Constructors](#354-numbers)
 1.  [Text Tests](#211-sequencetype-syntax)
 
 ### C.3 Saxon Vendor Extensions
@@ -1595,62 +1397,35 @@ The Saxon XQuery Processor supports the following vendor extensions described
 in this document:
 1.  [Tuple Type](#2122-tuple-type) \[Saxon 9.8\]
 1.  [Type Declaration](#41-type-declaration) and [Type Alias](#2129-type-alias) \[Saxon 9.8\]
-1.  [Logical Expressions](#313-logical-expressions) \[Saxon 9.9\] -- `orElse` and `andAlso`
-1.  [Otherwise Expressions](#3141-otherwise-expressions) \[Saxon 10.0\]
-1.  [For Member Expressions](#3171-for-member-clause) \[Saxon 10.0\]
+1.  [Logical Expressions](#310-logical-expressions) \[Saxon 9.9\] -- `orElse` and `andAlso`
+1.  [Otherwise Expressions](#3111-otherwise-expressions) \[Saxon 10.0\]
+1.  [For Member Expressions](#3131-for-member-clause) \[Saxon 10.0\]
 
 Saxon implements the following [EXPath Syntax Extensions](https://github.com/expath/xpath-ng):
 1.  [Union Type](#2121-union-type) \[Saxon 9.8\]
-1.  [Context Item Function Expressions](#3721-context-item-function-expressions) \[Saxon 9.8\]
-1.  [Lambda Function Expressions](#3722-lambda-function-expressions) \[Saxon 10.0\]
+1.  [Context Item Function Expressions](#3421-context-item-function-expressions) \[Saxon 9.8\]
+1.  [Lambda Function Expressions](#3422-lambda-function-expressions) \[Saxon 10.0\]
 1.  [Element Test](#2127-element-test) and [Attribute Test](#2128-attribute-test) \[Saxon 10.0\] -- wildcard names
 
 Older versions of Saxon support the following working draft syntax:
-1.  [Maps](#381-maps) \[Saxon 9.4\] -- `map` support using `:=` to separate keys and values
+1.  [Maps](#351-maps) \[Saxon 9.4\] -- `map` support using `:=` to separate keys and values
 
-### C.4 IntelliJ Plugin Extensions
-The following constructs have had their grammar modified to make it easier to
-implement features such as variable lookup. These changes do not modify the
-behaviour of those constructs:
-1.  [Direct Attribute Constructors](#311-attributes) \[1.1\]
-1.  [Quantified Expressions](#32-quantified-expressions) \[1.1\]
-1.  [Typeswitch](#331-typeswitch) \[1.1\]
-1.  [Block Expressions](#34-block-expressions) \[1.1\]
-1.  [Node Tests](#392-node-tests) \[1.3\]
-1.  [Any Item Type](#211-sequencetype-syntax) \[1.3\]
-1.  [Nillable Type Names](#211-sequencetype-syntax) \[1.5\]
-1.  [Empty Sequence Types](#2126-sequence-types) \[1.5\]
-1.  [Schema Import](#47-schema-import) \[1.6\]
-1.  [Module Import](#48-module-import) \[1.6\]
-1.  [Arrow Function Call](#315-arrow-operator-) \[1.6\], \[1.8\]
-1.  [Direct Text Constructors](#312-direct-text-constructors) \[1.8\]
-1.  [Abbreviated Syntax](#394-abbreviated-syntax) \[1.8\]
-1.  [Postfix Expressions](#316-postfix-expressions) \[1.8\]
-1.  [Filter Steps](#393-filter-steps) \[1.8\]
-1.  [Parenthesized Expressions](#375-parenthesized-expressions) \[1.8\]
-
-The XQuery IntelliJ Plugin supports the following vendor extensions described
-in this document:
-1.  [Cast Expressions](#332-cast) -- Combining XQuery 3.1 and XQuery Update Facility 3.0.
-1.  [Item Type Union](#21261-union) \[1.3\]
-1.  [Tuple Sequence Types](#21262-list) \[1.3\]
-
-### C.5 eXist-db Extensions
+### C.4 eXist-db Extensions
 Older versions of eXist-db support the following working draft syntax:
 1.  [Empty Sequences](#211-sequencetype-syntax) -- `empty-sequence()` in 4.0 and
     later; `empty()` in older versions.
 
-### C.6 EXPath Syntax Extensions
+### C.5 EXPath Syntax Extensions
 The EXPath group have a collection of proposed
 [EXPath Syntax Extensions](https://github.com/expath/xpath-ng) for XPath and
 XQuery. The following proposals are supported by this plugin:
 1.  [Variadic Function Arguments](#45-function-declaration) \[Proposal 1, version 2\]
-1.  [Ternary If](#314-conditional-expressions) and [Elvis](#314-conditional-expressions)
+1.  [Ternary If](#311-conditional-expressions) and [Elvis](#311-conditional-expressions)
     expressions \[Proposal 2\]
-1.  [Simple Inline Function Expressions](#372-simple-inline-function-expressions)
+1.  [Simple Inline Function Expressions](#342-inline-function-expressions)
     \[Proposal 5\] -- focus functions
 1.  [Union Type](#2121-union-type) \[Proposal 6\]
-1.  [If Without Else](#314-conditional-expressions) expressions \[Proposal 7\]
+1.  [If Without Else](#311-conditional-expressions) expressions \[Proposal 7\]
 
 ## D Error and Warning Conditions
 

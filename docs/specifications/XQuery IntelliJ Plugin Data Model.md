@@ -48,6 +48,7 @@ various inspections.
   - [Expressions](#51-expressions)
   - [Path Steps](#52-path-steps)
     - [Predicates](#521-predicates)
+    - [Abbreviated Syntax](#522-abbreviated-syntax)
   - [Namespace Declarations](#53-namespace-declarations)
   - [Variables](#54-variables)
     - [Variable Types](#541-variable-types)
@@ -646,6 +647,18 @@ The *expression element* property identifies the element (token or AST node)
 that is used to locate this expression. This property is used by the plugin
 to correctly map to MarkLogic expression breakpoints.
 
+> Note:
+>
+> When constructing the PSI tree for `ParenthesizedExpr`, if the `Expr` is
+> missing then an `EmptyExpr` node is used, otherwise the node is not
+> included in the PSI tree. This way, `(2)` and `2` have the same tree
+> hierarchy.
+
+> Note:
+>
+> When constructing the PSI tree for `Expr`, if the `Expr` is a single
+> `ExprSingle` node then the `Expr` is not included in the PSI tree.
+
 ### 5.2 Path Steps
 
 | Symbol                       | Interface     |
@@ -688,6 +701,21 @@ or followed by another step. The *axis type* is `self` and the *node type* is
 | `Predicate`                  | `XpmPredicate` |
 
 A *predicate* is associated with a `FilterStep` or `FilterExpr` node.
+
+#### 5.2.2 Abbreviated Syntax
+
+The abbreviated syntax permits the following additional abbreviations:
+
+1. Per item 4 of section 3.3.5 and paragraph 4 of section 3.3 of the XQuery
+   specification, the `AbbrevDescendantOrSelfStep` symbol is equivalent to
+   `/descendant-or-self::node()/`.
+
+1. A `/` or `//` at the beginning of a path expression is an abbreviation for
+   the following root step before the `/` or `//`:
+    1. `(fn:root(self::node()) treat as document-node())` for standard XQuery
+       expressions;
+    1. `fn:collection()` for MarkLogic XQuery expressions evaluated against a
+       MarkLogic database.
 
 ### 5.3 Namespace Declarations
 
