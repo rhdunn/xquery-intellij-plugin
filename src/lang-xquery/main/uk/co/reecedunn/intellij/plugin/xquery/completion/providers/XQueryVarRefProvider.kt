@@ -31,7 +31,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.inScopeVariables
 
 object XQueryVarRefProvider : CompletionProviderEx {
     override fun apply(element: PsiElement, context: ProcessingContext, result: CompletionResultSet) {
-        val namespaces = context[XPathCompletionProperty.STATICALLY_KNOWN_ELEMENT_OR_TYPE_NAMESPACES]
+        val namespaces = context[XPathCompletionProperty.STATICALLY_KNOWN_NAMESPACES]
 
         val varRef = element.parent as XsQNameValue
         when (varRef.completionType(element)) {

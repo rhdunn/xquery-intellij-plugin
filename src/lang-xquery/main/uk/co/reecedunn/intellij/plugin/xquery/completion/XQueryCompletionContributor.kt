@@ -75,7 +75,7 @@ class XQueryCompletionContributor : CompletionContributorEx() {
             .addCompletions(XPathQNamePrefixProvider)
 
         // XQuery 3.1 EBNF (131) VarRef
-        builder(XQuery).withFilter(XPathVarRefFilter).withProperty(XPathStaticallyKnownElementOrTypeNamespaces)
+        builder(XQuery).withFilter(XPathVarRefFilter).withProperty(XPathStaticallyKnownNamespaces)
             .addCompletions(XQueryVarRefProvider)
 
         // XQuery 3.1 EBNF (137) FunctionCall
