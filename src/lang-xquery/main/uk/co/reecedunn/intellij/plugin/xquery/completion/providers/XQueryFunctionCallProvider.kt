@@ -31,7 +31,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.staticallyKnownFunctions
 
 object XQueryFunctionCallProvider : CompletionProviderEx {
     override fun apply(element: PsiElement, context: ProcessingContext, result: CompletionResultSet) {
-        val namespaces = context[XPathCompletionProperty.STATICALLY_KNOWN_FUNCTION_NAMESPACES]
+        val namespaces = context[XPathCompletionProperty.STATICALLY_KNOWN_NAMESPACES]
         val isArrowExpr = element.parent.parent is XPathArrowFunctionSpecifier
 
         val ref = element.parent as XsQNameValue

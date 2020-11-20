@@ -79,7 +79,7 @@ class XQueryCompletionContributor : CompletionContributorEx() {
             .addCompletions(XQueryVarRefProvider)
 
         // XQuery 3.1 EBNF (137) FunctionCall
-        builder(XQuery).withFilter(XPathFunctionCallFilter).withProperty(XPathStaticallyKnownFunctionNamespaces)
+        builder(XQuery).withFilter(XPathFunctionCallFilter).withProperty(XPathStaticallyKnownNamespaces)
             .addCompletions(XQueryFunctionCallProvider)
     }
 
