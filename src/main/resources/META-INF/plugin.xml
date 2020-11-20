@@ -79,6 +79,10 @@
         default type namespace is the XMLSchema namespace.
       </li>
     </ol>
+    <p>Inspections:</p>
+    <ol>
+      <li>Don't crash when the conformance element is empty (e.g. it is on a parser error).</li>
+    </ol>
   ]]></change-notes>
 
   <idea-version since-build="161"/>

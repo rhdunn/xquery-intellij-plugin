@@ -133,34 +133,38 @@ class IJVS0001 : Inspection("ijvs/IJVS0001.md", IJVS0001::class.java.classLoader
 
             if (required.find { version -> product.conformsTo(productVersion, version) } == null) {
                 val context = versioned.conformanceElement
-                val name = (versioned as? VersionConformanceName)?.conformanceName
-                val description =
-                    if (name != null)
-                        XQueryPluginBundle.message(
-                            "inspection.XPST0003.unsupported-construct-with-name.message",
-                            productVersion,
-                            required.joinToString(", or "),
-                            name
-                        )
-                    else
-                        XQueryPluginBundle.message(
-                            "inspection.XPST0003.unsupported-construct.message",
-                            productVersion,
-                            required.joinToString(", or ")
-                        )
-                diagnostics.error(context, XpmDiagnostics.XPST0003, description)
+                if (!context.textRange.isEmpty) {
+                    val name = (versioned as? VersionConformanceName)?.conformanceName
+                    val description =
+                        if (name != null)
+                            XQueryPluginBundle.message(
+                                "inspection.XPST0003.unsupported-construct-with-name.message",
+                                productVersion,
+                                required.joinToString(", or "),
+                                name
+                            )
+                        else
+                            XQueryPluginBundle.message(
+                                "inspection.XPST0003.unsupported-construct.message",
+                                productVersion,
+                                required.joinToString(", or ")
+                            )
+                    diagnostics.error(context, XpmDiagnostics.XPST0003, description)
+                }
             } else {
                 val requiredXQuery = required.filter { req -> req is Specification || req.kind === MarkLogic }
                 if (requiredXQuery.isEmpty()) return@forEach
 
                 if (requiredXQuery.find { version -> supports(xquery, version) } == null) {
                     val context = versioned.conformanceElement
-                    val description = XQueryPluginBundle.message(
-                        "inspection.XPST0003.unsupported-construct-version.message",
-                        xquery.versionId,
-                        required.joinToString(", or ")
-                    )
-                    diagnostics.error(context, XpmDiagnostics.XPST0003, description)
+                    if (!context.textRange.isEmpty) {
+                        val description = XQueryPluginBundle.message(
+                            "inspection.XPST0003.unsupported-construct-version.message",
+                            xquery.versionId,
+                            required.joinToString(", or ")
+                        )
+                        diagnostics.error(context, XpmDiagnostics.XPST0003, description)
+                    }
                 }
             }
         }

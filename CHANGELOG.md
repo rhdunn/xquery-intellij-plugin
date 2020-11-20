@@ -3,8 +3,13 @@
 ## 1.9.0 - (In Development)
 
 Code Completion:
+
 1. Fix completing `AtomicOrUnionType` names when a prefix is specified, and the
    default type namespace is the XMLSchema namespace.
+
+Inspections:
+
+1. Don't crash when the conformance element is empty (e.g. it is on a parser error).
 
 ## 2020
 

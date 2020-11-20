@@ -21,6 +21,7 @@ import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertDoesNotThrow
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
@@ -2731,6 +2732,30 @@ private class PluginInspectionTest : InspectionTestCase() {
                         `is`("XPST0003: XQuery version string '1.0' does not support XQuery 3.0, or MarkLogic 6.0 constructs.")
                     )
                     assertThat(problems[0].psiElement.elementType, `is`(XQueryTokenType.ANNOTATION_INDICATOR))
+                }
+            }
+
+            @Nested
+            @DisplayName("empty error element")
+            internal inner class EmptyErrorElement {
+                @Test
+                @DisplayName("unsupported by product")
+                fun unsupportedByProduct() {
+                    settings.XQueryVersion = XQuerySpec.REC_3_0_20140408.versionId
+                    settings.implementationVersion = "basex/v6.1"
+                    val file = parse<XQueryModule>("try { 2 } catch error:XQST0084 2 }")[0] // missing opening brace
+
+                    assertDoesNotThrow { inspect(file, IJVS0001()) }
+                }
+
+                @Test
+                @DisplayName("unsupported by version")
+                fun unsupportedByVersion() {
+                    settings.XQueryVersion = XQuerySpec.REC_3_0_20140408.versionId
+                    settings.implementationVersion = "basex/v9.0"
+                    val file = parse<XQueryModule>("try { 2 } catch error:XQST0084 2 }")[0] // missing opening brace
+
+                    assertDoesNotThrow { inspect(file, IJVS0001()) }
                 }
             }
         }
