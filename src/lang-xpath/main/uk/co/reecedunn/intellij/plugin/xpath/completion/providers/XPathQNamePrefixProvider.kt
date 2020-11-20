@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathCompletion
 object XPathQNamePrefixProvider : CompletionProviderEx {
     override fun apply(element: PsiElement, context: ProcessingContext, result: CompletionResultSet) {
         var hasXmlNamespace = false
-        context[XPathCompletionProperty.STATICALLY_KNOWN_ELEMENT_OR_TYPE_NAMESPACES].forEach { decl ->
+        context[XPathCompletionProperty.STATICALLY_KNOWN_NAMESPACES].forEach { decl ->
             decl.namespacePrefix?.let {
                 result.addElement(XPathKeywordLookup(it.data, XPathInsertText.QNAME_PREFIX))
                 if (it.data == "xml") {

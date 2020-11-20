@@ -28,6 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathCompletion
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathDefaultNamespace
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathStaticallyKnownNamespaces
 import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.XPathAtomicOrUnionTypeProvider
+import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.XPathQNamePrefixProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableProvider
@@ -282,6 +283,29 @@ private class XQueryCompletionProviderTest : ParserTestCase() {
                 assertThat(results[3], `is`("nonPositiveInteger"))
                 assertThat(results[4], `is`("positiveInteger"))
             }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.1 EBNF (234) QName")
+    internal inner class QNameTest {
+        fun completionResults(query: String, completionPoint: String): List<String> {
+            val element = completion(query, completionPoint)
+            val context = ProcessingContext()
+            val results = MockCompletionResultSet(PlainPrefixMatcher(completionPoint))
+            XPathStaticallyKnownNamespaces.computeProperty(element, context)
+            XPathQNamePrefixProvider.apply(element, context, results)
+            return results.elements.map { it.lookupString }
+        }
+
+        @Test
+        @DisplayName("built-in namespaces")
+        fun builtInNamespaces() {
+            val results = completionResults("2 cast as x", "x")
+            assertThat(results.size, `is`(3))
+            assertThat(results[0], `is`("xsi"))
+            assertThat(results[1], `is`("xs"))
+            assertThat(results[2], `is`("xml"))
         }
     }
 }

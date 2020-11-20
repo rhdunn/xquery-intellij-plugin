@@ -23,7 +23,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath as XPathElement
 import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.*
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathCompletionProperty
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathDefaultNamespace
-import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathStaticallyKnownElementOrTypeNamespaces
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathStaticallyKnownNamespaces
 import uk.co.reecedunn.intellij.plugin.xslt.completion.xpath.property.XPathVersion
 import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.*
@@ -65,7 +64,7 @@ class XPathCompletionContributor : CompletionContributorEx() {
 
         // XQuery 3.1 EBNF (234) QName
         builder(XPath).withFilter(XPathQNamePrefixFilter)
-            .withProperty(XPathStaticallyKnownElementOrTypeNamespaces)
+            .withProperty(XPathStaticallyKnownNamespaces)
             .addCompletions(XPathQNamePrefixProvider)
     }
 

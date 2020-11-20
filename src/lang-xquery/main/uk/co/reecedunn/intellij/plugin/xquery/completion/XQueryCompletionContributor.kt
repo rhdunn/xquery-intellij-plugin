@@ -71,7 +71,7 @@ class XQueryCompletionContributor : CompletionContributorEx() {
 
         // XQuery 3.1 EBNF (234) QName
         builder(XQuery).withFilter(XPathQNamePrefixFilter)
-            .withProperty(XPathStaticallyKnownElementOrTypeNamespaces)
+            .withProperty(XPathStaticallyKnownNamespaces)
             .addCompletions(XPathQNamePrefixProvider)
 
         // XQuery 3.1 EBNF (131) VarRef
