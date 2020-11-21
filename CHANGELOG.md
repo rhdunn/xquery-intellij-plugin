@@ -2,6 +2,10 @@
 
 ## 1.9.0 - (In Development)
 
+XPath, XQuery, and XSLT:
+
+1. Better error recovery when an `AxisStep` is used in `CatchClause` or `xsl:nametests`.
+
 Code Completion:
 
 1. Fix completing `AtomicOrUnionType` names when a prefix is specified, and the

@@ -72,6 +72,13 @@
   ]]></description>
 
   <change-notes><![CDATA[
+    <p>XPath, XQuery, and XSLT:</p>
+    <ol>
+      <li>
+        Better error recovery when an <code>AxisStep</code> is used in <code>CatchClause</code>
+        or <code>xsl:nametests</code>.
+      </li>
+    </ol>
     <p>Code Completion:</p>
     <ol>
       <li>

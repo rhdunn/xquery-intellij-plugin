@@ -102,7 +102,9 @@ class XsltSchemaTypesParser(
 
     private fun parseEQName(builder: PsiBuilder): Boolean = parseEQNameOrWildcard(builder, QNAME) != null
 
-    private fun parseNameTest(builder: PsiBuilder): Boolean = parseNameTest(builder, null) != null
+    private fun parseNameTest(builder: PsiBuilder): Boolean {
+        return parseNameTest(builder, null, allowAxisStep = false) != null
+    }
 
     private fun parseNameTests(builder: PsiBuilder): Boolean = parseSchemaList(builder, ::parseNameTest)
 

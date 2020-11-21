@@ -78,6 +78,22 @@ private class XslNameTestsTest : ParserTestCase(NameTests.ParserDefinition(), XP
             val actual = parseResource("tests/parser/schema-type/eqnames/QName_List.input")
             assertThat(actual.toPsiTreeString(), `is`(expected))
         }
+
+        @Test
+        @DisplayName("error recovery: as AxisStep")
+        fun asAxisStep() {
+            val expected = loadResource("tests/parser/schema-type/nametests/QName_AxisStep.txt")
+            val actual = parseResource("tests/parser/schema-type/nametests/QName_AxisStep.input")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: as AxisStep; multiple")
+        fun asAxisStep_multiple() {
+            val expected = loadResource("tests/parser/schema-type/nametests/QName_List_AxisStep.txt")
+            val actual = parseResource("tests/parser/schema-type/nametests/QName_List_AxisStep.input")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
     }
 
     @Nested

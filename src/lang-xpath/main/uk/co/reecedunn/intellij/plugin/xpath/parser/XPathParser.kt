@@ -1461,10 +1461,10 @@ open class XPathParser : PsiParser {
         }
 
         marker.drop()
-        return parseNameTest(builder, type) != null
+        return parseNameTest(builder, type, allowAxisStep = true) != null
     }
 
-    fun parseNameTest(builder: PsiBuilder, type: IElementType?, allowAxisStep: Boolean = true): IElementType? {
+    fun parseNameTest(builder: PsiBuilder, type: IElementType?, allowAxisStep: Boolean): IElementType? {
         val marker = builder.mark()
         if (
             this.parseEQNameOrWildcard(
