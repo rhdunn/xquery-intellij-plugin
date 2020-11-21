@@ -144,7 +144,7 @@ not normative.
 | \[87\]  | `SequenceTypeList`      | ::= | `SequenceType ("," SequenceType)*`  |         |
 | \[88\]  | `AnyItemType`           | ::= | `"item" "(" ")"`                    |         |
 | \[96\]  | `NillableTypeName`      | ::= | `TypeName "?"`                      |         |
-| \[97\]  | `ElementTest`           | ::= | `"element" "(" (ElementNameOrWildcard ("," (NillableTypeName | TypeName)?)? ")"` | |
+| \[97\]  | `ElementTest`           | ::= | `"element" "(" (NameTest ("," (NillableTypeName | TypeName)?)? ")"` | |
 | \[99\]  | `TypedFunctionTest`     | ::= | `"function" "(" SequenceTypeList? ")" "as" SequenceType` | |
 | \[100\] | `SingleType`            | ::= | `(UnionType | SimpleTypeName) "?"?` |         |
 
@@ -396,7 +396,8 @@ rational or complex numbers.
 {: .ebnf-symbols }
 | Ref     | Symbol                  |     | Expression                          | Options |
 |---------|-------------------------|-----|-------------------------------------|---------|
-| \[111\] | `ElementNameOrWildcard` | ::= | `NameTest`                          |         |
+| \[96\]  | `NillableTypeName`      | ::= | `TypeName "?"`                      |         |
+| \[97\]  | `ElementTest`           | ::= | `"element" "(" (NameTest ("," (NillableTypeName | TypeName)?)? ")"` | |
 
 This is a Saxon 10.0 extension. The element tests have been relaxed to support
 all wildcard forms, not just `*`.
@@ -1180,7 +1181,7 @@ These changes include support for:
 | \[94\]   | `IfExpr`                       | ::= | `"if" "(" Expr ")" "then" ExprSingle ("else" ExprSingle)?` | |
 | \[95\]   | `ParamList`                    | ::= | `ParamList ::= Param ("," Param)* "..."?` |                 |
 | \[96\]   | `NillableTypeName`             | ::= | `TypeName "?"`                            |                 |
-| \[97\]   | `ElementTest`                  | ::= | `"element" "(" (ElementNameOrWildcard ("," (NillableTypeName | TypeName)?)? ")"` | |
+| \[97\]   | `ElementTest`                  | ::= | `"element" "(" (NameTest ("," (NillableTypeName | TypeName)?)? ")"` | |
 | \[98\]   | `EmptySequenceType`            | ::= | `("empty-sequence" \| "empty") "(" ")"`   |                 |
 | \[99\]   | `TypedFunctionTest`            | ::= | `"function" "(" SequenceTypeList? ")" "as" SequenceType` |  |
 | \[100\]  | `SingleType`                   | ::= | `(UnionType | SimpleTypeName) "?"?`       |                 |
@@ -1194,7 +1195,7 @@ These changes include support for:
 | \[108\]  | `ModuleImport`                 | ::= | `"import" "module" ("namespace" NCName "=")? URILiteral LocationURIList?` | |
 | \[109\]  | `ArrowExpr`                    | ::= | `UnaryExpr ( "=>" ( ArrowFunctionCall | ArrowDynamicFunctionCall ) )*` | |
 | \[110\]  | `ArrowFunctionCall`            | ::= | `EQName ArgumentList`                     |                 |
-| \[111\]  | `ElementNameOrWildcard`        | ::= | `NameTest`                                |                 |
+| \[111\]  |                                | ::= |                                           |                 |
 | \[112\]  | `AttribNameOrWildcard`         | ::= | `NameTest`                                |                 |
 | \[113\]  | `MultiplicativeExpr`           | ::= | `OtherwiseExpr ( ("*" | "div" | "idiv" | "mod") OtherwiseExpr )*` | |
 | \[114\]  | `OtherwiseExpr`                | ::= | `UnionExpr ( "otherwise" UnionExpr )*`    |                 |

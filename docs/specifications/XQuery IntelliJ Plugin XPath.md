@@ -83,7 +83,7 @@ not normative.
 | \[5\]  | `ItemType`              | ::= | `KindTest \| AnyItemType \| FunctionTest \| MapTest \| ArrayTest \| UnionType \| TupleType \| TypeAlias \| AtomicOrUnionType \| ParenthesizedItemType` | |
 | \[6\]  | `AnyItemType`           | ::= | `"item" "(" ")"`                    |         |
 | \[12\] | `NillableTypeName`      | ::= | `TypeName "?"`                      |         |
-| \[13\] | `ElementTest`           | ::= | `"element" "(" (ElementNameOrWildcard ("," (NillableTypeName | TypeName))?)? ")"` | |
+| \[13\] | `ElementTest`           | ::= | `"element" "(" (NameTest ("," (NillableTypeName | TypeName))?)? ")"` | |
 | \[14\] | `SequenceTypeList`      | ::= | `SequenceType ("," SequenceType)*`  |         |
 | \[15\] | `TypedFunctionTest`     | ::= | `"function" "(" SequenceTypeList? ")" "as" SequenceType` | |
 | \[16\] | `UnionType`             | ::= | `"union" "(" EQName ("," EQName)* ")"` |      |
@@ -157,7 +157,8 @@ This is supported by Saxon 9.9.
 {: .ebnf-symbols }
 | Ref     | Symbol                  |     | Expression                          | Options |
 |---------|-------------------------|-----|-------------------------------------|---------|
-| \[29\]  | `ElementNameOrWildcard` | ::= | `NameTest`                          |         |
+| \[12\]  | `NillableTypeName`      | ::= | `TypeName "?"`                      |         |
+| \[13\]  | `ElementTest`           | ::= | `"element" "(" (NameTest ("," (NillableTypeName | TypeName))?)? ")"` | |
 
 This is a Saxon 10.0 extension. The element tests have been relaxed to support
 all wildcard forms, not just `*`.
@@ -440,7 +441,7 @@ These changes include support for:
 | \[10\]  | `TernaryIfExpr`                | ::= | `ElvisExpr "??" ElvisExpr "!!" ElvisExpr` |                |
 | \[11\]  | `ElvisExpr`                    | ::= | `OrExpr "?!" OrExpr`                |                      |
 | \[12\]  | `NillableTypeName`             | ::= | `TypeName "?"`                      |                      |
-| \[13\]  | `ElementTest`                  | ::= | `"element" "(" (ElementNameOrWildcard ("," (NillableTypeName | TypeName))?)? ")"` | |
+| \[13\]  | `ElementTest`                  | ::= | `"element" "(" (NameTest ("," (NillableTypeName | TypeName))?)? ")"` | |
 | \[14\]  | `SequenceTypeList`             | ::= | `SequenceType ("," SequenceType)*`  |                      |
 | \[15\]  | `TypedFunctionTest`            | ::= | `"function" "(" SequenceTypeList? ")" "as" SequenceType` | |
 | \[16\]  | `UnionType`                    | ::= | `"union" "(" EQName ("," EQName)* ")"` |                    |
@@ -456,7 +457,7 @@ These changes include support for:
 | \[26\]  | `TupleField`                   | ::= | `TupleFieldName "?"? ( ( ":" | "as" ) SequenceType )?` |   |
 | \[27\]  | `ArrowExpr`                    | ::= | `UnaryExpr ( "=>" ( ArrowFunctionCall | ArrowDynamicFunctionCall ) )*` | |
 | \[28\]  | `ArrowFunctionCall`            | ::= | `EQName ArgumentList`                   |                  |
-| \[29\]  | `ElementNameOrWildcard`        | ::= | `NameTest`                              |                  |
+| \[29\]  |                                | ::= |                                         |                  |
 | \[30\]  | `AttribNameOrWildcard`         | ::= | `NameTest`                              |                  |
 | \[31\]  | `MultiplicativeExpr`           | ::= | `OtherwiseExpr ( ("*" | "div" | "idiv" | "mod") OtherwiseExpr )*` | |
 | \[32\]  | `OtherwiseExpr`                | ::= | `UnionExpr ( "otherwise" UnionExpr )*`  |                  |

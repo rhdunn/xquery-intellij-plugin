@@ -1465,10 +1465,12 @@ open class XPathParser : PsiParser {
     }
 
     fun parseNameTest(builder: PsiBuilder, type: IElementType?, allowAxisStep: Boolean): IElementType? {
+        val isElementOrAttributeTest = type === XPathElementType.ELEMENT_TEST
         val marker = builder.mark()
         if (
             this.parseEQNameOrWildcard(
-                builder, XPathElementType.WILDCARD, type === XPathElementType.MAP_CONSTRUCTOR_ENTRY
+                builder, XPathElementType.WILDCARD, type === XPathElementType.MAP_CONSTRUCTOR_ENTRY,
+                isElementOrAttributeName = isElementOrAttributeTest
             ) != null
         ) {
             val nonNameMarker = builder.mark()
@@ -1505,6 +1507,9 @@ open class XPathParser : PsiParser {
                     marker.done(XPathElementType.NAME_TEST)
                     XPathElementType.NAME_TEST
                 }
+            } else if (isElementOrAttributeTest) {
+                marker.drop()
+                return XPathElementType.NAME_TEST
             } else {
                 marker.done(XPathElementType.NAME_TEST)
                 return XPathElementType.NAME_TEST
@@ -3707,7 +3712,7 @@ open class XPathParser : PsiParser {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (parseElementNameOrWildcard(builder)) {
+            if (parseNameTest(builder, XPathElementType.ELEMENT_TEST, allowAxisStep = false) != null) {
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (builder.matchTokenType(XPathTokenType.COMMA)) {
                     parseWhiteSpaceAndCommentTokens(builder)
@@ -3731,11 +3736,6 @@ open class XPathParser : PsiParser {
             return true
         }
         return false
-    }
-
-    @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
-    fun parseElementNameOrWildcard(builder: PsiBuilder): Boolean {
-        return this.parseEQNameOrWildcard(builder, XPathElementType.WILDCARD, isElementOrAttributeName = true) != null
     }
 
     fun parseSchemaElementTest(builder: PsiBuilder): Boolean {

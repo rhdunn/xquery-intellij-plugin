@@ -4524,6 +4524,10 @@ class XQueryParser : XPathParser() {
         return ParseStatus.NOT_MATCHED
     }
 
+    fun parseElementNameOrWildcard(builder: PsiBuilder): Boolean {
+        return this.parseEQNameOrWildcard(builder, XPathElementType.WILDCARD, isElementOrAttributeName = true) != null
+    }
+
     private fun parseElementDeclTest(builder: PsiBuilder): ParseStatus {
         val marker = builder.matchTokenTypeWithMarker(XQueryTokenType.K_ELEMENT_DECL)
         if (marker != null) {
