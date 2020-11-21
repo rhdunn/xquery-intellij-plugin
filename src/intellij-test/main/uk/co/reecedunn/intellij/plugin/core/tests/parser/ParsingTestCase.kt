@@ -24,6 +24,7 @@ import com.intellij.compat.psi.impl.PsiCachedValuesFactory
 import com.intellij.compat.testFramework.PlatformLiteFixture
 import com.intellij.compat.testFramework.registerProgressManager
 import com.intellij.compat.testFramework.registerServiceInstance
+import com.intellij.compat.vfs.encoding.EncodingManagerImpl
 import com.intellij.ide.startup.impl.StartupManagerImpl
 import com.intellij.lang.*
 import com.intellij.lang.impl.PsiBuilderFactoryImpl
@@ -47,7 +48,6 @@ import com.intellij.openapi.util.Disposer
 import com.intellij.openapi.vfs.CharsetToolkit
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.encoding.EncodingManager
-import com.intellij.openapi.vfs.encoding.EncodingManagerImpl
 import com.intellij.psi.*
 import com.intellij.psi.codeStyle.*
 import com.intellij.psi.codeStyle.modifier.CodeStyleSettingsModifier
@@ -107,7 +107,7 @@ abstract class ParsingTestCase<File : PsiFile>(
         registerComponentInstance(appContainer, MessageBus::class.java, app.messageBus)
         val editorFactory = MockEditorFactoryEx()
         app.registerServiceInstance(EditorFactory::class.java, editorFactory)
-        app.registerServiceInstance(EncodingManager::class.java, EncodingManagerImpl(editorFactory, app.messageBus))
+        app.registerServiceInstance(EncodingManager::class.java, EncodingManagerImpl())
         app.registerServiceInstance(CommandProcessor::class.java, CoreCommandProcessor())
         app.registerServiceInstance(
             FileDocumentManager::class.java,
