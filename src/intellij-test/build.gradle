@@ -2,6 +2,8 @@ sourceSets.main.java.srcDirs += 'main'
 sourceSets.test.java.srcDirs += 'test'
 
 dependencies {
+    compile "org.junit.jupiter:junit-jupiter-api:5.7.0"
+
     compile project(':src:intellij-compat')
 
     compile project(':src:kotlin-hamcrest')

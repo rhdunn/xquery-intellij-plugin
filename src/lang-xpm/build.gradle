@@ -9,4 +9,5 @@ dependencies {
     compile project(':src:lang-xdm')
 
     testCompile project(':src:kotlin-hamcrest')
+    testCompile project(':src:intellij-test')
 }
