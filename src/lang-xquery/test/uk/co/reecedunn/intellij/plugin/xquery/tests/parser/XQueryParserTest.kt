@@ -7384,6 +7384,22 @@ private class XQueryParserTest : ParserTestCase() {
                 val actual = parseResource("tests/parser/xquery-3.0/CatchClause_Multiple.xq")
                 assertThat(actual.toPsiTreeString(), `is`(expected))
             }
+
+            @Test
+            @DisplayName("error recovery: catch clause with AxisStep")
+            fun catchClauseWithAxisStep() {
+                val expected = loadResource("tests/parser/xquery-3.0/CatchClause_AxisStep.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/CatchClause_AxisStep.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: catch clause with AxisStep; multiple")
+            fun catchClauseWithAxisStep_multiple() {
+                val expected = loadResource("tests/parser/xquery-3.0/CatchClause_AxisStep_Multiple.txt")
+                val actual = parseResource("tests/parser/xquery-3.0/CatchClause_AxisStep_Multiple.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
         }
 
         @Nested

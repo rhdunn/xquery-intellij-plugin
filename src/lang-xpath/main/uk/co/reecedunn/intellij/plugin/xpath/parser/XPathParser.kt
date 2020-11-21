@@ -1464,7 +1464,7 @@ open class XPathParser : PsiParser {
         return parseNameTest(builder, type) != null
     }
 
-    fun parseNameTest(builder: PsiBuilder, type: IElementType?): IElementType? {
+    fun parseNameTest(builder: PsiBuilder, type: IElementType?, allowAxisStep: Boolean = true): IElementType? {
         val marker = builder.mark()
         if (
             this.parseEQNameOrWildcard(
@@ -1489,11 +1489,18 @@ open class XPathParser : PsiParser {
                 )
             ) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                parseNodeTest(builder, null)
+                return if (allowAxisStep) {
+                    parseNodeTest(builder, null)
 
-                parseWhiteSpaceAndCommentTokens(builder)
-                parsePredicateList(builder, marker, recover = true)
-                return XPathElementType.AXIS_STEP
+                    parseWhiteSpaceAndCommentTokens(builder)
+                    parsePredicateList(builder, marker, recover = true)
+                    XPathElementType.AXIS_STEP
+                } else {
+                    parseNCName(builder) // QName written with '::' instead of ':'.
+
+                    marker.done(XPathElementType.NAME_TEST)
+                    XPathElementType.NAME_TEST
+                }
             } else {
                 marker.done(XPathElementType.NAME_TEST)
                 return XPathElementType.NAME_TEST
