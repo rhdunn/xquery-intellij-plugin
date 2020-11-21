@@ -702,8 +702,8 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (30) AttribNameOrWildcard")
-    internal inner class AttribNameOrWildcard {
+    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (30) AttributeTest ; XPath 3.1 EBNF (47) NameTest")
+    internal inner class AttributeTest {
         @Test
         @DisplayName("wildcard prefix")
         fun prefix() {

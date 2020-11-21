@@ -1185,8 +1185,8 @@ private class PluginPsiTest : ParserTestCase() {
     @DisplayName("XQuery IntelliJ Plugin (2.1.2.8) Attribute Test")
     internal inner class AttributeTest {
         @Nested
-        @DisplayName("XQuery IntelliJ Plugin EBNF (112) AttribNameOrWildcard")
-        internal inner class AttribNameOrWildcard {
+        @DisplayName("XQuery IntelliJ Plugin EBNF (111) AttributeTest ; XQuery 3.1 EBNF (119) NameTest")
+        internal inner class NameTest {
             @Test
             @DisplayName("wildcard")
             fun wildcard() {

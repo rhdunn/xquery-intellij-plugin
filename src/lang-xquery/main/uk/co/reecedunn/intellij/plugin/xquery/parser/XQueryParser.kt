@@ -4457,6 +4457,14 @@ class XQueryParser : XPathParser() {
     // endregion
     // region Grammar :: TypeDeclaration :: KindTest :: SchemaKindTest
 
+    private fun parseAttribNameOrWildcard(builder: PsiBuilder): Boolean {
+        return this.parseEQNameOrWildcard(builder, XPathElementType.WILDCARD, isElementOrAttributeName = true) != null
+    }
+
+    private fun parseElementNameOrWildcard(builder: PsiBuilder): Boolean {
+        return this.parseEQNameOrWildcard(builder, XPathElementType.WILDCARD, isElementOrAttributeName = true) != null
+    }
+
     private fun parseSchemaKindTest(builder: PsiBuilder): ParseStatus {
         var status = parseAttributeDeclTest(builder)
         if (status == ParseStatus.NOT_MATCHED) status = parseComplexTypeTest(builder)
@@ -4522,10 +4530,6 @@ class XQueryParser : XPathParser() {
             return status
         }
         return ParseStatus.NOT_MATCHED
-    }
-
-    fun parseElementNameOrWildcard(builder: PsiBuilder): Boolean {
-        return this.parseEQNameOrWildcard(builder, XPathElementType.WILDCARD, isElementOrAttributeName = true) != null
     }
 
     private fun parseElementDeclTest(builder: PsiBuilder): ParseStatus {

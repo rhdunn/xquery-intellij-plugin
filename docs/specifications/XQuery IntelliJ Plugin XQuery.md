@@ -412,7 +412,7 @@ all wildcard forms, not just `*`.
 {: .ebnf-symbols }
 | Ref     | Symbol                  |     | Expression                          | Options |
 |---------|-------------------------|-----|-------------------------------------|---------|
-| \[112\] | `AttribNameOrWildcard`  | ::= | `NameTest`                          |         |
+| \[111\] | `AttributeTest`         | ::= | `"attribute" "(" (NameTest ("," TypeName?)? ")"` | |
 
 This is a Saxon 10.0 extension. The attribute tests have been relaxed to support
 all wildcard forms, not just `*`.
@@ -1195,8 +1195,8 @@ These changes include support for:
 | \[108\]  | `ModuleImport`                 | ::= | `"import" "module" ("namespace" NCName "=")? URILiteral LocationURIList?` | |
 | \[109\]  | `ArrowExpr`                    | ::= | `UnaryExpr ( "=>" ( ArrowFunctionCall | ArrowDynamicFunctionCall ) )*` | |
 | \[110\]  | `ArrowFunctionCall`            | ::= | `EQName ArgumentList`                     |                 |
-| \[111\]  |                                | ::= |                                           |                 |
-| \[112\]  | `AttribNameOrWildcard`         | ::= | `NameTest`                                |                 |
+| \[111\]  | `AttributeTest`                | ::= | `"attribute" "(" (NameTest ("," TypeName?)? ")"` |          |
+| \[112\]  |                                | ::= |                                           |                 |
 | \[113\]  | `MultiplicativeExpr`           | ::= | `OtherwiseExpr ( ("*" | "div" | "idiv" | "mod") OtherwiseExpr )*` | |
 | \[114\]  | `OtherwiseExpr`                | ::= | `UnionExpr ( "otherwise" UnionExpr )*`    |                 |
 | \[115\]  | `TupleFieldName`               | ::= | `NCName | StringLiteral`                  |                 |

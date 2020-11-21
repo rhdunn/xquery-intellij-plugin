@@ -82,8 +82,6 @@ not normative.
 |--------|-------------------------|-----|-------------------------------------|---------|
 | \[5\]  | `ItemType`              | ::= | `KindTest \| AnyItemType \| FunctionTest \| MapTest \| ArrayTest \| UnionType \| TupleType \| TypeAlias \| AtomicOrUnionType \| ParenthesizedItemType` | |
 | \[6\]  | `AnyItemType`           | ::= | `"item" "(" ")"`                    |         |
-| \[12\] | `NillableTypeName`      | ::= | `TypeName "?"`                      |         |
-| \[13\] | `ElementTest`           | ::= | `"element" "(" (NameTest ("," (NillableTypeName | TypeName))?)? ")"` | |
 | \[14\] | `SequenceTypeList`      | ::= | `SequenceType ("," SequenceType)*`  |         |
 | \[15\] | `TypedFunctionTest`     | ::= | `"function" "(" SequenceTypeList? ")" "as" SequenceType` | |
 | \[16\] | `UnionType`             | ::= | `"union" "(" EQName ("," EQName)* ")"` |      |
@@ -173,7 +171,7 @@ all wildcard forms, not just `*`.
 {: .ebnf-symbols }
 | Ref     | Symbol                  |     | Expression                          | Options |
 |---------|-------------------------|-----|-------------------------------------|---------|
-| \[30\]  | `AttribNameOrWildcard`  | ::= | `NameTest`                          |         |
+| \[29\]  | `AttrbiuteTest`         | ::= | `"attribute" "(" (NameTest ("," TypeName)?)? ")"` | |
 
 This is a Saxon 10.0 extension. The attribute tests have been relaxed to support
 all wildcard forms, not just `*`.
@@ -424,7 +422,7 @@ specifications, including this document.
 The EBNF symbols below only include new and modified symbols.
 
 These changes include support for:
-1.  XQuery IntelliJ Plugin Vendor Extensions.
+1.  Saxon Vendor Extensions.
 
 {: .ebnf-symbols }
 | Ref     | Symbol                         |     | Expression                          | Options              |
@@ -457,8 +455,8 @@ These changes include support for:
 | \[26\]  | `TupleField`                   | ::= | `TupleFieldName "?"? ( ( ":" | "as" ) SequenceType )?` |   |
 | \[27\]  | `ArrowExpr`                    | ::= | `UnaryExpr ( "=>" ( ArrowFunctionCall | ArrowDynamicFunctionCall ) )*` | |
 | \[28\]  | `ArrowFunctionCall`            | ::= | `EQName ArgumentList`                   |                  |
-| \[29\]  |                                | ::= |                                         |                  |
-| \[30\]  | `AttribNameOrWildcard`         | ::= | `NameTest`                              |                  |
+| \[29\]  | `AttrbiuteTest`                | ::= | `"attribute" "(" (NameTest ("," TypeName)?)? ")"` |        |
+| \[30\]  |                                | ::= |                                         |                  |
 | \[31\]  | `MultiplicativeExpr`           | ::= | `OtherwiseExpr ( ("*" | "div" | "idiv" | "mod") OtherwiseExpr )*` | |
 | \[32\]  | `OtherwiseExpr`                | ::= | `UnionExpr ( "otherwise" UnionExpr )*`  |                  |
 | \[33\]  | `TupleFieldName`               | ::= | `NCName | StringLiteral`                |                  |

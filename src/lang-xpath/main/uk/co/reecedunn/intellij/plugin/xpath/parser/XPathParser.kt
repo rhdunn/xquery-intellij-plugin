@@ -1465,7 +1465,8 @@ open class XPathParser : PsiParser {
     }
 
     fun parseNameTest(builder: PsiBuilder, type: IElementType?, allowAxisStep: Boolean): IElementType? {
-        val isElementOrAttributeTest = type === XPathElementType.ELEMENT_TEST
+        val isElementOrAttributeTest =
+            type === XPathElementType.ELEMENT_TEST || type === XPathElementType.ATTRIBUTE_TEST
         val marker = builder.mark()
         if (
             this.parseEQNameOrWildcard(
@@ -3622,7 +3623,7 @@ open class XPathParser : PsiParser {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (parseAttribNameOrWildcard(builder)) {
+            if (parseNameTest(builder, XPathElementType.ATTRIBUTE_TEST, allowAxisStep = false) != null) {
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (builder.matchTokenType(XPathTokenType.COMMA)) {
                     parseWhiteSpaceAndCommentTokens(builder)
@@ -3649,11 +3650,6 @@ open class XPathParser : PsiParser {
             return true
         }
         return false
-    }
-
-    @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
-    fun parseAttribNameOrWildcard(builder: PsiBuilder): Boolean {
-        return this.parseEQNameOrWildcard(builder, XPathElementType.WILDCARD, isElementOrAttributeName = true) != null
     }
 
     private fun parseSchemaAttributeTest(builder: PsiBuilder): Boolean {
