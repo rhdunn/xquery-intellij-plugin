@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpm.tests.java
 
 import com.intellij.compat.testFramework.PlatformLiteFixture
+import com.intellij.compat.testFramework.registerServiceInstance
 import com.intellij.mock.MockProjectEx
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.*
@@ -40,7 +41,7 @@ private class JavaTypePathTest : PlatformLiteFixture() {
         super.setUp()
         initApplication()
         myProject = MockProjectEx(testRootDisposable)
-        myProject.registerService(JavaTypePath::class.java, JavaTypePath(myProject))
+        project.registerServiceInstance(JavaTypePath::class.java, JavaTypePath(project))
     }
 
     @AfterAll

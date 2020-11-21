@@ -32,8 +32,8 @@ private class MockPomModelImpl(project: Project) : PomModelImpl(project) {
 
 @Suppress("UnstableApiUsage")
 fun registerPomModel(project: MockProject) {
-    project.registerService(TreeAspect::class.java, TreeAspect())
-    project.registerService(PomModel::class.java, MockPomModelImpl(project))
+    project.registerServiceInstance(TreeAspect::class.java, TreeAspect())
+    project.registerServiceInstance(PomModel::class.java, MockPomModelImpl(project))
 }
 
 fun MockProjectEx.registerCodeStyleCachingService() {

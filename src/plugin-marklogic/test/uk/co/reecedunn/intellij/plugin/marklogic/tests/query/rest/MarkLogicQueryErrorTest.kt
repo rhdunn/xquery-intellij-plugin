@@ -41,7 +41,7 @@ class MarkLogicQueryErrorTest : PlatformLiteFixture() {
         app.registerServiceInstance(XDebuggerUtil::class.java, XDebuggerUtilImpl())
 
         val fileType = MockLanguageFileType(XQuery, "xq")
-        app.registerService(FileTypeManager::class.java, MockFileTypeManager(fileType))
+        app.registerServiceInstance(FileTypeManager::class.java, MockFileTypeManager(fileType))
     }
 
     @AfterAll

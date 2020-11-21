@@ -19,6 +19,7 @@ import com.intellij.codeInspection.InspectionManager
 import com.intellij.codeInspection.LocalInspectionTool
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ex.InspectionManagerEx
+import com.intellij.compat.testFramework.registerServiceInstance
 import com.intellij.lang.LanguageASTFactory
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.extensions.DefaultPluginDescriptor
@@ -68,9 +69,9 @@ abstract class InspectionTestCase :
     override fun setUp() {
         super.setUp()
 
-        myProject.registerService(XQueryProjectSettings::class.java, XQueryProjectSettings())
-        myProject.registerService(SmartPointerManager::class.java, MockSmartPointerManager())
-        myProject.registerService(InspectionManager::class.java, InspectionManagerEx(myProject))
+        project.registerServiceInstance(XQueryProjectSettings::class.java, XQueryProjectSettings())
+        project.registerServiceInstance(SmartPointerManager::class.java, MockSmartPointerManager())
+        project.registerServiceInstance(InspectionManager::class.java, InspectionManagerEx(project))
 
         addExplicitExtension(LanguageASTFactory.INSTANCE, XPath, XPathASTFactory())
         addExplicitExtension(LanguageASTFactory.INSTANCE, XQuery, XQueryASTFactory())

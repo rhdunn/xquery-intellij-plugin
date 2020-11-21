@@ -21,6 +21,7 @@ import com.intellij.openapi.roots.ModuleRootManager
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.util.graph.Graph
 import com.intellij.compat.openapi.module.ModuleManager
+import com.intellij.compat.testFramework.registerServiceInstance
 import org.jetbrains.annotations.ApiStatus
 import uk.co.reecedunn.intellij.plugin.core.tests.roots.MockModuleRootsManager
 
@@ -32,7 +33,7 @@ class MockModuleManager(private val project: Project) : ModuleManager() {
 
     fun addModule(moduleFile: VirtualFile): Module {
         val module = MockModule(project, moduleFile)
-        module.registerService(ModuleRootManager::class.java, MockModuleRootsManager(module))
+        module.registerServiceInstance(ModuleRootManager::class.java, MockModuleRootsManager(module))
         modules = arrayOf(module, *modules)
         return module
     }

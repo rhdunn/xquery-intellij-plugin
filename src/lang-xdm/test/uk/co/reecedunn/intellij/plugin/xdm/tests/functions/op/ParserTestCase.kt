@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.tests.functions.op
 
+import com.intellij.compat.testFramework.registerServiceInstance
 import com.intellij.lang.LanguageASTFactory
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.extensions.DefaultPluginDescriptor
@@ -58,14 +59,14 @@ abstract class ParserTestCase :
     @BeforeAll
     override fun setUp() {
         super.setUp()
-        myProject.registerService(XQueryProjectSettings::class.java, XQueryProjectSettings())
+        project.registerServiceInstance(XQueryProjectSettings::class.java, XQueryProjectSettings())
         addExplicitExtension(LanguageASTFactory.INSTANCE, XPath, XPathASTFactory())
         addExplicitExtension(LanguageASTFactory.INSTANCE, XQuery, XQueryASTFactory())
-        myProject.registerService(ProjectRootManager::class.java, MockProjectRootsManager())
+        project.registerServiceInstance(ProjectRootManager::class.java, MockProjectRootsManager())
 
         val manager = MockModuleManager(myProject)
         registerModules(manager)
-        myProject.registerService(ModuleManager::class.java, manager)
+        project.registerServiceInstance(ModuleManager::class.java, manager)
 
         XpmNamespaceProvider.register(this, XQueryNamespaceProvider)
     }

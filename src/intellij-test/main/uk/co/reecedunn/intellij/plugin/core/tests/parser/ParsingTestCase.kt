@@ -106,10 +106,10 @@ abstract class ParsingTestCase<File : PsiFile>(
         mFileFactory = PsiFileFactoryImpl(psiManager)
         registerComponentInstance(appContainer, MessageBus::class.java, app.messageBus)
         val editorFactory = MockEditorFactoryEx()
-        app.registerService(EditorFactory::class.java, editorFactory)
-        app.registerService(EncodingManager::class.java, EncodingManagerImpl::class.java)
+        app.registerServiceInstance(EditorFactory::class.java, editorFactory)
+        app.registerServiceInstance(EncodingManager::class.java, EncodingManagerImpl(editorFactory, app.messageBus))
         app.registerServiceInstance(CommandProcessor::class.java, CoreCommandProcessor())
-        app.registerService(
+        app.registerServiceInstance(
             FileDocumentManager::class.java,
             MockFileDocumentManagerImpl(FileDocumentManagerImpl.HARD_REF_TO_DOCUMENT_KEY) {
                 editorFactory.createDocument(it)
@@ -119,13 +119,13 @@ abstract class ParsingTestCase<File : PsiFile>(
         app.registerServiceInstance(PsiBuilderFactory::class.java, PsiBuilderFactoryImpl())
         app.registerServiceInstance(DefaultASTFactory::class.java, DefaultASTFactoryImpl())
         app.registerServiceInstance(ReferenceProvidersRegistry::class.java, ReferenceProvidersRegistryImpl())
-        myProject.registerService(PsiManager::class.java, psiManager)
-        myProject.registerService(
-            CachedValuesManager::class.java, CachedValuesManagerImpl(myProject, PsiCachedValuesFactory(myProject))
+        project.registerServiceInstance(PsiManager::class.java, psiManager)
+        project.registerServiceInstance(
+            CachedValuesManager::class.java, CachedValuesManagerImpl(project, PsiCachedValuesFactory(project))
         )
-        myProject.registerService(PsiDocumentManager::class.java, MockPsiDocumentManagerEx(myProject))
-        myProject.registerService(PsiFileFactory::class.java, mFileFactory!!)
-        myProject.registerService(StartupManager::class.java, StartupManagerImpl(myProject))
+        project.registerServiceInstance(PsiDocumentManager::class.java, MockPsiDocumentManagerEx(project))
+        project.registerServiceInstance(PsiFileFactory::class.java, mFileFactory!!)
+        project.registerServiceInstance(StartupManager::class.java, StartupManagerImpl(project))
         registerExtensionPoint("com.intellij.openapi.fileTypes.FileTypeFactory", "FILE_TYPE_FACTORY_EP")
         registerExtensionPoint("com.intellij.lang.MetaLanguage", "EP_NAME")
 
@@ -143,7 +143,7 @@ abstract class ParsingTestCase<File : PsiFile>(
                     loadFileTypeSafe("com.intellij.ide.highlighter.XmlFileType", "XML")
                 else
                     MockLanguageFileType(language!!, mFileExt)
-            app.registerService(FileTypeManager::class.java, MockFileTypeManager(fileType))
+            app.registerServiceInstance(FileTypeManager::class.java, MockFileTypeManager(fileType))
         }
     }
 
@@ -185,9 +185,9 @@ abstract class ParsingTestCase<File : PsiFile>(
         ApplicationManager.getApplication().registerServiceInstance(
             AppCodeStyleSettingsManager::class.java, AppCodeStyleSettingsManager()
         )
-        myProject.registerService(
+        project.registerServiceInstance(
             ProjectCodeStyleSettingsManager::class.java,
-            com.intellij.compat.psi.codeStyle.ProjectCodeStyleSettingsManager(myProject)
+            com.intellij.compat.psi.codeStyle.ProjectCodeStyleSettingsManager(project)
         )
 
         @Suppress("UnstableApiUsage")

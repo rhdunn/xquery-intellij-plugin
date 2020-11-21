@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.parser
 
 import com.intellij.compat.testFramework.registerCodeStyleCachingService
 import com.intellij.compat.testFramework.registerPomModel
+import com.intellij.compat.testFramework.registerServiceInstance
 import com.intellij.lang.LanguageASTFactory
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.extensions.DefaultPluginDescriptor
@@ -72,17 +73,17 @@ abstract class ParserTestCase :
         registerPsiModification()
         myProject.registerCodeStyleCachingService()
 
-        myProject.registerService(XQueryProjectSettings::class.java, XQueryProjectSettings())
+        project.registerServiceInstance(XQueryProjectSettings::class.java, XQueryProjectSettings())
         addExplicitExtension(LanguageASTFactory.INSTANCE, XPath, XPathASTFactory())
         addExplicitExtension(LanguageASTFactory.INSTANCE, XQuery, XQueryASTFactory())
-        myProject.registerService(ProjectRootManager::class.java, MockProjectRootsManager())
+        project.registerServiceInstance(ProjectRootManager::class.java, MockProjectRootsManager())
 
         val manager = MockModuleManager(myProject)
         registerModules(manager)
-        myProject.registerService(ModuleManager::class.java, manager)
+        project.registerServiceInstance(ModuleManager::class.java, manager)
 
-        myProject.registerService(JavaTypePath::class.java, JavaTypePath(myProject))
-        myProject.registerService(XpmModuleLoaderSettings::class.java, XpmModuleLoaderSettings(myProject))
+        project.registerServiceInstance(JavaTypePath::class.java, JavaTypePath(project))
+        project.registerServiceInstance(XpmModuleLoaderSettings::class.java, XpmModuleLoaderSettings(project))
 
         XpmModulePathFactory.register(this, XpmModuleLocationPath, "")
 

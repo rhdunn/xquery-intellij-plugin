@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xslt.tests.annotation
 
+import com.intellij.compat.testFramework.registerServiceInstance
 import com.intellij.lang.LanguageASTFactory
 import com.intellij.lang.ParserDefinition
 import com.intellij.lang.injection.InjectedLanguageManager
@@ -61,9 +62,9 @@ abstract class AnnotatorTestCase(vararg definitions: ParserDefinition) :
         registerExtensionPoint(StartTagEndTokenProvider.EP_NAME, StartTagEndTokenProvider::class.java)
         registerExtensionPoint(XmlExtension.EP_NAME, XmlExtension::class.java)
 
-        myProject.registerService(ProjectRootManager::class.java, MockProjectRootsManager())
-        myProject.registerService(ModuleManager::class.java, MockModuleManager(myProject))
-        myProject.registerService(InjectedLanguageManager::class.java, MockInjectedLanguageManager())
+        project.registerServiceInstance(ProjectRootManager::class.java, MockProjectRootsManager())
+        project.registerServiceInstance(ModuleManager::class.java, MockModuleManager(project))
+        project.registerServiceInstance(InjectedLanguageManager::class.java, MockInjectedLanguageManager())
 
         XpmShadowPsiElementFactory.register(this, XsltShadowPsiElementFactory)
     }

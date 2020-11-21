@@ -70,13 +70,6 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
     }
 
     // endregion
-    // region Registering Project Services
-
-    fun <T> registerProjectService(aClass: Class<T>, `object`: T) {
-        myProject.registerService(aClass, `object`)
-    }
-
-    // endregion
     // region Registering Component Instances
 
     fun <T> registerComponentInstance(container: MutablePicoContainer, key: Class<T>, implementation: T): T {
