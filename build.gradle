@@ -137,7 +137,7 @@ dependencies {
     compile project(':src:plugin-w3')
 
     testCompile project(':src:kotlin-hamcrest')
-    testCompile project(':src:intellij-mock')
+    testCompile project(':src:intellij-test')
 }
 
 intellij.plugins = [
@@ -217,7 +217,7 @@ task moduleDependencyReport {
         deps.forEach { from, toList ->
             file << "\"$from\" [shape=none]\n"
             toList.forEach { to ->
-                if (to != "kotlin-hamcrest" && to != "intellij-mock") {
+                if (to != "kotlin-hamcrest" && to != "intellij-test") {
                     file << ("\"$from\" -> \"$to\"\n")
                 }
             }
