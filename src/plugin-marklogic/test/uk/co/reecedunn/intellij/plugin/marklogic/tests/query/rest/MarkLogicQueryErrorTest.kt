@@ -15,10 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.tests.query.rest
 
-import com.intellij.compat.testFramework.PlatformLiteFixture
 import com.intellij.compat.testFramework.registerServiceInstance
 import com.intellij.mock.MockFileTypeManager
 import com.intellij.mock.MockLanguageFileType
+import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.extensions.PluginId
 import com.intellij.openapi.fileTypes.FileTypeManager
 import com.intellij.testFramework.LightVirtualFile
 import com.intellij.xdebugger.XDebuggerUtil
@@ -27,26 +28,21 @@ import org.hamcrest.CoreMatchers.*
 import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.QuerySourcePosition
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.toMarkLogicQueryError
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("IntelliJ - Base Platform - Run Configuration - XQuery Processor - MarkLogicQueryError")
-class MarkLogicQueryErrorTest : PlatformLiteFixture() {
-    @BeforeAll
-    override fun setUp() {
-        super.setUp()
-        val app = initApplication()
+class MarkLogicQueryErrorTest : IdeaPlatformTestCase() {
+    override val pluginId: PluginId = PluginId.getId("MarkLogicQueryErrorTest")
+
+    override fun registerServicesAndExtensions() {
+        val app = ApplicationManager.getApplication()
         app.registerServiceInstance(XDebuggerUtil::class.java, XDebuggerUtilImpl())
 
         val fileType = MockLanguageFileType(XQuery, "xq")
         app.registerServiceInstance(FileTypeManager::class.java, MockFileTypeManager(fileType))
-    }
-
-    @AfterAll
-    override fun tearDown() {
-        super.tearDown()
     }
 
     @Test
