@@ -4434,47 +4434,6 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    override fun parseAttributeTest(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_ATTRIBUTE)
-        if (marker != null) {
-            var haveErrors = false
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
-                marker.rollbackTo()
-                return false
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (parseAttribNameOrWildcard(builder)) {
-                parseWhiteSpaceAndCommentTokens(builder)
-                if (builder.matchTokenType(XPathTokenType.COMMA)) {
-                    parseWhiteSpaceAndCommentTokens(builder)
-                    if (parseEQNameOrWildcard(builder, XPathElementType.TYPE_NAME, false) == null) {
-                        builder.error(XPathBundle.message("parser.error.expected-eqname"))
-                        haveErrors = true
-                    }
-                } else if (
-                    builder.tokenType !== XPathTokenType.PARENTHESIS_CLOSE &&
-                    builder.tokenType !== XQueryTokenType.K_EXTERNAL
-                ) {
-                    builder.error(XPathBundle.message("parser.error.expected", ","))
-                    haveErrors = true
-                    parseEQNameOrWildcard(builder, XPathElementType.TYPE_NAME, false)
-                }
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE) && !haveErrors) {
-                builder.error(XPathBundle.message("parser.error.expected", ")"))
-            }
-
-            marker.done(XPathElementType.ATTRIBUTE_TEST)
-            return true
-        }
-        return false
-    }
-
     private fun parseBinaryTest(builder: PsiBuilder): ParseStatus {
         val marker = builder.matchTokenTypeWithMarker(XQueryTokenType.K_BINARY)
         if (marker != null) {

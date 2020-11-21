@@ -3605,7 +3605,7 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    open fun parseAttributeTest(builder: PsiBuilder): Boolean {
+    private fun parseAttributeTest(builder: PsiBuilder): Boolean {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_ATTRIBUTE)
         if (marker != null) {
             var haveErrors = false
@@ -3625,7 +3625,10 @@ open class XPathParser : PsiParser {
                         builder.error(XPathBundle.message("parser.error.expected-eqname"))
                         haveErrors = true
                     }
-                } else if (builder.tokenType !== XPathTokenType.PARENTHESIS_CLOSE) {
+                } else if (
+                    builder.tokenType !== XPathTokenType.PARENTHESIS_CLOSE &&
+                    builder.tokenType !== EXTERNAL_KEYWORD // XQuery VarDecl
+                ) {
                     builder.error(XPathBundle.message("parser.error.expected", ","))
                     haveErrors = true
                     this.parseEQNameOrWildcard(builder, XPathElementType.TYPE_NAME, false)
