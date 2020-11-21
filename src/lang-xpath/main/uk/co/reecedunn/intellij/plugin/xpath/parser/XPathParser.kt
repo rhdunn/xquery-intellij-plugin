@@ -3461,6 +3461,8 @@ open class XPathParser : PsiParser {
     private val ELEMENT_DECLARATION: IElementType
         get() = QNAME
 
+    open val EXTERNAL_KEYWORD: IElementType? = null
+
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
     open fun parseKindTest(builder: PsiBuilder): Boolean {
         return (
@@ -3674,7 +3676,7 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    fun parseNillableOrNonNillableTypeName(builder: PsiBuilder): Boolean {
+    private fun parseNillableOrNonNillableTypeName(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
         var haveErrors = false
         if (this.parseEQNameOrWildcard(builder, XPathElementType.TYPE_NAME, false) == null) {
@@ -3690,7 +3692,7 @@ open class XPathParser : PsiParser {
         return haveErrors
     }
 
-    open fun parseElementTest(builder: PsiBuilder): Boolean {
+    fun parseElementTest(builder: PsiBuilder): Boolean {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_ELEMENT)
         if (marker != null) {
             var haveErrors = false
@@ -3707,7 +3709,10 @@ open class XPathParser : PsiParser {
                 if (builder.matchTokenType(XPathTokenType.COMMA)) {
                     parseWhiteSpaceAndCommentTokens(builder)
                     haveErrors = parseNillableOrNonNillableTypeName(builder)
-                } else if (builder.tokenType !== XPathTokenType.PARENTHESIS_CLOSE) {
+                } else if (
+                    builder.tokenType !== XPathTokenType.PARENTHESIS_CLOSE &&
+                    builder.tokenType !== EXTERNAL_KEYWORD // XQuery VarDecl
+                ) {
                     builder.error(XPathBundle.message("parser.error.expected", ","))
                     haveErrors = true
                     this.parseEQNameOrWildcard(builder, XPathElementType.TYPE_NAME, false)

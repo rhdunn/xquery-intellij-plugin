@@ -4337,6 +4337,8 @@ class XQueryParser : XPathParser() {
     // endregion
     // region Grammar :: TypeDeclaration :: KindTest
 
+    override val EXTERNAL_KEYWORD: IElementType = XQueryTokenType.K_EXTERNAL
+
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
     override fun parseKindTest(builder: PsiBuilder): Boolean {
         return (
@@ -4468,44 +4470,6 @@ class XQueryParser : XPathParser() {
             }
 
             marker.done(XPathElementType.ATTRIBUTE_TEST)
-            return true
-        }
-        return false
-    }
-
-    override fun parseElementTest(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_ELEMENT)
-        if (marker != null) {
-            var haveErrors = false
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
-                marker.rollbackTo()
-                return false
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (parseElementNameOrWildcard(builder)) {
-                parseWhiteSpaceAndCommentTokens(builder)
-                if (builder.matchTokenType(XPathTokenType.COMMA)) {
-                    parseWhiteSpaceAndCommentTokens(builder)
-                    haveErrors = parseNillableOrNonNillableTypeName(builder)
-                } else if (
-                    builder.tokenType !== XPathTokenType.PARENTHESIS_CLOSE &&
-                    builder.tokenType !== XQueryTokenType.K_EXTERNAL
-                ) {
-                    builder.error(XPathBundle.message("parser.error.expected", ","))
-                    haveErrors = true
-                    parseEQNameOrWildcard(builder, XPathElementType.TYPE_NAME, false)
-                }
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE) && !haveErrors) {
-                builder.error(XPathBundle.message("parser.error.expected", ")"))
-            }
-
-            marker.done(XPathElementType.ELEMENT_TEST)
             return true
         }
         return false
