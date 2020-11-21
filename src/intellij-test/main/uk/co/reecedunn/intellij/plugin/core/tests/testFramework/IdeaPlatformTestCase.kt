@@ -46,6 +46,7 @@ abstract class IdeaPlatformTestCase : PluginDescriptorProvider {
     fun setupFixture() {
         createMockApplication(pluginDisposable)
         mainProject = MockProjectEx(pluginDisposable)
+        registerServicesAndExtensions()
     }
 
     @AfterAll
@@ -53,6 +54,8 @@ abstract class IdeaPlatformTestCase : PluginDescriptorProvider {
         mainProject = null
         Disposer.dispose(pluginDisposable)
     }
+
+    open fun registerServicesAndExtensions() {}
 
     private class PluginDisposable : Disposable {
         @Volatile
