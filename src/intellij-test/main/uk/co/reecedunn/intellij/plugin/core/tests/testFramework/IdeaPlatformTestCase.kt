@@ -15,17 +15,42 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.tests.testFramework
 
+import com.intellij.openapi.Disposable
+import com.intellij.openapi.extensions.DefaultPluginDescriptor
+import com.intellij.openapi.extensions.PluginDescriptor
+import com.intellij.openapi.util.Disposer
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.TestInstance
+import uk.co.reecedunn.intellij.plugin.core.extensions.PluginDescriptorProvider
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-open class IdeaPlatformTestCase {
+abstract class IdeaPlatformTestCase : PluginDescriptorProvider {
+    // region PluginDescriptorProvider
+
+    override val pluginDescriptor: PluginDescriptor
+        get() = DefaultPluginDescriptor(pluginId, this::class.java.classLoader)
+
+    override val pluginDisposable: Disposable = PluginDisposable()
+
+    // endregion
+
     @BeforeAll
     fun setupFixture() {
     }
 
     @AfterAll
     fun tearDownFixture() {
+        Disposer.dispose(pluginDisposable)
+    }
+
+    private class PluginDisposable : Disposable {
+        @Volatile
+        var isDisposed: Boolean = false
+            private set
+
+        override fun dispose() {
+            isDisposed = true
+        }
     }
 }
