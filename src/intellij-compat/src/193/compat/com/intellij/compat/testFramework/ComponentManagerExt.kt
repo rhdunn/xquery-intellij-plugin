@@ -16,8 +16,10 @@
  */
 package com.intellij.compat.testFramework
 
+import com.intellij.mock.MockComponentManager
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.application.Application
+import com.intellij.openapi.components.ComponentManager
 import com.intellij.openapi.extensions.BaseExtensionPointName
 import com.intellij.openapi.extensions.ExtensionPoint
 import com.intellij.openapi.extensions.ExtensionPointName
@@ -49,4 +51,9 @@ fun <T : Any> Application.registerExtension(
     parentDisposable: Disposable
 ) {
     Extensions.getRootArea().getExtensionPoint<T>(name.name).registerExtension(instance, parentDisposable)
+}
+
+@TestOnly
+fun <T : Any> ComponentManager.registerServiceInstance(serviceInterface: Class<T>, implementation: T) {
+    (this as MockComponentManager).registerService(serviceInterface, implementation)
 }

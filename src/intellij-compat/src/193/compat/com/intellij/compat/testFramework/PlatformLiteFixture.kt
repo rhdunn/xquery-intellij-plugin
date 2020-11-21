@@ -77,28 +77,6 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
     }
 
     // endregion
-    // region Registering Application Services
-
-    fun <T> registerApplicationService(aClass: Class<T>, `object`: T) {
-        val application = ApplicationManager.getApplication() as MockApplicationEx
-        application.registerService(aClass, `object`)
-        Disposer.register(testRootDisposable, Disposable {
-            application.picoContainer.unregisterComponent(aClass.name)
-        })
-    }
-
-    @Suppress("UNCHECKED_CAST")
-    fun registerApplicationService(className: String) {
-        try {
-            val aClass = Class.forName(className) as Class<Any>
-            val `object` = aClass.getConstructor().newInstance()
-            registerApplicationService(aClass, `object`)
-        } catch (e: Exception) {
-            // Don't register the extension point, as the associated class is not found.
-        }
-    }
-
-    // endregion
     // region Registering Project Services
 
     fun <T> registerProjectService(aClass: Class<T>, `object`: T) {

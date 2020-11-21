@@ -16,6 +16,7 @@
  */
 package com.intellij.compat.testFramework
 
+import com.intellij.mock.MockComponentManager
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.components.ComponentManager
 import com.intellij.openapi.extensions.BaseExtensionPointName
@@ -45,4 +46,9 @@ fun <T : Any> ComponentManager.registerExtension(
     parentDisposable: Disposable
 ) {
     extensionArea.getExtensionPoint<T>(name.name).registerExtension(instance, parentDisposable)
+}
+
+@TestOnly
+fun <T : Any> ComponentManager.registerServiceInstance(serviceInterface: Class<T>, implementation: T) {
+    (this as MockComponentManager).registerService(serviceInterface, implementation)
 }

@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.tests.query.rest
 
 import com.intellij.compat.testFramework.PlatformLiteFixture
+import com.intellij.compat.testFramework.registerServiceInstance
 import com.intellij.mock.MockFileTypeManager
 import com.intellij.mock.MockLanguageFileType
 import com.intellij.openapi.fileTypes.FileTypeManager
@@ -41,8 +42,7 @@ class MimeResponseTest : PlatformLiteFixture() {
     override fun setUp() {
         super.setUp()
         val app = initApplication()
-
-        registerApplicationService(XDebuggerUtil::class.java, XDebuggerUtilImpl())
+        app.registerServiceInstance(XDebuggerUtil::class.java, XDebuggerUtilImpl())
 
         val fileType = MockLanguageFileType(XQuery, "xq")
         app.registerService(FileTypeManager::class.java, MockFileTypeManager(fileType))
