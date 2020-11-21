@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,38 +15,29 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.tests.java
 
-import com.intellij.compat.testFramework.PlatformLiteFixture
 import com.intellij.compat.testFramework.registerServiceInstance
-import com.intellij.mock.MockProjectEx
+import com.intellij.openapi.extensions.PluginId
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.xpm.java.JavaTypePath
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsAnyUri
 
-// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("Modules - Java Paths")
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-private class JavaTypePathTest : PlatformLiteFixture() {
-    private fun anyURI(path: String, context: XdmUriContext): XsAnyUriValue {
-        return XsAnyUri(path, context, XdmModuleType.NONE)
-    }
+class JavaTypePathTest : IdeaPlatformTestCase() {
+    override val pluginId: PluginId = PluginId.getId("JavaTypePathTest")
 
-    @BeforeAll
-    override fun setUp() {
-        super.setUp()
-        initApplication()
-        myProject = MockProjectEx(testRootDisposable)
+    override fun registerServicesAndExtensions() {
         project.registerServiceInstance(JavaTypePath::class.java, JavaTypePath(project))
     }
 
-    @AfterAll
-    override fun tearDown() {
-        super.tearDown()
+    private fun anyURI(path: String, context: XdmUriContext): XsAnyUriValue {
+        return XsAnyUri(path, context, XdmModuleType.NONE)
     }
 
     @Test
@@ -54,7 +45,7 @@ private class JavaTypePathTest : PlatformLiteFixture() {
     fun empty() {
         XdmUriContext.values().forEach { context ->
             val uri = anyURI("", context)
-            val path = JavaTypePath.create(myProject, uri)
+            val path = JavaTypePath.create(project, uri)
             assertThat(path, `is`(nullValue()))
         }
     }
@@ -64,7 +55,7 @@ private class JavaTypePathTest : PlatformLiteFixture() {
     fun httpScheme() {
         XdmUriContext.values().forEach { context ->
             val uri = anyURI("http://www.example.com/lorem/ipsum", context)
-            val path = JavaTypePath.create(myProject, uri)
+            val path = JavaTypePath.create(project, uri)
             assertThat(path, `is`(nullValue()))
         }
     }
@@ -74,7 +65,7 @@ private class JavaTypePathTest : PlatformLiteFixture() {
     fun httpsScheme() {
         XdmUriContext.values().forEach { context ->
             val uri = anyURI("https://www.example.com/lorem/ipsum", context)
-            val path = JavaTypePath.create(myProject, uri)
+            val path = JavaTypePath.create(project, uri)
             assertThat(path, `is`(nullValue()))
         }
     }
@@ -84,7 +75,7 @@ private class JavaTypePathTest : PlatformLiteFixture() {
     fun fileScheme() {
         XdmUriContext.values().forEach { context ->
             val uri = anyURI("file:///C:/lorem/ipsum", context)
-            val path = JavaTypePath.create(myProject, uri)
+            val path = JavaTypePath.create(project, uri)
             assertThat(path, `is`(nullValue()))
         }
     }
@@ -94,7 +85,7 @@ private class JavaTypePathTest : PlatformLiteFixture() {
     fun urnScheme() {
         XdmUriContext.values().forEach { context ->
             val uri = anyURI("urn:lorem:ipsum", context)
-            val path = JavaTypePath.create(myProject, uri)
+            val path = JavaTypePath.create(project, uri)
             assertThat(path, `is`(nullValue()))
         }
     }
@@ -104,7 +95,7 @@ private class JavaTypePathTest : PlatformLiteFixture() {
     fun resourceScheme() {
         XdmUriContext.values().forEach { context ->
             val uri = anyURI("resource:org/lorem/ipsum.xqm", context)
-            val path = JavaTypePath.create(myProject, uri)
+            val path = JavaTypePath.create(project, uri)
             assertThat(path, `is`(nullValue()))
         }
     }
@@ -117,7 +108,7 @@ private class JavaTypePathTest : PlatformLiteFixture() {
         fun classpath() {
             XdmUriContext.values().forEach { context ->
                 val uri = anyURI("java:java.lang.String", context)
-                val path = JavaTypePath.create(myProject, uri)
+                val path = JavaTypePath.create(project, uri)
                 assertThat(path, `is`(nullValue()))
             }
         }
@@ -127,7 +118,7 @@ private class JavaTypePathTest : PlatformLiteFixture() {
         fun voidThis() {
             XdmUriContext.values().forEach { context ->
                 val uri = anyURI("java:java.lang.String?void=this", context)
-                val path = JavaTypePath.create(myProject, uri)
+                val path = JavaTypePath.create(project, uri)
                 assertThat(path, `is`(nullValue()))
             }
         }
@@ -138,7 +129,7 @@ private class JavaTypePathTest : PlatformLiteFixture() {
     fun relativePath() {
         XdmUriContext.values().forEach { context ->
             val uri = anyURI("lorem/ipsum", context)
-            val path = JavaTypePath.create(myProject, uri)
+            val path = JavaTypePath.create(project, uri)
             assertThat(path, `is`(nullValue()))
         }
     }
@@ -148,7 +139,7 @@ private class JavaTypePathTest : PlatformLiteFixture() {
     fun markLogicDatabasePath() {
         XdmUriContext.values().forEach { context ->
             val uri = anyURI("/lorem/ipsum.xqy", context)
-            val path = JavaTypePath.create(myProject, uri)
+            val path = JavaTypePath.create(project, uri)
             assertThat(path, `is`(nullValue()))
         }
     }
@@ -158,7 +149,7 @@ private class JavaTypePathTest : PlatformLiteFixture() {
     fun eXistDBDatabasePath() {
         XdmUriContext.values().forEach { context ->
             val uri = anyURI("xmldb:exist:///db/modules/lorem/ipsum.xqm", context)
-            val path = JavaTypePath.create(myProject, uri)
+            val path = JavaTypePath.create(project, uri)
             assertThat(path, `is`(nullValue()))
         }
     }
@@ -168,7 +159,7 @@ private class JavaTypePathTest : PlatformLiteFixture() {
     fun javaClassPath() {
         XdmUriContext.values().forEach { context ->
             val uri = anyURI("java.lang.String", context)
-            val path = JavaTypePath.create(myProject, uri)
+            val path = JavaTypePath.create(project, uri)
             assertThat(path, `is`(nullValue()))
         }
     }
@@ -178,11 +169,11 @@ private class JavaTypePathTest : PlatformLiteFixture() {
     fun javaType() {
         XdmUriContext.values().forEach { context ->
             val uri = anyURI("http://saxon.sf.net/java-type", context)
-            val path = JavaTypePath.create(myProject, uri)
+            val path = JavaTypePath.create(project, uri)
             when (context) {
                 XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {
                     assertThat(path, `is`(notNullValue()))
-                    assertThat(path!!.project, `is`(sameInstance(myProject)))
+                    assertThat(path!!.project, `is`(sameInstance(project)))
                     assertThat(path.moduleTypes, `is`(sameInstance(XdmModuleType.JAVA)))
                 }
                 else -> assertThat(path, `is`(nullValue()))
