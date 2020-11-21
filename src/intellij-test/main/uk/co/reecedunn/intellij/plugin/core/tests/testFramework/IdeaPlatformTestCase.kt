@@ -16,9 +16,11 @@
 package uk.co.reecedunn.intellij.plugin.core.tests.testFramework
 
 import com.intellij.compat.testFramework.createMockApplication
+import com.intellij.mock.MockProjectEx
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.extensions.DefaultPluginDescriptor
 import com.intellij.openapi.extensions.PluginDescriptor
+import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Disposer
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
@@ -36,13 +38,19 @@ abstract class IdeaPlatformTestCase : PluginDescriptorProvider {
 
     // endregion
 
+    private var mainProject: Project? = null
+    val project: Project
+        get() = mainProject!!
+
     @BeforeAll
     fun setupFixture() {
         createMockApplication(pluginDisposable)
+        mainProject = MockProjectEx(pluginDisposable)
     }
 
     @AfterAll
     fun tearDownFixture() {
+        mainProject = null
         Disposer.dispose(pluginDisposable)
     }
 
