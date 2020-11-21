@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.tests.testFramework
 
+import com.intellij.compat.testFramework.createMockApplication
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.extensions.DefaultPluginDescriptor
 import com.intellij.openapi.extensions.PluginDescriptor
@@ -37,6 +38,7 @@ abstract class IdeaPlatformTestCase : PluginDescriptorProvider {
 
     @BeforeAll
     fun setupFixture() {
+        createMockApplication(pluginDisposable)
     }
 
     @AfterAll
