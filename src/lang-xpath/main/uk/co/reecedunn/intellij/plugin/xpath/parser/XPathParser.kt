@@ -1485,7 +1485,11 @@ open class XPathParser : PsiParser {
                 return null
             } else if (
                 builder.errorOnTokenType(
-                    XPathTokenType.AXIS_SEPARATOR, XPathBundle.message("parser.error.invalid-axis")
+                    XPathTokenType.AXIS_SEPARATOR,
+                    if (allowAxisStep)
+                        XPathBundle.message("parser.error.invalid-axis")
+                    else
+                        XPathBundle.message("parser.error.invalid-axis-in-nametest")
                 )
             ) {
                 parseWhiteSpaceAndCommentTokens(builder)

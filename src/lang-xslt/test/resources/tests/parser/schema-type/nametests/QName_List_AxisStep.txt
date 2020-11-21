@@ -2,7 +2,7 @@ XsltSchemaTypeImpl[FILE(0:13)]
    XPathNameTestImpl[XPATH_NAME_TEST(0:6)]
       XPathNCNameImpl[XPATH_NCNAME(0:1)]
          LeafPsiElement[XPATH_NCNAME_TOKEN(0:1)]('a')
-      PsiErrorElementImpl[ERROR_ELEMENT(1:3)]('XPST0003: Axis specifier used for an unknown axis name.')
+      PsiErrorElementImpl[ERROR_ELEMENT(1:3)]('XPST0003: Axis specifier '::' is not allowed in NameTests.')
          LeafPsiElement[XPATH_AXIS_SEPARATOR_TOKEN(1:3)]('::')
       XPathNCNameImpl[XPATH_NCNAME(3:6)]
          LeafPsiElement[XPATH_NCNAME_TOKEN(3:6)]('one')
@@ -10,7 +10,7 @@ XsltSchemaTypeImpl[FILE(0:13)]
    XPathNameTestImpl[XPATH_NAME_TEST(7:13)]
       XPathNCNameImpl[XPATH_NCNAME(7:8)]
          LeafPsiElement[XPATH_NCNAME_TOKEN(7:8)]('a')
-      PsiErrorElementImpl[ERROR_ELEMENT(8:10)]('XPST0003: Axis specifier used for an unknown axis name.')
+      PsiErrorElementImpl[ERROR_ELEMENT(8:10)]('XPST0003: Axis specifier '::' is not allowed in NameTests.')
          LeafPsiElement[XPATH_AXIS_SEPARATOR_TOKEN(8:10)]('::')
       XPathNCNameImpl[XPATH_NCNAME(10:13)]
          LeafPsiElement[XPATH_NCNAME_TOKEN(10:13)]('two')

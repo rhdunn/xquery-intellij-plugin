@@ -2,7 +2,7 @@ XsltSchemaTypeImpl[FILE(0:12)]
    XPathNameTestImpl[XPATH_NAME_TEST(0:12)]
       XPathNCNameImpl[XPATH_NCNAME(0:5)]
          LeafPsiElement[XPATH_NCNAME_TOKEN(0:5)]('lorem')
-      PsiErrorElementImpl[ERROR_ELEMENT(5:7)]('XPST0003: Axis specifier used for an unknown axis name.')
+      PsiErrorElementImpl[ERROR_ELEMENT(5:7)]('XPST0003: Axis specifier '::' is not allowed in NameTests.')
          LeafPsiElement[XPATH_AXIS_SEPARATOR_TOKEN(5:7)]('::')
       XPathNCNameImpl[XPATH_NCNAME(7:12)]
          LeafPsiElement[XPATH_NCNAME_TOKEN(7:12)]('ipsum')

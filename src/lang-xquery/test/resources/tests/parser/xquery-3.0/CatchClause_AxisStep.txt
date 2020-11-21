@@ -19,7 +19,7 @@ XQueryModuleImpl[FILE(0:37)]
                   XPathNameTestImpl[XPATH_NAME_TEST(16:31)]
                      XQueryNCNameImpl[XQUERY_NCNAME(16:21)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(16:21)]('error')
-                     PsiErrorElementImpl[ERROR_ELEMENT(21:23)]('XPST0003: Axis specifier used for an unknown axis name.')
+                     PsiErrorElementImpl[ERROR_ELEMENT(21:23)]('XPST0003: Axis specifier '::' is not allowed in NameTests.')
                         LeafPsiElement[XPATH_AXIS_SEPARATOR_TOKEN(21:23)]('::')
                      XQueryNCNameImpl[XQUERY_NCNAME(23:31)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(23:31)]('XQST0084')
