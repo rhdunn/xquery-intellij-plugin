@@ -74,6 +74,7 @@ open class EditorConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleV
     override val offset: Int
         get() = editor!!.caretModel.offset
 
+    @Suppress("DuplicatedCode")
     override fun scrollToTop(offset: Int) {
         ApplicationManager.getApplication().invokeLater {
             val moveOffset = min(offset, contentSize)
@@ -89,6 +90,7 @@ open class EditorConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleV
         editor?.setBorder(border)
     }
 
+    @Suppress("DuplicatedCode")
     override fun createActionToolbar(place: String) {
         val actions = DefaultActionGroup()
         actions.addAll(*createConsoleActions())
