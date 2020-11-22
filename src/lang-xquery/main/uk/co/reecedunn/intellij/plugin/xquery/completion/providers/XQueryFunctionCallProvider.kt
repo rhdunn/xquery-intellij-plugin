@@ -32,6 +32,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.staticallyKnownFunctions
 object XQueryFunctionCallProvider : CompletionProviderEx {
     override fun apply(element: PsiElement, context: ProcessingContext, result: CompletionResultSet) {
         val namespaces = context[XPathCompletionProperty.STATICALLY_KNOWN_NAMESPACES]
+        val defaultNamespace = context[XPathCompletionProperty.DEFAULT_FUNCTION_DECL_NAMESPACE]
         val isArrowExpr = element.parent.parent is XPathArrowFunctionSpecifier
 
         val ref = element.parent as XsQNameValue
@@ -41,12 +42,20 @@ object XQueryFunctionCallProvider : CompletionProviderEx {
                 element.containingFile.staticallyKnownFunctions().forEachCancellable { function ->
                     val localName = function.functionName?.localName?.data ?: return@forEachCancellable
                     function.functionName?.expand()?.firstOrNull()?.let { name ->
+                        // statically-known namespaces
                         namespaces.forEach { ns ->
                             if (ns.namespaceUri?.data == name.namespace?.data) {
-                                val declPrefix = ns.namespacePrefix?.data
                                 if ((isArrowExpr && function.arity.from > 0) || !isArrowExpr) {
+                                    val declPrefix = ns.namespacePrefix?.data
                                     result.addElement(XPathFunctionCallLookup(localName, declPrefix, function))
                                 }
+                            }
+                        }
+
+                        // default function namespace
+                        if (defaultNamespace?.namespaceUri?.data == name.namespace?.data) {
+                            if ((isArrowExpr && function.arity.from > 0) || !isArrowExpr) {
+                                result.addElement(XPathFunctionCallLookup(localName, null, function))
                             }
                         }
                     }
