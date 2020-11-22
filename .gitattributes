@@ -1,5 +1,6 @@
 src/lang-xpath/main/resources/settings/xpath-color-demo.xq text eof=lf
 src/lang-xquery/main/resources/settings/xquery-color-demo.xq text eof=lf
+src/plugin-api/main/resources/settings/color-settings.txt text eof=lf
 
 src/lang-xquery/test/resources/tests/folding/*.xq text eol=lf
 

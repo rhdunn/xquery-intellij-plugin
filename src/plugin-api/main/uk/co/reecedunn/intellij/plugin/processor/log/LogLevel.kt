@@ -36,15 +36,15 @@ object LogLevel {
     )
 
     val CONFIG_KEY: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
-        "QUERY_LOG_LEVEL_CONFIG", ConsoleViewContentType.LOG_INFO_OUTPUT_KEY
+        "QUERY_LOG_LEVEL_CONFIG", ConsoleViewContentType.NORMAL_OUTPUT_KEY
     )
 
     val INFO_KEY: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
-        "QUERY_LOG_LEVEL_INFO", ConsoleViewContentType.LOG_INFO_OUTPUT_KEY
+        "QUERY_LOG_LEVEL_INFO", ConsoleViewContentType.NORMAL_OUTPUT_KEY
     )
 
     val NOTICE_KEY: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
-        "QUERY_LOG_LEVEL_NOTICE", ConsoleViewContentType.LOG_INFO_OUTPUT_KEY
+        "QUERY_LOG_LEVEL_NOTICE", ConsoleViewContentType.LOG_WARNING_OUTPUT_KEY
     )
 
     val WARNING_KEY: TextAttributesKey = TextAttributesKey.createTextAttributesKey(

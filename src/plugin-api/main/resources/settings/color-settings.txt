@@ -1,0 +1,13 @@
+MarkLogic log levels in ErrorLog.txt files:
+<finest>2000-01-12 15:00:01.000 Finest: Log level</finest>
+<finer>2000-01-12 15:00:01.000 Finer: Log level</finer>
+<fine>2000-01-12 15:00:01.000 Fine: Log level</fine>
+<debug>2000-01-12 15:00:01.000 Debug: Log level</debug>
+<config>2000-01-12 15:00:01.000 Config: Log level</config>
+<info>2000-01-12 15:00:01.000 Info: Log level</info>
+<notice>2000-01-12 15:00:01.000 Notice: Log level</notice>
+<warning>2000-01-12 15:00:01.000 Warning: Log level</warning>
+<error>2000-01-12 15:00:01.000 Error: Log level</error>
+<critical>2000-01-12 15:00:01.000 Critical: Log level</critical>
+<alert>2000-01-12 15:00:01.000 Alert: Log level</alert>
+<emergency>2000-01-12 15:00:01.000 Emergency: Log level</emergency>
