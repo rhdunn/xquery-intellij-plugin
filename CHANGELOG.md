@@ -15,6 +15,10 @@ Inspections:
 
 1. Don't crash when the conformance element is empty (e.g. it is on a parser error).
 
+Query Log Viewer:
+
+1. Fix displaying the log viewer when opening a new project into the IDE window.
+
 ## 2020
 
 *  [1.8.0 - 2020-11-12](docs/_posts/2020-11-12-release-1.8.0.md)

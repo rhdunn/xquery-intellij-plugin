@@ -90,6 +90,10 @@
     <ol>
       <li>Don't crash when the conformance element is empty (e.g. it is on a parser error).</li>
     </ol>
+    <p>Query Log Viewer:</p>
+    <ol>
+      <li>Fix displaying the log viewer when opening a new project into the IDE window.</li>
+    </ol>
   ]]></change-notes>
 
   <idea-version since-build="161"/>
