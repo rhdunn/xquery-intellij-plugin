@@ -19,7 +19,9 @@ import com.intellij.openapi.components.PersistentStateComponent
 import com.intellij.openapi.components.ServiceManager
 import com.intellij.openapi.components.State
 import com.intellij.openapi.components.Storage
+import com.intellij.util.containers.ContainerUtil
 import com.intellij.util.xmlb.XmlSerializerUtil
+import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.QueryResultListener
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
 import kotlin.collections.ArrayList
 
@@ -27,6 +29,19 @@ import kotlin.collections.ArrayList
 class QueryProcessors : PersistentStateComponent<QueryProcessorsData> {
     private val data = QueryProcessorsData()
 
+    // region Processors Event Listener
+
+    private val queryProcessorsListeners = ContainerUtil.createLockFreeCopyOnWriteList<QueryProcessorsListener>()
+
+    fun addQueryProcessorsListener(listener: QueryProcessorsListener) {
+        queryProcessorsListeners.add(listener)
+    }
+
+    fun removeQueryResultListener(listener: QueryProcessorsListener) {
+        queryProcessorsListeners.add(listener)
+    }
+
+    // endregion
     // region Processors
 
     val processors: List<QueryProcessorSettings>
@@ -36,16 +51,22 @@ class QueryProcessors : PersistentStateComponent<QueryProcessorsData> {
         (processors as ArrayList<QueryProcessorSettings>).add(processor)
         data.currentProcessorId++
         processor.id = data.currentProcessorId
+
+        queryProcessorsListeners.forEach { it.onAddProcessor(processor) }
     }
 
     fun setProcessor(index: Int, processor: QueryProcessorSettings) {
         val id = processors[index].id
         (processors as ArrayList<QueryProcessorSettings>)[index] = processor
         processor.id = id
+
+        queryProcessorsListeners.forEach { it.onEditProcessor(index, processor) }
     }
 
     fun removeProcessor(index: Int) {
         (processors as ArrayList<QueryProcessorSettings>).removeAt(index)
+
+        queryProcessorsListeners.forEach { it.onRemoveProcessor(index) }
     }
 
     // endregion
