@@ -93,6 +93,7 @@
     <p>Query Log Viewer:</p>
     <ol>
       <li>Fix displaying the log viewer when opening a new project into the IDE window.</li>
+      <li>Don't clear the log viewer when an error is from a previously selected query processor.</li>
     </ol>
   ]]></change-notes>
 

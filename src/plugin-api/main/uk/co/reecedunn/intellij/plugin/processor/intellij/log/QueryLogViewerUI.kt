@@ -68,7 +68,11 @@ class QueryLogViewerUI(val project: Project) : Disposable {
                 }
             } catch (e: Throwable) {
                 invokeLater(ModalityState.any()) {
-                    logFile?.removeAllItems()
+                    val newSettings = (queryProcessor?.selectedItem as? CachedQueryProcessorSettings?)?.settings
+                    if (settings === newSettings) {
+                        // Only clear the log file if the selected query processor hasn't changed.
+                        logFile?.removeAllItems()
+                    }
                 }
             }
         }
