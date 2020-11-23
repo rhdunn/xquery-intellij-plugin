@@ -96,7 +96,7 @@ class QueryProcessorSettings : Closeable {
 }
 
 data class CachedQueryProcessorSettings(
-    val settings: QueryProcessorSettings,
+    var settings: QueryProcessorSettings,
     var presentation: Any? = null
 )
 

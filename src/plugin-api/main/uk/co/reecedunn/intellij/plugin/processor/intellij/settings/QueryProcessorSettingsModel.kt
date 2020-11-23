@@ -19,9 +19,29 @@ import com.intellij.openapi.application.ModalityState
 import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
 import uk.co.reecedunn.intellij.plugin.processor.query.CachedQueryProcessorSettings
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
 import javax.swing.DefaultComboBoxModel
 
-class QueryProcessorSettingsModel : DefaultComboBoxModel<CachedQueryProcessorSettings>() {
+class QueryProcessorSettingsModel : DefaultComboBoxModel<CachedQueryProcessorSettings>(), QueryProcessorsListener {
+    // region QueryProcessorsListener
+
+    override fun onAddProcessor(processor: QueryProcessorSettings) {
+        addElement(CachedQueryProcessorSettings(processor))
+    }
+
+    override fun onEditProcessor(index: Int, processor: QueryProcessorSettings) {
+        getElementAt(index)?.let {
+            it.settings = processor
+            it.presentation = null
+        }
+    }
+
+    override fun onRemoveProcessor(index: Int) {
+        removeElementAt(index)
+    }
+
+    // endregion
+
     override fun addElement(item: CachedQueryProcessorSettings?) {
         super.addElement(item)
         item?.let { updateElement(it) }
