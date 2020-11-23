@@ -94,6 +94,7 @@
     <ol>
       <li>Fix displaying the log viewer when opening a new project into the IDE window.</li>
       <li>Don't clear the log viewer when an error is from a previously selected query processor.</li>
+      <li>Update the server list when the query processors are modified.</li>
     </ol>
   ]]></change-notes>
 

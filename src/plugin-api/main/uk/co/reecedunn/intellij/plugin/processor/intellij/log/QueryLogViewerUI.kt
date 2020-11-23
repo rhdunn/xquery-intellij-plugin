@@ -30,6 +30,7 @@ import uk.co.reecedunn.intellij.plugin.processor.intellij.resources.PluginApiBun
 import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessorSettingsCellRenderer
 import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessorSettingsModel
 import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessors
+import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessorsListener
 import uk.co.reecedunn.intellij.plugin.processor.log.LogViewProvider
 import uk.co.reecedunn.intellij.plugin.processor.query.CachedQueryProcessorSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.addToModel
@@ -145,7 +146,9 @@ class QueryLogViewerUI(val project: Project) : Disposable {
                             populateLogFiles()
                         }
 
-                        QueryProcessors.getInstance().processors.addToModel(model, serversOnly = true)
+                        val queryProcessors = QueryProcessors.getInstance()
+                        queryProcessors.processors.addToModel(model, serversOnly = true)
+                        queryProcessors.addQueryProcessorsListener(model)
                     }
 
                     label(PluginApiBundle.message("logviewer.filter.log-file"), column)
@@ -175,6 +178,10 @@ class QueryLogViewerUI(val project: Project) : Disposable {
     // region Disposable
 
     override fun dispose() {
+        queryProcessor?.model?.let {
+            QueryProcessors.getInstance().removeQueryResultListener(it as QueryProcessorsListener)
+        }
+
         logConsole?.let { Disposer.dispose(it) }
         logConsole = null
     }
