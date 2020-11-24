@@ -29,6 +29,7 @@ import uk.co.reecedunn.intellij.plugin.marklogic.intellij.lang.SQL
 import uk.co.reecedunn.intellij.plugin.marklogic.intellij.lang.ServerSideJavaScript
 import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicIcons
 import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicQueries
+import uk.co.reecedunn.intellij.plugin.marklogic.log.MarkLogicErrorLogLine
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.debugger.MarkLogicDebugQuery
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebuggableQuery
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebuggableQueryProvider
@@ -139,9 +140,9 @@ internal class MarkLogicQueryProcessor(
         it.value as String
     }
 
-    override fun log(name: String): List<String> = createRunnableQuery(MarkLogicQueries.Log.Log, XQuery).use { query ->
+    override fun log(name: String): List<Any> = createRunnableQuery(MarkLogicQueries.Log.Log, XQuery).use { query ->
         query.bindVariable("name", name, "xs:string")
-        query.run().results.map { it.value as String }
+        query.run().results.map { MarkLogicErrorLogLine.parse(it.value as String) }
     }
 
     override fun defaultLogFile(logs: List<String>): String = when {
