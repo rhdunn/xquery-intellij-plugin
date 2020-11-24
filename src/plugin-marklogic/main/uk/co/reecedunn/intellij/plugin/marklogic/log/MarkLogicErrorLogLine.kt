@@ -23,27 +23,33 @@ data class MarkLogicErrorLogLine(
     val date: String,
     val time: String,
     val logLevel: String,
+    val appServer: String?,
     val message: String
 ) : LogLine {
     override fun print(consoleView: ConsoleView) {
-        consoleView.print("$date $time $logLevel: $message", ConsoleViewContentType.NORMAL_OUTPUT)
+        when (appServer) {
+            null -> consoleView.print("$date $time $logLevel: $message", ConsoleViewContentType.NORMAL_OUTPUT)
+            else -> consoleView.print("$date $time $logLevel: $appServer: $message", ConsoleViewContentType.NORMAL_OUTPUT)
+        }
     }
 
     companion object {
         @Suppress("RegExpAnonymousGroup", "RegExpRepeatedSpace")
         private val LOG_LINE_RE = """^
-            ([0-9\\-]+)  # 1: Date
-            \s           #
-            ([0-9:.]+)   # 2: Time
-            \s           #
-            ([A-Za-z]+): # 3: Log Level
-            \s           #
-            (.*)         # 4: Message
+            ([0-9\\-]+)               # 1: Date
+            \s                        #
+            ([0-9:.]+)                # 2: Time
+            \s                        #
+            ([A-Za-z]+):              # 3: Log Level
+            (\s([a-zA-Z0-9\-_]+):)?   # 5: application server name
+            \s                        #
+            (.*)                      # 6: Message
         ${'$'}""".toRegex(RegexOption.COMMENTS)
 
         fun parse(line: String): Any {
             val groups = LOG_LINE_RE.find(line)?.groupValues ?: return line
-            return MarkLogicErrorLogLine(groups[1], groups[2], groups[3], groups[4])
+            val appServer = groups[5].takeIf { it.isNotEmpty() }
+            return MarkLogicErrorLogLine(groups[1], groups[2], groups[3], appServer, groups[6])
         }
     }
 }

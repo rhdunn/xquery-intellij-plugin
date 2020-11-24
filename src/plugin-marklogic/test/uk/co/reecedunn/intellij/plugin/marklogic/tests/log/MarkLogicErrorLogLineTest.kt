@@ -23,6 +23,7 @@ import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.extensions.PluginId
 import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.CoreMatchers.nullValue
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
@@ -113,6 +114,41 @@ class MarkLogicErrorLogLineTest : IdeaPlatformTestCase(), ConsoleView {
         assertThat(logLine.date, `is`("2001-01-10"))
         assertThat(logLine.time, `is`("12:34:56.789"))
         assertThat(logLine.logLevel, `is`("Info"))
+        assertThat(logLine.appServer, `is`(nullValue()))
+        assertThat(logLine.message, `is`("Lorem ipsum dolor"))
+
+        reset()
+        logLine.print(this)
+        assertThat(printed, `is`("[NORMAL_OUTPUT|$line]"))
+    }
+
+    @Test
+    @DisplayName("message with TaskServer (MarkLogic <= 8.0)")
+    fun messageWithTaskServer() {
+        val line = "2001-01-10 12:34:56.789 Debug: TaskServer: Lorem ipsum dolor"
+        val logLine = MarkLogicErrorLogLine.parse(line) as MarkLogicErrorLogLine
+
+        assertThat(logLine.date, `is`("2001-01-10"))
+        assertThat(logLine.time, `is`("12:34:56.789"))
+        assertThat(logLine.logLevel, `is`("Debug"))
+        assertThat(logLine.appServer, `is`("TaskServer"))
+        assertThat(logLine.message, `is`("Lorem ipsum dolor"))
+
+        reset()
+        logLine.print(this)
+        assertThat(printed, `is`("[NORMAL_OUTPUT|$line]"))
+    }
+
+    @Test
+    @DisplayName("message with AppServer (MarkLogic <= 8.0)")
+    fun messageWithAppServer() {
+        val line = "2001-01-10 12:34:56.789 Debug: abc-2d_3e: Lorem ipsum dolor"
+        val logLine = MarkLogicErrorLogLine.parse(line) as MarkLogicErrorLogLine
+
+        assertThat(logLine.date, `is`("2001-01-10"))
+        assertThat(logLine.time, `is`("12:34:56.789"))
+        assertThat(logLine.logLevel, `is`("Debug"))
+        assertThat(logLine.appServer, `is`("abc-2d_3e"))
         assertThat(logLine.message, `is`("Lorem ipsum dolor"))
 
         reset()
