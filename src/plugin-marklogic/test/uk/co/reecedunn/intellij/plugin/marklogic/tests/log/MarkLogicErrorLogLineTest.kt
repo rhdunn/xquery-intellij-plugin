@@ -15,17 +15,73 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.tests.log
 
+import com.intellij.execution.filters.Filter
+import com.intellij.execution.filters.HyperlinkInfo
+import com.intellij.execution.process.ProcessHandler
+import com.intellij.execution.ui.ConsoleView
+import com.intellij.execution.ui.ConsoleViewContentType
+import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.extensions.PluginId
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.marklogic.log.MarkLogicErrorLogLine
+import java.lang.UnsupportedOperationException
+import javax.swing.JComponent
 
 @Suppress("XmlPathReference")
 @DisplayName("IntelliJ - Base Platform - Run Configuration - Query Log - MarkLogic ErrorLog")
-class MarkLogicErrorLogLineTest : IdeaPlatformTestCase() {
+class MarkLogicErrorLogLineTest : IdeaPlatformTestCase(), ConsoleView {
     override val pluginId: PluginId = PluginId.getId("MarkLogicErrorLogLineTest")
+
+    // region ConsoleView
+
+    private var printed: String = ""
+
+    private fun reset() {
+        printed = ""
+    }
+
+    override fun addMessageFilter(filter: Filter) = throw UnsupportedOperationException()
+
+    override fun allowHeavyFilters() = throw UnsupportedOperationException()
+
+    override fun attachToProcess(processHandler: ProcessHandler) = throw UnsupportedOperationException()
+
+    override fun canPause(): Boolean = throw UnsupportedOperationException()
+
+    override fun clear() = throw UnsupportedOperationException()
+
+    override fun createConsoleActions(): Array<AnAction> = throw UnsupportedOperationException()
+
+    override fun dispose() = throw UnsupportedOperationException()
+
+    override fun getComponent(): JComponent = throw UnsupportedOperationException()
+
+    override fun getContentSize(): Int = throw UnsupportedOperationException()
+
+    override fun getPreferredFocusableComponent(): JComponent = throw UnsupportedOperationException()
+
+    override fun hasDeferredOutput(): Boolean = throw UnsupportedOperationException()
+
+    override fun isOutputPaused(): Boolean = throw UnsupportedOperationException()
+
+    override fun performWhenNoDeferredOutput(runnable: Runnable) = throw UnsupportedOperationException()
+
+    override fun print(text: String, contentType: ConsoleViewContentType) {
+        printed += "[$contentType|$text]"
+    }
+
+    override fun printHyperlink(hyperlinkText: String, info: HyperlinkInfo?) = throw UnsupportedOperationException()
+
+    override fun scrollTo(offset: Int) = throw UnsupportedOperationException()
+
+    override fun setHelpId(helpId: String) = throw UnsupportedOperationException()
+
+    override fun setOutputPaused(value: Boolean) = throw UnsupportedOperationException()
+
+    // endregion
 
     @Test
     @DisplayName("empty")
@@ -46,5 +102,21 @@ class MarkLogicErrorLogLineTest : IdeaPlatformTestCase() {
         assertThat(MarkLogicErrorLogLine.parse(lines[0]), `is`(lines[0]))
         assertThat(MarkLogicErrorLogLine.parse(lines[1]), `is`(lines[1]))
         assertThat(MarkLogicErrorLogLine.parse(lines[2]), `is`(lines[2]))
+    }
+
+    @Test
+    @DisplayName("simple message")
+    fun simpleMessage() {
+        val line = "2001-01-10 12:34:56.789 Info: Lorem ipsum dolor"
+        val logLine = MarkLogicErrorLogLine.parse(line) as MarkLogicErrorLogLine
+
+        assertThat(logLine.date, `is`("2001-01-10"))
+        assertThat(logLine.time, `is`("12:34:56.789"))
+        assertThat(logLine.logLevel, `is`("Info"))
+        assertThat(logLine.message, `is`("Lorem ipsum dolor"))
+
+        reset()
+        logLine.print(this)
+        assertThat(printed, `is`("[NORMAL_OUTPUT|$line]"))
     }
 }

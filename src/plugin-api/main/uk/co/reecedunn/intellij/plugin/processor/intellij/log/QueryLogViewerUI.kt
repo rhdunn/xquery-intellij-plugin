@@ -31,6 +31,7 @@ import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcesso
 import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessorSettingsModel
 import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessors
 import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessorsListener
+import uk.co.reecedunn.intellij.plugin.processor.log.LogLine
 import uk.co.reecedunn.intellij.plugin.processor.log.LogViewProvider
 import uk.co.reecedunn.intellij.plugin.processor.query.CachedQueryProcessorSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.addToModel
@@ -110,6 +111,7 @@ class QueryLogViewerUI(val project: Project) : Disposable {
                             if (index > lines) {
                                 when (value) {
                                     is String -> logConsole?.print(value, ConsoleViewContentType.NORMAL_OUTPUT)
+                                    is LogLine -> logConsole?.let { value.print(it) }
                                     else -> throw UnsupportedOperationException()
                                 }
                                 logConsole?.print("\n", ConsoleViewContentType.NORMAL_OUTPUT)

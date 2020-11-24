@@ -15,8 +15,35 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.log
 
-object MarkLogicErrorLogLine {
-    fun parse(line: String): Any {
-        return line
+import com.intellij.execution.ui.ConsoleView
+import com.intellij.execution.ui.ConsoleViewContentType
+import uk.co.reecedunn.intellij.plugin.processor.log.LogLine
+
+data class MarkLogicErrorLogLine(
+    val date: String,
+    val time: String,
+    val logLevel: String,
+    val message: String
+) : LogLine {
+    override fun print(consoleView: ConsoleView) {
+        consoleView.print("$date $time $logLevel: $message", ConsoleViewContentType.NORMAL_OUTPUT)
+    }
+
+    companion object {
+        @Suppress("RegExpAnonymousGroup", "RegExpRepeatedSpace")
+        private val LOG_LINE_RE = """^
+            ([0-9\\-]+)  # 1: Date
+            \s           #
+            ([0-9:.]+)   # 2: Time
+            \s           #
+            ([A-Za-z]+): # 3: Log Level
+            \s           #
+            (.*)         # 4: Message
+        ${'$'}""".toRegex(RegexOption.COMMENTS)
+
+        fun parse(line: String): Any {
+            val groups = LOG_LINE_RE.find(line)?.groupValues ?: return line
+            return MarkLogicErrorLogLine(groups[1], groups[2], groups[3], groups[4])
+        }
     }
 }
