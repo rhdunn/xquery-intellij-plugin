@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.marklogic.log
 
 import com.intellij.execution.ui.ConsoleView
 import com.intellij.execution.ui.ConsoleViewContentType
+import uk.co.reecedunn.intellij.plugin.processor.log.LogLevel
 import uk.co.reecedunn.intellij.plugin.processor.log.LogLine
 
 data class MarkLogicErrorLogLine(
@@ -27,11 +28,29 @@ data class MarkLogicErrorLogLine(
     val continuation: Boolean,
     val message: String
 ) : LogLine {
+
+    val contentType: ConsoleViewContentType
+        get() = when (logLevel) {
+            "Finest" -> LogLevel.FINEST
+            "Finer" -> LogLevel.FINER
+            "Fine" -> LogLevel.FINE
+            "Debug" -> LogLevel.DEBUG
+            "Config" -> LogLevel.CONFIG
+            "Info" -> LogLevel.INFO
+            "Notice" -> LogLevel.NOTICE
+            "Warning" -> LogLevel.WARNING
+            "Error" -> LogLevel.ERROR
+            "Critical" -> LogLevel.CRITICAL
+            "Alert" -> LogLevel.ALERT
+            "Emergency" -> LogLevel.EMERGENCY
+            else -> ConsoleViewContentType.NORMAL_OUTPUT
+        }
+
     override fun print(consoleView: ConsoleView) {
         val separator = if (continuation) '+' else ' '
         when (appServer) {
-            null -> consoleView.print("$date $time $logLevel:$separator$message", ConsoleViewContentType.NORMAL_OUTPUT)
-            else -> consoleView.print("$date $time $logLevel:$separator$appServer: $message", ConsoleViewContentType.NORMAL_OUTPUT)
+            null -> consoleView.print("$date $time $logLevel:$separator$message", contentType)
+            else -> consoleView.print("$date $time $logLevel:$separator$appServer: $message", contentType)
         }
     }
 

@@ -120,7 +120,7 @@ class MarkLogicErrorLogLineTest : IdeaPlatformTestCase(), ConsoleView {
 
         reset()
         logLine.print(this)
-        assertThat(printed, `is`("[NORMAL_OUTPUT|$line]"))
+        assertThat(printed, `is`("[QUERY_LOG_LEVEL_INFO|$line]"))
     }
 
     @Test
@@ -138,7 +138,7 @@ class MarkLogicErrorLogLineTest : IdeaPlatformTestCase(), ConsoleView {
 
         reset()
         logLine.print(this)
-        assertThat(printed, `is`("[NORMAL_OUTPUT|$line]"))
+        assertThat(printed, `is`("[QUERY_LOG_LEVEL_DEBUG|$line]"))
     }
 
     @Test
@@ -156,7 +156,7 @@ class MarkLogicErrorLogLineTest : IdeaPlatformTestCase(), ConsoleView {
 
         reset()
         logLine.print(this)
-        assertThat(printed, `is`("[NORMAL_OUTPUT|$line]"))
+        assertThat(printed, `is`("[QUERY_LOG_LEVEL_DEBUG|$line]"))
     }
 
     @Test
@@ -174,6 +174,46 @@ class MarkLogicErrorLogLineTest : IdeaPlatformTestCase(), ConsoleView {
 
         reset()
         logLine.print(this)
-        assertThat(printed, `is`("[NORMAL_OUTPUT|$line]"))
+        assertThat(printed, `is`("[QUERY_LOG_LEVEL_INFO|$line]"))
+    }
+
+    @Test
+    @DisplayName("log levels")
+    fun logLevels() {
+        val lines = listOf(
+            "2001-01-10 12:34:56.789 Finest: Lorem ipsum dolor",
+            "2001-01-10 12:34:56.789 Finer: Lorem ipsum dolor",
+            "2001-01-10 12:34:56.789 Fine: Lorem ipsum dolor",
+            "2001-01-10 12:34:56.789 Debug: Lorem ipsum dolor",
+            "2001-01-10 12:34:56.789 Config: Lorem ipsum dolor",
+            "2001-01-10 12:34:56.789 Info: Lorem ipsum dolor",
+            "2001-01-10 12:34:56.789 Notice: Lorem ipsum dolor",
+            "2001-01-10 12:34:56.789 Warning: Lorem ipsum dolor",
+            "2001-01-10 12:34:56.789 Error: Lorem ipsum dolor",
+            "2001-01-10 12:34:56.789 Critical: Lorem ipsum dolor",
+            "2001-01-10 12:34:56.789 Alert: Lorem ipsum dolor",
+            "2001-01-10 12:34:56.789 Emergency: Lorem ipsum dolor",
+            "2001-01-10 12:34:56.789 Unknown: Lorem ipsum dolor"
+        )
+
+        val logLines = lines.map {
+            reset()
+            (MarkLogicErrorLogLine.parse(it) as MarkLogicErrorLogLine).print(this)
+            printed
+        }
+
+        assertThat(logLines[0], `is`("[QUERY_LOG_LEVEL_FINEST|${lines[0]}]"))
+        assertThat(logLines[1], `is`("[QUERY_LOG_LEVEL_FINER|${lines[1]}]"))
+        assertThat(logLines[2], `is`("[QUERY_LOG_LEVEL_FINE|${lines[2]}]"))
+        assertThat(logLines[3], `is`("[QUERY_LOG_LEVEL_DEBUG|${lines[3]}]"))
+        assertThat(logLines[4], `is`("[QUERY_LOG_LEVEL_CONFIG|${lines[4]}]"))
+        assertThat(logLines[5], `is`("[QUERY_LOG_LEVEL_INFO|${lines[5]}]"))
+        assertThat(logLines[6], `is`("[QUERY_LOG_LEVEL_NOTICE|${lines[6]}]"))
+        assertThat(logLines[7], `is`("[QUERY_LOG_LEVEL_WARNING|${lines[7]}]"))
+        assertThat(logLines[8], `is`("[QUERY_LOG_LEVEL_ERROR|${lines[8]}]"))
+        assertThat(logLines[9], `is`("[QUERY_LOG_LEVEL_CRITICAL|${lines[9]}]"))
+        assertThat(logLines[10], `is`("[QUERY_LOG_LEVEL_ALERT|${lines[10]}]"))
+        assertThat(logLines[11], `is`("[QUERY_LOG_LEVEL_EMERGENCY|${lines[11]}]"))
+        assertThat(logLines[12], `is`("[NORMAL_OUTPUT|${lines[12]}]"))
     }
 }
