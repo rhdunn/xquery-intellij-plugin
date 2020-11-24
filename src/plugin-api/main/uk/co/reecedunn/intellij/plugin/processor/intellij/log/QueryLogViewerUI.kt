@@ -35,6 +35,7 @@ import uk.co.reecedunn.intellij.plugin.processor.log.LogViewProvider
 import uk.co.reecedunn.intellij.plugin.processor.query.CachedQueryProcessorSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.addToModel
 import java.awt.Dimension
+import java.lang.UnsupportedOperationException
 import javax.swing.JComboBox
 import javax.swing.JPanel
 
@@ -86,6 +87,7 @@ class QueryLogViewerUI(val project: Project) : Disposable {
     private var lines: Int = -1
     private var updatingLogList: Boolean = false
 
+    @Suppress("SameParameterValue")
     private fun populateLogFile(reloadLogFile: Boolean) {
         if (updatingLogList) return
 
@@ -106,7 +108,10 @@ class QueryLogViewerUI(val project: Project) : Disposable {
 
                         log.withIndex().forEach { (index, value) ->
                             if (index > lines) {
-                                logConsole?.print(value, ConsoleViewContentType.NORMAL_OUTPUT)
+                                when (value) {
+                                    is String -> logConsole?.print(value, ConsoleViewContentType.NORMAL_OUTPUT)
+                                    else -> throw UnsupportedOperationException()
+                                }
                                 logConsole?.print("\n", ConsoleViewContentType.NORMAL_OUTPUT)
                                 lines = index
                             }
