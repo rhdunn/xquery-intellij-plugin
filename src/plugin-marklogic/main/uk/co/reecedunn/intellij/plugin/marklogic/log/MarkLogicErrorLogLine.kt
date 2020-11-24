@@ -24,12 +24,14 @@ data class MarkLogicErrorLogLine(
     val time: String,
     val logLevel: String,
     val appServer: String?,
+    val continuation: Boolean,
     val message: String
 ) : LogLine {
     override fun print(consoleView: ConsoleView) {
+        val separator = if (continuation) '+' else ' '
         when (appServer) {
-            null -> consoleView.print("$date $time $logLevel: $message", ConsoleViewContentType.NORMAL_OUTPUT)
-            else -> consoleView.print("$date $time $logLevel: $appServer: $message", ConsoleViewContentType.NORMAL_OUTPUT)
+            null -> consoleView.print("$date $time $logLevel:$separator$message", ConsoleViewContentType.NORMAL_OUTPUT)
+            else -> consoleView.print("$date $time $logLevel:$separator$appServer: $message", ConsoleViewContentType.NORMAL_OUTPUT)
         }
     }
 
@@ -42,14 +44,14 @@ data class MarkLogicErrorLogLine(
             \s                        #
             ([A-Za-z]+):              # 3: Log Level
             (\s([a-zA-Z0-9\-_]+):)?   # 5: application server name
-            \s                        #
-            (.*)                      # 6: Message
+            ([\s+])                   # 6: MarkLogic 9.0 continuation
+            (.*)                      # 7: Message
         ${'$'}""".toRegex(RegexOption.COMMENTS)
 
         fun parse(line: String): Any {
             val groups = LOG_LINE_RE.find(line)?.groupValues ?: return line
             val appServer = groups[5].takeIf { it.isNotEmpty() }
-            return MarkLogicErrorLogLine(groups[1], groups[2], groups[3], appServer, groups[6])
+            return MarkLogicErrorLogLine(groups[1], groups[2], groups[3], appServer, groups[6] == "+", groups[7])
         }
     }
 }

@@ -106,7 +106,7 @@ class MarkLogicErrorLogLineTest : IdeaPlatformTestCase(), ConsoleView {
     }
 
     @Test
-    @DisplayName("simple message")
+    @DisplayName("simple message (MarkLogic >= 9.0)")
     fun simpleMessage() {
         val line = "2001-01-10 12:34:56.789 Info: Lorem ipsum dolor"
         val logLine = MarkLogicErrorLogLine.parse(line) as MarkLogicErrorLogLine
@@ -115,6 +115,7 @@ class MarkLogicErrorLogLineTest : IdeaPlatformTestCase(), ConsoleView {
         assertThat(logLine.time, `is`("12:34:56.789"))
         assertThat(logLine.logLevel, `is`("Info"))
         assertThat(logLine.appServer, `is`(nullValue()))
+        assertThat(logLine.continuation, `is`(false))
         assertThat(logLine.message, `is`("Lorem ipsum dolor"))
 
         reset()
@@ -132,6 +133,7 @@ class MarkLogicErrorLogLineTest : IdeaPlatformTestCase(), ConsoleView {
         assertThat(logLine.time, `is`("12:34:56.789"))
         assertThat(logLine.logLevel, `is`("Debug"))
         assertThat(logLine.appServer, `is`("TaskServer"))
+        assertThat(logLine.continuation, `is`(false))
         assertThat(logLine.message, `is`("Lorem ipsum dolor"))
 
         reset()
@@ -149,6 +151,25 @@ class MarkLogicErrorLogLineTest : IdeaPlatformTestCase(), ConsoleView {
         assertThat(logLine.time, `is`("12:34:56.789"))
         assertThat(logLine.logLevel, `is`("Debug"))
         assertThat(logLine.appServer, `is`("abc-2d_3e"))
+        assertThat(logLine.continuation, `is`(false))
+        assertThat(logLine.message, `is`("Lorem ipsum dolor"))
+
+        reset()
+        logLine.print(this)
+        assertThat(printed, `is`("[NORMAL_OUTPUT|$line]"))
+    }
+
+    @Test
+    @DisplayName("message continuation (MarkLogic >= 9.0)")
+    fun messageContinuation() {
+        val line = "2001-01-10 12:34:56.789 Info:+Lorem ipsum dolor"
+        val logLine = MarkLogicErrorLogLine.parse(line) as MarkLogicErrorLogLine
+
+        assertThat(logLine.date, `is`("2001-01-10"))
+        assertThat(logLine.time, `is`("12:34:56.789"))
+        assertThat(logLine.logLevel, `is`("Info"))
+        assertThat(logLine.appServer, `is`(nullValue()))
+        assertThat(logLine.continuation, `is`(true))
         assertThat(logLine.message, `is`("Lorem ipsum dolor"))
 
         reset()
