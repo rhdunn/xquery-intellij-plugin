@@ -216,4 +216,40 @@ class MarkLogicErrorLogLineTest : IdeaPlatformTestCase(), ConsoleView {
         assertThat(logLines[11], `is`("[QUERY_LOG_LEVEL_EMERGENCY|${lines[11]}]"))
         assertThat(logLines[12], `is`("[NORMAL_OUTPUT|${lines[12]}]"))
     }
+
+    @Test
+    @DisplayName("exception location with XQuery version")
+    fun exceptionLocationWithXQueryVersion() {
+        val line = "2001-01-10 12:34:56.789 Notice:+in /lorem/ipsum/dolor.xqy, at 14:8 [1.0-ml]"
+        val logLine = MarkLogicErrorLogLine.parse(line) as MarkLogicErrorLogLine
+
+        assertThat(logLine.date, `is`("2001-01-10"))
+        assertThat(logLine.time, `is`("12:34:56.789"))
+        assertThat(logLine.logLevel, `is`("Notice"))
+        assertThat(logLine.appServer, `is`(nullValue()))
+        assertThat(logLine.continuation, `is`(true))
+        assertThat(logLine.message, `is`("in /lorem/ipsum/dolor.xqy, at 14:8 [1.0-ml]"))
+
+        reset()
+        logLine.print(this)
+        assertThat(printed, `is`("[QUERY_LOG_LEVEL_NOTICE|$line]"))
+    }
+
+    @Test
+    @DisplayName("exception location without XQuery version")
+    fun exceptionLocationWithoutXQueryVersion() {
+        val line = "2001-01-10 12:34:56.789 Notice:+in /lorem/ipsum/dolor.xqy, at 14:8"
+        val logLine = MarkLogicErrorLogLine.parse(line) as MarkLogicErrorLogLine
+
+        assertThat(logLine.date, `is`("2001-01-10"))
+        assertThat(logLine.time, `is`("12:34:56.789"))
+        assertThat(logLine.logLevel, `is`("Notice"))
+        assertThat(logLine.appServer, `is`(nullValue()))
+        assertThat(logLine.continuation, `is`(true))
+        assertThat(logLine.message, `is`("in /lorem/ipsum/dolor.xqy, at 14:8"))
+
+        reset()
+        logLine.print(this)
+        assertThat(printed, `is`("[QUERY_LOG_LEVEL_NOTICE|$line]"))
+    }
 }
