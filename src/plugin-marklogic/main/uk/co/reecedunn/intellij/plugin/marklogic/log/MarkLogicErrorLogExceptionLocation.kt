@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.log
 
+import com.intellij.execution.ui.ConsoleView
+
 class MarkLogicErrorLogExceptionLocation(
     date: String,
     time: String,
@@ -32,4 +34,20 @@ class MarkLogicErrorLogExceptionLocation(
             null -> "in $path, at $line:$column"
             else -> "in $path, at $line:$column [$xqueryVersion]"
         }
+
+    override fun print(consoleView: ConsoleView) {
+        val separator = if (continuation) '+' else ' '
+        when (appServer) {
+            null -> consoleView.print("$date $time $logLevel:${separator}in ", contentType)
+            else -> consoleView.print("$date $time $logLevel:$separator$appServer: in", contentType)
+        }
+
+        consoleView.printHyperlink(path) {
+        }
+
+        when (xqueryVersion) {
+            null -> consoleView.print(", at $line:$column", contentType)
+            else -> consoleView.print(", at $line:$column [$xqueryVersion]", contentType)
+        }
+    }
 }

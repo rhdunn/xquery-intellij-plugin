@@ -75,7 +75,9 @@ class MarkLogicErrorLogLineTest : IdeaPlatformTestCase(), ConsoleView {
         printed += "[$contentType|$text]"
     }
 
-    override fun printHyperlink(hyperlinkText: String, info: HyperlinkInfo?) = throw UnsupportedOperationException()
+    override fun printHyperlink(hyperlinkText: String, info: HyperlinkInfo?) {
+        printed += "[link^$hyperlinkText]"
+    }
 
     override fun scrollTo(offset: Int) = throw UnsupportedOperationException()
 
@@ -237,7 +239,14 @@ class MarkLogicErrorLogLineTest : IdeaPlatformTestCase(), ConsoleView {
 
         reset()
         logLine.print(this)
-        assertThat(printed, `is`("[QUERY_LOG_LEVEL_NOTICE|$line]"))
+        assertThat(
+            printed,
+            `is`(
+                "[QUERY_LOG_LEVEL_NOTICE|2001-01-10 12:34:56.789 Notice:+in ]" +
+                "[link^/lorem/ipsum/dolor.xqy]" +
+                "[QUERY_LOG_LEVEL_NOTICE|, at 14:8 [1.0-ml]]"
+            )
+        )
     }
 
     @Test
@@ -259,6 +268,13 @@ class MarkLogicErrorLogLineTest : IdeaPlatformTestCase(), ConsoleView {
 
         reset()
         logLine.print(this)
-        assertThat(printed, `is`("[QUERY_LOG_LEVEL_NOTICE|$line]"))
+        assertThat(
+            printed,
+            `is`(
+                "[QUERY_LOG_LEVEL_NOTICE|2001-01-10 12:34:56.789 Notice:+in ]" +
+                "[link^/lorem/ipsum/dolor.xqy]" +
+                "[QUERY_LOG_LEVEL_NOTICE|, at 14:8]"
+            )
+        )
     }
 }
