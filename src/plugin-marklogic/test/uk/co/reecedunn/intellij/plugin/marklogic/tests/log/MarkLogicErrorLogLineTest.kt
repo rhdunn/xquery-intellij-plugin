@@ -68,8 +68,9 @@ class MarkLogicErrorLogLineTest : IdeaPlatformTestCase() {
 
         val console = ConsoleViewRecorder()
         logLine.print(console)
-        assertThat(console.printed[0], `is`(LogLevel.INFO to line))
-        assertThat(console.printed.size, `is`(1))
+        assertThat(console.printed[0], `is`(LogLevel.DATE_TIME to "2001-01-10 12:34:56.789 "))
+        assertThat(console.printed[1], `is`(LogLevel.INFO to "Info: Lorem ipsum dolor"))
+        assertThat(console.printed.size, `is`(2))
     }
 
     @Test
@@ -87,8 +88,9 @@ class MarkLogicErrorLogLineTest : IdeaPlatformTestCase() {
 
         val console = ConsoleViewRecorder()
         logLine.print(console)
-        assertThat(console.printed[0], `is`(LogLevel.DEBUG to line))
-        assertThat(console.printed.size, `is`(1))
+        assertThat(console.printed[0], `is`(LogLevel.DATE_TIME to "2001-01-10 12:34:56.789 "))
+        assertThat(console.printed[1], `is`(LogLevel.DEBUG to "Debug: TaskServer: Lorem ipsum dolor"))
+        assertThat(console.printed.size, `is`(2))
     }
 
     @Test
@@ -106,8 +108,9 @@ class MarkLogicErrorLogLineTest : IdeaPlatformTestCase() {
 
         val console = ConsoleViewRecorder()
         logLine.print(console)
-        assertThat(console.printed[0], `is`(LogLevel.DEBUG to line))
-        assertThat(console.printed.size, `is`(1))
+        assertThat(console.printed[0], `is`(LogLevel.DATE_TIME to "2001-01-10 12:34:56.789 "))
+        assertThat(console.printed[1], `is`(LogLevel.DEBUG to "Debug: abc-2d_3e: Lorem ipsum dolor"))
+        assertThat(console.printed.size, `is`(2))
     }
 
     @Test
@@ -125,8 +128,9 @@ class MarkLogicErrorLogLineTest : IdeaPlatformTestCase() {
 
         val console = ConsoleViewRecorder()
         logLine.print(console)
-        assertThat(console.printed[0], `is`(LogLevel.INFO to line))
-        assertThat(console.printed.size, `is`(1))
+        assertThat(console.printed[0], `is`(LogLevel.DATE_TIME to "2001-01-10 12:34:56.789 "))
+        assertThat(console.printed[1], `is`(LogLevel.INFO to "Info:+Lorem ipsum dolor"))
+        assertThat(console.printed.size, `is`(2))
     }
 
     @Test
@@ -153,19 +157,32 @@ class MarkLogicErrorLogLineTest : IdeaPlatformTestCase() {
             (MarkLogicErrorLogLine.parse(it) as MarkLogicErrorLogLine).print(console)
         }
 
-        assertThat(console.printed[0], `is`(LogLevel.FINEST to lines[0]))
-        assertThat(console.printed[1], `is`(LogLevel.FINER to lines[1]))
-        assertThat(console.printed[2], `is`(LogLevel.FINE to lines[2]))
-        assertThat(console.printed[3], `is`(LogLevel.DEBUG to lines[3]))
-        assertThat(console.printed[4], `is`(LogLevel.CONFIG to lines[4]))
-        assertThat(console.printed[5], `is`(LogLevel.INFO to lines[5]))
-        assertThat(console.printed[6], `is`(LogLevel.NOTICE to lines[6]))
-        assertThat(console.printed[7], `is`(LogLevel.WARNING to lines[7]))
-        assertThat(console.printed[8], `is`(LogLevel.ERROR to lines[8]))
-        assertThat(console.printed[9], `is`(LogLevel.CRITICAL to lines[9]))
-        assertThat(console.printed[10], `is`(LogLevel.ALERT to lines[10]))
-        assertThat(console.printed[11], `is`(LogLevel.EMERGENCY to lines[11]))
-        assertThat(console.printed[12], `is`(ConsoleViewContentType.NORMAL_OUTPUT to lines[12]))
+        assertThat(console.printed[0], `is`(LogLevel.DATE_TIME to "2001-01-10 12:34:56.789 "))
+        assertThat(console.printed[1], `is`(LogLevel.FINEST to "Finest: Lorem ipsum dolor"))
+        assertThat(console.printed[2], `is`(LogLevel.DATE_TIME to "2001-01-10 12:34:56.789 "))
+        assertThat(console.printed[3], `is`(LogLevel.FINER to "Finer: Lorem ipsum dolor"))
+        assertThat(console.printed[4], `is`(LogLevel.DATE_TIME to "2001-01-10 12:34:56.789 "))
+        assertThat(console.printed[5], `is`(LogLevel.FINE to "Fine: Lorem ipsum dolor"))
+        assertThat(console.printed[6], `is`(LogLevel.DATE_TIME to "2001-01-10 12:34:56.789 "))
+        assertThat(console.printed[7], `is`(LogLevel.DEBUG to "Debug: Lorem ipsum dolor"))
+        assertThat(console.printed[8], `is`(LogLevel.DATE_TIME to "2001-01-10 12:34:56.789 "))
+        assertThat(console.printed[9], `is`(LogLevel.CONFIG to "Config: Lorem ipsum dolor"))
+        assertThat(console.printed[10], `is`(LogLevel.DATE_TIME to "2001-01-10 12:34:56.789 "))
+        assertThat(console.printed[11], `is`(LogLevel.INFO to "Info: Lorem ipsum dolor"))
+        assertThat(console.printed[12], `is`(LogLevel.DATE_TIME to "2001-01-10 12:34:56.789 "))
+        assertThat(console.printed[13], `is`(LogLevel.NOTICE to "Notice: Lorem ipsum dolor"))
+        assertThat(console.printed[14], `is`(LogLevel.DATE_TIME to "2001-01-10 12:34:56.789 "))
+        assertThat(console.printed[15], `is`(LogLevel.WARNING to "Warning: Lorem ipsum dolor"))
+        assertThat(console.printed[16], `is`(LogLevel.DATE_TIME to "2001-01-10 12:34:56.789 "))
+        assertThat(console.printed[17], `is`(LogLevel.ERROR to "Error: Lorem ipsum dolor"))
+        assertThat(console.printed[18], `is`(LogLevel.DATE_TIME to "2001-01-10 12:34:56.789 "))
+        assertThat(console.printed[19], `is`(LogLevel.CRITICAL to "Critical: Lorem ipsum dolor"))
+        assertThat(console.printed[20], `is`(LogLevel.DATE_TIME to "2001-01-10 12:34:56.789 "))
+        assertThat(console.printed[21], `is`(LogLevel.ALERT to "Alert: Lorem ipsum dolor"))
+        assertThat(console.printed[22], `is`(LogLevel.DATE_TIME to "2001-01-10 12:34:56.789 "))
+        assertThat(console.printed[23], `is`(LogLevel.EMERGENCY to "Emergency: Lorem ipsum dolor"))
+        assertThat(console.printed[24], `is`(LogLevel.DATE_TIME to "2001-01-10 12:34:56.789 "))
+        assertThat(console.printed[25], `is`(ConsoleViewContentType.NORMAL_OUTPUT to "Unknown: Lorem ipsum dolor"))
     }
 
     @Test
@@ -187,10 +204,11 @@ class MarkLogicErrorLogLineTest : IdeaPlatformTestCase() {
 
         val console = ConsoleViewRecorder()
         logLine.print(console)
-        assertThat(console.printed[0], `is`(LogLevel.NOTICE to "2001-01-10 12:34:56.789 Notice:+in "))
-        assertThat(console.printed[1], `is`(ConsoleViewRecorder.HYPERLINK to "/lorem/ipsum/dolor.xqy"))
-        assertThat(console.printed[2], `is`(LogLevel.NOTICE to ", at 14:8 [1.0-ml]"))
-        assertThat(console.printed.size, `is`(3))
+        assertThat(console.printed[0], `is`(LogLevel.DATE_TIME to "2001-01-10 12:34:56.789 "))
+        assertThat(console.printed[1], `is`(LogLevel.NOTICE to "Notice:+in "))
+        assertThat(console.printed[2], `is`(ConsoleViewRecorder.HYPERLINK to "/lorem/ipsum/dolor.xqy"))
+        assertThat(console.printed[3], `is`(LogLevel.NOTICE to ", at 14:8 [1.0-ml]"))
+        assertThat(console.printed.size, `is`(4))
     }
 
     @Test
@@ -212,9 +230,10 @@ class MarkLogicErrorLogLineTest : IdeaPlatformTestCase() {
 
         val console = ConsoleViewRecorder()
         logLine.print(console)
-        assertThat(console.printed[0], `is`(LogLevel.NOTICE to "2001-01-10 12:34:56.789 Notice:+in "))
-        assertThat(console.printed[1], `is`(ConsoleViewRecorder.HYPERLINK to "/lorem/ipsum/dolor.xqy"))
-        assertThat(console.printed[2], `is`(LogLevel.NOTICE to ", at 14:8"))
-        assertThat(console.printed.size, `is`(3))
+        assertThat(console.printed[0], `is`(LogLevel.DATE_TIME to "2001-01-10 12:34:56.789 "))
+        assertThat(console.printed[1], `is`(LogLevel.NOTICE to "Notice:+in "))
+        assertThat(console.printed[2], `is`(ConsoleViewRecorder.HYPERLINK to "/lorem/ipsum/dolor.xqy"))
+        assertThat(console.printed[3], `is`(LogLevel.NOTICE to ", at 14:8"))
+        assertThat(console.printed.size, `is`(4))
     }
 }

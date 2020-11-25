@@ -39,9 +39,10 @@ data class BaseXLogLine(
         }
 
     override fun print(consoleView: ConsoleView) {
+        consoleView.print("$date $time ", LogLevel.DATE_TIME)
         when (elapsed) {
-            null -> consoleView.print("$date $time $address $user $logLevel: $message", contentType)
-            else -> consoleView.print("$date $time in ${elapsed}ms $address $user $logLevel: $message", contentType)
+            null -> consoleView.print("$address $user $logLevel: $message", contentType)
+            else -> consoleView.print("in ${elapsed}ms $address $user $logLevel: $message", contentType)
         }
     }
 }

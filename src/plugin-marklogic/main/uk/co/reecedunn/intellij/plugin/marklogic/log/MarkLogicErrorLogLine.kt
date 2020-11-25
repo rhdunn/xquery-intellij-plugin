@@ -48,10 +48,12 @@ abstract class MarkLogicErrorLogLine(
         }
 
     override fun print(consoleView: ConsoleView) {
+        consoleView.print("$date $time ", LogLevel.DATE_TIME)
+
         val separator = if (continuation) '+' else ' '
         when (appServer) {
-            null -> consoleView.print("$date $time $logLevel:$separator$message", contentType)
-            else -> consoleView.print("$date $time $logLevel:$separator$appServer: $message", contentType)
+            null -> consoleView.print("$logLevel:$separator$message", contentType)
+            else -> consoleView.print("$logLevel:$separator$appServer: $message", contentType)
         }
     }
 

@@ -16,9 +16,14 @@
 package uk.co.reecedunn.intellij.plugin.processor.log
 
 import com.intellij.execution.ui.ConsoleViewContentType
+import com.intellij.openapi.editor.DefaultLanguageHighlighterColors
 import com.intellij.openapi.editor.colors.TextAttributesKey
 
 object LogLevel {
+    val DATE_TIME_KEY: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
+        "QUERY_LOG_DATE_TIME", DefaultLanguageHighlighterColors.LINE_COMMENT
+    )
+
     val FINEST_KEY: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "QUERY_LOG_LEVEL_FINEST", ConsoleViewContentType.LOG_VERBOSE_OUTPUT_KEY
     )
@@ -74,6 +79,8 @@ object LogLevel {
     val REQUEST_KEY: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "QUERY_LOG_LEVEL_REQUEST", ConsoleViewContentType.LOG_INFO_OUTPUT_KEY
     )
+
+    val DATE_TIME: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_DATE_TIME", DATE_TIME_KEY)
 
     val FINEST: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_FINEST", FINEST_KEY)
     val FINER: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_FINER", FINER_KEY)

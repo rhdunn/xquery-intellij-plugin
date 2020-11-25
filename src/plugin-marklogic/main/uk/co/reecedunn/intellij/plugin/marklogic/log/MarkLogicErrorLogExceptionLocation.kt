@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.marklogic.log
 import com.intellij.execution.ui.ConsoleView
 import com.intellij.openapi.project.Project
 import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.QuerySourcePosition
+import uk.co.reecedunn.intellij.plugin.processor.log.LogLevel
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderSettings
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.impl.XpmModuleLocationPath
 
@@ -33,7 +34,7 @@ class MarkLogicErrorLogExceptionLocation(
     val xqueryVersion: String?
 ) : MarkLogicErrorLogLine(date, time, logLevel, appServer, continuation) {
 
-    fun getSourcePosition(project: Project): QuerySourcePosition? {
+    private fun getSourcePosition(project: Project): QuerySourcePosition? {
         val location = XpmModuleLocationPath.create(project, path, arrayOf()) ?: return null
         val file = XpmModuleLoaderSettings.getInstance(project).resolve(location, null)?.containingFile?.virtualFile
             ?: return null
@@ -47,10 +48,12 @@ class MarkLogicErrorLogExceptionLocation(
         }
 
     override fun print(consoleView: ConsoleView) {
+        consoleView.print("$date $time ", LogLevel.DATE_TIME)
+
         val separator = if (continuation) '+' else ' '
         when (appServer) {
-            null -> consoleView.print("$date $time $logLevel:${separator}in ", contentType)
-            else -> consoleView.print("$date $time $logLevel:$separator$appServer: in", contentType)
+            null -> consoleView.print("$logLevel:${separator}in ", contentType)
+            else -> consoleView.print("$logLevel:$separator$appServer: in", contentType)
         }
 
         consoleView.printHyperlink(path) {

@@ -1,18 +1,18 @@
 MarkLogic log levels in ErrorLog.txt files:
-<finest>2000-01-12 15:00:01.000 Finest: Log level</finest>
-<finer>2000-01-12 15:00:01.000 Finer: Log level</finer>
-<fine>2000-01-12 15:00:01.000 Fine: Log level</fine>
-<debug>2000-01-12 15:00:01.000 Debug: Log level</debug>
-<config>2000-01-12 15:00:01.000 Config: Log level</config>
-<info>2000-01-12 15:00:01.000 Info: Log level</info>
-<notice>2000-01-12 15:00:01.000 Notice: Log level</notice>
-<warning>2000-01-12 15:00:01.000 Warning: Log level</warning>
-<error>2000-01-12 15:00:01.000 Error: Log level</error>
-<critical>2000-01-12 15:00:01.000 Critical: Log level</critical>
-<alert>2000-01-12 15:00:01.000 Alert: Log level</alert>
-<emergency>2000-01-12 15:00:01.000 Emergency: Log level</emergency>
+<datetime>2000-01-12 15:00:01.000</datetime> <finest>Finest: Log level</finest>
+<datetime>2000-01-12 15:00:01.000</datetime> <finer>Finer: Log level</finer>
+<datetime>2000-01-12 15:00:01.000</datetime> <fine>Fine: Log level</fine>
+<datetime>2000-01-12 15:00:01.000</datetime> <debug>Debug: Log level</debug>
+<datetime>2000-01-12 15:00:01.000</datetime> <config>Config: Log level</config>
+<datetime>2000-01-12 15:00:01.000</datetime> <info>Info: Log level</info>
+<datetime>2000-01-12 15:00:01.000</datetime> <notice>Notice: Log level</notice>
+<datetime>2000-01-12 15:00:01.000</datetime> <warning>Warning: Log level</warning>
+<datetime>2000-01-12 15:00:01.000</datetime> <error>Error: Log level</error>
+<datetime>2000-01-12 15:00:01.000</datetime> <critical>Critical: Log level</critical>
+<datetime>2000-01-12 15:00:01.000</datetime> <alert>Alert: Log level</alert>
+<datetime>2000-01-12 15:00:01.000</datetime> <emergency>Emergency: Log level</emergency>
 
 BaseX log levels:
-<ok>2000-01-12 15:00:01.000 OK: Log level</ok>
-<request>2000-01-12 15:00:01.000 REQUEST: Log level</request>
-<error>2000-01-12 15:00:01.000 ERROR: Log level</error>
+<datetime>2000-01-12 15:00:01.000</datetime> <ok>OK: Log level</ok>
+<datetime>2000-01-12 15:00:01.000</datetime> <request>REQUEST: Log level</request>
+<datetime>2000-01-12 15:00:01.000</datetime> <error>ERROR: Log level</error>
