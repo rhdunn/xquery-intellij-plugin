@@ -20,14 +20,15 @@ import com.intellij.execution.ui.ConsoleViewContentType
 import uk.co.reecedunn.intellij.plugin.processor.log.LogLevel
 import uk.co.reecedunn.intellij.plugin.processor.log.LogLine
 
-data class MarkLogicErrorLogLine(
+abstract class MarkLogicErrorLogLine(
     val date: String,
     val time: String,
     val logLevel: String,
     val appServer: String?,
-    val continuation: Boolean,
-    val message: String
+    val continuation: Boolean
 ) : LogLine {
+
+    abstract val message: String
 
     val contentType: ConsoleViewContentType
         get() = when (logLevel) {
@@ -70,7 +71,7 @@ data class MarkLogicErrorLogLine(
         fun parse(line: String): Any {
             val groups = LOG_LINE_RE.find(line)?.groupValues ?: return line
             val appServer = groups[5].takeIf { it.isNotEmpty() }
-            return MarkLogicErrorLogLine(groups[1], groups[2], groups[3], appServer, groups[6] == "+", groups[7])
+            return MarkLogicErrorLogMessage(groups[1], groups[2], groups[3], appServer, groups[6] == "+", groups[7])
         }
     }
 }
