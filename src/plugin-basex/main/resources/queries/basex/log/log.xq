@@ -1,5 +1,5 @@
 (:
- : Copyright (C) 2019 Reece H. Dunn
+ : Copyright (C) 2019-2020 Reece H. Dunn
  :
  : Licensed under the Apache License, Version 2.0 (the "License");
  : you may not use this file except in compliance with the License.
@@ -19,16 +19,18 @@ declare option o:implementation "basex/7.0";
 
 (: Return the log files on the BaseX server. :)
 
-declare variable $name as xs:string external;
+declare variable $name as xs:string external := "2020-11-25";
 
 try {
     for $log in admin:logs($name)
-    let $datetime := $name || " " || $log/@time
-    let $type := $log/@type
-    return if ($log/@address eq "SERVER") then
-        string-join(($name, $log/@time, $log/@type || ":", $log/text()), " ")
-    else
-        string-join(($name, $log/@time, "in", $log/@ms, "ms", $log/@address, $log/@user, $log/@type || ":", $log/text()), " ")
+    return (
+        $log/@time,
+        ($log/@ms, "")[1],
+        $log/@address,
+        $log/@user,
+        $log/@type,
+        $log/text()
+    ) ! xs:string(.)
 } catch err:FODC0002 {
     () (: log file not found :)
 }

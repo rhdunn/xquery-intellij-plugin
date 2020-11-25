@@ -21,6 +21,7 @@ import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.basex.intellij.resources.BaseXIcons
 import uk.co.reecedunn.intellij.plugin.basex.query.session.binding.Session
 import uk.co.reecedunn.intellij.plugin.basex.intellij.resources.BaseXQueries
+import uk.co.reecedunn.intellij.plugin.basex.log.BaseXLogLine
 import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationImpl
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
@@ -70,9 +71,19 @@ internal class BaseXQueryProcessor(
         it.value as String
     }
 
-    override fun log(name: String): List<String> = createRunnableQuery(BaseXQueries.Log.Log, XQuery).use { query ->
+    override fun log(name: String): List<Any> = createRunnableQuery(BaseXQueries.Log.Log, XQuery).use { query ->
         query.bindVariable("name", name, "xs:string")
-        query.run().results.map { it.value as String }
+        query.run().results.chunked(6).map {
+            BaseXLogLine(
+                name,
+                it[0].value as String,
+                (it[1].value as String).takeIf { value -> value.isNotEmpty() },
+                it[2].value as String,
+                it[3].value as String,
+                it[4].value as String,
+                it[5].value as String
+            )
+        }
     }
 
     override fun defaultLogFile(logs: List<String>): String? = logs.lastOrNull()
