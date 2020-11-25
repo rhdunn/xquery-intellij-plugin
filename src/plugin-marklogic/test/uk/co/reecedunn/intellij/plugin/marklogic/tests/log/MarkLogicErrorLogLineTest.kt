@@ -15,77 +15,20 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.tests.log
 
-import com.intellij.execution.filters.Filter
-import com.intellij.execution.filters.HyperlinkInfo
-import com.intellij.execution.process.ProcessHandler
-import com.intellij.execution.ui.ConsoleView
-import com.intellij.execution.ui.ConsoleViewContentType
-import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.extensions.PluginId
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.core.tests.execution.ui.ConsoleViewRecorder
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.marklogic.log.MarkLogicErrorLogExceptionLocation
 import uk.co.reecedunn.intellij.plugin.marklogic.log.MarkLogicErrorLogLine
-import java.lang.UnsupportedOperationException
-import javax.swing.JComponent
 
 @Suppress("XmlPathReference")
 @DisplayName("IntelliJ - Base Platform - Run Configuration - Query Log - MarkLogic ErrorLog")
-class MarkLogicErrorLogLineTest : IdeaPlatformTestCase(), ConsoleView {
+class MarkLogicErrorLogLineTest : IdeaPlatformTestCase() {
     override val pluginId: PluginId = PluginId.getId("MarkLogicErrorLogLineTest")
-
-    // region ConsoleView
-
-    private var printed: String = ""
-
-    private fun reset() {
-        printed = ""
-    }
-
-    override fun addMessageFilter(filter: Filter) = throw UnsupportedOperationException()
-
-    override fun allowHeavyFilters() = throw UnsupportedOperationException()
-
-    override fun attachToProcess(processHandler: ProcessHandler) = throw UnsupportedOperationException()
-
-    override fun canPause(): Boolean = throw UnsupportedOperationException()
-
-    override fun clear() = throw UnsupportedOperationException()
-
-    override fun createConsoleActions(): Array<AnAction> = throw UnsupportedOperationException()
-
-    override fun dispose() = throw UnsupportedOperationException()
-
-    override fun getComponent(): JComponent = throw UnsupportedOperationException()
-
-    override fun getContentSize(): Int = throw UnsupportedOperationException()
-
-    override fun getPreferredFocusableComponent(): JComponent = throw UnsupportedOperationException()
-
-    override fun hasDeferredOutput(): Boolean = throw UnsupportedOperationException()
-
-    override fun isOutputPaused(): Boolean = throw UnsupportedOperationException()
-
-    override fun performWhenNoDeferredOutput(runnable: Runnable) = throw UnsupportedOperationException()
-
-    override fun print(text: String, contentType: ConsoleViewContentType) {
-        printed += "[$contentType|$text]"
-    }
-
-    override fun printHyperlink(hyperlinkText: String, info: HyperlinkInfo?) {
-        printed += "[link^$hyperlinkText]"
-    }
-
-    override fun scrollTo(offset: Int) = throw UnsupportedOperationException()
-
-    override fun setHelpId(helpId: String) = throw UnsupportedOperationException()
-
-    override fun setOutputPaused(value: Boolean) = throw UnsupportedOperationException()
-
-    // endregion
 
     @Test
     @DisplayName("empty")
@@ -121,9 +64,9 @@ class MarkLogicErrorLogLineTest : IdeaPlatformTestCase(), ConsoleView {
         assertThat(logLine.continuation, `is`(false))
         assertThat(logLine.message, `is`("Lorem ipsum dolor"))
 
-        reset()
-        logLine.print(this)
-        assertThat(printed, `is`("[QUERY_LOG_LEVEL_INFO|$line]"))
+        val console = ConsoleViewRecorder()
+        logLine.print(console)
+        assertThat(console.printed, `is`("[QUERY_LOG_LEVEL_INFO|$line]"))
     }
 
     @Test
@@ -139,9 +82,9 @@ class MarkLogicErrorLogLineTest : IdeaPlatformTestCase(), ConsoleView {
         assertThat(logLine.continuation, `is`(false))
         assertThat(logLine.message, `is`("Lorem ipsum dolor"))
 
-        reset()
-        logLine.print(this)
-        assertThat(printed, `is`("[QUERY_LOG_LEVEL_DEBUG|$line]"))
+        val console = ConsoleViewRecorder()
+        logLine.print(console)
+        assertThat(console.printed, `is`("[QUERY_LOG_LEVEL_DEBUG|$line]"))
     }
 
     @Test
@@ -157,9 +100,9 @@ class MarkLogicErrorLogLineTest : IdeaPlatformTestCase(), ConsoleView {
         assertThat(logLine.continuation, `is`(false))
         assertThat(logLine.message, `is`("Lorem ipsum dolor"))
 
-        reset()
-        logLine.print(this)
-        assertThat(printed, `is`("[QUERY_LOG_LEVEL_DEBUG|$line]"))
+        val console = ConsoleViewRecorder()
+        logLine.print(console)
+        assertThat(console.printed, `is`("[QUERY_LOG_LEVEL_DEBUG|$line]"))
     }
 
     @Test
@@ -175,9 +118,9 @@ class MarkLogicErrorLogLineTest : IdeaPlatformTestCase(), ConsoleView {
         assertThat(logLine.continuation, `is`(true))
         assertThat(logLine.message, `is`("Lorem ipsum dolor"))
 
-        reset()
-        logLine.print(this)
-        assertThat(printed, `is`("[QUERY_LOG_LEVEL_INFO|$line]"))
+        val console = ConsoleViewRecorder()
+        logLine.print(console)
+        assertThat(console.printed, `is`("[QUERY_LOG_LEVEL_INFO|$line]"))
     }
 
     @Test
@@ -200,9 +143,9 @@ class MarkLogicErrorLogLineTest : IdeaPlatformTestCase(), ConsoleView {
         )
 
         val logLines = lines.map {
-            reset()
-            (MarkLogicErrorLogLine.parse(it) as MarkLogicErrorLogLine).print(this)
-            printed
+            val console = ConsoleViewRecorder()
+            (MarkLogicErrorLogLine.parse(it) as MarkLogicErrorLogLine).print(console)
+            console.printed
         }
 
         assertThat(logLines[0], `is`("[QUERY_LOG_LEVEL_FINEST|${lines[0]}]"))
@@ -237,10 +180,10 @@ class MarkLogicErrorLogLineTest : IdeaPlatformTestCase(), ConsoleView {
         assertThat(logLine.column, `is`(8))
         assertThat(logLine.xqueryVersion, `is`("1.0-ml"))
 
-        reset()
-        logLine.print(this)
+        val console = ConsoleViewRecorder()
+        logLine.print(console)
         assertThat(
-            printed,
+            console.printed,
             `is`(
                 "[QUERY_LOG_LEVEL_NOTICE|2001-01-10 12:34:56.789 Notice:+in ]" +
                 "[link^/lorem/ipsum/dolor.xqy]" +
@@ -266,10 +209,10 @@ class MarkLogicErrorLogLineTest : IdeaPlatformTestCase(), ConsoleView {
         assertThat(logLine.column, `is`(8))
         assertThat(logLine.xqueryVersion, `is`(nullValue()))
 
-        reset()
-        logLine.print(this)
+        val console = ConsoleViewRecorder()
+        logLine.print(console)
         assertThat(
-            printed,
+            console.printed,
             `is`(
                 "[QUERY_LOG_LEVEL_NOTICE|2001-01-10 12:34:56.789 Notice:+in ]" +
                 "[link^/lorem/ipsum/dolor.xqy]" +
