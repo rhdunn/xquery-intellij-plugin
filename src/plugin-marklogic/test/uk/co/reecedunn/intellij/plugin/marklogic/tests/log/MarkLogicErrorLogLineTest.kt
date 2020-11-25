@@ -27,6 +27,7 @@ import org.hamcrest.CoreMatchers.nullValue
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
+import uk.co.reecedunn.intellij.plugin.marklogic.log.MarkLogicErrorLogExceptionLocation
 import uk.co.reecedunn.intellij.plugin.marklogic.log.MarkLogicErrorLogLine
 import java.lang.UnsupportedOperationException
 import javax.swing.JComponent
@@ -221,7 +222,7 @@ class MarkLogicErrorLogLineTest : IdeaPlatformTestCase(), ConsoleView {
     @DisplayName("exception location with XQuery version")
     fun exceptionLocationWithXQueryVersion() {
         val line = "2001-01-10 12:34:56.789 Notice:+in /lorem/ipsum/dolor.xqy, at 14:8 [1.0-ml]"
-        val logLine = MarkLogicErrorLogLine.parse(line) as MarkLogicErrorLogLine
+        val logLine = MarkLogicErrorLogLine.parse(line) as MarkLogicErrorLogExceptionLocation
 
         assertThat(logLine.date, `is`("2001-01-10"))
         assertThat(logLine.time, `is`("12:34:56.789"))
@@ -229,6 +230,10 @@ class MarkLogicErrorLogLineTest : IdeaPlatformTestCase(), ConsoleView {
         assertThat(logLine.appServer, `is`(nullValue()))
         assertThat(logLine.continuation, `is`(true))
         assertThat(logLine.message, `is`("in /lorem/ipsum/dolor.xqy, at 14:8 [1.0-ml]"))
+        assertThat(logLine.path, `is`("/lorem/ipsum/dolor.xqy"))
+        assertThat(logLine.line, `is`(14))
+        assertThat(logLine.column, `is`(8))
+        assertThat(logLine.xqueryVersion, `is`("1.0-ml"))
 
         reset()
         logLine.print(this)
@@ -239,7 +244,7 @@ class MarkLogicErrorLogLineTest : IdeaPlatformTestCase(), ConsoleView {
     @DisplayName("exception location without XQuery version")
     fun exceptionLocationWithoutXQueryVersion() {
         val line = "2001-01-10 12:34:56.789 Notice:+in /lorem/ipsum/dolor.xqy, at 14:8"
-        val logLine = MarkLogicErrorLogLine.parse(line) as MarkLogicErrorLogLine
+        val logLine = MarkLogicErrorLogLine.parse(line) as MarkLogicErrorLogExceptionLocation
 
         assertThat(logLine.date, `is`("2001-01-10"))
         assertThat(logLine.time, `is`("12:34:56.789"))
@@ -247,6 +252,10 @@ class MarkLogicErrorLogLineTest : IdeaPlatformTestCase(), ConsoleView {
         assertThat(logLine.appServer, `is`(nullValue()))
         assertThat(logLine.continuation, `is`(true))
         assertThat(logLine.message, `is`("in /lorem/ipsum/dolor.xqy, at 14:8"))
+        assertThat(logLine.path, `is`("/lorem/ipsum/dolor.xqy"))
+        assertThat(logLine.line, `is`(14))
+        assertThat(logLine.column, `is`(8))
+        assertThat(logLine.xqueryVersion, `is`(nullValue()))
 
         reset()
         logLine.print(this)

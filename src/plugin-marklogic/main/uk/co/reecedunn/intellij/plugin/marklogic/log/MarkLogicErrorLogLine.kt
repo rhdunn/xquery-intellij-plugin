@@ -68,10 +68,40 @@ abstract class MarkLogicErrorLogLine(
             (.*)                      # 7: Message
         ${'$'}""".toRegex(RegexOption.COMMENTS)
 
+        @Suppress("RegExpRepeatedSpace")
+        private val EXCEPTION_LOCATION_RE = """^
+            in\s                       #
+            ([^ ,]+)                   # 1: Exception Path
+            ,\sat\s                    #
+            ([0-9]+)                   # 2: Line
+            :                          #
+            ([0-9]+)                   # 3: Column
+            (\s\[([0-9.\-ml]+)])?      # 5: XQuery Version
+        ${'$'}""".toRegex(RegexOption.COMMENTS)
+
         fun parse(line: String): Any {
             val groups = LOG_LINE_RE.find(line)?.groupValues ?: return line
-            val appServer = groups[5].takeIf { it.isNotEmpty() }
-            return MarkLogicErrorLogMessage(groups[1], groups[2], groups[3], appServer, groups[6] == "+", groups[7])
+            return when (val exception = EXCEPTION_LOCATION_RE.find(groups[7])?.groupValues) {
+                null -> MarkLogicErrorLogMessage(
+                    groups[1],
+                    groups[2],
+                    groups[3],
+                    groups[5].takeIf { it.isNotEmpty() },
+                    groups[6] == "+",
+                    groups[7]
+                )
+                else -> MarkLogicErrorLogExceptionLocation(
+                    groups[1],
+                    groups[2],
+                    groups[3],
+                    groups[5].takeIf { it.isNotEmpty() },
+                    groups[6] == "+",
+                    exception[1],
+                    exception[2].toInt(),
+                    exception[3].toInt(),
+                    exception[5].takeIf { it.isNotEmpty() }
+                )
+            }
         }
     }
 }
