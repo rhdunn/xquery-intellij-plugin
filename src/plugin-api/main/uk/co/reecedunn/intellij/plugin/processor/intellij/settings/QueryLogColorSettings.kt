@@ -49,7 +49,9 @@ class QueryLogColorSettings : ColorSettingsPage {
         AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.error.name"), LogLevel.ERROR_KEY),
         AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.critical.name"), LogLevel.CRITICAL_KEY),
         AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.alert.name"), LogLevel.ALERT_KEY),
-        AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.emergency.name"), LogLevel.EMERGENCY_KEY)
+        AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.emergency.name"), LogLevel.EMERGENCY_KEY),
+        AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.ok.name"), LogLevel.OK_KEY),
+        AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.request.name"), LogLevel.REQUEST_KEY)
     )
 
     override fun getAttributeDescriptors(): Array<AttributesDescriptor> = ATTRIBUTE_DESCRIPTORS
@@ -69,7 +71,9 @@ class QueryLogColorSettings : ColorSettingsPage {
         "error" to LogLevel.ERROR_KEY,
         "critical" to LogLevel.CRITICAL_KEY,
         "alert" to LogLevel.ALERT_KEY,
-        "emergency" to LogLevel.EMERGENCY_KEY
+        "emergency" to LogLevel.EMERGENCY_KEY,
+        "ok" to LogLevel.OK_KEY,
+        "request" to LogLevel.REQUEST_KEY
     )
 
     override fun getAdditionalHighlightingTagToDescriptorMap(): MutableMap<String, TextAttributesKey> {

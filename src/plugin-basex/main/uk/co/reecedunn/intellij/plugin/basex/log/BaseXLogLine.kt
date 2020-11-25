@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.basex.log
 
 import com.intellij.execution.ui.ConsoleView
 import com.intellij.execution.ui.ConsoleViewContentType
+import uk.co.reecedunn.intellij.plugin.processor.log.LogLevel
 import uk.co.reecedunn.intellij.plugin.processor.log.LogLine
 
 data class BaseXLogLine(
@@ -28,10 +29,19 @@ data class BaseXLogLine(
     val logLevel: String,
     val message: String
 ) : LogLine {
+
+    val contentType: ConsoleViewContentType
+        get() = when (logLevel) {
+            "OK" -> LogLevel.OK
+            "ERROR" -> LogLevel.ERROR
+            "REQUEST" -> LogLevel.REQUEST
+            else -> ConsoleViewContentType.NORMAL_OUTPUT
+        }
+
     override fun print(consoleView: ConsoleView) {
         when (elapsed) {
-            null -> consoleView.print("$date $time $address $user $logLevel: $message", ConsoleViewContentType.NORMAL_OUTPUT)
-            else -> consoleView.print("$date $time in ${elapsed}ms $address $user $logLevel: $message", ConsoleViewContentType.NORMAL_OUTPUT)
+            null -> consoleView.print("$date $time $address $user $logLevel: $message", contentType)
+            else -> consoleView.print("$date $time in ${elapsed}ms $address $user $logLevel: $message", contentType)
         }
     }
 }

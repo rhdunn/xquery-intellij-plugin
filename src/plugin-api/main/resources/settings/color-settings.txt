@@ -11,3 +11,8 @@ MarkLogic log levels in ErrorLog.txt files:
 <critical>2000-01-12 15:00:01.000 Critical: Log level</critical>
 <alert>2000-01-12 15:00:01.000 Alert: Log level</alert>
 <emergency>2000-01-12 15:00:01.000 Emergency: Log level</emergency>
+
+BaseX log levels:
+<ok>2000-01-12 15:00:01.000 OK: Log level</ok>
+<request>2000-01-12 15:00:01.000 REQUEST: Log level</request>
+<error>2000-01-12 15:00:01.000 ERROR: Log level</error>

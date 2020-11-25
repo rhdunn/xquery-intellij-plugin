@@ -67,6 +67,14 @@ object LogLevel {
         "QUERY_LOG_LEVEL_EMERGENCY", ConsoleViewContentType.LOG_ERROR_OUTPUT_KEY
     )
 
+    val OK_KEY: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
+        "QUERY_LOG_LEVEL_OK", ConsoleViewContentType.NORMAL_OUTPUT_KEY
+    )
+
+    val REQUEST_KEY: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
+        "QUERY_LOG_LEVEL_REQUEST", ConsoleViewContentType.LOG_INFO_OUTPUT_KEY
+    )
+
     val FINEST: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_FINEST", FINEST_KEY)
     val FINER: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_FINER", FINER_KEY)
     val FINE: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_FINE", FINE_KEY)
@@ -79,5 +87,7 @@ object LogLevel {
     val CRITICAL: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_CRITICAL", CRITICAL_KEY)
     val ALERT: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_ALERT", ALERT_KEY)
     val EMERGENCY: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_EMERGENCY", EMERGENCY_KEY)
-}
 
+    val OK: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_OK", OK_KEY)
+    val REQUEST: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_REQUEST", REQUEST_KEY)
+}

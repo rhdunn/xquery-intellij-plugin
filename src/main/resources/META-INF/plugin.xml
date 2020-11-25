@@ -92,7 +92,7 @@
     </ol>
     <p>Query Log Viewer:</p>
     <ol>
-      <li>Support colouring MarkLogic ErrorLog.txt log levels.</li>
+      <li>Support colouring MarkLogic ErrorLog.txt, and BaseX log levels.</li>
       <li>Support navigating to files referenced in MarkLogic ErrorLog.txt exceptions.</li>
       <li>Fix displaying the log viewer when opening a new project into the IDE window.</li>
       <li>Don't clear the log viewer when an error is from a previously selected query processor.</li>
