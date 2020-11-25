@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,21 +33,20 @@ data class XpmModuleLocationPath internal constructor(
         private const val RES_PATH = "resource:"
 
         override fun create(project: Project, uri: XsAnyUriValue): XpmModuleLocationPath? = when (uri.context) {
-            XdmUriContext.Location -> {
-                val path = uri.data
-                when {
-                    path.isEmpty() -> null
-                    path.startsWith(EXISTDB_PATH) /* eXist-db */ -> {
-                        XpmModuleLocationPath(project, path.substring(14), uri.moduleTypes, false)
-                    }
-                    path.startsWith(RES_PATH) /* eXist-db */ -> {
-                        XpmModuleLocationPath(project, path.substring(9), uri.moduleTypes, true)
-                    }
-                    path.contains(':') && !path.contains('/') -> null
-                    else -> XpmModuleLocationPath(project, path, uri.moduleTypes, false) // eXist-db, MarkLogic
-                }
-            }
+            XdmUriContext.Location -> create(project, uri.data, uri.moduleTypes)
             else -> null
+        }
+
+        fun create(project: Project, path: String, moduleTypes: Array<XdmModuleType>): XpmModuleLocationPath? = when {
+            path.isEmpty() -> null
+            path.startsWith(EXISTDB_PATH) /* eXist-db */ -> {
+                XpmModuleLocationPath(project, path.substring(14), moduleTypes, false)
+            }
+            path.startsWith(RES_PATH) /* eXist-db */ -> {
+                XpmModuleLocationPath(project, path.substring(9), moduleTypes, true)
+            }
+            path.contains(':') && !path.contains('/') -> null
+            else -> XpmModuleLocationPath(project, path, moduleTypes, false) // eXist-db, MarkLogic
         }
     }
 

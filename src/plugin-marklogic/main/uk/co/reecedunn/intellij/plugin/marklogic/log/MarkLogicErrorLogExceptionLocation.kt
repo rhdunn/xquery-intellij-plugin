@@ -16,6 +16,10 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.log
 
 import com.intellij.execution.ui.ConsoleView
+import com.intellij.openapi.project.Project
+import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.QuerySourcePosition
+import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderSettings
+import uk.co.reecedunn.intellij.plugin.xpm.module.path.impl.XpmModuleLocationPath
 
 class MarkLogicErrorLogExceptionLocation(
     date: String,
@@ -28,6 +32,13 @@ class MarkLogicErrorLogExceptionLocation(
     val column: Int,
     val xqueryVersion: String?
 ) : MarkLogicErrorLogLine(date, time, logLevel, appServer, continuation) {
+
+    fun getSourcePosition(project: Project): QuerySourcePosition? {
+        val location = XpmModuleLocationPath.create(project, path, arrayOf()) ?: return null
+        val file = XpmModuleLoaderSettings.getInstance(project).resolve(location, null)?.containingFile?.virtualFile
+            ?: return null
+        return QuerySourcePosition.create(file, line, column)
+    }
 
     override val message: String
         get() = when (xqueryVersion) {
@@ -43,6 +54,10 @@ class MarkLogicErrorLogExceptionLocation(
         }
 
         consoleView.printHyperlink(path) {
+            val nav = getSourcePosition(it)?.createNavigatable(it)
+            if (nav?.canNavigate() == true) {
+                nav.navigate(true)
+            }
         }
 
         when (xqueryVersion) {

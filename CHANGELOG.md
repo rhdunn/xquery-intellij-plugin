@@ -18,6 +18,7 @@ Inspections:
 Query Log Viewer:
 
 1. Support colouring MarkLogic ErrorLog.txt log levels.
+1. Support navigating to files referenced in MarkLogic ErrorLog.txt exceptions.
 1. Fix displaying the log viewer when opening a new project into the IDE window.
 1. Don't clear the log viewer when an error is from a previously selected query processor.
 1. Update the server list when the query processors are modified.
