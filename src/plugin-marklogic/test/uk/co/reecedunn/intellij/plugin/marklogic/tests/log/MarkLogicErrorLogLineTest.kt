@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.tests.log
 
+import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.openapi.extensions.PluginId
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
@@ -24,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.execution.ui.ConsoleViewRecord
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.marklogic.log.MarkLogicErrorLogExceptionLocation
 import uk.co.reecedunn.intellij.plugin.marklogic.log.MarkLogicErrorLogLine
+import uk.co.reecedunn.intellij.plugin.processor.log.LogLevel
 
 @Suppress("XmlPathReference")
 @DisplayName("IntelliJ - Base Platform - Run Configuration - Query Log - MarkLogic ErrorLog")
@@ -66,7 +68,8 @@ class MarkLogicErrorLogLineTest : IdeaPlatformTestCase() {
 
         val console = ConsoleViewRecorder()
         logLine.print(console)
-        assertThat(console.printed, `is`("[QUERY_LOG_LEVEL_INFO|$line]"))
+        assertThat(console.printed[0], `is`(LogLevel.INFO to line))
+        assertThat(console.printed.size, `is`(1))
     }
 
     @Test
@@ -84,7 +87,8 @@ class MarkLogicErrorLogLineTest : IdeaPlatformTestCase() {
 
         val console = ConsoleViewRecorder()
         logLine.print(console)
-        assertThat(console.printed, `is`("[QUERY_LOG_LEVEL_DEBUG|$line]"))
+        assertThat(console.printed[0], `is`(LogLevel.DEBUG to line))
+        assertThat(console.printed.size, `is`(1))
     }
 
     @Test
@@ -102,7 +106,8 @@ class MarkLogicErrorLogLineTest : IdeaPlatformTestCase() {
 
         val console = ConsoleViewRecorder()
         logLine.print(console)
-        assertThat(console.printed, `is`("[QUERY_LOG_LEVEL_DEBUG|$line]"))
+        assertThat(console.printed[0], `is`(LogLevel.DEBUG to line))
+        assertThat(console.printed.size, `is`(1))
     }
 
     @Test
@@ -120,7 +125,8 @@ class MarkLogicErrorLogLineTest : IdeaPlatformTestCase() {
 
         val console = ConsoleViewRecorder()
         logLine.print(console)
-        assertThat(console.printed, `is`("[QUERY_LOG_LEVEL_INFO|$line]"))
+        assertThat(console.printed[0], `is`(LogLevel.INFO to line))
+        assertThat(console.printed.size, `is`(1))
     }
 
     @Test
@@ -142,25 +148,24 @@ class MarkLogicErrorLogLineTest : IdeaPlatformTestCase() {
             "2001-01-10 12:34:56.789 Unknown: Lorem ipsum dolor"
         )
 
-        val logLines = lines.map {
-            val console = ConsoleViewRecorder()
+        val console = ConsoleViewRecorder()
+        lines.forEach {
             (MarkLogicErrorLogLine.parse(it) as MarkLogicErrorLogLine).print(console)
-            console.printed
         }
 
-        assertThat(logLines[0], `is`("[QUERY_LOG_LEVEL_FINEST|${lines[0]}]"))
-        assertThat(logLines[1], `is`("[QUERY_LOG_LEVEL_FINER|${lines[1]}]"))
-        assertThat(logLines[2], `is`("[QUERY_LOG_LEVEL_FINE|${lines[2]}]"))
-        assertThat(logLines[3], `is`("[QUERY_LOG_LEVEL_DEBUG|${lines[3]}]"))
-        assertThat(logLines[4], `is`("[QUERY_LOG_LEVEL_CONFIG|${lines[4]}]"))
-        assertThat(logLines[5], `is`("[QUERY_LOG_LEVEL_INFO|${lines[5]}]"))
-        assertThat(logLines[6], `is`("[QUERY_LOG_LEVEL_NOTICE|${lines[6]}]"))
-        assertThat(logLines[7], `is`("[QUERY_LOG_LEVEL_WARNING|${lines[7]}]"))
-        assertThat(logLines[8], `is`("[QUERY_LOG_LEVEL_ERROR|${lines[8]}]"))
-        assertThat(logLines[9], `is`("[QUERY_LOG_LEVEL_CRITICAL|${lines[9]}]"))
-        assertThat(logLines[10], `is`("[QUERY_LOG_LEVEL_ALERT|${lines[10]}]"))
-        assertThat(logLines[11], `is`("[QUERY_LOG_LEVEL_EMERGENCY|${lines[11]}]"))
-        assertThat(logLines[12], `is`("[NORMAL_OUTPUT|${lines[12]}]"))
+        assertThat(console.printed[0], `is`(LogLevel.FINEST to lines[0]))
+        assertThat(console.printed[1], `is`(LogLevel.FINER to lines[1]))
+        assertThat(console.printed[2], `is`(LogLevel.FINE to lines[2]))
+        assertThat(console.printed[3], `is`(LogLevel.DEBUG to lines[3]))
+        assertThat(console.printed[4], `is`(LogLevel.CONFIG to lines[4]))
+        assertThat(console.printed[5], `is`(LogLevel.INFO to lines[5]))
+        assertThat(console.printed[6], `is`(LogLevel.NOTICE to lines[6]))
+        assertThat(console.printed[7], `is`(LogLevel.WARNING to lines[7]))
+        assertThat(console.printed[8], `is`(LogLevel.ERROR to lines[8]))
+        assertThat(console.printed[9], `is`(LogLevel.CRITICAL to lines[9]))
+        assertThat(console.printed[10], `is`(LogLevel.ALERT to lines[10]))
+        assertThat(console.printed[11], `is`(LogLevel.EMERGENCY to lines[11]))
+        assertThat(console.printed[12], `is`(ConsoleViewContentType.NORMAL_OUTPUT to lines[12]))
     }
 
     @Test
@@ -182,14 +187,10 @@ class MarkLogicErrorLogLineTest : IdeaPlatformTestCase() {
 
         val console = ConsoleViewRecorder()
         logLine.print(console)
-        assertThat(
-            console.printed,
-            `is`(
-                "[QUERY_LOG_LEVEL_NOTICE|2001-01-10 12:34:56.789 Notice:+in ]" +
-                "[link^/lorem/ipsum/dolor.xqy]" +
-                "[QUERY_LOG_LEVEL_NOTICE|, at 14:8 [1.0-ml]]"
-            )
-        )
+        assertThat(console.printed[0], `is`(LogLevel.NOTICE to "2001-01-10 12:34:56.789 Notice:+in "))
+        assertThat(console.printed[1], `is`(ConsoleViewRecorder.HYPERLINK to "/lorem/ipsum/dolor.xqy"))
+        assertThat(console.printed[2], `is`(LogLevel.NOTICE to ", at 14:8 [1.0-ml]"))
+        assertThat(console.printed.size, `is`(3))
     }
 
     @Test
@@ -211,13 +212,9 @@ class MarkLogicErrorLogLineTest : IdeaPlatformTestCase() {
 
         val console = ConsoleViewRecorder()
         logLine.print(console)
-        assertThat(
-            console.printed,
-            `is`(
-                "[QUERY_LOG_LEVEL_NOTICE|2001-01-10 12:34:56.789 Notice:+in ]" +
-                "[link^/lorem/ipsum/dolor.xqy]" +
-                "[QUERY_LOG_LEVEL_NOTICE|, at 14:8]"
-            )
-        )
+        assertThat(console.printed[0], `is`(LogLevel.NOTICE to "2001-01-10 12:34:56.789 Notice:+in "))
+        assertThat(console.printed[1], `is`(ConsoleViewRecorder.HYPERLINK to "/lorem/ipsum/dolor.xqy"))
+        assertThat(console.printed[2], `is`(LogLevel.NOTICE to ", at 14:8"))
+        assertThat(console.printed.size, `is`(3))
     }
 }

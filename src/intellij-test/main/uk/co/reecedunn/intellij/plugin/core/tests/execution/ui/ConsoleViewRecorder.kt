@@ -25,7 +25,11 @@ import java.lang.UnsupportedOperationException
 import javax.swing.JComponent
 
 class ConsoleViewRecorder : ConsoleView {
-    var printed: String = ""
+    companion object {
+        val HYPERLINK = ConsoleViewContentType("HYPERLINK", ConsoleViewContentType.NORMAL_OUTPUT_KEY)
+    }
+
+    var printed: MutableList<Pair<ConsoleViewContentType, String>> = mutableListOf()
 
     override fun addMessageFilter(filter: Filter) = throw UnsupportedOperationException()
 
@@ -54,11 +58,11 @@ class ConsoleViewRecorder : ConsoleView {
     override fun performWhenNoDeferredOutput(runnable: Runnable) = throw UnsupportedOperationException()
 
     override fun print(text: String, contentType: ConsoleViewContentType) {
-        printed += "[$contentType|$text]"
+        printed.add(contentType to text)
     }
 
     override fun printHyperlink(hyperlinkText: String, info: HyperlinkInfo?) {
-        printed += "[link^$hyperlinkText]"
+        printed.add(HYPERLINK to hyperlinkText)
     }
 
     override fun scrollTo(offset: Int) = throw UnsupportedOperationException()
