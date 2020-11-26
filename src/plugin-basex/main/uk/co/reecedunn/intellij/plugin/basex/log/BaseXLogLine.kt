@@ -21,13 +21,13 @@ import uk.co.reecedunn.intellij.plugin.processor.log.LogLevel
 import uk.co.reecedunn.intellij.plugin.processor.log.LogLine
 
 data class BaseXLogLine(
-    val date: String,
-    val time: String,
+    override val date: String,
+    override val time: String,
     val elapsed: String?,
     val address: String,
     val user: String,
-    val logLevel: String,
-    val message: String
+    override val logLevel: String,
+    override val message: String
 ) : LogLine {
 
     val contentType: ConsoleViewContentType

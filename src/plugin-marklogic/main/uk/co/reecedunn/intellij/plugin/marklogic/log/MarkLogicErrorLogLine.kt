@@ -21,14 +21,12 @@ import uk.co.reecedunn.intellij.plugin.processor.log.LogLevel
 import uk.co.reecedunn.intellij.plugin.processor.log.LogLine
 
 abstract class MarkLogicErrorLogLine(
-    val date: String,
-    val time: String,
-    val logLevel: String,
+    override val date: String,
+    override val time: String,
+    override val logLevel: String,
     val appServer: String?,
     val continuation: Boolean
 ) : LogLine {
-
-    abstract val message: String
 
     val contentType: ConsoleViewContentType
         get() = when (logLevel) {

@@ -45,6 +45,7 @@ class QueryLogViewerUI(val project: Project) : Disposable {
     companion object {
         private const val PROPERTY_SERVER = "XQueryIntelliJPlugin.QueryLogViewer.Server"
         private const val PROPERTY_LOG_FILE = "XQueryIntelliJPlugin.QueryLogViewer.LogFile"
+        private const val PROPERTY_LOG_LEVELS = "XQueryIntelliJPlugin.QueryLogViewer.LogLevels"
 
         private var selectedServer: Int
             get() = PropertiesComponent.getInstance().getInt(PROPERTY_SERVER, 0)
@@ -56,6 +57,12 @@ class QueryLogViewerUI(val project: Project) : Disposable {
             get() = PropertiesComponent.getInstance().getValue(PROPERTY_LOG_FILE)
             set(value) {
                 PropertiesComponent.getInstance().setValue(PROPERTY_LOG_FILE, value)
+            }
+
+        private var selectedLogLevels: String?
+            get() = PropertiesComponent.getInstance().getValue(PROPERTY_LOG_LEVELS)
+            set(value) {
+                PropertiesComponent.getInstance().setValue(PROPERTY_LOG_LEVELS, value)
             }
     }
 
@@ -107,23 +114,92 @@ class QueryLogViewerUI(val project: Project) : Disposable {
     }
 
     // endregion
+    // region Filter :: Log Level
+
+    private lateinit var logLevels: JComboBox<String>
+    private var updatingLogLevels: Boolean = false
+
+    private fun populateLogLevels(levels: Set<String>) {
+        updatingLogLevels = true
+
+        logLevels.removeAllItems()
+        logLevels.addItem(PluginApiBundle.message("logviewer.filter.log-level.all"))
+        levels.sorted().forEach { logLevels.addItem(it) }
+
+        when (val selectedLogLevels = selectedLogLevels) {
+            null, !in levels -> logLevels.selectedIndex = 0
+            else -> logLevels.selectedItem = selectedLogLevels
+        }
+
+        updatingLogLevels = false
+        applyLogLevelsFilter()
+    }
+
+    private fun applyLogLevelsFilter() {
+        if (updatingLogLevels) return
+
+        selectedLogLevels = when (logLevels.selectedIndex) {
+            -1, 0 -> {
+                filterLogFile()
+                null
+            }
+            else -> {
+                val logLevel = logLevels.selectedItem as String
+                filterLogFile(logLevel)
+                logLevel
+            }
+        }
+    }
+
+    // endregion
     // region Log View
 
     private var logConsole: ConsoleViewEx? = null
     private var updatingLogList: Boolean = false
     private var logs: List<Any> = listOf()
 
-    private fun filterLogFile() {
+    private fun filterLogFile(): Set<String> {
+        val isAtEnd = logConsole!!.offset == logConsole!!.contentSize
+        logConsole?.clear()
+
+        val logLevels = mutableSetOf<String>()
+        logs.forEach { value ->
+            when (value) {
+                is String -> logConsole?.print(value, ConsoleViewContentType.NORMAL_OUTPUT)
+                is LogLine -> {
+                    logConsole?.let { value.print(it) }
+                    logLevels.add(value.logLevel)
+                }
+                else -> throw UnsupportedOperationException()
+            }
+            logConsole?.print("\n", ConsoleViewContentType.NORMAL_OUTPUT)
+        }
+
+        if (isAtEnd) {
+            logConsole?.scrollTo(logConsole!!.contentSize)
+        }
+
+        return logLevels
+    }
+
+    private fun filterLogFile(logLevel: String) {
         val isAtEnd = logConsole!!.offset == logConsole!!.contentSize
         logConsole?.clear()
 
         logs.forEach { value ->
             when (value) {
-                is String -> logConsole?.print(value, ConsoleViewContentType.NORMAL_OUTPUT)
-                is LogLine -> logConsole?.let { value.print(it) }
+                is String -> {
+                    logConsole?.print(value, ConsoleViewContentType.NORMAL_OUTPUT)
+                    logConsole?.print("\n", ConsoleViewContentType.NORMAL_OUTPUT)
+                }
+                is LogLine -> when (value.logLevel) {
+                    logLevel -> {
+                        logConsole?.let { value.print(it) }
+                        logConsole?.print("\n", ConsoleViewContentType.NORMAL_OUTPUT)
+                    }
+                }
                 else -> throw UnsupportedOperationException()
             }
-            logConsole?.print("\n", ConsoleViewContentType.NORMAL_OUTPUT)
         }
 
         if (isAtEnd) {
@@ -145,7 +221,7 @@ class QueryLogViewerUI(val project: Project) : Disposable {
                 invokeLater(ModalityState.any()) {
                     if (log != null) {
                         logs = log
-                        filterLogFile()
+                        populateLogLevels(filterLogFile())
                     } else {
                         logConsole?.clear()
                     }
@@ -190,6 +266,15 @@ class QueryLogViewerUI(val project: Project) : Disposable {
 
                         addActionListener {
                             populateLogFile()
+                        }
+                    }
+
+                    label(PluginApiBundle.message("logviewer.filter.log-level"), column)
+                    logLevels = comboBox(column.hgap(LayoutPosition.Both)) {
+                        preferredSize = Dimension(200, preferredSize.height)
+
+                        addActionListener {
+                            applyLogLevelsFilter()
                         }
                     }
 
