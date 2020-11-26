@@ -111,6 +111,25 @@ class QueryLogViewerUI(val project: Project) : Disposable {
 
     private var logConsole: ConsoleViewEx? = null
     private var updatingLogList: Boolean = false
+    private var logs: List<Any> = listOf()
+
+    private fun filterLogFile() {
+        val isAtEnd = logConsole!!.offset == logConsole!!.contentSize
+        logConsole?.clear()
+
+        logs.forEach { value ->
+            when (value) {
+                is String -> logConsole?.print(value, ConsoleViewContentType.NORMAL_OUTPUT)
+                is LogLine -> logConsole?.let { value.print(it) }
+                else -> throw UnsupportedOperationException()
+            }
+            logConsole?.print("\n", ConsoleViewContentType.NORMAL_OUTPUT)
+        }
+
+        if (isAtEnd) {
+            logConsole?.scrollTo(logConsole!!.contentSize)
+        }
+    }
 
     private fun populateLogFile() {
         if (updatingLogList) return
@@ -125,22 +144,8 @@ class QueryLogViewerUI(val project: Project) : Disposable {
                 }
                 invokeLater(ModalityState.any()) {
                     if (log != null) {
-                        val isAtEnd = logConsole!!.offset == logConsole!!.contentSize
-
-                        logConsole?.clear()
-
-                        log.forEach { value ->
-                            when (value) {
-                                is String -> logConsole?.print(value, ConsoleViewContentType.NORMAL_OUTPUT)
-                                is LogLine -> logConsole?.let { value.print(it) }
-                                else -> throw UnsupportedOperationException()
-                            }
-                            logConsole?.print("\n", ConsoleViewContentType.NORMAL_OUTPUT)
-                        }
-
-                        if (isAtEnd) {
-                            logConsole?.scrollTo(logConsole!!.contentSize)
-                        }
+                        logs = log
+                        filterLogFile()
                     } else {
                         logConsole?.clear()
                     }
