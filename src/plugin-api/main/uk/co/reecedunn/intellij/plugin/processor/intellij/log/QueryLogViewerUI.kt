@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.processor.intellij.log
 
 import com.intellij.execution.ui.ConsoleViewContentType
+import com.intellij.ide.util.PropertiesComponent
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.actionSystem.ActionPlaces
 import com.intellij.openapi.application.ModalityState
@@ -41,6 +42,16 @@ import javax.swing.JComboBox
 import javax.swing.JPanel
 
 class QueryLogViewerUI(val project: Project) : Disposable {
+    companion object {
+        private const val PROPERTY_LOG_FILE = "XQueryIntelliJPlugin.QueryLogViewer.LogFile"
+
+        private var selectedLogFile: String?
+            get() = PropertiesComponent.getInstance().getValue(PROPERTY_LOG_FILE)
+            set(value) {
+                PropertiesComponent.getInstance().setValue(PROPERTY_LOG_FILE, value)
+            }
+    }
+
     // region Filter :: Server
 
     private var queryProcessor: JComboBox<CachedQueryProcessorSettings>? = null
@@ -57,15 +68,21 @@ class QueryLogViewerUI(val project: Project) : Disposable {
                 val logViewProvider = (settings?.session as? LogViewProvider)
                 val logs = logViewProvider?.logs()
                 val defaultLog = logs?.let { logViewProvider.defaultLogFile(logs) }
+                val selectedLog = selectedLogFile
                 invokeLater(ModalityState.any()) {
                     updatingLogList = true
+
                     logFile?.removeAllItems()
                     logs?.forEach {
                         logFile?.addItem(it)
-                        if (it == defaultLog) {
-                            logFile?.selectedItem = it
-                        }
                     }
+
+                    if (logs?.contains(selectedLog) == true) {
+                        logFile?.selectedItem = selectedLog
+                    } else if (defaultLog != null) {
+                        logFile?.selectedItem = defaultLog
+                    }
+
                     updatingLogList = false
                     populateLogFile(reloadLogFile = true)
                 }
@@ -96,7 +113,10 @@ class QueryLogViewerUI(val project: Project) : Disposable {
         val logFile = logFile?.selectedItem as? String
         executeOnPooledThread {
             try {
-                val log = logFile?.let { (settings?.session as? LogViewProvider)?.log(logFile) }
+                val log = logFile?.let {
+                    selectedLogFile = logFile
+                    (settings?.session as? LogViewProvider)?.log(logFile)
+                }
                 invokeLater(ModalityState.any()) {
                     if (log != null) {
                         val offset = logConsole!!.offset
