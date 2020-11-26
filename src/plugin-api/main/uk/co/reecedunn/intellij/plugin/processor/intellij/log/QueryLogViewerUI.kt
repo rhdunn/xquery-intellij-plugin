@@ -110,7 +110,6 @@ class QueryLogViewerUI(val project: Project) : Disposable {
     // region Log View
 
     private var logConsole: ConsoleViewEx? = null
-    private var lines: Int = -1
     private var updatingLogList: Boolean = false
 
     @Suppress("SameParameterValue")
@@ -131,20 +130,16 @@ class QueryLogViewerUI(val project: Project) : Disposable {
                         val isAtEnd = offset == logConsole!!.contentSize
 
                         if (reloadLogFile) {
-                            lines = -1
                             logConsole?.clear()
                         }
 
-                        log.withIndex().forEach { (index, value) ->
-                            if (index > lines) {
-                                when (value) {
-                                    is String -> logConsole?.print(value, ConsoleViewContentType.NORMAL_OUTPUT)
-                                    is LogLine -> logConsole?.let { value.print(it) }
-                                    else -> throw UnsupportedOperationException()
-                                }
-                                logConsole?.print("\n", ConsoleViewContentType.NORMAL_OUTPUT)
-                                lines = index
+                        log.forEach { value ->
+                            when (value) {
+                                is String -> logConsole?.print(value, ConsoleViewContentType.NORMAL_OUTPUT)
+                                is LogLine -> logConsole?.let { value.print(it) }
+                                else -> throw UnsupportedOperationException()
                             }
+                            logConsole?.print("\n", ConsoleViewContentType.NORMAL_OUTPUT)
                         }
 
                         if (isAtEnd) {
