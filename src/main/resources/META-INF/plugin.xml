@@ -94,7 +94,7 @@
     <ol>
       <li>Support colouring MarkLogic ErrorLog.txt, and BaseX log levels.</li>
       <li>Support navigating to files referenced in MarkLogic ErrorLog.txt exceptions.</li>
-      <li>Remember the log file selection between sessions.</li>
+      <li>Remember the server and log file selection between sessions.</li>
       <li>Fix displaying the log viewer when opening a new project into the IDE window.</li>
       <li>Don't clear the log viewer when an error is from a previously selected query processor.</li>
       <li>Update the server list when the query processors are modified.</li>

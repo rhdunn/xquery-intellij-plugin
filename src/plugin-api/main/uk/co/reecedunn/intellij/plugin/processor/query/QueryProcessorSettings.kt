@@ -102,12 +102,16 @@ data class CachedQueryProcessorSettings(
 
 fun List<QueryProcessorSettings>.addToModel(
     model: QueryProcessorSettingsModel,
-    serversOnly: Boolean = false
+    serversOnly: Boolean = false,
+    selectedServer: Int = -1
 ) {
     forEach { processor ->
         if (processor.connection != null || !serversOnly) {
             val settings = CachedQueryProcessorSettings(processor)
             model.addElement(settings)
+            if (settings.settings.id == selectedServer) {
+                model.selectedItem = settings
+            }
         }
     }
 }

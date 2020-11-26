@@ -43,7 +43,14 @@ import javax.swing.JPanel
 
 class QueryLogViewerUI(val project: Project) : Disposable {
     companion object {
+        private const val PROPERTY_SERVER = "XQueryIntelliJPlugin.QueryLogViewer.Server"
         private const val PROPERTY_LOG_FILE = "XQueryIntelliJPlugin.QueryLogViewer.LogFile"
+
+        private var selectedServer: Int
+            get() = PropertiesComponent.getInstance().getInt(PROPERTY_SERVER, 0)
+            set(value) {
+                PropertiesComponent.getInstance().setValue(PROPERTY_SERVER, value, 0)
+            }
 
         private var selectedLogFile: String?
             get() = PropertiesComponent.getInstance().getValue(PROPERTY_LOG_FILE)
@@ -63,6 +70,7 @@ class QueryLogViewerUI(val project: Project) : Disposable {
 
     private fun populateLogFiles() {
         val settings = (queryProcessor?.selectedItem as? CachedQueryProcessorSettings?)?.settings
+        settings?.let { selectedServer = settings.id }
         executeOnPooledThread {
             try {
                 val logViewProvider = (settings?.session as? LogViewProvider)
@@ -174,7 +182,9 @@ class QueryLogViewerUI(val project: Project) : Disposable {
                         }
 
                         val queryProcessors = QueryProcessors.getInstance()
-                        queryProcessors.processors.addToModel(model, serversOnly = true)
+                        queryProcessors.processors.addToModel(
+                            model, serversOnly = true, selectedServer = selectedServer
+                        )
                         queryProcessors.addQueryProcessorsListener(model)
                     }
 
