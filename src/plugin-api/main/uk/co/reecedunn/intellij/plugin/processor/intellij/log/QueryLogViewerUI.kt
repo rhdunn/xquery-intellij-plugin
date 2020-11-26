@@ -68,7 +68,7 @@ class QueryLogViewerUI(val project: Project) : Disposable {
 
     // region Filter :: Server
 
-    private var queryProcessor: JComboBox<CachedQueryProcessorSettings>? = null
+    private lateinit var queryProcessor: JComboBox<CachedQueryProcessorSettings>
 
     // endregion
     // region Filter :: Log File
@@ -76,7 +76,7 @@ class QueryLogViewerUI(val project: Project) : Disposable {
     private lateinit var logFile: JComboBox<String>
 
     private fun populateLogFiles() {
-        val settings = (queryProcessor?.selectedItem as? CachedQueryProcessorSettings?)?.settings
+        val settings = (queryProcessor.selectedItem as? CachedQueryProcessorSettings?)?.settings
         settings?.let { selectedServer = settings.id }
         executeOnPooledThread {
             try {
@@ -103,7 +103,7 @@ class QueryLogViewerUI(val project: Project) : Disposable {
                 }
             } catch (e: Throwable) {
                 invokeLater(ModalityState.any()) {
-                    val newSettings = (queryProcessor?.selectedItem as? CachedQueryProcessorSettings?)?.settings
+                    val newSettings = (queryProcessor.selectedItem as? CachedQueryProcessorSettings?)?.settings
                     if (settings === newSettings) {
                         // Only clear the log file if the selected query processor hasn't changed.
                         logFile.removeAllItems()
@@ -210,7 +210,7 @@ class QueryLogViewerUI(val project: Project) : Disposable {
     private fun populateLogFile() {
         if (updatingLogList) return
 
-        val settings = (queryProcessor?.selectedItem as? CachedQueryProcessorSettings?)?.settings
+        val settings = (queryProcessor.selectedItem as? CachedQueryProcessorSettings?)?.settings
         val logFile = logFile.selectedItem as? String
         executeOnPooledThread {
             try {
@@ -249,16 +249,19 @@ class QueryLogViewerUI(val project: Project) : Disposable {
                         this.model = model
 
                         renderer = QueryProcessorSettingsCellRenderer()
-                        addActionListener {
-                            populateLogFiles()
-                        }
 
                         val queryProcessors = QueryProcessors.getInstance()
                         queryProcessors.processors.addToModel(
                             model, serversOnly = true, selectedServer = selectedServer
                         )
                         queryProcessors.addQueryProcessorsListener(model)
+
+                        addActionListener {
+                            populateLogFiles()
+                        }
                     }
+
+                    populateLogFiles()
 
                     label(PluginApiBundle.message("logviewer.filter.log-file"), column)
                     logFile = comboBox(column.hgap(LayoutPosition.Both)) {
@@ -288,17 +291,13 @@ class QueryLogViewerUI(val project: Project) : Disposable {
                 createActionToolbar(ActionPlaces.UNKNOWN)
             }
         }
-
-        populateLogFiles()
     }
 
     // endregion
     // region Disposable
 
     override fun dispose() {
-        queryProcessor?.model?.let {
-            QueryProcessors.getInstance().removeQueryResultListener(it as QueryProcessorsListener)
-        }
+        QueryProcessors.getInstance().removeQueryResultListener(queryProcessor.model as QueryProcessorsListener)
 
         Disposer.dispose(logConsole)
     }
