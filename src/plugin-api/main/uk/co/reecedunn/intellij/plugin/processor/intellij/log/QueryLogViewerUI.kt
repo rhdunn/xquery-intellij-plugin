@@ -154,48 +154,48 @@ class QueryLogViewerUI(val project: Project) : Disposable {
     // endregion
     // region Log View
 
-    private var logConsole: ConsoleViewEx? = null
+    private lateinit var logConsole: ConsoleViewEx
     private var updatingLogList: Boolean = false
     private var logs: List<Any> = listOf()
 
     private fun filterLogFile(): Set<String> {
-        val isAtEnd = logConsole!!.offset == logConsole!!.contentSize
-        logConsole?.clear()
+        val isAtEnd = logConsole.offset == logConsole.contentSize
+        logConsole.clear()
 
         val logLevels = mutableSetOf<String>()
         logs.forEach { value ->
             when (value) {
-                is String -> logConsole?.print(value, ConsoleViewContentType.NORMAL_OUTPUT)
+                is String -> logConsole.print(value, ConsoleViewContentType.NORMAL_OUTPUT)
                 is LogLine -> {
-                    logConsole?.let { value.print(it) }
+                    value.print(logConsole)
                     logLevels.add(value.logLevel)
                 }
                 else -> throw UnsupportedOperationException()
             }
-            logConsole?.print("\n", ConsoleViewContentType.NORMAL_OUTPUT)
+            logConsole.print("\n", ConsoleViewContentType.NORMAL_OUTPUT)
         }
 
         if (isAtEnd) {
-            logConsole?.scrollTo(logConsole!!.contentSize)
+            logConsole.scrollTo(logConsole.contentSize)
         }
 
         return logLevels
     }
 
     private fun filterLogFile(logLevel: String) {
-        val isAtEnd = logConsole!!.offset == logConsole!!.contentSize
-        logConsole?.clear()
+        val isAtEnd = logConsole.offset == logConsole.contentSize
+        logConsole.clear()
 
         logs.forEach { value ->
             when (value) {
                 is String -> {
-                    logConsole?.print(value, ConsoleViewContentType.NORMAL_OUTPUT)
-                    logConsole?.print("\n", ConsoleViewContentType.NORMAL_OUTPUT)
+                    logConsole.print(value, ConsoleViewContentType.NORMAL_OUTPUT)
+                    logConsole.print("\n", ConsoleViewContentType.NORMAL_OUTPUT)
                 }
                 is LogLine -> when (value.logLevel) {
                     logLevel -> {
-                        logConsole?.let { value.print(it) }
-                        logConsole?.print("\n", ConsoleViewContentType.NORMAL_OUTPUT)
+                        value.print(logConsole)
+                        logConsole.print("\n", ConsoleViewContentType.NORMAL_OUTPUT)
                     }
                 }
                 else -> throw UnsupportedOperationException()
@@ -203,7 +203,7 @@ class QueryLogViewerUI(val project: Project) : Disposable {
         }
 
         if (isAtEnd) {
-            logConsole?.scrollTo(logConsole!!.contentSize)
+            logConsole.scrollTo(logConsole.contentSize)
         }
     }
 
@@ -223,12 +223,12 @@ class QueryLogViewerUI(val project: Project) : Disposable {
                         logs = log
                         populateLogLevels(filterLogFile())
                     } else {
-                        logConsole?.clear()
+                        logConsole.clear()
                     }
                 }
             } catch (e: Throwable) {
                 invokeLater(ModalityState.any()) {
-                    logConsole?.clear()
+                    logConsole.clear()
                 }
             }
         }
@@ -300,8 +300,7 @@ class QueryLogViewerUI(val project: Project) : Disposable {
             QueryProcessors.getInstance().removeQueryResultListener(it as QueryProcessorsListener)
         }
 
-        logConsole?.let { Disposer.dispose(it) }
-        logConsole = null
+        Disposer.dispose(logConsole)
     }
 
     // endregion
