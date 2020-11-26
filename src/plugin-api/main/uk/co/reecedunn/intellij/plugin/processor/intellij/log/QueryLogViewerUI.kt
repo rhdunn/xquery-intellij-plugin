@@ -73,7 +73,7 @@ class QueryLogViewerUI(val project: Project) : Disposable {
     // endregion
     // region Filter :: Log File
 
-    private var logFile: JComboBox<String>? = null
+    private lateinit var logFile: JComboBox<String>
 
     private fun populateLogFiles() {
         val settings = (queryProcessor?.selectedItem as? CachedQueryProcessorSettings?)?.settings
@@ -87,15 +87,15 @@ class QueryLogViewerUI(val project: Project) : Disposable {
                 invokeLater(ModalityState.any()) {
                     updatingLogList = true
 
-                    logFile?.removeAllItems()
+                    logFile.removeAllItems()
                     logs?.forEach {
-                        logFile?.addItem(it)
+                        logFile.addItem(it)
                     }
 
                     if (logs?.contains(selectedLog) == true) {
-                        logFile?.selectedItem = selectedLog
+                        logFile.selectedItem = selectedLog
                     } else if (defaultLog != null) {
-                        logFile?.selectedItem = defaultLog
+                        logFile.selectedItem = defaultLog
                     }
 
                     updatingLogList = false
@@ -106,7 +106,7 @@ class QueryLogViewerUI(val project: Project) : Disposable {
                     val newSettings = (queryProcessor?.selectedItem as? CachedQueryProcessorSettings?)?.settings
                     if (settings === newSettings) {
                         // Only clear the log file if the selected query processor hasn't changed.
-                        logFile?.removeAllItems()
+                        logFile.removeAllItems()
                     }
                 }
             }
@@ -211,7 +211,7 @@ class QueryLogViewerUI(val project: Project) : Disposable {
         if (updatingLogList) return
 
         val settings = (queryProcessor?.selectedItem as? CachedQueryProcessorSettings?)?.settings
-        val logFile = logFile?.selectedItem as? String
+        val logFile = logFile.selectedItem as? String
         executeOnPooledThread {
             try {
                 val log = logFile?.let {
