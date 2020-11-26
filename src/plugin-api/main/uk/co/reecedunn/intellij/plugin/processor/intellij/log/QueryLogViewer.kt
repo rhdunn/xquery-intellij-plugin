@@ -15,34 +15,23 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.intellij.log
 
-import com.intellij.openapi.Disposable
 import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Disposer
 import com.intellij.openapi.wm.ToolWindow
 import com.intellij.openapi.wm.ToolWindowFactory
-import com.intellij.ui.content.ContentFactory
 
-class QueryLogViewer : ToolWindowFactory, DumbAware, Disposable {
-    private var logView: QueryLogViewerUI? = null
-
+class QueryLogViewer : ToolWindowFactory, DumbAware {
     override fun createToolWindowContent(project: Project, toolWindow: ToolWindow) {
-        if (logView == null) {
-            logView = QueryLogViewerUI(project)
-        }
+        val logView = QueryLogViewerUI(project)
 
-        val content = ContentFactory.SERVICE.getInstance().createContent(logView?.panel, null, false)
         val contentManager = toolWindow.contentManager
+        val content = contentManager.factory.createContent(logView.panel, null, false)
         contentManager.removeAllContents(true)
         contentManager.addContent(content)
         contentManager.setSelectedContent(content)
-
-        Disposer.register(contentManager, this)
         toolWindow.show(null)
-    }
 
-    override fun dispose() {
-        logView?.let { Disposer.dispose(it) }
-        logView = null
+        Disposer.register(contentManager, logView)
     }
 }
