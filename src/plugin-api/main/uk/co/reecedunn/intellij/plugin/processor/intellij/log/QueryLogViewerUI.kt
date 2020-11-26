@@ -92,7 +92,7 @@ class QueryLogViewerUI(val project: Project) : Disposable {
                     }
 
                     updatingLogList = false
-                    populateLogFile(reloadLogFile = true)
+                    populateLogFile()
                 }
             } catch (e: Throwable) {
                 invokeLater(ModalityState.any()) {
@@ -112,8 +112,7 @@ class QueryLogViewerUI(val project: Project) : Disposable {
     private var logConsole: ConsoleViewEx? = null
     private var updatingLogList: Boolean = false
 
-    @Suppress("SameParameterValue")
-    private fun populateLogFile(reloadLogFile: Boolean) {
+    private fun populateLogFile() {
         if (updatingLogList) return
 
         val settings = (queryProcessor?.selectedItem as? CachedQueryProcessorSettings?)?.settings
@@ -126,12 +125,9 @@ class QueryLogViewerUI(val project: Project) : Disposable {
                 }
                 invokeLater(ModalityState.any()) {
                     if (log != null) {
-                        val offset = logConsole!!.offset
-                        val isAtEnd = offset == logConsole!!.contentSize
+                        val isAtEnd = logConsole!!.offset == logConsole!!.contentSize
 
-                        if (reloadLogFile) {
-                            logConsole?.clear()
-                        }
+                        logConsole?.clear()
 
                         log.forEach { value ->
                             when (value) {
@@ -188,7 +184,7 @@ class QueryLogViewerUI(val project: Project) : Disposable {
                         preferredSize = Dimension(200, preferredSize.height)
 
                         addActionListener {
-                            populateLogFile(reloadLogFile = true)
+                            populateLogFile()
                         }
                     }
 
