@@ -25,4 +25,4 @@ if (contains($name, "/") or contains($name, "\")) then
     ()
 else
     let $log-path := system:get-exist-home() || "/logs"
-    return $name || "|" || file:read($log-path || "/" || $name)
+    return file:read($log-path || "/" || $name)
