@@ -79,6 +79,10 @@
         or <code>xsl:nametests</code>.
       </li>
     </ol>
+    <p>eXist-db:</p>
+    <ol>
+      <li>Fix returning all results from a query when there are more than 10 results.</li>
+    </ol>
     <p>Code Completion:</p>
     <ol>
       <li>

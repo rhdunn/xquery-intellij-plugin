@@ -6,6 +6,10 @@ XPath, XQuery, and XSLT:
 
 1. Better error recovery when an `AxisStep` is used in `CatchClause` or `xsl:nametests`.
 
+eXist-db:
+
+1. Fix returning all results from a query when there are more than 10 results.
+
 Code Completion:
 
 1. Fix completing `AtomicOrUnionType` names when a prefix is specified, and the

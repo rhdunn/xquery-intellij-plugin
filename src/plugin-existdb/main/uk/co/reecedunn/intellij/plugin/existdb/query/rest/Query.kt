@@ -30,7 +30,7 @@ private const val SERIALIZED_NAMESPACE = "http://exist-db.org/xquery/types/seria
 fun exist_query(init: Element.() -> Unit): Document = document {
     element(EXIST_NAMESPACE, "query") {
         setAttribute("start", "1")
-        setAttribute("max", "18446744073709551615")
+        setAttribute("max", "-1")
         setAttribute("cache", "no")
         setAttribute("session-id", "")
         init()
