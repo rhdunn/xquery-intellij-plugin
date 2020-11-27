@@ -25,4 +25,5 @@ if (contains($name, "/") or contains($name, "\")) then
     ()
 else
     let $log-path := system:get-exist-home() || "/logs"
-    return file:read($log-path || "/" || $name)
+    for $line in tokenize(file:read($log-path || "/" || $name), "&#x0D;&#x0A;?|&#x0A;")
+    return $line
