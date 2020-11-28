@@ -69,7 +69,17 @@ internal class EXistDBQueryProcessor(
 
     override fun log(name: String): List<String> = createRunnableQuery(EXistDBQueries.Log.Log, XQuery).use { query ->
         query.bindVariable("name", name, "xs:string")
-        query.run().results.map { it.value as String }
+
+        var pattern: String? = null
+        query.run().results.mapNotNull {
+            when (pattern) {
+                null -> {
+                    pattern = it.value as String
+                    null
+                }
+                else -> it.value as String
+            }
+        }
     }
 
     override fun defaultLogFile(logs: List<String>): String = "exist.log"

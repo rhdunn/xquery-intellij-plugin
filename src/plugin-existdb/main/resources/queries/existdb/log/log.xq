@@ -21,6 +21,19 @@ declare option o:implementation "exist-db/4.0";
 
 declare variable $name as xs:string external;
 
+(: log pattern :)
+
+let $configuration := fn:parse-xml(file:read(system:get-exist-home() || "/etc/log4j2.xml"))/Q{}Configuration
+let $log := $configuration/Q{}Appenders/Q{}RollingRandomAccessFile[ends-with(@fileName, "/" || $name)]
+let $pattern := $log/Q{}PatternLayout/@pattern/string()
+return if (starts-with($pattern, "${") and ends-with($pattern, "}")) then
+    let $property-name := substring($pattern, 3, string-length($pattern) - 3)
+    return $configuration/Q{}Properties/Q{}Property[@name = $property-name]/string()
+else
+    $pattern
+
+, (: log file :)
+
 if (contains($name, "/") or contains($name, "\")) then
     ()
 else
