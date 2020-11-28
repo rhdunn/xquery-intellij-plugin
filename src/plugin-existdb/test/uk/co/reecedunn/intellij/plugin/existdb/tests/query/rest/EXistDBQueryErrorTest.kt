@@ -133,4 +133,37 @@ class EXistDBQueryErrorTest : IdeaPlatformTestCase() {
         assertThat(e.frames[0].sourcePosition?.line, `is`(0))
         assertThat((e.frames[0].sourcePosition as QuerySourcePosition).column, `is`(10))
     }
+
+    @Test
+    @DisplayName("HTML 400 Error")
+    fun html400Error() {
+        @Suppress("HtmlRequiredLangAttribute")
+        @Language("html")
+        val exception =
+            """
+            <html>
+            <head>
+            <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+            <title>Error 400 Error while serializing xml: java.lang.ArrayIndexOutOfBoundsException</title>
+            </head>
+            <body><h2>HTTP ERROR 400 Error while serializing xml: java.lang.ArrayIndexOutOfBoundsException</h2>
+            <table>
+            <tr><th>URI:</th><td>/exist/rest/db</td></tr>
+            <tr><th>STATUS:</th><td>400</td></tr>
+            <tr><th>MESSAGE:</th><td>Error while serializing xml: java.lang.ArrayIndexOutOfBoundsException</td></tr>
+            <tr><th>SERVLET:</th><td>EXistServlet</td></tr>
+            </table>
+            <hr><a href="http://eclipse.org/jetty">Powered by Jetty:// 9.4.26.v20200117</a><hr/>
+
+            </body>
+            </html>
+            """.trimIndent()
+
+        val testFile = LightVirtualFile("test.xq", XQuery, "1")
+        val e = exception.toEXistDBQueryError(testFile)
+        assertThat(e.standardCode, `is`("FOER0000"))
+        assertThat(e.vendorCode, `is`(nullValue()))
+        assertThat(e.description, `is`("Error 400 Error while serializing xml: java.lang.ArrayIndexOutOfBoundsException"))
+        assertThat(e.frames.size, `is`(0))
+    }
 }

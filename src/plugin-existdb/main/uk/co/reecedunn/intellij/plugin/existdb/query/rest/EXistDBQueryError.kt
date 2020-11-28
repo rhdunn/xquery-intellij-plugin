@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.existdb.query.rest
 
 import com.intellij.openapi.vfs.VirtualFile
+import org.jsoup.Jsoup
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame.VirtualFileStackFrame
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
@@ -29,7 +30,23 @@ private val RE_EXISTDB_MESSAGE =
 private val RE_EXISTDB_LOCATION =
     "^line ([0-9]+), column ([0-9]+).*$".toRegex()
 
-fun String.toEXistDBQueryError(queryFile: VirtualFile): QueryError {
+fun String.toEXistDBQueryError(queryFile: VirtualFile): QueryError = when {
+    this.startsWith("<html>") -> parseMessageHtml()
+    else -> this.parseMessageXml(queryFile)
+}
+
+private fun String.parseMessageHtml(): QueryError {
+    val html = Jsoup.parse(this)
+    return QueryError(
+        standardCode = "FOER0000",
+        vendorCode = null,
+        description = html.select("title").text(),
+        value = listOf(),
+        frames = listOf()
+    )
+}
+
+private fun String.parseMessageXml(queryFile: VirtualFile): QueryError {
     val xml = XmlDocument.parse(this, mapOf())
     val messageText = xml.root.children("message").first().text()!!.split("\n")[0]
     val parts =

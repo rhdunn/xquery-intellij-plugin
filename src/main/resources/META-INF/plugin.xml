@@ -82,6 +82,7 @@
     <p>eXist-db:</p>
     <ol>
       <li>Fix returning all results from a query when there are more than 10 results.</li>
+      <li>Support error messages that return html pages.</li>
     </ol>
     <p>Code Completion:</p>
     <ol>

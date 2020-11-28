@@ -9,6 +9,7 @@ XPath, XQuery, and XSLT:
 eXist-db:
 
 1. Fix returning all results from a query when there are more than 10 results.
+1. Support error messages that return html pages.
 
 Code Completion:
 
