@@ -39,20 +39,21 @@ class QueryLogColorSettings : ColorSettingsPage {
     @Suppress("PrivatePropertyName")
     private val ATTRIBUTE_DESCRIPTORS = arrayOf(
         AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.datetime.name"), LogFileContentType.DATE_TIME_KEY),
+        AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.verbose.name"), LogFileContentType.VERBOSE_KEY),
         AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.finest.name"), LogFileContentType.FINEST_KEY),
         AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.finer.name"), LogFileContentType.FINER_KEY),
         AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.fine.name"), LogFileContentType.FINE_KEY),
         AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.debug.name"), LogFileContentType.DEBUG_KEY),
-        AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.config.name"), LogFileContentType.CONFIG_KEY),
         AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.info.name"), LogFileContentType.INFO_KEY),
-        AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.notice.name"), LogFileContentType.NOTICE_KEY),
+        AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.config.name"), LogFileContentType.CONFIG_KEY),
+        AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.ok.name"), LogFileContentType.OK_KEY),
+        AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.request.name"), LogFileContentType.REQUEST_KEY),
         AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.warning.name"), LogFileContentType.WARNING_KEY),
+        AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.notice.name"), LogFileContentType.NOTICE_KEY),
         AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.error.name"), LogFileContentType.ERROR_KEY),
         AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.critical.name"), LogFileContentType.CRITICAL_KEY),
         AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.alert.name"), LogFileContentType.ALERT_KEY),
         AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.emergency.name"), LogFileContentType.EMERGENCY_KEY),
-        AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.ok.name"), LogFileContentType.OK_KEY),
-        AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.request.name"), LogFileContentType.REQUEST_KEY)
     )
 
     override fun getAttributeDescriptors(): Array<AttributesDescriptor> = ATTRIBUTE_DESCRIPTORS

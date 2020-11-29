@@ -31,16 +31,20 @@ object LogFileContentType {
     // endregion
     // region Log Levels :: Verbose
 
+    val VERBOSE_KEY: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
+        "QUERY_LOG_LEVEL_VERBOSE", ConsoleViewContentType.LOG_VERBOSE_OUTPUT_KEY
+    )
+
     val FINEST_KEY: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
-        "QUERY_LOG_LEVEL_FINEST", ConsoleViewContentType.LOG_VERBOSE_OUTPUT_KEY
+        "QUERY_LOG_LEVEL_FINEST", VERBOSE_KEY
     )
 
     val FINER_KEY: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
-        "QUERY_LOG_LEVEL_FINER", ConsoleViewContentType.LOG_VERBOSE_OUTPUT_KEY
+        "QUERY_LOG_LEVEL_FINER", VERBOSE_KEY
     )
 
     val FINE_KEY: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
-        "QUERY_LOG_LEVEL_FINE", ConsoleViewContentType.LOG_VERBOSE_OUTPUT_KEY
+        "QUERY_LOG_LEVEL_FINE", VERBOSE_KEY
     )
 
     val FINEST: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_FINEST", FINEST_KEY)
@@ -59,40 +63,40 @@ object LogFileContentType {
     // endregion
     // region Log Levels :: Information
 
-    val CONFIG_KEY: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
-        "QUERY_LOG_LEVEL_CONFIG", ConsoleViewContentType.NORMAL_OUTPUT_KEY
-    )
-
     val INFO_KEY: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "QUERY_LOG_LEVEL_INFO", ConsoleViewContentType.NORMAL_OUTPUT_KEY
     )
 
+    val CONFIG_KEY: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
+        "QUERY_LOG_LEVEL_CONFIG", INFO_KEY
+    )
+
     val OK_KEY: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
-        "QUERY_LOG_LEVEL_OK", ConsoleViewContentType.NORMAL_OUTPUT_KEY
+        "QUERY_LOG_LEVEL_OK", INFO_KEY
     )
 
     val REQUEST_KEY: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
-        "QUERY_LOG_LEVEL_REQUEST", ConsoleViewContentType.LOG_INFO_OUTPUT_KEY
+        "QUERY_LOG_LEVEL_REQUEST", INFO_KEY
     )
 
-    val CONFIG: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_CONFIG", CONFIG_KEY)
     val INFO: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_INFO", INFO_KEY)
+    val CONFIG: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_CONFIG", CONFIG_KEY)
     val OK: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_OK", OK_KEY)
     val REQUEST: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_REQUEST", REQUEST_KEY)
 
     // endregion
     // region Log Levels :: Warning
 
-    val NOTICE_KEY: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
-        "QUERY_LOG_LEVEL_NOTICE", ConsoleViewContentType.LOG_WARNING_OUTPUT_KEY
-    )
-
     val WARNING_KEY: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "QUERY_LOG_LEVEL_WARNING", ConsoleViewContentType.LOG_WARNING_OUTPUT_KEY
     )
 
-    val NOTICE: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_NOTICE", NOTICE_KEY)
+    val NOTICE_KEY: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
+        "QUERY_LOG_LEVEL_NOTICE", WARNING_KEY
+    )
+
     val WARNING: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_WARNING", WARNING_KEY)
+    val NOTICE: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_NOTICE", NOTICE_KEY)
 
     // endregion
     // region Log Levels :: Error
@@ -102,15 +106,15 @@ object LogFileContentType {
     )
 
     val CRITICAL_KEY: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
-        "QUERY_LOG_LEVEL_CRITICAL", ConsoleViewContentType.LOG_ERROR_OUTPUT_KEY
+        "QUERY_LOG_LEVEL_CRITICAL", ERROR_KEY
     )
 
     val ALERT_KEY: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
-        "QUERY_LOG_LEVEL_ALERT", ConsoleViewContentType.LOG_ERROR_OUTPUT_KEY
+        "QUERY_LOG_LEVEL_ALERT", ERROR_KEY
     )
 
     val EMERGENCY_KEY: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
-        "QUERY_LOG_LEVEL_EMERGENCY", ConsoleViewContentType.LOG_ERROR_OUTPUT_KEY
+        "QUERY_LOG_LEVEL_EMERGENCY", ERROR_KEY
     )
 
     val ERROR: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_ERROR", ERROR_KEY)
