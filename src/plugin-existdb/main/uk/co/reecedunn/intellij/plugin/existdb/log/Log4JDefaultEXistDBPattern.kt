@@ -15,8 +15,51 @@
  */
 package uk.co.reecedunn.intellij.plugin.existdb.log
 
-object Log4JDefaultEXistDBPattern : Log4JPattern() {
+import com.intellij.execution.ui.ConsoleView
+import uk.co.reecedunn.intellij.plugin.processor.log.LogLevel
+
+object Log4JDefaultEXistDBPattern : Log4JPattern {
     override fun parse(line: String): Any {
-        return line
+        val groups = LOG_LINE_RE.find(line)?.groupValues ?: return line
+        return Log4JLogLine(
+            groups[1],
+            groups[2],
+            groups[3],
+            groups[4],
+            groups[5],
+            groups[6],
+            groups[7].toInt(),
+            groups[8],
+            this
+        )
     }
+
+    override fun print(consoleView: ConsoleView, line: Log4JLogLine) {
+        consoleView.print("${line.date} ${line.time} ", LogLevel.DATE_TIME)
+        consoleView.print(
+            "[${line.thread}] ${line.logLevel.padEnd(5)} (${line.filename} [${line.method}]:${line.line}) - ${line.message}",
+            line.contentType
+        )
+    }
+
+    @Suppress("RegExpAnonymousGroup", "RegExpRepeatedSpace")
+    private val LOG_LINE_RE = """^
+        ([0-9\\-]+)               # 1: Date
+        \s                        #
+        ([0-9:.,]+)               # 2: Time
+        \s                        #
+        \[([^]]+)]                # 3: Thread
+        \s                        #
+        ([A-Za-z]+)               # 4: Log Level
+        \s+                       #
+        \(                        #
+        ([^\s]+)                  # 5: Filename
+        \s                        #
+        \[([^]]+)]:               # 6: Method
+        ([0-9]+)                  # 7: Line
+        \)                        #
+        \s-\s                     #
+        (.*)                      # 8: Message
+        \s                        #
+    ${'$'}""".toRegex(RegexOption.COMMENTS)
 }

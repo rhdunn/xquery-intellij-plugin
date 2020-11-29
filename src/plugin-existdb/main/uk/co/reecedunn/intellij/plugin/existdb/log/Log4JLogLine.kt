@@ -16,13 +16,25 @@
 package uk.co.reecedunn.intellij.plugin.existdb.log
 
 import com.intellij.execution.ui.ConsoleView
+import com.intellij.execution.ui.ConsoleViewContentType
+import uk.co.reecedunn.intellij.plugin.processor.log.LogLine
 
-object Log4JUnknownPattern : Log4JPattern {
-    override fun parse(line: String): Any {
-        return line
-    }
+class Log4JLogLine(
+    override val date: String,
+    override val time: String,
+    val thread: String,
+    override val logLevel: String,
+    val filename: String,
+    val method: String,
+    val line: Int,
+    override val message: String,
+    private val pattern: Log4JPattern
+) : LogLine {
 
-    override fun print(consoleView: ConsoleView, line: Log4JLogLine) {
-        throw UnsupportedOperationException()
-    }
+    val contentType: ConsoleViewContentType
+        get() = when (logLevel) {
+            else -> ConsoleViewContentType.NORMAL_OUTPUT
+        }
+
+    override fun print(consoleView: ConsoleView) = pattern.print(consoleView, this)
 }

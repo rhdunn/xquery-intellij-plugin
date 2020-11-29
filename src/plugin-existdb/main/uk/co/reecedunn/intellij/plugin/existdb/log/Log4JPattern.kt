@@ -15,8 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.existdb.log
 
-abstract class Log4JPattern {
-    abstract fun parse(line: String): Any
+import com.intellij.execution.ui.ConsoleView
+
+interface Log4JPattern {
+    fun parse(line: String): Any
+
+    fun print(consoleView: ConsoleView, line: Log4JLogLine)
 
     companion object {
         const val DEFAULT_EXISTDB_PATTERN = "%d [%t] %-5p (%F [%M]:%L) - %m %n"
