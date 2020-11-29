@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.existdb.log
 
 import com.intellij.execution.ui.ConsoleView
 import com.intellij.execution.ui.ConsoleViewContentType
-import uk.co.reecedunn.intellij.plugin.processor.log.LogLevel
+import uk.co.reecedunn.intellij.plugin.processor.log.LogFileContentType
 import uk.co.reecedunn.intellij.plugin.processor.log.LogLine
 
 class Log4JLogLine(
@@ -34,11 +34,11 @@ class Log4JLogLine(
 
     val contentType: ConsoleViewContentType
         get() = when (logLevel) {
-            "DEBUG" -> LogLevel.DEBUG
-            "INFO" -> LogLevel.INFO
-            "WARN" -> LogLevel.WARNING
-            "ERROR" -> LogLevel.ERROR
-            "FATAL" -> LogLevel.EMERGENCY
+            "DEBUG" -> LogFileContentType.DEBUG
+            "INFO" -> LogFileContentType.INFO
+            "WARN" -> LogFileContentType.WARNING
+            "ERROR" -> LogFileContentType.ERROR
+            "FATAL" -> LogFileContentType.EMERGENCY
             else -> ConsoleViewContentType.NORMAL_OUTPUT
         }
 

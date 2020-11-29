@@ -24,7 +24,7 @@ import com.intellij.openapi.options.colors.ColorDescriptor
 import com.intellij.openapi.options.colors.ColorSettingsPage
 import uk.co.reecedunn.intellij.plugin.processor.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.intellij.resources.PluginFiles
-import uk.co.reecedunn.intellij.plugin.processor.log.LogLevel
+import uk.co.reecedunn.intellij.plugin.processor.log.LogFileContentType
 import javax.swing.Icon
 
 class QueryLogColorSettings : ColorSettingsPage {
@@ -38,21 +38,21 @@ class QueryLogColorSettings : ColorSettingsPage {
 
     @Suppress("PrivatePropertyName")
     private val ATTRIBUTE_DESCRIPTORS = arrayOf(
-        AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.datetime.name"), LogLevel.DATE_TIME_KEY),
-        AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.finest.name"), LogLevel.FINEST_KEY),
-        AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.finer.name"), LogLevel.FINER_KEY),
-        AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.fine.name"), LogLevel.FINE_KEY),
-        AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.debug.name"), LogLevel.DEBUG_KEY),
-        AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.config.name"), LogLevel.CONFIG_KEY),
-        AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.info.name"), LogLevel.INFO_KEY),
-        AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.notice.name"), LogLevel.NOTICE_KEY),
-        AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.warning.name"), LogLevel.WARNING_KEY),
-        AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.error.name"), LogLevel.ERROR_KEY),
-        AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.critical.name"), LogLevel.CRITICAL_KEY),
-        AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.alert.name"), LogLevel.ALERT_KEY),
-        AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.emergency.name"), LogLevel.EMERGENCY_KEY),
-        AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.ok.name"), LogLevel.OK_KEY),
-        AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.request.name"), LogLevel.REQUEST_KEY)
+        AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.datetime.name"), LogFileContentType.DATE_TIME_KEY),
+        AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.finest.name"), LogFileContentType.FINEST_KEY),
+        AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.finer.name"), LogFileContentType.FINER_KEY),
+        AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.fine.name"), LogFileContentType.FINE_KEY),
+        AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.debug.name"), LogFileContentType.DEBUG_KEY),
+        AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.config.name"), LogFileContentType.CONFIG_KEY),
+        AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.info.name"), LogFileContentType.INFO_KEY),
+        AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.notice.name"), LogFileContentType.NOTICE_KEY),
+        AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.warning.name"), LogFileContentType.WARNING_KEY),
+        AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.error.name"), LogFileContentType.ERROR_KEY),
+        AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.critical.name"), LogFileContentType.CRITICAL_KEY),
+        AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.alert.name"), LogFileContentType.ALERT_KEY),
+        AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.emergency.name"), LogFileContentType.EMERGENCY_KEY),
+        AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.ok.name"), LogFileContentType.OK_KEY),
+        AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.request.name"), LogFileContentType.REQUEST_KEY)
     )
 
     override fun getAttributeDescriptors(): Array<AttributesDescriptor> = ATTRIBUTE_DESCRIPTORS
@@ -61,21 +61,21 @@ class QueryLogColorSettings : ColorSettingsPage {
 
     @Suppress("PrivatePropertyName")
     private val ADDITIONAL_HIGHLIGHTING_TAGS = mutableMapOf(
-        "datetime" to LogLevel.DATE_TIME_KEY,
-        "finest" to LogLevel.FINEST_KEY,
-        "finer" to LogLevel.FINER_KEY,
-        "fine" to LogLevel.FINE_KEY,
-        "debug" to LogLevel.DEBUG_KEY,
-        "config" to LogLevel.CONFIG_KEY,
-        "info" to LogLevel.INFO_KEY,
-        "notice" to LogLevel.NOTICE_KEY,
-        "warning" to LogLevel.WARNING_KEY,
-        "error" to LogLevel.ERROR_KEY,
-        "critical" to LogLevel.CRITICAL_KEY,
-        "alert" to LogLevel.ALERT_KEY,
-        "emergency" to LogLevel.EMERGENCY_KEY,
-        "ok" to LogLevel.OK_KEY,
-        "request" to LogLevel.REQUEST_KEY
+        "datetime" to LogFileContentType.DATE_TIME_KEY,
+        "finest" to LogFileContentType.FINEST_KEY,
+        "finer" to LogFileContentType.FINER_KEY,
+        "fine" to LogFileContentType.FINE_KEY,
+        "debug" to LogFileContentType.DEBUG_KEY,
+        "config" to LogFileContentType.CONFIG_KEY,
+        "info" to LogFileContentType.INFO_KEY,
+        "notice" to LogFileContentType.NOTICE_KEY,
+        "warning" to LogFileContentType.WARNING_KEY,
+        "error" to LogFileContentType.ERROR_KEY,
+        "critical" to LogFileContentType.CRITICAL_KEY,
+        "alert" to LogFileContentType.ALERT_KEY,
+        "emergency" to LogFileContentType.EMERGENCY_KEY,
+        "ok" to LogFileContentType.OK_KEY,
+        "request" to LogFileContentType.REQUEST_KEY
     )
 
     override fun getAdditionalHighlightingTagToDescriptorMap(): MutableMap<String, TextAttributesKey> {

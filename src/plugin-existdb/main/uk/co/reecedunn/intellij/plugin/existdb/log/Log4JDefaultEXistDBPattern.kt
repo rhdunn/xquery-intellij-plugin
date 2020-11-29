@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.existdb.log
 
 import com.intellij.execution.ui.ConsoleView
-import uk.co.reecedunn.intellij.plugin.processor.log.LogLevel
+import uk.co.reecedunn.intellij.plugin.processor.log.LogFileContentType
 
 object Log4JDefaultEXistDBPattern : Log4JPattern {
     override fun parse(line: String): Any {
@@ -35,7 +35,7 @@ object Log4JDefaultEXistDBPattern : Log4JPattern {
     }
 
     override fun print(consoleView: ConsoleView, line: Log4JLogLine) {
-        consoleView.print("${line.date} ${line.time} ", LogLevel.DATE_TIME)
+        consoleView.print("${line.date} ${line.time} ", LogFileContentType.DATE_TIME)
         consoleView.print(
             "[${line.thread}] ${line.logLevel.padEnd(5)} (${line.filename} [${line.method}]:${line.line}) - ${line.message}",
             line.contentType

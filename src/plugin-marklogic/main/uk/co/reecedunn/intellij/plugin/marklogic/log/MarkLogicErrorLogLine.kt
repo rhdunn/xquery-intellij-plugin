@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.marklogic.log
 
 import com.intellij.execution.ui.ConsoleView
 import com.intellij.execution.ui.ConsoleViewContentType
-import uk.co.reecedunn.intellij.plugin.processor.log.LogLevel
+import uk.co.reecedunn.intellij.plugin.processor.log.LogFileContentType
 import uk.co.reecedunn.intellij.plugin.processor.log.LogLine
 
 abstract class MarkLogicErrorLogLine(
@@ -30,23 +30,23 @@ abstract class MarkLogicErrorLogLine(
 
     val contentType: ConsoleViewContentType
         get() = when (logLevel) {
-            "Finest" -> LogLevel.FINEST
-            "Finer" -> LogLevel.FINER
-            "Fine" -> LogLevel.FINE
-            "Debug" -> LogLevel.DEBUG
-            "Config" -> LogLevel.CONFIG
-            "Info" -> LogLevel.INFO
-            "Notice" -> LogLevel.NOTICE
-            "Warning" -> LogLevel.WARNING
-            "Error" -> LogLevel.ERROR
-            "Critical" -> LogLevel.CRITICAL
-            "Alert" -> LogLevel.ALERT
-            "Emergency" -> LogLevel.EMERGENCY
+            "Finest" -> LogFileContentType.FINEST
+            "Finer" -> LogFileContentType.FINER
+            "Fine" -> LogFileContentType.FINE
+            "Debug" -> LogFileContentType.DEBUG
+            "Config" -> LogFileContentType.CONFIG
+            "Info" -> LogFileContentType.INFO
+            "Notice" -> LogFileContentType.NOTICE
+            "Warning" -> LogFileContentType.WARNING
+            "Error" -> LogFileContentType.ERROR
+            "Critical" -> LogFileContentType.CRITICAL
+            "Alert" -> LogFileContentType.ALERT
+            "Emergency" -> LogFileContentType.EMERGENCY
             else -> ConsoleViewContentType.NORMAL_OUTPUT
         }
 
     override fun print(consoleView: ConsoleView) {
-        consoleView.print("$date $time ", LogLevel.DATE_TIME)
+        consoleView.print("$date $time ", LogFileContentType.DATE_TIME)
 
         val separator = if (continuation) '+' else ' '
         when (appServer) {

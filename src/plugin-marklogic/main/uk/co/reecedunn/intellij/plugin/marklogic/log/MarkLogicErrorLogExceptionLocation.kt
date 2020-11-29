@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.marklogic.log
 import com.intellij.execution.ui.ConsoleView
 import com.intellij.openapi.project.Project
 import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.QuerySourcePosition
-import uk.co.reecedunn.intellij.plugin.processor.log.LogLevel
+import uk.co.reecedunn.intellij.plugin.processor.log.LogFileContentType
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderSettings
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.impl.XpmModuleLocationPath
 
@@ -48,7 +48,7 @@ class MarkLogicErrorLogExceptionLocation(
         }
 
     override fun print(consoleView: ConsoleView) {
-        consoleView.print("$date $time ", LogLevel.DATE_TIME)
+        consoleView.print("$date $time ", LogFileContentType.DATE_TIME)
 
         val separator = if (continuation) '+' else ' '
         when (appServer) {

@@ -19,7 +19,7 @@ import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.openapi.editor.DefaultLanguageHighlighterColors
 import com.intellij.openapi.editor.colors.TextAttributesKey
 
-object LogLevel {
+object LogFileContentType {
     val DATE_TIME_KEY: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "QUERY_LOG_DATE_TIME", DefaultLanguageHighlighterColors.LINE_COMMENT
     )

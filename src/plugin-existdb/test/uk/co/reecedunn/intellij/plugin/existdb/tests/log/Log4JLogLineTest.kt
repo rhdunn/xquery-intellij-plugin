@@ -17,7 +17,6 @@ package uk.co.reecedunn.intellij.plugin.existdb.tests.log
 
 import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.openapi.extensions.PluginId
-import org.hamcrest.CoreMatchers
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
@@ -25,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.execution.ui.ConsoleViewRecord
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.existdb.log.Log4JLogLine
 import uk.co.reecedunn.intellij.plugin.existdb.log.Log4JPattern
-import uk.co.reecedunn.intellij.plugin.processor.log.LogLevel
+import uk.co.reecedunn.intellij.plugin.processor.log.LogFileContentType
 
 @DisplayName("IntelliJ - Base Platform - Run Configuration - Query Log - eXist-db Log4J logs")
 class Log4JLogLineTest : IdeaPlatformTestCase() {
@@ -72,8 +71,8 @@ class Log4JLogLineTest : IdeaPlatformTestCase() {
 
             val console = ConsoleViewRecorder()
             logLine.print(console)
-            assertThat(console.printed[0], `is`(LogLevel.DATE_TIME to "2020-11-29 09:48:44,592 "))
-            assertThat(console.printed[1], `is`(LogLevel.INFO to "[db.exist.scheduler.quartz-worker-4] INFO  (BTree.java [printStatistics]:2660) - values.dbx INDEX Buffers occupation : 11% (7 out of 64) Cache efficiency : 100%"))
+            assertThat(console.printed[0], `is`(LogFileContentType.DATE_TIME to "2020-11-29 09:48:44,592 "))
+            assertThat(console.printed[1], `is`(LogFileContentType.INFO to "[db.exist.scheduler.quartz-worker-4] INFO  (BTree.java [printStatistics]:2660) - values.dbx INDEX Buffers occupation : 11% (7 out of 64) Cache efficiency : 100%"))
             assertThat(console.printed.size, `is`(2))
         }
 
@@ -94,17 +93,17 @@ class Log4JLogLineTest : IdeaPlatformTestCase() {
                 (pattern.parse(it) as Log4JLogLine).print(console)
             }
 
-            assertThat(console.printed[0], `is`(LogLevel.DATE_TIME to "2001-01-10 12:34:56.789 "))
-            assertThat(console.printed[1], `is`(LogLevel.DEBUG to "[thread] DEBUG (LogLevel.java [test]:12) - Lorem ipsum dolor"))
-            assertThat(console.printed[2], `is`(LogLevel.DATE_TIME to "2001-01-10 12:34:56.789 "))
-            assertThat(console.printed[3], `is`(LogLevel.INFO to "[thread] INFO  (LogLevel.java [test]:12) - Lorem ipsum dolor"))
-            assertThat(console.printed[4], `is`(LogLevel.DATE_TIME to "2001-01-10 12:34:56.789 "))
-            assertThat(console.printed[5], `is`(LogLevel.WARNING to "[thread] WARN  (LogLevel.java [test]:12) - Lorem ipsum dolor"))
-            assertThat(console.printed[6], `is`(LogLevel.DATE_TIME to "2001-01-10 12:34:56.789 "))
-            assertThat(console.printed[7], `is`(LogLevel.ERROR to "[thread] ERROR (LogLevel.java [test]:12) - Lorem ipsum dolor"))
-            assertThat(console.printed[8], `is`(LogLevel.DATE_TIME to "2001-01-10 12:34:56.789 "))
-            assertThat(console.printed[9], `is`(LogLevel.EMERGENCY to "[thread] FATAL (LogLevel.java [test]:12) - Lorem ipsum dolor"))
-            assertThat(console.printed[10], `is`(LogLevel.DATE_TIME to "2001-01-10 12:34:56.789 "))
+            assertThat(console.printed[0], `is`(LogFileContentType.DATE_TIME to "2001-01-10 12:34:56.789 "))
+            assertThat(console.printed[1], `is`(LogFileContentType.DEBUG to "[thread] DEBUG (LogLevel.java [test]:12) - Lorem ipsum dolor"))
+            assertThat(console.printed[2], `is`(LogFileContentType.DATE_TIME to "2001-01-10 12:34:56.789 "))
+            assertThat(console.printed[3], `is`(LogFileContentType.INFO to "[thread] INFO  (LogLevel.java [test]:12) - Lorem ipsum dolor"))
+            assertThat(console.printed[4], `is`(LogFileContentType.DATE_TIME to "2001-01-10 12:34:56.789 "))
+            assertThat(console.printed[5], `is`(LogFileContentType.WARNING to "[thread] WARN  (LogLevel.java [test]:12) - Lorem ipsum dolor"))
+            assertThat(console.printed[6], `is`(LogFileContentType.DATE_TIME to "2001-01-10 12:34:56.789 "))
+            assertThat(console.printed[7], `is`(LogFileContentType.ERROR to "[thread] ERROR (LogLevel.java [test]:12) - Lorem ipsum dolor"))
+            assertThat(console.printed[8], `is`(LogFileContentType.DATE_TIME to "2001-01-10 12:34:56.789 "))
+            assertThat(console.printed[9], `is`(LogFileContentType.EMERGENCY to "[thread] FATAL (LogLevel.java [test]:12) - Lorem ipsum dolor"))
+            assertThat(console.printed[10], `is`(LogFileContentType.DATE_TIME to "2001-01-10 12:34:56.789 "))
             assertThat(console.printed[11], `is`(ConsoleViewContentType.NORMAL_OUTPUT to "[thread] UNKN  (LogLevel.java [test]:12) - Lorem ipsum dolor"))
         }
     }

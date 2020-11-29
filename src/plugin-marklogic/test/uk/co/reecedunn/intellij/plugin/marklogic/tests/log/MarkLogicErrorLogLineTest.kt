@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.execution.ui.ConsoleViewRecord
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.marklogic.log.MarkLogicErrorLogExceptionLocation
 import uk.co.reecedunn.intellij.plugin.marklogic.log.MarkLogicErrorLogLine
-import uk.co.reecedunn.intellij.plugin.processor.log.LogLevel
+import uk.co.reecedunn.intellij.plugin.processor.log.LogFileContentType
 
 @Suppress("XmlPathReference")
 @DisplayName("IntelliJ - Base Platform - Run Configuration - Query Log - MarkLogic ErrorLog")
@@ -68,8 +68,8 @@ class MarkLogicErrorLogLineTest : IdeaPlatformTestCase() {
 
         val console = ConsoleViewRecorder()
         logLine.print(console)
-        assertThat(console.printed[0], `is`(LogLevel.DATE_TIME to "2001-01-10 12:34:56.789 "))
-        assertThat(console.printed[1], `is`(LogLevel.INFO to "Info: Lorem ipsum dolor"))
+        assertThat(console.printed[0], `is`(LogFileContentType.DATE_TIME to "2001-01-10 12:34:56.789 "))
+        assertThat(console.printed[1], `is`(LogFileContentType.INFO to "Info: Lorem ipsum dolor"))
         assertThat(console.printed.size, `is`(2))
     }
 
@@ -88,8 +88,8 @@ class MarkLogicErrorLogLineTest : IdeaPlatformTestCase() {
 
         val console = ConsoleViewRecorder()
         logLine.print(console)
-        assertThat(console.printed[0], `is`(LogLevel.DATE_TIME to "2001-01-10 12:34:56.789 "))
-        assertThat(console.printed[1], `is`(LogLevel.DEBUG to "Debug: TaskServer: Lorem ipsum dolor"))
+        assertThat(console.printed[0], `is`(LogFileContentType.DATE_TIME to "2001-01-10 12:34:56.789 "))
+        assertThat(console.printed[1], `is`(LogFileContentType.DEBUG to "Debug: TaskServer: Lorem ipsum dolor"))
         assertThat(console.printed.size, `is`(2))
     }
 
@@ -108,8 +108,8 @@ class MarkLogicErrorLogLineTest : IdeaPlatformTestCase() {
 
         val console = ConsoleViewRecorder()
         logLine.print(console)
-        assertThat(console.printed[0], `is`(LogLevel.DATE_TIME to "2001-01-10 12:34:56.789 "))
-        assertThat(console.printed[1], `is`(LogLevel.DEBUG to "Debug: abc-2d_3e: Lorem ipsum dolor"))
+        assertThat(console.printed[0], `is`(LogFileContentType.DATE_TIME to "2001-01-10 12:34:56.789 "))
+        assertThat(console.printed[1], `is`(LogFileContentType.DEBUG to "Debug: abc-2d_3e: Lorem ipsum dolor"))
         assertThat(console.printed.size, `is`(2))
     }
 
@@ -128,8 +128,8 @@ class MarkLogicErrorLogLineTest : IdeaPlatformTestCase() {
 
         val console = ConsoleViewRecorder()
         logLine.print(console)
-        assertThat(console.printed[0], `is`(LogLevel.DATE_TIME to "2001-01-10 12:34:56.789 "))
-        assertThat(console.printed[1], `is`(LogLevel.INFO to "Info:+Lorem ipsum dolor"))
+        assertThat(console.printed[0], `is`(LogFileContentType.DATE_TIME to "2001-01-10 12:34:56.789 "))
+        assertThat(console.printed[1], `is`(LogFileContentType.INFO to "Info:+Lorem ipsum dolor"))
         assertThat(console.printed.size, `is`(2))
     }
 
@@ -157,31 +157,31 @@ class MarkLogicErrorLogLineTest : IdeaPlatformTestCase() {
             (MarkLogicErrorLogLine.parse(it) as MarkLogicErrorLogLine).print(console)
         }
 
-        assertThat(console.printed[0], `is`(LogLevel.DATE_TIME to "2001-01-10 12:34:56.789 "))
-        assertThat(console.printed[1], `is`(LogLevel.FINEST to "Finest: Lorem ipsum dolor"))
-        assertThat(console.printed[2], `is`(LogLevel.DATE_TIME to "2001-01-10 12:34:56.789 "))
-        assertThat(console.printed[3], `is`(LogLevel.FINER to "Finer: Lorem ipsum dolor"))
-        assertThat(console.printed[4], `is`(LogLevel.DATE_TIME to "2001-01-10 12:34:56.789 "))
-        assertThat(console.printed[5], `is`(LogLevel.FINE to "Fine: Lorem ipsum dolor"))
-        assertThat(console.printed[6], `is`(LogLevel.DATE_TIME to "2001-01-10 12:34:56.789 "))
-        assertThat(console.printed[7], `is`(LogLevel.DEBUG to "Debug: Lorem ipsum dolor"))
-        assertThat(console.printed[8], `is`(LogLevel.DATE_TIME to "2001-01-10 12:34:56.789 "))
-        assertThat(console.printed[9], `is`(LogLevel.CONFIG to "Config: Lorem ipsum dolor"))
-        assertThat(console.printed[10], `is`(LogLevel.DATE_TIME to "2001-01-10 12:34:56.789 "))
-        assertThat(console.printed[11], `is`(LogLevel.INFO to "Info: Lorem ipsum dolor"))
-        assertThat(console.printed[12], `is`(LogLevel.DATE_TIME to "2001-01-10 12:34:56.789 "))
-        assertThat(console.printed[13], `is`(LogLevel.NOTICE to "Notice: Lorem ipsum dolor"))
-        assertThat(console.printed[14], `is`(LogLevel.DATE_TIME to "2001-01-10 12:34:56.789 "))
-        assertThat(console.printed[15], `is`(LogLevel.WARNING to "Warning: Lorem ipsum dolor"))
-        assertThat(console.printed[16], `is`(LogLevel.DATE_TIME to "2001-01-10 12:34:56.789 "))
-        assertThat(console.printed[17], `is`(LogLevel.ERROR to "Error: Lorem ipsum dolor"))
-        assertThat(console.printed[18], `is`(LogLevel.DATE_TIME to "2001-01-10 12:34:56.789 "))
-        assertThat(console.printed[19], `is`(LogLevel.CRITICAL to "Critical: Lorem ipsum dolor"))
-        assertThat(console.printed[20], `is`(LogLevel.DATE_TIME to "2001-01-10 12:34:56.789 "))
-        assertThat(console.printed[21], `is`(LogLevel.ALERT to "Alert: Lorem ipsum dolor"))
-        assertThat(console.printed[22], `is`(LogLevel.DATE_TIME to "2001-01-10 12:34:56.789 "))
-        assertThat(console.printed[23], `is`(LogLevel.EMERGENCY to "Emergency: Lorem ipsum dolor"))
-        assertThat(console.printed[24], `is`(LogLevel.DATE_TIME to "2001-01-10 12:34:56.789 "))
+        assertThat(console.printed[0], `is`(LogFileContentType.DATE_TIME to "2001-01-10 12:34:56.789 "))
+        assertThat(console.printed[1], `is`(LogFileContentType.FINEST to "Finest: Lorem ipsum dolor"))
+        assertThat(console.printed[2], `is`(LogFileContentType.DATE_TIME to "2001-01-10 12:34:56.789 "))
+        assertThat(console.printed[3], `is`(LogFileContentType.FINER to "Finer: Lorem ipsum dolor"))
+        assertThat(console.printed[4], `is`(LogFileContentType.DATE_TIME to "2001-01-10 12:34:56.789 "))
+        assertThat(console.printed[5], `is`(LogFileContentType.FINE to "Fine: Lorem ipsum dolor"))
+        assertThat(console.printed[6], `is`(LogFileContentType.DATE_TIME to "2001-01-10 12:34:56.789 "))
+        assertThat(console.printed[7], `is`(LogFileContentType.DEBUG to "Debug: Lorem ipsum dolor"))
+        assertThat(console.printed[8], `is`(LogFileContentType.DATE_TIME to "2001-01-10 12:34:56.789 "))
+        assertThat(console.printed[9], `is`(LogFileContentType.CONFIG to "Config: Lorem ipsum dolor"))
+        assertThat(console.printed[10], `is`(LogFileContentType.DATE_TIME to "2001-01-10 12:34:56.789 "))
+        assertThat(console.printed[11], `is`(LogFileContentType.INFO to "Info: Lorem ipsum dolor"))
+        assertThat(console.printed[12], `is`(LogFileContentType.DATE_TIME to "2001-01-10 12:34:56.789 "))
+        assertThat(console.printed[13], `is`(LogFileContentType.NOTICE to "Notice: Lorem ipsum dolor"))
+        assertThat(console.printed[14], `is`(LogFileContentType.DATE_TIME to "2001-01-10 12:34:56.789 "))
+        assertThat(console.printed[15], `is`(LogFileContentType.WARNING to "Warning: Lorem ipsum dolor"))
+        assertThat(console.printed[16], `is`(LogFileContentType.DATE_TIME to "2001-01-10 12:34:56.789 "))
+        assertThat(console.printed[17], `is`(LogFileContentType.ERROR to "Error: Lorem ipsum dolor"))
+        assertThat(console.printed[18], `is`(LogFileContentType.DATE_TIME to "2001-01-10 12:34:56.789 "))
+        assertThat(console.printed[19], `is`(LogFileContentType.CRITICAL to "Critical: Lorem ipsum dolor"))
+        assertThat(console.printed[20], `is`(LogFileContentType.DATE_TIME to "2001-01-10 12:34:56.789 "))
+        assertThat(console.printed[21], `is`(LogFileContentType.ALERT to "Alert: Lorem ipsum dolor"))
+        assertThat(console.printed[22], `is`(LogFileContentType.DATE_TIME to "2001-01-10 12:34:56.789 "))
+        assertThat(console.printed[23], `is`(LogFileContentType.EMERGENCY to "Emergency: Lorem ipsum dolor"))
+        assertThat(console.printed[24], `is`(LogFileContentType.DATE_TIME to "2001-01-10 12:34:56.789 "))
         assertThat(console.printed[25], `is`(ConsoleViewContentType.NORMAL_OUTPUT to "Unknown: Lorem ipsum dolor"))
     }
 
@@ -204,10 +204,10 @@ class MarkLogicErrorLogLineTest : IdeaPlatformTestCase() {
 
         val console = ConsoleViewRecorder()
         logLine.print(console)
-        assertThat(console.printed[0], `is`(LogLevel.DATE_TIME to "2001-01-10 12:34:56.789 "))
-        assertThat(console.printed[1], `is`(LogLevel.NOTICE to "Notice:+in "))
+        assertThat(console.printed[0], `is`(LogFileContentType.DATE_TIME to "2001-01-10 12:34:56.789 "))
+        assertThat(console.printed[1], `is`(LogFileContentType.NOTICE to "Notice:+in "))
         assertThat(console.printed[2], `is`(ConsoleViewRecorder.HYPERLINK to "/lorem/ipsum/dolor.xqy"))
-        assertThat(console.printed[3], `is`(LogLevel.NOTICE to ", at 14:8 [1.0-ml]"))
+        assertThat(console.printed[3], `is`(LogFileContentType.NOTICE to ", at 14:8 [1.0-ml]"))
         assertThat(console.printed.size, `is`(4))
     }
 
@@ -230,10 +230,10 @@ class MarkLogicErrorLogLineTest : IdeaPlatformTestCase() {
 
         val console = ConsoleViewRecorder()
         logLine.print(console)
-        assertThat(console.printed[0], `is`(LogLevel.DATE_TIME to "2001-01-10 12:34:56.789 "))
-        assertThat(console.printed[1], `is`(LogLevel.NOTICE to "Notice:+in "))
+        assertThat(console.printed[0], `is`(LogFileContentType.DATE_TIME to "2001-01-10 12:34:56.789 "))
+        assertThat(console.printed[1], `is`(LogFileContentType.NOTICE to "Notice:+in "))
         assertThat(console.printed[2], `is`(ConsoleViewRecorder.HYPERLINK to "/lorem/ipsum/dolor.xqy"))
-        assertThat(console.printed[3], `is`(LogLevel.NOTICE to ", at 14:8"))
+        assertThat(console.printed[3], `is`(LogFileContentType.NOTICE to ", at 14:8"))
         assertThat(console.printed.size, `is`(4))
     }
 }
