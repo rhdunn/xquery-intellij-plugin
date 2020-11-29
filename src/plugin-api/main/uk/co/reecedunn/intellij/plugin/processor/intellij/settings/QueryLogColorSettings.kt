@@ -54,7 +54,7 @@ class QueryLogColorSettings : ColorSettingsPage {
         AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.critical.name"), LogFileContentType.CRITICAL_KEY),
         AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.alert.name"), LogFileContentType.ALERT_KEY),
         AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.fatal.name"), LogFileContentType.FATAL_KEY),
-        AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.emergency.name"), LogFileContentType.EMERGENCY_KEY),
+        AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.emergency.name"), LogFileContentType.EMERGENCY_KEY)
     )
 
     override fun getAttributeDescriptors(): Array<AttributesDescriptor> = ATTRIBUTE_DESCRIPTORS
