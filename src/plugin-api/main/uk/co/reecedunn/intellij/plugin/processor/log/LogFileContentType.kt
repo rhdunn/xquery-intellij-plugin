@@ -20,9 +20,16 @@ import com.intellij.openapi.editor.DefaultLanguageHighlighterColors
 import com.intellij.openapi.editor.colors.TextAttributesKey
 
 object LogFileContentType {
+    // region Log Line Tokens
+
     val DATE_TIME_KEY: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "QUERY_LOG_DATE_TIME", DefaultLanguageHighlighterColors.LINE_COMMENT
     )
+
+    val DATE_TIME: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_DATE_TIME", DATE_TIME_KEY)
+
+    // endregion
+    // region Log Levels :: Verbose
 
     val FINEST_KEY: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "QUERY_LOG_LEVEL_FINEST", ConsoleViewContentType.LOG_VERBOSE_OUTPUT_KEY
@@ -36,9 +43,21 @@ object LogFileContentType {
         "QUERY_LOG_LEVEL_FINE", ConsoleViewContentType.LOG_VERBOSE_OUTPUT_KEY
     )
 
+    val FINEST: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_FINEST", FINEST_KEY)
+    val FINER: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_FINER", FINER_KEY)
+    val FINE: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_FINE", FINE_KEY)
+
+    // endregion
+    // region Log Levels :: Debug
+
     val DEBUG_KEY: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "QUERY_LOG_LEVEL_DEBUG", ConsoleViewContentType.LOG_DEBUG_OUTPUT_KEY
     )
+
+    val DEBUG: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_DEBUG", DEBUG_KEY)
+
+    // endregion
+    // region Log Levels :: Information
 
     val CONFIG_KEY: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "QUERY_LOG_LEVEL_CONFIG", ConsoleViewContentType.NORMAL_OUTPUT_KEY
@@ -48,6 +67,22 @@ object LogFileContentType {
         "QUERY_LOG_LEVEL_INFO", ConsoleViewContentType.NORMAL_OUTPUT_KEY
     )
 
+    val OK_KEY: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
+        "QUERY_LOG_LEVEL_OK", ConsoleViewContentType.NORMAL_OUTPUT_KEY
+    )
+
+    val REQUEST_KEY: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
+        "QUERY_LOG_LEVEL_REQUEST", ConsoleViewContentType.LOG_INFO_OUTPUT_KEY
+    )
+
+    val CONFIG: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_CONFIG", CONFIG_KEY)
+    val INFO: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_INFO", INFO_KEY)
+    val OK: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_OK", OK_KEY)
+    val REQUEST: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_REQUEST", REQUEST_KEY)
+
+    // endregion
+    // region Log Levels :: Warning
+
     val NOTICE_KEY: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "QUERY_LOG_LEVEL_NOTICE", ConsoleViewContentType.LOG_WARNING_OUTPUT_KEY
     )
@@ -55,6 +90,12 @@ object LogFileContentType {
     val WARNING_KEY: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "QUERY_LOG_LEVEL_WARNING", ConsoleViewContentType.LOG_WARNING_OUTPUT_KEY
     )
+
+    val NOTICE: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_NOTICE", NOTICE_KEY)
+    val WARNING: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_WARNING", WARNING_KEY)
+
+    // endregion
+    // region Log Levels :: Error
 
     val ERROR_KEY: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "QUERY_LOG_LEVEL_ERROR", ConsoleViewContentType.LOG_ERROR_OUTPUT_KEY
@@ -72,29 +113,10 @@ object LogFileContentType {
         "QUERY_LOG_LEVEL_EMERGENCY", ConsoleViewContentType.LOG_ERROR_OUTPUT_KEY
     )
 
-    val OK_KEY: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
-        "QUERY_LOG_LEVEL_OK", ConsoleViewContentType.NORMAL_OUTPUT_KEY
-    )
-
-    val REQUEST_KEY: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
-        "QUERY_LOG_LEVEL_REQUEST", ConsoleViewContentType.LOG_INFO_OUTPUT_KEY
-    )
-
-    val DATE_TIME: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_DATE_TIME", DATE_TIME_KEY)
-
-    val FINEST: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_FINEST", FINEST_KEY)
-    val FINER: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_FINER", FINER_KEY)
-    val FINE: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_FINE", FINE_KEY)
-    val DEBUG: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_DEBUG", DEBUG_KEY)
-    val CONFIG: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_CONFIG", CONFIG_KEY)
-    val INFO: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_INFO", INFO_KEY)
-    val NOTICE: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_NOTICE", NOTICE_KEY)
-    val WARNING: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_WARNING", WARNING_KEY)
     val ERROR: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_ERROR", ERROR_KEY)
     val CRITICAL: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_CRITICAL", CRITICAL_KEY)
     val ALERT: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_ALERT", ALERT_KEY)
     val EMERGENCY: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_EMERGENCY", EMERGENCY_KEY)
 
-    val OK: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_OK", OK_KEY)
-    val REQUEST: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_REQUEST", REQUEST_KEY)
+    // endregion
 }
