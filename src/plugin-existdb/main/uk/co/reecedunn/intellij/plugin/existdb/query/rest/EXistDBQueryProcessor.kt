@@ -22,6 +22,7 @@ import org.apache.http.client.methods.RequestBuilder
 import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationImpl
 import uk.co.reecedunn.intellij.plugin.existdb.intellij.resources.EXistDBIcons
 import uk.co.reecedunn.intellij.plugin.existdb.intellij.resources.EXistDBQueries
+import uk.co.reecedunn.intellij.plugin.existdb.log.Log4JPattern
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.processor.log.LogViewProvider
 import uk.co.reecedunn.intellij.plugin.processor.query.*
@@ -67,19 +68,12 @@ internal class EXistDBQueryProcessor(
         it.value as String
     }
 
-    override fun log(name: String): List<String> = createRunnableQuery(EXistDBQueries.Log.Log, XQuery).use { query ->
+    override fun log(name: String): List<Any> = createRunnableQuery(EXistDBQueries.Log.Log, XQuery).use { query ->
         query.bindVariable("name", name, "xs:string")
 
-        var pattern: String? = null
-        query.run().results.mapNotNull {
-            when (pattern) {
-                null -> {
-                    pattern = it.value as String
-                    null
-                }
-                else -> it.value as String
-            }
-        }
+        val results = query.run().results
+        val pattern = Log4JPattern.create(results.first().value as String)
+        results.subList(1, results.size).map { pattern.parse(it.value as String) }
     }
 
     override fun defaultLogFile(logs: List<String>): String = "exist.log"
