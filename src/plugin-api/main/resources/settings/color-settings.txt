@@ -1,3 +1,10 @@
+eXist-db log levels:
+<datetime>2000-01-12 15:00:01.000</datetime> <debug>DEBUG Log level</debug>
+<datetime>2000-01-12 15:00:01.000</datetime> <info>INFO  Log level</info>
+<datetime>2000-01-12 15:00:01.000</datetime> <warning>WARN  Log level</warning>
+<datetime>2000-01-12 15:00:01.000</datetime> <error>ERROR Log level</error>
+<datetime>2000-01-12 15:00:01.000</datetime> <fatal>FATAL Log level</fatal>
+
 MarkLogic log levels in ErrorLog.txt files:
 <datetime>2000-01-12 15:00:01.000</datetime> <finest>Finest: Log level</finest>
 <datetime>2000-01-12 15:00:01.000</datetime> <finer>Finer: Log level</finer>
