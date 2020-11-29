@@ -102,7 +102,7 @@ class Log4JLogLineTest : IdeaPlatformTestCase() {
             assertThat(console.printed[6], `is`(LogFileContentType.DATE_TIME to "2001-01-10 12:34:56.789 "))
             assertThat(console.printed[7], `is`(LogFileContentType.ERROR to "[thread] ERROR (LogLevel.java [test]:12) - Lorem ipsum dolor"))
             assertThat(console.printed[8], `is`(LogFileContentType.DATE_TIME to "2001-01-10 12:34:56.789 "))
-            assertThat(console.printed[9], `is`(LogFileContentType.EMERGENCY to "[thread] FATAL (LogLevel.java [test]:12) - Lorem ipsum dolor"))
+            assertThat(console.printed[9], `is`(LogFileContentType.FATAL to "[thread] FATAL (LogLevel.java [test]:12) - Lorem ipsum dolor"))
             assertThat(console.printed[10], `is`(LogFileContentType.DATE_TIME to "2001-01-10 12:34:56.789 "))
             assertThat(console.printed[11], `is`(ConsoleViewContentType.NORMAL_OUTPUT to "[thread] UNKN  (LogLevel.java [test]:12) - Lorem ipsum dolor"))
         }

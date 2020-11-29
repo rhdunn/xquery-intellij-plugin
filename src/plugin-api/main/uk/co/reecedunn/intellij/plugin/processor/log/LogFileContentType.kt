@@ -113,13 +113,22 @@ object LogFileContentType {
         "QUERY_LOG_LEVEL_ALERT", ERROR_KEY
     )
 
-    val EMERGENCY_KEY: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
-        "QUERY_LOG_LEVEL_EMERGENCY", ERROR_KEY
-    )
-
     val ERROR: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_ERROR", ERROR_KEY)
     val CRITICAL: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_CRITICAL", CRITICAL_KEY)
     val ALERT: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_ALERT", ALERT_KEY)
+
+    // endregion
+    // region Log Levels :: Fatal
+
+    val FATAL_KEY: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
+        "QUERY_LOG_LEVEL_FATAL", ERROR_KEY
+    )
+
+    val EMERGENCY_KEY: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
+        "QUERY_LOG_LEVEL_EMERGENCY", FATAL_KEY
+    )
+
+    val FATAL: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_FATAL", FATAL_KEY)
     val EMERGENCY: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_LEVEL_EMERGENCY", EMERGENCY_KEY)
 
     // endregion

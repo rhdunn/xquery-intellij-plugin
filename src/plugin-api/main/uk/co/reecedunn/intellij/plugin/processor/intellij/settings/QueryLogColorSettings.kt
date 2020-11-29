@@ -53,6 +53,7 @@ class QueryLogColorSettings : ColorSettingsPage {
         AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.error.name"), LogFileContentType.ERROR_KEY),
         AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.critical.name"), LogFileContentType.CRITICAL_KEY),
         AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.alert.name"), LogFileContentType.ALERT_KEY),
+        AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.fatal.name"), LogFileContentType.FATAL_KEY),
         AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.emergency.name"), LogFileContentType.EMERGENCY_KEY),
     )
 
@@ -75,6 +76,7 @@ class QueryLogColorSettings : ColorSettingsPage {
         "critical" to LogFileContentType.CRITICAL_KEY,
         "alert" to LogFileContentType.ALERT_KEY,
         "emergency" to LogFileContentType.EMERGENCY_KEY,
+        "fatal" to LogFileContentType.FATAL_KEY,
         "ok" to LogFileContentType.OK_KEY,
         "request" to LogFileContentType.REQUEST_KEY
     )

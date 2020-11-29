@@ -38,7 +38,7 @@ class Log4JLogLine(
             "INFO" -> LogFileContentType.INFO
             "WARN" -> LogFileContentType.WARNING
             "ERROR" -> LogFileContentType.ERROR
-            "FATAL" -> LogFileContentType.EMERGENCY
+            "FATAL" -> LogFileContentType.FATAL
             else -> ConsoleViewContentType.NORMAL_OUTPUT
         }
 
