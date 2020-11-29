@@ -21,8 +21,9 @@ abstract class Log4JPattern {
     companion object {
         const val DEFAULT_EXISTDB_PATTERN = "%d [%t] %-5p (%F [%M]:%L) - %m %n"
 
-        fun create(pattern: String): Log4JPattern {
-            return Log4JUnknownPattern()
+        fun create(pattern: String): Log4JPattern = when (pattern) {
+            DEFAULT_EXISTDB_PATTERN -> Log4JDefaultEXistDBPattern
+            else -> Log4JUnknownPattern
         }
     }
 }

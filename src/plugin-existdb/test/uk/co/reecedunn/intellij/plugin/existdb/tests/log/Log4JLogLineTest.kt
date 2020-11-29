@@ -27,8 +27,8 @@ class Log4JLogLineTest : IdeaPlatformTestCase() {
     override val pluginId: PluginId = PluginId.getId("Log4JLogLineTest")
 
     @Nested
-    @DisplayName("default pattern")
-    inner class DefaultPattern {
+    @DisplayName("default eXist-db pattern")
+    inner class DefaultEXistDBPattern {
         private val pattern = Log4JPattern.create(Log4JPattern.DEFAULT_EXISTDB_PATTERN)
 
         @Test

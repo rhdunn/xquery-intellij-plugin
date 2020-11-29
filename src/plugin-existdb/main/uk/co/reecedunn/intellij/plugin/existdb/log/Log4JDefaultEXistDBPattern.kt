@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.existdb.log
 
-object Log4JUnknownPattern : Log4JPattern() {
+object Log4JDefaultEXistDBPattern : Log4JPattern() {
     override fun parse(line: String): Any {
         return line
     }
