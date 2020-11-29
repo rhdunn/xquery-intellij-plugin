@@ -50,4 +50,29 @@ class Log4JLogLineTest : IdeaPlatformTestCase() {
             assertThat(pattern.parse(lines[1]), `is`(lines[1]))
         }
     }
+
+    @Nested
+    @DisplayName("unknown pattern")
+    inner class UnknownPattern {
+        private val pattern = Log4JPattern.create("%z")
+
+        @Test
+        @DisplayName("empty")
+        fun empty() {
+            val line = ""
+            assertThat(pattern.parse(line), `is`(line))
+        }
+
+        @Test
+        @DisplayName("Java exception")
+        fun javaException() {
+            val lines = arrayOf(
+                "\tat java.lang.System.initProperties(Native Method)",
+                "\tat java.lang.System.initializeSystemClass(System.java:1166)"
+            )
+
+            assertThat(pattern.parse(lines[0]), `is`(lines[0]))
+            assertThat(pattern.parse(lines[1]), `is`(lines[1]))
+        }
+    }
 }

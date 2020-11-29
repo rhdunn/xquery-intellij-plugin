@@ -15,14 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.existdb.log
 
-abstract class Log4JPattern {
-    abstract fun parse(line: String): Any
-
-    companion object {
-        const val DEFAULT_EXISTDB_PATTERN = "%d [%t] %-5p (%F [%M]:%L) - %m %n"
-
-        fun create(pattern: String): Log4JPattern {
-            return Log4JUnknownPattern()
-        }
+class Log4JUnknownPattern : Log4JPattern() {
+    override fun parse(line: String): Any {
+        return line
     }
 }
