@@ -21,8 +21,8 @@ import uk.co.reecedunn.intellij.plugin.processor.log.LogFileContentType
 import uk.co.reecedunn.intellij.plugin.processor.log.LogLine
 
 abstract class MarkLogicErrorLogLine(
-    override val date: String,
-    override val time: String,
+    val date: String,
+    val time: String,
     override val logLevel: String,
     val appServer: String?,
     val continuation: Boolean

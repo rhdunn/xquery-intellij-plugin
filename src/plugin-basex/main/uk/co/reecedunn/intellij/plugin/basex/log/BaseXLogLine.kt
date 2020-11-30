@@ -21,8 +21,8 @@ import uk.co.reecedunn.intellij.plugin.processor.log.LogFileContentType
 import uk.co.reecedunn.intellij.plugin.processor.log.LogLine
 
 data class BaseXLogLine(
-    override val date: String,
-    override val time: String,
+    val date: String,
+    val time: String,
     val elapsed: String?,
     val address: String,
     val user: String,

@@ -18,8 +18,6 @@ package uk.co.reecedunn.intellij.plugin.processor.log
 import com.intellij.execution.ui.ConsoleView
 
 interface LogLine {
-    val date: String
-    val time: String
     val logLevel: String
     val message: String
 

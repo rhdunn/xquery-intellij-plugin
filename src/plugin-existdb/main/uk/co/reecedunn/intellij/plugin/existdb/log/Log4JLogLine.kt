@@ -21,8 +21,8 @@ import uk.co.reecedunn.intellij.plugin.processor.log.LogFileContentType
 import uk.co.reecedunn.intellij.plugin.processor.log.LogLine
 
 class Log4JLogLine(
-    override val date: String,
-    override val time: String,
+    val date: String,
+    val time: String,
     val thread: String,
     override val logLevel: String,
     val filename: String,
