@@ -186,19 +186,12 @@ class QueryLogViewerUI(val project: Project) : Disposable {
         val isAtEnd = logConsole.offset == logConsole.contentSize
         logConsole.clear()
 
-        logs.forEach { value ->
-            when (value) {
-                is String -> {
-                    logConsole.print(value, ConsoleViewContentType.NORMAL_OUTPUT)
+        logs.asSequence().filterIsInstance<LogLine>().forEach { value ->
+            when (value.logLevel) {
+                logLevel -> {
+                    value.print(logConsole)
                     logConsole.print("\n", ConsoleViewContentType.NORMAL_OUTPUT)
                 }
-                is LogLine -> when (value.logLevel) {
-                    logLevel -> {
-                        value.print(logConsole)
-                        logConsole.print("\n", ConsoleViewContentType.NORMAL_OUTPUT)
-                    }
-                }
-                else -> throw UnsupportedOperationException()
             }
         }
 
