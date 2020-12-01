@@ -67,6 +67,28 @@ class Log4JLogLineTest : IdeaPlatformTestCase() {
             assertThat(logLine.filename, `is`("BTree.java"))
             assertThat(logLine.method, `is`("printStatistics"))
             assertThat(logLine.line, `is`(2660))
+            assertThat(logLine.message, `is`("values.dbx INDEX Buffers occupation : 11% (7 out of 64) Cache efficiency : 100% "))
+
+            val console = ConsoleViewRecorder()
+            logLine.print(console)
+            assertThat(console.printed[0], `is`(LogFileContentType.DATE_TIME to "2020-11-29 09:48:44,592 "))
+            assertThat(console.printed[1], `is`(LogFileContentType.INFO to "[db.exist.scheduler.quartz-worker-4] INFO  (BTree.java [printStatistics]:2660) - values.dbx INDEX Buffers occupation : 11% (7 out of 64) Cache efficiency : 100% "))
+            assertThat(console.printed.size, `is`(2))
+        }
+
+        @Test
+        @DisplayName("log line without trailing space")
+        fun logLineWithoutTrailingSpace() {
+            val line = "2020-11-29 09:48:44,592 [db.exist.scheduler.quartz-worker-4] INFO  (BTree.java [printStatistics]:2660) - values.dbx INDEX Buffers occupation : 11% (7 out of 64) Cache efficiency : 100%"
+            val logLine = pattern.parse(line) as Log4JLogLine
+
+            assertThat(logLine.date, `is`("2020-11-29"))
+            assertThat(logLine.time, `is`("09:48:44,592"))
+            assertThat(logLine.thread, `is`("db.exist.scheduler.quartz-worker-4"))
+            assertThat(logLine.logLevel, `is`("INFO"))
+            assertThat(logLine.filename, `is`("BTree.java"))
+            assertThat(logLine.method, `is`("printStatistics"))
+            assertThat(logLine.line, `is`(2660))
             assertThat(logLine.message, `is`("values.dbx INDEX Buffers occupation : 11% (7 out of 64) Cache efficiency : 100%"))
 
             val console = ConsoleViewRecorder()
@@ -94,17 +116,17 @@ class Log4JLogLineTest : IdeaPlatformTestCase() {
             }
 
             assertThat(console.printed[0], `is`(LogFileContentType.DATE_TIME to "2001-01-10 12:34:56.789 "))
-            assertThat(console.printed[1], `is`(LogFileContentType.DEBUG to "[thread] DEBUG (LogLevel.java [test]:12) - Lorem ipsum dolor"))
+            assertThat(console.printed[1], `is`(LogFileContentType.DEBUG to "[thread] DEBUG (LogLevel.java [test]:12) - Lorem ipsum dolor "))
             assertThat(console.printed[2], `is`(LogFileContentType.DATE_TIME to "2001-01-10 12:34:56.789 "))
-            assertThat(console.printed[3], `is`(LogFileContentType.INFO to "[thread] INFO  (LogLevel.java [test]:12) - Lorem ipsum dolor"))
+            assertThat(console.printed[3], `is`(LogFileContentType.INFO to "[thread] INFO  (LogLevel.java [test]:12) - Lorem ipsum dolor "))
             assertThat(console.printed[4], `is`(LogFileContentType.DATE_TIME to "2001-01-10 12:34:56.789 "))
-            assertThat(console.printed[5], `is`(LogFileContentType.WARNING to "[thread] WARN  (LogLevel.java [test]:12) - Lorem ipsum dolor"))
+            assertThat(console.printed[5], `is`(LogFileContentType.WARNING to "[thread] WARN  (LogLevel.java [test]:12) - Lorem ipsum dolor "))
             assertThat(console.printed[6], `is`(LogFileContentType.DATE_TIME to "2001-01-10 12:34:56.789 "))
-            assertThat(console.printed[7], `is`(LogFileContentType.ERROR to "[thread] ERROR (LogLevel.java [test]:12) - Lorem ipsum dolor"))
+            assertThat(console.printed[7], `is`(LogFileContentType.ERROR to "[thread] ERROR (LogLevel.java [test]:12) - Lorem ipsum dolor "))
             assertThat(console.printed[8], `is`(LogFileContentType.DATE_TIME to "2001-01-10 12:34:56.789 "))
-            assertThat(console.printed[9], `is`(LogFileContentType.FATAL to "[thread] FATAL (LogLevel.java [test]:12) - Lorem ipsum dolor"))
+            assertThat(console.printed[9], `is`(LogFileContentType.FATAL to "[thread] FATAL (LogLevel.java [test]:12) - Lorem ipsum dolor "))
             assertThat(console.printed[10], `is`(LogFileContentType.DATE_TIME to "2001-01-10 12:34:56.789 "))
-            assertThat(console.printed[11], `is`(ConsoleViewContentType.NORMAL_OUTPUT to "[thread] UNKN  (LogLevel.java [test]:12) - Lorem ipsum dolor"))
+            assertThat(console.printed[11], `is`(ConsoleViewContentType.NORMAL_OUTPUT to "[thread] UNKN  (LogLevel.java [test]:12) - Lorem ipsum dolor "))
         }
     }
 

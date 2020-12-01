@@ -60,6 +60,5 @@ object Log4JDefaultEXistDBPattern : Log4JPattern {
         \)                        #
         \s-\s                     #
         (.*)                      # 8: Message
-        \s                        #
     ${'$'}""".toRegex(RegexOption.COMMENTS)
 }
