@@ -15,24 +15,65 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.execution.ui
 
-import com.intellij.execution.impl.ConsoleViewImpl
+import com.intellij.execution.filters.FileHyperlinkInfo
+import com.intellij.execution.filters.HyperlinkInfo
+import com.intellij.execution.impl.ConsoleViewUtil
+import com.intellij.execution.impl.EditorHyperlinkSupport
+import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.openapi.actionSystem.*
 import com.intellij.openapi.actionSystem.ex.ActionManagerEx
 import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.editor.Editor
+import com.intellij.openapi.editor.EditorFactory
+import com.intellij.openapi.editor.ScrollType
+import com.intellij.openapi.editor.actions.ScrollToTheEndToolbarAction
+import com.intellij.openapi.editor.actions.ToggleUseSoftWrapsToolbarAction
+import com.intellij.openapi.editor.ex.EditorEx
+import com.intellij.openapi.editor.impl.DocumentImpl
+import com.intellij.openapi.editor.impl.softwrap.SoftWrapAppliancePlaces
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.util.Key
+import com.intellij.openapi.util.text.StringUtil
 import com.intellij.ui.components.panels.Wrapper
+import com.intellij.util.ui.UIUtil
 import uk.co.reecedunn.intellij.plugin.core.ui.Borders
 import java.awt.BorderLayout
+import javax.swing.JComponent
 import javax.swing.border.Border
 import kotlin.math.min
 
-open class TextConsoleView(project: Project) : ConsoleViewImpl(project, true), ConsoleViewEx {
+open class TextConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleViewEx {
+    companion object {
+        private val MANUAL_HYPERLINK = Key.create<Boolean>("MANUAL_HYPERLINK")
+    }
+
+    var editor: EditorEx? = null
+        private set
+
+    private var hyperlinks: EditorHyperlinkSupport? = null
+
+    private var emulateCarriageReturn: Boolean = false
+        set(value) {
+            field = value
+            (editor?.document as? DocumentImpl)?.setAcceptSlashR(value)
+        }
+
+    private fun createConsoleEditor(): JComponent {
+        if (editor != null) return editor!!.component
+
+        editor = ConsoleViewUtil.setupConsoleEditor(project, true, false)
+        editor?.contextMenuGroupId = null // disabling default context menu
+        (editor?.document as? DocumentImpl)?.setAcceptSlashR(emulateCarriageReturn)
+
+        hyperlinks = EditorHyperlinkSupport(editor!!, project)
+        return editor!!.component
+    }
+
     // region ConsoleViewEx
 
     override val offset: Int
         get() = editor!!.caretModel.offset
 
-    @Suppress("DuplicatedCode")
     override fun scrollToTop(offset: Int) {
         ApplicationManager.getApplication().invokeLater {
             val moveOffset = min(offset, contentSize)
@@ -48,7 +89,6 @@ open class TextConsoleView(project: Project) : ConsoleViewImpl(project, true), C
         editor?.setBorder(border)
     }
 
-    @Suppress("DuplicatedCode")
     override fun createActionToolbar(place: String) {
         val actions = DefaultActionGroup()
         actions.addAll(*createConsoleActions())
@@ -65,8 +105,101 @@ open class TextConsoleView(project: Project) : ConsoleViewImpl(project, true), C
     }
 
     override fun setConsoleText(text: String) {
-        clear()
-        print(text)
+        val newText = StringUtil.convertLineSeparators(text, emulateCarriageReturn)
+        editor!!.document.setText(newText)
+    }
+
+    // endregion
+    // region ConsoleView
+
+    override fun clear() {
+        editor!!.document.setText("")
+    }
+
+    override fun print(text: String, contentType: ConsoleViewContentType) {
+        val newText = StringUtil.convertLineSeparators(text, emulateCarriageReturn)
+
+        val doc = editor!!.document
+        doc.insertString(doc.textLength, newText)
+    }
+
+    override fun printHyperlink(hyperlinkText: String, info: HyperlinkInfo?) {
+        val start = contentSize
+        print(hyperlinkText, ConsoleViewContentType.NORMAL_OUTPUT)
+        if (info != null) {
+            hyperlinks!!.createHyperlink(start, contentSize, null, info).putUserData(MANUAL_HYPERLINK, true)
+        }
+    }
+
+    override fun getContentSize(): Int = editor?.document?.textLength ?: 0
+
+    override fun createConsoleActions(): Array<AnAction> {
+        val actions = arrayOf(
+            object : ToggleUseSoftWrapsToolbarAction(SoftWrapAppliancePlaces.CONSOLE) {
+                override fun getEditor(e: AnActionEvent): Editor? = editor
+            },
+            ScrollToTheEndToolbarAction(editor!!),
+            ActionManager.getInstance().getAction("Print"),
+            ClearAllAction(this)
+        )
+
+        val additional = createAdditionalConsoleActions()
+        if (additional.isNotEmpty()) {
+            val primary = DefaultActionGroup()
+            primary.addAll(*actions)
+
+            val secondary = DefaultActionGroup()
+            secondary.addAll(*additional)
+
+            return arrayOf(primary, Separator(), secondary)
+        }
+        return actions
+    }
+
+    open fun createAdditionalConsoleActions(): Array<AnAction> = arrayOf()
+
+    override fun getComponent(): JComponent {
+        if (editor == null) {
+            add(createConsoleEditor(), BorderLayout.CENTER)
+        }
+        return this
+    }
+
+    override fun scrollTo(offset: Int) {
+        ApplicationManager.getApplication().invokeLater {
+            val moveOffset = min(offset, contentSize)
+            editor!!.caretModel.moveToOffset(moveOffset)
+            editor!!.scrollingModel.scrollToCaret(ScrollType.MAKE_VISIBLE)
+        }
+    }
+
+    override fun dispose() {
+        hyperlinks = null
+        if (editor != null) {
+            UIUtil.invokeAndWaitIfNeeded(Runnable {
+                if (!editor!!.isDisposed) {
+                    EditorFactory.getInstance().releaseEditor(editor!!)
+                }
+            })
+            editor = null
+        }
+    }
+
+    // endregion
+    // region DataProvider
+
+    override fun getData(dataId: String): Any? = when (dataId) {
+        CommonDataKeys.EDITOR.name -> editor
+        CommonDataKeys.NAVIGATABLE.name -> {
+            val pos = editor!!.caretModel.logicalPosition
+            val info = hyperlinks!!.getHyperlinkInfoByLineAndCol(pos.line, pos.column)
+            val openFileDescriptor = (info as? FileHyperlinkInfo)?.descriptor
+            if (openFileDescriptor?.file?.isValid == true)
+                openFileDescriptor
+            else
+                null
+        }
+        else -> super.getData(dataId)
     }
 
     // endregion

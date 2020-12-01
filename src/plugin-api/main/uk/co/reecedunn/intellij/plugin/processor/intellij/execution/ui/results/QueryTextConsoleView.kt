@@ -25,7 +25,7 @@ import com.intellij.openapi.fileTypes.PlainTextLanguage
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiFile
 import com.intellij.psi.PsiFileFactory
-import uk.co.reecedunn.intellij.plugin.core.execution.ui.EditorConsoleView
+import uk.co.reecedunn.intellij.plugin.core.execution.ui.TextConsoleView
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.QueryProcessHandlerBase
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.QueryResultListener
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.QueryResultTime
@@ -37,7 +37,7 @@ import java.io.PrintWriter
 import java.io.StringWriter
 import javax.swing.JComponent
 
-class QueryTextConsoleView(project: Project) : EditorConsoleView(project), QueryResultListener {
+class QueryTextConsoleView(project: Project) : TextConsoleView(project), QueryResultListener {
     // region ConsoleView
 
     private var queryProcessHandler: QueryProcessHandlerBase? = null
