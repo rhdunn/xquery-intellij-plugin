@@ -33,6 +33,7 @@ import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcesso
 import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessors
 import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessorsListener
 import uk.co.reecedunn.intellij.plugin.processor.log.LogLine
+import uk.co.reecedunn.intellij.plugin.processor.log.LogLineContinuation
 import uk.co.reecedunn.intellij.plugin.processor.log.LogViewProvider
 import uk.co.reecedunn.intellij.plugin.processor.query.CachedQueryProcessorSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.addToModel
@@ -209,7 +210,18 @@ class QueryLogViewerUI(val project: Project) : Disposable {
             try {
                 val log = logFile?.let {
                     selectedLogFile = logFile
-                    (settings?.session as? LogViewProvider)?.log(logFile)
+
+                    var logLevel: String? = null
+                    (settings?.session as? LogViewProvider)?.log(logFile)?.map {
+                        when {
+                            it is String && logLevel == null -> it
+                            it is String -> LogLineContinuation(logLevel!!, it)
+                            else -> {
+                                logLevel = (it as LogLine).logLevel
+                                it
+                            }
+                        }
+                    }
                 }
                 invokeLater(ModalityState.any()) {
                     if (log != null) {
