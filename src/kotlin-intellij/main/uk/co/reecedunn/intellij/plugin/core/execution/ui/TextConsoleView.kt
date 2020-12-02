@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2019-2020 Reece H. Dunn
+ * Copyright 2000-2020 JetBrains s.r.o.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,6 +54,9 @@ import javax.swing.JComponent
 import javax.swing.border.Border
 import kotlin.math.min
 
+// The IntelliJ ConsoleViewImpl should be used when the following issues are fixed:
+// 1. IDEA-256363 : Support custom TokenBuffer sizes for ConsoleViewImpl instances.
+// 2. IDEA-256612 : ConsoleViewImpl overrides syntax highlighting on the output text.
 open class TextConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleViewEx {
     companion object {
         private val CONTENT_TYPE = Key.create<ConsoleViewContentType>("ConsoleViewContentType")
@@ -125,11 +129,22 @@ open class TextConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleVie
         var startLength = document.textLength
         document.insertString(startLength, deferred.joinToString("") { it.text })
 
+        var contentTypeStart = startLength
+        var previousContentType: ConsoleViewContentType? = null
         deferred.forEach {
             val endLength = startLength + it.text.length
 
-            if (it.contentType != null) {
-                createTokenRangeHighlighter(it.contentType, startLength, endLength)
+            when {
+                it.contentType == null || previousContentType === it.contentType -> {
+                }
+                previousContentType == null -> {
+                    previousContentType = it.contentType
+                }
+                else -> {
+                    createTokenRangeHighlighter(previousContentType!!, contentTypeStart, startLength)
+                    contentTypeStart = startLength
+                    previousContentType = it.contentType
+                }
             }
 
             if (it.hyperlinkInfo != null) {
@@ -137,6 +152,10 @@ open class TextConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleVie
             }
 
             startLength = endLength
+        }
+
+        if (previousContentType != null) {
+            createTokenRangeHighlighter(previousContentType!!, contentTypeStart, document.textLength)
         }
     }
 
