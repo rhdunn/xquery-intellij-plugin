@@ -43,13 +43,14 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Key
 import com.intellij.openapi.util.text.StringUtil
 import com.intellij.ui.components.panels.Wrapper
+import com.intellij.util.Alarm
 import com.intellij.util.SystemProperties
 import com.intellij.util.ui.UIUtil
-import uk.co.reecedunn.intellij.plugin.core.event.Stopwatch
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.impl.ConsoleViewToken
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.impl.ConsoleViewTokenBuffer
 import uk.co.reecedunn.intellij.plugin.core.ui.Borders
 import java.awt.BorderLayout
+import java.util.concurrent.atomic.AtomicBoolean
 import javax.swing.JComponent
 import javax.swing.border.Border
 import kotlin.math.min
@@ -60,6 +61,9 @@ import kotlin.math.min
 open class TextConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleViewEx {
     companion object {
         private val CONTENT_TYPE = Key.create<ConsoleViewContentType>("ConsoleViewContentType")
+
+        private val FLUSH_DELAY = SystemProperties.getIntProperty("console.flush.delay.ms", 200).toLong()
+        private const val FLUSH_IMMEDIATELY = 0.toLong()
     }
 
     init {
@@ -92,14 +96,11 @@ open class TextConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleVie
             (editor?.document as? DocumentImpl)?.setAcceptSlashR(value)
         }
 
+    @Suppress("LeakingThis")
+    private val alarm = Alarm(this)
+
     private val lock = Any()
     private val tokens = ConsoleViewTokenBuffer()
-
-    private val flushDeferredTextTimer = object : Stopwatch() {
-        override fun isRunning(): Boolean = editor != null
-
-        override fun onInterval() = flushDeferredText()
-    }
 
     private fun createConsoleEditor(): JComponent {
         if (editor != null) return editor!!.component
@@ -107,8 +108,6 @@ open class TextConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleVie
         editor = ConsoleViewUtil.setupConsoleEditor(project, true, false)
         editor?.contextMenuGroupId = null // disabling default context menu
         (editor?.document as? DocumentImpl)?.setAcceptSlashR(emulateCarriageReturn)
-
-        flushDeferredTextTimer.start(SystemProperties.getIntProperty("console.flush.delay.ms", 200).toLong())
 
         hyperlinks = EditorHyperlinkSupport(editor!!, project)
         return editor!!.component
@@ -173,6 +172,22 @@ open class TextConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleVie
         }
     }
 
+    private val flush = object : Runnable {
+        private val requested = AtomicBoolean()
+
+        fun queue(delay: Long) {
+            if (alarm.isDisposed) return
+            if (delay == FLUSH_IMMEDIATELY || requested.compareAndSet(false, true)) {
+                alarm.addRequest(this, delay, null)
+            }
+        }
+
+        override fun run() {
+            requested.set(false)
+            flushDeferredText()
+        }
+    }
+
     // region ConsoleViewEx
 
     override val offset: Int
@@ -180,7 +195,7 @@ open class TextConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleVie
 
     override fun scrollToTop(offset: Int) {
         ApplicationManager.getApplication().invokeLater {
-            flushDeferredText()
+            flush.queue(FLUSH_IMMEDIATELY)
 
             val moveOffset = min(offset, contentSize)
             val scrolling = editor!!.scrollingModel
@@ -237,6 +252,7 @@ open class TextConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleVie
         synchronized(lock) {
             tokens.add(ConsoleViewToken(newText, contentType))
         }
+        flush.queue(FLUSH_DELAY)
     }
 
     override fun printHyperlink(hyperlinkText: String, info: HyperlinkInfo?) {
@@ -244,6 +260,7 @@ open class TextConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleVie
         synchronized(lock) {
             tokens.add(ConsoleViewToken(newText, info))
         }
+        flush.queue(FLUSH_DELAY)
     }
 
     override fun getContentSize(): Int {
@@ -285,7 +302,7 @@ open class TextConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleVie
 
     override fun scrollTo(offset: Int) {
         ApplicationManager.getApplication().invokeLater {
-            flushDeferredText()
+            flush.queue(FLUSH_IMMEDIATELY)
 
             val moveOffset = min(offset, contentSize)
             editor!!.caretModel.moveToOffset(moveOffset)
