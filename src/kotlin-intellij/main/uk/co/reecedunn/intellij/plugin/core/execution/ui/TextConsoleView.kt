@@ -28,9 +28,16 @@ import com.intellij.openapi.editor.EditorFactory
 import com.intellij.openapi.editor.ScrollType
 import com.intellij.openapi.editor.actions.ScrollToTheEndToolbarAction
 import com.intellij.openapi.editor.actions.ToggleUseSoftWrapsToolbarAction
+import com.intellij.openapi.editor.colors.EditorColorsListener
+import com.intellij.openapi.editor.colors.EditorColorsManager
 import com.intellij.openapi.editor.ex.EditorEx
+import com.intellij.openapi.editor.ex.MarkupModelEx
+import com.intellij.openapi.editor.ex.RangeHighlighterEx
 import com.intellij.openapi.editor.impl.DocumentImpl
+import com.intellij.openapi.editor.impl.DocumentMarkupModel
 import com.intellij.openapi.editor.impl.softwrap.SoftWrapAppliancePlaces
+import com.intellij.openapi.editor.markup.HighlighterLayer
+import com.intellij.openapi.editor.markup.HighlighterTargetArea
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Key
 import com.intellij.openapi.util.text.StringUtil
@@ -48,7 +55,26 @@ import kotlin.math.min
 
 open class TextConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleViewEx {
     companion object {
-        private val MANUAL_HYPERLINK = Key.create<Boolean>("MANUAL_HYPERLINK")
+        private val CONTENT_TYPE = Key.create<ConsoleViewContentType>("ConsoleViewContentType")
+    }
+
+    init {
+        @Suppress("LeakingThis")
+        ApplicationManager.getApplication().messageBus.connect(this).subscribe(
+            EditorColorsManager.TOPIC,
+            EditorColorsListener {
+                ApplicationManager.getApplication().assertIsDispatchThread()
+                if (project.isDisposed || editor == null) return@EditorColorsListener
+
+                val model = DocumentMarkupModel.forDocument(editor!!.document, project, false)
+                model.allHighlighters.forEach { tokenMarker ->
+                    val contentType = tokenMarker.getUserData(CONTENT_TYPE)
+                    if (contentType != null && contentType.attributesKey == null && tokenMarker is RangeHighlighterEx) {
+                        tokenMarker.setTextAttributes(contentType.attributes)
+                    }
+                }
+            }
+        )
     }
 
     var editor: EditorEx? = null
@@ -96,16 +122,35 @@ open class TextConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleVie
         }
 
         val document = editor!!.document
-        var length = document.textLength
-        document.insertString(length, deferred.joinToString("") { it.text })
+        var startLength = document.textLength
+        document.insertString(startLength, deferred.joinToString("") { it.text })
 
         deferred.forEach {
-            val end = length + it.text.length
-            if (it.hyperlinkInfo != null) {
-                hyperlinks!!.createHyperlink(length, end, null, it.hyperlinkInfo)
-                    .putUserData(MANUAL_HYPERLINK, true)
+            val endLength = startLength + it.text.length
+
+            if (it.contentType != null) {
+                createTokenRangeHighlighter(it.contentType, startLength, endLength)
             }
-            length = end
+
+            if (it.hyperlinkInfo != null) {
+                hyperlinks!!.createHyperlink(startLength, endLength, null, it.hyperlinkInfo)
+            }
+
+            startLength = endLength
+        }
+    }
+
+    private fun createTokenRangeHighlighter(contentType: ConsoleViewContentType, startOffset: Int, endOffset: Int) {
+        ApplicationManager.getApplication().assertIsDispatchThread()
+        val model = DocumentMarkupModel.forDocument(editor!!.document, project, true) as MarkupModelEx
+        val layer = HighlighterLayer.SYNTAX - 1
+        model.addRangeHighlighterAndChangeAttributes(
+            contentType.attributesKey, startOffset, endOffset, layer, HighlighterTargetArea.EXACT_RANGE, false
+        ) { ex: RangeHighlighterEx ->
+            if (ex.textAttributesKey == null) {
+                ex.setTextAttributes(contentType.attributes)
+            }
+            ex.putUserData(CONTENT_TYPE, contentType)
         }
     }
 

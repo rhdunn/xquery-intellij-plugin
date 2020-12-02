@@ -20,10 +20,10 @@ import com.intellij.execution.ui.ConsoleViewContentType
 
 data class ConsoleViewToken(
     val text: String,
-    val consoleType: ConsoleViewContentType?,
+    val contentType: ConsoleViewContentType?,
     val hyperlinkInfo: HyperlinkInfo?
 ) {
-    constructor(text: String, consoleType: ConsoleViewContentType) : this(text, consoleType, null)
+    constructor(text: String, contentType: ConsoleViewContentType) : this(text, contentType, null)
 
     constructor(text: String, hyperlinkInfo: HyperlinkInfo?) : this(text, null, hyperlinkInfo)
 }
