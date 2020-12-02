@@ -15,16 +15,17 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.ui
 
+import com.intellij.ui.JBColor
 import java.awt.Color
 import javax.swing.border.Border
 import javax.swing.border.EmptyBorder
 import javax.swing.border.MatteBorder
 
 object Borders {
-    val TableHeaderBottom: Border = MatteBorder(0, 0, 1, 0, Color(192, 192, 192))
+    val TableHeaderBottom: Border = MatteBorder(0, 0, 1, 0, JBColor(Color(192, 192, 192), Color(63, 63, 63)))
 
-    val ConsoleToolbarTop: Border = MatteBorder(1, 0, 0, 0, Color(202, 202, 202))
-    val ConsoleToolbarRight: Border = MatteBorder(0, 0, 0, 1, Color(202, 202, 202))
+    val ConsoleToolbarTop: Border = MatteBorder(1, 0, 0, 0, JBColor(Color(202, 202, 202), Color(53, 53, 53)))
+    val ConsoleToolbarRight: Border = MatteBorder(0, 0, 0, 1, JBColor(Color(202, 202, 202), Color(53, 53, 53)))
 
     val TabPanel: Border = EmptyBorder(4, 5, 4, 5)
 
