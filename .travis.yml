@@ -5,8 +5,8 @@ jobs:
   include:
     - jdk: openjdk11
       env: IDEA_VERSION=LATEST-EAP-SNAPSHOT
-    - jdk: openjdk8
-      env: IDEA_VERSION=IC-2020.2 # Current
+    - jdk: openjdk11
+      env: IDEA_VERSION=IC-2020.3 # Current
     - jdk: openjdk8
       env: IDEA_VERSION=IC-2019.2 # Minimum Supported
 
