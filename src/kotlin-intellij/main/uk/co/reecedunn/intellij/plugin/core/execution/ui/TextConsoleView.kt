@@ -35,7 +35,11 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Key
 import com.intellij.openapi.util.text.StringUtil
 import com.intellij.ui.components.panels.Wrapper
+import com.intellij.util.SystemProperties
 import com.intellij.util.ui.UIUtil
+import uk.co.reecedunn.intellij.plugin.core.event.Stopwatch
+import uk.co.reecedunn.intellij.plugin.core.execution.ui.impl.ConsoleViewToken
+import uk.co.reecedunn.intellij.plugin.core.execution.ui.impl.ConsoleViewTokenBuffer
 import uk.co.reecedunn.intellij.plugin.core.ui.Borders
 import java.awt.BorderLayout
 import javax.swing.JComponent
@@ -58,6 +62,15 @@ open class TextConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleVie
             (editor?.document as? DocumentImpl)?.setAcceptSlashR(value)
         }
 
+    private val lock = Any()
+    private val tokens = ConsoleViewTokenBuffer()
+
+    private val flushDeferredTextTimer = object : Stopwatch() {
+        override fun isRunning(): Boolean = editor != null
+
+        override fun onInterval() = flushDeferredText()
+    }
+
     private fun createConsoleEditor(): JComponent {
         if (editor != null) return editor!!.component
 
@@ -65,8 +78,35 @@ open class TextConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleVie
         editor?.contextMenuGroupId = null // disabling default context menu
         (editor?.document as? DocumentImpl)?.setAcceptSlashR(emulateCarriageReturn)
 
+        flushDeferredTextTimer.start(SystemProperties.getIntProperty("console.flush.delay.ms", 200).toLong())
+
         hyperlinks = EditorHyperlinkSupport(editor!!, project)
         return editor!!.component
+    }
+
+    private fun flushDeferredText() {
+        lateinit var deferred: Array<ConsoleViewToken>
+        synchronized(lock) {
+            if (tokens.isEmpty()) return
+            try {
+                deferred = tokens.toTypedArray()
+            } finally {
+                tokens.clear()
+            }
+        }
+
+        val document = editor!!.document
+        var length = document.textLength
+        document.insertString(length, deferred.joinToString("") { it.text })
+
+        deferred.forEach {
+            val end = length + it.text.length
+            if (it.hyperlinkInfo != null) {
+                hyperlinks!!.createHyperlink(length, end, null, it.hyperlinkInfo)
+                    .putUserData(MANUAL_HYPERLINK, true)
+            }
+            length = end
+        }
     }
 
     // region ConsoleViewEx
@@ -76,6 +116,8 @@ open class TextConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleVie
 
     override fun scrollToTop(offset: Int) {
         ApplicationManager.getApplication().invokeLater {
+            flushDeferredText()
+
             val moveOffset = min(offset, contentSize)
             val scrolling = editor!!.scrollingModel
             val caret = editor!!.caretModel
@@ -107,31 +149,43 @@ open class TextConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleVie
     override fun setConsoleText(text: String) {
         val newText = StringUtil.convertLineSeparators(text, emulateCarriageReturn)
         editor!!.document.setText(newText)
+        synchronized(lock) {
+            tokens.clear()
+        }
     }
 
     // endregion
     // region ConsoleView
 
+    override fun hasDeferredOutput(): Boolean = synchronized(lock) {
+        return tokens.isNotEmpty()
+    }
+
     override fun clear() {
         editor!!.document.setText("")
+        synchronized(lock) {
+            tokens.clear()
+        }
     }
 
     override fun print(text: String, contentType: ConsoleViewContentType) {
         val newText = StringUtil.convertLineSeparators(text, emulateCarriageReturn)
-
-        val doc = editor!!.document
-        doc.insertString(doc.textLength, newText)
-    }
-
-    override fun printHyperlink(hyperlinkText: String, info: HyperlinkInfo?) {
-        val start = contentSize
-        print(hyperlinkText, ConsoleViewContentType.NORMAL_OUTPUT)
-        if (info != null) {
-            hyperlinks!!.createHyperlink(start, contentSize, null, info).putUserData(MANUAL_HYPERLINK, true)
+        synchronized(lock) {
+            tokens.add(ConsoleViewToken(newText, contentType))
         }
     }
 
-    override fun getContentSize(): Int = editor?.document?.textLength ?: 0
+    override fun printHyperlink(hyperlinkText: String, info: HyperlinkInfo?) {
+        val newText = StringUtil.convertLineSeparators(hyperlinkText, emulateCarriageReturn)
+        synchronized(lock) {
+            tokens.add(ConsoleViewToken(newText, info))
+        }
+    }
+
+    override fun getContentSize(): Int {
+        val document = editor?.document ?: return 0
+        return document.textLength + synchronized(lock) { tokens.length }
+    }
 
     override fun createConsoleActions(): Array<AnAction> {
         val actions = arrayOf(
@@ -167,6 +221,8 @@ open class TextConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleVie
 
     override fun scrollTo(offset: Int) {
         ApplicationManager.getApplication().invokeLater {
+            flushDeferredText()
+
             val moveOffset = min(offset, contentSize)
             editor!!.caretModel.moveToOffset(moveOffset)
             editor!!.scrollingModel.scrollToCaret(ScrollType.MAKE_VISIBLE)
@@ -181,6 +237,9 @@ open class TextConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleVie
                     EditorFactory.getInstance().releaseEditor(editor!!)
                 }
             })
+            synchronized(lock) {
+                tokens.clear()
+            }
             editor = null
         }
     }

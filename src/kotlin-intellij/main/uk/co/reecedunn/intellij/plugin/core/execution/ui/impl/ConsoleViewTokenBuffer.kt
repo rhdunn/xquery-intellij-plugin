@@ -15,15 +15,25 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.execution.ui.impl
 
-import com.intellij.execution.filters.HyperlinkInfo
-import com.intellij.execution.ui.ConsoleViewContentType
+class ConsoleViewTokenBuffer {
+    private val tokens: ArrayList<ConsoleViewToken> = arrayListOf()
 
-data class ConsoleViewToken(
-    val text: String,
-    val consoleType: ConsoleViewContentType?,
-    val hyperlinkInfo: HyperlinkInfo?
-) {
-    constructor(text: String, consoleType: ConsoleViewContentType) : this(text, consoleType, null)
+    var length: Int = 0
+        private set
 
-    constructor(text: String, hyperlinkInfo: HyperlinkInfo?) : this(text, null, hyperlinkInfo)
+    fun toTypedArray(): Array<ConsoleViewToken> = tokens.toTypedArray()
+
+    fun add(token: ConsoleViewToken) {
+        tokens.add(token)
+        length += token.text.length
+    }
+
+    fun clear() {
+        tokens.clear()
+        length = 0
+    }
+
+    fun isEmpty(): Boolean = length == 0
+
+    fun isNotEmpty(): Boolean = length != 0
 }
