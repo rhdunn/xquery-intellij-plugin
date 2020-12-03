@@ -17,8 +17,29 @@ package com.intellij.compat.execution.ui
 
 import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.openapi.editor.colors.TextAttributesKey
+import com.intellij.openapi.editor.ex.MarkupModelEx
+import com.intellij.openapi.editor.ex.RangeHighlighterEx
+import com.intellij.openapi.editor.markup.HighlighterTargetArea
+import com.intellij.openapi.util.Key
 
 // IntelliJ 2020.1 does not support the attributesKey property.
 @Suppress("unused")
 val ConsoleViewContentType.textAttributesKey: TextAttributesKey?
     get() = null
+
+fun ConsoleViewContentType.addRangeHighlighterAndChangeAttributes(
+    markupModel: MarkupModelEx,
+    startOffset: Int,
+    endOffset: Int,
+    layer: Int,
+    targetArea: HighlighterTargetArea,
+    isPersistent: Boolean,
+    contentTypeKey: Key<ConsoleViewContentType>
+): RangeHighlighterEx {
+    return markupModel.addRangeHighlighterAndChangeAttributes(
+        startOffset, endOffset, layer, attributes, targetArea, isPersistent
+    ) { ex: RangeHighlighterEx ->
+        ex.setTextAttributes(attributes)
+        ex.putUserData(contentTypeKey, this)
+    }
+}

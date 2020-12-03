@@ -16,6 +16,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.execution.ui
 
+import com.intellij.compat.execution.ui.addRangeHighlighterAndChangeAttributes
 import com.intellij.compat.execution.ui.textAttributesKey
 import com.intellij.execution.filters.FileHyperlinkInfo
 import com.intellij.execution.filters.HyperlinkInfo
@@ -163,14 +164,9 @@ open class TextConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleVie
         ApplicationManager.getApplication().assertIsDispatchThread()
         val model = DocumentMarkupModel.forDocument(editor!!.document, project, true) as MarkupModelEx
         val layer = HighlighterLayer.SYNTAX - 1
-        model.addRangeHighlighterAndChangeAttributes(
-            contentType.textAttributesKey, startOffset, endOffset, layer, HighlighterTargetArea.EXACT_RANGE, false
-        ) { ex: RangeHighlighterEx ->
-            if (ex.textAttributesKey == null) {
-                ex.setTextAttributes(contentType.attributes)
-            }
-            ex.putUserData(CONTENT_TYPE, contentType)
-        }
+        contentType.addRangeHighlighterAndChangeAttributes(
+            model, startOffset, endOffset, layer, HighlighterTargetArea.EXACT_RANGE, false, CONTENT_TYPE
+        )
     }
 
     private val flush = object : Runnable {
