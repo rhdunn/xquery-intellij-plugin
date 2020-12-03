@@ -16,6 +16,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.execution.ui
 
+import com.intellij.compat.execution.ui.textAttributesKey
 import com.intellij.execution.filters.FileHyperlinkInfo
 import com.intellij.execution.filters.HyperlinkInfo
 import com.intellij.execution.impl.ConsoleViewUtil
@@ -75,9 +76,9 @@ open class TextConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleVie
                 if (project.isDisposed || editor == null) return@EditorColorsListener
 
                 val model = DocumentMarkupModel.forDocument(editor!!.document, project, false)
-                model.allHighlighters.forEach { tokenMarker ->
+                model.allHighlighters.asSequence().filterIsInstance<RangeHighlighterEx>().forEach { tokenMarker ->
                     val contentType = tokenMarker.getUserData(CONTENT_TYPE)
-                    if (contentType != null && contentType.attributesKey == null && tokenMarker is RangeHighlighterEx) {
+                    if (contentType != null && contentType.textAttributesKey == null) {
                         tokenMarker.setTextAttributes(contentType.attributes)
                     }
                 }
@@ -163,7 +164,7 @@ open class TextConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleVie
         val model = DocumentMarkupModel.forDocument(editor!!.document, project, true) as MarkupModelEx
         val layer = HighlighterLayer.SYNTAX - 1
         model.addRangeHighlighterAndChangeAttributes(
-            contentType.attributesKey, startOffset, endOffset, layer, HighlighterTargetArea.EXACT_RANGE, false
+            contentType.textAttributesKey, startOffset, endOffset, layer, HighlighterTargetArea.EXACT_RANGE, false
         ) { ex: RangeHighlighterEx ->
             if (ex.textAttributesKey == null) {
                 ex.setTextAttributes(contentType.attributes)
