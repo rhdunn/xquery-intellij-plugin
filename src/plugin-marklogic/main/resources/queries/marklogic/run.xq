@@ -64,6 +64,9 @@ declare variable $server as xs:string external := "";
 declare variable $database as xs:string external := "";
 declare variable $module-root as xs:string external := "";
 
+declare variable $content-type-header-prefix as xs:string external := "X-Content-Type-";
+declare variable $derived-type-header-prefix as xs:string external := "X-Derived-";
+
 declare function local:nullize($value) {
     if (string-length($value) eq 0) then () else $value
 };
@@ -395,18 +398,18 @@ try {
     let $retvals := for $item in $retvals where not($item instance of sem:triple) return $item
     return if (exists($triples) and $rdf-output-format ne "") then
         let $rdf-output := sem:rdf-serialize($triples, local:rdf-format($rdf-output-format))
-        let $_ := xdmp:add-response-header("X-Content-Type-" || (count($retvals) + 1), $rdf-output-format)
+        let $_ := xdmp:add-response-header($content-type-header-prefix || (count($retvals) + 1), $rdf-output-format)
         return (
             for $retval at $i in $retvals
-            let $_ := local:derived-type-name($retval) ! xdmp:add-response-header("X-Derived-" || $i, .)
+            let $_ := local:derived-type-name($retval) ! xdmp:add-response-header($derived-type-header-prefix || $i, .)
             return $retval,
             $rdf-output
         )
     else
         for $retval at $i in ($retvals, $triples)
-        let $_ := local:derived-type-name($retval) ! xdmp:add-response-header("X-Derived-" || $i, .)
+        let $_ := local:derived-type-name($retval) ! xdmp:add-response-header($derived-type-header-prefix || $i, .)
         return $retval
 } catch * {
-    let $_ := xdmp:add-response-header("X-Derived-1", "err:error")
+    let $_ := xdmp:add-response-header($derived-type-header-prefix || 1, "err:error")
     return $err:additional
 }
