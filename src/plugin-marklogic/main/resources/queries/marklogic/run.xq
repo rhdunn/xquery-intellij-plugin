@@ -201,7 +201,14 @@ declare function local:rdf-format($mimetype) {
 
 declare function local:eval-options() {
     let $server := local:nullize($server) ! xdmp:server(.)
-    let $database := local:nullize($database) ! xdmp:database(.)
+    let $database :=
+        let $id := local:nullize($database) ! xdmp:database(.)
+        return if (exists($id)) then
+            $id
+        else if (exists($server)) then
+            xdmp:server-database($server)
+        else
+            ()
     return <options xmlns="xdmp:eval">{
         if ($mode eq "validate") then
             <static-check>true</static-check>
