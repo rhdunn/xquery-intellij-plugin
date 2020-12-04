@@ -50,19 +50,19 @@ declare option o:implementation "marklogic/6.0";
  : 3.  The REST API only returns the primitive type of each item.
  :)
 
-declare variable $mode as xs:string external;
-declare variable $mimetype as xs:string external;
-declare variable $module-path as xs:string external;
-declare variable $query as xs:string external;
-declare variable $vars as xs:string external;
-declare variable $types as xs:string external;
-declare variable $context-value as xs:string external;
-declare variable $context-path as xs:string external;
-declare variable $rdf-output-format as xs:string external;
-declare variable $updating as xs:string external;
-declare variable $server as xs:string external;
-declare variable $database as xs:string external;
-declare variable $module-root as xs:string external;
+declare variable $mode as xs:string external := "run";
+declare variable $mimetype as xs:string external := "application/xquery";
+declare variable $module-path as xs:string external := "";
+declare variable $query as xs:string external := "()";
+declare variable $vars as xs:string external := "{}";
+declare variable $types as xs:string external := "{}";
+declare variable $context-value as xs:string external := "";
+declare variable $context-path as xs:string external := "";
+declare variable $rdf-output-format as xs:string external := "";
+declare variable $updating as xs:string external := "false";
+declare variable $server as xs:string external := "";
+declare variable $database as xs:string external := "";
+declare variable $module-root as xs:string external := "";
 
 declare function local:nullize($value) {
     if (string-length($value) eq 0) then () else $value
