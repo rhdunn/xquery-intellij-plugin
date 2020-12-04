@@ -84,6 +84,10 @@
       <li>Fix returning all results from a query when there are more than 10 results.</li>
       <li>Support error messages that return html pages.</li>
     </ol>
+    <p>MarkLogic:</p>
+    <ol>
+      <li>Support running queries with lower privileges when the module root matches the server configuration.</li>
+    </ol>
     <p>Code Completion:</p>
     <ol>
       <li>

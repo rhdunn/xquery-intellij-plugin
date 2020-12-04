@@ -11,6 +11,10 @@ eXist-db:
 1. Fix returning all results from a query when there are more than 10 results.
 1. Support error messages that return html pages.
 
+MarkLogic:
+
+1. Support running queries with lower privileges when the module root matches the server configuration.
+
 Code Completion:
 
 1. Fix completing `AtomicOrUnionType` names when a prefix is specified, and the

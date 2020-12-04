@@ -199,6 +199,10 @@ declare function local:rdf-format($mimetype) {
     default return fn:error("UNSUPPORTED-RDF-FORMAT", "Unsupported RDF format: " || $mimetype)
 };
 
+declare function local:use-modules-root($server-root) {
+    exists($server-root) and string-length($module-root) ne 0 and not($module-root eq $server-root)
+};
+
 declare function local:eval-options() {
     let $server := local:nullize($server) ! xdmp:server(.)
     let $database :=
@@ -231,16 +235,11 @@ declare function local:eval-options() {
             <default-xquery-version>{xdmp:server-default-xquery-version($server)}</default-xquery-version>
         else
             (),
-        if (exists($server)) then
-            <modules>{xdmp:server-modules-database($server)}</modules>
-        else if (string-length($module-root) ne 0) then
-            <modules>0</modules> (: file system :)
+        let $server-root := $server ! xdmp:server-root(.)
+        return if (local:use-modules-root($server-root)) then
+            (<modules>0</modules>, <root>{$module-root}</root>) (: file system :)
         else
-            (),
-        if (exists($server) or string-length($module-root) ne 0) then
-            <root>{(local:nullize($module-root), xdmp:server-root($server))[1]}</root>
-        else
-            (),
+            (), (: use the default server settings :)
         let $major := local:version()
         let $minor := local:version-minor()
         return if ($mode = "debug") then
