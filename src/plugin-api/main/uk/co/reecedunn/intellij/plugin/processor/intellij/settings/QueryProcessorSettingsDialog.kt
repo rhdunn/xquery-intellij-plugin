@@ -18,10 +18,13 @@ package uk.co.reecedunn.intellij.plugin.processor.intellij.settings
 import com.intellij.icons.AllIcons
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.application.ModalityState
+import com.intellij.openapi.fileChooser.FileChooserDescriptor
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.fileChooser.FileTypeDescriptor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
+import com.intellij.openapi.util.SystemInfo
+import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
@@ -125,7 +128,7 @@ class QueryProcessorSettingsDialog(private val project: Project) : Dialog<QueryP
     private lateinit var hostname: JTextField
 
     private lateinit var awsInstance: JRadioButton
-    private lateinit var awsApplication: JTextField
+    private lateinit var awsApplication: TextFieldWithBrowseButton
     private lateinit var awsProfile: JTextField
     private lateinit var awsRegion: JTextField
     private lateinit var awsInstanceName: JTextField
@@ -224,7 +227,27 @@ class QueryProcessorSettingsDialog(private val project: Project) : Dialog<QueryP
                     PluginApiBundle.message("xquery.settings.dialog.query-processor.aws.application.label"),
                     column.surrogate().vgap()
                 )
-                awsApplication = textField(column.horizontal().hgap().vgap())
+                awsApplication = textFieldWithBrowseButton(column.horizontal().hgap().vgap()) {
+                    addBrowseFolderListener(
+                        PluginApiBundle.message("browser.choose.aws-application"), null,
+                        project,
+                        object : FileChooserDescriptor(true, false, false, false, false, false) {
+                            override fun isFileVisible(file: VirtualFile?, showHiddenFiles: Boolean): Boolean = when {
+                                file == null -> false
+                                file.isDirectory -> true
+                                else -> file.name == "aws" || file.name == "aws.exe"
+                            }
+
+                            override fun isFileSelectable(file: VirtualFile): Boolean {
+                                return super.isFileSelectable(file) || isMacExecutable(file)
+                            }
+
+                            fun isMacExecutable(file: VirtualFile): Boolean {
+                                return SystemInfo.isMac && file.isDirectory && "app" == file.extension
+                            }
+                        }
+                    )
+                }
             }
             row {
                 label(
