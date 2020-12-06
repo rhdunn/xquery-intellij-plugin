@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
 
-import uk.co.reecedunn.intellij.plugin.processor.query.ConnectionSettings
+import uk.co.reecedunn.intellij.plugin.processor.query.connection.ConnectionSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorInstanceManager
 import java.io.File

@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.existdb.log.Log4JPattern
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.processor.log.LogViewProvider
 import uk.co.reecedunn.intellij.plugin.processor.query.*
+import uk.co.reecedunn.intellij.plugin.processor.query.connection.ConnectionSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 
 internal class EXistDBQueryProcessor(

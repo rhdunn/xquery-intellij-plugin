@@ -22,7 +22,7 @@ import org.apache.http.client.methods.HttpUriRequest
 import org.apache.http.impl.client.BasicCredentialsProvider
 import org.apache.http.impl.client.CloseableHttpClient
 import org.apache.http.impl.client.HttpClients
-import uk.co.reecedunn.intellij.plugin.processor.query.ConnectionSettings
+import uk.co.reecedunn.intellij.plugin.processor.query.connection.ConnectionSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.MissingHostNameException
 import java.io.Closeable
 

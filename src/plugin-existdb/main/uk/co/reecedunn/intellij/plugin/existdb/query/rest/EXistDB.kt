@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.existdb.query.rest
 
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
-import uk.co.reecedunn.intellij.plugin.processor.query.ConnectionSettings
+import uk.co.reecedunn.intellij.plugin.processor.query.connection.ConnectionSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorInstanceManager
 

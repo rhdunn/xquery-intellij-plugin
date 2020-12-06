@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.basex.query.session
 import uk.co.reecedunn.intellij.plugin.basex.query.session.binding.ClientSession
 import uk.co.reecedunn.intellij.plugin.basex.query.session.binding.Context
 import uk.co.reecedunn.intellij.plugin.basex.query.session.binding.LocalSession
-import uk.co.reecedunn.intellij.plugin.processor.query.ConnectionSettings
+import uk.co.reecedunn.intellij.plugin.processor.query.connection.ConnectionSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorInstanceManager
 import java.io.File

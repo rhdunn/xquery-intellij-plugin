@@ -30,6 +30,7 @@ import uk.co.reecedunn.intellij.plugin.core.ui.Insets
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
 import uk.co.reecedunn.intellij.plugin.processor.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.query.*
+import uk.co.reecedunn.intellij.plugin.processor.query.connection.ConnectionSettings
 import java.awt.Dimension
 import java.awt.event.ActionEvent
 import java.awt.event.ActionListener

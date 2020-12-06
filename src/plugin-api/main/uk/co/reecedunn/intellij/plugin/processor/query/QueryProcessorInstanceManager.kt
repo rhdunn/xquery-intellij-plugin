@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.query
 
+import uk.co.reecedunn.intellij.plugin.processor.query.connection.ConnectionSettings
+
 interface QueryProcessorInstanceManager {
     fun create(): QueryProcessor
 
