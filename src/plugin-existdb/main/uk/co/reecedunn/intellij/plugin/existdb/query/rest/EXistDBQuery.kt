@@ -26,11 +26,11 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.core.xml.*
 import uk.co.reecedunn.intellij.plugin.existdb.intellij.resources.EXistDBQueries
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
-import uk.co.reecedunn.intellij.plugin.processor.query.connection.ConnectionSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResults
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
+import uk.co.reecedunn.intellij.plugin.processor.query.connection.InstanceDetails
 import uk.co.reecedunn.intellij.plugin.processor.query.http.BuildableQuery
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsDuration
 
@@ -38,7 +38,7 @@ internal class EXistDBQuery(
     private val builder: RequestBuilder,
     private val queryFile: VirtualFile,
     private val connection: HttpConnection,
-    private val settings: ConnectionSettings
+    private val settings: InstanceDetails
 ) : RunnableQuery, BuildableQuery {
     companion object {
         private val EXIST_NAMESPACES = mapOf(

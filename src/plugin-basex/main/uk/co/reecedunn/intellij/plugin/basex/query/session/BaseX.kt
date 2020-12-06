@@ -18,9 +18,9 @@ package uk.co.reecedunn.intellij.plugin.basex.query.session
 import uk.co.reecedunn.intellij.plugin.basex.query.session.binding.ClientSession
 import uk.co.reecedunn.intellij.plugin.basex.query.session.binding.Context
 import uk.co.reecedunn.intellij.plugin.basex.query.session.binding.LocalSession
-import uk.co.reecedunn.intellij.plugin.processor.query.connection.ConnectionSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorInstanceManager
+import uk.co.reecedunn.intellij.plugin.processor.query.connection.InstanceDetails
 import java.io.File
 import java.net.URLClassLoader
 import java.net.UnknownHostException
@@ -37,7 +37,7 @@ class BaseX(private val classLoader: ClassLoader) : QueryProcessorInstanceManage
 
     override fun create(): QueryProcessor = BaseXQueryProcessor(LocalSession(context), classLoader)
 
-    override fun connect(settings: ConnectionSettings): QueryProcessor {
+    override fun connect(settings: InstanceDetails): QueryProcessor {
         if (settings.hostname.isEmpty())
             throw UnknownHostException("")
 

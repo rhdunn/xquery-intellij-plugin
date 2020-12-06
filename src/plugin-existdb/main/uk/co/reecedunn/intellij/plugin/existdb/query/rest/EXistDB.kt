@@ -16,9 +16,9 @@
 package uk.co.reecedunn.intellij.plugin.existdb.query.rest
 
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
-import uk.co.reecedunn.intellij.plugin.processor.query.connection.ConnectionSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorInstanceManager
+import uk.co.reecedunn.intellij.plugin.processor.query.connection.InstanceDetails
 
 class EXistDB : QueryProcessorInstanceManager {
     override fun create(): QueryProcessor {
@@ -26,7 +26,7 @@ class EXistDB : QueryProcessorInstanceManager {
         throw UnsupportedOperationException()
     }
 
-    override fun connect(settings: ConnectionSettings): QueryProcessor {
+    override fun connect(settings: InstanceDetails): QueryProcessor {
         val baseUrl = "http://${settings.hostname}:${settings.databasePort}/exist/rest"
         return EXistDBQueryProcessor(baseUrl, HttpConnection(settings), settings)
     }

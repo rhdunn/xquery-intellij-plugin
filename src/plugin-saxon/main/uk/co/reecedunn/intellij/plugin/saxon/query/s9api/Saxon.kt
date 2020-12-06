@@ -15,9 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
 
-import uk.co.reecedunn.intellij.plugin.processor.query.connection.ConnectionSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorInstanceManager
+import uk.co.reecedunn.intellij.plugin.processor.query.connection.InstanceDetails
 import java.io.File
 import java.io.InputStream
 import java.net.URLClassLoader
@@ -28,7 +28,7 @@ class Saxon(private val classLoader: ClassLoader, private val config: InputStrea
 
     override fun create(): QueryProcessor = SaxonQueryProcessor(classLoader, config?.let { StreamSource(it) })
 
-    override fun connect(settings: ConnectionSettings): QueryProcessor {
+    override fun connect(settings: InstanceDetails): QueryProcessor {
         // Saxon does not provide support for running it as a database server.
         throw UnsupportedOperationException()
     }

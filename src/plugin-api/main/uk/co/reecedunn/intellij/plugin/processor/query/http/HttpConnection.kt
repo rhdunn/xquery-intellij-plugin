@@ -22,11 +22,11 @@ import org.apache.http.client.methods.HttpUriRequest
 import org.apache.http.impl.client.BasicCredentialsProvider
 import org.apache.http.impl.client.CloseableHttpClient
 import org.apache.http.impl.client.HttpClients
-import uk.co.reecedunn.intellij.plugin.processor.query.connection.ConnectionSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.MissingHostNameException
+import uk.co.reecedunn.intellij.plugin.processor.query.connection.InstanceDetails
 import java.io.Closeable
 
-class HttpConnection(val settings: ConnectionSettings) : Closeable {
+class HttpConnection(val settings: InstanceDetails) : Closeable {
     init {
         if (settings.hostname.isEmpty())
             throw MissingHostNameException()

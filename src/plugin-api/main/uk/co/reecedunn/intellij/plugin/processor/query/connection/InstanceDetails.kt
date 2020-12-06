@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,12 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.processor.query
+package uk.co.reecedunn.intellij.plugin.processor.query.connection
 
-import uk.co.reecedunn.intellij.plugin.processor.query.connection.InstanceDetails
+interface InstanceDetails {
+    var hostname: String
 
-interface QueryProcessorInstanceManager {
-    fun create(): QueryProcessor
+    var databasePort: Int
 
-    fun connect(settings: InstanceDetails): QueryProcessor
+    var username: String?
+
+    val password: String?
+
+    fun setPassword(password: CharArray?)
 }
