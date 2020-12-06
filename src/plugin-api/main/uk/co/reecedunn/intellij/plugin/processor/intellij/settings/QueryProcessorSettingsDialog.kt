@@ -32,7 +32,6 @@ import uk.co.reecedunn.intellij.plugin.processor.intellij.resources.PluginApiBun
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 import uk.co.reecedunn.intellij.plugin.processor.query.connection.ConnectionSettings
 import java.awt.Dimension
-import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
 import javax.swing.*
 
@@ -75,17 +74,21 @@ class QueryProcessorSettingsDialog(private val project: Project) : Dialog<QueryP
             configuration.isEnabled = selection.hasConfiguration
 
             if (selection.canCreate && !selection.canConnect) { // create only
-                standalone.isEnabled = false
-                standalone.isSelected = true
+                standaloneInstance.isEnabled = false
+                serverInstance.isEnabled = false
+
+                standaloneInstance.isSelected = true
             } else if (!selection.canCreate && selection.canConnect) { // connect only
-                standalone.isEnabled = false
-                standalone.isSelected = false
+                standaloneInstance.isEnabled = false
+                serverInstance.isEnabled = false
+
+                serverInstance.isSelected = true
             } else { // create and connect
-                standalone.isEnabled = true
+                standaloneInstance.isEnabled = true
+                serverInstance.isEnabled = true
             }
 
-            val e = ActionEvent(standalone, 0, "api", 0)
-            standalone.actionListeners.forEach { listener -> listener.actionPerformed(e) }
+            updateInstanceSelection()
         }
 
     // endregion
@@ -107,15 +110,28 @@ class QueryProcessorSettingsDialog(private val project: Project) : Dialog<QueryP
     // region SettingsUI
 
     private lateinit var description: JTextField
+
     private lateinit var api: JComboBox<QueryProcessorApi>
     private lateinit var jar: TextFieldWithBrowseButton
     private lateinit var configuration: TextFieldWithBrowseButton
-    private lateinit var standalone: JCheckBox
+
+    private lateinit var standaloneInstance: JRadioButton
+    private lateinit var serverInstance: JRadioButton
+
     private lateinit var hostname: JTextField
     private lateinit var databasePort: JTextField
     private lateinit var username: JTextField
     private lateinit var password: JPasswordField
+
     private lateinit var errorMessage: JLabel
+
+    private fun updateInstanceSelection() {
+        val serverEnabled = serverInstance.isSelected
+        hostname.isEnabled = serverEnabled
+        databasePort.isEnabled = serverEnabled
+        username.isEnabled = serverEnabled
+        password.isEnabled = serverEnabled
+    }
 
     override val panel: JPanel = panel {
         row {
@@ -156,16 +172,18 @@ class QueryProcessorSettingsDialog(private val project: Project) : Dialog<QueryP
                 )
             }
         }
-        row {
-            standalone = checkBox(column.horizontal().spanCols().vgap()) {
-                text = PluginApiBundle.message("xquery.settings.dialog.query-processor.standalone.label")
-                addActionListener {
-                    val serverEnabled = !isSelected
-                    hostname.isEnabled = serverEnabled
-                    databasePort.isEnabled = serverEnabled
-                    username.isEnabled = serverEnabled
-                    password.isEnabled = serverEnabled
+        buttonGroup {
+            row {
+                standaloneInstance = radio(column.vgap()) {
+                    text = PluginApiBundle.message("xquery.settings.dialog.query-processor.instance.standalone.label")
                 }
+                standaloneInstance.addActionListener { updateInstanceSelection() }
+            }
+            row {
+                serverInstance = radio(column.vgap()) {
+                    text = PluginApiBundle.message("xquery.settings.dialog.query-processor.instance.server.label")
+                }
+                serverInstance.addActionListener { updateInstanceSelection() }
             }
         }
         row {
@@ -197,21 +215,22 @@ class QueryProcessorSettingsDialog(private val project: Project) : Dialog<QueryP
         jar.textField.text = configuration.jar
         this.configuration.textField.text = configuration.configurationPath
         if (configuration.connection != null) {
-            standalone.isSelected = false
+            serverInstance.isSelected = true
+
             hostname.text = configuration.connection!!.hostname
             databasePort.text = configuration.connection!!.databasePort.toString()
             username.text = configuration.connection!!.username
             password.text = configuration.connection!!.password
         } else {
-            standalone.isSelected = true
+            standaloneInstance.isSelected = true
+
             hostname.text = ""
             databasePort.text = "0"
             username.text = ""
             password.text = ""
         }
 
-        val e = ActionEvent(standalone, 0, "reset", 0)
-        standalone.actionListeners.forEach { listener -> listener.actionPerformed(e) }
+        updateInstanceSelection()
     }
 
     override fun apply(configuration: QueryProcessorSettings) {
@@ -219,7 +238,7 @@ class QueryProcessorSettingsDialog(private val project: Project) : Dialog<QueryP
         configuration.api = api.selectedItem as QueryProcessorApi
         configuration.jar = jar.textField.text.nullize()
         configuration.configurationPath = this.configuration.textField.text.nullize()
-        if (!standalone.isSelected) {
+        if (serverInstance.isSelected) {
             val dbPort = databasePort.text.toInt()
             val user = username.text.nullize()
             configuration.connection = ConnectionSettings(hostname.text, dbPort, user)
