@@ -85,6 +85,7 @@
       <li>Fix returning all results from an eXist-db query when there are more than 10 results.</li>
       <li>Support eXist-db error messages that return html pages.</li>
       <li>Support running MarkLogic queries with lower privileges when the module root matches the server configuration.</li>
+      <li>Preserve the database and server settings when the query processor fails with an exception.</li>
     </ol>
     <p>Code Completion:</p>
     <ol>

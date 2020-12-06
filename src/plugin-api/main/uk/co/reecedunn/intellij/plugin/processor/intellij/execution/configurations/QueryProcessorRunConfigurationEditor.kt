@@ -191,8 +191,10 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
                 }
             } catch (e: Throwable) {
                 invokeLater(ModalityState.any()) {
+                    val current = server.selectedItem
                     server.removeAllItems()
                     server.addItem(null)
+                    server.selectedItem = current
                 }
             }
         }
@@ -215,8 +217,10 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
                 }
             } catch (e: Throwable) {
                 invokeLater(ModalityState.any()) {
+                    val current = database.selectedItem
                     database.removeAllItems()
                     database.addItem(null)
+                    database.selectedItem = current
                 }
             }
         }

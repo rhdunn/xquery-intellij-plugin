@@ -12,6 +12,7 @@ Run Configurations:
 1. Fix returning all results from an eXist-db query when there are more than 10 results.
 1. Support eXist-db error messages that return html pages.
 1. Support running MarkLogic queries with lower privileges when the module root matches the server configuration.
+1. Preserve the database and server settings when the query processor fails with an exception.
 
 Code Completion:
 
