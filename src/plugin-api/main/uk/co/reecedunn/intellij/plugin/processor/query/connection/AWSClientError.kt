@@ -15,14 +15,4 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.query.connection
 
-interface InstanceDetails {
-    val hostname: String
-
-    var databasePort: Int
-
-    var username: String?
-
-    val password: String?
-
-    fun setPassword(password: CharArray?)
-}
+class AWSClientError(message: String) : RuntimeException(message)

@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.processor.query
 
 import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessorSettingsModel
+import uk.co.reecedunn.intellij.plugin.processor.query.connection.AWSConnectionSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.connection.ConnectionSettings
 import java.io.Closeable
 import java.io.FileInputStream
@@ -52,6 +53,12 @@ class QueryProcessorSettings : Closeable {
             processor = null
         }
 
+    var awsConnection: AWSConnectionSettings? = null
+        set(value) {
+            field = value
+            processor = null
+        }
+
     var api: QueryProcessorApi
         get() = QueryProcessorApi.apis.find { value -> value.id == apiId }!!
         set(value) {
@@ -79,10 +86,11 @@ class QueryProcessorSettings : Closeable {
             }
 
             if (processor == null) {
-                processor = if (connection == null)
-                    instance!!.create()
-                else
-                    instance!!.connect(connection!!)
+                processor = when {
+                    connection != null -> instance!!.connect(connection!!)
+                    awsConnection != null -> instance!!.connect(awsConnection!!)
+                    else -> instance!!.create()
+                }
             }
 
             return processor!!

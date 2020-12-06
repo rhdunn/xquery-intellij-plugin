@@ -6,14 +6,12 @@ XPath, XQuery, and XSLT:
 
 1. Better error recovery when an `AxisStep` is used in `CatchClause` or `xsl:nametests`.
 
-eXist-db:
+Run Configurations:
 
-1. Fix returning all results from a query when there are more than 10 results.
-1. Support error messages that return html pages.
-
-MarkLogic:
-
-1. Support running queries with lower privileges when the module root matches the server configuration.
+1. Support query processors for servers running on internal AWS instances.
+1. Fix returning all results from an eXist-db query when there are more than 10 results.
+1. Support eXist-db error messages that return html pages.
+1. Support running MarkLogic queries with lower privileges when the module root matches the server configuration.
 
 Code Completion:
 

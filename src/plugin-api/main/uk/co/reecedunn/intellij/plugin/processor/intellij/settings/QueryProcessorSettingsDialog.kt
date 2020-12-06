@@ -30,6 +30,7 @@ import uk.co.reecedunn.intellij.plugin.core.ui.Insets
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
 import uk.co.reecedunn.intellij.plugin.processor.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.query.*
+import uk.co.reecedunn.intellij.plugin.processor.query.connection.AWSConnectionSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.connection.ConnectionSettings
 import java.awt.Dimension
 import java.awt.event.ActionListener
@@ -76,16 +77,19 @@ class QueryProcessorSettingsDialog(private val project: Project) : Dialog<QueryP
             if (selection.canCreate && !selection.canConnect) { // create only
                 standaloneInstance.isEnabled = false
                 serverInstance.isEnabled = false
+                awsInstance.isEnabled = false
 
                 standaloneInstance.isSelected = true
             } else if (!selection.canCreate && selection.canConnect) { // connect only
                 standaloneInstance.isEnabled = false
-                serverInstance.isEnabled = false
+                serverInstance.isEnabled = true
+                awsInstance.isEnabled = true
 
                 serverInstance.isSelected = true
             } else { // create and connect
                 standaloneInstance.isEnabled = true
                 serverInstance.isEnabled = true
+                awsInstance.isEnabled = true
             }
 
             updateInstanceSelection()
@@ -120,6 +124,12 @@ class QueryProcessorSettingsDialog(private val project: Project) : Dialog<QueryP
     private lateinit var serverInstance: JRadioButton
     private lateinit var hostname: JTextField
 
+    private lateinit var awsInstance: JRadioButton
+    private lateinit var awsApplication: JTextField
+    private lateinit var awsProfile: JTextField
+    private lateinit var awsRegion: JTextField
+    private lateinit var awsInstanceName: JTextField
+
     private lateinit var databasePort: JTextField
     private lateinit var username: JTextField
     private lateinit var password: JPasswordField
@@ -129,9 +139,16 @@ class QueryProcessorSettingsDialog(private val project: Project) : Dialog<QueryP
     private fun updateInstanceSelection() {
         val serverEnabled = serverInstance.isSelected
         hostname.isEnabled = serverEnabled
-        databasePort.isEnabled = serverEnabled
-        username.isEnabled = serverEnabled
-        password.isEnabled = serverEnabled
+
+        val awsEnabled = awsInstance.isSelected
+        awsApplication.isEnabled = awsEnabled
+        awsProfile.isEnabled = awsEnabled
+        awsRegion.isEnabled = awsEnabled
+        awsInstanceName.isEnabled = awsEnabled
+
+        databasePort.isEnabled = serverEnabled || awsEnabled
+        username.isEnabled = serverEnabled || awsEnabled
+        password.isEnabled = serverEnabled || awsEnabled
     }
 
     override val panel: JPanel = panel {
@@ -195,6 +212,41 @@ class QueryProcessorSettingsDialog(private val project: Project) : Dialog<QueryP
                 )
                 hostname = textField(column.horizontal().hgap().vgap())
             }
+            // AWS server instance
+            row {
+                awsInstance = radio(column.vgap()) {
+                    text = PluginApiBundle.message("xquery.settings.dialog.query-processor.instance.aws.label")
+                }
+                awsInstance.addActionListener { updateInstanceSelection() }
+            }
+            row {
+                label(
+                    PluginApiBundle.message("xquery.settings.dialog.query-processor.aws.application.label"),
+                    column.surrogate().vgap()
+                )
+                awsApplication = textField(column.horizontal().hgap().vgap())
+            }
+            row {
+                label(
+                    PluginApiBundle.message("xquery.settings.dialog.query-processor.aws.profile.label"),
+                    column.surrogate().vgap()
+                )
+                awsProfile = textField(column.horizontal().hgap().vgap())
+            }
+            row {
+                label(
+                    PluginApiBundle.message("xquery.settings.dialog.query-processor.aws.region.label"),
+                    column.surrogate().vgap()
+                )
+                awsRegion = textField(column.horizontal().hgap().vgap())
+            }
+            row {
+                label(
+                    PluginApiBundle.message("xquery.settings.dialog.query-processor.aws.instance-name.label"),
+                    column.surrogate().vgap()
+                )
+                awsInstanceName = textField(column.horizontal().hgap().vgap())
+            }
         }
         row {
             label(PluginApiBundle.message("xquery.settings.dialog.query-processor.database-port.label"), column.vgap())
@@ -220,20 +272,44 @@ class QueryProcessorSettingsDialog(private val project: Project) : Dialog<QueryP
         api.selectedItem = configuration.api
         jar.textField.text = configuration.jar
         this.configuration.textField.text = configuration.configurationPath
-        if (configuration.connection != null) {
-            serverInstance.isSelected = true
 
-            hostname.text = configuration.connection!!.hostname
-            databasePort.text = configuration.connection!!.databasePort.toString()
-            username.text = configuration.connection!!.username
-            password.text = configuration.connection!!.password
-        } else {
-            standaloneInstance.isSelected = true
+        when {
+            configuration.connection != null -> {
+                serverInstance.isSelected = true
 
-            hostname.text = ""
-            databasePort.text = "0"
-            username.text = ""
-            password.text = ""
+                hostname.text = configuration.connection!!.hostname
+                awsApplication.text = ""
+                awsProfile.text = ""
+                awsRegion.text = ""
+                awsInstanceName.text = ""
+                databasePort.text = configuration.connection!!.databasePort.toString()
+                username.text = configuration.connection!!.username
+                password.text = configuration.connection!!.password
+            }
+            configuration.awsConnection != null -> {
+                awsInstance.isSelected = true
+
+                hostname.text = ""
+                awsApplication.text = configuration.awsConnection!!.application
+                awsProfile.text = configuration.awsConnection!!.profile
+                awsRegion.text = configuration.awsConnection!!.region
+                awsInstanceName.text = configuration.awsConnection!!.instanceName
+                databasePort.text = configuration.awsConnection!!.databasePort.toString()
+                username.text = configuration.awsConnection!!.username
+                password.text = configuration.awsConnection!!.password
+            }
+            else -> {
+                standaloneInstance.isSelected = true
+
+                hostname.text = ""
+                awsApplication.text = ""
+                awsProfile.text = ""
+                awsRegion.text = ""
+                awsInstanceName.text = ""
+                databasePort.text = "0"
+                username.text = ""
+                password.text = ""
+            }
         }
 
         updateInstanceSelection()
@@ -244,13 +320,29 @@ class QueryProcessorSettingsDialog(private val project: Project) : Dialog<QueryP
         configuration.api = api.selectedItem as QueryProcessorApi
         configuration.jar = jar.textField.text.nullize()
         configuration.configurationPath = this.configuration.textField.text.nullize()
-        if (serverInstance.isSelected) {
-            val dbPort = databasePort.text.toInt()
-            val user = username.text.nullize()
-            configuration.connection = ConnectionSettings(hostname.text, dbPort, user)
-            configuration.connection!!.setPassword(password.password?.nullize())
-        } else {
-            configuration.connection = null
+        when {
+            serverInstance.isSelected -> {
+                configuration.connection = ConnectionSettings(
+                    hostname.text,
+                    databasePort.text.toInt(),
+                    username.text.nullize()
+                )
+                configuration.connection!!.setPassword(password.password?.nullize())
+            }
+            awsInstance.isSelected -> {
+                configuration.awsConnection = AWSConnectionSettings(
+                    awsApplication.text,
+                    awsProfile.text,
+                    awsRegion.text,
+                    awsInstanceName.text,
+                    databasePort.text.toInt(),
+                    username.text.nullize()
+                )
+                configuration.awsConnection!!.setPassword(password.password?.nullize())
+            }
+            else -> {
+                configuration.connection = null
+            }
         }
     }
 
