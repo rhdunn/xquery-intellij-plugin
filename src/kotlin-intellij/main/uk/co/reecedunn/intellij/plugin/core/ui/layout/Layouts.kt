@@ -142,6 +142,8 @@ fun GridBagConstraints.hgap(x: Int, position: LayoutPosition = LayoutPosition.Be
 
 fun GridBagConstraints.hgap(position: LayoutPosition = LayoutPosition.Before): GridBagConstraints = hgap(6, position)
 
+fun GridBagConstraints.surrogate() = hgap(24)
+
 fun GridBagConstraints.horizontal(weight: Double = 1.0): GridBagConstraints {
     fill = GridBagConstraints.HORIZONTAL
     weightx = weight

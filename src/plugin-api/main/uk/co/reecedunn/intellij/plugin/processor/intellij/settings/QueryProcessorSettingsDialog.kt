@@ -116,9 +116,10 @@ class QueryProcessorSettingsDialog(private val project: Project) : Dialog<QueryP
     private lateinit var configuration: TextFieldWithBrowseButton
 
     private lateinit var standaloneInstance: JRadioButton
-    private lateinit var serverInstance: JRadioButton
 
+    private lateinit var serverInstance: JRadioButton
     private lateinit var hostname: JTextField
+
     private lateinit var databasePort: JTextField
     private lateinit var username: JTextField
     private lateinit var password: JPasswordField
@@ -173,22 +174,27 @@ class QueryProcessorSettingsDialog(private val project: Project) : Dialog<QueryP
             }
         }
         buttonGroup {
+            // Standalone instance
             row {
                 standaloneInstance = radio(column.vgap()) {
                     text = PluginApiBundle.message("xquery.settings.dialog.query-processor.instance.standalone.label")
                 }
                 standaloneInstance.addActionListener { updateInstanceSelection() }
             }
+            // Server instance
             row {
                 serverInstance = radio(column.vgap()) {
                     text = PluginApiBundle.message("xquery.settings.dialog.query-processor.instance.server.label")
                 }
                 serverInstance.addActionListener { updateInstanceSelection() }
             }
-        }
-        row {
-            label(PluginApiBundle.message("xquery.settings.dialog.query-processor.hostname.label"), column.vgap())
-            hostname = textField(column.horizontal().hgap().vgap())
+            row {
+                label(
+                    PluginApiBundle.message("xquery.settings.dialog.query-processor.hostname.label"),
+                    column.surrogate().vgap()
+                )
+                hostname = textField(column.horizontal().hgap().vgap())
+            }
         }
         row {
             label(PluginApiBundle.message("xquery.settings.dialog.query-processor.database-port.label"), column.vgap())
