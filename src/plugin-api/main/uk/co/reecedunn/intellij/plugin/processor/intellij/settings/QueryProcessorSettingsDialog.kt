@@ -345,6 +345,7 @@ class QueryProcessorSettingsDialog(private val project: Project) : Dialog<QueryP
         configuration.configurationPath = this.configuration.textField.text.nullize()
         when {
             serverInstance.isSelected -> {
+                configuration.awsConnection = null
                 configuration.connection = ConnectionSettings(
                     hostname.text,
                     databasePort.text.toInt(),
@@ -353,6 +354,7 @@ class QueryProcessorSettingsDialog(private val project: Project) : Dialog<QueryP
                 configuration.connection!!.setPassword(password.password?.nullize())
             }
             awsInstance.isSelected -> {
+                configuration.connection = null
                 configuration.awsConnection = AWSConnectionSettings(
                     awsApplication.text,
                     awsProfile.text,
@@ -364,6 +366,7 @@ class QueryProcessorSettingsDialog(private val project: Project) : Dialog<QueryP
                 configuration.awsConnection!!.setPassword(password.password?.nullize())
             }
             else -> {
+                configuration.awsConnection = null
                 configuration.connection = null
             }
         }
