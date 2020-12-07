@@ -13,6 +13,7 @@ Run Configurations:
 1. Support eXist-db error messages that return html pages.
 1. Support running MarkLogic queries with lower privileges when the module root matches the server configuration.
 1. Preserve the database and server settings when the query processor fails with an exception.
+1. Use the selected processor from the manage query processors dialog in the run configuration when pressing OK.
 
 Code Completion:
 

@@ -93,10 +93,16 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
                     list = JBList(model)
                     list.cellRenderer = QueryProcessorSettingsCellRenderer()
                     list.setEmptyText(PluginApiBundle.message("xquery.configurations.processor.manage-processors-empty"))
+                    list.selectedIndex = queryProcessor.childComponent.selectedIndex
                     list
                 }
             }
-            dialog.showAndGet()
+            if (dialog.showAndGet()) {
+                val index = list.selectedIndex
+                if (index > 0 && queryProcessor.childComponent.selectedIndex != index) {
+                    queryProcessor.childComponent.selectedIndex = index
+                }
+            }
         }
 
     // endregion

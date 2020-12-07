@@ -86,6 +86,7 @@
       <li>Support eXist-db error messages that return html pages.</li>
       <li>Support running MarkLogic queries with lower privileges when the module root matches the server configuration.</li>
       <li>Preserve the database and server settings when the query processor fails with an exception.</li>
+      <li>Use the selected processor from the manage query processors dialog in the run configuration when pressing OK.</li>
     </ol>
     <p>Code Completion:</p>
     <ol>
