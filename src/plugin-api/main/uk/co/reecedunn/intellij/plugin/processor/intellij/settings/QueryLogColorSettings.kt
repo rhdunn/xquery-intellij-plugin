@@ -39,6 +39,7 @@ class QueryLogColorSettings : ColorSettingsPage {
     @Suppress("PrivatePropertyName")
     private val ATTRIBUTE_DESCRIPTORS = arrayOf(
         AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.datetime.name"), LogFileContentType.DATE_TIME_KEY),
+        AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.thread.name"), LogFileContentType.THREAD_KEY),
         AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.verbose.name"), LogFileContentType.VERBOSE_KEY),
         AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.finest.name"), LogFileContentType.FINEST_KEY),
         AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.finer.name"), LogFileContentType.FINER_KEY),
@@ -64,6 +65,7 @@ class QueryLogColorSettings : ColorSettingsPage {
     @Suppress("PrivatePropertyName")
     private val ADDITIONAL_HIGHLIGHTING_TAGS = mutableMapOf(
         "datetime" to LogFileContentType.DATE_TIME_KEY,
+        "thread" to LogFileContentType.THREAD_KEY,
         "finest" to LogFileContentType.FINEST_KEY,
         "finer" to LogFileContentType.FINER_KEY,
         "fine" to LogFileContentType.FINE_KEY,
