@@ -27,3 +27,5 @@ declare %a:restrict-until("$input", "basex", "8.6.7", "node()")
         %a:restrict-since("$options", "basex", "8.2.1", "map(xs:string, item())")
         %a:restrict-since("$options", "basex", "8.6.7", "map(*)")
         %a:since("basex", "7.7.2") function csv:serialize($input as item()?, $options as item()) as xs:string external;
+declare %a:since("basex", "9.4") function csv:doc($uri as xs:string?) as item()? external;
+declare %a:since("basex", "9.4") function csv:doc($uri as xs:string?, $options as map(*)?) as item()? external;

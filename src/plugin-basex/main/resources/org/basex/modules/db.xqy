@@ -26,8 +26,10 @@ declare %a:since("basex", "7.0") function db:backups() as element(backup)* exter
 declare %a:since("basex", "7.0") function db:backups($db as xs:string) as element(backup)* external;
 declare %a:since("basex", "7.0") function db:open($db as xs:string) as document-node()* external;
 declare %a:since("basex", "7.0") function db:open($db as xs:string, $path as xs:string) as document-node()* external;
-declare %a:since("basex", "7.0") function db:open-pre($db as xs:string, $pre as xs:integer) as node() external;
-declare %a:since("basex", "7.0") function db:open-id($db as xs:string, $id as xs:integer) as node() external;
+declare %a:restrict-since("$pre", "basex", "9.3", "xs:integer*")
+        %a:since("basex", "7.0") function db:open-pre($db as xs:string, $pre as xs:integer) as node()* external;
+declare %a:restrict-since("$id", "basex", "9.3", "xs:integer*")
+        %a:since("basex", "7.0") function db:open-id($db as xs:string, $id as xs:integer) as node()* external;
 declare %a:since("basex", "7.0") function db:node-pre($nodes as node()*) as xs:integer* external;
 declare %a:since("basex", "7.0") function db:node-id($nodes as node()*) as xs:integer* external;
 declare %a:since("basex", "7.0") function db:retrieve($db as xs:string, $path as xs:string) as xs:base64Binary external;
@@ -55,17 +57,20 @@ declare %a:restrict-until("$inputs", "basex", "7.6", "item()")
         %a:since("basex", "7.0") function db:create($db as xs:string, $inputs as item()*, $paths as xs:string*, $options as item()?) as empty-sequence() external;
 declare %a:since("basex", "7.5") function db:drop($db as xs:string) as empty-sequence() external;
 declare %a:since("basex", "7.0") function db:add($db as xs:string, $input as item()) as empty-sequence() external;
-declare %a:since("basex", "7.0") function db:add($db as xs:string, $input as item(), $path as xs:string) as empty-sequence() external;
+declare %a:restrict-since("$path", "basex", "9.2", "xs:string?")
+        %a:since("basex", "7.0") function db:add($db as xs:string, $input as item(), $path as xs:string) as empty-sequence() external;
 declare %a:restrict-until("$options", "basex", "8.2.1", "item()")
         %a:restrict-since("$options", "basex", "8.2.1", "map(xs:string, xs:string)")
         %a:restrict-since("$options", "basex", "8.2.3", "map(*)")
         %a:restrict-since("$options", "basex", "8.6.7", "map(*)?")
+        %a:restrict-since("$path", "basex", "9.2", "xs:string?")
         %a:since("basex", "7.0") function db:add($db as xs:string, $input as item(), $path as xs:string, $options as item()?) as empty-sequence() external;
 declare %a:since("basex", "7.0") function db:delete($db as xs:string, $path as xs:string) as empty-sequence() external;
 declare %a:since("basex", "7.8.2") function db:copy($db as xs:string, $name as xs:string) as empty-sequence() external;
 declare %a:since("basex", "7.8.2") function db:alter($db as xs:string, $name as xs:string) as empty-sequence() external;
 declare %a:since("basex", "7.8.2") function db:create-backup($db as xs:string) as empty-sequence() external;
 declare %a:since("basex", "7.8.2") function db:drop-backup($name as xs:string) as empty-sequence() external;
+declare %a:since("basex", "9.3") function db:alter-backup($name as xs:string, $new-name as xs:string) as empty-sequence() external;
 declare %a:since("basex", "7.8.2") function db:restore($name as xs:string) as empty-sequence() external;
 declare %a:since("basex", "7.0") function db:optimize($db as xs:string) as empty-sequence() external;
 declare %a:since("basex", "7.0") function db:optimize($db as xs:string, $all as xs:boolean) as empty-sequence() external;
