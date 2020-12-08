@@ -78,6 +78,7 @@
         Better error recovery when an <code>AxisStep</code> is used in <code>CatchClause</code>
         or <code>xsl:nametests</code>.
       </li>
+      <li>Updated the BaseX built-in functions to 9.4. Thanks to Bridger Dyson-Smith for adding these.</li>
     </ol>
     <p>Run Configurations:</p>
     <ol>

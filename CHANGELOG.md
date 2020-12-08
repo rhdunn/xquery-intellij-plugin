@@ -5,6 +5,7 @@
 XPath, XQuery, and XSLT:
 
 1. Better error recovery when an `AxisStep` is used in `CatchClause` or `xsl:nametests`.
+1. Updated the BaseX built-in functions to 9.4. Thanks to Bridger Dyson-Smith for adding these.
 
 Run Configurations:
 
