@@ -79,6 +79,7 @@
         or <code>xsl:nametests</code>.
       </li>
       <li>Updated the BaseX built-in functions to 9.4. Thanks to Bridger Dyson-Smith for adding these.</li>
+      <li>Updated the MarkLogic built-in functions to 10.0-5.</li>
     </ol>
     <p>Run Configurations:</p>
     <ol>

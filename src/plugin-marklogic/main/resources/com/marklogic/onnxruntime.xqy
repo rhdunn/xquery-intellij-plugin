@@ -11,8 +11,11 @@ declare namespace o = "http://reecedunn.co.uk/xquery/options";
 
 declare option o:requires "marklogic/10.0-3";
 
+declare %a:since("marklogic", "10.0-5") function ort:get-value($value as ort:value, $index as xs:unsignedLong) as ort:value external;
+declare %a:since("marklogic", "10.0-5") function ort:map($key as ort:value, $value as ort:value) as ort:value external;
 declare %a:since("marklogic", "10.0-3") function ort:run($session as node, $inputs as node) as map:map external;
 declare %a:since("marklogic", "10.0-3") function ort:run($session as node, $inputs as node, $options as map:map) as map:map external;
+declare %a:since("marklogic", "10.0-5") function ort:sequence($values as ort:value*) as ort:value external;
 declare %a:since("marklogic", "10.0-3") function ort:session($model as node) as ort:session external;
 declare %a:since("marklogic", "10.0-3") function ort:session($model as node, $options as map:map) as ort:session external;
 declare %a:since("marklogic", "10.0-3") function ort:session-input-count($session as ort:session) as xs:unsignedLong external;
@@ -21,7 +24,11 @@ declare %a:since("marklogic", "10.0-3") function ort:session-input-type($session
 declare %a:since("marklogic", "10.0-3") function ort:session-output-count($session as ort:session) as xs:unsignedLong external;
 declare %a:since("marklogic", "10.0-3") function ort:session-output-name($session as ort:session, $index as xs:unsignedLong) as xs:string external;
 declare %a:since("marklogic", "10.0-3") function ort:session-output-type($session as ort:session, $index as xs:unsignedLong) as map:map external;
+declare %a:since("marklogic", "10.0-5") function ort:string($content as xs:string*, $shape as xs:long*) as ort:value external;
+declare %a:since("marklogic", "10.0-5") function ort:string-content($value as ort:value) as xs:string* external;
 declare %a:since("marklogic", "10.0-3") function ort:value($data as xs:numeric*, $shape as xs:long*, $type as xs:string) as ort:value external;
+declare %a:since("marklogic", "10.0-5") function ort:value-count($value as ort:value) as xs:unsignedLong external;
 declare %a:since("marklogic", "10.0-3") function ort:value-get-array($value as ort:value) as xs:numeric* external;
 declare %a:since("marklogic", "10.0-3") function ort:value-get-shape($value as ort:value) as xs:long* external;
 declare %a:since("marklogic", "10.0-3") function ort:value-get-type($value as ort:value) as xs:string external;
+declare %a:since("marklogic", "10.0-5") function ort:value-is-tensor($value as ort:value) as xs:boolean external;

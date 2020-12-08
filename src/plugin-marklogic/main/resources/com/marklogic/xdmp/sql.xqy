@@ -27,9 +27,14 @@ declare %a:since("marklogic", "9.0") function sql:hours($arg as xs:genericDateTi
 declare %a:since("marklogic", "9.0") function sql:ifnull($expr1 as item()*, $expr2 as item()*) as item()* external;
 declare %a:since("marklogic", "9.0") function sql:insert($str as xs:string, $start as xs:double, $length as xs:double, $str2 as xs:string) as xs:string external;
 declare %a:since("marklogic", "9.0") function sql:instr($str as xs:string, $n as xs:string) as xs:unsigned external;
-declare %a:since("marklogic", "9.0") function sql:left($str as item(), $n as xs:double) as xs:string external;
+declare %a:restrict-until("$str", "marklogic", "10.0-5", "item()")
+        %a:restrict-until("$n", "marklogic", "10.0-5", "xs:double")
+        %a:restrict-until("return", "marklogic", "10.0-5", "xs:string")
+        %a:since("marklogic", "9.0") function sql:left($str as item()*, $n as xs:double?) as xs:string? external;
 declare %a:since("marklogic", "9.0") function sql:like($input as xs:string?, $pattern as xs:string, $escape as xs:string) as xs:boolean? external;
-declare %a:since("marklogic", "9.0") function sql:ltrim($str as xs:string) as xs:string external;
+declare %a:restrict-until("$n", "marklogic", "10.0-5", "xs:string")
+        %a:restrict-until("return", "marklogic", "10.0-5", "xs:string")
+        %a:since("marklogic", "9.0") function sql:ltrim($str as xs:string?) as xs:string? external;
 declare %a:since("marklogic", "9.0") function sql:minutes($arg as xs:genericDateTimeArg?) as xs:integer? external;
 declare %a:since("marklogic", "9.0") function sql:month($arg as xs:genericDateTimeArg?) as xs:integer? external;
 declare %a:since("marklogic", "9.0") function sql:monthname($arg as xs:genericDateTimeArg?) as xs:string? external;
@@ -38,12 +43,19 @@ declare %a:since("marklogic", "9.0") function sql:octet-length($x as xs:string) 
 declare %a:since("marklogic", "9.0") function sql:quarter($arg as xs:genericDateTimeArg?) as xs:integer? external;
 declare %a:since("marklogic", "9.0") function sql:rand($n as xs:unsignedLong) as xs:unsignedLong external;
 declare %a:since("marklogic", "9.0") function sql:repeat($str as item(), $n as xs:double) as xs:string external;
-declare %a:since("marklogic", "9.0") function sql:right($str as item(), $n as xs:double) as xs:string external;
-declare %a:since("marklogic", "9.0") function sql:rtrim($str as xs:string) as xs:string external;
+declare %a:restrict-until("$str", "marklogic", "10.0-5", "item()")
+        %a:restrict-until("$n", "marklogic", "10.0-5", "xs:double")
+        %a:restrict-until("return", "marklogic", "10.0-5", "xs:string")
+        %a:since("marklogic", "9.0") function sql:right($str as item()*, $n as xs:double?) as xs:string? external;
+declare %a:restrict-until("$n", "marklogic", "10.0-5", "xs:string")
+        %a:restrict-until("return", "marklogic", "10.0-5", "xs:string")
+        %a:since("marklogic", "9.0") function sql:rtrim($str as xs:string?) as xs:string? external;
 declare %a:since("marklogic", "9.0") function sql:seconds($arg as xs:genericDateTimeArg?) as xs:decimal? external;
 declare %a:since("marklogic", "9.0") function sql:sign($x as xs:double) as xs:double external;
 declare %a:since("marklogic", "9.0") function sql:soundex($arg as xs:string) as xs:string external;
-declare %a:since("marklogic", "9.0") function sql:space($n as xs:double) as xs:string external;
+declare %a:restrict-until("$n", "marklogic", "10.0-5", "xs:double")
+        %a:restrict-until("return", "marklogic", "10.0-5", "xs:string")
+        %a:since("marklogic", "9.0") function sql:space($n as xs:double?) as xs:string? external;
 declare %a:since("marklogic", "9.0") function sql:strpos($target as xs:string?, $test as xs:string?) as xs:integer? external;
 declare %a:since("marklogic", "9.0") function sql:strpos($target as xs:string?, $test as xs:string?, $collation as xs:string?) as xs:integer? external;
 declare %a:since("marklogic", "9.0") function sql:timestampadd($dateTimeType as xs:ID, $value as xs:integer, $timestamp as xs:string) as xs:integer? external;

@@ -584,6 +584,7 @@ declare %a:since("marklogic", "5.0") function xdmp:lock-release($uri as xs:strin
 declare %a:since("marklogic", "5.0") function xdmp:log($msg as item()*) as empty-sequence() external;
 declare %a:since("marklogic", "5.0") function xdmp:log($msg as item()*, $level as xs:string?) as empty-sequence() external;
 declare %a:since("marklogic", "5.0") function xdmp:log-level() as xs:string external;
+declare %a:since("marklogic", "10.0-5") function xdmp:logfile-scan($path as xs:string, $match-pattern as xs:string?, $match-flags as xs:string?, $start-date as xs:dateTime?, $end-date as xs:dateTime?) as xs:string* external;
 declare %a:since("marklogic", "5.0") function xdmp:login($name as xs:string) as xs:boolean external;
 declare %a:since("marklogic", "5.0") function xdmp:login($name as xs:string, $password as xs:string?) as xs:boolean external;
 declare %a:since("marklogic", "5.0") function xdmp:login($name as xs:string, $password as xs:string?, $set-session as xs:boolean?) as xs:boolean external;
@@ -745,6 +746,7 @@ declare %a:since("marklogic", "7.0") function xdmp:server-database($id as xs:uns
 declare %a:since("marklogic", "7.0") function xdmp:server-default-xquery-version($id as xs:unsignedLong) as xs:string? external;
 declare %a:since("marklogic", "7.0") function xdmp:server-group($id as xs:unsignedLong) as xs:unsignedLong external;
 declare %a:since("marklogic", "9.0") function xdmp:server-kind($id as xs:unsignedLong) as xs:string external;
+declare %a:since("marklogic", "10.0-5") function xdmp:server-max-threads($id as xs:unsignedLong) as xs:unsignedInt? external;
 declare %a:since("marklogic", "7.0") function xdmp:server-modules-database($id as xs:unsignedLong) as xs:unsignedLong? external;
 declare %a:since("marklogic", "5.0") function xdmp:server-name($id as xs:unsignedLong) as xs:string external;
 declare %a:since("marklogic", "7.0") function xdmp:server-port($id as xs:unsignedLong) as xs:unsignedInt? external;
