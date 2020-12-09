@@ -19,12 +19,10 @@ package com.intellij.compat.testFramework
 import com.intellij.mock.MockApplication
 import com.intellij.mock.MockProjectEx
 import com.intellij.openapi.application.ApplicationManager
-import com.intellij.openapi.components.ComponentManager
 import com.intellij.openapi.extensions.*
 import com.intellij.openapi.extensions.impl.ExtensionsAreaImpl
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Disposer
-import org.picocontainer.MutablePicoContainer
 import java.lang.reflect.Modifier
 
 abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase() {
@@ -128,54 +126,6 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
     @Suppress("UnstableApiUsage")
     fun registerExtensionPoint(area: AreaInstance, epClassName: String, epField: String, aClass: Class<*>? = null) {
         registerExtensionPoint(area.extensionArea, epClassName, epField, aClass)
-    }
-
-    // endregion
-    // region Registering Extensions
-
-    private fun <T : Any> registerExtension(area: ExtensionsArea, name: ExtensionPointName<T>, extension: T) {
-        area.getExtensionPoint<T>(name.name).registerExtension(extension, testRootDisposable)
-    }
-
-    fun <T : Any> registerExtension(extensionPointName: ExtensionPointName<T>, extension: T) {
-        registerExtension(ApplicationManager.getApplication().extensionArea, extensionPointName, extension)
-    }
-
-    // IntelliJ >= 2019.3 deprecates Extensions#getArea
-    @Suppress("UnstableApiUsage")
-    fun <T : Any> registerExtension(area: AreaInstance, name: ExtensionPointName<T>, extension: T) {
-        registerExtension(area.extensionArea, name, extension)
-    }
-
-    private fun <T : Any> registerExtension(
-        area: ExtensionsArea,
-        epClassName: String,
-        epField: String,
-        extension: T
-    ) {
-        try {
-            val epClass = Class.forName(epClassName)
-            val epName = epClass.getDeclaredField(epField)
-            @Suppress("UNCHECKED_CAST")
-            registerExtension(area, epName.get(null) as ExtensionPointName<T>, extension)
-        } catch (e: Exception) {
-            // Don't register the extension point, as the associated class is not found.
-        }
-    }
-
-    fun <T : Any> registerExtension(epClassName: String, epField: String, extension: T) {
-        registerExtension(ApplicationManager.getApplication().extensionArea, epClassName, epField, extension)
-    }
-
-    // IntelliJ >= 2019.3 deprecates Extensions#getArea
-    @Suppress("UnstableApiUsage")
-    fun <T : Any> registerExtension(
-        area: AreaInstance,
-        epClassName: String,
-        epField: String,
-        extension: T
-    ) {
-        registerExtension(area.extensionArea, epClassName, epField, extension)
     }
 
     // endregion
