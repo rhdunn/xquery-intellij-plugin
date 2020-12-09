@@ -77,22 +77,6 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
     }
 
     // endregion
-    // region Registering Component Instances
-
-    fun <T> registerComponentInstance(container: MutablePicoContainer, key: Class<T>, implementation: T): T {
-        val old = container.getComponentInstance(key)
-        container.unregisterComponent(key)
-        container.registerComponentInstance(key, implementation)
-
-        @Suppress("UNCHECKED_CAST")
-        return old as T
-    }
-
-    fun <T> registerComponentInstance(container: ComponentManager, key: Class<T>, implementation: T): T {
-        return registerComponentInstance(container.picoContainer as MutablePicoContainer, key, implementation)
-    }
-
-    // endregion
     // region Registering Extension Points
 
     fun <T> registerExtensionPoint(extensionPointName: ExtensionPointName<T>, aClass: Class<T>) {

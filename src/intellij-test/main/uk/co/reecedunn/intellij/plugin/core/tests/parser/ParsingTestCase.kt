@@ -104,7 +104,7 @@ abstract class ParsingTestCase<File : PsiFile>(
         myProject = MockProjectEx(testRootDisposable)
         val psiManager = MockPsiManager(myProject)
         mFileFactory = PsiFileFactoryImpl(psiManager)
-        registerComponentInstance(appContainer, MessageBus::class.java, app.messageBus)
+        appContainer.registerComponentInstance(MessageBus::class.java, app.messageBus)
         val editorFactory = MockEditorFactoryEx()
         app.registerServiceInstance(EditorFactory::class.java, editorFactory)
         app.registerServiceInstance(EncodingManager::class.java, EncodingManagerImpl())
