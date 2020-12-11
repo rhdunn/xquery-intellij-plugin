@@ -63,11 +63,16 @@ data class AWSConnectionSettings(
             throw AWSClientError(err)
         }
 
-        val results = JsonParser.parseString(out).asJsonArray
-        if (results.size() == 0) {
-            throw AWSClientError("No instances found")
+        val results = JsonParser.parseString(out).asJsonArray.mapNotNull {
+            val addresses = it.asJsonArray
+            if (addresses.size() == 0) {
+                null // No addresses found for this instance.
+            } else {
+                addresses.get(0).asString
+            }
         }
-        results.get(0).asJsonArray.get(0).asString
+
+        results.firstOrNull() ?: throw AWSClientError("No instances found")
     }
 
     // endregion
