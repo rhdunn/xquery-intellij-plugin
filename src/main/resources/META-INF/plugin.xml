@@ -72,6 +72,12 @@
   ]]></description>
 
   <change-notes><![CDATA[
+    <ol>
+      <li>Query log viewer filtering and syntax highlighting support.</li>
+      <li>Support for using internal named AWS instances in query processors.</li>
+      <li>Updated built-in functions for BaseX 9.4 and MarkLogic 10.0-5.</li>
+      <li>Bug fixes.</li>
+    </ol>
     <p>XPath, XQuery, and XSLT:</p>
     <ol>
       <li>

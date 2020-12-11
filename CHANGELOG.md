@@ -2,42 +2,9 @@
 
 ## 1.9.0 - (In Development)
 
-XPath, XQuery, and XSLT:
-
-1. Better error recovery when an `AxisStep` is used in `CatchClause` or `xsl:nametests`.
-1. Updated the BaseX built-in functions to 9.4. Thanks to Bridger Dyson-Smith for adding these.
-1. Updated the MarkLogic built-in functions to 10.0-5.
-
-Run Configurations:
-
-1. Support query processors for servers running on internal AWS instances.
-1. Fix returning all results from an eXist-db query when there are more than 10 results.
-1. Support eXist-db error messages that return html pages.
-1. Support running MarkLogic queries with lower privileges when the module root matches the server configuration.
-1. Preserve the database and server settings when the query processor fails with an exception.
-1. Use the selected processor from the manage query processors dialog in the run configuration when pressing OK.
-
-Code Completion:
-
-1. Fix completing `AtomicOrUnionType` names when a prefix is specified, and the
-   default type namespace is the XMLSchema namespace.
-
-Inspections:
-
-1. Don't crash when the conformance element is empty (e.g. it is on a parser error).
-
-Query Log Viewer:
-
-1. Support colouring MarkLogic ErrorLog.txt, BaseX, and eXist-db log files based on log level.
-1. Support navigating to files referenced in MarkLogic ErrorLog.txt exceptions.
-1. Support filtering logs by the log level.
-1. Remember the server, log file, and log level selection between sessions.
-1. Fix displaying the log viewer when opening a new project into the IDE window.
-1. Don't clear the log viewer when an error is from a previously selected query processor.
-1. Update the server list when the query processors are modified.
-
 ## 2020
 
+*  [1.8.1 - 2020-12-11](docs/_posts/2020-12-11-release-1.8.1.md)
 *  [1.8.0 - 2020-11-12](docs/_posts/2020-11-12-release-1.8.0.md)
 *  [1.7.2 - 2020-08-31](docs/_posts/2020-08-31-release-1.7.2.md)
 *  [1.7.1 - 2020-07-25](docs/_posts/2020-07-25-release-1.7.1.md)

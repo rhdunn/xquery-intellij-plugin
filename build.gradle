@@ -45,8 +45,8 @@ buildscript {
         ext.java_version = "1.8"
     }
 
-    ext.plugin_version = '1.9.0'
-    ext.suffix = '-dev'
+    ext.plugin_version = '1.8.1'
+    ext.suffix = ''
 
     repositories {
         maven { url 'http://dl.bintray.com/jetbrains/intellij-plugin-service' }
