@@ -115,7 +115,7 @@ fun List<QueryProcessorSettings>.addToModel(
     selectedServer: Int = -1
 ) {
     forEach { processor ->
-        if (processor.connection != null || !serversOnly) {
+        if (processor.connection != null || processor.awsConnection != null || !serversOnly) {
             val settings = CachedQueryProcessorSettings(processor)
             model.addElement(settings)
             if (settings.settings.id == selectedServer) {
