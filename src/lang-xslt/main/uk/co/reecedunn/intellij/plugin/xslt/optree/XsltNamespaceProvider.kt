@@ -31,10 +31,12 @@ object XsltNamespaceProvider : XpmNamespaceProvider {
         if (context.containingFile !is XPath) return emptySequence()
         return when (type) {
             XdmNamespaceType.DefaultElement -> context.defaultElementOrTypeXPathNamespace()
-            XdmNamespaceType.DefaultFunctionDecl -> context.defaultFunctionXPathNamespace()
-            XdmNamespaceType.DefaultFunctionRef -> context.defaultFunctionXPathNamespace()
+            XdmNamespaceType.DefaultFunctionDecl -> DefaultFunctionDeclOrRefNamespace
+            XdmNamespaceType.DefaultFunctionRef -> DefaultFunctionDeclOrRefNamespace
             XdmNamespaceType.DefaultType -> context.defaultElementOrTypeXPathNamespace()
             else -> emptySequence()
         }
     }
+
+    private val DefaultFunctionDeclOrRefNamespace = sequenceOf(DefaultFunctionXPathNamespace)
 }

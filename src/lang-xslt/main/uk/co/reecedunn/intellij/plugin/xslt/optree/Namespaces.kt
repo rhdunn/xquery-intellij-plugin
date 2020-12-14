@@ -68,27 +68,6 @@ private fun XmlAttribute.toNamespaceDeclaration(): XpmNamespaceDeclaration? {
     }
 }
 
-private object DefaultFunctionXPathNamespace : XpmNamespaceDeclaration {
-    private const val FN_NAMESPACE_URI = "http://www.w3.org/2005/xpath-functions"
-
-    override val namespacePrefix: XsNCNameValue? = null
-    override val namespaceUri: XsAnyUriValue =
-        XsAnyUri(FN_NAMESPACE_URI, XdmUriContext.Namespace, XdmModuleType.MODULE, null as PsiElement?)
-
-    @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
-    override fun accepts(namespaceType: XdmNamespaceType): Boolean {
-        return (
-            namespaceType === XdmNamespaceType.DefaultFunctionDecl ||
-            namespaceType === XdmNamespaceType.DefaultFunctionRef
-        )
-    }
-}
-
-@Suppress("unused")
-fun PsiElement.defaultFunctionXPathNamespace(): Sequence<XpmNamespaceDeclaration> {
-    return sequenceOf(DefaultFunctionXPathNamespace)
-}
-
 fun PsiElement.defaultElementOrTypeXPathNamespace(): Sequence<XpmNamespaceDeclaration> {
     return contextOfType<XmlAttributeValue>(false)?.ancestors()?.filterIsInstance<XmlTag>()?.flatMap { tag ->
         tag.attributes.asSequence().map { attribute -> attribute.toDefaultNamespaceDeclaration() }
