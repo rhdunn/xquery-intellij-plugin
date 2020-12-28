@@ -2121,7 +2121,7 @@ of problems processing the schema using various tools
            This type is used for all attributes that allow an attribute value
            template. The general rules for the syntax of attribute value templates,
            and the specific rules for each such attribute, are described in the
-           XSLT 2.1 Recommendation.
+           XSLT 3.0 Recommendation.
         </p>
       </xs:documentation>
     </xs:annotation>
