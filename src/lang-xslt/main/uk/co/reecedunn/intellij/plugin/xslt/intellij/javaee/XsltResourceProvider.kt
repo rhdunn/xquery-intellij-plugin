@@ -35,6 +35,7 @@ class XsltResourceProvider : StandardResourceProvider {
         resources.addStdResource(XSLT_30_URI, "/schemas/xslt-3_0.xsd", XsltResourceProvider::class.java)
 
         resources.addStdResource(XSLT.NAMESPACE, "3.0", "/schemas/xslt-3_0.xsd", XsltResourceProvider::class.java)
+        resources.addStdResource(XSLT.NAMESPACE, "4.0", "/schemas/xslt-4_0.xsd", XsltResourceProvider::class.java)
 
         resources.addStdResource(EXSL_COMMON_NAMESPACE, "/schemas/exsl-common.xsl", XsltResourceProvider::class.java)
     }
