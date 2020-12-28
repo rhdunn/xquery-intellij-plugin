@@ -72,6 +72,10 @@
   ]]></description>
 
   <change-notes><![CDATA[
+    <p>XSLT:</p>
+    <ol>
+      <li>Add support for the XSLT 4.0 W3C Editor's Draft 16 December 2020.</li>
+    </ol>
   ]]></change-notes>
 
   <idea-version since-build="161"/>

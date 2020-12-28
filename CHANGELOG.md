@@ -2,6 +2,10 @@
 
 ## 1.9.0 - (In Development)
 
+XSLT:
+
+1. Add support for the XSLT 4.0 W3C Editor's Draft 16 December 2020.
+
 ## 2020
 
 *  [1.8.1 - 2020-12-11](docs/_posts/2020-12-11-release-1.8.1.md)
