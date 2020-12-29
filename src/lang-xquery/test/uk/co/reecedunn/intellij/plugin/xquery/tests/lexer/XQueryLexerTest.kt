@@ -3797,10 +3797,13 @@ class XQueryLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (37) ParamRef")
-    fun paramRef() {
+    @DisplayName("XQuery 4.0 ED EBNF (233) LocalUnionType")
+    fun localUnionType() {
         val lexer = createLexer()
 
-        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
+        matchSingleToken(lexer, "union", XPathTokenType.K_UNION)
+        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
+        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 }

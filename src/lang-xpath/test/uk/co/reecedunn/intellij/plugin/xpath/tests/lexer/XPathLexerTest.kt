@@ -1238,4 +1238,15 @@ class XPathLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
     }
+
+    @Test
+    @DisplayName("XPath 4.0 ED EBNF (127) LocalUnionType")
+    fun localUnionType() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "union", XPathTokenType.K_UNION)
+        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
+        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+    }
 }

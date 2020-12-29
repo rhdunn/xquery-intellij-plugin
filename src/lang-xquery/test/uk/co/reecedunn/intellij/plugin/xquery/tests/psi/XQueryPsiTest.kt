@@ -546,8 +546,8 @@ private class XQueryPsiTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery 3.1 (2.5.4) SequenceType Syntax")
-    internal inner class SequenceTypeSyntax {
+    @DisplayName("XQuery 3.1 (2.5.4) SequenceType Syntax ; XQuery 4.0 ED (3.4) Sequence Types")
+    internal inner class SequenceTypes {
         @Nested
         @DisplayName("XQuery 3.1 EBNF (184) SequenceType")
         internal inner class SequenceType {
@@ -954,8 +954,99 @@ private class XQueryPsiTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery 3.1 (2.5.5) SequenceType Matching")
-    internal inner class SequenceTypeMatching {
+    @DisplayName("XQuery 3.1 (2.5.5) SequenceType Matching ; XQuery 4.0 ED (3.6) Item Types")
+    internal inner class ItemTypes {
+        @Nested
+        @DisplayName("XQuery 4.0 ED (3.6.2.1) Local Union Types")
+        internal inner class LocalUnionTypes {
+            @Nested
+            @DisplayName("XQuery 4.0 ED EBNF (233) LocalUnionType")
+            internal inner class LocalUnionType {
+                @Test
+                @DisplayName("NCName namespace resolution")
+                fun ncname() {
+                    val qname = parse<XPathEQName>(
+                        """
+                    declare default function namespace "http://www.example.co.uk/function";
+                    declare default element namespace "http://www.example.co.uk/element";
+                    declare type decl = union(test);
+                    """
+                    )[1] as XsQNameValue
+                    assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.DefaultType))
+                    assertThat(qname.element!!.getUsageType(), `is`(XpmUsageType.Type))
+
+                    assertThat(qname.isLexicalQName, `is`(true))
+                    assertThat(qname.namespace, `is`(nullValue()))
+                    assertThat(qname.prefix, `is`(nullValue()))
+                    assertThat(qname.localName!!.data, `is`("test"))
+                    assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                    val expanded = qname.expand().toList()
+                    assertThat(expanded.size, `is`(1))
+
+                    assertThat(expanded[0].isLexicalQName, `is`(false))
+                    assertThat(expanded[0].namespace!!.data, `is`("http://www.example.co.uk/element"))
+                    assertThat(expanded[0].prefix, `is`(nullValue()))
+                    assertThat(expanded[0].localName!!.data, `is`("test"))
+                    assertThat(expanded[0].element, sameInstance(qname as PsiElement))
+                }
+
+                @Test
+                @DisplayName("empty")
+                fun empty() {
+                    val test = parse<XPathLocalUnionType>("() instance of union ( (::) )")[0]
+
+                    val memberTypes = test.memberTypes.toList()
+                    assertThat(memberTypes.size, `is`(0))
+
+                    val type = test as XdmItemType
+                    assertThat(type.typeName, `is`("union()"))
+                    assertThat(type.typeClass, `is`(sameInstance(XdmAnyUnionType::class.java)))
+
+                    assertThat(type.itemType, `is`(sameInstance(type)))
+                    assertThat(type.lowerBound, `is`(1))
+                    assertThat(type.upperBound, `is`(1))
+                }
+
+                @Test
+                @DisplayName("one")
+                fun one() {
+                    val test = parse<XPathLocalUnionType>("() instance of union ( xs:string )")[0]
+
+                    val memberTypes = test.memberTypes.toList()
+                    assertThat(memberTypes.size, `is`(1))
+                    assertThat(op_qname_presentation(memberTypes[0]), `is`("xs:string"))
+
+                    val type = test as XdmItemType
+                    assertThat(type.typeName, `is`("union(xs:string)"))
+                    assertThat(type.typeClass, `is`(sameInstance(XdmAnyUnionType::class.java)))
+
+                    assertThat(type.itemType, `is`(sameInstance(type)))
+                    assertThat(type.lowerBound, `is`(1))
+                    assertThat(type.upperBound, `is`(1))
+                }
+
+                @Test
+                @DisplayName("many")
+                fun many() {
+                    val test = parse<XPathLocalUnionType>("() instance of union ( xs:string , xs:anyURI )")[0]
+
+                    val memberTypes = test.memberTypes.toList()
+                    assertThat(memberTypes.size, `is`(2))
+                    assertThat(op_qname_presentation(memberTypes[0]), `is`("xs:string"))
+                    assertThat(op_qname_presentation(memberTypes[1]), `is`("xs:anyURI"))
+
+                    val type = test as XdmItemType
+                    assertThat(type.typeName, `is`("union(xs:string, xs:anyURI)"))
+                    assertThat(type.typeClass, `is`(sameInstance(XdmAnyUnionType::class.java)))
+
+                    assertThat(type.itemType, `is`(sameInstance(type)))
+                    assertThat(type.lowerBound, `is`(1))
+                    assertThat(type.upperBound, `is`(1))
+                }
+            }
+        }
+
         @Nested
         @DisplayName("XQuery 3.1 (2.5.5.3) Element Test")
         internal inner class ElementTest {
@@ -1590,7 +1681,7 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (2.5.5.8) Map Test")
+        @DisplayName("XQuery 3.1 (2.5.5.8) Map Test ; XQuery 4.0 ED (3.4.2) Map Test")
         internal inner class MapTest {
             @Test
             @DisplayName("XQuery 3.1 EBNF (211) AnyMapTest")
@@ -1664,6 +1755,26 @@ private class XQueryPsiTest : ParserTestCase() {
 
                     val type = test as XdmItemType
                     assertThat(type.typeName, `is`("map(*)"))
+                    assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                    assertThat(type.itemType, `is`(sameInstance(type)))
+                    assertThat(type.lowerBound, `is`(1))
+                    assertThat(type.upperBound, `is`(1))
+                }
+            }
+
+            @Nested
+            @DisplayName("XQuery 4.0 ED EBNF (227) TypedMapTest ; XQuery 4.0 ED EBNF (233) LocalUnionType")
+            internal inner class TypedMapTest_LocalUnionType {
+                @Test
+                @DisplayName("union key type")
+                fun unionKeyType() {
+                    val test = parse<XPathTypedMapTest>("() instance of map ( union ( xs:string , xs:float ) , xs:int )")[0]
+                    assertThat(test.keyType?.typeName, `is`("union(xs:string, xs:float)"))
+                    assertThat(test.valueType?.typeName, `is`("xs:int"))
+
+                    val type = test as XdmItemType
+                    assertThat(type.typeName, `is`("map(union(xs:string, xs:float), xs:int)"))
                     assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
 
                     assertThat(type.itemType, `is`(sameInstance(type)))

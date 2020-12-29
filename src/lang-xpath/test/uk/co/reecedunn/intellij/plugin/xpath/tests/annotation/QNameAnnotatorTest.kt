@@ -701,7 +701,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         }
 
         @Test
-        @DisplayName("XQuery IntelliJ Plugin EBNF (22) LocalUnionType")
+        @DisplayName("XPath 4.0 ED EBNF (127) LocalUnionType")
         fun localUnionType() {
             val file = parse<XPath>("() instance of union(test)")[0]
             val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()

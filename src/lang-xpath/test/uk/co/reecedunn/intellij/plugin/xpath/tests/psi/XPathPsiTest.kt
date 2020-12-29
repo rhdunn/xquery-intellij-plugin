@@ -312,8 +312,8 @@ private class XPathPsiTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XPath 3.1 (2.5.4) SequenceType Syntax")
-    internal inner class SequenceTypeSyntax {
+    @DisplayName("XPath 3.1 (2.5.4) SequenceType Syntax ; XPath 4.0 ED (3.4) Sequence Types")
+    internal inner class SequenceTypes {
         @Nested
         @DisplayName("XPath 3.1 EBNF (79) SequenceType")
         internal inner class SequenceType {
@@ -695,8 +695,83 @@ private class XPathPsiTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XPath 3.1 (2.5.5) SequenceType Matching")
-    internal inner class SequenceTypeMatching {
+    @DisplayName("XPath 3.1 (2.5.5) SequenceType Matching ; XPath 4.0 ED (3.6) Item Types")
+    internal inner class ItemTypes {
+        @Nested
+        @DisplayName("XPath 4.0 ED (3.6.2.1) Local Union Types")
+        internal inner class LocalUnionTypes {
+            @Nested
+            @DisplayName("XPath 4.0 ED EBNF (127) LocalUnionType")
+            internal inner class LocalUnionType {
+                @Test
+                @DisplayName("NCName namespace resolution")
+                fun ncname() {
+                    val qname = parse<XPathEQName>("() instance of union(test)")[0] as XsQNameValue
+                    assertThat(qname.element!!.getUsageType(), `is`(XpmUsageType.Type))
+
+                    assertThat(qname.isLexicalQName, `is`(true))
+                    assertThat(qname.namespace, `is`(nullValue()))
+                    assertThat(qname.prefix, `is`(nullValue()))
+                    assertThat(qname.localName!!.data, `is`("test"))
+                    assertThat(qname.element, sameInstance(qname as PsiElement))
+                }
+
+                @Test
+                @DisplayName("empty")
+                fun empty() {
+                    val test = parse<XPathLocalUnionType>("() instance of union ( (::) )")[0]
+
+                    val memberTypes = test.memberTypes.toList()
+                    assertThat(memberTypes.size, `is`(0))
+
+                    val type = test as XdmItemType
+                    assertThat(type.typeName, `is`("union()"))
+                    assertThat(type.typeClass, `is`(sameInstance(XdmAnyUnionType::class.java)))
+
+                    assertThat(type.itemType, `is`(sameInstance(type)))
+                    assertThat(type.lowerBound, `is`(1))
+                    assertThat(type.upperBound, `is`(1))
+                }
+
+                @Test
+                @DisplayName("one")
+                fun one() {
+                    val test = parse<XPathLocalUnionType>("() instance of union ( xs:string )")[0]
+
+                    val memberTypes = test.memberTypes.toList()
+                    assertThat(memberTypes.size, `is`(1))
+                    assertThat(op_qname_presentation(memberTypes[0]), `is`("xs:string"))
+
+                    val type = test as XdmItemType
+                    assertThat(type.typeName, `is`("union(xs:string)"))
+                    assertThat(type.typeClass, `is`(sameInstance(XdmAnyUnionType::class.java)))
+
+                    assertThat(type.itemType, `is`(sameInstance(type)))
+                    assertThat(type.lowerBound, `is`(1))
+                    assertThat(type.upperBound, `is`(1))
+                }
+
+                @Test
+                @DisplayName("many")
+                fun many() {
+                    val test = parse<XPathLocalUnionType>("() instance of union ( xs:string , xs:anyURI )")[0]
+
+                    val memberTypes = test.memberTypes.toList()
+                    assertThat(memberTypes.size, `is`(2))
+                    assertThat(op_qname_presentation(memberTypes[0]), `is`("xs:string"))
+                    assertThat(op_qname_presentation(memberTypes[1]), `is`("xs:anyURI"))
+
+                    val type = test as XdmItemType
+                    assertThat(type.typeName, `is`("union(xs:string, xs:anyURI)"))
+                    assertThat(type.typeClass, `is`(sameInstance(XdmAnyUnionType::class.java)))
+
+                    assertThat(type.itemType, `is`(sameInstance(type)))
+                    assertThat(type.lowerBound, `is`(1))
+                    assertThat(type.upperBound, `is`(1))
+                }
+            }
+        }
+
         @Nested
         @DisplayName("XPath 3.1 (2.5.5.3) Element Test")
         internal inner class ElementTest {
@@ -1172,7 +1247,7 @@ private class XPathPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XPath 3.1 (2.5.5.8) Map Test")
+        @DisplayName("XPath 3.1 (2.5.5.8) Map Test ; XPath 4.0 ED (3.4.2) Map Test")
         internal inner class MapTest {
             @Test
             @DisplayName("XPath 3.1 EBNF (106) AnyMapTest")
@@ -1246,6 +1321,26 @@ private class XPathPsiTest : ParserTestCase() {
 
                     val type = test as XdmItemType
                     assertThat(type.typeName, `is`("map(*)"))
+                    assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                    assertThat(type.itemType, `is`(sameInstance(type)))
+                    assertThat(type.lowerBound, `is`(1))
+                    assertThat(type.upperBound, `is`(1))
+                }
+            }
+
+            @Nested
+            @DisplayName("XPath 4.0 ED EBNF (121) TypedMapTest ; XPath 4.0 ED EBNF (127) LocalUnionType")
+            internal inner class TypedMapTest_LocalUnionType {
+                @Test
+                @DisplayName("union key type")
+                fun unionKeyType() {
+                    val test = parse<XPathTypedMapTest>("() instance of map ( union ( xs:string , xs:float ) , xs:int )")[0]
+                    assertThat(test.keyType?.typeName, `is`("union(xs:string, xs:float)"))
+                    assertThat(test.valueType?.typeName, `is`("xs:int"))
+
+                    val type = test as XdmItemType
+                    assertThat(type.typeName, `is`("map(union(xs:string, xs:float), xs:int)"))
                     assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
 
                     assertThat(type.itemType, `is`(sameInstance(type)))
