@@ -1324,7 +1324,7 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (2.5.5.5) Attribute Test")
+        @DisplayName("XQuery 3.1 (2.5.5.5) Attribute Test ; XQuery 4.0 ED (3.6.3.4) Attribute Test")
         internal inner class AttributeTest {
             @Nested
             @DisplayName("XQuery 3.1 EBNF (195) AttributeTest")
@@ -1434,6 +1434,22 @@ private class XQueryPsiTest : ParserTestCase() {
                     assertThat(type.lowerBound, `is`(1))
                     assertThat(type.upperBound, `is`(1))
                 }
+            }
+
+            @Test
+            @DisplayName("XQuery 4.0 ED EBNF (109) AttributeTest ; XQuery 4.0 ED EBNF (55) NameTest")
+            fun attributeTest_nameTest() {
+                val test = parse<XPathAttributeTest>("() instance of attribute ( *:test )")[0]
+                assertThat(op_qname_presentation(test.nodeName!!), `is`("*:test"))
+                assertThat(test.nodeType, `is`(nullValue()))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("attribute(*:test)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmAttributeNode::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
             }
 
             @Nested

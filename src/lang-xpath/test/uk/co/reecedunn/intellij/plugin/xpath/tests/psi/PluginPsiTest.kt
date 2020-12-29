@@ -42,30 +42,6 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 @DisplayName("XQuery IntelliJ Plugin - IntelliJ Program Structure Interface (PSI) - XPath")
 private class PluginPsiTest : ParserTestCase() {
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin XPath (2.1.2.4) Attribute Test")
-    internal inner class AttributeTest {
-        @Nested
-        @DisplayName("XQuery IntelliJ Plugin XPath EBNF (30) AttributeTest ; XPath 3.1 EBNF (47) NameTest")
-        internal inner class AttributeTest {
-            @Test
-            @DisplayName("wildcard")
-            fun wildcard() {
-                val test = parse<XPathAttributeTest>("() instance of attribute ( *:test )")[0]
-                assertThat(op_qname_presentation(test.nodeName!!), `is`("*:test"))
-                assertThat(test.nodeType, `is`(nullValue()))
-
-                val type = test as XdmItemType
-                assertThat(type.typeName, `is`("attribute(*:test)"))
-                assertThat(type.typeClass, `is`(sameInstance(XdmAttributeNode::class.java)))
-
-                assertThat(type.itemType, `is`(sameInstance(type)))
-                assertThat(type.lowerBound, `is`(1))
-                assertThat(type.upperBound, `is`(1))
-            }
-        }
-    }
-
-    @Nested
     @DisplayName("XQuery IntelliJ Plugin XPath (2.1.2.5) Type Alias")
     internal inner class TypeAlias {
         @Nested
