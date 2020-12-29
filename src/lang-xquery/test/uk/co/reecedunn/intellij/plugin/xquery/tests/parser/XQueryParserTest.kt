@@ -9263,18 +9263,34 @@ private class XQueryParserTest : ParserTestCase() {
         @DisplayName("XQuery 4.0 ED EBNF (233) LocalUnionType")
         internal inner class LocalUnionType {
             @Test
-            @DisplayName("qname")
-            fun qname() {
-                val expected = loadResource("tests/parser/xquery-4.0/LocalUnionType.txt")
-                val actual = parseResource("tests/parser/xquery-4.0/LocalUnionType.xq")
+            @DisplayName("one")
+            fun one() {
+                val expected = loadResource("tests/parser/xquery-4.0/LocalUnionType_One.txt")
+                val actual = parseResource("tests/parser/xquery-4.0/LocalUnionType_One.xq")
                 assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
-            @DisplayName("qname; compact whitespace")
-            fun qname_CompactWhitespace() {
-                val expected = loadResource("tests/parser/xquery-4.0/LocalUnionType_CompactWhitespace.txt")
-                val actual = parseResource("tests/parser/xquery-4.0/LocalUnionType_CompactWhitespace.xq")
+            @DisplayName("one; compact whitespace")
+            fun one_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-4.0/LocalUnionType_One_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-4.0/LocalUnionType_One_CompactWhitespace.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("two")
+            fun two() {
+                val expected = loadResource("tests/parser/xquery-4.0/LocalUnionType_Two.txt")
+                val actual = parseResource("tests/parser/xquery-4.0/LocalUnionType_Two.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("two; compact whitespace")
+            fun two_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-4.0/LocalUnionType_Two_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-4.0/LocalUnionType_Two_CompactWhitespace.xq")
                 assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
