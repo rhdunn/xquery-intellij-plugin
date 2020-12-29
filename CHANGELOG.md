@@ -2,9 +2,10 @@
 
 ## 1.9.0 - (In Development)
 
-XSLT:
+XPath, XQuery, and XSLT 4.0 Editor's Draft:
 
-1. Add support for the XSLT 4.0 W3C Editor's Draft 16 December 2020.
+1. Add the XSLT 4.0 Editor's Draft XMLSchema file.
+1. Support any `ItemType` on `LocalUnionType`.
 
 ## 2020
 

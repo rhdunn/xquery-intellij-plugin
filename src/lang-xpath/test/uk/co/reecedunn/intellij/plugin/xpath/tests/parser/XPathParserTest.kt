@@ -4157,22 +4157,6 @@ private class XPathParserTest : ParserTestCase() {
         @DisplayName("XPath 4.0 ED EBNF (127) LocalUnionType")
         internal inner class LocalUnionType {
             @Test
-            @DisplayName("NCName")
-            fun ncname() {
-                val expected = loadResource("tests/parser/xpath-4.0/LocalUnionType_NCName.txt")
-                val actual = parseResource("tests/parser/xpath-4.0/LocalUnionType_NCName.xq")
-                assertThat(actual.toPsiTreeString(), `is`(expected))
-            }
-
-            @Test
-            @DisplayName("NCName; compact whitespace")
-            fun ncname_CompactWhitespace() {
-                val expected = loadResource("tests/parser/xpath-4.0/LocalUnionType_NCName_CompactWhitespace.txt")
-                val actual = parseResource("tests/parser/xpath-4.0/LocalUnionType_NCName_CompactWhitespace.xq")
-                assertThat(actual.toPsiTreeString(), `is`(expected))
-            }
-
-            @Test
             @DisplayName("qname")
             fun qname() {
                 val expected = loadResource("tests/parser/xpath-4.0/LocalUnionType.txt")
@@ -4185,22 +4169,6 @@ private class XPathParserTest : ParserTestCase() {
             fun qname_CompactWhitespace() {
                 val expected = loadResource("tests/parser/xpath-4.0/LocalUnionType_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/xpath-4.0/LocalUnionType_CompactWhitespace.xq")
-                assertThat(actual.toPsiTreeString(), `is`(expected))
-            }
-
-            @Test
-            @DisplayName("URIQualifiedName")
-            fun uriQualifiedName() {
-                val expected = loadResource("tests/parser/xpath-4.0/LocalUnionType_URIQualifiedName.txt")
-                val actual = parseResource("tests/parser/xpath-4.0/LocalUnionType_URIQualifiedName.xq")
-                assertThat(actual.toPsiTreeString(), `is`(expected))
-            }
-
-            @Test
-            @DisplayName("URIQualifiedName; compact whitespace")
-            fun uriQualifiedName_CompactWhitespace() {
-                val expected = loadResource("tests/parser/xpath-4.0/LocalUnionType_URIQualifiedName_CompactWhitespace.txt")
-                val actual = parseResource("tests/parser/xpath-4.0/LocalUnionType_URIQualifiedName_CompactWhitespace.xq")
                 assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 

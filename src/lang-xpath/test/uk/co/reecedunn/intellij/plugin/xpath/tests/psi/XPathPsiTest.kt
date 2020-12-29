@@ -740,7 +740,7 @@ private class XPathPsiTest : ParserTestCase() {
 
                     val memberTypes = test.memberTypes.toList()
                     assertThat(memberTypes.size, `is`(1))
-                    assertThat(op_qname_presentation(memberTypes[0]), `is`("xs:string"))
+                    assertThat(memberTypes[0].typeName, `is`("xs:string"))
 
                     val type = test as XdmItemType
                     assertThat(type.typeName, `is`("union(xs:string)"))
@@ -758,8 +758,8 @@ private class XPathPsiTest : ParserTestCase() {
 
                     val memberTypes = test.memberTypes.toList()
                     assertThat(memberTypes.size, `is`(2))
-                    assertThat(op_qname_presentation(memberTypes[0]), `is`("xs:string"))
-                    assertThat(op_qname_presentation(memberTypes[1]), `is`("xs:anyURI"))
+                    assertThat(memberTypes[0].typeName, `is`("xs:string"))
+                    assertThat(memberTypes[1].typeName, `is`("xs:anyURI"))
 
                     val type = test as XdmItemType
                     assertThat(type.typeName, `is`("union(xs:string, xs:anyURI)"))

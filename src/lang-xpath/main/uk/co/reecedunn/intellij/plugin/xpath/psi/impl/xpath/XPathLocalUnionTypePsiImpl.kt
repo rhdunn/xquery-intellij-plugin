@@ -21,10 +21,8 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathLocalUnionType
-import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnyUnionType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
 class XPathLocalUnionTypePsiImpl(node: ASTNode) :
@@ -41,14 +39,14 @@ class XPathLocalUnionTypePsiImpl(node: ASTNode) :
     // endregion
     // region PluginUnionType
 
-    override val memberTypes: Sequence<XsQNameValue>
-        get() = children().filterIsInstance<XsQNameValue>()
+    override val memberTypes: Sequence<XdmItemType>
+        get() = children().filterIsInstance<XdmItemType>()
 
     // endregion
     // region XdmSequenceType
 
     private val cachedTypeName = CacheableProperty {
-        "union(${memberTypes.mapNotNull { op_qname_presentation(it) }.joinToString()})"
+        "union(${memberTypes.mapNotNull { it.typeName }.joinToString()})"
     }
 
     override val typeName: String

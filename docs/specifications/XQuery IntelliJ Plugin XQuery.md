@@ -132,7 +132,7 @@ not normative.
 |---------|-------------------------|-----|-------------------------------------|---------|
 | \[20\]  | `ItemType`              | ::= | `KindTest \| AnyItemTest \| AnnotatedFunctionOrSequence \| MapTest \| ArrayTest \| TupleType \| TypeAlias \| LocalUnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
 | \[21\]  | `TypedMapTest`          | ::= | `"map" "(" (LocalUnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
-| \[22\]  | `LocalUnionType`        | ::= | `"union" "(" EQName ("," EQName)* ")"` |                    |
+| \[22\]  | `LocalUnionType`        | ::= | `"union" "(" ItemType ("," ItemType)* ")"` |  |
 | \[28\]  | `KindTest`              | ::= | `DocumentTest \| ElementTest \| AttributeTest \| SchemaElementTest \| SchemaAttributeTest \| PITest \| CommentTest \| TextTest \| NamespaceNodeTest \| AnyKindTest \| NamedKindTest \| BinaryTest \| SchemaKindTest \| JsonKindTest` | |
 | \[46\]  | `JsonKindTest`          | ::= | `BooleanNodeTest \| NumberNodeTest \| NullNodeTest \| ArrayNodeTest \| MapNodeTest` | |
 | \[67\]  | `AnyKindTest`           | ::= | `"node" "(" ("*")? ")"`             |         |
@@ -174,21 +174,21 @@ to differentiate the parameter types from the return type.
 | Ref     | Symbol                  |     | Expression                          | Options               |
 |---------|-------------------------|-----|-------------------------------------|-----------------------|
 | \[21\]  | `TypedMapTest`          | ::= | `"map" "(" (LocalUnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
-| \[22\]  | `LocalUnionType`        | ::= | `"union" "(" EQName ("," EQName)* ")"` |                    |
+| \[22\]  | `LocalUnionType`        | ::= | `"union" "(" ItemType ("," ItemType)* ")"` |                |
 | \[100\] | `SingleType`            | ::= | `(LocalUnionType | SimpleTypeName) "?"?` |                  |
 
-The `LocalUnionType` is a new sequence type supported by Saxon 9.8. It is
-proposal 6 of the EXPath syntax extensions for XPath and XQuery.
+The `LocalUnionType` is a new XQuery 4.0 Editor's Draft item type supported by
+Saxon 9.8.
 
-A `LocalUnionType` defines a union type whose members are the `EQName` types listed
-in the type definition. These types are restricted to being atomic types (that
-is, they cannot be list, union, or other complex types).
+A `LocalUnionType` defines a union type whose members are the `ItemType` types
+listed in the type definition. These types are restricted to being generalized
+atomic types (that is, they cannot be list, union, or other complex types).
 
 If a member type has a namespace prefix, the namespace prefix is resolved to a
 namespace URI using the
 [statically known namespaces](https://www.w3.org/TR/xquery-31/#dt-static-namespaces)<sup><em>XQ31</em></sup>.
 If the member type has no namespace prefix, it is implicitly qualified by the
-[default element/type namespace](https://www.w3.org/TR/xquery-31/#dt-def-elemtype-ns)<sup><em>XQ31</em></sup>.
+[default type namespace](https://www.w3.org/TR/xquery-31/#dt-def-elemtype-ns)<sup><em>XQ31</em></sup>.
 
 > __Example:__
 >
@@ -1111,7 +1111,7 @@ These changes include support for:
 | \[19\]   | `TypeDecl`                     | ::= | `"declare" "type" QName "=" ItemType` |                     |
 | \[20\]   | `ItemType`                     | ::= | `KindTest \| AnyItemTest \| AnnotatedFunctionOrSequence \| MapTest \| ArrayTest \| TypeAlias \| LocalUnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
 | \[21\]   | `TypedMapTest`                 | ::= | `"map" "(" (LocalUnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
-| \[22\]   | `LocalUnionType`               | ::= | `"union" "(" EQName ("," EQName)* ")"` |                    |
+| \[22\]   | `LocalUnionType`               | ::= | `"union" "(" ItemType ("," ItemType)* ")"` |                |
 | \[23\]   | `TupleType`                    | ::= | `"tuple" "(" TupleField ("," TupleField)* ("," "*")? ")"` | |
 | \[24\]   | `TupleField`                   | ::= | `TupleFieldName "?"? ( ( ":" | "as" ) SequenceType )?` |    |
 | \[25\]   | `ForwardAxis`                  | ::= | `("child" "::") \| ("descendant" "::") \| ("attribute" "::") \| ("self" "::") \| ("descendant-or-self" "::") \| ("following-sibling" "::") \| ("following" "::") \| ("namespace" "::") \| ("property" "::")` | |
@@ -1292,6 +1292,8 @@ __XML Schema__
 __Working Drafts__
 *  W3C. *XQuery 1.0: An XML Query Language*. W3C Working Draft 02 May 2003.
    See [https://www.w3.org/TR/2003/WD-xquery-20030502]().
+*  W3C. *XQuery 4.0: An XML Query Language*. W3C Editor's Draft 16 December 2020.
+   See [https://qt4cg.org/branch/master/xquery-40/xquery-40.html]().
 
 ### B.2 BaseX References
 *  BaseX. *XQuery Extensions: Non-determinism*. See

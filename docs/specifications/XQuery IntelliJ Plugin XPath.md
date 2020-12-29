@@ -84,7 +84,7 @@ not normative.
 | \[6\]  | `AnyItemTest`           | ::= | `"item" "(" ")"`                    |         |
 | \[14\] | `SequenceTypeList`      | ::= | `SequenceType ("," SequenceType)*`  |         |
 | \[15\] | `TypedFunctionTest`     | ::= | `"function" "(" SequenceTypeList? ")" "as" SequenceType` | |
-| \[16\] | `LocalUnionType`        | ::= | `"union" "(" EQName ("," EQName)* ")"` |      |
+| \[16\] | `LocalUnionType`        | ::= | `"union" "(" ItemType ("," ItemType)* ")"` |  |
 | \[17\] | `TypedMapTest`          | ::= | `"map" "(" (LocalUnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
 | \[18\] | `SingleType`            | ::= | `(LocalUnionType | SimpleTypeName) "?"?` |         |
 
@@ -99,22 +99,22 @@ to differentiate the parameter types from the return type.
 {: .ebnf-symbols }
 | Ref    | Symbol                  |     | Expression                          | Options               |
 |--------|-------------------------|-----|-------------------------------------|-----------------------|
-| \[16\] | `LocalUnionType`        | ::= | `"union" "(" EQName ("," EQName)* ")"` |                    |
+| \[16\] | `LocalUnionType`        | ::= | `"union" "(" ItemType ("," ItemType)* ")"` |                |
 | \[17\] | `TypedMapTest`          | ::= | `"map" "(" (LocalUnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
 | \[18\] | `SingleType`            | ::= | `(LocalUnionType | SimpleTypeName) "?"?` |                  |
 
-The `LocalUnionType` is a new sequence type supported by Saxon 9.8. It is
-proposal 6 of the EXPath syntax extensions for XPath and XQuery.
+The `LocalUnionType` is a new XPath 4.0 Editor's Draft item type supported by
+Saxon 9.8.
 
-A `LocalUnionType` defines a union type whose members are the `EQName` types listed
-in the type definition. These types are restricted to being atomic types (that
-is, they cannot be list, union, or other complex types).
+A `LocalUnionType` defines a union type whose members are the `ItemType` types
+listed in the type definition. These types are restricted to being generalized
+atomic types (that is, they cannot be list, union, or other complex types).
 
 If a member type has a namespace prefix, the namespace prefix is resolved to a
 namespace URI using the
 [statically known namespaces](https://www.w3.org/TR/xquery-31/#dt-static-namespaces)<sup><em>XQ31</em></sup>.
 If the member type has no namespace prefix, it is implicitly qualified by the
-[default element/type namespace](https://www.w3.org/TR/xquery-31/#dt-def-elemtype-ns)<sup><em>XQ31</em></sup>.
+[default type namespace](https://www.w3.org/TR/xquery-31/#dt-def-elemtype-ns)<sup><em>XQ31</em></sup>.
 
 > __Example:__
 >
@@ -442,7 +442,7 @@ These changes include support for:
 | \[13\]  | `ElementTest`                  | ::= | `"element" "(" (NameTest ("," (NillableTypeName | TypeName))?)? ")"` | |
 | \[14\]  | `SequenceTypeList`             | ::= | `SequenceType ("," SequenceType)*`  |                      |
 | \[15\]  | `TypedFunctionTest`            | ::= | `"function" "(" SequenceTypeList? ")" "as" SequenceType` | |
-| \[16\]  | `LocalUnionType`               | ::= | `"union" "(" EQName ("," EQName)* ")"` |                    |
+| \[16\]  | `LocalUnionType`               | ::= | `"union" "(" ItemType ("," ItemType)* ")"` |               |
 | \[17\]  | `TypedMapTest`                 | ::= | `"map" "(" (LocalUnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
 | \[18\]  | `SingleType`                   | ::= | `(LocalUnionType | SimpleTypeName) "?"?` |                 |
 | \[19\]  | `OrExpr`                       | ::= | `AndExpr (("or" \| "orElse") AndExpr)*`   |                |
@@ -527,6 +527,8 @@ __XML Schema__
 __Working Drafts__
 *  W3C. *XML Path Language (XPath) 2.0*. W3C Working Draft 02 May 2003.
    See [https://www.w3.org/TR/2003/WD-xpath20-20030502/]().
+*  W3C. *XML Path Language (XPath) 4.0*. W3C Editor's Draft 16 December 2020.
+   See [https://qt4cg.org/branch/master/xquery-40/xpath-40.html]().
 
 ### B.2 MarkLogic References
 *  MarkLogic. *XPath Axes and Syntax*. See

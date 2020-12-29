@@ -3387,16 +3387,16 @@ open class XPathParser : PsiParser {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (this.parseEQNameOrWildcard(builder, QNAME, false) == null) {
-                builder.error(XPathBundle.message("parser.error.expected", "EQName"))
+            if (!parseItemType(builder)) {
+                builder.error(XPathBundle.message("parser.error.expected", "ItemType"))
                 haveError = true
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
             while (builder.matchTokenType(XPathTokenType.COMMA)) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (this.parseEQNameOrWildcard(builder, QNAME, false) == null && !haveError) {
-                    builder.error(XPathBundle.message("parser.error.expected", "EQName"))
+                if (!parseItemType(builder) && !haveError) {
+                    builder.error(XPathBundle.message("parser.error.expected", "ItemType"))
                     haveError = true
                 }
                 parseWhiteSpaceAndCommentTokens(builder)

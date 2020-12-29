@@ -72,9 +72,10 @@
   ]]></description>
 
   <change-notes><![CDATA[
-    <p>XSLT:</p>
+    <p>XPath, XQuery, and XSLT 4.0 Editor's Draft:</p>
     <ol>
-      <li>Add support for the XSLT 4.0 W3C Editor's Draft 16 December 2020.</li>
+      <li>Add the XSLT 4.0 Editor's Draft XMLSchema file.</li>
+      <li>Support any <code>ItemType</code> on <code>LocalUnionType</code>.</li>
     </ol>
   ]]></change-notes>
 

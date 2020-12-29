@@ -13,12 +13,13 @@ XQueryModuleImpl[FILE(0:35)]
                PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
                LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(20:21)]('(')
                PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
-               PsiErrorElementImpl[ERROR_ELEMENT(22:22)]('XPST0003: Expected 'EQName'.')
+               PsiErrorElementImpl[ERROR_ELEMENT(22:22)]('XPST0003: Expected 'ItemType'.')
                LeafPsiElement[XPATH_COMMA_TOKEN(22:23)](',')
                PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
-               XQueryQNameImpl[XQUERY_QNAME(24:33)]
-                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(24:26)]('xs')
-                  LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(26:27)](':')
-                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(27:33)]('double')
+               XPathAtomicOrUnionTypeImpl[XPATH_ATOMIC_OR_UNION_TYPE(24:33)]
+                  XQueryQNameImpl[XQUERY_QNAME(24:33)]
+                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(24:26)]('xs')
+                     LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(26:27)](':')
+                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(27:33)]('double')
                PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
                LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(34:35)](')')
