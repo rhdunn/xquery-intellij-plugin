@@ -773,7 +773,7 @@ private class XPathPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XPath 3.1 (2.5.5.3) Element Test")
+        @DisplayName("XPath 3.1 (2.5.5.3) Element Test ; XPath 4.0 ED (3.6.3.2) Element Test")
         internal inner class ElementTest {
             @Nested
             @DisplayName("XPath 3.1 EBNF (94) ElementTest")
@@ -883,6 +883,22 @@ private class XPathPsiTest : ParserTestCase() {
                     assertThat(type.lowerBound, `is`(1))
                     assertThat(type.upperBound, `is`(1))
                 }
+            }
+
+            @Test
+            @DisplayName("XPath 4.0 ED EBNF (109) ElementTest ; XPath 4.0 ED EBNF (55) NameTest")
+            fun elementTest_nameTest() {
+                val test = parse<XPathElementTest>("() instance of element ( *:test )")[0]
+                assertThat(op_qname_presentation(test.nodeName!!), `is`("*:test"))
+                assertThat(test.nodeType, `is`(nullValue()))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("element(*:test)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmElementNode::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
             }
 
             @Nested
