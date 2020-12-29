@@ -37,8 +37,8 @@ class PluginLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (16) UnionType")
-    fun unionType() {
+    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (16) LocalUnionType")
+    fun localUnionType() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "union", XPathTokenType.K_UNION)

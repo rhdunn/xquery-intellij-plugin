@@ -13,21 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin
+package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginUnionType
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathLocalUnionType
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnyUnionType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
-class PluginUnionTypeImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginUnionType, XpmSyntaxValidationElement {
+class XPathLocalUnionTypePsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node),
+    XPathLocalUnionType,
+    XpmSyntaxValidationElement {
     // region ASTDelegatePsiElement
 
     override fun subtreeChanged() {

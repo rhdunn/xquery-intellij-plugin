@@ -74,7 +74,7 @@ class XPathImpl(provider: FileViewProvider) :
             XPathElementType.SIMPLE_TYPE_NAME to XpmUsageType.Type,
             XPathElementType.TYPE_ALIAS to XpmUsageType.Type,
             XPathElementType.TYPE_NAME to XpmUsageType.Type,
-            XPathElementType.UNION_TYPE to XpmUsageType.Type,
+            XPathElementType.LOCAL_UNION_TYPE to XpmUsageType.Type,
             XPathElementType.VAR_REF to XpmUsageType.Variable
         )
     }

@@ -56,7 +56,7 @@ object SaxonSyntaxValidator : XpmSyntaxValidator {
             else -> reporter.requires(element, SAXON_PE_10) // type(T)
         }
         is PluginTypeDecl -> reporter.requires(element, SAXON_PE_9_8)
-        is PluginUnionType -> reporter.requires(element, SAXON_PE_9_8)
+        is XPathLocalUnionType -> reporter.requires(element, SAXON_PE_9_8)
         is XPathAndExpr -> when (element.conformanceElement.elementType) {
             XPathTokenType.K_ANDALSO -> reporter.requires(element, SAXON_PE_9_9)
             else -> {

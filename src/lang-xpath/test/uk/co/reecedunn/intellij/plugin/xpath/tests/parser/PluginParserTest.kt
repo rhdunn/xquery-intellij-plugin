@@ -80,8 +80,8 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (16) UnionType ; XPath 3.1 EBNF (52) ItemType")
-    internal inner class UnionType_ItemType {
+    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (16) LocalUnionType ; XPath 3.1 EBNF (52) ItemType")
+    internal inner class LocalUnionType_ItemType {
         @Test
         @DisplayName("NCName")
         fun ncname() {
@@ -165,8 +165,8 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (16) UnionType ; XPath 3.1 EBNF (77) SingleType")
-    internal inner class UnionType_SingleType {
+    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (16) LocalUnionType ; XPath 3.1 EBNF (77) SingleType")
+    internal inner class LocalUnionType_SingleType {
         @Test
         @DisplayName("single type")
         fun singleType() {
@@ -185,8 +185,8 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (16) UnionType ; XPath 3.1 EBNF (107) TypedMapTest")
-    fun unionType_typedMapTest() {
+    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (16) LocalUnionType ; XPath 3.1 EBNF (107) TypedMapTest")
+    fun localUnionType_typedMapTest() {
         val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-6/UnionType_InTypedMapTest.txt")
         val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-6/UnionType_InTypedMapTest.xq")
         assertThat(actual.toPsiTreeString(), `is`(expected))

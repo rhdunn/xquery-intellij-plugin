@@ -3049,7 +3049,7 @@ open class XPathParser : PsiParser {
     fun parseSingleType(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
         if (
-            parseUnionType(builder) ||
+            parseLocalUnionType(builder) ||
             this.parseEQNameOrWildcard(builder, XPathElementType.SIMPLE_TYPE_NAME, false) != null
         ) {
             parseWhiteSpaceAndCommentTokens(builder)
@@ -3081,7 +3081,7 @@ open class XPathParser : PsiParser {
             parseMapTest(builder) ||
             parseArrayTest(builder) ||
             parseTupleType(builder) ||
-            parseUnionType(builder) ||
+            parseLocalUnionType(builder) ||
             parseTypeAlias(builder) ||
             parseAtomicOrUnionType(builder) ||
             parseParenthesizedItemType(builder)
@@ -3206,7 +3206,7 @@ open class XPathParser : PsiParser {
             parseWhiteSpaceAndCommentTokens(builder)
             when {
                 builder.matchTokenType(XPathTokenType.STAR) -> type = XPathElementType.ANY_MAP_TEST
-                parseUnionType(builder) || parseAtomicOrUnionType(builder) -> {
+                parseLocalUnionType(builder) || parseAtomicOrUnionType(builder) -> {
                     parseWhiteSpaceAndCommentTokens(builder)
                     if (!builder.matchTokenType(XPathTokenType.COMMA)) {
                         builder.error(XPathBundle.message("parser.error.expected", ","))
@@ -3222,7 +3222,7 @@ open class XPathParser : PsiParser {
                     type = XPathElementType.TYPED_MAP_TEST
                 }
                 builder.tokenType === XPathTokenType.COMMA -> {
-                    builder.error(XPathBundle.message("parser.error.expected-either", "UnionType", "AtomicOrUnionType"))
+                    builder.error(XPathBundle.message("parser.error.expected-either", "LocalUnionType", "AtomicOrUnionType"))
                     haveError = true
 
                     builder.matchTokenType(XPathTokenType.COMMA)
@@ -3375,7 +3375,7 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    private fun parseUnionType(builder: PsiBuilder): Boolean {
+    private fun parseLocalUnionType(builder: PsiBuilder): Boolean {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_UNION)
         if (marker != null) {
             var haveError = false
@@ -3407,7 +3407,7 @@ open class XPathParser : PsiParser {
                 builder.error(XPathBundle.message("parser.error.expected", ")"))
             }
 
-            marker.done(XPathElementType.UNION_TYPE)
+            marker.done(XPathElementType.LOCAL_UNION_TYPE)
             return true
         }
         return false

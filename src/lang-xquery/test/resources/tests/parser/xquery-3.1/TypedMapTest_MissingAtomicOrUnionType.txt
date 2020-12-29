@@ -13,7 +13,7 @@ XQueryModuleImpl[FILE(0:33)]
                PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
                LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(18:19)]('(')
                PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
-               PsiErrorElementImpl[ERROR_ELEMENT(20:20)]('XPST0003: Expected 'UnionType' or 'AtomicOrUnionType'.')
+               PsiErrorElementImpl[ERROR_ELEMENT(20:20)]('XPST0003: Expected 'LocalUnionType' or 'AtomicOrUnionType'.')
                LeafPsiElement[XPATH_COMMA_TOKEN(20:21)](',')
                PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
                XPathAtomicOrUnionTypeImpl[XPATH_ATOMIC_OR_UNION_TYPE(22:31)]

@@ -19,7 +19,7 @@ plugin-specific extensions are provided to support IntelliJ integration.
   - [Types](#21-types)
     - [SequenceType Syntax](#211-sequencetype-syntax)
     - [SequenceType Matching](#212-sequencetype-matching)
-      - [Union Type](#2121-union-type)
+      - [Local Union Types](#2121-local-union-types)
       - [Tuple Type](#2122-tuple-type)
       - [Binary Test](#2123-binary-test)
       - [Schema Kind Tests](#2124-schema-kind-tests)
@@ -130,9 +130,9 @@ not normative.
 {: .ebnf-symbols }
 | Ref     | Symbol                  |     | Expression                          | Options |
 |---------|-------------------------|-----|-------------------------------------|---------|
-| \[20\]  | `ItemType`              | ::= | `KindTest \| AnyItemTest \| AnnotatedFunctionOrSequence \| MapTest \| ArrayTest \| TupleType \| TypeAlias \| UnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
-| \[21\]  | `TypedMapTest`          | ::= | `"map" "(" (UnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
-| \[22\]  | `UnionType`             | ::= | `"union" "(" EQName ("," EQName)* ")"` |                    |
+| \[20\]  | `ItemType`              | ::= | `KindTest \| AnyItemTest \| AnnotatedFunctionOrSequence \| MapTest \| ArrayTest \| TupleType \| TypeAlias \| LocalUnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
+| \[21\]  | `TypedMapTest`          | ::= | `"map" "(" (LocalUnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
+| \[22\]  | `LocalUnionType`        | ::= | `"union" "(" EQName ("," EQName)* ")"` |                    |
 | \[28\]  | `KindTest`              | ::= | `DocumentTest \| ElementTest \| AttributeTest \| SchemaElementTest \| SchemaAttributeTest \| PITest \| CommentTest \| TextTest \| NamespaceNodeTest \| AnyKindTest \| NamedKindTest \| BinaryTest \| SchemaKindTest \| JsonKindTest` | |
 | \[46\]  | `JsonKindTest`          | ::= | `BooleanNodeTest \| NumberNodeTest \| NullNodeTest \| ArrayNodeTest \| MapNodeTest` | |
 | \[67\]  | `AnyKindTest`           | ::= | `"node" "(" ("*")? ")"`             |         |
@@ -146,7 +146,7 @@ not normative.
 | \[96\]  | `NillableTypeName`      | ::= | `TypeName "?"`                      |         |
 | \[97\]  | `ElementTest`           | ::= | `"element" "(" (NameTest ("," (NillableTypeName | TypeName)?)? ")"` | |
 | \[99\]  | `TypedFunctionTest`     | ::= | `"function" "(" SequenceTypeList? ")" "as" SequenceType` | |
-| \[100\] | `SingleType`            | ::= | `(UnionType | SimpleTypeName) "?"?` |         |
+| \[100\] | `SingleType`            | ::= | `(LocalUnionType | SimpleTypeName) "?"?` |    |
 
 MarkLogic 8.0 supports `node(*)` and `NamedKindTest` for selecting any JSON node
 in objects by the key name.
@@ -168,19 +168,19 @@ to differentiate the parameter types from the return type.
 
 #### 2.1.2 SequenceType Matching
 
-##### 2.1.2.1 Union Type
+##### 2.1.2.1 Local Union Types
 
 {: .ebnf-symbols }
 | Ref     | Symbol                  |     | Expression                          | Options               |
 |---------|-------------------------|-----|-------------------------------------|-----------------------|
-| \[21\]  | `TypedMapTest`          | ::= | `"map" "(" (UnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
-| \[22\]  | `UnionType`             | ::= | `"union" "(" EQName ("," EQName)* ")"` |                    |
-| \[100\] | `SingleType`            | ::= | `(UnionType | SimpleTypeName) "?"?` |                       |
+| \[21\]  | `TypedMapTest`          | ::= | `"map" "(" (LocalUnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
+| \[22\]  | `LocalUnionType`        | ::= | `"union" "(" EQName ("," EQName)* ")"` |                    |
+| \[100\] | `SingleType`            | ::= | `(LocalUnionType | SimpleTypeName) "?"?` |                  |
 
-The `UnionType` is a new sequence type supported by Saxon 9.8. It is
+The `LocalUnionType` is a new sequence type supported by Saxon 9.8. It is
 proposal 6 of the EXPath syntax extensions for XPath and XQuery.
 
-A `UnionType` defines a union type whose members are the `EQName` types listed
+A `LocalUnionType` defines a union type whose members are the `EQName` types listed
 in the type definition. These types are restricted to being atomic types (that
 is, they cannot be list, union, or other complex types).
 
@@ -1109,9 +1109,9 @@ These changes include support for:
 | \[17\]   | `MapConstructorEntry`          | ::= | `MapKeyExpr (":" \| ":=") MapValueExpr` |                   |
 | \[18\]   | `Prolog`                       | ::= | `((DefaultNamespaceDecl \| Setter \| NamespaceDecl \| Import \| UsingDecl) Separator)* ((ContextItemDecl \| AnnotatedDecl \| OptionDecl \| TypeDecl) Separator)*` | |
 | \[19\]   | `TypeDecl`                     | ::= | `"declare" "type" QName "=" ItemType` |                     |
-| \[20\]   | `ItemType`                     | ::= | `KindTest \| AnyItemTest \| AnnotatedFunctionOrSequence \| MapTest \| ArrayTest \| TypeAlias \| UnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
-| \[21\]   | `TypedMapTest`                 | ::= | `"map" "(" (UnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
-| \[22\]   | `UnionType`                    | ::= | `"union" "(" EQName ("," EQName)* ")"` |                    |
+| \[20\]   | `ItemType`                     | ::= | `KindTest \| AnyItemTest \| AnnotatedFunctionOrSequence \| MapTest \| ArrayTest \| TypeAlias \| LocalUnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
+| \[21\]   | `TypedMapTest`                 | ::= | `"map" "(" (LocalUnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
+| \[22\]   | `LocalUnionType`               | ::= | `"union" "(" EQName ("," EQName)* ")"` |                    |
 | \[23\]   | `TupleType`                    | ::= | `"tuple" "(" TupleField ("," TupleField)* ("," "*")? ")"` | |
 | \[24\]   | `TupleField`                   | ::= | `TupleFieldName "?"? ( ( ":" | "as" ) SequenceType )?` |    |
 | \[25\]   | `ForwardAxis`                  | ::= | `("child" "::") \| ("descendant" "::") \| ("attribute" "::") \| ("self" "::") \| ("descendant-or-self" "::") \| ("following-sibling" "::") \| ("following" "::") \| ("namespace" "::") \| ("property" "::")` | |
@@ -1184,7 +1184,7 @@ These changes include support for:
 | \[97\]   | `ElementTest`                  | ::= | `"element" "(" (NameTest ("," (NillableTypeName | TypeName)?)? ")"` | |
 | \[98\]   | `EmptySequenceType`            | ::= | `("empty-sequence" \| "empty") "(" ")"`   |                 |
 | \[99\]   | `TypedFunctionTest`            | ::= | `"function" "(" SequenceTypeList? ")" "as" SequenceType` |  |
-| \[100\]  | `SingleType`                   | ::= | `(UnionType | SimpleTypeName) "?"?`       |                 |
+| \[100\]  | `SingleType`                   | ::= | `(LocalUnionType | SimpleTypeName) "?"?`  |                 |
 | \[101\]  | `ValidationMode`               | ::= | `"lax" | "strict" | "full"`               |                 |
 | \[102\]  | `TypeNameOrWildcard`           | ::= | `TypeName | "*"`                          |                 |
 | \[103\]  | `SchemaWildcardTest`           | ::= | `"schema-wildcard" "(" ")"`               |                 |
@@ -1403,7 +1403,7 @@ in this document:
 1.  [For Member Expressions](#3131-for-member-clause) \[Saxon 10.0\]
 
 Saxon implements the following [EXPath Syntax Extensions](https://github.com/expath/xpath-ng):
-1.  [Union Type](#2121-union-type) \[Saxon 9.8\]
+1.  [Local Union Types](#2121-local-union-types) \[Saxon 9.8\]
 1.  [Context Item Function Expressions](#3421-context-item-function-expressions) \[Saxon 9.8\]
 1.  [Lambda Function Expressions](#3422-lambda-function-expressions) \[Saxon 10.0\]
 1.  [Element Test](#2127-element-test) and [Attribute Test](#2128-attribute-test) \[Saxon 10.0\] -- wildcard names

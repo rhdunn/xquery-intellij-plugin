@@ -248,8 +248,8 @@ class SaxonSyntaxValidatorTest :
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (22) UnionType")
-    internal inner class UnionType {
+    @DisplayName("XQuery IntelliJ Plugin EBNF (22) LocalUnionType")
+    internal inner class LocalUnionType {
         @Test
         @DisplayName("Saxon HE")
         fun notSupportedHE() {

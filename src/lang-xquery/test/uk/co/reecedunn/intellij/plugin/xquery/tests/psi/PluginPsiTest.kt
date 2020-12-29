@@ -151,10 +151,10 @@ private class PluginPsiTest : ParserTestCase() {
 
     @Nested
     @DisplayName("XQuery IntelliJ Plugin (2.1.2.1) Union Type")
-    internal inner class UnionType {
+    internal inner class LocalUnionType {
         @Nested
-        @DisplayName("XQuery IntelliJ Plugin EBNF (22) UnionType")
-        internal inner class UnionType {
+        @DisplayName("XQuery IntelliJ Plugin EBNF (22) LocalUnionType")
+        internal inner class LocalUnionType {
             @Test
             @DisplayName("NCName namespace resolution")
             fun ncname() {
@@ -187,7 +187,7 @@ private class PluginPsiTest : ParserTestCase() {
             @Test
             @DisplayName("empty")
             fun empty() {
-                val test = parse<PluginUnionType>("() instance of union ( (::) )")[0]
+                val test = parse<XPathLocalUnionType>("() instance of union ( (::) )")[0]
 
                 val memberTypes = test.memberTypes.toList()
                 assertThat(memberTypes.size, `is`(0))
@@ -204,7 +204,7 @@ private class PluginPsiTest : ParserTestCase() {
             @Test
             @DisplayName("one")
             fun one() {
-                val test = parse<PluginUnionType>("() instance of union ( xs:string )")[0]
+                val test = parse<XPathLocalUnionType>("() instance of union ( xs:string )")[0]
 
                 val memberTypes = test.memberTypes.toList()
                 assertThat(memberTypes.size, `is`(1))
@@ -222,7 +222,7 @@ private class PluginPsiTest : ParserTestCase() {
             @Test
             @DisplayName("many")
             fun many() {
-                val test = parse<PluginUnionType>("() instance of union ( xs:string , xs:anyURI )")[0]
+                val test = parse<XPathLocalUnionType>("() instance of union ( xs:string , xs:anyURI )")[0]
 
                 val memberTypes = test.memberTypes.toList()
                 assertThat(memberTypes.size, `is`(2))

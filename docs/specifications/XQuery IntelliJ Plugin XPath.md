@@ -19,7 +19,7 @@ plugin-specific extensions are provided to support IntelliJ integration.
   - [Types](#21-types)
     - [SequenceType Syntax](#211-sequencetype-syntax)
     - [SequenceType Matching](#212-sequencetype-matching)
-      - [Union Type](#2121-union-type)
+      - [Local Union Types](#2121-local-union-types)
       - [Tuple Type](#2122-tuple-type)
       - [Element Test](#2123-element-test)
       - [Attribute Test](#2124-attribute-test)
@@ -80,13 +80,13 @@ not normative.
 {: .ebnf-symbols }
 | Ref    | Symbol                  |     | Expression                          | Options |
 |--------|-------------------------|-----|-------------------------------------|---------|
-| \[5\]  | `ItemType`              | ::= | `KindTest \| AnyItemTest \| FunctionTest \| MapTest \| ArrayTest \| UnionType \| TupleType \| TypeAlias \| AtomicOrUnionType \| ParenthesizedItemType` | |
+| \[5\]  | `ItemType`              | ::= | `KindTest \| AnyItemTest \| FunctionTest \| MapTest \| ArrayTest \| LocalUnionType \| TupleType \| TypeAlias \| AtomicOrUnionType \| ParenthesizedItemType` | |
 | \[6\]  | `AnyItemTest`           | ::= | `"item" "(" ")"`                    |         |
 | \[14\] | `SequenceTypeList`      | ::= | `SequenceType ("," SequenceType)*`  |         |
 | \[15\] | `TypedFunctionTest`     | ::= | `"function" "(" SequenceTypeList? ")" "as" SequenceType` | |
-| \[16\] | `UnionType`             | ::= | `"union" "(" EQName ("," EQName)* ")"` |      |
-| \[17\] | `TypedMapTest`          | ::= | `"map" "(" (UnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
-| \[18\] | `SingleType`            | ::= | `(UnionType | SimpleTypeName) "?"?` |         |
+| \[16\] | `LocalUnionType`        | ::= | `"union" "(" EQName ("," EQName)* ")"` |      |
+| \[17\] | `TypedMapTest`          | ::= | `"map" "(" (LocalUnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
+| \[18\] | `SingleType`            | ::= | `(LocalUnionType | SimpleTypeName) "?"?` |         |
 
 Using `SequenceTypeList` in `TypedFunctionTest` follows the grammar production
 pattern of using `ParamList` in `FunctionCall`. This is done to make it easier
@@ -94,19 +94,19 @@ to differentiate the parameter types from the return type.
 
 #### 2.1.2 SequenceType Matching
 
-##### 2.1.2.1 Union Type
+##### 2.1.2.1 Local Union Types
 
 {: .ebnf-symbols }
 | Ref    | Symbol                  |     | Expression                          | Options               |
 |--------|-------------------------|-----|-------------------------------------|-----------------------|
-| \[16\] | `UnionType`             | ::= | `"union" "(" EQName ("," EQName)* ")"` |                    |
-| \[17\] | `TypedMapTest`          | ::= | `"map" "(" (UnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
-| \[18\] | `SingleType`            | ::= | `(UnionType | SimpleTypeName) "?"?` |                       |
+| \[16\] | `LocalUnionType`        | ::= | `"union" "(" EQName ("," EQName)* ")"` |                    |
+| \[17\] | `TypedMapTest`          | ::= | `"map" "(" (LocalUnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
+| \[18\] | `SingleType`            | ::= | `(LocalUnionType | SimpleTypeName) "?"?` |                  |
 
-The `UnionType` is a new sequence type supported by Saxon 9.8. It is
+The `LocalUnionType` is a new sequence type supported by Saxon 9.8. It is
 proposal 6 of the EXPath syntax extensions for XPath and XQuery.
 
-A `UnionType` defines a union type whose members are the `EQName` types listed
+A `LocalUnionType` defines a union type whose members are the `EQName` types listed
 in the type definition. These types are restricted to being atomic types (that
 is, they cannot be list, union, or other complex types).
 
@@ -431,7 +431,7 @@ These changes include support for:
 | \[2\]   | `QuantifiedExprBinding`        | ::= | `"$" VarName "in" ExprSingle`       |                      |
 | \[3\]   | `Wildcard`                     | ::= | `WildcardIndicator \| (NCName ":" WildcardIndicator) \| (WildcardIndicator ":" NCName) \| (BracedURILiteral WildcardIndicator)` | /\* ws: explicit \*/ |
 | \[4\]   | `WildcardIndicator`            | ::= | `"*"`                               |                      |
-| \[5\]   | `ItemType`                     | ::= | `KindTest \| AnyItemTest \| FunctionTest \| MapTest \| ArrayTest \| UnionType \| TupleType \| TypeAlias \| AtomicOrUnionType \| ParenthesizedItemType` | |
+| \[5\]   | `ItemType`                     | ::= | `KindTest \| AnyItemTest \| FunctionTest \| MapTest \| ArrayTest \| LocalUnionType \| TupleType \| TypeAlias \| AtomicOrUnionType \| ParenthesizedItemType` | |
 | \[6\]   | `AnyItemTest`                  | ::= | `"item" "(" ")"`                    |                      |
 | \[7\]   | `ForExpr`                      | ::= | `( SimpleForClause | SimpleForMemberClause ) ReturnClause` | |
 | \[8\]   | `ReturnClause`                 | ::= | `"return" ExprSingle`               |                      |
@@ -442,9 +442,9 @@ These changes include support for:
 | \[13\]  | `ElementTest`                  | ::= | `"element" "(" (NameTest ("," (NillableTypeName | TypeName))?)? ")"` | |
 | \[14\]  | `SequenceTypeList`             | ::= | `SequenceType ("," SequenceType)*`  |                      |
 | \[15\]  | `TypedFunctionTest`            | ::= | `"function" "(" SequenceTypeList? ")" "as" SequenceType` | |
-| \[16\]  | `UnionType`                    | ::= | `"union" "(" EQName ("," EQName)* ")"` |                    |
-| \[17\]  | `TypedMapTest`                 | ::= | `"map" "(" (UnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
-| \[18\]  | `SingleType`                   | ::= | `(UnionType | SimpleTypeName) "?"?` |                      |
+| \[16\]  | `LocalUnionType`               | ::= | `"union" "(" EQName ("," EQName)* ")"` |                    |
+| \[17\]  | `TypedMapTest`                 | ::= | `"map" "(" (LocalUnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
+| \[18\]  | `SingleType`                   | ::= | `(LocalUnionType | SimpleTypeName) "?"?` |                 |
 | \[19\]  | `OrExpr`                       | ::= | `AndExpr (("or" \| "orElse") AndExpr)*`   |                |
 | \[20\]  | `AndExpr`                      | ::= | `ComparisonExpr (("and" \| "andAlso") ComparisonExpr)*` |  |
 | \[21\]  | `IfExpr`                       | ::= | `"if" "(" Expr ")" "then" ExprSingle ("else" ExprSingle)?` | |
@@ -601,7 +601,7 @@ in this document:
 1.  [For Member Expressions](#311-for-member-expressions) \[Saxon 10.0\]
 
 Saxon implements the following [EXPath Syntax Extensions](https://github.com/expath/xpath-ng):
-1.  [Union Type](#2121-union-type) \[Saxon 9.8\]
+1.  [Local Union Types](#2121-local-union-types) \[Saxon 9.8\]
 1.  [Context Item Function Expressions](#3411-context-item-function-expressions) \[Saxon 9.8\]
 1.  [Lambda Function Expressions](#3412-lambda-function-expressions) \[Saxon 10.0\]
 1.  [Element Test](#2123-element-test) and [Attribute Test](#2124-attribute-test) \[Saxon 10.0\] -- wildcard names

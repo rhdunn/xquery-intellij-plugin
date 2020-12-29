@@ -538,6 +538,12 @@ object XPathElementType {
         XPath
     )
 
+    val LOCAL_UNION_TYPE: IElementType = ICompositeElementType(
+        "XPATH_LOCAL_UNION_TYPE",
+        XPathLocalUnionTypePsiImpl::class.java,
+        XPath
+    )
+
     // endregion
     // region Full Text 1.0
 
@@ -787,12 +793,6 @@ object XPathElementType {
     val CONTEXT_ITEM_FUNCTION_EXPR: IElementType = ICompositeElementType(
         "XPATH_CONTEXT_ITEM_FUNCTION_EXPR",
         PluginContextItemFunctionExprImpl::class.java,
-        XPath
-    )
-
-    val UNION_TYPE: IElementType = ICompositeElementType(
-        "XPATH_UNION_TYPE",
-        PluginUnionTypeImpl::class.java,
         XPath
     )
 

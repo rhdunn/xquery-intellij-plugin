@@ -11,7 +11,7 @@ XQueryModuleImpl[FILE(0:54)]
             XPathTypedMapTestImpl[XPATH_TYPED_MAP_TEST(14:54)]
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_MAP(14:17)]('map')
                LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(17:18)]('(')
-               PluginUnionTypeImpl[XPATH_UNION_TYPE(18:42)]
+               XPathLocalUnionTypeImpl[XPATH_LOCAL_UNION_TYPE(18:42)]
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_UNION(18:23)]('union')
                   LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(23:24)]('(')
                   XQueryQNameImpl[XQUERY_QNAME(24:30)]

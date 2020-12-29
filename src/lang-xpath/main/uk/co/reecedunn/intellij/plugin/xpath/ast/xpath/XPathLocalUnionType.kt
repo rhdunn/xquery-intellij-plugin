@@ -13,15 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.ast.plugin
+package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
 /**
- * A Saxon 9.8 `UnionType` node in the XQuery AST.
+ * An XPath 4.0 ED and XQuery 4.0 ED `LocalUnionType` node in the XPath/XQuery AST.
+ *
+ * Saxon 9.8 supports an earlier version of this.
  */
-interface PluginUnionType : PsiElement, XdmItemType {
+interface XPathLocalUnionType : PsiElement, XdmItemType {
     val memberTypes: Sequence<XsQNameValue>
 }
