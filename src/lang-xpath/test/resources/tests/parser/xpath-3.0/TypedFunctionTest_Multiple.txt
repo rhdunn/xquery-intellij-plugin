@@ -12,7 +12,7 @@ XPathImpl[FILE(0:58)]
          LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(23:24)]('(')
          PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
          PluginSequenceTypeListImpl[XPATH_SEQUENCE_TYPE_LIST(25:45)]
-            PluginAnyItemTypeImpl[XPATH_ANY_ITEM_TYPE(25:33)]
+            XPathAnyItemTestImpl[XPATH_ANY_ITEM_TEST(25:33)]
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ITEM(25:29)]('item')
                PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
                LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(30:31)]('(')
@@ -21,7 +21,7 @@ XPathImpl[FILE(0:58)]
             PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
             LeafPsiElement[XPATH_COMMA_TOKEN(34:35)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
-            PluginAnyItemTypeImpl[XPATH_ANY_ITEM_TYPE(36:44)]
+            XPathAnyItemTestImpl[XPATH_ANY_ITEM_TEST(36:44)]
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ITEM(36:40)]('item')
                PsiWhiteSpaceImpl[WHITE_SPACE(40:41)](' ')
                LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(41:42)]('(')
@@ -32,7 +32,7 @@ XPathImpl[FILE(0:58)]
          PsiWhiteSpaceImpl[WHITE_SPACE(46:47)](' ')
          XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AS(47:49)]('as')
          PsiWhiteSpaceImpl[WHITE_SPACE(49:50)](' ')
-         PluginAnyItemTypeImpl[XPATH_ANY_ITEM_TYPE(50:58)]
+         XPathAnyItemTestImpl[XPATH_ANY_ITEM_TEST(50:58)]
             XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ITEM(50:54)]('item')
             PsiWhiteSpaceImpl[WHITE_SPACE(54:55)](' ')
             LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(55:56)]('(')

@@ -29,7 +29,7 @@ XQueryModuleImpl[FILE(0:60)]
                   LeafPsiElement[XPATH_UNION_TOKEN(39:40)]('|')
                   PsiWhiteSpaceImpl[WHITE_SPACE(40:41)](' ')
                   XPathSequenceTypeImpl[XPATH_SEQUENCE_TYPE(41:51)]
-                     PluginAnyItemTypeImpl[XPATH_ANY_ITEM_TYPE(41:49)]
+                     XPathAnyItemTestImpl[XPATH_ANY_ITEM_TEST(41:49)]
                         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ITEM(41:45)]('item')
                         PsiWhiteSpaceImpl[WHITE_SPACE(45:46)](' ')
                         LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(46:47)]('(')

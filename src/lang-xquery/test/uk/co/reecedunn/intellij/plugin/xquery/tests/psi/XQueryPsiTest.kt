@@ -617,9 +617,9 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Test
-        @DisplayName("XQuery 3.1 EBNF (186) ItemType")
+        @DisplayName("XQuery 3.1 EBNF (186) ItemType ; XQuery 4.0 ED EBNF (203) AnyItemTest")
         fun itemType() {
-            val type = parse<PluginAnyItemType>("() instance of item ( (::) )")[0] as XdmItemType
+            val type = parse<XPathAnyItemTest>("() instance of item ( (::) )")[0] as XdmItemType
             assertThat(type.typeName, `is`("item()"))
             assertThat(type.typeClass, `is`(sameInstance(XdmItem::class.java)))
 

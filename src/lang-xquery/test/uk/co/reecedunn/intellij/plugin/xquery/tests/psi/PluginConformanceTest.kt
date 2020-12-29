@@ -99,7 +99,7 @@ private class PluginConformanceTest : ParserTestCase() {
             assertThat(conformance.requiresConformance.size, `is`(0))
 
             assertThat(conformance.conformanceElement, `is`(notNullValue()))
-            assertThat(conformance.conformanceElement.elementType, `is`(XPathElementType.ANY_ITEM_TYPE))
+            assertThat(conformance.conformanceElement.elementType, `is`(XPathElementType.ANY_ITEM_TEST))
         }
     }
 

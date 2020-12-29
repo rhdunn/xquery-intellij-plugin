@@ -530,6 +530,15 @@ object XPathElementType {
     )
 
     // endregion
+    // region XPath 4.0 ED
+
+    val ANY_ITEM_TEST: IElementType = ICompositeElementType(
+        "XPATH_ANY_ITEM_TEST",
+        XPathAnyItemTestPsiImpl::class.java,
+        XPath
+    )
+
+    // endregion
     // region Full Text 1.0
 
     val PRAGMA: IElementType = ICompositeElementType(
@@ -799,12 +808,6 @@ object XPathElementType {
     val ANY_TEXT_TEST: IElementType = ICompositeElementType(
         "XPATH_ANY_TEXT_TEST",
         PluginAnyTextTestPsiImpl::class.java,
-        XPath
-    )
-
-    val ANY_ITEM_TYPE: IElementType = ICompositeElementType(
-        "XPATH_ANY_ITEM_TYPE",
-        PluginAnyItemTypePsiImpl::class.java,
         XPath
     )
 

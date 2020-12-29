@@ -18,7 +18,7 @@ XPathImpl[FILE(0:40)]
          PsiErrorElementImpl[ERROR_ELEMENT(29:31)]('XPST0003: Return type specifiers not supported in 'AnyFunctionTest'.')
             XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AS(29:31)]('as')
          PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
-         PluginAnyItemTypeImpl[XPATH_ANY_ITEM_TYPE(32:40)]
+         XPathAnyItemTestImpl[XPATH_ANY_ITEM_TEST(32:40)]
             XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ITEM(32:36)]('item')
             PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
             LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(37:38)]('(')

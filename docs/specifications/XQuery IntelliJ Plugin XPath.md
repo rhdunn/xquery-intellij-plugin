@@ -1,6 +1,6 @@
 ---
 layout: page
-title: XQuery IntelliJ Plugin 1.8 XPath
+title: XQuery IntelliJ Plugin 1.9 XPath
 ---
 
 This document includes material copied from or derived from the XPath
@@ -80,8 +80,8 @@ not normative.
 {: .ebnf-symbols }
 | Ref    | Symbol                  |     | Expression                          | Options |
 |--------|-------------------------|-----|-------------------------------------|---------|
-| \[5\]  | `ItemType`              | ::= | `KindTest \| AnyItemType \| FunctionTest \| MapTest \| ArrayTest \| UnionType \| TupleType \| TypeAlias \| AtomicOrUnionType \| ParenthesizedItemType` | |
-| \[6\]  | `AnyItemType`           | ::= | `"item" "(" ")"`                    |         |
+| \[5\]  | `ItemType`              | ::= | `KindTest \| AnyItemTest \| FunctionTest \| MapTest \| ArrayTest \| UnionType \| TupleType \| TypeAlias \| AtomicOrUnionType \| ParenthesizedItemType` | |
+| \[6\]  | `AnyItemTest`           | ::= | `"item" "(" ")"`                    |         |
 | \[14\] | `SequenceTypeList`      | ::= | `SequenceType ("," SequenceType)*`  |         |
 | \[15\] | `TypedFunctionTest`     | ::= | `"function" "(" SequenceTypeList? ")" "as" SequenceType` | |
 | \[16\] | `UnionType`             | ::= | `"union" "(" EQName ("," EQName)* ")"` |      |
@@ -431,8 +431,8 @@ These changes include support for:
 | \[2\]   | `QuantifiedExprBinding`        | ::= | `"$" VarName "in" ExprSingle`       |                      |
 | \[3\]   | `Wildcard`                     | ::= | `WildcardIndicator \| (NCName ":" WildcardIndicator) \| (WildcardIndicator ":" NCName) \| (BracedURILiteral WildcardIndicator)` | /\* ws: explicit \*/ |
 | \[4\]   | `WildcardIndicator`            | ::= | `"*"`                               |                      |
-| \[5\]   | `ItemType`                     | ::= | `KindTest \| AnyItemType \| FunctionTest \| MapTest \| ArrayTest \| UnionType \| TupleType \| TypeAlias \| AtomicOrUnionType \| ParenthesizedItemType` | |
-| \[6\]   | `AnyItemType`                  | ::= | `"item" "(" ")"`                    |                      |
+| \[5\]   | `ItemType`                     | ::= | `KindTest \| AnyItemTest \| FunctionTest \| MapTest \| ArrayTest \| UnionType \| TupleType \| TypeAlias \| AtomicOrUnionType \| ParenthesizedItemType` | |
+| \[6\]   | `AnyItemTest`                  | ::= | `"item" "(" ")"`                    |                      |
 | \[7\]   | `ForExpr`                      | ::= | `( SimpleForClause | SimpleForMemberClause ) ReturnClause` | |
 | \[8\]   | `ReturnClause`                 | ::= | `"return" ExprSingle`               |                      |
 | \[9\]   | `ExprSingle`                   | ::= | `ForExpr \| LetExpr \| ForMemberExpr \| QuantifiedExpr \| IfExpr \| TernaryIfExpr` | |

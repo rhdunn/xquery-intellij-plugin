@@ -3076,7 +3076,7 @@ open class XPathParser : PsiParser {
     fun parseItemType(builder: PsiBuilder): Boolean {
         return (
             parseKindTest(builder) ||
-            parseAnyItemType(builder) ||
+            parseAnyItemTest(builder) ||
             parseAnnotatedFunction(builder) ||
             parseMapTest(builder) ||
             parseArrayTest(builder) ||
@@ -3088,7 +3088,7 @@ open class XPathParser : PsiParser {
         )
     }
 
-    private fun parseAnyItemType(builder: PsiBuilder): Boolean {
+    private fun parseAnyItemTest(builder: PsiBuilder): Boolean {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_ITEM)
         if (marker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
@@ -3102,7 +3102,7 @@ open class XPathParser : PsiParser {
                 builder.error(XPathBundle.message("parser.error.expected", ")"))
             }
 
-            marker.done(XPathElementType.ANY_ITEM_TYPE)
+            marker.done(XPathElementType.ANY_ITEM_TEST)
             return true
         }
         return false

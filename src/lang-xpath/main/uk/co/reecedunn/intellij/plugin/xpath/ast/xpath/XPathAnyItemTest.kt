@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.ast.plugin
+package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 
 /**
- * An XPath 2.0 and XQuery 1.0 `ItemType` node in the XQuery AST.
+ * An XPath 4.0 ED and XQuery 4.0 ED `AnyItemTest` node in the XPath/XQuery AST.
  */
-interface PluginAnyItemType : PsiElement, XdmItemType
+interface XPathAnyItemTest : PsiElement, XdmItemType

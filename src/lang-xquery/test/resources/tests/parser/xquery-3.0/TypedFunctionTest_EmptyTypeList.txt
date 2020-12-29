@@ -17,7 +17,7 @@ XQueryModuleImpl[FILE(0:38)]
                PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AS(27:29)]('as')
                PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
-               PluginAnyItemTypeImpl[XPATH_ANY_ITEM_TYPE(30:38)]
+               XPathAnyItemTestImpl[XPATH_ANY_ITEM_TEST(30:38)]
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ITEM(30:34)]('item')
                   PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
                   LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(35:36)]('(')

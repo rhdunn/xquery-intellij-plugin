@@ -1,6 +1,6 @@
 ---
 layout: page
-title: XQuery IntelliJ Plugin 1.8 XQuery
+title: XQuery IntelliJ Plugin 1.9 XQuery
 ---
 
 This document includes material copied from or derived from the XQuery
@@ -130,7 +130,7 @@ not normative.
 {: .ebnf-symbols }
 | Ref     | Symbol                  |     | Expression                          | Options |
 |---------|-------------------------|-----|-------------------------------------|---------|
-| \[20\]  | `ItemType`              | ::= | `KindTest \| AnyItemType \| AnnotatedFunctionOrSequence \| MapTest \| ArrayTest \| TupleType \| TypeAlias \| UnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
+| \[20\]  | `ItemType`              | ::= | `KindTest \| AnyItemTest \| AnnotatedFunctionOrSequence \| MapTest \| ArrayTest \| TupleType \| TypeAlias \| UnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
 | \[21\]  | `TypedMapTest`          | ::= | `"map" "(" (UnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
 | \[22\]  | `UnionType`             | ::= | `"union" "(" EQName ("," EQName)* ")"` |                    |
 | \[28\]  | `KindTest`              | ::= | `DocumentTest \| ElementTest \| AttributeTest \| SchemaElementTest \| SchemaAttributeTest \| PITest \| CommentTest \| TextTest \| NamespaceNodeTest \| AnyKindTest \| NamedKindTest \| BinaryTest \| SchemaKindTest \| JsonKindTest` | |
@@ -142,7 +142,7 @@ not normative.
 | \[71\]  | `NamedTextTest`         | ::= | `"text" "(" StringLiteral ")"`      |         |
 | \[72\]  | `DocumentTest`          | ::= | `"document-node" "(" (ElementTest \| SchemaElementTest \| AnyArrayNodeTest \| AnyMapNodeTest)? ")"` | |
 | \[87\]  | `SequenceTypeList`      | ::= | `SequenceType ("," SequenceType)*`  |         |
-| \[88\]  | `AnyItemType`           | ::= | `"item" "(" ")"`                    |         |
+| \[88\]  | `AnyItemTest`           | ::= | `"item" "(" ")"`                    |         |
 | \[96\]  | `NillableTypeName`      | ::= | `TypeName "?"`                      |         |
 | \[97\]  | `ElementTest`           | ::= | `"element" "(" (NameTest ("," (NillableTypeName | TypeName)?)? ")"` | |
 | \[99\]  | `TypedFunctionTest`     | ::= | `"function" "(" SequenceTypeList? ")" "as" SequenceType` | |
@@ -1109,7 +1109,7 @@ These changes include support for:
 | \[17\]   | `MapConstructorEntry`          | ::= | `MapKeyExpr (":" \| ":=") MapValueExpr` |                   |
 | \[18\]   | `Prolog`                       | ::= | `((DefaultNamespaceDecl \| Setter \| NamespaceDecl \| Import \| UsingDecl) Separator)* ((ContextItemDecl \| AnnotatedDecl \| OptionDecl \| TypeDecl) Separator)*` | |
 | \[19\]   | `TypeDecl`                     | ::= | `"declare" "type" QName "=" ItemType` |                     |
-| \[20\]   | `ItemType`                     | ::= | `KindTest \| AnyItemType \| AnnotatedFunctionOrSequence \| MapTest \| ArrayTest \| TypeAlias \| UnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
+| \[20\]   | `ItemType`                     | ::= | `KindTest \| AnyItemTest \| AnnotatedFunctionOrSequence \| MapTest \| ArrayTest \| TypeAlias \| UnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
 | \[21\]   | `TypedMapTest`                 | ::= | `"map" "(" (UnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
 | \[22\]   | `UnionType`                    | ::= | `"union" "(" EQName ("," EQName)* ")"` |                    |
 | \[23\]   | `TupleType`                    | ::= | `"tuple" "(" TupleField ("," TupleField)* ("," "*")? ")"` | |
@@ -1174,7 +1174,7 @@ These changes include support for:
 | \[85\]   | `ParenthesizedSequenceType`    | ::= | `"(" SequenceTypeUnion ")"`               |                 |
 | \[86\]   | `SequenceTypeUnion`            | ::= | `SequenceTypeList ("\|" SequenceTypeList)* ")"` |           |
 | \[87\]   | `SequenceTypeList`             | ::= | `SequenceType ("," SequenceType)*`        |                 |
-| \[88\]   | `AnyItemType`                  | ::= | `"item" "(" ")"`                          |                 |
+| \[88\]   | `AnyItemTest`                  | ::= | `"item" "(" ")"`                          |                 |
 | \[91\]   | `ExprSingle`                   | ::= | `FLWORExpr \| QuantifiedExpr \| SwitchExpr \| TypeswitchExpr \| IfExpr \| TryCatchExpr \| TernaryIfExpr` | | 
 | \[92\]   | `TernaryIfExpr`                | ::= | `ElvisExpr "??" ElvisExpr "!!" ElvisExpr` |                 |
 | \[93\]   | `ElvisExpr`                    | ::= | `OrExpr "?!" OrExpr`                      |                 |

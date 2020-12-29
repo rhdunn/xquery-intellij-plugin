@@ -18,7 +18,7 @@ XQueryModuleImpl[FILE(0:69)]
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_CASE(19:23)]('case')
                PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
                XQuerySequenceTypeUnionImpl[XQUERY_SEQUENCE_TYPE_UNION(24:44)]
-                  PluginAnyItemTypeImpl[XPATH_ANY_ITEM_TYPE(24:32)]
+                  XPathAnyItemTestImpl[XPATH_ANY_ITEM_TEST(24:32)]
                      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ITEM(24:28)]('item')
                      PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
                      LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(29:30)]('(')

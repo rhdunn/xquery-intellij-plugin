@@ -24,7 +24,7 @@ XQueryModuleImpl[FILE(0:51)]
                      LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(37:38)]('(')
                      LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(38:39)](')')
                   LeafPsiElement[XPATH_UNION_TOKEN(39:40)]('|')
-                  PluginAnyItemTypeImpl[XPATH_ANY_ITEM_TYPE(40:46)]
+                  XPathAnyItemTestImpl[XPATH_ANY_ITEM_TEST(40:46)]
                      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ITEM(40:44)]('item')
                      LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(44:45)]('(')
                      LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(45:46)](')')

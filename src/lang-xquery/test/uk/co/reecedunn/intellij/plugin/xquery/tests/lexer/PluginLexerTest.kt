@@ -679,8 +679,8 @@ class PluginLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (88) AnyItemType")
-    fun anyItemType() {
+    @DisplayName("XQuery IntelliJ Plugin EBNF (88) AnyItemTest")
+    fun anyItemTest() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "item", XPathTokenType.K_ITEM)

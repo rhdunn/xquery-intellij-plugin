@@ -383,9 +383,9 @@ private class XPathPsiTest : ParserTestCase() {
         }
 
         @Test
-        @DisplayName("XPath 3.1 EBNF (81) ItemType")
+        @DisplayName("XPath 3.1 EBNF (81) ItemType ; XPath 4.0 ED EBNF (97) AnyItemTest")
         fun itemType() {
-            val type = parse<PluginAnyItemType>("() instance of item ( (::) )")[0] as XdmItemType
+            val type = parse<XPathAnyItemTest>("() instance of item ( (::) )")[0] as XdmItemType
             assertThat(type.typeName, `is`("item()"))
             assertThat(type.typeClass, `is`(sameInstance(XdmItem::class.java)))
 

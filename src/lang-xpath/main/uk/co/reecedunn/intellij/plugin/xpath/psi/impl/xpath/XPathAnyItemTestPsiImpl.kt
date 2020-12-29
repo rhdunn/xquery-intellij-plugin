@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin
+package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginAnyItemType
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAnyItemTest
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItem
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 
-class PluginAnyItemTypePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginAnyItemType {
+class XPathAnyItemTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathAnyItemTest {
     // region XdmSequenceType
 
     override val typeName: String = "item()"

@@ -23,7 +23,7 @@ XQueryModuleImpl[FILE(0:62)]
                   XmlNCNameImpl[XPATH_NCNAME_TOKEN(26:27)]('y')
                   PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
                PsiErrorElementImpl[ERROR_ELEMENT(28:28)]('XPST0003: Expected keyword: as.')
-               PluginAnyItemTypeImpl[XPATH_ANY_ITEM_TYPE(28:36)]
+               XPathAnyItemTestImpl[XPATH_ANY_ITEM_TEST(28:36)]
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ITEM(28:32)]('item')
                   PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')
                   LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(33:34)]('(')
