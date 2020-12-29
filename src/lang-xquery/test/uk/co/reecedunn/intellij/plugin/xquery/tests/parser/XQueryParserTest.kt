@@ -9255,4 +9255,121 @@ private class XQueryParserTest : ParserTestCase() {
             assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
+
+    @Nested
+    @DisplayName("XQuery 4.0 ED EBNF (202) ItemType")
+    internal inner class ItemType_XQuery40 {
+        @Nested
+        @DisplayName("XQuery 4.0 ED EBNF (233) LocalUnionType")
+        internal inner class LocalUnionType {
+            @Test
+            @DisplayName("NCName")
+            fun ncname() {
+                val expected = loadResource("tests/parser/xquery-4.0/LocalUnionType_NCName.txt")
+                val actual = parseResource("tests/parser/xquery-4.0/LocalUnionType_NCName.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("NCName; compact whitespace")
+            fun ncname_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-4.0/LocalUnionType_NCName_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-4.0/LocalUnionType_NCName_CompactWhitespace.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("qname")
+            fun qname() {
+                val expected = loadResource("tests/parser/xquery-4.0/LocalUnionType.txt")
+                val actual = parseResource("tests/parser/xquery-4.0/LocalUnionType.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("qname; compact whitespace")
+            fun qname_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-4.0/LocalUnionType_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-4.0/LocalUnionType_CompactWhitespace.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("URIQualifiedName")
+            fun uriQualifiedName() {
+                val expected = loadResource("tests/parser/xquery-4.0/LocalUnionType_URIQualifiedName.txt")
+                val actual = parseResource("tests/parser/xquery-4.0/LocalUnionType_URIQualifiedName.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("URIQualifiedName; compact whitespace")
+            fun uriQualifiedName_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-4.0/LocalUnionType_URIQualifiedName_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-4.0/LocalUnionType_URIQualifiedName_CompactWhitespace.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("missing closing parenthesis")
+            fun missingClosingParenthesis() {
+                val expected = loadResource("tests/parser/xquery-4.0/LocalUnionType_MissingClosingParenthesis.txt")
+                val actual = parseResource("tests/parser/xquery-4.0/LocalUnionType_MissingClosingParenthesis.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("missing first type")
+            fun missingFirstType() {
+                val expected = loadResource("tests/parser/xquery-4.0/LocalUnionType_MissingFirstType.txt")
+                val actual = parseResource("tests/parser/xquery-4.0/LocalUnionType_MissingFirstType.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("missing next type")
+            fun missingNextType() {
+                val expected = loadResource("tests/parser/xquery-4.0/LocalUnionType_MissingNextType.txt")
+                val actual = parseResource("tests/parser/xquery-4.0/LocalUnionType_MissingNextType.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("multiple types")
+            fun multipleTypes() {
+                // This is testing handling of whitespace before parsing the next comma.
+                val expected = loadResource("tests/parser/xquery-4.0/LocalUnionType_Multiple.txt")
+                val actual = parseResource("tests/parser/xquery-4.0/LocalUnionType_Multiple.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+        }
+
+        @Test
+        @DisplayName("XQuery 4.0 ED EBNF (227) TypedMapTest ; XQuery 4.0 ED EBNF (233) LocalUnionType")
+        fun typedMapTest() {
+            val expected = loadResource("tests/parser/xquery-4.0/TypedMapTest_LocalUnionType.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/TypedMapTest_LocalUnionType.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 4.0 ED EBNF (198) SingleType ; XQuery 4.0 ED EBNF (233) LocalUnionType")
+    internal inner class LocalUnionType_SingleType {
+        @Test
+        @DisplayName("single type")
+        fun singleType() {
+            val expected = loadResource("tests/parser/xquery-4.0/SingleType_LocalUnionType.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/SingleType_LocalUnionType.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("optional")
+        fun optional() {
+            val expected = loadResource("tests/parser/xquery-4.0/SingleType_LocalUnionType_Optional.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/SingleType_LocalUnionType_Optional.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+    }
 }
