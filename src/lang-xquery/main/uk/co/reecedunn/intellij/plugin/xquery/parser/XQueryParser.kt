@@ -1149,27 +1149,8 @@ class XQueryParser : XPathParser() {
                 parseWhiteSpaceAndCommentTokens(builder)
                 marker.done(XQueryElementType.UNKNOWN_DECL)
                 return true
-            } else if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN) && !haveErrors) {
-                builder.error(XPathBundle.message("parser.error.expected", "("))
+            } else if (!parseFunctionSignature(builder)) {
                 haveErrors = true
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            parseParamList(builder)
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE) && !haveErrors) {
-                builder.error(XPathBundle.message("parser.error.expected", ")"))
-                haveErrors = true
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (builder.matchTokenType(XPathTokenType.K_AS)) {
-                parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseSequenceType(builder)) {
-                    builder.error(XPathBundle.message("parser.error.expected", "SequenceType"))
-                    haveErrors = true
-                }
             }
 
             val bodyType = if (firstAnnotation === XQueryTokenType.K_SEQUENTIAL)
@@ -3457,32 +3438,12 @@ class XQueryParser : XPathParser() {
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
+            if (!parseFunctionSignature(builder)) {
                 if (!haveAnnotations) {
                     marker.rollbackTo()
                     return false
                 }
-
-                builder.error(XPathBundle.message("parser.error.expected", "("))
                 haveErrors = true
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            parseParamList(builder)
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE) && !haveErrors) {
-                builder.error(XPathBundle.message("parser.error.expected", ")"))
-                haveErrors = true
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (builder.matchTokenType(XPathTokenType.K_AS)) {
-                parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseSequenceType(builder)) {
-                    builder.error(XPathBundle.message("parser.error.expected", "SequenceType"))
-                    haveErrors = true
-                }
             }
 
             parseWhiteSpaceAndCommentTokens(builder)

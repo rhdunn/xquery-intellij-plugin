@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2018-2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -1235,6 +1235,15 @@ class XPathLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "array", XPathTokenType.K_ARRAY)
+        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+    }
+
+    @Test
+    @DisplayName("XPath 4.0 ED EBNF (33) FunctionSignature")
+    fun functionSignature() {
+        val lexer = createLexer()
+
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
     }

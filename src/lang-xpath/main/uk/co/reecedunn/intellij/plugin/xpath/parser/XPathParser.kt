@@ -1875,37 +1875,14 @@ open class XPathParser : PsiParser {
     open fun parseInlineFunctionExpr(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
         if (builder.matchTokenType(XPathTokenType.K_FUNCTION)) {
-            var haveErrors = false
-
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
+            if (!parseFunctionSignature(builder)) {
                 marker.rollbackTo()
                 return false
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            parseParamList(builder)
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE) && !haveErrors) {
-                builder.error(XPathBundle.message("parser.error.expected", ")"))
-                haveErrors = true
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (builder.matchTokenType(XPathTokenType.K_AS)) {
-                parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseSequenceType(builder)) {
-                    builder.error(XPathBundle.message("parser.error.expected", "SequenceType"))
-                    haveErrors = true
-                }
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (
-                !parseEnclosedExprOrBlock(builder, FUNCTION_BODY, BlockOpen.REQUIRED, BlockExpr.OPTIONAL) &&
-                !haveErrors
-            ) {
+            if (!parseEnclosedExprOrBlock(builder, FUNCTION_BODY, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)) {
                 builder.error(XPathBundle.message("parser.error.expected", "{"))
                 parseExpr(builder, EXPR)
 
@@ -1918,6 +1895,26 @@ open class XPathParser : PsiParser {
         }
         marker.drop()
         return false
+    }
+
+    fun parseFunctionSignature(builder: PsiBuilder): Boolean {
+        val matched = builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)
+        if (!matched) {
+            builder.error(XPathBundle.message("parser.error.expected", "("))
+        }
+
+        parseWhiteSpaceAndCommentTokens(builder)
+        parseParamList(builder)
+
+        parseWhiteSpaceAndCommentTokens(builder)
+        if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE)) {
+            builder.error(XPathBundle.message("parser.error.expected", ")"))
+        }
+
+        parseWhiteSpaceAndCommentTokens(builder)
+        parseTypeDeclaration(builder)
+
+        return matched
     }
 
     private fun parseContextItemFunctionExpr(builder: PsiBuilder, contextItem: PsiBuilder.Marker?): Boolean {
