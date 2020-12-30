@@ -92,58 +92,6 @@ open class XPathParser : PsiParser {
     }
 
     // endregion
-    // region Grammar :: ParamList
-
-    private fun parseParamList(builder: PsiBuilder): Boolean {
-        val marker = builder.mark()
-
-        while (parseParam(builder)) {
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (builder.tokenType === XPathTokenType.VARIABLE_INDICATOR) {
-                builder.error(XPathBundle.message("parser.error.expected", ","))
-            } else if (!builder.matchTokenType(XPathTokenType.COMMA)) {
-                builder.matchTokenType(XPathTokenType.ELLIPSIS)
-
-                marker.done(XPathElementType.PARAM_LIST)
-                return true
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-        }
-
-        marker.drop()
-        return false
-    }
-
-    private fun parseParam(builder: PsiBuilder): Boolean {
-        val marker = builder.mark()
-        if (builder.matchTokenType(XPathTokenType.VARIABLE_INDICATOR)) {
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (this.parseEQNameOrWildcard(builder, QNAME, false) == null) {
-                builder.error(XPathBundle.message("parser.error.expected-eqname"))
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            parseTypeDeclaration(builder)
-
-            marker.done(XPathElementType.PARAM)
-            return true
-        } else if (builder.tokenType === XPathTokenType.NCNAME || builder.tokenType is IKeywordOrNCNameType || builder.tokenType === XPathTokenType.QNAME_SEPARATOR) {
-            builder.error(XPathBundle.message("parser.error.expected", "$"))
-            this.parseEQNameOrWildcard(builder, QNAME, false)
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            parseTypeDeclaration(builder)
-
-            marker.done(XPathElementType.PARAM)
-            return true
-        }
-
-        marker.drop()
-        return false
-    }
-
-    // endregion
     // region Grammar :: EnclosedExpr|Block
 
     enum class BlockOpen {
@@ -1906,26 +1854,6 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    fun parseFunctionSignature(builder: PsiBuilder): Boolean {
-        val matched = builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)
-        if (!matched) {
-            builder.error(XPathBundle.message("parser.error.expected", "("))
-        }
-
-        parseWhiteSpaceAndCommentTokens(builder)
-        parseParamList(builder)
-
-        parseWhiteSpaceAndCommentTokens(builder)
-        if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE)) {
-            builder.error(XPathBundle.message("parser.error.expected", ")"))
-        }
-
-        parseWhiteSpaceAndCommentTokens(builder)
-        parseTypeDeclaration(builder)
-
-        return matched
-    }
-
     private fun parseContextItemFunctionExpr(builder: PsiBuilder, contextItem: PsiBuilder.Marker?): Boolean {
         val marker = contextItem ?: builder.mark()
         if (contextItem != null || builder.matchTokenType(XPathTokenType.K_FN)) {
@@ -1962,6 +1890,75 @@ open class XPathParser : PsiParser {
             marker.done(XPathElementType.LAMBDA_FUNCTION_EXPR)
             return true
         }
+        marker.drop()
+        return false
+    }
+
+    fun parseFunctionSignature(builder: PsiBuilder): Boolean {
+        val matched = builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)
+        if (!matched) {
+            builder.error(XPathBundle.message("parser.error.expected", "("))
+        }
+
+        parseWhiteSpaceAndCommentTokens(builder)
+        parseParamList(builder)
+
+        parseWhiteSpaceAndCommentTokens(builder)
+        if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE)) {
+            builder.error(XPathBundle.message("parser.error.expected", ")"))
+        }
+
+        parseWhiteSpaceAndCommentTokens(builder)
+        parseTypeDeclaration(builder)
+
+        return matched
+    }
+
+    private fun parseParamList(builder: PsiBuilder): Boolean {
+        val marker = builder.mark()
+
+        while (parseParam(builder)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (builder.tokenType === XPathTokenType.VARIABLE_INDICATOR) {
+                builder.error(XPathBundle.message("parser.error.expected", ","))
+            } else if (!builder.matchTokenType(XPathTokenType.COMMA)) {
+                builder.matchTokenType(XPathTokenType.ELLIPSIS)
+
+                marker.done(XPathElementType.PARAM_LIST)
+                return true
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+        }
+
+        marker.drop()
+        return false
+    }
+
+    private fun parseParam(builder: PsiBuilder): Boolean {
+        val marker = builder.mark()
+        if (builder.matchTokenType(XPathTokenType.VARIABLE_INDICATOR)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (this.parseEQNameOrWildcard(builder, QNAME, false) == null) {
+                builder.error(XPathBundle.message("parser.error.expected-eqname"))
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            parseTypeDeclaration(builder)
+
+            marker.done(XPathElementType.PARAM)
+            return true
+        } else if (builder.tokenType === XPathTokenType.NCNAME || builder.tokenType is IKeywordOrNCNameType || builder.tokenType === XPathTokenType.QNAME_SEPARATOR) {
+            builder.error(XPathBundle.message("parser.error.expected", "$"))
+            this.parseEQNameOrWildcard(builder, QNAME, false)
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            parseTypeDeclaration(builder)
+
+            marker.done(XPathElementType.PARAM)
+            return true
+        }
+
         marker.drop()
         return false
     }
