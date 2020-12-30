@@ -3328,6 +3328,53 @@ class XQueryParser : XPathParser() {
         return false
     }
 
+    private fun parseStringConstructor(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XQueryTokenType.STRING_CONSTRUCTOR_START)
+        if (marker != null) {
+            parseStringConstructorContent(builder)
+
+            if (!builder.matchTokenType(XQueryTokenType.STRING_CONSTRUCTOR_END)) {
+                builder.error(XQueryBundle.message("parser.error.incomplete-string-constructor"))
+            }
+
+            marker.done(XQueryElementType.STRING_CONSTRUCTOR)
+            return true
+        }
+        return false
+    }
+
+    private fun parseStringConstructorContent(builder: PsiBuilder): Boolean {
+        val marker = builder.mark()
+        while (
+            builder.matchTokenType(XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS) ||
+            parseStringConstructorInterpolation(builder)
+        ) {
+            //
+        }
+        marker.done(XQueryElementType.STRING_CONSTRUCTOR_CONTENT)
+        return true
+    }
+
+    private fun parseStringConstructorInterpolation(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XQueryTokenType.STRING_INTERPOLATION_OPEN)
+        if (marker != null) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            parseExpr(builder, EXPR)
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XQueryTokenType.STRING_INTERPOLATION_CLOSE)) {
+                builder.error(XPathBundle.message("parser.error.expected", "}`"))
+            }
+
+            marker.done(XQueryElementType.STRING_CONSTRUCTOR_INTERPOLATION)
+            return true
+        }
+        return false
+    }
+
+    // endregion
+    // region Grammar :: Expr :: OrExpr :: PrimaryExpr :: FunctionCall
+
     override fun parseFunctionCall(builder: PsiBuilder): Boolean {
         if (builder.tokenType is IKeywordOrNCNameType) {
             val type = builder.tokenType as IKeywordOrNCNameType?
@@ -3375,50 +3422,6 @@ class XQueryParser : XPathParser() {
         }
 
         marker.drop()
-        return false
-    }
-
-    private fun parseStringConstructor(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XQueryTokenType.STRING_CONSTRUCTOR_START)
-        if (marker != null) {
-            parseStringConstructorContent(builder)
-
-            if (!builder.matchTokenType(XQueryTokenType.STRING_CONSTRUCTOR_END)) {
-                builder.error(XQueryBundle.message("parser.error.incomplete-string-constructor"))
-            }
-
-            marker.done(XQueryElementType.STRING_CONSTRUCTOR)
-            return true
-        }
-        return false
-    }
-
-    private fun parseStringConstructorContent(builder: PsiBuilder): Boolean {
-        val marker = builder.mark()
-        while (
-            builder.matchTokenType(XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS) ||
-            parseStringConstructorInterpolation(builder)
-        ) {
-            //
-        }
-        marker.done(XQueryElementType.STRING_CONSTRUCTOR_CONTENT)
-        return true
-    }
-
-    private fun parseStringConstructorInterpolation(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XQueryTokenType.STRING_INTERPOLATION_OPEN)
-        if (marker != null) {
-            parseWhiteSpaceAndCommentTokens(builder)
-            parseExpr(builder, EXPR)
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XQueryTokenType.STRING_INTERPOLATION_CLOSE)) {
-                builder.error(XPathBundle.message("parser.error.expected", "}`"))
-            }
-
-            marker.done(XQueryElementType.STRING_CONSTRUCTOR_INTERPOLATION)
-            return true
-        }
         return false
     }
 

@@ -1744,6 +1744,44 @@ open class XPathParser : PsiParser {
         return false
     }
 
+    private fun parseLookup(builder: PsiBuilder, type: IElementType): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.OPTIONAL)
+        if (marker != null) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseKeySpecifier(builder)) {
+                if (type === XPathElementType.UNARY_LOOKUP) {
+                    // NOTE: This conflicts with '?' used as an ArgumentPlaceholder, so don't match '?' only as UnaryLookup.
+                    marker.rollbackTo()
+                    return false
+                } else {
+                    builder.error(XPathBundle.message("parser.error.expected", "KeySpecifier"))
+                }
+            }
+
+            marker.done(type)
+            return true
+        }
+        return false
+    }
+
+    private fun parseKeySpecifier(builder: PsiBuilder): Boolean {
+        val marker = builder.mark()
+        if (
+            builder.matchTokenType(XPathTokenType.STAR) ||
+            builder.matchTokenType(XPathTokenType.INTEGER_LITERAL) ||
+            this.parseEQNameOrWildcard(builder, NCNAME, false) != null ||
+            parseParenthesizedExpr(builder)
+        ) {
+            marker.done(XPathElementType.KEY_SPECIFIER)
+            return true
+        }
+        marker.drop()
+        return false
+    }
+
+    // endregion
+    // region Grammar :: Expr :: OrExpr :: PrimaryExpr :: FunctionCall
+
     open fun parseFunctionCall(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
         if (this.parseEQNameOrWildcard(builder, QNAME, false) != null) {
@@ -1799,41 +1837,6 @@ open class XPathParser : PsiParser {
             marker.done(XPathElementType.ARGUMENT_PLACEHOLDER)
             return true
         }
-        return false
-    }
-
-    private fun parseLookup(builder: PsiBuilder, type: IElementType): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.OPTIONAL)
-        if (marker != null) {
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseKeySpecifier(builder)) {
-                if (type === XPathElementType.UNARY_LOOKUP) {
-                    // NOTE: This conflicts with '?' used as an ArgumentPlaceholder, so don't match '?' only as UnaryLookup.
-                    marker.rollbackTo()
-                    return false
-                } else {
-                    builder.error(XPathBundle.message("parser.error.expected", "KeySpecifier"))
-                }
-            }
-
-            marker.done(type)
-            return true
-        }
-        return false
-    }
-
-    private fun parseKeySpecifier(builder: PsiBuilder): Boolean {
-        val marker = builder.mark()
-        if (
-            builder.matchTokenType(XPathTokenType.STAR) ||
-            builder.matchTokenType(XPathTokenType.INTEGER_LITERAL) ||
-            this.parseEQNameOrWildcard(builder, NCNAME, false) != null ||
-            parseParenthesizedExpr(builder)
-        ) {
-            marker.done(XPathElementType.KEY_SPECIFIER)
-            return true
-        }
-        marker.drop()
         return false
     }
 
