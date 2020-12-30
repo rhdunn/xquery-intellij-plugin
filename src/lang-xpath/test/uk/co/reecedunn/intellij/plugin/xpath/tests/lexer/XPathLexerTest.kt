@@ -1249,6 +1249,14 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XPath 4.0 ED EBNF (60) PositionalArguments")
+    fun positionalArguments() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
+    }
+
+    @Test
     @DisplayName("XPath 4.0 ED EBNF (127) LocalUnionType")
     fun localUnionType() {
         val lexer = createLexer()

@@ -94,7 +94,7 @@ open class XPathParser : PsiParser {
     // endregion
     // region Grammar :: ParamList
 
-    fun parseParamList(builder: PsiBuilder): Boolean {
+    private fun parseParamList(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
 
         while (parseParam(builder)) {
@@ -1800,28 +1800,34 @@ open class XPathParser : PsiParser {
     fun parseArgumentList(builder: PsiBuilder): Boolean {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.PARENTHESIS_OPEN)
         if (marker != null) {
-            var haveErrors = false
+            parseWhiteSpaceAndCommentTokens(builder)
+            parsePositionalArguments(builder)
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (parseArgument(builder)) {
-                parseWhiteSpaceAndCommentTokens(builder)
-                while (builder.matchTokenType(XPathTokenType.COMMA)) {
-                    parseWhiteSpaceAndCommentTokens(builder)
-                    if (!parseArgument(builder) && !haveErrors) {
-                        builder.error(XPathBundle.message("parser.error.expected-either", "ExprSingle", "?"))
-                        haveErrors = true
-                    }
-
-                    parseWhiteSpaceAndCommentTokens(builder)
-                }
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE) && !haveErrors) {
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE)) {
                 builder.error(XPathBundle.message("parser.error.expected", ")"))
             }
 
             marker.done(XPathElementType.ARGUMENT_LIST)
+            return true
+        }
+        return false
+    }
+
+    private fun parsePositionalArguments(builder: PsiBuilder): Boolean {
+        if (parseArgument(builder)) {
+            var haveErrors = false
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            while (builder.matchTokenType(XPathTokenType.COMMA)) {
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!parseArgument(builder) && !haveErrors) {
+                    builder.error(XPathBundle.message("parser.error.expected-either", "ExprSingle", "?"))
+                    haveErrors = true
+                }
+
+                parseWhiteSpaceAndCommentTokens(builder)
+            }
             return true
         }
         return false

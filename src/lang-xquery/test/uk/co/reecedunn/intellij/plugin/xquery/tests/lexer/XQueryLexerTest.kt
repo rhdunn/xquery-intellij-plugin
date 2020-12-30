@@ -3806,6 +3806,14 @@ class XQueryLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XQuery 4.0 ED EBNF (133) PositionalArguments")
+    fun positionalArguments() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
+    }
+
+    @Test
     @DisplayName("XQuery 4.0 ED EBNF (233) LocalUnionType")
     fun localUnionType() {
         val lexer = createLexer()
