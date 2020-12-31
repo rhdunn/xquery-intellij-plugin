@@ -4137,6 +4137,22 @@ private class XPathParserTest : ParserTestCase() {
             }
 
             @Test
+            @DisplayName("member; mixed bindings")
+            fun mixedBindings() {
+                val expected = loadResource("tests/parser/xpath-4.0/SimpleForBinding_Member_MixedBindings.txt")
+                val actual = parseResource("tests/parser/xpath-4.0/SimpleForBinding_Member_MixedBindings.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("member; mixed bindings; compact whitespace")
+            fun mixedBindings_compactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-4.0/SimpleForBinding_Member_MixedBindings_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-4.0/SimpleForBinding_Member_MixedBindings_CompactWhitespace.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
             @DisplayName("member; missing for binding")
             fun missingForBinding() {
                 val expected = loadResource("tests/parser/xpath-4.0/SimpleForBinding_Member_MissingForBinding.txt")

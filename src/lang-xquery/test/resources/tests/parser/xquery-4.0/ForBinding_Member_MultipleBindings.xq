@@ -1,1 +1,1 @@
-for member $ m1 in [ ] , $ m2 in [ ] return 1
+for member $ m1 in [ ] , member $ m2 in [ ] return 1
