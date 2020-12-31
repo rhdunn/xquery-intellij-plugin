@@ -1431,7 +1431,7 @@ private class XPathPsiTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XPath 3.1 (3) Expressions")
+    @DisplayName("XPath 3.1 (3) Expressions ; XPath 4.0 ED (4) Expressions")
     internal inner class Expressions {
         @Test
         @DisplayName("XPath 3.1 EBNF (1) XPath")
@@ -1446,1283 +1446,853 @@ private class XPathPsiTest : ParserTestCase() {
             val expr = parse<XPathExpr>("(1, 2 + 3, 4)")[1] as XpmExpression
             assertThat(expr.expressionElement, `is`(nullValue()))
         }
-    }
 
-    @Nested
-    @DisplayName("XPath 3.1 (3.1) Primary Expressions")
-    internal inner class PrimaryExpressions {
         @Nested
-        @DisplayName("XPath 3.1 (3.1.1) Literals")
-        internal inner class Literals {
-            @Test
-            @DisplayName("XPath 3.1 EBNF (113) IntegerLiteral")
-            fun integerLiteral() {
-                val literal = parse<XPathIntegerLiteral>("123")[0] as XsIntegerValue
-                assertThat(literal.data, `is`(BigInteger.valueOf(123)))
-                assertThat(literal.toInt(), `is`(123))
-
-                val expr = literal as XpmExpression
-                assertThat(expr.expressionElement, `is`(nullValue()))
-            }
-
-            @Test
-            @DisplayName("XPath 3.1 EBNF (114) DecimalLiteral")
-            fun decimalLiteral() {
-                val literal = parse<XPathDecimalLiteral>("12.34")[0] as XsDecimalValue
-                assertThat(literal.data, `is`(BigDecimal(BigInteger.valueOf(1234), 2)))
-
-                val expr = literal as XpmExpression
-                assertThat(expr.expressionElement, `is`(nullValue()))
-            }
-
-            @Test
-            @DisplayName("XPath 3.1 EBNF (115) DoubleLiteral")
-            fun doubleLiteral() {
-                val literal = parse<XPathDoubleLiteral>("1e3")[0] as XsDoubleValue
-                assertThat(literal.data, `is`(1e3))
-
-                val expr = literal as XpmExpression
-                assertThat(expr.expressionElement, `is`(nullValue()))
-            }
-
+        @DisplayName("XPath 3.1 (3.1) Primary Expressions")
+        internal inner class PrimaryExpressions {
             @Nested
-            @DisplayName("XPath 3.1 EBNF (116) StringLiteral")
-            internal inner class StringLiteral {
+            @DisplayName("XPath 3.1 (3.1.1) Literals")
+            internal inner class Literals {
                 @Test
-                @DisplayName("string literal content")
-                fun stringLiteral() {
-                    val literal = parse<XPathStringLiteral>("\"Lorem ipsum.\uFFFF\"")[0] as XsStringValue
-                    assertThat(literal.data, `is`("Lorem ipsum.\uFFFF")) // U+FFFF = BAD_CHARACTER token.
-                    assertThat(literal.element, sameInstance(literal as PsiElement))
+                @DisplayName("XPath 3.1 EBNF (113) IntegerLiteral")
+                fun integerLiteral() {
+                    val literal = parse<XPathIntegerLiteral>("123")[0] as XsIntegerValue
+                    assertThat(literal.data, `is`(BigInteger.valueOf(123)))
+                    assertThat(literal.toInt(), `is`(123))
 
                     val expr = literal as XpmExpression
                     assertThat(expr.expressionElement, `is`(nullValue()))
                 }
 
                 @Test
-                @DisplayName("unclosed string literal content")
-                fun unclosedStringLiteral() {
-                    val literal = parse<XPathStringLiteral>("\"Lorem ipsum.")[0] as XsStringValue
-                    assertThat(literal.data, `is`("Lorem ipsum."))
-                    assertThat(literal.element, sameInstance(literal as PsiElement))
+                @DisplayName("XPath 3.1 EBNF (114) DecimalLiteral")
+                fun decimalLiteral() {
+                    val literal = parse<XPathDecimalLiteral>("12.34")[0] as XsDecimalValue
+                    assertThat(literal.data, `is`(BigDecimal(BigInteger.valueOf(1234), 2)))
 
                     val expr = literal as XpmExpression
                     assertThat(expr.expressionElement, `is`(nullValue()))
                 }
 
                 @Test
-                @DisplayName("EscapeApos tokens")
-                fun escapeApos() {
-                    val literal = parse<XPathStringLiteral>("'''\"\"'")[0] as XsStringValue
-                    assertThat(literal.data, `is`("'\"\""))
-                    assertThat(literal.element, sameInstance(literal as PsiElement))
+                @DisplayName("XPath 3.1 EBNF (115) DoubleLiteral")
+                fun doubleLiteral() {
+                    val literal = parse<XPathDoubleLiteral>("1e3")[0] as XsDoubleValue
+                    assertThat(literal.data, `is`(1e3))
 
                     val expr = literal as XpmExpression
                     assertThat(expr.expressionElement, `is`(nullValue()))
                 }
 
-                @Test
-                @DisplayName("EscapeQuot tokens")
-                fun escapeQuot() {
-                    val literal = parse<XPathStringLiteral>("\"''\"\"\"")[0] as XsStringValue
-                    assertThat(literal.data, `is`("''\""))
-                    assertThat(literal.element, sameInstance(literal as PsiElement))
-
-                    val expr = literal as XpmExpression
-                    assertThat(expr.expressionElement, `is`(nullValue()))
-                }
-            }
-        }
-
-        @Nested
-        @DisplayName("XPath 3.1 (3.1.2) Variable References")
-        internal inner class VariableReferences {
-            @Nested
-            @DisplayName("XPath 3.1 EBNF (59) VarRef")
-            internal inner class VarRef {
-                @Test
-                @DisplayName("NCName")
-                fun ncname() {
-                    val ref = parse<XPathVarRef>("let \$x := 2 return \$y")[0] as XpmVariableReference
-
-                    val qname = ref.variableName!!
-                    assertThat(qname.prefix, `is`(nullValue()))
-                    assertThat(qname.namespace, `is`(nullValue()))
-                    assertThat(qname.localName!!.data, `is`("y"))
-
-                    val expr = ref as XpmExpression
-                    assertThat(expr.expressionElement, `is`(nullValue()))
-                }
-
-                @Test
-                @DisplayName("QName")
-                fun qname() {
-                    val ref = parse<XPathVarRef>("let \$a:x := 2 return \$a:y")[0] as XpmVariableReference
-
-                    val qname = ref.variableName!!
-                    assertThat(qname.namespace, `is`(nullValue()))
-                    assertThat(qname.prefix!!.data, `is`("a"))
-                    assertThat(qname.localName!!.data, `is`("y"))
-
-                    val expr = ref as XpmExpression
-                    assertThat(expr.expressionElement, `is`(nullValue()))
-                }
-
-                @Test
-                @DisplayName("URIQualifiedName")
-                fun uriQualifiedName() {
-                    val ref = parse<XPathVarRef>(
-                        "let \$Q{http://www.example.com}x := 2 return \$Q{http://www.example.com}y"
-                    )[0] as XpmVariableReference
-
-                    val qname = ref.variableName!!
-                    assertThat(qname.prefix, `is`(nullValue()))
-                    assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
-                    assertThat(qname.localName!!.data, `is`("y"))
-
-                    val expr = ref as XpmExpression
-                    assertThat(expr.expressionElement, `is`(nullValue()))
-                }
-            }
-        }
-
-        @Nested
-        @DisplayName("XPath 3.1 (3.1.3) Parenthesized Expressions")
-        internal inner class ParenthesizedExpressions {
-            @Test
-            @DisplayName("XPath 3.1 EBNF (61) ParenthesizedExpr ; XQuery IntelliJ Plugin XPath EBNF (52) EmptyExpr")
-            fun emptyExpr() {
-                val expr = parse<PluginEmptyExpr>("()")[0] as XpmExpression
-                assertThat(expr.expressionElement, `is`(nullValue()))
-            }
-        }
-
-        @Nested
-        @DisplayName("XPath 3.1 (3.1.4) Context Item Expression")
-        internal inner class ContextItemExpression {
-            @Test
-            @DisplayName("XPath 3.1 EBNF (62) ContextItemExpr")
-            fun contextItemExpr() {
-                val expr = parse<XPathContextItemExpr>("() ! .")[0] as XpmExpression
-                assertThat(expr.expressionElement, `is`(nullValue()))
-            }
-        }
-
-        @Nested
-        @DisplayName("XPath 3.1 (3.1.5) Static Function Calls")
-        internal inner class StaticFunctionCalls {
-            @Nested
-            @DisplayName("XPath 3.1 EBNF (63) FunctionCall")
-            internal inner class FunctionCall {
-                @Test
-                @DisplayName("non-empty ArgumentList")
-                fun nonEmptyArguments() {
-                    val f = parse<XPathFunctionCall>("math:pow(2, 8)")[0] as XpmFunctionReference
-                    assertThat(f.arity, `is`(2))
-
-                    val qname = f.functionName!!
-                    assertThat(qname.isLexicalQName, `is`(true))
-                    assertThat(qname.namespace, `is`(nullValue()))
-                    assertThat(qname.prefix!!.data, `is`("math"))
-                    assertThat(qname.localName!!.data, `is`("pow"))
-                    assertThat(qname.element, sameInstance(qname as PsiElement))
-
-                    val args = (f as XPathFunctionCall).argumentList
-                    assertThat(args.arity, `is`(2))
-                    assertThat(args.functionReference, `is`(sameInstance(f)))
-
-                    val bindings = args.bindings
-                    assertThat(bindings.size, `is`(0))
-
-                    val expr = f as XpmExpression
-                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.FUNCTION_CALL))
-                    assertThat(expr.expressionElement?.textOffset, `is`(0))
-                }
-
-                @Test
-                @DisplayName("empty ArgumentList")
-                fun emptyArguments() {
-                    val f = parse<XPathFunctionCall>("fn:true()")[0] as XpmFunctionReference
-                    assertThat(f.arity, `is`(0))
-
-                    val qname = f.functionName!!
-                    assertThat(qname.isLexicalQName, `is`(true))
-                    assertThat(qname.namespace, `is`(nullValue()))
-                    assertThat(qname.prefix!!.data, `is`("fn"))
-                    assertThat(qname.localName!!.data, `is`("true"))
-                    assertThat(qname.element, sameInstance(qname as PsiElement))
-
-                    val args = (f as XPathFunctionCall).argumentList
-                    assertThat(args.arity, `is`(0))
-                    assertThat(args.functionReference, `is`(sameInstance(f)))
-
-                    val bindings = args.bindings
-                    assertThat(bindings.size, `is`(0))
-
-                    val expr = f as XpmExpression
-                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.FUNCTION_CALL))
-                    assertThat(expr.expressionElement?.textOffset, `is`(0))
-                }
-
-                @Test
-                @DisplayName("partial function application")
-                fun partialFunctionApplication() {
-                    val f = parse<XPathFunctionCall>("math:sin(?)")[0] as XpmFunctionReference
-                    assertThat(f.arity, `is`(1))
-
-                    val qname = f.functionName!!
-                    assertThat(qname.isLexicalQName, `is`(true))
-                    assertThat(qname.namespace, `is`(nullValue()))
-                    assertThat(qname.prefix!!.data, `is`("math"))
-                    assertThat(qname.localName!!.data, `is`("sin"))
-                    assertThat(qname.element, sameInstance(qname as PsiElement))
-
-                    val args = (f as XPathFunctionCall).argumentList
-                    assertThat(args.arity, `is`(1))
-                    assertThat(args.functionReference, `is`(sameInstance(f)))
-
-                    val bindings = args.bindings
-                    assertThat(bindings.size, `is`(0))
-
-                    val expr = f as XpmExpression
-                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
-                    assertThat(expr.expressionElement?.textOffset, `is`(8))
-                }
-
-                @Test
-                @DisplayName("invalid EQName")
-                fun invalidEQName() {
-                    val f = parse<XPathFunctionCall>(":true(1)")[0] as XpmFunctionReference
-                    assertThat(f.arity, `is`(1))
-                    assertThat(f.functionName, `is`(nullValue()))
-
-                    val args = (f as XPathFunctionCall).argumentList
-                    assertThat(args.arity, `is`(1))
-                    assertThat(args.functionReference, `is`(sameInstance(f)))
-
-                    val bindings = args.bindings
-                    assertThat(bindings.size, `is`(0))
-                }
-
-                @Test
-                @DisplayName("NCName namespace resolution")
-                fun ncname() {
-                    val qname = parse<XPathEQName>("true()")[0] as XsQNameValue
-                    assertThat(qname.element!!.getUsageType(), `is`(XpmUsageType.FunctionRef))
-
-                    assertThat(qname.isLexicalQName, `is`(true))
-                    assertThat(qname.namespace, `is`(nullValue()))
-                    assertThat(qname.prefix, `is`(nullValue()))
-                    assertThat(qname.localName!!.data, `is`("true"))
-                    assertThat(qname.element, sameInstance(qname as PsiElement))
-                }
-
-                @Test
-                @DisplayName("reference rename")
-                fun referenceRename() {
-                    val expr = parse<XPathFunctionCall>("test()")[0] as XpmFunctionReference
-
-                    val ref = (expr.functionName as PsiElement).reference
-                    assertThat(ref, `is`(nullValue()))
-                }
-            }
-
-            @Nested
-            @DisplayName("XPath 3.1 EBNF (50) ArgumentList")
-            internal inner class ArgumentList {
-                @Test
-                @DisplayName("empty parameters")
-                fun empty() {
-                    val args = parse<XPathArgumentList>("fn:true()")[0]
-                    assertThat(args.arity, `is`(0))
-                    assertThat(args.isPartialFunctionApplication, `is`(false))
-                }
-
-                @Test
-                @DisplayName("multiple ExprSingle parameters")
-                fun multiple() {
-                    val args = parse<XPathArgumentList>("math:pow(2, 8)")[0]
-                    assertThat(args.arity, `is`(2))
-                    assertThat(args.isPartialFunctionApplication, `is`(false))
-                }
-
-                @Test
-                @DisplayName("ArgumentPlaceholder parameter")
-                fun argumentPlaceholder() {
-                    val args = parse<XPathArgumentList>("math:sin(?)")[0]
-                    assertThat(args.arity, `is`(1))
-                    assertThat(args.isPartialFunctionApplication, `is`(true))
-                }
-            }
-        }
-
-        @Nested
-        @DisplayName("XPath 3.1 (3.1.6) Named Function References")
-        internal inner class NamedFunctionReferences {
-            @Nested
-            @DisplayName("XPath 3.1 EBNF (67) NamedFunctionRef")
-            internal inner class NamedFunctionRef {
-                @Test
-                @DisplayName("named function reference")
-                fun namedFunctionRef() {
-                    val f = parse<XPathNamedFunctionRef>("true#3")[0] as XpmFunctionReference
-                    assertThat(f.arity, `is`(3))
-
-                    val qname = f.functionName!!
-                    assertThat(qname.isLexicalQName, `is`(true))
-                    assertThat(qname.namespace, `is`(nullValue()))
-                    assertThat(qname.prefix, `is`(nullValue()))
-                    assertThat(qname.localName!!.data, `is`("true"))
-                    assertThat(qname.element, sameInstance(qname as PsiElement))
-
-                    val expr = f as XpmExpression
-                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.NAMED_FUNCTION_REF))
-                    assertThat(expr.expressionElement?.textOffset, `is`(0))
-                }
-
-                @Test
-                @DisplayName("missing arity")
-                fun missingArity() {
-                    val f = parse<XPathNamedFunctionRef>("true#")[0] as XpmFunctionReference
-                    assertThat(f.arity, `is`(0))
-
-                    val qname = f.functionName!!
-                    assertThat(qname.isLexicalQName, `is`(true))
-                    assertThat(qname.namespace, `is`(nullValue()))
-                    assertThat(qname.prefix, `is`(nullValue()))
-                    assertThat(qname.localName!!.data, `is`("true"))
-                    assertThat(qname.element, sameInstance(qname as PsiElement))
-
-                    val expr = f as XpmExpression
-                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.NAMED_FUNCTION_REF))
-                    assertThat(expr.expressionElement?.textOffset, `is`(0))
-                }
-
-                @Test
-                @DisplayName("invalid EQName")
-                fun invalidEQName() {
-                    val f = parse<XPathNamedFunctionRef>(":true#0")[0] as XpmFunctionReference
-                    assertThat(f.arity, `is`(0))
-                    assertThat(f.functionName, `is`(nullValue()))
-
-                    val expr = f as XpmExpression
-                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.NAMED_FUNCTION_REF))
-                    assertThat(expr.expressionElement?.textOffset, `is`(0))
-                }
-
-                @Test
-                @DisplayName("NCName namespace resolution")
-                fun ncname() {
-                    val qname = parse<XPathEQName>("true#0")[0] as XsQNameValue
-                    assertThat(qname.element!!.getUsageType(), `is`(XpmUsageType.FunctionRef))
-
-                    assertThat(qname.isLexicalQName, `is`(true))
-                    assertThat(qname.namespace, `is`(nullValue()))
-                    assertThat(qname.prefix, `is`(nullValue()))
-                    assertThat(qname.localName!!.data, `is`("true"))
-                    assertThat(qname.element, sameInstance(qname as PsiElement))
-                }
-
-                @Test
-                @DisplayName("reference rename")
-                fun referenceRename() {
-                    val expr = parse<XPathNamedFunctionRef>("test#1")[0] as XpmFunctionReference
-
-                    val ref = (expr.functionName as PsiElement).reference
-                    assertThat(ref, `is`(nullValue()))
-                }
-            }
-        }
-
-        @Nested
-        @DisplayName("XPath 3.1 (3.1.7) Inline Function Expression")
-        internal inner class InlineFunctionExpressions {
-            @Nested
-            @DisplayName("XPath 3.1 EBNF (3) Param")
-            internal inner class Param {
-                @Test
-                @DisplayName("NCName")
-                fun ncname() {
-                    val expr = parse<XPathParam>("function (\$x) {}")[0] as XpmVariableBinding
-                    assertThat((expr as XpmVariableType).variableType?.typeName, `is`(nullValue()))
-
-                    val qname = expr.variableName!!
-                    assertThat(qname.prefix, `is`(nullValue()))
-                    assertThat(qname.namespace, `is`(nullValue()))
-                    assertThat(qname.localName!!.data, `is`("x"))
-
-                    val presentation = (expr as NavigatablePsiElement).presentation!!
-                    assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.Param)))
-                    assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.Param)))
-                    assertThat(presentation.presentableText, `is`("\$x"))
-                    assertThat(presentation.locationString, `is`(nullValue()))
-                }
-
-                @Test
-                @DisplayName("QName")
-                fun qname() {
-                    val expr = parse<XPathParam>("function (\$a:x) {}")[0] as XpmVariableBinding
-                    assertThat((expr as XpmVariableType).variableType?.typeName, `is`(nullValue()))
-
-                    val qname = expr.variableName!!
-                    assertThat(qname.namespace, `is`(nullValue()))
-                    assertThat(qname.prefix!!.data, `is`("a"))
-                    assertThat(qname.localName!!.data, `is`("x"))
-
-                    val presentation = (expr as NavigatablePsiElement).presentation!!
-                    assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.Param)))
-                    assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.Param)))
-                    assertThat(presentation.presentableText, `is`("\$a:x"))
-                    assertThat(presentation.locationString, `is`(nullValue()))
-                }
-
-                @Test
-                @DisplayName("URIQualifiedName")
-                fun uriQualifiedName() {
-                    val expr = parse<XPathParam>("function (\$Q{http://www.example.com}x) {}")[0] as XpmVariableBinding
-                    assertThat((expr as XpmVariableType).variableType?.typeName, `is`(nullValue()))
-
-                    val qname = expr.variableName!!
-                    assertThat(qname.prefix, `is`(nullValue()))
-                    assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
-                    assertThat(qname.localName!!.data, `is`("x"))
-
-                    val presentation = (expr as NavigatablePsiElement).presentation!!
-                    assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.Param)))
-                    assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.Param)))
-                    assertThat(presentation.presentableText, `is`("\$Q{http://www.example.com}x"))
-                    assertThat(presentation.locationString, `is`(nullValue()))
-                }
-
-                @Test
-                @DisplayName("missing VarName")
-                fun missingVarName() {
-                    val expr = parse<XPathParam>("function (\$) {}")[0] as XpmVariableBinding
-                    assertThat(expr.variableName, `is`(nullValue()))
-                    assertThat((expr as XpmVariableType).variableType?.typeName, `is`(nullValue()))
-
-                    val presentation = (expr as NavigatablePsiElement).presentation!!
-                    assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.Param)))
-                    assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.Param)))
-                    assertThat(presentation.presentableText, `is`(nullValue()))
-                    assertThat(presentation.locationString, `is`(nullValue()))
-                }
-
-                @Test
-                @DisplayName("with type")
-                fun withType() {
-                    val expr = parse<XPathParam>("function ( \$x  as  element() ) {}")[0] as XpmVariableBinding
-                    assertThat((expr as XpmVariableType).variableType?.typeName, `is`("element()"))
-
-                    val qname = expr.variableName!!
-                    assertThat(qname.prefix, `is`(nullValue()))
-                    assertThat(qname.namespace, `is`(nullValue()))
-                    assertThat(qname.localName!!.data, `is`("x"))
-
-                    val presentation = (expr as NavigatablePsiElement).presentation!!
-                    assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.Param)))
-                    assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.Param)))
-                    assertThat(presentation.presentableText, `is`("\$x as element()"))
-                    assertThat(presentation.locationString, `is`(nullValue()))
-                }
-
-                @Test
-                @DisplayName("NCName namespace resolution")
-                fun ncnameNamespaceResolution() {
-                    val qname = parse<XPathEQName>("function (\$test) {}")[0] as XsQNameValue
-                    assertThat(qname.element!!.getUsageType(), `is`(XpmUsageType.Parameter))
-
-                    assertThat(qname.isLexicalQName, `is`(true))
-                    assertThat(qname.namespace, `is`(nullValue()))
-                    assertThat(qname.prefix, `is`(nullValue()))
-                    assertThat(qname.localName!!.data, `is`("test"))
-                    assertThat(qname.element, sameInstance(qname as PsiElement))
-                }
-            }
-
-            @Nested
-            @DisplayName("XPath 3.1 EBNF (68) InlineFunctionExpr")
-            internal inner class InlineFunctionExpr {
-                @Test
-                @DisplayName("empty ParamList")
-                fun emptyParamList() {
-                    val decl = parse<XpmFunctionDeclaration>("function () {}")[0]
-                    assertThat(decl.functionName, `is`(nullValue()))
-                    assertThat(decl.returnType, `is`(nullValue()))
-                    assertThat(decl.arity, `is`(Range(0, 0)))
-                    assertThat(decl.params.size, `is`(0))
-                    assertThat(decl.isVariadic, `is`(false))
-
-                    val expr = decl as XpmExpression
-                    assertThat(expr.expressionElement, `is`(nullValue()))
-                }
-
-                @Test
-                @DisplayName("non-empty ParamList")
-                fun nonEmptyParamList() {
-                    val decl = parse<XpmFunctionDeclaration>("function (\$one, \$two) {}")[0]
-                    assertThat(decl.functionName, `is`(nullValue()))
-                    assertThat(decl.returnType, `is`(nullValue()))
-                    assertThat(decl.arity, `is`(Range(2, 2)))
-                    assertThat(decl.isVariadic, `is`(false))
-
-                    assertThat(decl.params.size, `is`(2))
-                    assertThat(op_qname_presentation(decl.params[0].variableName!!), `is`("one"))
-                    assertThat(op_qname_presentation(decl.params[1].variableName!!), `is`("two"))
-
-                    val expr = decl as XpmExpression
-                    assertThat(expr.expressionElement, `is`(nullValue()))
-                }
-
-                @Test
-                @DisplayName("non-empty ParamList with types")
-                fun nonEmptyParamListWithTypes() {
-                    val decl = parse<XpmFunctionDeclaration>(
-                        "function (\$one  as  array ( * ), \$two  as  node((::))) {}"
-                    )[0]
-                    assertThat(decl.functionName, `is`(nullValue()))
-                    assertThat(decl.returnType, `is`(nullValue()))
-                    assertThat(decl.arity, `is`(Range(2, 2)))
-                    assertThat(decl.isVariadic, `is`(false))
-
-                    assertThat(decl.params.size, `is`(2))
-                    assertThat(op_qname_presentation(decl.params[0].variableName!!), `is`("one"))
-                    assertThat(op_qname_presentation(decl.params[1].variableName!!), `is`("two"))
-
-                    val expr = decl as XpmExpression
-                    assertThat(expr.expressionElement, `is`(nullValue()))
-                }
-
-                @Test
-                @DisplayName("return type")
-                fun returnType() {
-                    val decl = parse<XpmFunctionDeclaration>("function ()  as  xs:boolean  {}")[0]
-                    assertThat(decl.functionName, `is`(nullValue()))
-                    assertThat(decl.returnType?.typeName, `is`("xs:boolean"))
-                    assertThat(decl.arity, `is`(Range(0, 0)))
-                    assertThat(decl.params.size, `is`(0))
-                    assertThat(decl.isVariadic, `is`(false))
-
-                    val expr = decl as XpmExpression
-                    assertThat(expr.expressionElement, `is`(nullValue()))
-                }
-            }
-        }
-    }
-
-    @Nested
-    @DisplayName("XPath 3.1 (3.2) Postfix Expressions")
-    internal inner class PostfixExpressions {
-        @Nested
-        @DisplayName("XPath 3.1 EBNF (49) PostfixExpr")
-        internal inner class PostfixExpr {
-            @Test
-            @DisplayName("initial step")
-            fun initialStep() {
-                val step = parse<XPathPostfixExpr>("\$x/test")[0] as XpmPathStep
-                assertThat(step.axisType, `is`(XpmAxisType.Self))
-                assertThat(step.nodeName, `is`(nullValue()))
-                assertThat(step.nodeType, sameInstance(XdmNodeItem))
-                assertThat(step.predicate, `is`(nullValue()))
-
-                val expr = step as XpmExpression
-                assertThat(expr.expressionElement, `is`(nullValue()))
-            }
-
-            @Test
-            @DisplayName("intermediate step")
-            fun intermediateStep() {
-                val step = parse<XPathPostfixExpr>("/test/./self::node()")[0] as XpmPathStep
-                assertThat(step.axisType, `is`(XpmAxisType.Self))
-                assertThat(step.nodeName, `is`(nullValue()))
-                assertThat(step.nodeType, sameInstance(XdmNodeItem))
-                assertThat(step.predicate, `is`(nullValue()))
-
-                val expr = step as XpmExpression
-                assertThat(expr.expressionElement, `is`(nullValue()))
-            }
-
-            @Test
-            @DisplayName("final step")
-            fun finalStep() {
-                val step = parse<XPathPostfixExpr>("/test/string()")[0] as XpmPathStep
-                assertThat(step.axisType, `is`(XpmAxisType.Self))
-                assertThat(step.nodeName, `is`(nullValue()))
-                assertThat(step.nodeType, sameInstance(XdmNodeItem))
-                assertThat(step.predicate, `is`(nullValue()))
-
-                val expr = step as XpmExpression
-                assertThat(expr.expressionElement, `is`(nullValue()))
-            }
-        }
-
-        @Nested
-        @DisplayName("XPath 3.1 (3.2.1) Filter Expressions")
-        internal inner class FilterExpressions {
-            @Nested
-            @DisplayName("XQuery IntelliJ Plugin XPath EBNF (46) FilterExpr")
-            internal inner class FilterExpressions {
-                @Test
-                @DisplayName("single predicate; null PrimaryExpr expressionElement")
-                fun singlePredicate_nullExpressionElement() {
-                    val step = parse<XPathPostfixExpr>("\$x[1]")[0] as XpmPathStep
-                    assertThat(step.axisType, `is`(XpmAxisType.Self))
-                    assertThat(step.nodeName, `is`(nullValue()))
-                    assertThat(step.nodeType, sameInstance(XdmNodeItem))
-                    assertThat(step.predicate?.text, `is`("[1]"))
-
-                    val expr = step as XpmExpression
-                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.VAR_REF))
-                    assertThat(expr.expressionElement?.textOffset, `is`(0))
-                }
-
-                @Test
-                @DisplayName("single predicate; non-null PrimaryExpr expressionElement")
-                fun singlePredicate_nonNullExpressionElement() {
-                    val step = parse<XPathPostfixExpr>("map { \"one\": 1 }[1]")[0] as XpmPathStep
-                    assertThat(step.axisType, `is`(XpmAxisType.Self))
-                    assertThat(step.nodeName, `is`(nullValue()))
-                    assertThat(step.nodeType, sameInstance(XdmNodeItem))
-                    assertThat(step.predicate?.text, `is`("[1]"))
-
-                    val expr = step as XpmExpression
-                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.MAP_CONSTRUCTOR_ENTRY))
-                    assertThat(expr.expressionElement?.textOffset, `is`(6))
-                }
-
-                @Test
-                @DisplayName("multiple predicates; inner")
-                fun multiplePredicatesInner() {
-                    val step = parse<XPathPostfixExpr>("\$x[1][2]")[1] as XpmPathStep
-                    assertThat(step.axisType, `is`(XpmAxisType.Self))
-                    assertThat(step.nodeName, `is`(nullValue()))
-                    assertThat(step.nodeType, sameInstance(XdmNodeItem))
-                    assertThat(step.predicate?.text, `is`("[1]"))
-
-                    val expr = step as XpmExpression
-                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.VAR_REF))
-                    assertThat(expr.expressionElement?.textOffset, `is`(0))
-                }
-
-                @Test
-                @DisplayName("multiple predicates; outer")
-                fun multiplePredicatesOuter() {
-                    val step = parse<XPathPostfixExpr>("\$x[1][2]")[0] as XpmPathStep
-                    assertThat(step.axisType, `is`(XpmAxisType.Self))
-                    assertThat(step.nodeName, `is`(nullValue()))
-                    assertThat(step.nodeType, sameInstance(XdmNodeItem))
-                    assertThat(step.predicate?.text, `is`("[2]"))
-
-                    val expr = step as XpmExpression
-                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.VAR_REF))
-                    assertThat(expr.expressionElement?.textOffset, `is`(0))
-                }
-            }
-        }
-
-        @Nested
-        @DisplayName("XQuery 3.1 (3.2.2) Dynamic Function Calls")
-        internal inner class DynamicFunctionCalls {
-            @Test
-            @DisplayName("XQuery IntelliJ Plugin XPath EBNF (47) DynamicFunctionCall")
-            fun dynamicFunctionCall() {
-                val step = parse<XPathPostfixExpr>("\$x(1)")[0] as XpmPathStep
-                assertThat(step.axisType, `is`(XpmAxisType.Self))
-                assertThat(step.nodeName, `is`(nullValue()))
-                assertThat(step.nodeType, sameInstance(XdmNodeItem))
-                assertThat(step.predicate, `is`(nullValue()))
-
-                val expr = step as XpmExpression
-                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
-                assertThat(expr.expressionElement?.textOffset, `is`(2))
-            }
-        }
-    }
-
-    @Nested
-    @DisplayName("XPath 3.1 (3.3) Path Expressions")
-    internal inner class PathExpressions {
-        @Nested
-        @DisplayName("XPath 3.1 EBNF (36) PathExpr")
-        internal inner class PathExpr {
-            @Test
-            @DisplayName("last step is ForwardStep")
-            fun lastStepIsForwardStep() {
-                val expr = parse<XPathPathExpr>("/lorem/ipsum/parent::dolor")[0] as XpmExpression
-
-                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.REVERSE_STEP))
-                assertThat(expr.expressionElement?.textOffset, `is`(13))
-            }
-
-            @Test
-            @DisplayName("last step is ReverseStep")
-            fun lastStepIsReverseStep() {
-                val expr = parse<XPathPathExpr>("/lorem/ipsum/parent::dolor")[0] as XpmExpression
-
-                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.REVERSE_STEP))
-                assertThat(expr.expressionElement?.textOffset, `is`(13))
-            }
-
-            @Test
-            @DisplayName("last step is FilterStep")
-            fun lastStepIsFilterStep() {
-                val expr = parse<XPathPathExpr>("/lorem/ipsum/dolor[1]")[0] as XpmExpression
-
-                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.FILTER_STEP))
-                assertThat(expr.expressionElement?.textOffset, `is`(13))
-            }
-
-            @Test
-            @DisplayName("last step is PrimaryExpr")
-            fun lastStepIsPrimaryExpr() {
-                val expr = parse<XPathPathExpr>("/lorem/ipsum/dolor/.")[0] as XpmExpression
-
-                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.NAME_TEST))
-                assertThat(expr.expressionElement?.textOffset, `is`(13))
-            }
-
-            @Test
-            @DisplayName("last step is FilterExpr")
-            fun lastStepIsFilterExpr() {
-                val expr = parse<XPathPathExpr>("/lorem/ipsum/dolor/.[1]")[0] as XpmExpression
-
-                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.NAME_TEST))
-                assertThat(expr.expressionElement?.textOffset, `is`(13))
-            }
-
-            @Test
-            @DisplayName("last step is DynamicFunctionCall")
-            fun lastStepIsDynamicFunctionCall() {
-                val expr = parse<XPathPathExpr>("/lorem/ipsum/dolor/.(1)")[0] as XpmExpression
-
-                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.NAME_TEST))
-                assertThat(expr.expressionElement?.textOffset, `is`(13))
-            }
-
-            @Test
-            @DisplayName("last step is PostfixLookup")
-            fun lastStepIsPostfixLookup() {
-                val expr = parse<XPathPathExpr>("/lorem/ipsum/dolor/.?test")[0] as XpmExpression
-
-                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.NAME_TEST))
-                assertThat(expr.expressionElement?.textOffset, `is`(13))
-            }
-        }
-
-        @Nested
-        @DisplayName("A '//' at the beginning of a path expression")
-        internal inner class LeadingDoubleForwardSlash {
-            @Test
-            @DisplayName("XQuery IntelliJ Plugin XPath EBNF (44) AbbrevDescendantOrSelfStep")
-            fun abbrevDescendantOrSelfStep() {
-                val step = parse<PluginAbbrevDescendantOrSelfStep>("//test")[0] as XpmPathStep
-                assertThat(step.axisType, `is`(XpmAxisType.DescendantOrSelf))
-                assertThat(step.nodeName, `is`(nullValue()))
-                assertThat(step.nodeType, sameInstance(XdmNodeItem))
-                assertThat(step.predicate, `is`(nullValue()))
-            }
-        }
-
-        @Nested
-        @DisplayName("XPath 3.1 (3.3.2) Axes")
-        internal inner class Steps {
-            @Nested
-            @DisplayName("XPath 3.1 EBNF (39) AxisStep")
-            internal inner class AxisStep {
-                @Test
-                @DisplayName("multiple predicates; inner")
-                fun multiplePredicatesInner() {
-                    val step = parse<XPathAxisStep>("child::test[1][2]")[1] as XpmPathStep
-                    val qname = step.walkTree().filterIsInstance<XsQNameValue>().first()
-                    assertThat(step.axisType, `is`(XpmAxisType.Child))
-                    assertThat(step.nodeName, sameInstance(qname))
-                    assertThat(step.nodeType, sameInstance(XdmElementItem))
-                    assertThat(step.predicate?.text, `is`("[1]"))
-                }
-
-                @Test
-                @DisplayName("multiple predicates; outer")
-                fun multiplePredicatesOuter() {
-                    val step = parse<XPathAxisStep>("child::test[1][2]")[0] as XpmPathStep
-                    val qname = step.walkTree().filterIsInstance<XsQNameValue>().first()
-                    assertThat(step.axisType, `is`(XpmAxisType.Child))
-                    assertThat(step.nodeName, sameInstance(qname))
-                    assertThat(step.nodeType, sameInstance(XdmElementItem))
-                    assertThat(step.predicate?.text, `is`("[2]"))
-                }
-
-                @Test
-                @DisplayName("XPath 3.1 EBNF (45) AbbrevReverseStep")
-                fun abbrevReverseStep() {
-                    val step = parse<XPathAxisStep>("..[1]")[0] as XpmPathStep
-                    assertThat(step.axisType, `is`(XpmAxisType.Parent))
-                    assertThat(step.nodeName, `is`(nullValue()))
-                    assertThat(step.nodeType, sameInstance(XdmNodeItem))
-                    assertThat(step.predicate?.text, `is`("[1]"))
-                }
-
-                @Test
-                @DisplayName("XPath 3.1 EBNF (47) NameTest")
-                fun nameTest() {
-                    val step = parse<XPathAxisStep>("child::test[1]")[0] as XpmPathStep
-                    val qname = step.walkTree().filterIsInstance<XsQNameValue>().first()
-                    assertThat(step.axisType, `is`(XpmAxisType.Child))
-                    assertThat(step.nodeName, sameInstance(qname))
-                    assertThat(step.nodeType, sameInstance(XdmElementItem))
-                    assertThat(step.predicate?.text, `is`("[1]"))
-                }
-
-                @Test
-                @DisplayName("XPath 3.1 EBNF (83) KindTest")
-                fun kindTest() {
-                    val step = parse<XPathAxisStep>("child::node()[1]")[0] as XpmPathStep
-                    assertThat(step.axisType, `is`(XpmAxisType.Child))
-                    assertThat(step.nodeName, `is`(nullValue()))
-                    assertThat(step.nodeType, sameInstance(step.walkTree().filterIsInstance<XdmItemType>().first()))
-                    assertThat(step.predicate?.text, `is`("[1]"))
-                }
-            }
-        }
-
-        @Nested
-        @DisplayName("XPath 3.1 (3.3.2.1) Axes")
-        internal inner class Axes {
-            @Nested
-            @DisplayName("XPath 3.1 EBNF (41) ForwardAxis")
-            internal inner class ForwardAxis {
-                @Test
-                @DisplayName("XPath 3.1 EBNF (47) NameTest")
-                fun nameTest() {
-                    val step = parse<XPathForwardStep>("child::test")[0] as XpmPathStep
-                    val qname = step.walkTree().filterIsInstance<XsQNameValue>().first()
-                    assertThat(step.axisType, `is`(XpmAxisType.Child))
-                    assertThat(step.nodeName, sameInstance(qname))
-                    assertThat(step.nodeType, sameInstance(XdmElementItem))
-                    assertThat(step.predicate, `is`(nullValue()))
-                }
-
-                @Test
-                @DisplayName("XPath 3.1 EBNF (83) KindTest")
-                fun kindTest() {
-                    val step = parse<XPathForwardStep>("child::node()")[0] as XpmPathStep
-                    assertThat(step.axisType, `is`(XpmAxisType.Child))
-                    assertThat(step.nodeName, `is`(nullValue()))
-                    assertThat(step.nodeType, sameInstance(step.walkTree().filterIsInstance<XdmItemType>().first()))
-                    assertThat(step.predicate, `is`(nullValue()))
-                }
-
-                @Test
-                @DisplayName("attribute axis")
-                fun attributeAxis() {
-                    val step = parse<XPathForwardStep>("attribute::test")[0] as XpmPathStep
-                    assertThat(step.axisType, `is`(XpmAxisType.Attribute))
-                    assertThat(step.nodeType, sameInstance(XdmAttributeItem))
-                }
-
-                @Test
-                @DisplayName("child axis")
-                fun childAxis() {
-                    val step = parse<XPathForwardStep>("child::test")[0] as XpmPathStep
-                    assertThat(step.axisType, `is`(XpmAxisType.Child))
-                    assertThat(step.nodeType, sameInstance(XdmElementItem))
-                }
-
-                @Test
-                @DisplayName("descendant axis")
-                fun descendantAxis() {
-                    val step = parse<XPathForwardStep>("descendant::test")[0] as XpmPathStep
-                    assertThat(step.axisType, `is`(XpmAxisType.Descendant))
-                    assertThat(step.nodeType, sameInstance(XdmElementItem))
-                }
-
-                @Test
-                @DisplayName("descendant-or-self axis")
-                fun descendantOrSelfAxis() {
-                    val step = parse<XPathForwardStep>("descendant-or-self::test")[0] as XpmPathStep
-                    assertThat(step.axisType, `is`(XpmAxisType.DescendantOrSelf))
-                    assertThat(step.nodeType, sameInstance(XdmElementItem))
-                }
-
-                @Test
-                @DisplayName("following axis")
-                fun followingAxis() {
-                    val step = parse<XPathForwardStep>("following::test")[0] as XpmPathStep
-                    assertThat(step.axisType, `is`(XpmAxisType.Following))
-                    assertThat(step.nodeType, sameInstance(XdmElementItem))
-                }
-
-                @Test
-                @DisplayName("following-sibling axis")
-                fun followingSiblingAxis() {
-                    val step = parse<XPathForwardStep>("following-sibling::test")[0] as XpmPathStep
-                    assertThat(step.axisType, `is`(XpmAxisType.FollowingSibling))
-                    assertThat(step.nodeType, sameInstance(XdmElementItem))
-                }
-
-                @Test
-                @DisplayName("namespace axis")
-                fun namespaceAxis() {
-                    val step = parse<XPathForwardStep>("namespace::test")[0] as XpmPathStep
-                    assertThat(step.axisType, `is`(XpmAxisType.Namespace))
-                    assertThat(step.nodeType, sameInstance(XdmNamespaceItem))
-                }
-
-                @Test
-                @DisplayName("self axis")
-                fun selfAxis() {
-                    val step = parse<XPathForwardStep>("self::test")[0] as XpmPathStep
-                    assertThat(step.axisType, `is`(XpmAxisType.Self))
-                    assertThat(step.nodeType, sameInstance(XdmElementItem))
-                }
-
-                @Test
-                @DisplayName("principal node kind")
-                fun principalNodeKind() {
-                    val steps = parse<XPathNameTest>(
-                        """
-                        child::one, descendant::two, attribute::three, self::four, descendant-or-self::five,
-                        following-sibling::six, following::seven, namespace::eight
-                        """
-                    )
-                    assertThat(steps.size, `is`(8))
-                    assertThat(steps[0].getPrincipalNodeKind(), `is`(XpmUsageType.Element)) // child
-                    assertThat(steps[1].getPrincipalNodeKind(), `is`(XpmUsageType.Element)) // descendant
-                    assertThat(steps[2].getPrincipalNodeKind(), `is`(XpmUsageType.Attribute)) // attribute
-                    assertThat(steps[3].getPrincipalNodeKind(), `is`(XpmUsageType.Element)) // self
-                    assertThat(steps[4].getPrincipalNodeKind(), `is`(XpmUsageType.Element)) // descendant-or-self
-                    assertThat(steps[5].getPrincipalNodeKind(), `is`(XpmUsageType.Element)) // following-sibling
-                    assertThat(steps[6].getPrincipalNodeKind(), `is`(XpmUsageType.Element)) // following
-                    assertThat(steps[7].getPrincipalNodeKind(), `is`(XpmUsageType.Namespace)) // namespace
-                }
-
-                @Test
-                @DisplayName("usage type")
-                fun usageType() {
-                    val steps = parse<XPathNameTest>(
-                        """
-                        child::one, descendant::two, attribute::three, self::four, descendant-or-self::five,
-                        following-sibling::six, following::seven, namespace::eight
-                        """
-                    ).map { it.walkTree().filterIsInstance<XsQNameValue>().first().element!! }
-                    assertThat(steps.size, `is`(8))
-                    assertThat(steps[0].getUsageType(), `is`(XpmUsageType.Element)) // child
-                    assertThat(steps[1].getUsageType(), `is`(XpmUsageType.Element)) // descendant
-                    assertThat(steps[2].getUsageType(), `is`(XpmUsageType.Attribute)) // attribute
-                    assertThat(steps[3].getUsageType(), `is`(XpmUsageType.Element)) // self
-                    assertThat(steps[4].getUsageType(), `is`(XpmUsageType.Element)) // descendant-or-self
-                    assertThat(steps[5].getUsageType(), `is`(XpmUsageType.Element)) // following-sibling
-                    assertThat(steps[6].getUsageType(), `is`(XpmUsageType.Element)) // following
-                    assertThat(steps[7].getUsageType(), `is`(XpmUsageType.Namespace)) // namespace
-                }
-            }
-
-            @Nested
-            @DisplayName("XPath 3.1 EBNF (44) ReverseAxis")
-            internal inner class ReverseAxis {
-                @Test
-                @DisplayName("XPath 3.1 EBNF (47) NameTest")
-                fun nameTest() {
-                    val step = parse<XPathReverseStep>("parent::test")[0] as XpmPathStep
-                    val qname = step.walkTree().filterIsInstance<XsQNameValue>().first()
-                    assertThat(step.axisType, `is`(XpmAxisType.Parent))
-                    assertThat(step.nodeName, sameInstance(qname))
-                    assertThat(step.nodeType, sameInstance(XdmElementItem))
-                    assertThat(step.predicate, `is`(nullValue()))
-                }
-
-                @Test
-                @DisplayName("XPath 3.1 EBNF (83) KindTest")
-                fun kindTest() {
-                    val step = parse<XPathReverseStep>("parent::node()")[0] as XpmPathStep
-                    assertThat(step.axisType, `is`(XpmAxisType.Parent))
-                    assertThat(step.nodeName, `is`(nullValue()))
-                    assertThat(step.nodeType, sameInstance(step.walkTree().filterIsInstance<XdmItemType>().first()))
-                    assertThat(step.predicate, `is`(nullValue()))
-                }
-
-                @Test
-                @DisplayName("ancestor axis")
-                fun ancestorAxis() {
-                    val step = parse<XPathReverseStep>("ancestor::test")[0] as XpmPathStep
-                    assertThat(step.axisType, `is`(XpmAxisType.Ancestor))
-                    assertThat(step.nodeType, sameInstance(XdmElementItem))
-                }
-
-                @Test
-                @DisplayName("child axis")
-                fun ancestorOrSelfAxis() {
-                    val step = parse<XPathReverseStep>("ancestor-or-self::test")[0] as XpmPathStep
-                    assertThat(step.axisType, `is`(XpmAxisType.AncestorOrSelf))
-                    assertThat(step.nodeType, sameInstance(XdmElementItem))
-                }
-
-                @Test
-                @DisplayName("parent axis")
-                fun parentAxis() {
-                    val step = parse<XPathReverseStep>("parent::test")[0] as XpmPathStep
-                    assertThat(step.axisType, `is`(XpmAxisType.Parent))
-                    assertThat(step.nodeType, sameInstance(XdmElementItem))
-                }
-
-                @Test
-                @DisplayName("preceding axis")
-                fun precedingAxis() {
-                    val step = parse<XPathReverseStep>("preceding::test")[0] as XpmPathStep
-                    assertThat(step.axisType, `is`(XpmAxisType.Preceding))
-                    assertThat(step.nodeType, sameInstance(XdmElementItem))
-                }
-
-                @Test
-                @DisplayName("preceding-sibling axis")
-                fun precedingSiblingAxis() {
-                    val step = parse<XPathReverseStep>("preceding-sibling::test")[0] as XpmPathStep
-                    assertThat(step.axisType, `is`(XpmAxisType.PrecedingSibling))
-                    assertThat(step.nodeType, sameInstance(XdmElementItem))
-                }
-
-                @Test
-                @DisplayName("principal node kind")
-                fun principalNodeKind() {
-                    val steps = parse<XPathNameTest>(
-                        "parent::one, ancestor::two, preceding-sibling::three, preceding::four, ancestor-or-self::five"
-                    )
-                    assertThat(steps.size, `is`(5))
-                    assertThat(steps[0].getPrincipalNodeKind(), `is`(XpmUsageType.Element)) // parent
-                    assertThat(steps[1].getPrincipalNodeKind(), `is`(XpmUsageType.Element)) // ancestor
-                    assertThat(steps[2].getPrincipalNodeKind(), `is`(XpmUsageType.Element)) // preceding-sibling
-                    assertThat(steps[3].getPrincipalNodeKind(), `is`(XpmUsageType.Element)) // preceding
-                    assertThat(steps[4].getPrincipalNodeKind(), `is`(XpmUsageType.Element)) // ancestor-or-self
-                }
-
-                @Test
-                @DisplayName("usage type")
-                fun usageType() {
-                    val steps = parse<XPathNameTest>(
-                        "parent::one, ancestor::two, preceding-sibling::three, preceding::four, ancestor-or-self::five"
-                    ).map { it.walkTree().filterIsInstance<XsQNameValue>().first().element!! }
-                    assertThat(steps.size, `is`(5))
-                    assertThat(steps[0].getUsageType(), `is`(XpmUsageType.Element)) // parent
-                    assertThat(steps[1].getUsageType(), `is`(XpmUsageType.Element)) // ancestor
-                    assertThat(steps[2].getUsageType(), `is`(XpmUsageType.Element)) // preceding-sibling
-                    assertThat(steps[3].getUsageType(), `is`(XpmUsageType.Element)) // preceding
-                    assertThat(steps[4].getUsageType(), `is`(XpmUsageType.Element)) // ancestor-or-self
-                }
-            }
-        }
-
-        @Nested
-        @DisplayName("XPath 3.1 (3.3.2.2) Node Tests")
-        internal inner class NodeTests {
-            @Nested
-            @DisplayName("XPath 3.1 EBNF (47) NameTest")
-            internal inner class NameTest {
-                @Test
-                @DisplayName("NCName namespace resolution; element principal node kind")
-                fun elementNcname() {
-                    val qname = parse<XPathEQName>("ancestor::test")[0] as XsQNameValue
-                    assertThat(qname.element!!.getUsageType(), `is`(XpmUsageType.Element))
-
-                    assertThat(qname.isLexicalQName, `is`(true))
-                    assertThat(qname.namespace, `is`(nullValue()))
-                    assertThat(qname.prefix, `is`(nullValue()))
-                    assertThat(qname.localName!!.data, `is`("test"))
-                    assertThat(qname.element, sameInstance(qname as PsiElement))
-                }
-
-                @Test
-                @DisplayName("NCName namespace resolution; attribute principal node kind")
-                fun attributeNcname() {
-                    val qname = parse<XPathEQName>("attribute::test")[0] as XsQNameValue
-                    assertThat(qname.element!!.getUsageType(), `is`(XpmUsageType.Attribute))
-
-                    assertThat(qname.isLexicalQName, `is`(true))
-                    assertThat(qname.namespace, `is`(nullValue()))
-                    assertThat(qname.prefix, `is`(nullValue()))
-                    assertThat(qname.localName!!.data, `is`("test"))
-                    assertThat(qname.element, sameInstance(qname as PsiElement))
-                }
-
-                @Test
-                @DisplayName("NCName namespace resolution; namespace principal node kind")
-                fun namespaceNcname() {
-                    val qname = parse<XPathEQName>("namespace::test")[0] as XsQNameValue
-                    assertThat(qname.element!!.getUsageType(), `is`(XpmUsageType.Namespace))
-
-                    assertThat(qname.isLexicalQName, `is`(true))
-                    assertThat(qname.namespace, `is`(nullValue()))
-                    assertThat(qname.prefix, `is`(nullValue()))
-                    assertThat(qname.localName!!.data, `is`("test"))
-                    assertThat(qname.element, sameInstance(qname as PsiElement))
-                }
-            }
-
-            @Nested
-            @DisplayName("XPath 3.1 EBNF (48) Wildcard")
-            internal inner class Wildcard {
-                @Test
-                @DisplayName("any")
-                fun any() {
-                    val qname = parse<XPathWildcard>("*")[0] as XsQNameValue
-                    assertThat(qname.isLexicalQName, `is`(true))
-                    assertThat(qname.namespace, `is`(nullValue()))
-                    assertThat(qname.element, sameInstance(qname as PsiElement))
-
-                    assertThat(qname.prefix, `is`(instanceOf(XdmWildcardValue::class.java)))
-                    assertThat(qname.prefix!!.data, `is`("*"))
-
-                    assertThat(qname.localName, `is`(instanceOf(XdmWildcardValue::class.java)))
-                    assertThat(qname.localName!!.data, `is`("*"))
-                }
-
-                @Test
-                @DisplayName("wildcard prefix; wildcard local name")
-                fun bothWildcard() {
-                    val qname = parse<XPathWildcard>("*:*")[0] as XsQNameValue
-                    assertThat(qname.isLexicalQName, `is`(true))
-                    assertThat(qname.namespace, `is`(nullValue()))
-                    assertThat(qname.element, sameInstance(qname as PsiElement))
-
-                    assertThat(qname.prefix, `is`(instanceOf(XdmWildcardValue::class.java)))
-                    assertThat(qname.prefix!!.data, `is`("*"))
-
-                    assertThat(qname.localName, `is`(instanceOf(XdmWildcardValue::class.java)))
-                    assertThat(qname.localName!!.data, `is`("*"))
-                }
-
-                @Test
-                @DisplayName("wildcard prefix; non-wildcard local name")
-                fun wildcardPrefix() {
-                    val qname = parse<XPathWildcard>("*:test")[0] as XsQNameValue
-                    assertThat(qname.isLexicalQName, `is`(true))
-                    assertThat(qname.namespace, `is`(nullValue()))
-                    assertThat(qname.element, sameInstance(qname as PsiElement))
-
-                    assertThat(qname.prefix, `is`(instanceOf(XdmWildcardValue::class.java)))
-                    assertThat(qname.prefix!!.data, `is`("*"))
-
-                    assertThat(qname.localName, `is`(not(instanceOf(XdmWildcardValue::class.java))))
-                    assertThat(qname.localName!!.data, `is`("test"))
-                }
-
-                @Test
-                @DisplayName("non-wildcard prefix; wildcard local name")
-                fun wildcardLocalName() {
-                    val qname = parse<XPathWildcard>("test:*")[0] as XsQNameValue
-                    assertThat(qname.isLexicalQName, `is`(true))
-                    assertThat(qname.namespace, `is`(nullValue()))
-                    assertThat(qname.element, sameInstance(qname as PsiElement))
-
-                    assertThat(qname.prefix, `is`(not(instanceOf(XdmWildcardValue::class.java))))
-                    assertThat(qname.prefix!!.data, `is`("test"))
-
-                    assertThat(qname.localName, `is`(instanceOf(XdmWildcardValue::class.java)))
-                    assertThat(qname.localName!!.data, `is`("*"))
-                }
-
-                @Test
-                @DisplayName("missing local name")
-                fun noLocalName() {
-                    val qname = parse<XPathWildcard>("*:")[0] as XsQNameValue
-                    assertThat(qname.isLexicalQName, `is`(true))
-                    assertThat(qname.namespace, `is`(nullValue()))
-                    assertThat(qname.element, sameInstance(qname as PsiElement))
-
-                    assertThat(qname.prefix, `is`(instanceOf(XdmWildcardValue::class.java)))
-                    assertThat(qname.prefix!!.data, `is`("*"))
-
-                    assertThat(qname.localName, `is`(instanceOf(XdmWildcardValue::class.java)))
-                    assertThat(qname.localName!!.data, `is`("*"))
-                }
-
-                @Test
-                @DisplayName("URIQualifiedName")
-                fun keyword() {
-                    val qname = parse<XPathWildcard>("Q{http://www.example.com}*")[0] as XsQNameValue
-                    assertThat(qname.isLexicalQName, `is`(false))
-                    assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
-                    assertThat(qname.prefix, `is`(nullValue()))
-                    assertThat(qname.element, sameInstance(qname as PsiElement))
-
-                    assertThat(qname.localName, `is`(instanceOf(XdmWildcardValue::class.java)))
-                    assertThat(qname.localName!!.data, `is`("*"))
-                }
-
-                @Test
-                @DisplayName("URIQualifiedName with an empty namespace")
-                fun emptyNamespace() {
-                    val qname = parse<XPathWildcard>("Q{}*")[0] as XsQNameValue
-                    assertThat(qname.isLexicalQName, `is`(false))
-                    assertThat(qname.namespace!!.data, `is`(""))
-                    assertThat(qname.prefix, `is`(nullValue()))
-                    assertThat(qname.element, sameInstance(qname as PsiElement))
-
-                    assertThat(qname.localName, `is`(instanceOf(XdmWildcardValue::class.java)))
-                    assertThat(qname.localName!!.data, `is`("*"))
-                }
-            }
-        }
-
-        @Nested
-        @DisplayName("XPath 3.1 (3.3.3) Predicates within Steps")
-        internal inner class PredicatesWithinSteps {
-            @Nested
-            @DisplayName("XPath 3.1 EBNF (52) Predicate")
-            internal inner class Predicate {
-                @Test
-                @DisplayName("single")
-                fun single() {
-                    val expr = parse<PluginFilterStep>("/test[1]")[0] as XpmExpression
-                    assertThat(expr.expressionElement, `is`(nullValue()))
-                }
-
-                @Test
-                @DisplayName("multiple")
-                fun multiple() {
-                    val exprs = parse<PluginFilterStep>("/test[1][2]")
-                    assertThat(exprs[0].expressionElement, `is`(nullValue()))
-                    assertThat(exprs[1].expressionElement, `is`(nullValue()))
-                }
-            }
-        }
-
-        @Nested
-        @DisplayName("XPath 3.1 (3.3.5) Abbreviated Syntax")
-        internal inner class AbbreviatedSyntax {
-            @Nested
-            @DisplayName("1. The attribute axis attribute:: can be abbreviated by @.")
-            internal inner class AbbreviatedAttributeAxis {
-                @Test
-                @DisplayName("XPath 3.1 EBNF (47) NameTest")
-                fun nameTest() {
-                    val step = parse<XPathAbbrevForwardStep>("@test")[0] as XpmPathStep
-                    val qname = step.walkTree().filterIsInstance<XsQNameValue>().first()
-                    assertThat(step.axisType, `is`(XpmAxisType.Attribute))
-                    assertThat(step.nodeName, sameInstance(qname))
-                    assertThat(step.nodeType, sameInstance(XdmAttributeItem))
-                    assertThat(step.predicate, `is`(nullValue()))
-                }
-
-                @Test
-                @DisplayName("XPath 3.1 EBNF (83) KindTest ; XPath 3.1 EBNF (84) AnyKindTest")
-                fun anyKindTest() {
-                    val step = parse<XPathAbbrevForwardStep>("@node()")[0] as XpmPathStep
-                    assertThat(step.axisType, `is`(XpmAxisType.Attribute))
-                    assertThat(step.nodeName, `is`(nullValue()))
-                    assertThat(step.nodeType, sameInstance(step.walkTree().filterIsInstance<XdmItemType>().first()))
-                    assertThat(step.predicate, `is`(nullValue()))
-                }
-            }
-
-            @Nested
-            @DisplayName("2. If the axis name is omitted from an axis step")
-            internal inner class AxisNameOmittedFromAxisStep {
                 @Nested
-                @DisplayName("the default axis is child")
-                internal inner class DefaultAxis {
+                @DisplayName("XPath 3.1 EBNF (116) StringLiteral")
+                internal inner class StringLiteral {
+                    @Test
+                    @DisplayName("string literal content")
+                    fun stringLiteral() {
+                        val literal = parse<XPathStringLiteral>("\"Lorem ipsum.\uFFFF\"")[0] as XsStringValue
+                        assertThat(literal.data, `is`("Lorem ipsum.\uFFFF")) // U+FFFF = BAD_CHARACTER token.
+                        assertThat(literal.element, sameInstance(literal as PsiElement))
+
+                        val expr = literal as XpmExpression
+                        assertThat(expr.expressionElement, `is`(nullValue()))
+                    }
+
+                    @Test
+                    @DisplayName("unclosed string literal content")
+                    fun unclosedStringLiteral() {
+                        val literal = parse<XPathStringLiteral>("\"Lorem ipsum.")[0] as XsStringValue
+                        assertThat(literal.data, `is`("Lorem ipsum."))
+                        assertThat(literal.element, sameInstance(literal as PsiElement))
+
+                        val expr = literal as XpmExpression
+                        assertThat(expr.expressionElement, `is`(nullValue()))
+                    }
+
+                    @Test
+                    @DisplayName("EscapeApos tokens")
+                    fun escapeApos() {
+                        val literal = parse<XPathStringLiteral>("'''\"\"'")[0] as XsStringValue
+                        assertThat(literal.data, `is`("'\"\""))
+                        assertThat(literal.element, sameInstance(literal as PsiElement))
+
+                        val expr = literal as XpmExpression
+                        assertThat(expr.expressionElement, `is`(nullValue()))
+                    }
+
+                    @Test
+                    @DisplayName("EscapeQuot tokens")
+                    fun escapeQuot() {
+                        val literal = parse<XPathStringLiteral>("\"''\"\"\"")[0] as XsStringValue
+                        assertThat(literal.data, `is`("''\""))
+                        assertThat(literal.element, sameInstance(literal as PsiElement))
+
+                        val expr = literal as XpmExpression
+                        assertThat(expr.expressionElement, `is`(nullValue()))
+                    }
+                }
+            }
+
+            @Nested
+            @DisplayName("XPath 3.1 (3.1.2) Variable References")
+            internal inner class VariableReferences {
+                @Nested
+                @DisplayName("XPath 3.1 EBNF (59) VarRef")
+                internal inner class VarRef {
+                    @Test
+                    @DisplayName("NCName")
+                    fun ncname() {
+                        val ref = parse<XPathVarRef>("let \$x := 2 return \$y")[0] as XpmVariableReference
+
+                        val qname = ref.variableName!!
+                        assertThat(qname.prefix, `is`(nullValue()))
+                        assertThat(qname.namespace, `is`(nullValue()))
+                        assertThat(qname.localName!!.data, `is`("y"))
+
+                        val expr = ref as XpmExpression
+                        assertThat(expr.expressionElement, `is`(nullValue()))
+                    }
+
+                    @Test
+                    @DisplayName("QName")
+                    fun qname() {
+                        val ref = parse<XPathVarRef>("let \$a:x := 2 return \$a:y")[0] as XpmVariableReference
+
+                        val qname = ref.variableName!!
+                        assertThat(qname.namespace, `is`(nullValue()))
+                        assertThat(qname.prefix!!.data, `is`("a"))
+                        assertThat(qname.localName!!.data, `is`("y"))
+
+                        val expr = ref as XpmExpression
+                        assertThat(expr.expressionElement, `is`(nullValue()))
+                    }
+
+                    @Test
+                    @DisplayName("URIQualifiedName")
+                    fun uriQualifiedName() {
+                        val ref = parse<XPathVarRef>(
+                            "let \$Q{http://www.example.com}x := 2 return \$Q{http://www.example.com}y"
+                        )[0] as XpmVariableReference
+
+                        val qname = ref.variableName!!
+                        assertThat(qname.prefix, `is`(nullValue()))
+                        assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+                        assertThat(qname.localName!!.data, `is`("y"))
+
+                        val expr = ref as XpmExpression
+                        assertThat(expr.expressionElement, `is`(nullValue()))
+                    }
+                }
+            }
+
+            @Nested
+            @DisplayName("XPath 3.1 (3.1.3) Parenthesized Expressions")
+            internal inner class ParenthesizedExpressions {
+                @Test
+                @DisplayName("XPath 3.1 EBNF (61) ParenthesizedExpr ; XQuery IntelliJ Plugin XPath EBNF (52) EmptyExpr")
+                fun emptyExpr() {
+                    val expr = parse<PluginEmptyExpr>("()")[0] as XpmExpression
+                    assertThat(expr.expressionElement, `is`(nullValue()))
+                }
+            }
+
+            @Nested
+            @DisplayName("XPath 3.1 (3.1.4) Context Item Expression")
+            internal inner class ContextItemExpression {
+                @Test
+                @DisplayName("XPath 3.1 EBNF (62) ContextItemExpr")
+                fun contextItemExpr() {
+                    val expr = parse<XPathContextItemExpr>("() ! .")[0] as XpmExpression
+                    assertThat(expr.expressionElement, `is`(nullValue()))
+                }
+            }
+
+            @Nested
+            @DisplayName("XPath 3.1 (3.1.5) Static Function Calls")
+            internal inner class StaticFunctionCalls {
+                @Nested
+                @DisplayName("XPath 3.1 EBNF (63) FunctionCall")
+                internal inner class FunctionCall {
+                    @Test
+                    @DisplayName("non-empty ArgumentList")
+                    fun nonEmptyArguments() {
+                        val f = parse<XPathFunctionCall>("math:pow(2, 8)")[0] as XpmFunctionReference
+                        assertThat(f.arity, `is`(2))
+
+                        val qname = f.functionName!!
+                        assertThat(qname.isLexicalQName, `is`(true))
+                        assertThat(qname.namespace, `is`(nullValue()))
+                        assertThat(qname.prefix!!.data, `is`("math"))
+                        assertThat(qname.localName!!.data, `is`("pow"))
+                        assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                        val args = (f as XPathFunctionCall).argumentList
+                        assertThat(args.arity, `is`(2))
+                        assertThat(args.functionReference, `is`(sameInstance(f)))
+
+                        val bindings = args.bindings
+                        assertThat(bindings.size, `is`(0))
+
+                        val expr = f as XpmExpression
+                        assertThat(expr.expressionElement.elementType, `is`(XPathElementType.FUNCTION_CALL))
+                        assertThat(expr.expressionElement?.textOffset, `is`(0))
+                    }
+
+                    @Test
+                    @DisplayName("empty ArgumentList")
+                    fun emptyArguments() {
+                        val f = parse<XPathFunctionCall>("fn:true()")[0] as XpmFunctionReference
+                        assertThat(f.arity, `is`(0))
+
+                        val qname = f.functionName!!
+                        assertThat(qname.isLexicalQName, `is`(true))
+                        assertThat(qname.namespace, `is`(nullValue()))
+                        assertThat(qname.prefix!!.data, `is`("fn"))
+                        assertThat(qname.localName!!.data, `is`("true"))
+                        assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                        val args = (f as XPathFunctionCall).argumentList
+                        assertThat(args.arity, `is`(0))
+                        assertThat(args.functionReference, `is`(sameInstance(f)))
+
+                        val bindings = args.bindings
+                        assertThat(bindings.size, `is`(0))
+
+                        val expr = f as XpmExpression
+                        assertThat(expr.expressionElement.elementType, `is`(XPathElementType.FUNCTION_CALL))
+                        assertThat(expr.expressionElement?.textOffset, `is`(0))
+                    }
+
+                    @Test
+                    @DisplayName("partial function application")
+                    fun partialFunctionApplication() {
+                        val f = parse<XPathFunctionCall>("math:sin(?)")[0] as XpmFunctionReference
+                        assertThat(f.arity, `is`(1))
+
+                        val qname = f.functionName!!
+                        assertThat(qname.isLexicalQName, `is`(true))
+                        assertThat(qname.namespace, `is`(nullValue()))
+                        assertThat(qname.prefix!!.data, `is`("math"))
+                        assertThat(qname.localName!!.data, `is`("sin"))
+                        assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                        val args = (f as XPathFunctionCall).argumentList
+                        assertThat(args.arity, `is`(1))
+                        assertThat(args.functionReference, `is`(sameInstance(f)))
+
+                        val bindings = args.bindings
+                        assertThat(bindings.size, `is`(0))
+
+                        val expr = f as XpmExpression
+                        assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
+                        assertThat(expr.expressionElement?.textOffset, `is`(8))
+                    }
+
+                    @Test
+                    @DisplayName("invalid EQName")
+                    fun invalidEQName() {
+                        val f = parse<XPathFunctionCall>(":true(1)")[0] as XpmFunctionReference
+                        assertThat(f.arity, `is`(1))
+                        assertThat(f.functionName, `is`(nullValue()))
+
+                        val args = (f as XPathFunctionCall).argumentList
+                        assertThat(args.arity, `is`(1))
+                        assertThat(args.functionReference, `is`(sameInstance(f)))
+
+                        val bindings = args.bindings
+                        assertThat(bindings.size, `is`(0))
+                    }
+
+                    @Test
+                    @DisplayName("NCName namespace resolution")
+                    fun ncname() {
+                        val qname = parse<XPathEQName>("true()")[0] as XsQNameValue
+                        assertThat(qname.element!!.getUsageType(), `is`(XpmUsageType.FunctionRef))
+
+                        assertThat(qname.isLexicalQName, `is`(true))
+                        assertThat(qname.namespace, `is`(nullValue()))
+                        assertThat(qname.prefix, `is`(nullValue()))
+                        assertThat(qname.localName!!.data, `is`("true"))
+                        assertThat(qname.element, sameInstance(qname as PsiElement))
+                    }
+
+                    @Test
+                    @DisplayName("reference rename")
+                    fun referenceRename() {
+                        val expr = parse<XPathFunctionCall>("test()")[0] as XpmFunctionReference
+
+                        val ref = (expr.functionName as PsiElement).reference
+                        assertThat(ref, `is`(nullValue()))
+                    }
+                }
+
+                @Nested
+                @DisplayName("XPath 3.1 EBNF (50) ArgumentList")
+                internal inner class ArgumentList {
+                    @Test
+                    @DisplayName("empty parameters")
+                    fun empty() {
+                        val args = parse<XPathArgumentList>("fn:true()")[0]
+                        assertThat(args.arity, `is`(0))
+                        assertThat(args.isPartialFunctionApplication, `is`(false))
+                    }
+
+                    @Test
+                    @DisplayName("multiple ExprSingle parameters")
+                    fun multiple() {
+                        val args = parse<XPathArgumentList>("math:pow(2, 8)")[0]
+                        assertThat(args.arity, `is`(2))
+                        assertThat(args.isPartialFunctionApplication, `is`(false))
+                    }
+
+                    @Test
+                    @DisplayName("ArgumentPlaceholder parameter")
+                    fun argumentPlaceholder() {
+                        val args = parse<XPathArgumentList>("math:sin(?)")[0]
+                        assertThat(args.arity, `is`(1))
+                        assertThat(args.isPartialFunctionApplication, `is`(true))
+                    }
+                }
+            }
+
+            @Nested
+            @DisplayName("XPath 3.1 (3.1.6) Named Function References")
+            internal inner class NamedFunctionReferences {
+                @Nested
+                @DisplayName("XPath 3.1 EBNF (67) NamedFunctionRef")
+                internal inner class NamedFunctionRef {
+                    @Test
+                    @DisplayName("named function reference")
+                    fun namedFunctionRef() {
+                        val f = parse<XPathNamedFunctionRef>("true#3")[0] as XpmFunctionReference
+                        assertThat(f.arity, `is`(3))
+
+                        val qname = f.functionName!!
+                        assertThat(qname.isLexicalQName, `is`(true))
+                        assertThat(qname.namespace, `is`(nullValue()))
+                        assertThat(qname.prefix, `is`(nullValue()))
+                        assertThat(qname.localName!!.data, `is`("true"))
+                        assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                        val expr = f as XpmExpression
+                        assertThat(expr.expressionElement.elementType, `is`(XPathElementType.NAMED_FUNCTION_REF))
+                        assertThat(expr.expressionElement?.textOffset, `is`(0))
+                    }
+
+                    @Test
+                    @DisplayName("missing arity")
+                    fun missingArity() {
+                        val f = parse<XPathNamedFunctionRef>("true#")[0] as XpmFunctionReference
+                        assertThat(f.arity, `is`(0))
+
+                        val qname = f.functionName!!
+                        assertThat(qname.isLexicalQName, `is`(true))
+                        assertThat(qname.namespace, `is`(nullValue()))
+                        assertThat(qname.prefix, `is`(nullValue()))
+                        assertThat(qname.localName!!.data, `is`("true"))
+                        assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                        val expr = f as XpmExpression
+                        assertThat(expr.expressionElement.elementType, `is`(XPathElementType.NAMED_FUNCTION_REF))
+                        assertThat(expr.expressionElement?.textOffset, `is`(0))
+                    }
+
+                    @Test
+                    @DisplayName("invalid EQName")
+                    fun invalidEQName() {
+                        val f = parse<XPathNamedFunctionRef>(":true#0")[0] as XpmFunctionReference
+                        assertThat(f.arity, `is`(0))
+                        assertThat(f.functionName, `is`(nullValue()))
+
+                        val expr = f as XpmExpression
+                        assertThat(expr.expressionElement.elementType, `is`(XPathElementType.NAMED_FUNCTION_REF))
+                        assertThat(expr.expressionElement?.textOffset, `is`(0))
+                    }
+
+                    @Test
+                    @DisplayName("NCName namespace resolution")
+                    fun ncname() {
+                        val qname = parse<XPathEQName>("true#0")[0] as XsQNameValue
+                        assertThat(qname.element!!.getUsageType(), `is`(XpmUsageType.FunctionRef))
+
+                        assertThat(qname.isLexicalQName, `is`(true))
+                        assertThat(qname.namespace, `is`(nullValue()))
+                        assertThat(qname.prefix, `is`(nullValue()))
+                        assertThat(qname.localName!!.data, `is`("true"))
+                        assertThat(qname.element, sameInstance(qname as PsiElement))
+                    }
+
+                    @Test
+                    @DisplayName("reference rename")
+                    fun referenceRename() {
+                        val expr = parse<XPathNamedFunctionRef>("test#1")[0] as XpmFunctionReference
+
+                        val ref = (expr.functionName as PsiElement).reference
+                        assertThat(ref, `is`(nullValue()))
+                    }
+                }
+            }
+
+            @Nested
+            @DisplayName("XPath 3.1 (3.1.7) Inline Function Expression")
+            internal inner class InlineFunctionExpressions {
+                @Nested
+                @DisplayName("XPath 3.1 EBNF (3) Param")
+                internal inner class Param {
+                    @Test
+                    @DisplayName("NCName")
+                    fun ncname() {
+                        val expr = parse<XPathParam>("function (\$x) {}")[0] as XpmVariableBinding
+                        assertThat((expr as XpmVariableType).variableType?.typeName, `is`(nullValue()))
+
+                        val qname = expr.variableName!!
+                        assertThat(qname.prefix, `is`(nullValue()))
+                        assertThat(qname.namespace, `is`(nullValue()))
+                        assertThat(qname.localName!!.data, `is`("x"))
+
+                        val presentation = (expr as NavigatablePsiElement).presentation!!
+                        assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.Param)))
+                        assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.Param)))
+                        assertThat(presentation.presentableText, `is`("\$x"))
+                        assertThat(presentation.locationString, `is`(nullValue()))
+                    }
+
+                    @Test
+                    @DisplayName("QName")
+                    fun qname() {
+                        val expr = parse<XPathParam>("function (\$a:x) {}")[0] as XpmVariableBinding
+                        assertThat((expr as XpmVariableType).variableType?.typeName, `is`(nullValue()))
+
+                        val qname = expr.variableName!!
+                        assertThat(qname.namespace, `is`(nullValue()))
+                        assertThat(qname.prefix!!.data, `is`("a"))
+                        assertThat(qname.localName!!.data, `is`("x"))
+
+                        val presentation = (expr as NavigatablePsiElement).presentation!!
+                        assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.Param)))
+                        assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.Param)))
+                        assertThat(presentation.presentableText, `is`("\$a:x"))
+                        assertThat(presentation.locationString, `is`(nullValue()))
+                    }
+
+                    @Test
+                    @DisplayName("URIQualifiedName")
+                    fun uriQualifiedName() {
+                        val expr = parse<XPathParam>("function (\$Q{http://www.example.com}x) {}")[0] as XpmVariableBinding
+                        assertThat((expr as XpmVariableType).variableType?.typeName, `is`(nullValue()))
+
+                        val qname = expr.variableName!!
+                        assertThat(qname.prefix, `is`(nullValue()))
+                        assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+                        assertThat(qname.localName!!.data, `is`("x"))
+
+                        val presentation = (expr as NavigatablePsiElement).presentation!!
+                        assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.Param)))
+                        assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.Param)))
+                        assertThat(presentation.presentableText, `is`("\$Q{http://www.example.com}x"))
+                        assertThat(presentation.locationString, `is`(nullValue()))
+                    }
+
+                    @Test
+                    @DisplayName("missing VarName")
+                    fun missingVarName() {
+                        val expr = parse<XPathParam>("function (\$) {}")[0] as XpmVariableBinding
+                        assertThat(expr.variableName, `is`(nullValue()))
+                        assertThat((expr as XpmVariableType).variableType?.typeName, `is`(nullValue()))
+
+                        val presentation = (expr as NavigatablePsiElement).presentation!!
+                        assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.Param)))
+                        assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.Param)))
+                        assertThat(presentation.presentableText, `is`(nullValue()))
+                        assertThat(presentation.locationString, `is`(nullValue()))
+                    }
+
+                    @Test
+                    @DisplayName("with type")
+                    fun withType() {
+                        val expr = parse<XPathParam>("function ( \$x  as  element() ) {}")[0] as XpmVariableBinding
+                        assertThat((expr as XpmVariableType).variableType?.typeName, `is`("element()"))
+
+                        val qname = expr.variableName!!
+                        assertThat(qname.prefix, `is`(nullValue()))
+                        assertThat(qname.namespace, `is`(nullValue()))
+                        assertThat(qname.localName!!.data, `is`("x"))
+
+                        val presentation = (expr as NavigatablePsiElement).presentation!!
+                        assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.Param)))
+                        assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.Param)))
+                        assertThat(presentation.presentableText, `is`("\$x as element()"))
+                        assertThat(presentation.locationString, `is`(nullValue()))
+                    }
+
+                    @Test
+                    @DisplayName("NCName namespace resolution")
+                    fun ncnameNamespaceResolution() {
+                        val qname = parse<XPathEQName>("function (\$test) {}")[0] as XsQNameValue
+                        assertThat(qname.element!!.getUsageType(), `is`(XpmUsageType.Parameter))
+
+                        assertThat(qname.isLexicalQName, `is`(true))
+                        assertThat(qname.namespace, `is`(nullValue()))
+                        assertThat(qname.prefix, `is`(nullValue()))
+                        assertThat(qname.localName!!.data, `is`("test"))
+                        assertThat(qname.element, sameInstance(qname as PsiElement))
+                    }
+                }
+
+                @Nested
+                @DisplayName("XPath 3.1 EBNF (68) InlineFunctionExpr")
+                internal inner class InlineFunctionExpr {
+                    @Test
+                    @DisplayName("empty ParamList")
+                    fun emptyParamList() {
+                        val decl = parse<XpmFunctionDeclaration>("function () {}")[0]
+                        assertThat(decl.functionName, `is`(nullValue()))
+                        assertThat(decl.returnType, `is`(nullValue()))
+                        assertThat(decl.arity, `is`(Range(0, 0)))
+                        assertThat(decl.params.size, `is`(0))
+                        assertThat(decl.isVariadic, `is`(false))
+
+                        val expr = decl as XpmExpression
+                        assertThat(expr.expressionElement, `is`(nullValue()))
+                    }
+
+                    @Test
+                    @DisplayName("non-empty ParamList")
+                    fun nonEmptyParamList() {
+                        val decl = parse<XpmFunctionDeclaration>("function (\$one, \$two) {}")[0]
+                        assertThat(decl.functionName, `is`(nullValue()))
+                        assertThat(decl.returnType, `is`(nullValue()))
+                        assertThat(decl.arity, `is`(Range(2, 2)))
+                        assertThat(decl.isVariadic, `is`(false))
+
+                        assertThat(decl.params.size, `is`(2))
+                        assertThat(op_qname_presentation(decl.params[0].variableName!!), `is`("one"))
+                        assertThat(op_qname_presentation(decl.params[1].variableName!!), `is`("two"))
+
+                        val expr = decl as XpmExpression
+                        assertThat(expr.expressionElement, `is`(nullValue()))
+                    }
+
+                    @Test
+                    @DisplayName("non-empty ParamList with types")
+                    fun nonEmptyParamListWithTypes() {
+                        val decl = parse<XpmFunctionDeclaration>(
+                            "function (\$one  as  array ( * ), \$two  as  node((::))) {}"
+                        )[0]
+                        assertThat(decl.functionName, `is`(nullValue()))
+                        assertThat(decl.returnType, `is`(nullValue()))
+                        assertThat(decl.arity, `is`(Range(2, 2)))
+                        assertThat(decl.isVariadic, `is`(false))
+
+                        assertThat(decl.params.size, `is`(2))
+                        assertThat(op_qname_presentation(decl.params[0].variableName!!), `is`("one"))
+                        assertThat(op_qname_presentation(decl.params[1].variableName!!), `is`("two"))
+
+                        val expr = decl as XpmExpression
+                        assertThat(expr.expressionElement, `is`(nullValue()))
+                    }
+
+                    @Test
+                    @DisplayName("return type")
+                    fun returnType() {
+                        val decl = parse<XpmFunctionDeclaration>("function ()  as  xs:boolean  {}")[0]
+                        assertThat(decl.functionName, `is`(nullValue()))
+                        assertThat(decl.returnType?.typeName, `is`("xs:boolean"))
+                        assertThat(decl.arity, `is`(Range(0, 0)))
+                        assertThat(decl.params.size, `is`(0))
+                        assertThat(decl.isVariadic, `is`(false))
+
+                        val expr = decl as XpmExpression
+                        assertThat(expr.expressionElement, `is`(nullValue()))
+                    }
+                }
+            }
+        }
+
+        @Nested
+        @DisplayName("XPath 3.1 (3.2) Postfix Expressions")
+        internal inner class PostfixExpressions {
+            @Nested
+            @DisplayName("XPath 3.1 EBNF (49) PostfixExpr")
+            internal inner class PostfixExpr {
+                @Test
+                @DisplayName("initial step")
+                fun initialStep() {
+                    val step = parse<XPathPostfixExpr>("\$x/test")[0] as XpmPathStep
+                    assertThat(step.axisType, `is`(XpmAxisType.Self))
+                    assertThat(step.nodeName, `is`(nullValue()))
+                    assertThat(step.nodeType, sameInstance(XdmNodeItem))
+                    assertThat(step.predicate, `is`(nullValue()))
+
+                    val expr = step as XpmExpression
+                    assertThat(expr.expressionElement, `is`(nullValue()))
+                }
+
+                @Test
+                @DisplayName("intermediate step")
+                fun intermediateStep() {
+                    val step = parse<XPathPostfixExpr>("/test/./self::node()")[0] as XpmPathStep
+                    assertThat(step.axisType, `is`(XpmAxisType.Self))
+                    assertThat(step.nodeName, `is`(nullValue()))
+                    assertThat(step.nodeType, sameInstance(XdmNodeItem))
+                    assertThat(step.predicate, `is`(nullValue()))
+
+                    val expr = step as XpmExpression
+                    assertThat(expr.expressionElement, `is`(nullValue()))
+                }
+
+                @Test
+                @DisplayName("final step")
+                fun finalStep() {
+                    val step = parse<XPathPostfixExpr>("/test/string()")[0] as XpmPathStep
+                    assertThat(step.axisType, `is`(XpmAxisType.Self))
+                    assertThat(step.nodeName, `is`(nullValue()))
+                    assertThat(step.nodeType, sameInstance(XdmNodeItem))
+                    assertThat(step.predicate, `is`(nullValue()))
+
+                    val expr = step as XpmExpression
+                    assertThat(expr.expressionElement, `is`(nullValue()))
+                }
+            }
+
+            @Nested
+            @DisplayName("XPath 3.1 (3.2.1) Filter Expressions")
+            internal inner class FilterExpressions {
+                @Nested
+                @DisplayName("XQuery IntelliJ Plugin XPath EBNF (46) FilterExpr")
+                internal inner class FilterExpressions {
+                    @Test
+                    @DisplayName("single predicate; null PrimaryExpr expressionElement")
+                    fun singlePredicate_nullExpressionElement() {
+                        val step = parse<XPathPostfixExpr>("\$x[1]")[0] as XpmPathStep
+                        assertThat(step.axisType, `is`(XpmAxisType.Self))
+                        assertThat(step.nodeName, `is`(nullValue()))
+                        assertThat(step.nodeType, sameInstance(XdmNodeItem))
+                        assertThat(step.predicate?.text, `is`("[1]"))
+
+                        val expr = step as XpmExpression
+                        assertThat(expr.expressionElement.elementType, `is`(XPathElementType.VAR_REF))
+                        assertThat(expr.expressionElement?.textOffset, `is`(0))
+                    }
+
+                    @Test
+                    @DisplayName("single predicate; non-null PrimaryExpr expressionElement")
+                    fun singlePredicate_nonNullExpressionElement() {
+                        val step = parse<XPathPostfixExpr>("map { \"one\": 1 }[1]")[0] as XpmPathStep
+                        assertThat(step.axisType, `is`(XpmAxisType.Self))
+                        assertThat(step.nodeName, `is`(nullValue()))
+                        assertThat(step.nodeType, sameInstance(XdmNodeItem))
+                        assertThat(step.predicate?.text, `is`("[1]"))
+
+                        val expr = step as XpmExpression
+                        assertThat(expr.expressionElement.elementType, `is`(XPathElementType.MAP_CONSTRUCTOR_ENTRY))
+                        assertThat(expr.expressionElement?.textOffset, `is`(6))
+                    }
+
+                    @Test
+                    @DisplayName("multiple predicates; inner")
+                    fun multiplePredicatesInner() {
+                        val step = parse<XPathPostfixExpr>("\$x[1][2]")[1] as XpmPathStep
+                        assertThat(step.axisType, `is`(XpmAxisType.Self))
+                        assertThat(step.nodeName, `is`(nullValue()))
+                        assertThat(step.nodeType, sameInstance(XdmNodeItem))
+                        assertThat(step.predicate?.text, `is`("[1]"))
+
+                        val expr = step as XpmExpression
+                        assertThat(expr.expressionElement.elementType, `is`(XPathElementType.VAR_REF))
+                        assertThat(expr.expressionElement?.textOffset, `is`(0))
+                    }
+
+                    @Test
+                    @DisplayName("multiple predicates; outer")
+                    fun multiplePredicatesOuter() {
+                        val step = parse<XPathPostfixExpr>("\$x[1][2]")[0] as XpmPathStep
+                        assertThat(step.axisType, `is`(XpmAxisType.Self))
+                        assertThat(step.nodeName, `is`(nullValue()))
+                        assertThat(step.nodeType, sameInstance(XdmNodeItem))
+                        assertThat(step.predicate?.text, `is`("[2]"))
+
+                        val expr = step as XpmExpression
+                        assertThat(expr.expressionElement.elementType, `is`(XPathElementType.VAR_REF))
+                        assertThat(expr.expressionElement?.textOffset, `is`(0))
+                    }
+                }
+            }
+
+            @Nested
+            @DisplayName("XQuery 3.1 (3.2.2) Dynamic Function Calls")
+            internal inner class DynamicFunctionCalls {
+                @Test
+                @DisplayName("XQuery IntelliJ Plugin XPath EBNF (47) DynamicFunctionCall")
+                fun dynamicFunctionCall() {
+                    val step = parse<XPathPostfixExpr>("\$x(1)")[0] as XpmPathStep
+                    assertThat(step.axisType, `is`(XpmAxisType.Self))
+                    assertThat(step.nodeName, `is`(nullValue()))
+                    assertThat(step.nodeType, sameInstance(XdmNodeItem))
+                    assertThat(step.predicate, `is`(nullValue()))
+
+                    val expr = step as XpmExpression
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
+                    assertThat(expr.expressionElement?.textOffset, `is`(2))
+                }
+            }
+        }
+
+        @Nested
+        @DisplayName("XPath 3.1 (3.3) Path Expressions")
+        internal inner class PathExpressions {
+            @Nested
+            @DisplayName("XPath 3.1 EBNF (36) PathExpr")
+            internal inner class PathExpr {
+                @Test
+                @DisplayName("last step is ForwardStep")
+                fun lastStepIsForwardStep() {
+                    val expr = parse<XPathPathExpr>("/lorem/ipsum/parent::dolor")[0] as XpmExpression
+
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.REVERSE_STEP))
+                    assertThat(expr.expressionElement?.textOffset, `is`(13))
+                }
+
+                @Test
+                @DisplayName("last step is ReverseStep")
+                fun lastStepIsReverseStep() {
+                    val expr = parse<XPathPathExpr>("/lorem/ipsum/parent::dolor")[0] as XpmExpression
+
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.REVERSE_STEP))
+                    assertThat(expr.expressionElement?.textOffset, `is`(13))
+                }
+
+                @Test
+                @DisplayName("last step is FilterStep")
+                fun lastStepIsFilterStep() {
+                    val expr = parse<XPathPathExpr>("/lorem/ipsum/dolor[1]")[0] as XpmExpression
+
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.FILTER_STEP))
+                    assertThat(expr.expressionElement?.textOffset, `is`(13))
+                }
+
+                @Test
+                @DisplayName("last step is PrimaryExpr")
+                fun lastStepIsPrimaryExpr() {
+                    val expr = parse<XPathPathExpr>("/lorem/ipsum/dolor/.")[0] as XpmExpression
+
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.NAME_TEST))
+                    assertThat(expr.expressionElement?.textOffset, `is`(13))
+                }
+
+                @Test
+                @DisplayName("last step is FilterExpr")
+                fun lastStepIsFilterExpr() {
+                    val expr = parse<XPathPathExpr>("/lorem/ipsum/dolor/.[1]")[0] as XpmExpression
+
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.NAME_TEST))
+                    assertThat(expr.expressionElement?.textOffset, `is`(13))
+                }
+
+                @Test
+                @DisplayName("last step is DynamicFunctionCall")
+                fun lastStepIsDynamicFunctionCall() {
+                    val expr = parse<XPathPathExpr>("/lorem/ipsum/dolor/.(1)")[0] as XpmExpression
+
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.NAME_TEST))
+                    assertThat(expr.expressionElement?.textOffset, `is`(13))
+                }
+
+                @Test
+                @DisplayName("last step is PostfixLookup")
+                fun lastStepIsPostfixLookup() {
+                    val expr = parse<XPathPathExpr>("/lorem/ipsum/dolor/.?test")[0] as XpmExpression
+
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.NAME_TEST))
+                    assertThat(expr.expressionElement?.textOffset, `is`(13))
+                }
+            }
+
+            @Nested
+            @DisplayName("A '//' at the beginning of a path expression")
+            internal inner class LeadingDoubleForwardSlash {
+                @Test
+                @DisplayName("XQuery IntelliJ Plugin XPath EBNF (44) AbbrevDescendantOrSelfStep")
+                fun abbrevDescendantOrSelfStep() {
+                    val step = parse<PluginAbbrevDescendantOrSelfStep>("//test")[0] as XpmPathStep
+                    assertThat(step.axisType, `is`(XpmAxisType.DescendantOrSelf))
+                    assertThat(step.nodeName, `is`(nullValue()))
+                    assertThat(step.nodeType, sameInstance(XdmNodeItem))
+                    assertThat(step.predicate, `is`(nullValue()))
+                }
+            }
+
+            @Nested
+            @DisplayName("XPath 3.1 (3.3.2) Axes")
+            internal inner class Steps {
+                @Nested
+                @DisplayName("XPath 3.1 EBNF (39) AxisStep")
+                internal inner class AxisStep {
+                    @Test
+                    @DisplayName("multiple predicates; inner")
+                    fun multiplePredicatesInner() {
+                        val step = parse<XPathAxisStep>("child::test[1][2]")[1] as XpmPathStep
+                        val qname = step.walkTree().filterIsInstance<XsQNameValue>().first()
+                        assertThat(step.axisType, `is`(XpmAxisType.Child))
+                        assertThat(step.nodeName, sameInstance(qname))
+                        assertThat(step.nodeType, sameInstance(XdmElementItem))
+                        assertThat(step.predicate?.text, `is`("[1]"))
+                    }
+
+                    @Test
+                    @DisplayName("multiple predicates; outer")
+                    fun multiplePredicatesOuter() {
+                        val step = parse<XPathAxisStep>("child::test[1][2]")[0] as XpmPathStep
+                        val qname = step.walkTree().filterIsInstance<XsQNameValue>().first()
+                        assertThat(step.axisType, `is`(XpmAxisType.Child))
+                        assertThat(step.nodeName, sameInstance(qname))
+                        assertThat(step.nodeType, sameInstance(XdmElementItem))
+                        assertThat(step.predicate?.text, `is`("[2]"))
+                    }
+
+                    @Test
+                    @DisplayName("XPath 3.1 EBNF (45) AbbrevReverseStep")
+                    fun abbrevReverseStep() {
+                        val step = parse<XPathAxisStep>("..[1]")[0] as XpmPathStep
+                        assertThat(step.axisType, `is`(XpmAxisType.Parent))
+                        assertThat(step.nodeName, `is`(nullValue()))
+                        assertThat(step.nodeType, sameInstance(XdmNodeItem))
+                        assertThat(step.predicate?.text, `is`("[1]"))
+                    }
+
                     @Test
                     @DisplayName("XPath 3.1 EBNF (47) NameTest")
                     fun nameTest() {
-                        val step = parse<XPathNameTest>("test")[0] as XpmPathStep
+                        val step = parse<XPathAxisStep>("child::test[1]")[0] as XpmPathStep
+                        val qname = step.walkTree().filterIsInstance<XsQNameValue>().first()
+                        assertThat(step.axisType, `is`(XpmAxisType.Child))
+                        assertThat(step.nodeName, sameInstance(qname))
+                        assertThat(step.nodeType, sameInstance(XdmElementItem))
+                        assertThat(step.predicate?.text, `is`("[1]"))
+                    }
+
+                    @Test
+                    @DisplayName("XPath 3.1 EBNF (83) KindTest")
+                    fun kindTest() {
+                        val step = parse<XPathAxisStep>("child::node()[1]")[0] as XpmPathStep
+                        assertThat(step.axisType, `is`(XpmAxisType.Child))
+                        assertThat(step.nodeName, `is`(nullValue()))
+                        assertThat(step.nodeType, sameInstance(step.walkTree().filterIsInstance<XdmItemType>().first()))
+                        assertThat(step.predicate?.text, `is`("[1]"))
+                    }
+                }
+            }
+
+            @Nested
+            @DisplayName("XPath 3.1 (3.3.2.1) Axes")
+            internal inner class Axes {
+                @Nested
+                @DisplayName("XPath 3.1 EBNF (41) ForwardAxis")
+                internal inner class ForwardAxis {
+                    @Test
+                    @DisplayName("XPath 3.1 EBNF (47) NameTest")
+                    fun nameTest() {
+                        val step = parse<XPathForwardStep>("child::test")[0] as XpmPathStep
                         val qname = step.walkTree().filterIsInstance<XsQNameValue>().first()
                         assertThat(step.axisType, `is`(XpmAxisType.Child))
                         assertThat(step.nodeName, sameInstance(qname))
@@ -2731,70 +2301,411 @@ private class XPathPsiTest : ParserTestCase() {
                     }
 
                     @Test
+                    @DisplayName("XPath 3.1 EBNF (83) KindTest")
+                    fun kindTest() {
+                        val step = parse<XPathForwardStep>("child::node()")[0] as XpmPathStep
+                        assertThat(step.axisType, `is`(XpmAxisType.Child))
+                        assertThat(step.nodeName, `is`(nullValue()))
+                        assertThat(step.nodeType, sameInstance(step.walkTree().filterIsInstance<XdmItemType>().first()))
+                        assertThat(step.predicate, `is`(nullValue()))
+                    }
+
+                    @Test
+                    @DisplayName("attribute axis")
+                    fun attributeAxis() {
+                        val step = parse<XPathForwardStep>("attribute::test")[0] as XpmPathStep
+                        assertThat(step.axisType, `is`(XpmAxisType.Attribute))
+                        assertThat(step.nodeType, sameInstance(XdmAttributeItem))
+                    }
+
+                    @Test
+                    @DisplayName("child axis")
+                    fun childAxis() {
+                        val step = parse<XPathForwardStep>("child::test")[0] as XpmPathStep
+                        assertThat(step.axisType, `is`(XpmAxisType.Child))
+                        assertThat(step.nodeType, sameInstance(XdmElementItem))
+                    }
+
+                    @Test
+                    @DisplayName("descendant axis")
+                    fun descendantAxis() {
+                        val step = parse<XPathForwardStep>("descendant::test")[0] as XpmPathStep
+                        assertThat(step.axisType, `is`(XpmAxisType.Descendant))
+                        assertThat(step.nodeType, sameInstance(XdmElementItem))
+                    }
+
+                    @Test
+                    @DisplayName("descendant-or-self axis")
+                    fun descendantOrSelfAxis() {
+                        val step = parse<XPathForwardStep>("descendant-or-self::test")[0] as XpmPathStep
+                        assertThat(step.axisType, `is`(XpmAxisType.DescendantOrSelf))
+                        assertThat(step.nodeType, sameInstance(XdmElementItem))
+                    }
+
+                    @Test
+                    @DisplayName("following axis")
+                    fun followingAxis() {
+                        val step = parse<XPathForwardStep>("following::test")[0] as XpmPathStep
+                        assertThat(step.axisType, `is`(XpmAxisType.Following))
+                        assertThat(step.nodeType, sameInstance(XdmElementItem))
+                    }
+
+                    @Test
+                    @DisplayName("following-sibling axis")
+                    fun followingSiblingAxis() {
+                        val step = parse<XPathForwardStep>("following-sibling::test")[0] as XpmPathStep
+                        assertThat(step.axisType, `is`(XpmAxisType.FollowingSibling))
+                        assertThat(step.nodeType, sameInstance(XdmElementItem))
+                    }
+
+                    @Test
+                    @DisplayName("namespace axis")
+                    fun namespaceAxis() {
+                        val step = parse<XPathForwardStep>("namespace::test")[0] as XpmPathStep
+                        assertThat(step.axisType, `is`(XpmAxisType.Namespace))
+                        assertThat(step.nodeType, sameInstance(XdmNamespaceItem))
+                    }
+
+                    @Test
+                    @DisplayName("self axis")
+                    fun selfAxis() {
+                        val step = parse<XPathForwardStep>("self::test")[0] as XpmPathStep
+                        assertThat(step.axisType, `is`(XpmAxisType.Self))
+                        assertThat(step.nodeType, sameInstance(XdmElementItem))
+                    }
+
+                    @Test
+                    @DisplayName("principal node kind")
+                    fun principalNodeKind() {
+                        val steps = parse<XPathNameTest>(
+                            """
+                        child::one, descendant::two, attribute::three, self::four, descendant-or-self::five,
+                        following-sibling::six, following::seven, namespace::eight
+                        """
+                        )
+                        assertThat(steps.size, `is`(8))
+                        assertThat(steps[0].getPrincipalNodeKind(), `is`(XpmUsageType.Element)) // child
+                        assertThat(steps[1].getPrincipalNodeKind(), `is`(XpmUsageType.Element)) // descendant
+                        assertThat(steps[2].getPrincipalNodeKind(), `is`(XpmUsageType.Attribute)) // attribute
+                        assertThat(steps[3].getPrincipalNodeKind(), `is`(XpmUsageType.Element)) // self
+                        assertThat(steps[4].getPrincipalNodeKind(), `is`(XpmUsageType.Element)) // descendant-or-self
+                        assertThat(steps[5].getPrincipalNodeKind(), `is`(XpmUsageType.Element)) // following-sibling
+                        assertThat(steps[6].getPrincipalNodeKind(), `is`(XpmUsageType.Element)) // following
+                        assertThat(steps[7].getPrincipalNodeKind(), `is`(XpmUsageType.Namespace)) // namespace
+                    }
+
+                    @Test
+                    @DisplayName("usage type")
+                    fun usageType() {
+                        val steps = parse<XPathNameTest>(
+                            """
+                        child::one, descendant::two, attribute::three, self::four, descendant-or-self::five,
+                        following-sibling::six, following::seven, namespace::eight
+                        """
+                        ).map { it.walkTree().filterIsInstance<XsQNameValue>().first().element!! }
+                        assertThat(steps.size, `is`(8))
+                        assertThat(steps[0].getUsageType(), `is`(XpmUsageType.Element)) // child
+                        assertThat(steps[1].getUsageType(), `is`(XpmUsageType.Element)) // descendant
+                        assertThat(steps[2].getUsageType(), `is`(XpmUsageType.Attribute)) // attribute
+                        assertThat(steps[3].getUsageType(), `is`(XpmUsageType.Element)) // self
+                        assertThat(steps[4].getUsageType(), `is`(XpmUsageType.Element)) // descendant-or-self
+                        assertThat(steps[5].getUsageType(), `is`(XpmUsageType.Element)) // following-sibling
+                        assertThat(steps[6].getUsageType(), `is`(XpmUsageType.Element)) // following
+                        assertThat(steps[7].getUsageType(), `is`(XpmUsageType.Namespace)) // namespace
+                    }
+                }
+
+                @Nested
+                @DisplayName("XPath 3.1 EBNF (44) ReverseAxis")
+                internal inner class ReverseAxis {
+                    @Test
+                    @DisplayName("XPath 3.1 EBNF (47) NameTest")
+                    fun nameTest() {
+                        val step = parse<XPathReverseStep>("parent::test")[0] as XpmPathStep
+                        val qname = step.walkTree().filterIsInstance<XsQNameValue>().first()
+                        assertThat(step.axisType, `is`(XpmAxisType.Parent))
+                        assertThat(step.nodeName, sameInstance(qname))
+                        assertThat(step.nodeType, sameInstance(XdmElementItem))
+                        assertThat(step.predicate, `is`(nullValue()))
+                    }
+
+                    @Test
+                    @DisplayName("XPath 3.1 EBNF (83) KindTest")
+                    fun kindTest() {
+                        val step = parse<XPathReverseStep>("parent::node()")[0] as XpmPathStep
+                        assertThat(step.axisType, `is`(XpmAxisType.Parent))
+                        assertThat(step.nodeName, `is`(nullValue()))
+                        assertThat(step.nodeType, sameInstance(step.walkTree().filterIsInstance<XdmItemType>().first()))
+                        assertThat(step.predicate, `is`(nullValue()))
+                    }
+
+                    @Test
+                    @DisplayName("ancestor axis")
+                    fun ancestorAxis() {
+                        val step = parse<XPathReverseStep>("ancestor::test")[0] as XpmPathStep
+                        assertThat(step.axisType, `is`(XpmAxisType.Ancestor))
+                        assertThat(step.nodeType, sameInstance(XdmElementItem))
+                    }
+
+                    @Test
+                    @DisplayName("child axis")
+                    fun ancestorOrSelfAxis() {
+                        val step = parse<XPathReverseStep>("ancestor-or-self::test")[0] as XpmPathStep
+                        assertThat(step.axisType, `is`(XpmAxisType.AncestorOrSelf))
+                        assertThat(step.nodeType, sameInstance(XdmElementItem))
+                    }
+
+                    @Test
+                    @DisplayName("parent axis")
+                    fun parentAxis() {
+                        val step = parse<XPathReverseStep>("parent::test")[0] as XpmPathStep
+                        assertThat(step.axisType, `is`(XpmAxisType.Parent))
+                        assertThat(step.nodeType, sameInstance(XdmElementItem))
+                    }
+
+                    @Test
+                    @DisplayName("preceding axis")
+                    fun precedingAxis() {
+                        val step = parse<XPathReverseStep>("preceding::test")[0] as XpmPathStep
+                        assertThat(step.axisType, `is`(XpmAxisType.Preceding))
+                        assertThat(step.nodeType, sameInstance(XdmElementItem))
+                    }
+
+                    @Test
+                    @DisplayName("preceding-sibling axis")
+                    fun precedingSiblingAxis() {
+                        val step = parse<XPathReverseStep>("preceding-sibling::test")[0] as XpmPathStep
+                        assertThat(step.axisType, `is`(XpmAxisType.PrecedingSibling))
+                        assertThat(step.nodeType, sameInstance(XdmElementItem))
+                    }
+
+                    @Test
+                    @DisplayName("principal node kind")
+                    fun principalNodeKind() {
+                        val steps = parse<XPathNameTest>(
+                            "parent::one, ancestor::two, preceding-sibling::three, preceding::four, ancestor-or-self::five"
+                        )
+                        assertThat(steps.size, `is`(5))
+                        assertThat(steps[0].getPrincipalNodeKind(), `is`(XpmUsageType.Element)) // parent
+                        assertThat(steps[1].getPrincipalNodeKind(), `is`(XpmUsageType.Element)) // ancestor
+                        assertThat(steps[2].getPrincipalNodeKind(), `is`(XpmUsageType.Element)) // preceding-sibling
+                        assertThat(steps[3].getPrincipalNodeKind(), `is`(XpmUsageType.Element)) // preceding
+                        assertThat(steps[4].getPrincipalNodeKind(), `is`(XpmUsageType.Element)) // ancestor-or-self
+                    }
+
+                    @Test
+                    @DisplayName("usage type")
+                    fun usageType() {
+                        val steps = parse<XPathNameTest>(
+                            "parent::one, ancestor::two, preceding-sibling::three, preceding::four, ancestor-or-self::five"
+                        ).map { it.walkTree().filterIsInstance<XsQNameValue>().first().element!! }
+                        assertThat(steps.size, `is`(5))
+                        assertThat(steps[0].getUsageType(), `is`(XpmUsageType.Element)) // parent
+                        assertThat(steps[1].getUsageType(), `is`(XpmUsageType.Element)) // ancestor
+                        assertThat(steps[2].getUsageType(), `is`(XpmUsageType.Element)) // preceding-sibling
+                        assertThat(steps[3].getUsageType(), `is`(XpmUsageType.Element)) // preceding
+                        assertThat(steps[4].getUsageType(), `is`(XpmUsageType.Element)) // ancestor-or-self
+                    }
+                }
+            }
+
+            @Nested
+            @DisplayName("XPath 3.1 (3.3.2.2) Node Tests")
+            internal inner class NodeTests {
+                @Nested
+                @DisplayName("XPath 3.1 EBNF (47) NameTest")
+                internal inner class NameTest {
+                    @Test
+                    @DisplayName("NCName namespace resolution; element principal node kind")
+                    fun elementNcname() {
+                        val qname = parse<XPathEQName>("ancestor::test")[0] as XsQNameValue
+                        assertThat(qname.element!!.getUsageType(), `is`(XpmUsageType.Element))
+
+                        assertThat(qname.isLexicalQName, `is`(true))
+                        assertThat(qname.namespace, `is`(nullValue()))
+                        assertThat(qname.prefix, `is`(nullValue()))
+                        assertThat(qname.localName!!.data, `is`("test"))
+                        assertThat(qname.element, sameInstance(qname as PsiElement))
+                    }
+
+                    @Test
+                    @DisplayName("NCName namespace resolution; attribute principal node kind")
+                    fun attributeNcname() {
+                        val qname = parse<XPathEQName>("attribute::test")[0] as XsQNameValue
+                        assertThat(qname.element!!.getUsageType(), `is`(XpmUsageType.Attribute))
+
+                        assertThat(qname.isLexicalQName, `is`(true))
+                        assertThat(qname.namespace, `is`(nullValue()))
+                        assertThat(qname.prefix, `is`(nullValue()))
+                        assertThat(qname.localName!!.data, `is`("test"))
+                        assertThat(qname.element, sameInstance(qname as PsiElement))
+                    }
+
+                    @Test
+                    @DisplayName("NCName namespace resolution; namespace principal node kind")
+                    fun namespaceNcname() {
+                        val qname = parse<XPathEQName>("namespace::test")[0] as XsQNameValue
+                        assertThat(qname.element!!.getUsageType(), `is`(XpmUsageType.Namespace))
+
+                        assertThat(qname.isLexicalQName, `is`(true))
+                        assertThat(qname.namespace, `is`(nullValue()))
+                        assertThat(qname.prefix, `is`(nullValue()))
+                        assertThat(qname.localName!!.data, `is`("test"))
+                        assertThat(qname.element, sameInstance(qname as PsiElement))
+                    }
+                }
+
+                @Nested
+                @DisplayName("XPath 3.1 EBNF (48) Wildcard")
+                internal inner class Wildcard {
+                    @Test
+                    @DisplayName("any")
+                    fun any() {
+                        val qname = parse<XPathWildcard>("*")[0] as XsQNameValue
+                        assertThat(qname.isLexicalQName, `is`(true))
+                        assertThat(qname.namespace, `is`(nullValue()))
+                        assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                        assertThat(qname.prefix, `is`(instanceOf(XdmWildcardValue::class.java)))
+                        assertThat(qname.prefix!!.data, `is`("*"))
+
+                        assertThat(qname.localName, `is`(instanceOf(XdmWildcardValue::class.java)))
+                        assertThat(qname.localName!!.data, `is`("*"))
+                    }
+
+                    @Test
+                    @DisplayName("wildcard prefix; wildcard local name")
+                    fun bothWildcard() {
+                        val qname = parse<XPathWildcard>("*:*")[0] as XsQNameValue
+                        assertThat(qname.isLexicalQName, `is`(true))
+                        assertThat(qname.namespace, `is`(nullValue()))
+                        assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                        assertThat(qname.prefix, `is`(instanceOf(XdmWildcardValue::class.java)))
+                        assertThat(qname.prefix!!.data, `is`("*"))
+
+                        assertThat(qname.localName, `is`(instanceOf(XdmWildcardValue::class.java)))
+                        assertThat(qname.localName!!.data, `is`("*"))
+                    }
+
+                    @Test
+                    @DisplayName("wildcard prefix; non-wildcard local name")
+                    fun wildcardPrefix() {
+                        val qname = parse<XPathWildcard>("*:test")[0] as XsQNameValue
+                        assertThat(qname.isLexicalQName, `is`(true))
+                        assertThat(qname.namespace, `is`(nullValue()))
+                        assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                        assertThat(qname.prefix, `is`(instanceOf(XdmWildcardValue::class.java)))
+                        assertThat(qname.prefix!!.data, `is`("*"))
+
+                        assertThat(qname.localName, `is`(not(instanceOf(XdmWildcardValue::class.java))))
+                        assertThat(qname.localName!!.data, `is`("test"))
+                    }
+
+                    @Test
+                    @DisplayName("non-wildcard prefix; wildcard local name")
+                    fun wildcardLocalName() {
+                        val qname = parse<XPathWildcard>("test:*")[0] as XsQNameValue
+                        assertThat(qname.isLexicalQName, `is`(true))
+                        assertThat(qname.namespace, `is`(nullValue()))
+                        assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                        assertThat(qname.prefix, `is`(not(instanceOf(XdmWildcardValue::class.java))))
+                        assertThat(qname.prefix!!.data, `is`("test"))
+
+                        assertThat(qname.localName, `is`(instanceOf(XdmWildcardValue::class.java)))
+                        assertThat(qname.localName!!.data, `is`("*"))
+                    }
+
+                    @Test
+                    @DisplayName("missing local name")
+                    fun noLocalName() {
+                        val qname = parse<XPathWildcard>("*:")[0] as XsQNameValue
+                        assertThat(qname.isLexicalQName, `is`(true))
+                        assertThat(qname.namespace, `is`(nullValue()))
+                        assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                        assertThat(qname.prefix, `is`(instanceOf(XdmWildcardValue::class.java)))
+                        assertThat(qname.prefix!!.data, `is`("*"))
+
+                        assertThat(qname.localName, `is`(instanceOf(XdmWildcardValue::class.java)))
+                        assertThat(qname.localName!!.data, `is`("*"))
+                    }
+
+                    @Test
+                    @DisplayName("URIQualifiedName")
+                    fun keyword() {
+                        val qname = parse<XPathWildcard>("Q{http://www.example.com}*")[0] as XsQNameValue
+                        assertThat(qname.isLexicalQName, `is`(false))
+                        assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+                        assertThat(qname.prefix, `is`(nullValue()))
+                        assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                        assertThat(qname.localName, `is`(instanceOf(XdmWildcardValue::class.java)))
+                        assertThat(qname.localName!!.data, `is`("*"))
+                    }
+
+                    @Test
+                    @DisplayName("URIQualifiedName with an empty namespace")
+                    fun emptyNamespace() {
+                        val qname = parse<XPathWildcard>("Q{}*")[0] as XsQNameValue
+                        assertThat(qname.isLexicalQName, `is`(false))
+                        assertThat(qname.namespace!!.data, `is`(""))
+                        assertThat(qname.prefix, `is`(nullValue()))
+                        assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                        assertThat(qname.localName, `is`(instanceOf(XdmWildcardValue::class.java)))
+                        assertThat(qname.localName!!.data, `is`("*"))
+                    }
+                }
+            }
+
+            @Nested
+            @DisplayName("XPath 3.1 (3.3.3) Predicates within Steps")
+            internal inner class PredicatesWithinSteps {
+                @Nested
+                @DisplayName("XPath 3.1 EBNF (52) Predicate")
+                internal inner class Predicate {
+                    @Test
+                    @DisplayName("single")
+                    fun single() {
+                        val expr = parse<PluginFilterStep>("/test[1]")[0] as XpmExpression
+                        assertThat(expr.expressionElement, `is`(nullValue()))
+                    }
+
+                    @Test
+                    @DisplayName("multiple")
+                    fun multiple() {
+                        val exprs = parse<PluginFilterStep>("/test[1][2]")
+                        assertThat(exprs[0].expressionElement, `is`(nullValue()))
+                        assertThat(exprs[1].expressionElement, `is`(nullValue()))
+                    }
+                }
+            }
+
+            @Nested
+            @DisplayName("XPath 3.1 (3.3.5) Abbreviated Syntax")
+            internal inner class AbbreviatedSyntax {
+                @Nested
+                @DisplayName("1. The attribute axis attribute:: can be abbreviated by @.")
+                internal inner class AbbreviatedAttributeAxis {
+                    @Test
+                    @DisplayName("XPath 3.1 EBNF (47) NameTest")
+                    fun nameTest() {
+                        val step = parse<XPathAbbrevForwardStep>("@test")[0] as XpmPathStep
+                        val qname = step.walkTree().filterIsInstance<XsQNameValue>().first()
+                        assertThat(step.axisType, `is`(XpmAxisType.Attribute))
+                        assertThat(step.nodeName, sameInstance(qname))
+                        assertThat(step.nodeType, sameInstance(XdmAttributeItem))
+                        assertThat(step.predicate, `is`(nullValue()))
+                    }
+
+                    @Test
                     @DisplayName("XPath 3.1 EBNF (83) KindTest ; XPath 3.1 EBNF (84) AnyKindTest")
                     fun anyKindTest() {
-                        val step = parse<XPathNodeTest>("node()")[0] as XpmPathStep
-                        assertThat(step.axisType, `is`(XpmAxisType.Child))
-                        assertThat(step.nodeName, `is`(nullValue()))
-                        assertThat(step.nodeType, sameInstance(step.walkTree().filterIsInstance<XdmItemType>().first()))
-                        assertThat(step.predicate, `is`(nullValue()))
-                    }
-
-                    @Test
-                    @DisplayName("XPath 3.1 EBNF (83) KindTest ; XPath 3.1 EBNF (85) DocumentTest")
-                    fun documentTest() {
-                        val step = parse<XPathNodeTest>("document-node()")[0] as XpmPathStep
-                        assertThat(step.axisType, `is`(XpmAxisType.Child))
-                        assertThat(step.nodeName, `is`(nullValue()))
-                        assertThat(step.nodeType, sameInstance(step.walkTree().filterIsInstance<XdmItemType>().first()))
-                        assertThat(step.predicate, `is`(nullValue()))
-                    }
-
-                    @Test
-                    @DisplayName("XPath 3.1 EBNF (83) KindTest ; XPath 3.1 EBNF (86) TextTest")
-                    fun textTest() {
-                        val step = parse<XPathNodeTest>("text()")[0] as XpmPathStep
-                        assertThat(step.axisType, `is`(XpmAxisType.Child))
-                        assertThat(step.nodeName, `is`(nullValue()))
-                        assertThat(step.nodeType, sameInstance(step.walkTree().filterIsInstance<XdmItemType>().first()))
-                        assertThat(step.predicate, `is`(nullValue()))
-                    }
-
-                    @Test
-                    @DisplayName("XPath 3.1 EBNF (83) KindTest ; XPath 3.1 EBNF (87) CommentTest")
-                    fun commentTest() {
-                        val step = parse<XPathNodeTest>("comment()")[0] as XpmPathStep
-                        assertThat(step.axisType, `is`(XpmAxisType.Child))
-                        assertThat(step.nodeName, `is`(nullValue()))
-                        assertThat(step.nodeType, sameInstance(step.walkTree().filterIsInstance<XdmItemType>().first()))
-                        assertThat(step.predicate, `is`(nullValue()))
-                    }
-
-                    @Test
-                    @DisplayName("XPath 3.1 EBNF (83) KindTest ; XPath 3.1 EBNF (89) PITest")
-                    fun piTest() {
-                        val step = parse<XPathNodeTest>("processing-instruction()")[0] as XpmPathStep
-                        assertThat(step.axisType, `is`(XpmAxisType.Child))
-                        assertThat(step.nodeName, `is`(nullValue()))
-                        assertThat(step.nodeType, sameInstance(step.walkTree().filterIsInstance<XdmItemType>().first()))
-                        assertThat(step.predicate, `is`(nullValue()))
-                    }
-
-                    @Test
-                    @DisplayName("XPath 3.1 EBNF (83) KindTest ; XPath 3.1 EBNF (94) ElementTest")
-                    fun elementTest() {
-                        val step = parse<XPathNodeTest>("element()")[0] as XpmPathStep
-                        assertThat(step.axisType, `is`(XpmAxisType.Child))
-                        assertThat(step.nodeName, `is`(nullValue()))
-                        assertThat(step.nodeType, sameInstance(step.walkTree().filterIsInstance<XdmItemType>().first()))
-                        assertThat(step.predicate, `is`(nullValue()))
-                    }
-
-                    @Test
-                    @DisplayName("XPath 3.1 EBNF (83) KindTest ; XPath 3.1 EBNF (96) SchemaElementTest")
-                    fun schemaElementTest() {
-                        val step = parse<XPathNodeTest>("schema-element(test)")[0] as XpmPathStep
-                        assertThat(step.axisType, `is`(XpmAxisType.Child))
+                        val step = parse<XPathAbbrevForwardStep>("@node()")[0] as XpmPathStep
+                        assertThat(step.axisType, `is`(XpmAxisType.Attribute))
                         assertThat(step.nodeName, `is`(nullValue()))
                         assertThat(step.nodeType, sameInstance(step.walkTree().filterIsInstance<XdmItemType>().first()))
                         assertThat(step.predicate, `is`(nullValue()))
@@ -2802,23 +2713,122 @@ private class XPathPsiTest : ParserTestCase() {
                 }
 
                 @Nested
-                @DisplayName("(1) if the NodeTest in an axis step contains an AttributeTest or SchemaAttributeTest then the default axis is attribute")
-                internal inner class AttributeAxis {
-                    @Test
-                    @DisplayName("XPath 3.1 EBNF (83) KindTest ; XPath 3.1 EBNF (94) AttributeTest")
-                    fun attributeTest() {
-                        val step = parse<XPathNodeTest>("attribute()")[0] as XpmPathStep
-                        assertThat(step.axisType, `is`(XpmAxisType.Attribute))
-                        assertThat(step.nodeName, `is`(nullValue()))
-                        assertThat(step.nodeType, sameInstance(step.walkTree().filterIsInstance<XdmItemType>().first()))
-                        assertThat(step.predicate, `is`(nullValue()))
+                @DisplayName("2. If the axis name is omitted from an axis step")
+                internal inner class AxisNameOmittedFromAxisStep {
+                    @Nested
+                    @DisplayName("the default axis is child")
+                    internal inner class DefaultAxis {
+                        @Test
+                        @DisplayName("XPath 3.1 EBNF (47) NameTest")
+                        fun nameTest() {
+                            val step = parse<XPathNameTest>("test")[0] as XpmPathStep
+                            val qname = step.walkTree().filterIsInstance<XsQNameValue>().first()
+                            assertThat(step.axisType, `is`(XpmAxisType.Child))
+                            assertThat(step.nodeName, sameInstance(qname))
+                            assertThat(step.nodeType, sameInstance(XdmElementItem))
+                            assertThat(step.predicate, `is`(nullValue()))
+                        }
+
+                        @Test
+                        @DisplayName("XPath 3.1 EBNF (83) KindTest ; XPath 3.1 EBNF (84) AnyKindTest")
+                        fun anyKindTest() {
+                            val step = parse<XPathNodeTest>("node()")[0] as XpmPathStep
+                            assertThat(step.axisType, `is`(XpmAxisType.Child))
+                            assertThat(step.nodeName, `is`(nullValue()))
+                            assertThat(step.nodeType, sameInstance(step.walkTree().filterIsInstance<XdmItemType>().first()))
+                            assertThat(step.predicate, `is`(nullValue()))
+                        }
+
+                        @Test
+                        @DisplayName("XPath 3.1 EBNF (83) KindTest ; XPath 3.1 EBNF (85) DocumentTest")
+                        fun documentTest() {
+                            val step = parse<XPathNodeTest>("document-node()")[0] as XpmPathStep
+                            assertThat(step.axisType, `is`(XpmAxisType.Child))
+                            assertThat(step.nodeName, `is`(nullValue()))
+                            assertThat(step.nodeType, sameInstance(step.walkTree().filterIsInstance<XdmItemType>().first()))
+                            assertThat(step.predicate, `is`(nullValue()))
+                        }
+
+                        @Test
+                        @DisplayName("XPath 3.1 EBNF (83) KindTest ; XPath 3.1 EBNF (86) TextTest")
+                        fun textTest() {
+                            val step = parse<XPathNodeTest>("text()")[0] as XpmPathStep
+                            assertThat(step.axisType, `is`(XpmAxisType.Child))
+                            assertThat(step.nodeName, `is`(nullValue()))
+                            assertThat(step.nodeType, sameInstance(step.walkTree().filterIsInstance<XdmItemType>().first()))
+                            assertThat(step.predicate, `is`(nullValue()))
+                        }
+
+                        @Test
+                        @DisplayName("XPath 3.1 EBNF (83) KindTest ; XPath 3.1 EBNF (87) CommentTest")
+                        fun commentTest() {
+                            val step = parse<XPathNodeTest>("comment()")[0] as XpmPathStep
+                            assertThat(step.axisType, `is`(XpmAxisType.Child))
+                            assertThat(step.nodeName, `is`(nullValue()))
+                            assertThat(step.nodeType, sameInstance(step.walkTree().filterIsInstance<XdmItemType>().first()))
+                            assertThat(step.predicate, `is`(nullValue()))
+                        }
+
+                        @Test
+                        @DisplayName("XPath 3.1 EBNF (83) KindTest ; XPath 3.1 EBNF (89) PITest")
+                        fun piTest() {
+                            val step = parse<XPathNodeTest>("processing-instruction()")[0] as XpmPathStep
+                            assertThat(step.axisType, `is`(XpmAxisType.Child))
+                            assertThat(step.nodeName, `is`(nullValue()))
+                            assertThat(step.nodeType, sameInstance(step.walkTree().filterIsInstance<XdmItemType>().first()))
+                            assertThat(step.predicate, `is`(nullValue()))
+                        }
+
+                        @Test
+                        @DisplayName("XPath 3.1 EBNF (83) KindTest ; XPath 3.1 EBNF (94) ElementTest")
+                        fun elementTest() {
+                            val step = parse<XPathNodeTest>("element()")[0] as XpmPathStep
+                            assertThat(step.axisType, `is`(XpmAxisType.Child))
+                            assertThat(step.nodeName, `is`(nullValue()))
+                            assertThat(step.nodeType, sameInstance(step.walkTree().filterIsInstance<XdmItemType>().first()))
+                            assertThat(step.predicate, `is`(nullValue()))
+                        }
+
+                        @Test
+                        @DisplayName("XPath 3.1 EBNF (83) KindTest ; XPath 3.1 EBNF (96) SchemaElementTest")
+                        fun schemaElementTest() {
+                            val step = parse<XPathNodeTest>("schema-element(test)")[0] as XpmPathStep
+                            assertThat(step.axisType, `is`(XpmAxisType.Child))
+                            assertThat(step.nodeName, `is`(nullValue()))
+                            assertThat(step.nodeType, sameInstance(step.walkTree().filterIsInstance<XdmItemType>().first()))
+                            assertThat(step.predicate, `is`(nullValue()))
+                        }
+                    }
+
+                    @Nested
+                    @DisplayName("(1) if the NodeTest in an axis step contains an AttributeTest or SchemaAttributeTest then the default axis is attribute")
+                    internal inner class AttributeAxis {
+                        @Test
+                        @DisplayName("XPath 3.1 EBNF (83) KindTest ; XPath 3.1 EBNF (94) AttributeTest")
+                        fun attributeTest() {
+                            val step = parse<XPathNodeTest>("attribute()")[0] as XpmPathStep
+                            assertThat(step.axisType, `is`(XpmAxisType.Attribute))
+                            assertThat(step.nodeName, `is`(nullValue()))
+                            assertThat(step.nodeType, sameInstance(step.walkTree().filterIsInstance<XdmItemType>().first()))
+                            assertThat(step.predicate, `is`(nullValue()))
+                        }
+
+                        @Test
+                        @DisplayName("XPath 3.1 EBNF (83) KindTest ; XPath 3.1 EBNF (96) SchemaAttributeTest")
+                        fun schemaAttributeTest() {
+                            val step = parse<XPathNodeTest>("schema-attribute(test)")[0] as XpmPathStep
+                            assertThat(step.axisType, `is`(XpmAxisType.Attribute))
+                            assertThat(step.nodeName, `is`(nullValue()))
+                            assertThat(step.nodeType, sameInstance(step.walkTree().filterIsInstance<XdmItemType>().first()))
+                            assertThat(step.predicate, `is`(nullValue()))
+                        }
                     }
 
                     @Test
-                    @DisplayName("XPath 3.1 EBNF (83) KindTest ; XPath 3.1 EBNF (96) SchemaAttributeTest")
-                    fun schemaAttributeTest() {
-                        val step = parse<XPathNodeTest>("schema-attribute(test)")[0] as XpmPathStep
-                        assertThat(step.axisType, `is`(XpmAxisType.Attribute))
+                    @DisplayName("(2) if the NodeTest in an axis step is a NamespaceNodeTest then the default axis is namespace")
+                    fun namespaceNodeTest() {
+                        val step = parse<XPathNodeTest>("namespace-node()")[0] as XpmPathStep
+                        assertThat(step.axisType, `is`(XpmAxisType.Namespace))
                         assertThat(step.nodeName, `is`(nullValue()))
                         assertThat(step.nodeType, sameInstance(step.walkTree().filterIsInstance<XdmItemType>().first()))
                         assertThat(step.predicate, `is`(nullValue()))
@@ -2826,780 +2836,936 @@ private class XPathPsiTest : ParserTestCase() {
                 }
 
                 @Test
-                @DisplayName("(2) if the NodeTest in an axis step is a NamespaceNodeTest then the default axis is namespace")
-                fun namespaceNodeTest() {
-                    val step = parse<XPathNodeTest>("namespace-node()")[0] as XpmPathStep
-                    assertThat(step.axisType, `is`(XpmAxisType.Namespace))
+                @DisplayName("3. Each non-initial occurrence of // is effectively replaced by /descendant-or-self::node()/ during processing of a path expression.")
+                fun abbrevDescendantOrSelfStep() {
+                    val step = parse<PluginAbbrevDescendantOrSelfStep>("lorem//ipsum")[0] as XpmPathStep
+                    assertThat(step.axisType, `is`(XpmAxisType.DescendantOrSelf))
                     assertThat(step.nodeName, `is`(nullValue()))
-                    assertThat(step.nodeType, sameInstance(step.walkTree().filterIsInstance<XdmItemType>().first()))
+                    assertThat(step.nodeType, sameInstance(XdmNodeItem))
                     assertThat(step.predicate, `is`(nullValue()))
                 }
-            }
 
-            @Test
-            @DisplayName("3. Each non-initial occurrence of // is effectively replaced by /descendant-or-self::node()/ during processing of a path expression.")
-            fun abbrevDescendantOrSelfStep() {
-                val step = parse<PluginAbbrevDescendantOrSelfStep>("lorem//ipsum")[0] as XpmPathStep
-                assertThat(step.axisType, `is`(XpmAxisType.DescendantOrSelf))
-                assertThat(step.nodeName, `is`(nullValue()))
-                assertThat(step.nodeType, sameInstance(XdmNodeItem))
-                assertThat(step.predicate, `is`(nullValue()))
-            }
-
-            @Test
-            @DisplayName("4. A step consisting of .. is short for parent::node().")
-            fun abbrevReverseStep() {
-                val step = parse<XPathAbbrevReverseStep>("..")[0] as XpmPathStep
-                assertThat(step.axisType, `is`(XpmAxisType.Parent))
-                assertThat(step.nodeName, `is`(nullValue()))
-                assertThat(step.nodeType, sameInstance(XdmNodeItem))
-                assertThat(step.predicate, `is`(nullValue()))
-            }
-
-            @Nested
-            @DisplayName("XPath 3.1 EBNF (42) AbbrevForwardStep")
-            internal inner class AbbrevForwardStep {
                 @Test
-                @DisplayName("principal node kind")
-                fun principalNodeKind() {
-                    val steps = parse<XPathNameTest>("one, @two")
-                    assertThat(steps.size, `is`(2))
-                    assertThat(steps[0].getPrincipalNodeKind(), `is`(XpmUsageType.Element))
-                    assertThat(steps[1].getPrincipalNodeKind(), `is`(XpmUsageType.Attribute))
+                @DisplayName("4. A step consisting of .. is short for parent::node().")
+                fun abbrevReverseStep() {
+                    val step = parse<XPathAbbrevReverseStep>("..")[0] as XpmPathStep
+                    assertThat(step.axisType, `is`(XpmAxisType.Parent))
+                    assertThat(step.nodeName, `is`(nullValue()))
+                    assertThat(step.nodeType, sameInstance(XdmNodeItem))
+                    assertThat(step.predicate, `is`(nullValue()))
                 }
 
-                @Test
-                @DisplayName("usage type")
-                fun usageType() {
-                    val steps = parse<XPathNameTest>("one, @two").map {
-                        it.walkTree().filterIsInstance<XsQNameValue>().first().element!!
+                @Nested
+                @DisplayName("XPath 3.1 EBNF (42) AbbrevForwardStep")
+                internal inner class AbbrevForwardStep {
+                    @Test
+                    @DisplayName("principal node kind")
+                    fun principalNodeKind() {
+                        val steps = parse<XPathNameTest>("one, @two")
+                        assertThat(steps.size, `is`(2))
+                        assertThat(steps[0].getPrincipalNodeKind(), `is`(XpmUsageType.Element))
+                        assertThat(steps[1].getPrincipalNodeKind(), `is`(XpmUsageType.Attribute))
                     }
-                    assertThat(steps.size, `is`(2))
-                    assertThat(steps[0].getUsageType(), `is`(XpmUsageType.Element))
-                    assertThat(steps[1].getUsageType(), `is`(XpmUsageType.Attribute))
+
+                    @Test
+                    @DisplayName("usage type")
+                    fun usageType() {
+                        val steps = parse<XPathNameTest>("one, @two").map {
+                            it.walkTree().filterIsInstance<XsQNameValue>().first().element!!
+                        }
+                        assertThat(steps.size, `is`(2))
+                        assertThat(steps[0].getUsageType(), `is`(XpmUsageType.Element))
+                        assertThat(steps[1].getUsageType(), `is`(XpmUsageType.Attribute))
+                    }
                 }
             }
         }
-    }
 
-    @Nested
-    @DisplayName("XPath 3.1 (3.4.1) Constructing Sequences")
-    internal inner class ConstructingSequences {
-        @Test
-        @DisplayName("XPath 3.1 EBNF (20) RangeExpr")
-        fun rangeExpr() {
-            val expr = parse<XPathRangeExpr>("1 to 2")[0] as XpmExpression
-
-            assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_TO))
-            assertThat(expr.expressionElement?.textOffset, `is`(2))
-        }
-    }
-
-    @Nested
-    @DisplayName("XPath 3.1 (3.4.2) Combining Node Sequences")
-    internal inner class CombiningNodeSequences {
         @Nested
-        @DisplayName("XPath 3.1 EBNF (23) UnionExpr")
-        internal inner class UnionExpr {
+        @DisplayName("XPath 3.1 (3.4.1) Constructing Sequences")
+        internal inner class ConstructingSequences {
             @Test
-            @DisplayName("keyword")
-            fun keyword() {
-                val expr = parse<XPathUnionExpr>("1 union 2")[0] as XpmExpression
+            @DisplayName("XPath 3.1 EBNF (20) RangeExpr")
+            fun rangeExpr() {
+                val expr = parse<XPathRangeExpr>("1 to 2")[0] as XpmExpression
 
-                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_UNION))
-                assertThat(expr.expressionElement?.textOffset, `is`(2))
-            }
-
-            @Test
-            @DisplayName("symbol")
-            fun symbol() {
-                val expr = parse<XPathUnionExpr>("1 | 2")[0] as XpmExpression
-
-                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.UNION))
+                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_TO))
                 assertThat(expr.expressionElement?.textOffset, `is`(2))
             }
         }
 
         @Nested
-        @DisplayName("XPath 3.1 EBNF (24) IntersectExceptExpr")
-        internal inner class IntersectExceptExpr {
-            @Test
-            @DisplayName("intersect")
-            fun intersect() {
-                val expr = parse<XPathIntersectExceptExpr>("1 intersect 2")[0] as XpmExpression
+        @DisplayName("XPath 3.1 (3.4.2) Combining Node Sequences")
+        internal inner class CombiningNodeSequences {
+            @Nested
+            @DisplayName("XPath 3.1 EBNF (23) UnionExpr")
+            internal inner class UnionExpr {
+                @Test
+                @DisplayName("keyword")
+                fun keyword() {
+                    val expr = parse<XPathUnionExpr>("1 union 2")[0] as XpmExpression
 
-                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_INTERSECT))
-                assertThat(expr.expressionElement?.textOffset, `is`(2))
+                    assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_UNION))
+                    assertThat(expr.expressionElement?.textOffset, `is`(2))
+                }
+
+                @Test
+                @DisplayName("symbol")
+                fun symbol() {
+                    val expr = parse<XPathUnionExpr>("1 | 2")[0] as XpmExpression
+
+                    assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.UNION))
+                    assertThat(expr.expressionElement?.textOffset, `is`(2))
+                }
             }
 
-            @Test
-            @DisplayName("except")
-            fun except() {
-                val expr = parse<XPathIntersectExceptExpr>("1 except 2")[0] as XpmExpression
+            @Nested
+            @DisplayName("XPath 3.1 EBNF (24) IntersectExceptExpr")
+            internal inner class IntersectExceptExpr {
+                @Test
+                @DisplayName("intersect")
+                fun intersect() {
+                    val expr = parse<XPathIntersectExceptExpr>("1 intersect 2")[0] as XpmExpression
 
-                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_EXCEPT))
-                assertThat(expr.expressionElement?.textOffset, `is`(2))
-            }
-        }
-    }
+                    assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_INTERSECT))
+                    assertThat(expr.expressionElement?.textOffset, `is`(2))
+                }
 
-    @Nested
-    @DisplayName("XPath 3.1 (3.5) Arithmetic Expressions")
-    internal inner class ArithmeticExpressions {
-        @Nested
-        @DisplayName("XPath 3.1 EBNF (21) AdditiveExpr")
-        internal inner class AdditiveExpr {
-            @Test
-            @DisplayName("plus")
-            fun plus() {
-                val expr = parse<XPathAdditiveExpr>("1 + 2")[0] as XpmExpression
+                @Test
+                @DisplayName("except")
+                fun except() {
+                    val expr = parse<XPathIntersectExceptExpr>("1 except 2")[0] as XpmExpression
 
-                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.PLUS))
-                assertThat(expr.expressionElement?.textOffset, `is`(2))
-            }
-
-            @Test
-            @DisplayName("minus")
-            fun minus() {
-                val expr = parse<XPathAdditiveExpr>("1 - 2")[0] as XpmExpression
-
-                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.MINUS))
-                assertThat(expr.expressionElement?.textOffset, `is`(2))
-            }
-        }
-
-        @Nested
-        @DisplayName("XPath 3.1 EBNF (22) MultiplicativeExpr")
-        internal inner class MultiplicativeExpr {
-            @Test
-            @DisplayName("multiply")
-            fun multiply() {
-                val expr = parse<XPathMultiplicativeExpr>("1 * 2")[0] as XpmExpression
-
-                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.STAR))
-                assertThat(expr.expressionElement?.textOffset, `is`(2))
-            }
-
-            @Test
-            @DisplayName("div")
-            fun div() {
-                val expr = parse<XPathMultiplicativeExpr>("1 div 2")[0] as XpmExpression
-
-                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_DIV))
-                assertThat(expr.expressionElement?.textOffset, `is`(2))
-            }
-
-            @Test
-            @DisplayName("idiv")
-            fun idiv() {
-                val expr = parse<XPathMultiplicativeExpr>("1 idiv 2")[0] as XpmExpression
-
-                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_IDIV))
-                assertThat(expr.expressionElement?.textOffset, `is`(2))
-            }
-
-            @Test
-            @DisplayName("mod")
-            fun mod() {
-                val expr = parse<XPathMultiplicativeExpr>("1 mod 2")[0] as XpmExpression
-
-                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_MOD))
-                assertThat(expr.expressionElement?.textOffset, `is`(2))
+                    assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_EXCEPT))
+                    assertThat(expr.expressionElement?.textOffset, `is`(2))
+                }
             }
         }
 
         @Nested
-        @DisplayName("XPath 3.1 EBNF (30) UnaryExpr")
-        internal inner class UnaryExpr {
-            @Test
-            @DisplayName("plus")
-            fun plus() {
-                val expr = parse<XPathUnaryExpr>("+3")[0] as XpmExpression
+        @DisplayName("XPath 3.1 (3.5) Arithmetic Expressions")
+        internal inner class ArithmeticExpressions {
+            @Nested
+            @DisplayName("XPath 3.1 EBNF (21) AdditiveExpr")
+            internal inner class AdditiveExpr {
+                @Test
+                @DisplayName("plus")
+                fun plus() {
+                    val expr = parse<XPathAdditiveExpr>("1 + 2")[0] as XpmExpression
 
-                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.PLUS))
+                    assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.PLUS))
+                    assertThat(expr.expressionElement?.textOffset, `is`(2))
+                }
+
+                @Test
+                @DisplayName("minus")
+                fun minus() {
+                    val expr = parse<XPathAdditiveExpr>("1 - 2")[0] as XpmExpression
+
+                    assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.MINUS))
+                    assertThat(expr.expressionElement?.textOffset, `is`(2))
+                }
+            }
+
+            @Nested
+            @DisplayName("XPath 3.1 EBNF (22) MultiplicativeExpr")
+            internal inner class MultiplicativeExpr {
+                @Test
+                @DisplayName("multiply")
+                fun multiply() {
+                    val expr = parse<XPathMultiplicativeExpr>("1 * 2")[0] as XpmExpression
+
+                    assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.STAR))
+                    assertThat(expr.expressionElement?.textOffset, `is`(2))
+                }
+
+                @Test
+                @DisplayName("div")
+                fun div() {
+                    val expr = parse<XPathMultiplicativeExpr>("1 div 2")[0] as XpmExpression
+
+                    assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_DIV))
+                    assertThat(expr.expressionElement?.textOffset, `is`(2))
+                }
+
+                @Test
+                @DisplayName("idiv")
+                fun idiv() {
+                    val expr = parse<XPathMultiplicativeExpr>("1 idiv 2")[0] as XpmExpression
+
+                    assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_IDIV))
+                    assertThat(expr.expressionElement?.textOffset, `is`(2))
+                }
+
+                @Test
+                @DisplayName("mod")
+                fun mod() {
+                    val expr = parse<XPathMultiplicativeExpr>("1 mod 2")[0] as XpmExpression
+
+                    assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_MOD))
+                    assertThat(expr.expressionElement?.textOffset, `is`(2))
+                }
+            }
+
+            @Nested
+            @DisplayName("XPath 3.1 EBNF (30) UnaryExpr")
+            internal inner class UnaryExpr {
+                @Test
+                @DisplayName("plus")
+                fun plus() {
+                    val expr = parse<XPathUnaryExpr>("+3")[0] as XpmExpression
+
+                    assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.PLUS))
+                    assertThat(expr.expressionElement?.textOffset, `is`(0))
+                }
+
+                @Test
+                @DisplayName("minus")
+                fun minus() {
+                    val expr = parse<XPathUnaryExpr>("-3")[0] as XpmExpression
+
+                    assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.MINUS))
+                    assertThat(expr.expressionElement?.textOffset, `is`(0))
+                }
+            }
+        }
+
+        @Nested
+        @DisplayName("XPath 3.1 (3.6) String Concatenation Expressions")
+        internal inner class StringConcatenationExpressions {
+            @Test
+            @DisplayName("XPath 3.1 EBNF (19) StringConcatExpr")
+            fun stringConcatExpr() {
+                val expr = parse<XPathStringConcatExpr>("1 || 2")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.CONCATENATION))
+                assertThat(expr.expressionElement?.textOffset, `is`(2))
+            }
+        }
+
+        @Nested
+        @DisplayName("XPath 3.1 (3.7) Comparison Expressions")
+        internal inner class ComparisonExpressions {
+            @Nested
+            @DisplayName("XPath 3.1 EBNF (18) ComparisonExpr ; XPath 3.1 EBNF (32) GeneralComp")
+            internal inner class ComparisonExpr_GeneralComp {
+                @Test
+                @DisplayName("eq")
+                fun eq() {
+                    val expr = parse<XPathComparisonExpr>("1 = 2")[0] as XpmExpression
+
+                    assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.EQUAL))
+                    assertThat(expr.expressionElement?.textOffset, `is`(2))
+                }
+
+                @Test
+                @DisplayName("ne")
+                fun ne() {
+                    val expr = parse<XPathComparisonExpr>("1 != 2")[0] as XpmExpression
+
+                    assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.NOT_EQUAL))
+                    assertThat(expr.expressionElement?.textOffset, `is`(2))
+                }
+
+                @Test
+                @DisplayName("lt")
+                fun lt() {
+                    val expr = parse<XPathComparisonExpr>("1 < 2")[0] as XpmExpression
+
+                    assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.LESS_THAN))
+                    assertThat(expr.expressionElement?.textOffset, `is`(2))
+                }
+
+                @Test
+                @DisplayName("le")
+                fun le() {
+                    val expr = parse<XPathComparisonExpr>("1 <= 2")[0] as XpmExpression
+
+                    assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.LESS_THAN_OR_EQUAL))
+                    assertThat(expr.expressionElement?.textOffset, `is`(2))
+                }
+
+                @Test
+                @DisplayName("gt")
+                fun gt() {
+                    val expr = parse<XPathComparisonExpr>("1 > 2")[0] as XpmExpression
+
+                    assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.GREATER_THAN))
+                    assertThat(expr.expressionElement?.textOffset, `is`(2))
+                }
+
+                @Test
+                @DisplayName("ge")
+                fun ge() {
+                    val expr = parse<XPathComparisonExpr>("1 >= 2")[0] as XpmExpression
+
+                    assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.GREATER_THAN_OR_EQUAL))
+                    assertThat(expr.expressionElement?.textOffset, `is`(2))
+                }
+            }
+
+            @Nested
+            @DisplayName("XPath 3.1 EBNF (18) ComparisonExpr ; XPath 3.1 EBNF (33) ValueComp")
+            internal inner class ComparisonExpr_ValueComp {
+                @Test
+                @DisplayName("eq")
+                fun eq() {
+                    val expr = parse<XPathComparisonExpr>("1 eq 2")[0] as XpmExpression
+
+                    assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_EQ))
+                    assertThat(expr.expressionElement?.textOffset, `is`(2))
+                }
+
+                @Test
+                @DisplayName("ne")
+                fun ne() {
+                    val expr = parse<XPathComparisonExpr>("1 ne 2")[0] as XpmExpression
+
+                    assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_NE))
+                    assertThat(expr.expressionElement?.textOffset, `is`(2))
+                }
+
+                @Test
+                @DisplayName("lt")
+                fun lt() {
+                    val expr = parse<XPathComparisonExpr>("1 lt 2")[0] as XpmExpression
+
+                    assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_LT))
+                    assertThat(expr.expressionElement?.textOffset, `is`(2))
+                }
+
+                @Test
+                @DisplayName("le")
+                fun le() {
+                    val expr = parse<XPathComparisonExpr>("1 le 2")[0] as XpmExpression
+
+                    assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_LE))
+                    assertThat(expr.expressionElement?.textOffset, `is`(2))
+                }
+
+                @Test
+                @DisplayName("gt")
+                fun gt() {
+                    val expr = parse<XPathComparisonExpr>("1 gt 2")[0] as XpmExpression
+
+                    assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_GT))
+                    assertThat(expr.expressionElement?.textOffset, `is`(2))
+                }
+
+                @Test
+                @DisplayName("ge")
+                fun ge() {
+                    val expr = parse<XPathComparisonExpr>("1 ge 2")[0] as XpmExpression
+
+                    assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_GE))
+                    assertThat(expr.expressionElement?.textOffset, `is`(2))
+                }
+            }
+
+            @Nested
+            @DisplayName("XPath 3.1 EBNF (18) ComparisonExpr ; XPath 3.1 EBNF (34) NodeComp")
+            internal inner class ComparisonExpr_NodeComp {
+                @Test
+                @DisplayName("is")
+                fun eq() {
+                    val expr = parse<XPathComparisonExpr>("a is b")[0] as XpmExpression
+
+                    assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_IS))
+                    assertThat(expr.expressionElement?.textOffset, `is`(2))
+                }
+
+                @Test
+                @DisplayName("<<")
+                fun before() {
+                    val expr = parse<XPathComparisonExpr>("a << b")[0] as XpmExpression
+
+                    assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.NODE_BEFORE))
+                    assertThat(expr.expressionElement?.textOffset, `is`(2))
+                }
+
+                @Test
+                @DisplayName(">>")
+                fun after() {
+                    val expr = parse<XPathComparisonExpr>("a >> b")[0] as XpmExpression
+
+                    assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.NODE_AFTER))
+                    assertThat(expr.expressionElement?.textOffset, `is`(2))
+                }
+            }
+        }
+
+        @Nested
+        @DisplayName("XPath 3.1 (3.8) Logical Expressions")
+        internal inner class LogicalExpressions {
+            @Test
+            @DisplayName("XPath 3.1 EBNF (16) OrExpr")
+            fun orExpr() {
+                val expr = parse<XPathOrExpr>("1 or 2")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_OR))
+                assertThat(expr.expressionElement?.textOffset, `is`(2))
+            }
+
+            @Test
+            @DisplayName("XPath 3.1 EBNF (17) AndExpr")
+            fun andExpr() {
+                val expr = parse<XPathAndExpr>("1 and 2")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_AND))
+                assertThat(expr.expressionElement?.textOffset, `is`(2))
+            }
+        }
+
+        @Nested
+        @DisplayName("XPath 3.1 (3.9) For Expressions")
+        internal inner class ForExpressions {
+            @Test
+            @DisplayName("XPath 3.1 EBNF (8) ForExpr")
+            fun forExpr() {
+                val expr = parse<XPathForExpr>("for \$x in (1, 2, 3) return \$x")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.FOR_EXPR))
                 assertThat(expr.expressionElement?.textOffset, `is`(0))
             }
 
-            @Test
-            @DisplayName("minus")
-            fun minus() {
-                val expr = parse<XPathUnaryExpr>("-3")[0] as XpmExpression
-
-                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.MINUS))
-                assertThat(expr.expressionElement?.textOffset, `is`(0))
-            }
-        }
-    }
-
-    @Nested
-    @DisplayName("XPath 3.1 (3.6) String Concatenation Expressions")
-    internal inner class StringConcatenationExpressions {
-        @Test
-        @DisplayName("XPath 3.1 EBNF (19) StringConcatExpr")
-        fun stringConcatExpr() {
-            val expr = parse<XPathStringConcatExpr>("1 || 2")[0] as XpmExpression
-
-            assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.CONCATENATION))
-            assertThat(expr.expressionElement?.textOffset, `is`(2))
-        }
-    }
-
-    @Nested
-    @DisplayName("XPath 3.1 (3.7) Comparison Expressions")
-    internal inner class ComparisonExpressions {
-        @Nested
-        @DisplayName("XPath 3.1 EBNF (18) ComparisonExpr ; XPath 3.1 EBNF (32) GeneralComp")
-        internal inner class ComparisonExpr_GeneralComp {
-            @Test
-            @DisplayName("eq")
-            fun eq() {
-                val expr = parse<XPathComparisonExpr>("1 = 2")[0] as XpmExpression
-
-                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.EQUAL))
-                assertThat(expr.expressionElement?.textOffset, `is`(2))
-            }
-
-            @Test
-            @DisplayName("ne")
-            fun ne() {
-                val expr = parse<XPathComparisonExpr>("1 != 2")[0] as XpmExpression
-
-                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.NOT_EQUAL))
-                assertThat(expr.expressionElement?.textOffset, `is`(2))
-            }
-
-            @Test
-            @DisplayName("lt")
-            fun lt() {
-                val expr = parse<XPathComparisonExpr>("1 < 2")[0] as XpmExpression
-
-                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.LESS_THAN))
-                assertThat(expr.expressionElement?.textOffset, `is`(2))
-            }
-
-            @Test
-            @DisplayName("le")
-            fun le() {
-                val expr = parse<XPathComparisonExpr>("1 <= 2")[0] as XpmExpression
-
-                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.LESS_THAN_OR_EQUAL))
-                assertThat(expr.expressionElement?.textOffset, `is`(2))
-            }
-
-            @Test
-            @DisplayName("gt")
-            fun gt() {
-                val expr = parse<XPathComparisonExpr>("1 > 2")[0] as XpmExpression
-
-                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.GREATER_THAN))
-                assertThat(expr.expressionElement?.textOffset, `is`(2))
-            }
-
-            @Test
-            @DisplayName("ge")
-            fun ge() {
-                val expr = parse<XPathComparisonExpr>("1 >= 2")[0] as XpmExpression
-
-                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.GREATER_THAN_OR_EQUAL))
-                assertThat(expr.expressionElement?.textOffset, `is`(2))
-            }
-        }
-
-        @Nested
-        @DisplayName("XPath 3.1 EBNF (18) ComparisonExpr ; XPath 3.1 EBNF (33) ValueComp")
-        internal inner class ComparisonExpr_ValueComp {
-            @Test
-            @DisplayName("eq")
-            fun eq() {
-                val expr = parse<XPathComparisonExpr>("1 eq 2")[0] as XpmExpression
-
-                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_EQ))
-                assertThat(expr.expressionElement?.textOffset, `is`(2))
-            }
-
-            @Test
-            @DisplayName("ne")
-            fun ne() {
-                val expr = parse<XPathComparisonExpr>("1 ne 2")[0] as XpmExpression
-
-                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_NE))
-                assertThat(expr.expressionElement?.textOffset, `is`(2))
-            }
-
-            @Test
-            @DisplayName("lt")
-            fun lt() {
-                val expr = parse<XPathComparisonExpr>("1 lt 2")[0] as XpmExpression
-
-                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_LT))
-                assertThat(expr.expressionElement?.textOffset, `is`(2))
-            }
-
-            @Test
-            @DisplayName("le")
-            fun le() {
-                val expr = parse<XPathComparisonExpr>("1 le 2")[0] as XpmExpression
-
-                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_LE))
-                assertThat(expr.expressionElement?.textOffset, `is`(2))
-            }
-
-            @Test
-            @DisplayName("gt")
-            fun gt() {
-                val expr = parse<XPathComparisonExpr>("1 gt 2")[0] as XpmExpression
-
-                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_GT))
-                assertThat(expr.expressionElement?.textOffset, `is`(2))
-            }
-
-            @Test
-            @DisplayName("ge")
-            fun ge() {
-                val expr = parse<XPathComparisonExpr>("1 ge 2")[0] as XpmExpression
-
-                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_GE))
-                assertThat(expr.expressionElement?.textOffset, `is`(2))
-            }
-        }
-
-        @Nested
-        @DisplayName("XPath 3.1 EBNF (18) ComparisonExpr ; XPath 3.1 EBNF (34) NodeComp")
-        internal inner class ComparisonExpr_NodeComp {
-            @Test
-            @DisplayName("is")
-            fun eq() {
-                val expr = parse<XPathComparisonExpr>("a is b")[0] as XpmExpression
-
-                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_IS))
-                assertThat(expr.expressionElement?.textOffset, `is`(2))
-            }
-
-            @Test
-            @DisplayName("<<")
-            fun before() {
-                val expr = parse<XPathComparisonExpr>("a << b")[0] as XpmExpression
-
-                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.NODE_BEFORE))
-                assertThat(expr.expressionElement?.textOffset, `is`(2))
-            }
-
-            @Test
-            @DisplayName(">>")
-            fun after() {
-                val expr = parse<XPathComparisonExpr>("a >> b")[0] as XpmExpression
-
-                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.NODE_AFTER))
-                assertThat(expr.expressionElement?.textOffset, `is`(2))
-            }
-        }
-    }
-
-    @Nested
-    @DisplayName("XPath 3.1 (3.8) Logical Expressions")
-    internal inner class LogicalExpressions {
-        @Test
-        @DisplayName("XPath 3.1 EBNF (16) OrExpr")
-        fun orExpr() {
-            val expr = parse<XPathOrExpr>("1 or 2")[0] as XpmExpression
-
-            assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_OR))
-            assertThat(expr.expressionElement?.textOffset, `is`(2))
-        }
-
-        @Test
-        @DisplayName("XPath 3.1 EBNF (17) AndExpr")
-        fun andExpr() {
-            val expr = parse<XPathAndExpr>("1 and 2")[0] as XpmExpression
-
-            assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_AND))
-            assertThat(expr.expressionElement?.textOffset, `is`(2))
-        }
-    }
-
-    @Nested
-    @DisplayName("XPath 3.1 (3.9) For Expressions")
-    internal inner class ForExpressions {
-        @Test
-        @DisplayName("XPath 3.1 EBNF (8) ForExpr")
-        fun forExpr() {
-            val expr = parse<XPathForExpr>("for \$x in (1, 2, 3) return \$x")[0] as XpmExpression
-
-            assertThat(expr.expressionElement.elementType, `is`(XPathElementType.FOR_EXPR))
-            assertThat(expr.expressionElement?.textOffset, `is`(0))
-        }
-
-        @Nested
-        @DisplayName("XPath 3.1 EBNF (10) SimpleForBinding")
-        internal inner class SimpleForBinding {
-            @Test
-            @DisplayName("NCName")
-            fun ncname() {
-                val ref = parse<XPathSimpleForBinding>("for \$x in 2 return \$y")[0] as XpmVariableBinding
-
-                val qname = ref.variableName!!
-                assertThat(qname.prefix, `is`(nullValue()))
-                assertThat(qname.namespace, `is`(nullValue()))
-                assertThat(qname.localName!!.data, `is`("x"))
-            }
-
-            @Test
-            @DisplayName("QName")
-            fun qname() {
-                val ref = parse<XPathSimpleForBinding>("for \$a:x in 2 return \$a:y")[0] as XpmVariableBinding
-
-                val qname = ref.variableName!!
-                assertThat(qname.namespace, `is`(nullValue()))
-                assertThat(qname.prefix!!.data, `is`("a"))
-                assertThat(qname.localName!!.data, `is`("x"))
-            }
-
-            @Test
-            @DisplayName("URIQualifiedName")
-            fun uriQualifiedName() {
-                val ref = parse<XPathSimpleForBinding>(
-                    "for \$Q{http://www.example.com}x in 2 return \$Q{http://www.example.com}y"
-                )[0] as XpmVariableBinding
-
-                val qname = ref.variableName!!
-                assertThat(qname.prefix, `is`(nullValue()))
-                assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
-                assertThat(qname.localName!!.data, `is`("x"))
-            }
-        }
-    }
-
-    @Nested
-    @DisplayName("XPath 3.1 (3.10) Let Expressions")
-    internal inner class LetExpressions {
-        @Test
-        @DisplayName("XPath 3.1 EBNF (11) LetExpr")
-        fun letExpr() {
-            val expr = parse<XPathLetExpr>("let \$x := 1 return \$x")[0] as XpmExpression
-
-            assertThat(expr.expressionElement.elementType, `is`(XPathElementType.LET_EXPR))
-            assertThat(expr.expressionElement?.textOffset, `is`(0))
-        }
-
-        @Nested
-        @DisplayName("XPath 3.1 EBNF (13) SimpleLetBinding")
-        internal inner class SimpleLetBinding {
-            @Test
-            @DisplayName("NCName")
-            fun ncname() {
-                val ref = parse<XPathSimpleLetBinding>("let \$x := 2 return \$y")[0] as XpmVariableBinding
-
-                val qname = ref.variableName!!
-                assertThat(qname.prefix, `is`(nullValue()))
-                assertThat(qname.namespace, `is`(nullValue()))
-                assertThat(qname.localName!!.data, `is`("x"))
-            }
-
-            @Test
-            @DisplayName("QName")
-            fun qname() {
-                val ref = parse<XPathSimpleLetBinding>("let \$a:x := 2 return \$a:y")[0] as XpmVariableBinding
-
-                val qname = ref.variableName!!
-                assertThat(qname.namespace, `is`(nullValue()))
-                assertThat(qname.prefix!!.data, `is`("a"))
-                assertThat(qname.localName!!.data, `is`("x"))
-            }
-
-            @Test
-            @DisplayName("URIQualifiedName")
-            fun uriQualifiedName() {
-                val ref = parse<XPathSimpleLetBinding>(
-                    "let \$Q{http://www.example.com}x := 2 return \$Q{http://www.example.com}y"
-                )[0] as XpmVariableBinding
-
-                val qname = ref.variableName!!
-                assertThat(qname.prefix, `is`(nullValue()))
-                assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
-                assertThat(qname.localName!!.data, `is`("x"))
-            }
-        }
-    }
-
-    @Nested
-    @DisplayName("XPath 3.1 (3.11) Maps and Arrays")
-    internal inner class MapsAndArrays {
-        @Nested
-        @DisplayName("XPath 3.1 (3.11.1) Maps")
-        internal inner class Maps {
             @Nested
-            @DisplayName("XPath 3.1 EBNF (69) MapConstructor")
-            internal inner class MapConstructor {
+            @DisplayName("XPath 3.1 EBNF (10) SimpleForBinding")
+            internal inner class SimpleForBinding {
                 @Test
-                @DisplayName("empty")
-                fun empty() {
-                    val expr = parse<XPathMapConstructor>("map {}")[0] as XpmExpression
+                @DisplayName("NCName")
+                fun ncname() {
+                    val ref = parse<XPathSimpleForBinding>("for \$x in 2 return \$y")[0] as XpmVariableBinding
 
-                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.MAP_CONSTRUCTOR))
-                    assertThat(expr.expressionElement?.textOffset, `is`(0))
+                    val qname = ref.variableName!!
+                    assertThat(qname.prefix, `is`(nullValue()))
+                    assertThat(qname.namespace, `is`(nullValue()))
+                    assertThat(qname.localName!!.data, `is`("x"))
                 }
 
                 @Test
-                @DisplayName("with entry")
-                fun withEntry() {
-                    val expr = parse<XPathMapConstructor>("map { \"1\" : \"one\" }")[0] as XpmExpression
+                @DisplayName("QName")
+                fun qname() {
+                    val ref = parse<XPathSimpleForBinding>("for \$a:x in 2 return \$a:y")[0] as XpmVariableBinding
 
-                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.MAP_CONSTRUCTOR_ENTRY))
-                    assertThat(expr.expressionElement?.textOffset, `is`(6))
-                }
-            }
-
-            @Nested
-            @DisplayName("XPath 3.1 EBNF (70) MapConstructorEntry")
-            internal inner class MapConstructorEntry {
-                @Test
-                @DisplayName("key, value")
-                fun keyValue() {
-                    val entry = parse<XPathMapConstructorEntry>("map { \"1\" : \"one\" }")[0]
-                    assertThat(entry.separator.elementType, `is`(XPathTokenType.QNAME_SEPARATOR))
+                    val qname = ref.variableName!!
+                    assertThat(qname.namespace, `is`(nullValue()))
+                    assertThat(qname.prefix!!.data, `is`("a"))
+                    assertThat(qname.localName!!.data, `is`("x"))
                 }
 
                 @Test
-                @DisplayName("key, no value")
-                fun saxon() {
-                    val entry = parse<XPathMapConstructorEntry>("map { \$ a }")[0]
-                    assertThat(entry.separator.elementType, `is`(XPathElementType.MAP_KEY_EXPR))
-                }
-            }
-        }
+                @DisplayName("URIQualifiedName")
+                fun uriQualifiedName() {
+                    val ref = parse<XPathSimpleForBinding>(
+                        "for \$Q{http://www.example.com}x in 2 return \$Q{http://www.example.com}y"
+                    )[0] as XpmVariableBinding
 
-        @Nested
-        @DisplayName("XPath 3.1 (3.11.2) Arrays")
-        internal inner class Arrays {
-            @Nested
-            @DisplayName("XPath 3.1 EBNF (74) SquareArrayConstructor")
-            internal inner class SquareArrayConstructor {
-                @Test
-                @DisplayName("empty")
-                fun empty() {
-                    val expr = parse<XPathSquareArrayConstructor>("[]")[0] as XpmExpression
-
-                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.SQUARE_ARRAY_CONSTRUCTOR))
-                    assertThat(expr.expressionElement?.textOffset, `is`(0))
-                }
-
-                @Test
-                @DisplayName("with members")
-                fun withMembers() {
-                    val expr = parse<XPathSquareArrayConstructor>("[ 1, 2, 3 ]")[0] as XpmExpression
-
-                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.SQUARE_ARRAY_CONSTRUCTOR))
-                    assertThat(expr.expressionElement?.textOffset, `is`(0))
-                }
-            }
-
-            @Nested
-            @DisplayName("XPath 3.1 EBNF (75) CurlyArrayConstructor")
-            internal inner class CurlyArrayConstructor {
-                @Test
-                @DisplayName("empty")
-                fun empty() {
-                    val expr = parse<XPathCurlyArrayConstructor>("array {}")[0] as XpmExpression
-
-                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.CURLY_ARRAY_CONSTRUCTOR))
-                    assertThat(expr.expressionElement?.textOffset, `is`(0))
-                }
-
-                @Test
-                @DisplayName("with members")
-                fun withMembers() {
-                    val expr = parse<XPathCurlyArrayConstructor>("array { 1, 2, 3 }")[0] as XpmExpression
-
-                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.CURLY_ARRAY_CONSTRUCTOR))
-                    assertThat(expr.expressionElement?.textOffset, `is`(0))
+                    val qname = ref.variableName!!
+                    assertThat(qname.prefix, `is`(nullValue()))
+                    assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+                    assertThat(qname.localName!!.data, `is`("x"))
                 }
             }
         }
 
         @Nested
-        @DisplayName("XPath 3.1 (3.11.3.1) Unary Lookup")
-        internal inner class UnaryLookup {
+        @DisplayName("XPath 3.1 (3.10) Let Expressions")
+        internal inner class LetExpressions {
             @Test
-            @DisplayName("XPath 3.1 EBNF (76) UnaryLookup")
-            fun unaryLookup() {
-                val expr = parse<XPathUnaryLookup>("map{} ! ?name")[0] as XpmExpression
+            @DisplayName("XPath 3.1 EBNF (11) LetExpr")
+            fun letExpr() {
+                val expr = parse<XPathLetExpr>("let \$x := 1 return \$x")[0] as XpmExpression
 
-                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.UNARY_LOOKUP))
-                assertThat(expr.expressionElement?.textOffset, `is`(8))
-            }
-        }
-
-        @Nested
-        @DisplayName("XPath 3.1 (3.11.3.2) Postfix Lookup")
-        internal inner class PostfixLookup {
-            @Test
-            @DisplayName("XQuery IntelliJ Plugin XPath EBNF (48) PostfixLookup")
-            fun postfixLookup() {
-                val step = parse<XPathPostfixExpr>("\$x?name")[0] as XpmPathStep
-                assertThat(step.axisType, `is`(XpmAxisType.Self))
-                assertThat(step.nodeName, `is`(nullValue()))
-                assertThat(step.nodeType, sameInstance(XdmNodeItem))
-                assertThat(step.predicate, `is`(nullValue()))
-
-                val expr = step as XpmExpression
-                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.LOOKUP))
-                assertThat(expr.expressionElement?.textOffset, `is`(2))
-            }
-        }
-    }
-
-    @Nested
-    @DisplayName("XPath 3.1 (3.12) Conditional Expressions")
-    internal inner class ConditionalExpressions {
-        @Test
-        @DisplayName("XPath 3.1 EBNF (15) IfExpr")
-        fun ifExpr() {
-            val expr = parse<XPathIfExpr>("if (true()) then 1 else 2")[0] as XpmExpression
-
-            assertThat(expr.expressionElement.elementType, `is`(XPathElementType.IF_EXPR))
-            assertThat(expr.expressionElement?.textOffset, `is`(0))
-        }
-    }
-
-    @Nested
-    @DisplayName("XPath 4.0 ED (4.16) Otherwise Expressions")
-    internal inner class OtherwiseExpressions {
-        @Test
-        @DisplayName("XPath 4.0 ED EBNF (28) OtherwiseExpr")
-        fun otherwiseExpr() {
-            val expr = parse<XPathOtherwiseExpr>("1 otherwise 2")[0] as XpmExpression
-
-            assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_OTHERWISE))
-            assertThat(expr.expressionElement?.textOffset, `is`(2))
-        }
-    }
-
-    @Nested
-    @DisplayName("XPath 3.1 (3.13) Quantified Expressions")
-    internal inner class QuantifiedExpressions {
-        @Nested
-        @DisplayName("XPath 3.1 EBNF (14) QuantifiedExpr")
-        internal inner class QuantifiedExpr {
-            @Test
-            @DisplayName("some")
-            fun some() {
-                val expr = parse<XPathQuantifiedExpr>("some \$x in (1, 2, 3) satisfies \$x = 1")[0] as XpmExpression
-
-                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.QUANTIFIED_EXPR))
+                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.LET_EXPR))
                 assertThat(expr.expressionElement?.textOffset, `is`(0))
             }
 
-            @Test
-            @DisplayName("every")
-            fun every() {
-                val expr = parse<XPathQuantifiedExpr>("every \$x in (1, 2, 3) satisfies \$x = 1")[0] as XpmExpression
+            @Nested
+            @DisplayName("XPath 3.1 EBNF (13) SimpleLetBinding")
+            internal inner class SimpleLetBinding {
+                @Test
+                @DisplayName("NCName")
+                fun ncname() {
+                    val ref = parse<XPathSimpleLetBinding>("let \$x := 2 return \$y")[0] as XpmVariableBinding
 
-                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.QUANTIFIED_EXPR))
+                    val qname = ref.variableName!!
+                    assertThat(qname.prefix, `is`(nullValue()))
+                    assertThat(qname.namespace, `is`(nullValue()))
+                    assertThat(qname.localName!!.data, `is`("x"))
+                }
+
+                @Test
+                @DisplayName("QName")
+                fun qname() {
+                    val ref = parse<XPathSimpleLetBinding>("let \$a:x := 2 return \$a:y")[0] as XpmVariableBinding
+
+                    val qname = ref.variableName!!
+                    assertThat(qname.namespace, `is`(nullValue()))
+                    assertThat(qname.prefix!!.data, `is`("a"))
+                    assertThat(qname.localName!!.data, `is`("x"))
+                }
+
+                @Test
+                @DisplayName("URIQualifiedName")
+                fun uriQualifiedName() {
+                    val ref = parse<XPathSimpleLetBinding>(
+                        "let \$Q{http://www.example.com}x := 2 return \$Q{http://www.example.com}y"
+                    )[0] as XpmVariableBinding
+
+                    val qname = ref.variableName!!
+                    assertThat(qname.prefix, `is`(nullValue()))
+                    assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+                    assertThat(qname.localName!!.data, `is`("x"))
+                }
+            }
+        }
+
+        @Nested
+        @DisplayName("XPath 3.1 (3.11) Maps and Arrays")
+        internal inner class MapsAndArrays {
+            @Nested
+            @DisplayName("XPath 3.1 (3.11.1) Maps")
+            internal inner class Maps {
+                @Nested
+                @DisplayName("XPath 3.1 EBNF (69) MapConstructor")
+                internal inner class MapConstructor {
+                    @Test
+                    @DisplayName("empty")
+                    fun empty() {
+                        val expr = parse<XPathMapConstructor>("map {}")[0] as XpmExpression
+
+                        assertThat(expr.expressionElement.elementType, `is`(XPathElementType.MAP_CONSTRUCTOR))
+                        assertThat(expr.expressionElement?.textOffset, `is`(0))
+                    }
+
+                    @Test
+                    @DisplayName("with entry")
+                    fun withEntry() {
+                        val expr = parse<XPathMapConstructor>("map { \"1\" : \"one\" }")[0] as XpmExpression
+
+                        assertThat(expr.expressionElement.elementType, `is`(XPathElementType.MAP_CONSTRUCTOR_ENTRY))
+                        assertThat(expr.expressionElement?.textOffset, `is`(6))
+                    }
+                }
+
+                @Nested
+                @DisplayName("XPath 3.1 EBNF (70) MapConstructorEntry")
+                internal inner class MapConstructorEntry {
+                    @Test
+                    @DisplayName("key, value")
+                    fun keyValue() {
+                        val entry = parse<XPathMapConstructorEntry>("map { \"1\" : \"one\" }")[0]
+                        assertThat(entry.separator.elementType, `is`(XPathTokenType.QNAME_SEPARATOR))
+                    }
+
+                    @Test
+                    @DisplayName("key, no value")
+                    fun saxon() {
+                        val entry = parse<XPathMapConstructorEntry>("map { \$ a }")[0]
+                        assertThat(entry.separator.elementType, `is`(XPathElementType.MAP_KEY_EXPR))
+                    }
+                }
+            }
+
+            @Nested
+            @DisplayName("XPath 3.1 (3.11.2) Arrays")
+            internal inner class Arrays {
+                @Nested
+                @DisplayName("XPath 3.1 EBNF (74) SquareArrayConstructor")
+                internal inner class SquareArrayConstructor {
+                    @Test
+                    @DisplayName("empty")
+                    fun empty() {
+                        val expr = parse<XPathSquareArrayConstructor>("[]")[0] as XpmExpression
+
+                        assertThat(expr.expressionElement.elementType, `is`(XPathElementType.SQUARE_ARRAY_CONSTRUCTOR))
+                        assertThat(expr.expressionElement?.textOffset, `is`(0))
+                    }
+
+                    @Test
+                    @DisplayName("with members")
+                    fun withMembers() {
+                        val expr = parse<XPathSquareArrayConstructor>("[ 1, 2, 3 ]")[0] as XpmExpression
+
+                        assertThat(expr.expressionElement.elementType, `is`(XPathElementType.SQUARE_ARRAY_CONSTRUCTOR))
+                        assertThat(expr.expressionElement?.textOffset, `is`(0))
+                    }
+                }
+
+                @Nested
+                @DisplayName("XPath 3.1 EBNF (75) CurlyArrayConstructor")
+                internal inner class CurlyArrayConstructor {
+                    @Test
+                    @DisplayName("empty")
+                    fun empty() {
+                        val expr = parse<XPathCurlyArrayConstructor>("array {}")[0] as XpmExpression
+
+                        assertThat(expr.expressionElement.elementType, `is`(XPathElementType.CURLY_ARRAY_CONSTRUCTOR))
+                        assertThat(expr.expressionElement?.textOffset, `is`(0))
+                    }
+
+                    @Test
+                    @DisplayName("with members")
+                    fun withMembers() {
+                        val expr = parse<XPathCurlyArrayConstructor>("array { 1, 2, 3 }")[0] as XpmExpression
+
+                        assertThat(expr.expressionElement.elementType, `is`(XPathElementType.CURLY_ARRAY_CONSTRUCTOR))
+                        assertThat(expr.expressionElement?.textOffset, `is`(0))
+                    }
+                }
+            }
+
+            @Nested
+            @DisplayName("XPath 3.1 (3.11.3.1) Unary Lookup")
+            internal inner class UnaryLookup {
+                @Test
+                @DisplayName("XPath 3.1 EBNF (76) UnaryLookup")
+                fun unaryLookup() {
+                    val expr = parse<XPathUnaryLookup>("map{} ! ?name")[0] as XpmExpression
+
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.UNARY_LOOKUP))
+                    assertThat(expr.expressionElement?.textOffset, `is`(8))
+                }
+            }
+
+            @Nested
+            @DisplayName("XPath 3.1 (3.11.3.2) Postfix Lookup")
+            internal inner class PostfixLookup {
+                @Test
+                @DisplayName("XQuery IntelliJ Plugin XPath EBNF (48) PostfixLookup")
+                fun postfixLookup() {
+                    val step = parse<XPathPostfixExpr>("\$x?name")[0] as XpmPathStep
+                    assertThat(step.axisType, `is`(XpmAxisType.Self))
+                    assertThat(step.nodeName, `is`(nullValue()))
+                    assertThat(step.nodeType, sameInstance(XdmNodeItem))
+                    assertThat(step.predicate, `is`(nullValue()))
+
+                    val expr = step as XpmExpression
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.LOOKUP))
+                    assertThat(expr.expressionElement?.textOffset, `is`(2))
+                }
+            }
+        }
+
+        @Nested
+        @DisplayName("XPath 3.1 (3.12) Conditional Expressions")
+        internal inner class ConditionalExpressions {
+            @Test
+            @DisplayName("XPath 3.1 EBNF (15) IfExpr")
+            fun ifExpr() {
+                val expr = parse<XPathIfExpr>("if (true()) then 1 else 2")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.IF_EXPR))
                 assertThat(expr.expressionElement?.textOffset, `is`(0))
             }
         }
 
         @Nested
-        @DisplayName("XPath 3.1 EBNF (14) QuantifiedExpr ; XQuery IntelliJ Plugin XPath EBNF (2) QuantifiedExprBinding")
-        internal inner class QuantifiedExprBinding {
+        @DisplayName("XPath 4.0 ED (4.16) Otherwise Expressions")
+        internal inner class OtherwiseExpressions {
             @Test
-            @DisplayName("NCName")
-            fun ncname() {
-                val expr = parse<PluginQuantifiedExprBinding>(
-                    "some \$x in \$y satisfies \$z"
-                )[0] as XpmVariableBinding
+            @DisplayName("XPath 4.0 ED EBNF (28) OtherwiseExpr")
+            fun otherwiseExpr() {
+                val expr = parse<XPathOtherwiseExpr>("1 otherwise 2")[0] as XpmExpression
 
-                val qname = expr.variableName!!
-                assertThat(qname.prefix, `is`(nullValue()))
-                assertThat(qname.namespace, `is`(nullValue()))
-                assertThat(qname.localName!!.data, `is`("x"))
+                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_OTHERWISE))
+                assertThat(expr.expressionElement?.textOffset, `is`(2))
             }
-
-            @Test
-            @DisplayName("QName")
-            fun qname() {
-                val expr = parse<PluginQuantifiedExprBinding>(
-                    "some \$a:x in \$a:y satisfies \$a:z"
-                )[0] as XpmVariableBinding
-
-                val qname = expr.variableName!!
-                assertThat(qname.namespace, `is`(nullValue()))
-                assertThat(qname.prefix!!.data, `is`("a"))
-                assertThat(qname.localName!!.data, `is`("x"))
-            }
-
-            @Test
-            @DisplayName("URIQualifiedName")
-            fun uriQualifiedName() {
-                val expr = parse<PluginQuantifiedExprBinding>(
-                    "some \$Q{http://www.example.com}x in \$Q{http://www.example.com}y satisfies \$Q{http://www.example.com}z"
-                )[0] as XpmVariableBinding
-
-                val qname = expr.variableName!!
-                assertThat(qname.prefix, `is`(nullValue()))
-                assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
-                assertThat(qname.localName!!.data, `is`("x"))
-            }
-
-            @Test
-            @DisplayName("missing VarName")
-            fun missingVarName() {
-                val expr = parse<PluginQuantifiedExprBinding>("some \$")[0] as XpmVariableBinding
-                assertThat(expr.variableName, `is`(nullValue()))
-            }
-        }
-    }
-
-    @Nested
-    @DisplayName("XPath 3.1 (3.14) Expressions on SequenceTypes")
-    internal inner class ExpressionsOnSequenceTypes {
-        @Test
-        @DisplayName("XPath 3.1 EBNF (25) InstanceofExpr")
-        fun instanceOfExpr() {
-            val expr = parse<XPathInstanceofExpr>("1 instance of xs:string")[0] as XpmExpression
-
-            assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_INSTANCE))
-            assertThat(expr.expressionElement?.textOffset, `is`(2))
-        }
-
-        @Test
-        @DisplayName("XPath 3.1 EBNF (26) TreatExpr")
-        fun treatExpr() {
-            val expr = parse<XPathTreatExpr>("1 treat as xs:string")[0] as XpmExpression
-
-            assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_TREAT))
-            assertThat(expr.expressionElement?.textOffset, `is`(2))
-        }
-
-        @Test
-        @DisplayName("XPath 3.1 EBNF (27) CastableExpr")
-        fun castableExpr() {
-            val expr = parse<XPathCastableExpr>("1 castable as xs:string")[0] as XpmExpression
-
-            assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_CASTABLE))
-            assertThat(expr.expressionElement?.textOffset, `is`(2))
         }
 
         @Nested
-        @DisplayName("XPath 3.1 (3.14.2) Cast")
-        internal inner class Cast {
-            @Test
-            @DisplayName("XPath 3.1 EBNF (28) CastExpr")
-            fun castExpr() {
-                val expr = parse<XPathCastExpr>("1 cast as xs:string")[0] as XpmExpression
+        @DisplayName("XPath 3.1 (3.13) Quantified Expressions")
+        internal inner class QuantifiedExpressions {
+            @Nested
+            @DisplayName("XPath 3.1 EBNF (14) QuantifiedExpr")
+            internal inner class QuantifiedExpr {
+                @Test
+                @DisplayName("some")
+                fun some() {
+                    val expr = parse<XPathQuantifiedExpr>("some \$x in (1, 2, 3) satisfies \$x = 1")[0] as XpmExpression
 
-                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_CAST))
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.QUANTIFIED_EXPR))
+                    assertThat(expr.expressionElement?.textOffset, `is`(0))
+                }
+
+                @Test
+                @DisplayName("every")
+                fun every() {
+                    val expr = parse<XPathQuantifiedExpr>("every \$x in (1, 2, 3) satisfies \$x = 1")[0] as XpmExpression
+
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.QUANTIFIED_EXPR))
+                    assertThat(expr.expressionElement?.textOffset, `is`(0))
+                }
+            }
+
+            @Nested
+            @DisplayName("XPath 3.1 EBNF (14) QuantifiedExpr ; XQuery IntelliJ Plugin XPath EBNF (2) QuantifiedExprBinding")
+            internal inner class QuantifiedExprBinding {
+                @Test
+                @DisplayName("NCName")
+                fun ncname() {
+                    val expr = parse<PluginQuantifiedExprBinding>(
+                        "some \$x in \$y satisfies \$z"
+                    )[0] as XpmVariableBinding
+
+                    val qname = expr.variableName!!
+                    assertThat(qname.prefix, `is`(nullValue()))
+                    assertThat(qname.namespace, `is`(nullValue()))
+                    assertThat(qname.localName!!.data, `is`("x"))
+                }
+
+                @Test
+                @DisplayName("QName")
+                fun qname() {
+                    val expr = parse<PluginQuantifiedExprBinding>(
+                        "some \$a:x in \$a:y satisfies \$a:z"
+                    )[0] as XpmVariableBinding
+
+                    val qname = expr.variableName!!
+                    assertThat(qname.namespace, `is`(nullValue()))
+                    assertThat(qname.prefix!!.data, `is`("a"))
+                    assertThat(qname.localName!!.data, `is`("x"))
+                }
+
+                @Test
+                @DisplayName("URIQualifiedName")
+                fun uriQualifiedName() {
+                    val expr = parse<PluginQuantifiedExprBinding>(
+                        "some \$Q{http://www.example.com}x in \$Q{http://www.example.com}y satisfies \$Q{http://www.example.com}z"
+                    )[0] as XpmVariableBinding
+
+                    val qname = expr.variableName!!
+                    assertThat(qname.prefix, `is`(nullValue()))
+                    assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+                    assertThat(qname.localName!!.data, `is`("x"))
+                }
+
+                @Test
+                @DisplayName("missing VarName")
+                fun missingVarName() {
+                    val expr = parse<PluginQuantifiedExprBinding>("some \$")[0] as XpmVariableBinding
+                    assertThat(expr.variableName, `is`(nullValue()))
+                }
+            }
+        }
+
+        @Nested
+        @DisplayName("XPath 3.1 (3.14) Expressions on SequenceTypes")
+        internal inner class ExpressionsOnSequenceTypes {
+            @Test
+            @DisplayName("XPath 3.1 EBNF (25) InstanceofExpr")
+            fun instanceOfExpr() {
+                val expr = parse<XPathInstanceofExpr>("1 instance of xs:string")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_INSTANCE))
+                assertThat(expr.expressionElement?.textOffset, `is`(2))
+            }
+
+            @Test
+            @DisplayName("XPath 3.1 EBNF (26) TreatExpr")
+            fun treatExpr() {
+                val expr = parse<XPathTreatExpr>("1 treat as xs:string")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_TREAT))
+                assertThat(expr.expressionElement?.textOffset, `is`(2))
+            }
+
+            @Test
+            @DisplayName("XPath 3.1 EBNF (27) CastableExpr")
+            fun castableExpr() {
+                val expr = parse<XPathCastableExpr>("1 castable as xs:string")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_CASTABLE))
                 assertThat(expr.expressionElement?.textOffset, `is`(2))
             }
 
             @Nested
-            @DisplayName("XPath 3.1 EBNF (100) SimpleTypeName")
-            internal inner class SimpleTypeName {
+            @DisplayName("XPath 3.1 (3.14.2) Cast")
+            internal inner class Cast {
+                @Test
+                @DisplayName("XPath 3.1 EBNF (28) CastExpr")
+                fun castExpr() {
+                    val expr = parse<XPathCastExpr>("1 cast as xs:string")[0] as XpmExpression
+
+                    assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_CAST))
+                    assertThat(expr.expressionElement?.textOffset, `is`(2))
+                }
+
+                @Nested
+                @DisplayName("XPath 3.1 EBNF (100) SimpleTypeName")
+                internal inner class SimpleTypeName {
+                    @Test
+                    @DisplayName("NCName namespace resolution")
+                    fun ncname() {
+                        val qname = parse<XPathEQName>("() cast as test")[0] as XsQNameValue
+                        assertThat(qname.element!!.getUsageType(), `is`(XpmUsageType.Type))
+
+                        assertThat(qname.isLexicalQName, `is`(true))
+                        assertThat(qname.namespace, `is`(nullValue()))
+                        assertThat(qname.prefix, `is`(nullValue()))
+                        assertThat(qname.localName!!.data, `is`("test"))
+                        assertThat(qname.element, sameInstance(qname as PsiElement))
+                    }
+
+                    @Test
+                    @DisplayName("item type")
+                    fun itemType() {
+                        val test = parse<XPathSimpleTypeName>("() cast as xs:string")[0]
+                        assertThat(op_qname_presentation(test.type), `is`("xs:string"))
+
+                        val type = test as XdmItemType
+                        assertThat(type.typeName, `is`("xs:string"))
+                        assertThat(type.typeClass, `is`(sameInstance(XsAnyType::class.java)))
+
+                        assertThat(type.itemType, `is`(sameInstance(type)))
+                        assertThat(type.lowerBound, `is`(1))
+                        assertThat(type.upperBound, `is`(Int.MAX_VALUE))
+                    }
+                }
+
+                @Test
+                @DisplayName("XPath 3.1 EBNF (77) SingleType")
+                fun singleType() {
+                    val type = parse<XPathSingleType>("() cast as xs:string ?")[0] as XdmItemType
+                    assertThat(type.typeName, `is`("xs:string?"))
+                    assertThat(type.typeClass, `is`(sameInstance(XsAnyType::class.java)))
+
+                    assertThat(type.itemType, `is`(sameInstance((type as PsiElement).firstChild)))
+                    assertThat(type.lowerBound, `is`(0))
+                    assertThat(type.upperBound, `is`(Int.MAX_VALUE))
+                }
+            }
+        }
+
+        @Nested
+        @DisplayName("XPath 3.1 (3.15) Simple Map Operator")
+        internal inner class SimpleMapOperator {
+            @Test
+            @DisplayName("XPath 3.1 EBNF (35) SimpleMapExpr")
+            fun simpleMapExpr() {
+                val expr = parse<XPathSimpleMapExpr>("/lorem ! fn:abs(.)")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.MAP_OPERATOR))
+                assertThat(expr.expressionElement?.textOffset, `is`(7))
+            }
+        }
+
+        @Nested
+        @DisplayName("XPath 3.1 (3.16) Arrow Operator")
+        internal inner class ArrowOperator {
+            @Nested
+            @DisplayName("XPath 3.1 EBNF (29) ArrowExpr")
+            internal inner class ArrowExpr {
+                @Test
+                @DisplayName("XPath 3.1 EBNF (112) EQName")
+                fun eqname() {
+                    val expr = parse<XPathArrowExpr>("1 => fn:abs()")[0] as XpmExpression
+                    assertThat(expr.expressionElement, `is`(nullValue()))
+                }
+
+                @Test
+                @DisplayName("XPath 3.1 EBNF (59) VarRef")
+                fun varRef() {
+                    val expr = parse<XPathArrowExpr>("let \$x := fn:abs#1 return 1 => \$x()")[0] as XpmExpression
+                    assertThat(expr.expressionElement, `is`(nullValue()))
+                }
+
+                @Test
+                @DisplayName("XPath 3.1 EBNF (61) ParenthesizedExpr")
+                fun parenthesizedExpr() {
+                    val expr = parse<XPathArrowExpr>("1 => (fn:abs#1)()")[0] as XpmExpression
+                    assertThat(expr.expressionElement, `is`(nullValue()))
+                }
+            }
+
+            @Nested
+            @DisplayName("XPath 3.1 EBNF (55) ArrowFunctionSpecifier; XPath 3.1 EBNF (112) EQName")
+            internal inner class ArrowFunctionSpecifier_EQName {
+                @Test
+                @DisplayName("non-empty ArgumentList")
+                fun nonEmptyArgumentList() {
+                    val f = parse<PluginArrowFunctionCall>("\$x => format-date(1, 2, 3,  4)")[0] as XpmFunctionReference
+                    assertThat(f.arity, `is`(5))
+
+                    val qname = f.functionName!!
+                    assertThat(qname.isLexicalQName, `is`(true))
+                    assertThat(qname.namespace, `is`(nullValue()))
+                    assertThat(qname.prefix, `is`(nullValue()))
+                    assertThat(qname.localName!!.data, `is`("format-date"))
+                    assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                    val args = (f as PsiElement).children().filterIsInstance<XPathArgumentList>().first()
+                    assertThat(args.arity, `is`(4))
+                    assertThat(args.functionReference, `is`(sameInstance(f)))
+
+                    val bindings = args.bindings
+                    assertThat(bindings.size, `is`(0))
+                }
+
+                @Test
+                @DisplayName("empty ArgumentList")
+                fun emptyArgumentList() {
+                    val f = parse<PluginArrowFunctionCall>("\$x => upper-case()")[0] as XpmFunctionReference
+                    assertThat(f.arity, `is`(1))
+
+                    val qname = f.functionName!!
+                    assertThat(qname.isLexicalQName, `is`(true))
+                    assertThat(qname.namespace, `is`(nullValue()))
+                    assertThat(qname.prefix, `is`(nullValue()))
+                    assertThat(qname.localName!!.data, `is`("upper-case"))
+                    assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                    val args = (f as PsiElement).children().filterIsInstance<XPathArgumentList>().first()
+                    assertThat(args.arity, `is`(0))
+                    assertThat(args.functionReference, `is`(sameInstance(f)))
+
+                    val bindings = args.bindings
+                    assertThat(bindings.size, `is`(0))
+                }
+
+                @Test
+                @DisplayName("empty ArgumentList, second call in the chain")
+                fun secondFunctionSpecifier() {
+                    val f = parse<PluginArrowFunctionCall>(
+                        "\$x => upper-case() => string-to-codepoints()"
+                    )[1] as XpmFunctionReference
+                    assertThat(f.arity, `is`(1))
+
+                    val qname = f.functionName!!
+                    assertThat(qname.isLexicalQName, `is`(true))
+                    assertThat(qname.namespace, `is`(nullValue()))
+                    assertThat(qname.prefix, `is`(nullValue()))
+                    assertThat(qname.localName!!.data, `is`("string-to-codepoints"))
+                    assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                    val args = (f as PsiElement).children().filterIsInstance<XPathArgumentList>().first()
+                    assertThat(args.arity, `is`(0))
+                    assertThat(args.functionReference, `is`(sameInstance(f)))
+
+                    val bindings = args.bindings
+                    assertThat(bindings.size, `is`(0))
+                }
+
+                @Test
+                @DisplayName("invalid EQName")
+                fun invalidEQName() {
+                    val f = parse<PluginArrowFunctionCall>("\$x => :upper-case()")[0] as XpmFunctionReference
+                    assertThat(f.arity, `is`(1))
+                    assertThat(f.functionName, `is`(nullValue()))
+
+                    val args = (f as PsiElement).children().filterIsInstance<XPathArgumentList>().first()
+                    assertThat(args.arity, `is`(0))
+                    assertThat(args.functionReference, `is`(sameInstance(f)))
+
+                    val bindings = args.bindings
+                    assertThat(bindings.size, `is`(0))
+                }
+
                 @Test
                 @DisplayName("NCName namespace resolution")
                 fun ncname() {
-                    val qname = parse<XPathEQName>("() cast as test")[0] as XsQNameValue
-                    assertThat(qname.element!!.getUsageType(), `is`(XpmUsageType.Type))
+                    val qname = parse<XPathEQName>("() => test()")[0] as XsQNameValue
+                    assertThat(qname.element!!.getUsageType(), `is`(XpmUsageType.FunctionRef))
 
                     assertThat(qname.isLexicalQName, `is`(true))
                     assertThat(qname.namespace, `is`(nullValue()))
@@ -3609,318 +3775,152 @@ private class XPathPsiTest : ParserTestCase() {
                 }
 
                 @Test
-                @DisplayName("item type")
-                fun itemType() {
-                    val test = parse<XPathSimpleTypeName>("() cast as xs:string")[0]
-                    assertThat(op_qname_presentation(test.type), `is`("xs:string"))
+                @DisplayName("reference rename")
+                fun referenceRename() {
+                    val expr = parse<PluginArrowFunctionCall>("1 => test()")[0] as XpmFunctionReference
 
-                    val type = test as XdmItemType
-                    assertThat(type.typeName, `is`("xs:string"))
-                    assertThat(type.typeClass, `is`(sameInstance(XsAnyType::class.java)))
-
-                    assertThat(type.itemType, `is`(sameInstance(type)))
-                    assertThat(type.lowerBound, `is`(1))
-                    assertThat(type.upperBound, `is`(Int.MAX_VALUE))
+                    val ref = (expr.functionName as PsiElement).reference
+                    assertThat(ref, `is`(nullValue()))
                 }
             }
 
-            @Test
-            @DisplayName("XPath 3.1 EBNF (77) SingleType")
-            fun singleType() {
-                val type = parse<XPathSingleType>("() cast as xs:string ?")[0] as XdmItemType
-                assertThat(type.typeName, `is`("xs:string?"))
-                assertThat(type.typeClass, `is`(sameInstance(XsAnyType::class.java)))
+            @Nested
+            @DisplayName("XPath 3.1 EBNF (55) ArrowFunctionSpecifier; XPath 3.1 EBNF (61) ParenthesizedExpr")
+            internal inner class ArrowFunctionSpecifier_ParenthesizedExpr {
+                @Test
+                @DisplayName("non-empty ArgumentList")
+                fun nonEmptyArgumentList() {
+                    val f = parse<PluginArrowDynamicFunctionCall>("\$x => (format-date#5)(1, 2, 3,  4)")[0]
 
-                assertThat(type.itemType, `is`(sameInstance((type as PsiElement).firstChild)))
-                assertThat(type.lowerBound, `is`(0))
-                assertThat(type.upperBound, `is`(Int.MAX_VALUE))
-            }
-        }
-    }
+                    val ref = f.functionReference!!
+                    assertThat(ref.arity, `is`(5))
 
-    @Nested
-    @DisplayName("XPath 3.1 (3.15) Simple Map Operator")
-    internal inner class SimpleMapOperator {
-        @Test
-        @DisplayName("XPath 3.1 EBNF (35) SimpleMapExpr")
-        fun simpleMapExpr() {
-            val expr = parse<XPathSimpleMapExpr>("/lorem ! fn:abs(.)")[0] as XpmExpression
+                    val qname = ref.functionName!!
+                    assertThat(qname.isLexicalQName, `is`(true))
+                    assertThat(qname.namespace, `is`(nullValue()))
+                    assertThat(qname.prefix, `is`(nullValue()))
+                    assertThat(qname.localName!!.data, `is`("format-date"))
+                    assertThat(qname.element, sameInstance(qname as PsiElement))
 
-            assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.MAP_OPERATOR))
-            assertThat(expr.expressionElement?.textOffset, `is`(7))
-        }
-    }
+                    val args = (f as PsiElement).children().filterIsInstance<XPathArgumentList>().first()
+                    assertThat(args.arity, `is`(4))
+                    assertThat(args.functionReference, `is`(sameInstance(ref)))
 
-    @Nested
-    @DisplayName("XPath 3.1 (3.16) Arrow Operator")
-    internal inner class ArrowOperator {
-        @Nested
-        @DisplayName("XPath 3.1 EBNF (29) ArrowExpr")
-        internal inner class ArrowExpr {
-            @Test
-            @DisplayName("XPath 3.1 EBNF (112) EQName")
-            fun eqname() {
-                val expr = parse<XPathArrowExpr>("1 => fn:abs()")[0] as XpmExpression
-                assertThat(expr.expressionElement, `is`(nullValue()))
+                    val bindings = args.bindings
+                    assertThat(bindings.size, `is`(0))
+                }
             }
 
-            @Test
-            @DisplayName("XPath 3.1 EBNF (59) VarRef")
-            fun varRef() {
-                val expr = parse<XPathArrowExpr>("let \$x := fn:abs#1 return 1 => \$x()")[0] as XpmExpression
-                assertThat(expr.expressionElement, `is`(nullValue()))
+            @Nested
+            @DisplayName("XQuery IntelliJ Plugin XPath EBNF (28) ArrowFunctionCall; XPath 3.1 EBNF (112) EQName")
+            internal inner class ArrowFunctionCall_EQName {
+                @Test
+                @DisplayName("single function call")
+                fun singleFunctionCall() {
+                    val expr = parse<PluginArrowFunctionCall>("1 => fn:abs()")[0] as XpmExpression
+
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARROW_FUNCTION_CALL))
+                    assertThat(expr.expressionElement?.textOffset, `is`(5))
+                }
+
+                @Test
+                @DisplayName("multiple function call; inner")
+                fun multipleFunctionCallInner() {
+                    val expr = parse<PluginArrowFunctionCall>("1 => fn:abs() => math:pow(2)")[0] as XpmExpression
+
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARROW_FUNCTION_CALL))
+                    assertThat(expr.expressionElement?.textOffset, `is`(5))
+                }
+
+                @Test
+                @DisplayName("multiple function call; outer")
+                fun multipleFunctionCallOuter() {
+                    val expr = parse<PluginArrowFunctionCall>("1 => fn:abs() => math:pow(2)")[1] as XpmExpression
+
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARROW_FUNCTION_CALL))
+                    assertThat(expr.expressionElement?.textOffset, `is`(17))
+                }
+
+                @Test
+                @DisplayName("invalid EQName")
+                fun invalidEQName() {
+                    val expr = parse<PluginArrowFunctionCall>("1 => :abs()")[0] as XpmExpression
+
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARROW_FUNCTION_CALL))
+                    assertThat(expr.expressionElement?.textOffset, `is`(5))
+                }
             }
 
-            @Test
-            @DisplayName("XPath 3.1 EBNF (61) ParenthesizedExpr")
-            fun parenthesizedExpr() {
-                val expr = parse<XPathArrowExpr>("1 => (fn:abs#1)()")[0] as XpmExpression
-                assertThat(expr.expressionElement, `is`(nullValue()))
-            }
-        }
+            @Nested
+            @DisplayName("XQuery IntelliJ Plugin XPath EBNF (28) ArrowFunctionCall; XPath 3.1 EBNF (59) VarRef")
+            internal inner class ArrowFunctionCall_VarRef {
+                @Test
+                @DisplayName("single function call")
+                fun singleFunctionCall() {
+                    val expr = parse<PluginArrowDynamicFunctionCall>(
+                        "let \$x := fn:abs#1 return 1 => \$x()"
+                    )[0] as XpmExpression
 
-        @Nested
-        @DisplayName("XPath 3.1 EBNF (55) ArrowFunctionSpecifier; XPath 3.1 EBNF (112) EQName")
-        internal inner class ArrowFunctionSpecifier_EQName {
-            @Test
-            @DisplayName("non-empty ArgumentList")
-            fun nonEmptyArgumentList() {
-                val f = parse<PluginArrowFunctionCall>("\$x => format-date(1, 2, 3,  4)")[0] as XpmFunctionReference
-                assertThat(f.arity, `is`(5))
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
+                    assertThat(expr.expressionElement?.textOffset, `is`(33))
+                }
 
-                val qname = f.functionName!!
-                assertThat(qname.isLexicalQName, `is`(true))
-                assertThat(qname.namespace, `is`(nullValue()))
-                assertThat(qname.prefix, `is`(nullValue()))
-                assertThat(qname.localName!!.data, `is`("format-date"))
-                assertThat(qname.element, sameInstance(qname as PsiElement))
+                @Test
+                @DisplayName("multiple function call; inner")
+                fun multipleFunctionCallInner() {
+                    val expr = parse<PluginArrowDynamicFunctionCall>(
+                        "let \$x := fn:abs#1 let \$y := math:pow#2 return 1 => \$x() => \$y(2)"
+                    )[0] as XpmExpression
 
-                val args = (f as PsiElement).children().filterIsInstance<XPathArgumentList>().first()
-                assertThat(args.arity, `is`(4))
-                assertThat(args.functionReference, `is`(sameInstance(f)))
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
+                    assertThat(expr.expressionElement?.textOffset, `is`(54))
+                }
 
-                val bindings = args.bindings
-                assertThat(bindings.size, `is`(0))
-            }
+                @Test
+                @DisplayName("multiple function call; outer")
+                fun multipleFunctionCallOuter() {
+                    val expr = parse<PluginArrowDynamicFunctionCall>(
+                        "let \$x := fn:abs#1 let \$y := math:pow#2 return 1 => \$x() => \$y(2)"
+                    )[1] as XpmExpression
 
-            @Test
-            @DisplayName("empty ArgumentList")
-            fun emptyArgumentList() {
-                val f = parse<PluginArrowFunctionCall>("\$x => upper-case()")[0] as XpmFunctionReference
-                assertThat(f.arity, `is`(1))
-
-                val qname = f.functionName!!
-                assertThat(qname.isLexicalQName, `is`(true))
-                assertThat(qname.namespace, `is`(nullValue()))
-                assertThat(qname.prefix, `is`(nullValue()))
-                assertThat(qname.localName!!.data, `is`("upper-case"))
-                assertThat(qname.element, sameInstance(qname as PsiElement))
-
-                val args = (f as PsiElement).children().filterIsInstance<XPathArgumentList>().first()
-                assertThat(args.arity, `is`(0))
-                assertThat(args.functionReference, `is`(sameInstance(f)))
-
-                val bindings = args.bindings
-                assertThat(bindings.size, `is`(0))
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
+                    assertThat(expr.expressionElement?.textOffset, `is`(62))
+                }
             }
 
-            @Test
-            @DisplayName("empty ArgumentList, second call in the chain")
-            fun secondFunctionSpecifier() {
-                val f = parse<PluginArrowFunctionCall>(
-                    "\$x => upper-case() => string-to-codepoints()"
-                )[1] as XpmFunctionReference
-                assertThat(f.arity, `is`(1))
+            @Nested
+            @DisplayName("XQuery IntelliJ Plugin XPath EBNF (28) ArrowFunctionCall; XPath 3.1 EBNF (61) ParenthesizedExpr")
+            internal inner class ArrowFunctionCall_ParenthesizedExpr {
+                @Test
+                @DisplayName("single function call")
+                fun singleFunctionCall() {
+                    val expr = parse<PluginArrowDynamicFunctionCall>("1 => (fn:abs#1)()")[0] as XpmExpression
 
-                val qname = f.functionName!!
-                assertThat(qname.isLexicalQName, `is`(true))
-                assertThat(qname.namespace, `is`(nullValue()))
-                assertThat(qname.prefix, `is`(nullValue()))
-                assertThat(qname.localName!!.data, `is`("string-to-codepoints"))
-                assertThat(qname.element, sameInstance(qname as PsiElement))
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
+                    assertThat(expr.expressionElement?.textOffset, `is`(15))
+                }
 
-                val args = (f as PsiElement).children().filterIsInstance<XPathArgumentList>().first()
-                assertThat(args.arity, `is`(0))
-                assertThat(args.functionReference, `is`(sameInstance(f)))
+                @Test
+                @DisplayName("multiple function call; inner")
+                fun multipleFunctionCallInner() {
+                    val expr = parse<PluginArrowDynamicFunctionCall>(
+                        "1 => (fn:abs#1)() => (math:pow#2)(2)"
+                    )[0] as XpmExpression
 
-                val bindings = args.bindings
-                assertThat(bindings.size, `is`(0))
-            }
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
+                    assertThat(expr.expressionElement?.textOffset, `is`(15))
+                }
 
-            @Test
-            @DisplayName("invalid EQName")
-            fun invalidEQName() {
-                val f = parse<PluginArrowFunctionCall>("\$x => :upper-case()")[0] as XpmFunctionReference
-                assertThat(f.arity, `is`(1))
-                assertThat(f.functionName, `is`(nullValue()))
+                @Test
+                @DisplayName("multiple function call; outer")
+                fun multipleFunctionCallOuter() {
+                    val expr = parse<PluginArrowDynamicFunctionCall>(
+                        "1 => (fn:abs#1)() => (math:pow#2)(2)"
+                    )[1] as XpmExpression
 
-                val args = (f as PsiElement).children().filterIsInstance<XPathArgumentList>().first()
-                assertThat(args.arity, `is`(0))
-                assertThat(args.functionReference, `is`(sameInstance(f)))
-
-                val bindings = args.bindings
-                assertThat(bindings.size, `is`(0))
-            }
-
-            @Test
-            @DisplayName("NCName namespace resolution")
-            fun ncname() {
-                val qname = parse<XPathEQName>("() => test()")[0] as XsQNameValue
-                assertThat(qname.element!!.getUsageType(), `is`(XpmUsageType.FunctionRef))
-
-                assertThat(qname.isLexicalQName, `is`(true))
-                assertThat(qname.namespace, `is`(nullValue()))
-                assertThat(qname.prefix, `is`(nullValue()))
-                assertThat(qname.localName!!.data, `is`("test"))
-                assertThat(qname.element, sameInstance(qname as PsiElement))
-            }
-
-            @Test
-            @DisplayName("reference rename")
-            fun referenceRename() {
-                val expr = parse<PluginArrowFunctionCall>("1 => test()")[0] as XpmFunctionReference
-
-                val ref = (expr.functionName as PsiElement).reference
-                assertThat(ref, `is`(nullValue()))
-            }
-        }
-
-        @Nested
-        @DisplayName("XPath 3.1 EBNF (55) ArrowFunctionSpecifier; XPath 3.1 EBNF (61) ParenthesizedExpr")
-        internal inner class ArrowFunctionSpecifier_ParenthesizedExpr {
-            @Test
-            @DisplayName("non-empty ArgumentList")
-            fun nonEmptyArgumentList() {
-                val f = parse<PluginArrowDynamicFunctionCall>("\$x => (format-date#5)(1, 2, 3,  4)")[0]
-
-                val ref = f.functionReference!!
-                assertThat(ref.arity, `is`(5))
-
-                val qname = ref.functionName!!
-                assertThat(qname.isLexicalQName, `is`(true))
-                assertThat(qname.namespace, `is`(nullValue()))
-                assertThat(qname.prefix, `is`(nullValue()))
-                assertThat(qname.localName!!.data, `is`("format-date"))
-                assertThat(qname.element, sameInstance(qname as PsiElement))
-
-                val args = (f as PsiElement).children().filterIsInstance<XPathArgumentList>().first()
-                assertThat(args.arity, `is`(4))
-                assertThat(args.functionReference, `is`(sameInstance(ref)))
-
-                val bindings = args.bindings
-                assertThat(bindings.size, `is`(0))
-            }
-        }
-
-        @Nested
-        @DisplayName("XQuery IntelliJ Plugin XPath EBNF (28) ArrowFunctionCall; XPath 3.1 EBNF (112) EQName")
-        internal inner class ArrowFunctionCall_EQName {
-            @Test
-            @DisplayName("single function call")
-            fun singleFunctionCall() {
-                val expr = parse<PluginArrowFunctionCall>("1 => fn:abs()")[0] as XpmExpression
-
-                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARROW_FUNCTION_CALL))
-                assertThat(expr.expressionElement?.textOffset, `is`(5))
-            }
-
-            @Test
-            @DisplayName("multiple function call; inner")
-            fun multipleFunctionCallInner() {
-                val expr = parse<PluginArrowFunctionCall>("1 => fn:abs() => math:pow(2)")[0] as XpmExpression
-
-                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARROW_FUNCTION_CALL))
-                assertThat(expr.expressionElement?.textOffset, `is`(5))
-            }
-
-            @Test
-            @DisplayName("multiple function call; outer")
-            fun multipleFunctionCallOuter() {
-                val expr = parse<PluginArrowFunctionCall>("1 => fn:abs() => math:pow(2)")[1] as XpmExpression
-
-                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARROW_FUNCTION_CALL))
-                assertThat(expr.expressionElement?.textOffset, `is`(17))
-            }
-
-            @Test
-            @DisplayName("invalid EQName")
-            fun invalidEQName() {
-                val expr = parse<PluginArrowFunctionCall>("1 => :abs()")[0] as XpmExpression
-
-                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARROW_FUNCTION_CALL))
-                assertThat(expr.expressionElement?.textOffset, `is`(5))
-            }
-        }
-
-        @Nested
-        @DisplayName("XQuery IntelliJ Plugin XPath EBNF (28) ArrowFunctionCall; XPath 3.1 EBNF (59) VarRef")
-        internal inner class ArrowFunctionCall_VarRef {
-            @Test
-            @DisplayName("single function call")
-            fun singleFunctionCall() {
-                val expr = parse<PluginArrowDynamicFunctionCall>(
-                    "let \$x := fn:abs#1 return 1 => \$x()"
-                )[0] as XpmExpression
-
-                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
-                assertThat(expr.expressionElement?.textOffset, `is`(33))
-            }
-
-            @Test
-            @DisplayName("multiple function call; inner")
-            fun multipleFunctionCallInner() {
-                val expr = parse<PluginArrowDynamicFunctionCall>(
-                    "let \$x := fn:abs#1 let \$y := math:pow#2 return 1 => \$x() => \$y(2)"
-                )[0] as XpmExpression
-
-                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
-                assertThat(expr.expressionElement?.textOffset, `is`(54))
-            }
-
-            @Test
-            @DisplayName("multiple function call; outer")
-            fun multipleFunctionCallOuter() {
-                val expr = parse<PluginArrowDynamicFunctionCall>(
-                    "let \$x := fn:abs#1 let \$y := math:pow#2 return 1 => \$x() => \$y(2)"
-                )[1] as XpmExpression
-
-                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
-                assertThat(expr.expressionElement?.textOffset, `is`(62))
-            }
-        }
-
-        @Nested
-        @DisplayName("XQuery IntelliJ Plugin XPath EBNF (28) ArrowFunctionCall; XPath 3.1 EBNF (61) ParenthesizedExpr")
-        internal inner class ArrowFunctionCall_ParenthesizedExpr {
-            @Test
-            @DisplayName("single function call")
-            fun singleFunctionCall() {
-                val expr = parse<PluginArrowDynamicFunctionCall>("1 => (fn:abs#1)()")[0] as XpmExpression
-
-                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
-                assertThat(expr.expressionElement?.textOffset, `is`(15))
-            }
-
-            @Test
-            @DisplayName("multiple function call; inner")
-            fun multipleFunctionCallInner() {
-                val expr = parse<PluginArrowDynamicFunctionCall>(
-                    "1 => (fn:abs#1)() => (math:pow#2)(2)"
-                )[0] as XpmExpression
-
-                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
-                assertThat(expr.expressionElement?.textOffset, `is`(15))
-            }
-
-            @Test
-            @DisplayName("multiple function call; outer")
-            fun multipleFunctionCallOuter() {
-                val expr = parse<PluginArrowDynamicFunctionCall>(
-                    "1 => (fn:abs#1)() => (math:pow#2)(2)"
-                )[1] as XpmExpression
-
-                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
-                assertThat(expr.expressionElement?.textOffset, `is`(33))
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
+                    assertThat(expr.expressionElement?.textOffset, `is`(33))
+                }
             }
         }
     }
