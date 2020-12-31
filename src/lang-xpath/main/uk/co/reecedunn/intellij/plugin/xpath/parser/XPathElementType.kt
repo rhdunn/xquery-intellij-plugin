@@ -841,12 +841,6 @@ object XPathElementType {
         XPath
     )
 
-    val FOR_MEMBER_EXPR: IElementType = ICompositeElementType(
-        "XPATH_FOR_MEMBER_EXPR",
-        PluginForMemberExprPsiImpl::class.java,
-        XPath
-    )
-
     val LAMBDA_FUNCTION_EXPR: IElementType = ICompositeElementType(
         "XPATH_LAMBDA_FUNCTION_EXPR",
         PluginLambdaFunctionExprPsiImpl::class.java,
@@ -874,12 +868,6 @@ object XPathElementType {
     val SEQUENCE_TYPE_LIST: IElementType = ICompositeElementType(
         "XPATH_SEQUENCE_TYPE_LIST",
         PluginSequenceTypeListPsiImpl::class.java,
-        XPath
-    )
-
-    val SIMPLE_FOR_MEMBER_CLAUSE: IElementType = ICompositeElementType(
-        "XPATH_SIMPLE_FOR_MEMBER_CLAUSE",
-        PluginSimpleForMemberClausePsiImpl::class.java,
         XPath
     )
 

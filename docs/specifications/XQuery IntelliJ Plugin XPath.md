@@ -198,7 +198,7 @@ Saxon 9.8 uses the `~type` syntax, while Saxon 10.0 uses the `type(...)` syntax.
 {: .ebnf-symbols }
 | Ref    | Symbol                  |     | Expression                          | Options   |
 |--------|-------------------------|-----|-------------------------------------|-----------|
-| \[9\]  | `ExprSingle`            | ::= | `ForExpr \| LetExpr \| ForMemberExpr \| QuantifiedExpr \| IfExpr \| TernaryIfExpr` | |
+| \[9\]  | `ExprSingle`            | ::= | `ForExpr \| LetExpr \| QuantifiedExpr \| IfExpr \| TernaryIfExpr` | |
 
 ### 3.1 FLWOR Expressions
 
@@ -207,12 +207,13 @@ Saxon 9.8 uses the `~type` syntax, while Saxon 10.0 uses the `type(...)` syntax.
 {: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
-| \[40\] | `ForMemberExpr`                | ::= | `SimpleForMemberClause ReturnClause`      |         |
-| \[41\] | `SimpleForMemberClause`        | ::= | `"for" "member" SimpleForBinding ( "," SimpleForBinding )*` | |
+| \[7\]  | `ForExpr`                      | ::= | `SimpleForClause ReturnClause`            |         |
+| \[41\] | `SimpleForBinding`             | ::= | `"member"? "$" VarName "in" ExprSingle`   |         |
 | \[8\]  | `ReturnClause`                 | ::= | `"return" ExprSingle`                     |         |
 
-This is a Saxon 10.0 syntax extension. It makes it easier to iterate over the
-members in an `array()`.
+This is a new XPath 4.0 Editor's Draft extension to for expressions that is
+supported as a Saxon 10.0 vendor extension. It makes it easier to iterate over
+the  members in an `array()`.
 
 The expression:
 
@@ -434,9 +435,9 @@ These changes include support for:
 | \[4\]   | `WildcardIndicator`            | ::= | `"*"`                               |                      |
 | \[5\]   | `ItemType`                     | ::= | `KindTest \| AnyItemTest \| FunctionTest \| MapTest \| ArrayTest \| LocalUnionType \| TupleType \| TypeAlias \| AtomicOrUnionType \| ParenthesizedItemType` | |
 | \[6\]   | `AnyItemTest`                  | ::= | `"item" "(" ")"`                    |                      |
-| \[7\]   | `ForExpr`                      | ::= | `( SimpleForClause | SimpleForMemberClause ) ReturnClause` | |
+| \[7\]   | `ForExpr`                      | ::= | `SimpleForClause ReturnClause`      |                      |
 | \[8\]   | `ReturnClause`                 | ::= | `"return" ExprSingle`               |                      |
-| \[9\]   | `ExprSingle`                   | ::= | `ForExpr \| LetExpr \| ForMemberExpr \| QuantifiedExpr \| IfExpr \| TernaryIfExpr` | |
+| \[9\]   | `ExprSingle`                   | ::= | `ForExpr \| LetExpr \| QuantifiedExpr \| IfExpr \| TernaryIfExpr` | |
 | \[10\]  | `TernaryIfExpr`                | ::= | `ElvisExpr "??" ElvisExpr "!!" ElvisExpr` |                |
 | \[11\]  | `ElvisExpr`                    | ::= | `OrExpr "?!" OrExpr`                |                      |
 | \[12\]  | `NillableTypeName`             | ::= | `TypeName "?"`                      |                      |
@@ -467,8 +468,8 @@ These changes include support for:
 | \[37\]  | `ParamRef`                     | ::= | `"$" Digits`                            |                  |
 | \[38\]  | `ArrowDynamicFunctionCall`     | ::= | `( VarRef \| ParamRef \| ParenthesizedExpr )` |            |
 | \[39\]  | `LetExpr`                      | ::= | `SimpleLetClause ReturnClause`          |                  |
-| \[40\]  | `ForMemberExpr`                | ::= | `SimpleForMemberClause ReturnClause`    |                  |
-| \[41\]  | `SimpleForMemberClause`        | ::= | `"for" "member" SimpleForBinding ( "," SimpleForBinding )*` | |
+| \[40\]  |                                | ::= |                                         |                  |
+| \[41\]  | `SimpleForBinding`             | ::= | `"member"? "$" VarName "in" ExprSingle` |                  |
 | \[42\]  | `PathExpr`                     | ::= | `("/" RelativePathExpr?) \| (AbbrevDescendantOrSelfStep RelativePathExpr) \| RelativePathExpr` | /\* xgc: leading-lone-slash \*/ |
 | \[43\]  | `RelativePathExpr`             | ::= | `StepExpr (("/" \| AbbrevDescendantOrSelfStep) StepExpr)*` | |
 | \[44\]  | `AbbrevDescendantOrSelfStep`   | ::= | `"//"`                                  |                  |

@@ -1,11 +1,11 @@
 XPathImpl[FILE(0:45)]
-   PluginForMemberExprImpl[XPATH_FOR_MEMBER_EXPR(0:45)]
-      PluginSimpleForMemberClauseImpl[XPATH_SIMPLE_FOR_MEMBER_CLAUSE(0:37)]
+   XPathForExprImpl[XPATH_FOR_EXPR(0:45)]
+      XPathSimpleForClauseImpl[XPATH_SIMPLE_FOR_CLAUSE(0:37)]
          XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FOR(0:3)]('for')
          PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
-         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_MEMBER(4:10)]('member')
-         PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
-         XPathSimpleForBindingImpl[XPATH_SIMPLE_FOR_BINDING(11:23)]
+         XPathSimpleForBindingImpl[XPATH_SIMPLE_FOR_BINDING(4:23)]
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_MEMBER(4:10)]('member')
+            PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
             LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(11:12)]('$')
             PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
             XPathNCNameImpl[XPATH_NCNAME(13:16)]

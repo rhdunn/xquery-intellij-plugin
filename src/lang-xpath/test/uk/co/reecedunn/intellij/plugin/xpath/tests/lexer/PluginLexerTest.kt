@@ -267,14 +267,4 @@ class PluginLexerTest : LexerTestCase() {
 
         matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
     }
-
-    @Test
-    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (41) SimpleForMemberClause")
-    fun simpleForMemberClause() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "for", XPathTokenType.K_FOR)
-        matchSingleToken(lexer, "member", XPathTokenType.K_MEMBER)
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
-    }
 }

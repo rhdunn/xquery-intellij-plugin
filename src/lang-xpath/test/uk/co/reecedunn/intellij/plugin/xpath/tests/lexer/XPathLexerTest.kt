@@ -1240,6 +1240,16 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XPath 4.0 ED EBNF (14) SimpleForBinding")
+    fun simpleForBinding_XPath40() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "member", XPathTokenType.K_MEMBER)
+        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
+        matchSingleToken(lexer, "in", XPathTokenType.K_IN)
+    }
+
+    @Test
     @DisplayName("XPath 4.0 ED EBNF (28) OtherwiseExpr")
     fun otherwiseExpr() {
         val lexer = createLexer()

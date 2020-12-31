@@ -1660,7 +1660,21 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    override val FOR_MEMBER_CLAUSE: IElementType = XQueryElementType.FOR_MEMBER_CLAUSE
+    val FOR_MEMBER_CLAUSE: IElementType = XQueryElementType.FOR_MEMBER_CLAUSE
+
+    fun parseForMemberClause(builder: PsiBuilder, marker: PsiBuilder.Marker): Boolean {
+        if (builder.matchTokenType(XPathTokenType.K_MEMBER)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseForClause(builder)) {
+                builder.error(XPathBundle.message("parser.error.expected", "ForBinding"))
+                marker.drop()
+                return true
+            }
+            marker.done(FOR_MEMBER_CLAUSE)
+            return true
+        }
+        return false
+    }
 
     // endregion
     // region Grammar :: Expr :: FLWORExpr :: LetClause

@@ -4099,6 +4099,54 @@ private class XPathParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 4.0 ED EBNF (12) ForExpr ; XPath 4.0 ED EBNF (13) SimpleForClause")
+    internal inner class ForExpr_XPath40 {
+        @Nested
+        @DisplayName("XPath 4.0 ED EBNF (14) SimpleForBinding")
+        internal inner class SimpleForBinding {
+            @Test
+            @DisplayName("member; single binding")
+            fun singleBinding() {
+                val expected = loadResource("tests/parser/xpath-4.0/SimpleForBinding_Member_SingleBinding.txt")
+                val actual = parseResource("tests/parser/xpath-4.0/SimpleForBinding_Member_SingleBinding.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("member; single binding; compact whitespace")
+            fun singleBinding_compactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-4.0/SimpleForBinding_Member_SingleBinding_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-4.0/SimpleForBinding_Member_SingleBinding_CompactWhitespace.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("member; multiple bindings")
+            fun multipleBindings() {
+                val expected = loadResource("tests/parser/xpath-4.0/SimpleForBinding_Member_MultipleBindings.txt")
+                val actual = parseResource("tests/parser/xpath-4.0/SimpleForBinding_Member_MultipleBindings.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("member; multiple bindings; compact whitespace")
+            fun multipleBindings_compactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-4.0/SimpleForBinding_Member_MultipleBindings_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-4.0/SimpleForBinding_Member_MultipleBindings_CompactWhitespace.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("member; missing for binding")
+            fun missingForBinding() {
+                val expected = loadResource("tests/parser/xpath-4.0/SimpleForBinding_Member_MissingForBinding.txt")
+                val actual = parseResource("tests/parser/xpath-4.0/SimpleForBinding_Member_MissingForBinding.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 4.0 ED EBNF (28) OtherwiseExpr")
     internal inner class OtherwiseExpr {
         @Test

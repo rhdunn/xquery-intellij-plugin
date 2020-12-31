@@ -93,19 +93,6 @@ private class PluginPsiTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin (3.3) FLWOR Expressions")
-    internal inner class FLWORExpressions {
-        @Test
-        @DisplayName("XQuery IntelliJ Plugin XPath EBNF (40) ForMemberExpr")
-        fun forMemberExpr() {
-            val expr = parse<PluginForMemberExpr>("for member \$x in () return 1")[0] as XpmExpression
-
-            assertThat(expr.expressionElement.elementType, `is`(XPathElementType.FOR_MEMBER_EXPR))
-            assertThat(expr.expressionElement?.textOffset, `is`(0))
-        }
-    }
-
-    @Nested
     @DisplayName("XQuery IntelliJ Plugin XPath (3.4) Logical Expressions")
     internal inner class LogicalExpressions {
         @Test

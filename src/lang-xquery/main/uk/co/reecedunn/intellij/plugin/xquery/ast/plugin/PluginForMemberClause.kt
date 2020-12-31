@@ -15,10 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.plugin
 
-import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginSimpleForMemberClause
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryInitialClause
 
 /**
  * A Saxon 10.0 `ForMemberClause` node in the XQuery AST.
  */
-interface PluginForMemberClause : XQueryInitialClause, PluginSimpleForMemberClause
+interface PluginForMemberClause : XQueryInitialClause
