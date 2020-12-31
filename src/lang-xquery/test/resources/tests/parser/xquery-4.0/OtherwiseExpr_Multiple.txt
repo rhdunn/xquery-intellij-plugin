@@ -1,7 +1,7 @@
 XQueryModuleImpl[FILE(0:25)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:25)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:25)]
-         PluginOtherwiseExprImpl[XPATH_OTHERWISE_EXPR(0:25)]
+         XPathOtherwiseExprImpl[XPATH_OTHERWISE_EXPR(0:25)]
             XPathPathExprImpl[XPATH_PATH_EXPR(0:2)]
                XPathNameTestImpl[XPATH_NAME_TEST(0:2)]
                   XQueryNCNameImpl[XQUERY_NCNAME(0:2)]

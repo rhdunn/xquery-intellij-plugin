@@ -883,8 +883,9 @@ the equivalent `IfExpr` is:
 The `ElvisExpr` expression is a BaseX 9.1 extension defined in proposal 2 of the
 EXPath syntax extensions for XPath and XQuery.
 
-The `OtherwiseExpr` expression is a Saxon 10.0 extension that returns the first
-non-empty sequence in the otherwise expression.
+The `OtherwiseExpr` expression is a new XPath 4.0 Editor's Draft expression
+supported as a Saxon 10.0 vendor extension that returns the first non-empty
+sequence in the otherwise expression.
 
 For two items or empty sequences `A` and `B`, the expressions `A otherwise B`
 and `A ?: B` are equivalent to:

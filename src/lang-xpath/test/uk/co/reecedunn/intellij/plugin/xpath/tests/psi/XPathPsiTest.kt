@@ -3462,6 +3462,19 @@ private class XPathPsiTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 4.0 ED (4.16) Otherwise Expressions")
+    internal inner class OtherwiseExpressions {
+        @Test
+        @DisplayName("XPath 4.0 ED EBNF (28) OtherwiseExpr")
+        fun otherwiseExpr() {
+            val expr = parse<XPathOtherwiseExpr>("1 otherwise 2")[0] as XpmExpression
+
+            assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_OTHERWISE))
+            assertThat(expr.expressionElement?.textOffset, `is`(2))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 3.1 (3.13) Quantified Expressions")
     internal inner class QuantifiedExpressions {
         @Nested

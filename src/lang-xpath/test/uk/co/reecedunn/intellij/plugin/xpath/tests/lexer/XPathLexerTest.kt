@@ -1240,6 +1240,14 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XPath 4.0 ED EBNF (28) OtherwiseExpr")
+    fun otherwiseExpr() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "otherwise", XPathTokenType.K_OTHERWISE)
+    }
+
+    @Test
     @DisplayName("XPath 4.0 ED EBNF (33) FunctionSignature")
     fun functionSignature() {
         val lexer = createLexer()

@@ -544,6 +544,12 @@ object XPathElementType {
         XPath
     )
 
+    val OTHERWISE_EXPR: IElementType = ICompositeElementType(
+        "XPATH_OTHERWISE_EXPR",
+        XPathOtherwiseExprPsiImpl::class.java,
+        XPath
+    )
+
     // endregion
     // region Full Text 1.0
 
@@ -850,12 +856,6 @@ object XPathElementType {
     val NILLABLE_TYPE_NAME: IElementType = ICompositeElementType(
         "XPATH_NILLABLE_TYPE_NAME",
         PluginNillableTypeNamePsiImpl::class.java,
-        XPath
-    )
-
-    val OTHERWISE_EXPR: IElementType = ICompositeElementType(
-        "XPATH_OTHERWISE_EXPR",
-        PluginOtherwiseExprPsiImpl::class.java,
         XPath
     )
 

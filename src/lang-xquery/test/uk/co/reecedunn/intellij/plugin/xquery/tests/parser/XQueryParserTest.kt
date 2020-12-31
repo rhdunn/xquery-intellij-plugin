@@ -9205,53 +9205,29 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery Terminal Delimitation")
-    internal inner class TerminalDelimitation {
+    @DisplayName("XQuery 4.0 ED EBNF (96) OtherwiseExpr")
+    internal inner class OtherwiseExpr {
         @Test
-        @DisplayName("T=DecimalLiteral U=NCName")
-        fun decimalLiteral_NCName() {
-            val expected = loadResource("tests/parser/xquery-terminal-delimitation/DecimalLiteral_NCName.txt")
-            val actual = parseResource("tests/parser/xquery-terminal-delimitation/DecimalLiteral_NCName.xq")
+        @DisplayName("single")
+        fun single() {
+            val expected = loadResource("tests/parser/xquery-4.0/OtherwiseExpr.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/OtherwiseExpr.xq")
             assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
-        @DisplayName("T=DecimalLiteral U=URIQualifiedName")
-        fun decimalLiteral_URIQualifiedName() {
-            val expected = loadResource("tests/parser/xquery-terminal-delimitation/DecimalLiteral_URIQualifiedName.txt")
-            val actual = parseResource("tests/parser/xquery-terminal-delimitation/DecimalLiteral_URIQualifiedName.xq")
+        @DisplayName("error recovery: missing UnionExpr")
+        fun missingUnionExpr() {
+            val expected = loadResource("tests/parser/xquery-4.0/OtherwiseExpr_MissingUnionExpr.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/OtherwiseExpr_MissingUnionExpr.xq")
             assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
-        @DisplayName("T=DoubleLiteral U=NCName")
-        fun doubleLiteral_NCName() {
-            val expected = loadResource("tests/parser/xquery-terminal-delimitation/DoubleLiteral_NCName.txt")
-            val actual = parseResource("tests/parser/xquery-terminal-delimitation/DoubleLiteral_NCName.xq")
-            assertThat(actual.toPsiTreeString(), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("T=DoubleLiteral U=URIQualifiedName")
-        fun doubleLiteral_URIQualifiedName() {
-            val expected = loadResource("tests/parser/xquery-terminal-delimitation/DoubleLiteral_URIQualifiedName.txt")
-            val actual = parseResource("tests/parser/xquery-terminal-delimitation/DoubleLiteral_URIQualifiedName.xq")
-            assertThat(actual.toPsiTreeString(), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("T=IntegerLiteral U=NCName")
-        fun integerLiteral_NCName() {
-            val expected = loadResource("tests/parser/xquery-terminal-delimitation/IntegerLiteral_NCName.txt")
-            val actual = parseResource("tests/parser/xquery-terminal-delimitation/IntegerLiteral_NCName.xq")
-            assertThat(actual.toPsiTreeString(), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("T=IntegerLiteral U=URIQualifiedName")
-        fun integerLiteral_URIQualifiedName() {
-            val expected = loadResource("tests/parser/xquery-terminal-delimitation/IntegerLiteral_URIQualifiedName.txt")
-            val actual = parseResource("tests/parser/xquery-terminal-delimitation/IntegerLiteral_URIQualifiedName.xq")
+        @DisplayName("multiple")
+        fun multiple() {
+            val expected = loadResource("tests/parser/xquery-4.0/OtherwiseExpr_Multiple.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/OtherwiseExpr_Multiple.xq")
             assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
@@ -9353,6 +9329,58 @@ private class XQueryParserTest : ParserTestCase() {
         fun optional() {
             val expected = loadResource("tests/parser/xquery-4.0/SingleType_LocalUnionType_Optional.txt")
             val actual = parseResource("tests/parser/xquery-4.0/SingleType_LocalUnionType_Optional.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery Terminal Delimitation")
+    internal inner class TerminalDelimitation {
+        @Test
+        @DisplayName("T=DecimalLiteral U=NCName")
+        fun decimalLiteral_NCName() {
+            val expected = loadResource("tests/parser/xquery-terminal-delimitation/DecimalLiteral_NCName.txt")
+            val actual = parseResource("tests/parser/xquery-terminal-delimitation/DecimalLiteral_NCName.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("T=DecimalLiteral U=URIQualifiedName")
+        fun decimalLiteral_URIQualifiedName() {
+            val expected = loadResource("tests/parser/xquery-terminal-delimitation/DecimalLiteral_URIQualifiedName.txt")
+            val actual = parseResource("tests/parser/xquery-terminal-delimitation/DecimalLiteral_URIQualifiedName.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("T=DoubleLiteral U=NCName")
+        fun doubleLiteral_NCName() {
+            val expected = loadResource("tests/parser/xquery-terminal-delimitation/DoubleLiteral_NCName.txt")
+            val actual = parseResource("tests/parser/xquery-terminal-delimitation/DoubleLiteral_NCName.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("T=DoubleLiteral U=URIQualifiedName")
+        fun doubleLiteral_URIQualifiedName() {
+            val expected = loadResource("tests/parser/xquery-terminal-delimitation/DoubleLiteral_URIQualifiedName.txt")
+            val actual = parseResource("tests/parser/xquery-terminal-delimitation/DoubleLiteral_URIQualifiedName.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("T=IntegerLiteral U=NCName")
+        fun integerLiteral_NCName() {
+            val expected = loadResource("tests/parser/xquery-terminal-delimitation/IntegerLiteral_NCName.txt")
+            val actual = parseResource("tests/parser/xquery-terminal-delimitation/IntegerLiteral_NCName.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("T=IntegerLiteral U=URIQualifiedName")
+        fun integerLiteral_URIQualifiedName() {
+            val expected = loadResource("tests/parser/xquery-terminal-delimitation/IntegerLiteral_URIQualifiedName.txt")
+            val actual = parseResource("tests/parser/xquery-terminal-delimitation/IntegerLiteral_URIQualifiedName.xq")
             assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }

@@ -38,7 +38,7 @@ object SaxonSyntaxValidator : XpmSyntaxValidator {
             else -> reporter.requires(element, SAXON_PE_9_9_ONLY)
         }
         is PluginLambdaFunctionExpr -> reporter.requires(element, SAXON_PE_10)
-        is PluginOtherwiseExpr -> reporter.requires(element, SAXON_PE_10)
+        is XPathOtherwiseExpr -> reporter.requires(element, SAXON_PE_10)
         is PluginParamRef -> reporter.requires(element, SAXON_PE_10)
         is PluginSimpleForMemberClause -> reporter.requires(element, SAXON_PE_10)
         is PluginTupleField -> when (element.conformanceElement.elementType) {

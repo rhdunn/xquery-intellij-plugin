@@ -1029,7 +1029,7 @@ class SaxonSyntaxValidatorTest :
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (114) OtherwiseExpr")
+    @DisplayName("XQuery 4.0 ED EBNF (96) OtherwiseExpr")
     internal inner class OtherwiseExpr {
         @Test
         @DisplayName("Saxon HE")

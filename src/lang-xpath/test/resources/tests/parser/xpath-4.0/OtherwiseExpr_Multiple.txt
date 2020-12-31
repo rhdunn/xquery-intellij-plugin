@@ -1,5 +1,5 @@
 XPathImpl[FILE(0:25)]
-   PluginOtherwiseExprImpl[XPATH_OTHERWISE_EXPR(0:25)]
+   XPathOtherwiseExprImpl[XPATH_OTHERWISE_EXPR(0:25)]
       XPathPathExprImpl[XPATH_PATH_EXPR(0:2)]
          XPathNameTestImpl[XPATH_NAME_TEST(0:2)]
             XPathNCNameImpl[XPATH_NCNAME(0:2)]

@@ -20,8 +20,6 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 
 /**
  * An XPath 4.0 ED and XQuery 4.0 ED `LocalUnionType` node in the XPath/XQuery AST.
- *
- * Saxon 9.8 supports an earlier version of this.
  */
 interface XPathLocalUnionType : PsiElement, XdmItemType {
     val memberTypes: Sequence<XdmItemType>

@@ -743,14 +743,6 @@ class PluginLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (114) OtherwiseExpr")
-    fun otherwiseExpr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "otherwise", XPathTokenType.K_OTHERWISE)
-    }
-
-    @Test
     @DisplayName("XQuery IntelliJ Plugin EBNF (116) TypeAlias")
     fun typeAlias() {
         val lexer = createLexer()

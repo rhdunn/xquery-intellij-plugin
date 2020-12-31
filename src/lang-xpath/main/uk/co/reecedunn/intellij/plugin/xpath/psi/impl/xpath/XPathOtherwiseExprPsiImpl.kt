@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin
+package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginOtherwiseExpr
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathOtherwiseExpr
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
-class PluginOtherwiseExprPsiImpl(node: ASTNode) :
+class XPathOtherwiseExprPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
-    PluginOtherwiseExpr,
+    XPathOtherwiseExpr,
     XpmSyntaxValidationElement {
     // region XpmExpression
 

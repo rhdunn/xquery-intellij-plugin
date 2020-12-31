@@ -3806,6 +3806,14 @@ class XQueryLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XPath 4.0 ED EBNF (96) OtherwiseExpr")
+    fun otherwiseExpr() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "otherwise", XPathTokenType.K_OTHERWISE)
+    }
+
+    @Test
     @DisplayName("XQuery 4.0 ED EBNF (133) PositionalArguments")
     fun positionalArguments() {
         val lexer = createLexer()

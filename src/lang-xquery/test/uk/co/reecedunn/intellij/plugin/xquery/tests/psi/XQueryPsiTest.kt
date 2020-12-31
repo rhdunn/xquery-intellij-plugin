@@ -5034,6 +5034,19 @@ private class XQueryPsiTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery 4.0 ED (4.18) Otherwise Expressions")
+    internal inner class OtherwiseExpressions {
+        @Test
+        @DisplayName("XQuery 4.0 ED EBNF (96) OtherwiseExpr")
+        fun otherwiseExpr() {
+            val expr = parse<XPathOtherwiseExpr>("1 otherwise 2")[0] as XpmExpression
+
+            assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_OTHERWISE))
+            assertThat(expr.expressionElement?.textOffset, `is`(2))
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.1 (3.15) Switch Expression")
     internal inner class SwitchExpression {
         @Test
