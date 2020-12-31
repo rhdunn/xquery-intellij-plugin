@@ -923,12 +923,14 @@ support in Saxon 10.0.
 {: .ebnf-symbols }
 | Ref     | Symbol                        |     | Expression                                | Options |
 |---------|-------------------------------|-----|-------------------------------------------|---------|
-| \[120\] | `InitialClause`               | ::= | `ForClause \| LetClause \| WindowClause \| ForMemberClause` | |
-| \[121\] | `ForMemberClause`             | ::= | `"for" "member" ForBinding ( "," ForBinding )*` |   |
+| \[121\] | `ForBinding`                  | ::= | `"member"? "$" VarName TypeDeclaration? AllowingEmpty? PositionalVar? "in" ExprSingle` | |
 
-This is a Saxon 10.0 syntax extension. It makes it easier to iterate over the
-members in an `array()`. Saxon 10.0 currently supports this in the initial
-clause only. An XPST0003 error is raised if it is in an intermediate clause.
+This is a new XPath 4.0 Editor's Draft extension to for expressions that is
+supported as a Saxon 10.0 vendor extension. It makes it easier to iterate over
+the  members in an `array()`.
+
+Saxon 10.0 currently supports this in the initial clause only. An XPST0003 error
+is raised if it is in an intermediate clause.
 
 The expression:
 
@@ -1205,8 +1207,8 @@ These changes include support for:
 | \[117\]  | `LambdaFunctionExpr`           | ::= | `"_{" Expr "}"`                           |                 |
 | \[118\]  | `ParamRef`                     | ::= | `"$" Digits`                              |                 |
 | \[119\]  | `ArrowDynamicFunctionCall`     | ::= | `( VarRef \| ParamRef \| ParenthesizedExpr ) ArgumentList` | |
-| \[120\]  | `InitialClause`                | ::= | `ForClause \| LetClause \| WindowClause \| ForMemberClause` | |
-| \[121\]  | `ForMemberClause`              | ::= | `"for" "member" ForBinding ( "," ForBinding )*` |           |
+| \[120\]  |                                | ::= |                                           |                 |
+| \[121\]  | `ForBinding`                   | ::= | `"member"? "$" VarName TypeDeclaration? AllowingEmpty? PositionalVar? "in" ExprSingle` | |
 | \[122\]  | `DirElemContent`               | ::= | `DirectConstructor \| CDataSection \| EnclosedExpr \| DirTextConstructor` | |
 | \[123\]  | `DirTextConstructor`           | ::= | `ElementContentChar \| PredefinedEntityRef \| CharRef \| "{{" \| "}}"` | |
 | \[124\]  | `PathExpr`                     | ::= | `("/" RelativePathExpr?) \| (AbbrevDescendantOrSelfStep RelativePathExpr) \| RelativePathExpr` | /\* xgc: leading-lone-slash \*/ |

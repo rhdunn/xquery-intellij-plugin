@@ -17,11 +17,27 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathSimpleForBinding
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
-class XPathSimpleForBindingPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathSimpleForBinding {
+class XPathSimpleForBindingPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node),
+    XPathSimpleForBinding,
+    XpmSyntaxValidationElement {
+    // region XpmVariableBinding
+
     override val variableName: XsQNameValue?
         get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
+
+    // endregion
+    // region XpmSyntaxValidationElement
+
+    override val conformanceElement: PsiElement
+        get() = findChildByType(XPathTokenType.K_MEMBER) ?: this
+
+    // endregion
 }

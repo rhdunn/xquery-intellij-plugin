@@ -1,0 +1,9 @@
+XQueryModuleImpl[FILE(0:10)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:10)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:10)]
+         XQueryFLWORExprImpl[XQUERY_FLWOR_EXPR(0:10)]
+            XQueryForClauseImpl[XQUERY_FOR_CLAUSE(0:10)]
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FOR(0:3)]('for')
+               PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_MEMBER(4:10)]('member')
+               PsiErrorElementImpl[ERROR_ELEMENT(10:10)]('XPST0003: Expected '$'.')

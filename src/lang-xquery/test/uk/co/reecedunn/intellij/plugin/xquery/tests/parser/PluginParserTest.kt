@@ -3087,48 +3087,4 @@ private class PluginParserTest : ParserTestCase() {
             assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
-
-    @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (121) ForMemberClause")
-    internal inner class ForMemberClause {
-        @Test
-        @DisplayName("single binding")
-        fun singleBinding() {
-            val expected = loadResource("tests/parser/saxon-10.0/ForMemberClause_SingleBinding.txt")
-            val actual = parseResource("tests/parser/saxon-10.0/ForMemberClause_SingleBinding.xq")
-            assertThat(actual.toPsiTreeString(), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("single binding; compact whitespace")
-        fun singleBinding_compactWhitespace() {
-            val expected = loadResource("tests/parser/saxon-10.0/ForMemberClause_SingleBinding_CompactWhitespace.txt")
-            val actual = parseResource("tests/parser/saxon-10.0/ForMemberClause_SingleBinding_CompactWhitespace.xq")
-            assertThat(actual.toPsiTreeString(), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("multiple bindings")
-        fun multipleBindings() {
-            val expected = loadResource("tests/parser/saxon-10.0/ForMemberClause_MultipleBindings.txt")
-            val actual = parseResource("tests/parser/saxon-10.0/ForMemberClause_MultipleBindings.xq")
-            assertThat(actual.toPsiTreeString(), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("multiple bindings; compact whitespace")
-        fun multipleBindings_compactWhitespace() {
-            val expected = loadResource("tests/parser/saxon-10.0/ForMemberClause_MultipleBindings_CompactWhitespace.txt")
-            val actual = parseResource("tests/parser/saxon-10.0/ForMemberClause_MultipleBindings_CompactWhitespace.xq")
-            assertThat(actual.toPsiTreeString(), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("missing for binding")
-        fun missingForBinding() {
-            val expected = loadResource("tests/parser/saxon-10.0/ForMemberClause_MissingForBinding.txt")
-            val actual = parseResource("tests/parser/saxon-10.0/ForMemberClause_MissingForBinding.xq")
-            assertThat(actual.toPsiTreeString(), `is`(expected))
-        }
-    }
 }

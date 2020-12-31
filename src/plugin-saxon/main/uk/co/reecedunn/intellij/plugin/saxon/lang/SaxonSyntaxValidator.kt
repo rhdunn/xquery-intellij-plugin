@@ -26,7 +26,6 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires.XpmRequiresAny
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires.XpmRequiresProductVersion
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires.XpmRequiresProductVersionRange
-import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginForMemberClause
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginTypeDecl
 
 object SaxonSyntaxValidator : XpmSyntaxValidator {
@@ -41,7 +40,11 @@ object SaxonSyntaxValidator : XpmSyntaxValidator {
         is PluginLambdaFunctionExpr -> reporter.requires(element, SAXON_PE_10)
         is XPathOtherwiseExpr -> reporter.requires(element, SAXON_PE_10)
         is PluginParamRef -> reporter.requires(element, SAXON_PE_10)
-        is PluginForMemberClause -> reporter.requires(element, SAXON_PE_10)
+        is XPathSimpleForBinding -> when (element.conformanceElement.elementType) {
+            XPathTokenType.K_MEMBER -> reporter.requires(element, SAXON_PE_10)
+            else -> {
+            }
+        }
         is PluginTupleField -> when (element.conformanceElement.elementType) {
             XPathTokenType.OPTIONAL, XPathTokenType.ELVIS -> reporter.requires(element, SAXON_PE_9_9)
             XPathTokenType.K_AS -> reporter.requires(element, SAXON_PE_10)

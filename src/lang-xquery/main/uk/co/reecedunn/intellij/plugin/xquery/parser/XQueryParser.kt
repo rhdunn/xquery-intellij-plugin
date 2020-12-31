@@ -1557,7 +1557,6 @@ class XQueryParser : XPathParser() {
                     marker.done(XQueryElementType.WINDOW_CLAUSE)
                     XQueryElementType.WINDOW_CLAUSE
                 }
-                parseForMemberClause(builder, marker) -> FOR_MEMBER_CLAUSE
                 else -> {
                     marker.rollbackTo()
                     null
@@ -1573,9 +1572,12 @@ class XQueryParser : XPathParser() {
     override fun parseForBinding(builder: PsiBuilder, isFirst: Boolean): Boolean {
         val marker = builder.mark()
 
+        val haveMember = builder.matchTokenType(XPathTokenType.K_MEMBER)
+        parseWhiteSpaceAndCommentTokens(builder)
+
         var haveErrors = false
         val matched = builder.matchTokenType(XPathTokenType.VARIABLE_INDICATOR)
-        if (!matched && !isFirst) {
+        if (!matched && (!isFirst || haveMember)) {
             builder.error(XPathBundle.message("parser.error.expected", "$"))
             haveErrors = true
         }
@@ -1621,7 +1623,7 @@ class XQueryParser : XPathParser() {
             return true
         }
         marker.drop()
-        return false
+        return haveMember
     }
 
     private fun parseAllowingEmpty(builder: PsiBuilder): Boolean {
@@ -1655,22 +1657,6 @@ class XQueryParser : XPathParser() {
             }
 
             marker.done(XQueryElementType.POSITIONAL_VAR)
-            return true
-        }
-        return false
-    }
-
-    val FOR_MEMBER_CLAUSE: IElementType = XQueryElementType.FOR_MEMBER_CLAUSE
-
-    fun parseForMemberClause(builder: PsiBuilder, marker: PsiBuilder.Marker): Boolean {
-        if (builder.matchTokenType(XPathTokenType.K_MEMBER)) {
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseForClause(builder)) {
-                builder.error(XPathBundle.message("parser.error.expected", "ForBinding"))
-                marker.drop()
-                return true
-            }
-            marker.done(FOR_MEMBER_CLAUSE)
             return true
         }
         return false

@@ -878,12 +878,6 @@ object XQueryElementType {
         XQuery
     )
 
-    val FOR_MEMBER_CLAUSE: IElementType = ICompositeElementType(
-        "XQUERY_FOR_MEMBER_CLAUSE",
-        PluginForMemberClausePsiImpl::class.java,
-        XQuery
-    )
-
     val FT_FUZZY_OPTION: IElementType = ICompositeElementType(
         "XQUERY_FT_FUZZY_OPTION",
         PluginFTFuzzyOptionPsiImpl::class.java,
