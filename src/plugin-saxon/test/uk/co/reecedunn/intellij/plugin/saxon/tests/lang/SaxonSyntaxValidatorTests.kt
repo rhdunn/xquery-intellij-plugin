@@ -835,7 +835,7 @@ class SaxonSyntaxValidatorTest :
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (97) ElementTest ; XQuery 3.1 EBNF (119) NameTest")
+    @DisplayName("XQuery 4.0 ED EBNF (215) ElementTest ; XQuery 4.0 ED EBNF (128) NameTest")
     internal inner class ElementTest {
         @Test
         @DisplayName("Saxon HE")
@@ -932,7 +932,7 @@ class SaxonSyntaxValidatorTest :
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (111) AttributeTest ; XQuery 3.1 EBNF (119) NameTest")
+    @DisplayName("XQuery 4.0 ED EBNF (212) AttributeTest ; XQuery 4.0 ED EBNF (128) NameTest")
     internal inner class AttributeTest {
         @Test
         @DisplayName("Saxon HE")

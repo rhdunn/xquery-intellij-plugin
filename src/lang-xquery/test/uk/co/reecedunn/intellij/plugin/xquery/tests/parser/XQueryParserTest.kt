@@ -9398,6 +9398,62 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery 4.0 ED EBNF (212) AttributeTest ; XQuery 4.0 ED EBNF (128) NameTest")
+    internal inner class AttributeTest {
+        @Test
+        @DisplayName("wildcard prefix")
+        fun prefix() {
+            val expected = loadResource("tests/parser/xquery-4.0/AttributeTest_NameTest_WildcardPrefix.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/AttributeTest_NameTest_WildcardPrefix.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("wildcard local name")
+        fun localName() {
+            val expected = loadResource("tests/parser/xquery-4.0/AttributeTest_NameTest_WildcardLocalName.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/AttributeTest_NameTest_WildcardLocalName.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("wildcard URIQualifiedName")
+        fun uriQualifiedName() {
+            val expected = loadResource("tests/parser/xquery-4.0/AttributeTest_NameTest_WildcardURIQualifiedName.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/AttributeTest_NameTest_WildcardURIQualifiedName.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 4.0 ED EBNF (215) ElementTest ; XQuery 4.0 ED EBNF (128) NameTest")
+    internal inner class ElementTest {
+        @Test
+        @DisplayName("wildcard prefix")
+        fun prefix() {
+            val expected = loadResource("tests/parser/xquery-4.0/ElementTest_NameTest_WildcardPrefix.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/ElementTest_NameTest_WildcardPrefix.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("wildcard local name")
+        fun localName() {
+            val expected = loadResource("tests/parser/xquery-4.0/ElementTest_NameTest_WildcardLocalName.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/ElementTest_NameTest_WildcardLocalName.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("wildcard URIQualifiedName")
+        fun uriQualifiedName() {
+            val expected = loadResource("tests/parser/xquery-4.0/ElementTest_NameTest_WildcardURIQualifiedName.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/ElementTest_NameTest_WildcardURIQualifiedName.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery Terminal Delimitation")
     internal inner class TerminalDelimitation {
         @Test

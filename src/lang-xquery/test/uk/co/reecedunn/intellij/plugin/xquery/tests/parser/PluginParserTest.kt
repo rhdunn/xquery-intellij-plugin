@@ -2881,62 +2881,6 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (97) ElementTest ; XQuery 3.1 EBNF (119) NameTest")
-    internal inner class ElementTest {
-        @Test
-        @DisplayName("wildcard prefix")
-        fun prefix() {
-            val expected = loadResource("tests/parser/xpath-ng/proposal-13/ElementNameOrWildcard_WildcardPrefix.txt")
-            val actual = parseResource("tests/parser/xpath-ng/proposal-13/ElementNameOrWildcard_WildcardPrefix.xq")
-            assertThat(actual.toPsiTreeString(), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("wildcard local name")
-        fun localName() {
-            val expected = loadResource("tests/parser/xpath-ng/proposal-13/ElementNameOrWildcard_WildcardLocalName.txt")
-            val actual = parseResource("tests/parser/xpath-ng/proposal-13/ElementNameOrWildcard_WildcardLocalName.xq")
-            assertThat(actual.toPsiTreeString(), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("wildcard URIQualifiedName")
-        fun uriQualifiedName() {
-            val expected = loadResource("tests/parser/xpath-ng/proposal-13/ElementNameOrWildcard_WildcardURIQualifiedName.txt")
-            val actual = parseResource("tests/parser/xpath-ng/proposal-13/ElementNameOrWildcard_WildcardURIQualifiedName.xq")
-            assertThat(actual.toPsiTreeString(), `is`(expected))
-        }
-    }
-
-    @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (111) AttributeTest ; XQuery 3.1 EBNF (119) NameTest")
-    internal inner class AttributeTest {
-        @Test
-        @DisplayName("wildcard prefix")
-        fun prefix() {
-            val expected = loadResource("tests/parser/xpath-ng/proposal-13/AttribNameOrWildcard_WildcardPrefix.txt")
-            val actual = parseResource("tests/parser/xpath-ng/proposal-13/AttribNameOrWildcard_WildcardPrefix.xq")
-            assertThat(actual.toPsiTreeString(), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("wildcard local name")
-        fun localName() {
-            val expected = loadResource("tests/parser/xpath-ng/proposal-13/AttribNameOrWildcard_WildcardLocalName.txt")
-            val actual = parseResource("tests/parser/xpath-ng/proposal-13/AttribNameOrWildcard_WildcardLocalName.xq")
-            assertThat(actual.toPsiTreeString(), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("wildcard URIQualifiedName")
-        fun uriQualifiedName() {
-            val expected = loadResource("tests/parser/xpath-ng/proposal-13/AttribNameOrWildcard_WildcardURIQualifiedName.txt")
-            val actual = parseResource("tests/parser/xpath-ng/proposal-13/AttribNameOrWildcard_WildcardURIQualifiedName.xq")
-            assertThat(actual.toPsiTreeString(), `is`(expected))
-        }
-    }
-
-    @Nested
     @DisplayName("XQuery IntelliJ Plugin EBNF (116) TypeAlias")
     internal inner class TypeAlias {
         @Nested

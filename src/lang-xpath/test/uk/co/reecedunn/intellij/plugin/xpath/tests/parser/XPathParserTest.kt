@@ -4292,6 +4292,62 @@ private class XPathParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 4.0 ED EBNF (106) AttributeTest ; XPath 4.0 ED EBNF (55) NameTest")
+    internal inner class AttributeTest {
+        @Test
+        @DisplayName("wildcard prefix")
+        fun prefix() {
+            val expected = loadResource("tests/parser/xpath-4.0/AttributeTest_NameTest_WildcardPrefix.txt")
+            val actual = parseResource("tests/parser/xpath-4.0/AttributeTest_NameTest_WildcardPrefix.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("wildcard local name")
+        fun localName() {
+            val expected = loadResource("tests/parser/xpath-4.0/AttributeTest_NameTest_WildcardLocalName.txt")
+            val actual = parseResource("tests/parser/xpath-4.0/AttributeTest_NameTest_WildcardLocalName.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("wildcard URIQualifiedName")
+        fun uriQualifiedName() {
+            val expected = loadResource("tests/parser/xpath-4.0/AttributeTest_NameTest_WildcardURIQualifiedName.txt")
+            val actual = parseResource("tests/parser/xpath-4.0/AttributeTest_NameTest_WildcardURIQualifiedName.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XPath 4.0 ED EBNF (109) ElementTest ; XPath 4.0 ED EBNF (55) NameTest")
+    internal inner class ElementTest {
+        @Test
+        @DisplayName("wildcard prefix")
+        fun prefix() {
+            val expected = loadResource("tests/parser/xpath-4.0/ElementTest_NameTest_WildcardPrefix.txt")
+            val actual = parseResource("tests/parser/xpath-4.0/ElementTest_NameTest_WildcardPrefix.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("wildcard local name")
+        fun localName() {
+            val expected = loadResource("tests/parser/xpath-4.0/ElementTest_NameTest_WildcardLocalName.txt")
+            val actual = parseResource("tests/parser/xpath-4.0/ElementTest_NameTest_WildcardLocalName.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("wildcard URIQualifiedName")
+        fun uriQualifiedName() {
+            val expected = loadResource("tests/parser/xpath-4.0/ElementTest_NameTest_WildcardURIQualifiedName.txt")
+            val actual = parseResource("tests/parser/xpath-4.0/ElementTest_NameTest_WildcardURIQualifiedName.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath Terminal Delimitation")
     internal inner class TerminalDelimitation {
         @Test
