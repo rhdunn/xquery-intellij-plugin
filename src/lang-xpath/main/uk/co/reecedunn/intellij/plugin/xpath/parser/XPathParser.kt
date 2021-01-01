@@ -3188,7 +3188,7 @@ open class XPathParser : PsiParser {
             parseWhiteSpaceAndCommentTokens(builder)
             when {
                 builder.matchTokenType(XPathTokenType.STAR) -> type = XPathElementType.ANY_MAP_TEST
-                parseLocalUnionType(builder) || parseAtomicOrUnionType(builder) -> {
+                parseItemType(builder) -> {
                     parseWhiteSpaceAndCommentTokens(builder)
                     if (!builder.matchTokenType(XPathTokenType.COMMA)) {
                         builder.error(XPathBundle.message("parser.error.expected", ","))
@@ -3204,7 +3204,7 @@ open class XPathParser : PsiParser {
                     type = XPathElementType.TYPED_MAP_TEST
                 }
                 builder.tokenType === XPathTokenType.COMMA -> {
-                    builder.error(XPathBundle.message("parser.error.expected-either", "LocalUnionType", "AtomicOrUnionType"))
+                    builder.error(XPathBundle.message("parser.error.expected", "ItemType"))
                     haveError = true
 
                     builder.matchTokenType(XPathTokenType.COMMA)

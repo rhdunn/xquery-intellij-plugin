@@ -75,7 +75,8 @@
     <p>XPath, XQuery, and XSLT 4.0 Editor's Draft:</p>
     <ol>
       <li>Add the XSLT 4.0 Editor's Draft XMLSchema file.</li>
-      <li>Support any <code>ItemType</code> on <code>LocalUnionType</code>.</li>
+      <li>Support any <code>ItemType</code> on <code>LocalUnionType</code> and <code>TypedMapTest</code>.</li>
+      <li>Support the <code>member</code> keyword on any for binding.</li>
     </ol>
   ]]></change-notes>
 

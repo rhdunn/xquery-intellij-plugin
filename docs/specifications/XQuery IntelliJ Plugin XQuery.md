@@ -131,7 +131,7 @@ not normative.
 | Ref     | Symbol                  |     | Expression                          | Options |
 |---------|-------------------------|-----|-------------------------------------|---------|
 | \[20\]  | `ItemType`              | ::= | `KindTest \| AnyItemTest \| AnnotatedFunctionOrSequence \| MapTest \| ArrayTest \| TupleType \| TypeAlias \| LocalUnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
-| \[21\]  | `TypedMapTest`          | ::= | `"map" "(" (LocalUnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
+| \[21\]  | `TypedMapTest`          | ::= | `"map" "(" ItemType "," SequenceType ")"` |   |
 | \[22\]  | `LocalUnionType`        | ::= | `"union" "(" ItemType ("," ItemType)* ")"` |  |
 | \[28\]  | `KindTest`              | ::= | `DocumentTest \| ElementTest \| AttributeTest \| SchemaElementTest \| SchemaAttributeTest \| PITest \| CommentTest \| TextTest \| NamespaceNodeTest \| AnyKindTest \| NamedKindTest \| BinaryTest \| SchemaKindTest \| JsonKindTest` | |
 | \[46\]  | `JsonKindTest`          | ::= | `BooleanNodeTest \| NumberNodeTest \| NullNodeTest \| ArrayNodeTest \| MapNodeTest` | |
@@ -173,7 +173,7 @@ to differentiate the parameter types from the return type.
 {: .ebnf-symbols }
 | Ref     | Symbol                  |     | Expression                          | Options               |
 |---------|-------------------------|-----|-------------------------------------|-----------------------|
-| \[21\]  | `TypedMapTest`          | ::= | `"map" "(" (LocalUnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
+| \[21\]  | `TypedMapTest`          | ::= | `"map" "(" ItemType "," SequenceType ")"` |                 |
 | \[22\]  | `LocalUnionType`        | ::= | `"union" "(" ItemType ("," ItemType)* ")"` |                |
 | \[100\] | `SingleType`            | ::= | `(LocalUnionType | SimpleTypeName) "?"?` |                  |
 
@@ -1113,7 +1113,7 @@ These changes include support for:
 | \[18\]   | `Prolog`                       | ::= | `((DefaultNamespaceDecl \| Setter \| NamespaceDecl \| Import \| UsingDecl) Separator)* ((ContextItemDecl \| AnnotatedDecl \| OptionDecl \| TypeDecl) Separator)*` | |
 | \[19\]   | `TypeDecl`                     | ::= | `"declare" "type" QName "=" ItemType` |                     |
 | \[20\]   | `ItemType`                     | ::= | `KindTest \| AnyItemTest \| AnnotatedFunctionOrSequence \| MapTest \| ArrayTest \| TypeAlias \| LocalUnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
-| \[21\]   | `TypedMapTest`                 | ::= | `"map" "(" (LocalUnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
+| \[21\]   | `TypedMapTest`                 | ::= | `"map" "(" ItemType "," SequenceType ")"` |                 |
 | \[22\]   | `LocalUnionType`               | ::= | `"union" "(" ItemType ("," ItemType)* ")"` |                |
 | \[23\]   | `TupleType`                    | ::= | `"tuple" "(" TupleField ("," TupleField)* ("," "*")? ")"` | |
 | \[24\]   | `TupleField`                   | ::= | `TupleFieldName "?"? ( ( ":" | "as" ) SequenceType )?` |    |

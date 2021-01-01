@@ -85,7 +85,7 @@ not normative.
 | \[14\] | `SequenceTypeList`      | ::= | `SequenceType ("," SequenceType)*`  |         |
 | \[15\] | `TypedFunctionTest`     | ::= | `"function" "(" SequenceTypeList? ")" "as" SequenceType` | |
 | \[16\] | `LocalUnionType`        | ::= | `"union" "(" ItemType ("," ItemType)* ")"` |  |
-| \[17\] | `TypedMapTest`          | ::= | `"map" "(" (LocalUnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
+| \[17\] | `TypedMapTest`          | ::= | `"map" "(" ItemType "," SequenceType ")"` |   |
 | \[18\] | `SingleType`            | ::= | `(LocalUnionType | SimpleTypeName) "?"?` |         |
 
 Using `SequenceTypeList` in `TypedFunctionTest` follows the grammar production
@@ -100,7 +100,7 @@ to differentiate the parameter types from the return type.
 | Ref    | Symbol                  |     | Expression                          | Options               |
 |--------|-------------------------|-----|-------------------------------------|-----------------------|
 | \[16\] | `LocalUnionType`        | ::= | `"union" "(" ItemType ("," ItemType)* ")"` |                |
-| \[17\] | `TypedMapTest`          | ::= | `"map" "(" (LocalUnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
+| \[17\] | `TypedMapTest`          | ::= | `"map" "(" ItemType "," SequenceType ")"` |                 |
 | \[18\] | `SingleType`            | ::= | `(LocalUnionType | SimpleTypeName) "?"?` |                  |
 
 The `LocalUnionType` is a new XPath 4.0 Editor's Draft item type supported by
@@ -445,7 +445,7 @@ These changes include support for:
 | \[14\]  | `SequenceTypeList`             | ::= | `SequenceType ("," SequenceType)*`  |                      |
 | \[15\]  | `TypedFunctionTest`            | ::= | `"function" "(" SequenceTypeList? ")" "as" SequenceType` | |
 | \[16\]  | `LocalUnionType`               | ::= | `"union" "(" ItemType ("," ItemType)* ")"` |               |
-| \[17\]  | `TypedMapTest`                 | ::= | `"map" "(" (LocalUnionType \| AtomicOrUnionType) "," SequenceType ")"` | |
+| \[17\]  | `TypedMapTest`                 | ::= | `"map" "(" ItemType "," SequenceType ")"` |                |
 | \[18\]  | `SingleType`                   | ::= | `(LocalUnionType | SimpleTypeName) "?"?` |                 |
 | \[19\]  | `OrExpr`                       | ::= | `AndExpr (("or" \| "orElse") AndExpr)*`   |                |
 | \[20\]  | `AndExpr`                      | ::= | `ComparisonExpr (("and" \| "andAlso") ComparisonExpr)*` |  |
