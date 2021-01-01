@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2020 Reece H. Dunn
+ * Copyright (C) 2018-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -214,7 +214,7 @@ open class XPathParser : PsiParser {
             parseLetExpr(builder) ||
             parseQuantifiedExpr(builder) ||
             parseIfExpr(builder) ||
-            parseTernaryIfExpr(builder, parentType)
+            parseTernaryConditionalExpr(builder, parentType)
         )
     }
 
@@ -584,9 +584,9 @@ open class XPathParser : PsiParser {
     }
 
     // endregion
-    // region Grammar :: Expr :: TernaryIfExpr
+    // region Grammar :: Expr :: TernaryConditionalExpr
 
-    fun parseTernaryIfExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    fun parseTernaryConditionalExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
         if (parseElvisExpr(builder, type)) {
             parseWhiteSpaceAndCommentTokens(builder)
@@ -606,7 +606,7 @@ open class XPathParser : PsiParser {
                     builder.error(XPathBundle.message("parser.error.expected", "ElvisExpr"))
                 }
 
-                marker.done(XPathElementType.TERNARY_IF_EXPR)
+                marker.done(XPathElementType.TERNARY_CONDITIONAL_EXPR)
             } else {
                 marker.drop()
             }
@@ -636,9 +636,6 @@ open class XPathParser : PsiParser {
         marker.drop()
         return false
     }
-
-    // endregion
-    // region Grammar :: Expr :: OrExpr
 
     private fun parseOrExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
@@ -1146,7 +1143,7 @@ open class XPathParser : PsiParser {
     }
 
     // endregion
-    // region Grammar :: Expr :: OrExpr :: ValueExpr
+    // region Grammar :: Expr :: TernaryConditionalExpr :: ValueExpr
 
     open fun parseValueExpr(builder: PsiBuilder, type: IElementType?): Boolean = parseSimpleMapExpr(builder, type)
 
@@ -1262,7 +1259,7 @@ open class XPathParser : PsiParser {
     }
 
     // endregion
-    // region Grammar :: Expr :: OrExpr :: StepExpr
+    // region Grammar :: Expr :: TernaryConditionalExpr :: StepExpr
 
     enum class ParsedStepExpr {
         Step,
@@ -1448,7 +1445,7 @@ open class XPathParser : PsiParser {
     }
 
     // endregion
-    // region Grammar :: Expr :: OrExpr :: PostfixExpr
+    // region Grammar :: Expr :: TernaryConditionalExpr :: PostfixExpr
 
     fun parsePostfixExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         var marker = builder.mark()
@@ -1554,7 +1551,7 @@ open class XPathParser : PsiParser {
     }
 
     // endregion
-    // region Grammar :: Expr :: OrExpr :: PrimaryExpr
+    // region Grammar :: Expr :: TernaryConditionalExpr :: PrimaryExpr
 
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
     open fun parsePrimaryExpr(builder: PsiBuilder, type: IElementType?): Boolean {
@@ -1707,7 +1704,7 @@ open class XPathParser : PsiParser {
     }
 
     // endregion
-    // region Grammar :: Expr :: OrExpr :: PrimaryExpr :: FunctionCall
+    // region Grammar :: Expr :: TernaryConditionalExpr :: PrimaryExpr :: FunctionCall
 
     open fun parseFunctionCall(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
@@ -1774,7 +1771,7 @@ open class XPathParser : PsiParser {
     }
 
     // endregion
-    // region Grammar :: Expr :: OrExpr :: PrimaryExpr :: FunctionItemExpr
+    // region Grammar :: Expr :: TernaryConditionalExpr :: PrimaryExpr :: FunctionItemExpr
 
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
     private fun parseFunctionItemExpr(builder: PsiBuilder): Boolean {
@@ -1943,7 +1940,7 @@ open class XPathParser : PsiParser {
     }
 
     // endregion
-    // region Grammar :: Expr :: OrExpr :: PrimaryExpr :: MapConstructor
+    // region Grammar :: Expr :: TernaryConditionalExpr :: PrimaryExpr :: MapConstructor
 
     private fun parseMapConstructor(builder: PsiBuilder): Boolean {
         var marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_MAP)
@@ -2008,7 +2005,7 @@ open class XPathParser : PsiParser {
     }
 
     // endregion
-    // region Grammar :: Expr :: OrExpr :: PrimaryExpr :: ArrayConstructor
+    // region Grammar :: Expr :: TernaryConditionalExpr :: PrimaryExpr :: ArrayConstructor
 
     private fun parseArrayConstructor(builder: PsiBuilder): Boolean {
         return parseSquareArrayConstructor(builder) || parseCurlyArrayConstructor(builder)
@@ -2063,7 +2060,7 @@ open class XPathParser : PsiParser {
     }
 
     // endregion
-    // region Grammar :: Expr :: OrExpr :: FTSelection
+    // region Grammar :: Expr :: TernaryConditionalExpr :: FTSelection
 
     private fun parseFTSelection(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
@@ -2485,7 +2482,7 @@ open class XPathParser : PsiParser {
     }
 
     // endregion
-    // region Grammar :: Expr :: OrExpr :: FTPosFilter
+    // region Grammar :: Expr :: TernaryConditionalExpr :: FTPosFilter
 
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
     private fun parseFTPosFilter(builder: PsiBuilder): Boolean {
@@ -2617,7 +2614,7 @@ open class XPathParser : PsiParser {
     }
 
     // endregion
-    // region Grammar :: Expr :: OrExpr :: FTMatchOptions
+    // region Grammar :: Expr :: TernaryConditionalExpr :: FTMatchOptions
 
     open val FTMATCH_OPTION_START_TOKENS: TokenSet = XPathTokenType.FTMATCH_OPTION_START_TOKENS
     open val URI_LITERAL: IElementType = XPathElementType.URI_LITERAL

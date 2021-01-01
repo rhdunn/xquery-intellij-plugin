@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2020 Reece H. Dunn
+ * Copyright (C) 2016-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -1819,15 +1819,6 @@ private class PluginPsiTest : ParserTestCase() {
     @Nested
     @DisplayName("XQuery IntelliJ Plugin (3.14) Conditional Expressions")
     internal inner class ConditionalExpressions {
-        @Test
-        @DisplayName("XQuery IntelliJ Plugin XQuery EBNF (92) TernaryIfExpr")
-        fun ternaryIfExpr() {
-            val expr = parse<PluginTernaryIfExpr>("true() ?? 1 !! 2")[0] as XpmExpression
-
-            assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.TERNARY_IF))
-            assertThat(expr.expressionElement?.textOffset, `is`(7))
-        }
-
         @Test
         @DisplayName("XQuery IntelliJ Plugin XQuery EBNF (93) ElvisExpr")
         fun elvisExpr() {

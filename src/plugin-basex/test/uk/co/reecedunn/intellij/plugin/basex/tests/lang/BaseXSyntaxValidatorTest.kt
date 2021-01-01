@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -226,8 +226,8 @@ class BaseXSyntaxValidatorTest :
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (92) TernaryIfExpr")
-    internal inner class TernaryIfExpr {
+    @DisplayName("XQuery 4.0 ED EBNF (45) TernaryConditionalExpr")
+    internal inner class TernaryConditionalExpr {
         @Test
         @DisplayName("BaseX >= 9.1")
         fun supported() {

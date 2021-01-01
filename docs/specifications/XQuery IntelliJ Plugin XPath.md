@@ -198,7 +198,7 @@ Saxon 9.8 uses the `~type` syntax, while Saxon 10.0 uses the `type(...)` syntax.
 {: .ebnf-symbols }
 | Ref    | Symbol                  |     | Expression                          | Options   |
 |--------|-------------------------|-----|-------------------------------------|-----------|
-| \[9\]  | `ExprSingle`            | ::= | `ForExpr \| LetExpr \| QuantifiedExpr \| IfExpr \| TernaryIfExpr` | |
+| \[9\]  | `ExprSingle`            | ::= | `ForExpr \| LetExpr \| QuantifiedExpr \| IfExpr \| TernaryConditionalExpr` | |
 
 ### 3.1 FLWOR Expressions
 
@@ -269,17 +269,17 @@ equivalent to:
 {: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
-| \[10\] | `TernaryIfExpr`                | ::= | `ElvisExpr "??" ElvisExpr "!!" ElvisExpr` |         |
+| \[10\] | `TernaryConditionalExpr`       | ::= | `ElvisExpr "??" ElvisExpr "!!" ElvisExpr` |         |
 | \[21\] | `IfExpr`                       | ::= | `"if" "(" Expr ")" "then" ExprSingle ("else" ExprSingle)?` | |
 
 The `IfExpr` without the else branch is defined in proposal 7 of the EXPath
 syntax extensions for XPath and XQuery. It is currently only supported in
 BaseX 9.1's XQuery implementation.
 
-The `TernaryIfExpr` and `ElvisExpr` expressions are new expressions defined in
-proposal 2 of the EXPath syntax extensions for XPath and XQuery.
+The `TernaryConditionalExpr` and `ElvisExpr` expressions are new expressions
+defined in  proposal 2 of the EXPath syntax extensions for XPath and XQuery.
 
-Given the `TernaryIfExpr`:
+Given the `TernaryConditionalExpr`:
 
     C ?? A !! B
 
@@ -437,8 +437,8 @@ These changes include support for:
 | \[6\]   | `AnyItemTest`                  | ::= | `"item" "(" ")"`                    |                      |
 | \[7\]   | `ForExpr`                      | ::= | `SimpleForClause ReturnClause`      |                      |
 | \[8\]   | `ReturnClause`                 | ::= | `"return" ExprSingle`               |                      |
-| \[9\]   | `ExprSingle`                   | ::= | `ForExpr \| LetExpr \| QuantifiedExpr \| IfExpr \| TernaryIfExpr` | |
-| \[10\]  | `TernaryIfExpr`                | ::= | `ElvisExpr "??" ElvisExpr "!!" ElvisExpr` |                |
+| \[9\]   | `ExprSingle`                   | ::= | `ForExpr \| LetExpr \| QuantifiedExpr \| IfExpr \| TernaryConditionalExpr` | |
+| \[10\]  | `TernaryConditionalExpr`       | ::= | `ElvisExpr "??" ElvisExpr "!!" ElvisExpr` |                |
 | \[11\]  | `ElvisExpr`                    | ::= | `OrExpr "?!" OrExpr`                |                      |
 | \[12\]  | `NillableTypeName`             | ::= | `TypeName "?"`                      |                      |
 | \[13\]  | `ElementTest`                  | ::= | `"element" "(" (NameTest ("," (NillableTypeName | TypeName))?)? ")"` | |

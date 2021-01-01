@@ -1,7 +1,7 @@
-XQueryModuleImpl[FILE(0:16)]
-   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:16)]
-      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:16)]
-         PluginTernaryIfExprImpl[XPATH_TERNARY_IF_EXPR(0:16)]
+XQueryModuleImpl[FILE(0:13)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:13)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:13)]
+         XPathTernaryConditionalExprImpl[XPATH_TERNARY_CONDITIONAL_EXPR(0:13)]
             XPathComparisonExprImpl[XPATH_COMPARISON_EXPR(0:7)]
                XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(0:1)]('1')
                PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
@@ -13,6 +13,5 @@ XQueryModuleImpl[FILE(0:16)]
             PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
             XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(10:11)]('3')
             PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
-            LeafPsiElement[XPATH_TERNARY_ELSE_TOKEN(12:14)]('!!')
-            PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
-            XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(15:16)]('4')
+            PsiErrorElementImpl[ERROR_ELEMENT(12:12)]('XPST0003: Expected '!!'.')
+            XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(12:13)]('4')

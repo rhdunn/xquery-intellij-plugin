@@ -210,15 +210,6 @@ class PluginLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (10) TernaryIfExpr")
-    fun ternaryIfExpr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "??", XPathTokenType.TERNARY_IF)
-        matchSingleToken(lexer, "!!", XPathTokenType.TERNARY_ELSE)
-    }
-
-    @Test
     @DisplayName("XQuery IntelliJ Plugin XPath EBNF (11) ElvisExpr")
     fun elvis() {
         val lexer = createLexer()

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2020 Reece H. Dunn
+ * Copyright (C) 2018-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -3448,8 +3448,17 @@ private class XPathPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XPath 3.1 (3.12) Conditional Expressions")
+        @DisplayName("XPath 3.1 (3.12) Conditional Expressions ; XPath 4.0 ED (4.15) Conditional Expressions")
         internal inner class ConditionalExpressions {
+            @Test
+            @DisplayName("XPath 4.0 ED EBNF (11) TernaryConditionalExpr")
+            fun ternaryConditionalExpr() {
+                val expr = parse<XPathTernaryConditionalExpr>("true() ?? 1 !! 2")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.TERNARY_IF))
+                assertThat(expr.expressionElement?.textOffset, `is`(7))
+            }
+
             @Test
             @DisplayName("XPath 3.1 EBNF (15) IfExpr")
             fun ifExpr() {

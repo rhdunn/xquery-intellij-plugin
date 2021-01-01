@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.basex.lang
 import uk.co.reecedunn.intellij.plugin.basex.intellij.resources.BaseXBundle
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginElvisExpr
-import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginTernaryIfExpr
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathTernaryConditionalExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathIfExpr
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxErrorReporter
@@ -38,7 +38,7 @@ object BaseXSyntaxValidator : XpmSyntaxValidator {
         is PluginElvisExpr -> reporter.requires(element, BASEX_9_1)
         is PluginFTFuzzyOption -> reporter.requires(element, BASEX_6_1)
         is PluginNonDeterministicFunctionCall -> reporter.requires(element, BASEX_8_4)
-        is PluginTernaryIfExpr -> reporter.requires(element, BASEX_9_1)
+        is XPathTernaryConditionalExpr -> reporter.requires(element, BASEX_9_1)
         is PluginUpdateExpr -> when (element.conformanceElement.elementType) {
             XQueryTokenType.K_UPDATE -> reporter.requires(element, BASEX_7_8)
             else -> reporter.requires(element, BASEX_8_5)

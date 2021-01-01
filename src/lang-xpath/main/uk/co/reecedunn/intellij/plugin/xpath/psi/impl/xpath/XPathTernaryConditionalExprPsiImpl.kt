@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018, 2020 Reece H. Dunn
+ * Copyright (C) 2018, 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin
+package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginTernaryIfExpr
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathTernaryConditionalExpr
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
-class PluginTernaryIfExprPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PluginTernaryIfExpr, XpmSyntaxValidationElement {
+class XPathTernaryConditionalExprPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node), XPathTernaryConditionalExpr, XpmSyntaxValidationElement {
     // region XpmExpression
 
     override val expressionElement: PsiElement

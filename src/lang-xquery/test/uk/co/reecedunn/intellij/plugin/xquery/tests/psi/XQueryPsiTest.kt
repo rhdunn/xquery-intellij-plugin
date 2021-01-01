@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2020 Reece H. Dunn
+ * Copyright (C) 2016-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -5020,8 +5020,17 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (3.14) Conditional Expressions")
+        @DisplayName("XQuery 3.1 (3.14) Conditional Expressions ; XQuery 4.0 ED (4.17) Conditional Expressions")
         internal inner class ConditionalExpressions {
+            @Test
+            @DisplayName("XQuery 4.0 ED EBNF (45) TernaryConditionalExpr")
+            fun ternaryConditionalExpr() {
+                val expr = parse<XPathTernaryConditionalExpr>("true() ?? 1 !! 2")[0] as XpmExpression
+
+                assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.TERNARY_IF))
+                assertThat(expr.expressionElement?.textOffset, `is`(7))
+            }
+
             @Test
             @DisplayName("XQuery 3.1 EBNF (77) IfExpr")
             fun ifExpr() {

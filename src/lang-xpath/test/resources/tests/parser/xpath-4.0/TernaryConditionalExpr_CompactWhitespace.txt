@@ -1,5 +1,5 @@
 XPathImpl[FILE(0:12)]
-   PluginTernaryIfExprImpl[XPATH_TERNARY_IF_EXPR(0:12)]
+   XPathTernaryConditionalExprImpl[XPATH_TERNARY_CONDITIONAL_EXPR(0:12)]
       XPathComparisonExprImpl[XPATH_COMPARISON_EXPR(0:6)]
          XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(0:1)]('1')
          PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')

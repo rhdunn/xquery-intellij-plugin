@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017-2020 Reece H. Dunn
+ * Copyright (C) 2017-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -419,54 +419,6 @@ private class PluginParserTest : ParserTestCase() {
             fun spaceBetweenDotAndBrace() {
                 val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-5/ContextItemFunctionExpr_SpaceBetweenDotAndBrace.txt")
                 val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-5/ContextItemFunctionExpr_SpaceBetweenDotAndBrace.xq")
-                assertThat(actual.toPsiTreeString(), `is`(expected))
-            }
-        }
-    }
-
-    @Nested
-    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (10) TernaryIfExpr")
-    internal inner class TernaryIfExpr {
-        @Test
-        @DisplayName("ternary if")
-        fun ternaryIf() {
-            val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-2/TernaryIfExpr.txt")
-            val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-2/TernaryIfExpr.xq")
-            assertThat(actual.toPsiTreeString(), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("ternary if; compact whitespace")
-        fun ternaryIf_CompactWhitespace() {
-            val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-2/TernaryIfExpr_CompactWhitespace.txt")
-            val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-2/TernaryIfExpr_CompactWhitespace.xq")
-            assertThat(actual.toPsiTreeString(), `is`(expected))
-        }
-
-        @Nested
-        @DisplayName("error recovery; missing token")
-        internal inner class MissingToken {
-            @Test
-            @DisplayName("missing then Expr")
-            fun missingThenExpr() {
-                val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-2/TernaryIfExpr_MissingThenExpr.txt")
-                val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-2/TernaryIfExpr_MissingThenExpr.xq")
-                assertThat(actual.toPsiTreeString(), `is`(expected))
-            }
-
-            @Test
-            @DisplayName("missing else operator")
-            fun missingElseOperator() {
-                val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-2/TernaryIfExpr_MissingElseOperator.txt")
-                val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-2/TernaryIfExpr_MissingElseOperator.xq")
-                assertThat(actual.toPsiTreeString(), `is`(expected))
-            }
-
-            @Test
-            @DisplayName("missing else Expr")
-            fun missingElseExpr() {
-                val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-2/TernaryIfExpr_MissingElseExpr.txt")
-                val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-2/TernaryIfExpr_MissingElseExpr.xq")
                 assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }

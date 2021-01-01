@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -675,15 +675,6 @@ class PluginLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "item", XPathTokenType.K_ITEM)
         matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
-    }
-
-    @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (92) TernaryIfExpr")
-    fun ternaryIfExpr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "??", XPathTokenType.TERNARY_IF)
-        matchSingleToken(lexer, "!!", XPathTokenType.TERNARY_ELSE)
     }
 
     @Test

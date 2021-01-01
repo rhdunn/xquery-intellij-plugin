@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Reece H. Dunn
+ * Copyright (C) 2018-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -58,8 +58,8 @@ object XPathTokenType {
     val SQUARE_CLOSE: IElementType = IElementType("XPATH_SQUARE_CLOSE_TOKEN", XPath) // XPath 1.0
     val SQUARE_OPEN: IElementType = IElementType("XPATH_SQUARE_OPEN_TOKEN", XPath) // XPath 1.0
     val STAR: IElementType = IElementType("XPATH_STAR_TOKEN", XPath) // XPath 1.0
-    val TERNARY_ELSE: IElementType = IElementType("XPATH_TERNARY_ELSE_TOKEN", XPath) // EXPath XPath/XQuery NG Proposal 2
-    val TERNARY_IF: IElementType = IElementType("XPATH_TERNARY_IF_TOKEN", XPath) // EXPath XPath/XQuery NG Proposal 2
+    val TERNARY_ELSE: IElementType = IElementType("XPATH_TERNARY_ELSE_TOKEN", XPath) // XPath 4.0 ED
+    val TERNARY_IF: IElementType = IElementType("XPATH_TERNARY_IF_TOKEN", XPath) // XPath 4.0 ED
     val TYPE_ALIAS: IElementType = IElementType("XPATH_TYPE_ALIAS", XPath) // Saxon 9.8
     val UNION: IElementType = IElementType("XPATH_UNION_TOKEN", XPath) // XPath 1.0
     val VARIABLE_INDICATOR: IElementType = IElementType("XPATH_VARIABLE_INDICATOR_TOKEN", XPath) // XPath 1.0

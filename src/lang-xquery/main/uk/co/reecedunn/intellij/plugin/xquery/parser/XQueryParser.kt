@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2020 Reece H. Dunn
+ * Copyright (C) 2016-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -1473,7 +1473,7 @@ class XQueryParser : XPathParser() {
             parseAssignmentExpr(builder) ||
             parseExitExpr(builder) ||
             parseWhileExpr(builder) ||
-            parseTernaryIfExpr(builder, parentType)
+            parseTernaryConditionalExpr(builder, parentType)
         )
     }
 
@@ -3007,7 +3007,7 @@ class XQueryParser : XPathParser() {
     }
 
     // endregion
-    // region Grammar :: Expr :: OrExpr
+    // region Grammar :: Expr :: TernaryConditionalExpr
 
     override fun parseAndExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
@@ -3181,7 +3181,7 @@ class XQueryParser : XPathParser() {
     }
 
     // endregion
-    // region Grammar :: Expr :: OrExpr :: ValueExpr
+    // region Grammar :: Expr :: TernaryConditionalExpr :: ValueExpr
 
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
     override fun parseValueExpr(builder: PsiBuilder, type: IElementType?): Boolean {
@@ -3238,7 +3238,7 @@ class XQueryParser : XPathParser() {
     }
 
     // endregion
-    // region Grammar :: Expr :: OrExpr :: StepExpr
+    // region Grammar :: Expr :: TernaryConditionalExpr :: StepExpr
 
     override fun parseStepExpr(builder: PsiBuilder, type: IElementType?): ParsedStepExpr = when {
         parsePostfixExpr(builder, type) -> ParsedStepExpr.Expression
@@ -3247,7 +3247,7 @@ class XQueryParser : XPathParser() {
     }
 
     // endregion
-    // region Grammar :: Expr :: OrExpr :: PrimaryExpr
+    // region Grammar :: Expr :: TernaryConditionalExpr :: PrimaryExpr
 
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
     override fun parsePrimaryExpr(builder: PsiBuilder, type: IElementType?): Boolean {
@@ -3373,7 +3373,7 @@ class XQueryParser : XPathParser() {
     }
 
     // endregion
-    // region Grammar :: Expr :: OrExpr :: PrimaryExpr :: FunctionCall
+    // region Grammar :: Expr :: TernaryConditionalExpr :: PrimaryExpr :: FunctionCall
 
     override fun parseFunctionCall(builder: PsiBuilder): Boolean {
         if (builder.tokenType is IKeywordOrNCNameType) {
@@ -3426,7 +3426,7 @@ class XQueryParser : XPathParser() {
     }
 
     // endregion
-    // region Grammar :: Expr :: OrExpr :: PrimaryExpr :: FunctionItemExpr
+    // region Grammar :: Expr :: TernaryConditionalExpr :: PrimaryExpr :: FunctionItemExpr
 
     override fun parseInlineFunctionExpr(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
@@ -3476,7 +3476,7 @@ class XQueryParser : XPathParser() {
     }
 
     // endregion
-    // region Grammar :: Expr :: OrExpr :: PrimaryExpr :: Constructors
+    // region Grammar :: Expr :: TernaryConditionalExpr :: PrimaryExpr :: Constructors
 
     private fun parseBinaryConstructor(builder: PsiBuilder): Boolean {
         val marker = builder.matchTokenTypeWithMarker(XQueryTokenType.K_BINARY)
@@ -3545,7 +3545,7 @@ class XQueryParser : XPathParser() {
     }
 
     // endregion
-    // region Grammar :: Expr :: OrExpr :: PrimaryExpr :: NodeConstructor :: DirectConstructor
+    // region Grammar :: Expr :: TernaryConditionalExpr :: PrimaryExpr :: NodeConstructor :: DirectConstructor
 
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
     private fun parseDirectConstructor(builder: PsiBuilder, depth: Int): Boolean {
@@ -3820,7 +3820,7 @@ class XQueryParser : XPathParser() {
     }
 
     // endregion
-    // region Grammar :: Expr :: OrExpr :: PrimaryExpr :: NodeConstructor :: ComputedConstructor
+    // region Grammar :: Expr :: TernaryConditionalExpr :: PrimaryExpr :: NodeConstructor :: ComputedConstructor
 
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
     private fun parseComputedConstructor(builder: PsiBuilder): Boolean {
@@ -4066,7 +4066,7 @@ class XQueryParser : XPathParser() {
     }
 
     // endregion
-    // region Grammar :: Expr :: OrExpr :: FTMatchOptions
+    // region Grammar :: Expr :: TernaryConditionalExpr :: FTMatchOptions
 
     override val FTMATCH_OPTION_START_TOKENS: TokenSet = XQueryTokenType.FTMATCH_OPTION_START_TOKENS
     override val URI_LITERAL: IElementType = XQueryElementType.URI_LITERAL

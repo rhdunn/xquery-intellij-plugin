@@ -1,7 +1,7 @@
 XQueryModuleImpl[FILE(0:14)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:14)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:14)]
-         PluginTernaryIfExprImpl[XPATH_TERNARY_IF_EXPR(0:14)]
+         XPathTernaryConditionalExprImpl[XPATH_TERNARY_CONDITIONAL_EXPR(0:14)]
             XPathComparisonExprImpl[XPATH_COMPARISON_EXPR(0:7)]
                XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(0:1)]('1')
                PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')

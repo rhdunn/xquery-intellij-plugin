@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2020 Reece H. Dunn
+ * Copyright (C) 2018-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -550,6 +550,12 @@ object XPathElementType {
         XPath
     )
 
+    val TERNARY_CONDITIONAL_EXPR: IElementType = ICompositeElementType(
+        "XPATH_TERNARY_CONDITIONAL_EXPR",
+        XPathTernaryConditionalExprPsiImpl::class.java,
+        XPath
+    )
+
     // endregion
     // region Full Text 1.0
 
@@ -783,12 +789,6 @@ object XPathElementType {
 
     // endregion
     // region EXPath XPath/XPath NG
-
-    val TERNARY_IF_EXPR: IElementType = ICompositeElementType(
-        "XPATH_TERNARY_IF_EXPR",
-        PluginTernaryIfExprPsiImpl::class.java,
-        XPath
-    )
 
     val ELVIS_EXPR: IElementType = ICompositeElementType(
         "XPATH_ELVIS_EXPR",

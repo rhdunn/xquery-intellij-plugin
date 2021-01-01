@@ -439,7 +439,7 @@ Saxon 9.8 uses the `~type` syntax, while Saxon 10.0 uses the `type(...)` syntax.
 {: .ebnf-symbols }
 | Ref    | Symbol                  |     | Expression                          | Options   |
 |--------|-------------------------|-----|-------------------------------------|-----------|
-| \[91\] | `ExprSingle`            | ::= | `FLWORExpr \| QuantifiedExpr \| SwitchExpr \| TypeswitchExpr \| IfExpr \| TryCatchExpr \| TernaryIfExpr` | | 
+| \[91\] | `ExprSingle`            | ::= | `FLWORExpr \| QuantifiedExpr \| SwitchExpr \| TypeswitchExpr \| IfExpr \| TryCatchExpr \| TernaryConditionalExpr` | | 
 
 ### 3.1 Expressions on SequenceTypes
 
@@ -850,7 +850,7 @@ equivalent to:
 {: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
-| \[92\] | `TernaryIfExpr`                | ::= | `ElvisExpr "??" ElvisExpr "!!" ElvisExpr` |         |
+| \[92\] | `TernaryConditionalExpr`       | ::= | `ElvisExpr "??" ElvisExpr "!!" ElvisExpr` |         |
 | \[94\] | `IfExpr`                       | ::= | `"if" "(" Expr ")" "then" ExprSingle ("else" ExprSingle)?` | |
 
 The `IfExpr` without the else branch is supported by BaseX 9.1. It is defined
@@ -860,10 +860,10 @@ When the else branch of an `IfExpr` is not present, an empty sequence is
 returned if the effective boolean value of the`IfExpr` condition evaluates
 to false.
 
-The `TernaryIfExpr` expression is a BaseX 9.1 extension defined in proposal 2
-of the EXPath syntax extensions for XPath and XQuery.
+The `TernaryConditionalExpr` expression is a BaseX 9.1 extension defined in
+proposal 2  of the EXPath syntax extensions for XPath and XQuery.
 
-Given the `TernaryIfExpr`:
+Given the `TernaryConditionalExpr`:
 
     C ?? A !! B
 
@@ -1178,8 +1178,8 @@ These changes include support for:
 | \[86\]   | `SequenceTypeUnion`            | ::= | `SequenceTypeList ("\|" SequenceTypeList)* ")"` |           |
 | \[87\]   | `SequenceTypeList`             | ::= | `SequenceType ("," SequenceType)*`        |                 |
 | \[88\]   | `AnyItemTest`                  | ::= | `"item" "(" ")"`                          |                 |
-| \[91\]   | `ExprSingle`                   | ::= | `FLWORExpr \| QuantifiedExpr \| SwitchExpr \| TypeswitchExpr \| IfExpr \| TryCatchExpr \| TernaryIfExpr` | | 
-| \[92\]   | `TernaryIfExpr`                | ::= | `ElvisExpr "??" ElvisExpr "!!" ElvisExpr` |                 |
+| \[91\]   | `ExprSingle`                   | ::= | `FLWORExpr \| QuantifiedExpr \| SwitchExpr \| TypeswitchExpr \| IfExpr \| TryCatchExpr \| TernaryConditionalExpr` | | 
+| \[92\]   | `TernaryConditionalExpr`       | ::= | `ElvisExpr "??" ElvisExpr "!!" ElvisExpr` |                 |
 | \[93\]   | `ElvisExpr`                    | ::= | `OrExpr "?!" OrExpr`                      |                 |
 | \[94\]   | `IfExpr`                       | ::= | `"if" "(" Expr ")" "then" ExprSingle ("else" ExprSingle)?` | |
 | \[95\]   | `ParamList`                    | ::= | `ParamList ::= Param ("," Param)* "..."?` |                 |
