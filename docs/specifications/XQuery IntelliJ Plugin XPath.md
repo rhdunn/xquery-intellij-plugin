@@ -269,7 +269,7 @@ equivalent to:
 {: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
-| \[10\] | `TernaryConditionalExpr`       | ::= | `ElvisExpr "??" ElvisExpr "!!" ElvisExpr` |         |
+| \[10\] | `TernaryConditionalExpr`       | ::= | `ElvisExpr "??" TernaryConditionalExpr "!!" TernaryConditionalExpr` | |
 | \[21\] | `IfExpr`                       | ::= | `"if" "(" Expr ")" "then" ExprSingle ("else" ExprSingle)?` | |
 
 The `IfExpr` without the else branch is defined in proposal 7 of the EXPath
@@ -438,7 +438,7 @@ These changes include support for:
 | \[7\]   | `ForExpr`                      | ::= | `SimpleForClause ReturnClause`      |                      |
 | \[8\]   | `ReturnClause`                 | ::= | `"return" ExprSingle`               |                      |
 | \[9\]   | `ExprSingle`                   | ::= | `ForExpr \| LetExpr \| QuantifiedExpr \| IfExpr \| TernaryConditionalExpr` | |
-| \[10\]  | `TernaryConditionalExpr`       | ::= | `ElvisExpr "??" ElvisExpr "!!" ElvisExpr` |                |
+| \[10\]  | `TernaryConditionalExpr`       | ::= | `ElvisExpr "??" TernaryConditionalExpr "!!" TernaryConditionalExpr` | |
 | \[11\]  | `ElvisExpr`                    | ::= | `OrExpr "?!" OrExpr`                |                      |
 | \[12\]  | `NillableTypeName`             | ::= | `TypeName "?"`                      |                      |
 | \[13\]  | `ElementTest`                  | ::= | `"element" "(" (NameTest ("," (NillableTypeName | TypeName))?)? ")"` | |

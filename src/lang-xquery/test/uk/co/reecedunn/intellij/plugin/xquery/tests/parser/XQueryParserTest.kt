@@ -9223,6 +9223,38 @@ private class XQueryParserTest : ParserTestCase() {
             assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
+        @Test
+        @DisplayName("nested else")
+        fun nestedElseExpr() {
+            val expected = loadResource("tests/parser/xquery-4.0/TernaryConditionalExpr_NestedElseExpr.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/TernaryConditionalExpr_NestedElseExpr.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("nested else; compact whitespace")
+        fun nestedElseExpr_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-4.0/TernaryConditionalExpr_NestedElseExpr_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/TernaryConditionalExpr_NestedElseExpr_CompactWhitespace.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("nested then")
+        fun nestedThenExpr() {
+            val expected = loadResource("tests/parser/xquery-4.0/TernaryConditionalExpr_NestedThenExpr.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/TernaryConditionalExpr_NestedThenExpr.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("nested then; compact whitespace")
+        fun nestedThenExpr_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-4.0/TernaryConditionalExpr_NestedThenExpr_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/TernaryConditionalExpr_NestedThenExpr_CompactWhitespace.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
         @Nested
         @DisplayName("error recovery; missing token")
         internal inner class MissingToken {

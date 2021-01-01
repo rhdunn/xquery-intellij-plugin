@@ -850,7 +850,7 @@ equivalent to:
 {: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
-| \[92\] | `TernaryConditionalExpr`       | ::= | `ElvisExpr "??" ElvisExpr "!!" ElvisExpr` |         |
+| \[92\] | `TernaryConditionalExpr`       | ::= | `ElvisExpr "??" TernaryConditionalExpr "!!" TernaryConditionalExpr` | |
 | \[94\] | `IfExpr`                       | ::= | `"if" "(" Expr ")" "then" ExprSingle ("else" ExprSingle)?` | |
 
 The `IfExpr` without the else branch is supported by BaseX 9.1. It is defined
@@ -1179,7 +1179,7 @@ These changes include support for:
 | \[87\]   | `SequenceTypeList`             | ::= | `SequenceType ("," SequenceType)*`        |                 |
 | \[88\]   | `AnyItemTest`                  | ::= | `"item" "(" ")"`                          |                 |
 | \[91\]   | `ExprSingle`                   | ::= | `FLWORExpr \| QuantifiedExpr \| SwitchExpr \| TypeswitchExpr \| IfExpr \| TryCatchExpr \| TernaryConditionalExpr` | | 
-| \[92\]   | `TernaryConditionalExpr`       | ::= | `ElvisExpr "??" ElvisExpr "!!" ElvisExpr` |                 |
+| \[92\]   | `TernaryConditionalExpr`       | ::= | `ElvisExpr "??" TernaryConditionalExpr "!!" TernaryConditionalExpr` | |
 | \[93\]   | `ElvisExpr`                    | ::= | `OrExpr "?!" OrExpr`                      |                 |
 | \[94\]   | `IfExpr`                       | ::= | `"if" "(" Expr ")" "then" ExprSingle ("else" ExprSingle)?` | |
 | \[95\]   | `ParamList`                    | ::= | `ParamList ::= Param ("," Param)* "..."?` |                 |

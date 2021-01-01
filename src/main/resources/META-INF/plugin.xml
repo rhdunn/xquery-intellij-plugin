@@ -77,6 +77,7 @@
       <li>Add the XSLT 4.0 Editor's Draft XMLSchema file.</li>
       <li>Support any <code>ItemType</code> on <code>LocalUnionType</code> and <code>TypedMapTest</code>.</li>
       <li>Support the <code>member</code> keyword on any for binding.</li>
+      <li>Support nesting <code>TernaryConditionalExpr</code> expressions.</li>
     </ol>
   ]]></change-notes>
 

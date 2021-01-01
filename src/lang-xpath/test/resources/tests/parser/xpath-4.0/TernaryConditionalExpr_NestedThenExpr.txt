@@ -1,0 +1,30 @@
+XPathImpl[FILE(0:31)]
+   XPathTernaryConditionalExprImpl[XPATH_TERNARY_CONDITIONAL_EXPR(0:31)]
+      XPathComparisonExprImpl[XPATH_COMPARISON_EXPR(0:7)]
+         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(0:1)]('1')
+         PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_EQ(2:4)]('eq')
+         PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
+         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(5:6)]('2')
+         PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
+      LeafPsiElement[XPATH_TERNARY_IF_TOKEN(7:9)]('??')
+      PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
+      XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(10:11)]('3')
+      PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
+      LeafPsiElement[XPATH_TERNARY_ELSE_TOKEN(12:14)]('!!')
+      PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
+      XPathTernaryConditionalExprImpl[XPATH_TERNARY_CONDITIONAL_EXPR(15:31)]
+         XPathComparisonExprImpl[XPATH_COMPARISON_EXPR(15:22)]
+            XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(15:16)]('4')
+            PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_EQ(17:19)]('eq')
+            PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
+            XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(20:21)]('5')
+            PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
+         LeafPsiElement[XPATH_TERNARY_IF_TOKEN(22:24)]('??')
+         PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
+         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(25:26)]('6')
+         PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
+         LeafPsiElement[XPATH_TERNARY_ELSE_TOKEN(27:29)]('!!')
+         PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
+         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(30:31)]('7')

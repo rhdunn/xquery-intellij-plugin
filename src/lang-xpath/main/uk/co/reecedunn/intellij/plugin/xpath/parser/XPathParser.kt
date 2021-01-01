@@ -592,8 +592,8 @@ open class XPathParser : PsiParser {
             parseWhiteSpaceAndCommentTokens(builder)
             if (builder.matchTokenType(XPathTokenType.TERNARY_IF)) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseElvisExpr(builder, null)) {
-                    builder.error(XPathBundle.message("parser.error.expected", "ElvisExpr"))
+                if (!parseTernaryConditionalExpr(builder, null)) {
+                    builder.error(XPathBundle.message("parser.error.expected-either", "TernaryConditionalExpr", "ElvisExpr"))
                 }
 
                 parseWhiteSpaceAndCommentTokens(builder)
@@ -602,8 +602,8 @@ open class XPathParser : PsiParser {
                 }
 
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseElvisExpr(builder, null)) {
-                    builder.error(XPathBundle.message("parser.error.expected", "ElvisExpr"))
+                if (!parseTernaryConditionalExpr(builder, null)) {
+                    builder.error(XPathBundle.message("parser.error.expected-either", "TernaryConditionalExpr", "ElvisExpr"))
                 }
 
                 marker.done(XPathElementType.TERNARY_CONDITIONAL_EXPR)
