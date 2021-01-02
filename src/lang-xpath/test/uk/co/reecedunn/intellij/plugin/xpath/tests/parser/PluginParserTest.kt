@@ -385,40 +385,40 @@ private class PluginParserTest : ParserTestCase() {
             @Test
             @DisplayName("context item function expression")
             fun contextItemFunctionExpr() {
-                val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-5/ContextItemFunctionExpr.txt")
-                val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-5/ContextItemFunctionExpr.xq")
+                val expected = loadResource("tests/parser/saxon-10.0-xpath/ContextItemFunctionExpr.txt")
+                val actual = parseResource("tests/parser/saxon-10.0-xpath/ContextItemFunctionExpr.xq")
                 assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
             @DisplayName("context item function expression; compact whitespace")
             fun contextItemFunctionExpr_CompactWhitespace() {
-                val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-5/ContextItemFunctionExpr_CompactWhitespace.txt")
-                val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-5/ContextItemFunctionExpr_CompactWhitespace.xq")
+                val expected = loadResource("tests/parser/saxon-10.0-xpath/ContextItemFunctionExpr_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/saxon-10.0-xpath/ContextItemFunctionExpr_CompactWhitespace.xq")
                 assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
             @DisplayName("missing Expr")
             fun missingExpr() {
-                val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-5/ContextItemFunctionExpr_MissingExpr.txt")
-                val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-5/ContextItemFunctionExpr_MissingExpr.xq")
+                val expected = loadResource("tests/parser/saxon-10.0-xpath/ContextItemFunctionExpr_MissingExpr.txt")
+                val actual = parseResource("tests/parser/saxon-10.0-xpath/ContextItemFunctionExpr_MissingExpr.xq")
                 assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
             @DisplayName("missing closing brace")
             fun missingClosingBrace() {
-                val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-5/ContextItemFunctionExpr_MissingClosingBrace.txt")
-                val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-5/ContextItemFunctionExpr_MissingClosingBrace.xq")
+                val expected = loadResource("tests/parser/saxon-10.0-xpath/ContextItemFunctionExpr_MissingClosingBrace.txt")
+                val actual = parseResource("tests/parser/saxon-10.0-xpath/ContextItemFunctionExpr_MissingClosingBrace.xq")
                 assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
             @DisplayName("space between dot and brace")
             fun spaceBetweenDotAndBrace() {
-                val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-5/ContextItemFunctionExpr_SpaceBetweenDotAndBrace.txt")
-                val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-5/ContextItemFunctionExpr_SpaceBetweenDotAndBrace.xq")
+                val expected = loadResource("tests/parser/saxon-10.0-xpath/ContextItemFunctionExpr_SpaceBetweenDotAndBrace.txt")
+                val actual = parseResource("tests/parser/saxon-10.0-xpath/ContextItemFunctionExpr_SpaceBetweenDotAndBrace.xq")
                 assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
