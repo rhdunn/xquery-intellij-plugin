@@ -2461,6 +2461,58 @@ class XQueryParser : XPathParser() {
     }
 
     // endregion
+    // region Grammar :: Expr :: IfExpr
+
+    override fun parseIfExpr(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_IF)
+        if (marker != null) {
+            var haveErrors = false
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
+                marker.rollbackTo()
+                return false
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseExpr(builder, EXPR)) {
+                builder.error(XPathBundle.message("parser.error.expected-expression"))
+                haveErrors = true
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE) && !haveErrors) {
+                builder.error(XPathBundle.message("parser.error.expected", ")"))
+                haveErrors = true
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.K_THEN) && !haveErrors) {
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "then"))
+                haveErrors = true
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseExprSingle(builder) && !haveErrors) {
+                builder.error(XPathBundle.message("parser.error.expected-expression"))
+                haveErrors = true
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (builder.matchTokenType(XPathTokenType.K_ELSE)) { // else branch is optional in BaseX 9.1
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!parseExprSingle(builder) && !haveErrors) {
+                    builder.error(XPathBundle.message("parser.error.expected-expression"))
+                }
+            }
+
+            marker.done(XPathElementType.IF_EXPR)
+            return true
+        }
+        return false
+    }
+
+    // endregion
     // region Grammar :: Expr :: TryCatchExpr
 
     private enum class CatchClauseType {

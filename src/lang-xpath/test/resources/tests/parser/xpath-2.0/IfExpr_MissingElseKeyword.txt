@@ -1,5 +1,5 @@
 XPathImpl[FILE(0:17)]
-   XPathIfExprImpl[XPATH_IF_EXPR(0:16)]
+   XPathIfExprImpl[XPATH_IF_EXPR(0:17)]
       XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_IF(0:2)]('if')
       PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
       LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(3:4)]('(')
@@ -12,5 +12,5 @@ XPathImpl[FILE(0:17)]
       PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
       XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(14:15)]('2')
       PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
-   PsiErrorElementImpl[ERROR_ELEMENT(16:16)]('XPST0003: Expected end of file.')
-   XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(16:17)]('3')
+      PsiErrorElementImpl[ERROR_ELEMENT(16:16)]('XPST0003: Expected keyword: else.')
+      XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(16:17)]('3')

@@ -270,11 +270,6 @@ equivalent to:
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
 | \[10\] | `TernaryConditionalExpr`       | ::= | `ElvisExpr "??" TernaryConditionalExpr "!!" TernaryConditionalExpr` | |
-| \[21\] | `IfExpr`                       | ::= | `"if" "(" Expr ")" "then" ExprSingle ("else" ExprSingle)?` | |
-
-The `IfExpr` without the else branch is defined in proposal 7 of the EXPath
-syntax extensions for XPath and XQuery. It is currently only supported in
-BaseX 9.1's XQuery implementation.
 
 The `TernaryConditionalExpr` and `ElvisExpr` expressions are new expressions
 defined in  proposal 2 of the EXPath syntax extensions for XPath and XQuery.
@@ -449,7 +444,7 @@ These changes include support for:
 | \[18\]  | `SingleType`                   | ::= | `(LocalUnionType | SimpleTypeName) "?"?` |                 |
 | \[19\]  | `OrExpr`                       | ::= | `AndExpr (("or" \| "orElse") AndExpr)*`   |                |
 | \[20\]  | `AndExpr`                      | ::= | `ComparisonExpr (("and" \| "andAlso") ComparisonExpr)*` |  |
-| \[21\]  | `IfExpr`                       | ::= | `"if" "(" Expr ")" "then" ExprSingle ("else" ExprSingle)?` | |
+| \[21\]  |                                | ::= |                                         |                  |
 | \[22\]  | `ParamList`                    | ::= | `ParamList ::= Param ("," Param)* "..."?` |                |
 | \[23\]  | `FunctionItemExpr`             | ::= | `NamedFunctionRef \| InlineFunctionExpr \| ContextItemFunctionExpr \| LambdaFunctionExpr` | |
 | \[24\]  | `ContextItemFunctionExpr`      | ::= | `(( "fn" "{" ) | ".{" ) Expr "}"`       |                  |

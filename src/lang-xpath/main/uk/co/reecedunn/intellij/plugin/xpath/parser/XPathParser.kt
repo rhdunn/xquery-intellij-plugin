@@ -534,7 +534,7 @@ open class XPathParser : PsiParser {
     // endregion
     // region Grammar :: Expr :: IfExpr
 
-    fun parseIfExpr(builder: PsiBuilder): Boolean {
+    open fun parseIfExpr(builder: PsiBuilder): Boolean {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_IF)
         if (marker != null) {
             var haveErrors = false
@@ -570,11 +570,14 @@ open class XPathParser : PsiParser {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (builder.matchTokenType(XPathTokenType.K_ELSE)) { // else branch is optional in BaseX 9.1
-                parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseExprSingle(builder) && !haveErrors) {
-                    builder.error(XPathBundle.message("parser.error.expected-expression"))
-                }
+            if (!builder.matchTokenType(XPathTokenType.K_ELSE) && !haveErrors) {
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "else"))
+                haveErrors = true
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseExprSingle(builder) && !haveErrors) {
+                builder.error(XPathBundle.message("parser.error.expected-expression"))
             }
 
             marker.done(XPathElementType.IF_EXPR)
