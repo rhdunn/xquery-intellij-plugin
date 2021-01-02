@@ -589,14 +589,14 @@ open class XPathParser : PsiParser {
     // endregion
     // region Grammar :: Expr :: TernaryConditionalExpr
 
-    fun parseTernaryConditionalExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    open fun parseTernaryConditionalExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
-        if (parseElvisExpr(builder, type)) {
+        if (parseOrExpr(builder, type)) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (builder.matchTokenType(XPathTokenType.TERNARY_IF)) {
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (!parseTernaryConditionalExpr(builder, null)) {
-                    builder.error(XPathBundle.message("parser.error.expected-either", "TernaryConditionalExpr", "ElvisExpr"))
+                    builder.error(XPathBundle.message("parser.error.expected", "TernaryConditionalExpr"))
                 }
 
                 parseWhiteSpaceAndCommentTokens(builder)
@@ -606,7 +606,7 @@ open class XPathParser : PsiParser {
 
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (!parseTernaryConditionalExpr(builder, null)) {
-                    builder.error(XPathBundle.message("parser.error.expected-either", "TernaryConditionalExpr", "ElvisExpr"))
+                    builder.error(XPathBundle.message("parser.error.expected", "TernaryConditionalExpr"))
                 }
 
                 marker.done(XPathElementType.TERNARY_CONDITIONAL_EXPR)
@@ -619,28 +619,7 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    private fun parseElvisExpr(builder: PsiBuilder, type: IElementType?): Boolean {
-        val marker = builder.mark()
-        if (parseOrExpr(builder, type)) {
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (builder.matchTokenType(XPathTokenType.ELVIS)) {
-                parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseOrExpr(builder, null)) {
-                    builder.error(XPathBundle.message("parser.error.expected", "OrExpr"))
-                    marker.drop()
-                } else {
-                    marker.done(XPathElementType.ELVIS_EXPR)
-                }
-            } else {
-                marker.drop()
-            }
-            return true
-        }
-        marker.drop()
-        return false
-    }
-
-    private fun parseOrExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    fun parseOrExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
         if (parseAndExpr(builder, type)) {
             parseWhiteSpaceAndCommentTokens(builder)

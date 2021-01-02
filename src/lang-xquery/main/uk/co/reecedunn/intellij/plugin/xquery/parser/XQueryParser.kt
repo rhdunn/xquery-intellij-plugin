@@ -3061,6 +3061,57 @@ class XQueryParser : XPathParser() {
     // endregion
     // region Grammar :: Expr :: TernaryConditionalExpr
 
+    override fun parseTernaryConditionalExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+        val marker = builder.mark()
+        if (parseElvisExpr(builder, type)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (builder.matchTokenType(XPathTokenType.TERNARY_IF)) {
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!parseTernaryConditionalExpr(builder, null)) {
+                    builder.error(XPathBundle.message("parser.error.expected-either", "TernaryConditionalExpr", "ElvisExpr"))
+                }
+
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!builder.matchTokenType(XPathTokenType.TERNARY_ELSE)) {
+                    builder.error(XPathBundle.message("parser.error.expected", "!!"))
+                }
+
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!parseTernaryConditionalExpr(builder, null)) {
+                    builder.error(XPathBundle.message("parser.error.expected-either", "TernaryConditionalExpr", "ElvisExpr"))
+                }
+
+                marker.done(XPathElementType.TERNARY_CONDITIONAL_EXPR)
+            } else {
+                marker.drop()
+            }
+            return true
+        }
+        marker.drop()
+        return false
+    }
+
+    private fun parseElvisExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+        val marker = builder.mark()
+        if (parseOrExpr(builder, type)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (builder.matchTokenType(XPathTokenType.ELVIS)) {
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!parseOrExpr(builder, null)) {
+                    builder.error(XPathBundle.message("parser.error.expected", "OrExpr"))
+                    marker.drop()
+                } else {
+                    marker.done(XQueryElementType.ELVIS_EXPR)
+                }
+            } else {
+                marker.drop()
+            }
+            return true
+        }
+        marker.drop()
+        return false
+    }
+
     override fun parseAndExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
         if (parseUpdateExpr(builder, type)) {

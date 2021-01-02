@@ -788,22 +788,13 @@ object XPathElementType {
     )
 
     // endregion
-    // region EXPath XPath/XPath NG
-
-    val ELVIS_EXPR: IElementType = ICompositeElementType(
-        "XPATH_ELVIS_EXPR",
-        PluginElvisExprPsiImpl::class.java,
-        XPath
-    )
+    // region XQuery IntelliJ Plugin
 
     val CONTEXT_ITEM_FUNCTION_EXPR: IElementType = ICompositeElementType(
         "XPATH_CONTEXT_ITEM_FUNCTION_EXPR",
         PluginContextItemFunctionExprImpl::class.java,
         XPath
     )
-
-    // endregion
-    // region XQuery IntelliJ Plugin
 
     val QUANTIFIED_EXPR_BINDING: IElementType = ICompositeElementType(
         "XPATH_QUANTIFIED_EXPR_BINDING",

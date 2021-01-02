@@ -17,7 +17,6 @@ package uk.co.reecedunn.intellij.plugin.basex.lang
 
 import uk.co.reecedunn.intellij.plugin.basex.intellij.resources.BaseXBundle
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
-import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginElvisExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathTernaryConditionalExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathIfExpr
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
@@ -25,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxErrorReporte
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires.XpmRequiresProductVersion
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginElvisExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginFTFuzzyOption
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginNonDeterministicFunctionCall
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginUpdateExpr

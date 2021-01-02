@@ -269,10 +269,10 @@ equivalent to:
 {: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
-| \[10\] | `TernaryConditionalExpr`       | ::= | `ElvisExpr "??" TernaryConditionalExpr "!!" TernaryConditionalExpr` | |
+| \[10\] | `TernaryConditionalExpr`       | ::= | `OrExpr "??" TernaryConditionalExpr "!!" TernaryConditionalExpr` | |
 
-The `TernaryConditionalExpr` and `ElvisExpr` expressions are new expressions
-defined in  proposal 2 of the EXPath syntax extensions for XPath and XQuery.
+The `TernaryConditionalExpr` expression is a new expressions defined in proposal
+2 of the EXPath syntax extensions for XPath and XQuery.
 
 Given the `TernaryConditionalExpr`:
 
@@ -287,24 +287,20 @@ the equivalent `IfExpr` is:
 {: .ebnf-symbols }
 | Ref     | Symbol                         |     | Expression                                | Options |
 |---------|--------------------------------|-----|-------------------------------------------|---------|
-| \[11\]  | `ElvisExpr`                    | ::= | `OrExpr "?!" OrExpr`                      |         |
 | \[31\]  | `MultiplicativeExpr`           | ::= | `OtherwiseExpr ( ("*" | "div" | "idiv" | "mod") OtherwiseExpr )*` | |
 | \[32\]  | `OtherwiseExpr`                | ::= | `UnionExpr ( "otherwise" UnionExpr )*`    |         |
-
-The `ElvisExpr` expression is a BaseX 9.1 extension defined in proposal 2 of the
-EXPath syntax extensions for XPath and XQuery.
 
 The `OtherwiseExpr` expression is a new XPath 4.0 Editor's Draft expression
 supported as a Saxon 10.0 vendor extension that returns the first non-empty
 sequence in the otherwise expression.
 
-For two items or empty sequences `A` and `B`, the expressions `A otherwise B`
-and `A ?: B` are equivalent to:
+For two items or empty sequences `A` and `B`, the expression `A otherwise B`
+is equivalent to:
 
     (A, B)[1]
 
-Otherwise, if either `A` or `B` have more than one item, the expressions
-`A otherwise B` and `A ?: B` are equivalent to:
+Otherwise, if either `A` or `B` have more than one item, the expression
+`A otherwise B` is equivalent to:
 
     let $a := A
     return if (exists($a)) then $a else B
@@ -433,8 +429,8 @@ These changes include support for:
 | \[7\]   | `ForExpr`                      | ::= | `SimpleForClause ReturnClause`      |                      |
 | \[8\]   | `ReturnClause`                 | ::= | `"return" ExprSingle`               |                      |
 | \[9\]   | `ExprSingle`                   | ::= | `ForExpr \| LetExpr \| QuantifiedExpr \| IfExpr \| TernaryConditionalExpr` | |
-| \[10\]  | `TernaryConditionalExpr`       | ::= | `ElvisExpr "??" TernaryConditionalExpr "!!" TernaryConditionalExpr` | |
-| \[11\]  | `ElvisExpr`                    | ::= | `OrExpr "?!" OrExpr`                |                      |
+| \[10\]  | `TernaryConditionalExpr`       | ::= | `OrExpr "??" TernaryConditionalExpr "!!" TernaryConditionalExpr` | |
+| \[11\]  |                                | ::= |                                     |                      |
 | \[12\]  | `NillableTypeName`             | ::= | `TypeName "?"`                      |                      |
 | \[13\]  | `ElementTest`                  | ::= | `"element" "(" (NameTest ("," (NillableTypeName | TypeName))?)? ")"` | |
 | \[14\]  | `SequenceTypeList`             | ::= | `SequenceType ("," SequenceType)*`  |                      |

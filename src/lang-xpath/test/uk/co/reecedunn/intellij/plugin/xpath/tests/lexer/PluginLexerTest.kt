@@ -53,6 +53,7 @@ class PluginLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, ":", XPathTokenType.QNAME_SEPARATOR)
+        matchSingleToken(lexer, "?:", XPathTokenType.ELVIS) // BaseX 9.1 (XQuery)
     }
 
     @Test
@@ -207,14 +208,6 @@ class PluginLexerTest : LexerTestCase() {
         matchSingleToken(lexer, ".", XPathTokenType.DOT)
         matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
         matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
-    }
-
-    @Test
-    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (11) ElvisExpr")
-    fun elvis() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "?:", XPathTokenType.ELVIS)
     }
 
     @Test

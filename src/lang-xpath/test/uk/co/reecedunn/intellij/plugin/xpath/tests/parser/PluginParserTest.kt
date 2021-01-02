@@ -425,38 +425,6 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (11) ElvisExpr")
-    internal inner class ElvisExpr {
-        @Test
-        @DisplayName("elvis")
-        fun elvis() {
-            val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-2/ElvisExpr.txt")
-            val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-2/ElvisExpr.xq")
-            assertThat(actual.toPsiTreeString(), `is`(expected))
-        }
-
-        @Test
-        @DisplayName("elvis; compact whitespace")
-        fun elvis_CompactWhitespace() {
-            val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-2/ElvisExpr_CompactWhitespace.txt")
-            val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-2/ElvisExpr_CompactWhitespace.xq")
-            assertThat(actual.toPsiTreeString(), `is`(expected))
-        }
-
-        @Nested
-        @DisplayName("error recovery; missing token")
-        internal inner class MissingToken {
-            @Test
-            @DisplayName("missing else Expr")
-            fun missingElseExpr() {
-                val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-2/ElvisExpr_MissingElseExpr.txt")
-                val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-2/ElvisExpr_MissingElseExpr.xq")
-                assertThat(actual.toPsiTreeString(), `is`(expected))
-            }
-        }
-    }
-
-    @Nested
     @DisplayName("XQuery IntelliJ Plugin XPath EBNF (22) ParamList")
     internal inner class ParamList {
         @Test

@@ -115,19 +115,6 @@ private class PluginPsiTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin (3.5) Conditional Expressions")
-    internal inner class ConditionalExpressions {
-        @Test
-        @DisplayName("XQuery IntelliJ Plugin XPath EBNF (11) ElvisExpr")
-        fun elvisExpr() {
-            val expr = parse<PluginElvisExpr>("1 ?: 2")[0] as XpmExpression
-
-            assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.ELVIS))
-            assertThat(expr.expressionElement?.textOffset, `is`(2))
-        }
-    }
-
-    @Nested
     @DisplayName("XQuery IntelliJ Plugin (3.6) Primary Expressions")
     internal inner class PrimaryExpressions {
         @Nested

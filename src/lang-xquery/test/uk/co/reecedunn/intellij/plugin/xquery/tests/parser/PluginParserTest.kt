@@ -2698,16 +2698,16 @@ private class PluginParserTest : ParserTestCase() {
         @Test
         @DisplayName("elvis")
         fun elvis() {
-            val expected = loadResource("tests/parser/xpath-ng/proposal-2/ElvisExpr.txt")
-            val actual = parseResource("tests/parser/xpath-ng/proposal-2/ElvisExpr.xq")
+            val expected = loadResource("tests/parser/basex-9.1/ElvisExpr.txt")
+            val actual = parseResource("tests/parser/basex-9.1/ElvisExpr.xq")
             assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
         @DisplayName("elvis; compact whitespace")
         fun elvis_CompactWhitespace() {
-            val expected = loadResource("tests/parser/xpath-ng/proposal-2/ElvisExpr_CompactWhitespace.txt")
-            val actual = parseResource("tests/parser/xpath-ng/proposal-2/ElvisExpr_CompactWhitespace.xq")
+            val expected = loadResource("tests/parser/basex-9.1/ElvisExpr_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/basex-9.1/ElvisExpr_CompactWhitespace.xq")
             assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
@@ -2717,8 +2717,8 @@ private class PluginParserTest : ParserTestCase() {
             @Test
             @DisplayName("missing else Expr")
             fun missingElseExpr() {
-                val expected = loadResource("tests/parser/xpath-ng/proposal-2/ElvisExpr_MissingElseExpr.txt")
-                val actual = parseResource("tests/parser/xpath-ng/proposal-2/ElvisExpr_MissingElseExpr.xq")
+                val expected = loadResource("tests/parser/basex-9.1/ElvisExpr_MissingElseExpr.txt")
+                val actual = parseResource("tests/parser/basex-9.1/ElvisExpr_MissingElseExpr.xq")
                 assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }

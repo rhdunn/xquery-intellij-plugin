@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.parser
 import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.IFileElementType
 import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
+import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text.FTOptionDeclPsiImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.*
@@ -876,6 +877,12 @@ object XQueryElementType {
         "XQUERY_ELEMENT_DECL_TEST",
         PluginElementDeclTestPsiImpl::class.java,
         XQuery
+    )
+
+    val ELVIS_EXPR: IElementType = ICompositeElementType(
+        "XQUERY_ELVIS_EXPR",
+        PluginElvisExprPsiImpl::class.java,
+        XPath
     )
 
     val FT_FUZZY_OPTION: IElementType = ICompositeElementType(
