@@ -430,24 +430,24 @@ private class PluginParserTest : ParserTestCase() {
         @Test
         @DisplayName("untyped")
         fun untyped() {
-            val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-1/ParamList_Variadic_Untyped.txt")
-            val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-1/ParamList_Variadic_Untyped.xq")
+            val expected = loadResource("tests/parser/intellij-plugin/ParamList_Variadic_Untyped.txt")
+            val actual = parseResource("tests/parser/intellij-plugin/ParamList_Variadic_Untyped.xq")
             assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
         @DisplayName("untyped; compact whitespace")
         fun untyped_compactWhitespace() {
-            val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-1/ParamList_Variadic_Untyped_CompactWhitespace.txt")
-            val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-1/ParamList_Variadic_Untyped_CompactWhitespace.xq")
+            val expected = loadResource("tests/parser/intellij-plugin/ParamList_Variadic_Untyped_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/intellij-plugin/ParamList_Variadic_Untyped_CompactWhitespace.xq")
             assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
         @DisplayName("multiple Params; on the last parameter")
         fun multipleParams() {
-            val expected = loadResource("tests/parser/xpath-ng/xpath/proposal-1/ParamList_Variadic_Multiple_LastParam.txt")
-            val actual = parseResource("tests/parser/xpath-ng/xpath/proposal-1/ParamList_Variadic_Multiple_LastParam.xq")
+            val expected = loadResource("tests/parser/intellij-plugin/ParamList_Variadic_Multiple_LastParam.txt")
+            val actual = parseResource("tests/parser/intellij-plugin/ParamList_Variadic_Multiple_LastParam.xq")
             assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }

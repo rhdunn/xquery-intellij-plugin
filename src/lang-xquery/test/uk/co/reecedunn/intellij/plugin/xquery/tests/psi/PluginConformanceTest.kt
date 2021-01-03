@@ -106,7 +106,7 @@ private class PluginConformanceTest : ParserTestCase() {
     @Test
     @DisplayName("XQuery IntelliJ Plugin EBNF (95) ParamList")
     fun paramList() {
-        val file = parseResource("tests/parser/xpath-ng/proposal-1/ParamList_Variadic_Untyped.xq")
+        val file = parseResource("tests/parser/intellij-plugin/ParamList_Variadic_Untyped.xq")
         val conformance = file.walkTree().filterIsInstance<XPathParamList>().first() as VersionConformance
 
         assertThat(conformance.requiresConformance.size, `is`(1))
