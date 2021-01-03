@@ -35,7 +35,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.staticallyKnownFunctions
 private val XQUERY10: List<Version> = listOf()
 private val XQUERY30: List<Version> = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
 
-class XPathArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathArgumentList, VersionConformance {
+open class XPathArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathArgumentList, VersionConformance {
     // region VersionConformance
 
     override val requiresConformance: List<Version>

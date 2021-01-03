@@ -15,7 +15,7 @@ XPathImpl[FILE(0:17)]
             PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
          LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(10:11)]('}')
       PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
-      XPathArgumentListImpl[XPATH_ARGUMENT_LIST(12:17)]
+      XPathPositionalArgumentListImpl[XPATH_POSITIONAL_ARGUMENT_LIST(12:17)]
          LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(12:13)]('(')
          PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
          XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(14:15)]('2')

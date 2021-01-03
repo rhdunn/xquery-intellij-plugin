@@ -550,6 +550,12 @@ object XPathElementType {
         XPath
     )
 
+    val POSITIONAL_ARGUMENT_LIST: IElementType = ICompositeElementType(
+        "XPATH_POSITIONAL_ARGUMENT_LIST",
+        XPathPositionalArgumentListPsiImpl::class.java,
+        XPath
+    )
+
     val TERNARY_CONDITIONAL_EXPR: IElementType = ICompositeElementType(
         "XPATH_TERNARY_CONDITIONAL_EXPR",
         XPathTernaryConditionalExprPsiImpl::class.java,

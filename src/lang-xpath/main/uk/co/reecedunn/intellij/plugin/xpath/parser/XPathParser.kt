@@ -1446,7 +1446,7 @@ open class XPathParser : PsiParser {
                         // Keep PostfixExpr if there is a filter expression.
                         havePostfixExpr = true
                     }
-                    parseArgumentList(builder) -> {
+                    parsePositionalArgumentList(builder) -> {
                         parseWhiteSpaceAndCommentTokens(builder)
 
                         marker.done(XPathElementType.DYNAMIC_FUNCTION_CALL)
@@ -1704,6 +1704,10 @@ open class XPathParser : PsiParser {
     }
 
     fun parseArgumentList(builder: PsiBuilder): Boolean {
+        return parseArgumentList(builder, XPathElementType.ARGUMENT_LIST)
+    }
+
+    private fun parseArgumentList(builder: PsiBuilder, type: IElementType): Boolean {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.PARENTHESIS_OPEN)
         if (marker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
@@ -1714,10 +1718,14 @@ open class XPathParser : PsiParser {
                 builder.error(XPathBundle.message("parser.error.expected", ")"))
             }
 
-            marker.done(XPathElementType.ARGUMENT_LIST)
+            marker.done(type)
             return true
         }
         return false
+    }
+
+    private fun parsePositionalArgumentList(builder: PsiBuilder): Boolean {
+        return parseArgumentList(builder, XPathElementType.POSITIONAL_ARGUMENT_LIST)
     }
 
     private fun parsePositionalArguments(builder: PsiBuilder): Boolean {

@@ -10,7 +10,7 @@ XQueryModuleImpl[FILE(0:12)]
                PsiErrorElementImpl[ERROR_ELEMENT(5:5)]('XPST0003: Missing expression.')
                LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(5:6)]('}')
             PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-            XPathArgumentListImpl[XPATH_ARGUMENT_LIST(7:12)]
+            XPathPositionalArgumentListImpl[XPATH_POSITIONAL_ARGUMENT_LIST(7:12)]
                LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(7:8)]('(')
                PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
                XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(9:10)]('2')

@@ -1276,6 +1276,15 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XPath 4.0 ED EBNF (60) PositionalArgumentList")
+    fun positionalArgumentList() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+    }
+
+    @Test
     @DisplayName("XPath 4.0 ED EBNF (60) PositionalArguments")
     fun positionalArguments() {
         val lexer = createLexer()

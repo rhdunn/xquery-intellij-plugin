@@ -3815,11 +3815,20 @@ class XQueryLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XPath 4.0 ED EBNF (96) OtherwiseExpr")
+    @DisplayName("XQuery 4.0 ED EBNF (96) OtherwiseExpr")
     fun otherwiseExpr() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "otherwise", XPathTokenType.K_OTHERWISE)
+    }
+
+    @Test
+    @DisplayName("XQuery 4.0 ED EBNF (132) PositionalArgumentList")
+    fun positionalArgumentList() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
