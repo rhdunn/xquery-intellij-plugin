@@ -440,43 +440,43 @@ These changes include support for:
 | \[18\]  | `SingleType`                   | ::= | `(LocalUnionType | SimpleTypeName) "?"?` |                 |
 | \[19\]  | `OrExpr`                       | ::= | `AndExpr (("or" \| "orElse") AndExpr)*`   |                |
 | \[20\]  | `AndExpr`                      | ::= | `ComparisonExpr (("and" \| "andAlso") ComparisonExpr)*` |  |
-| \[21\]  |                                | ::= |                                         |                  |
+| \[21\]  |                                | ::= |                                     |                      |
 | \[22\]  | `ParamList`                    | ::= | `ParamList ::= Param ("," Param)* "..."?` |                |
 | \[23\]  | `FunctionItemExpr`             | ::= | `NamedFunctionRef \| InlineFunctionExpr \| ContextItemFunctionExpr \| LambdaFunctionExpr` | |
-| \[24\]  | `ContextItemFunctionExpr`      | ::= | `(( "fn" "{" ) | ".{" ) Expr "}"`       |                  |
+| \[24\]  | `ContextItemFunctionExpr`      | ::= | `(( "fn" "{" ) | ".{" ) Expr "}"`   |                      |
 | \[25\]  | `TupleType`                    | ::= | `"tuple" "(" TupleField ("," TupleField)* ("," "*")? ")"` | |
 | \[26\]  | `TupleField`                   | ::= | `TupleFieldName "?"? ( ( ":" | "as" ) SequenceType )?` |   |
 | \[27\]  | `ArrowExpr`                    | ::= | `UnaryExpr ( "=>" ( ArrowFunctionCall | ArrowDynamicFunctionCall ) )*` | |
-| \[28\]  | `ArrowFunctionCall`            | ::= | `EQName ArgumentList`                   |                  |
+| \[28\]  | `ArrowFunctionCall`            | ::= | `EQName ArgumentList`               |                      |
 | \[29\]  | `AttrbiuteTest`                | ::= | `"attribute" "(" (NameTest ("," TypeName)?)? ")"` |        |
-| \[30\]  |                                | ::= |                                         |                  |
+| \[30\]  |                                | ::= |                                     |                      |
 | \[31\]  | `MultiplicativeExpr`           | ::= | `OtherwiseExpr ( ("*" | "div" | "idiv" | "mod") OtherwiseExpr )*` | |
-| \[32\]  | `OtherwiseExpr`                | ::= | `UnionExpr ( "otherwise" UnionExpr )*`  |                  |
-| \[33\]  | `TupleFieldName`               | ::= | `NCName | StringLiteral`                |                  |
+| \[32\]  | `OtherwiseExpr`                | ::= | `UnionExpr ( "otherwise" UnionExpr )*` |                   |
+| \[33\]  | `TupleFieldName`               | ::= | `NCName | StringLiteral`            |                      |
 | \[34\]  | `TypeAlias`                    | ::= | `( "~" EQName ) | ( "type" "(" EQName ")" )` |             |
-| \[35\]  | `LambdaFunctionExpr`           | ::= | `"_{" Expr "}"`                         |                  |
+| \[35\]  | `LambdaFunctionExpr`           | ::= | `"_{" Expr "}"`                     |                      |
 | \[36\]  | `PrimaryExpr`                  | ::= | `Literal \| VarRef \| ParamRef \| ParenthesizedExpr \| ContextItemExpr \| FunctionCall \| FunctionItemExpr \| MapConstructor \| ArrayConstructor \| UnaryLookup` | |
-| \[37\]  | `ParamRef`                     | ::= | `"$" Digits`                            |                  |
+| \[37\]  | `ParamRef`                     | ::= | `"$" Digits`                        |                      |
 | \[38\]  | `ArrowDynamicFunctionCall`     | ::= | `( VarRef \| ParamRef \| ParenthesizedExpr )` |            |
-| \[39\]  | `LetExpr`                      | ::= | `SimpleLetClause ReturnClause`          |                  |
-| \[40\]  |                                | ::= |                                         |                  |
+| \[39\]  | `LetExpr`                      | ::= | `SimpleLetClause ReturnClause`      |                      |
+| \[40\]  |                                | ::= |                                     |                      |
 | \[41\]  | `SimpleForBinding`             | ::= | `"member"? "$" VarName "in" ExprSingle` |                  |
 | \[42\]  | `PathExpr`                     | ::= | `("/" RelativePathExpr?) \| (AbbrevDescendantOrSelfStep RelativePathExpr) \| RelativePathExpr` | /\* xgc: leading-lone-slash \*/ |
 | \[43\]  | `RelativePathExpr`             | ::= | `StepExpr (("/" \| AbbrevDescendantOrSelfStep) StepExpr)*` | |
-| \[44\]  | `AbbrevDescendantOrSelfStep`   | ::= | `"//"`                                  |                  |
+| \[44\]  | `AbbrevDescendantOrSelfStep`   | ::= | `"//"`                              |                      |
 | \[45\]  | `PostfixExpr`                  | ::= | `FilterExpr \| DynamicFunctionCall \| PostfixLookup \| PrimaryExpr` | |
-| \[46\]  | `FilterExpr`                   | ::= | `PostfixExpr Predicate`                 |                  |
-| \[47\]  | `DynamicFunctionCall`          | ::= | `PostfixExpr ArgumentList`              |                  |
-| \[48\]  | `PostfixLookup`                | ::= | `PostfixExpr Lookup`                    |                  |
+| \[46\]  | `FilterExpr`                   | ::= | `PostfixExpr Predicate`             |                      |
+| \[47\]  | `DynamicFunctionCall`          | ::= | `PostfixExpr ArgumentList`          |                      |
+| \[48\]  | `PostfixLookup`                | ::= | `PostfixExpr Lookup`                |                      |
 | \[49\]  | `AxisStep`                     | ::= | `FilterStep \| ReverseStep \| ForwardStep` |               |
-| \[50\]  | `FilterStep`                   | ::= | `AxisStep Predicate`                      |                |
-| \[51\]  | `ParenthesizedExpr`            | ::= | `EmptyExpr | ( "(" Expr ")" )`            |                |
-| \[52\]  | `EmptyExpr`                    | ::= | `"(" ")"`                                 |                |
+| \[50\]  | `FilterStep`                   | ::= | `AxisStep Predicate`                |                      |
+| \[51\]  | `ParenthesizedExpr`            | ::= | `EmptyExpr | ( "(" Expr ")" )`      |                      |
+| \[52\]  | `EmptyExpr`                    | ::= | `"(" ")"`                           |                      |
 
 ### A.2 Reserved Function Names
 
-| keyword                  | XQuery                          |
-|--------------------------|---------------------------------|
+| keyword                  | XPath                          |
+|--------------------------|--------------------------------|
 | `attribute`              | XPath 2.0                      |
 | `comment`                | XPath 1.0                      |
 | `document-node`          | XPath 2.0                      |
