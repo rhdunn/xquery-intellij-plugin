@@ -60,6 +60,7 @@ object XPathTokenType {
     val STAR: IElementType = IElementType("XPATH_STAR_TOKEN", XPath) // XPath 1.0
     val TERNARY_ELSE: IElementType = IElementType("XPATH_TERNARY_ELSE_TOKEN", XPath) // XPath 4.0 ED
     val TERNARY_IF: IElementType = IElementType("XPATH_TERNARY_IF_TOKEN", XPath) // XPath 4.0 ED
+    val THIN_ARROW: IElementType = IElementType("XPATH_THIN_ARROW_TOKEN", XPath) // XPath 4.0 ED
     val TYPE_ALIAS: IElementType = IElementType("XPATH_TYPE_ALIAS", XPath) // Saxon 9.8
     val UNION: IElementType = IElementType("XPATH_UNION_TOKEN", XPath) // XPath 1.0
     val VARIABLE_INDICATOR: IElementType = IElementType("XPATH_VARIABLE_INDICATOR_TOKEN", XPath) // XPath 1.0
@@ -304,6 +305,8 @@ object XPathTokenType {
         GREATER_THAN,
         GREATER_THAN_OR_EQUAL
     )
+
+    val INLINE_FUNCTION_TOKENS: TokenSet = TokenSet.create(K_FUNCTION, THIN_ARROW)
 
     val INTERSECT_EXCEPT_EXPR_TOKENS: TokenSet = TokenSet.create(K_INTERSECT, K_EXCEPT)
 

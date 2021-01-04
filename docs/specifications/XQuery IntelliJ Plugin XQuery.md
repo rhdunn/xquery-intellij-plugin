@@ -560,9 +560,11 @@ This is a BaseX Full Text extension.
 #### 3.4.1 Non-Deterministic Function Calls
 
 {: .ebnf-symbols }
-| Ref    | Symbol                         |     | Expression                                | Options |
-|--------|--------------------------------|-----|-------------------------------------------|---------|
-| \[16\] | `NonDeterministicFunctionCall` | ::= | `"non-deterministic" VarRef ArgumentList` |         |
+| Ref     | Symbol                         |     | Expression                  | Options |
+|---------|--------------------------------|-----|-----------------------------|---------|
+| \[16\]  | `NonDeterministicFunctionCall` | ::= | `"non-deterministic" VarRef PositionalArgumentList` | |
+| \[112\] | `PositionalArgumentList`       | ::= | `"(" PositionalArguments? ")"` |      |
+| \[120\] | `PositionalArguments`          | ::= | `Argument ("," Argument)*`  |         |
 
 \[Definition: A *non-deterministic* function call is a function that has side
 effects.\] This is used to disable various query optimizations that would be
@@ -911,7 +913,9 @@ Otherwise, if either `A` or `B` have more than one item, the expressions
 |---------|--------------------------------|-----|-------------------------------------------|---------|
 | \[109\] | `ArrowExpr`                    | ::= | `UnaryExpr ( "=>" ( ArrowFunctionCall | ArrowDynamicFunctionCall ) )*` | |
 | \[110\] | `ArrowFunctionCall`            | ::= | `EQName ArgumentList`                     |         |
-| \[119\] | `ArrowDynamicFunctionCall`     | ::= | `( VarRef \| ParamRef \| ParenthesizedExpr ) ArgumentList` | |
+| \[119\] | `ArrowDynamicFunctionCall`     | ::= | `( VarRef \| ParamRef \| ParenthesizedExpr ) PositionalArgumentList` | |
+| \[112\] | `PositionalArgumentList`       | ::= | `"(" PositionalArguments? ")"`            |         |
+| \[120\] | `PositionalArguments`          | ::= | `Argument ("," Argument)*`                |         |
 
 The `ParamRef` is for [Lambda Function Expressions](#3422-lambda-function-expressions)
 support in Saxon 10.0.
@@ -1086,6 +1090,7 @@ The EBNF symbols below only include new and modified symbols.
 
 These changes include support for:
 1.  XQuery 1.0 Working Draft 02 May 2003 syntax;
+1.  XQuery 4.0 Editor's Draft 12 December 2020 syntax;
 1.  BaseX Vendor Extensions;
 1.  MarkLogic Vendor Extensions;
 1.  Saxon Vendor Extensions.
@@ -1108,7 +1113,7 @@ These changes include support for:
 | \[13\]   | `FTMatchOption`                | ::= | `FTLanguageOption \| FTWildCardOption \| FTThesaurusOption \| FTStemOption \| FTCaseOption \| FTDiacriticsOption \| FTStopWordOption \| FTExtensionOption \| FTFuzzyOption` | |
 | \[14\]   | `FTFuzzyOption`                | ::= | `fuzzy`                             |                       |
 | \[15\]   | `PrimaryExpr`                  | ::= | `Literal \| VarRef \| ParamRef \| ParenthesizedExpr \| ContextItemExpr \| FunctionCall \| NonDeterministicFunctionCall \| OrderedExpr \| UnorderedExpr \| NodeConstructor \| FunctionItemExpr \| MapConstructor \| ArrayConstructor \| BooleanConstructor \| NumberConstructor \| NullConstructor \| BinaryConstructor \| StringConstructor \| UnaryLookup` | |
-| \[16\]   | `NonDeterministicFunctionCall` | ::= | `"non-deterministic" VarRef ArgumentList` |                 |
+| \[16\]   | `NonDeterministicFunctionCall` | ::= | `"non-deterministic" VarRef PositionalArgumentList` |       |
 | \[17\]   | `MapConstructorEntry`          | ::= | `MapKeyExpr (":" \| ":=") MapValueExpr` |                   |
 | \[18\]   | `Prolog`                       | ::= | `((DefaultNamespaceDecl \| Setter \| NamespaceDecl \| Import \| UsingDecl) Separator)* ((ContextItemDecl \| AnnotatedDecl \| OptionDecl \| TypeDecl) Separator)*` | |
 | \[19\]   | `TypeDecl`                     | ::= | `"declare" "type" QName "=" ItemType` |                     |
@@ -1199,15 +1204,15 @@ These changes include support for:
 | \[109\]  | `ArrowExpr`                    | ::= | `UnaryExpr ( "=>" ( ArrowFunctionCall | ArrowDynamicFunctionCall ) )*` | |
 | \[110\]  | `ArrowFunctionCall`            | ::= | `EQName ArgumentList`               |                       |
 | \[111\]  | `AttributeTest`                | ::= | `"attribute" "(" (NameTest ("," TypeName?)? ")"` |          |
-| \[112\]  |                                | ::= |                                     |                       |
+| \[112\]  | `PositionalArgumentList`       | ::= | `"(" PositionalArguments? ")"`      |                       |
 | \[113\]  | `MultiplicativeExpr`           | ::= | `OtherwiseExpr ( ("*" | "div" | "idiv" | "mod") OtherwiseExpr )*` | |
 | \[114\]  | `OtherwiseExpr`                | ::= | `UnionExpr ( "otherwise" UnionExpr )*` |                    |
 | \[115\]  | `TupleFieldName`               | ::= | `NCName | StringLiteral`            |                       |
 | \[116\]  | `TypeAlias`                    | ::= | `( "~" EQName ) | ( "type" "(" EQName ")" )` |              |
 | \[117\]  | `LambdaFunctionExpr`           | ::= | `"_{" Expr "}"`                     |                       |
 | \[118\]  | `ParamRef`                     | ::= | `"$" Digits`                        |                       |
-| \[119\]  | `ArrowDynamicFunctionCall`     | ::= | `( VarRef \| ParamRef \| ParenthesizedExpr ) ArgumentList` | |
-| \[120\]  |                                | ::= |                                     |                       |
+| \[119\]  | `ArrowDynamicFunctionCall`     | ::= | `( VarRef \| ParamRef \| ParenthesizedExpr ) PositionalArgumentList` | |
+| \[120\]  | `PositionalArguments`          | ::= | `Argument ("," Argument)*`          |                       |
 | \[121\]  | `ForBinding`                   | ::= | `"member"? "$" VarName TypeDeclaration? AllowingEmpty? PositionalVar? "in" ExprSingle` | |
 | \[122\]  | `DirElemContent`               | ::= | `DirectConstructor \| CDataSection \| EnclosedExpr \| DirTextConstructor` | |
 | \[123\]  | `DirTextConstructor`           | ::= | `ElementContentChar \| PredefinedEntityRef \| CharRef \| "{{" \| "}}"` | |
@@ -1222,6 +1227,8 @@ These changes include support for:
 | \[132\]  | `FilterStep`                   | ::= | `AxisStep Predicate`                |                       |
 | \[133\]  | `ParenthesizedExpr`            | ::= | `EmptyExpr | ( "(" Expr ")" )`      |                       |
 | \[134\]  | `EmptyExpr`                    | ::= | `"(" ")"`                           |                       |
+| \[135\]  | `FunctionSignature`            | ::= | `"(" ParamList? ")" TypeDeclaration?` |                     |
+| \[136\]  | `InlineFunctionExpr`           | ::= | `("function" | "->") FunctionSignature FunctionBody` |      |
 
 ### A.2 Reserved Function Names
 

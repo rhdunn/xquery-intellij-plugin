@@ -995,6 +995,8 @@ class XQuerySyntaxHighlighterTest {
         assertThat(highlighter.getTokenHighlights(XPathTokenType.FUNCTION_REF_OPERATOR).size, `is`(0))
 
         assertThat(highlighter.getTokenHighlights(XPathTokenType.ARROW).size, `is`(0))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.THIN_ARROW).size, `is`(0))
+
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.STRING_INTERPOLATION_OPEN).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.STRING_INTERPOLATION_CLOSE).size, `is`(0))
 

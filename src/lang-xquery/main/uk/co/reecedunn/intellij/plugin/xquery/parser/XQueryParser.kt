@@ -3540,7 +3540,7 @@ class XQueryParser : XPathParser() {
             haveAnnotations = true
         }
 
-        if (builder.matchTokenType(XPathTokenType.K_FUNCTION)) {
+        if (builder.matchTokenType(XPathTokenType.INLINE_FUNCTION_TOKENS)) {
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens(builder)

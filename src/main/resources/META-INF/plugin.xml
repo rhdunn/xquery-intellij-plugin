@@ -78,6 +78,7 @@
       <li>Support any <code>ItemType</code> on <code>LocalUnionType</code> and <code>TypedMapTest</code>.</li>
       <li>Support the <code>member</code> keyword on any for binding.</li>
       <li>Support nesting <code>TernaryConditionalExpr</code> expressions.</li>
+      <li>Support <code>-&gt;</code> in addition to <code>function</code> in <code>InlineFunctionExpr</code> expressions.</li>
     </ol>
   ]]></change-notes>
 

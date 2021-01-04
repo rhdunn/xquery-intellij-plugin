@@ -521,6 +521,7 @@ class XPathSyntaxHighlighterTest {
         assertThat(highlighter.getTokenHighlights(XPathTokenType.FUNCTION_REF_OPERATOR).size, `is`(0))
 
         assertThat(highlighter.getTokenHighlights(XPathTokenType.ARROW).size, `is`(0))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.THIN_ARROW).size, `is`(0))
 
         assertThat(highlighter.getTokenHighlights(XPathTokenType.CONTEXT_FUNCTION).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.ELLIPSIS).size, `is`(0))

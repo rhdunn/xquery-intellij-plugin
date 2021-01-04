@@ -1,0 +1,19 @@
+XQueryModuleImpl[FILE(0:15)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:15)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:15)]
+         XPathInlineFunctionExprImpl[XPATH_INLINE_FUNCTION_EXPR(0:15)]
+            LeafPsiElement[XPATH_THIN_ARROW_TOKEN(0:2)]('->')
+            PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
+            LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(3:4)]('(')
+            PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
+            LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(5:6)](')')
+            PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AS(7:9)]('as')
+            PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
+            PsiErrorElementImpl[ERROR_ELEMENT(10:10)]('XPST0003: Expected 'SequenceType'.')
+            XQueryFunctionBodyImpl[XQUERY_FUNCTION_BODY(10:15)]
+               LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(10:11)]('{')
+               PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
+               XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(12:13)]('2')
+               PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
+               LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(14:15)]('}')

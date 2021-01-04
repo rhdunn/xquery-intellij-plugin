@@ -4271,8 +4271,76 @@ private class XPathParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 4.0 ED EBNF (83) InlineFunctionExpr")
+    internal inner class InlineFunctionExpr_XPath40 {
+        @Test
+        @DisplayName("arrow function expression")
+        fun arrowFunctionExpr() {
+            val expected = loadResource("tests/parser/xpath-4.0/InlineFunctionExpr_Arrow.txt")
+            val actual = parseResource("tests/parser/xpath-4.0/InlineFunctionExpr_Arrow.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("arrow function expression; compact whitespace")
+        fun arrowFunctionExpr_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-4.0/InlineFunctionExpr_Arrow_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-4.0/InlineFunctionExpr_Arrow_CompactWhitespace.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing closing parenthesis")
+        fun missingClosingParenthesis() {
+            val expected = loadResource("tests/parser/xpath-4.0/InlineFunctionExpr_Arrow_MissingClosingParenthesis.txt")
+            val actual = parseResource("tests/parser/xpath-4.0/InlineFunctionExpr_Arrow_MissingClosingParenthesis.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing opening brace")
+        fun missingOpeningBrace() {
+            val expected = loadResource("tests/parser/xpath-4.0/InlineFunctionExpr_Arrow_MissingOpeningBrace.txt")
+            val actual = parseResource("tests/parser/xpath-4.0/InlineFunctionExpr_Arrow_MissingOpeningBrace.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing function body")
+        fun missingFunctionBody() {
+            val expected = loadResource("tests/parser/xpath-4.0/InlineFunctionExpr_Arrow_MissingFunctionBody.txt")
+            val actual = parseResource("tests/parser/xpath-4.0/InlineFunctionExpr_Arrow_MissingFunctionBody.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("parameter list")
+        fun paramList() {
+            val expected = loadResource("tests/parser/xpath-4.0/InlineFunctionExpr_Arrow_ParamList.txt")
+            val actual = parseResource("tests/parser/xpath-4.0/InlineFunctionExpr_Arrow_ParamList.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("return type")
+        fun returnType() {
+            val expected = loadResource("tests/parser/xpath-4.0/InlineFunctionExpr_Arrow_ReturnType.txt")
+            val actual = parseResource("tests/parser/xpath-4.0/InlineFunctionExpr_Arrow_ReturnType.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("return type; missing SequenceType")
+        fun returnType_MissingSequenceType() {
+            val expected = loadResource("tests/parser/xpath-4.0/InlineFunctionExpr_Arrow_ReturnType_MissingSequenceType.txt")
+            val actual = parseResource("tests/parser/xpath-4.0/InlineFunctionExpr_Arrow_ReturnType_MissingSequenceType.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 4.0 ED EBNF (96) ItemType")
-    internal inner class ItemType_XQuery40 {
+    internal inner class ItemType_XPath40 {
         @Nested
         @DisplayName("XPath 4.0 ED EBNF (127) LocalUnionType")
         internal inner class LocalUnionType {

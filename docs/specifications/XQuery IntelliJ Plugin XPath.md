@@ -392,7 +392,7 @@ expressions in the lambda function body expression.
 |--------|--------------------------------|-----|-------------------------------------------|---------|
 | \[27\] | `ArrowExpr`                    | ::= | `UnaryExpr ( "=>" ( ArrowFunctionCall | ArrowDynamicFunctionCall ) )*` | |
 | \[28\] | `ArrowFunctionCall`            | ::= | `EQName ArgumentList`                     |         |
-| \[38\] | `ArrowDynamicFunctionCall`     | ::= | `( VarRef \| ParamRef \| ParenthesizedExpr ) ArgumentList` | |
+| \[38\] | `ArrowDynamicFunctionCall`     | ::= | `( VarRef \| ParamRef \| ParenthesizedExpr ) PositionalArgumentList` | |
 
 The `ParamRef` is for [Lambda Function Expressions](#3412-lambda-function-expressions)
 support in Saxon 10.0.
@@ -403,7 +403,7 @@ support in Saxon 10.0.
 
 This EBNF grammar includes and modifies the EBNF grammar for the following
 specifications:
-1.  XPath 2.0 (W3C Recommendation 14 December 2010).
+1.  XPath 3.1 (W3C Recommendation 21 March 2017).
 
 When an EBNF symbol is modified in an extension, that modified symbol is used
 in preference to the base symbol definition. When the symbol is modified below,
@@ -415,6 +415,7 @@ specifications, including this document.
 The EBNF symbols below only include new and modified symbols.
 
 These changes include support for:
+1.  XPath 4.0 Editor's Draft 12 December 2020 syntax;
 1.  Saxon Vendor Extensions.
 
 {: .ebnf-symbols }
@@ -430,7 +431,7 @@ These changes include support for:
 | \[8\]   | `ReturnClause`                 | ::= | `"return" ExprSingle`               |                      |
 | \[9\]   | `ExprSingle`                   | ::= | `ForExpr \| LetExpr \| QuantifiedExpr \| IfExpr \| TernaryConditionalExpr` | |
 | \[10\]  | `TernaryConditionalExpr`       | ::= | `OrExpr "??" TernaryConditionalExpr "!!" TernaryConditionalExpr` | |
-| \[11\]  |                                | ::= |                                     |                      |
+| \[11\]  | `PositionalArgumentList`       | ::= | `"(" PositionalArguments? ")"`      |                      |
 | \[12\]  | `NillableTypeName`             | ::= | `TypeName "?"`                      |                      |
 | \[13\]  | `ElementTest`                  | ::= | `"element" "(" (NameTest ("," (NillableTypeName | TypeName))?)? ")"` | |
 | \[14\]  | `SequenceTypeList`             | ::= | `SequenceType ("," SequenceType)*`  |                      |
@@ -440,7 +441,7 @@ These changes include support for:
 | \[18\]  | `SingleType`                   | ::= | `(LocalUnionType | SimpleTypeName) "?"?` |                 |
 | \[19\]  | `OrExpr`                       | ::= | `AndExpr (("or" \| "orElse") AndExpr)*`   |                |
 | \[20\]  | `AndExpr`                      | ::= | `ComparisonExpr (("and" \| "andAlso") ComparisonExpr)*` |  |
-| \[21\]  |                                | ::= |                                     |                      |
+| \[21\]  | `FunctionSignature`            | ::= | `"(" ParamList? ")" TypeDeclaration?` |                    |
 | \[22\]  | `ParamList`                    | ::= | `ParamList ::= Param ("," Param)* "..."?` |                |
 | \[23\]  | `FunctionItemExpr`             | ::= | `NamedFunctionRef \| InlineFunctionExpr \| ContextItemFunctionExpr \| LambdaFunctionExpr` | |
 | \[24\]  | `ContextItemFunctionExpr`      | ::= | `(( "fn" "{" ) | ".{" ) Expr "}"`   |                      |
@@ -449,7 +450,7 @@ These changes include support for:
 | \[27\]  | `ArrowExpr`                    | ::= | `UnaryExpr ( "=>" ( ArrowFunctionCall | ArrowDynamicFunctionCall ) )*` | |
 | \[28\]  | `ArrowFunctionCall`            | ::= | `EQName ArgumentList`               |                      |
 | \[29\]  | `AttrbiuteTest`                | ::= | `"attribute" "(" (NameTest ("," TypeName)?)? ")"` |        |
-| \[30\]  |                                | ::= |                                     |                      |
+| \[30\]  | `InlineFunctionExpr`           | ::= | `("function" | "->") FunctionSignature FunctionBody` |     |
 | \[31\]  | `MultiplicativeExpr`           | ::= | `OtherwiseExpr ( ("*" | "div" | "idiv" | "mod") OtherwiseExpr )*` | |
 | \[32\]  | `OtherwiseExpr`                | ::= | `UnionExpr ( "otherwise" UnionExpr )*` |                   |
 | \[33\]  | `TupleFieldName`               | ::= | `NCName | StringLiteral`            |                      |
@@ -457,7 +458,7 @@ These changes include support for:
 | \[35\]  | `LambdaFunctionExpr`           | ::= | `"_{" Expr "}"`                     |                      |
 | \[36\]  | `PrimaryExpr`                  | ::= | `Literal \| VarRef \| ParamRef \| ParenthesizedExpr \| ContextItemExpr \| FunctionCall \| FunctionItemExpr \| MapConstructor \| ArrayConstructor \| UnaryLookup` | |
 | \[37\]  | `ParamRef`                     | ::= | `"$" Digits`                        |                      |
-| \[38\]  | `ArrowDynamicFunctionCall`     | ::= | `( VarRef \| ParamRef \| ParenthesizedExpr )` |            |
+| \[38\]  | `ArrowDynamicFunctionCall`     | ::= | `( VarRef \| ParamRef \| ParenthesizedExpr ) PositionalArgumentList` | |
 | \[39\]  | `LetExpr`                      | ::= | `SimpleLetClause ReturnClause`      |                      |
 | \[40\]  |                                | ::= |                                     |                      |
 | \[41\]  | `SimpleForBinding`             | ::= | `"member"? "$" VarName "in" ExprSingle` |                  |
@@ -466,7 +467,7 @@ These changes include support for:
 | \[44\]  | `AbbrevDescendantOrSelfStep`   | ::= | `"//"`                              |                      |
 | \[45\]  | `PostfixExpr`                  | ::= | `FilterExpr \| DynamicFunctionCall \| PostfixLookup \| PrimaryExpr` | |
 | \[46\]  | `FilterExpr`                   | ::= | `PostfixExpr Predicate`             |                      |
-| \[47\]  | `DynamicFunctionCall`          | ::= | `PostfixExpr ArgumentList`          |                      |
+| \[47\]  | `DynamicFunctionCall`          | ::= | `PostfixExpr PositionalArgumentList` |                     |
 | \[48\]  | `PostfixLookup`                | ::= | `PostfixExpr Lookup`                |                      |
 | \[49\]  | `AxisStep`                     | ::= | `FilterStep \| ReverseStep \| ForwardStep` |               |
 | \[50\]  | `FilterStep`                   | ::= | `AxisStep Predicate`                |                      |
@@ -475,7 +476,7 @@ These changes include support for:
 
 ### A.2 Reserved Function Names
 
-| keyword                  | XPath                          |
+| keyword                  | XPath Version                  |
 |--------------------------|--------------------------------|
 | `attribute`              | XPath 2.0                      |
 | `comment`                | XPath 1.0                      |

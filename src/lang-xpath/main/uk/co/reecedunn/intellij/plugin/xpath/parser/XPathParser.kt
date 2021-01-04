@@ -1797,7 +1797,7 @@ open class XPathParser : PsiParser {
 
     open fun parseInlineFunctionExpr(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
-        if (builder.matchTokenType(XPathTokenType.K_FUNCTION)) {
+        if (builder.matchTokenType(XPathTokenType.INLINE_FUNCTION_TOKENS)) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!parseFunctionSignature(builder)) {
                 marker.rollbackTo()

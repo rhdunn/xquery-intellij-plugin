@@ -222,7 +222,12 @@ open class XPathLexer(tokenRange: CodePointRange) : LexerImpl(STATE_DEFAULT, tok
             }
             CharacterClass.HYPHEN_MINUS -> {
                 mTokenRange.match()
-                mType = XPathTokenType.MINUS
+                mType = if (mTokenRange.codePoint == '>'.toInt()) {
+                    mTokenRange.match()
+                    XPathTokenType.THIN_ARROW
+                } else {
+                    XPathTokenType.MINUS
+                }
             }
             CharacterClass.LESS_THAN -> {
                 mTokenRange.match()

@@ -1276,7 +1276,7 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XPath 4.0 ED EBNF (60) PositionalArgumentList")
+    @DisplayName("XPath 4.0 ED EBNF (59) PositionalArgumentList")
     fun positionalArgumentList() {
         val lexer = createLexer()
 
@@ -1290,6 +1290,15 @@ class XPathLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, ",", XPathTokenType.COMMA)
+    }
+
+    @Test
+    @DisplayName("XPath 4.0 ED EBNF (83) InlineFunctionExpr")
+    fun inlineFunctionExpr_XPath40() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "function", XPathTokenType.K_FUNCTION)
+        matchSingleToken(lexer, "->", XPathTokenType.THIN_ARROW)
     }
 
     @Test

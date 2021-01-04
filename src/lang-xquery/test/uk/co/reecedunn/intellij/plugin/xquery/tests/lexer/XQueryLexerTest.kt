@@ -3840,6 +3840,15 @@ class XQueryLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XQuery 4.0 ED EBNF (185) InlineFunctionExpr")
+    fun inlineFunctionExpr_XQuery40() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "function", XPathTokenType.K_FUNCTION)
+        matchSingleToken(lexer, "->", XPathTokenType.THIN_ARROW)
+    }
+
+    @Test
     @DisplayName("XQuery 4.0 ED EBNF (233) LocalUnionType")
     fun localUnionType() {
         val lexer = createLexer()

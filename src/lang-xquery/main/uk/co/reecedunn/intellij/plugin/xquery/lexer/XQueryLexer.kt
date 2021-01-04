@@ -242,6 +242,9 @@ class XQueryLexer : XPathLexer(CodePointRangeImpl()) {
                         mTokenRange.restore()
                         XPathTokenType.MINUS
                     }
+                } else if (c == '>'.toInt()) {
+                    mTokenRange.match()
+                    XPathTokenType.THIN_ARROW
                 } else {
                     XPathTokenType.MINUS
                 }
