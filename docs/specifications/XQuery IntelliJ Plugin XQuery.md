@@ -911,7 +911,8 @@ Otherwise, if either `A` or `B` have more than one item, the expressions
 {: .ebnf-symbols }
 | Ref     | Symbol                         |     | Expression                                | Options |
 |---------|--------------------------------|-----|-------------------------------------------|---------|
-| \[109\] | `ArrowExpr`                    | ::= | `UnaryExpr ( "=>" ( ArrowFunctionCall | ArrowDynamicFunctionCall ) )*` | |
+| \[109\] | `ArrowExpr`                    | ::= | `UnaryExpr FatArrowTarget*`               |         |
+| \[137\] | `FatArrowTarget`               | ::= | `"=>" ( ArrowFunctionCall | ArrowDynamicFunctionCall )` | |
 | \[110\] | `ArrowFunctionCall`            | ::= | `EQName ArgumentList`                     |         |
 | \[119\] | `ArrowDynamicFunctionCall`     | ::= | `( VarRef \| ParamRef \| ParenthesizedExpr ) PositionalArgumentList` | |
 | \[112\] | `PositionalArgumentList`       | ::= | `"(" PositionalArguments? ")"`            |         |
@@ -1201,7 +1202,7 @@ These changes include support for:
 | \[106\]  | `SchemaImport`                 | ::= | `"import" "schema" SchemaPrefix? URILiteral LocationURIList?` | |
 | \[107\]  | `LocationURIList`              | ::= | `"at" URILiteral ("," URILiteral)*` |                       |
 | \[108\]  | `ModuleImport`                 | ::= | `"import" "module" ("namespace" NCName "=")? URILiteral LocationURIList?` | |
-| \[109\]  | `ArrowExpr`                    | ::= | `UnaryExpr ( "=>" ( ArrowFunctionCall | ArrowDynamicFunctionCall ) )*` | |
+| \[109\]  | `ArrowExpr`                    | ::= | `UnaryExpr FatArrowTarget*`         |                       |
 | \[110\]  | `ArrowFunctionCall`            | ::= | `EQName ArgumentList`               |                       |
 | \[111\]  | `AttributeTest`                | ::= | `"attribute" "(" (NameTest ("," TypeName?)? ")"` |          |
 | \[112\]  | `PositionalArgumentList`       | ::= | `"(" PositionalArguments? ")"`      |                       |
@@ -1229,6 +1230,7 @@ These changes include support for:
 | \[134\]  | `EmptyExpr`                    | ::= | `"(" ")"`                           |                       |
 | \[135\]  | `FunctionSignature`            | ::= | `"(" ParamList? ")" TypeDeclaration?` |                     |
 | \[136\]  | `InlineFunctionExpr`           | ::= | `Annotation* (("function" FunctionSignature) | ("->" FunctionSignature?)) FunctionBody ` | |
+| \[137\]  | `FatArrowTarget`               | ::= | `"=>" ( ArrowFunctionCall | ArrowDynamicFunctionCall )` |   |
 
 ### A.2 Reserved Function Names
 

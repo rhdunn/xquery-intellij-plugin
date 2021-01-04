@@ -171,7 +171,7 @@ all wildcard forms, not just `*`.
 {: .ebnf-symbols }
 | Ref     | Symbol                  |     | Expression                          | Options |
 |---------|-------------------------|-----|-------------------------------------|---------|
-| \[29\]  | `AttrbiuteTest`         | ::= | `"attribute" "(" (NameTest ("," TypeName)?)? ")"` | |
+| \[29\]  | `AttributeTest`         | ::= | `"attribute" "(" (NameTest ("," TypeName)?)? ")"` | |
 
 This is a Saxon 10.0 extension. The attribute tests have been relaxed to support
 all wildcard forms, not just `*`.
@@ -390,7 +390,8 @@ expressions in the lambda function body expression.
 {: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
-| \[27\] | `ArrowExpr`                    | ::= | `UnaryExpr ( "=>" ( ArrowFunctionCall | ArrowDynamicFunctionCall ) )*` | |
+| \[27\] | `ArrowExpr`                    | ::= | `UnaryExpr FatArrowTarget*`               |         |
+| \[40\] | `FatArrowTarget`               | ::= | `"=>" ( ArrowFunctionCall | ArrowDynamicFunctionCall )` | |
 | \[28\] | `ArrowFunctionCall`            | ::= | `EQName ArgumentList`                     |         |
 | \[38\] | `ArrowDynamicFunctionCall`     | ::= | `( VarRef \| ParamRef \| ParenthesizedExpr ) PositionalArgumentList` | |
 
@@ -447,9 +448,9 @@ These changes include support for:
 | \[24\]  | `ContextItemFunctionExpr`      | ::= | `(( "fn" "{" ) | ".{" ) Expr "}"`   |                      |
 | \[25\]  | `TupleType`                    | ::= | `"tuple" "(" TupleField ("," TupleField)* ("," "*")? ")"` | |
 | \[26\]  | `TupleField`                   | ::= | `TupleFieldName "?"? ( ( ":" | "as" ) SequenceType )?` |   |
-| \[27\]  | `ArrowExpr`                    | ::= | `UnaryExpr ( "=>" ( ArrowFunctionCall | ArrowDynamicFunctionCall ) )*` | |
+| \[27\]  | `ArrowExpr`                    | ::= | `UnaryExpr FatArrowTarget*`         |                      |
 | \[28\]  | `ArrowFunctionCall`            | ::= | `EQName ArgumentList`               |                      |
-| \[29\]  | `AttrbiuteTest`                | ::= | `"attribute" "(" (NameTest ("," TypeName)?)? ")"` |        |
+| \[29\]  | `AttributeTest`                | ::= | `"attribute" "(" (NameTest ("," TypeName)?)? ")"` |        |
 | \[30\]  | `InlineFunctionExpr`           | ::= | `(("function" FunctionSignature) | ("->" FunctionSignature?)) FunctionBody` | |
 | \[31\]  | `MultiplicativeExpr`           | ::= | `OtherwiseExpr ( ("*" | "div" | "idiv" | "mod") OtherwiseExpr )*` | |
 | \[32\]  | `OtherwiseExpr`                | ::= | `UnionExpr ( "otherwise" UnionExpr )*` |                   |
@@ -460,7 +461,7 @@ These changes include support for:
 | \[37\]  | `ParamRef`                     | ::= | `"$" Digits`                        |                      |
 | \[38\]  | `ArrowDynamicFunctionCall`     | ::= | `( VarRef \| ParamRef \| ParenthesizedExpr ) PositionalArgumentList` | |
 | \[39\]  | `LetExpr`                      | ::= | `SimpleLetClause ReturnClause`      |                      |
-| \[40\]  |                                | ::= |                                     |                      |
+| \[40\]  | `FatArrowTarget`               | ::= | `"=>" ( ArrowFunctionCall | ArrowDynamicFunctionCall )` |  |
 | \[41\]  | `SimpleForBinding`             | ::= | `"member"? "$" VarName "in" ExprSingle` |                  |
 | \[42\]  | `PathExpr`                     | ::= | `("/" RelativePathExpr?) \| (AbbrevDescendantOrSelfStep RelativePathExpr) \| RelativePathExpr` | /\* xgc: leading-lone-slash \*/ |
 | \[43\]  | `RelativePathExpr`             | ::= | `StepExpr (("/" \| AbbrevDescendantOrSelfStep) StepExpr)*` | |

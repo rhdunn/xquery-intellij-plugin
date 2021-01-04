@@ -3823,6 +3823,14 @@ class XQueryLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XQuery 4.0 ED EBNF (106) FatArrowTarget")
+    fun fatArrowTarget() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "=>", XPathTokenType.ARROW)
+    }
+
+    @Test
     @DisplayName("XQuery 4.0 ED EBNF (132) PositionalArgumentList")
     fun positionalArgumentList() {
         val lexer = createLexer()
