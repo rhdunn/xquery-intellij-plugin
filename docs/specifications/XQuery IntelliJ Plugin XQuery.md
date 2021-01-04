@@ -1228,7 +1228,7 @@ These changes include support for:
 | \[133\]  | `ParenthesizedExpr`            | ::= | `EmptyExpr | ( "(" Expr ")" )`      |                       |
 | \[134\]  | `EmptyExpr`                    | ::= | `"(" ")"`                           |                       |
 | \[135\]  | `FunctionSignature`            | ::= | `"(" ParamList? ")" TypeDeclaration?` |                     |
-| \[136\]  | `InlineFunctionExpr`           | ::= | `("function" | "->") FunctionSignature FunctionBody` |      |
+| \[136\]  | `InlineFunctionExpr`           | ::= | `Annotation* (("function" FunctionSignature) | ("->" FunctionSignature?)) FunctionBody ` | |
 
 ### A.2 Reserved Function Names
 

@@ -3540,16 +3540,21 @@ class XQueryParser : XPathParser() {
             haveAnnotations = true
         }
 
+        val token = builder.tokenType
         if (builder.matchTokenType(XPathTokenType.INLINE_FUNCTION_TOKENS)) {
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseFunctionSignature(builder)) {
-                if (!haveAnnotations) {
+            if (!parseFunctionSignature(builder, required = token === XPathTokenType.K_FUNCTION)) {
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (builder.tokenType === XPathTokenType.BLOCK_OPEN) {
+                    //
+                } else if (!haveAnnotations) {
                     marker.rollbackTo()
                     return false
+                } else {
+                    haveErrors = true
                 }
-                haveErrors = true
             }
 
             parseWhiteSpaceAndCommentTokens(builder)

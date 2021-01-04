@@ -9442,6 +9442,22 @@ private class XQueryParserTest : ParserTestCase() {
             val actual = parseResource("tests/parser/xquery-4.0/InlineFunctionExpr_Arrow_ReturnType_MissingSequenceType.xq")
             assertThat(actual.toPsiTreeString(), `is`(expected))
         }
+
+        @Test
+        @DisplayName("arrow function expression; no parameter list")
+        fun arrowFunctionExpr_noParamList() {
+            val expected = loadResource("tests/parser/xquery-4.0/InlineFunctionExpr_Arrow_NoParamList.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/InlineFunctionExpr_Arrow_NoParamList.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("inline function expression; no parameter list")
+        fun inlineFunctionExpr_noParamList() {
+            val expected = loadResource("tests/parser/xquery-4.0/InlineFunctionExpr_NoParamList.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/InlineFunctionExpr_NoParamList.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
     }
 
     @Nested

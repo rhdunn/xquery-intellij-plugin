@@ -8,7 +8,8 @@ XPath, XQuery, and XSLT 4.0 Editor's Draft:
 1. Support any `ItemType` on `LocalUnionType` and `TypedMapTest`.
 1. Support the `member` keyword on any for binding.
 1. Support nesting `TernaryConditionalExpr` expressions.
-1. Support `->` in addition to `function` in `InlineFunctionExpr` expressions.
+1. Support `->` in addition to `function` in `InlineFunctionExpr` expressions,
+   with optional function signatures.
 
 ## 2020
 

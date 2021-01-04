@@ -450,7 +450,7 @@ These changes include support for:
 | \[27\]  | `ArrowExpr`                    | ::= | `UnaryExpr ( "=>" ( ArrowFunctionCall | ArrowDynamicFunctionCall ) )*` | |
 | \[28\]  | `ArrowFunctionCall`            | ::= | `EQName ArgumentList`               |                      |
 | \[29\]  | `AttrbiuteTest`                | ::= | `"attribute" "(" (NameTest ("," TypeName)?)? ")"` |        |
-| \[30\]  | `InlineFunctionExpr`           | ::= | `("function" | "->") FunctionSignature FunctionBody` |     |
+| \[30\]  | `InlineFunctionExpr`           | ::= | `(("function" FunctionSignature) | ("->" FunctionSignature?)) FunctionBody` | |
 | \[31\]  | `MultiplicativeExpr`           | ::= | `OtherwiseExpr ( ("*" | "div" | "idiv" | "mod") OtherwiseExpr )*` | |
 | \[32\]  | `OtherwiseExpr`                | ::= | `UnionExpr ( "otherwise" UnionExpr )*` |                   |
 | \[33\]  | `TupleFieldName`               | ::= | `NCName | StringLiteral`            |                      |

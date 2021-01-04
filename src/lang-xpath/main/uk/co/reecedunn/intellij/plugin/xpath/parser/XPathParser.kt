@@ -1797,11 +1797,17 @@ open class XPathParser : PsiParser {
 
     open fun parseInlineFunctionExpr(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
+        val token = builder.tokenType
         if (builder.matchTokenType(XPathTokenType.INLINE_FUNCTION_TOKENS)) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseFunctionSignature(builder)) {
-                marker.rollbackTo()
-                return false
+            if (!parseFunctionSignature(builder, required = token === XPathTokenType.K_FUNCTION)) {
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (builder.tokenType === XPathTokenType.BLOCK_OPEN) {
+                    //
+                } else {
+                    marker.rollbackTo()
+                    return false
+                }
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
@@ -1860,9 +1866,9 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    fun parseFunctionSignature(builder: PsiBuilder): Boolean {
+    fun parseFunctionSignature(builder: PsiBuilder, required: Boolean = true): Boolean {
         val matched = builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)
-        if (!matched) {
+        if (!matched && required) {
             builder.error(XPathBundle.message("parser.error.expected", "("))
         }
 
@@ -1870,7 +1876,7 @@ open class XPathParser : PsiParser {
         parseParamList(builder)
 
         parseWhiteSpaceAndCommentTokens(builder)
-        if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE)) {
+        if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE) && matched) {
             builder.error(XPathBundle.message("parser.error.expected", ")"))
         }
 
