@@ -913,9 +913,10 @@ Otherwise, if either `A` or `B` have more than one item, the expressions
 |---------|--------------------------------|-----|-------------------------------------------|---------|
 | \[109\] | `ArrowExpr`                    | ::= | `UnaryExpr ( FatArrowTarget | ThinArrowTarget )*` | |
 | \[137\] | `FatArrowTarget`               | ::= | `"=>" ( ArrowFunctionCall | ArrowDynamicFunctionCall )` | |
-| \[138\] | `ThinArrowTarget`              | ::= | `"->" ( ArrowFunctionCall | ArrowDynamicFunctionCall )` | |
+| \[138\] | `ThinArrowTarget`              | ::= | `"->" ( ArrowFunctionCall | ArrowDynamicFunctionCall | ArrowInlineFunctionCall )` | |
 | \[110\] | `ArrowFunctionCall`            | ::= | `EQName ArgumentList`                     |         |
 | \[119\] | `ArrowDynamicFunctionCall`     | ::= | `( VarRef \| ParamRef \| ParenthesizedExpr ) PositionalArgumentList` | |
+| \[139\] | `ArrowInlineFunctionCall`      | ::= | `EnclosedExpr`                            |         |
 | \[112\] | `PositionalArgumentList`       | ::= | `"(" PositionalArguments? ")"`            |         |
 | \[120\] | `PositionalArguments`          | ::= | `Argument ("," Argument)*`                |         |
 
@@ -1235,7 +1236,8 @@ These changes include support for:
 | \[135\]  | `FunctionSignature`            | ::= | `"(" ParamList? ")" TypeDeclaration?` |                     |
 | \[136\]  | `InlineFunctionExpr`           | ::= | `Annotation* (("function" FunctionSignature) | ("->" FunctionSignature?)) FunctionBody ` | |
 | \[137\]  | `FatArrowTarget`               | ::= | `"=>" ( ArrowFunctionCall | ArrowDynamicFunctionCall )` |   |
-| \[138\]  | `ThinArrowTarget`              | ::= | `"->" ( ArrowFunctionCall | ArrowDynamicFunctionCall )` |   |
+| \[138\]  | `ThinArrowTarget`              | ::= | `"->" ( ArrowFunctionCall | ArrowDynamicFunctionCall | ArrowInlineFunctionCall )` |   |
+| \[139\]  | `ArrowInlineFunctionCall`      | ::= | `EnclosedExpr`                      |                       |
 
 ### A.2 Reserved Function Names
 

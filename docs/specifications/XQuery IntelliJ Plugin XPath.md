@@ -392,9 +392,10 @@ expressions in the lambda function body expression.
 |--------|--------------------------------|-----|-------------------------------------------|---------|
 | \[27\] | `ArrowExpr`                    | ::= | `UnaryExpr ( FatArrowTarget | ThinArrowTarget )*` | |
 | \[40\] | `FatArrowTarget`               | ::= | `"=>" ( ArrowFunctionCall | ArrowDynamicFunctionCall )` | |
-| \[53\] | `ThinArrowTarget`              | ::= | `"->" ( ArrowFunctionCall | ArrowDynamicFunctionCall )` | |
+| \[53\] | `ThinArrowTarget`              | ::= | `"->" ( ArrowFunctionCall | ArrowDynamicFunctionCall | ArrowInlineFunctionCall )` | |
 | \[28\] | `ArrowFunctionCall`            | ::= | `EQName ArgumentList`                     |         |
 | \[38\] | `ArrowDynamicFunctionCall`     | ::= | `( VarRef \| ParamRef \| ParenthesizedExpr ) PositionalArgumentList` | |
+| \[54\] | `ArrowInlineFunctionCall`      | ::= | `EnclosedExpr`                            |         |
 
 The `ParamRef` is for [Lambda Function Expressions](#3412-lambda-function-expressions)
 support in Saxon 10.0.
@@ -478,7 +479,8 @@ These changes include support for:
 | \[50\]  | `FilterStep`                   | ::= | `AxisStep Predicate`                |                      |
 | \[51\]  | `ParenthesizedExpr`            | ::= | `EmptyExpr | ( "(" Expr ")" )`      |                      |
 | \[52\]  | `EmptyExpr`                    | ::= | `"(" ")"`                           |                      |
-| \[53\]  | `ThinArrowTarget`              | ::= | `"->" ( ArrowFunctionCall | ArrowDynamicFunctionCall )` |  |
+| \[53\]  | `ThinArrowTarget`              | ::= | `"->" ( ArrowFunctionCall | ArrowDynamicFunctionCall | ArrowInlineFunctionCall )` |  |
+| \[54\]  | `ArrowInlineFunctionCall`      | ::= | `EnclosedExpr`                      |                      |
 
 ### A.2 Reserved Function Names
 

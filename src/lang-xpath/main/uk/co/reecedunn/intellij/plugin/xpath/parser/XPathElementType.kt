@@ -826,6 +826,12 @@ object XPathElementType {
         XPath
     )
 
+    val ARROW_INLINE_FUNCTION_CALL: IElementType = ICompositeElementType(
+        "XPATH_ARROW_INLINE_FUNCTION_CALL",
+        PluginArrowInlineFunctionCallPsiImpl::class.java,
+        XPath
+    )
+
     val EMPTY_EXPR: IElementType = ICompositeElementType(
         "XPATH_EMPTY_EXPR",
         PluginEmptyExprPsiImpl::class.java,

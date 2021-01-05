@@ -9394,6 +9394,14 @@ private class XQueryParserTest : ParserTestCase() {
             val actual = parseResource("tests/parser/xquery-4.0/ArrowExpr_MixedTargets_ThinThenFat.xq")
             assertThat(actual.toPsiTreeString(), `is`(expected))
         }
+
+        @Test
+        @DisplayName("error recovery: EnclosedExpr in FatArrowTarget")
+        fun fatArrowTarget_enclosedExpr() {
+            val expected = loadResource("tests/parser/xquery-4.0/FatArrowTarget_EnclosedExpr.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/FatArrowTarget_EnclosedExpr.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
     }
 
     @Nested
@@ -9420,6 +9428,14 @@ private class XQueryParserTest : ParserTestCase() {
         fun arrowDynamicFunction_ParenthesizedExpr() {
             val expected = loadResource("tests/parser/xquery-4.0/ThinArrowTarget_ParenthesizedExpr.txt")
             val actual = parseResource("tests/parser/xquery-4.0/ThinArrowTarget_ParenthesizedExpr.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("XQuery 4.0 ED EBNF (37) EnclosedExpr")
+        fun enclosedExpr() {
+            val expected = loadResource("tests/parser/xquery-4.0/ThinArrowTarget_EnclosedExpr.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/ThinArrowTarget_EnclosedExpr.xq")
             assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 

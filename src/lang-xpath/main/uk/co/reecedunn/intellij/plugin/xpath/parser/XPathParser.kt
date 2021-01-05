@@ -1084,9 +1084,12 @@ open class XPathParser : PsiParser {
             var haveArrowExpr = false
 
             parseWhiteSpaceAndCommentTokens(builder)
-            while (builder.matchTokenType(XPathTokenType.ARROW_TARGET_TOKENS)) {
+            var targetType = builder.tokenType
+            while (XPathTokenType.ARROW_TARGET_TOKENS.contains(targetType)) {
+                builder.advanceLexer()
+
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseArrowFunctionCall(builder) && !haveErrors) {
+                if (!parseArrowFunctionCall(builder, targetType) && !haveErrors) {
                     builder.error(XPathBundle.message("parser.error.expected", "ArrowFunctionSpecifier"))
                     haveErrors = true
                 } else {
@@ -1094,6 +1097,7 @@ open class XPathParser : PsiParser {
                 }
 
                 parseWhiteSpaceAndCommentTokens(builder)
+                targetType = builder.tokenType
             }
 
             if (haveArrowExpr)
@@ -1106,24 +1110,33 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    private fun parseArrowFunctionCall(builder: PsiBuilder): Boolean {
+    private fun parseArrowFunctionCall(builder: PsiBuilder, targetType: IElementType?): Boolean {
         val marker = builder.mark()
         val elementType = when {
             this.parseEQNameOrWildcard(builder, QNAME, false) != null -> XPathElementType.ARROW_FUNCTION_CALL
             parseVarOrParamRef(builder, null) -> XPathElementType.ARROW_DYNAMIC_FUNCTION_CALL
             parseParenthesizedExpr(builder) -> XPathElementType.ARROW_DYNAMIC_FUNCTION_CALL
+            builder.tokenType === XPathTokenType.BLOCK_OPEN -> {
+                if (targetType === XPathTokenType.ARROW) {
+                    builder.error(XPathBundle.message("parser.error.enclosed-expr-on-fat-arrow-target"))
+                }
+                parseEnclosedExprOrBlock(builder, ENCLOSED_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)
+                XPathElementType.ARROW_INLINE_FUNCTION_CALL
+            }
             else -> {
                 marker.drop()
                 return false
             }
         }
+
         parseWhiteSpaceAndCommentTokens(builder)
-        if (!parseArgumentList(builder)) {
+        if (!parseArgumentList(builder) && elementType !== XPathElementType.ARROW_INLINE_FUNCTION_CALL) {
             builder.error(XPathBundle.message("parser.error.expected", "ArgumentList"))
             marker.drop()
         } else {
             marker.done(elementType)
         }
+
         return true
     }
 

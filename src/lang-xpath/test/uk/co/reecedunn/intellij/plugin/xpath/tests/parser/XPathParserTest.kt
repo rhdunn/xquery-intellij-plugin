@@ -4288,6 +4288,14 @@ private class XPathParserTest : ParserTestCase() {
             val actual = parseResource("tests/parser/xpath-4.0/ArrowExpr_MixedTargets_ThinThenFat.xq")
             assertThat(actual.toPsiTreeString(), `is`(expected))
         }
+
+        @Test
+        @DisplayName("error recovery: EnclosedExpr in FatArrowTarget")
+        fun fatArrowTarget_enclosedExpr() {
+            val expected = loadResource("tests/parser/xpath-4.0/FatArrowTarget_EnclosedExpr.txt")
+            val actual = parseResource("tests/parser/xpath-4.0/FatArrowTarget_EnclosedExpr.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
     }
 
     @Nested
@@ -4314,6 +4322,14 @@ private class XPathParserTest : ParserTestCase() {
         fun arrowDynamicFunction_ParenthesizedExpr() {
             val expected = loadResource("tests/parser/xpath-4.0/ThinArrowTarget_ParenthesizedExpr.txt")
             val actual = parseResource("tests/parser/xpath-4.0/ThinArrowTarget_ParenthesizedExpr.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("XPath 4.0 ED EBNF (67) EnclosedExpr")
+        fun enclosedExpr() {
+            val expected = loadResource("tests/parser/xpath-4.0/ThinArrowTarget_EnclosedExpr.txt")
+            val actual = parseResource("tests/parser/xpath-4.0/ThinArrowTarget_EnclosedExpr.xq")
             assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
