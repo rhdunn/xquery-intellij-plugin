@@ -128,8 +128,8 @@ If the member type has no namespace prefix, it is implicitly qualified by the
 | Ref    | Symbol                  |     | Expression                          | Options               |
 |--------|-------------------------|-----|-------------------------------------|-----------------------|
 | \[25\] | `TupleType`             | ::= | `"tuple" "(" TupleField ("," TupleField)* ("," "*")? ")"` | |
-| \[26\] | `TupleField`            | ::= | `TupleFieldName "?"? ( ( ":" | "as" ) SequenceType )?` |    |
-| \[33\] | `TupleFieldName`        | ::= | `NCName | StringLiteral`            |                       |
+| \[26\] | `TupleField`            | ::= | `FieldName "?"? ( ( ":" | "as" ) SequenceType )?` |         |
+| \[33\] | `FieldName`             | ::= | `NCName | StringLiteral`            |                       |
 
 The `TupleType` is a new sequence type supported by Saxon 9.8. Saxon 9.8 uses `:`
 to specify the tuple item's sequence type, while Saxon 10.0 uses `as`.
@@ -452,14 +452,14 @@ These changes include support for:
 | \[23\]  | `FunctionItemExpr`             | ::= | `NamedFunctionRef \| InlineFunctionExpr \| ContextItemFunctionExpr \| LambdaFunctionExpr` | |
 | \[24\]  | `ContextItemFunctionExpr`      | ::= | `(( "fn" "{" ) | ".{" ) Expr "}"`   |                      |
 | \[25\]  | `TupleType`                    | ::= | `"tuple" "(" TupleField ("," TupleField)* ("," "*")? ")"` | |
-| \[26\]  | `TupleField`                   | ::= | `TupleFieldName "?"? ( ( ":" | "as" ) SequenceType )?` |   |
+| \[26\]  | `TupleField`                   | ::= | `FieldName "?"? ( ( ":" | "as" ) SequenceType )?` |        |
 | \[27\]  | `ArrowExpr`                    | ::= | `UnaryExpr ( FatArrowTarget | ThinArrowTarget )*` |        |
 | \[28\]  | `ArrowFunctionCall`            | ::= | `EQName ArgumentList`               |                      |
 | \[29\]  | `AttributeTest`                | ::= | `"attribute" "(" (NameTest ("," TypeName)?)? ")"` |        |
 | \[30\]  | `InlineFunctionExpr`           | ::= | `(("function" FunctionSignature) | ("->" FunctionSignature?)) FunctionBody` | |
 | \[31\]  | `MultiplicativeExpr`           | ::= | `OtherwiseExpr ( ("*" | "div" | "idiv" | "mod") OtherwiseExpr )*` | |
 | \[32\]  | `OtherwiseExpr`                | ::= | `UnionExpr ( "otherwise" UnionExpr )*` |                   |
-| \[33\]  | `TupleFieldName`               | ::= | `NCName | StringLiteral`            |                      |
+| \[33\]  | `FieldName`                    | ::= | `NCName | StringLiteral`            |                      |
 | \[34\]  | `TypeAlias`                    | ::= | `( "~" EQName ) | ( "type" "(" EQName ")" )` |             |
 | \[35\]  | `LambdaFunctionExpr`           | ::= | `"_{" Expr "}"`                     |                      |
 | \[36\]  | `PrimaryExpr`                  | ::= | `Literal \| VarRef \| ParamRef \| ParenthesizedExpr \| ContextItemExpr \| FunctionCall \| FunctionItemExpr \| MapConstructor \| ArrayConstructor \| UnaryLookup` | |

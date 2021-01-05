@@ -202,8 +202,8 @@ If the member type has no namespace prefix, it is implicitly qualified by the
 | Ref     | Symbol                  |     | Expression                          | Options               |
 |---------|-------------------------|-----|-------------------------------------|-----------------------|
 | \[23\]  | `TupleType`             | ::= | `"tuple" "(" TupleField ("," TupleField)* ("," "*")? ")"` | |
-| \[24\]  | `TupleField`            | ::= | `NCName "?"? ( ( ":" | "as" ) SequenceType )?` |            |
-| \[115\] | `TupleFieldName`        | ::= | `NCName | StringLiteral`            |                       |
+| \[24\]  | `TupleField`            | ::= | `FieldName "?"? ( ( ":" | "as" ) SequenceType )?` |         |
+| \[115\] | `FieldName`             | ::= | `NCName | StringLiteral`            |                       |
 
 The `TupleType` is a new sequence type supported by Saxon 9.8. Saxon 9.8 uses
 `:` to specify the tuple item's sequence type, while Saxon 10.0 uses `as`.
@@ -1127,7 +1127,7 @@ These changes include support for:
 | \[21\]   | `TypedMapTest`                 | ::= | `"map" "(" ItemType "," SequenceType ")"` |                 |
 | \[22\]   | `LocalUnionType`               | ::= | `"union" "(" ItemType ("," ItemType)* ")"` |                |
 | \[23\]   | `TupleType`                    | ::= | `"tuple" "(" TupleField ("," TupleField)* ("," "*")? ")"` | |
-| \[24\]   | `TupleField`                   | ::= | `TupleFieldName "?"? ( ( ":" | "as" ) SequenceType )?` |    |
+| \[24\]   | `TupleField`                   | ::= | `FieldName "?"? ( ( ":" | "as" ) SequenceType )?` |         |
 | \[25\]   | `ForwardAxis`                  | ::= | `("child" "::") \| ("descendant" "::") \| ("attribute" "::") \| ("self" "::") \| ("descendant-or-self" "::") \| ("following-sibling" "::") \| ("following" "::") \| ("namespace" "::") \| ("property" "::")` | |
 | \[26\]   | `CompatibilityAnnotation`      | ::= | `"assignable" \| "private" \| "sequential" \| "simple" \| "unassignable" \| "updating"` | |
 | \[27\]   | `ValidateExpr`                 | ::= | `"validate" ( ValidationMode \| ( ( "type" \| "as" ) TypeName ) )? "{" Expr "}"` | |
@@ -1213,7 +1213,7 @@ These changes include support for:
 | \[112\]  | `PositionalArgumentList`       | ::= | `"(" PositionalArguments? ")"`      |                       |
 | \[113\]  | `MultiplicativeExpr`           | ::= | `OtherwiseExpr ( ("*" | "div" | "idiv" | "mod") OtherwiseExpr )*` | |
 | \[114\]  | `OtherwiseExpr`                | ::= | `UnionExpr ( "otherwise" UnionExpr )*` |                    |
-| \[115\]  | `TupleFieldName`               | ::= | `NCName | StringLiteral`            |                       |
+| \[115\]  | `FieldName`                    | ::= | `NCName | StringLiteral`            |                       |
 | \[116\]  | `TypeAlias`                    | ::= | `( "~" EQName ) | ( "type" "(" EQName ")" )` |              |
 | \[117\]  | `LambdaFunctionExpr`           | ::= | `"_{" Expr "}"`                     |                       |
 | \[118\]  | `ParamRef`                     | ::= | `"$" Digits`                        |                       |

@@ -3332,7 +3332,7 @@ open class XPathParser : PsiParser {
 
     private fun parseTupleField(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
-        if (parseNCName(builder) || parseStringLiteral(builder)) {
+        if (parseFieldName(builder)) {
             var haveError = false
 
             parseWhiteSpaceAndCommentTokens(builder)
@@ -3448,6 +3448,11 @@ open class XPathParser : PsiParser {
         }
         return false
     }
+
+    // endregion
+    // region Grammar :: TypeDeclaration :: RecordTest
+
+    private fun parseFieldName(builder: PsiBuilder): Boolean = parseNCName(builder) || parseStringLiteral(builder)
 
     // endregion
     // region Grammar :: TypeDeclaration :: KindTest
