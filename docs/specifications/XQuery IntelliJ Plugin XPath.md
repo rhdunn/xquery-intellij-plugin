@@ -127,23 +127,24 @@ If the member type has no namespace prefix, it is implicitly qualified by the
 {: .ebnf-symbols }
 | Ref    | Symbol                  |     | Expression                          | Options               |
 |--------|-------------------------|-----|-------------------------------------|-----------------------|
-| \[25\] | `TupleType`             | ::= | `"tuple" "(" TupleField ("," TupleField)* ("," "*")? ")"` | |
-| \[26\] | `TupleField`            | ::= | `FieldName "?"? ( ( ":" | "as" ) SequenceType )?` |         |
+| \[25\] | `TupleType`             | ::= | `"tuple" "(" FieldDeclaration ("," FieldDeclaration)* ("," "*")? ")"` | |
+| \[26\] | `FieldDeclaration`      | ::= | `FieldName "?"? ( ( ":" | "as" ) SequenceType )?` |         |
 | \[33\] | `FieldName`             | ::= | `NCName | StringLiteral`            |                       |
 
 The `TupleType` is a new sequence type supported by Saxon 9.8. Saxon 9.8 uses `:`
 to specify the tuple item's sequence type, while Saxon 10.0 uses `as`.
 
-In Saxon 9.8, a tuple field name can only be an `NCName`. In Saxon 10, it can
-also be a `StringLiteral`.
+In Saxon 9.8, a field name can only be an `NCName`. In Saxon 10, it can also
+be a `StringLiteral`.
 
-In Saxon 9.9, a `TupleField` can be optional by adding a `?` after the field name.
+In Saxon 9.9, a `FieldDeclaration` can be optional by adding a `?` after the
+field name.
 
-In Saxon 9.8, tuple fields are optional by default (that is, they have a default
-type of `item()*`). In Saxon 10.0, tuple fields are required by default (that is,
-they have a default type of `item()+`). To specify an optional field in Saxon 10.0,
-the sequence type must be optional (i.e. using either the `?` or `*` occurrence
-indicator for the specified sequence type).
+In Saxon 9.8, field declarations are optional by default (that is, they have
+a default  type of `item()*`). In Saxon 10.0, they are required by default
+(that is,  they have a default type of `item()+`). To specify an optional field
+in Saxon 10.0, the sequence type must be optional (i.e. using either the `?` or
+`*` occurrence indicator for the specified sequence type).
 
 \[Definition: An *extensible* tuple is a tuple that has some fields specified,
 but allows other fields to be included in the map object.\] An *extensible*
@@ -451,8 +452,8 @@ These changes include support for:
 | \[22\]  | `ParamList`                    | ::= | `ParamList ::= Param ("," Param)* "..."?` |                |
 | \[23\]  | `FunctionItemExpr`             | ::= | `NamedFunctionRef \| InlineFunctionExpr \| ContextItemFunctionExpr \| LambdaFunctionExpr` | |
 | \[24\]  | `ContextItemFunctionExpr`      | ::= | `(( "fn" "{" ) | ".{" ) Expr "}"`   |                      |
-| \[25\]  | `TupleType`                    | ::= | `"tuple" "(" TupleField ("," TupleField)* ("," "*")? ")"` | |
-| \[26\]  | `TupleField`                   | ::= | `FieldName "?"? ( ( ":" | "as" ) SequenceType )?` |        |
+| \[25\]  | `TupleType`                    | ::= | `"tuple" "(" FieldDeclaration ("," FieldDeclaration)* ("," "*")? ")"` | |
+| \[26\]  | `FieldDeclaration`             | ::= | `FieldName "?"? ( ( ":" | "as" ) SequenceType )?` |        |
 | \[27\]  | `ArrowExpr`                    | ::= | `UnaryExpr ( FatArrowTarget | ThinArrowTarget )*` |        |
 | \[28\]  | `ArrowFunctionCall`            | ::= | `EQName ArgumentList`               |                      |
 | \[29\]  | `AttributeTest`                | ::= | `"attribute" "(" (NameTest ("," TypeName)?)? ")"` |        |

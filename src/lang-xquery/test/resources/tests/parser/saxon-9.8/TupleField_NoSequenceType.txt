@@ -19,13 +19,13 @@ XQueryModuleImpl[FILE(0:46)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
                   LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(30:31)]('(')
                   PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
-                  PluginTupleFieldImpl[XPATH_TUPLE_FIELD(32:34)]
+                  XPathFieldDeclarationImpl[XPATH_FIELD_DECLARATION(32:34)]
                      XQueryNCNameImpl[XQUERY_NCNAME(32:33)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(32:33)]('a')
                      PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
                   LeafPsiElement[XPATH_COMMA_TOKEN(34:35)](',')
                   PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
-                  PluginTupleFieldImpl[XPATH_TUPLE_FIELD(36:38)]
+                  XPathFieldDeclarationImpl[XPATH_FIELD_DECLARATION(36:38)]
                      XQueryNCNameImpl[XQUERY_NCNAME(36:37)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(36:37)]('b')
                      PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')

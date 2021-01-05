@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginTupleType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmMap
-import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginTupleField
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFieldDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
 class PluginTupleTypeImpl(node: ASTNode) :
@@ -39,8 +39,8 @@ class PluginTupleTypeImpl(node: ASTNode) :
     // endregion
     // region PluginTupleType
 
-    override val fields: Sequence<PluginTupleField>
-        get() = children().filterIsInstance<PluginTupleField>()
+    override val fields: Sequence<XPathFieldDeclaration>
+        get() = children().filterIsInstance<XPathFieldDeclaration>()
 
     override val isExtensible: Boolean
         get() = conformanceElement !== firstChild

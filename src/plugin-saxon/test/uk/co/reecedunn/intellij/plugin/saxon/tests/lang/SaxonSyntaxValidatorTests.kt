@@ -453,8 +453,8 @@ class SaxonSyntaxValidatorTest :
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (24) TupleField")
-    internal inner class TupleField {
+    @DisplayName("XQuery IntelliJ Plugin EBNF (24) FieldDeclaration")
+    internal inner class FieldDeclaration {
         @Nested
         @DisplayName("optional tuple field")
         internal inner class Optional {

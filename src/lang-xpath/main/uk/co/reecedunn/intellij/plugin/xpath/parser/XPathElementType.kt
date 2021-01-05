@@ -538,6 +538,12 @@ object XPathElementType {
         XPath
     )
 
+    val FIELD_DECLARATION: IElementType = ICompositeElementType(
+        "XPATH_FIELD_DECLARATION",
+        XPathFieldDeclarationPsiImpl::class.java,
+        XPath
+    )
+
     val LOCAL_UNION_TYPE: IElementType = ICompositeElementType(
         "XPATH_LOCAL_UNION_TYPE",
         XPathLocalUnionTypePsiImpl::class.java,
@@ -889,12 +895,6 @@ object XPathElementType {
     val DYNAMIC_FUNCTION_CALL: IElementType = ICompositeElementType(
         "XPATH_DYNAMIC_FUNCTION_CALL",
         PluginDynamicFunctionCallPsiImpl::class.java,
-        XPath
-    )
-
-    val TUPLE_FIELD: IElementType = ICompositeElementType(
-        "XPATH_TUPLE_FIELD",
-        PluginTupleFieldImpl::class.java,
         XPath
     )
 

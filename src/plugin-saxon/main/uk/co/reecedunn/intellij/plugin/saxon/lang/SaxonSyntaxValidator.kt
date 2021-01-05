@@ -45,7 +45,7 @@ object SaxonSyntaxValidator : XpmSyntaxValidator {
             else -> {
             }
         }
-        is PluginTupleField -> when (element.conformanceElement.elementType) {
+        is XPathFieldDeclaration -> when (element.conformanceElement.elementType) {
             XPathTokenType.OPTIONAL, XPathTokenType.ELVIS -> reporter.requires(element, SAXON_PE_9_9)
             XPathTokenType.K_AS -> reporter.requires(element, SAXON_PE_10)
             else -> {

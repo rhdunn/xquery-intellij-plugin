@@ -15,7 +15,7 @@ XQueryModuleImpl[FILE(0:45)]
                PluginTupleTypeImpl[XPATH_TUPLE_TYPE(22:41)]
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TUPLE(22:27)]('tuple')
                   LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(27:28)]('(')
-                  PluginTupleFieldImpl[XPATH_TUPLE_FIELD(28:40)]
+                  XPathFieldDeclarationImpl[XPATH_FIELD_DECLARATION(28:40)]
                      XQueryNCNameImpl[XQUERY_NCNAME(28:29)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(28:29)]('a')
                      LeafPsiElement[XPATH_ELVIS_TOKEN(29:31)]('?:')

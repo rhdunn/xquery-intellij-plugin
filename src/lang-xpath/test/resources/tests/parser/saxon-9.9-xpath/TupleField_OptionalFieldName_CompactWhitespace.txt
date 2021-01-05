@@ -9,7 +9,7 @@ XPathImpl[FILE(0:33)]
       PluginTupleTypeImpl[XPATH_TUPLE_TYPE(14:33)]
          XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TUPLE(14:19)]('tuple')
          LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(19:20)]('(')
-         PluginTupleFieldImpl[XPATH_TUPLE_FIELD(20:32)]
+         XPathFieldDeclarationImpl[XPATH_FIELD_DECLARATION(20:32)]
             XPathNCNameImpl[XPATH_NCNAME(20:21)]
                XmlNCNameImpl[XPATH_NCNAME_TOKEN(20:21)]('a')
             LeafPsiElement[XPATH_ELVIS_TOKEN(21:23)]('?:')

@@ -3865,6 +3865,15 @@ class XQueryLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XQuery 4.0 ED EBNF (229) FieldDeclaration")
+    fun fieldDeclaration() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "?", XPathTokenType.OPTIONAL)
+        matchSingleToken(lexer, "as", XPathTokenType.K_AS)
+    }
+
+    @Test
     @DisplayName("XQuery 4.0 ED EBNF (233) LocalUnionType")
     fun localUnionType() {
         val lexer = createLexer()

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017-2020 Reece H. Dunn
+ * Copyright (C) 2017-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin
+package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
@@ -21,14 +21,17 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginTupleField
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFieldDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsStringValue
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
-class PluginTupleFieldImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginTupleField, XpmSyntaxValidationElement {
-    // region PluginTupleField
+class XPathFieldDeclarationPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node),
+    XPathFieldDeclaration,
+    XpmSyntaxValidationElement {
+    // region XPathFieldDeclaration
 
     override val fieldName: XsStringValue
         get() = when (val name = firstChild) {

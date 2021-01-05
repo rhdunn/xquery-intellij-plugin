@@ -11,7 +11,7 @@ XPathImpl[FILE(0:35)]
          PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
          LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(20:21)]('(')
          PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
-         PluginTupleFieldImpl[XPATH_TUPLE_FIELD(22:34)]
+         XPathFieldDeclarationImpl[XPATH_FIELD_DECLARATION(22:34)]
             XPathNCNameImpl[XPATH_NCNAME(22:23)]
                XmlNCNameImpl[XPATH_NCNAME_TOKEN(22:23)]('a')
             PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')

@@ -48,12 +48,15 @@ class PluginLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (26) TupleField")
-    fun tupleField() {
+    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (26) FieldDeclaration")
+    fun fieldDeclaration() {
         val lexer = createLexer()
 
+        matchSingleToken(lexer, "?", XPathTokenType.OPTIONAL)
+        matchSingleToken(lexer, "as", XPathTokenType.K_AS)
+
+        matchSingleToken(lexer, "?:", XPathTokenType.ELVIS) // compact whitespace -- BaseX 9.1 (XQuery) extension
         matchSingleToken(lexer, ":", XPathTokenType.QNAME_SEPARATOR)
-        matchSingleToken(lexer, "?:", XPathTokenType.ELVIS) // BaseX 9.1 (XQuery)
     }
 
     @Test

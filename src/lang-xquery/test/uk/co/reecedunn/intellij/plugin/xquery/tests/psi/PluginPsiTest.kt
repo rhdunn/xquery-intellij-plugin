@@ -237,12 +237,12 @@ private class PluginPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery IntelliJ Plugin EBNF (24) TupleField")
-        internal inner class TupleField {
+        @DisplayName("XQuery IntelliJ Plugin EBNF (24) FieldDeclaration")
+        internal inner class FieldDeclaration {
             @Test
             @DisplayName("required; unspecified type")
             fun nameOnlyRequired() {
-                val field = parse<PluginTupleField>("() instance of tuple ( test )")[0]
+                val field = parse<XPathFieldDeclaration>("() instance of tuple ( test )")[0]
                 assertThat(field.fieldName.data, `is`("test"))
                 assertThat(field.fieldType, `is`(nullValue()))
                 assertThat(field.isOptional, `is`(false))
@@ -262,7 +262,7 @@ private class PluginPsiTest : ParserTestCase() {
             @Test
             @DisplayName("optional; unspecified type")
             fun nameOnlyOptional() {
-                val field = parse<PluginTupleField>("() instance of tuple ( test ? )")[0]
+                val field = parse<XPathFieldDeclaration>("() instance of tuple ( test ? )")[0]
                 assertThat(field.fieldName.data, `is`("test"))
                 assertThat(field.fieldType, `is`(nullValue()))
                 assertThat(field.isOptional, `is`(true))
@@ -282,7 +282,7 @@ private class PluginPsiTest : ParserTestCase() {
             @Test
             @DisplayName("required; specified type")
             fun nameAndTypeRequired() {
-                val field = parse<PluginTupleField>("() instance of tuple ( test : xs:string )")[0]
+                val field = parse<XPathFieldDeclaration>("() instance of tuple ( test : xs:string )")[0]
                 assertThat(field.fieldName.data, `is`("test"))
                 assertThat(field.fieldType?.typeName, `is`("xs:string"))
                 assertThat(field.isOptional, `is`(false))
@@ -302,7 +302,7 @@ private class PluginPsiTest : ParserTestCase() {
             @Test
             @DisplayName("optional; specified type")
             fun nameAndTypeOptional() {
-                val field = parse<PluginTupleField>("() instance of tuple ( test ? : xs:string )")[0]
+                val field = parse<XPathFieldDeclaration>("() instance of tuple ( test ? : xs:string )")[0]
                 assertThat(field.fieldName.data, `is`("test"))
                 assertThat(field.fieldType?.typeName, `is`("xs:string"))
                 assertThat(field.isOptional, `is`(true))
@@ -322,7 +322,7 @@ private class PluginPsiTest : ParserTestCase() {
             @Test
             @DisplayName("StringLiteral name; no space in name")
             fun stringLiteralName_noSpace() {
-                val field = parse<PluginTupleField>("() instance of tuple ( 'test' )")[0]
+                val field = parse<XPathFieldDeclaration>("() instance of tuple ( 'test' )")[0]
                 assertThat(field.fieldName.data, `is`("test"))
                 assertThat(field.fieldType, `is`(nullValue()))
                 assertThat(field.isOptional, `is`(false))
@@ -342,7 +342,7 @@ private class PluginPsiTest : ParserTestCase() {
             @Test
             @DisplayName("StringLiteral name; space in name")
             fun stringLiteralName_withSpace() {
-                val field = parse<PluginTupleField>("() instance of tuple ( 'test key name' )")[0]
+                val field = parse<XPathFieldDeclaration>("() instance of tuple ( 'test key name' )")[0]
                 assertThat(field.fieldName.data, `is`("test key name"))
                 assertThat(field.fieldType, `is`(nullValue()))
                 assertThat(field.isOptional, `is`(false))

@@ -3287,7 +3287,7 @@ open class XPathParser : PsiParser {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseTupleField(builder)) {
+            if (!parseFieldDeclaration(builder)) {
                 builder.error(XPathBundle.message("parser.error.expected", "NCName"))
                 haveError = true
             }
@@ -3313,7 +3313,7 @@ open class XPathParser : PsiParser {
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (builder.matchTokenType(XPathTokenType.STAR)) {
                     isExtensible = true
-                } else if (!parseTupleField(builder) && !haveError) {
+                } else if (!parseFieldDeclaration(builder) && !haveError) {
                     builder.error(XPathBundle.message("parser.error.expected-either", "NCName", "*"))
                     haveError = true
                 }
@@ -3327,42 +3327,6 @@ open class XPathParser : PsiParser {
             marker.done(XPathElementType.TUPLE_TYPE)
             return true
         }
-        return false
-    }
-
-    private fun parseTupleField(builder: PsiBuilder): Boolean {
-        val marker = builder.mark()
-        if (parseFieldName(builder)) {
-            var haveError = false
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            val haveSeparator =
-                if (builder.matchTokenType(XPathTokenType.ELVIS)) // ?: without whitespace
-                    true
-                else {
-                    builder.matchTokenType(XPathTokenType.OPTIONAL)
-                    parseWhiteSpaceAndCommentTokens(builder)
-                    builder.matchTokenType(XPathTokenType.TUPLE_FIELD_SEQUENCE_INDICATOR)
-                }
-
-            if (!haveSeparator) {
-                if (builder.tokenType === XPathTokenType.COMMA || builder.tokenType === XPathTokenType.PARENTHESIS_CLOSE) {
-                    marker.done(XPathElementType.TUPLE_FIELD)
-                    return true
-                }
-                builder.error(XPathBundle.message("parser.error.expected-either", ":", "as"))
-                haveError = true
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseSequenceType(builder) && !haveError) {
-                builder.error(XPathBundle.message("parser.error.expected", "SequenceType"))
-            }
-
-            marker.done(XPathElementType.TUPLE_FIELD)
-            return true
-        }
-        marker.drop()
         return false
     }
 
@@ -3450,7 +3414,43 @@ open class XPathParser : PsiParser {
     }
 
     // endregion
-    // region Grammar :: TypeDeclaration :: RecordTest
+    // region Grammar :: TypeDeclaration :: ItemType :: RecordTest
+
+    private fun parseFieldDeclaration(builder: PsiBuilder): Boolean {
+        val marker = builder.mark()
+        if (parseFieldName(builder)) {
+            var haveError = false
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            val haveSeparator = when {
+                builder.matchTokenType(XPathTokenType.ELVIS) -> true // ?: without whitespace
+                else -> {
+                    builder.matchTokenType(XPathTokenType.OPTIONAL)
+                    parseWhiteSpaceAndCommentTokens(builder)
+                    builder.matchTokenType(XPathTokenType.TUPLE_FIELD_SEQUENCE_INDICATOR)
+                }
+            }
+
+            if (!haveSeparator) {
+                if (builder.tokenType === XPathTokenType.COMMA || builder.tokenType === XPathTokenType.PARENTHESIS_CLOSE) {
+                    marker.done(XPathElementType.FIELD_DECLARATION)
+                    return true
+                }
+                builder.error(XPathBundle.message("parser.error.expected-either", ":", "as"))
+                haveError = true
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseSequenceType(builder) && !haveError) {
+                builder.error(XPathBundle.message("parser.error.expected", "SequenceType"))
+            }
+
+            marker.done(XPathElementType.FIELD_DECLARATION)
+            return true
+        }
+        marker.drop()
+        return false
+    }
 
     private fun parseFieldName(builder: PsiBuilder): Boolean = parseNCName(builder) || parseStringLiteral(builder)
 

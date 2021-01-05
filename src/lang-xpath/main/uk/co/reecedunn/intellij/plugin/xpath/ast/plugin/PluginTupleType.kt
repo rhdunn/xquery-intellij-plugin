@@ -17,12 +17,13 @@ package uk.co.reecedunn.intellij.plugin.xpath.ast.plugin
 
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFieldDeclaration
 
 /**
  * A Saxon 9.8 `TupleType` node in the XQuery AST.
  */
 interface PluginTupleType : PsiElement, XdmItemType {
-    val fields: Sequence<PluginTupleField>
+    val fields: Sequence<XPathFieldDeclaration>
 
     val isExtensible: Boolean
 }

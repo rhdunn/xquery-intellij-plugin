@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017, 2019-2020 Reece H. Dunn
+ * Copyright (C) 2017, 2019-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.ast.plugin
+package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsStringValue
 
 /**
- * A Saxon 9.8 `TupleField` node in the XQuery AST.
+ * An XPath 4.0 ED and XQuery 4.0 ED `FieldDeclaration` node in the XPath/XQuery AST.
  */
-interface PluginTupleField : PsiElement {
+interface XPathFieldDeclaration : PsiElement {
     val fieldName: XsStringValue
 
     val fieldType: XdmSequenceType?

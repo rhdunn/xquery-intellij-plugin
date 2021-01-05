@@ -201,23 +201,24 @@ If the member type has no namespace prefix, it is implicitly qualified by the
 {: .ebnf-symbols }
 | Ref     | Symbol                  |     | Expression                          | Options               |
 |---------|-------------------------|-----|-------------------------------------|-----------------------|
-| \[23\]  | `TupleType`             | ::= | `"tuple" "(" TupleField ("," TupleField)* ("," "*")? ")"` | |
-| \[24\]  | `TupleField`            | ::= | `FieldName "?"? ( ( ":" | "as" ) SequenceType )?` |         |
+| \[23\]  | `TupleType`             | ::= | `"tuple" "(" FieldDeclaration ("," FieldDeclaration)* ("," "*")? ")"` | |
+| \[24\]  | `FieldDeclaration`      | ::= | `FieldName "?"? ( ( ":" | "as" ) SequenceType )?` |         |
 | \[115\] | `FieldName`             | ::= | `NCName | StringLiteral`            |                       |
 
 The `TupleType` is a new sequence type supported by Saxon 9.8. Saxon 9.8 uses
 `:` to specify the tuple item's sequence type, while Saxon 10.0 uses `as`.
 
-In Saxon 9.8, a tuple field name can only be an `NCName`. In Saxon 10, it can
-also be a `StringLiteral`.
+In Saxon 9.8, a field name can only be an `NCName`. In Saxon 10, it can also
+be a `StringLiteral`.
 
-In Saxon 9.9, a `TupleField` can be optional by adding a `?` after the field name.
+In Saxon 9.9, a `FieldDeclaration` can be optional by adding a `?` after the
+field name.
 
-In Saxon 9.8, tuple fields are optional by default (that is, they have a default
-type of `item()*`). In Saxon 10.0, tuple fields are required by default (that is,
-they have a default type of `item()+`). To specify an optional field in Saxon 10.0,
-the sequence type must be optional (i.e. using either the `?` or `*` occurrence
-indicator for the specified sequence type).
+In Saxon 9.8, field declarations are optional by default (that is, they have
+a default  type of `item()*`). In Saxon 10.0, they are required by default
+(that is,  they have a default type of `item()+`). To specify an optional field
+in Saxon 10.0, the sequence type must be optional (i.e. using either the `?` or
+`*` occurrence indicator for the specified sequence type).
 
 \[Definition: An *extensible* tuple is a tuple that has some fields specified,
 but allows other fields to be included in the map object.\] An *extensible*
@@ -1126,8 +1127,8 @@ These changes include support for:
 | \[20\]   | `ItemType`                     | ::= | `KindTest \| AnyItemTest \| AnnotatedFunctionOrSequence \| MapTest \| ArrayTest \| TypeAlias \| LocalUnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
 | \[21\]   | `TypedMapTest`                 | ::= | `"map" "(" ItemType "," SequenceType ")"` |                 |
 | \[22\]   | `LocalUnionType`               | ::= | `"union" "(" ItemType ("," ItemType)* ")"` |                |
-| \[23\]   | `TupleType`                    | ::= | `"tuple" "(" TupleField ("," TupleField)* ("," "*")? ")"` | |
-| \[24\]   | `TupleField`                   | ::= | `FieldName "?"? ( ( ":" | "as" ) SequenceType )?` |         |
+| \[23\]   | `TupleType`                    | ::= | `"tuple" "(" FieldDeclaration ("," FieldDeclaration)* ("," "*")? ")"` | |
+| \[24\]   | `FieldDelaration`              | ::= | `FieldName "?"? ( ( ":" | "as" ) SequenceType )?` |         |
 | \[25\]   | `ForwardAxis`                  | ::= | `("child" "::") \| ("descendant" "::") \| ("attribute" "::") \| ("self" "::") \| ("descendant-or-self" "::") \| ("following-sibling" "::") \| ("following" "::") \| ("namespace" "::") \| ("property" "::")` | |
 | \[26\]   | `CompatibilityAnnotation`      | ::= | `"assignable" \| "private" \| "sequential" \| "simple" \| "unassignable" \| "updating"` | |
 | \[27\]   | `ValidateExpr`                 | ::= | `"validate" ( ValidationMode \| ( ( "type" \| "as" ) TypeName ) )? "{" Expr "}"` | |

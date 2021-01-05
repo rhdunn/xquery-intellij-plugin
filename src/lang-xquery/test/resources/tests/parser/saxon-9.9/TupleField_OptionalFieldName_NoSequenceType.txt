@@ -19,7 +19,7 @@ XQueryModuleImpl[FILE(0:44)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
                   LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(30:31)]('(')
                   PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
-                  PluginTupleFieldImpl[XPATH_TUPLE_FIELD(32:36)]
+                  XPathFieldDeclarationImpl[XPATH_FIELD_DECLARATION(32:36)]
                      XQueryNCNameImpl[XQUERY_NCNAME(32:33)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(32:33)]('a')
                      PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')

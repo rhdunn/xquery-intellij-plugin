@@ -1318,6 +1318,15 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XPath 4.0 ED EBNF (123) FieldDeclaration")
+    fun fieldDeclaration() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "?", XPathTokenType.OPTIONAL)
+        matchSingleToken(lexer, "as", XPathTokenType.K_AS)
+    }
+
+    @Test
     @DisplayName("XPath 4.0 ED EBNF (127) LocalUnionType")
     fun localUnionType() {
         val lexer = createLexer()
