@@ -911,8 +911,9 @@ Otherwise, if either `A` or `B` have more than one item, the expressions
 {: .ebnf-symbols }
 | Ref     | Symbol                         |     | Expression                                | Options |
 |---------|--------------------------------|-----|-------------------------------------------|---------|
-| \[109\] | `ArrowExpr`                    | ::= | `UnaryExpr FatArrowTarget*`               |         |
+| \[109\] | `ArrowExpr`                    | ::= | `UnaryExpr ( FatArrowTarget | ThinArrowTarget )*` | |
 | \[137\] | `FatArrowTarget`               | ::= | `"=>" ( ArrowFunctionCall | ArrowDynamicFunctionCall )` | |
+| \[138\] | `ThinArrowTarget`              | ::= | `"->" ( ArrowFunctionCall | ArrowDynamicFunctionCall )` | |
 | \[110\] | `ArrowFunctionCall`            | ::= | `EQName ArgumentList`                     |         |
 | \[119\] | `ArrowDynamicFunctionCall`     | ::= | `( VarRef \| ParamRef \| ParenthesizedExpr ) PositionalArgumentList` | |
 | \[112\] | `PositionalArgumentList`       | ::= | `"(" PositionalArguments? ")"`            |         |
@@ -920,6 +921,9 @@ Otherwise, if either `A` or `B` have more than one item, the expressions
 
 The `ParamRef` is for [Lambda Function Expressions](#3422-lambda-function-expressions)
 support in Saxon 10.0.
+
+The `ThinArrowTarget` is a new XPath 4.0 Editor's Draft extension that applies
+the function to each item in `UnaryExpr`.
 
 ### 3.13 FLWOR Expressions
 
@@ -1202,7 +1206,7 @@ These changes include support for:
 | \[106\]  | `SchemaImport`                 | ::= | `"import" "schema" SchemaPrefix? URILiteral LocationURIList?` | |
 | \[107\]  | `LocationURIList`              | ::= | `"at" URILiteral ("," URILiteral)*` |                       |
 | \[108\]  | `ModuleImport`                 | ::= | `"import" "module" ("namespace" NCName "=")? URILiteral LocationURIList?` | |
-| \[109\]  | `ArrowExpr`                    | ::= | `UnaryExpr FatArrowTarget*`         |                       |
+| \[109\]  | `ArrowExpr`                    | ::= | `UnaryExpr ( FatArrowTarget | ThinArrowTarget )*` |         |
 | \[110\]  | `ArrowFunctionCall`            | ::= | `EQName ArgumentList`               |                       |
 | \[111\]  | `AttributeTest`                | ::= | `"attribute" "(" (NameTest ("," TypeName?)? ")"` |          |
 | \[112\]  | `PositionalArgumentList`       | ::= | `"(" PositionalArguments? ")"`      |                       |
@@ -1231,6 +1235,7 @@ These changes include support for:
 | \[135\]  | `FunctionSignature`            | ::= | `"(" ParamList? ")" TypeDeclaration?` |                     |
 | \[136\]  | `InlineFunctionExpr`           | ::= | `Annotation* (("function" FunctionSignature) | ("->" FunctionSignature?)) FunctionBody ` | |
 | \[137\]  | `FatArrowTarget`               | ::= | `"=>" ( ArrowFunctionCall | ArrowDynamicFunctionCall )` |   |
+| \[138\]  | `ThinArrowTarget`              | ::= | `"->" ( ArrowFunctionCall | ArrowDynamicFunctionCall )` |   |
 
 ### A.2 Reserved Function Names
 

@@ -4271,6 +4271,86 @@ private class XPathParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 4.0 ED EBNF (35) ArrowExpr")
+    internal inner class ArrowExpr_XPath40 {
+        @Test
+        @DisplayName("mixed targets; fat then thin")
+        fun mixedTargets_fatThenThin() {
+            val expected = loadResource("tests/parser/xpath-4.0/ArrowExpr_MixedTargets_FatThenThin.txt")
+            val actual = parseResource("tests/parser/xpath-4.0/ArrowExpr_MixedTargets_FatThenThin.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("mixed targets; thin then fat")
+        fun mixedTargets_thinThenFat() {
+            val expected = loadResource("tests/parser/xpath-4.0/ArrowExpr_MixedTargets_ThinThenFat.txt")
+            val actual = parseResource("tests/parser/xpath-4.0/ArrowExpr_MixedTargets_ThinThenFat.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XPath 4.0 ED EBNF (35) ArrowExpr ; XPath 4.0 ED EBNF (39) ThinArrowTarget")
+    internal inner class ThinArrowTarget {
+        @Test
+        @DisplayName("XPath 4.0 ED EBNF (67) ArrowStaticFunction")
+        fun arrowStaticFunction() {
+            val expected = loadResource("tests/parser/xpath-4.0/ThinArrowTarget_EQName.txt")
+            val actual = parseResource("tests/parser/xpath-4.0/ThinArrowTarget_EQName.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("XPath 4.0 ED EBNF (68) ArrowDynamicFunction ; XPath 4.0 ED EBNF (72) VarRef")
+        fun arrowDynamicFunction_VarRef() {
+            val expected = loadResource("tests/parser/xpath-4.0/ThinArrowTarget_VarRef.txt")
+            val actual = parseResource("tests/parser/xpath-4.0/ThinArrowTarget_VarRef.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("XPath 4.0 ED EBNF (68) ArrowDynamicFunction ; XPath 4.0 ED EBNF (74) ParenthesizedExpr")
+        fun arrowDynamicFunction_ParenthesizedExpr() {
+            val expected = loadResource("tests/parser/xpath-4.0/ThinArrowTarget_ParenthesizedExpr.txt")
+            val actual = parseResource("tests/parser/xpath-4.0/ThinArrowTarget_ParenthesizedExpr.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("compact whitespace")
+        fun compactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-4.0/ThinArrowTarget_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-4.0/ThinArrowTarget_CompactWhitespace.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing ArgumentList")
+        fun missingArgumentList() {
+            val expected = loadResource("tests/parser/xpath-4.0/ThinArrowTarget_MissingArgumentList.txt")
+            val actual = parseResource("tests/parser/xpath-4.0/ThinArrowTarget_MissingArgumentList.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing function specifier")
+        fun missingFunctionSpecifier() {
+            val expected = loadResource("tests/parser/xpath-4.0/ThinArrowTarget_MissingFunctionSpecifier.txt")
+            val actual = parseResource("tests/parser/xpath-4.0/ThinArrowTarget_MissingFunctionSpecifier.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple arrows")
+        fun multipleArrows() {
+            val expected = loadResource("tests/parser/xpath-4.0/ThinArrowTarget_MultipleArrows.txt")
+            val actual = parseResource("tests/parser/xpath-4.0/ThinArrowTarget_MultipleArrows.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 4.0 ED EBNF (83) InlineFunctionExpr")
     internal inner class InlineFunctionExpr_XPath40 {
         @Test

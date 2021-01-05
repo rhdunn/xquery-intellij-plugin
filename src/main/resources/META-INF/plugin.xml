@@ -82,6 +82,7 @@
         Support <code>-&gt;</code> in addition to <code>function</code> in <code>InlineFunctionExpr</code>
         expressions, with optional function signatures.
       </li>
+      <li>Support <code>-&gt;</code> based <code>ArrowExpr</code> expressions.</li>
     </ol>
   ]]></change-notes>
 

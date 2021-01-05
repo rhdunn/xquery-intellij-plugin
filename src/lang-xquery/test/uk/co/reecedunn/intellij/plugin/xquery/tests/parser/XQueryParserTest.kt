@@ -9377,6 +9377,86 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery 4.0 ED EBNF (103) ArrowExpr")
+    internal inner class ArrowExpr_XQuery40 {
+        @Test
+        @DisplayName("mixed targets; fat then thin")
+        fun mixedTargets_fatThenThin() {
+            val expected = loadResource("tests/parser/xquery-4.0/ArrowExpr_MixedTargets_FatThenThin.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/ArrowExpr_MixedTargets_FatThenThin.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("mixed targets; thin then fat")
+        fun mixedTargets_thinThenFat() {
+            val expected = loadResource("tests/parser/xquery-4.0/ArrowExpr_MixedTargets_ThinThenFat.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/ArrowExpr_MixedTargets_ThinThenFat.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 4.0 ED EBNF (103) ArrowExpr ; XQuery 4.0 ED EBNF (107) ThinArrowTarget")
+    internal inner class ThinArrowTarget {
+        @Test
+        @DisplayName("XQuery 4.0 ED EBNF (140) ArrowStaticFunction")
+        fun arrowStaticFunction() {
+            val expected = loadResource("tests/parser/xquery-4.0/ThinArrowTarget_EQName.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/ThinArrowTarget_EQName.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("XQuery 4.0 ED EBNF (141) ArrowDynamicFunction ; XQuery 4.0 ED EBNF (145) VarRef")
+        fun arrowDynamicFunction_VarRef() {
+            val expected = loadResource("tests/parser/xquery-4.0/ThinArrowTarget_VarRef.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/ThinArrowTarget_VarRef.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("XQuery 4.0 ED EBNF (68) ArrowDynamicFunction ; XQuery 4.0 ED EBNF (147) ParenthesizedExpr")
+        fun arrowDynamicFunction_ParenthesizedExpr() {
+            val expected = loadResource("tests/parser/xquery-4.0/ThinArrowTarget_ParenthesizedExpr.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/ThinArrowTarget_ParenthesizedExpr.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("compact whitespace")
+        fun compactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-4.0/ThinArrowTarget_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/ThinArrowTarget_CompactWhitespace.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing ArgumentList")
+        fun missingArgumentList() {
+            val expected = loadResource("tests/parser/xquery-4.0/ThinArrowTarget_MissingArgumentList.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/ThinArrowTarget_MissingArgumentList.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing function specifier")
+        fun missingFunctionSpecifier() {
+            val expected = loadResource("tests/parser/xquery-4.0/ThinArrowTarget_MissingFunctionSpecifier.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/ThinArrowTarget_MissingFunctionSpecifier.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple arrows")
+        fun multipleArrows() {
+            val expected = loadResource("tests/parser/xquery-4.0/ThinArrowTarget_MultipleArrows.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/ThinArrowTarget_MultipleArrows.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 4.0 ED EBNF (185) InlineFunctionExpr")
     internal inner class InlineFunctionExpr_XQuery40 {
         @Test

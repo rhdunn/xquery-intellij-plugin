@@ -238,6 +238,8 @@ object XPathTokenType {
 
     val AND_EXPR_TOKENS: TokenSet = TokenSet.create(K_AND, K_ANDALSO)
 
+    val ARROW_TARGET_TOKENS: TokenSet = TokenSet.create(ARROW, THIN_ARROW)
+
     val COMMENT_TOKENS: TokenSet = TokenSet.create(
         COMMENT
     )

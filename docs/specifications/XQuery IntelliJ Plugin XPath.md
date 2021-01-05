@@ -390,13 +390,17 @@ expressions in the lambda function body expression.
 {: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
-| \[27\] | `ArrowExpr`                    | ::= | `UnaryExpr FatArrowTarget*`               |         |
+| \[27\] | `ArrowExpr`                    | ::= | `UnaryExpr ( FatArrowTarget | ThinArrowTarget )*` | |
 | \[40\] | `FatArrowTarget`               | ::= | `"=>" ( ArrowFunctionCall | ArrowDynamicFunctionCall )` | |
+| \[53\] | `ThinArrowTarget`              | ::= | `"->" ( ArrowFunctionCall | ArrowDynamicFunctionCall )` | |
 | \[28\] | `ArrowFunctionCall`            | ::= | `EQName ArgumentList`                     |         |
 | \[38\] | `ArrowDynamicFunctionCall`     | ::= | `( VarRef \| ParamRef \| ParenthesizedExpr ) PositionalArgumentList` | |
 
 The `ParamRef` is for [Lambda Function Expressions](#3412-lambda-function-expressions)
 support in Saxon 10.0.
+
+The `ThinArrowTarget` is a new XPath 4.0 Editor's Draft extension that applies
+the function to each item in `UnaryExpr`.
 
 ## A XQuery IntelliJ Plugin Grammar
 
@@ -448,7 +452,7 @@ These changes include support for:
 | \[24\]  | `ContextItemFunctionExpr`      | ::= | `(( "fn" "{" ) | ".{" ) Expr "}"`   |                      |
 | \[25\]  | `TupleType`                    | ::= | `"tuple" "(" TupleField ("," TupleField)* ("," "*")? ")"` | |
 | \[26\]  | `TupleField`                   | ::= | `TupleFieldName "?"? ( ( ":" | "as" ) SequenceType )?` |   |
-| \[27\]  | `ArrowExpr`                    | ::= | `UnaryExpr FatArrowTarget*`         |                      |
+| \[27\]  | `ArrowExpr`                    | ::= | `UnaryExpr ( FatArrowTarget | ThinArrowTarget )*` |        |
 | \[28\]  | `ArrowFunctionCall`            | ::= | `EQName ArgumentList`               |                      |
 | \[29\]  | `AttributeTest`                | ::= | `"attribute" "(" (NameTest ("," TypeName)?)? ")"` |        |
 | \[30\]  | `InlineFunctionExpr`           | ::= | `(("function" FunctionSignature) | ("->" FunctionSignature?)) FunctionBody` | |
@@ -474,6 +478,7 @@ These changes include support for:
 | \[50\]  | `FilterStep`                   | ::= | `AxisStep Predicate`                |                      |
 | \[51\]  | `ParenthesizedExpr`            | ::= | `EmptyExpr | ( "(" Expr ")" )`      |                      |
 | \[52\]  | `EmptyExpr`                    | ::= | `"(" ")"`                           |                      |
+| \[53\]  | `ThinArrowTarget`              | ::= | `"->" ( ArrowFunctionCall | ArrowDynamicFunctionCall )` |  |
 
 ### A.2 Reserved Function Names
 

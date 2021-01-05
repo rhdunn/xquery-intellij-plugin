@@ -1284,6 +1284,14 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XPath 4.0 ED EBNF (39) ThinArrowTarget")
+    fun thinArrowTarget() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "->", XPathTokenType.THIN_ARROW)
+    }
+
+    @Test
     @DisplayName("XPath 4.0 ED EBNF (59) PositionalArgumentList")
     fun positionalArgumentList() {
         val lexer = createLexer()

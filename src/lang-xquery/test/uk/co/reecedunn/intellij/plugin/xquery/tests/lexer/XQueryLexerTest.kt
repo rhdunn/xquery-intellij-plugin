@@ -3831,6 +3831,14 @@ class XQueryLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XQuery 4.0 ED EBNF (107) ThinArrowTarget")
+    fun thinArrowTarget() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "->", XPathTokenType.THIN_ARROW)
+    }
+
+    @Test
     @DisplayName("XQuery 4.0 ED EBNF (132) PositionalArgumentList")
     fun positionalArgumentList() {
         val lexer = createLexer()
