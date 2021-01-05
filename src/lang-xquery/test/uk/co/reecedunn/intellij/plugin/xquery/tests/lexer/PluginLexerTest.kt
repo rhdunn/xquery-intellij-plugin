@@ -190,8 +190,8 @@ class PluginLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (23) TupleType")
-    fun tupleType() {
+    @DisplayName("XQuery IntelliJ Plugin EBNF (23) RecordTest")
+    fun recordTest() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "tuple", XPathTokenType.K_TUPLE)

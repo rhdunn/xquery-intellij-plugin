@@ -315,8 +315,8 @@ class SaxonSyntaxValidatorTest :
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (23) TupleType")
-    internal inner class TupleType {
+    @DisplayName("XQuery IntelliJ Plugin EBNF (23) RecordTest")
+    internal inner class RecordTest {
         @Nested
         @DisplayName("tuple type")
         internal inner class TupleType {

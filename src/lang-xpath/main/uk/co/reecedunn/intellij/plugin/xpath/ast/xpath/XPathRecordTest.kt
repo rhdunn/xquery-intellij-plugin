@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017, 2019-2020 Reece H. Dunn
+ * Copyright (C) 2017, 2019-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.ast.plugin
+package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFieldDeclaration
 
 /**
- * A Saxon 9.8 `TupleType` node in the XQuery AST.
+ * An XPath 4.0 ED and XQuery 4.0 ED `RecordTest` node in the XPath/XQuery AST.
  */
-interface PluginTupleType : PsiElement, XdmItemType {
+interface XPathRecordTest : PsiElement, XdmItemType {
     val fields: Sequence<XPathFieldDeclaration>
 
     val isExtensible: Boolean

@@ -3071,7 +3071,7 @@ open class XPathParser : PsiParser {
             parseAnnotatedFunction(builder) ||
             parseMapTest(builder) ||
             parseArrayTest(builder) ||
-            parseTupleType(builder) ||
+            parseRecordTest(builder) ||
             parseLocalUnionType(builder) ||
             parseTypeAlias(builder) ||
             parseAtomicOrUnionType(builder) ||
@@ -3275,61 +3275,6 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    private fun parseTupleType(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_TUPLE)
-        if (marker != null) {
-            var haveError = false
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
-                marker.rollbackTo()
-                return false
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseFieldDeclaration(builder)) {
-                builder.error(XPathBundle.message("parser.error.expected", "NCName"))
-                haveError = true
-            }
-
-            var isExtensible = false
-            var haveNext = true
-            while (haveNext) {
-                parseWhiteSpaceAndCommentTokens(builder)
-                if (isExtensible) {
-                    val extMarker = builder.mark()
-                    if (!builder.matchTokenType(XPathTokenType.COMMA)) {
-                        haveNext = false
-                        extMarker.drop()
-                        continue
-                    } else {
-                        extMarker.error(XPathBundle.message("parser.error.tuple-wildcard-with-names-after"))
-                    }
-                } else if (!builder.matchTokenType(XPathTokenType.COMMA)) {
-                    haveNext = false
-                    continue
-                }
-
-                parseWhiteSpaceAndCommentTokens(builder)
-                if (builder.matchTokenType(XPathTokenType.STAR)) {
-                    isExtensible = true
-                } else if (!parseFieldDeclaration(builder) && !haveError) {
-                    builder.error(XPathBundle.message("parser.error.expected-either", "NCName", "*"))
-                    haveError = true
-                }
-            }
-
-            parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE) && !haveError) {
-                builder.error(XPathBundle.message("parser.error.expected", ")"))
-            }
-
-            marker.done(XPathElementType.TUPLE_TYPE)
-            return true
-        }
-        return false
-    }
-
     private fun parseLocalUnionType(builder: PsiBuilder): Boolean {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_UNION)
         if (marker != null) {
@@ -3415,6 +3360,61 @@ open class XPathParser : PsiParser {
 
     // endregion
     // region Grammar :: TypeDeclaration :: ItemType :: RecordTest
+
+    private fun parseRecordTest(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_TUPLE)
+        if (marker != null) {
+            var haveError = false
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
+                marker.rollbackTo()
+                return false
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseFieldDeclaration(builder)) {
+                builder.error(XPathBundle.message("parser.error.expected", "NCName"))
+                haveError = true
+            }
+
+            var isExtensible = false
+            var haveNext = true
+            while (haveNext) {
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (isExtensible) {
+                    val extMarker = builder.mark()
+                    if (!builder.matchTokenType(XPathTokenType.COMMA)) {
+                        haveNext = false
+                        extMarker.drop()
+                        continue
+                    } else {
+                        extMarker.error(XPathBundle.message("parser.error.tuple-wildcard-with-names-after"))
+                    }
+                } else if (!builder.matchTokenType(XPathTokenType.COMMA)) {
+                    haveNext = false
+                    continue
+                }
+
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (builder.matchTokenType(XPathTokenType.STAR)) {
+                    isExtensible = true
+                } else if (!parseFieldDeclaration(builder) && !haveError) {
+                    builder.error(XPathBundle.message("parser.error.expected-either", "NCName", "*"))
+                    haveError = true
+                }
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE) && !haveError) {
+                builder.error(XPathBundle.message("parser.error.expected", ")"))
+            }
+
+            marker.done(XPathElementType.RECORD_TEST)
+            return true
+        }
+        return false
+    }
 
     private fun parseFieldDeclaration(builder: PsiBuilder): Boolean {
         val marker = builder.mark()

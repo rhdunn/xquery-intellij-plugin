@@ -130,7 +130,7 @@ not normative.
 {: .ebnf-symbols }
 | Ref     | Symbol                  |     | Expression                          | Options |
 |---------|-------------------------|-----|-------------------------------------|---------|
-| \[20\]  | `ItemType`              | ::= | `KindTest \| AnyItemTest \| AnnotatedFunctionOrSequence \| MapTest \| ArrayTest \| TupleType \| TypeAlias \| LocalUnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
+| \[20\]  | `ItemType`              | ::= | `KindTest \| AnyItemTest \| AnnotatedFunctionOrSequence \| MapTest \| ArrayTest \| RecordTest \| TypeAlias \| LocalUnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
 | \[21\]  | `TypedMapTest`          | ::= | `"map" "(" ItemType "," SequenceType ")"` |   |
 | \[22\]  | `LocalUnionType`        | ::= | `"union" "(" ItemType ("," ItemType)* ")"` |  |
 | \[28\]  | `KindTest`              | ::= | `DocumentTest \| ElementTest \| AttributeTest \| SchemaElementTest \| SchemaAttributeTest \| PITest \| CommentTest \| TextTest \| NamespaceNodeTest \| AnyKindTest \| NamedKindTest \| BinaryTest \| SchemaKindTest \| JsonKindTest` | |
@@ -201,11 +201,11 @@ If the member type has no namespace prefix, it is implicitly qualified by the
 {: .ebnf-symbols }
 | Ref     | Symbol                  |     | Expression                          | Options               |
 |---------|-------------------------|-----|-------------------------------------|-----------------------|
-| \[23\]  | `TupleType`             | ::= | `"tuple" "(" FieldDeclaration ("," FieldDeclaration)* ("," "*")? ")"` | |
+| \[23\]  | `RecordTest`            | ::= | `"tuple" "(" FieldDeclaration ("," FieldDeclaration)* ("," "*")? ")"` | |
 | \[24\]  | `FieldDeclaration`      | ::= | `FieldName "?"? ( ( ":" | "as" ) SequenceType )?` |         |
 | \[115\] | `FieldName`             | ::= | `NCName | StringLiteral`            |                       |
 
-The `TupleType` is a new sequence type supported by Saxon 9.8. Saxon 9.8 uses
+The `RecordTest` is a new sequence type supported by Saxon 9.8. Saxon 9.8 uses
 `:` to specify the tuple item's sequence type, while Saxon 10.0 uses `as`.
 
 In Saxon 9.8, a field name can only be an `NCName`. In Saxon 10, it can also
@@ -1124,10 +1124,10 @@ These changes include support for:
 | \[17\]   | `MapConstructorEntry`          | ::= | `MapKeyExpr (":" \| ":=") MapValueExpr` |                   |
 | \[18\]   | `Prolog`                       | ::= | `((DefaultNamespaceDecl \| Setter \| NamespaceDecl \| Import \| UsingDecl) Separator)* ((ContextItemDecl \| AnnotatedDecl \| OptionDecl \| TypeDecl) Separator)*` | |
 | \[19\]   | `TypeDecl`                     | ::= | `"declare" "type" QName "=" ItemType` |                     |
-| \[20\]   | `ItemType`                     | ::= | `KindTest \| AnyItemTest \| AnnotatedFunctionOrSequence \| MapTest \| ArrayTest \| TypeAlias \| LocalUnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
+| \[20\]   | `ItemType`                     | ::= | `KindTest \| AnyItemTest \| AnnotatedFunctionOrSequence \| MapTest \| ArrayTest \| RecordTest \| TypeAlias \| LocalUnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
 | \[21\]   | `TypedMapTest`                 | ::= | `"map" "(" ItemType "," SequenceType ")"` |                 |
 | \[22\]   | `LocalUnionType`               | ::= | `"union" "(" ItemType ("," ItemType)* ")"` |                |
-| \[23\]   | `TupleType`                    | ::= | `"tuple" "(" FieldDeclaration ("," FieldDeclaration)* ("," "*")? ")"` | |
+| \[23\]   | `RecordTest`                   | ::= | `"tuple" "(" FieldDeclaration ("," FieldDeclaration)* ("," "*")? ")"` | |
 | \[24\]   | `FieldDelaration`              | ::= | `FieldName "?"? ( ( ":" | "as" ) SequenceType )?` |         |
 | \[25\]   | `ForwardAxis`                  | ::= | `("child" "::") \| ("descendant" "::") \| ("attribute" "::") \| ("self" "::") \| ("descendant-or-self" "::") \| ("following-sibling" "::") \| ("following" "::") \| ("namespace" "::") \| ("property" "::")` | |
 | \[26\]   | `CompatibilityAnnotation`      | ::= | `"assignable" \| "private" \| "sequential" \| "simple" \| "unassignable" \| "updating"` | |

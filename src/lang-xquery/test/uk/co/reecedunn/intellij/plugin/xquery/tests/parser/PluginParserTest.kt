@@ -311,8 +311,8 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (23) TupleType")
-    internal inner class TupleType {
+    @DisplayName("XQuery IntelliJ Plugin EBNF (23) RecordTest")
+    internal inner class RecordTest {
         @Test
         @DisplayName("tuple type")
         fun tupleType() {
@@ -363,8 +363,8 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (23) TupleType ; XQuery IntelliJ Plugin EBNF (24) FieldDeclaration")
-    internal inner class TupleType_FieldDeclaration {
+    @DisplayName("XQuery IntelliJ Plugin EBNF (23) RecordTest ; XQuery IntelliJ Plugin EBNF (24) FieldDeclaration")
+    internal inner class RecordTest_FieldDeclaration {
         @Test
         @DisplayName("no SequenceType")
         fun noSequenceType() {

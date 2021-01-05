@@ -562,6 +562,12 @@ object XPathElementType {
         XPath
     )
 
+    val RECORD_TEST: IElementType = ICompositeElementType(
+        "XPATH_RECORD_TEST",
+        XPathRecordTestPsiImpl::class.java,
+        XPath
+    )
+
     val TERNARY_CONDITIONAL_EXPR: IElementType = ICompositeElementType(
         "XPATH_TERNARY_CONDITIONAL_EXPR",
         XPathTernaryConditionalExprPsiImpl::class.java,
@@ -895,12 +901,6 @@ object XPathElementType {
     val DYNAMIC_FUNCTION_CALL: IElementType = ICompositeElementType(
         "XPATH_DYNAMIC_FUNCTION_CALL",
         PluginDynamicFunctionCallPsiImpl::class.java,
-        XPath
-    )
-
-    val TUPLE_TYPE: IElementType = ICompositeElementType(
-        "XPATH_TUPLE_TYPE",
-        PluginTupleTypeImpl::class.java,
         XPath
     )
 

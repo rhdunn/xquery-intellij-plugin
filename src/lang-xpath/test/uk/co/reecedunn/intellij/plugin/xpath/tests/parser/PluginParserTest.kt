@@ -80,8 +80,8 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (25) TupleType")
-    internal inner class TupleType {
+    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (25) RecordTest")
+    internal inner class RecordTest {
         @Test
         @DisplayName("tuple type")
         fun tupleType() {
@@ -132,8 +132,8 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (25) TupleType ; XQuery IntelliJ Plugin XPath EBNF (26) FieldDeclaration")
-    internal inner class TupleType_FieldDeclaration {
+    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (25) RecordTest ; XQuery IntelliJ Plugin XPath EBNF (26) FieldDeclaration")
+    internal inner class RecordTest_FieldDeclaration {
         @Test
         @DisplayName("no SequenceType")
         fun noSequenceType() {

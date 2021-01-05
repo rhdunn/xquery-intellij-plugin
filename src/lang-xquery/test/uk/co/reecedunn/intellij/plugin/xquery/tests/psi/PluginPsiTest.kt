@@ -151,14 +151,14 @@ private class PluginPsiTest : ParserTestCase() {
 
     @Nested
     @DisplayName("XQuery IntelliJ Plugin (2.1.2.2) Tuple Type")
-    internal inner class TupleType {
+    internal inner class RecordTest {
         @Nested
-        @DisplayName("XQuery IntelliJ Plugin EBNF (23) TupleType")
-        internal inner class TupleType {
+        @DisplayName("XQuery IntelliJ Plugin EBNF (23) RecordTest")
+        internal inner class RecordTest {
             @Test
             @DisplayName("empty")
             fun empty() {
-                val test = parse<PluginTupleType>("() instance of tuple ( (::) )")[0]
+                val test = parse<XPathRecordTest>("() instance of tuple ( (::) )")[0]
                 assertThat(test.fields.count(), `is`(0))
                 assertThat(test.isExtensible, `is`(false))
 
@@ -174,7 +174,7 @@ private class PluginPsiTest : ParserTestCase() {
             @Test
             @DisplayName("one field")
             fun one() {
-                val test = parse<PluginTupleType>("() instance of tuple ( test )")[0]
+                val test = parse<XPathRecordTest>("() instance of tuple ( test )")[0]
                 assertThat(test.fields.count(), `is`(1))
                 assertThat(test.isExtensible, `is`(false))
 
@@ -190,7 +190,7 @@ private class PluginPsiTest : ParserTestCase() {
             @Test
             @DisplayName("multiple fields")
             fun multiple() {
-                val test = parse<PluginTupleType>("() instance of tuple ( x : xs:float , y : xs:float )")[0]
+                val test = parse<XPathRecordTest>("() instance of tuple ( x : xs:float , y : xs:float )")[0]
                 assertThat(test.fields.count(), `is`(2))
                 assertThat(test.isExtensible, `is`(false))
 
@@ -206,7 +206,7 @@ private class PluginPsiTest : ParserTestCase() {
             @Test
             @DisplayName("empty; extensible")
             fun emptyExtensible() {
-                val test = parse<PluginTupleType>("() instance of tuple ( * )")[0]
+                val test = parse<XPathRecordTest>("() instance of tuple ( * )")[0]
                 assertThat(test.fields.count(), `is`(0))
                 assertThat(test.isExtensible, `is`(false))
 
@@ -222,7 +222,7 @@ private class PluginPsiTest : ParserTestCase() {
             @Test
             @DisplayName("multiple fields; extensible")
             fun multipleExtensible() {
-                val test = parse<PluginTupleType>("() instance of tuple ( x : xs:float , y : xs:float , * )")[0]
+                val test = parse<XPathRecordTest>("() instance of tuple ( x : xs:float , y : xs:float , * )")[0]
                 assertThat(test.fields.count(), `is`(2))
                 assertThat(test.isExtensible, `is`(true))
 
@@ -247,7 +247,7 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(field.fieldType, `is`(nullValue()))
                 assertThat(field.isOptional, `is`(false))
 
-                val test = field.parent as PluginTupleType
+                val test = field.parent as XPathRecordTest
                 assertThat(test.fields.first(), `is`(sameInstance(field)))
 
                 val type = test as XdmItemType
@@ -267,7 +267,7 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(field.fieldType, `is`(nullValue()))
                 assertThat(field.isOptional, `is`(true))
 
-                val test = field.parent as PluginTupleType
+                val test = field.parent as XPathRecordTest
                 assertThat(test.fields.first(), `is`(sameInstance(field)))
 
                 val type = test as XdmItemType
@@ -287,7 +287,7 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(field.fieldType?.typeName, `is`("xs:string"))
                 assertThat(field.isOptional, `is`(false))
 
-                val test = field.parent as PluginTupleType
+                val test = field.parent as XPathRecordTest
                 assertThat(test.fields.first(), `is`(sameInstance(field)))
 
                 val type = test as XdmItemType
@@ -307,7 +307,7 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(field.fieldType?.typeName, `is`("xs:string"))
                 assertThat(field.isOptional, `is`(true))
 
-                val test = field.parent as PluginTupleType
+                val test = field.parent as XPathRecordTest
                 assertThat(test.fields.first(), `is`(sameInstance(field)))
 
                 val type = test as XdmItemType
@@ -327,7 +327,7 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(field.fieldType, `is`(nullValue()))
                 assertThat(field.isOptional, `is`(false))
 
-                val test = field.parent as PluginTupleType
+                val test = field.parent as XPathRecordTest
                 assertThat(test.fields.first(), `is`(sameInstance(field)))
 
                 val type = test as XdmItemType
@@ -347,7 +347,7 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(field.fieldType, `is`(nullValue()))
                 assertThat(field.isOptional, `is`(false))
 
-                val test = field.parent as PluginTupleType
+                val test = field.parent as XPathRecordTest
                 assertThat(test.fields.first(), `is`(sameInstance(field)))
 
                 val type = test as XdmItemType

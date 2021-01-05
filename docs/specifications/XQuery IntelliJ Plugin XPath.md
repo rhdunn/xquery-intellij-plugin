@@ -80,7 +80,7 @@ not normative.
 {: .ebnf-symbols }
 | Ref    | Symbol                  |     | Expression                          | Options |
 |--------|-------------------------|-----|-------------------------------------|---------|
-| \[5\]  | `ItemType`              | ::= | `KindTest \| AnyItemTest \| FunctionTest \| MapTest \| ArrayTest \| LocalUnionType \| TupleType \| TypeAlias \| AtomicOrUnionType \| ParenthesizedItemType` | |
+| \[5\]  | `ItemType`              | ::= | `KindTest \| AnyItemTest \| FunctionTest \| MapTest \| ArrayTest \| LocalUnionType \| RecordTest \| TypeAlias \| AtomicOrUnionType \| ParenthesizedItemType` | |
 | \[6\]  | `AnyItemTest`           | ::= | `"item" "(" ")"`                    |         |
 | \[14\] | `SequenceTypeList`      | ::= | `SequenceType ("," SequenceType)*`  |         |
 | \[15\] | `TypedFunctionTest`     | ::= | `"function" "(" SequenceTypeList? ")" "as" SequenceType` | |
@@ -127,11 +127,11 @@ If the member type has no namespace prefix, it is implicitly qualified by the
 {: .ebnf-symbols }
 | Ref    | Symbol                  |     | Expression                          | Options               |
 |--------|-------------------------|-----|-------------------------------------|-----------------------|
-| \[25\] | `TupleType`             | ::= | `"tuple" "(" FieldDeclaration ("," FieldDeclaration)* ("," "*")? ")"` | |
+| \[25\] | `RecordTest`            | ::= | `"tuple" "(" FieldDeclaration ("," FieldDeclaration)* ("," "*")? ")"` | |
 | \[26\] | `FieldDeclaration`      | ::= | `FieldName "?"? ( ( ":" | "as" ) SequenceType )?` |         |
 | \[33\] | `FieldName`             | ::= | `NCName | StringLiteral`            |                       |
 
-The `TupleType` is a new sequence type supported by Saxon 9.8. Saxon 9.8 uses `:`
+The `RecordTest` is a new sequence type supported by Saxon 9.8. Saxon 9.8 uses `:`
 to specify the tuple item's sequence type, while Saxon 10.0 uses `as`.
 
 In Saxon 9.8, a field name can only be an `NCName`. In Saxon 10, it can also
@@ -432,7 +432,7 @@ These changes include support for:
 | \[2\]   | `QuantifiedExprBinding`        | ::= | `"$" VarName "in" ExprSingle`       |                      |
 | \[3\]   | `Wildcard`                     | ::= | `WildcardIndicator \| (NCName ":" WildcardIndicator) \| (WildcardIndicator ":" NCName) \| (BracedURILiteral WildcardIndicator)` | /\* ws: explicit \*/ |
 | \[4\]   | `WildcardIndicator`            | ::= | `"*"`                               |                      |
-| \[5\]   | `ItemType`                     | ::= | `KindTest \| AnyItemTest \| FunctionTest \| MapTest \| ArrayTest \| LocalUnionType \| TupleType \| TypeAlias \| AtomicOrUnionType \| ParenthesizedItemType` | |
+| \[5\]   | `ItemType`                     | ::= | `KindTest \| AnyItemTest \| FunctionTest \| MapTest \| ArrayTest \| LocalUnionType \| RecordTest \| TypeAlias \| AtomicOrUnionType \| ParenthesizedItemType` | |
 | \[6\]   | `AnyItemTest`                  | ::= | `"item" "(" ")"`                    |                      |
 | \[7\]   | `ForExpr`                      | ::= | `SimpleForClause ReturnClause`      |                      |
 | \[8\]   | `ReturnClause`                 | ::= | `"return" ExprSingle`               |                      |
@@ -452,7 +452,7 @@ These changes include support for:
 | \[22\]  | `ParamList`                    | ::= | `ParamList ::= Param ("," Param)* "..."?` |                |
 | \[23\]  | `FunctionItemExpr`             | ::= | `NamedFunctionRef \| InlineFunctionExpr \| ContextItemFunctionExpr \| LambdaFunctionExpr` | |
 | \[24\]  | `ContextItemFunctionExpr`      | ::= | `(( "fn" "{" ) | ".{" ) Expr "}"`   |                      |
-| \[25\]  | `TupleType`                    | ::= | `"tuple" "(" FieldDeclaration ("," FieldDeclaration)* ("," "*")? ")"` | |
+| \[25\]  | `RecordTest`                   | ::= | `"tuple" "(" FieldDeclaration ("," FieldDeclaration)* ("," "*")? ")"` | |
 | \[26\]  | `FieldDeclaration`             | ::= | `FieldName "?"? ( ( ":" | "as" ) SequenceType )?` |        |
 | \[27\]  | `ArrowExpr`                    | ::= | `UnaryExpr ( FatArrowTarget | ThinArrowTarget )*` |        |
 | \[28\]  | `ArrowFunctionCall`            | ::= | `EQName ArgumentList`               |                      |

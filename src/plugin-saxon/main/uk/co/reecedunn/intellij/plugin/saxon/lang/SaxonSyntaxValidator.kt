@@ -51,7 +51,7 @@ object SaxonSyntaxValidator : XpmSyntaxValidator {
             else -> {
             }
         }
-        is PluginTupleType -> when (element.isExtensible) {
+        is XPathRecordTest -> when (element.isExtensible) {
             true -> reporter.requires(element, SAXON_PE_9_9)
             else -> reporter.requires(element, SAXON_PE_9_8)
         }
