@@ -127,9 +127,10 @@ If the member type has no namespace prefix, it is implicitly qualified by the
 {: .ebnf-symbols }
 | Ref    | Symbol                  |     | Expression                          | Options               |
 |--------|-------------------------|-----|-------------------------------------|-----------------------|
-| \[25\] | `RecordTest`            | ::= | `"tuple" "(" FieldDeclaration ("," FieldDeclaration)* ("," "*")? ")"` | |
+| \[25\] | `RecordTest`            | ::= | `"tuple" "(" FieldDeclaration ("," FieldDeclaration)* ExtensibleFlag? ")"` | |
 | \[26\] | `FieldDeclaration`      | ::= | `FieldName "?"? ( ( ":" | "as" ) SequenceType )?` |         |
 | \[33\] | `FieldName`             | ::= | `NCName | StringLiteral`            |                       |
+| \[55\] | `ExtensibleFlag`        | ::= | `"," "*"`                           |                       |
 
 The `RecordTest` is a new sequence type supported by Saxon 9.8. Saxon 9.8 uses `:`
 to specify the tuple item's sequence type, while Saxon 10.0 uses `as`.
@@ -452,7 +453,7 @@ These changes include support for:
 | \[22\]  | `ParamList`                    | ::= | `ParamList ::= Param ("," Param)* "..."?` |                |
 | \[23\]  | `FunctionItemExpr`             | ::= | `NamedFunctionRef \| InlineFunctionExpr \| ContextItemFunctionExpr \| LambdaFunctionExpr` | |
 | \[24\]  | `ContextItemFunctionExpr`      | ::= | `(( "fn" "{" ) | ".{" ) Expr "}"`   |                      |
-| \[25\]  | `RecordTest`                   | ::= | `"tuple" "(" FieldDeclaration ("," FieldDeclaration)* ("," "*")? ")"` | |
+| \[25\]  | `RecordTest`                   | ::= | `"tuple" "(" FieldDeclaration ("," FieldDeclaration)* ExtensibleFlag? ")"` | |
 | \[26\]  | `FieldDeclaration`             | ::= | `FieldName "?"? ( ( ":" | "as" ) SequenceType )?` |        |
 | \[27\]  | `ArrowExpr`                    | ::= | `UnaryExpr ( FatArrowTarget | ThinArrowTarget )*` |        |
 | \[28\]  | `ArrowFunctionCall`            | ::= | `EQName ArgumentList`               |                      |
@@ -482,6 +483,7 @@ These changes include support for:
 | \[52\]  | `EmptyExpr`                    | ::= | `"(" ")"`                           |                      |
 | \[53\]  | `ThinArrowTarget`              | ::= | `"->" ( ArrowFunctionCall | ArrowDynamicFunctionCall | ArrowInlineFunctionCall )` |  |
 | \[54\]  | `ArrowInlineFunctionCall`      | ::= | `EnclosedExpr`                      |                      |
+| \[55\]  | `ExtensibleFlag`               | ::= | `"," "*"`                           |                      |
 
 ### A.2 Reserved Function Names
 

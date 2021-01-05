@@ -3874,6 +3874,15 @@ class XQueryLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XQuery 4.0 ED EBNF (232) ExtensibleFlag")
+    fun extensibleFlag() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
+        matchSingleToken(lexer, "*", XPathTokenType.STAR)
+    }
+
+    @Test
     @DisplayName("XQuery 4.0 ED EBNF (233) LocalUnionType")
     fun localUnionType() {
         val lexer = createLexer()

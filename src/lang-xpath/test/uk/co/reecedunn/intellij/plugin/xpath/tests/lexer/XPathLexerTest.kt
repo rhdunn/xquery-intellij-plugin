@@ -1327,6 +1327,15 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XPath 4.0 ED EBNF (126) ExtensibleFlag")
+    fun extensibleFlag() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
+        matchSingleToken(lexer, "*", XPathTokenType.STAR)
+    }
+
+    @Test
     @DisplayName("XPath 4.0 ED EBNF (127) LocalUnionType")
     fun localUnionType() {
         val lexer = createLexer()
