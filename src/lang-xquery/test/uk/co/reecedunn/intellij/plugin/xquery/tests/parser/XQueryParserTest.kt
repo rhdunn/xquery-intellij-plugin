@@ -9799,6 +9799,42 @@ private class XQueryParserTest : ParserTestCase() {
                 assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
+
+        @Nested
+        @DisplayName("XQuery 4.0 ED EBNF (229) FieldDeclaration; XQuery 4.0 ED EBNF (200) SequenceType")
+        internal inner class FieldDeclaration_SequenceType {
+            @Test
+            @DisplayName("sequence type")
+            fun sequenceType() {
+                val expected = loadResource("tests/parser/xquery-4.0/FieldDeclaration_SequenceType.txt")
+                val actual = parseResource("tests/parser/xquery-4.0/FieldDeclaration_SequenceType.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("missing type")
+            fun missingType() {
+                val expected = loadResource("tests/parser/xquery-4.0/FieldDeclaration_SequenceType_MissingType.txt")
+                val actual = parseResource("tests/parser/xquery-4.0/FieldDeclaration_SequenceType_MissingType.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("optional")
+            fun optional() {
+                val expected = loadResource("tests/parser/xquery-4.0/FieldDeclaration_Optional_SequenceType.txt")
+                val actual = parseResource("tests/parser/xquery-4.0/FieldDeclaration_Optional_SequenceType.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("optional; compact whitespace")
+            fun optional_compactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-4.0/FieldDeclaration_Optional_SequenceType_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-4.0/FieldDeclaration_Optional_SequenceType_CompactWhitespace.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+        }
     }
 
     @Nested
