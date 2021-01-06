@@ -402,7 +402,7 @@ class XQueryParser : XPathParser() {
                 parseDecimalFormatDecl(builder, state, true) -> marker.done(XQueryElementType.DECIMAL_FORMAT_DECL)
                 else -> {
                     builder.error(
-                        XPathBundle.message("parser.error.expected-keyword", "collation, element, function, order")
+                        XPathBundle.message("parser.error.expected-keyword", "collation, element, function, type, order")
                     )
                     parseUnknownDecl(builder)
                     marker.done(XQueryElementType.UNKNOWN_DECL)
@@ -446,6 +446,7 @@ class XQueryParser : XPathParser() {
             if (builder.matchTokenType(XQueryTokenType.K_SKIP)) continue
             if (builder.matchTokenType(XQueryTokenType.K_STRICT)) continue
             if (builder.matchTokenType(XQueryTokenType.K_STRIP)) continue
+            if (builder.matchTokenType(XPathTokenType.K_TYPE)) continue
             if (builder.matchTokenType(XQueryTokenType.K_UNORDERED)) continue
 
             if (parseDFPropertyName(builder)) continue
@@ -455,7 +456,7 @@ class XQueryParser : XPathParser() {
     }
 
     private fun parseDefaultNamespaceDecl(builder: PsiBuilder): Boolean {
-        if (builder.matchTokenType(XQueryTokenType.DEFAULT_ELEMENT_OR_FUNCTION_TOKENS)) {
+        if (builder.matchTokenType(XQueryTokenType.DEFAULT_NAMESPACE_TOKENS)) {
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens(builder)

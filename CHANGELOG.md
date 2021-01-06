@@ -12,6 +12,7 @@ XPath, XQuery, and XSLT 4.0 Editor's Draft:
    with optional function signatures.
 1. Support `->` based `ArrowExpr` expressions.
 1. Support `RecordTest` item types.
+1. Support `type` in `DefaultNamespaceDecl` declarations.
 
 ## 2020
 

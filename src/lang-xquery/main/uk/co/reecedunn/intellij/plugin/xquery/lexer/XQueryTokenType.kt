@@ -215,9 +215,10 @@ object XQueryTokenType {
 
     val CONSTRUCTION_MODE_TOKENS: TokenSet = TokenSet.create(K_PRESERVE, K_STRIP)
 
-    val DEFAULT_ELEMENT_OR_FUNCTION_TOKENS: TokenSet = TokenSet.create(
+    val DEFAULT_NAMESPACE_TOKENS: TokenSet = TokenSet.create(
         XPathTokenType.K_ELEMENT,
-        XPathTokenType.K_FUNCTION
+        XPathTokenType.K_FUNCTION,
+        XPathTokenType.K_TYPE
     )
 
     val DF_PROPERTY_NAME: TokenSet = TokenSet.create(

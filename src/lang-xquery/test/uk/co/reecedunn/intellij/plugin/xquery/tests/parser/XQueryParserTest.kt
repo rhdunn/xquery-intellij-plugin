@@ -9205,6 +9205,58 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery 4.0 ED EBNF (25) DefaultNamespaceDecl")
+    internal inner class DefaultNamespaceDecl_XQuery40 {
+        @Test
+        @DisplayName("type")
+        fun type() {
+            val expected = loadResource("tests/parser/xquery-4.0/DefaultNamespaceDecl_Type.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/DefaultNamespaceDecl_Type.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("type; compact whitespace")
+        fun type_compactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-4.0/DefaultNamespaceDecl_Type_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/DefaultNamespaceDecl_Type_CompactWhitespace.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: type; missing URI")
+        fun type_missingUri() {
+            val expected = loadResource("tests/parser/xquery-4.0/DefaultNamespaceDecl_Type_MissingUri.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/DefaultNamespaceDecl_Type_MissingUri.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: type; missing 'namespace' keyword")
+        fun type_MissingNamespaceKeyword() {
+            val expected = loadResource("tests/parser/xquery-4.0/DefaultNamespaceDecl_Type_MissingNamespaceKeyword.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/DefaultNamespaceDecl_Type_MissingNamespaceKeyword.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: type; missing 'default' keyword")
+        fun type_missingDefaultKeyword() {
+            val expected = loadResource("tests/parser/xquery-4.0/DefaultNamespaceDecl_Type_MissingDefaultKeyword.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/DefaultNamespaceDecl_Type_MissingDefaultKeyword.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: type; missing semicolon")
+        fun type_missingSemicolon() {
+            val expected = loadResource("tests/parser/xquery-4.0/DefaultNamespaceDecl_Type_MissingSemicolon.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/DefaultNamespaceDecl_Type_MissingSemicolon.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 4.0 ED EBNF (45) TernaryConditionalExpr")
     internal inner class TernaryConditionalExpr {
         @Test

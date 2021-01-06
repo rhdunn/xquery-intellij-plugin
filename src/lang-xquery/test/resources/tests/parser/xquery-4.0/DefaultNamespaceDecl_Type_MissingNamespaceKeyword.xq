@@ -1,0 +1,1 @@
+declare default type "http://www.example.org/test" ;

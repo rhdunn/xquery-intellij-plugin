@@ -3797,6 +3797,20 @@ class XQueryLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XQuery 4.0 ED EBNF (25) DefaultNamespaceDecl")
+    fun defaultNamespaceDecl_XQuery40() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "declare", XQueryTokenType.K_DECLARE)
+        matchSingleToken(lexer, "default", XPathTokenType.K_DEFAULT)
+        matchSingleToken(lexer, "element", XPathTokenType.K_ELEMENT)
+        matchSingleToken(lexer, "function", XPathTokenType.K_FUNCTION)
+        matchSingleToken(lexer, "type", XPathTokenType.K_TYPE)
+        matchSingleToken(lexer, "namespace", XPathTokenType.K_NAMESPACE)
+        matchSingleToken(lexer, "=", XPathTokenType.EQUAL)
+    }
+
+    @Test
     @DisplayName("XQuery 4.0 ED EBNF (33) FunctionSignature")
     fun functionSignature() {
         val lexer = createLexer()

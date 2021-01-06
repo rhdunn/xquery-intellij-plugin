@@ -84,6 +84,7 @@
       </li>
       <li>Support <code>-&gt;</code> based <code>ArrowExpr</code> expressions.</li>
       <li>Support <code>RecordTest</code> item types.</li>
+      <li>Support <code>type</code> in <code>DefaultNamespaceDecl</code> declarations.</li>
     </ol>
   ]]></change-notes>
 

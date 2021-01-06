@@ -1,15 +1,15 @@
 XQueryModuleImpl[FILE(0:32)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:32)]
       XQueryPrologImpl[XQUERY_PROLOG(0:32)]
-         XQueryUnknownDeclImpl[XQUERY_UNKNOWN_DECL(0:31)]
+         XQueryDefaultNamespaceDeclImpl[XQUERY_DEFAULT_NAMESPACE_DECL(0:31)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_DEFAULT(8:15)]('default')
             PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
-            PsiErrorElementImpl[ERROR_ELEMENT(16:16)]('XPST0003: Expected keyword: collation, element, function, type, order.')
-            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EMPTY(16:21)]('empty')
-            PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
-            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_GREATEST(22:30)]('greatest')
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TYPE(16:20)]('type')
+            PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_NAMESPACE(21:30)]('namespace')
             PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
+            PsiErrorElementImpl[ERROR_ELEMENT(31:31)]('XPST0003: Missing URI string.')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(31:32)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(32:32)]('XPST0003: Missing query body.')
