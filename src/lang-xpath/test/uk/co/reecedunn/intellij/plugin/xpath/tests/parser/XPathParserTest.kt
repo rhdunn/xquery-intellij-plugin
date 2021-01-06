@@ -4608,6 +4608,34 @@ private class XPathParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 4.0 ED EBNF (122) RecordTest")
+    internal inner class RecordTest {
+        @Test
+        @DisplayName("record test")
+        fun recordTest() {
+            val expected = loadResource("tests/parser/xpath-4.0/RecordTest.txt")
+            val actual = parseResource("tests/parser/xpath-4.0/RecordTest.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("record test; compact whitespace")
+        fun recordTest_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-4.0/RecordTest_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-4.0/RecordTest_CompactWhitespace.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("missing closing parenthesis")
+        fun missingClosingParenthesis() {
+            val expected = loadResource("tests/parser/xpath-4.0/RecordTest_MissingClosingParenthesis.txt")
+            val actual = parseResource("tests/parser/xpath-4.0/RecordTest_MissingClosingParenthesis.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath Terminal Delimitation")
     internal inner class TerminalDelimitation {
         @Test

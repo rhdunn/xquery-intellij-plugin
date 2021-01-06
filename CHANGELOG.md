@@ -11,6 +11,7 @@ XPath, XQuery, and XSLT 4.0 Editor's Draft:
 1. Support `->` in addition to `function` in `InlineFunctionExpr` expressions,
    with optional function signatures.
 1. Support `->` based `ArrowExpr` expressions.
+1. Support `RecordTest` item types.
 
 ## 2020
 

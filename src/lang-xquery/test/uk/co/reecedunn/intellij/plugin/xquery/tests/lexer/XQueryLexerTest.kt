@@ -3865,6 +3865,17 @@ class XQueryLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XQuery 4.0 ED EBNF (228) RecordTest")
+    fun recordTest() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "record", XPathTokenType.K_RECORD)
+        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
+        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+    }
+
+    @Test
     @DisplayName("XQuery 4.0 ED EBNF (229) FieldDeclaration")
     fun fieldDeclaration() {
         val lexer = createLexer()

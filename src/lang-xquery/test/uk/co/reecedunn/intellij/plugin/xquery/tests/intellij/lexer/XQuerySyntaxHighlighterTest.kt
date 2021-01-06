@@ -19,6 +19,7 @@ import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.xpath.intellij.lexer.XPathSyntaxHighlighterColors
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQDocTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lexer.XQuerySyntaxHighlighter
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lexer.XQuerySyntaxHighlighterColors
@@ -630,6 +631,9 @@ class XQuerySyntaxHighlighterTest {
 
         assertThat(highlighter.getTokenHighlights(XPathTokenType.K_PROPERTY).size, `is`(1))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.K_PROPERTY)[0], `is`(XQuerySyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_RECORD).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_RECORD)[0], `is`(XQuerySyntaxHighlighterColors.KEYWORD))
 
         assertThat(highlighter.getTokenHighlights(XPathTokenType.K_RELATIONSHIP).size, `is`(1))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.K_RELATIONSHIP)[0], `is`(XQuerySyntaxHighlighterColors.KEYWORD))

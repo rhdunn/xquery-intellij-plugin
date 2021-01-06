@@ -1318,6 +1318,17 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XPath 4.0 ED EBNF (122) RecordTest")
+    fun recordTest() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "record", XPathTokenType.K_RECORD)
+        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
+        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+    }
+
+    @Test
     @DisplayName("XPath 4.0 ED EBNF (123) FieldDeclaration")
     fun fieldDeclaration() {
         val lexer = createLexer()

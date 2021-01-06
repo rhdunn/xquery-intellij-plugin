@@ -127,7 +127,7 @@ If the member type has no namespace prefix, it is implicitly qualified by the
 {: .ebnf-symbols }
 | Ref    | Symbol                  |     | Expression                          | Options               |
 |--------|-------------------------|-----|-------------------------------------|-----------------------|
-| \[25\] | `RecordTest`            | ::= | `"tuple" "(" FieldDeclaration ("," FieldDeclaration)* ExtensibleFlag? ")"` | |
+| \[25\] | `RecordTest`            | ::= | `( "tuple" | "record" ) "(" FieldDeclaration ("," FieldDeclaration)* ExtensibleFlag? ")"` | |
 | \[26\] | `FieldDeclaration`      | ::= | `FieldName "?"? ( ( ":" | "as" ) SequenceType )?` |         |
 | \[33\] | `FieldName`             | ::= | `NCName | StringLiteral`            |                       |
 | \[55\] | `ExtensibleFlag`        | ::= | `"," "*"`                           |                       |
@@ -453,7 +453,7 @@ These changes include support for:
 | \[22\]  | `ParamList`                    | ::= | `ParamList ::= Param ("," Param)* "..."?` |                |
 | \[23\]  | `FunctionItemExpr`             | ::= | `NamedFunctionRef \| InlineFunctionExpr \| ContextItemFunctionExpr \| LambdaFunctionExpr` | |
 | \[24\]  | `ContextItemFunctionExpr`      | ::= | `(( "fn" "{" ) | ".{" ) Expr "}"`   |                      |
-| \[25\]  | `RecordTest`                   | ::= | `"tuple" "(" FieldDeclaration ("," FieldDeclaration)* ExtensibleFlag? ")"` | |
+| \[25\]  | `RecordTest`                   | ::= | `( "tuple" | "record" ) "(" FieldDeclaration ("," FieldDeclaration)* ExtensibleFlag? ")"` | |
 | \[26\]  | `FieldDeclaration`             | ::= | `FieldName "?"? ( ( ":" | "as" ) SequenceType )?` |        |
 | \[27\]  | `ArrowExpr`                    | ::= | `UnaryExpr ( FatArrowTarget | ThinArrowTarget )*` |        |
 | \[28\]  | `ArrowFunctionCall`            | ::= | `EQName ArgumentList`               |                      |

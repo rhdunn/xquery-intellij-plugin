@@ -161,6 +161,7 @@ object XPathTokenType {
     val K_PRECEDING_SIBLING: IKeywordOrNCNameType = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_PRECEDING_SIBLING", XPath) // XPath 1.0
     val K_PROCESSING_INSTRUCTION: IKeywordOrNCNameType = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_PROCESSING_INSTRUCTION", XPath, IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME) // XPath 1.0
     val K_PROPERTY: IKeywordOrNCNameType = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_PROPERTY", XPath) // MarkLogic 6.0
+    val K_RECORD: IKeywordOrNCNameType = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_RECORD", XPath) // XPath 4.0 ED
     val K_RELATIONSHIP: IKeywordOrNCNameType = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_RELATIONSHIP", XPath) // Full Text 1.0
     val K_RETURN: IKeywordOrNCNameType = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_RETURN", XPath) // XPath 2.0
     val K_SAME: IKeywordOrNCNameType = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_SAME", XPath) // Full Text 1.0
@@ -330,6 +331,8 @@ object XPathTokenType {
     val OR_EXPR_TOKENS: TokenSet = TokenSet.create(K_OR, K_ORELSE)
 
     val QUANTIFIED_EXPR_QUALIFIER_TOKENS: TokenSet = TokenSet.create(K_SOME, K_EVERY)
+
+    val RECORD_TEST_TOKENS: TokenSet = TokenSet.create(K_RECORD, K_TUPLE)
 
     val RELATIVE_PATH_EXPR_TOKENS: TokenSet = TokenSet.create(DIRECT_DESCENDANTS_PATH, ALL_DESCENDANTS_PATH)
 

@@ -384,6 +384,9 @@ class XPathSyntaxHighlighterTest {
         assertThat(highlighter.getTokenHighlights(XPathTokenType.K_PROPERTY).size, `is`(1))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.K_PROPERTY)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
 
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_RECORD).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_RECORD)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
+
         assertThat(highlighter.getTokenHighlights(XPathTokenType.K_RELATIONSHIP).size, `is`(1))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.K_RELATIONSHIP)[0], `is`(XPathSyntaxHighlighterColors.KEYWORD))
 

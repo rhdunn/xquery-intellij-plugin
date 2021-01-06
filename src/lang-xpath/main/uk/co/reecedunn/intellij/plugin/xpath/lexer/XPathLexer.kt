@@ -698,6 +698,7 @@ open class XPathLexer(tokenRange: CodePointRange) : LexerImpl(STATE_DEFAULT, tok
             "preceding-sibling" to XPathTokenType.K_PRECEDING_SIBLING, // XPath 1.0
             "processing-instruction" to XPathTokenType.K_PROCESSING_INSTRUCTION, // XPath 1.0
             "property" to XPathTokenType.K_PROPERTY, // MarkLogic 6.0
+            "record" to XPathTokenType.K_RECORD, // XPath 4.0 ED
             "relationship" to XPathTokenType.K_RELATIONSHIP, // Full Text 1.0
             "return" to XPathTokenType.K_RETURN, // XPath 2.0
             "same" to XPathTokenType.K_SAME, // Full Text 1.0

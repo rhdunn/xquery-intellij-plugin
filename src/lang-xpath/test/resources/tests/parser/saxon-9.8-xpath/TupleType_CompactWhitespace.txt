@@ -9,5 +9,5 @@ XPathImpl[FILE(0:21)]
       XPathRecordTestImpl[XPATH_RECORD_TEST(14:21)]
          XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TUPLE(14:19)]('tuple')
          LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(19:20)]('(')
-         PsiErrorElementImpl[ERROR_ELEMENT(20:20)]('XPST0003: Expected 'NCName'.')
+         PsiErrorElementImpl[ERROR_ELEMENT(20:20)]('XPST0003: Expected 'FieldDeclaration'.')
          LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(20:21)](')')

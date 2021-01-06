@@ -83,6 +83,7 @@
         expressions, with optional function signatures.
       </li>
       <li>Support <code>-&gt;</code> based <code>ArrowExpr</code> expressions.</li>
+      <li>Support <code>RecordTest</code> item types.</li>
     </ol>
   ]]></change-notes>
 

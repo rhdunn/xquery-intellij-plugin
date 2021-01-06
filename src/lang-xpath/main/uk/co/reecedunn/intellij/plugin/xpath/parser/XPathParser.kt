@@ -3362,7 +3362,7 @@ open class XPathParser : PsiParser {
     // region Grammar :: TypeDeclaration :: ItemType :: RecordTest
 
     private fun parseRecordTest(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_TUPLE)
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.RECORD_TEST_TOKENS)
         if (marker != null) {
             var haveError = false
 
@@ -3374,7 +3374,7 @@ open class XPathParser : PsiParser {
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!parseFieldDeclaration(builder)) {
-                builder.error(XPathBundle.message("parser.error.expected", "NCName"))
+                builder.error(XPathBundle.message("parser.error.expected", "FieldDeclaration"))
                 haveError = true
             }
 
@@ -3400,7 +3400,7 @@ open class XPathParser : PsiParser {
                 if (builder.matchTokenType(XPathTokenType.STAR)) {
                     isExtensible = true
                 } else if (!parseFieldDeclaration(builder) && !haveError) {
-                    builder.error(XPathBundle.message("parser.error.expected-either", "NCName", "*"))
+                    builder.error(XPathBundle.message("parser.error.expected-either", "FieldDeclaration", "*"))
                     haveError = true
                 }
             }

@@ -201,7 +201,7 @@ If the member type has no namespace prefix, it is implicitly qualified by the
 {: .ebnf-symbols }
 | Ref     | Symbol                  |     | Expression                          | Options               |
 |---------|-------------------------|-----|-------------------------------------|-----------------------|
-| \[23\]  | `RecordTest`            | ::= | `"tuple" "(" FieldDeclaration ("," FieldDeclaration)* ExtensibleFlag? ")"` | |
+| \[23\]  | `RecordTest`            | ::= | `( "tuple" | "record" ) "(" FieldDeclaration ("," FieldDeclaration)* ExtensibleFlag? ")"` | |
 | \[24\]  | `FieldDeclaration`      | ::= | `FieldName "?"? ( ( ":" | "as" ) SequenceType )?` |         |
 | \[115\] | `FieldName`             | ::= | `NCName | StringLiteral`            |                       |
 | \[140\] | `ExtensibleFlag`        | ::= | `"," "*"`                           |                       |
@@ -1128,7 +1128,7 @@ These changes include support for:
 | \[20\]   | `ItemType`                     | ::= | `KindTest \| AnyItemTest \| AnnotatedFunctionOrSequence \| MapTest \| ArrayTest \| RecordTest \| TypeAlias \| LocalUnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
 | \[21\]   | `TypedMapTest`                 | ::= | `"map" "(" ItemType "," SequenceType ")"` |                 |
 | \[22\]   | `LocalUnionType`               | ::= | `"union" "(" ItemType ("," ItemType)* ")"` |                |
-| \[23\]   | `RecordTest`                   | ::= | `"tuple" "(" FieldDeclaration ("," FieldDeclaration)* ExtensibleFlag? ")"` | |
+| \[23\]   | `RecordTest`                   | ::= | `( "tuple" | "record" ) "(" FieldDeclaration ("," FieldDeclaration)* ExtensibleFlag? ")"` | |
 | \[24\]   | `FieldDelaration`              | ::= | `FieldName "?"? ( ( ":" | "as" ) SequenceType )?` |         |
 | \[25\]   | `ForwardAxis`                  | ::= | `("child" "::") \| ("descendant" "::") \| ("attribute" "::") \| ("self" "::") \| ("descendant-or-self" "::") \| ("following-sibling" "::") \| ("following" "::") \| ("namespace" "::") \| ("property" "::")` | |
 | \[26\]   | `CompatibilityAnnotation`      | ::= | `"assignable" \| "private" \| "sequential" \| "simple" \| "unassignable" \| "updating"` | |
