@@ -4633,6 +4633,66 @@ private class XPathParserTest : ParserTestCase() {
             val actual = parseResource("tests/parser/xpath-4.0/RecordTest_MissingClosingParenthesis.xq")
             assertThat(actual.toPsiTreeString(), `is`(expected))
         }
+
+        @Nested
+        @DisplayName("XPath 4.0 ED EBNF (123) FieldDeclaration")
+        internal inner class FieldDeclaration {
+            @Test
+            @DisplayName("NCName")
+            fun ncname() {
+                val expected = loadResource("tests/parser/xpath-4.0/FieldDeclaration_NCName.txt")
+                val actual = parseResource("tests/parser/xpath-4.0/FieldDeclaration_NCName.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("StringLiteral")
+            fun stringLiteral() {
+                val expected = loadResource("tests/parser/xpath-4.0/FieldDeclaration_StringLiteral.txt")
+                val actual = parseResource("tests/parser/xpath-4.0/FieldDeclaration_StringLiteral.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("optional")
+            fun optional() {
+                val expected = loadResource("tests/parser/xpath-4.0/FieldDeclaration_Optional.txt")
+                val actual = parseResource("tests/parser/xpath-4.0/FieldDeclaration_Optional.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("optional; compact whitespace")
+            fun optional_compactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-4.0/FieldDeclaration_Optional_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-4.0/FieldDeclaration_Optional_CompactWhitespace.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("multiple")
+            fun multiple() {
+                val expected = loadResource("tests/parser/xpath-4.0/FieldDeclaration_Multiple.txt")
+                val actual = parseResource("tests/parser/xpath-4.0/FieldDeclaration_Multiple.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("multiple; compact whitespace")
+            fun multiple_compactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-4.0/FieldDeclaration_Multiple_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-4.0/FieldDeclaration_Multiple_CompactWhitespace.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("multiple; missing field")
+            fun multiple_missingField() {
+                val expected = loadResource("tests/parser/xpath-4.0/FieldDeclaration_Multiple_MissingField.txt")
+                val actual = parseResource("tests/parser/xpath-4.0/FieldDeclaration_Multiple_MissingField.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+        }
     }
 
     @Nested

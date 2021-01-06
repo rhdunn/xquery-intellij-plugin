@@ -360,169 +360,169 @@ private class PluginParserTest : ParserTestCase() {
             val actual = parseResource("tests/parser/saxon-9.9/TupleType_Extensible_NotLast.xq")
             assertThat(actual.toPsiTreeString(), `is`(expected))
         }
-    }
-
-    @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (23) RecordTest ; XQuery IntelliJ Plugin EBNF (24) FieldDeclaration")
-    internal inner class RecordTest_FieldDeclaration {
-        @Test
-        @DisplayName("no SequenceType")
-        fun noSequenceType() {
-            val expected = loadResource("tests/parser/saxon-9.8/TupleField_NoSequenceType.txt")
-            val actual = parseResource("tests/parser/saxon-9.8/TupleField_NoSequenceType.xq")
-            assertThat(actual.toPsiTreeString(), `is`(expected))
-        }
 
         @Nested
-        @DisplayName("with SequenceType (Saxon 9.8 syntax)")
-        internal inner class WithSequenceType_Saxon9 {
+        @DisplayName("XQuery IntelliJ Plugin EBNF (24) FieldDeclaration")
+        internal inner class FieldDeclaration {
             @Test
-            @DisplayName("single")
-            fun single() {
-                val expected = loadResource("tests/parser/saxon-9.8/TupleField.txt")
-                val actual = parseResource("tests/parser/saxon-9.8/TupleField.xq")
+            @DisplayName("no SequenceType")
+            fun noSequenceType() {
+                val expected = loadResource("tests/parser/saxon-9.8/TupleField_NoSequenceType.txt")
+                val actual = parseResource("tests/parser/saxon-9.8/TupleField_NoSequenceType.xq")
                 assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
-            @Test
-            @DisplayName("single; compact whitespace")
-            fun single_compactWhitespace() {
-                val expected = loadResource("tests/parser/saxon-9.8/TupleField_CompactWhitespace.txt")
-                val actual = parseResource("tests/parser/saxon-9.8/TupleField_CompactWhitespace.xq")
-                assertThat(actual.toPsiTreeString(), `is`(expected))
+            @Nested
+            @DisplayName("with SequenceType (Saxon 9.8 syntax)")
+            internal inner class WithSequenceType_Saxon9 {
+                @Test
+                @DisplayName("single")
+                fun single() {
+                    val expected = loadResource("tests/parser/saxon-9.8/TupleField.txt")
+                    val actual = parseResource("tests/parser/saxon-9.8/TupleField.xq")
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("single; compact whitespace")
+                fun single_compactWhitespace() {
+                    val expected = loadResource("tests/parser/saxon-9.8/TupleField_CompactWhitespace.txt")
+                    val actual = parseResource("tests/parser/saxon-9.8/TupleField_CompactWhitespace.xq")
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("multiple")
+                fun multiple() {
+                    val expected = loadResource("tests/parser/saxon-9.8/TupleField_Multiple.txt")
+                    val actual = parseResource("tests/parser/saxon-9.8/TupleField_Multiple.xq")
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("multiple; compact whitespace")
+                fun multiple_compactWhitespace() {
+                    val expected = loadResource("tests/parser/saxon-9.8/TupleField_Multiple_CompactWhitespace.txt")
+                    val actual = parseResource("tests/parser/saxon-9.8/TupleField_Multiple_CompactWhitespace.xq")
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("occurrence indicator in SequenceType")
+                fun multiple_withOccurrenceIndicator() {
+                    // This is testing handling of whitespace before parsing the next comma.
+                    val expected = loadResource("tests/parser/saxon-9.8/TupleField_MultipleWithOccurrenceIndicator.txt")
+                    val actual = parseResource("tests/parser/saxon-9.8/TupleField_MultipleWithOccurrenceIndicator.xq")
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("missing colon")
+                fun missingColon() {
+                    val expected = loadResource("tests/parser/saxon-9.8/TupleField_MissingColon.txt")
+                    val actual = parseResource("tests/parser/saxon-9.8/TupleField_MissingColon.xq")
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("missing SequenceType")
+                fun missingSequenceType() {
+                    val expected = loadResource("tests/parser/saxon-9.8/TupleField_MissingSequenceType.txt")
+                    val actual = parseResource("tests/parser/saxon-9.8/TupleField_MissingSequenceType.xq")
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
+                }
             }
 
-            @Test
-            @DisplayName("multiple")
-            fun multiple() {
-                val expected = loadResource("tests/parser/saxon-9.8/TupleField_Multiple.txt")
-                val actual = parseResource("tests/parser/saxon-9.8/TupleField_Multiple.xq")
-                assertThat(actual.toPsiTreeString(), `is`(expected))
+            @Nested
+            @DisplayName("with SequenceType (Saxon 10.0 syntax)")
+            internal inner class WithSequenceType_Saxon10 {
+                @Test
+                @DisplayName("single")
+                fun single() {
+                    val expected = loadResource("tests/parser/saxon-10.0/TupleField.txt")
+                    val actual = parseResource("tests/parser/saxon-10.0/TupleField.xq")
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("single; compact whitespace")
+                fun single_compactWhitespace() {
+                    val expected = loadResource("tests/parser/saxon-10.0/TupleField_CompactWhitespace.txt")
+                    val actual = parseResource("tests/parser/saxon-10.0/TupleField_CompactWhitespace.xq")
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("multiple")
+                fun multiple() {
+                    val expected = loadResource("tests/parser/saxon-10.0/TupleField_Multiple.txt")
+                    val actual = parseResource("tests/parser/saxon-10.0/TupleField_Multiple.xq")
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("multiple; compact whitespace")
+                fun multiple_compactWhitespace() {
+                    val expected = loadResource("tests/parser/saxon-10.0/TupleField_Multiple_CompactWhitespace.txt")
+                    val actual = parseResource("tests/parser/saxon-10.0/TupleField_Multiple_CompactWhitespace.xq")
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("missing SequenceType")
+                fun missingSequenceType() {
+                    val expected = loadResource("tests/parser/saxon-10.0/TupleField_MissingSequenceType.txt")
+                    val actual = parseResource("tests/parser/saxon-10.0/TupleField_MissingSequenceType.xq")
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
+                }
             }
 
-            @Test
-            @DisplayName("multiple; compact whitespace")
-            fun multiple_compactWhitespace() {
-                val expected = loadResource("tests/parser/saxon-9.8/TupleField_Multiple_CompactWhitespace.txt")
-                val actual = parseResource("tests/parser/saxon-9.8/TupleField_Multiple_CompactWhitespace.xq")
-                assertThat(actual.toPsiTreeString(), `is`(expected))
+            @Nested
+            @DisplayName("optional field name (Saxon 9.9)")
+            internal inner class OptionalFieldName {
+                @Test
+                @DisplayName("optional field name")
+                fun optionalFieldName() {
+                    val expected = loadResource("tests/parser/saxon-9.9/TupleField_OptionalFieldName.txt")
+                    val actual = parseResource("tests/parser/saxon-9.9/TupleField_OptionalFieldName.xq")
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("optional field name; compact whitespace")
+                fun optionalFieldName_compactWhitespace() {
+                    val expected = loadResource("tests/parser/saxon-9.9/TupleField_OptionalFieldName_CompactWhitespace.txt")
+                    val actual = parseResource("tests/parser/saxon-9.9/TupleField_OptionalFieldName_CompactWhitespace.xq")
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("optional field name; no sequence type")
+                fun optionalFieldName_noSequenceType() {
+                    val expected = loadResource("tests/parser/saxon-9.9/TupleField_OptionalFieldName_NoSequenceType.txt")
+                    val actual = parseResource("tests/parser/saxon-9.9/TupleField_OptionalFieldName_NoSequenceType.xq")
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
+                }
             }
 
-            @Test
-            @DisplayName("occurrence indicator in SequenceType")
-            fun multiple_withOccurrenceIndicator() {
-                // This is testing handling of whitespace before parsing the next comma.
-                val expected = loadResource("tests/parser/saxon-9.8/TupleField_MultipleWithOccurrenceIndicator.txt")
-                val actual = parseResource("tests/parser/saxon-9.8/TupleField_MultipleWithOccurrenceIndicator.xq")
-                assertThat(actual.toPsiTreeString(), `is`(expected))
-            }
+            @Nested
+            @DisplayName("StringLiteral field name (Saxon 10.0)")
+            internal inner class StringLiteralFieldName {
+                @Test
+                @DisplayName("field name")
+                fun fieldName() {
+                    val expected = loadResource("tests/parser/saxon-10.0/TupleField_StringLiteralFieldName.txt")
+                    val actual = parseResource("tests/parser/saxon-10.0/TupleField_StringLiteralFieldName.xq")
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
+                }
 
-            @Test
-            @DisplayName("missing colon")
-            fun missingColon() {
-                val expected = loadResource("tests/parser/saxon-9.8/TupleField_MissingColon.txt")
-                val actual = parseResource("tests/parser/saxon-9.8/TupleField_MissingColon.xq")
-                assertThat(actual.toPsiTreeString(), `is`(expected))
-            }
-
-            @Test
-            @DisplayName("missing SequenceType")
-            fun missingSequenceType() {
-                val expected = loadResource("tests/parser/saxon-9.8/TupleField_MissingSequenceType.txt")
-                val actual = parseResource("tests/parser/saxon-9.8/TupleField_MissingSequenceType.xq")
-                assertThat(actual.toPsiTreeString(), `is`(expected))
-            }
-        }
-
-        @Nested
-        @DisplayName("with SequenceType (Saxon 10.0 syntax)")
-        internal inner class WithSequenceType_Saxon10 {
-            @Test
-            @DisplayName("single")
-            fun single() {
-                val expected = loadResource("tests/parser/saxon-10.0/TupleField.txt")
-                val actual = parseResource("tests/parser/saxon-10.0/TupleField.xq")
-                assertThat(actual.toPsiTreeString(), `is`(expected))
-            }
-
-            @Test
-            @DisplayName("single; compact whitespace")
-            fun single_compactWhitespace() {
-                val expected = loadResource("tests/parser/saxon-10.0/TupleField_CompactWhitespace.txt")
-                val actual = parseResource("tests/parser/saxon-10.0/TupleField_CompactWhitespace.xq")
-                assertThat(actual.toPsiTreeString(), `is`(expected))
-            }
-
-            @Test
-            @DisplayName("multiple")
-            fun multiple() {
-                val expected = loadResource("tests/parser/saxon-10.0/TupleField_Multiple.txt")
-                val actual = parseResource("tests/parser/saxon-10.0/TupleField_Multiple.xq")
-                assertThat(actual.toPsiTreeString(), `is`(expected))
-            }
-
-            @Test
-            @DisplayName("multiple; compact whitespace")
-            fun multiple_compactWhitespace() {
-                val expected = loadResource("tests/parser/saxon-10.0/TupleField_Multiple_CompactWhitespace.txt")
-                val actual = parseResource("tests/parser/saxon-10.0/TupleField_Multiple_CompactWhitespace.xq")
-                assertThat(actual.toPsiTreeString(), `is`(expected))
-            }
-
-            @Test
-            @DisplayName("missing SequenceType")
-            fun missingSequenceType() {
-                val expected = loadResource("tests/parser/saxon-10.0/TupleField_MissingSequenceType.txt")
-                val actual = parseResource("tests/parser/saxon-10.0/TupleField_MissingSequenceType.xq")
-                assertThat(actual.toPsiTreeString(), `is`(expected))
-            }
-        }
-
-        @Nested
-        @DisplayName("optional field name (Saxon 9.9)")
-        internal inner class OptionalFieldName {
-            @Test
-            @DisplayName("optional field name")
-            fun optionalFieldName() {
-                val expected = loadResource("tests/parser/saxon-9.9/TupleField_OptionalFieldName.txt")
-                val actual = parseResource("tests/parser/saxon-9.9/TupleField_OptionalFieldName.xq")
-                assertThat(actual.toPsiTreeString(), `is`(expected))
-            }
-
-            @Test
-            @DisplayName("optional field name; compact whitespace")
-            fun optionalFieldName_compactWhitespace() {
-                val expected = loadResource("tests/parser/saxon-9.9/TupleField_OptionalFieldName_CompactWhitespace.txt")
-                val actual = parseResource("tests/parser/saxon-9.9/TupleField_OptionalFieldName_CompactWhitespace.xq")
-                assertThat(actual.toPsiTreeString(), `is`(expected))
-            }
-
-            @Test
-            @DisplayName("optional field name; no sequence type")
-            fun optionalFieldName_noSequenceType() {
-                val expected = loadResource("tests/parser/saxon-9.9/TupleField_OptionalFieldName_NoSequenceType.txt")
-                val actual = parseResource("tests/parser/saxon-9.9/TupleField_OptionalFieldName_NoSequenceType.xq")
-                assertThat(actual.toPsiTreeString(), `is`(expected))
-            }
-        }
-
-        @Nested
-        @DisplayName("StringLiteral field name (Saxon 10.0)")
-        internal inner class StringLiteralFieldName {
-            @Test
-            @DisplayName("field name")
-            fun fieldName() {
-                val expected = loadResource("tests/parser/saxon-10.0/TupleField_StringLiteralFieldName.txt")
-                val actual = parseResource("tests/parser/saxon-10.0/TupleField_StringLiteralFieldName.xq")
-                assertThat(actual.toPsiTreeString(), `is`(expected))
-            }
-
-            @Test
-            @DisplayName("field name; compact whitespace")
-            fun fieldName_compactWhitespace() {
-                val expected = loadResource("tests/parser/saxon-10.0/TupleField_StringLiteralFieldName_CompactWhitespace.txt")
-                val actual = parseResource("tests/parser/saxon-10.0/TupleField_StringLiteralFieldName_CompactWhitespace.xq")
-                assertThat(actual.toPsiTreeString(), `is`(expected))
+                @Test
+                @DisplayName("field name; compact whitespace")
+                fun fieldName_compactWhitespace() {
+                    val expected = loadResource("tests/parser/saxon-10.0/TupleField_StringLiteralFieldName_CompactWhitespace.txt")
+                    val actual = parseResource("tests/parser/saxon-10.0/TupleField_StringLiteralFieldName_CompactWhitespace.xq")
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
+                }
             }
         }
     }
