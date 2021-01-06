@@ -9741,6 +9741,34 @@ private class XQueryParserTest : ParserTestCase() {
         }
 
         @Nested
+        @DisplayName("XQuery 4.0 ED EBNF (232) ExtensibleFlag")
+        internal inner class ExtensibleFlag {
+            @Test
+            @DisplayName("extensible flag")
+            fun extensibleFlag() {
+                val expected = loadResource("tests/parser/xquery-4.0/RecordTest_ExtensibleFlag.txt")
+                val actual = parseResource("tests/parser/xquery-4.0/RecordTest_ExtensibleFlag.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("extensible flag; compact whitespace")
+            fun extensibleFlag_compactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-4.0/RecordTest_ExtensibleFlag_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-4.0/RecordTest_ExtensibleFlag_CompactWhitespace.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: field declaration after extensible flag")
+            fun fieldDeclarationAfter() {
+                val expected = loadResource("tests/parser/xquery-4.0/RecordTest_ExtensibleFlag_FieldDeclarationAfter.txt")
+                val actual = parseResource("tests/parser/xquery-4.0/RecordTest_ExtensibleFlag_FieldDeclarationAfter.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+        }
+
+        @Nested
         @DisplayName("XQuery 4.0 ED EBNF (229) FieldDeclaration")
         internal inner class FieldDeclaration {
             @Test

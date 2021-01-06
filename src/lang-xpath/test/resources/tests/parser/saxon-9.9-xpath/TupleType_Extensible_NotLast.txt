@@ -19,7 +19,7 @@ XPathImpl[FILE(0:33)]
          PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
          PluginWildcardIndicatorImpl[XPATH_STAR_TOKEN(26:27)]('*')
          PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
-         PsiErrorElementImpl[ERROR_ELEMENT(28:29)]('XPST0003: Tuples cannot have named fields after extensible marker '*'.')
+         PsiErrorElementImpl[ERROR_ELEMENT(28:29)]('XPST0003: RecordTests cannot have named fields after extensible flag '*'.')
             LeafPsiElement[XPATH_COMMA_TOKEN(28:29)](',')
          PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
          XPathFieldDeclarationImpl[XPATH_FIELD_DECLARATION(30:32)]
