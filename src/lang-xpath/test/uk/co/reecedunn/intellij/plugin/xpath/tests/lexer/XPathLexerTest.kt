@@ -1338,6 +1338,14 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XPath 4.0 ED EBNF (125) SelfReference")
+    fun selfReference() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "..", XPathTokenType.PARENT_SELECTOR)
+    }
+
+    @Test
     @DisplayName("XPath 4.0 ED EBNF (126) ExtensibleFlag")
     fun extensibleFlag() {
         val lexer = createLexer()

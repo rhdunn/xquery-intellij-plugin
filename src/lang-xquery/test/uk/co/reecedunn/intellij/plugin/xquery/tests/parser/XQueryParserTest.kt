@@ -9835,6 +9835,58 @@ private class XQueryParserTest : ParserTestCase() {
                 assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
+
+        @Nested
+        @DisplayName("XQuery 4.0 ED EBNF (229) FieldDeclaration; XQuery 4.0 ED EBNF (231) SelfReference")
+        internal inner class FieldDeclaration_SelfReference {
+            @Test
+            @DisplayName("self reference")
+            fun selfReference() {
+                val expected = loadResource("tests/parser/xquery-4.0/FieldDeclaration_SelfReference.txt")
+                val actual = parseResource("tests/parser/xquery-4.0/FieldDeclaration_SelfReference.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("self reference; compact whitespace")
+            fun selfReference_compactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-4.0/FieldDeclaration_SelfReference_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-4.0/FieldDeclaration_SelfReference_CompactWhitespace.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("missing OccurrenceIndicator")
+            fun missingOccurrenceIndicator() {
+                val expected = loadResource("tests/parser/xquery-4.0/FieldDeclaration_SelfReference_MissingOccurrenceIndicator.txt")
+                val actual = parseResource("tests/parser/xquery-4.0/FieldDeclaration_SelfReference_MissingOccurrenceIndicator.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("missing type")
+            fun missingType() {
+                val expected = loadResource("tests/parser/xquery-4.0/FieldDeclaration_SequenceType_MissingType.txt")
+                val actual = parseResource("tests/parser/xquery-4.0/FieldDeclaration_SequenceType_MissingType.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("optional")
+            fun optional() {
+                val expected = loadResource("tests/parser/xquery-4.0/FieldDeclaration_Optional_SelfReference.txt")
+                val actual = parseResource("tests/parser/xquery-4.0/FieldDeclaration_Optional_SelfReference.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("optional; compact whitespace")
+            fun optional_compactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-4.0/FieldDeclaration_Optional_SelfReference_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-4.0/FieldDeclaration_Optional_SelfReference_CompactWhitespace.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+        }
     }
 
     @Nested

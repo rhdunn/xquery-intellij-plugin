@@ -3885,6 +3885,14 @@ class XQueryLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XQuery 4.0 ED EBNF (231) SelfReference")
+    fun selfReference() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "..", XPathTokenType.PARENT_SELECTOR)
+    }
+
+    @Test
     @DisplayName("XQuery 4.0 ED EBNF (232) ExtensibleFlag")
     fun extensibleFlag() {
         val lexer = createLexer()

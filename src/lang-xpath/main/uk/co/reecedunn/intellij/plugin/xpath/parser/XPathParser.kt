@@ -3362,6 +3362,7 @@ open class XPathParser : PsiParser {
     // region Grammar :: TypeDeclaration :: ItemType :: RecordTest
 
     private fun parseRecordTest(builder: PsiBuilder): Boolean {
+        val recordType = builder.tokenType
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.RECORD_TEST_TOKENS)
         if (marker != null) {
             var haveError = false
@@ -3373,7 +3374,7 @@ open class XPathParser : PsiParser {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseFieldDeclaration(builder)) {
+            if (!parseFieldDeclaration(builder, recordType)) {
                 builder.error(XPathBundle.message("parser.error.expected", "FieldDeclaration"))
                 haveError = true
             }
@@ -3399,7 +3400,7 @@ open class XPathParser : PsiParser {
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (builder.matchTokenType(XPathTokenType.STAR)) {
                     isExtensible = true
-                } else if (!parseFieldDeclaration(builder) && !haveError) {
+                } else if (!parseFieldDeclaration(builder, recordType) && !haveError) {
                     builder.error(XPathBundle.message("parser.error.expected-either", "FieldDeclaration", "*"))
                     haveError = true
                 }
@@ -3416,7 +3417,7 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    private fun parseFieldDeclaration(builder: PsiBuilder): Boolean {
+    private fun parseFieldDeclaration(builder: PsiBuilder, recordType: IElementType?): Boolean {
         val marker = builder.mark()
         if (parseFieldName(builder)) {
             var haveError = false
@@ -3441,8 +3442,14 @@ open class XPathParser : PsiParser {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseSequenceType(builder) && !haveError) {
-                builder.error(XPathBundle.message("parser.error.expected", "SequenceType"))
+            if (recordType === XPathTokenType.K_TUPLE) { // Saxon 9.8
+                if (!parseSequenceType(builder) && !haveError) {
+                    builder.error(XPathBundle.message("parser.error.expected", "SequenceType"))
+                }
+            } else { // XPath 4.0 ED
+                if (!(parseSequenceType(builder) || parseSelfReference(builder)) && !haveError) {
+                    builder.error(XPathBundle.message("parser.error.expected-either", "SequenceType", "SelfReference"))
+                }
             }
 
             marker.done(XPathElementType.FIELD_DECLARATION)
@@ -3453,6 +3460,17 @@ open class XPathParser : PsiParser {
     }
 
     private fun parseFieldName(builder: PsiBuilder): Boolean = parseNCName(builder) || parseStringLiteral(builder)
+
+    private fun parseSelfReference(builder: PsiBuilder): Boolean {
+        if (builder.matchTokenType(XPathTokenType.PARENT_SELECTOR)) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseOccurrenceIndicator(builder)) {
+                builder.error(XPathBundle.message("parser.error.expected", "OccurrenceIndicator"))
+            }
+            return true
+        }
+        return false
+    }
 
     // endregion
     // region Grammar :: TypeDeclaration :: KindTest
