@@ -37,6 +37,10 @@ object MarkLogicIcons {
         val Endpoint: Icon = LayeredIcon.create(PlatformIcons.XML_TAG_ICON, XQueryIcons.Endpoints.EndpointOverlay)
     }
 
+    object UnitTest {
+        val XRay: Icon = getIcon("/icons/xray.png")
+    }
+
     object JavaScript {
         val RunConfiguration: Icon = getIcon("/icons/js/runConfiguration.svg")
     }
