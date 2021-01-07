@@ -19,6 +19,7 @@ import com.intellij.execution.configurations.ConfigurationFactory
 import uk.co.reecedunn.intellij.plugin.core.execution.configurations.ConfigurationTypeEx
 import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicBundle
 import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicIcons
+import uk.co.reecedunn.intellij.plugin.marklogic.xray.configuration.XRayTestConfigurationFactory
 import javax.swing.Icon
 
 class XRayTestConfigurationType : ConfigurationTypeEx {
@@ -31,7 +32,7 @@ class XRayTestConfigurationType : ConfigurationTypeEx {
     override fun getDisplayName(): String = MarkLogicBundle.message("xray.configuration.label")
 
     override fun getConfigurationFactories(): Array<ConfigurationFactory> {
-        return arrayOf()
+        return arrayOf(XRayTestConfigurationFactory(this))
     }
 
     override val factoryId: String = "XRayTest"
