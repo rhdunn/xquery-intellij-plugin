@@ -256,9 +256,9 @@ class QueryLogViewerUI(val project: Project) : Disposable {
                         renderer = QueryProcessorSettingsCellRenderer()
 
                         val queryProcessors = QueryProcessors.getInstance()
-                        queryProcessors.processors.addToModel(
-                            model, serversOnly = true, selectedServer = selectedServer
-                        )
+                        queryProcessors.processors.addToModel(model, selectedServer) { processor ->
+                            processor.connection != null || processor.awsConnection != null
+                        }
                         queryProcessors.addQueryProcessorsListener(model)
 
                         addActionListener {

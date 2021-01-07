@@ -111,16 +111,14 @@ data class CachedQueryProcessorSettings(
 
 fun List<QueryProcessorSettings>.addToModel(
     model: QueryProcessorSettingsModel,
-    serversOnly: Boolean = false,
-    selectedServer: Int = -1
+    selectedServer: Int,
+    predicate: (QueryProcessorSettings) -> Boolean = { true }
 ) {
-    forEach { processor ->
-        if (processor.connection != null || processor.awsConnection != null || !serversOnly) {
-            val settings = CachedQueryProcessorSettings(processor)
-            model.addElement(settings)
-            if (settings.settings.id == selectedServer) {
-                model.selectedItem = settings
-            }
+    asSequence().filter(predicate).forEach { processor ->
+        val settings = CachedQueryProcessorSettings(processor)
+        model.addElement(settings)
+        if (settings.settings.id == selectedServer) {
+            model.selectedItem = settings
         }
     }
 }

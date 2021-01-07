@@ -92,7 +92,7 @@ class QueryProcessorComboBox(private val project: Project) {
     val component: JComponent
         get() {
             model = QueryProcessorSettingsModel()
-            QueryProcessors.getInstance().processors.addToModel(model)
+            QueryProcessors.getInstance().processors.addToModel(model, selectedServer = -1)
 
             queryProcessor = ComponentWithBrowseButton(ComboBox(model), manageQueryProcessorsAction)
             queryProcessor.childComponent.renderer = QueryProcessorSettingsCellRenderer()

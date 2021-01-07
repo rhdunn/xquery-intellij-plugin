@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.marklogic.xray.configuration
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
+import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicRest
 import uk.co.reecedunn.intellij.plugin.processor.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessorComboBox
 import javax.swing.JComponent
