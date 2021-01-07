@@ -23,6 +23,7 @@ import com.intellij.execution.configurations.RunProfileState
 import com.intellij.execution.runners.ExecutionEnvironment
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
+import uk.co.reecedunn.intellij.plugin.marklogic.xray.runner.XRayTestRunState
 
 class XRayTestConfiguration(project: Project, factory: ConfigurationFactory) :
     RunConfigurationBase<XRayTestConfigurationData>(project, factory, "") {
@@ -31,7 +32,7 @@ class XRayTestConfiguration(project: Project, factory: ConfigurationFactory) :
         return XRayTestConfigurationEditor()
     }
 
-    override fun getState(executor: Executor, environment: ExecutionEnvironment): RunProfileState? {
-        TODO()
+    override fun getState(executor: Executor, environment: ExecutionEnvironment): RunProfileState {
+        return XRayTestRunState(environment)
     }
 }
