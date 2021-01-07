@@ -29,5 +29,5 @@ class XRayTestConfigurationFactory(type: ConfigurationType) : ConfigurationFacto
         TODO()
     }
 
-    override fun getOptionsClass(): Class<out BaseState> = TODO()
+    override fun getOptionsClass(): Class<out BaseState> = XRayTestConfigurationData::class.java
 }
