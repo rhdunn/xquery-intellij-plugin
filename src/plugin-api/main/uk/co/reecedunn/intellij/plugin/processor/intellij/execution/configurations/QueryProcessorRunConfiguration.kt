@@ -42,9 +42,8 @@ class QueryProcessorRunConfiguration(
 ) :
     RunConfigurationBase<QueryProcessorRunConfigurationData>(project, factory, "") {
 
-    @Suppress("UsePropertyAccessSyntax") // IntelliJ <= 2018.2 compatibility.
     private val data: QueryProcessorRunConfigurationData
-        get() = getState()!!
+        get() = state!!
 
     val language: Language
         get() = when (languages.size) {

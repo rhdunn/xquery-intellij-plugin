@@ -17,4 +17,6 @@ package uk.co.reecedunn.intellij.plugin.marklogic.xray.configuration
 
 import com.intellij.execution.configurations.RunConfigurationOptions
 
-class XRayTestConfigurationData() : RunConfigurationOptions()
+data class XRayTestConfigurationData(
+    var processorId: Int? = null
+) : RunConfigurationOptions()

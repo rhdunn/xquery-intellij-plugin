@@ -16,13 +16,25 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.configuration
 
 import com.intellij.openapi.options.SettingsEditor
-import uk.co.reecedunn.intellij.plugin.core.ui.layout.panel
+import com.intellij.openapi.project.Project
+import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
+import uk.co.reecedunn.intellij.plugin.processor.intellij.resources.PluginApiBundle
+import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessorComboBox
 import javax.swing.JComponent
 
-class XRayTestConfigurationEditor : SettingsEditor<XRayTestConfiguration>() {
+class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor<XRayTestConfiguration>() {
     // region Form
 
+    private lateinit var queryProcessor: QueryProcessorComboBox
+
     private val panel = panel {
+        row {
+            label(PluginApiBundle.message("xquery.configurations.processor.query-processor.label"), column.vgap())
+            queryProcessor = QueryProcessorComboBox(project)
+            add(queryProcessor.component, column.horizontal().hgap().vgap())
+            queryProcessor.addActionListener {
+            }
+        }
     }
 
     // endregion
@@ -31,9 +43,11 @@ class XRayTestConfigurationEditor : SettingsEditor<XRayTestConfiguration>() {
     override fun createEditor(): JComponent = panel
 
     override fun resetEditorFrom(settings: XRayTestConfiguration) {
+        queryProcessor.processorId = settings.processorId
     }
 
     override fun applyEditorTo(settings: XRayTestConfiguration) {
+        settings.processorId = queryProcessor.processorId
     }
 
     // endregion

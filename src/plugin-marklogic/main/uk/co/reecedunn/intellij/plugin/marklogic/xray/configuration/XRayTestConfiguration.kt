@@ -18,21 +18,44 @@ package uk.co.reecedunn.intellij.plugin.marklogic.xray.configuration
 import com.intellij.execution.Executor
 import com.intellij.execution.configurations.ConfigurationFactory
 import com.intellij.execution.configurations.RunConfiguration
-import com.intellij.execution.configurations.RunConfigurationBase
 import com.intellij.execution.configurations.RunProfileState
 import com.intellij.execution.runners.ExecutionEnvironment
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
+import uk.co.reecedunn.intellij.plugin.core.execution.configurations.RunConfigurationBase
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.runner.XRayTestRunState
+import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessors
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
 
 class XRayTestConfiguration(project: Project, factory: ConfigurationFactory) :
     RunConfigurationBase<XRayTestConfigurationData>(project, factory, "") {
+    // region RunConfigurationBase
+
+    private val data: XRayTestConfigurationData
+        get() = state!!
 
     override fun getConfigurationEditor(): SettingsEditor<out RunConfiguration> {
-        return XRayTestConfigurationEditor()
+        return XRayTestConfigurationEditor(project)
     }
 
     override fun getState(executor: Executor, environment: ExecutionEnvironment): RunProfileState {
         return XRayTestRunState(environment)
     }
+
+    // endregion
+    // region Query Processor
+
+    var processorId: Int?
+        get() = data.processorId
+        set(value) {
+            data.processorId = value
+        }
+
+    var processor: QueryProcessorSettings?
+        get() = QueryProcessors.getInstance().processors.firstOrNull { processor -> processor.id == data.processorId }
+        set(value) {
+            data.processorId = value?.id
+        }
+
+    // endregion
 }
