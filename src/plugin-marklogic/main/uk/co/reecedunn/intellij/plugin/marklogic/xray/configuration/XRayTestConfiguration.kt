@@ -15,19 +15,23 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.configuration
 
+import com.intellij.execution.Executor
 import com.intellij.execution.configurations.ConfigurationFactory
-import com.intellij.execution.configurations.ConfigurationType
 import com.intellij.execution.configurations.RunConfiguration
-import com.intellij.openapi.components.BaseState
+import com.intellij.execution.configurations.RunConfigurationBase
+import com.intellij.execution.configurations.RunProfileState
+import com.intellij.execution.runners.ExecutionEnvironment
+import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
-import uk.co.reecedunn.intellij.plugin.core.execution.configurations.ConfigurationTypeEx
 
-class XRayTestConfigurationFactory(type: ConfigurationType) : ConfigurationFactory(type) {
-    override fun getId(): String = (type as ConfigurationTypeEx).factoryId
+class XRayTestConfiguration(project: Project, factory: ConfigurationFactory) :
+    RunConfigurationBase<XRayTestConfigurationData>(project, factory, "") {
 
-    override fun createTemplateConfiguration(project: Project): RunConfiguration {
-        return XRayTestConfiguration(project, this)
+    override fun getConfigurationEditor(): SettingsEditor<out RunConfiguration> {
+        TODO()
     }
 
-    override fun getOptionsClass(): Class<out BaseState> = XRayTestConfigurationData::class.java
+    override fun getState(executor: Executor, environment: ExecutionEnvironment): RunProfileState? {
+        TODO()
+    }
 }
