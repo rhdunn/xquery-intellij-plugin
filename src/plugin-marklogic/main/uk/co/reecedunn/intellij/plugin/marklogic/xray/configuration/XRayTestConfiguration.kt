@@ -28,7 +28,7 @@ class XRayTestConfiguration(project: Project, factory: ConfigurationFactory) :
     RunConfigurationBase<XRayTestConfigurationData>(project, factory, "") {
 
     override fun getConfigurationEditor(): SettingsEditor<out RunConfiguration> {
-        TODO()
+        return XRayTestConfigurationEditor()
     }
 
     override fun getState(executor: Executor, environment: ExecutionEnvironment): RunProfileState? {
