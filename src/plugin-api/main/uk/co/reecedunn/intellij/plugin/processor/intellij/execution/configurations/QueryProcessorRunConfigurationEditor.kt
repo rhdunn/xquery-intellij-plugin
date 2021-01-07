@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2020 Reece H. Dunn
+ * Copyright (C) 2018-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,8 +21,6 @@ import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.*
-import com.intellij.ui.AnActionButton
-import com.intellij.ui.components.JBList
 import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
@@ -34,80 +32,14 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.QueryProcessorDataSource
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.queryProcessorDataSource
 import uk.co.reecedunn.intellij.plugin.processor.intellij.resources.PluginApiBundle
-import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessorSettingsCellRenderer
-import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessorSettingsDialog
-import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessorSettingsModel
-import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessors
-import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
-import uk.co.reecedunn.intellij.plugin.processor.query.CachedQueryProcessorSettings
-import uk.co.reecedunn.intellij.plugin.processor.query.addToModel
-import java.awt.Dimension
-import java.awt.event.ActionListener
+import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.*
 import javax.swing.*
 
 class QueryProcessorRunConfigurationEditor(private val project: Project, private vararg val languages: Language) :
     SettingsEditor<QueryProcessorRunConfiguration>() {
-    // region Manage Query Processor Dialog
-
-    private lateinit var queryProcessor: ComponentWithBrowseButton<JComboBox<CachedQueryProcessorSettings>>
-    private lateinit var model: QueryProcessorSettingsModel
-    private lateinit var list: JBList<CachedQueryProcessorSettings>
-
-    private fun addQueryProcessor(@Suppress("UNUSED_PARAMETER") button: AnActionButton) {
-        val item = QueryProcessorSettings()
-        val dialog = QueryProcessorSettingsDialog(project)
-        if (dialog.create(item)) {
-            QueryProcessors.getInstance().addProcessor(item)
-
-            val settings = CachedQueryProcessorSettings(item, dialog.presentation)
-            queryProcessor.childComponent.addItem(settings)
-        }
-    }
-
-    private fun editQueryProcessor(@Suppress("UNUSED_PARAMETER") button: AnActionButton) {
-        val index = list.selectedIndex
-        val item = queryProcessor.childComponent.getItemAt(index)
-        val dialog = QueryProcessorSettingsDialog(project)
-        if (dialog.edit(item.settings)) {
-            QueryProcessors.getInstance().setProcessor(index, item.settings)
-
-            item.presentation = dialog.presentation
-            model.updateElement(item)
-        }
-    }
-
-    private fun removeQueryProcessor(@Suppress("UNUSED_PARAMETER") button: AnActionButton) {
-        val index = list.selectedIndex
-        queryProcessor.childComponent.removeItemAt(index)
-        QueryProcessors.getInstance().removeProcessor(index)
-    }
-
-    private val manageQueryProcessorsAction: ActionListener
-        get() = ActionListener {
-            val dialog = dialog(PluginApiBundle.message("xquery.configurations.processor.manage-processors")) {
-                toolbarPanel(minimumSize = Dimension(300, 200)) {
-                    addAction(::addQueryProcessor)
-                    editAction(::editQueryProcessor)
-                    removeAction(::removeQueryProcessor)
-
-                    list = JBList(model)
-                    list.cellRenderer = QueryProcessorSettingsCellRenderer()
-                    list.setEmptyText(PluginApiBundle.message("xquery.configurations.processor.manage-processors-empty"))
-                    list.selectedIndex = queryProcessor.childComponent.selectedIndex
-                    list
-                }
-            }
-            if (dialog.showAndGet()) {
-                val index = list.selectedIndex
-                if (index > 0 && queryProcessor.childComponent.selectedIndex != index) {
-                    queryProcessor.childComponent.selectedIndex = index
-                }
-            }
-        }
-
-    // endregion
     // region "Query" Page
 
+    private lateinit var queryProcessor: QueryProcessorComboBox
     private lateinit var rdfOutputFormat: JComboBox<Language>
     private lateinit var scriptFile: QueryProcessorDataSource
     private lateinit var xpathSubset: JComboBox<XPathSubset>
@@ -116,20 +48,14 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
     private lateinit var xpathSubsetLabel: JLabel
 
     private val queryPanel: JPanel = panel {
-        model = QueryProcessorSettingsModel()
-        QueryProcessors.getInstance().processors.addToModel(model)
-
         row {
             label(PluginApiBundle.message("xquery.configurations.processor.query-processor.label"), column.vgap())
-            queryProcessor = componentWithBrowseButton(column.horizontal().hgap().vgap(), manageQueryProcessorsAction) {
-                comboBox<CachedQueryProcessorSettings>(model) {
-                    renderer = QueryProcessorSettingsCellRenderer()
-                    addActionListener {
-                        updateUI(false)
-                        populateServerUI()
-                        populateDatabaseUI()
-                    }
-                }
+            queryProcessor = QueryProcessorComboBox(project)
+            add(queryProcessor.component, column.horizontal().hgap().vgap())
+            queryProcessor.addActionListener {
+                updateUI(false)
+                populateServerUI()
+                populateDatabaseUI()
             }
         }
         row {
@@ -182,9 +108,7 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
 
     @Suppress("DuplicatedCode")
     private fun populateServerUI() {
-        val settings =
-            (queryProcessor.childComponent.selectedItem as? CachedQueryProcessorSettings?)?.settings
-                ?: return
+        val settings = queryProcessor.settings ?: return
         executeOnPooledThread {
             try {
                 val servers = settings.session.servers
@@ -208,9 +132,7 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
 
     @Suppress("DuplicatedCode")
     private fun populateDatabaseUI() {
-        val settings =
-            (queryProcessor.childComponent.selectedItem as? CachedQueryProcessorSettings?)?.settings
-                ?: return
+        val settings = queryProcessor.settings ?: return
         executeOnPooledThread {
             try {
                 val databases = settings.session.databases
@@ -327,8 +249,7 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
     }
 
     private fun updateUI(isSparql: Boolean) {
-        val processor =
-            (queryProcessor.childComponent.selectedItem as? CachedQueryProcessorSettings)?.settings
+        val processor = queryProcessor.settings
         rdfOutputFormat.isEnabled = processor?.api?.canOutputRdf(null) == true
         updating.isEnabled = processor?.api?.canUpdate(languages[0]) == true
 
@@ -352,14 +273,7 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
     override fun createEditor(): JComponent = panel
 
     override fun resetEditorFrom(configuration: QueryProcessorRunConfiguration) {
-        queryProcessor.childComponent.let {
-            (0 until it.itemCount).forEach { i ->
-                if (it.getItemAt(i)?.settings?.id == configuration.processorId) {
-                    it.selectedIndex = i
-                }
-            }
-        }
-
+        queryProcessor.processorId = configuration.processorId
         rdfOutputFormat.selectedItem = configuration.rdfOutputFormat
         server.selectedItem = configuration.server
         database.selectedItem = configuration.database
@@ -377,8 +291,7 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
     }
 
     override fun applyEditorTo(configuration: QueryProcessorRunConfiguration) {
-        configuration.processorId =
-            (queryProcessor.childComponent.selectedItem as? CachedQueryProcessorSettings?)?.settings?.id
+        configuration.processorId = queryProcessor.processorId
         configuration.rdfOutputFormat = rdfOutputFormat.selectedItem as? Language
         configuration.server = server.selectedItem as? String
         configuration.database = database.selectedItem as? String
