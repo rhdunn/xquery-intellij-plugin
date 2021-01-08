@@ -15,18 +15,23 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.configuration
 
+import com.intellij.openapi.application.ModalityState
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
+import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
+import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicRest
 import uk.co.reecedunn.intellij.plugin.processor.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessorComboBox
+import javax.swing.JComboBox
 import javax.swing.JComponent
 
 class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor<XRayTestConfiguration>() {
     // region Form
 
     private lateinit var queryProcessor: QueryProcessorComboBox
+    private lateinit var server: JComboBox<String>
 
     private val panel = panel {
         row {
@@ -34,6 +39,38 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
             queryProcessor = QueryProcessorComboBox(project)
             add(queryProcessor.component, column.horizontal().hgap().vgap())
             queryProcessor.addActionListener {
+                populateServerUI()
+            }
+        }
+        row {
+            label(PluginApiBundle.message("xquery.configurations.processor.server.label"), column.vgap())
+            server = comboBox(column.horizontal().hgap().vgap()) {
+                isEditable = true
+                addItem(null)
+            }
+        }
+    }
+
+    @Suppress("DuplicatedCode")
+    private fun populateServerUI() {
+        val settings = queryProcessor.settings ?: return
+        executeOnPooledThread {
+            try {
+                val servers = settings.session.servers
+                invokeLater(ModalityState.any()) {
+                    val current = server.selectedItem
+                    server.removeAllItems()
+                    server.addItem(null)
+                    servers.forEach { name -> server.addItem(name) }
+                    server.selectedItem = current
+                }
+            } catch (e: Throwable) {
+                invokeLater(ModalityState.any()) {
+                    val current = server.selectedItem
+                    server.removeAllItems()
+                    server.addItem(null)
+                    server.selectedItem = current
+                }
             }
         }
     }
@@ -45,10 +82,12 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
 
     override fun resetEditorFrom(settings: XRayTestConfiguration) {
         queryProcessor.processorId = settings.processorId
+        server.selectedItem = settings.server
     }
 
     override fun applyEditorTo(settings: XRayTestConfiguration) {
         settings.processorId = queryProcessor.processorId
+        settings.server = server.selectedItem as? String
     }
 
     // endregion

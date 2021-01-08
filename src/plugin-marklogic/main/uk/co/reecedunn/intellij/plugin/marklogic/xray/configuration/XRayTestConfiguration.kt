@@ -58,4 +58,13 @@ class XRayTestConfiguration(project: Project, factory: ConfigurationFactory) :
         }
 
     // endregion
+    // region Server
+
+    var server: String?
+        get() = data.server
+        set(value) {
+            data.server = value
+        }
+
+    // endregion
 }
