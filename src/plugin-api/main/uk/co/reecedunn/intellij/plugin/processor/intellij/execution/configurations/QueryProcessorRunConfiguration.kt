@@ -102,21 +102,21 @@ class QueryProcessorRunConfiguration(
         }
 
     // endregion
-    // region Server
-
-    var server: String?
-        get() = data.server
-        set(value) {
-            data.server = value
-        }
-
-    // endregion
     // region Database
 
     var database: String?
         get() = data.database
         set(value) {
             data.database = value
+        }
+
+    // endregion
+    // region Server
+
+    var server: String?
+        get() = data.server
+        set(value) {
+            data.server = value
         }
 
     // endregion

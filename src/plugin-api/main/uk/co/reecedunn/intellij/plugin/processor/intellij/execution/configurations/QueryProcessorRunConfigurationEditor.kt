@@ -101,9 +101,7 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
     // region "Database" Page
 
     private lateinit var server: JComboBox<String>
-
     private lateinit var modulePath: TextFieldWithBrowseButton
-
     private lateinit var database: JComboBox<String>
 
     @Suppress("DuplicatedCode")
@@ -154,7 +152,15 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
         }
     }
 
+    @Suppress("DuplicatedCode")
     private val databasePanel: JPanel = panel {
+        row {
+            label(PluginApiBundle.message("xquery.configurations.processor.content-database.label"), column)
+            database = comboBox(column.horizontal().hgap()) {
+                isEditable = true
+                addItem(null)
+            }
+        }
         row {
             label(PluginApiBundle.message("xquery.configurations.processor.server.label"), column.vgap())
             server = comboBox(column.horizontal().hgap().vgap()) {
@@ -168,13 +174,6 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
                 val descriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor()
                 descriptor.title = PluginApiBundle.message("browser.choose.module-path")
                 addBrowseFolderListener(null, null, project, descriptor)
-            }
-        }
-        row {
-            label(PluginApiBundle.message("xquery.configurations.processor.content-database.label"), column)
-            database = comboBox(column.horizontal().hgap()) {
-                isEditable = true
-                addItem(null)
             }
         }
         row {
@@ -275,8 +274,8 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
     override fun resetEditorFrom(configuration: QueryProcessorRunConfiguration) {
         queryProcessor.processorId = configuration.processorId
         rdfOutputFormat.selectedItem = configuration.rdfOutputFormat
-        server.selectedItem = configuration.server
         database.selectedItem = configuration.database
+        server.selectedItem = configuration.server
         modulePath.textField.text = configuration.modulePath ?: ""
         scriptFile.type = configuration.scriptSource
         scriptFile.path = configuration.scriptFilePath
@@ -293,8 +292,8 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
     override fun applyEditorTo(configuration: QueryProcessorRunConfiguration) {
         configuration.processorId = queryProcessor.processorId
         configuration.rdfOutputFormat = rdfOutputFormat.selectedItem as? Language
-        configuration.server = server.selectedItem as? String
         configuration.database = database.selectedItem as? String
+        configuration.server = server.selectedItem as? String
         configuration.modulePath = modulePath.textField.text.nullize()
         configuration.scriptSource = scriptFile.type!!
         configuration.scriptFilePath = scriptFile.path

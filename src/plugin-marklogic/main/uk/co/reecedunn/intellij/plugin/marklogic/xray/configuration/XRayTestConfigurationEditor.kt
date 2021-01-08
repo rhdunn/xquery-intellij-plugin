@@ -21,7 +21,6 @@ import com.intellij.openapi.project.Project
 import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
-import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicRest
 import uk.co.reecedunn.intellij.plugin.processor.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessorComboBox
 import javax.swing.JComboBox
@@ -32,14 +31,24 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
 
     private lateinit var queryProcessor: QueryProcessorComboBox
     private lateinit var server: JComboBox<String>
+    private lateinit var database: JComboBox<String>
 
+    @Suppress("DuplicatedCode")
     private val panel = panel {
         row {
             label(PluginApiBundle.message("xquery.configurations.processor.query-processor.label"), column.vgap())
             queryProcessor = QueryProcessorComboBox(project)
             add(queryProcessor.component, column.horizontal().hgap().vgap())
             queryProcessor.addActionListener {
+                populateDatabaseUI()
                 populateServerUI()
+            }
+        }
+        row {
+            label(PluginApiBundle.message("xquery.configurations.processor.content-database.label"), column)
+            database = comboBox(column.horizontal().hgap()) {
+                isEditable = true
+                addItem(null)
             }
         }
         row {
@@ -47,6 +56,34 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
             server = comboBox(column.horizontal().hgap().vgap()) {
                 isEditable = true
                 addItem(null)
+            }
+        }
+        row {
+            spacer(column.vertical())
+            spacer(column.horizontal())
+        }
+    }
+
+    @Suppress("DuplicatedCode")
+    private fun populateDatabaseUI() {
+        val settings = queryProcessor.settings ?: return
+        executeOnPooledThread {
+            try {
+                val databases = settings.session.databases
+                invokeLater(ModalityState.any()) {
+                    val current = database.selectedItem
+                    database.removeAllItems()
+                    database.addItem(null)
+                    databases.forEach { name -> database.addItem(name) }
+                    database.selectedItem = current
+                }
+            } catch (e: Throwable) {
+                invokeLater(ModalityState.any()) {
+                    val current = database.selectedItem
+                    database.removeAllItems()
+                    database.addItem(null)
+                    database.selectedItem = current
+                }
             }
         }
     }
@@ -82,11 +119,13 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
 
     override fun resetEditorFrom(settings: XRayTestConfiguration) {
         queryProcessor.processorId = settings.processorId
+        database.selectedItem = settings.database
         server.selectedItem = settings.server
     }
 
     override fun applyEditorTo(settings: XRayTestConfiguration) {
         settings.processorId = queryProcessor.processorId
+        settings.database = database.selectedItem as? String
         settings.server = server.selectedItem as? String
     }
 
