@@ -113,7 +113,6 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
                 invokeLater(ModalityState.any()) {
                     val current = server.selectedItem
                     server.removeAllItems()
-                    server.addItem(null)
                     servers.forEach { name -> server.addItem(name) }
                     server.selectedItem = current
                 }
@@ -121,7 +120,6 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
                 invokeLater(ModalityState.any()) {
                     val current = server.selectedItem
                     server.removeAllItems()
-                    server.addItem(null)
                     server.selectedItem = current
                 }
             }
@@ -137,7 +135,6 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
                 invokeLater(ModalityState.any()) {
                     val current = database.selectedItem
                     database.removeAllItems()
-                    database.addItem(null)
                     databases.forEach { name -> database.addItem(name) }
                     database.selectedItem = current
                 }
@@ -145,7 +142,6 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
                 invokeLater(ModalityState.any()) {
                     val current = database.selectedItem
                     database.removeAllItems()
-                    database.addItem(null)
                     database.selectedItem = current
                 }
             }
@@ -158,14 +154,12 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
             label(PluginApiBundle.message("xquery.configurations.processor.content-database.label"), column)
             database = comboBox(column.horizontal().hgap()) {
                 isEditable = true
-                addItem(null)
             }
         }
         row {
             label(PluginApiBundle.message("xquery.configurations.processor.server.label"), column.vgap())
             server = comboBox(column.horizontal().hgap().vgap()) {
                 isEditable = true
-                addItem(null)
             }
         }
         row {
