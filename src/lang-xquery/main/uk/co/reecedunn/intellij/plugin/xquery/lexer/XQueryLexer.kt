@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Reece H. Dunn
+ * Copyright (C) 2016-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -1202,6 +1202,7 @@ class XQueryLexer : XPathLexer(CodePointRangeImpl()) {
             "insert" to XQueryTokenType.K_INSERT, // Update Facility 1.0
             "into" to XQueryTokenType.K_INTO, // Update Facility 1.0
             "invoke" to XQueryTokenType.K_INVOKE, // Update Facility 3.0
+            "item-type" to XQueryTokenType.K_ITEM_TYPE, // XQuery 4.0 ED
             "last" to XQueryTokenType.K_LAST, // Update Facility 1.0
             "lax" to XQueryTokenType.K_LAX,
             "minus-sign" to XQueryTokenType.K_MINUS_SIGN, // XQuery 3.0

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Reece H. Dunn
+ * Copyright (C) 2016-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -123,6 +123,7 @@ object XQueryTokenType {
     val K_INSERT: IKeywordOrNCNameType = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_INSERT", XQuery) // Update Facility 1.0
     val K_INTO: IKeywordOrNCNameType = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_INTO", XQuery) // Update Facility 1.0
     val K_INVOKE: IKeywordOrNCNameType = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_INVOKE", XQuery) // Update Facility 3.0
+    val K_ITEM_TYPE: IKeywordOrNCNameType = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ITEM_TYPE", XQuery) // XQuery 4.0 ED
     val K_LAST: IKeywordOrNCNameType = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LAST", XQuery) // Update Facility 1.0
     val K_LAX: IKeywordOrNCNameType = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_LAX", XQuery) // XQuery 1.0
     val K_MINUS_SIGN: IKeywordOrNCNameType = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_MINUS_SIGN", XQuery) // XQuery 3.0

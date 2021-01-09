@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2020 Reece H. Dunn
+ * Copyright (C) 2016-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,6 @@ import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.xpath.intellij.lexer.XPathSyntaxHighlighterColors
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQDocTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lexer.XQuerySyntaxHighlighter
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lexer.XQuerySyntaxHighlighterColors
@@ -466,6 +465,9 @@ class XQuerySyntaxHighlighterTest {
 
         assertThat(highlighter.getTokenHighlights(XPathTokenType.K_ITEM).size, `is`(1))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.K_ITEM)[0], `is`(XQuerySyntaxHighlighterColors.KEYWORD))
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_ITEM_TYPE).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_ITEM_TYPE)[0], `is`(XQuerySyntaxHighlighterColors.KEYWORD))
 
         assertThat(highlighter.getTokenHighlights(XPathTokenType.K_LANGUAGE).size, `is`(1))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.K_LANGUAGE)[0], `is`(XQuerySyntaxHighlighterColors.KEYWORD))
