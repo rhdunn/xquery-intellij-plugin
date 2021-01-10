@@ -1,0 +1,12 @@
+XQueryModuleImpl[FILE(0:19)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:19)]
+      XQueryPrologImpl[XQUERY_PROLOG(0:19)]
+         XQueryAnnotatedDeclImpl[XQUERY_ANNOTATED_DECL(0:18)]
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+            XQueryItemTypeDeclImpl[XQUERY_ITEM_TYPE_DECL(8:18)]
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ITEM_TYPE(8:17)]('item-type')
+               PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
+               PsiErrorElementImpl[ERROR_ELEMENT(18:18)]('XPST0003: Missing qualified name or braced URI qualified name.')
+         LeafPsiElement[XQUERY_SEPARATOR_TOKEN(18:19)](';')
+      PsiErrorElementImpl[ERROR_ELEMENT(19:19)]('XPST0003: Missing query body.')

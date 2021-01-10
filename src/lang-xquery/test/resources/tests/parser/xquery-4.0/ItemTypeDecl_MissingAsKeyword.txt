@@ -1,0 +1,17 @@
+XQueryModuleImpl[FILE(0:25)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:25)]
+      XQueryPrologImpl[XQUERY_PROLOG(0:25)]
+         XQueryAnnotatedDeclImpl[XQUERY_ANNOTATED_DECL(0:24)]
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+            PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+            XQueryItemTypeDeclImpl[XQUERY_ITEM_TYPE_DECL(8:24)]
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ITEM_TYPE(8:17)]('item-type')
+               PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
+               XQueryQNameImpl[XQUERY_QNAME(18:23)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(18:19)]('a')
+                  LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(19:20)](':')
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(20:23)]('int')
+               PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
+               PsiErrorElementImpl[ERROR_ELEMENT(24:24)]('XPST0003: Expected 'as'.')
+         LeafPsiElement[XQUERY_SEPARATOR_TOKEN(24:25)](';')
+      PsiErrorElementImpl[ERROR_ELEMENT(25:25)]('XPST0003: Missing query body.')

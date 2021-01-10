@@ -9337,6 +9337,74 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery 4.0 ED EBNF (26) AnnotatedDecl ; XQuery 4.0 ED EBNF (38) ItemTypeDecl")
+    internal inner class ItemTypeDecl {
+        @Test
+        @DisplayName("item type declaration")
+        fun itemTypeDecl() {
+            val expected = loadResource("tests/parser/xquery-4.0/ItemTypeDecl.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/ItemTypeDecl.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("item type declaration; compact whitespace")
+        fun itemTypeDecl_CompactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-4.0/ItemTypeDecl_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/ItemTypeDecl_CompactWhitespace.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("with annotations")
+        fun annotations() {
+            val expected = loadResource("tests/parser/xquery-4.0/ItemTypeDecl_Annotations.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/ItemTypeDecl_Annotations.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing EQName")
+        fun missingEQName() {
+            val expected = loadResource("tests/parser/xquery-4.0/ItemTypeDecl_MissingEQName.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/ItemTypeDecl_MissingEQName.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing 'as' keyword")
+        fun missingEquals() {
+            val expected = loadResource("tests/parser/xquery-4.0/ItemTypeDecl_MissingAsKeyword.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/ItemTypeDecl_MissingAsKeyword.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing ItemType")
+        fun missingItemType() {
+            val expected = loadResource("tests/parser/xquery-4.0/ItemTypeDecl_MissingItemType.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/ItemTypeDecl_MissingItemType.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: ':=' instead of 'as'")
+        fun assignEquals() {
+            val expected = loadResource("tests/parser/xquery-4.0/ItemTypeDecl_AssignEquals.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/ItemTypeDecl_AssignEquals.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: '=' instead of 'as'")
+        fun equals() {
+            val expected = loadResource("tests/parser/xquery-4.0/ItemTypeDecl_Equals.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/ItemTypeDecl_Equals.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 4.0 ED EBNF (46) FLWORExpr ; XQuery 4.0 ED EBNF (50) ForClause")
     internal inner class ForClause_XQuery40 {
         @Nested

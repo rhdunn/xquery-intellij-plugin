@@ -13,7 +13,7 @@ XQueryModuleImpl[FILE(0:34)]
                   XmlNCNameImpl[XPATH_NCNAME_TOKEN(15:18)]('int')
                PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
                PsiErrorElementImpl[ERROR_ELEMENT(19:21)]('XPST0003: Expected '='.')
-                  LeafPsiElement[XPATH_ASSIGN_EQUAL_TOKEN(19:21)](':=')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AS(19:21)]('as')
                PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
                XPathAtomicOrUnionTypeImpl[XPATH_ATOMIC_OR_UNION_TYPE(22:32)]
                   XQueryQNameImpl[XQUERY_QNAME(22:32)]

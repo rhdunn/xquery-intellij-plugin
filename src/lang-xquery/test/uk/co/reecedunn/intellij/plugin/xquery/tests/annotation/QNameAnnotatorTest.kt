@@ -961,8 +961,8 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         }
 
         @Test
-        @DisplayName("XQuery IntelliJ Plugin EBNF (19) TypeDecl")
-        fun typeDecl() {
+        @DisplayName("XQuery IntelliJ Plugin EBNF (19) ItemTypeDecl")
+        fun itemTypeDecl() {
             val file = parse<XQueryModule>("declare type test := xs:string;")[0]
             val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
             assertThat(

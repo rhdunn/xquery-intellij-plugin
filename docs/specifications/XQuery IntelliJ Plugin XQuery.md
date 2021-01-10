@@ -66,7 +66,7 @@ plugin-specific extensions are provided to support IntelliJ integration.
   - [FLWOR Expressions](#313-flwor-expressions)
     - [For Member Clause](#3131-for-member-clause)
 - [Modules and Prologs](#4-modules-and-prologs)
-  - [Type Declaration](#41-type-declaration)
+  - [Item Type Declaration](#41-item-type-declaration)
   - [Annotations](#42-annotations)
   - [Stylesheet Import](#43-stylesheet-import)
   - [Transactions](#44-transactions)
@@ -978,14 +978,18 @@ is equivalent to:
 {: .ebnf-symbols }
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
-| \[18\] | `Prolog`                       | ::= | `((DefaultNamespaceDecl \| Setter \| NamespaceDecl \| Import \| UsingDecl) Separator)* ((ContextItemDecl \| AnnotatedDecl \| OptionDecl \| TypeDecl) Separator)*` | |
+| \[18\] | `Prolog`                       | ::= | `((DefaultNamespaceDecl \| Setter \| NamespaceDecl \| Import \| UsingDecl) Separator)* ((ContextItemDecl \| AnnotatedDecl \| OptionDecl) Separator)*` | |
 
-### 4.1 Type Declaration
+### 4.1 Item Type Declaration
 
 {: .ebnf-symbols }
-| Ref    | Symbol                         |     | Expression                                | Options |
-|--------|--------------------------------|-----|-------------------------------------------|---------|
-| \[19\] | `TypeDecl`                     | ::= | `"declare" "type" QName "=" ItemType`     |         |
+| Ref     | Symbol                         |     | Expression                                | Options |
+|---------|--------------------------------|-----|-------------------------------------------|---------|
+| \[141\] | `AnnotatedDecl`                | ::= | `"declare" Annotation* (VarDecl | FunctionDecl | ItemTypeDecl)` | |
+| \[19\]  | `ItemTypeDecl`                 | ::= | `("type" EQName "=" | "item-type" EQName "as") ItemType` | |
+
+This is a new XPath 4.0 Editor's Draft extension using the `item-type` keyword.
+Saxon 9.8 supports it using the `type` keyword.
 
 \[Definition: A *type declaration* declares a type alias name and associates
 it with an item type, adding the (name, type) pair to the
@@ -1123,8 +1127,8 @@ These changes include support for:
 | \[15\]   | `PrimaryExpr`                  | ::= | `Literal \| VarRef \| ParamRef \| ParenthesizedExpr \| ContextItemExpr \| FunctionCall \| NonDeterministicFunctionCall \| OrderedExpr \| UnorderedExpr \| NodeConstructor \| FunctionItemExpr \| MapConstructor \| ArrayConstructor \| BooleanConstructor \| NumberConstructor \| NullConstructor \| BinaryConstructor \| StringConstructor \| UnaryLookup` | |
 | \[16\]   | `NonDeterministicFunctionCall` | ::= | `"non-deterministic" VarRef PositionalArgumentList` |       |
 | \[17\]   | `MapConstructorEntry`          | ::= | `MapKeyExpr (":" \| ":=") MapValueExpr` |                   |
-| \[18\]   | `Prolog`                       | ::= | `((DefaultNamespaceDecl \| Setter \| NamespaceDecl \| Import \| UsingDecl) Separator)* ((ContextItemDecl \| AnnotatedDecl \| OptionDecl \| TypeDecl) Separator)*` | |
-| \[19\]   | `TypeDecl`                     | ::= | `"declare" "type" QName "=" ItemType` |                     |
+| \[18\]   | `Prolog`                       | ::= | `((DefaultNamespaceDecl \| Setter \| NamespaceDecl \| Import \| UsingDecl) Separator)* ((ContextItemDecl \| AnnotatedDecl \| OptionDecl) Separator)*` | |
+| \[19\]   | `ItemTypeDecl`                 | ::= | `("type" EQName "=" | "item-type" EQName "as") ItemType` |  |
 | \[20\]   | `ItemType`                     | ::= | `KindTest \| AnyItemTest \| AnnotatedFunctionOrSequence \| MapTest \| ArrayTest \| RecordTest \| TypeAlias \| LocalUnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
 | \[21\]   | `TypedMapTest`                 | ::= | `"map" "(" ItemType "," SequenceType ")"` |                 |
 | \[22\]   | `LocalUnionType`               | ::= | `"union" "(" ItemType ("," ItemType)* ")"` |                |
@@ -1241,6 +1245,7 @@ These changes include support for:
 | \[138\]  | `ThinArrowTarget`              | ::= | `"->" ( ArrowFunctionCall | ArrowDynamicFunctionCall | ArrowInlineFunctionCall )` |   |
 | \[139\]  | `ArrowInlineFunctionCall`      | ::= | `EnclosedExpr`                      |                       |
 | \[140\]  | `ExtensibleFlag`               | ::= | `"," "*"`                           |                       |
+| \[141\]  | `AnnotatedDecl`                | ::= | `"declare" Annotation* (VarDecl | FunctionDecl | ItemTypeDecl)` | |
 
 ### A.2 Reserved Function Names
 
@@ -1421,7 +1426,7 @@ MarkLogic 8.0 supports the following JSON syntax extensions:
 The Saxon XQuery Processor supports the following vendor extensions described
 in this document:
 1.  [Tuple Type](#2122-tuple-type) \[Saxon 9.8\]
-1.  [Type Declaration](#41-type-declaration) and [Type Alias](#2129-type-alias) \[Saxon 9.8\]
+1.  [Item Type Declaration](#41-item-type-declaration) and [Type Alias](#2129-type-alias) \[Saxon 9.8\]
 1.  [Logical Expressions](#310-logical-expressions) \[Saxon 9.9\] -- `orElse` and `andAlso`
 1.  [Otherwise Expressions](#3111-otherwise-expressions) \[Saxon 10.0\]
 1.  [For Member Expressions](#3131-for-member-clause) \[Saxon 10.0\]

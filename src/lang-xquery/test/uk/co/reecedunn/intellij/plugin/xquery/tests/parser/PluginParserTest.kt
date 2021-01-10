@@ -259,8 +259,8 @@ private class PluginParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (19) TypeDecl")
-    internal inner class TypeDecl {
+    @DisplayName("XQuery IntelliJ Plugin EBNF (19) ItemTypeDecl")
+    internal inner class ItemTypeDecl {
         @Test
         @DisplayName("type declaration")
         fun typeDecl() {
@@ -306,6 +306,22 @@ private class PluginParserTest : ParserTestCase() {
         fun assignEquals() {
             val expected = loadResource("tests/parser/saxon-9.8/TypeDecl_AssignEquals.txt")
             val actual = parseResource("tests/parser/saxon-9.8/TypeDecl_AssignEquals.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: 'as' instead of '='")
+        fun asKeyword() {
+            val expected = loadResource("tests/parser/saxon-9.8/TypeDecl_AsKeyword.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/TypeDecl_AsKeyword.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: with annotations")
+        fun annotations() {
+            val expected = loadResource("tests/parser/saxon-9.8/TypeDecl_Annotations.txt")
+            val actual = parseResource("tests/parser/saxon-9.8/TypeDecl_Annotations.xq")
             assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }

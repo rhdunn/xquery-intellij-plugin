@@ -169,7 +169,7 @@ class PluginLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (19) TypeDecl")
+    @DisplayName("XQuery IntelliJ Plugin EBNF (19) ItemTypeDecl")
     fun typeDecl() {
         val lexer = createLexer()
 

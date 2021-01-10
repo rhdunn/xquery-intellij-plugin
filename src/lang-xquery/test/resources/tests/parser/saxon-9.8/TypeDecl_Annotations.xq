@@ -1,0 +1,1 @@
+declare % private type a:int as xs:integer ;

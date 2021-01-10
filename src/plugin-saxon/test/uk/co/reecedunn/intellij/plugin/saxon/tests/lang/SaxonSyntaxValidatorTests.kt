@@ -181,8 +181,8 @@ class SaxonSyntaxValidatorTest :
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (19) TypeDecl")
-    internal inner class TypeDecl {
+    @DisplayName("XQuery IntelliJ Plugin EBNF (19) ItemTypeDecl")
+    internal inner class ItemTypeDecl {
         @Test
         @DisplayName("Saxon HE")
         fun notSupportedHE() {

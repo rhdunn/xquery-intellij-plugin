@@ -1,0 +1,1 @@
+declare % private item-type a:int as xs:integer ;

@@ -363,10 +363,6 @@ class XQueryParser : XPathParser() {
                     marker.done(XQueryElementType.CONTEXT_ITEM_DECL)
                     return PrologDeclState.BODY_STATEMENT
                 }
-                parseItemTypeDecl(builder) -> {
-                    marker.done(XQueryElementType.ITEM_TYPE_DECL)
-                    return PrologDeclState.BODY_STATEMENT
-                }
                 parseFTOptionDecl(builder) -> marker.done(XQueryElementType.FT_OPTION_DECL)
                 else -> {
                     builder.error(
@@ -427,6 +423,7 @@ class XQueryParser : XPathParser() {
             if (builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) continue
             if (builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE)) continue
 
+            if (builder.matchTokenType(XPathTokenType.K_AS)) continue
             if (builder.matchTokenType(XQueryTokenType.K_COLLATION)) continue
             if (builder.matchTokenType(XPathTokenType.K_ELEMENT)) continue
             if (builder.matchTokenType(XPathTokenType.K_EMPTY)) continue
@@ -1025,8 +1022,12 @@ class XQueryParser : XPathParser() {
                 return true
             }
             parseFunctionDecl(builder, marker, firstAnnotation) -> return true
+            parseItemTypeDecl(builder, haveAnnotations) -> {
+                marker.done(XQueryElementType.ITEM_TYPE_DECL)
+                return true
+            }
             haveAnnotations -> {
-                builder.error(XPathBundle.message("parser.error.expected-keyword", "function, variable"))
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "function, item-type, variable"))
                 parseUnknownDecl(builder)
                 marker.done(XQueryElementType.UNKNOWN_DECL)
                 return true
@@ -1201,25 +1202,51 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseItemTypeDecl(builder: PsiBuilder): Boolean {
-        if (builder.matchTokenType(XPathTokenType.K_TYPE)) {
+    private fun parseItemTypeDecl(builder: PsiBuilder, haveAnnotation: Boolean): Boolean {
+        val itemTypeToken = when {
+            haveAnnotation && builder.errorOnTokenType(
+                XPathTokenType.K_TYPE, XPathBundle.message("parser.error.expected-keyword", "function, item-type, variable")
+            ) -> XPathTokenType.K_TYPE
+            builder.matchTokenType(XPathTokenType.K_TYPE) -> XPathTokenType.K_TYPE
+            builder.matchTokenType(XQueryTokenType.K_ITEM_TYPE) -> XQueryTokenType.K_ITEM_TYPE
+            else -> null
+        }
+
+        if (itemTypeToken != null) {
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (parseQNameOrWildcard(builder, XQueryElementType.QNAME, false) == null) {
-                builder.error(XQueryBundle.message("parser.error.expected-qname"))
+            if (parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false) == null) {
+                builder.error(XPathBundle.message("parser.error.expected-eqname"))
                 haveErrors = true
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XPathTokenType.EQUAL) && run {
-                    haveErrors = builder.errorOnTokenType(
-                        XPathTokenType.ASSIGN_EQUAL, XPathBundle.message("parser.error.expected", "=")
-                    )
-                    !haveErrors
-                }) {
-                builder.error(XPathBundle.message("parser.error.expected", "="))
-                haveErrors = true
+            when (itemTypeToken) {
+                XPathTokenType.K_TYPE /* Saxon 9.8 */ -> {
+                    if (!builder.matchTokenType(XPathTokenType.EQUAL) && run {
+                            haveErrors = builder.errorOnTokenType(
+                                XQueryTokenType.TYPE_DECL_ASSIGN_ERROR_TOKENS,
+                                XPathBundle.message("parser.error.expected", "=")
+                            )
+                            !haveErrors
+                        }) {
+                        builder.error(XPathBundle.message("parser.error.expected", "="))
+                        haveErrors = true
+                    }
+                }
+                else /* XQuery 4.0 ED */ -> {
+                    if (!builder.matchTokenType(XPathTokenType.K_AS) && run {
+                            haveErrors = builder.errorOnTokenType(
+                                XQueryTokenType.ITEM_TYPE_DECL_ASSIGN_ERROR_TOKENS,
+                                XPathBundle.message("parser.error.expected", "as")
+                            )
+                            !haveErrors
+                        }) {
+                        builder.error(XPathBundle.message("parser.error.expected", "as"))
+                        haveErrors = true
+                    }
+                }
             }
 
             parseWhiteSpaceAndCommentTokens(builder)

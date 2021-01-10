@@ -60,8 +60,7 @@ private class UpdateFacilityParserTest : ParserTestCase() {
         @Test
         @DisplayName("updating annotation; missing function keyword")
         fun testFunctionDecl_Updating_MissingFunctionKeyword() {
-            val expected =
-                loadResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating_MissingFunctionKeyword.txt")
+            val expected = loadResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating_MissingFunctionKeyword.txt")
             val actual = parseResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating_MissingFunctionKeyword.xq")
             assertThat(actual.toPsiTreeString(), `is`(expected))
         }
@@ -516,8 +515,7 @@ private class UpdateFacilityParserTest : ParserTestCase() {
         @Test
         @DisplayName("function declaration; missing 'function' keyword")
         fun testCompatibilityAnnotation_FunctionDecl_MissingFunctionKeyword() {
-            val expected =
-                loadResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating_MissingFunctionKeyword.txt")
+            val expected = loadResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating_MissingFunctionKeyword.txt")
             val actual = parseResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating_MissingFunctionKeyword.xq")
             assertThat(actual.toPsiTreeString(), `is`(expected))
         }
@@ -533,10 +531,8 @@ private class UpdateFacilityParserTest : ParserTestCase() {
         @Test
         @DisplayName("variable declaration; missing 'variable' keyword")
         fun testCompatibilityAnnotation_VarDecl_MissingVariableKeyword() {
-            val expected =
-                loadResource("tests/parser/xquery-update-3.0/CompatibilityAnnotation_VarDecl_MissingVariableKeyword.txt")
-            val actual =
-                parseResource("tests/parser/xquery-update-3.0/CompatibilityAnnotation_VarDecl_MissingVariableKeyword.xq")
+            val expected = loadResource("tests/parser/xquery-update-3.0/CompatibilityAnnotation_VarDecl_MissingVariableKeyword.txt")
+            val actual = parseResource("tests/parser/xquery-update-3.0/CompatibilityAnnotation_VarDecl_MissingVariableKeyword.xq")
             assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }

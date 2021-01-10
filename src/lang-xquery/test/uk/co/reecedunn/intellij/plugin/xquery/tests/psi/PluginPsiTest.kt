@@ -1897,11 +1897,11 @@ private class PluginPsiTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin (4.1) Type Declaration")
+    @DisplayName("XQuery IntelliJ Plugin (4.1) Item Type Declaration")
     internal inner class TypeDeclaration {
         @Nested
-        @DisplayName("XQuery IntelliJ Plugin EBNF (19) TypeDecl")
-        internal inner class TypeDecl {
+        @DisplayName("XQuery IntelliJ Plugin EBNF (19) ItemTypeDecl")
+        internal inner class ItemTypeDecl {
             @Test
             @DisplayName("NCName")
             fun ncname() {
