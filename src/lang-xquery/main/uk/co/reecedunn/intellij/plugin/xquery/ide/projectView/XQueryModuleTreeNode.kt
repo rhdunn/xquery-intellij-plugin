@@ -21,7 +21,7 @@ import com.intellij.ide.util.treeView.AbstractTreeNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableDeclaration
-import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginTypeDecl
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryItemTypeDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 
 class XQueryModuleTreeNode(module: XQueryModule, viewSettings: ViewSettings) :
@@ -54,7 +54,7 @@ class XQueryModuleTreeNode(module: XQueryModule, viewSettings: ViewSettings) :
                         }
                     }
                 }
-                is PluginTypeDecl -> sequenceOf(XQueryLeafNode(decl, settings) as AbstractTreeNode<Any>)
+                is XQueryItemTypeDecl -> sequenceOf(XQueryLeafNode(decl, settings) as AbstractTreeNode<Any>)
                 else -> emptySequence()
             }
         }?.filterNotNull()

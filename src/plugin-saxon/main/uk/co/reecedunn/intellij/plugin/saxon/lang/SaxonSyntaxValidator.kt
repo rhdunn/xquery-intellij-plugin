@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires.XpmRequiresAny
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires.XpmRequiresProductVersion
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires.XpmRequiresProductVersionRange
-import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginTypeDecl
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryItemTypeDecl
 
 object SaxonSyntaxValidator : XpmSyntaxValidator {
     override fun validate(
@@ -59,7 +59,7 @@ object SaxonSyntaxValidator : XpmSyntaxValidator {
             XPathTokenType.TYPE_ALIAS -> reporter.requires(element, SAXON_PE_9_8_TO_9_9) // ~T
             else -> reporter.requires(element, SAXON_PE_10) // type(T)
         }
-        is PluginTypeDecl -> reporter.requires(element, SAXON_PE_9_8)
+        is XQueryItemTypeDecl -> reporter.requires(element, SAXON_PE_9_8)
         is XPathLocalUnionType -> reporter.requires(element, SAXON_PE_9_8)
         is XPathAndExpr -> when (element.conformanceElement.elementType) {
             XPathTokenType.K_ANDALSO -> reporter.requires(element, SAXON_PE_9_9)

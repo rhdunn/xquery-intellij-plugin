@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Reece H. Dunn
+ * Copyright (C) 2016-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -632,6 +632,15 @@ object XQueryElementType {
     )
 
     // endregion
+    // region XQuery 4.0 ED
+
+    val ITEM_TYPE_DECL: IElementType = ICompositeElementType(
+        "XQUERY_ITEM_TYPE_DECL",
+        XQueryItemTypeDeclPsiImpl::class.java,
+        XQuery
+    )
+
+    // endregion
     // region Full Text 1.0
 
     val FT_OPTION_DECL: IElementType = ICompositeElementType(
@@ -1014,12 +1023,6 @@ object XQueryElementType {
     val TRANSACTION_SEPARATOR: IElementType = ICompositeElementType(
         "XQUERY_TRANSACTION_SEPARATOR",
         PluginTransactionSeparatorPsiImpl::class.java,
-        XQuery
-    )
-
-    val TYPE_DECL: IElementType = ICompositeElementType(
-        "XQUERY_TYPE_DECL",
-        PluginTypeDeclImpl::class.java,
         XQuery
     )
 

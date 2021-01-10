@@ -363,8 +363,8 @@ class XQueryParser : XPathParser() {
                     marker.done(XQueryElementType.CONTEXT_ITEM_DECL)
                     return PrologDeclState.BODY_STATEMENT
                 }
-                parseTypeDecl(builder) -> {
-                    marker.done(XQueryElementType.TYPE_DECL)
+                parseItemTypeDecl(builder) -> {
+                    marker.done(XQueryElementType.ITEM_TYPE_DECL)
                     return PrologDeclState.BODY_STATEMENT
                 }
                 parseFTOptionDecl(builder) -> marker.done(XQueryElementType.FT_OPTION_DECL)
@@ -1201,7 +1201,7 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseTypeDecl(builder: PsiBuilder): Boolean {
+    private fun parseItemTypeDecl(builder: PsiBuilder): Boolean {
         if (builder.matchTokenType(XPathTokenType.K_TYPE)) {
             var haveErrors = false
 

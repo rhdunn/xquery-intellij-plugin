@@ -20,7 +20,7 @@ import com.intellij.ide.structureView.impl.common.PsiTreeElementBase
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableDeclaration
-import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginTypeDecl
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryItemTypeDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import javax.swing.Icon
 
@@ -47,7 +47,7 @@ class XQueryModuleStructureView(module: XQueryModule) : PsiTreeElementBase<XQuer
                                 }
                             }
                         }
-                        is PluginTypeDecl -> sequenceOf(StructureViewLeafNode(decl))
+                        is XQueryItemTypeDecl -> sequenceOf(StructureViewLeafNode(decl))
                         else -> emptySequence()
                     }
                 }

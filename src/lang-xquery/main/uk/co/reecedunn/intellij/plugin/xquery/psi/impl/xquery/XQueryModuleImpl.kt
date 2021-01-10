@@ -171,7 +171,7 @@ class XQueryModuleImpl(provider: FileViewProvider) :
             XQueryElementType.SLIDING_WINDOW_CLAUSE to XpmUsageType.Variable,
             XQueryElementType.TUMBLING_WINDOW_CLAUSE to XpmUsageType.Variable,
             XPathElementType.TYPE_ALIAS to XpmUsageType.Type,
-            XQueryElementType.TYPE_DECL to XpmUsageType.Type,
+            XQueryElementType.ITEM_TYPE_DECL to XpmUsageType.Type,
             XPathElementType.TYPE_NAME to XpmUsageType.Type,
             XPathElementType.LOCAL_UNION_TYPE to XpmUsageType.Type,
             XQueryElementType.VAR_DECL to XpmUsageType.Variable,
