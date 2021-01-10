@@ -128,9 +128,10 @@ If the member type has no namespace prefix, it is implicitly qualified by the
 | Ref    | Symbol                  |     | Expression                          | Options               |
 |--------|-------------------------|-----|-------------------------------------|-----------------------|
 | \[25\] | `RecordTest`            | ::= | `( "tuple" | "record" ) "(" FieldDeclaration ("," FieldDeclaration)* ExtensibleFlag? ")"` | |
-| \[26\] | `FieldDeclaration`      | ::= | `FieldName "?"? ( ( ":" | "as" ) SequenceType )?` |         |
+| \[26\] | `FieldDeclaration`      | ::= | `FieldName "?"? ( ( ":" | "as" ) (SequenceType | SelfReference) )?` | |
 | \[33\] | `FieldName`             | ::= | `NCName | StringLiteral`            |                       |
 | \[55\] | `ExtensibleFlag`        | ::= | `"," "*"`                           |                       |
+| \[56\] | `SelfReference`         | ::= | `".." OccurrenceIndicator?`         |                       |
 
 The `RecordTest` is a new sequence type supported by Saxon 9.8. Saxon 9.8 uses `:`
 to specify the tuple item's sequence type, while Saxon 10.0 uses `as`.
@@ -454,7 +455,7 @@ These changes include support for:
 | \[23\]  | `FunctionItemExpr`             | ::= | `NamedFunctionRef \| InlineFunctionExpr \| ContextItemFunctionExpr \| LambdaFunctionExpr` | |
 | \[24\]  | `ContextItemFunctionExpr`      | ::= | `(( "fn" "{" ) | ".{" ) Expr "}"`   |                      |
 | \[25\]  | `RecordTest`                   | ::= | `( "tuple" | "record" ) "(" FieldDeclaration ("," FieldDeclaration)* ExtensibleFlag? ")"` | |
-| \[26\]  | `FieldDeclaration`             | ::= | `FieldName "?"? ( ( ":" | "as" ) SequenceType )?` |        |
+| \[26\]  | `FieldDeclaration`             | ::= | `FieldName "?"? ( ( ":" | "as" ) (SequenceType | SelfReference) )?` | |
 | \[27\]  | `ArrowExpr`                    | ::= | `UnaryExpr ( FatArrowTarget | ThinArrowTarget )*` |        |
 | \[28\]  | `ArrowFunctionCall`            | ::= | `EQName ArgumentList`               |                      |
 | \[29\]  | `AttributeTest`                | ::= | `"attribute" "(" (NameTest ("," TypeName)?)? ")"` |        |
@@ -484,6 +485,7 @@ These changes include support for:
 | \[53\]  | `ThinArrowTarget`              | ::= | `"->" ( ArrowFunctionCall | ArrowDynamicFunctionCall | ArrowInlineFunctionCall )` |  |
 | \[54\]  | `ArrowInlineFunctionCall`      | ::= | `EnclosedExpr`                      |                      |
 | \[55\]  | `ExtensibleFlag`               | ::= | `"," "*"`                           |                      |
+| \[56\]  | `SelfReference`                | ::= | `".." OccurrenceIndicator?`         |                      |
 
 ### A.2 Reserved Function Names
 

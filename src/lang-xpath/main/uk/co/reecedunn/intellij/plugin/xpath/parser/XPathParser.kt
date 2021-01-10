@@ -3464,9 +3464,7 @@ open class XPathParser : PsiParser {
     private fun parseSelfReference(builder: PsiBuilder): Boolean {
         if (builder.matchTokenType(XPathTokenType.PARENT_SELECTOR)) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseOccurrenceIndicator(builder)) {
-                builder.error(XPathBundle.message("parser.error.expected", "OccurrenceIndicator"))
-            }
+            parseOccurrenceIndicator(builder)
             return true
         }
         return false

@@ -202,9 +202,10 @@ If the member type has no namespace prefix, it is implicitly qualified by the
 | Ref     | Symbol                  |     | Expression                          | Options               |
 |---------|-------------------------|-----|-------------------------------------|-----------------------|
 | \[23\]  | `RecordTest`            | ::= | `( "tuple" | "record" ) "(" FieldDeclaration ("," FieldDeclaration)* ExtensibleFlag? ")"` | |
-| \[24\]  | `FieldDeclaration`      | ::= | `FieldName "?"? ( ( ":" | "as" ) SequenceType )?` |         |
+| \[24\]  | `FieldDeclaration`      | ::= | `FieldName "?"? ( ( ":" | "as" ) (SequenceType | SelfReference) )?` | |
 | \[115\] | `FieldName`             | ::= | `NCName | StringLiteral`            |                       |
 | \[140\] | `ExtensibleFlag`        | ::= | `"," "*"`                           |                       |
+| \[142\] | `SelfReference`         | ::= | `".." OccurrenceIndicator?`         |                       |
 
 The `RecordTest` is a new sequence type supported by Saxon 9.8. Saxon 9.8 uses
 `:` to specify the tuple item's sequence type, while Saxon 10.0 uses `as`.
@@ -1133,7 +1134,7 @@ These changes include support for:
 | \[21\]   | `TypedMapTest`                 | ::= | `"map" "(" ItemType "," SequenceType ")"` |                 |
 | \[22\]   | `LocalUnionType`               | ::= | `"union" "(" ItemType ("," ItemType)* ")"` |                |
 | \[23\]   | `RecordTest`                   | ::= | `( "tuple" | "record" ) "(" FieldDeclaration ("," FieldDeclaration)* ExtensibleFlag? ")"` | |
-| \[24\]   | `FieldDelaration`              | ::= | `FieldName "?"? ( ( ":" | "as" ) SequenceType )?` |         |
+| \[24\]   | `FieldDelaration`              | ::= | `FieldName "?"? ( ( ":" | "as" ) (SequenceType | SelfReference) )?` | |
 | \[25\]   | `ForwardAxis`                  | ::= | `("child" "::") \| ("descendant" "::") \| ("attribute" "::") \| ("self" "::") \| ("descendant-or-self" "::") \| ("following-sibling" "::") \| ("following" "::") \| ("namespace" "::") \| ("property" "::")` | |
 | \[26\]   | `CompatibilityAnnotation`      | ::= | `"assignable" \| "private" \| "sequential" \| "simple" \| "unassignable" \| "updating"` | |
 | \[27\]   | `ValidateExpr`                 | ::= | `"validate" ( ValidationMode \| ( ( "type" \| "as" ) TypeName ) )? "{" Expr "}"` | |
@@ -1246,6 +1247,7 @@ These changes include support for:
 | \[139\]  | `ArrowInlineFunctionCall`      | ::= | `EnclosedExpr`                      |                       |
 | \[140\]  | `ExtensibleFlag`               | ::= | `"," "*"`                           |                       |
 | \[141\]  | `AnnotatedDecl`                | ::= | `"declare" Annotation* (VarDecl | FunctionDecl | ItemTypeDecl)` | |
+| \[142\]  | `SelfReference`                | ::= | `".." OccurrenceIndicator?`         |                       |
 
 ### A.2 Reserved Function Names
 

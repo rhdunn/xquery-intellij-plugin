@@ -4778,10 +4778,10 @@ private class XPathParserTest : ParserTestCase() {
             }
 
             @Test
-            @DisplayName("missing OccurrenceIndicator")
-            fun missingOccurrenceIndicator() {
-                val expected = loadResource("tests/parser/xpath-4.0/FieldDeclaration_SelfReference_MissingOccurrenceIndicator.txt")
-                val actual = parseResource("tests/parser/xpath-4.0/FieldDeclaration_SelfReference_MissingOccurrenceIndicator.xq")
+            @DisplayName("no OccurrenceIndicator")
+            fun noOccurrenceIndicator() {
+                val expected = loadResource("tests/parser/xpath-4.0/FieldDeclaration_SelfReference_NoOccurrenceIndicator.txt")
+                val actual = parseResource("tests/parser/xpath-4.0/FieldDeclaration_SelfReference_NoOccurrenceIndicator.xq")
                 assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 

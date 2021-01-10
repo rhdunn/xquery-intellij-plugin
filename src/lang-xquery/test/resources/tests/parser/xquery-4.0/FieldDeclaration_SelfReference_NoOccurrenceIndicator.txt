@@ -21,5 +21,4 @@ XQueryModuleImpl[FILE(0:32)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
                   XPathAbbrevReverseStepImpl[XPATH_PARENT_SELECTOR_TOKEN(28:30)]('..')
                   PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
-                  PsiErrorElementImpl[ERROR_ELEMENT(31:31)]('XPST0003: Expected 'OccurrenceIndicator'.')
                LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(31:32)](')')
