@@ -84,6 +84,7 @@
       </li>
       <li>Support <code>-&gt;</code> based <code>ArrowExpr</code> expressions.</li>
       <li>Support <code>RecordTest</code> item types.</li>
+      <li>Support <code>StringLiteral</code> and <code>VarRef</code> for <code>Lookup</code> and <code>UnaryLookup</code>.</li>
       <li>Support <code>type</code> in <code>DefaultNamespaceDecl</code> declarations in XQuery.</li>
       <li>Support item type declarations in XQuery.</li>
     </ol>

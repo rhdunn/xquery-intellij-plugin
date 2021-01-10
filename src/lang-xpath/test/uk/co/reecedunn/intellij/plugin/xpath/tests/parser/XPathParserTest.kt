@@ -4367,6 +4367,26 @@ private class XPathParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 4.0 ED EBNF (56) PostfixExpr ; XPath 4.0 ED EBNF (64) Lookup ; XPath 4.0 ED EBNF (65) KeySpecifier")
+    internal inner class PostfixExpr_Lookup_XPath40 {
+        @Test
+        @DisplayName("key specifier; StringLiteral")
+        fun stringLiteral() {
+            val expected = loadResource("tests/parser/xpath-4.0/Lookup_StringLiteral.txt")
+            val actual = parseResource("tests/parser/xpath-4.0/Lookup_StringLiteral.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("key specifier; VarRef")
+        fun varRef() {
+            val expected = loadResource("tests/parser/xpath-4.0/Lookup_VarRef.txt")
+            val actual = parseResource("tests/parser/xpath-4.0/Lookup_VarRef.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 4.0 ED EBNF (83) InlineFunctionExpr")
     internal inner class InlineFunctionExpr_XPath40 {
         @Test
@@ -4446,6 +4466,26 @@ private class XPathParserTest : ParserTestCase() {
         fun inlineFunctionExpr_noParamList() {
             val expected = loadResource("tests/parser/xpath-4.0/InlineFunctionExpr_NoParamList.txt")
             val actual = parseResource("tests/parser/xpath-4.0/InlineFunctionExpr_NoParamList.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XPath 4.0 ED EBNF (90) UnaryLookup ; XPath 4.0 ED EBNF (65) KeySpecifier")
+    internal inner class UnaryLookup_XPath40 {
+        @Test
+        @DisplayName("key specifier; StringLiteral")
+        fun stringLiteral() {
+            val expected = loadResource("tests/parser/xpath-4.0/UnaryLookup_StringLiteral.txt")
+            val actual = parseResource("tests/parser/xpath-4.0/UnaryLookup_StringLiteral.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("key specifier; VarRef")
+        fun varRef() {
+            val expected = loadResource("tests/parser/xpath-4.0/UnaryLookup_VarRef.txt")
+            val actual = parseResource("tests/parser/xpath-4.0/UnaryLookup_VarRef.xq")
             assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }

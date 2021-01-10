@@ -1248,6 +1248,7 @@ These changes include support for:
 | \[140\]  | `ExtensibleFlag`               | ::= | `"," "*"`                           |                       |
 | \[141\]  | `AnnotatedDecl`                | ::= | `"declare" Annotation* (VarDecl | FunctionDecl | ItemTypeDecl)` | |
 | \[142\]  | `SelfReference`                | ::= | `".." OccurrenceIndicator?`         |                       |
+| \[143\]  | `KeySpecifier`                 | ::= | `NCName | IntegerLiteral | StringLiteral | VarRef | ParenthesizedExpr | "*"` | |
 
 ### A.2 Reserved Function Names
 

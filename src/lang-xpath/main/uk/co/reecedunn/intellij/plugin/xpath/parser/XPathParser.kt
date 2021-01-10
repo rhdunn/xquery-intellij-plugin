@@ -1692,6 +1692,8 @@ open class XPathParser : PsiParser {
             builder.matchTokenType(XPathTokenType.STAR) ||
             builder.matchTokenType(XPathTokenType.INTEGER_LITERAL) ||
             this.parseEQNameOrWildcard(builder, NCNAME, false) != null ||
+            parseStringLiteral(builder) ||
+            parseVarOrParamRef(builder, null) ||
             parseParenthesizedExpr(builder)
         ) {
             marker.done(XPathElementType.KEY_SPECIFIER)

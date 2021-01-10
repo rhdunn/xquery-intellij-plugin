@@ -486,6 +486,7 @@ These changes include support for:
 | \[54\]  | `ArrowInlineFunctionCall`      | ::= | `EnclosedExpr`                      |                      |
 | \[55\]  | `ExtensibleFlag`               | ::= | `"," "*"`                           |                      |
 | \[56\]  | `SelfReference`                | ::= | `".." OccurrenceIndicator?`         |                      |
+| \[57\]  | `KeySpecifier`                 | ::= | `NCName | IntegerLiteral | StringLiteral | VarRef | ParenthesizedExpr | "*"` | |
 
 ### A.2 Reserved Function Names
 

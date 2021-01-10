@@ -1,0 +1,24 @@
+XPathImpl[FILE(0:23)]
+   XPathComparisonExprImpl[XPATH_COMPARISON_EXPR(0:23)]
+      PluginPostfixLookupImpl[XPATH_POSTFIX_LOOKUP(0:14)]
+         XPathVarRefImpl[XPATH_VAR_REF(0:4)]
+            LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(0:1)]('$')
+            PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+            XPathNCNameImpl[XPATH_NCNAME(2:4)]
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(2:3)]('m')
+               PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
+         XPathLookupImpl[XPATH_LOOKUP(4:13)]
+            LeafPsiElement[XPATH_OPTIONAL_TOKEN(4:5)]('?')
+            PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
+            XPathKeySpecifierImpl[XPATH_KEY_SPECIFIER(6:13)]
+               XPathStringLiteralImpl[XPATH_STRING_LITERAL(6:13)]
+                  LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(6:7)]('"')
+                  XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(7:12)]('lorem')
+                  LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(12:13)]('"')
+         PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
+      LeafPsiElement[XPATH_EQUAL_TOKEN(14:15)]('=')
+      PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
+      XPathStringLiteralImpl[XPATH_STRING_LITERAL(16:23)]
+         LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(16:17)]('"')
+         XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(17:22)]('ipsum')
+         LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(22:23)]('"')

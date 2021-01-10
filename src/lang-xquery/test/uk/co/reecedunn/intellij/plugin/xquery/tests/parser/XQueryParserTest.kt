@@ -9593,6 +9593,26 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery 4.0 ED EBNF (129) PostfixExpr ; XQuery 4.0 ED EBNF (137) Lookup ; XQuery 4.0 ED EBNF (138) KeySpecifier")
+    internal inner class PostfixExpr_Lookup_XQuery40 {
+        @Test
+        @DisplayName("key specifier; StringLiteral")
+        fun stringLiteral() {
+            val expected = loadResource("tests/parser/xquery-4.0/Lookup_StringLiteral.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/Lookup_StringLiteral.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("key specifier; VarRef")
+        fun varRef() {
+            val expected = loadResource("tests/parser/xquery-4.0/Lookup_VarRef.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/Lookup_VarRef.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 4.0 ED EBNF (185) InlineFunctionExpr")
     internal inner class InlineFunctionExpr_XQuery40 {
         @Test
@@ -9672,6 +9692,26 @@ private class XQueryParserTest : ParserTestCase() {
         fun inlineFunctionExpr_noParamList() {
             val expected = loadResource("tests/parser/xquery-4.0/InlineFunctionExpr_NoParamList.txt")
             val actual = parseResource("tests/parser/xquery-4.0/InlineFunctionExpr_NoParamList.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 4.0 ED EBNF (196) UnaryLookup ; XQuery 4.0 ED EBNF (138) KeySpecifier")
+    internal inner class UnaryLookup_XQuery40 {
+        @Test
+        @DisplayName("key specifier; StringLiteral")
+        fun stringLiteral() {
+            val expected = loadResource("tests/parser/xquery-4.0/UnaryLookup_StringLiteral.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/UnaryLookup_StringLiteral.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("key specifier; VarRef")
+        fun varRef() {
+            val expected = loadResource("tests/parser/xquery-4.0/UnaryLookup_VarRef.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/UnaryLookup_VarRef.xq")
             assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
