@@ -3079,6 +3079,7 @@ open class XPathParser : PsiParser {
             parseArrayTest(builder) ||
             parseRecordTest(builder) ||
             parseLocalUnionType(builder) ||
+            parseEnumerationType(builder) ||
             parseTypeAlias(builder) ||
             parseAtomicOrUnionType(builder) ||
             parseParenthesizedItemType(builder)
@@ -3314,6 +3315,44 @@ open class XPathParser : PsiParser {
             }
 
             marker.done(XPathElementType.LOCAL_UNION_TYPE)
+            return true
+        }
+        return false
+    }
+
+    private fun parseEnumerationType(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_ENUM)
+        if (marker != null) {
+            var haveError = false
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
+                marker.rollbackTo()
+                return false
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseStringLiteral(builder)) {
+                builder.error(XPathBundle.message("parser.error.expected", "StringLiteral"))
+                haveError = true
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            while (builder.matchTokenType(XPathTokenType.COMMA)) {
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!parseStringLiteral(builder) && !haveError) {
+                    builder.error(XPathBundle.message("parser.error.expected", "StringLiteral"))
+                    haveError = true
+                }
+                parseWhiteSpaceAndCommentTokens(builder)
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE) && !haveError) {
+                builder.error(XPathBundle.message("parser.error.expected", ")"))
+            }
+
+            marker.done(XPathElementType.ENUMERATION_TYPE)
             return true
         }
         return false

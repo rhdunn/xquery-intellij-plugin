@@ -538,6 +538,12 @@ object XPathElementType {
         XPath
     )
 
+    val ENUMERATION_TYPE: IElementType = ICompositeElementType(
+        "XPATH_ENUMERATION_TYPE",
+        XPathEnumerationTypePsiImpl::class.java,
+        XPath
+    )
+
     val FIELD_DECLARATION: IElementType = ICompositeElementType(
         "XPATH_FIELD_DECLARATION",
         XPathFieldDeclarationPsiImpl::class.java,

@@ -3934,4 +3934,15 @@ class XQueryLexerTest : LexerTestCase() {
         matchSingleToken(lexer, ",", XPathTokenType.COMMA)
         matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
     }
+
+    @Test
+    @DisplayName("XQuery 4.0 ED EBNF (234) EnumerationType")
+    fun enumerationType() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "enum", XPathTokenType.K_ENUM)
+        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
+        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
+        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+    }
 }

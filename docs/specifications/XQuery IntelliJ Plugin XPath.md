@@ -80,7 +80,7 @@ not normative.
 {: .ebnf-symbols }
 | Ref    | Symbol                  |     | Expression                          | Options |
 |--------|-------------------------|-----|-------------------------------------|---------|
-| \[5\]  | `ItemType`              | ::= | `KindTest \| AnyItemTest \| FunctionTest \| MapTest \| ArrayTest \| LocalUnionType \| RecordTest \| TypeAlias \| AtomicOrUnionType \| ParenthesizedItemType` | |
+| \[5\]  | `ItemType`              | ::= | `KindTest \| AnyItemTest \| FunctionTest \| MapTest \| ArrayTest \| LocalUnionType \| EnumerationType \| RecordTest \| TypeAlias \| AtomicOrUnionType \| ParenthesizedItemType` | |
 | \[6\]  | `AnyItemTest`           | ::= | `"item" "(" ")"`                    |         |
 | \[14\] | `SequenceTypeList`      | ::= | `SequenceType ("," SequenceType)*`  |         |
 | \[15\] | `TypedFunctionTest`     | ::= | `"function" "(" SequenceTypeList? ")" "as" SequenceType` | |
@@ -434,7 +434,7 @@ These changes include support for:
 | \[2\]   | `QuantifiedExprBinding`        | ::= | `"$" VarName "in" ExprSingle`       |                      |
 | \[3\]   | `Wildcard`                     | ::= | `WildcardIndicator \| (NCName ":" WildcardIndicator) \| (WildcardIndicator ":" NCName) \| (BracedURILiteral WildcardIndicator)` | /\* ws: explicit \*/ |
 | \[4\]   | `WildcardIndicator`            | ::= | `"*"`                               |                      |
-| \[5\]   | `ItemType`                     | ::= | `KindTest \| AnyItemTest \| FunctionTest \| MapTest \| ArrayTest \| LocalUnionType \| RecordTest \| TypeAlias \| AtomicOrUnionType \| ParenthesizedItemType` | |
+| \[5\]   | `ItemType`                     | ::= | `KindTest \| AnyItemTest \| FunctionTest \| MapTest \| ArrayTest \| LocalUnionType \| EnumerationType \| RecordTest \| TypeAlias \| AtomicOrUnionType \| ParenthesizedItemType` | |
 | \[6\]   | `AnyItemTest`                  | ::= | `"item" "(" ")"`                    |                      |
 | \[7\]   | `ForExpr`                      | ::= | `SimpleForClause ReturnClause`      |                      |
 | \[8\]   | `ReturnClause`                 | ::= | `"return" ExprSingle`               |                      |
@@ -487,6 +487,7 @@ These changes include support for:
 | \[55\]  | `ExtensibleFlag`               | ::= | `"," "*"`                           |                      |
 | \[56\]  | `SelfReference`                | ::= | `".." OccurrenceIndicator?`         |                      |
 | \[57\]  | `KeySpecifier`                 | ::= | `NCName | IntegerLiteral | StringLiteral | VarRef | ParenthesizedExpr | "*"` | |
+| \[58\]  | `EnumerationType`              | ::= | `"enum" "(" StringLiteral ("," StringLiteral)* ")"` |      |
 
 ### A.2 Reserved Function Names
 

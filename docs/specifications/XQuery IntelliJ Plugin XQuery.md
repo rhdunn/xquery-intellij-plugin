@@ -130,7 +130,7 @@ not normative.
 {: .ebnf-symbols }
 | Ref     | Symbol                  |     | Expression                          | Options |
 |---------|-------------------------|-----|-------------------------------------|---------|
-| \[20\]  | `ItemType`              | ::= | `KindTest \| AnyItemTest \| AnnotatedFunctionOrSequence \| MapTest \| ArrayTest \| RecordTest \| TypeAlias \| LocalUnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
+| \[20\]  | `ItemType`              | ::= | `KindTest \| AnyItemTest \| AnnotatedFunctionOrSequence \| MapTest \| ArrayTest \| RecordTest \| TypeAlias \| LocalUnionType \| EnumerationType \| AtomicOrUnionType \| ParenthesizedItemType` | |
 | \[21\]  | `TypedMapTest`          | ::= | `"map" "(" ItemType "," SequenceType ")"` |   |
 | \[22\]  | `LocalUnionType`        | ::= | `"union" "(" ItemType ("," ItemType)* ")"` |  |
 | \[28\]  | `KindTest`              | ::= | `DocumentTest \| ElementTest \| AttributeTest \| SchemaElementTest \| SchemaAttributeTest \| PITest \| CommentTest \| TextTest \| NamespaceNodeTest \| AnyKindTest \| NamedKindTest \| BinaryTest \| SchemaKindTest \| JsonKindTest` | |
@@ -1130,7 +1130,7 @@ These changes include support for:
 | \[17\]   | `MapConstructorEntry`          | ::= | `MapKeyExpr (":" \| ":=") MapValueExpr` |                   |
 | \[18\]   | `Prolog`                       | ::= | `((DefaultNamespaceDecl \| Setter \| NamespaceDecl \| Import \| UsingDecl) Separator)* ((ContextItemDecl \| AnnotatedDecl \| OptionDecl) Separator)*` | |
 | \[19\]   | `ItemTypeDecl`                 | ::= | `("type" EQName "=" | "item-type" EQName "as") ItemType` |  |
-| \[20\]   | `ItemType`                     | ::= | `KindTest \| AnyItemTest \| AnnotatedFunctionOrSequence \| MapTest \| ArrayTest \| RecordTest \| TypeAlias \| LocalUnionType \| AtomicOrUnionType \| ParenthesizedItemType` | |
+| \[20\]   | `ItemType`                     | ::= | `KindTest \| AnyItemTest \| AnnotatedFunctionOrSequence \| MapTest \| ArrayTest \| RecordTest \| TypeAlias \| LocalUnionType \| EnumerationType \| AtomicOrUnionType \| ParenthesizedItemType` | |
 | \[21\]   | `TypedMapTest`                 | ::= | `"map" "(" ItemType "," SequenceType ")"` |                 |
 | \[22\]   | `LocalUnionType`               | ::= | `"union" "(" ItemType ("," ItemType)* ")"` |                |
 | \[23\]   | `RecordTest`                   | ::= | `( "tuple" | "record" ) "(" FieldDeclaration ("," FieldDeclaration)* ExtensibleFlag? ")"` | |
@@ -1249,6 +1249,7 @@ These changes include support for:
 | \[141\]  | `AnnotatedDecl`                | ::= | `"declare" Annotation* (VarDecl | FunctionDecl | ItemTypeDecl)` | |
 | \[142\]  | `SelfReference`                | ::= | `".." OccurrenceIndicator?`         |                       |
 | \[143\]  | `KeySpecifier`                 | ::= | `NCName | IntegerLiteral | StringLiteral | VarRef | ParenthesizedExpr | "*"` | |
+| \[144\]  | `EnumerationType`              | ::= | `"enum" "(" StringLiteral ("," StringLiteral)* ")"` |       |
 
 ### A.2 Reserved Function Names
 

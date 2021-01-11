@@ -1,0 +1,16 @@
+XPathImpl[FILE(0:27)]
+   XPathInstanceofExprImpl[XPATH_INSTANCEOF_EXPR(0:27)]
+      XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(0:1)]('1')
+      PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_INSTANCE(2:10)]('instance')
+      PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
+      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_OF(11:13)]('of')
+      PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
+      XPathEnumerationTypeImpl[XPATH_ENUMERATION_TYPE(14:27)]
+         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ENUM(14:18)]('enum')
+         LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(18:19)]('(')
+         XPathStringLiteralImpl[XPATH_STRING_LITERAL(19:26)]
+            LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(19:20)]('"')
+            XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(20:25)]('lorem')
+            LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(25:26)]('"')
+         LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(26:27)](')')

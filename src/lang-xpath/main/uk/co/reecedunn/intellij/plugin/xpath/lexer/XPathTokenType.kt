@@ -103,6 +103,7 @@ object XPathTokenType {
     val K_EMPTY_SEQUENCE: IKeywordOrNCNameType = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_EMPTY_SEQUENCE", XPath, IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME) // XPath 2.0
     val K_END: IKeywordOrNCNameType = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_END", XPath) // Full Text 1.0; XQuery 3.0
     val K_ENTIRE: IKeywordOrNCNameType = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_ENTIRE", XPath) // Full Text 1.0
+    val K_ENUM: IKeywordOrNCNameType = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_ENUM", XPath) // XPath 4.0 ED
     val K_EQ: IKeywordOrNCNameType = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_EQ", XPath) // XPath 2.0
     val K_EVERY: IKeywordOrNCNameType = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_EVERY", XPath) // XPath 2.0
     val K_EXACTLY: IKeywordOrNCNameType = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_EXACTLY", XPath) // Full Text 1.0

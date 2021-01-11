@@ -640,6 +640,7 @@ open class XPathLexer(tokenRange: CodePointRange) : LexerImpl(STATE_DEFAULT, tok
             "empty-sequence" to XPathTokenType.K_EMPTY_SEQUENCE, // XPath 2.0
             "end" to XPathTokenType.K_END, // Full Text 1.0; XQuery 3.0
             "entire" to XPathTokenType.K_ENTIRE, // Full Text 1.0
+            "enum" to XPathTokenType.K_ENUM, // XPath 4.0 ED
             "eq" to XPathTokenType.K_EQ, // XPath 2.0
             "every" to XPathTokenType.K_EVERY, // XPath 2.0
             "exactly" to XPathTokenType.K_EXACTLY, // Full Text 1.0

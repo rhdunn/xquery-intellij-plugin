@@ -4578,6 +4578,75 @@ private class XPathParserTest : ParserTestCase() {
             }
         }
 
+        @Nested
+        @DisplayName("XPath 4.0 ED EBNF (128) EnumerationType")
+        internal inner class EnumerationType {
+            @Test
+            @DisplayName("one")
+            fun one() {
+                val expected = loadResource("tests/parser/xpath-4.0/EnumerationType_One.txt")
+                val actual = parseResource("tests/parser/xpath-4.0/EnumerationType_One.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("one; compact whitespace")
+            fun one_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-4.0/EnumerationType_One_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-4.0/EnumerationType_One_CompactWhitespace.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("two")
+            fun two() {
+                val expected = loadResource("tests/parser/xpath-4.0/EnumerationType_Two.txt")
+                val actual = parseResource("tests/parser/xpath-4.0/EnumerationType_Two.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("two; compact whitespace")
+            fun two_CompactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-4.0/EnumerationType_Two_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-4.0/EnumerationType_Two_CompactWhitespace.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("missing closing parenthesis")
+            fun missingClosingParenthesis() {
+                val expected = loadResource("tests/parser/xpath-4.0/EnumerationType_MissingClosingParenthesis.txt")
+                val actual = parseResource("tests/parser/xpath-4.0/EnumerationType_MissingClosingParenthesis.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("missing first type")
+            fun missingFirstType() {
+                val expected = loadResource("tests/parser/xpath-4.0/EnumerationType_MissingFirstType.txt")
+                val actual = parseResource("tests/parser/xpath-4.0/EnumerationType_MissingFirstType.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("missing next type")
+            fun missingNextType() {
+                val expected = loadResource("tests/parser/xpath-4.0/EnumerationType_MissingNextType.txt")
+                val actual = parseResource("tests/parser/xpath-4.0/EnumerationType_MissingNextType.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("multiple values")
+            fun multipleValues() {
+                // This is testing handling of whitespace before parsing the next comma.
+                val expected = loadResource("tests/parser/xpath-4.0/EnumerationType_Multiple.txt")
+                val actual = parseResource("tests/parser/xpath-4.0/EnumerationType_Multiple.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+        }
+
         @Test
         @DisplayName("XPath 4.0 ED EBNF (121) TypedMapTest ; XPath 4.0 ED EBNF (127) LocalUnionType")
         fun typedMapTest() {
