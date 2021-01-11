@@ -374,11 +374,9 @@ open class XPathParser : PsiParser {
     // endregion
     // region Grammar :: Expr :: LetExpr
 
-    open val LET_CLAUSE: IElementType = XPathElementType.SIMPLE_LET_CLAUSE
-
     private fun parseLetExpr(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
-        if (parseLetClause(builder)) {
+        if (parseSimpleLetClause(builder)) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!parseReturnClause(builder)) {
                 builder.error(XPathBundle.message("parser.error.expected-keyword", "return"))
@@ -393,29 +391,32 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    fun parseLetClause(builder: PsiBuilder): Boolean {
+    private fun parseSimpleLetClause(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
         if (builder.matchTokenType(XPathTokenType.K_LET)) {
             var isFirst = true
             do {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseLetBinding(builder, isFirst) && isFirst) {
+                if (!parseSimpleLetBinding(builder, isFirst) && isFirst) {
                     marker.rollbackTo()
                     return false
                 }
 
                 isFirst = false
                 parseWhiteSpaceAndCommentTokens(builder)
-            } while (builder.matchTokenType(XPathTokenType.COMMA))
+            } while (
+                builder.matchTokenType(XPathTokenType.COMMA) ||
+                builder.errorOnTokenType(XPathTokenType.K_LET, XPathBundle.message("parser.error.expected", ""))
+            )
 
-            marker.done(LET_CLAUSE)
+            marker.done(XPathElementType.SIMPLE_LET_CLAUSE)
             return true
         }
         marker.drop()
         return false
     }
 
-    open fun parseLetBinding(builder: PsiBuilder, isFirst: Boolean): Boolean {
+    open fun parseSimpleLetBinding(builder: PsiBuilder, isFirst: Boolean): Boolean {
         val marker = builder.mark()
 
         var haveErrors = false

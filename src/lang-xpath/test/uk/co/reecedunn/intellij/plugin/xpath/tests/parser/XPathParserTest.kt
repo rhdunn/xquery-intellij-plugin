@@ -3029,6 +3029,14 @@ private class XPathParserTest : ParserTestCase() {
         }
 
         @Test
+        @DisplayName("let keyword in SimpleLetBindings")
+        fun letKeywordInLetBindings() {
+            val expected = loadResource("tests/parser/xpath-3.0/LetExpr_LetKeywordInBinding.txt")
+            val actual = parseResource("tests/parser/xpath-3.0/LetExpr_LetKeywordInBinding.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
         @DisplayName("error recovery: ReturnClause only")
         fun returnClauseOnly() {
             val expected = loadResource("tests/parser/xpath-2.0/ForExpr_ReturnOnly.txt")
