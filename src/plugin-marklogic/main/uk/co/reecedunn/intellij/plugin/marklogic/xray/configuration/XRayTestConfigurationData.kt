@@ -20,5 +20,6 @@ import com.intellij.execution.configurations.RunConfigurationOptions
 data class XRayTestConfigurationData(
     var processorId: Int? = null,
     var database: String? = null,
-    var server: String? = null
+    var server: String? = null,
+    var modulePath: String? = null
 ) : RunConfigurationOptions()

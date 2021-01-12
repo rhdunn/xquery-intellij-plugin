@@ -16,8 +16,11 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.configuration
 
 import com.intellij.openapi.application.ModalityState
+import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.ui.TextFieldWithBrowseButton
+import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
@@ -32,6 +35,7 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
     private lateinit var queryProcessor: QueryProcessorComboBox
     private lateinit var server: JComboBox<String>
     private lateinit var database: JComboBox<String>
+    private lateinit var modulePath: TextFieldWithBrowseButton
 
     @Suppress("DuplicatedCode")
     private val panel = panel {
@@ -54,6 +58,14 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
             label(PluginApiBundle.message("xquery.configurations.processor.server.label"), column.vgap())
             server = comboBox(column.horizontal().hgap().vgap()) {
                 isEditable = true
+            }
+        }
+        row {
+            label(PluginApiBundle.message("xquery.configurations.processor.module-root.label"), column.vgap())
+            modulePath = textFieldWithBrowseButton(column.horizontal().hgap().vgap()) {
+                val descriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor()
+                descriptor.title = PluginApiBundle.message("browser.choose.module-path")
+                addBrowseFolderListener(null, null, project, descriptor)
             }
         }
         row {
@@ -115,12 +127,14 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
         queryProcessor.processorId = settings.processorId
         database.selectedItem = settings.database
         server.selectedItem = settings.server
+        modulePath.textField.text = settings.modulePath ?: ""
     }
 
     override fun applyEditorTo(settings: XRayTestConfiguration) {
         settings.processorId = queryProcessor.processorId
         settings.database = database.selectedItem as? String
         settings.server = server.selectedItem as? String
+        settings.modulePath = modulePath.textField.text.nullize()
     }
 
     // endregion
