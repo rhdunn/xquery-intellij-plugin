@@ -88,6 +88,11 @@
       <li>Support <code>type</code> in <code>DefaultNamespaceDecl</code> declarations in XQuery.</li>
       <li>Support item type declarations in XQuery.</li>
     </ol>
+    <p>XRay Unit Tests:</p>
+    <ol>
+      <li>Add an XRay run configuration.</li>
+      <li>Support running XRay unit tests.</li>
+    </ol>
   ]]></change-notes>
 
   <idea-version since-build="161"/>

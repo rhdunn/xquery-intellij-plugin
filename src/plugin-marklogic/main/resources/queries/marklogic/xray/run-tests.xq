@@ -17,7 +17,7 @@ xquery version "1.0-ml";
 
 import module namespace xray = "http://github.com/robwhitby/xray" at "%XRAY_XQY_PATH%";
 
-declare variable $test-dir as xs:string external;
+declare variable $test-dir as xs:string external := "";
 declare variable $module-pattern as xs:string? external := ();
 declare variable $test-pattern as xs:string? external := ();
 declare variable $format as xs:string external := "text";

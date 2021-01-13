@@ -16,6 +16,11 @@ XPath, XQuery, and XSLT 4.0 Editor's Draft:
 1. Support `type` in `DefaultNamespaceDecl` declarations in XQuery.
 1. Support item type declarations in XQuery.
 
+XRay Unit Tests:
+
+1. Add an XRay run configuration.
+1. Support running XRay unit tests.
+
 ## 2020
 
 *  [1.8.1 - 2020-12-11](docs/_posts/2020-12-11-release-1.8.1.md)
