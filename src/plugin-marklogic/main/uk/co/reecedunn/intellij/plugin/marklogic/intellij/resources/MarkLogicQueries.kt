@@ -70,6 +70,10 @@ object MarkLogicQueries : VirtualFileSystemImpl("res") {
         val Value: VirtualFile = resourceFile("queries/marklogic/debug/value.xq")!!
     }
 
+    object XRay {
+        val RunTests: VirtualFile = resourceFile("queries/marklogic/xray/run-tests.xq")!!
+    }
+
     object Log {
         val Logs: VirtualFile = resourceFile("queries/marklogic/log/logs.xq")!!
         val Log: VirtualFile = resourceFile("queries/marklogic/log/log.xq")!!

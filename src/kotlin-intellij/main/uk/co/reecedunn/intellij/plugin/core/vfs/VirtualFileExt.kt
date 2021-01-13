@@ -24,7 +24,10 @@ import uk.co.reecedunn.intellij.plugin.core.io.decode
 
 fun VirtualFile.toPsiFile(project: Project): PsiFile? = PsiManager.getInstance(project).findFile(this)
 
-fun VirtualFile.decode(): String? = inputStream?.decode(charset)
+fun VirtualFile.decode(): String? = when (this) {
+    is EditedVirtualFile -> contents // Avoid String => InputStream => String round-trips.
+    else -> inputStream?.decode(charset)
+}
 
 val VirtualFile.originalFile: VirtualFile
     get() = (this as? LightVirtualFileBase)?.originalFile ?: this
