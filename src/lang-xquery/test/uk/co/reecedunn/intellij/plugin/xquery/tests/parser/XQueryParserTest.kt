@@ -9654,6 +9654,30 @@ private class XQueryParserTest : ParserTestCase() {
             val actual = parseResource("tests/parser/xquery-4.0/KeywordArgument_ArgumentBefore.xq")
             assertThat(actual.toPsiTreeString(), `is`(expected))
         }
+
+        @Test
+        @DisplayName("QName-like: is a QName argument")
+        fun qnameLike_isQName() {
+            val expected = loadResource("tests/parser/xquery-4.0/KeywordArgument_IsQName.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/KeywordArgument_IsQName.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("QName-like: space before colon")
+        fun qnameLike_spaceBeforeColon() {
+            val expected = loadResource("tests/parser/xquery-4.0/KeywordArgument_QNameLike_SpaceBeforeColon.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/KeywordArgument_QNameLike_SpaceBeforeColon.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("QName-like: space after colon")
+        fun qnameLike_spaceAfterColon() {
+            val expected = loadResource("tests/parser/xquery-4.0/KeywordArgument_QNameLike_SpaceAfterColon.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/KeywordArgument_QNameLike_SpaceAfterColon.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
     }
 
     @Nested
