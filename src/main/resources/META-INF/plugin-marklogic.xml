@@ -8,6 +8,7 @@
 
     <!-- XRay Unit Tests -->
     <projectService serviceImplementation="uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestService"/>
+    <configurationType implementation="uk.co.reecedunn.intellij.plugin.marklogic.intellij.execution.configurations.type.XRayTestConfigurationType"/>
   </extensions>
 
   <extensions defaultExtensionNs="uk.co.reecedunn.intellij">

@@ -21,5 +21,6 @@ data class XRayTestConfigurationData(
     var processorId: Int? = null,
     var database: String? = null,
     var server: String? = null,
-    var modulePath: String? = null
+    var modulePath: String? = null,
+    var testPath: String? = null
 ) : RunConfigurationOptions()

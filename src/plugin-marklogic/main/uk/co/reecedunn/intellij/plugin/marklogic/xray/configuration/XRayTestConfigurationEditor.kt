@@ -24,8 +24,10 @@ import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
+import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestService
 import uk.co.reecedunn.intellij.plugin.processor.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessorComboBox
+import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurations
 import javax.swing.JComboBox
 import javax.swing.JComponent
 
@@ -36,6 +38,7 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
     private lateinit var server: JComboBox<String>
     private lateinit var database: JComboBox<String>
     private lateinit var modulePath: TextFieldWithBrowseButton
+    private lateinit var testPath: TextFieldWithBrowseButton
 
     @Suppress("DuplicatedCode")
     private val panel = panel {
@@ -65,6 +68,14 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
             modulePath = textFieldWithBrowseButton(column.horizontal().hgap().vgap()) {
                 val descriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor()
                 descriptor.title = PluginApiBundle.message("browser.choose.module-path")
+                addBrowseFolderListener(null, null, project, descriptor)
+            }
+        }
+        row {
+            label(PluginApiBundle.message("xquery.configurations.test.test-root.label"), column.vgap())
+            testPath = textFieldWithBrowseButton(column.horizontal().hgap().vgap()) {
+                val descriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor()
+                descriptor.title = PluginApiBundle.message("browser.choose.test-path")
                 addBrowseFolderListener(null, null, project, descriptor)
             }
         }
@@ -128,6 +139,7 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
         database.selectedItem = settings.database
         server.selectedItem = settings.server
         modulePath.textField.text = settings.modulePath ?: ""
+        testPath.textField.text = settings.testPath ?: projectRoot ?: ""
     }
 
     override fun applyEditorTo(settings: XRayTestConfiguration) {
@@ -136,6 +148,9 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
         settings.server = server.selectedItem as? String
         settings.modulePath = modulePath.textField.text.nullize()
     }
+
+    private val projectRoot: String?
+        get() = XpmProjectConfigurations.getInstance(project).modulePaths.firstOrNull()?.canonicalPath
 
     // endregion
 }

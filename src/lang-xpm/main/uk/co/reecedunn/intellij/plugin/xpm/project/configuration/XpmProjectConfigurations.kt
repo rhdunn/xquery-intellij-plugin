@@ -61,10 +61,11 @@ class XpmProjectConfigurations(private val project: Project) :
     val configurations: Sequence<XpmProjectConfiguration>
         get() = cachedConfigurations.get()!!.asSequence()
 
+    val modulePaths: Sequence<VirtualFile>
+        get() = configurations.flatMap { it.modulePaths }
+
     fun toModulePath(path: VirtualFile): String {
-        val modulePath = configurations.mapNotNull { configuration ->
-            configuration.modulePaths.mapNotNull { it.relativePathTo(path) }.firstOrNull()
-        }.firstOrNull()
+        val modulePath = modulePaths.mapNotNull { it.relativePathTo(path) }.firstOrNull()
         return modulePath?.let { "/$it" } ?: path.path
     }
 

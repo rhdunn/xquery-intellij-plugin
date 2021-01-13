@@ -85,4 +85,13 @@ class XRayTestConfiguration(project: Project, factory: ConfigurationFactory) :
         }
 
     // endregion
+    // region Module Path
+
+    var testPath: String?
+        get() = data.testPath
+        set(value) {
+            data.testPath = value
+        }
+
+    // endregion
 }
