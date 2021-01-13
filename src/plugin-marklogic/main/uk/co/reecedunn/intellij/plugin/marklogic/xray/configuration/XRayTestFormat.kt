@@ -15,15 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.configuration
 
-import com.intellij.execution.configurations.RunConfigurationOptions
-
-data class XRayTestConfigurationData(
-    var processorId: Int? = null,
-    var database: String? = null,
-    var server: String? = null,
-    var modulePath: String? = null,
-    var testPath: String? = null,
-    var modulePattern: String? = null,
-    var testPattern: String? = null,
-    var outputFormat: XRayTestFormat = XRayTestFormat.Text
-) : RunConfigurationOptions()
+enum class XRayTestFormat {
+    HTML,
+    Text,
+    XML,
+    XUnit
+}

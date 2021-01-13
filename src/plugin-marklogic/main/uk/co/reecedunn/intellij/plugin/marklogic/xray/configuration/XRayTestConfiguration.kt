@@ -112,4 +112,13 @@ class XRayTestConfiguration(project: Project, factory: ConfigurationFactory) :
         }
 
     // endregion
+    // region Output Format
+
+    var outputFormat: XRayTestFormat
+        get() = data.outputFormat
+        set(value) {
+            data.outputFormat = value
+        }
+
+    // endregion
 }

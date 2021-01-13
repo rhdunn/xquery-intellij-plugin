@@ -42,6 +42,7 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
     private lateinit var testPath: TextFieldWithBrowseButton
     private lateinit var modulePattern: JTextField
     private lateinit var testPattern: JTextField
+    private lateinit var outputFormat: JComboBox<XRayTestFormat>
 
     @Suppress("DuplicatedCode")
     private val panel = panel {
@@ -89,6 +90,15 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
         row {
             label(PluginApiBundle.message("xquery.configurations.test.test-pattern.label"), column.vgap())
             testPattern = textField(column.horizontal().hgap().vgap())
+        }
+        row {
+            label(PluginApiBundle.message("xquery.configurations.test.output-format.label"), column.vgap())
+            outputFormat = comboBox(column.horizontal().hgap().vgap()) {
+                addItem(XRayTestFormat.HTML)
+                addItem(XRayTestFormat.Text)
+                addItem(XRayTestFormat.XML)
+                addItem(XRayTestFormat.XUnit)
+            }
         }
         row {
             spacer(column.vertical())
@@ -153,6 +163,7 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
         testPath.textField.text = settings.testPath ?: projectRoot ?: ""
         modulePattern.text = settings.modulePattern ?: ""
         testPattern.text = settings.testPattern ?: ""
+        outputFormat.selectedItem = settings.outputFormat
     }
 
     override fun applyEditorTo(settings: XRayTestConfiguration) {
@@ -165,6 +176,7 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
         }
         settings.modulePattern = modulePattern.text.nullize()
         settings.testPattern = testPattern.text.nullize()
+        settings.outputFormat = (outputFormat.selectedItem as? XRayTestFormat) ?: XRayTestFormat.Text
     }
 
     private val projectRoot: String?
