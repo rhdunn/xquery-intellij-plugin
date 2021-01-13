@@ -4446,6 +4446,22 @@ private class XPathParserTest : ParserTestCase() {
         }
 
         @Test
+        @DisplayName("space before colon")
+        fun spaceBeforeColon() {
+            val expected = loadResource("tests/parser/xpath-4.0/KeywordArgument_SpaceBeforeColon.txt")
+            val actual = parseResource("tests/parser/xpath-4.0/KeywordArgument_SpaceBeforeColon.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("space after colon")
+        fun spaceAfterColon() {
+            val expected = loadResource("tests/parser/xpath-4.0/KeywordArgument_SpaceAfterColon.txt")
+            val actual = parseResource("tests/parser/xpath-4.0/KeywordArgument_SpaceAfterColon.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
         @DisplayName("QName-like: is a QName argument")
         fun qnameLike_isQName() {
             val expected = loadResource("tests/parser/xpath-4.0/KeywordArgument_IsQName.txt")
