@@ -33,6 +33,7 @@ import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.results.Q
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQueryProvider
+import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurations
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
 
 class XRayTestRunState(private val environment: ExecutionEnvironment) : RunProfileStateEx {
@@ -52,7 +53,10 @@ class XRayTestRunState(private val environment: ExecutionEnvironment) : RunProfi
         query.server = configuration.server ?: ""
         query.modulePath = configuration.modulePath ?: ""
 
-        configuration.testPath?.let { query.bindVariable("test-dir", it, "xs:string") }
+        configuration.testPath?.let {
+            val modulePath = XpmProjectConfigurations.getInstance(environment.project).toModulePath(it)
+            query.bindVariable("test-dir", modulePath, "xs:string")
+        }
         configuration.modulePattern?.let { query.bindVariable("module-pattern", it, "xs:string") }
         configuration.testPattern?.let { query.bindVariable("test-pattern", it, "xs:string") }
         query.bindVariable("format", configuration.outputFormat.name.toLowerCase(), "xs:string")

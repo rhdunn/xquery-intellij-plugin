@@ -21,6 +21,7 @@ import com.intellij.openapi.Disposable
 import com.intellij.openapi.components.ServiceManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ProjectRootManager
+import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.vfs.relativePathTo
@@ -67,6 +68,11 @@ class XpmProjectConfigurations(private val project: Project) :
     fun toModulePath(path: VirtualFile): String {
         val modulePath = modulePaths.mapNotNull { it.relativePathTo(path) }.firstOrNull()
         return modulePath?.let { "/$it" } ?: path.path
+    }
+
+    fun toModulePath(path: String): String {
+        val file = LocalFileSystem.getInstance().findFileByPath(path)
+        return file?.let { toModulePath(it) } ?: path
     }
 
     init {
