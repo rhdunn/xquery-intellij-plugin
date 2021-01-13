@@ -1774,16 +1774,25 @@ open class XPathParser : PsiParser {
         var keywordArgument = builder.matchTokenTypeWithMarker(XPathTokenType.NCNAME)
         if (keywordArgument != null) {
             val spaceBeforeSeparator = parseWhiteSpaceAndCommentTokens(builder)
-            if (builder.matchTokenType(XPathTokenType.QNAME_SEPARATOR)) {
-                if (builder.tokenType === XPathTokenType.NCNAME && !spaceBeforeSeparator) { // QName
-                    keywordArgument.rollbackTo()
-                    keywordArgument = null
-                } else { // KeywordArgument
+            when {
+                builder.matchTokenType(XPathTokenType.QNAME_SEPARATOR) -> {
+                    if (builder.tokenType === XPathTokenType.NCNAME && !spaceBeforeSeparator) { // QName
+                        keywordArgument.rollbackTo()
+                        keywordArgument = null
+                    } else { // KeywordArgument
+                        parseWhiteSpaceAndCommentTokens(builder)
+                    }
+                }
+                builder.errorOnTokenType(
+                    XPathTokenType.ASSIGN_EQUAL,
+                    XPathBundle.message("parser.error.expected", ":")
+                ) -> {
                     parseWhiteSpaceAndCommentTokens(builder)
                 }
-            } else { // NCName
-                keywordArgument.rollbackTo()
-                keywordArgument = null
+                else -> /* NCName */ {
+                    keywordArgument.rollbackTo()
+                    keywordArgument = null
+                }
             }
         } else if (prevArgumentType === XPathElementType.KEYWORD_ARGUMENT) {
             builder.error(XPathBundle.message("parser.error.expected", "KeywordArgument"))

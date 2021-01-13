@@ -4508,6 +4508,14 @@ private class XPathParserTest : ParserTestCase() {
             val actual = parseResource("tests/parser/xpath-4.0/KeywordArgument_ArgumentAfterKeywordArgumentAndMissingArgument.xq")
             assertThat(actual.toPsiTreeString(), `is`(expected))
         }
+
+        @Test
+        @DisplayName("error recovery: ':=' instead of ':'")
+        fun assignEqual() {
+            val expected = loadResource("tests/parser/xpath-4.0/KeywordArgument_AssignEqual.txt")
+            val actual = parseResource("tests/parser/xpath-4.0/KeywordArgument_AssignEqual.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
     }
 
     @Nested

@@ -9718,6 +9718,14 @@ private class XQueryParserTest : ParserTestCase() {
             val actual = parseResource("tests/parser/xquery-4.0/KeywordArgument_ArgumentAfterKeywordArgumentAndMissingArgument.xq")
             assertThat(actual.toPsiTreeString(), `is`(expected))
         }
+
+        @Test
+        @DisplayName("error recovery: ':=' instead of ':'")
+        fun assignEqual() {
+            val expected = loadResource("tests/parser/xquery-4.0/KeywordArgument_AssignEqual.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/KeywordArgument_AssignEqual.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
     }
 
     @Nested
