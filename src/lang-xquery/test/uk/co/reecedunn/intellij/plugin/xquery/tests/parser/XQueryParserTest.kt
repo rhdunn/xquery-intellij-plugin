@@ -9613,6 +9613,50 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery 4.0 ED EBNF (134) KeywordArguments ; XQuery 4.0 ED EBNF (135) KeywordArgument")
+    internal inner class KeywordArgument {
+        @Test
+        @DisplayName("single")
+        fun single() {
+            val expected = loadResource("tests/parser/xquery-4.0/KeywordArgument.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/KeywordArgument.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("single; compact whitespace")
+        fun single_compactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-4.0/KeywordArgument_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/KeywordArgument_CompactWhitespace.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple")
+        fun multiple() {
+            val expected = loadResource("tests/parser/xquery-4.0/KeywordArgument_Multiple.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/KeywordArgument_Multiple.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple; compact whitespace")
+        fun multiple_compactWhitespace() {
+            val expected = loadResource("tests/parser/xquery-4.0/KeywordArgument_Multiple_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/KeywordArgument_Multiple_CompactWhitespace.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("argument before")
+        fun argumentBefore() {
+            val expected = loadResource("tests/parser/xquery-4.0/KeywordArgument_ArgumentBefore.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/KeywordArgument_ArgumentBefore.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 4.0 ED EBNF (185) InlineFunctionExpr")
     internal inner class InlineFunctionExpr_XQuery40 {
         @Test

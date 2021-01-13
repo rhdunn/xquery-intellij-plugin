@@ -1725,15 +1725,11 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    fun parseArgumentList(builder: PsiBuilder): Boolean {
-        return parseArgumentList(builder, XPathElementType.ARGUMENT_LIST)
-    }
-
-    private fun parseArgumentList(builder: PsiBuilder, type: IElementType): Boolean {
+    fun parseArgumentList(builder: PsiBuilder, type: IElementType = XPathElementType.ARGUMENT_LIST): Boolean {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.PARENTHESIS_OPEN)
         if (marker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
-            parsePositionalArguments(builder)
+            parseArguments(builder)
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE)) {
@@ -1750,7 +1746,7 @@ open class XPathParser : PsiParser {
         return parseArgumentList(builder, XPathElementType.POSITIONAL_ARGUMENT_LIST)
     }
 
-    private fun parsePositionalArguments(builder: PsiBuilder): Boolean {
+    private fun parseArguments(builder: PsiBuilder): Boolean {
         if (parseArgument(builder)) {
             var haveErrors = false
 
@@ -1770,7 +1766,30 @@ open class XPathParser : PsiParser {
     }
 
     private fun parseArgument(builder: PsiBuilder): Boolean {
-        return parseExprSingle(builder) || parseArgumentPlaceholder(builder)
+        var keywordArgument = builder.matchTokenTypeWithMarker(XPathTokenType.NCNAME)
+        if (keywordArgument != null) {
+            val spaceBeforeSeparator = parseWhiteSpaceAndCommentTokens(builder)
+            if (builder.matchTokenType(XPathTokenType.QNAME_SEPARATOR)) {
+                if (builder.tokenType === XPathTokenType.NCNAME && !spaceBeforeSeparator) { // QName
+                    keywordArgument.rollbackTo()
+                    keywordArgument = null
+                } else { // KeywordArgument
+                    parseWhiteSpaceAndCommentTokens(builder)
+                }
+            } else { // NCName
+                keywordArgument.rollbackTo()
+                keywordArgument = null
+            }
+        }
+
+        val argumentType = when {
+            parseExprSingle(builder) -> XPathElementType.ARGUMENT
+            parseArgumentPlaceholder(builder) -> XPathElementType.ARGUMENT_PLACEHOLDER
+            else -> null
+        }
+
+        keywordArgument?.done(XPathElementType.KEYWORD_ARGUMENT)
+        return argumentType != null
     }
 
     private fun parseArgumentPlaceholder(builder: PsiBuilder): Boolean {

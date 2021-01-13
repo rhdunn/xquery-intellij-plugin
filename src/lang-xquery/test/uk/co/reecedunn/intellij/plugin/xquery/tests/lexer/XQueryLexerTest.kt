@@ -3879,6 +3879,22 @@ class XQueryLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XQuery 4.0 ED EBNF (134) KeywordArguments")
+    fun keywordArguments() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
+    }
+
+    @Test
+    @DisplayName("XQuery 4.0 ED EBNF (134) KeywordArgument")
+    fun keywordArgument() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, ":", XPathTokenType.QNAME_SEPARATOR)
+    }
+
+    @Test
     @DisplayName("XQuery 4.0 ED EBNF (185) InlineFunctionExpr")
     fun inlineFunctionExpr_XQuery40() {
         val lexer = createLexer()

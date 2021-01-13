@@ -1309,6 +1309,22 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XPath 4.0 ED EBNF (61) KeywordArguments")
+    fun keywordArguments() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
+    }
+
+    @Test
+    @DisplayName("XPath 4.0 ED EBNF (62) KeywordArgument")
+    fun keywordArgument() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, ":", XPathTokenType.QNAME_SEPARATOR)
+    }
+
+    @Test
     @DisplayName("XPath 4.0 ED EBNF (83) InlineFunctionExpr")
     fun inlineFunctionExpr_XPath40() {
         val lexer = createLexer()

@@ -4403,6 +4403,50 @@ private class XPathParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 4.0 ED EBNF (61) KeywordArguments ; XPath 4.0 ED EBNF (62) KeywordArgument")
+    internal inner class KeywordArgument {
+        @Test
+        @DisplayName("single")
+        fun single() {
+            val expected = loadResource("tests/parser/xpath-4.0/KeywordArgument.txt")
+            val actual = parseResource("tests/parser/xpath-4.0/KeywordArgument.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("single; compact whitespace")
+        fun single_compactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-4.0/KeywordArgument_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-4.0/KeywordArgument_CompactWhitespace.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple")
+        fun multiple() {
+            val expected = loadResource("tests/parser/xpath-4.0/KeywordArgument_Multiple.txt")
+            val actual = parseResource("tests/parser/xpath-4.0/KeywordArgument_Multiple.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple; compact whitespace")
+        fun multiple_compactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-4.0/KeywordArgument_Multiple_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-4.0/KeywordArgument_Multiple_CompactWhitespace.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("argument before")
+        fun argumentBefore() {
+            val expected = loadResource("tests/parser/xpath-4.0/KeywordArgument_ArgumentBefore.txt")
+            val actual = parseResource("tests/parser/xpath-4.0/KeywordArgument_ArgumentBefore.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 4.0 ED EBNF (83) InlineFunctionExpr")
     internal inner class InlineFunctionExpr_XPath40 {
         @Test

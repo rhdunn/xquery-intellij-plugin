@@ -394,6 +394,8 @@ object XPathElementType {
         XPath
     )
 
+    val ARGUMENT: IElementType = EXPR
+
     val ARGUMENT_PLACEHOLDER: IElementType = ICompositeElementType(
         "XPATH_ARGUMENT_PLACEHOLDER",
         XPathArgumentPlaceholderPsiImpl::class.java,
@@ -547,6 +549,12 @@ object XPathElementType {
     val FIELD_DECLARATION: IElementType = ICompositeElementType(
         "XPATH_FIELD_DECLARATION",
         XPathFieldDeclarationPsiImpl::class.java,
+        XPath
+    )
+
+    val KEYWORD_ARGUMENT: IElementType = ICompositeElementType(
+        "XPATH_KEYWORD_ARGUMENT",
+        XPathKeywordArgumentPsiImpl::class.java,
         XPath
     )
 
