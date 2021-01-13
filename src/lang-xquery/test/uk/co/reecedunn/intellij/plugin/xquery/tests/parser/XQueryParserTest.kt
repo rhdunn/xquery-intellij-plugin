@@ -9694,6 +9694,14 @@ private class XQueryParserTest : ParserTestCase() {
             val actual = parseResource("tests/parser/xquery-4.0/KeywordArgument_QNameLike_SpaceAfterColon.xq")
             assertThat(actual.toPsiTreeString(), `is`(expected))
         }
+
+        @Test
+        @DisplayName("error recovery: argument placeholder")
+        fun argumentPlaceholder() {
+            val expected = loadResource("tests/parser/xquery-4.0/KeywordArgument_ArgumentPlaceholder.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/KeywordArgument_ArgumentPlaceholder.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
     }
 
     @Nested

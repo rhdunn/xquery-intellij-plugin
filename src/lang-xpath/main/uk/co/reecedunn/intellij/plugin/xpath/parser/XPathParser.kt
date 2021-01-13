@@ -1784,7 +1784,7 @@ open class XPathParser : PsiParser {
 
         val argumentType = when {
             parseExprSingle(builder) -> XPathElementType.ARGUMENT
-            parseArgumentPlaceholder(builder) -> XPathElementType.ARGUMENT_PLACEHOLDER
+            parseArgumentPlaceholder(builder, keywordArgument != null) -> XPathElementType.ARGUMENT_PLACEHOLDER
             else -> null
         }
 
@@ -1792,10 +1792,14 @@ open class XPathParser : PsiParser {
         return argumentType != null
     }
 
-    private fun parseArgumentPlaceholder(builder: PsiBuilder): Boolean {
+    private fun parseArgumentPlaceholder(builder: PsiBuilder, isKeywordArgument: Boolean): Boolean {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.OPTIONAL)
         if (marker != null) {
-            marker.done(XPathElementType.ARGUMENT_PLACEHOLDER)
+            if (isKeywordArgument) {
+                marker.error(XPathBundle.message("parser.error.expected", "ExprSingle"))
+            } else {
+                marker.done(XPathElementType.ARGUMENT_PLACEHOLDER)
+            }
             return true
         }
         return false
