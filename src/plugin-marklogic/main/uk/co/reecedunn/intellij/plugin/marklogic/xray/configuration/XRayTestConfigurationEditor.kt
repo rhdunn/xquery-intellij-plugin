@@ -24,12 +24,12 @@ import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
-import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestService
 import uk.co.reecedunn.intellij.plugin.processor.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessorComboBox
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurations
 import javax.swing.JComboBox
 import javax.swing.JComponent
+import javax.swing.JTextField
 
 class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor<XRayTestConfiguration>() {
     // region Form
@@ -38,7 +38,9 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
     private lateinit var server: JComboBox<String>
     private lateinit var database: JComboBox<String>
     private lateinit var modulePath: TextFieldWithBrowseButton
+
     private lateinit var testPath: TextFieldWithBrowseButton
+    private lateinit var modulePattern: JTextField
 
     @Suppress("DuplicatedCode")
     private val panel = panel {
@@ -78,6 +80,10 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
                 descriptor.title = PluginApiBundle.message("browser.choose.test-path")
                 addBrowseFolderListener(null, null, project, descriptor)
             }
+        }
+        row {
+            label(PluginApiBundle.message("xquery.configurations.test.module-pattern.label"), column.vgap())
+            modulePattern = textField(column.horizontal().hgap().vgap())
         }
         row {
             spacer(column.vertical())
@@ -140,13 +146,18 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
         server.selectedItem = settings.server
         modulePath.textField.text = settings.modulePath ?: ""
         testPath.textField.text = settings.testPath ?: projectRoot ?: ""
+        modulePattern.text = settings.modulePattern ?: ""
     }
 
     override fun applyEditorTo(settings: XRayTestConfiguration) {
         settings.processorId = queryProcessor.processorId
         settings.database = database.selectedItem as? String
         settings.server = server.selectedItem as? String
-        settings.modulePath = modulePath.textField.text.nullize()
+        settings.modulePath = when (val path = modulePath.textField.text) {
+            projectRoot -> null
+            else -> path.nullize()
+        }
+        settings.modulePattern = modulePattern.text.nullize()
     }
 
     private val projectRoot: String?
