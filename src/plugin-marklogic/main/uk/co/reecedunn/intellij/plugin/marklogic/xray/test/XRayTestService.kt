@@ -20,7 +20,6 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.core.data.ModificationTrackedProperty
-import uk.co.reecedunn.intellij.plugin.core.vfs.relativePathTo
 import uk.co.reecedunn.intellij.plugin.core.vfs.replace
 import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicQueries
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurations
@@ -48,12 +47,7 @@ class XRayTestService(private val project: Project) {
 
     @Suppress("MemberVisibilityCanBePrivate")
     val xrayModuleRoot: String?
-        get() = xrayRootDir?.let { rootDir ->
-            val path = XpmProjectConfigurations.getInstance(project).configurations.mapNotNull { configuration ->
-                configuration.modulePaths.mapNotNull { it.relativePathTo(rootDir) }.firstOrNull()
-            }.firstOrNull()
-            path?.let { "/$it" }
-        }
+        get() = xrayRootDir?.let { XpmProjectConfigurations.getInstance(project).toModulePath(it) }
 
     val runTestsQuery: VirtualFile?
         get() = xrayModuleRoot?.let { root ->

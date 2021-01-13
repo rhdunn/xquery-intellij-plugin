@@ -21,7 +21,9 @@ import com.intellij.openapi.Disposable
 import com.intellij.openapi.components.ServiceManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ProjectRootManager
+import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.vfs.relativePathTo
 
 class XpmProjectConfigurations(private val project: Project) :
     ExtensionPointListener<XpmProjectConfigurationFactoryBean>(),
@@ -58,6 +60,13 @@ class XpmProjectConfigurations(private val project: Project) :
 
     val configurations: Sequence<XpmProjectConfiguration>
         get() = cachedConfigurations.get()!!.asSequence()
+
+    fun toModulePath(path: VirtualFile): String {
+        val modulePath = configurations.mapNotNull { configuration ->
+            configuration.modulePaths.mapNotNull { it.relativePathTo(path) }.firstOrNull()
+        }.firstOrNull()
+        return modulePath?.let { "/$it" } ?: path.path
+    }
 
     init {
         XpmProjectConfigurationFactory.EP_NAME.extensionPoint.addExtensionPointListener(this, false, this)
