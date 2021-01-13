@@ -170,7 +170,8 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
         settings.processorId = queryProcessor.processorId
         settings.database = database.selectedItem as? String
         settings.server = server.selectedItem as? String
-        settings.modulePath = when (val path = modulePath.textField.text) {
+        settings.modulePath = modulePath.textField.text.nullize()
+        settings.testPath = when (val path = testPath.textField.text) {
             projectRoot -> null
             else -> path.nullize()
         }
