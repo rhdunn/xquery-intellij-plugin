@@ -19,11 +19,9 @@ import com.intellij.openapi.components.ServiceManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.openapi.vfs.VirtualFile
-import com.intellij.testFramework.LightVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.data.ModificationTrackedProperty
-import uk.co.reecedunn.intellij.plugin.core.vfs.EditedVirtualFile
-import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.core.vfs.relativePathTo
+import uk.co.reecedunn.intellij.plugin.core.vfs.replace
 import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicQueries
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurations
 
@@ -59,9 +57,7 @@ class XRayTestService(private val project: Project) {
 
     val runTestsQuery: VirtualFile?
         get() = xrayModuleRoot?.let { root ->
-            val template = MarkLogicQueries.XRay.RunTests
-            val query = template.decode()!!.replace("%XRAY_XQY_PATH%", "$root/src/xray.xqy")
-            EditedVirtualFile(template, query)
+            MarkLogicQueries.XRay.RunTests.replace("%XRAY_XQY_PATH%", "$root/src/xray.xqy")
         }
 
     companion object {

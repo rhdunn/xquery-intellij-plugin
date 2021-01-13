@@ -46,3 +46,16 @@ private fun VirtualFile.relativePathTo(file: VirtualFile?, path: String): String
     if (file == null || this == file) return path
     return relativePathTo(file.parent, "${file.name}/$path")
 }
+
+fun VirtualFile.replace(oldValue: String, newValue: String, ignoreCase: Boolean = false): VirtualFile = when (this) {
+    is EditedVirtualFile -> EditedVirtualFile(
+        original,
+        contents.replace(oldValue, newValue, ignoreCase),
+        modificationStamp + 1
+    )
+    else -> EditedVirtualFile(
+        this,
+        decode()!!.replace(oldValue, newValue, ignoreCase),
+        modificationStamp + 1
+    )
+}

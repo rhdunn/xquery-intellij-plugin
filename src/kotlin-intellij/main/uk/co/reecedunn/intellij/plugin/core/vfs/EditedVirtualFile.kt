@@ -23,8 +23,9 @@ import java.io.InputStream
 import java.io.OutputStream
 
 class EditedVirtualFile(
-    private val original: VirtualFile,
-    val contents: String
+    val original: VirtualFile,
+    val contents: String,
+    private val modificationStampValue: Long
 ): VirtualFile() {
     override fun getName(): String = original.name
 
@@ -52,7 +53,7 @@ class EditedVirtualFile(
 
     override fun getTimeStamp(): Long = original.timeStamp
 
-    override fun getModificationStamp(): Long = original.modificationStamp + 1
+    override fun getModificationStamp(): Long = modificationStampValue
 
     override fun getLength(): Long = contents.length.toLong()
 
