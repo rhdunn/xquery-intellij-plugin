@@ -9726,6 +9726,14 @@ private class XQueryParserTest : ParserTestCase() {
             val actual = parseResource("tests/parser/xquery-4.0/KeywordArgument_AssignEqual.xq")
             assertThat(actual.toPsiTreeString(), `is`(expected))
         }
+
+        @Test
+        @DisplayName("in PositionalArgumentList")
+        fun inPositionalArgumentList() {
+            val expected = loadResource("tests/parser/xquery-4.0/KeywordArgument_InPositionalArgumentList.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/KeywordArgument_InPositionalArgumentList.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
     }
 
     @Nested

@@ -1729,7 +1729,7 @@ open class XPathParser : PsiParser {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.PARENTHESIS_OPEN)
         if (marker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
-            parseArguments(builder)
+            parseArguments(builder, type)
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE)) {
@@ -1746,8 +1746,8 @@ open class XPathParser : PsiParser {
         return parseArgumentList(builder, XPathElementType.POSITIONAL_ARGUMENT_LIST)
     }
 
-    private fun parseArguments(builder: PsiBuilder): Boolean {
-        var prevArgumentType: IElementType? = parseArgument(builder, null)
+    private fun parseArguments(builder: PsiBuilder, listType: IElementType): Boolean {
+        var prevArgumentType: IElementType? = parseArgument(builder, null, listType)
         if (prevArgumentType != null) {
             var haveErrors = false
 
@@ -1755,13 +1755,11 @@ open class XPathParser : PsiParser {
             while (builder.matchTokenType(XPathTokenType.COMMA)) {
                 parseWhiteSpaceAndCommentTokens(builder)
 
-                val argumentType = parseArgument(builder, prevArgumentType)
-                if (argumentType == null && !haveErrors) {
+                prevArgumentType = parseArgument(builder, prevArgumentType, listType)
+                if (prevArgumentType == null && !haveErrors) {
                     builder.error(XPathBundle.message("parser.error.expected-either", "ExprSingle", "?"))
                     haveErrors = true
-                }// else if (argumentType != null) {
-                    prevArgumentType = argumentType
-                //}
+                }
 
                 parseWhiteSpaceAndCommentTokens(builder)
             }
@@ -1770,7 +1768,11 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    private fun parseArgument(builder: PsiBuilder, prevArgumentType: IElementType?): IElementType? {
+    private fun parseArgument(
+        builder: PsiBuilder,
+        prevArgumentType: IElementType?,
+        listType: IElementType
+    ): IElementType? {
         var keywordArgument = builder.matchTokenTypeWithMarker(XPathTokenType.NCNAME)
         if (keywordArgument != null) {
             val spaceBeforeSeparator = parseWhiteSpaceAndCommentTokens(builder)
@@ -1779,6 +1781,10 @@ open class XPathParser : PsiParser {
                     if (builder.tokenType === XPathTokenType.NCNAME && !spaceBeforeSeparator) { // QName
                         keywordArgument.rollbackTo()
                         keywordArgument = null
+                    } else if (listType === XPathElementType.POSITIONAL_ARGUMENT_LIST) {
+                        keywordArgument.error(XPathBundle.message("parser.error.keyword-argument-in-positional-argument-list"))
+                        keywordArgument = null
+                        parseWhiteSpaceAndCommentTokens(builder)
                     } else { // KeywordArgument
                         parseWhiteSpaceAndCommentTokens(builder)
                     }

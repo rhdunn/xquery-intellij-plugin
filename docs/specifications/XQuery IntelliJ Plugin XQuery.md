@@ -1250,6 +1250,9 @@ These changes include support for:
 | \[142\]  | `SelfReference`                | ::= | `".." OccurrenceIndicator?`         |                       |
 | \[143\]  | `KeySpecifier`                 | ::= | `NCName | IntegerLiteral | StringLiteral | VarRef | ParenthesizedExpr | "*"` | |
 | \[144\]  | `EnumerationType`              | ::= | `"enum" "(" StringLiteral ("," StringLiteral)* ")"` |       |
+| \[145\]  | `ArgumentList`                 | ::= | `"(" ((PositionalArguments ("," KeywordArguments)?) | KeywordArguments)? ")"` | | 	
+| \[146\]  | `KeywordArguments`             | ::= | `KeywordArgument ("," KeywordArgument)*` |                  |
+| \[147\]  | `KeywordArgument`              | ::= | `NCName ":" ExprSingle`             |                       |
 
 ### A.2 Reserved Function Names
 

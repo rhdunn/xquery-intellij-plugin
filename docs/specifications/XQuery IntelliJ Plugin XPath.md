@@ -399,6 +399,8 @@ expressions in the lambda function body expression.
 | \[28\] | `ArrowFunctionCall`            | ::= | `EQName ArgumentList`                     |         |
 | \[38\] | `ArrowDynamicFunctionCall`     | ::= | `( VarRef \| ParamRef \| ParenthesizedExpr ) PositionalArgumentList` | |
 | \[54\] | `ArrowInlineFunctionCall`      | ::= | `EnclosedExpr`                            |         |
+| \[11\] | `PositionalArgumentList`       | ::= | `"(" PositionalArguments? ")"`            |         |
+| \[59\] | `PositionalArguments`          | ::= | `Argument ("," Argument)*`                |         |
 
 The `ParamRef` is for [Lambda Function Expressions](#3412-lambda-function-expressions)
 support in Saxon 10.0.
@@ -488,6 +490,10 @@ These changes include support for:
 | \[56\]  | `SelfReference`                | ::= | `".." OccurrenceIndicator?`         |                      |
 | \[57\]  | `KeySpecifier`                 | ::= | `NCName | IntegerLiteral | StringLiteral | VarRef | ParenthesizedExpr | "*"` | |
 | \[58\]  | `EnumerationType`              | ::= | `"enum" "(" StringLiteral ("," StringLiteral)* ")"` |      |
+| \[59\]  | `PositionalArguments`          | ::= | `Argument ("," Argument)*`          |                      |
+| \[60\]  | `ArgumentList`                 | ::= | `"(" ((PositionalArguments ("," KeywordArguments)?) | KeywordArguments)? ")"` | | 	
+| \[61\]  | `KeywordArguments`             | ::= | `KeywordArgument ("," KeywordArgument)*` |                 |
+| \[62\]  | `KeywordArgument`              | ::= | `NCName ":" ExprSingle`             |                      |
 
 ### A.2 Reserved Function Names
 
