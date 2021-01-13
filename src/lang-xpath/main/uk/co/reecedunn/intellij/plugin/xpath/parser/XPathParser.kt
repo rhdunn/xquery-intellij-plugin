@@ -1747,16 +1747,21 @@ open class XPathParser : PsiParser {
     }
 
     private fun parseArguments(builder: PsiBuilder): Boolean {
-        if (parseArgument(builder)) {
+        var prevArgumentType: IElementType? = parseArgument(builder, null)
+        if (prevArgumentType != null) {
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens(builder)
             while (builder.matchTokenType(XPathTokenType.COMMA)) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseArgument(builder) && !haveErrors) {
+
+                val argumentType = parseArgument(builder, prevArgumentType)
+                if (argumentType == null && !haveErrors) {
                     builder.error(XPathBundle.message("parser.error.expected-either", "ExprSingle", "?"))
                     haveErrors = true
-                }
+                }// else if (argumentType != null) {
+                    prevArgumentType = argumentType
+                //}
 
                 parseWhiteSpaceAndCommentTokens(builder)
             }
@@ -1765,7 +1770,7 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    private fun parseArgument(builder: PsiBuilder): Boolean {
+    private fun parseArgument(builder: PsiBuilder, prevArgumentType: IElementType?): IElementType? {
         var keywordArgument = builder.matchTokenTypeWithMarker(XPathTokenType.NCNAME)
         if (keywordArgument != null) {
             val spaceBeforeSeparator = parseWhiteSpaceAndCommentTokens(builder)
@@ -1780,6 +1785,8 @@ open class XPathParser : PsiParser {
                 keywordArgument.rollbackTo()
                 keywordArgument = null
             }
+        } else if (prevArgumentType === XPathElementType.KEYWORD_ARGUMENT) {
+            builder.error(XPathBundle.message("parser.error.expected", "KeywordArgument"))
         }
 
         val argumentType = when {
@@ -1788,8 +1795,14 @@ open class XPathParser : PsiParser {
             else -> null
         }
 
-        keywordArgument?.done(XPathElementType.KEYWORD_ARGUMENT)
-        return argumentType != null
+        return when {
+            keywordArgument != null -> {
+                keywordArgument.done(XPathElementType.KEYWORD_ARGUMENT)
+                return XPathElementType.KEYWORD_ARGUMENT
+            }
+            prevArgumentType === XPathElementType.KEYWORD_ARGUMENT -> XPathElementType.KEYWORD_ARGUMENT
+            else -> argumentType
+        }
     }
 
     private fun parseArgumentPlaceholder(builder: PsiBuilder, isKeywordArgument: Boolean): Boolean {

@@ -9702,6 +9702,22 @@ private class XQueryParserTest : ParserTestCase() {
             val actual = parseResource("tests/parser/xquery-4.0/KeywordArgument_ArgumentPlaceholder.xq")
             assertThat(actual.toPsiTreeString(), `is`(expected))
         }
+
+        @Test
+        @DisplayName("error recovery: Argument after KeywordArgument")
+        fun argumentAfterKeywordArgument() {
+            val expected = loadResource("tests/parser/xquery-4.0/KeywordArgument_ArgumentAfterKeywordArgument.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/KeywordArgument_ArgumentAfterKeywordArgument.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: Argument after KeywordArgument and missing Argument")
+        fun argumentAfterKeywordArgumentAndMissingArgument() {
+            val expected = loadResource("tests/parser/xquery-4.0/KeywordArgument_ArgumentAfterKeywordArgumentAndMissingArgument.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/KeywordArgument_ArgumentAfterKeywordArgumentAndMissingArgument.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
     }
 
     @Nested
