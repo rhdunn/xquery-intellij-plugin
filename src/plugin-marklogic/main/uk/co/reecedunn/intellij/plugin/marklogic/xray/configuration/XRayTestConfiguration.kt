@@ -103,4 +103,13 @@ class XRayTestConfiguration(project: Project, factory: ConfigurationFactory) :
         }
 
     // endregion
+    // region Test Pattern
+
+    var testPattern: String?
+        get() = data.testPattern
+        set(value) {
+            data.testPattern = value
+        }
+
+    // endregion
 }

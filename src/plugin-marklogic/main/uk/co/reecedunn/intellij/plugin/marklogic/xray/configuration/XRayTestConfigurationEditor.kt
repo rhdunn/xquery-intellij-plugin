@@ -41,6 +41,7 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
 
     private lateinit var testPath: TextFieldWithBrowseButton
     private lateinit var modulePattern: JTextField
+    private lateinit var testPattern: JTextField
 
     @Suppress("DuplicatedCode")
     private val panel = panel {
@@ -84,6 +85,10 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
         row {
             label(PluginApiBundle.message("xquery.configurations.test.module-pattern.label"), column.vgap())
             modulePattern = textField(column.horizontal().hgap().vgap())
+        }
+        row {
+            label(PluginApiBundle.message("xquery.configurations.test.test-pattern.label"), column.vgap())
+            testPattern = textField(column.horizontal().hgap().vgap())
         }
         row {
             spacer(column.vertical())
@@ -147,6 +152,7 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
         modulePath.textField.text = settings.modulePath ?: ""
         testPath.textField.text = settings.testPath ?: projectRoot ?: ""
         modulePattern.text = settings.modulePattern ?: ""
+        testPattern.text = settings.testPattern ?: ""
     }
 
     override fun applyEditorTo(settings: XRayTestConfiguration) {
@@ -158,6 +164,7 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
             else -> path.nullize()
         }
         settings.modulePattern = modulePattern.text.nullize()
+        settings.testPattern = testPattern.text.nullize()
     }
 
     private val projectRoot: String?

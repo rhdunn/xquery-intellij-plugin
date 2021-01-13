@@ -23,5 +23,6 @@ data class XRayTestConfigurationData(
     var server: String? = null,
     var modulePath: String? = null,
     var testPath: String? = null,
-    var modulePattern: String? = null
+    var modulePattern: String? = null,
+    var testPattern: String? = null
 ) : RunConfigurationOptions()
