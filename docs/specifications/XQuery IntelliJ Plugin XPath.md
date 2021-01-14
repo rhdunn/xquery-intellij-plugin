@@ -211,7 +211,7 @@ Saxon 9.8 uses the `~type` syntax, while Saxon 10.0 uses the `type(...)` syntax.
 | Ref    | Symbol                         |     | Expression                                | Options |
 |--------|--------------------------------|-----|-------------------------------------------|---------|
 | \[7\]  | `ForExpr`                      | ::= | `SimpleForClause ReturnClause`            |         |
-| \[41\] | `SimpleForBinding`             | ::= | `"member"? "$" VarName "in" ExprSingle`   |         |
+| \[41\] | `SimpleForClause`              | ::= | `"for" "member"? SimpleForBinding ("," SimpleForBinding)*` | |
 | \[8\]  | `ReturnClause`                 | ::= | `"return" ExprSingle`                     |         |
 
 This is a new XPath 4.0 Editor's Draft extension to for expressions that is
@@ -472,7 +472,7 @@ These changes include support for:
 | \[38\]  | `ArrowDynamicFunctionCall`     | ::= | `( VarRef \| ParamRef \| ParenthesizedExpr ) PositionalArgumentList` | |
 | \[39\]  | `LetExpr`                      | ::= | `SimpleLetClause ReturnClause`      |                      |
 | \[40\]  | `FatArrowTarget`               | ::= | `"=>" ( ArrowFunctionCall | ArrowDynamicFunctionCall )` |  |
-| \[41\]  | `SimpleForBinding`             | ::= | `"member"? "$" VarName "in" ExprSingle` |                  |
+| \[41\]  | `SimpleForClause`              | ::= | `"for" "member"? SimpleForBinding ("," SimpleForBinding)*` | |
 | \[42\]  | `PathExpr`                     | ::= | `("/" RelativePathExpr?) \| (AbbrevDescendantOrSelfStep RelativePathExpr) \| RelativePathExpr` | /\* xgc: leading-lone-slash \*/ |
 | \[43\]  | `RelativePathExpr`             | ::= | `StepExpr (("/" \| AbbrevDescendantOrSelfStep) StepExpr)*` | |
 | \[44\]  | `AbbrevDescendantOrSelfStep`   | ::= | `"//"`                              |                      |

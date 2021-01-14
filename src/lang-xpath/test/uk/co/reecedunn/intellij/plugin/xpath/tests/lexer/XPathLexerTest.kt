@@ -1249,13 +1249,13 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XPath 4.0 ED EBNF (14) SimpleForBinding")
-    fun simpleForBinding_XPath40() {
+    @DisplayName("XPath 4.0 ED EBNF (13) SimpleForClause")
+    fun simpleForClause_XPath40() {
         val lexer = createLexer()
 
+        matchSingleToken(lexer, "for", XPathTokenType.K_FOR)
         matchSingleToken(lexer, "member", XPathTokenType.K_MEMBER)
-        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
-        matchSingleToken(lexer, "in", XPathTokenType.K_IN)
+        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
     }
 
     @Test

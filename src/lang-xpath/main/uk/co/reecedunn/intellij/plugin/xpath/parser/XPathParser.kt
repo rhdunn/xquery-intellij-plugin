@@ -289,6 +289,9 @@ open class XPathParser : PsiParser {
     }
 
     private fun parseSimpleForClause(builder: PsiBuilder): Boolean {
+        val haveMember = builder.matchTokenType(XPathTokenType.K_MEMBER)
+        parseWhiteSpaceAndCommentTokens(builder)
+
         if (parseSimpleForBinding(builder, true)) {
             parseWhiteSpaceAndCommentTokens(builder)
             while (
@@ -301,13 +304,16 @@ open class XPathParser : PsiParser {
             }
             return true
         }
-        return false
+        if (haveMember) {
+            builder.error(XPathBundle.message("parser.error.expected", "$"))
+        }
+        return haveMember
     }
 
     private fun parseSimpleForBinding(builder: PsiBuilder, isFirst: Boolean): Boolean {
         val marker = builder.mark()
 
-        val haveMember = builder.matchTokenType(XPathTokenType.K_MEMBER)
+        val haveMember = builder.errorOnTokenType(XPathTokenType.K_MEMBER, XPathBundle.message("parser.error.expected", "$"))
         parseWhiteSpaceAndCommentTokens(builder)
 
         var haveErrors = false
