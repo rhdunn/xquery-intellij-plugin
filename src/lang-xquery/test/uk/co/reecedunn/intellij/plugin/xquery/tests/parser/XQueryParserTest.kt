@@ -9648,6 +9648,14 @@ private class XQueryParserTest : ParserTestCase() {
         }
 
         @Test
+        @DisplayName("keyword NCName")
+        fun keywordNCName() {
+            val expected = loadResource("tests/parser/xquery-4.0/KeywordArgument_KeywordNCName.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/KeywordArgument_KeywordNCName.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
         @DisplayName("space before colon")
         fun spaceBeforeColon() {
             val expected = loadResource("tests/parser/xquery-4.0/KeywordArgument_SpaceBeforeColon.txt")

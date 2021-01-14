@@ -1773,8 +1773,11 @@ open class XPathParser : PsiParser {
         prevArgumentType: IElementType?,
         listType: IElementType
     ): IElementType? {
-        var keywordArgument = builder.matchTokenTypeWithMarker(XPathTokenType.NCNAME)
-        if (keywordArgument != null) {
+        var keywordArgument: PsiBuilder.Marker? = null
+        if (builder.tokenType is INCNameType) {
+            keywordArgument = builder.mark()
+            builder.advanceLexer()
+
             val spaceBeforeSeparator = parseWhiteSpaceAndCommentTokens(builder)
             when {
                 builder.matchTokenType(XPathTokenType.QNAME_SEPARATOR) -> {
