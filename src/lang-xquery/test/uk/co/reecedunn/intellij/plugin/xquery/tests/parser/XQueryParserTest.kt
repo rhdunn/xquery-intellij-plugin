@@ -9734,6 +9734,30 @@ private class XQueryParserTest : ParserTestCase() {
             val actual = parseResource("tests/parser/xquery-4.0/KeywordArgument_InPositionalArgumentList.xq")
             assertThat(actual.toPsiTreeString(), `is`(expected))
         }
+
+        @Test
+        @DisplayName("error recovery: missing ExprSingle")
+        fun missingExprSingle() {
+            val expected = loadResource("tests/parser/xquery-4.0/KeywordArgument_MissingExpr.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/KeywordArgument_MissingExpr.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing ExprSingle; space before colon")
+        fun missingExprSingle_spaceBeforeColon() {
+            val expected = loadResource("tests/parser/xquery-4.0/KeywordArgument_MissingExpr_SpaceBeforeColon.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/KeywordArgument_MissingExpr_SpaceBeforeColon.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("error recovery: missing ExprSingle; space after colon")
+        fun missingExprSingle_spaceAfterColon() {
+            val expected = loadResource("tests/parser/xquery-4.0/KeywordArgument_MissingExpr_SpaceAfterColon.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/KeywordArgument_MissingExpr_SpaceAfterColon.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
     }
 
     @Nested

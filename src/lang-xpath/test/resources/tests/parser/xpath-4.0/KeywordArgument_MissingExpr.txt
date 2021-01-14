@@ -1,0 +1,16 @@
+XPathImpl[FILE(0:9)]
+   XPathFunctionCallImpl[XPATH_FUNCTION_CALL(0:9)]
+      XPathNCNameImpl[XPATH_NCNAME(0:1)]
+         XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:1)]('f')
+      XPathArgumentListImpl[XPATH_ARGUMENT_LIST(1:9)]
+         LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(1:2)]('(')
+         XPathKeywordArgumentImpl[XPATH_KEYWORD_ARGUMENT(2:4)]
+            XmlNCNameImpl[XPATH_NCNAME_TOKEN(2:3)]('a')
+            LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(3:4)](':')
+            PsiErrorElementImpl[ERROR_ELEMENT(4:4)]('XPST0003: Missing local name after ':' in qualified name, or ExprSingle in KeywordArgument.')
+         LeafPsiElement[XPATH_COMMA_TOKEN(4:5)](',')
+         XPathKeywordArgumentImpl[XPATH_KEYWORD_ARGUMENT(5:8)]
+            XmlNCNameImpl[XPATH_NCNAME_TOKEN(5:6)]('b')
+            LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(6:7)](':')
+            XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(7:8)]('2')
+         LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(8:9)](')')

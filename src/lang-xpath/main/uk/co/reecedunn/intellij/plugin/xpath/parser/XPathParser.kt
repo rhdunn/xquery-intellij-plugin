@@ -1807,6 +1807,10 @@ open class XPathParser : PsiParser {
         val argumentType = when {
             parseExprSingle(builder) -> XPathElementType.ARGUMENT
             parseArgumentPlaceholder(builder, keywordArgument != null) -> XPathElementType.ARGUMENT_PLACEHOLDER
+            keywordArgument != null -> {
+                builder.error(XPathBundle.message("parser.error.keyword-argument-expr-single-or-qname"))
+                null
+            }
             else -> null
         }
 
