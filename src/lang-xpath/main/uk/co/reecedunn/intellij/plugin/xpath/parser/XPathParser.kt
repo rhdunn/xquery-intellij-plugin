@@ -1778,7 +1778,7 @@ open class XPathParser : PsiParser {
             val spaceBeforeSeparator = parseWhiteSpaceAndCommentTokens(builder)
             when {
                 builder.matchTokenType(XPathTokenType.QNAME_SEPARATOR) -> {
-                    if (builder.tokenType === XPathTokenType.NCNAME && !spaceBeforeSeparator) { // QName
+                    if (builder.tokenType is INCNameType && !spaceBeforeSeparator) { // QName
                         keywordArgument.rollbackTo()
                         keywordArgument = null
                     } else if (listType === XPathElementType.POSITIONAL_ARGUMENT_LIST) {

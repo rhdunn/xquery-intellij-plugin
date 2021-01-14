@@ -9680,6 +9680,14 @@ private class XQueryParserTest : ParserTestCase() {
         }
 
         @Test
+        @DisplayName("QName-like: is a QName argument; keyword in local part")
+        fun qnameLike_isQName_keywordInLocalPart() {
+            val expected = loadResource("tests/parser/xquery-4.0/KeywordArgument_IsQName_KeywordInLocalPart.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/KeywordArgument_IsQName_KeywordInLocalPart.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
         @DisplayName("QName-like: space before colon")
         fun qnameLike_spaceBeforeColon() {
             val expected = loadResource("tests/parser/xquery-4.0/KeywordArgument_QNameLike_SpaceBeforeColon.txt")
