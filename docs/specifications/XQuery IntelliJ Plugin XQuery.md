@@ -1326,7 +1326,7 @@ __XML Schema__
 __Working Drafts__
 *  W3C. *XQuery 1.0: An XML Query Language*. W3C Working Draft 02 May 2003.
    See [https://www.w3.org/TR/2003/WD-xquery-20030502]().
-*  W3C. *XQuery 4.0: An XML Query Language*. W3C Editor's Draft 16 December 2020.
+*  W3C. *XQuery 4.0: An XML Query Language*. W3C Editor's Draft 13 January 2021.
    See [https://qt4cg.org/branch/master/xquery-40/xquery-40.html]().
 
 ### B.2 BaseX References

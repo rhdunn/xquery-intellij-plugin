@@ -72,7 +72,7 @@
   ]]></description>
 
   <change-notes><![CDATA[
-    <p>XPath, XQuery, and XSLT 4.0 Editor's Draft:</p>
+    <p>XPath, XQuery, and XSLT 4.0 Editor's Draft 13 January 2021:</p>
     <ol>
       <li>Add the XSLT 4.0 Editor's Draft XMLSchema file.</li>
       <li>Support any <code>ItemType</code> on <code>LocalUnionType</code> and <code>TypedMapTest</code>.</li>

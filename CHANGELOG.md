@@ -2,7 +2,7 @@
 
 ## 1.9.0 - (In Development)
 
-XPath, XQuery, and XSLT 4.0 Editor's Draft:
+XPath, XQuery, and XSLT 4.0 Editor's Draft 13 January 2021:
 
 1. Add the XSLT 4.0 Editor's Draft XMLSchema file.
 1. Support any `ItemType` on `LocalUnionType` and `TypedMapTest`.

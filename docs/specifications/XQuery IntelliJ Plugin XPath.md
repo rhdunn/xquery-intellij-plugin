@@ -542,7 +542,7 @@ __XML Schema__
 __Working Drafts__
 *  W3C. *XML Path Language (XPath) 2.0*. W3C Working Draft 02 May 2003.
    See [https://www.w3.org/TR/2003/WD-xpath20-20030502/]().
-*  W3C. *XML Path Language (XPath) 4.0*. W3C Editor's Draft 16 December 2020.
+*  W3C. *XML Path Language (XPath) 4.0*. W3C Editor's Draft 13 January 2021.
    See [https://qt4cg.org/branch/master/xquery-40/xpath-40.html]().
 
 ### B.2 MarkLogic References
