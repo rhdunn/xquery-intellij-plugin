@@ -5093,12 +5093,12 @@ private class XQueryPsiTest : ParserTestCase() {
             }
 
             @Nested
-            @DisplayName("XQuery 3.1 EBNF (70) QuantifiedExpr ; XQuery IntelliJ Plugin EBNF (4) QuantifiedExprBinding")
-            internal inner class QuantifiedExprBinding {
+            @DisplayName("XQuery 3.1 EBNF (70) QuantifiedExpr ; XQuery 4.0 ED EBNF (78) QuantifierBinding")
+            internal inner class QuantifierBinding {
                 @Test
                 @DisplayName("NCName")
                 fun ncname() {
-                    val expr = parse<PluginQuantifiedExprBinding>("some \$x in \$y satisfies \$z")[0] as XpmVariableBinding
+                    val expr = parse<XPathQuantifierBinding>("some \$x in \$y satisfies \$z")[0] as XpmVariableBinding
 
                     val qname = expr.variableName!!
                     assertThat(qname.prefix, `is`(nullValue()))
@@ -5109,7 +5109,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("QName")
                 fun qname() {
-                    val expr = parse<PluginQuantifiedExprBinding>("some \$a:x in \$a:y satisfies \$a:z")[0] as XpmVariableBinding
+                    val expr = parse<XPathQuantifierBinding>("some \$a:x in \$a:y satisfies \$a:z")[0] as XpmVariableBinding
 
                     val qname = expr.variableName!!
                     assertThat(qname.namespace, `is`(nullValue()))
@@ -5120,7 +5120,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("URIQualifiedName")
                 fun uriQualifiedName() {
-                    val expr = parse<PluginQuantifiedExprBinding>(
+                    val expr = parse<XPathQuantifierBinding>(
                         "some \$Q{http://www.example.com}x in \$Q{http://www.example.com}y satisfies \$Q{http://www.example.com}z"
                     )[0] as XpmVariableBinding
 
@@ -5133,7 +5133,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("missing VarName")
                 fun missingVarName() {
-                    val expr = parse<PluginQuantifiedExprBinding>("some \$")[0] as XpmVariableBinding
+                    val expr = parse<XPathQuantifierBinding>("some \$")[0] as XpmVariableBinding
                     assertThat(expr.variableName, `is`(nullValue()))
                 }
             }

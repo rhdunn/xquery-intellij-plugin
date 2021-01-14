@@ -59,15 +59,6 @@ class PluginLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (4) QuantifiedExprBinding")
-    fun quantifiedExprBinding() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
-        matchSingleToken(lexer, "in", XPathTokenType.K_IN)
-    }
-
-    @Test
     @DisplayName("XQuery IntelliJ Plugin EBNF (5) TypeswitchExpr")
     fun typeswitchExpr() {
         val lexer = createLexer()

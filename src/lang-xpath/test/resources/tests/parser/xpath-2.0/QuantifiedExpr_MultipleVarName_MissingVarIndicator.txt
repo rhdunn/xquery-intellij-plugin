@@ -2,7 +2,7 @@ XPathImpl[FILE(0:96)]
    XPathQuantifiedExprImpl[XPATH_QUANTIFIED_EXPR(0:47)]
       XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_SOME(0:4)]('some')
       PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
-      PluginQuantifiedExprBindingImpl[XPATH_QUANTIFIED_EXPR_BINDING(5:16)]
+      XPathQuantifierBindingImpl[XPATH_QUANTIFIER_BINDING(5:16)]
          LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(5:6)]('$')
          PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
          XPathNCNameImpl[XPATH_NCNAME(7:9)]
@@ -18,7 +18,7 @@ XPathImpl[FILE(0:96)]
                PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
       LeafPsiElement[XPATH_COMMA_TOKEN(16:17)](',')
       PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
-      PluginQuantifiedExprBindingImpl[XPATH_QUANTIFIED_EXPR_BINDING(18:27)]
+      XPathQuantifierBindingImpl[XPATH_QUANTIFIER_BINDING(18:27)]
          PsiErrorElementImpl[ERROR_ELEMENT(18:18)]('XPST0003: Expected '$'.')
          XPathNCNameImpl[XPATH_NCNAME(18:20)]
             XmlNCNameImpl[XPATH_NCNAME_TOKEN(18:19)]('v')
@@ -49,7 +49,7 @@ XPathImpl[FILE(0:96)]
    XPathQuantifiedExprImpl[XPATH_QUANTIFIED_EXPR(49:96)]
       XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_EVERY(49:54)]('every')
       PsiWhiteSpaceImpl[WHITE_SPACE(54:55)](' ')
-      PluginQuantifiedExprBindingImpl[XPATH_QUANTIFIED_EXPR_BINDING(55:66)]
+      XPathQuantifierBindingImpl[XPATH_QUANTIFIER_BINDING(55:66)]
          LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(55:56)]('$')
          PsiWhiteSpaceImpl[WHITE_SPACE(56:57)](' ')
          XPathNCNameImpl[XPATH_NCNAME(57:59)]
@@ -65,7 +65,7 @@ XPathImpl[FILE(0:96)]
                PsiWhiteSpaceImpl[WHITE_SPACE(65:66)](' ')
       LeafPsiElement[XPATH_COMMA_TOKEN(66:67)](',')
       PsiWhiteSpaceImpl[WHITE_SPACE(67:68)](' ')
-      PluginQuantifiedExprBindingImpl[XPATH_QUANTIFIED_EXPR_BINDING(68:77)]
+      XPathQuantifierBindingImpl[XPATH_QUANTIFIER_BINDING(68:77)]
          PsiErrorElementImpl[ERROR_ELEMENT(68:68)]('XPST0003: Expected '$'.')
          XPathNCNameImpl[XPATH_NCNAME(68:70)]
             XmlNCNameImpl[XPATH_NCNAME_TOKEN(68:69)]('v')

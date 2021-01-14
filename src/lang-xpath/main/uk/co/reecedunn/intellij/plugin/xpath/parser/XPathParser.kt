@@ -467,12 +467,12 @@ open class XPathParser : PsiParser {
                 return false
             }
 
-            val hasBinding = parseQuantifiedExprBinding(builder, true)
+            val hasBinding = parseQuantifierBinding(builder, true)
             if (hasBinding) {
                 parseWhiteSpaceAndCommentTokens(builder)
                 while (builder.matchTokenType(XPathTokenType.COMMA)) {
                     parseWhiteSpaceAndCommentTokens(builder)
-                    parseQuantifiedExprBinding(builder, false)
+                    parseQuantifierBinding(builder, false)
                     parseWhiteSpaceAndCommentTokens(builder)
                 }
             }
@@ -500,7 +500,7 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    open fun parseQuantifiedExprBinding(builder: PsiBuilder, isFirst: Boolean): Boolean {
+    open fun parseQuantifierBinding(builder: PsiBuilder, isFirst: Boolean): Boolean {
         val marker = builder.mark()
 
         var haveErrors = false
@@ -528,7 +528,7 @@ open class XPathParser : PsiParser {
                 builder.error(XPathBundle.message("parser.error.expected-expression"))
             }
 
-            marker.done(XPathElementType.QUANTIFIED_EXPR_BINDING)
+            marker.done(XPathElementType.QUANTIFIER_BINDING)
             return true
         }
         marker.drop()

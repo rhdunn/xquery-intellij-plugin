@@ -576,6 +576,12 @@ object XPathElementType {
         XPath
     )
 
+    val QUANTIFIER_BINDING: IElementType = ICompositeElementType(
+        "XPATH_QUANTIFIER_BINDING",
+        XPathQuantifierBindingPsiImpl::class.java,
+        XPath
+    )
+
     val RECORD_TEST: IElementType = ICompositeElementType(
         "XPATH_RECORD_TEST",
         XPathRecordTestPsiImpl::class.java,
@@ -825,12 +831,6 @@ object XPathElementType {
     val CONTEXT_ITEM_FUNCTION_EXPR: IElementType = ICompositeElementType(
         "XPATH_CONTEXT_ITEM_FUNCTION_EXPR",
         PluginContextItemFunctionExprImpl::class.java,
-        XPath
-    )
-
-    val QUANTIFIED_EXPR_BINDING: IElementType = ICompositeElementType(
-        "XPATH_QUANTIFIED_EXPR_BINDING",
-        PluginQuantifiedExprBindingPsiImpl::class.java,
         XPath
     )
 

@@ -1259,6 +1259,15 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XPath 4.0 ED EBNF (19) QuantifierBinding")
+    fun quantifierBinding() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
+        matchSingleToken(lexer, "in", XPathTokenType.K_IN)
+    }
+
+    @Test
     @DisplayName("XPath 4.0 ED EBNF (28) OtherwiseExpr")
     fun otherwiseExpr() {
         val lexer = createLexer()

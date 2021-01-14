@@ -2,7 +2,7 @@ XPathImpl[FILE(0:54)]
    XPathQuantifiedExprImpl[XPATH_QUANTIFIED_EXPR(0:26)]
       XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_SOME(0:4)]('some')
       PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
-      PluginQuantifiedExprBindingImpl[XPATH_QUANTIFIED_EXPR_BINDING(5:16)]
+      XPathQuantifierBindingImpl[XPATH_QUANTIFIER_BINDING(5:16)]
          LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(5:6)]('$')
          PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
          XPathNCNameImpl[XPATH_NCNAME(7:9)]
@@ -33,7 +33,7 @@ XPathImpl[FILE(0:54)]
    XPathQuantifiedExprImpl[XPATH_QUANTIFIED_EXPR(28:54)]
       XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_EVERY(28:33)]('every')
       PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
-      PluginQuantifiedExprBindingImpl[XPATH_QUANTIFIED_EXPR_BINDING(34:45)]
+      XPathQuantifierBindingImpl[XPATH_QUANTIFIER_BINDING(34:45)]
          LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(34:35)]('$')
          PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
          XPathNCNameImpl[XPATH_NCNAME(36:38)]

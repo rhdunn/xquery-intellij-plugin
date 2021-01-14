@@ -432,8 +432,8 @@ These changes include support for:
 {: .ebnf-symbols }
 | Ref     | Symbol                         |     | Expression                          | Options              |
 |---------|--------------------------------|-----|-------------------------------------|----------------------|
-| \[1\]   | `QuantifiedExpr`               | ::= | `("some" \| "every") QuantifiedExprBinding ("," QuantifiedExprBinding)* "satisfies" ExprSingle` | |
-| \[2\]   | `QuantifiedExprBinding`        | ::= | `"$" VarName "in" ExprSingle`       |                      |
+| \[1\]   | `QuantifiedExpr`               | ::= | `("some" \| "every") QuantifierBinding ("," QuantifierBinding)* "satisfies" ExprSingle` | |
+| \[2\]   | `QuantifierBinding`            | ::= | `"$" VarName "in" ExprSingle`       |                      |
 | \[3\]   | `Wildcard`                     | ::= | `WildcardIndicator \| (NCName ":" WildcardIndicator) \| (WildcardIndicator ":" NCName) \| (BracedURILiteral WildcardIndicator)` | /\* ws: explicit \*/ |
 | \[4\]   | `WildcardIndicator`            | ::= | `"*"`                               |                      |
 | \[5\]   | `ItemType`                     | ::= | `KindTest \| AnyItemTest \| FunctionTest \| MapTest \| ArrayTest \| LocalUnionType \| EnumerationType \| RecordTest \| TypeAlias \| AtomicOrUnionType \| ParenthesizedItemType` | |

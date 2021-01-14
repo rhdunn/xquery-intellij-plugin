@@ -66,7 +66,7 @@ class XPathImpl(provider: FileViewProvider) :
             XPathElementType.NAMED_FUNCTION_REF to XpmUsageType.FunctionRef,
             XPathElementType.PARAM to XpmUsageType.Parameter,
             XPathElementType.PRAGMA to XpmUsageType.Pragma,
-            XPathElementType.QUANTIFIED_EXPR_BINDING to XpmUsageType.Variable,
+            XPathElementType.QUANTIFIER_BINDING to XpmUsageType.Variable,
             XPathElementType.SCHEMA_ATTRIBUTE_TEST to XpmUsageType.Attribute,
             XPathElementType.SCHEMA_ELEMENT_TEST to XpmUsageType.Element,
             XPathElementType.SIMPLE_FOR_BINDING to XpmUsageType.Variable,

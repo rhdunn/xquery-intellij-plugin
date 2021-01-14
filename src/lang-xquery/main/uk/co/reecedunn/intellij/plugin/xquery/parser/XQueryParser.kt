@@ -2259,7 +2259,7 @@ class XQueryParser : XPathParser() {
     // endregion
     // region Grammar :: Expr :: QuantifiedExpr
 
-    override fun parseQuantifiedExprBinding(builder: PsiBuilder, isFirst: Boolean): Boolean {
+    override fun parseQuantifierBinding(builder: PsiBuilder, isFirst: Boolean): Boolean {
         val marker = builder.mark()
 
         var haveErrors = false
@@ -2292,7 +2292,7 @@ class XQueryParser : XPathParser() {
                 builder.error(XPathBundle.message("parser.error.expected-expression"))
             }
 
-            marker.done(XPathElementType.QUANTIFIED_EXPR_BINDING)
+            marker.done(XPathElementType.QUANTIFIER_BINDING)
             return true
         }
         marker.drop()

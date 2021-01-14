@@ -763,8 +763,8 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         }
 
         @Test
-        @DisplayName("XPath 3.1 EBNF (14) QuantifiedExpr ; XQuery IntelliJ Plugin XPath EBNF (2) QuantifiedExprBinding")
-        fun quantifiedExprBinding() {
+        @DisplayName("XPath 3.1 EBNF (14) QuantifiedExpr ; XPath 4.0 ED EBNF (19) QuantifierBinding")
+        fun quantifierBinding() {
             val file = parse<XPath>("some \$test in 2 satisfies \$test = 2")[0]
             val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
             assertThat(

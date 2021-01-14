@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.model
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
-import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginQuantifiedExprBinding
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQuantifierBinding
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_equal
@@ -191,7 +191,7 @@ fun PsiElement.xqueryInScopeVariables(): Sequence<XpmVariableDefinition> {
                 }
                 is XQueryWindowClause -> node.windowClauseVariables(context)
                 is XQueryWindowStartCondition, is XQueryWindowEndCondition -> node.windowConditionVariables(context)
-                is PluginQuantifiedExprBinding -> {
+                is XPathQuantifierBinding -> {
                     if (context.visitedQuantifiedBinding) {
                         context.visitedQuantifiedBinding = false
                         emptySequence()
@@ -231,7 +231,7 @@ fun PsiElement.xqueryInScopeVariables(): Sequence<XpmVariableDefinition> {
                                 context.visitedFlworClauseAsIntermediateClause = true
                             }
                         }
-                        is PluginQuantifiedExprBinding -> {
+                        is XPathQuantifierBinding -> {
                             context.visitedQuantifiedBinding = true
                         }
                         is PluginBlockVarDeclEntry -> {

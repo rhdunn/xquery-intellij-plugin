@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018, 2020 Reece H. Dunn
+ * Copyright (C) 2018, 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin
+package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginQuantifiedExprBinding
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQuantifierBinding
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
-class PluginQuantifiedExprBindingPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginQuantifiedExprBinding {
+class XPathQuantifierBindingPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathQuantifierBinding {
     override val variableName: XsQNameValue?
         get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
 }

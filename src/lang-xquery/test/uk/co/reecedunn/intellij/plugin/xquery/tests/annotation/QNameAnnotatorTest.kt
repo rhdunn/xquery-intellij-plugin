@@ -1217,7 +1217,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         }
 
         @Test
-        @DisplayName("XQuery 3.1 EBNF (70) QuantifiedExpr ; XQuery IntelliJ Plugin XQuery EBNF (4) QuantifiedExprBinding")
+        @DisplayName("XQuery 3.1 EBNF (70) QuantifiedExpr ; XQuery 4.0 ED EBNF (78) QuantifierBinding")
         fun quantifiedExprBinding() {
             val file = parse<XQueryModule>("some \$test in 2 satisfies \$test = 2")[0]
             val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()

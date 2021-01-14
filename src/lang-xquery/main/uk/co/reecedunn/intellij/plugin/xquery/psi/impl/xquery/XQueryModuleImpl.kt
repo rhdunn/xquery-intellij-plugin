@@ -163,7 +163,7 @@ class XQueryModuleImpl(provider: FileViewProvider) :
             XQueryElementType.POSITIONAL_VAR to XpmUsageType.Variable,
             XPathElementType.PRAGMA to XpmUsageType.Pragma,
             XQueryElementType.PREVIOUS_ITEM to XpmUsageType.Variable,
-            XPathElementType.QUANTIFIED_EXPR_BINDING to XpmUsageType.Variable,
+            XPathElementType.QUANTIFIER_BINDING to XpmUsageType.Variable,
             XPathElementType.SCHEMA_ATTRIBUTE_TEST to XpmUsageType.Attribute,
             XPathElementType.SCHEMA_ELEMENT_TEST to XpmUsageType.Element,
             XQueryElementType.SCHEMA_PREFIX to XpmUsageType.Namespace,

@@ -3508,12 +3508,12 @@ private class XPathPsiTest : ParserTestCase() {
             }
 
             @Nested
-            @DisplayName("XPath 3.1 EBNF (14) QuantifiedExpr ; XQuery IntelliJ Plugin XPath EBNF (2) QuantifiedExprBinding")
-            internal inner class QuantifiedExprBinding {
+            @DisplayName("XPath 3.1 EBNF (14) QuantifiedExpr ; XPath 4.0 ED EBNF (19) QuantifierBinding")
+            internal inner class QuantifierBinding {
                 @Test
                 @DisplayName("NCName")
                 fun ncname() {
-                    val expr = parse<PluginQuantifiedExprBinding>(
+                    val expr = parse<XPathQuantifierBinding>(
                         "some \$x in \$y satisfies \$z"
                     )[0] as XpmVariableBinding
 
@@ -3526,7 +3526,7 @@ private class XPathPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("QName")
                 fun qname() {
-                    val expr = parse<PluginQuantifiedExprBinding>(
+                    val expr = parse<XPathQuantifierBinding>(
                         "some \$a:x in \$a:y satisfies \$a:z"
                     )[0] as XpmVariableBinding
 
@@ -3539,7 +3539,7 @@ private class XPathPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("URIQualifiedName")
                 fun uriQualifiedName() {
-                    val expr = parse<PluginQuantifiedExprBinding>(
+                    val expr = parse<XPathQuantifierBinding>(
                         "some \$Q{http://www.example.com}x in \$Q{http://www.example.com}y satisfies \$Q{http://www.example.com}z"
                     )[0] as XpmVariableBinding
 
@@ -3552,7 +3552,7 @@ private class XPathPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("missing VarName")
                 fun missingVarName() {
-                    val expr = parse<PluginQuantifiedExprBinding>("some \$")[0] as XpmVariableBinding
+                    val expr = parse<XPathQuantifierBinding>("some \$")[0] as XpmVariableBinding
                     assertThat(expr.variableName, `is`(nullValue()))
                 }
             }

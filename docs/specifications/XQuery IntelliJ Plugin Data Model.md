@@ -771,7 +771,7 @@ EQNames. Otherwise, it accepts *default element\/type* EQNames.
 | `Param`                 | `XpmVariableBinding`     |
 | `PositionalVar`         | `XpmVariableBinding`     |
 | `PreviousItem`          | `XpmVariableBinding`     |
-| `QuantifiedExprBinding` | `XpmVariableBinding`     |
+| `QuantifierBinding`     | `XpmVariableBinding`     |
 | `SimpleForBinding`      | `XpmVariableBinding`     |
 | `SimpleLetBinding`      | `XpmVariableBinding`     |
 | `SlidingWindowClause`   | `XpmVariableBinding`     |

@@ -1113,8 +1113,8 @@ These changes include support for:
 |----------|--------------------------------|-----|-------------------------------------|-----------------------|
 | \[1\]    | `DirAttributeList`             | ::= | `(S DirAttribute?)*`                | /\* ws: explicit \*/  |
 | \[2\]    | `DirAttribute`                 | ::= | `QName S? "=" S? DirAttributeValue` | /\* ws: explicit \*/  |
-| \[3\]    | `QuantifiedExpr`               | ::= | `("some" \| "every") QuantifiedExprBinding ("," QuantifiedExprBinding)* "satisfies" ExprSingle` | |
-| \[4\]    | `QuantifiedExprBinding`        | ::= | `"$" VarName TypeDeclaration? "in" ExprSingle` |            |
+| \[3\]    | `QuantifiedExpr`               | ::= | `("some" \| "every") QuantifierBinding ("," QuantifierBinding)* "satisfies" ExprSingle` | |
+| \[4\]    | `QuantifierBinding`            | ::= | `"$" VarName TypeDeclaration? "in" ExprSingle` |            |
 | \[5\]    | `TypeswitchExpr`               | ::= | `"typeswitch" "(" Expr ")" CaseClause+ DefaultCaseClause` | |
 | \[6\]    | `DefaultCaseClause`            | ::= | `"default" ("$" VarName)? "return" ExprSingle` |            |
 | \[7\]    | `CastExpr`                     | ::= | `TransformWithExpr ( "cast" "as" SingleType )?` |           |
