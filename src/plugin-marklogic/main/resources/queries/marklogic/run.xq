@@ -259,6 +259,24 @@ declare function local:eval-root($root as xs:string?) {
         ()
 };
 
+declare function local:eval-update($update as xs:boolean) {
+    let $major := local:version()
+    let $minor := local:version-minor()
+    return if ($mode = "debug") then
+        if ($update) then
+            fn:error(xs:QName("err:FOER0000"), "Debugging an update query is not supported by MarkLogic.")
+        else
+            ()
+    else if ($major lt 7.0 or ($major eq 8.0 and $minor lt 7.0) or ($major eq 9.0 and $minor lt 2.0)) then
+        if ($update) then
+            <eval:transaction-mode>update</eval:transaction-mode>
+        else
+            <eval:transaction-mode>query</eval:transaction-mode>
+    else
+        (: MarkLogic 8.0-7 and 9.0-2 support <update> :)
+        <eval:update>{$update}</eval:update>
+};
+
 declare function local:eval-options() {
     let $server := local:nullize($server) ! xdmp:server(.)
     let $database :=
@@ -280,21 +298,7 @@ declare function local:eval-options() {
             (local:eval-modules(0), local:eval-root($module-root)) (: file system :)
         else
             (), (: use the default server settings :)
-        let $major := local:version()
-        let $minor := local:version-minor()
-        return if ($mode = "debug") then
-            if ($updating = "true") then
-                fn:error(xs:QName("err:FOER0000"), "Debugging an update query is not supported by MarkLogic.")
-            else
-                ()
-        else if ($major lt 7.0 or ($major eq 8.0 and $minor lt 7.0) or ($major eq 9.0 and $minor lt 2.0)) then
-            if ($updating = "true") then
-                <eval:transaction-mode>update</eval:transaction-mode>
-            else
-                <eval:transaction-mode>query</eval:transaction-mode>
-        else
-            (: MarkLogic 8.0-7 and 9.0-2 support <update> :)
-            <eval:update>{$updating}</eval:update>
+        local:eval-update($updating eq "true")
     }</eval:options>
 };
 
