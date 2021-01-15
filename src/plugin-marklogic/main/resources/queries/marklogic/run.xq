@@ -287,17 +287,25 @@ declare function local:eval-options() {
             xdmp:server-database($server)
         else
             ()
+    let $modules-database :=
+        let $server-root := $server ! xdmp:server-root(.)
+        return if (local:use-modules-root($server-root)) then
+            0 (: file system :)
+        else
+            ()
+    let $modules-root :=
+        if (exists($modules-database)) then
+            $module-root
+        else
+            ()
     return <eval:options>{
         local:eval-static-check($mode eq "validate"),
         local:eval-database($database),
         local:eval-default-collation($server ! xdmp:server-collation(.)),
         local:eval-default-coordinate-system($server ! local:server-coordinate-system(.)),
         local:eval-default-xquery-version($server ! xdmp:server-default-xquery-version($server)),
-        let $server-root := $server ! xdmp:server-root(.)
-        return if (local:use-modules-root($server-root)) then
-            (local:eval-modules(0), local:eval-root($module-root)) (: file system :)
-        else
-            (), (: use the default server settings :)
+        local:eval-modules($modules-database),
+        local:eval-root($modules-root),
         local:eval-update($updating eq "true")
     }</eval:options>
 };
