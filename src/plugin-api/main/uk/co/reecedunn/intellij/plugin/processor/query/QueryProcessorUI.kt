@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.processor.query
 import com.intellij.openapi.application.ModalityState
 import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
+import uk.co.reecedunn.intellij.plugin.core.ui.replaceItems
 import javax.swing.JComboBox
 
 fun JComboBox<String>.populateServerUI(settings: QueryProcessorSettings?, database: String) {
@@ -26,16 +27,11 @@ fun JComboBox<String>.populateServerUI(settings: QueryProcessorSettings?, databa
         try {
             val servers = settings.session.servers(database)
             invokeLater(ModalityState.any()) {
-                val current = selectedItem
-                removeAllItems()
-                servers.forEach { name -> addItem(name) }
-                selectedItem = current
+                replaceItems(servers)
             }
         } catch (e: Throwable) {
             invokeLater(ModalityState.any()) {
-                val current = selectedItem
-                removeAllItems()
-                selectedItem = current
+                replaceItems(emptySequence())
             }
         }
     }
@@ -47,16 +43,11 @@ fun JComboBox<String>.populateDatabaseUI(settings: QueryProcessorSettings?) {
         try {
             val databases = settings.session.databases
             invokeLater(ModalityState.any()) {
-                val current = selectedItem
-                removeAllItems()
-                databases.forEach { name -> addItem(name) }
-                selectedItem = current
+                replaceItems(databases)
             }
         } catch (e: Throwable) {
             invokeLater(ModalityState.any()) {
-                val current = selectedItem
-                removeAllItems()
-                selectedItem = current
+                replaceItems(emptySequence())
             }
         }
     }
