@@ -15,6 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.ui
 
+import com.intellij.openapi.application.ModalityState
+import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
+import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
 import javax.swing.JComboBox
 
 fun JComboBox<String>.replaceItems(items: Sequence<String>) {
@@ -25,3 +28,18 @@ fun JComboBox<String>.replaceItems(items: Sequence<String>) {
 }
 
 fun JComboBox<String>.replaceItems(items: List<String>) = replaceItems(items.asSequence())
+
+fun JComboBox<String>.replaceItemsOnPooledThread(calculateItems: () -> List<String>) {
+    executeOnPooledThread {
+        try {
+            val items = calculateItems()
+            invokeLater(ModalityState.any()) {
+                replaceItems(items)
+            }
+        } catch (e: Throwable) {
+            invokeLater(ModalityState.any()) {
+                replaceItems(emptySequence())
+            }
+        }
+    }
+}

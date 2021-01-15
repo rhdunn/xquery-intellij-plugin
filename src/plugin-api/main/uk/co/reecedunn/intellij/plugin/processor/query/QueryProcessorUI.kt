@@ -15,40 +15,15 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.query
 
-import com.intellij.openapi.application.ModalityState
-import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
-import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
-import uk.co.reecedunn.intellij.plugin.core.ui.replaceItems
+import uk.co.reecedunn.intellij.plugin.core.ui.replaceItemsOnPooledThread
 import javax.swing.JComboBox
 
 fun JComboBox<String>.populateServerUI(settings: QueryProcessorSettings?, database: String) {
     if (settings == null) return
-    executeOnPooledThread {
-        try {
-            val servers = settings.session.servers(database)
-            invokeLater(ModalityState.any()) {
-                replaceItems(servers)
-            }
-        } catch (e: Throwable) {
-            invokeLater(ModalityState.any()) {
-                replaceItems(emptySequence())
-            }
-        }
-    }
+    replaceItemsOnPooledThread { settings.session.servers(database) }
 }
 
 fun JComboBox<String>.populateDatabaseUI(settings: QueryProcessorSettings?) {
     if (settings == null) return
-    executeOnPooledThread {
-        try {
-            val databases = settings.session.databases
-            invokeLater(ModalityState.any()) {
-                replaceItems(databases)
-            }
-        } catch (e: Throwable) {
-            invokeLater(ModalityState.any()) {
-                replaceItems(emptySequence())
-            }
-        }
-    }
+    replaceItemsOnPooledThread { settings.session.databases }
 }
