@@ -22,6 +22,10 @@ XRay Unit Tests:
 1. Add an XRay run configuration.
 1. Support running XRay unit tests.
 
+Run Configuration:
+
+1. Support using the modules database for selected MarkLogic app-server.
+
 ## 2020
 
 *  [1.8.1 - 2020-12-11](docs/_posts/2020-12-11-release-1.8.1.md)

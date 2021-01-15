@@ -287,17 +287,20 @@ declare function local:eval-options() {
             xdmp:server-database($server)
         else
             ()
+    let $server-root := $server ! xdmp:server-root(.)
     let $modules-database :=
-        let $server-root := $server ! xdmp:server-root(.)
-        return if (local:use-modules-root($server-root)) then
+        if (local:use-modules-root($server-root)) then
             0 (: file system :)
         else
-            ()
+            xdmp:server-modules-database($server)
     let $modules-root :=
-        if (exists($modules-database)) then
-            $module-root
+        if ($modules-database eq 0) then
+            if (exists($server-root) and (string-length($module-root) eq 0 or $module-root eq "/")) then
+                $server-root
+            else
+                $module-root
         else
-            ()
+            $server-root
     return <eval:options>{
         local:eval-static-check($mode eq "validate"),
         local:eval-database($database),

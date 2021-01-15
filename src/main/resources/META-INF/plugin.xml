@@ -94,6 +94,10 @@
       <li>Add an XRay run configuration.</li>
       <li>Support running XRay unit tests.</li>
     </ol>
+    <p>Run Configuration:</p>
+    <ol>
+      <li>Support using the modules database for selected MarkLogic app-server.</li>
+    </ol>
   ]]></change-notes>
 
   <idea-version since-build="161"/>
