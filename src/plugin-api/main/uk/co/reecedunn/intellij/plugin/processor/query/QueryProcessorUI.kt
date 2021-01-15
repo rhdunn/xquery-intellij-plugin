@@ -40,3 +40,24 @@ fun JComboBox<String>.populateServerUI(settings: QueryProcessorSettings?, databa
         }
     }
 }
+
+fun JComboBox<String>.populateDatabaseUI(settings: QueryProcessorSettings?) {
+    if (settings == null) return
+    executeOnPooledThread {
+        try {
+            val databases = settings.session.databases
+            invokeLater(ModalityState.any()) {
+                val current = selectedItem
+                removeAllItems()
+                databases.forEach { name -> addItem(name) }
+                selectedItem = current
+            }
+        } catch (e: Throwable) {
+            invokeLater(ModalityState.any()) {
+                val current = selectedItem
+                removeAllItems()
+                selectedItem = current
+            }
+        }
+    }
+}

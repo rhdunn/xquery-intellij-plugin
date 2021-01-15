@@ -15,17 +15,15 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.configuration
 
-import com.intellij.openapi.application.ModalityState
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.util.text.nullize
-import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
-import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
 import uk.co.reecedunn.intellij.plugin.processor.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessorComboBox
+import uk.co.reecedunn.intellij.plugin.processor.query.populateDatabaseUI
 import uk.co.reecedunn.intellij.plugin.processor.query.populateServerUI
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurations
 import javax.swing.JComboBox
@@ -52,7 +50,7 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
             queryProcessor = QueryProcessorComboBox(project)
             add(queryProcessor.component, column.horizontal().hgap().vgap())
             queryProcessor.addActionListener {
-                populateDatabaseUI()
+                database.populateDatabaseUI(queryProcessor.settings)
             }
         }
         row {
@@ -106,28 +104,6 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
         row {
             spacer(column.vertical())
             spacer(column.horizontal())
-        }
-    }
-
-    @Suppress("DuplicatedCode")
-    private fun populateDatabaseUI() {
-        val settings = queryProcessor.settings ?: return
-        executeOnPooledThread {
-            try {
-                val databases = settings.session.databases
-                invokeLater(ModalityState.any()) {
-                    val current = database.selectedItem
-                    database.removeAllItems()
-                    databases.forEach { name -> database.addItem(name) }
-                    database.selectedItem = current
-                }
-            } catch (e: Throwable) {
-                invokeLater(ModalityState.any()) {
-                    val current = database.selectedItem
-                    database.removeAllItems()
-                    database.selectedItem = current
-                }
-            }
         }
     }
 

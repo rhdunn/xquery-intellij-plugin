@@ -16,14 +16,11 @@
 package uk.co.reecedunn.intellij.plugin.processor.intellij.execution.configurations
 
 import com.intellij.lang.Language
-import com.intellij.openapi.application.ModalityState
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.*
 import com.intellij.util.text.nullize
-import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
-import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
 import uk.co.reecedunn.intellij.plugin.core.fileChooser.FileNameMatcherDescriptor
 import uk.co.reecedunn.intellij.plugin.core.lang.*
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
@@ -33,6 +30,7 @@ import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.QueryProc
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.queryProcessorDataSource
 import uk.co.reecedunn.intellij.plugin.processor.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.*
+import uk.co.reecedunn.intellij.plugin.processor.query.populateDatabaseUI
 import uk.co.reecedunn.intellij.plugin.processor.query.populateServerUI
 import javax.swing.*
 
@@ -55,7 +53,7 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
             add(queryProcessor.component, column.horizontal().hgap().vgap())
             queryProcessor.addActionListener {
                 updateUI(false)
-                populateDatabaseUI()
+                database.populateDatabaseUI(queryProcessor.settings)
             }
         }
         row {
@@ -103,28 +101,6 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
     private lateinit var server: JComboBox<String>
     private lateinit var modulePath: TextFieldWithBrowseButton
     private lateinit var database: JComboBox<String>
-
-    @Suppress("DuplicatedCode")
-    private fun populateDatabaseUI() {
-        val settings = queryProcessor.settings ?: return
-        executeOnPooledThread {
-            try {
-                val databases = settings.session.databases
-                invokeLater(ModalityState.any()) {
-                    val current = database.selectedItem
-                    database.removeAllItems()
-                    databases.forEach { name -> database.addItem(name) }
-                    database.selectedItem = current
-                }
-            } catch (e: Throwable) {
-                invokeLater(ModalityState.any()) {
-                    val current = database.selectedItem
-                    database.removeAllItems()
-                    database.selectedItem = current
-                }
-            }
-        }
-    }
 
     @Suppress("DuplicatedCode")
     private val databasePanel: JPanel = panel {
