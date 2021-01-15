@@ -245,6 +245,13 @@ declare function local:eval-default-xquery-version($xquery-version as xs:string?
         ()
 };
 
+declare function local:eval-modules($database as xs:unsignedLong?) {
+    if (exists($database)) then
+        <eval:modules>{$database}</eval:modules>
+    else
+        ()
+};
+
 declare function local:eval-options() {
     let $server := local:nullize($server) ! xdmp:server(.)
     let $database :=
@@ -263,7 +270,7 @@ declare function local:eval-options() {
         local:eval-default-xquery-version($server ! xdmp:server-default-xquery-version($server)),
         let $server-root := $server ! xdmp:server-root(.)
         return if (local:use-modules-root($server-root)) then
-            (<eval:modules>0</eval:modules>, <eval:root>{$module-root}</eval:root>) (: file system :)
+            (local:eval-modules(0), <eval:root>{$module-root}</eval:root>) (: file system :)
         else
             (), (: use the default server settings :)
         let $major := local:version()
