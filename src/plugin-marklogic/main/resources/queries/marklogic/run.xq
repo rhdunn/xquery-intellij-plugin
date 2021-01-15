@@ -223,6 +223,13 @@ declare function local:eval-default-collation($collation as xs:string?) {
         ()
 };
 
+declare function local:eval-default-coordinate-system($coordinate-system as xs:string?) {
+    if (exists($coordinate-system)) then
+        <eval:default-coordinate-system>{$coordinate-system}</eval:default-coordinate-system>
+    else
+        ()
+};
+
 declare function local:eval-options() {
     let $server := local:nullize($server) ! xdmp:server(.)
     let $database :=
@@ -239,7 +246,7 @@ declare function local:eval-options() {
         local:eval-default-collation($server ! xdmp:server-collation(.)),
         let $server-coordinate-system := local:function("xdmp:server-coordinate-system#1")
         return if (exists($server) and exists($server-coordinate-system)) then
-            <eval:default-coordinate-system>{$server-coordinate-system($server)}</eval:default-coordinate-system>
+            local:eval-default-coordinate-system($server-coordinate-system($server))
         else
             (),
         if (exists($server) and $mimetype eq "application/xquery") then
