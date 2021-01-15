@@ -85,6 +85,14 @@ declare function local:function($ref as xs:string) {
     try { xdmp:eval($ref) } catch * { () }
 };
 
+declare function local:server-coordinate-system($server as xs:unsignedLong?) {
+    let $server-coordinate-system := local:function("xdmp:server-coordinate-system#1")
+    return if (exists($server) and exists($server-coordinate-system)) then
+        $server-coordinate-system($server)
+    else
+        ()
+};
+
 declare function local:item($path as xs:string, $value as xs:string, $type as xs:string) {
     if (string-length($value) ne 0) then
         xdmp:unquote($value)
@@ -244,11 +252,7 @@ declare function local:eval-options() {
         local:eval-static-check($mode eq "validate"),
         local:eval-database($database),
         local:eval-default-collation($server ! xdmp:server-collation(.)),
-        let $server-coordinate-system := local:function("xdmp:server-coordinate-system#1")
-        return if (exists($server) and exists($server-coordinate-system)) then
-            local:eval-default-coordinate-system($server-coordinate-system($server))
-        else
-            (),
+        local:eval-default-coordinate-system($server ! local:server-coordinate-system(.)),
         if (exists($server) and $mimetype eq "application/xquery") then
             <eval:default-xquery-version>{xdmp:server-default-xquery-version($server)}</eval:default-xquery-version>
         else
