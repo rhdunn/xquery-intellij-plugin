@@ -97,6 +97,7 @@
     <p>Run Configuration:</p>
     <ol>
       <li>Support using the modules database for selected MarkLogic app-server.</li>
+      <li>Filter the app-servers to the ones that match the selected database.</li>
     </ol>
   ]]></change-notes>
 

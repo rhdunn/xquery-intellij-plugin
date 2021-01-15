@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2020 Reece H. Dunn
+ * Copyright (C) 2018-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,7 +44,7 @@ internal class BaseXQueryProcessor(
             return ItemPresentationImpl(BaseXIcons.Product, "BaseX $version")
         }
 
-    override val servers: List<String> = listOf()
+    override fun servers(database: String): List<String> = listOf()
 
     override val databases: List<String> = listOf()
 

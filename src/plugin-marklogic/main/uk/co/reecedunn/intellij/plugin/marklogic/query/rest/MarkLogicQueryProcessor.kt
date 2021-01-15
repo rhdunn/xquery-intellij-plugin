@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2020 Reece H. Dunn
+ * Copyright (C) 2018-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -60,8 +60,11 @@ internal class MarkLogicQueryProcessor(
             return ItemPresentationImpl(MarkLogicIcons.Product, version?.let { "MarkLogic $it" } ?: "MarkLogic")
         }
 
-    override val servers: List<String>
-        get() = createRunnableQuery(MarkLogicQueries.Servers, XQuery).run().results.map { it.value as String }
+    override fun servers(database: String): List<String> {
+        val query = createRunnableQuery(MarkLogicQueries.Servers, XQuery)
+        query.bindVariable("database", database, "xs:string")
+        return query.run().results.map { it.value as String }
+    }
 
     override val databases: List<String>
         get() = createRunnableQuery(MarkLogicQueries.Databases, XQuery).run().results.map { it.value as String }

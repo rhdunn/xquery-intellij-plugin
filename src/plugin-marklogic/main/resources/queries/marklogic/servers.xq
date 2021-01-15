@@ -1,5 +1,5 @@
 (:
- : Copyright (C) 2019 Reece H. Dunn
+ : Copyright (C) 2019, 2021 Reece H. Dunn
  :
  : Licensed under the Apache License, Version 2.0 (the "License");
  : you may not use this file except in compliance with the License.
@@ -17,8 +17,21 @@ xquery version "1.0-ml";
 declare namespace o = "http://reecedunn.co.uk/xquery/options";
 declare option o:implementation "marklogic/6.0";
 
+declare variable $database as xs:string external := "emerald-test";
+
 (: Return the servers on the MarkLogic server. :)
 
-for $name in xdmp:servers() ! xdmp:server-name(.)
+let $database :=
+    try {
+        if (string-length($database) eq 0) then
+            ()
+        else
+            xdmp:database($database)
+    } catch ($e) {
+        ()
+    }
+for $server in xdmp:servers()
+let $name := xdmp:server-name($server)
+where empty($database) or $database eq xdmp:server-database($server)
 order by $name
 return $name

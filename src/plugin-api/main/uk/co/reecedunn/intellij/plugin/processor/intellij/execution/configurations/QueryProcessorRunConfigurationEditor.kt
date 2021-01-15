@@ -54,7 +54,6 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
             add(queryProcessor.component, column.horizontal().hgap().vgap())
             queryProcessor.addActionListener {
                 updateUI(false)
-                populateServerUI()
                 populateDatabaseUI()
             }
         }
@@ -105,11 +104,11 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
     private lateinit var database: JComboBox<String>
 
     @Suppress("DuplicatedCode")
-    private fun populateServerUI() {
+    private fun populateServerUI(database: String) {
         val settings = queryProcessor.settings ?: return
         executeOnPooledThread {
             try {
-                val servers = settings.session.servers
+                val servers = settings.session.servers(database)
                 invokeLater(ModalityState.any()) {
                     val current = server.selectedItem
                     server.removeAllItems()
@@ -154,6 +153,9 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
             label(PluginApiBundle.message("xquery.configurations.processor.content-database.label"), column)
             database = comboBox(column.horizontal().hgap()) {
                 isEditable = true
+                addActionListener {
+                    populateServerUI(database.selectedItem as? String? ?: "")
+                }
             }
         }
         row {
@@ -281,6 +283,7 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
 
         configureUI()
         updateUI(languages.findByMimeType { it == "application/sparql-query" } != null)
+        configuration.database?.let { populateServerUI(it) }
     }
 
     override fun applyEditorTo(configuration: QueryProcessorRunConfiguration) {

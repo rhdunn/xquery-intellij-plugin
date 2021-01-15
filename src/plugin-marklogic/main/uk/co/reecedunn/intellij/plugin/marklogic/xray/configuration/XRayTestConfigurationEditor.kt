@@ -52,13 +52,15 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
             add(queryProcessor.component, column.horizontal().hgap().vgap())
             queryProcessor.addActionListener {
                 populateDatabaseUI()
-                populateServerUI()
             }
         }
         row {
             label(PluginApiBundle.message("xquery.configurations.processor.content-database.label"), column)
             database = comboBox(column.horizontal().hgap()) {
                 isEditable = true
+                addActionListener {
+                    populateServerUI(database.selectedItem as? String? ?: "")
+                }
             }
         }
         row {
@@ -129,11 +131,11 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
     }
 
     @Suppress("DuplicatedCode")
-    private fun populateServerUI() {
+    private fun populateServerUI(database: String) {
         val settings = queryProcessor.settings ?: return
         executeOnPooledThread {
             try {
-                val servers = settings.session.servers
+                val servers = settings.session.servers(database)
                 invokeLater(ModalityState.any()) {
                     val current = server.selectedItem
                     server.removeAllItems()
@@ -164,6 +166,8 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
         modulePattern.text = settings.modulePattern ?: ""
         testPattern.text = settings.testPattern ?: ""
         outputFormat.selectedItem = settings.outputFormat
+
+        settings.database?.let { populateServerUI(it) }
     }
 
     override fun applyEditorTo(settings: XRayTestConfiguration) {
