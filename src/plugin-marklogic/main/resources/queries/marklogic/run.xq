@@ -205,6 +205,10 @@ declare function local:use-modules-root($server-root) {
     exists($server-root) and string-length($module-root) ne 0 and not($module-root eq $server-root)
 };
 
+declare function local:eval-static-check($static-check as xs:boolean) {
+    <eval:static-check>{$static-check}</eval:static-check>
+};
+
 declare function local:eval-options() {
     let $server := local:nullize($server) ! xdmp:server(.)
     let $database :=
@@ -216,10 +220,7 @@ declare function local:eval-options() {
         else
             ()
     return <eval:options>{
-        if ($mode eq "validate") then
-            <eval:static-check>true</eval:static-check>
-        else
-            (),
+        local:eval-static-check($mode eq "validate"),
         if (exists($database)) then
             <eval:database>{$database}</eval:database>
         else
