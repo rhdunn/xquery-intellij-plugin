@@ -216,6 +216,13 @@ declare function local:eval-database($database as xs:unsignedLong?) {
         ()
 };
 
+declare function local:eval-default-collation($collation as xs:string?) {
+    if (exists($collation)) then
+        <eval:default-collation>{$collation}</eval:default-collation>
+    else
+        ()
+};
+
 declare function local:eval-options() {
     let $server := local:nullize($server) ! xdmp:server(.)
     let $database :=
@@ -229,10 +236,7 @@ declare function local:eval-options() {
     return <eval:options>{
         local:eval-static-check($mode eq "validate"),
         local:eval-database($database),
-        if (exists($server)) then
-            <eval:default-collation>{xdmp:server-collation($server)}</eval:default-collation>
-        else
-            (),
+        local:eval-default-collation($server ! xdmp:server-collation(.)),
         let $server-coordinate-system := local:function("xdmp:server-coordinate-system#1")
         return if (exists($server) and exists($server-coordinate-system)) then
             <eval:default-coordinate-system>{$server-coordinate-system($server)}</eval:default-coordinate-system>
