@@ -30,8 +30,14 @@ let $database :=
     } catch ($e) {
         ()
     }
-for $server in xdmp:servers()
-let $name := xdmp:server-name($server)
-where empty($database) or $database eq xdmp:server-database($server)
-order by $name
-return $name
+let $servers :=
+    for $server in xdmp:servers()
+    where empty($database) or $database eq xdmp:server-database($server)
+    return $server
+return if (exists($servers)) then
+    for $server in $servers
+    let $name := xdmp:server-name($server)
+    order by $name
+    return $name
+else
+    "App-Services"
