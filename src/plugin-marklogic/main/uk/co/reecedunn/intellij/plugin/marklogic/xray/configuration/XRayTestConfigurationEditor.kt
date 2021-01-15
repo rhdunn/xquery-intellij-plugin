@@ -121,8 +121,6 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
         modulePattern.text = settings.modulePattern ?: ""
         testPattern.text = settings.testPattern ?: ""
         outputFormat.selectedItem = settings.outputFormat
-
-        settings.database?.let { server.populateServerUI(queryProcessor.settings, it) }
     }
 
     override fun applyEditorTo(settings: XRayTestConfiguration) {

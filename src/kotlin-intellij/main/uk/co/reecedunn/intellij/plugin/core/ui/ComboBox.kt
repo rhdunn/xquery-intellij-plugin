@@ -28,8 +28,14 @@ fun JComboBox<String>.replaceItems(items: Sequence<String>) {
 
         val current = selectedItem
         removeAllItems()
+
+        if (isEditable) {
+            selectedItem = current
+        }
         items.forEach { addItem(it) }
-        selectedItem = current
+        if (!isEditable) {
+            selectedItem = current
+        }
     } finally {
         isEnabled = wasEnabled
     }

@@ -238,7 +238,6 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
 
         configureUI()
         updateUI(languages.findByMimeType { it == "application/sparql-query" } != null)
-        configuration.database?.let { server.populateServerUI(queryProcessor.settings, it) }
     }
 
     override fun applyEditorTo(configuration: QueryProcessorRunConfiguration) {
