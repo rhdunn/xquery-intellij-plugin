@@ -33,6 +33,7 @@ import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.QueryProc
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.queryProcessorDataSource
 import uk.co.reecedunn.intellij.plugin.processor.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.*
+import uk.co.reecedunn.intellij.plugin.processor.query.populateServerUI
 import javax.swing.*
 
 class QueryProcessorRunConfigurationEditor(private val project: Project, private vararg val languages: Language) :
@@ -104,28 +105,6 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
     private lateinit var database: JComboBox<String>
 
     @Suppress("DuplicatedCode")
-    private fun populateServerUI(database: String) {
-        val settings = queryProcessor.settings ?: return
-        executeOnPooledThread {
-            try {
-                val servers = settings.session.servers(database)
-                invokeLater(ModalityState.any()) {
-                    val current = server.selectedItem
-                    server.removeAllItems()
-                    servers.forEach { name -> server.addItem(name) }
-                    server.selectedItem = current
-                }
-            } catch (e: Throwable) {
-                invokeLater(ModalityState.any()) {
-                    val current = server.selectedItem
-                    server.removeAllItems()
-                    server.selectedItem = current
-                }
-            }
-        }
-    }
-
-    @Suppress("DuplicatedCode")
     private fun populateDatabaseUI() {
         val settings = queryProcessor.settings ?: return
         executeOnPooledThread {
@@ -154,7 +133,7 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
             database = comboBox(column.horizontal().hgap()) {
                 isEditable = true
                 addActionListener {
-                    populateServerUI(database.selectedItem as? String? ?: "")
+                    server.populateServerUI(queryProcessor.settings, database.selectedItem as? String? ?: "")
                 }
             }
         }
@@ -283,7 +262,7 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
 
         configureUI()
         updateUI(languages.findByMimeType { it == "application/sparql-query" } != null)
-        configuration.database?.let { populateServerUI(it) }
+        configuration.database?.let { server.populateServerUI(queryProcessor.settings, it) }
     }
 
     override fun applyEditorTo(configuration: QueryProcessorRunConfiguration) {

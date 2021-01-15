@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
 import uk.co.reecedunn.intellij.plugin.processor.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessorComboBox
+import uk.co.reecedunn.intellij.plugin.processor.query.populateServerUI
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurations
 import javax.swing.JComboBox
 import javax.swing.JComponent
@@ -59,7 +60,7 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
             database = comboBox(column.horizontal().hgap()) {
                 isEditable = true
                 addActionListener {
-                    populateServerUI(database.selectedItem as? String? ?: "")
+                    server.populateServerUI(queryProcessor.settings, database.selectedItem as? String? ?: "")
                 }
             }
         }
@@ -130,28 +131,6 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
         }
     }
 
-    @Suppress("DuplicatedCode")
-    private fun populateServerUI(database: String) {
-        val settings = queryProcessor.settings ?: return
-        executeOnPooledThread {
-            try {
-                val servers = settings.session.servers(database)
-                invokeLater(ModalityState.any()) {
-                    val current = server.selectedItem
-                    server.removeAllItems()
-                    servers.forEach { name -> server.addItem(name) }
-                    server.selectedItem = current
-                }
-            } catch (e: Throwable) {
-                invokeLater(ModalityState.any()) {
-                    val current = server.selectedItem
-                    server.removeAllItems()
-                    server.selectedItem = current
-                }
-            }
-        }
-    }
-
     // endregion
     // region SettingsEditor
 
@@ -167,7 +146,7 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
         testPattern.text = settings.testPattern ?: ""
         outputFormat.selectedItem = settings.outputFormat
 
-        settings.database?.let { populateServerUI(it) }
+        settings.database?.let { server.populateServerUI(queryProcessor.settings, it) }
     }
 
     override fun applyEditorTo(settings: XRayTestConfiguration) {
