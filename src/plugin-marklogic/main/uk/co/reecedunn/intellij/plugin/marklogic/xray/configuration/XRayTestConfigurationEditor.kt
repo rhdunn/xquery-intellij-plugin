@@ -21,6 +21,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
+import uk.co.reecedunn.intellij.plugin.core.ui.selectOrAddItem
 import uk.co.reecedunn.intellij.plugin.processor.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessorComboBox
 import uk.co.reecedunn.intellij.plugin.processor.query.populateDatabaseUI
@@ -56,7 +57,6 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
         row {
             label(PluginApiBundle.message("xquery.configurations.processor.content-database.label"), column)
             database = comboBox(column.horizontal().hgap()) {
-                isEditable = true
                 addActionListener {
                     server.populateServerUI(queryProcessor.settings, database.selectedItem as? String? ?: "")
                 }
@@ -64,9 +64,7 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
         }
         row {
             label(PluginApiBundle.message("xquery.configurations.processor.server.label"), column.vgap())
-            server = comboBox(column.horizontal().hgap().vgap()) {
-                isEditable = true
-            }
+            server = comboBox(column.horizontal().hgap().vgap())
         }
         row {
             label(PluginApiBundle.message("xquery.configurations.processor.module-root.label"), column.vgap())
@@ -114,8 +112,8 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
 
     override fun resetEditorFrom(settings: XRayTestConfiguration) {
         queryProcessor.processorId = settings.processorId
-        database.selectedItem = settings.database
-        server.selectedItem = settings.server
+        database.selectOrAddItem(settings.database)
+        server.selectOrAddItem(settings.server)
         modulePath.textField.text = settings.modulePath ?: ""
         testPath.textField.text = settings.testPath ?: projectRoot ?: ""
         modulePattern.text = settings.modulePattern ?: ""

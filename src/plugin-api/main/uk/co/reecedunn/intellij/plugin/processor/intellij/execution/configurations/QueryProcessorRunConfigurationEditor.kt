@@ -24,6 +24,7 @@ import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.core.fileChooser.FileNameMatcherDescriptor
 import uk.co.reecedunn.intellij.plugin.core.lang.*
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
+import uk.co.reecedunn.intellij.plugin.core.ui.selectOrAddItem
 import uk.co.reecedunn.intellij.plugin.processor.intellij.lang.RDF_FORMATS
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.QueryProcessorDataSource
@@ -107,7 +108,6 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
         row {
             label(PluginApiBundle.message("xquery.configurations.processor.content-database.label"), column)
             database = comboBox(column.horizontal().hgap()) {
-                isEditable = true
                 addActionListener {
                     server.populateServerUI(queryProcessor.settings, database.selectedItem as? String? ?: "")
                 }
@@ -115,9 +115,7 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
         }
         row {
             label(PluginApiBundle.message("xquery.configurations.processor.server.label"), column.vgap())
-            server = comboBox(column.horizontal().hgap().vgap()) {
-                isEditable = true
-            }
+            server = comboBox(column.horizontal().hgap().vgap())
         }
         row {
             label(PluginApiBundle.message("xquery.configurations.processor.module-root.label"), column.vgap())
@@ -225,8 +223,8 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
     override fun resetEditorFrom(configuration: QueryProcessorRunConfiguration) {
         queryProcessor.processorId = configuration.processorId
         rdfOutputFormat.selectedItem = configuration.rdfOutputFormat
-        database.selectedItem = configuration.database
-        server.selectedItem = configuration.server
+        database.selectOrAddItem(configuration.database)
+        server.selectOrAddItem(configuration.server)
         modulePath.textField.text = configuration.modulePath ?: ""
         scriptFile.type = configuration.scriptSource
         scriptFile.path = configuration.scriptFilePath

@@ -20,6 +20,14 @@ import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
 import javax.swing.JComboBox
 
+fun JComboBox<String>.selectOrAddItem(item: String?) {
+    if (itemCount == 0 && item != null) {
+        addItem(item)
+    } else {
+        selectedItem = item
+    }
+}
+
 fun JComboBox<String>.replaceItems(items: Sequence<String>) {
     val wasEnabled = isEnabled
     try {
