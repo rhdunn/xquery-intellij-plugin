@@ -238,6 +238,13 @@ declare function local:eval-default-coordinate-system($coordinate-system as xs:s
         ()
 };
 
+declare function local:eval-default-xquery-version($xquery-version as xs:string?) {
+    if (exists($xquery-version) and $mimetype eq "application/xquery") then
+        <eval:default-xquery-version>{$xquery-version}</eval:default-xquery-version>
+    else
+        ()
+};
+
 declare function local:eval-options() {
     let $server := local:nullize($server) ! xdmp:server(.)
     let $database :=
@@ -253,10 +260,7 @@ declare function local:eval-options() {
         local:eval-database($database),
         local:eval-default-collation($server ! xdmp:server-collation(.)),
         local:eval-default-coordinate-system($server ! local:server-coordinate-system(.)),
-        if (exists($server) and $mimetype eq "application/xquery") then
-            <eval:default-xquery-version>{xdmp:server-default-xquery-version($server)}</eval:default-xquery-version>
-        else
-            (),
+        local:eval-default-xquery-version($server ! xdmp:server-default-xquery-version($server)),
         let $server-root := $server ! xdmp:server-root(.)
         return if (local:use-modules-root($server-root)) then
             (<eval:modules>0</eval:modules>, <eval:root>{$module-root}</eval:root>) (: file system :)
