@@ -51,17 +51,26 @@ fun JComboBox<String>.replaceItems(items: Sequence<String>) {
 
 fun JComboBox<String>.replaceItems(items: List<String>) = replaceItems(items.asSequence())
 
-fun JComboBox<String>.replaceItemsOnPooledThread(calculateItems: () -> List<String>) {
+fun JComboBox<String>.replaceItemsOnPooledThread(calculateItems: () -> List<String>, onupdated: () -> Unit) {
     executeOnPooledThread {
+        var updated = false
         try {
             val items = calculateItems()
             invokeLater(ModalityState.any()) {
                 replaceItems(items)
+                updated = true
+                onupdated()
             }
         } catch (e: Throwable) {
-            invokeLater(ModalityState.any()) {
-                replaceItems(emptySequence())
+            if (!updated) {
+                invokeLater(ModalityState.any()) {
+                    replaceItems(emptySequence())
+                }
             }
         }
     }
+}
+
+fun JComboBox<String>.replaceItemsOnPooledThread(calculateItems: () -> List<String>) {
+    replaceItemsOnPooledThread(calculateItems, {})
 }

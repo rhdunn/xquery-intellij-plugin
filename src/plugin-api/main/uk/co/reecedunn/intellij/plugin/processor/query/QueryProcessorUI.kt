@@ -20,7 +20,9 @@ import javax.swing.JComboBox
 
 fun JComboBox<String>.populateServerUI(settings: QueryProcessorSettings?, database: String) {
     if (settings == null) return
-    replaceItemsOnPooledThread { settings.session.servers(database) }
+    replaceItemsOnPooledThread({ settings.session.servers(database) }) {
+        isEnabled = itemCount > 1
+    }
 }
 
 fun JComboBox<String>.populateDatabaseUI(settings: QueryProcessorSettings?) {
