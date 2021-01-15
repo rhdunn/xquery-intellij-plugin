@@ -1029,8 +1029,8 @@ class SaxonSyntaxValidatorTest :
     }
 
     @Nested
-    @DisplayName("XQuery 4.0 ED EBNF (50) ForBinding")
-    internal inner class ForBinding {
+    @DisplayName("XQuery 4.0 ED EBNF (53) ForMemberBinding")
+    internal inner class ForMemberBinding {
         @Test
         @DisplayName("Saxon HE")
         fun notSupportedHE() {

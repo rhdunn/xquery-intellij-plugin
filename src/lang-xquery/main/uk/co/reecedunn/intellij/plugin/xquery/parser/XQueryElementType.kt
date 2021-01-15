@@ -634,6 +634,12 @@ object XQueryElementType {
     // endregion
     // region XQuery 4.0 ED
 
+    val FOR_MEMBER_BINDING: IElementType = ICompositeElementType(
+        "XQUERY_FOR_MEMBER_BINDING",
+        XQueryForMemberBindingPsiImpl::class.java,
+        XQuery
+    )
+
     val ITEM_TYPE_DECL: IElementType = ICompositeElementType(
         "XQUERY_ITEM_TYPE_DECL",
         XQueryItemTypeDeclPsiImpl::class.java,

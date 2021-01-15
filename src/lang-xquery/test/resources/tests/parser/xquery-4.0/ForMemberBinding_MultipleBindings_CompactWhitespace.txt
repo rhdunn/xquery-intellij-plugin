@@ -5,7 +5,7 @@ XQueryModuleImpl[FILE(0:41)]
             XQueryForClauseImpl[XQUERY_FOR_CLAUSE(0:33)]
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FOR(0:3)]('for')
                PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
-               XQueryForBindingImpl[XQUERY_FOR_BINDING(4:18)]
+               XQueryForMemberBindingImpl[XQUERY_FOR_MEMBER_BINDING(4:18)]
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_MEMBER(4:10)]('member')
                   LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(10:11)]('$')
                   XQueryNCNameImpl[XQUERY_NCNAME(11:14)]
@@ -16,7 +16,7 @@ XQueryModuleImpl[FILE(0:41)]
                      LeafPsiElement[XPATH_SQUARE_OPEN_TOKEN(16:17)]('[')
                      LeafPsiElement[XPATH_SQUARE_CLOSE_TOKEN(17:18)](']')
                LeafPsiElement[XPATH_COMMA_TOKEN(18:19)](',')
-               XQueryForBindingImpl[XQUERY_FOR_BINDING(19:33)]
+               XQueryForMemberBindingImpl[XQUERY_FOR_MEMBER_BINDING(19:33)]
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_MEMBER(19:25)]('member')
                   LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(25:26)]('$')
                   XQueryNCNameImpl[XQUERY_NCNAME(26:29)]

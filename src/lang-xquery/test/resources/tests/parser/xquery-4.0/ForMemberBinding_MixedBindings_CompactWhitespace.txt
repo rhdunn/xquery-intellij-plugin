@@ -5,7 +5,7 @@ XQueryModuleImpl[FILE(0:35)]
             XQueryForClauseImpl[XQUERY_FOR_CLAUSE(0:27)]
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FOR(0:3)]('for')
                PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
-               XQueryForBindingImpl[XQUERY_FOR_BINDING(4:18)]
+               XQueryForMemberBindingImpl[XQUERY_FOR_MEMBER_BINDING(4:18)]
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_MEMBER(4:10)]('member')
                   LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(10:11)]('$')
                   XQueryNCNameImpl[XQUERY_NCNAME(11:14)]

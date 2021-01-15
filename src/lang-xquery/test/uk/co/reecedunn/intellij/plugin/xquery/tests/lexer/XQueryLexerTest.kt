@@ -369,7 +369,7 @@ class XQueryLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery 1.0 EBNF (34) ForClause")
+    @DisplayName("XQuery 1.0 EBNF (34) ForClause ; XQuery 3.0 EBNF (45) ForBinding")
     fun testForClause() {
         val lexer = createLexer()
 
@@ -389,7 +389,7 @@ class XQueryLexerTest : LexerTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery 1.0 EBNF (36) LetClause")
+    @DisplayName("XQuery 1.0 EBNF (36) LetClause ; XQuery 3.0 EBNF (49) LetBinding")
     fun testLetClause() {
         val lexer = createLexer()
 
@@ -3835,6 +3835,18 @@ class XQueryLexerTest : LexerTestCase() {
 
         matchSingleToken(lexer, "??", XPathTokenType.TERNARY_IF)
         matchSingleToken(lexer, "!!", XPathTokenType.TERNARY_ELSE)
+    }
+
+    @Test
+    @DisplayName("XQuery 4.0 ED EBNF (52) ForMemberClause ; XQuery 4.0 ED EBNF (53) ForMemberBinding")
+    fun forMemberClause() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "for", XPathTokenType.K_FOR)
+        matchSingleToken(lexer, "member", XPathTokenType.K_MEMBER)
+        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
+        matchSingleToken(lexer, "in", XPathTokenType.K_IN)
+        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
     }
 
     @Test

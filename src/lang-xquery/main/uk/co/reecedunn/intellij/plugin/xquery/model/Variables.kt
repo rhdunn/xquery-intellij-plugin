@@ -48,12 +48,17 @@ private class InScopeVariableContext {
     var visitedBlockDecls = false
 }
 
-// ForBinding, LetBinding, GroupingSpec
+// ForBinding, ForMemberBinding, LetBinding, GroupingSpec
 private fun PsiElement.flworBindingVariables(
     node: PsiElement,
     context: InScopeVariableContext
 ): Sequence<XpmVariableBinding> {
-    if (node is XQueryForBinding || node is XQueryLetBinding || node is XQueryGroupingSpec) {
+    if (
+        node is XQueryForBinding ||
+        node is XQueryForMemberBinding ||
+        node is XQueryLetBinding ||
+        node is XQueryGroupingSpec
+    ) {
         context.visitedFlworClause = true
         if (context.visitedFlworBinding) {
             context.visitedFlworBinding = false
@@ -76,7 +81,7 @@ private fun PsiElement.flworClauseVariables(context: InScopeVariableContext): Se
     } else {
         children().flatMap { binding ->
             when (binding) {
-                is XQueryForBinding, is XQueryLetBinding, is XQueryGroupingSpec -> {
+                is XQueryForBinding, is XQueryForMemberBinding, is XQueryLetBinding, is XQueryGroupingSpec -> {
                     binding.flworBindingVariables(this, context)
                 }
                 else -> emptySequence()
@@ -186,7 +191,7 @@ fun PsiElement.xqueryInScopeVariables(): Sequence<XpmVariableDefinition> {
             when (node) {
                 is XQueryProlog -> node.varDecls().filterNotNull()
                 is XQueryForClause, is XQueryLetClause -> node.flworClauseVariables(context)
-                is XQueryForBinding, is XQueryLetBinding, is XQueryGroupingSpec -> {
+                is XQueryForBinding, is XQueryForMemberBinding, is XQueryLetBinding, is XQueryGroupingSpec -> {
                     node.flworBindingVariables(node, context)
                 }
                 is XQueryWindowClause -> node.windowClauseVariables(context)
@@ -217,7 +222,7 @@ fun PsiElement.xqueryInScopeVariables(): Sequence<XpmVariableDefinition> {
                 is ScriptingBlockDecls -> node.blockDecls(context)
                 else -> {
                     when (node.parent) {
-                        is XQueryForBinding, is XQueryLetBinding, is XQueryGroupingSpec -> {
+                        is XQueryForBinding, is XQueryForMemberBinding, is XQueryLetBinding, is XQueryGroupingSpec -> {
                             context.visitedFlworBinding = true
                             if (node.parent.parent.parent is XQueryIntermediateClause) { // The parent of the ForClause/LetClause.
                                 context.visitedFlworClauseAsIntermediateClause = true

@@ -2950,7 +2950,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
         @DisplayName("XQuery IntelliJ Plugin (3.17.1) For Member Clause")
         internal inner class ForMemberClause {
             @Nested
-            @DisplayName("XQuery 3.1 EBNF (45) ForBinding ; XQuery 3.1 EBNF (42) InitialClause")
+            @DisplayName("XQuery 4.0 ED EBNF (53) ForBinding ; XQuery 4.0 ED EBNF (47) InitialClause")
             internal inner class ForBinding_InitialClause {
                 @Test
                 @DisplayName("from VarName expression")
@@ -2996,7 +2996,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
             }
 
             @Nested
-            @DisplayName("XQuery 3.1 EBNF (45) ForBinding ; XQuery 3.1 EBNF (43) IntermediateClause")
+            @DisplayName("XQuery 4.0 ED EBNF (53) ForBinding ; XQuery 4.0 EBNF (48) IntermediateClause")
             internal inner class ForBinding_IntermediateClause {
                 @Test
                 @DisplayName("from VarName expression")
@@ -3054,7 +3054,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
             }
 
             @Nested
-            @DisplayName("XQuery 3.1 EBNF (47) PositionalVar")
+            @DisplayName("XQuery 4.0 ED EBNF (54) PositionalVar")
             internal inner class PositionalVar {
                 @Test
                 @DisplayName("from VarName expression")

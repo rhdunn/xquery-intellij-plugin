@@ -764,6 +764,7 @@ EQNames. Otherwise, it accepts *default element\/type* EQNames.
 | `CurrentItem`           | `XpmVariableBinding`     |
 | `DefaultCaseClause`     | `XpmVariableBinding`     |
 | `ForBinding`            | `XpmVariableBinding`     |
+| `ForMemberBinding`      | `XpmVariableBinding`     |
 | `FTScoreVar`            | `XpmVariableBinding`     |
 | `GroupingSpec`          | `XpmVariableBinding`     |
 | `LetBinding`            | `XpmVariableBinding`     |

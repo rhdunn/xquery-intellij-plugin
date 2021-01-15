@@ -1660,7 +1660,11 @@ class XQueryParser : XPathParser() {
                 builder.error(XPathBundle.message("parser.error.expected-expression"))
             }
 
-            marker.done(XQueryElementType.FOR_BINDING)
+            if (haveMember) {
+                marker.done(XQueryElementType.FOR_MEMBER_BINDING)
+            } else {
+                marker.done(XQueryElementType.FOR_BINDING)
+            }
             return true
         }
         marker.drop()

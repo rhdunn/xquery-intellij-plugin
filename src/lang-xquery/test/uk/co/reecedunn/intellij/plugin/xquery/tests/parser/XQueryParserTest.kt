@@ -9405,64 +9405,64 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery 4.0 ED EBNF (46) FLWORExpr ; XQuery 4.0 ED EBNF (50) ForClause")
+    @DisplayName("XQuery 4.0 ED EBNF (46) FLWORExpr ; XQuery 4.0 ED EBNF (52) ForMemberClause")
     internal inner class ForClause_XQuery40 {
         @Nested
-        @DisplayName("XQuery 4.0 ED EBNF (50) ForBinding")
-        internal inner class ForBinding {
+        @DisplayName("XQuery 4.0 ED EBNF (53) ForMemberBinding")
+        internal inner class ForMemberBinding {
             @Test
             @DisplayName("single binding")
             fun singleBinding() {
-                val expected = loadResource("tests/parser/xquery-4.0/ForBinding_Member_SingleBinding.txt")
-                val actual = parseResource("tests/parser/xquery-4.0/ForBinding_Member_SingleBinding.xq")
+                val expected = loadResource("tests/parser/xquery-4.0/ForMemberBinding_SingleBinding.txt")
+                val actual = parseResource("tests/parser/xquery-4.0/ForMemberBinding_SingleBinding.xq")
                 assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
             @DisplayName("single binding; compact whitespace")
             fun singleBinding_compactWhitespace() {
-                val expected = loadResource("tests/parser/xquery-4.0/ForBinding_Member_SingleBinding_CompactWhitespace.txt")
-                val actual = parseResource("tests/parser/xquery-4.0/ForBinding_Member_SingleBinding_CompactWhitespace.xq")
+                val expected = loadResource("tests/parser/xquery-4.0/ForMemberBinding_SingleBinding_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-4.0/ForMemberBinding_SingleBinding_CompactWhitespace.xq")
                 assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
             @DisplayName("multiple bindings")
             fun multipleBindings() {
-                val expected = loadResource("tests/parser/xquery-4.0/ForBinding_Member_MultipleBindings.txt")
-                val actual = parseResource("tests/parser/xquery-4.0/ForBinding_Member_MultipleBindings.xq")
+                val expected = loadResource("tests/parser/xquery-4.0/ForMemberBinding_MultipleBindings.txt")
+                val actual = parseResource("tests/parser/xquery-4.0/ForMemberBinding_MultipleBindings.xq")
                 assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
             @DisplayName("multiple bindings; compact whitespace")
             fun multipleBindings_compactWhitespace() {
-                val expected = loadResource("tests/parser/xquery-4.0/ForBinding_Member_MultipleBindings_CompactWhitespace.txt")
-                val actual = parseResource("tests/parser/xquery-4.0/ForBinding_Member_MultipleBindings_CompactWhitespace.xq")
+                val expected = loadResource("tests/parser/xquery-4.0/ForMemberBinding_MultipleBindings_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-4.0/ForMemberBinding_MultipleBindings_CompactWhitespace.xq")
                 assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
             @DisplayName("member; mixed bindings")
             fun mixedBindings() {
-                val expected = loadResource("tests/parser/xquery-4.0/ForBinding_Member_MixedBindings.txt")
-                val actual = parseResource("tests/parser/xquery-4.0/ForBinding_Member_MixedBindings.xq")
+                val expected = loadResource("tests/parser/xquery-4.0/ForMemberBinding_MixedBindings.txt")
+                val actual = parseResource("tests/parser/xquery-4.0/ForMemberBinding_MixedBindings.xq")
                 assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
             @DisplayName("member; mixed bindings; compact whitespace")
             fun mixedBindings_compactWhitespace() {
-                val expected = loadResource("tests/parser/xquery-4.0/ForBinding_Member_MixedBindings_CompactWhitespace.txt")
-                val actual = parseResource("tests/parser/xquery-4.0/ForBinding_Member_MixedBindings_CompactWhitespace.xq")
+                val expected = loadResource("tests/parser/xquery-4.0/ForMemberBinding_MixedBindings_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-4.0/ForMemberBinding_MixedBindings_CompactWhitespace.xq")
                 assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
             @DisplayName("missing for binding")
             fun missingForBinding() {
-                val expected = loadResource("tests/parser/xquery-4.0/ForBinding_Member_MissingForBinding.txt")
-                val actual = parseResource("tests/parser/xquery-4.0/ForBinding_Member_MissingForBinding.xq")
+                val expected = loadResource("tests/parser/xquery-4.0/ForMemberBinding_MissingForBinding.txt")
+                val actual = parseResource("tests/parser/xquery-4.0/ForMemberBinding_MissingForBinding.xq")
                 assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }
