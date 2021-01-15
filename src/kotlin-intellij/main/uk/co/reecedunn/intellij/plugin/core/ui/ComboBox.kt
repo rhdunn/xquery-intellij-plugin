@@ -21,10 +21,18 @@ import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
 import javax.swing.JComboBox
 
 fun JComboBox<String>.replaceItems(items: Sequence<String>) {
-    val current = selectedItem
-    removeAllItems()
-    items.forEach { addItem(it) }
-    selectedItem = current
+    val wasEnabled = isEnabled
+    try {
+        // Don't generate action listener events during the update.
+        isEnabled = false
+
+        val current = selectedItem
+        removeAllItems()
+        items.forEach { addItem(it) }
+        selectedItem = current
+    } finally {
+        isEnabled = wasEnabled
+    }
 }
 
 fun JComboBox<String>.replaceItems(items: List<String>) = replaceItems(items.asSequence())
