@@ -1,5 +1,5 @@
 (:
- : Copyright (C) 2018-2020 Reece H. Dunn
+ : Copyright (C) 2018-2021 Reece H. Dunn
  :
  : Licensed under the Apache License, Version 2.0 (the "License");
  : you may not use this file except in compliance with the License.
@@ -18,6 +18,8 @@ xquery version "1.0-ml";
 import module namespace sem = "http://marklogic.com/semantics" at "/MarkLogic/semantics.xqy";
 
 declare namespace o = "http://reecedunn.co.uk/xquery/options";
+declare namespace eval = "xdmp:eval";
+
 declare option o:implementation "marklogic/6.0";
 
 (:~ Run a query on a MarkLogic server.
@@ -213,31 +215,31 @@ declare function local:eval-options() {
             xdmp:server-database($server)
         else
             ()
-    return <options xmlns="xdmp:eval">{
+    return <eval:options>{
         if ($mode eq "validate") then
-            <static-check>true</static-check>
+            <eval:static-check>true</eval:static-check>
         else
             (),
         if (exists($database)) then
-            <database>{$database}</database>
+            <eval:database>{$database}</eval:database>
         else
             (),
         if (exists($server)) then
-            <default-collation>{xdmp:server-collation($server)}</default-collation>
+            <eval:default-collation>{xdmp:server-collation($server)}</eval:default-collation>
         else
             (),
         let $server-coordinate-system := local:function("xdmp:server-coordinate-system#1")
         return if (exists($server) and exists($server-coordinate-system)) then
-            <default-coordinate-system>{$server-coordinate-system($server)}</default-coordinate-system>
+            <eval:default-coordinate-system>{$server-coordinate-system($server)}</eval:default-coordinate-system>
         else
             (),
         if (exists($server) and $mimetype eq "application/xquery") then
-            <default-xquery-version>{xdmp:server-default-xquery-version($server)}</default-xquery-version>
+            <eval:default-xquery-version>{xdmp:server-default-xquery-version($server)}</eval:default-xquery-version>
         else
             (),
         let $server-root := $server ! xdmp:server-root(.)
         return if (local:use-modules-root($server-root)) then
-            (<modules>0</modules>, <root>{$module-root}</root>) (: file system :)
+            (<eval:modules>0</eval:modules>, <eval:root>{$module-root}</eval:root>) (: file system :)
         else
             (), (: use the default server settings :)
         let $major := local:version()
@@ -249,13 +251,13 @@ declare function local:eval-options() {
                 ()
         else if ($major lt 7.0 or ($major eq 8.0 and $minor lt 7.0) or ($major eq 9.0 and $minor lt 2.0)) then
             if ($updating = "true") then
-                <transaction-mode>update</transaction-mode>
+                <eval:transaction-mode>update</eval:transaction-mode>
             else
-                <transaction-mode>query</transaction-mode>
+                <eval:transaction-mode>query</eval:transaction-mode>
         else
             (: MarkLogic 8.0-7 and 9.0-2 support <update> :)
-            <update>{$updating}</update>
-    }</options>
+            <eval:update>{$updating}</eval:update>
+    }</eval:options>
 };
 
 declare function local:javascript() as item()* {
