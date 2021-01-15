@@ -209,6 +209,13 @@ declare function local:eval-static-check($static-check as xs:boolean) {
     <eval:static-check>{$static-check}</eval:static-check>
 };
 
+declare function local:eval-database($database as xs:unsignedLong?) {
+    if (exists($database)) then
+        <eval:database>{$database}</eval:database>
+    else
+        ()
+};
+
 declare function local:eval-options() {
     let $server := local:nullize($server) ! xdmp:server(.)
     let $database :=
@@ -221,10 +228,7 @@ declare function local:eval-options() {
             ()
     return <eval:options>{
         local:eval-static-check($mode eq "validate"),
-        if (exists($database)) then
-            <eval:database>{$database}</eval:database>
-        else
-            (),
+        local:eval-database($database),
         if (exists($server)) then
             <eval:default-collation>{xdmp:server-collation($server)}</eval:default-collation>
         else
