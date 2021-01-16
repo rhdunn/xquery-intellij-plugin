@@ -9465,6 +9465,46 @@ private class XQueryParserTest : ParserTestCase() {
                 val actual = parseResource("tests/parser/xquery-4.0/ForMemberBinding_MissingForBinding.xq")
                 assertThat(actual.toPsiTreeString(), `is`(expected))
             }
+
+            @Test
+            @DisplayName("type declaration")
+            fun typeDeclaration() {
+                val expected = loadResource("tests/parser/xquery-4.0/ForMemberBinding_TypeDeclaration.txt")
+                val actual = parseResource("tests/parser/xquery-4.0/ForMemberBinding_TypeDeclaration.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("type declaration; compact whitespace")
+            fun typeDeclaration_compactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-4.0/ForMemberBinding_TypeDeclaration_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-4.0/ForMemberBinding_TypeDeclaration_CompactWhitespace.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("positional var")
+            fun positionalVar() {
+                val expected = loadResource("tests/parser/xquery-4.0/ForMemberBinding_PositionalVar.txt")
+                val actual = parseResource("tests/parser/xquery-4.0/ForMemberBinding_PositionalVar.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("positional var; compact whitespace")
+            fun positionalVar_compactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-4.0/ForMemberBinding_PositionalVar_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-4.0/ForMemberBinding_PositionalVar_CompactWhitespace.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: allowing empty")
+            fun allowingEmpty() {
+                val expected = loadResource("tests/parser/xquery-4.0/ForMemberBinding_AllowingEmpty.txt")
+                val actual = parseResource("tests/parser/xquery-4.0/ForMemberBinding_AllowingEmpty.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
         }
     }
 

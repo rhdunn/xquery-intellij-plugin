@@ -936,7 +936,7 @@ the function to each item in `UnaryExpr`.
 {: .ebnf-symbols }
 | Ref     | Symbol                        |     | Expression                                | Options |
 |---------|-------------------------------|-----|-------------------------------------------|---------|
-| \[121\] | `ForMemberBinding`            | ::= | `"$" VarName TypeDeclaration? AllowingEmpty? PositionalVar? "in" ExprSingle` | |
+| \[121\] | `ForMemberBinding`            | ::= | `"$" VarName TypeDeclaration? PositionalVar? "in" ExprSingle` | |
 | \[148\] | `ForMemberClause`             | ::= | `"for" "member" ForMemberBinding ("," ForMemberBinding)*` |  |
 | \[149\] | `InitialClause`               | ::= | `ForClause | ForMemberClause | LetClause | WindowClause` | |
 
@@ -1228,7 +1228,7 @@ These changes include support for:
 | \[118\]  | `ParamRef`                     | ::= | `"$" Digits`                        |                       |
 | \[119\]  | `ArrowDynamicFunctionCall`     | ::= | `( VarRef \| ParamRef \| ParenthesizedExpr ) PositionalArgumentList` | |
 | \[120\]  | `PositionalArguments`          | ::= | `Argument ("," Argument)*`          |                       |
-| \[121\]  | `ForMemberBinding`             | ::= | `"$" VarName TypeDeclaration? AllowingEmpty? PositionalVar? "in" ExprSingle` | |
+| \[121\]  | `ForMemberBinding`             | ::= | `"$" VarName TypeDeclaration? PositionalVar? "in" ExprSingle` | |
 | \[122\]  | `DirElemContent`               | ::= | `DirectConstructor \| CDataSection \| EnclosedExpr \| DirTextConstructor` | |
 | \[123\]  | `DirTextConstructor`           | ::= | `ElementContentChar \| PredefinedEntityRef \| CharRef \| "{{" \| "}}"` | |
 | \[124\]  | `PathExpr`                     | ::= | `("/" RelativePathExpr?) \| (AbbrevDescendantOrSelfStep RelativePathExpr) \| RelativePathExpr` | /\* xgc: leading-lone-slash \*/ |

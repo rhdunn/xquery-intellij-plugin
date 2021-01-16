@@ -1651,7 +1651,7 @@ class XQueryParser : XPathParser() {
             val haveTypeDeclaration = parseTypeDeclaration(builder)
 
             parseWhiteSpaceAndCommentTokens(builder)
-            val haveAllowingEmpty = parseAllowingEmpty(builder)
+            val haveAllowingEmpty = parseAllowingEmpty(builder, type)
 
             parseWhiteSpaceAndCommentTokens(builder)
             val havePositionalVar = parsePositionalVar(builder)
@@ -1684,7 +1684,19 @@ class XQueryParser : XPathParser() {
         return haveMember
     }
 
-    private fun parseAllowingEmpty(builder: PsiBuilder): Boolean {
+    private fun parseAllowingEmpty(builder: PsiBuilder, type: IElementType): Boolean {
+        if (type == XQueryElementType.FOR_MEMBER_BINDING) {
+            if (
+                builder.errorOnTokenType(
+                    XQueryTokenType.K_ALLOWING, XPathBundle.message("parser.error.unexpected-allowing-empty")
+                )
+            ) {
+                parseWhiteSpaceAndCommentTokens(builder)
+                builder.matchTokenType(XPathTokenType.K_EMPTY)
+            }
+            return false
+        }
+
         val marker = builder.matchTokenTypeWithMarker(XQueryTokenType.K_ALLOWING)
         if (marker != null) {
             parseWhiteSpaceAndCommentTokens(builder)

@@ -1,0 +1,27 @@
+XQueryModuleImpl[FILE(0:34)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:34)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:34)]
+         XQueryFLWORExprImpl[XQUERY_FLWOR_EXPR(0:34)]
+            XQueryForMemberClauseImpl[XQUERY_FOR_MEMBER_CLAUSE(0:26)]
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FOR(0:3)]('for')
+               PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_MEMBER(4:10)]('member')
+               XQueryForMemberBindingImpl[XQUERY_FOR_MEMBER_BINDING(10:26)]
+                  LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(10:11)]('$')
+                  XQueryNCNameImpl[XQUERY_NCNAME(11:13)]
+                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(11:12)]('m')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AS(13:15)]('as')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
+                  XPathAnyItemTestImpl[XPATH_ANY_ITEM_TEST(16:22)]
+                     XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ITEM(16:20)]('item')
+                     LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(20:21)]('(')
+                     LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(21:22)](')')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_IN(22:24)]('in')
+                  XPathSquareArrayConstructorImpl[XPATH_SQUARE_ARRAY_CONSTRUCTOR(24:26)]
+                     LeafPsiElement[XPATH_SQUARE_OPEN_TOKEN(24:25)]('[')
+                     LeafPsiElement[XPATH_SQUARE_CLOSE_TOKEN(25:26)](']')
+            PluginReturnClauseImpl[XPATH_RETURN_CLAUSE(26:34)]
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_RETURN(26:32)]('return')
+               PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')
+               XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(33:34)]('1')

@@ -1,0 +1,31 @@
+XQueryModuleImpl[FILE(0:45)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:45)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:45)]
+         XQueryFLWORExprImpl[XQUERY_FLWOR_EXPR(0:45)]
+            XQueryForMemberClauseImpl[XQUERY_FOR_MEMBER_CLAUSE(0:37)]
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FOR(0:3)]('for')
+               PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_MEMBER(4:10)]('member')
+               PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
+               XQueryForMemberBindingImpl[XQUERY_FOR_MEMBER_BINDING(11:37)]
+                  LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(11:12)]('$')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
+                  XQueryNCNameImpl[XQUERY_NCNAME(13:15)]
+                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(13:14)]('m')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
+                  PsiErrorElementImpl[ERROR_ELEMENT(15:23)]('XPST0003: 'allowing empty' is not allowed on ForMemberBindings.')
+                     XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ALLOWING(15:23)]('allowing')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
+                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EMPTY(24:29)]('empty')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_IN(30:32)]('in')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')
+                  XPathSquareArrayConstructorImpl[XPATH_SQUARE_ARRAY_CONSTRUCTOR(33:36)]
+                     LeafPsiElement[XPATH_SQUARE_OPEN_TOKEN(33:34)]('[')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
+                     LeafPsiElement[XPATH_SQUARE_CLOSE_TOKEN(35:36)](']')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
+            PluginReturnClauseImpl[XPATH_RETURN_CLAUSE(37:45)]
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_RETURN(37:43)]('return')
+               PsiWhiteSpaceImpl[WHITE_SPACE(43:44)](' ')
+               XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(44:45)]('1')
