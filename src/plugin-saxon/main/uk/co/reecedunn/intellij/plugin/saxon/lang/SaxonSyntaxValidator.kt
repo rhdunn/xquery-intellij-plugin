@@ -40,7 +40,7 @@ object SaxonSyntaxValidator : XpmSyntaxValidator {
         is PluginLambdaFunctionExpr -> reporter.requires(element, SAXON_PE_10)
         is XPathOtherwiseExpr -> reporter.requires(element, SAXON_PE_10)
         is PluginParamRef -> reporter.requires(element, SAXON_PE_10)
-        is XPathSimpleForBinding -> when (element.conformanceElement.elementType) {
+        is XPathSimpleForClause -> when (element.conformanceElement.elementType) {
             XPathTokenType.K_MEMBER -> reporter.requires(element, SAXON_PE_10)
             else -> {
             }

@@ -9443,18 +9443,18 @@ private class XQueryParserTest : ParserTestCase() {
             }
 
             @Test
-            @DisplayName("member; mixed bindings")
-            fun mixedBindings() {
-                val expected = loadResource("tests/parser/xquery-4.0/ForMemberBinding_MixedBindings.txt")
-                val actual = parseResource("tests/parser/xquery-4.0/ForMemberBinding_MixedBindings.xq")
+            @DisplayName("'member' keyword on binding")
+            fun memberKeywordOnBinding() {
+                val expected = loadResource("tests/parser/xquery-4.0/ForMemberBinding_MemberKeywordOnBinding.txt")
+                val actual = parseResource("tests/parser/xquery-4.0/ForMemberBinding_MemberKeywordOnBinding.xq")
                 assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 
             @Test
-            @DisplayName("member; mixed bindings; compact whitespace")
-            fun mixedBindings_compactWhitespace() {
-                val expected = loadResource("tests/parser/xquery-4.0/ForMemberBinding_MixedBindings_CompactWhitespace.txt")
-                val actual = parseResource("tests/parser/xquery-4.0/ForMemberBinding_MixedBindings_CompactWhitespace.xq")
+            @DisplayName("'member' keyword on binding; compact whitespace")
+            fun memberKeywordOnBinding_compactWhitespace() {
+                val expected = loadResource("tests/parser/xquery-4.0/ForMemberBinding_MemberKeywordOnBinding_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xquery-4.0/ForMemberBinding_MemberKeywordOnBinding_CompactWhitespace.xq")
                 assertThat(actual.toPsiTreeString(), `is`(expected))
             }
 

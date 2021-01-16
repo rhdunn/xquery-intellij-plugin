@@ -6,7 +6,6 @@ XPath, XQuery, and XSLT 4.0 Editor's Draft 13 January 2021:
 
 1. Add the XSLT 4.0 Editor's Draft XMLSchema file.
 1. Support any `ItemType` on `LocalUnionType` and `TypedMapTest`.
-1. Support the `member` keyword on any for binding.
 1. Support nesting `TernaryConditionalExpr` expressions.
 1. Support `->` in addition to `function` in `InlineFunctionExpr` expressions,
    with optional function signatures.

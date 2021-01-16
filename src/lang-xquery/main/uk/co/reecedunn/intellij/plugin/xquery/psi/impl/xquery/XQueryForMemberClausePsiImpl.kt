@@ -17,6 +17,19 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryForMemberClause
 
-class XQueryForMemberClausePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryForMemberClause
+class XQueryForMemberClausePsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node),
+    XQueryForMemberClause,
+    XpmSyntaxValidationElement {
+    // region XpmSyntaxValidationElement
+
+    override val conformanceElement: PsiElement
+        get() = findChildByType(XPathTokenType.K_MEMBER) ?: this
+
+    // endregion
+}

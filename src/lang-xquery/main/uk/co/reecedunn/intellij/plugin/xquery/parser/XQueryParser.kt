@@ -1599,26 +1599,38 @@ class XQueryParser : XPathParser() {
     }
 
     private fun parseForClause(builder: PsiBuilder): IElementType? {
-        val type = parseForBinding(builder, true)
+        val type = when {
+            builder.matchTokenType(XPathTokenType.K_MEMBER) -> {
+                parseWhiteSpaceAndCommentTokens(builder)
+                if (!parseForBinding(builder, true, XQueryElementType.FOR_MEMBER_BINDING)) {
+                    builder.error(XPathBundle.message("parser.error.expected", "$"))
+                }
+
+                XQueryElementType.FOR_MEMBER_CLAUSE
+            }
+            parseForBinding(builder, true, XQueryElementType.FOR_BINDING) -> XQueryElementType.FOR_CLAUSE
+            else -> null
+        }
         if (type != null) {
+            val bindingType = when (type) {
+                XQueryElementType.FOR_MEMBER_CLAUSE -> XQueryElementType.FOR_MEMBER_BINDING
+                else -> XQueryElementType.FOR_BINDING
+            }
+
             parseWhiteSpaceAndCommentTokens(builder)
             while (builder.matchTokenType(XPathTokenType.COMMA)) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                parseForBinding(builder, false)
+                parseForBinding(builder, false, bindingType)
                 parseWhiteSpaceAndCommentTokens(builder)
             }
-            return when (type) {
-                XQueryElementType.FOR_MEMBER_BINDING -> XQueryElementType.FOR_MEMBER_CLAUSE
-                else -> XQueryElementType.FOR_CLAUSE
-            }
         }
-        return null
+        return type
     }
 
-    private fun parseForBinding(builder: PsiBuilder, isFirst: Boolean): IElementType? {
+    private fun parseForBinding(builder: PsiBuilder, isFirst: Boolean, type: IElementType): Boolean {
         val marker = builder.mark()
 
-        val haveMember = builder.matchTokenType(XPathTokenType.K_MEMBER)
+        val haveMember = builder.errorOnTokenType(XPathTokenType.K_MEMBER, XPathBundle.message("parser.error.expected", "$"))
         parseWhiteSpaceAndCommentTokens(builder)
 
         var haveErrors = false
@@ -1665,16 +1677,11 @@ class XQueryParser : XPathParser() {
                 builder.error(XPathBundle.message("parser.error.expected-expression"))
             }
 
-            return if (haveMember) {
-                marker.done(XQueryElementType.FOR_MEMBER_BINDING)
-                XQueryElementType.FOR_MEMBER_BINDING
-            } else {
-                marker.done(XQueryElementType.FOR_BINDING)
-                XQueryElementType.FOR_BINDING
-            }
+            marker.done(type)
+            return true
         }
         marker.drop()
-        return if (haveMember) XQueryElementType.FOR_MEMBER_BINDING else null
+        return haveMember
     }
 
     private fun parseAllowingEmpty(builder: PsiBuilder): Boolean {
