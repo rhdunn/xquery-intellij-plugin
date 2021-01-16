@@ -1579,10 +1579,11 @@ class XQueryParser : XPathParser() {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_FOR)
         if (marker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
+            val forClauseType = parseForClause(builder)
             return when {
-                parseForClause(builder) -> {
-                    marker.done(XQueryElementType.FOR_CLAUSE)
-                    XQueryElementType.FOR_CLAUSE
+                forClauseType != null -> {
+                    marker.done(forClauseType)
+                    forClauseType
                 }
                 parseTumblingWindowClause(builder) || parseSlidingWindowClause(builder) -> {
                     marker.done(XQueryElementType.WINDOW_CLAUSE)
@@ -1597,20 +1598,24 @@ class XQueryParser : XPathParser() {
         return null
     }
 
-    private fun parseForClause(builder: PsiBuilder): Boolean {
-        if (parseForBinding(builder, true)) {
+    private fun parseForClause(builder: PsiBuilder): IElementType? {
+        val type = parseForBinding(builder, true)
+        if (type != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             while (builder.matchTokenType(XPathTokenType.COMMA)) {
                 parseWhiteSpaceAndCommentTokens(builder)
                 parseForBinding(builder, false)
                 parseWhiteSpaceAndCommentTokens(builder)
             }
-            return true
+            return when (type) {
+                XQueryElementType.FOR_MEMBER_BINDING -> XQueryElementType.FOR_MEMBER_CLAUSE
+                else -> XQueryElementType.FOR_CLAUSE
+            }
         }
-        return false
+        return null
     }
 
-    private fun parseForBinding(builder: PsiBuilder, isFirst: Boolean): Boolean {
+    private fun parseForBinding(builder: PsiBuilder, isFirst: Boolean): IElementType? {
         val marker = builder.mark()
 
         val haveMember = builder.matchTokenType(XPathTokenType.K_MEMBER)
@@ -1660,15 +1665,16 @@ class XQueryParser : XPathParser() {
                 builder.error(XPathBundle.message("parser.error.expected-expression"))
             }
 
-            if (haveMember) {
+            return if (haveMember) {
                 marker.done(XQueryElementType.FOR_MEMBER_BINDING)
+                XQueryElementType.FOR_MEMBER_BINDING
             } else {
                 marker.done(XQueryElementType.FOR_BINDING)
+                XQueryElementType.FOR_BINDING
             }
-            return true
         }
         marker.drop()
-        return haveMember
+        return if (haveMember) XQueryElementType.FOR_MEMBER_BINDING else null
     }
 
     private fun parseAllowingEmpty(builder: PsiBuilder): Boolean {

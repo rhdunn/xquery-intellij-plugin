@@ -73,7 +73,7 @@ private fun PsiElement.flworBindingVariables(
         sequenceOf(this as XpmVariableBinding)
 }
 
-// ForClause, LetClause, GroupingSpecList
+// ForClause, ForMemberClause, LetClause, GroupingSpecList
 private fun PsiElement.flworClauseVariables(context: InScopeVariableContext): Sequence<XpmVariableBinding> {
     return if (context.visitedFlworClause) {
         context.visitedFlworClause = false
@@ -126,7 +126,7 @@ private fun PsiElement.groupByClauseVariables(context: InScopeVariableContext): 
 private fun PsiElement.intermediateClauseVariables(context: InScopeVariableContext): Sequence<XpmVariableBinding> {
     return children().flatMap { node ->
         when (node) {
-            is XQueryForClause, is XQueryLetClause ->
+            is XQueryForClause, is XQueryForMemberClause, is XQueryLetClause ->
                 if (context.visitedFlworClauseAsIntermediateClause) {
                     context.visitedFlworClauseAsIntermediateClause = false
                     emptySequence()
@@ -190,7 +190,7 @@ fun PsiElement.xqueryInScopeVariables(): Sequence<XpmVariableDefinition> {
         .flatMap { node ->
             when (node) {
                 is XQueryProlog -> node.varDecls().filterNotNull()
-                is XQueryForClause, is XQueryLetClause -> node.flworClauseVariables(context)
+                is XQueryForClause, is XQueryForMemberClause, is XQueryLetClause -> node.flworClauseVariables(context)
                 is XQueryForBinding, is XQueryForMemberBinding, is XQueryLetBinding, is XQueryGroupingSpec -> {
                     node.flworBindingVariables(node, context)
                 }
@@ -224,7 +224,8 @@ fun PsiElement.xqueryInScopeVariables(): Sequence<XpmVariableDefinition> {
                     when (node.parent) {
                         is XQueryForBinding, is XQueryForMemberBinding, is XQueryLetBinding, is XQueryGroupingSpec -> {
                             context.visitedFlworBinding = true
-                            if (node.parent.parent.parent is XQueryIntermediateClause) { // The parent of the ForClause/LetClause.
+                            if (node.parent.parent.parent is XQueryIntermediateClause) {
+                                // The parent of the ForClause/ForMemberClause/LetClause.
                                 context.visitedFlworClauseAsIntermediateClause = true
                             }
                         }
@@ -232,7 +233,8 @@ fun PsiElement.xqueryInScopeVariables(): Sequence<XpmVariableDefinition> {
                             // 'in' expression: don't include window conditions
                             context.visitedFlworWindowConditions = true
                             context.visitedFlworBinding = true
-                            if (node.parent.parent.parent is XQueryIntermediateClause) { // The parent of the ForClause/LetClause.
+                            if (node.parent.parent.parent is XQueryIntermediateClause) {
+                                // The parent of the ForClause/ForMemberClause/LetClause.
                                 context.visitedFlworClauseAsIntermediateClause = true
                             }
                         }

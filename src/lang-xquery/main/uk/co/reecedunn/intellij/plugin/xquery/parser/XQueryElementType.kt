@@ -640,6 +640,12 @@ object XQueryElementType {
         XQuery
     )
 
+    val FOR_MEMBER_CLAUSE: IElementType = ICompositeElementType(
+        "XQUERY_FOR_MEMBER_CLAUSE",
+        XQueryForMemberClausePsiImpl::class.java,
+        XQuery
+    )
+
     val ITEM_TYPE_DECL: IElementType = ICompositeElementType(
         "XQUERY_ITEM_TYPE_DECL",
         XQueryItemTypeDeclPsiImpl::class.java,

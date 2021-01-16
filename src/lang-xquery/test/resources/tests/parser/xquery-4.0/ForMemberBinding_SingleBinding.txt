@@ -2,7 +2,7 @@ XQueryModuleImpl[FILE(0:30)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:30)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:30)]
          XQueryFLWORExprImpl[XQUERY_FLWOR_EXPR(0:30)]
-            XQueryForClauseImpl[XQUERY_FOR_CLAUSE(0:22)]
+            XQueryForMemberClauseImpl[XQUERY_FOR_MEMBER_CLAUSE(0:22)]
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FOR(0:3)]('for')
                PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
                XQueryForMemberBindingImpl[XQUERY_FOR_MEMBER_BINDING(4:22)]
