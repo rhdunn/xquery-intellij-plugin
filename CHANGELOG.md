@@ -13,6 +13,7 @@ XPath, XQuery, and XSLT 4.0 Editor's Draft 13 January 2021:
 1. Support named arguments in function calls.
 1. Support `RecordTest` and `EnumerationType` item types.
 1. Support `StringLiteral` and `VarRef` for `Lookup` and `UnaryLookup`.
+1. Support `WithExpr` expressions.
 1. Support `type` in `DefaultNamespaceDecl` declarations in XQuery.
 1. Support item type declarations in XQuery.
 

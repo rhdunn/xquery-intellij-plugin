@@ -594,6 +594,12 @@ object XPathElementType {
         XPath
     )
 
+    val WITH_EXPR: IElementType = ICompositeElementType(
+        "XPATH_WITH_EXPR",
+        XPathWithExprPsiImpl::class.java,
+        XPath
+    )
+
     // endregion
     // region Full Text 1.0
 

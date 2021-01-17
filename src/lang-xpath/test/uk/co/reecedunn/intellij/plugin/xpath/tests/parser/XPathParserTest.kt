@@ -4115,6 +4115,18 @@ private class XPathParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XPath 4.0 ED EBNF (96) WithExpr")
+    internal inner class WithExpr {
+        @Test
+        @DisplayName("missing NamespaceDeclaration")
+        fun missingNamespaceDeclaration() {
+            val expected = loadResource("tests/parser/xpath-4.0/WithExpr_MissingNamespaceDeclaration.txt")
+            val actual = parseResource("tests/parser/xpath-4.0/WithExpr_MissingNamespaceDeclaration.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XPath 4.0 ED EBNF (11) TernaryConditionalExpr")
     internal inner class TernaryConditionalExpr {
         @Test

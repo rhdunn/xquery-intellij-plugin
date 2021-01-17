@@ -210,12 +210,34 @@ open class XPathParser : PsiParser {
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
     open fun parseExprSingleImpl(builder: PsiBuilder, parentType: IElementType?): Boolean {
         return (
+            parseWithExpr(builder) ||
             parseForExpr(builder) ||
             parseLetExpr(builder) ||
             parseQuantifiedExpr(builder) ||
             parseIfExpr(builder) ||
             parseTernaryConditionalExpr(builder, parentType)
         )
+    }
+
+    // endregion
+    // region Grammar :: Expr :: WithExpr
+
+    fun parseWithExpr(builder: PsiBuilder): Boolean {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_WITH)
+        if (marker != null) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            builder.error(XPathBundle.message("parser.error.expected", "NamespaceDeclaration"))
+
+            if (builder.tokenType === XPathTokenType.BLOCK_OPEN) {
+                parseEnclosedExprOrBlock(builder, ENCLOSED_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)
+
+                marker.done(XPathElementType.WITH_EXPR)
+                return true
+            } else {
+                marker.rollbackTo()
+            }
+        }
+        return false
     }
 
     // endregion

@@ -9257,6 +9257,18 @@ private class XQueryParserTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery 4.0 ED EBNF (43) WithExpr")
+    internal inner class WithExpr {
+        @Test
+        @DisplayName("missing NamespaceDeclaration")
+        fun missingNamespaceDeclaration() {
+            val expected = loadResource("tests/parser/xquery-4.0/WithExpr_MissingNamespaceDeclaration.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/WithExpr_MissingNamespaceDeclaration.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 4.0 ED EBNF (45) TernaryConditionalExpr")
     internal inner class TernaryConditionalExpr {
         @Test
