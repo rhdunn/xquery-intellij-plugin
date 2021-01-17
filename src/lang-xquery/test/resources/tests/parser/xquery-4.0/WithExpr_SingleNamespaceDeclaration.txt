@@ -1,0 +1,28 @@
+XQueryModuleImpl[FILE(0:47)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:47)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:47)]
+         XPathWithExprImpl[XPATH_WITH_EXPR(0:47)]
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_WITH(0:4)]('with')
+            PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
+            XPathNamespaceDeclarationImpl[XPATH_NAMESPACE_DECLARATION(5:39)]
+               XQueryQNameImpl[XQUERY_QNAME(5:12)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(5:10)]('xmlns')
+                  LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(10:11)](':')
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(11:12)]('a')
+               PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
+               LeafPsiElement[XPATH_EQUAL_TOKEN(13:14)]('=')
+               PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
+               XQueryUriLiteralImpl[XQUERY_URI_LITERAL(15:39)]
+                  LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(15:16)]('"')
+                  XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(16:38)]('http://www.example.com')
+                  LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(38:39)]('"')
+            PsiWhiteSpaceImpl[WHITE_SPACE(39:40)](' ')
+            XQueryEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(40:47)]
+               LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(40:41)]('{')
+               PsiWhiteSpaceImpl[WHITE_SPACE(41:42)](' ')
+               PluginEmptyExprImpl[XPATH_EMPTY_EXPR(42:45)]
+                  LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(42:43)]('(')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(43:44)](' ')
+                  LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(44:45)](')')
+               PsiWhiteSpaceImpl[WHITE_SPACE(45:46)](' ')
+               LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(46:47)]('}')

@@ -1,0 +1,33 @@
+XQueryModuleImpl[FILE(0:78)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:78)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:78)]
+         XPathWithExprImpl[XPATH_WITH_EXPR(0:78)]
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_WITH(0:4)]('with')
+            PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
+            XPathNamespaceDeclarationImpl[XPATH_NAMESPACE_DECLARATION(5:39)]
+               XQueryQNameImpl[XQUERY_QNAME(5:12)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(5:10)]('xmlns')
+                  LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(10:11)](':')
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(11:12)]('a')
+               LeafPsiElement[XPATH_EQUAL_TOKEN(12:13)]('=')
+               XQueryUriLiteralImpl[XQUERY_URI_LITERAL(13:39)]
+                  LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(13:14)]('"')
+                  XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(14:38)]('http://www.example.com/a')
+                  LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(38:39)]('"')
+            LeafPsiElement[XPATH_COMMA_TOKEN(39:40)](',')
+            XPathNamespaceDeclarationImpl[XPATH_NAMESPACE_DECLARATION(40:74)]
+               XQueryQNameImpl[XQUERY_QNAME(40:47)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(40:45)]('xmlns')
+                  LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(45:46)](':')
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(46:47)]('a')
+               LeafPsiElement[XPATH_EQUAL_TOKEN(47:48)]('=')
+               XQueryUriLiteralImpl[XQUERY_URI_LITERAL(48:74)]
+                  LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(48:49)]('"')
+                  XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(49:73)]('http://www.example.com/b')
+                  LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(73:74)]('"')
+            XQueryEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(74:78)]
+               LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(74:75)]('{')
+               PluginEmptyExprImpl[XPATH_EMPTY_EXPR(75:77)]
+                  LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(75:76)]('(')
+                  LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(76:77)](')')
+               LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(77:78)]('}')

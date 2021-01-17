@@ -3838,6 +3838,14 @@ class XQueryLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XPath 4.0 ED EBNF (44) NamespaceDeclaration")
+    fun namespaceDeclaration() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "=", XPathTokenType.EQUAL)
+    }
+
+    @Test
     @DisplayName("XQuery 4.0 ED EBNF (45) TernaryConditionalExpr")
     fun ternaryConditionalExpr() {
         val lexer = createLexer()

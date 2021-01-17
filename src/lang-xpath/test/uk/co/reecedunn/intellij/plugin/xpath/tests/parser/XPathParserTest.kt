@@ -4115,13 +4115,69 @@ private class XPathParserTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XPath 4.0 ED EBNF (96) WithExpr")
+    @DisplayName("XPath 4.0 ED EBNF (9) WithExpr ; XPath 4.0 ED EBNF (10) NamespaceDeclaration")
     internal inner class WithExpr {
         @Test
-        @DisplayName("missing NamespaceDeclaration")
-        fun missingNamespaceDeclaration() {
+        @DisplayName("single NamespaceDeclaration")
+        fun singleNamespaceDeclaration() {
+            val expected = loadResource("tests/parser/xpath-4.0/WithExpr_SingleNamespaceDeclaration.txt")
+            val actual = parseResource("tests/parser/xpath-4.0/WithExpr_SingleNamespaceDeclaration.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("single NamespaceDeclaration; compact whitespace")
+        fun singleNamespaceDeclaration_compactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-4.0/WithExpr_SingleNamespaceDeclaration_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-4.0/WithExpr_SingleNamespaceDeclaration_CompactWhitespace.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple NamespaceDeclaration")
+        fun multipleNamespaceDeclaration() {
+            val expected = loadResource("tests/parser/xpath-4.0/WithExpr_MultipleNamespaceDeclaration.txt")
+            val actual = parseResource("tests/parser/xpath-4.0/WithExpr_MultipleNamespaceDeclaration.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("multiple NamespaceDeclaration; compact whitespace")
+        fun multipleNamespaceDeclaration_compactWhitespace() {
+            val expected = loadResource("tests/parser/xpath-4.0/WithExpr_MultipleNamespaceDeclaration_CompactWhitespace.txt")
+            val actual = parseResource("tests/parser/xpath-4.0/WithExpr_MultipleNamespaceDeclaration_CompactWhitespace.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("missing NamespaceDeclaration; first")
+        fun missingNamespaceDeclaration_first() {
             val expected = loadResource("tests/parser/xpath-4.0/WithExpr_MissingNamespaceDeclaration.txt")
             val actual = parseResource("tests/parser/xpath-4.0/WithExpr_MissingNamespaceDeclaration.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("missing NamespaceDeclaration; after comma")
+        fun missingNamespaceDeclaration_afterComma() {
+            val expected = loadResource("tests/parser/xpath-4.0/WithExpr_MissingNamespaceDeclaration_AfterComma.txt")
+            val actual = parseResource("tests/parser/xpath-4.0/WithExpr_MissingNamespaceDeclaration_AfterComma.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("missing EnclosedExpr")
+        fun missingEnclosedExpr() {
+            val expected = loadResource("tests/parser/xpath-4.0/WithExpr_MissingEnclosedExpr.txt")
+            val actual = parseResource("tests/parser/xpath-4.0/WithExpr_MissingEnclosedExpr.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("missing URILiteral from NamespaceDeclaration")
+        fun missingURILiteral() {
+            val expected = loadResource("tests/parser/xpath-4.0/WithExpr_NamespaceDeclaration_MissingURILiteral.txt")
+            val actual = parseResource("tests/parser/xpath-4.0/WithExpr_NamespaceDeclaration_MissingURILiteral.xq")
             assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }

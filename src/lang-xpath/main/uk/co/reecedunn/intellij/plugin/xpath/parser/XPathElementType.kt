@@ -564,6 +564,12 @@ object XPathElementType {
         XPath
     )
 
+    val NAMESPACE_DECLARATION: IElementType = ICompositeElementType(
+        "XPATH_NAMESPACE_DECLARATION",
+        XPathNamespaceDeclarationPsiImpl::class.java,
+        XPath
+    )
+
     val OTHERWISE_EXPR: IElementType = ICompositeElementType(
         "XPATH_OTHERWISE_EXPR",
         XPathOtherwiseExprPsiImpl::class.java,

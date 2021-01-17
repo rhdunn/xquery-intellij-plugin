@@ -1249,6 +1249,14 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XPath 4.0 ED EBNF (10) NamespaceDeclaration")
+    fun namespaceDeclaration() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "=", XPathTokenType.EQUAL)
+    }
+
+    @Test
     @DisplayName("XPath 4.0 ED EBNF (11) TernaryConditionalExpr")
     fun ternaryConditionalExpr() {
         val lexer = createLexer()

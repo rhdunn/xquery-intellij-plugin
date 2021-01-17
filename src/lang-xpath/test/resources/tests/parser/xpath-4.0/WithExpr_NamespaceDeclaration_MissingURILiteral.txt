@@ -1,0 +1,21 @@
+XPathImpl[FILE(0:22)]
+   XPathWithExprImpl[XPATH_WITH_EXPR(0:22)]
+      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_WITH(0:4)]('with')
+      PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
+      XPathQNameImpl[XPATH_QNAME(5:12)]
+         XmlNCNameImpl[XPATH_NCNAME_TOKEN(5:10)]('xmlns')
+         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(10:11)](':')
+         XmlNCNameImpl[XPATH_NCNAME_TOKEN(11:12)]('a')
+      PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
+      LeafPsiElement[XPATH_EQUAL_TOKEN(13:14)]('=')
+      PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
+      PsiErrorElementImpl[ERROR_ELEMENT(15:15)]('XPST0003: Expected 'URILiteral'.')
+      XPathEnclosedExprImpl[XPATH_ENCLOSED_EXPR(15:22)]
+         LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(15:16)]('{')
+         PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
+         PluginEmptyExprImpl[XPATH_EMPTY_EXPR(17:20)]
+            LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(17:18)]('(')
+            PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
+            LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(19:20)](')')
+         PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
+         LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(21:22)]('}')

@@ -226,17 +226,65 @@ open class XPathParser : PsiParser {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_WITH)
         if (marker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
-            builder.error(XPathBundle.message("parser.error.expected", "NamespaceDeclaration"))
+            val haveNamespaceDeclaration = parseNamespaceDeclaration(builder)
+            if (haveNamespaceDeclaration) {
+                var haveError = false
 
-            if (builder.tokenType === XPathTokenType.BLOCK_OPEN) {
-                parseEnclosedExprOrBlock(builder, ENCLOSED_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)
+                parseWhiteSpaceAndCommentTokens(builder)
+                while (builder.matchTokenType(XPathTokenType.COMMA)) {
+                    parseWhiteSpaceAndCommentTokens(builder)
+                    if (!parseNamespaceDeclaration(builder) && !haveError) {
+                        builder.error(XPathBundle.message("parser.error.expected", "NamespaceDeclaration"))
+                        haveError = true
+                    }
 
-                marker.done(XPathElementType.WITH_EXPR)
-                return true
+                    parseWhiteSpaceAndCommentTokens(builder)
+                }
             } else {
-                marker.rollbackTo()
+                builder.error(XPathBundle.message("parser.error.expected", "NamespaceDeclaration"))
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            when {
+                builder.tokenType === XPathTokenType.BLOCK_OPEN -> {
+                    parseEnclosedExprOrBlock(builder, ENCLOSED_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)
+
+                    marker.done(XPathElementType.WITH_EXPR)
+                    return true
+                }
+                haveNamespaceDeclaration -> {
+                    builder.error(XPathBundle.message("parser.error.expected-either", ",", "EnclosedExpr"))
+
+                    marker.done(XPathElementType.WITH_EXPR)
+                    return true
+                }
+                else -> {
+                    marker.rollbackTo()
+                }
             }
         }
+        return false
+    }
+
+    private fun parseNamespaceDeclaration(builder: PsiBuilder): Boolean {
+        val marker = builder.mark()
+        if (parseQNameOrWildcard(builder, QNAME) != null) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!builder.matchTokenType(XPathTokenType.EQUAL)) {
+                marker.rollbackTo()
+                return false
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseStringLiteral(builder, URI_LITERAL)) {
+                builder.error(XPathBundle.message("parser.error.expected", "URILiteral"))
+                marker.drop()
+            } else {
+                marker.done(XPathElementType.NAMESPACE_DECLARATION)
+            }
+            return true
+        }
+        marker.drop()
         return false
     }
 
