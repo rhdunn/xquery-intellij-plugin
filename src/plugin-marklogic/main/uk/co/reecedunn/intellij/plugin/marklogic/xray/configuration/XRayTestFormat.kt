@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.marklogic.xray.configuration
 
 enum class XRayTestFormat {
     HTML,
+    JSON,
     Text,
     XML,
     XUnit

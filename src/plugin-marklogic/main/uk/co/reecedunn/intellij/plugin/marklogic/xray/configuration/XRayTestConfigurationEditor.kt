@@ -94,6 +94,7 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
             label(PluginApiBundle.message("xquery.configurations.test.output-format.label"), column.vgap())
             outputFormat = comboBox(column.horizontal().hgap().vgap()) {
                 addItem(XRayTestFormat.HTML)
+                addItem(XRayTestFormat.JSON)
                 addItem(XRayTestFormat.Text)
                 addItem(XRayTestFormat.XML)
                 addItem(XRayTestFormat.XUnit)
