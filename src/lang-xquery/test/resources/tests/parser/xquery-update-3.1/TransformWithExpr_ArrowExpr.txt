@@ -19,7 +19,7 @@ XQueryModuleImpl[FILE(0:55)]
                PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TRANSFORM(13:22)]('transform')
             PsiWhiteSpaceImpl[WHITE_SPACE(22:23)](' ')
-            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_WITH(23:27)]('with')
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_WITH(23:27)]('with')
             PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
             LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(28:29)]('{')
             PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')

@@ -2880,7 +2880,7 @@ class XQueryParser : XPathParser() {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!builder.matchTokenType(XQueryTokenType.K_WITH) && !haveErrors) {
+            if (!builder.matchTokenType(XPathTokenType.K_WITH) && !haveErrors) {
                 builder.error(XPathBundle.message("parser.error.expected-keyword", "with"))
                 haveErrors = true
             }
@@ -3356,7 +3356,7 @@ class XQueryParser : XPathParser() {
         if (parseArrowExpr(builder, type)) {
             if (builder.matchTokenType(XQueryTokenType.K_TRANSFORM)) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (!builder.matchTokenType(XQueryTokenType.K_WITH)) {
+                if (!builder.matchTokenType(XPathTokenType.K_WITH)) {
                     builder.error(XPathBundle.message("parser.error.expected-keyword", "with"))
                 }
 

@@ -3829,6 +3829,15 @@ class XQueryLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XQuery 4.0 ED EBNF (43) WithExpr")
+    fun withExpr() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "with", XPathTokenType.K_WITH)
+        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
+    }
+
+    @Test
     @DisplayName("XQuery 4.0 ED EBNF (45) TernaryConditionalExpr")
     fun ternaryConditionalExpr() {
         val lexer = createLexer()

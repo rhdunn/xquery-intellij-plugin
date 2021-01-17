@@ -1240,6 +1240,15 @@ class XPathLexerTest : LexerTestCase() {
     }
 
     @Test
+    @DisplayName("XPath 4.0 ED EBNF (9) WithExpr")
+    fun withExpr() {
+        val lexer = createLexer()
+
+        matchSingleToken(lexer, "with", XPathTokenType.K_WITH)
+        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
+    }
+
+    @Test
     @DisplayName("XPath 4.0 ED EBNF (11) TernaryConditionalExpr")
     fun ternaryConditionalExpr() {
         val lexer = createLexer()

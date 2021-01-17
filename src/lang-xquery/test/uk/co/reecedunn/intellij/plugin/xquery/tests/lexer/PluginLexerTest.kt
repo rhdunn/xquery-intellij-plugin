@@ -94,7 +94,7 @@ class PluginLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "transform", XQueryTokenType.K_TRANSFORM)
-        matchSingleToken(lexer, "with", XQueryTokenType.K_WITH)
+        matchSingleToken(lexer, "with", XPathTokenType.K_WITH)
         matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
         matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
     }

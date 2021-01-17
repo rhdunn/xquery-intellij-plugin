@@ -826,8 +826,8 @@ class XQuerySyntaxHighlighterTest {
         assertThat(highlighter.getTokenHighlights(XPathTokenType.K_WINDOW).size, `is`(1))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.K_WINDOW)[0], `is`(XQuerySyntaxHighlighterColors.KEYWORD))
 
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_WITH).size, `is`(1))
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.K_WITH)[0], `is`(XQuerySyntaxHighlighterColors.KEYWORD))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_WITH).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XPathTokenType.K_WITH)[0], `is`(XQuerySyntaxHighlighterColors.KEYWORD))
 
         assertThat(highlighter.getTokenHighlights(XPathTokenType.K_WITHOUT).size, `is`(1))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.K_WITHOUT)[0], `is`(XQuerySyntaxHighlighterColors.KEYWORD))

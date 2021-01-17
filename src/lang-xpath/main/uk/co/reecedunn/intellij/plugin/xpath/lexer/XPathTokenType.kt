@@ -193,6 +193,7 @@ object XPathTokenType {
     val K_WEIGHT: IKeywordOrNCNameType = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_WEIGHT", XPath) // Full Text 1.0
     val K_WILDCARDS: IKeywordOrNCNameType = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_WILDCARDS", XPath) // Full Text 1.0
     val K_WINDOW: IKeywordOrNCNameType = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_WINDOW", XPath) // Full Text 1.0; XQuery 3.0
+    val K_WITH: IKeywordOrNCNameType = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_WITH", XPath) // XPath 4.0 ED; Update Facility 1.0
     val K_WITHOUT: IKeywordOrNCNameType = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_WITHOUT", XPath) // Full Text 1.0
     val K_WORD: IKeywordOrNCNameType = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_WORD", XPath) // Full Text 1.0
     val K_WORDS: IKeywordOrNCNameType = IKeywordOrNCNameType("XPATH_KEYWORD_OR_NCNAME_WORDS", XPath) // Full Text 1.0

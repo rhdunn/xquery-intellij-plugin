@@ -1262,7 +1262,6 @@ class XQueryLexer : XPathLexer(CodePointRangeImpl()) {
             "when" to XQueryTokenType.K_WHEN, // XQuery 3.0
             "where" to XQueryTokenType.K_WHERE,
             "while" to XQueryTokenType.K_WHILE, // Scripting Extension 1.0
-            "with" to XQueryTokenType.K_WITH, // Update Facility 1.0
             "xquery" to XQueryTokenType.K_XQUERY,
             "zero-digit" to XQueryTokenType.K_ZERO_DIGIT // XQuery 3.0
         )

@@ -730,6 +730,7 @@ open class XPathLexer(tokenRange: CodePointRange) : LexerImpl(STATE_DEFAULT, tok
             "weight" to XPathTokenType.K_WEIGHT, // Full Text 1.0
             "wildcards" to XPathTokenType.K_WILDCARDS, // Full Text 1.0
             "window" to XPathTokenType.K_WINDOW, // XQuery 3.0; Full Text 1.0
+            "with" to XPathTokenType.K_WITH, // XPath 4.0 ED; Update Facility 1.0
             "without" to XPathTokenType.K_WITHOUT, // Full Text 1.0
             "word" to XPathTokenType.K_WORD, // Full Text 1.0
             "words" to XPathTokenType.K_WORDS // Full Text 1.0

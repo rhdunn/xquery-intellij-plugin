@@ -1257,6 +1257,8 @@ These changes include support for:
 | \[147\]  | `KeywordArgument`              | ::= | `NCName ":" ExprSingle`             |                       |
 | \[148\]  | `ForMemberClause`              | ::= | `"for" "member" ForMemberBinding ("," ForMemberBinding)*` | |
 | \[149\]  | `InitialClause`                | ::= | `ForClause | ForMemberClause | LetClause | WindowClause` |  |
+| \[150\]  | `WithExpr`                     | ::= | `"with" NamespaceDeclaration ("," NamespaceDeclaration)* EnclosedExpr` | |
+| \[151\]  | `NamespaceDeclaration`         | ::= | `QName "=" URILiteral`              |                       |
 
 ### A.2 Reserved Function Names
 

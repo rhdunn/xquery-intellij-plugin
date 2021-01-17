@@ -182,7 +182,6 @@ object XQueryTokenType {
     val K_WHEN: IKeywordOrNCNameType = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_WHEN", XQuery) // XQuery 3.0
     val K_WHERE: IKeywordOrNCNameType = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_WHERE", XQuery) // XQuery 1.0
     val K_WHILE: IKeywordOrNCNameType = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_WHILE", XQuery, IKeywordOrNCNameType.KeywordType.SCRIPTING10_RESERVED_FUNCTION_NAME) // Scripting Extension 1.0
-    val K_WITH: IKeywordOrNCNameType = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_WITH", XQuery) // Update Facility 1.0
     val K_XQUERY: IKeywordOrNCNameType = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_XQUERY", XQuery) // XQuery 1.0
     val K_ZERO_DIGIT: IKeywordOrNCNameType = IKeywordOrNCNameType("XQUERY_KEYWORD_OR_NCNAME_ZERO_DIGIT", XQuery) // XQuery 3.0
 

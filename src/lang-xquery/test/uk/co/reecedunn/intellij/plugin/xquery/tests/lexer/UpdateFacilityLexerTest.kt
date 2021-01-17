@@ -107,7 +107,7 @@ class UpdateFacilityLexerTest : LexerTestCase() {
         matchSingleToken(lexer, "value", XQueryTokenType.K_VALUE)
         matchSingleToken(lexer, "of", XPathTokenType.K_OF)
         matchSingleToken(lexer, "node", XPathTokenType.K_NODE)
-        matchSingleToken(lexer, "with", XQueryTokenType.K_WITH)
+        matchSingleToken(lexer, "with", XPathTokenType.K_WITH)
     }
 
     @Test
@@ -147,7 +147,7 @@ class UpdateFacilityLexerTest : LexerTestCase() {
         val lexer = createLexer()
 
         matchSingleToken(lexer, "transform", XQueryTokenType.K_TRANSFORM)
-        matchSingleToken(lexer, "with", XQueryTokenType.K_WITH)
+        matchSingleToken(lexer, "with", XPathTokenType.K_WITH)
         matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
         matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
     }

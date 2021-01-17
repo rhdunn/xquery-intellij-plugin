@@ -494,6 +494,8 @@ These changes include support for:
 | \[60\]  | `ArgumentList`                 | ::= | `"(" ((PositionalArguments ("," KeywordArguments)?) | KeywordArguments)? ")"` | | 	
 | \[61\]  | `KeywordArguments`             | ::= | `KeywordArgument ("," KeywordArgument)*` |                 |
 | \[62\]  | `KeywordArgument`              | ::= | `NCName ":" ExprSingle`             |                      |
+| \[63\]  | `WithExpr`                     | ::= | `"with" NamespaceDeclaration ("," NamespaceDeclaration)* EnclosedExpr` | |
+| \[64\]  | `NamespaceDeclaration`         | ::= | `QName "=" URILiteral`              |                      |
 
 ### A.2 Reserved Function Names
 
