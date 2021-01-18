@@ -19,7 +19,9 @@ import com.intellij.openapi.components.ServiceManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.core.data.ModificationTrackedProperty
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.vfs.replace
 import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicQueries
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnnotation
@@ -27,6 +29,8 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpm.context.expand
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurations
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryLibraryModule
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModuleDecl
 
 class XRayTestService(private val project: Project) {
@@ -72,6 +76,11 @@ class XRayTestService(private val project: Project) {
 
         private const val TEST_NAMESPACE = "http://github.com/robwhitby/xray/test"
         private const val TEST_CASE_LOCAL_NAME = "case"
+
+        fun isTestModule(file: PsiFile): Boolean {
+            val module = (file as? XQueryModule)?.children()?.filterIsInstance<XQueryLibraryModule>()?.firstOrNull()
+            return isTestModule(module?.firstChild as XQueryModuleDecl)
+        }
 
         fun isTestModule(name: XPathEQName): Boolean = isTestModule(name.parent as? XQueryModuleDecl)
 

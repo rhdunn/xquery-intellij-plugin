@@ -15,14 +15,17 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.test
 
+import com.intellij.compat.execution.lineMarker.RunLineMarkerContributor
 import com.intellij.execution.lineMarker.ExecutorAction
-import com.intellij.execution.lineMarker.RunLineMarkerContributor
 import com.intellij.icons.AllIcons
 import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicBundle
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 
 class XRayTestRunLineMarkerProvider : RunLineMarkerContributor() {
+    override fun producesAllPossibleConfigurations(file: PsiFile): Boolean = XRayTestService.isTestModule(file)
+
     override fun getInfo(element: PsiElement): Info? {
         val name = element as? XPathEQName ?: return null
         return when {
