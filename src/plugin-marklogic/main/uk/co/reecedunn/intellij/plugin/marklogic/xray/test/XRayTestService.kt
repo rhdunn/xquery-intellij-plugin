@@ -22,7 +22,12 @@ import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.core.data.ModificationTrackedProperty
 import uk.co.reecedunn.intellij.plugin.core.vfs.replace
 import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicQueries
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnnotation
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
+import uk.co.reecedunn.intellij.plugin.xpm.context.expand
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurations
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModuleDecl
 
 class XRayTestService(private val project: Project) {
     private val cachedXrayRootDir = ModificationTrackedProperty<ProjectRootManager, VirtualFile> {
@@ -64,5 +69,28 @@ class XRayTestService(private val project: Project) {
 
         private const val INDEX_XQY = "index.xqy"
         private const val XRAY_XQY = "xray.xqy"
+
+        private const val TEST_NAMESPACE = "http://github.com/robwhitby/xray/test"
+        private const val TEST_CASE_LOCAL_NAME = "case"
+
+        fun isTestModule(name: XPathEQName): Boolean = isTestModule(name.parent as? XQueryModuleDecl)
+
+        private fun isTestModule(declaration: XQueryModuleDecl?): Boolean {
+            return declaration?.namespaceUri?.data == TEST_NAMESPACE
+        }
+
+        fun isTestCase(name: XPathEQName): Boolean = isTestCase(name.parent as? XQueryFunctionDecl)
+
+        private fun isTestCase(function: XQueryFunctionDecl?): Boolean {
+            return function?.annotations?.find { isTestCaseAnnotation(it) } != null
+        }
+
+        private fun isTestCaseAnnotation(annotation: XdmAnnotation): Boolean {
+            val name = annotation.name
+            if (name?.localName?.data == TEST_CASE_LOCAL_NAME) {
+                return name.expand().find { it.namespace?.data == TEST_NAMESPACE } != null
+            }
+            return false
+        }
     }
 }
