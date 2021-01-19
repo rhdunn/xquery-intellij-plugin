@@ -69,6 +69,7 @@ class XRayTestRunConfigurationProducer : LazyRunConfigurationProducer<XRayTestCo
         testCase: XPathEQName?
     ): Boolean {
         configuration.modulePattern = "/${module.name}"
+        configuration.testPattern = testCase?.localName?.data
         return true
     }
 }
