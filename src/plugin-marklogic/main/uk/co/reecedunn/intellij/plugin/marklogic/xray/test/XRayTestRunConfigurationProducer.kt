@@ -68,6 +68,12 @@ class XRayTestRunConfigurationProducer : LazyRunConfigurationProducer<XRayTestCo
         module: PsiFile,
         testCase: XPathEQName?
     ): Boolean {
+        val moduleName = module.name.replace("\\.[a-z]+$".toRegex(), "")
+        configuration.name = when (testCase) {
+            null -> moduleName
+            else -> "$moduleName (${testCase.localName?.data})"
+        }
+
         configuration.modulePattern = "/${module.name}"
         configuration.testPattern = testCase?.localName?.data
         return true
