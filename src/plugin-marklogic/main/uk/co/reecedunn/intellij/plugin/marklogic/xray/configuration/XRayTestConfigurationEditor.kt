@@ -49,26 +49,24 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
         row {
             label(PluginApiBundle.message("xquery.configurations.processor.query-processor.label"), column.vgap())
             queryProcessor = QueryProcessorComboBox(project)
-            add(queryProcessor.component, column.horizontal().hgap().vgap())
+            add(queryProcessor.component, column.spanCols(3).horizontal().hgap().vgap())
             queryProcessor.addActionListener {
                 database.populateDatabaseUI(queryProcessor.settings)
             }
         }
         row {
-            label(PluginApiBundle.message("xquery.configurations.processor.content-database.label"), column)
-            database = comboBox(column.horizontal().hgap()) {
+            label(PluginApiBundle.message("xquery.configurations.processor.content-database.label"), column.vgap())
+            database = comboBox(column.horizontal().hgap().vgap()) {
                 addActionListener {
                     server.populateServerUI(queryProcessor.settings, database.selectedItem as? String? ?: "")
                 }
             }
-        }
-        row {
-            label(PluginApiBundle.message("xquery.configurations.processor.server.label"), column.vgap())
+            label(PluginApiBundle.message("xquery.configurations.processor.server.label"), column.hgap().vgap())
             server = comboBox(column.horizontal().hgap().vgap())
         }
         row {
             label(PluginApiBundle.message("xquery.configurations.processor.module-root.label"), column.vgap())
-            modulePath = textFieldWithBrowseButton(column.horizontal().hgap().vgap()) {
+            modulePath = textFieldWithBrowseButton(column.spanCols(3).horizontal().hgap().vgap()) {
                 val descriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor()
                 descriptor.title = PluginApiBundle.message("browser.choose.module-path")
                 addBrowseFolderListener(null, null, project, descriptor)
@@ -76,7 +74,7 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
         }
         row {
             label(PluginApiBundle.message("xquery.configurations.test.test-root.label"), column.vgap())
-            testPath = textFieldWithBrowseButton(column.horizontal().hgap().vgap()) {
+            testPath = textFieldWithBrowseButton(column.spanCols(3).horizontal().hgap().vgap()) {
                 val descriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor()
                 descriptor.title = PluginApiBundle.message("browser.choose.test-path")
                 addBrowseFolderListener(null, null, project, descriptor)
@@ -84,15 +82,15 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
         }
         row {
             label(PluginApiBundle.message("xquery.configurations.test.module-pattern.label"), column.vgap())
-            modulePattern = textField(column.horizontal().hgap().vgap())
+            modulePattern = textField(column.spanCols(3).horizontal().hgap().vgap())
         }
         row {
             label(PluginApiBundle.message("xquery.configurations.test.test-pattern.label"), column.vgap())
-            testPattern = textField(column.horizontal().hgap().vgap())
+            testPattern = textField(column.spanCols(3).horizontal().hgap().vgap())
         }
         row {
             label(PluginApiBundle.message("xquery.configurations.test.output-format.label"), column.vgap())
-            outputFormat = comboBox(column.horizontal().hgap().vgap()) {
+            outputFormat = comboBox(column.spanCols(3).horizontal().hgap().vgap()) {
                 addItem(XRayTestFormat.HTML)
                 addItem(XRayTestFormat.JSON)
                 addItem(XRayTestFormat.Text)
@@ -102,7 +100,7 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
         }
         row {
             spacer(column.vertical())
-            spacer(column.horizontal())
+            spacer(column.spanCols(3).horizontal())
         }
     }
 

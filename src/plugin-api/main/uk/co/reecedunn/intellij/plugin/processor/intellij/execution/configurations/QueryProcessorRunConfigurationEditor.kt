@@ -106,20 +106,18 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
     @Suppress("DuplicatedCode")
     private val databasePanel: JPanel = panel {
         row {
-            label(PluginApiBundle.message("xquery.configurations.processor.content-database.label"), column)
-            database = comboBox(column.horizontal().hgap()) {
+            label(PluginApiBundle.message("xquery.configurations.processor.content-database.label"), column.vgap())
+            database = comboBox(column.horizontal().hgap().vgap()) {
                 addActionListener {
                     server.populateServerUI(queryProcessor.settings, database.selectedItem as? String? ?: "")
                 }
             }
-        }
-        row {
-            label(PluginApiBundle.message("xquery.configurations.processor.server.label"), column.vgap())
+            label(PluginApiBundle.message("xquery.configurations.processor.server.label"), column.hgap().vgap())
             server = comboBox(column.horizontal().hgap().vgap())
         }
         row {
             label(PluginApiBundle.message("xquery.configurations.processor.module-root.label"), column.vgap())
-            modulePath = textFieldWithBrowseButton(column.horizontal().hgap().vgap()) {
+            modulePath = textFieldWithBrowseButton(column.spanCols(3).horizontal().hgap().vgap()) {
                 val descriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor()
                 descriptor.title = PluginApiBundle.message("browser.choose.module-path")
                 addBrowseFolderListener(null, null, project, descriptor)
@@ -127,7 +125,7 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
         }
         row {
             spacer(column.vertical())
-            spacer(column.horizontal())
+            spacer(column.spanCols(3).horizontal())
         }
     }
 
