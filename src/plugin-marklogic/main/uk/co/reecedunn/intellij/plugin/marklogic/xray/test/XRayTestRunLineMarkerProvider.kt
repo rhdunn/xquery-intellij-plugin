@@ -16,9 +16,11 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.test
 
 import com.intellij.compat.execution.lineMarker.RunLineMarkerContributor
+import com.intellij.execution.lineMarker.ExecutorAction
 import com.intellij.icons.AllIcons
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
+import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicBundle
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 
 class XRayTestRunLineMarkerProvider : RunLineMarkerContributor() {
@@ -29,11 +31,11 @@ class XRayTestRunLineMarkerProvider : RunLineMarkerContributor() {
         return when {
             XRayTestService.isTestModule(name) -> {
                 val icon = AllIcons.RunConfigurations.TestState.Run_run
-                return RunLineMarkerContributor.withExecutorActions(icon)
+                return Info(icon, ExecutorAction.getActions(1)) { MarkLogicBundle.message("run.test.tooltip") }
             }
             XRayTestService.isTestCase(name) -> {
                 val icon = AllIcons.RunConfigurations.TestState.Run
-                return RunLineMarkerContributor.withExecutorActions(icon)
+                return Info(icon, ExecutorAction.getActions(1)) { MarkLogicBundle.message("run.test.tooltip") }
             }
             else -> null
         }
