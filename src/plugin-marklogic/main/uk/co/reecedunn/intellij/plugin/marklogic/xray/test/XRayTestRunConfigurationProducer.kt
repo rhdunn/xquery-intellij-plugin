@@ -25,8 +25,6 @@ import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.marklogic.intellij.execution.configurations.type.XRayTestConfigurationType
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.configuration.XRayTestConfiguration
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModuleDecl
 
 class XRayTestRunConfigurationProducer : LazyRunConfigurationProducer<XRayTestConfiguration>() {
     override fun getConfigurationFactory(): ConfigurationFactory {
@@ -57,6 +55,20 @@ class XRayTestRunConfigurationProducer : LazyRunConfigurationProducer<XRayTestCo
         context: ConfigurationContext,
         sourceElement: Ref<PsiElement>
     ): Boolean {
-        return false
+        val name = context.location?.psiElement as? XPathEQName ?: return false
+        return when {
+            XRayTestService.isTestModule(name) -> createConfiguration(configuration, name.containingFile, null)
+            XRayTestService.isTestCase(name) -> createConfiguration(configuration, name.containingFile, name)
+            else -> false
+        }
+    }
+
+    private fun createConfiguration(
+        configuration: XRayTestConfiguration,
+        module: PsiFile,
+        testCase: XPathEQName?
+    ): Boolean {
+        configuration.modulePattern = "/${module.name}"
+        return true
     }
 }
