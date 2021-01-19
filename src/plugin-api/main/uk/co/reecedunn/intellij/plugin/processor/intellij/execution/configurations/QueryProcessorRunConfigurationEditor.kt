@@ -40,6 +40,10 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
     // region "Query" Page
 
     private lateinit var queryProcessor: QueryProcessorComboBox
+    private lateinit var server: JComboBox<String>
+    private lateinit var modulePath: TextFieldWithBrowseButton
+    private lateinit var database: JComboBox<String>
+
     private lateinit var rdfOutputFormat: JComboBox<Language>
     private lateinit var scriptFile: QueryProcessorDataSource
     private lateinit var xpathSubset: JComboBox<XPathSubset>
@@ -47,14 +51,33 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
 
     private lateinit var xpathSubsetLabel: JLabel
 
+    @Suppress("DuplicatedCode")
     private val queryPanel: JPanel = panel {
         row {
             label(PluginApiBundle.message("xquery.configurations.processor.query-processor.label"), column.vgap())
             queryProcessor = QueryProcessorComboBox(project)
-            add(queryProcessor.component, column.horizontal().hgap().vgap())
+            add(queryProcessor.component, column.spanCols().horizontal().hgap().vgap())
             queryProcessor.addActionListener {
                 updateUI(false)
                 database.populateDatabaseUI(queryProcessor.settings)
+            }
+        }
+        row {
+            label(PluginApiBundle.message("xquery.configurations.processor.content-database.label"), column.vgap())
+            database = comboBox(column.horizontal().hgap().vgap()) {
+                addActionListener {
+                    server.populateServerUI(queryProcessor.settings, database.selectedItem as? String? ?: "")
+                }
+            }
+            label(PluginApiBundle.message("xquery.configurations.processor.server.label"), column.hgap().vgap())
+            server = comboBox(column.horizontal().hgap().vgap())
+        }
+        row {
+            label(PluginApiBundle.message("xquery.configurations.processor.module-root.label"), column.vgap())
+            modulePath = textFieldWithBrowseButton(column.spanCols().horizontal().hgap().vgap()) {
+                val descriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor()
+                descriptor.title = PluginApiBundle.message("browser.choose.module-path")
+                addBrowseFolderListener(null, null, project, descriptor)
             }
         }
         row {
@@ -77,7 +100,7 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
             xpathSubsetLabel = label(
                 PluginApiBundle.message("xquery.configurations.processor.xpath-subset.label"), column.vgap()
             )
-            xpathSubset = comboBox(column.horizontal().hgap().vgap()) {
+            xpathSubset = comboBox(column.spanCols().horizontal().hgap().vgap()) {
                 renderer = coloredListCellRenderer { _, value, _, _, _ ->
                     clear()
                     value?.let { append(it.displayName) }
@@ -93,39 +116,6 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
         }
         row {
             spacer(column.vertical())
-        }
-    }
-
-    // endregion
-    // region "Database" Page
-
-    private lateinit var server: JComboBox<String>
-    private lateinit var modulePath: TextFieldWithBrowseButton
-    private lateinit var database: JComboBox<String>
-
-    @Suppress("DuplicatedCode")
-    private val databasePanel: JPanel = panel {
-        row {
-            label(PluginApiBundle.message("xquery.configurations.processor.content-database.label"), column.vgap())
-            database = comboBox(column.horizontal().hgap().vgap()) {
-                addActionListener {
-                    server.populateServerUI(queryProcessor.settings, database.selectedItem as? String? ?: "")
-                }
-            }
-            label(PluginApiBundle.message("xquery.configurations.processor.server.label"), column.hgap().vgap())
-            server = comboBox(column.horizontal().hgap().vgap())
-        }
-        row {
-            label(PluginApiBundle.message("xquery.configurations.processor.module-root.label"), column.vgap())
-            modulePath = textFieldWithBrowseButton(column.spanCols(3).horizontal().hgap().vgap()) {
-                val descriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor()
-                descriptor.title = PluginApiBundle.message("browser.choose.module-path")
-                addBrowseFolderListener(null, null, project, descriptor)
-            }
-        }
-        row {
-            spacer(column.vertical())
-            spacer(column.spanCols(3).horizontal())
         }
     }
 
@@ -208,7 +198,6 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
 
     private val panel: JPanel = tabbedPanel {
         tab(PluginApiBundle.message("xquery.configurations.processor.group.query.label"), queryPanel)
-        tab(PluginApiBundle.message("xquery.configurations.processor.group.database.label"), databasePanel)
         inputLabel?.let { tab(it, inputPanel) }
         tab(PluginApiBundle.message("xquery.configurations.processor.group.output.label"), outputPanel)
     }

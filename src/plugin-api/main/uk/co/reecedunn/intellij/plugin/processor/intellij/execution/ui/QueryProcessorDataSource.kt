@@ -98,21 +98,21 @@ fun GridPanel.queryProcessorDataSource(
             ui.localFileType = radio(column.vgap()) {
                 text = PluginApiBundle.message("xquery.configurations.data-source.local-file.label")
             }
-            ui.localFilePath = textFieldWithBrowseButton(column.horizontal().hgap().vgap())
+            ui.localFilePath = textFieldWithBrowseButton(column.spanCols().horizontal().hgap().vgap())
         }
         row {
             ui.databaseModuleType = radio(column.vgap()) {
                 text = PluginApiBundle.message("xquery.configurations.data-source.database-module.label")
             }
-            ui.databaseModulePath = textField(column.horizontal().hgap().vgap())
+            ui.databaseModulePath = textField(column.spanCols().horizontal().hgap().vgap())
         }
         row {
-            ui.activeEditorFileType = radio(column.vgap()) {
+            ui.activeEditorFileType = radio(column.spanCols().vgap()) {
                 text = PluginApiBundle.message("xquery.configurations.data-source.active-editor-file.label")
             }
         }
         row {
-            ui.notSpecifiedType = radio(column) {
+            ui.notSpecifiedType = radio(column.spanCols()) {
                 text = PluginApiBundle.message("xquery.configurations.data-source.not-specified.label")
                 isVisible = allowUnspecified
             }

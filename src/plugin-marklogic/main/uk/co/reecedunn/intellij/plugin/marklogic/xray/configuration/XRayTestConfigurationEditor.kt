@@ -49,7 +49,7 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
         row {
             label(PluginApiBundle.message("xquery.configurations.processor.query-processor.label"), column.vgap())
             queryProcessor = QueryProcessorComboBox(project)
-            add(queryProcessor.component, column.spanCols(3).horizontal().hgap().vgap())
+            add(queryProcessor.component, column.spanCols().horizontal().hgap().vgap())
             queryProcessor.addActionListener {
                 database.populateDatabaseUI(queryProcessor.settings)
             }
@@ -66,7 +66,7 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
         }
         row {
             label(PluginApiBundle.message("xquery.configurations.processor.module-root.label"), column.vgap())
-            modulePath = textFieldWithBrowseButton(column.spanCols(3).horizontal().hgap().vgap()) {
+            modulePath = textFieldWithBrowseButton(column.spanCols().horizontal().hgap().vgap()) {
                 val descriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor()
                 descriptor.title = PluginApiBundle.message("browser.choose.module-path")
                 addBrowseFolderListener(null, null, project, descriptor)
@@ -82,15 +82,15 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
         }
         row {
             label(PluginApiBundle.message("xquery.configurations.test.module-pattern.label"), column.vgap())
-            modulePattern = textField(column.spanCols(3).horizontal().hgap().vgap())
+            modulePattern = textField(column.spanCols().horizontal().hgap().vgap())
         }
         row {
             label(PluginApiBundle.message("xquery.configurations.test.test-pattern.label"), column.vgap())
-            testPattern = textField(column.spanCols(3).horizontal().hgap().vgap())
+            testPattern = textField(column.spanCols().horizontal().hgap().vgap())
         }
         row {
             label(PluginApiBundle.message("xquery.configurations.test.output-format.label"), column.vgap())
-            outputFormat = comboBox(column.spanCols(3).horizontal().hgap().vgap()) {
+            outputFormat = comboBox(column.spanCols().horizontal().hgap().vgap()) {
                 addItem(XRayTestFormat.HTML)
                 addItem(XRayTestFormat.JSON)
                 addItem(XRayTestFormat.Text)
@@ -100,7 +100,7 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
         }
         row {
             spacer(column.vertical())
-            spacer(column.spanCols(3).horizontal())
+            spacer(column.spanCols().horizontal())
         }
     }
 
