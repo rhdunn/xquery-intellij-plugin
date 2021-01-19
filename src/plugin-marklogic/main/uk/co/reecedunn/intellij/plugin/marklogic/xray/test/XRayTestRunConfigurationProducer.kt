@@ -21,8 +21,12 @@ import com.intellij.execution.configurations.ConfigurationFactory
 import com.intellij.execution.configurations.ConfigurationTypeUtil
 import com.intellij.openapi.util.Ref
 import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.marklogic.intellij.execution.configurations.type.XRayTestConfigurationType
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.configuration.XRayTestConfiguration
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModuleDecl
 
 class XRayTestRunConfigurationProducer : LazyRunConfigurationProducer<XRayTestConfiguration>() {
     override fun getConfigurationFactory(): ConfigurationFactory {
@@ -34,7 +38,18 @@ class XRayTestRunConfigurationProducer : LazyRunConfigurationProducer<XRayTestCo
         configuration: XRayTestConfiguration,
         context: ConfigurationContext
     ): Boolean {
-        return false
+        val name = context.location?.psiElement as? XPathEQName ?: return false
+        return when {
+            XRayTestService.isTestModule(name) -> {
+                configuration.modulePattern == "/${name.containingFile.name}" &&
+                configuration.testPattern == null
+            }
+            XRayTestService.isTestCase(name) -> {
+                configuration.modulePattern == "/${name.containingFile.name}" &&
+                configuration.testPattern == name.localName?.data
+            }
+            else -> false
+        }
     }
 
     override fun setupConfigurationFromContext(
