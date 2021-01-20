@@ -66,6 +66,9 @@ class GradleConfiguration(private val project: Project, override val baseDir: Vi
             it.api === MarkLogicRest && it.connection?.hostname in LOCALHOST_STRINGS
         }?.id
 
+    override val databaseName: String?
+        get() = getPropertyValue(ML_CONTENT_DATABASE_NAME) ?: applicationName?.let { "$it-content" }
+
     // endregion
     // region XpmProjectConfigurationFactory
 
@@ -79,6 +82,7 @@ class GradleConfiguration(private val project: Project, override val baseDir: Vi
 
         private const val ML_APP_NAME = "mlAppName"
         private const val ML_MODULE_PATHS = "mlModulePaths"
+        private const val ML_CONTENT_DATABASE_NAME = "mlContentDatabaseName"
 
         private const val ML_MODULE_PATHS_DEFAULT = "src/main/ml-modules"
 

@@ -27,4 +27,6 @@ interface XpmProjectConfiguration {
     val modulePaths: Sequence<VirtualFile>
 
     val processorId: Int?
+
+    val databaseName: String?
 }

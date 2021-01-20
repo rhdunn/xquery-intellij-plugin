@@ -45,10 +45,33 @@ class RoxyConfiguration(private val project: Project, override val baseDir: Virt
         default?.findPropertyByKey(property)
     ).filterNotNull()
 
-    fun getPropertyValue(property: String): String? = getProperty(property).firstOrNull()?.value
+    fun getPropertyValue(property: String, expand: Boolean = true): String? {
+        val value = getProperty(property).firstOrNull()?.value
+        return when {
+            value == null -> null
+            value.contains("\${") -> if (expand) expandPropertyValue(value) else value
+            else -> value
+        }
+    }
+
+    private fun expandPropertyValue(value: String): String = value.split("\${").withIndex().joinToString("") {
+        when {
+            it.index == 0 -> it.value
+            it.value.contains('}') -> {
+                it.value.split('}').withIndex().joinToString("") { (index, value) ->
+                    when (index) {
+                        0 -> getPropertyValue(value) ?: ""
+                        1 -> value
+                        else -> "}$value"
+                    }
+                }
+            }
+            else -> it.value
+        }
+    }
 
     fun getDirectory(property: String): VirtualFile? {
-        return getPropertyValue(property)?.takeIf { it.startsWith("\${basedir}") }?.let {
+        return getPropertyValue(property, expand = false)?.takeIf { it.startsWith("\${basedir}") }?.let {
             baseDir.findFileByRelativePath(it.substringAfter("\${basedir}"))
         }
     }
@@ -73,6 +96,9 @@ class RoxyConfiguration(private val project: Project, override val baseDir: Virt
             it.api === MarkLogicRest && it.connection?.hostname in LOCALHOST_STRINGS
         }?.id
 
+    override val databaseName: String?
+        get() = getPropertyValue(CONTENT_DB)
+
     // endregion
     // region XpmProjectConfigurationFactory
 
@@ -85,6 +111,7 @@ class RoxyConfiguration(private val project: Project, override val baseDir: Virt
 
         private const val APP_NAME = "app-name"
         private const val XQUERY_DIR = "xquery.dir"
+        private const val CONTENT_DB = "content-db"
 
         private val LOCALHOST_STRINGS = setOf("localhost", "127.0.0.1")
     }

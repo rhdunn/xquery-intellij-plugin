@@ -77,6 +77,7 @@ class XRayTestRunConfigurationProducer : LazyRunConfigurationProducer<XRayTestCo
 
         val projectConfiguration = XpmProjectConfigurations.getInstance(configuration.project)
         configuration.processorId = projectConfiguration.processorId
+        configuration.database = projectConfiguration.databaseName
         configuration.server = projectConfiguration.applicationName
 
         configuration.modulePattern = "/${module.name}"

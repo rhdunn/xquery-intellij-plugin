@@ -71,6 +71,9 @@ class XpmProjectConfigurations(private val project: Project) :
     val processorId: Int?
         get() = configurations.mapNotNull { it.processorId }.firstOrNull()
 
+    val databaseName: String?
+        get() = configurations.mapNotNull { it.databaseName }.firstOrNull()
+
     fun toModulePath(path: VirtualFile): String {
         val modulePath = modulePaths.mapNotNull { it.relativePathTo(path) }.firstOrNull()
         return modulePath?.let { "/$it" } ?: path.path
