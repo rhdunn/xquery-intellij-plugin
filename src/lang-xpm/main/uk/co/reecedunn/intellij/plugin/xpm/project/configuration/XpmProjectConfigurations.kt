@@ -62,6 +62,9 @@ class XpmProjectConfigurations(private val project: Project) :
     val configurations: Sequence<XpmProjectConfiguration>
         get() = cachedConfigurations.get()!!.asSequence()
 
+    val applicationName: String?
+        get() = configurations.mapNotNull { it.applicationName }.firstOrNull()
+
     val modulePaths: Sequence<VirtualFile>
         get() = configurations.flatMap { it.modulePaths }
 
