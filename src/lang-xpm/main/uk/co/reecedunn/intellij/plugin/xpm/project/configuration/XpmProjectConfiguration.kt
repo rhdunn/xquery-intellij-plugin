@@ -25,4 +25,6 @@ interface XpmProjectConfiguration {
     var environmentName: String
 
     val modulePaths: Sequence<VirtualFile>
+
+    val processorId: Int?
 }

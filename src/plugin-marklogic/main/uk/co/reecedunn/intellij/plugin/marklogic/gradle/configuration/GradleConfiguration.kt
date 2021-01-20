@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,8 @@ import com.intellij.lang.properties.psi.PropertiesFile
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
+import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicRest
+import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessors
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfiguration
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurationFactory
 
@@ -59,6 +61,11 @@ class GradleConfiguration(private val project: Project, override val baseDir: Vi
             return modulePaths.split(",").asSequence().mapNotNull { baseDir.findFileByRelativePath("$it/root") }
         }
 
+    override val processorId: Int?
+        get() = QueryProcessors.getInstance().processors.find {
+            it.api === MarkLogicRest && it.connection?.hostname in LOCALHOST_STRINGS
+        }?.id
+
     // endregion
     // region XpmProjectConfigurationFactory
 
@@ -74,6 +81,8 @@ class GradleConfiguration(private val project: Project, override val baseDir: Vi
         private const val ML_MODULE_PATHS = "mlModulePaths"
 
         private const val ML_MODULE_PATHS_DEFAULT = "src/main/ml-modules"
+
+        private val LOCALHOST_STRINGS = setOf("localhost", "127.0.0.1")
     }
 
     // endregion

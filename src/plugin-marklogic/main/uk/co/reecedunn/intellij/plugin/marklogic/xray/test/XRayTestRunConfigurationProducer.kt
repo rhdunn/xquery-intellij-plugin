@@ -25,6 +25,7 @@ import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.marklogic.intellij.execution.configurations.type.XRayTestConfigurationType
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.configuration.XRayTestConfiguration
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
+import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurations
 
 class XRayTestRunConfigurationProducer : LazyRunConfigurationProducer<XRayTestConfiguration>() {
     override fun getConfigurationFactory(): ConfigurationFactory {
@@ -73,6 +74,9 @@ class XRayTestRunConfigurationProducer : LazyRunConfigurationProducer<XRayTestCo
             null -> moduleName
             else -> "$moduleName (${testCase.localName?.data})"
         }
+
+        val projectConfiguration = XpmProjectConfigurations.getInstance(configuration.project)
+        configuration.processorId = projectConfiguration.processorId
 
         configuration.modulePattern = "/${module.name}"
         configuration.testPattern = testCase?.localName?.data

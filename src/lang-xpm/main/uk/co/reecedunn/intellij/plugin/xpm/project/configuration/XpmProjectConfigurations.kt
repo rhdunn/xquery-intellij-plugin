@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -64,6 +64,9 @@ class XpmProjectConfigurations(private val project: Project) :
 
     val modulePaths: Sequence<VirtualFile>
         get() = configurations.flatMap { it.modulePaths }
+
+    val processorId: Int?
+        get() = configurations.mapNotNull { it.processorId }.firstOrNull()
 
     fun toModulePath(path: VirtualFile): String {
         val modulePath = modulePaths.mapNotNull { it.relativePathTo(path) }.firstOrNull()
