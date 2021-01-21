@@ -43,7 +43,7 @@ class XPathRecordTestPsiImpl(node: ASTNode) :
         get() = children().filterIsInstance<XPathFieldDeclaration>()
 
     override val isExtensible: Boolean
-        get() = conformanceElement !== firstChild
+        get() = conformanceElement !== firstChild || fields.none()
 
     // endregion
     // region XdmSequenceType

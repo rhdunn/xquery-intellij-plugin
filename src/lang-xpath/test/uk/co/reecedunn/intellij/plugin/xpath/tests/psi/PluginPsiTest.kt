@@ -52,7 +52,7 @@ private class PluginPsiTest : ParserTestCase() {
             fun empty() {
                 val test = parse<XPathRecordTest>("() instance of tuple ( (::) )")[0]
                 assertThat(test.fields.count(), `is`(0))
-                assertThat(test.isExtensible, `is`(false))
+                assertThat(test.isExtensible, `is`(true))
 
                 val type = test as XdmItemType
                 assertThat(type.typeName, `is`("map(*)"))
@@ -100,7 +100,7 @@ private class PluginPsiTest : ParserTestCase() {
             fun emptyExtensible() {
                 val test = parse<XPathRecordTest>("() instance of tuple ( * )")[0]
                 assertThat(test.fields.count(), `is`(0))
-                assertThat(test.isExtensible, `is`(false))
+                assertThat(test.isExtensible, `is`(true))
 
                 val type = test as XdmItemType
                 assertThat(type.typeName, `is`("map(*)"))
