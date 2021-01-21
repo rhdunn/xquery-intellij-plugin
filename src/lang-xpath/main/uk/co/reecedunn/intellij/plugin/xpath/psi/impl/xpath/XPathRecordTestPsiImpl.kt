@@ -61,10 +61,11 @@ class XPathRecordTestPsiImpl(node: ASTNode) :
             "$name$type"
         }.filterNotNull().joinToString()
 
-        if (isExtensible)
-            "tuple($fields, *)"
-        else
-            "tuple($fields)"
+        when {
+            fields == "" -> "map(*)"
+            isExtensible -> "tuple($fields, *)"
+            else -> "tuple($fields)"
+        }
     }
 
     override val typeName: String

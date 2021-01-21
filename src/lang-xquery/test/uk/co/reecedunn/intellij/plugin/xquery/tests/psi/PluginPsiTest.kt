@@ -151,7 +151,7 @@ private class PluginPsiTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin (2.1.2.2) Tuple Type")
+    @DisplayName("XQuery IntelliJ Plugin (2.1.2.2) Tuple Test")
     internal inner class RecordTest {
         @Nested
         @DisplayName("XQuery IntelliJ Plugin EBNF (23) RecordTest")
@@ -164,7 +164,7 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(test.isExtensible, `is`(false))
 
                 val type = test as XdmItemType
-                assertThat(type.typeName, `is`("tuple()"))
+                assertThat(type.typeName, `is`("map(*)"))
                 assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
 
                 assertThat(type.itemType, `is`(sameInstance(type)))
@@ -212,7 +212,7 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(test.isExtensible, `is`(false))
 
                 val type = test as XdmItemType
-                assertThat(type.typeName, `is`("tuple()"))
+                assertThat(type.typeName, `is`("map(*)"))
                 assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
 
                 assertThat(type.itemType, `is`(sameInstance(type)))

@@ -42,6 +42,218 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 @DisplayName("XQuery IntelliJ Plugin - IntelliJ Program Structure Interface (PSI) - XPath")
 private class PluginPsiTest : ParserTestCase() {
     @Nested
+    @DisplayName("XQuery IntelliJ Plugin (2.1.2.2) Tuple Test")
+    internal inner class RecordTest {
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (23) RecordTest")
+        internal inner class RecordTest {
+            @Test
+            @DisplayName("empty")
+            fun empty() {
+                val test = parse<XPathRecordTest>("() instance of tuple ( (::) )")[0]
+                assertThat(test.fields.count(), `is`(0))
+                assertThat(test.isExtensible, `is`(false))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("map(*)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("one field")
+            fun one() {
+                val test = parse<XPathRecordTest>("() instance of tuple ( test )")[0]
+                assertThat(test.fields.count(), `is`(1))
+                assertThat(test.isExtensible, `is`(false))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("tuple(test)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("multiple fields")
+            fun multiple() {
+                val test = parse<XPathRecordTest>("() instance of tuple ( x : xs:float , y : xs:float )")[0]
+                assertThat(test.fields.count(), `is`(2))
+                assertThat(test.isExtensible, `is`(false))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("tuple(x: xs:float, y: xs:float)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("empty; extensible")
+            fun emptyExtensible() {
+                val test = parse<XPathRecordTest>("() instance of tuple ( * )")[0]
+                assertThat(test.fields.count(), `is`(0))
+                assertThat(test.isExtensible, `is`(false))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("map(*)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("multiple fields; extensible")
+            fun multipleExtensible() {
+                val test = parse<XPathRecordTest>("() instance of tuple ( x : xs:float , y : xs:float , * )")[0]
+                assertThat(test.fields.count(), `is`(2))
+                assertThat(test.isExtensible, `is`(true))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("tuple(x: xs:float, y: xs:float, *)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (24) FieldDeclaration")
+        internal inner class FieldDeclaration {
+            @Test
+            @DisplayName("required; unspecified type")
+            fun nameOnlyRequired() {
+                val field = parse<XPathFieldDeclaration>("() instance of tuple ( test )")[0]
+                assertThat(field.fieldName.data, `is`("test"))
+                assertThat(field.fieldType, `is`(nullValue()))
+                assertThat(field.isOptional, `is`(false))
+
+                val test = field.parent as XPathRecordTest
+                assertThat(test.fields.first(), `is`(sameInstance(field)))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("tuple(test)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("optional; unspecified type")
+            fun nameOnlyOptional() {
+                val field = parse<XPathFieldDeclaration>("() instance of tuple ( test ? )")[0]
+                assertThat(field.fieldName.data, `is`("test"))
+                assertThat(field.fieldType, `is`(nullValue()))
+                assertThat(field.isOptional, `is`(true))
+
+                val test = field.parent as XPathRecordTest
+                assertThat(test.fields.first(), `is`(sameInstance(field)))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("tuple(test?)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("required; specified type")
+            fun nameAndTypeRequired() {
+                val field = parse<XPathFieldDeclaration>("() instance of tuple ( test : xs:string )")[0]
+                assertThat(field.fieldName.data, `is`("test"))
+                assertThat(field.fieldType?.typeName, `is`("xs:string"))
+                assertThat(field.isOptional, `is`(false))
+
+                val test = field.parent as XPathRecordTest
+                assertThat(test.fields.first(), `is`(sameInstance(field)))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("tuple(test: xs:string)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("optional; specified type")
+            fun nameAndTypeOptional() {
+                val field = parse<XPathFieldDeclaration>("() instance of tuple ( test ? : xs:string )")[0]
+                assertThat(field.fieldName.data, `is`("test"))
+                assertThat(field.fieldType?.typeName, `is`("xs:string"))
+                assertThat(field.isOptional, `is`(true))
+
+                val test = field.parent as XPathRecordTest
+                assertThat(test.fields.first(), `is`(sameInstance(field)))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("tuple(test?: xs:string)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("StringLiteral name; no space in name")
+            fun stringLiteralName_noSpace() {
+                val field = parse<XPathFieldDeclaration>("() instance of tuple ( 'test' )")[0]
+                assertThat(field.fieldName.data, `is`("test"))
+                assertThat(field.fieldType, `is`(nullValue()))
+                assertThat(field.isOptional, `is`(false))
+
+                val test = field.parent as XPathRecordTest
+                assertThat(test.fields.first(), `is`(sameInstance(field)))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("tuple(test)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("StringLiteral name; space in name")
+            fun stringLiteralName_withSpace() {
+                val field = parse<XPathFieldDeclaration>("() instance of tuple ( 'test key name' )")[0]
+                assertThat(field.fieldName.data, `is`("test key name"))
+                assertThat(field.fieldType, `is`(nullValue()))
+                assertThat(field.isOptional, `is`(false))
+
+                val test = field.parent as XPathRecordTest
+                assertThat(test.fields.first(), `is`(sameInstance(field)))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("tuple(\"test key name\")"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery IntelliJ Plugin XPath (2.1.2.5) Type Alias")
     internal inner class TypeAlias {
         @Nested
