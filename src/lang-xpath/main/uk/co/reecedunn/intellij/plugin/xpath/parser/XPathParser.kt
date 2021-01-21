@@ -3553,7 +3553,10 @@ open class XPathParser : PsiParser {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseFieldDeclaration(builder, recordType)) {
+            if (
+                !parseFieldDeclaration(builder, recordType) &&
+                !builder.errorOnTokenType(XPathTokenType.STAR, XPathBundle.message("parser.error.expected", "FieldDeclaration"))
+            ) {
                 builder.error(XPathBundle.message("parser.error.expected", "FieldDeclaration"))
                 haveError = true
             }

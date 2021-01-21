@@ -10267,6 +10267,14 @@ private class XQueryParserTest : ParserTestCase() {
                 val actual = parseResource("tests/parser/xquery-4.0/RecordTest_ExtensibleFlag_FieldDeclarationAfter.xq")
                 assertThat(actual.toPsiTreeString(), `is`(expected))
             }
+
+            @Test
+            @DisplayName("error recovery: extensible flag at start")
+            fun atStart() {
+                val expected = loadResource("tests/parser/xquery-4.0/RecordTest_ExtensibleFlag_AtStart.txt")
+                val actual = parseResource("tests/parser/xquery-4.0/RecordTest_ExtensibleFlag_AtStart.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
         }
 
         @Nested

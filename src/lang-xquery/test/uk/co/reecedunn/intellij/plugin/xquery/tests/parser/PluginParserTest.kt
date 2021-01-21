@@ -353,28 +353,40 @@ private class PluginParserTest : ParserTestCase() {
             assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
-        @Test
-        @DisplayName("extensible tuple")
-        fun extensible() {
-            val expected = loadResource("tests/parser/saxon-9.9/TupleType_Extensible.txt")
-            val actual = parseResource("tests/parser/saxon-9.9/TupleType_Extensible.xq")
-            assertThat(actual.toPsiTreeString(), `is`(expected))
-        }
+        @Nested
+        @DisplayName("XQuery 4.0 ED EBNF (232) ExtensibleFlag")
+        internal inner class ExtensibleFlag {
+            @Test
+            @DisplayName("extensible flag")
+            fun extensibleFlag() {
+                val expected = loadResource("tests/parser/saxon-9.9/TupleType_Extensible.txt")
+                val actual = parseResource("tests/parser/saxon-9.9/TupleType_Extensible.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
 
-        @Test
-        @DisplayName("extensible tuple; compact whitespace")
-        fun extensible_CompactWhitespace() {
-            val expected = loadResource("tests/parser/saxon-9.9/TupleType_Extensible_CompactWhitespace.txt")
-            val actual = parseResource("tests/parser/saxon-9.9/TupleType_Extensible_CompactWhitespace.xq")
-            assertThat(actual.toPsiTreeString(), `is`(expected))
-        }
+            @Test
+            @DisplayName("extensible flag; compact whitespace")
+            fun extensibleFlag_compactWhitespace() {
+                val expected = loadResource("tests/parser/saxon-9.9/TupleType_Extensible_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/saxon-9.9/TupleType_Extensible_CompactWhitespace.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
 
-        @Test
-        @DisplayName("extensible tuple; not last")
-        fun extensible_NotLast() {
-            val expected = loadResource("tests/parser/saxon-9.9/TupleType_Extensible_NotLast.txt")
-            val actual = parseResource("tests/parser/saxon-9.9/TupleType_Extensible_NotLast.xq")
-            assertThat(actual.toPsiTreeString(), `is`(expected))
+            @Test
+            @DisplayName("error recovery: field declaration after extensible flag")
+            fun fieldDeclarationAfter() {
+                val expected = loadResource("tests/parser/saxon-9.9/TupleType_Extensible_NotLast.txt")
+                val actual = parseResource("tests/parser/saxon-9.9/TupleType_Extensible_NotLast.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: extensible flag at start")
+            fun atStart() {
+                val expected = loadResource("tests/parser/saxon-9.9/TupleType_Extensible_AtStart.txt")
+                val actual = parseResource("tests/parser/saxon-9.9/TupleType_Extensible_AtStart.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
         }
 
         @Nested
