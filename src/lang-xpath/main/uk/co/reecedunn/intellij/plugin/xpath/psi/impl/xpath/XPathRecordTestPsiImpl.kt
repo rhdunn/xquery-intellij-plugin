@@ -66,10 +66,11 @@ class XPathRecordTestPsiImpl(node: ASTNode) :
             } ?: name
         }.filterNotNull().joinToString()
 
+        val name = firstChild.text
         when {
             fields == "" -> "map(*)"
-            isExtensible -> "tuple($fields, *)"
-            else -> "tuple($fields)"
+            isExtensible -> "$name($fields, *)"
+            else -> "$name($fields)"
         }
     }
 

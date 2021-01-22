@@ -1817,6 +1817,224 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
+        @DisplayName("XQuery 4.0 ED (3.6.4.3) Record Test")
+        internal inner class RecordTest {
+            @Nested
+            @DisplayName("XQuery 4.0 ED EBNF (230) RecordTest")
+            internal inner class RecordTest {
+                @Test
+                @DisplayName("empty")
+                fun empty() {
+                    val test = parse<XPathRecordTest>("() instance of record ( (::) )")[0]
+                    assertThat(test.fields.count(), `is`(0))
+                    assertThat(test.isExtensible, `is`(true))
+
+                    val type = test as XdmItemType
+                    assertThat(type.typeName, `is`("map(*)"))
+                    assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                    assertThat(type.itemType, `is`(sameInstance(type)))
+                    assertThat(type.lowerBound, `is`(1))
+                    assertThat(type.upperBound, `is`(1))
+                }
+
+                @Test
+                @DisplayName("one field")
+                fun one() {
+                    val test = parse<XPathRecordTest>("() instance of record ( test )")[0]
+                    assertThat(test.fields.count(), `is`(1))
+                    assertThat(test.isExtensible, `is`(false))
+
+                    val type = test as XdmItemType
+                    assertThat(type.typeName, `is`("record(test)"))
+                    assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                    assertThat(type.itemType, `is`(sameInstance(type)))
+                    assertThat(type.lowerBound, `is`(1))
+                    assertThat(type.upperBound, `is`(1))
+                }
+
+                @Test
+                @DisplayName("multiple fields")
+                fun multiple() {
+                    val test = parse<XPathRecordTest>("() instance of record ( x as xs:float , y as xs:float )")[0]
+                    assertThat(test.fields.count(), `is`(2))
+                    assertThat(test.isExtensible, `is`(false))
+
+                    val type = test as XdmItemType
+                    assertThat(type.typeName, `is`("record(x as xs:float, y as xs:float)"))
+                    assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                    assertThat(type.itemType, `is`(sameInstance(type)))
+                    assertThat(type.lowerBound, `is`(1))
+                    assertThat(type.upperBound, `is`(1))
+                }
+
+                @Test
+                @DisplayName("empty; extensible")
+                fun emptyExtensible() {
+                    val test = parse<XPathRecordTest>("() instance of record ( * )")[0]
+                    assertThat(test.fields.count(), `is`(0))
+                    assertThat(test.isExtensible, `is`(true))
+
+                    val type = test as XdmItemType
+                    assertThat(type.typeName, `is`("map(*)"))
+                    assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                    assertThat(type.itemType, `is`(sameInstance(type)))
+                    assertThat(type.lowerBound, `is`(1))
+                    assertThat(type.upperBound, `is`(1))
+                }
+
+                @Test
+                @DisplayName("multiple fields; extensible")
+                fun multipleExtensible() {
+                    val test = parse<XPathRecordTest>("() instance of record ( x as xs:float , y as xs:float , * )")[0]
+                    assertThat(test.fields.count(), `is`(2))
+                    assertThat(test.isExtensible, `is`(true))
+
+                    val type = test as XdmItemType
+                    assertThat(type.typeName, `is`("record(x as xs:float, y as xs:float, *)"))
+                    assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                    assertThat(type.itemType, `is`(sameInstance(type)))
+                    assertThat(type.lowerBound, `is`(1))
+                    assertThat(type.upperBound, `is`(1))
+                }
+            }
+
+            @Nested
+            @DisplayName("XQuery 4.0 ED EBNF (231) FieldDeclaration")
+            internal inner class FieldDeclaration {
+                @Test
+                @DisplayName("required; unspecified type")
+                fun nameOnlyRequired() {
+                    val field = parse<XPathFieldDeclaration>("() instance of record ( test )")[0]
+                    assertThat(field.fieldName.data, `is`("test"))
+                    assertThat(field.fieldType, `is`(nullValue()))
+                    assertThat(field.fieldSeparator, `is`(nullValue()))
+                    assertThat(field.isOptional, `is`(false))
+
+                    val test = field.parent as XPathRecordTest
+                    assertThat(test.fields.first(), `is`(sameInstance(field)))
+
+                    val type = test as XdmItemType
+                    assertThat(type.typeName, `is`("record(test)"))
+                    assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                    assertThat(type.itemType, `is`(sameInstance(type)))
+                    assertThat(type.lowerBound, `is`(1))
+                    assertThat(type.upperBound, `is`(1))
+                }
+
+                @Test
+                @DisplayName("optional; unspecified type")
+                fun nameOnlyOptional() {
+                    val field = parse<XPathFieldDeclaration>("() instance of record ( test ? )")[0]
+                    assertThat(field.fieldName.data, `is`("test"))
+                    assertThat(field.fieldType, `is`(nullValue()))
+                    assertThat(field.fieldSeparator, `is`(nullValue()))
+                    assertThat(field.isOptional, `is`(true))
+
+                    val test = field.parent as XPathRecordTest
+                    assertThat(test.fields.first(), `is`(sameInstance(field)))
+
+                    val type = test as XdmItemType
+                    assertThat(type.typeName, `is`("record(test?)"))
+                    assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                    assertThat(type.itemType, `is`(sameInstance(type)))
+                    assertThat(type.lowerBound, `is`(1))
+                    assertThat(type.upperBound, `is`(1))
+                }
+
+                @Test
+                @DisplayName("required; specified type")
+                fun nameAndTypeRequired() {
+                    val field = parse<XPathFieldDeclaration>("() instance of record ( test as xs:string )")[0]
+                    assertThat(field.fieldName.data, `is`("test"))
+                    assertThat(field.fieldType?.typeName, `is`("xs:string"))
+                    assertThat(field.fieldSeparator, `is`(XPathTokenType.K_AS))
+                    assertThat(field.isOptional, `is`(false))
+
+                    val test = field.parent as XPathRecordTest
+                    assertThat(test.fields.first(), `is`(sameInstance(field)))
+
+                    val type = test as XdmItemType
+                    assertThat(type.typeName, `is`("record(test as xs:string)"))
+                    assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                    assertThat(type.itemType, `is`(sameInstance(type)))
+                    assertThat(type.lowerBound, `is`(1))
+                    assertThat(type.upperBound, `is`(1))
+                }
+
+                @Test
+                @DisplayName("optional; specified type")
+                fun nameAndTypeOptional() {
+                    val field = parse<XPathFieldDeclaration>("() instance of record ( test ? as xs:string )")[0]
+                    assertThat(field.fieldName.data, `is`("test"))
+                    assertThat(field.fieldType?.typeName, `is`("xs:string"))
+                    assertThat(field.fieldSeparator, `is`(XPathTokenType.K_AS))
+                    assertThat(field.isOptional, `is`(true))
+
+                    val test = field.parent as XPathRecordTest
+                    assertThat(test.fields.first(), `is`(sameInstance(field)))
+
+                    val type = test as XdmItemType
+                    assertThat(type.typeName, `is`("record(test? as xs:string)"))
+                    assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                    assertThat(type.itemType, `is`(sameInstance(type)))
+                    assertThat(type.lowerBound, `is`(1))
+                    assertThat(type.upperBound, `is`(1))
+                }
+
+                @Test
+                @DisplayName("StringLiteral name; no space in name")
+                fun stringLiteralName_noSpace() {
+                    val field = parse<XPathFieldDeclaration>("() instance of record ( 'test' )")[0]
+                    assertThat(field.fieldName.data, `is`("test"))
+                    assertThat(field.fieldType, `is`(nullValue()))
+                    assertThat(field.fieldSeparator, `is`(nullValue()))
+                    assertThat(field.isOptional, `is`(false))
+
+                    val test = field.parent as XPathRecordTest
+                    assertThat(test.fields.first(), `is`(sameInstance(field)))
+
+                    val type = test as XdmItemType
+                    assertThat(type.typeName, `is`("record(test)"))
+                    assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                    assertThat(type.itemType, `is`(sameInstance(type)))
+                    assertThat(type.lowerBound, `is`(1))
+                    assertThat(type.upperBound, `is`(1))
+                }
+
+                @Test
+                @DisplayName("StringLiteral name; space in name")
+                fun stringLiteralName_withSpace() {
+                    val field = parse<XPathFieldDeclaration>("() instance of record ( 'test key name' )")[0]
+                    assertThat(field.fieldName.data, `is`("test key name"))
+                    assertThat(field.fieldType, `is`(nullValue()))
+                    assertThat(field.fieldSeparator, `is`(nullValue()))
+                    assertThat(field.isOptional, `is`(false))
+
+                    val test = field.parent as XPathRecordTest
+                    assertThat(test.fields.first(), `is`(sameInstance(field)))
+
+                    val type = test as XdmItemType
+                    assertThat(type.typeName, `is`("record(\"test key name\")"))
+                    assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                    assertThat(type.itemType, `is`(sameInstance(type)))
+                    assertThat(type.lowerBound, `is`(1))
+                    assertThat(type.upperBound, `is`(1))
+                }
+            }
+        }
+
+        @Nested
         @DisplayName("XQuery 4.0 ED (3.6.4.4) Element Test ; XQuery 3.1 (2.5.5.9) Array Test")
         internal inner class ArrayTest {
             @Nested
