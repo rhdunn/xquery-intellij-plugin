@@ -17,8 +17,9 @@ package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 
 /**
  * An XPath 4.0 ED and XQuery 4.0 ED `SelfReference` node in the XPath/XQuery AST.
  */
-interface XPathSelfReference : PsiElement
+interface XPathSelfReference : PsiElement, XdmSequenceType

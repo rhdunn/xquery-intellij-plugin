@@ -1561,8 +1561,8 @@ private class XPathPsiTest : ParserTestCase() {
             @DisplayName("XPath 4.0 ED EBNF (122) FieldDeclaration ; XPath 4.0 ED EBNF (94) SequenceType")
             internal inner class FieldDeclaration_SequenceType {
                 @Test
-                @DisplayName("required")
-                fun required() {
+                @DisplayName("required field")
+                fun requiredField() {
                     val field = parse<XPathFieldDeclaration>("() instance of record ( test as xs:string )")[0]
                     assertThat(field.fieldName.data, `is`("test"))
                     assertThat(field.fieldType?.typeName, `is`("xs:string"))
@@ -1582,8 +1582,8 @@ private class XPathPsiTest : ParserTestCase() {
                 }
 
                 @Test
-                @DisplayName("optional")
-                fun optional() {
+                @DisplayName("optional field")
+                fun optionalField() {
                     val field = parse<XPathFieldDeclaration>("() instance of record ( test ? as xs:string )")[0]
                     assertThat(field.fieldName.data, `is`("test"))
                     assertThat(field.fieldType?.typeName, `is`("xs:string"))
@@ -1595,6 +1595,218 @@ private class XPathPsiTest : ParserTestCase() {
 
                     val type = test as XdmItemType
                     assertThat(type.typeName, `is`("record(test? as xs:string)"))
+                    assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                    assertThat(type.itemType, `is`(sameInstance(type)))
+                    assertThat(type.lowerBound, `is`(1))
+                    assertThat(type.upperBound, `is`(1))
+                }
+            }
+
+            @Nested
+            @DisplayName("XPath 4.0 ED EBNF (122) FieldDeclaration ; XPath 4.0 ED EBNF (94) SelfReference")
+            internal inner class FieldDeclaration_SelfReference {
+                @Test
+                @DisplayName("required field; item type (T)")
+                fun requiredField_itemType() {
+                    val field = parse<XPathFieldDeclaration>("() instance of record ( test as .. )")[0]
+                    assertThat(field.fieldName.data, `is`("test"))
+                    assertThat(field.fieldSeparator, `is`(XPathTokenType.K_AS))
+                    assertThat(field.isOptional, `is`(false))
+
+                    val test = field.parent as XPathRecordTest
+                    assertThat(test.fields.first(), `is`(sameInstance(field)))
+
+                    val fieldType = field.fieldType as XdmSequenceType
+                    assertThat(fieldType.typeName, `is`(".."))
+                    assertThat(fieldType.itemType, `is`(sameInstance(test)))
+                    assertThat(fieldType.lowerBound, `is`(1))
+                    assertThat(fieldType.upperBound, `is`(1))
+
+                    val type = test as XdmItemType
+                    assertThat(type.typeName, `is`("record(test as ..)"))
+                    assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                    assertThat(type.itemType, `is`(sameInstance(type)))
+                    assertThat(type.lowerBound, `is`(1))
+                    assertThat(type.upperBound, `is`(1))
+                }
+
+                @Test
+                @DisplayName("required field; optional item type (T?)")
+                fun requiredField_optionalItemType() {
+                    val field = parse<XPathFieldDeclaration>("() instance of record ( test as .. ? )")[0]
+                    assertThat(field.fieldName.data, `is`("test"))
+                    assertThat(field.fieldSeparator, `is`(XPathTokenType.K_AS))
+                    assertThat(field.isOptional, `is`(false))
+
+                    val test = field.parent as XPathRecordTest
+                    assertThat(test.fields.first(), `is`(sameInstance(field)))
+
+                    val fieldType = field.fieldType as XdmSequenceType
+                    assertThat(fieldType.typeName, `is`("..?"))
+                    assertThat(fieldType.itemType, `is`(sameInstance(test)))
+                    assertThat(fieldType.lowerBound, `is`(0))
+                    assertThat(fieldType.upperBound, `is`(1))
+
+                    val type = test as XdmItemType
+                    assertThat(type.typeName, `is`("record(test as ..?)"))
+                    assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                    assertThat(type.itemType, `is`(sameInstance(type)))
+                    assertThat(type.lowerBound, `is`(1))
+                    assertThat(type.upperBound, `is`(1))
+                }
+
+                @Test
+                @DisplayName("required field; sequence type (T*)")
+                fun requiredField_sequenceType() {
+                    val field = parse<XPathFieldDeclaration>("() instance of record ( test as .. * )")[0]
+                    assertThat(field.fieldName.data, `is`("test"))
+                    assertThat(field.fieldSeparator, `is`(XPathTokenType.K_AS))
+                    assertThat(field.isOptional, `is`(false))
+
+                    val test = field.parent as XPathRecordTest
+                    assertThat(test.fields.first(), `is`(sameInstance(field)))
+
+                    val fieldType = field.fieldType as XdmSequenceType
+                    assertThat(fieldType.typeName, `is`("..*"))
+                    assertThat(fieldType.itemType, `is`(sameInstance(test)))
+                    assertThat(fieldType.lowerBound, `is`(0))
+                    assertThat(fieldType.upperBound, `is`(Int.MAX_VALUE))
+
+                    val type = test as XdmItemType
+                    assertThat(type.typeName, `is`("record(test as ..*)"))
+                    assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                    assertThat(type.itemType, `is`(sameInstance(type)))
+                    assertThat(type.lowerBound, `is`(1))
+                    assertThat(type.upperBound, `is`(1))
+                }
+
+                @Test
+                @DisplayName("required field; required sequence type (T+)")
+                fun requiredField_requiredSequenceType() {
+                    val field = parse<XPathFieldDeclaration>("() instance of record ( test as .. + )")[0]
+                    assertThat(field.fieldName.data, `is`("test"))
+                    assertThat(field.fieldSeparator, `is`(XPathTokenType.K_AS))
+                    assertThat(field.isOptional, `is`(false))
+
+                    val test = field.parent as XPathRecordTest
+                    assertThat(test.fields.first(), `is`(sameInstance(field)))
+
+                    val fieldType = field.fieldType as XdmSequenceType
+                    assertThat(fieldType.typeName, `is`("..+"))
+                    assertThat(fieldType.itemType, `is`(sameInstance(test)))
+                    assertThat(fieldType.lowerBound, `is`(1))
+                    assertThat(fieldType.upperBound, `is`(Int.MAX_VALUE))
+
+                    val type = test as XdmItemType
+                    assertThat(type.typeName, `is`("record(test as ..+)"))
+                    assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                    assertThat(type.itemType, `is`(sameInstance(type)))
+                    assertThat(type.lowerBound, `is`(1))
+                    assertThat(type.upperBound, `is`(1))
+                }
+
+                @Test
+                @DisplayName("optional field; item type (T)")
+                fun optionalField_itemType() {
+                    val field = parse<XPathFieldDeclaration>("() instance of record ( test ? as .. )")[0]
+                    assertThat(field.fieldName.data, `is`("test"))
+                    assertThat(field.fieldSeparator, `is`(XPathTokenType.K_AS))
+                    assertThat(field.isOptional, `is`(true))
+
+                    val test = field.parent as XPathRecordTest
+                    assertThat(test.fields.first(), `is`(sameInstance(field)))
+
+                    val fieldType = field.fieldType as XdmSequenceType
+                    assertThat(fieldType.typeName, `is`(".."))
+                    assertThat(fieldType.itemType, `is`(sameInstance(test)))
+                    assertThat(fieldType.lowerBound, `is`(1))
+                    assertThat(fieldType.upperBound, `is`(1))
+
+                    val type = test as XdmItemType
+                    assertThat(type.typeName, `is`("record(test? as ..)"))
+                    assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                    assertThat(type.itemType, `is`(sameInstance(type)))
+                    assertThat(type.lowerBound, `is`(1))
+                    assertThat(type.upperBound, `is`(1))
+                }
+
+                @Test
+                @DisplayName("optional field; optional item type (T?)")
+                fun optionalField_optionalItemType() {
+                    val field = parse<XPathFieldDeclaration>("() instance of record ( test ? as .. ? )")[0]
+                    assertThat(field.fieldName.data, `is`("test"))
+                    assertThat(field.fieldSeparator, `is`(XPathTokenType.K_AS))
+                    assertThat(field.isOptional, `is`(true))
+
+                    val test = field.parent as XPathRecordTest
+                    assertThat(test.fields.first(), `is`(sameInstance(field)))
+
+                    val fieldType = field.fieldType as XdmSequenceType
+                    assertThat(fieldType.typeName, `is`("..?"))
+                    assertThat(fieldType.itemType, `is`(sameInstance(test)))
+                    assertThat(fieldType.lowerBound, `is`(0))
+                    assertThat(fieldType.upperBound, `is`(1))
+
+                    val type = test as XdmItemType
+                    assertThat(type.typeName, `is`("record(test? as ..?)"))
+                    assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                    assertThat(type.itemType, `is`(sameInstance(type)))
+                    assertThat(type.lowerBound, `is`(1))
+                    assertThat(type.upperBound, `is`(1))
+                }
+
+                @Test
+                @DisplayName("optional field; sequence type (T*)")
+                fun optionalField_sequenceType() {
+                    val field = parse<XPathFieldDeclaration>("() instance of record ( test ? as .. * )")[0]
+                    assertThat(field.fieldName.data, `is`("test"))
+                    assertThat(field.fieldSeparator, `is`(XPathTokenType.K_AS))
+                    assertThat(field.isOptional, `is`(true))
+
+                    val test = field.parent as XPathRecordTest
+                    assertThat(test.fields.first(), `is`(sameInstance(field)))
+
+                    val fieldType = field.fieldType as XdmSequenceType
+                    assertThat(fieldType.typeName, `is`("..*"))
+                    assertThat(fieldType.itemType, `is`(sameInstance(test)))
+                    assertThat(fieldType.lowerBound, `is`(0))
+                    assertThat(fieldType.upperBound, `is`(Int.MAX_VALUE))
+
+                    val type = test as XdmItemType
+                    assertThat(type.typeName, `is`("record(test? as ..*)"))
+                    assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                    assertThat(type.itemType, `is`(sameInstance(type)))
+                    assertThat(type.lowerBound, `is`(1))
+                    assertThat(type.upperBound, `is`(1))
+                }
+
+                @Test
+                @DisplayName("optional field; required sequence type (T+)")
+                fun optionalField_requiredSequenceType() {
+                    val field = parse<XPathFieldDeclaration>("() instance of record ( test ? as .. + )")[0]
+                    assertThat(field.fieldName.data, `is`("test"))
+                    assertThat(field.fieldSeparator, `is`(XPathTokenType.K_AS))
+                    assertThat(field.isOptional, `is`(true))
+
+                    val test = field.parent as XPathRecordTest
+                    assertThat(test.fields.first(), `is`(sameInstance(field)))
+
+                    val fieldType = field.fieldType as XdmSequenceType
+                    assertThat(fieldType.typeName, `is`("..+"))
+                    assertThat(fieldType.itemType, `is`(sameInstance(test)))
+                    assertThat(fieldType.lowerBound, `is`(1))
+                    assertThat(fieldType.upperBound, `is`(Int.MAX_VALUE))
+
+                    val type = test as XdmItemType
+                    assertThat(type.typeName, `is`("record(test? as ..+)"))
                     assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
 
                     assertThat(type.itemType, `is`(sameInstance(type)))

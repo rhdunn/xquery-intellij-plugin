@@ -17,6 +17,44 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.psi.PsiElement
+import com.intellij.psi.tree.IElementType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathSelfReference
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
-class XPathSelfReferencePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathSelfReference
+class XPathSelfReferencePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathSelfReference {
+    // region XdmSequenceType
+
+    private val occurrenceIndicator: IElementType?
+        get() = findChildByType<PsiElement>(XPathTokenType.OCCURRENCE_INDICATOR_TOKENS)?.node?.elementType
+
+    override val typeName: String
+        get() = when (occurrenceIndicator) {
+            XPathTokenType.OPTIONAL -> "..?"
+            XPathTokenType.STAR -> "..*"
+            XPathTokenType.PLUS -> "..+"
+            else -> ".."
+        }
+
+    override val itemType: XdmItemType
+        get() = parent.parent as XdmItemType
+
+    override val lowerBound: Int
+        get() = when (occurrenceIndicator) {
+            XPathTokenType.OPTIONAL -> 0
+            XPathTokenType.STAR -> 0
+            XPathTokenType.PLUS -> 1
+            else -> 1
+        }
+
+    override val upperBound: Int
+        get() = when (occurrenceIndicator) {
+            XPathTokenType.OPTIONAL -> 1
+            XPathTokenType.STAR -> Int.MAX_VALUE
+            XPathTokenType.PLUS -> Int.MAX_VALUE
+            else -> 1
+        }
+
+    // endregion
+}
