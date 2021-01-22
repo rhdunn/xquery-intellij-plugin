@@ -17,6 +17,7 @@ XPathImpl[FILE(0:32)]
             PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
             XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AS(25:27)]('as')
             PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
-            XPathAbbrevReverseStepImpl[XPATH_PARENT_SELECTOR_TOKEN(28:30)]('..')
-            PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
+            XPathSelfReferenceImpl[XPATH_SELF_REFERENCE(28:31)]
+               XPathAbbrevReverseStepImpl[XPATH_PARENT_SELECTOR_TOKEN(28:30)]('..')
+               PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
          LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(31:32)](')')

@@ -3644,9 +3644,11 @@ open class XPathParser : PsiParser {
     private fun parseFieldName(builder: PsiBuilder): Boolean = parseNCName(builder) || parseStringLiteral(builder)
 
     private fun parseSelfReference(builder: PsiBuilder): Boolean {
-        if (builder.matchTokenType(XPathTokenType.PARENT_SELECTOR)) {
+        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.PARENT_SELECTOR)
+        if (marker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             parseOccurrenceIndicator(builder)
+            marker.done(XPathElementType.SELF_REFERENCE)
             return true
         }
         return false

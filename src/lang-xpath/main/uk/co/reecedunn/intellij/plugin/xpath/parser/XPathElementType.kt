@@ -594,6 +594,12 @@ object XPathElementType {
         XPath
     )
 
+    val SELF_REFERENCE: IElementType = ICompositeElementType(
+        "XPATH_SELF_REFERENCE",
+        XPathSelfReferencePsiImpl::class.java,
+        XPath
+    )
+
     val TERNARY_CONDITIONAL_EXPR: IElementType = ICompositeElementType(
         "XPATH_TERNARY_CONDITIONAL_EXPR",
         XPathTernaryConditionalExprPsiImpl::class.java,

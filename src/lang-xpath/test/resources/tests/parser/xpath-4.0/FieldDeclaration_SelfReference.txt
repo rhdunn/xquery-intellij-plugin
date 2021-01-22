@@ -17,8 +17,9 @@ XPathImpl[FILE(0:34)]
             PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
             XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AS(25:27)]('as')
             PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
-            XPathAbbrevReverseStepImpl[XPATH_PARENT_SELECTOR_TOKEN(28:30)]('..')
-            PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
-            PluginWildcardIndicatorImpl[XPATH_STAR_TOKEN(31:32)]('*')
+            XPathSelfReferenceImpl[XPATH_SELF_REFERENCE(28:32)]
+               XPathAbbrevReverseStepImpl[XPATH_PARENT_SELECTOR_TOKEN(28:30)]('..')
+               PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
+               PluginWildcardIndicatorImpl[XPATH_STAR_TOKEN(31:32)]('*')
          PsiWhiteSpaceImpl[WHITE_SPACE(32:33)](' ')
          LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(33:34)](')')
