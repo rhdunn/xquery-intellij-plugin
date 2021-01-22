@@ -1048,7 +1048,7 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (2.5.5.3) Element Test ; XQuery 4.0 ED (3.6.3.2) Element Test")
+        @DisplayName("XQuery 4.0 ED (3.6.3.2) Element Test ; XQuery 3.1 (2.5.5.3) Element Test")
         internal inner class ElementTest {
             @Nested
             @DisplayName("XQuery 3.1 EBNF (199) ElementTest")
@@ -1253,7 +1253,7 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (2.5.5.4) Schema Element Test")
+        @DisplayName("XQuery 4.0 ED (3.6.3.3) Schema Element Test ; XQuery 3.1 (2.5.5.4) Schema Element Test")
         internal inner class SchemaElementTest {
             @Nested
             @DisplayName("XQuery 3.1 EBNF (201) SchemaElementTest")
@@ -1324,7 +1324,7 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (2.5.5.5) Attribute Test ; XQuery 4.0 ED (3.6.3.4) Attribute Test")
+        @DisplayName("XQuery 4.0 ED (3.6.3.4) Attribute Test ; XQuery 3.1 (2.5.5.5) Attribute Test")
         internal inner class AttributeTest {
             @Nested
             @DisplayName("XQuery 3.1 EBNF (195) AttributeTest")
@@ -1481,7 +1481,7 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (2.5.5.6) Schema Attribute Test")
+        @DisplayName("XQuery 4.0 ED (3.6.3.5) Schema Attribute Test ; XQuery 3.1 (2.5.5.6) Schema Attribute Test")
         internal inner class SchemaAttributeTest {
             @Nested
             @DisplayName("XQuery 3.1 EBNF (197) SchemaAttributeTest")
@@ -1546,7 +1546,7 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (2.5.5.7) Function Test")
+        @DisplayName("XQuery 4.0 ED (3.6.4.1) Element Test ; XQuery 3.1 (2.5.5.7) Function Test")
         internal inner class FunctionTest {
             @Nested
             @DisplayName("XQuery 3.1 EBNF (207) FunctionTest")
@@ -1713,7 +1713,7 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (2.5.5.8) Map Test ; XQuery 4.0 ED (3.4.2) Map Test")
+        @DisplayName("XQuery 4.0 ED (3.6.4.2) Map Test ; XQuery 3.1 (2.5.5.8) Map Test")
         internal inner class MapTest {
             @Test
             @DisplayName("XQuery 3.1 EBNF (211) AnyMapTest")
@@ -1817,7 +1817,7 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (2.5.5.9) Array Test")
+        @DisplayName("XQuery 4.0 ED (3.6.4.4) Element Test ; XQuery 3.1 (2.5.5.9) Array Test")
         internal inner class ArrayTest {
             @Nested
             @DisplayName("XQuery 3.1 EBNF (214) AnyArrayTest")

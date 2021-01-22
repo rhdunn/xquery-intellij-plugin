@@ -773,7 +773,7 @@ private class XPathPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XPath 3.1 (2.5.5.3) Element Test ; XPath 4.0 ED (3.6.3.2) Element Test")
+        @DisplayName("XPath 4.0 ED (3.6.3.2) Element Test ; XPath 3.1 (2.5.5.3) Element Test")
         internal inner class ElementTest {
             @Nested
             @DisplayName("XPath 3.1 EBNF (94) ElementTest")
@@ -920,7 +920,7 @@ private class XPathPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XPath 3.1 (2.5.5.4) Schema Element Test")
+        @DisplayName("XPath 4.0 ED (3.6.3.3) Schema Element Test ; XPath 3.1 (2.5.5.4) Schema Element Test")
         internal inner class SchemaElementTest {
             @Nested
             @DisplayName("XPath 3.1 EBNF (96) SchemaElementTest")
@@ -975,7 +975,7 @@ private class XPathPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XPath 3.1 (2.5.5.5) Attribute Test ; XPath 4.0 ED (3.6.3.4) Attribute Test")
+        @DisplayName("XPath 4.0 ED (3.6.3.4) Attribute Test ; XPath 3.1 (2.5.5.5) Attribute Test")
         internal inner class AttributeTest {
             @Nested
             @DisplayName("XPath 3.1 EBNF (90) AttributeTest")
@@ -1122,7 +1122,7 @@ private class XPathPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XPath 3.1 (2.5.5.6) Schema Attribute Test")
+        @DisplayName("XPath 4.0 ED (3.6.3.5) Schema Attribute Test ; XPath 3.1 (2.5.5.6) Schema Attribute Test")
         internal inner class SchemaAttributeTest {
             @Nested
             @DisplayName("XPath 3.1 EBNF (92) SchemaAttributeTest")
@@ -1177,7 +1177,7 @@ private class XPathPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XPath 3.1 (2.5.5.7) Function Test")
+        @DisplayName("XPath 4.0 ED (3.6.4.1) Function Test ; XPath 3.1 (2.5.5.7) Function Test")
         internal inner class FunctionTest {
             @Test
             @DisplayName("XPath 3.1 EBNF (103) AnyFunctionTest")
@@ -1279,7 +1279,7 @@ private class XPathPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XPath 3.1 (2.5.5.8) Map Test ; XPath 4.0 ED (3.4.2) Map Test")
+        @DisplayName("XPath 4.0 ED (3.6.4.2) Map Test ; XPath 3.1 (2.5.5.8) Map Test")
         internal inner class MapTest {
             @Test
             @DisplayName("XPath 3.1 EBNF (106) AnyMapTest")
@@ -1383,7 +1383,7 @@ private class XPathPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XPath 3.1 (2.5.5.9) Array Test")
+        @DisplayName("XPath 4.0 ED (3.6.4.4) Array Test ; XPath 3.1 (2.5.5.9) Array Test")
         internal inner class ArrayTest {
             @Nested
             @DisplayName("XPath 3.1 EBNF (109) AnyArrayTest")
