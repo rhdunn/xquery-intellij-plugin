@@ -18,7 +18,9 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.TokenSet
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFieldDeclaration
@@ -42,6 +44,9 @@ class XPathFieldDeclarationPsiImpl(node: ASTNode) :
     override val fieldType: XdmSequenceType?
         get() = children().filterIsInstance<XdmSequenceType>().firstOrNull()
 
+    override val fieldSeparator: IElementType?
+        get() = findChildByType<PsiElement>(FIELD_SEPARATOR_TOKENS).elementType
+
     override val isOptional: Boolean
         get() = findChildByType<PsiElement>(OPTIONAL_TOKENS) != null
 
@@ -49,6 +54,12 @@ class XPathFieldDeclarationPsiImpl(node: ASTNode) :
         private val OPTIONAL_TOKENS = TokenSet.create(
             XPathTokenType.OPTIONAL,
             XPathTokenType.ELVIS // ?: for compact whitespace
+        )
+
+        private val FIELD_SEPARATOR_TOKENS = TokenSet.create(
+            XPathTokenType.QNAME_SEPARATOR,
+            XPathTokenType.ELVIS, // ?: for compact whitespace
+            XPathTokenType.K_AS
         )
 
         private val CONFORMANCE_ELEMENT_TOKENS = TokenSet.create(

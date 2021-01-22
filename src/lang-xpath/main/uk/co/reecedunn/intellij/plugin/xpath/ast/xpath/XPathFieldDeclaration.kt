@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
 import com.intellij.psi.PsiElement
+import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsStringValue
 
@@ -26,6 +27,8 @@ interface XPathFieldDeclaration : PsiElement {
     val fieldName: XsStringValue
 
     val fieldType: XdmSequenceType?
+
+    val fieldSeparator: IElementType?
 
     val isOptional: Boolean
 }

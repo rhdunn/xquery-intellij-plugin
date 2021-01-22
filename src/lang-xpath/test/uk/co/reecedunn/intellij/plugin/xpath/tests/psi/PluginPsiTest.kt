@@ -137,6 +137,7 @@ private class PluginPsiTest : ParserTestCase() {
                 val field = parse<XPathFieldDeclaration>("() instance of tuple ( test )")[0]
                 assertThat(field.fieldName.data, `is`("test"))
                 assertThat(field.fieldType, `is`(nullValue()))
+                assertThat(field.fieldSeparator, `is`(nullValue()))
                 assertThat(field.isOptional, `is`(false))
 
                 val test = field.parent as XPathRecordTest
@@ -157,6 +158,7 @@ private class PluginPsiTest : ParserTestCase() {
                 val field = parse<XPathFieldDeclaration>("() instance of tuple ( test ? )")[0]
                 assertThat(field.fieldName.data, `is`("test"))
                 assertThat(field.fieldType, `is`(nullValue()))
+                assertThat(field.fieldSeparator, `is`(nullValue()))
                 assertThat(field.isOptional, `is`(true))
 
                 val test = field.parent as XPathRecordTest
@@ -172,11 +174,12 @@ private class PluginPsiTest : ParserTestCase() {
             }
 
             @Test
-            @DisplayName("required; specified type")
-            fun nameAndTypeRequired() {
+            @DisplayName("required; specified type (Saxon 9.8 syntax)")
+            fun nameAndTypeRequired_saxon9() {
                 val field = parse<XPathFieldDeclaration>("() instance of tuple ( test : xs:string )")[0]
                 assertThat(field.fieldName.data, `is`("test"))
                 assertThat(field.fieldType?.typeName, `is`("xs:string"))
+                assertThat(field.fieldSeparator, `is`(XPathTokenType.QNAME_SEPARATOR))
                 assertThat(field.isOptional, `is`(false))
 
                 val test = field.parent as XPathRecordTest
@@ -192,11 +195,12 @@ private class PluginPsiTest : ParserTestCase() {
             }
 
             @Test
-            @DisplayName("optional; specified type")
-            fun nameAndTypeOptional() {
+            @DisplayName("optional; specified type (Saxon 9.8 syntax)")
+            fun nameAndTypeOptional_saxon9() {
                 val field = parse<XPathFieldDeclaration>("() instance of tuple ( test ? : xs:string )")[0]
                 assertThat(field.fieldName.data, `is`("test"))
                 assertThat(field.fieldType?.typeName, `is`("xs:string"))
+                assertThat(field.fieldSeparator, `is`(XPathTokenType.QNAME_SEPARATOR))
                 assertThat(field.isOptional, `is`(true))
 
                 val test = field.parent as XPathRecordTest
@@ -212,11 +216,75 @@ private class PluginPsiTest : ParserTestCase() {
             }
 
             @Test
+            @DisplayName("optional; specified type; compact whitespace (Saxon 9.8 syntax)")
+            fun nameAndTypeOptional_compactWhitespace_saxon9() {
+                val field = parse<XPathFieldDeclaration>("() instance of tuple(test?:xs:string)")[0]
+                assertThat(field.fieldName.data, `is`("test"))
+                assertThat(field.fieldType?.typeName, `is`("xs:string"))
+                assertThat(field.fieldSeparator, `is`(XPathTokenType.ELVIS))
+                assertThat(field.isOptional, `is`(true))
+
+                val test = field.parent as XPathRecordTest
+                assertThat(test.fields.first(), `is`(sameInstance(field)))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("tuple(test?: xs:string)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("required; specified type (Saxon 10 syntax)")
+            fun nameAndTypeRequired_saxon10() {
+                val field = parse<XPathFieldDeclaration>("() instance of tuple ( test as xs:string )")[0]
+                assertThat(field.fieldName.data, `is`("test"))
+                assertThat(field.fieldType?.typeName, `is`("xs:string"))
+                assertThat(field.fieldSeparator, `is`(XPathTokenType.K_AS))
+                assertThat(field.isOptional, `is`(false))
+
+                val test = field.parent as XPathRecordTest
+                assertThat(test.fields.first(), `is`(sameInstance(field)))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("tuple(test as xs:string)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("optional; specified type (Saxon 10 syntax)")
+            fun nameAndTypeOptional_saxon10() {
+                val field = parse<XPathFieldDeclaration>("() instance of tuple ( test ? as xs:string )")[0]
+                assertThat(field.fieldName.data, `is`("test"))
+                assertThat(field.fieldType?.typeName, `is`("xs:string"))
+                assertThat(field.fieldSeparator, `is`(XPathTokenType.K_AS))
+                assertThat(field.isOptional, `is`(true))
+
+                val test = field.parent as XPathRecordTest
+                assertThat(test.fields.first(), `is`(sameInstance(field)))
+
+                val type = test as XdmItemType
+                assertThat(type.typeName, `is`("tuple(test? as xs:string)"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
             @DisplayName("StringLiteral name; no space in name")
             fun stringLiteralName_noSpace() {
                 val field = parse<XPathFieldDeclaration>("() instance of tuple ( 'test' )")[0]
                 assertThat(field.fieldName.data, `is`("test"))
                 assertThat(field.fieldType, `is`(nullValue()))
+                assertThat(field.fieldSeparator, `is`(nullValue()))
                 assertThat(field.isOptional, `is`(false))
 
                 val test = field.parent as XPathRecordTest
@@ -237,6 +305,7 @@ private class PluginPsiTest : ParserTestCase() {
                 val field = parse<XPathFieldDeclaration>("() instance of tuple ( 'test key name' )")[0]
                 assertThat(field.fieldName.data, `is`("test key name"))
                 assertThat(field.fieldType, `is`(nullValue()))
+                assertThat(field.fieldSeparator, `is`(nullValue()))
                 assertThat(field.isOptional, `is`(false))
 
                 val test = field.parent as XPathRecordTest

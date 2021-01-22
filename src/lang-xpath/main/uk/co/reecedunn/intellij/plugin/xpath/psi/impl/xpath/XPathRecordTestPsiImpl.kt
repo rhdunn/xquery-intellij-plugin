@@ -57,8 +57,13 @@ class XPathRecordTestPsiImpl(node: ASTNode) :
                     name
             }
             val name = if (it.isOptional) "$fieldName?" else fieldName
-            val type = it.fieldType?.let { type -> ": ${type.typeName}" } ?: ""
-            "$name$type"
+            it.fieldType?.let { type ->
+                when (it.fieldSeparator) {
+                    XPathTokenType.QNAME_SEPARATOR, XPathTokenType.ELVIS -> "$name: ${type.typeName}"
+                    XPathTokenType.K_AS -> "$name as ${type.typeName}"
+                    else -> name
+                }
+            } ?: name
         }.filterNotNull().joinToString()
 
         when {
