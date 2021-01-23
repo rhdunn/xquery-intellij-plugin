@@ -18,6 +18,8 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiErrorElement
+import com.intellij.psi.TokenType
 import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
@@ -45,21 +47,29 @@ class XPathFieldDeclarationPsiImpl(node: ASTNode) :
         get() = children().filterIsInstance<XdmSequenceType>().firstOrNull()
 
     override val fieldSeparator: IElementType?
-        get() = findChildByType<PsiElement>(FIELD_SEPARATOR_TOKENS).elementType
+        get() = when (val separator = findChildByType<PsiElement>(FIELD_SEPARATOR_TOKENS)) {
+            is PsiErrorElement -> separator.firstChild.elementType
+            else -> separator.elementType
+        }
 
     override val isOptional: Boolean
-        get() = findChildByType<PsiElement>(OPTIONAL_TOKENS) != null
+        get() = when (val separator = findChildByType<PsiElement>(OPTIONAL_TOKENS)) {
+            is PsiErrorElement -> separator.firstChild.elementType === XPathTokenType.ELVIS
+            else -> separator != null
+        }
 
     companion object {
         private val OPTIONAL_TOKENS = TokenSet.create(
             XPathTokenType.OPTIONAL,
-            XPathTokenType.ELVIS // ?: for compact whitespace
+            XPathTokenType.ELVIS, // ?: for compact whitespace
+            TokenType.ERROR_ELEMENT // : or ?: in an XPath 4.0 EP RecordTest
         )
 
         private val FIELD_SEPARATOR_TOKENS = TokenSet.create(
             XPathTokenType.QNAME_SEPARATOR,
             XPathTokenType.ELVIS, // ?: for compact whitespace
-            XPathTokenType.K_AS
+            XPathTokenType.K_AS,
+            TokenType.ERROR_ELEMENT // : or ?: in an XPath 4.0 EP RecordTest
         )
 
         private val CONFORMANCE_ELEMENT_TOKENS = TokenSet.create(

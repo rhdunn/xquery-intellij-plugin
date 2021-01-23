@@ -19,6 +19,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathRecordTest
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
@@ -59,7 +60,10 @@ class XPathRecordTestPsiImpl(node: ASTNode) :
             val name = if (it.isOptional) "$fieldName?" else fieldName
             it.fieldType?.let { type ->
                 when (it.fieldSeparator) {
-                    XPathTokenType.QNAME_SEPARATOR, XPathTokenType.ELVIS -> "$name: ${type.typeName}"
+                    XPathTokenType.QNAME_SEPARATOR, XPathTokenType.ELVIS -> when (firstChild.elementType) {
+                        XPathTokenType.K_TUPLE -> "$name: ${type.typeName}"
+                        else -> "$name as ${type.typeName}"
+                    }
                     XPathTokenType.K_AS -> "$name as ${type.typeName}"
                     else -> name
                 }

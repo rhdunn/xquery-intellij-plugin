@@ -1601,6 +1601,69 @@ private class XPathPsiTest : ParserTestCase() {
                     assertThat(type.lowerBound, `is`(1))
                     assertThat(type.upperBound, `is`(1))
                 }
+
+                @Test
+                @DisplayName("required field; colon type separator")
+                fun requiredField_colon() {
+                    val field = parse<XPathFieldDeclaration>("() instance of record ( test : xs:string )")[0]
+                    assertThat(field.fieldName.data, `is`("test"))
+                    assertThat(field.fieldType?.typeName, `is`("xs:string"))
+                    assertThat(field.fieldSeparator, `is`(XPathTokenType.QNAME_SEPARATOR))
+                    assertThat(field.isOptional, `is`(false))
+
+                    val test = field.parent as XPathRecordTest
+                    assertThat(test.fields.first(), `is`(sameInstance(field)))
+
+                    val type = test as XdmItemType
+                    assertThat(type.typeName, `is`("record(test as xs:string)"))
+                    assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                    assertThat(type.itemType, `is`(sameInstance(type)))
+                    assertThat(type.lowerBound, `is`(1))
+                    assertThat(type.upperBound, `is`(1))
+                }
+
+                @Test
+                @DisplayName("optional field; colon type separator")
+                fun optionalField_colon() {
+                    val field = parse<XPathFieldDeclaration>("() instance of record ( test ? : xs:string )")[0]
+                    assertThat(field.fieldName.data, `is`("test"))
+                    assertThat(field.fieldType?.typeName, `is`("xs:string"))
+                    assertThat(field.fieldSeparator, `is`(XPathTokenType.QNAME_SEPARATOR))
+                    assertThat(field.isOptional, `is`(true))
+
+                    val test = field.parent as XPathRecordTest
+                    assertThat(test.fields.first(), `is`(sameInstance(field)))
+
+                    val type = test as XdmItemType
+                    assertThat(type.typeName, `is`("record(test? as xs:string)"))
+                    assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                    assertThat(type.itemType, `is`(sameInstance(type)))
+                    assertThat(type.lowerBound, `is`(1))
+                    assertThat(type.upperBound, `is`(1))
+                }
+
+                @Test
+                @DisplayName("optional field; colon type separator; compact whitespace")
+                fun optionalField_colon_compactWhitepace() {
+                    val field = parse<XPathFieldDeclaration>("() instance of record(test?:xs:string)")[0]
+                    assertThat(field.fieldName.data, `is`("test"))
+                    assertThat(field.fieldType?.typeName, `is`("xs:string"))
+                    assertThat(field.fieldSeparator, `is`(XPathTokenType.ELVIS))
+                    assertThat(field.isOptional, `is`(true))
+
+                    val test = field.parent as XPathRecordTest
+                    assertThat(test.fields.first(), `is`(sameInstance(field)))
+
+                    val type = test as XdmItemType
+                    assertThat(type.typeName, `is`("record(test? as xs:string)"))
+                    assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                    assertThat(type.itemType, `is`(sameInstance(type)))
+                    assertThat(type.lowerBound, `is`(1))
+                    assertThat(type.upperBound, `is`(1))
+                }
             }
 
             @Nested
@@ -1807,6 +1870,84 @@ private class XPathPsiTest : ParserTestCase() {
 
                     val type = test as XdmItemType
                     assertThat(type.typeName, `is`("record(test? as ..+)"))
+                    assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                    assertThat(type.itemType, `is`(sameInstance(type)))
+                    assertThat(type.lowerBound, `is`(1))
+                    assertThat(type.upperBound, `is`(1))
+                }
+
+                @Test
+                @DisplayName("required field; colon type separator")
+                fun requiredField_colon() {
+                    val field = parse<XPathFieldDeclaration>("() instance of record ( test : .. )")[0]
+                    assertThat(field.fieldName.data, `is`("test"))
+                    assertThat(field.fieldSeparator, `is`(XPathTokenType.QNAME_SEPARATOR))
+                    assertThat(field.isOptional, `is`(false))
+
+                    val test = field.parent as XPathRecordTest
+                    assertThat(test.fields.first(), `is`(sameInstance(field)))
+
+                    val fieldType = field.fieldType as XdmSequenceType
+                    assertThat(fieldType.typeName, `is`(".."))
+                    assertThat(fieldType.itemType, `is`(sameInstance(test)))
+                    assertThat(fieldType.lowerBound, `is`(1))
+                    assertThat(fieldType.upperBound, `is`(1))
+
+                    val type = test as XdmItemType
+                    assertThat(type.typeName, `is`("record(test as ..)"))
+                    assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                    assertThat(type.itemType, `is`(sameInstance(type)))
+                    assertThat(type.lowerBound, `is`(1))
+                    assertThat(type.upperBound, `is`(1))
+                }
+
+                @Test
+                @DisplayName("optional field; colon type separator")
+                fun optionalField_colon() {
+                    val field = parse<XPathFieldDeclaration>("() instance of record ( test ? : .. )")[0]
+                    assertThat(field.fieldName.data, `is`("test"))
+                    assertThat(field.fieldSeparator, `is`(XPathTokenType.QNAME_SEPARATOR))
+                    assertThat(field.isOptional, `is`(true))
+
+                    val test = field.parent as XPathRecordTest
+                    assertThat(test.fields.first(), `is`(sameInstance(field)))
+
+                    val fieldType = field.fieldType as XdmSequenceType
+                    assertThat(fieldType.typeName, `is`(".."))
+                    assertThat(fieldType.itemType, `is`(sameInstance(test)))
+                    assertThat(fieldType.lowerBound, `is`(1))
+                    assertThat(fieldType.upperBound, `is`(1))
+
+                    val type = test as XdmItemType
+                    assertThat(type.typeName, `is`("record(test? as ..)"))
+                    assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
+
+                    assertThat(type.itemType, `is`(sameInstance(type)))
+                    assertThat(type.lowerBound, `is`(1))
+                    assertThat(type.upperBound, `is`(1))
+                }
+
+                @Test
+                @DisplayName("optional field; colon type separator; compact whitespace")
+                fun optionalField_colon_compactWhitespace() {
+                    val field = parse<XPathFieldDeclaration>("() instance of record(test?:..)")[0]
+                    assertThat(field.fieldName.data, `is`("test"))
+                    assertThat(field.fieldSeparator, `is`(XPathTokenType.ELVIS))
+                    assertThat(field.isOptional, `is`(true))
+
+                    val test = field.parent as XPathRecordTest
+                    assertThat(test.fields.first(), `is`(sameInstance(field)))
+
+                    val fieldType = field.fieldType as XdmSequenceType
+                    assertThat(fieldType.typeName, `is`(".."))
+                    assertThat(fieldType.itemType, `is`(sameInstance(test)))
+                    assertThat(fieldType.lowerBound, `is`(1))
+                    assertThat(fieldType.upperBound, `is`(1))
+
+                    val type = test as XdmItemType
+                    assertThat(type.typeName, `is`("record(test? as ..)"))
                     assertThat(type.typeClass, `is`(sameInstance(XdmMap::class.java)))
 
                     assertThat(type.itemType, `is`(sameInstance(type)))
