@@ -93,6 +93,7 @@
     <ol>
       <li>Add an XRay run configuration.</li>
       <li>Support running XRay unit tests.</li>
+      <li>Add run actions in the line marker area.</li>
     </ol>
     <p>Run Configuration:</p>
     <ol>
