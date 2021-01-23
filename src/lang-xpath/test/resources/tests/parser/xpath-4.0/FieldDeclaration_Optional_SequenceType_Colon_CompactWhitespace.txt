@@ -1,0 +1,23 @@
+XPathImpl[FILE(0:35)]
+   XPathInstanceofExprImpl[XPATH_INSTANCEOF_EXPR(0:35)]
+      XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(0:1)]('1')
+      PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_INSTANCE(2:10)]('instance')
+      PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
+      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_OF(11:13)]('of')
+      PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
+      XPathRecordTestImpl[XPATH_RECORD_TEST(14:35)]
+         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_RECORD(14:20)]('record')
+         LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(20:21)]('(')
+         XPathFieldDeclarationImpl[XPATH_FIELD_DECLARATION(21:34)]
+            XPathNCNameImpl[XPATH_NCNAME(21:22)]
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(21:22)]('a')
+            PsiErrorElementImpl[ERROR_ELEMENT(22:24)]('XPST0003: Expected '? as'.')
+               LeafPsiElement[XPATH_ELVIS_TOKEN(22:24)]('?:')
+            PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
+            XPathAtomicOrUnionTypeImpl[XPATH_ATOMIC_OR_UNION_TYPE(25:34)]
+               XPathQNameImpl[XPATH_QNAME(25:34)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(25:27)]('xs')
+                  LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(27:28)](':')
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(28:34)]('string')
+         LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(34:35)](')')

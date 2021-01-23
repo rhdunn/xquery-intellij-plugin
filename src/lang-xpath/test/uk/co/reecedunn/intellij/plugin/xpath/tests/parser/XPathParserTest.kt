@@ -5121,6 +5121,30 @@ private class XPathParserTest : ParserTestCase() {
                 val actual = parseResource("tests/parser/xpath-4.0/FieldDeclaration_Optional_SequenceType_CompactWhitespace.xq")
                 assertThat(actual.toPsiTreeString(), `is`(expected))
             }
+
+            @Test
+            @DisplayName("error recovery: sequence type; colon type specifier")
+            fun sequenceType_colon() {
+                val expected = loadResource("tests/parser/xpath-4.0/FieldDeclaration_SequenceType_Colon.txt")
+                val actual = parseResource("tests/parser/xpath-4.0/FieldDeclaration_SequenceType_Colon.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: optional; colon type specifier")
+            fun optional_colon() {
+                val expected = loadResource("tests/parser/xpath-4.0/FieldDeclaration_Optional_SequenceType_Colon.txt")
+                val actual = parseResource("tests/parser/xpath-4.0/FieldDeclaration_Optional_SequenceType_Colon.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: optional; colon type specifier; compact whitespace")
+            fun optional_colon_compactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-4.0/FieldDeclaration_Optional_SequenceType_Colon_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-4.0/FieldDeclaration_Optional_SequenceType_Colon_CompactWhitespace.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
         }
 
         @Nested
@@ -5171,6 +5195,30 @@ private class XPathParserTest : ParserTestCase() {
             fun optional_compactWhitespace() {
                 val expected = loadResource("tests/parser/xpath-4.0/FieldDeclaration_Optional_SelfReference_CompactWhitespace.txt")
                 val actual = parseResource("tests/parser/xpath-4.0/FieldDeclaration_Optional_SelfReference_CompactWhitespace.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: self reference; colon type specifier")
+            fun selfReference_colon() {
+                val expected = loadResource("tests/parser/xpath-4.0/FieldDeclaration_SelfReference_Colon.txt")
+                val actual = parseResource("tests/parser/xpath-4.0/FieldDeclaration_SelfReference_Colon.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: optional; colon type specifier")
+            fun optional_colon() {
+                val expected = loadResource("tests/parser/xpath-4.0/FieldDeclaration_Optional_SelfReference_Colon.txt")
+                val actual = parseResource("tests/parser/xpath-4.0/FieldDeclaration_Optional_SelfReference_Colon.xq")
+                assertThat(actual.toPsiTreeString(), `is`(expected))
+            }
+
+            @Test
+            @DisplayName("error recovery: optional; colon type specifier; compact whitespace")
+            fun optional_colon_compactWhitespace() {
+                val expected = loadResource("tests/parser/xpath-4.0/FieldDeclaration_Optional_SelfReference_Colon_CompactWhitespace.txt")
+                val actual = parseResource("tests/parser/xpath-4.0/FieldDeclaration_Optional_SelfReference_Colon_CompactWhitespace.xq")
                 assertThat(actual.toPsiTreeString(), `is`(expected))
             }
         }

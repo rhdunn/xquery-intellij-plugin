@@ -3599,7 +3599,58 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    private fun parseFieldDeclaration(builder: PsiBuilder, recordType: IElementType?): Boolean {
+    private fun parseFieldDeclaration(builder: PsiBuilder, recordType: IElementType?): Boolean = when (recordType) {
+        XPathTokenType.K_TUPLE -> parseTupleFieldDeclaration(builder) // Saxon 9.8
+        else -> parseRecordFieldDeclaration(builder) // XPath 4.0 ED
+    }
+
+    private fun parseRecordFieldDeclaration(builder: PsiBuilder): Boolean {
+        val marker = builder.mark()
+        if (parseFieldName(builder)) {
+            var haveError = false
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            val haveSeparator = when {
+                builder.errorOnTokenType(
+                    XPathTokenType.ELVIS,
+                    XPathBundle.message("parser.error.expected", "? as")
+                ) -> true // ?: without whitespace
+                else -> {
+                    builder.matchTokenType(XPathTokenType.OPTIONAL)
+                    parseWhiteSpaceAndCommentTokens(builder)
+                    when {
+                        builder.matchTokenType(XPathTokenType.K_AS) -> true
+                        builder.errorOnTokenType(
+                            XPathTokenType.QNAME_SEPARATOR,
+                            XPathBundle.message("parser.error.expected", "as")
+                        ) -> true
+                        else -> false
+                    }
+                }
+            }
+
+            if (!haveSeparator) {
+                if (builder.tokenType === XPathTokenType.COMMA || builder.tokenType === XPathTokenType.PARENTHESIS_CLOSE) {
+                    marker.done(XPathElementType.FIELD_DECLARATION)
+                    return true
+                }
+                builder.error(XPathBundle.message("parser.error.expected-either", ":", "as"))
+                haveError = true
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!(parseSequenceType(builder) || parseSelfReference(builder)) && !haveError) {
+                builder.error(XPathBundle.message("parser.error.expected-either", "SequenceType", "SelfReference"))
+            }
+
+            marker.done(XPathElementType.FIELD_DECLARATION)
+            return true
+        }
+        marker.drop()
+        return false
+    }
+
+    private fun parseTupleFieldDeclaration(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
         if (parseFieldName(builder)) {
             var haveError = false
@@ -3624,14 +3675,8 @@ open class XPathParser : PsiParser {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (recordType === XPathTokenType.K_TUPLE) { // Saxon 9.8
-                if (!parseSequenceType(builder) && !haveError) {
-                    builder.error(XPathBundle.message("parser.error.expected", "SequenceType"))
-                }
-            } else { // XPath 4.0 ED
-                if (!(parseSequenceType(builder) || parseSelfReference(builder)) && !haveError) {
-                    builder.error(XPathBundle.message("parser.error.expected-either", "SequenceType", "SelfReference"))
-                }
+            if (!parseSequenceType(builder) && !haveError) {
+                builder.error(XPathBundle.message("parser.error.expected", "SequenceType"))
             }
 
             marker.done(XPathElementType.FIELD_DECLARATION)
