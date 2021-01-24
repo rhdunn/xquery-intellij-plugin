@@ -773,6 +773,68 @@ private class XPathPsiTest : ParserTestCase() {
         }
 
         @Nested
+        @DisplayName("XPath 4.0 ED (3.6.2.2) Enumeration Types")
+        internal inner class EnumerationTypes {
+            @Nested
+            @DisplayName("XPath 4.0 ED EBNF (128) EnumerationType")
+            internal inner class EnumerationType {
+                @Test
+                @DisplayName("empty")
+                fun empty() {
+                    val test = parse<XPathEnumerationType>("() instance of enum ( (::) )")[0]
+
+                    val values = test.values.toList()
+                    assertThat(values.size, `is`(0))
+
+                    val type = test as XdmItemType
+                    assertThat(type.typeName, `is`("enum()"))
+                    assertThat(type.typeClass, `is`(sameInstance(XsStringValue::class.java)))
+
+                    assertThat(type.itemType, `is`(sameInstance(type)))
+                    assertThat(type.lowerBound, `is`(1))
+                    assertThat(type.upperBound, `is`(1))
+                }
+
+                @Test
+                @DisplayName("one")
+                fun one() {
+                    val test = parse<XPathEnumerationType>("() instance of enum ( \"one\" )")[0]
+
+                    val values = test.values.toList()
+                    assertThat(values.size, `is`(1))
+                    assertThat(values[0].data, `is`("one"))
+
+                    val type = test as XdmItemType
+                    assertThat(type.typeName, `is`("enum(\"one\")"))
+                    assertThat(type.typeClass, `is`(sameInstance(XsStringValue::class.java)))
+
+                    assertThat(type.itemType, `is`(sameInstance(type)))
+                    assertThat(type.lowerBound, `is`(1))
+                    assertThat(type.upperBound, `is`(1))
+                }
+
+                @Test
+                @DisplayName("many")
+                fun many() {
+                    val test = parse<XPathEnumerationType>("() instance of enum ( \"one\" , \"two\" )")[0]
+
+                    val values = test.values.toList()
+                    assertThat(values.size, `is`(2))
+                    assertThat(values[0].data, `is`("one"))
+                    assertThat(values[1].data, `is`("two"))
+
+                    val type = test as XdmItemType
+                    assertThat(type.typeName, `is`("enum(\"one\", \"two\")"))
+                    assertThat(type.typeClass, `is`(sameInstance(XsStringValue::class.java)))
+
+                    assertThat(type.itemType, `is`(sameInstance(type)))
+                    assertThat(type.lowerBound, `is`(1))
+                    assertThat(type.upperBound, `is`(1))
+                }
+            }
+        }
+
+        @Nested
         @DisplayName("XPath 4.0 ED (3.6.3.2) Element Test ; XPath 3.1 (2.5.5.3) Element Test")
         internal inner class ElementTest {
             @Nested

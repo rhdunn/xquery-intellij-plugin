@@ -16,8 +16,12 @@
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsStringValue
 
 /**
  * An XPath 4.0 ED and XQuery 4.0 ED `EnumerationType` node in the XPath/XQuery AST.
  */
-interface XPathEnumerationType : PsiElement
+interface XPathEnumerationType : PsiElement, XdmItemType {
+    val values: Sequence<XsStringValue>
+}

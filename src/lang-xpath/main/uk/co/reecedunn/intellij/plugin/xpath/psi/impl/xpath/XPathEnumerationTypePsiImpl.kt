@@ -17,6 +17,49 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsStringValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEnumerationType
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 
-class XPathEnumerationTypePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathEnumerationType
+class XPathEnumerationTypePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathEnumerationType {
+    // region ASTDelegatePsiElement
+
+    override fun subtreeChanged() {
+        super.subtreeChanged()
+        cachedTypeName.invalidate()
+    }
+
+    // endregion
+    // region XPathEnumerationType
+
+    override val values: Sequence<XsStringValue>
+        get() = children().filterIsInstance<XPathStringLiteral>()
+
+    // endregion
+    // region XdmSequenceType
+
+    private val cachedTypeName = CacheableProperty {
+        "enum(${values.joinToString { it.element!!.text }})"
+    }
+
+    override val typeName: String
+        get() = cachedTypeName.get()!!
+
+    override val itemType: XdmItemType
+        get() = this
+
+    override val lowerBound: Int = 1
+
+    override val upperBound: Int = 1
+
+    // endregion
+    // region XdmItemType
+
+    override val typeClass: Class<*> = XsStringValue::class.java
+
+    // endregion
+}
