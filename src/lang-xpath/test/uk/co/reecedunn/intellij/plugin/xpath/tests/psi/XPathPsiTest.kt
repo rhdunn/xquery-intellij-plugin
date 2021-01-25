@@ -47,6 +47,8 @@ import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPathStep
+import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XdmNamespaceType
+import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
 import java.math.BigDecimal
 import java.math.BigInteger
 
@@ -2087,6 +2089,89 @@ private class XPathPsiTest : ParserTestCase() {
         fun xpath() {
             val expr = parse<XPath>("1, 2 + 3, 4")[0] as XpmExpression
             assertThat(expr.expressionElement, `is`(nullValue()))
+        }
+
+        @Nested
+        @DisplayName("XPath 4.0 ED (4.1) Setting Namespace Context")
+        internal inner class SettingNamespaceContext {
+            @Nested
+            @DisplayName("XPath 4.0 ED EBNF (10) NamespaceDeclaration")
+            internal inner class NamespaceDeclaration {
+                @Test
+                @DisplayName("namespace prefix")
+                fun namespacePrefix() {
+                    val expr = parse<XPathNamespaceDeclaration>(
+                        "with xmlns:b=\"http://www.example.com\" {}"
+                    )[0] as XpmNamespaceDeclaration
+
+                    assertThat(expr.namespacePrefix!!.data, `is`("b"))
+
+                    val uri = expr.namespaceUri!!
+                    assertThat(uri.data, `is`("http://www.example.com"))
+                    assertThat(uri.context, `is`(XdmUriContext.NamespaceDeclaration))
+                    assertThat(uri.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))
+                    assertThat(uri.element, `is`(uri as PsiElement))
+
+                    assertThat(expr.accepts(XdmNamespaceType.DefaultElement), `is`(false))
+                    assertThat(expr.accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                    assertThat(expr.accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                    assertThat(expr.accepts(XdmNamespaceType.DefaultType), `is`(false))
+                    assertThat(expr.accepts(XdmNamespaceType.None), `is`(false))
+                    assertThat(expr.accepts(XdmNamespaceType.Prefixed), `is`(true))
+                    assertThat(expr.accepts(XdmNamespaceType.Undefined), `is`(false))
+                    assertThat(expr.accepts(XdmNamespaceType.XQuery), `is`(false))
+                }
+
+                @Test
+                @DisplayName("default element/type namespace")
+                fun defaultElementTypeNamespace() {
+                    val expr = parse<XPathNamespaceDeclaration>(
+                        "with xmlns=\"http://www.example.com\" {}"
+                    )[0] as XpmNamespaceDeclaration
+
+                    assertThat(expr.namespacePrefix, `is`(nullValue()))
+
+                    val uri = expr.namespaceUri!!
+                    assertThat(uri.data, `is`("http://www.example.com"))
+                    assertThat(uri.context, `is`(XdmUriContext.NamespaceDeclaration))
+                    assertThat(uri.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))
+                    assertThat(uri.element, `is`(uri as PsiElement))
+
+                    assertThat(expr.accepts(XdmNamespaceType.DefaultElement), `is`(true))
+                    assertThat(expr.accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                    assertThat(expr.accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                    assertThat(expr.accepts(XdmNamespaceType.DefaultType), `is`(false))
+                    assertThat(expr.accepts(XdmNamespaceType.None), `is`(false))
+                    assertThat(expr.accepts(XdmNamespaceType.Prefixed), `is`(false))
+                    assertThat(expr.accepts(XdmNamespaceType.Undefined), `is`(false))
+                    assertThat(expr.accepts(XdmNamespaceType.XQuery), `is`(false))
+                }
+
+                @Test
+                @DisplayName("other (invalid) QName")
+                fun otherQName() {
+                    val expr = parse<XPathNamespaceDeclaration>(
+                        "with b=\"http://www.example.com\" {}"
+                    )[0] as XpmNamespaceDeclaration
+
+                    assertThat(expr.namespacePrefix, `is`(nullValue()))
+
+                    val uri = expr.namespaceUri!!
+                    assertThat(uri.data, `is`("http://www.example.com"))
+                    assertThat(uri.context, `is`(XdmUriContext.NamespaceDeclaration))
+                    assertThat(uri.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))
+                    assertThat(uri.element, `is`(uri as PsiElement))
+
+                    assertThat(expr.accepts(XdmNamespaceType.DefaultElement), `is`(false))
+                    assertThat(expr.accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                    assertThat(expr.accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                    assertThat(expr.accepts(XdmNamespaceType.DefaultType), `is`(false))
+                    assertThat(expr.accepts(XdmNamespaceType.None), `is`(false))
+                    assertThat(expr.accepts(XdmNamespaceType.Prefixed), `is`(false))
+                    assertThat(expr.accepts(XdmNamespaceType.Undefined), `is`(true))
+                    assertThat(expr.accepts(XdmNamespaceType.XQuery), `is`(false))
+                }
+            }
         }
 
         @Nested

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2020 Reece H. Dunn
+ * Copyright (C) 2016-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,6 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEscapeCharacter
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginLocationURIList
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginStylesheetImport
@@ -60,6 +61,7 @@ class XQueryUriLiteralPsiImpl(node: ASTNode) :
             is FTThesaurusID -> XdmUriContext.Thesaurus
             is PluginLocationURIList -> XdmUriContext.Location
             is PluginStylesheetImport -> XdmUriContext.Location
+            is XPathNamespaceDeclaration -> XdmUriContext.NamespaceDeclaration
             is XQueryBaseURIDecl -> XdmUriContext.BaseUri
             is XQueryDefaultCollationDecl -> XdmUriContext.Collation
             is XQueryGroupingSpec -> XdmUriContext.Collation
@@ -78,6 +80,7 @@ class XQueryUriLiteralPsiImpl(node: ASTNode) :
                 else -> XdmModuleType.NONE
             }
             is PluginStylesheetImport -> XdmModuleType.STYLESHEET
+            is XPathNamespaceDeclaration -> XdmModuleType.MODULE_OR_SCHEMA
             is XQueryModuleDecl -> XdmModuleType.MODULE
             is XQueryModuleImport -> XdmModuleType.MODULE
             is XQueryNamespaceDecl -> XdmModuleType.MODULE_OR_SCHEMA

@@ -17,6 +17,33 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XdmNamespaceType
 
-class XPathNamespaceDeclarationPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathNamespaceDeclaration
+class XPathNamespaceDeclarationPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathNamespaceDeclaration {
+    // region XpmNamespaceDeclaration
+
+    override val namespacePrefix: XsNCNameValue?
+        get() = (firstChild as? XsQNameValue)?.takeIf { it.prefix?.data == "xmlns" }?.localName
+
+    override val namespaceUri: XsAnyUriValue?
+        get() = children().filterIsInstance<XsAnyUriValue>().firstOrNull()
+
+    override fun accepts(namespaceType: XdmNamespaceType): Boolean {
+        val qname = (firstChild as? XsQNameValue) ?: return false
+        return when {
+            qname.prefix?.data == "xmlns" -> namespaceType === XdmNamespaceType.Prefixed
+            qname.localName?.data == "xmlns" && qname.prefix == null -> when (namespaceType) {
+                XdmNamespaceType.DefaultElement -> true
+                else -> false
+            }
+            else -> namespaceType === XdmNamespaceType.Undefined
+        }
+    }
+
+    // endregion
+}

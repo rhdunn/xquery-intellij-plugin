@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2020 Reece H. Dunn
+ * Copyright (C) 2019-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEscapeCharacter
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
 class XPathUriLiteralPsiImpl(node: ASTNode) :
@@ -45,10 +46,15 @@ class XPathUriLiteralPsiImpl(node: ASTNode) :
         get() = when (parent) {
             is FTStopWords -> XdmUriContext.StopWords
             is FTThesaurusID -> XdmUriContext.Thesaurus
+            is XPathNamespaceDeclaration -> XdmUriContext.NamespaceDeclaration
             else -> XdmUriContext.Namespace
         }
 
-    override val moduleTypes: Array<XdmModuleType> = XdmModuleType.NONE
+    override val moduleTypes: Array<XdmModuleType>
+        get() = when (parent) {
+            is XPathNamespaceDeclaration -> XdmModuleType.MODULE_OR_SCHEMA
+            else -> XdmModuleType.NONE
+        }
 
     override val data: String
         get() = cachedData.get()!!
