@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.psi.XsQName
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsAnyUri
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathWithExpr
 import uk.co.reecedunn.intellij.plugin.xpath.model.getUsageType
 import uk.co.reecedunn.intellij.plugin.xpm.defaultNamespace
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
@@ -63,7 +64,7 @@ fun PsiElement.defaultNamespace(
                     (node as XQueryPrologResolver).prolog.flatMap { prolog -> prolog.defaultNamespace(type, false) }
                 else
                     emptySequence()
-            is XQueryDirElemConstructor ->
+            is XQueryDirElemConstructor, is XPathWithExpr ->
                 node.children().filterIsInstance<XpmNamespaceDeclaration>()
             else -> emptySequence()
         }

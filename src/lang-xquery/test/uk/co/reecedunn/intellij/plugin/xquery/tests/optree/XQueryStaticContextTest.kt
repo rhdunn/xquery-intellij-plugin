@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017-2020 Reece H. Dunn
+ * Copyright (C) 2017-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -425,6 +425,55 @@ private class XQueryStaticContextTest : ParserTestCase() {
                 settings.XQueryVersion = "1.0"
 
                 val element = parse<XQueryFunctionDecl>("declare namespace a=; declare function a:test() {};")[0]
+                val namespaces = element.staticallyKnownNamespaces().toList()
+                assertThat(namespaces.size, `is`(8))
+
+                // predefined XQuery namespaces:
+                assertThat(namespace(namespaces, "array"), `is`("http://www.w3.org/2005/xpath-functions/array"))
+                assertThat(namespace(namespaces, "fn"), `is`("http://www.w3.org/2005/xpath-functions"))
+                assertThat(namespace(namespaces, "local"), `is`("http://www.w3.org/2005/xquery-local-functions"))
+                assertThat(namespace(namespaces, "map"), `is`("http://www.w3.org/2005/xpath-functions/map"))
+                assertThat(namespace(namespaces, "math"), `is`("http://www.w3.org/2005/xpath-functions/math"))
+                assertThat(namespace(namespaces, "xml"), `is`("http://www.w3.org/XML/1998/namespace"))
+                assertThat(namespace(namespaces, "xs"), `is`("http://www.w3.org/2001/XMLSchema"))
+                assertThat(namespace(namespaces, "xsi"), `is`("http://www.w3.org/2001/XMLSchema-instance"))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 4.0 ED EBNF (43) WithExpr")
+        internal inner class WithExpr {
+            @Test
+            @DisplayName("namespace prefix atribute")
+            fun xmlns() {
+                settings.implementationVersion = "w3c/1ed"
+                settings.XQueryVersion = "1.0"
+
+                val element = parse<XPathFunctionCall>("with xmlns:b=\"http://www.example.com\" {b:test()}")[0]
+                val namespaces = element.staticallyKnownNamespaces().toList()
+                assertThat(namespaces.size, `is`(9))
+
+                assertThat(namespaces[0].namespacePrefix!!.data, `is`("b"))
+                assertThat(namespaces[0].namespaceUri!!.data, `is`("http://www.example.com"))
+
+                // predefined XQuery namespaces:
+                assertThat(namespace(namespaces, "array"), `is`("http://www.w3.org/2005/xpath-functions/array"))
+                assertThat(namespace(namespaces, "fn"), `is`("http://www.w3.org/2005/xpath-functions"))
+                assertThat(namespace(namespaces, "local"), `is`("http://www.w3.org/2005/xquery-local-functions"))
+                assertThat(namespace(namespaces, "map"), `is`("http://www.w3.org/2005/xpath-functions/map"))
+                assertThat(namespace(namespaces, "math"), `is`("http://www.w3.org/2005/xpath-functions/math"))
+                assertThat(namespace(namespaces, "xml"), `is`("http://www.w3.org/XML/1998/namespace"))
+                assertThat(namespace(namespaces, "xs"), `is`("http://www.w3.org/2001/XMLSchema"))
+                assertThat(namespace(namespaces, "xsi"), `is`("http://www.w3.org/2001/XMLSchema-instance"))
+            }
+
+            @Test
+            @DisplayName("non-namespace prefix")
+            fun nonNamespacePrefix() {
+                settings.implementationVersion = "w3c/1ed"
+                settings.XQueryVersion = "1.0"
+
+                val element = parse<XPathFunctionCall>("with b=\"http://www.example.com\" {b:test()}")[0]
                 val namespaces = element.staticallyKnownNamespaces().toList()
                 assertThat(namespaces.size, `is`(8))
 
@@ -920,6 +969,100 @@ private class XQueryStaticContextTest : ParserTestCase() {
         }
 
         @Nested
+        @DisplayName("XQuery 4.0 ED EBNF (43) WithExpr")
+        internal inner class WithExpr {
+            @Test
+            @DisplayName("prefixed namespace declaration")
+            fun prefixed() {
+                val ctx = parse<XPathFunctionCall>("with xmlns:b=\"http://www.example.com\" {test()}")[0]
+
+                val element = ctx.defaultNamespace(XdmNamespaceType.DefaultElement).toList()
+                assertThat(element.size, `is`(1))
+
+                // predefined static context
+                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespaceUri!!.data, `is`(""))
+
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultType), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
+            }
+
+            @Test
+            @DisplayName("default namespace declaration")
+            fun default() {
+                val ctx = parse<XPathFunctionCall>("with xmlns=\"http://www.example.com\" {test()}")[0]
+
+                val element = ctx.defaultNamespace(XdmNamespaceType.DefaultElement).toList()
+                assertThat(element.size, `is`(2))
+
+                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespaceUri!!.data, `is`("http://www.example.com"))
+
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultType), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
+
+                // predefined static context
+                assertThat(element[1].namespacePrefix, `is`(nullValue()))
+                assertThat(element[1].namespaceUri!!.data, `is`(""))
+
+                assertThat(element[1].accepts(XdmNamespaceType.DefaultElement), `is`(true))
+                assertThat(element[1].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.DefaultType), `is`(true))
+                assertThat(element[1].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.XQuery), `is`(false))
+            }
+
+            @Test
+            @DisplayName("default namespace declaration; empty namespace")
+            fun defaultEmptyNamespace() {
+                val ctx = parse<XPathFunctionCall>("with xmlns=\"\" {test()}")[0]
+
+                val element = ctx.defaultNamespace(XdmNamespaceType.DefaultElement).toList()
+                assertThat(element.size, `is`(2))
+
+                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespaceUri!!.data, `is`(""))
+
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultType), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
+
+                // predefined static context
+                assertThat(element[1].namespacePrefix, `is`(nullValue()))
+                assertThat(element[1].namespaceUri!!.data, `is`(""))
+
+                assertThat(element[1].accepts(XdmNamespaceType.DefaultElement), `is`(true))
+                assertThat(element[1].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.DefaultType), `is`(true))
+                assertThat(element[1].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[1].accepts(XdmNamespaceType.XQuery), `is`(false))
+            }
+        }
+
+        @Nested
         @DisplayName("XQuery 3.1 EBNF (143) DirAttributeList")
         internal inner class DirAttributeList {
             @Test
@@ -1352,6 +1495,76 @@ private class XQueryStaticContextTest : ParserTestCase() {
         }
 
         @Nested
+        @DisplayName("XQuery 4.0 ED EBNF (43) WithExpr")
+        internal inner class WithExpr {
+            @Test
+            @DisplayName("prefixed namespace declaration")
+            fun prefixed() {
+                val ctx = parse<XPathFunctionCall>("with xmlns:b=\"http://www.example.com\" {test()}")[0]
+
+                val element = ctx.defaultNamespace(XdmNamespaceType.DefaultType).toList()
+                assertThat(element.size, `is`(1))
+
+                // predefined static context
+                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespaceUri!!.data, `is`(""))
+
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultType), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
+            }
+
+            @Test
+            @DisplayName("default namespace declaration")
+            fun default() {
+                val ctx = parse<XPathFunctionCall>("with xmlns=\"http://www.example.com\" {test()}")[0]
+
+                val element = ctx.defaultNamespace(XdmNamespaceType.DefaultType).toList()
+                assertThat(element.size, `is`(1))
+
+                // predefined static context
+                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespaceUri!!.data, `is`(""))
+
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultType), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
+            }
+
+            @Test
+            @DisplayName("default namespace declaration; empty namespace")
+            fun defaultEmptyNamespace() {
+                val ctx = parse<XPathFunctionCall>("with xmlns=\"\" {test()}")[0]
+
+                val element = ctx.defaultNamespace(XdmNamespaceType.DefaultType).toList()
+                assertThat(element.size, `is`(1))
+
+                // predefined static context
+                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespaceUri!!.data, `is`(""))
+
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultType), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
+            }
+        }
+
+        @Nested
         @DisplayName("XQuery 3.1 EBNF (143) DirAttributeList")
         internal inner class DirAttributeList {
             @Test
@@ -1756,6 +1969,76 @@ private class XQueryStaticContextTest : ParserTestCase() {
                 assertThat(element[1].accepts(XdmNamespaceType.Prefixed), `is`(false))
                 assertThat(element[1].accepts(XdmNamespaceType.Undefined), `is`(false))
                 assertThat(element[1].accepts(XdmNamespaceType.XQuery), `is`(false))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 4.0 ED EBNF (43) WithExpr")
+        internal inner class WithExpr {
+            @Test
+            @DisplayName("prefixed namespace declaration")
+            fun prefixed() {
+                val ctx = parse<XPathFunctionCall>("with xmlns:b=\"http://www.example.com\" {test()}")[0]
+
+                val element = ctx.defaultNamespace(XdmNamespaceType.DefaultFunctionRef).toList()
+                assertThat(element.size, `is`(1))
+
+                // predefined static context
+                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
+
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultType), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
+            }
+
+            @Test
+            @DisplayName("default namespace declaration")
+            fun default() {
+                val ctx = parse<XPathFunctionCall>("with xmlns=\"http://www.example.com\" {test()}")[0]
+
+                val element = ctx.defaultNamespace(XdmNamespaceType.DefaultFunctionRef).toList()
+                assertThat(element.size, `is`(1))
+
+                // predefined static context
+                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
+
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultType), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
+            }
+
+            @Test
+            @DisplayName("default namespace declaration; empty namespace")
+            fun defaultEmptyNamespace() {
+                val ctx = parse<XPathFunctionCall>("with xmlns=\"\" {test()}")[0]
+
+                val element = ctx.defaultNamespace(XdmNamespaceType.DefaultFunctionRef).toList()
+                assertThat(element.size, `is`(1))
+
+                // predefined static context
+                assertThat(element[0].namespacePrefix, `is`(nullValue()))
+                assertThat(element[0].namespaceUri!!.data, `is`("http://www.w3.org/2005/xpath-functions"))
+
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultElement), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultFunctionRef), `is`(true))
+                assertThat(element[0].accepts(XdmNamespaceType.DefaultType), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.None), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Prefixed), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.Undefined), `is`(false))
+                assertThat(element[0].accepts(XdmNamespaceType.XQuery), `is`(false))
             }
         }
 
