@@ -2094,6 +2094,13 @@ private class XPathPsiTest : ParserTestCase() {
         @Nested
         @DisplayName("XPath 4.0 ED (4.1) Setting Namespace Context")
         internal inner class SettingNamespaceContext {
+            @Test
+            @DisplayName("XPath 4.0 ED EBNF (9) WithExpr")
+            fun withExpr() {
+                val expr = parse<XPathWithExpr>("with xmlns=\"\" {}")[0] as XpmExpression
+                assertThat(expr.expressionElement, `is`(sameInstance(expr)))
+            }
+
             @Nested
             @DisplayName("XPath 4.0 ED EBNF (10) NamespaceDeclaration")
             internal inner class NamespaceDeclaration {

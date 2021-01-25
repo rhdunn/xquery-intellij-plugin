@@ -17,6 +17,14 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathWithExpr
 
-class XPathWithExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathWithExpr
+class XPathWithExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathWithExpr {
+    // region XpmExpression
+
+    override val expressionElement: PsiElement
+        get() = this
+
+    // endregion
+}
