@@ -90,7 +90,7 @@ private class XQueryPsiTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery 3.1 (2) Basics")
+    @DisplayName("XQuery 4.0 ED (2) Basics ; XQuery 3.1 (2) Basics")
     internal inner class Basics {
         @Nested
         @DisplayName("XQuery 3.1 EBNF (217) URILiteral")
@@ -546,7 +546,7 @@ private class XQueryPsiTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery 3.1 (2.5.4) SequenceType Syntax ; XQuery 4.0 ED (3.4) Sequence Types")
+    @DisplayName("XQuery 4.0 ED (3.4) Sequence Types ; XQuery 3.1 (2.5.4) SequenceType Syntax")
     internal inner class SequenceTypes {
         @Nested
         @DisplayName("XQuery 3.1 EBNF (184) SequenceType")
@@ -615,347 +615,205 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(type.upperBound, `is`(1))
             }
         }
+    }
 
-        @Test
-        @DisplayName("XQuery 3.1 EBNF (186) ItemType ; XQuery 4.0 ED EBNF (203) AnyItemTest")
-        fun itemType() {
-            val type = parse<XPathAnyItemTest>("() instance of item ( (::) )")[0] as XdmItemType
-            assertThat(type.typeName, `is`("item()"))
-            assertThat(type.typeClass, `is`(sameInstance(XdmItem::class.java)))
+    @Nested
+    @DisplayName("XQuery 4.0 ED (3.6) Item Types ; XQuery 3.1 (2.5.5) SequenceType Matching")
+    internal inner class ItemTypes {
+        @Nested
+        @DisplayName("XQuery 4.0 ED (3.6.1) General Item Types")
+        internal inner class GeneralItemTypes {
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (186) ItemType ; XQuery 4.0 ED EBNF (203) AnyItemTest")
+            fun itemType() {
+                val type = parse<XPathAnyItemTest>("() instance of item ( (::) )")[0] as XdmItemType
+                assertThat(type.typeName, `is`("item()"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmItem::class.java)))
 
-            assertThat(type.itemType, `is`(sameInstance(type)))
-            assertThat(type.lowerBound, `is`(1))
-            assertThat(type.upperBound, `is`(1))
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Nested
+            @DisplayName("XQuery 3.1 EBNF (216) ParenthesizedItemType")
+            internal inner class ParenthesizedItemType {
+                @Test
+                @DisplayName("item type")
+                fun itemType() {
+                    val type = parse<XPathParenthesizedItemType>("() instance of ( text ( (::) ) )")[0] as XdmSequenceType
+                    assertThat(type.typeName, `is`("(text())"))
+                    assertThat(type.itemType?.typeName, `is`("text()"))
+                    assertThat(type.lowerBound, `is`(1))
+                    assertThat(type.upperBound, `is`(1))
+                }
+
+                @Test
+                @DisplayName("error recovery: missing type")
+                fun missingType() {
+                    val type = parse<XPathParenthesizedItemType>("() instance of ( (::) )")[0] as XdmSequenceType
+                    assertThat(type.typeName, `is`("(empty-sequence())"))
+                    assertThat(type.itemType, `is`(nullValue()))
+                    assertThat(type.lowerBound, `is`(0))
+                    assertThat(type.upperBound, `is`(0))
+                }
+
+                @Test
+                @DisplayName("error recovery: empty sequence")
+                fun emptySequence() {
+                    val type = parse<XPathParenthesizedItemType>("() instance of ( empty-sequence ( (::) ) )")[0] as XdmSequenceType
+                    assertThat(type.typeName, `is`("(empty-sequence())"))
+                    assertThat(type.itemType, `is`(nullValue()))
+                    assertThat(type.lowerBound, `is`(0))
+                    assertThat(type.upperBound, `is`(0))
+                }
+
+                @Test
+                @DisplayName("error recovery: optional item")
+                fun optionalItem() {
+                    val type = parse<XPathParenthesizedItemType>("() instance of ( xs:string ? ) )")[0] as XdmSequenceType
+                    assertThat(type.typeName, `is`("(xs:string?)"))
+                    assertThat(type.itemType?.typeName, `is`("xs:string"))
+                    assertThat(type.lowerBound, `is`(0))
+                    assertThat(type.upperBound, `is`(1))
+                }
+
+                @Test
+                @DisplayName("error recovery: optional sequence")
+                fun optionalSequence() {
+                    val type = parse<XPathParenthesizedItemType>("() instance of ( xs:string * ) )")[0] as XdmSequenceType
+                    assertThat(type.typeName, `is`("(xs:string*)"))
+                    assertThat(type.itemType?.typeName, `is`("xs:string"))
+                    assertThat(type.lowerBound, `is`(0))
+                    assertThat(type.upperBound, `is`(Int.MAX_VALUE))
+                }
+
+                @Test
+                @DisplayName("error recovery: optional item")
+                fun sequence() {
+                    val type = parse<XPathParenthesizedItemType>("() instance of ( xs:string + ) )")[0] as XdmSequenceType
+                    assertThat(type.typeName, `is`("(xs:string+)"))
+                    assertThat(type.itemType?.typeName, `is`("xs:string"))
+                    assertThat(type.lowerBound, `is`(1))
+                    assertThat(type.upperBound, `is`(Int.MAX_VALUE))
+                }
+            }
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 EBNF (187) AtomicOrUnionType")
-        internal inner class AtomicOrUnionType {
-            @Test
-            @DisplayName("NCName namespace resolution")
-            fun ncname() {
-                val qname = parse<XPathEQName>(
-                    """
+        @DisplayName("XQuery 4.0 ED (3.6.2.1) Local Union Types")
+        internal inner class AtomicAndUnionTypes {
+            @Nested
+            @DisplayName("XQuery 3.1 EBNF (187) AtomicOrUnionType")
+            internal inner class AtomicOrUnionType {
+                @Test
+                @DisplayName("NCName namespace resolution")
+                fun ncname() {
+                    val qname = parse<XPathEQName>(
+                        """
                     declare default function namespace "http://www.example.co.uk/function";
                     declare default element namespace "http://www.example.co.uk/element";
                     () instance of test
                     """
-                )[0] as XsQNameValue
-                assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.DefaultType))
-                assertThat(qname.element!!.getUsageType(), `is`(XpmUsageType.Type))
+                    )[0] as XsQNameValue
+                    assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.DefaultType))
+                    assertThat(qname.element!!.getUsageType(), `is`(XpmUsageType.Type))
 
-                assertThat(qname.isLexicalQName, `is`(true))
-                assertThat(qname.namespace, `is`(nullValue()))
-                assertThat(qname.prefix, `is`(nullValue()))
-                assertThat(qname.localName!!.data, `is`("test"))
-                assertThat(qname.element, sameInstance(qname as PsiElement))
+                    assertThat(qname.isLexicalQName, `is`(true))
+                    assertThat(qname.namespace, `is`(nullValue()))
+                    assertThat(qname.prefix, `is`(nullValue()))
+                    assertThat(qname.localName!!.data, `is`("test"))
+                    assertThat(qname.element, sameInstance(qname as PsiElement))
 
-                val expanded = qname.expand().toList()
-                assertThat(expanded.size, `is`(1))
+                    val expanded = qname.expand().toList()
+                    assertThat(expanded.size, `is`(1))
 
-                assertThat(expanded[0].isLexicalQName, `is`(false))
-                assertThat(expanded[0].namespace!!.data, `is`("http://www.example.co.uk/element"))
-                assertThat(expanded[0].prefix, `is`(nullValue()))
-                assertThat(expanded[0].localName!!.data, `is`("test"))
-                assertThat(expanded[0].element, sameInstance(qname as PsiElement))
+                    assertThat(expanded[0].isLexicalQName, `is`(false))
+                    assertThat(expanded[0].namespace!!.data, `is`("http://www.example.co.uk/element"))
+                    assertThat(expanded[0].prefix, `is`(nullValue()))
+                    assertThat(expanded[0].localName!!.data, `is`("test"))
+                    assertThat(expanded[0].element, sameInstance(qname as PsiElement))
+                }
+
+                @Test
+                @DisplayName("item type")
+                fun itemType() {
+                    val test = parse<XPathAtomicOrUnionType>("() instance of xs:string")[0]
+                    assertThat(op_qname_presentation(test.type), `is`("xs:string"))
+
+                    val type = test as XdmItemType
+                    assertThat(type.typeName, `is`("xs:string"))
+                    assertThat(type.typeClass, `is`(sameInstance(XsAnySimpleType::class.java)))
+
+                    assertThat(type.itemType, `is`(sameInstance(type)))
+                    assertThat(type.lowerBound, `is`(1))
+                    assertThat(type.upperBound, `is`(1))
+                }
             }
 
-            @Test
-            @DisplayName("item type")
-            fun itemType() {
-                val test = parse<XPathAtomicOrUnionType>("() instance of xs:string")[0]
-                assertThat(op_qname_presentation(test.type), `is`("xs:string"))
-
-                val type = test as XdmItemType
-                assertThat(type.typeName, `is`("xs:string"))
-                assertThat(type.typeClass, `is`(sameInstance(XsAnySimpleType::class.java)))
-
-                assertThat(type.itemType, `is`(sameInstance(type)))
-                assertThat(type.lowerBound, `is`(1))
-                assertThat(type.upperBound, `is`(1))
-            }
-        }
-
-        @Test
-        @DisplayName("XQuery 3.1 EBNF (189) AnyKindTest")
-        fun anyKindTest() {
-            val type = parse<XPathAnyKindTest>("() instance of node ( (::) )")[0] as XdmItemType
-            assertThat(type.typeName, `is`("node()"))
-            assertThat(type.typeClass, `is`(sameInstance(XdmNode::class.java)))
-
-            assertThat(type.itemType, `is`(sameInstance(type)))
-            assertThat(type.lowerBound, `is`(1))
-            assertThat(type.upperBound, `is`(1))
-        }
-
-        @Nested
-        @DisplayName("XQuery 3.1 EBNF (190) DocumentTest")
-        internal inner class DocumentTest {
-            @Test
-            @DisplayName("any")
-            fun any() {
-                val test = parse<XPathDocumentTest>("() instance of document-node ( (::) )")[0]
-                assertThat(test.rootNodeType, `is`(nullValue()))
-
-                val type = test as XdmItemType
-                assertThat(type.typeName, `is`("document-node()"))
-                assertThat(type.typeClass, `is`(sameInstance(XdmDocumentNode::class.java)))
-
-                assertThat(type.itemType, `is`(sameInstance(type)))
-                assertThat(type.lowerBound, `is`(1))
-                assertThat(type.upperBound, `is`(1))
-            }
-
-            @Test
-            @DisplayName("element test")
-            fun elementTest() {
-                val test = parse<XPathDocumentTest>("() instance of document-node ( element ( (::) ) )")[0]
-                assertThat(test.rootNodeType, `is`(instanceOf(XPathElementTest::class.java)))
-
-                val type = test as XdmItemType
-                assertThat(type.typeName, `is`("document-node(element())"))
-                assertThat(type.typeClass, `is`(sameInstance(XdmDocumentNode::class.java)))
-
-                assertThat(type.itemType, `is`(sameInstance(type)))
-                assertThat(type.lowerBound, `is`(1))
-                assertThat(type.upperBound, `is`(1))
-            }
-
-            @Test
-            @DisplayName("schema element test")
-            fun schemaElementTest() {
-                val test = parse<XPathDocumentTest>("() instance of document-node ( schema-element ( test ) )")[0]
-                assertThat(test.rootNodeType, `is`(instanceOf(XPathSchemaElementTest::class.java)))
-
-                val type = test as XdmItemType
-                assertThat(type.typeName, `is`("document-node(schema-element(test))"))
-                assertThat(type.typeClass, `is`(sameInstance(XdmDocumentNode::class.java)))
-
-                assertThat(type.itemType, `is`(sameInstance(type)))
-                assertThat(type.lowerBound, `is`(1))
-                assertThat(type.upperBound, `is`(1))
-            }
-        }
-
-        @Test
-        @DisplayName("XQuery 3.1 EBNF (191) TextTest")
-        fun textTest() {
-            val type = parse<PluginAnyTextTest>("() instance of text ( (::) )")[0] as XdmItemType
-            assertThat(type.typeName, `is`("text()"))
-            assertThat(type.typeClass, `is`(sameInstance(XdmTextNode::class.java)))
-
-            assertThat(type.itemType, `is`(sameInstance(type)))
-            assertThat(type.lowerBound, `is`(1))
-            assertThat(type.upperBound, `is`(1))
-        }
-
-        @Test
-        @DisplayName("XQuery 3.1 EBNF (192) CommentTest")
-        fun commentTest() {
-            val type = parse<XPathCommentTest>("() instance of comment ( (::) )")[0] as XdmItemType
-            assertThat(type.typeName, `is`("comment()"))
-            assertThat(type.typeClass, `is`(sameInstance(XdmCommentNode::class.java)))
-
-            assertThat(type.itemType, `is`(sameInstance(type)))
-            assertThat(type.lowerBound, `is`(1))
-            assertThat(type.upperBound, `is`(1))
-        }
-
-        @Test
-        @DisplayName("XQuery 3.1 EBNF (193) NamespaceNodeTest")
-        fun namespaceNodeTest() {
-            val type = parse<XPathNamespaceNodeTest>("() instance of namespace-node ( (::) )")[0] as XdmItemType
-            assertThat(type.typeName, `is`("namespace-node()"))
-            assertThat(type.typeClass, `is`(sameInstance(XdmNamespaceNode::class.java)))
-
-            assertThat(type.itemType, `is`(sameInstance(type)))
-            assertThat(type.lowerBound, `is`(1))
-            assertThat(type.upperBound, `is`(1))
-        }
-
-        @Nested
-        @DisplayName("XQuery 3.1 EBNF (194) PITest")
-        internal inner class PITest {
-            @Test
-            @DisplayName("any")
-            fun any() {
-                val test = parse<XPathPITest>("() instance of processing-instruction ( (::) )")[0]
-                assertThat(test.nodeName, `is`(nullValue()))
-
-                val type = test as XdmItemType
-                assertThat(type.typeName, `is`("processing-instruction()"))
-                assertThat(type.typeClass, `is`(sameInstance(XdmProcessingInstructionNode::class.java)))
-
-                assertThat(type.itemType, `is`(sameInstance(type)))
-                assertThat(type.lowerBound, `is`(1))
-                assertThat(type.upperBound, `is`(1))
-            }
-
-            @Test
-            @DisplayName("NCName")
-            fun ncname() {
-                val test = parse<XPathPITest>("() instance of processing-instruction ( test )")[0]
-                assertThat(test.nodeName, `is`(instanceOf(XsNCNameValue::class.java)))
-                assertThat((test.nodeName as XsNCNameValue).data, `is`("test"))
-
-                val type = test as XdmItemType
-                assertThat(type.typeName, `is`("processing-instruction(test)"))
-                assertThat(type.typeClass, `is`(sameInstance(XdmProcessingInstructionNode::class.java)))
-
-                assertThat(type.itemType, `is`(sameInstance(type)))
-                assertThat(type.lowerBound, `is`(1))
-                assertThat(type.upperBound, `is`(1))
-            }
-
-            @Test
-            @DisplayName("StringLiteral")
-            fun stringLiteral() {
-                val test = parse<XPathPITest>("() instance of processing-instruction ( \" test \" )")[0]
-
-                val nodeName = test.nodeName as XsNCNameValue
-                assertThat(nodeName.data, `is`("test"))
-                assertThat(nodeName.element, `is`(sameInstance(test.children().filterIsInstance<XPathStringLiteral>().firstOrNull())))
-
-                val type = test as XdmItemType
-                assertThat(type.typeName, `is`("processing-instruction(test)"))
-                assertThat(type.typeClass, `is`(sameInstance(XdmProcessingInstructionNode::class.java)))
-
-                assertThat(type.itemType, `is`(sameInstance(type)))
-                assertThat(type.lowerBound, `is`(1))
-                assertThat(type.upperBound, `is`(1))
-            }
-        }
-
-        @Nested
-        @DisplayName("XQuery 3.1 EBNF (206) TypeName")
-        internal inner class TypeName {
-            @Test
-            @DisplayName("NCName namespace resolution")
-            fun ncname() {
-                val qname = parse<XPathEQName>(
-                    """
+            @Nested
+            @DisplayName("XQuery 3.1 EBNF (206) TypeName")
+            internal inner class TypeName {
+                @Test
+                @DisplayName("NCName namespace resolution")
+                fun ncname() {
+                    val qname = parse<XPathEQName>(
+                        """
                     declare default function namespace "http://www.example.co.uk/function";
                     declare default element namespace "http://www.example.co.uk/element";
                     () instance of element(*, test)
                     """
-                )[0] as XsQNameValue
-                assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.DefaultType))
-                assertThat(qname.element!!.getUsageType(), `is`(XpmUsageType.Type))
+                    )[0] as XsQNameValue
+                    assertThat(qname.getNamespaceType(), `is`(XdmNamespaceType.DefaultType))
+                    assertThat(qname.element!!.getUsageType(), `is`(XpmUsageType.Type))
 
-                assertThat(qname.isLexicalQName, `is`(true))
-                assertThat(qname.namespace, `is`(nullValue()))
-                assertThat(qname.prefix, `is`(nullValue()))
-                assertThat(qname.localName!!.data, `is`("test"))
-                assertThat(qname.element, sameInstance(qname as PsiElement))
+                    assertThat(qname.isLexicalQName, `is`(true))
+                    assertThat(qname.namespace, `is`(nullValue()))
+                    assertThat(qname.prefix, `is`(nullValue()))
+                    assertThat(qname.localName!!.data, `is`("test"))
+                    assertThat(qname.element, sameInstance(qname as PsiElement))
 
-                val expanded = qname.expand().toList()
-                assertThat(expanded.size, `is`(1))
+                    val expanded = qname.expand().toList()
+                    assertThat(expanded.size, `is`(1))
 
-                assertThat(expanded[0].isLexicalQName, `is`(false))
-                assertThat(expanded[0].namespace!!.data, `is`("http://www.example.co.uk/element"))
-                assertThat(expanded[0].prefix, `is`(nullValue()))
-                assertThat(expanded[0].localName!!.data, `is`("test"))
-            }
+                    assertThat(expanded[0].isLexicalQName, `is`(false))
+                    assertThat(expanded[0].namespace!!.data, `is`("http://www.example.co.uk/element"))
+                    assertThat(expanded[0].prefix, `is`(nullValue()))
+                    assertThat(expanded[0].localName!!.data, `is`("test"))
+                }
 
-            @Test
-            @DisplayName("item type")
-            fun itemType() {
-                val test = parse<XPathTypeName>("() instance of element( *, xs:string )")[0]
-                assertThat(test.type, `is`(sameInstance(test.children().filterIsInstance<XsQNameValue>().first())))
+                @Test
+                @DisplayName("item type")
+                fun itemType() {
+                    val test = parse<XPathTypeName>("() instance of element( *, xs:string )")[0]
+                    assertThat(test.type, `is`(sameInstance(test.children().filterIsInstance<XsQNameValue>().first())))
 
-                val type = test as XdmItemType
-                assertThat(type.typeName, `is`("xs:string"))
-                assertThat(type.typeClass, `is`(sameInstance(XsAnyType::class.java)))
+                    val type = test as XdmItemType
+                    assertThat(type.typeName, `is`("xs:string"))
+                    assertThat(type.typeClass, `is`(sameInstance(XsAnyType::class.java)))
 
-                assertThat(type.itemType, `is`(sameInstance(type)))
-                assertThat(type.lowerBound, `is`(1))
-                assertThat(type.upperBound, `is`(Int.MAX_VALUE))
-            }
+                    assertThat(type.itemType, `is`(sameInstance(type)))
+                    assertThat(type.lowerBound, `is`(1))
+                    assertThat(type.upperBound, `is`(Int.MAX_VALUE))
+                }
 
-            @Test
-            @DisplayName("invalid QName")
-            fun invalidQName() {
-                val test = parse<XPathTypeName>("() instance of element( *, xs: )")[0]
-                assertThat(test.type, `is`(sameInstance(test.children().filterIsInstance<XsQNameValue>().first())))
+                @Test
+                @DisplayName("invalid QName")
+                fun invalidQName() {
+                    val test = parse<XPathTypeName>("() instance of element( *, xs: )")[0]
+                    assertThat(test.type, `is`(sameInstance(test.children().filterIsInstance<XsQNameValue>().first())))
 
-                val type = test as XdmItemType
-                assertThat(type.typeName, `is`(""))
-                assertThat(type.typeClass, `is`(sameInstance(XsAnyType::class.java)))
+                    val type = test as XdmItemType
+                    assertThat(type.typeName, `is`(""))
+                    assertThat(type.typeClass, `is`(sameInstance(XsAnyType::class.java)))
 
-                assertThat(type.itemType, `is`(sameInstance(type)))
-                assertThat(type.lowerBound, `is`(1))
-                assertThat(type.upperBound, `is`(Int.MAX_VALUE))
-            }
-        }
-
-        @Nested
-        @DisplayName("XQuery 3.1 EBNF (216) ParenthesizedItemType")
-        internal inner class ParenthesizedItemType {
-            @Test
-            @DisplayName("item type")
-            fun itemType() {
-                val type = parse<XPathParenthesizedItemType>("() instance of ( text ( (::) ) )")[0] as XdmSequenceType
-                assertThat(type.typeName, `is`("(text())"))
-                assertThat(type.itemType?.typeName, `is`("text()"))
-                assertThat(type.lowerBound, `is`(1))
-                assertThat(type.upperBound, `is`(1))
-            }
-
-            @Test
-            @DisplayName("error recovery: missing type")
-            fun missingType() {
-                val type = parse<XPathParenthesizedItemType>("() instance of ( (::) )")[0] as XdmSequenceType
-                assertThat(type.typeName, `is`("(empty-sequence())"))
-                assertThat(type.itemType, `is`(nullValue()))
-                assertThat(type.lowerBound, `is`(0))
-                assertThat(type.upperBound, `is`(0))
-            }
-
-            @Test
-            @DisplayName("error recovery: empty sequence")
-            fun emptySequence() {
-                val type = parse<XPathParenthesizedItemType>("() instance of ( empty-sequence ( (::) ) )")[0] as XdmSequenceType
-                assertThat(type.typeName, `is`("(empty-sequence())"))
-                assertThat(type.itemType, `is`(nullValue()))
-                assertThat(type.lowerBound, `is`(0))
-                assertThat(type.upperBound, `is`(0))
-            }
-
-            @Test
-            @DisplayName("error recovery: optional item")
-            fun optionalItem() {
-                val type = parse<XPathParenthesizedItemType>("() instance of ( xs:string ? ) )")[0] as XdmSequenceType
-                assertThat(type.typeName, `is`("(xs:string?)"))
-                assertThat(type.itemType?.typeName, `is`("xs:string"))
-                assertThat(type.lowerBound, `is`(0))
-                assertThat(type.upperBound, `is`(1))
-            }
-
-            @Test
-            @DisplayName("error recovery: optional sequence")
-            fun optionalSequence() {
-                val type = parse<XPathParenthesizedItemType>("() instance of ( xs:string * ) )")[0] as XdmSequenceType
-                assertThat(type.typeName, `is`("(xs:string*)"))
-                assertThat(type.itemType?.typeName, `is`("xs:string"))
-                assertThat(type.lowerBound, `is`(0))
-                assertThat(type.upperBound, `is`(Int.MAX_VALUE))
-            }
-
-            @Test
-            @DisplayName("error recovery: optional item")
-            fun sequence() {
-                val type = parse<XPathParenthesizedItemType>("() instance of ( xs:string + ) )")[0] as XdmSequenceType
-                assertThat(type.typeName, `is`("(xs:string+)"))
-                assertThat(type.itemType?.typeName, `is`("xs:string"))
-                assertThat(type.lowerBound, `is`(1))
-                assertThat(type.upperBound, `is`(Int.MAX_VALUE))
+                    assertThat(type.itemType, `is`(sameInstance(type)))
+                    assertThat(type.lowerBound, `is`(1))
+                    assertThat(type.upperBound, `is`(Int.MAX_VALUE))
+                }
             }
         }
-    }
 
-    @Nested
-    @DisplayName("XQuery 3.1 (2.5.5) SequenceType Matching ; XQuery 4.0 ED (3.6) Item Types")
-    internal inner class ItemTypes {
         @Nested
         @DisplayName("XQuery 4.0 ED (3.6.2.1) Local Union Types")
         internal inner class LocalUnionTypes {
@@ -1101,6 +959,160 @@ private class XQueryPsiTest : ParserTestCase() {
                     val type = test as XdmItemType
                     assertThat(type.typeName, `is`("enum(\"one\", \"two\")"))
                     assertThat(type.typeClass, `is`(sameInstance(XsStringValue::class.java)))
+
+                    assertThat(type.itemType, `is`(sameInstance(type)))
+                    assertThat(type.lowerBound, `is`(1))
+                    assertThat(type.upperBound, `is`(1))
+                }
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 4.0 ED (3.6.3.1) Simple Node Tests")
+        internal inner class SimpleNodeTests {
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (189) AnyKindTest")
+            fun anyKindTest() {
+                val type = parse<XPathAnyKindTest>("() instance of node ( (::) )")[0] as XdmItemType
+                assertThat(type.typeName, `is`("node()"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmNode::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Nested
+            @DisplayName("XQuery 3.1 EBNF (190) DocumentTest")
+            internal inner class DocumentTest {
+                @Test
+                @DisplayName("any")
+                fun any() {
+                    val test = parse<XPathDocumentTest>("() instance of document-node ( (::) )")[0]
+                    assertThat(test.rootNodeType, `is`(nullValue()))
+
+                    val type = test as XdmItemType
+                    assertThat(type.typeName, `is`("document-node()"))
+                    assertThat(type.typeClass, `is`(sameInstance(XdmDocumentNode::class.java)))
+
+                    assertThat(type.itemType, `is`(sameInstance(type)))
+                    assertThat(type.lowerBound, `is`(1))
+                    assertThat(type.upperBound, `is`(1))
+                }
+
+                @Test
+                @DisplayName("element test")
+                fun elementTest() {
+                    val test = parse<XPathDocumentTest>("() instance of document-node ( element ( (::) ) )")[0]
+                    assertThat(test.rootNodeType, `is`(instanceOf(XPathElementTest::class.java)))
+
+                    val type = test as XdmItemType
+                    assertThat(type.typeName, `is`("document-node(element())"))
+                    assertThat(type.typeClass, `is`(sameInstance(XdmDocumentNode::class.java)))
+
+                    assertThat(type.itemType, `is`(sameInstance(type)))
+                    assertThat(type.lowerBound, `is`(1))
+                    assertThat(type.upperBound, `is`(1))
+                }
+
+                @Test
+                @DisplayName("schema element test")
+                fun schemaElementTest() {
+                    val test = parse<XPathDocumentTest>("() instance of document-node ( schema-element ( test ) )")[0]
+                    assertThat(test.rootNodeType, `is`(instanceOf(XPathSchemaElementTest::class.java)))
+
+                    val type = test as XdmItemType
+                    assertThat(type.typeName, `is`("document-node(schema-element(test))"))
+                    assertThat(type.typeClass, `is`(sameInstance(XdmDocumentNode::class.java)))
+
+                    assertThat(type.itemType, `is`(sameInstance(type)))
+                    assertThat(type.lowerBound, `is`(1))
+                    assertThat(type.upperBound, `is`(1))
+                }
+            }
+
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (191) TextTest")
+            fun textTest() {
+                val type = parse<PluginAnyTextTest>("() instance of text ( (::) )")[0] as XdmItemType
+                assertThat(type.typeName, `is`("text()"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmTextNode::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (192) CommentTest")
+            fun commentTest() {
+                val type = parse<XPathCommentTest>("() instance of comment ( (::) )")[0] as XdmItemType
+                assertThat(type.typeName, `is`("comment()"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmCommentNode::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (193) NamespaceNodeTest")
+            fun namespaceNodeTest() {
+                val type = parse<XPathNamespaceNodeTest>("() instance of namespace-node ( (::) )")[0] as XdmItemType
+                assertThat(type.typeName, `is`("namespace-node()"))
+                assertThat(type.typeClass, `is`(sameInstance(XdmNamespaceNode::class.java)))
+
+                assertThat(type.itemType, `is`(sameInstance(type)))
+                assertThat(type.lowerBound, `is`(1))
+                assertThat(type.upperBound, `is`(1))
+            }
+
+            @Nested
+            @DisplayName("XQuery 3.1 EBNF (194) PITest")
+            internal inner class PITest {
+                @Test
+                @DisplayName("any")
+                fun any() {
+                    val test = parse<XPathPITest>("() instance of processing-instruction ( (::) )")[0]
+                    assertThat(test.nodeName, `is`(nullValue()))
+
+                    val type = test as XdmItemType
+                    assertThat(type.typeName, `is`("processing-instruction()"))
+                    assertThat(type.typeClass, `is`(sameInstance(XdmProcessingInstructionNode::class.java)))
+
+                    assertThat(type.itemType, `is`(sameInstance(type)))
+                    assertThat(type.lowerBound, `is`(1))
+                    assertThat(type.upperBound, `is`(1))
+                }
+
+                @Test
+                @DisplayName("NCName")
+                fun ncname() {
+                    val test = parse<XPathPITest>("() instance of processing-instruction ( test )")[0]
+                    assertThat(test.nodeName, `is`(instanceOf(XsNCNameValue::class.java)))
+                    assertThat((test.nodeName as XsNCNameValue).data, `is`("test"))
+
+                    val type = test as XdmItemType
+                    assertThat(type.typeName, `is`("processing-instruction(test)"))
+                    assertThat(type.typeClass, `is`(sameInstance(XdmProcessingInstructionNode::class.java)))
+
+                    assertThat(type.itemType, `is`(sameInstance(type)))
+                    assertThat(type.lowerBound, `is`(1))
+                    assertThat(type.upperBound, `is`(1))
+                }
+
+                @Test
+                @DisplayName("StringLiteral")
+                fun stringLiteral() {
+                    val test = parse<XPathPITest>("() instance of processing-instruction ( \" test \" )")[0]
+
+                    val nodeName = test.nodeName as XsNCNameValue
+                    assertThat(nodeName.data, `is`("test"))
+                    assertThat(nodeName.element, `is`(sameInstance(test.children().filterIsInstance<XPathStringLiteral>().firstOrNull())))
+
+                    val type = test as XdmItemType
+                    assertThat(type.typeName, `is`("processing-instruction(test)"))
+                    assertThat(type.typeClass, `is`(sameInstance(XdmProcessingInstructionNode::class.java)))
 
                     assertThat(type.itemType, `is`(sameInstance(type)))
                     assertThat(type.lowerBound, `is`(1))
@@ -2502,17 +2514,10 @@ private class XQueryPsiTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery 3.1 (3) Expressions ; XQuery 4.0 ED (4) Expressions")
+    @DisplayName("XQuery 4.0 ED (4) Expressions ; XQuery 3.1 (3) Expressions")
     internal inner class Expressions {
-        @Test
-        @DisplayName("XQuery 3.1 EBNF (39) Expr")
-        fun expr() {
-            val expr = parse<XPathExpr>("(1, 2 + 3, 4)")[0] as XpmExpression
-            assertThat(expr.expressionElement, `is`(nullValue()))
-        }
-
         @Nested
-        @DisplayName("XQuery 3.1 (3.1) Primary Expressions")
+        @DisplayName("XQuery 4.0 ED (4.3) Primary Expressions ; XQuery 3.1 (3.1) Primary Expressions")
         internal inner class PrimaryExpressions {
             @Nested
             @DisplayName("XQuery 3.1 (3.1.1) Literals")
@@ -2695,7 +2700,11 @@ private class XQueryPsiTest : ParserTestCase() {
                     assertThat(expr.expressionElement, `is`(nullValue()))
                 }
             }
+        }
 
+        @Nested
+        @DisplayName("XQuery 4.0 ED (4.4) Functions ; XQuery 3.1 (3.1) Primary Expressions")
+        internal inner class Functions {
             @Nested
             @DisplayName("XQuery 3.1 (3.1.5) Static Function Calls")
             internal inner class StaticFunctionCalls {
@@ -3050,7 +3059,7 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (3.2) Postfix Expressions")
+        @DisplayName("XQuery 4.0 ED (4.5) Postfix Expressions ; XQuery 3.1 (3.2) Postfix Expressions")
         internal inner class PostfixExpressions {
             @Nested
             @DisplayName("XQuery 3.1 EBNF (121) PostfixExpr")
@@ -3179,7 +3188,7 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (3.3) Path Expressions")
+        @DisplayName("XQuery 4.0 ED (4.6) Path Expressions ; XQuery 3.1 (3.3) Path Expressions")
         internal inner class PathExpressions {
             @Nested
             @DisplayName("XQuery 3.1 EBNF (108) PathExpr")
@@ -3962,8 +3971,19 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (3.4.1) Constructing Sequences")
-        internal inner class ConstructingSequences {
+        @DisplayName("XQuery 4.0 ED (4.7.1) Sequence Concatenation ; XQuery 3.1 (3.4.1) Constructing Sequences")
+        internal inner class SequenceConcatenation {
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (39) Expr")
+            fun expr() {
+                val expr = parse<XPathExpr>("(1, 2 + 3, 4)")[0] as XpmExpression
+                assertThat(expr.expressionElement, `is`(nullValue()))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 4.0 ED (4.7.2) Range Expressions ; XQuery 3.1 (3.4.1) Constructing Sequences")
+        internal inner class RangeExpressions {
             @Test
             @DisplayName("XQuery 3.1 EBNF (20) RangeExpr")
             fun rangeExpr() {
@@ -3975,7 +3995,7 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (3.4.2) Combining Node Sequences")
+        @DisplayName("XQuery 4.0 ED (4.7.3) Combining Node Sequences ; XQuery 3.1 (3.4.2) Combining Node Sequences")
         internal inner class CombiningNodeSequences {
             @Nested
             @DisplayName("XQuery 3.1 EBNF (90) UnionExpr")
@@ -4023,7 +4043,7 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (3.5) Arithmetic Expressions")
+        @DisplayName("XQuery 4.0 ED (4.8) Arithmetic Expressions ; XQuery 3.1 (3.5) Arithmetic Expressions")
         internal inner class ArithmeticExpressions {
             @Nested
             @DisplayName("XQuery 3.1 EBNF (88) AdditiveExpr")
@@ -4111,7 +4131,7 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (3.6) String Concatenation Expressions")
+        @DisplayName("XQuery 4.0 ED (4.9) String Concatenation Expressions ; XQuery 3.1 (3.6) String Concatenation Expressions")
         internal inner class StringConcatenationExpressions {
             @Test
             @DisplayName("XPath 3.1 EBNF (86) StringConcatExpr")
@@ -4124,7 +4144,7 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (3.7) Comparison Expressions")
+        @DisplayName("XQuery 4.0 ED (4.10) Comparison Expressions ; XQuery 3.1 (3.7) Comparison Expressions")
         internal inner class ComparisonExpressions {
             @Nested
             @DisplayName("XQuery 3.1 EBNF (85) ComparisonExpr ; XQuery 3.1 EBNF (99) GeneralComp")
@@ -4275,7 +4295,7 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (3.8) Logical Expressions")
+        @DisplayName("XQuery 4.0 ED (4.11) Logical Expressions ; XQuery 3.1 (3.8) Logical Expressions")
         internal inner class LogicalExpressions {
             @Test
             @DisplayName("XQuery 1.0 EBNF (83) OrExpr")
@@ -4297,10 +4317,10 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (3.9) Node Constructors")
+        @DisplayName("XQuery 4.0 ED (4.12) Node Constructors ; XQuery 3.1 (3.9) Node Constructors")
         internal inner class NodeConstructors {
             @Nested
-            @DisplayName("XQuery 3.1 (3.9.1) Direct Element Constructors")
+            @DisplayName("XQuery 4.0 ED (4.12.1) Direct Element Constructors ; XQuery 3.1 (3.9.1) Direct Element Constructors")
             internal inner class DirectElementConstructors {
                 @Nested
                 @DisplayName("XQuery 3.1 EBNF (142) DirElemConstructor")
@@ -4596,7 +4616,7 @@ private class XQueryPsiTest : ParserTestCase() {
             }
 
             @Nested
-            @DisplayName("XQuery 3.1 (3.9.2) Other Direct Constructors")
+            @DisplayName("XQuery 4.0 ED (4.12.2) Other Direct Constructors ; XQuery 3.1 (3.9.2) Other Direct Constructors")
             internal inner class OtherDirectConstructors {
                 @Test
                 @DisplayName("XQuery 3.1 EBNF (149) DirCommentConstructor")
@@ -4618,7 +4638,7 @@ private class XQueryPsiTest : ParserTestCase() {
             }
 
             @Nested
-            @DisplayName("XQuery 3.1 (3.9.3) Computed Constructors")
+            @DisplayName("XQuery 4.0 ED (4.12.3) Computed Constructors ; XQuery 3.1 (3.9.3) Computed Constructors")
             internal inner class ComputedElementConstructors {
                 @Test
                 @DisplayName("XQuery 3.1 EBNF (156) CompDocConstructor")
@@ -4848,7 +4868,7 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (3.10) String Constructors")
+        @DisplayName("XQuery 4.0 ED (4.13) String Constructors ; XQuery 3.1 (3.10) String Constructors")
         internal inner class StringConstructors {
             @Test
             @DisplayName("XQuery 1.0 EBNF (177) StringConstructor")
@@ -4861,7 +4881,7 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (3.11) Maps and Arrays")
+        @DisplayName("XXQuery 4.0 ED (4.14) Maps and Arrays ; Query 3.1 (3.11) Maps and Arrays")
         internal inner class MapsAndArrays {
             @Nested
             @DisplayName("XQuery 3.1 (3.11.1) Maps")
@@ -4988,7 +5008,7 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (3.12) FLWORExpressions")
+        @DisplayName("XQuery 4.0 ED (4.15) FLWOR Expressions ; XQuery 3.1 (3.12) FLWOR Expressions")
         internal inner class FLWORExpressions {
             @Nested
             @DisplayName("XQuery 3.1 EBNF (41) FLWORExpr")
@@ -5639,7 +5659,7 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (3.13) Ordered and Unordered Expressions")
+        @DisplayName("XQuery 4.0 ED (4.16) Ordered and Unordered Expressions ; XQuery 3.1 (3.13) Ordered and Unordered Expressions")
         internal inner class OrderedAndUnorderedExpressions {
             @Test
             @DisplayName("XQuery 3.1 EBNF (135) OrderedExpr")
@@ -5657,7 +5677,7 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (3.14) Conditional Expressions ; XQuery 4.0 ED (4.17) Conditional Expressions")
+        @DisplayName("XQuery 4.0 ED (4.17) Conditional Expressions ; XQuery 3.1 (3.14) Conditional Expressions")
         internal inner class ConditionalExpressions {
             @Test
             @DisplayName("XQuery 4.0 ED EBNF (45) TernaryConditionalExpr")
@@ -5692,7 +5712,7 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (3.15) Switch Expression")
+        @DisplayName("XQuery 4.0 ED (4.19) Switch Expressions ; XQuery 3.1 (3.15) Switch Expression")
         internal inner class SwitchExpression {
             @Test
             @DisplayName("XQuery 3.1 EBNF (71) SwitchExpr")
@@ -5705,7 +5725,7 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (3.16) Quantified Expressions")
+        @DisplayName("XQuery 4.0 ED (4.20) Quantified Expressions ; XQuery 3.1 (3.16) Quantified Expressions")
         internal inner class QuantifiedExpressions {
             @Nested
             @DisplayName("XQuery 3.1 EBNF (70) QuantifiedExpr")
@@ -5777,7 +5797,7 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (3.17) Try/Catch Expressions")
+        @DisplayName("XQuery 4.0 ED (4.21) Try/Catch Expressions ; XQuery 3.1 (3.17) Try/Catch Expressions")
         internal inner class TryCatchExpressions {
             @Test
             @DisplayName("XQuery 3.1 EBNF (78) TryCatchExpr")
@@ -5797,7 +5817,7 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (3.18) Expressions on SequenceTypes")
+        @DisplayName("XQuery 4.0 ED (4.22) Expressions on Sequence Types ; XQuery 3.1 (3.18) Expressions on SequenceTypes")
         internal inner class ExpressionsOnSequenceTypes {
             @Test
             @DisplayName("XQuery 3.1 EBNF (92) InstanceofExpr")
@@ -5992,7 +6012,7 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (3.19) Simple Map Operator")
+        @DisplayName("XQuery 4.0 ED (4.23) Simple Map Operator ; XQuery 3.1 (3.19) Simple Map Operator")
         internal inner class SimpleMapOperator {
             @Test
             @DisplayName("XQuery 3.1 EBNF (107) SimpleMapExpr")
@@ -6005,7 +6025,7 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (3.20) Arrow Operator")
+        @DisplayName("XQuery 4.0 ED (4.24) Arrow Expressions ; XQuery 3.1 (3.20) Arrow Operator")
         internal inner class ArrowOperator {
             @Nested
             @DisplayName("XQuery 3.1 EBNF (96) ArrowExpr")
@@ -6348,7 +6368,7 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (3.21) Validate Expressions")
+        @DisplayName("XQuery 4.0 ED (4.25) Validate Expressions ; XQuery 3.1 (3.21) Validate Expressions")
         internal inner class ValidateExpressions {
             @Test
             @DisplayName("XQuery 3.1 EBNF (102) ValidateExpr")
@@ -6361,7 +6381,7 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (3.22) Extension Expressions")
+        @DisplayName("XQuery 4.0 ED (4.26) Extension Expressions ; XQuery 3.1 (3.22) Extension Expressions")
         internal inner class ExtensionExpressions {
             @Test
             @DisplayName("XQuery 3.1 EBNF (104) ExtensionExpr")
@@ -6402,7 +6422,7 @@ private class XQueryPsiTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery 3.1 (4) Modules and Prologs")
+    @DisplayName("XQuery 4.0 ED (5) Modules and Prologs ; XQuery 3.1 (4) Modules and Prologs")
     internal inner class ModulesAndPrologs {
         @Nested
         @DisplayName("XQuery 3.1 EBNF (1) Module")
@@ -6634,7 +6654,7 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (4.1) Version Declaration")
+        @DisplayName("XQuery 4.0 ED (5.1) Version Declaration ; XQuery 3.1 (4.1) Version Declaration")
         internal inner class VersionDecl {
             @Nested
             @DisplayName("XQuery 3.1 EBNF (2) VersionDecl")
@@ -6714,7 +6734,7 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (4.2) Module Declaration")
+        @DisplayName("XQuery 4.0 ED (5.2) Module Declaration ; XQuery 3.1 (4.2) Module Declaration")
         internal inner class ModuleDeclaration {
             @Nested
             @DisplayName("XQuery 3.1 EBNF (5) ModuleDecl")
@@ -6774,7 +6794,7 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (4.4) Default Collation Declaration")
+        @DisplayName("XQuery 4.0 ED (5.4) Default Collation Declaration ; XQuery 3.1 (4.4) Default Collation Declaration")
         internal inner class DefaultCollationDecl {
             @Nested
             @DisplayName("XQuery 3.1 EBNF (10) DefaultCollationDecl")
@@ -6798,7 +6818,7 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (4.5) Base URI Declaration")
+        @DisplayName("XQuery 4.0 ED (5.5) Base URI Declaration ; XQuery 3.1 (4.5) Base URI Declaration")
         internal inner class BaseURIDecl {
             @Nested
             @DisplayName("XQuery 3.1 EBNF (11) BaseURIDecl")
@@ -6822,7 +6842,7 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (4.10) Decimal Format Declaration")
+        @DisplayName("XQuery 4.0 ED (5.10) Decimal Format Declaration ; XQuery 3.1 (4.10) Decimal Format Declaration")
         internal inner class DecimalFormatDeclaration {
             @Nested
             @DisplayName("XQuery 3.1 EBNF (18) DecimalFormatDecl")
@@ -6853,7 +6873,7 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (4.11) Schema Import")
+        @DisplayName("XQuery 4.0 ED (5.11) Schema Import ; XQuery 3.1 (4.11) Schema Import")
         internal inner class SchemaImport {
             @Nested
             @DisplayName("XQuery 3.1 EBNF (21) SchemaImport")
@@ -6984,7 +7004,7 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (4.12) Module Import")
+        @DisplayName("XQuery 4.0 ED (5.12) Module Import ; XQuery 3.1 (4.12) Module Import")
         internal inner class ModuleImport {
             @Nested
             @DisplayName("XQuery 3.1 EBNF (23) ModuleImport")
@@ -7241,7 +7261,7 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (4.13) Namespace Declaration")
+        @DisplayName("XQuery 4.0 ED (5.13) Namespace Declaration ; XQuery 3.1 (4.13) Namespace Declaration")
         internal inner class NamespaceDeclaration {
             @Nested
             @DisplayName("XQuery 3.1 EBNF (24) NamespaceDecl")
@@ -7350,7 +7370,7 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (4.14) Default Namespace Declaration")
+        @DisplayName("XQuery 4.0 ED (5.14) Default Namespace Declaration ; XQuery 3.1 (4.14) Default Namespace Declaration")
         internal inner class DefaultNamespaceDeclaration {
             @Nested
             @DisplayName("XQuery 3.1 EBNF (25) DefaultNamespaceDecl")
@@ -7440,7 +7460,7 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (4.15) Annotations")
+        @DisplayName("XQuery 4.0 ED (5.15) Annotations ; XQuery 3.1 (4.15) Annotations")
         internal inner class Annotations {
             @Nested
             @DisplayName("XQuery 3.1 EBNF (27) Annotation")
@@ -7520,7 +7540,7 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (4.16) Variable Declaration")
+        @DisplayName("XQuery 4.0 ED (5.16) Variable Declaration ; XQuery 3.1 (4.16) Variable Declaration")
         internal inner class VariableDeclaration {
             @Nested
             @DisplayName("XQuery 3.1 EBNF (28) VarDecl")
@@ -7630,7 +7650,7 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (4.18) Function Declaration")
+        @DisplayName("XQuery 4.0 ED (5.18) Function Declaration ; XQuery 3.1 (4.18) Function Declaration")
         internal inner class FunctionDeclaration {
             @Nested
             @DisplayName("XQuery 3.1 EBNF (32) FunctionDecl")
@@ -7934,7 +7954,7 @@ private class XQueryPsiTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 (4.19) Option Declaration")
+        @DisplayName("XQuery 4.0 ED (5.20) Option Declaration ; XQuery 3.1 (4.19) Option Declaration")
         internal inner class OptionDeclaration {
             @Nested
             @DisplayName("XQuery 3.1 EBNF (37) OptionDecl")
