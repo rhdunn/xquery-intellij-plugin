@@ -40,7 +40,7 @@ class XRayTestRunState(private val environment: ExecutionEnvironment) : RunProfi
         val processHandler = createProcessHandler(createQuery())
         val console = createConsole(executor!!)
         console.attachToProcess(processHandler)
-        (processHandler as QueryProcessHandlerBase).addQueryResultListener(XRayTestProcessListener(console))
+        (processHandler as QueryProcessHandlerBase).addQueryResultListener(XRayTestProcessListener(processHandler))
         return DefaultExecutionResult(console, processHandler)
     }
 
