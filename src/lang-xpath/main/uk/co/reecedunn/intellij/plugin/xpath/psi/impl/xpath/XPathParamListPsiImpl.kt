@@ -84,7 +84,7 @@ class XPathParamListPsiImpl(node: ASTNode) :
     // region XPathParamList
 
     private val cachedParams = CacheableProperty {
-        children().filterIsInstance<XPathParam>().map { param -> param as XpmVariableBinding }.toList()
+        children().filterIsInstance<XPathParam>().toList()
     }
 
     override val params: List<XpmVariableBinding>
