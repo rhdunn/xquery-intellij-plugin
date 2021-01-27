@@ -18,18 +18,16 @@ package uk.co.reecedunn.intellij.plugin.marklogic.xray.runner
 import com.intellij.execution.DefaultExecutionResult
 import com.intellij.execution.ExecutionResult
 import com.intellij.execution.Executor
-import com.intellij.execution.executors.DefaultDebugExecutor
 import com.intellij.execution.executors.DefaultRunExecutor
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.runners.ExecutionEnvironment
 import com.intellij.execution.runners.ProgramRunner
+import com.intellij.execution.testframework.sm.SMTestRunnerConnectionUtil
 import com.intellij.execution.ui.ConsoleView
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.configuration.XRayTestConfiguration
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestService
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.configurations.RunProfileStateEx
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.RunnableQueryProcessHandler
-import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.QueryConsoleView
-import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.results.QueryTextConsoleView
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQueryProvider
@@ -79,10 +77,9 @@ class XRayTestRunState(private val environment: ExecutionEnvironment) : RunProfi
         else -> throw UnsupportedOperationException()
     }
 
-    override fun createConsole(executor: Executor): ConsoleView = when (executor.id) {
-        DefaultRunExecutor.EXECUTOR_ID, DefaultDebugExecutor.EXECUTOR_ID -> {
-            QueryConsoleView(environment.project, QueryTextConsoleView(environment.project))
-        }
-        else -> throw UnsupportedOperationException()
+    override fun createConsole(executor: Executor): ConsoleView {
+        val configuration = environment.runProfile as XRayTestConfiguration
+        val testConsoleProperties = configuration.createTestConsoleProperties(executor)
+        return SMTestRunnerConnectionUtil.createConsole(testConsoleProperties)
     }
 }
