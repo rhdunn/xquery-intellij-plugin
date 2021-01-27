@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.tests.psi
 
+import com.intellij.compat.psi.impl.PsiManagerEx
 import com.intellij.lang.LanguageUtil
 import com.intellij.mock.MockFileManager
 import com.intellij.openapi.Disposable
@@ -23,7 +24,6 @@ import com.intellij.openapi.util.Comparing
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.VirtualFileFilter
 import com.intellij.psi.*
-import com.intellij.psi.impl.PsiManagerEx
 import com.intellij.psi.impl.PsiModificationTrackerImpl
 import com.intellij.psi.impl.PsiTreeChangeEventImpl
 import com.intellij.psi.impl.file.impl.FileManager
@@ -99,15 +99,6 @@ class MockPsiManager(project: Project) : PsiManagerEx() {
     }
 
     override fun isAssertOnFileLoading(file: VirtualFile): Boolean = false
-
-    override fun registerRunnableToRunOnChange(runnable: Runnable) {
-    }
-
-    override fun registerRunnableToRunOnAnyChange(runnable: Runnable) {
-    }
-
-    override fun registerRunnableToRunAfterAnyChange(runnable: Runnable) {
-    }
 
     override fun getFileManager(): FileManager = myFileManager
 
