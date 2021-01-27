@@ -29,6 +29,7 @@ class XRayTestProcessListener(processHandler: ProcessHandler) :
     QueryResultListener {
 
     override fun onBeginResults() {
+        notifyTestsStarted()
     }
 
     override fun onEndResults(): PsiFile? {

@@ -16,13 +16,56 @@
 package uk.co.reecedunn.intellij.plugin.core.execution.testframework
 
 import com.intellij.execution.process.ProcessHandler
+import com.intellij.execution.process.ProcessOutputType
+import com.intellij.execution.testframework.sm.ServiceMessageBuilder
 import com.intellij.openapi.util.Key
 import java.lang.ref.WeakReference
 
+@Suppress("unused")
 open class TestProcessHandlerEvents private constructor(private val processHandler: WeakReference<ProcessHandler>) {
     constructor(processHandler: ProcessHandler) : this(WeakReference(processHandler))
 
     fun notifyTextAvailable(text: String, outputType: Key<*>) {
         processHandler.get()?.notifyTextAvailable(text, outputType)
+    }
+
+    private fun notifyServiceMessage(builder: ServiceMessageBuilder) {
+        notifyTextAvailable("$builder\n", ProcessOutputType.STDOUT)
+    }
+
+    fun notifyTestsStarted() {
+        notifyServiceMessage(ServiceMessageBuilder("enteredTheMatrix"))
+    }
+
+    fun notifyTestSuiteStarted(name: String) {
+        notifyServiceMessage(ServiceMessageBuilder.testSuiteStarted(name))
+    }
+
+    fun notifyTestSuiteFinished(name: String) {
+        notifyServiceMessage(ServiceMessageBuilder.testSuiteFinished(name))
+    }
+
+    fun notifyTestStarted(name: String) {
+        notifyServiceMessage(ServiceMessageBuilder.testStarted(name))
+    }
+
+    fun notifyTestFinished(name: String) {
+        notifyServiceMessage(ServiceMessageBuilder.testFinished(name))
+    }
+
+    fun notifyTestStdOut(name: String) {
+        notifyServiceMessage(ServiceMessageBuilder.testStdOut(name))
+    }
+
+    fun notifyTestStdErr(name: String) {
+        notifyServiceMessage(ServiceMessageBuilder.testStdErr(name))
+    }
+
+    fun notifyTestFailed(name: String) {
+        notifyServiceMessage(ServiceMessageBuilder.testFailed(name))
+    }
+
+    fun notifyTestIgnored(name: String) {
+        notifyServiceMessage(ServiceMessageBuilder.testIgnored(name))
     }
 }
