@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2020 Reece H. Dunn
+ * Copyright (C) 2018-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,6 @@ import com.intellij.execution.ExecutionResult
 import com.intellij.execution.Executor
 import com.intellij.execution.executors.DefaultDebugExecutor
 import com.intellij.execution.executors.DefaultRunExecutor
-import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.runners.ExecutionEnvironment
 import com.intellij.execution.runners.ProgramRunner
 import com.intellij.execution.ui.ConsoleView
@@ -29,6 +28,7 @@ import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleRunnerLayoutUiBu
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebuggableQueryProvider
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.executors.DefaultProfileExecutor
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.ProfileableQueryProcessHandler
+import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.QueryProcessHandlerBase
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.RunnableQueryProcessHandler
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.QueryConsoleView
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.profile.FlatProfileTableView
@@ -79,7 +79,7 @@ class QueryProcessorRunState(private val environment: ExecutionEnvironment) : Ru
         }
     }
 
-    override fun createProcessHandler(query: Query): ProcessHandler {
+    override fun createProcessHandler(query: Query): QueryProcessHandlerBase {
         val configuration = environment.runProfile as QueryProcessorRunConfiguration
         return when (query) {
             is RunnableQuery -> RunnableQueryProcessHandler(query).reformat(configuration.reformatResults)

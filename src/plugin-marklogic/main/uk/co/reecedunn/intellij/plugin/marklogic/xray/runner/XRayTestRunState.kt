@@ -19,7 +19,6 @@ import com.intellij.execution.DefaultExecutionResult
 import com.intellij.execution.ExecutionResult
 import com.intellij.execution.Executor
 import com.intellij.execution.executors.DefaultRunExecutor
-import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.runners.ExecutionEnvironment
 import com.intellij.execution.runners.ProgramRunner
 import com.intellij.execution.testframework.sm.SMTestRunnerConnectionUtil
@@ -40,7 +39,7 @@ class XRayTestRunState(private val environment: ExecutionEnvironment) : RunProfi
         val processHandler = createProcessHandler(createQuery())
         val console = createConsole(executor!!)
         console.attachToProcess(processHandler)
-        (processHandler as QueryProcessHandlerBase).addQueryResultListener(XRayTestProcessListener(processHandler))
+        processHandler.addQueryResultListener(XRayTestProcessListener(processHandler))
         return DefaultExecutionResult(console, processHandler)
     }
 
@@ -74,7 +73,7 @@ class XRayTestRunState(private val environment: ExecutionEnvironment) : RunProfi
         }
     }
 
-    override fun createProcessHandler(query: Query): ProcessHandler = when (query) {
+    override fun createProcessHandler(query: Query): QueryProcessHandlerBase = when (query) {
         is RunnableQuery -> RunnableQueryProcessHandler(query)
         else -> throw UnsupportedOperationException()
     }
