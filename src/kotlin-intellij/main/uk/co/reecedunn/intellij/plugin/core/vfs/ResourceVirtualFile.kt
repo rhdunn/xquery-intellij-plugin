@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2018-2019 Reece H. Dunn
+ * Copyright (C) 2016, 2018-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,11 +18,8 @@ package uk.co.reecedunn.intellij.plugin.core.vfs
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.VirtualFileSystem
 import org.apache.commons.compress.utils.IOUtils
+import java.io.*
 
-import java.io.File
-import java.io.IOException
-import java.io.InputStream
-import java.io.OutputStream
 import java.lang.ref.WeakReference
 import java.net.JarURLConnection
 
@@ -72,10 +69,7 @@ class ResourceVirtualFile private constructor(
     }
 
     @Throws(IOException::class)
-    override fun contentsToByteArray(): ByteArray {
-        val input = inputStream ?: throw UnsupportedOperationException()
-        return IOUtils.toByteArray(input)
-    }
+    override fun contentsToByteArray(): ByteArray = IOUtils.toByteArray(inputStream)
 
     override fun getTimeStamp(): Long = mFile!!.lastModified()
 
@@ -88,9 +82,9 @@ class ResourceVirtualFile private constructor(
     override fun refresh(asynchronous: Boolean, recursive: Boolean, postRunnable: Runnable?): Unit = TODO()
 
     @Throws(IOException::class)
-    override fun getInputStream(): InputStream? = when (isDirectory) {
-        true -> null
-        else -> mLoader.getResourceAsStream(mResource)
+    override fun getInputStream(): InputStream = when (isDirectory) {
+        true -> throw UnsupportedOperationException()
+        else -> mLoader.getResourceAsStream(mResource) ?: throw FileNotFoundException()
     }
 
     companion object {

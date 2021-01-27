@@ -25,6 +25,6 @@ abstract class Inspection(
 ) : LocalInspectionTool() {
     override fun getStaticDescription(): String? {
         val description = ResourceVirtualFile.create(loader, "inspections/en/$descriptionPath")
-        return description.inputStream?.let { Markdown.parse(it) }
+        return Markdown.parse(description.inputStream)
     }
 }

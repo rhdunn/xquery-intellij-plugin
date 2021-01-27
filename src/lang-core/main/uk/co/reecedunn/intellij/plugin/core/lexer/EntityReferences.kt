@@ -124,7 +124,7 @@ fun CharSequence.entityReferenceCodePoint(): Int = when {
 
 private fun loadPredefinedEntities(entities: HashMap<String, EntityRef>, path: String, type: EntityReferenceType) {
     val file = ResourceVirtualFile.create(EntityRef::class.java.classLoader, path)
-    val data = JsonParser.parseReader(InputStreamReader(file.inputStream!!)).asJsonObject
+    val data = JsonParser.parseReader(InputStreamReader(file.inputStream)).asJsonObject
     data.entrySet().forEach { entity ->
         val chars = entity.value.asJsonObject.get("characters").asString
         entities.putIfAbsent(entity.key, EntityRef(entity.key, chars, type))

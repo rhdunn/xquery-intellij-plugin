@@ -21,9 +21,11 @@ import org.hamcrest.CoreMatchers.*
 import org.hamcrest.core.Is.`is`
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
+import java.io.FileNotFoundException
 import java.io.IOException
 
 @DisplayName("IntelliJ - Base Platform - Files - Virtual File System - ResourceVirtualFile")
@@ -76,7 +78,7 @@ class ResourceVirtualFileTest {
         assertThat(file.isDirectory, `is`(false))
         assertThat(file.isValid, `is`(false))
         assertThat(file.length, `is`(0L))
-        assertThat(file.inputStream, `is`(nullValue()))
+        assertThrows<FileNotFoundException> { file.inputStream }
         assertThat(file.fileSystem, instanceOf(TestVirtualFileSystem::class.java))
         assertThat(file.modificationStamp, `is`(0L))
 
@@ -106,7 +108,7 @@ class ResourceVirtualFileTest {
         assertThat(file.isDirectory, `is`(true))
         assertThat(file.isValid, `is`(true))
         assertThat(file.length, `is`(0L))
-        assertThat(file.inputStream, `is`(nullValue()))
+        assertThrows<UnsupportedOperationException> { file.inputStream }
         assertThat(file.fileSystem, instanceOf(TestVirtualFileSystem::class.java))
         assertThat(file.modificationStamp, `is`(0L))
 
