@@ -27,6 +27,7 @@ import com.intellij.execution.ui.ConsoleView
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.configuration.XRayTestConfiguration
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestService
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.configurations.RunProfileStateEx
+import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.QueryProcessHandlerBase
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.RunnableQueryProcessHandler
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
@@ -39,6 +40,7 @@ class XRayTestRunState(private val environment: ExecutionEnvironment) : RunProfi
         val processHandler = createProcessHandler(createQuery())
         val console = createConsole(executor!!)
         console.attachToProcess(processHandler)
+        (processHandler as QueryProcessHandlerBase).addQueryResultListener(XRayTestProcessListener(console))
         return DefaultExecutionResult(console, processHandler)
     }
 
