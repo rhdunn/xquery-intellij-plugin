@@ -25,6 +25,7 @@ import com.intellij.execution.testframework.sm.runner.SMTRunnerConsoleProperties
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 import uk.co.reecedunn.intellij.plugin.core.execution.configurations.RunConfigurationBase
+import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.XRayTestFormat
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.runner.XRayTestRunState
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestService
 import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessors
@@ -126,9 +127,9 @@ class XRayTestConfiguration(project: Project, factory: ConfigurationFactory) :
     // region Output Format
 
     var outputFormat: XRayTestFormat
-        get() = data.outputFormat
+        get() = XRayTestFormat.format(data.outputFormat)
         set(value) {
-            data.outputFormat = value
+            data.outputFormat = value.id
         }
 
     // endregion

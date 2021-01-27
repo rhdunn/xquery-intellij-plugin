@@ -58,7 +58,7 @@ class XRayTestRunState(private val environment: ExecutionEnvironment) : RunProfi
         }
         configuration.modulePattern?.let { query.bindVariable("module-pattern", it, "xs:string") }
         configuration.testPattern?.let { query.bindVariable("test-pattern", it, "xs:string") }
-        query.bindVariable("format", configuration.outputFormat.name.toLowerCase(), "xs:string")
+        query.bindVariable("format", configuration.outputFormat.id, "xs:string")
         return query
     }
 

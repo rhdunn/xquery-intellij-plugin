@@ -13,18 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.marklogic.xray.configuration
+package uk.co.reecedunn.intellij.plugin.marklogic.xray.format
 
-import com.intellij.execution.configurations.RunConfigurationOptions
-import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.XRayTextFormat
+object XRayHtmlFormat : XRayTestFormat {
+    override val id: String = "html"
 
-data class XRayTestConfigurationData(
-    var processorId: Int? = null,
-    var database: String? = null,
-    var server: String? = null,
-    var modulePath: String? = null,
-    var testPath: String? = null,
-    var modulePattern: String? = null,
-    var testPattern: String? = null,
-    var outputFormat: String = XRayTextFormat.id
-) : RunConfigurationOptions()
+    override val name: String = "HTML"
+
+    override fun toString(): String = name
+}

@@ -22,6 +22,7 @@ import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
 import uk.co.reecedunn.intellij.plugin.core.ui.selectOrAddItem
+import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.*
 import uk.co.reecedunn.intellij.plugin.processor.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessorComboBox
 import uk.co.reecedunn.intellij.plugin.processor.query.populateDatabaseUI
@@ -91,11 +92,11 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
         row {
             label(PluginApiBundle.message("xquery.configurations.test.output-format.label"), column.vgap())
             outputFormat = comboBox(column.spanCols().horizontal().hgap().vgap()) {
-                addItem(XRayTestFormat.HTML)
-                addItem(XRayTestFormat.JSON)
-                addItem(XRayTestFormat.Text)
-                addItem(XRayTestFormat.XML)
-                addItem(XRayTestFormat.XUnit)
+                addItem(XRayHtmlFormat)
+                addItem(XRayJsonFormat)
+                addItem(XRayTextFormat)
+                addItem(XRayXmlFormat)
+                addItem(XRayXUnitFormat)
             }
         }
         row {
@@ -131,7 +132,7 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
         }
         settings.modulePattern = modulePattern.text.nullize()
         settings.testPattern = testPattern.text.nullize()
-        settings.outputFormat = (outputFormat.selectedItem as? XRayTestFormat) ?: XRayTestFormat.Text
+        settings.outputFormat = (outputFormat.selectedItem as? XRayTestFormat) ?: XRayTextFormat
     }
 
     private val projectRoot: String?
