@@ -68,6 +68,8 @@ class XRayTestService(private val project: Project) {
             return ServiceManager.getService(project, XRayTestService::class.java)
         }
 
+        const val FRAMEWORK_NAME = "XRay"
+
         private const val XRAY_DIR = "xray"
         private const val SRC_DIR = "src"
 
