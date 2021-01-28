@@ -13,15 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.marklogic.xray.format
+package uk.co.reecedunn.intellij.plugin.marklogic.xray.format.json
 
+import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.XRayTestFormat
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestResults
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 
-object XRayXmlFormat : XRayTestFormat {
-    override val id: String = "xml"
+object XRayJsonFormat : XRayTestFormat {
+    override val id: String = "json"
 
-    override val name: String = "XRay XML"
+    override val name: String = "JSON"
 
     override fun parse(request: QueryResult): XRayTestResults? = null
 

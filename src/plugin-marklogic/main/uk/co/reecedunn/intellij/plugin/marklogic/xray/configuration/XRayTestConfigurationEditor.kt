@@ -23,6 +23,11 @@ import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
 import uk.co.reecedunn.intellij.plugin.core.ui.selectOrAddItem
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.*
+import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.html.XRayHtmlFormat
+import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.json.XRayJsonFormat
+import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.text.XRayTextFormat
+import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.xray.XRayXmlFormat
+import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.xunit.XRayXUnitFormat
 import uk.co.reecedunn.intellij.plugin.processor.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessorComboBox
 import uk.co.reecedunn.intellij.plugin.processor.query.populateDatabaseUI

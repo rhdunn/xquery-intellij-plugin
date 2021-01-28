@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.configuration
 
 import com.intellij.execution.configurations.RunConfigurationOptions
-import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.XRayTextFormat
+import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.text.XRayTextFormat
 
 data class XRayTestConfigurationData(
     var processorId: Int? = null,
