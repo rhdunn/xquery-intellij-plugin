@@ -17,4 +17,6 @@ package uk.co.reecedunn.intellij.plugin.marklogic.xray.test
 
 interface XRayTestModule {
     val path: String
+
+    val tests: Sequence<XRayTest>
 }

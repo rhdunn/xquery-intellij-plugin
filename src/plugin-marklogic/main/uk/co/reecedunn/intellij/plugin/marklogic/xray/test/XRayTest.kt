@@ -13,16 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.marklogic.xray.format.xray
+package uk.co.reecedunn.intellij.plugin.marklogic.xray.test
 
-import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
-import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTest
-import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestModule
-
-class XRayXmlTestModule(private val module: XmlElement) : XRayTestModule {
-    override val path: String
-        get() = module.attribute("path")!!
-
-    override val tests: Sequence<XRayTest>
-        get() = module.children("xray:test").map { XRayXmlTest(it) }
+interface XRayTest {
+    val name: String
 }

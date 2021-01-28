@@ -41,6 +41,10 @@ class XRayTestProcessListener(processHandler: ProcessHandler, private val output
         outputFormat.parse(result)?.let { results ->
             results.modules.forEach { module ->
                 notifyTestSuiteStarted(module.path)
+                module.tests.forEach { test ->
+                    notifyTestStarted(test.name)
+                    notifyTestFinished(test.name)
+                }
                 notifyTestSuiteFinished(module.path)
             }
         }
