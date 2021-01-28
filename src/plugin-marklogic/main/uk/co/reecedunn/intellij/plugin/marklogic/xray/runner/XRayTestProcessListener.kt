@@ -19,12 +19,13 @@ import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.process.ProcessOutputType
 import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.core.execution.testframework.TestProcessHandlerEvents
+import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.XRayTestFormat
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.QueryResultListener
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.QueryResultTime
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsDurationValue
 
-class XRayTestProcessListener(processHandler: ProcessHandler) :
+class XRayTestProcessListener(processHandler: ProcessHandler, private val outputFormat: XRayTestFormat) :
     TestProcessHandlerEvents(processHandler),
     QueryResultListener {
 
@@ -37,6 +38,8 @@ class XRayTestProcessListener(processHandler: ProcessHandler) :
     }
 
     override fun onQueryResult(result: QueryResult) {
+        outputFormat.parse(result)?.let { results ->
+        }
         notifyTextAvailable(result.value as String, ProcessOutputType.STDOUT)
     }
 

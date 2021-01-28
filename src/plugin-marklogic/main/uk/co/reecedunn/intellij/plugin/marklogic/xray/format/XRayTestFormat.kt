@@ -15,12 +15,16 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.format
 
+import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestResults
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import java.lang.UnsupportedOperationException
 
 interface XRayTestFormat {
     val id: String
 
     val name: String
+
+    fun parse(request: QueryResult): XRayTestResults?
 
     companion object {
         fun format(id: String): XRayTestFormat = when (id) {

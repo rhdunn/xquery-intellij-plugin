@@ -15,10 +15,15 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.format
 
+import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestResults
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
+
 object XRayTextFormat : XRayTestFormat {
     override val id: String = "text"
 
     override val name: String = "Text"
+
+    override fun parse(request: QueryResult): XRayTestResults? = null
 
     override fun toString(): String = name
 }

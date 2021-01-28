@@ -36,10 +36,12 @@ import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
 
 class XRayTestRunState(private val environment: ExecutionEnvironment) : RunProfileStateEx {
     override fun execute(executor: Executor?, runner: ProgramRunner<*>): ExecutionResult {
+        val configuration = environment.runProfile as XRayTestConfiguration
+
         val processHandler = createProcessHandler(createQuery())
         val console = createConsole(executor!!)
         console.attachToProcess(processHandler)
-        processHandler.addQueryResultListener(XRayTestProcessListener(processHandler))
+        processHandler.addQueryResultListener(XRayTestProcessListener(processHandler, configuration.outputFormat))
         return DefaultExecutionResult(console, processHandler)
     }
 
