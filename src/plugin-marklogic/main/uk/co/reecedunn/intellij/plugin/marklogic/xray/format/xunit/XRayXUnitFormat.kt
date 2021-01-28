@@ -24,7 +24,7 @@ object XRayXUnitFormat : XRayTestFormat {
 
     override val name: String = "xUnit XML"
 
-    override fun parse(request: QueryResult): XRayTestResults? = null
+    override fun parse(result: QueryResult): XRayTestResults? = null
 
     override fun toString(): String = name
 }

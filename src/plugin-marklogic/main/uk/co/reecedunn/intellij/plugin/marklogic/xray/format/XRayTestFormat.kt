@@ -29,7 +29,7 @@ interface XRayTestFormat {
 
     val name: String
 
-    fun parse(request: QueryResult): XRayTestResults?
+    fun parse(result: QueryResult): XRayTestResults?
 
     companion object {
         fun format(id: String): XRayTestFormat = when (id) {

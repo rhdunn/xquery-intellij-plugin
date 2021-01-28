@@ -24,7 +24,7 @@ object XRayJsonFormat : XRayTestFormat {
 
     override val name: String = "JSON"
 
-    override fun parse(request: QueryResult): XRayTestResults? = null
+    override fun parse(result: QueryResult): XRayTestResults? = null
 
     override fun toString(): String = name
 }

@@ -24,7 +24,7 @@ object XRayTextFormat : XRayTestFormat {
 
     override val name: String = "Text"
 
-    override fun parse(request: QueryResult): XRayTestResults? = null
+    override fun parse(result: QueryResult): XRayTestResults? = null
 
     override fun toString(): String = name
 }
