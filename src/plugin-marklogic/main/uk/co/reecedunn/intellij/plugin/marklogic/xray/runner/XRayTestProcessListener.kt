@@ -39,6 +39,10 @@ class XRayTestProcessListener(processHandler: ProcessHandler, private val output
 
     override fun onQueryResult(result: QueryResult) {
         outputFormat.parse(result)?.let { results ->
+            results.modules.forEach { module ->
+                notifyTestSuiteStarted(module.path)
+                notifyTestSuiteFinished(module.path)
+            }
         }
         notifyTextAvailable(result.value as String, ProcessOutputType.STDOUT)
     }
