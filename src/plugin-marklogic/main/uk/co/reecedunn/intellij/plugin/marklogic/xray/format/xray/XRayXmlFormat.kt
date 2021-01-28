@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.format.xray
 
+import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.XRayTestFormat
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestResults
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
@@ -24,7 +25,18 @@ object XRayXmlFormat : XRayTestFormat {
 
     override val name: String = "XRay XML"
 
-    override fun parse(result: QueryResult): XRayTestResults? = null
+    override fun parse(result: QueryResult): XRayTestResults? {
+        if (result.mimetype != QueryResult.APPLICATION_XML) return null
+        val doc = XmlDocument.parse(result.value as String, NAMESPACES)
+        return when {
+            doc.root.`is`("xray:tests") -> XRayXmlTestResults(doc.root)
+            else -> null
+        }
+    }
 
     override fun toString(): String = name
+
+    private val NAMESPACES = mapOf(
+        "xray" to "http://github.com/robwhitby/xray"
+    )
 }
