@@ -15,11 +15,31 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.format.xray
 
+import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestModule
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestResults
 
 class XRayXmlTestResults(private val tests: XmlElement) : XRayTestResults {
+    override val total: Int
+        get() = modules.sumOf { it.total }
+
+    override val passed: Int
+        get() = modules.sumOf { it.passed }
+
+    override val ignored: Int
+        get() = modules.sumOf { it.ignored }
+
+    override val failed: Int
+        get() = modules.sumOf { it.failed }
+
+    override val errors: Int
+        get() = modules.sumOf { it.errors }
+
+    private val cachedModules = CacheableProperty {
+        tests.children("xray:module").map { XRayXmlTestModule(it) }.toList()
+    }
+
     override val modules: Sequence<XRayTestModule>
-        get() = tests.children("xray:module").map { XRayXmlTestModule(it) }
+        get() = cachedModules.get()!!.asSequence()
 }

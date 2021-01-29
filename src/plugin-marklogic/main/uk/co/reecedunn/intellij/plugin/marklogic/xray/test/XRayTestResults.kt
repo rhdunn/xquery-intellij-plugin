@@ -16,5 +16,15 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.test
 
 interface XRayTestResults {
+    val total: Int
+
+    val passed: Int
+
+    val ignored: Int
+
+    val failed: Int
+
+    val errors: Int
+
     val modules: Sequence<XRayTestModule>
 }

@@ -43,6 +43,10 @@ class XRayTestProcessListener(processHandler: ProcessHandler, private val output
     override fun onQueryResult(result: QueryResult) {
         outputFormat.parse(result)?.let { results ->
             results.modules.forEach { module -> onTestSuite(module) }
+            notifyTextAvailable(
+                "Finished: Total ${results.total}, Failed ${results.failed}, Ignored ${results.ignored}, Errors ${results.errors}, Passed ${results.passed}\n\n",
+                ProcessOutputType.STDOUT
+            )
         }
         notifyTextAvailable(result.value as String, ProcessOutputType.STDOUT)
     }
@@ -59,6 +63,7 @@ class XRayTestProcessListener(processHandler: ProcessHandler, private val output
 
     private fun onTestSuite(module: XRayTestModule) {
         notifyTestSuiteStarted(module.path)
+        notifyTextAvailable("Module ${module.path}\n", ProcessOutputType.STDOUT)
         module.tests.forEach { test -> onTest(test) }
         notifyTestSuiteFinished(module.path)
     }
@@ -66,10 +71,20 @@ class XRayTestProcessListener(processHandler: ProcessHandler, private val output
     private fun onTest(test: XRayTest) {
         notifyTestStarted(test.name)
         when (test.result) {
-            XRayTestResult.Ignored -> notifyTestIgnored(test.name)
-            XRayTestResult.Failed -> notifyTestFailed(test.name, message = "")
-            XRayTestResult.Error -> notifyTestError(test.name, message = "")
             XRayTestResult.Passed -> {
+                notifyTextAvailable("-- ${test.name} -- PASSED\n", ProcessOutputType.STDOUT)
+            }
+            XRayTestResult.Ignored -> {
+                notifyTextAvailable("-- ${test.name} -- IGNORED\n", ProcessOutputType.STDOUT)
+                notifyTestIgnored(test.name)
+            }
+            XRayTestResult.Failed -> {
+                notifyTextAvailable("-- ${test.name} -- FAILED\n", ProcessOutputType.STDERR)
+                notifyTestFailed(test.name, message = "")
+            }
+            XRayTestResult.Error -> {
+                notifyTextAvailable("-- ${test.name} -- ERROR\n", ProcessOutputType.STDERR)
+                notifyTestError(test.name, message = "")
             }
         }
         notifyTestFinished(test.name)
