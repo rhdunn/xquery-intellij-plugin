@@ -81,7 +81,7 @@ class XRayTestService(private val project: Project) {
 
         fun isTestModule(file: PsiFile): Boolean {
             val module = (file as? XQueryModule)?.children()?.filterIsInstance<XQueryLibraryModule>()?.firstOrNull()
-            return isTestModule(module?.firstChild as XQueryModuleDecl)
+            return isTestModule(module?.children()?.filterIsInstance<XQueryModuleDecl>()?.firstOrNull())
         }
 
         fun isTestModule(name: XPathEQName): Boolean = isTestModule(name.parent as? XQueryModuleDecl)
