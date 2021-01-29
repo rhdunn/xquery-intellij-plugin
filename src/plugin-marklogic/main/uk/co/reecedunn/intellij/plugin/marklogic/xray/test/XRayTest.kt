@@ -25,4 +25,6 @@ interface XRayTest {
     val duration: XsDurationValue?
 
     val assertions: Sequence<XRayTestAssertion>
+
+    val error: Throwable?
 }

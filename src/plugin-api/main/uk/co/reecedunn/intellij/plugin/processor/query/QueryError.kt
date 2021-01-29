@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2020 Reece H. Dunn
+ * Copyright (C) 2018-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,9 @@
 package uk.co.reecedunn.intellij.plugin.processor.query
 
 import com.intellij.xdebugger.frame.XStackFrame
+import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.QuerySourcePosition
+import java.io.PrintStream
+import java.io.PrintWriter
 
 data class QueryError(
     val standardCode: String,
@@ -27,4 +30,32 @@ data class QueryError(
 
     override val message: String
         get() = description?.let { "[$standardCode] $it" } ?: standardCode
+
+    override fun toString(): String = message
+
+    @Suppress("DuplicatedCode")
+    override fun printStackTrace(s: PrintStream) {
+        s.println(message)
+        frames.forEach { frame ->
+            when (val source = frame.sourcePosition) {
+                null -> {
+                }
+                is QuerySourcePosition -> s.println("\tat ${source.file.path}:${source.line + 1}:${source.column + 1}")
+                else -> s.println("\tat ${source.file.path}:${source.line + 1}")
+            }
+        }
+    }
+
+    @Suppress("DuplicatedCode")
+    override fun printStackTrace(s: PrintWriter) {
+        s.println(message)
+        frames.forEach { frame ->
+            when (val source = frame.sourcePosition) {
+                null -> {
+                }
+                is QuerySourcePosition -> s.println("\tat ${source.file.path}:${source.line + 1}:${source.column + 1}")
+                else -> s.println("\tat ${source.file.path}:${source.line + 1}")
+            }
+        }
+    }
 }

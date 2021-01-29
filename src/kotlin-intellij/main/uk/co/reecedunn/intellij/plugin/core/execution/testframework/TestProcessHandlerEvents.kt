@@ -117,9 +117,8 @@ open class TestProcessHandlerEvents private constructor(private val processHandl
     /**
      * @see jetbrains.buildServer.messages.serviceMessages.TestFailed
      */
-    @Suppress("unused")
     fun notifyTestError(name: String, exception: Throwable) {
-        notifyTestError(name, message = exception.toString(), details = exception.stackTraceToString())
+        notifyTestError(name, message = "", details = exception.stackTraceToString())
     }
 
     /**

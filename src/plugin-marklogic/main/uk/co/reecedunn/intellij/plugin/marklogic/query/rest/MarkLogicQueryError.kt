@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2020 Reece H. Dunn
+ * Copyright (C) 2018-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.marklogic.query.rest
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
+import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.core.xml.children
 import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame.VirtualFileStackFrame
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
@@ -29,12 +30,16 @@ private val ERROR_NAMESPACES = mapOf(
     "dbg" to "http://reecedunn.co.uk/xquery/debug"
 )
 
-fun String.toMarkLogicQueryError(queryFile: VirtualFile): QueryError {
+fun String.toMarkLogicQueryError(queryFile: VirtualFile?): QueryError {
     val doc = XmlDocument.parse(this, ERROR_NAMESPACES)
-    val code = doc.root.children("error:code").first().text()!!
-    val name = doc.root.children("error:name").firstOrNull()?.text() ?: "err:FOER0000"
-    val message = doc.root.children("error:message").first().text()
-    val formatString = doc.root.children("error:format-string").first().text()?.let {
+    return doc.root.toMarkLogicQueryError(queryFile)
+}
+
+fun XmlElement.toMarkLogicQueryError(queryFile: VirtualFile?): QueryError {
+    val code = children("error:code").first().text()!!
+    val name = children("error:name").firstOrNull()?.text() ?: "err:FOER0000"
+    val message = children("error:message").first().text()
+    val formatString = children("error:format-string").first().text()?.let {
         val value = if (it.startsWith("$code: ")) it.substringAfter(": ") else it
         if (value.startsWith("($name) ")) value.substringAfter(") ") else value
     }
@@ -43,14 +48,14 @@ fun String.toMarkLogicQueryError(queryFile: VirtualFile): QueryError {
         standardCode = name.replace("^err:".toRegex(), ""),
         vendorCode = if (code == message) null else code,
         description = message ?: formatString,
-        value = doc.root.children("error:data").children("error:datum").mapNotNull { it.text() }.toList(),
-        frames = doc.root.children("error:stack").children("error:frame").mapNotNull { frame ->
+        value = children("error:data").children("error:datum").mapNotNull { it.text() }.toList(),
+        frames = children("error:stack").children("error:frame").mapNotNull { frame ->
             val path = frame.child("error:uri")?.text()?.nullize()
             val line = (frame.child("error:line")?.text()?.toIntOrNull() ?: 1) - 1
             val column = frame.child("error:column")?.text()?.toIntOrNull() ?: 0
             val context = frame.child("error:operation")?.text()?.nullize()
             when (path) {
-                null -> VirtualFileStackFrame(queryFile, line, column, context)
+                null -> queryFile?.let { VirtualFileStackFrame(it, line, column, context) }
                 "/eval" -> null
                 else -> VirtualFileStackFrame(XpmModuleUri(queryFile, path), line, column, context)
             }

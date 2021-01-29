@@ -37,6 +37,9 @@ object XRayXmlFormat : XRayTestFormat {
     override fun toString(): String = name
 
     private val NAMESPACES = mapOf(
+        "dbg" to "http://reecedunn.co.uk/xquery/debug",
+        "err" to "http://www.w3.org/2005/xqt-errors",
+        "error" to "http://marklogic.com/xdmp/error",
         "xray" to "http://github.com/robwhitby/xray"
     )
 }

@@ -94,7 +94,10 @@ class XRayTestProcessListener(processHandler: ProcessHandler, private val output
             }
             XRayTestResult.Error -> {
                 notifyTextAvailable("-- ${test.name} -- ERROR\n", ProcessOutputType.STDERR)
-                notifyTestError(test.name, message = "")
+                when (val error = test.error) {
+                    null -> notifyTestError(test.name, message = "")
+                    else -> notifyTestError(test.name, exception = error)
+                }
             }
         }
         notifyTestFinished(test.name, duration = test.duration?.seconds?.data?.toMilliseconds())
