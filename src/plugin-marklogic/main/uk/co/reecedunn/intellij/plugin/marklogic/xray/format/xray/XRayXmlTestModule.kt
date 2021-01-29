@@ -20,25 +20,23 @@ import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTest
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestModule
 
 class XRayXmlTestModule(private val module: XmlElement) : XRayTestModule {
-    override val path: String
-        get() = module.attribute("path")!!
+    override val path: String by lazy { module.attribute("path")!! }
 
-    override val total: Int
-        get() = module.attribute("total")!!.toInt()
+    override val total: Int by lazy { module.attribute("total")!!.toInt() }
 
-    override val passed: Int
-        get() = module.attribute("passed")!!.toInt()
+    override val passed: Int by lazy { module.attribute("passed")!!.toInt() }
 
-    override val ignored: Int
-        get() = module.attribute("ignored")!!.toInt()
+    override val ignored: Int by lazy { module.attribute("ignored")!!.toInt() }
 
-    override val failed: Int
-        get() = module.attribute("failed")!!.toInt()
+    override val failed: Int by lazy { module.attribute("failed")!!.toInt() }
 
-    override val errors: Int
-        get() = module.attribute("error")!!.toInt()
+    override val errors: Int by lazy { module.attribute("error")!!.toInt() }
+
+    private val testsList by lazy {
+        module.children("xray:test").map { XRayXmlTest(it) }
+    }
 
     override val tests: Sequence<XRayTest>
-        get() = module.children("xray:test").map { XRayXmlTest(it) }
+        get() = testsList.asSequence()
 
 }

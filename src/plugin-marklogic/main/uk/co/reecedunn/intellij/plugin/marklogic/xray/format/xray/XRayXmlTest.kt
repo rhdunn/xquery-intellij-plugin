@@ -23,15 +23,18 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsDurationValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.toXsDuration
 
 class XRayXmlTest(private val test: XmlElement) : XRayTest {
-    override val name: String
-        get() = test.attribute("name")!!
+    override val name: String by lazy { test.attribute("name")!! }
 
-    override val result: XRayTestResult
-        get() = test.attribute("result")!!.let { result -> XRayTestResult.value(result) }
+    override val result: XRayTestResult by lazy {
+        test.attribute("result")!!.let { result -> XRayTestResult.value(result) }
+    }
 
-    override val duration: XsDurationValue?
-        get() = test.attribute("time")?.toXsDuration()
+    override val duration: XsDurationValue? by lazy { test.attribute("time")?.toXsDuration() }
+
+    private val assertionsList by lazy {
+        test.children("xray:assert").map { XRayXmlTestAssertion(it) }
+    }
 
     override val assertions: Sequence<XRayTestAssertion>
-        get() = test.children("xray:assert").map { XRayXmlTestAssertion(it) }
+        get() = assertionsList.asSequence()
 }

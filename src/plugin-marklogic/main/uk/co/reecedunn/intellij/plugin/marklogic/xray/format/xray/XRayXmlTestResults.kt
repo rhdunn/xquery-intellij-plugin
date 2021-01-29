@@ -15,31 +15,35 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.format.xray
 
-import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestModule
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestResults
 
 class XRayXmlTestResults(private val tests: XmlElement) : XRayTestResults {
-    override val total: Int
-        get() = modules.sumOf { it.total }
+    override val total: Int by lazy {
+        modules.sumOf { it.total }
+    }
 
-    override val passed: Int
-        get() = modules.sumOf { it.passed }
+    override val passed: Int by lazy {
+        modules.sumOf { it.passed }
+    }
 
-    override val ignored: Int
-        get() = modules.sumOf { it.ignored }
+    override val ignored: Int by lazy {
+        modules.sumOf { it.ignored }
+    }
 
-    override val failed: Int
-        get() = modules.sumOf { it.failed }
+    override val failed: Int by lazy {
+        modules.sumOf { it.failed }
+    }
 
-    override val errors: Int
-        get() = modules.sumOf { it.errors }
+    override val errors: Int by lazy {
+        modules.sumOf { it.errors }
+    }
 
-    private val cachedModules = CacheableProperty {
+    private val modulesList by lazy {
         tests.children("xray:module").map { XRayXmlTestModule(it) }.toList()
     }
 
     override val modules: Sequence<XRayTestModule>
-        get() = cachedModules.get()!!.asSequence()
+        get() = modulesList.asSequence()
 }

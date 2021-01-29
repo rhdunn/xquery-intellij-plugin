@@ -20,18 +20,19 @@ import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestAssertion
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestResult
 
 class XRayXmlTestAssertion(private val assertion: XmlElement) : XRayTestAssertion {
-    override val type: String
-        get() = assertion.attribute("test")!!
+    override val type: String by lazy { assertion.attribute("test")!! }
 
-    override val result: XRayTestResult
-        get() = assertion.attribute("result")!!.let { result -> XRayTestResult.value(result) }
+    override val result: XRayTestResult by lazy {
+        assertion.attribute("result")!!.let { result -> XRayTestResult.value(result) }
+    }
 
-    override val expected: String?
-        get() = assertion.child("xray:expected")?.let { it.text() ?: "" }
+    override val expected: String? by lazy {
+        assertion.child("xray:expected")?.let { it.text() ?: "" }
+    }
 
-    override val actual: String?
-        get() = assertion.child("xray:actual")?.let { it.text() ?: "" }
+    override val actual: String? by lazy {
+        assertion.child("xray:actual")?.let { it.text() ?: "" }
+    }
 
-    override val message: String?
-        get() = assertion.child("xray:message")?.text()
+    override val message: String? by lazy { assertion.child("xray:message")?.text() }
 }
