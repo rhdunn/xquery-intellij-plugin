@@ -214,7 +214,10 @@ declare function local:use-modules-root($server-root) {
 };
 
 declare function local:eval-static-check($static-check as xs:boolean) {
-    <eval:static-check>{$static-check}</eval:static-check>
+    if ($static-check eq true()) then
+        <eval:static-check>true</eval:static-check>
+    else
+        ()
 };
 
 declare function local:eval-database($database as xs:unsignedLong?) {
