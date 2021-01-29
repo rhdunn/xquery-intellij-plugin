@@ -44,13 +44,14 @@ fun String.toMarkLogicQueryError(queryFile: VirtualFile): QueryError {
         vendorCode = if (code == message) null else code,
         description = message ?: formatString,
         value = doc.root.children("error:data").children("error:datum").mapNotNull { it.text() }.toList(),
-        frames = doc.root.children("error:stack").children("error:frame").map { frame ->
+        frames = doc.root.children("error:stack").children("error:frame").mapNotNull { frame ->
             val path = frame.child("error:uri")?.text()?.nullize()
             val line = (frame.child("error:line")?.text()?.toIntOrNull() ?: 1) - 1
             val column = frame.child("error:column")?.text()?.toIntOrNull() ?: 0
             val context = frame.child("error:operation")?.text()?.nullize()
             when (path) {
                 null -> VirtualFileStackFrame(queryFile, line, column, context)
+                "/eval" -> null
                 else -> VirtualFileStackFrame(XpmModuleUri(queryFile, path), line, column, context)
             }
         }.toList()
