@@ -92,22 +92,14 @@ open class TestProcessHandlerEvents private constructor(private val processHandl
     /**
      * @see jetbrains.buildServer.messages.serviceMessages.TestFailed
      */
-    fun notifyTestFailed(name: String, message: String) {
+    fun notifyTestFailed(name: String, message: String, expected: String? = null, actual: String? = null) {
         val builder = ServiceMessageBuilder.testFailed(name)
         builder.addAttribute("message", message)
-        notifyServiceMessage(builder)
-    }
-
-    /**
-     * @see jetbrains.buildServer.messages.serviceMessages.TestFailed
-     */
-    @Suppress("unused")
-    fun notifyTestFailed(name: String, expected: String, actual: String, message: String? = null) {
-        val builder = ServiceMessageBuilder.testFailed(name)
-        message?.let { builder.addAttribute("message", it) }
-        builder.addAttribute("expected", expected)
-        builder.addAttribute("actual", actual)
-        builder.addAttribute("type", "comparisonFailure")
+        if (expected != null && actual != null) {
+            builder.addAttribute("expected", expected)
+            builder.addAttribute("actual", actual)
+            builder.addAttribute("type", "comparisonFailure")
+        }
         notifyServiceMessage(builder)
     }
 

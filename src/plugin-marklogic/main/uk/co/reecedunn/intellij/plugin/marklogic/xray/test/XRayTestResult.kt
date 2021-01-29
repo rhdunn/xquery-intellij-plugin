@@ -19,5 +19,11 @@ enum class XRayTestResult(val id: String) {
     Error("error"),
     Failed("failed"),
     Ignored("ignored"),
-    Passed("passed")
+    Passed("passed");
+
+    companion object {
+        fun value(id: String): XRayTestResult {
+            return values().find { it.id == id } ?: throw UnsupportedOperationException("Unknown result: $id")
+        }
+    }
 }

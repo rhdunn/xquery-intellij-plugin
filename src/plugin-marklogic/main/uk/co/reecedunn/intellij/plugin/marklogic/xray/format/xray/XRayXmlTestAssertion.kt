@@ -16,22 +16,22 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.format.xray
 
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
-import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTest
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestAssertion
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestResult
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsDurationValue
-import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.toXsDuration
 
-class XRayXmlTest(private val test: XmlElement) : XRayTest {
-    override val name: String
-        get() = test.attribute("name")!!
+class XRayXmlTestAssertion(private val assertion: XmlElement) : XRayTestAssertion {
+    override val type: String
+        get() = assertion.attribute("test")!!
 
     override val result: XRayTestResult
-        get() = test.attribute("result")!!.let { result -> XRayTestResult.value(result) }
+        get() = assertion.attribute("result")!!.let { result -> XRayTestResult.value(result) }
 
-    override val duration: XsDurationValue?
-        get() = test.attribute("time")?.toXsDuration()
+    override val expected: String?
+        get() = assertion.child("xray:expected")?.let { it.text() ?: "" }
 
-    override val assertions: Sequence<XRayTestAssertion>
-        get() = test.children("xray:assert").map { XRayXmlTestAssertion(it) }
+    override val actual: String?
+        get() = assertion.child("xray:actual")?.let { it.text() ?: "" }
+
+    override val message: String?
+        get() = assertion.child("xray:message")?.text()
 }

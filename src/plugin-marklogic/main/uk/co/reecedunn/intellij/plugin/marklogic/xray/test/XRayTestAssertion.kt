@@ -15,14 +15,14 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.test
 
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsDurationValue
-
-interface XRayTest {
-    val name: String
+interface XRayTestAssertion {
+    val type: String
 
     val result: XRayTestResult
 
-    val duration: XsDurationValue?
+    val expected: String?
 
-    val assertions: Sequence<XRayTestAssertion>
+    val actual: String?
+
+    val message: String?
 }
