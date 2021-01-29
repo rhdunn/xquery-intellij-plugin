@@ -20,6 +20,9 @@ import com.intellij.execution.process.ProcessOutputType
 import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.core.execution.testframework.TestProcessHandlerEvents
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.XRayTestFormat
+import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTest
+import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestModule
+import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestResult
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.QueryResultListener
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.QueryResultTime
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
@@ -39,14 +42,7 @@ class XRayTestProcessListener(processHandler: ProcessHandler, private val output
 
     override fun onQueryResult(result: QueryResult) {
         outputFormat.parse(result)?.let { results ->
-            results.modules.forEach { module ->
-                notifyTestSuiteStarted(module.path)
-                module.tests.forEach { test ->
-                    notifyTestStarted(test.name)
-                    notifyTestFinished(test.name)
-                }
-                notifyTestSuiteFinished(module.path)
-            }
+            results.modules.forEach { module -> onTestSuite(module) }
         }
         notifyTextAvailable(result.value as String, ProcessOutputType.STDOUT)
     }
@@ -59,5 +55,23 @@ class XRayTestProcessListener(processHandler: ProcessHandler, private val output
     }
 
     override fun onQueryResultsPsiFile(psiFile: PsiFile) {
+    }
+
+    private fun onTestSuite(module: XRayTestModule) {
+        notifyTestSuiteStarted(module.path)
+        module.tests.forEach { test -> onTest(test) }
+        notifyTestSuiteFinished(module.path)
+    }
+
+    private fun onTest(test: XRayTest) {
+        notifyTestStarted(test.name)
+        when (test.result) {
+            XRayTestResult.Ignored -> notifyTestIgnored(test.name)
+            XRayTestResult.Failed -> notifyTestFailed(test.name, message = "")
+            XRayTestResult.Error -> notifyTestError(test.name, message = "")
+            XRayTestResult.Passed -> {
+            }
+        }
+        notifyTestFinished(test.name)
     }
 }

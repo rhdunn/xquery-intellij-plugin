@@ -15,8 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.test
 
-interface XRayTest {
-    val name: String
-
-    val result: XRayTestResult
+enum class XRayTestResult(val id: String) {
+    Error("error"),
+    Failed("failed"),
+    Ignored("ignored"),
+    Passed("passed")
 }

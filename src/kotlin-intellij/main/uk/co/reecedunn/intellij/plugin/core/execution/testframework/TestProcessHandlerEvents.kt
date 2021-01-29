@@ -21,7 +21,6 @@ import com.intellij.execution.testframework.sm.ServiceMessageBuilder
 import com.intellij.openapi.util.Key
 import java.lang.ref.WeakReference
 
-@Suppress("unused")
 open class TestProcessHandlerEvents private constructor(private val processHandler: WeakReference<ProcessHandler>) {
     constructor(processHandler: ProcessHandler) : this(WeakReference(processHandler))
 
@@ -53,19 +52,32 @@ open class TestProcessHandlerEvents private constructor(private val processHandl
         notifyServiceMessage(ServiceMessageBuilder.testFinished(name))
     }
 
+    @Suppress("unused")
     fun notifyTestStdOut(name: String) {
         notifyServiceMessage(ServiceMessageBuilder.testStdOut(name))
     }
 
+    @Suppress("unused")
     fun notifyTestStdErr(name: String) {
         notifyServiceMessage(ServiceMessageBuilder.testStdErr(name))
     }
 
-    fun notifyTestFailed(name: String) {
-        notifyServiceMessage(ServiceMessageBuilder.testFailed(name))
+    fun notifyTestFailed(name: String, message: String) {
+        val builder = ServiceMessageBuilder.testFailed(name)
+        builder.addAttribute("message", message)
+        notifyServiceMessage(builder)
     }
 
-    fun notifyTestIgnored(name: String) {
-        notifyServiceMessage(ServiceMessageBuilder.testIgnored(name))
+    fun notifyTestError(name: String, message: String) {
+        val builder = ServiceMessageBuilder.testFailed(name)
+        builder.addAttribute("message", message)
+        builder.addAttribute("error", "true")
+        notifyServiceMessage(builder)
+    }
+
+    fun notifyTestIgnored(name: String, message: String? = null) {
+        val builder = ServiceMessageBuilder.testIgnored(name)
+        message?.let { builder.addAttribute("message", it) }
+        notifyServiceMessage(builder)
     }
 }
