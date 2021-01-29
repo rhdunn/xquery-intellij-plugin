@@ -36,45 +36,103 @@ open class TestProcessHandlerEvents private constructor(private val processHandl
         notifyServiceMessage(ServiceMessageBuilder("enteredTheMatrix"))
     }
 
+    /**
+     * @see jetbrains.buildServer.messages.serviceMessages.TestSuiteStarted
+     */
     fun notifyTestSuiteStarted(name: String) {
         notifyServiceMessage(ServiceMessageBuilder.testSuiteStarted(name))
     }
 
+    /**
+     * @see jetbrains.buildServer.messages.serviceMessages.TestSuiteFinished
+     */
     fun notifyTestSuiteFinished(name: String) {
         notifyServiceMessage(ServiceMessageBuilder.testSuiteFinished(name))
     }
 
-    fun notifyTestStarted(name: String) {
-        notifyServiceMessage(ServiceMessageBuilder.testStarted(name))
+    /**
+     * @see jetbrains.buildServer.messages.serviceMessages.TestStarted
+     */
+    fun notifyTestStarted(name: String, locationHint: String? = null, captureStdOutput: Boolean = false) {
+        val builder = ServiceMessageBuilder.testStarted(name)
+        locationHint?.let { builder.addAttribute("locationHint", it) }
+        if (captureStdOutput) builder.addAttribute("captureStandardOutput", "true")
+        notifyServiceMessage(builder)
     }
 
-    fun notifyTestFinished(name: String) {
-        notifyServiceMessage(ServiceMessageBuilder.testFinished(name))
+    /**
+     * @see jetbrains.buildServer.messages.serviceMessages.TestFinished
+     */
+    fun notifyTestFinished(name: String, duration: Int? = null) {
+        val builder = ServiceMessageBuilder.testFinished(name)
+        duration?.let { builder.addAttribute("locationHint", it.toString()) }
+        notifyServiceMessage(builder)
     }
 
+    /**
+     * @see jetbrains.buildServer.messages.serviceMessages.TestStdOut
+     */
     @Suppress("unused")
-    fun notifyTestStdOut(name: String) {
-        notifyServiceMessage(ServiceMessageBuilder.testStdOut(name))
+    fun notifyTestStdOut(name: String, out: String) {
+        val builder = ServiceMessageBuilder.testStdOut(name)
+        builder.addAttribute("out", out)
+        notifyServiceMessage(builder)
     }
 
+    /**
+     * @see jetbrains.buildServer.messages.serviceMessages.TestStdErr
+     */
     @Suppress("unused")
-    fun notifyTestStdErr(name: String) {
-        notifyServiceMessage(ServiceMessageBuilder.testStdErr(name))
+    fun notifyTestStdErr(name: String, out: String) {
+        val builder = ServiceMessageBuilder.testStdErr(name)
+        builder.addAttribute("out", out)
+        notifyServiceMessage(builder)
     }
 
+    /**
+     * @see jetbrains.buildServer.messages.serviceMessages.TestFailed
+     */
     fun notifyTestFailed(name: String, message: String) {
         val builder = ServiceMessageBuilder.testFailed(name)
         builder.addAttribute("message", message)
         notifyServiceMessage(builder)
     }
 
-    fun notifyTestError(name: String, message: String) {
+    /**
+     * @see jetbrains.buildServer.messages.serviceMessages.TestFailed
+     */
+    @Suppress("unused")
+    fun notifyTestFailed(name: String, expected: String, actual: String, message: String? = null) {
+        val builder = ServiceMessageBuilder.testFailed(name)
+        message?.let { builder.addAttribute("message", it) }
+        builder.addAttribute("expected", expected)
+        builder.addAttribute("actual", actual)
+        builder.addAttribute("type", "comparisonFailure")
+        notifyServiceMessage(builder)
+    }
+
+    /**
+     * @see jetbrains.buildServer.messages.serviceMessages.TestFailed
+     */
+    fun notifyTestError(name: String, message: String, details: String? = null) {
         val builder = ServiceMessageBuilder.testFailed(name)
         builder.addAttribute("message", message)
+        details?.let { builder.addAttribute("details", it) }
         builder.addAttribute("error", "true")
         notifyServiceMessage(builder)
     }
 
+    /**
+     * @see jetbrains.buildServer.messages.serviceMessages.TestFailed
+     */
+    @Suppress("unused")
+    fun notifyTestError(name: String, exception: Throwable) {
+        notifyTestError(name, message = exception.toString(), details = exception.stackTraceToString())
+    }
+
+    /**
+     * @see jetbrains.buildServer.messages.serviceMessages.TestIgnored
+     */
     fun notifyTestIgnored(name: String, message: String? = null) {
         val builder = ServiceMessageBuilder.testIgnored(name)
         message?.let { builder.addAttribute("message", it) }
