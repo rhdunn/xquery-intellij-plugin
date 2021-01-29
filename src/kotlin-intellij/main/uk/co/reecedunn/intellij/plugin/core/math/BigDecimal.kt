@@ -13,14 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.marklogic.xray.test
+package uk.co.reecedunn.intellij.plugin.core.math
 
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsDurationValue
+import java.math.BigDecimal
+import java.math.MathContext
 
-interface XRayTest {
-    val name: String
+fun BigDecimal.toMilliseconds(): Int = multiply(MILLISECOND_SCALE).round(MathContext.UNLIMITED).toInt()
 
-    val result: XRayTestResult
-
-    val duration: XsDurationValue?
-}
+private val MILLISECOND_SCALE = BigDecimal.valueOf(1000)

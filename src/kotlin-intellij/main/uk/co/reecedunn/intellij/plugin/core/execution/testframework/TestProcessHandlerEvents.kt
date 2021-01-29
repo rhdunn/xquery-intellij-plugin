@@ -65,7 +65,7 @@ open class TestProcessHandlerEvents private constructor(private val processHandl
      */
     fun notifyTestFinished(name: String, duration: Int? = null) {
         val builder = ServiceMessageBuilder.testFinished(name)
-        duration?.let { builder.addAttribute("locationHint", it.toString()) }
+        duration?.let { builder.addAttribute("duration", it.toString()) }
         notifyServiceMessage(builder)
     }
 

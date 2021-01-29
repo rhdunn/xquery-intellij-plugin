@@ -18,6 +18,8 @@ package uk.co.reecedunn.intellij.plugin.marklogic.xray.format.xray
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTest
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestResult
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsDurationValue
+import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.toXsDuration
 
 class XRayXmlTest(private val test: XmlElement) : XRayTest {
     override val name: String
@@ -29,4 +31,7 @@ class XRayXmlTest(private val test: XmlElement) : XRayTest {
                 it.id == result
             } ?: throw UnsupportedOperationException("Unknown result: $result")
         }
+
+    override val duration: XsDurationValue?
+        get() = test.attribute("time")?.toXsDuration()
 }
