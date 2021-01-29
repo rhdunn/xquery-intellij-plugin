@@ -53,7 +53,7 @@ class XRayTestProcessListener(processHandler: ProcessHandler, private val output
     }
 
     override fun onException(e: Throwable) {
-        notifyTextAvailable(e.message ?: "", ProcessOutputType.STDERR)
+        notifyTextAvailable(e.stackTraceToString(), ProcessOutputType.STDERR)
     }
 
     override fun onQueryResultTime(resultTime: QueryResultTime, time: XsDurationValue) {

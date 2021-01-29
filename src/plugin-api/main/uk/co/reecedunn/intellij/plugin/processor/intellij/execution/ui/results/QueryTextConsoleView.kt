@@ -132,8 +132,8 @@ class QueryTextConsoleView(project: Project) : TextConsoleView(project), QueryRe
     }
 
     override fun onException(e: Throwable) {
-        print("${e.message ?: e.javaClass.name}\n", ConsoleViewContentType.ERROR_OUTPUT)
         if (e is QueryError) {
+            print("$e\n", ConsoleViewContentType.ERROR_OUTPUT)
             e.value.withIndex().forEach {
                 if (it.index == 0) {
                     print("  with ${it.value}\n", ConsoleViewContentType.ERROR_OUTPUT)
@@ -161,9 +161,7 @@ class QueryTextConsoleView(project: Project) : TextConsoleView(project), QueryRe
                 }
             }
         } else {
-            val writer = StringWriter()
-            e.printStackTrace(PrintWriter(writer))
-            print(writer.buffer.toString(), ConsoleViewContentType.ERROR_OUTPUT)
+            print("${e.stackTraceToString()}\n", ConsoleViewContentType.ERROR_OUTPUT)
         }
     }
 
