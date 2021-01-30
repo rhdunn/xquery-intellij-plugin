@@ -44,7 +44,7 @@ class XRayTestProcessListener(processHandler: ProcessHandler, private val output
 
     override fun onQueryResult(result: QueryResult) {
         outputFormat.parse(result)?.let { results ->
-            results.modules.forEach { module -> onTestSuite(module) }
+            results.testSuites.forEach { onTestSuite(it) }
             notifyTextAvailable(
                 "Finished: Total ${results.total}, Failed ${results.failed}, Ignored ${results.ignored}, Errors ${results.errors}, Passed ${results.passed}\n\n",
                 ProcessOutputType.STDOUT

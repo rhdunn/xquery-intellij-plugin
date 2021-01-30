@@ -26,5 +26,5 @@ interface TestSuites {
 
     val errors: Int
 
-    val modules: Sequence<TestSuite>
+    val testSuites: Sequence<TestSuite>
 }

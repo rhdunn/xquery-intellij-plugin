@@ -21,29 +21,29 @@ import uk.co.reecedunn.intellij.plugin.processor.test.TestSuites
 
 class XRayXmlTests(private val tests: XmlElement) : TestSuites {
     override val total: Int by lazy {
-        modules.sumOf { it.total }
+        testSuites.sumOf { it.total }
     }
 
     override val passed: Int by lazy {
-        modules.sumOf { it.passed }
+        testSuites.sumOf { it.passed }
     }
 
     override val ignored: Int by lazy {
-        modules.sumOf { it.ignored }
+        testSuites.sumOf { it.ignored }
     }
 
     override val failed: Int by lazy {
-        modules.sumOf { it.failed }
+        testSuites.sumOf { it.failed }
     }
 
     override val errors: Int by lazy {
-        modules.sumOf { it.errors }
+        testSuites.sumOf { it.errors }
     }
 
-    private val modulesList by lazy {
+    private val testSuitesList by lazy {
         tests.children("xray:module").map { XRayXmlTestModule(it) }.toList()
     }
 
-    override val modules: Sequence<TestSuite>
-        get() = modulesList.asSequence()
+    override val testSuites: Sequence<TestSuite>
+        get() = testSuitesList.asSequence()
 }

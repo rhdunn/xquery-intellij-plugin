@@ -32,13 +32,13 @@ class XRayXUnitTestSuites(private val suites: XmlElement) : TestSuites {
         // NOTE: The XRay xunit formatter has a bug where the errors attribute
         // does not match the total from the separate test suites. This is
         // because it includes the error:error element inside a failing xray:test.
-        modules.sumOf { it.errors }
+        testSuites.sumOf { it.errors }
     }
 
-    private val modulesList by lazy {
+    private val testSuitesList by lazy {
         suites.children("testsuite").map { XRayXUnitTestSuite(it) }.toList()
     }
 
-    override val modules: Sequence<TestSuite>
-        get() = modulesList.asSequence()
+    override val testSuites: Sequence<TestSuite>
+        get() = testSuitesList.asSequence()
 }
