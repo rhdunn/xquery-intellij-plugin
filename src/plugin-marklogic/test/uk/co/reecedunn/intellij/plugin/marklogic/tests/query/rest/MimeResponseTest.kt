@@ -28,6 +28,7 @@ import org.apache.http.Header
 import org.apache.http.message.BasicHeader
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.*
+import uk.co.reecedunn.intellij.plugin.core.http.StringMessage
 import uk.co.reecedunn.intellij.plugin.core.http.mime.MimeResponse
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
@@ -57,7 +58,7 @@ class MimeResponseTest : IdeaPlatformTestCase() {
         val headers = arrayOf<Header>(
             BasicHeader("Content-Length", body.length.toString())
         )
-        val results = MimeResponse(headers, body, Charsets.ISO_8859_1).queryResults(testFile).toList()
+        val results = MimeResponse(StringMessage(headers, body), Charsets.ISO_8859_1).queryResults(testFile).toList()
         assertThat(results.size, `is`(0))
     }
 
@@ -79,7 +80,7 @@ class MimeResponseTest : IdeaPlatformTestCase() {
             BasicHeader("Content-Type", "multipart/mixed; boundary=f260e14402e96a50"),
             BasicHeader("Content-Length", body.length.toString())
         )
-        val results = MimeResponse(headers, body, Charsets.ISO_8859_1).queryResults(testFile).toList()
+        val results = MimeResponse(StringMessage(headers, body), Charsets.ISO_8859_1).queryResults(testFile).toList()
         assertThat(results.size, `is`(1))
 
         assertThat(results[0].position, `is`(0L))
@@ -116,7 +117,7 @@ class MimeResponseTest : IdeaPlatformTestCase() {
             BasicHeader("Content-Type", "multipart/mixed; boundary=869b5d54aa36954a"),
             BasicHeader("Content-Length", body.length.toString())
         )
-        val results = MimeResponse(headers, body, Charsets.ISO_8859_1).queryResults(testFile).toList()
+        val results = MimeResponse(StringMessage(headers, body), Charsets.ISO_8859_1).queryResults(testFile).toList()
         assertThat(results.size, `is`(3))
 
         assertThat(results[0].position, `is`(0L))
@@ -160,7 +161,7 @@ class MimeResponseTest : IdeaPlatformTestCase() {
             BasicHeader("Content-Type", "multipart/mixed; boundary=3734bc5a2395b3de"),
             BasicHeader("Content-Length", body.length.toString())
         )
-        val results = MimeResponse(headers, body, Charsets.ISO_8859_1).queryResults(testFile).toList()
+        val results = MimeResponse(StringMessage(headers, body), Charsets.ISO_8859_1).queryResults(testFile).toList()
         assertThat(results.size, `is`(2))
 
         assertThat(results[0].position, `is`(0L))
@@ -193,7 +194,7 @@ class MimeResponseTest : IdeaPlatformTestCase() {
             BasicHeader("Content-Type", "multipart/mixed; boundary=b857af6eabb53cb2"),
             BasicHeader("Content-Length", body.length.toString())
         )
-        val results = MimeResponse(headers, body, Charsets.ISO_8859_1).queryResults(testFile).toList()
+        val results = MimeResponse(StringMessage(headers, body), Charsets.ISO_8859_1).queryResults(testFile).toList()
         assertThat(results.size, `is`(1))
 
         assertThat(results[0].position, `is`(0L))
@@ -233,7 +234,7 @@ class MimeResponseTest : IdeaPlatformTestCase() {
             BasicHeader("Content-Length", body.length.toString())
         )
         val e: QueryError = Assertions.assertThrows(QueryError::class.java) {
-            MimeResponse(headers, body, Charsets.ISO_8859_1).queryResults(testFile).toList()
+            MimeResponse(StringMessage(headers, body), Charsets.ISO_8859_1).queryResults(testFile).toList()
         }
 
         assertThat(e.description, `is`("Division by zero"))
@@ -265,7 +266,7 @@ class MimeResponseTest : IdeaPlatformTestCase() {
             BasicHeader("Content-Type", "multipart/mixed; boundary=40d8fa04d13bdcb1"),
             BasicHeader("Content-Length", body.length.toString())
         )
-        val results = MimeResponse(headers, body, Charsets.ISO_8859_1).queryResults(testFile).toList()
+        val results = MimeResponse(StringMessage(headers, body), Charsets.ISO_8859_1).queryResults(testFile).toList()
         assertThat(results.size, `is`(1))
 
         assertThat(results[0].position, `is`(0L))
@@ -305,7 +306,7 @@ class MimeResponseTest : IdeaPlatformTestCase() {
             BasicHeader("Content-Type", "multipart/mixed; boundary=b54154d3ae21a0f1"),
             BasicHeader("Content-Length", body.length.toString())
         )
-        val results = MimeResponse(headers, body, Charsets.ISO_8859_1).queryResults(testFile).toList()
+        val results = MimeResponse(StringMessage(headers, body), Charsets.ISO_8859_1).queryResults(testFile).toList()
         assertThat(results.size, `is`(2))
 
         assertThat(results[0].position, `is`(0L))
@@ -347,7 +348,7 @@ class MimeResponseTest : IdeaPlatformTestCase() {
             BasicHeader("Content-Type", "multipart/mixed; boundary=e59349f9cdb07885"),
             BasicHeader("Content-Length", body.length.toString())
         )
-        val results = MimeResponse(headers, body, Charsets.ISO_8859_1).queryResults(testFile).toList()
+        val results = MimeResponse(StringMessage(headers, body), Charsets.ISO_8859_1).queryResults(testFile).toList()
         assertThat(results.size, `is`(1))
 
         val value = listOf(

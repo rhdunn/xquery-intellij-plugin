@@ -20,8 +20,8 @@ import com.intellij.lang.Language
 import com.intellij.openapi.vfs.VirtualFile
 import org.apache.http.client.methods.HttpUriRequest
 import org.apache.http.client.methods.RequestBuilder
-import org.apache.http.util.EntityUtils
 import uk.co.reecedunn.intellij.plugin.core.http.mime.MimeResponse
+import uk.co.reecedunn.intellij.plugin.core.http.toStringMessage
 import uk.co.reecedunn.intellij.plugin.core.lang.getLanguageMimeTypes
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
@@ -101,13 +101,10 @@ internal class MarkLogicDebugQuery(
     // region RunnableQuery
 
     override fun run(): QueryResults {
-        val response = connection.execute(request())
-        val body = EntityUtils.toString(response.entity)
-        response.close()
-
-        val id = MimeResponse(response.allHeaders, body, Charsets.UTF_8).queryResults(queryFile).first()
+        val (statusLine, message) = connection.execute(request()).toStringMessage()
+        val id = MimeResponse(message, Charsets.UTF_8).queryResults(queryFile).first()
         (session as MarkLogicDebugSession).run(id.value as String)
-        return QueryResults(response.statusLine, listOf(), XsDuration.ZERO)
+        return QueryResults(statusLine, listOf(), XsDuration.ZERO)
     }
 
     // endregion

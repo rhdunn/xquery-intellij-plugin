@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017-2019 Reece H. Dunn
+ * Copyright (C) 2017-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,8 +24,7 @@ import java.util.ArrayList
 
 private fun String.decode(charset: Charset): String = String(toByteArray(Charsets.ISO_8859_1), charset)
 
-class MimeResponse(headers: Array<Header>, body: String, private val defaultEncoding: Charset) {
-    private val message: StringMessage = StringMessage(headers, body)
+class MimeResponse(private val message: StringMessage, private val defaultEncoding: Charset) {
     val parts: Array<StringMessage>
 
     init {
@@ -34,7 +33,7 @@ class MimeResponse(headers: Array<Header>, body: String, private val defaultEnco
             .filter { contentType -> contentType.startsWith("multipart/mixed; boundary=") }
             .firstOrNull()
         if (contentType != null) {
-            body.split(("\r\n--" + contentType.split("boundary=".toRegex())[1]).toRegex())
+            message.body.split(("\r\n--" + contentType.split("boundary=".toRegex())[1]).toRegex())
                 .asSequence()
                 .filter { it.isNotEmpty() && it != "--\r\n" }
                 .map { it.split("\r\n\r\n".toRegex(), 2) }

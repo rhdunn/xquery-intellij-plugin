@@ -43,8 +43,7 @@ internal class MarkLogicRunQuery(
     private val connection: HttpConnection,
     private val processor: MarkLogicQueryProcessor,
     private var queryId: String?
-) : RunnableQuery, ValidatableQuery,
-    BuildableQuery, StoppableQuery {
+) : RunnableQuery, ValidatableQuery, BuildableQuery, StoppableQuery {
 
     private var variables: JsonObject = JsonObject()
     private var types: JsonObject = JsonObject()
@@ -99,7 +98,7 @@ internal class MarkLogicRunQuery(
     override fun run(): QueryResults {
         val (statusLine, message) = connection.execute(request()).toStringMessage()
         return if (queryId != null) {
-            val results = MimeResponse(message.headers, message.body, Charsets.UTF_8).queryResults(queryFile).iterator()
+            val results = MimeResponse(message, Charsets.UTF_8).queryResults(queryFile).iterator()
             val duration = (results.next().value as String).toXsDuration() ?: XsDuration.ZERO
             QueryResults(statusLine, results.asSequence().toList(), duration)
         } else {
@@ -115,7 +114,7 @@ internal class MarkLogicRunQuery(
         }
 
         return try {
-            MimeResponse(message.headers, message.body, Charsets.UTF_8).queryResults(queryFile)
+            MimeResponse(message, Charsets.UTF_8).queryResults(queryFile)
             null
         } catch (e: QueryError) {
             e
