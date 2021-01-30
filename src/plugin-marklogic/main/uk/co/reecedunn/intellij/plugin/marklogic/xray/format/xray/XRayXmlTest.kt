@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.marklogic.xray.format.xray
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.toMarkLogicQueryError
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTest
-import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestAssertion
+import uk.co.reecedunn.intellij.plugin.processor.test.TestFailure
 import uk.co.reecedunn.intellij.plugin.processor.test.TestResult
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsDurationValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.toXsDuration
@@ -36,7 +36,7 @@ class XRayXmlTest(private val test: XmlElement) : XRayTest {
         test.children("xray:assert").map { XRayXmlTestAssert(it) }.toList()
     }
 
-    override val assertions: Sequence<XRayTestAssertion>
+    override val assertions: Sequence<TestFailure>
         get() = assertionsList.asSequence()
 
     override val error: Throwable? by lazy { test.child("error:error")?.toMarkLogicQueryError(null) }

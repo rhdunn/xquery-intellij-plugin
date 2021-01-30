@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.test
 
 import uk.co.reecedunn.intellij.plugin.processor.test.TestResult
+import uk.co.reecedunn.intellij.plugin.processor.test.TestFailure
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsDurationValue
 
 interface XRayTest {
@@ -25,7 +26,7 @@ interface XRayTest {
 
     val duration: XsDurationValue?
 
-    val assertions: Sequence<XRayTestAssertion>
+    val assertions: Sequence<TestFailure>
 
     val error: Throwable?
 }

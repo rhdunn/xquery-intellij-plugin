@@ -13,11 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.marklogic.xray.test
+package uk.co.reecedunn.intellij.plugin.processor.test
 
-import uk.co.reecedunn.intellij.plugin.processor.test.TestResult
-
-interface XRayTestAssertion {
+interface TestFailure {
     val type: String
 
     val result: TestResult

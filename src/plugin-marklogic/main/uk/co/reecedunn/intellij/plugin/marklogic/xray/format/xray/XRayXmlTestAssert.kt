@@ -16,10 +16,10 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.format.xray
 
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
-import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestAssertion
+import uk.co.reecedunn.intellij.plugin.processor.test.TestFailure
 import uk.co.reecedunn.intellij.plugin.processor.test.TestResult
 
-class XRayXmlTestAssert(private val assertion: XmlElement) : XRayTestAssertion {
+class XRayXmlTestAssert(private val assertion: XmlElement) : TestFailure {
     override val type: String by lazy { assertion.attribute("test")!! }
 
     override val result: TestResult by lazy {
