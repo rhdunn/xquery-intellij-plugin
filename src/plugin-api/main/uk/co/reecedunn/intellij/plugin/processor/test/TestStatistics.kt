@@ -15,6 +15,14 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.test
 
-interface TestSuites : TestStatistics {
-    val testSuites: Sequence<TestSuite>
+interface TestStatistics {
+    val total: Int
+
+    val passed: Int
+
+    val ignored: Int
+
+    val failed: Int
+
+    val errors: Int
 }
