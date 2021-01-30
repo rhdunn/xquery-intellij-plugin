@@ -32,11 +32,10 @@ class XRayXmlTestModule(private val module: XmlElement) : TestSuite {
 
     override val errors: Int by lazy { module.attribute("error")!!.toInt() }
 
-    private val testsList by lazy {
+    private val testCasesList by lazy {
         module.children("xray:test").map { XRayXmlTest(it) }.toList()
     }
 
-    override val tests: Sequence<TestCase>
-        get() = testsList.asSequence()
-
+    override val testCases: Sequence<TestCase>
+        get() = testCasesList.asSequence()
 }
