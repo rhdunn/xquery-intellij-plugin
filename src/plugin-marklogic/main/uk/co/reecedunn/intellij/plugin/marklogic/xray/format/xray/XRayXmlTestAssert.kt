@@ -19,7 +19,7 @@ import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestAssertion
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestResult
 
-class XRayXmlTestAssertion(private val assertion: XmlElement) : XRayTestAssertion {
+class XRayXmlTestAssert(private val assertion: XmlElement) : XRayTestAssertion {
     override val type: String by lazy { assertion.attribute("test")!! }
 
     override val result: XRayTestResult by lazy {

@@ -17,7 +17,6 @@ package uk.co.reecedunn.intellij.plugin.marklogic.xray.format.xunit
 
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.toMarkLogicQueryError
-import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.xray.XRayXmlTestAssertion
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTest
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestAssertion
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestResult

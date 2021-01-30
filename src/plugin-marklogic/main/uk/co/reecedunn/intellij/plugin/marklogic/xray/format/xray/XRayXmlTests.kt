@@ -19,7 +19,7 @@ import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestModule
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestResults
 
-class XRayXmlTestResults(private val tests: XmlElement) : XRayTestResults {
+class XRayXmlTests(private val tests: XmlElement) : XRayTestResults {
     override val total: Int by lazy {
         modules.sumOf { it.total }
     }

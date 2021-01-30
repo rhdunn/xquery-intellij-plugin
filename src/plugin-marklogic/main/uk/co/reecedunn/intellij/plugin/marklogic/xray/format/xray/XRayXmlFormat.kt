@@ -29,7 +29,7 @@ object XRayXmlFormat : XRayTestFormat {
         if (result.mimetype != QueryResult.APPLICATION_XML) return null
         val doc = XmlDocument.parse(result.value as String, NAMESPACES)
         return when {
-            doc.root.`is`("xray:tests") -> XRayXmlTestResults(doc.root)
+            doc.root.`is`("xray:tests") -> XRayXmlTests(doc.root)
             else -> null
         }
     }
