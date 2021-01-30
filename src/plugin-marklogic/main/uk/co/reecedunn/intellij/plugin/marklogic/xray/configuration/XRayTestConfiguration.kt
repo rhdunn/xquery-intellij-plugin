@@ -30,6 +30,7 @@ import uk.co.reecedunn.intellij.plugin.marklogic.xray.runner.XRayTestRunState
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestService
 import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessors
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
+import uk.co.reecedunn.intellij.plugin.processor.test.TestFormat
 
 class XRayTestConfiguration(project: Project, factory: ConfigurationFactory) :
     RunConfigurationBase<XRayTestConfigurationData>(project, factory, ""),
@@ -126,7 +127,7 @@ class XRayTestConfiguration(project: Project, factory: ConfigurationFactory) :
     // endregion
     // region Output Format
 
-    var outputFormat: XRayTestFormat
+    var outputFormat: TestFormat
         get() = XRayTestFormat.format(data.outputFormat)
         set(value) {
             data.outputFormat = value.id

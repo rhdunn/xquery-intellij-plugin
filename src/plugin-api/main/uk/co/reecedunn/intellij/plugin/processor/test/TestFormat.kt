@@ -13,18 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.marklogic.xray.format.json
+package uk.co.reecedunn.intellij.plugin.processor.test
 
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
-import uk.co.reecedunn.intellij.plugin.processor.test.TestFormat
-import uk.co.reecedunn.intellij.plugin.processor.test.TestSuites
 
-object XRayJsonFormat : TestFormat {
-    override val id: String = "json"
+interface TestFormat {
+    val id: String
 
-    override val name: String = "JSON"
+    val name: String
 
-    override fun parse(result: QueryResult): TestSuites? = null
-
-    override fun toString(): String = name
+    fun parse(result: QueryResult): TestSuites?
 }

@@ -15,11 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.format.html
 
-import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.XRayTestFormat
-import uk.co.reecedunn.intellij.plugin.processor.test.TestSuites
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
+import uk.co.reecedunn.intellij.plugin.processor.test.TestFormat
+import uk.co.reecedunn.intellij.plugin.processor.test.TestSuites
 
-object XRayHtmlFormat : XRayTestFormat {
+object XRayHtmlFormat : TestFormat {
     override val id: String = "html"
 
     override val name: String = "HTML"

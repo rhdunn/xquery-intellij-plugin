@@ -21,16 +21,16 @@ import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.core.execution.testframework.TestProcessHandlerEvents
 import uk.co.reecedunn.intellij.plugin.core.io.printCharsToString
 import uk.co.reecedunn.intellij.plugin.core.math.toMilliseconds
-import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.XRayTestFormat
 import uk.co.reecedunn.intellij.plugin.processor.test.TestCase
 import uk.co.reecedunn.intellij.plugin.processor.test.TestSuite
 import uk.co.reecedunn.intellij.plugin.processor.test.TestResult
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.QueryResultListener
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.QueryResultTime
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
+import uk.co.reecedunn.intellij.plugin.processor.test.TestFormat
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsDurationValue
 
-class XRayTestProcessListener(processHandler: ProcessHandler, private val outputFormat: XRayTestFormat) :
+class XRayTestProcessListener(processHandler: ProcessHandler, private val outputFormat: TestFormat) :
     TestProcessHandlerEvents(processHandler),
     QueryResultListener {
 

@@ -16,11 +16,11 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.format.xunit
 
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
-import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.XRayTestFormat
-import uk.co.reecedunn.intellij.plugin.processor.test.TestSuites
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
+import uk.co.reecedunn.intellij.plugin.processor.test.TestFormat
+import uk.co.reecedunn.intellij.plugin.processor.test.TestSuites
 
-object XRayXUnitFormat : XRayTestFormat {
+object XRayXUnitFormat : TestFormat {
     override val id: String = "xunit"
 
     override val name: String = "xUnit XML"

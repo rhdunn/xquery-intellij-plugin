@@ -22,23 +22,16 @@ import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.xray.XRayXmlFormat
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.xunit.XRayXUnitFormat
 import uk.co.reecedunn.intellij.plugin.processor.test.TestSuites
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
+import uk.co.reecedunn.intellij.plugin.processor.test.TestFormat
 import java.lang.UnsupportedOperationException
 
-interface XRayTestFormat {
-    val id: String
-
-    val name: String
-
-    fun parse(result: QueryResult): TestSuites?
-
-    companion object {
-        fun format(id: String): XRayTestFormat = when (id) {
-            XRayHtmlFormat.id -> XRayHtmlFormat
-            XRayJsonFormat.id -> XRayJsonFormat
-            XRayTextFormat.id -> XRayTextFormat
-            XRayXmlFormat.id -> XRayXmlFormat
-            XRayXUnitFormat.id -> XRayXUnitFormat
-            else -> throw UnsupportedOperationException("Unsupported test format '$id'")
-        }
+object XRayTestFormat {
+    fun format(id: String): TestFormat = when (id) {
+        XRayHtmlFormat.id -> XRayHtmlFormat
+        XRayJsonFormat.id -> XRayJsonFormat
+        XRayTextFormat.id -> XRayTextFormat
+        XRayXmlFormat.id -> XRayXmlFormat
+        XRayXUnitFormat.id -> XRayXUnitFormat
+        else -> throw UnsupportedOperationException("Unsupported test format '$id'")
     }
 }

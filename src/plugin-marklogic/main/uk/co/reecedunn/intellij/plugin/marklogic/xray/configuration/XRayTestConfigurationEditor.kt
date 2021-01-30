@@ -22,7 +22,6 @@ import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
 import uk.co.reecedunn.intellij.plugin.core.ui.selectOrAddItem
-import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.*
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.html.XRayHtmlFormat
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.json.XRayJsonFormat
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.text.XRayTextFormat
@@ -32,6 +31,7 @@ import uk.co.reecedunn.intellij.plugin.processor.intellij.resources.PluginApiBun
 import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessorComboBox
 import uk.co.reecedunn.intellij.plugin.processor.query.populateDatabaseUI
 import uk.co.reecedunn.intellij.plugin.processor.query.populateServerUI
+import uk.co.reecedunn.intellij.plugin.processor.test.TestFormat
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurations
 import javax.swing.JComboBox
 import javax.swing.JComponent
@@ -48,7 +48,7 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
     private lateinit var testPath: TextFieldWithBrowseButton
     private lateinit var modulePattern: JTextField
     private lateinit var testPattern: JTextField
-    private lateinit var outputFormat: JComboBox<XRayTestFormat>
+    private lateinit var outputFormat: JComboBox<TestFormat>
 
     @Suppress("DuplicatedCode")
     private val panel = panel {
@@ -137,7 +137,7 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
         }
         settings.modulePattern = modulePattern.text.nullize()
         settings.testPattern = testPattern.text.nullize()
-        settings.outputFormat = (outputFormat.selectedItem as? XRayTestFormat) ?: XRayTextFormat
+        settings.outputFormat = (outputFormat.selectedItem as? TestFormat) ?: XRayTextFormat
     }
 
     private val projectRoot: String?
