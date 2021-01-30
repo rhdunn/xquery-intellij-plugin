@@ -33,7 +33,7 @@ class XRayXmlTestModule(private val module: XmlElement) : XRayTestModule {
     override val errors: Int by lazy { module.attribute("error")!!.toInt() }
 
     private val testsList by lazy {
-        module.children("xray:test").map { XRayXmlTest(it) }
+        module.children("xray:test").map { XRayXmlTest(it) }.toList()
     }
 
     override val tests: Sequence<XRayTest>

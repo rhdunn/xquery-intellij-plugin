@@ -33,7 +33,7 @@ class XRayXmlTest(private val test: XmlElement) : XRayTest {
     override val duration: XsDurationValue? by lazy { test.attribute("time")?.toXsDuration() }
 
     private val assertionsList by lazy {
-        test.children("xray:assert").map { XRayXmlTestAssertion(it) }
+        test.children("xray:assert").map { XRayXmlTestAssertion(it) }.toList()
     }
 
     override val assertions: Sequence<XRayTestAssertion>
