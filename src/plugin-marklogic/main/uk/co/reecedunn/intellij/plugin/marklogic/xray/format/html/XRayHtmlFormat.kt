@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.format.html
 
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.XRayTestFormat
-import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestResults
+import uk.co.reecedunn.intellij.plugin.processor.test.TestSuites
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 
 object XRayHtmlFormat : XRayTestFormat {
@@ -24,7 +24,7 @@ object XRayHtmlFormat : XRayTestFormat {
 
     override val name: String = "HTML"
 
-    override fun parse(result: QueryResult): XRayTestResults? = null
+    override fun parse(result: QueryResult): TestSuites? = null
 
     override fun toString(): String = name
 }

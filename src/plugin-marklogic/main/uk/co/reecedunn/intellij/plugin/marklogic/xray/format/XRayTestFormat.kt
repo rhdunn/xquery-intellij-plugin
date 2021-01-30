@@ -20,7 +20,7 @@ import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.json.XRayJsonFormat
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.text.XRayTextFormat
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.xray.XRayXmlFormat
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.xunit.XRayXUnitFormat
-import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestResults
+import uk.co.reecedunn.intellij.plugin.processor.test.TestSuites
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import java.lang.UnsupportedOperationException
 
@@ -29,7 +29,7 @@ interface XRayTestFormat {
 
     val name: String
 
-    fun parse(result: QueryResult): XRayTestResults?
+    fun parse(result: QueryResult): TestSuites?
 
     companion object {
         fun format(id: String): XRayTestFormat = when (id) {

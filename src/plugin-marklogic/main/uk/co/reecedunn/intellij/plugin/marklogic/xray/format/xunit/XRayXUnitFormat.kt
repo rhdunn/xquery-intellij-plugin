@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.marklogic.xray.format.xunit
 
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.XRayTestFormat
-import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestResults
+import uk.co.reecedunn.intellij.plugin.processor.test.TestSuites
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 
 object XRayXUnitFormat : XRayTestFormat {
@@ -25,7 +25,7 @@ object XRayXUnitFormat : XRayTestFormat {
 
     override val name: String = "xUnit XML"
 
-    override fun parse(result: QueryResult): XRayTestResults? {
+    override fun parse(result: QueryResult): TestSuites? {
         if (result.mimetype != QueryResult.APPLICATION_XML) return null
         val doc = XmlDocument.parse(result.value as String, NAMESPACES)
         return when {

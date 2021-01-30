@@ -17,9 +17,9 @@ package uk.co.reecedunn.intellij.plugin.marklogic.xray.format.xray
 
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.processor.test.TestSuite
-import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestResults
+import uk.co.reecedunn.intellij.plugin.processor.test.TestSuites
 
-class XRayXmlTests(private val tests: XmlElement) : XRayTestResults {
+class XRayXmlTests(private val tests: XmlElement) : TestSuites {
     override val total: Int by lazy {
         modules.sumOf { it.total }
     }
