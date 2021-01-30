@@ -24,7 +24,7 @@ interface TestCase {
 
     val duration: XsDurationValue?
 
-    val assertions: Sequence<TestFailure>
+    val failures: Sequence<TestFailure>
 
     val error: Throwable?
 }

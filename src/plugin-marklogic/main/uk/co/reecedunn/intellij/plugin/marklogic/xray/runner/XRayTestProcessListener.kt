@@ -82,13 +82,13 @@ class XRayTestProcessListener(processHandler: ProcessHandler, private val output
             }
             TestResult.Failed -> {
                 notifyTextAvailable("-- ${test.name} -- FAILED\n", ProcessOutputType.STDERR)
-                test.assertions.forEach { assertion ->
-                    if (assertion.result == TestResult.Failed) {
+                test.failures.forEach { failures ->
+                    if (failures.result == TestResult.Failed) {
                         notifyTestFailed(
                             test.name,
-                            message = assertion.message ?: "Assertion failure",
-                            expected = assertion.expected,
-                            actual = assertion.actual
+                            message = failures.message ?: "Assertion failure",
+                            expected = failures.expected,
+                            actual = failures.actual
                         )
                     }
                 }

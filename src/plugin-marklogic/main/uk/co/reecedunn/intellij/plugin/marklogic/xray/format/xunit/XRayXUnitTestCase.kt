@@ -39,12 +39,12 @@ class XRayXUnitTestCase(private val test: XmlElement) : TestCase {
         test.attribute("time")?.let { XsDuration.s(it) }
     }
 
-    private val assertionsList by lazy {
+    private val failuresList by lazy {
         test.children("failure").map { XRayXUnitTestFailure(it) }.toList()
     }
 
-    override val assertions: Sequence<TestFailure>
-        get() = assertionsList.asSequence()
+    override val failures: Sequence<TestFailure>
+        get() = failuresList.asSequence()
 
     override val error: Throwable? by lazy {
         test.child("error")?.child("error:error")?.toMarkLogicQueryError(null)
