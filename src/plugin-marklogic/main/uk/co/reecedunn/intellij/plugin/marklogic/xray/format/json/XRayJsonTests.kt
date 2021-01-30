@@ -21,23 +21,23 @@ import uk.co.reecedunn.intellij.plugin.processor.test.TestSuites
 
 class XRayJsonTests(private val tests: JsonObject) : TestSuites {
     override val total: Int by lazy {
-        testSuites.sumOf { it.total }
+        testSuites.sumBy { it.total }
     }
 
     override val passed: Int by lazy {
-        testSuites.sumOf { it.passed }
+        testSuites.sumBy { it.passed }
     }
 
     override val ignored: Int by lazy {
-        testSuites.sumOf { it.ignored }
+        testSuites.sumBy { it.ignored }
     }
 
     override val failed: Int by lazy {
-        testSuites.sumOf { it.failed }
+        testSuites.sumBy { it.failed }
     }
 
     override val errors: Int by lazy {
-        testSuites.sumOf { it.errors }
+        testSuites.sumBy { it.errors }
     }
 
     private val testSuitesList by lazy {
