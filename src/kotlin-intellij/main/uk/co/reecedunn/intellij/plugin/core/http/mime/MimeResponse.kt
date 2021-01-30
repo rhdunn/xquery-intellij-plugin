@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.core.http.mime
 
 import org.apache.http.Header
 import org.apache.http.message.BasicHeader
+import uk.co.reecedunn.intellij.plugin.core.http.StringMessage
 import java.nio.charset.Charset
 
 import java.util.ArrayList
@@ -24,11 +25,11 @@ import java.util.ArrayList
 private fun String.decode(charset: Charset): String = String(toByteArray(Charsets.ISO_8859_1), charset)
 
 class MimeResponse(headers: Array<Header>, body: String, private val defaultEncoding: Charset) {
-    private val message: Message = Message(headers, body)
-    val parts: Array<Message>
+    private val message: StringMessage = StringMessage(headers, body)
+    val parts: Array<StringMessage>
 
     init {
-        val messages = ArrayList<Message>()
+        val messages = ArrayList<StringMessage>()
         val contentType = message.getHeaders("Content-Type")
             .filter { contentType -> contentType.startsWith("multipart/mixed; boundary=") }
             .firstOrNull()
@@ -37,7 +38,7 @@ class MimeResponse(headers: Array<Header>, body: String, private val defaultEnco
                 .asSequence()
                 .filter { it.isNotEmpty() && it != "--\r\n" }
                 .map { it.split("\r\n\r\n".toRegex(), 2) }
-                .mapTo(messages) { Message(parseHeaders(it[0]), it[1].decode(defaultEncoding)) }
+                .mapTo(messages) { StringMessage(parseHeaders(it[0]), it[1].decode(defaultEncoding)) }
         } else {
             messages.add(message)
         }

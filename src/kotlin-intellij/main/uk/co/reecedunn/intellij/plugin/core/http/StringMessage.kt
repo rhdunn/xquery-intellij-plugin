@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017, 2019 Reece H. Dunn
+ * Copyright (C) 2017, 2019, 2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.core.http.mime
+package uk.co.reecedunn.intellij.plugin.core.http
 
 import org.apache.http.Header
 
-class Message internal constructor(private val headers: Array<Header>, val body: String) {
+class StringMessage internal constructor(private val headers: Array<Header>, val body: String) {
     fun getHeaders(header: String): Sequence<String> {
         return this.headers.asSequence().filter { h -> h.name == header }.map { h -> h.value }
     }
