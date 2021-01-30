@@ -75,7 +75,7 @@ class XmlElement(val element: Element, private val namespaces: Map<String, Strin
     fun `is`(qname: String): Boolean = `is`(qname.toQName(namespaces))
 
     fun `is`(qname: QName): Boolean {
-        return element.localName == qname.localPart && element.namespaceURI == qname.namespaceURI
+        return element.localName == qname.localPart && (element.namespaceURI ?: "") == qname.namespaceURI
     }
 
     fun xml(): String {

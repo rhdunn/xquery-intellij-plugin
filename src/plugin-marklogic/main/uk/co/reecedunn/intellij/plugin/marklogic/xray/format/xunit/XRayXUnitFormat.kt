@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.format.xunit
 
+import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.XRayTestFormat
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestResults
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
@@ -24,7 +25,20 @@ object XRayXUnitFormat : XRayTestFormat {
 
     override val name: String = "xUnit XML"
 
-    override fun parse(result: QueryResult): XRayTestResults? = null
+    override fun parse(result: QueryResult): XRayTestResults? {
+        if (result.mimetype != QueryResult.APPLICATION_XML) return null
+        val doc = XmlDocument.parse(result.value as String, NAMESPACES)
+        return when {
+            doc.root.`is`("testsuites") -> XRayXUnitTestSuites(doc.root)
+            else -> null
+        }
+    }
 
     override fun toString(): String = name
+
+    private val NAMESPACES = mapOf(
+        "dbg" to "http://reecedunn.co.uk/xquery/debug",
+        "err" to "http://www.w3.org/2005/xqt-errors",
+        "error" to "http://marklogic.com/xdmp/error"
+    )
 }

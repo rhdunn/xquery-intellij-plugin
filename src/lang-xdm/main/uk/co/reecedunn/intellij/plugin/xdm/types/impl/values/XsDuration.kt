@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2020 Reece H. Dunn
+ * Copyright (C) 2018-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,6 +34,8 @@ data class XsDuration(
 
     companion object {
         val ZERO: XsDuration = XsDuration(XsInteger.ZERO, XsDecimal.ZERO)
+
+        fun s(value: String): XsDuration = XsDuration(XsInteger.ZERO, XsDecimal.value(value))
 
         fun ms(value: String): XsDuration = XsDuration(XsInteger.ZERO, XsDecimal.milli(value))
 

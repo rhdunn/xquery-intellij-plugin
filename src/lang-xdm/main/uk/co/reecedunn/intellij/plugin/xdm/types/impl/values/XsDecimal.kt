@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2020 Reece H. Dunn
+ * Copyright (C) 2018-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,8 @@ import java.math.BigDecimal
 data class XsDecimal(override val data: BigDecimal) : XsDecimalValue {
     companion object {
         val ZERO: XsDecimal = XsDecimal(BigDecimal.ZERO)
+
+        fun value(value: String): XsDecimal = XsDecimal(BigDecimal(value))
 
         fun milli(value: String): XsDecimal = XsDecimal(BigDecimal(value).scaleByPowerOfTen(-3).stripTrailingZeros())
 
