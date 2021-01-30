@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2020 Reece H. Dunn
+ * Copyright (C) 2018-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,9 +20,9 @@ import com.intellij.lang.Language
 import com.intellij.openapi.vfs.VirtualFile
 import org.apache.http.client.methods.HttpUriRequest
 import org.apache.http.client.methods.RequestBuilder
-import org.apache.http.util.EntityUtils
 import uk.co.reecedunn.intellij.plugin.core.http.HttpStatusException
 import uk.co.reecedunn.intellij.plugin.core.http.mime.MimeResponse
+import uk.co.reecedunn.intellij.plugin.core.http.toStringMessage
 import uk.co.reecedunn.intellij.plugin.core.lang.getLanguageMimeTypes
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
@@ -97,14 +97,11 @@ internal class MarkLogicRunQuery(
     }
 
     override fun run(): QueryResults {
-        val response = connection.execute(request())
-        val body = EntityUtils.toString(response.entity)
-        response.close()
-
+        val (statusLine, message) = connection.execute(request()).toStringMessage()
         return if (queryId != null) {
-            val results = MimeResponse(response.allHeaders, body, Charsets.UTF_8).queryResults(queryFile).iterator()
+            val results = MimeResponse(message.headers, message.body, Charsets.UTF_8).queryResults(queryFile).iterator()
             val duration = (results.next().value as String).toXsDuration() ?: XsDuration.ZERO
-            QueryResults(response.statusLine, results.asSequence().toList(), duration)
+            QueryResults(statusLine, results.asSequence().toList(), duration)
         } else {
             // The query has been cancelled.
             QueryResults(QueryResults.OK, listOf(), XsDuration.ZERO)
@@ -112,16 +109,13 @@ internal class MarkLogicRunQuery(
     }
 
     override fun validate(): QueryError? {
-        val response = connection.execute(request())
-        val body = EntityUtils.toString(response.entity)
-        response.close()
-
-        if (response.statusLine.statusCode != 200) {
-            throw HttpStatusException(response.statusLine.statusCode, response.statusLine.reasonPhrase)
+        val (statusLine, message) = connection.execute(request()).toStringMessage()
+        if (statusLine.statusCode != 200) {
+            throw HttpStatusException(statusLine.statusCode, statusLine.reasonPhrase)
         }
 
         return try {
-            MimeResponse(response.allHeaders, body, Charsets.UTF_8).queryResults(queryFile)
+            MimeResponse(message.headers, message.body, Charsets.UTF_8).queryResults(queryFile)
             null
         } catch (e: QueryError) {
             e

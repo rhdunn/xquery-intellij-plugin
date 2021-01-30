@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017, 2019, 2021 Reece H. Dunn
+ * Copyright (C) 2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,12 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.http
 
-import org.apache.http.Header
+import org.apache.http.StatusLine
+import org.apache.http.client.methods.CloseableHttpResponse
+import org.apache.http.util.EntityUtils
 
-class StringMessage internal constructor(val headers: Array<Header>, val body: String) {
-    fun getHeaders(header: String): Sequence<String> {
-        return this.headers.asSequence().filter { h -> h.name == header }.map { h -> h.value }
-    }
-
-    fun getHeader(header: String): String? = getHeaders(header).firstOrNull()
+fun CloseableHttpResponse.toStringMessage(): Pair<StatusLine, StringMessage> {
+    val body = EntityUtils.toString(entity)
+    close()
+    return statusLine to StringMessage(allHeaders, body)
 }
