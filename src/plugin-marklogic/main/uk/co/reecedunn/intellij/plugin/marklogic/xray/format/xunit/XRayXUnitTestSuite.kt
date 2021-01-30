@@ -20,7 +20,7 @@ import uk.co.reecedunn.intellij.plugin.processor.test.TestCase
 import uk.co.reecedunn.intellij.plugin.processor.test.TestSuite
 
 class XRayXUnitTestSuite(private val suite: XmlElement) : TestSuite {
-    override val path: String by lazy { suite.attribute("name")!! }
+    override val name: String by lazy { suite.attribute("name")!! }
 
     override val total: Int by lazy { suite.attribute("tests")!!.toInt() }
 

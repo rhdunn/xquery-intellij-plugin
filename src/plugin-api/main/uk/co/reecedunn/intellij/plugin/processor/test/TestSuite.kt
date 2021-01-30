@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.processor.test
 
 interface TestSuite {
-    val path: String
+    val name: String
 
     val total: Int
 

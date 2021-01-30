@@ -20,7 +20,7 @@ import uk.co.reecedunn.intellij.plugin.processor.test.TestCase
 import uk.co.reecedunn.intellij.plugin.processor.test.TestSuite
 
 class XRayXmlTestModule(private val module: XmlElement) : TestSuite {
-    override val path: String by lazy { module.attribute("path")!! }
+    override val name: String by lazy { module.attribute("path")!! }
 
     override val total: Int by lazy { module.attribute("total")!!.toInt() }
 
