@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.test
 
+import uk.co.reecedunn.intellij.plugin.processor.test.TestSuite
+
 interface XRayTestResults {
     val total: Int
 
@@ -26,5 +28,5 @@ interface XRayTestResults {
 
     val errors: Int
 
-    val modules: Sequence<XRayTestModule>
+    val modules: Sequence<TestSuite>
 }

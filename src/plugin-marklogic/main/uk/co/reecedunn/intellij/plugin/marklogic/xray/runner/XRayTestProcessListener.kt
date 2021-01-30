@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.core.io.printCharsToString
 import uk.co.reecedunn.intellij.plugin.core.math.toMilliseconds
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.XRayTestFormat
 import uk.co.reecedunn.intellij.plugin.processor.test.TestCase
-import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestModule
+import uk.co.reecedunn.intellij.plugin.processor.test.TestSuite
 import uk.co.reecedunn.intellij.plugin.processor.test.TestResult
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.QueryResultListener
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.QueryResultTime
@@ -63,7 +63,7 @@ class XRayTestProcessListener(processHandler: ProcessHandler, private val output
     override fun onQueryResultsPsiFile(psiFile: PsiFile) {
     }
 
-    private fun onTestSuite(module: XRayTestModule) {
+    private fun onTestSuite(module: TestSuite) {
         notifyTestSuiteStarted(module.path)
         notifyTextAvailable("Module ${module.path}\n", ProcessOutputType.STDOUT)
         module.tests.forEach { test -> onTest(test) }

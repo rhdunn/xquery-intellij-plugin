@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.format.xunit
 
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
-import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestModule
+import uk.co.reecedunn.intellij.plugin.processor.test.TestSuite
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestResults
 
 class XRayXUnitTestSuites(private val suites: XmlElement) : XRayTestResults {
@@ -39,6 +39,6 @@ class XRayXUnitTestSuites(private val suites: XmlElement) : XRayTestResults {
         suites.children("testsuite").map { XRayXUnitTestSuite(it) }.toList()
     }
 
-    override val modules: Sequence<XRayTestModule>
+    override val modules: Sequence<TestSuite>
         get() = modulesList.asSequence()
 }
