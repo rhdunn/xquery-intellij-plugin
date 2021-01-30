@@ -19,6 +19,7 @@ import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.process.ProcessOutputType
 import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.core.execution.testframework.TestProcessHandlerEvents
+import uk.co.reecedunn.intellij.plugin.core.io.printCharsToString
 import uk.co.reecedunn.intellij.plugin.core.math.toMilliseconds
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.XRayTestFormat
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTest
@@ -53,7 +54,7 @@ class XRayTestProcessListener(processHandler: ProcessHandler, private val output
     }
 
     override fun onException(e: Throwable) {
-        notifyTextAvailable(e.stackTraceToString(), ProcessOutputType.STDERR)
+        notifyTextAvailable(printCharsToString { e.printStackTrace(it) }, ProcessOutputType.STDERR)
     }
 
     override fun onQueryResultTime(resultTime: QueryResultTime, time: XsDurationValue) {

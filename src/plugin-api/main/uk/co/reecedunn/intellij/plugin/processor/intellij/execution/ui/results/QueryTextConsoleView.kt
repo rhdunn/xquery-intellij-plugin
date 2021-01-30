@@ -26,6 +26,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiFile
 import com.intellij.psi.PsiFileFactory
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.TextConsoleView
+import uk.co.reecedunn.intellij.plugin.core.io.printCharsToString
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.QueryProcessHandlerBase
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.QueryResultListener
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.QueryResultTime
@@ -161,7 +162,7 @@ class QueryTextConsoleView(project: Project) : TextConsoleView(project), QueryRe
                 }
             }
         } else {
-            print("${e.stackTraceToString()}\n", ConsoleViewContentType.ERROR_OUTPUT)
+            print("${printCharsToString { e.printStackTrace(it) }}\n", ConsoleViewContentType.ERROR_OUTPUT)
         }
     }
 

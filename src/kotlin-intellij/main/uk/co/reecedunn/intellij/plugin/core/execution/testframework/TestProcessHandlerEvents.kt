@@ -19,6 +19,7 @@ import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.process.ProcessOutputType
 import com.intellij.execution.testframework.sm.ServiceMessageBuilder
 import com.intellij.openapi.util.Key
+import uk.co.reecedunn.intellij.plugin.core.io.printCharsToString
 import java.lang.ref.WeakReference
 
 open class TestProcessHandlerEvents private constructor(private val processHandler: WeakReference<ProcessHandler>) {
@@ -118,7 +119,7 @@ open class TestProcessHandlerEvents private constructor(private val processHandl
      * @see jetbrains.buildServer.messages.serviceMessages.TestFailed
      */
     fun notifyTestError(name: String, exception: Throwable) {
-        notifyTestError(name, message = "", details = exception.stackTraceToString())
+        notifyTestError(name, message = "", details = printCharsToString { exception.printStackTrace(it) })
     }
 
     /**
