@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.test
 
+import uk.co.reecedunn.intellij.plugin.processor.test.TestCase
+
 interface XRayTestModule {
     val path: String
 
@@ -28,5 +30,5 @@ interface XRayTestModule {
 
     val errors: Int
 
-    val tests: Sequence<XRayTest>
+    val tests: Sequence<TestCase>
 }

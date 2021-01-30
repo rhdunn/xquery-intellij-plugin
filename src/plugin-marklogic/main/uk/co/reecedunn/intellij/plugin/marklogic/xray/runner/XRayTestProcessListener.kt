@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.execution.testframework.TestProcessH
 import uk.co.reecedunn.intellij.plugin.core.io.printCharsToString
 import uk.co.reecedunn.intellij.plugin.core.math.toMilliseconds
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.XRayTestFormat
-import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTest
+import uk.co.reecedunn.intellij.plugin.processor.test.TestCase
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestModule
 import uk.co.reecedunn.intellij.plugin.processor.test.TestResult
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.QueryResultListener
@@ -70,7 +70,7 @@ class XRayTestProcessListener(processHandler: ProcessHandler, private val output
         notifyTestSuiteFinished(module.path)
     }
 
-    private fun onTest(test: XRayTest) {
+    private fun onTest(test: TestCase) {
         notifyTestStarted(test.name)
         when (test.result) {
             TestResult.Passed -> {
