@@ -15,8 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.query.rest
 
+import com.google.gson.JsonObject
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.util.text.nullize
+import uk.co.reecedunn.intellij.plugin.core.gson.getOrNull
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.core.xml.children
@@ -55,7 +57,42 @@ fun XmlElement.toMarkLogicQueryError(queryFile: VirtualFile?): QueryError {
             val column = frame.child("error:column")?.text()?.toIntOrNull() ?: 0
             val context = frame.child("error:operation")?.text()?.nullize()
             when (path) {
-                null -> queryFile?.let { VirtualFileStackFrame(it, line, column, context) }
+                null -> queryFile?.let { VirtualFileStackFrame(queryFile, line, column, context) }
+                "/eval" -> null
+                else -> VirtualFileStackFrame(XpmModuleUri(queryFile, path), line, column, context)
+            }
+        }.toList()
+    )
+}
+
+fun JsonObject.toMarkLogicQueryError(queryFile: VirtualFile?): QueryError {
+    val code = get("code").asString
+    val name = get("name").asString
+    val message = get("message").asString
+    val formatString = get("format-string").asString.nullize()?.let {
+        val value = if (it.startsWith("$code: ")) it.substringAfter(": ") else it
+        if (value.startsWith("($name) ")) value.substringAfter(") ") else value
+    }
+    val data = getOrNull("data")
+
+    return QueryError(
+        standardCode = name.replace("^err:".toRegex(), ""),
+        vendorCode = if (code == message) null else code,
+        description = message ?: formatString,
+        value = when {
+            data == null -> listOf()
+            data.isJsonObject -> listOf(data.asJsonObject.get("datum").asString)
+            data.isJsonArray -> data.asJsonArray.map { it.asJsonObject.get("datum").asString }.toList()
+            else -> listOf()
+        },
+        frames = getAsJsonObject("stack").getAsJsonArray("frame").mapNotNull {
+            val frame = it.asJsonObject
+            val path = frame.getOrNull("uri")?.asString
+            val line = (frame.get("line").asString.toIntOrNull() ?: 1) - 1
+            val column = frame.get("column").asString.toIntOrNull() ?: 0
+            val context = frame.getOrNull("context")?.asString
+            when (path) {
+                null -> queryFile?.let { VirtualFileStackFrame(queryFile, line, column, context) }
                 "/eval" -> null
                 else -> VirtualFileStackFrame(XpmModuleUri(queryFile, path), line, column, context)
             }

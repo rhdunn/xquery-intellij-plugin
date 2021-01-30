@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.format.json
 
 import com.google.gson.JsonObject
+import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.toMarkLogicQueryError
 import uk.co.reecedunn.intellij.plugin.processor.test.TestCase
 import uk.co.reecedunn.intellij.plugin.processor.test.TestFailure
 import uk.co.reecedunn.intellij.plugin.processor.test.TestResult
@@ -36,5 +37,5 @@ class XRayJsonTest(private val test: JsonObject) : TestCase {
     override val failures: Sequence<TestFailure>
         get() = failuresList.asSequence()
 
-    override val error: Throwable? = null
+    override val error: Throwable? by lazy { test.getAsJsonObject("error").toMarkLogicQueryError(null) }
 }
