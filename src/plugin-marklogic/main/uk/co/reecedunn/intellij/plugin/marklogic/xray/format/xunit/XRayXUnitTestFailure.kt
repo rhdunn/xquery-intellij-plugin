@@ -17,12 +17,12 @@ package uk.co.reecedunn.intellij.plugin.marklogic.xray.format.xunit
 
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestAssertion
-import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestResult
+import uk.co.reecedunn.intellij.plugin.processor.test.TestResult
 
 class XRayXUnitTestFailure(private val failure: XmlElement) : XRayTestAssertion {
     override val type: String by lazy { failure.attribute("test")!! }
 
-    override val result: XRayTestResult = XRayTestResult.Failed
+    override val result: TestResult = TestResult.Failed
 
     override val expected: String? = null
 

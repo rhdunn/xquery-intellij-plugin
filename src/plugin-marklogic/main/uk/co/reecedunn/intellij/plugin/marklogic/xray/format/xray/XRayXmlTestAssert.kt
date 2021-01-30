@@ -17,13 +17,13 @@ package uk.co.reecedunn.intellij.plugin.marklogic.xray.format.xray
 
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestAssertion
-import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestResult
+import uk.co.reecedunn.intellij.plugin.processor.test.TestResult
 
 class XRayXmlTestAssert(private val assertion: XmlElement) : XRayTestAssertion {
     override val type: String by lazy { assertion.attribute("test")!! }
 
-    override val result: XRayTestResult by lazy {
-        assertion.attribute("result")!!.let { result -> XRayTestResult.value(result) }
+    override val result: TestResult by lazy {
+        assertion.attribute("result")!!.let { result -> TestResult.value(result) }
     }
 
     override val expected: String? by lazy {

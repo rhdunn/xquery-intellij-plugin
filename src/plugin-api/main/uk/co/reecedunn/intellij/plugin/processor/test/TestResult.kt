@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.marklogic.xray.test
+package uk.co.reecedunn.intellij.plugin.processor.test
 
-enum class XRayTestResult(val id: String) {
+enum class TestResult(val id: String) {
     Error("error"),
     Failed("failed"),
     Ignored("ignored"),
     Passed("passed");
 
     companion object {
-        fun value(id: String): XRayTestResult {
+        fun value(id: String): TestResult {
             return values().find { it.id == id } ?: throw UnsupportedOperationException("Unknown result: $id")
         }
     }

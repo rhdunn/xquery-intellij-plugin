@@ -19,19 +19,19 @@ import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.toMarkLogicQueryError
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTest
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestAssertion
-import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestResult
+import uk.co.reecedunn.intellij.plugin.processor.test.TestResult
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsDurationValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsDuration
 
 class XRayXUnitTestCase(private val test: XmlElement) : XRayTest {
     override val name: String by lazy { test.attribute("name")!! }
 
-    override val result: XRayTestResult by lazy {
+    override val result: TestResult by lazy {
         when (test.children().firstOrNull()?.element?.tagName) {
-            "error" -> XRayTestResult.Error
-            "failure" -> XRayTestResult.Failed
-            "skipped" -> XRayTestResult.Ignored
-            else -> XRayTestResult.Passed
+            "error" -> TestResult.Error
+            "failure" -> TestResult.Failed
+            "skipped" -> TestResult.Ignored
+            else -> TestResult.Passed
         }
     }
 

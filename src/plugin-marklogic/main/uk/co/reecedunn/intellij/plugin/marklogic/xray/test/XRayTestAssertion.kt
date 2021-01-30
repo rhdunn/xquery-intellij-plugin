@@ -15,10 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.test
 
+import uk.co.reecedunn.intellij.plugin.processor.test.TestResult
+
 interface XRayTestAssertion {
     val type: String
 
-    val result: XRayTestResult
+    val result: TestResult
 
     val expected: String?
 

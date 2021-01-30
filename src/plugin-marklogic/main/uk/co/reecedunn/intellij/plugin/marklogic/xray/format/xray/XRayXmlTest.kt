@@ -19,15 +19,15 @@ import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.toMarkLogicQueryError
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTest
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestAssertion
-import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestResult
+import uk.co.reecedunn.intellij.plugin.processor.test.TestResult
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsDurationValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.toXsDuration
 
 class XRayXmlTest(private val test: XmlElement) : XRayTest {
     override val name: String by lazy { test.attribute("name")!! }
 
-    override val result: XRayTestResult by lazy {
-        test.attribute("result")!!.let { result -> XRayTestResult.value(result) }
+    override val result: TestResult by lazy {
+        test.attribute("result")!!.let { result -> TestResult.value(result) }
     }
 
     override val duration: XsDurationValue? by lazy { test.attribute("time")?.toXsDuration() }

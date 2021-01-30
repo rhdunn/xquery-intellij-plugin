@@ -15,12 +15,13 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.test
 
+import uk.co.reecedunn.intellij.plugin.processor.test.TestResult
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsDurationValue
 
 interface XRayTest {
     val name: String
 
-    val result: XRayTestResult
+    val result: TestResult
 
     val duration: XsDurationValue?
 

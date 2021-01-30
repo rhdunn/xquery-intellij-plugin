@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.core.math.toMilliseconds
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.XRayTestFormat
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTest
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestModule
-import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestResult
+import uk.co.reecedunn.intellij.plugin.processor.test.TestResult
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.QueryResultListener
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.QueryResultTime
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
@@ -73,17 +73,17 @@ class XRayTestProcessListener(processHandler: ProcessHandler, private val output
     private fun onTest(test: XRayTest) {
         notifyTestStarted(test.name)
         when (test.result) {
-            XRayTestResult.Passed -> {
+            TestResult.Passed -> {
                 notifyTextAvailable("-- ${test.name} -- PASSED\n", ProcessOutputType.STDOUT)
             }
-            XRayTestResult.Ignored -> {
+            TestResult.Ignored -> {
                 notifyTextAvailable("-- ${test.name} -- IGNORED\n", ProcessOutputType.STDOUT)
                 notifyTestIgnored(test.name)
             }
-            XRayTestResult.Failed -> {
+            TestResult.Failed -> {
                 notifyTextAvailable("-- ${test.name} -- FAILED\n", ProcessOutputType.STDERR)
                 test.assertions.forEach { assertion ->
-                    if (assertion.result == XRayTestResult.Failed) {
+                    if (assertion.result == TestResult.Failed) {
                         notifyTestFailed(
                             test.name,
                             message = assertion.message ?: "Assertion failure",
@@ -93,7 +93,7 @@ class XRayTestProcessListener(processHandler: ProcessHandler, private val output
                     }
                 }
             }
-            XRayTestResult.Error -> {
+            TestResult.Error -> {
                 notifyTextAvailable("-- ${test.name} -- ERROR\n", ProcessOutputType.STDERR)
                 when (val error = test.error) {
                     null -> notifyTestError(test.name, message = "")
