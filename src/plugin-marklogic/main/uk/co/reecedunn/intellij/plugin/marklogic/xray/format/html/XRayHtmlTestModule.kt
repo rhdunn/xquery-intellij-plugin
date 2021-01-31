@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.format.html
 
 import org.jsoup.nodes.Element
+import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.toMarkLogicQueryError
 import uk.co.reecedunn.intellij.plugin.processor.test.TestCase
 import uk.co.reecedunn.intellij.plugin.processor.test.TestSuite
 
@@ -28,4 +29,11 @@ class XRayHtmlTestModule(private val module: Element) : TestSuite {
 
     override val testCases: Sequence<TestCase>
         get() = testCasesList.asSequence()
+
+    override val error: Throwable? by lazy {
+        val error = module.children().takeWhile { it.nodeName() != "h4" }.find {
+            it.nodeName() == "pre" && it.attr("class") == "error"
+        }
+        error?.text()?.toMarkLogicQueryError(null)
+    }
 }

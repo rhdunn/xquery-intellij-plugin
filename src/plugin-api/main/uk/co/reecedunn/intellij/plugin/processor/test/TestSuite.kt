@@ -19,4 +19,6 @@ interface TestSuite {
     val name: String
 
     val testCases: Sequence<TestCase>
+
+    val error: Throwable?
 }

@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.format.text
 
+import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.toMarkLogicQueryError
 import uk.co.reecedunn.intellij.plugin.processor.test.TestCase
 import uk.co.reecedunn.intellij.plugin.processor.test.TestSuite
 
@@ -32,4 +33,14 @@ class XRayTextTestModule(private val module: String) : TestSuite {
 
     override val testCases: Sequence<TestCase>
         get() = testCasesList.asSequence()
+
+    override val error: Throwable? by lazy {
+        val error = module.substringAfter("\n")
+        val start = error.indexOf("<error:error ")
+        val end = error.indexOf("</error:error>")
+        if (error.startsWith("ERROR: ") && start != -1)
+            error.substring(start, end + 14).toMarkLogicQueryError(null)
+        else
+            null
+    }
 }

@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.format.xray
 
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
+import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.toMarkLogicQueryError
 import uk.co.reecedunn.intellij.plugin.processor.test.TestCase
 import uk.co.reecedunn.intellij.plugin.processor.test.TestStatistics
 import uk.co.reecedunn.intellij.plugin.processor.test.TestSuite
@@ -39,4 +40,6 @@ class XRayXmlTestModule(private val module: XmlElement) : TestSuite, TestStatist
 
     override val testCases: Sequence<TestCase>
         get() = testCasesList.asSequence()
+
+    override val error: Throwable? by lazy { module.child("error:error")?.toMarkLogicQueryError(null) }
 }

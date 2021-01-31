@@ -66,6 +66,12 @@ class XRayTestProcessListener(processHandler: ProcessHandler, private val output
     private fun onTestSuite(module: TestSuite) {
         notifyTestSuiteStarted(module.name)
         notifyTextAvailable("Module ${module.name}\n", ProcessOutputType.STDOUT)
+        module.error?.let {
+            val name = module.name.split("/").last()
+            notifyTestStarted(name)
+            notifyTestError(name, it)
+            notifyTestFinished(name)
+        }
         module.testCases.forEach { onTestCase(it) }
         notifyTestSuiteFinished(module.name)
     }

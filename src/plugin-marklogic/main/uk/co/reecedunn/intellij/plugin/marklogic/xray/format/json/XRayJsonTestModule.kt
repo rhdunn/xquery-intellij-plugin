@@ -16,6 +16,8 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.format.json
 
 import com.google.gson.JsonObject
+import uk.co.reecedunn.intellij.plugin.core.gson.getOrNull
+import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.toMarkLogicQueryError
 import uk.co.reecedunn.intellij.plugin.processor.test.TestCase
 import uk.co.reecedunn.intellij.plugin.processor.test.TestStatistics
 import uk.co.reecedunn.intellij.plugin.processor.test.TestSuite
@@ -31,12 +33,27 @@ class XRayJsonTestModule(private val module: JsonObject) : TestSuite, TestStatis
 
     override val failed: Int by lazy { module.get("failed").asString.toInt() }
 
-    override val errors: Int by lazy { module.get("error").asString.toInt() }
+    override val errors: Int by lazy {
+        val error = module.get("error")
+        when {
+            error.isJsonPrimitive -> module.get("error").asString.toInt()
+            error.isJsonObject -> 1
+            else -> 0
+        }
+    }
 
     private val testCasesList by lazy {
-        module.getAsJsonArray("test").map { XRayJsonTest(it.asJsonObject) }.toList()
+        module.getOrNull("test")?.asJsonArray?.map { XRayJsonTest(it.asJsonObject) }?.toList() ?: listOf()
     }
 
     override val testCases: Sequence<TestCase>
         get() = testCasesList.asSequence()
+
+    override val error: Throwable? by lazy {
+        val error = module.get("error")
+        when {
+            error.isJsonObject -> error.asJsonObject.toMarkLogicQueryError(null)
+            else -> null
+        }
+    }
 }
