@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.format.xray
 
+import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.processor.test.TestFailure
 import uk.co.reecedunn.intellij.plugin.processor.test.TestResult
@@ -35,4 +36,11 @@ class XRayXmlTestAssert(private val assertion: XmlElement) : TestFailure {
     }
 
     override val message: String? by lazy { assertion.child("xray:message")?.text() }
+
+    companion object {
+        fun parseList(asserts: String): Sequence<TestFailure> {
+            val doc = XmlDocument.parse("<list>$asserts</list>", XRayXmlFormat.NAMESPACES)
+            return doc.root.children().map { XRayXmlTestAssert(it) }
+        }
+    }
 }

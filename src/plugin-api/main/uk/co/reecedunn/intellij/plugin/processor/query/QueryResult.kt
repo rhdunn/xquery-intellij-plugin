@@ -88,6 +88,8 @@ data class QueryResult(val position: Long, val value: Any, val type: String, val
         const val APPLICATION_JSON = "application/json"
         const val APPLICATION_OCTET_STREAM = "application/octet-stream"
         const val APPLICATION_XML = "application/xml"
+
+        const val TEXT_HTML = "text/html"
         const val TEXT_PLAIN = "text/plain"
     }
 }

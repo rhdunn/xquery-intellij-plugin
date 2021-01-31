@@ -15,22 +15,17 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.format.html
 
-import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
-import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
-import uk.co.reecedunn.intellij.plugin.processor.test.TestFormat
-import uk.co.reecedunn.intellij.plugin.processor.test.TestSuites
+import uk.co.reecedunn.intellij.plugin.processor.test.TestCase
+import uk.co.reecedunn.intellij.plugin.processor.test.TestSuite
 
-object XRayHtmlFormat : TestFormat {
-    override val id: String = "html"
+class XRayHtmlTestModule(private val module: Element) : TestSuite {
+    override val name: String by lazy { module.selectFirst("summary > a").text() }
 
-    override val name: String = "HTML"
-
-    override fun parse(result: QueryResult): TestSuites? {
-        if (result.mimetype != QueryResult.TEXT_HTML) return null
-        val doc = Jsoup.parse(result.value as String)
-        return XRayHtmlTests(doc.selectFirst("html > body"))
+    private val testCasesList by lazy {
+        module.select("h4").map { XRayHtmlTest(it) }
     }
 
-    override fun toString(): String = name
+    override val testCases: Sequence<TestCase>
+        get() = testCasesList.asSequence()
 }
