@@ -610,6 +610,12 @@ matches if the *namespace prefix* of the declaration is the same as the
 An EQName accepts *default element\/type* namespace declarations if it is
 an NCName that is either an *element* or *type*.
 
+An EQName accepts *default element* namespace declarations if it is an NCName
+that is an *element*.
+
+An EQName accepts *default type* namespace declarations if it is an NCName
+that is a *type*.
+
 An EQName accepts *default function declaration* namespace declarations if
 it is an NCName that is a *function declaration*.
 
@@ -726,6 +732,7 @@ The abbreviated syntax permits the following additional abbreviations:
 | `ModuleDecl`           | `XpmNamespaceDeclaration` | default function declaration/reference |
 | `ModuleImport`         | `XpmNamespaceDeclaration` | prefixed                               |
 | `NamespaceDecl`        | `XpmNamespaceDeclaration` | prefixed                               |
+| `NamespaceDeclaration` | `XpmNamespaceDeclaration` | see below                              |
 | `SchemaImport`         | `XpmNamespaceDeclaration` | see below                              |
 | `UsingDecl`            | `XpmNamespaceDeclaration` | default function reference             |
 
@@ -748,6 +755,11 @@ function reference* EQNames.
 If the *prefix* of a `DirAttribute` is `xmlns` then it accepts *prefixed*
 EQNames. If the *local name* is `xmlns` without a prefix then it accepts
 *default element\/type* EQNames. Otherwise, it does not accept any EQNames.
+
+If the *prefix* of a `NamespaceDeclaration` is `xmlns` then it accepts
+*prefixed* EQNames. If the *local name* is `xmlns` without a prefix then
+it accepts *default element* EQNames. Otherwise, it does not accept any
+EQNames.
 
 If a `SchemaImport` contains a `SchemaPrefix` then it accepts *prefixed*
 EQNames. Otherwise, it accepts *default element\/type* EQNames.
