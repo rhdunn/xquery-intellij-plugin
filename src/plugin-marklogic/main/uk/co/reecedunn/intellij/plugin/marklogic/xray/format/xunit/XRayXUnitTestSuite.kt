@@ -17,9 +17,10 @@ package uk.co.reecedunn.intellij.plugin.marklogic.xray.format.xunit
 
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.processor.test.TestCase
+import uk.co.reecedunn.intellij.plugin.processor.test.TestStatistics
 import uk.co.reecedunn.intellij.plugin.processor.test.TestSuite
 
-class XRayXUnitTestSuite(private val suite: XmlElement) : TestSuite {
+class XRayXUnitTestSuite(private val suite: XmlElement) : TestSuite, TestStatistics {
     override val name: String by lazy { suite.attribute("name")!! }
 
     override val total: Int by lazy { suite.attribute("tests")!!.toInt() }

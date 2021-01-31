@@ -17,9 +17,10 @@ package uk.co.reecedunn.intellij.plugin.marklogic.xray.format.xray
 
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.processor.test.TestCase
+import uk.co.reecedunn.intellij.plugin.processor.test.TestStatistics
 import uk.co.reecedunn.intellij.plugin.processor.test.TestSuite
 
-class XRayXmlTestModule(private val module: XmlElement) : TestSuite {
+class XRayXmlTestModule(private val module: XmlElement) : TestSuite, TestStatistics {
     override val name: String by lazy { module.attribute("path")!! }
 
     override val total: Int by lazy { module.attribute("total")!!.toInt() }

@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.format.xunit
 
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
+import uk.co.reecedunn.intellij.plugin.processor.test.TestStatistics
 import uk.co.reecedunn.intellij.plugin.processor.test.TestSuite
 import uk.co.reecedunn.intellij.plugin.processor.test.TestSuites
 
@@ -32,7 +33,7 @@ class XRayXUnitTestSuites(private val suites: XmlElement) : TestSuites {
         // NOTE: The XRay xunit formatter has a bug where the errors attribute
         // does not match the total from the separate test suites. This is
         // because it includes the error:error element inside a failing xray:test.
-        testSuites.sumBy { it.errors }
+        testSuites.sumBy { (it as TestStatistics).errors }
     }
 
     private val testSuitesList by lazy {

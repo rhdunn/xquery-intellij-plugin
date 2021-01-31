@@ -17,9 +17,10 @@ package uk.co.reecedunn.intellij.plugin.marklogic.xray.format.json
 
 import com.google.gson.JsonObject
 import uk.co.reecedunn.intellij.plugin.processor.test.TestCase
+import uk.co.reecedunn.intellij.plugin.processor.test.TestStatistics
 import uk.co.reecedunn.intellij.plugin.processor.test.TestSuite
 
-class XRayJsonTestModule(private val module: JsonObject) : TestSuite {
+class XRayJsonTestModule(private val module: JsonObject) : TestSuite, TestStatistics {
     override val name: String by lazy { module.get("path").asString }
 
     override val total: Int by lazy { module.get("total").asString.toInt() }

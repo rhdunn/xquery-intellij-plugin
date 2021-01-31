@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.test
 
-interface TestSuite : TestStatistics {
+interface TestSuite {
     val name: String
 
     val testCases: Sequence<TestCase>

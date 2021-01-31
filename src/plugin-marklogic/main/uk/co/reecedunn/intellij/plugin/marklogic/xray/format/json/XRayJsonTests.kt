@@ -16,28 +16,29 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.format.json
 
 import com.google.gson.JsonObject
+import uk.co.reecedunn.intellij.plugin.processor.test.TestStatistics
 import uk.co.reecedunn.intellij.plugin.processor.test.TestSuite
 import uk.co.reecedunn.intellij.plugin.processor.test.TestSuites
 
 class XRayJsonTests(private val tests: JsonObject) : TestSuites {
     override val total: Int by lazy {
-        testSuites.sumBy { it.total }
+        testSuites.sumBy { (it as TestStatistics).total }
     }
 
     override val passed: Int by lazy {
-        testSuites.sumBy { it.passed }
+        testSuites.sumBy { (it as TestStatistics).passed }
     }
 
     override val ignored: Int by lazy {
-        testSuites.sumBy { it.ignored }
+        testSuites.sumBy { (it as TestStatistics).ignored }
     }
 
     override val failed: Int by lazy {
-        testSuites.sumBy { it.failed }
+        testSuites.sumBy { (it as TestStatistics).failed }
     }
 
     override val errors: Int by lazy {
-        testSuites.sumBy { it.errors }
+        testSuites.sumBy { (it as TestStatistics).errors }
     }
 
     private val testSuitesList by lazy {
