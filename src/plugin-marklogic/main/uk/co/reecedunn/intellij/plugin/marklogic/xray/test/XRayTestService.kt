@@ -77,7 +77,7 @@ class XRayTestService(private val project: Project) {
         private const val XRAY_XQY = "xray.xqy"
 
         private const val TEST_NAMESPACE = "http://github.com/robwhitby/xray/test"
-        private const val TEST_CASE_LOCAL_NAME = "case"
+        private val TEST_CASE_LOCAL_NAMES = setOf("case", "ignore")
 
         fun isTestModule(file: PsiFile): Boolean {
             val module = (file as? XQueryModule)?.children()?.filterIsInstance<XQueryLibraryModule>()?.firstOrNull()
@@ -98,8 +98,8 @@ class XRayTestService(private val project: Project) {
 
         private fun isTestCaseAnnotation(annotation: XdmAnnotation): Boolean {
             val name = annotation.name
-            if (name?.localName?.data == TEST_CASE_LOCAL_NAME) {
-                return name.expand().find { it.namespace?.data == TEST_NAMESPACE } != null
+            if (name?.localName?.data in TEST_CASE_LOCAL_NAMES) {
+                return name!!.expand().find { it.namespace?.data == TEST_NAMESPACE } != null
             }
             return false
         }
