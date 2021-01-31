@@ -58,7 +58,7 @@ class MimeResponseTest : IdeaPlatformTestCase() {
         val headers = arrayOf<Header>(
             BasicHeader("Content-Length", body.length.toString())
         )
-        val results = MimeResponse(StringMessage(headers, body), Charsets.ISO_8859_1).queryResults(testFile).toList()
+        val results = MimeResponse(StringMessage(headers, body)).queryResults(testFile).toList()
         assertThat(results.size, `is`(0))
     }
 
@@ -80,7 +80,7 @@ class MimeResponseTest : IdeaPlatformTestCase() {
             BasicHeader("Content-Type", "multipart/mixed; boundary=f260e14402e96a50"),
             BasicHeader("Content-Length", body.length.toString())
         )
-        val results = MimeResponse(StringMessage(headers, body), Charsets.ISO_8859_1).queryResults(testFile).toList()
+        val results = MimeResponse(StringMessage(headers, body)).queryResults(testFile).toList()
         assertThat(results.size, `is`(1))
 
         assertThat(results[0].position, `is`(0L))
@@ -117,7 +117,7 @@ class MimeResponseTest : IdeaPlatformTestCase() {
             BasicHeader("Content-Type", "multipart/mixed; boundary=869b5d54aa36954a"),
             BasicHeader("Content-Length", body.length.toString())
         )
-        val results = MimeResponse(StringMessage(headers, body), Charsets.ISO_8859_1).queryResults(testFile).toList()
+        val results = MimeResponse(StringMessage(headers, body)).queryResults(testFile).toList()
         assertThat(results.size, `is`(3))
 
         assertThat(results[0].position, `is`(0L))
@@ -161,7 +161,7 @@ class MimeResponseTest : IdeaPlatformTestCase() {
             BasicHeader("Content-Type", "multipart/mixed; boundary=3734bc5a2395b3de"),
             BasicHeader("Content-Length", body.length.toString())
         )
-        val results = MimeResponse(StringMessage(headers, body), Charsets.ISO_8859_1).queryResults(testFile).toList()
+        val results = MimeResponse(StringMessage(headers, body)).queryResults(testFile).toList()
         assertThat(results.size, `is`(2))
 
         assertThat(results[0].position, `is`(0L))
@@ -194,7 +194,7 @@ class MimeResponseTest : IdeaPlatformTestCase() {
             BasicHeader("Content-Type", "multipart/mixed; boundary=b857af6eabb53cb2"),
             BasicHeader("Content-Length", body.length.toString())
         )
-        val results = MimeResponse(StringMessage(headers, body), Charsets.ISO_8859_1).queryResults(testFile).toList()
+        val results = MimeResponse(StringMessage(headers, body)).queryResults(testFile).toList()
         assertThat(results.size, `is`(1))
 
         assertThat(results[0].position, `is`(0L))
@@ -234,7 +234,7 @@ class MimeResponseTest : IdeaPlatformTestCase() {
             BasicHeader("Content-Length", body.length.toString())
         )
         val e: QueryError = Assertions.assertThrows(QueryError::class.java) {
-            MimeResponse(StringMessage(headers, body), Charsets.ISO_8859_1).queryResults(testFile).toList()
+            MimeResponse(StringMessage(headers, body)).queryResults(testFile).toList()
         }
 
         assertThat(e.description, `is`("Division by zero"))
@@ -266,13 +266,43 @@ class MimeResponseTest : IdeaPlatformTestCase() {
             BasicHeader("Content-Type", "multipart/mixed; boundary=40d8fa04d13bdcb1"),
             BasicHeader("Content-Length", body.length.toString())
         )
-        val results = MimeResponse(StringMessage(headers, body), Charsets.ISO_8859_1).queryResults(testFile).toList()
+        val results = MimeResponse(StringMessage(headers, body)).queryResults(testFile).toList()
         assertThat(results.size, `is`(1))
 
         assertThat(results[0].position, `is`(0L))
         assertThat(results[0].value, `is`("strong { font-weight: bold; }"))
         assertThat(results[0].type, `is`("xs:string"))
         assertThat(results[0].mimetype, `is`("text/css"))
+    }
+
+    @Test
+    @DisplayName("xdmp:set-response-content-type -- Custom Content-Type header with non-ASCII characters")
+    fun responseContentTypeWithNonAsciiCharacters() {
+        val testFile = LightVirtualFile(
+            "test.xq", XQuery, "xdmp:set-response-content-type(\"text/html; charset=URF-8\"), <p>a\u00a0b</p>"
+        )
+        val body = listOf(
+            "",
+            "--40d8fa04d13bdcb1",
+            "Content-Type: text/plain",
+            "X-Primitive: string",
+            "",
+            "<p>a\u00a0b</p>",
+            "--40d8fa04d13bdcb1--",
+            ""
+        ).joinToString("\r\n")
+        val headers = arrayOf<Header>(
+            BasicHeader("Content-type", "text/html; charset=UTF-8"),
+            BasicHeader("Content-Type", "multipart/mixed; boundary=40d8fa04d13bdcb1"),
+            BasicHeader("Content-Length", body.length.toString())
+        )
+        val results = MimeResponse(StringMessage(headers, body)).queryResults(testFile).toList()
+        assertThat(results.size, `is`(1))
+
+        assertThat(results[0].position, `is`(0L))
+        assertThat(results[0].value, `is`("<p>a\u00a0b</p>"))
+        assertThat(results[0].type, `is`("xs:string"))
+        assertThat(results[0].mimetype, `is`("text/html"))
     }
 
     @Test
@@ -306,7 +336,7 @@ class MimeResponseTest : IdeaPlatformTestCase() {
             BasicHeader("Content-Type", "multipart/mixed; boundary=b54154d3ae21a0f1"),
             BasicHeader("Content-Length", body.length.toString())
         )
-        val results = MimeResponse(StringMessage(headers, body), Charsets.ISO_8859_1).queryResults(testFile).toList()
+        val results = MimeResponse(StringMessage(headers, body)).queryResults(testFile).toList()
         assertThat(results.size, `is`(2))
 
         assertThat(results[0].position, `is`(0L))
@@ -348,7 +378,7 @@ class MimeResponseTest : IdeaPlatformTestCase() {
             BasicHeader("Content-Type", "multipart/mixed; boundary=e59349f9cdb07885"),
             BasicHeader("Content-Length", body.length.toString())
         )
-        val results = MimeResponse(StringMessage(headers, body), Charsets.ISO_8859_1).queryResults(testFile).toList()
+        val results = MimeResponse(StringMessage(headers, body)).queryResults(testFile).toList()
         assertThat(results.size, `is`(1))
 
         val value = listOf(

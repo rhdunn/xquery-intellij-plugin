@@ -98,7 +98,7 @@ internal class MarkLogicRunQuery(
     override fun run(): QueryResults {
         val (statusLine, message) = connection.execute(request()).toStringMessage()
         return if (queryId != null) {
-            val results = MimeResponse(message, Charsets.UTF_8).queryResults(queryFile).iterator()
+            val results = MimeResponse(message).queryResults(queryFile).iterator()
             val duration = (results.next().value as String).toXsDuration() ?: XsDuration.ZERO
             QueryResults(statusLine, results.asSequence().toList(), duration)
         } else {
@@ -114,7 +114,7 @@ internal class MarkLogicRunQuery(
         }
 
         return try {
-            MimeResponse(message, Charsets.UTF_8).queryResults(queryFile)
+            MimeResponse(message).queryResults(queryFile)
             null
         } catch (e: QueryError) {
             e

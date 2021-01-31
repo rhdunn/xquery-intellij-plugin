@@ -102,7 +102,7 @@ internal class MarkLogicDebugQuery(
 
     override fun run(): QueryResults {
         val (statusLine, message) = connection.execute(request()).toStringMessage()
-        val id = MimeResponse(message, Charsets.UTF_8).queryResults(queryFile).first()
+        val id = MimeResponse(message).queryResults(queryFile).first()
         (session as MarkLogicDebugSession).run(id.value as String)
         return QueryResults(statusLine, listOf(), XsDuration.ZERO)
     }

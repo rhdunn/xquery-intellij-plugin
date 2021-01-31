@@ -99,6 +99,7 @@
     <ol>
       <li>Support using the modules database for selected MarkLogic app-server.</li>
       <li>Filter the app-servers to the ones that match the selected database.</li>
+      <li>Fix some encoding issues in handling UTF-8 output for MarkLogic.</li>
     </ol>
   ]]></change-notes>
 

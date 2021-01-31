@@ -27,6 +27,7 @@ Run Configuration:
 
 1. Support using the modules database for selected MarkLogic app-server.
 1. Filter the app-servers to the ones that match the selected database.
+1. Fix some encoding issues in handling UTF-8 output for MarkLogic.
 
 ## 2020
 

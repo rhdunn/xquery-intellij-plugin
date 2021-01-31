@@ -104,7 +104,7 @@ internal class MarkLogicProfileQuery(
                 throw HttpStatusException(statusLine.statusCode, statusLine.reasonPhrase)
             }
 
-            val results = MimeResponse(message, Charsets.UTF_8).queryResults(queryFile).iterator()
+            val results = MimeResponse(message).queryResults(queryFile).iterator()
             val report = (results.next().value as String).toMarkLogicProfileReport(queryFile)
             ProfileQueryResults(results.asSequence().toList(), report)
         } else {

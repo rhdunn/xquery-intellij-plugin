@@ -18,13 +18,10 @@ package uk.co.reecedunn.intellij.plugin.core.http.mime
 import org.apache.http.Header
 import org.apache.http.message.BasicHeader
 import uk.co.reecedunn.intellij.plugin.core.http.StringMessage
-import java.nio.charset.Charset
 
 import java.util.ArrayList
 
-private fun String.decode(charset: Charset): String = String(toByteArray(Charsets.ISO_8859_1), charset)
-
-class MimeResponse(private val message: StringMessage, private val defaultEncoding: Charset) {
+class MimeResponse(private val message: StringMessage) {
     val parts: Array<StringMessage>
 
     init {
@@ -37,7 +34,7 @@ class MimeResponse(private val message: StringMessage, private val defaultEncodi
                 .asSequence()
                 .filter { it.isNotEmpty() && it != "--\r\n" }
                 .map { it.split("\r\n\r\n".toRegex(), 2) }
-                .mapTo(messages) { StringMessage(parseHeaders(it[0]), it[1].decode(defaultEncoding)) }
+                .mapTo(messages) { StringMessage(parseHeaders(it[0]), it[1]) }
         } else {
             messages.add(message)
         }
