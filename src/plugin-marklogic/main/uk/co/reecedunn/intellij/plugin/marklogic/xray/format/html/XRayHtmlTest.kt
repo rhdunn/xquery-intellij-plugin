@@ -37,7 +37,7 @@ class XRayHtmlTest(private val test: Element) : TestCase {
     }
 
     private val failuresList by lazy {
-        test.nextElementSiblings().takeWhile { it.nodeName() != "h4" }.flatMap {
+        test.nextElementSiblings().asSequence().takeWhile { it.nodeName() != "h4" }.flatMap {
             when {
                 it.nodeName() == "pre" && it.attr("class") != "error" -> {
                     val text = it.text()
@@ -48,7 +48,7 @@ class XRayHtmlTest(private val test: Element) : TestCase {
                 }
                 else -> emptySequence()
             }
-        }
+        }.toList()
     }
 
     override val failures: Sequence<TestFailure>
