@@ -22,6 +22,7 @@ XRay Unit Tests:
 1. Add an XRay run configuration.
 1. Support running XRay unit tests.
 1. Add run actions in the line marker area.
+1. Report test status in the run console.
 
 Run Configuration:
 

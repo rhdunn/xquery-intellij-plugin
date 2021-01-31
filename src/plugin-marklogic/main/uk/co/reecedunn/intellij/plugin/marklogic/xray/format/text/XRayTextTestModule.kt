@@ -15,19 +15,21 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.format.text
 
-import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
-import uk.co.reecedunn.intellij.plugin.processor.test.TestFormat
-import uk.co.reecedunn.intellij.plugin.processor.test.TestSuites
+import uk.co.reecedunn.intellij.plugin.processor.test.TestCase
+import uk.co.reecedunn.intellij.plugin.processor.test.TestSuite
 
-object XRayTextFormat : TestFormat {
-    override val id: String = "text"
+class XRayTextTestModule(private val module: String) : TestSuite {
+    override val name: String by lazy { module.substringBefore("\n").substringAfter("Module ") }
 
-    override val name: String = "Text"
-
-    override fun parse(result: QueryResult): TestSuites? {
-        if (result.mimetype != QueryResult.TEXT_PLAIN) return null
-        return XRayTextTests(result.value as String)
+    private val testCasesList by lazy {
+        module.substringAfter("\n").split("\n-- ").mapNotNull {
+            if (it.startsWith("ERROR: "))
+                null
+            else
+                XRayTextTest(it)
+        }
     }
 
-    override fun toString(): String = name
+    override val testCases: Sequence<TestCase>
+        get() = testCasesList.asSequence()
 }
