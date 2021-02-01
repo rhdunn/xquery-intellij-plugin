@@ -27,10 +27,10 @@ import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.json.XRayJsonFormat
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.text.XRayTextFormat
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.xray.XRayXmlFormat
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.xunit.XRayXUnitFormat
+import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.model.ServerComboBoxModel
 import uk.co.reecedunn.intellij.plugin.processor.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessorComboBox
 import uk.co.reecedunn.intellij.plugin.processor.query.populateDatabaseUI
-import uk.co.reecedunn.intellij.plugin.processor.query.populateServerUI
 import uk.co.reecedunn.intellij.plugin.processor.test.TestFormat
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurations
 import javax.swing.JComboBox
@@ -64,11 +64,14 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
             label(PluginApiBundle.message("xquery.configurations.processor.content-database.label"), column.vgap())
             database = comboBox(column.horizontal().hgap().vgap()) {
                 addActionListener {
-                    server.populateServerUI(queryProcessor.settings, database.selectedItem as? String? ?: "")
+                    val database = database.selectedItem as? String? ?: ""
+                    (server.model as ServerComboBoxModel).update(queryProcessor.settings, database)
                 }
             }
             label(PluginApiBundle.message("xquery.configurations.processor.server.label"), column.hgap().vgap())
-            server = comboBox(column.horizontal().hgap().vgap())
+            server = comboBox(column.horizontal().hgap().vgap()) {
+                model = ServerComboBoxModel()
+            }
         }
         row {
             label(PluginApiBundle.message("xquery.configurations.processor.module-root.label"), column.vgap())
@@ -118,7 +121,7 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
     override fun resetEditorFrom(settings: XRayTestConfiguration) {
         queryProcessor.processorId = settings.processorId
         database.selectOrAddItem(settings.database)
-        server.selectOrAddItem(settings.server)
+        (server.model as ServerComboBoxModel).defaultSelection = settings.server
         modulePath.textField.text = settings.modulePath ?: ""
         testPath.textField.text = settings.testPath ?: projectRoot ?: ""
         modulePattern.text = settings.modulePattern ?: ""

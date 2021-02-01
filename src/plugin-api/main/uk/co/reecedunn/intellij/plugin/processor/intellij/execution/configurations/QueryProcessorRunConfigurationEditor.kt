@@ -28,11 +28,11 @@ import uk.co.reecedunn.intellij.plugin.core.ui.selectOrAddItem
 import uk.co.reecedunn.intellij.plugin.processor.intellij.lang.RDF_FORMATS
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.QueryProcessorDataSource
+import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.model.ServerComboBoxModel
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.queryProcessorDataSource
 import uk.co.reecedunn.intellij.plugin.processor.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.*
 import uk.co.reecedunn.intellij.plugin.processor.query.populateDatabaseUI
-import uk.co.reecedunn.intellij.plugin.processor.query.populateServerUI
 import javax.swing.*
 
 class QueryProcessorRunConfigurationEditor(private val project: Project, private vararg val languages: Language) :
@@ -66,11 +66,14 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
             label(PluginApiBundle.message("xquery.configurations.processor.content-database.label"), column.vgap())
             database = comboBox(column.horizontal().hgap().vgap()) {
                 addActionListener {
-                    server.populateServerUI(queryProcessor.settings, database.selectedItem as? String? ?: "")
+                    val database = database.selectedItem as? String? ?: ""
+                    (server.model as ServerComboBoxModel).update(queryProcessor.settings, database)
                 }
             }
             label(PluginApiBundle.message("xquery.configurations.processor.server.label"), column.hgap().vgap())
-            server = comboBox(column.horizontal().hgap().vgap())
+            server = comboBox(column.horizontal().hgap().vgap()) {
+                model = ServerComboBoxModel()
+            }
         }
         row {
             label(PluginApiBundle.message("xquery.configurations.processor.module-root.label"), column.vgap())
@@ -211,7 +214,7 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
         queryProcessor.processorId = configuration.processorId
         rdfOutputFormat.selectedItem = configuration.rdfOutputFormat
         database.selectOrAddItem(configuration.database)
-        server.selectOrAddItem(configuration.server)
+        (server.model as ServerComboBoxModel).defaultSelection = configuration.server
         modulePath.textField.text = configuration.modulePath ?: ""
         scriptFile.type = configuration.scriptSource
         scriptFile.path = configuration.scriptFilePath

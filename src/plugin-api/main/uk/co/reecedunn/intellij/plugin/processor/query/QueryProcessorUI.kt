@@ -18,13 +18,6 @@ package uk.co.reecedunn.intellij.plugin.processor.query
 import uk.co.reecedunn.intellij.plugin.core.ui.replaceItemsOnPooledThread
 import javax.swing.JComboBox
 
-fun JComboBox<String>.populateServerUI(settings: QueryProcessorSettings?, database: String) {
-    if (settings == null) return
-    replaceItemsOnPooledThread({ settings.session.servers(database) }) {
-        isEnabled = itemCount > 1
-    }
-}
-
 fun JComboBox<String>.populateDatabaseUI(settings: QueryProcessorSettings?) {
     if (settings == null) return
     replaceItemsOnPooledThread { settings.session.databases }
