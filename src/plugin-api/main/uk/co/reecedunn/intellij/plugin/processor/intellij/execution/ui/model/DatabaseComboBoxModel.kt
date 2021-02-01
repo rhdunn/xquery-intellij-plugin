@@ -44,7 +44,7 @@ class DatabaseComboBoxModel : AbstractListModel<String>(), ComboBoxModel<String>
         return when {
             databases.isEmpty() -> selected
             databases.contains(selected) -> selected
-            else -> null
+            else -> databases.first()
         }
     }
 

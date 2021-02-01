@@ -44,7 +44,7 @@ class ServerComboBoxModel : AbstractListModel<String>(), ComboBoxModel<String> {
         return when {
             servers.isEmpty() -> selected
             servers.contains(selected) -> selected
-            else -> null
+            else -> servers.first()
         }
     }
 
