@@ -24,15 +24,14 @@ import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.core.fileChooser.FileNameMatcherDescriptor
 import uk.co.reecedunn.intellij.plugin.core.lang.*
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
-import uk.co.reecedunn.intellij.plugin.core.ui.selectOrAddItem
 import uk.co.reecedunn.intellij.plugin.processor.intellij.lang.RDF_FORMATS
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.QueryProcessorDataSource
+import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.model.DatabaseComboBoxModel
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.model.ServerComboBoxModel
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.queryProcessorDataSource
 import uk.co.reecedunn.intellij.plugin.processor.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.*
-import uk.co.reecedunn.intellij.plugin.processor.query.populateDatabaseUI
 import javax.swing.*
 
 class QueryProcessorRunConfigurationEditor(private val project: Project, private vararg val languages: Language) :
@@ -59,12 +58,13 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
             add(queryProcessor.component, column.spanCols().horizontal().hgap().vgap())
             queryProcessor.addActionListener {
                 updateUI(false)
-                database.populateDatabaseUI(queryProcessor.settings)
+                (database.model as DatabaseComboBoxModel).update(queryProcessor.settings)
             }
         }
         row {
             label(PluginApiBundle.message("xquery.configurations.processor.content-database.label"), column.vgap())
             database = comboBox(column.horizontal().hgap().vgap()) {
+                model = DatabaseComboBoxModel()
                 addActionListener {
                     val database = database.selectedItem as? String? ?: ""
                     (server.model as ServerComboBoxModel).update(queryProcessor.settings, database)
@@ -213,7 +213,7 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
     override fun resetEditorFrom(configuration: QueryProcessorRunConfiguration) {
         queryProcessor.processorId = configuration.processorId
         rdfOutputFormat.selectedItem = configuration.rdfOutputFormat
-        database.selectOrAddItem(configuration.database)
+        (database.model as DatabaseComboBoxModel).defaultSelection = configuration.database
         (server.model as ServerComboBoxModel).defaultSelection = configuration.server
         modulePath.textField.text = configuration.modulePath ?: ""
         scriptFile.type = configuration.scriptSource

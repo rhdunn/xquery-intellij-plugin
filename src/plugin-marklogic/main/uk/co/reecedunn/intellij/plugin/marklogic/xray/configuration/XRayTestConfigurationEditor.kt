@@ -21,16 +21,15 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
-import uk.co.reecedunn.intellij.plugin.core.ui.selectOrAddItem
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.html.XRayHtmlFormat
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.json.XRayJsonFormat
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.text.XRayTextFormat
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.xray.XRayXmlFormat
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.xunit.XRayXUnitFormat
+import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.model.DatabaseComboBoxModel
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.model.ServerComboBoxModel
 import uk.co.reecedunn.intellij.plugin.processor.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessorComboBox
-import uk.co.reecedunn.intellij.plugin.processor.query.populateDatabaseUI
 import uk.co.reecedunn.intellij.plugin.processor.test.TestFormat
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurations
 import javax.swing.JComboBox
@@ -57,12 +56,13 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
             queryProcessor = QueryProcessorComboBox(project)
             add(queryProcessor.component, column.spanCols().horizontal().hgap().vgap())
             queryProcessor.addActionListener {
-                database.populateDatabaseUI(queryProcessor.settings)
+                (database.model as DatabaseComboBoxModel).update(queryProcessor.settings)
             }
         }
         row {
             label(PluginApiBundle.message("xquery.configurations.processor.content-database.label"), column.vgap())
             database = comboBox(column.horizontal().hgap().vgap()) {
+                model = DatabaseComboBoxModel()
                 addActionListener {
                     val database = database.selectedItem as? String? ?: ""
                     (server.model as ServerComboBoxModel).update(queryProcessor.settings, database)
@@ -120,7 +120,7 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
 
     override fun resetEditorFrom(settings: XRayTestConfiguration) {
         queryProcessor.processorId = settings.processorId
-        database.selectOrAddItem(settings.database)
+        (database.model as DatabaseComboBoxModel).defaultSelection = settings.database
         (server.model as ServerComboBoxModel).defaultSelection = settings.server
         modulePath.textField.text = settings.modulePath ?: ""
         testPath.textField.text = settings.testPath ?: projectRoot ?: ""
