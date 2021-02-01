@@ -10,22 +10,37 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v2
+      - name: Source Code Checkout
+        uses: actions/checkout@v2
 
       - name: Setup JDK
         uses: actions/setup-java@v1
         with:
           java-version: 11
 
+      - name: Create a Gradle Wrapper
         # Use a null gradle file so gradle < 4.6 does not fail parsing 'useJUnitPlatform()'.
-      - name: Create a gradle wrapper
         run: touch null.gradle ; gradle -b null.gradle wrapper --gradle-version 5.3 ; rm null.gradle
 
-      - name: Gradle version
+      - name: Cache Gradle Packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.gradle/caches ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: ${{ runner.os }}-gradle-
+
+      - name: Gradle Version
         run: ./gradlew --version
 
       - name: Build with Gradle
         run: ./gradlew :assemble
 
-      - name: Tests
+      - name: Run Tests
         run: ./gradlew test
+
+      - name: Cleanup Gradle Cache
+        # Remove some files from the Gradle cache, so they aren't cached by GitHub Actions.
+        # Restoring these files from a GitHub Actions cache might cause problems for future builds.
+        run: |
+          rm -f ~/.gradle/caches/modules-2/modules-2.lock
+          rm -f ~/.gradle/caches/modules-2/gc.properties
