@@ -42,6 +42,7 @@ class ServerComboBoxModel : AbstractListModel<String>(), ComboBoxModel<String> {
     override fun getSelectedItem(): Any? {
         val selected = selected ?: defaultSelection
         return when {
+            servers.isEmpty() -> selected
             servers.contains(selected) -> selected
             else -> null
         }

@@ -42,6 +42,7 @@ class DatabaseComboBoxModel : AbstractListModel<String>(), ComboBoxModel<String>
     override fun getSelectedItem(): Any? {
         val selected = selected ?: defaultSelection
         return when {
+            databases.isEmpty() -> selected
             databases.contains(selected) -> selected
             else -> null
         }
