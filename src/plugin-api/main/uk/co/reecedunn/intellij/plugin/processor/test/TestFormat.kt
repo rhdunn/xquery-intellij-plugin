@@ -15,12 +15,15 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.test
 
+import com.intellij.lang.Language
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 
 interface TestFormat {
     val id: String
 
     val name: String
+
+    val language: Language
 
     fun parse(result: QueryResult): TestSuites?
 }

@@ -16,6 +16,8 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.format.json
 
 import com.google.compat.gson.JsonParser
+import com.intellij.json.JsonLanguage
+import com.intellij.lang.Language
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.test.TestFormat
 import uk.co.reecedunn.intellij.plugin.processor.test.TestSuites
@@ -24,6 +26,8 @@ object XRayJsonFormat : TestFormat {
     override val id: String = "json"
 
     override val name: String = "JSON"
+
+    override val language: Language by lazy { JsonLanguage.INSTANCE }
 
     override fun parse(result: QueryResult): TestSuites? {
         if (result.mimetype != QueryResult.APPLICATION_JSON) return null

@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.format.xunit
 
+import com.intellij.lang.Language
+import com.intellij.lang.xml.XMLLanguage
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.test.TestFormat
@@ -24,6 +26,8 @@ object XRayXUnitFormat : TestFormat {
     override val id: String = "xunit"
 
     override val name: String = "xUnit XML"
+
+    override val language: Language by lazy { XMLLanguage.INSTANCE }
 
     override fun parse(result: QueryResult): TestSuites? {
         if (result.mimetype != QueryResult.APPLICATION_XML) return null

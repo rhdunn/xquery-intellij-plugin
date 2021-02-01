@@ -15,8 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.format.html
 
+import com.intellij.lang.Language
+import com.intellij.lang.html.HTMLLanguage
 import org.jsoup.Jsoup
-import org.jsoup.nodes.Element
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.test.TestFormat
 import uk.co.reecedunn.intellij.plugin.processor.test.TestSuites
@@ -25,6 +26,8 @@ object XRayHtmlFormat : TestFormat {
     override val id: String = "html"
 
     override val name: String = "HTML"
+
+    override val language: Language by lazy { HTMLLanguage.INSTANCE }
 
     override fun parse(result: QueryResult): TestSuites? {
         if (result.mimetype != QueryResult.TEXT_HTML) return null

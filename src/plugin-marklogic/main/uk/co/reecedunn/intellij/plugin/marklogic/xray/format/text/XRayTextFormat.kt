@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.format.text
 
+import com.intellij.lang.Language
+import com.intellij.openapi.fileTypes.PlainTextLanguage
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.test.TestFormat
 import uk.co.reecedunn.intellij.plugin.processor.test.TestSuites
@@ -23,6 +25,8 @@ object XRayTextFormat : TestFormat {
     override val id: String = "text"
 
     override val name: String = "Text"
+
+    override val language: Language by lazy { PlainTextLanguage.INSTANCE }
 
     override fun parse(result: QueryResult): TestSuites? {
         if (result.mimetype != QueryResult.TEXT_PLAIN) return null
