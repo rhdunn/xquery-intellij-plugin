@@ -7,16 +7,33 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        idea-version: [ IC-2019.2, IC-2020.2, LATEST-EAP-SNAPSHOT ]
+        include:
+          - os: ubuntu-latest
+            java-version: 1.8
+            idea-version: IC-2019.2
+          - os: ubuntu-latest
+            java-version: 11
+            idea-version: IC-2020.2
+          - os: ubuntu-latest
+            java-version: 11
+            idea-version: LATEST-EAP-SNAPSHOT
+
+    runs-on: ${{ matrix.os }}
     timeout-minutes: 30
+    env:
+      IDEA_VERSION: ${{ matrix.idea-version }}
     steps:
       - name: Source Code Checkout
         uses: actions/checkout@v2
 
-      - name: Setup JDK
+      - name: Setup JDK ${{ matrix.java-version }}
         uses: actions/setup-java@v1
         with:
-          java-version: 11
+          java-version: ${{ matrix.java-version }}
 
       - name: Create a Gradle Wrapper
         # Use a null gradle file so gradle < 4.6 does not fail parsing 'useJUnitPlatform()'.
@@ -26,8 +43,8 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.gradle/caches ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: ${{ runner.os }}-gradle-
+          key: ${{ runner.os }}-gradle-${{ matrix.idea-version }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: ${{ runner.os }}-gradle-${{ matrix.idea-version }}-
 
       - name: Gradle Version
         run: ./gradlew --version
