@@ -21,8 +21,11 @@ import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.execution.ui.RunnerLayoutUi
 import com.intellij.icons.AllIcons
 import com.intellij.openapi.actionSystem.AnAction
+import com.intellij.openapi.fileEditor.impl.FileDocumentManagerImpl
+import com.intellij.openapi.fileTypes.FileTypeEditorHighlighterProviders
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiFile
+import com.intellij.psi.PsiFileFactory
 import com.intellij.ui.content.Content
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ContentProvider
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.TextConsoleView
@@ -70,12 +73,25 @@ class TestConsoleOutputView(project: Project, private val outputFormat: TestForm
     // endregion
     // region QueryResultListener
 
+    private var psiFile: PsiFile? = null
+
     override fun onBeginResults() {
+        psiFile = null
         clear()
     }
 
     override fun onEndResults(): PsiFile? {
-        return null
+        val doc = editor?.document ?: return null
+        val language = outputFormat.language
+
+        language.associatedFileType!!.let {
+            val provider = FileTypeEditorHighlighterProviders.INSTANCE.forFileType(it)
+            editor!!.highlighter = provider.getEditorHighlighter(project, it, null, editor!!.colorsScheme)
+        }
+
+        psiFile = PsiFileFactory.getInstance(project).createFileFromText(language, doc.text) ?: return null
+        psiFile!!.viewProvider.virtualFile.putUserData(FileDocumentManagerImpl.HARD_REF_TO_DOCUMENT_KEY, doc)
+        return psiFile
     }
 
     override fun onQueryResult(result: QueryResult) {
