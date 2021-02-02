@@ -101,13 +101,14 @@ class MarkLogicVariable private constructor(
         private val XS_INTEGER = "^[-]?[0-9]+$".toRegex()
 
         fun create(variable: XmlElement, evaluator: XDebuggerEvaluator? = null): MarkLogicVariable {
-            val localName = XsNCName(variable.child("name")?.text()!!)
-            val namespace = variable.child("name")?.element?.namespaceURI?.nullize()?.let {
+            val name = variable.child("*:name")
+            val localName = XsNCName(name?.text()!!)
+            val namespace = name.element.namespaceURI?.nullize()?.let {
                 XsAnyUri(it, XdmUriContext.Namespace, XdmModuleType.XPATH_OR_XQUERY)
             }
-            val prefix = variable.child("prefix")?.text()?.let { XsNCName(it) }
+            val prefix = variable.child("dbg:prefix")?.text()?.let { XsNCName(it) }
             val qname = XsQName(namespace, prefix, localName, prefix != null || namespace == null)
-            val value = variable.child("value")?.text()?.nullize()
+            val value = variable.child("dbg:value")?.text()?.nullize()
             return MarkLogicVariable(qname, value, evaluator)
         }
     }

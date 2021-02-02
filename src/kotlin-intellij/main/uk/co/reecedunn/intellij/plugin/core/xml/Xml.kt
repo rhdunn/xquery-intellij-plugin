@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017-2020 Reece H. Dunn
+ * Copyright (C) 2017-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,6 +43,7 @@ fun NodeList.asSequence(): Sequence<Node> = NodeListIterator(this).asSequence()
 fun <E> NodeList.elements(map: (Element) -> E): Sequence<E> = asSequence().filterIsInstance<Element>().map(map)
 
 fun String.toQName(namespaces: Map<String, String>): QName = when {
+    startsWith("*:") -> split(":").let { QName(it[0], it[1], it[0]) }
     contains(':') -> split(":").let { QName(namespaces[it[0]], it[1], it[0]) }
     else -> QName(this)
 }
@@ -52,10 +53,7 @@ class XmlElement(val element: Element, private val namespaces: Map<String, Strin
 
     fun children(qname: String): Sequence<XmlElement> = children(qname.toQName(namespaces))
 
-    fun children(qname: QName): Sequence<XmlElement> = when {
-        qname.namespaceURI.isEmpty() -> element.getElementsByTagName(qname.localPart)
-        else -> element.getElementsByTagNameNS(qname.namespaceURI, qname.localPart)
-    }.elements { XmlElement(it, namespaces) }
+    fun children(qname: QName): Sequence<XmlElement> = children().filter { it.`is`(qname) }
 
     fun child(qname: String): XmlElement? = children(qname).firstOrNull()
 
@@ -74,8 +72,9 @@ class XmlElement(val element: Element, private val namespaces: Map<String, Strin
 
     fun `is`(qname: String): Boolean = `is`(qname.toQName(namespaces))
 
-    fun `is`(qname: QName): Boolean {
-        return element.localName == qname.localPart && (element.namespaceURI ?: "") == qname.namespaceURI
+    fun `is`(qname: QName): Boolean = when (qname.namespaceURI) {
+        "*" -> element.localName == qname.localPart
+        else -> element.localName == qname.localPart && (element.namespaceURI ?: "") == qname.namespaceURI
     }
 
     fun xml(): String {

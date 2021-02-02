@@ -19,11 +19,11 @@ import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 
 data class EXPathPackageDtd(private val xml: XmlElement) : EXPathPackageComponent {
-    val publicId: String? by lazy { xml.children("public-id").firstOrNull()?.text() }
+    val publicId: String? by lazy { xml.children("pkg:public-id").firstOrNull()?.text() }
 
-    val systemId: String? by lazy { xml.children("system-id").firstOrNull()?.text() }
+    val systemId: String? by lazy { xml.children("pkg:system-id").firstOrNull()?.text() }
 
     override val moduleType: XdmModuleType = XdmModuleType.DTD
 
-    override val file: String? by lazy { xml.children("file").firstOrNull()?.text() }
+    override val file: String? by lazy { xml.children("pkg:file").firstOrNull()?.text() }
 }

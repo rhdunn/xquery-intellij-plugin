@@ -52,16 +52,16 @@ data class EXPathPackage internal constructor(
 
     val spec: String? by lazy { descriptor.root.attribute("spec") }
 
-    val title: String? by lazy { descriptor.root.children("title").firstOrNull()?.text() }
+    val title: String? by lazy { descriptor.root.children("pkg:title").firstOrNull()?.text() }
 
     val home: XsAnyUriValue? by lazy {
-        descriptor.root.children("home").firstOrNull()?.text()?.let {
+        descriptor.root.children("pkg:home").firstOrNull()?.text()?.let {
             XsAnyUri(it, XdmUriContext.Package, XdmModuleType.NONE)
         }
     }
 
     val dependencies: List<EXPathPackageDependency> by lazy {
-        descriptor.root.children("dependency").map { EXPathPackageDependency(it) }.toList()
+        descriptor.root.children("pkg:dependency").map { EXPathPackageDependency(it) }.toList()
     }
 
     val components: List<EXPathPackageComponent> by lazy {

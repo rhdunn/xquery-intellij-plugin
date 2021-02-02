@@ -42,5 +42,5 @@ data class EXPathPackageImport(
         }
     }
 
-    override val file: String? by lazy { xml.children("file").firstOrNull()?.text() }
+    override val file: String? by lazy { xml.children("pkg:file").firstOrNull()?.text() }
 }

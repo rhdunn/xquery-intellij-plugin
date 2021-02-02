@@ -23,12 +23,12 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsAnyUri
 
 data class EXPathPackageResource(private val xml: XmlElement) : EXPathPackageComponent {
     val publicUri: XsAnyUriValue? by lazy {
-        xml.children("public-uri").firstOrNull()?.text()?.let {
+        xml.children("pkg:public-uri").firstOrNull()?.text()?.let {
             XsAnyUri(it, XdmUriContext.Resource, XdmModuleType.RESOURCE)
         }
     }
 
     override val moduleType: XdmModuleType = XdmModuleType.Resource
 
-    override val file: String? by lazy { xml.children("file").firstOrNull()?.text() }
+    override val file: String? by lazy { xml.children("pkg:file").firstOrNull()?.text() }
 }
