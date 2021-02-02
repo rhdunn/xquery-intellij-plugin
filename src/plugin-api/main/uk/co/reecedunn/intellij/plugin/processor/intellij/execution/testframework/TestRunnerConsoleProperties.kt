@@ -32,6 +32,7 @@ class TestRunnerConsoleProperties(
 
     override fun createConsole(): ConsoleView {
         return ConsoleRunnerLayoutUiBuilder(super.createConsole())
+            .contentProvider(TestConsoleOutputView(project, outputFormat))
             .asRunnerLayout(project, "QueryTest", PluginApiBundle.message("test.runner.layout.title"))
             .consoleView()
     }
