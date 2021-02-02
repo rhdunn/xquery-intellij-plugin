@@ -20,22 +20,20 @@ import com.intellij.execution.configurations.ConfigurationFactory
 import com.intellij.execution.configurations.RunConfiguration
 import com.intellij.execution.configurations.RunProfileState
 import com.intellij.execution.runners.ExecutionEnvironment
-import com.intellij.execution.testframework.sm.runner.SMRunnerConsolePropertiesProvider
 import com.intellij.execution.testframework.sm.runner.SMTRunnerConsoleProperties
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
-import uk.co.reecedunn.intellij.plugin.core.execution.configurations.RunConfigurationBase
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.XRayTestFormat
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.runner.XRayTestRunState
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestService
+import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.testframework.TestFrameworkConfiguration
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.testframework.TestRunnerConsoleProperties
 import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessors
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
 import uk.co.reecedunn.intellij.plugin.processor.test.TestFormat
 
 class XRayTestConfiguration(project: Project, factory: ConfigurationFactory) :
-    RunConfigurationBase<XRayTestConfigurationData>(project, factory, ""),
-    SMRunnerConsolePropertiesProvider {
+    TestFrameworkConfiguration<XRayTestConfigurationData>(project, factory) {
     // region RunConfigurationBase
 
     private val data: XRayTestConfigurationData
