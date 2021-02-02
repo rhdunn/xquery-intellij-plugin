@@ -28,6 +28,7 @@ import uk.co.reecedunn.intellij.plugin.core.execution.configurations.RunConfigur
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.XRayTestFormat
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.runner.XRayTestRunState
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestService
+import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.testframework.TestRunnerConsoleProperties
 import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessors
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
 import uk.co.reecedunn.intellij.plugin.processor.test.TestFormat
@@ -52,7 +53,7 @@ class XRayTestConfiguration(project: Project, factory: ConfigurationFactory) :
     // region SMRunnerConsolePropertiesProvider
 
     override fun createTestConsoleProperties(executor: Executor): SMTRunnerConsoleProperties {
-        return SMTRunnerConsoleProperties(this, XRayTestService.FRAMEWORK_NAME, executor)
+        return TestRunnerConsoleProperties(this, XRayTestService.FRAMEWORK_NAME, executor)
     }
 
     // endregion
