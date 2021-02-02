@@ -18,6 +18,9 @@ package uk.co.reecedunn.intellij.plugin.processor.intellij.execution.testframewo
 import com.intellij.execution.Executor
 import com.intellij.execution.configurations.RunConfiguration
 import com.intellij.execution.testframework.sm.runner.SMTRunnerConsoleProperties
+import com.intellij.execution.ui.ConsoleView
+import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleRunnerLayoutUiBuilder
+import uk.co.reecedunn.intellij.plugin.processor.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.test.TestFormat
 
 class TestRunnerConsoleProperties(
@@ -25,4 +28,11 @@ class TestRunnerConsoleProperties(
     testFrameworkName: String,
     private val outputFormat: TestFormat,
     executor: Executor
-) : SMTRunnerConsoleProperties(config, testFrameworkName, executor)
+) : SMTRunnerConsoleProperties(config, testFrameworkName, executor) {
+
+    override fun createConsole(): ConsoleView {
+        return ConsoleRunnerLayoutUiBuilder(super.createConsole())
+            .asRunnerLayout(project, "QueryTest", PluginApiBundle.message("test.runner.layout.title"))
+            .consoleView()
+    }
+}

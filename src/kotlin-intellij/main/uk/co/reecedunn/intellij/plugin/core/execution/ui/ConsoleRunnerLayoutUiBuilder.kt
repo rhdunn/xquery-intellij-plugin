@@ -15,16 +15,23 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.execution.ui
 
+import com.intellij.CommonBundle
 import com.intellij.compat.execution.ui.setTopLeftToolbar
 import com.intellij.execution.console.ConsoleViewWrapperBase
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.runners.RunContentBuilder
 import com.intellij.execution.ui.ConsoleView
+import com.intellij.execution.ui.ExecutionConsole
 import com.intellij.execution.ui.RunnerLayoutUi
+import com.intellij.execution.ui.layout.PlaceInGrid
+import com.intellij.icons.AllIcons
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.actionSystem.ActionPlaces
 import com.intellij.openapi.actionSystem.DefaultActionGroup
+import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Disposer
+import com.intellij.ui.content.Content
+import javax.swing.JComponent
 import javax.swing.border.Border
 
 class ConsoleRunnerLayoutUiBuilder(primary: ConsoleView) : ConsoleViewWrapperBase(primary), ConsoleViewEx {
@@ -32,6 +39,7 @@ class ConsoleRunnerLayoutUiBuilder(primary: ConsoleView) : ConsoleViewWrapperBas
 
     private val providers: ArrayList<ContentProvider> = ArrayList()
     private var activeProvider: ContentProvider? = null
+    private var layout: RunnerLayoutUi? = null
 
     fun contentProvider(provider: ContentProvider, active: Boolean = false): ConsoleRunnerLayoutUiBuilder {
         providers.add(provider)
@@ -41,13 +49,43 @@ class ConsoleRunnerLayoutUiBuilder(primary: ConsoleView) : ConsoleViewWrapperBas
         return this
     }
 
+    fun asRunnerLayout(
+        project: Project,
+        runnerId: String,
+        runnerTitle: String,
+        sessionName: String = "default"
+    ): ConsoleRunnerLayoutUiBuilder {
+        layout = RunnerLayoutUi.Factory.getInstance(project).create(runnerId, runnerTitle, sessionName, this)
+        buildUi(layout)
+        return this
+    }
+
     fun consoleView(): ConsoleView = this
+
+    private fun buildConsoleUiDefault(ui: RunnerLayoutUi, console: ExecutionConsole): Content {
+        val consoleContent = ui.createContent(
+            CONSOLE_CONTENT_ID,
+            console.component,
+            CommonBundle.message("title.console"),
+            AllIcons.Debugger.Console,
+            console.preferredFocusableComponent
+        )
+        consoleContent.isCloseable = false
+        ui.addContent(consoleContent, 0, PlaceInGrid.bottom, false)
+        return consoleContent
+    }
 
     // endregion
     // region ExecutionConsoleEx
 
     override fun buildUi(layoutUi: RunnerLayoutUi?) {
-        RunContentBuilder.buildConsoleUiDefault(layoutUi!!, delegate)
+        if (layout == null) {
+            RunContentBuilder.buildConsoleUiDefault(layoutUi!!, delegate)
+        } else {
+            // Don't add the console actions when using a custom runner layout,
+            // as they will be added as part of the primary UI.
+            buildConsoleUiDefault(layoutUi!!, delegate)
+        }
 
         var actions: DefaultActionGroup? = null
         providers.forEach { provider ->
@@ -80,6 +118,8 @@ class ConsoleRunnerLayoutUiBuilder(primary: ConsoleView) : ConsoleViewWrapperBas
         providers.clear()
         super.dispose()
     }
+
+    override fun getComponent(): JComponent = layout?.component ?: super.getComponent()
 
     override fun attachToProcess(processHandler: ProcessHandler) {
         super.attachToProcess(processHandler)
