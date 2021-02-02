@@ -10,14 +10,36 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        idea-version: [ IC-2019.2, IC-2020.2, LATEST-EAP-SNAPSHOT ]
+        idea-version: [
+            IC-2019.2,
+            IC-2019.3,
+            IC-2020.1,
+            IC-2020.2,
+            IC-2020.3,
+            LATEST-EAP-SNAPSHOT
+        ]
         include:
+
           - os: ubuntu-latest
             java-version: 1.8
             idea-version: IC-2019.2
+
+          - os: ubuntu-latest
+            java-version: 1.8
+            idea-version: IC-2019.3
+
+          - os: ubuntu-latest
+            java-version: 1.8
+            idea-version: IC-2020.1
+
+          - os: ubuntu-latest
+            java-version: 1.8
+            idea-version: IC-2020.2
+
           - os: ubuntu-latest
             java-version: 11
-            idea-version: IC-2020.2
+            idea-version: IC-2020.3
+
           - os: ubuntu-latest
             java-version: 11
             idea-version: LATEST-EAP-SNAPSHOT
