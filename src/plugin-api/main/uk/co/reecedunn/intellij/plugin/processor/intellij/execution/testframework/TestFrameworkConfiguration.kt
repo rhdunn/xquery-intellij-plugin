@@ -21,15 +21,29 @@ import com.intellij.execution.configurations.RunConfiguration
 import com.intellij.execution.configurations.RunProfileState
 import com.intellij.execution.runners.ExecutionEnvironment
 import com.intellij.execution.testframework.sm.runner.SMRunnerConsolePropertiesProvider
+import com.intellij.execution.testframework.sm.runner.SMTRunnerConsoleProperties
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 import uk.co.reecedunn.intellij.plugin.core.execution.configurations.RunConfigurationBase
 
-abstract class TestFrameworkConfiguration<T>(project: Project, factory: ConfigurationFactory) :
-    RunConfigurationBase<T>(project, factory, ""),
+abstract class TestFrameworkConfiguration<T>(
+    project: Project,
+    factory: ConfigurationFactory,
+    private val testFrameworkName: String
+) : RunConfigurationBase<T>(project, factory, ""),
     SMRunnerConsolePropertiesProvider {
+    // region RunConfigurationBase
 
     abstract override fun getConfigurationEditor(): SettingsEditor<out RunConfiguration>
 
     abstract override fun getState(executor: Executor, environment: ExecutionEnvironment): RunProfileState?
+
+    // endregion
+    // region SMRunnerConsolePropertiesProvider
+
+    override fun createTestConsoleProperties(executor: Executor): SMTRunnerConsoleProperties {
+        return TestRunnerConsoleProperties(this, testFrameworkName, executor)
+    }
+
+    // endregion
 }
