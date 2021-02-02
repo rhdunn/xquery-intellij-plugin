@@ -18,9 +18,11 @@ package uk.co.reecedunn.intellij.plugin.processor.intellij.execution.testframewo
 import com.intellij.execution.Executor
 import com.intellij.execution.configurations.RunConfiguration
 import com.intellij.execution.testframework.sm.runner.SMTRunnerConsoleProperties
+import uk.co.reecedunn.intellij.plugin.processor.test.TestFormat
 
 class TestRunnerConsoleProperties(
     config: RunConfiguration,
     testFrameworkName: String,
+    private val outputFormat: TestFormat,
     executor: Executor
 ) : SMTRunnerConsoleProperties(config, testFrameworkName, executor)

@@ -117,7 +117,7 @@ class XRayTestConfiguration(project: Project, factory: ConfigurationFactory) :
     // endregion
     // region Output Format
 
-    var outputFormat: TestFormat
+    override var outputFormat: TestFormat
         get() = XRayTestFormat.format(data.outputFormat)
         set(value) {
             data.outputFormat = value.id

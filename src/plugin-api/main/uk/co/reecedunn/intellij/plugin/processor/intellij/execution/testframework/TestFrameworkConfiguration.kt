@@ -25,6 +25,7 @@ import com.intellij.execution.testframework.sm.runner.SMTRunnerConsoleProperties
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 import uk.co.reecedunn.intellij.plugin.core.execution.configurations.RunConfigurationBase
+import uk.co.reecedunn.intellij.plugin.processor.test.TestFormat
 
 abstract class TestFrameworkConfiguration<T>(
     project: Project,
@@ -42,8 +43,13 @@ abstract class TestFrameworkConfiguration<T>(
     // region SMRunnerConsolePropertiesProvider
 
     override fun createTestConsoleProperties(executor: Executor): SMTRunnerConsoleProperties {
-        return TestRunnerConsoleProperties(this, testFrameworkName, executor)
+        return TestRunnerConsoleProperties(this, testFrameworkName, outputFormat, executor)
     }
+
+    // endregion
+    // region Configuration Settings
+
+    abstract var outputFormat: TestFormat
 
     // endregion
 }
