@@ -50,7 +50,6 @@ class XRayTestProcessListener(processHandler: ProcessHandler, private val output
                 ProcessOutputType.STDOUT
             )
         }
-        notifyTextAvailable(result.value as String, ProcessOutputType.STDOUT)
     }
 
     override fun onException(e: Throwable) {
