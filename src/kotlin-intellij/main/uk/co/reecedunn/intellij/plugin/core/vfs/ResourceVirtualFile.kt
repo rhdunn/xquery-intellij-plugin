@@ -18,10 +18,10 @@ package uk.co.reecedunn.intellij.plugin.core.vfs
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.VirtualFileSystem
 import uk.co.reecedunn.intellij.plugin.core.vfs.impl.ResourceVirtualFileImpl
+import uk.co.reecedunn.intellij.plugin.core.vfs.impl.URLConnectionVirtualFileImpl
 import java.io.*
 
 import java.lang.ref.WeakReference
-import java.net.JarURLConnection
 
 object ResourceVirtualFile {
     fun create(loader: ClassLoader, resource: String, fileSystem: VirtualFileSystem? = null): VirtualFile {
@@ -56,11 +56,8 @@ object ResourceVirtualFile {
                     val file = File(it.toURI())
                     ResourceVirtualFileImpl(loader, resource, fileSystem, file, file.path)
                 }
-                "jar" -> {
-                    val connection = it.openConnection() as JarURLConnection
-                    val file = File(connection.jarFileURL.toURI())
-                    ResourceVirtualFileImpl(loader, resource, fileSystem, file, "${file.path}!/$resource")
-                }
+                // NOTE: IntelliJ 2021.1 provides a custom connection that does not implement JarURIConnection.
+                "jar" -> URLConnectionVirtualFileImpl(it.openConnection(), fileSystem)
                 else -> null
             }
         }
