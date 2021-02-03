@@ -26,8 +26,12 @@ import com.intellij.execution.ui.ConsoleView
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.configuration.XRayTestConfiguration
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestService
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.configurations.RunProfileStateEx
+import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.executors.DefaultProfileExecutor
+import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.ProfileableQueryProcessHandler
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.QueryProcessHandlerBase
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.RunnableQueryProcessHandler
+import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
+import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQueryProvider
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQueryProvider
@@ -71,12 +75,16 @@ class XRayTestRunState(private val environment: ExecutionEnvironment) : RunProfi
             DefaultRunExecutor.EXECUTOR_ID -> {
                 (session as RunnableQueryProvider).createRunnableQuery(source, XQuery)
             }
+            DefaultProfileExecutor.EXECUTOR_ID -> {
+                (session as ProfileableQueryProvider).createProfileableQuery(source, XQuery)
+            }
             else -> throw UnsupportedOperationException()
         }
     }
 
     override fun createProcessHandler(query: Query): QueryProcessHandlerBase = when (query) {
         is RunnableQuery -> RunnableQueryProcessHandler(query)
+        is ProfileableQuery -> ProfileableQueryProcessHandler(query)
         else -> throw UnsupportedOperationException()
     }
 

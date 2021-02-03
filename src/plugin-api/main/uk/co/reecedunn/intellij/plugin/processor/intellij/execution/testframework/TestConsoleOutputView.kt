@@ -29,9 +29,9 @@ import com.intellij.psi.PsiFileFactory
 import com.intellij.ui.content.Content
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ContentProvider
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.TextConsoleView
+import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.QueryProcessHandlerBase
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.QueryResultListener
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.QueryResultTime
-import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.RunnableQueryProcessHandler
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.test.TestFormat
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsDurationValue
@@ -42,7 +42,7 @@ class TestConsoleOutputView(project: Project, private val outputFormat: TestForm
     QueryResultListener {
     // region ContentProvider
 
-    private var queryProcessHandler: RunnableQueryProcessHandler? = null
+    private var queryProcessHandler: QueryProcessHandlerBase? = null
 
     override val contentId: String = "TestConsoleOutput"
 
@@ -56,7 +56,7 @@ class TestConsoleOutputView(project: Project, private val outputFormat: TestForm
     override fun createRunnerLayoutActions(): Array<AnAction> = arrayOf()
 
     override fun attachToProcess(processHandler: ProcessHandler) {
-        queryProcessHandler = (processHandler as? RunnableQueryProcessHandler)
+        queryProcessHandler = (processHandler as? QueryProcessHandlerBase)
         queryProcessHandler?.addQueryResultListener(this)
     }
 

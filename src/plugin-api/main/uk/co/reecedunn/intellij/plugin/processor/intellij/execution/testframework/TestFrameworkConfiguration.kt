@@ -25,6 +25,7 @@ import com.intellij.execution.testframework.sm.runner.SMTRunnerConsoleProperties
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 import uk.co.reecedunn.intellij.plugin.core.execution.configurations.RunConfigurationBase
+import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.runners.QueryRunProfile
 import uk.co.reecedunn.intellij.plugin.processor.test.TestFormat
 
 abstract class TestFrameworkConfiguration<T>(
@@ -32,7 +33,8 @@ abstract class TestFrameworkConfiguration<T>(
     factory: ConfigurationFactory,
     private val testFrameworkName: String
 ) : RunConfigurationBase<T>(project, factory, ""),
-    SMRunnerConsolePropertiesProvider {
+    SMRunnerConsolePropertiesProvider,
+    QueryRunProfile {
     // region RunConfigurationBase
 
     abstract override fun getConfigurationEditor(): SettingsEditor<out RunConfiguration>

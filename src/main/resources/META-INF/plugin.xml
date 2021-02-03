@@ -92,7 +92,7 @@
     <p>XRay Unit Tests:</p>
     <ol>
       <li>Add an XRay run configuration.</li>
-      <li>Support running XRay unit tests.</li>
+      <li>Support running and profiling XRay unit tests.</li>
       <li>Add run actions in the line marker area.</li>
     </ol>
     <p>Run Configuration:</p>

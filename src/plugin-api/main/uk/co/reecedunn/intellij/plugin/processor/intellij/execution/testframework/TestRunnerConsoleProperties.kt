@@ -20,6 +20,8 @@ import com.intellij.execution.configurations.RunConfiguration
 import com.intellij.execution.testframework.sm.runner.SMTRunnerConsoleProperties
 import com.intellij.execution.ui.ConsoleView
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleRunnerLayoutUiBuilder
+import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.executors.DefaultProfileExecutor
+import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.profile.FlatProfileTableView
 import uk.co.reecedunn.intellij.plugin.processor.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.test.TestFormat
 
@@ -31,9 +33,12 @@ class TestRunnerConsoleProperties(
 ) : SMTRunnerConsoleProperties(config, testFrameworkName, executor) {
 
     override fun createConsole(): ConsoleView {
-        return ConsoleRunnerLayoutUiBuilder(super.createConsole())
-            .contentProvider(TestConsoleOutputView(project, outputFormat))
-            .asRunnerLayout(project, "QueryTest", PluginApiBundle.message("test.runner.layout.title"))
-            .consoleView()
+        val builder = ConsoleRunnerLayoutUiBuilder(super.createConsole())
+        builder.contentProvider(TestConsoleOutputView(project, outputFormat))
+        if (executor.id == DefaultProfileExecutor.EXECUTOR_ID) {
+            builder.contentProvider(FlatProfileTableView(project), active = true)
+        }
+        builder.asRunnerLayout(project, "QueryTest", PluginApiBundle.message("test.runner.layout.title"))
+        return builder.consoleView()
     }
 }
