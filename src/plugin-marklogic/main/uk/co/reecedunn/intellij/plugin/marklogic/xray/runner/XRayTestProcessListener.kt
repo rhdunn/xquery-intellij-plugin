@@ -17,95 +17,41 @@ package uk.co.reecedunn.intellij.plugin.marklogic.xray.runner
 
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.process.ProcessOutputType
-import com.intellij.psi.PsiFile
-import uk.co.reecedunn.intellij.plugin.core.execution.testframework.TestProcessHandlerEvents
-import uk.co.reecedunn.intellij.plugin.core.io.printCharsToString
-import uk.co.reecedunn.intellij.plugin.core.math.toMilliseconds
-import uk.co.reecedunn.intellij.plugin.processor.test.TestCase
-import uk.co.reecedunn.intellij.plugin.processor.test.TestSuite
-import uk.co.reecedunn.intellij.plugin.processor.test.TestResult
-import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.QueryResultListener
-import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.QueryResultTime
-import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
-import uk.co.reecedunn.intellij.plugin.processor.test.TestFormat
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsDurationValue
+import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.testframework.TestProcessListener
+import uk.co.reecedunn.intellij.plugin.processor.test.*
 
-class XRayTestProcessListener(processHandler: ProcessHandler, private val outputFormat: TestFormat) :
-    TestProcessHandlerEvents(processHandler),
-    QueryResultListener {
+class XRayTestProcessListener(processHandler: ProcessHandler, outputFormat: TestFormat) :
+    TestProcessListener(processHandler, outputFormat) {
 
-    override fun onBeginResults() {
-        notifyTestsStarted()
+    override fun onTestSuiteStarted(testsuite: TestSuite) {
+        super.onTestSuiteStarted(testsuite)
+        notifyTextAvailable("Module ${testsuite.name}\n", ProcessOutputType.STDOUT)
     }
 
-    override fun onEndResults(): PsiFile? {
-        return null
+    override fun onTestPassed(test: TestCase) {
+        notifyTextAvailable("-- ${test.name} -- PASSED\n", ProcessOutputType.STDOUT)
+        super.onTestPassed(test)
     }
 
-    override fun onQueryResult(result: QueryResult) {
-        outputFormat.parse(result)?.let { results ->
-            results.testSuites.forEach { onTestSuite(it) }
-            notifyTextAvailable(
-                "Finished: Total ${results.total}, Failed ${results.failed}, Ignored ${results.ignored}, Errors ${results.errors}, Passed ${results.passed}\n\n",
-                ProcessOutputType.STDOUT
-            )
-        }
+    override fun onTestIgnored(test: TestCase) {
+        notifyTextAvailable("-- ${test.name} -- IGNORED\n", ProcessOutputType.STDOUT)
+        super.onTestIgnored(test)
     }
 
-    override fun onException(e: Throwable) {
-        notifyTextAvailable(printCharsToString { e.printStackTrace(it) }, ProcessOutputType.STDERR)
+    override fun onTestFailed(test: TestCase) {
+        notifyTextAvailable("-- ${test.name} -- FAILED\n", ProcessOutputType.STDERR)
+        super.onTestFailed(test)
     }
 
-    override fun onQueryResultTime(resultTime: QueryResultTime, time: XsDurationValue) {
+    override fun onTestError(test: TestCase) {
+        notifyTextAvailable("-- ${test.name} -- ERROR\n", ProcessOutputType.STDERR)
+        super.onTestError(test)
     }
 
-    override fun onQueryResultsPsiFile(psiFile: PsiFile) {
-    }
-
-    private fun onTestSuite(module: TestSuite) {
-        notifyTestSuiteStarted(module.name)
-        notifyTextAvailable("Module ${module.name}\n", ProcessOutputType.STDOUT)
-        module.error?.let {
-            val name = module.name.split("/").last()
-            notifyTestStarted(name)
-            notifyTestError(name, it)
-            notifyTestFinished(name)
-        }
-        module.testCases.forEach { onTestCase(it) }
-        notifyTestSuiteFinished(module.name)
-    }
-
-    private fun onTestCase(test: TestCase) {
-        notifyTestStarted(test.name)
-        when (test.result) {
-            TestResult.Passed -> {
-                notifyTextAvailable("-- ${test.name} -- PASSED\n", ProcessOutputType.STDOUT)
-            }
-            TestResult.Ignored -> {
-                notifyTextAvailable("-- ${test.name} -- IGNORED\n", ProcessOutputType.STDOUT)
-                notifyTestIgnored(test.name)
-            }
-            TestResult.Failed -> {
-                notifyTextAvailable("-- ${test.name} -- FAILED\n", ProcessOutputType.STDERR)
-                test.failures.forEach { failures ->
-                    if (failures.result == TestResult.Failed) {
-                        notifyTestFailed(
-                            test.name,
-                            message = failures.message ?: "Assertion failure",
-                            expected = failures.expected,
-                            actual = failures.actual
-                        )
-                    }
-                }
-            }
-            TestResult.Error -> {
-                notifyTextAvailable("-- ${test.name} -- ERROR\n", ProcessOutputType.STDERR)
-                when (val error = test.error) {
-                    null -> notifyTestError(test.name, message = "")
-                    else -> notifyTestError(test.name, exception = error)
-                }
-            }
-        }
-        notifyTestFinished(test.name, duration = test.duration?.seconds?.data?.toMilliseconds())
+    override fun onTestsFinished(results: TestStatistics) {
+        notifyTextAvailable(
+            "Finished: Total ${results.total}, Failed ${results.failed}, Ignored ${results.ignored}, Errors ${results.errors}, Passed ${results.passed}\n",
+            ProcessOutputType.STDOUT
+        )
     }
 }
