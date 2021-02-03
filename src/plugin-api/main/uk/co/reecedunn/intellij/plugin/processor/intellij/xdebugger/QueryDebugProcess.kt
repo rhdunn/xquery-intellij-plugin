@@ -26,17 +26,17 @@ import com.intellij.xdebugger.breakpoints.XBreakpointHandler
 import com.intellij.xdebugger.evaluation.XDebuggerEditorsProvider
 import com.intellij.xdebugger.frame.XSuspendContext
 import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
-import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.configurations.QueryProcessorRunState
 import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.evaluation.QueryEditorsProvider
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSession
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSessionListener
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebuggableQuery
 import uk.co.reecedunn.intellij.plugin.processor.debug.StepAction
+import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.configurations.RunProfileStateEx
 
 class QueryDebugProcess(
     session: XDebugSession,
     private val language: Language,
-    private val state: QueryProcessorRunState
+    private val state: RunProfileStateEx
 ) : XDebugProcess(session), DebugSessionListener {
     private val editorsProvider: XDebuggerEditorsProvider = QueryEditorsProvider(language)
     private val query: DebuggableQuery = state.createQuery() as DebuggableQuery

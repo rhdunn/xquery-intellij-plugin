@@ -19,7 +19,6 @@ import com.intellij.execution.Executor
 import com.intellij.execution.configurations.ConfigurationFactory
 import com.intellij.execution.configurations.RunConfiguration
 import com.intellij.execution.configurations.RunProfileState
-import com.intellij.execution.executors.DefaultRunExecutor
 import com.intellij.execution.runners.ExecutionEnvironment
 import com.intellij.lang.Language
 import com.intellij.openapi.options.SettingsEditor
@@ -27,7 +26,6 @@ import com.intellij.openapi.project.Project
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.XRayTestFormat
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.runner.XRayTestRunState
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestService
-import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.executors.DefaultProfileExecutor
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.testframework.TestFrameworkConfiguration
 import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessors
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
@@ -54,11 +52,8 @@ class XRayTestConfiguration(project: Project, factory: ConfigurationFactory) :
 
     override val language: Language by lazy { XQuery }
 
-    override fun canRun(executorId: String): Boolean = when (executorId) {
-        DefaultRunExecutor.EXECUTOR_ID, DefaultProfileExecutor.EXECUTOR_ID -> {
-            processor?.api?.canExecute(language, executorId) == true
-        }
-        else -> false
+    override fun canRun(executorId: String): Boolean {
+        return processor?.api?.canExecute(language, executorId) == true
     }
 
     // endregion

@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.marklogic.xray.runner
 import com.intellij.execution.DefaultExecutionResult
 import com.intellij.execution.ExecutionResult
 import com.intellij.execution.Executor
+import com.intellij.execution.executors.DefaultDebugExecutor
 import com.intellij.execution.executors.DefaultRunExecutor
 import com.intellij.execution.runners.ExecutionEnvironment
 import com.intellij.execution.runners.ProgramRunner
@@ -25,6 +26,7 @@ import com.intellij.execution.testframework.sm.SMTestRunnerConnectionUtil
 import com.intellij.execution.ui.ConsoleView
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.configuration.XRayTestConfiguration
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestService
+import uk.co.reecedunn.intellij.plugin.processor.debug.DebuggableQueryProvider
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.configurations.RunProfileStateEx
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.executors.DefaultProfileExecutor
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.ProfileableQueryProcessHandler
@@ -77,6 +79,9 @@ class XRayTestRunState(private val environment: ExecutionEnvironment) : RunProfi
             }
             DefaultProfileExecutor.EXECUTOR_ID -> {
                 (session as ProfileableQueryProvider).createProfileableQuery(source, XQuery)
+            }
+            DefaultDebugExecutor.EXECUTOR_ID -> {
+                (session as DebuggableQueryProvider).createDebuggableQuery(source, XQuery)
             }
             else -> throw UnsupportedOperationException()
         }

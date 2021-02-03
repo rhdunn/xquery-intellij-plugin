@@ -56,6 +56,7 @@ processor file types and standards:
 This plugin adds support for the following project frameworks:
 1.  MarkLogic Roxy &ndash; source root detection;
 1.  MarkLogic ml-gradle &ndash; source root detection.
+1.  Support running, profiling, and debugging XRay unit tests.
 
 ### IntelliJ Integration
 

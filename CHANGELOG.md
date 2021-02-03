@@ -20,7 +20,7 @@ XPath, XQuery, and XSLT 4.0 Editor's Draft 13 January 2021:
 XRay Unit Tests:
 
 1. Add an XRay run configuration.
-1. Support running and profiling XRay unit tests.
+1. Support running, profiling, and debugging XRay unit tests.
 1. Add run actions in the line marker area.
 1. Report test status in the run console.
 
