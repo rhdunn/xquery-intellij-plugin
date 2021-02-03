@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui
 
-import com.intellij.icons.AllIcons
+import com.intellij.compat.icons.AllIcons
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.fileChooser.FileChooser
@@ -35,7 +35,7 @@ class SaveAction(
 ) : AnAction(
     PluginApiBundle.message("console.action.save.label"),
     null,
-    AllIcons.Actions.Menu_saveall
+    AllIcons.Actions.MenuSaveall
 ) {
     var isEnabled: Boolean = true
 
