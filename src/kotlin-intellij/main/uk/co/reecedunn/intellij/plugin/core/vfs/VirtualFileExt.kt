@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.core.io.decode
 
 fun VirtualFile.toPsiFile(project: Project): PsiFile? = PsiManager.getInstance(project).findFile(this)
 
+@Suppress("UNNECESSARY_SAFE_CALL", "RedundantNullableReturnType") // IntelliJ 2021.1 makes this non-null.
 fun VirtualFile.decode(): String? = when (this) {
     is EditedVirtualFile -> contents // Avoid String => InputStream => String round-trips.
     else -> inputStream?.decode(charset)
