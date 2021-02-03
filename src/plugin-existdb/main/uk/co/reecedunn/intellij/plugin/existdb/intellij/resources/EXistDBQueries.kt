@@ -15,15 +15,15 @@
  */
 package uk.co.reecedunn.intellij.plugin.existdb.intellij.resources
 
-import com.intellij.openapi.vfs.CharsetToolkit
 import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
+import java.nio.charset.StandardCharsets
 
 object EXistDBQueries {
     private fun resourceFile(path: String): VirtualFile {
         val file = ResourceVirtualFile.create(this::class.java.classLoader, path)
-        file.charset = CharsetToolkit.UTF8_CHARSET
+        file.charset = StandardCharsets.UTF_8
         return file
     }
 

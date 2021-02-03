@@ -15,18 +15,18 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.intellij.resources
 
-import com.intellij.openapi.vfs.CharsetToolkit
 import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.VirtualFileSystemImpl
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
+import java.nio.charset.StandardCharsets
 
 object PluginFiles : VirtualFileSystemImpl("res") {
     private val cache: HashMap<String, VirtualFile?> = HashMap()
 
     private fun resourceFile(path: String): VirtualFile? {
         val file = ResourceVirtualFile.createIfValid(this::class.java.classLoader, path, this) ?: return null
-        file.charset = CharsetToolkit.UTF8_CHARSET
+        file.charset = StandardCharsets.UTF_8
         return file
     }
 

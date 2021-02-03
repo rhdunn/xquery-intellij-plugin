@@ -15,14 +15,14 @@
  */
 package uk.co.reecedunn.intellij.plugin.basex.intellij.resources
 
-import com.intellij.openapi.vfs.CharsetToolkit
 import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
+import java.nio.charset.StandardCharsets
 
 object BaseXQueries {
     private fun resourceFile(path: String): VirtualFile {
         val file = ResourceVirtualFile.create(this::class.java.classLoader, path)
-        file.charset = CharsetToolkit.UTF8_CHARSET
+        file.charset = StandardCharsets.UTF_8
         return file
     }
 
