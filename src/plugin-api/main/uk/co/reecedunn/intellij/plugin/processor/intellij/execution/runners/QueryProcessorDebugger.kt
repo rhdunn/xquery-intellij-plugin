@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2020 Reece H. Dunn
+ * Copyright (C) 2019-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,6 @@ import com.intellij.execution.runners.ExecutionEnvironment
 import com.intellij.execution.runners.GenericProgramRunner
 import com.intellij.execution.ui.RunContentDescriptor
 import com.intellij.openapi.fileEditor.FileDocumentManager
-import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.configurations.QueryProcessorRunConfiguration
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.configurations.QueryProcessorRunState
 import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.QueryDebugProcess
 import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.startDebugSession
@@ -32,17 +31,17 @@ class QueryProcessorDebugger : GenericProgramRunner<RunnerSettings>() {
     override fun getRunnerId(): String = "XIJPQueryProcessorDebugger"
 
     override fun canRun(executorId: String, profile: RunProfile): Boolean {
-        if (executorId != DefaultDebugExecutor.EXECUTOR_ID || profile !is QueryProcessorRunConfiguration) {
+        if (executorId != DefaultDebugExecutor.EXECUTOR_ID || profile !is QueryRunProfile) {
             return false
         }
-        return profile.processor?.api?.canExecute(profile.language, executorId) == true
+        return profile.canRun(executorId)
     }
 
     override fun doExecute(state: RunProfileState, environment: ExecutionEnvironment): RunContentDescriptor {
         FileDocumentManager.getInstance().saveAllDocuments()
         return startDebugSession(environment) { session ->
             session.setPauseActionSupported(true)
-            val configuration = environment.runProfile as QueryProcessorRunConfiguration
+            val configuration = environment.runProfile as QueryRunProfile
             QueryDebugProcess(session, configuration.language, state as QueryProcessorRunState)
         }.runContentDescriptor
     }

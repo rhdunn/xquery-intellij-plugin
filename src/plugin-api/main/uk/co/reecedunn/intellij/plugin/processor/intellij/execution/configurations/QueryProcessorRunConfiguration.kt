@@ -32,6 +32,7 @@ import uk.co.reecedunn.intellij.plugin.core.lang.getLanguageMimeTypes
 import uk.co.reecedunn.intellij.plugin.processor.intellij.lang.RDF_FORMATS
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.executors.DefaultProfileExecutor
+import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.runners.QueryRunProfile
 import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessors
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
 
@@ -40,16 +41,21 @@ class QueryProcessorRunConfiguration(
     factory: ConfigurationFactory,
     private vararg val languages: Language
 ) :
-    RunConfigurationBase<QueryProcessorRunConfigurationData>(project, factory, "") {
+    RunConfigurationBase<QueryProcessorRunConfigurationData>(project, factory, ""),
+    QueryRunProfile {
 
     private val data: QueryProcessorRunConfigurationData
         get() = state!!
 
-    val language: Language
+    override val language: Language
         get() = when (languages.size) {
             1 -> languages[0]
             else -> languages.findByAssociations(scriptFilePath ?: "") ?: languages[0]
         }
+
+    override fun canRun(executorId: String): Boolean {
+        return processor?.api?.canExecute(language, executorId) == true
+    }
 
     // region Query Processor
 
