@@ -17,116 +17,51 @@ package uk.co.reecedunn.intellij.plugin.core.vfs
 
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.VirtualFileSystem
-import org.apache.commons.compress.utils.IOUtils
+import uk.co.reecedunn.intellij.plugin.core.vfs.impl.ResourceVirtualFileImpl
 import java.io.*
 
 import java.lang.ref.WeakReference
 import java.net.JarURLConnection
 
-class ResourceVirtualFile private constructor(
-    private val mLoader: ClassLoader,
-    private val mResource: String,
-    private val mFileSystem: WeakReference<VirtualFileSystem>?,
-    private var mFile: File?,
-    private var mPath: String
-) : VirtualFile() {
-    private var mParent: String? = null
-    private var mName: String? = null
-
-    init {
-        val idx = mResource.lastIndexOf('/')
-        if (idx == -1) {
-            mParent = null
-            mName = mResource
-        } else {
-            mParent = mResource.substring(0, idx)
-            mName = mResource.substring(idx + 1)
-        }
+object ResourceVirtualFile {
+    fun create(loader: ClassLoader, resource: String, fileSystem: VirtualFileSystem? = null): VirtualFile {
+        return create(loader, resource, fileSystem?.let { WeakReference(it) })
     }
 
-    override fun getName(): String = mName!!
-
-    override fun getFileSystem(): VirtualFileSystem = mFileSystem?.get() ?: throw UnsupportedOperationException()
-
-    override fun getPath(): String = mPath
-
-    override fun isWritable(): Boolean = false
-
-    override fun isDirectory(): Boolean = mFile != null && mFile!!.isDirectory
-
-    override fun isValid(): Boolean = mFile != null
-
-    override fun getParent(): VirtualFile? = mParent?.let { create(mLoader, it, mFileSystem) }
-
-    override fun getChildren(): Array<VirtualFile>? {
-        val children = mFile?.list() ?: return null
-        return children.map { child -> create(mLoader, "$mResource/$child", mFileSystem) }.toTypedArray()
+    internal fun create(
+        loader: ClassLoader,
+        resource: String,
+        fileSystem: WeakReference<VirtualFileSystem>?
+    ): VirtualFile {
+        return createIfValid(loader, resource, fileSystem)
+            ?: ResourceVirtualFileImpl(loader, resource, fileSystem, null, "")
     }
 
-    @Throws(IOException::class)
-    override fun getOutputStream(requestor: Any, newModificationStamp: Long, newTimeStamp: Long): OutputStream {
-        throw UnsupportedOperationException()
+    fun createIfValid(
+        loader: ClassLoader,
+        resource: String,
+        fileSystem: VirtualFileSystem? = null
+    ): VirtualFile? {
+        return createIfValid(loader, resource, fileSystem?.let { WeakReference(it) })
     }
 
-    @Throws(IOException::class)
-    override fun contentsToByteArray(): ByteArray = IOUtils.toByteArray(inputStream)
-
-    override fun getTimeStamp(): Long = mFile!!.lastModified()
-
-    override fun getModificationStamp(): Long = 0
-
-    override fun getLength(): Long {
-        return if (mFile == null || mFile!!.isDirectory) 0 else mFile!!.length()
-    }
-
-    override fun refresh(asynchronous: Boolean, recursive: Boolean, postRunnable: Runnable?): Unit = TODO()
-
-    @Throws(IOException::class)
-    override fun getInputStream(): InputStream = when (isDirectory) {
-        true -> throw UnsupportedOperationException()
-        else -> mLoader.getResourceAsStream(mResource) ?: throw FileNotFoundException()
-    }
-
-    companion object {
-        fun create(loader: ClassLoader, resource: String, fileSystem: VirtualFileSystem? = null): ResourceVirtualFile {
-            return create(loader, resource, fileSystem?.let { WeakReference(it) })
-        }
-
-        private fun create(
-            loader: ClassLoader,
-            resource: String,
-            fileSystem: WeakReference<VirtualFileSystem>?
-        ): ResourceVirtualFile {
-            return createIfValid(loader, resource, fileSystem)
-                ?: ResourceVirtualFile(loader, resource, fileSystem, null, "")
-        }
-
-        fun createIfValid(
-            loader: ClassLoader,
-            resource: String,
-            fileSystem: VirtualFileSystem? = null
-        ): ResourceVirtualFile? {
-            return createIfValid(loader, resource, fileSystem?.let { WeakReference(it) })
-        }
-
-        private fun createIfValid(
-            loader: ClassLoader,
-            resource: String,
-            fileSystem: WeakReference<VirtualFileSystem>?
-        ): ResourceVirtualFile? {
-            return loader.getResource(resource)?.let {
-                when (it.protocol) {
-                    "file" -> {
-                        val file = File(it.toURI())
-                        ResourceVirtualFile(loader, resource, fileSystem, file, file.path)
-                    }
-                    "jar" -> {
-                        val connection = it.openConnection() as JarURLConnection
-                        val file = File(connection.jarFileURL.toURI())
-                        ResourceVirtualFile(loader, resource, fileSystem, file, "${file.path}!/$resource")
-                    }
-                    else -> null
+    private fun createIfValid(
+        loader: ClassLoader,
+        resource: String,
+        fileSystem: WeakReference<VirtualFileSystem>?
+    ): VirtualFile? {
+        return loader.getResource(resource)?.let {
+            when (it.protocol) {
+                "file" -> {
+                    val file = File(it.toURI())
+                    ResourceVirtualFileImpl(loader, resource, fileSystem, file, file.path)
                 }
+                "jar" -> {
+                    val connection = it.openConnection() as JarURLConnection
+                    val file = File(connection.jarFileURL.toURI())
+                    ResourceVirtualFileImpl(loader, resource, fileSystem, file, "${file.path}!/$resource")
+                }
+                else -> null
             }
         }
     }
