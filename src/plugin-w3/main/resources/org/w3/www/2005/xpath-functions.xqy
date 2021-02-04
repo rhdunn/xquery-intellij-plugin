@@ -103,7 +103,12 @@ declare %a:since("xpath-functions", "1.0-20030502")
         %a:until("xpath-functions", "1.0-20070123") function fn:distinct-nodes($arg as node()*) as node()* external;
 declare %a:since("xpath-functions", "1.0-20030502") function fn:distinct-values($arg as xs:anyAtomicType*) as xs:anyAtomicType* external;
 declare %a:since("xpath-functions", "1.0-20030502") function fn:distinct-values($arg as xs:anyAtomicType*, $collation as xs:string) as xs:anyAtomicType* external;
-declare %a:since("xpath-functions", "1.0-20030502") function fn:doc($uri as xs:string?) as document-node()? external;
+declare %a:since("marklogic", "5.0") function fn:doc() as document-node()* external;
+declare %a:since("xpath-functions", "1.0-20030502")
+        %a:restrict-since("$uri", "marklogic", "5.0", "xs:string*")
+        %a:restrict-since("$uri", "xpath-functions", "1.0-20070123", "xs:string?")
+        %a:restrict-since("return", "marklogic", "5.0", "document-node()*")
+        %a:restrict-since("return", "xpath-functions", "1.0-20070123", "document-node()?") function fn:doc($uri as xs:string*) as document-node()* external;
 declare %a:since("xpath-functions", "1.0-20070123") function fn:doc-available($uri as xs:string?) as xs:boolean external;
 declare %a:since("xslt", "1.0-19991116") function fn:document($uri-sequence as item()*) as node()* external;
 declare %a:since("xslt", "1.0-19991116") function fn:document($uri-sequence as item()*, $base-node as node()) as node()* external;
