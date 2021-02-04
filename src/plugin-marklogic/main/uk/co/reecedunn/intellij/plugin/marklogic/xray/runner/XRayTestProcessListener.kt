@@ -19,9 +19,10 @@ import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.process.ProcessOutputType
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.testframework.TestProcessListener
 import uk.co.reecedunn.intellij.plugin.processor.test.*
+import uk.co.reecedunn.intellij.plugin.xquery.intellij.execution.testframework.XQueryTestLocationProvider
 
 class XRayTestProcessListener(processHandler: ProcessHandler, outputFormat: TestFormat) :
-    TestProcessListener(processHandler, outputFormat) {
+    TestProcessListener(processHandler, outputFormat, XQueryTestLocationProvider) {
 
     override fun onTestSuiteStarted(testsuite: TestSuite) {
         super.onTestSuiteStarted(testsuite)
