@@ -15,11 +15,25 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.intellij.execution.testframework
 
+import com.intellij.execution.Location
+import com.intellij.execution.testframework.sm.runner.SMTestLocator
+import com.intellij.openapi.project.Project
+import com.intellij.psi.PsiElement
+import com.intellij.psi.search.GlobalSearchScope
 import com.intellij.util.io.URLUtil.SCHEME_SEPARATOR
 import uk.co.reecedunn.intellij.plugin.processor.test.TestLocationProvider
 
-object XQueryTestLocationProvider : TestLocationProvider {
-    override fun locationHint(test: String, testsuite: String): String {
+object XQueryTestLocationProvider : SMTestLocator, TestLocationProvider {
+    override fun getLocation(
+        protocol: String,
+        path: String,
+        project: Project,
+        scope: GlobalSearchScope
+    ): MutableList<Location<PsiElement>> {
+        return mutableListOf()
+    }
+
+    override fun locationHint(test: String, testsuite: String): String  {
         return when {
             testsuite.endsWith("/$test") -> "$PROTOCOL$SCHEME_SEPARATOR$testsuite"
             else -> "$PROTOCOL$SCHEME_SEPARATOR$testsuite#$test"

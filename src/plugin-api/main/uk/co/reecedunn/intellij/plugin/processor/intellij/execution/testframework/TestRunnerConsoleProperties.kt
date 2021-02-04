@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.processor.intellij.execution.testframewo
 import com.intellij.execution.Executor
 import com.intellij.execution.configurations.RunConfiguration
 import com.intellij.execution.testframework.sm.runner.SMTRunnerConsoleProperties
+import com.intellij.execution.testframework.sm.runner.SMTestLocator
 import com.intellij.execution.ui.ConsoleView
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleRunnerLayoutUiBuilder
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.executors.DefaultProfileExecutor
@@ -28,8 +29,9 @@ import uk.co.reecedunn.intellij.plugin.processor.test.TestFormat
 class TestRunnerConsoleProperties(
     config: RunConfiguration,
     testFrameworkName: String,
+    executor: Executor,
     private val outputFormat: TestFormat,
-    executor: Executor
+    private val testLocator: SMTestLocator? = null
 ) : SMTRunnerConsoleProperties(config, testFrameworkName, executor) {
 
     override fun createConsole(): ConsoleView {
@@ -41,4 +43,6 @@ class TestRunnerConsoleProperties(
         builder.asRunnerLayout(project, "QueryTest", PluginApiBundle.message("test.runner.layout.title"))
         return builder.consoleView()
     }
+
+    override fun getTestLocator(): SMTestLocator? = testLocator
 }

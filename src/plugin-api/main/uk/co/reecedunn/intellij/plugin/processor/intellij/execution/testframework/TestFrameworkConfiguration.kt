@@ -22,6 +22,7 @@ import com.intellij.execution.configurations.RunProfileState
 import com.intellij.execution.runners.ExecutionEnvironment
 import com.intellij.execution.testframework.sm.runner.SMRunnerConsolePropertiesProvider
 import com.intellij.execution.testframework.sm.runner.SMTRunnerConsoleProperties
+import com.intellij.execution.testframework.sm.runner.SMTestLocator
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 import uk.co.reecedunn.intellij.plugin.core.execution.configurations.RunConfigurationBase
@@ -45,13 +46,15 @@ abstract class TestFrameworkConfiguration<T>(
     // region SMRunnerConsolePropertiesProvider
 
     override fun createTestConsoleProperties(executor: Executor): SMTRunnerConsoleProperties {
-        return TestRunnerConsoleProperties(this, testFrameworkName, outputFormat, executor)
+        return TestRunnerConsoleProperties(this, testFrameworkName, executor, outputFormat, testLocator)
     }
 
     // endregion
     // region Configuration Settings
 
     abstract var outputFormat: TestFormat
+
+    open val testLocator: SMTestLocator? = null
 
     // endregion
 }
