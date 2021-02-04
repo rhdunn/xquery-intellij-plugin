@@ -27,6 +27,12 @@ import uk.co.reecedunn.intellij.plugin.xquery.model.importedPrologsForQName
 import uk.co.reecedunn.intellij.plugin.xquery.model.staticallyKnownFunctions
 
 object XQueryFunctionProvider : XpmFunctionProvider {
+    fun declaredFunctions(file: PsiFile): Sequence<XpmFunctionDeclaration> {
+        val module = file as? XQueryModule
+        val prolog = module?.mainOrLibraryModule?.prolog?.firstOrNull() ?: return emptySequence()
+        return prolog.annotatedDeclarations()
+    }
+
     override fun staticallyKnownFunctions(file: PsiFile): Sequence<XpmFunctionDeclaration> {
         val module = file as? XQueryModule
         val prolog = module?.mainOrLibraryModule?.prolog?.firstOrNull()
