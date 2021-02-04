@@ -27,7 +27,11 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.test.*
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsDurationValue
 
-open class TestProcessListener(processHandler: ProcessHandler, private val outputFormat: TestFormat) :
+open class TestProcessListener(
+    processHandler: ProcessHandler,
+    private val outputFormat: TestFormat,
+    private val locationProvider: TestLocationProvider? = null
+) :
     TestProcessHandlerEvents(processHandler),
     QueryResultListener {
     // region QueryResultListener
@@ -66,12 +70,12 @@ open class TestProcessListener(processHandler: ProcessHandler, private val outpu
             notifyTestError(name, it)
             notifyTestFinished(name)
         }
-        testsuite.testCases.forEach { onTestCase(it) }
+        testsuite.testCases.forEach { onTestCase(it, testsuite) }
         onTestSuiteFinished(testsuite)
     }
 
-    private fun onTestCase(testcase: TestCase) {
-        onTestStarted(testcase)
+    private fun onTestCase(testcase: TestCase, testsuite: TestSuite) {
+        onTestStarted(testcase, testsuite)
         when (testcase.result) {
             TestResult.Passed -> onTestPassed(testcase)
             TestResult.Ignored -> onTestIgnored(testcase)
@@ -89,8 +93,8 @@ open class TestProcessListener(processHandler: ProcessHandler, private val outpu
         notifyTestSuiteFinished(testsuite.name)
     }
 
-    open fun onTestStarted(test: TestCase) {
-        notifyTestStarted(test.name)
+    open fun onTestStarted(test: TestCase, testsuite: TestSuite) {
+        notifyTestStarted(test.name, locationHint = locationProvider?.locationHint(test.name, testsuite.name))
     }
 
     open fun onTestPassed(test: TestCase) {
