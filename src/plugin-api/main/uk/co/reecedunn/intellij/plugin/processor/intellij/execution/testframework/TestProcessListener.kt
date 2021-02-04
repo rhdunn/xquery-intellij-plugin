@@ -66,7 +66,7 @@ open class TestProcessListener(
         onTestSuiteStarted(testsuite)
         testsuite.error?.let {
             val name = testsuite.name.split("/").last()
-            notifyTestStarted(name)
+            notifyTestStarted(name, locationHint = locationProvider?.locationHint(testsuite.name))
             notifyTestError(name, it)
             notifyTestFinished(name)
         }

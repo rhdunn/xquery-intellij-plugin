@@ -16,5 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.processor.test
 
 interface TestLocationProvider {
+    fun locationHint(testsuite: String): String?
+
     fun locationHint(test: String, testsuite: String): String?
 }

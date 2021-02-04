@@ -54,9 +54,9 @@ class XQueryTestLocationProviderTest {
     }
 
     @Test
-    @DisplayName("module test case")
-    fun moduleTestCase() {
-        val locationHint = XQueryTestLocationProvider.locationHint("case.xqy", "/tests/example/case.xqy")
+    @DisplayName("module test suite")
+    fun moduleTestSuite() {
+        val locationHint = XQueryTestLocationProvider.locationHint("/tests/example/case.xqy")
         assertThat(locationHint, `is`("xquery:///tests/example/case.xqy"))
     }
 }

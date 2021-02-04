@@ -62,11 +62,12 @@ object XQueryTestLocationProvider : SMTestLocator, TestLocationProvider {
         }
     }
 
+    override fun locationHint(testsuite: String): String  {
+        return "$PROTOCOL$SCHEME_SEPARATOR$testsuite"
+    }
+
     override fun locationHint(test: String, testsuite: String): String  {
-        return when {
-            testsuite.endsWith("/$test") -> "$PROTOCOL$SCHEME_SEPARATOR$testsuite"
-            else -> "$PROTOCOL$SCHEME_SEPARATOR$testsuite#$test"
-        }
+        return "$PROTOCOL$SCHEME_SEPARATOR$testsuite#$test"
     }
 
     private const val PROTOCOL = "xquery"
