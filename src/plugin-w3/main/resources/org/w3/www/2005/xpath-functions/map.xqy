@@ -3,6 +3,7 @@ xquery version "3.1";
  : XPath and XQuery Functions and Operators: Functions that Operate on Maps
  :
  : @see https://www.w3.org/TR/2017/REC-xpath-functions-31-20170321/
+ : @see https://qt4cg.org/branch/master/xpath-functions-40/Overview.html
  :
  : This software includes material copied from or derived from the XPath and
  : XQuery Functions and Operators 3.1 specifications. Copyright © 2017 W3C®
@@ -19,12 +20,14 @@ declare %a:since("xslt", "3.0-20170608")
         %a:since("xpath-functions", "3.1-20170321") function map:contains($map as map(*), $key as xs:anyAtomicType) as xs:boolean external;
 declare %a:since("xslt", "3.0-20170608")
         %a:since("xpath-functions", "3.1-20170321") function map:entry($key as xs:anyAtomicType, $value as item()*) as map(*) external;
+declare %a:since("xpath-functions", "4.0-20210113") function map:filter($map as map(*), $predicate as function(xs:anyAtomicType, item()*) as xs:boolean) as item()* external;
 declare %a:since("xslt", "3.0-20170608")
         %a:since("xpath-functions", "3.1-20170321") function map:find($input as item()*, $key as xs:anyAtomicType) as array(*) external;
 declare %a:since("xslt", "3.0-20170608")
         %a:since("xpath-functions", "3.1-20170321") function map:for-each($map as map(*), $action as function(xs:anyAtomicType, item()*) as item()*) as item()* external;
 declare %a:since("xslt", "3.0-20170608")
         %a:since("xpath-functions", "3.1-20170321") function map:get($map as map(*), $key as xs:anyAtomicType) as item()* external;
+declare %a:since("xpath-functions", "4.0-20210113") function map:group-by($input as item()*, $key as function(item()) as xs:anyAtomicType?) as map(*) external;
 declare %a:since("xslt", "3.0-20170608")
         %a:since("xpath-functions", "3.1-20170321") function map:keys($map as map(*)) as xs:anyAtomicType* external;
 declare %a:since("xslt", "3.0-20170608")
@@ -35,5 +38,7 @@ declare %a:since("xslt", "3.0-20170608")
         %a:since("xpath-functions", "3.1-20170321") function map:put($map as map(*), $key as xs:anyAtomicType, $value as item()*) as map(*) external;
 declare %a:since("xslt", "3.0-20170608")
         %a:since("xpath-functions", "3.1-20170321") function map:remove($map as map(*), $keys as xs:anyAtomicType*) as map(*) external;
+declare %a:since("xpath-functions", "4.0-20210113") function map:replace($map as map(*), $key as xs:anyAtomicType, $action as function(item()*) as item()*) as map(*) external;
 declare %a:since("xslt", "3.0-20170608")
         %a:since("xpath-functions", "3.1-20170321") function map:size($map as map(*)) as xs:integer external;
+declare %a:since("xpath-functions", "4.0-20210113") function map:substitute($map as map(*), $action as function(xs:anyAtomicType, item()*) as item()*) as map(*) external;
