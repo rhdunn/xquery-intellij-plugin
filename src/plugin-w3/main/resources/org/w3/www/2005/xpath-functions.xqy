@@ -39,8 +39,10 @@ declare %a:since("xpath-functions", "4.0-20210113") item-type rng as record(
 
 declare %a:since("xpath-functions", "1.0-20070123") function fn:QName($paramURI as xs:string?, $paramQName as xs:string) as xs:QName external;
 declare %a:since("xpath-functions", "1.0-20070123") function fn:abs($arg as xs:numeric?) as xs:numeric? external;
-declare %a:since("xslt", "3.0-20170608") function fn:accumulator-after($name as xs:string) as item()* external;
-declare %a:since("xslt", "3.0-20170608") function fn:accumulator-before($name as xs:string) as item()* external;
+declare %a:restrict-until("$name", "xslt", "4.0-20210113", "xs:string")
+        %a:since("xslt", "3.0-20170608") function fn:accumulator-after($name as union(xs:QName, xs:string)) as item()* external;
+declare %a:restrict-until("$name", "xslt", "4.0-20210113", "xs:string")
+        %a:since("xslt", "3.0-20170608") function fn:accumulator-before($name as union(xs:QName, xs:string)) as item()* external;
 declare %a:since("xpath-functions", "1.0-20030502") function fn:adjust-date-to-timezone($arg as xs:date?) as xs:date? external;
 declare %a:since("xpath-functions", "1.0-20030502") function fn:adjust-date-to-timezone($arg as xs:date?, $timezone as xs:dayTimeDuration?) as xs:date? external;
 declare %a:since("xpath-functions", "1.0-20030502") function fn:adjust-dateTime-to-timezone($arg as xs:dateTime?) as xs:dateTime? external;
@@ -131,7 +133,8 @@ declare %a:since("xslt", "1.0-19991116") function fn:document($uri-sequence as i
 declare %a:since("xslt", "1.0-19991116") function fn:document($uri-sequence as item()*, $base-node as node()) as node()* external;
 declare %a:since("xpath-functions", "3.0-20140408") function fn:document-uri() as xs:anyURI? external;
 declare %a:since("xpath-functions", "1.0-20030502") function fn:document-uri($arg as node()?) as xs:anyURI? external;
-declare %a:since("xslt", "1.0-19991116") function fn:element-available($element-name as xs:string) as xs:boolean external;
+declare %a:restrict-until("$name", "xslt", "4.0-20210113", "xs:string")
+        %a:since("xslt", "1.0-19991116") function fn:element-available($name as union(xs:QName, xs:string)) as xs:boolean external;
 declare %a:since("xpath-functions", "1.0-20101214") function fn:element-with-id($arg as xs:string*) as element()* external;
 declare %a:since("xpath-functions", "1.0-20101214") function fn:element-with-id($arg as xs:string*, $node as node()) as element()* external;
 declare %a:since("xpath-functions", "1.0-20030502") function fn:empty($arg as item()*) as xs:boolean external;
@@ -181,8 +184,10 @@ declare %a:since("xslt", "2.0-20070123")
 declare %a:since("xslt", "2.0-20070123")
         %a:since("xpath-functions", "3.0-20140408") function fn:format-time($value as xs:time?, $picture as xs:string, $language as xs:string?, $calendar as xs:string?, $place as xs:string?) as xs:string? external;
 declare %a:since("xpath-functions", "3.0-20140408") function fn:function-arity($func as function(*)) as xs:integer external;
-declare %a:since("xslt", "1.0-19991116") function fn:function-available($function-name as xs:string) as xs:boolean external;
-declare %a:since("xslt", "2.0-20070123") function fn:function-available($function-name as xs:string, $arity as xs:integer) as xs:boolean external;
+declare %a:restrict-until("$name", "xslt", "4.0-20210113", "xs:string")
+        %a:since("xslt", "1.0-19991116") function fn:function-available($name as union(xs:QName, xs:string)) as xs:boolean external;
+declare %a:restrict-until("$name", "xslt", "4.0-20210113", "xs:string")
+        %a:since("xslt", "2.0-20070123") function fn:function-available($name as union(xs:QName, xs:string), $arity as xs:integer) as xs:boolean external;
 declare %a:since("xpath-functions", "3.0-20140408") function fn:function-lookup($name as xs:QName, $arity as xs:integer) as function(*)? external;
 declare %a:since("xpath-functions", "3.0-20140408") function fn:function-name($func as function(*)) as xs:QName? external;
 declare %a:since("xslt", "1.0-19991116")
@@ -276,8 +281,10 @@ declare %a:since("xslt", "3.0-20170608")
         %a:since("xpath-functions", "3.1-20170321") function fn:json-to-xml($json-text as xs:string?) as document-node()? external;
 declare %a:since("xslt", "3.0-20170608")
         %a:since("xpath-functions", "3.1-20170321") function fn:json-to-xml($json-text as xs:string?, $options as map(*)) as document-node()? external;
-declare %a:since("xslt", "1.0-19991116") function fn:key($key-name as xs:string, $key-value as xs:anyAtomicType*) as node()* external;
-declare %a:since("xslt", "2.0-20070123") function fn:key($key-name as xs:string, $key-value as xs:anyAtomicType*, $top as node()) as node()* external;
+declare %a:restrict-until("$key-name", "xslt", "4.0-20210113", "xs:string")
+        %a:since("xslt", "1.0-19991116") function fn:key($key-name as union(xs:string, xs:QName), $key-value as xs:anyAtomicType*) as node()* external;
+declare %a:restrict-until("$key-name", "xslt", "4.0-20210113", "xs:string")
+        %a:since("xslt", "2.0-20070123") function fn:key($key-name as union(xs:string, xs:QName), $key-value as xs:anyAtomicType*, $top as node()) as node()* external;
 declare %a:since("xpath", "1.0-19991116")
         %a:since("xpath-functions", "1.0-20070123") function fn:lang($testlang as xs:string?) as xs:boolean external;
 declare %a:since("xpath-functions", "1.0-20070123") function fn:lang($testlang as xs:string?, $node as node()) as xs:boolean external;
@@ -425,7 +432,8 @@ declare %a:since("xpath-functions", "1.0-20030502")
 declare %a:since("xpath", "1.0-19991116")
         %a:since("xpath-functions", "1.0-20070123") function fn:sum($arg as xs:anyAtomicType*) as xs:anyAtomicType external;
 declare %a:since("xpath-functions", "1.0-20070123") function fn:sum($arg as xs:anyAtomicType*, $zero as xs:anyAtomicType?) as xs:anyAtomicType? external;
-declare %a:since("xslt", "1.0-19991116") function fn:system-property($property-name as xs:string) as xs:string external;
+declare %a:restrict-until("$name", "xslt", "4.0-20210113", "xs:string")
+        %a:since("xslt", "1.0-19991116") function fn:system-property($name as union(xs:QName, xs:string)) as xs:string external;
 declare %a:since("xpath-functions", "3.0-20140408") function fn:tail($arg as item()*) as item()? external;
 declare %a:since("xpath-functions", "1.0-20070123") function fn:timezone-from-date($arg as xs:date?) as xs:dayTimeDuration? external;
 declare %a:since("xpath-functions", "1.0-20070123") function fn:timezone-from-dateTime($arg as xs:dateTime?) as xs:dayTimeDuration? external;
@@ -440,7 +448,8 @@ declare %a:since("xpath", "1.0-19991116")
         %a:since("xpath-functions", "1.0-20070123") function fn:translate($arg as xs:string?, $mapString as xs:string, $transString as xs:string) as xs:string external;
 declare %a:since("xpath", "1.0-19991116")
         %a:since("xpath-functions", "1.0-20070123") function fn:true() as xs:boolean external;
-declare %a:since("xslt", "2.0-20070123") function fn:type-available($type-name as xs:string) as xs:boolean external;
+declare %a:restrict-until("$name", "xslt", "4.0-20210113", "xs:string")
+        %a:since("xslt", "2.0-20070123") function fn:type-available($name as union(xs:QName, xs:string)) as xs:boolean external;
 declare %a:since("xpath-functions", "4.0-20210113") function fn:uniform($values as xs:anyAtomicType*) as xs:boolean external;
 declare %a:since("xpath-functions", "4.0-20210113") function fn:uniform($values as xs:anyAtomicType*, $collation as xs:string) as xs:boolean external;
 declare %a:since("xpath-functions", "4.0-20210113") function fn:unique($values as xs:anyAtomicType*) as xs:boolean external;
