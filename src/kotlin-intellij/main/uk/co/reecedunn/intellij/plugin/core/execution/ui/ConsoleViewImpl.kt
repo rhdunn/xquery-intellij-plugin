@@ -52,6 +52,7 @@ open class ConsoleViewImpl : JPanel(BorderLayout()), ConsoleView, DataProvider {
     override fun getComponent(): JComponent = this
 
     override fun performWhenNoDeferredOutput(runnable: Runnable) {
+        runnable.run()
     }
 
     override fun attachToProcess(processHandler: ProcessHandler) {

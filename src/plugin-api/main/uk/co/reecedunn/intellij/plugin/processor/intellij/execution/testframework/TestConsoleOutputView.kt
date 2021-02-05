@@ -89,9 +89,11 @@ class TestConsoleOutputView(project: Project, private val outputFormat: TestForm
             editor!!.highlighter = provider.getEditorHighlighter(project, it, null, editor!!.colorsScheme)
         }
 
-        PsiFileFactory.getInstance(project).createFileFromText(language, doc.text)?.let { psiFile ->
-            psiFile.viewProvider.virtualFile.putUserData(FileDocumentManagerImpl.HARD_REF_TO_DOCUMENT_KEY, doc)
-            handler(psiFile)
+        performWhenNoDeferredOutput {
+            PsiFileFactory.getInstance(project).createFileFromText(language, doc.text)?.let { psiFile ->
+                psiFile.viewProvider.virtualFile.putUserData(FileDocumentManagerImpl.HARD_REF_TO_DOCUMENT_KEY, doc)
+                handler(psiFile)
+            }
         }
     }
 

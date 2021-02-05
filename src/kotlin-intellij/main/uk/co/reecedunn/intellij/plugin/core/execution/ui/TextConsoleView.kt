@@ -237,6 +237,11 @@ open class TextConsoleView(val project: Project) : ConsoleViewImpl(), ConsoleVie
         return tokens.isNotEmpty()
     }
 
+    override fun performWhenNoDeferredOutput(runnable: Runnable) {
+        flushDeferredText()
+        runnable.run()
+    }
+
     override fun clear() {
         editor!!.document.setText("")
         synchronized(lock) {

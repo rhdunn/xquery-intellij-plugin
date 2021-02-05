@@ -84,9 +84,11 @@ class QueryTextConsoleView(project: Project) : TextConsoleView(project), QueryRe
 
         if (activeLanguage != null) {
             val doc = editor?.document ?: return
-            PsiFileFactory.getInstance(project).createFileFromText(activeLanguage!!, doc.text)?.let { psiFile ->
-                psiFile.viewProvider.virtualFile.putUserData(FileDocumentManagerImpl.HARD_REF_TO_DOCUMENT_KEY, doc)
-                handler(psiFile)
+            performWhenNoDeferredOutput {
+                PsiFileFactory.getInstance(project).createFileFromText(activeLanguage!!, doc.text)?.let { psiFile ->
+                    psiFile.viewProvider.virtualFile.putUserData(FileDocumentManagerImpl.HARD_REF_TO_DOCUMENT_KEY, doc)
+                    handler(psiFile)
+                }
             }
         }
     }

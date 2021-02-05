@@ -102,6 +102,7 @@
       <li>Filter the app-servers to the ones that match the selected database.</li>
       <li>Fix some encoding issues in handling UTF-8 output for MarkLogic.</li>
       <li>Report test status in the run console.</li>
+      <li>Fix reformatting the output when the option is specified in the configuration.</li>
     </ol>
   ]]></change-notes>
 
