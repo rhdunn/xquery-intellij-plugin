@@ -28,5 +28,11 @@ interface QuerySourcePosition : XSourcePosition {
             val position = XDebuggerUtil.getInstance().createPosition(file, line, column) ?: return null
             return QuerySourcePositionImpl(position, column)
         }
+
+        fun create(file: VirtualFile?, line: Int, column: Int? = null): XSourcePosition? = when {
+            file == null -> null
+            column == null -> XDebuggerUtil.getInstance().createPosition(file, line)
+            else -> create(file, line, column)
+        }
     }
 }
