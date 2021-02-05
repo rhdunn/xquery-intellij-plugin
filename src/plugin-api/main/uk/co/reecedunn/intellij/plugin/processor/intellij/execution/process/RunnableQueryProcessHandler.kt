@@ -36,11 +36,7 @@ class RunnableQueryProcessHandler(private val query: RunnableQuery) : QueryProce
                         if (results.status.statusCode != 200) {
                             notifyResult(QueryResult.fromItemType(0, results.status.toString(), "http:status-line"))
                         }
-                        if (results.results.size == 1) {
-                            notifyResult(results.results.first())
-                        } else {
-                            results.results.forEach { result -> notifyResult(result) }
-                        }
+                        results.results.forEach { result -> notifyResult(result) }
                         notifyResultTime(QueryResultTime.Elapsed, results.elapsed)
                     } catch (e: Throwable) {
                         if (e !is ProcessTerminatedException) {

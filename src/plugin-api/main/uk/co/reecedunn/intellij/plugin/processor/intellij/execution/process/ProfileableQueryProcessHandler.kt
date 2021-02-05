@@ -54,11 +54,7 @@ class ProfileableQueryProcessHandler(private val query: ProfileableQuery) : Quer
                 invokeLater(ModalityState.defaultModalityState()) {
                     try {
                         notifyProfileReport(results.report)
-                        if (results.results.size == 1) {
-                            notifyResult(results.results.first())
-                        } else {
-                            results.results.forEach { result -> notifyResult(result) }
-                        }
+                        results.results.forEach { result -> notifyResult(result) }
                         notifyResultTime(QueryResultTime.Elapsed, results.report.elapsed)
                     } catch (e: Throwable) {
                         if (e !is ProcessTerminatedException) {
