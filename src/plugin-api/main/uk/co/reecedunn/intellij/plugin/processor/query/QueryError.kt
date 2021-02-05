@@ -36,6 +36,13 @@ data class QueryError(
     @Suppress("DuplicatedCode")
     override fun printStackTrace(s: PrintStream) {
         s.println(message)
+        value.withIndex().forEach {
+            if (it.index == 0) {
+                s.println("  with ${it.value}")
+            } else {
+                s.println("   and ${it.value}")
+            }
+        }
         frames.forEach { frame ->
             when (val source = frame.sourcePosition) {
                 null -> {
@@ -49,6 +56,13 @@ data class QueryError(
     @Suppress("DuplicatedCode")
     override fun printStackTrace(s: PrintWriter) {
         s.println(message)
+        value.withIndex().forEach {
+            if (it.index == 0) {
+                s.println("  with ${it.value}")
+            } else {
+                s.println("   and ${it.value}")
+            }
+        }
         frames.forEach { frame ->
             when (val source = frame.sourcePosition) {
                 null -> {
