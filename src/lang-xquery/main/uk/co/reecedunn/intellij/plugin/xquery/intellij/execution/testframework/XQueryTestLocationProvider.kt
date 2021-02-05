@@ -43,9 +43,10 @@ object XQueryTestLocationProvider : SMTestLocator, TestLocationProvider {
         val parts = path.split('#')
         val module = getModule(project, parts[0])
         return when (parts.size) {
-            0, 1 -> mutableListOf(PsiLocation(module))
+            0, 1 -> module?.let { mutableListOf<Location<PsiElement>>(PsiLocation(it)) } ?: mutableListOf()
             else -> getFunctions(module, op_qname_parse(parts[1], mapOf())).mapNotNullTo(mutableListOf()) {
-                PsiLocation(it.functionName?.element)
+                @Suppress("UNCHECKED_CAST")
+                PsiLocation(it.functionName?.element) as Location<PsiElement>
             }
         }
     }
