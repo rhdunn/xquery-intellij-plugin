@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2020 Reece H. Dunn
+ * Copyright (C) 2019-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,8 +34,6 @@ import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.QuerySourceP
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsDurationValue
-import java.io.PrintWriter
-import java.io.StringWriter
 import javax.swing.JComponent
 
 class QueryTextConsoleView(project: Project) : TextConsoleView(project), QueryResultListener {
@@ -79,17 +77,18 @@ class QueryTextConsoleView(project: Project) : TextConsoleView(project), QueryRe
         clear()
     }
 
-    override fun onEndResults(): PsiFile? {
+    override fun onEndResults(handler: (PsiFile) -> Unit) {
         if (contentSize == 0) {
             print("()", ConsoleViewContentType.NORMAL_OUTPUT)
         }
 
         if (activeLanguage != null) {
-            val doc = editor?.document ?: return null
-            psiFile = PsiFileFactory.getInstance(project).createFileFromText(activeLanguage!!, doc.text) ?: return null
-            psiFile!!.viewProvider.virtualFile.putUserData(FileDocumentManagerImpl.HARD_REF_TO_DOCUMENT_KEY, doc)
+            val doc = editor?.document ?: return
+            PsiFileFactory.getInstance(project).createFileFromText(activeLanguage!!, doc.text)?.let { psiFile ->
+                psiFile.viewProvider.virtualFile.putUserData(FileDocumentManagerImpl.HARD_REF_TO_DOCUMENT_KEY, doc)
+                handler(psiFile)
+            }
         }
-        return psiFile
     }
 
     override fun onQueryResult(result: QueryResult) {

@@ -80,8 +80,8 @@ class TestConsoleOutputView(project: Project, private val outputFormat: TestForm
         clear()
     }
 
-    override fun onEndResults(): PsiFile? {
-        val doc = editor?.document ?: return null
+    override fun onEndResults(handler: (PsiFile) -> Unit) {
+        val doc = editor?.document ?: return
         val language = outputFormat.language
 
         language.associatedFileType!!.let {
@@ -89,9 +89,10 @@ class TestConsoleOutputView(project: Project, private val outputFormat: TestForm
             editor!!.highlighter = provider.getEditorHighlighter(project, it, null, editor!!.colorsScheme)
         }
 
-        psiFile = PsiFileFactory.getInstance(project).createFileFromText(language, doc.text) ?: return null
-        psiFile!!.viewProvider.virtualFile.putUserData(FileDocumentManagerImpl.HARD_REF_TO_DOCUMENT_KEY, doc)
-        return psiFile
+        PsiFileFactory.getInstance(project).createFileFromText(language, doc.text)?.let { psiFile ->
+            psiFile.viewProvider.virtualFile.putUserData(FileDocumentManagerImpl.HARD_REF_TO_DOCUMENT_KEY, doc)
+            handler(psiFile)
+        }
     }
 
     override fun onQueryResult(result: QueryResult) {

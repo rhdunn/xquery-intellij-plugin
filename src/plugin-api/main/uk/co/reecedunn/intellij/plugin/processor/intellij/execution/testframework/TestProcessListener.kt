@@ -40,7 +40,8 @@ open class TestProcessListener(
         notifyTestsStarted()
     }
 
-    override fun onEndResults(): PsiFile? = null
+    override fun onEndResults(handler: (PsiFile) -> Unit) {
+    }
 
     override fun onQueryResult(result: QueryResult) {
         outputFormat.parse(result)?.let { results ->
