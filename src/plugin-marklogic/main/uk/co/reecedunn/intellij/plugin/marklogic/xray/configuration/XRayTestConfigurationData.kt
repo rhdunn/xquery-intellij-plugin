@@ -26,5 +26,6 @@ data class XRayTestConfigurationData(
     var testPath: String? = null,
     var modulePattern: String? = null,
     var testPattern: String? = null,
-    var outputFormat: String = XRayTextFormat.id
+    var outputFormat: String = XRayTextFormat.id,
+    var reformatResults: Boolean = false
 ) : RunConfigurationOptions()

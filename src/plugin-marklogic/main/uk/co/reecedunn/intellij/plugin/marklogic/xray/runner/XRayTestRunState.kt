@@ -87,10 +87,13 @@ class XRayTestRunState(private val environment: ExecutionEnvironment) : RunProfi
         }
     }
 
-    override fun createProcessHandler(query: Query): QueryProcessHandlerBase = when (query) {
-        is RunnableQuery -> RunnableQueryProcessHandler(query)
-        is ProfileableQuery -> ProfileableQueryProcessHandler(query)
-        else -> throw UnsupportedOperationException()
+    override fun createProcessHandler(query: Query): QueryProcessHandlerBase {
+        val configuration = environment.runProfile as XRayTestConfiguration
+        return when (query) {
+            is RunnableQuery -> RunnableQueryProcessHandler(query).reformat(configuration.reformatResults)
+            is ProfileableQuery -> ProfileableQueryProcessHandler(query).reformat(configuration.reformatResults)
+            else -> throw UnsupportedOperationException()
+        }
     }
 
     override fun createConsole(executor: Executor): ConsoleView {

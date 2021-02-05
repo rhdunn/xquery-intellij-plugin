@@ -32,6 +32,7 @@ import uk.co.reecedunn.intellij.plugin.processor.intellij.resources.PluginApiBun
 import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessorComboBox
 import uk.co.reecedunn.intellij.plugin.processor.test.TestFormat
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurations
+import javax.swing.JCheckBox
 import javax.swing.JComboBox
 import javax.swing.JComponent
 import javax.swing.JTextField
@@ -48,6 +49,8 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
     private lateinit var modulePattern: JTextField
     private lateinit var testPattern: JTextField
     private lateinit var outputFormat: JComboBox<TestFormat>
+
+    private lateinit var reformatResults: JCheckBox
 
     @Suppress("DuplicatedCode")
     private val panel = panel {
@@ -108,6 +111,11 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
             }
         }
         row {
+            reformatResults = checkBox(column.horizontal().spanCols()) {
+                text = PluginApiBundle.message("xquery.configurations.processor.reformat-results.label")
+            }
+        }
+        row {
             spacer(column.vertical())
             spacer(column.spanCols().horizontal())
         }
@@ -127,6 +135,7 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
         modulePattern.text = settings.modulePattern ?: ""
         testPattern.text = settings.testPattern ?: ""
         outputFormat.selectedItem = settings.outputFormat
+        reformatResults.isSelected = settings.reformatResults
     }
 
     override fun applyEditorTo(settings: XRayTestConfiguration) {
@@ -141,6 +150,7 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
         settings.modulePattern = modulePattern.text.nullize()
         settings.testPattern = testPattern.text.nullize()
         settings.outputFormat = (outputFormat.selectedItem as? TestFormat) ?: XRayTextFormat
+        settings.reformatResults = reformatResults.isSelected
     }
 
     private val projectRoot: String?

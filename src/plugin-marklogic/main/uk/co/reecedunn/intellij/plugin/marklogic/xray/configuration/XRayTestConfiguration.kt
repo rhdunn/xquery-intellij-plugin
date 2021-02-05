@@ -139,4 +139,13 @@ class XRayTestConfiguration(project: Project, factory: ConfigurationFactory) :
         }
 
     // endregion
+    // region Reformat Results
+
+    var reformatResults: Boolean
+        get() = data.reformatResults
+        set(value) {
+            data.reformatResults = value
+        }
+
+    // endregion
 }
