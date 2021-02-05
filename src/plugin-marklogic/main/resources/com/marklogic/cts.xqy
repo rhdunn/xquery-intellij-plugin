@@ -408,9 +408,11 @@ declare %a:since("marklogic", "9.0") function cts:entity-dictionary-parse($conte
 declare %a:since("marklogic", "9.0") function cts:entity-dictionary-parse($contents as xs:string*, $options as xs:string*) as cts:entity-dictionary external;
 declare %a:since("marklogic", "5.0") %a:until("marklogic", "7.0")
         %a:since("marklogic", "9.0") %a:until("marklogic", "10.0") function cts:entity-highlight($node as node(), $expr as item()*) as node() external;
-declare %a:since("marklogic", "9.0") %a:until("marklogic", "10.0") function cts:entity-highlight($node as node(), $expr as item()*, $dict as cts:entity-dictionary) as node() external;
-declare %a:since("marklogic", "9.0") %a:until("marklogic", "10.0") function cts:entity-walk($node as node(), $expr as item()*) as item()* external;
-declare %a:since("marklogic", "9.0") %a:until("marklogic", "10.0") function cts:entity-walk($node as node(), $expr as item()*, $dict as cts:entity-dictionary) as item()* external;
+declare %a:since("marklogic", "9.0") function cts:entity-highlight($node as node(), $expr as item()*, $dict as cts:entity-dictionary) as node() external;
+declare %a:since("marklogic", "10.0") %a:language("javascript") function cts:entity-highlight($node as node(), $callback as function, $builder as NodeBuilder) as null external;
+declare %a:since("marklogic", "10.0") %a:language("javascript") function cts:entity-highlight($node as node(), $callback as function, $builder as NodeBuilder, $dict as cts.entityDictionary) as null external;
+declare %a:since("marklogic", "9.0") function cts:entity-walk($node as node(), $expr as item()*) as item()* external;
+declare %a:since("marklogic", "9.0") function cts:entity-walk($node as node(), $expr as item()*, $dict as cts:entity-dictionary) as item()* external;
 declare %a:since("marklogic", "8.0") %a:language("javascript") function cts:estimate($query as cts:query?) as xs:integer external;
 declare %a:since("marklogic", "8.0") %a:language("javascript") function cts:estimate($query as cts:query?, $options as (cts:order*|xs:string*)) as xs:integer external;
 declare %a:since("marklogic", "8.0") %a:language("javascript") function cts:estimate($query as cts:query?, $options as (cts:order*|xs:string*), $quality-weight as xs:double?) as xs:integer external;
@@ -759,6 +761,7 @@ declare %a:since("marklogic", "6.0") function cts:rank($arg as xs:anyAtomicType*
 declare %a:since("marklogic", "6.0") function cts:rank($arg as xs:anyAtomicType*, $value as xs:anyAtomicType, $options as xs:string*) as xs:integer? external;
 declare %a:since("marklogic", "9.0") function cts:reference-collation($index as cts:reference) as xs:string external;
 declare %a:since("marklogic", "9.0") function cts:reference-coordinate-system($index as cts:reference) as xs:string external;
+declare %a:since("marklogic", "10.0") function cts:reference-namespaces($index as cts:reference) as map:map external;
 declare %a:since("marklogic", "9.0") function cts:reference-nullable($reference as cts:reference) as xs:boolean external;
 declare %a:since("marklogic", "7.0") %a:until("marklogic", "8.0") function cts:reference-parse() as cts:reference external;
 declare %a:restrict-until("$reference", "marklogic", "8.0", "element()")
