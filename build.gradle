@@ -97,6 +97,10 @@ configure(allprojects - project(':src')) {
         version = idea_version
     }
 
+    runIde {
+        maxHeapSize = "2g"
+    }
+
     dependencies {
         compile "org.jetbrains.kotlin:$kotlin_stdlib:$kotlin_version"
         compile "org.jsoup:jsoup:1.12.1"
