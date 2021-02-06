@@ -87,7 +87,7 @@ open class TestProcessListener(
     }
 
     open fun onTestSuiteStarted(testsuite: TestSuite) {
-        notifyTestSuiteStarted(testsuite.name)
+        notifyTestSuiteStarted(testsuite.name, locationHint = locationProvider?.locationHint(testsuite.name))
     }
 
     open fun onTestSuiteFinished(testsuite: TestSuite) {

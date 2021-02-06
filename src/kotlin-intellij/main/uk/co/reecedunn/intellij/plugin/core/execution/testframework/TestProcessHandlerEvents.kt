@@ -40,8 +40,10 @@ open class TestProcessHandlerEvents private constructor(private val processHandl
     /**
      * @see jetbrains.buildServer.messages.serviceMessages.TestSuiteStarted
      */
-    fun notifyTestSuiteStarted(name: String) {
-        notifyServiceMessage(ServiceMessageBuilder.testSuiteStarted(name))
+    fun notifyTestSuiteStarted(name: String, locationHint: String? = null) {
+        val builder = ServiceMessageBuilder.testSuiteStarted(name)
+        locationHint?.let { builder.addAttribute("locationHint", it) }
+        notifyServiceMessage(builder)
     }
 
     /**
