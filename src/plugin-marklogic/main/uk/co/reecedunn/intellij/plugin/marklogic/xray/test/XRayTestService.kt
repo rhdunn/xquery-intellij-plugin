@@ -32,6 +32,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryLibraryModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModuleDecl
+import uk.co.reecedunn.intellij.plugin.xquery.intellij.execution.testframework.XQueryTestLocationProvider
 
 class XRayTestService(private val project: Project) {
     private val cachedXrayRootDir = ModificationTrackedProperty<ProjectRootManager, VirtualFile> {
@@ -79,6 +80,8 @@ class XRayTestService(private val project: Project) {
         private const val TEST_NAMESPACE = "http://github.com/robwhitby/xray/test"
         private val TEST_CASE_LOCAL_NAMES = setOf("case", "ignore")
 
+        // region Module (Test Suite)
+
         fun isTestModule(file: PsiFile): Boolean {
             val module = (file as? XQueryModule)?.children()?.filterIsInstance<XQueryLibraryModule>()?.firstOrNull()
             return isTestModule(module?.children()?.filterIsInstance<XQueryModuleDecl>()?.firstOrNull())
@@ -89,6 +92,14 @@ class XRayTestService(private val project: Project) {
         private fun isTestModule(declaration: XQueryModuleDecl?): Boolean {
             return declaration?.namespaceUri?.data == TEST_NAMESPACE
         }
+
+        fun locationHint(file: PsiFile): String {
+            val path = XpmProjectConfigurations.getInstance(file.project).toModulePath(file.virtualFile ?: return "")
+            return XQueryTestLocationProvider.locationHint(path)
+        }
+
+        // endregion
+        // region Function (Test Case)
 
         fun isTestCase(name: XPathEQName): Boolean = isTestCase(name.parent as? XQueryFunctionDecl)
 
@@ -103,5 +114,12 @@ class XRayTestService(private val project: Project) {
             }
             return false
         }
+
+        fun locationHint(file: PsiFile, name: XPathEQName): String {
+            val path = XpmProjectConfigurations.getInstance(file.project).toModulePath(file.virtualFile ?: return "")
+            return XQueryTestLocationProvider.locationHint(name.localName!!.data, path)
+        }
+
+        // endregion
     }
 }
