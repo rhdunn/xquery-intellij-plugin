@@ -137,6 +137,7 @@ dependencies {
     compile project(':src:plugin-existdb')
     compile project(':src:plugin-marklogic')
     compile project(':src:plugin-saxon')
+    compile project(':src:plugin-xijp')
 
     compile project(':src:lang-java')
 

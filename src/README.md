@@ -4,8 +4,8 @@
 1. [Core](#core)
 1. [Language Support](#language-support)
 1. [Language Implementations](#language-implementations)
-1. [Importable and Declarable Module Support](#importable-and-declarable-module-support)
-1. [Plugin](#plugin)
+1. [Plugin Core](#plugin-core)
+1. [Vendor Support](#vendor-support)
 
 ## Core
 | Package           | Description |
@@ -29,20 +29,21 @@
 | `lang-xpath`      | XPath language support for XSLT and XQuery. |
 | `lang-xquery`     | XQuery language support. |
 | `lang-xslt`       | XSLT language support. |
-
-## Importable and Declarable Module Support
-| Package           | Description |
-|-------------------|-------------|
 | `lang-java`       | Support for Java modules (BaseX, eXist-db, Saxon). |
 
-## Plugin
+## Plugin Core
 | Package            | Description |
 |--------------------|-------------|
 | `plugin-api`       | An API for integrating thirdparty applications and libraries. |
-| `plugin-basex`     | Support for the BaseX database. |
-| `plugin-existdb`   | Support for the eXist database. |
 | `plugin-expath`    | Support for the EXPath modules. |
 | `plugin-exquery`   | Support for the EXQuery modules. |
+| `plugin-w3`        | Support for the W3C modules. |
+| `plugin-xijp`      | Support for xquery-intellij-plugin extensions. |
+
+## Vendor Support
+| Package            | Description |
+|--------------------|-------------|
+| `plugin-basex`     | Support for the BaseX database. |
+| `plugin-existdb`   | Support for the eXist database. |
 | `plugin-marklogic` | Support for the MarkLogic database. |
 | `plugin-saxon`     | Support for the Saxon XSLT, XPath, and XQuery processor. |
-| `plugin-w3`        | Support for the W3C modules. |
