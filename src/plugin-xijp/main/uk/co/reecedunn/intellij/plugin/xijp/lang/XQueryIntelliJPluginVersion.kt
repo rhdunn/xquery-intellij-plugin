@@ -22,7 +22,7 @@ data class XQueryIntelliJPluginVersion(
     override val product: XpmProductType,
     override val major: Int,
     override val minor: Int,
-    override val features: String
+    override val features: String = ""
 ) : XpmProductVersion {
     // region XpmProductVersion
 
