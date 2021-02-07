@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2020 Reece H. Dunn
+ * Copyright (C) 2019-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,6 @@ import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.*
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
-import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmSpecificationType
 
 internal class W3CFunctionReference(private val node: Element, baseHref: String) :
@@ -80,7 +79,7 @@ internal data class W3CSpecificationDocument(
     val id: String,
     override val version: String,
     private val namespaces: Map<String, String>
-) : XQDocDocumentationSource, XQDocDocumentationIndex {
+) : XQDocDocumentationSource {
     // region XQDocDocumentationSource
 
     override val presentation: ItemPresentation = type.presentation
@@ -97,7 +96,7 @@ internal data class W3CSpecificationDocument(
 
     override fun invalidate() = doc.invalidate()
 
-    override fun lookup(ref: XpmFunctionReference): XQDocFunctionDocumentation? {
+    fun lookup(ref: XpmFunctionReference): XQDocFunctionDocumentation? {
         val prefix = namespaces[ref.functionName?.namespace?.data] ?: return null
         val localName = ref.functionName?.localName?.data ?: return null
         val lookupName = "$prefix:$localName"
@@ -108,8 +107,6 @@ internal data class W3CSpecificationDocument(
         }
         return match?.let { W3CFunctionReference(it.parent().parent(), href) }
     }
-
-    override fun lookup(decl: XpmNamespaceDeclaration): XQDocDocumentation? = null
 
     // endregion
 }

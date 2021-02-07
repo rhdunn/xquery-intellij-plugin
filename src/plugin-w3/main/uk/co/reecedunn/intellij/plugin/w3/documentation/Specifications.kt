@@ -92,12 +92,10 @@ object FunctionsAndOperatorsDocumentation : XQDocDocumentationSourceProvider, XQ
     override fun invalidate() {}
 
     override fun lookup(ref: XpmFunctionReference): XQDocFunctionDocumentation? {
-        return (REC_3_1_20170321 as XQDocDocumentationIndex).lookup(ref)
+        return (REC_3_1_20170321 as W3CSpecificationDocument).lookup(ref)
     }
 
-    override fun lookup(decl: XpmNamespaceDeclaration): XQDocDocumentation? {
-        return (REC_3_1_20170321 as XQDocDocumentationIndex).lookup(decl)
-    }
+    override fun lookup(decl: XpmNamespaceDeclaration): XQDocDocumentation? = null
 
     // endregion
 }
