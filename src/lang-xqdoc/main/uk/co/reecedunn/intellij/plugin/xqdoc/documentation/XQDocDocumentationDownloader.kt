@@ -48,7 +48,7 @@ class XQDocDocumentationDownloader : PersistentStateComponent<XQDocDocumentation
             } catch (e: IOException) {
                 return@backgroundable
             }
-            (source as? XQDocDocumentationIndex)?.invalidate()
+            source.invalidate()
         }
     }
 
