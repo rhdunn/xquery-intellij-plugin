@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2020 Reece H. Dunn
+ * Copyright (C) 2019-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,14 +33,6 @@ private class W3CSpecificationDocumentationTest {
     @Nested
     @DisplayName("XQuery and XPath Functions and Operators")
     internal inner class FunctionsAndOperators {
-        @Test
-        @DisplayName("specification type")
-        fun specificationType() {
-            val type: XpmSpecificationType = FunctionsAndOperatorsDocumentation
-            assertThat(type.id, `is`("xpath-functions"))
-            assertThat(type.presentation.presentableText, `is`("XQuery and XPath Functions and Operators"))
-        }
-
         @Test
         @DisplayName("1.0 Working Draft 02 May 2003")
         fun spec20030502() {

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,38 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.w3.lang
+package uk.co.reecedunn.intellij.plugin.xpath.lang
 
 import com.intellij.navigation.ItemPresentation
 import uk.co.reecedunn.intellij.plugin.xpm.intellij.resources.XpmIcons
-import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductType
-import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
+import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmSpecificationType
 import javax.swing.Icon
 
-object W3CSpecifications : ItemPresentation, XpmProductType {
+object FunctionsAndOperatorsSpec : ItemPresentation, XpmSpecificationType {
     // region ItemPresentation
 
-    override fun getPresentableText(): String = "W3C Specifications"
+    override fun getPresentableText(): String = "XQuery and XPath Functions and Operators"
 
     override fun getLocationString(): String? = null
 
     override fun getIcon(unused: Boolean): Icon = XpmIcons.W3.Product
 
     // endregion
-    // region XpmProductType
+    // region XpmSpecificationType
 
-    override val id: String = "w3c"
+    override val id: String = "xpath-functions"
 
     override val presentation: ItemPresentation
         get() = this
-
-    // endregion
-    // region Language Versions
-
-    val REC: XpmProductVersion = W3CSpecificationsVersion(this)
-
-    @Suppress("unused")
-    val languageVersions: List<XpmProductVersion> = listOf(REC)
 
     // endregion
 }

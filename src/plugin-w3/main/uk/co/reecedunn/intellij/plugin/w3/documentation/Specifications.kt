@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.w3.documentation
 
 import com.intellij.navigation.ItemPresentation
+import uk.co.reecedunn.intellij.plugin.xpath.lang.FunctionsAndOperatorsSpec
 import uk.co.reecedunn.intellij.plugin.xpm.intellij.resources.XpmIcons
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.*
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
@@ -23,8 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclarat
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmSpecificationType
 import javax.swing.Icon
 
-object FunctionsAndOperatorsDocumentation :
-    ItemPresentation, XpmSpecificationType, XQDocDocumentationSourceProvider, XQDocDocumentationIndex {
+object FunctionsAndOperatorsDocumentation : XQDocDocumentationSourceProvider, XQDocDocumentationIndex {
     // region Namespaces
 
     private val NAMESPACES_10_20030502 = mapOf(
@@ -48,53 +48,36 @@ object FunctionsAndOperatorsDocumentation :
     )
 
     // endregion
-    // region ItemPresentation
-
-    override fun getPresentableText(): String = "XQuery and XPath Functions and Operators"
-
-    override fun getLocationString(): String? = null
-
-    override fun getIcon(unused: Boolean): Icon = XpmIcons.Product
-
-    // endregion
-    // region XpmSpecificationType
-
-    override val id: String = "xpath-functions"
-
-    override val presentation: ItemPresentation
-        get() = this
-
-    // endregion
     // region XQDocDocumentationSourceProvider
 
     val WD_1_0_20030502: XQDocDocumentationSource = W3CSpecificationDocument(
-        this, "https://www.w3.org/TR/2003/WD-xpath-functions-20030502/",
+        FunctionsAndOperatorsSpec, "https://www.w3.org/TR/2003/WD-xpath-functions-20030502/",
         "1.0-20030502", "1.0 (Working Draft 02 May 2003)",
         NAMESPACES_10_20030502 // Used by the MarkLogic 0.9-ml XQuery version.
     )
 
     val REC_1_0_20070123: XQDocDocumentationSource = W3CSpecificationDocument(
-        this, "https://www.w3.org/TR/2007/REC-xpath-functions-20070123/",
+        FunctionsAndOperatorsSpec, "https://www.w3.org/TR/2007/REC-xpath-functions-20070123/",
         "1.0-20070123", "1.0 (First Edition)", NAMESPACES_10
     )
 
     val REC_1_0_20101214: XQDocDocumentationSource = W3CSpecificationDocument(
-        this, "https://www.w3.org/TR/2010/REC-xpath-functions-20101214/",
+        FunctionsAndOperatorsSpec, "https://www.w3.org/TR/2010/REC-xpath-functions-20101214/",
         "1.0-20101214", "1.0 (Second Edition)", NAMESPACES_10
     )
 
     val WD_3_0_20111213: XQDocDocumentationSource = W3CSpecificationDocument(
-        this, "http://www.w3.org/TR/2011/WD-xpath-functions-30-20111213/",
+        FunctionsAndOperatorsSpec, "http://www.w3.org/TR/2011/WD-xpath-functions-30-20111213/",
         "3.0-20111213", "3.0 (Working Draft 13 Dec 2011)", NAMESPACES_30 // Used by the MarkLogic 1.0-ml XQuery version.
     )
 
     val REC_3_0_20140408: XQDocDocumentationSource = W3CSpecificationDocument(
-        this, "https://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/",
+        FunctionsAndOperatorsSpec, "https://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/",
         "3.0-20140408", "3.0", NAMESPACES_30
     )
 
     val REC_3_1_20170321: XQDocDocumentationSource = W3CSpecificationDocument(
-        this, "https://www.w3.org/TR/2017/REC-xpath-functions-31-20170321/",
+        FunctionsAndOperatorsSpec, "https://www.w3.org/TR/2017/REC-xpath-functions-31-20170321/",
         "3.1-20170321", "3.1", NAMESPACES_31
     )
 
@@ -135,7 +118,7 @@ object XsltDocumentation : ItemPresentation, XpmSpecificationType, XQDocDocument
 
     override fun getLocationString(): String? = null
 
-    override fun getIcon(unused: Boolean): Icon = XpmIcons.Product
+    override fun getIcon(unused: Boolean): Icon = XpmIcons.W3.Product
 
     // endregion
     // region XpmSpecificationType

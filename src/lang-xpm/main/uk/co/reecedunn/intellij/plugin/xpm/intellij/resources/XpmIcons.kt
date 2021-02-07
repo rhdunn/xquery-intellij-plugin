@@ -22,5 +22,7 @@ object XpmIcons {
     @Suppress("SameParameterValue")
     private fun getIcon(path: String): Icon = IconLoader.getIcon(path, XpmIcons::class.java)
 
-    val Product: Icon = getIcon("/icons/w3.png")
+    object W3 {
+        val Product: Icon = getIcon("/icons/w3.png")
+    }
 }
