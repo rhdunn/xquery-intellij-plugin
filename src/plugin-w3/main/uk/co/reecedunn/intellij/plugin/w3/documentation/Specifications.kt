@@ -15,14 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.w3.documentation
 
-import com.intellij.navigation.ItemPresentation
 import uk.co.reecedunn.intellij.plugin.xpath.lang.FunctionsAndOperatorsSpec
-import uk.co.reecedunn.intellij.plugin.xpm.intellij.resources.XpmIcons
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.*
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
-import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmSpecificationType
-import javax.swing.Icon
+import uk.co.reecedunn.intellij.plugin.xslt.lang.XsltSpec
 
 object FunctionsAndOperatorsDocumentation : XQDocDocumentationSourceProvider, XQDocDocumentationIndex {
     // region Namespaces
@@ -106,41 +103,24 @@ object FunctionsAndOperatorsDocumentation : XQDocDocumentationSourceProvider, XQ
     // endregion
 }
 
-object XsltDocumentation : ItemPresentation, XpmSpecificationType, XQDocDocumentationSourceProvider {
+object XsltDocumentation : XQDocDocumentationSourceProvider {
     // region Namespaces
 
     private val NAMESPACES = mapOf<String, String>()
 
     // endregion
-    // region ItemPresentation
-
-    override fun getPresentableText(): String = "XSL Transformations (XSLT)"
-
-    override fun getLocationString(): String? = null
-
-    override fun getIcon(unused: Boolean): Icon = XpmIcons.W3.Product
-
-    // endregion
-    // region XpmSpecificationType
-
-    override val id: String = "xslt"
-
-    override val presentation: ItemPresentation
-        get() = this
-
-    // endregion
     // region XQDocDocumentationSourceProvider
 
     val REC_1_0_19991116: XQDocDocumentationSource = W3CSpecificationDocument(
-        this, "http://www.w3.org/TR/1999/REC-xslt-19991116/", "1.0-19991116", "1.0", NAMESPACES
+        XsltSpec, "http://www.w3.org/TR/1999/REC-xslt-19991116/", "1.0-19991116", "1.0", NAMESPACES
     )
 
     val REC_2_0_20070123: XQDocDocumentationSource = W3CSpecificationDocument(
-        this, "http://www.w3.org/TR/2007/REC-xslt20-20070123/", "2.0-20070123", "2.0", NAMESPACES
+        XsltSpec, "http://www.w3.org/TR/2007/REC-xslt20-20070123/", "2.0-20070123", "2.0", NAMESPACES
     )
 
     val REC_3_0_20170608: XQDocDocumentationSource = W3CSpecificationDocument(
-        this, "https://www.w3.org/TR/2017/REC-xslt-30-20170608/", "3.0-20170608", "3.0", NAMESPACES
+        XsltSpec, "https://www.w3.org/TR/2017/REC-xslt-30-20170608/", "3.0-20170608", "3.0", NAMESPACES
     )
 
     override val sources: List<XQDocDocumentationSource> = listOf(

@@ -122,14 +122,6 @@ private class W3CSpecificationDocumentationTest {
     @DisplayName("XSL Transformations (XSLT)")
     internal inner class Xslt {
         @Test
-        @DisplayName("specification type")
-        fun specificationType() {
-            val type: XpmSpecificationType = XsltDocumentation
-            assertThat(type.id, `is`("xslt"))
-            assertThat(type.presentation.presentableText, `is`("XSL Transformations (XSLT)"))
-        }
-
-        @Test
         @DisplayName("1.0 Recommendation 16 Nov 1999")
         fun spec19991116() {
             val spec: XQDocDocumentationSource = XsltDocumentation.REC_1_0_19991116
