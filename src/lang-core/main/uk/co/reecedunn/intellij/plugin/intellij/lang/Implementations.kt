@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017-2020 Reece H. Dunn
+ * Copyright (C) 2017-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.co.reecedunn.intellij.plugin.intellij.lang
 
 // region BaseX
@@ -406,26 +405,6 @@ object W3C : Implementation("w3c", "W3C", "https://www.w3.org/XML/Query/") {
                 "urn:static-context:w3"
             else -> null
         }
-    }
-}
-
-// endregion
-// region XQuery IntelliJ Plugin (Internal XQuery Extensions)
-
-object XQueryIntelliJPlugin :
-    Implementation("xijp", "XQuery IntelliJ Plugin", "https://github.com/rhdunn/xquery-intellij-plugin") {
-
-    val VERSION_1_3: Version = ProductVersion("1.3", this)
-    val VERSION_1_4: Version = ProductVersion("1.4", this)
-
-    override val versions: List<Version>
-        get() = listOf()
-
-    override val products: List<Product>
-        get() = listOf()
-
-    override fun staticContext(product: Product?, productVersion: Version?, xqueryVersion: Specification?): String? {
-        return null
     }
 }
 

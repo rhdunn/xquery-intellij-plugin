@@ -32,7 +32,6 @@ import uk.co.reecedunn.intellij.plugin.saxon.lang.SaxonEE
 import uk.co.reecedunn.intellij.plugin.saxon.lang.SaxonHE
 import uk.co.reecedunn.intellij.plugin.saxon.lang.SaxonPE
 import uk.co.reecedunn.intellij.plugin.w3.lang.W3CSpecifications
-import uk.co.reecedunn.intellij.plugin.xijp.lang.XQueryIntelliJPlugin as XQueryIntelliJPluginProduct
 import uk.co.reecedunn.intellij.plugin.marklogic.lang.MarkLogic as MarkLogicProduct
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
 import uk.co.reecedunn.intellij.plugin.xpm.lang.diagnostics.XpmDiagnostics
@@ -116,8 +115,6 @@ class IJVS0001 : Inspection("ijvs/IJVS0001.md", IJVS0001::class.java.classLoader
             Saxon.PE -> SaxonPE.VERSION_10_0
             else -> SaxonEE.VERSION_10_0
         }
-        XQueryIntelliJPlugin.VERSION_1_3 -> XQueryIntelliJPluginProduct.VERSION_1_3
-        XQueryIntelliJPlugin.VERSION_1_4 -> XQueryIntelliJPluginProduct.VERSION_1_4
         else -> W3CSpecifications.REC
     }
 
