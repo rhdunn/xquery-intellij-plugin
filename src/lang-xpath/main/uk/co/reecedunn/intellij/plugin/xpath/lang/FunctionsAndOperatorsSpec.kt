@@ -18,8 +18,11 @@ package uk.co.reecedunn.intellij.plugin.xpath.lang
 import com.intellij.navigation.ItemPresentation
 import uk.co.reecedunn.intellij.plugin.xpm.intellij.resources.XpmIcons
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmSpecificationType
+import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmSpecificationVersion
+import uk.co.reecedunn.intellij.plugin.xpm.lang.impl.XpmSpecificationVersionImpl
 import javax.swing.Icon
 
+@Suppress("MemberVisibilityCanBePrivate")
 object FunctionsAndOperatorsSpec : ItemPresentation, XpmSpecificationType {
     // region ItemPresentation
 
@@ -36,6 +39,68 @@ object FunctionsAndOperatorsSpec : ItemPresentation, XpmSpecificationType {
 
     override val presentation: ItemPresentation
         get() = this
+
+    // endregion
+    // region Versions
+
+    val WD_1_0_20030502: XpmSpecificationVersion = XpmSpecificationVersionImpl(
+        this,
+        "1.0-20030502",
+        "1.0 (Working Draft 02 May 2003)",
+        "https://www.w3.org/TR/2003/WD-xpath-functions-20030502/"
+    )
+
+    val REC_1_0_20070123: XpmSpecificationVersion = XpmSpecificationVersionImpl(
+        this,
+        "1.0-20070123",
+        "1.0 (First Edition)",
+        "https://www.w3.org/TR/2007/REC-xpath-functions-20070123/"
+    )
+
+    val REC_1_0_20101214: XpmSpecificationVersion = XpmSpecificationVersionImpl(
+        this,
+        "1.0-20101214",
+        "1.0 (Second Edition)",
+        "https://www.w3.org/TR/2010/REC-xpath-functions-20101214/"
+    )
+
+    val WD_3_0_20111213: XpmSpecificationVersion = XpmSpecificationVersionImpl(
+        this,
+        "3.0-20111213",
+        "3.0 (Working Draft 13 Dec 2011)",
+        "http://www.w3.org/TR/2011/WD-xpath-functions-30-20111213/"
+    )
+
+    val REC_3_0_20140408: XpmSpecificationVersion = XpmSpecificationVersionImpl(
+        this,
+        "3.0-20140408",
+        "3.0",
+        "https://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/"
+    )
+
+    val REC_3_1_20170321: XpmSpecificationVersion = XpmSpecificationVersionImpl(
+        this,
+        "3.1-20170321",
+        "3.1",
+        "https://www.w3.org/TR/2017/REC-xpath-functions-31-20170321/"
+    )
+
+    val ED_4_0_20210113: XpmSpecificationVersion = XpmSpecificationVersionImpl(
+        this,
+        "4.0-20210113",
+        "4.0 (Editor's Draft 13 January 2021)",
+        "https://qt4cg.org/branch/master/xpath-functions-40/Overview.html"
+    )
+
+    val versions: List<XpmSpecificationVersion> = listOf(
+        WD_1_0_20030502, // MarkLogic 0.9-ml
+        REC_1_0_20070123,
+        REC_1_0_20101214,
+        WD_3_0_20111213, // MarkLogic 1.0-ml
+        REC_3_0_20140408,
+        REC_3_1_20170321,
+        ED_4_0_20210113
+    )
 
     // endregion
 }
