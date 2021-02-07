@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xpm.lang.impl
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmSpecificationType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmSpecificationVersion
 
-data class XpmSpecificationVersionImpl(
+data class W3CSpecification(
     override val specification: XpmSpecificationType,
     override val id: String,
     override val version: String,
