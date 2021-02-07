@@ -89,7 +89,9 @@ object FunctionsAndOperatorsDocumentation : XQDocDocumentationSourceProvider, XQ
     // endregion
     // region XQDocDocumentationIndex
 
-    override fun invalidate() {}
+    override fun invalidate(source: XQDocDocumentationSource) {
+        (source as? W3CSpecificationDocument)?.invalidate()
+    }
 
     override fun lookup(ref: XpmFunctionReference): XQDocFunctionDocumentation? {
         return (REC_3_1_20170321 as W3CSpecificationDocument).lookup(ref)

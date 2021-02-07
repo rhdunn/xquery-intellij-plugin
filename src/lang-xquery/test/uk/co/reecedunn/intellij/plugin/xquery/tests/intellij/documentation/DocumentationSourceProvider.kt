@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ object DocumentationSourceProvider : XQDocDocumentationSourceProvider, XQDocDocu
     // endregion
     // region XdmDocumentationIndex
 
-    override fun invalidate() {}
+    override fun invalidate(source: XQDocDocumentationSource) {}
 
     override fun lookup(ref: XpmFunctionReference): XQDocFunctionDocumentation {
         return object : XQDocFunctionDocumentation {

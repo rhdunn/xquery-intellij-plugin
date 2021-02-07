@@ -25,6 +25,4 @@ interface XQDocDocumentationSource {
     val href: String
 
     val path: String
-
-    fun invalidate()
 }

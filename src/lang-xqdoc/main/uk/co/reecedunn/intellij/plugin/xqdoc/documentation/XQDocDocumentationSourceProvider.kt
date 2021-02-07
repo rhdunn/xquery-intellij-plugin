@@ -35,6 +35,10 @@ interface XQDocDocumentationSourceProvider {
         val allSources: Sequence<XQDocDocumentationSource>
             get() = providers.flatMap { it.sources.asSequence() }
 
+        fun invalidate(source: XQDocDocumentationSource) = providers.forEach {
+            (it as? XQDocDocumentationIndex)?.invalidate(source)
+        }
+
         fun lookup(ref: XpmFunctionReference): Sequence<XQDocDocumentation> = providers.mapNotNull {
             (it as? XQDocDocumentationIndex)?.lookup(ref)
         }

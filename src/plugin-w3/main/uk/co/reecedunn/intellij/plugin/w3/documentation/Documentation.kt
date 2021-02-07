@@ -87,14 +87,13 @@ internal data class W3CSpecificationDocument(
     override val path: String = "w3/${type.id}-$id.html"
 
     // endregion
-    // region XQDocDocumentationIndex
 
     private val doc = CacheableProperty {
         val file = XQDocDocumentationDownloader.getInstance().load(this, download = true)
         file?.let { Jsoup.parse(it.inputStream, null, "") }
     }
 
-    override fun invalidate() = doc.invalidate()
+    fun invalidate() = doc.invalidate()
 
     fun lookup(ref: XpmFunctionReference): XQDocFunctionDocumentation? {
         val prefix = namespaces[ref.functionName?.namespace?.data] ?: return null
@@ -107,6 +106,4 @@ internal data class W3CSpecificationDocument(
         }
         return match?.let { W3CFunctionReference(it.parent().parent(), href) }
     }
-
-    // endregion
 }

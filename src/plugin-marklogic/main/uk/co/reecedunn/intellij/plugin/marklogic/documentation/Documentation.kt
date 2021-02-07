@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2020 Reece H. Dunn
+ * Copyright (C) 2019-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -88,9 +88,7 @@ private data class MarkLogicZippedDocumentation(
         }
     }
 
-    override fun invalidate() {
-        apidocs.invalidate()
-    }
+    fun invalidate() = apidocs.invalidate()
 
     private fun isMarkLogicNamespace(namespace: String?): Boolean = when {
         namespace == null -> false
@@ -147,7 +145,9 @@ object MarkLogicProductDocumentation : XQDocDocumentationSourceProvider, XQDocDo
     // endregion
     // region XQDocDocumentationIndex
 
-    override fun invalidate() {}
+    override fun invalidate(source: XQDocDocumentationSource) {
+        (source as? MarkLogicZippedDocumentation)?.invalidate()
+    }
 
     override fun lookup(ref: XpmFunctionReference): XQDocFunctionDocumentation? {
         return (MARKLOGIC_10 as MarkLogicZippedDocumentation).lookup(ref)
