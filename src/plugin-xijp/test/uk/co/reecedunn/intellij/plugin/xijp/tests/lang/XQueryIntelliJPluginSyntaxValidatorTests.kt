@@ -27,7 +27,9 @@ import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.extensions.PluginDescriptorProvider
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
+import uk.co.reecedunn.intellij.plugin.xijp.lang.XQueryIntelliJPlugin
 import uk.co.reecedunn.intellij.plugin.xijp.lang.XQueryIntelliJPluginSyntaxValidator
+import uk.co.reecedunn.intellij.plugin.xijp.lang.XQueryIntelliJPluginVersion
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
@@ -36,6 +38,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.settings.XQueryProjectSettings
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
+import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
 import uk.co.reecedunn.intellij.plugin.xpm.lang.diagnostics.XpmDiagnostics
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidation
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
@@ -102,4 +105,44 @@ class XQueryIntelliJPluginSyntaxValidatorTest :
     val validator: XpmSyntaxValidation = XpmSyntaxValidation()
 
     // endregion
+
+    @Suppress("PrivatePropertyName")
+    private val VERSION_1_0: XpmProductVersion = XQueryIntelliJPluginVersion(XQueryIntelliJPlugin, 1, 0)
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (87) SequenceTypeList")
+    internal inner class SequenceTypeList {
+        @Test
+        @DisplayName("XQuery IntelliJ Plugin >= 1.3")
+        fun supported() {
+            val file = parse<XQueryModule>("1 instance of (xs:string*, element(test))")[0]
+            validator.product = XQueryIntelliJPlugin.VERSION_1_3
+            validator.validate(file, this@XQueryIntelliJPluginSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("XQuery IntelliJ Plugin < 1.3")
+        fun notSupported() {
+            val file = parse<XQueryModule>("1 instance of (xs:string*, element(test))")[0]
+            validator.product = VERSION_1_0
+            validator.validate(file, this@XQueryIntelliJPluginSyntaxValidatorTest)
+            assertThat(
+                report.toString(), `is`(
+                    """
+                    E XPST0003(25:26): XQuery IntelliJ Plugin 1.0 does not support XQuery IntelliJ Plugin 1.3 constructs.
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XQuery 3.0 EBNF (193) TypedFunctionTest")
+        fun typedFunctionTest() {
+            val file = parse<XQueryModule>("1 instance of function (xs:string*, element(test)) as item()")[0]
+            validator.product = VERSION_1_0
+            validator.validate(file, this@XQueryIntelliJPluginSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+    }
 }

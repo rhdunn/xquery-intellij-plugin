@@ -15,6 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xijp.lang
 
+import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
+import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginSequenceTypeList
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxErrorReporter
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
@@ -25,6 +29,11 @@ object XQueryIntelliJPluginSyntaxValidator : XpmSyntaxValidator {
         element: XpmSyntaxValidationElement,
         reporter: XpmSyntaxErrorReporter
     ): Unit = when (element) {
+        is PluginSequenceTypeList -> when ((element as PsiElement).parent.elementType) {
+            XPathElementType.TYPED_FUNCTION_TEST -> {
+            }
+            else -> reporter.requires(element, XIJP_1_3)
+        }
         else -> {
         }
     }

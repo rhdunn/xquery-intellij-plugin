@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017-2020 Reece H. Dunn
+ * Copyright (C) 2017-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,8 +29,6 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
-import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.*
-import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
@@ -72,35 +70,6 @@ private class PluginConformanceTest : ParserTestCase() {
 
         assertThat(conformance.conformanceElement, `is`(notNullValue()))
         assertThat(conformance.conformanceElement.elementType, `is`(XPathTokenType.UNION))
-    }
-
-    @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (87) SequenceTypeList")
-    inner class SequenceTypeList {
-        @Test
-        @DisplayName("sequence type list")
-        fun sequenceTypeList() {
-            val file = parseResource("tests/parser/xquery-semantics-1.0/SequenceTypeList.xq")
-            val conformance = file.walkTree().filterIsInstance<PluginSequenceTypeList>().first() as VersionConformance
-
-            assertThat(conformance.requiresConformance.size, `is`(1))
-            assertThat(conformance.requiresConformance[0], `is`(XQueryIntelliJPlugin.VERSION_1_3))
-
-            assertThat(conformance.conformanceElement, `is`(notNullValue()))
-            assertThat(conformance.conformanceElement.elementType, `is`(XPathTokenType.COMMA))
-        }
-
-        @Test
-        @DisplayName("in typed function test")
-        fun inTypedFunctionTest() {
-            val file = parseResource("tests/parser/xquery-3.0/TypedFunctionTest.xq")
-            val conformance = file.walkTree().filterIsInstance<PluginSequenceTypeList>().first() as VersionConformance
-
-            assertThat(conformance.requiresConformance.size, `is`(0))
-
-            assertThat(conformance.conformanceElement, `is`(notNullValue()))
-            assertThat(conformance.conformanceElement.elementType, `is`(XPathElementType.ANY_ITEM_TEST))
-        }
     }
 
     @Test
