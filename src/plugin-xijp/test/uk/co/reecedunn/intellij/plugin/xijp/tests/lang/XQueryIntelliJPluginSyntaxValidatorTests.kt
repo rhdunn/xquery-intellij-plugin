@@ -110,6 +110,43 @@ class XQueryIntelliJPluginSyntaxValidatorTest :
     private val VERSION_1_0: XpmProductVersion = XQueryIntelliJPluginVersion(XQueryIntelliJPlugin, 1, 0)
 
     @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (86) SequenceTypeUnion")
+    internal inner class SequenceTypeUnion {
+        @Test
+        @DisplayName("XQuery IntelliJ Plugin >= 1.3")
+        fun supported() {
+            val file = parse<XQueryModule>("1 instance of (xs:string*|element(test))")[0]
+            validator.product = XQueryIntelliJPlugin.VERSION_1_3
+            validator.validate(file, this@XQueryIntelliJPluginSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("XQuery IntelliJ Plugin < 1.3")
+        fun notSupported() {
+            val file = parse<XQueryModule>("1 instance of (xs:string*|element(test))")[0]
+            validator.product = VERSION_1_0
+            validator.validate(file, this@XQueryIntelliJPluginSyntaxValidatorTest)
+            assertThat(
+                report.toString(), `is`(
+                    """
+                    E XPST0003(25:26): XQuery IntelliJ Plugin 1.0 does not support XQuery IntelliJ Plugin 1.3 constructs.
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XQuery 1.0 EBNF (43) TypeswitchExpr ; XQuery 1.0 EBNF (44) CaseClause")
+        fun caseClause() {
+            val file = parse<XQueryModule>("typeswitch (1) case xs:string*|element(test) return 1 default return 2")[0]
+            validator.product = VERSION_1_0
+            validator.validate(file, this@XQueryIntelliJPluginSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery IntelliJ Plugin EBNF (87) SequenceTypeList")
     internal inner class SequenceTypeList {
         @Test

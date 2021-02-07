@@ -16,21 +16,27 @@
 package uk.co.reecedunn.intellij.plugin.xijp.lang
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginSequenceTypeList
-import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathTypedFunctionTest
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxErrorReporter
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires.XpmRequiresProductVersion
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCaseClause
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySequenceTypeUnion
 
 object XQueryIntelliJPluginSyntaxValidator : XpmSyntaxValidator {
     override fun validate(
         element: XpmSyntaxValidationElement,
         reporter: XpmSyntaxErrorReporter
     ): Unit = when (element) {
-        is PluginSequenceTypeList -> when ((element as PsiElement).parent.elementType) {
-            XPathElementType.TYPED_FUNCTION_TEST -> {
+        is PluginSequenceTypeList -> when ((element as PsiElement).parent) {
+            is XPathTypedFunctionTest -> {
+            }
+            else -> reporter.requires(element, XIJP_1_3)
+        }
+        is XQuerySequenceTypeUnion -> when ((element as PsiElement).parent) {
+            is XQueryCaseClause -> {
             }
             else -> reporter.requires(element, XIJP_1_3)
         }

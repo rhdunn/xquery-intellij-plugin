@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017, 2019-2020 Reece H. Dunn
+ * Copyright (C) 2016-2017, 2019-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,12 +31,12 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSingleItemType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.filterNotWhitespace
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
-private val SEMANTICS: List<Version> = listOf(XQueryIntelliJPlugin.VERSION_1_3)
 private val XQUERY30: List<Version> = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
 
 class XQuerySequenceTypeUnionPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), XQuerySequenceTypeUnion, VersionConformance {
+    ASTWrapperPsiElement(node), XQuerySequenceTypeUnion, VersionConformance, XpmSyntaxValidationElement {
     // region ASTDelegatePsiElement
 
     override fun subtreeChanged() {
@@ -86,7 +86,7 @@ class XQuerySequenceTypeUnionPsiImpl(node: ASTNode) :
     override val requiresConformance: List<Version>
         get() = when (parent) {
             is XQueryCaseClause -> XQUERY30
-            else -> SEMANTICS
+            else -> listOf()
         }
 
     override val conformanceElement: PsiElement

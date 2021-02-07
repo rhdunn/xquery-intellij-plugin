@@ -60,19 +60,6 @@ private class PluginConformanceTest : ParserTestCase() {
     }
 
     @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (86) SequenceTypeUnion")
-    fun testSequenceTypeUnion() {
-        val file = parseResource("tests/parser/xquery-semantics-1.0/SequenceTypeUnion.xq")
-        val conformance = file.walkTree().filterIsInstance<XQuerySequenceTypeUnion>().first() as VersionConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(XQueryIntelliJPlugin.VERSION_1_3))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.elementType, `is`(XPathTokenType.UNION))
-    }
-
-    @Test
     @DisplayName("XQuery IntelliJ Plugin EBNF (95) ParamList")
     fun paramList() {
         val file = parseResource("tests/parser/intellij-plugin/ParamList_Variadic_Untyped.xq")
