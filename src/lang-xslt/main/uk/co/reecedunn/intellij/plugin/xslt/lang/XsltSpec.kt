@@ -16,13 +16,10 @@
 package uk.co.reecedunn.intellij.plugin.xslt.lang
 
 import com.intellij.navigation.ItemPresentation
-import uk.co.reecedunn.intellij.plugin.intellij.lang.DraftSpecification
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Specification
 import uk.co.reecedunn.intellij.plugin.xpm.intellij.resources.XpmIcons
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmSpecificationType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmSpecificationVersion
 import uk.co.reecedunn.intellij.plugin.xpm.lang.impl.XpmSpecificationVersionImpl
-import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationSource
 import javax.swing.Icon
 
 @Suppress("MemberVisibilityCanBePrivate")

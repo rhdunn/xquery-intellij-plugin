@@ -18,7 +18,6 @@ package uk.co.reecedunn.intellij.plugin.xquery.model
 import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.VirtualFileSystemImpl
-import uk.co.reecedunn.intellij.plugin.xpm.module.JarModuleResolver
 
 object StaticContextDefinitions {
     private val filesystem = object : VirtualFileSystemImpl("res") {

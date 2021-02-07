@@ -17,7 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFieldDeclaration
 
 /**
  * An XPath 4.0 ED and XQuery 4.0 ED `RecordTest` node in the XPath/XQuery AST.
