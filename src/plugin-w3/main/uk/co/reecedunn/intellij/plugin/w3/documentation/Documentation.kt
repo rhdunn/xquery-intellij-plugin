@@ -15,12 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.w3.documentation
 
-import com.intellij.navigation.ItemPresentation
 import org.jsoup.nodes.Element
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.*
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
-import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmSpecificationType
-import uk.co.reecedunn.intellij.plugin.xpm.lang.documentation.XpmDocumentationSource
 
 internal class W3CFunctionReference(private val node: Element, baseHref: String) :
     XQDocFunctionDocumentation {
@@ -68,20 +65,4 @@ internal class W3CFunctionReference(private val node: Element, baseHref: String)
 
     override val errorConditions: String?
         get() = section("Error Conditions")
-}
-
-internal data class W3CSpecificationDocument(
-    val type: XpmSpecificationType,
-    override val href: String,
-    val id: String,
-    override val version: String,
-    private val namespaces: Map<String, String>
-) : XpmDocumentationSource {
-    // region XQDocDocumentationSource
-
-    override val presentation: ItemPresentation = type.presentation
-
-    override val path: String = "w3/${type.id}-$id.html"
-
-    // endregion
 }

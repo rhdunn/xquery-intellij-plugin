@@ -15,12 +15,22 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.lang.impl
 
+import com.intellij.navigation.ItemPresentation
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmSpecificationType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmSpecificationVersion
+import uk.co.reecedunn.intellij.plugin.xpm.lang.documentation.XpmDocumentationSource
 
 data class W3CSpecification(
     override val specification: XpmSpecificationType,
     override val id: String,
     override val version: String,
     override val href: String
-) : XpmSpecificationVersion
+) : XpmSpecificationVersion, XpmDocumentationSource {
+    // region XpmDocumentationSource
+
+    override val presentation: ItemPresentation = specification.presentation
+
+    override val path: String = "w3/${specification.id}-$id.html"
+
+    // endregion
+}
