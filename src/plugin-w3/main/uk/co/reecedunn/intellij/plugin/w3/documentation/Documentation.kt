@@ -16,12 +16,8 @@
 package uk.co.reecedunn.intellij.plugin.w3.documentation
 
 import com.intellij.navigation.ItemPresentation
-import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
-import org.jsoup.nodes.TextNode
-import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.*
-import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmSpecificationType
 
@@ -87,23 +83,4 @@ internal data class W3CSpecificationDocument(
     override val path: String = "w3/${type.id}-$id.html"
 
     // endregion
-
-    private val doc = CacheableProperty {
-        val file = XQDocDocumentationDownloader.getInstance().load(this, download = true)
-        file?.let { Jsoup.parse(it.inputStream, null, "") }
-    }
-
-    fun invalidate() = doc.invalidate()
-
-    fun lookup(ref: XpmFunctionReference): XQDocFunctionDocumentation? {
-        val prefix = namespaces[ref.functionName?.namespace?.data] ?: return null
-        val localName = ref.functionName?.localName?.data ?: return null
-        val lookupName = "$prefix:$localName"
-        val match = doc.get()?.select("h3 > a, h4 > a")?.firstOrNull {
-            val parts = (it.nextSibling() as? TextNode)?.text()?.split(" ") ?: return@firstOrNull false
-            val name = parts.asReversed().find { part -> part.isNotEmpty() }
-            name == lookupName
-        }
-        return match?.let { W3CFunctionReference(it.parent().parent(), href) }
-    }
 }

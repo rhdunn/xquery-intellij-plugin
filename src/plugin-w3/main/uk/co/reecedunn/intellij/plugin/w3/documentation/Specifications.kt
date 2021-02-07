@@ -15,6 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.w3.documentation
 
+import org.jsoup.Jsoup
+import org.jsoup.nodes.TextNode
+import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.xpath.lang.FunctionsAndOperatorsSpec
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.*
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
@@ -89,12 +92,27 @@ object FunctionsAndOperatorsDocumentation : XQDocDocumentationSourceProvider, XQ
     // endregion
     // region XQDocDocumentationIndex
 
+    private val doc = CacheableProperty {
+        val file = XQDocDocumentationDownloader.getInstance().load(REC_3_1_20170321, download = true)
+        file?.let { Jsoup.parse(it.inputStream, null, "") }
+    }
+
     override fun invalidate(source: XQDocDocumentationSource) {
-        (source as? W3CSpecificationDocument)?.invalidate()
+        if (source === REC_3_1_20170321) {
+            doc.invalidate()
+        }
     }
 
     override fun lookup(ref: XpmFunctionReference): XQDocFunctionDocumentation? {
-        return (REC_3_1_20170321 as W3CSpecificationDocument).lookup(ref)
+        val prefix = NAMESPACES_31[ref.functionName?.namespace?.data] ?: return null
+        val localName = ref.functionName?.localName?.data ?: return null
+        val lookupName = "$prefix:$localName"
+        val match = doc.get()?.select("h3 > a, h4 > a")?.firstOrNull {
+            val parts = (it.nextSibling() as? TextNode)?.text()?.split(" ") ?: return@firstOrNull false
+            val name = parts.asReversed().find { part -> part.isNotEmpty() }
+            name == lookupName
+        }
+        return match?.let { W3CFunctionReference(it.parent().parent(), REC_3_1_20170321.href) }
     }
 
     override fun lookup(decl: XpmNamespaceDeclaration): XQDocDocumentation? = null
