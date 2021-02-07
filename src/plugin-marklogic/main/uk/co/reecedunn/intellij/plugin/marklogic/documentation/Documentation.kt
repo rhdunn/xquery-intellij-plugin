@@ -50,7 +50,7 @@ private class FunctionDocumentation(docs: List<String?>) : XQDocFunctionDocument
 private data class MarkLogicZippedDocumentation(
     override val version: String,
     private val zip: String
-) : XQDocDocumentationSource, XQDocDocumentationIndex {
+) : XQDocDocumentationSource {
     // region XQDocDocumentationSource
 
     override val presentation: ItemPresentation = MarkLogic
@@ -102,7 +102,7 @@ private data class MarkLogicZippedDocumentation(
         else -> false
     }
 
-    override fun lookup(ref: XpmFunctionReference): XQDocFunctionDocumentation? = ref.functionName?.let {
+    fun lookup(ref: XpmFunctionReference): XQDocFunctionDocumentation? = ref.functionName?.let {
         if (isMarkLogicNamespace(it.namespace?.data)) {
             apidocs.get()
             query.get()?.bindVariable("namespace", it.namespace?.data, "xs:string")
@@ -114,8 +114,6 @@ private data class MarkLogicZippedDocumentation(
         } else
             null
     }
-
-    override fun lookup(decl: XpmNamespaceDeclaration): XQDocDocumentation? = null
 
     // endregion
 
@@ -152,12 +150,10 @@ object MarkLogicProductDocumentation : XQDocDocumentationSourceProvider, XQDocDo
     override fun invalidate() {}
 
     override fun lookup(ref: XpmFunctionReference): XQDocFunctionDocumentation? {
-        return (MARKLOGIC_10 as XQDocDocumentationIndex).lookup(ref)
+        return (MARKLOGIC_10 as MarkLogicZippedDocumentation).lookup(ref)
     }
 
-    override fun lookup(decl: XpmNamespaceDeclaration): XQDocDocumentation? {
-        return (MARKLOGIC_10 as XQDocDocumentationIndex).lookup(decl)
-    }
+    override fun lookup(decl: XpmNamespaceDeclaration): XQDocDocumentation? = null
 
     // endregion
 }
