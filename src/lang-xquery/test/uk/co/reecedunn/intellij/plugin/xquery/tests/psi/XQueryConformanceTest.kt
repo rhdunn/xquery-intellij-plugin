@@ -1833,8 +1833,22 @@ private class XQueryConformanceTest : ParserTestCase() {
     @DisplayName("XQuery 3.1 EBNF (184) SequenceType")
     internal inner class SequenceType {
         @Test
+        @DisplayName("empty sequence; working draft syntax")
+        fun workingDraft() {
+            val file = parseResource("tests/parser/xquery-1.0-20030502/SequenceType_Empty.xq")
+            val versioned = file.walkTree().filterIsInstance<XPathSequenceType>().first() as VersionConformance
+
+            assertThat(versioned.requiresConformance.size, `is`(3))
+            assertThat(versioned.requiresConformance[0], `is`(XQuerySpec.WD_1_0_20030502))
+            assertThat(versioned.requiresConformance[1], `is`(XQuerySpec.MARKLOGIC_0_9))
+            assertThat(versioned.requiresConformance[2], `is`(until(EXistDB.VERSION_4_0)))
+
+            assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.K_EMPTY))
+        }
+
+        @Test
         @DisplayName("empty sequence; recommendation syntax")
-        fun emptySequence() {
+        fun rec() {
             val file = parseResource("tests/parser/xquery-1.0/SequenceType_Empty.xq")
             val versioned = file.walkTree().filterIsInstance<XPathSequenceType>().first() as VersionConformance
 
