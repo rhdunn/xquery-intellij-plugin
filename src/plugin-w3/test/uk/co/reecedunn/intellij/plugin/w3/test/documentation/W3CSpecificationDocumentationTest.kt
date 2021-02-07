@@ -21,10 +21,8 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.w3.documentation.FunctionsAndOperatorsDocumentation
-import uk.co.reecedunn.intellij.plugin.w3.documentation.XsltDocumentation
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationSource
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationSourceProvider
-import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmSpecificationType
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("RedundantInnerClassModifier", "RedundantVisibilityModifier")
@@ -115,52 +113,6 @@ private class W3CSpecificationDocumentationTest {
             val provider: XQDocDocumentationSourceProvider = FunctionsAndOperatorsDocumentation
             assertThat(provider.sources.size, `is`(6))
             assertThat(provider.sources.indexOf(spec), `is`(5))
-        }
-    }
-
-    @Nested
-    @DisplayName("XSL Transformations (XSLT)")
-    internal inner class Xslt {
-        @Test
-        @DisplayName("1.0 Recommendation 16 Nov 1999")
-        fun spec19991116() {
-            val spec: XQDocDocumentationSource = XsltDocumentation.REC_1_0_19991116
-            assertThat(spec.presentation.presentableText, `is`("XSL Transformations (XSLT)"))
-            assertThat(spec.version, `is`("1.0"))
-            assertThat(spec.href, `is`("http://www.w3.org/TR/1999/REC-xslt-19991116/"))
-            assertThat(spec.path, `is`("w3/xslt-1.0-19991116.html"))
-
-            val provider: XQDocDocumentationSourceProvider = XsltDocumentation
-            assertThat(provider.sources.size, `is`(3))
-            assertThat(provider.sources.indexOf(spec), `is`(0))
-        }
-
-        @Test
-        @DisplayName("2.0 Recommendation 23 Jan 2007")
-        fun spec20070123() {
-            val spec: XQDocDocumentationSource = XsltDocumentation.REC_2_0_20070123
-            assertThat(spec.presentation.presentableText, `is`("XSL Transformations (XSLT)"))
-            assertThat(spec.version, `is`("2.0"))
-            assertThat(spec.href, `is`("http://www.w3.org/TR/2007/REC-xslt20-20070123/"))
-            assertThat(spec.path, `is`("w3/xslt-2.0-20070123.html"))
-
-            val provider: XQDocDocumentationSourceProvider = XsltDocumentation
-            assertThat(provider.sources.size, `is`(3))
-            assertThat(provider.sources.indexOf(spec), `is`(1))
-        }
-
-        @Test
-        @DisplayName("3.0 Recommendation 08 Jun 2017")
-        fun spec20170608() {
-            val spec: XQDocDocumentationSource = XsltDocumentation.REC_3_0_20170608
-            assertThat(spec.presentation.presentableText, `is`("XSL Transformations (XSLT)"))
-            assertThat(spec.version, `is`("3.0"))
-            assertThat(spec.href, `is`("https://www.w3.org/TR/2017/REC-xslt-30-20170608/"))
-            assertThat(spec.path, `is`("w3/xslt-3.0-20170608.html"))
-
-            val provider: XQDocDocumentationSourceProvider = XsltDocumentation
-            assertThat(provider.sources.size, `is`(3))
-            assertThat(provider.sources.indexOf(spec), `is`(2))
         }
     }
 }

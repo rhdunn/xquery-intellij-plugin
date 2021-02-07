@@ -19,7 +19,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.lang.FunctionsAndOperatorsSpec
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.*
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
-import uk.co.reecedunn.intellij.plugin.xslt.lang.XsltSpec
 
 object FunctionsAndOperatorsDocumentation : XQDocDocumentationSourceProvider, XQDocDocumentationIndex {
     // region Namespaces
@@ -99,35 +98,6 @@ object FunctionsAndOperatorsDocumentation : XQDocDocumentationSourceProvider, XQ
     override fun lookup(decl: XpmNamespaceDeclaration): XQDocDocumentation? {
         return (REC_3_1_20170321 as XQDocDocumentationIndex).lookup(decl)
     }
-
-    // endregion
-}
-
-object XsltDocumentation : XQDocDocumentationSourceProvider {
-    // region Namespaces
-
-    private val NAMESPACES = mapOf<String, String>()
-
-    // endregion
-    // region XQDocDocumentationSourceProvider
-
-    val REC_1_0_19991116: XQDocDocumentationSource = W3CSpecificationDocument(
-        XsltSpec, "http://www.w3.org/TR/1999/REC-xslt-19991116/", "1.0-19991116", "1.0", NAMESPACES
-    )
-
-    val REC_2_0_20070123: XQDocDocumentationSource = W3CSpecificationDocument(
-        XsltSpec, "http://www.w3.org/TR/2007/REC-xslt20-20070123/", "2.0-20070123", "2.0", NAMESPACES
-    )
-
-    val REC_3_0_20170608: XQDocDocumentationSource = W3CSpecificationDocument(
-        XsltSpec, "https://www.w3.org/TR/2017/REC-xslt-30-20170608/", "3.0-20170608", "3.0", NAMESPACES
-    )
-
-    override val sources: List<XQDocDocumentationSource> = listOf(
-        REC_1_0_19991116,
-        REC_2_0_20070123,
-        REC_3_0_20170608
-    )
 
     // endregion
 }
