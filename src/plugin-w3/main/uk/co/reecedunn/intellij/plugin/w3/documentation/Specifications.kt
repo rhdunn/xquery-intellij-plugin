@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2020 Reece H. Dunn
+ * Copyright (C) 2019-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.w3.documentation
 
 import com.intellij.navigation.ItemPresentation
-import uk.co.reecedunn.intellij.plugin.w3.intellij.resources.W3Icons
+import uk.co.reecedunn.intellij.plugin.xpm.intellij.resources.XpmIcons
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.*
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
@@ -54,7 +54,7 @@ object FunctionsAndOperatorsDocumentation :
 
     override fun getLocationString(): String? = null
 
-    override fun getIcon(unused: Boolean): Icon = W3Icons.Product
+    override fun getIcon(unused: Boolean): Icon = XpmIcons.Product
 
     // endregion
     // region XpmSpecificationType
@@ -135,7 +135,7 @@ object XsltDocumentation : ItemPresentation, XpmSpecificationType, XQDocDocument
 
     override fun getLocationString(): String? = null
 
-    override fun getIcon(unused: Boolean): Icon = W3Icons.Product
+    override fun getIcon(unused: Boolean): Icon = XpmIcons.Product
 
     // endregion
     // region XpmSpecificationType

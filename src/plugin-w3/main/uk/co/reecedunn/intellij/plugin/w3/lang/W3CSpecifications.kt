@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.w3.lang
 
 import com.intellij.navigation.ItemPresentation
-import uk.co.reecedunn.intellij.plugin.w3.intellij.resources.W3Icons
+import uk.co.reecedunn.intellij.plugin.xpm.intellij.resources.XpmIcons
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
 import javax.swing.Icon
@@ -28,7 +28,7 @@ object W3CSpecifications : ItemPresentation, XpmProductType {
 
     override fun getLocationString(): String? = null
 
-    override fun getIcon(unused: Boolean): Icon = W3Icons.Product
+    override fun getIcon(unused: Boolean): Icon = XpmIcons.Product
 
     // endregion
     // region XpmProductType

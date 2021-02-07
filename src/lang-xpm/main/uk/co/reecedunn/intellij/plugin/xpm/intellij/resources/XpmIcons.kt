@@ -13,13 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.w3.intellij.resources
+package uk.co.reecedunn.intellij.plugin.xpm.intellij.resources
 
 import com.intellij.openapi.util.IconLoader
 import javax.swing.Icon
 
-object W3Icons {
-    private fun getIcon(path: String): Icon = IconLoader.getIcon(path, W3Icons::class.java)
+object XpmIcons {
+    @Suppress("SameParameterValue")
+    private fun getIcon(path: String): Icon = IconLoader.getIcon(path, XpmIcons::class.java)
 
     val Product: Icon = getIcon("/icons/w3.png")
 }
