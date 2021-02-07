@@ -52,11 +52,3 @@ object StaticContextDefinitions {
         "urn:static-context:w3" to "static-context/www.w3.org/xquery.xqy"
     )
 }
-
-object Annotations : JarModuleResolver() {
-    override val classLoader: ClassLoader = this::class.java.classLoader
-
-    override val modules: Map<String, String> = mapOf(
-        "http://reecedunn.co.uk/xquery/annotations" to "uk/co/reecedunn/xquery/annotations.xqy"
-    )
-}
