@@ -28,6 +28,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQueryProvider
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.*
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
+import uk.co.reecedunn.intellij.plugin.xpm.lang.documentation.XpmDocumentationSource
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
 import java.io.File
 
@@ -50,7 +51,7 @@ private class FunctionDocumentation(docs: List<String?>) : XQDocFunctionDocument
 private data class MarkLogicZippedDocumentation(
     override val version: String,
     private val zip: String
-) : XQDocDocumentationSource {
+) : XpmDocumentationSource {
     // region XQDocDocumentationSource
 
     override val presentation: ItemPresentation = MarkLogic
@@ -128,13 +129,13 @@ private data class MarkLogicZippedDocumentation(
 object MarkLogicProductDocumentation : XQDocDocumentationSourceProvider, XQDocDocumentationIndex {
     // region XQDocDocumentationSourceProvider
 
-    val MARKLOGIC_6: XQDocDocumentationSource = MarkLogicZippedDocumentation("6.0", "MarkLogic_6_pubs.zip")
-    val MARKLOGIC_7: XQDocDocumentationSource = MarkLogicZippedDocumentation("7.0", "MarkLogic_7_pubs.zip")
-    val MARKLOGIC_8: XQDocDocumentationSource = MarkLogicZippedDocumentation("8.0", "MarkLogic_8_pubs.zip")
-    val MARKLOGIC_9: XQDocDocumentationSource = MarkLogicZippedDocumentation("9.0", "MarkLogic_9_pubs.zip")
-    val MARKLOGIC_10: XQDocDocumentationSource = MarkLogicZippedDocumentation("10.0", "MarkLogic_10_pubs.zip")
+    val MARKLOGIC_6: XpmDocumentationSource = MarkLogicZippedDocumentation("6.0", "MarkLogic_6_pubs.zip")
+    val MARKLOGIC_7: XpmDocumentationSource = MarkLogicZippedDocumentation("7.0", "MarkLogic_7_pubs.zip")
+    val MARKLOGIC_8: XpmDocumentationSource = MarkLogicZippedDocumentation("8.0", "MarkLogic_8_pubs.zip")
+    val MARKLOGIC_9: XpmDocumentationSource = MarkLogicZippedDocumentation("9.0", "MarkLogic_9_pubs.zip")
+    val MARKLOGIC_10: XpmDocumentationSource = MarkLogicZippedDocumentation("10.0", "MarkLogic_10_pubs.zip")
 
-    override val sources: List<XQDocDocumentationSource> = listOf(
+    override val sources: List<XpmDocumentationSource> = listOf(
         MARKLOGIC_6,
         MARKLOGIC_7,
         MARKLOGIC_8,
@@ -145,7 +146,7 @@ object MarkLogicProductDocumentation : XQDocDocumentationSourceProvider, XQDocDo
     // endregion
     // region XQDocDocumentationIndex
 
-    override fun invalidate(source: XQDocDocumentationSource) {
+    override fun invalidate(source: XpmDocumentationSource) {
         (source as? MarkLogicZippedDocumentation)?.invalidate()
     }
 

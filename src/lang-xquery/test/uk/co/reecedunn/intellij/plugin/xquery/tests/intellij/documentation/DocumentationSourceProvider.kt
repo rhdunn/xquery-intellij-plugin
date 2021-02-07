@@ -18,17 +18,18 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.intellij.documentation
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.*
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
+import uk.co.reecedunn.intellij.plugin.xpm.lang.documentation.XpmDocumentationSource
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
 
 object DocumentationSourceProvider : XQDocDocumentationSourceProvider, XQDocDocumentationIndex {
     // region XdmDocumentationSourceProvider
 
-    override val sources: List<XQDocDocumentationSource> = listOf()
+    override val sources: List<XpmDocumentationSource> = listOf()
 
     // endregion
     // region XdmDocumentationIndex
 
-    override fun invalidate(source: XQDocDocumentationSource) {}
+    override fun invalidate(source: XpmDocumentationSource) {}
 
     override fun lookup(ref: XpmFunctionReference): XQDocFunctionDocumentation {
         return object : XQDocFunctionDocumentation {

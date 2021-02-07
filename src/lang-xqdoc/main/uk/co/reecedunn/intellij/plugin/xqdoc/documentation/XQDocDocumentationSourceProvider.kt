@@ -20,6 +20,7 @@ import com.intellij.compat.testFramework.registerExtensionPointBean
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.ExtensionPointName
 import uk.co.reecedunn.intellij.plugin.core.extensions.PluginDescriptorProvider
+import uk.co.reecedunn.intellij.plugin.xpm.lang.documentation.XpmDocumentationSource
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
 
@@ -32,10 +33,10 @@ interface XQDocDocumentationSourceProvider {
         private val providers: Sequence<XQDocDocumentationSourceProvider>
             get() = EP_NAME.extensionList.asSequence().map { it.getInstance() }
 
-        val allSources: Sequence<XQDocDocumentationSource>
+        val allSources: Sequence<XpmDocumentationSource>
             get() = providers.flatMap { it.sources.asSequence() }
 
-        fun invalidate(source: XQDocDocumentationSource) = providers.forEach {
+        fun invalidate(source: XpmDocumentationSource) = providers.forEach {
             (it as? XQDocDocumentationIndex)?.invalidate(source)
         }
 
@@ -66,5 +67,5 @@ interface XQDocDocumentationSourceProvider {
         }
     }
 
-    val sources: List<XQDocDocumentationSource>
+    val sources: List<XpmDocumentationSource>
 }

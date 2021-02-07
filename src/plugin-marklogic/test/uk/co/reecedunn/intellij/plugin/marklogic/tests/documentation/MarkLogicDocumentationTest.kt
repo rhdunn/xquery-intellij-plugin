@@ -20,7 +20,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.marklogic.documentation.MarkLogicProductDocumentation
-import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationSource
+import uk.co.reecedunn.intellij.plugin.xpm.lang.documentation.XpmDocumentationSource
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationSourceProvider
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
@@ -29,7 +29,7 @@ private class MarkLogicDocumentationTest {
     @Test
     @DisplayName("MarkLogic 6.0")
     fun marklogic6() {
-        val spec: XQDocDocumentationSource = MarkLogicProductDocumentation.MARKLOGIC_6
+        val spec: XpmDocumentationSource = MarkLogicProductDocumentation.MARKLOGIC_6
         assertThat(spec.presentation.presentableText, `is`("MarkLogic"))
         assertThat(spec.version, `is`("6.0"))
         assertThat(spec.href, `is`("https://docs.marklogic.com/MarkLogic_6_pubs.zip"))
@@ -43,7 +43,7 @@ private class MarkLogicDocumentationTest {
     @Test
     @DisplayName("MarkLogic 7.0")
     fun marklogic7() {
-        val spec: XQDocDocumentationSource = MarkLogicProductDocumentation.MARKLOGIC_7
+        val spec: XpmDocumentationSource = MarkLogicProductDocumentation.MARKLOGIC_7
         assertThat(spec.presentation.presentableText, `is`("MarkLogic"))
         assertThat(spec.version, `is`("7.0"))
         assertThat(spec.href, `is`("https://docs.marklogic.com/MarkLogic_7_pubs.zip"))
@@ -57,7 +57,7 @@ private class MarkLogicDocumentationTest {
     @Test
     @DisplayName("MarkLogic 8.0")
     fun marklogic8() {
-        val spec: XQDocDocumentationSource = MarkLogicProductDocumentation.MARKLOGIC_8
+        val spec: XpmDocumentationSource = MarkLogicProductDocumentation.MARKLOGIC_8
         assertThat(spec.presentation.presentableText, `is`("MarkLogic"))
         assertThat(spec.version, `is`("8.0"))
         assertThat(spec.href, `is`("https://docs.marklogic.com/MarkLogic_8_pubs.zip"))
@@ -71,7 +71,7 @@ private class MarkLogicDocumentationTest {
     @Test
     @DisplayName("MarkLogic 9.0")
     fun marklogic9() {
-        val spec: XQDocDocumentationSource = MarkLogicProductDocumentation.MARKLOGIC_9
+        val spec: XpmDocumentationSource = MarkLogicProductDocumentation.MARKLOGIC_9
         assertThat(spec.presentation.presentableText, `is`("MarkLogic"))
         assertThat(spec.version, `is`("9.0"))
         assertThat(spec.href, `is`("https://docs.marklogic.com/MarkLogic_9_pubs.zip"))
@@ -85,7 +85,7 @@ private class MarkLogicDocumentationTest {
     @Test
     @DisplayName("MarkLogic 10.0")
     fun marklogic10() {
-        val spec: XQDocDocumentationSource = MarkLogicProductDocumentation.MARKLOGIC_10
+        val spec: XpmDocumentationSource = MarkLogicProductDocumentation.MARKLOGIC_10
         assertThat(spec.presentation.presentableText, `is`("MarkLogic"))
         assertThat(spec.version, `is`("10.0"))
         assertThat(spec.href, `is`("https://docs.marklogic.com/MarkLogic_10_pubs.zip"))

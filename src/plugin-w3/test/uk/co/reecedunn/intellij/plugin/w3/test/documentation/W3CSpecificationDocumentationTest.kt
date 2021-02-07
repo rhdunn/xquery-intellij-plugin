@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.w3.documentation.FunctionsAndOperatorsDocumentation
-import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationSource
+import uk.co.reecedunn.intellij.plugin.xpm.lang.documentation.XpmDocumentationSource
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationSourceProvider
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
@@ -34,7 +34,7 @@ private class W3CSpecificationDocumentationTest {
         @Test
         @DisplayName("1.0 Working Draft 02 May 2003")
         fun spec20030502() {
-            val spec: XQDocDocumentationSource = FunctionsAndOperatorsDocumentation.WD_1_0_20030502
+            val spec: XpmDocumentationSource = FunctionsAndOperatorsDocumentation.WD_1_0_20030502
             assertThat(spec.presentation.presentableText, `is`("XQuery and XPath Functions and Operators"))
             assertThat(spec.version, `is`("1.0 (Working Draft 02 May 2003)"))
             assertThat(spec.href, `is`("https://www.w3.org/TR/2003/WD-xpath-functions-20030502/"))
@@ -48,7 +48,7 @@ private class W3CSpecificationDocumentationTest {
         @Test
         @DisplayName("1.0 Recommendation 23 Jan 2007")
         fun spec20070123() {
-            val spec: XQDocDocumentationSource = FunctionsAndOperatorsDocumentation.REC_1_0_20070123
+            val spec: XpmDocumentationSource = FunctionsAndOperatorsDocumentation.REC_1_0_20070123
             assertThat(spec.presentation.presentableText, `is`("XQuery and XPath Functions and Operators"))
             assertThat(spec.version, `is`("1.0 (First Edition)"))
             assertThat(spec.href, `is`("https://www.w3.org/TR/2007/REC-xpath-functions-20070123/"))
@@ -62,7 +62,7 @@ private class W3CSpecificationDocumentationTest {
         @Test
         @DisplayName("1.0 Recommendation 14 Dec 2010")
         fun spec20101214() {
-            val spec: XQDocDocumentationSource = FunctionsAndOperatorsDocumentation.REC_1_0_20101214
+            val spec: XpmDocumentationSource = FunctionsAndOperatorsDocumentation.REC_1_0_20101214
             assertThat(spec.presentation.presentableText, `is`("XQuery and XPath Functions and Operators"))
             assertThat(spec.version, `is`("1.0 (Second Edition)"))
             assertThat(spec.href, `is`("https://www.w3.org/TR/2010/REC-xpath-functions-20101214/"))
@@ -76,7 +76,7 @@ private class W3CSpecificationDocumentationTest {
         @Test
         @DisplayName("3.0 Working Draft 13 Dec 2011")
         fun spec20111213() {
-            val spec: XQDocDocumentationSource = FunctionsAndOperatorsDocumentation.WD_3_0_20111213
+            val spec: XpmDocumentationSource = FunctionsAndOperatorsDocumentation.WD_3_0_20111213
             assertThat(spec.presentation.presentableText, `is`("XQuery and XPath Functions and Operators"))
             assertThat(spec.version, `is`("3.0 (Working Draft 13 Dec 2011)"))
             assertThat(spec.href, `is`("http://www.w3.org/TR/2011/WD-xpath-functions-30-20111213/"))
@@ -90,7 +90,7 @@ private class W3CSpecificationDocumentationTest {
         @Test
         @DisplayName("3.0 Recommendation 08 Apr 2014")
         fun spec20140408() {
-            val spec: XQDocDocumentationSource = FunctionsAndOperatorsDocumentation.REC_3_0_20140408
+            val spec: XpmDocumentationSource = FunctionsAndOperatorsDocumentation.REC_3_0_20140408
             assertThat(spec.presentation.presentableText, `is`("XQuery and XPath Functions and Operators"))
             assertThat(spec.version, `is`("3.0"))
             assertThat(spec.href, `is`("https://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/"))
@@ -104,7 +104,7 @@ private class W3CSpecificationDocumentationTest {
         @Test
         @DisplayName("3.1 Recommendation 21 Apr 2017")
         fun spec20170321() {
-            val spec: XQDocDocumentationSource = FunctionsAndOperatorsDocumentation.REC_3_1_20170321
+            val spec: XpmDocumentationSource = FunctionsAndOperatorsDocumentation.REC_3_1_20170321
             assertThat(spec.presentation.presentableText, `is`("XQuery and XPath Functions and Operators"))
             assertThat(spec.version, `is`("3.1"))
             assertThat(spec.href, `is`("https://www.w3.org/TR/2017/REC-xpath-functions-31-20170321/"))

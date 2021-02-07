@@ -19,6 +19,7 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.TextNode
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.xpath.lang.FunctionsAndOperatorsSpec
+import uk.co.reecedunn.intellij.plugin.xpm.lang.documentation.XpmDocumentationSource
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.*
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
@@ -49,38 +50,38 @@ object FunctionsAndOperatorsDocumentation : XQDocDocumentationSourceProvider, XQ
     // endregion
     // region XQDocDocumentationSourceProvider
 
-    val WD_1_0_20030502: XQDocDocumentationSource = W3CSpecificationDocument(
+    val WD_1_0_20030502: XpmDocumentationSource = W3CSpecificationDocument(
         FunctionsAndOperatorsSpec, "https://www.w3.org/TR/2003/WD-xpath-functions-20030502/",
         "1.0-20030502", "1.0 (Working Draft 02 May 2003)",
         NAMESPACES_10_20030502 // Used by the MarkLogic 0.9-ml XQuery version.
     )
 
-    val REC_1_0_20070123: XQDocDocumentationSource = W3CSpecificationDocument(
+    val REC_1_0_20070123: XpmDocumentationSource = W3CSpecificationDocument(
         FunctionsAndOperatorsSpec, "https://www.w3.org/TR/2007/REC-xpath-functions-20070123/",
         "1.0-20070123", "1.0 (First Edition)", NAMESPACES_10
     )
 
-    val REC_1_0_20101214: XQDocDocumentationSource = W3CSpecificationDocument(
+    val REC_1_0_20101214: XpmDocumentationSource = W3CSpecificationDocument(
         FunctionsAndOperatorsSpec, "https://www.w3.org/TR/2010/REC-xpath-functions-20101214/",
         "1.0-20101214", "1.0 (Second Edition)", NAMESPACES_10
     )
 
-    val WD_3_0_20111213: XQDocDocumentationSource = W3CSpecificationDocument(
+    val WD_3_0_20111213: XpmDocumentationSource = W3CSpecificationDocument(
         FunctionsAndOperatorsSpec, "http://www.w3.org/TR/2011/WD-xpath-functions-30-20111213/",
         "3.0-20111213", "3.0 (Working Draft 13 Dec 2011)", NAMESPACES_30 // Used by the MarkLogic 1.0-ml XQuery version.
     )
 
-    val REC_3_0_20140408: XQDocDocumentationSource = W3CSpecificationDocument(
+    val REC_3_0_20140408: XpmDocumentationSource = W3CSpecificationDocument(
         FunctionsAndOperatorsSpec, "https://www.w3.org/TR/2014/REC-xpath-functions-30-20140408/",
         "3.0-20140408", "3.0", NAMESPACES_30
     )
 
-    val REC_3_1_20170321: XQDocDocumentationSource = W3CSpecificationDocument(
+    val REC_3_1_20170321: XpmDocumentationSource = W3CSpecificationDocument(
         FunctionsAndOperatorsSpec, "https://www.w3.org/TR/2017/REC-xpath-functions-31-20170321/",
         "3.1-20170321", "3.1", NAMESPACES_31
     )
 
-    override val sources: List<XQDocDocumentationSource> = listOf(
+    override val sources: List<XpmDocumentationSource> = listOf(
         WD_1_0_20030502,
         REC_1_0_20070123,
         REC_1_0_20101214,
@@ -97,7 +98,7 @@ object FunctionsAndOperatorsDocumentation : XQDocDocumentationSourceProvider, XQ
         file?.let { Jsoup.parse(it.inputStream, null, "") }
     }
 
-    override fun invalidate(source: XQDocDocumentationSource) {
+    override fun invalidate(source: XpmDocumentationSource) {
         if (source === REC_3_1_20170321) {
             doc.invalidate()
         }

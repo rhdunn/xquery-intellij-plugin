@@ -19,11 +19,11 @@ import com.intellij.util.ui.ColumnInfo
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.columnInfo
 import uk.co.reecedunn.intellij.plugin.xqdoc.intellij.resources.XQDocBundle
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationDownloader
-import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationSource
+import uk.co.reecedunn.intellij.plugin.xpm.lang.documentation.XpmDocumentationSource
 import javax.swing.table.DefaultTableCellRenderer
 
-fun ArrayList<ColumnInfo<XQDocDocumentationSource, *>>.nameColumn() {
-    val column = columnInfo<XQDocDocumentationSource, String>(
+fun ArrayList<ColumnInfo<XpmDocumentationSource, *>>.nameColumn() {
+    val column = columnInfo<XpmDocumentationSource, String>(
         heading = XQDocBundle.message("documentation-source-table.column.name.title"),
         getter = { item -> item.presentation.presentableText!! },
         renderer = { value ->
@@ -35,16 +35,16 @@ fun ArrayList<ColumnInfo<XQDocDocumentationSource, *>>.nameColumn() {
     add(column)
 }
 
-fun ArrayList<ColumnInfo<XQDocDocumentationSource, *>>.versionColumn() {
-    val column = columnInfo<XQDocDocumentationSource, String>(
+fun ArrayList<ColumnInfo<XpmDocumentationSource, *>>.versionColumn() {
+    val column = columnInfo<XpmDocumentationSource, String>(
         heading = XQDocBundle.message("documentation-source-table.column.version.title"),
         getter = { item -> item.version }
     )
     add(column)
 }
 
-fun ArrayList<ColumnInfo<XQDocDocumentationSource, *>>.statusColumn() {
-    val column = columnInfo<XQDocDocumentationSource, String>(
+fun ArrayList<ColumnInfo<XpmDocumentationSource, *>>.statusColumn() {
+    val column = columnInfo<XpmDocumentationSource, String>(
         heading = XQDocBundle.message("documentation-source-table.column.status.title"),
         getter = { item -> XQDocDocumentationDownloader.getInstance().status(item).label }
     )

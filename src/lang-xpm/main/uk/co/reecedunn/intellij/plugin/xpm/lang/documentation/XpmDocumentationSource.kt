@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xqdoc.documentation
+package uk.co.reecedunn.intellij.plugin.xpm.lang.documentation
 
 import com.intellij.navigation.ItemPresentation
 
-interface XQDocDocumentationSource {
+interface XpmDocumentationSource {
     val presentation: ItemPresentation
 
     val version: String

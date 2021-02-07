@@ -23,6 +23,7 @@ import com.intellij.util.io.HttpRequests
 import com.intellij.util.xmlb.XmlSerializerUtil
 import uk.co.reecedunn.intellij.plugin.core.progress.TaskManager
 import uk.co.reecedunn.intellij.plugin.core.progress.TaskProgressListener
+import uk.co.reecedunn.intellij.plugin.xpm.lang.documentation.XpmDocumentationSource
 import uk.co.reecedunn.intellij.plugin.xqdoc.intellij.resources.XQDocBundle
 import java.io.File
 import java.io.IOException
@@ -32,15 +33,15 @@ class XQDocDocumentationDownloader : PersistentStateComponent<XQDocDocumentation
     var basePath: String? = null
         get() = field ?: "${PathManager.getSystemPath()}/xdm-cache/documentation"
 
-    private val tasks = TaskManager<XQDocDocumentationSource>()
+    private val tasks = TaskManager<XpmDocumentationSource>()
 
-    fun addListener(listener: TaskProgressListener<XQDocDocumentationSource>): Boolean = tasks.addListener(listener)
+    fun addListener(listener: TaskProgressListener<XpmDocumentationSource>): Boolean = tasks.addListener(listener)
 
-    fun removeListener(listener: TaskProgressListener<XQDocDocumentationSource>): Boolean {
+    fun removeListener(listener: TaskProgressListener<XpmDocumentationSource>): Boolean {
         return tasks.removeListener(listener)
     }
 
-    fun download(source: XQDocDocumentationSource): Boolean {
+    fun download(source: XpmDocumentationSource): Boolean {
         return tasks.backgroundable(XQDocBundle.message("documentation-source.download.title"), source) { indicator ->
             val file = File("$basePath/${source.path}")
             try {
@@ -52,7 +53,7 @@ class XQDocDocumentationDownloader : PersistentStateComponent<XQDocDocumentation
         }
     }
 
-    fun load(source: XQDocDocumentationSource, download: Boolean = false): VirtualFile? {
+    fun load(source: XpmDocumentationSource, download: Boolean = false): VirtualFile? {
         val file = file(source)
         if (download) {
             if (!file.exists() || tasks.isActive(source)) {
@@ -69,9 +70,9 @@ class XQDocDocumentationDownloader : PersistentStateComponent<XQDocDocumentation
         return LocalFileSystem.getInstance().findFileByIoFile(file)
     }
 
-    fun file(source: XQDocDocumentationSource): File = File("$basePath/${source.path}")
+    fun file(source: XpmDocumentationSource): File = File("$basePath/${source.path}")
 
-    fun status(source: XQDocDocumentationSource): XQDocDocumentationDownloadStatus = when {
+    fun status(source: XpmDocumentationSource): XQDocDocumentationDownloadStatus = when {
         tasks.isActive(source) -> XQDocDocumentationDownloadStatus.Downloading
         file(source).exists() -> XQDocDocumentationDownloadStatus.Downloaded
         else -> XQDocDocumentationDownloadStatus.NotDownloaded
