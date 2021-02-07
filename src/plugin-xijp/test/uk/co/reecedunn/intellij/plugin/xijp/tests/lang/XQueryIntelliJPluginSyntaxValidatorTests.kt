@@ -110,6 +110,43 @@ class XQueryIntelliJPluginSyntaxValidatorTest :
     private val VERSION_1_0: XpmProductVersion = XQueryIntelliJPluginVersion(XQueryIntelliJPlugin, 1, 0)
 
     @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (22) ParamList")
+    internal inner class ParamList {
+        @Test
+        @DisplayName("variadic; XQuery IntelliJ Plugin >= 1.3")
+        fun supported() {
+            val file = parse<XQueryModule>("declare function f(\$a as xs:string ...) external;")[0]
+            validator.product = XQueryIntelliJPlugin.VERSION_1_4
+            validator.validate(file, this@XQueryIntelliJPluginSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("variadic; XQuery IntelliJ Plugin < 1.3")
+        fun notSupported() {
+            val file = parse<XQueryModule>("declare function f(\$a as xs:string ...) external;")[0]
+            validator.product = XQueryIntelliJPlugin.VERSION_1_3
+            validator.validate(file, this@XQueryIntelliJPluginSyntaxValidatorTest)
+            assertThat(
+                report.toString(), `is`(
+                    """
+                    E XPST0003(35:38): XQuery IntelliJ Plugin 1.3 does not support XQuery IntelliJ Plugin 1.4 constructs.
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("non-variadic")
+        fun nonVariadic() {
+            val file = parse<XQueryModule>("declare function f(\$a as xs:string) external;")[0]
+            validator.product = VERSION_1_0
+            validator.validate(file, this@XQueryIntelliJPluginSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery IntelliJ Plugin EBNF (86) SequenceTypeUnion")
     internal inner class SequenceTypeUnion {
         @Test

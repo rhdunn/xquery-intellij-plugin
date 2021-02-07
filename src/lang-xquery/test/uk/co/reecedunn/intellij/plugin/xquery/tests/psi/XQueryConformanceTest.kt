@@ -1829,18 +1829,6 @@ private class XQueryConformanceTest : ParserTestCase() {
         }
     }
 
-    @Test
-    @DisplayName("XQuery 3.1 EBNF (33) ParamList")
-    fun paramList() {
-        val file = parseResource("tests/parser/xquery-1.0/ParamList.xq")
-        val conformance = file.walkTree().filterIsInstance<XPathParamList>().first() as VersionConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(0))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.elementType, `is`(XPathElementType.PARAM))
-    }
-
     @Nested
     @DisplayName("XQuery 3.1 EBNF (184) SequenceType")
     internal inner class SequenceType {

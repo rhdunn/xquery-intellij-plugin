@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xijp.lang
 
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginSequenceTypeList
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathTypedFunctionTest
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxErrorReporter
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
@@ -39,6 +40,11 @@ object XQueryIntelliJPluginSyntaxValidator : XpmSyntaxValidator {
             is XQueryCaseClause -> {
             }
             else -> reporter.requires(element, XIJP_1_3)
+        }
+        is XPathParamList -> when {
+            element.isVariadic -> reporter.requires(element, XIJP_1_4)
+            else -> {
+            }
         }
         else -> {
         }

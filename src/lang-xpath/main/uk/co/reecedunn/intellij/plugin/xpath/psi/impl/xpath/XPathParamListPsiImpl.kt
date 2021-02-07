@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,29 +25,24 @@ import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XQueryIntelliJPlugin
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParam
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableBinding
-import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import javax.swing.Icon
 
-private val PARAM_OR_VARIADIC = TokenSet.create(XPathElementType.PARAM, XPathTokenType.ELLIPSIS)
-private val XQUERY1: List<Version> = listOf()
-private val EXPATH = listOf(XQueryIntelliJPlugin.VERSION_1_4)
-
 class XPathParamListPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), XPathParamList, ItemPresentation, VersionConformance {
-    // region VersionConformance
-
-    override val requiresConformance: List<Version>
-        get() = if (isVariadic) EXPATH else XQUERY1
+    ASTWrapperPsiElement(node), XPathParamList, ItemPresentation, XpmSyntaxValidationElement {
+    // region XpmSyntaxValidationElement
 
     override val conformanceElement: PsiElement
         get() = children().reversed().firstOrNull { e -> PARAM_OR_VARIADIC.contains(e.elementType) } ?: firstChild
+
+    companion object {
+        private val PARAM_OR_VARIADIC = TokenSet.create(XPathElementType.PARAM, XPathTokenType.ELLIPSIS)
+    }
 
     // endregion
     // region PsiElement

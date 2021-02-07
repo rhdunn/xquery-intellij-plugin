@@ -58,17 +58,4 @@ private class PluginConformanceTest : ParserTestCase() {
             assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.K_EMPTY))
         }
     }
-
-    @Test
-    @DisplayName("XQuery IntelliJ Plugin EBNF (95) ParamList")
-    fun paramList() {
-        val file = parseResource("tests/parser/intellij-plugin/ParamList_Variadic_Untyped.xq")
-        val conformance = file.walkTree().filterIsInstance<XPathParamList>().first() as VersionConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(XQueryIntelliJPlugin.VERSION_1_4))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.elementType, `is`(XPathTokenType.ELLIPSIS))
-    }
 }
