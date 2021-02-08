@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2021 Reece H. Dunn
+ * Copyright (C) 2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,12 +15,13 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires
 
-import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
+import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmSpecificationVersion
 import uk.co.reecedunn.intellij.plugin.xpm.lang.configuration.XpmLanguageConfiguration
 
-class XpmRequiresProductVersion(private val requires: XpmProductVersion) : XpmRequiresConformanceTo {
+class XpmRequiresSpecificationVersion(private val requires: XpmSpecificationVersion) : XpmRequiresConformanceTo {
     override fun conformanceTo(configuration: XpmLanguageConfiguration): Boolean {
-        return configuration.product.let { it.product === requires.product && it >= requires }
+        val implements = configuration.implements[requires.specification.id] ?: return false
+        return implements.specification === requires.specification && implements >= requires
     }
 
     override fun toString(): String = requires.toString()

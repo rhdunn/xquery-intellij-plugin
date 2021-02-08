@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.lang
 
-interface XpmSpecificationVersion {
+interface XpmSpecificationVersion : Comparable<XpmSpecificationVersion> {
     val specification: XpmSpecificationType
 
     val id: String

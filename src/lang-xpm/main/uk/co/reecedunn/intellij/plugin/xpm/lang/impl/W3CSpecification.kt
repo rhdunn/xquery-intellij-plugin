@@ -32,5 +32,14 @@ data class W3CSpecification(
 
     override val path: String = "w3/${specification.id}-$id.html"
 
+    override fun compareTo(other: XpmSpecificationVersion): Int {
+        return when (val specDiff = this.specification.id.compareTo(other.specification.id)) {
+            0 -> this.id.compareTo(other.id)
+            else -> specDiff
+        }
+    }
+
+    override fun toString(): String = "${specification.presentation.presentableText} ${id.substringBefore('-')}"
+
     // endregion
 }
