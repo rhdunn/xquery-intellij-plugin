@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.lang
 
-interface XpmProductVersion {
+interface XpmProductVersion : Comparable<XpmProductVersion> {
     val product: XpmProductType
 
     val id: String
@@ -25,14 +25,6 @@ interface XpmProductVersion {
     val minor: Int
 
     val features: String
-}
-
-fun XpmProductVersion.ge(other: XpmProductVersion): Boolean {
-    return (this.major > other.major) || (this.major == other.major && this.minor >= other.minor)
-}
-
-fun XpmProductVersion.le(other: XpmProductVersion): Boolean {
-    return (this.major < other.major) || (this.major == other.major && this.minor <= other.minor)
 }
 
 val XpmProductVersion.displayName: String

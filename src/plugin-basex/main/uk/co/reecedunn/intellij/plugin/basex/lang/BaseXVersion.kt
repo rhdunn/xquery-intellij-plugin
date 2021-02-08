@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +27,16 @@ data class BaseXVersion(
     // region XpmProductVersion
 
     override val id: String = "$major.$minor"
+
+    override fun compareTo(other: XpmProductVersion): Int {
+        return when (val productDiff = this.product.id.compareTo(other.product.id)) {
+            0 -> when (val majorDiff = this.major - other.major) {
+                0 -> this.minor - other.minor
+                else -> majorDiff
+            }
+            else -> productDiff
+        }
+    }
 
     // endregion
 }

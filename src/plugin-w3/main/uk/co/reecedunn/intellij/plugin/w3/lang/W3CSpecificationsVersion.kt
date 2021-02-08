@@ -29,5 +29,7 @@ data class W3CSpecificationsVersion(override val product: XpmProductType) : XpmP
 
     override val features: String = ""
 
+    override fun compareTo(other: XpmProductVersion): Int = this.product.id.compareTo(other.product.id)
+
     // endregion
 }

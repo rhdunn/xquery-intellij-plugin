@@ -18,11 +18,10 @@ package uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
 import uk.co.reecedunn.intellij.plugin.xpm.lang.configuration.XpmLanguageConfiguration
 import uk.co.reecedunn.intellij.plugin.xpm.lang.displayName
-import uk.co.reecedunn.intellij.plugin.xpm.lang.ge
 
 class XpmRequiresProductVersion(private val productVersion: XpmProductVersion) : XpmRequiresConformanceTo {
     override fun conformanceTo(configuration: XpmLanguageConfiguration): Boolean {
-        return configuration.product.let { it.product === productVersion.product && it.ge(productVersion) }
+        return configuration.product.let { it.product === productVersion.product && it >= productVersion }
     }
 
     override fun toString(): String = productVersion.displayName

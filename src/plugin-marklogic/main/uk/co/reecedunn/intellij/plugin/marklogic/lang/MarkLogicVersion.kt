@@ -29,5 +29,12 @@ data class MarkLogicVersion(
 
     override val id: String = "$major.$minor"
 
+    override fun compareTo(other: XpmProductVersion): Int {
+        return when (val productDiff = this.product.id.compareTo(other.product.id)) {
+            0 -> this.major - other.major
+            else -> productDiff
+        }
+    }
+
     // endregion
 }

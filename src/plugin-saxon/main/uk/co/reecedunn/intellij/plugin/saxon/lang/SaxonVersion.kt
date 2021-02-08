@@ -28,5 +28,15 @@ data class SaxonVersion(
 
     override val id: String = "$major.$minor"
 
+    override fun compareTo(other: XpmProductVersion): Int {
+        return when (val productDiff = this.product.id.compareTo(other.product.id)) {
+            0 -> when (val majorDiff = this.major - other.major) {
+                0 -> this.minor - other.minor
+                else -> majorDiff
+            }
+            else -> productDiff
+        }
+    }
+
     // endregion
 }
