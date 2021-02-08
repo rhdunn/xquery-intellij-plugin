@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,16 +16,15 @@
 package uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires
 
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
+import uk.co.reecedunn.intellij.plugin.xpm.lang.configuration.XpmLanguageConfiguration
 import uk.co.reecedunn.intellij.plugin.xpm.lang.ge
 import uk.co.reecedunn.intellij.plugin.xpm.lang.le
-import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxErrorReporter
 
 class XpmRequiresProductVersionRange(
     private val from: XpmProductVersion,
     private val to: XpmProductVersion
 ) : XpmRequiresConformanceTo {
-    override fun conformanceTo(reporter: XpmSyntaxErrorReporter): Boolean {
-        val configuration = reporter.configuration ?: return false
+    override fun conformanceTo(configuration: XpmLanguageConfiguration): Boolean {
         return configuration.product.let {
             it.product === from.product && it.ge(from) && it.le(to)
         }

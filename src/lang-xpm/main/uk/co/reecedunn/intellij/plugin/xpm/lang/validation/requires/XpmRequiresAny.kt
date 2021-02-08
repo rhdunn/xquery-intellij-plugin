@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,11 +16,11 @@
 package uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires
 
 import uk.co.reecedunn.intellij.plugin.xpm.intellij.resources.XpmBundle
-import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxErrorReporter
+import uk.co.reecedunn.intellij.plugin.xpm.lang.configuration.XpmLanguageConfiguration
 
 class XpmRequiresAny(private vararg val requires: XpmRequiresConformanceTo) : XpmRequiresConformanceTo {
-    override fun conformanceTo(reporter: XpmSyntaxErrorReporter): Boolean {
-        return requires.any { it.conformanceTo(reporter) }
+    override fun conformanceTo(configuration: XpmLanguageConfiguration): Boolean {
+        return requires.any { it.conformanceTo(configuration) }
     }
 
     override fun toString(): String = requires.joinToString(XpmBundle.message("diagnostic.or"))

@@ -36,7 +36,7 @@ class XpmSyntaxValidation : XpmSyntaxErrorReporter {
         requires: XpmRequiresConformanceTo,
         conformanceName: String?
     ) {
-        if (!requires.conformanceTo(this)) {
+        if (!requires.conformanceTo(configuration!!)) {
             this.required = requires
             this.conformanceElement = element.conformanceElement
             this.conformanceName = conformanceName
