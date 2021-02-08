@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,11 +21,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
 data class W3CSpecificationsVersion(override val product: XpmProductType) : XpmProductVersion {
     // region XpmProductVersion
 
-    override val major: Int = 1
-
-    override val minor: Int = 0
-
-    override val id: String = "$major.$minor"
+    override val id: String = "1.0"
 
     override val features: String = ""
 

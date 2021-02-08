@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,18 +20,16 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
 
 data class MarkLogicVersion(
     override val product: XpmProductType,
-    override val major: Int,
+    val major: Int,
     override val features: String
 ) : XpmProductVersion {
     // region XpmProductVersion
 
-    override val minor: Int = 0
-
-    override val id: String = "$major.$minor"
+    override val id: String = "$major.0"
 
     override fun compareTo(other: XpmProductVersion): Int {
         return when (val productDiff = this.product.id.compareTo(other.product.id)) {
-            0 -> this.major - other.major
+            0 -> this.major - (other as MarkLogicVersion).major
             else -> productDiff
         }
     }

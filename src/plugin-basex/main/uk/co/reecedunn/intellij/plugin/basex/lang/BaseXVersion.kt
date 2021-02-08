@@ -20,8 +20,8 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
 
 data class BaseXVersion(
     override val product: XpmProductType,
-    override val major: Int,
-    override val minor: Int,
+    val major: Int,
+    val minor: Int,
     override val features: String
 ) : XpmProductVersion {
     // region XpmProductVersion
@@ -30,7 +30,7 @@ data class BaseXVersion(
 
     override fun compareTo(other: XpmProductVersion): Int {
         return when (val productDiff = this.product.id.compareTo(other.product.id)) {
-            0 -> when (val majorDiff = this.major - other.major) {
+            0 -> when (val majorDiff = this.major - (other as BaseXVersion).major) {
                 0 -> this.minor - other.minor
                 else -> majorDiff
             }

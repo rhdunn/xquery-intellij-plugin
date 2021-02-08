@@ -20,10 +20,6 @@ interface XpmProductVersion : Comparable<XpmProductVersion> {
 
     val id: String
 
-    val major: Int
-
-    val minor: Int
-
     val features: String
 }
 
