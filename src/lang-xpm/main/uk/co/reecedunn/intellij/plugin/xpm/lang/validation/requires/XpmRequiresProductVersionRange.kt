@@ -25,9 +25,10 @@ class XpmRequiresProductVersionRange(
     private val to: XpmProductVersion
 ) : XpmRequiresConformanceTo {
     override fun conformanceTo(reporter: XpmSyntaxErrorReporter): Boolean {
-        return reporter.product?.let {
+        val configuration = reporter.configuration ?: return false
+        return configuration.product.let {
             it.product === from.product && it.ge(from) && it.le(to)
-        } == true
+        }
     }
 
     override fun toString(): String {

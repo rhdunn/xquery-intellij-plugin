@@ -39,7 +39,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.settings.XQueryProjectSettings
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
-import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
+import uk.co.reecedunn.intellij.plugin.xpm.lang.configuration.XpmLanguageConfiguration
 import uk.co.reecedunn.intellij.plugin.xpm.lang.diagnostics.XpmDiagnostics
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidation
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
@@ -107,7 +107,10 @@ class BaseXSyntaxValidatorTest :
     // endregion
 
     @Suppress("PrivatePropertyName")
-    private val VERSION_6_0: XpmProductVersion = BaseXVersion(BaseX, 6, 0, "")
+    private val VERSION_6_0 = XpmLanguageConfiguration(BaseXVersion(BaseX, 6, 0, ""))
+
+    @Suppress("PrivatePropertyName")
+    private val VERSION_9_1 = XpmLanguageConfiguration(BaseX.VERSION_9_1)
 
     @Nested
     @DisplayName("XQuery IntelliJ Plugin EBNF (12) UpdateExpr")
@@ -119,7 +122,7 @@ class BaseXSyntaxValidatorTest :
             @DisplayName("BaseX >= 7.8")
             fun supported() {
                 val file = parse<XQueryModule>("//item update delete node .")[0]
-                validator.product = BaseX.VERSION_9_1
+                validator.configuration = VERSION_9_1
                 validator.validate(file, this@BaseXSyntaxValidatorTest)
                 assertThat(report.toString(), `is`(""))
             }
@@ -128,7 +131,7 @@ class BaseXSyntaxValidatorTest :
             @DisplayName("BaseX < 7.8")
             fun notSupported() {
                 val file = parse<XQueryModule>("//item update delete node .")[0]
-                validator.product = VERSION_6_0
+                validator.configuration = VERSION_6_0
                 validator.validate(file, this@BaseXSyntaxValidatorTest)
                 assertThat(
                     report.toString(), `is`(
@@ -147,7 +150,7 @@ class BaseXSyntaxValidatorTest :
             @DisplayName("BaseX >= 8.5")
             fun supported() {
                 val file = parse<XQueryModule>("//item update { delete node . }")[0]
-                validator.product = BaseX.VERSION_9_1
+                validator.configuration = VERSION_9_1
                 validator.validate(file, this@BaseXSyntaxValidatorTest)
                 assertThat(report.toString(), `is`(""))
             }
@@ -156,7 +159,7 @@ class BaseXSyntaxValidatorTest :
             @DisplayName("BaseX < 8.5")
             fun notSupported() {
                 val file = parse<XQueryModule>("//item update { delete node . }")[0]
-                validator.product = VERSION_6_0
+                validator.configuration = VERSION_6_0
                 validator.validate(file, this@BaseXSyntaxValidatorTest)
                 assertThat(
                     report.toString(), `is`(
@@ -176,7 +179,7 @@ class BaseXSyntaxValidatorTest :
         @DisplayName("BaseX >= 6.1")
         fun supported() {
             val file = parse<XQueryModule>("title contains text \"lorem\" using fuzzy")[0]
-            validator.product = BaseX.VERSION_9_1
+            validator.configuration = VERSION_9_1
             validator.validate(file, this@BaseXSyntaxValidatorTest)
             assertThat(report.toString(), `is`(""))
         }
@@ -185,7 +188,7 @@ class BaseXSyntaxValidatorTest :
         @DisplayName("BaseX < 6.1")
         fun notSupported() {
             val file = parse<XQueryModule>("title contains text \"lorem\" using fuzzy")[0]
-            validator.product = VERSION_6_0
+            validator.configuration = VERSION_6_0
             validator.validate(file, this@BaseXSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -204,7 +207,7 @@ class BaseXSyntaxValidatorTest :
         @DisplayName("BaseX >= 8.4")
         fun supported() {
             val file = parse<XQueryModule>("let \$x := fn:true#0 return non-deterministic \$x()")[0]
-            validator.product = BaseX.VERSION_9_1
+            validator.configuration = VERSION_9_1
             validator.validate(file, this@BaseXSyntaxValidatorTest)
             assertThat(report.toString(), `is`(""))
         }
@@ -213,7 +216,7 @@ class BaseXSyntaxValidatorTest :
         @DisplayName("BaseX < 8.4")
         fun notSupported() {
             val file = parse<XQueryModule>("let \$x := fn:true#0 return non-deterministic \$x()")[0]
-            validator.product = VERSION_6_0
+            validator.configuration = VERSION_6_0
             validator.validate(file, this@BaseXSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -232,7 +235,8 @@ class BaseXSyntaxValidatorTest :
         @DisplayName("BaseX >= 9.1")
         fun supported() {
             val file = parse<XQueryModule>("1 eq 2 ?? 3 !! 4")[0]
-            validator.product = BaseX.VERSION_9_1
+            validator.configuration = XpmLanguageConfiguration(BaseX.VERSION_9_1)
+            validator.configuration = VERSION_9_1
             validator.validate(file, this@BaseXSyntaxValidatorTest)
             assertThat(report.toString(), `is`(""))
         }
@@ -241,7 +245,7 @@ class BaseXSyntaxValidatorTest :
         @DisplayName("BaseX < 9.1")
         fun notSupported() {
             val file = parse<XQueryModule>("1 eq 2 ?? 3 !! 4")[0]
-            validator.product = VERSION_6_0
+            validator.configuration = VERSION_6_0
             validator.validate(file, this@BaseXSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -260,7 +264,7 @@ class BaseXSyntaxValidatorTest :
         @DisplayName("BaseX >= 9.1")
         fun supported() {
             val file = parse<XQueryModule>("1 ?: 2")[0]
-            validator.product = BaseX.VERSION_9_1
+            validator.configuration = VERSION_9_1
             validator.validate(file, this@BaseXSyntaxValidatorTest)
             assertThat(report.toString(), `is`(""))
         }
@@ -269,7 +273,7 @@ class BaseXSyntaxValidatorTest :
         @DisplayName("BaseX < 9.1")
         fun notSupported() {
             val file = parse<XQueryModule>("1 ?: 2")[0]
-            validator.product = VERSION_6_0
+            validator.configuration = VERSION_6_0
             validator.validate(file, this@BaseXSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -288,7 +292,7 @@ class BaseXSyntaxValidatorTest :
         @DisplayName("if with else")
         fun ifWithElse() {
             val file = parse<XQueryModule>("if (1) then 2 else 3")[0]
-            validator.product = VERSION_6_0
+            validator.configuration = VERSION_6_0
             validator.validate(file, this@BaseXSyntaxValidatorTest)
             assertThat(report.toString(), `is`(""))
         }
@@ -300,7 +304,7 @@ class BaseXSyntaxValidatorTest :
             @DisplayName("BaseX >= 9.1")
             fun supported() {
                 val file = parse<XQueryModule>("if (1) then 2")[0]
-                validator.product = BaseX.VERSION_9_1
+                validator.configuration = VERSION_9_1
                 validator.validate(file, this@BaseXSyntaxValidatorTest)
                 assertThat(report.toString(), `is`(""))
             }
@@ -309,7 +313,7 @@ class BaseXSyntaxValidatorTest :
             @DisplayName("BaseX < 9.1")
             fun notSupported() {
                 val file = parse<XQueryModule>("if (1) then 2")[0]
-                validator.product = VERSION_6_0
+                validator.configuration = VERSION_6_0
                 validator.validate(file, this@BaseXSyntaxValidatorTest)
                 assertThat(
                     report.toString(), `is`(

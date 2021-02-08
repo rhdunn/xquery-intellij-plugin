@@ -34,6 +34,7 @@ import uk.co.reecedunn.intellij.plugin.saxon.lang.SaxonPE
 import uk.co.reecedunn.intellij.plugin.w3.lang.W3CSpecifications
 import uk.co.reecedunn.intellij.plugin.marklogic.lang.MarkLogic as MarkLogicProduct
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
+import uk.co.reecedunn.intellij.plugin.xpm.lang.configuration.XpmLanguageConfiguration
 import uk.co.reecedunn.intellij.plugin.xpm.lang.diagnostics.XpmDiagnostics
 import uk.co.reecedunn.intellij.plugin.xpm.lang.diagnostics.XpmInspectionDiagnostics
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidation
@@ -170,7 +171,7 @@ class IJVS0001 : Inspection("ijvs/IJVS0001.md", IJVS0001::class.java.classLoader
         }
 
         val validator = XpmSyntaxValidation()
-        validator.product = getProductVersion(product, productVersion)
+        validator.configuration = XpmLanguageConfiguration(getProductVersion(product, productVersion))
         validator.validate(file, diagnostics)
 
         return diagnostics.toTypedArray()

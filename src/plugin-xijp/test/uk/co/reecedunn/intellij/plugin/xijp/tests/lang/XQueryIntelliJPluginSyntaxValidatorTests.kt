@@ -38,7 +38,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.settings.XQueryProjectSettings
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
-import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
+import uk.co.reecedunn.intellij.plugin.xpm.lang.configuration.XpmLanguageConfiguration
 import uk.co.reecedunn.intellij.plugin.xpm.lang.diagnostics.XpmDiagnostics
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidation
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
@@ -107,7 +107,13 @@ class XQueryIntelliJPluginSyntaxValidatorTest :
     // endregion
 
     @Suppress("PrivatePropertyName")
-    private val VERSION_1_0: XpmProductVersion = XQueryIntelliJPluginVersion(XQueryIntelliJPlugin, 1, 0)
+    private val VERSION_1_0 = XpmLanguageConfiguration(XQueryIntelliJPluginVersion(XQueryIntelliJPlugin, 1, 0))
+
+    @Suppress("PrivatePropertyName")
+    private val VERSION_1_3 = XpmLanguageConfiguration(XQueryIntelliJPlugin.VERSION_1_3)
+
+    @Suppress("PrivatePropertyName")
+    private val VERSION_1_4 = XpmLanguageConfiguration(XQueryIntelliJPlugin.VERSION_1_4)
 
     @Nested
     @DisplayName("XQuery IntelliJ Plugin EBNF (22) ParamList")
@@ -116,7 +122,7 @@ class XQueryIntelliJPluginSyntaxValidatorTest :
         @DisplayName("variadic; XQuery IntelliJ Plugin >= 1.3")
         fun supported() {
             val file = parse<XQueryModule>("declare function f(\$a as xs:string ...) external;")[0]
-            validator.product = XQueryIntelliJPlugin.VERSION_1_4
+            validator.configuration = VERSION_1_4
             validator.validate(file, this@XQueryIntelliJPluginSyntaxValidatorTest)
             assertThat(report.toString(), `is`(""))
         }
@@ -125,7 +131,7 @@ class XQueryIntelliJPluginSyntaxValidatorTest :
         @DisplayName("variadic; XQuery IntelliJ Plugin < 1.3")
         fun notSupported() {
             val file = parse<XQueryModule>("declare function f(\$a as xs:string ...) external;")[0]
-            validator.product = XQueryIntelliJPlugin.VERSION_1_3
+            validator.configuration = VERSION_1_3
             validator.validate(file, this@XQueryIntelliJPluginSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -140,7 +146,7 @@ class XQueryIntelliJPluginSyntaxValidatorTest :
         @DisplayName("non-variadic")
         fun nonVariadic() {
             val file = parse<XQueryModule>("declare function f(\$a as xs:string) external;")[0]
-            validator.product = VERSION_1_0
+            validator.configuration = VERSION_1_0
             validator.validate(file, this@XQueryIntelliJPluginSyntaxValidatorTest)
             assertThat(report.toString(), `is`(""))
         }
@@ -153,7 +159,7 @@ class XQueryIntelliJPluginSyntaxValidatorTest :
         @DisplayName("XQuery IntelliJ Plugin >= 1.3")
         fun supported() {
             val file = parse<XQueryModule>("1 instance of (xs:string*|element(test))")[0]
-            validator.product = XQueryIntelliJPlugin.VERSION_1_3
+            validator.configuration = VERSION_1_3
             validator.validate(file, this@XQueryIntelliJPluginSyntaxValidatorTest)
             assertThat(report.toString(), `is`(""))
         }
@@ -162,7 +168,7 @@ class XQueryIntelliJPluginSyntaxValidatorTest :
         @DisplayName("XQuery IntelliJ Plugin < 1.3")
         fun notSupported() {
             val file = parse<XQueryModule>("1 instance of (xs:string*|element(test))")[0]
-            validator.product = VERSION_1_0
+            validator.configuration = VERSION_1_0
             validator.validate(file, this@XQueryIntelliJPluginSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -177,7 +183,7 @@ class XQueryIntelliJPluginSyntaxValidatorTest :
         @DisplayName("XQuery 1.0 EBNF (43) TypeswitchExpr ; XQuery 1.0 EBNF (44) CaseClause")
         fun caseClause() {
             val file = parse<XQueryModule>("typeswitch (1) case xs:string*|element(test) return 1 default return 2")[0]
-            validator.product = VERSION_1_0
+            validator.configuration = VERSION_1_0
             validator.validate(file, this@XQueryIntelliJPluginSyntaxValidatorTest)
             assertThat(report.toString(), `is`(""))
         }
@@ -190,7 +196,7 @@ class XQueryIntelliJPluginSyntaxValidatorTest :
         @DisplayName("XQuery IntelliJ Plugin >= 1.3")
         fun supported() {
             val file = parse<XQueryModule>("1 instance of (xs:string*, element(test))")[0]
-            validator.product = XQueryIntelliJPlugin.VERSION_1_3
+            validator.configuration = VERSION_1_3
             validator.validate(file, this@XQueryIntelliJPluginSyntaxValidatorTest)
             assertThat(report.toString(), `is`(""))
         }
@@ -199,7 +205,7 @@ class XQueryIntelliJPluginSyntaxValidatorTest :
         @DisplayName("XQuery IntelliJ Plugin < 1.3")
         fun notSupported() {
             val file = parse<XQueryModule>("1 instance of (xs:string*, element(test))")[0]
-            validator.product = VERSION_1_0
+            validator.configuration = VERSION_1_0
             validator.validate(file, this@XQueryIntelliJPluginSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -214,7 +220,7 @@ class XQueryIntelliJPluginSyntaxValidatorTest :
         @DisplayName("XQuery 3.0 EBNF (193) TypedFunctionTest")
         fun typedFunctionTest() {
             val file = parse<XQueryModule>("1 instance of function (xs:string*, element(test)) as item()")[0]
-            validator.product = VERSION_1_0
+            validator.configuration = VERSION_1_0
             validator.validate(file, this@XQueryIntelliJPluginSyntaxValidatorTest)
             assertThat(report.toString(), `is`(""))
         }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,13 +19,13 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xpm.intellij.resources.XpmBundle
-import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
+import uk.co.reecedunn.intellij.plugin.xpm.lang.configuration.XpmLanguageConfiguration
 import uk.co.reecedunn.intellij.plugin.xpm.lang.diagnostics.XpmDiagnostics
 import uk.co.reecedunn.intellij.plugin.xpm.lang.displayName
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires.XpmRequiresConformanceTo
 
 class XpmSyntaxValidation : XpmSyntaxErrorReporter {
-    override var product: XpmProductVersion? = null
+    override var configuration: XpmLanguageConfiguration? = null
 
     private var required: XpmRequiresConformanceTo? = null
     private var conformanceElement: PsiElement? = null
@@ -61,10 +61,13 @@ class XpmSyntaxValidation : XpmSyntaxErrorReporter {
                 if (conformanceName != null)
                     XpmBundle.message(
                         "diagnostic.unsupported-syntax-name",
-                        product!!.displayName, required!!, conformanceName!!
+                        configuration!!.product.displayName, required!!, conformanceName!!
                     )
                 else
-                    XpmBundle.message("diagnostic.unsupported-syntax", product!!.displayName, required!!)
+                    XpmBundle.message(
+                        "diagnostic.unsupported-syntax",
+                        configuration!!.product.displayName, required!!
+                    )
             diagnostics.error(conformanceElement!!, XpmDiagnostics.XPST0003, message)
         }
     }

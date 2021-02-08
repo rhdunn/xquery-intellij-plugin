@@ -22,7 +22,8 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxErrorReporte
 
 class XpmRequiresProductVersion(private val productVersion: XpmProductVersion) : XpmRequiresConformanceTo {
     override fun conformanceTo(reporter: XpmSyntaxErrorReporter): Boolean {
-        return reporter.product?.let { it.product === productVersion.product && it.ge(productVersion) } == true
+        val configuration = reporter.configuration ?: return false
+        return configuration.product.let { it.product === productVersion.product && it.ge(productVersion) }
     }
 
     override fun toString(): String = productVersion.displayName

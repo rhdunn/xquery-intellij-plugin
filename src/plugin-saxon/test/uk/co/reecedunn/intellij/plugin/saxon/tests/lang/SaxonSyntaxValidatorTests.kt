@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.settings.XQueryProjectSettings
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
-import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
+import uk.co.reecedunn.intellij.plugin.xpm.lang.configuration.XpmLanguageConfiguration
 import uk.co.reecedunn.intellij.plugin.xpm.lang.diagnostics.XpmDiagnostics
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidation
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
@@ -105,13 +105,37 @@ class SaxonSyntaxValidatorTest :
     // endregion
 
     @Suppress("PrivatePropertyName")
-    private val SAXON_HE_9_8: XpmProductVersion = SaxonVersion(SaxonHE, 9, 8, "")
+    private val SAXON_HE_9_8 = XpmLanguageConfiguration(SaxonVersion(SaxonHE, 9, 8, ""))
 
     @Suppress("PrivatePropertyName")
-    private val SAXON_HE_9_9: XpmProductVersion = SaxonVersion(SaxonHE, 9, 9, "")
+    private val SAXON_HE_9_9 = XpmLanguageConfiguration(SaxonVersion(SaxonHE, 9, 9, ""))
 
     @Suppress("PrivatePropertyName")
-    private val SAXON_HE_10_0: XpmProductVersion = SaxonVersion(SaxonHE, 10, 0, "")
+    private val SAXON_HE_10_0 = XpmLanguageConfiguration(SaxonVersion(SaxonHE, 10, 0, ""))
+
+    @Suppress("PrivatePropertyName")
+    private val SAXON_PE_9_7 = XpmLanguageConfiguration(SaxonPE.VERSION_9_7)
+
+    @Suppress("PrivatePropertyName")
+    private val SAXON_PE_9_8 = XpmLanguageConfiguration(SaxonPE.VERSION_9_8)
+
+    @Suppress("PrivatePropertyName")
+    private val SAXON_PE_9_9 = XpmLanguageConfiguration(SaxonPE.VERSION_9_9)
+
+    @Suppress("PrivatePropertyName")
+    private val SAXON_PE_10_0 = XpmLanguageConfiguration(SaxonPE.VERSION_10_0)
+
+    @Suppress("PrivatePropertyName")
+    private val SAXON_EE_9_7 = XpmLanguageConfiguration(SaxonEE.VERSION_9_7)
+
+    @Suppress("PrivatePropertyName")
+    private val SAXON_EE_9_8 = XpmLanguageConfiguration(SaxonEE.VERSION_9_8)
+
+    @Suppress("PrivatePropertyName")
+    private val SAXON_EE_9_9 = XpmLanguageConfiguration(SaxonEE.VERSION_9_9)
+
+    @Suppress("PrivatePropertyName")
+    private val SAXON_EE_10_0 = XpmLanguageConfiguration(SaxonEE.VERSION_10_0)
 
     @Nested
     @DisplayName("XQuery IntelliJ Plugin EBNF (11) OrExpr")
@@ -120,7 +144,7 @@ class SaxonSyntaxValidatorTest :
         @DisplayName("Saxon HE")
         fun notSupportedHE() {
             val file = parse<XQueryModule>("1 and 2, 3 andAlso 4")[0]
-            validator.product = SAXON_HE_9_9
+            validator.configuration = SAXON_HE_9_9
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -135,7 +159,7 @@ class SaxonSyntaxValidatorTest :
         @DisplayName("Saxon PE >= 9.9")
         fun supportedPE() {
             val file = parse<XQueryModule>("1 and 2, 3 andAlso 4")[0]
-            validator.product = SaxonPE.VERSION_9_9
+            validator.configuration = SAXON_PE_9_9
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(report.toString(), `is`(""))
         }
@@ -144,7 +168,7 @@ class SaxonSyntaxValidatorTest :
         @DisplayName("Saxon PE < 9.9")
         fun notSupportedPE() {
             val file = parse<XQueryModule>("1 and 2, 3 andAlso 4")[0]
-            validator.product = SaxonPE.VERSION_9_8
+            validator.configuration = SAXON_PE_9_8
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -159,7 +183,7 @@ class SaxonSyntaxValidatorTest :
         @DisplayName("Saxon EE >= 9.9")
         fun supportedEE() {
             val file = parse<XQueryModule>("1 and 2, 3 andAlso 4")[0]
-            validator.product = SaxonEE.VERSION_9_9
+            validator.configuration = SAXON_EE_9_9
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(report.toString(), `is`(""))
         }
@@ -168,7 +192,7 @@ class SaxonSyntaxValidatorTest :
         @DisplayName("Saxon EE < 9.9")
         fun notSupportedEE() {
             val file = parse<XQueryModule>("1 and 2, 3 andAlso 4")[0]
-            validator.product = SaxonEE.VERSION_9_8
+            validator.configuration = SAXON_EE_9_8
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -187,7 +211,7 @@ class SaxonSyntaxValidatorTest :
         @DisplayName("Saxon HE")
         fun notSupportedHE() {
             val file = parse<XQueryModule>("declare type a:test = xs:string;")[0]
-            validator.product = SAXON_HE_9_8
+            validator.configuration = SAXON_HE_9_8
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -202,7 +226,7 @@ class SaxonSyntaxValidatorTest :
         @DisplayName("Saxon PE >= 9.8")
         fun supportedPE() {
             val file = parse<XQueryModule>("declare type a:test = xs:string;")[0]
-            validator.product = SaxonPE.VERSION_9_8
+            validator.configuration = SAXON_PE_9_8
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(report.toString(), `is`(""))
         }
@@ -211,7 +235,7 @@ class SaxonSyntaxValidatorTest :
         @DisplayName("Saxon PE < 9.8")
         fun notSupportedPE() {
             val file = parse<XQueryModule>("declare type a:test = xs:string;")[0]
-            validator.product = SaxonPE.VERSION_9_7
+            validator.configuration = SAXON_PE_9_7
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -226,7 +250,7 @@ class SaxonSyntaxValidatorTest :
         @DisplayName("Saxon EE >= 9.8")
         fun supportedEE() {
             val file = parse<XQueryModule>("declare type a:test = xs:string;")[0]
-            validator.product = SaxonEE.VERSION_9_8
+            validator.configuration = SAXON_EE_9_8
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(report.toString(), `is`(""))
         }
@@ -235,7 +259,7 @@ class SaxonSyntaxValidatorTest :
         @DisplayName("Saxon EE < 9.8")
         fun notSupportedEE() {
             val file = parse<XQueryModule>("declare type a:test = xs:string;")[0]
-            validator.product = SaxonEE.VERSION_9_7
+            validator.configuration = SAXON_EE_9_7
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -254,7 +278,7 @@ class SaxonSyntaxValidatorTest :
         @DisplayName("Saxon HE")
         fun notSupportedHE() {
             val file = parse<XQueryModule>("1 instance of union(xs:integer, xs:double)")[0]
-            validator.product = SAXON_HE_9_8
+            validator.configuration = SAXON_HE_9_8
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -269,7 +293,7 @@ class SaxonSyntaxValidatorTest :
         @DisplayName("Saxon PE >= 9.8")
         fun supportedPE() {
             val file = parse<XQueryModule>("1 instance of union(xs:integer, xs:double)")[0]
-            validator.product = SaxonPE.VERSION_9_8
+            validator.configuration = SAXON_PE_9_8
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(report.toString(), `is`(""))
         }
@@ -278,7 +302,7 @@ class SaxonSyntaxValidatorTest :
         @DisplayName("Saxon PE < 9.8")
         fun notSupportedPE() {
             val file = parse<XQueryModule>("1 instance of union(xs:integer, xs:double)")[0]
-            validator.product = SaxonPE.VERSION_9_7
+            validator.configuration = SAXON_PE_9_7
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -293,7 +317,7 @@ class SaxonSyntaxValidatorTest :
         @DisplayName("Saxon EE >= 9.8")
         fun supportedEE() {
             val file = parse<XQueryModule>("1 instance of union(xs:integer, xs:double)")[0]
-            validator.product = SaxonEE.VERSION_9_8
+            validator.configuration = SAXON_EE_9_8
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(report.toString(), `is`(""))
         }
@@ -302,7 +326,7 @@ class SaxonSyntaxValidatorTest :
         @DisplayName("Saxon EE < 9.8")
         fun notSupportedEE() {
             val file = parse<XQueryModule>("1 instance of union(xs:integer, xs:double)")[0]
-            validator.product = SaxonEE.VERSION_9_7
+            validator.configuration = SAXON_EE_9_7
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -324,7 +348,7 @@ class SaxonSyntaxValidatorTest :
             @DisplayName("Saxon HE")
             fun notSupportedHE() {
                 val file = parse<XQueryModule>("1 instance of tuple(a: xs:string, b: xs:string)")[0]
-                validator.product = SAXON_HE_9_8
+                validator.configuration = SAXON_HE_9_8
                 validator.validate(file, this@SaxonSyntaxValidatorTest)
                 assertThat(
                     report.toString(), `is`(
@@ -339,7 +363,7 @@ class SaxonSyntaxValidatorTest :
             @DisplayName("Saxon PE >= 9.8")
             fun supportedPE() {
                 val file = parse<XQueryModule>("1 instance of tuple(a: xs:string, b: xs:string)")[0]
-                validator.product = SaxonPE.VERSION_9_8
+                validator.configuration = SAXON_PE_9_8
                 validator.validate(file, this@SaxonSyntaxValidatorTest)
                 assertThat(report.toString(), `is`(""))
             }
@@ -348,7 +372,7 @@ class SaxonSyntaxValidatorTest :
             @DisplayName("Saxon PE < 9.8")
             fun notSupportedPE() {
                 val file = parse<XQueryModule>("1 instance of tuple(a: xs:string, b: xs:string)")[0]
-                validator.product = SaxonPE.VERSION_9_7
+                validator.configuration = SAXON_PE_9_7
                 validator.validate(file, this@SaxonSyntaxValidatorTest)
                 assertThat(
                     report.toString(), `is`(
@@ -363,7 +387,7 @@ class SaxonSyntaxValidatorTest :
             @DisplayName("Saxon EE >= 9.8")
             fun supportedEE() {
                 val file = parse<XQueryModule>("1 instance of tuple(a: xs:string, b: xs:string)")[0]
-                validator.product = SaxonEE.VERSION_9_8
+                validator.configuration = SAXON_EE_9_8
                 validator.validate(file, this@SaxonSyntaxValidatorTest)
                 assertThat(report.toString(), `is`(""))
             }
@@ -372,7 +396,7 @@ class SaxonSyntaxValidatorTest :
             @DisplayName("Saxon EE < 9.8")
             fun notSupportedEE() {
                 val file = parse<XQueryModule>("1 instance of tuple(a: xs:string, b: xs:string)")[0]
-                validator.product = SaxonEE.VERSION_9_7
+                validator.configuration = SAXON_EE_9_7
                 validator.validate(file, this@SaxonSyntaxValidatorTest)
                 assertThat(
                     report.toString(), `is`(
@@ -391,7 +415,7 @@ class SaxonSyntaxValidatorTest :
             @DisplayName("Saxon HE")
             fun notSupportedHE() {
                 val file = parse<XQueryModule>("1 instance of tuple(a, *)")[0]
-                validator.product = SAXON_HE_9_9
+                validator.configuration = SAXON_HE_9_9
                 validator.validate(file, this@SaxonSyntaxValidatorTest)
                 assertThat(
                     report.toString(), `is`(
@@ -406,7 +430,7 @@ class SaxonSyntaxValidatorTest :
             @DisplayName("Saxon PE >= 9.9")
             fun supportedPE() {
                 val file = parse<XQueryModule>("1 instance of tuple(a, *)")[0]
-                validator.product = SaxonPE.VERSION_9_9
+                validator.configuration = SAXON_PE_9_9
                 validator.validate(file, this@SaxonSyntaxValidatorTest)
                 assertThat(report.toString(), `is`(""))
             }
@@ -415,7 +439,7 @@ class SaxonSyntaxValidatorTest :
             @DisplayName("Saxon PE < 9.9")
             fun notSupportedPE() {
                 val file = parse<XQueryModule>("1 instance of tuple(a, *)")[0]
-                validator.product = SaxonPE.VERSION_9_8
+                validator.configuration = SAXON_PE_9_8
                 validator.validate(file, this@SaxonSyntaxValidatorTest)
                 assertThat(
                     report.toString(), `is`(
@@ -430,7 +454,7 @@ class SaxonSyntaxValidatorTest :
             @DisplayName("Saxon EE >= 9.9")
             fun supportedEE() {
                 val file = parse<XQueryModule>("1 instance of tuple(a, *)")[0]
-                validator.product = SaxonEE.VERSION_9_9
+                validator.configuration = SAXON_EE_9_9
                 validator.validate(file, this@SaxonSyntaxValidatorTest)
                 assertThat(report.toString(), `is`(""))
             }
@@ -439,7 +463,7 @@ class SaxonSyntaxValidatorTest :
             @DisplayName("Saxon EE < 9.9")
             fun notSupportedEE() {
                 val file = parse<XQueryModule>("1 instance of tuple(a, *)")[0]
-                validator.product = SaxonEE.VERSION_9_8
+                validator.configuration = SAXON_EE_9_8
                 validator.validate(file, this@SaxonSyntaxValidatorTest)
                 assertThat(
                     report.toString(), `is`(
@@ -462,7 +486,7 @@ class SaxonSyntaxValidatorTest :
             @DisplayName("Saxon HE")
             fun notSupportedHE() {
                 val file = parse<XQueryModule>("1 instance of tuple(a?: xs:string, b? : xs:string)")[0]
-                validator.product = SAXON_HE_9_9
+                validator.configuration = SAXON_HE_9_9
                 validator.validate(file, this@SaxonSyntaxValidatorTest)
                 assertThat(
                     report.toString(), `is`(
@@ -479,7 +503,7 @@ class SaxonSyntaxValidatorTest :
             @DisplayName("Saxon PE >= 9.9")
             fun supportedPE() {
                 val file = parse<XQueryModule>("1 instance of tuple(a?: xs:string, b? : xs:string)")[0]
-                validator.product = SaxonPE.VERSION_9_9
+                validator.configuration = SAXON_PE_9_9
                 validator.validate(file, this@SaxonSyntaxValidatorTest)
                 assertThat(report.toString(), `is`(""))
             }
@@ -488,7 +512,7 @@ class SaxonSyntaxValidatorTest :
             @DisplayName("Saxon PE < 9.9")
             fun notSupportedPE() {
                 val file = parse<XQueryModule>("1 instance of tuple(a?: xs:string, b? : xs:string)")[0]
-                validator.product = SaxonPE.VERSION_9_8
+                validator.configuration = SAXON_PE_9_8
                 validator.validate(file, this@SaxonSyntaxValidatorTest)
                 assertThat(
                     report.toString(), `is`(
@@ -504,7 +528,7 @@ class SaxonSyntaxValidatorTest :
             @DisplayName("Saxon EE >= 9.9")
             fun supportedEE() {
                 val file = parse<XQueryModule>("1 instance of tuple(a?: xs:string, b? : xs:string)")[0]
-                validator.product = SaxonEE.VERSION_9_9
+                validator.configuration = SAXON_EE_9_9
                 validator.validate(file, this@SaxonSyntaxValidatorTest)
                 assertThat(report.toString(), `is`(""))
             }
@@ -513,7 +537,7 @@ class SaxonSyntaxValidatorTest :
             @DisplayName("Saxon EE < 9.9")
             fun notSupportedEE() {
                 val file = parse<XQueryModule>("1 instance of tuple(a?: xs:string, b? : xs:string)")[0]
-                validator.product = SaxonEE.VERSION_9_8
+                validator.configuration = SAXON_EE_9_8
                 validator.validate(file, this@SaxonSyntaxValidatorTest)
                 assertThat(
                     report.toString(), `is`(
@@ -533,7 +557,7 @@ class SaxonSyntaxValidatorTest :
             @DisplayName("Saxon HE")
             fun notSupportedHE() {
                 val file = parse<XQueryModule>("1 instance of tuple(a as xs:string, b? as xs:string)")[0]
-                validator.product = SAXON_HE_9_9
+                validator.configuration = SAXON_HE_9_9
                 validator.validate(file, this@SaxonSyntaxValidatorTest)
                 assertThat(
                     report.toString(), `is`(
@@ -550,7 +574,7 @@ class SaxonSyntaxValidatorTest :
             @DisplayName("Saxon PE >= 10.0")
             fun supportedPE() {
                 val file = parse<XQueryModule>("1 instance of tuple(a as xs:string, b? as xs:string)")[0]
-                validator.product = SaxonPE.VERSION_10_0
+                validator.configuration = SAXON_PE_10_0
                 validator.validate(file, this@SaxonSyntaxValidatorTest)
                 assertThat(report.toString(), `is`(""))
             }
@@ -559,7 +583,7 @@ class SaxonSyntaxValidatorTest :
             @DisplayName("Saxon PE < 10.0")
             fun notSupportedPE() {
                 val file = parse<XQueryModule>("1 instance of tuple(a as xs:string, b? as xs:string)")[0]
-                validator.product = SaxonPE.VERSION_9_9
+                validator.configuration = SAXON_PE_9_9
                 validator.validate(file, this@SaxonSyntaxValidatorTest)
                 assertThat(
                     report.toString(), `is`(
@@ -574,7 +598,7 @@ class SaxonSyntaxValidatorTest :
             @DisplayName("Saxon EE >= 10.0")
             fun supportedEE() {
                 val file = parse<XQueryModule>("1 instance of tuple(a as xs:string, b? as xs:string)")[0]
-                validator.product = SaxonEE.VERSION_10_0
+                validator.configuration = SAXON_EE_10_0
                 validator.validate(file, this@SaxonSyntaxValidatorTest)
                 assertThat(report.toString(), `is`(""))
             }
@@ -583,7 +607,7 @@ class SaxonSyntaxValidatorTest :
             @DisplayName("Saxon EE < 10.0")
             fun notSupportedEE() {
                 val file = parse<XQueryModule>("1 instance of tuple(a as xs:string, b? as xs:string)")[0]
-                validator.product = SaxonEE.VERSION_9_9
+                validator.configuration = SAXON_EE_9_9
                 validator.validate(file, this@SaxonSyntaxValidatorTest)
                 assertThat(
                     report.toString(), `is`(
@@ -603,7 +627,7 @@ class SaxonSyntaxValidatorTest :
         @DisplayName("Saxon HE")
         fun notSupportedHE() {
             val file = parse<XQueryModule>("1 or 2, 3 orElse 4")[0]
-            validator.product = SAXON_HE_9_9
+            validator.configuration = SAXON_HE_9_9
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -618,7 +642,7 @@ class SaxonSyntaxValidatorTest :
         @DisplayName("Saxon PE >= 9.9")
         fun supportedPE() {
             val file = parse<XQueryModule>("1 or 2, 3 orElse 4")[0]
-            validator.product = SaxonPE.VERSION_9_9
+            validator.configuration = SAXON_PE_9_9
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(report.toString(), `is`(""))
         }
@@ -627,7 +651,7 @@ class SaxonSyntaxValidatorTest :
         @DisplayName("Saxon PE < 9.9")
         fun notSupportedPE() {
             val file = parse<XQueryModule>("1 or 2, 3 orElse 4")[0]
-            validator.product = SaxonPE.VERSION_9_8
+            validator.configuration = SAXON_PE_9_8
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -642,7 +666,7 @@ class SaxonSyntaxValidatorTest :
         @DisplayName("Saxon EE >= 9.9")
         fun supportedEE() {
             val file = parse<XQueryModule>("1 or 2, 3 orElse 4")[0]
-            validator.product = SaxonEE.VERSION_9_9
+            validator.configuration = SAXON_EE_9_9
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(report.toString(), `is`(""))
         }
@@ -651,7 +675,7 @@ class SaxonSyntaxValidatorTest :
         @DisplayName("Saxon EE < 9.9")
         fun notSupportedEE() {
             val file = parse<XQueryModule>("1 or 2, 3 orElse 4")[0]
-            validator.product = SaxonEE.VERSION_9_8
+            validator.configuration = SAXON_EE_9_8
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -673,7 +697,7 @@ class SaxonSyntaxValidatorTest :
             @DisplayName("Saxon HE")
             fun notSupportedHE() {
                 val file = parse<XQueryModule>(".{1} , . {2}")[0]
-                validator.product = SaxonHE.VERSION_10_0
+                validator.configuration = SAXON_HE_10_0
                 validator.validate(file, this@SaxonSyntaxValidatorTest)
                 assertThat(
                     report.toString(), `is`(
@@ -689,7 +713,7 @@ class SaxonSyntaxValidatorTest :
             @DisplayName("Saxon PE >= 10.0")
             fun supportedPE() {
                 val file = parse<XQueryModule>(".{1} , . {2}")[0]
-                validator.product = SaxonPE.VERSION_10_0
+                validator.configuration = SAXON_PE_10_0
                 validator.validate(file, this@SaxonSyntaxValidatorTest)
                 assertThat(report.toString(), `is`(""))
             }
@@ -698,7 +722,7 @@ class SaxonSyntaxValidatorTest :
             @DisplayName("Saxon PE < 10.0")
             fun notSupportedPE() {
                 val file = parse<XQueryModule>(".{1} , . {2}")[0]
-                validator.product = SaxonPE.VERSION_9_9
+                validator.configuration = SAXON_PE_9_9
                 validator.validate(file, this@SaxonSyntaxValidatorTest)
                 assertThat(
                     report.toString(), `is`(
@@ -714,7 +738,7 @@ class SaxonSyntaxValidatorTest :
             @DisplayName("Saxon EE >= 10.0")
             fun supportedEE() {
                 val file = parse<XQueryModule>(".{1} , . {2}")[0]
-                validator.product = SaxonEE.VERSION_10_0
+                validator.configuration = SAXON_EE_10_0
                 validator.validate(file, this@SaxonSyntaxValidatorTest)
                 assertThat(report.toString(), `is`(""))
             }
@@ -723,7 +747,7 @@ class SaxonSyntaxValidatorTest :
             @DisplayName("Saxon EE < 10.0")
             fun notSupportedEE() {
                 val file = parse<XQueryModule>(".{1} , . {2}")[0]
-                validator.product = SaxonEE.VERSION_9_9
+                validator.configuration = SAXON_EE_9_9
                 validator.validate(file, this@SaxonSyntaxValidatorTest)
                 assertThat(
                     report.toString(), `is`(
@@ -743,7 +767,7 @@ class SaxonSyntaxValidatorTest :
             @DisplayName("Saxon HE")
             fun notSupportedHE() {
                 val file = parse<XQueryModule>("fn{1}")[0]
-                validator.product = SAXON_HE_9_9
+                validator.configuration = SAXON_HE_9_9
                 validator.validate(file, this@SaxonSyntaxValidatorTest)
                 assertThat(
                     report.toString(), `is`(
@@ -758,7 +782,7 @@ class SaxonSyntaxValidatorTest :
             @DisplayName("Saxon PE == 9.9")
             fun supportedPE() {
                 val file = parse<XQueryModule>("fn{1}")[0]
-                validator.product = SaxonPE.VERSION_9_9
+                validator.configuration = SAXON_PE_9_9
                 validator.validate(file, this@SaxonSyntaxValidatorTest)
                 assertThat(report.toString(), `is`(""))
             }
@@ -767,7 +791,7 @@ class SaxonSyntaxValidatorTest :
             @DisplayName("Saxon PE < 9.9")
             fun ltSupportedPE() {
                 val file = parse<XQueryModule>("fn{1}")[0]
-                validator.product = SaxonPE.VERSION_9_8
+                validator.configuration = SAXON_PE_9_8
                 validator.validate(file, this@SaxonSyntaxValidatorTest)
                 assertThat(
                     report.toString(), `is`(
@@ -782,7 +806,7 @@ class SaxonSyntaxValidatorTest :
             @DisplayName("Saxon PE > 9.9")
             fun gtSupportedPE() {
                 val file = parse<XQueryModule>("fn{1}")[0]
-                validator.product = SaxonPE.VERSION_10_0
+                validator.configuration = SAXON_PE_10_0
                 validator.validate(file, this@SaxonSyntaxValidatorTest)
                 assertThat(
                     report.toString(), `is`(
@@ -797,7 +821,7 @@ class SaxonSyntaxValidatorTest :
             @DisplayName("Saxon EE == 9.9")
             fun supportedEE() {
                 val file = parse<XQueryModule>("fn{1}")[0]
-                validator.product = SaxonEE.VERSION_9_9
+                validator.configuration = SAXON_EE_9_9
                 validator.validate(file, this@SaxonSyntaxValidatorTest)
                 assertThat(report.toString(), `is`(""))
             }
@@ -806,7 +830,7 @@ class SaxonSyntaxValidatorTest :
             @DisplayName("Saxon EE < 9.9")
             fun ltSupportedEE() {
                 val file = parse<XQueryModule>("fn{1}")[0]
-                validator.product = SaxonEE.VERSION_9_8
+                validator.configuration = SAXON_EE_9_8
                 validator.validate(file, this@SaxonSyntaxValidatorTest)
                 assertThat(
                     report.toString(), `is`(
@@ -821,7 +845,7 @@ class SaxonSyntaxValidatorTest :
             @DisplayName("Saxon EE > 9.9")
             fun gtSupportedEE() {
                 val file = parse<XQueryModule>("fn{1}")[0]
-                validator.product = SaxonEE.VERSION_10_0
+                validator.configuration = SAXON_EE_10_0
                 validator.validate(file, this@SaxonSyntaxValidatorTest)
                 assertThat(
                     report.toString(), `is`(
@@ -847,7 +871,7 @@ class SaxonSyntaxValidatorTest :
                 3 instance of element(test:*) (: Saxon :)
                 """.trimIndent()
             )[0]
-            validator.product = SaxonHE.VERSION_10_0
+            validator.configuration = SAXON_HE_10_0
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -868,7 +892,7 @@ class SaxonSyntaxValidatorTest :
                 3 instance of element(test:*) (: Saxon :)
                 """.trimIndent()
             )[0]
-            validator.product = SaxonPE.VERSION_10_0
+            validator.configuration = SAXON_PE_10_0
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(report.toString(), `is`(""))
         }
@@ -883,7 +907,7 @@ class SaxonSyntaxValidatorTest :
                 3 instance of element(test:*) (: Saxon :)
                 """.trimIndent()
             )[0]
-            validator.product = SaxonPE.VERSION_9_9
+            validator.configuration = SAXON_PE_9_9
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -904,7 +928,7 @@ class SaxonSyntaxValidatorTest :
                 3 instance of element(test:*) (: Saxon :)
                 """.trimIndent()
             )[0]
-            validator.product = SaxonEE.VERSION_10_0
+            validator.configuration = SAXON_EE_10_0
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(report.toString(), `is`(""))
         }
@@ -919,7 +943,7 @@ class SaxonSyntaxValidatorTest :
                 3 instance of element(test:*) (: Saxon :)
                 """.trimIndent()
             )[0]
-            validator.product = SaxonEE.VERSION_9_9
+            validator.configuration = SAXON_EE_9_9
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -944,7 +968,7 @@ class SaxonSyntaxValidatorTest :
                 3 instance of attribute(test:*) (: Saxon :)
                 """.trimIndent()
             )[0]
-            validator.product = SaxonHE.VERSION_10_0
+            validator.configuration = SAXON_HE_10_0
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -965,7 +989,7 @@ class SaxonSyntaxValidatorTest :
                 3 instance of attribute(test:*) (: Saxon :)
                 """.trimIndent()
             )[0]
-            validator.product = SaxonPE.VERSION_10_0
+            validator.configuration = SAXON_PE_10_0
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(report.toString(), `is`(""))
         }
@@ -980,7 +1004,7 @@ class SaxonSyntaxValidatorTest :
                 3 instance of attribute(test:*) (: Saxon :)
                 """.trimIndent()
             )[0]
-            validator.product = SaxonPE.VERSION_9_9
+            validator.configuration = SAXON_PE_9_9
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -1001,7 +1025,7 @@ class SaxonSyntaxValidatorTest :
                 3 instance of attribute(test:*) (: Saxon :)
                 """.trimIndent()
             )[0]
-            validator.product = SaxonEE.VERSION_10_0
+            validator.configuration = SAXON_EE_10_0
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(report.toString(), `is`(""))
         }
@@ -1016,7 +1040,7 @@ class SaxonSyntaxValidatorTest :
                 3 instance of attribute(test:*) (: Saxon :)
                 """.trimIndent()
             )[0]
-            validator.product = SaxonEE.VERSION_9_9
+            validator.configuration = SAXON_EE_9_9
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -1035,7 +1059,7 @@ class SaxonSyntaxValidatorTest :
         @DisplayName("Saxon HE")
         fun notSupportedHE() {
             val file = parse<XQueryModule>("for member \$x in \$y return \$x")[0]
-            validator.product = SaxonHE.VERSION_10_0
+            validator.configuration = SAXON_HE_10_0
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -1050,7 +1074,7 @@ class SaxonSyntaxValidatorTest :
         @DisplayName("Saxon PE >= 10.0")
         fun supportedPE() {
             val file = parse<XQueryModule>("for member \$x in \$y return \$x")[0]
-            validator.product = SaxonPE.VERSION_10_0
+            validator.configuration = SAXON_PE_10_0
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(report.toString(), `is`(""))
         }
@@ -1059,7 +1083,7 @@ class SaxonSyntaxValidatorTest :
         @DisplayName("Saxon PE < 10.0")
         fun notSupportedPE() {
             val file = parse<XQueryModule>("for member \$x in \$y return \$x")[0]
-            validator.product = SaxonPE.VERSION_9_9
+            validator.configuration = SAXON_PE_9_9
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -1074,7 +1098,7 @@ class SaxonSyntaxValidatorTest :
         @DisplayName("Saxon EE >= 10.0")
         fun supportedEE() {
             val file = parse<XQueryModule>("for member \$x in \$y return \$x")[0]
-            validator.product = SaxonEE.VERSION_10_0
+            validator.configuration = SAXON_EE_10_0
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(report.toString(), `is`(""))
         }
@@ -1083,7 +1107,7 @@ class SaxonSyntaxValidatorTest :
         @DisplayName("Saxon EE < 10.0")
         fun notSupportedEE() {
             val file = parse<XQueryModule>("for member \$x in \$y return \$x")[0]
-            validator.product = SaxonEE.VERSION_9_9
+            validator.configuration = SAXON_EE_9_9
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -1102,7 +1126,7 @@ class SaxonSyntaxValidatorTest :
         @DisplayName("Saxon HE")
         fun notSupportedHE() {
             val file = parse<XQueryModule>("1 otherwise 2")[0]
-            validator.product = SaxonHE.VERSION_10_0
+            validator.configuration = SAXON_HE_10_0
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -1117,7 +1141,7 @@ class SaxonSyntaxValidatorTest :
         @DisplayName("Saxon PE >= 10.0")
         fun supportedPE() {
             val file = parse<XQueryModule>("1 otherwise 2")[0]
-            validator.product = SaxonPE.VERSION_10_0
+            validator.configuration = SAXON_PE_10_0
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(report.toString(), `is`(""))
         }
@@ -1126,7 +1150,7 @@ class SaxonSyntaxValidatorTest :
         @DisplayName("Saxon PE < 10.0")
         fun notSupportedPE() {
             val file = parse<XQueryModule>("1 otherwise 2")[0]
-            validator.product = SaxonPE.VERSION_9_9
+            validator.configuration = SAXON_PE_9_9
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -1141,7 +1165,7 @@ class SaxonSyntaxValidatorTest :
         @DisplayName("Saxon EE >= 10.0")
         fun supportedEE() {
             val file = parse<XQueryModule>("1 otherwise 2")[0]
-            validator.product = SaxonEE.VERSION_10_0
+            validator.configuration = SAXON_EE_10_0
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(report.toString(), `is`(""))
         }
@@ -1150,7 +1174,7 @@ class SaxonSyntaxValidatorTest :
         @DisplayName("Saxon EE < 10.0")
         fun notSupportedEE() {
             val file = parse<XQueryModule>("1 otherwise 2")[0]
-            validator.product = SaxonEE.VERSION_9_9
+            validator.configuration = SAXON_EE_9_9
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -1172,7 +1196,7 @@ class SaxonSyntaxValidatorTest :
             @DisplayName("Saxon HE")
             fun notSupportedHE() {
                 val file = parse<XQueryModule>("1 instance of ~a:type-name")[0]
-                validator.product = SAXON_HE_9_8
+                validator.configuration = SAXON_HE_9_8
                 validator.validate(file, this@SaxonSyntaxValidatorTest)
                 assertThat(
                     report.toString(), `is`(
@@ -1187,7 +1211,7 @@ class SaxonSyntaxValidatorTest :
             @DisplayName("Saxon PE >= 9.8")
             fun supportedPE() {
                 val file = parse<XQueryModule>("1 instance of ~a:type-name")[0]
-                validator.product = SaxonPE.VERSION_9_8
+                validator.configuration = SAXON_PE_9_8
                 validator.validate(file, this@SaxonSyntaxValidatorTest)
                 assertThat(report.toString(), `is`(""))
             }
@@ -1196,7 +1220,7 @@ class SaxonSyntaxValidatorTest :
             @DisplayName("Saxon PE < 9.8")
             fun notSupportedPE() {
                 val file = parse<XQueryModule>("1 instance of ~a:type-name")[0]
-                validator.product = SaxonPE.VERSION_9_7
+                validator.configuration = SAXON_PE_9_7
                 validator.validate(file, this@SaxonSyntaxValidatorTest)
                 assertThat(
                     report.toString(), `is`(
@@ -1211,7 +1235,7 @@ class SaxonSyntaxValidatorTest :
             @DisplayName("Saxon EE >= 9.8")
             fun supportedEE() {
                 val file = parse<XQueryModule>("1 instance of ~a:type-name")[0]
-                validator.product = SaxonEE.VERSION_9_8
+                validator.configuration = SAXON_EE_9_8
                 validator.validate(file, this@SaxonSyntaxValidatorTest)
                 assertThat(report.toString(), `is`(""))
             }
@@ -1220,7 +1244,7 @@ class SaxonSyntaxValidatorTest :
             @DisplayName("Saxon EE < 9.8")
             fun notSupportedEE() {
                 val file = parse<XQueryModule>("1 instance of ~a:type-name")[0]
-                validator.product = SaxonEE.VERSION_9_7
+                validator.configuration = SAXON_EE_9_7
                 validator.validate(file, this@SaxonSyntaxValidatorTest)
                 assertThat(
                     report.toString(), `is`(
@@ -1239,7 +1263,7 @@ class SaxonSyntaxValidatorTest :
             @DisplayName("Saxon HE")
             fun notSupportedHE() {
                 val file = parse<XQueryModule>("1 instance of type(a:type-name)")[0]
-                validator.product = SAXON_HE_10_0
+                validator.configuration = SAXON_HE_10_0
                 validator.validate(file, this@SaxonSyntaxValidatorTest)
                 assertThat(
                     report.toString(), `is`(
@@ -1254,7 +1278,7 @@ class SaxonSyntaxValidatorTest :
             @DisplayName("Saxon PE >= 10.0")
             fun supportedPE() {
                 val file = parse<XQueryModule>("1 instance of type(a:type-name)")[0]
-                validator.product = SaxonPE.VERSION_10_0
+                validator.configuration = SAXON_PE_10_0
                 validator.validate(file, this@SaxonSyntaxValidatorTest)
                 assertThat(report.toString(), `is`(""))
             }
@@ -1263,7 +1287,7 @@ class SaxonSyntaxValidatorTest :
             @DisplayName("Saxon PE < 10.0")
             fun notSupportedPE() {
                 val file = parse<XQueryModule>("1 instance of type(a:type-name)")[0]
-                validator.product = SaxonPE.VERSION_9_9
+                validator.configuration = SAXON_PE_9_9
                 validator.validate(file, this@SaxonSyntaxValidatorTest)
                 assertThat(
                     report.toString(), `is`(
@@ -1278,7 +1302,7 @@ class SaxonSyntaxValidatorTest :
             @DisplayName("Saxon EE >= 10.0")
             fun supportedEE() {
                 val file = parse<XQueryModule>("1 instance of type(a:type-name)")[0]
-                validator.product = SaxonEE.VERSION_10_0
+                validator.configuration = SAXON_EE_10_0
                 validator.validate(file, this@SaxonSyntaxValidatorTest)
                 assertThat(report.toString(), `is`(""))
             }
@@ -1287,7 +1311,7 @@ class SaxonSyntaxValidatorTest :
             @DisplayName("Saxon EE < 10.0")
             fun notSupportedEE() {
                 val file = parse<XQueryModule>("1 instance of type(a:type-name)")[0]
-                validator.product = SaxonEE.VERSION_9_9
+                validator.configuration = SAXON_EE_9_9
                 validator.validate(file, this@SaxonSyntaxValidatorTest)
                 assertThat(
                     report.toString(), `is`(
@@ -1307,7 +1331,7 @@ class SaxonSyntaxValidatorTest :
         @DisplayName("Saxon HE")
         fun notSupportedHE() {
             val file = parse<XQueryModule>("_{1} , _ {2}")[0]
-            validator.product = SaxonHE.VERSION_10_0
+            validator.configuration = SAXON_HE_10_0
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -1323,7 +1347,7 @@ class SaxonSyntaxValidatorTest :
         @DisplayName("Saxon PE >= 10.0")
         fun supportedPE() {
             val file = parse<XQueryModule>("_{1} , _ {2}")[0]
-            validator.product = SaxonPE.VERSION_10_0
+            validator.configuration = SAXON_PE_10_0
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(report.toString(), `is`(""))
         }
@@ -1332,7 +1356,7 @@ class SaxonSyntaxValidatorTest :
         @DisplayName("Saxon PE < 10.0")
         fun notSupportedPE() {
             val file = parse<XQueryModule>("_{1} , _ {2}")[0]
-            validator.product = SaxonPE.VERSION_9_9
+            validator.configuration = SAXON_PE_9_9
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -1348,7 +1372,7 @@ class SaxonSyntaxValidatorTest :
         @DisplayName("Saxon EE >= 10.0")
         fun supportedEE() {
             val file = parse<XQueryModule>("_{1} , _ {2}")[0]
-            validator.product = SaxonEE.VERSION_10_0
+            validator.configuration = SAXON_EE_10_0
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(report.toString(), `is`(""))
         }
@@ -1357,7 +1381,7 @@ class SaxonSyntaxValidatorTest :
         @DisplayName("Saxon EE < 10.0")
         fun notSupportedEE() {
             val file = parse<XQueryModule>("_{1} , _ {2}")[0]
-            validator.product = SaxonEE.VERSION_9_9
+            validator.configuration = SAXON_EE_9_9
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -1377,7 +1401,7 @@ class SaxonSyntaxValidatorTest :
         @DisplayName("Saxon HE")
         fun notSupportedHE() {
             val file = parse<XQueryModule>("\$1234")[0]
-            validator.product = SaxonHE.VERSION_10_0
+            validator.configuration = SAXON_HE_10_0
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -1392,7 +1416,7 @@ class SaxonSyntaxValidatorTest :
         @DisplayName("Saxon PE >= 10.0")
         fun supportedPE() {
             val file = parse<XQueryModule>("\$1234")[0]
-            validator.product = SaxonPE.VERSION_10_0
+            validator.configuration = SAXON_PE_10_0
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(report.toString(), `is`(""))
         }
@@ -1401,7 +1425,7 @@ class SaxonSyntaxValidatorTest :
         @DisplayName("Saxon PE < 10.0")
         fun notSupportedPE() {
             val file = parse<XQueryModule>("\$1234")[0]
-            validator.product = SaxonPE.VERSION_9_9
+            validator.configuration = SAXON_PE_9_9
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
@@ -1416,7 +1440,7 @@ class SaxonSyntaxValidatorTest :
         @DisplayName("Saxon EE >= 10.0")
         fun supportedEE() {
             val file = parse<XQueryModule>("\$1234")[0]
-            validator.product = SaxonEE.VERSION_10_0
+            validator.configuration = SAXON_EE_10_0
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(report.toString(), `is`(""))
         }
@@ -1425,7 +1449,7 @@ class SaxonSyntaxValidatorTest :
         @DisplayName("Saxon EE < 10.0")
         fun notSupportedEE() {
             val file = parse<XQueryModule>("\$1234")[0]
-            validator.product = SaxonEE.VERSION_9_9
+            validator.configuration = SAXON_EE_9_9
             validator.validate(file, this@SaxonSyntaxValidatorTest)
             assertThat(
                 report.toString(), `is`(
