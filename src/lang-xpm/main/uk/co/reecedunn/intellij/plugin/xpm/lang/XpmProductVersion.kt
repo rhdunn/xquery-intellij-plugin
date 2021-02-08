@@ -22,6 +22,3 @@ interface XpmProductVersion : Comparable<XpmProductVersion> {
 
     val features: String
 }
-
-val XpmProductVersion.displayName: String
-    get() = "${product.presentation.presentableText} $id"

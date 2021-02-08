@@ -38,5 +38,7 @@ data class XQueryIntelliJPluginVersion(
         }
     }
 
+    override fun toString(): String = "${product.presentation.presentableText} $id"
+
     // endregion
 }

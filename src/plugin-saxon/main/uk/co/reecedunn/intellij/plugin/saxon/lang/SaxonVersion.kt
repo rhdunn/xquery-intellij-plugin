@@ -38,5 +38,7 @@ data class SaxonVersion(
         }
     }
 
+    override fun toString(): String = "${product.presentation.presentableText} $id"
+
     // endregion
 }

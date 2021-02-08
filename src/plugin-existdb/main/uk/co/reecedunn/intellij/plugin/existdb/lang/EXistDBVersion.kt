@@ -38,5 +38,7 @@ data class EXistDBVersion(
         }
     }
 
+    override fun toString(): String = "${product.presentation.presentableText} $id"
+
     // endregion
 }

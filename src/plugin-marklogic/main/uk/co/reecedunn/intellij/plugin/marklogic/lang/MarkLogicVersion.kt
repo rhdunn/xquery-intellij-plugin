@@ -34,5 +34,7 @@ data class MarkLogicVersion(
         }
     }
 
+    override fun toString(): String = "${product.presentation.presentableText} $id"
+
     // endregion
 }
