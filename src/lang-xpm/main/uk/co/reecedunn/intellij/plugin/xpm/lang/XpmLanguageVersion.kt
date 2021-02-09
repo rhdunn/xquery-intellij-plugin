@@ -13,12 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.intellij.lang
+package uk.co.reecedunn.intellij.plugin.xpm.lang
 
-import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmLanguageVersion
-import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmSpecificationVersion
+interface XpmLanguageVersion {
+    val version: String
 
-data class XQueryVersion(
-    override val version: String,
-    override val specifications: List<XpmSpecificationVersion>
-) : XpmLanguageVersion
+    val specifications: List<XpmSpecificationVersion>
+}

@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.intellij.lang
 
 import com.intellij.lang.Language
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
+import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmLanguageVersion
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuerySpec
 
 /**
@@ -31,37 +32,37 @@ object XQuery : Language(XPath, "XQuery", "application/xquery") {
     // endregion
     // region Versions
 
-    val VERSION_0_9_ML: XQueryVersion = XQueryVersion(
+    val VERSION_0_9_ML: XpmLanguageVersion = XQueryVersion(
         "0.9-ml",
         listOf(XQuerySpec.WD_1_0_20030502)
     )
 
-    val VERSION_1_0: XQueryVersion = XQueryVersion(
+    val VERSION_1_0: XpmLanguageVersion = XQueryVersion(
         "1.0",
         listOf(XQuerySpec.REC_1_0_20070123, XQuerySpec.REC_1_0_20101214, XQuerySpec.WD_1_0_20030502)
     )
 
-    val VERSION_1_0_ML: XQueryVersion = XQueryVersion(
+    val VERSION_1_0_ML: XpmLanguageVersion = XQueryVersion(
         "1.0-ml",
         listOf(XQuerySpec.REC_1_0_20070123)
     )
 
-    val VERSION_3_0: XQueryVersion = XQueryVersion(
+    val VERSION_3_0: XpmLanguageVersion = XQueryVersion(
         "3.0",
         listOf(XQuerySpec.REC_3_0_20140408)
     )
 
-    val VERSION_3_1: XQueryVersion = XQueryVersion(
+    val VERSION_3_1: XpmLanguageVersion = XQueryVersion(
         "3.1",
         listOf(XQuerySpec.REC_3_1_20170321, XQuerySpec.CR_3_1_20151217)
     )
 
-    val VERSION_4_0: XQueryVersion = XQueryVersion(
+    val VERSION_4_0: XpmLanguageVersion = XQueryVersion(
         "4.0",
         listOf(XQuerySpec.ED_4_0_20210113)
     )
 
-    val versions: Map<String, XQueryVersion> = listOf(
+    val versions: Map<String, XpmLanguageVersion> = listOf(
         VERSION_0_9_ML,
         VERSION_1_0,
         VERSION_1_0_ML,
