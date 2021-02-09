@@ -15,7 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.lang
 
-interface XpmLanguageVersion {
+import com.intellij.lang.Language
+
+interface XpmLanguageVersion : Comparable<XpmLanguageVersion> {
+    val language: Language
+
     val version: String
 
     val specifications: List<XpmSpecificationVersion>

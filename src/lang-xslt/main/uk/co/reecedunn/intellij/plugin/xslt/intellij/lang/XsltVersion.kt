@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xslt.intellij.lang
 
+import com.intellij.lang.Language
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmLanguageVersion
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmSpecificationVersion
 
@@ -24,4 +25,16 @@ class XsltVersion(
 ) : XpmLanguageVersion {
 
     override val specifications: List<XpmSpecificationVersion> = listOf(specification)
+
+    override val language: Language
+        get() = XSLT
+
+    override fun compareTo(other: XpmLanguageVersion): Int {
+        return when (val languageDiff = this.language.id.compareTo(other.language.id)) {
+            0 -> this.version.compareTo(other.version)
+            else -> languageDiff
+        }
+    }
+
+    override fun toString(): String = "XSLT $version"
 }
