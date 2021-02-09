@@ -107,10 +107,10 @@ class BaseXSyntaxValidatorTest :
     // endregion
 
     @Suppress("PrivatePropertyName")
-    private val VERSION_6_0 = XpmLanguageConfiguration(BaseXVersion(BaseX, 6, 0, ""))
+    private val VERSION_6_0 = XpmLanguageConfiguration(XQuery.VERSION_1_0, BaseXVersion(BaseX, 6, 0, ""))
 
     @Suppress("PrivatePropertyName")
-    private val VERSION_9_1 = XpmLanguageConfiguration(BaseX.VERSION_9_1)
+    private val VERSION_9_1 = XpmLanguageConfiguration(XQuery.VERSION_1_0, BaseX.VERSION_9_1)
 
     @Nested
     @DisplayName("XQuery IntelliJ Plugin EBNF (12) UpdateExpr")
@@ -235,7 +235,6 @@ class BaseXSyntaxValidatorTest :
         @DisplayName("BaseX >= 9.1")
         fun supported() {
             val file = parse<XQueryModule>("1 eq 2 ?? 3 !! 4")[0]
-            validator.configuration = XpmLanguageConfiguration(BaseX.VERSION_9_1)
             validator.configuration = VERSION_9_1
             validator.validate(file, this@BaseXSyntaxValidatorTest)
             assertThat(report.toString(), `is`(""))

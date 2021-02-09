@@ -107,13 +107,16 @@ class XQueryIntelliJPluginSyntaxValidatorTest :
     // endregion
 
     @Suppress("PrivatePropertyName")
-    private val VERSION_1_0 = XpmLanguageConfiguration(XQueryIntelliJPluginVersion(XQueryIntelliJPlugin, 1, 0))
+    private val VERSION_1_0 = XpmLanguageConfiguration(
+        XQuery.VERSION_1_0,
+        XQueryIntelliJPluginVersion(XQueryIntelliJPlugin, 1, 0)
+    )
 
     @Suppress("PrivatePropertyName")
-    private val VERSION_1_3 = XpmLanguageConfiguration(XQueryIntelliJPlugin.VERSION_1_3)
+    private val VERSION_1_3 = XpmLanguageConfiguration(XQuery.VERSION_1_0, XQueryIntelliJPlugin.VERSION_1_3)
 
     @Suppress("PrivatePropertyName")
-    private val VERSION_1_4 = XpmLanguageConfiguration(XQueryIntelliJPlugin.VERSION_1_4)
+    private val VERSION_1_4 = XpmLanguageConfiguration(XQuery.VERSION_1_0, XQueryIntelliJPlugin.VERSION_1_4)
 
     @Nested
     @DisplayName("XQuery IntelliJ Plugin EBNF (22) ParamList")

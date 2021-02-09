@@ -107,10 +107,10 @@ class MarkLogicSyntaxValidatorTest :
     // endregion
 
     @Suppress("PrivatePropertyName")
-    private val VERSION_5 = XpmLanguageConfiguration(MarkLogicVersion(MarkLogic, 5, ""))
+    private val VERSION_5 = XpmLanguageConfiguration(XQuery.VERSION_1_0, MarkLogicVersion(MarkLogic, 5, ""))
 
     @Suppress("PrivatePropertyName")
-    private val VERSION_9 = XpmLanguageConfiguration(MarkLogic.VERSION_9)
+    private val VERSION_9 = XpmLanguageConfiguration(XQuery.VERSION_1_0, MarkLogic.VERSION_9)
 
     @Nested
     @DisplayName("XQuery IntelliJ Plugin EBNF (25) ForwardAxis")

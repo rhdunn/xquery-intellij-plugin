@@ -15,13 +15,15 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.lang.configuration
 
+import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmLanguageVersion
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmSpecificationVersion
 
 data class XpmLanguageConfiguration(
+    val language: XpmLanguageVersion,
     val product: XpmProductVersion,
     val implements: Map<String, XpmSpecificationVersion> = mapOf()
 ) {
-    constructor(product: XpmProductVersion, vararg implements: XpmSpecificationVersion) :
-            this(product, implements.associateBy { it.specification.id })
+    constructor(language: XpmLanguageVersion, product: XpmProductVersion, vararg implements: XpmSpecificationVersion) :
+            this(language, product, implements.associateBy { it.specification.id })
 }

@@ -105,37 +105,37 @@ class SaxonSyntaxValidatorTest :
     // endregion
 
     @Suppress("PrivatePropertyName")
-    private val SAXON_HE_9_8 = XpmLanguageConfiguration(SaxonVersion(SaxonHE, 9, 8, ""))
+    private val SAXON_HE_9_8 = XpmLanguageConfiguration(XQuery.VERSION_1_0, SaxonVersion(SaxonHE, 9, 8, ""))
 
     @Suppress("PrivatePropertyName")
-    private val SAXON_HE_9_9 = XpmLanguageConfiguration(SaxonVersion(SaxonHE, 9, 9, ""))
+    private val SAXON_HE_9_9 = XpmLanguageConfiguration(XQuery.VERSION_1_0, SaxonVersion(SaxonHE, 9, 9, ""))
 
     @Suppress("PrivatePropertyName")
-    private val SAXON_HE_10_0 = XpmLanguageConfiguration(SaxonVersion(SaxonHE, 10, 0, ""))
+    private val SAXON_HE_10_0 = XpmLanguageConfiguration(XQuery.VERSION_1_0, SaxonVersion(SaxonHE, 10, 0, ""))
 
     @Suppress("PrivatePropertyName")
-    private val SAXON_PE_9_7 = XpmLanguageConfiguration(SaxonPE.VERSION_9_7)
+    private val SAXON_PE_9_7 = XpmLanguageConfiguration(XQuery.VERSION_1_0, SaxonPE.VERSION_9_7)
 
     @Suppress("PrivatePropertyName")
-    private val SAXON_PE_9_8 = XpmLanguageConfiguration(SaxonPE.VERSION_9_8)
+    private val SAXON_PE_9_8 = XpmLanguageConfiguration(XQuery.VERSION_1_0, SaxonPE.VERSION_9_8)
 
     @Suppress("PrivatePropertyName")
-    private val SAXON_PE_9_9 = XpmLanguageConfiguration(SaxonPE.VERSION_9_9)
+    private val SAXON_PE_9_9 = XpmLanguageConfiguration(XQuery.VERSION_1_0, SaxonPE.VERSION_9_9)
 
     @Suppress("PrivatePropertyName")
-    private val SAXON_PE_10_0 = XpmLanguageConfiguration(SaxonPE.VERSION_10_0)
+    private val SAXON_PE_10_0 = XpmLanguageConfiguration(XQuery.VERSION_1_0, SaxonPE.VERSION_10_0)
 
     @Suppress("PrivatePropertyName")
-    private val SAXON_EE_9_7 = XpmLanguageConfiguration(SaxonEE.VERSION_9_7)
+    private val SAXON_EE_9_7 = XpmLanguageConfiguration(XQuery.VERSION_1_0, SaxonEE.VERSION_9_7)
 
     @Suppress("PrivatePropertyName")
-    private val SAXON_EE_9_8 = XpmLanguageConfiguration(SaxonEE.VERSION_9_8)
+    private val SAXON_EE_9_8 = XpmLanguageConfiguration(XQuery.VERSION_1_0, SaxonEE.VERSION_9_8)
 
     @Suppress("PrivatePropertyName")
-    private val SAXON_EE_9_9 = XpmLanguageConfiguration(SaxonEE.VERSION_9_9)
+    private val SAXON_EE_9_9 = XpmLanguageConfiguration(XQuery.VERSION_1_0, SaxonEE.VERSION_9_9)
 
     @Suppress("PrivatePropertyName")
-    private val SAXON_EE_10_0 = XpmLanguageConfiguration(SaxonEE.VERSION_10_0)
+    private val SAXON_EE_10_0 = XpmLanguageConfiguration(XQuery.VERSION_1_0, SaxonEE.VERSION_10_0)
 
     @Nested
     @DisplayName("XQuery IntelliJ Plugin EBNF (11) OrExpr")

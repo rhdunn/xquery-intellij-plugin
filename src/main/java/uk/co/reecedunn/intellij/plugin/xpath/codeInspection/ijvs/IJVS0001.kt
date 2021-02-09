@@ -32,12 +32,14 @@ import uk.co.reecedunn.intellij.plugin.saxon.lang.SaxonEE
 import uk.co.reecedunn.intellij.plugin.saxon.lang.SaxonHE
 import uk.co.reecedunn.intellij.plugin.saxon.lang.SaxonPE
 import uk.co.reecedunn.intellij.plugin.w3.lang.W3CSpecifications
+import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmLanguageVersion
 import uk.co.reecedunn.intellij.plugin.marklogic.lang.MarkLogic as MarkLogicProduct
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
 import uk.co.reecedunn.intellij.plugin.xpm.lang.configuration.XpmLanguageConfiguration
 import uk.co.reecedunn.intellij.plugin.xpm.lang.diagnostics.XpmDiagnostics
 import uk.co.reecedunn.intellij.plugin.xpm.lang.diagnostics.XpmInspectionDiagnostics
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidation
+import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
 
 private fun supports(a: Specification, b: Version): Boolean {
     return when (a) {
@@ -119,6 +121,16 @@ class IJVS0001 : Inspection("ijvs/IJVS0001.md", IJVS0001::class.java.classLoader
         else -> W3CSpecifications.REC
     }
 
+    private fun getXQueryVersion(version: Specification): XpmLanguageVersion = when (version) {
+        XQuerySpec.WD_1_0_20030502, XQuerySpec.MARKLOGIC_0_9 -> XQuery.VERSION_0_9_ML
+        XQuerySpec.MARKLOGIC_1_0 -> XQuery.VERSION_1_0_ML
+        XQuerySpec.REC_1_0_20070123, XQuerySpec.REC_1_0_20101214 -> XQuery.VERSION_1_0
+        XQuerySpec.REC_3_0_20140408 -> XQuery.VERSION_3_0
+        XQuerySpec.REC_3_1_20170321, XQuerySpec.CR_3_1_20151217 -> XQuery.VERSION_3_1
+        XQuerySpec.ED_4_0_20210113 -> XQuery.VERSION_4_0
+        else -> XQuery.VERSION_1_0
+    }
+
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
         if (file !is XQueryModule) return null
 
@@ -171,7 +183,10 @@ class IJVS0001 : Inspection("ijvs/IJVS0001.md", IJVS0001::class.java.classLoader
         }
 
         val validator = XpmSyntaxValidation()
-        validator.configuration = XpmLanguageConfiguration(getProductVersion(product, productVersion))
+        validator.configuration = XpmLanguageConfiguration(
+            getXQueryVersion(xquery),
+            getProductVersion(product, productVersion)
+        )
         validator.validate(file, diagnostics)
 
         return diagnostics.toTypedArray()
