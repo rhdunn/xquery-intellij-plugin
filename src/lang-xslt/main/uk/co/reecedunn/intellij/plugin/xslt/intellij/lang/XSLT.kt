@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Reece H. Dunn
+ * Copyright (C) 2018-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,11 +20,16 @@ import com.intellij.openapi.fileTypes.ExtensionFileNameMatcher
 import com.intellij.openapi.fileTypes.FileNameMatcher
 import com.intellij.openapi.fileTypes.LanguageFileType
 import uk.co.reecedunn.intellij.plugin.core.lang.LanguageData
+import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmLanguageVersion
+import uk.co.reecedunn.intellij.plugin.xslt.lang.XsltSpec
 
 /**
  * XML Stylesheet Language: Transform
  */
+@Suppress("MemberVisibilityCanBePrivate")
 object XSLT : Language("XSLT") {
+    // region Language
+
     const val NAMESPACE: String = "http://www.w3.org/1999/XSL/Transform"
 
     override fun isCaseSensitive(): Boolean = true
@@ -43,4 +48,21 @@ object XSLT : Language("XSLT") {
             override val mimeTypes: Array<String> = arrayOf("application/xslt+xml")
         })
     }
+
+    // endregion
+    // region Versions
+
+    val VERSION_1_0: XpmLanguageVersion = XsltVersion("1.0", XsltSpec.REC_1_0_19991116)
+    val VERSION_2_0: XpmLanguageVersion = XsltVersion("2.0", XsltSpec.REC_2_0_20070123)
+    val VERSION_3_0: XpmLanguageVersion = XsltVersion("3.0", XsltSpec.REC_3_0_20170608)
+    val VERSION_4_0: XpmLanguageVersion = XsltVersion("4.0", XsltSpec.ED_4_0_20210113)
+
+    val versions: Map<String, XpmLanguageVersion> = listOf(
+        VERSION_1_0,
+        VERSION_2_0,
+        VERSION_3_0,
+        VERSION_4_0
+    ).associateBy { it.version }
+
+    // endregion
 }
