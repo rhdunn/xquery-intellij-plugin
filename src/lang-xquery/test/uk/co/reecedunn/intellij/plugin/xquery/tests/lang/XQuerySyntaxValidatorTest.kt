@@ -112,6 +112,34 @@ class XQuerySyntaxValidatorTest :
     private val XQUERY_4_0 = XpmLanguageConfiguration(XQuery.VERSION_4_0, W3CSpecifications.REC)
 
     @Nested
+    @DisplayName("XQuery 4.0 ED EBNF (43) WithExpr")
+    internal inner class WithExpr {
+        @Test
+        @DisplayName("XQuery >= 4.0")
+        fun supported() {
+            val file = parse<XQueryModule>("with xmlns='http://www.example.com' { test }")[0]
+            validator.configuration = XQUERY_4_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("XQuery < 4.0")
+        fun notSupported() {
+            val file = parse<XQueryModule>("with xmlns='http://www.example.com' { test }")[0]
+            validator.configuration = XQUERY_1_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(
+                report.toString(), `is`(
+                    """
+                    E XPST0003(0:4): XQuery version string '1.0' does not support XQuery 4.0 constructs.
+                    """.trimIndent()
+                )
+            )
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 4.0 ED EBNF (236) EnumerationType")
     internal inner class EnumerationType {
         @Test
