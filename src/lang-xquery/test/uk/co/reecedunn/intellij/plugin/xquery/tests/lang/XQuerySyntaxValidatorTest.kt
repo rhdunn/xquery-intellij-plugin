@@ -132,7 +132,7 @@ class XQuerySyntaxValidatorTest :
             assertThat(
                 report.toString(), `is`(
                     """
-                    E XPST0003(14:18): W3C Specifications REC does not support XQuery 4.0 constructs.
+                    E XPST0003(14:18): XQuery version string '1.0' does not support XQuery 4.0 constructs.
                     """.trimIndent()
                 )
             )

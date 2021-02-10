@@ -27,9 +27,13 @@ class XpmRequiresLanguageVersion(private val requires: XpmLanguageVersion) : Xpm
     override fun message(
         configuration: XpmLanguageConfiguration,
         conformanceName: String?
-    ): String = when (conformanceName) {
-        null -> XpmBundle.message("diagnostic.unsupported-syntax", configuration.product, this)
-        else -> XpmBundle.message("diagnostic.unsupported-syntax-name", configuration.product, this, conformanceName)
+    ): String {
+        return XpmBundle.message(
+            "diagnostic.unsupported-language-version",
+            requires.language.displayName,
+            configuration.language.version,
+            this
+        )
     }
 
     override fun toString(): String = requires.toString()
