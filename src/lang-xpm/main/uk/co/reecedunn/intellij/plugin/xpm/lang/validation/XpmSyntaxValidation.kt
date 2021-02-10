@@ -18,7 +18,6 @@ package uk.co.reecedunn.intellij.plugin.xpm.lang.validation
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
-import uk.co.reecedunn.intellij.plugin.xpm.intellij.resources.XpmBundle
 import uk.co.reecedunn.intellij.plugin.xpm.lang.configuration.XpmLanguageConfiguration
 import uk.co.reecedunn.intellij.plugin.xpm.lang.diagnostics.XpmDiagnostics
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires.XpmRequiresConformanceTo
@@ -56,17 +55,7 @@ class XpmSyntaxValidation : XpmSyntaxErrorReporter {
         }
 
         if (required != null) {
-            val message =
-                if (conformanceName != null)
-                    XpmBundle.message(
-                        "diagnostic.unsupported-syntax-name",
-                        configuration!!.product, required!!, conformanceName!!
-                    )
-                else
-                    XpmBundle.message(
-                        "diagnostic.unsupported-syntax",
-                        configuration!!.product, required!!
-                    )
+            val message = required!!.message(configuration!!, conformanceName)
             diagnostics.error(conformanceElement!!, XpmDiagnostics.XPST0003, message)
         }
     }

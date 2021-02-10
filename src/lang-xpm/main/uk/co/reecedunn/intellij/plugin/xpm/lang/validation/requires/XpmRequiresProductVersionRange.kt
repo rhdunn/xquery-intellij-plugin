@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires
 
+import uk.co.reecedunn.intellij.plugin.xpm.intellij.resources.XpmBundle
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
 import uk.co.reecedunn.intellij.plugin.xpm.lang.configuration.XpmLanguageConfiguration
 
@@ -26,6 +27,14 @@ class XpmRequiresProductVersionRange(
         return configuration.product.let {
             it.product === from.product && it >= from && it <= to
         }
+    }
+
+    override fun message(
+        configuration: XpmLanguageConfiguration,
+        conformanceName: String?
+    ): String = when (conformanceName) {
+        null -> XpmBundle.message("diagnostic.unsupported-syntax", configuration.product, this)
+        else -> XpmBundle.message("diagnostic.unsupported-syntax-name", configuration.product, this, conformanceName)
     }
 
     override fun toString(): String {

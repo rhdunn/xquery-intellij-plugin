@@ -19,4 +19,6 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.configuration.XpmLanguageConfigu
 
 interface XpmRequiresConformanceTo {
     fun conformanceTo(configuration: XpmLanguageConfiguration): Boolean
+
+    fun message(configuration: XpmLanguageConfiguration, conformanceName: String?): String
 }

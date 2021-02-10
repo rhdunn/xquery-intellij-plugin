@@ -15,12 +15,21 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires
 
+import uk.co.reecedunn.intellij.plugin.xpm.intellij.resources.XpmBundle
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmLanguageVersion
 import uk.co.reecedunn.intellij.plugin.xpm.lang.configuration.XpmLanguageConfiguration
 
 class XpmRequiresLanguageVersion(private val requires: XpmLanguageVersion) : XpmRequiresConformanceTo {
     override fun conformanceTo(configuration: XpmLanguageConfiguration): Boolean {
         return configuration.language.let { it.language === requires.language && it >= requires }
+    }
+
+    override fun message(
+        configuration: XpmLanguageConfiguration,
+        conformanceName: String?
+    ): String = when (conformanceName) {
+        null -> XpmBundle.message("diagnostic.unsupported-syntax", configuration.product, this)
+        else -> XpmBundle.message("diagnostic.unsupported-syntax-name", configuration.product, this, conformanceName)
     }
 
     override fun toString(): String = requires.toString()
