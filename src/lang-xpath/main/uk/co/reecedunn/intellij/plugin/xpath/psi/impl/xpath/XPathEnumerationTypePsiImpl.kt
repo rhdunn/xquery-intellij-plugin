@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
@@ -24,8 +25,12 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsStringValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEnumerationType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
-class XPathEnumerationTypePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathEnumerationType {
+class XPathEnumerationTypePsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node),
+    XPathEnumerationType,
+    XpmSyntaxValidationElement {
     // region ASTDelegatePsiElement
 
     override fun subtreeChanged() {
@@ -60,6 +65,12 @@ class XPathEnumerationTypePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), X
     // region XdmItemType
 
     override val typeClass: Class<*> = XsStringValue::class.java
+
+    // endregion
+    // region XpmSyntaxValidationElement
+
+    override val conformanceElement: PsiElement
+        get() = firstChild
 
     // endregion
 }

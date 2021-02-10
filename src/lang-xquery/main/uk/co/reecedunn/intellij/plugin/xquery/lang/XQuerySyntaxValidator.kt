@@ -15,16 +15,22 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.lang
 
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEnumerationType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxErrorReporter
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires.XpmRequiresLanguageVersion
+import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
 
 object XQuerySyntaxValidator : XpmSyntaxValidator {
     override fun validate(
         element: XpmSyntaxValidationElement,
         reporter: XpmSyntaxErrorReporter
     ): Unit = when (element) {
+        is XPathEnumerationType -> reporter.requires(element, XQUERY_4_0)
         else -> {
         }
     }
+
+    private val XQUERY_4_0 = XpmRequiresLanguageVersion(XQuery.VERSION_4_0)
 }

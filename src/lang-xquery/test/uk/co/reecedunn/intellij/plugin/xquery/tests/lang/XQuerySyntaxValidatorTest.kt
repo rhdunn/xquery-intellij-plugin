@@ -33,8 +33,10 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.settings.XQueryProjectSettings
+import uk.co.reecedunn.intellij.plugin.w3.lang.W3CSpecifications
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
+import uk.co.reecedunn.intellij.plugin.xpm.lang.configuration.XpmLanguageConfiguration
 import uk.co.reecedunn.intellij.plugin.xpm.lang.diagnostics.XpmDiagnostics
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidation
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
@@ -102,4 +104,38 @@ class XQuerySyntaxValidatorTest :
     val validator: XpmSyntaxValidation = XpmSyntaxValidation()
 
     // endregion
+
+    @Suppress("PrivatePropertyName")
+    private val XQUERY_1_0 = XpmLanguageConfiguration(XQuery.VERSION_1_0, W3CSpecifications.REC)
+
+    @Suppress("PrivatePropertyName")
+    private val XQUERY_4_0 = XpmLanguageConfiguration(XQuery.VERSION_4_0, W3CSpecifications.REC)
+
+    @Nested
+    @DisplayName("XQuery 4.0 ED EBNF (236) EnumerationType")
+    internal inner class EnumerationType {
+        @Test
+        @DisplayName("XQuery >= 4.0")
+        fun supported() {
+            val file = parse<XQueryModule>("1 instance of enum('lorem', 'ipsum')")[0]
+            validator.configuration = XQUERY_4_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("XQuery < 4.0")
+        fun notSupported() {
+            val file = parse<XQueryModule>("1 instance of enum('lorem', 'ipsum')")[0]
+            validator.configuration = XQUERY_1_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(
+                report.toString(), `is`(
+                    """
+                    E XPST0003(14:18): W3C Specifications REC does not support XQuery 4.0 constructs.
+                    """.trimIndent()
+                )
+            )
+        }
+    }
 }
