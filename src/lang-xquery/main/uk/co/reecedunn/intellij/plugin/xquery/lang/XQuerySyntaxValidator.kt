@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.lang
 
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEnumerationType
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathKeywordArgument
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathWithExpr
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxErrorReporter
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
@@ -29,6 +30,7 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
         reporter: XpmSyntaxErrorReporter
     ): Unit = when (element) {
         is XPathEnumerationType -> reporter.requires(element, XQUERY_4_0)
+        is XPathKeywordArgument -> reporter.requires(element, XQUERY_4_0)
         is XPathWithExpr -> reporter.requires(element, XQUERY_4_0)
         else -> {
         }
