@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.tests.vfs
 
-import com.intellij.openapi.vfs.CharsetToolkit
 import com.intellij.openapi.vfs.VirtualFile
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.core.Is.`is`
@@ -27,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import java.io.FileNotFoundException
 import java.io.IOException
+import java.nio.charset.StandardCharsets
 
 @DisplayName("IntelliJ - Base Platform - Files - Virtual File System - ResourceVirtualFile")
 class ResourceVirtualFileTest {
@@ -39,7 +39,7 @@ class ResourceVirtualFileTest {
     @DisplayName("resource file; valid path")
     fun testFileSystem_CreatingFile() {
         val file = createFile("vfs-test/vfs/test.xq")
-        file.charset = CharsetToolkit.UTF8_CHARSET
+        file.charset = StandardCharsets.UTF_8
 
         assertThat(file.name, `is`("test.xq"))
         assertThat(file.path, anyOf(endsWith("/vfs-test/vfs/test.xq"), endsWith("\\vfs-test\\vfs\\test.xq")))

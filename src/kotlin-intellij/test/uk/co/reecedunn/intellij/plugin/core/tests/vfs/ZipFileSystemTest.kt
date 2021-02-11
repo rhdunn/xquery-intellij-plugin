@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.tests.vfs
 
-import com.intellij.openapi.vfs.CharsetToolkit
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.core.Is
 import org.junit.jupiter.api.DisplayName
@@ -27,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.ZipFileSystem
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.core.zip.toZipByteArray
 import uk.co.reecedunn.intellij.plugin.core.zip.unzip
+import java.nio.charset.StandardCharsets
 import java.util.zip.ZipEntry
 
 @DisplayName("IntelliJ - Base Platform - Files - Virtual File System - Zip File System")
@@ -81,7 +81,7 @@ class ZipFileSystemTest {
         val fs = ZipFileSystem(zip)
 
         val entry = fs.findFileByPath("lorem-ipsum.txt")!!
-        entry.charset = CharsetToolkit.UTF8_CHARSET
+        entry.charset = StandardCharsets.UTF_8
 
         assertThat(entry.fileSystem, `is`(sameInstance(fs)))
         assertThat(entry.path, `is`("lorem-ipsum.txt"))
@@ -113,7 +113,7 @@ class ZipFileSystemTest {
         val fs = ZipFileSystem(zip)
 
         val entry = fs.findFileByPath("contents/lorem-ipsum.txt")!!
-        entry.charset = CharsetToolkit.UTF8_CHARSET
+        entry.charset = StandardCharsets.UTF_8
 
         assertThat(entry.fileSystem, `is`(sameInstance(fs)))
         assertThat(entry.path, `is`("contents/lorem-ipsum.txt"))
@@ -146,7 +146,7 @@ class ZipFileSystemTest {
         val fs = ZipFileSystem(zip)
 
         val entry = fs.findFileByPath("contents/lorem-ipsum.txt")!!
-        entry.charset = CharsetToolkit.UTF8_CHARSET
+        entry.charset = StandardCharsets.UTF_8
 
         assertThat(entry.fileSystem, `is`(sameInstance(fs)))
         assertThat(entry.path, `is`("contents/lorem-ipsum.txt"))
@@ -182,7 +182,7 @@ class ZipFileSystemTest {
         val fs = ZipFileSystem(zip)
 
         val entry = fs.findFileByPath("contents/")!!
-        entry.charset = CharsetToolkit.UTF8_CHARSET
+        entry.charset = StandardCharsets.UTF_8
 
         assertThat(entry.fileSystem, `is`(sameInstance(fs)))
         assertThat(entry.path, `is`("contents/"))
@@ -231,7 +231,7 @@ class ZipFileSystemTest {
         val fs = ZipFileSystem(zip)
 
         val entry = fs.findFileByPath("contents")!!
-        entry.charset = CharsetToolkit.UTF8_CHARSET
+        entry.charset = StandardCharsets.UTF_8
 
         assertThat(entry.fileSystem, `is`(sameInstance(fs)))
         assertThat(entry.path, `is`("contents/"))
@@ -281,7 +281,7 @@ class ZipFileSystemTest {
         val fs = ZipFileSystem(zip)
 
         val entry = fs.findFileByPath("contents/test/")!!
-        entry.charset = CharsetToolkit.UTF8_CHARSET
+        entry.charset = StandardCharsets.UTF_8
 
         assertThat(entry.fileSystem, `is`(sameInstance(fs)))
         assertThat(entry.path, `is`("contents/test/"))
@@ -329,7 +329,7 @@ class ZipFileSystemTest {
         val fs = ZipFileSystem(zip)
 
         val entry = fs.findFileByPath("")!!
-        entry.charset = CharsetToolkit.UTF8_CHARSET
+        entry.charset = StandardCharsets.UTF_8
 
         assertThat(entry.fileSystem, `is`(sameInstance(fs)))
         assertThat(entry.path, `is`(""))
@@ -373,7 +373,7 @@ class ZipFileSystemTest {
         val fs = ZipFileSystem(zip)
 
         val entry = fs.findFileByPath("")!!
-        entry.charset = CharsetToolkit.UTF8_CHARSET
+        entry.charset = StandardCharsets.UTF_8
 
         assertThat(entry.fileSystem, `is`(sameInstance(fs)))
         assertThat(entry.path, `is`(""))

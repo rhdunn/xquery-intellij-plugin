@@ -73,6 +73,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.lang.parameterInfo.MockCreateP
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockPsiDocumentManagerEx
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockPsiManager
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
+import java.nio.charset.StandardCharsets
 
 // NOTE: The IntelliJ ParsingTextCase implementation does not make it easy to
 // customise the mock implementation, making it difficult to implement some tests.
@@ -220,7 +221,7 @@ abstract class ParsingTestCase<File : PsiFile>(
 
     fun createVirtualFile(@NonNls name: String, text: String): VirtualFile {
         val file = LightVirtualFile(name, language!!, text)
-        file.charset = CharsetToolkit.UTF8_CHARSET
+        file.charset = StandardCharsets.UTF_8
         return file
     }
 
