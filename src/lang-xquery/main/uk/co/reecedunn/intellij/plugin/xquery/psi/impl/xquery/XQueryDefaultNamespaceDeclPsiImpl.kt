@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2018-2020 Reece H. Dunn
+ * Copyright (C) 2016, 2018-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,15 +17,21 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
-class XQueryDefaultNamespaceDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryDefaultNamespaceDecl {
+class XQueryDefaultNamespaceDeclPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node),
+    XQueryDefaultNamespaceDecl,
+    XpmSyntaxValidationElement {
     // region XdmDefaultNamespaceDeclaration
 
     override val namespacePrefix: XsNCNameValue? = null
@@ -33,21 +39,23 @@ class XQueryDefaultNamespaceDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(no
     override val namespaceUri: XsAnyUriValue?
         get() = children().filterIsInstance<XsAnyUriValue>().filterNotNull().firstOrNull()
 
-    override fun accepts(namespaceType: XdmNamespaceType): Boolean {
-        return children().map { child ->
-            when (child.elementType) {
-                XPathTokenType.K_ELEMENT -> when (namespaceType) {
-                    XdmNamespaceType.DefaultElement, XdmNamespaceType.DefaultType -> true
-                    else -> false
-                }
-                XPathTokenType.K_FUNCTION -> when (namespaceType) {
-                    XdmNamespaceType.DefaultFunctionDecl, XdmNamespaceType.DefaultFunctionRef -> true
-                    else -> false
-                }
-                else -> null
-            }
-        }.filterNotNull().first()
+    override fun accepts(namespaceType: XdmNamespaceType): Boolean = when (conformanceElement.elementType) {
+        XPathTokenType.K_ELEMENT -> when (namespaceType) {
+            XdmNamespaceType.DefaultElement, XdmNamespaceType.DefaultType -> true
+            else -> false
+        }
+        XPathTokenType.K_FUNCTION -> when (namespaceType) {
+            XdmNamespaceType.DefaultFunctionDecl, XdmNamespaceType.DefaultFunctionRef -> true
+            else -> false
+        }
+        else -> false
     }
+
+    // endregion
+    // region XpmSyntaxValidationElement
+
+    override val conformanceElement: PsiElement
+        get() = findChildByType(XQueryTokenType.DEFAULT_NAMESPACE_TOKENS) ?: firstChild
 
     // endregion
 }

@@ -112,6 +112,49 @@ class XQuerySyntaxValidatorTest :
     private val XQUERY_4_0 = XpmLanguageConfiguration(XQuery.VERSION_4_0, W3CSpecifications.REC)
 
     @Nested
+    @DisplayName("XQuery 4.0 ED EBNF (25) DefaultNamespaceDecl")
+    internal inner class DefaultNamespaceDecl {
+        @Test
+        @DisplayName("default function namespace")
+        fun function() {
+            val file = parse<XQueryModule>("declare default function namespace \"http://www.example.com\"")[0]
+            validator.configuration = XQUERY_1_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("default element namespace")
+        fun element() {
+            val file = parse<XQueryModule>("declare default element namespace \"http://www.example.com\"")[0]
+            validator.configuration = XQUERY_1_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("default type namespace ; XQuery < 4.0")
+        fun type_notSupported() {
+            val file = parse<XQueryModule>("declare default type namespace \"http://www.example.com\"")[0]
+            validator.configuration = XQUERY_1_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(
+                report.toString(),
+                `is`("E XPST0003(16:20): XQuery version string '1.0' does not support XQuery 4.0 constructs.")
+            )
+        }
+
+        @Test
+        @DisplayName("default type namespace ; XQuery >= 4.0")
+        fun type_supported() {
+            val file = parse<XQueryModule>("declare default type namespace \"http://www.example.com\"")[0]
+            validator.configuration = XQUERY_4_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 4.0 ED EBNF (43) WithExpr")
     internal inner class WithExpr {
         @Test

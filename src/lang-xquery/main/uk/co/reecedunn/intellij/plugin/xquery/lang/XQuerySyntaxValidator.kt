@@ -20,20 +20,25 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEnumerationType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathKeySpecifier
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathKeywordArgument
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathWithExpr
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxErrorReporter
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires.XpmRequiresLanguageVersion
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDefaultNamespaceDecl
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 
 object XQuerySyntaxValidator : XpmSyntaxValidator {
     override fun validate(
         element: XpmSyntaxValidationElement,
         reporter: XpmSyntaxErrorReporter
     ): Unit = when (element) {
+        is XQueryDefaultNamespaceDecl -> when (element.conformanceElement.elementType) {
+            XPathTokenType.K_TYPE -> reporter.requires(element, XQUERY_4_0)
+            else -> {
+            }
+        }
         is XPathEnumerationType -> reporter.requires(element, XQUERY_4_0)
         is XPathKeySpecifier -> when (element.conformanceElement.elementType) {
             XPathElementType.STRING_LITERAL -> reporter.requires(element, XQUERY_4_0)
