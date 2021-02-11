@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017, 2019 Reece H. Dunn
+ * Copyright (C) 2016-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,42 +21,25 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.impl.source.tree.PsiErrorElementImpl
 import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVersionDecl
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsStringValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathComment
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
-private val STRINGS = TokenSet.create(XPathElementType.STRING_LITERAL)
+class XQueryVersionDeclPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node),
+    XQueryVersionDecl,
+    XpmSyntaxValidationElement {
+    // region XQueryVersionDecl
 
-private val XQUERY10: List<Version> = listOf()
-private val XQUERY30: List<Version> = listOf(XQuerySpec.REC_3_0_20140408)
-
-class XQueryVersionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryVersionDecl, VersionConformance {
     override val version: XsStringValue?
         get() = getStringValueAfterKeyword(XQueryTokenType.K_VERSION)
 
     override val encoding: XsStringValue?
         get() = getStringValueAfterKeyword(XQueryTokenType.K_ENCODING)
-
-    override val requiresConformance: List<Version>
-        get() = if (conformanceElement === firstChild) XQUERY10 else XQUERY30
-
-    override val conformanceElement: PsiElement
-        get() {
-            val encoding = node.findChildByType(XQueryTokenType.K_ENCODING) ?: return firstChild
-
-            var previous = encoding.treePrev
-            while (previous.elementType === XPathTokenType.WHITE_SPACE || previous.psi is XPathComment) {
-                previous = previous.treePrev
-            }
-
-            return if (previous.elementType === XQueryTokenType.K_XQUERY) encoding.psi else firstChild
-        }
 
     private fun getStringValueAfterKeyword(type: IKeywordOrNCNameType): XsStringValue? {
         for (child in node.getChildren(STRINGS)) {
@@ -75,4 +58,25 @@ class XQueryVersionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQue
         }
         return null
     }
+
+    companion object {
+        private val STRINGS = TokenSet.create(XPathElementType.STRING_LITERAL)
+    }
+
+    // endregion
+    // region XpmSyntaxValidationElement
+
+    override val conformanceElement: PsiElement
+        get() {
+            val encoding = node.findChildByType(XQueryTokenType.K_ENCODING) ?: return firstChild
+
+            var previous = encoding.treePrev
+            while (previous.elementType === XPathTokenType.WHITE_SPACE || previous.psi is XPathComment) {
+                previous = previous.treePrev
+            }
+
+            return if (previous.elementType === XQueryTokenType.K_XQUERY) encoding.psi else firstChild
+        }
+
+    // endregion
 }

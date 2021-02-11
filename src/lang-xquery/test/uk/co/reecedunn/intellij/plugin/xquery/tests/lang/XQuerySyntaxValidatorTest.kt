@@ -109,7 +109,53 @@ class XQuerySyntaxValidatorTest :
     private val XQUERY_1_0 = XpmLanguageConfiguration(XQuery.VERSION_1_0, W3CSpecifications.REC)
 
     @Suppress("PrivatePropertyName")
+    private val XQUERY_3_0 = XpmLanguageConfiguration(XQuery.VERSION_3_0, W3CSpecifications.REC)
+
+    @Suppress("PrivatePropertyName")
     private val XQUERY_4_0 = XpmLanguageConfiguration(XQuery.VERSION_4_0, W3CSpecifications.REC)
+
+    @Nested
+    @DisplayName("XQuery 3.0 EBNF (2) VersionDecl")
+    internal inner class VersionDecl {
+        @Test
+        @DisplayName("version only")
+        fun version() {
+            val file = parse<XQueryModule>("xquery version \"1.0\"; 2")[0]
+            validator.configuration = XQUERY_1_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("version and encoding")
+        fun versionAndEncoding() {
+            val file = parse<XQueryModule>("xquery version \"1.0\" encoding \"latin1\"; 2")[0]
+            validator.configuration = XQUERY_3_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("encoding only; XQuery < 3.0")
+        fun encoding_notSupported() {
+            val file = parse<XQueryModule>("xquery encoding \"latin1\"; 2")[0]
+            validator.configuration = XQUERY_1_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(
+                report.toString(),
+                `is`("E XPST0003(7:15): XQuery version string '1.0' does not support XQuery 3.0 constructs.")
+            )
+        }
+
+        @Test
+        @DisplayName("encoding only; XQuery >= 3.0")
+        fun encoding_supported() {
+            val file = parse<XQueryModule>("xquery encoding \"latin1\"; 2")[0]
+            validator.configuration = XQUERY_3_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+    }
 
     @Nested
     @DisplayName("XQuery 4.0 ED EBNF (25) DefaultNamespaceDecl")

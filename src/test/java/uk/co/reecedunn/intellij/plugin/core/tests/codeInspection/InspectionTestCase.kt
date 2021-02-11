@@ -43,6 +43,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuerySyntaxValidator
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryNamespaceProvider
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -78,6 +79,7 @@ abstract class InspectionTestCase :
 
         XpmSyntaxValidator.register(this, BaseXSyntaxValidator)
         XpmSyntaxValidator.register(this, MarkLogicSyntaxValidator)
+        XpmSyntaxValidator.register(this, XQuerySyntaxValidator)
 
         XpmNamespaceProvider.register(this, XQueryNamespaceProvider)
     }

@@ -27,7 +27,9 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationEl
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires.XpmRequiresLanguageVersion
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDefaultNamespaceDecl
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVersionDecl
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 object XQuerySyntaxValidator : XpmSyntaxValidator {
     override fun validate(
@@ -36,6 +38,11 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
     ): Unit = when (element) {
         is XQueryDefaultNamespaceDecl -> when (element.conformanceElement.elementType) {
             XPathTokenType.K_TYPE -> reporter.requires(element, XQUERY_4_0)
+            else -> {
+            }
+        }
+        is XQueryVersionDecl -> when (element.conformanceElement.elementType) {
+            XQueryTokenType.K_ENCODING -> reporter.requires(element, XQUERY_3_0)
             else -> {
             }
         }
@@ -51,6 +58,8 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
         else -> {
         }
     }
+
+    private val XQUERY_3_0 = XpmRequiresLanguageVersion(XQuery.VERSION_3_0)
 
     private val XQUERY_4_0 = XpmRequiresLanguageVersion(XQuery.VERSION_4_0)
 }
