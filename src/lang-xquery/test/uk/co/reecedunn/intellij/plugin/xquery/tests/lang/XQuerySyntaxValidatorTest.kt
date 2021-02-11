@@ -130,11 +130,8 @@ class XQuerySyntaxValidatorTest :
             validator.configuration = XQUERY_1_0
             validator.validate(file, this@XQuerySyntaxValidatorTest)
             assertThat(
-                report.toString(), `is`(
-                    """
-                    E XPST0003(0:4): XQuery version string '1.0' does not support XQuery 4.0 constructs.
-                    """.trimIndent()
-                )
+                report.toString(),
+                `is`("E XPST0003(0:4): XQuery version string '1.0' does not support XQuery 4.0 constructs.")
             )
         }
     }
@@ -158,12 +155,173 @@ class XQuerySyntaxValidatorTest :
             validator.configuration = XQUERY_1_0
             validator.validate(file, this@XQuerySyntaxValidatorTest)
             assertThat(
-                report.toString(), `is`(
-                    """
-                    E XPST0003(2:5): XQuery version string '1.0' does not support XQuery 4.0 constructs.
-                    """.trimIndent()
-                )
+                report.toString(),
+                `is`("E XPST0003(2:5): XQuery version string '1.0' does not support XQuery 4.0 constructs.")
             )
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 4.0 ED EBNF (140) Lookup ; XQuery 4.0 ED EBNF (141) KeySpecifier")
+    internal inner class Lookup {
+        @Test
+        @DisplayName("NCName")
+        fun ncname() {
+            val file = parse<XQueryModule>(".?test")[0]
+            validator.configuration = XQUERY_1_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("IntegerLiteral")
+        fun integerLiteral() {
+            val file = parse<XQueryModule>(".?2")[0]
+            validator.configuration = XQUERY_1_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("StringLiteral ; XQuery < 4.0")
+        fun stringLiteral_notSupported() {
+            val file = parse<XQueryModule>(".?\"test\"")[0]
+            validator.configuration = XQUERY_1_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(
+                report.toString(),
+                `is`("E XPST0003(2:8): XQuery version string '1.0' does not support XQuery 4.0 constructs.")
+            )
+        }
+
+        @Test
+        @DisplayName("StringLiteral ; XQuery >= 4.0")
+        fun stringLiteral_supported() {
+            val file = parse<XQueryModule>(".?\"test\"")[0]
+            validator.configuration = XQUERY_4_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("VarRef ; XQuery < 4.0")
+        fun varRef_notSupported() {
+            val file = parse<XQueryModule>(".?\$test")[0]
+            validator.configuration = XQUERY_1_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(
+                report.toString(),
+                `is`("E XPST0003(2:7): XQuery version string '1.0' does not support XQuery 4.0 constructs.")
+            )
+        }
+
+        @Test
+        @DisplayName("VarRef ; XQuery >= 4.0")
+        fun varRef_supported() {
+            val file = parse<XQueryModule>(".?\$test")[0]
+            validator.configuration = XQUERY_4_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("ParenthesizedExpr")
+        fun parenthesizedExpr() {
+            val file = parse<XQueryModule>(".?(2)")[0]
+            validator.configuration = XQUERY_1_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("Wildcard")
+        fun wildcard() {
+            val file = parse<XQueryModule>(".?*")[0]
+            validator.configuration = XQUERY_1_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 4.0 ED EBNF (199) UnaryLookup ; XQuery 4.0 ED EBNF (141) KeySpecifier")
+    internal inner class UnaryLookup {
+        @Test
+        @DisplayName("NCName")
+        fun ncname() {
+            val file = parse<XQueryModule>("?test")[0]
+            validator.configuration = XQUERY_1_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("IntegerLiteral")
+        fun integerLiteral() {
+            val file = parse<XQueryModule>("?2")[0]
+            validator.configuration = XQUERY_1_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("StringLiteral ; XQuery < 4.0")
+        fun stringLiteral_notSupported() {
+            val file = parse<XQueryModule>("?\"test\"")[0]
+            validator.configuration = XQUERY_1_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(
+                report.toString(),
+                `is`("E XPST0003(1:7): XQuery version string '1.0' does not support XQuery 4.0 constructs.")
+            )
+        }
+
+        @Test
+        @DisplayName("StringLiteral ; XQuery >= 4.0")
+        fun stringLiteral_supported() {
+            val file = parse<XQueryModule>("?\"test\"")[0]
+            validator.configuration = XQUERY_4_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("VarRef ; XQuery < 4.0")
+        fun varRef_notSupported() {
+            val file = parse<XQueryModule>("?\$test")[0]
+            validator.configuration = XQUERY_1_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(
+                report.toString(),
+                `is`("E XPST0003(1:6): XQuery version string '1.0' does not support XQuery 4.0 constructs.")
+            )
+        }
+
+        @Test
+        @DisplayName("VarRef ; XQuery >= 4.0")
+        fun varRef_supported() {
+            val file = parse<XQueryModule>("?\$test")[0]
+            validator.configuration = XQUERY_4_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("ParenthesizedExpr")
+        fun parenthesizedExpr() {
+            val file = parse<XQueryModule>("?(2)")[0]
+            validator.configuration = XQUERY_1_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("Wildcard")
+        fun wildcard() {
+            val file = parse<XQueryModule>("?*")[0]
+            validator.configuration = XQUERY_1_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
         }
     }
 
@@ -186,11 +344,8 @@ class XQuerySyntaxValidatorTest :
             validator.configuration = XQUERY_1_0
             validator.validate(file, this@XQuerySyntaxValidatorTest)
             assertThat(
-                report.toString(), `is`(
-                    """
-                    E XPST0003(14:18): XQuery version string '1.0' does not support XQuery 4.0 constructs.
-                    """.trimIndent()
-                )
+                report.toString(),
+                `is`("E XPST0003(14:18): XQuery version string '1.0' does not support XQuery 4.0 constructs.")
             )
         }
     }
