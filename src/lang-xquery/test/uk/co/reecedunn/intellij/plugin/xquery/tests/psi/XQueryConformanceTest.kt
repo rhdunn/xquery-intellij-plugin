@@ -192,24 +192,6 @@ private class XQueryConformanceTest : ParserTestCase() {
     }
 
     // endregion
-    // region ArrowExpr
-
-    @Test
-    fun testArrowExpr() {
-        val file = parseResource("tests/parser/xquery-3.1/ArrowExpr_EQName.xq")
-
-        val arrowExprPsi = file.descendants().filterIsInstance<XPathArrowExpr>().first()
-        val versioned = arrowExprPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(2))
-        assertThat(versioned.requiresConformance[0], `is`(XQuerySpec.REC_3_1_20170321))
-        assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_9_0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.ARROW))
-    }
-
-    // endregion
     // region BracedURILiteral
 
     @Test

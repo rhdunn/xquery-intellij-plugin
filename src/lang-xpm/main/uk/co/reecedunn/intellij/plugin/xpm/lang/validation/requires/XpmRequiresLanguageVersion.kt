@@ -19,7 +19,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.intellij.resources.XpmBundle
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmLanguageVersion
 import uk.co.reecedunn.intellij.plugin.xpm.lang.configuration.XpmLanguageConfiguration
 
-class XpmRequiresLanguageVersion(private val requires: XpmLanguageVersion) : XpmRequiresConformanceTo {
+class XpmRequiresLanguageVersion(val requires: XpmLanguageVersion) : XpmRequiresConformanceTo {
     override fun conformanceTo(configuration: XpmLanguageConfiguration): Boolean {
         return configuration.language.let { it.language === requires.language && it >= requires }
     }
