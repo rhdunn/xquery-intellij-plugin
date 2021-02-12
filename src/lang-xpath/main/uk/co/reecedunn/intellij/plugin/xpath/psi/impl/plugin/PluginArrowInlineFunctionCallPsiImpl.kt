@@ -17,6 +17,21 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.sequences.reverse
+import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
+import uk.co.reecedunn.intellij.plugin.xpath.ast.filterNotWhitespace
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowInlineFunctionCall
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
-class PluginArrowInlineFunctionCallPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginArrowInlineFunctionCall
+class PluginArrowInlineFunctionCallPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node),
+    PluginArrowInlineFunctionCall,
+    XpmSyntaxValidationElement {
+    // region XpmSyntaxValidationElement
+
+    override val conformanceElement: PsiElement
+        get() = reverse(siblings()).filterNotWhitespace().firstOrNull() ?: firstChild
+
+    // endregion
+}

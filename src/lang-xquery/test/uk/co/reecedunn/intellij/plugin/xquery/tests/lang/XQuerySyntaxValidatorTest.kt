@@ -226,6 +226,85 @@ class XQuerySyntaxValidatorTest :
     }
 
     @Nested
+    @DisplayName("XQuery 4.0 ED EBNF (105) ArrowExpr ; XQuery 4.0 ED EBNF (109) ThinArrowTarget")
+    internal inner class ThinArrowTarget {
+        @Nested
+        @DisplayName("XQuery 4.0 ED EBNF (142) ArrowStaticFunction")
+        internal inner class ArrowStaticFunction {
+            @Test
+            @DisplayName("XQuery >= 4.0")
+            fun supported() {
+                val file = parse<XQueryModule>("1 -> f()")[0]
+                validator.configuration = XQUERY_4_0
+                validator.validate(file, this@XQuerySyntaxValidatorTest)
+                assertThat(report.toString(), `is`(""))
+            }
+
+            @Test
+            @DisplayName("XQuery < 4.0")
+            fun notSupported() {
+                val file = parse<XQueryModule>("1 -> f()")[0]
+                validator.configuration = XQUERY_1_0
+                validator.validate(file, this@XQuerySyntaxValidatorTest)
+                assertThat(
+                    report.toString(),
+                    `is`("E XPST0003(2:4): XQuery version string '1.0' does not support XQuery 4.0 constructs.")
+                )
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 4.0 ED EBNF (143) ArrowDynamicFunction")
+        internal inner class ArrowDynamicFunction {
+            @Test
+            @DisplayName("XQuery >= 4.0")
+            fun supported() {
+                val file = parse<XQueryModule>("1 -> \$f()")[0]
+                validator.configuration = XQUERY_4_0
+                validator.validate(file, this@XQuerySyntaxValidatorTest)
+                assertThat(report.toString(), `is`(""))
+            }
+
+            @Test
+            @DisplayName("XQuery < 4.0")
+            fun notSupported() {
+                val file = parse<XQueryModule>("1 -> \$f()")[0]
+                validator.configuration = XQUERY_1_0
+                validator.validate(file, this@XQuerySyntaxValidatorTest)
+                assertThat(
+                    report.toString(),
+                    `is`("E XPST0003(2:4): XQuery version string '1.0' does not support XQuery 4.0 constructs.")
+                )
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 4.0 ED EBNF (37) EnclosedExpr")
+        internal inner class EnclosedExpr {
+            @Test
+            @DisplayName("XQuery >= 4.0")
+            fun supported() {
+                val file = parse<XQueryModule>("1 -> {}")[0]
+                validator.configuration = XQUERY_4_0
+                validator.validate(file, this@XQuerySyntaxValidatorTest)
+                assertThat(report.toString(), `is`(""))
+            }
+
+            @Test
+            @DisplayName("XQuery < 4.0")
+            fun notSupported() {
+                val file = parse<XQueryModule>("1 -> {}")[0]
+                validator.configuration = XQUERY_1_0
+                validator.validate(file, this@XQuerySyntaxValidatorTest)
+                assertThat(
+                    report.toString(),
+                    `is`("E XPST0003(2:4): XQuery version string '1.0' does not support XQuery 4.0 constructs.")
+                )
+            }
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 4.0 ED EBNF (137) KeywordArgument")
     internal inner class KeywordArgument {
         @Test

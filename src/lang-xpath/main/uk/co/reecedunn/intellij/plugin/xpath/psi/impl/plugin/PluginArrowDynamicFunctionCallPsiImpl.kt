@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2020 Reece H. Dunn
+ * Copyright (C) 2019-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,13 +17,20 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.core.sequences.reverse
+import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
+import uk.co.reecedunn.intellij.plugin.xpath.ast.filterNotWhitespace
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowDynamicFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
 
 class PluginArrowDynamicFunctionCallPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PluginArrowDynamicFunctionCall {
+    ASTWrapperPsiElement(node),
+    PluginArrowDynamicFunctionCall,
+    XpmSyntaxValidationElement {
     // region XpmExpression
 
     override val expressionElement: XPathArgumentList
@@ -34,6 +41,12 @@ class PluginArrowDynamicFunctionCallPsiImpl(node: ASTNode) :
 
     override val functionReference: XpmFunctionReference?
         get() = children().filterIsInstance<XpmFunctionReference>().firstOrNull()
+
+    // endregion
+    // region XpmSyntaxValidationElement
+
+    override val conformanceElement: PsiElement
+        get() = reverse(siblings()).filterNotWhitespace().firstOrNull() ?: firstChild
 
     // endregion
 }

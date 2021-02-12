@@ -16,10 +16,8 @@
 package uk.co.reecedunn.intellij.plugin.xquery.lang
 
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEnumerationType
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathKeySpecifier
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathKeywordArgument
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathWithExpr
+import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowInlineFunctionCall
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxErrorReporter
@@ -36,6 +34,7 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
         element: XpmSyntaxValidationElement,
         reporter: XpmSyntaxErrorReporter
     ): Unit = when (element) {
+        is PluginArrowInlineFunctionCall -> reporter.requires(element, XQUERY_4_0)
         is XQueryDefaultNamespaceDecl -> when (element.conformanceElement.elementType) {
             XPathTokenType.K_TYPE -> reporter.requires(element, XQUERY_4_0)
             else -> {
@@ -43,6 +42,11 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
         }
         is XQueryVersionDecl -> when (element.conformanceElement.elementType) {
             XQueryTokenType.K_ENCODING -> reporter.requires(element, XQUERY_3_0)
+            else -> {
+            }
+        }
+        is XPathArrowFunctionSpecifier -> when (element.conformanceElement.elementType) {
+            XPathTokenType.THIN_ARROW -> reporter.requires(element, XQUERY_4_0)
             else -> {
             }
         }
