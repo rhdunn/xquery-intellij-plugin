@@ -110,8 +110,9 @@ internal class MarkLogicDebugSession(
         get() {
             val query = processor.createRunnableQuery(MarkLogicQueries.Debug.Stack, XQuery)
             query.bindVariable("requestId", requestId, "xs:unsignedLong")
+            val xml = query.run().results.firstOrNull()?.value as? String ?: return listOf()
 
-            val stack = XmlDocument.parse(query.run().results.first().value as String, DBG_STACK_NAMESPACES)
+            val stack = XmlDocument.parse(xml, DBG_STACK_NAMESPACES)
             return stack.root.children("dbg:frame").map {
                 MarkLogicDebugFrame.create(it, this.query, this)
             }.toList()
