@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@ import com.intellij.psi.PsiFile
 import com.intellij.psi.impl.light.LightElement
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
+import uk.co.reecedunn.intellij.plugin.core.sequences.reverse
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import javax.swing.Icon
 
@@ -66,7 +67,7 @@ open class XpmShadowPsiElement(private val shadowed: PsiElement, language: Langu
     override fun getNavigationElement(): PsiElement = shadowed.navigationElement
 
     override fun getPrevSibling(): PsiElement? {
-        return shadowed.siblings().reversed().mapNotNull { XpmShadowPsiElementFactory.create(it) }.firstOrNull()
+        return reverse(shadowed.siblings()).mapNotNull { XpmShadowPsiElementFactory.create(it) }.firstOrNull()
     }
 
     override fun getNextSibling(): PsiElement? {

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017-2019 Reece H. Dunn
+ * Copyright (C) 2017-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.model
 
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.core.sequences.reverse
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
@@ -43,17 +44,17 @@ fun PsiElement.defaultNamespace(
     resolveProlog: Boolean
 ): Sequence<XpmNamespaceDeclaration> {
     var visitedProlog = false
-    return walkTree().reversed().flatMap { node ->
+    return reverse(walkTree()).flatMap { node ->
         when (node) {
             is XQueryProlog -> {
                 visitedProlog = true
-                node.children().reversed().filterIsInstance<XpmNamespaceDeclaration>()
+                reverse(node.children()).filterIsInstance<XpmNamespaceDeclaration>()
             }
             is XQueryModule -> {
-                if (resolveProlog)
-                    node.predefinedStaticContext?.children()?.reversed()
-                        ?.filterIsInstance<XpmNamespaceDeclaration>() ?: emptySequence()
-                else
+                if (resolveProlog) {
+                    val context = node.predefinedStaticContext ?: return@flatMap emptySequence()
+                    reverse(context.children()).filterIsInstance<XpmNamespaceDeclaration>()
+                } else
                     emptySequence()
             }
             is XQueryModuleDecl -> {

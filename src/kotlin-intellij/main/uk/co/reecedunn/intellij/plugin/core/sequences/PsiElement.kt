@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -69,13 +69,15 @@ private class PsiElementIterator(
 }
 
 class PsiElementReversibleSequence(
-    private var node: PsiElement,
-    private var gen: (PsiElement) -> Iterator<PsiElement>,
-    private var rgen: (PsiElement) -> Iterator<PsiElement>
+    internal var node: PsiElement,
+    internal var gen: (PsiElement) -> Iterator<PsiElement>,
+    internal var rgen: (PsiElement) -> Iterator<PsiElement>
 ) : Sequence<PsiElement> {
     override fun iterator(): Iterator<PsiElement> = gen(node)
+}
 
-    fun reversed(): PsiElementReversibleSequence = PsiElementReversibleSequence(node, rgen, gen)
+fun reverse(s: PsiElementReversibleSequence): PsiElementReversibleSequence {
+    return PsiElementReversibleSequence(s.node, s.rgen, s.gen)
 }
 
 fun PsiElement.contexts(strict: Boolean): Sequence<PsiElement> = when (strict) {

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.optree
 
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.core.sequences.reverse
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
@@ -29,14 +30,15 @@ import uk.co.reecedunn.intellij.plugin.xquery.model.defaultNamespace
 object XQueryNamespaceProvider : XpmNamespaceProvider {
     override fun staticallyKnownNamespaces(context: PsiElement): Sequence<XpmNamespaceDeclaration> {
         if (context.containingFile !is XQueryModule) return emptySequence()
-        return context.walkTree().reversed().flatMap { node ->
+        return reverse(context.walkTree()).flatMap { node ->
             when (node) {
                 is XpmNamespaceDeclaration -> sequenceOf(node as XpmNamespaceDeclaration)
                 is XQueryDirElemConstructor -> node.attributes.filterIsInstance<XpmNamespaceDeclaration>()
-                is XQueryProlog -> node.children().reversed().filterIsInstance<XpmNamespaceDeclaration>()
-                is XQueryModule ->
-                    node.predefinedStaticContext?.children()?.reversed()?.filterIsInstance<XpmNamespaceDeclaration>()
-                        ?: emptySequence()
+                is XQueryProlog -> reverse(node.children()).filterIsInstance<XpmNamespaceDeclaration>()
+                is XQueryModule -> {
+                    val staticContext = node.predefinedStaticContext ?: return@flatMap emptySequence()
+                    reverse(staticContext.children()).filterIsInstance<XpmNamespaceDeclaration>()
+                }
                 else -> emptySequence()
             }
         }.filterNotNull().distinct().filter { node -> node.namespacePrefix != null && node.namespaceUri != null }

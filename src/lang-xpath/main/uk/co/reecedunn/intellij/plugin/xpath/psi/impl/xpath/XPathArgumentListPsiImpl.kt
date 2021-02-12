@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017, 2019-2020 Reece H. Dunn
+ * Copyright (C) 2016-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.core.sequences.reverse
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.isArrowFunctionCall
@@ -81,7 +82,7 @@ open class XPathArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
                 when {
                     index == 0 && parent.isArrowFunctionCall -> {
                         // First argument bound to an ArrowExpr evaluation result.
-                        val context = parent.siblings().reversed().filter {
+                        val context = reverse(parent.siblings()).filter {
                             it.isArrowFunctionCall
                         }.firstOrNull() ?: parent.parent.firstChild
                         XpmFunctionParamBinding(param, context)

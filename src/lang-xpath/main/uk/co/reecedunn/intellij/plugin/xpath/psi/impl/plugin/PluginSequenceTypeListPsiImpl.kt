@@ -21,6 +21,7 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.core.sequences.reverse
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginSequenceTypeList
@@ -44,7 +45,7 @@ class PluginSequenceTypeListPsiImpl(node: ASTNode) :
 
     override val isParenthesized: Boolean
         get() {
-            val element = siblings().reversed().filterNotWhitespace().first()
+            val element = reverse(siblings()).filterNotWhitespace().first()
             return element.elementType === XPathTokenType.PARENTHESIS_OPEN
         }
 

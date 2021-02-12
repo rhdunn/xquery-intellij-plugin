@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017-2020 Reece H. Dunn
+ * Copyright (C) 2017-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.model
 
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.core.sequences.reverse
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQuantifierBinding
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
@@ -186,7 +187,7 @@ private fun XQueryProlog.varDecls(): Sequence<XpmVariableDeclaration?> {
 
 fun PsiElement.xqueryInScopeVariables(): Sequence<XpmVariableDefinition> {
     val context = InScopeVariableContext()
-    return walkTree().reversed()
+    return reverse(walkTree())
         .flatMap { node ->
             when (node) {
                 is XQueryProlog -> node.varDecls().filterNotNull()

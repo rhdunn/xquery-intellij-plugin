@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.ast
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.core.sequences.reverse
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowDynamicFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowFunctionCall
@@ -58,7 +59,7 @@ val PsiElement.isArrowFunctionCall: Boolean
 
 val PsiElement.parenthesizedExprTextOffset: Int?
     get() {
-        val pref = siblings().reversed().filterNotWhitespace().firstOrNull()
+        val pref = reverse(siblings()).filterNotWhitespace().firstOrNull()
         return when {
             pref == null -> null
             pref.elementType !== XPathTokenType.PARENTHESIS_OPEN -> null

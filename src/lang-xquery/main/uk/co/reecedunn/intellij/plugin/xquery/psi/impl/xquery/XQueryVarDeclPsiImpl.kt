@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2020 Reece H. Dunn
+ * Copyright (C) 2016-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.core.sequences.reverse
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathIcons
@@ -63,8 +64,8 @@ class XQueryVarDeclPsiImpl(node: ASTNode) :
 
     override val conformanceElement: PsiElement
         get() {
-            val element = findChildByType<PsiElement>(XPathTokenType.ASSIGN_EQUAL)
-            val previous = element?.siblings()?.reversed()?.filterNotWhitespace()?.firstOrNull()
+            val element = findChildByType<PsiElement>(XPathTokenType.ASSIGN_EQUAL) ?: return firstChild
+            val previous = reverse(element.siblings()).filterNotWhitespace().firstOrNull()
             return if (previous == null || previous.elementType !== XQueryTokenType.K_EXTERNAL) firstChild else element
         }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2020 Reece H. Dunn
+ * Copyright (C) 2018-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.core.sequences.reverse
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
@@ -52,8 +53,8 @@ class XPathTypedFunctionTestPsiImpl(node: ASTNode) :
 
     override val returnType: XdmSequenceType?
         get() {
-            val type = children().reversed().filterIsInstance<XdmSequenceType>().firstOrNull()
-            val asBefore = (type as? PsiElement)?.siblings()?.reversed()?.find {
+            val type = reverse(children()).filterIsInstance<XdmSequenceType>().firstOrNull() ?: return null
+            val asBefore = reverse((type as PsiElement).siblings()).find {
                 it.elementType === XPathTokenType.K_AS
             }
             return if (asBefore != null) type else null

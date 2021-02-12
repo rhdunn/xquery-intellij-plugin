@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.psi.resourcePath
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.core.sequences.reverse
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
@@ -30,7 +31,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryMainModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
 
 fun <Decl : Any> XQueryProlog.annotatedDeclarations(klass: Class<Decl>): Sequence<Decl> {
-    return children().reversed().filterIsInstance<XQueryAnnotatedDecl>().mapNotNull { annotation ->
+    return reverse(children()).filterIsInstance<XQueryAnnotatedDecl>().mapNotNull { annotation ->
         annotation.children().filterIsInstance(klass).firstOrNull()
     }
 }
@@ -80,11 +81,13 @@ fun XsQNameValue.importedPrologsForQName(): Sequence<Pair<XsQNameValue?, XQueryP
     val prologs = this.expand().flatMap { name ->
         sequenceOf(
             // 1. Imported modules in the current module.
-            thisProlog?.children()?.reversed()?.flatMap { child ->
-                if (child is XpmNamespaceDeclaration && child.namespaceUri?.data == name.namespace?.data)
-                    (child as? XQueryPrologResolver)?.prolog?.map { prolog -> name to prolog } ?: emptySequence()
-                else
-                    emptySequence()
+            thisProlog?.let {
+                reverse(it.children()).flatMap { child ->
+                    if (child is XpmNamespaceDeclaration && child.namespaceUri?.data == name.namespace?.data)
+                        (child as? XQueryPrologResolver)?.prolog?.map { prolog -> name to prolog } ?: emptySequence()
+                    else
+                        emptySequence()
+                }
             } ?: emptySequence(),
 
             // 2. The current module.
