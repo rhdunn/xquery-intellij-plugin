@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.tests.lang
+package uk.co.reecedunn.intellij.plugin.w3.tests.lang
 
 import com.intellij.compat.testFramework.registerServiceInstance
 import com.intellij.lang.LanguageASTFactory
@@ -40,7 +40,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.configuration.XpmLanguageConfigu
 import uk.co.reecedunn.intellij.plugin.xpm.lang.diagnostics.XpmDiagnostics
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidation
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuerySyntaxValidator
+import uk.co.reecedunn.intellij.plugin.w3.lang.XQuerySyntaxValidator
 
 @Suppress("ClassName")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
