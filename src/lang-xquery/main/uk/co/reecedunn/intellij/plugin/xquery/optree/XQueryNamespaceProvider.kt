@@ -36,7 +36,8 @@ object XQueryNamespaceProvider : XpmNamespaceProvider {
                 is XQueryDirElemConstructor -> node.attributes.filterIsInstance<XpmNamespaceDeclaration>()
                 is XQueryProlog -> reverse(node.children()).filterIsInstance<XpmNamespaceDeclaration>()
                 is XQueryModule -> {
-                    val staticContext = node.predefinedStaticContext ?: return@flatMap emptySequence()
+                    val staticContext = node.predefinedStaticContext ?:
+                        return@flatMap emptySequence<XpmNamespaceDeclaration>()
                     reverse(staticContext.children()).filterIsInstance<XpmNamespaceDeclaration>()
                 }
                 else -> emptySequence()
