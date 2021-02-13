@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationEl
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires.XpmRequiresLanguageVersion
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires.XpmRequiresProductVersion
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAllowingEmpty
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDefaultNamespaceDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVersionDecl
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
@@ -38,6 +39,7 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
         reporter: XpmSyntaxErrorReporter
     ): Unit = when (element) {
         is PluginArrowInlineFunctionCall -> reporter.requires(element, XQUERY_4_0)
+        is XQueryAllowingEmpty -> reporter.requires(element, XQUERY_3_0)
         is XQueryDefaultNamespaceDecl -> when (element.conformanceElement.elementType) {
             XPathTokenType.K_TYPE -> reporter.requires(element, XQUERY_4_0)
             else -> {
@@ -66,11 +68,10 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
     }
 
     private val XQUERY_3_0 = XpmRequiresLanguageVersion(XQuery.VERSION_3_0)
+    private val XQUERY_4_0 = XpmRequiresLanguageVersion(XQuery.VERSION_4_0)
 
     private val XQUERY_3_1_OR_MARKLOGIC_9 = XpmRequiresLanguageOrMarkLogic(
         XpmRequiresLanguageVersion(XQuery.VERSION_3_1),
         XpmRequiresProductVersion(MarkLogic.VERSION_9)
     )
-
-    private val XQUERY_4_0 = XpmRequiresLanguageVersion(XQuery.VERSION_4_0)
 }

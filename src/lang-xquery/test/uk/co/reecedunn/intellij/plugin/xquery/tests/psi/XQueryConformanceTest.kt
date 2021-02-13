@@ -48,25 +48,6 @@ private class XQueryConformanceTest : ParserTestCase() {
 
     fun parseResource(resource: String): XQueryModule = res.toPsiFile(resource, project)
 
-    // region AllowingEmpty
-
-    @Test
-    fun testAllowingEmpty() {
-        val file = parseResource("tests/parser/xquery-3.0/AllowingEmpty.xq")
-
-        val forClausePsi = file.descendants().filterIsInstance<XQueryForClause>().first()
-        val forBindingPsi = forClausePsi.children().filterIsInstance<XQueryForBinding>().first()
-        val allowingEmptyPsi = forBindingPsi.children().filterIsInstance<XQueryAllowingEmpty>().first()
-        val versioned = allowingEmptyPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`(XQuerySpec.REC_3_0_20140408))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XQueryTokenType.K_ALLOWING))
-    }
-
-    // endregion
     // region Annotation
 
     @Test
