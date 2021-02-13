@@ -28,10 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationEl
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires.XpmRequiresLanguageVersion
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires.XpmRequiresProductVersion
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAllowingEmpty
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotation
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDefaultNamespaceDecl
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVersionDecl
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
@@ -44,6 +41,7 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
         is PluginDynamicFunctionCall -> reporter.requires(element, XQUERY_3_0_OR_MARKLOGIC_6)
         is XQueryAllowingEmpty -> reporter.requires(element, XQUERY_3_0)
         is XQueryAnnotation -> reporter.requires(element, XQUERY_3_0_OR_MARKLOGIC_6)
+        is XQueryCompNamespaceConstructor -> reporter.requires(element, XQUERY_3_0_OR_MARKLOGIC_6)
         is XQueryDefaultNamespaceDecl -> when (element.conformanceElement.elementType) {
             XPathTokenType.K_TYPE -> reporter.requires(element, XQUERY_4_0)
             else -> {

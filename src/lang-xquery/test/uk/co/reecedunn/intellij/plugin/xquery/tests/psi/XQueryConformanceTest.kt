@@ -66,24 +66,6 @@ private class XQueryConformanceTest : ParserTestCase() {
     }
 
     // endregion
-    // region CompNamespaceConstructor
-
-    @Test
-    fun testCompNamespaceConstructor() {
-        val file = parseResource("tests/parser/xquery-3.0/CompNamespaceConstructor.xq")
-
-        val compNamespaceConstructorPsi = file.descendants().filterIsInstance<XQueryCompNamespaceConstructor>().first()
-        val versioned = compNamespaceConstructorPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(2))
-        assertThat(versioned.requiresConformance[0], `is`(XQuerySpec.REC_3_0_20140408))
-        assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.K_NAMESPACE))
-    }
-
-    // endregion
     // region ContextItemDecl
 
     @Test

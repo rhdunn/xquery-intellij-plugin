@@ -523,6 +523,52 @@ class XQuerySyntaxValidatorTest :
     }
 
     @Nested
+    @DisplayName("XQuery 3.0 EBNF (202) CompNamespaceConstructor")
+    internal inner class CompNamespaceConstructor {
+        @Test
+        @DisplayName("XQuery < 3.0")
+        fun xquery_notSupported() {
+            val file = parse<XQueryModule>("namespace test {\"http://www.example.com\"}")[0]
+            validator.configuration = XQUERY_1_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(
+                report.toString(),
+                `is`("E XPST0003(0:9): XQuery version string '1.0' does not support XQuery 3.0, or MarkLogic 6.0 constructs.")
+            )
+        }
+
+        @Test
+        @DisplayName("XQuery >= 3.0")
+        fun xquery_supported() {
+            val file = parse<XQueryModule>("namespace test {\"http://www.example.com\"}")[0]
+            validator.configuration = XQUERY_3_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("MarkLogic >= 6.0")
+        fun marklogic_supported() {
+            val file = parse<XQueryModule>("namespace test {\"http://www.example.com\"}")[0]
+            validator.configuration = XQUERY_1_0_ML_WITH_MARKLOGIC_9
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("MarkLogic < 6.0")
+        fun marklogic_notSupported() {
+            val file = parse<XQueryModule>("namespace test {\"http://www.example.com\"}")[0]
+            validator.configuration = XQUERY_1_0_ML_WITH_MARKLOGIC_5
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(
+                report.toString(),
+                `is`("E XPST0003(0:9): MarkLogic 5.0 does not support XQuery 3.0, or MarkLogic 6.0 constructs.")
+            )
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.1 EBNF (214) AnyArrayTest")
     internal inner class AnyArrayTest {
         @Test

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017, 2020 Reece H. Dunn
+ * Copyright (C) 2016-2018, 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,17 +18,22 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.intellij.lang.*
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompNamespaceConstructor
 
 class XQueryCompNamespaceConstructorPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), XQueryCompNamespaceConstructor, VersionConformance {
+    ASTWrapperPsiElement(node),
+    XQueryCompNamespaceConstructor,
+    XpmSyntaxValidationElement {
+    // region XpmExpression
 
     override val expressionElement: PsiElement? = null
 
-    override val requiresConformance: List<Version>
-        get() = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
+    // endregion
+    // region XpmSyntaxValidationElement
 
     override val conformanceElement: PsiElement
         get() = firstChild
+
+    // endregion
 }
