@@ -289,6 +289,52 @@ class XQuerySyntaxValidatorTest :
     }
 
     @Nested
+    @DisplayName("XQuery 3.0 EBNF (135) ArgumentPlaceholder")
+    internal inner class ArgumentPlaceholder {
+        @Test
+        @DisplayName("XQuery < 3.0")
+        fun xquery_notSupported() {
+            val file = parse<XQueryModule>("math:pow(?, 2)")[0]
+            validator.configuration = XQUERY_1_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(
+                report.toString(),
+                `is`("E XPST0003(9:10): XQuery version string '1.0' does not support XQuery 3.0, or MarkLogic 6.0 constructs.")
+            )
+        }
+
+        @Test
+        @DisplayName("XQuery >= 3.0")
+        fun xquery_supported() {
+            val file = parse<XQueryModule>("math:pow(?, 2)")[0]
+            validator.configuration = XQUERY_3_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("MarkLogic >= 6.0")
+        fun marklogic_supported() {
+            val file = parse<XQueryModule>("math:pow(?, 2)")[0]
+            validator.configuration = XQUERY_1_0_ML_WITH_MARKLOGIC_9
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("MarkLogic < 6.0")
+        fun marklogic_notSupported() {
+            val file = parse<XQueryModule>("math:pow(?, 2)")[0]
+            validator.configuration = XQUERY_1_0_ML_WITH_MARKLOGIC_5
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(
+                report.toString(),
+                `is`("E XPST0003(9:10): MarkLogic 5.0 does not support XQuery 3.0, or MarkLogic 6.0 constructs.")
+            )
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.0 EBNF (192) AnyFunctionTest")
     internal inner class AnyFunctionTest {
         @Test

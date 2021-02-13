@@ -56,6 +56,7 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
         }
         is XPathAnyArrayTest -> reporter.requires(element, XQUERY_3_1)
         is XPathAnyFunctionTest -> reporter.requires(element, XQUERY_3_0_OR_MARKLOGIC_6)
+        is XPathArgumentPlaceholder -> reporter.requires(element, XQUERY_3_0_OR_MARKLOGIC_6)
         is XPathArrowFunctionSpecifier -> when (element.conformanceElement.elementType) {
             XPathTokenType.THIN_ARROW -> reporter.requires(element, XQUERY_4_0)
             else -> reporter.requires(element, XQUERY_3_1_OR_MARKLOGIC_9)

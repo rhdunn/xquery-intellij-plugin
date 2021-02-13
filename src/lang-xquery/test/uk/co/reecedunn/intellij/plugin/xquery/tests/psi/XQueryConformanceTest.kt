@@ -66,26 +66,6 @@ private class XQueryConformanceTest : ParserTestCase() {
     }
 
     // endregion
-    // region ArgumentPlaceholder
-
-    @Test
-    fun testArgumentPlaceholder() {
-        val file = parseResource("tests/parser/xquery-3.0/ArgumentPlaceholder.xq")
-
-        val functionCallPsi = file.descendants().filterIsInstance<XPathFunctionCall>().first()
-        val argumentListPsi = functionCallPsi.children().filterIsInstance<XPathArgumentList>().first()
-        val argumentPlaceholderPsi = argumentListPsi.children().filterIsInstance<XPathArgumentPlaceholder>().first()
-        val versioned = argumentPlaceholderPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(2))
-        assertThat(versioned.requiresConformance[0], `is`(XQuerySpec.REC_3_0_20140408))
-        assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.OPTIONAL))
-    }
-
-    // endregion
     // region BracedURILiteral
 
     @Test
