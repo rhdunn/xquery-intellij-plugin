@@ -66,23 +66,6 @@ private class XQueryConformanceTest : ParserTestCase() {
     }
 
     // endregion
-    // region BracedURILiteral
-
-    @Test
-    fun testBracedURILiteral() {
-        val file = parseResource("tests/parser/xquery-3.0/NameTest_URIQualifiedName_NCNameLocalPart.xq")
-        val bracedURILiteralPsi = file.walkTree().filterIsInstance<XPathBracedURILiteral>().first()
-        val versioned = bracedURILiteralPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(2))
-        assertThat(versioned.requiresConformance[0], `is`(XQuerySpec.REC_3_0_20140408))
-        assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.BRACED_URI_LITERAL_START))
-    }
-
-    // endregion
     // region CompNamespaceConstructor
 
     @Test

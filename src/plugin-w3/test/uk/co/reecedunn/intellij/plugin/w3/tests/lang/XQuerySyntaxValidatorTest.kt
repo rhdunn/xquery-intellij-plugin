@@ -381,6 +381,52 @@ class XQuerySyntaxValidatorTest :
     }
 
     @Nested
+    @DisplayName("XQuery 3.0 EBNF (202) BracedURILiteral")
+    internal inner class BracedURILiteral {
+        @Test
+        @DisplayName("XQuery < 3.0")
+        fun xquery_notSupported() {
+            val file = parse<XQueryModule>("Q{http://www.example.com}test")[0]
+            validator.configuration = XQUERY_1_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(
+                report.toString(),
+                `is`("E XPST0003(0:2): XQuery version string '1.0' does not support XQuery 3.0, or MarkLogic 6.0 constructs.")
+            )
+        }
+
+        @Test
+        @DisplayName("XQuery >= 3.0")
+        fun xquery_supported() {
+            val file = parse<XQueryModule>("Q{http://www.example.com}test")[0]
+            validator.configuration = XQUERY_3_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("MarkLogic >= 6.0")
+        fun marklogic_supported() {
+            val file = parse<XQueryModule>("Q{http://www.example.com}test")[0]
+            validator.configuration = XQUERY_1_0_ML_WITH_MARKLOGIC_9
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("MarkLogic < 6.0")
+        fun marklogic_notSupported() {
+            val file = parse<XQueryModule>("Q{http://www.example.com}test")[0]
+            validator.configuration = XQUERY_1_0_ML_WITH_MARKLOGIC_5
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(
+                report.toString(),
+                `is`("E XPST0003(0:2): MarkLogic 5.0 does not support XQuery 3.0, or MarkLogic 6.0 constructs.")
+            )
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.1 EBNF (105) ArrowExpr ; XQuery 4.0 ED EBNF (108) FatArrowTarget")
     internal inner class FatArrowTarget {
         @Nested
