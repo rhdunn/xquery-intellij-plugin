@@ -25,15 +25,16 @@ class XpmRequiresLanguageOrMarkLogic(
     private val languageVersion: XpmRequiresLanguageVersion,
     private val requires: XpmRequiresConformanceTo
 ) : XpmRequiresConformanceTo {
-    override fun conformanceTo(configuration: XpmLanguageConfiguration): Boolean {
-        return languageVersion.conformanceTo(configuration) || requires.conformanceTo(configuration)
+    override fun conformanceTo(configuration: XpmLanguageConfiguration): Boolean = when (configuration.language) {
+        XQuery.VERSION_1_0_ML -> requires.conformanceTo(configuration)
+        else -> languageVersion.conformanceTo(configuration)
     }
 
     override fun message(
         configuration: XpmLanguageConfiguration,
         conformanceName: String?
     ): String = when (configuration.language) {
-        XQuery.VERSION_0_9_ML, XQuery.VERSION_1_0_ML -> when (conformanceName) {
+        XQuery.VERSION_1_0_ML -> when (conformanceName) {
             null -> XpmBundle.message("diagnostic.unsupported-syntax", configuration.product, this)
             else -> XpmBundle.message("diagnostic.unsupported-syntax-name", configuration.product, this, conformanceName)
         }

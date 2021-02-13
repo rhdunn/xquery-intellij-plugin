@@ -48,25 +48,6 @@ private class XQueryConformanceTest : ParserTestCase() {
 
     fun parseResource(resource: String): XQueryModule = res.toPsiFile(resource, project)
 
-    // region Annotation
-
-    @Test
-    fun testAnnotation() {
-        val file = parseResource("tests/parser/xquery-3.0/Annotation.xq")
-
-        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val annotationPsi = annotatedDeclPsi.children().filterIsInstance<XQueryAnnotation>().first()
-        val versioned = annotationPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(2))
-        assertThat(versioned.requiresConformance[0], `is`(XQuerySpec.REC_3_0_20140408))
-        assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XQueryTokenType.ANNOTATION_INDICATOR))
-    }
-
-    // endregion
     // region AnyArrayTest
 
     @Test
