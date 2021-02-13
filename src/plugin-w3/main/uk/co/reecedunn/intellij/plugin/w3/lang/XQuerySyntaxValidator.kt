@@ -52,6 +52,7 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
             else -> {
             }
         }
+        is XPathAnyArrayTest -> reporter.requires(element, XQUERY_3_1)
         is XPathArrowFunctionSpecifier -> when (element.conformanceElement.elementType) {
             XPathTokenType.THIN_ARROW -> reporter.requires(element, XQUERY_4_0)
             else -> reporter.requires(element, XQUERY_3_1_OR_MARKLOGIC_9)
@@ -70,6 +71,7 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
     }
 
     private val XQUERY_3_0 = XpmRequiresLanguageVersion(XQuery.VERSION_3_0)
+    private val XQUERY_3_1 = XpmRequiresLanguageVersion(XQuery.VERSION_3_1)
     private val XQUERY_4_0 = XpmRequiresLanguageVersion(XQuery.VERSION_4_0)
 
     private val XQUERY_3_0_OR_MARKLOGIC_6 = XpmRequiresLanguageOrMarkLogic(

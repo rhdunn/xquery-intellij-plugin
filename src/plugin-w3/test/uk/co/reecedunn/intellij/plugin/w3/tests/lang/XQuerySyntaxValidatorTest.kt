@@ -249,7 +249,7 @@ class XQuerySyntaxValidatorTest :
         @DisplayName("XQuery 4.0 ED EBNF (142) ArrowStaticFunction")
         internal inner class ArrowStaticFunction {
             @Test
-            @DisplayName("XQuery >= 4.0")
+            @DisplayName("XQuery >= 3.1")
             fun xquery_supported() {
                 val file = parse<XQueryModule>("1 => f()")[0]
                 validator.configuration = XQUERY_3_1
@@ -258,7 +258,7 @@ class XQuerySyntaxValidatorTest :
             }
 
             @Test
-            @DisplayName("XQuery < 4.0")
+            @DisplayName("XQuery < 3.1")
             fun xquery_notSupported() {
                 val file = parse<XQueryModule>("1 => f()")[0]
                 validator.configuration = XQUERY_1_0
@@ -295,7 +295,7 @@ class XQuerySyntaxValidatorTest :
         @DisplayName("XQuery 4.0 ED EBNF (143) ArrowDynamicFunction")
         internal inner class ArrowDynamicFunction {
             @Test
-            @DisplayName("XQuery >= 4.0")
+            @DisplayName("XQuery >= 3.1")
             fun xquery_supported() {
                 val file = parse<XQueryModule>("1 => \$f()")[0]
                 validator.configuration = XQUERY_3_1
@@ -304,7 +304,7 @@ class XQuerySyntaxValidatorTest :
             }
 
             @Test
-            @DisplayName("XQuery < 4.0")
+            @DisplayName("XQuery < 3.1")
             fun xquery_notSupported() {
                 val file = parse<XQueryModule>("1 => \$f()")[0]
                 validator.configuration = XQUERY_1_0
@@ -335,6 +335,31 @@ class XQuerySyntaxValidatorTest :
                     `is`("E XPST0003(2:4): MarkLogic 5.0 does not support XQuery 3.1, or MarkLogic 9.0 constructs.")
                 )
             }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.1 EBNF (213) ArrayTest ; XQuery 3.1 EBNF (214) AnyArrayTest")
+    internal inner class AnyArrayTest {
+        @Test
+        @DisplayName("XQuery >= 3.1")
+        fun xquery_supported() {
+            val file = parse<XQueryModule>("1 instance of array(*)")[0]
+            validator.configuration = XQUERY_3_1
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("XQuery < 3.1")
+        fun xquery_notSupported() {
+            val file = parse<XQueryModule>("1 instance of array(*)")[0]
+            validator.configuration = XQUERY_1_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(
+                report.toString(),
+                `is`("E XPST0003(14:19): XQuery version string '1.0' does not support XQuery 3.1 constructs.")
+            )
         }
     }
 
