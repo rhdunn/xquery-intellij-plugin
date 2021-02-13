@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2020 Reece H. Dunn
+ * Copyright (C) 2016-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -63,39 +63,6 @@ private class XQueryConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.K_MAP))
-    }
-
-    // endregion
-    // region ArgumentList
-
-    @Test
-    fun testArgumentList_FunctionCall() {
-        val file = parseResource("tests/parser/xquery-1.0/FunctionCall_ArgumentList_Empty.xq")
-
-        val functionCallPsi = file.descendants().filterIsInstance<XPathFunctionCall>().first()
-        val argumentListPsi = functionCallPsi.children().filterIsInstance<XPathArgumentList>().first()
-        val versioned = argumentListPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.PARENTHESIS_OPEN))
-    }
-
-    @Test
-    fun testArgumentList_PostfixExpr() {
-        val file = parseResource("tests/parser/xquery-3.0/PostfixExpr_ArgumentList.xq")
-
-        val postfixExprPsi = file.descendants().filterIsInstance<XPathPostfixExpr>().first()
-        val argumentListPsi = postfixExprPsi.children().filterIsInstance<XPathArgumentList>().first()
-        val versioned = argumentListPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(2))
-        assertThat(versioned.requiresConformance[0], `is`(XQuerySpec.REC_3_0_20140408))
-        assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.PARENTHESIS_OPEN))
     }
 
     // endregion

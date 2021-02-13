@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,11 +24,15 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNodeItem
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginDynamicFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPredicate
 
-class PluginDynamicFunctionCallPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginDynamicFunctionCall {
+class PluginDynamicFunctionCallPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node),
+    PluginDynamicFunctionCall,
+    XpmSyntaxValidationElement {
     // region XpmPathStep
 
     override val axisType: XpmAxisType = XpmAxisType.Self
@@ -50,6 +54,12 @@ class PluginDynamicFunctionCallPsiImpl(node: ASTNode) : ASTWrapperPsiElement(nod
 
     override val functionReference: XpmFunctionReference?
         get() = children().filterIsInstance<XpmFunctionReference>().firstOrNull()
+
+    // endregion
+    // region XpmSyntaxValidationElement
+
+    override val conformanceElement: PsiElement
+        get() = expressionElement.firstChild
 
     // endregion
 }

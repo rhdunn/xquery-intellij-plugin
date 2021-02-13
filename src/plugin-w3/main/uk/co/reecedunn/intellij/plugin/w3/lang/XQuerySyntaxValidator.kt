@@ -19,6 +19,7 @@ import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.marklogic.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.w3.lang.requires.XpmRequiresLanguageOrMarkLogic
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowInlineFunctionCall
+import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginDynamicFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
@@ -40,6 +41,7 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
         reporter: XpmSyntaxErrorReporter
     ): Unit = when (element) {
         is PluginArrowInlineFunctionCall -> reporter.requires(element, XQUERY_4_0)
+        is PluginDynamicFunctionCall -> reporter.requires(element, XQUERY_3_0_OR_MARKLOGIC_6)
         is XQueryAllowingEmpty -> reporter.requires(element, XQUERY_3_0)
         is XQueryAnnotation -> reporter.requires(element, XQUERY_3_0_OR_MARKLOGIC_6)
         is XQueryDefaultNamespaceDecl -> when (element.conformanceElement.elementType) {
