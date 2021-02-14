@@ -411,19 +411,25 @@ class XQuerySyntaxValidatorTest :
         @Test
         @DisplayName("XQuery < 3.0")
         fun xquery_notSupported() {
-            val file = parse<XQueryModule>("function () { 2 }")[0]
+            val file = parse<XQueryModule>("function () { 2 } , %public function () { 2 }")[0]
             validator.configuration = XQUERY_1_0
             validator.validate(file, this@XQuerySyntaxValidatorTest)
             assertThat(
                 report.toString(),
-                `is`("E XPST0003(0:8): XQuery version string '1.0' does not support XQuery 3.0, or MarkLogic 6.0 constructs.")
+                `is`(
+                    """
+                    E XPST0003(0:8): XQuery version string '1.0' does not support XQuery 3.0, or MarkLogic 6.0 constructs.
+                    E XPST0003(28:36): XQuery version string '1.0' does not support XQuery 3.0, or MarkLogic 6.0 constructs.
+                    E XPST0003(20:21): XQuery version string '1.0' does not support XQuery 3.0, or MarkLogic 6.0 constructs.
+                    """.trimIndent()
+                )
             )
         }
 
         @Test
         @DisplayName("XQuery >= 3.0")
         fun xquery_supported() {
-            val file = parse<XQueryModule>("function () { 2 }")[0]
+            val file = parse<XQueryModule>("function () { 2 } , %public function () { 2 }")[0]
             validator.configuration = XQUERY_3_0
             validator.validate(file, this@XQuerySyntaxValidatorTest)
             assertThat(report.toString(), `is`(""))
@@ -432,7 +438,7 @@ class XQuerySyntaxValidatorTest :
         @Test
         @DisplayName("MarkLogic >= 6.0")
         fun marklogic_supported() {
-            val file = parse<XQueryModule>("function () { 2 }")[0]
+            val file = parse<XQueryModule>("function () { 2 } , %public function () { 2 }")[0]
             validator.configuration = XQUERY_1_0_ML_WITH_MARKLOGIC_9
             validator.validate(file, this@XQuerySyntaxValidatorTest)
             assertThat(report.toString(), `is`(""))
@@ -441,12 +447,18 @@ class XQuerySyntaxValidatorTest :
         @Test
         @DisplayName("MarkLogic < 6.0")
         fun marklogic_notSupported() {
-            val file = parse<XQueryModule>("function () { 2 }")[0]
+            val file = parse<XQueryModule>("function () { 2 } , %public function () { 2 }")[0]
             validator.configuration = XQUERY_1_0_ML_WITH_MARKLOGIC_5
             validator.validate(file, this@XQuerySyntaxValidatorTest)
             assertThat(
                 report.toString(),
-                `is`("E XPST0003(0:8): MarkLogic 5.0 does not support XQuery 3.0, or MarkLogic 6.0 constructs.")
+                `is`(
+                    """
+                    E XPST0003(0:8): MarkLogic 5.0 does not support XQuery 3.0, or MarkLogic 6.0 constructs.
+                    E XPST0003(28:36): MarkLogic 5.0 does not support XQuery 3.0, or MarkLogic 6.0 constructs.
+                    E XPST0003(20:21): MarkLogic 5.0 does not support XQuery 3.0, or MarkLogic 6.0 constructs.
+                    """.trimIndent()
+                )
             )
         }
     }
@@ -974,7 +986,7 @@ class XQuerySyntaxValidatorTest :
         @Test
         @DisplayName("XQuery < 4.0")
         fun xquery_notSupported() {
-            val file = parse<XQueryModule>("-> () { 2 } , -> { 2 }")[0]
+            val file = parse<XQueryModule>("-> () { 2 } , -> { 2 } , %public -> { 2 }")[0]
             validator.configuration = XQUERY_1_0
             validator.validate(file, this@XQuerySyntaxValidatorTest)
             assertThat(
@@ -983,6 +995,8 @@ class XQuerySyntaxValidatorTest :
                     """
                     E XPST0003(0:2): XQuery version string '1.0' does not support XQuery 4.0 constructs.
                     E XPST0003(14:16): XQuery version string '1.0' does not support XQuery 4.0 constructs.
+                    E XPST0003(33:35): XQuery version string '1.0' does not support XQuery 4.0 constructs.
+                    E XPST0003(25:26): XQuery version string '1.0' does not support XQuery 3.0, or MarkLogic 6.0 constructs.
                     """.trimIndent()
                 )
             )
@@ -991,7 +1005,7 @@ class XQuerySyntaxValidatorTest :
         @Test
         @DisplayName("XQuery >= 4.0")
         fun xquery_supported() {
-            val file = parse<XQueryModule>("-> () { 2 } , -> { 2 }")[0]
+            val file = parse<XQueryModule>("-> () { 2 } , -> { 2 } , %public -> { 2 }")[0]
             validator.configuration = XQUERY_4_0
             validator.validate(file, this@XQuerySyntaxValidatorTest)
             assertThat(report.toString(), `is`(""))
