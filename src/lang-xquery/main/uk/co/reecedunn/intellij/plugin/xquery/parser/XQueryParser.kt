@@ -3666,7 +3666,7 @@ class XQueryParser : XPathParser() {
         } else if (haveAnnotations) {
             builder.error(XPathBundle.message("parser.error.expected-keyword", "function"))
 
-            marker.done(XPathElementType.INLINE_FUNCTION_EXPR)
+            marker.drop()
             return true
         }
 

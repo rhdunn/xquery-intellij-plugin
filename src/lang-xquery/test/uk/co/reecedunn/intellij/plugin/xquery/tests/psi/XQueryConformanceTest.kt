@@ -651,19 +651,6 @@ private class XQueryConformanceTest : ParserTestCase() {
         assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.K_FUNCTION))
     }
 
-    @Test
-    fun testInlineFunctionExpr_AnnotationOnly() {
-        val file = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr_Annotation_MissingFunctionKeyword.xq")
-
-        val inlineFunctionExprPsi = file.descendants().filterIsInstance<XPathInlineFunctionExpr>().first()
-        val versioned = inlineFunctionExprPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XQueryElementType.ANNOTATION))
-    }
-
     // endregion
     // region TumblingWindowClause
 
