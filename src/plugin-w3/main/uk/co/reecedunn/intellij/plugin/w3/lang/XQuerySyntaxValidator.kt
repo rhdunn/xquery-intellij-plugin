@@ -40,6 +40,7 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
         is PluginArrowInlineFunctionCall -> reporter.requires(element, XQUERY_4_0)
         is PluginDynamicFunctionCall -> reporter.requires(element, XQUERY_3_0_OR_MARKLOGIC_6)
         is XQueryAllowingEmpty -> reporter.requires(element, XQUERY_3_0)
+        is XQueryContextItemDecl -> reporter.requires(element, XQUERY_3_0)
         is XQueryAnnotation -> reporter.requires(element, XQUERY_3_0_OR_MARKLOGIC_6)
         is XQueryCompNamespaceConstructor -> reporter.requires(element, XQUERY_3_0_OR_MARKLOGIC_6)
         is XQueryDefaultNamespaceDecl -> when (element.conformanceElement.elementType) {

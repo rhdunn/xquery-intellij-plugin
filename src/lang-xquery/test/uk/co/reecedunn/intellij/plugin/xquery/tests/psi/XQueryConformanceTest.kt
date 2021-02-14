@@ -66,23 +66,6 @@ private class XQueryConformanceTest : ParserTestCase() {
     }
 
     // endregion
-    // region ContextItemDecl
-
-    @Test
-    fun testContextItemDecl() {
-        val file = parseResource("tests/parser/xquery-3.0/ContextItemDecl.xq")
-
-        val contextItemDeclPsi = file.descendants().filterIsInstance<XQueryContextItemDecl>().first()
-        val versioned = contextItemDeclPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`(XQuerySpec.REC_3_0_20140408))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XQueryTokenType.K_CONTEXT))
-    }
-
-    // endregion
     // region SquareArrayConstructor
 
     @Test

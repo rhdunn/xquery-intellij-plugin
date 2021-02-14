@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017 Reece H. Dunn
+ * Copyright (C) 2016-2018, 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,13 +23,16 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
 class XQueryContextItemDeclPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), XQueryContextItemDecl, VersionConformance {
-
-    override val requiresConformance: List<Version>
-        get() = listOf(XQuerySpec.REC_3_0_20140408)
+    ASTWrapperPsiElement(node),
+    XQueryContextItemDecl,
+    XpmSyntaxValidationElement {
+    // region XpmSyntaxValidationElement
 
     override val conformanceElement: PsiElement
         get() = findChildByType(XQueryTokenType.K_CONTEXT) ?: firstChild
+
+    // endregion
 }

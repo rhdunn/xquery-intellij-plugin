@@ -218,6 +218,31 @@ class XQuerySyntaxValidatorTest :
     }
 
     @Nested
+    @DisplayName("XQuery 3.0 EBNF (31) ContextItemDecl")
+    internal inner class ContextItemDecl {
+        @Test
+        @DisplayName("XQuery >= 3.0")
+        fun xquery_supported() {
+            val file = parse<XQueryModule>("declare context item := 2;")[0]
+            validator.configuration = XQUERY_3_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("XQuery < 3.0")
+        fun xquery_notSupported() {
+            val file = parse<XQueryModule>("declare context item := 2;")[0]
+            validator.configuration = XQUERY_1_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(
+                report.toString(),
+                `is`("E XPST0003(8:15): XQuery version string '1.0' does not support XQuery 3.0 constructs.")
+            )
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.0 EBNF (46) AllowingEmpty")
     internal inner class AllowingEmpty {
         @Test
