@@ -1371,23 +1371,6 @@ private class XQueryConformanceTest : ParserTestCase() {
     }
 
     // endregion
-    // region UnaryLookup
-
-    @Test
-    fun testUnaryLookup() {
-        val file = parseResource("tests/parser/xquery-3.1/UnaryLookup_NCName.xq")
-
-        val unaryLookupPsi = file.walkTree().filterIsInstance<XPathUnaryLookup>().first()
-        val versioned = unaryLookupPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`(XQuerySpec.REC_3_1_20170321))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.OPTIONAL))
-    }
-
-    // endregion
     // region ValidateExpr
 
     @Test

@@ -82,6 +82,7 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
         is XPathKeywordArgument -> reporter.requires(element, XQUERY_4_0)
         is XPathLookup -> reporter.requires(element, XQUERY_3_1)
         is XPathSquareArrayConstructor -> reporter.requires(element, XQUERY_3_1)
+        is XPathUnaryLookup -> reporter.requires(element, XQUERY_3_1)
         is XPathWithExpr -> reporter.requires(element, XQUERY_4_0)
         else -> {
         }
