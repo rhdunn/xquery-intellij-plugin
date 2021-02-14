@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017, 2020 Reece H. Dunn
+ * Copyright (C) 2016-2018, 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,19 +19,22 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathSquareArrayConstructor
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
 class XPathSquareArrayConstructorPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), XPathSquareArrayConstructor, VersionConformance {
+    ASTWrapperPsiElement(node),
+    XPathSquareArrayConstructor,
+    XpmSyntaxValidationElement {
+    // region XpmExpression
 
     override val expressionElement: PsiElement
         get() = this
 
-    override val requiresConformance: List<Version>
-        get() = listOf(XQuerySpec.REC_3_1_20170321)
+    // endregion
+    // region XpmSyntaxValidationElement
 
     override val conformanceElement: PsiElement
         get() = firstChild
+
+    // endregion
 }

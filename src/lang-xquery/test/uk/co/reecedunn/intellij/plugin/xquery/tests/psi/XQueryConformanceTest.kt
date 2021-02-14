@@ -66,23 +66,6 @@ private class XQueryConformanceTest : ParserTestCase() {
     }
 
     // endregion
-    // region SquareArrayConstructor
-
-    @Test
-    fun testSquareArrayConstructor() {
-        val file = parseResource("tests/parser/xquery-3.1/SquareArrayConstructor.xq")
-
-        val squareArrayConstructorPsi = file.descendants().filterIsInstance<XPathSquareArrayConstructor>().first()
-        val versioned = squareArrayConstructorPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`(XQuerySpec.REC_3_1_20170321))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.SQUARE_OPEN))
-    }
-
-    // endregion
     // region CurlyArrayConstructor
 
     @Test
