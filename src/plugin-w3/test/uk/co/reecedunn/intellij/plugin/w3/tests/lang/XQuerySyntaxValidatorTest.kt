@@ -268,6 +268,31 @@ class XQuerySyntaxValidatorTest :
     }
 
     @Nested
+    @DisplayName("XQuery 3.0 EBNF (51) TumblingWindowClause")
+    internal inner class TumblingWindowClause {
+        @Test
+        @DisplayName("XQuery < 3.0")
+        fun notSupported() {
+            val file = parse<XQueryModule>("for tumbling window \$x in \$y start when true() return \$x")[0]
+            validator.configuration = XQUERY_1_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(
+                report.toString(),
+                `is`("E XPST0003(4:12): XQuery version string '1.0' does not support XQuery 3.0 constructs.")
+            )
+        }
+
+        @Test
+        @DisplayName("XQuery >= 3.0")
+        fun supported() {
+            val file = parse<XQueryModule>("for tumbling window \$x in \$y start when true() return \$x")[0]
+            validator.configuration = XQUERY_3_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.0 EBNF (120) PostfixExpr ; XQuery 3.0 EBNF (121) ArgumentList")
     internal inner class PostfixExpr_ArgumentList {
         @Test

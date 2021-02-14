@@ -634,24 +634,6 @@ private class XQueryConformanceTest : ParserTestCase() {
     }
 
     // endregion
-    // region TumblingWindowClause
-
-    @Test
-    fun testTumblingWindowClause() {
-        val file = parseResource("tests/parser/xquery-3.0/TumblingWindowClause.xq")
-
-        val windowClausePsi = file.descendants().filterIsInstance<XQueryWindowClause>().first()
-        val tumblingWindowClausePsi = windowClausePsi.children().filterIsInstance<XQueryTumblingWindowClause>().first()
-        val versioned = tumblingWindowClausePsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`(XQuerySpec.REC_3_0_20140408))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XQueryTokenType.K_TUMBLING))
-    }
-
-    // endregion
     // region SlidingWindowClause
 
     @Test
