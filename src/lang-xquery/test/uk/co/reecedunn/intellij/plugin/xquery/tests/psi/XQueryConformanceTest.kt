@@ -1073,24 +1073,6 @@ private class XQueryConformanceTest : ParserTestCase() {
     }
 
     // endregion
-    // region UnaryLookup
-
-    @Test
-    fun testLookup() {
-        val file = parseResource("tests/parser/xquery-3.1/Lookup_NCName.xq")
-
-        val postfixExprPsi = file.descendants().filterIsInstance<XPathPostfixExpr>().first()
-        val lookupPsi = postfixExprPsi.children().filterIsInstance<XPathLookup>().first()
-        val versioned = lookupPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`(XQuerySpec.REC_3_1_20170321))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.OPTIONAL))
-    }
-
-    // endregion
     // region MapConstructor
 
     @Test

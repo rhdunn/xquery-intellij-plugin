@@ -702,6 +702,31 @@ class XQuerySyntaxValidatorTest :
     }
 
     @Nested
+    @DisplayName("XQuery 3.1 EBNF (125) Lookup")
+    internal inner class Lookup_XQuery31 {
+        @Test
+        @DisplayName("XQuery >= 3.1")
+        fun xquery_supported() {
+            val file = parse<XQueryModule>(".?2")[0]
+            validator.configuration = XQUERY_3_1
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("XQuery < 3.1")
+        fun xquery_notSupported() {
+            val file = parse<XQueryModule>(".?2")[0]
+            validator.configuration = XQUERY_1_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(
+                report.toString(),
+                `is`("E XPST0003(1:2): XQuery version string '1.0' does not support XQuery 3.1 constructs.")
+            )
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.1 EBNF (175) SquareArrayConstructor")
     internal inner class SquareArrayConstructor {
         @Test
@@ -950,14 +975,17 @@ class XQuerySyntaxValidatorTest :
 
     @Nested
     @DisplayName("XQuery 4.0 ED EBNF (140) Lookup ; XQuery 4.0 ED EBNF (141) KeySpecifier")
-    internal inner class Lookup {
+    internal inner class Lookup_XQuery40 {
         @Test
         @DisplayName("NCName")
         fun ncname() {
             val file = parse<XQueryModule>(".?test")[0]
             validator.configuration = XQUERY_1_0
             validator.validate(file, this@XQuerySyntaxValidatorTest)
-            assertThat(report.toString(), `is`(""))
+            assertThat(
+                report.toString(),
+                `is`("E XPST0003(1:2): XQuery version string '1.0' does not support XQuery 3.1 constructs.")
+            )
         }
 
         @Test
@@ -966,7 +994,10 @@ class XQuerySyntaxValidatorTest :
             val file = parse<XQueryModule>(".?2")[0]
             validator.configuration = XQUERY_1_0
             validator.validate(file, this@XQuerySyntaxValidatorTest)
-            assertThat(report.toString(), `is`(""))
+            assertThat(
+                report.toString(),
+                `is`("E XPST0003(1:2): XQuery version string '1.0' does not support XQuery 3.1 constructs.")
+            )
         }
 
         @Test
@@ -977,7 +1008,12 @@ class XQuerySyntaxValidatorTest :
             validator.validate(file, this@XQuerySyntaxValidatorTest)
             assertThat(
                 report.toString(),
-                `is`("E XPST0003(2:8): XQuery version string '1.0' does not support XQuery 4.0 constructs.")
+                `is`(
+                    """
+                    E XPST0003(1:2): XQuery version string '1.0' does not support XQuery 3.1 constructs.
+                    E XPST0003(2:8): XQuery version string '1.0' does not support XQuery 4.0 constructs.
+                    """.trimIndent()
+                )
             )
         }
 
@@ -998,7 +1034,12 @@ class XQuerySyntaxValidatorTest :
             validator.validate(file, this@XQuerySyntaxValidatorTest)
             assertThat(
                 report.toString(),
-                `is`("E XPST0003(2:7): XQuery version string '1.0' does not support XQuery 4.0 constructs.")
+                `is`(
+                    """
+                    E XPST0003(1:2): XQuery version string '1.0' does not support XQuery 3.1 constructs.
+                    E XPST0003(2:7): XQuery version string '1.0' does not support XQuery 4.0 constructs.
+                    """.trimIndent()
+                )
             )
         }
 
@@ -1017,7 +1058,10 @@ class XQuerySyntaxValidatorTest :
             val file = parse<XQueryModule>(".?(2)")[0]
             validator.configuration = XQUERY_1_0
             validator.validate(file, this@XQuerySyntaxValidatorTest)
-            assertThat(report.toString(), `is`(""))
+            assertThat(
+                report.toString(),
+                `is`("E XPST0003(1:2): XQuery version string '1.0' does not support XQuery 3.1 constructs.")
+            )
         }
 
         @Test
@@ -1026,7 +1070,10 @@ class XQuerySyntaxValidatorTest :
             val file = parse<XQueryModule>(".?*")[0]
             validator.configuration = XQUERY_1_0
             validator.validate(file, this@XQuerySyntaxValidatorTest)
-            assertThat(report.toString(), `is`(""))
+            assertThat(
+                report.toString(),
+                `is`("E XPST0003(1:2): XQuery version string '1.0' does not support XQuery 3.1 constructs.")
+            )
         }
     }
 
