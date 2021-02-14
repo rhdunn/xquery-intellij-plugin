@@ -67,6 +67,11 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
             }
         }
         is XPathEnumerationType -> reporter.requires(element, XQUERY_4_0)
+        is XPathInlineFunctionExpr -> when (element.conformanceElement.elementType) {
+            XPathTokenType.K_FUNCTION -> reporter.requires(element, XQUERY_3_0_OR_MARKLOGIC_6)
+            else -> {
+            }
+        }
         is XPathKeySpecifier -> when (element.conformanceElement.elementType) {
             XPathElementType.STRING_LITERAL -> reporter.requires(element, XQUERY_4_0)
             XPathElementType.VAR_REF -> reporter.requires(element, XQUERY_4_0)

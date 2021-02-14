@@ -634,24 +634,6 @@ private class XQueryConformanceTest : ParserTestCase() {
     }
 
     // endregion
-    // region InlineFunctionExpr
-
-    @Test
-    fun testInlineFunctionExpr() {
-        val file = parseResource("tests/parser/xquery-3.0/InlineFunctionExpr.xq")
-
-        val inlineFunctionExprPsi = file.descendants().filterIsInstance<XPathInlineFunctionExpr>().first()
-        val versioned = inlineFunctionExprPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(2))
-        assertThat(versioned.requiresConformance[0], `is`(XQuerySpec.REC_3_0_20140408))
-        assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.K_FUNCTION))
-    }
-
-    // endregion
     // region TumblingWindowClause
 
     @Test
