@@ -66,23 +66,6 @@ private class XQueryConformanceTest : ParserTestCase() {
     }
 
     // endregion
-    // region CurlyArrayConstructor
-
-    @Test
-    fun testCurlyArrayConstructor() {
-        val file = parseResource("tests/parser/xquery-3.1/CurlyArrayConstructor.xq")
-
-        val curlyArrayConstructorPsi = file.descendants().filterIsInstance<XPathCurlyArrayConstructor>().first()
-        val versioned = curlyArrayConstructorPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`(XQuerySpec.REC_3_1_20170321))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.K_ARRAY))
-    }
-
-    // endregion
     // region DecimalFormatDecl
 
     @Test

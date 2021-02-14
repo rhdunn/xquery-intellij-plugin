@@ -61,6 +61,11 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
             else -> reporter.requires(element, XQUERY_3_1_OR_MARKLOGIC_9)
         }
         is XPathBracedURILiteral -> reporter.requires(element, XQUERY_3_0_OR_MARKLOGIC_6)
+        is XPathCurlyArrayConstructor -> when (element.conformanceElement.elementType) {
+            XPathTokenType.K_ARRAY -> reporter.requires(element, XQUERY_3_1)
+            else -> {
+            }
+        }
         is XPathEnumerationType -> reporter.requires(element, XQUERY_4_0)
         is XPathKeySpecifier -> when (element.conformanceElement.elementType) {
             XPathElementType.STRING_LITERAL -> reporter.requires(element, XQUERY_4_0)

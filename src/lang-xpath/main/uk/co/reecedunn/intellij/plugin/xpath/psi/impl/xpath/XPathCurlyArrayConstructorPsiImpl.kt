@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017, 2020 Reece H. Dunn
+ * Copyright (C) 2016-2018, 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,29 +18,23 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.core.psi.elementType
-import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathCurlyArrayConstructor
-import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
-private val XQUERY31: List<Version> = listOf(XQuerySpec.REC_3_1_20170321)
-private val MARKLOGIC80: List<Version> = listOf()
-
 class XPathCurlyArrayConstructorPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), XPathCurlyArrayConstructor, VersionConformance, XpmSyntaxValidationElement {
+    ASTWrapperPsiElement(node),
+    XPathCurlyArrayConstructor,
+    XpmSyntaxValidationElement {
+    // region XpmExpression
 
     override val expressionElement: PsiElement
         get() = this
 
-    override val requiresConformance: List<Version>
-        get() {
-            if (conformanceElement.elementType === XPathTokenType.K_ARRAY_NODE) {
-                return MARKLOGIC80
-            }
-            return XQUERY31
-        }
+    // endregion
+    // region XpmSyntaxValidationElement
 
     override val conformanceElement: PsiElement
         get() = firstChild
+
+    // endregion
 }
