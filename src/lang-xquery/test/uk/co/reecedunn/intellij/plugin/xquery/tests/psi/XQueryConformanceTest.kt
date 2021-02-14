@@ -1091,54 +1091,6 @@ private class XQueryConformanceTest : ParserTestCase() {
     }
 
     // endregion
-    // region NamedFunctionRef
-
-    @Test
-    fun testNamedFunctionRef_QName() {
-        val file = parseResource("tests/psi/xquery-3.0/NamedFunctionRef_QName.xq")
-
-        val namedFunctionRefPsi = file.descendants().filterIsInstance<XPathNamedFunctionRef>().first()
-        val versioned = namedFunctionRefPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(2))
-        assertThat(versioned.requiresConformance[0], `is`(XQuerySpec.REC_3_0_20140408))
-        assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.FUNCTION_REF_OPERATOR))
-    }
-
-    @Test
-    fun testNamedFunctionRef_NCName() {
-        val file = parseResource("tests/parser/xquery-3.0/NamedFunctionRef.xq")
-
-        val namedFunctionRefPsi = file.descendants().filterIsInstance<XPathNamedFunctionRef>().first()
-        val versioned = namedFunctionRefPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(2))
-        assertThat(versioned.requiresConformance[0], `is`(XQuerySpec.REC_3_0_20140408))
-        assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.FUNCTION_REF_OPERATOR))
-    }
-
-    @Test
-    fun testNamedFunctionRef_Keyword() {
-        val file = parseResource("tests/psi/xquery-3.0/NamedFunctionRef_Keyword.xq")
-
-        val namedFunctionRefPsi = file.descendants().filterIsInstance<XPathNamedFunctionRef>().first()
-        val versioned = namedFunctionRefPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(2))
-        assertThat(versioned.requiresConformance[0], `is`(XQuerySpec.REC_3_0_20140408))
-        assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.FUNCTION_REF_OPERATOR))
-    }
-
-    // endregion
     // region NamespaceNodeTest
 
     @Test

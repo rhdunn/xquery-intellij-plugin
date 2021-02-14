@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2020 Reece H. Dunn
+ * Copyright (C) 2016-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,22 +19,19 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathIntegerLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNamedFunctionRef
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsIntegerValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.toInt
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
 class XPathNamedFunctionRefPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XPathNamedFunctionRef,
-    VersionConformance {
-    // region VersionConformance
-
-    override val requiresConformance: List<Version>
-        get() = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
+    XpmSyntaxValidationElement {
+    // region XpmSyntaxValidationElement
 
     override val conformanceElement: PsiElement
         get() = findChildByType(XPathTokenType.FUNCTION_REF_OPERATOR) ?: this
