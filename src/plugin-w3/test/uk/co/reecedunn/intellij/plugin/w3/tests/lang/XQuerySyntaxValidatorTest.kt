@@ -407,7 +407,7 @@ class XQuerySyntaxValidatorTest :
 
     @Nested
     @DisplayName("XQuery 3.0 EBNF (165) InlineFunctionExpr")
-    internal inner class InlineFunctionExpr {
+    internal inner class InlineFunctionExpr_XQuery30 {
         @Test
         @DisplayName("XQuery < 3.0")
         fun xquery_notSupported() {
@@ -963,6 +963,36 @@ class XQuerySyntaxValidatorTest :
         fun wildcard() {
             val file = parse<XQueryModule>(".?*")[0]
             validator.configuration = XQUERY_1_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 4.0 ED EBNF (187) InlineFunctionExpr")
+    internal inner class InlineFunctionExpr_XQuery40 {
+        @Test
+        @DisplayName("XQuery < 4.0")
+        fun xquery_notSupported() {
+            val file = parse<XQueryModule>("-> () { 2 } , -> { 2 }")[0]
+            validator.configuration = XQUERY_1_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(
+                report.toString(),
+                `is`(
+                    """
+                    E XPST0003(0:2): XQuery version string '1.0' does not support XQuery 4.0 constructs.
+                    E XPST0003(14:16): XQuery version string '1.0' does not support XQuery 4.0 constructs.
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XQuery >= 4.0")
+        fun xquery_supported() {
+            val file = parse<XQueryModule>("-> () { 2 } , -> { 2 }")[0]
+            validator.configuration = XQUERY_4_0
             validator.validate(file, this@XQuerySyntaxValidatorTest)
             assertThat(report.toString(), `is`(""))
         }

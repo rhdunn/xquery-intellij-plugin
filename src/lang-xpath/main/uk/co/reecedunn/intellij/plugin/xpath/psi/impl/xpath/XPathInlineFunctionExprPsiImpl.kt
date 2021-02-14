@@ -38,7 +38,7 @@ class XPathInlineFunctionExprPsiImpl(node: ASTNode) :
     // region XpmSyntaxValidationElement
 
     override val conformanceElement: PsiElement
-        get() = findChildByType(XPathTokenType.K_FUNCTION) ?: firstChild
+        get() = findChildByType(XPathTokenType.INLINE_FUNCTION_TOKENS)!!
 
     // endregion
     // region XdmFunctionDeclaration
