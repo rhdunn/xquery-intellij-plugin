@@ -48,6 +48,7 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
             else -> {
             }
         }
+        is XQuerySlidingWindowClause -> reporter.requires(element, XQUERY_3_0)
         is XQueryTumblingWindowClause -> reporter.requires(element, XQUERY_3_0)
         is XQueryVersionDecl -> when (element.conformanceElement.elementType) {
             XQueryTokenType.K_ENCODING -> reporter.requires(element, XQUERY_3_0)

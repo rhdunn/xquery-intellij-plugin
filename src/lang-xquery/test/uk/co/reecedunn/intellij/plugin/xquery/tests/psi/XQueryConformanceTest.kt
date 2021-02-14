@@ -634,24 +634,6 @@ private class XQueryConformanceTest : ParserTestCase() {
     }
 
     // endregion
-    // region SlidingWindowClause
-
-    @Test
-    fun testSlidingWindowClause() {
-        val file = parseResource("tests/parser/xquery-3.0/SlidingWindowClause.xq")
-
-        val windowClausePsi = file.descendants().filterIsInstance<XQueryWindowClause>().first()
-        val slidingWindowClausePsi = windowClausePsi.children().filterIsInstance<XQuerySlidingWindowClause>().first()
-        val versioned = slidingWindowClausePsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`(XQuerySpec.REC_3_0_20140408))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XQueryTokenType.K_SLIDING))
-    }
-
-    // endregion
     // region IntermediateClause (ForClause)
 
     @Test
