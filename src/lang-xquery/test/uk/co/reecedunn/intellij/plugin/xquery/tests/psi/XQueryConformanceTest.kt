@@ -1091,23 +1091,6 @@ private class XQueryConformanceTest : ParserTestCase() {
     }
 
     // endregion
-    // region NamespaceNodeTest
-
-    @Test
-    fun testNamespaceNodeTest() {
-        val file = parseResource("tests/parser/xquery-3.0/NodeTest_NamespaceNodeTest.xq")
-
-        val namespaceNodeTestPsi = file.walkTree().filterIsInstance<XPathNamespaceNodeTest>().first()
-        val versioned = namespaceNodeTestPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`(XQuerySpec.REC_3_0_20140408))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.K_NAMESPACE_NODE))
-    }
-
-    // endregion
     // region ParenthesizedItemType
 
     @Nested
