@@ -410,6 +410,52 @@ class XQuerySyntaxValidatorTest :
     }
 
     @Nested
+    @DisplayName("XQuery 3.0 EBNF (78) TryCatchExpr ; XQuery 3.0 EBNF (79) TryClause")
+    internal inner class TryCatchExpr {
+        @Test
+        @DisplayName("XQuery < 3.0")
+        fun xquery_notSupported() {
+            val file = parse<XQueryModule>("try { 1 } catch * { 2 }")[0]
+            validator.configuration = XQUERY_1_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(
+                report.toString(),
+                `is`("E XPST0003(0:3): XQuery version string '1.0' does not support XQuery 3.0, or MarkLogic 6.0 constructs.")
+            )
+        }
+
+        @Test
+        @DisplayName("XQuery >= 3.0")
+        fun xquery_supported() {
+            val file = parse<XQueryModule>("try { 1 } catch * { 2 }")[0]
+            validator.configuration = XQUERY_3_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("MarkLogic >= 6.0")
+        fun marklogic_supported() {
+            val file = parse<XQueryModule>("try { 1 } catch * { 2 }")[0]
+            validator.configuration = XQUERY_1_0_ML_WITH_MARKLOGIC_9
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("MarkLogic < 6.0")
+        fun marklogic_notSupported() {
+            val file = parse<XQueryModule>("try { 1 } catch * { 2 }")[0]
+            validator.configuration = XQUERY_1_0_ML_WITH_MARKLOGIC_5
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(
+                report.toString(),
+                `is`("E XPST0003(0:3): MarkLogic 5.0 does not support XQuery 3.0, or MarkLogic 6.0 constructs.")
+            )
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.0 EBNF (86) StringConcatExpr")
     internal inner class StringConcatExpr {
         @Test
