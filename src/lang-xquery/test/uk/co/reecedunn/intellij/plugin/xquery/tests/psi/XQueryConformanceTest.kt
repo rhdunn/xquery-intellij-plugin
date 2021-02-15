@@ -1144,23 +1144,6 @@ private class XQueryConformanceTest : ParserTestCase() {
     }
 
     // endregion
-    // region TypedArrayTest
-
-    @Test
-    fun testTypedArrayTest() {
-        val file = parseResource("tests/parser/xquery-3.1/TypedArrayTest.xq")
-
-        val typedArrayTestPsi = file.walkTree().filterIsInstance<XPathTypedArrayTest>().first()
-        val versioned = typedArrayTestPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`(XQuerySpec.REC_3_1_20170321))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.K_ARRAY))
-    }
-
-    // endregion
     // region TypedFunctionTest
 
     @Test

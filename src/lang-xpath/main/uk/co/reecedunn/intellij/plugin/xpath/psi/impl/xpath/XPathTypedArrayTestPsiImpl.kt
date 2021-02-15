@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017, 2019-2020 Reece H. Dunn
+ * Copyright (C) 2016-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,14 +20,15 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathTypedArrayTest
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmArray
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
-class XPathTypedArrayTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathTypedArrayTest, VersionConformance {
+class XPathTypedArrayTestPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node),
+    XPathTypedArrayTest,
+    XpmSyntaxValidationElement {
     // region XPathTypedArrayTest
 
     override val memberType: XdmSequenceType
@@ -52,10 +53,7 @@ class XPathTypedArrayTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XP
     override val typeClass: Class<*> = XdmArray::class.java
 
     // endregion
-    // region VersionConformance
-
-    override val requiresConformance: List<Version>
-        get() = listOf(XQuerySpec.REC_3_1_20170321)
+    // region XpmSyntaxValidationElement
 
     override val conformanceElement: PsiElement
         get() = firstChild

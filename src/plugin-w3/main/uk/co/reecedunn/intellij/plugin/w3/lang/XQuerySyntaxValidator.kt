@@ -90,6 +90,7 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
         is XPathSimpleMapExpr -> reporter.requires(element, XQUERY_3_0_OR_MARKLOGIC_6)
         is XPathSquareArrayConstructor -> reporter.requires(element, XQUERY_3_1)
         is XPathStringConcatExpr -> reporter.requires(element, XQUERY_3_0_OR_MARKLOGIC_6)
+        is XPathTypedArrayTest -> reporter.requires(element, XQUERY_3_1)
         is XPathUnaryLookup -> reporter.requires(element, XQUERY_3_1)
         is XPathWithExpr -> reporter.requires(element, XQUERY_4_0)
         else -> {
