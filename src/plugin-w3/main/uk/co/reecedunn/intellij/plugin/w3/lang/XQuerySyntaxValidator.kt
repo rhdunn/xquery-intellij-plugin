@@ -54,6 +54,11 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
         is XQuerySwitchExpr -> reporter.requires(element, XQUERY_3_0_OR_MARKLOGIC_6)
         is XQueryTryClause -> reporter.requires(element, XQUERY_3_0_OR_MARKLOGIC_6)
         is XQueryTumblingWindowClause -> reporter.requires(element, XQUERY_3_0)
+        is XQueryValidateExpr -> when (element.conformanceElement.elementType) {
+            XPathTokenType.K_TYPE -> reporter.requires(element, XQUERY_3_0_OR_MARKLOGIC_6)
+            else -> {
+            }
+        }
         is XQueryVersionDecl -> when (element.conformanceElement.elementType) {
             XQueryTokenType.K_ENCODING -> reporter.requires(element, XQUERY_3_0)
             else -> {

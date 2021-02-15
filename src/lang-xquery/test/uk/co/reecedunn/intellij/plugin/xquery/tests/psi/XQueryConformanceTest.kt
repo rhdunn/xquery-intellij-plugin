@@ -1162,37 +1162,6 @@ private class XQueryConformanceTest : ParserTestCase() {
     }
 
     // endregion
-    // region ValidateExpr
-
-    @Test
-    fun testValidateExpr() {
-        val file = parseResource("tests/parser/xquery-1.0/ValidateExpr.xq")
-
-        val validateExprPsi = file.descendants().filterIsInstance<XQueryValidateExpr>().first()
-        val versioned = validateExprPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XQueryTokenType.K_VALIDATE))
-    }
-
-    @Test
-    fun testValidateExpr_Type() {
-        val file = parseResource("tests/parser/xquery-3.0/ValidateExpr_Type.xq")
-
-        val validateExprPsi = file.descendants().filterIsInstance<XQueryValidateExpr>().first()
-        val versioned = validateExprPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(2))
-        assertThat(versioned.requiresConformance[0], `is`(XQuerySpec.REC_3_0_20140408))
-        assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.K_TYPE))
-    }
-
-    // endregion
     // region VarDecl
 
     @Test
