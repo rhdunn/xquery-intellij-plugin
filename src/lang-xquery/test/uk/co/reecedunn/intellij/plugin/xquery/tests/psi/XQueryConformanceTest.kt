@@ -1144,24 +1144,6 @@ private class XQueryConformanceTest : ParserTestCase() {
     }
 
     // endregion
-    // region StringConcatExpr
-
-    @Test
-    fun testStringConcatExpr() {
-        val file = parseResource("tests/parser/xquery-3.0/StringConcatExpr.xq")
-
-        val stringConcatExprPsi = file.descendants().filterIsInstance<XPathStringConcatExpr>().first()
-        val versioned = stringConcatExprPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(2))
-        assertThat(versioned.requiresConformance[0], `is`(XQuerySpec.REC_3_0_20140408))
-        assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.CONCATENATION))
-    }
-
-    // endregion
     // region StringConstructor
 
     @Test
