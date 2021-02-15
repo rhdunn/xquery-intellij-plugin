@@ -23,21 +23,18 @@ import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.reverse
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
-import uk.co.reecedunn.intellij.plugin.intellij.lang.MarkLogic
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
-import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmFunction
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceTypeList
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathTypedFunctionTest
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-
-private val XQUERY30 = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
 class XPathTypedFunctionTestPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), XPathTypedFunctionTest, VersionConformance {
+    ASTWrapperPsiElement(node),
+    XPathTypedFunctionTest,
+    XpmSyntaxValidationElement {
     // region ASTDelegatePsiElement
 
     override fun subtreeChanged() {
@@ -84,10 +81,7 @@ class XPathTypedFunctionTestPsiImpl(node: ASTNode) :
     override val typeClass: Class<*> = XdmFunction::class.java
 
     // endregion
-    // region VersionConformance
-
-    override val requiresConformance: List<Version>
-        get() = XQUERY30
+    // region XpmSyntaxValidationElement
 
     override val conformanceElement: PsiElement
         get() = firstChild
