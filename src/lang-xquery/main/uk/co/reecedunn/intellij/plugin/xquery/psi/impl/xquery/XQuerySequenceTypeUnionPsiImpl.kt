@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017, 2019-2021 Reece H. Dunn
+ * Copyright (C) 2016-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,21 +23,18 @@ import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.reverse
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
-import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySequenceTypeUnion
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCaseClause
-import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSingleItemType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.filterNotWhitespace
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
-private val XQUERY30: List<Version> = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
-
 class XQuerySequenceTypeUnionPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), XQuerySequenceTypeUnion, VersionConformance, XpmSyntaxValidationElement {
+    ASTWrapperPsiElement(node),
+    XQuerySequenceTypeUnion,
+    XpmSyntaxValidationElement {
     // region ASTDelegatePsiElement
 
     override fun subtreeChanged() {
@@ -83,12 +80,6 @@ class XQuerySequenceTypeUnionPsiImpl(node: ASTNode) :
 
     // endregion
     // region VersionConformance
-
-    override val requiresConformance: List<Version>
-        get() = when (parent) {
-            is XQueryCaseClause -> XQUERY30
-            else -> listOf()
-        }
 
     override val conformanceElement: PsiElement
         get() = findChildByType(XPathTokenType.UNION)!!
