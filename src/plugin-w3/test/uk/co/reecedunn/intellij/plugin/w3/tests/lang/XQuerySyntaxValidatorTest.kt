@@ -986,6 +986,31 @@ class XQuerySyntaxValidatorTest :
     }
 
     @Nested
+    @DisplayName("XQuery 3.1 EBNF (177) StringConstructor")
+    internal inner class StringConstructor {
+        @Test
+        @DisplayName("XQuery >= 3.1")
+        fun xquery_supported() {
+            val file = parse<XQueryModule>("``[One `{ 2 }` Three]``")[0]
+            validator.configuration = XQUERY_3_1
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("XQuery < 3.1")
+        fun xquery_notSupported() {
+            val file = parse<XQueryModule>("``[One `{ 2 }` Three]``")[0]
+            validator.configuration = XQUERY_1_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(
+                report.toString(),
+                `is`("E XPST0003(0:3): XQuery version string '1.0' does not support XQuery 3.1 constructs.")
+            )
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.1 EBNF (181) UnaryLookup")
     internal inner class UnaryLookup_XQuery31 {
         @Test

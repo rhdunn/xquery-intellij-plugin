@@ -1144,23 +1144,6 @@ private class XQueryConformanceTest : ParserTestCase() {
     }
 
     // endregion
-    // region StringConstructor
-
-    @Test
-    fun testStringConstructor() {
-        val file = parseResource("tests/parser/xquery-3.1/StringConstructor.xq")
-
-        val stringConstructorPsi = file.descendants().filterIsInstance<XQueryStringConstructor>().first()
-        val versioned = stringConstructorPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`(XQuerySpec.REC_3_1_20170321))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XQueryTokenType.STRING_CONSTRUCTOR_START))
-    }
-
-    // endregion
     // region SwitchExpr
 
     @Test
