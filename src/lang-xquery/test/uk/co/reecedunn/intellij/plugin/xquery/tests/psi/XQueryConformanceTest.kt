@@ -1144,24 +1144,6 @@ private class XQueryConformanceTest : ParserTestCase() {
     }
 
     // endregion
-    // region SwitchExpr
-
-    @Test
-    fun testSwitchExpr() {
-        val file = parseResource("tests/parser/xquery-3.0/SwitchExpr.xq")
-
-        val switchExprPsi = file.descendants().filterIsInstance<XQuerySwitchExpr>().first()
-        val versioned = switchExprPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(2))
-        assertThat(versioned.requiresConformance[0], `is`(XQuerySpec.REC_3_0_20140408))
-        assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XQueryTokenType.K_SWITCH))
-    }
-
-    // endregion
     // region TryClause
 
     @Test

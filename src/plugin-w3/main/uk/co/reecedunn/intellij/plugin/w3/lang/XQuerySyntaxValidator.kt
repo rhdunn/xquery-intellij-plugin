@@ -51,6 +51,7 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
         is XQuerySequenceTypeUnion -> reporter.requires(element, XQUERY_3_0_OR_MARKLOGIC_6)
         is XQuerySlidingWindowClause -> reporter.requires(element, XQUERY_3_0)
         is XQueryStringConstructor -> reporter.requires(element, XQUERY_3_1)
+        is XQuerySwitchExpr -> reporter.requires(element, XQUERY_3_0_OR_MARKLOGIC_6)
         is XQueryTumblingWindowClause -> reporter.requires(element, XQUERY_3_0)
         is XQueryVersionDecl -> when (element.conformanceElement.elementType) {
             XQueryTokenType.K_ENCODING -> reporter.requires(element, XQUERY_3_0)
