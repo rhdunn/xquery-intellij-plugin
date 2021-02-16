@@ -19,7 +19,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.intellij.resources.XpmBundle
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
 import uk.co.reecedunn.intellij.plugin.xpm.lang.configuration.XpmLanguageConfiguration
 
-class XpmRequiresProductVersion(private val requires: XpmProductVersion) : XpmRequiresConformanceTo {
+open class XpmRequiresProductVersion(private val requires: XpmProductVersion) : XpmRequiresConformanceTo {
     override fun conformanceTo(configuration: XpmLanguageConfiguration): Boolean {
         return configuration.product.let { it.product === requires.product && it >= requires }
     }

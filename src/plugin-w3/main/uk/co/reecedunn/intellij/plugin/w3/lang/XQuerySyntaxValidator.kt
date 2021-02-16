@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.w3.lang
 
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.marklogic.lang.MarkLogic
-import uk.co.reecedunn.intellij.plugin.marklogic.lang.requires.XpmRequiresLanguageOrMarkLogic
+import uk.co.reecedunn.intellij.plugin.marklogic.lang.requires.XpmRequiresMarkLogic
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowInlineFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginDynamicFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
@@ -27,7 +27,6 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxErrorReporte
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires.XpmRequiresLanguageVersion
-import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires.XpmRequiresProductVersion
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
@@ -112,13 +111,11 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
     private val XQUERY_3_1 = XpmRequiresLanguageVersion(XQuery.VERSION_3_1)
     private val XQUERY_4_0 = XpmRequiresLanguageVersion(XQuery.VERSION_4_0)
 
-    private val XQUERY_3_0_OR_MARKLOGIC_6 = XpmRequiresLanguageOrMarkLogic(
-        XpmRequiresLanguageVersion(XQuery.VERSION_3_0),
-        XpmRequiresProductVersion(MarkLogic.VERSION_6)
+    private val XQUERY_3_0_OR_MARKLOGIC_6 = XpmRequiresMarkLogic(MarkLogic.VERSION_6).or(
+        XpmRequiresLanguageVersion(XQuery.VERSION_3_0)
     )
 
-    private val XQUERY_3_1_OR_MARKLOGIC_9 = XpmRequiresLanguageOrMarkLogic(
-        XpmRequiresLanguageVersion(XQuery.VERSION_3_1),
-        XpmRequiresProductVersion(MarkLogic.VERSION_9)
+    private val XQUERY_3_1_OR_MARKLOGIC_9 = XpmRequiresMarkLogic(MarkLogic.VERSION_9).or(
+        XpmRequiresLanguageVersion(XQuery.VERSION_3_1)
     )
 }
