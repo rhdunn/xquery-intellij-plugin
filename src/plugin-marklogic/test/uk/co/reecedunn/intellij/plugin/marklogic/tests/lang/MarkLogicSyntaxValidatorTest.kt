@@ -113,6 +113,60 @@ class MarkLogicSyntaxValidatorTest :
     private val VERSION_9 = XpmLanguageConfiguration(XQuery.VERSION_1_0, MarkLogic.VERSION_9)
 
     @Nested
+    @DisplayName("XQuery 3.1 EBNF (105) ArrowExpr ; XQuery 4.0 ED EBNF (108) FatArrowTarget")
+    internal inner class ArrowExpr {
+        @Nested
+        @DisplayName("XQuery 4.0 ED EBNF (142) ArrowStaticFunction")
+        internal inner class ArrowStaticFunction {
+            @Test
+            @DisplayName("MarkLogic >= 9.0")
+            fun marklogic_supported() {
+                val file = parse<XQueryModule>("1 => f()")[0]
+                validator.configuration = VERSION_9
+                validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+                assertThat(report.toString(), `is`(""))
+            }
+
+            @Test
+            @DisplayName("MarkLogic < 9.0")
+            fun marklogic_notSupported() {
+                val file = parse<XQueryModule>("1 => f()")[0]
+                validator.configuration = VERSION_5
+                validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+                assertThat(
+                    report.toString(),
+                    `is`("E XPST0003(2:4): MarkLogic 5.0 does not support MarkLogic 9.0 constructs.")
+                )
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 4.0 ED EBNF (143) ArrowDynamicFunction")
+        internal inner class ArrowDynamicFunction {
+            @Test
+            @DisplayName("MarkLogic >= 9.0")
+            fun marklogic_supported() {
+                val file = parse<XQueryModule>("1 => f()")[0]
+                validator.configuration = VERSION_9
+                validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+                assertThat(report.toString(), `is`(""))
+            }
+
+            @Test
+            @DisplayName("MarkLogic < 9.0")
+            fun marklogic_notSupported() {
+                val file = parse<XQueryModule>("1 => f()")[0]
+                validator.configuration = VERSION_5
+                validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+                assertThat(
+                    report.toString(),
+                    `is`("E XPST0003(2:4): MarkLogic 5.0 does not support MarkLogic 9.0 constructs.")
+                )
+            }
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery IntelliJ Plugin EBNF (25) ForwardAxis")
     internal inner class ForwardAxis {
         @Test

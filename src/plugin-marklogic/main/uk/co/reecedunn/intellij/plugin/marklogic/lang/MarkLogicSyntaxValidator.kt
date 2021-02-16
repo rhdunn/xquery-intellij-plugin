@@ -16,12 +16,12 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.lang
 
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
+import uk.co.reecedunn.intellij.plugin.marklogic.lang.requires.XpmRequiresMarkLogic
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxErrorReporter
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
-import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires.XpmRequiresProductVersion
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCatchClause
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryValidateExpr
@@ -74,6 +74,11 @@ object MarkLogicSyntaxValidator : XpmSyntaxValidator {
             else -> {
             }
         }
+        is XPathArrowFunctionSpecifier -> when (element.conformanceElement.elementType) {
+            XPathTokenType.ARROW -> reporter.requires(element, MARKLOGIC_9)
+            else -> {
+            }
+        }
         is XPathCurlyArrayConstructor -> when (element.conformanceElement.elementType) {
             XPathTokenType.K_ARRAY_NODE -> reporter.requires(element, MARKLOGIC_8)
             else -> {
@@ -119,7 +124,8 @@ object MarkLogicSyntaxValidator : XpmSyntaxValidator {
         }
     }
 
-    private val MARKLOGIC_6 = XpmRequiresProductVersion(MarkLogic.VERSION_6)
-    private val MARKLOGIC_7 = XpmRequiresProductVersion(MarkLogic.VERSION_7)
-    private val MARKLOGIC_8 = XpmRequiresProductVersion(MarkLogic.VERSION_8)
+    private val MARKLOGIC_6 = XpmRequiresMarkLogic(MarkLogic.VERSION_6)
+    private val MARKLOGIC_7 = XpmRequiresMarkLogic(MarkLogic.VERSION_7)
+    private val MARKLOGIC_8 = XpmRequiresMarkLogic(MarkLogic.VERSION_8)
+    private val MARKLOGIC_9 = XpmRequiresMarkLogic(MarkLogic.VERSION_9)
 }

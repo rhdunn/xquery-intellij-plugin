@@ -1106,7 +1106,7 @@ class XQuerySyntaxValidatorTest :
         internal inner class ArrowStaticFunction {
             @Test
             @DisplayName("XQuery >= 3.1")
-            fun xquery_supported() {
+            fun supported() {
                 val file = parse<XQueryModule>("1 => f()")[0]
                 validator.configuration = XQUERY_3_1
                 validator.validate(file, this@XQuerySyntaxValidatorTest)
@@ -1115,34 +1115,13 @@ class XQuerySyntaxValidatorTest :
 
             @Test
             @DisplayName("XQuery < 3.1")
-            fun xquery_notSupported() {
+            fun notSupported() {
                 val file = parse<XQueryModule>("1 => f()")[0]
                 validator.configuration = XQUERY_1_0
                 validator.validate(file, this@XQuerySyntaxValidatorTest)
                 assertThat(
                     report.toString(),
-                    `is`("E XPST0003(2:4): XQuery version string '1.0' does not support XQuery 3.1, or MarkLogic 9.0 constructs.")
-                )
-            }
-
-            @Test
-            @DisplayName("MarkLogic >= 9.0")
-            fun marklogic_supported() {
-                val file = parse<XQueryModule>("1 => f()")[0]
-                validator.configuration = XQUERY_1_0_ML_WITH_MARKLOGIC_9
-                validator.validate(file, this@XQuerySyntaxValidatorTest)
-                assertThat(report.toString(), `is`(""))
-            }
-
-            @Test
-            @DisplayName("MarkLogic < 9.0")
-            fun marklogic_notSupported() {
-                val file = parse<XQueryModule>("1 => f()")[0]
-                validator.configuration = XQUERY_1_0_ML_WITH_MARKLOGIC_5
-                validator.validate(file, this@XQuerySyntaxValidatorTest)
-                assertThat(
-                    report.toString(),
-                    `is`("E XPST0003(2:4): MarkLogic 5.0 does not support XQuery 3.1, or MarkLogic 9.0 constructs.")
+                    `is`("E XPST0003(2:4): XQuery version string '1.0' does not support XQuery 3.1 constructs.")
                 )
             }
         }
@@ -1152,7 +1131,7 @@ class XQuerySyntaxValidatorTest :
         internal inner class ArrowDynamicFunction {
             @Test
             @DisplayName("XQuery >= 3.1")
-            fun xquery_supported() {
+            fun supported() {
                 val file = parse<XQueryModule>("1 => \$f()")[0]
                 validator.configuration = XQUERY_3_1
                 validator.validate(file, this@XQuerySyntaxValidatorTest)
@@ -1161,34 +1140,13 @@ class XQuerySyntaxValidatorTest :
 
             @Test
             @DisplayName("XQuery < 3.1")
-            fun xquery_notSupported() {
+            fun notSupported() {
                 val file = parse<XQueryModule>("1 => \$f()")[0]
                 validator.configuration = XQUERY_1_0
                 validator.validate(file, this@XQuerySyntaxValidatorTest)
                 assertThat(
                     report.toString(),
-                    `is`("E XPST0003(2:4): XQuery version string '1.0' does not support XQuery 3.1, or MarkLogic 9.0 constructs.")
-                )
-            }
-
-            @Test
-            @DisplayName("MarkLogic >= 9.0")
-            fun marklogic_supported() {
-                val file = parse<XQueryModule>("1 => f()")[0]
-                validator.configuration = XQUERY_1_0_ML_WITH_MARKLOGIC_9
-                validator.validate(file, this@XQuerySyntaxValidatorTest)
-                assertThat(report.toString(), `is`(""))
-            }
-
-            @Test
-            @DisplayName("MarkLogic < 9.0")
-            fun marklogic_notSupported() {
-                val file = parse<XQueryModule>("1 => f()")[0]
-                validator.configuration = XQUERY_1_0_ML_WITH_MARKLOGIC_5
-                validator.validate(file, this@XQuerySyntaxValidatorTest)
-                assertThat(
-                    report.toString(),
-                    `is`("E XPST0003(2:4): MarkLogic 5.0 does not support XQuery 3.1, or MarkLogic 9.0 constructs.")
+                    `is`("E XPST0003(2:4): XQuery version string '1.0' does not support XQuery 3.1 constructs.")
                 )
             }
         }

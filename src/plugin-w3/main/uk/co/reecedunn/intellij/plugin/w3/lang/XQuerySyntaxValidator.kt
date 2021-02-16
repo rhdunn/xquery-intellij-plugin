@@ -73,7 +73,7 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
         is XPathArgumentPlaceholder -> reporter.requires(element, XQUERY_3_0_OR_MARKLOGIC_6)
         is XPathArrowFunctionSpecifier -> when (element.conformanceElement.elementType) {
             XPathTokenType.THIN_ARROW -> reporter.requires(element, XQUERY_4_0)
-            else -> reporter.requires(element, XQUERY_3_1_OR_MARKLOGIC_9)
+            else -> reporter.requires(element, XQUERY_3_1)
         }
         is XPathBracedURILiteral -> reporter.requires(element, XQUERY_3_0_OR_MARKLOGIC_6)
         is XPathCurlyArrayConstructor -> when (element.conformanceElement.elementType) {
@@ -113,9 +113,5 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
 
     private val XQUERY_3_0_OR_MARKLOGIC_6 = XpmRequiresMarkLogic(MarkLogic.VERSION_6).or(
         XpmRequiresLanguageVersion(XQuery.VERSION_3_0)
-    )
-
-    private val XQUERY_3_1_OR_MARKLOGIC_9 = XpmRequiresMarkLogic(MarkLogic.VERSION_9).or(
-        XpmRequiresLanguageVersion(XQuery.VERSION_3_1)
     )
 }
