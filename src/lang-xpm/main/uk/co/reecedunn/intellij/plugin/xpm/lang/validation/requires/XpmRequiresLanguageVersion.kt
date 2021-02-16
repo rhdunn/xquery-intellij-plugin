@@ -36,5 +36,9 @@ class XpmRequiresLanguageVersion(val requires: XpmLanguageVersion) : XpmRequires
         )
     }
 
+    override fun or(requires: XpmRequiresConformanceTo): XpmRequiresConformanceTo {
+        throw UnsupportedOperationException()
+    }
+
     override fun toString(): String = requires.toString()
 }

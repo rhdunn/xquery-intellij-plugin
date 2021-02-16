@@ -21,4 +21,6 @@ interface XpmRequiresConformanceTo {
     fun conformanceTo(configuration: XpmLanguageConfiguration): Boolean
 
     fun message(configuration: XpmLanguageConfiguration, conformanceName: String?): String
+
+    fun or(requires: XpmRequiresConformanceTo): XpmRequiresConformanceTo
 }

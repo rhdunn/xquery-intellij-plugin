@@ -46,5 +46,9 @@ class XpmRequiresLanguageOrMarkLogic(
         )
     }
 
+    override fun or(requires: XpmRequiresConformanceTo): XpmRequiresConformanceTo {
+        throw UnsupportedOperationException()
+    }
+
     override fun toString(): String = sequenceOf(languageVersion, requires).joinToString(XpmBundle.message("diagnostic.or"))
 }

@@ -31,5 +31,9 @@ class XpmRequiresAny(private vararg val requires: XpmRequiresConformanceTo) : Xp
         else -> XpmBundle.message("diagnostic.unsupported-syntax-name", configuration.product, this, conformanceName)
     }
 
+    override fun or(requires: XpmRequiresConformanceTo): XpmRequiresConformanceTo {
+        throw UnsupportedOperationException()
+    }
+
     override fun toString(): String = requires.joinToString(XpmBundle.message("diagnostic.or"))
 }

@@ -33,5 +33,9 @@ class XpmRequiresSpecificationVersion(private val requires: XpmSpecificationVers
         else -> XpmBundle.message("diagnostic.unsupported-syntax-name", configuration.product, this, conformanceName)
     }
 
+    override fun or(requires: XpmRequiresConformanceTo): XpmRequiresConformanceTo {
+        throw UnsupportedOperationException()
+    }
+
     override fun toString(): String = requires.toString()
 }

@@ -37,6 +37,10 @@ class XpmRequiresProductVersionRange(
         else -> XpmBundle.message("diagnostic.unsupported-syntax-name", configuration.product, this, conformanceName)
     }
 
+    override fun or(requires: XpmRequiresConformanceTo): XpmRequiresConformanceTo {
+        throw UnsupportedOperationException()
+    }
+
     override fun toString(): String {
         return "${from.product.presentation.presentableText} ${from.id}-${to.id}"
     }
