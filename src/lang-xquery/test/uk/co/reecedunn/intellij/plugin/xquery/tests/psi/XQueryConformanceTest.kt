@@ -1162,53 +1162,6 @@ private class XQueryConformanceTest : ParserTestCase() {
     }
 
     // endregion
-    // region VarDecl
-
-    @Test
-    fun testVarDecl() {
-        val file = parseResource("tests/parser/xquery-1.0/VarDecl.xq")
-
-        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val versioned = varDeclPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XQueryTokenType.K_VARIABLE))
-    }
-
-    @Test
-    fun testVarDecl_External() {
-        val file = parseResource("tests/parser/xquery-1.0/VarDecl_External.xq")
-
-        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val versioned = varDeclPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XQueryTokenType.K_VARIABLE))
-    }
-
-    @Test
-    fun testVarDecl_External_DefaultValue() {
-        val file = parseResource("tests/parser/xquery-3.0/VarDecl_External_DefaultValue.xq")
-
-        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val varDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryVarDecl>().first()
-        val versioned = varDeclPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(2))
-        assertThat(versioned.requiresConformance[0], `is`(XQuerySpec.REC_3_0_20140408))
-        assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.ASSIGN_EQUAL))
-    }
-
-    // endregion
 
     @Nested
     @DisplayName("XQuery 3.1 EBNF (184) SequenceType")

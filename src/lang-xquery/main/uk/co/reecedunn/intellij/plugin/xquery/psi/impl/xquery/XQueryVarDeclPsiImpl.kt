@@ -24,7 +24,6 @@ import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.reverse
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
-import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
@@ -32,16 +31,14 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.filterNotWhitespace
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarDecl
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import javax.swing.Icon
-
-private val XQUERY10: List<Version> = listOf()
-private val XQUERY30: List<Version> = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
 
 class XQueryVarDeclPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XQueryVarDecl,
-    VersionConformance,
+    XpmSyntaxValidationElement,
     ItemPresentation {
     // region ASTDelegatePsiElement
 
@@ -53,14 +50,6 @@ class XQueryVarDeclPsiImpl(node: ASTNode) :
 
     // endregion
     // region VersionConformance
-
-    override val requiresConformance: List<Version>
-        get() {
-            if (conformanceElement === firstChild) {
-                return XQUERY10
-            }
-            return XQUERY30
-        }
 
     override val conformanceElement: PsiElement
         get() {

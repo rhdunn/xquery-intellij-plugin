@@ -59,6 +59,11 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
             else -> {
             }
         }
+        is XQueryVarDecl -> when (element.conformanceElement.elementType) {
+            XPathTokenType.ASSIGN_EQUAL -> reporter.requires(element, XQUERY_3_0_OR_MARKLOGIC_6)
+            else -> {
+            }
+        }
         is XQueryVersionDecl -> when (element.conformanceElement.elementType) {
             XQueryTokenType.K_ENCODING -> reporter.requires(element, XQUERY_3_0)
             else -> {
