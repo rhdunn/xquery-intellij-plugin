@@ -34,10 +34,12 @@ class XpmSyntaxValidation : XpmSyntaxErrorReporter {
         requires: XpmRequiresConformanceTo,
         conformanceName: String?
     ) {
-        if (!requires.conformanceTo(configuration!!)) {
-            this.required = requires
+        this.required = this.required?.or(requires) ?: requires
+        if (!this.required!!.conformanceTo(configuration!!)) {
             this.conformanceElement = element.conformanceElement
             this.conformanceName = conformanceName
+        } else {
+            this.conformanceElement = null
         }
     }
 
@@ -49,12 +51,13 @@ class XpmSyntaxValidation : XpmSyntaxErrorReporter {
 
     fun validate(element: XpmSyntaxValidationElement, diagnostics: XpmDiagnostics) {
         required = null
+        conformanceElement = null
 
         XpmSyntaxValidator.validators.forEach {
             it.validate(element, this)
         }
 
-        if (required != null) {
+        if (conformanceElement != null) {
             val message = required!!.message(configuration!!, conformanceName)
             diagnostics.error(conformanceElement!!, XpmDiagnostics.XPST0003, message)
         }
