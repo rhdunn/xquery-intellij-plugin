@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.w3.lang
 
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.marklogic.lang.MarkLogic
-import uk.co.reecedunn.intellij.plugin.w3.lang.requires.XpmRequiresLanguageOrMarkLogic
+import uk.co.reecedunn.intellij.plugin.marklogic.lang.requires.XpmRequiresLanguageOrMarkLogic
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowInlineFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginDynamicFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*

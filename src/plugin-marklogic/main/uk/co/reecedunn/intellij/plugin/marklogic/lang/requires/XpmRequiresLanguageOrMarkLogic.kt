@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.w3.lang.requires
+package uk.co.reecedunn.intellij.plugin.marklogic.lang.requires
 
 import uk.co.reecedunn.intellij.plugin.xpm.intellij.resources.XpmBundle
 import uk.co.reecedunn.intellij.plugin.xpm.lang.configuration.XpmLanguageConfiguration
