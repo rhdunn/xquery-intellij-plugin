@@ -213,7 +213,11 @@ class VersionedProductId {
             }
 
             if (version == null && product === W3C.SPECIFICATIONS) {
-                this.productVersion = W3C.FIRST_EDITION
+                this.productVersion = when (parts.getOrNull(2)) {
+                    "wd" -> W3C.WORKING_DRAFT
+                    "2ed" -> W3C.SECOND_EDITION
+                    else -> W3C.FIRST_EDITION
+                }
             } else {
                 this.productVersion = version
             }
