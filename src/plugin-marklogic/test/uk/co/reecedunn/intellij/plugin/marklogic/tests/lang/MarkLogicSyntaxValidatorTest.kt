@@ -113,6 +113,414 @@ class MarkLogicSyntaxValidatorTest :
     private val VERSION_9 = XpmLanguageConfiguration(XQuery.VERSION_1_0, MarkLogic.VERSION_9)
 
     @Nested
+    @DisplayName("XQuery 3.0 EBNF (27) Annotation")
+    internal inner class Annotation {
+        @Test
+        @DisplayName("MarkLogic >= 6.0")
+        fun supported() {
+            val file = parse<XQueryModule>("declare %private function f() {}; 2")[0]
+            validator.configuration = VERSION_9
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("MarkLogic < 6.0")
+        fun notSupported() {
+            val file = parse<XQueryModule>("declare %private function f() {}; 2")[0]
+            validator.configuration = VERSION_5
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(
+                report.toString(),
+                `is`("E XPST0003(8:9): MarkLogic 5.0 does not support MarkLogic 6.0 constructs.")
+            )
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.0 EBNF (28) VarDecl")
+    internal inner class VarDecl {
+        @Test
+        @DisplayName("no value")
+        fun noValue() {
+            val file = parse<XQueryModule>("declare variable \$x; \$x")[0]
+            validator.configuration = VERSION_5
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("value")
+        fun value() {
+            val file = parse<XQueryModule>("declare variable \$x := 2; \$x")[0]
+            validator.configuration = VERSION_5
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("external; no default value")
+        fun externalWithoutDefaultValue() {
+            val file = parse<XQueryModule>("declare variable \$x external; \$x")[0]
+            validator.configuration = VERSION_5
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("external; default value; MarkLogic >= 6.0")
+        fun supported() {
+            val file = parse<XQueryModule>("declare variable \$x external := 2; \$x")[0]
+            validator.configuration = VERSION_9
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("external; default value; MarkLogic < 6.0")
+        fun notSupported() {
+            val file = parse<XQueryModule>("declare variable \$x external := 2; \$x")[0]
+            validator.configuration = VERSION_5
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(
+                report.toString(),
+                `is`("E XPST0003(29:31): MarkLogic 5.0 does not support MarkLogic 6.0 constructs.")
+            )
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.0 EBNF (71) SwitchExpr")
+    internal inner class SwitchExpr {
+        @Test
+        @DisplayName("MarkLogic >= 6.0")
+        fun supported() {
+            val file = parse<XQueryModule>("switch (1) case 2 return 3 default return 4")[0]
+            validator.configuration = VERSION_9
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("MarkLogic < 6.0")
+        fun notSupported() {
+            val file = parse<XQueryModule>("switch (1) case 2 return 3 default return 4")[0]
+            validator.configuration = VERSION_5
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(
+                report.toString(),
+                `is`("E XPST0003(0:6): MarkLogic 5.0 does not support MarkLogic 6.0 constructs.")
+            )
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.0 EBNF (76) SequenceTypeUnion")
+    internal inner class SequenceTypeUnion {
+        @Test
+        @DisplayName("MarkLogic >= 6.0")
+        fun supported() {
+            val file = parse<XQueryModule>("typeswitch (1) case xs:string|xs:integer return 2 default return 3")[0]
+            validator.configuration = VERSION_9
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("MarkLogic < 6.0")
+        fun notSupported() {
+            val file = parse<XQueryModule>("typeswitch (1) case xs:string|xs:integer return 2 default return 3")[0]
+            validator.configuration = VERSION_5
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(
+                report.toString(),
+                `is`("E XPST0003(29:30): MarkLogic 5.0 does not support MarkLogic 6.0 constructs.")
+            )
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.0 EBNF (78) TryCatchExpr ; XQuery 3.0 EBNF (79) TryClause")
+    internal inner class TryCatchExpr {
+        @Test
+        @DisplayName("MarkLogic >= 6.0")
+        fun supported() {
+            val file = parse<XQueryModule>("try { 1 } catch * { 2 }")[0]
+            validator.configuration = VERSION_9
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("MarkLogic < 6.0")
+        fun notSupported() {
+            val file = parse<XQueryModule>("try { 1 } catch * { 2 }")[0]
+            validator.configuration = VERSION_5
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(
+                report.toString(),
+                `is`("E XPST0003(0:3): MarkLogic 5.0 does not support MarkLogic 6.0 constructs.")
+            )
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.0 EBNF (86) StringConcatExpr")
+    internal inner class StringConcatExpr {
+        @Test
+        @DisplayName("MarkLogic >= 6.0")
+        fun supported() {
+            val file = parse<XQueryModule>("1 || 2")[0]
+            validator.configuration = VERSION_9
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("MarkLogic < 6.0")
+        fun notSupported() {
+            val file = parse<XQueryModule>("1 || 2")[0]
+            validator.configuration = VERSION_5
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(
+                report.toString(),
+                `is`("E XPST0003(2:4): MarkLogic 5.0 does not support MarkLogic 6.0 constructs.")
+            )
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.0 EBNF (106) SimpleMapExpr")
+    internal inner class SimpleMapExpr {
+        @Test
+        @DisplayName("MarkLogic >= 6.0")
+        fun supported() {
+            val file = parse<XQueryModule>("1!2")[0]
+            validator.configuration = VERSION_9
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("MarkLogic < 6.0")
+        fun notSupported() {
+            val file = parse<XQueryModule>("1!2")[0]
+            validator.configuration = VERSION_5
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(
+                report.toString(),
+                `is`("E XPST0003(1:2): MarkLogic 5.0 does not support MarkLogic 6.0 constructs.")
+            )
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.0 EBNF (120) PostfixExpr ; XQuery 3.0 EBNF (121) ArgumentList")
+    internal inner class PostfixExpr_ArgumentList {
+        @Test
+        @DisplayName("MarkLogic >= 6.0")
+        fun supported() {
+            val file = parse<XQueryModule>("\$f(1, 2, 3)")[0]
+            validator.configuration = VERSION_9
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("MarkLogic < 6.0")
+        fun notSupported() {
+            val file = parse<XQueryModule>("\$f(1, 2, 3)")[0]
+            validator.configuration = VERSION_5
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(
+                report.toString(),
+                `is`("E XPST0003(2:3): MarkLogic 5.0 does not support MarkLogic 6.0 constructs.")
+            )
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.0 EBNF (135) ArgumentPlaceholder")
+    internal inner class ArgumentPlaceholder {
+        @Test
+        @DisplayName("MarkLogic >= 6.0")
+        fun supported() {
+            val file = parse<XQueryModule>("math:pow(?, 2)")[0]
+            validator.configuration = VERSION_9
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("MarkLogic < 6.0")
+        fun notSupported() {
+            val file = parse<XQueryModule>("math:pow(?, 2)")[0]
+            validator.configuration = VERSION_5
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(
+                report.toString(),
+                `is`("E XPST0003(9:10): MarkLogic 5.0 does not support MarkLogic 6.0 constructs.")
+            )
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.0 EBNF (156) CompNamespaceConstructor")
+    internal inner class CompNamespaceConstructor {
+        @Test
+        @DisplayName("MarkLogic >= 6.0")
+        fun supported() {
+            val file = parse<XQueryModule>("namespace test {\"http://www.example.com\"}")[0]
+            validator.configuration = VERSION_9
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("MarkLogic < 6.0")
+        fun notSupported() {
+            val file = parse<XQueryModule>("namespace test {\"http://www.example.com\"}")[0]
+            validator.configuration = VERSION_5
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(
+                report.toString(),
+                `is`("E XPST0003(0:9): MarkLogic 5.0 does not support MarkLogic 6.0 constructs.")
+            )
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.0 EBNF (164) NamedFunctionRef")
+    internal inner class NamedFunctionRef {
+        @Test
+        @DisplayName("MarkLogic >= 6.0")
+        fun supported() {
+            val file = parse<XQueryModule>("true#0")[0]
+            validator.configuration = VERSION_9
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("MarkLogic < 6.0")
+        fun notSupported() {
+            val file = parse<XQueryModule>("true#0")[0]
+            validator.configuration = VERSION_5
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(
+                report.toString(),
+                `is`("E XPST0003(4:5): MarkLogic 5.0 does not support MarkLogic 6.0 constructs.")
+            )
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.0 EBNF (165) InlineFunctionExpr")
+    internal inner class InlineFunctionExpr {
+        @Test
+        @DisplayName("MarkLogic >= 6.0")
+        fun supported() {
+            val file = parse<XQueryModule>("function () { 2 } , %public function () { 2 }")[0]
+            validator.configuration = VERSION_9
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("MarkLogic < 6.0")
+        fun notSupported() {
+            val file = parse<XQueryModule>("function () { 2 } , %public function () { 2 }")[0]
+            validator.configuration = VERSION_5
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(
+                report.toString(),
+                `is`(
+                    """
+                    E XPST0003(0:8): MarkLogic 5.0 does not support MarkLogic 6.0 constructs.
+                    E XPST0003(28:36): MarkLogic 5.0 does not support MarkLogic 6.0 constructs.
+                    E XPST0003(20:21): MarkLogic 5.0 does not support MarkLogic 6.0 constructs.
+                    """.trimIndent()
+                )
+            )
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.0 EBNF (192) AnyFunctionTest")
+    internal inner class AnyFunctionTest {
+        @Test
+        @DisplayName("MarkLogic >= 6.0")
+        fun supported() {
+            val file = parse<XQueryModule>("1 instance of function(*)")[0]
+            validator.configuration = VERSION_9
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("MarkLogic < 6.0")
+        fun notSupported() {
+            val file = parse<XQueryModule>("1 instance of function(*)")[0]
+            validator.configuration = VERSION_5
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(
+                report.toString(),
+                `is`("E XPST0003(14:22): MarkLogic 5.0 does not support MarkLogic 6.0 constructs.")
+            )
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.0 EBNF (193) TypedFunctionTest")
+    internal inner class TypedFunctionTest {
+        @Test
+        @DisplayName("MarkLogic >= 6.0")
+        fun supported() {
+            val file = parse<XQueryModule>("1 instance of function(item()) as item()")[0]
+            validator.configuration = VERSION_9
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("MarkLogic < 6.0")
+        fun notSupported() {
+            val file = parse<XQueryModule>("1 instance of function(item()) as item()")[0]
+            validator.configuration = VERSION_5
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(
+                report.toString(),
+                `is`("E XPST0003(14:22): MarkLogic 5.0 does not support MarkLogic 6.0 constructs.")
+            )
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.0 EBNF (202) BracedURILiteral")
+    internal inner class BracedURILiteral {
+        @Test
+        @DisplayName("MarkLogic >= 6.0")
+        fun supported() {
+            val file = parse<XQueryModule>("Q{http://www.example.com}test")[0]
+            validator.configuration = VERSION_9
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("MarkLogic < 6.0")
+        fun notSupported() {
+            val file = parse<XQueryModule>("Q{http://www.example.com}test")[0]
+            validator.configuration = VERSION_5
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(
+                report.toString(),
+                `is`("E XPST0003(0:2): MarkLogic 5.0 does not support MarkLogic 6.0 constructs.")
+            )
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.1 EBNF (105) ArrowExpr ; XQuery 4.0 ED EBNF (108) FatArrowTarget")
     internal inner class ArrowExpr {
         @Nested
@@ -120,7 +528,7 @@ class MarkLogicSyntaxValidatorTest :
         internal inner class ArrowStaticFunction {
             @Test
             @DisplayName("MarkLogic >= 9.0")
-            fun marklogic_supported() {
+            fun supported() {
                 val file = parse<XQueryModule>("1 => f()")[0]
                 validator.configuration = VERSION_9
                 validator.validate(file, this@MarkLogicSyntaxValidatorTest)
@@ -129,7 +537,7 @@ class MarkLogicSyntaxValidatorTest :
 
             @Test
             @DisplayName("MarkLogic < 9.0")
-            fun marklogic_notSupported() {
+            fun notSupported() {
                 val file = parse<XQueryModule>("1 => f()")[0]
                 validator.configuration = VERSION_5
                 validator.validate(file, this@MarkLogicSyntaxValidatorTest)
@@ -145,7 +553,7 @@ class MarkLogicSyntaxValidatorTest :
         internal inner class ArrowDynamicFunction {
             @Test
             @DisplayName("MarkLogic >= 9.0")
-            fun marklogic_supported() {
+            fun supported() {
                 val file = parse<XQueryModule>("1 => f()")[0]
                 validator.configuration = VERSION_9
                 validator.validate(file, this@MarkLogicSyntaxValidatorTest)
@@ -154,7 +562,7 @@ class MarkLogicSyntaxValidatorTest :
 
             @Test
             @DisplayName("MarkLogic < 9.0")
-            fun marklogic_notSupported() {
+            fun notSupported() {
                 val file = parse<XQueryModule>("1 => f()")[0]
                 validator.configuration = VERSION_5
                 validator.validate(file, this@MarkLogicSyntaxValidatorTest)
@@ -353,6 +761,15 @@ class MarkLogicSyntaxValidatorTest :
     @DisplayName("XQuery IntelliJ Plugin EBNF (27) ValidateExpr")
     internal inner class ValidateExpr {
         @Test
+        @DisplayName("no type")
+        fun noType() {
+            val file = parse<XQueryModule>("validate { \"true\" }")[0]
+            validator.configuration = VERSION_5
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
         @DisplayName("lax mode")
         fun laxMode() {
             val file = parse<XQueryModule>("validate lax { \"true\" }")[0]
@@ -398,13 +815,29 @@ class MarkLogicSyntaxValidatorTest :
             }
         }
 
-        @Test
+        @Nested
         @DisplayName("type TypeName")
-        fun typeTypeName() {
-            val file = parse<XQueryModule>("validate type xs:boolean { \"true\" }")[0]
-            validator.configuration = VERSION_5
-            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
-            assertThat(report.toString(), `is`(""))
+        internal inner class TypeTypeName {
+            @Test
+            @DisplayName("MarkLogic >= 6.0")
+            fun supported() {
+                val file = parse<XQueryModule>("validate type xs:boolean { \"true\" }")[0]
+                validator.configuration = VERSION_9
+                validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+                assertThat(report.toString(), `is`(""))
+            }
+
+            @Test
+            @DisplayName("MarkLogic < 6.0")
+            fun notSupported() {
+                val file = parse<XQueryModule>("validate type xs:boolean { \"true\" }")[0]
+                validator.configuration = VERSION_5
+                validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+                assertThat(
+                    report.toString(),
+                    `is`("E XPST0003(9:13): MarkLogic 5.0 does not support MarkLogic 6.0 constructs.")
+                )
+            }
         }
 
         @Nested
@@ -501,7 +934,10 @@ class MarkLogicSyntaxValidatorTest :
             val file = parse<XQueryModule>("try { 1 } catch * { 2 }")[0]
             validator.configuration = VERSION_5
             validator.validate(file, this@MarkLogicSyntaxValidatorTest)
-            assertThat(report.toString(), `is`(""))
+            assertThat(
+                report.toString(),
+                `is`("E XPST0003(0:3): MarkLogic 5.0 does not support MarkLogic 6.0 constructs.")
+            )
         }
 
         @Nested
@@ -525,6 +961,7 @@ class MarkLogicSyntaxValidatorTest :
                 assertThat(
                     report.toString(), `is`(
                         """
+                        E XPST0003(0:3): MarkLogic 5.0 does not support MarkLogic 6.0 constructs.
                         E XPST0003(16:17): MarkLogic 5.0 does not support MarkLogic 6.0 constructs.
                         """.trimIndent()
                     )

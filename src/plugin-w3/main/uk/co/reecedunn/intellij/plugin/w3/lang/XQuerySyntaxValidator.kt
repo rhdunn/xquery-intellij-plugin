@@ -16,8 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.w3.lang
 
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
-import uk.co.reecedunn.intellij.plugin.marklogic.lang.MarkLogic
-import uk.co.reecedunn.intellij.plugin.marklogic.lang.requires.XpmRequiresMarkLogic
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowInlineFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginDynamicFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
@@ -37,29 +35,29 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
         reporter: XpmSyntaxErrorReporter
     ): Unit = when (element) {
         is PluginArrowInlineFunctionCall -> reporter.requires(element, XQUERY_4_0)
-        is PluginDynamicFunctionCall -> reporter.requires(element, XQUERY_3_0_OR_MARKLOGIC_6)
+        is PluginDynamicFunctionCall -> reporter.requires(element, XQUERY_3_0)
         is XQueryAllowingEmpty -> reporter.requires(element, XQUERY_3_0)
-        is XQueryAnnotation -> reporter.requires(element, XQUERY_3_0_OR_MARKLOGIC_6)
-        is XQueryCompNamespaceConstructor -> reporter.requires(element, XQUERY_3_0_OR_MARKLOGIC_6)
+        is XQueryAnnotation -> reporter.requires(element, XQUERY_3_0)
+        is XQueryCompNamespaceConstructor -> reporter.requires(element, XQUERY_3_0)
         is XQueryContextItemDecl -> reporter.requires(element, XQUERY_3_0)
         is XQueryDefaultNamespaceDecl -> when (element.conformanceElement.elementType) {
             XPathTokenType.K_TYPE -> reporter.requires(element, XQUERY_4_0)
             else -> {
             }
         }
-        is XQuerySequenceTypeUnion -> reporter.requires(element, XQUERY_3_0_OR_MARKLOGIC_6)
+        is XQuerySequenceTypeUnion -> reporter.requires(element, XQUERY_3_0)
         is XQuerySlidingWindowClause -> reporter.requires(element, XQUERY_3_0)
         is XQueryStringConstructor -> reporter.requires(element, XQUERY_3_1)
-        is XQuerySwitchExpr -> reporter.requires(element, XQUERY_3_0_OR_MARKLOGIC_6)
-        is XQueryTryClause -> reporter.requires(element, XQUERY_3_0_OR_MARKLOGIC_6)
+        is XQuerySwitchExpr -> reporter.requires(element, XQUERY_3_0)
+        is XQueryTryClause -> reporter.requires(element, XQUERY_3_0)
         is XQueryTumblingWindowClause -> reporter.requires(element, XQUERY_3_0)
         is XQueryValidateExpr -> when (element.conformanceElement.elementType) {
-            XPathTokenType.K_TYPE -> reporter.requires(element, XQUERY_3_0_OR_MARKLOGIC_6)
+            XPathTokenType.K_TYPE -> reporter.requires(element, XQUERY_3_0)
             else -> {
             }
         }
         is XQueryVarDecl -> when (element.conformanceElement.elementType) {
-            XPathTokenType.ASSIGN_EQUAL -> reporter.requires(element, XQUERY_3_0_OR_MARKLOGIC_6)
+            XPathTokenType.ASSIGN_EQUAL -> reporter.requires(element, XQUERY_3_0)
             else -> {
             }
         }
@@ -69,13 +67,13 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
             }
         }
         is XPathAnyArrayTest -> reporter.requires(element, XQUERY_3_1)
-        is XPathAnyFunctionTest -> reporter.requires(element, XQUERY_3_0_OR_MARKLOGIC_6)
-        is XPathArgumentPlaceholder -> reporter.requires(element, XQUERY_3_0_OR_MARKLOGIC_6)
+        is XPathAnyFunctionTest -> reporter.requires(element, XQUERY_3_0)
+        is XPathArgumentPlaceholder -> reporter.requires(element, XQUERY_3_0)
         is XPathArrowFunctionSpecifier -> when (element.conformanceElement.elementType) {
             XPathTokenType.THIN_ARROW -> reporter.requires(element, XQUERY_4_0)
             else -> reporter.requires(element, XQUERY_3_1)
         }
-        is XPathBracedURILiteral -> reporter.requires(element, XQUERY_3_0_OR_MARKLOGIC_6)
+        is XPathBracedURILiteral -> reporter.requires(element, XQUERY_3_0)
         is XPathCurlyArrayConstructor -> when (element.conformanceElement.elementType) {
             XPathTokenType.K_ARRAY -> reporter.requires(element, XQUERY_3_1)
             else -> {
@@ -83,7 +81,7 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
         }
         is XPathEnumerationType -> reporter.requires(element, XQUERY_4_0)
         is XPathInlineFunctionExpr -> when (element.conformanceElement.elementType) {
-            XPathTokenType.K_FUNCTION -> reporter.requires(element, XQUERY_3_0_OR_MARKLOGIC_6)
+            XPathTokenType.K_FUNCTION -> reporter.requires(element, XQUERY_3_0)
             else -> reporter.requires(element, XQUERY_4_0)
         }
         is XPathKeySpecifier -> when (element.conformanceElement.elementType) {
@@ -94,13 +92,13 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
         }
         is XPathKeywordArgument -> reporter.requires(element, XQUERY_4_0)
         is XPathLookup -> reporter.requires(element, XQUERY_3_1)
-        is XPathNamedFunctionRef -> reporter.requires(element, XQUERY_3_0_OR_MARKLOGIC_6)
+        is XPathNamedFunctionRef -> reporter.requires(element, XQUERY_3_0)
         is XPathNamespaceNodeTest -> reporter.requires(element, XQUERY_3_0)
-        is XPathSimpleMapExpr -> reporter.requires(element, XQUERY_3_0_OR_MARKLOGIC_6)
+        is XPathSimpleMapExpr -> reporter.requires(element, XQUERY_3_0)
         is XPathSquareArrayConstructor -> reporter.requires(element, XQUERY_3_1)
-        is XPathStringConcatExpr -> reporter.requires(element, XQUERY_3_0_OR_MARKLOGIC_6)
+        is XPathStringConcatExpr -> reporter.requires(element, XQUERY_3_0)
         is XPathTypedArrayTest -> reporter.requires(element, XQUERY_3_1)
-        is XPathTypedFunctionTest -> reporter.requires(element, XQUERY_3_0_OR_MARKLOGIC_6)
+        is XPathTypedFunctionTest -> reporter.requires(element, XQUERY_3_0)
         is XPathUnaryLookup -> reporter.requires(element, XQUERY_3_1)
         is XPathWithExpr -> reporter.requires(element, XQUERY_4_0)
         else -> {
@@ -110,8 +108,4 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
     private val XQUERY_3_0 = XpmRequiresLanguageVersion(XQuery.VERSION_3_0)
     private val XQUERY_3_1 = XpmRequiresLanguageVersion(XQuery.VERSION_3_1)
     private val XQUERY_4_0 = XpmRequiresLanguageVersion(XQuery.VERSION_4_0)
-
-    private val XQUERY_3_0_OR_MARKLOGIC_6 = XpmRequiresMarkLogic(MarkLogic.VERSION_6).or(
-        XpmRequiresLanguageVersion(XQuery.VERSION_3_0)
-    )
 }

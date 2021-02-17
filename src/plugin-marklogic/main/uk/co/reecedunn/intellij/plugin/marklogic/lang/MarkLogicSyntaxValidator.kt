@@ -17,14 +17,14 @@ package uk.co.reecedunn.intellij.plugin.marklogic.lang
 
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.marklogic.lang.requires.XpmRequiresMarkLogic
+import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginDynamicFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxErrorReporter
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.*
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCatchClause
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryValidateExpr
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 
@@ -48,6 +48,7 @@ object MarkLogicSyntaxValidator : XpmSyntaxValidator {
             }
         }
         is PluginComplexTypeTest -> reporter.requires(element, MARKLOGIC_7)
+        is PluginDynamicFunctionCall -> reporter.requires(element, MARKLOGIC_6)
         is PluginElementDeclTest -> reporter.requires(element, MARKLOGIC_7)
         is PluginModelGroupTest -> reporter.requires(element, MARKLOGIC_7)
         is PluginNamedArrayNodeTest -> reporter.requires(element, MARKLOGIC_8)
@@ -69,16 +70,19 @@ object MarkLogicSyntaxValidator : XpmSyntaxValidator {
         is PluginStylesheetImport -> reporter.requires(element, MARKLOGIC_6)
         is PluginTransactionSeparator -> validateTransaction(element, reporter)
         is PluginUsingDecl -> reporter.requires(element, MARKLOGIC_6)
+        is XPathAnyFunctionTest -> reporter.requires(element, MARKLOGIC_6)
         is XPathAnyKindTest -> when (element.conformanceElement.elementType) {
             XPathTokenType.STAR -> reporter.requires(element, MARKLOGIC_8)
             else -> {
             }
         }
+        is XPathArgumentPlaceholder -> reporter.requires(element, MARKLOGIC_6)
         is XPathArrowFunctionSpecifier -> when (element.conformanceElement.elementType) {
             XPathTokenType.ARROW -> reporter.requires(element, MARKLOGIC_9)
             else -> {
             }
         }
+        is XPathBracedURILiteral -> reporter.requires(element, MARKLOGIC_6)
         is XPathCurlyArrayConstructor -> when (element.conformanceElement.elementType) {
             XPathTokenType.K_ARRAY_NODE -> reporter.requires(element, MARKLOGIC_8)
             else -> {
@@ -95,14 +99,34 @@ object MarkLogicSyntaxValidator : XpmSyntaxValidator {
             else -> {
             }
         }
+        is XPathNamedFunctionRef -> reporter.requires(element, MARKLOGIC_6)
+        is XPathSimpleMapExpr -> reporter.requires(element, MARKLOGIC_6)
+        is XPathStringConcatExpr -> reporter.requires(element, MARKLOGIC_6)
+        is XPathTypedFunctionTest -> reporter.requires(element, MARKLOGIC_6)
+        is XQueryAnnotation -> reporter.requires(element, MARKLOGIC_6)
         is XQueryCatchClause -> when (element.conformanceElement.elementType) {
             XPathTokenType.PARENTHESIS_OPEN -> reporter.requires(element, MARKLOGIC_6)
             else -> {
             }
         }
+        is XQueryCompNamespaceConstructor -> reporter.requires(element, MARKLOGIC_6)
+        is XPathInlineFunctionExpr -> when (element.conformanceElement.elementType) {
+            XPathTokenType.K_FUNCTION -> reporter.requires(element, MARKLOGIC_6)
+            else -> {
+            }
+        }
+        is XQuerySequenceTypeUnion -> reporter.requires(element, MARKLOGIC_6)
+        is XQuerySwitchExpr -> reporter.requires(element, MARKLOGIC_6)
+        is XQueryTryClause -> reporter.requires(element, MARKLOGIC_6)
         is XQueryValidateExpr -> when (element.conformanceElement.elementType) {
+            XPathTokenType.K_TYPE -> reporter.requires(element, MARKLOGIC_6)
             XPathTokenType.K_AS -> reporter.requires(element, MARKLOGIC_6)
             XQueryTokenType.K_FULL -> reporter.requires(element, MARKLOGIC_6)
+            else -> {
+            }
+        }
+        is XQueryVarDecl -> when (element.conformanceElement.elementType) {
+            XPathTokenType.ASSIGN_EQUAL -> reporter.requires(element, MARKLOGIC_6)
             else -> {
             }
         }
