@@ -349,7 +349,7 @@ private class W3CProduct(id: String, name: String, implementation: Implementatio
     override fun conformsTo(productVersion: Version, ref: Version): Boolean = when (ref) {
         XmlSchemaSpec.REC_1_0_20041028, XmlSchemaSpec.REC_1_1_20120405 ->
             true
-        XQuerySpec.WD_1_0_20030502 ->
+        XQuerySpec.WD_1_0_20030502, XQuerySpec.ED_4_0_20210113 ->
             productVersion === W3C.WORKING_DRAFT
         XQuerySpec.REC_1_0_20070123, XQuerySpec.REC_3_0_20140408, XQuerySpec.REC_3_1_20170321 ->
             productVersion === W3C.FIRST_EDITION
