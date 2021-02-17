@@ -36,31 +36,6 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
     ): Unit = when (element) {
         is PluginArrowInlineFunctionCall -> reporter.requires(element, XQUERY_4_0)
         is PluginDynamicFunctionCall -> reporter.requires(element, XQUERY_3_0)
-        is XQueryAllowingEmpty -> reporter.requires(element, XQUERY_3_0)
-        is XQueryAnnotation -> reporter.requires(element, XQUERY_3_0)
-        is XQueryCompNamespaceConstructor -> reporter.requires(element, XQUERY_3_0)
-        is XQueryContextItemDecl -> reporter.requires(element, XQUERY_3_0)
-        is XQueryDefaultNamespaceDecl -> when (element.conformanceElement.elementType) {
-            XPathTokenType.K_TYPE -> reporter.requires(element, XQUERY_4_0)
-            else -> {
-            }
-        }
-        is XQuerySequenceTypeUnion -> reporter.requires(element, XQUERY_3_0)
-        is XQuerySlidingWindowClause -> reporter.requires(element, XQUERY_3_0)
-        is XQueryStringConstructor -> reporter.requires(element, XQUERY_3_1)
-        is XQuerySwitchExpr -> reporter.requires(element, XQUERY_3_0)
-        is XQueryTryClause -> reporter.requires(element, XQUERY_3_0)
-        is XQueryTumblingWindowClause -> reporter.requires(element, XQUERY_3_0)
-        is XQueryValidateExpr -> when (element.conformanceElement.elementType) {
-            XPathTokenType.K_TYPE -> reporter.requires(element, XQUERY_3_0)
-            else -> {
-            }
-        }
-        is XQueryVarDecl -> when (element.conformanceElement.elementType) {
-            XPathTokenType.ASSIGN_EQUAL -> reporter.requires(element, XQUERY_3_0)
-            else -> {
-            }
-        }
         is XQueryVersionDecl -> when (element.conformanceElement.elementType) {
             XQueryTokenType.K_ENCODING -> reporter.requires(element, XQUERY_3_0)
             else -> {
@@ -101,6 +76,31 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
         is XPathTypedFunctionTest -> reporter.requires(element, XQUERY_3_0)
         is XPathUnaryLookup -> reporter.requires(element, XQUERY_3_1)
         is XPathWithExpr -> reporter.requires(element, XQUERY_4_0)
+        is XQueryAllowingEmpty -> reporter.requires(element, XQUERY_3_0)
+        is XQueryAnnotation -> reporter.requires(element, XQUERY_3_0)
+        is XQueryCompNamespaceConstructor -> reporter.requires(element, XQUERY_3_0)
+        is XQueryContextItemDecl -> reporter.requires(element, XQUERY_3_0)
+        is XQueryDefaultNamespaceDecl -> when (element.conformanceElement.elementType) {
+            XPathTokenType.K_TYPE -> reporter.requires(element, XQUERY_4_0)
+            else -> {
+            }
+        }
+        is XQuerySequenceTypeUnion -> reporter.requires(element, XQUERY_3_0)
+        is XQuerySlidingWindowClause -> reporter.requires(element, XQUERY_3_0)
+        is XQueryStringConstructor -> reporter.requires(element, XQUERY_3_1)
+        is XQuerySwitchExpr -> reporter.requires(element, XQUERY_3_0)
+        is XQueryTryClause -> reporter.requires(element, XQUERY_3_0)
+        is XQueryTumblingWindowClause -> reporter.requires(element, XQUERY_3_0)
+        is XQueryValidateExpr -> when (element.conformanceElement.elementType) {
+            XPathTokenType.K_TYPE -> reporter.requires(element, XQUERY_3_0)
+            else -> {
+            }
+        }
+        is XQueryVarDecl -> when (element.conformanceElement.elementType) {
+            XPathTokenType.ASSIGN_EQUAL -> reporter.requires(element, XQUERY_3_0)
+            else -> {
+            }
+        }
         else -> {
         }
     }
