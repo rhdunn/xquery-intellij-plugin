@@ -69,6 +69,7 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
         is XPathLookup -> reporter.requires(element, XQUERY_3_1)
         is XPathNamedFunctionRef -> reporter.requires(element, XQUERY_3_0)
         is XPathNamespaceNodeTest -> reporter.requires(element, XQUERY_3_0)
+        is XPathOtherwiseExpr -> reporter.requires(element, XQUERY_4_0)
         is XPathSimpleMapExpr -> reporter.requires(element, XQUERY_3_0)
         is XPathSquareArrayConstructor -> reporter.requires(element, XQUERY_3_1)
         is XPathStringConcatExpr -> reporter.requires(element, XQUERY_3_0)

@@ -2736,6 +2736,117 @@ private class PluginInspectionTest : InspectionTestCase() {
             }
 
             @Nested
+            @DisplayName("Saxon XQuery 4.0 draft syntax support")
+            internal inner class SaxonXQuery40Draft {
+                val file = parse<XQueryModule>("1 otherwise 2")[0]
+
+                @Test
+                @DisplayName("XQuery >= 4.0")
+                fun supportedViaXQueryVersion() {
+                    settings.XQueryVersion = XQuerySpec.ED_4_0_20210113.versionId
+                    settings.implementationVersion = "w3c/spec/wd"
+
+                    val problems = inspect(file, IJVS0001())
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(0))
+                }
+
+                @Test
+                @DisplayName("XQuery < 4.0")
+                fun notSupportedXQuery() {
+                    settings.XQueryVersion = XQuerySpec.REC_1_0_20070123.versionId
+                    settings.implementationVersion = "w3c/spec/1ed"
+
+                    val problems = inspect(file, IJVS0001())
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(1))
+
+                    assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
+                    assertThat(
+                        problems[0].descriptionTemplate,
+                        `is`("XPST0003: XQuery version string '1.0' does not support XQuery 4.0, or Saxon Professional Edition 10.0, or Saxon Enterprise Edition 10.0 constructs.")
+                    )
+                    assertThat(problems[0].psiElement.elementType, `is`(XPathTokenType.K_OTHERWISE))
+                }
+
+                @Test
+                @DisplayName("Saxon HE")
+                fun notSupportedHE() {
+                    settings.XQueryVersion = XQuerySpec.REC_3_1_20170321.versionId
+                    settings.implementationVersion = "saxon/HE/v10.0"
+
+                    val problems = inspect(file, IJVS0001())
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(1))
+
+                    assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
+                    assertThat(
+                        problems[0].descriptionTemplate,
+                        `is`("XPST0003: XQuery version string '3.1' does not support XQuery 4.0, or Saxon Professional Edition 10.0, or Saxon Enterprise Edition 10.0 constructs.")
+                    )
+                    assertThat(problems[0].psiElement.elementType, `is`(XPathTokenType.K_OTHERWISE))
+                }
+
+                @Test
+                @DisplayName("Saxon PE >= 10.0")
+                fun supportedPE() {
+                    settings.XQueryVersion = XQuerySpec.REC_3_1_20170321.versionId
+                    settings.implementationVersion = "saxon/PE/v10.0"
+
+                    val problems = inspect(file, IJVS0001())
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(0))
+                }
+
+                @Test
+                @DisplayName("Saxon PE < 10.0")
+                fun notSupportedPE() {
+                    settings.XQueryVersion = XQuerySpec.REC_3_1_20170321.versionId
+                    settings.implementationVersion = "saxon/PE/v9.9"
+
+                    val problems = inspect(file, IJVS0001())
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(1))
+
+                    assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
+                    assertThat(
+                        problems[0].descriptionTemplate,
+                        `is`("XPST0003: XQuery version string '3.1' does not support XQuery 4.0, or Saxon Professional Edition 10.0, or Saxon Enterprise Edition 10.0 constructs.")
+                    )
+                    assertThat(problems[0].psiElement.elementType, `is`(XPathTokenType.K_OTHERWISE))
+                }
+
+                @Test
+                @DisplayName("Saxon EE >= 10.0")
+                fun supportedEE() {
+                    settings.XQueryVersion = XQuerySpec.REC_3_1_20170321.versionId
+                    settings.implementationVersion = "saxon/EE/v10.0"
+
+                    val problems = inspect(file, IJVS0001())
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(0))
+                }
+
+                @Test
+                @DisplayName("Saxon EE < 10.0")
+                fun notSupportedEE() {
+                    settings.XQueryVersion = XQuerySpec.REC_3_1_20170321.versionId
+                    settings.implementationVersion = "saxon/EE/v9.9"
+
+                    val problems = inspect(file, IJVS0001())
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(1))
+
+                    assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
+                    assertThat(
+                        problems[0].descriptionTemplate,
+                        `is`("XPST0003: XQuery version string '3.1' does not support XQuery 4.0, or Saxon Professional Edition 10.0, or Saxon Enterprise Edition 10.0 constructs.")
+                    )
+                    assertThat(problems[0].psiElement.elementType, `is`(XPathTokenType.K_OTHERWISE))
+                }
+            }
+
+            @Nested
             @DisplayName("empty error element")
             internal inner class EmptyErrorElement {
                 @Test
