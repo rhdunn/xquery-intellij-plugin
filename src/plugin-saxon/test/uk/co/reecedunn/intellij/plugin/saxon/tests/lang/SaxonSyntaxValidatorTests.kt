@@ -208,6 +208,15 @@ class SaxonSyntaxValidatorTest :
     @DisplayName("XQuery IntelliJ Plugin EBNF (19) ItemTypeDecl")
     internal inner class ItemTypeDecl {
         @Test
+        @DisplayName("XQuery 4.0 ED syntax")
+        fun xquery40() {
+            val file = parse<XQueryModule>("declare item-type a:test = xs:string;")[0]
+            validator.configuration = SAXON_HE_9_8
+            validator.validate(file, this@SaxonSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
         @DisplayName("Saxon HE")
         fun notSupportedHE() {
             val file = parse<XQueryModule>("declare type a:test = xs:string;")[0]

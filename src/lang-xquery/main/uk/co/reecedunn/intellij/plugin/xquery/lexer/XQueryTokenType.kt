@@ -269,6 +269,8 @@ object XQueryTokenType {
         XPathTokenType.ASSIGN_EQUAL
     )
 
+    val ITEM_TYPE_DECL_TOKENS: TokenSet = TokenSet.create(XPathTokenType.K_TYPE, K_ITEM_TYPE)
+
     val ORDERING_MODE_TOKENS: TokenSet = TokenSet.create(XPathTokenType.K_ORDERED, K_UNORDERED)
 
     val ORDER_MODIFIER_TOKENS: TokenSet = TokenSet.create(K_ASCENDING, K_DESCENDING)

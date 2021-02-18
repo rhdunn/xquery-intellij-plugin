@@ -109,6 +109,11 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
             else -> {
             }
         }
+        is XQueryItemTypeDecl -> when (element.conformanceElement.elementType) {
+            XQueryTokenType.K_ITEM_TYPE -> reporter.requires(element, XQUERY_4_0)
+            else -> {
+            }
+        }
         is XQuerySequenceTypeUnion -> reporter.requires(element, XQUERY_3_0)
         is XQuerySlidingWindowClause -> reporter.requires(element, XQUERY_3_0)
         is XQueryStringConstructor -> reporter.requires(element, XQUERY_3_1)

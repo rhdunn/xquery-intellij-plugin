@@ -59,7 +59,11 @@ object SaxonSyntaxValidator : XpmSyntaxValidator {
             XPathTokenType.TYPE_ALIAS -> reporter.requires(element, SAXON_PE_9_8_TO_9_9) // ~T
             else -> reporter.requires(element, SAXON_PE_10) // type(T)
         }
-        is XQueryItemTypeDecl -> reporter.requires(element, SAXON_PE_9_8)
+        is XQueryItemTypeDecl -> when (element.conformanceElement.elementType) {
+            XPathTokenType.K_TYPE -> reporter.requires(element, SAXON_PE_9_8)
+            else -> {
+            }
+        }
         is XPathLocalUnionType -> reporter.requires(element, SAXON_PE_9_8)
         is XPathAndExpr -> when (element.conformanceElement.elementType) {
             XPathTokenType.K_ANDALSO -> reporter.requires(element, SAXON_PE_9_9)

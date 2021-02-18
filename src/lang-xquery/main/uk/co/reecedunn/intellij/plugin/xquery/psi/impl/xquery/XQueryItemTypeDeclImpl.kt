@@ -25,8 +25,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryItemTypeDecl
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
-import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import javax.swing.Icon
 
 class XQueryItemTypeDeclPsiImpl(node: ASTNode) :
@@ -48,7 +48,7 @@ class XQueryItemTypeDeclPsiImpl(node: ASTNode) :
     // region XpmSyntaxValidationElement
 
     override val conformanceElement: PsiElement
-        get() = findChildByType(XPathTokenType.K_TYPE) ?: firstChild
+        get() = findChildByType(XQueryTokenType.ITEM_TYPE_DECL_TOKENS) ?: firstChild
 
     // endregion
     // region NavigationItem
