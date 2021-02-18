@@ -1043,6 +1043,31 @@ class XQuerySyntaxValidatorTest :
     }
 
     @Nested
+    @DisplayName("XQuery 4.0 ED EBNF (53) ForMemberBinding")
+    internal inner class ForMemberBinding {
+        @Test
+        @DisplayName("XQuery >= 4.0")
+        fun supported() {
+            val file = parse<XQueryModule>("for member \$x in \$y return \$x")[0]
+            validator.configuration = XQUERY_4_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("XQuery < 4.0")
+        fun notSupported() {
+            val file = parse<XQueryModule>("for member \$x in \$y return \$x")[0]
+            validator.configuration = XQUERY_1_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(
+                report.toString(),
+                `is`("E XPST0003(4:10): XQuery version string '1.0' does not support XQuery 4.0 constructs.")
+            )
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 4.0 ED EBNF (96) OtherwiseExpr")
     internal inner class OtherwiseExpr {
         @Test
@@ -1061,11 +1086,8 @@ class XQuerySyntaxValidatorTest :
             validator.configuration = XQUERY_1_0
             validator.validate(file, this@XQuerySyntaxValidatorTest)
             assertThat(
-                report.toString(), `is`(
-                    """
-                    E XPST0003(2:11): XQuery version string '1.0' does not support XQuery 4.0 constructs.
-                    """.trimIndent()
-                )
+                report.toString(),
+                `is`("E XPST0003(2:11): XQuery version string '1.0' does not support XQuery 4.0 constructs.")
             )
         }
     }
