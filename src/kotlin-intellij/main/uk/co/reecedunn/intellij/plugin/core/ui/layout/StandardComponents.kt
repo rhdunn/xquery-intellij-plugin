@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2020 Reece H. Dunn
+ * Copyright (C) 2019-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,7 @@ package uk.co.reecedunn.intellij.plugin.core.ui.layout
 import com.intellij.openapi.ui.ComboBox
 import com.intellij.openapi.ui.ComponentWithBrowseButton
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
+import com.intellij.ui.TitledSeparator
 import com.intellij.ui.components.*
 import java.awt.*
 import java.awt.event.ActionListener
@@ -98,6 +99,30 @@ fun Container.label(text: String?, constraints: Any? = null, init: JLabel.() -> 
 }
 
 fun Container.label(constraints: Any? = null, init: JLabel.() -> Unit = {}): JBLabel = label(null, constraints, init)
+
+// endregion
+// region separator
+
+fun Container.separator(
+    text: String,
+    constraints: Any? = null,
+    init: TitledSeparator.() -> Unit = {}
+): TitledSeparator {
+    if (constraints is GridBagConstraints) {
+        constraints.anchor = GridBagConstraints.WEST
+    }
+
+    val separator = TitledSeparator(text)
+    separator.init()
+    add(separator, constraints)
+    return separator
+}
+
+fun GridPanel.separator(title: String) {
+    row {
+        separator(title, column.spanCols().horizontal().vgap())
+    }
+}
 
 // endregion
 // region password field

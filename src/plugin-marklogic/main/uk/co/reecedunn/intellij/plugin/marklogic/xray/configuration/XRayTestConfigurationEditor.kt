@@ -54,6 +54,7 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
 
     @Suppress("DuplicatedCode")
     private val panel = panel {
+        separator(PluginApiBundle.message("xquery.configurations.test.server-configuration.separator"))
         row {
             label(PluginApiBundle.message("xquery.configurations.processor.query-processor.label"), column.vgap())
             queryProcessor = QueryProcessorComboBox(project)
@@ -84,6 +85,7 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
                 addBrowseFolderListener(null, null, project, descriptor)
             }
         }
+        separator(PluginApiBundle.message("xquery.configurations.test.xray-configuration.separator"))
         row {
             label(PluginApiBundle.message("xquery.configurations.test.test-root.label"), column.vgap())
             testPath = textFieldWithBrowseButton(column.spanCols(3).horizontal().hgap().vgap()) {
@@ -100,6 +102,7 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
             label(PluginApiBundle.message("xquery.configurations.test.test-pattern.label"), column.vgap())
             testPattern = textField(column.spanCols().horizontal().hgap().vgap())
         }
+        separator(PluginApiBundle.message("xquery.configurations.test.output.separator"))
         row {
             label(PluginApiBundle.message("xquery.configurations.test.output-format.label"), column.vgap())
             outputFormat = comboBox(column.spanCols().horizontal().hgap().vgap()) {
