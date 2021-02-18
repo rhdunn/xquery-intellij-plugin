@@ -1570,6 +1570,40 @@ class XQuerySyntaxValidatorTest :
     }
 
     @Nested
+    @DisplayName("XQuery 4.0 ED EBNF (230) RecordTest")
+    internal inner class RecordTest {
+        @Test
+        @DisplayName("Saxon 10 tuple test")
+        fun saxon10() {
+            val file = parse<XQueryModule>("1 instance of tuple(a as xs:string, b as .., \"c\"? as xs:int, *)")[0]
+            validator.configuration = XQUERY_4_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("XQuery >= 4.0")
+        fun supported() {
+            val file = parse<XQueryModule>("1 instance of record(a as xs:string, b as .., \"c\"? as xs:int, *)")[0]
+            validator.configuration = XQUERY_4_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("XQuery < 4.0")
+        fun notSupported() {
+            val file = parse<XQueryModule>("1 instance of record(a as xs:string, b as .., \"c\"? as xs:int, *)")[0]
+            validator.configuration = XQUERY_1_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(
+                report.toString(),
+                `is`("E XPST0003(14:20): XQuery version string '1.0' does not support XQuery 4.0 constructs.")
+            )
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 4.0 ED EBNF (233) LocalUnionType")
     internal inner class LocalUnionType {
         @Test

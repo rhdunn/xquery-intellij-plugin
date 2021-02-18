@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.lang
 
+import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
@@ -45,15 +46,26 @@ object SaxonSyntaxValidator : XpmSyntaxValidator {
             else -> {
             }
         }
-        is XPathFieldDeclaration -> when (element.conformanceElement.elementType) {
-            XPathTokenType.OPTIONAL, XPathTokenType.ELVIS -> reporter.requires(element, SAXON_PE_9_9)
-            XPathTokenType.K_AS -> reporter.requires(element, SAXON_PE_10)
-            else -> {
+        is XPathFieldDeclaration -> {
+            val recordTest = (element as PsiElement).parent as XpmSyntaxValidationElement
+            when (recordTest.conformanceElement.elementType) {
+                XPathTokenType.K_RECORD -> {
+                }
+                else -> when (element.conformanceElement.elementType) {
+                    XPathTokenType.OPTIONAL, XPathTokenType.ELVIS -> reporter.requires(element, SAXON_PE_9_9)
+                    XPathTokenType.K_AS -> reporter.requires(element, SAXON_PE_10)
+                    else -> {
+                    }
+                }
             }
         }
-        is XPathRecordTest -> when (element.isExtensible) {
-            true -> reporter.requires(element, SAXON_PE_9_9)
-            else -> reporter.requires(element, SAXON_PE_9_8)
+        is XPathRecordTest -> when (element.conformanceElement.elementType) {
+            XPathTokenType.K_RECORD -> {
+            }
+            else -> when (element.isExtensible) {
+                true -> reporter.requires(element, SAXON_PE_9_9)
+                else -> reporter.requires(element, SAXON_PE_9_8)
+            }
         }
         is PluginTypeAlias -> when (element.conformanceElement.elementType) {
             XPathTokenType.TYPE_ALIAS -> reporter.requires(element, SAXON_PE_9_8_TO_9_9) // ~T

@@ -88,6 +88,11 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
         is XPathNamedFunctionRef -> reporter.requires(element, XQUERY_3_0)
         is XPathNamespaceNodeTest -> reporter.requires(element, XQUERY_3_0)
         is XPathOtherwiseExpr -> reporter.requires(element, XQUERY_4_0)
+        is XPathRecordTest -> when (element.conformanceElement.elementType) {
+            XPathTokenType.K_RECORD -> reporter.requires(element, XQUERY_4_0)
+            else -> {
+            }
+        }
         is XPathSimpleForClause -> when (element.conformanceElement.elementType) {
             XPathTokenType.K_MEMBER -> reporter.requires(element, XQUERY_4_0)
             else -> {

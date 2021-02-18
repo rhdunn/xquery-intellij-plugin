@@ -350,6 +350,15 @@ class SaxonSyntaxValidatorTest :
     @Nested
     @DisplayName("XQuery IntelliJ Plugin EBNF (23) RecordTest")
     internal inner class RecordTest {
+        @Test
+        @DisplayName("XQuery 4.0 ED record test")
+        fun xquery40() {
+            val file = parse<XQueryModule>("1 instance of record(a as xs:string, b as .., \"c\"? as xs:int, *)")[0]
+            validator.configuration = SAXON_HE_9_8
+            validator.validate(file, this@SaxonSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
         @Nested
         @DisplayName("tuple type")
         internal inner class TupleType {

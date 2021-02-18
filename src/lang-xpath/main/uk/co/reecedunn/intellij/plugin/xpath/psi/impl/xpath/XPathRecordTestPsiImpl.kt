@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
@@ -44,7 +45,7 @@ class XPathRecordTestPsiImpl(node: ASTNode) :
         get() = children().filterIsInstance<XPathFieldDeclaration>()
 
     override val isExtensible: Boolean
-        get() = conformanceElement !== firstChild || fields.none()
+        get() = findChildByType<PsiElement>(XPathTokenType.STAR) != null || fields.none()
 
     // endregion
     // region XdmSequenceType
@@ -97,7 +98,11 @@ class XPathRecordTestPsiImpl(node: ASTNode) :
     // region XpmSyntaxValidationElement
 
     override val conformanceElement: PsiElement
-        get() = findChildByType(XPathTokenType.STAR) ?: firstChild
+        get() = findChildByType(CONFORMANCE_TOKENS) ?: firstChild
+
+    companion object {
+        val CONFORMANCE_TOKENS = TokenSet.create(XPathTokenType.K_RECORD, XPathTokenType.STAR)
+    }
 
     // endregion
 }
