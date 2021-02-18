@@ -19,6 +19,7 @@ import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowInlineFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginDynamicFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
+import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathBundle
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxErrorReporter
@@ -51,6 +52,14 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
         is XPathBracedURILiteral -> reporter.requires(element, XQUERY_3_0)
         is XPathCurlyArrayConstructor -> when (element.conformanceElement.elementType) {
             XPathTokenType.K_ARRAY -> reporter.requires(element, XQUERY_3_1)
+            else -> {
+            }
+        }
+        is XPathElementTest -> when (element.conformanceElement) {
+            is XPathWildcard -> {
+                val name = XPathBundle.message("construct.wildcard-element-test")
+                reporter.requires(element, XQUERY_4_0, name)
+            }
             else -> {
             }
         }

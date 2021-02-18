@@ -28,12 +28,21 @@ class XpmRequiresLanguageVersion(val requires: XpmLanguageVersion) : XpmRequires
         configuration: XpmLanguageConfiguration,
         conformanceName: String?
     ): String {
-        return XpmBundle.message(
-            "diagnostic.unsupported-language-version",
-            requires.language.displayName,
-            configuration.language.version,
-            this
-        )
+        return when (conformanceName) {
+            null -> XpmBundle.message(
+                "diagnostic.unsupported-language-version",
+                requires.language.displayName,
+                configuration.language.version,
+                this
+            )
+            else -> XpmBundle.message(
+                "diagnostic.unsupported-language-version-name",
+                requires.language.displayName,
+                configuration.language.version,
+                this,
+                conformanceName
+            )
+        }
     }
 
     override fun or(requires: XpmRequiresConformanceTo): XpmRequiresConformanceTo = requires.or(this)
