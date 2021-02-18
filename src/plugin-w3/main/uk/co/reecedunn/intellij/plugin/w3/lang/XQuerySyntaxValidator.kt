@@ -49,6 +49,14 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
             XPathTokenType.THIN_ARROW -> reporter.requires(element, XQUERY_4_0)
             else -> reporter.requires(element, XQUERY_3_1)
         }
+        is XPathAttributeTest -> when (element.conformanceElement) {
+            is XPathWildcard -> {
+                val name = XPathBundle.message("construct.wildcard-attribute-test")
+                reporter.requires(element, XQUERY_4_0, name)
+            }
+            else -> {
+            }
+        }
         is XPathBracedURILiteral -> reporter.requires(element, XQUERY_3_0)
         is XPathCurlyArrayConstructor -> when (element.conformanceElement.elementType) {
             XPathTokenType.K_ARRAY -> reporter.requires(element, XQUERY_3_1)

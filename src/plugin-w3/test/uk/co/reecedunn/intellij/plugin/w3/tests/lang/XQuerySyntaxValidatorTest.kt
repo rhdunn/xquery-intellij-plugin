@@ -1415,6 +1415,43 @@ class XQuerySyntaxValidatorTest :
     }
 
     @Nested
+    @DisplayName("XQuery 4.0 ED EBNF (212) AttributeTest ; XQuery 4.0 ED EBNF (128) NameTest")
+    internal inner class AttributeTest {
+        @Test
+        @DisplayName("XQuery >= 4.0")
+        fun supportedEE() {
+            val file = parse<XQueryModule>(
+                """
+                1 instance of attribute(), (: XPath/XQuery :)
+                2 instance of attribute(ns:test), (: XPath/XQuery :)
+                3 instance of attribute(test:*) (: XQuery 4.0 ED :)
+                """.trimIndent()
+            )[0]
+            validator.configuration = XQUERY_4_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("XQuery < 4.0")
+        fun notSupportedEE() {
+            val file = parse<XQueryModule>(
+                """
+                1 instance of attribute(), (: XPath/XQuery :)
+                2 instance of attribute(ns:test), (: XPath/XQuery :)
+                3 instance of attribute(test:*) (: XQuery 4.0 ED :)
+                """.trimIndent()
+            )[0]
+            validator.configuration = XQUERY_1_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(
+                report.toString(),
+                `is`("E XPST0003(123:129): XQuery version string '1.0' does not support XQuery 4.0 wildcard local or prefix part in 'AttributeTest' constructs.")
+            )
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 4.0 ED EBNF (215) ElementTest ; XQuery 4.0 ED EBNF (128) NameTest")
     internal inner class ElementTest {
         @Test
