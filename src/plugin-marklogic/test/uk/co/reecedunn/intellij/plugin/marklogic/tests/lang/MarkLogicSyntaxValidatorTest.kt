@@ -237,6 +237,15 @@ class MarkLogicSyntaxValidatorTest :
                 `is`("E XPST0003(29:30): MarkLogic 5.0 does not support MarkLogic 6.0 constructs.")
             )
         }
+
+        @Test
+        @DisplayName("XQuery IntelliJ Plugin EBNF (86) SequenceTypeUnion")
+        fun sequenceType() {
+            val file = parse<XQueryModule>("1 instance of (xs:string*|element(test))")[0]
+            validator.configuration = VERSION_5
+            validator.validate(file, this@MarkLogicSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
     }
 
     @Nested

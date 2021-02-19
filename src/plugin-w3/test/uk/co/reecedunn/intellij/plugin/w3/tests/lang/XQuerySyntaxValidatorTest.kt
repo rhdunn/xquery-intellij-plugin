@@ -385,6 +385,15 @@ class XQuerySyntaxValidatorTest :
             validator.validate(file, this@XQuerySyntaxValidatorTest)
             assertThat(report.toString(), `is`(""))
         }
+
+        @Test
+        @DisplayName("XQuery IntelliJ Plugin EBNF (86) SequenceTypeUnion")
+        fun sequenceType() {
+            val file = parse<XQueryModule>("1 instance of (xs:string*|element(test))")[0]
+            validator.configuration = XQUERY_1_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
     }
 
     @Nested

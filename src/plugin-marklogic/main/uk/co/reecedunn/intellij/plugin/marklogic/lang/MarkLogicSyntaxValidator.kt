@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.lang
 
+import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.marklogic.lang.requires.XpmRequiresMarkLogic
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginDynamicFunctionCall
@@ -115,7 +116,11 @@ object MarkLogicSyntaxValidator : XpmSyntaxValidator {
             else -> {
             }
         }
-        is XQuerySequenceTypeUnion -> reporter.requires(element, MARKLOGIC_6)
+        is XQuerySequenceTypeUnion -> when ((element as PsiElement).parent) {
+            is XQueryCaseClause -> reporter.requires(element, MARKLOGIC_6)
+            else -> {
+            }
+        }
         is XQuerySwitchExpr -> reporter.requires(element, MARKLOGIC_6)
         is XQueryTryClause -> reporter.requires(element, MARKLOGIC_6)
         is XQueryValidateExpr -> when (element.conformanceElement.elementType) {

@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.w3.lang
 
+import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowInlineFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginDynamicFunctionCall
@@ -37,11 +38,6 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
     ): Unit = when (element) {
         is PluginArrowInlineFunctionCall -> reporter.requires(element, XQUERY_4_0)
         is PluginDynamicFunctionCall -> reporter.requires(element, XQUERY_3_0)
-        is XQueryVersionDecl -> when (element.conformanceElement.elementType) {
-            XQueryTokenType.K_ENCODING -> reporter.requires(element, XQUERY_3_0)
-            else -> {
-            }
-        }
         is XPathAnyArrayTest -> reporter.requires(element, XQUERY_3_1)
         is XPathAnyFunctionTest -> reporter.requires(element, XQUERY_3_0)
         is XPathArgumentPlaceholder -> reporter.requires(element, XQUERY_3_0)
@@ -120,7 +116,11 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
             else -> {
             }
         }
-        is XQuerySequenceTypeUnion -> reporter.requires(element, XQUERY_3_0)
+        is XQuerySequenceTypeUnion -> when ((element as PsiElement).parent) {
+            is XQueryCaseClause -> reporter.requires(element, XQUERY_3_0)
+            else -> {
+            }
+        }
         is XQuerySlidingWindowClause -> reporter.requires(element, XQUERY_3_0)
         is XQueryStringConstructor -> reporter.requires(element, XQUERY_3_1)
         is XQuerySwitchExpr -> reporter.requires(element, XQUERY_3_0)
@@ -133,6 +133,11 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
         }
         is XQueryVarDecl -> when (element.conformanceElement.elementType) {
             XPathTokenType.ASSIGN_EQUAL -> reporter.requires(element, XQUERY_3_0)
+            else -> {
+            }
+        }
+        is XQueryVersionDecl -> when (element.conformanceElement.elementType) {
+            XQueryTokenType.K_ENCODING -> reporter.requires(element, XQUERY_3_0)
             else -> {
             }
         }
