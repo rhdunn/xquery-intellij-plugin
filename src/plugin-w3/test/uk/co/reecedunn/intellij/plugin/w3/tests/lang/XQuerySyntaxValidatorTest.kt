@@ -1585,7 +1585,7 @@ class XQuerySyntaxValidatorTest :
         @DisplayName("Saxon 10 tuple test")
         fun saxon10() {
             val file = parse<XQueryModule>("1 instance of tuple(a as xs:string, b as .., \"c\"? as xs:int, *)")[0]
-            validator.configuration = XQUERY_4_0
+            validator.configuration = XQUERY_1_0
             validator.validate(file, this@XQuerySyntaxValidatorTest)
             assertThat(report.toString(), `is`(""))
         }

@@ -154,6 +154,26 @@ private class PluginParserTest : ParserTestCase() {
             }
 
             @Nested
+            @DisplayName("error recovery: with SequenceType (XQuery 4.0 ED syntax)")
+            internal inner class WithSelfReference {
+                @Test
+                @DisplayName("self reference")
+                fun selfReference() {
+                    val expected = loadResource("tests/parser/saxon-9.8-xpath/TupleField_SelfReference.txt")
+                    val actual = parseResource("tests/parser/saxon-9.8-xpath/TupleField_SelfReference.xq")
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
+                }
+
+                @Test
+                @DisplayName("self reference with occurrence indicator")
+                fun occurrenceIndicator() {
+                    val expected = loadResource("tests/parser/saxon-9.8-xpath/TupleField_SelfReference_OccurrenceIndicator.txt")
+                    val actual = parseResource("tests/parser/saxon-9.8-xpath/TupleField_SelfReference_OccurrenceIndicator.xq")
+                    assertThat(actual.toPsiTreeString(), `is`(expected))
+                }
+            }
+
+            @Nested
             @DisplayName("with SequenceType (Saxon 9.8 syntax)")
             internal inner class WithSequenceType_Saxon9 {
                 @Test

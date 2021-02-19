@@ -3653,8 +3653,6 @@ open class XPathParser : PsiParser {
     private fun parseTupleFieldDeclaration(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
         if (parseFieldName(builder)) {
-            var haveError = false
-
             parseWhiteSpaceAndCommentTokens(builder)
             val haveSeparator = when {
                 builder.matchTokenType(XPathTokenType.ELVIS) -> true // ?: without whitespace
@@ -3671,12 +3669,21 @@ open class XPathParser : PsiParser {
                     return true
                 }
                 builder.error(XPathBundle.message("parser.error.expected-either", ":", "as"))
-                haveError = true
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseSequenceType(builder) && !haveError) {
-                builder.error(XPathBundle.message("parser.error.expected", "SequenceType"))
+            if (!parseSequenceType(builder)) {
+                if (
+                    builder.errorOnTokenType(
+                        XPathTokenType.PARENT_SELECTOR,
+                        XPathBundle.message("parser.error.expected", "SequenceType")
+                    )
+                ) {
+                    parseWhiteSpaceAndCommentTokens(builder)
+                    parseOccurrenceIndicator(builder)
+                } else {
+                    builder.error(XPathBundle.message("parser.error.expected", "SequenceType"))
+                }
             }
 
             marker.done(XPathElementType.FIELD_DECLARATION)
