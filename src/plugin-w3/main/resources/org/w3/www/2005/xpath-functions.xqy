@@ -1,4 +1,4 @@
-xquery version "3.1";
+xquery version "4.0";
 (:~
  : XPath and XQuery Functions and Operators
  :
