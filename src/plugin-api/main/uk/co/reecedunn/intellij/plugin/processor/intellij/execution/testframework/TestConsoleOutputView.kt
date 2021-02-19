@@ -68,6 +68,7 @@ class TestConsoleOutputView(project: Project, private val outputFormat: TestForm
 
     override fun dispose() {
         queryProcessHandler?.removeQueryResultListener(this)
+        super.dispose()
     }
 
     // endregion

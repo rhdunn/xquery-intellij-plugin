@@ -116,6 +116,8 @@ class ConsoleRunnerLayoutUiBuilder(primary: ConsoleView) : ConsoleViewWrapperBas
     override fun dispose() {
         providers.forEach { provider -> (provider as? Disposable)?.let { Disposer.dispose(it) } }
         providers.clear()
+        activeProvider = null
+        layout = null
         super.dispose()
     }
 
