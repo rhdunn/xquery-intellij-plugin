@@ -403,6 +403,8 @@ object W3C : Implementation("w3c", "W3C", "https://www.w3.org/XML/Query/") {
                 "urn:static-context:w3"
             XQuerySpec.REC_3_1_20170321, XQuerySpec.CR_3_1_20151217 ->
                 "urn:static-context:w3"
+            XQuerySpec.ED_4_0_20210113 ->
+                "urn:static-context:w3"
             else -> null
         }
     }
