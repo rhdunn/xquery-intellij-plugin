@@ -355,6 +355,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                 annotations, `is`(
                     """
                     INFORMATION (0:5) ERASED/DEFAULT + XQUERY_ELEMENT
+                    INFORMATION (7:12) ERASED/DEFAULT + XQUERY_NS_PREFIX
                     INFORMATION (13:17) ERASED/DEFAULT + XQUERY_ELEMENT
                     """.trimIndent()
                 )

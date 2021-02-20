@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2019-2020 Reece H. Dunn
+ * Copyright (C) 2016, 2019-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,6 +35,8 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpath.annotation.QNameAnnotator
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.getUsageType
+import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XdmNamespaceType
+import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
 
 class QNameAnnotator : QNameAnnotator() {
     private fun getHighlightAttributes(element: PsiElement, resolveReferences: Boolean = true): TextAttributesKey {
@@ -75,11 +77,15 @@ class QNameAnnotator : QNameAnnotator() {
         }
     }
 
+    private fun isXmlnsPrefix(element: PsiElement): Boolean {
+        return (element.parent as? XpmNamespaceDeclaration)?.accepts(XdmNamespaceType.Prefixed) == true
+    }
+
     override fun annotateElement(element: PsiElement, holder: AnnotationHolder) {
         if (element !is XsQNameValue) return
 
         if (element.prefix != null) {
-            if (element.prefix !is XdmWildcardValue && element.prefix?.data != "xmlns") {
+            if (element.prefix !is XdmWildcardValue && !isXmlnsPrefix(element)) {
                 val prefix = element.prefix?.element!!
                 holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(prefix)
                     .enforcedTextAttributes(TextAttributes.ERASE_MARKER)
