@@ -667,6 +667,23 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                 )
             )
         }
+
+        @Test
+        @DisplayName("XPath 4.0 ED EBNF (62) KeywordArgument")
+        fun keywordArgument() {
+            val file = parse<XPath>("fn:matches(input: \"test\", pattern: \".*\")")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (0:2) ERASED/DEFAULT + XPATH_NS_PREFIX
+                    INFORMATION (3:10) ERASED/DEFAULT + XPATH_FUNCTION_CALL
+                    INFORMATION (11:16) ERASED/DEFAULT + XPATH_PARAMETER
+                    INFORMATION (26:33) ERASED/DEFAULT + XPATH_PARAMETER
+                    """.trimIndent()
+                )
+            )
+        }
     }
 
     @Nested

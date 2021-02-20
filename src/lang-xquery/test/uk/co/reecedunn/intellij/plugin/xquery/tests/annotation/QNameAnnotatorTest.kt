@@ -928,6 +928,23 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                 )
             )
         }
+
+        @Test
+        @DisplayName("XQuery 4.0 ED EBNF (137) KeywordArgument")
+        fun keywordArgument() {
+            val file = parse<XQueryModule>("fn:matches(input: \"test\", pattern: \".*\")")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (0:2) ERASED/DEFAULT + XQUERY_NS_PREFIX
+                    INFORMATION (3:10) ERASED/DEFAULT + XQUERY_FUNCTION_CALL
+                    INFORMATION (11:16) ERASED/DEFAULT + XQUERY_PARAMETER
+                    INFORMATION (26:33) ERASED/DEFAULT + XQUERY_PARAMETER
+                    """.trimIndent()
+                )
+            )
+        }
     }
 
     @Nested

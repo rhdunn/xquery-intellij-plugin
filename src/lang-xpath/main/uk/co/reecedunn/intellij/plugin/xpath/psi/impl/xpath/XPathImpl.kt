@@ -74,6 +74,7 @@ class XPathImpl(provider: FileViewProvider) :
             XPathElementType.ELEMENT_TEST to XpmUsageType.Element,
             XPathElementType.FT_SCORE_VAR to XpmUsageType.Variable,
             XPathElementType.FUNCTION_CALL to XpmUsageType.FunctionRef,
+            XPathElementType.KEYWORD_ARGUMENT to XpmUsageType.Parameter,
             XPathElementType.NAMED_FUNCTION_REF to XpmUsageType.FunctionRef,
             XPathElementType.PARAM to XpmUsageType.Parameter,
             XPathElementType.PRAGMA to XpmUsageType.Pragma,
