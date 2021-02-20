@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2020 Reece H. Dunn
+ * Copyright (C) 2016-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ import com.intellij.openapi.fileTypes.FileType
 import com.intellij.psi.FileViewProvider
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.IElementType
+import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
@@ -114,7 +115,7 @@ class XQueryModuleImpl(provider: FileViewProvider) :
         val parentType = element.parent.elementType
         return when {
             element.elementType === XQueryElementType.COMPATIBILITY_ANNOTATION -> XpmUsageType.Annotation
-            parentType === XQueryElementType.DIR_ATTRIBUTE -> {
+            parentType in XMLNS_DECLARATION -> {
                 if ((element as? XsQNameValue)?.prefix?.data == "xmlns")
                     XpmUsageType.Namespace
                 else
@@ -129,6 +130,11 @@ class XQueryModuleImpl(provider: FileViewProvider) :
     // endregion
 
     companion object {
+        val XMLNS_DECLARATION = TokenSet.create(
+            XPathElementType.NAMESPACE_DECLARATION,
+            XQueryElementType.DIR_ATTRIBUTE
+        )
+
         val USAGE_TYPES: Map<IElementType, XpmUsageType> = mapOf(
             XQueryElementType.ANNOTATION to XpmUsageType.Annotation,
             XPathElementType.ARROW_FUNCTION_CALL to XpmUsageType.FunctionRef,

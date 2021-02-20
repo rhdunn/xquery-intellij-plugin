@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2020 Reece H. Dunn
+ * Copyright (C) 2018-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,7 +44,18 @@ class XPathImpl(provider: FileViewProvider) :
     // endregion
     // region XstContext
 
-    override fun getUsageType(element: PsiElement): XpmUsageType? = USAGE_TYPES[element.parent.elementType]
+    override fun getUsageType(element: PsiElement): XpmUsageType? {
+        val parentType = element.parent.elementType
+        return when {
+            parentType === XPathElementType.NAMESPACE_DECLARATION -> {
+                if ((element as? XsQNameValue)?.prefix?.data == "xmlns")
+                    XpmUsageType.Namespace
+                else
+                    XpmUsageType.Attribute
+            }
+            else -> USAGE_TYPES[parentType]
+        }
+    }
 
     override fun expandQName(qname: XsQNameValue): Sequence<XsQNameValue> = emptySequence()
 

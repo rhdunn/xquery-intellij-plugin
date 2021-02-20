@@ -863,13 +863,30 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         @Test
         @DisplayName("XQuery 3.1 EBNF (143) DirAttributeList")
         fun dirAttributeList() {
-            val file = parse<XQueryModule>("<a:b xmlns:a=\"http://www.example.com/a\"/>")[0]
+            val file = parse<XQueryModule>("<a:b xmlns:a=\"http://www.example.com/a\" xmlns=\"http://www.example.com/\"/>")[0]
             val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
             assertThat(
                 annotations, `is`(
                     """
                     INFORMATION (1:2) ERASED/DEFAULT + XQUERY_XML_TAG + XQUERY_NS_PREFIX
+                    INFORMATION (5:10) ERASED/DEFAULT + XQUERY_XML_TAG + XQUERY_ATTRIBUTE
                     INFORMATION (11:12) ERASED/DEFAULT + XQUERY_XML_TAG + XQUERY_NS_PREFIX
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XQuery 4.0 ED EBNF (43) WithExpr ; XQuery 4.0 ED EBNF (44) NamespaceDeclaration")
+        fun withExpr() {
+            val file = parse<XQueryModule>("with xmlns:a=\"http://www.example.com/a\", xmlns=\"http://www.example.com/\" {}")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (5:10) ERASED/DEFAULT + XQUERY_ATTRIBUTE
+                    INFORMATION (11:12) ERASED/DEFAULT + XQUERY_NS_PREFIX
+                    INFORMATION (41:46) ERASED/DEFAULT + XQUERY_ATTRIBUTE
                     """.trimIndent()
                 )
             )

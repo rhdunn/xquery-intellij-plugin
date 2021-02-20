@@ -632,6 +632,22 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                 )
             )
         }
+
+        @Test
+        @DisplayName("XPath 4.0 ED EBNF (9) WithExpr ; XPath 4.0 ED EBNF (10) NamespaceDeclaration")
+        fun withExpr() {
+            val file = parse<XPath>("with xmlns:a=\"http://www.example.com/a\", xmlns=\"http://www.example.com/\" {}")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (5:10) ERASED/DEFAULT + XPATH_ATTRIBUTE
+                    INFORMATION (11:12) ERASED/DEFAULT + XPATH_NS_PREFIX
+                    INFORMATION (41:46) ERASED/DEFAULT + XPATH_ATTRIBUTE
+                    """.trimIndent()
+                )
+            )
+        }
     }
 
     @Nested
