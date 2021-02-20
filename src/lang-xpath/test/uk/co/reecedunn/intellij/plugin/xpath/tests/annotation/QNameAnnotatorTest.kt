@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2020 Reece H. Dunn
+ * Copyright (C) 2016-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -332,6 +332,22 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                     )
                 )
             }
+        }
+
+        @Test
+        @DisplayName("xmlns")
+        fun xmlns() {
+            val file = parse<XPath>("xmlns, xmlns:test")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (0:5) ERASED/DEFAULT + XPATH_ELEMENT
+                    INFORMATION (7:12) ERASED/DEFAULT + XPATH_NS_PREFIX
+                    INFORMATION (13:17) ERASED/DEFAULT + XPATH_ELEMENT
+                    """.trimIndent()
+                )
+            )
         }
     }
 
