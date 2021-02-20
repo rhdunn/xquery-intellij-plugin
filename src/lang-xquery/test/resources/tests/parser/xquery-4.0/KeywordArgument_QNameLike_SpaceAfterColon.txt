@@ -9,7 +9,8 @@ XQueryModuleImpl[FILE(0:10)]
                LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(2:3)]('(')
                PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
                XPathKeywordArgumentImpl[XPATH_KEYWORD_ARGUMENT(4:9)]
-                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(4:5)]('a')
+                  XQueryNCNameImpl[XQUERY_NCNAME(4:5)]
+                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(4:5)]('a')
                   LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(5:6)](':')
                   PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
                   XPathPathExprImpl[XPATH_PATH_EXPR(7:9)]

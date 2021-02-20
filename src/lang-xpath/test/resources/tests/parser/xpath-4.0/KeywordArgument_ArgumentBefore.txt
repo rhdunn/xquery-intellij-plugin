@@ -11,7 +11,8 @@ XPathImpl[FILE(0:15)]
          LeafPsiElement[XPATH_COMMA_TOKEN(6:7)](',')
          PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
          XPathKeywordArgumentImpl[XPATH_KEYWORD_ARGUMENT(8:14)]
-            XmlNCNameImpl[XPATH_NCNAME_TOKEN(8:9)]('a')
+            XPathNCNameImpl[XPATH_NCNAME(8:9)]
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(8:9)]('a')
             PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
             LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(10:11)](':')
             PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')

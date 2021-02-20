@@ -1852,7 +1852,7 @@ open class XPathParser : PsiParser {
         var keywordArgument: PsiBuilder.Marker? = null
         if (builder.tokenType is INCNameType) {
             keywordArgument = builder.mark()
-            builder.advanceLexer()
+            parseNCName(builder)
 
             val spaceBeforeSeparator = parseWhiteSpaceAndCommentTokens(builder)
             when {
