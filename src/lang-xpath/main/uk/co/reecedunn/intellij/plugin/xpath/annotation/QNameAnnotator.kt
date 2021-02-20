@@ -100,17 +100,10 @@ open class QNameAnnotator : Annotator() {
         if (element.prefix != null) {
             if (element.prefix !is XdmWildcardValue) {
                 val prefix = element.prefix?.element!!
-                holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(prefix)
-                    .enforcedTextAttributes(TextAttributes.ERASE_MARKER)
-                    .create()
                 if (isXmlnsPrefix(element)) {
-                    holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(prefix)
-                        .textAttributes(XPathSyntaxHighlighterColors.ATTRIBUTE)
-                        .create()
+                    highlight(prefix, XPathSyntaxHighlighterColors.ATTRIBUTE, holder)
                 } else {
-                    holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(prefix)
-                        .textAttributes(XPathSyntaxHighlighterColors.NS_PREFIX)
-                        .create()
+                    highlight(prefix, XPathSyntaxHighlighterColors.NS_PREFIX, holder)
                 }
             }
 
@@ -125,23 +118,21 @@ open class QNameAnnotator : Annotator() {
             val localName = element.localName?.element!!
             val highlight = getHighlightAttributes(element)
             when {
-                highlight !== XPathSyntaxHighlighterColors.IDENTIFIER -> {
-                    holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(localName)
-                        .enforcedTextAttributes(TextAttributes.ERASE_MARKER)
-                        .create()
-                    holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(localName)
-                        .textAttributes(highlight)
-                        .create()
-                }
+                highlight !== XPathSyntaxHighlighterColors.IDENTIFIER -> highlight(localName, highlight, holder)
                 localName.elementType is IKeywordOrNCNameType -> {
-                    holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(localName)
-                        .enforcedTextAttributes(TextAttributes.ERASE_MARKER)
-                        .create()
-                    holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(localName)
-                        .textAttributes(XPathSyntaxHighlighterColors.IDENTIFIER)
-                        .create()
+                    highlight(localName, XPathSyntaxHighlighterColors.IDENTIFIER, holder)
                 }
             }
         }
+    }
+
+    private fun highlight(element: PsiElement, textAttributes: TextAttributesKey, holder: AnnotationHolder) {
+        holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(element)
+            .enforcedTextAttributes(TextAttributes.ERASE_MARKER)
+            .create()
+
+        holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(element)
+            .textAttributes(textAttributes)
+            .create()
     }
 }

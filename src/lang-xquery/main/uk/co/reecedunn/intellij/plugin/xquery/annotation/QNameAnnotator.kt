@@ -81,22 +81,10 @@ class QNameAnnotator : QNameAnnotator() {
         if (element.prefix != null) {
             if (element.prefix !is XdmWildcardValue) {
                 val prefix = element.prefix?.element!!
-                holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(prefix)
-                    .enforcedTextAttributes(TextAttributes.ERASE_MARKER)
-                    .create()
-                if (element.parent is PluginDirAttribute || element.parent is XQueryDirElemConstructor) {
-                    holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(prefix)
-                        .textAttributes(XQuerySyntaxHighlighterColors.XML_TAG)
-                        .create()
-                }
                 if (isXmlnsPrefix(element)) {
-                    holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(prefix)
-                        .textAttributes(XQuerySyntaxHighlighterColors.ATTRIBUTE)
-                        .create()
+                    highlight(prefix, XQuerySyntaxHighlighterColors.ATTRIBUTE, holder)
                 } else {
-                    holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(prefix)
-                        .textAttributes(XQuerySyntaxHighlighterColors.NS_PREFIX)
-                        .create()
+                    highlight(prefix, XQuerySyntaxHighlighterColors.NS_PREFIX, holder)
                 }
             }
 
@@ -112,28 +100,28 @@ class QNameAnnotator : QNameAnnotator() {
             val highlight = getHighlightAttributes(element)
             val elementHighlight = getElementHighlight(localName)
             when {
-                highlight !== elementHighlight -> {
-                    holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(localName)
-                        .enforcedTextAttributes(TextAttributes.ERASE_MARKER)
-                        .create()
-                    if (element.parent is PluginDirAttribute) {
-                        holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(localName)
-                            .textAttributes(XQuerySyntaxHighlighterColors.XML_TAG)
-                            .create()
-                    }
-                    holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(localName)
-                        .textAttributes(highlight)
-                        .create()
-                }
+                highlight !== elementHighlight -> highlight(localName, highlight, holder)
                 localName.elementType is IKeywordOrNCNameType && highlight !== elementHighlight -> {
-                    holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(localName)
-                        .enforcedTextAttributes(TextAttributes.ERASE_MARKER)
-                        .create()
-                    holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(localName)
-                        .textAttributes(XQuerySyntaxHighlighterColors.IDENTIFIER)
-                        .create()
+                    highlight(localName, XQuerySyntaxHighlighterColors.IDENTIFIER, holder)
                 }
             }
         }
+    }
+
+    private fun highlight(element: PsiElement, textAttributes: TextAttributesKey, holder: AnnotationHolder) {
+        holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(element)
+            .enforcedTextAttributes(TextAttributes.ERASE_MARKER)
+            .create()
+
+        val parent = element.parent.parent
+        if (parent is PluginDirAttribute || parent is XQueryDirElemConstructor) {
+            holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(element)
+                .textAttributes(XQuerySyntaxHighlighterColors.XML_TAG)
+                .create()
+        }
+
+        holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(element)
+            .textAttributes(textAttributes)
+            .create()
     }
 }
