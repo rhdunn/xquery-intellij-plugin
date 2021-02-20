@@ -4146,7 +4146,7 @@ class XQueryParser : XPathParser() {
                 return false
             }
 
-            val name = parseEQNameOrWildcard(builder, XQueryElementType.PREFIX, false)
+            val name = parseEQNameOrWildcard(builder, XQueryElementType.NCNAME, false)
             if (
                 name == null &&
                 !parseEnclosedExprOrBlock(
@@ -5264,7 +5264,7 @@ class XQueryParser : XPathParser() {
             builder.tokenType === XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR ||
             builder.tokenType === XQueryTokenType.XML_TAG_QNAME_SEPARATOR
         ) {
-            if (type === XQueryElementType.NCNAME || type === XQueryElementType.PREFIX) {
+            if (type === XQueryElementType.NCNAME) {
                 val errorMarker = builder.mark()
                 builder.advanceLexer()
                 errorMarker.error(XPathBundle.message("parser.error.expected-ncname-not-qname"))
