@@ -2847,6 +2847,70 @@ private class PluginInspectionTest : InspectionTestCase() {
             }
 
             @Nested
+            @DisplayName("BaseX XQuery 4.0 draft syntax support")
+            internal inner class BaseXXQuery40Draft {
+                val file = parse<XQueryModule>("true() ?? 1 !! 2")[0]
+
+                @Test
+                @DisplayName("XQuery >= 4.0")
+                fun supportedViaXQueryVersion() {
+                    settings.XQueryVersion = XQuerySpec.ED_4_0_20210113.versionId
+                    settings.implementationVersion = "w3c/spec/wd"
+
+                    val problems = inspect(file, IJVS0001())
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(0))
+                }
+
+                @Test
+                @DisplayName("XQuery < 4.0")
+                fun notSupportedXQuery() {
+                    settings.XQueryVersion = XQuerySpec.REC_1_0_20070123.versionId
+                    settings.implementationVersion = "w3c/spec/1ed"
+
+                    val problems = inspect(file, IJVS0001())
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(1))
+
+                    assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
+                    assertThat(
+                        problems[0].descriptionTemplate,
+                        `is`("XPST0003: XQuery version string '1.0' does not support XQuery 4.0, or BaseX 9.1 constructs.")
+                    )
+                    assertThat(problems[0].psiElement.elementType, `is`(XPathTokenType.TERNARY_IF))
+                }
+
+                @Test
+                @DisplayName("BaseX >= 9.1")
+                fun supported() {
+                    settings.XQueryVersion = XQuerySpec.REC_3_1_20170321.versionId
+                    settings.implementationVersion = "basex/v9.1"
+
+                    val problems = inspect(file, IJVS0001())
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(0))
+                }
+
+                @Test
+                @DisplayName("BaseX < 9.1")
+                fun notSupported() {
+                    settings.XQueryVersion = XQuerySpec.REC_3_1_20170321.versionId
+                    settings.implementationVersion = "basex/v6.1"
+
+                    val problems = inspect(file, IJVS0001())
+                    assertThat(problems, `is`(notNullValue()))
+                    assertThat(problems!!.size, `is`(1))
+
+                    assertThat(problems[0].highlightType, `is`(ProblemHighlightType.GENERIC_ERROR_OR_WARNING))
+                    assertThat(
+                        problems[0].descriptionTemplate,
+                        `is`("XPST0003: XQuery version string '1.0' does not support XQuery 4.0, or BaseX 9.1 constructs.")
+                    )
+                    assertThat(problems[0].psiElement.elementType, `is`(XPathTokenType.TERNARY_IF))
+                }
+            }
+
+            @Nested
             @DisplayName("empty error element")
             internal inner class EmptyErrorElement {
                 @Test
