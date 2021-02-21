@@ -753,6 +753,24 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
     }
 
     @Nested
+    @DisplayName("Usage Type: Processing Instruction")
+    internal inner class UsageType_ProcessingInstruction {
+        @Test
+        @DisplayName("XPath 3.1 EBNF (125) PITest")
+        fun piTest() {
+            val file = parse<XPath>("1 instance of processing-instruction(test)")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (37:41) ERASED/DEFAULT + XPATH_PROCESSING_INSTRUCTION
+                    """.trimIndent()
+                )
+            )
+        }
+    }
+
+    @Nested
     @DisplayName("Usage Type: Type")
     internal inner class UsageType_Type {
         @Test

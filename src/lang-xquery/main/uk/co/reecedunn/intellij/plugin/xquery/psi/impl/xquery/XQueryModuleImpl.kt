@@ -170,6 +170,7 @@ class XQueryModuleImpl(provider: FileViewProvider) :
             XQueryElementType.NEXT_ITEM to XpmUsageType.Variable,
             XQueryElementType.OPTION_DECL to XpmUsageType.Option,
             XPathElementType.PARAM to XpmUsageType.Parameter,
+            XPathElementType.PI_TEST to XpmUsageType.ProcessingInstruction,
             XQueryElementType.POSITIONAL_VAR to XpmUsageType.Variable,
             XPathElementType.PRAGMA to XpmUsageType.Pragma,
             XQueryElementType.PREVIOUS_ITEM to XpmUsageType.Variable,

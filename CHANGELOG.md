@@ -29,6 +29,7 @@ Semantic Highlighting:
 1. Fix highlighting `xmlns` namespace prefix in contexts other than XML attributes.
 1. Highlight the `CompNamespaceConstructor` name as a namespace prefix.
 1. Highlight `KeySeparator` names and `RecordTest` field names as map keys.
+1. Highlight `PITest` names as processing instructions.
 1. Highlight `KeywordArgument` names as parameters.
 1. Highlight `WithExpr` using the same logic as `DirAttribute`.
 
