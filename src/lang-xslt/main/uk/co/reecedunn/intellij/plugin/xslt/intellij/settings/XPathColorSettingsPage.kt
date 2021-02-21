@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2019 Reece H. Dunn
+ * Copyright (C) 2016, 2019-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -65,6 +65,7 @@ class XPathColorSettingsPage : ColorSettingsPage {
             ret = ret.replace("::one ", "::<element>one</element> ")
             ret = ret.replace("::two ", "::<attribute>two</attribute> ")
             ret = ret.replace("::three ", "::<nsprefix>three</nsprefix> ")
+            ret = ret.replace("?key-name", "?<map-key>key-name</map-key>")
             ret = ret.replace(" ext ", " <pragma>ext</pragma> ")
             ret
         }

@@ -48,6 +48,7 @@ open class QNameAnnotator : Annotator() {
             XpmUsageType.Element -> XPathSyntaxHighlighterColors.ELEMENT
             XpmUsageType.FunctionDecl -> XPathSyntaxHighlighterColors.IDENTIFIER // XQuery
             XpmUsageType.FunctionRef -> XPathSyntaxHighlighterColors.FUNCTION_CALL
+            XpmUsageType.MapKey -> XPathSyntaxHighlighterColors.MAP_KEY
             XpmUsageType.Namespace -> XPathSyntaxHighlighterColors.NS_PREFIX
             XpmUsageType.Option -> XPathSyntaxHighlighterColors.IDENTIFIER // XQuery
             XpmUsageType.Parameter -> XPathSyntaxHighlighterColors.PARAMETER

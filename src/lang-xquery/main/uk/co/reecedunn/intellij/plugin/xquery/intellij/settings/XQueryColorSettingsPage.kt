@@ -61,6 +61,7 @@ class XQueryColorSettingsPage : ColorSettingsPage {
             ret = ret.replace(" data/", " <element>data</element>/")
             ret = ret.replace("@value", "@<attribute>value</attribute>")
             ret = ret.replace(" fn:true(", " <nsprefix>fn</nsprefix>:<function-call>true</function-call>(")
+            ret = ret.replace("?key-name", "?<map-key>key-name</map-key>")
             ret = ret.replace(" ext ", " <pragma>ext</pragma> ")
             ret
         }

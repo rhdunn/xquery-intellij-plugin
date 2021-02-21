@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2020 Reece H. Dunn
+ * Copyright (C) 2016-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -102,7 +102,7 @@ class XQueryColorSettingsPageTest {
     @DisplayName("demo text contains all semantic-based text attribute keys")
     fun semanticHighlightingTextAttributeKeys() {
         val keys = getTextAttributeKeysForAdditionalDescriptors(settings.demoText)
-        assertThat(keys.size, `is`(19))
+        assertThat(keys.size, `is`(20))
         assertThat(keys[0], `is`("two" to XQuerySyntaxHighlighterColors.ATTRIBUTE))
         assertThat(keys[1], `is`("value" to XQuerySyntaxHighlighterColors.ATTRIBUTE))
         assertThat(keys[2], `is`("fmt" to XQuerySyntaxHighlighterColors.DECIMAL_FORMAT))
@@ -110,18 +110,19 @@ class XQueryColorSettingsPageTest {
         assertThat(keys[4], `is`("data" to XQuerySyntaxHighlighterColors.ELEMENT))
         assertThat(keys[5], `is`("true" to XQuerySyntaxHighlighterColors.FUNCTION_CALL))
         assertThat(keys[6], `is`("update" to XQuerySyntaxHighlighterColors.FUNCTION_DECL))
-        assertThat(keys[7], `is`("json" to XQuerySyntaxHighlighterColors.NS_PREFIX))
-        assertThat(keys[8], `is`("zip" to XQuerySyntaxHighlighterColors.NS_PREFIX))
-        assertThat(keys[9], `is`("xs" to XQuerySyntaxHighlighterColors.NS_PREFIX))
-        assertThat(keys[10], `is`("three" to XQuerySyntaxHighlighterColors.NS_PREFIX))
-        assertThat(keys[11], `is`("fn" to XQuerySyntaxHighlighterColors.NS_PREFIX))
-        assertThat(keys[12], `is`("opt" to XQuerySyntaxHighlighterColors.OPTION))
-        assertThat(keys[13], `is`("a" to XQuerySyntaxHighlighterColors.PARAMETER))
+        assertThat(keys[7], `is`("key-name" to XQuerySyntaxHighlighterColors.MAP_KEY))
+        assertThat(keys[8], `is`("json" to XQuerySyntaxHighlighterColors.NS_PREFIX))
+        assertThat(keys[9], `is`("zip" to XQuerySyntaxHighlighterColors.NS_PREFIX))
+        assertThat(keys[10], `is`("xs" to XQuerySyntaxHighlighterColors.NS_PREFIX))
+        assertThat(keys[11], `is`("three" to XQuerySyntaxHighlighterColors.NS_PREFIX))
+        assertThat(keys[12], `is`("fn" to XQuerySyntaxHighlighterColors.NS_PREFIX))
+        assertThat(keys[13], `is`("opt" to XQuerySyntaxHighlighterColors.OPTION))
         assertThat(keys[14], `is`("a" to XQuerySyntaxHighlighterColors.PARAMETER))
-        assertThat(keys[15], `is`("ext" to XQuerySyntaxHighlighterColors.PRAGMA))
-        assertThat(keys[16], `is`("integer" to XQuerySyntaxHighlighterColors.TYPE))
-        assertThat(keys[17], `is`("test" to XQuerySyntaxHighlighterColors.VARIABLE))
-        assertThat(keys[18], `is`("items" to XQuerySyntaxHighlighterColors.VARIABLE))
+        assertThat(keys[15], `is`("a" to XQuerySyntaxHighlighterColors.PARAMETER))
+        assertThat(keys[16], `is`("ext" to XQuerySyntaxHighlighterColors.PRAGMA))
+        assertThat(keys[17], `is`("integer" to XQuerySyntaxHighlighterColors.TYPE))
+        assertThat(keys[18], `is`("test" to XQuerySyntaxHighlighterColors.VARIABLE))
+        assertThat(keys[19], `is`("items" to XQuerySyntaxHighlighterColors.VARIABLE))
     }
 
     @Test

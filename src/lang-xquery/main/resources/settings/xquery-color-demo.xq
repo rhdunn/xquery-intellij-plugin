@@ -19,6 +19,7 @@ let $items := (
     child::one, attribute::two, namespace::three,
     data/@value,
     fn:true(),
+    map{}?key-name,
     (# ext Lorem Ipsum #) { }
 )
 return <test comment="One "" Two &quot; Three">Lorem ipsum.</test>

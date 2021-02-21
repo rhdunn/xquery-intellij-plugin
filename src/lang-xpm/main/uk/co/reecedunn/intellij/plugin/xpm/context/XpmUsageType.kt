@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018, 2020 Reece H. Dunn
+ * Copyright (C) 2018, 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ enum class XpmUsageType(val label: String, val namespaceType: XdmNamespaceType) 
     Element(XdmBundle.message("usage-type.element"), XdmNamespaceType.DefaultElement),
     FunctionDecl(XdmBundle.message("usage-type.function"), XdmNamespaceType.DefaultFunctionDecl),
     FunctionRef(XdmBundle.message("usage-type.function"), XdmNamespaceType.DefaultFunctionRef),
+    MapKey(XdmBundle.message("usage-type.map-key"), XdmNamespaceType.None),
     Namespace(XdmBundle.message("usage-type.namespace"), XdmNamespaceType.None),
     Option(XdmBundle.message("usage-type.option"), XdmNamespaceType.XQuery),
     Parameter(XdmBundle.message("usage-type.parameter"), XdmNamespaceType.None),

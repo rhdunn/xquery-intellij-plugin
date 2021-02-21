@@ -45,6 +45,7 @@ class QNameAnnotator : QNameAnnotator() {
             XpmUsageType.Element -> XQuerySyntaxHighlighterColors.ELEMENT
             XpmUsageType.FunctionDecl -> XQuerySyntaxHighlighterColors.FUNCTION_DECL
             XpmUsageType.FunctionRef -> XQuerySyntaxHighlighterColors.FUNCTION_CALL
+            XpmUsageType.MapKey -> XQuerySyntaxHighlighterColors.MAP_KEY
             XpmUsageType.Namespace -> XQuerySyntaxHighlighterColors.NS_PREFIX
             XpmUsageType.Option -> XQuerySyntaxHighlighterColors.OPTION
             XpmUsageType.Parameter -> XQuerySyntaxHighlighterColors.PARAMETER
