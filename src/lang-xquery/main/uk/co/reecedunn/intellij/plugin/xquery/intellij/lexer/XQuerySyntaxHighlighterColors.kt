@@ -139,6 +139,10 @@ object XQuerySyntaxHighlighterColors {
         "XQUERY_PRAGMA", XPathSyntaxHighlighterColors.PRAGMA
     )
 
+    val PROCESSING_INSTRUCTION: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
+        "XQUERY_PROCESSING_INSTRUCTION", XPathSyntaxHighlighterColors.PROCESSING_INSTRUCTION
+    )
+
     val TYPE: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XQUERY_TYPE", XPathSyntaxHighlighterColors.TYPE
     )
@@ -170,6 +174,7 @@ object XQuerySyntaxHighlighterColors {
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.option"), OPTION),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.parameter"), PARAMETER),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.pragma"), PRAGMA),
+        AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.processing-instruction"), PROCESSING_INSTRUCTION),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.string"), STRING),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.type"), TYPE),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.variable"), VARIABLE),
@@ -195,6 +200,7 @@ object XQuerySyntaxHighlighterColors {
         "option" to OPTION,
         "parameter" to PARAMETER,
         "pragma" to PRAGMA,
+        "processing-instruction" to PROCESSING_INSTRUCTION,
         "type" to TYPE,
         "variable" to VARIABLE
     )

@@ -20,6 +20,7 @@ let $items := (
     data/@value,
     fn:true(),
     map{}?key-name,
+    1 instance of processing-instruction(test),
     (# ext Lorem Ipsum #) { }
 )
 return <test comment="One "" Two &quot; Three">Lorem ipsum.</test>

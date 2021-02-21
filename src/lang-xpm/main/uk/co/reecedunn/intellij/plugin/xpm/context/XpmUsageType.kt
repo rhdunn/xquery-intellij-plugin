@@ -30,6 +30,7 @@ enum class XpmUsageType(val label: String, val namespaceType: XdmNamespaceType) 
     Option(XdmBundle.message("usage-type.option"), XdmNamespaceType.XQuery),
     Parameter(XdmBundle.message("usage-type.parameter"), XdmNamespaceType.None),
     Pragma(XdmBundle.message("usage-type.pragma"), XdmNamespaceType.None),
+    ProcessingInstruction(XdmBundle.message("usage-type.processing-instruction"), XdmNamespaceType.None),
     Type(XdmBundle.message("usage-type.type"), XdmNamespaceType.DefaultType),
     Unknown(XdmBundle.message("usage-type.identifier"), XdmNamespaceType.Undefined),
     Variable(XdmBundle.message("usage-type.variable"), XdmNamespaceType.None)

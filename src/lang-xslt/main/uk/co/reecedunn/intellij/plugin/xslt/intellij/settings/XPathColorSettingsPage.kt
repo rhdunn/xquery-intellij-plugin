@@ -66,6 +66,7 @@ class XPathColorSettingsPage : ColorSettingsPage {
             ret = ret.replace("::two ", "::<attribute>two</attribute> ")
             ret = ret.replace("::three ", "::<nsprefix>three</nsprefix> ")
             ret = ret.replace("?key-name", "?<map-key>key-name</map-key>")
+            ret = ret.replace("processing-instruction(test)", "processing-instruction(<processing-instruction>test</processing-instruction>)")
             ret = ret.replace(" ext ", " <pragma>ext</pragma> ")
             ret
         }

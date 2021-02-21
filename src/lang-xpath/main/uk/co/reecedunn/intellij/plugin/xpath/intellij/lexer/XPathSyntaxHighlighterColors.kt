@@ -84,6 +84,10 @@ object XPathSyntaxHighlighterColors {
         "XPATH_PRAGMA", IDENTIFIER
     )
 
+    val PROCESSING_INSTRUCTION: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
+        "XPATH_PROCESSING_INSTRUCTION", IDENTIFIER
+    )
+
     val TYPE: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XPATH_TYPE", DefaultLanguageHighlighterColors.CLASS_NAME
     )
@@ -109,6 +113,7 @@ object XPathSyntaxHighlighterColors {
         AttributesDescriptor(XPathBundle.message("xpath.settings.colors.number"), NUMBER),
         AttributesDescriptor(XPathBundle.message("xpath.settings.colors.parameter"), PARAMETER),
         AttributesDescriptor(XPathBundle.message("xpath.settings.colors.pragma"), PRAGMA),
+        AttributesDescriptor(XPathBundle.message("xpath.settings.colors.processing-instruction"), PROCESSING_INSTRUCTION),
         AttributesDescriptor(XPathBundle.message("xpath.settings.colors.string"), STRING),
         AttributesDescriptor(XPathBundle.message("xpath.settings.colors.type"), TYPE),
         AttributesDescriptor(XPathBundle.message("xpath.settings.colors.variable"), VARIABLE)
@@ -122,6 +127,7 @@ object XPathSyntaxHighlighterColors {
         "nsprefix" to NS_PREFIX,
         "parameter" to PARAMETER,
         "pragma" to PRAGMA,
+        "processing-instruction" to PROCESSING_INSTRUCTION,
         "type" to TYPE,
         "variable" to VARIABLE
     )

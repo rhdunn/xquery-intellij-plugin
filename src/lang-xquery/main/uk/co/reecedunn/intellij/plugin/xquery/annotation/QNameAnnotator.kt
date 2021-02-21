@@ -50,6 +50,7 @@ class QNameAnnotator : QNameAnnotator() {
             XpmUsageType.Option -> XQuerySyntaxHighlighterColors.OPTION
             XpmUsageType.Parameter -> XQuerySyntaxHighlighterColors.PARAMETER
             XpmUsageType.Pragma -> XQuerySyntaxHighlighterColors.PRAGMA
+            XpmUsageType.ProcessingInstruction -> XQuerySyntaxHighlighterColors.PROCESSING_INSTRUCTION
             XpmUsageType.Type -> XQuerySyntaxHighlighterColors.TYPE
             XpmUsageType.Variable -> {
                 if (resolveReferences)

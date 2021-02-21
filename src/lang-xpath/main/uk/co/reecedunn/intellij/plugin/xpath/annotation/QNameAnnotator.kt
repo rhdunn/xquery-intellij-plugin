@@ -53,6 +53,7 @@ open class QNameAnnotator : Annotator() {
             XpmUsageType.Option -> XPathSyntaxHighlighterColors.IDENTIFIER // XQuery
             XpmUsageType.Parameter -> XPathSyntaxHighlighterColors.PARAMETER
             XpmUsageType.Pragma -> XPathSyntaxHighlighterColors.PRAGMA
+            XpmUsageType.ProcessingInstruction -> XPathSyntaxHighlighterColors.PROCESSING_INSTRUCTION
             XpmUsageType.Type -> XPathSyntaxHighlighterColors.TYPE
             XpmUsageType.Variable -> {
                 if (resolveReferences)
