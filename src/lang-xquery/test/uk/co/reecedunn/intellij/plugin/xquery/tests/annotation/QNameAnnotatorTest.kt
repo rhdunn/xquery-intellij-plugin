@@ -1031,6 +1031,20 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
     @DisplayName("Usage Type: Processing Instruction")
     internal inner class UsageType_ProcessingInstruction {
         @Test
+        @DisplayName("XQuery 3.1 EBNF (166) CompPIConstructor")
+        fun compPIConstructor() {
+            val file = parse<XQueryModule>("processing-instruction test {}")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (23:27) ERASED/DEFAULT + XQUERY_PROCESSING_INSTRUCTION
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
         @DisplayName("XQuery 3.1 EBNF (125) PITest")
         fun piTest() {
             val file = parse<XQueryModule>("1 instance of processing-instruction(test)")[0]

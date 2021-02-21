@@ -101,7 +101,7 @@
       <li>Fix highlighting <code>xmlns</code> namespace prefix in contexts other than XML attributes.</li>
       <li>Highlight the <code>CompNamespaceConstructor</code> name as a namespace prefix.</li>
       <li>Highlight <code>KeySeparator</code> names and <code>RecordTest</code> field names as map keys.</li>
-      <li>Highlight <code>PITest</code> names as processing instructions.</li>
+      <li>Highlight <code>PITest</code> and <code>CompPIConstructor</code> names as processing instructions.</li>
       <li>Highlight <code>KeywordArgument</code> names as parameters.</li>
       <li>Highlight <code>WithExpr</code> using the same logic as <code>DirAttribute</code>.</li>
     </ol>
