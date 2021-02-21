@@ -61,8 +61,8 @@ for precedence changes.
 | \[26\]  | `PredicateList`                   | ::= | `Predicate*`                        |                      |
 | \[27\]  | `Predicate`                       | ::= | `"[" Expr "]"`                      |                      |
 | \[28\]  | `PrimaryExpr`                     | ::= | `Literal \| VarRef \| ParenthesizedExpr \| ContextItemExpr \| FunctionCall` | |
-| \[39\]  | `Literal`                         | ::= | `NumericLiteral \| StringLiteral`   |                      |
-| \[30\]  | `NumericLiteral`                  | ::= | `IntegerLiteral \| DoubleLiteral`   |                      |
+| \[29\]  | `Literal`                         | ::= | `NumericLiteral \| StringLiteral`   |                      |
+| \[30\]  | `NumericLiteral`                  | ::= | `IntegerLiteral \| DecimalLiteral`  |                      |
 | \[31\]  | `VarRef`                          | ::= | `"$" VarName`                       |                      |
 | \[32\]  | `VarName`                         | ::= | `QName`                             |                      |
 | \[33\]  | `ParenthesizedExpr`               | ::= | `"(" Expr ")"`                      |                      |
