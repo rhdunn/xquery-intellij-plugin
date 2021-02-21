@@ -613,6 +613,38 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
     }
 
     @Nested
+    @DisplayName("Usage Type: Map Key")
+    internal inner class UsageType_MapKey {
+        @Test
+        @DisplayName("XPath 3.1 EBNF (53) Lookup ; XPath 3.1 EBNF (54) KeySpecifier")
+        fun lookup() {
+            val file = parse<XPath>("()?test")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (3:7) ERASED/DEFAULT + XPATH_MAP_KEY
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XPath 3.1 EBNF (76) UnaryLookup ; XPath 3.1 EBNF (54) KeySpecifier")
+        fun unaryLookup() {
+            val file = parse<XPath>("?test")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (1:5) ERASED/DEFAULT + XPATH_MAP_KEY
+                    """.trimIndent()
+                )
+            )
+        }
+    }
+
+    @Nested
     @DisplayName("Usage Type: Namespace Prefix")
     internal inner class UsageType_NamespacePrefix {
         @Test

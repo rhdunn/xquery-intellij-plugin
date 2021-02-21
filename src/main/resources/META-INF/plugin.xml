@@ -100,6 +100,7 @@
     <ol>
       <li>Fix highlighting <code>xmlns</code> namespace prefix in contexts other than XML attributes.</li>
       <li>Highlight the <code>CompNamespaceConstructor</code> name as a namespace prefix.</li>
+      <li>Highlight <code>KeySeparator</code> names as map keys.</li>
     </ol>
     <p>Run Configuration:</p>
     <ol>

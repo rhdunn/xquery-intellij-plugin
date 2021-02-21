@@ -28,6 +28,7 @@ Semantic Highlighting:
 
 1. Fix highlighting `xmlns` namespace prefix in contexts other than XML attributes.
 1. Highlight the `CompNamespaceConstructor` name as a namespace prefix.
+1. Highlight `KeySeparator` names as map keys.
 
 Run Configuration:
 
