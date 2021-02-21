@@ -813,6 +813,22 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                 )
             )
         }
+
+        @Test
+        @DisplayName("XQuery 4.0 ED EBNF (230) RecordTest ; XQuery 4.0 EBNF (231) FieldDeclaration")
+        fun recordTest() {
+            val file = parse<XQueryModule>("1 instance of record(test as xs:integer)")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (21:25) ERASED/DEFAULT + XQUERY_MAP_KEY
+                    INFORMATION (29:31) ERASED/DEFAULT + XQUERY_NS_PREFIX
+                    INFORMATION (32:39) ERASED/DEFAULT + XQUERY_TYPE
+                    """.trimIndent()
+                )
+            )
+        }
     }
 
     @Nested

@@ -642,6 +642,22 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                 )
             )
         }
+
+        @Test
+        @DisplayName("XPath 4.0 ED EBNF (122) RecordTest ; XQuery 4.0 EBNF (123) FieldDeclaration")
+        fun recordTest() {
+            val file = parse<XPath>("1 instance of record(test as xs:integer)")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (21:25) ERASED/DEFAULT + XPATH_MAP_KEY
+                    INFORMATION (29:31) ERASED/DEFAULT + XPATH_NS_PREFIX
+                    INFORMATION (32:39) ERASED/DEFAULT + XPATH_TYPE
+                    """.trimIndent()
+                )
+            )
+        }
     }
 
     @Nested

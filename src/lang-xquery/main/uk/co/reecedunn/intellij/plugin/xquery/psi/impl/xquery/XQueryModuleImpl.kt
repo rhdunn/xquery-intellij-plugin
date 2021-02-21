@@ -154,6 +154,7 @@ class XQueryModuleImpl(provider: FileViewProvider) :
             XQueryElementType.DEFAULT_CASE_CLAUSE to XpmUsageType.Variable,
             XQueryElementType.DIR_ELEM_CONSTRUCTOR to XpmUsageType.Element,
             XPathElementType.ELEMENT_TEST to XpmUsageType.Element,
+            XPathElementType.FIELD_DECLARATION to XpmUsageType.MapKey,
             XQueryElementType.FOR_BINDING to XpmUsageType.Variable,
             XPathElementType.FT_SCORE_VAR to XpmUsageType.Variable,
             XPathElementType.FUNCTION_CALL to XpmUsageType.FunctionRef,

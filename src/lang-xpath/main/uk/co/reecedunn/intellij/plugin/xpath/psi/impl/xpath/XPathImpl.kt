@@ -72,6 +72,7 @@ class XPathImpl(provider: FileViewProvider) :
             XPathElementType.ATOMIC_OR_UNION_TYPE to XpmUsageType.Type,
             XPathElementType.ATTRIBUTE_TEST to XpmUsageType.Attribute,
             XPathElementType.ELEMENT_TEST to XpmUsageType.Element,
+            XPathElementType.FIELD_DECLARATION to XpmUsageType.MapKey,
             XPathElementType.FT_SCORE_VAR to XpmUsageType.Variable,
             XPathElementType.FUNCTION_CALL to XpmUsageType.FunctionRef,
             XPathElementType.KEY_SPECIFIER to XpmUsageType.MapKey,
