@@ -877,6 +877,20 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         }
 
         @Test
+        @DisplayName("XQuery 3.1 EBNF (160) CompNamespaceConstructor")
+        fun compNamespaceConstructor() {
+            val file = parse<XQueryModule>("namespace test {}")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (10:14) ERASED/DEFAULT + XQUERY_NS_PREFIX
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
         @DisplayName("XQuery 4.0 ED EBNF (43) WithExpr ; XQuery 4.0 ED EBNF (44) NamespaceDeclaration")
         fun withExpr() {
             val file = parse<XQueryModule>("with xmlns:a=\"http://www.example.com/a\", xmlns=\"http://www.example.com/\" {}")[0]

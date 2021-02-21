@@ -146,6 +146,7 @@ class XQueryModuleImpl(provider: FileViewProvider) :
             XQueryElementType.CATCH_CLAUSE to XpmUsageType.Variable,
             XQueryElementType.COMP_ATTR_CONSTRUCTOR to XpmUsageType.Attribute,
             XQueryElementType.COMP_ELEM_CONSTRUCTOR to XpmUsageType.Element,
+            XQueryElementType.COMP_NAMESPACE_CONSTRUCTOR to XpmUsageType.Namespace,
             XQueryElementType.COPY_MODIFY_EXPR to XpmUsageType.Variable,
             XQueryElementType.COUNT_CLAUSE to XpmUsageType.Variable,
             XQueryElementType.CURRENT_ITEM to XpmUsageType.Variable,

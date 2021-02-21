@@ -96,6 +96,11 @@
       <li>Support running, profiling, and debugging XRay unit tests.</li>
       <li>Add run actions in the line marker area.</li>
     </ol>
+    <p>Semantic Highlighting:</p>
+    <ol>
+      <li>Fix highlighting <code>xmlns</code> namespace prefix in contexts other than XML attributes.</li>
+      <li>Highlight the <code>CompNamespaceConstructor</code> name as a namespace prefix.</li>
+    </ol>
     <p>Run Configuration:</p>
     <ol>
       <li>Support using the modules database for selected MarkLogic app-server.</li>

@@ -24,6 +24,11 @@ XRay Unit Tests:
 1. Add run actions in the line marker area.
 1. Report test status in the run console.
 
+Semantic Highlighting:
+
+1. Fix highlighting `xmlns` namespace prefix in contexts other than XML attributes.
+1. Highlight the `CompNamespaceConstructor` name as a namespace prefix.
+
 Run Configuration:
 
 1. Support using the modules database for selected MarkLogic app-server.
