@@ -34,9 +34,10 @@ Semantic Highlighting:
 1. Highlight `KeywordArgument` names as parameters.
 1. Highlight `WithExpr` using the same logic as `DirAttribute`.
 
-References and Resolve:
+XQuery:
 
 1. Support resolving wildcard prefixes to the namespace declaration.
+1. Fix an exception in code completion when typing in a comment after a variable reference.
 
 Run Configuration:
 

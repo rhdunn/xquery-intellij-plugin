@@ -106,9 +106,10 @@
       <li>Highlight <code>KeywordArgument</code> names as parameters.</li>
       <li>Highlight <code>WithExpr</code> using the same logic as <code>DirAttribute</code>.</li>
     </ol>
-    <p>References and Resolve:</p>
+    <p>XQuery:</p>
     <ol>
       <li>Support resolving wildcard prefixes to the namespace declaration.</li>
+      <li>Fix an exception in code completion when typing in a comment after a variable reference.</li>
     </ol>
     <p>Run Configuration:</p>
     <ol>

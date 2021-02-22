@@ -33,7 +33,7 @@ object XQueryVarRefProvider : CompletionProviderEx {
     override fun apply(element: PsiElement, context: ProcessingContext, result: CompletionResultSet) {
         val namespaces = context[XPathCompletionProperty.STATICALLY_KNOWN_NAMESPACES]
 
-        val varRef = element.parent as XsQNameValue
+        val varRef = element.parent as? XsQNameValue ?: return
         when (varRef.completionType(element)) {
             EQNameCompletionType.QNamePrefix, EQNameCompletionType.NCName -> {
                 // Without prefix context, so include all variables.
