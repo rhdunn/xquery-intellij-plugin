@@ -849,7 +849,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
     internal inner class UsageType_Variable {
         @Test
         @DisplayName("XPath 3.1 EBNF (10) SimpleForBinding")
-        fun simpleForBinding() {
+        fun simpleForBinding_XPath31() {
             val file = parse<XPath>("for \$test in 2 return \$test")[0]
             val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
             assertThat(
@@ -887,6 +887,21 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                     """
                     INFORMATION (6:10) ERASED/DEFAULT + XPATH_VARIABLE
                     INFORMATION (27:31) ERASED/DEFAULT + XPATH_VARIABLE
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("XQuery 4.0 ED EBNF (53) SimpleForBinding")
+        fun simpleForBinding_XPath40() {
+            val file = parse<XPath>("for member \$test in () return \$test")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (12:16) ERASED/DEFAULT + XPATH_VARIABLE
+                    INFORMATION (31:35) ERASED/DEFAULT + XPATH_VARIABLE
                     """.trimIndent()
                 )
             )

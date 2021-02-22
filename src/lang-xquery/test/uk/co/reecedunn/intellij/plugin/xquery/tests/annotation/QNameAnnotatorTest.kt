@@ -1376,6 +1376,21 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
         }
 
         @Test
+        @DisplayName("XQuery 4.0 ED EBNF (53) ForMemberBinding")
+        fun forMemberBinding() {
+            val file = parse<XQueryModule>("for member \$test in () return \$test")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (12:16) ERASED/DEFAULT + XQUERY_VARIABLE
+                    INFORMATION (31:35) ERASED/DEFAULT + XQUERY_VARIABLE
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
         @DisplayName("XQuery IntelliJ Plugin EBNF (31) CatchClause")
         fun catchClause() {
             val file = parse<XQueryModule>("try { () } catch (\$test) { \$test }")[0]
