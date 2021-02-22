@@ -40,31 +40,29 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
 
 open class QNameAnnotator : Annotator() {
-    private fun getHighlightAttributes(element: PsiElement, resolveReferences: Boolean = true): TextAttributesKey {
-        return when (element.getUsageType()) {
-            XpmUsageType.Annotation -> XPathSyntaxHighlighterColors.IDENTIFIER // XQuery
-            XpmUsageType.Attribute -> XPathSyntaxHighlighterColors.ATTRIBUTE
-            XpmUsageType.DecimalFormat -> XPathSyntaxHighlighterColors.IDENTIFIER // XQuery
-            XpmUsageType.Element -> XPathSyntaxHighlighterColors.ELEMENT
-            XpmUsageType.FunctionDecl -> XPathSyntaxHighlighterColors.IDENTIFIER // XQuery
-            XpmUsageType.FunctionRef -> XPathSyntaxHighlighterColors.FUNCTION_CALL
-            XpmUsageType.MapKey -> XPathSyntaxHighlighterColors.MAP_KEY
-            XpmUsageType.Namespace -> XPathSyntaxHighlighterColors.NS_PREFIX
-            XpmUsageType.Option -> XPathSyntaxHighlighterColors.IDENTIFIER // XQuery
-            XpmUsageType.Parameter -> XPathSyntaxHighlighterColors.PARAMETER
-            XpmUsageType.Pragma -> XPathSyntaxHighlighterColors.PRAGMA
-            XpmUsageType.ProcessingInstruction -> XPathSyntaxHighlighterColors.PROCESSING_INSTRUCTION
-            XpmUsageType.Type -> XPathSyntaxHighlighterColors.TYPE
-            XpmUsageType.Variable -> {
-                if (resolveReferences)
-                    element.reference?.resolve()?.let {
-                        getHighlightAttributes(it, false)
-                    } ?: XPathSyntaxHighlighterColors.VARIABLE
-                else
-                    XPathSyntaxHighlighterColors.VARIABLE
-            }
-            XpmUsageType.Unknown -> XPathSyntaxHighlighterColors.IDENTIFIER
-        }
+    private fun getVariableHighlightAttributes(
+        element: PsiElement?
+    ): TextAttributesKey = when (element?.getUsageType()) {
+        XpmUsageType.Parameter -> XPathSyntaxHighlighterColors.PARAMETER
+        else -> XPathSyntaxHighlighterColors.VARIABLE
+    }
+
+    private fun getHighlightAttributes(element: PsiElement): TextAttributesKey = when (element.getUsageType()) {
+        XpmUsageType.Annotation -> XPathSyntaxHighlighterColors.IDENTIFIER // XQuery
+        XpmUsageType.Attribute -> XPathSyntaxHighlighterColors.ATTRIBUTE
+        XpmUsageType.DecimalFormat -> XPathSyntaxHighlighterColors.IDENTIFIER // XQuery
+        XpmUsageType.Element -> XPathSyntaxHighlighterColors.ELEMENT
+        XpmUsageType.FunctionDecl -> XPathSyntaxHighlighterColors.IDENTIFIER // XQuery
+        XpmUsageType.FunctionRef -> XPathSyntaxHighlighterColors.FUNCTION_CALL
+        XpmUsageType.MapKey -> XPathSyntaxHighlighterColors.MAP_KEY
+        XpmUsageType.Namespace -> XPathSyntaxHighlighterColors.NS_PREFIX
+        XpmUsageType.Option -> XPathSyntaxHighlighterColors.IDENTIFIER // XQuery
+        XpmUsageType.Parameter -> XPathSyntaxHighlighterColors.PARAMETER
+        XpmUsageType.Pragma -> XPathSyntaxHighlighterColors.PRAGMA
+        XpmUsageType.ProcessingInstruction -> XPathSyntaxHighlighterColors.PROCESSING_INSTRUCTION
+        XpmUsageType.Type -> XPathSyntaxHighlighterColors.TYPE
+        XpmUsageType.Variable -> getVariableHighlightAttributes(element.reference?.resolve())
+        XpmUsageType.Unknown -> XPathSyntaxHighlighterColors.IDENTIFIER
     }
 
     protected fun checkQNameWhitespaceBefore(qname: XsQNameValue, separator: PsiElement, holder: AnnotationHolder) {

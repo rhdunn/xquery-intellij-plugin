@@ -99,6 +99,7 @@
     <p>Semantic Highlighting:</p>
     <ol>
       <li>Fix highlighting <code>xmlns</code> namespace prefix in contexts other than XML attributes.</li>
+      <li>Fix highlighting variables that do not resolve to a variable declaration or binding.</li>
       <li>Highlight the <code>CompNamespaceConstructor</code> name as a namespace prefix.</li>
       <li>Highlight <code>KeySeparator</code> names and <code>RecordTest</code> field names as map keys.</li>
       <li>Highlight <code>PITest</code> and <code>CompPIConstructor</code> names as processing instructions.</li>
