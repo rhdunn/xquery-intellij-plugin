@@ -106,6 +106,10 @@
       <li>Highlight <code>KeywordArgument</code> names as parameters.</li>
       <li>Highlight <code>WithExpr</code> using the same logic as <code>DirAttribute</code>.</li>
     </ol>
+    <p>References and Resolve:</p>
+    <ol>
+      <li>Support resolving wildcard prefixes to the namespace declaration.</li>
+    </ol>
     <p>Run Configuration:</p>
     <ol>
       <li>Support using the modules database for selected MarkLogic app-server.</li>

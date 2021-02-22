@@ -34,6 +34,10 @@ Semantic Highlighting:
 1. Highlight `KeywordArgument` names as parameters.
 1. Highlight `WithExpr` using the same logic as `DirAttribute`.
 
+References and Resolve:
+
+1. Support resolving wildcard prefixes to the namespace declaration.
+
 Run Configuration:
 
 1. Support using the modules database for selected MarkLogic app-server.

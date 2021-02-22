@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2018, 2020 Reece H. Dunn
+ * Copyright (C) 2016-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,12 +17,18 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiReference
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmWildcardValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathWildcard
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.reference.XPathQNamePrefixReference
 
 class XPathWildcardPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathWildcard {
+    // region XsQNameValue
+
     private val names: Sequence<XsNCNameValue>
         get() = children().filterIsInstance<XsNCNameValue>()
 
@@ -37,4 +43,19 @@ class XPathWildcardPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathWil
 
     override val isLexicalQName: Boolean
         get() = namespace == null
+
+    // endregion
+    // region PsiElement
+
+    override fun getReference(): PsiReference? {
+        val references = references
+        return if (references.isEmpty()) null else references[0]
+    }
+
+    override fun getReferences(): Array<PsiReference> = when (val prefix = prefix as? PsiElement) {
+        null, is XdmWildcardValue -> PsiReference.EMPTY_ARRAY
+        else -> arrayOf(XPathQNamePrefixReference(this, prefix.textRange.shiftRight(-node.startOffset)))
+    }
+
+    // endregion
 }
