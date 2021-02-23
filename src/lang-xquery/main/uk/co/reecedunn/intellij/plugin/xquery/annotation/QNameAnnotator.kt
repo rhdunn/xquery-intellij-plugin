@@ -27,16 +27,19 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmWildcardValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpath.annotation.QNameAnnotator
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
+import uk.co.reecedunn.intellij.plugin.xpm.intellij.annotation.XpmSemanticHighlighter
 
 class QNameAnnotator : QNameAnnotator() {
+    override val highlighter: XpmSemanticHighlighter = XQuerySemanticHighlighter
+
     override fun annotateElement(element: PsiElement, holder: AnnotationHolder) {
         if (element !is XsQNameValue) return
 
         if (element.prefix != null) {
             if (element.prefix !is XdmWildcardValue) {
                 val prefix = element.prefix?.element!!
-                val highlight = XQuerySemanticHighlighter.getQNamePrefixHighlighting(element)
-                XQuerySemanticHighlighter.highlight(prefix, highlight, holder)
+                val highlight = highlighter.getQNamePrefixHighlighting(element)
+                highlighter.highlight(prefix, highlight, holder)
             }
 
             // Detect whitespace errors here instead of the parser so the QName annotator gets run.
@@ -48,14 +51,14 @@ class QNameAnnotator : QNameAnnotator() {
 
         if (element.localName != null) {
             val localName = element.localName?.element!!
-            val highlight = XQuerySemanticHighlighter.getHighlighting(element)
-            val elementHighlight = XQuerySemanticHighlighter.getElementHighlighting(localName)
+            val highlight = highlighter.getHighlighting(element)
+            val elementHighlight = highlighter.getElementHighlighting(localName)
             when {
                 highlight !== elementHighlight -> {
-                    XQuerySemanticHighlighter.highlight(localName, highlight, holder)
+                    highlighter.highlight(localName, highlight, holder)
                 }
                 localName.elementType is IKeywordOrNCNameType && highlight !== elementHighlight -> {
-                    XQuerySemanticHighlighter.highlight(localName, XQuerySyntaxHighlighterColors.IDENTIFIER, holder)
+                    highlighter.highlight(localName, XQuerySyntaxHighlighterColors.IDENTIFIER, holder)
                 }
             }
         }

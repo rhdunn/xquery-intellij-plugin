@@ -32,8 +32,11 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathComment
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathWildcard
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
+import uk.co.reecedunn.intellij.plugin.xpm.intellij.annotation.XpmSemanticHighlighter
 
 open class QNameAnnotator : Annotator() {
+    open val highlighter: XpmSemanticHighlighter = XPathSemanticHighlighter
+
     protected fun checkQNameWhitespaceBefore(qname: XsQNameValue, separator: PsiElement, holder: AnnotationHolder) {
         val before = separator.prevSibling
         if (before.elementType === XPathTokenType.WHITE_SPACE || before is XPathComment) {
@@ -65,8 +68,8 @@ open class QNameAnnotator : Annotator() {
         if (element.prefix != null) {
             if (element.prefix !is XdmWildcardValue) {
                 val prefix = element.prefix?.element!!
-                val highlight = XPathSemanticHighlighter.getQNamePrefixHighlighting(element)
-                XPathSemanticHighlighter.highlight(prefix, highlight, holder)
+                val highlight = highlighter.getQNamePrefixHighlighting(element)
+                highlighter.highlight(prefix, highlight, holder)
             }
 
             // Detect whitespace errors here instead of the parser so the QName annotator gets run.
@@ -78,13 +81,13 @@ open class QNameAnnotator : Annotator() {
 
         if (element.localName != null) {
             val localName = element.localName?.element!!
-            val highlight = XPathSemanticHighlighter.getHighlighting(element)
+            val highlight = highlighter.getHighlighting(element)
             when {
                 highlight !== XPathSyntaxHighlighterColors.IDENTIFIER -> {
                     XPathSemanticHighlighter.highlight(localName, highlight, holder)
                 }
                 localName.elementType is IKeywordOrNCNameType -> {
-                    XPathSemanticHighlighter.highlight(localName, XPathSyntaxHighlighterColors.IDENTIFIER, holder)
+                    highlighter.highlight(localName, XPathSyntaxHighlighterColors.IDENTIFIER, holder)
                 }
             }
         }
