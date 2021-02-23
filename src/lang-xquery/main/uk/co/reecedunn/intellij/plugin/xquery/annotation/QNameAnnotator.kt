@@ -37,19 +37,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.getUsageType
 
 class QNameAnnotator : QNameAnnotator() {
-    private fun getElementHighlight(element: PsiElement): TextAttributesKey {
-        val ret = XQuerySyntaxHighlighter.getTokenHighlights(element.elementType!!)
-        return when {
-            ret.isEmpty() -> XQuerySyntaxHighlighterColors.IDENTIFIER
-            ret.size == 1 -> ret[0]
-            else -> when (ret[1]) {
-                XQuerySyntaxHighlighterColors.XML_TAG_NAME -> XQuerySyntaxHighlighterColors.ELEMENT
-                XQuerySyntaxHighlighterColors.XML_ATTRIBUTE_NAME -> XQuerySyntaxHighlighterColors.ATTRIBUTE
-                else -> ret[1]
-            }
-        }
-    }
-
     override fun annotateElement(element: PsiElement, holder: AnnotationHolder) {
         if (element !is XsQNameValue) return
 
@@ -73,7 +60,7 @@ class QNameAnnotator : QNameAnnotator() {
         if (element.localName != null) {
             val localName = element.localName?.element!!
             val highlight = XQuerySemanticHighlighter.getHighlighting(element)
-            val elementHighlight = getElementHighlight(localName)
+            val elementHighlight = XQuerySemanticHighlighter.getElementHighlighting(localName)
             when {
                 highlight !== elementHighlight -> highlight(localName, highlight, holder)
                 localName.elementType is IKeywordOrNCNameType && highlight !== elementHighlight -> {

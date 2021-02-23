@@ -17,9 +17,11 @@ package uk.co.reecedunn.intellij.plugin.xquery.annotation
 
 import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.xpm.context.XpmUsageType
 import uk.co.reecedunn.intellij.plugin.xpath.model.getUsageType
 import uk.co.reecedunn.intellij.plugin.xpm.intellij.annotation.XpmSemanticHighlighter
+import uk.co.reecedunn.intellij.plugin.xquery.intellij.lexer.XQuerySyntaxHighlighter
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lexer.XQuerySyntaxHighlighterColors
 
 object XQuerySemanticHighlighter : XpmSemanticHighlighter {
@@ -44,5 +46,18 @@ object XQuerySemanticHighlighter : XpmSemanticHighlighter {
         XpmUsageType.Type -> XQuerySyntaxHighlighterColors.TYPE
         XpmUsageType.Variable -> getVariableHighlighting(element.reference?.resolve())
         XpmUsageType.Unknown -> XQuerySyntaxHighlighterColors.IDENTIFIER
+    }
+
+    override fun getElementHighlighting(element: PsiElement): TextAttributesKey {
+        val ret = XQuerySyntaxHighlighter.getTokenHighlights(element.elementType!!)
+        return when {
+            ret.isEmpty() -> XQuerySyntaxHighlighterColors.IDENTIFIER
+            ret.size == 1 -> ret[0]
+            else -> when (ret[1]) {
+                XQuerySyntaxHighlighterColors.XML_TAG_NAME -> XQuerySyntaxHighlighterColors.ELEMENT
+                XQuerySyntaxHighlighterColors.XML_ATTRIBUTE_NAME -> XQuerySyntaxHighlighterColors.ATTRIBUTE
+                else -> ret[1]
+            }
+        }
     }
 }

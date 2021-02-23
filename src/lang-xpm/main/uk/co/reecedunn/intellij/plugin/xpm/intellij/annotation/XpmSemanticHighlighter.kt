@@ -20,4 +20,6 @@ import com.intellij.psi.PsiElement
 
 interface XpmSemanticHighlighter {
     fun getHighlighting(element: PsiElement): TextAttributesKey
+
+    fun getElementHighlighting(element: PsiElement): TextAttributesKey
 }

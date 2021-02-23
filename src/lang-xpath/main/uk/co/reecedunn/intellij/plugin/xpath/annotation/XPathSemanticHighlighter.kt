@@ -45,4 +45,8 @@ object XPathSemanticHighlighter : XpmSemanticHighlighter {
         XpmUsageType.Variable -> getVariableHighlighting(element.reference?.resolve())
         XpmUsageType.Unknown -> XPathSyntaxHighlighterColors.IDENTIFIER
     }
+
+    override fun getElementHighlighting(element: PsiElement): TextAttributesKey {
+        return XPathSyntaxHighlighterColors.IDENTIFIER
+    }
 }
