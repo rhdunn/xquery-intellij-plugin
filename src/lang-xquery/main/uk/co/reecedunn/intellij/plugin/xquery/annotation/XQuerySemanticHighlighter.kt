@@ -23,8 +23,26 @@ import uk.co.reecedunn.intellij.plugin.xpm.intellij.annotation.XpmSemanticHighli
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lexer.XQuerySyntaxHighlighterColors
 
 object XQuerySemanticHighlighter : XpmSemanticHighlighter {
-    override fun getVariableHighlighting(element: PsiElement?): TextAttributesKey = when (element?.getUsageType()) {
+    private fun getVariableHighlighting(element: PsiElement?): TextAttributesKey = when (element?.getUsageType()) {
         XpmUsageType.Parameter -> XQuerySyntaxHighlighterColors.PARAMETER
         else -> XQuerySyntaxHighlighterColors.VARIABLE
+    }
+
+    override fun getHighlighting(element: PsiElement): TextAttributesKey = when (element.getUsageType()) {
+        XpmUsageType.Annotation -> XQuerySyntaxHighlighterColors.ANNOTATION
+        XpmUsageType.Attribute -> XQuerySyntaxHighlighterColors.ATTRIBUTE
+        XpmUsageType.DecimalFormat -> XQuerySyntaxHighlighterColors.DECIMAL_FORMAT
+        XpmUsageType.Element -> XQuerySyntaxHighlighterColors.ELEMENT
+        XpmUsageType.FunctionDecl -> XQuerySyntaxHighlighterColors.FUNCTION_DECL
+        XpmUsageType.FunctionRef -> XQuerySyntaxHighlighterColors.FUNCTION_CALL
+        XpmUsageType.MapKey -> XQuerySyntaxHighlighterColors.MAP_KEY
+        XpmUsageType.Namespace -> XQuerySyntaxHighlighterColors.NS_PREFIX
+        XpmUsageType.Option -> XQuerySyntaxHighlighterColors.OPTION
+        XpmUsageType.Parameter -> XQuerySyntaxHighlighterColors.PARAMETER
+        XpmUsageType.Pragma -> XQuerySyntaxHighlighterColors.PRAGMA
+        XpmUsageType.ProcessingInstruction -> XQuerySyntaxHighlighterColors.PROCESSING_INSTRUCTION
+        XpmUsageType.Type -> XQuerySyntaxHighlighterColors.TYPE
+        XpmUsageType.Variable -> getVariableHighlighting(element.reference?.resolve())
+        XpmUsageType.Unknown -> XQuerySyntaxHighlighterColors.IDENTIFIER
     }
 }

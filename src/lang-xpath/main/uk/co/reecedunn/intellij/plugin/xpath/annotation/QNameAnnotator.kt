@@ -27,7 +27,6 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.filterIsElementType
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lexer.XPathSyntaxHighlighterColors
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathBundle
-import uk.co.reecedunn.intellij.plugin.xpm.context.XpmUsageType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmWildcardValue
@@ -35,29 +34,10 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathComment
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathWildcard
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import uk.co.reecedunn.intellij.plugin.xpath.model.getUsageType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
 
 open class QNameAnnotator : Annotator() {
-    private fun getHighlightAttributes(element: PsiElement): TextAttributesKey = when (element.getUsageType()) {
-        XpmUsageType.Annotation -> XPathSyntaxHighlighterColors.IDENTIFIER // XQuery
-        XpmUsageType.Attribute -> XPathSyntaxHighlighterColors.ATTRIBUTE
-        XpmUsageType.DecimalFormat -> XPathSyntaxHighlighterColors.IDENTIFIER // XQuery
-        XpmUsageType.Element -> XPathSyntaxHighlighterColors.ELEMENT
-        XpmUsageType.FunctionDecl -> XPathSyntaxHighlighterColors.IDENTIFIER // XQuery
-        XpmUsageType.FunctionRef -> XPathSyntaxHighlighterColors.FUNCTION_CALL
-        XpmUsageType.MapKey -> XPathSyntaxHighlighterColors.MAP_KEY
-        XpmUsageType.Namespace -> XPathSyntaxHighlighterColors.NS_PREFIX
-        XpmUsageType.Option -> XPathSyntaxHighlighterColors.IDENTIFIER // XQuery
-        XpmUsageType.Parameter -> XPathSyntaxHighlighterColors.PARAMETER
-        XpmUsageType.Pragma -> XPathSyntaxHighlighterColors.PRAGMA
-        XpmUsageType.ProcessingInstruction -> XPathSyntaxHighlighterColors.PROCESSING_INSTRUCTION
-        XpmUsageType.Type -> XPathSyntaxHighlighterColors.TYPE
-        XpmUsageType.Variable -> XPathSemanticHighlighter.getVariableHighlighting(element.reference?.resolve())
-        XpmUsageType.Unknown -> XPathSyntaxHighlighterColors.IDENTIFIER
-    }
-
     protected fun checkQNameWhitespaceBefore(qname: XsQNameValue, separator: PsiElement, holder: AnnotationHolder) {
         val before = separator.prevSibling
         if (before.elementType === XPathTokenType.WHITE_SPACE || before is XPathComment) {
@@ -109,7 +89,7 @@ open class QNameAnnotator : Annotator() {
 
         if (element.localName != null) {
             val localName = element.localName?.element!!
-            val highlight = getHighlightAttributes(element)
+            val highlight = XPathSemanticHighlighter.getHighlighting(element)
             when {
                 highlight !== XPathSyntaxHighlighterColors.IDENTIFIER -> highlight(localName, highlight, holder)
                 localName.elementType is IKeywordOrNCNameType -> {

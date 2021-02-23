@@ -23,8 +23,26 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.getUsageType
 import uk.co.reecedunn.intellij.plugin.xpm.intellij.annotation.XpmSemanticHighlighter
 
 object XPathSemanticHighlighter : XpmSemanticHighlighter {
-    override fun getVariableHighlighting(element: PsiElement?): TextAttributesKey = when (element?.getUsageType()) {
+    private fun getVariableHighlighting(element: PsiElement?): TextAttributesKey = when (element?.getUsageType()) {
         XpmUsageType.Parameter -> XPathSyntaxHighlighterColors.PARAMETER
         else -> XPathSyntaxHighlighterColors.VARIABLE
+    }
+
+    override fun getHighlighting(element: PsiElement): TextAttributesKey = when (element.getUsageType()) {
+        XpmUsageType.Annotation -> XPathSyntaxHighlighterColors.IDENTIFIER // XQuery
+        XpmUsageType.Attribute -> XPathSyntaxHighlighterColors.ATTRIBUTE
+        XpmUsageType.DecimalFormat -> XPathSyntaxHighlighterColors.IDENTIFIER // XQuery
+        XpmUsageType.Element -> XPathSyntaxHighlighterColors.ELEMENT
+        XpmUsageType.FunctionDecl -> XPathSyntaxHighlighterColors.IDENTIFIER // XQuery
+        XpmUsageType.FunctionRef -> XPathSyntaxHighlighterColors.FUNCTION_CALL
+        XpmUsageType.MapKey -> XPathSyntaxHighlighterColors.MAP_KEY
+        XpmUsageType.Namespace -> XPathSyntaxHighlighterColors.NS_PREFIX
+        XpmUsageType.Option -> XPathSyntaxHighlighterColors.IDENTIFIER // XQuery
+        XpmUsageType.Parameter -> XPathSyntaxHighlighterColors.PARAMETER
+        XpmUsageType.Pragma -> XPathSyntaxHighlighterColors.PRAGMA
+        XpmUsageType.ProcessingInstruction -> XPathSyntaxHighlighterColors.PROCESSING_INSTRUCTION
+        XpmUsageType.Type -> XPathSyntaxHighlighterColors.TYPE
+        XpmUsageType.Variable -> getVariableHighlighting(element.reference?.resolve())
+        XpmUsageType.Unknown -> XPathSyntaxHighlighterColors.IDENTIFIER
     }
 }

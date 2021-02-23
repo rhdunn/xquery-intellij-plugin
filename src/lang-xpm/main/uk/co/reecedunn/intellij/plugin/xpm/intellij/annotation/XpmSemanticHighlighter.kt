@@ -19,5 +19,5 @@ import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.psi.PsiElement
 
 interface XpmSemanticHighlighter {
-    fun getVariableHighlighting(element: PsiElement?): TextAttributesKey
+    fun getHighlighting(element: PsiElement): TextAttributesKey
 }
