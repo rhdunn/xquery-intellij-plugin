@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.intellij.annotation
 
+import com.intellij.compat.lang.annotation.AnnotationHolder
 import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.psi.PsiElement
 
@@ -22,4 +23,6 @@ interface XpmSemanticHighlighter {
     fun getHighlighting(element: PsiElement): TextAttributesKey
 
     fun getElementHighlighting(element: PsiElement): TextAttributesKey
+
+    fun highlight(element: PsiElement, textAttributes: TextAttributesKey, holder: AnnotationHolder)
 }

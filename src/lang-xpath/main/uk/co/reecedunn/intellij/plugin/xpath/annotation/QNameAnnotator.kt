@@ -18,8 +18,6 @@ package uk.co.reecedunn.intellij.plugin.xpath.annotation
 import com.intellij.compat.lang.annotation.AnnotationHolder
 import com.intellij.compat.lang.annotation.Annotator
 import com.intellij.lang.annotation.HighlightSeverity
-import com.intellij.openapi.editor.colors.TextAttributesKey
-import com.intellij.openapi.editor.markup.TextAttributes
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
@@ -74,9 +72,9 @@ open class QNameAnnotator : Annotator() {
             if (element.prefix !is XdmWildcardValue) {
                 val prefix = element.prefix?.element!!
                 if (isXmlnsPrefix(element)) {
-                    highlight(prefix, XPathSyntaxHighlighterColors.ATTRIBUTE, holder)
+                    XPathSemanticHighlighter.highlight(prefix, XPathSyntaxHighlighterColors.ATTRIBUTE, holder)
                 } else {
-                    highlight(prefix, XPathSyntaxHighlighterColors.NS_PREFIX, holder)
+                    XPathSemanticHighlighter.highlight(prefix, XPathSyntaxHighlighterColors.NS_PREFIX, holder)
                 }
             }
 
@@ -91,21 +89,13 @@ open class QNameAnnotator : Annotator() {
             val localName = element.localName?.element!!
             val highlight = XPathSemanticHighlighter.getHighlighting(element)
             when {
-                highlight !== XPathSyntaxHighlighterColors.IDENTIFIER -> highlight(localName, highlight, holder)
+                highlight !== XPathSyntaxHighlighterColors.IDENTIFIER -> {
+                    XPathSemanticHighlighter.highlight(localName, highlight, holder)
+                }
                 localName.elementType is IKeywordOrNCNameType -> {
-                    highlight(localName, XPathSyntaxHighlighterColors.IDENTIFIER, holder)
+                    XPathSemanticHighlighter.highlight(localName, XPathSyntaxHighlighterColors.IDENTIFIER, holder)
                 }
             }
         }
-    }
-
-    private fun highlight(element: PsiElement, textAttributes: TextAttributesKey, holder: AnnotationHolder) {
-        holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(element)
-            .enforcedTextAttributes(TextAttributes.ERASE_MARKER)
-            .create()
-
-        holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(element)
-            .textAttributes(textAttributes)
-            .create()
     }
 }

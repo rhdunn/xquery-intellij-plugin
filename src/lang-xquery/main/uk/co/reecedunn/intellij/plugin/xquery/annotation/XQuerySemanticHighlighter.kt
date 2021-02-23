@@ -15,12 +15,17 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.annotation
 
+import com.intellij.compat.lang.annotation.AnnotationHolder
+import com.intellij.lang.annotation.HighlightSeverity
 import com.intellij.openapi.editor.colors.TextAttributesKey
+import com.intellij.openapi.editor.markup.TextAttributes
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.xpm.context.XpmUsageType
 import uk.co.reecedunn.intellij.plugin.xpath.model.getUsageType
 import uk.co.reecedunn.intellij.plugin.xpm.intellij.annotation.XpmSemanticHighlighter
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lexer.XQuerySyntaxHighlighter
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lexer.XQuerySyntaxHighlighterColors
 
@@ -59,5 +64,22 @@ object XQuerySemanticHighlighter : XpmSemanticHighlighter {
                 else -> ret[1]
             }
         }
+    }
+
+    override fun highlight(element: PsiElement, textAttributes: TextAttributesKey, holder: AnnotationHolder) {
+        holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(element)
+            .enforcedTextAttributes(TextAttributes.ERASE_MARKER)
+            .create()
+
+        val parent = element.parent.parent
+        if (parent is PluginDirAttribute || parent is XQueryDirElemConstructor) {
+            holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(element)
+                .textAttributes(XQuerySyntaxHighlighterColors.XML_TAG)
+                .create()
+        }
+
+        holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(element)
+            .textAttributes(textAttributes)
+            .create()
     }
 }

@@ -15,7 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.annotation
 
+import com.intellij.compat.lang.annotation.AnnotationHolder
+import com.intellij.lang.annotation.HighlightSeverity
 import com.intellij.openapi.editor.colors.TextAttributesKey
+import com.intellij.openapi.editor.markup.TextAttributes
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lexer.XPathSyntaxHighlighterColors
 import uk.co.reecedunn.intellij.plugin.xpm.context.XpmUsageType
@@ -48,5 +51,15 @@ object XPathSemanticHighlighter : XpmSemanticHighlighter {
 
     override fun getElementHighlighting(element: PsiElement): TextAttributesKey {
         return XPathSyntaxHighlighterColors.IDENTIFIER
+    }
+
+    override fun highlight(element: PsiElement, textAttributes: TextAttributesKey, holder: AnnotationHolder) {
+        holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(element)
+            .enforcedTextAttributes(TextAttributes.ERASE_MARKER)
+            .create()
+
+        holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(element)
+            .textAttributes(textAttributes)
+            .create()
     }
 }
