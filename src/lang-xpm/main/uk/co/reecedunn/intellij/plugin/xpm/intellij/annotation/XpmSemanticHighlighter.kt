@@ -16,8 +16,14 @@
 package uk.co.reecedunn.intellij.plugin.xpm.intellij.annotation
 
 import com.intellij.compat.lang.annotation.AnnotationHolder
+import com.intellij.compat.testFramework.registerExtension
+import com.intellij.compat.testFramework.registerExtensionPointBean
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.editor.colors.TextAttributesKey
+import com.intellij.openapi.extensions.ExtensionPointName
 import com.intellij.psi.PsiElement
+import org.jetbrains.annotations.TestOnly
+import uk.co.reecedunn.intellij.plugin.core.extensions.PluginDescriptorProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
 
@@ -33,6 +39,26 @@ interface XpmSemanticHighlighter {
     fun highlight(element: PsiElement, textAttributes: TextAttributesKey, holder: AnnotationHolder)
 
     companion object {
+        val EP_NAME: ExtensionPointName<XpmSemanticHighlighterBean> = ExtensionPointName.create(
+            "uk.co.reecedunn.intellij.semanticHighlighter"
+        )
+
+        val highlighters: Sequence<XpmSemanticHighlighter>
+            get() = EP_NAME.extensionList.asSequence().map { it.getInstance() }
+
+        @TestOnly
+        @Suppress("UsePropertyAccessSyntax")
+        fun register(plugin: PluginDescriptorProvider, factory: XpmSemanticHighlighter, fieldName: String = "INSTANCE") {
+            val bean = XpmSemanticHighlighterBean()
+            bean.implementationClass = factory.javaClass.name
+            bean.fieldName = fieldName
+            bean.setPluginDescriptor(plugin.pluginDescriptor)
+
+            val app = ApplicationManager.getApplication()
+            app.registerExtensionPointBean(EP_NAME, XpmSemanticHighlighterBean::class.java, plugin.pluginDisposable)
+            app.registerExtension(EP_NAME, bean, plugin.pluginDisposable)
+        }
+
         fun isXmlnsPrefix(element: PsiElement): Boolean {
             return (element.parent as? XpmNamespaceDeclaration)?.accepts(XdmNamespaceType.Prefixed) == true
         }
