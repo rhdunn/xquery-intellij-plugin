@@ -40,13 +40,6 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
 
 open class QNameAnnotator : Annotator() {
-    private fun getVariableHighlightAttributes(
-        element: PsiElement?
-    ): TextAttributesKey = when (element?.getUsageType()) {
-        XpmUsageType.Parameter -> XPathSyntaxHighlighterColors.PARAMETER
-        else -> XPathSyntaxHighlighterColors.VARIABLE
-    }
-
     private fun getHighlightAttributes(element: PsiElement): TextAttributesKey = when (element.getUsageType()) {
         XpmUsageType.Annotation -> XPathSyntaxHighlighterColors.IDENTIFIER // XQuery
         XpmUsageType.Attribute -> XPathSyntaxHighlighterColors.ATTRIBUTE
@@ -61,7 +54,7 @@ open class QNameAnnotator : Annotator() {
         XpmUsageType.Pragma -> XPathSyntaxHighlighterColors.PRAGMA
         XpmUsageType.ProcessingInstruction -> XPathSyntaxHighlighterColors.PROCESSING_INSTRUCTION
         XpmUsageType.Type -> XPathSyntaxHighlighterColors.TYPE
-        XpmUsageType.Variable -> getVariableHighlightAttributes(element.reference?.resolve())
+        XpmUsageType.Variable -> XPathSemanticHighlighter.getVariableHighlighting(element.reference?.resolve())
         XpmUsageType.Unknown -> XPathSyntaxHighlighterColors.IDENTIFIER
     }
 
