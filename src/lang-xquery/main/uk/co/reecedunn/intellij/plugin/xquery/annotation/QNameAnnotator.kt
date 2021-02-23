@@ -35,11 +35,8 @@ class QNameAnnotator : QNameAnnotator() {
         if (element.prefix != null) {
             if (element.prefix !is XdmWildcardValue) {
                 val prefix = element.prefix?.element!!
-                if (isXmlnsPrefix(element)) {
-                    XQuerySemanticHighlighter.highlight(prefix, XQuerySyntaxHighlighterColors.ATTRIBUTE, holder)
-                } else {
-                    XQuerySemanticHighlighter.highlight(prefix, XQuerySyntaxHighlighterColors.NS_PREFIX, holder)
-                }
+                val highlight = XQuerySemanticHighlighter.getQNamePrefixHighlighting(element)
+                XQuerySemanticHighlighter.highlight(prefix, highlight, holder)
             }
 
             // Detect whitespace errors here instead of the parser so the QName annotator gets run.

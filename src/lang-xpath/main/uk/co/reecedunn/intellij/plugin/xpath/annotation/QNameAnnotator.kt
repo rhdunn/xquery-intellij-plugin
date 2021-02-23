@@ -32,8 +32,6 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathComment
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathWildcard
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XdmNamespaceType
-import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
 
 open class QNameAnnotator : Annotator() {
     protected fun checkQNameWhitespaceBefore(qname: XsQNameValue, separator: PsiElement, holder: AnnotationHolder) {
@@ -60,10 +58,6 @@ open class QNameAnnotator : Annotator() {
         }
     }
 
-    protected fun isXmlnsPrefix(element: PsiElement): Boolean {
-        return (element.parent as? XpmNamespaceDeclaration)?.accepts(XdmNamespaceType.Prefixed) == true
-    }
-
     override fun annotateElement(element: PsiElement, holder: AnnotationHolder) {
         if (element !is XsQNameValue) return
         if (element.language != XPath) return
@@ -71,11 +65,8 @@ open class QNameAnnotator : Annotator() {
         if (element.prefix != null) {
             if (element.prefix !is XdmWildcardValue) {
                 val prefix = element.prefix?.element!!
-                if (isXmlnsPrefix(element)) {
-                    XPathSemanticHighlighter.highlight(prefix, XPathSyntaxHighlighterColors.ATTRIBUTE, holder)
-                } else {
-                    XPathSemanticHighlighter.highlight(prefix, XPathSyntaxHighlighterColors.NS_PREFIX, holder)
-                }
+                val highlight = XPathSemanticHighlighter.getQNamePrefixHighlighting(element)
+                XPathSemanticHighlighter.highlight(prefix, highlight, holder)
             }
 
             // Detect whitespace errors here instead of the parser so the QName annotator gets run.

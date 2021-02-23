@@ -66,6 +66,11 @@ object XQuerySemanticHighlighter : XpmSemanticHighlighter {
         }
     }
 
+    override fun getQNamePrefixHighlighting(element: PsiElement): TextAttributesKey = when {
+        XpmSemanticHighlighter.isXmlnsPrefix(element) -> XQuerySyntaxHighlighterColors.ATTRIBUTE
+        else -> XQuerySyntaxHighlighterColors.NS_PREFIX
+    }
+
     override fun highlight(element: PsiElement, textAttributes: TextAttributesKey, holder: AnnotationHolder) {
         holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(element)
             .enforcedTextAttributes(TextAttributes.ERASE_MARKER)

@@ -18,11 +18,21 @@ package uk.co.reecedunn.intellij.plugin.xpm.intellij.annotation
 import com.intellij.compat.lang.annotation.AnnotationHolder
 import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XdmNamespaceType
+import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
 
 interface XpmSemanticHighlighter {
     fun getHighlighting(element: PsiElement): TextAttributesKey
 
     fun getElementHighlighting(element: PsiElement): TextAttributesKey
 
+    fun getQNamePrefixHighlighting(element: PsiElement): TextAttributesKey
+
     fun highlight(element: PsiElement, textAttributes: TextAttributesKey, holder: AnnotationHolder)
+
+    companion object {
+        fun isXmlnsPrefix(element: PsiElement): Boolean {
+            return (element.parent as? XpmNamespaceDeclaration)?.accepts(XdmNamespaceType.Prefixed) == true
+        }
+    }
 }
