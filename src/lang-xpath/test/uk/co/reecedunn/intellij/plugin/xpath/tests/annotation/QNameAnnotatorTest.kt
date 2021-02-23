@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.tests.annotation
 
+import com.intellij.openapi.extensions.PluginId
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -22,12 +23,20 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.prettyPrint
 import uk.co.reecedunn.intellij.plugin.xpath.annotation.QNameAnnotator
+import uk.co.reecedunn.intellij.plugin.xpath.annotation.XPathSemanticHighlighter
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath
+import uk.co.reecedunn.intellij.plugin.xpm.intellij.annotation.XpmSemanticHighlighter
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("ClassName", "RedundantVisibilityModifier")
 @DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - XPath QNameAnnotator")
 private class QNameAnnotatorTest : AnnotatorTestCase() {
+    override val pluginId: PluginId = PluginId.getId("XPathQNameAnnotatorTest")
+
+    override fun registerExtensions() {
+        XpmSemanticHighlighter.register(this, XPathSemanticHighlighter)
+    }
+
     @Nested
     @DisplayName("XPath 3.1 EBNF (48) Wildcard")
     internal inner class Wildcard {

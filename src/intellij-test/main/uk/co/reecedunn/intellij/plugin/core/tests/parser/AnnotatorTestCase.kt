@@ -22,20 +22,34 @@ import com.intellij.lang.ASTNode
 import com.intellij.lang.ParserDefinition
 import com.intellij.lang.annotation.*
 import com.intellij.lang.annotation.Annotation
+import com.intellij.openapi.Disposable
 import com.intellij.openapi.editor.colors.CodeInsightColors
 import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.editor.markup.TextAttributes
+import com.intellij.openapi.extensions.DefaultPluginDescriptor
+import com.intellij.openapi.extensions.PluginDescriptor
 import com.intellij.psi.PsiFile
 import com.intellij.psi.impl.source.tree.CompositeElement
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import org.hamcrest.CoreMatchers
+import uk.co.reecedunn.intellij.plugin.core.extensions.PluginDescriptorProvider
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 
 @Suppress("SameParameterValue")
 abstract class AnnotatorTestCase<File : PsiFile>(
     fileExt: String?,
     vararg definitions: ParserDefinition
-) : ParsingTestCase<File>(fileExt, *definitions) {
+) : ParsingTestCase<File>(fileExt, *definitions),
+    PluginDescriptorProvider {
+    // region PluginDescriptorProvider
+
+    override val pluginDescriptor: PluginDescriptor
+        get() = DefaultPluginDescriptor(pluginId, this::class.java.classLoader)
+
+    override val pluginDisposable: Disposable
+        get() = testRootDisposable
+
+    // endregion
 
     private fun annotateTree(node: ASTNode, annotationHolder: AnnotationHolder, annotator: Annotator) {
         if (node is CompositeElement) {

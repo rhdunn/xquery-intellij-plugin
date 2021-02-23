@@ -22,12 +22,15 @@ import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.extensions.ExtensionPointName
 import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiFile
 import org.jetbrains.annotations.TestOnly
 import uk.co.reecedunn.intellij.plugin.core.extensions.PluginDescriptorProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
 
 interface XpmSemanticHighlighter {
+    fun accepts(file: PsiFile): Boolean
+
     fun getHighlighting(element: PsiElement): TextAttributesKey
 
     fun getElementHighlighting(element: PsiElement): TextAttributesKey
@@ -43,8 +46,12 @@ interface XpmSemanticHighlighter {
             "uk.co.reecedunn.intellij.semanticHighlighter"
         )
 
-        val highlighters: Sequence<XpmSemanticHighlighter>
-            get() = EP_NAME.extensionList.asSequence().map { it.getInstance() }
+        fun highlighter(element: PsiElement): XpmSemanticHighlighter? {
+            val file = element.containingFile
+            return EP_NAME.extensionList.asSequence().map { it.getInstance() }.firstOrNull {
+                it.accepts(file)
+            }
+        }
 
         @TestOnly
         @Suppress("UsePropertyAccessSyntax")

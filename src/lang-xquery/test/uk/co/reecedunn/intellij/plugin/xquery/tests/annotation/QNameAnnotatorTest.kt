@@ -22,15 +22,22 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.prettyPrint
-import uk.co.reecedunn.intellij.plugin.xslt.annotation.ValueTemplateAnnotator as XPathQNameAnnotator
-import uk.co.reecedunn.intellij.plugin.xquery.annotation.QNameAnnotator
+import uk.co.reecedunn.intellij.plugin.xpath.annotation.QNameAnnotator
+import uk.co.reecedunn.intellij.plugin.xpath.annotation.XPathSemanticHighlighter
+import uk.co.reecedunn.intellij.plugin.xpm.intellij.annotation.XpmSemanticHighlighter
+import uk.co.reecedunn.intellij.plugin.xquery.annotation.XQuerySemanticHighlighter
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("ClassName", "RedundantVisibilityModifier")
 @DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - XQuery QNameAnnotator")
 private class QNameAnnotatorTest : AnnotatorTestCase() {
-    override val pluginId: PluginId = PluginId.getId("QNameAnnotatorTest")
+    override val pluginId: PluginId = PluginId.getId("XQueryQNameAnnotatorTest")
+
+    override fun registerExtensions() {
+        XpmSemanticHighlighter.register(this, XPathSemanticHighlighter)
+        XpmSemanticHighlighter.register(this, XQuerySemanticHighlighter)
+    }
 
     @Nested
     @DisplayName("XQuery 3.1 EBNF (120) Wildcard")
@@ -213,14 +220,6 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                 )
             )
         }
-
-        @Test
-        @DisplayName("xpath annotator")
-        fun xpathAnnotator() {
-            val file = parse<XQueryModule>("cast")[0]
-            val annotations = annotateTree(file, XPathQNameAnnotator()).prettyPrint()
-            assertThat(annotations, `is`(""))
-        }
     }
 
     @Nested
@@ -361,14 +360,6 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                 )
             )
         }
-
-        @Test
-        @DisplayName("xpath annotator")
-        fun xpathAnnotator() {
-            val file = parse<XQueryModule>("cast:as")[0]
-            val annotations = annotateTree(file, XPathQNameAnnotator()).prettyPrint()
-            assertThat(annotations, `is`(""))
-        }
     }
 
     @Nested
@@ -400,14 +391,6 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
                     """.trimIndent()
                 )
             )
-        }
-
-        @Test
-        @DisplayName("xpath annotator")
-        fun xpathAnnotator() {
-            val file = parse<XQueryModule>("Q{http://www.example.com/test#}let")[0]
-            val annotations = annotateTree(file, XPathQNameAnnotator()).prettyPrint()
-            assertThat(annotations, `is`(""))
         }
     }
 

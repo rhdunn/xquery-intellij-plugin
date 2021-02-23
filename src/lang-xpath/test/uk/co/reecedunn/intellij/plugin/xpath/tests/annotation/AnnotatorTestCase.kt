@@ -32,10 +32,13 @@ abstract class AnnotatorTestCase : AnnotatorTestCase<XPath>("xqy", XPathParserDe
         addExplicitExtension(
             LanguageASTFactory.INSTANCE, uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath, XPathASTFactory()
         )
+        registerExtensions()
     }
 
     @AfterAll
     override fun tearDown() {
         super.tearDown()
     }
+
+    open fun registerExtensions() {}
 }

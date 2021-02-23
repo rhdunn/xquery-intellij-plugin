@@ -28,6 +28,7 @@ Semantic Highlighting:
 
 1. Fix highlighting `xmlns` namespace prefix in contexts other than XML attributes.
 1. Fix highlighting variables that do not resolve to a variable declaration or binding.
+1. Fix highlighting wildcard element and attribute names.
 1. Highlight the `CompNamespaceConstructor` name as a namespace prefix.
 1. Highlight `KeySeparator` names and `RecordTest` field names as map keys.
 1. Highlight `PITest` and `CompPIConstructor` names as processing instructions.

@@ -17,13 +17,9 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.annotation
 
 import com.intellij.compat.testFramework.registerServiceInstance
 import com.intellij.lang.LanguageASTFactory
-import com.intellij.openapi.Disposable
-import com.intellij.openapi.extensions.DefaultPluginDescriptor
-import com.intellij.openapi.extensions.PluginDescriptor
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.TestInstance
-import uk.co.reecedunn.intellij.plugin.core.extensions.PluginDescriptorProvider
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.AnnotatorTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
@@ -40,17 +36,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryVariableProvider
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 abstract class AnnotatorTestCase :
-    AnnotatorTestCase<XQueryModule>("xqy", XQueryParserDefinition(), XPathParserDefinition()),
-    PluginDescriptorProvider {
-    // region PluginDescriptorProvider
-
-    override val pluginDescriptor: PluginDescriptor
-        get() = DefaultPluginDescriptor(pluginId, this::class.java.classLoader)
-
-    override val pluginDisposable: Disposable
-        get() = testRootDisposable
-
-    // endregion
+    AnnotatorTestCase<XQueryModule>("xqy", XQueryParserDefinition(), XPathParserDefinition()) {
 
     @BeforeAll
     override fun setUp() {
@@ -62,10 +48,14 @@ abstract class AnnotatorTestCase :
         XpmVariableProvider.register(this, XQueryVariableProvider)
 
         registerExtensionPoint(XpmNamespaceProvider.EP_NAME, XpmNamespaceProviderBean::class.java)
+
+        registerExtensions()
     }
 
     @AfterAll
     override fun tearDown() {
         super.tearDown()
     }
+
+    open fun registerExtensions() {}
 }

@@ -22,7 +22,6 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.filterIsElementType
-import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathBundle
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
@@ -34,8 +33,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.intellij.annotation.XpmSemanticHighlighter
 
 open class QNameAnnotator : Annotator() {
-    open val highlighter: XpmSemanticHighlighter = XPathSemanticHighlighter
-
     private fun checkQNameWhitespaceBefore(qname: XsQNameValue, separator: PsiElement, holder: AnnotationHolder) {
         val before = separator.prevSibling
         if (before.elementType === XPathTokenType.WHITE_SPACE || before is XPathComment) {
@@ -61,12 +58,9 @@ open class QNameAnnotator : Annotator() {
     }
 
     override fun annotateElement(element: PsiElement, holder: AnnotationHolder) {
-        if (element.language != XPath) return
-        annotateQName(element, holder)
-    }
-
-    fun annotateQName(element: PsiElement, holder: AnnotationHolder) {
         if (element !is XsQNameValue) return
+
+        val highlighter = XpmSemanticHighlighter.highlighter(element) ?: return
 
         if (element.prefix != null) {
             if (element.prefix !is XdmWildcardValue) {

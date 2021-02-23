@@ -20,6 +20,9 @@ import com.intellij.lang.annotation.HighlightSeverity
 import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.editor.markup.TextAttributes
 import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiFile
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath as XPathFile
+import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lexer.XPathSyntaxHighlighterColors
 import uk.co.reecedunn.intellij.plugin.xpm.context.XpmUsageType
 import uk.co.reecedunn.intellij.plugin.xpath.model.getUsageType
@@ -30,6 +33,8 @@ object XPathSemanticHighlighter : XpmSemanticHighlighter {
         XpmUsageType.Parameter -> XPathSyntaxHighlighterColors.PARAMETER
         else -> XPathSyntaxHighlighterColors.VARIABLE
     }
+
+    override fun accepts(file: PsiFile): Boolean = file is XPathFile
 
     override fun getHighlighting(element: PsiElement): TextAttributesKey = when (element.getUsageType()) {
         XpmUsageType.Annotation -> XPathSyntaxHighlighterColors.IDENTIFIER // XQuery
