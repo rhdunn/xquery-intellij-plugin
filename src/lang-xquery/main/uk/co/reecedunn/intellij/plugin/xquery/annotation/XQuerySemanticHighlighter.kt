@@ -71,6 +71,10 @@ object XQuerySemanticHighlighter : XpmSemanticHighlighter {
         else -> XQuerySyntaxHighlighterColors.NS_PREFIX
     }
 
+    override fun highlight(element: PsiElement, holder: AnnotationHolder) {
+        highlight(element, XQuerySyntaxHighlighterColors.IDENTIFIER, holder)
+    }
+
     override fun highlight(element: PsiElement, textAttributes: TextAttributesKey, holder: AnnotationHolder) {
         holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(element)
             .enforcedTextAttributes(TextAttributes.ERASE_MARKER)

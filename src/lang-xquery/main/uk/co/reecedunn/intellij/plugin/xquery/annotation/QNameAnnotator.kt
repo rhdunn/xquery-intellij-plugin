@@ -17,50 +17,11 @@ package uk.co.reecedunn.intellij.plugin.xquery.annotation
 
 import com.intellij.compat.lang.annotation.AnnotationHolder
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.core.psi.elementType
-import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.core.sequences.filterIsElementType
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
-import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
-import uk.co.reecedunn.intellij.plugin.xquery.intellij.lexer.XQuerySyntaxHighlighterColors
-import uk.co.reecedunn.intellij.plugin.xdm.types.XdmWildcardValue
-import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpath.annotation.QNameAnnotator
-import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.intellij.annotation.XpmSemanticHighlighter
 
 class QNameAnnotator : QNameAnnotator() {
     override val highlighter: XpmSemanticHighlighter = XQuerySemanticHighlighter
 
-    override fun annotateElement(element: PsiElement, holder: AnnotationHolder) {
-        if (element !is XsQNameValue) return
-
-        if (element.prefix != null) {
-            if (element.prefix !is XdmWildcardValue) {
-                val prefix = element.prefix?.element!!
-                val highlight = highlighter.getQNamePrefixHighlighting(element)
-                highlighter.highlight(prefix, highlight, holder)
-            }
-
-            // Detect whitespace errors here instead of the parser so the QName annotator gets run.
-            element.children().filterIsElementType(XPathTokenType.QNAME_SEPARATOR).firstOrNull()?.let {
-                checkQNameWhitespaceBefore(element, it, holder)
-                checkQNameWhitespaceAfter(element, it, holder)
-            }
-        }
-
-        if (element.localName != null) {
-            val localName = element.localName?.element!!
-            val highlight = highlighter.getHighlighting(element)
-            val elementHighlight = highlighter.getElementHighlighting(localName)
-            when {
-                highlight !== elementHighlight -> {
-                    highlighter.highlight(localName, highlight, holder)
-                }
-                localName.elementType is IKeywordOrNCNameType && highlight !== elementHighlight -> {
-                    highlighter.highlight(localName, XQuerySyntaxHighlighterColors.IDENTIFIER, holder)
-                }
-            }
-        }
-    }
+    override fun annotateElement(element: PsiElement, holder: AnnotationHolder) = annotateQName(element, holder)
 }

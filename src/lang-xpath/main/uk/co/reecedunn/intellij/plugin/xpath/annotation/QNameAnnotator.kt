@@ -23,7 +23,6 @@ import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.filterIsElementType
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
-import uk.co.reecedunn.intellij.plugin.xpath.intellij.lexer.XPathSyntaxHighlighterColors
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathBundle
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
@@ -37,7 +36,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.intellij.annotation.XpmSemanticHighli
 open class QNameAnnotator : Annotator() {
     open val highlighter: XpmSemanticHighlighter = XPathSemanticHighlighter
 
-    protected fun checkQNameWhitespaceBefore(qname: XsQNameValue, separator: PsiElement, holder: AnnotationHolder) {
+    private fun checkQNameWhitespaceBefore(qname: XsQNameValue, separator: PsiElement, holder: AnnotationHolder) {
         val before = separator.prevSibling
         if (before.elementType === XPathTokenType.WHITE_SPACE || before is XPathComment) {
             val message =
@@ -49,7 +48,7 @@ open class QNameAnnotator : Annotator() {
         }
     }
 
-    protected fun checkQNameWhitespaceAfter(qname: XsQNameValue, separator: PsiElement, holder: AnnotationHolder) {
+    private fun checkQNameWhitespaceAfter(qname: XsQNameValue, separator: PsiElement, holder: AnnotationHolder) {
         val after = separator.nextSibling
         if (after.elementType === XPathTokenType.WHITE_SPACE || after is XPathComment) {
             val message =
@@ -62,8 +61,12 @@ open class QNameAnnotator : Annotator() {
     }
 
     override fun annotateElement(element: PsiElement, holder: AnnotationHolder) {
-        if (element !is XsQNameValue) return
         if (element.language != XPath) return
+        annotateQName(element, holder)
+    }
+
+    fun annotateQName(element: PsiElement, holder: AnnotationHolder) {
+        if (element !is XsQNameValue) return
 
         if (element.prefix != null) {
             if (element.prefix !is XdmWildcardValue) {
@@ -82,12 +85,13 @@ open class QNameAnnotator : Annotator() {
         if (element.localName != null) {
             val localName = element.localName?.element!!
             val highlight = highlighter.getHighlighting(element)
+            val elementHighlight = highlighter.getElementHighlighting(localName)
             when {
-                highlight !== XPathSyntaxHighlighterColors.IDENTIFIER -> {
-                    XPathSemanticHighlighter.highlight(localName, highlight, holder)
+                highlight !== elementHighlight -> {
+                    highlighter.highlight(localName, highlight, holder)
                 }
-                localName.elementType is IKeywordOrNCNameType -> {
-                    highlighter.highlight(localName, XPathSyntaxHighlighterColors.IDENTIFIER, holder)
+                localName.elementType is IKeywordOrNCNameType && highlight !== elementHighlight -> {
+                    highlighter.highlight(localName, holder)
                 }
             }
         }

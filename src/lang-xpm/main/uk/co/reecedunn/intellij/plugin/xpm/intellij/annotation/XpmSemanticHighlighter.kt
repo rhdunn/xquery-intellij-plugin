@@ -28,6 +28,8 @@ interface XpmSemanticHighlighter {
 
     fun getQNamePrefixHighlighting(element: PsiElement): TextAttributesKey
 
+    fun highlight(element: PsiElement, holder: AnnotationHolder)
+
     fun highlight(element: PsiElement, textAttributes: TextAttributesKey, holder: AnnotationHolder)
 
     companion object {
