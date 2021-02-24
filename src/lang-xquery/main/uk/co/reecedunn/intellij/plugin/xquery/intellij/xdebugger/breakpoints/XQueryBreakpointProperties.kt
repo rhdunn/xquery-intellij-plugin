@@ -40,7 +40,10 @@ class XQueryBreakpointProperties : XBreakpointProperties<XQueryBreakpointPropert
 
     private fun getExpression(project: Project, position: XSourcePosition): XpmExpression? {
         val module = position.file.toPsiFile(project) as? XQueryModule ?: return null
-        return module.findElementAt(exprOffset)?.ancestorsAndSelf()?.filterIsInstance<XpmExpression>()?.firstOrNull()
+        val element = module.findElementAt(exprOffset) ?: return null
+        return element.ancestorsAndSelf().filterIsInstance<XpmExpression>().firstOrNull { expr ->
+            expr.expressionElement != null
+        }
     }
 
     private fun getProject(breakpoint: XLineBreakpoint<XQueryBreakpointProperties>): Project? {

@@ -120,6 +120,10 @@
       <li>Report test status in the run console.</li>
       <li>Fix reformatting the output when the option is specified in the configuration.</li>
     </ol>
+    <p>Debugging:</p>
+    <ol>
+      <li>Fix displaying the expression breakpoint range in the editor.</li>
+    </ol>
   ]]></change-notes>
 
   <idea-version since-build="161"/>

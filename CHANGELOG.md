@@ -47,6 +47,10 @@ Run Configuration:
 1. Fix some encoding issues in handling UTF-8 output for MarkLogic.
 1. Fix reformatting the output when the option is specified in the configuration.
 
+Debugging:
+
+1. Fix displaying the expression breakpoint range in the editor.
+
 ## 2020
 
 *  [1.8.1 - 2020-12-11](docs/_posts/2020-12-11-release-1.8.1.md)
