@@ -102,6 +102,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
             assertThat(
                 annotations, `is`(
                     """
+                    INFORMATION (0:1) ERASED/DEFAULT + XQUERY_NS_PREFIX
                     INFORMATION (2:6) ERASED/DEFAULT + XQUERY_ELEMENT
                     """.trimIndent()
                 )

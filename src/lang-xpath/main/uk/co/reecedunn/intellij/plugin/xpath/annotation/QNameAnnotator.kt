@@ -25,7 +25,6 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.filterIsElementType
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathBundle
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
-import uk.co.reecedunn.intellij.plugin.xdm.types.XdmWildcardValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathComment
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathWildcard
@@ -61,10 +60,11 @@ open class QNameAnnotator : Annotator() {
         if (element !is XsQNameValue) return
 
         val highlighter = XpmSemanticHighlighter.highlighter(element) ?: return
+        val prefix = element.prefix?.element
+        val localName = element.localName?.element
 
-        if (element.prefix != null) {
-            if (element.prefix !is XdmWildcardValue) {
-                val prefix = element.prefix?.element!!
+        if (prefix != null) {
+            if (prefix !== localName) {
                 val highlight = highlighter.getQNamePrefixHighlighting(element)
                 highlighter.highlight(prefix, highlight, holder)
             }
@@ -76,8 +76,7 @@ open class QNameAnnotator : Annotator() {
             }
         }
 
-        if (element.localName != null) {
-            val localName = element.localName?.element!!
+        if (localName != null) {
             val highlight = highlighter.getHighlighting(element)
             val elementHighlight = highlighter.getElementHighlighting(localName)
             when {

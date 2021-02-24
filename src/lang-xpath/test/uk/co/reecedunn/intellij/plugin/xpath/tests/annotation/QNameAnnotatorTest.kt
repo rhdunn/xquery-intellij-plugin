@@ -100,6 +100,7 @@ private class QNameAnnotatorTest : AnnotatorTestCase() {
             assertThat(
                 annotations, `is`(
                     """
+                    INFORMATION (0:1) ERASED/DEFAULT + XPATH_NS_PREFIX
                     INFORMATION (2:6) ERASED/DEFAULT + XPATH_ELEMENT
                     """.trimIndent()
                 )
