@@ -40,7 +40,7 @@ class XRayXmlTestAssert(private val assertion: XmlElement) : TestFailure {
     companion object {
         fun parseList(asserts: String): Sequence<TestFailure> {
             val doc = XmlDocument.parse("<list>$asserts</list>", XRayXmlFormat.NAMESPACES)
-            return doc.root.children().map { XRayXmlTestAssert(it) }
+            return doc.root.children("xray:assert").map { XRayXmlTestAssert(it) }
         }
     }
 }
