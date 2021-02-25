@@ -2463,34 +2463,6 @@ private class XPathPsiTest : ParserTestCase() {
                         assertThat(ref, `is`(nullValue()))
                     }
                 }
-
-                @Nested
-                @DisplayName("XPath 3.1 EBNF (50) ArgumentList")
-                internal inner class ArgumentList {
-                    @Test
-                    @DisplayName("empty parameters")
-                    fun empty() {
-                        val args = parse<XPathArgumentList>("fn:true()")[0]
-                        assertThat(args.arity, `is`(0))
-                        assertThat(args.isPartialFunctionApplication, `is`(false))
-                    }
-
-                    @Test
-                    @DisplayName("multiple ExprSingle parameters")
-                    fun multiple() {
-                        val args = parse<XPathArgumentList>("math:pow(2, 8)")[0]
-                        assertThat(args.arity, `is`(2))
-                        assertThat(args.isPartialFunctionApplication, `is`(false))
-                    }
-
-                    @Test
-                    @DisplayName("ArgumentPlaceholder parameter")
-                    fun argumentPlaceholder() {
-                        val args = parse<XPathArgumentList>("math:sin(?)")[0]
-                        assertThat(args.arity, `is`(1))
-                        assertThat(args.isPartialFunctionApplication, `is`(true))
-                    }
-                }
             }
 
             @Nested
