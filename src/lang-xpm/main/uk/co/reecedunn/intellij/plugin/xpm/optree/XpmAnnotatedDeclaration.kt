@@ -15,10 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.optree
 
+import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnnotation
 import uk.co.reecedunn.intellij.plugin.xpm.context.expand
 
-interface XpmAnnotatedDeclaration {
+interface XpmAnnotatedDeclaration : PsiElement {
     val annotations: Sequence<XdmAnnotation>
 
     val isPublic: Boolean

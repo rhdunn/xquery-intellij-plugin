@@ -30,14 +30,15 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryLibraryModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryMainModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
 
-fun <Decl : Any> XQueryProlog.annotatedDeclarations(klass: Class<Decl>): Sequence<Decl> {
-    return reverse(children()).filterIsInstance<XQueryAnnotatedDecl>().mapNotNull { annotation ->
+fun <Decl : Any> XQueryProlog.annotatedDeclarations(klass: Class<Decl>, reversed: Boolean = true): Sequence<Decl> {
+    val children = if (reversed) reverse(children()) else children()
+    return children.filterIsInstance<XQueryAnnotatedDecl>().mapNotNull { annotation ->
         annotation.children().filterIsInstance(klass).firstOrNull()
     }
 }
 
-inline fun <reified Decl : Any> XQueryProlog.annotatedDeclarations(): Sequence<Decl> {
-    return annotatedDeclarations(Decl::class.java)
+inline fun <reified Decl : Any> XQueryProlog.annotatedDeclarations(reversed: Boolean = true): Sequence<Decl> {
+    return annotatedDeclarations(Decl::class.java, reversed)
 }
 
 fun PsiElement.fileProlog(): XQueryProlog? {

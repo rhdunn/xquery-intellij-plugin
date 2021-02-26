@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2020 Reece H. Dunn
+ * Copyright (C) 2019-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,11 +18,12 @@ package uk.co.reecedunn.intellij.plugin.xquery.ide.projectView
 import com.intellij.ide.projectView.ViewSettings
 import com.intellij.ide.projectView.impl.nodes.PsiFileNode
 import com.intellij.ide.util.treeView.AbstractTreeNode
-import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAnnotatedDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryItemTypeDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
+import uk.co.reecedunn.intellij.plugin.xquery.model.annotatedDeclarations
 
 class XQueryModuleTreeNode(module: XQueryModule, viewSettings: ViewSettings) :
     PsiFileNode(module.project, module, viewSettings) {
@@ -34,29 +35,22 @@ class XQueryModuleTreeNode(module: XQueryModule, viewSettings: ViewSettings) :
 
     @Suppress("UNCHECKED_CAST")
     private fun getPrologDeclarations(): Sequence<AbstractTreeNode<Any>>? {
-        val prolog: XQueryProlog? = (value as XQueryModule).mainOrLibraryModule?.prolog?.firstOrNull()
-        return prolog?.children()?.flatMap { decl ->
+        val prolog = (value as XQueryModule).mainOrLibraryModule?.prolog?.firstOrNull() ?: return null
+        return prolog.annotatedDeclarations<XpmAnnotatedDeclaration>(reversed = false).map { decl ->
             when (decl) {
-                is XQueryAnnotatedDecl -> {
-                    decl.children().map { annotatedDecl ->
-                        when (annotatedDecl) {
-                            is XQueryFunctionDecl -> {
-                                (annotatedDecl as XpmFunctionDeclaration).functionName?.localName?.let {
-                                    XQueryLeafNode(annotatedDecl, settings) as AbstractTreeNode<Any>
-                                }
-                            }
-                            is XQueryVarDecl -> {
-                                (annotatedDecl as XpmVariableDeclaration).variableName?.localName?.let {
-                                    XQueryLeafNode(annotatedDecl, settings) as AbstractTreeNode<Any>
-                                }
-                            }
-                            else -> null
-                        }
+                is XQueryFunctionDecl -> {
+                    (decl as XpmFunctionDeclaration).functionName?.localName?.let {
+                        XQueryLeafNode(decl, settings) as AbstractTreeNode<Any>
                     }
                 }
-                is XQueryItemTypeDecl -> sequenceOf(XQueryLeafNode(decl, settings) as AbstractTreeNode<Any>)
-                else -> emptySequence()
+                is XQueryVarDecl -> {
+                    (decl as XpmVariableDeclaration).variableName?.localName?.let {
+                        XQueryLeafNode(decl, settings) as AbstractTreeNode<Any>
+                    }
+                }
+                is XQueryItemTypeDecl -> XQueryLeafNode(decl, settings) as AbstractTreeNode<Any>
+                else -> null
             }
-        }?.filterNotNull()
+        }.filterNotNull()
     }
 }
