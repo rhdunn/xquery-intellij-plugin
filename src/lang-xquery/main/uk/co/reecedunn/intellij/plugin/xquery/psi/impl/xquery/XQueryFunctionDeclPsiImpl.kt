@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2020 Reece H. Dunn
+ * Copyright (C) 2016-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,6 +45,12 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
     }
 
     // endregion
+    // region XdmAnnotatedDeclaration
+
+    override val annotations: Sequence<XdmAnnotation>
+        get() = parent.children().filterIsInstance<XdmAnnotation>()
+
+    // endregion
     // region XdmFunctionDeclaration
 
     private val paramList: XPathParamList?
@@ -70,9 +76,6 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
 
     override val functionRefPresentableText: String?
         get() = cachedFunctionRefPresentableText.get()
-
-    override val annotations: Sequence<XdmAnnotation>
-        get() = parent.children().filterIsInstance<XdmAnnotation>()
 
     private val cachedFunctionRefPresentableText = CacheableProperty {
         functionName?.let { "${op_qname_presentation(it)}#${arity.from}" } ?: ""

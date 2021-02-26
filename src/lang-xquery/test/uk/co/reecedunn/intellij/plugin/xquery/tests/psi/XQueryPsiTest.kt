@@ -54,6 +54,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.reference.XPathFunctionNameReference
 import uk.co.reecedunn.intellij.plugin.xpm.context.expand
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAnnotatedDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPathStep
@@ -7573,7 +7574,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("name only")
                 fun nameOnly() {
-                    val annotation = parse<XQueryAnnotation>("declare function % private f() {};")[0] as XdmAnnotation
+                    val annotation = parse<XQueryAnnotation>("declare % private function f() {};")[0] as XdmAnnotation
                     assertThat(op_qname_presentation(annotation.name!!), `is`("private"))
 
                     val values = annotation.values.toList()
@@ -7588,7 +7589,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("missing name")
                 fun missingName() {
-                    val annotation = parse<XQueryAnnotation>("declare function % () {};")[0] as XdmAnnotation
+                    val annotation = parse<XQueryAnnotation>("declare % () {};")[0] as XdmAnnotation
                     assertThat(annotation.name, `is`(nullValue()))
 
                     val values = annotation.values.toList()
@@ -7603,7 +7604,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("values")
                 fun values() {
-                    val annotation = parse<XQueryAnnotation>("declare function % test ( 1 , 2.3 , 4e3 , 'lorem ipsum' ) f() {};")[0] as XdmAnnotation
+                    val annotation = parse<XQueryAnnotation>("declare % test ( 1 , 2.3 , 4e3 , 'lorem ipsum' ) function f() {};")[0] as XdmAnnotation
                     assertThat(op_qname_presentation(annotation.name!!), `is`("test"))
 
                     val values = annotation.values.toList()
@@ -7617,6 +7618,56 @@ private class XQueryPsiTest : ParserTestCase() {
                     assertThat(presentation.getIcon(false), `is`(XQueryIcons.Nodes.Annotation))
                     assertThat(presentation.locationString, `is`(nullValue()))
                     assertThat(presentation.presentableText, `is`("%test(1, 2.3, 4e3, 'lorem ipsum')"))
+                }
+            }
+
+            @Nested
+            @DisplayName("XQuery 3.1 EBNF (32) FunctionDecl")
+            internal inner class FunctionDecl {
+                @Test
+                @DisplayName("single annotation")
+                fun single() {
+                    val decl = parse<XpmAnnotatedDeclaration>("declare %private function f() {};")[0]
+
+                    val annotations = decl.annotations.toList()
+                    assertThat(annotations.size, `is`(1))
+                    assertThat(op_qname_presentation(annotations[0].name!!), `is`("private"))
+                }
+
+                @Test
+                @DisplayName("multiple annotations")
+                fun multiple() {
+                    val decl = parse<XpmAnnotatedDeclaration>("declare %public %private function f() {};")[0]
+
+                    val annotations = decl.annotations.toList()
+                    assertThat(annotations.size, `is`(2))
+                    assertThat(op_qname_presentation(annotations[0].name!!), `is`("public"))
+                    assertThat(op_qname_presentation(annotations[1].name!!), `is`("private"))
+                }
+            }
+
+            @Nested
+            @DisplayName("XQuery 3.1 EBNF (169) InlineFunctionExpr")
+            internal inner class InlineFunctionExpr {
+                @Test
+                @DisplayName("single annotation")
+                fun single() {
+                    val decl = parse<XpmAnnotatedDeclaration>("%private function() {};")[0]
+
+                    val annotations = decl.annotations.toList()
+                    assertThat(annotations.size, `is`(1))
+                    assertThat(op_qname_presentation(annotations[0].name!!), `is`("private"))
+                }
+
+                @Test
+                @DisplayName("multiple annotations")
+                fun multiple() {
+                    val decl = parse<XpmAnnotatedDeclaration>("%public %private function() {};")[0]
+
+                    val annotations = decl.annotations.toList()
+                    assertThat(annotations.size, `is`(2))
+                    assertThat(op_qname_presentation(annotations[0].name!!), `is`("public"))
+                    assertThat(op_qname_presentation(annotations[1].name!!), `is`("private"))
                 }
             }
         }

@@ -50,9 +50,10 @@ various inspections.
     - [Predicates](#521-predicates)
     - [Abbreviated Syntax](#522-abbreviated-syntax)
   - [Namespace Declarations](#53-namespace-declarations)
-  - [Variables](#54-variables)
-    - [Variable Types](#541-variable-types)
-  - [Functions](#55-functions)
+  - [Annotated Declarations](#54-annotated-declarations)
+    - [Variables](#541-variables)
+      - [Variable Types](#5411-variable-types)
+    - [Functions](#542-functions)
 - {: .toc-letter } [References](#a-references)
   - [W3C References](#a1-w3c-references)
   - [XPath NG Proposals](#a2-xpath-ng-proposals)
@@ -764,7 +765,20 @@ EQNames.
 If a `SchemaImport` contains a `SchemaPrefix` then it accepts *prefixed*
 EQNames. Otherwise, it accepts *default element\/type* EQNames.
 
-### 5.4 Variables
+### 5.4 Annotated Declarations
+
+| Symbol               | Interface                 |
+|----------------------|---------------------------|
+| `FunctionDecl`       | `XdmAnnotatedDeclaration` |
+| `InlineFunctionExpr` | `XdmAnnotatedDeclaration` |
+
+An *annotated declaration* is a declaration that can have annotations
+associated with it.
+
+The *annotations* property lists the user-specified annotations on the
+declaration.
+
+### 5.4.1 Variables
 
 | Symbol                  | Interface                |
 |-------------------------|--------------------------|
@@ -808,7 +822,7 @@ The *variable name* of a *variable definition* is the `xs:QName` associated
 with that definition. The *variable name* of a *variable reference* is the
 `xs:QName` associated with that reference.
 
-#### 5.4.1 Variable Types
+#### 5.4.1.1 Variable Types
 
 | Symbol    | Interface         |
 |-----------|-------------------|
@@ -818,7 +832,7 @@ with that definition. The *variable name* of a *variable reference* is the
 The *variable type* of a *variable definition* is the `SequenceType` associated
 with that variable if specified.
 
-### 5.5 Functions
+### 5.4.2 Functions
 
 | Symbol                     | Interface                     |
 |----------------------------|-------------------------------|

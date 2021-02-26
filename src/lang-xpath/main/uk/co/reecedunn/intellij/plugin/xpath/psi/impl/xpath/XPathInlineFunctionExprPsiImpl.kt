@@ -41,6 +41,12 @@ class XPathInlineFunctionExprPsiImpl(node: ASTNode) :
         get() = findChildByType(XPathTokenType.INLINE_FUNCTION_TOKENS)!!
 
     // endregion
+    // region XdmAnnotatedDeclaration
+
+    override val annotations: Sequence<XdmAnnotation>
+        get() = children().filterIsInstance<XdmAnnotation>()
+
+    // endregion
     // region XdmFunctionDeclaration
 
     private val paramList: XPathParamList?
@@ -64,9 +70,6 @@ class XPathInlineFunctionExprPsiImpl(node: ASTNode) :
         get() = paramList?.isVariadic == true
 
     override val functionRefPresentableText: String? = null
-
-    override val annotations: Sequence<XdmAnnotation>
-        get() = children().filterIsInstance<XdmAnnotation>()
 
     // endregion
     // region XpmExpression

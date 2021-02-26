@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2019 Reece H. Dunn
+ * Copyright (C) 2018-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,9 +20,10 @@ import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnnotation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAnnotatedDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableBinding
 
-interface XpmFunctionDeclaration {
+interface XpmFunctionDeclaration : XpmAnnotatedDeclaration {
     companion object {
         val ARITY_ZERO: Range<Int> = Range(0, 0)
     }
@@ -40,6 +41,4 @@ interface XpmFunctionDeclaration {
     val isVariadic: Boolean
 
     val functionRefPresentableText: String?
-
-    val annotations: Sequence<XdmAnnotation>
 }
