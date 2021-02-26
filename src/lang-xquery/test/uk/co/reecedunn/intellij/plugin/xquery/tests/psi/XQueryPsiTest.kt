@@ -2796,8 +2796,28 @@ private class XQueryPsiTest : ParserTestCase() {
         @DisplayName("XQuery 4.0 ED (4.4) Functions ; XQuery 3.1 (3.1) Primary Expressions")
         internal inner class Functions {
             @Nested
-            @DisplayName("XQuery 3.1 (3.1.5) Static Function Calls")
-            internal inner class StaticFunctionCalls {
+            @DisplayName("XQuery 4.0 ED (4.4.1.1) Static Function Call Syntax ; XQuery 3.1 (3.1.5) Static Function Calls")
+            internal inner class StaticFunctionCallSyntax {
+                @Nested
+                @DisplayName("XQuery 3.1 EBNF (137) KeywordArgument")
+                internal inner class KeywordArgument {
+                    @Test
+                    @DisplayName("ncname")
+                    fun ncname() {
+                        val f = parse<XPathKeywordArgument>("fn:matches(input: \"test\", pattern: \".*\")")[0]
+                        assertThat((f.name as XsNCNameValue).data, `is`("input"))
+                        assertThat((f.value as XPathStringLiteral).data, `is`("test"))
+                    }
+
+                    @Test
+                    @DisplayName("missing value")
+                    fun missingValue() {
+                        val f = parse<XPathKeywordArgument>("fn:matches(input: , \".*\")")[0]
+                        assertThat((f.name as XsNCNameValue).data, `is`("input"))
+                        assertThat(f.value, `is`(nullValue()))
+                    }
+                }
+
                 @Nested
                 @DisplayName("XQuery 3.1 EBNF (137) FunctionCall")
                 internal inner class FunctionCall {
@@ -2949,7 +2969,7 @@ private class XQueryPsiTest : ParserTestCase() {
             }
 
             @Nested
-            @DisplayName("XQuery 3.1 (3.1.6) Named Function References")
+            @DisplayName("XQuery 4.0 ED (4.4.2.3) Named Function References ; XQuery 3.1 (3.1.6) Named Function References")
             internal inner class NamedFunctionReferences {
                 @Nested
                 @DisplayName("XQuery 3.1 EBNF (168) NamedFunctionRef")
@@ -3048,8 +3068,8 @@ private class XQueryPsiTest : ParserTestCase() {
             }
 
             @Nested
-            @DisplayName("XQuery 3.1 (3.1.7) Inline Function Expressions")
-            internal inner class InlineFunctionExpression {
+            @DisplayName("XQuery 4.0 ED (4.4.2.3) Inline Function Expressions ; XQuery 3.1 (3.1.7) Inline Function Expressions")
+            internal inner class InlineFunctionExpressions {
                 @Nested
                 @DisplayName("XQuery 3.1 EBNF (169) InlineFunctionExpr")
                 internal inner class InlineFunctionExpr {

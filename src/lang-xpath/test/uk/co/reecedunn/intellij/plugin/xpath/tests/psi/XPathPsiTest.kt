@@ -2346,8 +2346,28 @@ private class XPathPsiTest : ParserTestCase() {
         @DisplayName("XPath 4.0 ED (4.4) Functions ; XPath 3.1 (3.1) Primary Expressions")
         internal inner class Functions {
             @Nested
-            @DisplayName("XPath 3.1 (3.1.5) Static Function Calls")
-            internal inner class StaticFunctionCalls {
+            @DisplayName("XPath 4.0 ED (4.4.1.1) Static Function Call Syntax ; XPath 3.1 (3.1.5) Static Function Calls")
+            internal inner class StaticFunctionCallSyntax {
+                @Nested
+                @DisplayName("XPath 3.1 EBNF (62) KeywordArgument")
+                internal inner class KeywordArgument {
+                    @Test
+                    @DisplayName("ncname")
+                    fun ncname() {
+                        val f = parse<XPathKeywordArgument>("fn:matches(input: \"test\", pattern: \".*\")")[0]
+                        assertThat((f.name as XsNCNameValue).data, `is`("input"))
+                        assertThat((f.value as XPathStringLiteral).data, `is`("test"))
+                    }
+
+                    @Test
+                    @DisplayName("missing value")
+                    fun missingValue() {
+                        val f = parse<XPathKeywordArgument>("fn:matches(input: , \".*\")")[0]
+                        assertThat((f.name as XsNCNameValue).data, `is`("input"))
+                        assertThat(f.value, `is`(nullValue()))
+                    }
+                }
+
                 @Nested
                 @DisplayName("XPath 3.1 EBNF (63) FunctionCall")
                 internal inner class FunctionCall {
@@ -2466,7 +2486,7 @@ private class XPathPsiTest : ParserTestCase() {
             }
 
             @Nested
-            @DisplayName("XPath 3.1 (3.1.6) Named Function References")
+            @DisplayName("XPath 4.0 ED (4.4.2.3) Named Function References ; XPath 3.1 (3.1.6) Named Function References")
             internal inner class NamedFunctionReferences {
                 @Nested
                 @DisplayName("XPath 3.1 EBNF (67) NamedFunctionRef")
@@ -2544,7 +2564,7 @@ private class XPathPsiTest : ParserTestCase() {
             }
 
             @Nested
-            @DisplayName("XPath 3.1 (3.1.7) Inline Function Expression")
+            @DisplayName("XPath 4.0 ED (4.4.2.4) Inline Function Expressions ; XPath 3.1 (3.1.7) Inline Function Expression")
             internal inner class InlineFunctionExpressions {
                 @Nested
                 @DisplayName("XPath 3.1 EBNF (3) Param")

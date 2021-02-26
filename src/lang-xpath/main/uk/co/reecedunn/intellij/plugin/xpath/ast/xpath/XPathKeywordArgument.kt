@@ -16,8 +16,14 @@
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyAtomicType
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 
 /**
  * An XPath 4.0 ED and XQuery 4.0 ED `KeywordArgument` node in the XPath/XQuery AST.
  */
-interface XPathKeywordArgument : PsiElement
+interface XPathKeywordArgument : PsiElement {
+    val name: XsAnyAtomicType
+
+    val value: XpmExpression?
+}
