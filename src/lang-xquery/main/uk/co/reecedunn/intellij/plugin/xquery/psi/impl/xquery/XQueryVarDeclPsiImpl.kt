@@ -33,6 +33,8 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.filterNotWhitespace
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarDecl
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAnnotatedDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import javax.swing.Icon
 
@@ -64,6 +66,9 @@ class XQueryVarDeclPsiImpl(node: ASTNode) :
 
     override val annotations: Sequence<XdmAnnotation>
         get() = parent.children().filterIsInstance<XdmAnnotation>()
+
+    override val isPublic: Boolean
+        get() = annotation(XpmAnnotatedDeclaration.PRIVATE) == null
 
     // endregion
     // region XpmVariableDefinition

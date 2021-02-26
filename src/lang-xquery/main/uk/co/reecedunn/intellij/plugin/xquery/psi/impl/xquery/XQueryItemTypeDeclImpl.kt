@@ -27,6 +27,8 @@ import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnnotation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAnnotatedDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import javax.swing.Icon
 
@@ -47,6 +49,9 @@ class XQueryItemTypeDeclPsiImpl(node: ASTNode) :
 
     override val annotations: Sequence<XdmAnnotation>
         get() = parent.children().filterIsInstance<XdmAnnotation>()
+
+    override val isPublic: Boolean
+        get() = annotation(XpmAnnotatedDeclaration.PRIVATE) == null
 
     // endregion
     // region PluginTypeDecl

@@ -7625,6 +7625,15 @@ private class XQueryPsiTest : ParserTestCase() {
             @DisplayName("XQuery 3.1 EBNF (28) VarDecl")
             internal inner class VarDecl {
                 @Test
+                @DisplayName("no annotations")
+                fun none() {
+                    val decl = parse<XpmAnnotatedDeclaration>("declare variable \$v := 2;")[0]
+
+                    val annotations = decl.annotations.toList()
+                    assertThat(annotations.size, `is`(0))
+                }
+
+                @Test
                 @DisplayName("single annotation")
                 fun single() {
                     val decl = parse<XpmAnnotatedDeclaration>("declare %private variable \$v := 2;")[0]
@@ -7644,11 +7653,36 @@ private class XQueryPsiTest : ParserTestCase() {
                     assertThat(op_qname_presentation(annotations[0].name!!), `is`("public"))
                     assertThat(op_qname_presentation(annotations[1].name!!), `is`("private"))
                 }
+
+                @Test
+                @DisplayName("visibility (%public/%private)")
+                fun visibility() {
+                    val decls = parse<XpmAnnotatedDeclaration>(
+                        """
+                        declare variable ${'$'}a := 1;
+                        declare %public variable ${'$'}b := 2;
+                        declare %private variable ${'$'}c := 3;
+                        """.trimIndent()
+                    )
+                    assertThat(decls[0].isPublic, `is`(true))
+                    assertThat(decls[1].isPublic, `is`(true))
+                    assertThat(decls[2].isPublic, `is`(false))
+                }
             }
 
             @Nested
             @DisplayName("XQuery 3.1 EBNF (32) FunctionDecl")
             internal inner class FunctionDecl {
+                @Test
+                @DisplayName("no annotation")
+                fun none() {
+                    val decl = parse<XpmAnnotatedDeclaration>("declare function f() {};")[0]
+                    assertThat(decl.isPublic, `is`(true))
+
+                    val annotations = decl.annotations.toList()
+                    assertThat(annotations.size, `is`(0))
+                }
+
                 @Test
                 @DisplayName("single annotation")
                 fun single() {
@@ -7669,11 +7703,36 @@ private class XQueryPsiTest : ParserTestCase() {
                     assertThat(op_qname_presentation(annotations[0].name!!), `is`("public"))
                     assertThat(op_qname_presentation(annotations[1].name!!), `is`("private"))
                 }
+
+                @Test
+                @DisplayName("visibility (%public/%private)")
+                fun visibility() {
+                    val decls = parse<XpmAnnotatedDeclaration>(
+                        """
+                        declare function a() {};
+                        declare %public function b() {};
+                        declare %private function c() {};
+                        """.trimIndent()
+                    )
+                    assertThat(decls[0].isPublic, `is`(true))
+                    assertThat(decls[1].isPublic, `is`(true))
+                    assertThat(decls[2].isPublic, `is`(false))
+                }
             }
 
             @Nested
             @DisplayName("XQuery 3.1 EBNF (169) InlineFunctionExpr")
             internal inner class InlineFunctionExpr {
+                @Test
+                @DisplayName("no annotation")
+                fun none() {
+                    val decl = parse<XpmAnnotatedDeclaration>("function() {};")[0]
+                    assertThat(decl.isPublic, `is`(true))
+
+                    val annotations = decl.annotations.toList()
+                    assertThat(annotations.size, `is`(0))
+                }
+
                 @Test
                 @DisplayName("single annotation")
                 fun single() {
@@ -7694,11 +7753,36 @@ private class XQueryPsiTest : ParserTestCase() {
                     assertThat(op_qname_presentation(annotations[0].name!!), `is`("public"))
                     assertThat(op_qname_presentation(annotations[1].name!!), `is`("private"))
                 }
+
+                @Test
+                @DisplayName("visibility (%public/%private)")
+                fun visibility() {
+                    val decls = parse<XpmAnnotatedDeclaration>(
+                        """
+                        function() {},
+                        %public function() {},
+                        %private function() {}
+                        """.trimIndent()
+                    )
+                    assertThat(decls[0].isPublic, `is`(true))
+                    assertThat(decls[1].isPublic, `is`(true))
+                    assertThat(decls[2].isPublic, `is`(false))
+                }
             }
 
             @Nested
             @DisplayName("XQuery 4.0 ED EBNF (38) ItemTypeDecl")
             internal inner class ItemTypeDecl {
+                @Test
+                @DisplayName("no annotation")
+                fun none() {
+                    val decl = parse<XpmAnnotatedDeclaration>("declare item-type test as item();")[0]
+                    assertThat(decl.isPublic, `is`(true))
+
+                    val annotations = decl.annotations.toList()
+                    assertThat(annotations.size, `is`(0))
+                }
+
                 @Test
                 @DisplayName("single annotation")
                 fun single() {
@@ -7718,6 +7802,21 @@ private class XQueryPsiTest : ParserTestCase() {
                     assertThat(annotations.size, `is`(2))
                     assertThat(op_qname_presentation(annotations[0].name!!), `is`("public"))
                     assertThat(op_qname_presentation(annotations[1].name!!), `is`("private"))
+                }
+
+                @Test
+                @DisplayName("visibility (%public/%private)")
+                fun visibility() {
+                    val decls = parse<XpmAnnotatedDeclaration>(
+                        """
+                        declare item-type a as item();
+                        declare %public item-type b as item();
+                        declare %private item-type c as item();
+                        """.trimIndent()
+                    )
+                    assertThat(decls[0].isPublic, `is`(true))
+                    assertThat(decls[1].isPublic, `is`(true))
+                    assertThat(decls[2].isPublic, `is`(false))
                 }
             }
         }

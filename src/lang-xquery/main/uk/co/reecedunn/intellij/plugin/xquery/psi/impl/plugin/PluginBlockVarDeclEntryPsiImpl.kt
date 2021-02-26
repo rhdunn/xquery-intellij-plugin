@@ -33,5 +33,7 @@ class PluginBlockVarDeclEntryPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node)
     override val variableName: XsQNameValue?
         get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
 
+    override val isPublic: Boolean = true
+
     // endregion
 }

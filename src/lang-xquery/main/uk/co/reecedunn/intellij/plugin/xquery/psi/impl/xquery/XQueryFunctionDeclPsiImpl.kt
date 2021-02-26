@@ -30,6 +30,8 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnnotation
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableBinding
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAnnotatedDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDecorator
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 import javax.swing.Icon
@@ -49,6 +51,9 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
 
     override val annotations: Sequence<XdmAnnotation>
         get() = parent.children().filterIsInstance<XdmAnnotation>()
+
+    override val isPublic: Boolean
+        get() = annotation(XpmAnnotatedDeclaration.PRIVATE) == null
 
     // endregion
     // region XdmFunctionDeclaration

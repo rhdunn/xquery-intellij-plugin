@@ -16,7 +16,25 @@
 package uk.co.reecedunn.intellij.plugin.xpm.optree
 
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnnotation
+import uk.co.reecedunn.intellij.plugin.xpm.context.expand
 
 interface XpmAnnotatedDeclaration {
     val annotations: Sequence<XdmAnnotation>
+
+    val isPublic: Boolean
+
+    @Suppress("unused")
+    companion object {
+        const val NAMESPACE = "http://www.w3.org/2012/xquery"
+
+        const val PUBLIC = "public"
+        const val PRIVATE = "private"
+    }
+}
+
+fun XpmAnnotatedDeclaration.annotation(name: String): XdmAnnotation? = annotations.find { annotation ->
+    if (annotation.name?.localName?.data == name)
+        annotation.name?.expand()?.find { it.namespace?.data == XpmAnnotatedDeclaration.NAMESPACE } != null
+    else
+        false
 }

@@ -48,6 +48,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpm.context.expand
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAnnotatedDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
@@ -2097,6 +2098,40 @@ private class PluginPsiTest : ParserTestCase() {
                 assertThat(presentation.getIcon(false), `is`(XQueryIcons.Nodes.Annotation))
                 assertThat(presentation.locationString, `is`(nullValue()))
                 assertThat(presentation.presentableText, `is`("sequential"))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (28) VarDecl")
+        internal inner class VarDecl {
+            @Test
+            @DisplayName("visibility (public/private)")
+            fun visibility() {
+                val decls = parse<XpmAnnotatedDeclaration>(
+                    """
+                    declare variable ${'$'}a := 1;
+                    declare private variable ${'$'}c := 3;
+                    """.trimIndent()
+                )
+                assertThat(decls[0].isPublic, `is`(true))
+                assertThat(decls[1].isPublic, `is`(false))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (32) FunctionDecl")
+        internal inner class FunctionDecl {
+            @Test
+            @DisplayName("visibility (%public/%private)")
+            fun visibility() {
+                val decls = parse<XpmAnnotatedDeclaration>(
+                    """
+                    declare function a() {};
+                    declare private function c() {};
+                    """.trimIndent()
+                )
+                assertThat(decls[0].isPublic, `is`(true))
+                assertThat(decls[1].isPublic, `is`(false))
             }
         }
     }
