@@ -7622,6 +7622,31 @@ private class XQueryPsiTest : ParserTestCase() {
             }
 
             @Nested
+            @DisplayName("XQuery 3.1 EBNF (28) VarDecl")
+            internal inner class VarDecl {
+                @Test
+                @DisplayName("single annotation")
+                fun single() {
+                    val decl = parse<XpmAnnotatedDeclaration>("declare %private variable \$v := 2;")[0]
+
+                    val annotations = decl.annotations.toList()
+                    assertThat(annotations.size, `is`(1))
+                    assertThat(op_qname_presentation(annotations[0].name!!), `is`("private"))
+                }
+
+                @Test
+                @DisplayName("multiple annotations")
+                fun multiple() {
+                    val decl = parse<XpmAnnotatedDeclaration>("declare %public %private variable \$v := 2;")[0]
+
+                    val annotations = decl.annotations.toList()
+                    assertThat(annotations.size, `is`(2))
+                    assertThat(op_qname_presentation(annotations[0].name!!), `is`("public"))
+                    assertThat(op_qname_presentation(annotations[1].name!!), `is`("private"))
+                }
+            }
+
+            @Nested
             @DisplayName("XQuery 3.1 EBNF (32) FunctionDecl")
             internal inner class FunctionDecl {
                 @Test

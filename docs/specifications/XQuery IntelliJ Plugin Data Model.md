@@ -771,6 +771,7 @@ EQNames. Otherwise, it accepts *default element\/type* EQNames.
 |----------------------|---------------------------|
 | `FunctionDecl`       | `XdmAnnotatedDeclaration` |
 | `InlineFunctionExpr` | `XdmAnnotatedDeclaration` |
+| `VarDecl`            | `XdmAnnotatedDeclaration` |
 
 An *annotated declaration* is a declaration that can have annotations
 associated with it.

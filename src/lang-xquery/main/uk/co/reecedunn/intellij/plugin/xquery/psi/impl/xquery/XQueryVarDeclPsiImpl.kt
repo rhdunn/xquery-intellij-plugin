@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.reverse
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnnotation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.filterNotWhitespace
@@ -59,10 +60,19 @@ class XQueryVarDeclPsiImpl(node: ASTNode) :
         }
 
     // endregion
-    // region XPathVariableDeclaration
+    // region XpmAnnotatedDeclaration
+
+    override val annotations: Sequence<XdmAnnotation>
+        get() = parent.children().filterIsInstance<XdmAnnotation>()
+
+    // endregion
+    // region XpmVariableDefinition
 
     override val variableName: XsQNameValue?
         get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
+
+    // endregion
+    // region XpmVariableType
 
     override val variableType: XdmSequenceType?
         get() = children().filterIsInstance<XdmSequenceType>().firstOrNull()
