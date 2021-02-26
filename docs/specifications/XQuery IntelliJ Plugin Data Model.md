@@ -769,9 +769,10 @@ EQNames. Otherwise, it accepts *default element\/type* EQNames.
 
 | Symbol               | Interface                 |
 |----------------------|---------------------------|
-| `FunctionDecl`       | `XdmAnnotatedDeclaration` |
-| `InlineFunctionExpr` | `XdmAnnotatedDeclaration` |
-| `VarDecl`            | `XdmAnnotatedDeclaration` |
+| `FunctionDecl`       | `XpmAnnotatedDeclaration` |
+| `InlineFunctionExpr` | `XpmAnnotatedDeclaration` |
+| `ItemTypeDecl`       | `XpmAnnotatedDeclaration` |
+| `VarDecl`            | `XpmAnnotatedDeclaration` |
 
 An *annotated declaration* is a declaration that can have annotations
 associated with it.

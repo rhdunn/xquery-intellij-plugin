@@ -17,10 +17,11 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.ide.structureView.XQueryStructureViewElement
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAnnotatedDeclaration
 
 /**
- * An XQuery 4.0 ED `AnnotatedDecl` node in the XQuery AST.
+ * An XQuery 4.0 ED `ItemTypeDecl` node in the XQuery AST.
  */
-interface XQueryItemTypeDecl : XQueryStructureViewElement {
+interface XQueryItemTypeDecl : XQueryStructureViewElement, XpmAnnotatedDeclaration {
     val typeName: XsQNameValue?
 }

@@ -24,19 +24,29 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryItemTypeDecl
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnnotation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import javax.swing.Icon
 
 class XQueryItemTypeDeclPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), XQueryItemTypeDecl, XpmSyntaxValidationElement, ItemPresentation {
+    ASTWrapperPsiElement(node),
+    XQueryItemTypeDecl,
+    XpmSyntaxValidationElement,
+    ItemPresentation {
     // region ASTDelegatePsiElement
 
     override fun subtreeChanged() {
         super.subtreeChanged()
         cachedPresentableText.invalidate()
     }
+
+    // endregion
+    // region XdmAnnotatedDeclaration
+
+    override val annotations: Sequence<XdmAnnotation>
+        get() = parent.children().filterIsInstance<XdmAnnotation>()
 
     // endregion
     // region PluginTypeDecl
