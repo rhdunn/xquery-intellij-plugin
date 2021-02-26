@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2021 Reece H. Dunn
+ * Copyright (C) 2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,21 +15,16 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.intellij.ide.structureView
 
-import com.intellij.ide.structureView.StructureViewBuilder
-import com.intellij.ide.structureView.StructureViewModel
-import com.intellij.ide.structureView.TreeBasedStructureViewBuilder
-import com.intellij.lang.PsiStructureViewFactory
+import com.intellij.ide.structureView.*
+import com.intellij.ide.util.treeView.smartTree.Sorter
 import com.intellij.openapi.editor.Editor
 import com.intellij.psi.PsiFile
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
+import uk.co.reecedunn.intellij.plugin.xquery.ide.structureView.XQueryModuleStructureView
 
-class XQueryStructureViewBuilder(private val psiFile: PsiFile) : TreeBasedStructureViewBuilder() {
-    override fun createStructureViewModel(editor: Editor?): StructureViewModel {
-        return XQueryStructureViewModel(psiFile, editor)
-    }
-
-    class Factory : PsiStructureViewFactory {
-        override fun getStructureViewBuilder(psiFile: PsiFile): StructureViewBuilder {
-            return XQueryStructureViewBuilder(psiFile)
-        }
+class XQueryStructureViewModel(psiFile: PsiFile, editor: Editor?) :
+    StructureViewModelBase(psiFile, editor, XQueryModuleStructureView(psiFile as XQueryModule)) {
+    init {
+        withSuitableClasses(XQueryStructureViewElement::class.java).withSorters(Sorter.ALPHA_SORTER)
     }
 }
