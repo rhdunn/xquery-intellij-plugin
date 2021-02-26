@@ -18,37 +18,32 @@ package uk.co.reecedunn.intellij.plugin.xquery.ide.structureView
 import com.intellij.ide.structureView.StructureViewTreeElement
 import com.intellij.ide.structureView.impl.common.PsiTreeElementBase
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAnnotatedDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryItemTypeDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
+import uk.co.reecedunn.intellij.plugin.xquery.model.annotatedDeclarations
 import javax.swing.Icon
 
 class XQueryModuleStructureView(module: XQueryModule) : PsiTreeElementBase<XQueryModule>(module) {
     override fun getChildrenBase(): MutableCollection<out StructureViewTreeElement> {
         return element?.mainOrLibraryModule?.children()?.flatMap { child ->
             when (child) {
-                is XQueryProlog -> child.children().flatMap { decl ->
+                is XQueryProlog -> child.annotatedDeclarations<XpmAnnotatedDeclaration>(reversed = false).map { decl ->
                     when (decl) {
-                        is XQueryAnnotatedDecl -> {
-                            decl.children().map { annotatedDecl ->
-                                when (annotatedDecl) {
-                                    is XQueryFunctionDecl -> {
-                                        (annotatedDecl as XpmFunctionDeclaration).functionName?.localName?.let {
-                                            StructureViewLeafNode(annotatedDecl)
-                                        }
-                                    }
-                                    is XQueryVarDecl -> {
-                                        (annotatedDecl as XpmVariableDeclaration).variableName?.localName?.let {
-                                            StructureViewLeafNode(annotatedDecl)
-                                        }
-                                    }
-                                    else -> null
-                                }
+                        is XQueryFunctionDecl -> {
+                            (decl as XpmFunctionDeclaration).functionName?.localName?.let {
+                                StructureViewLeafNode(decl)
                             }
                         }
-                        is XQueryItemTypeDecl -> sequenceOf(StructureViewLeafNode(decl))
-                        else -> emptySequence()
+                        is XQueryVarDecl -> {
+                            (decl as XpmVariableDeclaration).variableName?.localName?.let {
+                                StructureViewLeafNode(decl)
+                            }
+                        }
+                        is XQueryItemTypeDecl -> StructureViewLeafNode(decl)
+                        else -> null
                     }
                 }
                 is XQueryQueryBody -> sequenceOf(StructureViewLeafNode(child))
