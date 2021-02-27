@@ -3240,9 +3240,7 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    open fun parseFunctionTest(builder: PsiBuilder): Boolean = parseAnyOrTypedFunctionTest(builder)
-
-    fun parseAnyOrTypedFunctionTest(builder: PsiBuilder): Boolean {
+    open fun parseFunctionTest(builder: PsiBuilder): Boolean  {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_FUNCTION)
         if (marker != null) {
             var haveErrors = false

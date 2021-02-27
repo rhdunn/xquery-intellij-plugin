@@ -4476,10 +4476,10 @@ class XQueryParser : XPathParser() {
         }
 
         return if (!haveAnnotations) {
-            val match = parseAnyOrTypedFunctionTest(builder)
+            val match = super.parseFunctionTest(builder)
             marker.drop()
             match
-        } else if (parseAnyOrTypedFunctionTest(builder)) {
+        } else if (super.parseFunctionTest(builder)) {
             marker.done(XQueryElementType.FUNCTION_TEST)
             true
         } else {
