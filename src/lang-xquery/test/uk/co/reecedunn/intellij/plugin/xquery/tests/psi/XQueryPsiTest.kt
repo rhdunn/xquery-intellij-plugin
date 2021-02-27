@@ -7728,19 +7728,19 @@ private class XQueryPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("no annotation")
                 fun none() {
-                    val decl = parse<XpmAnnotated>("function() {};")[0]
-                    assertThat(decl.isPublic, `is`(true))
+                    val expr = parse<XpmAnnotated>("function() {};")[0]
+                    assertThat(expr.isPublic, `is`(true))
 
-                    val annotations = decl.annotations.toList()
+                    val annotations = expr.annotations.toList()
                     assertThat(annotations.size, `is`(0))
                 }
 
                 @Test
                 @DisplayName("single annotation")
                 fun single() {
-                    val decl = parse<XpmAnnotated>("%private function() {};")[0]
+                    val expr = parse<XpmAnnotated>("%private function() {};")[0]
 
-                    val annotations = decl.annotations.toList()
+                    val annotations = expr.annotations.toList()
                     assertThat(annotations.size, `is`(1))
                     assertThat(op_qname_presentation(annotations[0].name!!), `is`("private"))
                 }
@@ -7748,9 +7748,9 @@ private class XQueryPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("multiple annotations")
                 fun multiple() {
-                    val decl = parse<XpmAnnotated>("%public %private function() {};")[0]
+                    val expr = parse<XpmAnnotated>("%public %private function() {};")[0]
 
-                    val annotations = decl.annotations.toList()
+                    val annotations = expr.annotations.toList()
                     assertThat(annotations.size, `is`(2))
                     assertThat(op_qname_presentation(annotations[0].name!!), `is`("public"))
                     assertThat(op_qname_presentation(annotations[1].name!!), `is`("private"))
@@ -7759,16 +7759,114 @@ private class XQueryPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("visibility (%public/%private)")
                 fun visibility() {
-                    val decls = parse<XpmAnnotated>(
+                    val exprs = parse<XpmAnnotated>(
                         """
                         function() {},
                         %public function() {},
                         %private function() {}
                         """.trimIndent()
                     )
-                    assertThat(decls[0].isPublic, `is`(true))
-                    assertThat(decls[1].isPublic, `is`(true))
-                    assertThat(decls[2].isPublic, `is`(false))
+                    assertThat(exprs[0].isPublic, `is`(true))
+                    assertThat(exprs[1].isPublic, `is`(true))
+                    assertThat(exprs[2].isPublic, `is`(false))
+                }
+            }
+
+            @Nested
+            @DisplayName("XQuery 3.1 EBNF (207) FunctionTest ; XQuery 3.1 EBNF (208) AnyFunctionTest")
+            internal inner class AnyFunctionTest {
+                @Test
+                @DisplayName("no annotations")
+                fun none() {
+                    val test = parse<XpmAnnotated>("1 instance of function(*)")[0]
+
+                    val annotations = test.annotations.toList()
+                    assertThat(annotations.size, `is`(0))
+                }
+
+                @Test
+                @DisplayName("single annotation")
+                fun single() {
+                    val test = parse<XpmAnnotated>("1 instance of %private function(*)")[0]
+
+                    val annotations = test.annotations.toList()
+                    assertThat(annotations.size, `is`(1))
+                    assertThat(op_qname_presentation(annotations[0].name!!), `is`("private"))
+                }
+
+                @Test
+                @DisplayName("multiple annotations")
+                fun multiple() {
+                    val test = parse<XpmAnnotated>("1 instance of %public %private function(*)")[0]
+
+                    val annotations = test.annotations.toList()
+                    assertThat(annotations.size, `is`(2))
+                    assertThat(op_qname_presentation(annotations[0].name!!), `is`("public"))
+                    assertThat(op_qname_presentation(annotations[1].name!!), `is`("private"))
+                }
+
+                @Test
+                @DisplayName("visibility (%public/%private)")
+                fun visibility() {
+                    val tests = parse<XpmAnnotated>(
+                        """
+                        1 instance of function(*),
+                        1 instance of %public function(*),
+                        1 instance of %private function(*)
+                        """.trimIndent()
+                    )
+                    assertThat(tests[0].isPublic, `is`(true))
+                    assertThat(tests[1].isPublic, `is`(true))
+                    assertThat(tests[2].isPublic, `is`(false))
+                }
+            }
+
+            @Nested
+            @DisplayName("XQuery 3.1 EBNF (207) FunctionTest ; XQuery 3.1 EBNF (209) TypedFunctionTest")
+            internal inner class TypedFunctionTest {
+                @Test
+                @DisplayName("no annotations")
+                fun none() {
+                    val test = parse<XpmAnnotated>("1 instance of function(item()) as item()")[0]
+
+                    val annotations = test.annotations.toList()
+                    assertThat(annotations.size, `is`(0))
+                }
+
+                @Test
+                @DisplayName("single annotation")
+                fun single() {
+                    val test = parse<XpmAnnotated>("1 instance of %private function(item()) as item()")[0]
+
+                    val annotations = test.annotations.toList()
+                    assertThat(annotations.size, `is`(1))
+                    assertThat(op_qname_presentation(annotations[0].name!!), `is`("private"))
+                }
+
+                @Test
+                @DisplayName("multiple annotations")
+                fun multiple() {
+                    val test = parse<XpmAnnotated>("1 instance of %public %private function(item()) as item()")[0]
+
+                    val annotations = test.annotations.toList()
+                    assertThat(annotations.size, `is`(2))
+                    assertThat(op_qname_presentation(annotations[0].name!!), `is`("public"))
+                    assertThat(op_qname_presentation(annotations[1].name!!), `is`("private"))
+                }
+
+                @Test
+                @DisplayName("visibility (%public/%private)")
+                fun visibility() {
+                    val tests = parse<XpmAnnotated>(
+                        """
+                        1 instance of function(item()) as item(),
+                        1 instance of %public function(item()) as item(),
+                        1 instance of %private function(item()) as item()
+                        """.trimIndent()
+                    )
+                    assertThat(tests[0].isPublic, `is`(true))
+                    assertThat(tests[1].isPublic, `is`(true))
+                    assertThat(tests[2].isPublic, `is`(false))
                 }
             }
 

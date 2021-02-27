@@ -28,6 +28,8 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathTypedFunctionTest
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAnnotated
+import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation
 
 class XPathTypedFunctionTestPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
@@ -87,7 +89,8 @@ class XPathTypedFunctionTestPsiImpl(node: ASTNode) :
     override val annotations: Sequence<XdmAnnotation>
         get() = children().filterIsInstance<XdmAnnotation>()
 
-    override val isPublic: Boolean = false
+    override val isPublic: Boolean
+        get() = annotation(XpmAnnotated.PRIVATE) == null
 
     // endregion
     // region XpmSyntaxValidationElement

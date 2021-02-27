@@ -26,6 +26,8 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAnyFunctionTest
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmFunction
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAnnotated
+import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation
 
 class XPathAnyFunctionTestPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
@@ -69,7 +71,8 @@ class XPathAnyFunctionTestPsiImpl(node: ASTNode) :
     override val annotations: Sequence<XdmAnnotation>
         get() = children().filterIsInstance<XdmAnnotation>()
 
-    override val isPublic: Boolean = false
+    override val isPublic: Boolean
+        get() = annotation(XpmAnnotated.PRIVATE) == null
 
     // endregion
     // region XpmSyntaxValidationElement
