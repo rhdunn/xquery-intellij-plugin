@@ -1689,6 +1689,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @DisplayName("XQuery 3.1 EBNF (208) AnyFunctionTest")
             fun anyFunctionTest() {
                 val test = parse<XPathAnyFunctionTest>("() instance of function ( * )")[0]
+                assertThat(test.annotations.count(), `is`(0))
 
                 val type = test as XdmItemType
                 assertThat(type.typeName, `is`("function(*)"))
@@ -1709,6 +1710,7 @@ private class XQueryPsiTest : ParserTestCase() {
                         "() instance of function ( ) as empty-sequence ( (::) )"
                     )[0]
                     assertThat(test.returnType?.typeName, `is`("empty-sequence()"))
+                    assertThat(test.annotations.count(), `is`(0))
 
                     val paramTypes = test.paramTypes.toList()
                     assertThat(paramTypes.size, `is`(0))
@@ -1727,6 +1729,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 fun oneParameter() {
                     val test = parse<XPathTypedFunctionTest>("() instance of function ( xs:float ) as xs:integer")[0]
                     assertThat(test.returnType?.typeName, `is`("xs:integer"))
+                    assertThat(test.annotations.count(), `is`(0))
 
                     val paramTypes = test.paramTypes.toList()
                     assertThat(paramTypes.size, `is`(1))
@@ -1748,6 +1751,7 @@ private class XQueryPsiTest : ParserTestCase() {
                         "() instance of function ( xs:long , array ( * ) ) as xs:double +"
                     )[0]
                     assertThat(test.returnType?.typeName, `is`("xs:double+"))
+                    assertThat(test.annotations.count(), `is`(0))
 
                     val paramTypes = test.paramTypes.toList()
                     assertThat(paramTypes.size, `is`(2))
@@ -1768,6 +1772,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 fun missingReturnType() {
                     val test = parse<XPathTypedFunctionTest>("() instance of function ( map ( * ) )")[0]
                     assertThat(test.returnType, `is`(nullValue()))
+                    assertThat(test.annotations.count(), `is`(0))
 
                     val paramTypes = test.paramTypes.toList()
                     assertThat(paramTypes.size, `is`(1))

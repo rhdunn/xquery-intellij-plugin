@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2020 Reece H. Dunn
+ * Copyright (C) 2019-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnnotation
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAnyFunctionTest
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmFunction
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
@@ -42,6 +43,13 @@ class XPathAnyFunctionTestPsiImpl(node: ASTNode) :
     // region XdmItemType
 
     override val typeClass: Class<*> = XdmFunction::class.java
+
+    // endregion
+    // region XpmAnnotated
+
+    override val annotations: Sequence<XdmAnnotation> = emptySequence()
+
+    override val isPublic: Boolean = false
 
     // endregion
     // region XpmSyntaxValidationElement

@@ -50,7 +50,7 @@ various inspections.
     - [Predicates](#521-predicates)
     - [Abbreviated Syntax](#522-abbreviated-syntax)
   - [Namespace Declarations](#53-namespace-declarations)
-  - [Annotated Declarations](#54-annotated-declarations)
+  - [Annotated PSI Nodes](#54-annotated-psi-nodes)
     - [Variables](#541-variables)
       - [Variable Types](#5411-variable-types)
     - [Functions](#542-functions)
@@ -765,20 +765,21 @@ EQNames.
 If a `SchemaImport` contains a `SchemaPrefix` then it accepts *prefixed*
 EQNames. Otherwise, it accepts *default element\/type* EQNames.
 
-### 5.4 Annotated Declarations
+### 5.4 Annotated PSI Nodes
 
-| Symbol               | Interface                 |
-|----------------------|---------------------------|
-| `FunctionDecl`       | `XpmAnnotatedDeclaration` |
-| `InlineFunctionExpr` | `XpmAnnotatedDeclaration` |
-| `ItemTypeDecl`       | `XpmAnnotatedDeclaration` |
-| `VarDecl`            | `XpmAnnotatedDeclaration` |
+| Symbol               | Interface      |
+|----------------------|----------------|
+| `FunctionDecl`       | `XpmAnnotated` |
+| `FunctionTest`       | `XpmAnnotated` |
+| `InlineFunctionExpr` | `XpmAnnotated` |
+| `ItemTypeDecl`       | `XpmAnnotated` |
+| `VarDecl`            | `XpmAnnotated` |
 
-An *annotated declaration* is a declaration that can have annotations
-associated with it.
+An *annotated* PSI node is a declaration, expression, or item type that can
+have annotations associated with it.
 
-The *annotations* property lists the user-specified annotations on the
-declaration.
+The *annotations* property lists the user-specified annotations on the PSI
+node.
 
 ### 5.4.1 Variables
 

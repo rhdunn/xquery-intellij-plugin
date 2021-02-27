@@ -23,10 +23,7 @@ import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.reverse
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
-import uk.co.reecedunn.intellij.plugin.xdm.types.XdmFunction
-import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
-import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceTypeList
+import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathTypedFunctionTest
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
@@ -79,6 +76,13 @@ class XPathTypedFunctionTestPsiImpl(node: ASTNode) :
     // region XdmItemType
 
     override val typeClass: Class<*> = XdmFunction::class.java
+
+    // endregion
+    // region XpmAnnotated
+
+    override val annotations: Sequence<XdmAnnotation> = emptySequence()
+
+    override val isPublic: Boolean = false
 
     // endregion
     // region XpmSyntaxValidationElement
