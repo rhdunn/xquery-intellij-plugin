@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.navigation.ItemPresentation
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
@@ -59,7 +60,10 @@ class XPathTypedFunctionTestPsiImpl(node: ASTNode) :
 
     private val cachedTypeName = CacheableProperty {
         val returnType = returnType?.typeName ?: "item()*"
-        "function(${paramTypes.joinToString { it.typeName }}) as $returnType"
+        when (val annotations = annotations.mapNotNull { (it as ItemPresentation).presentableText }.joinToString(" ")) {
+            "" -> "function(${paramTypes.joinToString { it.typeName }}) as $returnType"
+            else -> "$annotations function(${paramTypes.joinToString { it.typeName }}) as $returnType"
+        }
     }
 
     override val typeName: String
@@ -80,7 +84,8 @@ class XPathTypedFunctionTestPsiImpl(node: ASTNode) :
     // endregion
     // region XpmAnnotated
 
-    override val annotations: Sequence<XdmAnnotation> = emptySequence()
+    override val annotations: Sequence<XdmAnnotation>
+        get() = children().filterIsInstance<XdmAnnotation>()
 
     override val isPublic: Boolean = false
 

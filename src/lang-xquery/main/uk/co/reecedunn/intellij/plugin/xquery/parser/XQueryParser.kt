@@ -4466,26 +4466,20 @@ class XQueryParser : XPathParser() {
     // endregion
     // region Grammar :: TypeDeclaration :: ItemType
 
-    override fun parseFunctionTest(builder: PsiBuilder): Boolean {
-        val marker = builder.mark()
-
+    override fun parseFunctionTest(builder: PsiBuilder, marker: PsiBuilder.Marker): Boolean {
         var haveAnnotations = false
         while (parseAnnotation(builder)) {
             parseWhiteSpaceAndCommentTokens(builder)
             haveAnnotations = true
         }
 
-        return if (!haveAnnotations) {
-            val match = super.parseFunctionTest(builder)
-            marker.drop()
-            match
-        } else if (super.parseFunctionTest(builder)) {
-            marker.done(XQueryElementType.FUNCTION_TEST)
-            true
-        } else {
-            builder.error(XPathBundle.message("parser.error.expected-keyword", "function"))
-            marker.drop()
-            true
+        return when {
+            !haveAnnotations -> super.parseFunctionTest(builder, marker)
+            super.parseFunctionTest(builder, marker) -> true
+            else -> {
+                builder.error(XPathBundle.message("parser.error.expected-keyword", "function"))
+                true
+            }
         }
     }
 

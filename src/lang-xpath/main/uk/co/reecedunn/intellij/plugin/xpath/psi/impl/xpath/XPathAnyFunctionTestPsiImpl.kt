@@ -17,7 +17,10 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.navigation.ItemPresentation
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnnotation
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAnyFunctionTest
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmFunction
@@ -28,9 +31,25 @@ class XPathAnyFunctionTestPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XPathAnyFunctionTest,
     XpmSyntaxValidationElement {
+    // region ASTDelegatePsiElement
+
+    override fun subtreeChanged() {
+        super.subtreeChanged()
+        cachedTypeName.invalidate()
+    }
+
+    // endregion
     // region XdmSequenceType
 
-    override val typeName: String = "function(*)"
+    private val cachedTypeName = CacheableProperty {
+        when (val annotations = annotations.mapNotNull { (it as ItemPresentation).presentableText }.joinToString(" ")) {
+            "" -> "function(*)"
+            else -> "$annotations function(*)"
+        }
+    }
+
+    override val typeName: String
+        get() = cachedTypeName.get()!!
 
     override val itemType: XdmItemType
         get() = this
@@ -47,7 +66,8 @@ class XPathAnyFunctionTestPsiImpl(node: ASTNode) :
     // endregion
     // region XpmAnnotated
 
-    override val annotations: Sequence<XdmAnnotation> = emptySequence()
+    override val annotations: Sequence<XdmAnnotation>
+        get() = children().filterIsInstance<XdmAnnotation>()
 
     override val isPublic: Boolean = false
 
