@@ -66,6 +66,7 @@ object XPathItemTypeProvider : CompletionProviderEx {
             }
             XPathSpec.CR_3_1_20151217 -> result.addAllElements(XPATH_31_ITEM_TYPES)
             XPathSpec.REC_3_1_20170321 -> result.addAllElements(XPATH_31_ITEM_TYPES)
+            XPathSpec.ED_4_0_20210113 -> result.addAllElements(XPATH_31_ITEM_TYPES)
             else -> {
             }
         }

@@ -40,6 +40,7 @@ object XPathVersion : CompletionProperty {
         XQuerySpec.REC_3_0_20140408 -> XPathSpec.REC_3_0_20140408
         XQuerySpec.CR_3_1_20151217 -> XPathSpec.CR_3_1_20151217
         XQuerySpec.REC_3_1_20170321 -> XPathSpec.REC_3_1_20170321
+        XQuerySpec.ED_4_0_20210113 -> XPathSpec.ED_4_0_20210113
         XQuerySpec.MARKLOGIC_0_9 -> XPathSpec.WD_2_0_20030502
         XQuerySpec.MARKLOGIC_1_0 -> XPathSpec.REC_3_0_20140408
         else -> XPathSpec.REC_3_1_20170321
