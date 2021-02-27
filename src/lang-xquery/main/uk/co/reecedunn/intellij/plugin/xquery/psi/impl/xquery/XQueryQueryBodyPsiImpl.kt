@@ -19,6 +19,9 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
 import com.intellij.psi.PsiElement
+import com.intellij.ui.IconManager
+import com.intellij.util.BitUtil
+import com.intellij.util.PlatformIcons
 import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationEx
 import uk.co.reecedunn.intellij.plugin.core.psi.resourcePath
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
@@ -29,6 +32,20 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryQueryBody
 import javax.swing.Icon
 
 class XQueryQueryBodyPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryQueryBody, ItemPresentationEx {
+    // region ElementBase
+
+    override fun getElementIcon(flags: Int): Icon {
+        val icon = getIcon(false)
+        val isLocked = BitUtil.isSet(flags, ICON_FLAG_READ_STATUS) && !isWritable
+        val baseIcon = IconManager.getInstance().createLayeredIcon(this, icon, if (isLocked) FLAGS_LOCKED else 0)
+        if (BitUtil.isSet(flags, ICON_FLAG_VISIBILITY)) {
+            val emptyIcon = IconManager.getInstance().createEmptyIcon(PlatformIcons.PUBLIC_ICON)
+            baseIcon.setIcon(emptyIcon, 1)
+        }
+        return baseIcon
+    }
+
+    // endregion
     // region XpmExpression
 
     override val expressionElement: PsiElement?

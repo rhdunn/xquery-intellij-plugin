@@ -21,7 +21,6 @@ import com.intellij.ide.util.treeView.smartTree.SortableTreeElement
 import com.intellij.navigation.ItemPresentation
 import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationEx
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.ide.structureView.XQueryStructureViewElement
-import javax.swing.Icon
 
 class StructureViewLeafNode(leaf: XQueryStructureViewElement) :
     PsiTreeElementBase<XQueryStructureViewElement>(leaf),
@@ -42,8 +41,6 @@ class StructureViewLeafNode(leaf: XQueryStructureViewElement) :
         is ItemPresentationEx -> presentation.getPresentableText(ItemPresentationEx.Type.StructureView)
         else -> presentation?.presentableText
     }
-
-    override fun getIcon(open: Boolean): Icon? = element?.presentation?.getIcon(open)
 
     // endregion
     // region SortableTreeElement

@@ -39,6 +39,7 @@ XQuery:
 
 1. Support resolving wildcard prefixes to the namespace declaration.
 1. Fix an exception in code completion when typing in a comment after a variable reference.
+1. Show public/private icons in the file structure view.
 
 Run Configuration:
 

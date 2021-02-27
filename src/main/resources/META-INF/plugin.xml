@@ -111,6 +111,7 @@
     <ol>
       <li>Support resolving wildcard prefixes to the namespace declaration.</li>
       <li>Fix an exception in code completion when typing in a comment after a variable reference.</li>
+      <li>Show public/private icons in the file structure view.</li>
     </ol>
     <p>Run Configuration:</p>
     <ol>
