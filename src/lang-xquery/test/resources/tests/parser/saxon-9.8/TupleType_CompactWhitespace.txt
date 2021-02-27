@@ -1,24 +1,23 @@
 XQueryModuleImpl[FILE(0:33)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:33)]
       XQueryPrologImpl[XQUERY_PROLOG(0:33)]
-         XQueryAnnotatedDeclImpl[XQUERY_ANNOTATED_DECL(0:32)]
+         XQueryVarDeclImpl[XQUERY_VAR_DECL(0:32)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-            XQueryVarDeclImpl[XQUERY_VAR_DECL(8:32)]
-               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VARIABLE(8:16)]('variable')
-               LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(16:17)]('$')
-               XQueryNCNameImpl[XQUERY_NCNAME(17:19)]
-                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(17:18)]('x')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
-               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AS(19:21)]('as')
-               PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
-               XPathRecordTestImpl[XPATH_RECORD_TEST(22:29)]
-                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TUPLE(22:27)]('tuple')
-                  LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(27:28)]('(')
-                  PsiErrorElementImpl[ERROR_ELEMENT(28:28)]('XPST0003: Expected 'FieldDeclaration'.')
-                  LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(28:29)](')')
-               LeafPsiElement[XPATH_ASSIGN_EQUAL_TOKEN(29:31)](':=')
-               XQueryVarValueImpl[XQUERY_VAR_VALUE(31:32)]
-                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(31:32)]('1')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VARIABLE(8:16)]('variable')
+            LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(16:17)]('$')
+            XQueryNCNameImpl[XQUERY_NCNAME(17:19)]
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(17:18)]('x')
+               PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AS(19:21)]('as')
+            PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
+            XPathRecordTestImpl[XPATH_RECORD_TEST(22:29)]
+               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TUPLE(22:27)]('tuple')
+               LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(27:28)]('(')
+               PsiErrorElementImpl[ERROR_ELEMENT(28:28)]('XPST0003: Expected 'FieldDeclaration'.')
+               LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(28:29)](')')
+            LeafPsiElement[XPATH_ASSIGN_EQUAL_TOKEN(29:31)](':=')
+            XQueryVarValueImpl[XQUERY_VAR_VALUE(31:32)]
+               XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(31:32)]('1')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(32:33)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(33:33)]('XPST0003: Missing query body.')

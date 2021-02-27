@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2020 Reece H. Dunn
+ * Copyright (C) 2016-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,11 +25,11 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.ScriptingSpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.UpdateFacilitySpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.resources.XQueryIcons
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarDecl
 import javax.swing.Icon
 
 private val MARKLOGIC_60 = listOf<Version>()
@@ -72,9 +72,9 @@ class PluginCompatibilityAnnotationPsiImpl(node: ASTNode) :
     override val requiresConformance: List<Version>
         get() = when (conformanceElement.elementType) {
             XQueryTokenType.K_PRIVATE -> MARKLOGIC_60
-            XQueryTokenType.K_UPDATING -> {
-                val varDecl = parent.node.findChildByType(XQueryElementType.VAR_DECL)
-                if (varDecl == null) UPDATE_10 else UPDATE_30
+            XQueryTokenType.K_UPDATING -> when (parent) {
+                is XQueryVarDecl -> UPDATE_30
+                else -> UPDATE_10
             }
             else -> SCRIPTING_10
         }

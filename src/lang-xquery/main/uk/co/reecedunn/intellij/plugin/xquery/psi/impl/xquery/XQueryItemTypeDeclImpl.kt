@@ -48,7 +48,7 @@ class XQueryItemTypeDeclPsiImpl(node: ASTNode) :
     // region XdmAnnotatedDeclaration
 
     override val annotations: Sequence<XdmAnnotation>
-        get() = parent.children().filterIsInstance<XdmAnnotation>()
+        get() = children().filterIsInstance<XdmAnnotation>()
 
     override val isPublic: Boolean
         get() = annotation(XpmAnnotatedDeclaration.PRIVATE) == null

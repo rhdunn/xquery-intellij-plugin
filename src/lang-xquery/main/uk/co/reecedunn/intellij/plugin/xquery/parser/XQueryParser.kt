@@ -355,10 +355,7 @@ class XQueryParser : XPathParser() {
                 }
                 parseOrderingModeDecl(builder, state) -> marker.done(XQueryElementType.ORDERING_MODE_DECL)
                 parseRevalidationDecl(builder, state) -> marker.done(XQueryElementType.REVALIDATION_DECL)
-                parseAnnotatedDecl(builder) -> {
-                    marker.done(XQueryElementType.ANNOTATED_DECL)
-                    return PrologDeclState.BODY_STATEMENT
-                }
+                parseAnnotatedDecl(builder, marker) -> return PrologDeclState.BODY_STATEMENT
                 parseContextItemDecl(builder) -> {
                     marker.done(XQueryElementType.CONTEXT_ITEM_DECL)
                     return PrologDeclState.BODY_STATEMENT
@@ -994,7 +991,7 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseAnnotatedDecl(builder: PsiBuilder): Boolean {
+    private fun parseAnnotatedDecl(builder: PsiBuilder, marker: PsiBuilder.Marker): Boolean {
         var haveAnnotations = false
         var firstAnnotation: IElementType? = null
         var annotation: IElementType?
@@ -1015,27 +1012,23 @@ class XQueryParser : XPathParser() {
             }
         } while (annotation != null)
 
-        val marker = builder.mark()
-        when {
+        return when {
             parseVarDecl(builder) -> {
                 marker.done(XQueryElementType.VAR_DECL)
-                return true
+                true
             }
-            parseFunctionDecl(builder, marker, firstAnnotation) -> return true
+            parseFunctionDecl(builder, marker, firstAnnotation) -> true
             parseItemTypeDecl(builder, haveAnnotations) -> {
                 marker.done(XQueryElementType.ITEM_TYPE_DECL)
-                return true
+                true
             }
             haveAnnotations -> {
                 builder.error(XPathBundle.message("parser.error.expected-keyword", "function, item-type, variable"))
                 parseUnknownDecl(builder)
                 marker.done(XQueryElementType.UNKNOWN_DECL)
-                return true
+                true
             }
-            else -> {
-                marker.drop()
-                return false
-            }
+            else -> false
         }
     }
 

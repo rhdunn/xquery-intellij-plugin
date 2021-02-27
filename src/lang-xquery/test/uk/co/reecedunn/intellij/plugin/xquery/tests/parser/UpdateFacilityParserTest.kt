@@ -96,8 +96,7 @@ private class UpdateFacilityParserTest : ParserTestCase() {
         @Test
         @DisplayName("missing revalidation keyword")
         fun testRevalidationDecl_MissingRevalidationKeyword() {
-            val expected =
-                loadResource("tests/parser/xquery-update-1.0/RevalidationDecl_MissingRevalidationKeyword.txt")
+            val expected = loadResource("tests/parser/xquery-update-1.0/RevalidationDecl_MissingRevalidationKeyword.txt")
             val actual = parseResource("tests/parser/xquery-update-1.0/RevalidationDecl_MissingRevalidationKeyword.xq")
             assertThat(actual.toPsiTreeString(), `is`(expected))
         }

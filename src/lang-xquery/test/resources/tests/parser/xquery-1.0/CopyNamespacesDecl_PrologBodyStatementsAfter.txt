@@ -14,31 +14,29 @@ XQueryModuleImpl[FILE(0:130)]
             PsiWhiteSpaceImpl[WHITE_SPACE(42:43)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(43:44)](';')
          PsiWhiteSpaceImpl[WHITE_SPACE(44:45)]('\n')
-         XQueryAnnotatedDeclImpl[XQUERY_ANNOTATED_DECL(45:73)]
+         XQueryVarDeclImpl[XQUERY_VAR_DECL(45:73)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(45:52)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(52:53)](' ')
-            XQueryVarDeclImpl[XQUERY_VAR_DECL(53:73)]
-               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VARIABLE(53:61)]('variable')
-               PsiWhiteSpaceImpl[WHITE_SPACE(61:62)](' ')
-               LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(62:63)]('$')
-               XQueryNCNameImpl[XQUERY_NCNAME(63:65)]
-                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(63:64)]('x')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(64:65)](' ')
-               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(65:73)]('external')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VARIABLE(53:61)]('variable')
+            PsiWhiteSpaceImpl[WHITE_SPACE(61:62)](' ')
+            LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(62:63)]('$')
+            XQueryNCNameImpl[XQUERY_NCNAME(63:65)]
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(63:64)]('x')
+               PsiWhiteSpaceImpl[WHITE_SPACE(64:65)](' ')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(65:73)]('external')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(73:74)](';')
          PsiWhiteSpaceImpl[WHITE_SPACE(74:75)]('\n')
-         XQueryAnnotatedDeclImpl[XQUERY_ANNOTATED_DECL(75:104)]
+         XQueryFunctionDeclImpl[XQUERY_FUNCTION_DECL(75:104)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(75:82)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(82:83)](' ')
-            XQueryFunctionDeclImpl[XQUERY_FUNCTION_DECL(83:104)]
-               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FUNCTION(83:91)]('function')
-               PsiWhiteSpaceImpl[WHITE_SPACE(91:92)](' ')
-               XQueryNCNameImpl[XQUERY_NCNAME(92:93)]
-                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(92:93)]('y')
-               LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(93:94)]('(')
-               LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(94:95)](')')
-               PsiWhiteSpaceImpl[WHITE_SPACE(95:96)](' ')
-               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(96:104)]('external')
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FUNCTION(83:91)]('function')
+            PsiWhiteSpaceImpl[WHITE_SPACE(91:92)](' ')
+            XQueryNCNameImpl[XQUERY_NCNAME(92:93)]
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(92:93)]('y')
+            LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(93:94)]('(')
+            LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(94:95)](')')
+            PsiWhiteSpaceImpl[WHITE_SPACE(95:96)](' ')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(96:104)]('external')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(104:105)](';')
          PsiWhiteSpaceImpl[WHITE_SPACE(105:106)]('\n')
          XQueryOptionDeclImpl[XQUERY_OPTION_DECL(106:129)]

@@ -508,8 +508,7 @@ private class XQueryConformanceTest : ParserTestCase() {
     fun testEnclosedExpr_FunctionDecl() {
         val file = parseResource("tests/parser/xquery-1.0/EnclosedExpr.xq")
 
-        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val functionDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryFunctionDecl>().first()
+        val functionDeclPsi = file.descendants().filterIsInstance<XQueryFunctionDecl>().first()
         val enclosedExprPsi = functionDeclPsi.children().filterIsInstance<XPathEnclosedExpr>().first()
         val versioned = enclosedExprPsi as VersionConformance
 
@@ -523,8 +522,7 @@ private class XQueryConformanceTest : ParserTestCase() {
     fun testEnclosedExpr_FunctionDecl_NoExpr() {
         val file = parseResource("tests/parser/xquery-3.1/EnclosedExpr_MissingExpr.xq")
 
-        val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
-        val functionDeclPsi = annotatedDeclPsi.children().filterIsInstance<XQueryFunctionDecl>().first()
+        val functionDeclPsi = file.descendants().filterIsInstance<XQueryFunctionDecl>().first()
         val enclosedExprPsi = functionDeclPsi.children().filterIsInstance<XPathEnclosedExpr>().first()
         val versioned = enclosedExprPsi as VersionConformance
 

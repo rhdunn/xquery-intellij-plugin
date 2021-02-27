@@ -1,25 +1,24 @@
 XQueryModuleImpl[FILE(0:33)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:33)]
       XQueryPrologImpl[XQUERY_PROLOG(0:33)]
-         XQueryAnnotatedDeclImpl[XQUERY_ANNOTATED_DECL(0:32)]
+         XQueryFunctionDeclImpl[XQUERY_FUNCTION_DECL(0:32)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             PluginCompatibilityAnnotationImpl[XQUERY_COMPATIBILITY_ANNOTATION(8:14)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SIMPLE(8:14)]('simple')
             PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
-            XQueryFunctionDeclImpl[XQUERY_FUNCTION_DECL(15:32)]
-               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FUNCTION(15:23)]('function')
-               PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
-               XQueryNCNameImpl[XQUERY_NCNAME(24:25)]
-                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(24:25)]('f')
-               LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(25:26)]('(')
-               LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(26:27)](')')
-               PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
-               XQueryFunctionBodyImpl[XQUERY_FUNCTION_BODY(28:32)]
-                  LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(28:29)]('{')
-                  PluginEmptyExprImpl[XPATH_EMPTY_EXPR(29:31)]
-                     LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(29:30)]('(')
-                     LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(30:31)](')')
-                  LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(31:32)]('}')
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FUNCTION(15:23)]('function')
+            PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
+            XQueryNCNameImpl[XQUERY_NCNAME(24:25)]
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(24:25)]('f')
+            LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(25:26)]('(')
+            LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(26:27)](')')
+            PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
+            XQueryFunctionBodyImpl[XQUERY_FUNCTION_BODY(28:32)]
+               LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(28:29)]('{')
+               PluginEmptyExprImpl[XPATH_EMPTY_EXPR(29:31)]
+                  LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(29:30)]('(')
+                  LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(30:31)](')')
+               LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(31:32)]('}')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(32:33)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(33:33)]('XPST0003: Missing query body.')

@@ -1,49 +1,48 @@
 XQueryModuleImpl[FILE(0:61)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:61)]
       XQueryPrologImpl[XQUERY_PROLOG(0:61)]
-         XQueryAnnotatedDeclImpl[XQUERY_ANNOTATED_DECL(0:60)]
+         XQueryFunctionDeclImpl[XQUERY_FUNCTION_DECL(0:60)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             PluginCompatibilityAnnotationImpl[XQUERY_COMPATIBILITY_ANNOTATION(8:18)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SEQUENTIAL(8:18)]('sequential')
             PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
-            XQueryFunctionDeclImpl[XQUERY_FUNCTION_DECL(19:60)]
-               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FUNCTION(19:27)]('function')
-               PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
-               XQueryNCNameImpl[XQUERY_NCNAME(28:30)]
-                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(28:29)]('f')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
-               LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(30:31)]('(')
-               PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
-               LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(32:33)](')')
-               PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
-               ScriptingBlockImpl[XQUERY_BLOCK(34:59)]
-                  LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(34:35)]('{')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
-                  ScriptingBlockDeclsImpl[XQUERY_BLOCK_DECLS(36:54)]
-                     ScriptingBlockVarDeclImpl[XQUERY_BLOCK_VAR_DECL(36:52)]
-                        XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(36:43)]('declare')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(43:44)](' ')
-                        PluginBlockVarDeclEntryImpl[XQUERY_BLOCK_VAR_DECL_ENTRY(44:52)]
-                           LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(44:45)]('$')
-                           PsiWhiteSpaceImpl[WHITE_SPACE(45:46)](' ')
-                           XQueryNCNameImpl[XQUERY_NCNAME(46:48)]
-                              XmlNCNameImpl[XPATH_NCNAME_TOKEN(46:47)]('x')
-                              PsiWhiteSpaceImpl[WHITE_SPACE(47:48)](' ')
-                           PsiErrorElementImpl[ERROR_ELEMENT(48:49)]('XPST0003: Missing ':=' variable assignment, 'at', ',' or ';'.')
-                              LeafPsiElement[XPATH_EQUAL_TOKEN(48:49)]('=')
-                           PsiWhiteSpaceImpl[WHITE_SPACE(49:50)](' ')
-                           XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(50:51)]('2')
-                           PsiWhiteSpaceImpl[WHITE_SPACE(51:52)](' ')
-                     LeafPsiElement[XQUERY_SEPARATOR_TOKEN(52:53)](';')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(53:54)](' ')
-                  ScriptingBlockBodyImpl[XQUERY_BLOCK_BODY(54:58)]
-                     PluginEmptyExprImpl[XPATH_EMPTY_EXPR(54:57)]
-                        LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(54:55)]('(')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(55:56)](' ')
-                        LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(56:57)](')')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(57:58)](' ')
-                  LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(58:59)]('}')
-               PsiWhiteSpaceImpl[WHITE_SPACE(59:60)](' ')
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FUNCTION(19:27)]('function')
+            PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
+            XQueryNCNameImpl[XQUERY_NCNAME(28:30)]
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(28:29)]('f')
+               PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
+            LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(30:31)]('(')
+            PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
+            LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(32:33)](')')
+            PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
+            ScriptingBlockImpl[XQUERY_BLOCK(34:59)]
+               LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(34:35)]('{')
+               PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
+               ScriptingBlockDeclsImpl[XQUERY_BLOCK_DECLS(36:54)]
+                  ScriptingBlockVarDeclImpl[XQUERY_BLOCK_VAR_DECL(36:52)]
+                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(36:43)]('declare')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(43:44)](' ')
+                     PluginBlockVarDeclEntryImpl[XQUERY_BLOCK_VAR_DECL_ENTRY(44:52)]
+                        LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(44:45)]('$')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(45:46)](' ')
+                        XQueryNCNameImpl[XQUERY_NCNAME(46:48)]
+                           XmlNCNameImpl[XPATH_NCNAME_TOKEN(46:47)]('x')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(47:48)](' ')
+                        PsiErrorElementImpl[ERROR_ELEMENT(48:49)]('XPST0003: Missing ':=' variable assignment, 'at', ',' or ';'.')
+                           LeafPsiElement[XPATH_EQUAL_TOKEN(48:49)]('=')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(49:50)](' ')
+                        XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(50:51)]('2')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(51:52)](' ')
+                  LeafPsiElement[XQUERY_SEPARATOR_TOKEN(52:53)](';')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(53:54)](' ')
+               ScriptingBlockBodyImpl[XQUERY_BLOCK_BODY(54:58)]
+                  PluginEmptyExprImpl[XPATH_EMPTY_EXPR(54:57)]
+                     LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(54:55)]('(')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(55:56)](' ')
+                     LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(56:57)](')')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(57:58)](' ')
+               LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(58:59)]('}')
+            PsiWhiteSpaceImpl[WHITE_SPACE(59:60)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(60:61)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(61:61)]('XPST0003: Missing query body.')

@@ -28,12 +28,13 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginCompatibilityAnnotation
 import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.*
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
 import uk.co.reecedunn.intellij.plugin.intellij.lang.BaseX
 import uk.co.reecedunn.intellij.plugin.intellij.lang.UpdateFacilitySpec
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarDecl
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
@@ -54,7 +55,7 @@ private class UpdateFacilityConformanceTest : ParserTestCase() {
         fun testCompatibilityAnnotation_FunctionDecl() {
             val file = parseResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating.xq")
 
-            val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
+            val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryFunctionDecl>().first()
             val compatibilityAnnotationPsi =
                 annotatedDeclPsi.children().filterIsInstance<PluginCompatibilityAnnotation>().first()
             val conformance = compatibilityAnnotationPsi as VersionConformance
@@ -71,7 +72,7 @@ private class UpdateFacilityConformanceTest : ParserTestCase() {
         fun testCompatibilityAnnotation_VarDecl() {
             val file = parseResource("tests/parser/xquery-update-3.0/CompatibilityAnnotation_VarDecl.xq")
 
-            val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
+            val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryVarDecl>().first()
             val compatibilityAnnotationPsi =
                 annotatedDeclPsi.children().filterIsInstance<PluginCompatibilityAnnotation>().first()
             val conformance = compatibilityAnnotationPsi as VersionConformance
@@ -107,7 +108,7 @@ private class UpdateFacilityConformanceTest : ParserTestCase() {
         fun testFunctionDecl_Updating() {
             val file = parseResource("tests/parser/xquery-update-1.0/FunctionDecl_Updating.xq")
 
-            val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryAnnotatedDecl>().first()
+            val annotatedDeclPsi = file.descendants().filterIsInstance<XQueryFunctionDecl>().first()
             val compatibilityAnnotationPsi =
                 annotatedDeclPsi.children().filterIsInstance<PluginCompatibilityAnnotation>().first()
             val conformance = compatibilityAnnotationPsi as VersionConformance

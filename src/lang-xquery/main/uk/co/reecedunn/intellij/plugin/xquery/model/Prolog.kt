@@ -25,15 +25,14 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpm.context.expand
 import uk.co.reecedunn.intellij.plugin.xpm.staticallyKnownNamespaces
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryLibraryModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryMainModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
 
 fun <Decl : Any> XQueryProlog.annotatedDeclarations(klass: Class<Decl>, reversed: Boolean = true): Sequence<Decl> {
-    val children = if (reversed) reverse(children()) else children()
-    return children.filterIsInstance<XQueryAnnotatedDecl>().mapNotNull { annotation ->
-        annotation.children().filterIsInstance(klass).firstOrNull()
+    return when {
+        reversed -> reverse(children()).filterIsInstance(klass)
+        else -> children().filterIsInstance(klass)
     }
 }
 

@@ -1,25 +1,24 @@
 XQueryModuleImpl[FILE(0:39)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:39)]
       XQueryPrologImpl[XQUERY_PROLOG(0:39)]
-         XQueryAnnotatedDeclImpl[XQUERY_ANNOTATED_DECL(0:38)]
+         XQueryItemTypeDeclImpl[XQUERY_ITEM_TYPE_DECL(0:38)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-            XQueryItemTypeDeclImpl[XQUERY_ITEM_TYPE_DECL(8:38)]
-               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ITEM_TYPE(8:17)]('item-type')
-               PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
-               XQueryQNameImpl[XQUERY_QNAME(18:23)]
-                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(18:19)]('a')
-                  LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(19:20)](':')
-                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(20:23)]('int')
-               PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
-               PsiErrorElementImpl[ERROR_ELEMENT(24:26)]('XPST0003: Expected 'as'.')
-                  LeafPsiElement[XPATH_ASSIGN_EQUAL_TOKEN(24:26)](':=')
-               PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
-               XPathAtomicOrUnionTypeImpl[XPATH_ATOMIC_OR_UNION_TYPE(27:37)]
-                  XQueryQNameImpl[XQUERY_QNAME(27:37)]
-                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(27:29)]('xs')
-                     LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(29:30)](':')
-                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(30:37)]('integer')
-               PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ITEM_TYPE(8:17)]('item-type')
+            PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
+            XQueryQNameImpl[XQUERY_QNAME(18:23)]
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(18:19)]('a')
+               LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(19:20)](':')
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(20:23)]('int')
+            PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
+            PsiErrorElementImpl[ERROR_ELEMENT(24:26)]('XPST0003: Expected 'as'.')
+               LeafPsiElement[XPATH_ASSIGN_EQUAL_TOKEN(24:26)](':=')
+            PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
+            XPathAtomicOrUnionTypeImpl[XPATH_ATOMIC_OR_UNION_TYPE(27:37)]
+               XQueryQNameImpl[XQUERY_QNAME(27:37)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(27:29)]('xs')
+                  LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(29:30)](':')
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(30:37)]('integer')
+            PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(38:39)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(39:39)]('XPST0003: Missing query body.')

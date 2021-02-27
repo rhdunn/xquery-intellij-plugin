@@ -1,23 +1,22 @@
 XQueryModuleImpl[FILE(0:61)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:61)]
       XQueryPrologImpl[XQUERY_PROLOG(0:61)]
-         XQueryAnnotatedDeclImpl[XQUERY_ANNOTATED_DECL(0:60)]
+         XQueryVarDeclImpl[XQUERY_VAR_DECL(0:60)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-            XQueryVarDeclImpl[XQUERY_VAR_DECL(8:60)]
-               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VARIABLE(8:16)]('variable')
-               LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(16:17)]('$')
-               XQueryNCNameImpl[XQUERY_NCNAME(17:21)]
-                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(17:20)]('one')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
-               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AS(21:23)]('as')
-               PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
-               PluginSchemaParticleTestImpl[XQUERY_SCHEMA_PARTICLE_TEST(24:52)]
-                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SCHEMA_PARTICLE_NODE(24:39)]('schema-particle')
-                  LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(39:40)]('(')
-                  XQueryNCNameImpl[XQUERY_NCNAME(40:51)]
-                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(40:51)]('lorem-ipsum')
-                  LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(51:52)](')')
-               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(52:60)]('external')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VARIABLE(8:16)]('variable')
+            LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(16:17)]('$')
+            XQueryNCNameImpl[XQUERY_NCNAME(17:21)]
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(17:20)]('one')
+               PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AS(21:23)]('as')
+            PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
+            PluginSchemaParticleTestImpl[XQUERY_SCHEMA_PARTICLE_TEST(24:52)]
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_SCHEMA_PARTICLE_NODE(24:39)]('schema-particle')
+               LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(39:40)]('(')
+               XQueryNCNameImpl[XQUERY_NCNAME(40:51)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(40:51)]('lorem-ipsum')
+               LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(51:52)](')')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(52:60)]('external')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(60:61)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(61:61)]('XPST0003: Missing query body.')

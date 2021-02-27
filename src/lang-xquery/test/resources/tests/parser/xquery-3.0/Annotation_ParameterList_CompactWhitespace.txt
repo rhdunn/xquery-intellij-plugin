@@ -1,7 +1,7 @@
 XQueryModuleImpl[FILE(0:39)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:39)]
       XQueryPrologImpl[XQUERY_PROLOG(0:39)]
-         XQueryAnnotatedDeclImpl[XQUERY_ANNOTATED_DECL(0:38)]
+         XQueryFunctionDeclImpl[XQUERY_FUNCTION_DECL(0:38)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
             XQueryAnnotationImpl[XQUERY_ANNOTATION(7:15)]
                LeafPsiElement[XQUERY_ANNOTATION_INDICATOR_TOKEN(7:8)]('%')
@@ -10,13 +10,12 @@ XQueryModuleImpl[FILE(0:39)]
                LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(12:13)]('(')
                XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(13:14)]('1')
                LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(14:15)](')')
-            XQueryFunctionDeclImpl[XQUERY_FUNCTION_DECL(15:38)]
-               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FUNCTION(15:23)]('function')
-               PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
-               XQueryNCNameImpl[XQUERY_NCNAME(24:28)]
-                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(24:28)]('test')
-               LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(28:29)]('(')
-               LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(29:30)](')')
-               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(30:38)]('external')
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FUNCTION(15:23)]('function')
+            PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
+            XQueryNCNameImpl[XQUERY_NCNAME(24:28)]
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(24:28)]('test')
+            LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(28:29)]('(')
+            LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(29:30)](')')
+            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(30:38)]('external')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(38:39)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(39:39)]('XPST0003: Missing query body.')
