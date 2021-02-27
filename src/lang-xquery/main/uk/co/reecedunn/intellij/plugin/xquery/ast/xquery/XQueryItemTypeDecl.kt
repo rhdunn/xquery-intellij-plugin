@@ -22,6 +22,6 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAnnotatedDeclaration
 /**
  * An XQuery 4.0 ED `ItemTypeDecl` node in the XQuery AST.
  */
-interface XQueryItemTypeDecl : XQueryStructureViewElement, XpmAnnotatedDeclaration {
+interface XQueryItemTypeDecl : XQueryAnnotatedDecl, XQueryStructureViewElement, XpmAnnotatedDeclaration {
     val typeName: XsQNameValue?
 }
