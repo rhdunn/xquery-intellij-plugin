@@ -25,12 +25,9 @@ import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
-import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnnotation
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableBinding
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
-import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAnnotatedDeclaration
-import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDecorator
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 import javax.swing.Icon
@@ -47,15 +44,6 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
         cachedStructurePresentableText.invalidate()
         cachedFunctionRefPresentableText.invalidate()
     }
-
-    // endregion
-    // region XdmAnnotatedDeclaration
-
-    override val annotations: Sequence<XdmAnnotation>
-        get() = children().filterIsInstance<XdmAnnotation>()
-
-    override val isPublic: Boolean
-        get() = annotation(XpmAnnotatedDeclaration.PRIVATE) == null
 
     // endregion
     // region XdmFunctionDeclaration

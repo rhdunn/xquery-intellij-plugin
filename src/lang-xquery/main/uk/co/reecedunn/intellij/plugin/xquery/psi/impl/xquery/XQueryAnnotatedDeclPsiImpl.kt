@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2018, 2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,20 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnnotation
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAnnotatedDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
 
-open class XQueryAnnotatedDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryAnnotatedDecl
+open class XQueryAnnotatedDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryAnnotatedDecl {
+    // region XdmAnnotatedDeclaration
+
+    override val annotations: Sequence<XdmAnnotation>
+        get() = children().filterIsInstance<XdmAnnotation>()
+
+    override val isPublic: Boolean
+        get() = annotation(XpmAnnotatedDeclaration.PRIVATE) == null
+
+    // endregion
+}
