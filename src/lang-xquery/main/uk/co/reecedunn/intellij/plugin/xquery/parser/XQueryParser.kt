@@ -4466,7 +4466,7 @@ class XQueryParser : XPathParser() {
     // endregion
     // region Grammar :: TypeDeclaration :: ItemType
 
-    override fun parseAnnotatedFunction(builder: PsiBuilder): Boolean {
+    override fun parseFunctionTest(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
 
         var haveAnnotations = false

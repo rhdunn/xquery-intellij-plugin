@@ -3208,7 +3208,7 @@ open class XPathParser : PsiParser {
         return (
             parseKindTest(builder) ||
             parseAnyItemTest(builder) ||
-            parseAnnotatedFunction(builder) ||
+            parseFunctionTest(builder) ||
             parseMapTest(builder) ||
             parseArrayTest(builder) ||
             parseRecordTest(builder) ||
@@ -3240,7 +3240,7 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    open fun parseAnnotatedFunction(builder: PsiBuilder): Boolean = parseAnyOrTypedFunctionTest(builder)
+    open fun parseFunctionTest(builder: PsiBuilder): Boolean = parseAnyOrTypedFunctionTest(builder)
 
     fun parseAnyOrTypedFunctionTest(builder: PsiBuilder): Boolean {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_FUNCTION)
