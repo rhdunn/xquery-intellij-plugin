@@ -358,12 +358,6 @@ object XQueryElementType {
         XQuery
     )
 
-    val ANNOTATED_DECL: IElementType = ICompositeElementType(
-        "XQUERY_ANNOTATED_DECL",
-        XQueryAnnotatedDeclPsiImpl::class.java,
-        XQuery
-    )
-
     val ANNOTATION: IElementType = ICompositeElementType(
         "XQUERY_ANNOTATION",
         XQueryAnnotationPsiImpl::class.java,

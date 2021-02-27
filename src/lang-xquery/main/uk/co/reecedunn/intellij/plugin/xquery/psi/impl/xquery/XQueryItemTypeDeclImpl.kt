@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
 import com.intellij.psi.PsiElement
@@ -33,7 +32,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import javax.swing.Icon
 
 class XQueryItemTypeDeclPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node),
+    XQueryAnnotatedDeclPsiImpl(node),
     XQueryItemTypeDecl,
     XpmSyntaxValidationElement,
     ItemPresentation {

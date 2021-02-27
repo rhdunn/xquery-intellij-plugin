@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
 import com.intellij.util.Range
@@ -36,7 +35,10 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDecorator
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 import javax.swing.Icon
 
-class XQueryFunctionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryFunctionDecl, ItemPresentationEx {
+class XQueryFunctionDeclPsiImpl(node: ASTNode) :
+    XQueryAnnotatedDeclPsiImpl(node),
+    XQueryFunctionDecl,
+    ItemPresentationEx {
     // region ASTDelegatePsiElement
 
     override fun subtreeChanged() {
