@@ -4484,8 +4484,7 @@ class XQueryParser : XPathParser() {
             true
         } else {
             builder.error(XPathBundle.message("parser.error.expected-keyword", "function"))
-
-            marker.done(XQueryElementType.FUNCTION_TEST)
+            marker.drop()
             true
         }
     }
