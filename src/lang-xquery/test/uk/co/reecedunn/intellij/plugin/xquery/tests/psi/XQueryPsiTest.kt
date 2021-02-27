@@ -1630,7 +1630,6 @@ private class XQueryPsiTest : ParserTestCase() {
                 @DisplayName("one annotation ; any function test")
                 fun oneAnnotation() {
                     val test = parse<XQueryFunctionTest>("() instance of % test function ( * )")[0]
-                    assertThat((test.functionTest as XdmItemType).typeName, `is`("function(*)"))
 
                     val annotations = test.annotations.toList()
                     assertThat(annotations.size, `is`(1))
@@ -1651,7 +1650,6 @@ private class XQueryPsiTest : ParserTestCase() {
                     val test = parse<XQueryFunctionTest>(
                         "() instance of % one % two function ( xs:long ) as xs:long"
                     )[0]
-                    assertThat((test.functionTest as XdmItemType).typeName, `is`("function(xs:long) as xs:long"))
 
                     val annotations = test.annotations.toList()
                     assertThat(annotations.size, `is`(2))
@@ -1671,7 +1669,6 @@ private class XQueryPsiTest : ParserTestCase() {
                 @DisplayName("annotation with missing name")
                 fun annotationWithoutName() {
                     val test = parse<XQueryFunctionTest>("() instance of % % two function ( xs:long ) as xs:long")[0]
-                    assertThat((test.functionTest as XdmItemType).typeName, `is`("function(xs:long) as xs:long"))
 
                     val annotations = test.annotations.toList()
                     assertThat(annotations.size, `is`(2))

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionTest
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnnotation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 
@@ -25,6 +24,4 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
  */
 interface XQueryFunctionTest : PsiElement, XdmItemType {
     val annotations: Sequence<XdmAnnotation>
-
-    val functionTest: XPathFunctionTest
 }

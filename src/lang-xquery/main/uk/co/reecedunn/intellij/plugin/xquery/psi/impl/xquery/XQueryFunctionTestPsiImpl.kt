@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2018-2020 Reece H. Dunn
+ * Copyright (C) 2016, 2018-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,15 +40,15 @@ class XQueryFunctionTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
     override val annotations: Sequence<XdmAnnotation>
         get() = children().filterIsInstance<XdmAnnotation>()
 
-    override val functionTest: XPathFunctionTest
-        get() = children().filterIsInstance<XPathFunctionTest>().first()
-
     // endregion
     // region XdmSequenceType
 
+    private val functionTest: XdmItemType
+        get() = children().filterIsInstance<XPathFunctionTest>().first()
+
     private val cachedTypeName = CacheableProperty {
         val annotations = annotations.mapNotNull { (it as ItemPresentation).presentableText }.joinToString(" ")
-        "$annotations ${(functionTest as XdmItemType).typeName}"
+        "$annotations ${functionTest.typeName}"
     }
 
     override val typeName: String
