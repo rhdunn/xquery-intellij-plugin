@@ -15,6 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.optree.variable
 
-import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAnnotatedDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAnnotated
 
-interface XpmVariableDeclaration : XpmAnnotatedDeclaration, XpmVariableDefinition
+interface XpmVariableDeclaration : XpmAnnotated, XpmVariableDefinition

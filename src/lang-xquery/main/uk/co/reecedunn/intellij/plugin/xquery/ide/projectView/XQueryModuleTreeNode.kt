@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.ide.projectView
 import com.intellij.ide.projectView.ViewSettings
 import com.intellij.ide.projectView.impl.nodes.PsiFileNode
 import com.intellij.ide.util.treeView.AbstractTreeNode
-import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAnnotatedDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAnnotated
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryItemTypeDecl
@@ -36,7 +36,7 @@ class XQueryModuleTreeNode(module: XQueryModule, viewSettings: ViewSettings) :
     @Suppress("UNCHECKED_CAST")
     private fun getPrologDeclarations(): Sequence<AbstractTreeNode<Any>>? {
         val prolog = (value as XQueryModule).mainOrLibraryModule?.prolog?.firstOrNull() ?: return null
-        return prolog.annotatedDeclarations<XpmAnnotatedDeclaration>(reversed = false).map { decl ->
+        return prolog.annotatedDeclarations<XpmAnnotated>(reversed = false).map { decl ->
             when (decl) {
                 is XQueryFunctionDecl -> {
                     (decl as XpmFunctionDeclaration).functionName?.localName?.let {

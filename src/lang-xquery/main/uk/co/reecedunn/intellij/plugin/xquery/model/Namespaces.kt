@@ -29,14 +29,14 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsAnyUri
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathWithExpr
 import uk.co.reecedunn.intellij.plugin.xpath.model.getUsageType
 import uk.co.reecedunn.intellij.plugin.xpm.defaultNamespace
-import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAnnotatedDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAnnotated
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.staticallyKnownNamespaces
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 
 private val EMPTY_NAMESPACE = XsAnyUri("", XdmUriContext.Namespace, XdmModuleType.NONE)
 
-private val XQUERY_NAMESPACE = XsAnyUri(XpmAnnotatedDeclaration.NAMESPACE, XdmUriContext.Namespace, XdmModuleType.NONE)
+private val XQUERY_NAMESPACE = XsAnyUri(XpmAnnotated.NAMESPACE, XdmUriContext.Namespace, XdmModuleType.NONE)
 
 // region XPath 3.1 (2.1.1) Default element/type namespace ; XPath 3.1 (2.1.1) Default function namespace
 

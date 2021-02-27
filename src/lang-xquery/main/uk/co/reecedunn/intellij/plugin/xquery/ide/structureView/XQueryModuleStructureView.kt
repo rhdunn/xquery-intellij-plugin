@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.ide.structureView
 import com.intellij.ide.structureView.StructureViewTreeElement
 import com.intellij.ide.structureView.impl.common.PsiTreeElementBase
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAnnotatedDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAnnotated
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryItemTypeDecl
@@ -30,7 +30,7 @@ class XQueryModuleStructureView(module: XQueryModule) : PsiTreeElementBase<XQuer
     override fun getChildrenBase(): MutableCollection<out StructureViewTreeElement> {
         return element?.mainOrLibraryModule?.children()?.flatMap { child ->
             when (child) {
-                is XQueryProlog -> child.annotatedDeclarations<XpmAnnotatedDeclaration>(reversed = false).map { decl ->
+                is XQueryProlog -> child.annotatedDeclarations<XpmAnnotated>(reversed = false).map { decl ->
                     when (decl) {
                         is XQueryFunctionDecl -> {
                             (decl as XpmFunctionDeclaration).functionName?.localName?.let {

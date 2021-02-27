@@ -30,7 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableBinding
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
-import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAnnotatedDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAnnotated
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation
 
 class XPathInlineFunctionExprPsiImpl(node: ASTNode) :
@@ -49,7 +49,7 @@ class XPathInlineFunctionExprPsiImpl(node: ASTNode) :
         get() = children().filterIsInstance<XdmAnnotation>()
 
     override val isPublic: Boolean
-        get() = annotation(XpmAnnotatedDeclaration.PRIVATE) == null
+        get() = annotation(XpmAnnotated.PRIVATE) == null
 
     // endregion
     // region XdmFunctionDeclaration

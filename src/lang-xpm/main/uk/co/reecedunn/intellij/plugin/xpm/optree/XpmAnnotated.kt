@@ -19,7 +19,7 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnnotation
 import uk.co.reecedunn.intellij.plugin.xpm.context.expand
 
-interface XpmAnnotatedDeclaration : PsiElement {
+interface XpmAnnotated : PsiElement {
     val annotations: Sequence<XdmAnnotation>
 
     val isPublic: Boolean
@@ -33,9 +33,9 @@ interface XpmAnnotatedDeclaration : PsiElement {
     }
 }
 
-fun XpmAnnotatedDeclaration.annotation(name: String): XdmAnnotation? = annotations.find { annotation ->
+fun XpmAnnotated.annotation(name: String): XdmAnnotation? = annotations.find { annotation ->
     if (annotation.name?.localName?.data == name)
-        annotation.name?.expand()?.find { it.namespace?.data == XpmAnnotatedDeclaration.NAMESPACE } != null
+        annotation.name?.expand()?.find { it.namespace?.data == XpmAnnotated.NAMESPACE } != null
     else
         false
 }

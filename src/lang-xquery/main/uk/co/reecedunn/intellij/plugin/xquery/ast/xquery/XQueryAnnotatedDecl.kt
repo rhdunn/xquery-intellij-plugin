@@ -15,9 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
-import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAnnotatedDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAnnotated
 
 /**
  * An XQuery 3.0 `AnnotatedDecl` node in the XQuery AST.
  */
-interface XQueryAnnotatedDecl : XpmAnnotatedDeclaration
+interface XQueryAnnotatedDecl : XpmAnnotated

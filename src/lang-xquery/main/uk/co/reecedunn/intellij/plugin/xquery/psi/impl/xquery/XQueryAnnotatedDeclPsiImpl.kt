@@ -23,7 +23,7 @@ import com.intellij.util.BitUtil
 import com.intellij.util.PlatformIcons
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnnotation
-import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAnnotatedDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAnnotated
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
 import javax.swing.Icon
@@ -52,7 +52,7 @@ open class XQueryAnnotatedDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node
         get() = children().filterIsInstance<XdmAnnotation>()
 
     override val isPublic: Boolean
-        get() = annotation(XpmAnnotatedDeclaration.PRIVATE) == null
+        get() = annotation(XpmAnnotated.PRIVATE) == null
 
     // endregion
 }
