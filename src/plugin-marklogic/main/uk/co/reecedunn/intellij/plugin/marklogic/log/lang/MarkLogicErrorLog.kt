@@ -30,6 +30,7 @@ import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
 import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicBundle
 import uk.co.reecedunn.intellij.plugin.marklogic.log.lexer.MarkLogicErrorLogLexer
 import uk.co.reecedunn.intellij.plugin.marklogic.log.parser.MarkLogicErrorLogElementType
+import uk.co.reecedunn.intellij.plugin.marklogic.log.parser.MarkLogicErrorLogParser
 import uk.co.reecedunn.intellij.plugin.marklogic.log.psi.impl.error.MarkLogicErrorLogPsiImpl
 
 object MarkLogicErrorLog : Language("MLErrorLog") {
@@ -45,7 +46,7 @@ object MarkLogicErrorLog : Language("MLErrorLog") {
     class ParserDefinition : LanguageParserDefinition {
         override fun createLexer(project: Project): Lexer = MarkLogicErrorLogLexer()
 
-        override fun createParser(project: Project): PsiParser = TODO()
+        override fun createParser(project: Project): PsiParser = MarkLogicErrorLogParser()
 
         override fun getFileNodeType(): IFileElementType = MarkLogicErrorLogElementType.ERROR_LOG
 
