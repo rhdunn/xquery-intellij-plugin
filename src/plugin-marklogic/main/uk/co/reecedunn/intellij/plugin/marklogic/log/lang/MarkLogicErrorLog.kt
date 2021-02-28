@@ -28,6 +28,8 @@ import com.intellij.psi.tree.IFileElementType
 import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
 import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicBundle
+import uk.co.reecedunn.intellij.plugin.marklogic.log.parser.MarkLogicErrorLogElementType
+import uk.co.reecedunn.intellij.plugin.marklogic.log.psi.impl.error.MarkLogicErrorLogPsiImpl
 
 object MarkLogicErrorLog : Language("MLErrorLog") {
     // region Language
@@ -44,7 +46,7 @@ object MarkLogicErrorLog : Language("MLErrorLog") {
 
         override fun createParser(project: Project): PsiParser = TODO()
 
-        override fun getFileNodeType(): IFileElementType = TODO()
+        override fun getFileNodeType(): IFileElementType = MarkLogicErrorLogElementType.ERROR_LOG
 
         override fun getCommentTokens(): TokenSet = TokenSet.EMPTY
 
@@ -59,7 +61,7 @@ object MarkLogicErrorLog : Language("MLErrorLog") {
             throw AssertionError("Alien element type [$type]. Can't create PsiElement for that.")
         }
 
-        override fun createFile(viewProvider: FileViewProvider): PsiFile = TODO()
+        override fun createFile(viewProvider: FileViewProvider): PsiFile = MarkLogicErrorLogPsiImpl(viewProvider)
     }
 
     // endregion
