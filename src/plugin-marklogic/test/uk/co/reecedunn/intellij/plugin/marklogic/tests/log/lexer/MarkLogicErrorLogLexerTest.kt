@@ -113,7 +113,10 @@ class MarkLogicErrorLogLexerTest : LexerTestCaseEx() {
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
             token("12:34:56.789", MarkLogicErrorLogTokenType.TIME)
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
-            token("Info: Lorem ipsum dolor", MarkLogicErrorLogTokenType.MESSAGE)
+            token("Info", MarkLogicErrorLogTokenType.SERVER)
+            token(":", MarkLogicErrorLogTokenType.COLON)
+            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
+            token("Lorem ipsum dolor", MarkLogicErrorLogTokenType.MESSAGE)
         }
     }
 
@@ -126,7 +129,13 @@ class MarkLogicErrorLogLexerTest : LexerTestCaseEx() {
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
             token("12:34:56.789", MarkLogicErrorLogTokenType.TIME)
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
-            token("Debug: TaskServer: Lorem ipsum dolor", MarkLogicErrorLogTokenType.MESSAGE)
+            token("Debug", MarkLogicErrorLogTokenType.SERVER)
+            token(":", MarkLogicErrorLogTokenType.COLON)
+            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
+            token("TaskServer", MarkLogicErrorLogTokenType.SERVER)
+            token(":", MarkLogicErrorLogTokenType.COLON)
+            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
+            token("Lorem ipsum dolor", MarkLogicErrorLogTokenType.MESSAGE)
         }
     }
 
@@ -139,7 +148,13 @@ class MarkLogicErrorLogLexerTest : LexerTestCaseEx() {
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
             token("12:34:56.789", MarkLogicErrorLogTokenType.TIME)
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
-            token("Debug: abc-2d_3e: Lorem ipsum dolor", MarkLogicErrorLogTokenType.MESSAGE)
+            token("Debug", MarkLogicErrorLogTokenType.SERVER)
+            token(":", MarkLogicErrorLogTokenType.COLON)
+            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
+            token("abc-2d_3e", MarkLogicErrorLogTokenType.SERVER)
+            token(":", MarkLogicErrorLogTokenType.COLON)
+            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
+            token("Lorem ipsum dolor", MarkLogicErrorLogTokenType.MESSAGE)
         }
     }
 
@@ -152,7 +167,9 @@ class MarkLogicErrorLogLexerTest : LexerTestCaseEx() {
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
             token("12:34:56.789", MarkLogicErrorLogTokenType.TIME)
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
-            token("Info:+Lorem ipsum dolor", MarkLogicErrorLogTokenType.MESSAGE)
+            token("Info", MarkLogicErrorLogTokenType.SERVER)
+            token(":", MarkLogicErrorLogTokenType.COLON)
+            token("+Lorem ipsum dolor", MarkLogicErrorLogTokenType.MESSAGE)
         }
     }
 }

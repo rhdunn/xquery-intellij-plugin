@@ -120,8 +120,21 @@ class MarkLogicErrorLogLexer : LexerImpl(STATE_DEFAULT, CodePointRangeImpl()) {
                 }
                 MarkLogicErrorLogTokenType.TIME
             }
+            COLON -> {
+                mTokenRange.match()
+                MarkLogicErrorLogTokenType.COLON
+            }
             else -> {
+                var seenWhitespace = false
                 while (cc != NEW_LINE && cc != END_OF_BUFFER) {
+                    when (cc) {
+                        COLON -> if (!seenWhitespace) {
+                            return MarkLogicErrorLogTokenType.SERVER
+                        }
+                        WHITE_SPACE -> seenWhitespace = true
+                        else -> {
+                        }
+                    }
                     mTokenRange.match()
                     cc = getCharacterClass(mTokenRange.codePoint)
                 }
