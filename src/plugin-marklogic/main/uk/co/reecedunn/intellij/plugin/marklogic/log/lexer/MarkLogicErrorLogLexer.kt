@@ -68,7 +68,9 @@ class MarkLogicErrorLogLexer : LexerImpl(STATE_DEFAULT, CodePointRangeImpl()) {
     // region States
 
     object State {
+        const val Default = 0
         const val Time = 1
+        const val LogLevel = 2
     }
 
     private fun stateDefault(): IElementType? {
@@ -100,7 +102,7 @@ class MarkLogicErrorLogLexer : LexerImpl(STATE_DEFAULT, CodePointRangeImpl()) {
         }
     }
 
-    private fun stateTime(): IElementType? {
+    private fun stateTimeOrLogLevel(state: Int): IElementType? {
         var cc = getCharacterClass(mTokenRange.codePoint)
         return when (cc) {
             END_OF_BUFFER -> null
@@ -135,7 +137,12 @@ class MarkLogicErrorLogLexer : LexerImpl(STATE_DEFAULT, CodePointRangeImpl()) {
                 while (cc != NEW_LINE && cc != END_OF_BUFFER) {
                     when (cc) {
                         COLON -> if (!seenWhitespace) {
-                            return keyword(mTokenRange.bufferSequence.subSequence(mTokenRange.start, mTokenRange.end))
+                            val text = mTokenRange.bufferSequence.subSequence(mTokenRange.start, mTokenRange.end)
+                            if (state == State.Time) {
+                                popState()
+                                pushState(State.LogLevel)
+                            }
+                            return keyword(text, state)
                         }
                         WHITE_SPACE -> seenWhitespace = true
                         else -> {
@@ -149,19 +156,22 @@ class MarkLogicErrorLogLexer : LexerImpl(STATE_DEFAULT, CodePointRangeImpl()) {
         }
     }
 
-    fun keyword(text: CharSequence): IElementType = when (text) {
-        "Finest" -> MarkLogicErrorLogTokenType.LogLevel.FINEST
-        "Finer" -> MarkLogicErrorLogTokenType.LogLevel.FINER
-        "Fine" -> MarkLogicErrorLogTokenType.LogLevel.FINE
-        "Debug" -> MarkLogicErrorLogTokenType.LogLevel.DEBUG
-        "Config" -> MarkLogicErrorLogTokenType.LogLevel.CONFIG
-        "Info" -> MarkLogicErrorLogTokenType.LogLevel.INFO
-        "Notice" -> MarkLogicErrorLogTokenType.LogLevel.NOTICE
-        "Warning" -> MarkLogicErrorLogTokenType.LogLevel.WARNING
-        "Error" -> MarkLogicErrorLogTokenType.LogLevel.ERROR
-        "Critical" -> MarkLogicErrorLogTokenType.LogLevel.CRITICAL
-        "Alert" -> MarkLogicErrorLogTokenType.LogLevel.ALERT
-        "Emergency" -> MarkLogicErrorLogTokenType.LogLevel.EMERGENCY
+    fun keyword(text: CharSequence, state: Int): IElementType = when (state) {
+        State.Time -> when (text) {
+            "Finest" -> MarkLogicErrorLogTokenType.LogLevel.FINEST
+            "Finer" -> MarkLogicErrorLogTokenType.LogLevel.FINER
+            "Fine" -> MarkLogicErrorLogTokenType.LogLevel.FINE
+            "Debug" -> MarkLogicErrorLogTokenType.LogLevel.DEBUG
+            "Config" -> MarkLogicErrorLogTokenType.LogLevel.CONFIG
+            "Info" -> MarkLogicErrorLogTokenType.LogLevel.INFO
+            "Notice" -> MarkLogicErrorLogTokenType.LogLevel.NOTICE
+            "Warning" -> MarkLogicErrorLogTokenType.LogLevel.WARNING
+            "Error" -> MarkLogicErrorLogTokenType.LogLevel.ERROR
+            "Critical" -> MarkLogicErrorLogTokenType.LogLevel.CRITICAL
+            "Alert" -> MarkLogicErrorLogTokenType.LogLevel.ALERT
+            "Emergency" -> MarkLogicErrorLogTokenType.LogLevel.EMERGENCY
+            else -> MarkLogicErrorLogTokenType.LOG_LEVEL
+        }
         else -> MarkLogicErrorLogTokenType.SERVER
     }
 
@@ -170,8 +180,8 @@ class MarkLogicErrorLogLexer : LexerImpl(STATE_DEFAULT, CodePointRangeImpl()) {
 
     override fun advance(state: Int) {
         mType = when (state) {
-            STATE_DEFAULT -> stateDefault()
-            State.Time -> stateTime()
+            State.Default -> stateDefault()
+            State.Time, State.LogLevel -> stateTimeOrLogLevel(state)
             else -> throw AssertionError("Invalid state: $state")
         }
     }

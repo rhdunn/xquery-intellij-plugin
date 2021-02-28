@@ -24,6 +24,7 @@ object MarkLogicErrorLogTokenType {
 
     val DATE: IElementType = IElementType("MARK_LOGIC_ERROR_LOG_DATE", MarkLogicErrorLog)
     val TIME: IElementType = IElementType("MARK_LOGIC_ERROR_LOG_TIME", MarkLogicErrorLog)
+    val LOG_LEVEL: IElementType = IElementType("MARK_LOGIC_ERROR_LOG_LEVEL", MarkLogicErrorLog)
     val SERVER: IElementType = IElementType("MARK_LOGIC_ERROR_LOG_SERVER", MarkLogicErrorLog)
     val MESSAGE: IElementType = IElementType("MARK_LOGIC_ERROR_LOG_MESSAGE", MarkLogicErrorLog)
 
