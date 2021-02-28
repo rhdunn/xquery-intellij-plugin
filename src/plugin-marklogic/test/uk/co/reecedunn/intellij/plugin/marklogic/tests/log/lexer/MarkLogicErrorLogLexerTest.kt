@@ -22,33 +22,28 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCaseEx
 import uk.co.reecedunn.intellij.plugin.marklogic.log.lexer.MarkLogicErrorLogLexer
 
 @Suppress("ClassName", "Reformat")
 @DisplayName("MarkLogic ErrorLog - Lexer")
-class MarkLogicErrorLogLexerTest : LexerTestCase() {
-    private fun createLexer(): Lexer = MarkLogicErrorLogLexer()
+class MarkLogicErrorLogLexerTest : LexerTestCaseEx() {
+    override val lexer: Lexer = MarkLogicErrorLogLexer()
 
     @Nested
     @DisplayName("Lexer")
     internal inner class LexerTest {
         @Test
         @DisplayName("invalid state")
-        fun testInvalidState() {
-            val lexer = createLexer()
-
+        fun invalidState() {
             val e = assertThrows(AssertionError::class.java) { lexer.start("123", 0, 3, 4096) }
             assertThat(e.message, `is`("Invalid state: 4096"))
         }
 
         @Test
         @DisplayName("empty buffer")
-        fun testEmptyBuffer() {
-            val lexer = createLexer()
-
-            lexer.start("")
-            matchToken(lexer, "", 0, 0, 0, null)
+        fun emptyBuffer() {
+            tokenize("")
         }
     }
 }
