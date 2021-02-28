@@ -116,4 +116,30 @@ class MarkLogicErrorLogLexerTest : LexerTestCaseEx() {
             token("Info: Lorem ipsum dolor", MarkLogicErrorLogTokenType.MESSAGE)
         }
     }
+
+    @Test
+    @DisplayName("message with TaskServer (MarkLogic <= 8.0)")
+    fun messageWithTaskServer() {
+        tokenize("2001-01-10 12:34:56.789 Debug: TaskServer: Lorem ipsum dolor") {
+            token("2001-01-10", MarkLogicErrorLogTokenType.DATE)
+            state(1)
+            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
+            token("12:34:56.789", MarkLogicErrorLogTokenType.TIME)
+            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
+            token("Debug: TaskServer: Lorem ipsum dolor", MarkLogicErrorLogTokenType.MESSAGE)
+        }
+    }
+
+    @Test
+    @DisplayName("message with AppServer (MarkLogic <= 8.0)")
+    fun messageWithAppServer() {
+        tokenize("2001-01-10 12:34:56.789 Debug: abc-2d_3e: Lorem ipsum dolor") {
+            token("2001-01-10", MarkLogicErrorLogTokenType.DATE)
+            state(1)
+            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
+            token("12:34:56.789", MarkLogicErrorLogTokenType.TIME)
+            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
+            token("Debug: abc-2d_3e: Lorem ipsum dolor", MarkLogicErrorLogTokenType.MESSAGE)
+        }
+    }
 }
