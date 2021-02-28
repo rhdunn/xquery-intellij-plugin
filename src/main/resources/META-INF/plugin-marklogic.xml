@@ -11,6 +11,11 @@
     <configurationType implementation="uk.co.reecedunn.intellij.plugin.marklogic.intellij.execution.configurations.type.XRayTestConfigurationType"/>
     <runConfigurationProducer implementation="uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestRunConfigurationProducer"/>
     <runLineMarkerContributor language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestRunLineMarkerProvider"/>
+
+    <!-- Error Logs -->
+    <fileType name="MLErrorLog" language="MLErrorLog" patterns="ErrorLog.txt;*_ErrorLog.txt;ErrorLog_*.txt;*_ErrorLog_*.txt"
+              implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.log.fileTypes.MarkLogicErrorLogFileType"
+              fieldName="INSTANCE"/>
   </extensions>
 
   <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
