@@ -137,7 +137,7 @@ class MarkLogicErrorLogLexer : LexerImpl(STATE_DEFAULT, CodePointRangeImpl()) {
                 while (cc != NEW_LINE && cc != END_OF_BUFFER) {
                     when (cc) {
                         COLON -> if (!seenWhitespace) {
-                            val text = mTokenRange.bufferSequence.subSequence(mTokenRange.start, mTokenRange.end)
+                            val text = mTokenRange.bufferSequence.substring(mTokenRange.start, mTokenRange.end)
                             if (state == State.Time) {
                                 popState()
                                 pushState(State.LogLevel)
@@ -156,7 +156,7 @@ class MarkLogicErrorLogLexer : LexerImpl(STATE_DEFAULT, CodePointRangeImpl()) {
         }
     }
 
-    fun keyword(text: CharSequence, state: Int): IElementType = when (state) {
+    fun keyword(text: String, state: Int): IElementType = when (state) {
         State.Time -> when (text) {
             "Finest" -> MarkLogicErrorLogTokenType.LogLevel.FINEST
             "Finer" -> MarkLogicErrorLogTokenType.LogLevel.FINER

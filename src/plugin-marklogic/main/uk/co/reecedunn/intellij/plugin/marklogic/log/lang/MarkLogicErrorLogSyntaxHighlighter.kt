@@ -31,7 +31,19 @@ object MarkLogicErrorLogSyntaxHighlighter : LogFileSyntaxHighlighter() {
 
     override val KEYS = mapOf(
         MarkLogicErrorLogTokenType.DATE to DATE_TIME_KEYS,
-        MarkLogicErrorLogTokenType.TIME to DATE_TIME_KEYS
+        MarkLogicErrorLogTokenType.TIME to DATE_TIME_KEYS,
+        MarkLogicErrorLogTokenType.LogLevel.FINEST to FINEST_KEYS,
+        MarkLogicErrorLogTokenType.LogLevel.FINER to FINER_KEYS,
+        MarkLogicErrorLogTokenType.LogLevel.FINE to FINE_KEYS,
+        MarkLogicErrorLogTokenType.LogLevel.DEBUG to DEBUG_KEYS,
+        MarkLogicErrorLogTokenType.LogLevel.CONFIG to CONFIG_KEYS,
+        MarkLogicErrorLogTokenType.LogLevel.INFO to INFO_KEYS,
+        MarkLogicErrorLogTokenType.LogLevel.NOTICE to NOTICE_KEYS,
+        MarkLogicErrorLogTokenType.LogLevel.WARNING to WARNING_KEYS,
+        MarkLogicErrorLogTokenType.LogLevel.ERROR to ERROR_KEYS,
+        MarkLogicErrorLogTokenType.LogLevel.CRITICAL to CRITICAL_KEYS,
+        MarkLogicErrorLogTokenType.LogLevel.ALERT to ALERT_KEYS,
+        MarkLogicErrorLogTokenType.LogLevel.EMERGENCY to EMERGENCY_KEYS
     )
 
     // endregion
