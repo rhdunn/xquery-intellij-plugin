@@ -24,6 +24,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCaseEx
 import uk.co.reecedunn.intellij.plugin.marklogic.log.lexer.MarkLogicErrorLogLexer
+import uk.co.reecedunn.intellij.plugin.marklogic.log.lexer.MarkLogicErrorLogTokenType
 
 @Suppress("ClassName", "Reformat")
 @DisplayName("MarkLogic ErrorLog - Lexer")
@@ -44,6 +45,22 @@ class MarkLogicErrorLogLexerTest : LexerTestCaseEx() {
         @DisplayName("empty buffer")
         fun emptyBuffer() {
             tokenize("")
+        }
+    }
+
+    @Test
+    @DisplayName("Java exception")
+    fun javaException() {
+        tokenize(
+            "WARNING: JNI local refs: zu, exceeds capacity: zu",
+            "\tat java.lang.System.initProperties(Native Method)",
+            "\tat java.lang.System.initializeSystemClass(System.java:1166)"
+        ) {
+            token("WARNING: JNI local refs: zu, exceeds capacity: zu", MarkLogicErrorLogTokenType.MESSAGE)
+            token("\n", MarkLogicErrorLogTokenType.WHITE_SPACE)
+            token("\tat java.lang.System.initProperties(Native Method)", MarkLogicErrorLogTokenType.MESSAGE)
+            token("\n", MarkLogicErrorLogTokenType.WHITE_SPACE)
+            token("\tat java.lang.System.initializeSystemClass(System.java:1166)", MarkLogicErrorLogTokenType.MESSAGE)
         }
     }
 }

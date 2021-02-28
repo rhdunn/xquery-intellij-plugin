@@ -52,8 +52,28 @@ abstract class LexerTestCase {
 abstract class LexerTestCaseEx : LexerTestCase() {
     abstract val lexer: Lexer
 
-    fun tokenize(text: String) {
+    fun tokenize(text: String, test: LexerTokens.() -> Unit = {}) {
+        val tokens = LexerTokens(lexer)
         lexer.start(text)
-        matchToken(lexer, "", 0, 0, 0, null)
+        tokens.test()
+        matchToken(lexer, "", 0, tokens.end, tokens.end, null)
+    }
+
+    fun tokenize(vararg lines: String, test: LexerTokens.() -> Unit = {}) = tokenize(lines.joinToString("\n"), test)
+
+    class LexerTokens(val lexer: Lexer) {
+        var end: Int = 0
+
+        fun token(text: String, type: IElementType) {
+            val tokenEnd = end + text.length
+            assertThat(lexer.tokenText, `is`(text))
+            assertThat(lexer.state, `is`(0))
+            assertThat(lexer.tokenStart, `is`(end))
+            assertThat(lexer.tokenEnd, `is`(tokenEnd))
+            assertThat(lexer.tokenType, `is`(type))
+
+            end = tokenEnd
+            lexer.advance()
+        }
     }
 }

@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.log.lexer
 
+import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange
 import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRangeImpl
 import uk.co.reecedunn.intellij.plugin.core.lexer.LexerImpl
 import uk.co.reecedunn.intellij.plugin.core.lexer.STATE_DEFAULT
@@ -23,6 +24,24 @@ class MarkLogicErrorLogLexer : LexerImpl(STATE_DEFAULT, CodePointRangeImpl()) {
     // region States
 
     private fun stateDefault() {
+        var c = mTokenRange.codePoint
+        mType = when (c) {
+            CodePointRange.END_OF_BUFFER -> null
+            '\r'.toInt(), '\n'.toInt() -> {
+                while (c == '\r'.toInt() || c == '\n'.toInt()) {
+                    mTokenRange.match()
+                    c = mTokenRange.codePoint
+                }
+                MarkLogicErrorLogTokenType.WHITE_SPACE
+            }
+            else -> {
+                while (c != '\r'.toInt() && c != '\n'.toInt() && c != CodePointRange.END_OF_BUFFER) {
+                    mTokenRange.match()
+                    c = mTokenRange.codePoint
+                }
+                MarkLogicErrorLogTokenType.MESSAGE
+            }
+        }
     }
 
     // endregion
