@@ -33,6 +33,7 @@ data class XPathInsertText(
         val PARAMS: XPathInsertText = XPathInsertText("(", null, ")")
 
         // SequenceType, ItemType, and KindTest parameters
+        val PARAMS_FIELD_DECLS: XPathInsertText = XPathInsertText("(", "field-declaration, field-declaration...", ")")
         val PARAMS_KEY_VALUE_TYPE: XPathInsertText = XPathInsertText("(", "key-type, value-type", ")")
         val PARAMS_KEYNAME: XPathInsertText = XPathInsertText("(", "key-name", ")")
         val PARAMS_NAME: XPathInsertText = XPathInsertText("(", "name", ")")
@@ -42,6 +43,7 @@ data class XPathInsertText(
         val PARAMS_SCHEMA_CONTEXT: XPathInsertText = XPathInsertText("(", "schema-context-or-name?, type?", ")")
         val PARAMS_TYPE: XPathInsertText = XPathInsertText("(", "type", ")")
         val PARAMS_TYPES: XPathInsertText = XPathInsertText("(", "type, type...", ")")
+        val PARAMS_VALUES: XPathInsertText = XPathInsertText("(", "\"value\", \"value\"...", ")")
         val PARAMS_WILDCARD: XPathInsertText = XPathInsertText("(*)", null, null)
         val PARAMS_WILDCARD_AND_TYPE: XPathInsertText = XPathInsertText("(*, ", "type", ")")
         val TYPED_FUNCTION: XPathInsertText = XPathInsertText("(", "sequence-types", ")", " as sequence-type")

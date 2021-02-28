@@ -53,6 +53,19 @@ object XPathItemTypeProvider : CompletionProviderEx {
         XPathKeywordLookup("map", XPathInsertText.PARAMS_KEY_VALUE_TYPE)
     )
 
+    private val XPATH_40_ITEM_TYPES = listOf(
+        XPathKeywordLookup("array", XPathInsertText.PARAMS_WILDCARD),
+        XPathKeywordLookup("array", XPathInsertText.PARAMS_TYPE),
+        XPathKeywordLookup("enum", XPathInsertText.PARAMS_VALUES),
+        XPathKeywordLookup("function", XPathInsertText.PARAMS_WILDCARD),
+        XPathKeywordLookup("function", XPathInsertText.TYPED_FUNCTION),
+        XPathKeywordLookup("item", XPathInsertText.EMPTY_PARAMS),
+        XPathKeywordLookup("map", XPathInsertText.PARAMS_WILDCARD),
+        XPathKeywordLookup("map", XPathInsertText.PARAMS_KEY_VALUE_TYPE),
+        XPathKeywordLookup("record", XPathInsertText.PARAMS_FIELD_DECLS),
+        XPathKeywordLookup("union", XPathInsertText.PARAMS_TYPES)
+    )
+
     override fun apply(element: PsiElement, context: ProcessingContext, result: CompletionResultSet) {
         when (context[XPathCompletionProperty.XPATH_VERSION]) {
             XPathSpec.WD_2_0_20030502 -> result.addAllElements(XPATH_20_ITEM_TYPES)
@@ -66,7 +79,7 @@ object XPathItemTypeProvider : CompletionProviderEx {
             }
             XPathSpec.CR_3_1_20151217 -> result.addAllElements(XPATH_31_ITEM_TYPES)
             XPathSpec.REC_3_1_20170321 -> result.addAllElements(XPATH_31_ITEM_TYPES)
-            XPathSpec.ED_4_0_20210113 -> result.addAllElements(XPATH_31_ITEM_TYPES)
+            XPathSpec.ED_4_0_20210113 -> result.addAllElements(XPATH_40_ITEM_TYPES)
             else -> {
             }
         }
