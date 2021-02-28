@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.log.lexer
 
+import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange
 import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRangeImpl
 import uk.co.reecedunn.intellij.plugin.core.lexer.LexerImpl
@@ -28,20 +29,25 @@ class MarkLogicErrorLogLexer : LexerImpl(STATE_DEFAULT, CodePointRangeImpl()) {
         private const val MESSAGE: Int = -2
         private const val NEW_LINE: Int = -3
         private const val DIGIT: Int = -4
+        private const val WHITE_SPACE: Int = -5
 
-        private const val HYPHEN_MINUS: Int = 7
+        private const val HYPHEN_MINUS: Int = 1
+        private const val DOT: Int = 2
+        private const val COLON: Int = 3
 
+        private const val CLN = COLON
         private const val DIG = DIGIT
         private const val MIN = HYPHEN_MINUS
         private const val MSG = MESSAGE
         private const val NEL = NEW_LINE
+        private const val WSP = WHITE_SPACE
 
         private val characterClasses = intArrayOf(
             //////// x0   x1   x2   x3   x4   x5   x6   x7   x8   x9   xA   xB   xC   xD   xE   xF
-            /* 0x */ MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, NEL, MSG, MSG, NEL, MSG, MSG,
+            /* 0x */ MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, WSP, NEL, MSG, MSG, NEL, MSG, MSG,
             /* 1x */ MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG,
-            /* 2x */ MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MIN, MSG, MSG,
-            /* 3x */ DIG, DIG, DIG, DIG, DIG, DIG, DIG, DIG, DIG, DIG, MSG, MSG, MSG, MSG, MSG, MSG,
+            /* 2x */ WSP, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MIN, DOT, MSG,
+            /* 3x */ DIG, DIG, DIG, DIG, DIG, DIG, DIG, DIG, DIG, DIG, CLN, MSG, MSG, MSG, MSG, MSG,
             /* 4x */ MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG,
             /* 5x */ MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG,
             /* 6x */ MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG,
@@ -59,9 +65,13 @@ class MarkLogicErrorLogLexer : LexerImpl(STATE_DEFAULT, CodePointRangeImpl()) {
     // endregion
     // region States
 
-    private fun stateDefault() {
+    object State {
+        const val Time = 1
+    }
+
+    private fun stateDefault(): IElementType? {
         var cc = getCharacterClass(mTokenRange.codePoint)
-        mType = when (cc) {
+        return when (cc) {
             END_OF_BUFFER -> null
             NEW_LINE -> {
                 while (cc == NEW_LINE) {
@@ -75,7 +85,40 @@ class MarkLogicErrorLogLexer : LexerImpl(STATE_DEFAULT, CodePointRangeImpl()) {
                     mTokenRange.match()
                     cc = getCharacterClass(mTokenRange.codePoint)
                 }
+                pushState(State.Time)
                 MarkLogicErrorLogTokenType.DATE
+            }
+            else -> {
+                while (cc != NEW_LINE && cc != END_OF_BUFFER) {
+                    mTokenRange.match()
+                    cc = getCharacterClass(mTokenRange.codePoint)
+                }
+                MarkLogicErrorLogTokenType.MESSAGE
+            }
+        }
+    }
+
+    private fun stateTime(): IElementType? {
+        var cc = getCharacterClass(mTokenRange.codePoint)
+        return when (cc) {
+            END_OF_BUFFER -> null
+            NEW_LINE -> {
+                popState()
+                stateDefault()
+            }
+            WHITE_SPACE -> {
+                while (cc == WHITE_SPACE) {
+                    mTokenRange.match()
+                    cc = getCharacterClass(mTokenRange.codePoint)
+                }
+                MarkLogicErrorLogTokenType.WHITE_SPACE
+            }
+            DIGIT -> {
+                while (cc == DIGIT || cc == COLON || cc == DOT) {
+                    mTokenRange.match()
+                    cc = getCharacterClass(mTokenRange.codePoint)
+                }
+                MarkLogicErrorLogTokenType.TIME
             }
             else -> {
                 while (cc != NEW_LINE && cc != END_OF_BUFFER) {
@@ -90,9 +133,12 @@ class MarkLogicErrorLogLexer : LexerImpl(STATE_DEFAULT, CodePointRangeImpl()) {
     // endregion
     // region Lexer
 
-    override fun advance(state: Int) = when (state) {
-        STATE_DEFAULT -> stateDefault()
-        else -> throw AssertionError("Invalid state: $state")
+    override fun advance(state: Int) {
+        mType = when (state) {
+            STATE_DEFAULT -> stateDefault()
+            State.Time -> stateTime()
+            else -> throw AssertionError("Invalid state: $state")
+        }
     }
 
     // endregion

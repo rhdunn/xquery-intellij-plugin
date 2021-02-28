@@ -65,11 +65,55 @@ class MarkLogicErrorLogLexerTest : LexerTestCaseEx() {
     }
 
     @Test
+    @DisplayName("date only")
+    fun dateOnly() {
+        tokenize("2001-01-10", "2001-01-11", "2001-01-12") {
+            token("2001-01-10", MarkLogicErrorLogTokenType.DATE)
+            state(1)
+            token("\n", MarkLogicErrorLogTokenType.WHITE_SPACE)
+            state(0)
+            token("2001-01-11", MarkLogicErrorLogTokenType.DATE)
+            state(1)
+            token("\n", MarkLogicErrorLogTokenType.WHITE_SPACE)
+            state(0)
+            token("2001-01-12", MarkLogicErrorLogTokenType.DATE)
+            state(1)
+        }
+    }
+
+    @Test
+    @DisplayName("date and time only")
+    fun dateAndTimeOnly() {
+        tokenize("2001-01-10 12:34:56.789", "2001-01-11 12:34:56.789", "2001-01-12 12:34:56.789") {
+            token("2001-01-10", MarkLogicErrorLogTokenType.DATE)
+            state(1)
+            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
+            token("12:34:56.789", MarkLogicErrorLogTokenType.TIME)
+            token("\n", MarkLogicErrorLogTokenType.WHITE_SPACE)
+            state(0)
+            token("2001-01-11", MarkLogicErrorLogTokenType.DATE)
+            state(1)
+            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
+            token("12:34:56.789", MarkLogicErrorLogTokenType.TIME)
+            token("\n", MarkLogicErrorLogTokenType.WHITE_SPACE)
+            state(0)
+            token("2001-01-12", MarkLogicErrorLogTokenType.DATE)
+            state(1)
+            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
+            token("12:34:56.789", MarkLogicErrorLogTokenType.TIME)
+        }
+    }
+
+    @Test
     @DisplayName("simple message (MarkLogic >= 9.0)")
     fun simpleMessage() {
         tokenize("2001-01-10 12:34:56.789 Info: Lorem ipsum dolor") {
             token("2001-01-10", MarkLogicErrorLogTokenType.DATE)
-            token(" 12:34:56.789 Info: Lorem ipsum dolor", MarkLogicErrorLogTokenType.MESSAGE)
+            state(1)
+            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
+            token("12:34:56.789", MarkLogicErrorLogTokenType.TIME)
+            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
+            token("Info: Lorem ipsum dolor", MarkLogicErrorLogTokenType.MESSAGE)
         }
     }
 }
