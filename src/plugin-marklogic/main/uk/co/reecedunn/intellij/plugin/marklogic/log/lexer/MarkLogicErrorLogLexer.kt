@@ -21,23 +21,54 @@ import uk.co.reecedunn.intellij.plugin.core.lexer.LexerImpl
 import uk.co.reecedunn.intellij.plugin.core.lexer.STATE_DEFAULT
 
 class MarkLogicErrorLogLexer : LexerImpl(STATE_DEFAULT, CodePointRangeImpl()) {
+    // region Character Classes
+
+    companion object {
+        private const val END_OF_BUFFER: Int = -1
+        private const val MESSAGE: Int = 1
+        private const val NEW_LINE: Int = 2
+
+        private const val MSG = MESSAGE
+        private const val NEL = NEW_LINE
+
+        private val characterClasses = intArrayOf(
+            //////// x0   x1   x2   x3   x4   x5   x6   x7   x8   x9   xA   xB   xC   xD   xE   xF
+            /* 0x */ MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, NEL, MSG, MSG, NEL, MSG, MSG,
+            /* 1x */ MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG,
+            /* 2x */ MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG,
+            /* 3x */ MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG,
+            /* 4x */ MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG,
+            /* 5x */ MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG,
+            /* 6x */ MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG,
+            /* 7x */ MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG
+        )
+
+        fun getCharacterClass(c: Int): Int {
+            if (c < characterClasses.size) { // 0x0000-0x0079
+                return if (c == CodePointRange.END_OF_BUFFER) END_OF_BUFFER else characterClasses[c]
+            }
+            return MESSAGE
+        }
+    }
+
+    // endregion
     // region States
 
     private fun stateDefault() {
-        var c = mTokenRange.codePoint
-        mType = when (c) {
-            CodePointRange.END_OF_BUFFER -> null
-            '\r'.toInt(), '\n'.toInt() -> {
-                while (c == '\r'.toInt() || c == '\n'.toInt()) {
+        var cc = getCharacterClass(mTokenRange.codePoint)
+        mType = when (cc) {
+            END_OF_BUFFER -> null
+            NEW_LINE -> {
+                while (cc == NEW_LINE) {
                     mTokenRange.match()
-                    c = mTokenRange.codePoint
+                    cc = getCharacterClass(mTokenRange.codePoint)
                 }
                 MarkLogicErrorLogTokenType.WHITE_SPACE
             }
             else -> {
-                while (c != '\r'.toInt() && c != '\n'.toInt() && c != CodePointRange.END_OF_BUFFER) {
+                while (cc == MESSAGE) {
                     mTokenRange.match()
-                    c = mTokenRange.codePoint
+                    cc = getCharacterClass(mTokenRange.codePoint)
                 }
                 MarkLogicErrorLogTokenType.MESSAGE
             }
