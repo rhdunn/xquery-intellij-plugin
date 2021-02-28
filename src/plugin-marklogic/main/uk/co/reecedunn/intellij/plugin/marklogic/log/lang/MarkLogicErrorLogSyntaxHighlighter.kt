@@ -16,25 +16,23 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.log.lang
 
 import com.intellij.lexer.Lexer
-import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.fileTypes.SyntaxHighlighter
-import com.intellij.openapi.fileTypes.SyntaxHighlighterBase
 import com.intellij.openapi.fileTypes.SyntaxHighlighterFactory
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
-import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.marklogic.log.lexer.MarkLogicErrorLogLexer
 import uk.co.reecedunn.intellij.plugin.marklogic.log.lexer.MarkLogicErrorLogTokenType
-import uk.co.reecedunn.intellij.plugin.processor.log.LogFileContentType
+import uk.co.reecedunn.intellij.plugin.processor.log.lang.LogFileSyntaxHighlighter
 
-object MarkLogicErrorLogSyntaxHighlighter : SyntaxHighlighterBase() {
+object MarkLogicErrorLogSyntaxHighlighter : LogFileSyntaxHighlighter() {
     // region SyntaxHighlighter
 
     override fun getHighlightingLexer(): Lexer = MarkLogicErrorLogLexer()
 
-    override fun getTokenHighlights(type: IElementType): Array<out TextAttributesKey> {
-        return KEYS.getOrDefault(type, TextAttributesKey.EMPTY_ARRAY)
-    }
+    override val KEYS = mapOf(
+        MarkLogicErrorLogTokenType.DATE to DATE_TIME_KEYS,
+        MarkLogicErrorLogTokenType.TIME to DATE_TIME_KEYS
+    )
 
     // endregion
     // region SyntaxHighlighterFactory
@@ -44,19 +42,6 @@ object MarkLogicErrorLogSyntaxHighlighter : SyntaxHighlighterBase() {
             return MarkLogicErrorLogSyntaxHighlighter
         }
     }
-
-    // endregion
-    // region Syntax Highlighting (Lexical Tokens)
-
-    private val DATE_TIME_KEYS = pack(LogFileContentType.DATE_TIME_KEY)
-
-    // endregion
-    // region Keys
-
-    private val KEYS = mapOf<IElementType, Array<TextAttributesKey>>(
-        MarkLogicErrorLogTokenType.DATE to DATE_TIME_KEYS,
-        MarkLogicErrorLogTokenType.TIME to DATE_TIME_KEYS
-    )
 
     // endregion
 }
