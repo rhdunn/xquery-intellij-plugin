@@ -16,6 +16,8 @@
     <fileType name="MLErrorLog" language="MLErrorLog" patterns="ErrorLog.txt;*_ErrorLog.txt;ErrorLog_*.txt;*_ErrorLog_*.txt"
               implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.log.fileTypes.MarkLogicErrorLogFileType"
               fieldName="INSTANCE"/>
+
+    <lang.parserDefinition language="MLErrorLog" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.log.lang.MarkLogicErrorLog$ParserDefinition"/>
   </extensions>
 
   <extensions defaultExtensionNs="uk.co.reecedunn.intellij">

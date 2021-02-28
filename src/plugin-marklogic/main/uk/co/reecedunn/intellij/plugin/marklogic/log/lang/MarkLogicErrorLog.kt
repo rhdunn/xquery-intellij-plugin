@@ -15,11 +15,52 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.log.lang
 
+import com.intellij.lang.ASTNode
 import com.intellij.lang.Language
+import com.intellij.lang.ParserDefinition as LanguageParserDefinition
+import com.intellij.lang.PsiParser
+import com.intellij.lexer.Lexer
+import com.intellij.openapi.project.Project
+import com.intellij.psi.FileViewProvider
+import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiFile
+import com.intellij.psi.tree.IFileElementType
+import com.intellij.psi.tree.TokenSet
+import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
 import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicBundle
 
 object MarkLogicErrorLog : Language("MLErrorLog") {
+    // region Language
+
     override fun isCaseSensitive(): Boolean = true
 
     override fun getDisplayName(): String = MarkLogicBundle.message("language.error-log.display-name")
+
+    // endregion
+    // region Parser Definition
+
+    class ParserDefinition : LanguageParserDefinition {
+        override fun createLexer(project: Project): Lexer = TODO()
+
+        override fun createParser(project: Project): PsiParser = TODO()
+
+        override fun getFileNodeType(): IFileElementType = TODO()
+
+        override fun getCommentTokens(): TokenSet = TokenSet.EMPTY
+
+        override fun getStringLiteralElements(): TokenSet = TokenSet.EMPTY
+
+        override fun createElement(node: ASTNode): PsiElement {
+            val type = node.elementType
+            if (type is ICompositeElementType) {
+                return type.createPsiElement(node)
+            }
+
+            throw AssertionError("Alien element type [$type]. Can't create PsiElement for that.")
+        }
+
+        override fun createFile(viewProvider: FileViewProvider): PsiFile = TODO()
+    }
+
+    // endregion
 }
