@@ -34,19 +34,21 @@ class MarkLogicErrorLogLexer : LexerImpl(STATE_DEFAULT, CodePointRangeImpl()) {
         private const val HYPHEN_MINUS: Int = 1
         private const val DOT: Int = 2
         private const val COLON: Int = 3
+        private const val PLUS: Int = 4
 
         private const val CLN = COLON
         private const val DIG = DIGIT
         private const val MIN = HYPHEN_MINUS
         private const val MSG = MESSAGE
         private const val NEL = NEW_LINE
+        private const val PLS = PLUS
         private const val WSP = WHITE_SPACE
 
         private val characterClasses = intArrayOf(
             //////// x0   x1   x2   x3   x4   x5   x6   x7   x8   x9   xA   xB   xC   xD   xE   xF
             /* 0x */ MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, WSP, NEL, MSG, MSG, NEL, MSG, MSG,
             /* 1x */ MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG,
-            /* 2x */ WSP, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MIN, DOT, MSG,
+            /* 2x */ WSP, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, PLS, MSG, MIN, DOT, MSG,
             /* 3x */ DIG, DIG, DIG, DIG, DIG, DIG, DIG, DIG, DIG, DIG, CLN, MSG, MSG, MSG, MSG, MSG,
             /* 4x */ MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG,
             /* 5x */ MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG,
@@ -123,6 +125,10 @@ class MarkLogicErrorLogLexer : LexerImpl(STATE_DEFAULT, CodePointRangeImpl()) {
             COLON -> {
                 mTokenRange.match()
                 MarkLogicErrorLogTokenType.COLON
+            }
+            PLUS -> {
+                mTokenRange.match()
+                MarkLogicErrorLogTokenType.CONTINUATION
             }
             else -> {
                 var seenWhitespace = false

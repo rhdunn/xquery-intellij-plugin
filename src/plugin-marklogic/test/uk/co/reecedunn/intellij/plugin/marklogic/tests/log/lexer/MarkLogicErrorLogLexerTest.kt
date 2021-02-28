@@ -169,7 +169,8 @@ class MarkLogicErrorLogLexerTest : LexerTestCaseEx() {
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
             token("Info", MarkLogicErrorLogTokenType.SERVER)
             token(":", MarkLogicErrorLogTokenType.COLON)
-            token("+Lorem ipsum dolor", MarkLogicErrorLogTokenType.MESSAGE)
+            token("+", MarkLogicErrorLogTokenType.CONTINUATION)
+            token("Lorem ipsum dolor", MarkLogicErrorLogTokenType.MESSAGE)
         }
     }
 }

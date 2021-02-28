@@ -28,4 +28,5 @@ object MarkLogicErrorLogTokenType {
     val MESSAGE: IElementType = IElementType("MARK_LOGIC_ERROR_LOG_MESSAGE", MarkLogicErrorLog)
 
     val COLON: IElementType = IElementType("MARK_LOGIC_ERROR_LOG_COLON", MarkLogicErrorLog)
+    val CONTINUATION: IElementType = IElementType("MARK_LOGIC_ERROR_LOG_CONTINUATION", MarkLogicErrorLog)
 }
