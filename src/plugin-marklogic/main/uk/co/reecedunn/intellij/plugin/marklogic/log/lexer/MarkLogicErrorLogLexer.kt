@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.lexer.STATE_DEFAULT
 class MarkLogicErrorLogLexer : LexerImpl(STATE_DEFAULT, CodePointRangeImpl()) {
     // region Lexer
 
-    override fun advance() {
+    override fun advance(state: Int) {
     }
 
     // endregion

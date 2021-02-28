@@ -77,5 +77,9 @@ abstract class LexerImpl(private val baseState: Int, protected val mTokenRange: 
 
     override fun getBufferEnd(): Int = mTokenRange.bufferEnd
 
+    override fun advance() = advance(nextState())
+
+    abstract fun advance(state: Int)
+
     // endregion
 }

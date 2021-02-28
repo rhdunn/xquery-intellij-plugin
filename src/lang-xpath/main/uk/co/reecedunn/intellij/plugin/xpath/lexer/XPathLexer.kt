@@ -569,9 +569,7 @@ open class XPathLexer(tokenRange: CodePointRange) : LexerImpl(STATE_DEFAULT, tok
     // endregion
     // region Lexer
 
-    override fun advance(): Unit = advance(nextState())
-
-    open fun advance(state: Int): Unit = when (state) {
+    override fun advance(state: Int): Unit = when (state) {
         STATE_DEFAULT -> stateDefault(state)
         STATE_STRING_LITERAL_QUOTE -> stateStringLiteral('"')
         STATE_STRING_LITERAL_APOSTROPHE -> stateStringLiteral('\'')

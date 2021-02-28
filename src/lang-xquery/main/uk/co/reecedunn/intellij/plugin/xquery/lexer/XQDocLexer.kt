@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Reece H. Dunn
+ * Copyright (C) 2016-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -407,21 +407,19 @@ class XQDocLexer : LexerImpl(STATE_CONTENTS, CodePointRangeImpl()) {
     // endregion
     // region Lexer
 
-    override fun advance() {
-        when (nextState()) {
-            STATE_DEFAULT -> stateDefault()
-            STATE_CONTENTS -> stateContents()
-            STATE_TAGGED_CONTENTS -> stateTaggedContents()
-            STATE_ELEM_CONSTRUCTOR, STATE_ELEM_CONSTRUCTOR_CLOSING -> stateElemConstructor(state)
-            STATE_ELEM_CONTENTS -> stateElemContents()
-            STATE_ATTRIBUTE_VALUE_QUOTE -> stateAttributeValue('"'.toInt())
-            STATE_ATTRIBUTE_VALUE_APOS -> stateAttributeValue('\''.toInt())
-            STATE_TRIM, STATE_XQUERY_CONTENTS_TRIM -> stateTrim(state)
-            STATE_PARAM_TAG_CONTENTS_START -> stateParamTagContentsStart()
-            STATE_PARAM_TAG_VARNAME -> stateParamTagVarName()
-            STATE_XQUERY_CONTENTS -> stateXQueryContents()
-            else -> throw AssertionError("Invalid state: $state")
-        }
+    override fun advance(state: Int): Unit = when (state) {
+        STATE_DEFAULT -> stateDefault()
+        STATE_CONTENTS -> stateContents()
+        STATE_TAGGED_CONTENTS -> stateTaggedContents()
+        STATE_ELEM_CONSTRUCTOR, STATE_ELEM_CONSTRUCTOR_CLOSING -> stateElemConstructor(state)
+        STATE_ELEM_CONTENTS -> stateElemContents()
+        STATE_ATTRIBUTE_VALUE_QUOTE -> stateAttributeValue('"'.toInt())
+        STATE_ATTRIBUTE_VALUE_APOS -> stateAttributeValue('\''.toInt())
+        STATE_TRIM, STATE_XQUERY_CONTENTS_TRIM -> stateTrim(state)
+        STATE_PARAM_TAG_CONTENTS_START -> stateParamTagContentsStart()
+        STATE_PARAM_TAG_VARNAME -> stateParamTagVarName()
+        STATE_XQUERY_CONTENTS -> stateXQueryContents()
+        else -> throw AssertionError("Invalid state: $state")
     }
 
     // endregion
