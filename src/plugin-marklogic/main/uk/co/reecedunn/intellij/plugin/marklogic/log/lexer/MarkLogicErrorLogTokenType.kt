@@ -29,4 +29,19 @@ object MarkLogicErrorLogTokenType {
 
     val COLON: IElementType = IElementType("MARK_LOGIC_ERROR_LOG_COLON", MarkLogicErrorLog)
     val CONTINUATION: IElementType = IElementType("MARK_LOGIC_ERROR_LOG_CONTINUATION", MarkLogicErrorLog)
+
+    object LogLevel {
+        val FINEST: IElementType = IElementType("MARK_LOGIC_ERROR_LOG_LEVEL_FINEST", MarkLogicErrorLog)
+        val FINER: IElementType = IElementType("MARK_LOGIC_ERROR_LOG_LEVEL_FINER", MarkLogicErrorLog)
+        val FINE: IElementType = IElementType("MARK_LOGIC_ERROR_LOG_LEVEL_FINE", MarkLogicErrorLog)
+        val DEBUG: IElementType = IElementType("MARK_LOGIC_ERROR_LOG_LEVEL_DEBUG", MarkLogicErrorLog)
+        val CONFIG: IElementType = IElementType("MARK_LOGIC_ERROR_LOG_LEVEL_CONFIG", MarkLogicErrorLog)
+        val INFO: IElementType = IElementType("MARK_LOGIC_ERROR_LOG_LEVEL_INFO", MarkLogicErrorLog)
+        val NOTICE: IElementType = IElementType("MARK_LOGIC_ERROR_LOG_LEVEL_NOTICE", MarkLogicErrorLog)
+        val WARNING: IElementType = IElementType("MARK_LOGIC_ERROR_LOG_LEVEL_WARNING", MarkLogicErrorLog)
+        val ERROR: IElementType = IElementType("MARK_LOGIC_ERROR_LOG_LEVEL_ERROR", MarkLogicErrorLog)
+        val CRITICAL: IElementType = IElementType("MARK_LOGIC_ERROR_LOG_LEVEL_CRITICAL", MarkLogicErrorLog)
+        val ALERT: IElementType = IElementType("MARK_LOGIC_ERROR_LOG_LEVEL_ALERT", MarkLogicErrorLog)
+        val EMERGENCY: IElementType = IElementType("MARK_LOGIC_ERROR_LOG_LEVEL_EMERGENCY", MarkLogicErrorLog)
+    }
 }

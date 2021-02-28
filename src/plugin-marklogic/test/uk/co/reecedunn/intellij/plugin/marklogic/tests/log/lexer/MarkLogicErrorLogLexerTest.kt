@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.tests.log.lexer
 
 import com.intellij.lexer.Lexer
+import com.intellij.psi.tree.IElementType
 import org.hamcrest.core.Is.`is`
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.DisplayName
@@ -113,7 +114,7 @@ class MarkLogicErrorLogLexerTest : LexerTestCaseEx() {
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
             token("12:34:56.789", MarkLogicErrorLogTokenType.TIME)
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
-            token("Info", MarkLogicErrorLogTokenType.SERVER)
+            token("Info", MarkLogicErrorLogTokenType.LogLevel.INFO)
             token(":", MarkLogicErrorLogTokenType.COLON)
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
             token("Lorem ipsum dolor", MarkLogicErrorLogTokenType.MESSAGE)
@@ -129,7 +130,7 @@ class MarkLogicErrorLogLexerTest : LexerTestCaseEx() {
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
             token("12:34:56.789", MarkLogicErrorLogTokenType.TIME)
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
-            token("Debug", MarkLogicErrorLogTokenType.SERVER)
+            token("Debug", MarkLogicErrorLogTokenType.LogLevel.DEBUG)
             token(":", MarkLogicErrorLogTokenType.COLON)
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
             token("TaskServer", MarkLogicErrorLogTokenType.SERVER)
@@ -148,7 +149,7 @@ class MarkLogicErrorLogLexerTest : LexerTestCaseEx() {
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
             token("12:34:56.789", MarkLogicErrorLogTokenType.TIME)
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
-            token("Debug", MarkLogicErrorLogTokenType.SERVER)
+            token("Debug", MarkLogicErrorLogTokenType.LogLevel.DEBUG)
             token(":", MarkLogicErrorLogTokenType.COLON)
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
             token("abc-2d_3e", MarkLogicErrorLogTokenType.SERVER)
@@ -167,10 +168,42 @@ class MarkLogicErrorLogLexerTest : LexerTestCaseEx() {
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
             token("12:34:56.789", MarkLogicErrorLogTokenType.TIME)
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
-            token("Info", MarkLogicErrorLogTokenType.SERVER)
+            token("Info", MarkLogicErrorLogTokenType.LogLevel.INFO)
             token(":", MarkLogicErrorLogTokenType.COLON)
             token("+", MarkLogicErrorLogTokenType.CONTINUATION)
             token("Lorem ipsum dolor", MarkLogicErrorLogTokenType.MESSAGE)
         }
+    }
+
+    private fun logLevel(level: String, token: IElementType) {
+        tokenize("2001-01-10 12:34:56.789 $level: Lorem ipsum dolor") {
+            token("2001-01-10", MarkLogicErrorLogTokenType.DATE)
+            state(1)
+            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
+            token("12:34:56.789", MarkLogicErrorLogTokenType.TIME)
+            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
+            token(level, token)
+            token(":", MarkLogicErrorLogTokenType.COLON)
+            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
+            token("Lorem ipsum dolor", MarkLogicErrorLogTokenType.MESSAGE)
+        }
+    }
+
+    @Test
+    @DisplayName("log levels")
+    fun logLevels() {
+        logLevel("Finest", MarkLogicErrorLogTokenType.LogLevel.FINEST)
+        logLevel("Finer", MarkLogicErrorLogTokenType.LogLevel.FINER)
+        logLevel("Fine", MarkLogicErrorLogTokenType.LogLevel.FINE)
+        logLevel("Debug", MarkLogicErrorLogTokenType.LogLevel.DEBUG)
+        logLevel("Config", MarkLogicErrorLogTokenType.LogLevel.CONFIG)
+        logLevel("Info", MarkLogicErrorLogTokenType.LogLevel.INFO)
+        logLevel("Notice", MarkLogicErrorLogTokenType.LogLevel.NOTICE)
+        logLevel("Warning", MarkLogicErrorLogTokenType.LogLevel.WARNING)
+        logLevel("Error", MarkLogicErrorLogTokenType.LogLevel.ERROR)
+        logLevel("Critical", MarkLogicErrorLogTokenType.LogLevel.CRITICAL)
+        logLevel("Alert", MarkLogicErrorLogTokenType.LogLevel.ALERT)
+        logLevel("Emergency", MarkLogicErrorLogTokenType.LogLevel.EMERGENCY)
+        logLevel("Unknown", MarkLogicErrorLogTokenType.SERVER)
     }
 }

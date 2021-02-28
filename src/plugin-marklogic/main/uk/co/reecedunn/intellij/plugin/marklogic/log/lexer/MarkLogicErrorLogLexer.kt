@@ -135,7 +135,7 @@ class MarkLogicErrorLogLexer : LexerImpl(STATE_DEFAULT, CodePointRangeImpl()) {
                 while (cc != NEW_LINE && cc != END_OF_BUFFER) {
                     when (cc) {
                         COLON -> if (!seenWhitespace) {
-                            return MarkLogicErrorLogTokenType.SERVER
+                            return keyword(mTokenRange.bufferSequence.subSequence(mTokenRange.start, mTokenRange.end))
                         }
                         WHITE_SPACE -> seenWhitespace = true
                         else -> {
@@ -147,6 +147,22 @@ class MarkLogicErrorLogLexer : LexerImpl(STATE_DEFAULT, CodePointRangeImpl()) {
                 MarkLogicErrorLogTokenType.MESSAGE
             }
         }
+    }
+
+    fun keyword(text: CharSequence): IElementType = when (text) {
+        "Finest" -> MarkLogicErrorLogTokenType.LogLevel.FINEST
+        "Finer" -> MarkLogicErrorLogTokenType.LogLevel.FINER
+        "Fine" -> MarkLogicErrorLogTokenType.LogLevel.FINE
+        "Debug" -> MarkLogicErrorLogTokenType.LogLevel.DEBUG
+        "Config" -> MarkLogicErrorLogTokenType.LogLevel.CONFIG
+        "Info" -> MarkLogicErrorLogTokenType.LogLevel.INFO
+        "Notice" -> MarkLogicErrorLogTokenType.LogLevel.NOTICE
+        "Warning" -> MarkLogicErrorLogTokenType.LogLevel.WARNING
+        "Error" -> MarkLogicErrorLogTokenType.LogLevel.ERROR
+        "Critical" -> MarkLogicErrorLogTokenType.LogLevel.CRITICAL
+        "Alert" -> MarkLogicErrorLogTokenType.LogLevel.ALERT
+        "Emergency" -> MarkLogicErrorLogTokenType.LogLevel.EMERGENCY
+        else -> MarkLogicErrorLogTokenType.SERVER
     }
 
     // endregion
