@@ -25,9 +25,14 @@ class MarkLogicErrorLogLexer : LexerImpl(STATE_DEFAULT, CodePointRangeImpl()) {
 
     companion object {
         private const val END_OF_BUFFER: Int = -1
-        private const val MESSAGE: Int = 1
-        private const val NEW_LINE: Int = 2
+        private const val MESSAGE: Int = -2
+        private const val NEW_LINE: Int = -3
+        private const val DIGIT: Int = -4
 
+        private const val HYPHEN_MINUS: Int = 7
+
+        private const val DIG = DIGIT
+        private const val MIN = HYPHEN_MINUS
         private const val MSG = MESSAGE
         private const val NEL = NEW_LINE
 
@@ -35,8 +40,8 @@ class MarkLogicErrorLogLexer : LexerImpl(STATE_DEFAULT, CodePointRangeImpl()) {
             //////// x0   x1   x2   x3   x4   x5   x6   x7   x8   x9   xA   xB   xC   xD   xE   xF
             /* 0x */ MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, NEL, MSG, MSG, NEL, MSG, MSG,
             /* 1x */ MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG,
-            /* 2x */ MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG,
-            /* 3x */ MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG,
+            /* 2x */ MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MIN, MSG, MSG,
+            /* 3x */ DIG, DIG, DIG, DIG, DIG, DIG, DIG, DIG, DIG, DIG, MSG, MSG, MSG, MSG, MSG, MSG,
             /* 4x */ MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG,
             /* 5x */ MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG,
             /* 6x */ MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG, MSG,
@@ -65,8 +70,15 @@ class MarkLogicErrorLogLexer : LexerImpl(STATE_DEFAULT, CodePointRangeImpl()) {
                 }
                 MarkLogicErrorLogTokenType.WHITE_SPACE
             }
+            DIGIT -> {
+                while (cc == DIGIT || cc == HYPHEN_MINUS) {
+                    mTokenRange.match()
+                    cc = getCharacterClass(mTokenRange.codePoint)
+                }
+                MarkLogicErrorLogTokenType.DATE
+            }
             else -> {
-                while (cc == MESSAGE) {
+                while (cc != NEW_LINE && cc != END_OF_BUFFER) {
                     mTokenRange.match()
                     cc = getCharacterClass(mTokenRange.codePoint)
                 }

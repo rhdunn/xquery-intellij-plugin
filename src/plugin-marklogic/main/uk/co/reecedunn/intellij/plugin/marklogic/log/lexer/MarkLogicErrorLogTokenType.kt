@@ -22,5 +22,6 @@ import uk.co.reecedunn.intellij.plugin.marklogic.log.lang.MarkLogicErrorLog
 object MarkLogicErrorLogTokenType {
     val WHITE_SPACE: IElementType = TokenType.WHITE_SPACE
 
+    val DATE: IElementType = IElementType("MARK_LOGIC_ERROR_LOG_DATE", MarkLogicErrorLog)
     val MESSAGE: IElementType = IElementType("MARK_LOGIC_ERROR_LOG_MESSAGE", MarkLogicErrorLog)
 }

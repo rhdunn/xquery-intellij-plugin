@@ -63,4 +63,13 @@ class MarkLogicErrorLogLexerTest : LexerTestCaseEx() {
             token("\tat java.lang.System.initializeSystemClass(System.java:1166)", MarkLogicErrorLogTokenType.MESSAGE)
         }
     }
+
+    @Test
+    @DisplayName("simple message (MarkLogic >= 9.0)")
+    fun simpleMessage() {
+        tokenize("2001-01-10 12:34:56.789 Info: Lorem ipsum dolor") {
+            token("2001-01-10", MarkLogicErrorLogTokenType.DATE)
+            token(" 12:34:56.789 Info: Lorem ipsum dolor", MarkLogicErrorLogTokenType.MESSAGE)
+        }
+    }
 }
