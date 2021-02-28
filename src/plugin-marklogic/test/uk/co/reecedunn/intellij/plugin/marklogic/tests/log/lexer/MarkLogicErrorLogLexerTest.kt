@@ -142,4 +142,17 @@ class MarkLogicErrorLogLexerTest : LexerTestCaseEx() {
             token("Debug: abc-2d_3e: Lorem ipsum dolor", MarkLogicErrorLogTokenType.MESSAGE)
         }
     }
+
+    @Test
+    @DisplayName("message continuation (MarkLogic >= 9.0)")
+    fun messageContinuation() {
+        tokenize("2001-01-10 12:34:56.789 Info:+Lorem ipsum dolor") {
+            token("2001-01-10", MarkLogicErrorLogTokenType.DATE)
+            state(1)
+            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
+            token("12:34:56.789", MarkLogicErrorLogTokenType.TIME)
+            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
+            token("Info:+Lorem ipsum dolor", MarkLogicErrorLogTokenType.MESSAGE)
+        }
+    }
 }
