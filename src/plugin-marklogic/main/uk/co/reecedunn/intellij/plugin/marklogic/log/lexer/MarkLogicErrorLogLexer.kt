@@ -20,9 +20,17 @@ import uk.co.reecedunn.intellij.plugin.core.lexer.LexerImpl
 import uk.co.reecedunn.intellij.plugin.core.lexer.STATE_DEFAULT
 
 class MarkLogicErrorLogLexer : LexerImpl(STATE_DEFAULT, CodePointRangeImpl()) {
+    // region States
+
+    private fun stateDefault() {
+    }
+
+    // endregion
     // region Lexer
 
-    override fun advance(state: Int) {
+    override fun advance(state: Int) = when (state) {
+        STATE_DEFAULT -> stateDefault()
+        else -> throw AssertionError("Invalid state: $state")
     }
 
     // endregion
