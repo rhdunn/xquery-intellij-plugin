@@ -44,5 +44,11 @@ object MarkLogicErrorLogTokenType {
         val CRITICAL: ILogLevelElementType = ILogLevelElementType("Critical", MarkLogicErrorLog)
         val ALERT: ILogLevelElementType = ILogLevelElementType("Alert", MarkLogicErrorLog)
         val EMERGENCY: ILogLevelElementType = ILogLevelElementType("Emergency", MarkLogicErrorLog)
+
+        private val VALUES: Array<ILogLevelElementType> = arrayOf(
+            FINEST, FINER, FINE, DEBUG, CONFIG, INFO, NOTICE, WARNING, ERROR, CRITICAL, ALERT, EMERGENCY
+        )
+
+        fun token(name: String): ILogLevelElementType = VALUES.find { it.name == name } ?: UNKNOWN
     }
 }

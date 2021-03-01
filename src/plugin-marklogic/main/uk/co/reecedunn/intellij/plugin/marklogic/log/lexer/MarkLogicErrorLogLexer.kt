@@ -174,7 +174,7 @@ class MarkLogicErrorLogLexer : LexerImpl(STATE_DEFAULT, CodePointRangeImpl()) {
                                     pushState(State.Server)
 
                                     val text = mTokenRange.bufferSequence.substring(mTokenRange.start, mTokenRange.end)
-                                    return logLevel(text)
+                                    return MarkLogicErrorLogTokenType.LogLevel.token(text)
                                 }
                                 state == State.Server -> {
                                     popState()
@@ -195,22 +195,6 @@ class MarkLogicErrorLogLexer : LexerImpl(STATE_DEFAULT, CodePointRangeImpl()) {
                 MarkLogicErrorLogTokenType.MESSAGE
             }
         }
-    }
-
-    private fun logLevel(text: String): IElementType = when (text) {
-        "Finest" -> MarkLogicErrorLogTokenType.LogLevel.FINEST
-        "Finer" -> MarkLogicErrorLogTokenType.LogLevel.FINER
-        "Fine" -> MarkLogicErrorLogTokenType.LogLevel.FINE
-        "Debug" -> MarkLogicErrorLogTokenType.LogLevel.DEBUG
-        "Config" -> MarkLogicErrorLogTokenType.LogLevel.CONFIG
-        "Info" -> MarkLogicErrorLogTokenType.LogLevel.INFO
-        "Notice" -> MarkLogicErrorLogTokenType.LogLevel.NOTICE
-        "Warning" -> MarkLogicErrorLogTokenType.LogLevel.WARNING
-        "Error" -> MarkLogicErrorLogTokenType.LogLevel.ERROR
-        "Critical" -> MarkLogicErrorLogTokenType.LogLevel.CRITICAL
-        "Alert" -> MarkLogicErrorLogTokenType.LogLevel.ALERT
-        "Emergency" -> MarkLogicErrorLogTokenType.LogLevel.EMERGENCY
-        else -> MarkLogicErrorLogTokenType.LogLevel.UNKNOWN
     }
 
     // endregion
