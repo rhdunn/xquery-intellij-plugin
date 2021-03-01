@@ -165,10 +165,11 @@ class MarkLogicErrorLogLexer : LexerImpl(STATE_DEFAULT, CodePointRangeImpl()) {
                         COLON -> if (!seenWhitespace) {
                             when (state) {
                                 State.LogLevel -> {
-                                    val text = mTokenRange.bufferSequence.substring(mTokenRange.start, mTokenRange.end)
                                     popState()
                                     pushState(State.Server)
-                                    return keyword(text)
+
+                                    val text = mTokenRange.bufferSequence.substring(mTokenRange.start, mTokenRange.end)
+                                    return logLevel(text)
                                 }
                                 State.Server -> {
                                     popState()
@@ -191,7 +192,7 @@ class MarkLogicErrorLogLexer : LexerImpl(STATE_DEFAULT, CodePointRangeImpl()) {
         }
     }
 
-    fun keyword(text: String): IElementType = when (text) {
+    fun logLevel(text: String): IElementType = when (text) {
         "Finest" -> MarkLogicErrorLogTokenType.LogLevel.FINEST
         "Finer" -> MarkLogicErrorLogTokenType.LogLevel.FINER
         "Fine" -> MarkLogicErrorLogTokenType.LogLevel.FINE
