@@ -30,8 +30,13 @@ object LogFileContentType {
         "QUERY_LOG_THREAD", DefaultLanguageHighlighterColors.INSTANCE_FIELD
     )
 
+    val SERVER_KEY: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
+        "QUERY_LOG_SERVER", DefaultLanguageHighlighterColors.INSTANCE_FIELD
+    )
+
     val DATE_TIME: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_DATE_TIME", DATE_TIME_KEY)
     val THREAD: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_THREAD", THREAD_KEY)
+    val SERVER: ConsoleViewContentType = ConsoleViewContentType("QUERY_LOG_SERVER", SERVER_KEY)
 
     // endregion
     // region Log Levels :: Verbose

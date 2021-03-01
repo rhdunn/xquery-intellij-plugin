@@ -38,6 +38,7 @@ abstract class LogFileSyntaxHighlighter : SyntaxHighlighterBase() {
 
     val DATE_TIME_KEYS: Array<TextAttributesKey> = pack(LogFileContentType.DATE_TIME_KEY)
     val THREAD_KEYS: Array<TextAttributesKey> = pack(LogFileContentType.THREAD_KEY)
+    val SERVER_KEYS: Array<TextAttributesKey> = pack(LogFileContentType.SERVER_KEY)
 
     // endregion
     // region Syntax Highlighting :: Log Levels :: Verbose

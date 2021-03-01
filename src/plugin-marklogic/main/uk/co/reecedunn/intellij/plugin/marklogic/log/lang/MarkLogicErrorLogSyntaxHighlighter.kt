@@ -43,7 +43,8 @@ object MarkLogicErrorLogSyntaxHighlighter : LogFileSyntaxHighlighter() {
         MarkLogicErrorLogTokenType.LogLevel.ERROR to ERROR_KEYS,
         MarkLogicErrorLogTokenType.LogLevel.CRITICAL to CRITICAL_KEYS,
         MarkLogicErrorLogTokenType.LogLevel.ALERT to ALERT_KEYS,
-        MarkLogicErrorLogTokenType.LogLevel.EMERGENCY to EMERGENCY_KEYS
+        MarkLogicErrorLogTokenType.LogLevel.EMERGENCY to EMERGENCY_KEYS,
+        MarkLogicErrorLogTokenType.SERVER to SERVER_KEYS
     )
 
     // endregion

@@ -6,6 +6,7 @@ eXist-db log levels:
 <datetime>2000-01-12 15:00:01.000</datetime> [<thread>thread</thread>] <fatal>FATAL Log level</fatal>
 
 MarkLogic log levels in ErrorLog.txt files:
+<datetime>2000-01-12 15:00:01.000</datetime> <finest>Finest: <server>App-Server:</server> Log level</finest>
 <datetime>2000-01-12 15:00:01.000</datetime> <finest>Finest: Log level</finest>
 <datetime>2000-01-12 15:00:01.000</datetime> <finer>Finer: Log level</finer>
 <datetime>2000-01-12 15:00:01.000</datetime> <fine>Fine: Log level</fine>
