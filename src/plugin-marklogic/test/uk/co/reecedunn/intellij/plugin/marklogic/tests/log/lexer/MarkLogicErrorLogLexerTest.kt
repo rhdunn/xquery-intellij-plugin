@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.tests.log.lexer
 
 import com.intellij.lexer.Lexer
-import com.intellij.psi.tree.IElementType
 import org.hamcrest.core.Is.`is`
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.DisplayName
@@ -24,6 +23,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCaseEx
+import uk.co.reecedunn.intellij.plugin.marklogic.log.lexer.ILogLevelElementType
 import uk.co.reecedunn.intellij.plugin.marklogic.log.lexer.MarkLogicErrorLogLexer
 import uk.co.reecedunn.intellij.plugin.marklogic.log.lexer.MarkLogicErrorLogTokenType
 
@@ -108,15 +108,15 @@ class MarkLogicErrorLogLexerTest : LexerTestCaseEx() {
         }
     }
 
-    private fun simpleMessage(level: String, token: IElementType) {
-        tokenize("2001-01-10 12:34:56.789 $level: Lorem ipsum dolor") {
+    private fun simpleMessage(logLevel: ILogLevelElementType) {
+        tokenize("2001-01-10 12:34:56.789 ${logLevel.name}: Lorem ipsum dolor") {
             token("2001-01-10", MarkLogicErrorLogTokenType.DATE)
             state(1)
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
             token("12:34:56.789", MarkLogicErrorLogTokenType.TIME)
             state(2)
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
-            token(level, token)
+            token(logLevel.name, logLevel)
             state(3)
             token(":", MarkLogicErrorLogTokenType.COLON)
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
@@ -127,30 +127,30 @@ class MarkLogicErrorLogLexerTest : LexerTestCaseEx() {
     @Test
     @DisplayName("simple message (MarkLogic >= 9.0)")
     fun simpleMessage() {
-        simpleMessage("Finest", MarkLogicErrorLogTokenType.LogLevel.FINEST)
-        simpleMessage("Finer", MarkLogicErrorLogTokenType.LogLevel.FINER)
-        simpleMessage("Fine", MarkLogicErrorLogTokenType.LogLevel.FINE)
-        simpleMessage("Debug", MarkLogicErrorLogTokenType.LogLevel.DEBUG)
-        simpleMessage("Config", MarkLogicErrorLogTokenType.LogLevel.CONFIG)
-        simpleMessage("Info", MarkLogicErrorLogTokenType.LogLevel.INFO)
-        simpleMessage("Notice", MarkLogicErrorLogTokenType.LogLevel.NOTICE)
-        simpleMessage("Warning", MarkLogicErrorLogTokenType.LogLevel.WARNING)
-        simpleMessage("Error", MarkLogicErrorLogTokenType.LogLevel.ERROR)
-        simpleMessage("Critical", MarkLogicErrorLogTokenType.LogLevel.CRITICAL)
-        simpleMessage("Alert", MarkLogicErrorLogTokenType.LogLevel.ALERT)
-        simpleMessage("Emergency", MarkLogicErrorLogTokenType.LogLevel.EMERGENCY)
-        simpleMessage("Unknown", MarkLogicErrorLogTokenType.LogLevel.UNKNOWN)
+        simpleMessage(MarkLogicErrorLogTokenType.LogLevel.FINEST)
+        simpleMessage(MarkLogicErrorLogTokenType.LogLevel.FINER)
+        simpleMessage(MarkLogicErrorLogTokenType.LogLevel.FINE)
+        simpleMessage(MarkLogicErrorLogTokenType.LogLevel.DEBUG)
+        simpleMessage(MarkLogicErrorLogTokenType.LogLevel.CONFIG)
+        simpleMessage(MarkLogicErrorLogTokenType.LogLevel.INFO)
+        simpleMessage(MarkLogicErrorLogTokenType.LogLevel.NOTICE)
+        simpleMessage(MarkLogicErrorLogTokenType.LogLevel.WARNING)
+        simpleMessage(MarkLogicErrorLogTokenType.LogLevel.ERROR)
+        simpleMessage(MarkLogicErrorLogTokenType.LogLevel.CRITICAL)
+        simpleMessage(MarkLogicErrorLogTokenType.LogLevel.ALERT)
+        simpleMessage(MarkLogicErrorLogTokenType.LogLevel.EMERGENCY)
+        simpleMessage(MarkLogicErrorLogTokenType.LogLevel.UNKNOWN)
     }
 
-    private fun messageWithTaskServer(level: String, token: IElementType) {
-        tokenize("2001-01-10 12:34:56.789 $level: TaskServer: Lorem ipsum dolor") {
+    private fun messageWithTaskServer(logLevel: ILogLevelElementType) {
+        tokenize("2001-01-10 12:34:56.789 ${logLevel.name}: TaskServer: Lorem ipsum dolor") {
             token("2001-01-10", MarkLogicErrorLogTokenType.DATE)
             state(1)
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
             token("12:34:56.789", MarkLogicErrorLogTokenType.TIME)
             state(2)
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
-            token(level, token)
+            token(logLevel.name, logLevel)
             state(3)
             token(":", MarkLogicErrorLogTokenType.COLON)
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
@@ -165,30 +165,30 @@ class MarkLogicErrorLogLexerTest : LexerTestCaseEx() {
     @Test
     @DisplayName("message with TaskServer (MarkLogic <= 8.0)")
     fun messageWithTaskServer() {
-        messageWithTaskServer("Finest", MarkLogicErrorLogTokenType.LogLevel.FINEST)
-        messageWithTaskServer("Finer", MarkLogicErrorLogTokenType.LogLevel.FINER)
-        messageWithTaskServer("Fine", MarkLogicErrorLogTokenType.LogLevel.FINE)
-        messageWithTaskServer("Debug", MarkLogicErrorLogTokenType.LogLevel.DEBUG)
-        messageWithTaskServer("Config", MarkLogicErrorLogTokenType.LogLevel.CONFIG)
-        messageWithTaskServer("Info", MarkLogicErrorLogTokenType.LogLevel.INFO)
-        messageWithTaskServer("Notice", MarkLogicErrorLogTokenType.LogLevel.NOTICE)
-        messageWithTaskServer("Warning", MarkLogicErrorLogTokenType.LogLevel.WARNING)
-        messageWithTaskServer("Error", MarkLogicErrorLogTokenType.LogLevel.ERROR)
-        messageWithTaskServer("Critical", MarkLogicErrorLogTokenType.LogLevel.CRITICAL)
-        messageWithTaskServer("Alert", MarkLogicErrorLogTokenType.LogLevel.ALERT)
-        messageWithTaskServer("Emergency", MarkLogicErrorLogTokenType.LogLevel.EMERGENCY)
-        messageWithTaskServer("Unknown", MarkLogicErrorLogTokenType.LogLevel.UNKNOWN)
+        messageWithTaskServer(MarkLogicErrorLogTokenType.LogLevel.FINEST)
+        messageWithTaskServer(MarkLogicErrorLogTokenType.LogLevel.FINER)
+        messageWithTaskServer(MarkLogicErrorLogTokenType.LogLevel.FINE)
+        messageWithTaskServer(MarkLogicErrorLogTokenType.LogLevel.DEBUG)
+        messageWithTaskServer(MarkLogicErrorLogTokenType.LogLevel.CONFIG)
+        messageWithTaskServer(MarkLogicErrorLogTokenType.LogLevel.INFO)
+        messageWithTaskServer(MarkLogicErrorLogTokenType.LogLevel.NOTICE)
+        messageWithTaskServer(MarkLogicErrorLogTokenType.LogLevel.WARNING)
+        messageWithTaskServer(MarkLogicErrorLogTokenType.LogLevel.ERROR)
+        messageWithTaskServer(MarkLogicErrorLogTokenType.LogLevel.CRITICAL)
+        messageWithTaskServer(MarkLogicErrorLogTokenType.LogLevel.ALERT)
+        messageWithTaskServer(MarkLogicErrorLogTokenType.LogLevel.EMERGENCY)
+        messageWithTaskServer(MarkLogicErrorLogTokenType.LogLevel.UNKNOWN)
     }
 
-    private fun messageWithAppServer(level: String, token: IElementType) {
-        tokenize("2001-01-10 12:34:56.789 $level: abc-2d_3e: Lorem ipsum dolor") {
+    private fun messageWithAppServer(logLevel: ILogLevelElementType) {
+        tokenize("2001-01-10 12:34:56.789 ${logLevel.name}: abc-2d_3e: Lorem ipsum dolor") {
             token("2001-01-10", MarkLogicErrorLogTokenType.DATE)
             state(1)
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
             token("12:34:56.789", MarkLogicErrorLogTokenType.TIME)
             state(2)
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
-            token(level, token)
+            token(logLevel.name, logLevel)
             state(3)
             token(":", MarkLogicErrorLogTokenType.COLON)
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
@@ -203,30 +203,30 @@ class MarkLogicErrorLogLexerTest : LexerTestCaseEx() {
     @Test
     @DisplayName("message with AppServer (MarkLogic <= 8.0)")
     fun messageWithAppServer() {
-        messageWithAppServer("Finest", MarkLogicErrorLogTokenType.LogLevel.FINEST)
-        messageWithAppServer("Finer", MarkLogicErrorLogTokenType.LogLevel.FINER)
-        messageWithAppServer("Fine", MarkLogicErrorLogTokenType.LogLevel.FINE)
-        messageWithAppServer("Debug", MarkLogicErrorLogTokenType.LogLevel.DEBUG)
-        messageWithAppServer("Config", MarkLogicErrorLogTokenType.LogLevel.CONFIG)
-        messageWithAppServer("Info", MarkLogicErrorLogTokenType.LogLevel.INFO)
-        messageWithAppServer("Notice", MarkLogicErrorLogTokenType.LogLevel.NOTICE)
-        messageWithAppServer("Warning", MarkLogicErrorLogTokenType.LogLevel.WARNING)
-        messageWithAppServer("Error", MarkLogicErrorLogTokenType.LogLevel.ERROR)
-        messageWithAppServer("Critical", MarkLogicErrorLogTokenType.LogLevel.CRITICAL)
-        messageWithAppServer("Alert", MarkLogicErrorLogTokenType.LogLevel.ALERT)
-        messageWithAppServer("Emergency", MarkLogicErrorLogTokenType.LogLevel.EMERGENCY)
-        messageWithAppServer("Unknown", MarkLogicErrorLogTokenType.LogLevel.UNKNOWN)
+        messageWithAppServer(MarkLogicErrorLogTokenType.LogLevel.FINEST)
+        messageWithAppServer(MarkLogicErrorLogTokenType.LogLevel.FINER)
+        messageWithAppServer(MarkLogicErrorLogTokenType.LogLevel.FINE)
+        messageWithAppServer(MarkLogicErrorLogTokenType.LogLevel.DEBUG)
+        messageWithAppServer(MarkLogicErrorLogTokenType.LogLevel.CONFIG)
+        messageWithAppServer(MarkLogicErrorLogTokenType.LogLevel.INFO)
+        messageWithAppServer(MarkLogicErrorLogTokenType.LogLevel.NOTICE)
+        messageWithAppServer(MarkLogicErrorLogTokenType.LogLevel.WARNING)
+        messageWithAppServer(MarkLogicErrorLogTokenType.LogLevel.ERROR)
+        messageWithAppServer(MarkLogicErrorLogTokenType.LogLevel.CRITICAL)
+        messageWithAppServer(MarkLogicErrorLogTokenType.LogLevel.ALERT)
+        messageWithAppServer(MarkLogicErrorLogTokenType.LogLevel.EMERGENCY)
+        messageWithAppServer(MarkLogicErrorLogTokenType.LogLevel.UNKNOWN)
     }
 
-    private fun messageWithAppServerLikeNameAfterAppServer(level: String, token: IElementType) {
-        tokenize("2001-01-10 12:34:56.789 $level: lorem: ipsum: Lorem ipsum dolor") {
+    private fun messageWithAppServerLikeNameAfterAppServer(logLevel: ILogLevelElementType) {
+        tokenize("2001-01-10 12:34:56.789 ${logLevel.name}: lorem: ipsum: Lorem ipsum dolor") {
             token("2001-01-10", MarkLogicErrorLogTokenType.DATE)
             state(1)
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
             token("12:34:56.789", MarkLogicErrorLogTokenType.TIME)
             state(2)
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
-            token(level, token)
+            token(logLevel.name, logLevel)
             state(3)
             token(":", MarkLogicErrorLogTokenType.COLON)
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
@@ -241,30 +241,30 @@ class MarkLogicErrorLogLexerTest : LexerTestCaseEx() {
     @Test
     @DisplayName("message with AppServer-like name after AppServer (MarkLogic <= 8.0)")
     fun messageWithAppServerLikeNameAfterAppServer() {
-        messageWithAppServerLikeNameAfterAppServer("Finest", MarkLogicErrorLogTokenType.LogLevel.FINEST)
-        messageWithAppServerLikeNameAfterAppServer("Finer", MarkLogicErrorLogTokenType.LogLevel.FINER)
-        messageWithAppServerLikeNameAfterAppServer("Fine", MarkLogicErrorLogTokenType.LogLevel.FINE)
-        messageWithAppServerLikeNameAfterAppServer("Debug", MarkLogicErrorLogTokenType.LogLevel.DEBUG)
-        messageWithAppServerLikeNameAfterAppServer("Config", MarkLogicErrorLogTokenType.LogLevel.CONFIG)
-        messageWithAppServerLikeNameAfterAppServer("Info", MarkLogicErrorLogTokenType.LogLevel.INFO)
-        messageWithAppServerLikeNameAfterAppServer("Notice", MarkLogicErrorLogTokenType.LogLevel.NOTICE)
-        messageWithAppServerLikeNameAfterAppServer("Warning", MarkLogicErrorLogTokenType.LogLevel.WARNING)
-        messageWithAppServerLikeNameAfterAppServer("Error", MarkLogicErrorLogTokenType.LogLevel.ERROR)
-        messageWithAppServerLikeNameAfterAppServer("Critical", MarkLogicErrorLogTokenType.LogLevel.CRITICAL)
-        messageWithAppServerLikeNameAfterAppServer("Alert", MarkLogicErrorLogTokenType.LogLevel.ALERT)
-        messageWithAppServerLikeNameAfterAppServer("Emergency", MarkLogicErrorLogTokenType.LogLevel.EMERGENCY)
-        messageWithAppServerLikeNameAfterAppServer("Unknown", MarkLogicErrorLogTokenType.LogLevel.UNKNOWN)
+        messageWithAppServerLikeNameAfterAppServer(MarkLogicErrorLogTokenType.LogLevel.FINEST)
+        messageWithAppServerLikeNameAfterAppServer(MarkLogicErrorLogTokenType.LogLevel.FINER)
+        messageWithAppServerLikeNameAfterAppServer(MarkLogicErrorLogTokenType.LogLevel.FINE)
+        messageWithAppServerLikeNameAfterAppServer(MarkLogicErrorLogTokenType.LogLevel.DEBUG)
+        messageWithAppServerLikeNameAfterAppServer(MarkLogicErrorLogTokenType.LogLevel.CONFIG)
+        messageWithAppServerLikeNameAfterAppServer(MarkLogicErrorLogTokenType.LogLevel.INFO)
+        messageWithAppServerLikeNameAfterAppServer(MarkLogicErrorLogTokenType.LogLevel.NOTICE)
+        messageWithAppServerLikeNameAfterAppServer(MarkLogicErrorLogTokenType.LogLevel.WARNING)
+        messageWithAppServerLikeNameAfterAppServer(MarkLogicErrorLogTokenType.LogLevel.ERROR)
+        messageWithAppServerLikeNameAfterAppServer(MarkLogicErrorLogTokenType.LogLevel.CRITICAL)
+        messageWithAppServerLikeNameAfterAppServer(MarkLogicErrorLogTokenType.LogLevel.ALERT)
+        messageWithAppServerLikeNameAfterAppServer(MarkLogicErrorLogTokenType.LogLevel.EMERGENCY)
+        messageWithAppServerLikeNameAfterAppServer(MarkLogicErrorLogTokenType.LogLevel.UNKNOWN)
     }
 
-    private fun messageContinuation(level: String, token: IElementType) {
-        tokenize("2001-01-10 12:34:56.789 $level:+Lorem ipsum dolor") {
+    private fun messageContinuation(logLevel: ILogLevelElementType) {
+        tokenize("2001-01-10 12:34:56.789 ${logLevel.name}:+Lorem ipsum dolor") {
             token("2001-01-10", MarkLogicErrorLogTokenType.DATE)
             state(1)
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
             token("12:34:56.789", MarkLogicErrorLogTokenType.TIME)
             state(2)
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
-            token(level, token)
+            token(logLevel.name, logLevel)
             state(3)
             token(":", MarkLogicErrorLogTokenType.COLON)
             token("+", MarkLogicErrorLogTokenType.CONTINUATION)
@@ -275,60 +275,60 @@ class MarkLogicErrorLogLexerTest : LexerTestCaseEx() {
     @Test
     @DisplayName("message continuation (MarkLogic >= 9.0)")
     fun messageContinuation() {
-        messageContinuation("Finest", MarkLogicErrorLogTokenType.LogLevel.FINEST)
-        messageContinuation("Finer", MarkLogicErrorLogTokenType.LogLevel.FINER)
-        messageContinuation("Fine", MarkLogicErrorLogTokenType.LogLevel.FINE)
-        messageContinuation("Debug", MarkLogicErrorLogTokenType.LogLevel.DEBUG)
-        messageContinuation("Config", MarkLogicErrorLogTokenType.LogLevel.CONFIG)
-        messageContinuation("Info", MarkLogicErrorLogTokenType.LogLevel.INFO)
-        messageContinuation("Notice", MarkLogicErrorLogTokenType.LogLevel.NOTICE)
-        messageContinuation("Warning", MarkLogicErrorLogTokenType.LogLevel.WARNING)
-        messageContinuation("Error", MarkLogicErrorLogTokenType.LogLevel.ERROR)
-        messageContinuation("Critical", MarkLogicErrorLogTokenType.LogLevel.CRITICAL)
-        messageContinuation("Alert", MarkLogicErrorLogTokenType.LogLevel.ALERT)
-        messageContinuation("Emergency", MarkLogicErrorLogTokenType.LogLevel.EMERGENCY)
-        messageContinuation("Unknown", MarkLogicErrorLogTokenType.LogLevel.UNKNOWN)
+        messageContinuation(MarkLogicErrorLogTokenType.LogLevel.FINEST)
+        messageContinuation(MarkLogicErrorLogTokenType.LogLevel.FINER)
+        messageContinuation(MarkLogicErrorLogTokenType.LogLevel.FINE)
+        messageContinuation(MarkLogicErrorLogTokenType.LogLevel.DEBUG)
+        messageContinuation(MarkLogicErrorLogTokenType.LogLevel.CONFIG)
+        messageContinuation(MarkLogicErrorLogTokenType.LogLevel.INFO)
+        messageContinuation(MarkLogicErrorLogTokenType.LogLevel.NOTICE)
+        messageContinuation(MarkLogicErrorLogTokenType.LogLevel.WARNING)
+        messageContinuation(MarkLogicErrorLogTokenType.LogLevel.ERROR)
+        messageContinuation(MarkLogicErrorLogTokenType.LogLevel.CRITICAL)
+        messageContinuation(MarkLogicErrorLogTokenType.LogLevel.ALERT)
+        messageContinuation(MarkLogicErrorLogTokenType.LogLevel.EMERGENCY)
+        messageContinuation(MarkLogicErrorLogTokenType.LogLevel.UNKNOWN)
     }
 
-    private fun logLevelWithoutSpace(level: String, @Suppress("UNUSED_PARAMETER") token: IElementType) {
-        tokenize("2001-01-10 12:34:56.789 $level:Lorem ipsum dolor") {
+    private fun logLevelWithoutSpace(logLevel: ILogLevelElementType) {
+        tokenize("2001-01-10 12:34:56.789 ${logLevel.name}:Lorem ipsum dolor") {
             token("2001-01-10", MarkLogicErrorLogTokenType.DATE)
             state(1)
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
             token("12:34:56.789", MarkLogicErrorLogTokenType.TIME)
             state(2)
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
-            token("$level:Lorem ipsum dolor", MarkLogicErrorLogTokenType.MESSAGE)
+            token("${logLevel.name}:Lorem ipsum dolor", MarkLogicErrorLogTokenType.MESSAGE)
         }
     }
 
     @Test
     @DisplayName("log level without space")
     fun logLevelWithoutSpace() {
-        logLevelWithoutSpace("Finest", MarkLogicErrorLogTokenType.LogLevel.FINEST)
-        logLevelWithoutSpace("Finer", MarkLogicErrorLogTokenType.LogLevel.FINER)
-        logLevelWithoutSpace("Fine", MarkLogicErrorLogTokenType.LogLevel.FINE)
-        logLevelWithoutSpace("Debug", MarkLogicErrorLogTokenType.LogLevel.DEBUG)
-        logLevelWithoutSpace("Config", MarkLogicErrorLogTokenType.LogLevel.CONFIG)
-        logLevelWithoutSpace("Info", MarkLogicErrorLogTokenType.LogLevel.INFO)
-        logLevelWithoutSpace("Notice", MarkLogicErrorLogTokenType.LogLevel.NOTICE)
-        logLevelWithoutSpace("Warning", MarkLogicErrorLogTokenType.LogLevel.WARNING)
-        logLevelWithoutSpace("Error", MarkLogicErrorLogTokenType.LogLevel.ERROR)
-        logLevelWithoutSpace("Critical", MarkLogicErrorLogTokenType.LogLevel.CRITICAL)
-        logLevelWithoutSpace("Alert", MarkLogicErrorLogTokenType.LogLevel.ALERT)
-        logLevelWithoutSpace("Emergency", MarkLogicErrorLogTokenType.LogLevel.EMERGENCY)
-        logLevelWithoutSpace("Unknown", MarkLogicErrorLogTokenType.LogLevel.UNKNOWN)
+        logLevelWithoutSpace(MarkLogicErrorLogTokenType.LogLevel.FINEST)
+        logLevelWithoutSpace(MarkLogicErrorLogTokenType.LogLevel.FINER)
+        logLevelWithoutSpace(MarkLogicErrorLogTokenType.LogLevel.FINE)
+        logLevelWithoutSpace(MarkLogicErrorLogTokenType.LogLevel.DEBUG)
+        logLevelWithoutSpace(MarkLogicErrorLogTokenType.LogLevel.CONFIG)
+        logLevelWithoutSpace(MarkLogicErrorLogTokenType.LogLevel.INFO)
+        logLevelWithoutSpace(MarkLogicErrorLogTokenType.LogLevel.NOTICE)
+        logLevelWithoutSpace(MarkLogicErrorLogTokenType.LogLevel.WARNING)
+        logLevelWithoutSpace(MarkLogicErrorLogTokenType.LogLevel.ERROR)
+        logLevelWithoutSpace(MarkLogicErrorLogTokenType.LogLevel.CRITICAL)
+        logLevelWithoutSpace(MarkLogicErrorLogTokenType.LogLevel.ALERT)
+        logLevelWithoutSpace(MarkLogicErrorLogTokenType.LogLevel.EMERGENCY)
+        logLevelWithoutSpace(MarkLogicErrorLogTokenType.LogLevel.UNKNOWN)
     }
 
-    private fun appServerWithoutSpace(level: String, token: IElementType) {
-        tokenize("2001-01-10 12:34:56.789 $level: server:Lorem ipsum dolor") {
+    private fun appServerWithoutSpace(logLevel: ILogLevelElementType) {
+        tokenize("2001-01-10 12:34:56.789 ${logLevel.name}: server:Lorem ipsum dolor") {
             token("2001-01-10", MarkLogicErrorLogTokenType.DATE)
             state(1)
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
             token("12:34:56.789", MarkLogicErrorLogTokenType.TIME)
             state(2)
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
-            token(level, token)
+            token(logLevel.name, logLevel)
             state(3)
             token(":", MarkLogicErrorLogTokenType.COLON)
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
@@ -339,18 +339,18 @@ class MarkLogicErrorLogLexerTest : LexerTestCaseEx() {
     @Test
     @DisplayName("log level without space")
     fun appServerWithoutSpace() {
-        appServerWithoutSpace("Finest", MarkLogicErrorLogTokenType.LogLevel.FINEST)
-        appServerWithoutSpace("Finer", MarkLogicErrorLogTokenType.LogLevel.FINER)
-        appServerWithoutSpace("Fine", MarkLogicErrorLogTokenType.LogLevel.FINE)
-        appServerWithoutSpace("Debug", MarkLogicErrorLogTokenType.LogLevel.DEBUG)
-        appServerWithoutSpace("Config", MarkLogicErrorLogTokenType.LogLevel.CONFIG)
-        appServerWithoutSpace("Info", MarkLogicErrorLogTokenType.LogLevel.INFO)
-        appServerWithoutSpace("Notice", MarkLogicErrorLogTokenType.LogLevel.NOTICE)
-        appServerWithoutSpace("Warning", MarkLogicErrorLogTokenType.LogLevel.WARNING)
-        appServerWithoutSpace("Error", MarkLogicErrorLogTokenType.LogLevel.ERROR)
-        appServerWithoutSpace("Critical", MarkLogicErrorLogTokenType.LogLevel.CRITICAL)
-        appServerWithoutSpace("Alert", MarkLogicErrorLogTokenType.LogLevel.ALERT)
-        appServerWithoutSpace("Emergency", MarkLogicErrorLogTokenType.LogLevel.EMERGENCY)
-        appServerWithoutSpace("Unknown", MarkLogicErrorLogTokenType.LogLevel.UNKNOWN)
+        appServerWithoutSpace(MarkLogicErrorLogTokenType.LogLevel.FINEST)
+        appServerWithoutSpace(MarkLogicErrorLogTokenType.LogLevel.FINER)
+        appServerWithoutSpace(MarkLogicErrorLogTokenType.LogLevel.FINE)
+        appServerWithoutSpace(MarkLogicErrorLogTokenType.LogLevel.DEBUG)
+        appServerWithoutSpace(MarkLogicErrorLogTokenType.LogLevel.CONFIG)
+        appServerWithoutSpace(MarkLogicErrorLogTokenType.LogLevel.INFO)
+        appServerWithoutSpace(MarkLogicErrorLogTokenType.LogLevel.NOTICE)
+        appServerWithoutSpace(MarkLogicErrorLogTokenType.LogLevel.WARNING)
+        appServerWithoutSpace(MarkLogicErrorLogTokenType.LogLevel.ERROR)
+        appServerWithoutSpace(MarkLogicErrorLogTokenType.LogLevel.CRITICAL)
+        appServerWithoutSpace(MarkLogicErrorLogTokenType.LogLevel.ALERT)
+        appServerWithoutSpace(MarkLogicErrorLogTokenType.LogLevel.EMERGENCY)
+        appServerWithoutSpace(MarkLogicErrorLogTokenType.LogLevel.UNKNOWN)
     }
 }
