@@ -72,6 +72,7 @@ class MarkLogicErrorLogLexer : LexerImpl(STATE_DEFAULT, CodePointRangeImpl()) {
         const val Time = 1
         const val LogLevel = 2
         const val Server = 3
+        const val Message = 4
     }
 
     private fun stateDefault(): IElementType? {
@@ -162,14 +163,20 @@ class MarkLogicErrorLogLexer : LexerImpl(STATE_DEFAULT, CodePointRangeImpl()) {
                 while (cc != NEW_LINE && cc != END_OF_BUFFER) {
                     when (cc) {
                         COLON -> if (!seenWhitespace) {
-                            return when (state) {
+                            when (state) {
                                 State.LogLevel -> {
                                     val text = mTokenRange.bufferSequence.substring(mTokenRange.start, mTokenRange.end)
                                     popState()
                                     pushState(State.Server)
-                                    keyword(text)
+                                    return keyword(text)
                                 }
-                                else -> MarkLogicErrorLogTokenType.SERVER
+                                State.Server -> {
+                                    popState()
+                                    pushState(State.Message)
+                                    return MarkLogicErrorLogTokenType.SERVER
+                                }
+                                else -> {
+                                }
                             }
                         }
                         WHITE_SPACE -> seenWhitespace = true
@@ -207,7 +214,7 @@ class MarkLogicErrorLogLexer : LexerImpl(STATE_DEFAULT, CodePointRangeImpl()) {
         mType = when (state) {
             State.Default -> stateDefault()
             State.Time -> stateTime()
-            State.LogLevel, State.Server -> stateLogLevelOrServer(state)
+            State.LogLevel, State.Server, State.Message -> stateLogLevelOrServer(state)
             else -> throw AssertionError("Invalid state: $state")
         }
     }

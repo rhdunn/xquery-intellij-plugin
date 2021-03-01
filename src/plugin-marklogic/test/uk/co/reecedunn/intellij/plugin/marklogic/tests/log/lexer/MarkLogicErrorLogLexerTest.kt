@@ -155,6 +155,7 @@ class MarkLogicErrorLogLexerTest : LexerTestCaseEx() {
             token(":", MarkLogicErrorLogTokenType.COLON)
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
             token("TaskServer", MarkLogicErrorLogTokenType.SERVER)
+            state(4)
             token(":", MarkLogicErrorLogTokenType.COLON)
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
             token("Lorem ipsum dolor", MarkLogicErrorLogTokenType.MESSAGE)
@@ -192,6 +193,7 @@ class MarkLogicErrorLogLexerTest : LexerTestCaseEx() {
             token(":", MarkLogicErrorLogTokenType.COLON)
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
             token("abc-2d_3e", MarkLogicErrorLogTokenType.SERVER)
+            state(4)
             token(":", MarkLogicErrorLogTokenType.COLON)
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
             token("Lorem ipsum dolor", MarkLogicErrorLogTokenType.MESSAGE)
@@ -216,6 +218,44 @@ class MarkLogicErrorLogLexerTest : LexerTestCaseEx() {
         messageWithAppServer("Unknown", MarkLogicErrorLogTokenType.LOG_LEVEL)
     }
 
+    private fun messageWithAppServerLikeNameAfterAppServer(level: String, token: IElementType) {
+        tokenize("2001-01-10 12:34:56.789 $level: lorem: ipsum: Lorem ipsum dolor") {
+            token("2001-01-10", MarkLogicErrorLogTokenType.DATE)
+            state(1)
+            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
+            token("12:34:56.789", MarkLogicErrorLogTokenType.TIME)
+            state(2)
+            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
+            token(level, token)
+            state(3)
+            token(":", MarkLogicErrorLogTokenType.COLON)
+            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
+            token("lorem", MarkLogicErrorLogTokenType.SERVER)
+            state(4)
+            token(":", MarkLogicErrorLogTokenType.COLON)
+            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
+            token("ipsum: Lorem ipsum dolor", MarkLogicErrorLogTokenType.MESSAGE)
+        }
+    }
+
+    @Test
+    @DisplayName("message with AppServer-like name after AppServer (MarkLogic <= 8.0)")
+    fun messageWithAppServerLikeNameAfterAppServer() {
+        messageWithAppServerLikeNameAfterAppServer("Finest", MarkLogicErrorLogTokenType.LogLevel.FINEST)
+        messageWithAppServerLikeNameAfterAppServer("Finer", MarkLogicErrorLogTokenType.LogLevel.FINER)
+        messageWithAppServerLikeNameAfterAppServer("Fine", MarkLogicErrorLogTokenType.LogLevel.FINE)
+        messageWithAppServerLikeNameAfterAppServer("Debug", MarkLogicErrorLogTokenType.LogLevel.DEBUG)
+        messageWithAppServerLikeNameAfterAppServer("Config", MarkLogicErrorLogTokenType.LogLevel.CONFIG)
+        messageWithAppServerLikeNameAfterAppServer("Info", MarkLogicErrorLogTokenType.LogLevel.INFO)
+        messageWithAppServerLikeNameAfterAppServer("Notice", MarkLogicErrorLogTokenType.LogLevel.NOTICE)
+        messageWithAppServerLikeNameAfterAppServer("Warning", MarkLogicErrorLogTokenType.LogLevel.WARNING)
+        messageWithAppServerLikeNameAfterAppServer("Error", MarkLogicErrorLogTokenType.LogLevel.ERROR)
+        messageWithAppServerLikeNameAfterAppServer("Critical", MarkLogicErrorLogTokenType.LogLevel.CRITICAL)
+        messageWithAppServerLikeNameAfterAppServer("Alert", MarkLogicErrorLogTokenType.LogLevel.ALERT)
+        messageWithAppServerLikeNameAfterAppServer("Emergency", MarkLogicErrorLogTokenType.LogLevel.EMERGENCY)
+        messageWithAppServerLikeNameAfterAppServer("Unknown", MarkLogicErrorLogTokenType.LOG_LEVEL)
+    }
+
     private fun messageContinuation(level: String, token: IElementType) {
         tokenize("2001-01-10 12:34:56.789 $level: abc-2d_3e: Lorem ipsum dolor") {
             token("2001-01-10", MarkLogicErrorLogTokenType.DATE)
@@ -229,6 +269,7 @@ class MarkLogicErrorLogLexerTest : LexerTestCaseEx() {
             token(":", MarkLogicErrorLogTokenType.COLON)
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
             token("abc-2d_3e", MarkLogicErrorLogTokenType.SERVER)
+            state(4)
             token(":", MarkLogicErrorLogTokenType.COLON)
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
             token("Lorem ipsum dolor", MarkLogicErrorLogTokenType.MESSAGE)
