@@ -105,81 +105,7 @@ class MarkLogicErrorLogLexerTest : LexerTestCaseEx() {
         }
     }
 
-    @Test
-    @DisplayName("simple message (MarkLogic >= 9.0)")
-    fun simpleMessage() {
-        tokenize("2001-01-10 12:34:56.789 Info: Lorem ipsum dolor") {
-            token("2001-01-10", MarkLogicErrorLogTokenType.DATE)
-            state(1)
-            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
-            token("12:34:56.789", MarkLogicErrorLogTokenType.TIME)
-            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
-            token("Info", MarkLogicErrorLogTokenType.LogLevel.INFO)
-            state(2)
-            token(":", MarkLogicErrorLogTokenType.COLON)
-            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
-            token("Lorem ipsum dolor", MarkLogicErrorLogTokenType.MESSAGE)
-        }
-    }
-
-    @Test
-    @DisplayName("message with TaskServer (MarkLogic <= 8.0)")
-    fun messageWithTaskServer() {
-        tokenize("2001-01-10 12:34:56.789 Debug: TaskServer: Lorem ipsum dolor") {
-            token("2001-01-10", MarkLogicErrorLogTokenType.DATE)
-            state(1)
-            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
-            token("12:34:56.789", MarkLogicErrorLogTokenType.TIME)
-            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
-            token("Debug", MarkLogicErrorLogTokenType.LogLevel.DEBUG)
-            state(2)
-            token(":", MarkLogicErrorLogTokenType.COLON)
-            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
-            token("TaskServer", MarkLogicErrorLogTokenType.SERVER)
-            token(":", MarkLogicErrorLogTokenType.COLON)
-            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
-            token("Lorem ipsum dolor", MarkLogicErrorLogTokenType.MESSAGE)
-        }
-    }
-
-    @Test
-    @DisplayName("message with AppServer (MarkLogic <= 8.0)")
-    fun messageWithAppServer() {
-        tokenize("2001-01-10 12:34:56.789 Debug: abc-2d_3e: Lorem ipsum dolor") {
-            token("2001-01-10", MarkLogicErrorLogTokenType.DATE)
-            state(1)
-            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
-            token("12:34:56.789", MarkLogicErrorLogTokenType.TIME)
-            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
-            token("Debug", MarkLogicErrorLogTokenType.LogLevel.DEBUG)
-            state(2)
-            token(":", MarkLogicErrorLogTokenType.COLON)
-            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
-            token("abc-2d_3e", MarkLogicErrorLogTokenType.SERVER)
-            token(":", MarkLogicErrorLogTokenType.COLON)
-            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
-            token("Lorem ipsum dolor", MarkLogicErrorLogTokenType.MESSAGE)
-        }
-    }
-
-    @Test
-    @DisplayName("message continuation (MarkLogic >= 9.0)")
-    fun messageContinuation() {
-        tokenize("2001-01-10 12:34:56.789 Info:+Lorem ipsum dolor") {
-            token("2001-01-10", MarkLogicErrorLogTokenType.DATE)
-            state(1)
-            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
-            token("12:34:56.789", MarkLogicErrorLogTokenType.TIME)
-            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
-            token("Info", MarkLogicErrorLogTokenType.LogLevel.INFO)
-            state(2)
-            token(":", MarkLogicErrorLogTokenType.COLON)
-            token("+", MarkLogicErrorLogTokenType.CONTINUATION)
-            token("Lorem ipsum dolor", MarkLogicErrorLogTokenType.MESSAGE)
-        }
-    }
-
-    private fun logLevel(level: String, token: IElementType) {
+    private fun simpleMessage(level: String, token: IElementType) {
         tokenize("2001-01-10 12:34:56.789 $level: Lorem ipsum dolor") {
             token("2001-01-10", MarkLogicErrorLogTokenType.DATE)
             state(1)
@@ -195,20 +121,128 @@ class MarkLogicErrorLogLexerTest : LexerTestCaseEx() {
     }
 
     @Test
-    @DisplayName("log levels")
-    fun logLevels() {
-        logLevel("Finest", MarkLogicErrorLogTokenType.LogLevel.FINEST)
-        logLevel("Finer", MarkLogicErrorLogTokenType.LogLevel.FINER)
-        logLevel("Fine", MarkLogicErrorLogTokenType.LogLevel.FINE)
-        logLevel("Debug", MarkLogicErrorLogTokenType.LogLevel.DEBUG)
-        logLevel("Config", MarkLogicErrorLogTokenType.LogLevel.CONFIG)
-        logLevel("Info", MarkLogicErrorLogTokenType.LogLevel.INFO)
-        logLevel("Notice", MarkLogicErrorLogTokenType.LogLevel.NOTICE)
-        logLevel("Warning", MarkLogicErrorLogTokenType.LogLevel.WARNING)
-        logLevel("Error", MarkLogicErrorLogTokenType.LogLevel.ERROR)
-        logLevel("Critical", MarkLogicErrorLogTokenType.LogLevel.CRITICAL)
-        logLevel("Alert", MarkLogicErrorLogTokenType.LogLevel.ALERT)
-        logLevel("Emergency", MarkLogicErrorLogTokenType.LogLevel.EMERGENCY)
-        logLevel("Unknown", MarkLogicErrorLogTokenType.LOG_LEVEL)
+    @DisplayName("simple message (MarkLogic >= 9.0)")
+    fun simpleMessage() {
+        simpleMessage("Finest", MarkLogicErrorLogTokenType.LogLevel.FINEST)
+        simpleMessage("Finer", MarkLogicErrorLogTokenType.LogLevel.FINER)
+        simpleMessage("Fine", MarkLogicErrorLogTokenType.LogLevel.FINE)
+        simpleMessage("Debug", MarkLogicErrorLogTokenType.LogLevel.DEBUG)
+        simpleMessage("Config", MarkLogicErrorLogTokenType.LogLevel.CONFIG)
+        simpleMessage("Info", MarkLogicErrorLogTokenType.LogLevel.INFO)
+        simpleMessage("Notice", MarkLogicErrorLogTokenType.LogLevel.NOTICE)
+        simpleMessage("Warning", MarkLogicErrorLogTokenType.LogLevel.WARNING)
+        simpleMessage("Error", MarkLogicErrorLogTokenType.LogLevel.ERROR)
+        simpleMessage("Critical", MarkLogicErrorLogTokenType.LogLevel.CRITICAL)
+        simpleMessage("Alert", MarkLogicErrorLogTokenType.LogLevel.ALERT)
+        simpleMessage("Emergency", MarkLogicErrorLogTokenType.LogLevel.EMERGENCY)
+        simpleMessage("Unknown", MarkLogicErrorLogTokenType.LOG_LEVEL)
+    }
+
+    private fun messageWithTaskServer(level: String, token: IElementType) {
+        tokenize("2001-01-10 12:34:56.789 $level: TaskServer: Lorem ipsum dolor") {
+            token("2001-01-10", MarkLogicErrorLogTokenType.DATE)
+            state(1)
+            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
+            token("12:34:56.789", MarkLogicErrorLogTokenType.TIME)
+            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
+            token(level, token)
+            state(2)
+            token(":", MarkLogicErrorLogTokenType.COLON)
+            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
+            token("TaskServer", MarkLogicErrorLogTokenType.SERVER)
+            token(":", MarkLogicErrorLogTokenType.COLON)
+            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
+            token("Lorem ipsum dolor", MarkLogicErrorLogTokenType.MESSAGE)
+        }
+    }
+
+    @Test
+    @DisplayName("message with TaskServer (MarkLogic <= 8.0)")
+    fun messageWithTaskServer() {
+        messageWithTaskServer("Finest", MarkLogicErrorLogTokenType.LogLevel.FINEST)
+        messageWithTaskServer("Finer", MarkLogicErrorLogTokenType.LogLevel.FINER)
+        messageWithTaskServer("Fine", MarkLogicErrorLogTokenType.LogLevel.FINE)
+        messageWithTaskServer("Debug", MarkLogicErrorLogTokenType.LogLevel.DEBUG)
+        messageWithTaskServer("Config", MarkLogicErrorLogTokenType.LogLevel.CONFIG)
+        messageWithTaskServer("Info", MarkLogicErrorLogTokenType.LogLevel.INFO)
+        messageWithTaskServer("Notice", MarkLogicErrorLogTokenType.LogLevel.NOTICE)
+        messageWithTaskServer("Warning", MarkLogicErrorLogTokenType.LogLevel.WARNING)
+        messageWithTaskServer("Error", MarkLogicErrorLogTokenType.LogLevel.ERROR)
+        messageWithTaskServer("Critical", MarkLogicErrorLogTokenType.LogLevel.CRITICAL)
+        messageWithTaskServer("Alert", MarkLogicErrorLogTokenType.LogLevel.ALERT)
+        messageWithTaskServer("Emergency", MarkLogicErrorLogTokenType.LogLevel.EMERGENCY)
+        messageWithTaskServer("Unknown", MarkLogicErrorLogTokenType.LOG_LEVEL)
+    }
+
+    private fun messageWithAppServer(level: String, token: IElementType) {
+        tokenize("2001-01-10 12:34:56.789 $level: abc-2d_3e: Lorem ipsum dolor") {
+            token("2001-01-10", MarkLogicErrorLogTokenType.DATE)
+            state(1)
+            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
+            token("12:34:56.789", MarkLogicErrorLogTokenType.TIME)
+            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
+            token(level, token)
+            state(2)
+            token(":", MarkLogicErrorLogTokenType.COLON)
+            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
+            token("abc-2d_3e", MarkLogicErrorLogTokenType.SERVER)
+            token(":", MarkLogicErrorLogTokenType.COLON)
+            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
+            token("Lorem ipsum dolor", MarkLogicErrorLogTokenType.MESSAGE)
+        }
+    }
+
+    @Test
+    @DisplayName("message with AppServer (MarkLogic <= 8.0)")
+    fun messageWithAppServer() {
+        messageWithAppServer("Finest", MarkLogicErrorLogTokenType.LogLevel.FINEST)
+        messageWithAppServer("Finer", MarkLogicErrorLogTokenType.LogLevel.FINER)
+        messageWithAppServer("Fine", MarkLogicErrorLogTokenType.LogLevel.FINE)
+        messageWithAppServer("Debug", MarkLogicErrorLogTokenType.LogLevel.DEBUG)
+        messageWithAppServer("Config", MarkLogicErrorLogTokenType.LogLevel.CONFIG)
+        messageWithAppServer("Info", MarkLogicErrorLogTokenType.LogLevel.INFO)
+        messageWithAppServer("Notice", MarkLogicErrorLogTokenType.LogLevel.NOTICE)
+        messageWithAppServer("Warning", MarkLogicErrorLogTokenType.LogLevel.WARNING)
+        messageWithAppServer("Error", MarkLogicErrorLogTokenType.LogLevel.ERROR)
+        messageWithAppServer("Critical", MarkLogicErrorLogTokenType.LogLevel.CRITICAL)
+        messageWithAppServer("Alert", MarkLogicErrorLogTokenType.LogLevel.ALERT)
+        messageWithAppServer("Emergency", MarkLogicErrorLogTokenType.LogLevel.EMERGENCY)
+        messageWithAppServer("Unknown", MarkLogicErrorLogTokenType.LOG_LEVEL)
+    }
+
+    private fun messageContinuation(level: String, token: IElementType) {
+        tokenize("2001-01-10 12:34:56.789 $level: abc-2d_3e: Lorem ipsum dolor") {
+            token("2001-01-10", MarkLogicErrorLogTokenType.DATE)
+            state(1)
+            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
+            token("12:34:56.789", MarkLogicErrorLogTokenType.TIME)
+            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
+            token(level, token)
+            state(2)
+            token(":", MarkLogicErrorLogTokenType.COLON)
+            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
+            token("abc-2d_3e", MarkLogicErrorLogTokenType.SERVER)
+            token(":", MarkLogicErrorLogTokenType.COLON)
+            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
+            token("Lorem ipsum dolor", MarkLogicErrorLogTokenType.MESSAGE)
+        }
+    }
+
+    @Test
+    @DisplayName("message continuation (MarkLogic >= 9.0)")
+    fun messageContinuation() {
+        messageContinuation("Finest", MarkLogicErrorLogTokenType.LogLevel.FINEST)
+        messageContinuation("Finer", MarkLogicErrorLogTokenType.LogLevel.FINER)
+        messageContinuation("Fine", MarkLogicErrorLogTokenType.LogLevel.FINE)
+        messageContinuation("Debug", MarkLogicErrorLogTokenType.LogLevel.DEBUG)
+        messageContinuation("Config", MarkLogicErrorLogTokenType.LogLevel.CONFIG)
+        messageContinuation("Info", MarkLogicErrorLogTokenType.LogLevel.INFO)
+        messageContinuation("Notice", MarkLogicErrorLogTokenType.LogLevel.NOTICE)
+        messageContinuation("Warning", MarkLogicErrorLogTokenType.LogLevel.WARNING)
+        messageContinuation("Error", MarkLogicErrorLogTokenType.LogLevel.ERROR)
+        messageContinuation("Critical", MarkLogicErrorLogTokenType.LogLevel.CRITICAL)
+        messageContinuation("Alert", MarkLogicErrorLogTokenType.LogLevel.ALERT)
+        messageContinuation("Emergency", MarkLogicErrorLogTokenType.LogLevel.EMERGENCY)
+        messageContinuation("Unknown", MarkLogicErrorLogTokenType.LOG_LEVEL)
     }
 }
