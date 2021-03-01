@@ -210,7 +210,7 @@ class MarkLogicErrorLogLexer : LexerImpl(STATE_DEFAULT, CodePointRangeImpl()) {
         "Critical" -> MarkLogicErrorLogTokenType.LogLevel.CRITICAL
         "Alert" -> MarkLogicErrorLogTokenType.LogLevel.ALERT
         "Emergency" -> MarkLogicErrorLogTokenType.LogLevel.EMERGENCY
-        else -> MarkLogicErrorLogTokenType.LOG_LEVEL
+        else -> MarkLogicErrorLogTokenType.LogLevel.UNKNOWN
     }
 
     // endregion

@@ -139,7 +139,7 @@ class MarkLogicErrorLogLexerTest : LexerTestCaseEx() {
         simpleMessage("Critical", MarkLogicErrorLogTokenType.LogLevel.CRITICAL)
         simpleMessage("Alert", MarkLogicErrorLogTokenType.LogLevel.ALERT)
         simpleMessage("Emergency", MarkLogicErrorLogTokenType.LogLevel.EMERGENCY)
-        simpleMessage("Unknown", MarkLogicErrorLogTokenType.LOG_LEVEL)
+        simpleMessage("Unknown", MarkLogicErrorLogTokenType.LogLevel.UNKNOWN)
     }
 
     private fun messageWithTaskServer(level: String, token: IElementType) {
@@ -177,7 +177,7 @@ class MarkLogicErrorLogLexerTest : LexerTestCaseEx() {
         messageWithTaskServer("Critical", MarkLogicErrorLogTokenType.LogLevel.CRITICAL)
         messageWithTaskServer("Alert", MarkLogicErrorLogTokenType.LogLevel.ALERT)
         messageWithTaskServer("Emergency", MarkLogicErrorLogTokenType.LogLevel.EMERGENCY)
-        messageWithTaskServer("Unknown", MarkLogicErrorLogTokenType.LOG_LEVEL)
+        messageWithTaskServer("Unknown", MarkLogicErrorLogTokenType.LogLevel.UNKNOWN)
     }
 
     private fun messageWithAppServer(level: String, token: IElementType) {
@@ -215,7 +215,7 @@ class MarkLogicErrorLogLexerTest : LexerTestCaseEx() {
         messageWithAppServer("Critical", MarkLogicErrorLogTokenType.LogLevel.CRITICAL)
         messageWithAppServer("Alert", MarkLogicErrorLogTokenType.LogLevel.ALERT)
         messageWithAppServer("Emergency", MarkLogicErrorLogTokenType.LogLevel.EMERGENCY)
-        messageWithAppServer("Unknown", MarkLogicErrorLogTokenType.LOG_LEVEL)
+        messageWithAppServer("Unknown", MarkLogicErrorLogTokenType.LogLevel.UNKNOWN)
     }
 
     private fun messageWithAppServerLikeNameAfterAppServer(level: String, token: IElementType) {
@@ -253,7 +253,7 @@ class MarkLogicErrorLogLexerTest : LexerTestCaseEx() {
         messageWithAppServerLikeNameAfterAppServer("Critical", MarkLogicErrorLogTokenType.LogLevel.CRITICAL)
         messageWithAppServerLikeNameAfterAppServer("Alert", MarkLogicErrorLogTokenType.LogLevel.ALERT)
         messageWithAppServerLikeNameAfterAppServer("Emergency", MarkLogicErrorLogTokenType.LogLevel.EMERGENCY)
-        messageWithAppServerLikeNameAfterAppServer("Unknown", MarkLogicErrorLogTokenType.LOG_LEVEL)
+        messageWithAppServerLikeNameAfterAppServer("Unknown", MarkLogicErrorLogTokenType.LogLevel.UNKNOWN)
     }
 
     private fun messageContinuation(level: String, token: IElementType) {
@@ -287,7 +287,7 @@ class MarkLogicErrorLogLexerTest : LexerTestCaseEx() {
         messageContinuation("Critical", MarkLogicErrorLogTokenType.LogLevel.CRITICAL)
         messageContinuation("Alert", MarkLogicErrorLogTokenType.LogLevel.ALERT)
         messageContinuation("Emergency", MarkLogicErrorLogTokenType.LogLevel.EMERGENCY)
-        messageContinuation("Unknown", MarkLogicErrorLogTokenType.LOG_LEVEL)
+        messageContinuation("Unknown", MarkLogicErrorLogTokenType.LogLevel.UNKNOWN)
     }
 
     private fun logLevelWithoutSpace(level: String, @Suppress("UNUSED_PARAMETER") token: IElementType) {
@@ -317,7 +317,7 @@ class MarkLogicErrorLogLexerTest : LexerTestCaseEx() {
         logLevelWithoutSpace("Critical", MarkLogicErrorLogTokenType.LogLevel.CRITICAL)
         logLevelWithoutSpace("Alert", MarkLogicErrorLogTokenType.LogLevel.ALERT)
         logLevelWithoutSpace("Emergency", MarkLogicErrorLogTokenType.LogLevel.EMERGENCY)
-        logLevelWithoutSpace("Unknown", MarkLogicErrorLogTokenType.LOG_LEVEL)
+        logLevelWithoutSpace("Unknown", MarkLogicErrorLogTokenType.LogLevel.UNKNOWN)
     }
 
     private fun appServerWithoutSpace(level: String, token: IElementType) {
@@ -351,6 +351,6 @@ class MarkLogicErrorLogLexerTest : LexerTestCaseEx() {
         appServerWithoutSpace("Critical", MarkLogicErrorLogTokenType.LogLevel.CRITICAL)
         appServerWithoutSpace("Alert", MarkLogicErrorLogTokenType.LogLevel.ALERT)
         appServerWithoutSpace("Emergency", MarkLogicErrorLogTokenType.LogLevel.EMERGENCY)
-        appServerWithoutSpace("Unknown", MarkLogicErrorLogTokenType.LOG_LEVEL)
+        appServerWithoutSpace("Unknown", MarkLogicErrorLogTokenType.LogLevel.UNKNOWN)
     }
 }

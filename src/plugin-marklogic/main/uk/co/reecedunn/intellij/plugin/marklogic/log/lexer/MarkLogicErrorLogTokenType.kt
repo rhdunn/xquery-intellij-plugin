@@ -24,7 +24,6 @@ object MarkLogicErrorLogTokenType {
 
     val DATE: IElementType = IElementType("MARK_LOGIC_ERROR_LOG_DATE", MarkLogicErrorLog)
     val TIME: IElementType = IElementType("MARK_LOGIC_ERROR_LOG_TIME", MarkLogicErrorLog)
-    val LOG_LEVEL: IElementType = IElementType("MARK_LOGIC_ERROR_LOG_LEVEL", MarkLogicErrorLog)
     val SERVER: IElementType = IElementType("MARK_LOGIC_ERROR_LOG_SERVER", MarkLogicErrorLog)
     val MESSAGE: IElementType = IElementType("MARK_LOGIC_ERROR_LOG_MESSAGE", MarkLogicErrorLog)
 
@@ -32,6 +31,7 @@ object MarkLogicErrorLogTokenType {
     val CONTINUATION: IElementType = IElementType("MARK_LOGIC_ERROR_LOG_CONTINUATION", MarkLogicErrorLog)
 
     object LogLevel {
+        val UNKNOWN: ILogLevelElementType = ILogLevelElementType("Unknown", MarkLogicErrorLog)
         val FINEST: ILogLevelElementType = ILogLevelElementType("Finest", MarkLogicErrorLog)
         val FINER: ILogLevelElementType = ILogLevelElementType("Finer", MarkLogicErrorLog)
         val FINE: ILogLevelElementType = ILogLevelElementType("Fine", MarkLogicErrorLog)
