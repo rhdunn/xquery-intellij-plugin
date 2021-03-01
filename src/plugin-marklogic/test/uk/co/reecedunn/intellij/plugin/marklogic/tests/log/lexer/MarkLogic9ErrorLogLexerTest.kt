@@ -23,14 +23,15 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCaseEx
+import uk.co.reecedunn.intellij.plugin.marklogic.log.lang.MarkLogicErrorLogFormat
 import uk.co.reecedunn.intellij.plugin.marklogic.log.lexer.ILogLevelElementType
 import uk.co.reecedunn.intellij.plugin.marklogic.log.lexer.MarkLogicErrorLogLexer
 import uk.co.reecedunn.intellij.plugin.marklogic.log.lexer.MarkLogicErrorLogTokenType
 
 @Suppress("ClassName", "Reformat")
-@DisplayName("MarkLogic ErrorLog - Lexer")
-class MarkLogicErrorLogLexerTest : LexerTestCaseEx() {
-    override val lexer: Lexer = MarkLogicErrorLogLexer()
+@DisplayName("MarkLogic 9.0 ErrorLog - Lexer")
+class MarkLogic9ErrorLogLexerTest : LexerTestCaseEx() {
+    override val lexer: Lexer = MarkLogicErrorLogLexer(MarkLogicErrorLogFormat.MARKLOGIC_9)
 
     @Nested
     @DisplayName("Lexer")
@@ -117,7 +118,7 @@ class MarkLogicErrorLogLexerTest : LexerTestCaseEx() {
             state(2)
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
             token(logLevel.name, logLevel)
-            state(3)
+            state(4)
             token(":", MarkLogicErrorLogTokenType.COLON)
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
             token("Lorem ipsum dolor", MarkLogicErrorLogTokenType.MESSAGE)
@@ -151,14 +152,10 @@ class MarkLogicErrorLogLexerTest : LexerTestCaseEx() {
             state(2)
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
             token(logLevel.name, logLevel)
-            state(3)
-            token(":", MarkLogicErrorLogTokenType.COLON)
-            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
-            token("TaskServer", MarkLogicErrorLogTokenType.SERVER)
             state(4)
             token(":", MarkLogicErrorLogTokenType.COLON)
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
-            token("Lorem ipsum dolor", MarkLogicErrorLogTokenType.MESSAGE)
+            token("TaskServer: Lorem ipsum dolor", MarkLogicErrorLogTokenType.MESSAGE)
         }
     }
 
@@ -189,14 +186,10 @@ class MarkLogicErrorLogLexerTest : LexerTestCaseEx() {
             state(2)
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
             token(logLevel.name, logLevel)
-            state(3)
-            token(":", MarkLogicErrorLogTokenType.COLON)
-            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
-            token("abc-2d_3e", MarkLogicErrorLogTokenType.SERVER)
             state(4)
             token(":", MarkLogicErrorLogTokenType.COLON)
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
-            token("Lorem ipsum dolor", MarkLogicErrorLogTokenType.MESSAGE)
+            token("abc-2d_3e: Lorem ipsum dolor", MarkLogicErrorLogTokenType.MESSAGE)
         }
     }
 
@@ -227,14 +220,10 @@ class MarkLogicErrorLogLexerTest : LexerTestCaseEx() {
             state(2)
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
             token(logLevel.name, logLevel)
-            state(3)
-            token(":", MarkLogicErrorLogTokenType.COLON)
-            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
-            token("lorem", MarkLogicErrorLogTokenType.SERVER)
             state(4)
             token(":", MarkLogicErrorLogTokenType.COLON)
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
-            token("ipsum: Lorem ipsum dolor", MarkLogicErrorLogTokenType.MESSAGE)
+            token("lorem: ipsum: Lorem ipsum dolor", MarkLogicErrorLogTokenType.MESSAGE)
         }
     }
 
@@ -265,7 +254,7 @@ class MarkLogicErrorLogLexerTest : LexerTestCaseEx() {
             state(2)
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
             token(logLevel.name, logLevel)
-            state(3)
+            state(4)
             token(":", MarkLogicErrorLogTokenType.COLON)
             token("+", MarkLogicErrorLogTokenType.CONTINUATION)
             token("Lorem ipsum dolor", MarkLogicErrorLogTokenType.MESSAGE)
@@ -329,7 +318,7 @@ class MarkLogicErrorLogLexerTest : LexerTestCaseEx() {
             state(2)
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
             token(logLevel.name, logLevel)
-            state(3)
+            state(4)
             token(":", MarkLogicErrorLogTokenType.COLON)
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
             token("server:Lorem ipsum dolor", MarkLogicErrorLogTokenType.MESSAGE)

@@ -27,7 +27,7 @@ import uk.co.reecedunn.intellij.plugin.processor.log.lang.LogFileSyntaxHighlight
 object MarkLogicErrorLogSyntaxHighlighter : LogFileSyntaxHighlighter() {
     // region SyntaxHighlighter
 
-    override fun getHighlightingLexer(): Lexer = MarkLogicErrorLogLexer()
+    override fun getHighlightingLexer(): Lexer = MarkLogicErrorLogLexer(MarkLogicErrorLogFormat.MARKLOGIC_9)
 
     override val KEYS = mapOf(
         MarkLogicErrorLogTokenType.DATE to DATE_TIME_KEYS,

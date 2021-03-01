@@ -44,7 +44,7 @@ object MarkLogicErrorLog : Language("MLErrorLog") {
     // region Parser Definition
 
     class ParserDefinition : LanguageParserDefinition {
-        override fun createLexer(project: Project): Lexer = MarkLogicErrorLogLexer()
+        override fun createLexer(project: Project): Lexer = MarkLogicErrorLogLexer(MarkLogicErrorLogFormat.MARKLOGIC_9)
 
         override fun createParser(project: Project): PsiParser = MarkLogicErrorLogParser()
 

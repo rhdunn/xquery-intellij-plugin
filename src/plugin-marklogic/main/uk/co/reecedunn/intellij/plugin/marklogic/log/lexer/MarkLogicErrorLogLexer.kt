@@ -20,8 +20,9 @@ import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange
 import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRangeImpl
 import uk.co.reecedunn.intellij.plugin.core.lexer.LexerImpl
 import uk.co.reecedunn.intellij.plugin.core.lexer.STATE_DEFAULT
+import uk.co.reecedunn.intellij.plugin.marklogic.log.lang.MarkLogicErrorLogFormat
 
-class MarkLogicErrorLogLexer : LexerImpl(STATE_DEFAULT, CodePointRangeImpl()) {
+class MarkLogicErrorLogLexer(val format: MarkLogicErrorLogFormat) : LexerImpl(STATE_DEFAULT, CodePointRangeImpl()) {
     // region Character Classes
 
     companion object {
@@ -171,7 +172,7 @@ class MarkLogicErrorLogLexer : LexerImpl(STATE_DEFAULT, CodePointRangeImpl()) {
                                 cc != WHITE_SPACE && cc != PLUS -> seenWhitespace = true
                                 state == State.LogLevel -> {
                                     popState()
-                                    pushState(State.Server)
+                                    pushState(if (format.haveServer) State.Server else State.Message)
 
                                     val text = mTokenRange.bufferSequence.substring(mTokenRange.start, mTokenRange.end)
                                     return MarkLogicErrorLogTokenType.LogLevel.token(text)
