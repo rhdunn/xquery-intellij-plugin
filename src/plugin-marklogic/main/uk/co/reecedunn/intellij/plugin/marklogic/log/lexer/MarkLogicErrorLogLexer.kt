@@ -165,10 +165,10 @@ class MarkLogicErrorLogLexer : LexerImpl(STATE_DEFAULT, CodePointRangeImpl()) {
                         COLON -> if (!seenWhitespace) {
                             mTokenRange.save()
                             mTokenRange.match()
-                            val haveSpace = getCharacterClass(mTokenRange.codePoint) == WHITE_SPACE
+                            cc = getCharacterClass(mTokenRange.codePoint)
                             mTokenRange.restore()
                             when {
-                                !haveSpace -> seenWhitespace = true
+                                cc != WHITE_SPACE && cc != PLUS -> seenWhitespace = true
                                 state == State.LogLevel -> {
                                     popState()
                                     pushState(State.Server)

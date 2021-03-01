@@ -257,7 +257,7 @@ class MarkLogicErrorLogLexerTest : LexerTestCaseEx() {
     }
 
     private fun messageContinuation(level: String, token: IElementType) {
-        tokenize("2001-01-10 12:34:56.789 $level: abc-2d_3e: Lorem ipsum dolor") {
+        tokenize("2001-01-10 12:34:56.789 $level:+Lorem ipsum dolor") {
             token("2001-01-10", MarkLogicErrorLogTokenType.DATE)
             state(1)
             token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
@@ -267,11 +267,7 @@ class MarkLogicErrorLogLexerTest : LexerTestCaseEx() {
             token(level, token)
             state(3)
             token(":", MarkLogicErrorLogTokenType.COLON)
-            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
-            token("abc-2d_3e", MarkLogicErrorLogTokenType.SERVER)
-            state(4)
-            token(":", MarkLogicErrorLogTokenType.COLON)
-            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
+            token("+", MarkLogicErrorLogTokenType.CONTINUATION)
             token("Lorem ipsum dolor", MarkLogicErrorLogTokenType.MESSAGE)
         }
     }
@@ -294,7 +290,7 @@ class MarkLogicErrorLogLexerTest : LexerTestCaseEx() {
         messageContinuation("Unknown", MarkLogicErrorLogTokenType.LOG_LEVEL)
     }
 
-    private fun logLevelWithoutSpace(level: String, token: IElementType) {
+    private fun logLevelWithoutSpace(level: String, @Suppress("UNUSED_PARAMETER") token: IElementType) {
         tokenize("2001-01-10 12:34:56.789 $level:Lorem ipsum dolor") {
             token("2001-01-10", MarkLogicErrorLogTokenType.DATE)
             state(1)
