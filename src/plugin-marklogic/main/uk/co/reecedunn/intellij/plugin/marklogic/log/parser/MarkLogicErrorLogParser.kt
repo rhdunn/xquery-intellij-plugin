@@ -35,17 +35,20 @@ class MarkLogicErrorLogParser : PsiParser {
     // region Grammar
 
     fun parse(builder: PsiBuilder) {
-        while (true) when (builder.tokenType) {
-            null -> return
-            MarkLogicErrorLogTokenType.WHITE_SPACE -> builder.advanceLexer()
-            else -> parseLogLine(builder)
+        while (builder.tokenType != null) {
+            parseLogLine(builder)
         }
     }
 
     private fun parseLogLine(builder: PsiBuilder) {
         val marker = builder.mark()
         while (true) when (builder.tokenType) {
-            null, MarkLogicErrorLogTokenType.WHITE_SPACE -> {
+            null -> {
+                marker.done(MarkLogicErrorLogElementType.LOG_LINE)
+                return
+            }
+            MarkLogicErrorLogTokenType.MESSAGE -> {
+                builder.advanceLexer()
                 marker.done(MarkLogicErrorLogElementType.LOG_LINE)
                 return
             }
