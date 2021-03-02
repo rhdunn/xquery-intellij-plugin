@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Reece H. Dunn
+ * Copyright (C) 2016-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,14 +19,14 @@ import com.intellij.lexer.Lexer
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.lexer.CombinedLexer
-import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCaseEx
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 @DisplayName("XQuery 3.1 with Full Text 3.0 - Lexer")
-class FullTextLexerTest : LexerTestCase() {
-    private fun createLexer(): Lexer {
+class FullTextLexerTest : LexerTestCaseEx() {
+    override val lexer: Lexer = run {
         val lexer = CombinedLexer(XQueryLexer())
         lexer.addState(
             XQueryLexer(), 0x50000000, 0,
@@ -36,348 +36,278 @@ class FullTextLexerTest : LexerTestCase() {
             XQueryLexer(), 0x60000000, 0,
             XQueryLexer.STATE_START_DIR_ELEM_CONSTRUCTOR, XQueryTokenType.DIRELEM_OPEN_XML_TAG
         )
-        return lexer
+        lexer
     }
 
     @Test
     @DisplayName("XQuery 1.0 with Full Text EBNF (24) FTOptionDecl")
-    fun testFTOptionDecl() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "declare", XQueryTokenType.K_DECLARE)
-        matchSingleToken(lexer, "ft-option", XQueryTokenType.K_FT_OPTION)
+    fun ftOptionDecl() {
+        token("declare", XQueryTokenType.K_DECLARE)
+        token("ft-option", XQueryTokenType.K_FT_OPTION)
     }
 
     @Test
     @DisplayName("XQuery 1.0 with Full Text EBNF (37) FTScoreVar")
-    fun testFTScoreVar() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "score", XPathTokenType.K_SCORE)
-        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
+    fun ftScoreVar() {
+        token("score", XPathTokenType.K_SCORE)
+        token("$", XPathTokenType.VARIABLE_INDICATOR)
     }
 
     @Test
     @DisplayName("XQuery 1.0 with Full Text EBNF (51) FTContainsExpr")
-    fun testFTContainsExpr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "contains", XPathTokenType.K_CONTAINS)
-        matchSingleToken(lexer, "text", XPathTokenType.K_TEXT)
+    fun ftContainsExpr() {
+        token("contains", XPathTokenType.K_CONTAINS)
+        token("text", XPathTokenType.K_TEXT)
     }
 
     @Test
     @DisplayName("XQuery 1.0 with Full Text EBNF (145) FTWeight")
-    fun testFTWeight() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "weight", XPathTokenType.K_WEIGHT)
-        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
+    fun ftWeight() {
+        token("weight", XPathTokenType.K_WEIGHT)
+        token("{", XPathTokenType.BLOCK_OPEN)
+        token("}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery 1.0 with Full Text EBNF (146) FTOr")
-    fun testFTOr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "ftor", XPathTokenType.K_FTOR)
+    fun ftOr() {
+        token("ftor", XPathTokenType.K_FTOR)
     }
 
     @Test
     @DisplayName("XQuery 1.0 with Full Text EBNF (147) FTAnd")
-    fun testFTAnd() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "ftand", XPathTokenType.K_FTAND)
+    fun ftAnd() {
+        token("ftand", XPathTokenType.K_FTAND)
     }
 
     @Test
     @DisplayName("XQuery 1.0 with Full Text EBNF (148) FTMildNot")
-    fun testFTMildNot() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "not", XPathTokenType.K_NOT)
-        matchSingleToken(lexer, "in", XPathTokenType.K_IN)
+    fun ftMildNot() {
+        token("not", XPathTokenType.K_NOT)
+        token("in", XPathTokenType.K_IN)
     }
 
     @Test
     @DisplayName("XQuery 1.0 with Full Text EBNF (149) FTUnaryNot")
-    fun testFTUnaryNot() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "ftnot", XPathTokenType.K_FTNOT)
+    fun ftUnaryNot() {
+        token("ftnot", XPathTokenType.K_FTNOT)
     }
 
     @Test
     @DisplayName("XQuery 1.0 with Full Text EBNF (151) FTPrimary")
-    fun testFTPrimary() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+    fun ftPrimary() {
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery 1.0 with Full Text EBNF (153) FTWordsValue")
-    fun testFTWordsValue() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
+    fun ftWordsValue() {
+        token("{", XPathTokenType.BLOCK_OPEN)
+        token("}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery 1.0 with Full Text EBNF (154) FTExtensionSelection")
-    fun testFTExtensionSelection() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
+    fun ftExtensionSelection() {
+        token("{", XPathTokenType.BLOCK_OPEN)
+        token("}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery 1.0 with Full Text EBNF (155) FTAnyallOption")
-    fun testFTAnyallOption() {
-        val lexer = createLexer()
+    fun ftAnyallOption() {
+        token("any", XPathTokenType.K_ANY)
+        token("all", XPathTokenType.K_ALL)
 
-        matchSingleToken(lexer, "any", XPathTokenType.K_ANY)
-        matchSingleToken(lexer, "all", XPathTokenType.K_ALL)
-
-        matchSingleToken(lexer, "word", XPathTokenType.K_WORD)
-        matchSingleToken(lexer, "words", XPathTokenType.K_WORDS)
-        matchSingleToken(lexer, "phrase", XPathTokenType.K_PHRASE)
+        token("word", XPathTokenType.K_WORD)
+        token("words", XPathTokenType.K_WORDS)
+        token("phrase", XPathTokenType.K_PHRASE)
     }
 
     @Test
     @DisplayName("XQuery 1.0 with Full Text EBNF (156) FTTimes")
-    fun testFTTimes() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "occurs", XPathTokenType.K_OCCURS)
-        matchSingleToken(lexer, "times", XPathTokenType.K_TIMES)
+    fun ftTimes() {
+        token("occurs", XPathTokenType.K_OCCURS)
+        token("times", XPathTokenType.K_TIMES)
     }
 
     @Test
     @DisplayName("XQuery 1.0 with Full Text EBNF (157) FTRange")
-    fun testFTRange() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "exactly", XPathTokenType.K_EXACTLY)
-        matchSingleToken(lexer, "at", XPathTokenType.K_AT)
-        matchSingleToken(lexer, "least", XPathTokenType.K_LEAST)
-        matchSingleToken(lexer, "most", XPathTokenType.K_MOST)
-        matchSingleToken(lexer, "from", XPathTokenType.K_FROM)
-        matchSingleToken(lexer, "to", XPathTokenType.K_TO)
+    fun ftRange() {
+        token("exactly", XPathTokenType.K_EXACTLY)
+        token("at", XPathTokenType.K_AT)
+        token("least", XPathTokenType.K_LEAST)
+        token("most", XPathTokenType.K_MOST)
+        token("from", XPathTokenType.K_FROM)
+        token("to", XPathTokenType.K_TO)
     }
 
     @Test
     @DisplayName("XQuery 1.0 with Full Text EBNF (159) FTOrder")
-    fun testFTOrder() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "ordered", XPathTokenType.K_ORDERED)
+    fun ftOrder() {
+        token("ordered", XPathTokenType.K_ORDERED)
     }
 
     @Test
     @DisplayName("XQuery 1.0 with Full Text EBNF (160) FTWindow")
-    fun testFTWindow() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "window", XPathTokenType.K_WINDOW)
+    fun ftWindow() {
+        token("window", XPathTokenType.K_WINDOW)
     }
 
     @Test
     @DisplayName("XQuery 1.0 with Full Text EBNF (161) FTDistance")
-    fun testFTDistance() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "distance", XPathTokenType.K_DISTANCE)
+    fun ftDistance() {
+        token("distance", XPathTokenType.K_DISTANCE)
     }
 
     @Test
     @DisplayName("XQuery 1.0 with Full Text EBNF (162) FTUnit")
-    fun testFTUnit() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "words", XPathTokenType.K_WORDS)
-        matchSingleToken(lexer, "sentences", XPathTokenType.K_SENTENCES)
-        matchSingleToken(lexer, "paragraphs", XPathTokenType.K_PARAGRAPHS)
+    fun ftUnit() {
+        token("words", XPathTokenType.K_WORDS)
+        token("sentences", XPathTokenType.K_SENTENCES)
+        token("paragraphs", XPathTokenType.K_PARAGRAPHS)
     }
 
     @Test
     @DisplayName("XQuery 1.0 with Full Text EBNF (163) FTScope")
-    fun testFTScope() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "same", XPathTokenType.K_SAME)
-        matchSingleToken(lexer, "different", XPathTokenType.K_DIFFERENT)
+    fun ftScope() {
+        token("same", XPathTokenType.K_SAME)
+        token("different", XPathTokenType.K_DIFFERENT)
     }
 
     @Test
     @DisplayName("XQuery 1.0 with Full Text EBNF (164) FTBigUnit")
-    fun testFTBigUnit() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "sentence", XPathTokenType.K_SENTENCE)
-        matchSingleToken(lexer, "paragraph", XPathTokenType.K_PARAGRAPH)
+    fun ftBigUnit() {
+        token("sentence", XPathTokenType.K_SENTENCE)
+        token("paragraph", XPathTokenType.K_PARAGRAPH)
     }
 
     @Test
     @DisplayName("XQuery 1.0 with Full Text EBNF (165) FTContent")
-    fun testFTContent() {
-        val lexer = createLexer()
+    fun ftContent() {
+        token("at", XPathTokenType.K_AT)
+        token("start", XPathTokenType.K_START)
+        token("end", XPathTokenType.K_END)
 
-        matchSingleToken(lexer, "at", XPathTokenType.K_AT)
-        matchSingleToken(lexer, "start", XPathTokenType.K_START)
-        matchSingleToken(lexer, "end", XPathTokenType.K_END)
-
-        matchSingleToken(lexer, "entire", XPathTokenType.K_ENTIRE)
-        matchSingleToken(lexer, "content", XPathTokenType.K_CONTENT)
+        token("entire", XPathTokenType.K_ENTIRE)
+        token("content", XPathTokenType.K_CONTENT)
     }
 
     @Test
     @DisplayName("XQuery 1.0 with Full Text EBNF (166) FTMatchOptions")
-    fun testFTMatchOptions() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "using", XPathTokenType.K_USING)
+    fun ftMatchOptions() {
+        token("using", XPathTokenType.K_USING)
     }
 
     @Test
     @DisplayName("XQuery 1.0 with Full Text EBNF (168) FTCaseOption")
-    fun testFTCaseOption() {
-        val lexer = createLexer()
+    fun ftCaseOption() {
+        token("case", XPathTokenType.K_CASE)
+        token("sensitive", XPathTokenType.K_SENSITIVE)
+        token("insensitive", XPathTokenType.K_INSENSITIVE)
 
-        matchSingleToken(lexer, "case", XPathTokenType.K_CASE)
-        matchSingleToken(lexer, "sensitive", XPathTokenType.K_SENSITIVE)
-        matchSingleToken(lexer, "insensitive", XPathTokenType.K_INSENSITIVE)
-
-        matchSingleToken(lexer, "lowercase", XPathTokenType.K_LOWERCASE)
-        matchSingleToken(lexer, "uppercase", XPathTokenType.K_UPPERCASE)
+        token("lowercase", XPathTokenType.K_LOWERCASE)
+        token("uppercase", XPathTokenType.K_UPPERCASE)
     }
 
     @Test
     @DisplayName("XQuery 1.0 with Full Text EBNF (169) FTDiacriticsOption")
-    fun testFTDiacriticsOption() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "diacritics", XPathTokenType.K_DIACRITICS)
-        matchSingleToken(lexer, "sensitive", XPathTokenType.K_SENSITIVE)
-        matchSingleToken(lexer, "insensitive", XPathTokenType.K_INSENSITIVE)
+    fun ftDiacriticsOption() {
+        token("diacritics", XPathTokenType.K_DIACRITICS)
+        token("sensitive", XPathTokenType.K_SENSITIVE)
+        token("insensitive", XPathTokenType.K_INSENSITIVE)
     }
 
     @Test
     @DisplayName("XQuery 1.0 with Full Text EBNF (170) FTStemOption")
-    fun testFTStemOption() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "no", XPathTokenType.K_NO)
-        matchSingleToken(lexer, "stemming", XPathTokenType.K_STEMMING)
+    fun ftStemOption() {
+        token("no", XPathTokenType.K_NO)
+        token("stemming", XPathTokenType.K_STEMMING)
     }
 
     @Test
     @DisplayName("XQuery 1.0 with Full Text EBNF (171) FTThesaurusOption")
-    fun testFTThesaurusOption() {
-        val lexer = createLexer()
+    fun ftThesaurusOption() {
+        token("thesaurus", XPathTokenType.K_THESAURUS)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(",", XPathTokenType.COMMA)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
 
-        matchSingleToken(lexer, "thesaurus", XPathTokenType.K_THESAURUS)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
-
-        matchSingleToken(lexer, "no", XPathTokenType.K_NO)
-        matchSingleToken(lexer, "default", XPathTokenType.K_DEFAULT)
+        token("no", XPathTokenType.K_NO)
+        token("default", XPathTokenType.K_DEFAULT)
     }
 
     @Test
     @DisplayName("XQuery 1.0 with Full Text EBNF (172) FTThesaurusID")
-    fun testFTThesaurusID() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "at", XPathTokenType.K_AT)
-        matchSingleToken(lexer, "relationship", XPathTokenType.K_RELATIONSHIP)
-        matchSingleToken(lexer, "levels", XPathTokenType.K_LEVELS)
+    fun ftThesaurusID() {
+        token("at", XPathTokenType.K_AT)
+        token("relationship", XPathTokenType.K_RELATIONSHIP)
+        token("levels", XPathTokenType.K_LEVELS)
     }
 
     @Test
     @DisplayName("XQuery 1.0 with Full Text EBNF (173) FTLiteralRange")
-    fun testFTLiteralRange() {
-        val lexer = createLexer()
+    fun ftLiteralRange() {
+        token("exactly", XPathTokenType.K_EXACTLY)
 
-        matchSingleToken(lexer, "exactly", XPathTokenType.K_EXACTLY)
+        token("at", XPathTokenType.K_AT)
+        token("least", XPathTokenType.K_LEAST)
+        token("most", XPathTokenType.K_MOST)
 
-        matchSingleToken(lexer, "at", XPathTokenType.K_AT)
-        matchSingleToken(lexer, "least", XPathTokenType.K_LEAST)
-        matchSingleToken(lexer, "most", XPathTokenType.K_MOST)
-
-        matchSingleToken(lexer, "from", XPathTokenType.K_FROM)
-        matchSingleToken(lexer, "to", XPathTokenType.K_TO)
+        token("from", XPathTokenType.K_FROM)
+        token("to", XPathTokenType.K_TO)
     }
 
     @Test
     @DisplayName("XQuery 1.0 with Full Text EBNF (174) FTStopWordOption")
-    fun testFTStopWordOption() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "stop", XPathTokenType.K_STOP)
-        matchSingleToken(lexer, "words", XPathTokenType.K_WORDS)
-        matchSingleToken(lexer, "default", XPathTokenType.K_DEFAULT)
-        matchSingleToken(lexer, "no", XPathTokenType.K_NO)
+    fun ftStopWordOption() {
+        token("stop", XPathTokenType.K_STOP)
+        token("words", XPathTokenType.K_WORDS)
+        token("default", XPathTokenType.K_DEFAULT)
+        token("no", XPathTokenType.K_NO)
     }
 
     @Test
     @DisplayName("XQuery 1.0 with Full Text EBNF (175) FTStopWords")
-    fun testFTStopWords() {
-        val lexer = createLexer()
+    fun ftStopWords() {
+        token("at", XPathTokenType.K_AT)
 
-        matchSingleToken(lexer, "at", XPathTokenType.K_AT)
-
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(",", XPathTokenType.COMMA)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery 1.0 with Full Text EBNF (176) FTStopWordsInclExcl")
-    fun testFTStopWordsInclExcl() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "union", XPathTokenType.K_UNION)
-        matchSingleToken(lexer, "except", XPathTokenType.K_EXCEPT)
+    fun ftStopWordsInclExcl() {
+        token("union", XPathTokenType.K_UNION)
+        token("except", XPathTokenType.K_EXCEPT)
     }
 
     @Test
     @DisplayName("XQuery 1.0 with Full Text EBNF (177) FTLanguageOption")
-    fun testFTLanguageOption() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "language", XPathTokenType.K_LANGUAGE)
+    fun ftLanguageOption() {
+        token("language", XPathTokenType.K_LANGUAGE)
     }
 
     @Test
     @DisplayName("XQuery 1.0 with Full Text EBNF (178) FTWildcardOption")
-    fun testFTWildCardOption() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "no", XPathTokenType.K_NO)
-        matchSingleToken(lexer, "wildcards", XPathTokenType.K_WILDCARDS)
+    fun ftWildCardOption() {
+        token("no", XPathTokenType.K_NO)
+        token("wildcards", XPathTokenType.K_WILDCARDS)
     }
 
     @Test
     @DisplayName("XQuery 1.0 with Full Text EBNF (179) FTExtensionOption")
-    fun testFTExtensionOption() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "option", XPathTokenType.K_OPTION)
+    fun ftExtensionOption() {
+        token("option", XPathTokenType.K_OPTION)
     }
 
     @Test
     @DisplayName("XQuery 1.0 with Full Text EBNF (180) FTIgnoreOption")
-    fun testFTIgnoreOption() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "without", XPathTokenType.K_WITHOUT)
-        matchSingleToken(lexer, "content", XPathTokenType.K_CONTENT)
+    fun ftIgnoreOption() {
+        token("without", XPathTokenType.K_WITHOUT)
+        token("content", XPathTokenType.K_CONTENT)
     }
 }
