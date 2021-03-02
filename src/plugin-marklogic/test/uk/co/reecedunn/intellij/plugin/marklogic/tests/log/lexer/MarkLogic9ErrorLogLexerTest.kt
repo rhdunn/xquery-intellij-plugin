@@ -45,8 +45,7 @@ class MarkLogic9ErrorLogLexerTest : LexerTestCaseEx() {
 
         @Test
         @DisplayName("empty buffer")
-        fun emptyBuffer() {
-            tokenize("")
+        fun emptyBuffer() = tokenize("") {
         }
     }
 
