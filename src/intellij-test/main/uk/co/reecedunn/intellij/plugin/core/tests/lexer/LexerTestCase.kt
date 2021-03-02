@@ -52,22 +52,27 @@ abstract class LexerTestCase {
 abstract class LexerTestCaseEx : LexerTestCase() {
     abstract val lexer: Lexer
 
-    fun tokenize(text: String, test: LexerTokens.() -> Unit = {}) {
-        val tokens = LexerTokens(lexer)
-        lexer.start(text)
+    fun tokenize(text: CharSequence, start: Int, end: Int, state: Int, test: LexerTokens.() -> Unit = {}) {
+        val tokens = LexerTokens(lexer, start, state)
+        lexer.start(text, start, end, state)
         tokens.test()
-        matchToken(lexer, "", tokens.state, tokens.end, tokens.end, null)
+        matchToken(lexer, "", tokens.state, end, end, null)
     }
 
-    fun tokenize(vararg lines: String, test: LexerTokens.() -> Unit = {}) = tokenize(lines.joinToString("\n"), test)
+    fun tokenize(text: CharSequence, test: LexerTokens.() -> Unit = {}) {
+        return tokenize(text, 0, text.length, 0, test)
+    }
+
+    fun tokenize(vararg lines: CharSequence, test: LexerTokens.() -> Unit = {}) {
+        return tokenize(lines.joinToString("\n"), test)
+    }
 
     fun token(text: String, type: IElementType) = tokenize(text) {
         token(text, type)
     }
 
-    class LexerTokens(val lexer: Lexer) {
-        internal var end: Int = 0
-        internal var state: Int = 0
+    class LexerTokens(val lexer: Lexer, start: Int, internal var state: Int) {
+        internal var end: Int = start
 
         fun state(state: Int) {
             this.state = state
