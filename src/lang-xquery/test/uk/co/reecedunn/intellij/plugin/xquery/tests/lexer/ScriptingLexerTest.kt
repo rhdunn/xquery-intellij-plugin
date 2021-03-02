@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,14 +19,14 @@ import com.intellij.lexer.Lexer
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.lexer.CombinedLexer
-import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCaseEx
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 @DisplayName("XQuery Scripting Extensions 1.0 - Lexer")
-class ScriptingLexerTest : LexerTestCase() {
-    private fun createLexer(): Lexer {
+class ScriptingLexerTest : LexerTestCaseEx() {
+    override val lexer: Lexer = run {
         val lexer = CombinedLexer(XQueryLexer())
         lexer.addState(
             XQueryLexer(), 0x50000000, 0,
@@ -36,117 +36,95 @@ class ScriptingLexerTest : LexerTestCase() {
             XQueryLexer(), 0x60000000, 0,
             XQueryLexer.STATE_START_DIR_ELEM_CONSTRUCTOR, XQueryTokenType.DIRELEM_OPEN_XML_TAG
         )
-        return lexer
+        lexer
     }
 
     @Test
     @DisplayName("XQuery Scripting Extensions 1.0 EBNF (24) VarDecl")
-    fun testVarDecl_Scripting10() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "declare", XQueryTokenType.K_DECLARE)
-        matchSingleToken(lexer, "unassignable", XQueryTokenType.K_UNASSIGNABLE)
-        matchSingleToken(lexer, "assignable", XQueryTokenType.K_ASSIGNABLE)
-        matchSingleToken(lexer, "variable", XQueryTokenType.K_VARIABLE)
-        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
-        matchSingleToken(lexer, ":=", XPathTokenType.ASSIGN_EQUAL)
-        matchSingleToken(lexer, "external", XQueryTokenType.K_EXTERNAL)
+    fun varDecl() {
+        token("declare", XQueryTokenType.K_DECLARE)
+        token("unassignable", XQueryTokenType.K_UNASSIGNABLE)
+        token("assignable", XQueryTokenType.K_ASSIGNABLE)
+        token("variable", XQueryTokenType.K_VARIABLE)
+        token("$", XPathTokenType.VARIABLE_INDICATOR)
+        token(":=", XPathTokenType.ASSIGN_EQUAL)
+        token("external", XQueryTokenType.K_EXTERNAL)
     }
 
     @Test
     @DisplayName("XQuery Scripting Extensions 1.0 EBNF (26) FunctionDecl")
-    fun testFunctionDecl_Scripting10() {
-        val lexer = createLexer()
+    fun functionDecl() {
+        token("declare", XQueryTokenType.K_DECLARE)
+        token("function", XPathTokenType.K_FUNCTION)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("as", XPathTokenType.K_AS)
+        token("external", XQueryTokenType.K_EXTERNAL)
 
-        matchSingleToken(lexer, "declare", XQueryTokenType.K_DECLARE)
-        matchSingleToken(lexer, "function", XPathTokenType.K_FUNCTION)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
-        matchSingleToken(lexer, "as", XPathTokenType.K_AS)
-        matchSingleToken(lexer, "external", XQueryTokenType.K_EXTERNAL)
-
-        matchSingleToken(lexer, "sequential", XQueryTokenType.K_SEQUENTIAL)
-        matchSingleToken(lexer, "simple", XQueryTokenType.K_SIMPLE)
-        matchSingleToken(lexer, "updating", XQueryTokenType.K_UPDATING)
+        token("sequential", XQueryTokenType.K_SEQUENTIAL)
+        token("simple", XQueryTokenType.K_SIMPLE)
+        token("updating", XQueryTokenType.K_UPDATING)
     }
 
     @Test
     @DisplayName("XQuery Scripting Extensions 1.0 EBNF (32) ApplyExpr")
-    fun testApplyExpr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, ";", XQueryTokenType.SEPARATOR)
+    fun applyExpr() {
+        token(";", XQueryTokenType.SEPARATOR)
     }
 
     @Test
     @DisplayName("XQuery Scripting Extensions 1.0 EBNF (33) ConcatExpr")
-    fun testConcatExpr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
+    fun concatExpr() {
+        token(",", XPathTokenType.COMMA)
     }
 
     @Test
     @DisplayName("XQuery Scripting Extensions 1.0 EBNF (153) BlockExpr")
-    fun testBlockExpr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "block", XQueryTokenType.K_BLOCK)
+    fun blockExpr() {
+        token("block", XQueryTokenType.K_BLOCK)
     }
 
     @Test
     @DisplayName("XQuery Scripting Extensions 1.0 EBNF (154) Block")
-    fun testBlock() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
+    fun block() {
+        token("{", XPathTokenType.BLOCK_OPEN)
+        token("}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery Scripting Extensions 1.0 EBNF (155) BlockDecls")
-    fun testBlockDecls() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, ";", XQueryTokenType.SEPARATOR)
+    fun blockDecls() {
+        token(";", XQueryTokenType.SEPARATOR)
     }
 
     @Test
     @DisplayName("XQuery Scripting Extensions 1.0 EBNF (156) BlockVarDecl")
-    fun testBlockVarDecl() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "declare", XQueryTokenType.K_DECLARE)
-        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
-        matchSingleToken(lexer, ":=", XPathTokenType.ASSIGN_EQUAL)
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
+    fun blockVarDecl() {
+        token("declare", XQueryTokenType.K_DECLARE)
+        token("$", XPathTokenType.VARIABLE_INDICATOR)
+        token(":=", XPathTokenType.ASSIGN_EQUAL)
+        token(",", XPathTokenType.COMMA)
     }
 
     @Test
     @DisplayName("XQuery Scripting Extensions 1.0 EBNF (158) AssignmentExpr")
-    fun testAssignmentExpr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
-        matchSingleToken(lexer, ":=", XPathTokenType.ASSIGN_EQUAL)
+    fun assignmentExpr() {
+        token("$", XPathTokenType.VARIABLE_INDICATOR)
+        token(":=", XPathTokenType.ASSIGN_EQUAL)
     }
 
     @Test
     @DisplayName("XQuery Scripting Extensions 1.0 EBNF (159) ExitExpr")
-    fun testExitExpr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "exit", XQueryTokenType.K_EXIT)
-        matchSingleToken(lexer, "returning", XQueryTokenType.K_RETURNING)
+    fun exitExpr() {
+        token("exit", XQueryTokenType.K_EXIT)
+        token("returning", XQueryTokenType.K_RETURNING)
     }
 
     @Test
     @DisplayName("XQuery Scripting Extensions 1.0 EBNF (160) WhileExpr")
-    fun testWhileExpr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "while", XQueryTokenType.K_WHILE)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+    fun whileExpr() {
+        token("while", XQueryTokenType.K_WHILE)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 }
