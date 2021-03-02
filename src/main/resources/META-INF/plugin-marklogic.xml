@@ -19,6 +19,7 @@
 
     <lang.parserDefinition language="MLErrorLog" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.log.lang.MarkLogicErrorLog$ParserDefinition"/>
     <lang.syntaxHighlighterFactory language="MLErrorLog" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.log.lang.MarkLogicErrorLogSyntaxHighlighter$Factory"/>
+    <annotator language="MLErrorLog" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.log.annotation.LogLevelAnnotator"/>
   </extensions>
 
   <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
