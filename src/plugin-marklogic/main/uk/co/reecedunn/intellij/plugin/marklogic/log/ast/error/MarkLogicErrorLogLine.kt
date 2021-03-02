@@ -16,8 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.log.ast.error
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.marklogic.log.lexer.ILogLevelElementType
 
 interface MarkLogicErrorLogLine : PsiElement {
-    val logLevel: ILogLevelElementType?
+    val logLevel: PsiElement?
 }

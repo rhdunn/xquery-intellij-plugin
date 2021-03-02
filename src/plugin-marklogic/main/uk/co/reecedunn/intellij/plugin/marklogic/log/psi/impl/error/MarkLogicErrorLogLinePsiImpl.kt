@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.marklogic.log.psi.impl.error
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
@@ -30,9 +31,9 @@ class MarkLogicErrorLogLinePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), 
     }
 
     private val cachedLogLevel = CacheableProperty {
-        children().find { it.elementType is ILogLevelElementType }?.elementType as? ILogLevelElementType
+        children().find { it.elementType is ILogLevelElementType }
     }
 
-    override val logLevel: ILogLevelElementType?
+    override val logLevel: PsiElement?
         get() = cachedLogLevel.get()
 }

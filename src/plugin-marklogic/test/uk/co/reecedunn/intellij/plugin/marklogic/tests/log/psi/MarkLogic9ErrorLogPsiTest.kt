@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.marklogic.tests.log.psi
 
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.*
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.marklogic.log.ast.error.MarkLogicErrorLog
@@ -42,7 +43,7 @@ private class MarkLogic9ErrorLogPsiTest : ParsingTestCase<MarkLogicErrorLog>("lo
             "\tat java.lang.System.initProperties(Native Method)"
         )[0]
 
-        assertThat(line.logLevel, `is`(nullValue()))
+        assertThat(line.logLevel?.elementType, `is`(nullValue()))
     }
 
     @Test
@@ -52,7 +53,7 @@ private class MarkLogic9ErrorLogPsiTest : ParsingTestCase<MarkLogicErrorLog>("lo
             "WARNING: JNI local refs: zu, exceeds capacity: zu"
         )[0]
 
-        assertThat(line.logLevel, `is`(MarkLogicErrorLogTokenType.LogLevel.WARNING))
+        assertThat(line.logLevel?.elementType, `is`(MarkLogicErrorLogTokenType.LogLevel.WARNING))
     }
 
     @Test
@@ -62,6 +63,6 @@ private class MarkLogic9ErrorLogPsiTest : ParsingTestCase<MarkLogicErrorLog>("lo
             "2001-01-10 12:34:56.789 Info: Lorem ipsum dolor"
         )[0]
 
-        assertThat(line.logLevel, `is`(MarkLogicErrorLogTokenType.LogLevel.INFO))
+        assertThat(line.logLevel?.elementType, `is`(MarkLogicErrorLogTokenType.LogLevel.INFO))
     }
 }
