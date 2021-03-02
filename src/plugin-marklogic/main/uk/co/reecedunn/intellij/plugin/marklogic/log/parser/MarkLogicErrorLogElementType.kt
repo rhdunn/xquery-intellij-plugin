@@ -15,9 +15,18 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.log.parser
 
+import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.IFileElementType
+import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
 import uk.co.reecedunn.intellij.plugin.marklogic.log.lang.MarkLogicErrorLog
+import uk.co.reecedunn.intellij.plugin.marklogic.log.psi.impl.error.MarkLogicErrorLogLinePsiImpl
 
 object MarkLogicErrorLogElementType {
     val ERROR_LOG: IFileElementType = IFileElementType(MarkLogicErrorLog)
+
+    val LOG_LINE: IElementType = ICompositeElementType(
+        "MARK_LOGIC_ERROR_LOG_LINE",
+        MarkLogicErrorLogLinePsiImpl::class.java,
+        MarkLogicErrorLog
+    )
 }

@@ -19,6 +19,7 @@ import com.intellij.lang.ASTNode
 import com.intellij.lang.PsiBuilder
 import com.intellij.lang.PsiParser
 import com.intellij.psi.tree.IElementType
+import uk.co.reecedunn.intellij.plugin.marklogic.log.lexer.MarkLogicErrorLogTokenType
 
 class MarkLogicErrorLogParser : PsiParser {
     // region PsiParser
@@ -34,8 +35,21 @@ class MarkLogicErrorLogParser : PsiParser {
     // region Grammar
 
     fun parse(builder: PsiBuilder) {
-        while (builder.tokenType != null) {
-            builder.advanceLexer()
+        while (true) when (builder.tokenType) {
+            null -> return
+            MarkLogicErrorLogTokenType.WHITE_SPACE -> builder.advanceLexer()
+            else -> parseLogLine(builder)
+        }
+    }
+
+    private fun parseLogLine(builder: PsiBuilder) {
+        val marker = builder.mark()
+        while (true) when (builder.tokenType) {
+            null, MarkLogicErrorLogTokenType.WHITE_SPACE -> {
+                marker.done(MarkLogicErrorLogElementType.LOG_LINE)
+                return
+            }
+            else -> builder.advanceLexer()
         }
     }
 
