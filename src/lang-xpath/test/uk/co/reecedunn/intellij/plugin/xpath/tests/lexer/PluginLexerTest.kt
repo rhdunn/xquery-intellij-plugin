@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2020 Reece H. Dunn
+ * Copyright (C) 2016-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,239 +19,197 @@ import com.intellij.lexer.Lexer
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XmlCodePointRangeImpl
-import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCaseEx
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
 @DisplayName("XQuery IntelliJ Plugin - Lexer")
-class PluginLexerTest : LexerTestCase() {
-    private fun createLexer(): Lexer = XPathLexer(XmlCodePointRangeImpl())
+class PluginLexerTest : LexerTestCaseEx() {
+    override val lexer: Lexer = XPathLexer(XmlCodePointRangeImpl())
 
     @Test
     @DisplayName("XQuery IntelliJ Plugin XPath EBNF (20) AndExpr")
     fun andExpr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "and", XPathTokenType.K_AND)
-        matchSingleToken(lexer, "andAlso", XPathTokenType.K_ANDALSO)
+        token("and", XPathTokenType.K_AND)
+        token("andAlso", XPathTokenType.K_ANDALSO)
     }
 
     @Test
     @DisplayName("XQuery IntelliJ Plugin XPath EBNF (25) RecordTest")
     fun recordTest() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "tuple", XPathTokenType.K_TUPLE)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("tuple", XPathTokenType.K_TUPLE)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(",", XPathTokenType.COMMA)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery IntelliJ Plugin XPath EBNF (26) FieldDeclaration")
     fun fieldDeclaration() {
-        val lexer = createLexer()
+        token("?", XPathTokenType.OPTIONAL)
+        token("as", XPathTokenType.K_AS)
 
-        matchSingleToken(lexer, "?", XPathTokenType.OPTIONAL)
-        matchSingleToken(lexer, "as", XPathTokenType.K_AS)
-
-        matchSingleToken(lexer, "?:", XPathTokenType.ELVIS) // compact whitespace -- BaseX 9.1 (XQuery) extension
-        matchSingleToken(lexer, ":", XPathTokenType.QNAME_SEPARATOR)
+        token("?:", XPathTokenType.ELVIS) // compact whitespace -- BaseX 9.1 (XQuery) extension
+        token(":", XPathTokenType.QNAME_SEPARATOR)
     }
 
     @Test
     @DisplayName("XQuery IntelliJ Plugin EBNF (25) ForwardAxis")
     fun forwardAxis() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "attribute", XPathTokenType.K_ATTRIBUTE)
-        matchSingleToken(lexer, "child", XPathTokenType.K_CHILD)
-        matchSingleToken(lexer, "descendant", XPathTokenType.K_DESCENDANT)
-        matchSingleToken(lexer, "descendant-or-self", XPathTokenType.K_DESCENDANT_OR_SELF)
-        matchSingleToken(lexer, "following", XPathTokenType.K_FOLLOWING)
-        matchSingleToken(lexer, "following-sibling", XPathTokenType.K_FOLLOWING_SIBLING)
-        matchSingleToken(lexer, "namespace", XPathTokenType.K_NAMESPACE) // XPath and MarkLogic
-        matchSingleToken(lexer, "property", XPathTokenType.K_PROPERTY) // MarkLogic
-        matchSingleToken(lexer, "self", XPathTokenType.K_SELF)
-        matchSingleToken(lexer, "::", XPathTokenType.AXIS_SEPARATOR)
+        token("attribute", XPathTokenType.K_ATTRIBUTE)
+        token("child", XPathTokenType.K_CHILD)
+        token("descendant", XPathTokenType.K_DESCENDANT)
+        token("descendant-or-self", XPathTokenType.K_DESCENDANT_OR_SELF)
+        token("following", XPathTokenType.K_FOLLOWING)
+        token("following-sibling", XPathTokenType.K_FOLLOWING_SIBLING)
+        token("namespace", XPathTokenType.K_NAMESPACE) // XPath and MarkLogic
+        token("property", XPathTokenType.K_PROPERTY) // MarkLogic
+        token("self", XPathTokenType.K_SELF)
+        token("::", XPathTokenType.AXIS_SEPARATOR)
     }
 
     @Test
     @DisplayName("XQuery IntelliJ Plugin EBNF (48) AnyBooleanNodeTest")
     fun anyBooleanNodeTest() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "boolean-node", XPathTokenType.K_BOOLEAN_NODE)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("boolean-node", XPathTokenType.K_BOOLEAN_NODE)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery IntelliJ Plugin EBNF (49) NamedBooleanNodeTest")
     fun namedBooleanNodeTest() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "boolean-node", XPathTokenType.K_BOOLEAN_NODE)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("boolean-node", XPathTokenType.K_BOOLEAN_NODE)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery IntelliJ Plugin EBNF (52) AnyNumberNodeTest")
     fun anyNumberNodeTest() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "number-node", XPathTokenType.K_NUMBER_NODE)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("number-node", XPathTokenType.K_NUMBER_NODE)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery IntelliJ Plugin EBNF (53) NamedNumberNodeTest")
     fun namedNumberNodeTest() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "number-node", XPathTokenType.K_NUMBER_NODE)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("number-node", XPathTokenType.K_NUMBER_NODE)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery IntelliJ Plugin EBNF (56) AnyNullNodeTest")
     fun anyNullNodeTest() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "null-node", XPathTokenType.K_NULL_NODE)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("null-node", XPathTokenType.K_NULL_NODE)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery IntelliJ Plugin EBNF (57) NamedNullNodeTest")
     fun namedNullNodeTest() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "null-node", XPathTokenType.K_NULL_NODE)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("null-node", XPathTokenType.K_NULL_NODE)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery IntelliJ Plugin EBNF (60) AnyArrayNodeTest")
     fun anyArrayNodeTest() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "array-node", XPathTokenType.K_ARRAY_NODE)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("array-node", XPathTokenType.K_ARRAY_NODE)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery IntelliJ Plugin EBNF (61) NamedArrayNodeTest")
     fun namedArrayNodeTest() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "array-node", XPathTokenType.K_ARRAY_NODE)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("array-node", XPathTokenType.K_ARRAY_NODE)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery IntelliJ Plugin EBNF (64) AnyMapNodeTest")
     fun anyMapNodeTest() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "object-node", XPathTokenType.K_OBJECT_NODE)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("object-node", XPathTokenType.K_OBJECT_NODE)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery IntelliJ Plugin EBNF (65) NamedMapNodeTest")
     fun namedMapNodeTest() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "object-node", XPathTokenType.K_OBJECT_NODE)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("object-node", XPathTokenType.K_OBJECT_NODE)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery IntelliJ Plugin EBNF (78) SequenceType")
     fun sequenceType() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "empty-sequence", XPathTokenType.K_EMPTY_SEQUENCE)
-        matchSingleToken(lexer, "empty", XPathTokenType.K_EMPTY)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("empty-sequence", XPathTokenType.K_EMPTY_SEQUENCE)
+        token("empty", XPathTokenType.K_EMPTY)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery IntelliJ Plugin XPath EBNF (19) OrExpr")
     fun orExpr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "or", XPathTokenType.K_OR)
-        matchSingleToken(lexer, "orElse", XPathTokenType.K_ORELSE)
+        token("or", XPathTokenType.K_OR)
+        token("orElse", XPathTokenType.K_ORELSE)
     }
 
     @Test
     @DisplayName("XQuery IntelliJ Plugin XPath EBNF (24) ContextItemFunctionExpr")
     fun contextItemFunctionExpr() {
-        val lexer = createLexer()
+        token("fn", XPathTokenType.K_FN)
+        token("{", XPathTokenType.BLOCK_OPEN)
+        token("}", XPathTokenType.BLOCK_CLOSE)
 
-        matchSingleToken(lexer, "fn", XPathTokenType.K_FN)
-        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
+        token(".{", XPathTokenType.CONTEXT_FUNCTION)
+        token("}", XPathTokenType.BLOCK_CLOSE)
 
-        matchSingleToken(lexer, ".{", XPathTokenType.CONTEXT_FUNCTION)
-        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
-
-        matchSingleToken(lexer, ".", XPathTokenType.DOT)
-        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
+        token(".", XPathTokenType.DOT)
+        token("{", XPathTokenType.BLOCK_OPEN)
+        token("}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery IntelliJ Plugin XPath EBNF (22) ParamList")
     fun paramList() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
-        matchSingleToken(lexer, "...", XPathTokenType.ELLIPSIS)
+        token(",", XPathTokenType.COMMA)
+        token("...", XPathTokenType.ELLIPSIS)
     }
 
     @Test
     @DisplayName("XQuery IntelliJ Plugin XPath EBNF (34) TypeAlias")
     fun typeAlias() {
-        val lexer = createLexer()
+        token("~", XPathTokenType.TYPE_ALIAS)
 
-        matchSingleToken(lexer, "~", XPathTokenType.TYPE_ALIAS)
-
-        matchSingleToken(lexer, "type", XPathTokenType.K_TYPE)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("type", XPathTokenType.K_TYPE)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery IntelliJ Plugin XPath EBNF (35) LambdaFunctionExpr")
     fun lambdaFunctionExpr() {
-        val lexer = createLexer()
+        token("_{", XPathTokenType.LAMBDA_FUNCTION)
+        token("}", XPathTokenType.BLOCK_CLOSE)
 
-        matchSingleToken(lexer, "_{", XPathTokenType.LAMBDA_FUNCTION)
-        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
-
-        matchSingleToken(lexer, "_", XPathTokenType.K__)
-        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
+        token("_", XPathTokenType.K__)
+        token("{", XPathTokenType.BLOCK_OPEN)
+        token("}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery IntelliJ Plugin XPath EBNF (37) ParamRef")
     fun paramRef() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
+        token("$", XPathTokenType.VARIABLE_INDICATOR)
     }
 }
