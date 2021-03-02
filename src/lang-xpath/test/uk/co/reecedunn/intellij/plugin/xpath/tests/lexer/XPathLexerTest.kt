@@ -23,13 +23,13 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XmlCodePointRangeImpl
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCaseEx
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
 @DisplayName("XPath 3.1 - Lexer")
-class XPathLexerTest : LexerTestCase() {
-    private fun createLexer(): Lexer = XPathLexer(XmlCodePointRangeImpl())
+class XPathLexerTest : LexerTestCaseEx() {
+    override val lexer: Lexer = XPathLexer(XmlCodePointRangeImpl())
 
     @Nested
     @DisplayName("Lexer")
@@ -37,558 +37,424 @@ class XPathLexerTest : LexerTestCase() {
         @Test
         @DisplayName("invalid state")
         fun invalidState() {
-            val lexer = createLexer()
-
             val e = assertThrows(AssertionError::class.java) { lexer.start("123", 0, 3, 4096) }
             assertThat(e.message, `is`("Invalid state: 4096"))
         }
 
         @Test
         @DisplayName("empty buffer")
-        fun emptyBuffer() {
-            val lexer = createLexer()
-
-            lexer.start("")
-            matchToken(lexer, "", 0, 0, 0, null)
+        fun emptyBuffer() = tokenize("") {
         }
 
         @Test
         @DisplayName("bad characters")
-        fun badCharacters() {
-            val lexer = createLexer()
-
-            lexer.start("^\uFFFE\u0000\uFFFF")
-            matchToken(lexer, "^", 0, 0, 1, XPathTokenType.BAD_CHARACTER)
-            matchToken(lexer, "\uFFFE", 0, 1, 2, XPathTokenType.BAD_CHARACTER)
-            matchToken(lexer, "\u0000", 0, 2, 3, XPathTokenType.BAD_CHARACTER)
-            matchToken(lexer, "\uFFFF", 0, 3, 4, XPathTokenType.BAD_CHARACTER)
-            matchToken(lexer, "", 0, 4, 4, null)
+        fun badCharacters() = tokenize("^\uFFFE\u0000\uFFFF") {
+            token("^", XPathTokenType.BAD_CHARACTER)
+            token("\uFFFE", XPathTokenType.BAD_CHARACTER)
+            token("\u0000", XPathTokenType.BAD_CHARACTER)
+            token("\uFFFF", XPathTokenType.BAD_CHARACTER)
         }
     }
 
     @Test
     @DisplayName("XML 1.0 EBNF (3) S")
     fun s() {
-        val lexer = createLexer()
-
-        lexer.start(" ")
-        matchToken(lexer, " ", 0, 0, 1, XPathTokenType.WHITE_SPACE)
-        matchToken(lexer, "", 0, 1, 1, null)
-
-        lexer.start("\t")
-        matchToken(lexer, "\t", 0, 0, 1, XPathTokenType.WHITE_SPACE)
-        matchToken(lexer, "", 0, 1, 1, null)
-
-        lexer.start("\r")
-        matchToken(lexer, "\r", 0, 0, 1, XPathTokenType.WHITE_SPACE)
-        matchToken(lexer, "", 0, 1, 1, null)
-
-        lexer.start("\n")
-        matchToken(lexer, "\n", 0, 0, 1, XPathTokenType.WHITE_SPACE)
-        matchToken(lexer, "", 0, 1, 1, null)
-
-        lexer.start("   \t  \r\n ")
-        matchToken(lexer, "   \t  \r\n ", 0, 0, 9, XPathTokenType.WHITE_SPACE)
-        matchToken(lexer, "", 0, 9, 9, null)
+        token(" ", XPathTokenType.WHITE_SPACE)
+        token("\t", XPathTokenType.WHITE_SPACE)
+        token("\r", XPathTokenType.WHITE_SPACE)
+        token("\n", XPathTokenType.WHITE_SPACE)
+        token("   \t  \r\n ", XPathTokenType.WHITE_SPACE)
     }
 
     @Test
     @DisplayName("XPath 2.0 EBNF (2) Expr")
     fun expr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
+        token(",", XPathTokenType.COMMA)
     }
 
     @Test
     @DisplayName("XPath 2.0 EBNF (4) ForExpr")
     fun forExpr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "return", XPathTokenType.K_RETURN)
+        token("return", XPathTokenType.K_RETURN)
     }
 
     @Test
     @DisplayName("XPath 2.0 EBNF (5) SimpleForClause")
     fun simpleForClause() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "for", XPathTokenType.K_FOR)
-        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
-        matchSingleToken(lexer, "in", XPathTokenType.K_IN)
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
+        token("for", XPathTokenType.K_FOR)
+        token("$", XPathTokenType.VARIABLE_INDICATOR)
+        token("in", XPathTokenType.K_IN)
+        token(",", XPathTokenType.COMMA)
     }
 
     @Test
     @DisplayName("XPath 2.0 EBNF (6) QuantifiedExpr")
     fun quantifiedExpr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "some", XPathTokenType.K_SOME)
-        matchSingleToken(lexer, "every", XPathTokenType.K_EVERY)
-        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
-        matchSingleToken(lexer, "in", XPathTokenType.K_IN)
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
-        matchSingleToken(lexer, "satisfies", XPathTokenType.K_SATISFIES)
+        token("some", XPathTokenType.K_SOME)
+        token("every", XPathTokenType.K_EVERY)
+        token("$", XPathTokenType.VARIABLE_INDICATOR)
+        token("in", XPathTokenType.K_IN)
+        token(",", XPathTokenType.COMMA)
+        token("satisfies", XPathTokenType.K_SATISFIES)
     }
 
     @Test
     @DisplayName("XPath 2.0 EBNF (7) IfExpr")
     fun ifExpr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "if", XPathTokenType.K_IF)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
-        matchSingleToken(lexer, "then", XPathTokenType.K_THEN)
-        matchSingleToken(lexer, "else", XPathTokenType.K_ELSE)
+        token("if", XPathTokenType.K_IF)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("then", XPathTokenType.K_THEN)
+        token("else", XPathTokenType.K_ELSE)
     }
 
     @Test
     @DisplayName("XPath 1.0 EBNF (21) OrExpr ; XPath 2.0 EBNF (8) OrExpr")
     fun orExpr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "or", XPathTokenType.K_OR)
+        token("or", XPathTokenType.K_OR)
     }
 
     @Test
     @DisplayName("XPath 1.0 EBNF (22) AndExpr ; XPath 2.0 EBNF (9) AndExpr")
     fun andExpr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "and", XPathTokenType.K_AND)
+        token("and", XPathTokenType.K_AND)
     }
 
     @Test
     @DisplayName("XPath 2.0 EBNF (11) RangeExpr")
     fun rangeExpr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "to", XPathTokenType.K_TO)
+        token("to", XPathTokenType.K_TO)
     }
 
     @Test
     @DisplayName("XPath 1.0 EBNF (25) AdditiveExpr ; XPath 2.0 EBNF (12) AdditiveExpr")
     fun additiveExpr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "+", XPathTokenType.PLUS)
-        matchSingleToken(lexer, "-", XPathTokenType.MINUS)
+        token("+", XPathTokenType.PLUS)
+        token("-", XPathTokenType.MINUS)
     }
 
     @Test
     @DisplayName("XPath 1.0 EBNF (26) MultiplicativeExpr ; XPath 1.0 EBNF (34) MultiplyOperator ; XPath 2.0 EBNF (13) MultiplicativeExpr")
     fun multiplicativeExpr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "*", XPathTokenType.STAR)
-        matchSingleToken(lexer, "div", XPathTokenType.K_DIV)
-        matchSingleToken(lexer, "idiv", XPathTokenType.K_IDIV)
-        matchSingleToken(lexer, "mod", XPathTokenType.K_MOD)
+        token("*", XPathTokenType.STAR)
+        token("div", XPathTokenType.K_DIV)
+        token("idiv", XPathTokenType.K_IDIV)
+        token("mod", XPathTokenType.K_MOD)
     }
 
     @Test
     @DisplayName("XPath 1.0 EBNF (18) UnionExpr ; XPath 2.0 EBNF (14) UnionExpr")
     fun unionExpr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "union", XPathTokenType.K_UNION)
-        matchSingleToken(lexer, "|", XPathTokenType.UNION)
+        token("union", XPathTokenType.K_UNION)
+        token("|", XPathTokenType.UNION)
     }
 
     @Test
     @DisplayName("XPath 2.0 EBNF (15) IntersectExceptExpr")
     fun intersectExceptExpr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "intersect", XPathTokenType.K_INTERSECT)
-        matchSingleToken(lexer, "except", XPathTokenType.K_EXCEPT)
+        token("intersect", XPathTokenType.K_INTERSECT)
+        token("except", XPathTokenType.K_EXCEPT)
     }
 
     @Test
     @DisplayName("XPath 2.0 EBNF (16) InstanceofExpr")
     fun instanceofExpr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "instance", XPathTokenType.K_INSTANCE)
-        matchSingleToken(lexer, "of", XPathTokenType.K_OF)
+        token("instance", XPathTokenType.K_INSTANCE)
+        token("of", XPathTokenType.K_OF)
     }
 
     @Test
     @DisplayName("XPath 2.0 EBNF (17) TreatExpr")
     fun treatExpr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "treat", XPathTokenType.K_TREAT)
-        matchSingleToken(lexer, "as", XPathTokenType.K_AS)
+        token("treat", XPathTokenType.K_TREAT)
+        token("as", XPathTokenType.K_AS)
     }
 
     @Test
     @DisplayName("XPath 2.0 EBNF (18) CastableExpr")
     fun castableExpr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "castable", XPathTokenType.K_CASTABLE)
-        matchSingleToken(lexer, "as", XPathTokenType.K_AS)
+        token("castable", XPathTokenType.K_CASTABLE)
+        token("as", XPathTokenType.K_AS)
     }
 
     @Test
     @DisplayName("XPath 2.0 EBNF (19) CastExpr")
     fun castExpr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "cast", XPathTokenType.K_CAST)
-        matchSingleToken(lexer, "as", XPathTokenType.K_AS)
+        token("cast", XPathTokenType.K_CAST)
+        token("as", XPathTokenType.K_AS)
     }
 
     @Test
     @DisplayName("XPath 1.0 EBNF (27) UnaryExpr ; XPath 2.0 EBNF (20) UnaryExpr")
     fun unaryExpr() {
-        val lexer = createLexer()
+        token("+", XPathTokenType.PLUS)
+        token("-", XPathTokenType.MINUS)
 
-        matchSingleToken(lexer, "+", XPathTokenType.PLUS)
-        matchSingleToken(lexer, "-", XPathTokenType.MINUS)
+        tokenize("++") {
+            token("+", XPathTokenType.PLUS)
+            token("+", XPathTokenType.PLUS)
+        }
 
-        lexer.start("++")
-        matchToken(lexer, "+", 0, 0, 1, XPathTokenType.PLUS)
-        matchToken(lexer, "+", 0, 1, 2, XPathTokenType.PLUS)
-        matchToken(lexer, "", 0, 2, 2, null)
-
-        lexer.start("--")
-        matchToken(lexer, "-", 0, 0, 1, XPathTokenType.MINUS)
-        matchToken(lexer, "-", 0, 1, 2, XPathTokenType.MINUS)
-        matchToken(lexer, "", 0, 2, 2, null)
+        tokenize("--") {
+            token("-", XPathTokenType.MINUS)
+            token("-", XPathTokenType.MINUS)
+        }
     }
 
     @Test
     @DisplayName("XPath 1.0 EBNF (23) EqualityExpr ; XPath 1.0 EBNF (24) RelationalExpr ; XPath 2.0 EBNF (22) GeneralComp")
     fun generalComp() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "=", XPathTokenType.EQUAL)
-        matchSingleToken(lexer, "!=", XPathTokenType.NOT_EQUAL)
-        matchSingleToken(lexer, "<", XPathTokenType.LESS_THAN)
-        matchSingleToken(lexer, "<=", XPathTokenType.LESS_THAN_OR_EQUAL)
-        matchSingleToken(lexer, ">", XPathTokenType.GREATER_THAN)
-        matchSingleToken(lexer, ">=", XPathTokenType.GREATER_THAN_OR_EQUAL)
+        token("=", XPathTokenType.EQUAL)
+        token("!=", XPathTokenType.NOT_EQUAL)
+        token("<", XPathTokenType.LESS_THAN)
+        token("<=", XPathTokenType.LESS_THAN_OR_EQUAL)
+        token(">", XPathTokenType.GREATER_THAN)
+        token(">=", XPathTokenType.GREATER_THAN_OR_EQUAL)
     }
 
     @Test
     @DisplayName("XPath 2.0 EBNF (23) ValueComp")
     fun valueComp() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "eq", XPathTokenType.K_EQ)
-        matchSingleToken(lexer, "ne", XPathTokenType.K_NE)
-        matchSingleToken(lexer, "lt", XPathTokenType.K_LT)
-        matchSingleToken(lexer, "le", XPathTokenType.K_LE)
-        matchSingleToken(lexer, "gt", XPathTokenType.K_GT)
-        matchSingleToken(lexer, "ge", XPathTokenType.K_GE)
+        token("eq", XPathTokenType.K_EQ)
+        token("ne", XPathTokenType.K_NE)
+        token("lt", XPathTokenType.K_LT)
+        token("le", XPathTokenType.K_LE)
+        token("gt", XPathTokenType.K_GT)
+        token("ge", XPathTokenType.K_GE)
     }
 
     @Test
     @DisplayName("XPath 2.0 EBNF (24) NodeComp")
     fun nodeComp() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "is", XPathTokenType.K_IS)
-        matchSingleToken(lexer, "<<", XPathTokenType.NODE_BEFORE)
-        matchSingleToken(lexer, ">>", XPathTokenType.NODE_AFTER)
+        token("is", XPathTokenType.K_IS)
+        token("<<", XPathTokenType.NODE_BEFORE)
+        token(">>", XPathTokenType.NODE_AFTER)
     }
 
     @Test
     @DisplayName("XPath 1.0 EBNF (2) AbsoluteLocationPath ; XPath 1.0 EBNF (10) AbbreviatedAbsoluteLocationPath ; XPath 2.0 EBNF (25) PathExpr")
     fun pathExpr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "/", XPathTokenType.DIRECT_DESCENDANTS_PATH)
-        matchSingleToken(lexer, "//", XPathTokenType.ALL_DESCENDANTS_PATH)
+        token("/", XPathTokenType.DIRECT_DESCENDANTS_PATH)
+        token("//", XPathTokenType.ALL_DESCENDANTS_PATH)
     }
 
     @Test
     @DisplayName("XPath 1.0 EBNF (3) RelativeLocationPath ; XPath 1.0 EBNF (10) AbbreviatedRelativeLocationPath ; XPath 1.0 EBNF (16) PathExpr ; XPath 2.0 EBNF (26) RelativePathExpr")
     fun relativePathExpr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "/", XPathTokenType.DIRECT_DESCENDANTS_PATH)
-        matchSingleToken(lexer, "//", XPathTokenType.ALL_DESCENDANTS_PATH)
+        token("/", XPathTokenType.DIRECT_DESCENDANTS_PATH)
+        token("//", XPathTokenType.ALL_DESCENDANTS_PATH)
     }
 
     @Test
     @DisplayName("XPath 1.0 EBNF (5) AxisSpecifier ; XPath 1.0 EBNF (6) AxisName ; XPath 2.0 EBNF (30) ForwardAxis")
     fun forwardAxis() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "attribute", XPathTokenType.K_ATTRIBUTE)
-        matchSingleToken(lexer, "child", XPathTokenType.K_CHILD)
-        matchSingleToken(lexer, "descendant", XPathTokenType.K_DESCENDANT)
-        matchSingleToken(lexer, "descendant-or-self", XPathTokenType.K_DESCENDANT_OR_SELF)
-        matchSingleToken(lexer, "following", XPathTokenType.K_FOLLOWING)
-        matchSingleToken(lexer, "following-sibling", XPathTokenType.K_FOLLOWING_SIBLING)
-        matchSingleToken(lexer, "namespace", XPathTokenType.K_NAMESPACE)
-        matchSingleToken(lexer, "self", XPathTokenType.K_SELF)
-        matchSingleToken(lexer, "::", XPathTokenType.AXIS_SEPARATOR)
+        token("attribute", XPathTokenType.K_ATTRIBUTE)
+        token("child", XPathTokenType.K_CHILD)
+        token("descendant", XPathTokenType.K_DESCENDANT)
+        token("descendant-or-self", XPathTokenType.K_DESCENDANT_OR_SELF)
+        token("following", XPathTokenType.K_FOLLOWING)
+        token("following-sibling", XPathTokenType.K_FOLLOWING_SIBLING)
+        token("namespace", XPathTokenType.K_NAMESPACE)
+        token("self", XPathTokenType.K_SELF)
+        token("::", XPathTokenType.AXIS_SEPARATOR)
     }
 
     @Test
     @DisplayName("XPath 1.0 EBNF (13) AbbreviatedAxisSpecifier ; XPath 2.0 EBNF (31) AbbrevForwardStep")
     fun abbrevForwardStep() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "@", XPathTokenType.ATTRIBUTE_SELECTOR)
+        token("@", XPathTokenType.ATTRIBUTE_SELECTOR)
     }
 
     @Test
     @DisplayName("XPath 1.0 EBNF (5) AxisSpecifier ; XPath 1.0 EBNF (6) AxisName ; XPath 2.0 EBNF (33) ReverseAxis")
     fun reverseAxis() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "ancestor", XPathTokenType.K_ANCESTOR)
-        matchSingleToken(lexer, "ancestor-or-self", XPathTokenType.K_ANCESTOR_OR_SELF)
-        matchSingleToken(lexer, "parent", XPathTokenType.K_PARENT)
-        matchSingleToken(lexer, "preceding", XPathTokenType.K_PRECEDING)
-        matchSingleToken(lexer, "preceding-sibling", XPathTokenType.K_PRECEDING_SIBLING)
-        matchSingleToken(lexer, "::", XPathTokenType.AXIS_SEPARATOR)
+        token("ancestor", XPathTokenType.K_ANCESTOR)
+        token("ancestor-or-self", XPathTokenType.K_ANCESTOR_OR_SELF)
+        token("parent", XPathTokenType.K_PARENT)
+        token("preceding", XPathTokenType.K_PRECEDING)
+        token("preceding-sibling", XPathTokenType.K_PRECEDING_SIBLING)
+        token("::", XPathTokenType.AXIS_SEPARATOR)
     }
 
     @Test
     @DisplayName("XPath 1.0 EBNF (12) AbbreviatedStep ; XPath 2.0 EBNF (34) AbbrevReverseStep")
     fun abbrevReverseStep() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "..", XPathTokenType.PARENT_SELECTOR)
+        token("..", XPathTokenType.PARENT_SELECTOR)
     }
 
     @Test
     @DisplayName("XPath 1.0 EBNF (37) NameTest ; XPath 2.0 EBNF (37) Wildcard")
     fun wildcard() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "*", XPathTokenType.STAR)
-        matchSingleToken(lexer, ":", XPathTokenType.QNAME_SEPARATOR)
+        token("*", XPathTokenType.STAR)
+        token(":", XPathTokenType.QNAME_SEPARATOR)
     }
 
     @Test
     @DisplayName("XPath 1.0 EBNF (8) Predicate ; XPath 2.0 EBNF (40) Predicate")
     fun predicate() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "[", XPathTokenType.SQUARE_OPEN)
-        matchSingleToken(lexer, "]", XPathTokenType.SQUARE_CLOSE)
+        token("[", XPathTokenType.SQUARE_OPEN)
+        token("]", XPathTokenType.SQUARE_CLOSE)
     }
 
     @Test
     @DisplayName("XPath 1.0 EBNF (36) VariableReference ; XPath 2.0 EBNF (44) VarRef")
     fun varRef() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
+        token("$", XPathTokenType.VARIABLE_INDICATOR)
     }
 
     @Test
     @DisplayName("XPath 1.0 EBNF (15) PrimaryExpr ; XPath 2.0 EBNF (46) ParenthesizedExpr")
     fun parenthesizedExpr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XPath 1.0 EBNF (12) AbbreviatedStep ; XPath 2.0 EBNF (47) ContextItemExpr")
     fun contextItemExpr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, ".", XPathTokenType.DOT)
+        token(".", XPathTokenType.DOT)
     }
 
     @Test
     @DisplayName("XPath 1.0 EBNF (16) FunctionCall ; XPath 2.0 EBNF (48) FunctionCall")
     fun functionCall() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(",", XPathTokenType.COMMA)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XPath 2.0 EBNF (49) SingleType")
     fun singleType() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "?", XPathTokenType.OPTIONAL)
+        token("?", XPathTokenType.OPTIONAL)
     }
 
     @Test
     @DisplayName("XPath 2.0 EBNF (50) SequenceType")
     fun sequenceType() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "empty-sequence", XPathTokenType.K_EMPTY_SEQUENCE)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("empty-sequence", XPathTokenType.K_EMPTY_SEQUENCE)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XPath 2.0 EBNF (51) OccurrenceIndicator")
     fun occurrenceIndicator() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "?", XPathTokenType.OPTIONAL)
-        matchSingleToken(lexer, "*", XPathTokenType.STAR)
-        matchSingleToken(lexer, "+", XPathTokenType.PLUS)
+        token("?", XPathTokenType.OPTIONAL)
+        token("*", XPathTokenType.STAR)
+        token("+", XPathTokenType.PLUS)
     }
 
     @Test
     @DisplayName("XPath 2.0 EBNF (52) ItemType")
     fun itemType() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "item", XPathTokenType.K_ITEM)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("item", XPathTokenType.K_ITEM)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XPath 1.0 EBNF (7) NodeTest ; XPath 1.0 EBNF (38) NodeType ; XPath 2.0 EBNF (55) AnyKindTest")
     fun anyKindTest() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "node", XPathTokenType.K_NODE)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("node", XPathTokenType.K_NODE)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XPath 2.0 EBNF (56) DocumentTest")
     fun documentTest() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "document-node", XPathTokenType.K_DOCUMENT_NODE)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("document-node", XPathTokenType.K_DOCUMENT_NODE)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XPath 1.0 EBNF (7) NodeTest ; XPath 1.0 EBNF (38) NodeType ; XPath 2.0 EBNF (57) TextTest")
     fun textTest() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "text", XPathTokenType.K_TEXT)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("text", XPathTokenType.K_TEXT)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XPath 1.0 EBNF (7) NodeTest ; XPath 1.0 EBNF (38) NodeType ; XPath 2.0 EBNF (58) CommentTest")
     fun commentTest() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "comment", XPathTokenType.K_COMMENT)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("comment", XPathTokenType.K_COMMENT)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XPath 1.0 EBNF (7) NodeTest ; XPath 1.0 EBNF (38) NodeType ; XPath 2.0 EBNF (59) PITest")
     fun piTest() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "processing-instruction", XPathTokenType.K_PROCESSING_INSTRUCTION)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("processing-instruction", XPathTokenType.K_PROCESSING_INSTRUCTION)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XPath 2.0 EBNF (60) AttributeTest")
     fun attributeTest() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "attribute", XPathTokenType.K_ATTRIBUTE)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("attribute", XPathTokenType.K_ATTRIBUTE)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XPath 2.0 EBNF (61) AttribNameOrWildcard")
     fun attribNameOrWildcard() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "*", XPathTokenType.STAR)
+        token("*", XPathTokenType.STAR)
     }
 
     @Test
     @DisplayName("XPath 2.0 EBNF (62) SchemaAttributeTest")
     fun schemaAttributeTest() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "schema-attribute", XPathTokenType.K_SCHEMA_ATTRIBUTE)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("schema-attribute", XPathTokenType.K_SCHEMA_ATTRIBUTE)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XPath 2.0 EBNF (64) ElementTest")
     fun elementTest() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "element", XPathTokenType.K_ELEMENT)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
-        matchSingleToken(lexer, "?", XPathTokenType.OPTIONAL)
+        token("element", XPathTokenType.K_ELEMENT)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("?", XPathTokenType.OPTIONAL)
     }
 
     @Test
     @DisplayName("XPath 2.0 EBNF (65) ElementNameOrWildcard")
     fun elementNameOrWildcard() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "*", XPathTokenType.STAR)
+        token("*", XPathTokenType.STAR)
     }
 
     @Test
     @DisplayName("XPath 2.0 EBNF (66) SchemaElementTest")
     fun schemaElementTest() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "schema-element", XPathTokenType.K_SCHEMA_ELEMENT)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("schema-element", XPathTokenType.K_SCHEMA_ELEMENT)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XPath 1.0 EBNF (30) Number ; XPath 2.0 EBNF (71) IntegerLiteral")
     fun integerLiteral() {
-        val lexer = createLexer()
-
-        lexer.start("1234")
-        matchToken(lexer, "1234", 0, 0, 4, XPathTokenType.INTEGER_LITERAL)
-        matchToken(lexer, "", 0, 4, 4, null)
+        token("1234", XPathTokenType.INTEGER_LITERAL)
     }
 
     @Test
     @DisplayName("XPath 1.0 EBNF (30) Number ; XPath 2.0 EBNF (72) DecimalLiteral")
     fun decimalLiteral() {
-        val lexer = createLexer()
+        token("47.", XPathTokenType.DECIMAL_LITERAL)
+        token("1.234", XPathTokenType.DECIMAL_LITERAL)
+        token(".25", XPathTokenType.DECIMAL_LITERAL)
 
-        lexer.start("47.")
-        matchToken(lexer, "47.", 0, 0, 3, XPathTokenType.DECIMAL_LITERAL)
-        matchToken(lexer, "", 0, 3, 3, null)
-
-        lexer.start("1.234")
-        matchToken(lexer, "1.234", 0, 0, 5, XPathTokenType.DECIMAL_LITERAL)
-        matchToken(lexer, "", 0, 5, 5, null)
-
-        lexer.start(".25")
-        matchToken(lexer, ".25", 0, 0, 3, XPathTokenType.DECIMAL_LITERAL)
-        matchToken(lexer, "", 0, 3, 3, null)
-
-        lexer.start(".1.2")
-        matchToken(lexer, ".1", 0, 0, 2, XPathTokenType.DECIMAL_LITERAL)
-        matchToken(lexer, ".2", 0, 2, 4, XPathTokenType.DECIMAL_LITERAL)
-        matchToken(lexer, "", 0, 4, 4, null)
+        tokenize(".1.2") {
+            token(".1", XPathTokenType.DECIMAL_LITERAL)
+            token(".2", XPathTokenType.DECIMAL_LITERAL)
+        }
     }
 
     @Nested
@@ -597,131 +463,162 @@ class XPathLexerTest : LexerTestCase() {
         @Test
         @DisplayName("double literal")
         fun doubleLiteral() {
-            val lexer = createLexer()
+            tokenize("3e7 3e+7 3e-7") {
+                token("3e7", XPathTokenType.DOUBLE_LITERAL)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token("3e+7", XPathTokenType.DOUBLE_LITERAL)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token("3e-7", XPathTokenType.DOUBLE_LITERAL)
+            }
 
-            lexer.start("3e7 3e+7 3e-7")
-            matchToken(lexer, "3e7", 0, 0, 3, XPathTokenType.DOUBLE_LITERAL)
-            matchToken(lexer, " ", 0, 3, 4, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "3e+7", 0, 4, 8, XPathTokenType.DOUBLE_LITERAL)
-            matchToken(lexer, " ", 0, 8, 9, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "3e-7", 0, 9, 13, XPathTokenType.DOUBLE_LITERAL)
-            matchToken(lexer, "", 0, 13, 13, null)
+            tokenize("43E22 43E+22 43E-22") {
+                token("43E22", XPathTokenType.DOUBLE_LITERAL)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token("43E+22", XPathTokenType.DOUBLE_LITERAL)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token("43E-22", XPathTokenType.DOUBLE_LITERAL)
+            }
 
-            lexer.start("43E22 43E+22 43E-22")
-            matchToken(lexer, "43E22", 0, 0, 5, XPathTokenType.DOUBLE_LITERAL)
-            matchToken(lexer, " ", 0, 5, 6, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "43E+22", 0, 6, 12, XPathTokenType.DOUBLE_LITERAL)
-            matchToken(lexer, " ", 0, 12, 13, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "43E-22", 0, 13, 19, XPathTokenType.DOUBLE_LITERAL)
-            matchToken(lexer, "", 0, 19, 19, null)
+            tokenize("2.1e3 2.1e+3 2.1e-3") {
+                token("2.1e3", XPathTokenType.DOUBLE_LITERAL)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token("2.1e+3", XPathTokenType.DOUBLE_LITERAL)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token("2.1e-3", XPathTokenType.DOUBLE_LITERAL)
+            }
 
-            lexer.start("2.1e3 2.1e+3 2.1e-3")
-            matchToken(lexer, "2.1e3", 0, 0, 5, XPathTokenType.DOUBLE_LITERAL)
-            matchToken(lexer, " ", 0, 5, 6, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "2.1e+3", 0, 6, 12, XPathTokenType.DOUBLE_LITERAL)
-            matchToken(lexer, " ", 0, 12, 13, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "2.1e-3", 0, 13, 19, XPathTokenType.DOUBLE_LITERAL)
-            matchToken(lexer, "", 0, 19, 19, null)
+            tokenize("1.7E99 1.7E+99 1.7E-99") {
+                token("1.7E99", XPathTokenType.DOUBLE_LITERAL)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token("1.7E+99", XPathTokenType.DOUBLE_LITERAL)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token("1.7E-99", XPathTokenType.DOUBLE_LITERAL)
+            }
 
-            lexer.start("1.7E99 1.7E+99 1.7E-99")
-            matchToken(lexer, "1.7E99", 0, 0, 6, XPathTokenType.DOUBLE_LITERAL)
-            matchToken(lexer, " ", 0, 6, 7, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "1.7E+99", 0, 7, 14, XPathTokenType.DOUBLE_LITERAL)
-            matchToken(lexer, " ", 0, 14, 15, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "1.7E-99", 0, 15, 22, XPathTokenType.DOUBLE_LITERAL)
-            matchToken(lexer, "", 0, 22, 22, null)
+            tokenize(".22e42 .22e+42 .22e-42") {
+                token(".22e42", XPathTokenType.DOUBLE_LITERAL)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token(".22e+42", XPathTokenType.DOUBLE_LITERAL)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token(".22e-42", XPathTokenType.DOUBLE_LITERAL)
+            }
 
-            lexer.start(".22e42 .22e+42 .22e-42")
-            matchToken(lexer, ".22e42", 0, 0, 6, XPathTokenType.DOUBLE_LITERAL)
-            matchToken(lexer, " ", 0, 6, 7, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, ".22e+42", 0, 7, 14, XPathTokenType.DOUBLE_LITERAL)
-            matchToken(lexer, " ", 0, 14, 15, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, ".22e-42", 0, 15, 22, XPathTokenType.DOUBLE_LITERAL)
-            matchToken(lexer, "", 0, 22, 22, null)
+            tokenize(".8E2 .8E+2 .8E-2") {
+                token(".8E2", XPathTokenType.DOUBLE_LITERAL)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token(".8E+2", XPathTokenType.DOUBLE_LITERAL)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token(".8E-2", XPathTokenType.DOUBLE_LITERAL)
+            }
 
-            lexer.start(".8E2 .8E+2 .8E-2")
-            matchToken(lexer, ".8E2", 0, 0, 4, XPathTokenType.DOUBLE_LITERAL)
-            matchToken(lexer, " ", 0, 4, 5, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, ".8E+2", 0, 5, 10, XPathTokenType.DOUBLE_LITERAL)
-            matchToken(lexer, " ", 0, 10, 11, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, ".8E-2", 0, 11, 16, XPathTokenType.DOUBLE_LITERAL)
-            matchToken(lexer, "", 0, 16, 16, null)
+            tokenize("1e 1e+ 1e-") {
+                token("1", XPathTokenType.INTEGER_LITERAL)
+                state(3)
+                token("e", XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
+                state(0)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token("1", XPathTokenType.INTEGER_LITERAL)
+                state(3)
+                token("e+", XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
+                state(0)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token("1", XPathTokenType.INTEGER_LITERAL)
+                state(3)
+                token("e-", XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
+                state(0)
+            }
 
-            lexer.start("1e 1e+ 1e-")
-            matchToken(lexer, "1", 0, 0, 1, XPathTokenType.INTEGER_LITERAL)
-            matchToken(lexer, "e", 3, 1, 2, XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
-            matchToken(lexer, " ", 0, 2, 3, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "1", 0, 3, 4, XPathTokenType.INTEGER_LITERAL)
-            matchToken(lexer, "e+", 3, 4, 6, XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
-            matchToken(lexer, " ", 0, 6, 7, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "1", 0, 7, 8, XPathTokenType.INTEGER_LITERAL)
-            matchToken(lexer, "e-", 3, 8, 10, XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
-            matchToken(lexer, "", 0, 10, 10, null)
+            tokenize("1E 1E+ 1E-") {
+                token("1", XPathTokenType.INTEGER_LITERAL)
+                state(3)
+                token("E", XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
+                state(0)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token("1", XPathTokenType.INTEGER_LITERAL)
+                state(3)
+                token("E+", XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
+                state(0)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token("1", XPathTokenType.INTEGER_LITERAL)
+                state(3)
+                token("E-", XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
+                state(0)
+            }
 
-            lexer.start("1E 1E+ 1E-")
-            matchToken(lexer, "1", 0, 0, 1, XPathTokenType.INTEGER_LITERAL)
-            matchToken(lexer, "E", 3, 1, 2, XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
-            matchToken(lexer, " ", 0, 2, 3, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "1", 0, 3, 4, XPathTokenType.INTEGER_LITERAL)
-            matchToken(lexer, "E+", 3, 4, 6, XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
-            matchToken(lexer, " ", 0, 6, 7, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "1", 0, 7, 8, XPathTokenType.INTEGER_LITERAL)
-            matchToken(lexer, "E-", 3, 8, 10, XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
-            matchToken(lexer, "", 0, 10, 10, null)
+            tokenize("8.9e 8.9e+ 8.9e-") {
+                token("8.9", XPathTokenType.DECIMAL_LITERAL)
+                state(3)
+                token("e", XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
+                state(0)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token("8.9", XPathTokenType.DECIMAL_LITERAL)
+                state(3)
+                token("e+", XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
+                state(0)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token("8.9", XPathTokenType.DECIMAL_LITERAL)
+                state(3)
+                token("e-", XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
+                state(0)
+            }
 
-            lexer.start("8.9e 8.9e+ 8.9e-")
-            matchToken(lexer, "8.9", 0, 0, 3, XPathTokenType.DECIMAL_LITERAL)
-            matchToken(lexer, "e", 3, 3, 4, XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
-            matchToken(lexer, " ", 0, 4, 5, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "8.9", 0, 5, 8, XPathTokenType.DECIMAL_LITERAL)
-            matchToken(lexer, "e+", 3, 8, 10, XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
-            matchToken(lexer, " ", 0, 10, 11, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "8.9", 0, 11, 14, XPathTokenType.DECIMAL_LITERAL)
-            matchToken(lexer, "e-", 3, 14, 16, XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
-            matchToken(lexer, "", 0, 16, 16, null)
+            tokenize("8.9E 8.9E+ 8.9E-") {
+                token("8.9", XPathTokenType.DECIMAL_LITERAL)
+                state(3)
+                token("E", XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
+                state(0)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token("8.9", XPathTokenType.DECIMAL_LITERAL)
+                state(3)
+                token("E+", XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
+                state(0)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token("8.9", XPathTokenType.DECIMAL_LITERAL)
+                state(3)
+                token("E-", XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
+                state(0)
+            }
 
-            lexer.start("8.9E 8.9E+ 8.9E-")
-            matchToken(lexer, "8.9", 0, 0, 3, XPathTokenType.DECIMAL_LITERAL)
-            matchToken(lexer, "E", 3, 3, 4, XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
-            matchToken(lexer, " ", 0, 4, 5, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "8.9", 0, 5, 8, XPathTokenType.DECIMAL_LITERAL)
-            matchToken(lexer, "E+", 3, 8, 10, XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
-            matchToken(lexer, " ", 0, 10, 11, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "8.9", 0, 11, 14, XPathTokenType.DECIMAL_LITERAL)
-            matchToken(lexer, "E-", 3, 14, 16, XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
-            matchToken(lexer, "", 0, 16, 16, null)
+            tokenize(".4e .4e+ .4e-") {
+                token(".4", XPathTokenType.DECIMAL_LITERAL)
+                state(3)
+                token("e", XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
+                state(0)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token(".4", XPathTokenType.DECIMAL_LITERAL)
+                state(3)
+                token("e+", XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
+                state(0)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token(".4", XPathTokenType.DECIMAL_LITERAL)
+                state(3)
+                token("e-", XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
+                state(0)
+            }
 
-            lexer.start(".4e .4e+ .4e-")
-            matchToken(lexer, ".4", 0, 0, 2, XPathTokenType.DECIMAL_LITERAL)
-            matchToken(lexer, "e", 3, 2, 3, XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
-            matchToken(lexer, " ", 0, 3, 4, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, ".4", 0, 4, 6, XPathTokenType.DECIMAL_LITERAL)
-            matchToken(lexer, "e+", 3, 6, 8, XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
-            matchToken(lexer, " ", 0, 8, 9, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, ".4", 0, 9, 11, XPathTokenType.DECIMAL_LITERAL)
-            matchToken(lexer, "e-", 3, 11, 13, XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
-            matchToken(lexer, "", 0, 13, 13, null)
-
-            lexer.start(".4E .4E+ .4E-")
-            matchToken(lexer, ".4", 0, 0, 2, XPathTokenType.DECIMAL_LITERAL)
-            matchToken(lexer, "E", 3, 2, 3, XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
-            matchToken(lexer, " ", 0, 3, 4, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, ".4", 0, 4, 6, XPathTokenType.DECIMAL_LITERAL)
-            matchToken(lexer, "E+", 3, 6, 8, XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
-            matchToken(lexer, " ", 0, 8, 9, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, ".4", 0, 9, 11, XPathTokenType.DECIMAL_LITERAL)
-            matchToken(lexer, "E-", 3, 11, 13, XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
-            matchToken(lexer, "", 0, 13, 13, null)
+            tokenize(".4E .4E+ .4E-") {
+                token(".4", XPathTokenType.DECIMAL_LITERAL)
+                state(3)
+                token("E", XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
+                state(0)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token(".4", XPathTokenType.DECIMAL_LITERAL)
+                state(3)
+                token("E+", XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
+                state(0)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token(".4", XPathTokenType.DECIMAL_LITERAL)
+                state(3)
+                token("E-", XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
+                state(0)
+            }
         }
 
         @Test
         @DisplayName("initial state")
-        fun initialState() {
-            val lexer = createLexer()
-
-            lexer.start("1e", 1, 2, 3)
-            matchToken(lexer, "e", 3, 1, 2, XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
-            matchToken(lexer, "", 0, 2, 2, null)
+        fun initialState() = tokenize("1e", 1, 2, 3) {
+            token("e", XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
+            state(0)
         }
     }
 
@@ -731,98 +628,92 @@ class XPathLexerTest : LexerTestCase() {
         @Test
         @DisplayName("string literal")
         fun stringLiteral() {
-            val lexer = createLexer()
+            tokenize("\"Hello World\"") {
+                token("\"", XPathTokenType.STRING_LITERAL_START)
+                state(1)
+                token("Hello World", XPathTokenType.STRING_LITERAL_CONTENTS)
+                token("\"", XPathTokenType.STRING_LITERAL_END)
+                state(0)
+            }
 
-            lexer.start("\"")
-            matchToken(lexer, "\"", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
-            matchToken(lexer, "", 1, 1, 1, null)
-
-            lexer.start("\"Hello World\"")
-            matchToken(lexer, "\"", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
-            matchToken(lexer, "Hello World", 1, 1, 12, XPathTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "\"", 1, 12, 13, XPathTokenType.STRING_LITERAL_END)
-            matchToken(lexer, "", 0, 13, 13, null)
-
-            lexer.start("'")
-            matchToken(lexer, "'", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
-            matchToken(lexer, "", 2, 1, 1, null)
-
-            lexer.start("'Hello World'")
-            matchToken(lexer, "'", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
-            matchToken(lexer, "Hello World", 2, 1, 12, XPathTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "'", 2, 12, 13, XPathTokenType.STRING_LITERAL_END)
-            matchToken(lexer, "", 0, 13, 13, null)
+            tokenize("'Hello World'") {
+                token("'", XPathTokenType.STRING_LITERAL_START)
+                state(2)
+                token("Hello World", XPathTokenType.STRING_LITERAL_CONTENTS)
+                token("'", XPathTokenType.STRING_LITERAL_END)
+                state(0)
+            }
 
             // XPath does not support predefined entity references; they are handled by XML.
-            lexer.start("'One &amp; Two'")
-            matchToken(lexer, "'", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
-            matchToken(lexer, "One &amp; Two", 2, 1, 14, XPathTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "'", 2, 14, 15, XPathTokenType.STRING_LITERAL_END)
-            matchToken(lexer, "", 0, 15, 15, null)
+            tokenize("'One &amp; Two'") {
+                token("'", XPathTokenType.STRING_LITERAL_START)
+                state(2)
+                token("One &amp; Two", XPathTokenType.STRING_LITERAL_CONTENTS)
+                token("'", XPathTokenType.STRING_LITERAL_END)
+                state(0)
+            }
         }
 
         @Test
         @DisplayName("initial state")
         fun initialState() {
-            val lexer = createLexer()
+            tokenize("\"Hello World\"", 1, 13, 1) {
+                token("Hello World", XPathTokenType.STRING_LITERAL_CONTENTS)
+                token("\"", XPathTokenType.STRING_LITERAL_END)
+                state(0)
+            }
 
-            lexer.start("\"Hello World\"", 1, 13, 1)
-            matchToken(lexer, "Hello World", 1, 1, 12, XPathTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "\"", 1, 12, 13, XPathTokenType.STRING_LITERAL_END)
-            matchToken(lexer, "", 0, 13, 13, null)
-
-            lexer.start("'Hello World'", 1, 13, 2)
-            matchToken(lexer, "Hello World", 2, 1, 12, XPathTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "'", 2, 12, 13, XPathTokenType.STRING_LITERAL_END)
-            matchToken(lexer, "", 0, 13, 13, null)
+            tokenize("'Hello World'", 1, 13, 2) {
+                token("Hello World", XPathTokenType.STRING_LITERAL_CONTENTS)
+                token("'", XPathTokenType.STRING_LITERAL_END)
+                state(0)
+            }
         }
 
         @Test
         @DisplayName("open brace - bad character in BracedURILiteral, not StringLiteral")
         fun openBrace() {
-            val lexer = createLexer()
+            // '{' is a bad character in BracedURILiterals, but not string literals.
+            tokenize("\"{\"") {
+                token("\"", XPathTokenType.STRING_LITERAL_START)
+                state(1)
+                token("{", XPathTokenType.STRING_LITERAL_CONTENTS)
+                token("\"", XPathTokenType.STRING_LITERAL_END)
+                state(0)
+            }
 
             // '{' is a bad character in BracedURILiterals, but not string literals.
-            lexer.start("\"{\"")
-            matchToken(lexer, "\"", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
-            matchToken(lexer, "{", 1, 1, 2, XPathTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "\"", 1, 2, 3, XPathTokenType.STRING_LITERAL_END)
-            matchToken(lexer, "", 0, 3, 3, null)
-
-            // '{' is a bad character in BracedURILiterals, but not string literals.
-            lexer.start("'{'")
-            matchToken(lexer, "'", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
-            matchToken(lexer, "{", 2, 1, 2, XPathTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "'", 2, 2, 3, XPathTokenType.STRING_LITERAL_END)
-            matchToken(lexer, "", 0, 3, 3, null)
+            tokenize("'{'") {
+                token("'", XPathTokenType.STRING_LITERAL_START)
+                state(2)
+                token("{", XPathTokenType.STRING_LITERAL_CONTENTS)
+                token("'", XPathTokenType.STRING_LITERAL_END)
+                state(0)
+            }
         }
 
         @Test
         @DisplayName("XPath 2.0 EBNF (75) EscapeQuot")
-        fun escapeQuot() {
-            val lexer = createLexer()
-
-            lexer.start("\"One\"\"Two\"")
-            matchToken(lexer, "\"", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
-            matchToken(lexer, "One", 1, 1, 4, XPathTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "\"\"", 1, 4, 6, XPathTokenType.ESCAPED_CHARACTER)
-            matchToken(lexer, "Two", 1, 6, 9, XPathTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "\"", 1, 9, 10, XPathTokenType.STRING_LITERAL_END)
-            matchToken(lexer, "", 0, 10, 10, null)
+        fun escapeQuot() = tokenize("\"One\"\"Two\"") {
+            token("\"", XPathTokenType.STRING_LITERAL_START)
+            state(1)
+            token("One", XPathTokenType.STRING_LITERAL_CONTENTS)
+            token("\"\"", XPathTokenType.ESCAPED_CHARACTER)
+            token("Two", XPathTokenType.STRING_LITERAL_CONTENTS)
+            token("\"", XPathTokenType.STRING_LITERAL_END)
+            state(0)
         }
 
         @Test
         @DisplayName("XPath 2.0 EBNF (76) EscapeApos")
-        fun escapeApos() {
-            val lexer = createLexer()
-
-            lexer.start("'One''Two'")
-            matchToken(lexer, "'", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
-            matchToken(lexer, "One", 2, 1, 4, XPathTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "''", 2, 4, 6, XPathTokenType.ESCAPED_CHARACTER)
-            matchToken(lexer, "Two", 2, 6, 9, XPathTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "'", 2, 9, 10, XPathTokenType.STRING_LITERAL_END)
-            matchToken(lexer, "", 0, 10, 10, null)
+        fun escapeApos() = tokenize("'One''Two'") {
+            token("'", XPathTokenType.STRING_LITERAL_START)
+            state(2)
+            token("One", XPathTokenType.STRING_LITERAL_CONTENTS)
+            token("''", XPathTokenType.ESCAPED_CHARACTER)
+            token("Two", XPathTokenType.STRING_LITERAL_CONTENTS)
+            token("'", XPathTokenType.STRING_LITERAL_END)
+            state(0)
         }
     }
 
@@ -832,262 +723,230 @@ class XPathLexerTest : LexerTestCase() {
         @Test
         @DisplayName("comment")
         fun comment() {
-            val lexer = createLexer()
+            token("(:", 4, XPathTokenType.COMMENT_START_TAG)
+            token(":)", 0, XPathTokenType.COMMENT_END_TAG)
 
-            matchSingleToken(lexer, "(:", 4, XPathTokenType.COMMENT_START_TAG)
-            matchSingleToken(lexer, ":)", 0, XPathTokenType.COMMENT_END_TAG)
+            tokenize("(: Test :") {
+                token("(:", XPathTokenType.COMMENT_START_TAG)
+                state(4)
+                token(" Test :", XPathTokenType.COMMENT)
+                state(6)
+                token("", XPathTokenType.UNEXPECTED_END_OF_BLOCK)
+                state(0)
+            }
 
-            lexer.start("(: Test :")
-            matchToken(lexer, "(:", 0, 0, 2, XPathTokenType.COMMENT_START_TAG)
-            matchToken(lexer, " Test :", 4, 2, 9, XPathTokenType.COMMENT)
-            matchToken(lexer, "", 6, 9, 9, XPathTokenType.UNEXPECTED_END_OF_BLOCK)
-            matchToken(lexer, "", 0, 9, 9, null)
+            tokenize("(: Test :)") {
+                token("(:", XPathTokenType.COMMENT_START_TAG)
+                state(4)
+                token(" Test ", XPathTokenType.COMMENT)
+                token(":)", XPathTokenType.COMMENT_END_TAG)
+                state(0)
+            }
 
-            lexer.start("(: Test :)")
-            matchToken(lexer, "(:", 0, 0, 2, XPathTokenType.COMMENT_START_TAG)
-            matchToken(lexer, " Test ", 4, 2, 8, XPathTokenType.COMMENT)
-            matchToken(lexer, ":)", 4, 8, 10, XPathTokenType.COMMENT_END_TAG)
-            matchToken(lexer, "", 0, 10, 10, null)
+            tokenize("(::Test::)") {
+                token("(:", XPathTokenType.COMMENT_START_TAG)
+                state(4)
+                token(":Test:", XPathTokenType.COMMENT)
+                token(":)", XPathTokenType.COMMENT_END_TAG)
+                state(0)
+            }
 
-            lexer.start("(::Test::)")
-            matchToken(lexer, "(:", 0, 0, 2, XPathTokenType.COMMENT_START_TAG)
-            matchToken(lexer, ":Test:", 4, 2, 8, XPathTokenType.COMMENT)
-            matchToken(lexer, ":)", 4, 8, 10, XPathTokenType.COMMENT_END_TAG)
-            matchToken(lexer, "", 0, 10, 10, null)
+            tokenize("(:\nMultiline\nComment\n:)") {
+                token("(:", XPathTokenType.COMMENT_START_TAG)
+                state(4)
+                token("\nMultiline\nComment\n", XPathTokenType.COMMENT)
+                token(":)", XPathTokenType.COMMENT_END_TAG)
+                state(0)
+            }
 
-            lexer.start("(:\nMultiline\nComment\n:)")
-            matchToken(lexer, "(:", 0, 0, 2, XPathTokenType.COMMENT_START_TAG)
-            matchToken(lexer, "\nMultiline\nComment\n", 4, 2, 21, XPathTokenType.COMMENT)
-            matchToken(lexer, ":)", 4, 21, 23, XPathTokenType.COMMENT_END_TAG)
-            matchToken(lexer, "", 0, 23, 23, null)
+            tokenize("(: Outer (: Inner :) Outer :)") {
+                token("(:", XPathTokenType.COMMENT_START_TAG)
+                state(4)
+                token(" Outer (: Inner :) Outer ", XPathTokenType.COMMENT)
+                token(":)", XPathTokenType.COMMENT_END_TAG)
+                state(0)
+            }
 
-            lexer.start("(: Outer (: Inner :) Outer :)")
-            matchToken(lexer, "(:", 0, 0, 2, XPathTokenType.COMMENT_START_TAG)
-            matchToken(lexer, " Outer (: Inner :) Outer ", 4, 2, 27, XPathTokenType.COMMENT)
-            matchToken(lexer, ":)", 4, 27, 29, XPathTokenType.COMMENT_END_TAG)
-            matchToken(lexer, "", 0, 29, 29, null)
-
-            lexer.start("(: Outer ( : Inner :) Outer :)")
-            matchToken(lexer, "(:", 0, 0, 2, XPathTokenType.COMMENT_START_TAG)
-            matchToken(lexer, " Outer ( : Inner ", 4, 2, 19, XPathTokenType.COMMENT)
-            matchToken(lexer, ":)", 4, 19, 21, XPathTokenType.COMMENT_END_TAG)
-            matchToken(lexer, " ", 0, 21, 22, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "Outer", 0, 22, 27, XPathTokenType.NCNAME)
-            matchToken(lexer, " ", 0, 27, 28, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, ":)", 0, 28, 30, XPathTokenType.COMMENT_END_TAG)
-            matchToken(lexer, "", 0, 30, 30, null)
+            tokenize("(: Outer ( : Inner :) Outer :)") {
+                token("(:", XPathTokenType.COMMENT_START_TAG)
+                state(4)
+                token(" Outer ( : Inner ", XPathTokenType.COMMENT)
+                token(":)", XPathTokenType.COMMENT_END_TAG)
+                state(0)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token("Outer", XPathTokenType.NCNAME)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token(":)", XPathTokenType.COMMENT_END_TAG)
+            }
         }
 
         @Test
         @DisplayName("initial state")
         fun initialState() {
-            val lexer = createLexer()
+            tokenize("(: Test :", 2, 9, 4) {
+                token(" Test :", XPathTokenType.COMMENT)
+                state(6)
+                token("", XPathTokenType.UNEXPECTED_END_OF_BLOCK)
+                state(0)
+            }
 
-            lexer.start("(: Test :", 2, 9, 4)
-            matchToken(lexer, " Test :", 4, 2, 9, XPathTokenType.COMMENT)
-            matchToken(lexer, "", 6, 9, 9, XPathTokenType.UNEXPECTED_END_OF_BLOCK)
-            matchToken(lexer, "", 0, 9, 9, null)
-
-            lexer.start("(: Test :)", 2, 10, 4)
-            matchToken(lexer, " Test ", 4, 2, 8, XPathTokenType.COMMENT)
-            matchToken(lexer, ":)", 4, 8, 10, XPathTokenType.COMMENT_END_TAG)
-            matchToken(lexer, "", 0, 10, 10, null)
+            tokenize("(: Test :)", 2, 10, 4) {
+                token(" Test ", XPathTokenType.COMMENT)
+                token(":)", XPathTokenType.COMMENT_END_TAG)
+                state(0)
+            }
         }
     }
 
     @Test
     @DisplayName("XPath 2.0 EBNF (78) QName ; Namespaces in XML 1.0 EBNF (7) QName")
-    fun qname() {
-        val lexer = createLexer()
-
-        lexer.start("one:two")
-        matchToken(lexer, "one", 0, 0, 3, XPathTokenType.NCNAME)
-        matchToken(lexer, ":", 0, 3, 4, XPathTokenType.QNAME_SEPARATOR)
-        matchToken(lexer, "two", 0, 4, 7, XPathTokenType.NCNAME)
-        matchToken(lexer, "", 0, 7, 7, null)
+    fun qname() = tokenize("one:two") {
+        token("one", XPathTokenType.NCNAME)
+        token(":", XPathTokenType.QNAME_SEPARATOR)
+        token("two", XPathTokenType.NCNAME)
     }
 
     @Test
     @DisplayName("XPath 2.0 EBNF (79) NCName ; Namespaces in XML 1.0 EBNF (4) NCName")
-    fun ncname() {
-        val lexer = createLexer()
-
-        lexer.start("test x b2b F.G a-b g\u0330d")
-        matchToken(lexer, "test", 0, 0, 4, XPathTokenType.NCNAME)
-        matchToken(lexer, " ", 0, 4, 5, XPathTokenType.WHITE_SPACE)
-        matchToken(lexer, "x", 0, 5, 6, XPathTokenType.NCNAME)
-        matchToken(lexer, " ", 0, 6, 7, XPathTokenType.WHITE_SPACE)
-        matchToken(lexer, "b2b", 0, 7, 10, XPathTokenType.NCNAME)
-        matchToken(lexer, " ", 0, 10, 11, XPathTokenType.WHITE_SPACE)
-        matchToken(lexer, "F.G", 0, 11, 14, XPathTokenType.NCNAME)
-        matchToken(lexer, " ", 0, 14, 15, XPathTokenType.WHITE_SPACE)
-        matchToken(lexer, "a-b", 0, 15, 18, XPathTokenType.NCNAME)
-        matchToken(lexer, " ", 0, 18, 19, XPathTokenType.WHITE_SPACE)
-        matchToken(lexer, "g\u0330d", 0, 19, 22, XPathTokenType.NCNAME)
-        matchToken(lexer, "", 0, 22, 22, null)
+    fun ncname() = tokenize("test x b2b F.G a-b g\u0330d") {
+        token("test", XPathTokenType.NCNAME)
+        token(" ", XPathTokenType.WHITE_SPACE)
+        token("x", XPathTokenType.NCNAME)
+        token(" ", XPathTokenType.WHITE_SPACE)
+        token("b2b", XPathTokenType.NCNAME)
+        token(" ", XPathTokenType.WHITE_SPACE)
+        token("F.G", XPathTokenType.NCNAME)
+        token(" ", XPathTokenType.WHITE_SPACE)
+        token("a-b", XPathTokenType.NCNAME)
+        token(" ", XPathTokenType.WHITE_SPACE)
+        token("g\u0330d", XPathTokenType.NCNAME)
     }
 
     @Test
     @DisplayName("XPath 3.0 EBNF (2) ParamList")
     fun paramList() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
+        token(",", XPathTokenType.COMMA)
     }
 
     @Test
     @DisplayName("XPath 3.0 EBNF (3) Param")
     fun param() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
+        token("$", XPathTokenType.VARIABLE_INDICATOR)
     }
 
     @Test
     @DisplayName("XPath 3.0 EBNF (5) EnclosedExpr")
     fun enclosedExpr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
+        token("{", XPathTokenType.BLOCK_OPEN)
+        token("}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
     @DisplayName("XPath 3.0 EBNF (10) SimpleForBinding")
     fun simpleForBinding() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
-        matchSingleToken(lexer, "in", XPathTokenType.K_IN)
+        token("$", XPathTokenType.VARIABLE_INDICATOR)
+        token("in", XPathTokenType.K_IN)
     }
 
     @Test
     @DisplayName("XPath 3.0 EBNF (11) LetExpr")
     fun letExpr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "return", XPathTokenType.K_RETURN)
+        token("return", XPathTokenType.K_RETURN)
     }
 
     @Test
     @DisplayName("XPath 3.0 EBNF (12) SimpleLetClause")
     fun simpleLetClause() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "let", XPathTokenType.K_LET)
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
+        token("let", XPathTokenType.K_LET)
+        token(",", XPathTokenType.COMMA)
     }
 
     @Test
     @DisplayName("XPath 3.0 EBNF (13) SimpleLetBinding")
     fun simpleLetBinding() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
-        matchSingleToken(lexer, ":=", XPathTokenType.ASSIGN_EQUAL)
+        token("$", XPathTokenType.VARIABLE_INDICATOR)
+        token(":=", XPathTokenType.ASSIGN_EQUAL)
     }
 
     @Test
     @DisplayName("XPath 3.0 EBNF (19) StringConcatExpr")
     fun stringConcatExpr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "||", XPathTokenType.CONCATENATION)
+        token("||", XPathTokenType.CONCATENATION)
     }
 
     @Test
     @DisplayName("XPath 3.0 EBNF (34) SimpleMapExpr")
     fun simpleMapExpr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "!", XPathTokenType.MAP_OPERATOR)
+        token("!", XPathTokenType.MAP_OPERATOR)
     }
 
     @Test
     @DisplayName("XPath 3.0 EBNF (49) ArgumentList")
     fun argumentList() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(",", XPathTokenType.COMMA)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XPath 3.0 EBNF (61) ArgumentPlaceholder")
     fun argumentPlaceholder() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "?", XPathTokenType.OPTIONAL)
+        token("?", XPathTokenType.OPTIONAL)
     }
 
     @Test
     @DisplayName("XPath 3.0 EBNF (63) NamedFunctionRef")
     fun namedFunctionRef() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "#", XPathTokenType.FUNCTION_REF_OPERATOR)
+        token("#", XPathTokenType.FUNCTION_REF_OPERATOR)
     }
 
     @Test
     @DisplayName("XPath 3.0 EBNF (64) InlineFunctionExpr")
     fun inlineFunctionExpr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "function", XPathTokenType.K_FUNCTION)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
-        matchSingleToken(lexer, "as", XPathTokenType.K_AS)
+        token("function", XPathTokenType.K_FUNCTION)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("as", XPathTokenType.K_AS)
     }
 
     @Test
     @DisplayName("XPath 3.0 EBNF (66) TypeDeclaration")
     fun typeDeclaration() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "as", XPathTokenType.K_AS)
+        token("as", XPathTokenType.K_AS)
     }
 
     @Test
     @DisplayName("XPath 3.0 EBNF (76) NamespaceNodeTest")
     fun namespaceNodeTest() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "namespace-node", XPathTokenType.K_NAMESPACE_NODE)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("namespace-node", XPathTokenType.K_NAMESPACE_NODE)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XPath 3.0 EBNF (91) AnyFunctionTest")
     fun anyFunctionTest() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "function", XPathTokenType.K_FUNCTION)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, "*", XPathTokenType.STAR)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("function", XPathTokenType.K_FUNCTION)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token("*", XPathTokenType.STAR)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XPath 3.0 EBNF (92) TypedFunctionTest")
     fun typedFunctionTest() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "function", XPathTokenType.K_FUNCTION)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
-        matchSingleToken(lexer, "as", XPathTokenType.K_AS)
+        token("function", XPathTokenType.K_FUNCTION)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(",", XPathTokenType.COMMA)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("as", XPathTokenType.K_AS)
     }
 
     @Test
     @DisplayName("XPath 3.0 EBNF (93) ParenthesizedItemType")
     fun parenthesizedItemType() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Nested
@@ -1096,325 +955,260 @@ class XPathLexerTest : LexerTestCase() {
         @Test
         @DisplayName("braced uri literal")
         fun bracedURILiteral() {
-            val lexer = createLexer()
+            token("Q", XPathTokenType.NCNAME)
+            token("Q{", 26, XPathTokenType.BRACED_URI_LITERAL_START)
 
-            matchSingleToken(lexer, "Q", XPathTokenType.NCNAME)
-
-            lexer.start("Q{")
-            matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
-            matchToken(lexer, "", 26, 2, 2, null)
-
-            lexer.start("Q{Hello World}")
-            matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
-            matchToken(lexer, "Hello World", 26, 2, 13, XPathTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "}", 26, 13, 14, XPathTokenType.BRACED_URI_LITERAL_END)
-            matchToken(lexer, "", 0, 14, 14, null)
+            tokenize("Q{Hello World}") {
+                token("Q{", XPathTokenType.BRACED_URI_LITERAL_START)
+                state(26)
+                token("Hello World", XPathTokenType.STRING_LITERAL_CONTENTS)
+                token("}", XPathTokenType.BRACED_URI_LITERAL_END)
+                state(0)
+            }
 
             // NOTE: "", '', {{ and }} are used as escaped characters in string and attribute literals.
-            lexer.start("Q{A\"\"B''C{{D}}E}")
-            matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
-            matchToken(lexer, "A\"\"B''C", 26, 2, 9, XPathTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "{", 26, 9, 10, XPathTokenType.BAD_CHARACTER)
-            matchToken(lexer, "{", 26, 10, 11, XPathTokenType.BAD_CHARACTER)
-            matchToken(lexer, "D", 26, 11, 12, XPathTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "}", 26, 12, 13, XPathTokenType.BRACED_URI_LITERAL_END)
-            matchToken(lexer, "}", 0, 13, 14, XPathTokenType.BLOCK_CLOSE)
-            matchToken(lexer, "E", 0, 14, 15, XPathTokenType.NCNAME)
-            matchToken(lexer, "}", 0, 15, 16, XPathTokenType.BLOCK_CLOSE)
-            matchToken(lexer, "", 0, 16, 16, null)
+            tokenize("Q{A\"\"B''C{{D}}E}") {
+                token("Q{", XPathTokenType.BRACED_URI_LITERAL_START)
+                state(26)
+                token("A\"\"B''C", XPathTokenType.STRING_LITERAL_CONTENTS)
+                token("{", XPathTokenType.BAD_CHARACTER)
+                token("{", XPathTokenType.BAD_CHARACTER)
+                token("D", XPathTokenType.STRING_LITERAL_CONTENTS)
+                token("}", XPathTokenType.BRACED_URI_LITERAL_END)
+                state(0)
+                token("}", XPathTokenType.BLOCK_CLOSE)
+                token("E", XPathTokenType.NCNAME)
+                token("}", XPathTokenType.BLOCK_CLOSE)
+            }
         }
     }
 
     @Test
     @DisplayName("XPath 3.1 EBNF (29) ArrowExpr")
     fun arrowExpr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "=>", XPathTokenType.ARROW)
+        token("=>", XPathTokenType.ARROW)
     }
 
     @Test
     @DisplayName("XPath 3.1 EBNF (53) Lookup")
     fun lookup() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "?", XPathTokenType.OPTIONAL)
+        token("?", XPathTokenType.OPTIONAL)
     }
 
     @Test
     @DisplayName("XPath 3.1 EBNF (54) KeySpecifier")
     fun keySpecifier() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "*", XPathTokenType.STAR)
+        token("*", XPathTokenType.STAR)
     }
 
     @Test
     @DisplayName("XPath 3.1 EBNF (69) MapConstructor")
     fun mapConstructor() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "map", XPathTokenType.K_MAP)
-        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
-        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
+        token("map", XPathTokenType.K_MAP)
+        token("{", XPathTokenType.BLOCK_OPEN)
+        token(",", XPathTokenType.COMMA)
+        token("}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
     @DisplayName("XPath 3.1 EBNF (70) MapConstructorEntry")
     fun mapConstructorEntry() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, ":", XPathTokenType.QNAME_SEPARATOR)
+        token(":", XPathTokenType.QNAME_SEPARATOR)
     }
 
     @Test
     @DisplayName("XPath 3.1 EBNF (74) SquareArrayConstructor")
     fun squareArrayConstructor() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "[", XPathTokenType.SQUARE_OPEN)
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
-        matchSingleToken(lexer, "]", XPathTokenType.SQUARE_CLOSE)
+        token("[", XPathTokenType.SQUARE_OPEN)
+        token(",", XPathTokenType.COMMA)
+        token("]", XPathTokenType.SQUARE_CLOSE)
     }
 
     @Test
     @DisplayName("XPath 3.1 EBNF (75) CurlyArrayConstructor")
     fun curlyArrayConstructor() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "array", XPathTokenType.K_ARRAY)
-        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
+        token("array", XPathTokenType.K_ARRAY)
+        token("{", XPathTokenType.BLOCK_OPEN)
+        token("}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
     @DisplayName("XPath 3.1 EBNF (76) UnaryLookup")
     fun unaryLookup() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "?", XPathTokenType.OPTIONAL)
+        token("?", XPathTokenType.OPTIONAL)
     }
 
     @Test
     @DisplayName("XPath 3.1 EBNF (106) AnyMapTest")
     fun anyMapTest() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "map", XPathTokenType.K_MAP)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, "*", XPathTokenType.STAR)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("map", XPathTokenType.K_MAP)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token("*", XPathTokenType.STAR)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XPath 3.1 EBNF (107) TypedMapTest")
     fun typedMapTest() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "map", XPathTokenType.K_MAP)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("map", XPathTokenType.K_MAP)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(",", XPathTokenType.COMMA)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XPath 3.1 EBNF (109) AnyArrayTest")
     fun anyArrayTest() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "array", XPathTokenType.K_ARRAY)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, "*", XPathTokenType.STAR)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("array", XPathTokenType.K_ARRAY)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token("*", XPathTokenType.STAR)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XPath 3.1 EBNF (110) TypedArrayTest")
     fun typedArrayTest() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "array", XPathTokenType.K_ARRAY)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("array", XPathTokenType.K_ARRAY)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XPath 4.0 ED EBNF (9) WithExpr")
     fun withExpr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "with", XPathTokenType.K_WITH)
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
+        token("with", XPathTokenType.K_WITH)
+        token(",", XPathTokenType.COMMA)
     }
 
     @Test
     @DisplayName("XPath 4.0 ED EBNF (10) NamespaceDeclaration")
     fun namespaceDeclaration() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "=", XPathTokenType.EQUAL)
+        token("=", XPathTokenType.EQUAL)
     }
 
     @Test
     @DisplayName("XPath 4.0 ED EBNF (11) TernaryConditionalExpr")
     fun ternaryConditionalExpr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "??", XPathTokenType.TERNARY_IF)
-        matchSingleToken(lexer, "!!", XPathTokenType.TERNARY_ELSE)
+        token("??", XPathTokenType.TERNARY_IF)
+        token("!!", XPathTokenType.TERNARY_ELSE)
     }
 
     @Test
     @DisplayName("XPath 4.0 ED EBNF (13) SimpleForClause")
     fun simpleForClause_XPath40() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "for", XPathTokenType.K_FOR)
-        matchSingleToken(lexer, "member", XPathTokenType.K_MEMBER)
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
+        token("for", XPathTokenType.K_FOR)
+        token("member", XPathTokenType.K_MEMBER)
+        token(",", XPathTokenType.COMMA)
     }
 
     @Test
     @DisplayName("XPath 4.0 ED EBNF (19) QuantifierBinding")
     fun quantifierBinding() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
-        matchSingleToken(lexer, "in", XPathTokenType.K_IN)
+        token("$", XPathTokenType.VARIABLE_INDICATOR)
+        token("in", XPathTokenType.K_IN)
     }
 
     @Test
     @DisplayName("XPath 4.0 ED EBNF (28) OtherwiseExpr")
     fun otherwiseExpr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "otherwise", XPathTokenType.K_OTHERWISE)
+        token("otherwise", XPathTokenType.K_OTHERWISE)
     }
 
     @Test
     @DisplayName("XPath 4.0 ED EBNF (33) FunctionSignature")
     fun functionSignature() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XPath 4.0 ED EBNF (38) FatArrowTarget")
     fun fatArrowTarget() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "=>", XPathTokenType.ARROW)
+        token("=>", XPathTokenType.ARROW)
     }
 
     @Test
     @DisplayName("XPath 4.0 ED EBNF (39) ThinArrowTarget")
     fun thinArrowTarget() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "->", XPathTokenType.THIN_ARROW)
+        token("->", XPathTokenType.THIN_ARROW)
     }
 
     @Test
     @DisplayName("XPath 4.0 ED EBNF (59) PositionalArgumentList")
     fun positionalArgumentList() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XPath 4.0 ED EBNF (60) PositionalArguments")
     fun positionalArguments() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
+        token(",", XPathTokenType.COMMA)
     }
 
     @Test
     @DisplayName("XPath 4.0 ED EBNF (61) KeywordArguments")
     fun keywordArguments() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
+        token(",", XPathTokenType.COMMA)
     }
 
     @Test
     @DisplayName("XPath 4.0 ED EBNF (62) KeywordArgument")
     fun keywordArgument() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, ":", XPathTokenType.QNAME_SEPARATOR)
+        token(":", XPathTokenType.QNAME_SEPARATOR)
     }
 
     @Test
     @DisplayName("XPath 4.0 ED EBNF (83) InlineFunctionExpr")
     fun inlineFunctionExpr_XPath40() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "function", XPathTokenType.K_FUNCTION)
-        matchSingleToken(lexer, "->", XPathTokenType.THIN_ARROW)
+        token("function", XPathTokenType.K_FUNCTION)
+        token("->", XPathTokenType.THIN_ARROW)
     }
 
     @Test
     @DisplayName("XPath 4.0 ED EBNF (122) RecordTest")
     fun recordTest() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "record", XPathTokenType.K_RECORD)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("record", XPathTokenType.K_RECORD)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(",", XPathTokenType.COMMA)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XPath 4.0 ED EBNF (123) FieldDeclaration")
     fun fieldDeclaration() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "?", XPathTokenType.OPTIONAL)
-        matchSingleToken(lexer, "as", XPathTokenType.K_AS)
+        token("?", XPathTokenType.OPTIONAL)
+        token("as", XPathTokenType.K_AS)
     }
 
     @Test
     @DisplayName("XPath 4.0 ED EBNF (125) SelfReference")
     fun selfReference() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "..", XPathTokenType.PARENT_SELECTOR)
+        token("..", XPathTokenType.PARENT_SELECTOR)
     }
 
     @Test
     @DisplayName("XPath 4.0 ED EBNF (126) ExtensibleFlag")
     fun extensibleFlag() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
-        matchSingleToken(lexer, "*", XPathTokenType.STAR)
+        token(",", XPathTokenType.COMMA)
+        token("*", XPathTokenType.STAR)
     }
 
     @Test
     @DisplayName("XPath 4.0 ED EBNF (127) LocalUnionType")
     fun localUnionType() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "union", XPathTokenType.K_UNION)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("union", XPathTokenType.K_UNION)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(",", XPathTokenType.COMMA)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XPath 4.0 ED EBNF (128) EnumerationType")
     fun enumerationType() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "enum", XPathTokenType.K_ENUM)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("enum", XPathTokenType.K_ENUM)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(",", XPathTokenType.COMMA)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 }
