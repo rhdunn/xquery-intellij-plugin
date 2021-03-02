@@ -67,9 +67,12 @@ abstract class LexerTestCaseEx : LexerTestCase() {
         return tokenize(lines.joinToString("\n"), test)
     }
 
-    fun token(text: String, type: IElementType) = tokenize(text) {
+    fun token(text: String, endState: Int, type: IElementType) = tokenize(text) {
         token(text, type)
+        state(endState)
     }
+
+    fun token(text: String, type: IElementType) = token(text, 0, type)
 
     class LexerTokens(val lexer: Lexer, start: Int, internal var state: Int) {
         internal var end: Int = start
