@@ -22,6 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.marklogic.log.ast.error.MarkLogicErrorLog
 import uk.co.reecedunn.intellij.plugin.marklogic.log.ast.error.MarkLogicErrorLogLine
 import uk.co.reecedunn.intellij.plugin.marklogic.log.lang.MarkLogicErrorLog.ParserDefinition
+import uk.co.reecedunn.intellij.plugin.marklogic.log.lexer.MarkLogicErrorLogTokenType
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("Reformat", "ClassName", "RedundantVisibilityModifier")
@@ -40,6 +41,27 @@ private class MarkLogic9ErrorLogPsiTest : ParsingTestCase<MarkLogicErrorLog>("lo
         val line = parse<MarkLogicErrorLogLine>(
             "\tat java.lang.System.initProperties(Native Method)"
         )[0]
-        assertThat(line.message, `is`("\tat java.lang.System.initProperties(Native Method)"))
+
+        assertThat(line.logLevel, `is`(nullValue()))
+    }
+
+    @Test
+    @DisplayName("log level (warning) and message only")
+    fun logLevelAndMessage() {
+        val line = parse<MarkLogicErrorLogLine>(
+            "WARNING: JNI local refs: zu, exceeds capacity: zu"
+        )[0]
+
+        assertThat(line.logLevel, `is`(MarkLogicErrorLogTokenType.LogLevel.WARNING))
+    }
+
+    @Test
+    @DisplayName("simple message")
+    fun simpleMessage() {
+        val line = parse<MarkLogicErrorLogLine>(
+            "2001-01-10 12:34:56.789 Info: Lorem ipsum dolor"
+        )[0]
+
+        assertThat(line.logLevel, `is`(MarkLogicErrorLogTokenType.LogLevel.INFO))
     }
 }

@@ -74,6 +74,7 @@ class MarkLogicErrorLogLexer(val format: MarkLogicErrorLogFormat) : LexerImpl(ST
         const val LogLevel = 2
         const val Server = 3
         const val Message = 4
+        const val SimpleMessage = 5
     }
 
     private fun stateDefault(): IElementType? {
@@ -95,12 +96,13 @@ class MarkLogicErrorLogLexer(val format: MarkLogicErrorLogFormat) : LexerImpl(ST
                 pushState(State.Time)
                 MarkLogicErrorLogTokenType.DATE
             }
+            WHITE_SPACE -> {
+                pushState(State.SimpleMessage)
+                return stateLogLevelOrServer(State.SimpleMessage)
+            }
             else -> {
-                while (cc != NEW_LINE && cc != END_OF_BUFFER) {
-                    mTokenRange.match()
-                    cc = getCharacterClass(mTokenRange.codePoint)
-                }
-                MarkLogicErrorLogTokenType.MESSAGE
+                pushState(State.Message)
+                return stateLogLevelOrServer(State.Default)
             }
         }
     }
@@ -138,24 +140,24 @@ class MarkLogicErrorLogLexer(val format: MarkLogicErrorLogFormat) : LexerImpl(ST
 
     private fun stateLogLevelOrServer(state: Int): IElementType? {
         var cc = getCharacterClass(mTokenRange.codePoint)
-        return when (cc) {
-            END_OF_BUFFER -> null
-            NEW_LINE -> {
+        return when {
+            cc == END_OF_BUFFER -> null
+            cc == NEW_LINE -> {
                 popState()
                 stateDefault()
             }
-            WHITE_SPACE -> {
+            cc == WHITE_SPACE && state != State.SimpleMessage -> {
                 while (cc == WHITE_SPACE) {
                     mTokenRange.match()
                     cc = getCharacterClass(mTokenRange.codePoint)
                 }
                 MarkLogicErrorLogTokenType.WHITE_SPACE
             }
-            COLON -> {
+            cc == COLON -> {
                 mTokenRange.match()
                 MarkLogicErrorLogTokenType.COLON
             }
-            PLUS -> {
+            cc == PLUS -> {
                 mTokenRange.match()
                 MarkLogicErrorLogTokenType.CONTINUATION
             }
@@ -170,6 +172,12 @@ class MarkLogicErrorLogLexer(val format: MarkLogicErrorLogFormat) : LexerImpl(ST
                             mTokenRange.restore()
                             when {
                                 cc != WHITE_SPACE && cc != PLUS -> seenWhitespace = true
+                                state == State.Default -> {
+                                    val text = mTokenRange.bufferSequence.substring(mTokenRange.start, mTokenRange.end)
+                                    if (text == "WARNING") {
+                                        return MarkLogicErrorLogTokenType.LogLevel.WARNING
+                                    }
+                                }
                                 state == State.LogLevel -> {
                                     popState()
                                     pushState(if (format.haveServer) State.Server else State.Message)
@@ -205,7 +213,10 @@ class MarkLogicErrorLogLexer(val format: MarkLogicErrorLogFormat) : LexerImpl(ST
         mType = when (state) {
             State.Default -> stateDefault()
             State.Time -> stateTime()
-            State.LogLevel, State.Server, State.Message -> stateLogLevelOrServer(state)
+            State.LogLevel,
+            State.Server,
+            State.Message,
+            State.SimpleMessage -> stateLogLevelOrServer(state)
             else -> throw AssertionError("Invalid state: $state")
         }
     }

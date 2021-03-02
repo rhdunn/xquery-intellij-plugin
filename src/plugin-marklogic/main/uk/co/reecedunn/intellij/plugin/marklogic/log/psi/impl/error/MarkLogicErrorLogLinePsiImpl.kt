@@ -17,21 +17,22 @@ package uk.co.reecedunn.intellij.plugin.marklogic.log.psi.impl.error
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.marklogic.log.ast.error.MarkLogicErrorLogLine
-import uk.co.reecedunn.intellij.plugin.marklogic.log.lexer.MarkLogicErrorLogTokenType
+import uk.co.reecedunn.intellij.plugin.marklogic.log.lexer.ILogLevelElementType
 
 class MarkLogicErrorLogLinePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), MarkLogicErrorLogLine {
     override fun subtreeChanged() {
         super.subtreeChanged()
-        cachedMessage.invalidate()
+        cachedLogLevel.invalidate()
     }
 
-    private val cachedMessage = CacheableProperty {
-        findChildByType<PsiElement>(MarkLogicErrorLogTokenType.MESSAGE)?.text
+    private val cachedLogLevel = CacheableProperty {
+        children().find { it.elementType is ILogLevelElementType }?.elementType as? ILogLevelElementType
     }
 
-    override val message: String?
-        get() = cachedMessage.get()
+    override val logLevel: ILogLevelElementType?
+        get() = cachedLogLevel.get()
 }

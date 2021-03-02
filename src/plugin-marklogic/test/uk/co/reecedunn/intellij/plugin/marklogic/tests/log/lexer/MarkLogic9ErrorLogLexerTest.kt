@@ -57,11 +57,19 @@ class MarkLogic9ErrorLogLexerTest : LexerTestCaseEx() {
             "\tat java.lang.System.initProperties(Native Method)",
             "\tat java.lang.System.initializeSystemClass(System.java:1166)"
         ) {
-            token("WARNING: JNI local refs: zu, exceeds capacity: zu", MarkLogicErrorLogTokenType.MESSAGE)
+            token("WARNING", MarkLogicErrorLogTokenType.LogLevel.WARNING)
+            state(4)
+            token(":", MarkLogicErrorLogTokenType.COLON)
+            token(" ", MarkLogicErrorLogTokenType.WHITE_SPACE)
+            token("JNI local refs: zu, exceeds capacity: zu", MarkLogicErrorLogTokenType.MESSAGE)
             token("\n", MarkLogicErrorLogTokenType.WHITE_SPACE)
+            state(0)
             token("\tat java.lang.System.initProperties(Native Method)", MarkLogicErrorLogTokenType.MESSAGE)
+            state(5)
             token("\n", MarkLogicErrorLogTokenType.WHITE_SPACE)
+            state(0)
             token("\tat java.lang.System.initializeSystemClass(System.java:1166)", MarkLogicErrorLogTokenType.MESSAGE)
+            state(5)
         }
     }
 
