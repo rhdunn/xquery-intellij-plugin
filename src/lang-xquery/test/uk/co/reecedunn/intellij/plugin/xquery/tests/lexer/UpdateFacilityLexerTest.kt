@@ -19,14 +19,14 @@ import com.intellij.lexer.Lexer
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.lexer.CombinedLexer
-import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCaseEx
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 @DisplayName("XQuery Update Facility 3.0 - Lexer")
-class UpdateFacilityLexerTest : LexerTestCase() {
-    private fun createLexer(): Lexer {
+class UpdateFacilityLexerTest : LexerTestCaseEx() {
+    override val lexer: Lexer = run {
         val lexer = CombinedLexer(XQueryLexer())
         lexer.addState(
             XQueryLexer(), 0x50000000, 0,
@@ -36,131 +36,109 @@ class UpdateFacilityLexerTest : LexerTestCase() {
             XQueryLexer(), 0x60000000, 0,
             XQueryLexer.STATE_START_DIR_ELEM_CONSTRUCTOR, XQueryTokenType.DIRELEM_OPEN_XML_TAG
         )
-        return lexer
+        lexer
     }
 
     @Test
     @DisplayName("XQuery Update Facility 1.0 EBNF (26) FunctionDecl")
-    fun testFunctionDecl_UpdateFacility10() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "declare", XQueryTokenType.K_DECLARE)
-        matchSingleToken(lexer, "updating", XQueryTokenType.K_UPDATING)
-        matchSingleToken(lexer, "function", XPathTokenType.K_FUNCTION)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
-        matchSingleToken(lexer, "as", XPathTokenType.K_AS)
-        matchSingleToken(lexer, "external", XQueryTokenType.K_EXTERNAL)
+    fun functionDecl() {
+        token("declare", XQueryTokenType.K_DECLARE)
+        token("updating", XQueryTokenType.K_UPDATING)
+        token("function", XPathTokenType.K_FUNCTION)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("as", XPathTokenType.K_AS)
+        token("external", XQueryTokenType.K_EXTERNAL)
     }
 
     @Test
     @DisplayName("XQuery Update Facility 1.0 EBNF (141) RevalidationDecl")
-    fun testRevalidationDecl() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "declare", XQueryTokenType.K_DECLARE)
-        matchSingleToken(lexer, "revalidation", XQueryTokenType.K_REVALIDATION)
-        matchSingleToken(lexer, "strict", XQueryTokenType.K_STRICT)
-        matchSingleToken(lexer, "lax", XQueryTokenType.K_LAX)
-        matchSingleToken(lexer, "skip", XQueryTokenType.K_SKIP)
+    fun revalidationDecl() {
+        token("declare", XQueryTokenType.K_DECLARE)
+        token("revalidation", XQueryTokenType.K_REVALIDATION)
+        token("strict", XQueryTokenType.K_STRICT)
+        token("lax", XQueryTokenType.K_LAX)
+        token("skip", XQueryTokenType.K_SKIP)
     }
 
     @Test
     @DisplayName("XQuery Update Facility 1.0 EBNF (142) InsertExprTargetChoice")
-    fun testInsertExprTargetChoice() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "as", XPathTokenType.K_AS)
-        matchSingleToken(lexer, "first", XQueryTokenType.K_FIRST)
-        matchSingleToken(lexer, "last", XQueryTokenType.K_LAST)
-        matchSingleToken(lexer, "into", XQueryTokenType.K_INTO)
-        matchSingleToken(lexer, "after", XQueryTokenType.K_AFTER)
-        matchSingleToken(lexer, "before", XQueryTokenType.K_BEFORE)
+    fun insertExprTargetChoice() {
+        token("as", XPathTokenType.K_AS)
+        token("first", XQueryTokenType.K_FIRST)
+        token("last", XQueryTokenType.K_LAST)
+        token("into", XQueryTokenType.K_INTO)
+        token("after", XQueryTokenType.K_AFTER)
+        token("before", XQueryTokenType.K_BEFORE)
     }
 
     @Test
     @DisplayName("XQuery Update Facility 1.0 EBNF (143) InsertExpr")
-    fun testInsertExpr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "insert", XQueryTokenType.K_INSERT)
-        matchSingleToken(lexer, "node", XPathTokenType.K_NODE)
-        matchSingleToken(lexer, "nodes", XQueryTokenType.K_NODES)
+    fun insertExpr() {
+        token("insert", XQueryTokenType.K_INSERT)
+        token("node", XPathTokenType.K_NODE)
+        token("nodes", XQueryTokenType.K_NODES)
     }
 
     @Test
     @DisplayName("XQuery Update Facility 1.0 EBNF (144) DeleteExpr")
-    fun testDeleteExpr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "delete", XQueryTokenType.K_DELETE)
-        matchSingleToken(lexer, "node", XPathTokenType.K_NODE)
-        matchSingleToken(lexer, "nodes", XQueryTokenType.K_NODES)
+    fun deleteExpr() {
+        token("delete", XQueryTokenType.K_DELETE)
+        token("node", XPathTokenType.K_NODE)
+        token("nodes", XQueryTokenType.K_NODES)
     }
 
     @Test
     @DisplayName("XQuery Update Facility 1.0 EBNF (145) ReplaceExpr")
-    fun testReplaceExpr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "replace", XQueryTokenType.K_REPLACE)
-        matchSingleToken(lexer, "value", XQueryTokenType.K_VALUE)
-        matchSingleToken(lexer, "of", XPathTokenType.K_OF)
-        matchSingleToken(lexer, "node", XPathTokenType.K_NODE)
-        matchSingleToken(lexer, "with", XPathTokenType.K_WITH)
+    fun replaceExpr() {
+        token("replace", XQueryTokenType.K_REPLACE)
+        token("value", XQueryTokenType.K_VALUE)
+        token("of", XPathTokenType.K_OF)
+        token("node", XPathTokenType.K_NODE)
+        token("with", XPathTokenType.K_WITH)
     }
 
     @Test
     @DisplayName("XQuery Update Facility 1.0 EBNF (146) RenameExpr")
-    fun testRenameExpr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "rename", XQueryTokenType.K_RENAME)
-        matchSingleToken(lexer, "node", XPathTokenType.K_NODE)
-        matchSingleToken(lexer, "as", XPathTokenType.K_AS)
+    fun renameExpr() {
+        token("rename", XQueryTokenType.K_RENAME)
+        token("node", XPathTokenType.K_NODE)
+        token("as", XPathTokenType.K_AS)
     }
 
     @Test
     @DisplayName("XQuery Update Facility 1.0 EBNF (150) TransformExpr ; XQuery Update Facility 3.0 EBNF (208) CopyModifyExpr")
-    fun testTransformExpr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "copy", XQueryTokenType.K_COPY)
-        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
-        matchSingleToken(lexer, ":=", XPathTokenType.ASSIGN_EQUAL)
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
-        matchSingleToken(lexer, "modify", XQueryTokenType.K_MODIFY)
-        matchSingleToken(lexer, "return", XPathTokenType.K_RETURN)
+    fun transformExpr() {
+        token("copy", XQueryTokenType.K_COPY)
+        token("$", XPathTokenType.VARIABLE_INDICATOR)
+        token(":=", XPathTokenType.ASSIGN_EQUAL)
+        token(",", XPathTokenType.COMMA)
+        token("modify", XQueryTokenType.K_MODIFY)
+        token("return", XPathTokenType.K_RETURN)
     }
 
     @Test
     @DisplayName("XQuery Update Facility 3.0 EBNF (27) CompatibilityAnnotation")
-    fun testCompatibilityAnnotation() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "updating", XQueryTokenType.K_UPDATING)
+    fun compatibilityAnnotation() {
+        token("updating", XQueryTokenType.K_UPDATING)
     }
 
     @Test
     @DisplayName("XQuery Update Facility 3.0 EBNF (97) TransformWithExpr")
-    fun testTransformWithExpr() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "transform", XQueryTokenType.K_TRANSFORM)
-        matchSingleToken(lexer, "with", XPathTokenType.K_WITH)
-        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
+    fun transformWithExpr() {
+        token("transform", XQueryTokenType.K_TRANSFORM)
+        token("with", XPathTokenType.K_WITH)
+        token("{", XPathTokenType.BLOCK_OPEN)
+        token("}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery Update Facility 3.0 EBNF (207) UpdatingFunctionCall")
-    fun testUpdatingFunctionCall() {
-        val lexer = createLexer()
-
-        matchSingleToken(lexer, "invoke", XQueryTokenType.K_INVOKE)
-        matchSingleToken(lexer, "updating", XQueryTokenType.K_UPDATING)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+    fun updatingFunctionCall() {
+        token("invoke", XQueryTokenType.K_INVOKE)
+        token("updating", XQueryTokenType.K_UPDATING)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(",", XPathTokenType.COMMA)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 }
