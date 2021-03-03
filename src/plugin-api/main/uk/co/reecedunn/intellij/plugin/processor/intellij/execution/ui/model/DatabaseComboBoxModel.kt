@@ -60,10 +60,10 @@ class DatabaseComboBoxModel : AbstractListModel<String>(), ComboBoxModel<String>
     fun update(settings: QueryProcessorSettings?) {
         if (settings == null) return
         executeOnPooledThread {
-            val items = settings.session.databases
+            val items = settings.session.servers
             try {
                 invokeLater(ModalityState.any()) {
-                    databases = items
+                    databases = items.map { it.database }.distinct()
                     fireContentsChanged(this, -1, -1)
                 }
             } catch (e: Throwable) {

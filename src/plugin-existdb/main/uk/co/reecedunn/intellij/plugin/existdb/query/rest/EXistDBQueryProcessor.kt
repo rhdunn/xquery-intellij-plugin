@@ -49,8 +49,6 @@ internal class EXistDBQueryProcessor(
 
     override val servers: List<QueryServer> = listOf()
 
-    override val databases: List<String> = listOf()
-
     // endregion
     // region RunnableQueryProvider
 

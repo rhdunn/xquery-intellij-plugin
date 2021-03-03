@@ -22,6 +22,4 @@ interface QueryProcessor : Closeable {
     val presentation: ItemPresentation
 
     val servers: List<QueryServer>
-
-    val databases: List<String>
 }

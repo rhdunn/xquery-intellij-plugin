@@ -75,8 +75,6 @@ internal class SaxonQueryProcessor(
 
     override val servers: List<QueryServer> = listOf()
 
-    override val databases: List<String> = listOf()
-
     // endregion
     // region ProfileableQueryProvider
 

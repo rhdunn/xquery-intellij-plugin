@@ -45,7 +45,6 @@ object MarkLogicQueries : VirtualFileSystemImpl("res") {
 
     val Version: VirtualFile = resourceFile("queries/marklogic/version.xq")!!
     val Servers: VirtualFile = resourceFile("queries/marklogic/servers.xq")!!
-    val Databases: VirtualFile = resourceFile("queries/marklogic/databases.xq")!!
 
     val ApiDocs: VirtualFile = resourceFile("queries/marklogic/apidocs.xq")!!
 

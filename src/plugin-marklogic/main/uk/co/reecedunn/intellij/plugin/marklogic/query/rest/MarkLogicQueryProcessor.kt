@@ -68,9 +68,6 @@ internal class MarkLogicQueryProcessor(
             }
         }
 
-    override val databases: List<String>
-        get() = createRunnableQuery(MarkLogicQueries.Databases, XQuery).run().results.map { it.value as String }
-
     private fun buildParameters(query: VirtualFile, language: Language, mode: String): JsonObject {
         val queryParams = JsonObject()
         queryParams.addProperty("mode", mode)
