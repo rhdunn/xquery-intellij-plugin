@@ -22,7 +22,6 @@ import com.intellij.openapi.vfs.VirtualFile
 import org.apache.http.client.methods.RequestBuilder
 import uk.co.reecedunn.intellij.plugin.core.lang.getLanguageMimeTypes
 import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationImpl
-import uk.co.reecedunn.intellij.plugin.core.sequences.chunkedPairs
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.marklogic.intellij.lang.SPARQLQuery
 import uk.co.reecedunn.intellij.plugin.marklogic.intellij.lang.SPARQLUpdate
@@ -61,10 +60,12 @@ internal class MarkLogicQueryProcessor(
             return ItemPresentationImpl(MarkLogicIcons.Product, version?.let { "MarkLogic $it" } ?: "MarkLogic")
         }
 
-    override val servers: Map<String, String>
+    override val servers: List<QueryServer>
         get() {
             val query = createRunnableQuery(MarkLogicQueries.Servers, XQuery)
-            return query.run().results.chunkedPairs { it.value as String }.toMap()
+            return query.run().results.chunked(2).map {
+                QueryServer(it[0].value as String, it[1].value as String)
+            }
         }
 
     override val databases: List<String>

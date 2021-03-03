@@ -73,7 +73,7 @@ internal class SaxonQueryProcessor(
             ItemPresentationImpl(SaxonIcons.Product, "Saxon ${processor.version}")
         }
 
-    override val servers: Map<String, String> = mapOf()
+    override val servers: List<QueryServer> = listOf()
 
     override val databases: List<String> = listOf()
 

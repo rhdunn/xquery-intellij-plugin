@@ -21,7 +21,7 @@ import java.io.Closeable
 interface QueryProcessor : Closeable {
     val presentation: ItemPresentation
 
-    val servers: Map<String, String>
+    val servers: List<QueryServer>
 
     val databases: List<String>
 }

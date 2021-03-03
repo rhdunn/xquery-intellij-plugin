@@ -63,7 +63,7 @@ class ServerComboBoxModel : AbstractListModel<String>(), ComboBoxModel<String> {
             val items = settings.session.servers
             try {
                 invokeLater(ModalityState.any()) {
-                    servers = items.entries.asSequence().filter { it.value == database }.map { it.key }.toList()
+                    servers = items.asSequence().filter { it.database == database }.map { it.server }.toList()
                     fireContentsChanged(this, -1, -1)
                 }
             } catch (e: Throwable) {

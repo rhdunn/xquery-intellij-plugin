@@ -13,13 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.core.sequences
+package uk.co.reecedunn.intellij.plugin.processor.query
 
-@Suppress("unused")
-fun <T> List<T>.chunkedPairs(): Sequence<Pair<T, T>> {
-    return asSequence().chunked(2).map { it[0] to it[1] }
-}
-
-fun <T, R> List<T>.chunkedPairs(transform: (T) -> R): Sequence<Pair<R, R>> {
-    return asSequence().chunked(2).map { transform(it[0]) to transform(it[1]) }
-}
+data class QueryServer(val server: String, val database: String)

@@ -47,7 +47,7 @@ internal class EXistDBQueryProcessor(
             return ItemPresentationImpl(icon, "${version[0].value} ${version[1].value}")
         }
 
-    override val servers: Map<String, String> = mapOf()
+    override val servers: List<QueryServer> = listOf()
 
     override val databases: List<String> = listOf()
 
