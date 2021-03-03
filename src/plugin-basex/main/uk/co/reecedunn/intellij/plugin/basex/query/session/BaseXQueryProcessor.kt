@@ -44,7 +44,7 @@ internal class BaseXQueryProcessor(
             return ItemPresentationImpl(BaseXIcons.Product, "BaseX $version")
         }
 
-    override fun servers(database: String): List<String> = listOf()
+    override val servers: Map<String, String> = mapOf()
 
     override val databases: List<String> = listOf()
 

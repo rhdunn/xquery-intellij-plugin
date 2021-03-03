@@ -22,6 +22,7 @@ import com.intellij.openapi.vfs.VirtualFile
 import org.apache.http.client.methods.RequestBuilder
 import uk.co.reecedunn.intellij.plugin.core.lang.getLanguageMimeTypes
 import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationImpl
+import uk.co.reecedunn.intellij.plugin.core.sequences.chunkedPairs
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.marklogic.intellij.lang.SPARQLQuery
 import uk.co.reecedunn.intellij.plugin.marklogic.intellij.lang.SPARQLUpdate
@@ -60,11 +61,11 @@ internal class MarkLogicQueryProcessor(
             return ItemPresentationImpl(MarkLogicIcons.Product, version?.let { "MarkLogic $it" } ?: "MarkLogic")
         }
 
-    override fun servers(database: String): List<String> {
-        val query = createRunnableQuery(MarkLogicQueries.Servers, XQuery)
-        query.bindVariable("database", database, "xs:string")
-        return query.run().results.map { it.value as String }
-    }
+    override val servers: Map<String, String>
+        get() {
+            val query = createRunnableQuery(MarkLogicQueries.Servers, XQuery)
+            return query.run().results.chunkedPairs { it.value as String }.toMap()
+        }
 
     override val databases: List<String>
         get() = createRunnableQuery(MarkLogicQueries.Databases, XQuery).run().results.map { it.value as String }

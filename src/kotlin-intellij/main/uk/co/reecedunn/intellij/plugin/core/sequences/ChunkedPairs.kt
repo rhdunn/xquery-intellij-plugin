@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2021 Reece H. Dunn
+ * Copyright (C) 2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,15 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.processor.query
+package uk.co.reecedunn.intellij.plugin.core.sequences
 
-import com.intellij.navigation.ItemPresentation
-import java.io.Closeable
+@Suppress("unused")
+fun <T> List<T>.chunkedPairs(): Sequence<Pair<T, T>> {
+    return asSequence().chunked(2).map { it[0] to it[1] }
+}
 
-interface QueryProcessor : Closeable {
-    val presentation: ItemPresentation
-
-    val servers: Map<String, String>
-
-    val databases: List<String>
+fun <T, R> List<T>.chunkedPairs(transform: (T) -> R): Sequence<Pair<R, R>> {
+    return asSequence().chunked(2).map { transform(it[0]) to transform(it[1]) }
 }

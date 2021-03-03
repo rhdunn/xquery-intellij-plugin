@@ -60,10 +60,10 @@ class ServerComboBoxModel : AbstractListModel<String>(), ComboBoxModel<String> {
     fun update(settings: QueryProcessorSettings?, database: String) {
         if (settings == null) return
         executeOnPooledThread {
-            val items = settings.session.servers(database)
+            val items = settings.session.servers
             try {
                 invokeLater(ModalityState.any()) {
-                    servers = items
+                    servers = items.entries.asSequence().filter { it.value == database }.map { it.key }.toList()
                     fireContentsChanged(this, -1, -1)
                 }
             } catch (e: Throwable) {

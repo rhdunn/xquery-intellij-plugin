@@ -17,27 +17,10 @@ xquery version "1.0-ml";
 declare namespace o = "http://reecedunn.co.uk/xquery/options";
 declare option o:implementation "marklogic/6.0";
 
-declare variable $database as xs:string external := "emerald-test";
-
 (: Return the servers on the MarkLogic server. :)
 
-let $database :=
-    try {
-        if (string-length($database) eq 0) then
-            ()
-        else
-            xdmp:database($database)
-    } catch ($e) {
-        ()
-    }
-let $servers :=
-    for $server in xdmp:servers()
-    where empty($database) or $database eq xdmp:server-database($server)
-    return $server
-return if (exists($servers)) then
-    for $server in $servers
-    let $name := xdmp:server-name($server)
-    order by $name
-    return $name
-else
-    "App-Services"
+for $id in xdmp:servers()
+let $server := xdmp:server-name($id)
+let $database := xdmp:server-database($id) ! xdmp:database-name(.)
+where exists($database)
+return ($server, $database)
