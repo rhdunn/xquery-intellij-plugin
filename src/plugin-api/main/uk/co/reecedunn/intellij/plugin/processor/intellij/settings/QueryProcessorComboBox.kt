@@ -15,16 +15,20 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.intellij.settings
 
+import com.intellij.openapi.application.ModalityState
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.ComboBox
 import com.intellij.openapi.ui.ComponentWithBrowseButton
 import com.intellij.ui.AnActionButton
 import com.intellij.ui.components.JBList
+import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
+import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.dialog
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.toolbarPanel
 import uk.co.reecedunn.intellij.plugin.processor.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.query.CachedQueryProcessorSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryServer
 import uk.co.reecedunn.intellij.plugin.processor.query.addToModel
 import java.awt.Dimension
 import java.awt.event.ActionEvent
@@ -117,4 +121,18 @@ class QueryProcessorComboBox(private val project: Project) {
                 }
             }
         }
+
+    fun servers(handler: (List<QueryServer>) -> Unit) {
+        val settings = settings ?: return
+        executeOnPooledThread {
+            val items = settings.session.servers
+            try {
+                invokeLater(ModalityState.any()) {
+                    handler(items)
+                }
+            } catch (e: Throwable) {
+                handler(listOf())
+            }
+        }
+    }
 }

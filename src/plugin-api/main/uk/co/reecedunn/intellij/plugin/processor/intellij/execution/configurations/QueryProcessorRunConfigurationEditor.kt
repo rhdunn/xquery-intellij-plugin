@@ -27,7 +27,7 @@ import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
 import uk.co.reecedunn.intellij.plugin.processor.intellij.lang.RDF_FORMATS
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.QueryProcessorDataSource
-import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.model.DatabaseComboBoxModel
+import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.model.QueryServerComboBoxModel
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.model.ServerComboBoxModel
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.queryProcessorDataSource
 import uk.co.reecedunn.intellij.plugin.processor.intellij.resources.PluginApiBundle
@@ -58,13 +58,16 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
             add(queryProcessor.component, column.spanCols().horizontal().hgap().vgap())
             queryProcessor.addActionListener {
                 updateUI(false)
-                (database.model as DatabaseComboBoxModel).update(queryProcessor.settings)
+                queryProcessor.servers { servers ->
+                    val databases = servers.map { it.database }.distinct()
+                    (database.model as QueryServerComboBoxModel).update(databases)
+                }
             }
         }
         row {
             label(PluginApiBundle.message("xquery.configurations.processor.content-database.label"), column.vgap())
             database = comboBox(column.horizontal().hgap().vgap()) {
-                model = DatabaseComboBoxModel()
+                model = QueryServerComboBoxModel()
                 addActionListener {
                     val database = database.selectedItem as? String? ?: ""
                     (server.model as ServerComboBoxModel).update(queryProcessor.settings, database)
@@ -213,7 +216,7 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
     override fun resetEditorFrom(configuration: QueryProcessorRunConfiguration) {
         queryProcessor.processorId = configuration.processorId
         rdfOutputFormat.selectedItem = configuration.rdfOutputFormat
-        (database.model as DatabaseComboBoxModel).defaultSelection = configuration.database
+        (database.model as QueryServerComboBoxModel).defaultSelection = configuration.database
         (server.model as ServerComboBoxModel).defaultSelection = configuration.server
         modulePath.textField.text = configuration.modulePath ?: ""
         scriptFile.type = configuration.scriptSource
