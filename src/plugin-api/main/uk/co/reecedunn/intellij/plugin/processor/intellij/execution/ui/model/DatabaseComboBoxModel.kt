@@ -19,59 +19,19 @@ import com.intellij.openapi.application.ModalityState
 import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
-import javax.swing.AbstractListModel
-import javax.swing.ComboBoxModel
 
-class DatabaseComboBoxModel : AbstractListModel<String>(), ComboBoxModel<String> {
-    // region ComboBoxModel
-
-    var defaultSelection: String? = null
-        set(value) {
-            field = value
-            fireContentsChanged(this, -1, -1)
-        }
-
-    private var selected: Any? = null
-
-    override fun setSelectedItem(anItem: Any?) {
-        if (anItem?.let { selected == it } ?: selected == null) return
-        selected = anItem
-        fireContentsChanged(this, -1, -1)
-    }
-
-    override fun getSelectedItem(): Any? {
-        val selected = selected ?: defaultSelection
-        return when {
-            databases.isEmpty() -> selected
-            databases.contains(selected) -> selected
-            else -> databases.first()
-        }
-    }
-
-    // endregion
-    // region ListModel
-
-    private var databases = listOf<String>()
-
-    override fun getSize(): Int = databases.size
-
-    override fun getElementAt(index: Int): String = databases[index]
-
+class DatabaseComboBoxModel : QueryServerComboBoxModel() {
     fun update(settings: QueryProcessorSettings?) {
         if (settings == null) return
         executeOnPooledThread {
             val items = settings.session.servers
             try {
                 invokeLater(ModalityState.any()) {
-                    databases = items.map { it.database }.distinct()
-                    fireContentsChanged(this, -1, -1)
+                    update(items.map { it.database }.distinct())
                 }
             } catch (e: Throwable) {
-                databases = listOf()
-                fireContentsChanged(this, -1, -1)
+                update(listOf())
             }
         }
     }
-
-    // endregion
 }
