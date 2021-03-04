@@ -122,13 +122,23 @@ class QueryProcessorComboBox(private val project: Project) {
             }
         }
 
-    fun servers(handler: (List<QueryServer>) -> Unit) {
+    private var servers: List<QueryServer>? = null
+
+    fun servers(handler: (List<QueryServer>) -> Unit) = servers(false, handler)
+
+    @Synchronized
+    fun servers(refresh: Boolean, handler: (List<QueryServer>) -> Unit) {
+        if (servers != null && !refresh) {
+            handler(servers!!)
+            return
+        }
+
         val settings = settings ?: return
         executeOnPooledThread {
-            val items = settings.session.servers
+            servers = settings.session.servers
             try {
                 invokeLater(ModalityState.any()) {
-                    handler(items)
+                    handler(servers!!)
                 }
             } catch (e: Throwable) {
                 handler(listOf())

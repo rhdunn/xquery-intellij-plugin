@@ -59,8 +59,8 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
             queryProcessor = QueryProcessorComboBox(project)
             add(queryProcessor.component, column.spanCols().horizontal().hgap().vgap())
             queryProcessor.addActionListener {
-                queryProcessor.servers { servers ->
-                    val databases = servers.map { it.database }.distinct()
+                queryProcessor.servers(refresh = true) { queryServers ->
+                    val databases = queryServers.map { it.database }.distinct()
                     (database.model as QueryServerComboBoxModel).update(databases)
                 }
             }

@@ -57,7 +57,7 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
             add(queryProcessor.component, column.spanCols().horizontal().hgap().vgap())
             queryProcessor.addActionListener {
                 updateUI(false)
-                queryProcessor.servers { queryServers ->
+                queryProcessor.servers(refresh = true) { queryServers ->
                     val databases = queryServers.map { it.database }.distinct()
                     (database.model as QueryServerComboBoxModel).update(databases)
                 }
