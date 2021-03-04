@@ -27,7 +27,6 @@ import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.text.XRayTextFormat
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.xray.XRayXmlFormat
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.xunit.XRayXUnitFormat
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.model.QueryServerComboBoxModel
-import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.model.ServerComboBoxModel
 import uk.co.reecedunn.intellij.plugin.processor.intellij.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessorComboBox
 import uk.co.reecedunn.intellij.plugin.processor.test.TestFormat
@@ -72,12 +71,15 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
                 model = QueryServerComboBoxModel()
                 addActionListener {
                     val database = database.selectedItem as? String? ?: ""
-                    (server.model as ServerComboBoxModel).update(queryProcessor.settings, database)
+                    queryProcessor.servers { queryServers ->
+                        val servers = queryServers.asSequence().filter { it.database == database }.map { it.server }
+                        (server.model as QueryServerComboBoxModel).update(servers.toList())
+                    }
                 }
             }
             label(PluginApiBundle.message("xquery.configurations.processor.server.label"), column.hgap().vgap())
             server = comboBox(column.horizontal().hgap().vgap()) {
-                model = ServerComboBoxModel()
+                model = QueryServerComboBoxModel()
             }
         }
         row {
@@ -135,7 +137,7 @@ class XRayTestConfigurationEditor(private val project: Project) : SettingsEditor
     override fun resetEditorFrom(settings: XRayTestConfiguration) {
         queryProcessor.processorId = settings.processorId
         (database.model as QueryServerComboBoxModel).defaultSelection = settings.database
-        (server.model as ServerComboBoxModel).defaultSelection = settings.server
+        (server.model as QueryServerComboBoxModel).defaultSelection = settings.server
         modulePath.textField.text = settings.modulePath ?: ""
         testPath.textField.text = settings.testPath ?: projectRoot ?: ""
         modulePattern.text = settings.modulePattern ?: ""
