@@ -20,7 +20,12 @@ import uk.co.reecedunn.intellij.plugin.processor.test.TestSuites
 
 class XRayTextTests(private val tests: String) : TestSuites {
     private val summary: Map<String, Int> by lazy {
-        tests.split("\nFinished: ").last().split(", ").associate {
+        val summary =
+            if (tests.startsWith("Finished: ")) // no tests
+                tests.split("Finished: ").last()
+            else
+                tests.split("\nFinished: ").last()
+        summary.split(", ").associate {
             it.split(' ').let { parts -> parts[0] to parts[1].toInt() }
         }
     }
@@ -41,8 +46,11 @@ class XRayTextTests(private val tests: String) : TestSuites {
         get() = summary["Errors"] ?: 0
 
     private val testSuitesList by lazy {
-        tests.split("\nModule ").map {
-            XRayTextTestModule(it.substringBefore("\nFinished: "))
+        tests.split("\nModule ").mapNotNull {
+            if (it.startsWith("Finished: ")) // no tests
+                null
+            else
+                XRayTextTestModule(it.substringBefore("\nFinished: "))
         }
     }
 
