@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Reece H. Dunn
+ * Copyright (C) 2016-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,26 +15,27 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.lexer
 
+import com.intellij.lexer.Lexer
 import org.hamcrest.core.Is.`is`
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCaseEx
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQDocLexer
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQDocTokenType
 
 @DisplayName("xqDoc - Lexer")
-class XQDocLexerTest : LexerTestCase() {
+class XQDocLexerTest : LexerTestCaseEx() {
+    override val lexer: Lexer = XQDocLexer()
+
     @Nested
     @DisplayName("Lexer")
-    internal inner class Lexer {
+    internal inner class LexerTest {
         @Test
         @DisplayName("invalid state")
         fun testInvalidState() {
-            val lexer = XQDocLexer()
-
             val e = assertThrows(AssertionError::class.java) { lexer.start("123", 0, 3, -1) }
             assertThat(e.message, `is`("Invalid state: -1"))
         }
@@ -42,8 +43,6 @@ class XQDocLexerTest : LexerTestCase() {
         @Test
         @DisplayName("empty buffer")
         fun testEmptyBuffer() {
-            val lexer = XQDocLexer()
-
             lexer.start("")
             matchToken(lexer, "", 0, 0, 0, null)
         }
@@ -55,8 +54,6 @@ class XQDocLexerTest : LexerTestCase() {
         @Test
         @DisplayName("single line")
         fun singleLine() {
-            val lexer = XQDocLexer()
-
             lexer.start("Lorem ipsum dolor.")
             matchToken(lexer, "Lorem ipsum dolor.", 11, 0, 18, XQDocTokenType.CONTENTS)
             matchToken(lexer, "", 11, 18, 18, null)
@@ -65,8 +62,6 @@ class XQDocLexerTest : LexerTestCase() {
         @Test
         @DisplayName("multiple lines")
         fun multipleLines() {
-            val lexer = XQDocLexer()
-
             lexer.start("Lorem ipsum dolor\n : Alpha beta gamma\n : One two three")
             matchToken(lexer, "Lorem ipsum dolor", 11, 0, 17, XQDocTokenType.CONTENTS)
             matchToken(lexer, "\n :", 12, 17, 20, XQDocTokenType.TRIM)
@@ -81,8 +76,6 @@ class XQDocLexerTest : LexerTestCase() {
         @Test
         @DisplayName("tagged content after contents")
         fun testTaggedContentsAfterContents() {
-            val lexer = XQDocLexer()
-
             lexer.start("Lorem\n@ipsum dolor.")
             matchToken(lexer, "Lorem", 11, 0, 5, XQDocTokenType.CONTENTS)
             matchToken(lexer, "\n", 12, 5, 6, XQDocTokenType.TRIM)
@@ -93,8 +86,6 @@ class XQDocLexerTest : LexerTestCase() {
         @Test
         @DisplayName("tagged content at the start of the comment")
         fun testTaggedContentsAtStart() {
-            val lexer = XQDocLexer()
-
             lexer.start("@ipsum dolor.")
             matchToken(lexer, "@ipsum dolor.", 11, 0, 13, XQDocTokenType.CONTENTS)
             matchToken(lexer, "", 11, 13, 13, null)
@@ -107,8 +98,6 @@ class XQDocLexerTest : LexerTestCase() {
         @Test
         @DisplayName("Contents")
         fun testContents() {
-            val lexer = XQDocLexer()
-
             lexer.start("~Lorem ipsum dolor.")
             matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
             matchToken(lexer, "Lorem ipsum dolor.", 1, 1, 19, XQDocTokenType.CONTENTS)
@@ -118,8 +107,6 @@ class XQDocLexerTest : LexerTestCase() {
         @Test
         @DisplayName("PredefinedEntityRef")
         fun testContents_PredefinedEntityRef() {
-            val lexer = XQDocLexer()
-
             lexer.start("~Lorem &amp; ipsum.")
             matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
             matchToken(lexer, "Lorem ", 1, 1, 7, XQDocTokenType.CONTENTS)
@@ -155,8 +142,6 @@ class XQDocLexerTest : LexerTestCase() {
             @Test
             @DisplayName("decimal")
             fun decimal() {
-                val lexer = XQDocLexer()
-
                 lexer.start("~Lorem&#20;ipsum.")
                 matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
                 matchToken(lexer, "Lorem", 1, 1, 6, XQDocTokenType.CONTENTS)
@@ -196,8 +181,6 @@ class XQDocLexerTest : LexerTestCase() {
             @Test
             @DisplayName("hexadecimal")
             fun hexadecimal() {
-                val lexer = XQDocLexer()
-
                 lexer.start("~One&#x20;&#xae;&#xDC;Two.")
                 matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
                 matchToken(lexer, "One", 1, 1, 4, XQDocTokenType.CONTENTS)
@@ -243,8 +226,6 @@ class XQDocLexerTest : LexerTestCase() {
         @Test
         @DisplayName("single quote")
         fun quot() {
-            val lexer = XQDocLexer()
-
             lexer.start("~one <two three = \"four\" />")
             matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
             matchToken(lexer, "one ", 1, 1, 5, XQDocTokenType.CONTENTS)
@@ -280,8 +261,6 @@ class XQDocLexerTest : LexerTestCase() {
         @Test
         @DisplayName("double quote")
         fun apos() {
-            val lexer = XQDocLexer()
-
             lexer.start("~one <two three = 'four' />")
             matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
             matchToken(lexer, "one ", 1, 1, 5, XQDocTokenType.CONTENTS)
@@ -321,8 +300,6 @@ class XQDocLexerTest : LexerTestCase() {
         @Test
         @DisplayName("element constructor")
         fun testDirElemConstructor() {
-            val lexer = XQDocLexer()
-
             lexer.start("~one <two >three</two > four")
             matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
             matchToken(lexer, "one ", 1, 1, 5, XQDocTokenType.CONTENTS)
@@ -367,8 +344,6 @@ class XQDocLexerTest : LexerTestCase() {
         @Test
         @DisplayName("element constructor; self closing")
         fun testDirElemConstructor_SelfClosing() {
-            val lexer = XQDocLexer()
-
             lexer.start("~a <b /> c")
             matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
             matchToken(lexer, "a ", 1, 1, 3, XQDocTokenType.CONTENTS)
@@ -401,8 +376,6 @@ class XQDocLexerTest : LexerTestCase() {
         @Test
         @DisplayName("element constructor; nested")
         fun testDirElemConstructor_Nested() {
-            val lexer = XQDocLexer()
-
             lexer.start("~a<b>c<d>e</d>f</b>g")
             matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
             matchToken(lexer, "a", 1, 1, 2, XQDocTokenType.CONTENTS)
@@ -428,8 +401,6 @@ class XQDocLexerTest : LexerTestCase() {
         @Test
         @DisplayName("PredefinedEntityRef")
         fun testDirElemConstructor_PredefinedEntityRef() {
-            val lexer = XQDocLexer()
-
             lexer.start("~<p>Lorem &amp; ipsum.</p>")
             matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
             matchToken(lexer, "<", 1, 1, 2, XQDocTokenType.OPEN_XML_TAG)
@@ -495,8 +466,6 @@ class XQDocLexerTest : LexerTestCase() {
             @Test
             @DisplayName("decimal")
             fun decimal() {
-                val lexer = XQDocLexer()
-
                 lexer.start("Lorem&#20;ipsum.", 0, 16, 4)
                 matchToken(lexer, "Lorem", 4, 0, 5, XQDocTokenType.XML_ELEMENT_CONTENTS)
                 matchToken(lexer, "&#20;", 4, 5, 10, XQDocTokenType.CHARACTER_REFERENCE)
@@ -530,8 +499,6 @@ class XQDocLexerTest : LexerTestCase() {
             @Test
             @DisplayName("hexadecimal")
             fun hexadecimal() {
-                val lexer = XQDocLexer()
-
                 lexer.start("One&#x20;&#xae;&#xDC;Two.", 0, 25, 4)
                 matchToken(lexer, "One", 4, 0, 3, XQDocTokenType.XML_ELEMENT_CONTENTS)
                 matchToken(lexer, "&#x20;", 4, 3, 9, XQDocTokenType.CHARACTER_REFERENCE)
@@ -572,8 +539,6 @@ class XQDocLexerTest : LexerTestCase() {
         @Test
         @DisplayName("tagged content")
         fun testTaggedContents() {
-            val lexer = XQDocLexer()
-
             lexer.start("~Lorem\n@ipsum dolor.")
             matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
             matchToken(lexer, "Lorem", 1, 1, 6, XQDocTokenType.CONTENTS)
@@ -631,8 +596,6 @@ class XQDocLexerTest : LexerTestCase() {
         @Test
         @DisplayName("at sign in contents")
         fun testTaggedContents_AtSignInContents() {
-            val lexer = XQDocLexer()
-
             lexer.start("~Lorem\n@ipsum ab@cd.")
             matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
             matchToken(lexer, "Lorem", 1, 1, 6, XQDocTokenType.CONTENTS)
@@ -648,8 +611,6 @@ class XQDocLexerTest : LexerTestCase() {
     @Test
     @DisplayName("@author")
     fun testTaggedContents_Author() {
-        val lexer = XQDocLexer()
-
         lexer.start("~\n@author John Doe")
         matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
         matchToken(lexer, "\n", 8, 1, 2, XQDocTokenType.TRIM)
@@ -663,8 +624,6 @@ class XQDocLexerTest : LexerTestCase() {
     @Test
     @DisplayName("@deprecated")
     fun testTaggedContents_Deprecated() {
-        val lexer = XQDocLexer()
-
         lexer.start("~\n@deprecated As of 1.1.")
         matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
         matchToken(lexer, "\n", 8, 1, 2, XQDocTokenType.TRIM)
@@ -678,8 +637,6 @@ class XQDocLexerTest : LexerTestCase() {
     @Test
     @DisplayName("@error")
     fun testTaggedContents_Error() {
-        val lexer = XQDocLexer()
-
         lexer.start("~\n@error The URI does not exist.")
         matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
         matchToken(lexer, "\n", 8, 1, 2, XQDocTokenType.TRIM)
@@ -696,8 +653,6 @@ class XQDocLexerTest : LexerTestCase() {
         @Test
         @DisplayName("with VarRef")
         fun testTaggedContents_Param_VarRef() {
-            val lexer = XQDocLexer()
-
             lexer.start("~\n@param \$arg An argument.")
             matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
             matchToken(lexer, "\n", 8, 1, 2, XQDocTokenType.TRIM)
@@ -714,8 +669,6 @@ class XQDocLexerTest : LexerTestCase() {
         @Test
         @DisplayName("missing VarRef")
         fun testTaggedContents_Param_ContentsOnly() {
-            val lexer = XQDocLexer()
-
             lexer.start("~\n@param - \$arg An argument.")
             matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
             matchToken(lexer, "\n", 8, 1, 2, XQDocTokenType.TRIM)
@@ -730,8 +683,6 @@ class XQDocLexerTest : LexerTestCase() {
     @Test
     @DisplayName("@return")
     fun testTaggedContents_Return() {
-        val lexer = XQDocLexer()
-
         lexer.start("~\n@return Some value.")
         matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
         matchToken(lexer, "\n", 8, 1, 2, XQDocTokenType.TRIM)
@@ -745,8 +696,6 @@ class XQDocLexerTest : LexerTestCase() {
     @Test
     @DisplayName("@see")
     fun testTaggedContents_See() {
-        val lexer = XQDocLexer()
-
         lexer.start("~\n@see http://www.example.com")
         matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
         matchToken(lexer, "\n", 8, 1, 2, XQDocTokenType.TRIM)
@@ -760,8 +709,6 @@ class XQDocLexerTest : LexerTestCase() {
     @Test
     @DisplayName("@since")
     fun testTaggedContents_Since() {
-        val lexer = XQDocLexer()
-
         lexer.start("~\n@since 1.2")
         matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
         matchToken(lexer, "\n", 8, 1, 2, XQDocTokenType.TRIM)
@@ -775,8 +722,6 @@ class XQDocLexerTest : LexerTestCase() {
     @Test
     @DisplayName("@version")
     fun testTaggedContents_Version() {
-        val lexer = XQDocLexer()
-
         lexer.start("~\n@version 1.2")
         matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
         matchToken(lexer, "\n", 8, 1, 2, XQDocTokenType.TRIM)
@@ -793,8 +738,6 @@ class XQDocLexerTest : LexerTestCase() {
         @Test
         @DisplayName("line endings: linux")
         fun testTrim_Linux() {
-            val lexer = XQDocLexer()
-
             lexer.start("~a\nb\nc")
             matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
             matchToken(lexer, "a", 1, 1, 2, XQDocTokenType.CONTENTS)
@@ -823,8 +766,6 @@ class XQDocLexerTest : LexerTestCase() {
         @Test
         @DisplayName("line endings: mac")
         fun testTrim_Mac() {
-            val lexer = XQDocLexer()
-
             // The xqDoc grammar does not support Mac line endings ('\r'), but XQuery/XML
             // line ending normalisation rules do.
 
@@ -856,8 +797,6 @@ class XQDocLexerTest : LexerTestCase() {
         @Test
         @DisplayName("line endings: windows")
         fun testTrim_Windows() {
-            val lexer = XQDocLexer()
-
             // The xqDoc grammar does not support Windows line endings ('\r\n'), but XQuery/XML
             // line ending normalisation rules do.
 
@@ -889,8 +828,6 @@ class XQDocLexerTest : LexerTestCase() {
         @Test
         @DisplayName("whitespace after trim")
         fun testTrim_WhitespaceAfterTrim() {
-            val lexer = XQDocLexer()
-
             // This is different to the xqDoc grammar, but is necessary to support treating
             // '@' characters within the line as part of the Contents token. The xqDoc
             // processor collates these in the parser phase, but the syntax highlighter
