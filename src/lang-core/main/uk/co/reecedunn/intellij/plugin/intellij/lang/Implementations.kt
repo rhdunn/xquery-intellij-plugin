@@ -432,6 +432,8 @@ fun defaultStaticContext(xquery: Specification?): String? = when (xquery) {
         W3C.staticContext(W3C.SPECIFICATIONS, W3C.FIRST_EDITION, xquery)
     XQuerySpec.REC_3_1_20170321, XQuerySpec.CR_3_1_20151217 ->
         W3C.staticContext(W3C.SPECIFICATIONS, W3C.FIRST_EDITION, xquery)
+    XQuerySpec.ED_4_0_20210113 ->
+        W3C.staticContext(W3C.SPECIFICATIONS, W3C.WORKING_DRAFT, xquery)
     XQuerySpec.MARKLOGIC_1_0, XQuerySpec.MARKLOGIC_0_9 ->
         MarkLogic.staticContext(MarkLogic.MARKLOGIC, MarkLogic.VERSION_9_0, xquery)
     else -> null
