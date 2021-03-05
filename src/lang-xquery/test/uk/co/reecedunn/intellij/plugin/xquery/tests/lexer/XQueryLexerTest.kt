@@ -102,390 +102,390 @@ class XQueryLexerTest : LexerTestCase() {
     @Test
     @DisplayName("XQuery 1.0 EBNF (2) VersionDecl")
     fun testVersionDecl() {
-        matchSingleToken(lexer, "xquery", XQueryTokenType.K_XQUERY)
-        matchSingleToken(lexer, "version", XQueryTokenType.K_VERSION)
-        matchSingleToken(lexer, "encoding", XQueryTokenType.K_ENCODING)
+        token("xquery", XQueryTokenType.K_XQUERY)
+        token("version", XQueryTokenType.K_VERSION)
+        token("encoding", XQueryTokenType.K_ENCODING)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (5) ModuleDecl")
     fun testModuleDecl() {
-        matchSingleToken(lexer, "module", XQueryTokenType.K_MODULE)
-        matchSingleToken(lexer, "namespace", XPathTokenType.K_NAMESPACE)
-        matchSingleToken(lexer, "=", XPathTokenType.EQUAL)
+        token("module", XQueryTokenType.K_MODULE)
+        token("namespace", XPathTokenType.K_NAMESPACE)
+        token("=", XPathTokenType.EQUAL)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (9) Separator")
     fun testSeparator() {
-        matchSingleToken(lexer, ";", XQueryTokenType.SEPARATOR)
+        token(";", XQueryTokenType.SEPARATOR)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (10) NamespaceDecl")
     fun testNamespaceDecl() {
-        matchSingleToken(lexer, "declare", XQueryTokenType.K_DECLARE)
-        matchSingleToken(lexer, "namespace", XPathTokenType.K_NAMESPACE)
-        matchSingleToken(lexer, "=", XPathTokenType.EQUAL)
+        token("declare", XQueryTokenType.K_DECLARE)
+        token("namespace", XPathTokenType.K_NAMESPACE)
+        token("=", XPathTokenType.EQUAL)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (11) BoundarySpaceDecl")
     fun testBoundarySpaceDecl() {
-        matchSingleToken(lexer, "declare", XQueryTokenType.K_DECLARE)
-        matchSingleToken(lexer, "boundary-space", XQueryTokenType.K_BOUNDARY_SPACE)
-        matchSingleToken(lexer, "preserve", XQueryTokenType.K_PRESERVE)
-        matchSingleToken(lexer, "strip", XQueryTokenType.K_STRIP)
+        token("declare", XQueryTokenType.K_DECLARE)
+        token("boundary-space", XQueryTokenType.K_BOUNDARY_SPACE)
+        token("preserve", XQueryTokenType.K_PRESERVE)
+        token("strip", XQueryTokenType.K_STRIP)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (12) DefaultNamespaceDecl")
     fun testDefaultNamespaceDecl() {
-        matchSingleToken(lexer, "declare", XQueryTokenType.K_DECLARE)
-        matchSingleToken(lexer, "default", XPathTokenType.K_DEFAULT)
-        matchSingleToken(lexer, "element", XPathTokenType.K_ELEMENT)
-        matchSingleToken(lexer, "function", XPathTokenType.K_FUNCTION)
-        matchSingleToken(lexer, "namespace", XPathTokenType.K_NAMESPACE)
-        matchSingleToken(lexer, "=", XPathTokenType.EQUAL)
+        token("declare", XQueryTokenType.K_DECLARE)
+        token("default", XPathTokenType.K_DEFAULT)
+        token("element", XPathTokenType.K_ELEMENT)
+        token("function", XPathTokenType.K_FUNCTION)
+        token("namespace", XPathTokenType.K_NAMESPACE)
+        token("=", XPathTokenType.EQUAL)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (13) OptionDecl")
     fun testOptionDecl() {
-        matchSingleToken(lexer, "declare", XQueryTokenType.K_DECLARE)
-        matchSingleToken(lexer, "option", XPathTokenType.K_OPTION)
+        token("declare", XQueryTokenType.K_DECLARE)
+        token("option", XPathTokenType.K_OPTION)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (14) OrderingModeDecl")
     fun testOrderingModeDecl() {
-        matchSingleToken(lexer, "declare", XQueryTokenType.K_DECLARE)
-        matchSingleToken(lexer, "ordering", XQueryTokenType.K_ORDERING)
-        matchSingleToken(lexer, "ordered", XPathTokenType.K_ORDERED)
-        matchSingleToken(lexer, "unordered", XQueryTokenType.K_UNORDERED)
+        token("declare", XQueryTokenType.K_DECLARE)
+        token("ordering", XQueryTokenType.K_ORDERING)
+        token("ordered", XPathTokenType.K_ORDERED)
+        token("unordered", XQueryTokenType.K_UNORDERED)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (15) EmptyOrderDecl")
     fun testEmptyOrderDecl() {
-        matchSingleToken(lexer, "declare", XQueryTokenType.K_DECLARE)
-        matchSingleToken(lexer, "default", XPathTokenType.K_DEFAULT)
-        matchSingleToken(lexer, "order", XQueryTokenType.K_ORDER)
-        matchSingleToken(lexer, "empty", XPathTokenType.K_EMPTY)
-        matchSingleToken(lexer, "greatest", XQueryTokenType.K_GREATEST)
-        matchSingleToken(lexer, "least", XPathTokenType.K_LEAST)
+        token("declare", XQueryTokenType.K_DECLARE)
+        token("default", XPathTokenType.K_DEFAULT)
+        token("order", XQueryTokenType.K_ORDER)
+        token("empty", XPathTokenType.K_EMPTY)
+        token("greatest", XQueryTokenType.K_GREATEST)
+        token("least", XPathTokenType.K_LEAST)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (16) CopyNamespacesDecl")
     fun testCopyNamespacesDecl() {
-        matchSingleToken(lexer, "declare", XQueryTokenType.K_DECLARE)
-        matchSingleToken(lexer, "copy-namespaces", XQueryTokenType.K_COPY_NAMESPACES)
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
+        token("declare", XQueryTokenType.K_DECLARE)
+        token("copy-namespaces", XQueryTokenType.K_COPY_NAMESPACES)
+        token(",", XPathTokenType.COMMA)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (17) PreserveMode")
     fun testPreserveMode() {
-        matchSingleToken(lexer, "preserve", XQueryTokenType.K_PRESERVE)
-        matchSingleToken(lexer, "no-preserve", XQueryTokenType.K_NO_PRESERVE)
+        token("preserve", XQueryTokenType.K_PRESERVE)
+        token("no-preserve", XQueryTokenType.K_NO_PRESERVE)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (18) InheritMode")
     fun testInheritMode() {
-        matchSingleToken(lexer, "inherit", XQueryTokenType.K_INHERIT)
-        matchSingleToken(lexer, "no-inherit", XQueryTokenType.K_NO_INHERIT)
+        token("inherit", XQueryTokenType.K_INHERIT)
+        token("no-inherit", XQueryTokenType.K_NO_INHERIT)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (19) DefaultCollationDecl")
     fun testDefaultCollationDecl() {
-        matchSingleToken(lexer, "declare", XQueryTokenType.K_DECLARE)
-        matchSingleToken(lexer, "default", XPathTokenType.K_DEFAULT)
-        matchSingleToken(lexer, "collation", XQueryTokenType.K_COLLATION)
+        token("declare", XQueryTokenType.K_DECLARE)
+        token("default", XPathTokenType.K_DEFAULT)
+        token("collation", XQueryTokenType.K_COLLATION)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (20) BaseURIDecl")
     fun testBaseURIDecl() {
-        matchSingleToken(lexer, "declare", XQueryTokenType.K_DECLARE)
-        matchSingleToken(lexer, "base-uri", XQueryTokenType.K_BASE_URI)
+        token("declare", XQueryTokenType.K_DECLARE)
+        token("base-uri", XQueryTokenType.K_BASE_URI)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (21) SchemaImport")
     fun testSchemaImport() {
-        matchSingleToken(lexer, "import", XQueryTokenType.K_IMPORT)
-        matchSingleToken(lexer, "schema", XQueryTokenType.K_SCHEMA)
-        matchSingleToken(lexer, "at", XPathTokenType.K_AT)
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
+        token("import", XQueryTokenType.K_IMPORT)
+        token("schema", XQueryTokenType.K_SCHEMA)
+        token("at", XPathTokenType.K_AT)
+        token(",", XPathTokenType.COMMA)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (22) SchemaPrefix")
     fun testSchemaPrefix() {
-        matchSingleToken(lexer, "namespace", XPathTokenType.K_NAMESPACE)
-        matchSingleToken(lexer, "=", XPathTokenType.EQUAL)
+        token("namespace", XPathTokenType.K_NAMESPACE)
+        token("=", XPathTokenType.EQUAL)
 
-        matchSingleToken(lexer, "default", XPathTokenType.K_DEFAULT)
-        matchSingleToken(lexer, "element", XPathTokenType.K_ELEMENT)
-        matchSingleToken(lexer, "namespace", XPathTokenType.K_NAMESPACE)
+        token("default", XPathTokenType.K_DEFAULT)
+        token("element", XPathTokenType.K_ELEMENT)
+        token("namespace", XPathTokenType.K_NAMESPACE)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (23) ModuleImport")
     fun testModuleImport() {
-        matchSingleToken(lexer, "import", XQueryTokenType.K_IMPORT)
-        matchSingleToken(lexer, "module", XQueryTokenType.K_MODULE)
-        matchSingleToken(lexer, "at", XPathTokenType.K_AT)
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
+        token("import", XQueryTokenType.K_IMPORT)
+        token("module", XQueryTokenType.K_MODULE)
+        token("at", XPathTokenType.K_AT)
+        token(",", XPathTokenType.COMMA)
 
-        matchSingleToken(lexer, "namespace", XPathTokenType.K_NAMESPACE)
-        matchSingleToken(lexer, "=", XPathTokenType.EQUAL)
+        token("namespace", XPathTokenType.K_NAMESPACE)
+        token("=", XPathTokenType.EQUAL)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (24) VarDecl")
     fun testVarDecl() {
-        matchSingleToken(lexer, "declare", XQueryTokenType.K_DECLARE)
-        matchSingleToken(lexer, "variable", XQueryTokenType.K_VARIABLE)
-        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
-        matchSingleToken(lexer, ":=", XPathTokenType.ASSIGN_EQUAL)
-        matchSingleToken(lexer, "external", XQueryTokenType.K_EXTERNAL)
+        token("declare", XQueryTokenType.K_DECLARE)
+        token("variable", XQueryTokenType.K_VARIABLE)
+        token("$", XPathTokenType.VARIABLE_INDICATOR)
+        token(":=", XPathTokenType.ASSIGN_EQUAL)
+        token("external", XQueryTokenType.K_EXTERNAL)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (25) ConstructionDecl")
     fun testConstructionDecl() {
-        matchSingleToken(lexer, "declare", XQueryTokenType.K_DECLARE)
-        matchSingleToken(lexer, "construction", XQueryTokenType.K_CONSTRUCTION)
-        matchSingleToken(lexer, "strip", XQueryTokenType.K_STRIP)
-        matchSingleToken(lexer, "preserve", XQueryTokenType.K_PRESERVE)
+        token("declare", XQueryTokenType.K_DECLARE)
+        token("construction", XQueryTokenType.K_CONSTRUCTION)
+        token("strip", XQueryTokenType.K_STRIP)
+        token("preserve", XQueryTokenType.K_PRESERVE)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (26) FunctionDecl")
     fun testFunctionDecl() {
-        matchSingleToken(lexer, "declare", XQueryTokenType.K_DECLARE)
-        matchSingleToken(lexer, "function", XPathTokenType.K_FUNCTION)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
-        matchSingleToken(lexer, "as", XPathTokenType.K_AS)
-        matchSingleToken(lexer, "external", XQueryTokenType.K_EXTERNAL)
+        token("declare", XQueryTokenType.K_DECLARE)
+        token("function", XPathTokenType.K_FUNCTION)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("as", XPathTokenType.K_AS)
+        token("external", XQueryTokenType.K_EXTERNAL)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (27) ParamList")
     fun paramList() {
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
+        token(",", XPathTokenType.COMMA)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (28) Param")
     fun param() {
-        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
+        token("$", XPathTokenType.VARIABLE_INDICATOR)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (29) EnclosedExpr")
     fun enclosedExpr() {
-        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
+        token("{", XPathTokenType.BLOCK_OPEN)
+        token("}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (31) Expr")
     fun expr() {
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
+        token(",", XPathTokenType.COMMA)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (33) FLWORExpr")
     fun testFLWORExpr() {
-        matchSingleToken(lexer, "return", XPathTokenType.K_RETURN)
+        token("return", XPathTokenType.K_RETURN)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (34) ForClause ; XQuery 3.0 EBNF (45) ForBinding")
     fun testForClause() {
-        matchSingleToken(lexer, "for", XPathTokenType.K_FOR)
-        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
-        matchSingleToken(lexer, "in", XPathTokenType.K_IN)
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
+        token("for", XPathTokenType.K_FOR)
+        token("$", XPathTokenType.VARIABLE_INDICATOR)
+        token("in", XPathTokenType.K_IN)
+        token(",", XPathTokenType.COMMA)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (35) PositionalVar")
     fun testPositionalVar() {
-        matchSingleToken(lexer, "at", XPathTokenType.K_AT)
-        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
+        token("at", XPathTokenType.K_AT)
+        token("$", XPathTokenType.VARIABLE_INDICATOR)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (36) LetClause ; XQuery 3.0 EBNF (49) LetBinding")
     fun testLetClause() {
-        matchSingleToken(lexer, "let", XPathTokenType.K_LET)
-        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
-        matchSingleToken(lexer, ":=", XPathTokenType.ASSIGN_EQUAL)
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
+        token("let", XPathTokenType.K_LET)
+        token("$", XPathTokenType.VARIABLE_INDICATOR)
+        token(":=", XPathTokenType.ASSIGN_EQUAL)
+        token(",", XPathTokenType.COMMA)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (37) WhereClause")
     fun testWhereClause() {
-        matchSingleToken(lexer, "where", XQueryTokenType.K_WHERE)
+        token("where", XQueryTokenType.K_WHERE)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (38) OrderByClause")
     fun testOrderByClause() {
-        matchSingleToken(lexer, "stable", XQueryTokenType.K_STABLE)
-        matchSingleToken(lexer, "order", XQueryTokenType.K_ORDER)
-        matchSingleToken(lexer, "by", XQueryTokenType.K_BY)
+        token("stable", XQueryTokenType.K_STABLE)
+        token("order", XQueryTokenType.K_ORDER)
+        token("by", XQueryTokenType.K_BY)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (39) OrderSpecList")
     fun testOrderSpecList() {
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
+        token(",", XPathTokenType.COMMA)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (41) OrderModifier")
     fun testOrderModifier() {
-        matchSingleToken(lexer, "ascending", XQueryTokenType.K_ASCENDING)
-        matchSingleToken(lexer, "descending", XQueryTokenType.K_DESCENDING)
+        token("ascending", XQueryTokenType.K_ASCENDING)
+        token("descending", XQueryTokenType.K_DESCENDING)
 
-        matchSingleToken(lexer, "empty", XPathTokenType.K_EMPTY)
-        matchSingleToken(lexer, "greatest", XQueryTokenType.K_GREATEST)
-        matchSingleToken(lexer, "least", XPathTokenType.K_LEAST)
+        token("empty", XPathTokenType.K_EMPTY)
+        token("greatest", XQueryTokenType.K_GREATEST)
+        token("least", XPathTokenType.K_LEAST)
 
-        matchSingleToken(lexer, "collation", XQueryTokenType.K_COLLATION)
+        token("collation", XQueryTokenType.K_COLLATION)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (42) QuantifiedExpr")
     fun quantifiedExpr() {
-        matchSingleToken(lexer, "some", XPathTokenType.K_SOME)
-        matchSingleToken(lexer, "every", XPathTokenType.K_EVERY)
-        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
-        matchSingleToken(lexer, "in", XPathTokenType.K_IN)
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
-        matchSingleToken(lexer, "satisfies", XPathTokenType.K_SATISFIES)
+        token("some", XPathTokenType.K_SOME)
+        token("every", XPathTokenType.K_EVERY)
+        token("$", XPathTokenType.VARIABLE_INDICATOR)
+        token("in", XPathTokenType.K_IN)
+        token(",", XPathTokenType.COMMA)
+        token("satisfies", XPathTokenType.K_SATISFIES)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (43) TypeswitchExpr")
     fun testTypeswitchExpr() {
-        matchSingleToken(lexer, "typeswitch", XQueryTokenType.K_TYPESWITCH)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
-        matchSingleToken(lexer, "default", XPathTokenType.K_DEFAULT)
-        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
-        matchSingleToken(lexer, "return", XPathTokenType.K_RETURN)
+        token("typeswitch", XQueryTokenType.K_TYPESWITCH)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("default", XPathTokenType.K_DEFAULT)
+        token("$", XPathTokenType.VARIABLE_INDICATOR)
+        token("return", XPathTokenType.K_RETURN)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (44) CaseClause")
     fun testCaseClause() {
-        matchSingleToken(lexer, "case", XPathTokenType.K_CASE)
-        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
-        matchSingleToken(lexer, "as", XPathTokenType.K_AS)
-        matchSingleToken(lexer, "return", XPathTokenType.K_RETURN)
+        token("case", XPathTokenType.K_CASE)
+        token("$", XPathTokenType.VARIABLE_INDICATOR)
+        token("as", XPathTokenType.K_AS)
+        token("return", XPathTokenType.K_RETURN)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (45) IfExpr")
     fun ifExpr() {
-        matchSingleToken(lexer, "if", XPathTokenType.K_IF)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
-        matchSingleToken(lexer, "then", XPathTokenType.K_THEN)
-        matchSingleToken(lexer, "else", XPathTokenType.K_ELSE)
+        token("if", XPathTokenType.K_IF)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("then", XPathTokenType.K_THEN)
+        token("else", XPathTokenType.K_ELSE)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (46) OrExpr")
     fun orExpr() {
-        matchSingleToken(lexer, "or", XPathTokenType.K_OR)
+        token("or", XPathTokenType.K_OR)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (47) AndExpr")
     fun andExpr() {
-        matchSingleToken(lexer, "and", XPathTokenType.K_AND)
+        token("and", XPathTokenType.K_AND)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (49) RangeExpr")
     fun rangeExpr() {
-        matchSingleToken(lexer, "to", XPathTokenType.K_TO)
+        token("to", XPathTokenType.K_TO)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (50) AdditiveExpr")
     fun additiveExpr() {
-        matchSingleToken(lexer, "+", XPathTokenType.PLUS)
-        matchSingleToken(lexer, "-", XPathTokenType.MINUS)
+        token("+", XPathTokenType.PLUS)
+        token("-", XPathTokenType.MINUS)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (51) MultiplicativeExpr")
     fun multiplicativeExpr() {
-        matchSingleToken(lexer, "*", XPathTokenType.STAR)
-        matchSingleToken(lexer, "div", XPathTokenType.K_DIV)
-        matchSingleToken(lexer, "idiv", XPathTokenType.K_IDIV)
-        matchSingleToken(lexer, "mod", XPathTokenType.K_MOD)
+        token("*", XPathTokenType.STAR)
+        token("div", XPathTokenType.K_DIV)
+        token("idiv", XPathTokenType.K_IDIV)
+        token("mod", XPathTokenType.K_MOD)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (52) UnionExpr")
     fun unionExpr() {
-        matchSingleToken(lexer, "union", XPathTokenType.K_UNION)
-        matchSingleToken(lexer, "|", XPathTokenType.UNION)
+        token("union", XPathTokenType.K_UNION)
+        token("|", XPathTokenType.UNION)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (53) IntersectExceptExpr")
     fun intersectExceptExpr() {
-        matchSingleToken(lexer, "intersect", XPathTokenType.K_INTERSECT)
-        matchSingleToken(lexer, "except", XPathTokenType.K_EXCEPT)
+        token("intersect", XPathTokenType.K_INTERSECT)
+        token("except", XPathTokenType.K_EXCEPT)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (54) InstanceofExpr")
     fun instanceofExpr() {
-        matchSingleToken(lexer, "instance", XPathTokenType.K_INSTANCE)
-        matchSingleToken(lexer, "of", XPathTokenType.K_OF)
+        token("instance", XPathTokenType.K_INSTANCE)
+        token("of", XPathTokenType.K_OF)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (55) TreatExpr")
     fun treatExpr() {
-        matchSingleToken(lexer, "treat", XPathTokenType.K_TREAT)
-        matchSingleToken(lexer, "as", XPathTokenType.K_AS)
+        token("treat", XPathTokenType.K_TREAT)
+        token("as", XPathTokenType.K_AS)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (56) CastableExpr")
     fun castableExpr() {
-        matchSingleToken(lexer, "castable", XPathTokenType.K_CASTABLE)
-        matchSingleToken(lexer, "as", XPathTokenType.K_AS)
+        token("castable", XPathTokenType.K_CASTABLE)
+        token("as", XPathTokenType.K_AS)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (57) CastExpr")
     fun castExpr() {
-        matchSingleToken(lexer, "cast", XPathTokenType.K_CAST)
-        matchSingleToken(lexer, "as", XPathTokenType.K_AS)
+        token("cast", XPathTokenType.K_CAST)
+        token("as", XPathTokenType.K_AS)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (58) UnaryExpr")
     fun unaryExpr() {
-        matchSingleToken(lexer, "+", XPathTokenType.PLUS)
-        matchSingleToken(lexer, "-", XPathTokenType.MINUS)
+        token("+", XPathTokenType.PLUS)
+        token("-", XPathTokenType.MINUS)
 
         lexer.start("++")
         matchToken(lexer, "+", 0, 0, 1, XPathTokenType.PLUS)
@@ -501,63 +501,63 @@ class XQueryLexerTest : LexerTestCase() {
     @Test
     @DisplayName("XQuery 1.0 EBNF (60) GeneralComp")
     fun generalComp() {
-        matchSingleToken(lexer, "=", XPathTokenType.EQUAL)
-        matchSingleToken(lexer, "!=", XPathTokenType.NOT_EQUAL)
-        matchSingleToken(lexer, "<", XPathTokenType.LESS_THAN)
-        matchSingleToken(lexer, "<=", XPathTokenType.LESS_THAN_OR_EQUAL)
-        matchSingleToken(lexer, ">", XPathTokenType.GREATER_THAN)
-        matchSingleToken(lexer, ">=", XPathTokenType.GREATER_THAN_OR_EQUAL)
+        token("=", XPathTokenType.EQUAL)
+        token("!=", XPathTokenType.NOT_EQUAL)
+        token("<", XPathTokenType.LESS_THAN)
+        token("<=", XPathTokenType.LESS_THAN_OR_EQUAL)
+        token(">", XPathTokenType.GREATER_THAN)
+        token(">=", XPathTokenType.GREATER_THAN_OR_EQUAL)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (61) ValueComp")
     fun valueComp() {
-        matchSingleToken(lexer, "eq", XPathTokenType.K_EQ)
-        matchSingleToken(lexer, "ne", XPathTokenType.K_NE)
-        matchSingleToken(lexer, "lt", XPathTokenType.K_LT)
-        matchSingleToken(lexer, "le", XPathTokenType.K_LE)
-        matchSingleToken(lexer, "gt", XPathTokenType.K_GT)
-        matchSingleToken(lexer, "ge", XPathTokenType.K_GE)
+        token("eq", XPathTokenType.K_EQ)
+        token("ne", XPathTokenType.K_NE)
+        token("lt", XPathTokenType.K_LT)
+        token("le", XPathTokenType.K_LE)
+        token("gt", XPathTokenType.K_GT)
+        token("ge", XPathTokenType.K_GE)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (62) NodeComp")
     fun nodeComp() {
-        matchSingleToken(lexer, "is", XPathTokenType.K_IS)
-        matchSingleToken(lexer, "<<", XPathTokenType.NODE_BEFORE)
-        matchSingleToken(lexer, ">>", XPathTokenType.NODE_AFTER)
+        token("is", XPathTokenType.K_IS)
+        token("<<", XPathTokenType.NODE_BEFORE)
+        token(">>", XPathTokenType.NODE_AFTER)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (63) ValidateExpr")
     fun testValidateExpr() {
-        matchSingleToken(lexer, "validate", XQueryTokenType.K_VALIDATE)
-        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
+        token("validate", XQueryTokenType.K_VALIDATE)
+        token("{", XPathTokenType.BLOCK_OPEN)
+        token("}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (64) ValidateMode")
     fun testValidationMode() {
-        matchSingleToken(lexer, "lax", XQueryTokenType.K_LAX)
-        matchSingleToken(lexer, "strict", XQueryTokenType.K_STRICT)
+        token("lax", XQueryTokenType.K_LAX)
+        token("strict", XQueryTokenType.K_STRICT)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (65) ExtensionExpr")
     fun testExtensionExpr() {
-        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
+        token("{", XPathTokenType.BLOCK_OPEN)
+        token("}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (66) Pragma ; XQuery 1.0 EBNF (67) PragmaContents")
     fun testPragma() {
-        matchSingleToken(lexer, "(#", 8, XPathTokenType.PRAGMA_BEGIN)
-        matchSingleToken(lexer, "#)", 0, XPathTokenType.PRAGMA_END)
+        token("(#", 8, XPathTokenType.PRAGMA_BEGIN)
+        token("#)", 0, XPathTokenType.PRAGMA_END)
 
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, "#", XPathTokenType.FUNCTION_REF_OPERATOR)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token("#", XPathTokenType.FUNCTION_REF_OPERATOR)
 
         lexer.start("(#  let:for  6^gkgw~*#g#)")
         matchToken(lexer, "(#", 0, 0, 2, XPathTokenType.PRAGMA_BEGIN)
@@ -631,109 +631,109 @@ class XQueryLexerTest : LexerTestCase() {
     @Test
     @DisplayName("XQuery 1.0 EBNF (68) PathExpr")
     fun pathExpr() {
-        matchSingleToken(lexer, "/", XPathTokenType.DIRECT_DESCENDANTS_PATH)
-        matchSingleToken(lexer, "//", XPathTokenType.ALL_DESCENDANTS_PATH)
+        token("/", XPathTokenType.DIRECT_DESCENDANTS_PATH)
+        token("//", XPathTokenType.ALL_DESCENDANTS_PATH)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (69) RelativePathExpr")
     fun relativePathExpr() {
-        matchSingleToken(lexer, "/", XPathTokenType.DIRECT_DESCENDANTS_PATH)
-        matchSingleToken(lexer, "//", XPathTokenType.ALL_DESCENDANTS_PATH)
+        token("/", XPathTokenType.DIRECT_DESCENDANTS_PATH)
+        token("//", XPathTokenType.ALL_DESCENDANTS_PATH)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (73) ForwardAxis")
     fun forwardAxis() {
         // NOTE: XQuery does not support the XPath 'namespace::' forward axis.
-        matchSingleToken(lexer, "attribute", XPathTokenType.K_ATTRIBUTE)
-        matchSingleToken(lexer, "child", XPathTokenType.K_CHILD)
-        matchSingleToken(lexer, "descendant", XPathTokenType.K_DESCENDANT)
-        matchSingleToken(lexer, "descendant-or-self", XPathTokenType.K_DESCENDANT_OR_SELF)
-        matchSingleToken(lexer, "following", XPathTokenType.K_FOLLOWING)
-        matchSingleToken(lexer, "following-sibling", XPathTokenType.K_FOLLOWING_SIBLING)
-        matchSingleToken(lexer, "self", XPathTokenType.K_SELF)
-        matchSingleToken(lexer, "::", XPathTokenType.AXIS_SEPARATOR)
+        token("attribute", XPathTokenType.K_ATTRIBUTE)
+        token("child", XPathTokenType.K_CHILD)
+        token("descendant", XPathTokenType.K_DESCENDANT)
+        token("descendant-or-self", XPathTokenType.K_DESCENDANT_OR_SELF)
+        token("following", XPathTokenType.K_FOLLOWING)
+        token("following-sibling", XPathTokenType.K_FOLLOWING_SIBLING)
+        token("self", XPathTokenType.K_SELF)
+        token("::", XPathTokenType.AXIS_SEPARATOR)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (74) AbbrevForwardStep")
     fun abbrevForwardStep() {
-        matchSingleToken(lexer, "@", XPathTokenType.ATTRIBUTE_SELECTOR)
+        token("@", XPathTokenType.ATTRIBUTE_SELECTOR)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (76) ReverseAxis")
     fun reverseAxis() {
-        matchSingleToken(lexer, "ancestor", XPathTokenType.K_ANCESTOR)
-        matchSingleToken(lexer, "ancestor-or-self", XPathTokenType.K_ANCESTOR_OR_SELF)
-        matchSingleToken(lexer, "parent", XPathTokenType.K_PARENT)
-        matchSingleToken(lexer, "preceding", XPathTokenType.K_PRECEDING)
-        matchSingleToken(lexer, "preceding-sibling", XPathTokenType.K_PRECEDING_SIBLING)
-        matchSingleToken(lexer, "::", XPathTokenType.AXIS_SEPARATOR)
+        token("ancestor", XPathTokenType.K_ANCESTOR)
+        token("ancestor-or-self", XPathTokenType.K_ANCESTOR_OR_SELF)
+        token("parent", XPathTokenType.K_PARENT)
+        token("preceding", XPathTokenType.K_PRECEDING)
+        token("preceding-sibling", XPathTokenType.K_PRECEDING_SIBLING)
+        token("::", XPathTokenType.AXIS_SEPARATOR)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (77) AbbrevReverseStep")
     fun abbrevReverseStep() {
-        matchSingleToken(lexer, "..", XPathTokenType.PARENT_SELECTOR)
+        token("..", XPathTokenType.PARENT_SELECTOR)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (80) Wildcard")
     fun wildcard() {
-        matchSingleToken(lexer, "*", XPathTokenType.STAR)
-        matchSingleToken(lexer, ":", XPathTokenType.QNAME_SEPARATOR)
+        token("*", XPathTokenType.STAR)
+        token(":", XPathTokenType.QNAME_SEPARATOR)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (83) Predicate")
     fun predicate() {
-        matchSingleToken(lexer, "[", XPathTokenType.SQUARE_OPEN)
-        matchSingleToken(lexer, "]", XPathTokenType.SQUARE_CLOSE)
+        token("[", XPathTokenType.SQUARE_OPEN)
+        token("]", XPathTokenType.SQUARE_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (87) VarRef")
     fun varRef() {
-        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
+        token("$", XPathTokenType.VARIABLE_INDICATOR)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (89) ParenthesizedExpr")
     fun parenthesizedExpr() {
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (90) ContextItemExpr")
     fun contextItemExpr() {
-        matchSingleToken(lexer, ".", XPathTokenType.DOT)
+        token(".", XPathTokenType.DOT)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (91) OrderedExpr")
     fun testOrderedExpr() {
-        matchSingleToken(lexer, "ordered", XPathTokenType.K_ORDERED)
-        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
+        token("ordered", XPathTokenType.K_ORDERED)
+        token("{", XPathTokenType.BLOCK_OPEN)
+        token("}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (92) UnorderedExpr")
     fun testUnorderedExpr() {
-        matchSingleToken(lexer, "unordered", XQueryTokenType.K_UNORDERED)
-        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
+        token("unordered", XQueryTokenType.K_UNORDERED)
+        token("{", XPathTokenType.BLOCK_OPEN)
+        token("}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (93) FunctionCall")
     fun functionCall() {
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(",", XPathTokenType.COMMA)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Nested
@@ -800,11 +800,11 @@ class XQueryLexerTest : LexerTestCase() {
         @Test
         @DisplayName("as separate tokens using CombinedLexer")
         fun testDirElemConstructor() {
-            matchSingleToken(lexer, "<", XPathTokenType.LESS_THAN)
-            matchSingleToken(lexer, ">", XPathTokenType.GREATER_THAN)
+            token("<", XPathTokenType.LESS_THAN)
+            token(">", XPathTokenType.GREATER_THAN)
 
-            matchSingleToken(lexer, "</", XQueryTokenType.CLOSE_XML_TAG)
-            matchSingleToken(lexer, "/>", XQueryTokenType.SELF_CLOSING_XML_TAG)
+            token("</", XQueryTokenType.CLOSE_XML_TAG)
+            token("/>", XQueryTokenType.SELF_CLOSING_XML_TAG)
 
             lexer.start("<one:two/>")
             matchToken(lexer, "<", 0x60000000 or 30, 0, 1, XQueryTokenType.OPEN_XML_TAG)
@@ -939,7 +939,7 @@ class XQueryLexerTest : LexerTestCase() {
         @Test
         @DisplayName("as separate tokens using CombinedLexer")
         fun testDirAttributeList() {
-            matchSingleToken(lexer, "=", XPathTokenType.EQUAL)
+            token("=", XPathTokenType.EQUAL)
 
             lexer.start("<one:two  a:b  =  \"One\"  c:d  =  'Two'  />")
             matchToken(lexer, "<", 0x60000000 or 30, 0, 1, XQueryTokenType.OPEN_XML_TAG)
@@ -1653,10 +1653,10 @@ class XQueryLexerTest : LexerTestCase() {
         @Test
         @DisplayName("direct comment constructor")
         fun testDirCommentConstructor() {
-            matchSingleToken(lexer, "<", 0, XPathTokenType.LESS_THAN)
-            matchSingleToken(lexer, "<!", 0, XQueryTokenType.INVALID)
-            matchSingleToken(lexer, "<!-", 0, XQueryTokenType.INVALID)
-            matchSingleToken(lexer, "<!--", 5, XQueryTokenType.XML_COMMENT_START_TAG)
+            token("<", 0, XPathTokenType.LESS_THAN)
+            token("<!", 0, XQueryTokenType.INVALID)
+            token("<!-", 0, XQueryTokenType.INVALID)
+            token("<!--", 5, XQueryTokenType.XML_COMMENT_START_TAG)
 
             // Unary Minus
             lexer.start("--")
@@ -1664,7 +1664,7 @@ class XQueryLexerTest : LexerTestCase() {
             matchToken(lexer, "-", 0, 1, 2, XPathTokenType.MINUS)
             matchToken(lexer, "", 0, 2, 2, null)
 
-            matchSingleToken(lexer, "-->", XQueryTokenType.XML_COMMENT_END_TAG)
+            token("-->", XQueryTokenType.XML_COMMENT_END_TAG)
 
             lexer.start("<!-- Test")
             matchToken(lexer, "<!--", 0, 0, 4, XQueryTokenType.XML_COMMENT_START_TAG)
@@ -1721,8 +1721,8 @@ class XQueryLexerTest : LexerTestCase() {
     @Test
     @DisplayName("XQuery 1.0 EBNF (105) DirPIConstructor ; XQuery 1.0 EBNF (106) DirPIContents")
     fun testDirPIConstructor() {
-        matchSingleToken(lexer, "<?", 21, XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN)
-        matchSingleToken(lexer, "?>", 0, XQueryTokenType.PROCESSING_INSTRUCTION_END)
+        token("<?", 21, XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN)
+        token("?>", 0, XQueryTokenType.PROCESSING_INSTRUCTION_END)
 
 
         lexer.start("<?for  6^gkgw~*?g?>")
@@ -1768,24 +1768,24 @@ class XQueryLexerTest : LexerTestCase() {
         @Test
         @DisplayName("cdata section")
         fun testCDataSection() {
-            matchSingleToken(lexer, "<", 0, XPathTokenType.LESS_THAN)
-            matchSingleToken(lexer, "<!", 0, XQueryTokenType.INVALID)
-            matchSingleToken(lexer, "<![", 0, XQueryTokenType.INVALID)
-            matchSingleToken(lexer, "<![C", 0, XQueryTokenType.INVALID)
-            matchSingleToken(lexer, "<![CD", 0, XQueryTokenType.INVALID)
-            matchSingleToken(lexer, "<![CDA", 0, XQueryTokenType.INVALID)
-            matchSingleToken(lexer, "<![CDAT", 0, XQueryTokenType.INVALID)
-            matchSingleToken(lexer, "<![CDATA", 0, XQueryTokenType.INVALID)
-            matchSingleToken(lexer, "<![CDATA[", 7, XQueryTokenType.CDATA_SECTION_START_TAG)
+            token("<", 0, XPathTokenType.LESS_THAN)
+            token("<!", 0, XQueryTokenType.INVALID)
+            token("<![", 0, XQueryTokenType.INVALID)
+            token("<![C", 0, XQueryTokenType.INVALID)
+            token("<![CD", 0, XQueryTokenType.INVALID)
+            token("<![CDA", 0, XQueryTokenType.INVALID)
+            token("<![CDAT", 0, XQueryTokenType.INVALID)
+            token("<![CDATA", 0, XQueryTokenType.INVALID)
+            token("<![CDATA[", 7, XQueryTokenType.CDATA_SECTION_START_TAG)
 
-            matchSingleToken(lexer, "]", XPathTokenType.SQUARE_CLOSE)
+            token("]", XPathTokenType.SQUARE_CLOSE)
 
             lexer.start("]]")
             matchToken(lexer, "]", 0, 0, 1, XPathTokenType.SQUARE_CLOSE)
             matchToken(lexer, "]", 0, 1, 2, XPathTokenType.SQUARE_CLOSE)
             matchToken(lexer, "", 0, 2, 2, null)
 
-            matchSingleToken(lexer, "]]>", XQueryTokenType.CDATA_SECTION_END_TAG)
+            token("]]>", XQueryTokenType.CDATA_SECTION_END_TAG)
 
             lexer.start("<![CDATA[ Test")
             matchToken(lexer, "<![CDATA[", 0, 0, 9, XQueryTokenType.CDATA_SECTION_START_TAG)
@@ -1842,170 +1842,170 @@ class XQueryLexerTest : LexerTestCase() {
     @Test
     @DisplayName("XQuery 1.0 EBNF (110) CompDocConstructor")
     fun testCompDocConstructor() {
-        matchSingleToken(lexer, "document", XQueryTokenType.K_DOCUMENT)
-        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
+        token("document", XQueryTokenType.K_DOCUMENT)
+        token("{", XPathTokenType.BLOCK_OPEN)
+        token("}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (111) CompElemConstructor")
     fun testCompElemConstructor() {
-        matchSingleToken(lexer, "element", XPathTokenType.K_ELEMENT)
-        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
+        token("element", XPathTokenType.K_ELEMENT)
+        token("{", XPathTokenType.BLOCK_OPEN)
+        token("}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (113) CompAttrConstructor")
     fun testCompAttrConstructor() {
-        matchSingleToken(lexer, "attribute", XPathTokenType.K_ATTRIBUTE)
-        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
+        token("attribute", XPathTokenType.K_ATTRIBUTE)
+        token("{", XPathTokenType.BLOCK_OPEN)
+        token("}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (114) CompTextConstructor")
     fun testCompTextConstructor() {
-        matchSingleToken(lexer, "text", XPathTokenType.K_TEXT)
-        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
+        token("text", XPathTokenType.K_TEXT)
+        token("{", XPathTokenType.BLOCK_OPEN)
+        token("}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (115) CompCommentConstructor")
     fun testCompCommentConstructor() {
-        matchSingleToken(lexer, "comment", XPathTokenType.K_COMMENT)
-        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
+        token("comment", XPathTokenType.K_COMMENT)
+        token("{", XPathTokenType.BLOCK_OPEN)
+        token("}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (116) CompPIConstructor")
     fun testCompPIConstructor() {
-        matchSingleToken(lexer, "processing-instruction", XPathTokenType.K_PROCESSING_INSTRUCTION)
-        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
+        token("processing-instruction", XPathTokenType.K_PROCESSING_INSTRUCTION)
+        token("{", XPathTokenType.BLOCK_OPEN)
+        token("}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (117) SingleType")
     fun singleType() {
-        matchSingleToken(lexer, "?", XPathTokenType.OPTIONAL)
+        token("?", XPathTokenType.OPTIONAL)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (118) TypeDeclaration")
     fun testTypeDeclaration() {
-        matchSingleToken(lexer, "as", XPathTokenType.K_AS)
+        token("as", XPathTokenType.K_AS)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (119) SequenceType")
     fun sequenceType() {
-        matchSingleToken(lexer, "empty-sequence", XPathTokenType.K_EMPTY_SEQUENCE)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("empty-sequence", XPathTokenType.K_EMPTY_SEQUENCE)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (120) OccurrenceIndicator")
     fun occurrenceIndicator() {
-        matchSingleToken(lexer, "?", XPathTokenType.OPTIONAL)
-        matchSingleToken(lexer, "*", XPathTokenType.STAR)
-        matchSingleToken(lexer, "+", XPathTokenType.PLUS)
+        token("?", XPathTokenType.OPTIONAL)
+        token("*", XPathTokenType.STAR)
+        token("+", XPathTokenType.PLUS)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (121) ItemType")
     fun itemType() {
-        matchSingleToken(lexer, "item", XPathTokenType.K_ITEM)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("item", XPathTokenType.K_ITEM)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (124) AnyKindTest")
     fun anyKindTest() {
-        matchSingleToken(lexer, "node", XPathTokenType.K_NODE)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("node", XPathTokenType.K_NODE)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (125) DocumentTest")
     fun documentTest() {
-        matchSingleToken(lexer, "document-node", XPathTokenType.K_DOCUMENT_NODE)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("document-node", XPathTokenType.K_DOCUMENT_NODE)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (126) TextTest")
     fun textTest() {
-        matchSingleToken(lexer, "text", XPathTokenType.K_TEXT)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("text", XPathTokenType.K_TEXT)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (127) CommentTest")
     fun commentTest() {
-        matchSingleToken(lexer, "comment", XPathTokenType.K_COMMENT)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("comment", XPathTokenType.K_COMMENT)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (128) PITest")
     fun piTest() {
-        matchSingleToken(lexer, "processing-instruction", XPathTokenType.K_PROCESSING_INSTRUCTION)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("processing-instruction", XPathTokenType.K_PROCESSING_INSTRUCTION)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (129) AttributeTest")
     fun attributeTest() {
-        matchSingleToken(lexer, "attribute", XPathTokenType.K_ATTRIBUTE)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("attribute", XPathTokenType.K_ATTRIBUTE)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (130) AttribNameOrWildcard")
     fun attribNameOrWildcard() {
-        matchSingleToken(lexer, "*", XPathTokenType.STAR)
+        token("*", XPathTokenType.STAR)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (131) SchemaAttributeTest")
     fun schemaAttributeTest() {
-        matchSingleToken(lexer, "schema-attribute", XPathTokenType.K_SCHEMA_ATTRIBUTE)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("schema-attribute", XPathTokenType.K_SCHEMA_ATTRIBUTE)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (133) ElementTest")
     fun elementTest() {
-        matchSingleToken(lexer, "element", XPathTokenType.K_ELEMENT)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
-        matchSingleToken(lexer, "?", XPathTokenType.OPTIONAL)
+        token("element", XPathTokenType.K_ELEMENT)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("?", XPathTokenType.OPTIONAL)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (134) ElementNameOrWildcard")
     fun elementNameOrWildcard() {
-        matchSingleToken(lexer, "*", XPathTokenType.STAR)
+        token("*", XPathTokenType.STAR)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (135) SchemaElementTest")
     fun schemaElementTest() {
-        matchSingleToken(lexer, "schema-element", XPathTokenType.K_SCHEMA_ELEMENT)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("schema-element", XPathTokenType.K_SCHEMA_ELEMENT)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
@@ -2451,8 +2451,8 @@ class XQueryLexerTest : LexerTestCase() {
         @Test
         @DisplayName("comment")
         fun comment() {
-            matchSingleToken(lexer, "(:", 4, XPathTokenType.COMMENT_START_TAG)
-            matchSingleToken(lexer, ":)", 0, XPathTokenType.COMMENT_END_TAG)
+            token("(:", 4, XPathTokenType.COMMENT_START_TAG)
+            token(":)", 0, XPathTokenType.COMMENT_END_TAG)
 
             lexer.start("(: Test :")
             matchToken(lexer, "(:", 0, 0, 2, XPathTokenType.COMMENT_START_TAG)
@@ -2565,284 +2565,284 @@ class XQueryLexerTest : LexerTestCase() {
     @Test
     @DisplayName("XQuery 3.0 EBNF (18) DecimalFormatDecl")
     fun testDecimalFormatDecl() {
-        matchSingleToken(lexer, "declare", XQueryTokenType.K_DECLARE)
-        matchSingleToken(lexer, "decimal-format", XQueryTokenType.K_DECIMAL_FORMAT)
-        matchSingleToken(lexer, "default", XPathTokenType.K_DEFAULT)
-        matchSingleToken(lexer, "=", XPathTokenType.EQUAL)
+        token("declare", XQueryTokenType.K_DECLARE)
+        token("decimal-format", XQueryTokenType.K_DECIMAL_FORMAT)
+        token("default", XPathTokenType.K_DEFAULT)
+        token("=", XPathTokenType.EQUAL)
     }
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (19) DFPropertyName")
     fun testDFPropertyName() {
-        matchSingleToken(lexer, "decimal-separator", XQueryTokenType.K_DECIMAL_SEPARATOR)
-        matchSingleToken(lexer, "grouping-separator", XQueryTokenType.K_GROUPING_SEPARATOR)
-        matchSingleToken(lexer, "infinity", XQueryTokenType.K_INFINITY)
-        matchSingleToken(lexer, "minus-sign", XQueryTokenType.K_MINUS_SIGN)
-        matchSingleToken(lexer, "NaN", XQueryTokenType.K_NAN)
-        matchSingleToken(lexer, "percent", XQueryTokenType.K_PERCENT)
-        matchSingleToken(lexer, "per-mille", XQueryTokenType.K_PER_MILLE)
-        matchSingleToken(lexer, "zero-digit", XQueryTokenType.K_ZERO_DIGIT)
-        matchSingleToken(lexer, "digit", XQueryTokenType.K_DIGIT)
-        matchSingleToken(lexer, "pattern-separator", XQueryTokenType.K_PATTERN_SEPARATOR)
+        token("decimal-separator", XQueryTokenType.K_DECIMAL_SEPARATOR)
+        token("grouping-separator", XQueryTokenType.K_GROUPING_SEPARATOR)
+        token("infinity", XQueryTokenType.K_INFINITY)
+        token("minus-sign", XQueryTokenType.K_MINUS_SIGN)
+        token("NaN", XQueryTokenType.K_NAN)
+        token("percent", XQueryTokenType.K_PERCENT)
+        token("per-mille", XQueryTokenType.K_PER_MILLE)
+        token("zero-digit", XQueryTokenType.K_ZERO_DIGIT)
+        token("digit", XQueryTokenType.K_DIGIT)
+        token("pattern-separator", XQueryTokenType.K_PATTERN_SEPARATOR)
     }
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (26) AnnotatedDecl")
     fun testAnnotatedDecl() {
-        matchSingleToken(lexer, "declare", XQueryTokenType.K_DECLARE)
+        token("declare", XQueryTokenType.K_DECLARE)
     }
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (27) Annotation")
     fun testAnnotation() {
-        matchSingleToken(lexer, "%", XQueryTokenType.ANNOTATION_INDICATOR)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("%", XQueryTokenType.ANNOTATION_INDICATOR)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(",", XPathTokenType.COMMA)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
 
-        matchSingleToken(lexer, "public", XQueryTokenType.K_PUBLIC)
-        matchSingleToken(lexer, "private", XQueryTokenType.K_PRIVATE)
+        token("public", XQueryTokenType.K_PUBLIC)
+        token("private", XQueryTokenType.K_PRIVATE)
     }
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (31) ContextItemDecl")
     fun testContextItemDecl() {
-        matchSingleToken(lexer, "declare", XQueryTokenType.K_DECLARE)
-        matchSingleToken(lexer, "context", XQueryTokenType.K_CONTEXT)
-        matchSingleToken(lexer, "item", XPathTokenType.K_ITEM)
-        matchSingleToken(lexer, "as", XPathTokenType.K_AS)
-        matchSingleToken(lexer, "external", XQueryTokenType.K_EXTERNAL)
-        matchSingleToken(lexer, ":=", XPathTokenType.ASSIGN_EQUAL)
+        token("declare", XQueryTokenType.K_DECLARE)
+        token("context", XQueryTokenType.K_CONTEXT)
+        token("item", XPathTokenType.K_ITEM)
+        token("as", XPathTokenType.K_AS)
+        token("external", XQueryTokenType.K_EXTERNAL)
+        token(":=", XPathTokenType.ASSIGN_EQUAL)
     }
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (46) AllowingEmpty")
     fun testAllowingEmpty() {
-        matchSingleToken(lexer, "allowing", XQueryTokenType.K_ALLOWING)
-        matchSingleToken(lexer, "empty", XPathTokenType.K_EMPTY)
+        token("allowing", XQueryTokenType.K_ALLOWING)
+        token("empty", XPathTokenType.K_EMPTY)
     }
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (50) WindowClause")
     fun testWindowClause() {
-        matchSingleToken(lexer, "for", XPathTokenType.K_FOR)
+        token("for", XPathTokenType.K_FOR)
     }
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (51) TumblingWindowClause")
     fun testTumblingWindowClause() {
-        matchSingleToken(lexer, "tumbling", XQueryTokenType.K_TUMBLING)
-        matchSingleToken(lexer, "window", XPathTokenType.K_WINDOW)
-        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
-        matchSingleToken(lexer, "in", XPathTokenType.K_IN)
+        token("tumbling", XQueryTokenType.K_TUMBLING)
+        token("window", XPathTokenType.K_WINDOW)
+        token("$", XPathTokenType.VARIABLE_INDICATOR)
+        token("in", XPathTokenType.K_IN)
     }
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (52) SlidingWindowClause")
     fun testSlidingWindowClause() {
-        matchSingleToken(lexer, "sliding", XQueryTokenType.K_SLIDING)
-        matchSingleToken(lexer, "window", XPathTokenType.K_WINDOW)
-        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
-        matchSingleToken(lexer, "in", XPathTokenType.K_IN)
+        token("sliding", XQueryTokenType.K_SLIDING)
+        token("window", XPathTokenType.K_WINDOW)
+        token("$", XPathTokenType.VARIABLE_INDICATOR)
+        token("in", XPathTokenType.K_IN)
     }
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (53) WindowStartCondition")
     fun testWindowStartCondition() {
-        matchSingleToken(lexer, "start", XPathTokenType.K_START)
-        matchSingleToken(lexer, "when", XQueryTokenType.K_WHEN)
+        token("start", XPathTokenType.K_START)
+        token("when", XQueryTokenType.K_WHEN)
     }
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (54) WindowEndCondition")
     fun testWindowEndCondition() {
-        matchSingleToken(lexer, "only", XQueryTokenType.K_ONLY)
-        matchSingleToken(lexer, "end", XPathTokenType.K_END)
-        matchSingleToken(lexer, "when", XQueryTokenType.K_WHEN)
+        token("only", XQueryTokenType.K_ONLY)
+        token("end", XPathTokenType.K_END)
+        token("when", XQueryTokenType.K_WHEN)
     }
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (55) WindowVars")
     fun testWindowVars() {
-        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
-        matchSingleToken(lexer, "previous", XQueryTokenType.K_PREVIOUS)
-        matchSingleToken(lexer, "next", XQueryTokenType.K_NEXT)
+        token("$", XPathTokenType.VARIABLE_INDICATOR)
+        token("previous", XQueryTokenType.K_PREVIOUS)
+        token("next", XQueryTokenType.K_NEXT)
     }
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (59) CountClause")
     fun testCountClause() {
-        matchSingleToken(lexer, "count", XQueryTokenType.K_COUNT)
-        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
+        token("count", XQueryTokenType.K_COUNT)
+        token("$", XPathTokenType.VARIABLE_INDICATOR)
     }
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (61) GroupByClause")
     fun testGroupByClause() {
-        matchSingleToken(lexer, "group", XQueryTokenType.K_GROUP)
-        matchSingleToken(lexer, "by", XQueryTokenType.K_BY)
+        token("group", XQueryTokenType.K_GROUP)
+        token("by", XQueryTokenType.K_BY)
     }
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (62) GroupingSpecList")
     fun testGroupingSpecList() {
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
+        token(",", XPathTokenType.COMMA)
     }
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (63) GroupingSpec")
     fun testGroupingSpec() {
-        matchSingleToken(lexer, ":=", XPathTokenType.ASSIGN_EQUAL)
-        matchSingleToken(lexer, "collation", XQueryTokenType.K_COLLATION)
+        token(":=", XPathTokenType.ASSIGN_EQUAL)
+        token("collation", XQueryTokenType.K_COLLATION)
     }
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (64) GroupingVariable")
     fun testGroupingVariable() {
-        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
+        token("$", XPathTokenType.VARIABLE_INDICATOR)
     }
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (69) ReturnClause")
     fun testReturnClause() {
-        matchSingleToken(lexer, "return", XPathTokenType.K_RETURN)
+        token("return", XPathTokenType.K_RETURN)
     }
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (71) SwitchExpr")
     fun testSwitchExpr() {
-        matchSingleToken(lexer, "switch", XQueryTokenType.K_SWITCH)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
-        matchSingleToken(lexer, "default", XPathTokenType.K_DEFAULT)
-        matchSingleToken(lexer, "return", XPathTokenType.K_RETURN)
+        token("switch", XQueryTokenType.K_SWITCH)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("default", XPathTokenType.K_DEFAULT)
+        token("return", XPathTokenType.K_RETURN)
     }
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (72) SwitchCaseClause")
     fun testSwitchCaseClause() {
-        matchSingleToken(lexer, "case", XPathTokenType.K_CASE)
-        matchSingleToken(lexer, "return", XPathTokenType.K_RETURN)
+        token("case", XPathTokenType.K_CASE)
+        token("return", XPathTokenType.K_RETURN)
     }
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (76) SequenceTypeUnion")
     fun testSequenceTypeUnion() {
-        matchSingleToken(lexer, "|", XPathTokenType.UNION)
+        token("|", XPathTokenType.UNION)
     }
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (79) TryClause")
     fun testTryClause() {
-        matchSingleToken(lexer, "try", XQueryTokenType.K_TRY)
-        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
+        token("try", XQueryTokenType.K_TRY)
+        token("{", XPathTokenType.BLOCK_OPEN)
+        token("}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (81) CatchClause")
     fun testCatchClause() {
-        matchSingleToken(lexer, "catch", XQueryTokenType.K_CATCH)
-        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
+        token("catch", XQueryTokenType.K_CATCH)
+        token("{", XPathTokenType.BLOCK_OPEN)
+        token("}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (82) CatchErrorList")
     fun testCatchErrorList() {
-        matchSingleToken(lexer, "|", XPathTokenType.UNION)
+        token("|", XPathTokenType.UNION)
     }
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (86) StringConcatExpr")
     fun stringConcatExpr() {
-        matchSingleToken(lexer, "||", XPathTokenType.CONCATENATION)
+        token("||", XPathTokenType.CONCATENATION)
     }
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (101) ValidateExpr")
     fun testValidateExpr_Type() {
-        matchSingleToken(lexer, "validate", XQueryTokenType.K_VALIDATE)
-        matchSingleToken(lexer, "type", XPathTokenType.K_TYPE)
-        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
+        token("validate", XQueryTokenType.K_VALIDATE)
+        token("type", XPathTokenType.K_TYPE)
+        token("{", XPathTokenType.BLOCK_OPEN)
+        token("}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (106) SimpleMapExpr")
     fun simpleMapExpr() {
-        matchSingleToken(lexer, "!", XPathTokenType.MAP_OPERATOR)
+        token("!", XPathTokenType.MAP_OPERATOR)
     }
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (121) ArgumentList")
     fun argumentList() {
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(",", XPathTokenType.COMMA)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (135) ArgumentPlaceholder")
     fun argumentPlaceholder() {
-        matchSingleToken(lexer, "?", XPathTokenType.OPTIONAL)
+        token("?", XPathTokenType.OPTIONAL)
     }
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (156) CompNamespaceConstructor")
     fun testCompNamespaceConstructor() {
-        matchSingleToken(lexer, "namespace", XPathTokenType.K_NAMESPACE)
-        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
+        token("namespace", XPathTokenType.K_NAMESPACE)
+        token("{", XPathTokenType.BLOCK_OPEN)
+        token("}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (164) NamedFunctionRef")
     fun namedFunctionRef() {
-        matchSingleToken(lexer, "#", XPathTokenType.FUNCTION_REF_OPERATOR)
+        token("#", XPathTokenType.FUNCTION_REF_OPERATOR)
     }
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (165) InlineFunctionExpr")
     fun inlineFunctionExpr() {
-        matchSingleToken(lexer, "function", XPathTokenType.K_FUNCTION)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
-        matchSingleToken(lexer, "as", XPathTokenType.K_AS)
+        token("function", XPathTokenType.K_FUNCTION)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("as", XPathTokenType.K_AS)
     }
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (177) NamespaceNodeTest")
     fun namespaceNodeTest() {
-        matchSingleToken(lexer, "namespace-node", XPathTokenType.K_NAMESPACE_NODE)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("namespace-node", XPathTokenType.K_NAMESPACE_NODE)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (192) AnyFunctionTest")
     fun anyFunctionTest() {
-        matchSingleToken(lexer, "function", XPathTokenType.K_FUNCTION)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, "*", XPathTokenType.STAR)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("function", XPathTokenType.K_FUNCTION)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token("*", XPathTokenType.STAR)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (193) TypedFunctionTest")
     fun typedFunctionTest() {
-        matchSingleToken(lexer, "function", XPathTokenType.K_FUNCTION)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
-        matchSingleToken(lexer, "as", XPathTokenType.K_AS)
+        token("function", XPathTokenType.K_FUNCTION)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(",", XPathTokenType.COMMA)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("as", XPathTokenType.K_AS)
     }
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (164) ParenthesizedItemType")
     fun parenthesizedItemType() {
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Nested
@@ -2851,7 +2851,7 @@ class XQueryLexerTest : LexerTestCase() {
         @Test
         @DisplayName("braced uri literal")
         fun bracedURILiteral() {
-            matchSingleToken(lexer, "Q", XPathTokenType.NCNAME)
+            token("Q", XPathTokenType.NCNAME)
 
             lexer.start("Q{")
             matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
@@ -3062,77 +3062,77 @@ class XQueryLexerTest : LexerTestCase() {
     @Test
     @DisplayName("XQuery 3.1 EBNF (19) DFPropertyName")
     fun testDFPropertyName_XQuery31() {
-        matchSingleToken(lexer, "decimal-separator", XQueryTokenType.K_DECIMAL_SEPARATOR)
-        matchSingleToken(lexer, "grouping-separator", XQueryTokenType.K_GROUPING_SEPARATOR)
-        matchSingleToken(lexer, "infinity", XQueryTokenType.K_INFINITY)
-        matchSingleToken(lexer, "minus-sign", XQueryTokenType.K_MINUS_SIGN)
-        matchSingleToken(lexer, "NaN", XQueryTokenType.K_NAN)
-        matchSingleToken(lexer, "percent", XQueryTokenType.K_PERCENT)
-        matchSingleToken(lexer, "per-mille", XQueryTokenType.K_PER_MILLE)
-        matchSingleToken(lexer, "zero-digit", XQueryTokenType.K_ZERO_DIGIT)
-        matchSingleToken(lexer, "digit", XQueryTokenType.K_DIGIT)
-        matchSingleToken(lexer, "pattern-separator", XQueryTokenType.K_PATTERN_SEPARATOR)
-        matchSingleToken(lexer, "exponent-separator", XQueryTokenType.K_EXPONENT_SEPARATOR) // New in XQuery 3.1
+        token("decimal-separator", XQueryTokenType.K_DECIMAL_SEPARATOR)
+        token("grouping-separator", XQueryTokenType.K_GROUPING_SEPARATOR)
+        token("infinity", XQueryTokenType.K_INFINITY)
+        token("minus-sign", XQueryTokenType.K_MINUS_SIGN)
+        token("NaN", XQueryTokenType.K_NAN)
+        token("percent", XQueryTokenType.K_PERCENT)
+        token("per-mille", XQueryTokenType.K_PER_MILLE)
+        token("zero-digit", XQueryTokenType.K_ZERO_DIGIT)
+        token("digit", XQueryTokenType.K_DIGIT)
+        token("pattern-separator", XQueryTokenType.K_PATTERN_SEPARATOR)
+        token("exponent-separator", XQueryTokenType.K_EXPONENT_SEPARATOR) // New in XQuery 3.1
     }
 
     @Test
     @DisplayName("XQuery 3.1 EBNF (96) ArrowExpr")
     fun arrowExpr() {
-        matchSingleToken(lexer, "=>", XPathTokenType.ARROW)
+        token("=>", XPathTokenType.ARROW)
     }
 
     @Test
     @DisplayName("XQuery 3.1 EBNF (125) Lookup")
     fun lookup() {
-        matchSingleToken(lexer, "?", XPathTokenType.OPTIONAL)
+        token("?", XPathTokenType.OPTIONAL)
     }
 
     @Test
     @DisplayName("XQuery 3.1 EBNF (126) KeySpecifier")
     fun keySpecifier() {
-        matchSingleToken(lexer, "*", XPathTokenType.STAR)
+        token("*", XPathTokenType.STAR)
     }
 
     @Test
     @DisplayName("XQuery 3.1 EBNF (170) MapConstructor")
     fun mapConstructor() {
-        matchSingleToken(lexer, "map", XPathTokenType.K_MAP)
-        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
-        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
+        token("map", XPathTokenType.K_MAP)
+        token("{", XPathTokenType.BLOCK_OPEN)
+        token(",", XPathTokenType.COMMA)
+        token("}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery 3.1 EBNF (171) MapConstructorEntry")
     fun mapConstructorEntry() {
-        matchSingleToken(lexer, ":", XPathTokenType.QNAME_SEPARATOR)
+        token(":", XPathTokenType.QNAME_SEPARATOR)
     }
 
     @Test
     @DisplayName("XQuery 3.1 EBNF (175) SquareArrayConstructor")
     fun squareArrayConstructor() {
-        matchSingleToken(lexer, "[", XPathTokenType.SQUARE_OPEN)
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
-        matchSingleToken(lexer, "]", XPathTokenType.SQUARE_CLOSE)
+        token("[", XPathTokenType.SQUARE_OPEN)
+        token(",", XPathTokenType.COMMA)
+        token("]", XPathTokenType.SQUARE_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery 3.1 EBNF (176) CurlyArrayConstructor")
     fun curlyArrayConstructor() {
-        matchSingleToken(lexer, "array", XPathTokenType.K_ARRAY)
-        matchSingleToken(lexer, "{", XPathTokenType.BLOCK_OPEN)
-        matchSingleToken(lexer, "}", XPathTokenType.BLOCK_CLOSE)
+        token("array", XPathTokenType.K_ARRAY)
+        token("{", XPathTokenType.BLOCK_OPEN)
+        token("}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery 3.1 EBNF (177) StringConstructor ; XQuery 3.1 EBNF (179) StringConstructorChars")
     fun testStringConstructor() {
-        matchSingleToken(lexer, "`", XQueryTokenType.INVALID)
-        matchSingleToken(lexer, "``", XQueryTokenType.INVALID)
+        token("`", XQueryTokenType.INVALID)
+        token("``", XQueryTokenType.INVALID)
 
-        matchSingleToken(lexer, "]", XPathTokenType.SQUARE_CLOSE)
-        matchSingleToken(lexer, "]`", XQueryTokenType.INVALID)
-        matchSingleToken(lexer, "]``", XQueryTokenType.STRING_CONSTRUCTOR_END)
+        token("]", XPathTokenType.SQUARE_CLOSE)
+        token("]`", XQueryTokenType.INVALID)
+        token("]``", XQueryTokenType.STRING_CONSTRUCTOR_END)
 
         lexer.start("``[")
         matchToken(lexer, "``[", 0, 0, 3, XQueryTokenType.STRING_CONSTRUCTOR_START)
@@ -3214,201 +3214,201 @@ class XQueryLexerTest : LexerTestCase() {
     @Test
     @DisplayName("XQuery 3.1 EBNF (181) UnaryLookup")
     fun unaryLookup() {
-        matchSingleToken(lexer, "?", XPathTokenType.OPTIONAL)
+        token("?", XPathTokenType.OPTIONAL)
     }
 
     @Test
     @DisplayName("XQuery 3.1 EBNF (211) AnyMapTest")
     fun anyMapTest() {
-        matchSingleToken(lexer, "map", XPathTokenType.K_MAP)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, "*", XPathTokenType.STAR)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("map", XPathTokenType.K_MAP)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token("*", XPathTokenType.STAR)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery 3.1 EBNF (212) TypedMapTest")
     fun typedMapTest() {
-        matchSingleToken(lexer, "map", XPathTokenType.K_MAP)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("map", XPathTokenType.K_MAP)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(",", XPathTokenType.COMMA)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery 3.1 EBNF (214) AnyArrayTest")
     fun anyArrayTest() {
-        matchSingleToken(lexer, "array", XPathTokenType.K_ARRAY)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, "*", XPathTokenType.STAR)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("array", XPathTokenType.K_ARRAY)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token("*", XPathTokenType.STAR)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery 3.1 EBNF (215) TypedArrayTest")
     fun typedArrayTest() {
-        matchSingleToken(lexer, "array", XPathTokenType.K_ARRAY)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("array", XPathTokenType.K_ARRAY)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery 4.0 ED EBNF (25) DefaultNamespaceDecl")
     fun defaultNamespaceDecl_XQuery40() {
-        matchSingleToken(lexer, "declare", XQueryTokenType.K_DECLARE)
-        matchSingleToken(lexer, "default", XPathTokenType.K_DEFAULT)
-        matchSingleToken(lexer, "element", XPathTokenType.K_ELEMENT)
-        matchSingleToken(lexer, "function", XPathTokenType.K_FUNCTION)
-        matchSingleToken(lexer, "type", XPathTokenType.K_TYPE)
-        matchSingleToken(lexer, "namespace", XPathTokenType.K_NAMESPACE)
-        matchSingleToken(lexer, "=", XPathTokenType.EQUAL)
+        token("declare", XQueryTokenType.K_DECLARE)
+        token("default", XPathTokenType.K_DEFAULT)
+        token("element", XPathTokenType.K_ELEMENT)
+        token("function", XPathTokenType.K_FUNCTION)
+        token("type", XPathTokenType.K_TYPE)
+        token("namespace", XPathTokenType.K_NAMESPACE)
+        token("=", XPathTokenType.EQUAL)
     }
 
     @Test
     @DisplayName("XQuery 4.0 ED EBNF (33) FunctionSignature")
     fun functionSignature() {
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery 4.0 ED EBNF (38) ItemTypeDecl")
     fun itemTypeDecl() {
-        matchSingleToken(lexer, "item-type", XQueryTokenType.K_ITEM_TYPE)
-        matchSingleToken(lexer, "as", XPathTokenType.K_AS)
+        token("item-type", XQueryTokenType.K_ITEM_TYPE)
+        token("as", XPathTokenType.K_AS)
     }
 
     @Test
     @DisplayName("XQuery 4.0 ED EBNF (43) WithExpr")
     fun withExpr() {
-        matchSingleToken(lexer, "with", XPathTokenType.K_WITH)
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
+        token("with", XPathTokenType.K_WITH)
+        token(",", XPathTokenType.COMMA)
     }
 
     @Test
     @DisplayName("XPath 4.0 ED EBNF (44) NamespaceDeclaration")
     fun namespaceDeclaration() {
-        matchSingleToken(lexer, "=", XPathTokenType.EQUAL)
+        token("=", XPathTokenType.EQUAL)
     }
 
     @Test
     @DisplayName("XQuery 4.0 ED EBNF (45) TernaryConditionalExpr")
     fun ternaryConditionalExpr() {
-        matchSingleToken(lexer, "??", XPathTokenType.TERNARY_IF)
-        matchSingleToken(lexer, "!!", XPathTokenType.TERNARY_ELSE)
+        token("??", XPathTokenType.TERNARY_IF)
+        token("!!", XPathTokenType.TERNARY_ELSE)
     }
 
     @Test
     @DisplayName("XQuery 4.0 ED EBNF (52) ForMemberClause ; XQuery 4.0 ED EBNF (53) ForMemberBinding")
     fun forMemberClause() {
-        matchSingleToken(lexer, "for", XPathTokenType.K_FOR)
-        matchSingleToken(lexer, "member", XPathTokenType.K_MEMBER)
-        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
-        matchSingleToken(lexer, "in", XPathTokenType.K_IN)
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
+        token("for", XPathTokenType.K_FOR)
+        token("member", XPathTokenType.K_MEMBER)
+        token("$", XPathTokenType.VARIABLE_INDICATOR)
+        token("in", XPathTokenType.K_IN)
+        token(",", XPathTokenType.COMMA)
     }
 
     @Test
     @DisplayName("XQuery 4.0 ED EBNF (78) QuantifierBinding")
     fun quantifierBinding() {
-        matchSingleToken(lexer, "$", XPathTokenType.VARIABLE_INDICATOR)
-        matchSingleToken(lexer, "in", XPathTokenType.K_IN)
+        token("$", XPathTokenType.VARIABLE_INDICATOR)
+        token("in", XPathTokenType.K_IN)
     }
 
     @Test
     @DisplayName("XQuery 4.0 ED EBNF (96) OtherwiseExpr")
     fun otherwiseExpr() {
-        matchSingleToken(lexer, "otherwise", XPathTokenType.K_OTHERWISE)
+        token("otherwise", XPathTokenType.K_OTHERWISE)
     }
 
     @Test
     @DisplayName("XQuery 4.0 ED EBNF (106) FatArrowTarget")
     fun fatArrowTarget() {
-        matchSingleToken(lexer, "=>", XPathTokenType.ARROW)
+        token("=>", XPathTokenType.ARROW)
     }
 
     @Test
     @DisplayName("XQuery 4.0 ED EBNF (107) ThinArrowTarget")
     fun thinArrowTarget() {
-        matchSingleToken(lexer, "->", XPathTokenType.THIN_ARROW)
+        token("->", XPathTokenType.THIN_ARROW)
     }
 
     @Test
     @DisplayName("XQuery 4.0 ED EBNF (132) PositionalArgumentList")
     fun positionalArgumentList() {
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery 4.0 ED EBNF (133) PositionalArguments")
     fun positionalArguments() {
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
+        token(",", XPathTokenType.COMMA)
     }
 
     @Test
     @DisplayName("XQuery 4.0 ED EBNF (134) KeywordArguments")
     fun keywordArguments() {
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
+        token(",", XPathTokenType.COMMA)
     }
 
     @Test
     @DisplayName("XQuery 4.0 ED EBNF (134) KeywordArgument")
     fun keywordArgument() {
-        matchSingleToken(lexer, ":", XPathTokenType.QNAME_SEPARATOR)
+        token(":", XPathTokenType.QNAME_SEPARATOR)
     }
 
     @Test
     @DisplayName("XQuery 4.0 ED EBNF (185) InlineFunctionExpr")
     fun inlineFunctionExpr_XQuery40() {
-        matchSingleToken(lexer, "function", XPathTokenType.K_FUNCTION)
-        matchSingleToken(lexer, "->", XPathTokenType.THIN_ARROW)
+        token("function", XPathTokenType.K_FUNCTION)
+        token("->", XPathTokenType.THIN_ARROW)
     }
 
     @Test
     @DisplayName("XQuery 4.0 ED EBNF (228) RecordTest")
     fun recordTest() {
-        matchSingleToken(lexer, "record", XPathTokenType.K_RECORD)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("record", XPathTokenType.K_RECORD)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(",", XPathTokenType.COMMA)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery 4.0 ED EBNF (229) FieldDeclaration")
     fun fieldDeclaration() {
-        matchSingleToken(lexer, "?", XPathTokenType.OPTIONAL)
-        matchSingleToken(lexer, "as", XPathTokenType.K_AS)
+        token("?", XPathTokenType.OPTIONAL)
+        token("as", XPathTokenType.K_AS)
     }
 
     @Test
     @DisplayName("XQuery 4.0 ED EBNF (231) SelfReference")
     fun selfReference() {
-        matchSingleToken(lexer, "..", XPathTokenType.PARENT_SELECTOR)
+        token("..", XPathTokenType.PARENT_SELECTOR)
     }
 
     @Test
     @DisplayName("XQuery 4.0 ED EBNF (232) ExtensibleFlag")
     fun extensibleFlag() {
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
-        matchSingleToken(lexer, "*", XPathTokenType.STAR)
+        token(",", XPathTokenType.COMMA)
+        token("*", XPathTokenType.STAR)
     }
 
     @Test
     @DisplayName("XQuery 4.0 ED EBNF (233) LocalUnionType")
     fun localUnionType() {
-        matchSingleToken(lexer, "union", XPathTokenType.K_UNION)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("union", XPathTokenType.K_UNION)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(",", XPathTokenType.COMMA)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery 4.0 ED EBNF (234) EnumerationType")
     fun enumerationType() {
-        matchSingleToken(lexer, "enum", XPathTokenType.K_ENUM)
-        matchSingleToken(lexer, "(", XPathTokenType.PARENTHESIS_OPEN)
-        matchSingleToken(lexer, ",", XPathTokenType.COMMA)
-        matchSingleToken(lexer, ")", XPathTokenType.PARENTHESIS_CLOSE)
+        token("enum", XPathTokenType.K_ENUM)
+        token("(", XPathTokenType.PARENTHESIS_OPEN)
+        token(",", XPathTokenType.COMMA)
+        token(")", XPathTokenType.PARENTHESIS_CLOSE)
     }
 }

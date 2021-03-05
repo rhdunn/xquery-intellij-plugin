@@ -39,17 +39,6 @@ abstract class LexerTestCase {
         lexer.advance()
     }
 
-    protected fun matchSingleToken(lexer: Lexer, text: String, state: Int, type: IElementType) {
-        val length = text.length
-        lexer.start(text)
-        matchToken(lexer, text, 0, 0, length, type)
-        matchToken(lexer, "", state, length, length, null)
-    }
-
-    protected fun matchSingleToken(lexer: Lexer, text: String, type: IElementType) {
-        matchSingleToken(lexer, text, 0, type)
-    }
-
     fun tokenize(text: CharSequence, start: Int, end: Int, state: Int, test: LexerTokens.() -> Unit = {}) {
         val tokens = LexerTokens(lexer, start, state)
         lexer.start(text, start, end, state)
