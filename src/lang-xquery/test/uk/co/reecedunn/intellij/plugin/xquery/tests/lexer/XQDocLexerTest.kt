@@ -22,12 +22,12 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCaseEx
+import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQDocLexer
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQDocTokenType
 
 @DisplayName("xqDoc - Lexer")
-class XQDocLexerTest : LexerTestCaseEx() {
+class XQDocLexerTest : LexerTestCase() {
     override val lexer: Lexer = XQDocLexer()
 
     @Nested

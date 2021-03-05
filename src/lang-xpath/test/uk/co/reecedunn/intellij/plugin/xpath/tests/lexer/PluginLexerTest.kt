@@ -19,12 +19,12 @@ import com.intellij.lexer.Lexer
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XmlCodePointRangeImpl
-import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCaseEx
+import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
 @DisplayName("XQuery IntelliJ Plugin - Lexer")
-class PluginLexerTest : LexerTestCaseEx() {
+class PluginLexerTest : LexerTestCase() {
     override val lexer: Lexer = XPathLexer(XmlCodePointRangeImpl())
 
     @Test

@@ -18,14 +18,14 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.intellij.lexer
 import com.intellij.lexer.Lexer
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCaseEx
+import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lexer.XQuerySyntaxHighlighter
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQDocTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 @DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - XQuery Highlighting Lexer")
-class XQueryHighlightingLexerTest : LexerTestCaseEx() {
+class XQueryHighlightingLexerTest : LexerTestCase() {
     override val lexer: Lexer = XQuerySyntaxHighlighter.highlightingLexer
 
     @Test

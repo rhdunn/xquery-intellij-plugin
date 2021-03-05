@@ -23,14 +23,14 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.lexer.CombinedLexer
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCaseEx
+import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 @Suppress("ClassName", "Reformat")
 @DisplayName("XQuery 3.1 - Lexer")
-class XQueryLexerTest : LexerTestCaseEx() {
+class XQueryLexerTest : LexerTestCase() {
     override val lexer: Lexer = run {
         val lexer = CombinedLexer(XQueryLexer())
         lexer.addState(

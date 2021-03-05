@@ -22,6 +22,8 @@ import org.hamcrest.core.Is.`is`
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 
 abstract class LexerTestCase {
+    abstract val lexer: Lexer
+
     protected fun matchToken(lexer: Lexer, text: String, state: Int, start: Int, end: Int, type: IElementType?) {
         assertThat(lexer.tokenText, `is`(text))
         assertThat(lexer.state, `is`(state))
@@ -47,10 +49,6 @@ abstract class LexerTestCase {
     protected fun matchSingleToken(lexer: Lexer, text: String, type: IElementType) {
         matchSingleToken(lexer, text, 0, type)
     }
-}
-
-abstract class LexerTestCaseEx : LexerTestCase() {
-    abstract val lexer: Lexer
 
     fun tokenize(text: CharSequence, start: Int, end: Int, state: Int, test: LexerTokens.() -> Unit = {}) {
         val tokens = LexerTokens(lexer, start, state)

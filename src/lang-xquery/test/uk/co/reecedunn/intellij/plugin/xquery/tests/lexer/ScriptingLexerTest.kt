@@ -19,13 +19,13 @@ import com.intellij.lexer.Lexer
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.lexer.CombinedLexer
-import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCaseEx
+import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 @DisplayName("XQuery Scripting Extensions 1.0 - Lexer")
-class ScriptingLexerTest : LexerTestCaseEx() {
+class ScriptingLexerTest : LexerTestCase() {
     override val lexer: Lexer = run {
         val lexer = CombinedLexer(XQueryLexer())
         lexer.addState(

@@ -23,12 +23,12 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XmlCodePointRangeImpl
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCaseEx
+import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
 @DisplayName("XPath 3.1 - Lexer")
-class XPathLexerTest : LexerTestCaseEx() {
+class XPathLexerTest : LexerTestCase() {
     override val lexer: Lexer = XPathLexer(XmlCodePointRangeImpl())
 
     @Nested

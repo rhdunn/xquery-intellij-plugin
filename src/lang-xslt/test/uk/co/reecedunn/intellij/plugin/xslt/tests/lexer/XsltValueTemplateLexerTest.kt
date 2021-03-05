@@ -19,14 +19,14 @@ import com.intellij.lexer.Lexer
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCaseEx
+import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XmlCodePointRangeImpl
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.ValueTemplate
 import uk.co.reecedunn.intellij.plugin.xslt.lexer.XsltValueTemplateLexer
 
 @DisplayName("XSLT 3.0 - Lexer - Value Templates")
-class XsltValueTemplateLexerTest : LexerTestCaseEx() {
+class XsltValueTemplateLexerTest : LexerTestCase() {
     override val lexer: Lexer = XsltValueTemplateLexer(XmlCodePointRangeImpl())
 
     @Nested
