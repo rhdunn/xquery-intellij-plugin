@@ -19,6 +19,8 @@ declare option o:implementation "marklogic/6.0";
 
 (: Return the servers on the MarkLogic server. :)
 
+("(none)", "(none)"),
+
 let $databases := map:map()
 let $_ :=
     for $id in xdmp:servers()
@@ -30,7 +32,7 @@ let $_ :=
 for $id in xdmp:databases()
 let $database := xdmp:database-name($id)
 let $servers := map:get($databases, $database)
-return if (exists($servers)) then
-    for $server in $servers return ($server, $database)
-else
-    ("App-Services", $database)
+return (
+    for $server in $servers return ($server, $database),
+    ("(none)", $database)
+)
