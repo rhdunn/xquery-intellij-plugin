@@ -21,7 +21,9 @@ import uk.co.reecedunn.intellij.plugin.processor.test.TestSuites
 
 class XRayHtmlTests(private val tests: Element) : TestSuites {
     private val summary: Map<String, Int> by lazy {
-        tests.selectFirst("footer > p").text().substringAfter("Summary: ").split(", ").associate {
+        val summary = tests.selectFirst("footer > p")?.text()?.substringAfter("Summary: ")
+            ?: return@lazy mapOf<String, Int>()
+        summary.split(", ").associate {
             it.split(' ').let { parts -> parts[0] to parts[1].toInt() }
         }
     }
@@ -42,7 +44,12 @@ class XRayHtmlTests(private val tests: Element) : TestSuites {
         get() = summary["Errors"] ?: 0
 
     private val testSuitesList by lazy {
-        tests.select("section > details").map { XRayHtmlTestModule(it) }
+        tests.select("section > details").mapNotNull {
+            if (it.select("summary > a").isEmpty())
+                null
+            else
+                XRayHtmlTestModule(it)
+        }
     }
 
     override val testSuites: Sequence<TestSuite>
