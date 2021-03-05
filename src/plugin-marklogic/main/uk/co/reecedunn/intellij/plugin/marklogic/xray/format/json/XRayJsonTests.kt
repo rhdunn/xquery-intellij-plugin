@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.format.json
 
 import com.google.gson.JsonObject
+import uk.co.reecedunn.intellij.plugin.core.gson.getOrNull
 import uk.co.reecedunn.intellij.plugin.processor.test.TestStatistics
 import uk.co.reecedunn.intellij.plugin.processor.test.TestSuite
 import uk.co.reecedunn.intellij.plugin.processor.test.TestSuites
@@ -42,7 +43,7 @@ class XRayJsonTests(private val tests: JsonObject) : TestSuites {
     }
 
     private val testSuitesList by lazy {
-        tests.getAsJsonArray("module").map { XRayJsonTestModule(it.asJsonObject) }.toList()
+        tests.getOrNull("module")?.asJsonArray?.map { XRayJsonTestModule(it.asJsonObject) }?.toList() ?: listOf()
     }
 
     override val testSuites: Sequence<TestSuite>
