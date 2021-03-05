@@ -44,8 +44,6 @@ class XQueryLexerTest : LexerTestCase() {
         return lexer
     }
 
-    private fun createXQueryLexer(): Lexer = XQueryLexer()
-
     @Nested
     @DisplayName("Lexer")
     internal inner class LexerTest {
@@ -890,117 +888,6 @@ class XQueryLexerTest : LexerTestCase() {
     @DisplayName("XQuery 1.0 EBNF (96) DirElemConstructor")
     internal inner class DirElemConstructor {
         @Test
-        @DisplayName("as single token using XQueryLexer")
-        fun testDirElemConstructor_OpenXmlTagAsSingleToken() {
-            val lexer = createXQueryLexer()
-
-            matchSingleToken(lexer, "<", XPathTokenType.LESS_THAN)
-            matchSingleToken(lexer, ">", XPathTokenType.GREATER_THAN)
-
-            matchSingleToken(lexer, "</", XQueryTokenType.CLOSE_XML_TAG)
-            matchSingleToken(lexer, "/>", XQueryTokenType.SELF_CLOSING_XML_TAG)
-
-            lexer.start("<one:two/>")
-            matchToken(lexer, "<one:two/>", 0, 0, 10, XQueryTokenType.DIRELEM_OPEN_XML_TAG)
-            matchToken(lexer, "", 0, 10, 10, null)
-
-            lexer.start("<one:two></one:two  >")
-            matchToken(lexer, "<one:two>", 0, 0, 9, XQueryTokenType.DIRELEM_OPEN_XML_TAG)
-            matchToken(lexer, "</", 17, 9, 11, XQueryTokenType.CLOSE_XML_TAG)
-            matchToken(lexer, "one", 12, 11, 14, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, ":", 12, 14, 15, XQueryTokenType.XML_TAG_QNAME_SEPARATOR)
-            matchToken(lexer, "two", 12, 15, 18, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, "  ", 12, 18, 20, XQueryTokenType.XML_WHITE_SPACE)
-            matchToken(lexer, ">", 12, 20, 21, XQueryTokenType.END_XML_TAG)
-            matchToken(lexer, "", 0, 21, 21, null)
-
-            lexer.start("<one:two  ></one:two>")
-            matchToken(lexer, "<one:two  >", 0, 0, 11, XQueryTokenType.DIRELEM_OPEN_XML_TAG)
-            matchToken(lexer, "</", 17, 11, 13, XQueryTokenType.CLOSE_XML_TAG)
-            matchToken(lexer, "one", 12, 13, 16, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, ":", 12, 16, 17, XQueryTokenType.XML_TAG_QNAME_SEPARATOR)
-            matchToken(lexer, "two", 12, 17, 20, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, ">", 12, 20, 21, XQueryTokenType.END_XML_TAG)
-            matchToken(lexer, "", 0, 21, 21, null)
-
-            lexer.start("<one:two/*/>")
-            matchToken(lexer, "<one:two", 0, 0, 8, XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG)
-            matchToken(lexer, "/", 0, 8, 9, XPathTokenType.DIRECT_DESCENDANTS_PATH)
-            matchToken(lexer, "*", 0, 9, 10, XPathTokenType.STAR)
-            matchToken(lexer, "/>", 0, 10, 12, XQueryTokenType.SELF_CLOSING_XML_TAG)
-            matchToken(lexer, "", 0, 12, 12, null)
-
-            lexer.start("<one:two//*/>")
-            matchToken(lexer, "<one:two", 0, 0, 8, XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG)
-            matchToken(lexer, "//", 0, 8, 10, XPathTokenType.ALL_DESCENDANTS_PATH)
-            matchToken(lexer, "*", 0, 10, 11, XPathTokenType.STAR)
-            matchToken(lexer, "/>", 0, 11, 13, XQueryTokenType.SELF_CLOSING_XML_TAG)
-            matchToken(lexer, "", 0, 13, 13, null)
-
-            lexer.start("1 < fn:abs (")
-            matchToken(lexer, "1", 0, 0, 1, XPathTokenType.INTEGER_LITERAL)
-            matchToken(lexer, " ", 0, 1, 2, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "< fn:abs ", 0, 2, 11, XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG)
-            matchToken(lexer, "(", 0, 11, 12, XPathTokenType.PARENTHESIS_OPEN)
-            matchToken(lexer, "", 0, 12, 12, null)
-
-            lexer.start("1 <fn:abs (")
-            matchToken(lexer, "1", 0, 0, 1, XPathTokenType.INTEGER_LITERAL)
-            matchToken(lexer, " ", 0, 1, 2, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "<fn:abs ", 0, 2, 10, XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG)
-            matchToken(lexer, "(", 0, 10, 11, XPathTokenType.PARENTHESIS_OPEN)
-            matchToken(lexer, "", 0, 11, 11, null)
-
-            lexer.start("1 < fn:abs #")
-            matchToken(lexer, "1", 0, 0, 1, XPathTokenType.INTEGER_LITERAL)
-            matchToken(lexer, " ", 0, 1, 2, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "< fn:abs ", 0, 2, 11, XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG)
-            matchToken(lexer, "#", 0, 11, 12, XPathTokenType.FUNCTION_REF_OPERATOR)
-            matchToken(lexer, "", 0, 12, 12, null)
-
-            lexer.start("1 <fn:abs #")
-            matchToken(lexer, "1", 0, 0, 1, XPathTokenType.INTEGER_LITERAL)
-            matchToken(lexer, " ", 0, 1, 2, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "<fn:abs ", 0, 2, 10, XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG)
-            matchToken(lexer, "#", 0, 10, 11, XPathTokenType.FUNCTION_REF_OPERATOR)
-            matchToken(lexer, "", 0, 11, 11, null)
-
-            lexer.start("1 < 2")
-            matchToken(lexer, "1", 0, 0, 1, XPathTokenType.INTEGER_LITERAL)
-            matchToken(lexer, " ", 0, 1, 2, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "<", 0, 2, 3, XPathTokenType.LESS_THAN)
-            matchToken(lexer, " ", 0, 3, 4, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "2", 0, 4, 5, XPathTokenType.INTEGER_LITERAL)
-            matchToken(lexer, "", 0, 5, 5, null)
-        }
-
-        @Test
-        @DisplayName("as single token using XQueryLexer, adding an xml element")
-        fun testDirElemConstructor_OpenXmlTagAsSingleToken_AddingXmlElement() {
-            val lexer = createXQueryLexer()
-
-            lexer.start("<<a")
-            matchToken(lexer, "<<", 0, 0, 2, XPathTokenType.NODE_BEFORE)
-            matchToken(lexer, "a", 0, 2, 3, XPathTokenType.NCNAME)
-            matchToken(lexer, "", 0, 3, 3, null)
-
-            lexer.start("<<a/>")
-            matchToken(lexer, "<", 0, 0, 1, XPathTokenType.LESS_THAN)
-            matchToken(lexer, "<a/>", 0, 1, 5, XQueryTokenType.DIRELEM_OPEN_XML_TAG)
-            matchToken(lexer, "", 0, 5, 5, null)
-
-            lexer.start("<a<a/>")
-            matchToken(lexer, "<a", 0, 0, 2, XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG)
-            matchToken(lexer, "<a/>", 0, 2, 6, XQueryTokenType.DIRELEM_OPEN_XML_TAG)
-            matchToken(lexer, "", 0, 6, 6, null)
-
-            lexer.start("<a <a/>")
-            matchToken(lexer, "<a ", 0, 0, 3, XQueryTokenType.DIRELEM_MAYBE_OPEN_XML_TAG)
-            matchToken(lexer, "<a/>", 0, 3, 7, XQueryTokenType.DIRELEM_OPEN_XML_TAG)
-            matchToken(lexer, "", 0, 7, 7, null)
-        }
-
-        @Test
         @DisplayName("maybe direct element constructor state")
         fun testDirElemConstructor_MaybeDirElem() {
             val lexer = createLexer()
@@ -1205,39 +1092,6 @@ class XQueryLexerTest : LexerTestCase() {
     @Nested
     @DisplayName("XQuery 1.0 EBNF (97) DirAttributeList ; XQuery 1.0 EBNF (98) DirAttributeValue")
     internal inner class DirAttributeList {
-        @Test
-        @DisplayName("as single token using XQueryLexer")
-        fun testDirAttributeList_OpenXmlTagAsSingleToken() {
-            val lexer = createXQueryLexer()
-
-            matchSingleToken(lexer, "=", XPathTokenType.EQUAL)
-
-            lexer.start("<one:two  a:b  =  \"One\"  c:d  =  'Two'  />")
-            matchToken(lexer, "<one:two  ", 0, 0, 10, XQueryTokenType.DIRELEM_OPEN_XML_TAG)
-            matchToken(lexer, "a", 25, 10, 11, XQueryTokenType.XML_ATTRIBUTE_NCNAME)
-            matchToken(lexer, ":", 25, 11, 12, XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR)
-            matchToken(lexer, "b", 25, 12, 13, XQueryTokenType.XML_ATTRIBUTE_NCNAME)
-            matchToken(lexer, "  ", 25, 13, 15, XQueryTokenType.XML_WHITE_SPACE)
-            matchToken(lexer, "=", 25, 15, 16, XQueryTokenType.XML_EQUAL)
-            matchToken(lexer, "  ", 25, 16, 18, XQueryTokenType.XML_WHITE_SPACE)
-            matchToken(lexer, "\"", 25, 18, 19, XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
-            matchToken(lexer, "One", 13, 19, 22, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
-            matchToken(lexer, "\"", 13, 22, 23, XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
-            matchToken(lexer, "  ", 25, 23, 25, XQueryTokenType.XML_WHITE_SPACE)
-            matchToken(lexer, "c", 25, 25, 26, XQueryTokenType.XML_ATTRIBUTE_NCNAME)
-            matchToken(lexer, ":", 25, 26, 27, XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR)
-            matchToken(lexer, "d", 25, 27, 28, XQueryTokenType.XML_ATTRIBUTE_NCNAME)
-            matchToken(lexer, "  ", 25, 28, 30, XQueryTokenType.XML_WHITE_SPACE)
-            matchToken(lexer, "=", 25, 30, 31, XQueryTokenType.XML_EQUAL)
-            matchToken(lexer, "  ", 25, 31, 33, XQueryTokenType.XML_WHITE_SPACE)
-            matchToken(lexer, "'", 25, 33, 34, XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
-            matchToken(lexer, "Two", 14, 34, 37, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
-            matchToken(lexer, "'", 14, 37, 38, XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
-            matchToken(lexer, "  ", 25, 38, 40, XQueryTokenType.XML_WHITE_SPACE)
-            matchToken(lexer, "/>", 25, 40, 42, XQueryTokenType.SELF_CLOSING_XML_TAG)
-            matchToken(lexer, "", 0, 42, 42, null)
-        }
-
         @Test
         @DisplayName("as separate tokens using CombinedLexer")
         fun testDirAttributeList() {
