@@ -43,6 +43,7 @@ private class MarkLogic9ErrorLogPsiTest : ParsingTestCase<MarkLogicErrorLog>("lo
             "\tat java.lang.System.initProperties(Native Method)"
         )[0]
 
+        assertThat(line.text, `is`("\tat java.lang.System.initProperties(Native Method)"))
         assertThat(line.logLevel?.elementType, `is`(nullValue()))
     }
 
@@ -53,6 +54,7 @@ private class MarkLogic9ErrorLogPsiTest : ParsingTestCase<MarkLogicErrorLog>("lo
             "WARNING: JNI local refs: zu, exceeds capacity: zu"
         )[0]
 
+        assertThat(line.text, `is`("WARNING: JNI local refs: zu, exceeds capacity: zu"))
         assertThat(line.logLevel?.elementType, `is`(MarkLogicErrorLogTokenType.LogLevel.WARNING))
     }
 
@@ -63,6 +65,7 @@ private class MarkLogic9ErrorLogPsiTest : ParsingTestCase<MarkLogicErrorLog>("lo
             "2001-01-10 12:34:56.789 Info: Lorem ipsum dolor"
         )[0]
 
+        assertThat(line.text, `is`("2001-01-10 12:34:56.789 Info: Lorem ipsum dolor"))
         assertThat(line.logLevel?.elementType, `is`(MarkLogicErrorLogTokenType.LogLevel.INFO))
     }
 }
