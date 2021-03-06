@@ -49,59 +49,54 @@ class XQueryLexerTest : LexerTestCase() {
     internal inner class LexerTest {
         @Test
         @DisplayName("invalid state")
-        fun testInvalidState() {
-            val e = assertThrows(AssertionError::class.java) { lexer.start("123", 0, 3, 4096) }
+        fun invalidState() {
+            val e = assertThrows(AssertionError::class.java) { tokenize("123", 0, 3, 4096) }
             assertThat(e.message, `is`("Invalid state: 4096"))
         }
 
         @Test
         @DisplayName("empty stack when calling advance()")
-        fun testEmptyStackInAdvance() {
+        fun emptyStackInAdvance() {
             lexer.start("\"Hello World\"")
             lexer.advance()
             assertThat(lexer.state, `is`(1))
 
-            lexer.start("} {\"")
-            matchToken(lexer, "}", 0, 0, 1, XPathTokenType.BLOCK_CLOSE)
-            matchToken(lexer, " ", 0, 1, 2, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "{", 0, 2, 3, XPathTokenType.BLOCK_OPEN)
-            matchToken(lexer, "\"", 0, 3, 4, XPathTokenType.STRING_LITERAL_START)
-            matchToken(lexer, "", 1, 4, 4, null)
+            tokenize("} {\"") {
+                token("}", XPathTokenType.BLOCK_CLOSE)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token("{", XPathTokenType.BLOCK_OPEN)
+                token("\"", XPathTokenType.STRING_LITERAL_START)
+                state(1)
+            }
         }
 
         @Test
         @DisplayName("empty stack when calling popState()")
-        fun testEmptyStackInPopState() {
-            lexer.start("} } ")
-            matchToken(lexer, "}", 0, 0, 1, XPathTokenType.BLOCK_CLOSE)
-            matchToken(lexer, " ", 0, 1, 2, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "}", 0, 2, 3, XPathTokenType.BLOCK_CLOSE)
-            matchToken(lexer, " ", 0, 3, 4, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "", 0, 4, 4, null)
+        fun emptyStackInPopState() = tokenize("} } ") {
+            token("}", XPathTokenType.BLOCK_CLOSE)
+            token(" ", XPathTokenType.WHITE_SPACE)
+            token("}", XPathTokenType.BLOCK_CLOSE)
+            token(" ", XPathTokenType.WHITE_SPACE)
         }
 
         @Test
         @DisplayName("empty buffer")
-        fun testEmptyBuffer() {
-            lexer.start("")
-            matchToken(lexer, "", 0, 0, 0, null)
+        fun emptyBuffer() = tokenize("") {
         }
 
         @Test
         @DisplayName("bad characters")
-        fun testBadCharacters() {
-            lexer.start("^\uFFFE\u0000\uFFFF")
-            matchToken(lexer, "^", 0, 0, 1, XPathTokenType.BAD_CHARACTER)
-            matchToken(lexer, "\uFFFE", 0, 1, 2, XPathTokenType.BAD_CHARACTER)
-            matchToken(lexer, "\u0000", 0, 2, 3, XPathTokenType.BAD_CHARACTER)
-            matchToken(lexer, "\uFFFF", 0, 3, 4, XPathTokenType.BAD_CHARACTER)
-            matchToken(lexer, "", 0, 4, 4, null)
+        fun badCharacters() = tokenize("^\uFFFE\u0000\uFFFF") {
+            token("^", XPathTokenType.BAD_CHARACTER)
+            token("\uFFFE", XPathTokenType.BAD_CHARACTER)
+            token("\u0000", XPathTokenType.BAD_CHARACTER)
+            token("\uFFFF", XPathTokenType.BAD_CHARACTER)
         }
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (2) VersionDecl")
-    fun testVersionDecl() {
+    fun versionDecl() {
         token("xquery", XQueryTokenType.K_XQUERY)
         token("version", XQueryTokenType.K_VERSION)
         token("encoding", XQueryTokenType.K_ENCODING)
@@ -109,7 +104,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (5) ModuleDecl")
-    fun testModuleDecl() {
+    fun moduleDecl() {
         token("module", XQueryTokenType.K_MODULE)
         token("namespace", XPathTokenType.K_NAMESPACE)
         token("=", XPathTokenType.EQUAL)
@@ -117,13 +112,13 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (9) Separator")
-    fun testSeparator() {
+    fun separator() {
         token(";", XQueryTokenType.SEPARATOR)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (10) NamespaceDecl")
-    fun testNamespaceDecl() {
+    fun namespaceDecl() {
         token("declare", XQueryTokenType.K_DECLARE)
         token("namespace", XPathTokenType.K_NAMESPACE)
         token("=", XPathTokenType.EQUAL)
@@ -131,7 +126,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (11) BoundarySpaceDecl")
-    fun testBoundarySpaceDecl() {
+    fun boundarySpaceDecl() {
         token("declare", XQueryTokenType.K_DECLARE)
         token("boundary-space", XQueryTokenType.K_BOUNDARY_SPACE)
         token("preserve", XQueryTokenType.K_PRESERVE)
@@ -140,7 +135,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (12) DefaultNamespaceDecl")
-    fun testDefaultNamespaceDecl() {
+    fun defaultNamespaceDecl() {
         token("declare", XQueryTokenType.K_DECLARE)
         token("default", XPathTokenType.K_DEFAULT)
         token("element", XPathTokenType.K_ELEMENT)
@@ -151,14 +146,14 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (13) OptionDecl")
-    fun testOptionDecl() {
+    fun optionDecl() {
         token("declare", XQueryTokenType.K_DECLARE)
         token("option", XPathTokenType.K_OPTION)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (14) OrderingModeDecl")
-    fun testOrderingModeDecl() {
+    fun orderingModeDecl() {
         token("declare", XQueryTokenType.K_DECLARE)
         token("ordering", XQueryTokenType.K_ORDERING)
         token("ordered", XPathTokenType.K_ORDERED)
@@ -167,7 +162,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (15) EmptyOrderDecl")
-    fun testEmptyOrderDecl() {
+    fun emptyOrderDecl() {
         token("declare", XQueryTokenType.K_DECLARE)
         token("default", XPathTokenType.K_DEFAULT)
         token("order", XQueryTokenType.K_ORDER)
@@ -178,7 +173,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (16) CopyNamespacesDecl")
-    fun testCopyNamespacesDecl() {
+    fun copyNamespacesDecl() {
         token("declare", XQueryTokenType.K_DECLARE)
         token("copy-namespaces", XQueryTokenType.K_COPY_NAMESPACES)
         token(",", XPathTokenType.COMMA)
@@ -186,21 +181,21 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (17) PreserveMode")
-    fun testPreserveMode() {
+    fun preserveMode() {
         token("preserve", XQueryTokenType.K_PRESERVE)
         token("no-preserve", XQueryTokenType.K_NO_PRESERVE)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (18) InheritMode")
-    fun testInheritMode() {
+    fun inheritMode() {
         token("inherit", XQueryTokenType.K_INHERIT)
         token("no-inherit", XQueryTokenType.K_NO_INHERIT)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (19) DefaultCollationDecl")
-    fun testDefaultCollationDecl() {
+    fun defaultCollationDecl() {
         token("declare", XQueryTokenType.K_DECLARE)
         token("default", XPathTokenType.K_DEFAULT)
         token("collation", XQueryTokenType.K_COLLATION)
@@ -208,14 +203,14 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (20) BaseURIDecl")
-    fun testBaseURIDecl() {
+    fun baseURIDecl() {
         token("declare", XQueryTokenType.K_DECLARE)
         token("base-uri", XQueryTokenType.K_BASE_URI)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (21) SchemaImport")
-    fun testSchemaImport() {
+    fun schemaImport() {
         token("import", XQueryTokenType.K_IMPORT)
         token("schema", XQueryTokenType.K_SCHEMA)
         token("at", XPathTokenType.K_AT)
@@ -224,7 +219,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (22) SchemaPrefix")
-    fun testSchemaPrefix() {
+    fun schemaPrefix() {
         token("namespace", XPathTokenType.K_NAMESPACE)
         token("=", XPathTokenType.EQUAL)
 
@@ -235,7 +230,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (23) ModuleImport")
-    fun testModuleImport() {
+    fun moduleImport() {
         token("import", XQueryTokenType.K_IMPORT)
         token("module", XQueryTokenType.K_MODULE)
         token("at", XPathTokenType.K_AT)
@@ -247,7 +242,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (24) VarDecl")
-    fun testVarDecl() {
+    fun varDecl() {
         token("declare", XQueryTokenType.K_DECLARE)
         token("variable", XQueryTokenType.K_VARIABLE)
         token("$", XPathTokenType.VARIABLE_INDICATOR)
@@ -257,7 +252,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (25) ConstructionDecl")
-    fun testConstructionDecl() {
+    fun constructionDecl() {
         token("declare", XQueryTokenType.K_DECLARE)
         token("construction", XQueryTokenType.K_CONSTRUCTION)
         token("strip", XQueryTokenType.K_STRIP)
@@ -266,7 +261,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (26) FunctionDecl")
-    fun testFunctionDecl() {
+    fun functionDecl() {
         token("declare", XQueryTokenType.K_DECLARE)
         token("function", XPathTokenType.K_FUNCTION)
         token("(", XPathTokenType.PARENTHESIS_OPEN)
@@ -302,13 +297,13 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (33) FLWORExpr")
-    fun testFLWORExpr() {
+    fun flworExpr() {
         token("return", XPathTokenType.K_RETURN)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (34) ForClause ; XQuery 3.0 EBNF (45) ForBinding")
-    fun testForClause() {
+    fun forClause() {
         token("for", XPathTokenType.K_FOR)
         token("$", XPathTokenType.VARIABLE_INDICATOR)
         token("in", XPathTokenType.K_IN)
@@ -317,14 +312,14 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (35) PositionalVar")
-    fun testPositionalVar() {
+    fun positionalVar() {
         token("at", XPathTokenType.K_AT)
         token("$", XPathTokenType.VARIABLE_INDICATOR)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (36) LetClause ; XQuery 3.0 EBNF (49) LetBinding")
-    fun testLetClause() {
+    fun letClause() {
         token("let", XPathTokenType.K_LET)
         token("$", XPathTokenType.VARIABLE_INDICATOR)
         token(":=", XPathTokenType.ASSIGN_EQUAL)
@@ -333,13 +328,13 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (37) WhereClause")
-    fun testWhereClause() {
+    fun whereClause() {
         token("where", XQueryTokenType.K_WHERE)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (38) OrderByClause")
-    fun testOrderByClause() {
+    fun orderByClause() {
         token("stable", XQueryTokenType.K_STABLE)
         token("order", XQueryTokenType.K_ORDER)
         token("by", XQueryTokenType.K_BY)
@@ -347,13 +342,13 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (39) OrderSpecList")
-    fun testOrderSpecList() {
+    fun orderSpecList() {
         token(",", XPathTokenType.COMMA)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (41) OrderModifier")
-    fun testOrderModifier() {
+    fun orderModifier() {
         token("ascending", XQueryTokenType.K_ASCENDING)
         token("descending", XQueryTokenType.K_DESCENDING)
 
@@ -377,7 +372,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (43) TypeswitchExpr")
-    fun testTypeswitchExpr() {
+    fun typeswitchExpr() {
         token("typeswitch", XQueryTokenType.K_TYPESWITCH)
         token("(", XPathTokenType.PARENTHESIS_OPEN)
         token(")", XPathTokenType.PARENTHESIS_CLOSE)
@@ -388,7 +383,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (44) CaseClause")
-    fun testCaseClause() {
+    fun caseClause() {
         token("case", XPathTokenType.K_CASE)
         token("$", XPathTokenType.VARIABLE_INDICATOR)
         token("as", XPathTokenType.K_AS)
@@ -487,15 +482,15 @@ class XQueryLexerTest : LexerTestCase() {
         token("+", XPathTokenType.PLUS)
         token("-", XPathTokenType.MINUS)
 
-        lexer.start("++")
-        matchToken(lexer, "+", 0, 0, 1, XPathTokenType.PLUS)
-        matchToken(lexer, "+", 0, 1, 2, XPathTokenType.PLUS)
-        matchToken(lexer, "", 0, 2, 2, null)
+        tokenize("++") {
+            token("+", XPathTokenType.PLUS)
+            token("+", XPathTokenType.PLUS)
+        }
 
-        lexer.start("--")
-        matchToken(lexer, "-", 0, 0, 1, XPathTokenType.MINUS)
-        matchToken(lexer, "-", 0, 1, 2, XPathTokenType.MINUS)
-        matchToken(lexer, "", 0, 2, 2, null)
+        tokenize("--") {
+            token("-", XPathTokenType.MINUS)
+            token("-", XPathTokenType.MINUS)
+        }
     }
 
     @Test
@@ -530,7 +525,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (63) ValidateExpr")
-    fun testValidateExpr() {
+    fun validateExpr() {
         token("validate", XQueryTokenType.K_VALIDATE)
         token("{", XPathTokenType.BLOCK_OPEN)
         token("}", XPathTokenType.BLOCK_CLOSE)
@@ -538,94 +533,128 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (64) ValidateMode")
-    fun testValidationMode() {
+    fun validationMode() {
         token("lax", XQueryTokenType.K_LAX)
         token("strict", XQueryTokenType.K_STRICT)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (65) ExtensionExpr")
-    fun testExtensionExpr() {
+    fun extensionExpr() {
         token("{", XPathTokenType.BLOCK_OPEN)
         token("}", XPathTokenType.BLOCK_CLOSE)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (66) Pragma ; XQuery 1.0 EBNF (67) PragmaContents")
-    fun testPragma() {
+    fun pragma() {
         token("(#", 8, XPathTokenType.PRAGMA_BEGIN)
         token("#)", 0, XPathTokenType.PRAGMA_END)
 
         token("(", XPathTokenType.PARENTHESIS_OPEN)
         token("#", XPathTokenType.FUNCTION_REF_OPERATOR)
 
-        lexer.start("(#  let:for  6^gkgw~*#g#)")
-        matchToken(lexer, "(#", 0, 0, 2, XPathTokenType.PRAGMA_BEGIN)
-        matchToken(lexer, "  ", 8, 2, 4, XPathTokenType.WHITE_SPACE)
-        matchToken(lexer, "let", 8, 4, 7, XPathTokenType.NCNAME)
-        matchToken(lexer, ":", 9, 7, 8, XPathTokenType.QNAME_SEPARATOR)
-        matchToken(lexer, "for", 9, 8, 11, XPathTokenType.NCNAME)
-        matchToken(lexer, "  ", 9, 11, 13, XPathTokenType.WHITE_SPACE)
-        matchToken(lexer, "6^gkgw~*#g", 10, 13, 23, XPathTokenType.PRAGMA_CONTENTS)
-        matchToken(lexer, "#)", 10, 23, 25, XPathTokenType.PRAGMA_END)
-        matchToken(lexer, "", 0, 25, 25, null)
+        tokenize("(#  let:for  6^gkgw~*#g#)") {
+            token("(#", XPathTokenType.PRAGMA_BEGIN)
+            state(8)
+            token("  ", XPathTokenType.WHITE_SPACE)
+            token("let", XPathTokenType.NCNAME)
+            state(9)
+            token(":", XPathTokenType.QNAME_SEPARATOR)
+            token("for", XPathTokenType.NCNAME)
+            token("  ", XPathTokenType.WHITE_SPACE)
+            state(10)
+            token("6^gkgw~*#g", XPathTokenType.PRAGMA_CONTENTS)
+            token("#)", XPathTokenType.PRAGMA_END)
+            state(0)
+        }
 
-        lexer.start("(#let ##)")
-        matchToken(lexer, "(#", 0, 0, 2, XPathTokenType.PRAGMA_BEGIN)
-        matchToken(lexer, "let", 8, 2, 5, XPathTokenType.NCNAME)
-        matchToken(lexer, " ", 9, 5, 6, XPathTokenType.WHITE_SPACE)
-        matchToken(lexer, "#", 10, 6, 7, XPathTokenType.PRAGMA_CONTENTS)
-        matchToken(lexer, "#)", 10, 7, 9, XPathTokenType.PRAGMA_END)
-        matchToken(lexer, "", 0, 9, 9, null)
+        tokenize("(#let ##)") {
+            token("(#", XPathTokenType.PRAGMA_BEGIN)
+            state(8)
+            token("let", XPathTokenType.NCNAME)
+            state(9)
+            token(" ", XPathTokenType.WHITE_SPACE)
+            state(10)
+            token("#", XPathTokenType.PRAGMA_CONTENTS)
+            token("#)", XPathTokenType.PRAGMA_END)
+            state(0)
+        }
 
-        lexer.start("(#let 2")
-        matchToken(lexer, "(#", 0, 0, 2, XPathTokenType.PRAGMA_BEGIN)
-        matchToken(lexer, "let", 8, 2, 5, XPathTokenType.NCNAME)
-        matchToken(lexer, " ", 9, 5, 6, XPathTokenType.WHITE_SPACE)
-        matchToken(lexer, "2", 10, 6, 7, XPathTokenType.PRAGMA_CONTENTS)
-        matchToken(lexer, "", 6, 7, 7, XPathTokenType.UNEXPECTED_END_OF_BLOCK)
-        matchToken(lexer, "", 0, 7, 7, null)
+        tokenize("(#let 2") {
+            token("(#", XPathTokenType.PRAGMA_BEGIN)
+            state(8)
+            token("let", XPathTokenType.NCNAME)
+            state(9)
+            token(" ", XPathTokenType.WHITE_SPACE)
+            state(10)
+            token("2", XPathTokenType.PRAGMA_CONTENTS)
+            state(6)
+            token("", XPathTokenType.UNEXPECTED_END_OF_BLOCK)
+            state(0)
+        }
 
-        lexer.start("(#let ")
-        matchToken(lexer, "(#", 0, 0, 2, XPathTokenType.PRAGMA_BEGIN)
-        matchToken(lexer, "let", 8, 2, 5, XPathTokenType.NCNAME)
-        matchToken(lexer, " ", 9, 5, 6, XPathTokenType.WHITE_SPACE)
-        matchToken(lexer, "", 10, 6, 6, null)
+        tokenize("(#let ") {
+            token("(#", XPathTokenType.PRAGMA_BEGIN)
+            state(8)
+            token("let", XPathTokenType.NCNAME)
+            state(9)
+            token(" ", XPathTokenType.WHITE_SPACE)
+            state(10)
+        }
 
-        lexer.start("(#let~~~#)")
-        matchToken(lexer, "(#", 0, 0, 2, XPathTokenType.PRAGMA_BEGIN)
-        matchToken(lexer, "let", 8, 2, 5, XPathTokenType.NCNAME)
-        matchToken(lexer, "~~~", 9, 5, 8, XPathTokenType.PRAGMA_CONTENTS)
-        matchToken(lexer, "#)", 10, 8, 10, XPathTokenType.PRAGMA_END)
-        matchToken(lexer, "", 0, 10, 10, null)
+        tokenize("(#let~~~#)") {
+            token("(#", XPathTokenType.PRAGMA_BEGIN)
+            state(8)
+            token("let", XPathTokenType.NCNAME)
+            state(9)
+            token("~~~", XPathTokenType.PRAGMA_CONTENTS)
+            state(10)
+            token("#)", XPathTokenType.PRAGMA_END)
+            state(0)
+        }
 
-        lexer.start("(#let~~~")
-        matchToken(lexer, "(#", 0, 0, 2, XPathTokenType.PRAGMA_BEGIN)
-        matchToken(lexer, "let", 8, 2, 5, XPathTokenType.NCNAME)
-        matchToken(lexer, "~~~", 9, 5, 8, XPathTokenType.PRAGMA_CONTENTS)
-        matchToken(lexer, "", 6, 8, 8, XPathTokenType.UNEXPECTED_END_OF_BLOCK)
-        matchToken(lexer, "", 0, 8, 8, null)
+        tokenize("(#let~~~") {
+            token("(#", XPathTokenType.PRAGMA_BEGIN)
+            state(8)
+            token("let", XPathTokenType.NCNAME)
+            state(9)
+            token("~~~", XPathTokenType.PRAGMA_CONTENTS)
+            state(6)
+            token("", XPathTokenType.UNEXPECTED_END_OF_BLOCK)
+            state(0)
+        }
 
-        lexer.start("(#:let 2#)")
-        matchToken(lexer, "(#", 0, 0, 2, XPathTokenType.PRAGMA_BEGIN)
-        matchToken(lexer, ":", 8, 2, 3, XPathTokenType.QNAME_SEPARATOR)
-        matchToken(lexer, "let", 9, 3, 6, XPathTokenType.NCNAME)
-        matchToken(lexer, " ", 9, 6, 7, XPathTokenType.WHITE_SPACE)
-        matchToken(lexer, "2", 10, 7, 8, XPathTokenType.PRAGMA_CONTENTS)
-        matchToken(lexer, "#)", 10, 8, 10, XPathTokenType.PRAGMA_END)
-        matchToken(lexer, "", 0, 10, 10, null)
+        tokenize("(#:let 2#)") {
+            token("(#", XPathTokenType.PRAGMA_BEGIN)
+            state(8)
+            token(":", XPathTokenType.QNAME_SEPARATOR)
+            state(9)
+            token("let", XPathTokenType.NCNAME)
+            token(" ", XPathTokenType.WHITE_SPACE)
+            state(10)
+            token("2", XPathTokenType.PRAGMA_CONTENTS)
+            token("#)", XPathTokenType.PRAGMA_END)
+            state(0)
+        }
 
-        lexer.start("(#~~~#)")
-        matchToken(lexer, "(#", 0, 0, 2, XPathTokenType.PRAGMA_BEGIN)
-        matchToken(lexer, "~~~", 8, 2, 5, XPathTokenType.PRAGMA_CONTENTS)
-        matchToken(lexer, "#)", 10, 5, 7, XPathTokenType.PRAGMA_END)
-        matchToken(lexer, "", 0, 7, 7, null)
+        tokenize("(#~~~#)") {
+            token("(#", XPathTokenType.PRAGMA_BEGIN)
+            state(8)
+            token("~~~", XPathTokenType.PRAGMA_CONTENTS)
+            state(10)
+            token("#)", XPathTokenType.PRAGMA_END)
+            state(0)
+        }
 
-        lexer.start("(#~~~")
-        matchToken(lexer, "(#", 0, 0, 2, XPathTokenType.PRAGMA_BEGIN)
-        matchToken(lexer, "~~~", 8, 2, 5, XPathTokenType.PRAGMA_CONTENTS)
-        matchToken(lexer, "", 6, 5, 5, XPathTokenType.UNEXPECTED_END_OF_BLOCK)
-        matchToken(lexer, "", 0, 5, 5, null)
+        tokenize("(#~~~") {
+            token("(#", XPathTokenType.PRAGMA_BEGIN)
+            state(8)
+            token("~~~", XPathTokenType.PRAGMA_CONTENTS)
+            state(6)
+            token("", XPathTokenType.UNEXPECTED_END_OF_BLOCK)
+            state(0)
+        }
     }
 
     @Test
@@ -714,7 +743,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (91) OrderedExpr")
-    fun testOrderedExpr() {
+    fun orderedExpr() {
         token("ordered", XPathTokenType.K_ORDERED)
         token("{", XPathTokenType.BLOCK_OPEN)
         token("}", XPathTokenType.BLOCK_CLOSE)
@@ -722,7 +751,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (92) UnorderedExpr")
-    fun testUnorderedExpr() {
+    fun unorderedExpr() {
         token("unordered", XQueryTokenType.K_UNORDERED)
         token("{", XPathTokenType.BLOCK_OPEN)
         token("}", XPathTokenType.BLOCK_CLOSE)
@@ -741,195 +770,236 @@ class XQueryLexerTest : LexerTestCase() {
     internal inner class DirElemConstructor {
         @Test
         @DisplayName("maybe direct element constructor state")
-        fun testDirElemConstructor_MaybeDirElem() {
-            lexer.start("<one:two/>", 0, 10, XQueryLexer.STATE_MAYBE_DIR_ELEM_CONSTRUCTOR)
-            matchToken(lexer, "<", 29, 0, 1, XPathTokenType.LESS_THAN)
-            matchToken(lexer, "one", 29, 1, 4, XPathTokenType.NCNAME)
-            matchToken(lexer, ":", 29, 4, 5, XPathTokenType.QNAME_SEPARATOR)
-            matchToken(lexer, "two", 29, 5, 8, XPathTokenType.NCNAME)
-            matchToken(lexer, "/>", 29, 8, 10, XQueryTokenType.SELF_CLOSING_XML_TAG)
-            matchToken(lexer, "", 29, 10, 10, null)
+        fun maybeDirElem() {
+            tokenize("<one:two/>", 0, 10, XQueryLexer.STATE_MAYBE_DIR_ELEM_CONSTRUCTOR) {
+                token("<", XPathTokenType.LESS_THAN)
+                token("one", XPathTokenType.NCNAME)
+                token(":", XPathTokenType.QNAME_SEPARATOR)
+                token("two", XPathTokenType.NCNAME)
+                token("/>", XQueryTokenType.SELF_CLOSING_XML_TAG)
+            }
 
-            lexer.start("<one:two>", 0, 9, XQueryLexer.STATE_MAYBE_DIR_ELEM_CONSTRUCTOR)
-            matchToken(lexer, "<", 29, 0, 1, XPathTokenType.LESS_THAN)
-            matchToken(lexer, "one", 29, 1, 4, XPathTokenType.NCNAME)
-            matchToken(lexer, ":", 29, 4, 5, XPathTokenType.QNAME_SEPARATOR)
-            matchToken(lexer, "two", 29, 5, 8, XPathTokenType.NCNAME)
-            matchToken(lexer, ">", 29, 8, 9, XPathTokenType.GREATER_THAN)
-            matchToken(lexer, "", 29, 9, 9, null)
+            tokenize("<one:two>", 0, 9, XQueryLexer.STATE_MAYBE_DIR_ELEM_CONSTRUCTOR) {
+                token("<", XPathTokenType.LESS_THAN)
+                token("one", XPathTokenType.NCNAME)
+                token(":", XPathTokenType.QNAME_SEPARATOR)
+                token("two", XPathTokenType.NCNAME)
+                token(">", XPathTokenType.GREATER_THAN)
+            }
 
-            lexer.start("<  one:two  ", 0, 12, XQueryLexer.STATE_MAYBE_DIR_ELEM_CONSTRUCTOR)
-            matchToken(lexer, "<", 29, 0, 1, XPathTokenType.LESS_THAN)
-            matchToken(lexer, "  ", 29, 1, 3, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "one", 29, 3, 6, XPathTokenType.NCNAME)
-            matchToken(lexer, ":", 29, 6, 7, XPathTokenType.QNAME_SEPARATOR)
-            matchToken(lexer, "two", 29, 7, 10, XPathTokenType.NCNAME)
-            matchToken(lexer, "  ", 29, 10, 12, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "", 29, 12, 12, null)
+            tokenize("<  one:two  ", 0, 12, XQueryLexer.STATE_MAYBE_DIR_ELEM_CONSTRUCTOR) {
+                token("<", XPathTokenType.LESS_THAN)
+                token("  ", XPathTokenType.WHITE_SPACE)
+                token("one", XPathTokenType.NCNAME)
+                token(":", XPathTokenType.QNAME_SEPARATOR)
+                token("two", XPathTokenType.NCNAME)
+                token("  ", XPathTokenType.WHITE_SPACE)
+            }
         }
 
         @Test
         @DisplayName("start direct element constructor state")
-        fun testDirElemConstructor_StartDirElem() {
-            lexer.start("<one:two/>", 0, 10, XQueryLexer.STATE_START_DIR_ELEM_CONSTRUCTOR)
-            matchToken(lexer, "<", 30, 0, 1, XQueryTokenType.OPEN_XML_TAG)
-            matchToken(lexer, "one", 11, 1, 4, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, ":", 11, 4, 5, XQueryTokenType.XML_TAG_QNAME_SEPARATOR)
-            matchToken(lexer, "two", 11, 5, 8, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, "/>", 11, 8, 10, XQueryTokenType.SELF_CLOSING_XML_TAG)
-            matchToken(lexer, "", 0, 10, 10, null)
+        fun startDirElem() {
+            tokenize("<one:two/>", 0, 10, XQueryLexer.STATE_START_DIR_ELEM_CONSTRUCTOR) {
+                token("<", XQueryTokenType.OPEN_XML_TAG)
+                state(11)
+                token("one", XQueryTokenType.XML_TAG_NCNAME)
+                token(":", XQueryTokenType.XML_TAG_QNAME_SEPARATOR)
+                token("two", XQueryTokenType.XML_TAG_NCNAME)
+                token("/>", XQueryTokenType.SELF_CLOSING_XML_TAG)
+                state(0)
+            }
 
-            lexer.start("<one:two>", 0, 9, XQueryLexer.STATE_START_DIR_ELEM_CONSTRUCTOR)
-            matchToken(lexer, "<", 30, 0, 1, XQueryTokenType.OPEN_XML_TAG)
-            matchToken(lexer, "one", 11, 1, 4, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, ":", 11, 4, 5, XQueryTokenType.XML_TAG_QNAME_SEPARATOR)
-            matchToken(lexer, "two", 11, 5, 8, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, ">", 11, 8, 9, XQueryTokenType.END_XML_TAG)
-            matchToken(lexer, "", 17, 9, 9, null)
+            tokenize("<one:two>", 0, 9, XQueryLexer.STATE_START_DIR_ELEM_CONSTRUCTOR) {
+                token("<", XQueryTokenType.OPEN_XML_TAG)
+                state(11)
+                token("one", XQueryTokenType.XML_TAG_NCNAME)
+                token(":", XQueryTokenType.XML_TAG_QNAME_SEPARATOR)
+                token("two", XQueryTokenType.XML_TAG_NCNAME)
+                token(">", XQueryTokenType.END_XML_TAG)
+                state(17)
+            }
 
-            lexer.start("<  one:two  ", 0, 12, XQueryLexer.STATE_START_DIR_ELEM_CONSTRUCTOR)
-            matchToken(lexer, "<", 30, 0, 1, XQueryTokenType.OPEN_XML_TAG)
-            matchToken(lexer, "  ", 30, 1, 3, XQueryTokenType.XML_WHITE_SPACE)
-            matchToken(lexer, "one", 11, 3, 6, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, ":", 11, 6, 7, XQueryTokenType.XML_TAG_QNAME_SEPARATOR)
-            matchToken(lexer, "two", 11, 7, 10, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, "  ", 11, 10, 12, XQueryTokenType.XML_WHITE_SPACE)
-            matchToken(lexer, "", 25, 12, 12, null)
+            tokenize("<  one:two  ", 0, 12, XQueryLexer.STATE_START_DIR_ELEM_CONSTRUCTOR) {
+                token("<", XQueryTokenType.OPEN_XML_TAG)
+                token("  ", XQueryTokenType.XML_WHITE_SPACE)
+                state(11)
+                token("one", XQueryTokenType.XML_TAG_NCNAME)
+                token(":", XQueryTokenType.XML_TAG_QNAME_SEPARATOR)
+                token("two", XQueryTokenType.XML_TAG_NCNAME)
+                token("  ", XQueryTokenType.XML_WHITE_SPACE)
+                state(25)
+            }
         }
 
         @Test
         @DisplayName("as separate tokens using CombinedLexer")
-        fun testDirElemConstructor() {
+        fun dirElemConstructor() {
             token("<", XPathTokenType.LESS_THAN)
             token(">", XPathTokenType.GREATER_THAN)
 
             token("</", XQueryTokenType.CLOSE_XML_TAG)
             token("/>", XQueryTokenType.SELF_CLOSING_XML_TAG)
 
-            lexer.start("<one:two/>")
-            matchToken(lexer, "<", 0x60000000 or 30, 0, 1, XQueryTokenType.OPEN_XML_TAG)
-            matchToken(lexer, "one", 0x60000000 or 11, 1, 4, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, ":", 0x60000000 or 11, 4, 5, XQueryTokenType.XML_TAG_QNAME_SEPARATOR)
-            matchToken(lexer, "two", 0x60000000 or 11, 5, 8, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, "/>", 0x60000000 or 11, 8, 10, XQueryTokenType.SELF_CLOSING_XML_TAG)
-            matchToken(lexer, "", 0, 10, 10, null)
+            tokenize("<one:two/>") {
+                state(0x60000000 or 30)
+                token("<", XQueryTokenType.OPEN_XML_TAG)
+                state(0x60000000 or 11)
+                token("one", XQueryTokenType.XML_TAG_NCNAME)
+                token(":", XQueryTokenType.XML_TAG_QNAME_SEPARATOR)
+                token("two", XQueryTokenType.XML_TAG_NCNAME)
+                token("/>", XQueryTokenType.SELF_CLOSING_XML_TAG)
+                state(0)
+            }
 
-            lexer.start("<one:two></one:two  >")
-            matchToken(lexer, "<", 0x60000000 or 30, 0, 1, XQueryTokenType.OPEN_XML_TAG)
-            matchToken(lexer, "one", 0x60000000 or 11, 1, 4, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, ":", 0x60000000 or 11, 4, 5, XQueryTokenType.XML_TAG_QNAME_SEPARATOR)
-            matchToken(lexer, "two", 0x60000000 or 11, 5, 8, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, ">", 0x60000000 or 11, 8, 9, XQueryTokenType.END_XML_TAG)
-            matchToken(lexer, "</", 17, 9, 11, XQueryTokenType.CLOSE_XML_TAG)
-            matchToken(lexer, "one", 12, 11, 14, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, ":", 12, 14, 15, XQueryTokenType.XML_TAG_QNAME_SEPARATOR)
-            matchToken(lexer, "two", 12, 15, 18, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, "  ", 12, 18, 20, XQueryTokenType.XML_WHITE_SPACE)
-            matchToken(lexer, ">", 12, 20, 21, XQueryTokenType.END_XML_TAG)
-            matchToken(lexer, "", 0, 21, 21, null)
+            tokenize("<one:two></one:two  >") {
+                state(0x60000000 or 30)
+                token("<", XQueryTokenType.OPEN_XML_TAG)
+                state(0x60000000 or 11)
+                token("one", XQueryTokenType.XML_TAG_NCNAME)
+                token(":", XQueryTokenType.XML_TAG_QNAME_SEPARATOR)
+                token("two", XQueryTokenType.XML_TAG_NCNAME)
+                token(">", XQueryTokenType.END_XML_TAG)
+                state(17)
+                token("</", XQueryTokenType.CLOSE_XML_TAG)
+                state(12)
+                token("one", XQueryTokenType.XML_TAG_NCNAME)
+                token(":", XQueryTokenType.XML_TAG_QNAME_SEPARATOR)
+                token("two", XQueryTokenType.XML_TAG_NCNAME)
+                token("  ", XQueryTokenType.XML_WHITE_SPACE)
+                token(">", XQueryTokenType.END_XML_TAG)
+                state(0)
+            }
 
-            lexer.start("<one:two  ></one:two>")
-            matchToken(lexer, "<", 0x60000000 or 30, 0, 1, XQueryTokenType.OPEN_XML_TAG)
-            matchToken(lexer, "one", 0x60000000 or 11, 1, 4, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, ":", 0x60000000 or 11, 4, 5, XQueryTokenType.XML_TAG_QNAME_SEPARATOR)
-            matchToken(lexer, "two", 0x60000000 or 11, 5, 8, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, "  ", 0x60000000 or 11, 8, 10, XQueryTokenType.XML_WHITE_SPACE)
-            matchToken(lexer, ">", 0x60000000 or 25, 10, 11, XQueryTokenType.END_XML_TAG)
-            matchToken(lexer, "</", 17, 11, 13, XQueryTokenType.CLOSE_XML_TAG)
-            matchToken(lexer, "one", 12, 13, 16, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, ":", 12, 16, 17, XQueryTokenType.XML_TAG_QNAME_SEPARATOR)
-            matchToken(lexer, "two", 12, 17, 20, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, ">", 12, 20, 21, XQueryTokenType.END_XML_TAG)
-            matchToken(lexer, "", 0, 21, 21, null)
+            tokenize("<one:two  ></one:two>") {
+                state(0x60000000 or 30)
+                token("<", XQueryTokenType.OPEN_XML_TAG)
+                state(0x60000000 or 11)
+                token("one", XQueryTokenType.XML_TAG_NCNAME)
+                token(":", XQueryTokenType.XML_TAG_QNAME_SEPARATOR)
+                token("two", XQueryTokenType.XML_TAG_NCNAME)
+                token("  ", XQueryTokenType.XML_WHITE_SPACE)
+                state(0x60000000 or 25)
+                token(">", XQueryTokenType.END_XML_TAG)
+                state(17)
+                token("</", XQueryTokenType.CLOSE_XML_TAG)
+                state(12)
+                token("one", XQueryTokenType.XML_TAG_NCNAME)
+                token(":", XQueryTokenType.XML_TAG_QNAME_SEPARATOR)
+                token("two", XQueryTokenType.XML_TAG_NCNAME)
+                token(">", XQueryTokenType.END_XML_TAG)
+                state(0)
+            }
 
-            lexer.start("<one:two//*/>")
-            matchToken(lexer, "<", 0x50000000 or 29, 0, 1, XPathTokenType.LESS_THAN)
-            matchToken(lexer, "one", 0x50000000 or 29, 1, 4, XPathTokenType.NCNAME)
-            matchToken(lexer, ":", 0x50000000 or 29, 4, 5, XPathTokenType.QNAME_SEPARATOR)
-            matchToken(lexer, "two", 0x50000000 or 29, 5, 8, XPathTokenType.NCNAME)
-            matchToken(lexer, "//", 0, 8, 10, XPathTokenType.ALL_DESCENDANTS_PATH)
-            matchToken(lexer, "*", 0, 10, 11, XPathTokenType.STAR)
-            matchToken(lexer, "/>", 0, 11, 13, XQueryTokenType.SELF_CLOSING_XML_TAG)
-            matchToken(lexer, "", 0, 13, 13, null)
+            tokenize("<one:two//*/>") {
+                state(0x50000000 or 29)
+                token("<", XPathTokenType.LESS_THAN)
+                token("one", XPathTokenType.NCNAME)
+                token(":", XPathTokenType.QNAME_SEPARATOR)
+                token("two", XPathTokenType.NCNAME)
+                state(0)
+                token("//", XPathTokenType.ALL_DESCENDANTS_PATH)
+                token("*", XPathTokenType.STAR)
+                token("/>", XQueryTokenType.SELF_CLOSING_XML_TAG)
+            }
 
-            lexer.start("1 < fn:abs (")
-            matchToken(lexer, "1", 0, 0, 1, XPathTokenType.INTEGER_LITERAL)
-            matchToken(lexer, " ", 0, 1, 2, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "<", 0x50000000 or 29, 2, 3, XPathTokenType.LESS_THAN)
-            matchToken(lexer, " ", 0x50000000 or 29, 3, 4, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "fn", 0x50000000 or 29, 4, 6, XPathTokenType.K_FN)
-            matchToken(lexer, ":", 0x50000000 or 29, 6, 7, XPathTokenType.QNAME_SEPARATOR)
-            matchToken(lexer, "abs", 0x50000000 or 29, 7, 10, XPathTokenType.NCNAME)
-            matchToken(lexer, " ", 0x50000000 or 29, 10, 11, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "(", 0, 11, 12, XPathTokenType.PARENTHESIS_OPEN)
-            matchToken(lexer, "", 0, 12, 12, null)
+            tokenize("1 < fn:abs (") {
+                token("1", XPathTokenType.INTEGER_LITERAL)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                state(0x50000000 or 29)
+                token("<", XPathTokenType.LESS_THAN)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token("fn", XPathTokenType.K_FN)
+                token(":", XPathTokenType.QNAME_SEPARATOR)
+                token("abs", XPathTokenType.NCNAME)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                state(0)
+                token("(", XPathTokenType.PARENTHESIS_OPEN)
+            }
 
-            lexer.start("1 <fn:abs (")
-            matchToken(lexer, "1", 0, 0, 1, XPathTokenType.INTEGER_LITERAL)
-            matchToken(lexer, " ", 0, 1, 2, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "<", 0x50000000 or 29, 2, 3, XPathTokenType.LESS_THAN)
-            matchToken(lexer, "fn", 0x50000000 or 29, 3, 5, XPathTokenType.K_FN)
-            matchToken(lexer, ":", 0x50000000 or 29, 5, 6, XPathTokenType.QNAME_SEPARATOR)
-            matchToken(lexer, "abs", 0x50000000 or 29, 6, 9, XPathTokenType.NCNAME)
-            matchToken(lexer, " ", 0x50000000 or 29, 9, 10, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "(", 0, 10, 11, XPathTokenType.PARENTHESIS_OPEN)
-            matchToken(lexer, "", 0, 11, 11, null)
+            tokenize("1 <fn:abs (") {
+                token("1", XPathTokenType.INTEGER_LITERAL)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                state(0x50000000 or 29)
+                token("<", XPathTokenType.LESS_THAN)
+                token("fn", XPathTokenType.K_FN)
+                token(":", XPathTokenType.QNAME_SEPARATOR)
+                token("abs", XPathTokenType.NCNAME)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                state(0)
+                token("(", XPathTokenType.PARENTHESIS_OPEN)
+            }
 
-            lexer.start("1 < fn:abs #")
-            matchToken(lexer, "1", 0, 0, 1, XPathTokenType.INTEGER_LITERAL)
-            matchToken(lexer, " ", 0, 1, 2, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "<", 0x50000000 or 29, 2, 3, XPathTokenType.LESS_THAN)
-            matchToken(lexer, " ", 0x50000000 or 29, 3, 4, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "fn", 0x50000000 or 29, 4, 6, XPathTokenType.K_FN)
-            matchToken(lexer, ":", 0x50000000 or 29, 6, 7, XPathTokenType.QNAME_SEPARATOR)
-            matchToken(lexer, "abs", 0x50000000 or 29, 7, 10, XPathTokenType.NCNAME)
-            matchToken(lexer, " ", 0x50000000 or 29, 10, 11, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "#", 0, 11, 12, XPathTokenType.FUNCTION_REF_OPERATOR)
-            matchToken(lexer, "", 0, 12, 12, null)
+            tokenize("1 < fn:abs #") {
+                token("1", XPathTokenType.INTEGER_LITERAL)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                state(0x50000000 or 29)
+                token("<", XPathTokenType.LESS_THAN)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token("fn", XPathTokenType.K_FN)
+                token(":", XPathTokenType.QNAME_SEPARATOR)
+                token("abs", XPathTokenType.NCNAME)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                state(0)
+                token("#", XPathTokenType.FUNCTION_REF_OPERATOR)
+            }
 
-            lexer.start("1 <fn:abs #")
-            matchToken(lexer, "1", 0, 0, 1, XPathTokenType.INTEGER_LITERAL)
-            matchToken(lexer, " ", 0, 1, 2, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "<", 0x50000000 or 29, 2, 3, XPathTokenType.LESS_THAN)
-            matchToken(lexer, "fn", 0x50000000 or 29, 3, 5, XPathTokenType.K_FN)
-            matchToken(lexer, ":", 0x50000000 or 29, 5, 6, XPathTokenType.QNAME_SEPARATOR)
-            matchToken(lexer, "abs", 0x50000000 or 29, 6, 9, XPathTokenType.NCNAME)
-            matchToken(lexer, " ", 0x50000000 or 29, 9, 10, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "#", 0, 10, 11, XPathTokenType.FUNCTION_REF_OPERATOR)
-            matchToken(lexer, "", 0, 11, 11, null)
+            tokenize("1 <fn:abs #") {
+                token("1", XPathTokenType.INTEGER_LITERAL)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                state(0x50000000 or 29)
+                token("<", XPathTokenType.LESS_THAN)
+                token("fn", XPathTokenType.K_FN)
+                token(":", XPathTokenType.QNAME_SEPARATOR)
+                token("abs", XPathTokenType.NCNAME)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                state(0)
+                token("#", XPathTokenType.FUNCTION_REF_OPERATOR)
+            }
         }
 
         @Test
         @DisplayName("as separate tokens using CombinedLexer, adding an xml element")
-        fun testDirElemConstructor_AddingXmlElement() {
-            lexer.start("<<a")
-            matchToken(lexer, "<<", 0, 0, 2, XPathTokenType.NODE_BEFORE)
-            matchToken(lexer, "a", 0, 2, 3, XPathTokenType.NCNAME)
-            matchToken(lexer, "", 0, 3, 3, null)
+        fun addingXmlElement() {
+            tokenize("<<a") {
+                token("<<", XPathTokenType.NODE_BEFORE)
+                token("a", XPathTokenType.NCNAME)
+            }
 
-            lexer.start("<<a/>")
-            matchToken(lexer, "<", 0, 0, 1, XPathTokenType.LESS_THAN)
-            matchToken(lexer, "<", 0x60000000 or 30, 1, 2, XQueryTokenType.OPEN_XML_TAG)
-            matchToken(lexer, "a", 0x60000000 or 11, 2, 3, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, "/>", 0x60000000 or 11, 3, 5, XQueryTokenType.SELF_CLOSING_XML_TAG)
-            matchToken(lexer, "", 0, 5, 5, null)
+            tokenize("<<a/>") {
+                token("<", XPathTokenType.LESS_THAN)
+                state(0x60000000 or 30)
+                token("<", XQueryTokenType.OPEN_XML_TAG)
+                state(0x60000000 or 11)
+                token("a", XQueryTokenType.XML_TAG_NCNAME)
+                token("/>", XQueryTokenType.SELF_CLOSING_XML_TAG)
+                state(0)
+            }
 
-            lexer.start("<a<a/>")
-            matchToken(lexer, "<", 0x50000000 or 29, 0, 1, XPathTokenType.LESS_THAN)
-            matchToken(lexer, "a", 0x50000000 or 29, 1, 2, XPathTokenType.NCNAME)
-            matchToken(lexer, "<", 0x60000000 or 30, 2, 3, XQueryTokenType.OPEN_XML_TAG)
-            matchToken(lexer, "a", 0x60000000 or 11, 3, 4, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, "/>", 0x60000000 or 11, 4, 6, XQueryTokenType.SELF_CLOSING_XML_TAG)
-            matchToken(lexer, "", 0, 6, 6, null)
+            tokenize("<a<a/>") {
+                state(0x50000000 or 29)
+                token("<", XPathTokenType.LESS_THAN)
+                token("a", XPathTokenType.NCNAME)
+                state(0x60000000 or 30)
+                token("<", XQueryTokenType.OPEN_XML_TAG)
+                state(0x60000000 or 11)
+                token("a", XQueryTokenType.XML_TAG_NCNAME)
+                token("/>", XQueryTokenType.SELF_CLOSING_XML_TAG)
+                state(0)
+            }
 
-            lexer.start("<a <a/>")
-            matchToken(lexer, "<", 0x50000000 or 29, 0, 1, XPathTokenType.LESS_THAN)
-            matchToken(lexer, "a", 0x50000000 or 29, 1, 2, XPathTokenType.NCNAME)
-            matchToken(lexer, " ", 0x50000000 or 29, 2, 3, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "<", 0x60000000 or 30, 3, 4, XQueryTokenType.OPEN_XML_TAG)
-            matchToken(lexer, "a", 0x60000000 or 11, 4, 5, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, "/>", 0x60000000 or 11, 5, 7, XQueryTokenType.SELF_CLOSING_XML_TAG)
-            matchToken(lexer, "", 0, 7, 7, null)
+            tokenize("<a <a/>") {
+                state(0x50000000 or 29)
+                token("<", XPathTokenType.LESS_THAN)
+                token("a", XPathTokenType.NCNAME)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                state(0x60000000 or 30)
+                token("<", XQueryTokenType.OPEN_XML_TAG)
+                state(0x60000000 or 11)
+                token("a", XQueryTokenType.XML_TAG_NCNAME)
+                token("/>", XQueryTokenType.SELF_CLOSING_XML_TAG)
+                state(0)
+            }
         }
     }
 
@@ -938,49 +1008,54 @@ class XQueryLexerTest : LexerTestCase() {
     internal inner class DirAttributeList {
         @Test
         @DisplayName("as separate tokens using CombinedLexer")
-        fun testDirAttributeList() {
-            token("=", XPathTokenType.EQUAL)
-
-            lexer.start("<one:two  a:b  =  \"One\"  c:d  =  'Two'  />")
-            matchToken(lexer, "<", 0x60000000 or 30, 0, 1, XQueryTokenType.OPEN_XML_TAG)
-            matchToken(lexer, "one", 0x60000000 or 11, 1, 4, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, ":", 0x60000000 or 11, 4, 5, XQueryTokenType.XML_TAG_QNAME_SEPARATOR)
-            matchToken(lexer, "two", 0x60000000 or 11, 5, 8, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, "  ", 0x60000000 or 11, 8, 10, XQueryTokenType.XML_WHITE_SPACE)
-            matchToken(lexer, "a", 25, 10, 11, XQueryTokenType.XML_ATTRIBUTE_NCNAME)
-            matchToken(lexer, ":", 25, 11, 12, XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR)
-            matchToken(lexer, "b", 25, 12, 13, XQueryTokenType.XML_ATTRIBUTE_NCNAME)
-            matchToken(lexer, "  ", 25, 13, 15, XQueryTokenType.XML_WHITE_SPACE)
-            matchToken(lexer, "=", 25, 15, 16, XQueryTokenType.XML_EQUAL)
-            matchToken(lexer, "  ", 25, 16, 18, XQueryTokenType.XML_WHITE_SPACE)
-            matchToken(lexer, "\"", 25, 18, 19, XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
-            matchToken(lexer, "One", 13, 19, 22, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
-            matchToken(lexer, "\"", 13, 22, 23, XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
-            matchToken(lexer, "  ", 25, 23, 25, XQueryTokenType.XML_WHITE_SPACE)
-            matchToken(lexer, "c", 25, 25, 26, XQueryTokenType.XML_ATTRIBUTE_NCNAME)
-            matchToken(lexer, ":", 25, 26, 27, XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR)
-            matchToken(lexer, "d", 25, 27, 28, XQueryTokenType.XML_ATTRIBUTE_NCNAME)
-            matchToken(lexer, "  ", 25, 28, 30, XQueryTokenType.XML_WHITE_SPACE)
-            matchToken(lexer, "=", 25, 30, 31, XQueryTokenType.XML_EQUAL)
-            matchToken(lexer, "  ", 25, 31, 33, XQueryTokenType.XML_WHITE_SPACE)
-            matchToken(lexer, "'", 25, 33, 34, XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
-            matchToken(lexer, "Two", 14, 34, 37, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
-            matchToken(lexer, "'", 14, 37, 38, XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
-            matchToken(lexer, "  ", 25, 38, 40, XQueryTokenType.XML_WHITE_SPACE)
-            matchToken(lexer, "/>", 25, 40, 42, XQueryTokenType.SELF_CLOSING_XML_TAG)
-            matchToken(lexer, "", 0, 42, 42, null)
+        fun dirAttributeList() = tokenize("<one:two  a:b  =  \"One\"  c:d  =  'Two'  />") {
+            state(0x60000000 or 30)
+            token("<", XQueryTokenType.OPEN_XML_TAG)
+            state(0x60000000 or 11)
+            token("one", XQueryTokenType.XML_TAG_NCNAME)
+            token(":", XQueryTokenType.XML_TAG_QNAME_SEPARATOR)
+            token("two", XQueryTokenType.XML_TAG_NCNAME)
+            token("  ", XQueryTokenType.XML_WHITE_SPACE)
+            state(25)
+            token("a", XQueryTokenType.XML_ATTRIBUTE_NCNAME)
+            token(":", XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR)
+            token("b", XQueryTokenType.XML_ATTRIBUTE_NCNAME)
+            token("  ", XQueryTokenType.XML_WHITE_SPACE)
+            token("=", XQueryTokenType.XML_EQUAL)
+            token("  ", XQueryTokenType.XML_WHITE_SPACE)
+            token("\"", XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
+            state(13)
+            token("One", XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
+            token("\"", XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
+            state(25)
+            token("  ", XQueryTokenType.XML_WHITE_SPACE)
+            token("c", XQueryTokenType.XML_ATTRIBUTE_NCNAME)
+            token(":", XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR)
+            token("d", XQueryTokenType.XML_ATTRIBUTE_NCNAME)
+            token("  ", XQueryTokenType.XML_WHITE_SPACE)
+            token("=", XQueryTokenType.XML_EQUAL)
+            token("  ", XQueryTokenType.XML_WHITE_SPACE)
+            token("'", XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
+            state(14)
+            token("Two", XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
+            token("'", XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
+            state(25)
+            token("  ", XQueryTokenType.XML_WHITE_SPACE)
+            token("/>", XQueryTokenType.SELF_CLOSING_XML_TAG)
+            state(0)
         }
 
         @Test
         @DisplayName("incomplete closing tag")
-        fun testDirAttributeList_IncompleteClosingTag() {
-            lexer.start("<a b/")
-            matchToken(lexer, "<", 0x60000000 or 30, 0, 1, XQueryTokenType.OPEN_XML_TAG)
-            matchToken(lexer, "a", 0x60000000 or 11, 1, 2, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, " ", 0x60000000 or 11, 2, 3, XQueryTokenType.XML_WHITE_SPACE)
-            matchToken(lexer, "b", 25, 3, 4, XQueryTokenType.XML_ATTRIBUTE_NCNAME)
-            matchToken(lexer, "/", 25, 4, 5, XQueryTokenType.INVALID)
-            matchToken(lexer, "", 25, 5, 5, null)
+        fun incompleteClosingTag() = tokenize("<a b/") {
+            state(0x60000000 or 30)
+            token("<", XQueryTokenType.OPEN_XML_TAG)
+            state(0x60000000 or 11)
+            token("a", XQueryTokenType.XML_TAG_NCNAME)
+            token(" ", XQueryTokenType.XML_WHITE_SPACE)
+            state(25)
+            token("b", XQueryTokenType.XML_ATTRIBUTE_NCNAME)
+            token("/", XQueryTokenType.INVALID)
         }
     }
 
@@ -989,154 +1064,169 @@ class XQueryLexerTest : LexerTestCase() {
     internal inner class DirAttributeValue {
         @Test
         @DisplayName("XQuery 1.0 EBNF (99) QuotAttrValueContent ; XQuery 1.0 EBNF (149) QuotAttrContentChar")
-        fun testDirAttributeValue_QuotAttrValueContent() {
-            lexer.start("\"One {2}<& \u3053\u3093\u3070\u3093\u306F.\"", 0, 18, 11)
-            matchToken(lexer, "\"", 11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
-            matchToken(lexer, "One ", 13, 1, 5, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
-            matchToken(lexer, "{", 13, 5, 6, XPathTokenType.BLOCK_OPEN)
-            matchToken(lexer, "2", 15, 6, 7, XPathTokenType.INTEGER_LITERAL)
-            matchToken(lexer, "}", 15, 7, 8, XPathTokenType.BLOCK_CLOSE)
-            matchToken(lexer, "<", 13, 8, 9, XPathTokenType.BAD_CHARACTER)
-            matchToken(lexer, "&", 13, 9, 10, XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE)
-            matchToken(
-                lexer,
-                " \u3053\u3093\u3070\u3093\u306F.",
-                13,
-                10,
-                17,
-                XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS
-            )
-            matchToken(lexer, "\"", 13, 17, 18, XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
-            matchToken(lexer, "", 11, 18, 18, null)
+        fun quotAttrValueContent() = tokenize("\"One {2}<& \u3053\u3093\u3070\u3093\u306F.\"", 0, 18, 11) {
+            token("\"", XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
+            state(13)
+            token("One ", XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
+            token("{", XPathTokenType.BLOCK_OPEN)
+            state(15)
+            token("2", XPathTokenType.INTEGER_LITERAL)
+            token("}", XPathTokenType.BLOCK_CLOSE)
+            state(13)
+            token("<", XPathTokenType.BAD_CHARACTER)
+            token("&", XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE)
+            token(" \u3053\u3093\u3070\u3093\u306F.", XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
+            token("\"", XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
+            state(11)
         }
 
         @Test
         @DisplayName("XQuery 1.0 EBNF (100) AposAttrValueContent ; XQuery 1.0 EBNF (150) AposAttrContentChar")
-        fun testDirAttributeValue_AposAttrValueContent() {
-            lexer.start("'One {2}<& \u3053\u3093\u3070\u3093\u306F.}'", 0, 19, 11)
-            matchToken(lexer, "'", 11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
-            matchToken(lexer, "One ", 14, 1, 5, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
-            matchToken(lexer, "{", 14, 5, 6, XPathTokenType.BLOCK_OPEN)
-            matchToken(lexer, "2", 16, 6, 7, XPathTokenType.INTEGER_LITERAL)
-            matchToken(lexer, "}", 16, 7, 8, XPathTokenType.BLOCK_CLOSE)
-            matchToken(lexer, "<", 14, 8, 9, XPathTokenType.BAD_CHARACTER)
-            matchToken(lexer, "&", 14, 9, 10, XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE)
-            matchToken(lexer, " \u3053\u3093\u3070\u3093\u306F.", 14, 10, 17, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
-            matchToken(lexer, "}", 14, 17, 18, XPathTokenType.BLOCK_CLOSE)
-            matchToken(lexer, "'", 14, 18, 19, XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
-            matchToken(lexer, "", 11, 19, 19, null)
+        fun aposAttrValueContent() = tokenize("'One {2}<& \u3053\u3093\u3070\u3093\u306F.}'", 0, 19, 11) {
+            token("'", XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
+            state(14)
+            token("One ", XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
+            token("{", XPathTokenType.BLOCK_OPEN)
+            state(16)
+            token("2", XPathTokenType.INTEGER_LITERAL)
+            token("}", XPathTokenType.BLOCK_CLOSE)
+            state(14)
+            token("<", XPathTokenType.BAD_CHARACTER)
+            token("&", XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE)
+            token(" \u3053\u3093\u3070\u3093\u306F.", XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
+            token("}", XPathTokenType.BLOCK_CLOSE)
+            token("'", XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
+            state(11)
         }
 
         @Test
         @DisplayName("XQuery 1.0 EBNF (102) CommonContent")
-        fun testDirAttributeValue_CommonContent() {
-            lexer.start("\"{{}}\"", 0, 6, 11)
-            matchToken(lexer, "\"", 11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
-            matchToken(lexer, "{{", 13, 1, 3, XQueryTokenType.XML_ESCAPED_CHARACTER)
-            matchToken(lexer, "}}", 13, 3, 5, XQueryTokenType.XML_ESCAPED_CHARACTER)
-            matchToken(lexer, "\"", 13, 5, 6, XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
-            matchToken(lexer, "", 11, 6, 6, null)
+        fun commonContent() {
+            tokenize("\"{{}}\"", 0, 6, 11) {
+                token("\"", XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
+                state(13)
+                token("{{", XQueryTokenType.XML_ESCAPED_CHARACTER)
+                token("}}", XQueryTokenType.XML_ESCAPED_CHARACTER)
+                token("\"", XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
+                state(11)
+            }
 
-            lexer.start("'{{}}'", 0, 6, 11)
-            matchToken(lexer, "'", 11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
-            matchToken(lexer, "{{", 14, 1, 3, XQueryTokenType.XML_ESCAPED_CHARACTER)
-            matchToken(lexer, "}}", 14, 3, 5, XQueryTokenType.XML_ESCAPED_CHARACTER)
-            matchToken(lexer, "'", 14, 5, 6, XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
-            matchToken(lexer, "", 11, 6, 6, null)
+            tokenize("'{{}}'", 0, 6, 11) {
+                token("'", XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
+                state(14)
+                token("{{", XQueryTokenType.XML_ESCAPED_CHARACTER)
+                token("}}", XQueryTokenType.XML_ESCAPED_CHARACTER)
+                token("'", XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
+                state(11)
+            }
         }
 
         @Test
         @DisplayName("XQuery 1.0 EBNF (145) PredefinedEntityRef")
-        fun testDirAttributeValue_PredefinedEntityRef() {
+        fun predefinedEntityRef() {
             // NOTE: The predefined entity reference names are not validated by the lexer, as some
             // XQuery processors support HTML predefined entities. Shifting the name validation to
             // the parser allows proper validation errors to be generated.
 
-            lexer.start("\"One&abc;&aBc;&Abc;&ABC;&a4;&a;Two\"", 0, 35, 11)
-            matchToken(lexer, "\"", 11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
-            matchToken(lexer, "One", 13, 1, 4, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
-            matchToken(lexer, "&abc;", 13, 4, 9, XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE)
-            matchToken(lexer, "&aBc;", 13, 9, 14, XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE)
-            matchToken(lexer, "&Abc;", 13, 14, 19, XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE)
-            matchToken(lexer, "&ABC;", 13, 19, 24, XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE)
-            matchToken(lexer, "&a4;", 13, 24, 28, XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE)
-            matchToken(lexer, "&a;", 13, 28, 31, XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE)
-            matchToken(lexer, "Two", 13, 31, 34, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
-            matchToken(lexer, "\"", 13, 34, 35, XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
-            matchToken(lexer, "", 11, 35, 35, null)
+            tokenize("\"One&abc;&aBc;&Abc;&ABC;&a4;&a;Two\"", 0, 35, 11) {
+                token("\"", XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
+                state(13)
+                token("One", XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
+                token("&abc;", XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE)
+                token("&aBc;", XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE)
+                token("&Abc;", XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE)
+                token("&ABC;", XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE)
+                token("&a4;", XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE)
+                token("&a;", XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE)
+                token("Two", XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
+                token("\"", XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
+                state(11)
+            }
 
-            lexer.start("'One&abc;&aBc;&Abc;&ABC;&a4;&a;Two'", 0, 35, 11)
-            matchToken(lexer, "'", 11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
-            matchToken(lexer, "One", 14, 1, 4, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
-            matchToken(lexer, "&abc;", 14, 4, 9, XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE)
-            matchToken(lexer, "&aBc;", 14, 9, 14, XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE)
-            matchToken(lexer, "&Abc;", 14, 14, 19, XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE)
-            matchToken(lexer, "&ABC;", 14, 19, 24, XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE)
-            matchToken(lexer, "&a4;", 14, 24, 28, XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE)
-            matchToken(lexer, "&a;", 14, 28, 31, XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE)
-            matchToken(lexer, "Two", 14, 31, 34, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
-            matchToken(lexer, "'", 14, 34, 35, XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
-            matchToken(lexer, "", 11, 35, 35, null)
+            tokenize("'One&abc;&aBc;&Abc;&ABC;&a4;&a;Two'", 0, 35, 11) {
+                token("'", XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
+                state(14)
+                token("One", XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
+                token("&abc;", XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE)
+                token("&aBc;", XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE)
+                token("&Abc;", XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE)
+                token("&ABC;", XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE)
+                token("&a4;", XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE)
+                token("&a;", XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE)
+                token("Two", XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
+                token("'", XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
+                state(11)
+            }
 
-            lexer.start("\"&\"", 0, 3, 11)
-            matchToken(lexer, "\"", 11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
-            matchToken(lexer, "&", 13, 1, 2, XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE)
-            matchToken(lexer, "\"", 13, 2, 3, XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
-            matchToken(lexer, "", 11, 3, 3, null)
+            tokenize("\"&\"", 0, 3, 11) {
+                token("\"", XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
+                state(13)
+                token("&", XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE)
+                token("\"", XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
+                state(11)
+            }
 
-            lexer.start("\"&abc!\"", 0, 7, 11)
-            matchToken(lexer, "\"", 11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
-            matchToken(lexer, "&abc", 13, 1, 5, XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE)
-            matchToken(lexer, "!", 13, 5, 6, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
-            matchToken(lexer, "\"", 13, 6, 7, XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
-            matchToken(lexer, "", 11, 7, 7, null)
+            tokenize("\"&abc!\"", 0, 7, 11) {
+                token("\"", XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
+                state(13)
+                token("&abc", XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE)
+                token("!", XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
+                token("\"", XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
+                state(11)
+            }
 
-            lexer.start("\"& \"", 0, 4, 11)
-            matchToken(lexer, "\"", 11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
-            matchToken(lexer, "&", 13, 1, 2, XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE)
-            matchToken(lexer, " ", 13, 2, 3, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
-            matchToken(lexer, "\"", 13, 3, 4, XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
-            matchToken(lexer, "", 11, 4, 4, null)
+            tokenize("\"& \"", 0, 4, 11) {
+                token("\"", XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
+                state(13)
+                token("&", XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE)
+                token(" ", XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
+                token("\"", XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
+                state(11)
+            }
 
-            lexer.start("\"&", 0, 2, 11)
-            matchToken(lexer, "\"", 11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
-            matchToken(lexer, "&", 13, 1, 2, XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE)
-            matchToken(lexer, "", 13, 2, 2, null)
+            tokenize("\"&", 0, 2, 11) {
+                token("\"", XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
+                state(13)
+                token("&", XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE)
+            }
 
-            lexer.start("\"&abc", 0, 5, 11)
-            matchToken(lexer, "\"", 11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
-            matchToken(lexer, "&abc", 13, 1, 5, XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE)
-            matchToken(lexer, "", 13, 5, 5, null)
+            tokenize("\"&abc", 0, 5, 11) {
+                token("\"", XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
+                state(13)
+                token("&abc", XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE)
+            }
 
-            lexer.start("\"&;\"", 0, 4, 11)
-            matchToken(lexer, "\"", 11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
-            matchToken(lexer, "&;", 13, 1, 3, XQueryTokenType.XML_EMPTY_ENTITY_REFERENCE)
-            matchToken(lexer, "\"", 13, 3, 4, XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
-            matchToken(lexer, "", 11, 4, 4, null)
+            tokenize("\"&;\"", 0, 4, 11) {
+                token("\"", XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
+                state(13)
+                token("&;", XQueryTokenType.XML_EMPTY_ENTITY_REFERENCE)
+                token("\"", XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
+                state(11)
+            }
         }
 
         @Test
         @DisplayName("XQuery 1.0 EBNF (146) EscapeQuot")
-        fun testDirAttributeValue_EscapeQuot() {
-            lexer.start("\"One\"\"Two\"", 0, 10, 11)
-            matchToken(lexer, "\"", 11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
-            matchToken(lexer, "One", 13, 1, 4, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
-            matchToken(lexer, "\"\"", 13, 4, 6, XQueryTokenType.XML_ESCAPED_CHARACTER)
-            matchToken(lexer, "Two", 13, 6, 9, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
-            matchToken(lexer, "\"", 13, 9, 10, XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
-            matchToken(lexer, "", 11, 10, 10, null)
+        fun escapeQuot() = tokenize("\"One\"\"Two\"", 0, 10, 11) {
+            token("\"", XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
+            state(13)
+            token("One", XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
+            token("\"\"", XQueryTokenType.XML_ESCAPED_CHARACTER)
+            token("Two", XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
+            token("\"", XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
+            state(11)
         }
 
         @Test
         @DisplayName("XQuery 1.0 EBNF (147) EscapeApos")
-        fun testDirAttributeValue_EscapeApos() {
-            lexer.start("'One''Two'", 0, 10, 11)
-            matchToken(lexer, "'", 11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
-            matchToken(lexer, "One", 14, 1, 4, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
-            matchToken(lexer, "''", 14, 4, 6, XQueryTokenType.XML_ESCAPED_CHARACTER)
-            matchToken(lexer, "Two", 14, 6, 9, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
-            matchToken(lexer, "'", 14, 9, 10, XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
-            matchToken(lexer, "", 11, 10, 10, null)
+        fun escapeApos() = tokenize("'One''Two'", 0, 10, 11) {
+            token("'", XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
+            state(14)
+            token("One", XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
+            token("''", XQueryTokenType.XML_ESCAPED_CHARACTER)
+            token("Two", XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
+            token("'", XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
+            state(11)
         }
 
         @Nested
@@ -1145,117 +1235,143 @@ class XQueryLexerTest : LexerTestCase() {
             @Test
             @DisplayName("decimal")
             fun decimal() {
-                lexer.start("\"One&#20;Two\"", 0, 13, 11)
-                matchToken(lexer, "\"", 11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
-                matchToken(lexer, "One", 13, 1, 4, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
-                matchToken(lexer, "&#20;", 13, 4, 9, XQueryTokenType.XML_CHARACTER_REFERENCE)
-                matchToken(lexer, "Two", 13, 9, 12, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
-                matchToken(lexer, "\"", 13, 12, 13, XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
-                matchToken(lexer, "", 11, 13, 13, null)
+                tokenize("\"One&#20;Two\"", 0, 13, 11) {
+                    token("\"", XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
+                    state(13)
+                    token("One", XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
+                    token("&#20;", XQueryTokenType.XML_CHARACTER_REFERENCE)
+                    token("Two", XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
+                    token("\"", XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
+                    state(11)
+                }
 
-                lexer.start("'One&#20;Two'", 0, 13, 11)
-                matchToken(lexer, "'", 11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
-                matchToken(lexer, "One", 14, 1, 4, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
-                matchToken(lexer, "&#20;", 14, 4, 9, XQueryTokenType.XML_CHARACTER_REFERENCE)
-                matchToken(lexer, "Two", 14, 9, 12, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
-                matchToken(lexer, "'", 14, 12, 13, XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
-                matchToken(lexer, "", 11, 13, 13, null)
+                tokenize("'One&#20;Two'", 0, 13, 11) {
+                    token("'", XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
+                    state(14)
+                    token("One", XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
+                    token("&#20;", XQueryTokenType.XML_CHARACTER_REFERENCE)
+                    token("Two", XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
+                    token("'", XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
+                    state(11)
+                }
 
-                lexer.start("\"One&#9;Two\"", 0, 12, 11)
-                matchToken(lexer, "\"", 11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
-                matchToken(lexer, "One", 13, 1, 4, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
-                matchToken(lexer, "&#9;", 13, 4, 8, XQueryTokenType.XML_CHARACTER_REFERENCE)
-                matchToken(lexer, "Two", 13, 8, 11, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
-                matchToken(lexer, "\"", 13, 11, 12, XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
-                matchToken(lexer, "", 11, 12, 12, null)
+                tokenize("\"One&#9;Two\"", 0, 12, 11) {
+                    token("\"", XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
+                    state(13)
+                    token("One", XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
+                    token("&#9;", XQueryTokenType.XML_CHARACTER_REFERENCE)
+                    token("Two", XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
+                    token("\"", XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
+                    state(11)
+                }
 
-                lexer.start("\"&#\"", 0, 4, 11)
-                matchToken(lexer, "\"", 11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
-                matchToken(lexer, "&#", 13, 1, 3, XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "\"", 13, 3, 4, XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
-                matchToken(lexer, "", 11, 4, 4, null)
+                tokenize("\"&#\"", 0, 4, 11) {
+                    token("\"", XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
+                    state(13)
+                    token("&#", XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE)
+                    token("\"", XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
+                    state(11)
+                }
 
-                lexer.start("\"&# \"", 0, 5, 11)
-                matchToken(lexer, "\"", 11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
-                matchToken(lexer, "&#", 13, 1, 3, XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, " ", 13, 3, 4, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
-                matchToken(lexer, "\"", 13, 4, 5, XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
-                matchToken(lexer, "", 11, 5, 5, null)
+                tokenize("\"&# \"", 0, 5, 11) {
+                    token("\"", XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
+                    state(13)
+                    token("&#", XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE)
+                    token(" ", XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
+                    token("\"", XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
+                    state(11)
+                }
 
-                lexer.start("\"&#", 0, 3, 11)
-                matchToken(lexer, "\"", 11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
-                matchToken(lexer, "&#", 13, 1, 3, XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "", 13, 3, 3, null)
+                tokenize("\"&#", 0, 3, 11) {
+                    token("\"", XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
+                    state(13)
+                    token("&#", XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE)
+                }
 
-                lexer.start("\"&#12", 0, 5, 11)
-                matchToken(lexer, "\"", 11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
-                matchToken(lexer, "&#12", 13, 1, 5, XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "", 13, 5, 5, null)
+                tokenize("\"&#12", 0, 5, 11) {
+                    token("\"", XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
+                    state(13)
+                    token("&#12", XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE)
+                }
 
-                lexer.start("\"&#;\"", 0, 5, 11)
-                matchToken(lexer, "\"", 11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
-                matchToken(lexer, "&#;", 13, 1, 4, XQueryTokenType.XML_EMPTY_ENTITY_REFERENCE)
-                matchToken(lexer, "\"", 13, 4, 5, XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
-                matchToken(lexer, "", 11, 5, 5, null)
+                tokenize("\"&#;\"", 0, 5, 11) {
+                    token("\"", XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
+                    state(13)
+                    token("&#;", XQueryTokenType.XML_EMPTY_ENTITY_REFERENCE)
+                    token("\"", XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
+                    state(11)
+                }
             }
 
             @Test
             @DisplayName("hexadecimal")
             fun hexadecimal() {
-                lexer.start("\"One&#x20;&#xae;&#xDC;Two\"", 0, 26, 11)
-                matchToken(lexer, "\"", 11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
-                matchToken(lexer, "One", 13, 1, 4, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
-                matchToken(lexer, "&#x20;", 13, 4, 10, XQueryTokenType.XML_CHARACTER_REFERENCE)
-                matchToken(lexer, "&#xae;", 13, 10, 16, XQueryTokenType.XML_CHARACTER_REFERENCE)
-                matchToken(lexer, "&#xDC;", 13, 16, 22, XQueryTokenType.XML_CHARACTER_REFERENCE)
-                matchToken(lexer, "Two", 13, 22, 25, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
-                matchToken(lexer, "\"", 13, 25, 26, XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
-                matchToken(lexer, "", 11, 26, 26, null)
+                tokenize("\"One&#x20;&#xae;&#xDC;Two\"", 0, 26, 11) {
+                    token("\"", XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
+                    state(13)
+                    token("One", XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
+                    token("&#x20;", XQueryTokenType.XML_CHARACTER_REFERENCE)
+                    token("&#xae;", XQueryTokenType.XML_CHARACTER_REFERENCE)
+                    token("&#xDC;", XQueryTokenType.XML_CHARACTER_REFERENCE)
+                    token("Two", XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
+                    token("\"", XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
+                    state(11)
+                }
 
-                lexer.start("'One&#x20;&#xae;&#xDC;Two'", 0, 26, 11)
-                matchToken(lexer, "'", 11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
-                matchToken(lexer, "One", 14, 1, 4, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
-                matchToken(lexer, "&#x20;", 14, 4, 10, XQueryTokenType.XML_CHARACTER_REFERENCE)
-                matchToken(lexer, "&#xae;", 14, 10, 16, XQueryTokenType.XML_CHARACTER_REFERENCE)
-                matchToken(lexer, "&#xDC;", 14, 16, 22, XQueryTokenType.XML_CHARACTER_REFERENCE)
-                matchToken(lexer, "Two", 14, 22, 25, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
-                matchToken(lexer, "'", 14, 25, 26, XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
-                matchToken(lexer, "", 11, 26, 26, null)
+                tokenize("'One&#x20;&#xae;&#xDC;Two'", 0, 26, 11) {
+                    token("'", XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
+                    state(14)
+                    token("One", XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
+                    token("&#x20;", XQueryTokenType.XML_CHARACTER_REFERENCE)
+                    token("&#xae;", XQueryTokenType.XML_CHARACTER_REFERENCE)
+                    token("&#xDC;", XQueryTokenType.XML_CHARACTER_REFERENCE)
+                    token("Two", XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
+                    token("'", XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
+                    state(11)
+                }
 
-                lexer.start("\"&#x\"", 0, 5, 11)
-                matchToken(lexer, "\"", 11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
-                matchToken(lexer, "&#x", 13, 1, 4, XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "\"", 13, 4, 5, XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
-                matchToken(lexer, "", 11, 5, 5, null)
+                tokenize("\"&#x\"", 0, 5, 11) {
+                    token("\"", XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
+                    state(13)
+                    token("&#x", XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE)
+                    token("\"", XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
+                    state(11)
+                }
 
-                lexer.start("\"&#x \"", 0, 6, 11)
-                matchToken(lexer, "\"", 11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
-                matchToken(lexer, "&#x", 13, 1, 4, XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, " ", 13, 4, 5, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
-                matchToken(lexer, "\"", 13, 5, 6, XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
-                matchToken(lexer, "", 11, 6, 6, null)
+                tokenize("\"&#x \"", 0, 6, 11) {
+                    token("\"", XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
+                    state(13)
+                    token("&#x", XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE)
+                    token(" ", XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
+                    token("\"", XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
+                    state(11)
+                }
 
-                lexer.start("\"&#x", 0, 4, 11)
-                matchToken(lexer, "\"", 11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
-                matchToken(lexer, "&#x", 13, 1, 4, XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "", 13, 4, 4, null)
+                tokenize("\"&#x", 0, 4, 11) {
+                    token("\"", XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
+                    state(13)
+                    token("&#x", XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE)
+                }
 
-                lexer.start("\"&#x12", 0, 6, 11)
-                matchToken(lexer, "\"", 11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
-                matchToken(lexer, "&#x12", 13, 1, 6, XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "", 13, 6, 6, null)
+                tokenize("\"&#x12", 0, 6, 11) {
+                    token("\"", XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
+                    state(13)
+                    token("&#x12", XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE)
+                }
 
-                lexer.start("\"&#x;&#x2G;&#x2g;&#xg2;\"", 0, 24, 11)
-                matchToken(lexer, "\"", 11, 0, 1, XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
-                matchToken(lexer, "&#x;", 13, 1, 5, XQueryTokenType.XML_EMPTY_ENTITY_REFERENCE)
-                matchToken(lexer, "&#x2", 13, 5, 9, XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "G;", 13, 9, 11, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
-                matchToken(lexer, "&#x2", 13, 11, 15, XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "g;", 13, 15, 17, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
-                matchToken(lexer, "&#x", 13, 17, 20, XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "g2;", 13, 20, 23, XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
-                matchToken(lexer, "\"", 13, 23, 24, XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
-                matchToken(lexer, "", 11, 24, 24, null)
+                tokenize("\"&#x;&#x2G;&#x2g;&#xg2;\"", 0, 24, 11) {
+                    token("\"", XQueryTokenType.XML_ATTRIBUTE_VALUE_START)
+                    state(13)
+                    token("&#x;", XQueryTokenType.XML_EMPTY_ENTITY_REFERENCE)
+                    token("&#x2", XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE)
+                    token("G;", XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
+                    token("&#x2", XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE)
+                    token("g;", XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
+                    token("&#x", XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE)
+                    token("g2;", XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
+                    token("\"", XQueryTokenType.XML_ATTRIBUTE_VALUE_END)
+                    state(11)
+                }
             }
         }
     }
@@ -1265,239 +1381,321 @@ class XQueryLexerTest : LexerTestCase() {
     internal inner class DirElemContent {
         @Test
         @DisplayName("XQuery 1.0 EBNF (148) ElementContentChar")
-        fun testDirElemContent_ElementContentChar() {
-            lexer.start("<a>One {2}<& \u3053\u3093\u3070\u3093\u306F.}</a>")
-            matchToken(lexer, "<", 0x60000000 or 30, 0, 1, XQueryTokenType.OPEN_XML_TAG)
-            matchToken(lexer, "a", 0x60000000 or 11, 1, 2, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, ">", 0x60000000 or 11, 2, 3, XQueryTokenType.END_XML_TAG)
-            matchToken(lexer, "One ", 17, 3, 7, XQueryTokenType.XML_ELEMENT_CONTENTS)
-            matchToken(lexer, "{", 17, 7, 8, XPathTokenType.BLOCK_OPEN)
-            matchToken(lexer, "2", 18, 8, 9, XPathTokenType.INTEGER_LITERAL)
-            matchToken(lexer, "}", 18, 9, 10, XPathTokenType.BLOCK_CLOSE)
-            matchToken(lexer, "<", 17, 10, 11, XPathTokenType.BAD_CHARACTER)
-            matchToken(lexer, "&", 17, 11, 12, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-            matchToken(lexer, " \u3053\u3093\u3070\u3093\u306F.", 17, 12, 19, XQueryTokenType.XML_ELEMENT_CONTENTS)
-            matchToken(lexer, "}", 17, 19, 20, XPathTokenType.BLOCK_CLOSE)
-            matchToken(lexer, "</", 17, 20, 22, XQueryTokenType.CLOSE_XML_TAG)
-            matchToken(lexer, "a", 12, 22, 23, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, ">", 12, 23, 24, XQueryTokenType.END_XML_TAG)
-            matchToken(lexer, "", 0, 24, 24, null)
+        fun elementContentChar() = tokenize("<a>One {2}<& \u3053\u3093\u3070\u3093\u306F.}</a>") {
+            state(0x60000000 or 30)
+            token("<", XQueryTokenType.OPEN_XML_TAG)
+            state(0x60000000 or 11)
+            token("a", XQueryTokenType.XML_TAG_NCNAME)
+            token(">", XQueryTokenType.END_XML_TAG)
+            state(17)
+            token("One ", XQueryTokenType.XML_ELEMENT_CONTENTS)
+            token("{", XPathTokenType.BLOCK_OPEN)
+            state(18)
+            token("2", XPathTokenType.INTEGER_LITERAL)
+            token("}", XPathTokenType.BLOCK_CLOSE)
+            state(17)
+            token("<", XPathTokenType.BAD_CHARACTER)
+            token("&", XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
+            token(" \u3053\u3093\u3070\u3093\u306F.", XQueryTokenType.XML_ELEMENT_CONTENTS)
+            token("}", XPathTokenType.BLOCK_CLOSE)
+            token("</", XQueryTokenType.CLOSE_XML_TAG)
+            state(12)
+            token("a", XQueryTokenType.XML_TAG_NCNAME)
+            token(">", XQueryTokenType.END_XML_TAG)
+            state(0)
         }
 
         @Test
         @DisplayName("XQuery 1.0 EBNF (96) DirElemConstructor")
-        fun testDirElemContent_DirElemConstructor() {
-            lexer.start("<a>One <b>Two</b> Three</a>")
-            matchToken(lexer, "<", 0x60000000 or 30, 0, 1, XQueryTokenType.OPEN_XML_TAG)
-            matchToken(lexer, "a", 0x60000000 or 11, 1, 2, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, ">", 0x60000000 or 11, 2, 3, XQueryTokenType.END_XML_TAG)
-            matchToken(lexer, "One ", 17, 3, 7, XQueryTokenType.XML_ELEMENT_CONTENTS)
-            matchToken(lexer, "<", 17, 7, 8, XQueryTokenType.OPEN_XML_TAG)
-            matchToken(lexer, "b", 11, 8, 9, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, ">", 11, 9, 10, XQueryTokenType.END_XML_TAG)
-            matchToken(lexer, "Two", 17, 10, 13, XQueryTokenType.XML_ELEMENT_CONTENTS)
-            matchToken(lexer, "</", 17, 13, 15, XQueryTokenType.CLOSE_XML_TAG)
-            matchToken(lexer, "b", 12, 15, 16, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, ">", 12, 16, 17, XQueryTokenType.END_XML_TAG)
-            matchToken(lexer, " Three", 17, 17, 23, XQueryTokenType.XML_ELEMENT_CONTENTS)
-            matchToken(lexer, "</", 17, 23, 25, XQueryTokenType.CLOSE_XML_TAG)
-            matchToken(lexer, "a", 12, 25, 26, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, ">", 12, 26, 27, XQueryTokenType.END_XML_TAG)
-            matchToken(lexer, "", 0, 27, 27, null)
+        fun dirElemConstructor() = tokenize("<a>One <b>Two</b> Three</a>") {
+            state(0x60000000 or 30)
+            token("<", XQueryTokenType.OPEN_XML_TAG)
+            state(0x60000000 or 11)
+            token("a", XQueryTokenType.XML_TAG_NCNAME)
+            token(">", XQueryTokenType.END_XML_TAG)
+            state(17)
+            token("One ", XQueryTokenType.XML_ELEMENT_CONTENTS)
+            token("<", XQueryTokenType.OPEN_XML_TAG)
+            state(11)
+            token("b", XQueryTokenType.XML_TAG_NCNAME)
+            token(">", XQueryTokenType.END_XML_TAG)
+            state(17)
+            token("Two", XQueryTokenType.XML_ELEMENT_CONTENTS)
+            token("</", XQueryTokenType.CLOSE_XML_TAG)
+            state(12)
+            token("b", XQueryTokenType.XML_TAG_NCNAME)
+            token(">", XQueryTokenType.END_XML_TAG)
+            state(17)
+            token(" Three", XQueryTokenType.XML_ELEMENT_CONTENTS)
+            token("</", XQueryTokenType.CLOSE_XML_TAG)
+            state(12)
+            token("a", XQueryTokenType.XML_TAG_NCNAME)
+            token(">", XQueryTokenType.END_XML_TAG)
+            state(0)
         }
 
         @Test
         @DisplayName("XQuery 1.0 EBNF (103) DirCommentConstructor")
-        fun testDirElemContent_DirCommentConstructor() {
-            lexer.start("<!<!-", 0, 5, 17)
-            matchToken(lexer, "<!", 17, 0, 2, XQueryTokenType.INVALID)
-            matchToken(lexer, "<!-", 17, 2, 5, XQueryTokenType.INVALID)
-            matchToken(lexer, "", 17, 5, 5, null)
+        fun dirCommentConstructor() {
+            tokenize("<!<!-", 0, 5, 17) {
+                token("<!", XQueryTokenType.INVALID)
+                token("<!-", XQueryTokenType.INVALID)
+            }
 
-            lexer.start("<a>One <!-- 2 --> Three</a>")
-            matchToken(lexer, "<", 0x60000000 or 30, 0, 1, XQueryTokenType.OPEN_XML_TAG)
-            matchToken(lexer, "a", 0x60000000 or 11, 1, 2, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, ">", 0x60000000 or 11, 2, 3, XQueryTokenType.END_XML_TAG)
-            matchToken(lexer, "One ", 17, 3, 7, XQueryTokenType.XML_ELEMENT_CONTENTS)
-            matchToken(lexer, "<!--", 17, 7, 11, XQueryTokenType.XML_COMMENT_START_TAG)
-            matchToken(lexer, " 2 ", 19, 11, 14, XQueryTokenType.XML_COMMENT)
-            matchToken(lexer, "-->", 19, 14, 17, XQueryTokenType.XML_COMMENT_END_TAG)
-            matchToken(lexer, " Three", 17, 17, 23, XQueryTokenType.XML_ELEMENT_CONTENTS)
-            matchToken(lexer, "</", 17, 23, 25, XQueryTokenType.CLOSE_XML_TAG)
-            matchToken(lexer, "a", 12, 25, 26, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, ">", 12, 26, 27, XQueryTokenType.END_XML_TAG)
-            matchToken(lexer, "", 0, 27, 27, null)
+            tokenize("<a>One <!-- 2 --> Three</a>") {
+                state(0x60000000 or 30)
+                token("<", XQueryTokenType.OPEN_XML_TAG)
+                state(0x60000000 or 11)
+                token("a", XQueryTokenType.XML_TAG_NCNAME)
+                token(">", XQueryTokenType.END_XML_TAG)
+                state(17)
+                token("One ", XQueryTokenType.XML_ELEMENT_CONTENTS)
+                token("<!--", XQueryTokenType.XML_COMMENT_START_TAG)
+                state(19)
+                token(" 2 ", XQueryTokenType.XML_COMMENT)
+                token("-->", XQueryTokenType.XML_COMMENT_END_TAG)
+                state(17)
+                token(" Three", XQueryTokenType.XML_ELEMENT_CONTENTS)
+                token("</", XQueryTokenType.CLOSE_XML_TAG)
+                state(12)
+                token("a", XQueryTokenType.XML_TAG_NCNAME)
+                token(">", XQueryTokenType.END_XML_TAG)
+                state(0)
+            }
         }
 
         @Test
         @DisplayName("XQuery 1.0 EBNF (107) CDataSection")
-        fun testDirElemContent_CDataSection() {
-            lexer.start("<!<![<![C<![CD<![CDA<![CDAT<![CDATA", 0, 35, 17)
-            matchToken(lexer, "<!", 17, 0, 2, XQueryTokenType.INVALID)
-            matchToken(lexer, "<![", 17, 2, 5, XQueryTokenType.INVALID)
-            matchToken(lexer, "<![C", 17, 5, 9, XQueryTokenType.INVALID)
-            matchToken(lexer, "<![CD", 17, 9, 14, XQueryTokenType.INVALID)
-            matchToken(lexer, "<![CDA", 17, 14, 20, XQueryTokenType.INVALID)
-            matchToken(lexer, "<![CDAT", 17, 20, 27, XQueryTokenType.INVALID)
-            matchToken(lexer, "<![CDATA", 17, 27, 35, XQueryTokenType.INVALID)
-            matchToken(lexer, "", 17, 35, 35, null)
+        fun cdataSection() {
+            token("<!", XQueryTokenType.INVALID)
+            token("<![", XQueryTokenType.INVALID)
+            token("<![C", XQueryTokenType.INVALID)
+            token("<![CD", XQueryTokenType.INVALID)
+            token("<![CDA", XQueryTokenType.INVALID)
+            token("<![CDAT", XQueryTokenType.INVALID)
+            token("<![CDATA", XQueryTokenType.INVALID)
 
-            lexer.start("<a>One <![CDATA[ 2 ]]> Three</a>")
-            matchToken(lexer, "<", 0x60000000 or 30, 0, 1, XQueryTokenType.OPEN_XML_TAG)
-            matchToken(lexer, "a", 0x60000000 or 11, 1, 2, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, ">", 0x60000000 or 11, 2, 3, XQueryTokenType.END_XML_TAG)
-            matchToken(lexer, "One ", 17, 3, 7, XQueryTokenType.XML_ELEMENT_CONTENTS)
-            matchToken(lexer, "<![CDATA[", 17, 7, 16, XQueryTokenType.CDATA_SECTION_START_TAG)
-            matchToken(lexer, " 2 ", 20, 16, 19, XQueryTokenType.CDATA_SECTION)
-            matchToken(lexer, "]]>", 20, 19, 22, XQueryTokenType.CDATA_SECTION_END_TAG)
-            matchToken(lexer, " Three", 17, 22, 28, XQueryTokenType.XML_ELEMENT_CONTENTS)
-            matchToken(lexer, "</", 17, 28, 30, XQueryTokenType.CLOSE_XML_TAG)
-            matchToken(lexer, "a", 12, 30, 31, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, ">", 12, 31, 32, XQueryTokenType.END_XML_TAG)
-            matchToken(lexer, "", 0, 32, 32, null)
+            tokenize("<a>One <![CDATA[ 2 ]]> Three</a>") {
+                state(0x60000000 or 30)
+                token("<", XQueryTokenType.OPEN_XML_TAG)
+                state(0x60000000 or 11)
+                token("a", XQueryTokenType.XML_TAG_NCNAME)
+                token(">", XQueryTokenType.END_XML_TAG)
+                state(17)
+                token("One ", XQueryTokenType.XML_ELEMENT_CONTENTS)
+                token("<![CDATA[", XQueryTokenType.CDATA_SECTION_START_TAG)
+                state(20)
+                token(" 2 ", XQueryTokenType.CDATA_SECTION)
+                token("]]>", XQueryTokenType.CDATA_SECTION_END_TAG)
+                state(17)
+                token(" Three", XQueryTokenType.XML_ELEMENT_CONTENTS)
+                token("</", XQueryTokenType.CLOSE_XML_TAG)
+                state(12)
+                token("a", XQueryTokenType.XML_TAG_NCNAME)
+                token(">", XQueryTokenType.END_XML_TAG)
+                state(0)
+            }
         }
 
         @Test
         @DisplayName("XQuery 1.0 EBNF (105) DirPIConstructor")
-        fun testDirElemContent_DirPIConstructor() {
-            lexer.start("<a><?for  6^gkgw~*?g?></a>")
-            matchToken(lexer, "<", 0x60000000 or 30, 0, 1, XQueryTokenType.OPEN_XML_TAG)
-            matchToken(lexer, "a", 0x60000000 or 11, 1, 2, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, ">", 0x60000000 or 11, 2, 3, XQueryTokenType.END_XML_TAG)
-            matchToken(lexer, "<?", 17, 3, 5, XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN)
-            matchToken(lexer, "for", 23, 5, 8, XPathTokenType.NCNAME)
-            matchToken(lexer, "  ", 23, 8, 10, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "6^gkgw~*?g", 24, 10, 20, XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS)
-            matchToken(lexer, "?>", 24, 20, 22, XQueryTokenType.PROCESSING_INSTRUCTION_END)
-            matchToken(lexer, "</", 17, 22, 24, XQueryTokenType.CLOSE_XML_TAG)
-            matchToken(lexer, "a", 12, 24, 25, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, ">", 12, 25, 26, XQueryTokenType.END_XML_TAG)
-            matchToken(lexer, "", 0, 26, 26, null)
+        fun dirPIConstructor() {
+            tokenize("<a><?for  6^gkgw~*?g?></a>") {
+                state(0x60000000 or 30)
+                token("<", XQueryTokenType.OPEN_XML_TAG)
+                state(0x60000000 or 11)
+                token("a", XQueryTokenType.XML_TAG_NCNAME)
+                token(">", XQueryTokenType.END_XML_TAG)
+                state(17)
+                token("<?", XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN)
+                state(23)
+                token("for", XPathTokenType.NCNAME)
+                token("  ", XPathTokenType.WHITE_SPACE)
+                state(24)
+                token("6^gkgw~*?g", XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS)
+                token("?>", XQueryTokenType.PROCESSING_INSTRUCTION_END)
+                state(17)
+                token("</", XQueryTokenType.CLOSE_XML_TAG)
+                state(12)
+                token("a", XQueryTokenType.XML_TAG_NCNAME)
+                token(">", XQueryTokenType.END_XML_TAG)
+                state(0)
+            }
 
-            lexer.start("<a><?for?></a>")
-            matchToken(lexer, "<", 0x60000000 or 30, 0, 1, XQueryTokenType.OPEN_XML_TAG)
-            matchToken(lexer, "a", 0x60000000 or 11, 1, 2, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, ">", 0x60000000 or 11, 2, 3, XQueryTokenType.END_XML_TAG)
-            matchToken(lexer, "<?", 17, 3, 5, XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN)
-            matchToken(lexer, "for", 23, 5, 8, XPathTokenType.NCNAME)
-            matchToken(lexer, "?>", 23, 8, 10, XQueryTokenType.PROCESSING_INSTRUCTION_END)
-            matchToken(lexer, "</", 17, 10, 12, XQueryTokenType.CLOSE_XML_TAG)
-            matchToken(lexer, "a", 12, 12, 13, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, ">", 12, 13, 14, XQueryTokenType.END_XML_TAG)
-            matchToken(lexer, "", 0, 14, 14, null)
+            tokenize("<a><?for?></a>") {
+                state(0x60000000 or 30)
+                token("<", XQueryTokenType.OPEN_XML_TAG)
+                state(0x60000000 or 11)
+                token("a", XQueryTokenType.XML_TAG_NCNAME)
+                token(">", XQueryTokenType.END_XML_TAG)
+                state(17)
+                token("<?", XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN)
+                state(23)
+                token("for", XPathTokenType.NCNAME)
+                token("?>", XQueryTokenType.PROCESSING_INSTRUCTION_END)
+                state(17)
+                token("</", XQueryTokenType.CLOSE_XML_TAG)
+                state(12)
+                token("a", XQueryTokenType.XML_TAG_NCNAME)
+                token(">", XQueryTokenType.END_XML_TAG)
+                state(0)
+            }
 
-            lexer.start("<a><?*?$?></a>")
-            matchToken(lexer, "<", 0x60000000 or 30, 0, 1, XQueryTokenType.OPEN_XML_TAG)
-            matchToken(lexer, "a", 0x60000000 or 11, 1, 2, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, ">", 0x60000000 or 11, 2, 3, XQueryTokenType.END_XML_TAG)
-            matchToken(lexer, "<?", 17, 3, 5, XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN)
-            matchToken(lexer, "*", 23, 5, 6, XPathTokenType.BAD_CHARACTER)
-            matchToken(lexer, "?", 23, 6, 7, XQueryTokenType.INVALID)
-            matchToken(lexer, "$", 23, 7, 8, XPathTokenType.BAD_CHARACTER)
-            matchToken(lexer, "?>", 23, 8, 10, XQueryTokenType.PROCESSING_INSTRUCTION_END)
-            matchToken(lexer, "</", 17, 10, 12, XQueryTokenType.CLOSE_XML_TAG)
-            matchToken(lexer, "a", 12, 12, 13, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, ">", 12, 13, 14, XQueryTokenType.END_XML_TAG)
-            matchToken(lexer, "", 0, 14, 14, null)
+            tokenize("<a><?*?$?></a>") {
+                state(0x60000000 or 30)
+                token("<", XQueryTokenType.OPEN_XML_TAG)
+                state(0x60000000 or 11)
+                token("a", XQueryTokenType.XML_TAG_NCNAME)
+                token(">", XQueryTokenType.END_XML_TAG)
+                state(17)
+                token("<?", XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN)
+                state(23)
+                token("*", XPathTokenType.BAD_CHARACTER)
+                token("?", XQueryTokenType.INVALID)
+                token("$", XPathTokenType.BAD_CHARACTER)
+                token("?>", XQueryTokenType.PROCESSING_INSTRUCTION_END)
+                state(17)
+                token("</", XQueryTokenType.CLOSE_XML_TAG)
+                state(12)
+                token("a", XQueryTokenType.XML_TAG_NCNAME)
+                token(">", XQueryTokenType.END_XML_TAG)
+                state(0)
+            }
 
-            lexer.start("<?a ?", 0, 5, 17)
-            matchToken(lexer, "<?", 17, 0, 2, XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN)
-            matchToken(lexer, "a", 23, 2, 3, XPathTokenType.NCNAME)
-            matchToken(lexer, " ", 23, 3, 4, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "?", 24, 4, 5, XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS)
-            matchToken(lexer, "", 6, 5, 5, XPathTokenType.UNEXPECTED_END_OF_BLOCK)
-            matchToken(lexer, "", 17, 5, 5, null)
+            tokenize("<?a ?", 0, 5, 17) {
+                state(17)
+                token("<?", XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN)
+                state(23)
+                token("a", XPathTokenType.NCNAME)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                state(24)
+                token("?", XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS)
+                state(6)
+                token("", XPathTokenType.UNEXPECTED_END_OF_BLOCK)
+                state(17)
+            }
 
-            lexer.start("<?a ", 0, 4, 17)
-            matchToken(lexer, "<?", 17, 0, 2, XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN)
-            matchToken(lexer, "a", 23, 2, 3, XPathTokenType.NCNAME)
-            matchToken(lexer, " ", 23, 3, 4, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "", 24, 4, 4, null)
+            tokenize("<?a ", 0, 4, 17) {
+                token("<?", XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN)
+                state(23)
+                token("a", XPathTokenType.NCNAME)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                state(24)
+            }
         }
 
         @Test
         @DisplayName("XQuery 1.0 EBNF (102) CommonContent")
-        fun testDirElemContent_CommonContent() {
-            lexer.start("<a>{{}}</a>")
-            matchToken(lexer, "<", 0x60000000 or 30, 0, 1, XQueryTokenType.OPEN_XML_TAG)
-            matchToken(lexer, "a", 0x60000000 or 11, 1, 2, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, ">", 0x60000000 or 11, 2, 3, XQueryTokenType.END_XML_TAG)
-            matchToken(lexer, "{{", 17, 3, 5, XPathTokenType.ESCAPED_CHARACTER)
-            matchToken(lexer, "}}", 17, 5, 7, XPathTokenType.ESCAPED_CHARACTER)
-            matchToken(lexer, "</", 17, 7, 9, XQueryTokenType.CLOSE_XML_TAG)
-            matchToken(lexer, "a", 12, 9, 10, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, ">", 12, 10, 11, XQueryTokenType.END_XML_TAG)
-            matchToken(lexer, "", 0, 11, 11, null)
+        fun commonContent() = tokenize("<a>{{}}</a>") {
+            state(0x60000000 or 30)
+            token("<", XQueryTokenType.OPEN_XML_TAG)
+            state(0x60000000 or 11)
+            token("a", XQueryTokenType.XML_TAG_NCNAME)
+            token(">", XQueryTokenType.END_XML_TAG)
+            state(17)
+            token("{{", XPathTokenType.ESCAPED_CHARACTER)
+            token("}}", XPathTokenType.ESCAPED_CHARACTER)
+            token("</", XQueryTokenType.CLOSE_XML_TAG)
+            state(12)
+            token("a", XQueryTokenType.XML_TAG_NCNAME)
+            token(">", XQueryTokenType.END_XML_TAG)
+            state(0)
         }
 
         @Test
         @DisplayName("XQuery 1.0 EBNF (145) PredefinedEntityRef")
-        fun testDirElemContent_PredefinedEntityRef() {
+        fun predefinedEntityRef() {
             // NOTE: The predefined entity reference names are not validated by the lexer, as some
             // XQuery processors support HTML predefined entities. Shifting the name validation to
             // the parser allows proper validation errors to be generated.
 
-            lexer.start("<a>One&abc;&aBc;&Abc;&ABC;&a4;&a;Two</a>")
-            matchToken(lexer, "<", 0x60000000 or 30, 0, 1, XQueryTokenType.OPEN_XML_TAG)
-            matchToken(lexer, "a", 0x60000000 or 11, 1, 2, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, ">", 0x60000000 or 11, 2, 3, XQueryTokenType.END_XML_TAG)
-            matchToken(lexer, "One", 17, 3, 6, XQueryTokenType.XML_ELEMENT_CONTENTS)
-            matchToken(lexer, "&abc;", 17, 6, 11, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
-            matchToken(lexer, "&aBc;", 17, 11, 16, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
-            matchToken(lexer, "&Abc;", 17, 16, 21, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
-            matchToken(lexer, "&ABC;", 17, 21, 26, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
-            matchToken(lexer, "&a4;", 17, 26, 30, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
-            matchToken(lexer, "&a;", 17, 30, 33, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
-            matchToken(lexer, "Two", 17, 33, 36, XQueryTokenType.XML_ELEMENT_CONTENTS)
-            matchToken(lexer, "</", 17, 36, 38, XQueryTokenType.CLOSE_XML_TAG)
-            matchToken(lexer, "a", 12, 38, 39, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, ">", 12, 39, 40, XQueryTokenType.END_XML_TAG)
-            matchToken(lexer, "", 0, 40, 40, null)
+            tokenize("<a>One&abc;&aBc;&Abc;&ABC;&a4;&a;Two</a>") {
+                state(0x60000000 or 30)
+                token("<", XQueryTokenType.OPEN_XML_TAG)
+                state(0x60000000 or 11)
+                token("a", XQueryTokenType.XML_TAG_NCNAME)
+                token(">", XQueryTokenType.END_XML_TAG)
+                state(17)
+                token("One", XQueryTokenType.XML_ELEMENT_CONTENTS)
+                token("&abc;", XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
+                token("&aBc;", XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
+                token("&Abc;", XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
+                token("&ABC;", XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
+                token("&a4;", XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
+                token("&a;", XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
+                token("Two", XQueryTokenType.XML_ELEMENT_CONTENTS)
+                token("</", XQueryTokenType.CLOSE_XML_TAG)
+                state(12)
+                token("a", XQueryTokenType.XML_TAG_NCNAME)
+                token(">", XQueryTokenType.END_XML_TAG)
+                state(0)
+            }
 
-            lexer.start("<a>&</a>")
-            matchToken(lexer, "<", 0x60000000 or 30, 0, 1, XQueryTokenType.OPEN_XML_TAG)
-            matchToken(lexer, "a", 0x60000000 or 11, 1, 2, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, ">", 0x60000000 or 11, 2, 3, XQueryTokenType.END_XML_TAG)
-            matchToken(lexer, "&", 17, 3, 4, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-            matchToken(lexer, "</", 17, 4, 6, XQueryTokenType.CLOSE_XML_TAG)
-            matchToken(lexer, "a", 12, 6, 7, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, ">", 12, 7, 8, XQueryTokenType.END_XML_TAG)
-            matchToken(lexer, "", 0, 8, 8, null)
+            tokenize("<a>&</a>") {
+                state(0x60000000 or 30)
+                token("<", XQueryTokenType.OPEN_XML_TAG)
+                state(0x60000000 or 11)
+                token("a", XQueryTokenType.XML_TAG_NCNAME)
+                token(">", XQueryTokenType.END_XML_TAG)
+                state(17)
+                token("&", XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
+                token("</", XQueryTokenType.CLOSE_XML_TAG)
+                state(12)
+                token("a", XQueryTokenType.XML_TAG_NCNAME)
+                token(">", XQueryTokenType.END_XML_TAG)
+                state(0)
+            }
 
-            lexer.start("<a>&abc!</a>")
-            matchToken(lexer, "<", 0x60000000 or 30, 0, 1, XQueryTokenType.OPEN_XML_TAG)
-            matchToken(lexer, "a", 0x60000000 or 11, 1, 2, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, ">", 0x60000000 or 11, 2, 3, XQueryTokenType.END_XML_TAG)
-            matchToken(lexer, "&abc", 17, 3, 7, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-            matchToken(lexer, "!", 17, 7, 8, XQueryTokenType.XML_ELEMENT_CONTENTS)
-            matchToken(lexer, "</", 17, 8, 10, XQueryTokenType.CLOSE_XML_TAG)
-            matchToken(lexer, "a", 12, 10, 11, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, ">", 12, 11, 12, XQueryTokenType.END_XML_TAG)
-            matchToken(lexer, "", 0, 12, 12, null)
+            tokenize("<a>&abc!</a>") {
+                state(0x60000000 or 30)
+                token("<", XQueryTokenType.OPEN_XML_TAG)
+                state(0x60000000 or 11)
+                token("a", XQueryTokenType.XML_TAG_NCNAME)
+                token(">", XQueryTokenType.END_XML_TAG)
+                state(17)
+                token("&abc", XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
+                token("!", XQueryTokenType.XML_ELEMENT_CONTENTS)
+                token("</", XQueryTokenType.CLOSE_XML_TAG)
+                state(12)
+                token("a", XQueryTokenType.XML_TAG_NCNAME)
+                token(">", XQueryTokenType.END_XML_TAG)
+                state(0)
+            }
 
-            lexer.start("<a>&")
-            matchToken(lexer, "<", 0x60000000 or 30, 0, 1, XQueryTokenType.OPEN_XML_TAG)
-            matchToken(lexer, "a", 0x60000000 or 11, 1, 2, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, ">", 0x60000000 or 11, 2, 3, XQueryTokenType.END_XML_TAG)
-            matchToken(lexer, "&", 17, 3, 4, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-            matchToken(lexer, "", 17, 4, 4, null)
+            tokenize("<a>&") {
+                state(0x60000000 or 30)
+                token("<", XQueryTokenType.OPEN_XML_TAG)
+                state(0x60000000 or 11)
+                token("a", XQueryTokenType.XML_TAG_NCNAME)
+                token(">", XQueryTokenType.END_XML_TAG)
+                state(17)
+                token("&", XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
+            }
 
-            lexer.start("<a>&abc")
-            matchToken(lexer, "<", 0x60000000 or 30, 0, 1, XQueryTokenType.OPEN_XML_TAG)
-            matchToken(lexer, "a", 0x60000000 or 11, 1, 2, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, ">", 0x60000000 or 11, 2, 3, XQueryTokenType.END_XML_TAG)
-            matchToken(lexer, "&abc", 17, 3, 7, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-            matchToken(lexer, "", 17, 7, 7, null)
+            tokenize("<a>&abc") {
+                state(0x60000000 or 30)
+                token("<", XQueryTokenType.OPEN_XML_TAG)
+                state(0x60000000 or 11)
+                token("a", XQueryTokenType.XML_TAG_NCNAME)
+                token(">", XQueryTokenType.END_XML_TAG)
+                state(17)
+                token("&abc", XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
+            }
 
-            lexer.start("<a>&;</a>")
-            matchToken(lexer, "<", 0x60000000 or 30, 0, 1, XQueryTokenType.OPEN_XML_TAG)
-            matchToken(lexer, "a", 0x60000000 or 11, 1, 2, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, ">", 0x60000000 or 11, 2, 3, XQueryTokenType.END_XML_TAG)
-            matchToken(lexer, "&;", 17, 3, 5, XQueryTokenType.EMPTY_ENTITY_REFERENCE)
-            matchToken(lexer, "</", 17, 5, 7, XQueryTokenType.CLOSE_XML_TAG)
-            matchToken(lexer, "a", 12, 7, 8, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, ">", 12, 8, 9, XQueryTokenType.END_XML_TAG)
-            matchToken(lexer, "", 0, 9, 9, null)
+            tokenize("<a>&;</a>") {
+                state(0x60000000 or 30)
+                token("<", XQueryTokenType.OPEN_XML_TAG)
+                state(0x60000000 or 11)
+                token("a", XQueryTokenType.XML_TAG_NCNAME)
+                token(">", XQueryTokenType.END_XML_TAG)
+                state(17)
+                token("&;", XQueryTokenType.EMPTY_ENTITY_REFERENCE)
+                token("</", XQueryTokenType.CLOSE_XML_TAG)
+                state(12)
+                token("a", XQueryTokenType.XML_TAG_NCNAME)
+                token(">", XQueryTokenType.END_XML_TAG)
+                state(0)
+            }
         }
 
         @Nested
@@ -1506,143 +1704,200 @@ class XQueryLexerTest : LexerTestCase() {
             @Test
             @DisplayName("decimal")
             fun decimal() {
-                lexer.start("<a>One&#20;Two</a>")
-                matchToken(lexer, "<", 0x60000000 or 30, 0, 1, XQueryTokenType.OPEN_XML_TAG)
-                matchToken(lexer, "a", 0x60000000 or 11, 1, 2, XQueryTokenType.XML_TAG_NCNAME)
-                matchToken(lexer, ">", 0x60000000 or 11, 2, 3, XQueryTokenType.END_XML_TAG)
-                matchToken(lexer, "One", 17, 3, 6, XQueryTokenType.XML_ELEMENT_CONTENTS)
-                matchToken(lexer, "&#20;", 17, 6, 11, XQueryTokenType.CHARACTER_REFERENCE)
-                matchToken(lexer, "Two", 17, 11, 14, XQueryTokenType.XML_ELEMENT_CONTENTS)
-                matchToken(lexer, "</", 17, 14, 16, XQueryTokenType.CLOSE_XML_TAG)
-                matchToken(lexer, "a", 12, 16, 17, XQueryTokenType.XML_TAG_NCNAME)
-                matchToken(lexer, ">", 12, 17, 18, XQueryTokenType.END_XML_TAG)
-                matchToken(lexer, "", 0, 18, 18, null)
+                tokenize("<a>One&#20;Two</a>") {
+                    state(0x60000000 or 30)
+                    token("<", XQueryTokenType.OPEN_XML_TAG)
+                    state(0x60000000 or 11)
+                    token("a", XQueryTokenType.XML_TAG_NCNAME)
+                    token(">", XQueryTokenType.END_XML_TAG)
+                    state(17)
+                    token("One", XQueryTokenType.XML_ELEMENT_CONTENTS)
+                    token("&#20;", XQueryTokenType.CHARACTER_REFERENCE)
+                    token("Two", XQueryTokenType.XML_ELEMENT_CONTENTS)
+                    token("</", XQueryTokenType.CLOSE_XML_TAG)
+                    state(12)
+                    token("a", XQueryTokenType.XML_TAG_NCNAME)
+                    token(">", XQueryTokenType.END_XML_TAG)
+                    state(0)
+                }
 
-                lexer.start("<a>One&#9;Two</a>")
-                matchToken(lexer, "<", 0x60000000 or 30, 0, 1, XQueryTokenType.OPEN_XML_TAG)
-                matchToken(lexer, "a", 0x60000000 or 11, 1, 2, XQueryTokenType.XML_TAG_NCNAME)
-                matchToken(lexer, ">", 0x60000000 or 11, 2, 3, XQueryTokenType.END_XML_TAG)
-                matchToken(lexer, "One", 17, 3, 6, XQueryTokenType.XML_ELEMENT_CONTENTS)
-                matchToken(lexer, "&#9;", 17, 6, 10, XQueryTokenType.CHARACTER_REFERENCE)
-                matchToken(lexer, "Two", 17, 10, 13, XQueryTokenType.XML_ELEMENT_CONTENTS)
-                matchToken(lexer, "</", 17, 13, 15, XQueryTokenType.CLOSE_XML_TAG)
-                matchToken(lexer, "a", 12, 15, 16, XQueryTokenType.XML_TAG_NCNAME)
-                matchToken(lexer, ">", 12, 16, 17, XQueryTokenType.END_XML_TAG)
-                matchToken(lexer, "", 0, 17, 17, null)
+                tokenize("<a>One&#9;Two</a>") {
+                    state(0x60000000 or 30)
+                    token("<", XQueryTokenType.OPEN_XML_TAG)
+                    state(0x60000000 or 11)
+                    token("a", XQueryTokenType.XML_TAG_NCNAME)
+                    token(">", XQueryTokenType.END_XML_TAG)
+                    state(17)
+                    token("One", XQueryTokenType.XML_ELEMENT_CONTENTS)
+                    token("&#9;", XQueryTokenType.CHARACTER_REFERENCE)
+                    token("Two", XQueryTokenType.XML_ELEMENT_CONTENTS)
+                    token("</", XQueryTokenType.CLOSE_XML_TAG)
+                    state(12)
+                    token("a", XQueryTokenType.XML_TAG_NCNAME)
+                    token(">", XQueryTokenType.END_XML_TAG)
+                    state(0)
+                }
 
-                lexer.start("<a>&#</a>")
-                matchToken(lexer, "<", 0x60000000 or 30, 0, 1, XQueryTokenType.OPEN_XML_TAG)
-                matchToken(lexer, "a", 0x60000000 or 11, 1, 2, XQueryTokenType.XML_TAG_NCNAME)
-                matchToken(lexer, ">", 0x60000000 or 11, 2, 3, XQueryTokenType.END_XML_TAG)
-                matchToken(lexer, "&#", 17, 3, 5, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "</", 17, 5, 7, XQueryTokenType.CLOSE_XML_TAG)
-                matchToken(lexer, "a", 12, 7, 8, XQueryTokenType.XML_TAG_NCNAME)
-                matchToken(lexer, ">", 12, 8, 9, XQueryTokenType.END_XML_TAG)
-                matchToken(lexer, "", 0, 9, 9, null)
+                tokenize("<a>&#</a>") {
+                    state(0x60000000 or 30)
+                    token("<", XQueryTokenType.OPEN_XML_TAG)
+                    state(0x60000000 or 11)
+                    token("a", XQueryTokenType.XML_TAG_NCNAME)
+                    token(">", XQueryTokenType.END_XML_TAG)
+                    state(17)
+                    token("&#", XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
+                    token("</", XQueryTokenType.CLOSE_XML_TAG)
+                    state(12)
+                    token("a", XQueryTokenType.XML_TAG_NCNAME)
+                    token(">", XQueryTokenType.END_XML_TAG)
+                    state(0)
+                }
 
-                lexer.start("<a>&# </a>")
-                matchToken(lexer, "<", 0x60000000 or 30, 0, 1, XQueryTokenType.OPEN_XML_TAG)
-                matchToken(lexer, "a", 0x60000000 or 11, 1, 2, XQueryTokenType.XML_TAG_NCNAME)
-                matchToken(lexer, ">", 0x60000000 or 11, 2, 3, XQueryTokenType.END_XML_TAG)
-                matchToken(lexer, "&#", 17, 3, 5, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, " ", 17, 5, 6, XQueryTokenType.XML_ELEMENT_CONTENTS)
-                matchToken(lexer, "</", 17, 6, 8, XQueryTokenType.CLOSE_XML_TAG)
-                matchToken(lexer, "a", 12, 8, 9, XQueryTokenType.XML_TAG_NCNAME)
-                matchToken(lexer, ">", 12, 9, 10, XQueryTokenType.END_XML_TAG)
-                matchToken(lexer, "", 0, 10, 10, null)
+                tokenize("<a>&# </a>") {
+                    state(0x60000000 or 30)
+                    token("<", XQueryTokenType.OPEN_XML_TAG)
+                    state(0x60000000 or 11)
+                    token("a", XQueryTokenType.XML_TAG_NCNAME)
+                    token(">", XQueryTokenType.END_XML_TAG)
+                    state(17)
+                    token("&#", XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
+                    token(" ", XQueryTokenType.XML_ELEMENT_CONTENTS)
+                    token("</", XQueryTokenType.CLOSE_XML_TAG)
+                    state(12)
+                    token("a", XQueryTokenType.XML_TAG_NCNAME)
+                    token(">", XQueryTokenType.END_XML_TAG)
+                    state(0)
+                }
 
-                lexer.start("<a>&#")
-                matchToken(lexer, "<", 0x60000000 or 30, 0, 1, XQueryTokenType.OPEN_XML_TAG)
-                matchToken(lexer, "a", 0x60000000 or 11, 1, 2, XQueryTokenType.XML_TAG_NCNAME)
-                matchToken(lexer, ">", 0x60000000 or 11, 2, 3, XQueryTokenType.END_XML_TAG)
-                matchToken(lexer, "&#", 17, 3, 5, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "", 17, 5, 5, null)
+                tokenize("<a>&#") {
+                    state(0x60000000 or 30)
+                    token("<", XQueryTokenType.OPEN_XML_TAG)
+                    state(0x60000000 or 11)
+                    token("a", XQueryTokenType.XML_TAG_NCNAME)
+                    token(">", XQueryTokenType.END_XML_TAG)
+                    state(17)
+                    token("&#", XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
+                }
 
-                lexer.start("<a>&#12")
-                matchToken(lexer, "<", 0x60000000 or 30, 0, 1, XQueryTokenType.OPEN_XML_TAG)
-                matchToken(lexer, "a", 0x60000000 or 11, 1, 2, XQueryTokenType.XML_TAG_NCNAME)
-                matchToken(lexer, ">", 0x60000000 or 11, 2, 3, XQueryTokenType.END_XML_TAG)
-                matchToken(lexer, "&#12", 17, 3, 7, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "", 17, 7, 7, null)
+                tokenize("<a>&#12") {
+                    state(0x60000000 or 30)
+                    token("<", XQueryTokenType.OPEN_XML_TAG)
+                    state(0x60000000 or 11)
+                    token("a", XQueryTokenType.XML_TAG_NCNAME)
+                    token(">", XQueryTokenType.END_XML_TAG)
+                    state(17)
+                    token("&#12", XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
+                }
 
-                lexer.start("<a>&#;</a>")
-                matchToken(lexer, "<", 0x60000000 or 30, 0, 1, XQueryTokenType.OPEN_XML_TAG)
-                matchToken(lexer, "a", 0x60000000 or 11, 1, 2, XQueryTokenType.XML_TAG_NCNAME)
-                matchToken(lexer, ">", 0x60000000 or 11, 2, 3, XQueryTokenType.END_XML_TAG)
-                matchToken(lexer, "&#;", 17, 3, 6, XQueryTokenType.EMPTY_ENTITY_REFERENCE)
-                matchToken(lexer, "</", 17, 6, 8, XQueryTokenType.CLOSE_XML_TAG)
-                matchToken(lexer, "a", 12, 8, 9, XQueryTokenType.XML_TAG_NCNAME)
-                matchToken(lexer, ">", 12, 9, 10, XQueryTokenType.END_XML_TAG)
-                matchToken(lexer, "", 0, 10, 10, null)
+                tokenize("<a>&#;</a>") {
+                    state(0x60000000 or 30)
+                    token("<", XQueryTokenType.OPEN_XML_TAG)
+                    state(0x60000000 or 11)
+                    token("a", XQueryTokenType.XML_TAG_NCNAME)
+                    token(">", XQueryTokenType.END_XML_TAG)
+                    state(17)
+                    token("&#;", XQueryTokenType.EMPTY_ENTITY_REFERENCE)
+                    token("</", XQueryTokenType.CLOSE_XML_TAG)
+                    state(12)
+                    token("a", XQueryTokenType.XML_TAG_NCNAME)
+                    token(">", XQueryTokenType.END_XML_TAG)
+                    state(0)
+                }
             }
 
             @Test
             @DisplayName("hexadecimal")
             fun hexadecimal() {
-                lexer.start("<a>One&#x20;&#xae;&#xDC;Two</a>")
-                matchToken(lexer, "<", 0x60000000 or 30, 0, 1, XQueryTokenType.OPEN_XML_TAG)
-                matchToken(lexer, "a", 0x60000000 or 11, 1, 2, XQueryTokenType.XML_TAG_NCNAME)
-                matchToken(lexer, ">", 0x60000000 or 11, 2, 3, XQueryTokenType.END_XML_TAG)
-                matchToken(lexer, "One", 17, 3, 6, XQueryTokenType.XML_ELEMENT_CONTENTS)
-                matchToken(lexer, "&#x20;", 17, 6, 12, XQueryTokenType.CHARACTER_REFERENCE)
-                matchToken(lexer, "&#xae;", 17, 12, 18, XQueryTokenType.CHARACTER_REFERENCE)
-                matchToken(lexer, "&#xDC;", 17, 18, 24, XQueryTokenType.CHARACTER_REFERENCE)
-                matchToken(lexer, "Two", 17, 24, 27, XQueryTokenType.XML_ELEMENT_CONTENTS)
-                matchToken(lexer, "</", 17, 27, 29, XQueryTokenType.CLOSE_XML_TAG)
-                matchToken(lexer, "a", 12, 29, 30, XQueryTokenType.XML_TAG_NCNAME)
-                matchToken(lexer, ">", 12, 30, 31, XQueryTokenType.END_XML_TAG)
-                matchToken(lexer, "", 0, 31, 31, null)
+                tokenize("<a>One&#x20;&#xae;&#xDC;Two</a>") {
+                    state(0x60000000 or 30)
+                    token("<", XQueryTokenType.OPEN_XML_TAG)
+                    state(0x60000000 or 11)
+                    token("a", XQueryTokenType.XML_TAG_NCNAME)
+                    token(">", XQueryTokenType.END_XML_TAG)
+                    state(17)
+                    token("One", XQueryTokenType.XML_ELEMENT_CONTENTS)
+                    token("&#x20;", XQueryTokenType.CHARACTER_REFERENCE)
+                    token("&#xae;", XQueryTokenType.CHARACTER_REFERENCE)
+                    token("&#xDC;", XQueryTokenType.CHARACTER_REFERENCE)
+                    token("Two", XQueryTokenType.XML_ELEMENT_CONTENTS)
+                    token("</", XQueryTokenType.CLOSE_XML_TAG)
+                    state(12)
+                    token("a", XQueryTokenType.XML_TAG_NCNAME)
+                    token(">", XQueryTokenType.END_XML_TAG)
+                    state(0)
+                }
 
-                lexer.start("<a>&#x</a>")
-                matchToken(lexer, "<", 0x60000000 or 30, 0, 1, XQueryTokenType.OPEN_XML_TAG)
-                matchToken(lexer, "a", 0x60000000 or 11, 1, 2, XQueryTokenType.XML_TAG_NCNAME)
-                matchToken(lexer, ">", 0x60000000 or 11, 2, 3, XQueryTokenType.END_XML_TAG)
-                matchToken(lexer, "&#x", 17, 3, 6, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "</", 17, 6, 8, XQueryTokenType.CLOSE_XML_TAG)
-                matchToken(lexer, "a", 12, 8, 9, XQueryTokenType.XML_TAG_NCNAME)
-                matchToken(lexer, ">", 12, 9, 10, XQueryTokenType.END_XML_TAG)
-                matchToken(lexer, "", 0, 10, 10, null)
+                tokenize("<a>&#x</a>") {
+                    state(0x60000000 or 30)
+                    token("<", XQueryTokenType.OPEN_XML_TAG)
+                    state(0x60000000 or 11)
+                    token("a", XQueryTokenType.XML_TAG_NCNAME)
+                    token(">", XQueryTokenType.END_XML_TAG)
+                    state(17)
+                    token("&#x", XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
+                    token("</", XQueryTokenType.CLOSE_XML_TAG)
+                    state(12)
+                    token("a", XQueryTokenType.XML_TAG_NCNAME)
+                    token(">", XQueryTokenType.END_XML_TAG)
+                    state(0)
+                }
 
-                lexer.start("<a>&#x </a>")
-                matchToken(lexer, "<", 0x60000000 or 30, 0, 1, XQueryTokenType.OPEN_XML_TAG)
-                matchToken(lexer, "a", 0x60000000 or 11, 1, 2, XQueryTokenType.XML_TAG_NCNAME)
-                matchToken(lexer, ">", 0x60000000 or 11, 2, 3, XQueryTokenType.END_XML_TAG)
-                matchToken(lexer, "&#x", 17, 3, 6, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, " ", 17, 6, 7, XQueryTokenType.XML_ELEMENT_CONTENTS)
-                matchToken(lexer, "</", 17, 7, 9, XQueryTokenType.CLOSE_XML_TAG)
-                matchToken(lexer, "a", 12, 9, 10, XQueryTokenType.XML_TAG_NCNAME)
-                matchToken(lexer, ">", 12, 10, 11, XQueryTokenType.END_XML_TAG)
-                matchToken(lexer, "", 0, 11, 11, null)
+                tokenize("<a>&#x </a>") {
+                    state(0x60000000 or 30)
+                    token("<", XQueryTokenType.OPEN_XML_TAG)
+                    state(0x60000000 or 11)
+                    token("a", XQueryTokenType.XML_TAG_NCNAME)
+                    token(">", XQueryTokenType.END_XML_TAG)
+                    state(17)
+                    token("&#x", XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
+                    token(" ", XQueryTokenType.XML_ELEMENT_CONTENTS)
+                    token("</", XQueryTokenType.CLOSE_XML_TAG)
+                    state(12)
+                    token("a", XQueryTokenType.XML_TAG_NCNAME)
+                    token(">", XQueryTokenType.END_XML_TAG)
+                    state(0)
+                }
 
-                lexer.start("<a>&#x")
-                matchToken(lexer, "<", 0x60000000 or 30, 0, 1, XQueryTokenType.OPEN_XML_TAG)
-                matchToken(lexer, "a", 0x60000000 or 11, 1, 2, XQueryTokenType.XML_TAG_NCNAME)
-                matchToken(lexer, ">", 0x60000000 or 11, 2, 3, XQueryTokenType.END_XML_TAG)
-                matchToken(lexer, "&#x", 17, 3, 6, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "", 17, 6, 6, null)
+                tokenize("<a>&#x") {
+                    state(0x60000000 or 30)
+                    token("<", XQueryTokenType.OPEN_XML_TAG)
+                    state(0x60000000 or 11)
+                    token("a", XQueryTokenType.XML_TAG_NCNAME)
+                    token(">", XQueryTokenType.END_XML_TAG)
+                    state(17)
+                    token("&#x", XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
+                }
 
-                lexer.start("<a>&#x12")
-                matchToken(lexer, "<", 0x60000000 or 30, 0, 1, XQueryTokenType.OPEN_XML_TAG)
-                matchToken(lexer, "a", 0x60000000 or 11, 1, 2, XQueryTokenType.XML_TAG_NCNAME)
-                matchToken(lexer, ">", 0x60000000 or 11, 2, 3, XQueryTokenType.END_XML_TAG)
-                matchToken(lexer, "&#x12", 17, 3, 8, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "", 17, 8, 8, null)
+                tokenize("<a>&#x12") {
+                    state(0x60000000 or 30)
+                    token("<", XQueryTokenType.OPEN_XML_TAG)
+                    state(0x60000000 or 11)
+                    token("a", XQueryTokenType.XML_TAG_NCNAME)
+                    token(">", XQueryTokenType.END_XML_TAG)
+                    state(17)
+                    token("&#x12", XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
+                }
 
-                lexer.start("<a>&#x;&#x2G;&#x2g;&#xg2;</a>")
-                matchToken(lexer, "<", 0x60000000 or 30, 0, 1, XQueryTokenType.OPEN_XML_TAG)
-                matchToken(lexer, "a", 0x60000000 or 11, 1, 2, XQueryTokenType.XML_TAG_NCNAME)
-                matchToken(lexer, ">", 0x60000000 or 11, 2, 3, XQueryTokenType.END_XML_TAG)
-                matchToken(lexer, "&#x;", 17, 3, 7, XQueryTokenType.EMPTY_ENTITY_REFERENCE)
-                matchToken(lexer, "&#x2", 17, 7, 11, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "G;", 17, 11, 13, XQueryTokenType.XML_ELEMENT_CONTENTS)
-                matchToken(lexer, "&#x2", 17, 13, 17, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "g;", 17, 17, 19, XQueryTokenType.XML_ELEMENT_CONTENTS)
-                matchToken(lexer, "&#x", 17, 19, 22, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "g2;", 17, 22, 25, XQueryTokenType.XML_ELEMENT_CONTENTS)
-                matchToken(lexer, "</", 17, 25, 27, XQueryTokenType.CLOSE_XML_TAG)
-                matchToken(lexer, "a", 12, 27, 28, XQueryTokenType.XML_TAG_NCNAME)
-                matchToken(lexer, ">", 12, 28, 29, XQueryTokenType.END_XML_TAG)
-                matchToken(lexer, "", 0, 29, 29, null)
+                tokenize("<a>&#x;&#x2G;&#x2g;&#xg2;</a>") {
+                    state(0x60000000 or 30)
+                    token("<", XQueryTokenType.OPEN_XML_TAG)
+                    state(0x60000000 or 11)
+                    token("a", XQueryTokenType.XML_TAG_NCNAME)
+                    token(">", XQueryTokenType.END_XML_TAG)
+                    state(17)
+                    token("&#x;", XQueryTokenType.EMPTY_ENTITY_REFERENCE)
+                    token("&#x2", XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
+                    token("G;", XQueryTokenType.XML_ELEMENT_CONTENTS)
+                    token("&#x2", XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
+                    token("g;", XQueryTokenType.XML_ELEMENT_CONTENTS)
+                    token("&#x", XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
+                    token("g2;", XQueryTokenType.XML_ELEMENT_CONTENTS)
+                    token("</", XQueryTokenType.CLOSE_XML_TAG)
+                    state(12)
+                    token("a", XQueryTokenType.XML_TAG_NCNAME)
+                    token(">", XQueryTokenType.END_XML_TAG)
+                    state(0)
+                }
             }
         }
     }
@@ -1652,114 +1907,145 @@ class XQueryLexerTest : LexerTestCase() {
     internal inner class DirCommentConstructor {
         @Test
         @DisplayName("direct comment constructor")
-        fun testDirCommentConstructor() {
+        fun dirCommentConstructor() {
             token("<", 0, XPathTokenType.LESS_THAN)
             token("<!", 0, XQueryTokenType.INVALID)
             token("<!-", 0, XQueryTokenType.INVALID)
             token("<!--", 5, XQueryTokenType.XML_COMMENT_START_TAG)
 
             // Unary Minus
-            lexer.start("--")
-            matchToken(lexer, "-", 0, 0, 1, XPathTokenType.MINUS)
-            matchToken(lexer, "-", 0, 1, 2, XPathTokenType.MINUS)
-            matchToken(lexer, "", 0, 2, 2, null)
+            tokenize("--") {
+                token("-", XPathTokenType.MINUS)
+                token("-", XPathTokenType.MINUS)
+            }
 
             token("-->", XQueryTokenType.XML_COMMENT_END_TAG)
 
-            lexer.start("<!-- Test")
-            matchToken(lexer, "<!--", 0, 0, 4, XQueryTokenType.XML_COMMENT_START_TAG)
-            matchToken(lexer, " Test", 5, 4, 9, XQueryTokenType.XML_COMMENT)
-            matchToken(lexer, "", 6, 9, 9, XPathTokenType.UNEXPECTED_END_OF_BLOCK)
-            matchToken(lexer, "", 0, 9, 9, null)
+            tokenize("<!-- Test") {
+                token("<!--", XQueryTokenType.XML_COMMENT_START_TAG)
+                state(5)
+                token(" Test", XQueryTokenType.XML_COMMENT)
+                state(6)
+                token("", XPathTokenType.UNEXPECTED_END_OF_BLOCK)
+                state(0)
+            }
 
-            lexer.start("<!-- Test --")
-            matchToken(lexer, "<!--", 0, 0, 4, XQueryTokenType.XML_COMMENT_START_TAG)
-            matchToken(lexer, " Test --", 5, 4, 12, XQueryTokenType.XML_COMMENT)
-            matchToken(lexer, "", 6, 12, 12, XPathTokenType.UNEXPECTED_END_OF_BLOCK)
-            matchToken(lexer, "", 0, 12, 12, null)
+            tokenize("<!-- Test --") {
+                token("<!--", XQueryTokenType.XML_COMMENT_START_TAG)
+                state(5)
+                token(" Test --", XQueryTokenType.XML_COMMENT)
+                state(6)
+                token("", XPathTokenType.UNEXPECTED_END_OF_BLOCK)
+                state(0)
+            }
 
-            lexer.start("<!-- Test -->")
-            matchToken(lexer, "<!--", 0, 0, 4, XQueryTokenType.XML_COMMENT_START_TAG)
-            matchToken(lexer, " Test ", 5, 4, 10, XQueryTokenType.XML_COMMENT)
-            matchToken(lexer, "-->", 5, 10, 13, XQueryTokenType.XML_COMMENT_END_TAG)
-            matchToken(lexer, "", 0, 13, 13, null)
+            tokenize("<!-- Test -->") {
+                token("<!--", XQueryTokenType.XML_COMMENT_START_TAG)
+                state(5)
+                token(" Test ", XQueryTokenType.XML_COMMENT)
+                token("-->", XQueryTokenType.XML_COMMENT_END_TAG)
+                state(0)
+            }
 
-            lexer.start("<!--\nMultiline\nComment\n-->")
-            matchToken(lexer, "<!--", 0, 0, 4, XQueryTokenType.XML_COMMENT_START_TAG)
-            matchToken(lexer, "\nMultiline\nComment\n", 5, 4, 23, XQueryTokenType.XML_COMMENT)
-            matchToken(lexer, "-->", 5, 23, 26, XQueryTokenType.XML_COMMENT_END_TAG)
-            matchToken(lexer, "", 0, 26, 26, null)
+            tokenize("<!--\nMultiline\nComment\n-->") {
+                token("<!--", XQueryTokenType.XML_COMMENT_START_TAG)
+                state(5)
+                token("\nMultiline\nComment\n", XQueryTokenType.XML_COMMENT)
+                token("-->", XQueryTokenType.XML_COMMENT_END_TAG)
+                state(0)
+            }
 
-            lexer.start("<!---")
-            matchToken(lexer, "<!--", 0, 0, 4, XQueryTokenType.XML_COMMENT_START_TAG)
-            matchToken(lexer, "-", 5, 4, 5, XQueryTokenType.XML_COMMENT)
-            matchToken(lexer, "", 6, 5, 5, XPathTokenType.UNEXPECTED_END_OF_BLOCK)
-            matchToken(lexer, "", 0, 5, 5, null)
+            tokenize("<!---") {
+                token("<!--", XQueryTokenType.XML_COMMENT_START_TAG)
+                state(5)
+                token("-", XQueryTokenType.XML_COMMENT)
+                state(6)
+                token("", XPathTokenType.UNEXPECTED_END_OF_BLOCK)
+                state(0)
+            }
 
-            lexer.start("<!----")
-            matchToken(lexer, "<!--", 0, 0, 4, XQueryTokenType.XML_COMMENT_START_TAG)
-            matchToken(lexer, "--", 5, 4, 6, XQueryTokenType.XML_COMMENT)
-            matchToken(lexer, "", 6, 6, 6, XPathTokenType.UNEXPECTED_END_OF_BLOCK)
-            matchToken(lexer, "", 0, 6, 6, null)
+            tokenize("<!----") {
+                token("<!--", XQueryTokenType.XML_COMMENT_START_TAG)
+                state(5)
+                token("--", XQueryTokenType.XML_COMMENT)
+                state(6)
+                token("", XPathTokenType.UNEXPECTED_END_OF_BLOCK)
+                state(0)
+            }
         }
 
         @Test
         @DisplayName("initial state")
-        fun testDirCommentConstructor_InitialState() {
-            lexer.start("<!-- Test", 4, 9, 5)
-            matchToken(lexer, " Test", 5, 4, 9, XQueryTokenType.XML_COMMENT)
-            matchToken(lexer, "", 6, 9, 9, XPathTokenType.UNEXPECTED_END_OF_BLOCK)
-            matchToken(lexer, "", 0, 9, 9, null)
+        fun initialState() {
+            tokenize("<!-- Test", 4, 9, 5) {
+                token(" Test", XQueryTokenType.XML_COMMENT)
+                state(6)
+                token("", XPathTokenType.UNEXPECTED_END_OF_BLOCK)
+                state(0)
+            }
 
-            lexer.start("<!-- Test -->", 4, 13, 5)
-            matchToken(lexer, " Test ", 5, 4, 10, XQueryTokenType.XML_COMMENT)
-            matchToken(lexer, "-->", 5, 10, 13, XQueryTokenType.XML_COMMENT_END_TAG)
-            matchToken(lexer, "", 0, 13, 13, null)
+            tokenize("<!-- Test -->", 4, 13, 5) {
+                token(" Test ", XQueryTokenType.XML_COMMENT)
+                token("-->", XQueryTokenType.XML_COMMENT_END_TAG)
+                state(0)
+            }
         }
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (105) DirPIConstructor ; XQuery 1.0 EBNF (106) DirPIContents")
-    fun testDirPIConstructor() {
+    fun dirPIConstructor() {
         token("<?", 21, XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN)
         token("?>", 0, XQueryTokenType.PROCESSING_INSTRUCTION_END)
 
+        tokenize("<?for  6^gkgw~*?g?>") {
+            token("<?", XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN)
+            state(21)
+            token("for", XPathTokenType.NCNAME)
+            token("  ", XPathTokenType.WHITE_SPACE)
+            state(22)
+            token("6^gkgw~*?g", XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS)
+            token("?>", XQueryTokenType.PROCESSING_INSTRUCTION_END)
+            state(0)
+        }
 
-        lexer.start("<?for  6^gkgw~*?g?>")
-        matchToken(lexer, "<?", 0, 0, 2, XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN)
-        matchToken(lexer, "for", 21, 2, 5, XPathTokenType.NCNAME)
-        matchToken(lexer, "  ", 21, 5, 7, XPathTokenType.WHITE_SPACE)
-        matchToken(lexer, "6^gkgw~*?g", 22, 7, 17, XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS)
-        matchToken(lexer, "?>", 22, 17, 19, XQueryTokenType.PROCESSING_INSTRUCTION_END)
-        matchToken(lexer, "", 0, 19, 19, null)
+        tokenize("<?for?>") {
+            token("<?", XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN)
+            state(21)
+            token("for", XPathTokenType.NCNAME)
+            token("?>", XQueryTokenType.PROCESSING_INSTRUCTION_END)
+            state(0)
+        }
 
-        lexer.start("<?for?>")
-        matchToken(lexer, "<?", 0, 0, 2, XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN)
-        matchToken(lexer, "for", 21, 2, 5, XPathTokenType.NCNAME)
-        matchToken(lexer, "?>", 21, 5, 7, XQueryTokenType.PROCESSING_INSTRUCTION_END)
-        matchToken(lexer, "", 0, 7, 7, null)
+        tokenize("<?*?$?>") {
+            token("<?", XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN)
+            state(21)
+            token("*", XPathTokenType.BAD_CHARACTER)
+            token("?", XQueryTokenType.INVALID)
+            token("$", XPathTokenType.BAD_CHARACTER)
+            token("?>", XQueryTokenType.PROCESSING_INSTRUCTION_END)
+            state(0)
+        }
 
-        lexer.start("<?*?$?>")
-        matchToken(lexer, "<?", 0, 0, 2, XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN)
-        matchToken(lexer, "*", 21, 2, 3, XPathTokenType.BAD_CHARACTER)
-        matchToken(lexer, "?", 21, 3, 4, XQueryTokenType.INVALID)
-        matchToken(lexer, "$", 21, 4, 5, XPathTokenType.BAD_CHARACTER)
-        matchToken(lexer, "?>", 21, 5, 7, XQueryTokenType.PROCESSING_INSTRUCTION_END)
-        matchToken(lexer, "", 0, 7, 7, null)
+        tokenize("<?a ?") {
+            token("<?", XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN)
+            state(21)
+            token("a", XPathTokenType.NCNAME)
+            token(" ", XPathTokenType.WHITE_SPACE)
+            state(22)
+            token("?", XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS)
+            state(6)
+            token("", XPathTokenType.UNEXPECTED_END_OF_BLOCK)
+            state(0)
+        }
 
-        lexer.start("<?a ?")
-        matchToken(lexer, "<?", 0, 0, 2, XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN)
-        matchToken(lexer, "a", 21, 2, 3, XPathTokenType.NCNAME)
-        matchToken(lexer, " ", 21, 3, 4, XPathTokenType.WHITE_SPACE)
-        matchToken(lexer, "?", 22, 4, 5, XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS)
-        matchToken(lexer, "", 6, 5, 5, XPathTokenType.UNEXPECTED_END_OF_BLOCK)
-        matchToken(lexer, "", 0, 5, 5, null)
-
-        lexer.start("<?a ")
-        matchToken(lexer, "<?", 0, 0, 2, XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN)
-        matchToken(lexer, "a", 21, 2, 3, XPathTokenType.NCNAME)
-        matchToken(lexer, " ", 21, 3, 4, XPathTokenType.WHITE_SPACE)
-        matchToken(lexer, "", 22, 4, 4, null)
+        tokenize("<?a ") {
+            token("<?", XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN)
+            state(21)
+            token("a", XPathTokenType.NCNAME)
+            token(" ", XPathTokenType.WHITE_SPACE)
+            state(22)
+        }
     }
 
     @Nested
@@ -1767,7 +2053,7 @@ class XQueryLexerTest : LexerTestCase() {
     internal inner class CDataSection {
         @Test
         @DisplayName("cdata section")
-        fun testCDataSection() {
+        fun cdataSection() {
             token("<", 0, XPathTokenType.LESS_THAN)
             token("<!", 0, XQueryTokenType.INVALID)
             token("<![", 0, XQueryTokenType.INVALID)
@@ -1779,69 +2065,86 @@ class XQueryLexerTest : LexerTestCase() {
             token("<![CDATA[", 7, XQueryTokenType.CDATA_SECTION_START_TAG)
 
             token("]", XPathTokenType.SQUARE_CLOSE)
-
-            lexer.start("]]")
-            matchToken(lexer, "]", 0, 0, 1, XPathTokenType.SQUARE_CLOSE)
-            matchToken(lexer, "]", 0, 1, 2, XPathTokenType.SQUARE_CLOSE)
-            matchToken(lexer, "", 0, 2, 2, null)
-
+            tokenize("]]") {
+                token("]", XPathTokenType.SQUARE_CLOSE)
+                token("]", XPathTokenType.SQUARE_CLOSE)
+            }
             token("]]>", XQueryTokenType.CDATA_SECTION_END_TAG)
 
-            lexer.start("<![CDATA[ Test")
-            matchToken(lexer, "<![CDATA[", 0, 0, 9, XQueryTokenType.CDATA_SECTION_START_TAG)
-            matchToken(lexer, " Test", 7, 9, 14, XQueryTokenType.CDATA_SECTION)
-            matchToken(lexer, "", 6, 14, 14, XPathTokenType.UNEXPECTED_END_OF_BLOCK)
-            matchToken(lexer, "", 0, 14, 14, null)
+            tokenize("<![CDATA[ Test") {
+                token("<![CDATA[", XQueryTokenType.CDATA_SECTION_START_TAG)
+                state(7)
+                token(" Test", XQueryTokenType.CDATA_SECTION)
+                state(6)
+                token("", XPathTokenType.UNEXPECTED_END_OF_BLOCK)
+                state(0)
+            }
 
-            lexer.start("<![CDATA[ Test ]]")
-            matchToken(lexer, "<![CDATA[", 0, 0, 9, XQueryTokenType.CDATA_SECTION_START_TAG)
-            matchToken(lexer, " Test ]]", 7, 9, 17, XQueryTokenType.CDATA_SECTION)
-            matchToken(lexer, "", 6, 17, 17, XPathTokenType.UNEXPECTED_END_OF_BLOCK)
-            matchToken(lexer, "", 0, 17, 17, null)
+            tokenize("<![CDATA[ Test ]]") {
+                token("<![CDATA[", XQueryTokenType.CDATA_SECTION_START_TAG)
+                state(7)
+                token(" Test ]]", XQueryTokenType.CDATA_SECTION)
+                state(6)
+                token("", XPathTokenType.UNEXPECTED_END_OF_BLOCK)
+                state(0)
+            }
 
-            lexer.start("<![CDATA[ Test ]]>")
-            matchToken(lexer, "<![CDATA[", 0, 0, 9, XQueryTokenType.CDATA_SECTION_START_TAG)
-            matchToken(lexer, " Test ", 7, 9, 15, XQueryTokenType.CDATA_SECTION)
-            matchToken(lexer, "]]>", 7, 15, 18, XQueryTokenType.CDATA_SECTION_END_TAG)
-            matchToken(lexer, "", 0, 18, 18, null)
+            tokenize("<![CDATA[ Test ]]>") {
+                token("<![CDATA[", XQueryTokenType.CDATA_SECTION_START_TAG)
+                state(7)
+                token(" Test ", XQueryTokenType.CDATA_SECTION)
+                token("]]>", XQueryTokenType.CDATA_SECTION_END_TAG)
+                state(0)
+            }
 
-            lexer.start("<![CDATA[\nMultiline\nComment\n]]>")
-            matchToken(lexer, "<![CDATA[", 0, 0, 9, XQueryTokenType.CDATA_SECTION_START_TAG)
-            matchToken(lexer, "\nMultiline\nComment\n", 7, 9, 28, XQueryTokenType.CDATA_SECTION)
-            matchToken(lexer, "]]>", 7, 28, 31, XQueryTokenType.CDATA_SECTION_END_TAG)
-            matchToken(lexer, "", 0, 31, 31, null)
+            tokenize("<![CDATA[\nMultiline\nComment\n]]>") {
+                token("<![CDATA[", XQueryTokenType.CDATA_SECTION_START_TAG)
+                state(7)
+                token("\nMultiline\nComment\n", XQueryTokenType.CDATA_SECTION)
+                token("]]>", XQueryTokenType.CDATA_SECTION_END_TAG)
+                state(0)
+            }
 
-            lexer.start("<![CDATA[]")
-            matchToken(lexer, "<![CDATA[", 0, 0, 9, XQueryTokenType.CDATA_SECTION_START_TAG)
-            matchToken(lexer, "]", 7, 9, 10, XQueryTokenType.CDATA_SECTION)
-            matchToken(lexer, "", 6, 10, 10, XPathTokenType.UNEXPECTED_END_OF_BLOCK)
-            matchToken(lexer, "", 0, 10, 10, null)
+            tokenize("<![CDATA[]") {
+                token("<![CDATA[", XQueryTokenType.CDATA_SECTION_START_TAG)
+                state(7)
+                token("]", XQueryTokenType.CDATA_SECTION)
+                state(6)
+                token("", XPathTokenType.UNEXPECTED_END_OF_BLOCK)
+                state(0)
+            }
 
-            lexer.start("<![CDATA[]]")
-            matchToken(lexer, "<![CDATA[", 0, 0, 9, XQueryTokenType.CDATA_SECTION_START_TAG)
-            matchToken(lexer, "]]", 7, 9, 11, XQueryTokenType.CDATA_SECTION)
-            matchToken(lexer, "", 6, 11, 11, XPathTokenType.UNEXPECTED_END_OF_BLOCK)
-            matchToken(lexer, "", 0, 11, 11, null)
+            tokenize("<![CDATA[]]") {
+                token("<![CDATA[", XQueryTokenType.CDATA_SECTION_START_TAG)
+                state(7)
+                token("]]", XQueryTokenType.CDATA_SECTION)
+                state(6)
+                token("", XPathTokenType.UNEXPECTED_END_OF_BLOCK)
+                state(0)
+            }
         }
 
         @Test
         @DisplayName("initial state")
-        fun testCDataSection_InitialState() {
-            lexer.start("<![CDATA[ Test", 9, 14, 7)
-            matchToken(lexer, " Test", 7, 9, 14, XQueryTokenType.CDATA_SECTION)
-            matchToken(lexer, "", 6, 14, 14, XPathTokenType.UNEXPECTED_END_OF_BLOCK)
-            matchToken(lexer, "", 0, 14, 14, null)
+        fun initialState() {
+            tokenize("<![CDATA[ Test", 9, 14, 7) {
+                token(" Test", XQueryTokenType.CDATA_SECTION)
+                state(6)
+                token("", XPathTokenType.UNEXPECTED_END_OF_BLOCK)
+                state(0)
+            }
 
-            lexer.start("<![CDATA[ Test ]]>", 9, 18, 7)
-            matchToken(lexer, " Test ", 7, 9, 15, XQueryTokenType.CDATA_SECTION)
-            matchToken(lexer, "]]>", 7, 15, 18, XQueryTokenType.CDATA_SECTION_END_TAG)
-            matchToken(lexer, "", 0, 18, 18, null)
+            tokenize("<![CDATA[ Test ]]>", 9, 18, 7) {
+                token(" Test ", XQueryTokenType.CDATA_SECTION)
+                token("]]>", XQueryTokenType.CDATA_SECTION_END_TAG)
+                state(0)
+            }
         }
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (110) CompDocConstructor")
-    fun testCompDocConstructor() {
+    fun compDocConstructor() {
         token("document", XQueryTokenType.K_DOCUMENT)
         token("{", XPathTokenType.BLOCK_OPEN)
         token("}", XPathTokenType.BLOCK_CLOSE)
@@ -1849,7 +2152,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (111) CompElemConstructor")
-    fun testCompElemConstructor() {
+    fun compElemConstructor() {
         token("element", XPathTokenType.K_ELEMENT)
         token("{", XPathTokenType.BLOCK_OPEN)
         token("}", XPathTokenType.BLOCK_CLOSE)
@@ -1857,7 +2160,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (113) CompAttrConstructor")
-    fun testCompAttrConstructor() {
+    fun compAttrConstructor() {
         token("attribute", XPathTokenType.K_ATTRIBUTE)
         token("{", XPathTokenType.BLOCK_OPEN)
         token("}", XPathTokenType.BLOCK_CLOSE)
@@ -1865,7 +2168,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (114) CompTextConstructor")
-    fun testCompTextConstructor() {
+    fun compTextConstructor() {
         token("text", XPathTokenType.K_TEXT)
         token("{", XPathTokenType.BLOCK_OPEN)
         token("}", XPathTokenType.BLOCK_CLOSE)
@@ -1873,7 +2176,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (115) CompCommentConstructor")
-    fun testCompCommentConstructor() {
+    fun compCommentConstructor() {
         token("comment", XPathTokenType.K_COMMENT)
         token("{", XPathTokenType.BLOCK_OPEN)
         token("}", XPathTokenType.BLOCK_CLOSE)
@@ -1881,7 +2184,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (116) CompPIConstructor")
-    fun testCompPIConstructor() {
+    fun compPIConstructor() {
         token("processing-instruction", XPathTokenType.K_PROCESSING_INSTRUCTION)
         token("{", XPathTokenType.BLOCK_OPEN)
         token("}", XPathTokenType.BLOCK_CLOSE)
@@ -1895,7 +2198,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (118) TypeDeclaration")
-    fun testTypeDeclaration() {
+    fun typeDeclaration() {
         token("as", XPathTokenType.K_AS)
     }
 
@@ -2011,30 +2314,20 @@ class XQueryLexerTest : LexerTestCase() {
     @Test
     @DisplayName("XQuery 1.0 EBNF (141) IntegerLiteral")
     fun integerLiteral() {
-        lexer.start("1234")
-        matchToken(lexer, "1234", 0, 0, 4, XPathTokenType.INTEGER_LITERAL)
-        matchToken(lexer, "", 0, 4, 4, null)
+        token("1234", XPathTokenType.INTEGER_LITERAL)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (142) DecimalLiteral")
     fun decimalLiteral() {
-        lexer.start("47.")
-        matchToken(lexer, "47.", 0, 0, 3, XPathTokenType.DECIMAL_LITERAL)
-        matchToken(lexer, "", 0, 3, 3, null)
+        token("47.", XPathTokenType.DECIMAL_LITERAL)
+        token("1.234", XPathTokenType.DECIMAL_LITERAL)
+        token(".25", XPathTokenType.DECIMAL_LITERAL)
 
-        lexer.start("1.234")
-        matchToken(lexer, "1.234", 0, 0, 5, XPathTokenType.DECIMAL_LITERAL)
-        matchToken(lexer, "", 0, 5, 5, null)
-
-        lexer.start(".25")
-        matchToken(lexer, ".25", 0, 0, 3, XPathTokenType.DECIMAL_LITERAL)
-        matchToken(lexer, "", 0, 3, 3, null)
-
-        lexer.start(".1.2")
-        matchToken(lexer, ".1", 0, 0, 2, XPathTokenType.DECIMAL_LITERAL)
-        matchToken(lexer, ".2", 0, 2, 4, XPathTokenType.DECIMAL_LITERAL)
-        matchToken(lexer, "", 0, 4, 4, null)
+        tokenize(".1.2") {
+            token(".1", XPathTokenType.DECIMAL_LITERAL)
+            token(".2", XPathTokenType.DECIMAL_LITERAL)
+        }
     }
 
     @Nested
@@ -2043,127 +2336,162 @@ class XQueryLexerTest : LexerTestCase() {
         @Test
         @DisplayName("double literal")
         fun doubleLiteral() {
-            lexer.start("3e7 3e+7 3e-7")
-            matchToken(lexer, "3e7", 0, 0, 3, XPathTokenType.DOUBLE_LITERAL)
-            matchToken(lexer, " ", 0, 3, 4, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "3e+7", 0, 4, 8, XPathTokenType.DOUBLE_LITERAL)
-            matchToken(lexer, " ", 0, 8, 9, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "3e-7", 0, 9, 13, XPathTokenType.DOUBLE_LITERAL)
-            matchToken(lexer, "", 0, 13, 13, null)
+            tokenize("3e7 3e+7 3e-7") {
+                token("3e7", XPathTokenType.DOUBLE_LITERAL)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token("3e+7", XPathTokenType.DOUBLE_LITERAL)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token("3e-7", XPathTokenType.DOUBLE_LITERAL)
+            }
 
-            lexer.start("43E22 43E+22 43E-22")
-            matchToken(lexer, "43E22", 0, 0, 5, XPathTokenType.DOUBLE_LITERAL)
-            matchToken(lexer, " ", 0, 5, 6, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "43E+22", 0, 6, 12, XPathTokenType.DOUBLE_LITERAL)
-            matchToken(lexer, " ", 0, 12, 13, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "43E-22", 0, 13, 19, XPathTokenType.DOUBLE_LITERAL)
-            matchToken(lexer, "", 0, 19, 19, null)
+            tokenize("43E22 43E+22 43E-22") {
+                token("43E22", XPathTokenType.DOUBLE_LITERAL)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token("43E+22", XPathTokenType.DOUBLE_LITERAL)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token("43E-22", XPathTokenType.DOUBLE_LITERAL)
+            }
 
-            lexer.start("2.1e3 2.1e+3 2.1e-3")
-            matchToken(lexer, "2.1e3", 0, 0, 5, XPathTokenType.DOUBLE_LITERAL)
-            matchToken(lexer, " ", 0, 5, 6, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "2.1e+3", 0, 6, 12, XPathTokenType.DOUBLE_LITERAL)
-            matchToken(lexer, " ", 0, 12, 13, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "2.1e-3", 0, 13, 19, XPathTokenType.DOUBLE_LITERAL)
-            matchToken(lexer, "", 0, 19, 19, null)
+            tokenize("2.1e3 2.1e+3 2.1e-3") {
+                token("2.1e3", XPathTokenType.DOUBLE_LITERAL)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token("2.1e+3", XPathTokenType.DOUBLE_LITERAL)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token("2.1e-3", XPathTokenType.DOUBLE_LITERAL)
+            }
 
-            lexer.start("1.7E99 1.7E+99 1.7E-99")
-            matchToken(lexer, "1.7E99", 0, 0, 6, XPathTokenType.DOUBLE_LITERAL)
-            matchToken(lexer, " ", 0, 6, 7, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "1.7E+99", 0, 7, 14, XPathTokenType.DOUBLE_LITERAL)
-            matchToken(lexer, " ", 0, 14, 15, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "1.7E-99", 0, 15, 22, XPathTokenType.DOUBLE_LITERAL)
-            matchToken(lexer, "", 0, 22, 22, null)
+            tokenize("1.7E99 1.7E+99 1.7E-99") {
+                token("1.7E99", XPathTokenType.DOUBLE_LITERAL)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token("1.7E+99", XPathTokenType.DOUBLE_LITERAL)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token("1.7E-99", XPathTokenType.DOUBLE_LITERAL)
+            }
 
-            lexer.start(".22e42 .22e+42 .22e-42")
-            matchToken(lexer, ".22e42", 0, 0, 6, XPathTokenType.DOUBLE_LITERAL)
-            matchToken(lexer, " ", 0, 6, 7, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, ".22e+42", 0, 7, 14, XPathTokenType.DOUBLE_LITERAL)
-            matchToken(lexer, " ", 0, 14, 15, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, ".22e-42", 0, 15, 22, XPathTokenType.DOUBLE_LITERAL)
-            matchToken(lexer, "", 0, 22, 22, null)
+            tokenize(".22e42 .22e+42 .22e-42") {
+                token(".22e42", XPathTokenType.DOUBLE_LITERAL)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token(".22e+42", XPathTokenType.DOUBLE_LITERAL)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token(".22e-42", XPathTokenType.DOUBLE_LITERAL)
+            }
 
-            lexer.start(".8E2 .8E+2 .8E-2")
-            matchToken(lexer, ".8E2", 0, 0, 4, XPathTokenType.DOUBLE_LITERAL)
-            matchToken(lexer, " ", 0, 4, 5, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, ".8E+2", 0, 5, 10, XPathTokenType.DOUBLE_LITERAL)
-            matchToken(lexer, " ", 0, 10, 11, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, ".8E-2", 0, 11, 16, XPathTokenType.DOUBLE_LITERAL)
-            matchToken(lexer, "", 0, 16, 16, null)
+            tokenize(".8E2 .8E+2 .8E-2") {
+                token(".8E2", XPathTokenType.DOUBLE_LITERAL)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token(".8E+2", XPathTokenType.DOUBLE_LITERAL)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token(".8E-2", XPathTokenType.DOUBLE_LITERAL)
+            }
 
-            lexer.start("1e 1e+ 1e-")
-            matchToken(lexer, "1", 0, 0, 1, XPathTokenType.INTEGER_LITERAL)
-            matchToken(lexer, "e", 3, 1, 2, XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
-            matchToken(lexer, " ", 0, 2, 3, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "1", 0, 3, 4, XPathTokenType.INTEGER_LITERAL)
-            matchToken(lexer, "e+", 3, 4, 6, XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
-            matchToken(lexer, " ", 0, 6, 7, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "1", 0, 7, 8, XPathTokenType.INTEGER_LITERAL)
-            matchToken(lexer, "e-", 3, 8, 10, XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
-            matchToken(lexer, "", 0, 10, 10, null)
+            tokenize("1e 1e+ 1e-") {
+                token("1", XPathTokenType.INTEGER_LITERAL)
+                state(3)
+                token("e", XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
+                state(0)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token("1", XPathTokenType.INTEGER_LITERAL)
+                state(3)
+                token("e+", XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
+                state(0)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token("1", XPathTokenType.INTEGER_LITERAL)
+                state(3)
+                token("e-", XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
+                state(0)
+            }
 
-            lexer.start("1E 1E+ 1E-")
-            matchToken(lexer, "1", 0, 0, 1, XPathTokenType.INTEGER_LITERAL)
-            matchToken(lexer, "E", 3, 1, 2, XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
-            matchToken(lexer, " ", 0, 2, 3, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "1", 0, 3, 4, XPathTokenType.INTEGER_LITERAL)
-            matchToken(lexer, "E+", 3, 4, 6, XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
-            matchToken(lexer, " ", 0, 6, 7, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "1", 0, 7, 8, XPathTokenType.INTEGER_LITERAL)
-            matchToken(lexer, "E-", 3, 8, 10, XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
-            matchToken(lexer, "", 0, 10, 10, null)
+            tokenize("1E 1E+ 1E-") {
+                token("1", XPathTokenType.INTEGER_LITERAL)
+                state(3)
+                token("E", XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
+                state(0)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token("1", XPathTokenType.INTEGER_LITERAL)
+                state(3)
+                token("E+", XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
+                state(0)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token("1", XPathTokenType.INTEGER_LITERAL)
+                state(3)
+                token("E-", XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
+                state(0)
+            }
 
-            lexer.start("8.9e 8.9e+ 8.9e-")
-            matchToken(lexer, "8.9", 0, 0, 3, XPathTokenType.DECIMAL_LITERAL)
-            matchToken(lexer, "e", 3, 3, 4, XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
-            matchToken(lexer, " ", 0, 4, 5, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "8.9", 0, 5, 8, XPathTokenType.DECIMAL_LITERAL)
-            matchToken(lexer, "e+", 3, 8, 10, XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
-            matchToken(lexer, " ", 0, 10, 11, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "8.9", 0, 11, 14, XPathTokenType.DECIMAL_LITERAL)
-            matchToken(lexer, "e-", 3, 14, 16, XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
-            matchToken(lexer, "", 0, 16, 16, null)
+            tokenize("8.9e 8.9e+ 8.9e-") {
+                token("8.9", XPathTokenType.DECIMAL_LITERAL)
+                state(3)
+                token("e", XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
+                state(0)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token("8.9", XPathTokenType.DECIMAL_LITERAL)
+                state(3)
+                token("e+", XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
+                state(0)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token("8.9", XPathTokenType.DECIMAL_LITERAL)
+                state(3)
+                token("e-", XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
+                state(0)
+            }
 
-            lexer.start("8.9E 8.9E+ 8.9E-")
-            matchToken(lexer, "8.9", 0, 0, 3, XPathTokenType.DECIMAL_LITERAL)
-            matchToken(lexer, "E", 3, 3, 4, XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
-            matchToken(lexer, " ", 0, 4, 5, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "8.9", 0, 5, 8, XPathTokenType.DECIMAL_LITERAL)
-            matchToken(lexer, "E+", 3, 8, 10, XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
-            matchToken(lexer, " ", 0, 10, 11, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "8.9", 0, 11, 14, XPathTokenType.DECIMAL_LITERAL)
-            matchToken(lexer, "E-", 3, 14, 16, XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
-            matchToken(lexer, "", 0, 16, 16, null)
+            tokenize("8.9E 8.9E+ 8.9E-") {
+                token("8.9", XPathTokenType.DECIMAL_LITERAL)
+                state(3)
+                token("E", XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
+                state(0)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token("8.9", XPathTokenType.DECIMAL_LITERAL)
+                state(3)
+                token("E+", XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
+                state(0)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token("8.9", XPathTokenType.DECIMAL_LITERAL)
+                state(3)
+                token("E-", XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
+                state(0)
+            }
 
-            lexer.start(".4e .4e+ .4e-")
-            matchToken(lexer, ".4", 0, 0, 2, XPathTokenType.DECIMAL_LITERAL)
-            matchToken(lexer, "e", 3, 2, 3, XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
-            matchToken(lexer, " ", 0, 3, 4, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, ".4", 0, 4, 6, XPathTokenType.DECIMAL_LITERAL)
-            matchToken(lexer, "e+", 3, 6, 8, XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
-            matchToken(lexer, " ", 0, 8, 9, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, ".4", 0, 9, 11, XPathTokenType.DECIMAL_LITERAL)
-            matchToken(lexer, "e-", 3, 11, 13, XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
-            matchToken(lexer, "", 0, 13, 13, null)
+            tokenize(".4e .4e+ .4e-") {
+                token(".4", XPathTokenType.DECIMAL_LITERAL)
+                state(3)
+                token("e", XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
+                state(0)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token(".4", XPathTokenType.DECIMAL_LITERAL)
+                state(3)
+                token("e+", XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
+                state(0)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token(".4", XPathTokenType.DECIMAL_LITERAL)
+                state(3)
+                token("e-", XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
+                state(0)
+            }
 
-            lexer.start(".4E .4E+ .4E-")
-            matchToken(lexer, ".4", 0, 0, 2, XPathTokenType.DECIMAL_LITERAL)
-            matchToken(lexer, "E", 3, 2, 3, XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
-            matchToken(lexer, " ", 0, 3, 4, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, ".4", 0, 4, 6, XPathTokenType.DECIMAL_LITERAL)
-            matchToken(lexer, "E+", 3, 6, 8, XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
-            matchToken(lexer, " ", 0, 8, 9, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, ".4", 0, 9, 11, XPathTokenType.DECIMAL_LITERAL)
-            matchToken(lexer, "E-", 3, 11, 13, XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
-            matchToken(lexer, "", 0, 13, 13, null)
+            tokenize(".4E .4E+ .4E-") {
+                token(".4", XPathTokenType.DECIMAL_LITERAL)
+                state(3)
+                token("E", XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
+                state(0)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token(".4", XPathTokenType.DECIMAL_LITERAL)
+                state(3)
+                token("E+", XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
+                state(0)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token(".4", XPathTokenType.DECIMAL_LITERAL)
+                state(3)
+                token("E-", XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
+                state(0)
+            }
         }
 
         @Test
         @DisplayName("initial state")
-        fun initialState() {
-            lexer.start("1e", 1, 2, 3)
-            matchToken(lexer, "e", 3, 1, 2, XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
-            matchToken(lexer, "", 0, 2, 2, null)
+        fun initialState() = tokenize("1e", 1, 2, 3) {
+            token("e", XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT)
+            state(0)
         }
     }
 
@@ -2173,57 +2501,59 @@ class XQueryLexerTest : LexerTestCase() {
         @Test
         @DisplayName("string literal")
         fun stringLiteral() {
-            lexer.start("\"")
-            matchToken(lexer, "\"", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
-            matchToken(lexer, "", 1, 1, 1, null)
+            tokenize("\"Hello World\"") {
+                token("\"", XPathTokenType.STRING_LITERAL_START)
+                state(1)
+                token("Hello World", XPathTokenType.STRING_LITERAL_CONTENTS)
+                token("\"", XPathTokenType.STRING_LITERAL_END)
+                state(0)
+            }
 
-            lexer.start("\"Hello World\"")
-            matchToken(lexer, "\"", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
-            matchToken(lexer, "Hello World", 1, 1, 12, XPathTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "\"", 1, 12, 13, XPathTokenType.STRING_LITERAL_END)
-            matchToken(lexer, "", 0, 13, 13, null)
-
-            lexer.start("'")
-            matchToken(lexer, "'", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
-            matchToken(lexer, "", 2, 1, 1, null)
-
-            lexer.start("'Hello World'")
-            matchToken(lexer, "'", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
-            matchToken(lexer, "Hello World", 2, 1, 12, XPathTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "'", 2, 12, 13, XPathTokenType.STRING_LITERAL_END)
-            matchToken(lexer, "", 0, 13, 13, null)
+            tokenize("'Hello World'") {
+                token("'", XPathTokenType.STRING_LITERAL_START)
+                state(2)
+                token("Hello World", XPathTokenType.STRING_LITERAL_CONTENTS)
+                token("'", XPathTokenType.STRING_LITERAL_END)
+                state(0)
+            }
         }
 
         @Test
         @DisplayName("initial state")
         fun initialState() {
-            lexer.start("\"Hello World\"", 1, 13, 1)
-            matchToken(lexer, "Hello World", 1, 1, 12, XPathTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "\"", 1, 12, 13, XPathTokenType.STRING_LITERAL_END)
-            matchToken(lexer, "", 0, 13, 13, null)
+            tokenize("\"Hello World\"", 1, 13, 1) {
+                token("Hello World", XPathTokenType.STRING_LITERAL_CONTENTS)
+                token("\"", XPathTokenType.STRING_LITERAL_END)
+                state(0)
+            }
 
-            lexer.start("'Hello World'", 1, 13, 2)
-            matchToken(lexer, "Hello World", 2, 1, 12, XPathTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "'", 2, 12, 13, XPathTokenType.STRING_LITERAL_END)
-            matchToken(lexer, "", 0, 13, 13, null)
+            tokenize("'Hello World'", 1, 13, 2) {
+                token("Hello World", XPathTokenType.STRING_LITERAL_CONTENTS)
+                token("'", XPathTokenType.STRING_LITERAL_END)
+                state(0)
+            }
         }
 
         @Test
         @DisplayName("open brace - bad character in BracedURILiteral, not StringLiteral")
         fun openBrace() {
             // '{' is a bad character in BracedURILiterals, but not string literals.
-            lexer.start("\"{\"")
-            matchToken(lexer, "\"", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
-            matchToken(lexer, "{", 1, 1, 2, XPathTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "\"", 1, 2, 3, XPathTokenType.STRING_LITERAL_END)
-            matchToken(lexer, "", 0, 3, 3, null)
+            tokenize("\"{\"") {
+                token("\"", XPathTokenType.STRING_LITERAL_START)
+                state(1)
+                token("{", XPathTokenType.STRING_LITERAL_CONTENTS)
+                token("\"", XPathTokenType.STRING_LITERAL_END)
+                state(0)
+            }
 
             // '{' is a bad character in BracedURILiterals, but not string literals.
-            lexer.start("'{'")
-            matchToken(lexer, "'", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
-            matchToken(lexer, "{", 2, 1, 2, XPathTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "'", 2, 2, 3, XPathTokenType.STRING_LITERAL_END)
-            matchToken(lexer, "", 0, 3, 3, null)
+            tokenize("'{'") {
+                token("'", XPathTokenType.STRING_LITERAL_START)
+                state(2)
+                token("{", XPathTokenType.STRING_LITERAL_CONTENTS)
+                token("'", XPathTokenType.STRING_LITERAL_END)
+                state(0)
+            }
         }
 
         @Test
@@ -2233,95 +2563,107 @@ class XQueryLexerTest : LexerTestCase() {
             // XQuery processors support HTML predefined entities. Shifting the name validation to
             // the parser allows proper validation errors to be generated.
 
-            lexer.start("\"One&abc;&aBc;&Abc;&ABC;&a4;&a;Two\"")
-            matchToken(lexer, "\"", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
-            matchToken(lexer, "One", 1, 1, 4, XPathTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "&abc;", 1, 4, 9, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
-            matchToken(lexer, "&aBc;", 1, 9, 14, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
-            matchToken(lexer, "&Abc;", 1, 14, 19, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
-            matchToken(lexer, "&ABC;", 1, 19, 24, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
-            matchToken(lexer, "&a4;", 1, 24, 28, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
-            matchToken(lexer, "&a;", 1, 28, 31, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
-            matchToken(lexer, "Two", 1, 31, 34, XPathTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "\"", 1, 34, 35, XPathTokenType.STRING_LITERAL_END)
-            matchToken(lexer, "", 0, 35, 35, null)
+            tokenize("\"One&abc;&aBc;&Abc;&ABC;&a4;&a;Two\"") {
+                token("\"", XPathTokenType.STRING_LITERAL_START)
+                state(1)
+                token("One", XPathTokenType.STRING_LITERAL_CONTENTS)
+                token("&abc;", XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
+                token("&aBc;", XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
+                token("&Abc;", XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
+                token("&ABC;", XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
+                token("&a4;", XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
+                token("&a;", XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
+                token("Two", XPathTokenType.STRING_LITERAL_CONTENTS)
+                token("\"", XPathTokenType.STRING_LITERAL_END)
+                state(0)
+            }
 
-            lexer.start("'One&abc;&aBc;&Abc;&ABC;&a4;&a;Two'")
-            matchToken(lexer, "'", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
-            matchToken(lexer, "One", 2, 1, 4, XPathTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "&abc;", 2, 4, 9, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
-            matchToken(lexer, "&aBc;", 2, 9, 14, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
-            matchToken(lexer, "&Abc;", 2, 14, 19, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
-            matchToken(lexer, "&ABC;", 2, 19, 24, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
-            matchToken(lexer, "&a4;", 2, 24, 28, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
-            matchToken(lexer, "&a;", 2, 28, 31, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
-            matchToken(lexer, "Two", 2, 31, 34, XPathTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "'", 2, 34, 35, XPathTokenType.STRING_LITERAL_END)
-            matchToken(lexer, "", 0, 35, 35, null)
+            tokenize("'One&abc;&aBc;&Abc;&ABC;&a4;&a;Two'") {
+                token("'", XPathTokenType.STRING_LITERAL_START)
+                state(2)
+                token("One", XPathTokenType.STRING_LITERAL_CONTENTS)
+                token("&abc;", XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
+                token("&aBc;", XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
+                token("&Abc;", XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
+                token("&ABC;", XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
+                token("&a4;", XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
+                token("&a;", XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
+                token("Two", XPathTokenType.STRING_LITERAL_CONTENTS)
+                token("'", XPathTokenType.STRING_LITERAL_END)
+                state(0)
+            }
 
-            lexer.start("\"&\"")
-            matchToken(lexer, "\"", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
-            matchToken(lexer, "&", 1, 1, 2, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-            matchToken(lexer, "\"", 1, 2, 3, XPathTokenType.STRING_LITERAL_END)
-            matchToken(lexer, "", 0, 3, 3, null)
+            tokenize("\"&\"") {
+                token("\"", XPathTokenType.STRING_LITERAL_START)
+                state(1)
+                token("&", XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
+                token("\"", XPathTokenType.STRING_LITERAL_END)
+                state(0)
+            }
 
-            lexer.start("\"&abc!\"")
-            matchToken(lexer, "\"", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
-            matchToken(lexer, "&abc", 1, 1, 5, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-            matchToken(lexer, "!", 1, 5, 6, XPathTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "\"", 1, 6, 7, XPathTokenType.STRING_LITERAL_END)
-            matchToken(lexer, "", 0, 7, 7, null)
+            tokenize("\"&abc!\"") {
+                token("\"", XPathTokenType.STRING_LITERAL_START)
+                state(1)
+                token("&abc", XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
+                token("!", XPathTokenType.STRING_LITERAL_CONTENTS)
+                token("\"", XPathTokenType.STRING_LITERAL_END)
+                state(0)
+            }
 
-            lexer.start("\"& \"")
-            matchToken(lexer, "\"", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
-            matchToken(lexer, "&", 1, 1, 2, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-            matchToken(lexer, " ", 1, 2, 3, XPathTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "\"", 1, 3, 4, XPathTokenType.STRING_LITERAL_END)
-            matchToken(lexer, "", 0, 4, 4, null)
+            tokenize("\"& \"") {
+                token("\"", XPathTokenType.STRING_LITERAL_START)
+                state(1)
+                token("&", XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
+                token(" ", XPathTokenType.STRING_LITERAL_CONTENTS)
+                token("\"", XPathTokenType.STRING_LITERAL_END)
+                state(0)
+            }
 
-            lexer.start("\"&")
-            matchToken(lexer, "\"", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
-            matchToken(lexer, "&", 1, 1, 2, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-            matchToken(lexer, "", 1, 2, 2, null)
+            tokenize("\"&") {
+                token("\"", XPathTokenType.STRING_LITERAL_START)
+                state(1)
+                token("&", XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
+            }
 
-            lexer.start("\"&abc")
-            matchToken(lexer, "\"", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
-            matchToken(lexer, "&abc", 1, 1, 5, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-            matchToken(lexer, "", 1, 5, 5, null)
+            tokenize("\"&abc") {
+                token("\"", XPathTokenType.STRING_LITERAL_START)
+                state(1)
+                token("&abc", XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
+            }
 
-            lexer.start("\"&;\"")
-            matchToken(lexer, "\"", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
-            matchToken(lexer, "&;", 1, 1, 3, XQueryTokenType.EMPTY_ENTITY_REFERENCE)
-            matchToken(lexer, "\"", 1, 3, 4, XPathTokenType.STRING_LITERAL_END)
-            matchToken(lexer, "", 0, 4, 4, null)
+            tokenize("\"&;\"") {
+                token("\"", XPathTokenType.STRING_LITERAL_START)
+                state(1)
+                token("&;", XQueryTokenType.EMPTY_ENTITY_REFERENCE)
+                token("\"", XPathTokenType.STRING_LITERAL_END)
+                state(0)
+            }
 
-            lexer.start("&")
-            matchToken(lexer, "&", 0, 0, 1, XQueryTokenType.ENTITY_REFERENCE_NOT_IN_STRING)
-            matchToken(lexer, "", 0, 1, 1, null)
+            token("&", XQueryTokenType.ENTITY_REFERENCE_NOT_IN_STRING)
         }
 
         @Test
         @DisplayName("XQuery 1.0 EBNF (146) EscapeQuot")
-        fun escapeQuot() {
-            lexer.start("\"One\"\"Two\"")
-            matchToken(lexer, "\"", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
-            matchToken(lexer, "One", 1, 1, 4, XPathTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "\"\"", 1, 4, 6, XPathTokenType.ESCAPED_CHARACTER)
-            matchToken(lexer, "Two", 1, 6, 9, XPathTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "\"", 1, 9, 10, XPathTokenType.STRING_LITERAL_END)
-            matchToken(lexer, "", 0, 10, 10, null)
+        fun escapeQuot() = tokenize("\"One\"\"Two\"") {
+            token("\"", XPathTokenType.STRING_LITERAL_START)
+            state(1)
+            token("One", XPathTokenType.STRING_LITERAL_CONTENTS)
+            token("\"\"", XPathTokenType.ESCAPED_CHARACTER)
+            token("Two", XPathTokenType.STRING_LITERAL_CONTENTS)
+            token("\"", XPathTokenType.STRING_LITERAL_END)
+            state(0)
         }
 
         @Test
         @DisplayName("XQuery 1.0 EBNF (147) EscapeApos")
-        fun escapeApos() {
-            lexer.start("'One''Two'")
-            matchToken(lexer, "'", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
-            matchToken(lexer, "One", 2, 1, 4, XPathTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "''", 2, 4, 6, XPathTokenType.ESCAPED_CHARACTER)
-            matchToken(lexer, "Two", 2, 6, 9, XPathTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "'", 2, 9, 10, XPathTokenType.STRING_LITERAL_END)
-            matchToken(lexer, "", 0, 10, 10, null)
+        fun escapeApos() = tokenize("'One''Two'") {
+            token("'", XPathTokenType.STRING_LITERAL_START)
+            state(2)
+            token("One", XPathTokenType.STRING_LITERAL_CONTENTS)
+            token("''", XPathTokenType.ESCAPED_CHARACTER)
+            token("Two", XPathTokenType.STRING_LITERAL_CONTENTS)
+            token("'", XPathTokenType.STRING_LITERAL_END)
+            state(0)
         }
 
         @Nested
@@ -2330,117 +2672,143 @@ class XQueryLexerTest : LexerTestCase() {
             @Test
             @DisplayName("decimal")
             fun decimal() {
-                lexer.start("\"One&#20;Two\"")
-                matchToken(lexer, "\"", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
-                matchToken(lexer, "One", 1, 1, 4, XPathTokenType.STRING_LITERAL_CONTENTS)
-                matchToken(lexer, "&#20;", 1, 4, 9, XQueryTokenType.CHARACTER_REFERENCE)
-                matchToken(lexer, "Two", 1, 9, 12, XPathTokenType.STRING_LITERAL_CONTENTS)
-                matchToken(lexer, "\"", 1, 12, 13, XPathTokenType.STRING_LITERAL_END)
-                matchToken(lexer, "", 0, 13, 13, null)
+                tokenize("\"One&#20;Two\"") {
+                    token("\"", XPathTokenType.STRING_LITERAL_START)
+                    state(1)
+                    token("One", XPathTokenType.STRING_LITERAL_CONTENTS)
+                    token("&#20;", XQueryTokenType.CHARACTER_REFERENCE)
+                    token("Two", XPathTokenType.STRING_LITERAL_CONTENTS)
+                    token("\"", XPathTokenType.STRING_LITERAL_END)
+                    state(0)
+                }
 
-                lexer.start("'One&#20;Two'")
-                matchToken(lexer, "'", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
-                matchToken(lexer, "One", 2, 1, 4, XPathTokenType.STRING_LITERAL_CONTENTS)
-                matchToken(lexer, "&#20;", 2, 4, 9, XQueryTokenType.CHARACTER_REFERENCE)
-                matchToken(lexer, "Two", 2, 9, 12, XPathTokenType.STRING_LITERAL_CONTENTS)
-                matchToken(lexer, "'", 2, 12, 13, XPathTokenType.STRING_LITERAL_END)
-                matchToken(lexer, "", 0, 13, 13, null)
+                tokenize("'One&#20;Two'") {
+                    token("'", XPathTokenType.STRING_LITERAL_START)
+                    state(2)
+                    token("One", XPathTokenType.STRING_LITERAL_CONTENTS)
+                    token("&#20;", XQueryTokenType.CHARACTER_REFERENCE)
+                    token("Two", XPathTokenType.STRING_LITERAL_CONTENTS)
+                    token("'", XPathTokenType.STRING_LITERAL_END)
+                    state(0)
+                }
 
-                lexer.start("\"One&#9;Two\"")
-                matchToken(lexer, "\"", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
-                matchToken(lexer, "One", 1, 1, 4, XPathTokenType.STRING_LITERAL_CONTENTS)
-                matchToken(lexer, "&#9;", 1, 4, 8, XQueryTokenType.CHARACTER_REFERENCE)
-                matchToken(lexer, "Two", 1, 8, 11, XPathTokenType.STRING_LITERAL_CONTENTS)
-                matchToken(lexer, "\"", 1, 11, 12, XPathTokenType.STRING_LITERAL_END)
-                matchToken(lexer, "", 0, 12, 12, null)
+                tokenize("\"One&#9;Two\"") {
+                    token("\"", XPathTokenType.STRING_LITERAL_START)
+                    state(1)
+                    token("One", XPathTokenType.STRING_LITERAL_CONTENTS)
+                    token("&#9;", XQueryTokenType.CHARACTER_REFERENCE)
+                    token("Two", XPathTokenType.STRING_LITERAL_CONTENTS)
+                    token("\"", XPathTokenType.STRING_LITERAL_END)
+                    state(0)
+                }
 
-                lexer.start("\"&#\"")
-                matchToken(lexer, "\"", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
-                matchToken(lexer, "&#", 1, 1, 3, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "\"", 1, 3, 4, XPathTokenType.STRING_LITERAL_END)
-                matchToken(lexer, "", 0, 4, 4, null)
+                tokenize("\"&#\"") {
+                    token("\"", XPathTokenType.STRING_LITERAL_START)
+                    state(1)
+                    token("&#", XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
+                    token("\"", XPathTokenType.STRING_LITERAL_END)
+                    state(0)
+                }
 
-                lexer.start("\"&# \"")
-                matchToken(lexer, "\"", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
-                matchToken(lexer, "&#", 1, 1, 3, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, " ", 1, 3, 4, XPathTokenType.STRING_LITERAL_CONTENTS)
-                matchToken(lexer, "\"", 1, 4, 5, XPathTokenType.STRING_LITERAL_END)
-                matchToken(lexer, "", 0, 5, 5, null)
+                tokenize("\"&# \"") {
+                    token("\"", XPathTokenType.STRING_LITERAL_START)
+                    state(1)
+                    token("&#", XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
+                    token(" ", XPathTokenType.STRING_LITERAL_CONTENTS)
+                    token("\"", XPathTokenType.STRING_LITERAL_END)
+                    state(0)
+                }
 
-                lexer.start("\"&#")
-                matchToken(lexer, "\"", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
-                matchToken(lexer, "&#", 1, 1, 3, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "", 1, 3, 3, null)
+                tokenize("\"&#") {
+                    token("\"", XPathTokenType.STRING_LITERAL_START)
+                    state(1)
+                    token("&#", XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
+                }
 
-                lexer.start("\"&#12")
-                matchToken(lexer, "\"", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
-                matchToken(lexer, "&#12", 1, 1, 5, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "", 1, 5, 5, null)
+                tokenize("\"&#12") {
+                    token("\"", XPathTokenType.STRING_LITERAL_START)
+                    state(1)
+                    token("&#12", XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
+                }
 
-                lexer.start("\"&#;\"")
-                matchToken(lexer, "\"", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
-                matchToken(lexer, "&#;", 1, 1, 4, XQueryTokenType.EMPTY_ENTITY_REFERENCE)
-                matchToken(lexer, "\"", 1, 4, 5, XPathTokenType.STRING_LITERAL_END)
-                matchToken(lexer, "", 0, 5, 5, null)
+                tokenize("\"&#;\"") {
+                    token("\"", XPathTokenType.STRING_LITERAL_START)
+                    state(1)
+                    token("&#;", XQueryTokenType.EMPTY_ENTITY_REFERENCE)
+                    token("\"", XPathTokenType.STRING_LITERAL_END)
+                    state(0)
+                }
             }
 
             @Test
             @DisplayName("hexadecimal")
             fun hexadecimal() {
-                lexer.start("\"One&#x20;&#xae;&#xDC;Two\"")
-                matchToken(lexer, "\"", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
-                matchToken(lexer, "One", 1, 1, 4, XPathTokenType.STRING_LITERAL_CONTENTS)
-                matchToken(lexer, "&#x20;", 1, 4, 10, XQueryTokenType.CHARACTER_REFERENCE)
-                matchToken(lexer, "&#xae;", 1, 10, 16, XQueryTokenType.CHARACTER_REFERENCE)
-                matchToken(lexer, "&#xDC;", 1, 16, 22, XQueryTokenType.CHARACTER_REFERENCE)
-                matchToken(lexer, "Two", 1, 22, 25, XPathTokenType.STRING_LITERAL_CONTENTS)
-                matchToken(lexer, "\"", 1, 25, 26, XPathTokenType.STRING_LITERAL_END)
-                matchToken(lexer, "", 0, 26, 26, null)
+                tokenize("\"One&#x20;&#xae;&#xDC;Two\"") {
+                    token("\"", XPathTokenType.STRING_LITERAL_START)
+                    state(1)
+                    token("One", XPathTokenType.STRING_LITERAL_CONTENTS)
+                    token("&#x20;", XQueryTokenType.CHARACTER_REFERENCE)
+                    token("&#xae;", XQueryTokenType.CHARACTER_REFERENCE)
+                    token("&#xDC;", XQueryTokenType.CHARACTER_REFERENCE)
+                    token("Two", XPathTokenType.STRING_LITERAL_CONTENTS)
+                    token("\"", XPathTokenType.STRING_LITERAL_END)
+                    state(0)
+                }
 
-                lexer.start("'One&#x20;&#xae;&#xDC;Two'")
-                matchToken(lexer, "'", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
-                matchToken(lexer, "One", 2, 1, 4, XPathTokenType.STRING_LITERAL_CONTENTS)
-                matchToken(lexer, "&#x20;", 2, 4, 10, XQueryTokenType.CHARACTER_REFERENCE)
-                matchToken(lexer, "&#xae;", 2, 10, 16, XQueryTokenType.CHARACTER_REFERENCE)
-                matchToken(lexer, "&#xDC;", 2, 16, 22, XQueryTokenType.CHARACTER_REFERENCE)
-                matchToken(lexer, "Two", 2, 22, 25, XPathTokenType.STRING_LITERAL_CONTENTS)
-                matchToken(lexer, "'", 2, 25, 26, XPathTokenType.STRING_LITERAL_END)
-                matchToken(lexer, "", 0, 26, 26, null)
+                tokenize("'One&#x20;&#xae;&#xDC;Two'") {
+                    token("'", XPathTokenType.STRING_LITERAL_START)
+                    state(2)
+                    token("One", XPathTokenType.STRING_LITERAL_CONTENTS)
+                    token("&#x20;", XQueryTokenType.CHARACTER_REFERENCE)
+                    token("&#xae;", XQueryTokenType.CHARACTER_REFERENCE)
+                    token("&#xDC;", XQueryTokenType.CHARACTER_REFERENCE)
+                    token("Two", XPathTokenType.STRING_LITERAL_CONTENTS)
+                    token("'", XPathTokenType.STRING_LITERAL_END)
+                    state(0)
+                }
 
-                lexer.start("\"&#x\"")
-                matchToken(lexer, "\"", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
-                matchToken(lexer, "&#x", 1, 1, 4, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "\"", 1, 4, 5, XPathTokenType.STRING_LITERAL_END)
-                matchToken(lexer, "", 0, 5, 5, null)
+                tokenize("\"&#x\"") {
+                    token("\"", XPathTokenType.STRING_LITERAL_START)
+                    state(1)
+                    token("&#x", XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
+                    token("\"", XPathTokenType.STRING_LITERAL_END)
+                    state(0)
+                }
 
-                lexer.start("\"&#x \"")
-                matchToken(lexer, "\"", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
-                matchToken(lexer, "&#x", 1, 1, 4, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, " ", 1, 4, 5, XPathTokenType.STRING_LITERAL_CONTENTS)
-                matchToken(lexer, "\"", 1, 5, 6, XPathTokenType.STRING_LITERAL_END)
-                matchToken(lexer, "", 0, 6, 6, null)
+                tokenize("\"&#x \"") {
+                    token("\"", XPathTokenType.STRING_LITERAL_START)
+                    state(1)
+                    token("&#x", XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
+                    token(" ", XPathTokenType.STRING_LITERAL_CONTENTS)
+                    token("\"", XPathTokenType.STRING_LITERAL_END)
+                    state(0)
+                }
 
-                lexer.start("\"&#x")
-                matchToken(lexer, "\"", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
-                matchToken(lexer, "&#x", 1, 1, 4, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "", 1, 4, 4, null)
+                tokenize("\"&#x") {
+                    token("\"", XPathTokenType.STRING_LITERAL_START)
+                    state(1)
+                    token("&#x", XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
+                }
 
-                lexer.start("\"&#x12")
-                matchToken(lexer, "\"", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
-                matchToken(lexer, "&#x12", 1, 1, 6, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "", 1, 6, 6, null)
+                tokenize("\"&#x12") {
+                    token("\"", XPathTokenType.STRING_LITERAL_START)
+                    state(1)
+                    token("&#x12", XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
+                }
 
-                lexer.start("\"&#x;&#x2G;&#x2g;&#xg2;\"")
-                matchToken(lexer, "\"", 0, 0, 1, XPathTokenType.STRING_LITERAL_START)
-                matchToken(lexer, "&#x;", 1, 1, 5, XQueryTokenType.EMPTY_ENTITY_REFERENCE)
-                matchToken(lexer, "&#x2", 1, 5, 9, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "G;", 1, 9, 11, XPathTokenType.STRING_LITERAL_CONTENTS)
-                matchToken(lexer, "&#x2", 1, 11, 15, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "g;", 1, 15, 17, XPathTokenType.STRING_LITERAL_CONTENTS)
-                matchToken(lexer, "&#x", 1, 17, 20, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "g2;", 1, 20, 23, XPathTokenType.STRING_LITERAL_CONTENTS)
-                matchToken(lexer, "\"", 1, 23, 24, XPathTokenType.STRING_LITERAL_END)
-                matchToken(lexer, "", 0, 24, 24, null)
+                tokenize("\"&#x;&#x2G;&#x2g;&#xg2;\"") {
+                    token("\"", XPathTokenType.STRING_LITERAL_START)
+                    state(1)
+                    token("&#x;", XQueryTokenType.EMPTY_ENTITY_REFERENCE)
+                    token("&#x2", XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
+                    token("G;", XPathTokenType.STRING_LITERAL_CONTENTS)
+                    token("&#x2", XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
+                    token("g;", XPathTokenType.STRING_LITERAL_CONTENTS)
+                    token("&#x", XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
+                    token("g2;", XPathTokenType.STRING_LITERAL_CONTENTS)
+                    token("\"", XPathTokenType.STRING_LITERAL_END)
+                    state(0)
+                }
             }
         }
     }
@@ -2454,117 +2822,118 @@ class XQueryLexerTest : LexerTestCase() {
             token("(:", 4, XPathTokenType.COMMENT_START_TAG)
             token(":)", 0, XPathTokenType.COMMENT_END_TAG)
 
-            lexer.start("(: Test :")
-            matchToken(lexer, "(:", 0, 0, 2, XPathTokenType.COMMENT_START_TAG)
-            matchToken(lexer, " Test :", 4, 2, 9, XPathTokenType.COMMENT)
-            matchToken(lexer, "", 6, 9, 9, XPathTokenType.UNEXPECTED_END_OF_BLOCK)
-            matchToken(lexer, "", 0, 9, 9, null)
+            tokenize("(: Test :") {
+                token("(:", XPathTokenType.COMMENT_START_TAG)
+                state(4)
+                token(" Test :", XPathTokenType.COMMENT)
+                state(6)
+                token("", XPathTokenType.UNEXPECTED_END_OF_BLOCK)
+                state(0)
+            }
 
-            lexer.start("(: Test :)")
-            matchToken(lexer, "(:", 0, 0, 2, XPathTokenType.COMMENT_START_TAG)
-            matchToken(lexer, " Test ", 4, 2, 8, XPathTokenType.COMMENT)
-            matchToken(lexer, ":)", 4, 8, 10, XPathTokenType.COMMENT_END_TAG)
-            matchToken(lexer, "", 0, 10, 10, null)
+            tokenize("(: Test :)") {
+                token("(:", XPathTokenType.COMMENT_START_TAG)
+                state(4)
+                token(" Test ", XPathTokenType.COMMENT)
+                token(":)", XPathTokenType.COMMENT_END_TAG)
+                state(0)
+            }
 
-            lexer.start("(::Test::)")
-            matchToken(lexer, "(:", 0, 0, 2, XPathTokenType.COMMENT_START_TAG)
-            matchToken(lexer, ":Test:", 4, 2, 8, XPathTokenType.COMMENT)
-            matchToken(lexer, ":)", 4, 8, 10, XPathTokenType.COMMENT_END_TAG)
-            matchToken(lexer, "", 0, 10, 10, null)
+            tokenize("(::Test::)") {
+                token("(:", XPathTokenType.COMMENT_START_TAG)
+                state(4)
+                token(":Test:", XPathTokenType.COMMENT)
+                token(":)", XPathTokenType.COMMENT_END_TAG)
+                state(0)
+            }
 
-            lexer.start("(:\nMultiline\nComment\n:)")
-            matchToken(lexer, "(:", 0, 0, 2, XPathTokenType.COMMENT_START_TAG)
-            matchToken(lexer, "\nMultiline\nComment\n", 4, 2, 21, XPathTokenType.COMMENT)
-            matchToken(lexer, ":)", 4, 21, 23, XPathTokenType.COMMENT_END_TAG)
-            matchToken(lexer, "", 0, 23, 23, null)
+            tokenize("(:\nMultiline\nComment\n:)") {
+                token("(:", XPathTokenType.COMMENT_START_TAG)
+                state(4)
+                token("\nMultiline\nComment\n", XPathTokenType.COMMENT)
+                token(":)", XPathTokenType.COMMENT_END_TAG)
+                state(0)
+            }
 
-            lexer.start("(: Outer (: Inner :) Outer :)")
-            matchToken(lexer, "(:", 0, 0, 2, XPathTokenType.COMMENT_START_TAG)
-            matchToken(lexer, " Outer (: Inner :) Outer ", 4, 2, 27, XPathTokenType.COMMENT)
-            matchToken(lexer, ":)", 4, 27, 29, XPathTokenType.COMMENT_END_TAG)
-            matchToken(lexer, "", 0, 29, 29, null)
+            tokenize("(: Outer (: Inner :) Outer :)") {
+                token("(:", XPathTokenType.COMMENT_START_TAG)
+                state(4)
+                token(" Outer (: Inner :) Outer ", XPathTokenType.COMMENT)
+                token(":)", XPathTokenType.COMMENT_END_TAG)
+                state(0)
+            }
 
-            lexer.start("(: Outer ( : Inner :) Outer :)")
-            matchToken(lexer, "(:", 0, 0, 2, XPathTokenType.COMMENT_START_TAG)
-            matchToken(lexer, " Outer ( : Inner ", 4, 2, 19, XPathTokenType.COMMENT)
-            matchToken(lexer, ":)", 4, 19, 21, XPathTokenType.COMMENT_END_TAG)
-            matchToken(lexer, " ", 0, 21, 22, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, "Outer", 0, 22, 27, XPathTokenType.NCNAME)
-            matchToken(lexer, " ", 0, 27, 28, XPathTokenType.WHITE_SPACE)
-            matchToken(lexer, ":)", 0, 28, 30, XPathTokenType.COMMENT_END_TAG)
-            matchToken(lexer, "", 0, 30, 30, null)
+            tokenize("(: Outer ( : Inner :) Outer :)") {
+                token("(:", XPathTokenType.COMMENT_START_TAG)
+                state(4)
+                token(" Outer ( : Inner ", XPathTokenType.COMMENT)
+                token(":)", XPathTokenType.COMMENT_END_TAG)
+                state(0)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token("Outer", XPathTokenType.NCNAME)
+                token(" ", XPathTokenType.WHITE_SPACE)
+                token(":)", XPathTokenType.COMMENT_END_TAG)
+            }
         }
 
         @Test
         @DisplayName("initial state")
         fun initialState() {
-            lexer.start("(: Test :", 2, 9, 4)
-            matchToken(lexer, " Test :", 4, 2, 9, XPathTokenType.COMMENT)
-            matchToken(lexer, "", 6, 9, 9, XPathTokenType.UNEXPECTED_END_OF_BLOCK)
-            matchToken(lexer, "", 0, 9, 9, null)
+            tokenize("(: Test :", 2, 9, 4) {
+                token(" Test :", XPathTokenType.COMMENT)
+                state(6)
+                token("", XPathTokenType.UNEXPECTED_END_OF_BLOCK)
+                state(0)
+            }
 
-            lexer.start("(: Test :)", 2, 10, 4)
-            matchToken(lexer, " Test ", 4, 2, 8, XPathTokenType.COMMENT)
-            matchToken(lexer, ":)", 4, 8, 10, XPathTokenType.COMMENT_END_TAG)
-            matchToken(lexer, "", 0, 10, 10, null)
+            tokenize("(: Test :)", 2, 10, 4) {
+                token(" Test ", XPathTokenType.COMMENT)
+                token(":)", XPathTokenType.COMMENT_END_TAG)
+                state(0)
+            }
         }
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (154) QName ; Namespaces in XML 1.0 EBNF (7) QName")
-    fun qname() {
-        lexer.start("one:two")
-        matchToken(lexer, "one", 0, 0, 3, XPathTokenType.NCNAME)
-        matchToken(lexer, ":", 0, 3, 4, XPathTokenType.QNAME_SEPARATOR)
-        matchToken(lexer, "two", 0, 4, 7, XPathTokenType.NCNAME)
-        matchToken(lexer, "", 0, 7, 7, null)
+    fun qname() = tokenize("one:two") {
+        token("one", XPathTokenType.NCNAME)
+        token(":", XPathTokenType.QNAME_SEPARATOR)
+        token("two", XPathTokenType.NCNAME)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (155) NCName ; Namespaces in XML 1.0 EBNF (4) NCName")
-    fun ncname() {
-        lexer.start("test x b2b F.G a-b g\u0330d")
-        matchToken(lexer, "test", 0, 0, 4, XPathTokenType.NCNAME)
-        matchToken(lexer, " ", 0, 4, 5, XPathTokenType.WHITE_SPACE)
-        matchToken(lexer, "x", 0, 5, 6, XPathTokenType.NCNAME)
-        matchToken(lexer, " ", 0, 6, 7, XPathTokenType.WHITE_SPACE)
-        matchToken(lexer, "b2b", 0, 7, 10, XPathTokenType.NCNAME)
-        matchToken(lexer, " ", 0, 10, 11, XPathTokenType.WHITE_SPACE)
-        matchToken(lexer, "F.G", 0, 11, 14, XPathTokenType.NCNAME)
-        matchToken(lexer, " ", 0, 14, 15, XPathTokenType.WHITE_SPACE)
-        matchToken(lexer, "a-b", 0, 15, 18, XPathTokenType.NCNAME)
-        matchToken(lexer, " ", 0, 18, 19, XPathTokenType.WHITE_SPACE)
-        matchToken(lexer, "g\u0330d", 0, 19, 22, XPathTokenType.NCNAME)
-        matchToken(lexer, "", 0, 22, 22, null)
+    fun ncname() = tokenize("test x b2b F.G a-b g\u0330d") {
+        token("test", XPathTokenType.NCNAME)
+        token(" ", XPathTokenType.WHITE_SPACE)
+        token("x", XPathTokenType.NCNAME)
+        token(" ", XPathTokenType.WHITE_SPACE)
+        token("b2b", XPathTokenType.NCNAME)
+        token(" ", XPathTokenType.WHITE_SPACE)
+        token("F.G", XPathTokenType.NCNAME)
+        token(" ", XPathTokenType.WHITE_SPACE)
+        token("a-b", XPathTokenType.NCNAME)
+        token(" ", XPathTokenType.WHITE_SPACE)
+        token("g\u0330d", XPathTokenType.NCNAME)
     }
 
     @Test
     @DisplayName("XQuery 1.0 EBNF (156) S")
     fun s() {
-        lexer.start(" ")
-        matchToken(lexer, " ", 0, 0, 1, XPathTokenType.WHITE_SPACE)
-        matchToken(lexer, "", 0, 1, 1, null)
+        token(" ", XPathTokenType.WHITE_SPACE)
+        token("\t", XPathTokenType.WHITE_SPACE)
+        token("\r", XPathTokenType.WHITE_SPACE)
+        token("\n", XPathTokenType.WHITE_SPACE)
 
-        lexer.start("\t")
-        matchToken(lexer, "\t", 0, 0, 1, XPathTokenType.WHITE_SPACE)
-        matchToken(lexer, "", 0, 1, 1, null)
-
-        lexer.start("\r")
-        matchToken(lexer, "\r", 0, 0, 1, XPathTokenType.WHITE_SPACE)
-        matchToken(lexer, "", 0, 1, 1, null)
-
-        lexer.start("\n")
-        matchToken(lexer, "\n", 0, 0, 1, XPathTokenType.WHITE_SPACE)
-        matchToken(lexer, "", 0, 1, 1, null)
-
-        lexer.start("   \t  \r\n ")
-        matchToken(lexer, "   \t  \r\n ", 0, 0, 9, XPathTokenType.WHITE_SPACE)
-        matchToken(lexer, "", 0, 9, 9, null)
+        tokenize("   \t  \r\n ") {
+            token("   \t  \r\n ", XPathTokenType.WHITE_SPACE)
+        }
     }
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (18) DecimalFormatDecl")
-    fun testDecimalFormatDecl() {
+    fun decimalFormatDecl() {
         token("declare", XQueryTokenType.K_DECLARE)
         token("decimal-format", XQueryTokenType.K_DECIMAL_FORMAT)
         token("default", XPathTokenType.K_DEFAULT)
@@ -2573,7 +2942,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (19) DFPropertyName")
-    fun testDFPropertyName() {
+    fun dfPropertyName() {
         token("decimal-separator", XQueryTokenType.K_DECIMAL_SEPARATOR)
         token("grouping-separator", XQueryTokenType.K_GROUPING_SEPARATOR)
         token("infinity", XQueryTokenType.K_INFINITY)
@@ -2588,13 +2957,13 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (26) AnnotatedDecl")
-    fun testAnnotatedDecl() {
+    fun annotatedDecl() {
         token("declare", XQueryTokenType.K_DECLARE)
     }
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (27) Annotation")
-    fun testAnnotation() {
+    fun annotation() {
         token("%", XQueryTokenType.ANNOTATION_INDICATOR)
         token("(", XPathTokenType.PARENTHESIS_OPEN)
         token(",", XPathTokenType.COMMA)
@@ -2606,7 +2975,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (31) ContextItemDecl")
-    fun testContextItemDecl() {
+    fun contextItemDecl() {
         token("declare", XQueryTokenType.K_DECLARE)
         token("context", XQueryTokenType.K_CONTEXT)
         token("item", XPathTokenType.K_ITEM)
@@ -2617,20 +2986,20 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (46) AllowingEmpty")
-    fun testAllowingEmpty() {
+    fun allowingEmpty() {
         token("allowing", XQueryTokenType.K_ALLOWING)
         token("empty", XPathTokenType.K_EMPTY)
     }
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (50) WindowClause")
-    fun testWindowClause() {
+    fun windowClause() {
         token("for", XPathTokenType.K_FOR)
     }
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (51) TumblingWindowClause")
-    fun testTumblingWindowClause() {
+    fun tumblingWindowClause() {
         token("tumbling", XQueryTokenType.K_TUMBLING)
         token("window", XPathTokenType.K_WINDOW)
         token("$", XPathTokenType.VARIABLE_INDICATOR)
@@ -2639,7 +3008,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (52) SlidingWindowClause")
-    fun testSlidingWindowClause() {
+    fun slidingWindowClause() {
         token("sliding", XQueryTokenType.K_SLIDING)
         token("window", XPathTokenType.K_WINDOW)
         token("$", XPathTokenType.VARIABLE_INDICATOR)
@@ -2648,14 +3017,14 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (53) WindowStartCondition")
-    fun testWindowStartCondition() {
+    fun windowStartCondition() {
         token("start", XPathTokenType.K_START)
         token("when", XQueryTokenType.K_WHEN)
     }
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (54) WindowEndCondition")
-    fun testWindowEndCondition() {
+    fun windowEndCondition() {
         token("only", XQueryTokenType.K_ONLY)
         token("end", XPathTokenType.K_END)
         token("when", XQueryTokenType.K_WHEN)
@@ -2663,7 +3032,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (55) WindowVars")
-    fun testWindowVars() {
+    fun windowVars() {
         token("$", XPathTokenType.VARIABLE_INDICATOR)
         token("previous", XQueryTokenType.K_PREVIOUS)
         token("next", XQueryTokenType.K_NEXT)
@@ -2671,46 +3040,46 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (59) CountClause")
-    fun testCountClause() {
+    fun countClause() {
         token("count", XQueryTokenType.K_COUNT)
         token("$", XPathTokenType.VARIABLE_INDICATOR)
     }
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (61) GroupByClause")
-    fun testGroupByClause() {
+    fun groupByClause() {
         token("group", XQueryTokenType.K_GROUP)
         token("by", XQueryTokenType.K_BY)
     }
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (62) GroupingSpecList")
-    fun testGroupingSpecList() {
+    fun groupingSpecList() {
         token(",", XPathTokenType.COMMA)
     }
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (63) GroupingSpec")
-    fun testGroupingSpec() {
+    fun groupingSpec() {
         token(":=", XPathTokenType.ASSIGN_EQUAL)
         token("collation", XQueryTokenType.K_COLLATION)
     }
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (64) GroupingVariable")
-    fun testGroupingVariable() {
+    fun groupingVariable() {
         token("$", XPathTokenType.VARIABLE_INDICATOR)
     }
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (69) ReturnClause")
-    fun testReturnClause() {
+    fun returnClause() {
         token("return", XPathTokenType.K_RETURN)
     }
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (71) SwitchExpr")
-    fun testSwitchExpr() {
+    fun switchExpr() {
         token("switch", XQueryTokenType.K_SWITCH)
         token("(", XPathTokenType.PARENTHESIS_OPEN)
         token(")", XPathTokenType.PARENTHESIS_CLOSE)
@@ -2720,20 +3089,20 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (72) SwitchCaseClause")
-    fun testSwitchCaseClause() {
+    fun switchCaseClause() {
         token("case", XPathTokenType.K_CASE)
         token("return", XPathTokenType.K_RETURN)
     }
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (76) SequenceTypeUnion")
-    fun testSequenceTypeUnion() {
+    fun sequenceTypeUnion() {
         token("|", XPathTokenType.UNION)
     }
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (79) TryClause")
-    fun testTryClause() {
+    fun tryClause() {
         token("try", XQueryTokenType.K_TRY)
         token("{", XPathTokenType.BLOCK_OPEN)
         token("}", XPathTokenType.BLOCK_CLOSE)
@@ -2741,7 +3110,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (81) CatchClause")
-    fun testCatchClause() {
+    fun catchClause() {
         token("catch", XQueryTokenType.K_CATCH)
         token("{", XPathTokenType.BLOCK_OPEN)
         token("}", XPathTokenType.BLOCK_CLOSE)
@@ -2749,7 +3118,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (82) CatchErrorList")
-    fun testCatchErrorList() {
+    fun catchErrorList() {
         token("|", XPathTokenType.UNION)
     }
 
@@ -2761,7 +3130,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (101) ValidateExpr")
-    fun testValidateExpr_Type() {
+    fun validateExpr_XQuery30() {
         token("validate", XQueryTokenType.K_VALIDATE)
         token("type", XPathTokenType.K_TYPE)
         token("{", XPathTokenType.BLOCK_OPEN)
@@ -2790,7 +3159,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 3.0 EBNF (156) CompNamespaceConstructor")
-    fun testCompNamespaceConstructor() {
+    fun compNamespaceConstructor() {
         token("namespace", XPathTokenType.K_NAMESPACE)
         token("{", XPathTokenType.BLOCK_OPEN)
         token("}", XPathTokenType.BLOCK_CLOSE)
@@ -2852,59 +3221,68 @@ class XQueryLexerTest : LexerTestCase() {
         @DisplayName("braced uri literal")
         fun bracedURILiteral() {
             token("Q", XPathTokenType.NCNAME)
+            token("Q{", 26, XPathTokenType.BRACED_URI_LITERAL_START)
 
-            lexer.start("Q{")
-            matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
-            matchToken(lexer, "", 26, 2, 2, null)
-
-            lexer.start("Q{Hello World}")
-            matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
-            matchToken(lexer, "Hello World", 26, 2, 13, XPathTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "}", 26, 13, 14, XPathTokenType.BRACED_URI_LITERAL_END)
-            matchToken(lexer, "", 0, 14, 14, null)
+            tokenize("Q{Hello World}") {
+                token("Q{", XPathTokenType.BRACED_URI_LITERAL_START)
+                state(26)
+                token("Hello World", XPathTokenType.STRING_LITERAL_CONTENTS)
+                token("}", XPathTokenType.BRACED_URI_LITERAL_END)
+                state(0)
+            }
 
             // NOTE: "", '', {{ and }} are used as escaped characters in string and attribute literals.
-            lexer.start("Q{A\"\"B''C{{D}}E}")
-            matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
-            matchToken(lexer, "A\"\"B''C", 26, 2, 9, XPathTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "{", 26, 9, 10, XPathTokenType.BAD_CHARACTER)
-            matchToken(lexer, "{", 26, 10, 11, XPathTokenType.BAD_CHARACTER)
-            matchToken(lexer, "D", 26, 11, 12, XPathTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "}", 26, 12, 13, XPathTokenType.BRACED_URI_LITERAL_END)
-            matchToken(lexer, "}", 0, 13, 14, XPathTokenType.BLOCK_CLOSE)
-            matchToken(lexer, "E", 0, 14, 15, XPathTokenType.NCNAME)
-            matchToken(lexer, "}", 0, 15, 16, XPathTokenType.BLOCK_CLOSE)
-            matchToken(lexer, "", 0, 16, 16, null)
+            tokenize("Q{A\"\"B''C{{D}}E}") {
+                token("Q{", XPathTokenType.BRACED_URI_LITERAL_START)
+                state(26)
+                token("A\"\"B''C", XPathTokenType.STRING_LITERAL_CONTENTS)
+                token("{", XPathTokenType.BAD_CHARACTER)
+                token("{", XPathTokenType.BAD_CHARACTER)
+                token("D", XPathTokenType.STRING_LITERAL_CONTENTS)
+                token("}", XPathTokenType.BRACED_URI_LITERAL_END)
+                state(0)
+                token("}", XPathTokenType.BLOCK_CLOSE)
+                token("E", XPathTokenType.NCNAME)
+                token("}", XPathTokenType.BLOCK_CLOSE)
+            }
         }
 
         @Test
         @DisplayName("braced uri literal in Pragma")
         fun inPragma() {
-            lexer.start("Q", 0, 1, 8)
-            matchToken(lexer, "Q", 8, 0, 1, XPathTokenType.NCNAME)
-            matchToken(lexer, "", 9, 1, 1, null)
+            tokenize("Q", 0, 1, 8) {
+                token("Q", XPathTokenType.NCNAME)
+                state(9)
+            }
 
-            lexer.start("Q{", 0, 2, 8)
-            matchToken(lexer, "Q{", 8, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
-            matchToken(lexer, "", 31, 2, 2, null)
+            tokenize("Q{", 0, 2, 8) {
+                token("Q{", XPathTokenType.BRACED_URI_LITERAL_START)
+                state(31)
+            }
 
-            lexer.start("Q{Hello World}", 0, 14, 8)
-            matchToken(lexer, "Q{", 8, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
-            matchToken(lexer, "Hello World", 31, 2, 13, XPathTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "}", 31, 13, 14, XPathTokenType.BRACED_URI_LITERAL_END)
-            matchToken(lexer, "", 9, 14, 14, null)
+            tokenize("Q{Hello World}", 0, 14, 8) {
+                token("Q{", XPathTokenType.BRACED_URI_LITERAL_START)
+                state(31)
+                token("Hello World", XPathTokenType.STRING_LITERAL_CONTENTS)
+                token("}", XPathTokenType.BRACED_URI_LITERAL_END)
+                state(9)
+            }
 
             // NOTE: "", '', {{ and }} are used as escaped characters in string and attribute literals.
-            lexer.start("Q{A\"\"B''C{{D}}E}", 0, 16, 8)
-            matchToken(lexer, "Q{", 8, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
-            matchToken(lexer, "A\"\"B''C", 31, 2, 9, XPathTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "{", 31, 9, 10, XPathTokenType.BAD_CHARACTER)
-            matchToken(lexer, "{", 31, 10, 11, XPathTokenType.BAD_CHARACTER)
-            matchToken(lexer, "D", 31, 11, 12, XPathTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "}", 31, 12, 13, XPathTokenType.BRACED_URI_LITERAL_END)
-            matchToken(lexer, "}E}", 9, 13, 16, XPathTokenType.PRAGMA_CONTENTS)
-            matchToken(lexer, "", 6, 16, 16, XPathTokenType.UNEXPECTED_END_OF_BLOCK)
-            matchToken(lexer, "", 0, 16, 16, null)
+            tokenize("Q{A\"\"B''C{{D}}E}", 0, 16, 8) {
+                token("Q{", XPathTokenType.BRACED_URI_LITERAL_START)
+                state(31)
+                token("A\"\"B''C", XPathTokenType.STRING_LITERAL_CONTENTS)
+                token("{", XPathTokenType.BAD_CHARACTER)
+                token("{", XPathTokenType.BAD_CHARACTER)
+                token("D", XPathTokenType.STRING_LITERAL_CONTENTS)
+                token("}", XPathTokenType.BRACED_URI_LITERAL_END)
+                state(9)
+                token("}E}", XPathTokenType.PRAGMA_CONTENTS)
+                state(6)
+                token("", XPathTokenType.UNEXPECTED_END_OF_BLOCK)
+                state(0)
+            }
         }
 
         @Test
@@ -2914,54 +3292,66 @@ class XQueryLexerTest : LexerTestCase() {
             // XQuery processors support HTML predefined entities. Shifting the name validation to
             // the parser allows proper validation errors to be generated.
 
-            lexer.start("Q{One&abc;&aBc;&Abc;&ABC;&a4;&a;Two}")
-            matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
-            matchToken(lexer, "One", 26, 2, 5, XPathTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "&abc;", 26, 5, 10, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
-            matchToken(lexer, "&aBc;", 26, 10, 15, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
-            matchToken(lexer, "&Abc;", 26, 15, 20, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
-            matchToken(lexer, "&ABC;", 26, 20, 25, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
-            matchToken(lexer, "&a4;", 26, 25, 29, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
-            matchToken(lexer, "&a;", 26, 29, 32, XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
-            matchToken(lexer, "Two", 26, 32, 35, XPathTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "}", 26, 35, 36, XPathTokenType.BRACED_URI_LITERAL_END)
-            matchToken(lexer, "", 0, 36, 36, null)
+            tokenize("Q{One&abc;&aBc;&Abc;&ABC;&a4;&a;Two}") {
+                token("Q{", XPathTokenType.BRACED_URI_LITERAL_START)
+                state(26)
+                token("One", XPathTokenType.STRING_LITERAL_CONTENTS)
+                token("&abc;", XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
+                token("&aBc;", XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
+                token("&Abc;", XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
+                token("&ABC;", XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
+                token("&a4;", XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
+                token("&a;", XQueryTokenType.PREDEFINED_ENTITY_REFERENCE)
+                token("Two", XPathTokenType.STRING_LITERAL_CONTENTS)
+                token("}", XPathTokenType.BRACED_URI_LITERAL_END)
+                state(0)
+            }
 
-            lexer.start("Q{&}")
-            matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
-            matchToken(lexer, "&", 26, 2, 3, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-            matchToken(lexer, "}", 26, 3, 4, XPathTokenType.BRACED_URI_LITERAL_END)
-            matchToken(lexer, "", 0, 4, 4, null)
+            tokenize("Q{&}") {
+                token("Q{", XPathTokenType.BRACED_URI_LITERAL_START)
+                state(26)
+                token("&", XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
+                token("}", XPathTokenType.BRACED_URI_LITERAL_END)
+                state(0)
+            }
 
-            lexer.start("Q{&abc!}")
-            matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
-            matchToken(lexer, "&abc", 26, 2, 6, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-            matchToken(lexer, "!", 26, 6, 7, XPathTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "}", 26, 7, 8, XPathTokenType.BRACED_URI_LITERAL_END)
-            matchToken(lexer, "", 0, 8, 8, null)
+            tokenize("Q{&abc!}") {
+                token("Q{", XPathTokenType.BRACED_URI_LITERAL_START)
+                state(26)
+                token("&abc", XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
+                token("!", XPathTokenType.STRING_LITERAL_CONTENTS)
+                token("}", XPathTokenType.BRACED_URI_LITERAL_END)
+                state(0)
+            }
 
-            lexer.start("Q{& }")
-            matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
-            matchToken(lexer, "&", 26, 2, 3, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-            matchToken(lexer, " ", 26, 3, 4, XPathTokenType.STRING_LITERAL_CONTENTS)
-            matchToken(lexer, "}", 26, 4, 5, XPathTokenType.BRACED_URI_LITERAL_END)
-            matchToken(lexer, "", 0, 5, 5, null)
+            tokenize("Q{& }") {
+                token("Q{", XPathTokenType.BRACED_URI_LITERAL_START)
+                state(26)
+                token("&", XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
+                token(" ", XPathTokenType.STRING_LITERAL_CONTENTS)
+                token("}", XPathTokenType.BRACED_URI_LITERAL_END)
+                state(0)
+            }
 
-            lexer.start("Q{&")
-            matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
-            matchToken(lexer, "&", 26, 2, 3, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-            matchToken(lexer, "", 26, 3, 3, null)
+            tokenize("Q{&") {
+                token("Q{", XPathTokenType.BRACED_URI_LITERAL_START)
+                state(26)
+                token("&", XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
+            }
 
-            lexer.start("Q{&abc")
-            matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
-            matchToken(lexer, "&abc", 26, 2, 6, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-            matchToken(lexer, "", 26, 6, 6, null)
+            tokenize("Q{&abc") {
+                token("Q{", XPathTokenType.BRACED_URI_LITERAL_START)
+                state(26)
+                token("&abc", XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
+            }
 
-            lexer.start("Q{&;}")
-            matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
-            matchToken(lexer, "&;", 26, 2, 4, XQueryTokenType.EMPTY_ENTITY_REFERENCE)
-            matchToken(lexer, "}", 26, 4, 5, XPathTokenType.BRACED_URI_LITERAL_END)
-            matchToken(lexer, "", 0, 5, 5, null)
+            tokenize("Q{&;}") {
+                token("Q{", XPathTokenType.BRACED_URI_LITERAL_START)
+                state(26)
+                token("&;", XQueryTokenType.EMPTY_ENTITY_REFERENCE)
+                token("}", XPathTokenType.BRACED_URI_LITERAL_END)
+                state(0)
+            }
         }
 
         @Nested
@@ -2970,98 +3360,118 @@ class XQueryLexerTest : LexerTestCase() {
             @Test
             @DisplayName("octal")
             fun octal() {
-                lexer.start("Q{One&#20;Two}")
-                matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
-                matchToken(lexer, "One", 26, 2, 5, XPathTokenType.STRING_LITERAL_CONTENTS)
-                matchToken(lexer, "&#20;", 26, 5, 10, XQueryTokenType.CHARACTER_REFERENCE)
-                matchToken(lexer, "Two", 26, 10, 13, XPathTokenType.STRING_LITERAL_CONTENTS)
-                matchToken(lexer, "}", 26, 13, 14, XPathTokenType.BRACED_URI_LITERAL_END)
-                matchToken(lexer, "", 0, 14, 14, null)
+                tokenize("Q{One&#20;Two}") {
+                    token("Q{", XPathTokenType.BRACED_URI_LITERAL_START)
+                    state(26)
+                    token("One", XPathTokenType.STRING_LITERAL_CONTENTS)
+                    token("&#20;", XQueryTokenType.CHARACTER_REFERENCE)
+                    token("Two", XPathTokenType.STRING_LITERAL_CONTENTS)
+                    token("}", XPathTokenType.BRACED_URI_LITERAL_END)
+                    state(0)
+                }
 
-                lexer.start("Q{&#}")
-                matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
-                matchToken(lexer, "&#", 26, 2, 4, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "}", 26, 4, 5, XPathTokenType.BRACED_URI_LITERAL_END)
-                matchToken(lexer, "", 0, 5, 5, null)
+                tokenize("Q{&#}") {
+                    token("Q{", XPathTokenType.BRACED_URI_LITERAL_START)
+                    state(26)
+                    token("&#", XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
+                    token("}", XPathTokenType.BRACED_URI_LITERAL_END)
+                    state(0)
+                }
 
-                lexer.start("Q{&# }")
-                matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
-                matchToken(lexer, "&#", 26, 2, 4, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, " ", 26, 4, 5, XPathTokenType.STRING_LITERAL_CONTENTS)
-                matchToken(lexer, "}", 26, 5, 6, XPathTokenType.BRACED_URI_LITERAL_END)
-                matchToken(lexer, "", 0, 6, 6, null)
+                tokenize("Q{&# }") {
+                    token("Q{", XPathTokenType.BRACED_URI_LITERAL_START)
+                    state(26)
+                    token("&#", XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
+                    token(" ", XPathTokenType.STRING_LITERAL_CONTENTS)
+                    token("}", XPathTokenType.BRACED_URI_LITERAL_END)
+                    state(0)
+                }
 
-                lexer.start("Q{&#")
-                matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
-                matchToken(lexer, "&#", 26, 2, 4, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "", 26, 4, 4, null)
+                tokenize("Q{&#") {
+                    token("Q{", XPathTokenType.BRACED_URI_LITERAL_START)
+                    state(26)
+                    token("&#", XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
+                }
 
-                lexer.start("Q{&#12")
-                matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
-                matchToken(lexer, "&#12", 26, 2, 6, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "", 26, 6, 6, null)
+                tokenize("Q{&#12") {
+                    token("Q{", XPathTokenType.BRACED_URI_LITERAL_START)
+                    state(26)
+                    token("&#12", XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
+                }
 
-                lexer.start("Q{&#;}")
-                matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
-                matchToken(lexer, "&#;", 26, 2, 5, XQueryTokenType.EMPTY_ENTITY_REFERENCE)
-                matchToken(lexer, "}", 26, 5, 6, XPathTokenType.BRACED_URI_LITERAL_END)
-                matchToken(lexer, "", 0, 6, 6, null)
+                tokenize("Q{&#;}") {
+                    token("Q{", XPathTokenType.BRACED_URI_LITERAL_START)
+                    state(26)
+                    token("&#;", XQueryTokenType.EMPTY_ENTITY_REFERENCE)
+                    token("}", XPathTokenType.BRACED_URI_LITERAL_END)
+                    state(0)
+                }
             }
 
             @Test
             @DisplayName("hexadecimal")
             fun hexadecimal() {
-                lexer.start("Q{One&#x20;&#xae;&#xDC;Two}")
-                matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
-                matchToken(lexer, "One", 26, 2, 5, XPathTokenType.STRING_LITERAL_CONTENTS)
-                matchToken(lexer, "&#x20;", 26, 5, 11, XQueryTokenType.CHARACTER_REFERENCE)
-                matchToken(lexer, "&#xae;", 26, 11, 17, XQueryTokenType.CHARACTER_REFERENCE)
-                matchToken(lexer, "&#xDC;", 26, 17, 23, XQueryTokenType.CHARACTER_REFERENCE)
-                matchToken(lexer, "Two", 26, 23, 26, XPathTokenType.STRING_LITERAL_CONTENTS)
-                matchToken(lexer, "}", 26, 26, 27, XPathTokenType.BRACED_URI_LITERAL_END)
-                matchToken(lexer, "", 0, 27, 27, null)
+                tokenize("Q{One&#x20;&#xae;&#xDC;Two}") {
+                    token("Q{", XPathTokenType.BRACED_URI_LITERAL_START)
+                    state(26)
+                    token("One", XPathTokenType.STRING_LITERAL_CONTENTS)
+                    token("&#x20;", XQueryTokenType.CHARACTER_REFERENCE)
+                    token("&#xae;", XQueryTokenType.CHARACTER_REFERENCE)
+                    token("&#xDC;", XQueryTokenType.CHARACTER_REFERENCE)
+                    token("Two", XPathTokenType.STRING_LITERAL_CONTENTS)
+                    token("}", XPathTokenType.BRACED_URI_LITERAL_END)
+                    state(0)
+                }
 
-                lexer.start("Q{&#x}")
-                matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
-                matchToken(lexer, "&#x", 26, 2, 5, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "}", 26, 5, 6, XPathTokenType.BRACED_URI_LITERAL_END)
-                matchToken(lexer, "", 0, 6, 6, null)
+                tokenize("Q{&#x}") {
+                    token("Q{", XPathTokenType.BRACED_URI_LITERAL_START)
+                    state(26)
+                    token("&#x", XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
+                    token("}", XPathTokenType.BRACED_URI_LITERAL_END)
+                    state(0)
+                }
 
-                lexer.start("Q{&#x }")
-                matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
-                matchToken(lexer, "&#x", 26, 2, 5, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, " ", 26, 5, 6, XPathTokenType.STRING_LITERAL_CONTENTS)
-                matchToken(lexer, "}", 26, 6, 7, XPathTokenType.BRACED_URI_LITERAL_END)
-                matchToken(lexer, "", 0, 7, 7, null)
+                tokenize("Q{&#x }") {
+                    token("Q{", XPathTokenType.BRACED_URI_LITERAL_START)
+                    state(26)
+                    token("&#x", XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
+                    token(" ", XPathTokenType.STRING_LITERAL_CONTENTS)
+                    token("}", XPathTokenType.BRACED_URI_LITERAL_END)
+                    state(0)
+                }
 
-                lexer.start("Q{&#x")
-                matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
-                matchToken(lexer, "&#x", 26, 2, 5, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "", 26, 5, 5, null)
+                tokenize("Q{&#x") {
+                    token("Q{", XPathTokenType.BRACED_URI_LITERAL_START)
+                    state(26)
+                    token("&#x", XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
+                }
 
-                lexer.start("Q{&#x12")
-                matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
-                matchToken(lexer, "&#x12", 26, 2, 7, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "", 26, 7, 7, null)
+                tokenize("Q{&#x12") {
+                    token("Q{", XPathTokenType.BRACED_URI_LITERAL_START)
+                    state(26)
+                    token("&#x12", XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
+                }
 
-                lexer.start("Q{&#x;&#x2G;&#x2g;&#xg2;}")
-                matchToken(lexer, "Q{", 0, 0, 2, XPathTokenType.BRACED_URI_LITERAL_START)
-                matchToken(lexer, "&#x;", 26, 2, 6, XQueryTokenType.EMPTY_ENTITY_REFERENCE)
-                matchToken(lexer, "&#x2", 26, 6, 10, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "G;", 26, 10, 12, XPathTokenType.STRING_LITERAL_CONTENTS)
-                matchToken(lexer, "&#x2", 26, 12, 16, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "g;", 26, 16, 18, XPathTokenType.STRING_LITERAL_CONTENTS)
-                matchToken(lexer, "&#x", 26, 18, 21, XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "g2;", 26, 21, 24, XPathTokenType.STRING_LITERAL_CONTENTS)
-                matchToken(lexer, "}", 26, 24, 25, XPathTokenType.BRACED_URI_LITERAL_END)
-                matchToken(lexer, "", 0, 25, 25, null)
+                tokenize("Q{&#x;&#x2G;&#x2g;&#xg2;}") {
+                    token("Q{", XPathTokenType.BRACED_URI_LITERAL_START)
+                    state(26)
+                    token("&#x;", XQueryTokenType.EMPTY_ENTITY_REFERENCE)
+                    token("&#x2", XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
+                    token("G;", XPathTokenType.STRING_LITERAL_CONTENTS)
+                    token("&#x2", XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
+                    token("g;", XPathTokenType.STRING_LITERAL_CONTENTS)
+                    token("&#x", XQueryTokenType.PARTIAL_ENTITY_REFERENCE)
+                    token("g2;", XPathTokenType.STRING_LITERAL_CONTENTS)
+                    token("}", XPathTokenType.BRACED_URI_LITERAL_END)
+                    state(0)
+                }
             }
         }
     }
 
     @Test
     @DisplayName("XQuery 3.1 EBNF (19) DFPropertyName")
-    fun testDFPropertyName_XQuery31() {
+    fun dfPropertyName_XQuery31() {
         token("decimal-separator", XQueryTokenType.K_DECIMAL_SEPARATOR)
         token("grouping-separator", XQueryTokenType.K_GROUPING_SEPARATOR)
         token("infinity", XQueryTokenType.K_INFINITY)
@@ -3126,7 +3536,7 @@ class XQueryLexerTest : LexerTestCase() {
 
     @Test
     @DisplayName("XQuery 3.1 EBNF (177) StringConstructor ; XQuery 3.1 EBNF (179) StringConstructorChars")
-    fun testStringConstructor() {
+    fun stringConstructor() {
         token("`", XQueryTokenType.INVALID)
         token("``", XQueryTokenType.INVALID)
 
@@ -3134,29 +3544,39 @@ class XQueryLexerTest : LexerTestCase() {
         token("]`", XQueryTokenType.INVALID)
         token("]``", XQueryTokenType.STRING_CONSTRUCTOR_END)
 
-        lexer.start("``[")
-        matchToken(lexer, "``[", 0, 0, 3, XQueryTokenType.STRING_CONSTRUCTOR_START)
-        matchToken(lexer, "", 27, 3, 3, XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS)
-        matchToken(lexer, "", 6, 3, 3, XPathTokenType.UNEXPECTED_END_OF_BLOCK)
-        matchToken(lexer, "", 0, 3, 3, null)
+        tokenize("``[") {
+            token("``[", XQueryTokenType.STRING_CONSTRUCTOR_START)
+            state(27)
+            token("", XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS)
+            state(6)
+            token("", XPathTokenType.UNEXPECTED_END_OF_BLOCK)
+            state(0)
+        }
 
-        lexer.start("``[One]Two]`")
-        matchToken(lexer, "``[", 0, 0, 3, XQueryTokenType.STRING_CONSTRUCTOR_START)
-        matchToken(lexer, "One]Two]`", 27, 3, 12, XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS)
-        matchToken(lexer, "", 6, 12, 12, XPathTokenType.UNEXPECTED_END_OF_BLOCK)
-        matchToken(lexer, "", 0, 12, 12, null)
+        tokenize("``[One]Two]`") {
+            token("``[", XQueryTokenType.STRING_CONSTRUCTOR_START)
+            state(27)
+            token("One]Two]`", XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS)
+            state(6)
+            token("", XPathTokenType.UNEXPECTED_END_OF_BLOCK)
+            state(0)
+        }
 
-        lexer.start("``[One]Two]``")
-        matchToken(lexer, "``[", 0, 0, 3, XQueryTokenType.STRING_CONSTRUCTOR_START)
-        matchToken(lexer, "One]Two", 27, 3, 10, XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS)
-        matchToken(lexer, "]``", 0, 10, 13, XQueryTokenType.STRING_CONSTRUCTOR_END)
-        matchToken(lexer, "", 0, 13, 13, null)
+        tokenize("``[One]Two]``") {
+            token("``[", XQueryTokenType.STRING_CONSTRUCTOR_START)
+            state(27)
+            token("One]Two", XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS)
+            state(0)
+            token("]``", XQueryTokenType.STRING_CONSTRUCTOR_END)
+        }
 
-        lexer.start("``[`]``")
-        matchToken(lexer, "``[", 0, 0, 3, XQueryTokenType.STRING_CONSTRUCTOR_START)
-        matchToken(lexer, "`", 27, 3, 4, XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS)
-        matchToken(lexer, "]``", 0, 4, 7, XQueryTokenType.STRING_CONSTRUCTOR_END)
-        matchToken(lexer, "", 0, 7, 7, null)
+        tokenize("``[`]``") {
+            token("``[", XQueryTokenType.STRING_CONSTRUCTOR_START)
+            state(27)
+            token("`", XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS)
+            state(0)
+            token("]``", XQueryTokenType.STRING_CONSTRUCTOR_END)
+        }
     }
 
     @Nested
@@ -3164,50 +3584,55 @@ class XQueryLexerTest : LexerTestCase() {
     internal inner class StringConstructorInterpolation {
         @Test
         @DisplayName("in DirElemContent as element contents")
-        fun testStringConstructorInterpolation_InDirElemContent() {
-            lexer.start("<a>`{2}`</a>")
-            matchToken(lexer, "<", 0x60000000 or 30, 0, 1, XQueryTokenType.OPEN_XML_TAG)
-            matchToken(lexer, "a", 0x60000000 or 11, 1, 2, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, ">", 0x60000000 or 11, 2, 3, XQueryTokenType.END_XML_TAG)
-            matchToken(lexer, "`", 17, 3, 4, XQueryTokenType.XML_ELEMENT_CONTENTS)
-            matchToken(lexer, "{", 17, 4, 5, XPathTokenType.BLOCK_OPEN)
-            matchToken(lexer, "2", 18, 5, 6, XPathTokenType.INTEGER_LITERAL)
-            matchToken(lexer, "}", 18, 6, 7, XPathTokenType.BLOCK_CLOSE)
-            matchToken(lexer, "`", 17, 7, 8, XQueryTokenType.XML_ELEMENT_CONTENTS)
-            matchToken(lexer, "</", 17, 8, 10, XQueryTokenType.CLOSE_XML_TAG)
-            matchToken(lexer, "a", 12, 10, 11, XQueryTokenType.XML_TAG_NCNAME)
-            matchToken(lexer, ">", 12, 11, 12, XQueryTokenType.END_XML_TAG)
-            matchToken(lexer, "", 0, 12, 12, null)
+        fun inDirElemContent() = tokenize("<a>`{2}`</a>") {
+            state(0x60000000 or 30)
+            token("<", XQueryTokenType.OPEN_XML_TAG)
+            state(0x60000000 or 11)
+            token("a", XQueryTokenType.XML_TAG_NCNAME)
+            token(">", XQueryTokenType.END_XML_TAG)
+            state(17)
+            token("`", XQueryTokenType.XML_ELEMENT_CONTENTS)
+            token("{", XPathTokenType.BLOCK_OPEN)
+            state(18)
+            token("2", XPathTokenType.INTEGER_LITERAL)
+            token("}", XPathTokenType.BLOCK_CLOSE)
+            state(17)
+            token("`", XQueryTokenType.XML_ELEMENT_CONTENTS)
+            token("</", XQueryTokenType.CLOSE_XML_TAG)
+            state(12)
+            token("a", XQueryTokenType.XML_TAG_NCNAME)
+            token(">", XQueryTokenType.END_XML_TAG)
+            state(0)
         }
 
         @Test
-        @DisplayName("in Expr as invalid characters")
-        fun testStringConstructorInterpolation_InterpolationMarkersOutsideStringConstructor() {
-            // String interpolation marker is only valid in string interpolation contexts.
-            lexer.start("`{")
-            matchToken(lexer, "`", 0, 0, 1, XQueryTokenType.INVALID)
-            matchToken(lexer, "{", 0, 1, 2, XPathTokenType.BLOCK_OPEN)
-            matchToken(lexer, "", 0, 2, 2, null)
+        @DisplayName("invalid open interpolation marker outside StringConstructor")
+        fun openInterpolationMarkerInExpr() = tokenize("`{") {
+            token("`", XQueryTokenType.INVALID)
+            token("{", XPathTokenType.BLOCK_OPEN)
+        }
 
-            // String interpolation marker is only valid in string interpolation contexts.
-            lexer.start("}`")
-            matchToken(lexer, "}", 0, 0, 1, XPathTokenType.BLOCK_CLOSE)
-            matchToken(lexer, "`", 0, 1, 2, XQueryTokenType.INVALID)
-            matchToken(lexer, "", 0, 2, 2, null)
+        @Test
+        @DisplayName("invalid close interpolation marker outside StringConstructor")
+        fun closeInterpolationMarkerInExpr() = tokenize("}`") {
+            token("}", XPathTokenType.BLOCK_CLOSE)
+            token("`", XQueryTokenType.INVALID)
         }
 
         @Test
         @DisplayName("in StringConstructor")
-        fun testStringConstructorInterpolation() {
-            lexer.start("``[One`{2}`Three]``")
-            matchToken(lexer, "``[", 0, 0, 3, XQueryTokenType.STRING_CONSTRUCTOR_START)
-            matchToken(lexer, "One", 27, 3, 6, XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS)
-            matchToken(lexer, "`{", 27, 6, 8, XQueryTokenType.STRING_INTERPOLATION_OPEN)
-            matchToken(lexer, "2", 28, 8, 9, XPathTokenType.INTEGER_LITERAL)
-            matchToken(lexer, "}`", 28, 9, 11, XQueryTokenType.STRING_INTERPOLATION_CLOSE)
-            matchToken(lexer, "Three", 27, 11, 16, XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS)
-            matchToken(lexer, "]``", 0, 16, 19, XQueryTokenType.STRING_CONSTRUCTOR_END)
-            matchToken(lexer, "", 0, 19, 19, null)
+        fun stringConstructorInterpolation() = tokenize("``[One`{2}`Three]``") {
+            token("``[", XQueryTokenType.STRING_CONSTRUCTOR_START)
+            state(27)
+            token("One", XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS)
+            token("`{", XQueryTokenType.STRING_INTERPOLATION_OPEN)
+            state(28)
+            token("2", XPathTokenType.INTEGER_LITERAL)
+            token("}`", XQueryTokenType.STRING_INTERPOLATION_CLOSE)
+            state(27)
+            token("Three", XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS)
+            state(0)
+            token("]``", XQueryTokenType.STRING_CONSTRUCTOR_END)
         }
     }
 
