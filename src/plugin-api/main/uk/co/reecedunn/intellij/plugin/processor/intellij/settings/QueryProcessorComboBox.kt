@@ -114,10 +114,16 @@ class QueryProcessorComboBox(private val project: Project) {
         get() = settings?.id
         set(value) {
             queryProcessor.childComponent.let {
+                var updatedSelection = false
                 (0 until it.itemCount).forEach { i ->
                     if (it.getItemAt(i)?.settings?.id == value) {
                         it.selectedIndex = i
+                        updatedSelection = true
                     }
+                }
+                if (!updatedSelection) {
+                    // Ensure the action listeners get called.
+                    it.selectedIndex = 0
                 }
             }
         }
