@@ -37,35 +37,32 @@ private class MarkLogic9ErrorLogPsiTest : ParsingTestCase<MarkLogicErrorLog>("lo
     override fun tearDown() = super.tearDown()
 
     @Test
-    @DisplayName("message only")
-    fun messageOnly() {
-        val line = parse<MarkLogicErrorLogLine>(
+    @DisplayName("Java exception")
+    fun javaException() {
+        val lines = parse<MarkLogicErrorLogLine>(
+            "WARNING: JNI local refs: zu, exceeds capacity: zu",
             "\tat java.lang.System.initProperties(Native Method)"
-        )[0]
+        )
 
-        assertThat(line.text, `is`("\tat java.lang.System.initProperties(Native Method)"))
-        assertThat(line.logLevel?.elementType, `is`(nullValue()))
-    }
+        assertThat(lines[0].text, `is`("WARNING: JNI local refs: zu, exceeds capacity: zu"))
+        assertThat(lines[0].logLevel?.elementType, `is`(MarkLogicErrorLogTokenType.LogLevel.WARNING))
 
-    @Test
-    @DisplayName("log level (warning) and message only")
-    fun logLevelAndMessage() {
-        val line = parse<MarkLogicErrorLogLine>(
-            "WARNING: JNI local refs: zu, exceeds capacity: zu"
-        )[0]
-
-        assertThat(line.text, `is`("WARNING: JNI local refs: zu, exceeds capacity: zu"))
-        assertThat(line.logLevel?.elementType, `is`(MarkLogicErrorLogTokenType.LogLevel.WARNING))
+        assertThat(lines[1].text, `is`("\tat java.lang.System.initProperties(Native Method)"))
+        assertThat(lines[1].logLevel?.elementType, `is`(nullValue()))
     }
 
     @Test
     @DisplayName("simple message")
     fun simpleMessage() {
-        val line = parse<MarkLogicErrorLogLine>(
-            "2001-01-10 12:34:56.789 Info: Lorem ipsum dolor"
-        )[0]
+        val lines = parse<MarkLogicErrorLogLine>(
+            "2001-01-10 12:34:56.789 Info: Lorem ipsum dolor",
+            "2001-01-10 12:34:56.789 Info: Sed emit"
+        )
 
-        assertThat(line.text, `is`("2001-01-10 12:34:56.789 Info: Lorem ipsum dolor"))
-        assertThat(line.logLevel?.elementType, `is`(MarkLogicErrorLogTokenType.LogLevel.INFO))
+        assertThat(lines[0].text, `is`("2001-01-10 12:34:56.789 Info: Lorem ipsum dolor"))
+        assertThat(lines[0].logLevel?.elementType, `is`(MarkLogicErrorLogTokenType.LogLevel.INFO))
+
+        assertThat(lines[1].text, `is`("2001-01-10 12:34:56.789 Info: Sed emit"))
+        assertThat(lines[1].logLevel?.elementType, `is`(MarkLogicErrorLogTokenType.LogLevel.INFO))
     }
 }

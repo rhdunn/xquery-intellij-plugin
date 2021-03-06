@@ -45,7 +45,6 @@ import com.intellij.openapi.options.SchemeManagerFactory
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.startup.StartupManager
 import com.intellij.openapi.util.Disposer
-import com.intellij.openapi.vfs.CharsetToolkit
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.encoding.EncodingManager
 import com.intellij.psi.*
@@ -238,6 +237,10 @@ abstract class ParsingTestCase<File : PsiFile>(
 
     protected inline fun <reified T> parse(xquery: String): List<T> {
         return parseText(xquery).walkTree().filterIsInstance<T>().toList()
+    }
+
+    protected inline fun <reified T> parse(vararg xquery: String): List<T> {
+        return parseText(xquery.joinToString("\n")).walkTree().filterIsInstance<T>().toList()
     }
 
     @Suppress("MemberVisibilityCanBePrivate")
