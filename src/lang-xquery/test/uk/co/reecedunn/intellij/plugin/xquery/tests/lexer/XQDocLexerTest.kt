@@ -35,16 +35,14 @@ class XQDocLexerTest : LexerTestCase() {
     internal inner class LexerTest {
         @Test
         @DisplayName("invalid state")
-        fun testInvalidState() {
+        fun invalidState() {
             val e = assertThrows(AssertionError::class.java) { lexer.start("123", 0, 3, -1) }
             assertThat(e.message, `is`("Invalid state: -1"))
         }
 
         @Test
         @DisplayName("empty buffer")
-        fun testEmptyBuffer() {
-            lexer.start("")
-            matchToken(lexer, "", 0, 0, 0, null)
+        fun emptyBuffer() = tokenize("") {
         }
     }
 
@@ -53,42 +51,44 @@ class XQDocLexerTest : LexerTestCase() {
     internal inner class XQueryComment {
         @Test
         @DisplayName("single line")
-        fun singleLine() {
-            lexer.start("Lorem ipsum dolor.")
-            matchToken(lexer, "Lorem ipsum dolor.", 11, 0, 18, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "", 11, 18, 18, null)
+        fun singleLine() = tokenize("Lorem ipsum dolor.") {
+            state(11)
+            token("Lorem ipsum dolor.", XQDocTokenType.CONTENTS)
         }
 
         @Test
         @DisplayName("multiple lines")
-        fun multipleLines() {
-            lexer.start("Lorem ipsum dolor\n : Alpha beta gamma\n : One two three")
-            matchToken(lexer, "Lorem ipsum dolor", 11, 0, 17, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "\n :", 12, 17, 20, XQDocTokenType.TRIM)
-            matchToken(lexer, " ", 12, 20, 21, XQDocTokenType.WHITE_SPACE)
-            matchToken(lexer, "Alpha beta gamma", 11, 21, 37, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "\n :", 12, 37, 40, XQDocTokenType.TRIM)
-            matchToken(lexer, " ", 12, 40, 41, XQDocTokenType.WHITE_SPACE)
-            matchToken(lexer, "One two three", 11, 41, 54, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "", 11, 54, 54, null)
+        fun multipleLines() = tokenize("Lorem ipsum dolor\n : Alpha beta gamma\n : One two three") {
+            state(11)
+            token("Lorem ipsum dolor", XQDocTokenType.CONTENTS)
+            state(12)
+            token("\n :", XQDocTokenType.TRIM)
+            token(" ", XQDocTokenType.WHITE_SPACE)
+            state(11)
+            token("Alpha beta gamma", XQDocTokenType.CONTENTS)
+            state(12)
+            token("\n :", XQDocTokenType.TRIM)
+            token(" ", XQDocTokenType.WHITE_SPACE)
+            state(11)
+            token("One two three", XQDocTokenType.CONTENTS)
         }
 
         @Test
         @DisplayName("tagged content after contents")
-        fun testTaggedContentsAfterContents() {
-            lexer.start("Lorem\n@ipsum dolor.")
-            matchToken(lexer, "Lorem", 11, 0, 5, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "\n", 12, 5, 6, XQDocTokenType.TRIM)
-            matchToken(lexer, "@ipsum dolor.", 11, 6, 19, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "", 11, 19, 19, null)
+        fun taggedContentsAfterContents() = tokenize("Lorem\n@ipsum dolor.") {
+            state(11)
+            token("Lorem", XQDocTokenType.CONTENTS)
+            state(12)
+            token("\n", XQDocTokenType.TRIM)
+            state(11)
+            token("@ipsum dolor.", XQDocTokenType.CONTENTS)
         }
 
         @Test
         @DisplayName("tagged content at the start of the comment")
-        fun testTaggedContentsAtStart() {
-            lexer.start("@ipsum dolor.")
-            matchToken(lexer, "@ipsum dolor.", 11, 0, 13, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "", 11, 13, 13, null)
+        fun taggedContentsAtStart() = tokenize("@ipsum dolor.") {
+            state(11)
+            token("@ipsum dolor.", XQDocTokenType.CONTENTS)
         }
     }
 
@@ -97,43 +97,47 @@ class XQDocLexerTest : LexerTestCase() {
     internal inner class XQDocComment {
         @Test
         @DisplayName("Contents")
-        fun testContents() {
-            lexer.start("~Lorem ipsum dolor.")
-            matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-            matchToken(lexer, "Lorem ipsum dolor.", 1, 1, 19, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "", 1, 19, 19, null)
+        fun contents() = tokenize("~Lorem ipsum dolor.") {
+            token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+            state(1)
+            token("Lorem ipsum dolor.", XQDocTokenType.CONTENTS)
         }
 
         @Test
         @DisplayName("PredefinedEntityRef")
-        fun testContents_PredefinedEntityRef() {
-            lexer.start("~Lorem &amp; ipsum.")
-            matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-            matchToken(lexer, "Lorem ", 1, 1, 7, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "&amp;", 1, 7, 12, XQDocTokenType.PREDEFINED_ENTITY_REFERENCE)
-            matchToken(lexer, " ipsum.", 1, 12, 19, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "", 1, 19, 19, null)
+        fun predefinedEntityRef() {
+            tokenize("~Lorem &amp; ipsum.") {
+                token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                state(1)
+                token("Lorem ", XQDocTokenType.CONTENTS)
+                token("&amp;", XQDocTokenType.PREDEFINED_ENTITY_REFERENCE)
+                token(" ipsum.", XQDocTokenType.CONTENTS)
+            }
 
-            lexer.start("~&")
-            matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-            matchToken(lexer, "&", 1, 1, 2, XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
-            matchToken(lexer, "", 1, 2, 2, null)
+            tokenize("~&") {
+                token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                state(1)
+                token("&", XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
+            }
 
-            lexer.start("~&abc")
-            matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-            matchToken(lexer, "&abc", 1, 1, 5, XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
-            matchToken(lexer, "", 1, 5, 5, null)
+            tokenize("~&abc") {
+                token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                state(1)
+                token("&abc", XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
+            }
 
-            lexer.start("~&abc!")
-            matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-            matchToken(lexer, "&abc", 1, 1, 5, XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
-            matchToken(lexer, "!", 1, 5, 6, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "", 1, 6, 6, null)
+            tokenize("~&abc!") {
+                token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                state(1)
+                token("&abc", XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
+                token("!", XQDocTokenType.CONTENTS)
+            }
 
-            lexer.start("~&;")
-            matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-            matchToken(lexer, "&;", 1, 1, 3, XQDocTokenType.EMPTY_ENTITY_REFERENCE)
-            matchToken(lexer, "", 1, 3, 3, null)
+            tokenize("~&;") {
+                token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                state(1)
+                token("&;", XQDocTokenType.EMPTY_ENTITY_REFERENCE)
+            }
         }
 
         @Nested
@@ -142,80 +146,91 @@ class XQDocLexerTest : LexerTestCase() {
             @Test
             @DisplayName("decimal")
             fun decimal() {
-                lexer.start("~Lorem&#20;ipsum.")
-                matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-                matchToken(lexer, "Lorem", 1, 1, 6, XQDocTokenType.CONTENTS)
-                matchToken(lexer, "&#20;", 1, 6, 11, XQDocTokenType.CHARACTER_REFERENCE)
-                matchToken(lexer, "ipsum.", 1, 11, 17, XQDocTokenType.CONTENTS)
-                matchToken(lexer, "", 1, 17, 17, null)
+                tokenize("~Lorem&#20;ipsum.") {
+                    token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                    state(1)
+                    token("Lorem", XQDocTokenType.CONTENTS)
+                    token("&#20;", XQDocTokenType.CHARACTER_REFERENCE)
+                    token("ipsum.", XQDocTokenType.CONTENTS)
+                }
 
-                lexer.start("~Lorem&#9;ipsum.")
-                matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-                matchToken(lexer, "Lorem", 1, 1, 6, XQDocTokenType.CONTENTS)
-                matchToken(lexer, "&#9;", 1, 6, 10, XQDocTokenType.CHARACTER_REFERENCE)
-                matchToken(lexer, "ipsum.", 1, 10, 16, XQDocTokenType.CONTENTS)
-                matchToken(lexer, "", 1, 16, 16, null)
+                tokenize("~Lorem&#9;ipsum.") {
+                    token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                    state(1)
+                    token("Lorem", XQDocTokenType.CONTENTS)
+                    token("&#9;", XQDocTokenType.CHARACTER_REFERENCE)
+                    token("ipsum.", XQDocTokenType.CONTENTS)
+                }
 
-                lexer.start("~&#")
-                matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-                matchToken(lexer, "&#", 1, 1, 3, XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "", 1, 3, 3, null)
+                tokenize("~&#") {
+                    token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                    state(1)
+                    token("&#", XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
+                }
 
-                lexer.start("~&#20")
-                matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-                matchToken(lexer, "&#20", 1, 1, 5, XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "", 1, 5, 5, null)
+                tokenize("~&#20") {
+                    token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                    state(1)
+                    token("&#20", XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
+                }
 
-                lexer.start("~&# ")
-                matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-                matchToken(lexer, "&#", 1, 1, 3, XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, " ", 1, 3, 4, XQDocTokenType.CONTENTS)
-                matchToken(lexer, "", 1, 4, 4, null)
+                tokenize("~&# ") {
+                    token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                    state(1)
+                    token("&#", XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
+                    token(" ", XQDocTokenType.CONTENTS)
+                }
 
-                lexer.start("~&#;")
-                matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-                matchToken(lexer, "&#;", 1, 1, 4, XQDocTokenType.EMPTY_ENTITY_REFERENCE)
-                matchToken(lexer, "", 1, 4, 4, null)
+                tokenize("~&#;") {
+                    token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                    state(1)
+                    token("&#;", XQDocTokenType.EMPTY_ENTITY_REFERENCE)
+                }
             }
 
             @Test
             @DisplayName("hexadecimal")
             fun hexadecimal() {
-                lexer.start("~One&#x20;&#xae;&#xDC;Two.")
-                matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-                matchToken(lexer, "One", 1, 1, 4, XQDocTokenType.CONTENTS)
-                matchToken(lexer, "&#x20;", 1, 4, 10, XQDocTokenType.CHARACTER_REFERENCE)
-                matchToken(lexer, "&#xae;", 1, 10, 16, XQDocTokenType.CHARACTER_REFERENCE)
-                matchToken(lexer, "&#xDC;", 1, 16, 22, XQDocTokenType.CHARACTER_REFERENCE)
-                matchToken(lexer, "Two.", 1, 22, 26, XQDocTokenType.CONTENTS)
-                matchToken(lexer, "", 1, 26, 26, null)
+                tokenize("~One&#x20;&#xae;&#xDC;Two.") {
+                    token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                    state(1)
+                    token("One", XQDocTokenType.CONTENTS)
+                    token("&#x20;", XQDocTokenType.CHARACTER_REFERENCE)
+                    token("&#xae;", XQDocTokenType.CHARACTER_REFERENCE)
+                    token("&#xDC;", XQDocTokenType.CHARACTER_REFERENCE)
+                    token("Two.", XQDocTokenType.CONTENTS)
+                }
 
-                lexer.start("~&#x")
-                matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-                matchToken(lexer, "&#x", 1, 1, 4, XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "", 1, 4, 4, null)
+                tokenize("~&#x") {
+                    token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                    state(1)
+                    token("&#x", XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
+                }
 
-                lexer.start("~&#x20")
-                matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-                matchToken(lexer, "&#x20", 1, 1, 6, XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "", 1, 6, 6, null)
+                tokenize("~&#x20") {
+                    token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                    state(1)
+                    token("&#x20", XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
+                }
 
-                lexer.start("~&#x ")
-                matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-                matchToken(lexer, "&#x", 1, 1, 4, XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, " ", 1, 4, 5, XQDocTokenType.CONTENTS)
-                matchToken(lexer, "", 1, 5, 5, null)
+                tokenize("~&#x ") {
+                    token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                    state(1)
+                    token("&#x", XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
+                    token(" ", XQDocTokenType.CONTENTS)
+                }
 
-                lexer.start("~&#x;&#x2G;&#x2g;&#xg2;")
-                matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-                matchToken(lexer, "&#x;", 1, 1, 5, XQDocTokenType.EMPTY_ENTITY_REFERENCE)
-                matchToken(lexer, "&#x2", 1, 5, 9, XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "G;", 1, 9, 11, XQDocTokenType.CONTENTS)
-                matchToken(lexer, "&#x2", 1, 11, 15, XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "g;", 1, 15, 17, XQDocTokenType.CONTENTS)
-                matchToken(lexer, "&#x", 1, 17, 20, XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "g2;", 1, 20, 23, XQDocTokenType.CONTENTS)
-                matchToken(lexer, "", 1, 23, 23, null)
+                tokenize("~&#x;&#x2G;&#x2g;&#xg2;") {
+                    token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                    state(1)
+                    token("&#x;", XQDocTokenType.EMPTY_ENTITY_REFERENCE)
+                    token("&#x2", XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
+                    token("G;", XQDocTokenType.CONTENTS)
+                    token("&#x2", XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
+                    token("g;", XQDocTokenType.CONTENTS)
+                    token("&#x", XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
+                    token("g2;", XQDocTokenType.CONTENTS)
+                }
             }
         }
     }
@@ -226,71 +241,87 @@ class XQDocLexerTest : LexerTestCase() {
         @Test
         @DisplayName("single quote")
         fun quot() {
-            lexer.start("~one <two three = \"four\" />")
-            matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-            matchToken(lexer, "one ", 1, 1, 5, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "<", 1, 5, 6, XQDocTokenType.OPEN_XML_TAG)
-            matchToken(lexer, "two", 3, 6, 9, XQDocTokenType.XML_TAG)
-            matchToken(lexer, " ", 3, 9, 10, XQDocTokenType.WHITE_SPACE)
-            matchToken(lexer, "three", 3, 10, 15, XQDocTokenType.XML_TAG)
-            matchToken(lexer, " ", 3, 15, 16, XQDocTokenType.WHITE_SPACE)
-            matchToken(lexer, "=", 3, 16, 17, XQDocTokenType.XML_EQUAL)
-            matchToken(lexer, " ", 3, 17, 18, XQDocTokenType.WHITE_SPACE)
-            matchToken(lexer, "\"", 3, 18, 19, XQDocTokenType.XML_ATTRIBUTE_VALUE_START)
-            matchToken(lexer, "four", 6, 19, 23, XQDocTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
-            matchToken(lexer, "\"", 6, 23, 24, XQDocTokenType.XML_ATTRIBUTE_VALUE_END)
-            matchToken(lexer, " ", 3, 24, 25, XQDocTokenType.WHITE_SPACE)
-            matchToken(lexer, "/>", 3, 25, 27, XQDocTokenType.SELF_CLOSING_XML_TAG)
-            matchToken(lexer, "", 1, 27, 27, null)
+            tokenize("~one <two three = \"four\" />") {
+                token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                state(1)
+                token("one ", XQDocTokenType.CONTENTS)
+                token("<", XQDocTokenType.OPEN_XML_TAG)
+                state(3)
+                token("two", XQDocTokenType.XML_TAG)
+                token(" ", XQDocTokenType.WHITE_SPACE)
+                token("three", XQDocTokenType.XML_TAG)
+                token(" ", XQDocTokenType.WHITE_SPACE)
+                token("=", XQDocTokenType.XML_EQUAL)
+                token(" ", XQDocTokenType.WHITE_SPACE)
+                token("\"", XQDocTokenType.XML_ATTRIBUTE_VALUE_START)
+                state(6)
+                token("four", XQDocTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
+                token("\"", XQDocTokenType.XML_ATTRIBUTE_VALUE_END)
+                state(3)
+                token(" ", XQDocTokenType.WHITE_SPACE)
+                token("/>", XQDocTokenType.SELF_CLOSING_XML_TAG)
+                state(1)
+            }
 
-            lexer.start("~one <two three = \"four")
-            matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-            matchToken(lexer, "one ", 1, 1, 5, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "<", 1, 5, 6, XQDocTokenType.OPEN_XML_TAG)
-            matchToken(lexer, "two", 3, 6, 9, XQDocTokenType.XML_TAG)
-            matchToken(lexer, " ", 3, 9, 10, XQDocTokenType.WHITE_SPACE)
-            matchToken(lexer, "three", 3, 10, 15, XQDocTokenType.XML_TAG)
-            matchToken(lexer, " ", 3, 15, 16, XQDocTokenType.WHITE_SPACE)
-            matchToken(lexer, "=", 3, 16, 17, XQDocTokenType.XML_EQUAL)
-            matchToken(lexer, " ", 3, 17, 18, XQDocTokenType.WHITE_SPACE)
-            matchToken(lexer, "\"", 3, 18, 19, XQDocTokenType.XML_ATTRIBUTE_VALUE_START)
-            matchToken(lexer, "four", 6, 19, 23, XQDocTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
-            matchToken(lexer, "", 6, 23, 23, null)
+            tokenize("~one <two three = \"four") {
+                token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                state(1)
+                token("one ", XQDocTokenType.CONTENTS)
+                token("<", XQDocTokenType.OPEN_XML_TAG)
+                state(3)
+                token("two", XQDocTokenType.XML_TAG)
+                token(" ", XQDocTokenType.WHITE_SPACE)
+                token("three", XQDocTokenType.XML_TAG)
+                token(" ", XQDocTokenType.WHITE_SPACE)
+                token("=", XQDocTokenType.XML_EQUAL)
+                token(" ", XQDocTokenType.WHITE_SPACE)
+                token("\"", XQDocTokenType.XML_ATTRIBUTE_VALUE_START)
+                state(6)
+                token("four", XQDocTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
+            }
         }
 
         @Test
         @DisplayName("double quote")
         fun apos() {
-            lexer.start("~one <two three = 'four' />")
-            matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-            matchToken(lexer, "one ", 1, 1, 5, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "<", 1, 5, 6, XQDocTokenType.OPEN_XML_TAG)
-            matchToken(lexer, "two", 3, 6, 9, XQDocTokenType.XML_TAG)
-            matchToken(lexer, " ", 3, 9, 10, XQDocTokenType.WHITE_SPACE)
-            matchToken(lexer, "three", 3, 10, 15, XQDocTokenType.XML_TAG)
-            matchToken(lexer, " ", 3, 15, 16, XQDocTokenType.WHITE_SPACE)
-            matchToken(lexer, "=", 3, 16, 17, XQDocTokenType.XML_EQUAL)
-            matchToken(lexer, " ", 3, 17, 18, XQDocTokenType.WHITE_SPACE)
-            matchToken(lexer, "'", 3, 18, 19, XQDocTokenType.XML_ATTRIBUTE_VALUE_START)
-            matchToken(lexer, "four", 7, 19, 23, XQDocTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
-            matchToken(lexer, "'", 7, 23, 24, XQDocTokenType.XML_ATTRIBUTE_VALUE_END)
-            matchToken(lexer, " ", 3, 24, 25, XQDocTokenType.WHITE_SPACE)
-            matchToken(lexer, "/>", 3, 25, 27, XQDocTokenType.SELF_CLOSING_XML_TAG)
-            matchToken(lexer, "", 1, 27, 27, null)
+            tokenize("~one <two three = 'four' />") {
+                token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                state(1)
+                token("one ", XQDocTokenType.CONTENTS)
+                token("<", XQDocTokenType.OPEN_XML_TAG)
+                state(3)
+                token("two", XQDocTokenType.XML_TAG)
+                token(" ", XQDocTokenType.WHITE_SPACE)
+                token("three", XQDocTokenType.XML_TAG)
+                token(" ", XQDocTokenType.WHITE_SPACE)
+                token("=", XQDocTokenType.XML_EQUAL)
+                token(" ", XQDocTokenType.WHITE_SPACE)
+                token("'", XQDocTokenType.XML_ATTRIBUTE_VALUE_START)
+                state(7)
+                token("four", XQDocTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
+                token("'", XQDocTokenType.XML_ATTRIBUTE_VALUE_END)
+                state(3)
+                token(" ", XQDocTokenType.WHITE_SPACE)
+                token("/>", XQDocTokenType.SELF_CLOSING_XML_TAG)
+                state(1)
+            }
 
-            lexer.start("~one <two three = 'four")
-            matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-            matchToken(lexer, "one ", 1, 1, 5, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "<", 1, 5, 6, XQDocTokenType.OPEN_XML_TAG)
-            matchToken(lexer, "two", 3, 6, 9, XQDocTokenType.XML_TAG)
-            matchToken(lexer, " ", 3, 9, 10, XQDocTokenType.WHITE_SPACE)
-            matchToken(lexer, "three", 3, 10, 15, XQDocTokenType.XML_TAG)
-            matchToken(lexer, " ", 3, 15, 16, XQDocTokenType.WHITE_SPACE)
-            matchToken(lexer, "=", 3, 16, 17, XQDocTokenType.XML_EQUAL)
-            matchToken(lexer, " ", 3, 17, 18, XQDocTokenType.WHITE_SPACE)
-            matchToken(lexer, "'", 3, 18, 19, XQDocTokenType.XML_ATTRIBUTE_VALUE_START)
-            matchToken(lexer, "four", 7, 19, 23, XQDocTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
-            matchToken(lexer, "", 7, 23, 23, null)
+            tokenize("~one <two three = 'four") {
+                token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                state(1)
+                token("one ", XQDocTokenType.CONTENTS)
+                token("<", XQDocTokenType.OPEN_XML_TAG)
+                state(3)
+                token("two", XQDocTokenType.XML_TAG)
+                token(" ", XQDocTokenType.WHITE_SPACE)
+                token("three", XQDocTokenType.XML_TAG)
+                token(" ", XQDocTokenType.WHITE_SPACE)
+                token("=", XQDocTokenType.XML_EQUAL)
+                token(" ", XQDocTokenType.WHITE_SPACE)
+                token("'", XQDocTokenType.XML_ATTRIBUTE_VALUE_START)
+                state(7)
+                token("four", XQDocTokenType.XML_ATTRIBUTE_VALUE_CONTENTS)
+            }
         }
     }
 
@@ -299,165 +330,218 @@ class XQDocLexerTest : LexerTestCase() {
     internal inner class DirElemConstructor {
         @Test
         @DisplayName("element constructor")
-        fun testDirElemConstructor() {
-            lexer.start("~one <two >three</two > four")
-            matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-            matchToken(lexer, "one ", 1, 1, 5, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "<", 1, 5, 6, XQDocTokenType.OPEN_XML_TAG)
-            matchToken(lexer, "two", 3, 6, 9, XQDocTokenType.XML_TAG)
-            matchToken(lexer, " ", 3, 9, 10, XQDocTokenType.WHITE_SPACE)
-            matchToken(lexer, ">", 3, 10, 11, XQDocTokenType.END_XML_TAG)
-            matchToken(lexer, "three", 4, 11, 16, XQDocTokenType.XML_ELEMENT_CONTENTS)
-            matchToken(lexer, "</", 4, 16, 18, XQDocTokenType.CLOSE_XML_TAG)
-            matchToken(lexer, "two", 5, 18, 21, XQDocTokenType.XML_TAG)
-            matchToken(lexer, " ", 5, 21, 22, XQDocTokenType.WHITE_SPACE)
-            matchToken(lexer, ">", 5, 22, 23, XQDocTokenType.END_XML_TAG)
-            matchToken(lexer, " four", 1, 23, 28, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "", 1, 28, 28, null)
+        fun dirElemConstructor() {
+            tokenize("~one <two >three</two > four") {
+                token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                state(1)
+                token("one ", XQDocTokenType.CONTENTS)
+                token("<", XQDocTokenType.OPEN_XML_TAG)
+                state(3)
+                token("two", XQDocTokenType.XML_TAG)
+                token(" ", XQDocTokenType.WHITE_SPACE)
+                token(">", XQDocTokenType.END_XML_TAG)
+                state(4)
+                token("three", XQDocTokenType.XML_ELEMENT_CONTENTS)
+                token("</", XQDocTokenType.CLOSE_XML_TAG)
+                state(5)
+                token("two", XQDocTokenType.XML_TAG)
+                token(" ", XQDocTokenType.WHITE_SPACE)
+                token(">", XQDocTokenType.END_XML_TAG)
+                state(1)
+                token(" four", XQDocTokenType.CONTENTS)
+            }
 
-            lexer.start("~one <two >three")
-            matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-            matchToken(lexer, "one ", 1, 1, 5, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "<", 1, 5, 6, XQDocTokenType.OPEN_XML_TAG)
-            matchToken(lexer, "two", 3, 6, 9, XQDocTokenType.XML_TAG)
-            matchToken(lexer, " ", 3, 9, 10, XQDocTokenType.WHITE_SPACE)
-            matchToken(lexer, ">", 3, 10, 11, XQDocTokenType.END_XML_TAG)
-            matchToken(lexer, "three", 4, 11, 16, XQDocTokenType.XML_ELEMENT_CONTENTS)
-            matchToken(lexer, "", 4, 16, 16, null)
+            tokenize("~one <two >three") {
+                token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                state(1)
+                token("one ", XQDocTokenType.CONTENTS)
+                token("<", XQDocTokenType.OPEN_XML_TAG)
+                state(3)
+                token("two", XQDocTokenType.XML_TAG)
+                token(" ", XQDocTokenType.WHITE_SPACE)
+                token(">", XQDocTokenType.END_XML_TAG)
+                state(4)
+                token("three", XQDocTokenType.XML_ELEMENT_CONTENTS)
+            }
 
-            lexer.start("~one <two#>three</two#> four")
-            matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-            matchToken(lexer, "one ", 1, 1, 5, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "<", 1, 5, 6, XQDocTokenType.OPEN_XML_TAG)
-            matchToken(lexer, "two", 3, 6, 9, XQDocTokenType.XML_TAG)
-            matchToken(lexer, "#", 3, 9, 10, XQDocTokenType.INVALID)
-            matchToken(lexer, ">", 3, 10, 11, XQDocTokenType.END_XML_TAG)
-            matchToken(lexer, "three", 4, 11, 16, XQDocTokenType.XML_ELEMENT_CONTENTS)
-            matchToken(lexer, "</", 4, 16, 18, XQDocTokenType.CLOSE_XML_TAG)
-            matchToken(lexer, "two", 5, 18, 21, XQDocTokenType.XML_TAG)
-            matchToken(lexer, "#", 5, 21, 22, XQDocTokenType.INVALID)
-            matchToken(lexer, ">", 5, 22, 23, XQDocTokenType.END_XML_TAG)
-            matchToken(lexer, " four", 1, 23, 28, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "", 1, 28, 28, null)
+            tokenize("~one <two#>three</two#> four") {
+                token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                state(1)
+                token("one ", XQDocTokenType.CONTENTS)
+                token("<", XQDocTokenType.OPEN_XML_TAG)
+                state(3)
+                token("two", XQDocTokenType.XML_TAG)
+                token("#", XQDocTokenType.INVALID)
+                token(">", XQDocTokenType.END_XML_TAG)
+                state(4)
+                token("three", XQDocTokenType.XML_ELEMENT_CONTENTS)
+                token("</", XQDocTokenType.CLOSE_XML_TAG)
+                state(5)
+                token("two", XQDocTokenType.XML_TAG)
+                token("#", XQDocTokenType.INVALID)
+                token(">", XQDocTokenType.END_XML_TAG)
+                state(1)
+                token(" four", XQDocTokenType.CONTENTS)
+            }
         }
 
         @Test
         @DisplayName("element constructor; self closing")
-        fun testDirElemConstructor_SelfClosing() {
-            lexer.start("~a <b /> c")
-            matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-            matchToken(lexer, "a ", 1, 1, 3, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "<", 1, 3, 4, XQDocTokenType.OPEN_XML_TAG)
-            matchToken(lexer, "b", 3, 4, 5, XQDocTokenType.XML_TAG)
-            matchToken(lexer, " ", 3, 5, 6, XQDocTokenType.WHITE_SPACE)
-            matchToken(lexer, "/>", 3, 6, 8, XQDocTokenType.SELF_CLOSING_XML_TAG)
-            matchToken(lexer, " c", 1, 8, 10, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "", 1, 10, 10, null)
+        fun selfClosing() {
+            tokenize("~a <b /> c") {
+                token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                state(1)
+                token("a ", XQDocTokenType.CONTENTS)
+                token("<", XQDocTokenType.OPEN_XML_TAG)
+                state(3)
+                token("b", XQDocTokenType.XML_TAG)
+                token(" ", XQDocTokenType.WHITE_SPACE)
+                token("/>", XQDocTokenType.SELF_CLOSING_XML_TAG)
+                state(1)
+                token(" c", XQDocTokenType.CONTENTS)
+            }
 
-            lexer.start("~a <b/")
-            matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-            matchToken(lexer, "a ", 1, 1, 3, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "<", 1, 3, 4, XQDocTokenType.OPEN_XML_TAG)
-            matchToken(lexer, "b", 3, 4, 5, XQDocTokenType.XML_TAG)
-            matchToken(lexer, "/", 3, 5, 6, XQDocTokenType.INVALID)
-            matchToken(lexer, "", 3, 6, 6, null)
+            tokenize("~a <b/") {
+                token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                state(1)
+                token("a ", XQDocTokenType.CONTENTS)
+                token("<", XQDocTokenType.OPEN_XML_TAG)
+                state(3)
+                token("b", XQDocTokenType.XML_TAG)
+                token("/", XQDocTokenType.INVALID)
+            }
 
-            lexer.start("~a <b#/> c")
-            matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-            matchToken(lexer, "a ", 1, 1, 3, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "<", 1, 3, 4, XQDocTokenType.OPEN_XML_TAG)
-            matchToken(lexer, "b", 3, 4, 5, XQDocTokenType.XML_TAG)
-            matchToken(lexer, "#", 3, 5, 6, XQDocTokenType.INVALID)
-            matchToken(lexer, "/>", 3, 6, 8, XQDocTokenType.SELF_CLOSING_XML_TAG)
-            matchToken(lexer, " c", 1, 8, 10, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "", 1, 10, 10, null)
+            tokenize("~a <b#/> c") {
+                token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                state(1)
+                token("a ", XQDocTokenType.CONTENTS)
+                token("<", XQDocTokenType.OPEN_XML_TAG)
+                state(3)
+                token("b", XQDocTokenType.XML_TAG)
+                token("#", XQDocTokenType.INVALID)
+                token("/>", XQDocTokenType.SELF_CLOSING_XML_TAG)
+                state(1)
+                token(" c", XQDocTokenType.CONTENTS)
+            }
         }
 
         @Test
         @DisplayName("element constructor; nested")
-        fun testDirElemConstructor_Nested() {
-            lexer.start("~a<b>c<d>e</d>f</b>g")
-            matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-            matchToken(lexer, "a", 1, 1, 2, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "<", 1, 2, 3, XQDocTokenType.OPEN_XML_TAG)
-            matchToken(lexer, "b", 3, 3, 4, XQDocTokenType.XML_TAG)
-            matchToken(lexer, ">", 3, 4, 5, XQDocTokenType.END_XML_TAG)
-            matchToken(lexer, "c", 4, 5, 6, XQDocTokenType.XML_ELEMENT_CONTENTS)
-            matchToken(lexer, "<", 4, 6, 7, XQDocTokenType.OPEN_XML_TAG)
-            matchToken(lexer, "d", 3, 7, 8, XQDocTokenType.XML_TAG)
-            matchToken(lexer, ">", 3, 8, 9, XQDocTokenType.END_XML_TAG)
-            matchToken(lexer, "e", 4, 9, 10, XQDocTokenType.XML_ELEMENT_CONTENTS)
-            matchToken(lexer, "</", 4, 10, 12, XQDocTokenType.CLOSE_XML_TAG)
-            matchToken(lexer, "d", 5, 12, 13, XQDocTokenType.XML_TAG)
-            matchToken(lexer, ">", 5, 13, 14, XQDocTokenType.END_XML_TAG)
-            matchToken(lexer, "f", 4, 14, 15, XQDocTokenType.XML_ELEMENT_CONTENTS)
-            matchToken(lexer, "</", 4, 15, 17, XQDocTokenType.CLOSE_XML_TAG)
-            matchToken(lexer, "b", 5, 17, 18, XQDocTokenType.XML_TAG)
-            matchToken(lexer, ">", 5, 18, 19, XQDocTokenType.END_XML_TAG)
-            matchToken(lexer, "g", 1, 19, 20, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "", 1, 20, 20, null)
+        fun nested() = tokenize("~a<b>c<d>e</d>f</b>g") {
+            token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+            state(1)
+            token("a", XQDocTokenType.CONTENTS)
+            token("<", XQDocTokenType.OPEN_XML_TAG)
+            state(3)
+            token("b", XQDocTokenType.XML_TAG)
+            token(">", XQDocTokenType.END_XML_TAG)
+            state(4)
+            token("c", XQDocTokenType.XML_ELEMENT_CONTENTS)
+            token("<", XQDocTokenType.OPEN_XML_TAG)
+            state(3)
+            token("d", XQDocTokenType.XML_TAG)
+            token(">", XQDocTokenType.END_XML_TAG)
+            state(4)
+            token("e", XQDocTokenType.XML_ELEMENT_CONTENTS)
+            token("</", XQDocTokenType.CLOSE_XML_TAG)
+            state(5)
+            token("d", XQDocTokenType.XML_TAG)
+            token(">", XQDocTokenType.END_XML_TAG)
+            state(4)
+            token("f", XQDocTokenType.XML_ELEMENT_CONTENTS)
+            token("</", XQDocTokenType.CLOSE_XML_TAG)
+            state(5)
+            token("b", XQDocTokenType.XML_TAG)
+            token(">", XQDocTokenType.END_XML_TAG)
+            state(1)
+            token("g", XQDocTokenType.CONTENTS)
         }
 
         @Test
         @DisplayName("PredefinedEntityRef")
-        fun testDirElemConstructor_PredefinedEntityRef() {
-            lexer.start("~<p>Lorem &amp; ipsum.</p>")
-            matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-            matchToken(lexer, "<", 1, 1, 2, XQDocTokenType.OPEN_XML_TAG)
-            matchToken(lexer, "p", 3, 2, 3, XQDocTokenType.XML_TAG)
-            matchToken(lexer, ">", 3, 3, 4, XQDocTokenType.END_XML_TAG)
-            matchToken(lexer, "Lorem ", 4, 4, 10, XQDocTokenType.XML_ELEMENT_CONTENTS)
-            matchToken(lexer, "&amp;", 4, 10, 15, XQDocTokenType.PREDEFINED_ENTITY_REFERENCE)
-            matchToken(lexer, " ipsum.", 4, 15, 22, XQDocTokenType.XML_ELEMENT_CONTENTS)
-            matchToken(lexer, "</", 4, 22, 24, XQDocTokenType.CLOSE_XML_TAG)
-            matchToken(lexer, "p", 5, 24, 25, XQDocTokenType.XML_TAG)
-            matchToken(lexer, ">", 5, 25, 26, XQDocTokenType.END_XML_TAG)
-            matchToken(lexer, "", 1, 26, 26, null)
+        fun predefinedEntityRef() {
+            tokenize("~<p>Lorem &amp; ipsum.</p>") {
+                token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                state(1)
+                token("<", XQDocTokenType.OPEN_XML_TAG)
+                state(3)
+                token("p", XQDocTokenType.XML_TAG)
+                token(">", XQDocTokenType.END_XML_TAG)
+                state(4)
+                token("Lorem ", XQDocTokenType.XML_ELEMENT_CONTENTS)
+                token("&amp;", XQDocTokenType.PREDEFINED_ENTITY_REFERENCE)
+                token(" ipsum.", XQDocTokenType.XML_ELEMENT_CONTENTS)
+                token("</", XQDocTokenType.CLOSE_XML_TAG)
+                state(5)
+                token("p", XQDocTokenType.XML_TAG)
+                token(">", XQDocTokenType.END_XML_TAG)
+                state(1)
+            }
 
-            lexer.start("~<p>&</p>")
-            matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-            matchToken(lexer, "<", 1, 1, 2, XQDocTokenType.OPEN_XML_TAG)
-            matchToken(lexer, "p", 3, 2, 3, XQDocTokenType.XML_TAG)
-            matchToken(lexer, ">", 3, 3, 4, XQDocTokenType.END_XML_TAG)
-            matchToken(lexer, "&", 4, 4, 5, XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
-            matchToken(lexer, "</", 4, 5, 7, XQDocTokenType.CLOSE_XML_TAG)
-            matchToken(lexer, "p", 5, 7, 8, XQDocTokenType.XML_TAG)
-            matchToken(lexer, ">", 5, 8, 9, XQDocTokenType.END_XML_TAG)
-            matchToken(lexer, "", 1, 9, 9, null)
+            tokenize("~<p>&</p>") {
+                token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                state(1)
+                token("<", XQDocTokenType.OPEN_XML_TAG)
+                state(3)
+                token("p", XQDocTokenType.XML_TAG)
+                token(">", XQDocTokenType.END_XML_TAG)
+                state(4)
+                token("&", XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
+                token("</", XQDocTokenType.CLOSE_XML_TAG)
+                state(5)
+                token("p", XQDocTokenType.XML_TAG)
+                token(">", XQDocTokenType.END_XML_TAG)
+                state(1)
+            }
 
-            lexer.start("~<p>&abc</p>")
-            matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-            matchToken(lexer, "<", 1, 1, 2, XQDocTokenType.OPEN_XML_TAG)
-            matchToken(lexer, "p", 3, 2, 3, XQDocTokenType.XML_TAG)
-            matchToken(lexer, ">", 3, 3, 4, XQDocTokenType.END_XML_TAG)
-            matchToken(lexer, "&abc", 4, 4, 8, XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
-            matchToken(lexer, "</", 4, 8, 10, XQDocTokenType.CLOSE_XML_TAG)
-            matchToken(lexer, "p", 5, 10, 11, XQDocTokenType.XML_TAG)
-            matchToken(lexer, ">", 5, 11, 12, XQDocTokenType.END_XML_TAG)
-            matchToken(lexer, "", 1, 12, 12, null)
+            tokenize("~<p>&abc</p>") {
+                token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                state(1)
+                token("<", XQDocTokenType.OPEN_XML_TAG)
+                state(3)
+                token("p", XQDocTokenType.XML_TAG)
+                token(">", XQDocTokenType.END_XML_TAG)
+                state(4)
+                token("&abc", XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
+                token("</", XQDocTokenType.CLOSE_XML_TAG)
+                state(5)
+                token("p", XQDocTokenType.XML_TAG)
+                token(">", XQDocTokenType.END_XML_TAG)
+                state(1)
+            }
 
-            lexer.start("~<p>&abc!</p>")
-            matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-            matchToken(lexer, "<", 1, 1, 2, XQDocTokenType.OPEN_XML_TAG)
-            matchToken(lexer, "p", 3, 2, 3, XQDocTokenType.XML_TAG)
-            matchToken(lexer, ">", 3, 3, 4, XQDocTokenType.END_XML_TAG)
-            matchToken(lexer, "&abc", 4, 4, 8, XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
-            matchToken(lexer, "!", 4, 8, 9, XQDocTokenType.XML_ELEMENT_CONTENTS)
-            matchToken(lexer, "</", 4, 9, 11, XQDocTokenType.CLOSE_XML_TAG)
-            matchToken(lexer, "p", 5, 11, 12, XQDocTokenType.XML_TAG)
-            matchToken(lexer, ">", 5, 12, 13, XQDocTokenType.END_XML_TAG)
-            matchToken(lexer, "", 1, 13, 13, null)
+            tokenize("~<p>&abc!</p>") {
+                token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                state(1)
+                token("<", XQDocTokenType.OPEN_XML_TAG)
+                state(3)
+                token("p", XQDocTokenType.XML_TAG)
+                token(">", XQDocTokenType.END_XML_TAG)
+                state(4)
+                token("&abc", XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
+                token("!", XQDocTokenType.XML_ELEMENT_CONTENTS)
+                token("</", XQDocTokenType.CLOSE_XML_TAG)
+                state(5)
+                token("p", XQDocTokenType.XML_TAG)
+                token(">", XQDocTokenType.END_XML_TAG)
+                state(1)
+            }
 
-            lexer.start("~<p>&;</p>")
-            matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-            matchToken(lexer, "<", 1, 1, 2, XQDocTokenType.OPEN_XML_TAG)
-            matchToken(lexer, "p", 3, 2, 3, XQDocTokenType.XML_TAG)
-            matchToken(lexer, ">", 3, 3, 4, XQDocTokenType.END_XML_TAG)
-            matchToken(lexer, "&;", 4, 4, 6, XQDocTokenType.EMPTY_ENTITY_REFERENCE)
-            matchToken(lexer, "</", 4, 6, 8, XQDocTokenType.CLOSE_XML_TAG)
-            matchToken(lexer, "p", 5, 8, 9, XQDocTokenType.XML_TAG)
-            matchToken(lexer, ">", 5, 9, 10, XQDocTokenType.END_XML_TAG)
-            matchToken(lexer, "", 1, 10, 10, null)
+            tokenize("~<p>&;</p>") {
+                token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                state(1)
+                token("<", XQDocTokenType.OPEN_XML_TAG)
+                state(3)
+                token("p", XQDocTokenType.XML_TAG)
+                token(">", XQDocTokenType.END_XML_TAG)
+                state(4)
+                token("&;", XQDocTokenType.EMPTY_ENTITY_REFERENCE)
+                token("</", XQDocTokenType.CLOSE_XML_TAG)
+                state(5)
+                token("p", XQDocTokenType.XML_TAG)
+                token(">", XQDocTokenType.END_XML_TAG)
+                state(1)
+            }
         }
 
         @Nested
@@ -466,69 +550,69 @@ class XQDocLexerTest : LexerTestCase() {
             @Test
             @DisplayName("decimal")
             fun decimal() {
-                lexer.start("Lorem&#20;ipsum.", 0, 16, 4)
-                matchToken(lexer, "Lorem", 4, 0, 5, XQDocTokenType.XML_ELEMENT_CONTENTS)
-                matchToken(lexer, "&#20;", 4, 5, 10, XQDocTokenType.CHARACTER_REFERENCE)
-                matchToken(lexer, "ipsum.", 4, 10, 16, XQDocTokenType.XML_ELEMENT_CONTENTS)
-                matchToken(lexer, "", 4, 16, 16, null)
+                tokenize("Lorem&#20;ipsum.", 0, 16, 4) {
+                    token("Lorem", XQDocTokenType.XML_ELEMENT_CONTENTS)
+                    token("&#20;", XQDocTokenType.CHARACTER_REFERENCE)
+                    token("ipsum.", XQDocTokenType.XML_ELEMENT_CONTENTS)
+                }
 
-                lexer.start("Lorem&#9;ipsum.", 0, 15, 4)
-                matchToken(lexer, "Lorem", 4, 0, 5, XQDocTokenType.XML_ELEMENT_CONTENTS)
-                matchToken(lexer, "&#9;", 4, 5, 9, XQDocTokenType.CHARACTER_REFERENCE)
-                matchToken(lexer, "ipsum.", 4, 9, 15, XQDocTokenType.XML_ELEMENT_CONTENTS)
-                matchToken(lexer, "", 4, 15, 15, null)
+                tokenize("Lorem&#9;ipsum.", 0, 15, 4) {
+                    token("Lorem", XQDocTokenType.XML_ELEMENT_CONTENTS)
+                    token("&#9;", XQDocTokenType.CHARACTER_REFERENCE)
+                    token("ipsum.", XQDocTokenType.XML_ELEMENT_CONTENTS)
+                }
 
-                lexer.start("&#", 0, 2, 4)
-                matchToken(lexer, "&#", 4, 0, 2, XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "", 4, 2, 2, null)
+                tokenize("&#", 0, 2, 4) {
+                    token("&#", XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
+                }
 
-                lexer.start("&#20", 0, 4, 4)
-                matchToken(lexer, "&#20", 4, 0, 4, XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "", 4, 4, 4, null)
+                tokenize("&#20", 0, 4, 4) {
+                    token("&#20", XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
+                }
 
-                lexer.start("&# ", 0, 3, 4)
-                matchToken(lexer, "&#", 4, 0, 2, XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, " ", 4, 2, 3, XQDocTokenType.XML_ELEMENT_CONTENTS)
-                matchToken(lexer, "", 4, 3, 3, null)
+                tokenize("&# ", 0, 3, 4) {
+                    token("&#", XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
+                    token(" ", XQDocTokenType.XML_ELEMENT_CONTENTS)
+                }
 
-                lexer.start("&#;", 0, 3, 4)
-                matchToken(lexer, "&#;", 4, 0, 3, XQDocTokenType.EMPTY_ENTITY_REFERENCE)
-                matchToken(lexer, "", 4, 3, 3, null)
+                tokenize("&#;", 0, 3, 4) {
+                    token("&#;", XQDocTokenType.EMPTY_ENTITY_REFERENCE)
+                }
             }
 
             @Test
             @DisplayName("hexadecimal")
             fun hexadecimal() {
-                lexer.start("One&#x20;&#xae;&#xDC;Two.", 0, 25, 4)
-                matchToken(lexer, "One", 4, 0, 3, XQDocTokenType.XML_ELEMENT_CONTENTS)
-                matchToken(lexer, "&#x20;", 4, 3, 9, XQDocTokenType.CHARACTER_REFERENCE)
-                matchToken(lexer, "&#xae;", 4, 9, 15, XQDocTokenType.CHARACTER_REFERENCE)
-                matchToken(lexer, "&#xDC;", 4, 15, 21, XQDocTokenType.CHARACTER_REFERENCE)
-                matchToken(lexer, "Two.", 4, 21, 25, XQDocTokenType.XML_ELEMENT_CONTENTS)
-                matchToken(lexer, "", 4, 25, 25, null)
+                tokenize("One&#x20;&#xae;&#xDC;Two.", 0, 25, 4) {
+                    token("One", XQDocTokenType.XML_ELEMENT_CONTENTS)
+                    token("&#x20;", XQDocTokenType.CHARACTER_REFERENCE)
+                    token("&#xae;", XQDocTokenType.CHARACTER_REFERENCE)
+                    token("&#xDC;", XQDocTokenType.CHARACTER_REFERENCE)
+                    token("Two.", XQDocTokenType.XML_ELEMENT_CONTENTS)
+                }
 
-                lexer.start("&#x", 0, 3, 4)
-                matchToken(lexer, "&#x", 4, 0, 3, XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "", 4, 3, 3, null)
+                tokenize("&#x", 0, 3, 4) {
+                    token("&#x", XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
+                }
 
-                lexer.start("&#x20", 0, 5, 4)
-                matchToken(lexer, "&#x20", 4, 0, 5, XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "", 4, 5, 5, null)
+                tokenize("&#x20", 0, 5, 4) {
+                    token("&#x20", XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
+                }
 
-                lexer.start("&#x ", 0, 4, 4)
-                matchToken(lexer, "&#x", 4, 0, 3, XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, " ", 4, 3, 4, XQDocTokenType.XML_ELEMENT_CONTENTS)
-                matchToken(lexer, "", 4, 4, 4, null)
+                tokenize("&#x ", 0, 4, 4) {
+                    token("&#x", XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
+                    token(" ", XQDocTokenType.XML_ELEMENT_CONTENTS)
+                }
 
-                lexer.start("&#x;&#x2G;&#x2g;&#xg2;", 0, 22, 4)
-                matchToken(lexer, "&#x;", 4, 0, 4, XQDocTokenType.EMPTY_ENTITY_REFERENCE)
-                matchToken(lexer, "&#x2", 4, 4, 8, XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "G;", 4, 8, 10, XQDocTokenType.XML_ELEMENT_CONTENTS)
-                matchToken(lexer, "&#x2", 4, 10, 14, XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "g;", 4, 14, 16, XQDocTokenType.XML_ELEMENT_CONTENTS)
-                matchToken(lexer, "&#x", 4, 16, 19, XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
-                matchToken(lexer, "g2;", 4, 19, 22, XQDocTokenType.XML_ELEMENT_CONTENTS)
-                matchToken(lexer, "", 4, 22, 22, null)
+                tokenize("&#x;&#x2G;&#x2g;&#xg2;", 0, 22, 4) {
+                    token("&#x;", XQDocTokenType.EMPTY_ENTITY_REFERENCE)
+                    token("&#x2", XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
+                    token("G;", XQDocTokenType.XML_ELEMENT_CONTENTS)
+                    token("&#x2", XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
+                    token("g;", XQDocTokenType.XML_ELEMENT_CONTENTS)
+                    token("&#x", XQDocTokenType.PARTIAL_ENTITY_REFERENCE)
+                    token("g2;", XQDocTokenType.XML_ELEMENT_CONTENTS)
+                }
             }
         }
     }
@@ -538,113 +622,140 @@ class XQDocLexerTest : LexerTestCase() {
     internal inner class TaggedContents {
         @Test
         @DisplayName("tagged content")
-        fun testTaggedContents() {
-            lexer.start("~Lorem\n@ipsum dolor.")
-            matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-            matchToken(lexer, "Lorem", 1, 1, 6, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "\n", 8, 6, 7, XQDocTokenType.TRIM)
-            matchToken(lexer, "@", 8, 7, 8, XQDocTokenType.TAG_MARKER)
-            matchToken(lexer, "ipsum", 2, 8, 13, XQDocTokenType.TAG)
-            matchToken(lexer, " ", 2, 13, 14, XQDocTokenType.WHITE_SPACE)
-            matchToken(lexer, "dolor.", 1, 14, 20, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "", 1, 20, 20, null)
+        fun taggedContents() {
+            tokenize("~Lorem\n@ipsum dolor.") {
+                token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                state(1)
+                token("Lorem", XQDocTokenType.CONTENTS)
+                state(8)
+                token("\n", XQDocTokenType.TRIM)
+                token("@", XQDocTokenType.TAG_MARKER)
+                state(2)
+                token("ipsum", XQDocTokenType.TAG)
+                token(" ", XQDocTokenType.WHITE_SPACE)
+                state(1)
+                token("dolor.", XQDocTokenType.CONTENTS)
+            }
 
-            lexer.start("~Lorem\n@IPSUM dolor.")
-            matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-            matchToken(lexer, "Lorem", 1, 1, 6, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "\n", 8, 6, 7, XQDocTokenType.TRIM)
-            matchToken(lexer, "@", 8, 7, 8, XQDocTokenType.TAG_MARKER)
-            matchToken(lexer, "IPSUM", 2, 8, 13, XQDocTokenType.TAG)
-            matchToken(lexer, " ", 2, 13, 14, XQDocTokenType.WHITE_SPACE)
-            matchToken(lexer, "dolor.", 1, 14, 20, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "", 1, 20, 20, null)
+            tokenize("~Lorem\n@IPSUM dolor.") {
+                token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                state(1)
+                token("Lorem", XQDocTokenType.CONTENTS)
+                state(8)
+                token("\n", XQDocTokenType.TRIM)
+                token("@", XQDocTokenType.TAG_MARKER)
+                state(2)
+                token("IPSUM", XQDocTokenType.TAG)
+                token(" ", XQDocTokenType.WHITE_SPACE)
+                state(1)
+                token("dolor.", XQDocTokenType.CONTENTS)
+            }
 
-            lexer.start("~Lorem\n@12345 dolor.")
-            matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-            matchToken(lexer, "Lorem", 1, 1, 6, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "\n", 8, 6, 7, XQDocTokenType.TRIM)
-            matchToken(lexer, "@", 8, 7, 8, XQDocTokenType.TAG_MARKER)
-            matchToken(lexer, "12345", 2, 8, 13, XQDocTokenType.TAG)
-            matchToken(lexer, " ", 2, 13, 14, XQDocTokenType.WHITE_SPACE)
-            matchToken(lexer, "dolor.", 1, 14, 20, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "", 1, 20, 20, null)
+            tokenize("~Lorem\n@12345 dolor.") {
+                token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                state(1)
+                token("Lorem", XQDocTokenType.CONTENTS)
+                state(8)
+                token("\n", XQDocTokenType.TRIM)
+                token("@", XQDocTokenType.TAG_MARKER)
+                state(2)
+                token("12345", XQDocTokenType.TAG)
+                token(" ", XQDocTokenType.WHITE_SPACE)
+                state(1)
+                token("dolor.", XQDocTokenType.CONTENTS)
+            }
 
-            lexer.start("~Lorem\n@# dolor.")
-            matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-            matchToken(lexer, "Lorem", 1, 1, 6, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "\n", 8, 6, 7, XQDocTokenType.TRIM)
-            matchToken(lexer, "@", 8, 7, 8, XQDocTokenType.TAG_MARKER)
-            matchToken(lexer, "# dolor.", 2, 8, 16, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "", 1, 16, 16, null)
+            tokenize("~Lorem\n@# dolor.") {
+                token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                state(1)
+                token("Lorem", XQDocTokenType.CONTENTS)
+                state(8)
+                token("\n", XQDocTokenType.TRIM)
+                token("@", XQDocTokenType.TAG_MARKER)
+                state(2)
+                token("# dolor.", XQDocTokenType.CONTENTS)
+                state(1)
+            }
 
-            lexer.start("~@lorem ipsum.")
-            matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-            matchToken(lexer, "@", 8, 1, 2, XQDocTokenType.TAG_MARKER)
-            matchToken(lexer, "lorem", 2, 2, 7, XQDocTokenType.TAG)
-            matchToken(lexer, " ", 2, 7, 8, XQDocTokenType.WHITE_SPACE)
-            matchToken(lexer, "ipsum.", 1, 8, 14, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "", 1, 14, 14, null)
+            tokenize("~@lorem ipsum.") {
+                token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                state(8)
+                token("@", XQDocTokenType.TAG_MARKER)
+                state(2)
+                token("lorem", XQDocTokenType.TAG)
+                token(" ", XQDocTokenType.WHITE_SPACE)
+                state(1)
+                token("ipsum.", XQDocTokenType.CONTENTS)
+            }
 
-            lexer.start("~@ lorem ipsum.")
-            matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-            matchToken(lexer, "@", 8, 1, 2, XQDocTokenType.TAG_MARKER)
-            matchToken(lexer, " ", 2, 2, 3, XQDocTokenType.WHITE_SPACE)
-            matchToken(lexer, "lorem ipsum.", 1, 3, 15, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "", 1, 15, 15, null)
+            tokenize("~@ lorem ipsum.") {
+                token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                state(8)
+                token("@", XQDocTokenType.TAG_MARKER)
+                state(2)
+                token(" ", XQDocTokenType.WHITE_SPACE)
+                state(1)
+                token("lorem ipsum.", XQDocTokenType.CONTENTS)
+            }
         }
 
         @Test
         @DisplayName("at sign in contents")
-        fun testTaggedContents_AtSignInContents() {
-            lexer.start("~Lorem\n@ipsum ab@cd.")
-            matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-            matchToken(lexer, "Lorem", 1, 1, 6, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "\n", 8, 6, 7, XQDocTokenType.TRIM)
-            matchToken(lexer, "@", 8, 7, 8, XQDocTokenType.TAG_MARKER)
-            matchToken(lexer, "ipsum", 2, 8, 13, XQDocTokenType.TAG)
-            matchToken(lexer, " ", 2, 13, 14, XQDocTokenType.WHITE_SPACE)
-            matchToken(lexer, "ab@cd.", 1, 14, 20, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "", 1, 20, 20, null)
+        fun atSignInContents() = tokenize("~Lorem\n@ipsum ab@cd.") {
+            token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+            state(1)
+            token("Lorem", XQDocTokenType.CONTENTS)
+            state(8)
+            token("\n", XQDocTokenType.TRIM)
+            token("@", XQDocTokenType.TAG_MARKER)
+            state(2)
+            token("ipsum", XQDocTokenType.TAG)
+            token(" ", XQDocTokenType.WHITE_SPACE)
+            state(1)
+            token("ab@cd.", XQDocTokenType.CONTENTS)
         }
     }
 
     @Test
     @DisplayName("@author")
-    fun testTaggedContents_Author() {
-        lexer.start("~\n@author John Doe")
-        matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-        matchToken(lexer, "\n", 8, 1, 2, XQDocTokenType.TRIM)
-        matchToken(lexer, "@", 8, 2, 3, XQDocTokenType.TAG_MARKER)
-        matchToken(lexer, "author", 2, 3, 9, XQDocTokenType.T_AUTHOR)
-        matchToken(lexer, " ", 2, 9, 10, XQDocTokenType.WHITE_SPACE)
-        matchToken(lexer, "John Doe", 1, 10, 18, XQDocTokenType.CONTENTS)
-        matchToken(lexer, "", 1, 18, 18, null)
+    fun author() = tokenize("~\n@author John Doe") {
+        token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+        state(8)
+        token("\n", XQDocTokenType.TRIM)
+        token("@", XQDocTokenType.TAG_MARKER)
+        state(2)
+        token("author", XQDocTokenType.T_AUTHOR)
+        token(" ", XQDocTokenType.WHITE_SPACE)
+        state(1)
+        token("John Doe", XQDocTokenType.CONTENTS)
     }
 
     @Test
     @DisplayName("@deprecated")
-    fun testTaggedContents_Deprecated() {
-        lexer.start("~\n@deprecated As of 1.1.")
-        matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-        matchToken(lexer, "\n", 8, 1, 2, XQDocTokenType.TRIM)
-        matchToken(lexer, "@", 8, 2, 3, XQDocTokenType.TAG_MARKER)
-        matchToken(lexer, "deprecated", 2, 3, 13, XQDocTokenType.T_DEPRECATED)
-        matchToken(lexer, " ", 2, 13, 14, XQDocTokenType.WHITE_SPACE)
-        matchToken(lexer, "As of 1.1.", 1, 14, 24, XQDocTokenType.CONTENTS)
-        matchToken(lexer, "", 1, 24, 24, null)
+    fun deprecated() = tokenize("~\n@deprecated As of 1.1.") {
+        token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+        state(8)
+        token("\n", XQDocTokenType.TRIM)
+        token("@", XQDocTokenType.TAG_MARKER)
+        state(2)
+        token("deprecated", XQDocTokenType.T_DEPRECATED)
+        token(" ", XQDocTokenType.WHITE_SPACE)
+        state(1)
+        token("As of 1.1.", XQDocTokenType.CONTENTS)
     }
 
     @Test
     @DisplayName("@error")
-    fun testTaggedContents_Error() {
-        lexer.start("~\n@error The URI does not exist.")
-        matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-        matchToken(lexer, "\n", 8, 1, 2, XQDocTokenType.TRIM)
-        matchToken(lexer, "@", 8, 2, 3, XQDocTokenType.TAG_MARKER)
-        matchToken(lexer, "error", 2, 3, 8, XQDocTokenType.T_ERROR)
-        matchToken(lexer, " ", 2, 8, 9, XQDocTokenType.WHITE_SPACE)
-        matchToken(lexer, "The URI does not exist.", 1, 9, 32, XQDocTokenType.CONTENTS)
-        matchToken(lexer, "", 1, 32, 32, null)
+    fun error() = tokenize("~\n@error The URI does not exist.") {
+        token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+        state(8)
+        token("\n", XQDocTokenType.TRIM)
+        token("@", XQDocTokenType.TAG_MARKER)
+        state(2)
+        token("error", XQDocTokenType.T_ERROR)
+        token(" ", XQDocTokenType.WHITE_SPACE)
+        state(1)
+        token("The URI does not exist.", XQDocTokenType.CONTENTS)
     }
 
     @Nested
@@ -652,84 +763,93 @@ class XQDocLexerTest : LexerTestCase() {
     internal inner class AtParam {
         @Test
         @DisplayName("with VarRef")
-        fun testTaggedContents_Param_VarRef() {
-            lexer.start("~\n@param \$arg An argument.")
-            matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-            matchToken(lexer, "\n", 8, 1, 2, XQDocTokenType.TRIM)
-            matchToken(lexer, "@", 8, 2, 3, XQDocTokenType.TAG_MARKER)
-            matchToken(lexer, "param", 2, 3, 8, XQDocTokenType.T_PARAM)
-            matchToken(lexer, " ", 9, 8, 9, XQDocTokenType.WHITE_SPACE)
-            matchToken(lexer, "$", 9, 9, 10, XQDocTokenType.VARIABLE_INDICATOR)
-            matchToken(lexer, "arg", 10, 10, 13, XQDocTokenType.NCNAME)
-            matchToken(lexer, " ", 10, 13, 14, XQDocTokenType.WHITE_SPACE)
-            matchToken(lexer, "An argument.", 1, 14, 26, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "", 1, 26, 26, null)
+        fun varRef() = tokenize("~\n@param \$arg An argument.") {
+            token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+            state(8)
+            token("\n", XQDocTokenType.TRIM)
+            token("@", XQDocTokenType.TAG_MARKER)
+            state(2)
+            token("param", XQDocTokenType.T_PARAM)
+            state(9)
+            token(" ", XQDocTokenType.WHITE_SPACE)
+            token("$", XQDocTokenType.VARIABLE_INDICATOR)
+            state(10)
+            token("arg", XQDocTokenType.NCNAME)
+            token(" ", XQDocTokenType.WHITE_SPACE)
+            state(1)
+            token("An argument.", XQDocTokenType.CONTENTS)
         }
 
         @Test
         @DisplayName("missing VarRef")
-        fun testTaggedContents_Param_ContentsOnly() {
-            lexer.start("~\n@param - \$arg An argument.")
-            matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-            matchToken(lexer, "\n", 8, 1, 2, XQDocTokenType.TRIM)
-            matchToken(lexer, "@", 8, 2, 3, XQDocTokenType.TAG_MARKER)
-            matchToken(lexer, "param", 2, 3, 8, XQDocTokenType.T_PARAM)
-            matchToken(lexer, " ", 9, 8, 9, XQDocTokenType.WHITE_SPACE)
-            matchToken(lexer, "- \$arg An argument.", 9, 9, 28, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "", 1, 28, 28, null)
+        fun contentsOnly() = tokenize("~\n@param - \$arg An argument.") {
+            token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+            state(8)
+            token("\n", XQDocTokenType.TRIM)
+            token("@", XQDocTokenType.TAG_MARKER)
+            state(2)
+            token("param", XQDocTokenType.T_PARAM)
+            state(9)
+            token(" ", XQDocTokenType.WHITE_SPACE)
+            token("- \$arg An argument.", XQDocTokenType.CONTENTS)
+            state(1)
         }
     }
 
     @Test
     @DisplayName("@return")
-    fun testTaggedContents_Return() {
-        lexer.start("~\n@return Some value.")
-        matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-        matchToken(lexer, "\n", 8, 1, 2, XQDocTokenType.TRIM)
-        matchToken(lexer, "@", 8, 2, 3, XQDocTokenType.TAG_MARKER)
-        matchToken(lexer, "return", 2, 3, 9, XQDocTokenType.T_RETURN)
-        matchToken(lexer, " ", 2, 9, 10, XQDocTokenType.WHITE_SPACE)
-        matchToken(lexer, "Some value.", 1, 10, 21, XQDocTokenType.CONTENTS)
-        matchToken(lexer, "", 1, 21, 21, null)
+    fun `return`() = tokenize("~\n@return Some value.") {
+        token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+        state(8)
+        token("\n", XQDocTokenType.TRIM)
+        token("@", XQDocTokenType.TAG_MARKER)
+        state(2)
+        token("return", XQDocTokenType.T_RETURN)
+        token(" ", XQDocTokenType.WHITE_SPACE)
+        state(1)
+        token("Some value.", XQDocTokenType.CONTENTS)
     }
 
     @Test
     @DisplayName("@see")
-    fun testTaggedContents_See() {
-        lexer.start("~\n@see http://www.example.com")
-        matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-        matchToken(lexer, "\n", 8, 1, 2, XQDocTokenType.TRIM)
-        matchToken(lexer, "@", 8, 2, 3, XQDocTokenType.TAG_MARKER)
-        matchToken(lexer, "see", 2, 3, 6, XQDocTokenType.T_SEE)
-        matchToken(lexer, " ", 2, 6, 7, XQDocTokenType.WHITE_SPACE)
-        matchToken(lexer, "http://www.example.com", 1, 7, 29, XQDocTokenType.CONTENTS)
-        matchToken(lexer, "", 1, 29, 29, null)
+    fun see() = tokenize("~\n@see http://www.example.com") {
+        token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+        state(8)
+        token("\n", XQDocTokenType.TRIM)
+        token("@", XQDocTokenType.TAG_MARKER)
+        state(2)
+        token("see", XQDocTokenType.T_SEE)
+        token(" ", XQDocTokenType.WHITE_SPACE)
+        state(1)
+        token("http://www.example.com", XQDocTokenType.CONTENTS)
     }
 
     @Test
     @DisplayName("@since")
-    fun testTaggedContents_Since() {
-        lexer.start("~\n@since 1.2")
-        matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-        matchToken(lexer, "\n", 8, 1, 2, XQDocTokenType.TRIM)
-        matchToken(lexer, "@", 8, 2, 3, XQDocTokenType.TAG_MARKER)
-        matchToken(lexer, "since", 2, 3, 8, XQDocTokenType.T_SINCE)
-        matchToken(lexer, " ", 2, 8, 9, XQDocTokenType.WHITE_SPACE)
-        matchToken(lexer, "1.2", 1, 9, 12, XQDocTokenType.CONTENTS)
-        matchToken(lexer, "", 1, 12, 12, null)
+    fun since() = tokenize("~\n@since 1.2") {
+        token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+        state(8)
+        token("\n", XQDocTokenType.TRIM)
+        token("@", XQDocTokenType.TAG_MARKER)
+        state(2)
+        token("since", XQDocTokenType.T_SINCE)
+        token(" ", XQDocTokenType.WHITE_SPACE)
+        state(1)
+        token("1.2", XQDocTokenType.CONTENTS)
     }
 
     @Test
     @DisplayName("@version")
-    fun testTaggedContents_Version() {
-        lexer.start("~\n@version 1.2")
-        matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-        matchToken(lexer, "\n", 8, 1, 2, XQDocTokenType.TRIM)
-        matchToken(lexer, "@", 8, 2, 3, XQDocTokenType.TAG_MARKER)
-        matchToken(lexer, "version", 2, 3, 10, XQDocTokenType.T_VERSION)
-        matchToken(lexer, " ", 2, 10, 11, XQDocTokenType.WHITE_SPACE)
-        matchToken(lexer, "1.2", 1, 11, 14, XQDocTokenType.CONTENTS)
-        matchToken(lexer, "", 1, 14, 14, null)
+    fun version() = tokenize("~\n@version 1.2") {
+        token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+        state(8)
+        token("\n", XQDocTokenType.TRIM)
+        token("@", XQDocTokenType.TAG_MARKER)
+        state(2)
+        token("version", XQDocTokenType.T_VERSION)
+        token(" ", XQDocTokenType.WHITE_SPACE)
+        state(1)
+        token("1.2", XQDocTokenType.CONTENTS)
     }
 
     @Nested
@@ -737,137 +857,183 @@ class XQDocLexerTest : LexerTestCase() {
     internal inner class Trim {
         @Test
         @DisplayName("line endings: linux")
-        fun testTrim_Linux() {
-            lexer.start("~a\nb\nc")
-            matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-            matchToken(lexer, "a", 1, 1, 2, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "\n", 8, 2, 3, XQDocTokenType.TRIM)
-            matchToken(lexer, "b", 1, 3, 4, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "\n", 8, 4, 5, XQDocTokenType.TRIM)
-            matchToken(lexer, "c", 1, 5, 6, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "", 1, 6, 6, null)
+        fun linux() {
+            tokenize("~a\nb\nc") {
+                token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                state(1)
+                token("a", XQDocTokenType.CONTENTS)
+                state(8)
+                token("\n", XQDocTokenType.TRIM)
+                state(1)
+                token("b", XQDocTokenType.CONTENTS)
+                state(8)
+                token("\n", XQDocTokenType.TRIM)
+                state(1)
+                token("c", XQDocTokenType.CONTENTS)
+            }
 
-            lexer.start("~a\n \tb\n\t c")
-            matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-            matchToken(lexer, "a", 1, 1, 2, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "\n \t", 8, 2, 5, XQDocTokenType.TRIM)
-            matchToken(lexer, "b", 1, 5, 6, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "\n\t ", 8, 6, 9, XQDocTokenType.TRIM)
-            matchToken(lexer, "c", 1, 9, 10, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "", 1, 10, 10, null)
+            tokenize("~a\n \tb\n\t c") {
+                token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                state(1)
+                token("a", XQDocTokenType.CONTENTS)
+                state(8)
+                token("\n \t", XQDocTokenType.TRIM)
+                state(1)
+                token("b", XQDocTokenType.CONTENTS)
+                state(8)
+                token("\n\t ", XQDocTokenType.TRIM)
+                state(1)
+                token("c", XQDocTokenType.CONTENTS)
+            }
 
-            lexer.start("~\n\n")
-            matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-            matchToken(lexer, "\n", 8, 1, 2, XQDocTokenType.TRIM)
-            matchToken(lexer, "\n", 8, 2, 3, XQDocTokenType.TRIM)
-            matchToken(lexer, "", 8, 3, 3, null)
+            tokenize("~\n\n") {
+                token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                state(8)
+                token("\n", XQDocTokenType.TRIM)
+                token("\n", XQDocTokenType.TRIM)
+            }
         }
 
         @Test
         @DisplayName("line endings: mac")
-        fun testTrim_Mac() {
+        fun mac() {
             // The xqDoc grammar does not support Mac line endings ('\r'), but XQuery/XML
             // line ending normalisation rules do.
 
-            lexer.start("~a\rb\rc")
-            matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-            matchToken(lexer, "a", 1, 1, 2, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "\r", 8, 2, 3, XQDocTokenType.TRIM)
-            matchToken(lexer, "b", 1, 3, 4, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "\r", 8, 4, 5, XQDocTokenType.TRIM)
-            matchToken(lexer, "c", 1, 5, 6, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "", 1, 6, 6, null)
+            tokenize("~a\rb\rc") {
+                token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                state(1)
+                token("a", XQDocTokenType.CONTENTS)
+                state(8)
+                token("\r", XQDocTokenType.TRIM)
+                state(1)
+                token("b", XQDocTokenType.CONTENTS)
+                state(8)
+                token("\r", XQDocTokenType.TRIM)
+                state(1)
+                token("c", XQDocTokenType.CONTENTS)
+            }
 
-            lexer.start("~a\r \tb\r\t c")
-            matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-            matchToken(lexer, "a", 1, 1, 2, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "\r \t", 8, 2, 5, XQDocTokenType.TRIM)
-            matchToken(lexer, "b", 1, 5, 6, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "\r\t ", 8, 6, 9, XQDocTokenType.TRIM)
-            matchToken(lexer, "c", 1, 9, 10, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "", 1, 10, 10, null)
+            tokenize("~a\r \tb\r\t c") {
+                token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                state(1)
+                token("a", XQDocTokenType.CONTENTS)
+                state(8)
+                token("\r \t", XQDocTokenType.TRIM)
+                state(1)
+                token("b", XQDocTokenType.CONTENTS)
+                state(8)
+                token("\r\t ", XQDocTokenType.TRIM)
+                state(1)
+                token("c", XQDocTokenType.CONTENTS)
+            }
 
-            lexer.start("~\r\r")
-            matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-            matchToken(lexer, "\r", 8, 1, 2, XQDocTokenType.TRIM)
-            matchToken(lexer, "\r", 8, 2, 3, XQDocTokenType.TRIM)
-            matchToken(lexer, "", 8, 3, 3, null)
+            tokenize("~\r\r") {
+                token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                state(8)
+                token("\r", XQDocTokenType.TRIM)
+                token("\r", XQDocTokenType.TRIM)
+            }
         }
 
         @Test
         @DisplayName("line endings: windows")
-        fun testTrim_Windows() {
+        fun windows() {
             // The xqDoc grammar does not support Windows line endings ('\r\n'), but XQuery/XML
             // line ending normalisation rules do.
 
-            lexer.start("~a\r\nb\r\nc")
-            matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-            matchToken(lexer, "a", 1, 1, 2, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "\r\n", 8, 2, 4, XQDocTokenType.TRIM)
-            matchToken(lexer, "b", 1, 4, 5, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "\r\n", 8, 5, 7, XQDocTokenType.TRIM)
-            matchToken(lexer, "c", 1, 7, 8, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "", 1, 8, 8, null)
+            tokenize("~a\r\nb\r\nc") {
+                token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                state(1)
+                token("a", XQDocTokenType.CONTENTS)
+                state(8)
+                token("\r\n", XQDocTokenType.TRIM)
+                state(1)
+                token("b", XQDocTokenType.CONTENTS)
+                state(8)
+                token("\r\n", XQDocTokenType.TRIM)
+                state(1)
+                token("c", XQDocTokenType.CONTENTS)
+            }
 
-            lexer.start("~a\r\n \tb\r\n\t c")
-            matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-            matchToken(lexer, "a", 1, 1, 2, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "\r\n \t", 8, 2, 6, XQDocTokenType.TRIM)
-            matchToken(lexer, "b", 1, 6, 7, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "\r\n\t ", 8, 7, 11, XQDocTokenType.TRIM)
-            matchToken(lexer, "c", 1, 11, 12, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "", 1, 12, 12, null)
+            tokenize("~a\r\n \tb\r\n\t c") {
+                token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                state(1)
+                token("a", XQDocTokenType.CONTENTS)
+                state(8)
+                token("\r\n \t", XQDocTokenType.TRIM)
+                state(1)
+                token("b", XQDocTokenType.CONTENTS)
+                state(8)
+                token("\r\n\t ", XQDocTokenType.TRIM)
+                state(1)
+                token("c", XQDocTokenType.CONTENTS)
+            }
 
-            lexer.start("~\r\n\r\n")
-            matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-            matchToken(lexer, "\r\n", 8, 1, 3, XQDocTokenType.TRIM)
-            matchToken(lexer, "\r\n", 8, 3, 5, XQDocTokenType.TRIM)
-            matchToken(lexer, "", 8, 5, 5, null)
+            tokenize("~\r\n\r\n") {
+                token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                state(8)
+                token("\r\n", XQDocTokenType.TRIM)
+                token("\r\n", XQDocTokenType.TRIM)
+            }
         }
 
         @Test
         @DisplayName("whitespace after trim")
-        fun testTrim_WhitespaceAfterTrim() {
+        fun whitespaceAfterTrim() {
             // This is different to the xqDoc grammar, but is necessary to support treating
             // '@' characters within the line as part of the Contents token. The xqDoc
             // processor collates these in the parser phase, but the syntax highlighter
             // needs to highlight those as comment, not document tag, tokens.
 
-            lexer.start("~\n : \t@lorem ipsum.")
-            matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-            matchToken(lexer, "\n :", 8, 1, 4, XQDocTokenType.TRIM)
-            matchToken(lexer, " \t", 8, 4, 6, XQDocTokenType.WHITE_SPACE)
-            matchToken(lexer, "@", 8, 6, 7, XQDocTokenType.TAG_MARKER)
-            matchToken(lexer, "lorem", 2, 7, 12, XQDocTokenType.TAG)
-            matchToken(lexer, " ", 2, 12, 13, XQDocTokenType.WHITE_SPACE)
-            matchToken(lexer, "ipsum.", 1, 13, 19, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "", 1, 19, 19, null)
+            tokenize("~\n : \t@lorem ipsum.") {
+                token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                state(8)
+                token("\n :", XQDocTokenType.TRIM)
+                token(" \t", XQDocTokenType.WHITE_SPACE)
+                token("@", XQDocTokenType.TAG_MARKER)
+                state(2)
+                token("lorem", XQDocTokenType.TAG)
+                token(" ", XQDocTokenType.WHITE_SPACE)
+                state(1)
+                token("ipsum.", XQDocTokenType.CONTENTS)
+            }
 
-            lexer.start("~\n :\t @lorem ipsum.")
-            matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-            matchToken(lexer, "\n :", 8, 1, 4, XQDocTokenType.TRIM)
-            matchToken(lexer, "\t ", 8, 4, 6, XQDocTokenType.WHITE_SPACE)
-            matchToken(lexer, "@", 8, 6, 7, XQDocTokenType.TAG_MARKER)
-            matchToken(lexer, "lorem", 2, 7, 12, XQDocTokenType.TAG)
-            matchToken(lexer, " ", 2, 12, 13, XQDocTokenType.WHITE_SPACE)
-            matchToken(lexer, "ipsum.", 1, 13, 19, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "", 1, 19, 19, null)
+            tokenize("~\n :\t @lorem ipsum.") {
+                token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                state(8)
+                token("\n :", XQDocTokenType.TRIM)
+                token("\t ", XQDocTokenType.WHITE_SPACE)
+                state(8)
+                token("@", XQDocTokenType.TAG_MARKER)
+                state(2)
+                token("lorem", XQDocTokenType.TAG)
+                token(" ", XQDocTokenType.WHITE_SPACE)
+                state(1)
+                token("ipsum.", XQDocTokenType.CONTENTS)
+            }
 
-            lexer.start("~\n : @lorem ipsum\n : @dolor sed emit")
-            matchToken(lexer, "~", 0, 0, 1, XQDocTokenType.XQDOC_COMMENT_MARKER)
-            matchToken(lexer, "\n :", 8, 1, 4, XQDocTokenType.TRIM)
-            matchToken(lexer, " ", 8, 4, 5, XQDocTokenType.WHITE_SPACE)
-            matchToken(lexer, "@", 8, 5, 6, XQDocTokenType.TAG_MARKER)
-            matchToken(lexer, "lorem", 2, 6, 11, XQDocTokenType.TAG)
-            matchToken(lexer, " ", 2, 11, 12, XQDocTokenType.WHITE_SPACE)
-            matchToken(lexer, "ipsum", 1, 12, 17, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "\n :", 8, 17, 20, XQDocTokenType.TRIM)
-            matchToken(lexer, " ", 8, 20, 21, XQDocTokenType.WHITE_SPACE)
-            matchToken(lexer, "@", 8, 21, 22, XQDocTokenType.TAG_MARKER)
-            matchToken(lexer, "dolor", 2, 22, 27, XQDocTokenType.TAG)
-            matchToken(lexer, " ", 2, 27, 28, XQDocTokenType.WHITE_SPACE)
-            matchToken(lexer, "sed emit", 1, 28, 36, XQDocTokenType.CONTENTS)
-            matchToken(lexer, "", 1, 36, 36, null)
+            tokenize("~\n : @lorem ipsum\n : @dolor sed emit") {
+                token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
+                state(8)
+                token("\n :", XQDocTokenType.TRIM)
+                token(" ", XQDocTokenType.WHITE_SPACE)
+                token("@", XQDocTokenType.TAG_MARKER)
+                state(2)
+                token("lorem", XQDocTokenType.TAG)
+                token(" ", XQDocTokenType.WHITE_SPACE)
+                state(1)
+                token("ipsum", XQDocTokenType.CONTENTS)
+                state(8)
+                token("\n :", XQDocTokenType.TRIM)
+                token(" ", XQDocTokenType.WHITE_SPACE)
+                token("@", XQDocTokenType.TAG_MARKER)
+                state(2)
+                token("dolor", XQDocTokenType.TAG)
+                token(" ", XQDocTokenType.WHITE_SPACE)
+                state(1)
+                token("sed emit", XQDocTokenType.CONTENTS)
+            }
         }
     }
 }

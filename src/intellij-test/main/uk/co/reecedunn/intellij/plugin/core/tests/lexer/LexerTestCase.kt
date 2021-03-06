@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.core.tests.lexer
 
 import com.intellij.lexer.Lexer
 import com.intellij.psi.tree.IElementType
+import org.hamcrest.CoreMatchers.nullValue
 
 import org.hamcrest.core.Is.`is`
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
@@ -24,17 +25,13 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 abstract class LexerTestCase {
     abstract val lexer: Lexer
 
-    protected fun matchToken(lexer: Lexer, text: String, state: Int, start: Int, end: Int, type: IElementType?) {
-        assertThat(lexer.tokenText, `is`(text))
+    private fun endOfBuffer(state: Int, end: Int) {
+        assertThat(lexer.tokenText, `is`(""))
         assertThat(lexer.state, `is`(state))
-        assertThat(lexer.tokenStart, `is`(start))
+        assertThat(lexer.tokenStart, `is`(end))
         assertThat(lexer.tokenEnd, `is`(end))
-        assertThat(lexer.tokenType, `is`(type))
-
-        if (lexer.tokenType == null) {
-            assertThat(lexer.bufferEnd, `is`(start))
-            assertThat(lexer.bufferEnd, `is`(end))
-        }
+        assertThat(lexer.tokenType, `is`(nullValue()))
+        assertThat(lexer.bufferEnd, `is`(end))
 
         lexer.advance()
     }
@@ -43,7 +40,7 @@ abstract class LexerTestCase {
         val tokens = LexerTokens(lexer, start, state)
         lexer.start(text, start, end, state)
         tokens.test()
-        matchToken(lexer, "", tokens.state, end, end, null)
+        endOfBuffer(tokens.state, end)
     }
 
     fun tokenize(text: CharSequence, test: LexerTokens.() -> Unit = {}) {
