@@ -25,6 +25,7 @@ import com.intellij.execution.testframework.sm.runner.SMTestLocator
 import com.intellij.lang.Language
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
+import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.XRayTestFormat
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.runner.XRayTestRunState
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestService
@@ -32,6 +33,8 @@ import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.testframewor
 import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessors
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
 import uk.co.reecedunn.intellij.plugin.processor.test.TestFormat
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
+import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurations
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.execution.testframework.XQueryTestLocationProvider
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
 
@@ -148,6 +151,35 @@ class XRayTestConfiguration(project: Project, factory: ConfigurationFactory) :
         set(value) {
             data.reformatResults = value
         }
+
+    // endregion
+    // region Configuration Providers
+
+    fun create(module: PsiFile): Boolean {
+        name = module.name.replace("\\.[a-z]+$".toRegex(), "")
+
+        val projectConfiguration = XpmProjectConfigurations.getInstance(project)
+        processorId = projectConfiguration.processorId
+        database = projectConfiguration.databaseName
+        server = projectConfiguration.applicationName
+
+        modulePattern = "/${module.name}"
+        return true
+    }
+
+    fun create(module: PsiFile, testCase: XPathEQName): Boolean {
+        val moduleName = module.name.replace("\\.[a-z]+$".toRegex(), "")
+        name = "$moduleName (${testCase.localName?.data})"
+
+        val projectConfiguration = XpmProjectConfigurations.getInstance(project)
+        processorId = projectConfiguration.processorId
+        database = projectConfiguration.databaseName
+        server = projectConfiguration.applicationName
+
+        modulePattern = "/${module.name}"
+        testPattern = testCase.localName?.data
+        return true
+    }
 
     // endregion
 }

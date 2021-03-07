@@ -21,11 +21,9 @@ import com.intellij.execution.configurations.ConfigurationFactory
 import com.intellij.execution.configurations.ConfigurationTypeUtil
 import com.intellij.openapi.util.Ref
 import com.intellij.psi.PsiElement
-import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.marklogic.intellij.execution.configurations.type.XRayTestConfigurationType
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.configuration.XRayTestConfiguration
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
-import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurations
 
 class XRayTestRunConfigurationProducer : LazyRunConfigurationProducer<XRayTestConfiguration>() {
     override fun getConfigurationFactory(): ConfigurationFactory {
@@ -58,30 +56,9 @@ class XRayTestRunConfigurationProducer : LazyRunConfigurationProducer<XRayTestCo
     ): Boolean {
         val name = context.location?.psiElement as? XPathEQName ?: return false
         return when {
-            XRayTestService.isTestModule(name) -> createConfiguration(configuration, name.containingFile, null)
-            XRayTestService.isTestCase(name) -> createConfiguration(configuration, name.containingFile, name)
+            XRayTestService.isTestModule(name) -> configuration.create(name.containingFile)
+            XRayTestService.isTestCase(name) -> configuration.create(name.containingFile, name)
             else -> false
         }
-    }
-
-    private fun createConfiguration(
-        configuration: XRayTestConfiguration,
-        module: PsiFile,
-        testCase: XPathEQName?
-    ): Boolean {
-        val moduleName = module.name.replace("\\.[a-z]+$".toRegex(), "")
-        configuration.name = when (testCase) {
-            null -> moduleName
-            else -> "$moduleName (${testCase.localName?.data})"
-        }
-
-        val projectConfiguration = XpmProjectConfigurations.getInstance(configuration.project)
-        configuration.processorId = projectConfiguration.processorId
-        configuration.database = projectConfiguration.databaseName
-        configuration.server = projectConfiguration.applicationName
-
-        configuration.modulePattern = "/${module.name}"
-        configuration.testPattern = testCase?.localName?.data
-        return true
     }
 }
