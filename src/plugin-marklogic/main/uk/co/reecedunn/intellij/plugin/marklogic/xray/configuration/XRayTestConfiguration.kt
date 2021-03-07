@@ -153,7 +153,11 @@ class XRayTestConfiguration(project: Project, factory: ConfigurationFactory) :
         }
 
     // endregion
-    // region Configuration Providers
+    // region Configuration Provider :: Module
+
+    fun appliesTo(module: PsiFile): Boolean {
+        return modulePattern == "/${module.name}" && testPattern == null
+    }
 
     fun create(module: PsiFile): Boolean {
         name = module.name.replace("\\.[a-z]+$".toRegex(), "")
@@ -165,6 +169,13 @@ class XRayTestConfiguration(project: Project, factory: ConfigurationFactory) :
 
         modulePattern = "/${module.name}"
         return true
+    }
+
+    // endregion
+    // region Configuration Provider :: Function
+
+    fun appliesTo(module: PsiFile, testCase: XPathEQName): Boolean {
+        return modulePattern == "/${module.name}" && testPattern == testCase.localName?.data
     }
 
     fun create(module: PsiFile, testCase: XPathEQName): Boolean {

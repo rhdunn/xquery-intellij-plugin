@@ -37,14 +37,8 @@ class XRayTestRunConfigurationProducer : LazyRunConfigurationProducer<XRayTestCo
     ): Boolean {
         val name = context.location?.psiElement as? XPathEQName ?: return false
         return when {
-            XRayTestService.isTestModule(name) -> {
-                configuration.modulePattern == "/${name.containingFile.name}" &&
-                configuration.testPattern == null
-            }
-            XRayTestService.isTestCase(name) -> {
-                configuration.modulePattern == "/${name.containingFile.name}" &&
-                configuration.testPattern == name.localName?.data
-            }
+            XRayTestService.isTestModule(name) -> configuration.appliesTo(name.containingFile)
+            XRayTestService.isTestCase(name) -> configuration.appliesTo(name.containingFile, name)
             else -> false
         }
     }
