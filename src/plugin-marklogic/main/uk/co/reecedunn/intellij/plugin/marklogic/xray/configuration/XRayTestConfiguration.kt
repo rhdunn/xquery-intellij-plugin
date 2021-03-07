@@ -19,6 +19,7 @@ import com.intellij.execution.Executor
 import com.intellij.execution.configurations.ConfigurationFactory
 import com.intellij.execution.configurations.RunConfiguration
 import com.intellij.execution.configurations.RunProfileState
+import com.intellij.execution.executors.DefaultDebugExecutor
 import com.intellij.execution.runners.ExecutionEnvironment
 import com.intellij.execution.testframework.sm.runner.SMTestLocator
 import com.intellij.lang.Language
@@ -56,8 +57,9 @@ class XRayTestConfiguration(project: Project, factory: ConfigurationFactory) :
 
     override val language: Language by lazy { XQuery }
 
-    override fun canRun(executorId: String): Boolean {
-        return processor?.api?.canExecute(language, executorId) == true
+    override fun canRun(executorId: String): Boolean = when (executorId) {
+        DefaultDebugExecutor.EXECUTOR_ID -> false
+        else -> processor?.api?.canExecute(language, executorId) == true
     }
 
     // endregion
