@@ -34,25 +34,25 @@ class XRayTestRunConfigurationProducer : LazyRunConfigurationProducer<XRayTestCo
     override fun isConfigurationFromContext(
         configuration: XRayTestConfiguration,
         context: ConfigurationContext
-    ): Boolean {
-        val name = context.location?.psiElement as? XPathEQName ?: return false
-        return when {
-            XRayTestService.isTestModule(name) -> configuration.appliesTo(name.containingFile)
-            XRayTestService.isTestCase(name) -> configuration.appliesTo(name.containingFile, name)
+    ): Boolean = when (val element = context.location?.psiElement) {
+        is XPathEQName -> when {
+            XRayTestService.isTestModule(element) -> configuration.appliesTo(element.containingFile)
+            XRayTestService.isTestCase(element) -> configuration.appliesTo(element.containingFile, element)
             else -> false
         }
+        else -> false
     }
 
     override fun setupConfigurationFromContext(
         configuration: XRayTestConfiguration,
         context: ConfigurationContext,
         sourceElement: Ref<PsiElement>
-    ): Boolean {
-        val name = context.location?.psiElement as? XPathEQName ?: return false
-        return when {
-            XRayTestService.isTestModule(name) -> configuration.create(name.containingFile)
-            XRayTestService.isTestCase(name) -> configuration.create(name.containingFile, name)
+    ): Boolean = when (val element = context.location?.psiElement) {
+        is XPathEQName -> when {
+            XRayTestService.isTestModule(element) -> configuration.create(element.containingFile)
+            XRayTestService.isTestCase(element) -> configuration.create(element.containingFile, element)
             else -> false
         }
+        else -> false
     }
 }
