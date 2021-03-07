@@ -22,6 +22,7 @@ XRay Unit Tests:
 1. Add an XRay run configuration.
 1. Support running and profiling XRay unit tests.
 1. Add run actions in the line marker area.
+1. Support run actions on the context menu for files.
 1. Report test status in the run console.
 
 Semantic Highlighting:

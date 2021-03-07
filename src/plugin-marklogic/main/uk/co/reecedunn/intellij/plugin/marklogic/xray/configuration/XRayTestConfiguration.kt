@@ -26,6 +26,7 @@ import com.intellij.lang.Language
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiFile
+import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicBundle
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.XRayTestFormat
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.runner.XRayTestRunState
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestService
@@ -160,7 +161,7 @@ class XRayTestConfiguration(project: Project, factory: ConfigurationFactory) :
     }
 
     fun create(module: PsiFile): Boolean {
-        name = module.name.replace("\\.[a-z]+$".toRegex(), "")
+        name = MarkLogicBundle.message("xray.configuration.name", module.name.replace("\\.[a-z]+$".toRegex(), ""))
 
         val projectConfiguration = XpmProjectConfigurations.getInstance(project)
         processorId = projectConfiguration.processorId
@@ -183,7 +184,7 @@ class XRayTestConfiguration(project: Project, factory: ConfigurationFactory) :
         if (testCase.localName?.data == null) return false
 
         val moduleName = module.name.replace("\\.[a-z]+$".toRegex(), "")
-        name = "$moduleName (${testCase.localName?.data})"
+        name = MarkLogicBundle.message("xray.configuration.name", "$moduleName (${testCase.localName?.data})")
 
         val projectConfiguration = XpmProjectConfigurations.getInstance(project)
         processorId = projectConfiguration.processorId

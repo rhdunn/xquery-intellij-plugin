@@ -21,6 +21,7 @@ import com.intellij.execution.configurations.ConfigurationFactory
 import com.intellij.execution.configurations.ConfigurationTypeUtil
 import com.intellij.openapi.util.Ref
 import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.marklogic.intellij.execution.configurations.type.XRayTestConfigurationType
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.configuration.XRayTestConfiguration
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
@@ -35,6 +36,10 @@ class XRayTestRunConfigurationProducer : LazyRunConfigurationProducer<XRayTestCo
         configuration: XRayTestConfiguration,
         context: ConfigurationContext
     ): Boolean = when (val element = context.location?.psiElement) {
+        is PsiFile -> when {
+            XRayTestService.isTestModule(element) -> configuration.appliesTo(element)
+            else -> false
+        }
         is XPathEQName -> when {
             XRayTestService.isTestModule(element) -> configuration.appliesTo(element.containingFile)
             XRayTestService.isTestCase(element) -> configuration.appliesTo(element.containingFile, element)
@@ -48,6 +53,10 @@ class XRayTestRunConfigurationProducer : LazyRunConfigurationProducer<XRayTestCo
         context: ConfigurationContext,
         sourceElement: Ref<PsiElement>
     ): Boolean = when (val element = context.location?.psiElement) {
+        is PsiFile -> when {
+            XRayTestService.isTestModule(element) -> configuration.create(element)
+            else -> false
+        }
         is XPathEQName -> when {
             XRayTestService.isTestModule(element) -> configuration.create(element.containingFile)
             XRayTestService.isTestCase(element) -> configuration.create(element.containingFile, element)
