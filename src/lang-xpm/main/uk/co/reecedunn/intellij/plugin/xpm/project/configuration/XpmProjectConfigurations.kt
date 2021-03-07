@@ -23,7 +23,9 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.psi.PsiDirectory
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.vfs.isAncestorOf
 import uk.co.reecedunn.intellij.plugin.core.vfs.relativePathTo
 
 class XpmProjectConfigurations(private val project: Project) :
@@ -82,6 +84,11 @@ class XpmProjectConfigurations(private val project: Project) :
     fun toModulePath(path: String): String {
         val file = LocalFileSystem.getInstance().findFileByPath(path)
         return file?.let { toModulePath(it) } ?: path
+    }
+
+    fun isModulesDirectory(directory: PsiDirectory): Boolean {
+        val vf = directory.virtualFile
+        return modulePaths.find { it == vf || it.isAncestorOf(vf) } != null
     }
 
     init {

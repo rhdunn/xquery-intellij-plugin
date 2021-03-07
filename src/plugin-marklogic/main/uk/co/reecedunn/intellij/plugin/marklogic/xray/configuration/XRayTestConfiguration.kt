@@ -25,6 +25,7 @@ import com.intellij.execution.testframework.sm.runner.SMTestLocator
 import com.intellij.lang.Language
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
+import com.intellij.psi.PsiDirectory
 import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicBundle
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.XRayTestFormat
@@ -154,10 +155,33 @@ class XRayTestConfiguration(project: Project, factory: ConfigurationFactory) :
         }
 
     // endregion
+    // region Configuration Provider :: Directory
+
+    fun appliesTo(directory: PsiDirectory): Boolean = when {
+        testPattern != null -> false
+        modulePattern != null -> false
+        else -> testPath == directory.virtualFile.canonicalPath
+    }
+
+    fun create(directory: PsiDirectory): Boolean {
+        name = MarkLogicBundle.message("xray.configuration.name", directory.name)
+
+        val projectConfiguration = XpmProjectConfigurations.getInstance(project)
+        processorId = projectConfiguration.processorId
+        database = projectConfiguration.databaseName
+        server = projectConfiguration.applicationName
+
+        testPath = directory.virtualFile.canonicalPath
+        return true
+    }
+
+    // endregion
     // region Configuration Provider :: Module
 
-    fun appliesTo(module: PsiFile): Boolean {
-        return modulePattern == "/${module.name}" && testPattern == null
+    fun appliesTo(module: PsiFile): Boolean = when {
+        testPath != null -> false
+        testPattern != null -> false
+        else -> modulePattern == "/${module.name}"
     }
 
     fun create(module: PsiFile): Boolean {
@@ -176,6 +200,7 @@ class XRayTestConfiguration(project: Project, factory: ConfigurationFactory) :
     // region Configuration Provider :: Function
 
     fun appliesTo(module: PsiFile, testCase: XPathEQName): Boolean = when {
+        testPath != null -> false
         modulePattern != "/${module.name}" -> false
         else -> testCase.localName?.data?.let { testPattern == "^$it$" } == true
     }

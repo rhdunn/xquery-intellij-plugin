@@ -19,9 +19,11 @@ import com.intellij.openapi.components.ServiceManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.psi.PsiDirectory
 import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.core.data.ModificationTrackedProperty
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.core.vfs.isAncestorOf
 import uk.co.reecedunn.intellij.plugin.core.vfs.replace
 import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicQueries
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnnotation
@@ -80,6 +82,13 @@ class XRayTestService(private val project: Project) {
         private const val TEST_NAMESPACE = "http://github.com/robwhitby/xray/test"
         private val TEST_CASE_LOCAL_NAMES = setOf("case", "ignore")
 
+        // region Directory (Test Path)
+
+        fun isTestDirectory(directory: PsiDirectory): Boolean {
+            return XpmProjectConfigurations.getInstance(directory.project).isModulesDirectory(directory)
+        }
+
+        // endregion
         // region Module (Test Suite)
 
         fun isTestModule(file: PsiFile): Boolean {
