@@ -6,7 +6,7 @@
     <standardResourceProvider implementation="uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicResourceProvider"/>
     <standardResourceProvider implementation="uk.co.reecedunn.intellij.plugin.saxon.resources.SaxonResourceProvider"/>
 
-    <multiHostInjector implementation="uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.injection.XsltSchemaTypeLanguageInjection"/>
+    <multiHostInjector implementation="uk.co.reecedunn.intellij.plugin.xslt.lang.injection.XsltSchemaTypeLanguageInjection"/>
 
     <xmlStructureViewElementProvider implementation="uk.co.reecedunn.intellij.plugin.xpm.ide.structureView.XmlStructureViewElementProvider" order="last"/>
 

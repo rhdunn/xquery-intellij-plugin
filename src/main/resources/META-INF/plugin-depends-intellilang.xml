@@ -1,6 +1,6 @@
 <idea-plugin>
     <depends>org.intellij.intelliLang</depends>
     <extensions defaultExtensionNs="org.intellij.intelliLang">
-        <languageSupport implementation="uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.injection.XPathLanguageInjectionSupport"/>
+        <languageSupport implementation="uk.co.reecedunn.intellij.plugin.xpath.lang.injection.XPathLanguageInjectionSupport"/>
     </extensions>
 </idea-plugin>
