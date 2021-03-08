@@ -15,7 +15,7 @@
 
     <xml.nsColorProvider implementation="uk.co.reecedunn.intellij.plugin.xslt.lang.highlighter.XsltNSColorProvider"/>
 
-    <spellchecker.bundledDictionaryProvider implementation="uk.co.reecedunn.intellij.plugin.xslt.intellij.spellchecker.XsltBundledDictionaryProvider"/>
+    <spellchecker.bundledDictionaryProvider implementation="uk.co.reecedunn.intellij.plugin.xslt.lang.spellchecker.XsltBundledDictionaryProvider"/>
 
     <!-- XSLT Schema Type -->
 

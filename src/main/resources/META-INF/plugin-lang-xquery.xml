@@ -38,8 +38,8 @@
 
     <codeInsight.parameterNameHints language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.intellij.codeInsight.hints.XPathInlayParameterHintsProvider"/>
 
-    <spellchecker.support language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.intellij.spellchecker.XQuerySpellcheckingStrategy"/>
-    <spellchecker.bundledDictionaryProvider implementation="uk.co.reecedunn.intellij.plugin.xquery.intellij.spellchecker.XQueryBundledDictionaryProvider"/>
+    <spellchecker.support language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.lang.spellchecker.XQuerySpellcheckingStrategy"/>
+    <spellchecker.bundledDictionaryProvider implementation="uk.co.reecedunn.intellij.plugin.xquery.lang.spellchecker.XQueryBundledDictionaryProvider"/>
 
     <xdebugger.breakpointType implementation="uk.co.reecedunn.intellij.plugin.xquery.intellij.xdebugger.breakpoints.XQueryExpressionBreakpointType"/>
 

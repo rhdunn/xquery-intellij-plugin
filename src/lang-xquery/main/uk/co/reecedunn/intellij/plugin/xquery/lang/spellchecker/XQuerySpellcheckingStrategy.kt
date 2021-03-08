@@ -13,16 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.intellij.spellchecker
+package uk.co.reecedunn.intellij.plugin.xquery.lang.spellchecker
 
-import com.intellij.psi.PsiElement
 import com.intellij.spellchecker.tokenizer.SpellcheckingStrategy
-import com.intellij.spellchecker.tokenizer.Tokenizer
-import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 
-class XPathSpellcheckingStrategy : SpellcheckingStrategy() {
-    override fun getTokenizer(element: PsiElement?): Tokenizer<*> {
-        if (element?.language !== XPath) return EMPTY_TOKENIZER
-        return super.getTokenizer(element)
-    }
-}
+class XQuerySpellcheckingStrategy : SpellcheckingStrategy()

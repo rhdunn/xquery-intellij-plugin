@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xslt.intellij.spellchecker
+package uk.co.reecedunn.intellij.plugin.xquery.lang.spellchecker
 
 import com.intellij.spellchecker.BundledDictionaryProvider
 
-class XsltBundledDictionaryProvider : BundledDictionaryProvider {
-    override fun getBundledDictionaries(): Array<String> = arrayOf("xslt.dic")
+class XQueryBundledDictionaryProvider : BundledDictionaryProvider {
+    override fun getBundledDictionaries(): Array<String> = arrayOf("xquery.dic")
 }

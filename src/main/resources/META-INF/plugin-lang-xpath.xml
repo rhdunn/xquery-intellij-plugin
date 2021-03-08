@@ -15,8 +15,8 @@
 
     <codeInsight.parameterInfo language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPathParameterInfoHandler" />
 
-    <spellchecker.support language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.intellij.spellchecker.XPathSpellcheckingStrategy"/>
-    <spellchecker.bundledDictionaryProvider implementation="uk.co.reecedunn.intellij.plugin.xpath.intellij.spellchecker.XPathBundledDictionaryProvider"/>
+    <spellchecker.support language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.lang.spellchecker.XPathSpellcheckingStrategy"/>
+    <spellchecker.bundledDictionaryProvider implementation="uk.co.reecedunn.intellij.plugin.xpath.lang.spellchecker.XPathBundledDictionaryProvider"/>
   </extensions>
 
   <extensions defaultExtensionNs="uk.co.reecedunn.intellij">

@@ -13,10 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.intellij.spellchecker
+package uk.co.reecedunn.intellij.plugin.xpath.lang.spellchecker
 
-import com.intellij.spellchecker.BundledDictionaryProvider
+import com.intellij.psi.PsiElement
+import com.intellij.spellchecker.tokenizer.SpellcheckingStrategy
+import com.intellij.spellchecker.tokenizer.Tokenizer
+import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 
-class XQueryBundledDictionaryProvider : BundledDictionaryProvider {
-    override fun getBundledDictionaries(): Array<String> = arrayOf("xquery.dic")
+class XPathSpellcheckingStrategy : SpellcheckingStrategy() {
+    override fun getTokenizer(element: PsiElement?): Tokenizer<*> {
+        if (element?.language !== XPath) return EMPTY_TOKENIZER
+        return super.getTokenizer(element)
+    }
 }
