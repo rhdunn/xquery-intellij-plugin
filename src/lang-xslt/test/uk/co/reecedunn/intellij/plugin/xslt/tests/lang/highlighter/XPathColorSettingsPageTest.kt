@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xslt.tests.intellij.settings
+package uk.co.reecedunn.intellij.plugin.xslt.tests.lang.highlighter
 
 import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.util.text.StringUtil
@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xslt.lang.highlighter.XsltSyntaxHighlighterColors
 import uk.co.reecedunn.intellij.plugin.xpath.lang.highlighter.XPathSyntaxHighlighterColors
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.settings.XPathColorSettingsPage
+import uk.co.reecedunn.intellij.plugin.xslt.lang.highlighter.XPathColorSettingsPage
 import java.util.*
 
 @DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - XPath Color Settings Page")
