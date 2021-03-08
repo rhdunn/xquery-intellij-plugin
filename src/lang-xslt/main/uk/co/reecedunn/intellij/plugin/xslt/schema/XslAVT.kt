@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xslt.schema
 
 import com.intellij.lang.Language
 import uk.co.reecedunn.intellij.plugin.xdm.schema.ISchemaType
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.ValueTemplate
+import uk.co.reecedunn.intellij.plugin.xslt.lang.ValueTemplate
 
 object XslAVT : ISchemaType {
     override val type: String = "xsl:avt"

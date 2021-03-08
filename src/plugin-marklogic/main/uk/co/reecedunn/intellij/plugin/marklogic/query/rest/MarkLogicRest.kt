@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.executors.De
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorApi
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorInstanceManager
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
+import uk.co.reecedunn.intellij.plugin.xslt.lang.XSLT
 import java.io.InputStream
 
 object MarkLogicRest : QueryProcessorApi {

@@ -22,7 +22,7 @@ import com.intellij.psi.PsiLanguageInjectionHost
 import com.intellij.psi.xml.XmlAttributeValue
 import com.intellij.psi.xml.XmlText
 import uk.co.reecedunn.intellij.plugin.xslt.parser.XsltSchemaTypes
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.isIntellijXPathPluginEnabled
+import uk.co.reecedunn.intellij.plugin.xslt.lang.isIntellijXPathPluginEnabled
 
 class XsltSchemaTypeLanguageInjection : MultiHostInjector {
     override fun elementsToInjectIn(): MutableList<out Class<out PsiElement>> {

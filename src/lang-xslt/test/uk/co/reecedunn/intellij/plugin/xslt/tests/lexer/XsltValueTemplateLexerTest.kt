@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XmlCodePointRangeImpl
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.ValueTemplate
+import uk.co.reecedunn.intellij.plugin.xslt.lang.ValueTemplate
 import uk.co.reecedunn.intellij.plugin.xslt.lexer.XsltValueTemplateLexer
 
 @DisplayName("XSLT 3.0 - Lexer - Value Templates")

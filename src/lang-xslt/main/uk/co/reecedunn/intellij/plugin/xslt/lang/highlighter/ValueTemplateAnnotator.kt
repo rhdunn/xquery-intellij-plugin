@@ -23,7 +23,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.xml.XmlAttributeValue
 import uk.co.reecedunn.intellij.plugin.core.psi.contextOfType
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.ValueTemplate
+import uk.co.reecedunn.intellij.plugin.xslt.lang.ValueTemplate
 
 class ValueTemplateAnnotator : Annotator() {
     private fun getHighlightType(element: PsiElement): TextAttributesKey? = when (element.elementType) {

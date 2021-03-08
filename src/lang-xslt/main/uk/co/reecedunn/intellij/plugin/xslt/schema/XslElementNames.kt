@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xslt.schema
 
 import com.intellij.lang.Language
 import uk.co.reecedunn.intellij.plugin.xdm.schema.ISchemaListType
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.NameTests
+import uk.co.reecedunn.intellij.plugin.xslt.lang.NameTests
 
 object XslElementNames : ISchemaListType {
     override val type: String = "xsl:element-names"

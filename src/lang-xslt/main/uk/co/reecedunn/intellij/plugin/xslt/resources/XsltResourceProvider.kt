@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xslt.resources
 import com.intellij.javaee.ResourceRegistrar
 import com.intellij.javaee.ResourceRegistrarImpl
 import com.intellij.javaee.StandardResourceProvider
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
+import uk.co.reecedunn.intellij.plugin.xslt.lang.XSLT
 
 class XsltResourceProvider : StandardResourceProvider {
     companion object {

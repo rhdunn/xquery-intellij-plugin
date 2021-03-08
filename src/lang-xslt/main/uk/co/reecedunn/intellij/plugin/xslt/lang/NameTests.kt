@@ -13,26 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xslt.intellij.lang
+package uk.co.reecedunn.intellij.plugin.xslt.lang
 
-import com.intellij.lang.ASTNode
 import com.intellij.lang.Language
 import com.intellij.lang.PsiParser
 import com.intellij.openapi.fileTypes.LanguageFileType
 import com.intellij.openapi.project.Project
 import com.intellij.psi.FileViewProvider
-import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
-import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.IFileElementType
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xslt.lang.fileTypes.XsltSchemaTypeFileType
 import uk.co.reecedunn.intellij.plugin.xslt.parser.XsltSchemaTypesParser
-import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.schema.XsltHashedKeywordPsiImpl
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.schema.XsltSchemaTypePsiImpl
 
-object EQNamesOrHashedKeywords : Language(XPath, "EQNames-or-hashed-keywords") {
+object NameTests : Language(XPath, "xsl:nametests") {
     // region Language
 
     val FileType: LanguageFileType = XsltSchemaTypeFileType(this)
@@ -44,21 +40,12 @@ object EQNamesOrHashedKeywords : Language(XPath, "EQNames-or-hashed-keywords") {
 
     val FileElementType: IFileElementType = IFileElementType(this)
 
-    val HashedKeywordToken: IElementType = IElementType("SCHEMA_TYPE_HASHED_KEYWORD", this)
-
     class ParserDefinition : XPathParserDefinition() {
-        override fun createParser(project: Project): PsiParser {
-            return XsltSchemaTypesParser(EQNamesOrHashedKeywords, HashedKeywordToken)
-        }
+        override fun createParser(project: Project): PsiParser = XsltSchemaTypesParser(NameTests)
 
         override fun getFileNodeType(): IFileElementType = FileElementType
 
         override fun createFile(viewProvider: FileViewProvider): PsiFile = XsltSchemaTypePsiImpl(viewProvider, FileType)
-
-        override fun createElement(node: ASTNode): PsiElement = when (node.elementType) {
-            HashedKeywordToken -> XsltHashedKeywordPsiImpl(node)
-            else -> super.createElement(node)
-        }
     }
 
     // endregion

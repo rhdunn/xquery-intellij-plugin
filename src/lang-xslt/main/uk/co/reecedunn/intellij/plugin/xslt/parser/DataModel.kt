@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xslt.parser
 import com.intellij.psi.xml.XmlAttribute
 import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestorsAndSelf
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
+import uk.co.reecedunn.intellij.plugin.xslt.lang.XSLT
 
 // region Standard Attribute :: xsl:expand-text
 

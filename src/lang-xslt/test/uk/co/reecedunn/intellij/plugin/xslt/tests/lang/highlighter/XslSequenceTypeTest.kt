@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.parser.prettyPrint
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xslt.lang.highlighter.SchemaTypeAnnotator
 import uk.co.reecedunn.intellij.plugin.xslt.ast.schema.XsltSchemaType
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.SequenceType
+import uk.co.reecedunn.intellij.plugin.xslt.lang.SequenceType
 import uk.co.reecedunn.intellij.plugin.xslt.schema.XslItemType
 import uk.co.reecedunn.intellij.plugin.xslt.schema.XslSequenceType
 

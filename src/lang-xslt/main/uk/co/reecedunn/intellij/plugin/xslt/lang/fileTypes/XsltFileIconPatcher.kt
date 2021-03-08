@@ -21,7 +21,7 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiManager
 import com.intellij.psi.xml.XmlFile
 import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElementFactory
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.isIntellijXPathPluginEnabled
+import uk.co.reecedunn.intellij.plugin.xslt.lang.isIntellijXPathPluginEnabled
 import uk.co.reecedunn.intellij.plugin.xslt.resources.XsltIcons
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.XsltShadowPsiElement
 import javax.swing.Icon

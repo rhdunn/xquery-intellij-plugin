@@ -21,7 +21,7 @@ import com.intellij.psi.xml.XmlElement
 import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElementFactory
 import uk.co.reecedunn.intellij.plugin.xslt.ast.xml.XsltDirElemConstructor
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.isIntellijXPathPluginEnabled
+import uk.co.reecedunn.intellij.plugin.xslt.lang.isIntellijXPathPluginEnabled
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.XsltShadowPsiElement
 
 class XsltNSColorProvider : XmlNSColorProvider {

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xslt.intellij.lang
+package uk.co.reecedunn.intellij.plugin.xslt.lang
 
 import com.intellij.lang.Language
 import com.intellij.openapi.fileTypes.ExtensionFileNameMatcher
@@ -21,7 +21,6 @@ import com.intellij.openapi.fileTypes.FileNameMatcher
 import com.intellij.openapi.fileTypes.LanguageFileType
 import uk.co.reecedunn.intellij.plugin.core.lang.LanguageData
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmLanguageVersion
-import uk.co.reecedunn.intellij.plugin.xslt.lang.XsltSpec
 
 /**
  * XML Stylesheet Language: Transform

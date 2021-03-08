@@ -24,7 +24,10 @@ import uk.co.reecedunn.intellij.plugin.core.lang.matchTokenTypeWithMarker
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.INCNameType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParser
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.*
+import uk.co.reecedunn.intellij.plugin.xslt.lang.EQNamesOrHashedKeywords
+import uk.co.reecedunn.intellij.plugin.xslt.lang.NameTests
+import uk.co.reecedunn.intellij.plugin.xslt.lang.SequenceType
+import uk.co.reecedunn.intellij.plugin.xslt.lang.ValueTemplate
 import uk.co.reecedunn.intellij.plugin.xslt.resources.XsltBundle
 
 class XsltSchemaTypesParser(

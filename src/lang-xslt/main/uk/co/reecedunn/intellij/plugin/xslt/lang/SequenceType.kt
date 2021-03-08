@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xslt.intellij.lang
+package uk.co.reecedunn.intellij.plugin.xslt.lang
 
 import com.intellij.lang.Language
 import com.intellij.lang.PsiParser
@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xslt.lang.fileTypes.XsltSchemaTypeFileTyp
 import uk.co.reecedunn.intellij.plugin.xslt.parser.XsltSchemaTypesParser
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.schema.XsltSchemaTypePsiImpl
 
-object NameTests : Language(XPath, "xsl:nametests") {
+object SequenceType : Language(XPath, "xsl:sequence-type") {
     // region Language
 
     val FileType: LanguageFileType = XsltSchemaTypeFileType(this)
@@ -41,7 +41,7 @@ object NameTests : Language(XPath, "xsl:nametests") {
     val FileElementType: IFileElementType = IFileElementType(this)
 
     class ParserDefinition : XPathParserDefinition() {
-        override fun createParser(project: Project): PsiParser = XsltSchemaTypesParser(NameTests)
+        override fun createParser(project: Project): PsiParser = XsltSchemaTypesParser(SequenceType)
 
         override fun getFileNodeType(): IFileElementType = FileElementType
 

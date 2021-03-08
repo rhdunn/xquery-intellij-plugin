@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xslt.schema
 
 import com.intellij.lang.Language
 import uk.co.reecedunn.intellij.plugin.xdm.schema.ISchemaType
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.SequenceType
+import uk.co.reecedunn.intellij.plugin.xslt.lang.SequenceType
 
 object XslSequenceType : ISchemaType {
     override val type: String = "xsl:sequence-type"

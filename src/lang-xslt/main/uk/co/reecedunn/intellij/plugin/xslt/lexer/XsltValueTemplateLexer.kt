@@ -19,7 +19,7 @@ import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange
 import uk.co.reecedunn.intellij.plugin.core.lexer.STATE_DEFAULT
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.ValueTemplate
+import uk.co.reecedunn.intellij.plugin.xslt.lang.ValueTemplate
 
 class XsltValueTemplateLexer(tokenRange: CodePointRange) : XPathLexer(tokenRange) {
     // region States

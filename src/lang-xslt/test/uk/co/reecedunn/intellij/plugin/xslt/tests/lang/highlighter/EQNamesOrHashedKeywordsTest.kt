@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.parser.prettyPrint
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xslt.lang.highlighter.SchemaTypeAnnotator
 import uk.co.reecedunn.intellij.plugin.xslt.ast.schema.XsltSchemaType
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.EQNamesOrHashedKeywords
+import uk.co.reecedunn.intellij.plugin.xslt.lang.EQNamesOrHashedKeywords
 import uk.co.reecedunn.intellij.plugin.xslt.schema.*
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
