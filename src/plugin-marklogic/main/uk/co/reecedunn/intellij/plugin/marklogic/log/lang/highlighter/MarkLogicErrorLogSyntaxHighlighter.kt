@@ -13,16 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.marklogic.log.lang
+package uk.co.reecedunn.intellij.plugin.marklogic.log.lang.highlighter
 
 import com.intellij.lexer.Lexer
 import com.intellij.openapi.fileTypes.SyntaxHighlighter
 import com.intellij.openapi.fileTypes.SyntaxHighlighterFactory
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
+import uk.co.reecedunn.intellij.plugin.marklogic.log.lang.MarkLogicErrorLogFormat
 import uk.co.reecedunn.intellij.plugin.marklogic.log.lexer.MarkLogicErrorLogLexer
 import uk.co.reecedunn.intellij.plugin.marklogic.log.lexer.MarkLogicErrorLogTokenType
-import uk.co.reecedunn.intellij.plugin.processor.log.lang.LogFileSyntaxHighlighter
+import uk.co.reecedunn.intellij.plugin.processor.log.lang.highlighter.LogFileSyntaxHighlighter
 
 object MarkLogicErrorLogSyntaxHighlighter : LogFileSyntaxHighlighter() {
     // region SyntaxHighlighter

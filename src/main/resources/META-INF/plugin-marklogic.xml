@@ -18,7 +18,7 @@
               fieldName="INSTANCE"/>
 
     <lang.parserDefinition language="MLErrorLog" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.log.lang.MarkLogicErrorLog$ParserDefinition"/>
-    <lang.syntaxHighlighterFactory language="MLErrorLog" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.log.lang.MarkLogicErrorLogSyntaxHighlighter$Factory"/>
+    <lang.syntaxHighlighterFactory language="MLErrorLog" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.log.lang.highlighter.MarkLogicErrorLogSyntaxHighlighter$Factory"/>
     <annotator language="MLErrorLog" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.log.annotation.LogLevelAnnotator"/>
   </extensions>
 
