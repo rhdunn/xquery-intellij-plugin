@@ -19,7 +19,7 @@ import com.intellij.lang.Language
 import com.intellij.openapi.fileTypes.ExtensionFileNameMatcher
 import com.intellij.openapi.fileTypes.FileNameMatcher
 import uk.co.reecedunn.intellij.plugin.core.lang.LanguageData
-import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicBundle
+import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicBundle
 
 object ServerSideJavaScript : Language("MLJavaScript", "application/vnd.marklogic-javascript") {
     override fun isCaseSensitive(): Boolean = true

@@ -27,7 +27,7 @@ import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewEx
 import uk.co.reecedunn.intellij.plugin.core.ui.Borders
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
-import uk.co.reecedunn.intellij.plugin.processor.intellij.resources.PluginApiBundle
+import uk.co.reecedunn.intellij.plugin.processor.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessorSettingsCellRenderer
 import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessorSettingsModel
 import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessors

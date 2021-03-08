@@ -22,10 +22,10 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.core.lexer.ByteSequence
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
-import uk.co.reecedunn.intellij.plugin.xquery.intellij.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.intellij.resources.XQueryIcons
+import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryIcons
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import java.nio.charset.Charset
 import java.nio.charset.IllegalCharsetNameException

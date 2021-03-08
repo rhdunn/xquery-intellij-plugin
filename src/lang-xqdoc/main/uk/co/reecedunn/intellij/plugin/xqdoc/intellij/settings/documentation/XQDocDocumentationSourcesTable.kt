@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xqdoc.intellij.settings.documentation
 
 import com.intellij.util.ui.ColumnInfo
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.columnInfo
-import uk.co.reecedunn.intellij.plugin.xqdoc.intellij.resources.XQDocBundle
+import uk.co.reecedunn.intellij.plugin.xqdoc.resources.XQDocBundle
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationDownloader
 import uk.co.reecedunn.intellij.plugin.xpm.lang.documentation.XpmDocumentationSource
 import javax.swing.table.DefaultTableCellRenderer

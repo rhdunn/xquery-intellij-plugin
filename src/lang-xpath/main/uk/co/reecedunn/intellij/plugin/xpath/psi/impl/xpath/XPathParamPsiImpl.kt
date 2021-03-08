@@ -20,7 +20,7 @@ import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathIcons
+import uk.co.reecedunn.intellij.plugin.xpath.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParam
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation

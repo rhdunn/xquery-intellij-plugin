@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.dialog
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.toolbarPanel
-import uk.co.reecedunn.intellij.plugin.processor.intellij.resources.PluginApiBundle
+import uk.co.reecedunn.intellij.plugin.processor.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.query.CachedQueryProcessorSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryServer

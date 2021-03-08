@@ -26,8 +26,8 @@ import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationEx
 import uk.co.reecedunn.intellij.plugin.core.psi.resourcePath
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
-import uk.co.reecedunn.intellij.plugin.xquery.intellij.resources.XQueryBundle
-import uk.co.reecedunn.intellij.plugin.xquery.intellij.resources.XQueryIcons
+import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryIcons
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryQueryBody
 import javax.swing.Icon
 

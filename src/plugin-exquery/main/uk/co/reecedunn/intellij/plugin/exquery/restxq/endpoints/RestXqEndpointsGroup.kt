@@ -20,7 +20,7 @@ import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.actionSystem.DataProvider
 import uk.co.reecedunn.intellij.microservices.endpoints.Endpoint
 import uk.co.reecedunn.intellij.microservices.endpoints.EndpointsGroup
-import uk.co.reecedunn.intellij.plugin.exquery.intellij.resources.EXQueryIcons
+import uk.co.reecedunn.intellij.plugin.exquery.resources.EXQueryIcons
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
 import uk.co.reecedunn.intellij.plugin.xquery.model.annotatedDeclarations

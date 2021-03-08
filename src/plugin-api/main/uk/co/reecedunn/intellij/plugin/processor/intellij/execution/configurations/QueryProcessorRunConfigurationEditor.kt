@@ -29,7 +29,7 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.QueryProcessorDataSource
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.model.QueryServerComboBoxModel
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.queryProcessorDataSource
-import uk.co.reecedunn.intellij.plugin.processor.intellij.resources.PluginApiBundle
+import uk.co.reecedunn.intellij.plugin.processor.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.*
 import javax.swing.*
 

@@ -18,9 +18,9 @@ package uk.co.reecedunn.intellij.plugin.basex.query.session
 import com.intellij.lang.Language
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.vfs.VirtualFile
-import uk.co.reecedunn.intellij.plugin.basex.intellij.resources.BaseXIcons
+import uk.co.reecedunn.intellij.plugin.basex.resources.BaseXIcons
 import uk.co.reecedunn.intellij.plugin.basex.query.session.binding.Session
-import uk.co.reecedunn.intellij.plugin.basex.intellij.resources.BaseXQueries
+import uk.co.reecedunn.intellij.plugin.basex.resources.BaseXQueries
 import uk.co.reecedunn.intellij.plugin.basex.log.BaseXLogLine
 import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationImpl
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode

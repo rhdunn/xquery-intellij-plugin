@@ -20,8 +20,8 @@ import com.intellij.execution.ExecutorRegistry
 import com.intellij.icons.AllIcons
 import com.intellij.openapi.wm.ToolWindowId
 import org.jetbrains.annotations.NonNls
-import uk.co.reecedunn.intellij.plugin.processor.intellij.resources.PluginApiBundle
-import uk.co.reecedunn.intellij.plugin.processor.intellij.resources.PluginIcons
+import uk.co.reecedunn.intellij.plugin.processor.resources.PluginApiBundle
+import uk.co.reecedunn.intellij.plugin.processor.resources.PluginIcons
 import javax.swing.Icon
 
 class DefaultProfileExecutor : Executor() {

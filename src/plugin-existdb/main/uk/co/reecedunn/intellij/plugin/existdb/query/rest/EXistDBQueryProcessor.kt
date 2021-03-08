@@ -20,8 +20,8 @@ import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.vfs.VirtualFile
 import org.apache.http.client.methods.RequestBuilder
 import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationImpl
-import uk.co.reecedunn.intellij.plugin.existdb.intellij.resources.EXistDBIcons
-import uk.co.reecedunn.intellij.plugin.existdb.intellij.resources.EXistDBQueries
+import uk.co.reecedunn.intellij.plugin.existdb.resources.EXistDBIcons
+import uk.co.reecedunn.intellij.plugin.existdb.resources.EXistDBQueries
 import uk.co.reecedunn.intellij.plugin.existdb.log.Log4JPattern
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.processor.log.LogViewProvider

@@ -35,7 +35,7 @@ import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.Prof
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.QueryConsoleView
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.QueryTable
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.SaveAction
-import uk.co.reecedunn.intellij.plugin.processor.intellij.resources.PluginApiBundle
+import uk.co.reecedunn.intellij.plugin.processor.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileEntry
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileReport
 import java.text.DateFormat

@@ -31,7 +31,7 @@ import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
 import uk.co.reecedunn.intellij.plugin.core.ui.Dialog
 import uk.co.reecedunn.intellij.plugin.core.ui.Insets
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
-import uk.co.reecedunn.intellij.plugin.processor.intellij.resources.PluginApiBundle
+import uk.co.reecedunn.intellij.plugin.processor.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 import uk.co.reecedunn.intellij.plugin.processor.query.connection.AWSConnectionSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.connection.ConnectionSettings

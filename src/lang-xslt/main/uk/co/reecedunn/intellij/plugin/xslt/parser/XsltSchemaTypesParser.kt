@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.INCNameType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParser
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.*
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.resources.XsltBundle
+import uk.co.reecedunn.intellij.plugin.xslt.resources.XsltBundle
 
 class XsltSchemaTypesParser(
     private val schemaType: Language,

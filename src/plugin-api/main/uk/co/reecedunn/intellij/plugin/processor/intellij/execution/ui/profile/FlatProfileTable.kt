@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.awt.scope
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.columnInfo
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.columns
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.QueryTable
-import uk.co.reecedunn.intellij.plugin.processor.intellij.resources.PluginApiBundle
+import uk.co.reecedunn.intellij.plugin.processor.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.QuerySourcePosition
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileEntry
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsDurationValue

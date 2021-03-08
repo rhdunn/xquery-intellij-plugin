@@ -24,7 +24,7 @@ import com.intellij.util.xmlb.XmlSerializerUtil
 import uk.co.reecedunn.intellij.plugin.core.progress.TaskManager
 import uk.co.reecedunn.intellij.plugin.core.progress.TaskProgressListener
 import uk.co.reecedunn.intellij.plugin.xpm.lang.documentation.XpmDocumentationSource
-import uk.co.reecedunn.intellij.plugin.xqdoc.intellij.resources.XQDocBundle
+import uk.co.reecedunn.intellij.plugin.xqdoc.resources.XQDocBundle
 import java.io.File
 import java.io.IOException
 

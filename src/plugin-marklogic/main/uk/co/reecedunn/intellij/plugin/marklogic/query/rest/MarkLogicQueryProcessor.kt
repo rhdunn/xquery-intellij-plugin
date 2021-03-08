@@ -27,8 +27,8 @@ import uk.co.reecedunn.intellij.plugin.marklogic.intellij.lang.SPARQLQuery
 import uk.co.reecedunn.intellij.plugin.marklogic.intellij.lang.SPARQLUpdate
 import uk.co.reecedunn.intellij.plugin.marklogic.intellij.lang.SQL
 import uk.co.reecedunn.intellij.plugin.marklogic.intellij.lang.ServerSideJavaScript
-import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicIcons
-import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicQueries
+import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicIcons
+import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicQueries
 import uk.co.reecedunn.intellij.plugin.marklogic.log.MarkLogicErrorLogLine
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.debugger.MarkLogicDebugQuery
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebuggableQuery

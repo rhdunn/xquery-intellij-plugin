@@ -26,10 +26,10 @@ import com.intellij.xdebugger.impl.XSourcePositionImpl
 import uk.co.reecedunn.intellij.plugin.core.psi.lineElements
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestorsAndSelf
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
-import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathIcons
+import uk.co.reecedunn.intellij.plugin.xpath.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
-import uk.co.reecedunn.intellij.plugin.xquery.intellij.resources.XQueryBundle
+import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 import javax.swing.Icon
 
 class XQueryExpressionBreakpointType :

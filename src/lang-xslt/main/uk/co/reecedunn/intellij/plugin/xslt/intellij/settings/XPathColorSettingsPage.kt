@@ -23,7 +23,7 @@ import com.intellij.openapi.options.colors.ColorSettingsPage
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.lexer.XsltSyntaxHighlighterColors
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lexer.XPathSyntaxHighlighter
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lexer.XPathSyntaxHighlighterColors
-import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathQueries
+import uk.co.reecedunn.intellij.plugin.xpath.resources.XPathQueries
 import javax.swing.Icon
 
 class XPathColorSettingsPage : ColorSettingsPage {

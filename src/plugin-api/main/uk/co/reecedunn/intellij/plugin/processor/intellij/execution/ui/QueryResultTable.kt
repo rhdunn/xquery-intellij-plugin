@@ -20,7 +20,7 @@ import com.intellij.psi.PsiFile
 import com.intellij.ui.table.TableView
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.columnInfo
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.columns
-import uk.co.reecedunn.intellij.plugin.processor.intellij.resources.PluginApiBundle
+import uk.co.reecedunn.intellij.plugin.processor.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import javax.swing.JScrollPane
 

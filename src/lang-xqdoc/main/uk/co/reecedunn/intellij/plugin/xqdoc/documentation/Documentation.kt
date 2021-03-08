@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xqdoc.documentation
 
-import uk.co.reecedunn.intellij.plugin.xqdoc.intellij.resources.XQDocBundle
+import uk.co.reecedunn.intellij.plugin.xqdoc.resources.XQDocBundle
 
 val XQDocDocumentation.sections: String
     get() {

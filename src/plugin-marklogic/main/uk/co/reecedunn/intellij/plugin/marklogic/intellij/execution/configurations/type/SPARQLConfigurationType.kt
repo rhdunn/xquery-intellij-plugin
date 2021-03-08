@@ -20,7 +20,7 @@ import uk.co.reecedunn.intellij.plugin.core.execution.configurations.Configurati
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.configurations.QueryProcessorConfigurationFactory
 import uk.co.reecedunn.intellij.plugin.marklogic.intellij.lang.SPARQLQuery
 import uk.co.reecedunn.intellij.plugin.marklogic.intellij.lang.SPARQLUpdate
-import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicIcons
+import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicIcons
 import javax.swing.Icon
 
 class SPARQLConfigurationType : ConfigurationTypeEx {

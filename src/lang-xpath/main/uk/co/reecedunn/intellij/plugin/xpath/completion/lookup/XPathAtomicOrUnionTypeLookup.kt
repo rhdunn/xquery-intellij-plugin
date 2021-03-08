@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.completion.lookup
 
-import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathIcons
+import uk.co.reecedunn.intellij.plugin.xpath.resources.XPathIcons
 
 class XPathAtomicOrUnionTypeLookup(localName: String, prefix: String? = null) :
     XPathLookupElement(prefix?.let { "$it:$localName" } ?: localName) {

@@ -31,7 +31,7 @@ import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.QueryProcessHandlerBase
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.QueryResultListener
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.QueryResultTime
-import uk.co.reecedunn.intellij.plugin.processor.intellij.resources.PluginApiBundle
+import uk.co.reecedunn.intellij.plugin.processor.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsDurationValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsDuration

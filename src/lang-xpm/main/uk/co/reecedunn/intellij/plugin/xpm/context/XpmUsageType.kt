@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.context
 
-import uk.co.reecedunn.intellij.plugin.xdm.intellij.resources.XdmBundle
+import uk.co.reecedunn.intellij.plugin.xdm.resources.XdmBundle
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XdmNamespaceType
 
 enum class XpmUsageType(val label: String, val namespaceType: XdmNamespaceType) {

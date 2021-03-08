@@ -17,8 +17,8 @@ package uk.co.reecedunn.intellij.plugin.marklogic.intellij.execution.configurati
 
 import com.intellij.execution.configurations.ConfigurationFactory
 import uk.co.reecedunn.intellij.plugin.core.execution.configurations.ConfigurationTypeEx
-import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicBundle
-import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicIcons
+import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicBundle
+import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicIcons
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.configuration.XRayTestConfigurationFactory
 import javax.swing.Icon
 

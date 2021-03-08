@@ -20,7 +20,7 @@ import com.intellij.openapi.options.Configurable
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
-import uk.co.reecedunn.intellij.plugin.xpm.intellij.resources.XpmBundle
+import uk.co.reecedunn.intellij.plugin.xpm.resources.XpmBundle
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderSettings
 import javax.swing.JCheckBox
 import javax.swing.JComponent

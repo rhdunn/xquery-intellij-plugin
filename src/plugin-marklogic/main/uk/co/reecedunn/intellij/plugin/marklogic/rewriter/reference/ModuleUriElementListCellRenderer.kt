@@ -19,7 +19,7 @@ import com.intellij.ide.util.PsiElementListCellRenderer
 import com.intellij.psi.PsiElement
 import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.plugin.core.psi.resourcePath
-import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicIcons
+import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicIcons
 import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.endpoints.RewriterEndpoint
 import javax.swing.Icon
 

@@ -19,7 +19,7 @@ import com.intellij.execution.configurations.ConfigurationFactory
 import uk.co.reecedunn.intellij.plugin.core.execution.configurations.ConfigurationTypeEx
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.configurations.QueryProcessorConfigurationFactory
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
-import uk.co.reecedunn.intellij.plugin.xquery.intellij.resources.XQueryIcons
+import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryIcons
 import javax.swing.Icon
 
 class XQueryConfigurationType : ConfigurationTypeEx {

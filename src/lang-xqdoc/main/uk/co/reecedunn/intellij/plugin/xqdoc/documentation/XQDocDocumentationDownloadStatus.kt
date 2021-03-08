@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xqdoc.documentation
 
-import uk.co.reecedunn.intellij.plugin.xqdoc.intellij.resources.XQDocBundle
+import uk.co.reecedunn.intellij.plugin.xqdoc.resources.XQDocBundle
 
 enum class XQDocDocumentationDownloadStatus(val label: String) {
     NotDownloaded(XQDocBundle.message("download-status.not-downloaded")),

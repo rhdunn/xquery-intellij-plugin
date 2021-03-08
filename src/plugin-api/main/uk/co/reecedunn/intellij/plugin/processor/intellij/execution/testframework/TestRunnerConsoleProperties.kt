@@ -23,7 +23,7 @@ import com.intellij.execution.ui.ConsoleView
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleRunnerLayoutUiBuilder
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.executors.DefaultProfileExecutor
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.profile.FlatProfileTableView
-import uk.co.reecedunn.intellij.plugin.processor.intellij.resources.PluginApiBundle
+import uk.co.reecedunn.intellij.plugin.processor.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.test.TestFormat
 
 class TestRunnerConsoleProperties(

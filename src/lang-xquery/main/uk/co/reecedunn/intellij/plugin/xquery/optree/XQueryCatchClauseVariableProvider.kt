@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableDefinition
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCatchClause
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
-import uk.co.reecedunn.intellij.plugin.xquery.intellij.resources.XQueryQueries
+import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryQueries
 
 object XQueryCatchClauseVariableProvider : XpmVariableProvider {
     override fun inScopeVariables(context: PsiElement): Sequence<XpmVariableDefinition> {

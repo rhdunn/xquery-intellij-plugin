@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.lang
 
 import com.intellij.navigation.ItemPresentation
-import uk.co.reecedunn.intellij.plugin.xpm.intellij.resources.XpmIcons
+import uk.co.reecedunn.intellij.plugin.xpm.resources.XpmIcons
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmSpecificationType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmSpecificationVersion
 import uk.co.reecedunn.intellij.plugin.xpm.lang.impl.W3CSpecification

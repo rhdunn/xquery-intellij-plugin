@@ -19,7 +19,7 @@ import com.intellij.openapi.editor.DefaultLanguageHighlighterColors
 import com.intellij.openapi.editor.XmlHighlighterColors
 import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.options.colors.AttributesDescriptor
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.resources.XsltBundle
+import uk.co.reecedunn.intellij.plugin.xslt.resources.XsltBundle
 
 object XsltSyntaxHighlighterColors {
     val ATTRIBUTE_VALUE: TextAttributesKey = TextAttributesKey.createTextAttributesKey(

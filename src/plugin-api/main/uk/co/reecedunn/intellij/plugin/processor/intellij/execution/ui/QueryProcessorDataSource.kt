@@ -22,7 +22,7 @@ import com.intellij.util.text.nullize
 import org.jetbrains.annotations.Nls
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.configurations.QueryProcessorDataSourceType
-import uk.co.reecedunn.intellij.plugin.processor.intellij.resources.PluginApiBundle
+import uk.co.reecedunn.intellij.plugin.processor.resources.PluginApiBundle
 import javax.swing.*
 
 class QueryProcessorDataSource(private val allowUnspecified: Boolean = false) {

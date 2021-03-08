@@ -19,7 +19,7 @@ import com.intellij.execution.configurations.ConfigurationFactory
 import uk.co.reecedunn.intellij.plugin.core.execution.configurations.ConfigurationTypeEx
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.configurations.QueryProcessorConfigurationFactory
 import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
-import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathIcons
+import uk.co.reecedunn.intellij.plugin.xpath.resources.XPathIcons
 import javax.swing.Icon
 
 class XPathConfigurationType : ConfigurationTypeEx {

@@ -23,9 +23,8 @@ import com.intellij.psi.PsiDirectory
 import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.core.data.ModificationTrackedProperty
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.core.vfs.isAncestorOf
 import uk.co.reecedunn.intellij.plugin.core.vfs.replace
-import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicQueries
+import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicQueries
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnnotation
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpm.context.expand

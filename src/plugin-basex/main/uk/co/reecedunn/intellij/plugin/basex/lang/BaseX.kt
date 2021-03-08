@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.basex.lang
 
 import com.intellij.navigation.ItemPresentation
-import uk.co.reecedunn.intellij.plugin.basex.intellij.resources.BaseXIcons
+import uk.co.reecedunn.intellij.plugin.basex.resources.BaseXIcons
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmSchemaFile

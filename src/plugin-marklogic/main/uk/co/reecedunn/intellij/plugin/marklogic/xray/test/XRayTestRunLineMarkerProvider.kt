@@ -19,7 +19,7 @@ import com.intellij.compat.execution.lineMarker.RunLineMarkerContributor
 import com.intellij.execution.lineMarker.ExecutorAction
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
-import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicBundle
+import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicBundle
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 
 class XRayTestRunLineMarkerProvider : RunLineMarkerContributor() {

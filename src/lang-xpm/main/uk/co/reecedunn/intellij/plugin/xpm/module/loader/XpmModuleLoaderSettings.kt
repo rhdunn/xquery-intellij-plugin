@@ -25,7 +25,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.util.xmlb.XmlSerializerUtil
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.progress.TaskManager
-import uk.co.reecedunn.intellij.plugin.xpm.intellij.resources.XpmBundle
+import uk.co.reecedunn.intellij.plugin.xpm.resources.XpmBundle
 import uk.co.reecedunn.intellij.plugin.xpm.context.XpmStaticContext
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePath
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.paths

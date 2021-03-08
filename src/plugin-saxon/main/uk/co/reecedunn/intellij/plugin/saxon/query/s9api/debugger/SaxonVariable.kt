@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.SaxonQueryResultIterato
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.Processor
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.om.Sequence
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.om.StructuredQName
-import uk.co.reecedunn.intellij.plugin.xpath.intellij.resources.XPathIcons
+import uk.co.reecedunn.intellij.plugin.xpath.resources.XPathIcons
 
 class SaxonVariable(name: StructuredQName, private val results: Sequence, private val processor: Processor) :
     XNamedValue("\$$name") {

@@ -24,8 +24,8 @@ import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.microservices.endpoints.Endpoint
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
 import uk.co.reecedunn.intellij.plugin.core.xml.ancestors
-import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicBundle
-import uk.co.reecedunn.intellij.plugin.marklogic.intellij.resources.MarkLogicIcons
+import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicBundle
+import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicIcons
 import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.lang.Rewriter
 import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.reference.ModuleUriElementReference
 import javax.swing.Icon

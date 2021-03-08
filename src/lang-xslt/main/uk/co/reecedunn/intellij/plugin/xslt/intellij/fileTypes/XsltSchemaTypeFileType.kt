@@ -17,8 +17,8 @@ package uk.co.reecedunn.intellij.plugin.xslt.intellij.fileTypes
 
 import com.intellij.lang.Language
 import com.intellij.openapi.fileTypes.LanguageFileType
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.resources.XsltBundle
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.resources.XsltIcons
+import uk.co.reecedunn.intellij.plugin.xslt.resources.XsltBundle
+import uk.co.reecedunn.intellij.plugin.xslt.resources.XsltIcons
 import javax.swing.Icon
 
 class XsltSchemaTypeFileType(language: Language) : LanguageFileType(language) {
