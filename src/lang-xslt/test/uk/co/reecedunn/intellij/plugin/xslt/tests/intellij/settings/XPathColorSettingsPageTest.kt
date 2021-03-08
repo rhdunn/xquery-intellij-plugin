@@ -21,8 +21,8 @@ import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.xslt.intellij.lexer.XsltSyntaxHighlighterColors
-import uk.co.reecedunn.intellij.plugin.xpath.intellij.lexer.XPathSyntaxHighlighterColors
+import uk.co.reecedunn.intellij.plugin.xslt.lang.highlighter.XsltSyntaxHighlighterColors
+import uk.co.reecedunn.intellij.plugin.xpath.lang.highlighter.XPathSyntaxHighlighterColors
 import uk.co.reecedunn.intellij.plugin.xslt.intellij.settings.XPathColorSettingsPage
 import java.util.*
 

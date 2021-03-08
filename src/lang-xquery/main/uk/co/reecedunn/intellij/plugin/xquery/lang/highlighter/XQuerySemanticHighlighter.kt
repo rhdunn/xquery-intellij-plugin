@@ -28,8 +28,6 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.highlighter.XpmSemanticHighlight
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
-import uk.co.reecedunn.intellij.plugin.xquery.intellij.lexer.XQuerySyntaxHighlighter
-import uk.co.reecedunn.intellij.plugin.xquery.intellij.lexer.XQuerySyntaxHighlighterColors
 
 object XQuerySemanticHighlighter : XpmSemanticHighlighter {
     private fun getVariableHighlighting(element: PsiElement?): TextAttributesKey = when (element?.getUsageType()) {

@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.tests.intellij.lexer
+package uk.co.reecedunn.intellij.plugin.xpath.tests.lang.highlighter
 
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.xpath.intellij.lexer.XPathSyntaxHighlighter
-import uk.co.reecedunn.intellij.plugin.xpath.intellij.lexer.XPathSyntaxHighlighterColors
+import uk.co.reecedunn.intellij.plugin.xpath.lang.highlighter.XPathSyntaxHighlighter
+import uk.co.reecedunn.intellij.plugin.xpath.lang.highlighter.XPathSyntaxHighlighterColors
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
 @Suppress("Reformat")

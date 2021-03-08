@@ -12,7 +12,7 @@
     <lang.findUsagesProvider language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.findUsages.XQueryFindUsagesProvider"/>
     <readWriteAccessDetector implementation="uk.co.reecedunn.intellij.plugin.xquery.intellij.codeInsight.highlighting.XQueryReadWriteAccessDetector"/>
 
-    <lang.syntaxHighlighterFactory language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.intellij.lexer.XQuerySyntaxHighlighter$Factory"/>
+    <lang.syntaxHighlighterFactory language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.lang.highlighter.XQuerySyntaxHighlighter$Factory"/>
     <colorSettingsPage implementation="uk.co.reecedunn.intellij.plugin.xquery.intellij.settings.XQueryColorSettingsPage"/>
 
     <lang.braceMatcher language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQueryPairedBraceMatcher"/>
