@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2018-2019 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,20 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xslt.intellij.fileTypes
+package uk.co.reecedunn.intellij.plugin.xpath.lang.fileTypes
 
-import com.intellij.lang.Language
 import com.intellij.openapi.fileTypes.LanguageFileType
-import uk.co.reecedunn.intellij.plugin.xslt.resources.XsltBundle
-import uk.co.reecedunn.intellij.plugin.xslt.resources.XsltIcons
+import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
+import uk.co.reecedunn.intellij.plugin.xpath.resources.XPathBundle
+import uk.co.reecedunn.intellij.plugin.xpath.resources.XPathIcons
 import javax.swing.Icon
 
-class XsltSchemaTypeFileType(language: Language) : LanguageFileType(language) {
-    override fun getName(): String = language.id
+object XPathFileType : LanguageFileType(XPath) {
+    override fun getName(): String = "XPath"
 
-    override fun getDescription(): String = XsltBundle.message("language.schema-types.file-type.description", name)
+    override fun getDescription(): String = XPathBundle.message("xpath.files.filetype.description")
 
-    override fun getDefaultExtension(): String = ""
+    override fun getDefaultExtension(): String = "xpath"
 
-    override fun getIcon(): Icon = XsltIcons.FileType
+    override fun getIcon(): Icon = XPathIcons.FileType
 }

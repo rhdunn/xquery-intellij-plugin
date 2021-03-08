@@ -20,7 +20,7 @@ import com.intellij.openapi.fileTypes.ExtensionFileNameMatcher
 import com.intellij.openapi.fileTypes.FileNameMatcher
 import com.intellij.openapi.fileTypes.LanguageFileType
 import uk.co.reecedunn.intellij.plugin.core.lang.LanguageData
-import uk.co.reecedunn.intellij.plugin.xpath.intellij.fileTypes.XPathFileType
+import uk.co.reecedunn.intellij.plugin.xpath.lang.fileTypes.XPathFileType
 
 /**
  * XML Path Language
