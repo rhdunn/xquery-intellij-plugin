@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.marklogic.lang.configuration
 import com.intellij.execution.configurations.ConfigurationFactory
 import uk.co.reecedunn.intellij.plugin.core.execution.configurations.ConfigurationTypeEx
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.configurations.QueryProcessorConfigurationFactory
-import uk.co.reecedunn.intellij.plugin.marklogic.intellij.lang.SQL
+import uk.co.reecedunn.intellij.plugin.marklogic.lang.SQL
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicIcons
 import javax.swing.Icon
 
