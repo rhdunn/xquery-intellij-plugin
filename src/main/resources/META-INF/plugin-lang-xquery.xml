@@ -22,9 +22,9 @@
     <declarationRangeHandler key="uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl"
                              implementationClass="uk.co.reecedunn.intellij.plugin.xquery.intellij.codeInsight.hint.XQueryFunctionDeclRangeHandler"/>
 
-    <lang.psiStructureViewFactory language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.intellij.ide.structureView.XQueryStructureViewBuilder$Factory"/>
-    <treeStructureProvider implementation="uk.co.reecedunn.intellij.plugin.xquery.intellij.ide.projectView.XQueryTreeStructureProvider"/>
-    <navbar implementation="uk.co.reecedunn.intellij.plugin.xquery.intellij.ide.navigationToolbar.XQueryNavBarModelExtension"/>
+    <lang.psiStructureViewFactory language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.ide.structureView.XQueryStructureViewBuilder$Factory"/>
+    <treeStructureProvider implementation="uk.co.reecedunn.intellij.plugin.xquery.ide.projectView.XQueryTreeStructureProvider"/>
+    <navbar implementation="uk.co.reecedunn.intellij.plugin.xquery.ide.navigationToolbar.XQueryNavBarModelExtension"/>
 
     <completion.contributor language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.completion.XQueryCompletionContributor"/>
     <typedHandler implementation="uk.co.reecedunn.intellij.plugin.xquery.intellij.codeInsight.editorActions.XQueryTypedHandler"/>

@@ -13,14 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.intellij.ide.structureView
+package uk.co.reecedunn.intellij.plugin.xquery.ide.structureView
 
 import com.intellij.ide.structureView.*
 import com.intellij.ide.util.treeView.smartTree.Sorter
 import com.intellij.openapi.editor.Editor
 import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
-import uk.co.reecedunn.intellij.plugin.xquery.ide.structureView.XQueryModuleStructureView
 
 class XQueryStructureViewModel(psiFile: PsiFile, editor: Editor?) :
     StructureViewModelBase(psiFile, editor, XQueryModuleStructureView(psiFile as XQueryModule)) {

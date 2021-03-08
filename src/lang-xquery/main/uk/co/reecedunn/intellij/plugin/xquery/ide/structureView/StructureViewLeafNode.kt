@@ -20,7 +20,6 @@ import com.intellij.ide.structureView.impl.common.PsiTreeElementBase
 import com.intellij.ide.util.treeView.smartTree.SortableTreeElement
 import com.intellij.navigation.ItemPresentation
 import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationEx
-import uk.co.reecedunn.intellij.plugin.xquery.intellij.ide.structureView.XQueryStructureViewElement
 
 class StructureViewLeafNode(leaf: XQueryStructureViewElement) :
     PsiTreeElementBase<XQueryStructureViewElement>(leaf),

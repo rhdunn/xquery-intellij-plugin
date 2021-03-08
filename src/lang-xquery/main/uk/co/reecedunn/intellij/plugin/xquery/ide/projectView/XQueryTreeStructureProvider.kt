@@ -13,14 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.intellij.ide.projectView
+package uk.co.reecedunn.intellij.plugin.xquery.ide.projectView
 
 import com.intellij.ide.projectView.TreeStructureProvider
 import com.intellij.ide.projectView.ViewSettings
 import com.intellij.ide.util.treeView.AbstractTreeNode
 import com.intellij.openapi.project.DumbAware
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
-import uk.co.reecedunn.intellij.plugin.xquery.ide.projectView.XQueryModuleTreeNode
 
 class XQueryTreeStructureProvider : TreeStructureProvider, DumbAware {
     @Suppress("UNCHECKED_CAST", "MoveVariableDeclarationIntoWhen")

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpm.intellij.ide.structureView
+package uk.co.reecedunn.intellij.plugin.xpm.ide.structureView
 
 import com.intellij.ide.structureView.impl.xml.XmlTagTreeElement
 import com.intellij.openapi.util.Iconable

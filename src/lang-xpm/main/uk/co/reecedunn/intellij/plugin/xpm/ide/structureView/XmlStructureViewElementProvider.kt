@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpm.intellij.ide.structureView
+package uk.co.reecedunn.intellij.plugin.xpm.ide.structureView
 
 import com.intellij.ide.structureView.StructureViewTreeElement
 import com.intellij.ide.structureView.xml.XmlStructureViewElementProvider
