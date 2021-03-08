@@ -25,11 +25,11 @@
     <lang.parserDefinition language="xsl:sequence-type" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.SequenceType$ParserDefinition"/>
     <lang.parserDefinition language="xsl:value-template" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.ValueTemplate$ParserDefinition"/>
 
-    <annotator language="EQNames-or-hashed-keywords" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.annotation.SchemaTypeAnnotator"/>
-    <annotator language="xsl:sequence-type" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.annotation.SchemaTypeAnnotator"/>
+    <annotator language="EQNames-or-hashed-keywords" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.lang.highlighter.SchemaTypeAnnotator"/>
+    <annotator language="xsl:sequence-type" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.lang.highlighter.SchemaTypeAnnotator"/>
 
-    <annotator language="EQNames-or-hashed-keywords" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.annotation.MethodKeywordAnnotator"/>
-    <annotator language="xsl:value-template" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.annotation.ValueTemplateAnnotator"/>
+    <annotator language="EQNames-or-hashed-keywords" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.lang.highlighter.MethodKeywordAnnotator"/>
+    <annotator language="xsl:value-template" implementationClass="uk.co.reecedunn.intellij.plugin.xslt.lang.highlighter.ValueTemplateAnnotator"/>
   </extensions>
 
   <extensions defaultExtensionNs="uk.co.reecedunn.intellij">

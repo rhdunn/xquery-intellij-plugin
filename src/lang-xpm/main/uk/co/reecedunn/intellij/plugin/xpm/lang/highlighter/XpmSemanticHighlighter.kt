@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpm.intellij.annotation
+package uk.co.reecedunn.intellij.plugin.xpm.lang.highlighter
 
 import com.intellij.compat.lang.annotation.AnnotationHolder
 import com.intellij.compat.testFramework.registerExtension

@@ -13,32 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xslt.annotation
+package uk.co.reecedunn.intellij.plugin.xslt.lang.highlighter
 
 import com.intellij.compat.lang.annotation.AnnotationHolder
 import com.intellij.compat.lang.annotation.Annotator
 import com.intellij.lang.annotation.HighlightSeverity
-import com.intellij.openapi.editor.XmlHighlighterColors
+import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.psi.PsiElement
 import com.intellij.psi.xml.XmlAttributeValue
 import uk.co.reecedunn.intellij.plugin.core.psi.contextOfType
-import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.core.xml.attribute
-import uk.co.reecedunn.intellij.plugin.core.xml.schemaType
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
+import uk.co.reecedunn.intellij.plugin.xslt.intellij.lexer.XsltSyntaxHighlighterColors
+import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.ValueTemplate
 
-class MethodKeywordAnnotator : Annotator() {
+class ValueTemplateAnnotator : Annotator() {
+    private fun getHighlightType(element: PsiElement): TextAttributesKey? = when (element.elementType) {
+        ValueTemplate.FileElementType -> XsltSyntaxHighlighterColors.XSLT_DIRECTIVE
+        ValueTemplate.ESCAPED_CHARACTER -> XsltSyntaxHighlighterColors.ESCAPED_CHARACTER
+        ValueTemplate.VALUE_CONTENTS -> element.contextOfType<XmlAttributeValue>(false)?.let {
+            XsltSyntaxHighlighterColors.ATTRIBUTE_VALUE
+        }
+        else -> null
+    }
+
     override fun annotateElement(element: PsiElement, holder: AnnotationHolder) {
-        element.children().filterIsInstance<XsQNameValue>().forEach { qname ->
-            if (qname.isLexicalQName && qname.namespace == null) {
-                val attr = element.contextOfType<XmlAttributeValue>(false)?.attribute ?: return
-                if (attr.schemaType == "xsl:method") {
-                    holder.newSilentAnnotation(HighlightSeverity.INFORMATION)
-                        .range(element)
-                        .textAttributes(XmlHighlighterColors.XML_ATTRIBUTE_VALUE)
-                        .create()
-                }
-            }
+        getHighlightType(element)?.let {
+            holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(element).textAttributes(it).create()
         }
     }
 }

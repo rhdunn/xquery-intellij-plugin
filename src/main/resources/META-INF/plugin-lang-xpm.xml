@@ -46,8 +46,8 @@
     </extensionPoint>
 
     <!--suppress PluginXmlValidity -->
-    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.semanticHighlighter" beanClass="uk.co.reecedunn.intellij.plugin.xpm.intellij.annotation.XpmSemanticHighlighterBean" dynamic="true">
-      <with attribute="implementationClass" implements="uk.co.reecedunn.intellij.plugin.xpm.intellij.annotation.XpmSemanticHighlighter"/>
+    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.semanticHighlighter" beanClass="uk.co.reecedunn.intellij.plugin.xpm.lang.highlighter.XpmSemanticHighlighterBean" dynamic="true">
+      <with attribute="implementationClass" implements="uk.co.reecedunn.intellij.plugin.xpm.lang.highlighter.XpmSemanticHighlighter"/>
     </extensionPoint>
   </extensionPoints>
 

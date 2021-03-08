@@ -51,7 +51,7 @@
   </extensions>
 
   <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
-    <semanticHighlighter implementationClass="uk.co.reecedunn.intellij.plugin.xquery.annotation.XQuerySemanticHighlighter" fieldName="INSTANCE"/>
+    <semanticHighlighter implementationClass="uk.co.reecedunn.intellij.plugin.xquery.lang.highlighter.XQuerySemanticHighlighter" fieldName="INSTANCE"/>
 
     <namespaceProvider implementationClass="uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryNamespaceProvider" fieldName="INSTANCE"/>
     <variableProvider implementationClass="uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryVariableProvider" fieldName="INSTANCE"/>

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.tests.annotation
+package uk.co.reecedunn.intellij.plugin.xpath.tests.lang.highlighter
 
 import com.intellij.lang.LanguageASTFactory
 import org.junit.jupiter.api.AfterAll

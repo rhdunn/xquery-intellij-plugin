@@ -9,7 +9,7 @@
 
     <lang.syntaxHighlighterFactory language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.intellij.lexer.XPathSyntaxHighlighter$Factory"/>
     <colorSettingsPage implementation="uk.co.reecedunn.intellij.plugin.xslt.intellij.settings.XPathColorSettingsPage"/>
-    <annotator language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.annotation.QNameAnnotator"/>
+    <annotator language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.lang.highlighter.QNameAnnotator"/>
 
     <lang.foldingBuilder language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.core.lang.foldable.FoldingBuilderImpl"/>
 
@@ -20,6 +20,6 @@
   </extensions>
 
   <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
-    <semanticHighlighter implementationClass="uk.co.reecedunn.intellij.plugin.xpath.annotation.XPathSemanticHighlighter" fieldName="INSTANCE"/>
+    <semanticHighlighter implementationClass="uk.co.reecedunn.intellij.plugin.xpath.lang.highlighter.XPathSemanticHighlighter" fieldName="INSTANCE"/>
   </extensions>
 </idea-plugin>
