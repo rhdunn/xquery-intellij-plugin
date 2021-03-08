@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xslt.intellij.ide
+package uk.co.reecedunn.intellij.plugin.xslt.lang.fileTypes
 
 import com.intellij.ide.FileIconPatcher
 import com.intellij.openapi.project.Project
