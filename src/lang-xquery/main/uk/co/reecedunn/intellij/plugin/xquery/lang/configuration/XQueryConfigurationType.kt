@@ -13,27 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.intellij.execution.configurations.type
+package uk.co.reecedunn.intellij.plugin.xquery.lang.configuration
 
 import com.intellij.execution.configurations.ConfigurationFactory
 import uk.co.reecedunn.intellij.plugin.core.execution.configurations.ConfigurationTypeEx
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.configurations.QueryProcessorConfigurationFactory
-import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
-import uk.co.reecedunn.intellij.plugin.xpath.resources.XPathIcons
+import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryIcons
 import javax.swing.Icon
 
-class XPathConfigurationType : ConfigurationTypeEx {
-    override fun getIcon(): Icon = XPathIcons.RunConfiguration
+class XQueryConfigurationType : ConfigurationTypeEx {
+    override fun getIcon(): Icon = XQueryIcons.RunConfiguration
 
     override fun getConfigurationTypeDescription(): String = displayName
 
-    override fun getId(): String = "XIJPXPathProcessorConfiguration"
+    override fun getId(): String = "XIJPXQueryProcessorConfiguration"
 
-    override fun getDisplayName(): String = "XPath"
+    override fun getDisplayName(): String = "XQuery"
 
     override fun getConfigurationFactories(): Array<ConfigurationFactory> {
-        return arrayOf(QueryProcessorConfigurationFactory(this, XPath))
+        return arrayOf(QueryProcessorConfigurationFactory(this, XQuery))
     }
 
-    override val factoryId: String = "XPath"
+    override val factoryId: String = "XQuery"
 }

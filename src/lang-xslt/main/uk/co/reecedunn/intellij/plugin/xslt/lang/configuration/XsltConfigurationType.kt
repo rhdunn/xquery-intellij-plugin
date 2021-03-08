@@ -13,27 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.marklogic.intellij.execution.configurations.type
+package uk.co.reecedunn.intellij.plugin.xslt.lang.configuration
 
 import com.intellij.execution.configurations.ConfigurationFactory
 import uk.co.reecedunn.intellij.plugin.core.execution.configurations.ConfigurationTypeEx
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.configurations.QueryProcessorConfigurationFactory
-import uk.co.reecedunn.intellij.plugin.marklogic.intellij.lang.SQL
-import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicIcons
+import uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.XSLT
+import uk.co.reecedunn.intellij.plugin.xslt.resources.XsltIcons
 import javax.swing.Icon
 
-class SQLConfigurationType : ConfigurationTypeEx {
-    override fun getIcon(): Icon = MarkLogicIcons.SQL.RunConfiguration
+class XsltConfigurationType : ConfigurationTypeEx {
+    override fun getIcon(): Icon = XsltIcons.RunConfiguration
 
     override fun getConfigurationTypeDescription(): String = displayName
 
-    override fun getId(): String = "XIJPSQLProcessorConfiguration"
+    override fun getId(): String = "XIJPXSLTProcessorConfiguration"
 
-    override fun getDisplayName(): String = "SQL"
+    override fun getDisplayName(): String = "XSLT"
 
     override fun getConfigurationFactories(): Array<ConfigurationFactory> {
-        return arrayOf(QueryProcessorConfigurationFactory(this, SQL))
+        return arrayOf(QueryProcessorConfigurationFactory(this, XSLT))
     }
 
-    override val factoryId: String = "SQL"
+    override val factoryId: String = "XSLT"
 }
