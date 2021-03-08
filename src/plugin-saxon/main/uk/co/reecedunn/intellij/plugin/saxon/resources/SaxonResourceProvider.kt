@@ -13,17 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.marklogic.intellij.javaee
+package uk.co.reecedunn.intellij.plugin.saxon.resources
 
 import com.intellij.javaee.ResourceRegistrar
 import com.intellij.javaee.StandardResourceProvider
 
-class MarkLogicResourceProvider : StandardResourceProvider {
+class SaxonResourceProvider : StandardResourceProvider {
     companion object {
-        private const val XDMP_NAMESPACE = "http://marklogic.com/xdmp"
+        private const val SAXON_NAMESPACE = "http://saxon.sf.net/"
+        private const val SAXON6_NAMESPACE = "http://icl.com/saxon"
     }
 
     override fun registerResources(registrar: ResourceRegistrar?) {
-        registrar!!.addStdResource(XDMP_NAMESPACE, "/schemas/xdmp.xsd", MarkLogicResourceProvider::class.java)
+        registrar!!.addStdResource(SAXON_NAMESPACE, "/schemas/saxon-xslt.xsd", SaxonResourceProvider::class.java)
+        registrar.addStdResource(SAXON6_NAMESPACE, "/schemas/saxon6-xslt.xsd", SaxonResourceProvider::class.java)
     }
 }

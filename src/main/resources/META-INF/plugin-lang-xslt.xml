@@ -2,9 +2,9 @@
   <extensions defaultExtensionNs="com.intellij">
     <fileIconPatcher implementation="uk.co.reecedunn.intellij.plugin.xslt.intellij.ide.XsltFileIconPatcher"/>
 
-    <standardResourceProvider implementation="uk.co.reecedunn.intellij.plugin.xslt.intellij.javaee.XsltResourceProvider"/>
-    <standardResourceProvider implementation="uk.co.reecedunn.intellij.plugin.marklogic.intellij.javaee.MarkLogicResourceProvider"/>
-    <standardResourceProvider implementation="uk.co.reecedunn.intellij.plugin.saxon.intellij.javaee.SaxonResourceProvider"/>
+    <standardResourceProvider implementation="uk.co.reecedunn.intellij.plugin.xslt.resources.XsltResourceProvider"/>
+    <standardResourceProvider implementation="uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicResourceProvider"/>
+    <standardResourceProvider implementation="uk.co.reecedunn.intellij.plugin.saxon.resources.SaxonResourceProvider"/>
 
     <multiHostInjector implementation="uk.co.reecedunn.intellij.plugin.xslt.intellij.lang.injection.XsltSchemaTypeLanguageInjection"/>
 
