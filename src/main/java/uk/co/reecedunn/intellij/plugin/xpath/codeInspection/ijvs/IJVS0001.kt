@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.existdb.lang.EXistDB as EXistDBProduct
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryPluginBundle
-import uk.co.reecedunn.intellij.plugin.xquery.intellij.settings.XQueryProjectSettings
+import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSettings
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformanceName
 import uk.co.reecedunn.intellij.plugin.saxon.lang.SaxonEE
 import uk.co.reecedunn.intellij.plugin.saxon.lang.SaxonHE

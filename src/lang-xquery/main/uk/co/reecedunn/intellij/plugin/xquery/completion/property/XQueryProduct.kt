@@ -19,7 +19,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProperty
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Product
-import uk.co.reecedunn.intellij.plugin.xquery.intellij.settings.XQueryProjectSettings
+import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSettings
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathCompletionProperty
 
 object XQueryProduct : CompletionProperty {

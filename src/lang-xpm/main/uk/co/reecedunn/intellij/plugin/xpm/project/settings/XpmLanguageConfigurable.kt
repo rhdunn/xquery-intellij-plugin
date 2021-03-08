@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpm.intellij.settings
+package uk.co.reecedunn.intellij.plugin.xpm.project.settings
 
 import com.intellij.openapi.options.Configurable
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.panel

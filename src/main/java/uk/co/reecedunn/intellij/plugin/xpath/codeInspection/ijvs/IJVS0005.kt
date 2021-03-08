@@ -31,7 +31,7 @@ import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.ScriptingSpec
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryPluginBundle
-import uk.co.reecedunn.intellij.plugin.xquery.intellij.settings.XQueryProjectSettings
+import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSettings
 
 class IJVS0005 : Inspection("ijvs/IJVS0005.md", IJVS0005::class.java.classLoader) {
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {

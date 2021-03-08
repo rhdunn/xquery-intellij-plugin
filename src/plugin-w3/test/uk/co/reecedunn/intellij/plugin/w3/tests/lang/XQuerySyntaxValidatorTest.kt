@@ -32,7 +32,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
-import uk.co.reecedunn.intellij.plugin.xquery.intellij.settings.XQueryProjectSettings
+import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSettings
 import uk.co.reecedunn.intellij.plugin.w3.lang.W3CSpecifications
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
