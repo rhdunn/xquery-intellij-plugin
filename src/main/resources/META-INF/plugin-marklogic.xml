@@ -8,7 +8,7 @@
 
     <!-- XRay Unit Tests -->
     <projectService serviceImplementation="uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestService"/>
-    <configurationType implementation="uk.co.reecedunn.intellij.plugin.marklogic.intellij.execution.configurations.type.XRayTestConfigurationType"/>
+    <configurationType implementation="uk.co.reecedunn.intellij.plugin.marklogic.xray.configuration.XRayTestConfigurationType"/>
     <runConfigurationProducer implementation="uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestRunConfigurationProducer"/>
     <runLineMarkerContributor language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestRunLineMarkerProvider"/>
 
