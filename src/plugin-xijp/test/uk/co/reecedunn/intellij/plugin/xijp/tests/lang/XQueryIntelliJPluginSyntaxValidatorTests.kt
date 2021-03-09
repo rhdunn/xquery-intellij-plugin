@@ -30,7 +30,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.xijp.lang.XQueryIntelliJPlugin
 import uk.co.reecedunn.intellij.plugin.xijp.lang.XQueryIntelliJPluginSyntaxValidator
 import uk.co.reecedunn.intellij.plugin.xijp.lang.XQueryIntelliJPluginVersion
-import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
+import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory

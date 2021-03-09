@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xslt.schema
 
 import com.intellij.lang.Language
 import uk.co.reecedunn.intellij.plugin.xdm.schema.ISchemaType
-import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
+import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath
 
 object XslExpression : ISchemaType {
     override val type: String = "xsl:expression"

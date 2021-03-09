@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.intellij.lang
 
 import com.intellij.lang.Language
-import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
+import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmLanguageVersion
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuerySpec
 

@@ -30,7 +30,7 @@ abstract class AnnotatorTestCase : AnnotatorTestCase<XPath>("xqy", XPathParserDe
     override fun setUp() {
         super.setUp()
         addExplicitExtension(
-            LanguageASTFactory.INSTANCE, uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath, XPathASTFactory()
+            LanguageASTFactory.INSTANCE, uk.co.reecedunn.intellij.plugin.xpath.lang.XPath, XPathASTFactory()
         )
         registerExtensions()
     }

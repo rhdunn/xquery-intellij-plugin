@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.saxon.query.s9api
 import com.intellij.execution.executors.DefaultRunExecutor
 import com.intellij.lang.Language
 import com.intellij.navigation.ItemPresentation
-import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
+import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xslt.lang.XSLT
 import uk.co.reecedunn.intellij.plugin.saxon.resources.SaxonIcons

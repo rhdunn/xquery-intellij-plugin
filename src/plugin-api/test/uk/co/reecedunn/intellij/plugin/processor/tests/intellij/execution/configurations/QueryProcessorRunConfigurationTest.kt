@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.lang.configuration.XPathConfigurationType
 import uk.co.reecedunn.intellij.plugin.processor.intellij.lang.Turtle
-import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
+import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.configurations.QueryProcessorDataSourceType
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.configurations.QueryProcessorRunConfiguration

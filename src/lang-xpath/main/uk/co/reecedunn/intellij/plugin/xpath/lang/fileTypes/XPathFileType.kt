@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpath.lang.fileTypes
 
 import com.intellij.openapi.fileTypes.LanguageFileType
-import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPath
+import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.resources.XPathBundle
 import uk.co.reecedunn.intellij.plugin.xpath.resources.XPathIcons
 import javax.swing.Icon
