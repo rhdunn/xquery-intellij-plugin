@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.intellij.ui.breadcrumbs
 
 import com.intellij.compat.util.ui.UIUtil.makeTransparent
 import com.intellij.xml.breadcrumbs.DefaultCrumbsPresentation
-import uk.co.reecedunn.intellij.plugin.xquery.intellij.codeInsight.highlighting.toLineMarkerColor
+import uk.co.reecedunn.intellij.plugin.xquery.lang.highlighter.xml.toLineMarkerColor
 import java.awt.Color
 
 class ColoredCrumbPresentation(private val color: Color?) : DefaultCrumbsPresentation() {

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.intellij.codeInsight.highlighting
+package uk.co.reecedunn.intellij.plugin.xquery.lang.highlighter.xml
 
 import com.intellij.application.options.editor.WebEditorOptions
 import com.intellij.codeHighlighting.TextEditorHighlightingPass
@@ -33,8 +33,8 @@ import com.intellij.psi.PsiFile
 import com.intellij.xml.breadcrumbs.BreadcrumbsUtilEx
 import com.intellij.xml.breadcrumbs.PsiFileBreadcrumbsCollector.getLinePsiElements
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
-import uk.co.reecedunn.intellij.plugin.xquery.intellij.codeInsight.highlighting.XQueryElemTagRangesProvider.getElementAtOffset
-import uk.co.reecedunn.intellij.plugin.xquery.intellij.codeInsight.highlighting.XQueryElemTagRangesProvider.getElementTagRanges
+import uk.co.reecedunn.intellij.plugin.xquery.lang.highlighter.xml.XQueryElemTagRangesProvider.getElementAtOffset
+import uk.co.reecedunn.intellij.plugin.xquery.lang.highlighter.xml.XQueryElemTagRangesProvider.getElementTagRanges
 import java.awt.Color
 import java.awt.Font
 

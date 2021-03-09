@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.intellij.codeInsight.highlighting
+package uk.co.reecedunn.intellij.plugin.xquery.lang.highlighter.xml
 
 import com.intellij.codeHighlighting.*
 import com.intellij.openapi.editor.Editor
