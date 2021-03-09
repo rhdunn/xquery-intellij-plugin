@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.tests.intellij.lang
+package uk.co.reecedunn.intellij.plugin.xpath.tests.lang.refactoring
 
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.refactoring.XPathNamesValidator
+import uk.co.reecedunn.intellij.plugin.xpath.lang.refactoring.XPathNamesValidator
 
 @DisplayName("IntelliJ - Custom Language Support - Rename Refactoring - Names Validator")
 class XPathNamesValidatorTest {

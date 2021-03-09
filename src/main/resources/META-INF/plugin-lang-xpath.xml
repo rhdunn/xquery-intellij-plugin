@@ -3,7 +3,7 @@
     <lang.ast.factory language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory"/>
     <lang.parserDefinition language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition"/>
 
-    <lang.namesValidator language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.refactoring.XPathNamesValidator"/>
+    <lang.namesValidator language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.lang.refactoring.XPathNamesValidator"/>
 
     <lang.findUsagesProvider language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.lang.findUsages.XPathFindUsagesProvider"/>
 
