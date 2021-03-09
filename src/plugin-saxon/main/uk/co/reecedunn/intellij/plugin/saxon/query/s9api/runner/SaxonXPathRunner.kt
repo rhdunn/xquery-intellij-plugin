@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2020 Reece H. Dunn
+ * Copyright (C) 2019-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,8 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModuleUri
 
 internal class SaxonXPathRunner(
     val processor: Processor,
-    val query: String,
-    private val queryFile: VirtualFile
+    private val query: VirtualFile
 ) : RunnableQuery, ValidatableQuery, StoppableQuery, SaxonRunner {
     // region XPath Runner
 
@@ -47,8 +46,8 @@ internal class SaxonXPathRunner(
 
     private val executable by lazy {
         when (xpathSubset) {
-            XPathSubset.XsltPattern -> compiler.compilePattern(query)
-            else -> compiler.compile(query)
+            XPathSubset.XsltPattern -> compiler.compilePattern(query.decode()!!)
+            else -> compiler.compile(query.decode()!!)
         }
     }
 
@@ -71,13 +70,13 @@ internal class SaxonXPathRunner(
 
     private var context: XdmItem? = null
 
-    override fun bindVariable(name: String, value: Any?, type: String?) = check(queryFile, processor.classLoader) {
+    override fun bindVariable(name: String, value: Any?, type: String?) = check(query, processor.classLoader) {
         val qname = op_qname_parse(name, SAXON_NAMESPACES).toQName(processor.classLoader)
         selector.setVariable(qname, XdmValue.newInstance(value, type ?: "xs:string", processor))
     }
 
     @Suppress("DuplicatedCode")
-    override fun bindContextItem(value: Any?, type: String?): Unit = check(queryFile, processor.classLoader) {
+    override fun bindContextItem(value: Any?, type: String?): Unit = check(query, processor.classLoader) {
         context = when (value) {
             is XpmModuleUri -> XdmItem.newInstance(value.path, type ?: "xs:string", processor)
             is VirtualFile -> XdmItem.newInstance(value.decode()!!, type ?: "xs:string", processor)
@@ -90,7 +89,7 @@ internal class SaxonXPathRunner(
 
     override var traceListener: SaxonTraceListener? = null
 
-    override fun asSequence(): Sequence<QueryResult> = check(queryFile, processor.classLoader) {
+    override fun asSequence(): Sequence<QueryResult> = check(query, processor.classLoader) {
         context?.let { selector.setContextItem(it) }
         SaxonQueryResultIterator(selector.iterator(), processor).asSequence()
     }
@@ -110,7 +109,7 @@ internal class SaxonXPathRunner(
 
     override fun validate(): QueryError? {
         return try {
-            check(queryFile, processor.classLoader) { executable } // Compile the query.
+            check(query, processor.classLoader) { executable } // Compile the query.
             null
         } catch (e: QueryError) {
             e

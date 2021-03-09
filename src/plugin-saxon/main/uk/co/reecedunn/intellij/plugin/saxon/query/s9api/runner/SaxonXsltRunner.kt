@@ -37,12 +37,11 @@ import javax.xml.transform.dom.DOMSource
 
 internal class SaxonXsltRunner(
     val processor: Processor,
-    val query: String,
-    private val queryFile: VirtualFile
+    private val query: VirtualFile
 ) : RunnableQuery, ValidatableQuery, StoppableQuery, SaxonRunner {
     // region XSLT Runner
 
-    private val errorListener = SaxonErrorListener(queryFile, processor.classLoader)
+    private val errorListener = SaxonErrorListener(query, processor.classLoader)
 
     private val compiler by lazy {
         if (traceListener == null) {
@@ -55,7 +54,7 @@ internal class SaxonXsltRunner(
         ret
     }
 
-    private val executable by lazy { compiler.compile(query.toStreamSource()) }
+    private val executable by lazy { compiler.compile(query.toStreamSource()!!) }
 
     private val transformer by lazy { executable.load() }
 
@@ -76,12 +75,12 @@ internal class SaxonXsltRunner(
 
     private var context: Source? = null
 
-    override fun bindVariable(name: String, value: Any?, type: String?) = check(queryFile, processor.classLoader) {
+    override fun bindVariable(name: String, value: Any?, type: String?) = check(query, processor.classLoader) {
         val qname = op_qname_parse(name, SAXON_NAMESPACES).toQName(processor.classLoader)
         transformer.setParameter(qname, XdmValue.newInstance(value, type ?: "xs:string", processor))
     }
 
-    override fun bindContextItem(value: Any?, type: String?): Unit = check(queryFile, processor.classLoader) {
+    override fun bindContextItem(value: Any?, type: String?): Unit = check(query, processor.classLoader) {
         context = when (value) {
             is XpmModuleUri -> value.path.toStreamSource()
             is VirtualFile -> value.toStreamSource()
@@ -97,7 +96,7 @@ internal class SaxonXsltRunner(
 
     override var traceListener: SaxonTraceListener? = null
 
-    override fun asSequence(): Sequence<QueryResult> = check(queryFile, processor.classLoader, errorListener) {
+    override fun asSequence(): Sequence<QueryResult> = check(query, processor.classLoader, errorListener) {
         if (context == null) {
             // The Saxon processor throws a NPE if source is null.
             val message = PluginApiBundle.message("error.missing-xslt-source")
@@ -129,7 +128,7 @@ internal class SaxonXsltRunner(
 
     override fun validate(): QueryError? {
         return try {
-            check(queryFile, processor.classLoader) { executable } // Compile the query.
+            check(query, processor.classLoader) { executable } // Compile the query.
             null
         } catch (e: QueryError) {
             e

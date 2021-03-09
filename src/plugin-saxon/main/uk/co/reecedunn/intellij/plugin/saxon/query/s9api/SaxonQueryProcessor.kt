@@ -19,7 +19,6 @@ import com.intellij.lang.Language
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationImpl
-import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xslt.lang.XSLT
@@ -87,14 +86,11 @@ internal class SaxonQueryProcessor(
     // endregion
     // region RunnableQueryProvider
 
-    override fun createRunnableQuery(query: VirtualFile, language: Language): RunnableQuery {
-        val queryText = query.decode()!!
-        return when (language) {
-            XPath -> SaxonXPathRunner(processor, queryText, query)
-            XQuery -> SaxonXQueryRunner(processor, queryText, query)
-            XSLT -> SaxonXsltRunner(processor, queryText, query)
-            else -> throw UnsupportedQueryType(language)
-        }
+    override fun createRunnableQuery(query: VirtualFile, language: Language): RunnableQuery = when (language) {
+        XPath -> SaxonXPathRunner(processor, query)
+        XQuery -> SaxonXQueryRunner(processor, query)
+        XSLT -> SaxonXsltRunner(processor, query)
+        else -> throw UnsupportedQueryType(language)
     }
 
     // endregion
@@ -109,14 +105,11 @@ internal class SaxonQueryProcessor(
     // endregion
     // region ValidatableQueryProvider
 
-    override fun createValidatableQuery(query: VirtualFile, language: Language): ValidatableQuery {
-        val queryText = query.decode()!!
-        return when (language) {
-            XPath -> SaxonXPathRunner(processor, queryText, query)
-            XQuery -> SaxonXQueryRunner(processor, queryText, query)
-            XSLT -> SaxonXsltRunner(processor, queryText, query)
-            else -> throw UnsupportedQueryType(language)
-        }
+    override fun createValidatableQuery(query: VirtualFile, language: Language): ValidatableQuery = when (language) {
+        XPath -> SaxonXPathRunner(processor, query)
+        XQuery -> SaxonXQueryRunner(processor, query)
+        XSLT -> SaxonXsltRunner(processor, query)
+        else -> throw UnsupportedQueryType(language)
     }
 
     // endregion
