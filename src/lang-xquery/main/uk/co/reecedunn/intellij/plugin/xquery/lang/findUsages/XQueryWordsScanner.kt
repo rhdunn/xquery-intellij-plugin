@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.cacheBuilder
+package uk.co.reecedunn.intellij.plugin.xquery.lang.findUsages
 
 import com.intellij.lang.cacheBuilder.WordOccurrence
 import com.intellij.util.Processor
-import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.cacheBuilder.XPathWordsScanner
+import uk.co.reecedunn.intellij.plugin.xpath.lang.findUsages.XPathWordsScanner
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.*
 

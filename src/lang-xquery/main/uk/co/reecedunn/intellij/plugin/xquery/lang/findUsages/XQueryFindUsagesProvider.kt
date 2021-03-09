@@ -20,7 +20,6 @@ import com.intellij.lang.cacheBuilder.WordsScanner
 import com.intellij.lang.findUsages.FindUsagesProvider
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiNamedElement
-import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.cacheBuilder.XQueryWordsScanner
 import uk.co.reecedunn.intellij.plugin.xpath.model.getUsageType
 
 class XQueryFindUsagesProvider : FindUsagesProvider {

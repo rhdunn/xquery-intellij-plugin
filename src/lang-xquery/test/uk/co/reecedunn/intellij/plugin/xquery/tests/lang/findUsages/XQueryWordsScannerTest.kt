@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Reece H. Dunn
+ * Copyright (C) 2016-2018 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.tests.intellij.lang.cacheBuilder
+package uk.co.reecedunn.intellij.plugin.xquery.tests.lang.findUsages
 
 import com.intellij.lang.cacheBuilder.WordOccurrence
 import com.intellij.openapi.util.Pair
@@ -23,12 +23,12 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.cacheBuilder.WordOccurrences
-import uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.cacheBuilder.XPathWordsScanner
+import uk.co.reecedunn.intellij.plugin.xquery.lang.findUsages.XQueryWordsScanner
 
-@DisplayName("IntelliJ - Custom Language Support - Find Usages - XPath WordsScanner")
-class XPathWordsScannerTest {
+@DisplayName("IntelliJ - Custom Language Support - Find Usages - XQuery WordsScanner")
+class XQueryWordsScannerTest {
     private fun scanWords(text: CharSequence): List<Pair<WordOccurrence.Kind, CharSequence>> {
-        val scanner = XPathWordsScanner()
+        val scanner = XQueryWordsScanner()
         val occurrences = WordOccurrences()
         scanner.processWords(text, occurrences)
         return occurrences.wordOccurrences
@@ -44,7 +44,7 @@ class XPathWordsScannerTest {
     }
 
     @Test
-    @DisplayName("XPath 3.1 EBNF (113) IntegerLiteral")
+    @DisplayName("XQuery 3.1 EBNF (219) IntegerLiteral")
     fun testIntegerLiteral() {
         val testCase = "1234 56789"
         val occurrences = scanWords(testCase)
@@ -54,7 +54,7 @@ class XPathWordsScannerTest {
     }
 
     @Test
-    @DisplayName("XPath 3.1 EBNF (114) DecimalLiteral")
+    @DisplayName("XQuery 3.1 EBNF (220) DecimalLiteral")
     fun testDecimalLiteral() {
         val testCase = "1.25 2.4"
         val occurrences = scanWords(testCase)
@@ -64,7 +64,7 @@ class XPathWordsScannerTest {
     }
 
     @Test
-    @DisplayName("XPath 3.1 EBNF (115) DoubleLiteral")
+    @DisplayName("XQuery 3.1 EBNF (221) DoubleLiteral")
     fun testDoubleLiteral() {
         val testCase = "3e5 2e8"
         val occurrences = scanWords(testCase)
@@ -74,7 +74,7 @@ class XPathWordsScannerTest {
     }
 
     @Nested
-    @DisplayName("XPath 3.1 EBNF (123) NCName")
+    @DisplayName("XQuery 3.1 EBNF (235) NCName")
     internal inner class NCName {
         @Test
         @DisplayName("keywords")
@@ -128,7 +128,7 @@ class XPathWordsScannerTest {
     }
 
     @Test
-    @DisplayName("XPath 3.1 EBNF (126) CommentContents")
+    @DisplayName("XQuery 3.1 EBNF (239) CommentContents")
     fun testXQueryComment() {
         val testCase = "(: Lorem ipsum dolor :)"
         val occurrences = scanWords(testCase)
@@ -139,7 +139,18 @@ class XPathWordsScannerTest {
     }
 
     @Test
-    @DisplayName("XPath 3.1 EBNF (116) StringLiteral")
+    @DisplayName("XQuery 3.1 EBNF (150) DirCommentContents")
+    fun testXmlComment() {
+        val testCase = "<!-- Lorem ipsum dolor -->"
+        val occurrences = scanWords(testCase)
+        assertThat(occurrences.size, `is`(3))
+        match(occurrences[0], WordOccurrence.Kind.COMMENTS, "Lorem")
+        match(occurrences[1], WordOccurrence.Kind.COMMENTS, "ipsum")
+        match(occurrences[2], WordOccurrence.Kind.COMMENTS, "dolor")
+    }
+
+    @Test
+    @DisplayName("XQuery 3.1 EBNF (222) StringLiteral")
     fun testStringLiteral() {
         val testCase = "\"Lorem ipsum dolor\""
         val occurrences = scanWords(testCase)
@@ -147,5 +158,44 @@ class XPathWordsScannerTest {
         match(occurrences[0], WordOccurrence.Kind.LITERALS, "Lorem")
         match(occurrences[1], WordOccurrence.Kind.LITERALS, "ipsum")
         match(occurrences[2], WordOccurrence.Kind.LITERALS, "dolor")
+    }
+
+    @Test
+    @DisplayName("XQuery 3.1 EBNF (229) QuotAttrContentChar")
+    fun testQuotAttrContentChar() {
+        val testCase = "<test value=\"Lorem ipsum dolor\"/>"
+        val occurrences = scanWords(testCase)
+        assertThat(occurrences.size, `is`(5))
+        match(occurrences[0], WordOccurrence.Kind.CODE, "test")
+        match(occurrences[1], WordOccurrence.Kind.CODE, "value")
+        match(occurrences[2], WordOccurrence.Kind.LITERALS, "Lorem")
+        match(occurrences[3], WordOccurrence.Kind.LITERALS, "ipsum")
+        match(occurrences[4], WordOccurrence.Kind.LITERALS, "dolor")
+    }
+
+    @Test
+    @DisplayName("XQuery 3.1 EBNF (230) AposAttrContentChar")
+    fun testAposAttrContentChar() {
+        val testCase = "<test value='Lorem ipsum dolor'/>"
+        val occurrences = scanWords(testCase)
+        assertThat(occurrences.size, `is`(5))
+        match(occurrences[0], WordOccurrence.Kind.CODE, "test")
+        match(occurrences[1], WordOccurrence.Kind.CODE, "value")
+        match(occurrences[2], WordOccurrence.Kind.LITERALS, "Lorem")
+        match(occurrences[3], WordOccurrence.Kind.LITERALS, "ipsum")
+        match(occurrences[4], WordOccurrence.Kind.LITERALS, "dolor")
+    }
+
+    @Test
+    @DisplayName("XQuery 3.1 EBNF (228) ElementContentChar")
+    fun testDirElemContent() {
+        val testCase = "<test>Lorem ipsum dolor</test>"
+        val occurrences = scanWords(testCase)
+        assertThat(occurrences.size, `is`(5))
+        match(occurrences[0], WordOccurrence.Kind.CODE, "test")
+        match(occurrences[1], WordOccurrence.Kind.LITERALS, "Lorem")
+        match(occurrences[2], WordOccurrence.Kind.LITERALS, "ipsum")
+        match(occurrences[3], WordOccurrence.Kind.LITERALS, "dolor")
+        match(occurrences[4], WordOccurrence.Kind.CODE, "test")
     }
 }
