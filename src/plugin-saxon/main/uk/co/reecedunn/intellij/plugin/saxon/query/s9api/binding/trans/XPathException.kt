@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019, 2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,14 +20,14 @@ import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.om.StructuredQN
 import javax.xml.transform.SourceLocator
 import javax.xml.transform.TransformerException
 
-class XPathException(private val `object`: TransformerException?, private val `class`: Class<*>) :
-    TransformerException(`object`?.message) {
+class XPathException(private val `object`: TransformerException, private val `class`: Class<*>) :
+    TransformerException(`object`.message) {
 
-    override fun getLocator(): SourceLocator? = `object`?.locator
+    override fun getLocator(): SourceLocator? = `object`.locator
 
     override fun getException(): Throwable? = cause
 
-    override val cause: Throwable? = `object`?.cause
+    override val cause: Throwable? = `object`.cause
 
     fun getErrorCodeQName(): QName? {
         if (`class`.isInstance(`object`)) {
