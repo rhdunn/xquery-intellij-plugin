@@ -121,7 +121,7 @@ class QueryProcessorComboBox(private val project: Project) {
                         updatedSelection = true
                     }
                 }
-                if (!updatedSelection) {
+                if (!updatedSelection && it.itemCount > 0) {
                     // Ensure the action listeners get called.
                     it.selectedIndex = 0
                 }
