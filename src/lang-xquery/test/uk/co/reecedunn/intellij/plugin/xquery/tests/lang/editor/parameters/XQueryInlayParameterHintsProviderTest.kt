@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.tests.intellij.codeInsight.hints
+package uk.co.reecedunn.intellij.plugin.xquery.tests.lang.editor.parameters
 
 import com.intellij.openapi.extensions.PluginId
 import org.hamcrest.CoreMatchers.*
@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
-import uk.co.reecedunn.intellij.plugin.xpath.intellij.codeInsight.hints.XPathInlayParameterHintsProvider
+import uk.co.reecedunn.intellij.plugin.xpath.lang.editor.parameters.XPathInlayParameterHintsProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryFunctionProvider

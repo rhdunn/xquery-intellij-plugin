@@ -36,7 +36,7 @@
     <breadcrumbsInfoProvider implementation="uk.co.reecedunn.intellij.plugin.xquery.intellij.ui.breadcrumbs.XQueryBreadcrumbProvider"/>
     <breadcrumbsPresentationProvider implementation="uk.co.reecedunn.intellij.plugin.xquery.intellij.ui.breadcrumbs.XQueryBreadcrumbsPresentationProvider"/>
 
-    <codeInsight.parameterNameHints language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.intellij.codeInsight.hints.XPathInlayParameterHintsProvider"/>
+    <codeInsight.parameterNameHints language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.lang.editor.parameters.XPathInlayParameterHintsProvider"/>
 
     <spellchecker.support language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.lang.spellchecker.XQuerySpellcheckingStrategy"/>
     <spellchecker.bundledDictionaryProvider implementation="uk.co.reecedunn.intellij.plugin.xquery.lang.spellchecker.XQueryBundledDictionaryProvider"/>
