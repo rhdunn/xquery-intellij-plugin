@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2020 Reece H. Dunn
+ * Copyright (C) 2019-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,6 @@ package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.runner
 import com.intellij.lang.Language
 import com.intellij.openapi.vfs.VirtualFile
 import org.w3c.dom.Node
-import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.core.xml.toStreamSource
@@ -85,7 +84,7 @@ internal class SaxonXsltRunner(
     override fun bindContextItem(value: Any?, type: String?): Unit = check(queryFile, processor.classLoader) {
         context = when (value) {
             is XpmModuleUri -> value.path.toStreamSource()
-            is VirtualFile -> value.decode()?.toStreamSource()
+            is VirtualFile -> value.toStreamSource()
             is XmlDocument -> DOMSource(value.doc)
             is XmlElement -> DOMSource(value.element)
             is Node -> DOMSource(value)
