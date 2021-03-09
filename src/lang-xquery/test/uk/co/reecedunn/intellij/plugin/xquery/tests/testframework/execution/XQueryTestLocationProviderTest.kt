@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.tests.intellij.execution.testframework
+package uk.co.reecedunn.intellij.plugin.xquery.tests.testframework.execution
 
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.xquery.intellij.execution.testframework.XQueryTestLocationProvider
+import uk.co.reecedunn.intellij.plugin.xquery.testframework.execution.XQueryTestLocationProvider
 
 @DisplayName("IntelliJ - Custom Language Support - Documentation Provider - XQuery")
 class XQueryTestLocationProviderTest {

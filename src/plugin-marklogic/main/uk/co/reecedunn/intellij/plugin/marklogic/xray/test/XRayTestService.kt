@@ -33,7 +33,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryLibraryModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModuleDecl
-import uk.co.reecedunn.intellij.plugin.xquery.intellij.execution.testframework.XQueryTestLocationProvider
+import uk.co.reecedunn.intellij.plugin.xquery.testframework.execution.XQueryTestLocationProvider
 
 class XRayTestService(private val project: Project) {
     private val cachedXrayRootDir = ModificationTrackedProperty<ProjectRootManager, VirtualFile> {

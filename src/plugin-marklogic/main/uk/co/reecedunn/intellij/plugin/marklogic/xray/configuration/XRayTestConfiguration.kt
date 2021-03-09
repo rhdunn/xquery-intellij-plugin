@@ -37,7 +37,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
 import uk.co.reecedunn.intellij.plugin.processor.test.TestFormat
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurations
-import uk.co.reecedunn.intellij.plugin.xquery.intellij.execution.testframework.XQueryTestLocationProvider
+import uk.co.reecedunn.intellij.plugin.xquery.testframework.execution.XQueryTestLocationProvider
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 
 class XRayTestConfiguration(project: Project, factory: ConfigurationFactory) :

@@ -19,7 +19,7 @@ import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.process.ProcessOutputType
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.testframework.TestProcessListener
 import uk.co.reecedunn.intellij.plugin.processor.test.*
-import uk.co.reecedunn.intellij.plugin.xquery.intellij.execution.testframework.XQueryTestLocationProvider
+import uk.co.reecedunn.intellij.plugin.xquery.testframework.execution.XQueryTestLocationProvider
 
 class XRayTestProcessListener(processHandler: ProcessHandler, outputFormat: TestFormat) :
     TestProcessListener(processHandler, outputFormat, XQueryTestLocationProvider) {
