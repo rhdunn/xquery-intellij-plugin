@@ -20,7 +20,7 @@
     <lang.foldingBuilder language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.core.editor.folding.FoldingBuilderImpl"/>
 
     <declarationRangeHandler key="uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl"
-                             implementationClass="uk.co.reecedunn.intellij.plugin.xquery.intellij.codeInsight.hint.XQueryFunctionDeclRangeHandler"/>
+                             implementationClass="uk.co.reecedunn.intellij.plugin.xquery.lang.editor.declaration.XQueryFunctionDeclRangeHandler"/>
 
     <lang.psiStructureViewFactory language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.ide.structureView.XQueryStructureViewBuilder$Factory"/>
     <treeStructureProvider implementation="uk.co.reecedunn.intellij.plugin.xquery.ide.projectView.XQueryTreeStructureProvider"/>
