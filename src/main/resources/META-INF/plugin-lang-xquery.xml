@@ -15,8 +15,8 @@
     <lang.syntaxHighlighterFactory language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.lang.highlighter.XQuerySyntaxHighlighter$Factory"/>
     <colorSettingsPage implementation="uk.co.reecedunn.intellij.plugin.xquery.lang.highlighter.XQueryColorSettingsPage"/>
 
-    <lang.braceMatcher language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQueryPairedBraceMatcher"/>
-    <lang.commenter language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQueryCommenter"/>
+    <lang.braceMatcher language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.lang.editor.XQueryPairedBraceMatcher"/>
+    <lang.commenter language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.lang.editor.XQueryCommenter"/>
     <lang.foldingBuilder language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.core.editor.folding.FoldingBuilderImpl"/>
 
     <declarationRangeHandler key="uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl"
