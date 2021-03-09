@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.tests.intellij.ui
+package uk.co.reecedunn.intellij.plugin.xquery.tests.lang.editor.breadcrumbs
 
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.PsiElement
@@ -21,7 +21,7 @@ import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
-import uk.co.reecedunn.intellij.plugin.xquery.intellij.ui.breadcrumbs.XQueryBreadcrumbProvider
+import uk.co.reecedunn.intellij.plugin.xquery.lang.editor.breadcrumbs.XQueryBreadcrumbProvider
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase

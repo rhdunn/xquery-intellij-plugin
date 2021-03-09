@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.intellij.ui.breadcrumbs
+package uk.co.reecedunn.intellij.plugin.xquery.lang.editor.breadcrumbs
 
 import com.intellij.psi.PsiElement
 import com.intellij.xml.breadcrumbs.BreadcrumbsPresentationProvider
