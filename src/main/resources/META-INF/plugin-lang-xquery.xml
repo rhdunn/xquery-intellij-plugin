@@ -27,7 +27,7 @@
     <navbar implementation="uk.co.reecedunn.intellij.plugin.xquery.ide.navigationToolbar.XQueryNavBarModelExtension"/>
 
     <completion.contributor language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.completion.XQueryCompletionContributor"/>
-    <typedHandler implementation="uk.co.reecedunn.intellij.plugin.xquery.intellij.codeInsight.editorActions.XQueryTypedHandler"/>
+    <typedHandler implementation="uk.co.reecedunn.intellij.plugin.xquery.completion.XQueryTypedHandler"/>
     <codeInsight.parameterInfo language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPathParameterInfoHandler" />
 
     <lang.documentationProvider language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.intellij.documentation.XQueryDocumentationProvider"/>

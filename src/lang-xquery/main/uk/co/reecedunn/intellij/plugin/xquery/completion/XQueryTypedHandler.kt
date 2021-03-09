@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.intellij.codeInsight.editorActions
+package uk.co.reecedunn.intellij.plugin.xquery.completion
 
 import com.intellij.codeInsight.AutoPopupController
 import com.intellij.codeInsight.editorActions.TypedHandlerDelegate
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiFile
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 
-class XPathTypedHandler : TypedHandlerDelegate() {
+class XQueryTypedHandler : TypedHandlerDelegate() {
     override fun checkAutoPopup(charTyped: Char, project: Project, editor: Editor, file: PsiFile): Result {
-        if (file !is XPath) return Result.CONTINUE
+        if (file !is XQueryModule) return Result.CONTINUE
 
         if (charTyped == '$' || charTyped == ':') {
             AutoPopupController.getInstance(project).autoPopupMemberLookup(editor, null)
