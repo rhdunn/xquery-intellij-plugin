@@ -22,7 +22,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.core.lang.foldable.FoldablePsiElement
+import uk.co.reecedunn.intellij.plugin.core.editor.folding.FoldablePsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAttributeNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.filterEnclosedExpressions

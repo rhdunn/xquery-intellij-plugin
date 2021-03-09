@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.tests.lang.folding
+package uk.co.reecedunn.intellij.plugin.xquery.tests.lang.editor.folding
 
 import com.intellij.openapi.extensions.PluginId
 import org.hamcrest.CoreMatchers.*
@@ -21,7 +21,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.core.lang.foldable.FoldingBuilderImpl
+import uk.co.reecedunn.intellij.plugin.core.editor.folding.FoldingBuilderImpl
 import uk.co.reecedunn.intellij.plugin.core.psi.document
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule

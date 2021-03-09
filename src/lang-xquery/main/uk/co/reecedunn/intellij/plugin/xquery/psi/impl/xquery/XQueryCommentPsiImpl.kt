@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.openapi.util.TextRange
-import uk.co.reecedunn.intellij.plugin.core.lang.foldable.FoldablePsiElement
+import uk.co.reecedunn.intellij.plugin.core.editor.folding.FoldablePsiElement
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathComment
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQDocTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQDocCommentLineExtractor

@@ -20,7 +20,7 @@ import com.intellij.lang.ASTNode
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.TokenSet
-import uk.co.reecedunn.intellij.plugin.core.lang.foldable.FoldablePsiElement
+import uk.co.reecedunn.intellij.plugin.core.editor.folding.FoldablePsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.filterIsNotElementType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
