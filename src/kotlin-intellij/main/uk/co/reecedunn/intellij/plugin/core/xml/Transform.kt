@@ -23,5 +23,7 @@ import javax.xml.transform.stream.StreamSource
 fun String.toStreamSource(): StreamSource = StreamSource(StringReader(this))
 
 fun VirtualFile.toStreamSource(): StreamSource? {
-    return decode()?.toStreamSource()
+    val source = decode()?.toStreamSource() ?: return null
+    source.systemId = presentableUrl
+    return source
 }

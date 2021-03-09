@@ -48,6 +48,7 @@ Run Configuration:
 1. Filter the app-servers to the ones that match the selected database.
 1. Fix some encoding issues in handling UTF-8 output for MarkLogic.
 1. Fix reformatting the output when the option is specified in the configuration.
+1. Fix locating relative modules and includes in Saxon queries.
 
 Query Log Viewer:
 
