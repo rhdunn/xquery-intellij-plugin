@@ -20,7 +20,7 @@ import com.intellij.xdebugger.breakpoints.XBreakpointType
 import com.intellij.xdebugger.breakpoints.XLineBreakpoint
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.debugger.MarkLogicDebugSession
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
-import uk.co.reecedunn.intellij.plugin.xquery.intellij.xdebugger.breakpoints.XQueryBreakpointProperties
+import uk.co.reecedunn.intellij.plugin.xquery.xdebugger.breakpoints.XQueryBreakpointProperties
 import java.lang.ref.WeakReference
 
 internal class MarkLogicXQueryBreakpointHandler(

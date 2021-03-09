@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.intellij.xdebugger.breakpoints
+package uk.co.reecedunn.intellij.plugin.xquery.xdebugger.breakpoints
 
 import com.intellij.openapi.project.Project
 import com.intellij.util.xmlb.XmlSerializerUtil
