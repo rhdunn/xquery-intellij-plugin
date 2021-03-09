@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.lexer
 
 import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.TokenSet
-import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.INCNameType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType

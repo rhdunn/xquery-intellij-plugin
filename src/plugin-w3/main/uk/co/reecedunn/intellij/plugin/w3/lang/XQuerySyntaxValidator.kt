@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationEl
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires.XpmRequiresLanguageVersion
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
-import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 object XQuerySyntaxValidator : XpmSyntaxValidator {

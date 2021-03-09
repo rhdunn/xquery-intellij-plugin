@@ -30,7 +30,7 @@ import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.existdb.query.rest.toEXistDBQueryError
-import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.QuerySourcePosition
 
 @DisplayName("IntelliJ - Base Platform - Run Configuration - XQuery Processor - EXistDBQueryError")

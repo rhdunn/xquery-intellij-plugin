@@ -29,7 +29,7 @@ import org.intellij.lang.annotations.Language
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
-import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.QuerySourcePosition
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.toMarkLogicQueryError
 

@@ -32,7 +32,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.roots.MockProjectRootsManager
 import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath
-import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition

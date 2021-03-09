@@ -41,7 +41,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQuery
 import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQueryProvider
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModuleUri
-import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xslt.lang.XSLT
 
 internal class MarkLogicQueryProcessor(

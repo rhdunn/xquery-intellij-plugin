@@ -26,7 +26,7 @@ import com.intellij.xdebugger.frame.XStackFrame
 import com.intellij.xdebugger.frame.XSuspendContext
 import uk.co.reecedunn.intellij.plugin.core.psi.document
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
-import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicQueries
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicQueryProcessor
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.debugger.breakpoints.MarkLogicXQueryBreakpointHandler

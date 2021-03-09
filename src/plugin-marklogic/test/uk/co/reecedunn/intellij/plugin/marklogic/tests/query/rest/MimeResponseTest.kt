@@ -32,7 +32,7 @@ import uk.co.reecedunn.intellij.plugin.core.http.StringMessage
 import uk.co.reecedunn.intellij.plugin.core.http.mime.MimeResponse
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
-import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.QuerySourcePosition
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.queryResults
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError

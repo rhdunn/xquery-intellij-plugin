@@ -39,7 +39,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.configuration.XpmLanguageConfigu
 import uk.co.reecedunn.intellij.plugin.xpm.lang.diagnostics.XpmDiagnostics
 import uk.co.reecedunn.intellij.plugin.xpm.lang.diagnostics.XpmInspectionDiagnostics
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidation
-import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 
 private fun supports(a: Specification, b: Version): Boolean {
     return when (a) {

@@ -39,7 +39,7 @@ import uk.co.reecedunn.intellij.plugin.processor.query.Query
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQueryProvider
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurations
-import uk.co.reecedunn.intellij.plugin.xquery.intellij.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 
 class XRayTestRunState(private val environment: ExecutionEnvironment) : RunProfileStateEx {
     override fun execute(executor: Executor?, runner: ProgramRunner<*>): ExecutionResult {
