@@ -28,7 +28,7 @@
 
     <completion.contributor language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.completion.XQueryCompletionContributor"/>
     <typedHandler implementation="uk.co.reecedunn.intellij.plugin.xquery.completion.XQueryTypedHandler"/>
-    <codeInsight.parameterInfo language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPathParameterInfoHandler" />
+    <codeInsight.parameterInfo language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.lang.editor.parameters.XPathParameterInfoHandler" />
 
     <lang.documentationProvider language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.intellij.documentation.XQueryDocumentationProvider"/>
 

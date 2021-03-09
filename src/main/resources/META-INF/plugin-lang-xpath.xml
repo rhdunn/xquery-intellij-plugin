@@ -13,7 +13,7 @@
 
     <lang.foldingBuilder language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.core.lang.foldable.FoldingBuilderImpl"/>
 
-    <codeInsight.parameterInfo language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.XPathParameterInfoHandler" />
+    <codeInsight.parameterInfo language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.lang.editor.parameters.XPathParameterInfoHandler" />
 
     <spellchecker.support language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.lang.spellchecker.XPathSpellcheckingStrategy"/>
     <spellchecker.bundledDictionaryProvider implementation="uk.co.reecedunn.intellij.plugin.xpath.lang.spellchecker.XPathBundledDictionaryProvider"/>
