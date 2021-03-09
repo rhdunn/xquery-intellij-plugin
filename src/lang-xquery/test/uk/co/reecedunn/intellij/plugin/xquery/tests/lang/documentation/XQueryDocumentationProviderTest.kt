@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.tests.intellij.documentation
+package uk.co.reecedunn.intellij.plugin.xquery.tests.lang.documentation
 
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.PsiElement
@@ -23,7 +23,7 @@ import org.hamcrest.core.StringContains
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.xquery.intellij.documentation.XQueryDocumentationProvider
+import uk.co.reecedunn.intellij.plugin.xquery.lang.documentation.XQueryDocumentationProvider
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationSourceProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue

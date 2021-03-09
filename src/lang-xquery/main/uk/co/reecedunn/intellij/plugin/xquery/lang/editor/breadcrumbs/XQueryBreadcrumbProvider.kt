@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathInlineFunctionExpr
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
-import uk.co.reecedunn.intellij.plugin.xquery.intellij.documentation.XQueryDocumentationProvider
+import uk.co.reecedunn.intellij.plugin.xquery.lang.documentation.XQueryDocumentationProvider
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 
 class XQueryBreadcrumbProvider : BreadcrumbsProvider {

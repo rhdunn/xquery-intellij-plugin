@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.intellij.documentation
+package uk.co.reecedunn.intellij.plugin.xquery.lang.documentation
 
 import com.intellij.compat.lang.documentation.AbstractDocumentationProvider
 import com.intellij.psi.PsiElement
