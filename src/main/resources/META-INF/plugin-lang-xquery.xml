@@ -10,7 +10,7 @@
     <lang.namesValidator language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.intellij.lang.refactoring.XPathNamesValidator"/>
 
     <lang.findUsagesProvider language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.lang.findUsages.XQueryFindUsagesProvider"/>
-    <readWriteAccessDetector implementation="uk.co.reecedunn.intellij.plugin.xquery.intellij.codeInsight.highlighting.XQueryReadWriteAccessDetector"/>
+    <readWriteAccessDetector implementation="uk.co.reecedunn.intellij.plugin.xquery.lang.highlighter.XQueryReadWriteAccessDetector"/>
 
     <lang.syntaxHighlighterFactory language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.xquery.lang.highlighter.XQuerySyntaxHighlighter$Factory"/>
     <colorSettingsPage implementation="uk.co.reecedunn.intellij.plugin.xquery.lang.highlighter.XQueryColorSettingsPage"/>
