@@ -25,7 +25,7 @@
 
     <!-- Run/Debug Configurations -->
 
-    <executor implementation="uk.co.reecedunn.intellij.plugin.processor.intellij.execution.executors.DefaultProfileExecutor"/>
+    <executor implementation="uk.co.reecedunn.intellij.plugin.processor.profile.execution.DefaultProfileExecutor"/>
 
     <programRunner implementation="uk.co.reecedunn.intellij.plugin.processor.intellij.execution.runners.QueryProcessorRunner"/>
     <programRunner implementation="uk.co.reecedunn.intellij.plugin.processor.intellij.execution.runners.QueryProcessorDebugger"/>

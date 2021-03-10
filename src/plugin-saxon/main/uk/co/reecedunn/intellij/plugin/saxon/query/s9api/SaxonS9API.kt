@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xslt.lang.XSLT
 import uk.co.reecedunn.intellij.plugin.saxon.resources.SaxonIcons
-import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.executors.DefaultProfileExecutor
+import uk.co.reecedunn.intellij.plugin.processor.profile.execution.DefaultProfileExecutor
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 import java.io.File
 import java.io.InputStream

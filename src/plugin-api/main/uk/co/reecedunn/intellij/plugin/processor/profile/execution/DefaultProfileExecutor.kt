@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.processor.intellij.execution.executors
+package uk.co.reecedunn.intellij.plugin.processor.profile.execution
 
 import com.intellij.execution.Executor
 import com.intellij.execution.ExecutorRegistry

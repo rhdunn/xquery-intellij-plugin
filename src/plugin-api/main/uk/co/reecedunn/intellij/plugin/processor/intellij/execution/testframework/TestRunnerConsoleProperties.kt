@@ -21,7 +21,7 @@ import com.intellij.execution.testframework.sm.runner.SMTRunnerConsoleProperties
 import com.intellij.execution.testframework.sm.runner.SMTestLocator
 import com.intellij.execution.ui.ConsoleView
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleRunnerLayoutUiBuilder
-import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.executors.DefaultProfileExecutor
+import uk.co.reecedunn.intellij.plugin.processor.profile.execution.DefaultProfileExecutor
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.profile.FlatProfileTableView
 import uk.co.reecedunn.intellij.plugin.processor.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.test.TestFormat

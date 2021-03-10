@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.marklogic.lang.SPARQLQuery
 import uk.co.reecedunn.intellij.plugin.marklogic.lang.SPARQLUpdate
 import uk.co.reecedunn.intellij.plugin.marklogic.lang.SQL
 import uk.co.reecedunn.intellij.plugin.marklogic.lang.ServerSideJavaScript
-import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.executors.DefaultProfileExecutor
+import uk.co.reecedunn.intellij.plugin.processor.profile.execution.DefaultProfileExecutor
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorApi
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorInstanceManager
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
