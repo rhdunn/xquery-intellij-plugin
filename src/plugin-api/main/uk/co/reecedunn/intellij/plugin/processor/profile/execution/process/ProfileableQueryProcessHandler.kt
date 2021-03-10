@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.processor.run.execution.process.QueryProc
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileReport
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.ProcessTerminatedException
-import uk.co.reecedunn.intellij.plugin.processor.query.StoppableQuery
+import uk.co.reecedunn.intellij.plugin.processor.run.StoppableQuery
 
 class ProfileableQueryProcessHandler(private val query: ProfileableQuery) : QueryProcessHandlerBase() {
     // region Profile Report

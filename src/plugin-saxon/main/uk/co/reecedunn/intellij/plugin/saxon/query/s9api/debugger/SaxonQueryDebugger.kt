@@ -21,7 +21,7 @@ import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSession
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebuggableQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResults
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
-import uk.co.reecedunn.intellij.plugin.processor.query.StoppableQuery
+import uk.co.reecedunn.intellij.plugin.processor.run.StoppableQuery
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.runner.SaxonRunner
 
 internal class SaxonQueryDebugger(val runner: RunnableQuery) : DebuggableQuery, StoppableQuery {
