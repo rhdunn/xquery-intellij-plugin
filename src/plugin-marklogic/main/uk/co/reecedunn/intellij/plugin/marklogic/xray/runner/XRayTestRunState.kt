@@ -37,7 +37,7 @@ import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQueryProvider
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
-import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQueryProvider
+import uk.co.reecedunn.intellij.plugin.processor.run.RunnableQueryProvider
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurations
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 

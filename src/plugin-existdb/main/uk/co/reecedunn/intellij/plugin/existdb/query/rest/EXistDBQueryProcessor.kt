@@ -28,6 +28,7 @@ import uk.co.reecedunn.intellij.plugin.processor.log.LogViewProvider
 import uk.co.reecedunn.intellij.plugin.processor.query.*
 import uk.co.reecedunn.intellij.plugin.processor.query.connection.InstanceDetails
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
+import uk.co.reecedunn.intellij.plugin.processor.run.RunnableQueryProvider
 
 internal class EXistDBQueryProcessor(
     private val baseUri: String,

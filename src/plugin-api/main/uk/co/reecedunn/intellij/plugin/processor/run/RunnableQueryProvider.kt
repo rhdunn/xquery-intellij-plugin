@@ -13,10 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.processor.query
+package uk.co.reecedunn.intellij.plugin.processor.run
 
 import com.intellij.lang.Language
 import com.intellij.openapi.vfs.VirtualFile
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
+import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 
 interface RunnableQueryProvider : QueryProcessor {
     fun createRunnableQuery(query: VirtualFile, language: Language): RunnableQuery
