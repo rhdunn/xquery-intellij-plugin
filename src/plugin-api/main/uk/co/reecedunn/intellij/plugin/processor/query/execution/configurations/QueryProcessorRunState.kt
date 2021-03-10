@@ -31,7 +31,7 @@ import uk.co.reecedunn.intellij.plugin.processor.profile.execution.process.Profi
 import uk.co.reecedunn.intellij.plugin.processor.run.execution.process.QueryProcessHandlerBase
 import uk.co.reecedunn.intellij.plugin.processor.run.execution.process.RunnableQueryProcessHandler
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.QueryConsoleView
-import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.results.QueryTextConsoleView
+import uk.co.reecedunn.intellij.plugin.processor.run.execution.ui.QueryTextConsoleView
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQueryProvider
 import uk.co.reecedunn.intellij.plugin.processor.profile.execution.ui.FlatProfileTableView
