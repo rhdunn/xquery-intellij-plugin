@@ -32,8 +32,8 @@ import com.intellij.util.ui.ListTableModel
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ContentProvider
 import uk.co.reecedunn.intellij.plugin.processor.profile.execution.process.ProfileReportListener
 import uk.co.reecedunn.intellij.plugin.processor.profile.execution.process.ProfileableQueryProcessHandler
-import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.QueryConsoleView
-import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.QueryTable
+import uk.co.reecedunn.intellij.plugin.processor.run.execution.ui.QueryConsoleView
+import uk.co.reecedunn.intellij.plugin.processor.run.execution.ui.QueryTable
 import uk.co.reecedunn.intellij.plugin.processor.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileEntry
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileReport
