@@ -23,7 +23,7 @@ import com.intellij.execution.runners.GenericProgramRunner
 import com.intellij.execution.runners.RunContentBuilder
 import com.intellij.execution.ui.RunContentDescriptor
 import com.intellij.openapi.fileEditor.FileDocumentManager
-import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.runners.QueryRunProfile
+import uk.co.reecedunn.intellij.plugin.processor.run.execution.runners.QueryRunProfile
 import uk.co.reecedunn.intellij.plugin.processor.profile.execution.DefaultProfileExecutor
 
 class QueryProcessorProfiler : GenericProgramRunner<RunnerSettings>() {

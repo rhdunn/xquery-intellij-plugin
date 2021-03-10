@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.processor.intellij.execution.runners
+package uk.co.reecedunn.intellij.plugin.processor.run.execution.runners
 
 import com.intellij.execution.configurations.RunProfile
 import com.intellij.lang.Language
