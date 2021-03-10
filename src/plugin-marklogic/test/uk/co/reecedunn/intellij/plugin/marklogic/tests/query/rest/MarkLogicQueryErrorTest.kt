@@ -30,7 +30,7 @@ import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
-import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.QuerySourcePosition
+import uk.co.reecedunn.intellij.plugin.processor.debug.position.QuerySourcePosition
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.toMarkLogicQueryError
 
 @DisplayName("IntelliJ - Base Platform - Run Configuration - XQuery Processor - MarkLogicQueryError")

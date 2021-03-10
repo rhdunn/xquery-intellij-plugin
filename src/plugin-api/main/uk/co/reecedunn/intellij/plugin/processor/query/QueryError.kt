@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.processor.query
 
 import com.intellij.xdebugger.frame.XStackFrame
-import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.QuerySourcePosition
+import uk.co.reecedunn.intellij.plugin.processor.debug.position.QuerySourcePosition
 import java.io.PrintStream
 import java.io.PrintWriter
 

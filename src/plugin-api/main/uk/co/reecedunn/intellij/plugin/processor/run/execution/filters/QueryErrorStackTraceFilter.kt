@@ -20,7 +20,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiFile
 import com.intellij.xdebugger.XSourcePosition
-import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.QuerySourcePosition
+import uk.co.reecedunn.intellij.plugin.processor.debug.position.QuerySourcePosition
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderSettings
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.impl.XpmModuleLocationPath

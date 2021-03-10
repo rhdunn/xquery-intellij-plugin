@@ -21,7 +21,7 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.pom.Navigatable
 import com.intellij.psi.PsiElement
 import com.intellij.xdebugger.XSourcePosition
-import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.QuerySourcePosition
+import uk.co.reecedunn.intellij.plugin.processor.debug.position.QuerySourcePosition
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.resolve
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModuleUri
 import uk.co.reecedunn.intellij.plugin.xpm.module.resolveUri

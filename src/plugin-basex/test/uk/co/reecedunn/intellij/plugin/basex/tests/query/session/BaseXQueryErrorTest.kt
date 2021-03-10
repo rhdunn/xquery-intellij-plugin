@@ -30,7 +30,7 @@ import uk.co.reecedunn.intellij.plugin.basex.query.session.toBaseXQueryError
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
-import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.QuerySourcePosition
+import uk.co.reecedunn.intellij.plugin.processor.debug.position.QuerySourcePosition
 
 @DisplayName("IntelliJ - Base Platform - Run Configuration - XQuery Processor - BaseXQueryError")
 class BaseXQueryErrorTest : IdeaPlatformTestCase() {
