@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.processor.intellij.execution.testframework
+package uk.co.reecedunn.intellij.plugin.processor.test.execution.process
 
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.process.ProcessOutputType

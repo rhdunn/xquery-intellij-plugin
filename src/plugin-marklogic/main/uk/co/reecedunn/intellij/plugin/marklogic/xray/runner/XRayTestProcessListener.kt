@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.marklogic.xray.runner
 
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.process.ProcessOutputType
-import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.testframework.TestProcessListener
+import uk.co.reecedunn.intellij.plugin.processor.test.execution.process.TestProcessListener
 import uk.co.reecedunn.intellij.plugin.processor.test.*
 import uk.co.reecedunn.intellij.plugin.xquery.testframework.execution.XQueryTestLocationProvider
 
