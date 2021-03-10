@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.processor.profile.execution.DefaultProfil
 import uk.co.reecedunn.intellij.plugin.processor.profile.execution.ui.FlatProfileTableView
 import uk.co.reecedunn.intellij.plugin.processor.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.test.TestFormat
+import uk.co.reecedunn.intellij.plugin.processor.test.execution.ui.TestConsoleOutputView
 
 class TestRunnerConsoleProperties(
     config: RunConfiguration,
