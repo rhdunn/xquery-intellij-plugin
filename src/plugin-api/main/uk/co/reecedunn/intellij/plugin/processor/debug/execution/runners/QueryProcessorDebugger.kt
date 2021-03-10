@@ -25,7 +25,7 @@ import com.intellij.execution.ui.RunContentDescriptor
 import com.intellij.openapi.fileEditor.FileDocumentManager
 import uk.co.reecedunn.intellij.plugin.processor.run.execution.runners.QueryRunProfile
 import uk.co.reecedunn.intellij.plugin.processor.query.execution.configurations.RunProfileStateEx
-import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.QueryDebugProcess
+import uk.co.reecedunn.intellij.plugin.processor.debug.execution.process.QueryDebugProcess
 
 class QueryProcessorDebugger : GenericProgramRunner<RunnerSettings>() {
     override fun getRunnerId(): String = "XIJPQueryProcessorDebugger"
