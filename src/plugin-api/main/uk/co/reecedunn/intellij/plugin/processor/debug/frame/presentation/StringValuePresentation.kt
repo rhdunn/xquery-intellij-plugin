@@ -13,14 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame
+package uk.co.reecedunn.intellij.plugin.processor.debug.frame.presentation
 
-import com.intellij.xdebugger.frame.XExecutionStack
-import com.intellij.xdebugger.frame.XSuspendContext
-import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSession
+import com.intellij.xdebugger.frame.presentation.XStringValuePresentation
 
-class QuerySuspendContext(displayName: String, session: DebugSession) : XSuspendContext() {
-    private val activeExecutionStack = QueryExecutionStack(displayName, session)
+internal class StringValuePresentation(value: String, private val type: String) : XStringValuePresentation(value) {
+    override fun getSeparator(): String = QueryValuePresentation.SEPARATOR
 
-    override fun getActiveExecutionStack(): XExecutionStack = activeExecutionStack
+    override fun getType(): String = type
 }

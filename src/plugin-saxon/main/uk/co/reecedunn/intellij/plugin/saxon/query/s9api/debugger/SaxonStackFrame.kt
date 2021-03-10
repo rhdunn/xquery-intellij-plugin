@@ -20,9 +20,9 @@ import com.intellij.xdebugger.evaluation.XDebuggerEvaluator
 import com.intellij.xdebugger.frame.XCompositeNode
 import com.intellij.xdebugger.frame.XNamedValue
 import com.intellij.xdebugger.frame.XStackFrame
-import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame.ComputeChildren
-import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame.VirtualFileStackFrame
-import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame.addChildren
+import uk.co.reecedunn.intellij.plugin.processor.debug.frame.ComputeChildren
+import uk.co.reecedunn.intellij.plugin.processor.debug.frame.VirtualFileStackFrame
+import uk.co.reecedunn.intellij.plugin.processor.debug.frame.addChildren
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.Processor
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.expr.XPathContext
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.trace.InstructionInfo

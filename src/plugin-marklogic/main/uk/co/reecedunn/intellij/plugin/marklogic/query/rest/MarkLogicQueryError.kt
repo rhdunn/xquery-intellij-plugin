@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.gson.getOrNull
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.core.xml.children
-import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame.VirtualFileStackFrame
+import uk.co.reecedunn.intellij.plugin.processor.debug.frame.VirtualFileStackFrame
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModuleUri
 

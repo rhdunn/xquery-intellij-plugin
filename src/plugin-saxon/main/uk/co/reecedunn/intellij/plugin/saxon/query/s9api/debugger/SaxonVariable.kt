@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.debugger
 
 import com.intellij.xdebugger.frame.*
 import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
-import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame.QueryResultsValue
+import uk.co.reecedunn.intellij.plugin.processor.debug.frame.QueryResultsValue
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.SaxonQueryResultIterator
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.Processor
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.om.Sequence

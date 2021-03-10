@@ -33,8 +33,8 @@ import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.debugger.breakpoints
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSession
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSessionListener
 import uk.co.reecedunn.intellij.plugin.processor.debug.StepAction
-import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame.QueryResultsValue
-import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame.QuerySuspendContext
+import uk.co.reecedunn.intellij.plugin.processor.debug.frame.QueryResultsValue
+import uk.co.reecedunn.intellij.plugin.processor.debug.frame.QuerySuspendContext
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessState
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderSettings
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression

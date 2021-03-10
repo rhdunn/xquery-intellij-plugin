@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame
+package uk.co.reecedunn.intellij.plugin.processor.debug.frame
 
 import com.intellij.icons.AllIcons
 import com.intellij.openapi.vfs.VirtualFile

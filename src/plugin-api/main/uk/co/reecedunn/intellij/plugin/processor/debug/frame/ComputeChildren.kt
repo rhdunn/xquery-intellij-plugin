@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame.presentation
 
-import com.intellij.xdebugger.frame.presentation.XStringValuePresentation
+package uk.co.reecedunn.intellij.plugin.processor.debug.frame
 
-internal class StringValuePresentation(value: String, private val type: String) : XStringValuePresentation(value) {
-    override fun getSeparator(): String = QueryValuePresentation.SEPARATOR
+import com.intellij.xdebugger.evaluation.XDebuggerEvaluator
+import com.intellij.xdebugger.frame.XCompositeNode
 
-    override fun getType(): String = type
+interface ComputeChildren {
+    fun computeChildren(node: XCompositeNode, evaluator: XDebuggerEvaluator?)
 }

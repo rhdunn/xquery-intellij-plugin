@@ -13,12 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package uk.co.reecedunn.intellij.plugin.processor.debug.frame
 
-package uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame
+import com.intellij.xdebugger.frame.XExecutionStack
+import com.intellij.xdebugger.frame.XSuspendContext
+import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSession
 
-import com.intellij.xdebugger.evaluation.XDebuggerEvaluator
-import com.intellij.xdebugger.frame.XCompositeNode
+class QuerySuspendContext(displayName: String, session: DebugSession) : XSuspendContext() {
+    private val activeExecutionStack = QueryExecutionStack(displayName, session)
 
-interface ComputeChildren {
-    fun computeChildren(node: XCompositeNode, evaluator: XDebuggerEvaluator?)
+    override fun getActiveExecutionStack(): XExecutionStack = activeExecutionStack
 }

@@ -13,26 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame
+package uk.co.reecedunn.intellij.plugin.processor.debug.frame
 
-import com.intellij.xdebugger.frame.XCompositeNode
-import com.intellij.xdebugger.frame.XValue
+import com.intellij.xdebugger.frame.XNamedValue
 import com.intellij.xdebugger.frame.XValueNode
 import com.intellij.xdebugger.frame.XValuePlace
-import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.frame.presentation.QueryValuePresentation
+import uk.co.reecedunn.intellij.plugin.processor.debug.frame.presentation.QueryValuePresentation
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
-import javax.swing.Icon
 
-class QueryResultsValue(private val results: List<QueryResult>, var icon: Icon? = null) : XValue() {
+class QueryResultNamedValue(name: String, private val result: QueryResult) : XNamedValue(name) {
     override fun computePresentation(node: XValueNode, place: XValuePlace) {
-        val presentation = QueryValuePresentation.forResults(results)
-        node.setPresentation(icon, presentation, results.size > 1)
-    }
-
-    override fun computeChildren(node: XCompositeNode) {
-        val children = results.asSequence().withIndex().map { (index, result) ->
-            QueryResultNamedValue(index.toString(), result)
-        }
-        node.addChildren(children, true)
+        val presentation = QueryValuePresentation.forValue(result.value.toString(), result.type)
+        node.setPresentation(null, presentation, false)
     }
 }
