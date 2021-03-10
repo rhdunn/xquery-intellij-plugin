@@ -61,6 +61,12 @@ internal fun XPathException.toSaxonQueryError(queryFile: VirtualFile?): QueryErr
         vendorCode = null,
         description = message,
         value = listOf(),
-        frames = queryFile?.let { listOf(SaxonStackFrame.create(locator!!, null, null, it)) } ?: listOf()
+        frames = when (queryFile) {
+            null -> null
+            else -> when (val locator = locator) {
+                null -> null
+                else -> listOf(SaxonStackFrame.create(locator, null, null, queryFile))
+            }
+        } ?: listOf()
     )
 }
