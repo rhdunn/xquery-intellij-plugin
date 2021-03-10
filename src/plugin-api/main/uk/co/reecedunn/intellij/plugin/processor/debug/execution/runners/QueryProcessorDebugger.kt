@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.processor.intellij.execution.runners
+package uk.co.reecedunn.intellij.plugin.processor.debug.execution.runners
 
 import com.intellij.execution.configurations.RunProfile
 import com.intellij.execution.configurations.RunProfileState
@@ -23,6 +23,7 @@ import com.intellij.execution.runners.ExecutionEnvironment
 import com.intellij.execution.runners.GenericProgramRunner
 import com.intellij.execution.ui.RunContentDescriptor
 import com.intellij.openapi.fileEditor.FileDocumentManager
+import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.runners.QueryRunProfile
 import uk.co.reecedunn.intellij.plugin.processor.query.execution.configurations.RunProfileStateEx
 import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.QueryDebugProcess
 import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.startDebugSession

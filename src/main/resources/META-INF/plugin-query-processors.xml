@@ -28,7 +28,7 @@
     <executor implementation="uk.co.reecedunn.intellij.plugin.processor.profile.execution.DefaultProfileExecutor"/>
 
     <programRunner implementation="uk.co.reecedunn.intellij.plugin.processor.intellij.execution.runners.QueryProcessorRunner"/>
-    <programRunner implementation="uk.co.reecedunn.intellij.plugin.processor.intellij.execution.runners.QueryProcessorDebugger"/>
+    <programRunner implementation="uk.co.reecedunn.intellij.plugin.processor.debug.execution.runners.QueryProcessorDebugger"/>
     <programRunner implementation="uk.co.reecedunn.intellij.plugin.processor.profile.execution.runners.QueryProcessorProfiler"/>
 
     <configurationType implementation="uk.co.reecedunn.intellij.plugin.marklogic.lang.configuration.ServerSideJavaScriptConfigurationType"/>
