@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process
+package uk.co.reecedunn.intellij.plugin.processor.run.execution.process
 
 import com.intellij.codeInsight.actions.ReformatCodeProcessor
 import com.intellij.execution.process.ProcessHandler

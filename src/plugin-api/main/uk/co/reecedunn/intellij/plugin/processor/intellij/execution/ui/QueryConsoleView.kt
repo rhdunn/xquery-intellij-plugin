@@ -28,9 +28,9 @@ import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewImpl
 import uk.co.reecedunn.intellij.plugin.core.text.Units
 import uk.co.reecedunn.intellij.plugin.core.ui.Borders
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
-import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.QueryProcessHandlerBase
-import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.QueryResultListener
-import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.QueryResultTime
+import uk.co.reecedunn.intellij.plugin.processor.run.execution.process.QueryProcessHandlerBase
+import uk.co.reecedunn.intellij.plugin.processor.run.execution.process.QueryResultListener
+import uk.co.reecedunn.intellij.plugin.processor.run.execution.process.QueryResultTime
 import uk.co.reecedunn.intellij.plugin.processor.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsDurationValue

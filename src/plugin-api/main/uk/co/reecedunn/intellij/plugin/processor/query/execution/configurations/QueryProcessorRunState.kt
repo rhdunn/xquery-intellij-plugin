@@ -28,8 +28,8 @@ import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleRunnerLayoutUiBu
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebuggableQueryProvider
 import uk.co.reecedunn.intellij.plugin.processor.profile.execution.DefaultProfileExecutor
 import uk.co.reecedunn.intellij.plugin.processor.profile.execution.process.ProfileableQueryProcessHandler
-import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.QueryProcessHandlerBase
-import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.RunnableQueryProcessHandler
+import uk.co.reecedunn.intellij.plugin.processor.run.execution.process.QueryProcessHandlerBase
+import uk.co.reecedunn.intellij.plugin.processor.run.execution.process.RunnableQueryProcessHandler
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.QueryConsoleView
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.results.QueryTextConsoleView
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery

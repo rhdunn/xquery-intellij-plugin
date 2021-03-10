@@ -31,8 +31,8 @@ import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.QueryErrorSt
 import uk.co.reecedunn.intellij.plugin.processor.query.execution.configurations.RunProfileStateEx
 import uk.co.reecedunn.intellij.plugin.processor.profile.execution.DefaultProfileExecutor
 import uk.co.reecedunn.intellij.plugin.processor.profile.execution.process.ProfileableQueryProcessHandler
-import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.QueryProcessHandlerBase
-import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.RunnableQueryProcessHandler
+import uk.co.reecedunn.intellij.plugin.processor.run.execution.process.QueryProcessHandlerBase
+import uk.co.reecedunn.intellij.plugin.processor.run.execution.process.RunnableQueryProcessHandler
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQueryProvider
 import uk.co.reecedunn.intellij.plugin.processor.query.Query

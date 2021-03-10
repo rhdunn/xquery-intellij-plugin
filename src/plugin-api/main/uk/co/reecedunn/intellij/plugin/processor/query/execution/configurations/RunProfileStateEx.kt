@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.processor.query.execution.configurations
 import com.intellij.execution.Executor
 import com.intellij.execution.configurations.RunProfileState
 import com.intellij.execution.ui.ConsoleView
-import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.QueryProcessHandlerBase
+import uk.co.reecedunn.intellij.plugin.processor.run.execution.process.QueryProcessHandlerBase
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
 
 interface RunProfileStateEx : RunProfileState {
