@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.processor.intellij.execution.testframework
+package uk.co.reecedunn.intellij.plugin.processor.test.execution.configurations
 
 import com.intellij.execution.Executor
 import com.intellij.execution.configurations.ConfigurationFactory
@@ -26,6 +26,7 @@ import com.intellij.execution.testframework.sm.runner.SMTestLocator
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 import uk.co.reecedunn.intellij.plugin.core.execution.configurations.RunConfigurationBase
+import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.testframework.TestRunnerConsoleProperties
 import uk.co.reecedunn.intellij.plugin.processor.run.execution.runners.QueryRunProfile
 import uk.co.reecedunn.intellij.plugin.processor.test.TestFormat
 
