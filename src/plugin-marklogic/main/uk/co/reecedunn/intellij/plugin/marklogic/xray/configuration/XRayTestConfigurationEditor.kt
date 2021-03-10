@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.json.XRayJsonFormat
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.text.XRayTextFormat
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.xray.XRayXmlFormat
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.xunit.XRayXUnitFormat
-import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.model.QueryServerComboBoxModel
+import uk.co.reecedunn.intellij.plugin.processor.query.execution.configurations.QueryServerComboBoxModel
 import uk.co.reecedunn.intellij.plugin.processor.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessorComboBox
 import uk.co.reecedunn.intellij.plugin.processor.test.TestFormat

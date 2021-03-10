@@ -27,7 +27,6 @@ import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
 import uk.co.reecedunn.intellij.plugin.processor.intellij.lang.RDF_FORMATS
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.QueryProcessorDataSource
-import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.model.QueryServerComboBoxModel
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.queryProcessorDataSource
 import uk.co.reecedunn.intellij.plugin.processor.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.*

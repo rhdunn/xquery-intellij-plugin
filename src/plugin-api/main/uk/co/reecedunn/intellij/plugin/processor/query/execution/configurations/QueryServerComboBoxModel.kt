@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.model
+package uk.co.reecedunn.intellij.plugin.processor.query.execution.configurations
 
 import javax.swing.AbstractListModel
 import javax.swing.ComboBoxModel
