@@ -31,7 +31,7 @@ import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSession
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSessionListener
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebuggableQuery
 import uk.co.reecedunn.intellij.plugin.processor.debug.StepAction
-import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.configurations.RunProfileStateEx
+import uk.co.reecedunn.intellij.plugin.processor.query.execution.configurations.RunProfileStateEx
 
 class QueryDebugProcess(
     session: XDebugSession,

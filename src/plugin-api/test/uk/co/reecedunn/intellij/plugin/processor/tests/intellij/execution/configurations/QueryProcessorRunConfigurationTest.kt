@@ -28,9 +28,9 @@ import uk.co.reecedunn.intellij.plugin.xpath.lang.configuration.XPathConfigurati
 import uk.co.reecedunn.intellij.plugin.processor.intellij.lang.Turtle
 import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
-import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.configurations.QueryProcessorDataSourceType
-import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.configurations.QueryProcessorRunConfiguration
-import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.configurations.QueryProcessorRunConfigurationData
+import uk.co.reecedunn.intellij.plugin.processor.query.execution.configurations.QueryProcessorDataSourceType
+import uk.co.reecedunn.intellij.plugin.processor.query.execution.configurations.QueryProcessorRunConfiguration
+import uk.co.reecedunn.intellij.plugin.processor.query.execution.configurations.QueryProcessorRunConfigurationData
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)

@@ -21,7 +21,7 @@ import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.util.text.nullize
 import org.jetbrains.annotations.Nls
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
-import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.configurations.QueryProcessorDataSourceType
+import uk.co.reecedunn.intellij.plugin.processor.query.execution.configurations.QueryProcessorDataSourceType
 import uk.co.reecedunn.intellij.plugin.processor.resources.PluginApiBundle
 import javax.swing.*
 
