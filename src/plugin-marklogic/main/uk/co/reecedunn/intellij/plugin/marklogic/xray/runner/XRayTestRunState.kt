@@ -30,7 +30,7 @@ import uk.co.reecedunn.intellij.plugin.processor.debug.DebuggableQueryProvider
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.QueryErrorStackTraceFilter
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.configurations.RunProfileStateEx
 import uk.co.reecedunn.intellij.plugin.processor.profile.execution.DefaultProfileExecutor
-import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.ProfileableQueryProcessHandler
+import uk.co.reecedunn.intellij.plugin.processor.profile.execution.process.ProfileableQueryProcessHandler
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.QueryProcessHandlerBase
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.RunnableQueryProcessHandler
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
