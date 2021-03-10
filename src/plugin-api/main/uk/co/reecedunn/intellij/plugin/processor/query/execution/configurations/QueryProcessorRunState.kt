@@ -36,7 +36,7 @@ import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQueryProvider
 import uk.co.reecedunn.intellij.plugin.processor.profile.execution.ui.FlatProfileTableView
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
-import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
+import uk.co.reecedunn.intellij.plugin.processor.run.RunnableQuery
 import uk.co.reecedunn.intellij.plugin.processor.run.RunnableQueryProvider
 
 class QueryProcessorRunState(private val environment: ExecutionEnvironment) : RunProfileStateEx {

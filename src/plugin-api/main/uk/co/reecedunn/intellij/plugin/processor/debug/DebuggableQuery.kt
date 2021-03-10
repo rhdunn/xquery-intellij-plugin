@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.debug
 
-import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
+import uk.co.reecedunn.intellij.plugin.processor.run.RunnableQuery
 
 interface DebuggableQuery : RunnableQuery {
     val session: DebugSession

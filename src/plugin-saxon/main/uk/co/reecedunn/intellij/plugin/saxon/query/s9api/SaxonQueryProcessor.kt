@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.processor.debug.DebuggableQueryProvider
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQueryProvider
 import uk.co.reecedunn.intellij.plugin.processor.query.*
+import uk.co.reecedunn.intellij.plugin.processor.run.RunnableQuery
 import uk.co.reecedunn.intellij.plugin.processor.run.RunnableQueryProvider
 import uk.co.reecedunn.intellij.plugin.processor.validate.ValidatableQuery
 import uk.co.reecedunn.intellij.plugin.processor.validate.ValidatableQueryProvider
