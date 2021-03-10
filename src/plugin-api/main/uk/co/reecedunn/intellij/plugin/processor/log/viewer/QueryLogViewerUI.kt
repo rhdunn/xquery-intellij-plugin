@@ -28,10 +28,10 @@ import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewEx
 import uk.co.reecedunn.intellij.plugin.core.ui.Borders
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
 import uk.co.reecedunn.intellij.plugin.processor.resources.PluginApiBundle
-import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessorSettingsCellRenderer
-import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessorSettingsModel
-import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessors
-import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessorsListener
+import uk.co.reecedunn.intellij.plugin.processor.query.settings.QueryProcessorSettingsCellRenderer
+import uk.co.reecedunn.intellij.plugin.processor.query.settings.QueryProcessorSettingsModel
+import uk.co.reecedunn.intellij.plugin.processor.query.settings.QueryProcessors
+import uk.co.reecedunn.intellij.plugin.processor.query.settings.QueryProcessorsListener
 import uk.co.reecedunn.intellij.plugin.processor.log.LogLine
 import uk.co.reecedunn.intellij.plugin.processor.log.LogLineContinuation
 import uk.co.reecedunn.intellij.plugin.processor.log.LogViewProvider

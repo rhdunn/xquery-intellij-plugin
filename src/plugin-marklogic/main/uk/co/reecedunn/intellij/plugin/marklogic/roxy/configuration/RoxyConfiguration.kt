@@ -21,7 +21,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicRest
-import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessors
+import uk.co.reecedunn.intellij.plugin.processor.query.settings.QueryProcessors
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfiguration
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurationFactory
 

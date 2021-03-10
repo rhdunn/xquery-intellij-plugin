@@ -25,10 +25,10 @@ import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.dialog
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.toolbarPanel
-import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessorSettingsCellRenderer
-import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessorSettingsDialog
-import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessorSettingsModel
-import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessors
+import uk.co.reecedunn.intellij.plugin.processor.query.settings.QueryProcessorSettingsCellRenderer
+import uk.co.reecedunn.intellij.plugin.processor.query.settings.QueryProcessorSettingsDialog
+import uk.co.reecedunn.intellij.plugin.processor.query.settings.QueryProcessorSettingsModel
+import uk.co.reecedunn.intellij.plugin.processor.query.settings.QueryProcessors
 import uk.co.reecedunn.intellij.plugin.processor.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.query.CachedQueryProcessorSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings

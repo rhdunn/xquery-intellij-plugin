@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.query
 
-import uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessorSettingsModel
+import uk.co.reecedunn.intellij.plugin.processor.query.settings.QueryProcessorSettingsModel
 import uk.co.reecedunn.intellij.plugin.processor.query.connection.AWSConnectionSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.connection.ConnectionSettings
 import java.io.Closeable

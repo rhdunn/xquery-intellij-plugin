@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Reece H. Dunn
+ * Copyright (C) 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,11 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.processor.intellij.settings
+package uk.co.reecedunn.intellij.plugin.processor.query.settings
 
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
+import java.util.*
 
-data class QueryProcessorsData(
-    var currentProcessorId: Int = 0,
-    var processors: List<QueryProcessorSettings> = ArrayList()
-)
+interface QueryProcessorsListener : EventListener {
+    fun onAddProcessor(processor: QueryProcessorSettings)
+
+    fun onEditProcessor(index: Int, processor: QueryProcessorSettings)
+
+    fun onRemoveProcessor(index: Int)
+}

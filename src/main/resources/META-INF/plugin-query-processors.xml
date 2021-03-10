@@ -21,7 +21,7 @@
 
     <!-- Application / Project Settings -->
 
-    <applicationService serviceImplementation="uk.co.reecedunn.intellij.plugin.processor.intellij.settings.QueryProcessors"/>
+    <applicationService serviceImplementation="uk.co.reecedunn.intellij.plugin.processor.query.settings.QueryProcessors"/>
 
     <!-- Run/Debug Configurations -->
 
