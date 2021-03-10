@@ -27,8 +27,8 @@ import uk.co.reecedunn.intellij.plugin.processor.debug.DebuggableQueryProvider
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQueryProvider
 import uk.co.reecedunn.intellij.plugin.processor.query.*
-import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQuery
-import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQueryProvider
+import uk.co.reecedunn.intellij.plugin.processor.validate.ValidatableQuery
+import uk.co.reecedunn.intellij.plugin.processor.validate.ValidatableQueryProvider
 import uk.co.reecedunn.intellij.plugin.saxon.resources.SaxonIcons
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.profiler.SaxonProfileTraceListener
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.Processor

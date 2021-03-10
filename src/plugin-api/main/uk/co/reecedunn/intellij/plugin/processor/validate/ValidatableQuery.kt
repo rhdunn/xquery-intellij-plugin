@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.processor.validation
+package uk.co.reecedunn.intellij.plugin.processor.validate
 
-import com.intellij.lang.Language
-import com.intellij.openapi.vfs.VirtualFile
-import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessor
+import uk.co.reecedunn.intellij.plugin.processor.query.Query
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 
-interface ValidatableQueryProvider : QueryProcessor {
-    fun createValidatableQuery(query: VirtualFile, language: Language): ValidatableQuery
+interface ValidatableQuery : Query {
+    fun validate(): QueryError?
 }

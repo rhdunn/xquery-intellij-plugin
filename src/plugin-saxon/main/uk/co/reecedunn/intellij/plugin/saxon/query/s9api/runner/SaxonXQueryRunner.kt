@@ -20,7 +20,7 @@ import com.intellij.openapi.vfs.VirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.processor.query.*
-import uk.co.reecedunn.intellij.plugin.processor.validation.ValidatableQuery
+import uk.co.reecedunn.intellij.plugin.processor.validate.ValidatableQuery
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.SaxonErrorListener
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.SaxonQueryResultIterator
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.*
