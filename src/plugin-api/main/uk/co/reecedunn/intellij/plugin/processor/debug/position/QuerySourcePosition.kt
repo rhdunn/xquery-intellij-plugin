@@ -18,7 +18,6 @@ package uk.co.reecedunn.intellij.plugin.processor.debug.position
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.xdebugger.XDebuggerUtil
 import com.intellij.xdebugger.XSourcePosition
-import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.impl.QuerySourcePositionImpl
 
 interface QuerySourcePosition : XSourcePosition {
     val column: Int
