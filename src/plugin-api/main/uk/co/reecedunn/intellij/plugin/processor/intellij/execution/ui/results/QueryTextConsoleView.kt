@@ -29,7 +29,6 @@ import uk.co.reecedunn.intellij.plugin.core.execution.ui.TextConsoleView
 import uk.co.reecedunn.intellij.plugin.core.io.printCharsToString
 import uk.co.reecedunn.intellij.plugin.processor.run.execution.process.QueryProcessHandlerBase
 import uk.co.reecedunn.intellij.plugin.processor.run.execution.process.QueryResultListener
-import uk.co.reecedunn.intellij.plugin.processor.run.execution.process.QueryResultTime
 import uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.QuerySourcePosition
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
@@ -167,7 +166,7 @@ class QueryTextConsoleView(project: Project) : TextConsoleView(project), QueryRe
         }
     }
 
-    override fun onQueryResultTime(resultTime: QueryResultTime, time: XsDurationValue) {
+    override fun onQueryElapsedTime(time: XsDurationValue) {
     }
 
     override fun onQueryResultsPsiFile(psiFile: PsiFile) {

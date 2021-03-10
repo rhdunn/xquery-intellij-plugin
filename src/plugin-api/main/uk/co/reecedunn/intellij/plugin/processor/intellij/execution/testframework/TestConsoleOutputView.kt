@@ -31,7 +31,6 @@ import uk.co.reecedunn.intellij.plugin.core.execution.ui.ContentProvider
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.TextConsoleView
 import uk.co.reecedunn.intellij.plugin.processor.run.execution.process.QueryProcessHandlerBase
 import uk.co.reecedunn.intellij.plugin.processor.run.execution.process.QueryResultListener
-import uk.co.reecedunn.intellij.plugin.processor.run.execution.process.QueryResultTime
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.test.TestFormat
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsDurationValue
@@ -105,7 +104,7 @@ class TestConsoleOutputView(project: Project, private val outputFormat: TestForm
     override fun onException(e: Throwable) {
     }
 
-    override fun onQueryResultTime(resultTime: QueryResultTime, time: XsDurationValue) {
+    override fun onQueryElapsedTime(time: XsDurationValue) {
     }
 
     override fun onQueryResultsPsiFile(psiFile: PsiFile) {

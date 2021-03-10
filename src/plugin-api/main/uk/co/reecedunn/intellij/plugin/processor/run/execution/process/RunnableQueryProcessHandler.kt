@@ -37,7 +37,7 @@ class RunnableQueryProcessHandler(private val query: RunnableQuery) : QueryProce
                             notifyResult(QueryResult.fromItemType(0, results.status.toString(), "http:status-line"))
                         }
                         results.results.forEach { result -> notifyResult(result) }
-                        notifyResultTime(QueryResultTime.Elapsed, results.elapsed)
+                        notifyElapsedTime(results.elapsed)
                     } catch (e: Throwable) {
                         if (e !is ProcessTerminatedException) {
                             notifyException(e)

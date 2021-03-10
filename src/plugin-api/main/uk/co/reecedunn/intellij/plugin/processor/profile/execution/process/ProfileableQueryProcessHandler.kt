@@ -20,7 +20,6 @@ import com.intellij.util.containers.ContainerUtil
 import uk.co.reecedunn.intellij.plugin.core.async.executeOnPooledThread
 import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
 import uk.co.reecedunn.intellij.plugin.processor.run.execution.process.QueryProcessHandlerBase
-import uk.co.reecedunn.intellij.plugin.processor.run.execution.process.QueryResultTime
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileReport
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.ProcessTerminatedException
@@ -57,7 +56,7 @@ class ProfileableQueryProcessHandler(private val query: ProfileableQuery) : Quer
                     try {
                         notifyProfileReport(results.report)
                         results.results.forEach { result -> notifyResult(result) }
-                        notifyResultTime(QueryResultTime.Elapsed, results.report.elapsed)
+                        notifyElapsedTime(results.report.elapsed)
                     } catch (e: Throwable) {
                         if (e !is ProcessTerminatedException) {
                             notifyException(e)

@@ -22,7 +22,6 @@ import uk.co.reecedunn.intellij.plugin.core.execution.testframework.TestProcessH
 import uk.co.reecedunn.intellij.plugin.core.io.printCharsToString
 import uk.co.reecedunn.intellij.plugin.core.math.toMilliseconds
 import uk.co.reecedunn.intellij.plugin.processor.run.execution.process.QueryResultListener
-import uk.co.reecedunn.intellij.plugin.processor.run.execution.process.QueryResultTime
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.test.*
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsDurationValue
@@ -54,7 +53,7 @@ open class TestProcessListener(
         notifyTextAvailable(printCharsToString { e.printStackTrace(it) }, ProcessOutputType.STDERR)
     }
 
-    override fun onQueryResultTime(resultTime: QueryResultTime, time: XsDurationValue) {
+    override fun onQueryElapsedTime(time: XsDurationValue) {
     }
 
     override fun onQueryResultsPsiFile(psiFile: PsiFile) {

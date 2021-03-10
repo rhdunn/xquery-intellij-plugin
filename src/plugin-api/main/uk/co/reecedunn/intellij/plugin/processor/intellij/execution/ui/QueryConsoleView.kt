@@ -30,7 +30,6 @@ import uk.co.reecedunn.intellij.plugin.core.ui.Borders
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
 import uk.co.reecedunn.intellij.plugin.processor.run.execution.process.QueryProcessHandlerBase
 import uk.co.reecedunn.intellij.plugin.processor.run.execution.process.QueryResultListener
-import uk.co.reecedunn.intellij.plugin.processor.run.execution.process.QueryResultTime
 import uk.co.reecedunn.intellij.plugin.processor.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsDurationValue
@@ -167,14 +166,10 @@ class QueryConsoleView(val project: Project, private val console: ConsoleViewEx)
         tables.forEach { it.hasException = true }
     }
 
-    override fun onQueryResultTime(resultTime: QueryResultTime, time: XsDurationValue) {
-        when (resultTime) {
-            QueryResultTime.Elapsed -> {
-                val count = tables.first().itemCount
-                val elapsed = time.toSeconds(Units.Precision.nano)
-                summary!!.text = PluginApiBundle.message("console.summary.label", count, elapsed)
-            }
-        }
+    override fun onQueryElapsedTime(time: XsDurationValue) {
+        val count = tables.first().itemCount
+        val elapsed = time.toSeconds(Units.Precision.nano)
+        summary!!.text = PluginApiBundle.message("console.summary.label", count, elapsed)
     }
 
     override fun onQueryResultsPsiFile(psiFile: PsiFile) {

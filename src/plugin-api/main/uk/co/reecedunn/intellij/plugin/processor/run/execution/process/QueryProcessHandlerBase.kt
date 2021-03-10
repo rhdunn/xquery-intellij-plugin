@@ -65,8 +65,8 @@ abstract class QueryProcessHandlerBase : ProcessHandler() {
         queryResultListeners.forEach { it.onQueryResult(result) }
     }
 
-    fun notifyResultTime(resultTime: QueryResultTime, time: XsDurationValue) {
-        queryResultListeners.forEach { it.onQueryResultTime(resultTime, time) }
+    fun notifyElapsedTime(time: XsDurationValue) {
+        queryResultListeners.forEach { it.onQueryElapsedTime(time) }
     }
 
     fun notifyQueryResultsPsiFile(psiFile: PsiFile) {
