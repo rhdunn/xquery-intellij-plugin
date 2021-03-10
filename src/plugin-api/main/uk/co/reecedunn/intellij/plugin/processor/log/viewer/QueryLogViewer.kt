@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.processor.intellij.log
+package uk.co.reecedunn.intellij.plugin.processor.log.viewer
 
 import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
