@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.processor.intellij.xdebugger.evaluation
+package uk.co.reecedunn.intellij.plugin.processor.debug.evaluation
 
 import com.intellij.lang.Language
 import com.intellij.openapi.fileTypes.FileType
@@ -24,7 +24,6 @@ import com.intellij.psi.PsiFileFactory
 import com.intellij.util.LocalTimeCounter
 import com.intellij.xdebugger.evaluation.XDebuggerEditorsProviderBase
 
-@Suppress("unused")
 class QueryEditorsProvider(private val language: Language) : XDebuggerEditorsProviderBase() {
     override fun getFileType(): FileType = language.associatedFileType!!
 
