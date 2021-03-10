@@ -31,10 +31,10 @@ import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.Prof
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.QueryProcessHandlerBase
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.process.RunnableQueryProcessHandler
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.QueryConsoleView
-import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.profile.FlatProfileTableView
 import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.ui.results.QueryTextConsoleView
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQueryProvider
+import uk.co.reecedunn.intellij.plugin.processor.profile.execution.ui.FlatProfileTableView
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.RunnableQueryProvider
