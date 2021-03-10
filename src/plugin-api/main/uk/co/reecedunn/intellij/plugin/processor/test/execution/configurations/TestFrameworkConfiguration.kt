@@ -26,7 +26,6 @@ import com.intellij.execution.testframework.sm.runner.SMTestLocator
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 import uk.co.reecedunn.intellij.plugin.core.execution.configurations.RunConfigurationBase
-import uk.co.reecedunn.intellij.plugin.processor.intellij.execution.testframework.TestRunnerConsoleProperties
 import uk.co.reecedunn.intellij.plugin.processor.run.execution.runners.QueryRunProfile
 import uk.co.reecedunn.intellij.plugin.processor.test.TestFormat
 
