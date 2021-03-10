@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.processor.tests.intellij.execution.configurations
+package uk.co.reecedunn.intellij.plugin.processor.tests.query.execution.configurations
 
 import com.intellij.execution.impl.serializeConfigurationInto
 import com.intellij.psi.PsiFile

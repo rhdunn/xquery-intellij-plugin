@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.processor.tests.intellij.xdebugger.frame
+package uk.co.reecedunn.intellij.plugin.processor.tests.debug.frame
 
 import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.xdebugger.frame.presentation.XValuePresentation
