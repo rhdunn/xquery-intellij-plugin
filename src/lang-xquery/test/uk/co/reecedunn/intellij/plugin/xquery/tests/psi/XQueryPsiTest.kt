@@ -8227,8 +8227,8 @@ private class XQueryPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("NCName")
                 fun ncname() {
-                    val expr = parse<XPathParam>("function (\$x) {}")[0] as XpmVariableBinding
-                    assertThat((expr as XpmVariableType).variableType?.typeName, `is`(nullValue()))
+                    val expr = parse<XPathParam>("function (\$x) {}")[0] as XpmParameter
+                    assertThat(expr.variableType?.typeName, `is`(nullValue()))
 
                     val qname = expr.variableName!!
                     assertThat(qname.prefix, `is`(nullValue()))
@@ -8245,8 +8245,8 @@ private class XQueryPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("QName")
                 fun qname() {
-                    val expr = parse<XPathParam>("function (\$a:x) {}")[0] as XpmVariableBinding
-                    assertThat((expr as XpmVariableType).variableType?.typeName, `is`(nullValue()))
+                    val expr = parse<XPathParam>("function (\$a:x) {}")[0] as XpmParameter
+                    assertThat(expr.variableType?.typeName, `is`(nullValue()))
 
                     val qname = expr.variableName!!
                     assertThat(qname.namespace, `is`(nullValue()))
@@ -8263,8 +8263,8 @@ private class XQueryPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("URIQualifiedName")
                 fun uriQualifiedName() {
-                    val expr = parse<XPathParam>("function (\$Q{http://www.example.com}x) {}")[0] as XpmVariableBinding
-                    assertThat((expr as XpmVariableType).variableType?.typeName, `is`(nullValue()))
+                    val expr = parse<XPathParam>("function (\$Q{http://www.example.com}x) {}")[0] as XpmParameter
+                    assertThat(expr.variableType?.typeName, `is`(nullValue()))
 
                     val qname = expr.variableName!!
                     assertThat(qname.prefix, `is`(nullValue()))
@@ -8281,9 +8281,9 @@ private class XQueryPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("missing VarName")
                 fun missingVarName() {
-                    val expr = parse<XPathParam>("function (\$) {}")[0] as XpmVariableBinding
+                    val expr = parse<XPathParam>("function (\$) {}")[0] as XpmParameter
                     assertThat(expr.variableName, `is`(nullValue()))
-                    assertThat((expr as XpmVariableType).variableType?.typeName, `is`(nullValue()))
+                    assertThat(expr.variableType?.typeName, `is`(nullValue()))
 
                     val presentation = (expr as NavigatablePsiElement).presentation!!
                     assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.Param)))
@@ -8295,8 +8295,8 @@ private class XQueryPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("with type")
                 fun withType() {
-                    val expr = parse<XPathParam>("function ( \$x  as  element() ) {}")[0] as XpmVariableBinding
-                    assertThat((expr as XpmVariableType).variableType?.typeName, `is`("element()"))
+                    val expr = parse<XPathParam>("function ( \$x  as  element() ) {}")[0] as XpmParameter
+                    assertThat(expr.variableType?.typeName, `is`("element()"))
 
                     val qname = expr.variableName!!
                     assertThat(qname.prefix, `is`(nullValue()))

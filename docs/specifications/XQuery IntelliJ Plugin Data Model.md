@@ -52,7 +52,6 @@ various inspections.
   - [Namespace Declarations](#53-namespace-declarations)
   - [Annotated PSI Nodes](#54-annotated-psi-nodes)
     - [Variables](#541-variables)
-      - [Variable Types](#5411-variable-types)
     - [Functions](#542-functions)
 - {: .toc-letter } [References](#a-references)
   - [W3C References](#a1-w3c-references)
@@ -798,7 +797,7 @@ node.
 | `GroupingSpec`          | `XpmVariableBinding`     |
 | `LetBinding`            | `XpmVariableBinding`     |
 | `NextItem`              | `XpmVariableBinding`     |
-| `Param`                 | `XpmVariableBinding`     |
+| `Param`                 | `XpmParameter`           |
 | `PositionalVar`         | `XpmVariableBinding`     |
 | `PreviousItem`          | `XpmVariableBinding`     |
 | `QuantifierBinding`     | `XpmVariableBinding`     |
@@ -826,19 +825,16 @@ A *variable binding* is a variable in an expression that is bound to the
 result of an expression or other context (such as the position of an item
 in a FLWOR expression) for the scope of the expression.
 
+A *parameter* is a *variable binding* that defines a parameter of a function.
+The following properties are defined for *parameters*:
+
+1. The *variable type* property is the `SequenceType` associated with the
+   parameter, if specified.
+
 A *variable reference* is an expression that references a *variable definition*.
 
 1. The *variable name* property is the `xs:QName` associated with that reference,
    used to locate the *variable definition* in the in-scope variables static context.
-
-##### 5.4.1.1 Variable Types
-
-| Symbol    | Interface         |
-|-----------|-------------------|
-| `Param`   | `XpmVariableType` |
-
-The *variable type* of a *variable definition* is the `SequenceType` associated
-with that variable if specified.
 
 #### 5.4.2 Functions
 

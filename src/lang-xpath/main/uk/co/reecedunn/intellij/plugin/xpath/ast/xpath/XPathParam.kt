@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2019-2020 Reece H. Dunn
+ * Copyright (C) 2016, 2019-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,10 +16,9 @@
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
 import com.intellij.psi.NavigatablePsiElement
-import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableBinding
-import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableType
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmParameter
 
 /**
  * An XPath 3.0 and XQuery 1.0 `Param` node in the XQuery AST.
  */
-interface XPathParam : NavigatablePsiElement, XpmVariableBinding, XpmVariableType
+interface XPathParam : NavigatablePsiElement, XpmParameter
