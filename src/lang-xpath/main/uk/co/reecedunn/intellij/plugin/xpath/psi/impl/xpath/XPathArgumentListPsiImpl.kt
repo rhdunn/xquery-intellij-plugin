@@ -59,7 +59,7 @@ open class XPathArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
 
             val args = arguments.iterator()
             val params = target.params
-            return params.mapIndexed { index, param ->
+            return params.mapIndexedNotNull { index, param ->
                 when {
                     index == 0 && parent.isArrowFunctionCall -> {
                         // First argument bound to an ArrowExpr evaluation result.
@@ -72,10 +72,11 @@ open class XPathArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
                         // Last argument, maybe variadic.
                         XpmFunctionParamBinding(param, args.asSequence().toList())
                     }
-                    else -> {
+                    args.hasNext() -> {
                         // Other argument bound to the relevant parameter.
                         XpmFunctionParamBinding(param, args.next())
                     }
+                    else -> null
                 }
             }
         }
