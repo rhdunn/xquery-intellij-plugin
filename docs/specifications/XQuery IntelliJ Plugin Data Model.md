@@ -1,6 +1,6 @@
 ---
 layout: page
-title: XQuery IntelliJ Plugin 1.8 Data and Processing Model
+title: XQuery IntelliJ Plugin 1.9 Data and Processing Model
 ---
 
 This document includes material copied from or derived from the XPath and
@@ -810,10 +810,17 @@ node.
 | `VarRef`                | `XpmVariableReference`   |
 
 A *variable definition* is a construct that introduces a variable that can be
-referenced in the scope the variable is valid for.
+referenced in the scope the variable is valid for. The following properties
+are defined for *variable definitions*:
+
+1. The *variable name* property is the `xs:QName` associated with that definition.
 
 A *variable declaration* is a *variable definition* that specifies a variable
-in the prolog or scripting block scope.
+in the prolog or scripting block scope. The following properties are defined
+for *variable declarations*:
+
+1. The *variable type* property is the `SequenceType` associated with the
+   declaration, if specified.
 
 A *variable binding* is a variable in an expression that is bound to the
 result of an expression or other context (such as the position of an item
@@ -821,16 +828,14 @@ in a FLWOR expression) for the scope of the expression.
 
 A *variable reference* is an expression that references a *variable definition*.
 
-The *variable name* of a *variable definition* is the `xs:QName` associated
-with that definition. The *variable name* of a *variable reference* is the
-`xs:QName` associated with that reference.
+1. The *variable name* property is the `xs:QName` associated with that reference,
+   used to locate the *variable definition* in the in-scope variables static context.
 
 ##### 5.4.1.1 Variable Types
 
 | Symbol    | Interface         |
 |-----------|-------------------|
 | `Param`   | `XpmVariableType` |
-| `VarDecl` | `XpmVariableType` |
 
 The *variable type* of a *variable definition* is the `SequenceType` associated
 with that variable if specified.

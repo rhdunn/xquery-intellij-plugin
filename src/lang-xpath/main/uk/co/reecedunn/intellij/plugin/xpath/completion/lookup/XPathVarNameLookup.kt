@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019, 2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.completion.lookup
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xpath.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableDefinition
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableType
 
@@ -25,7 +26,11 @@ class XPathVarNameLookup(localName: String, prefix: String?, private val variabl
     XPathLookupElement(prefix?.let { "$it:$localName" } ?: localName) {
     init {
         presentation.icon = XPathIcons.Nodes.VarDecl
-        presentation.typeText = (variable as? XpmVariableType)?.variableType?.typeName
+        presentation.typeText = when (variable) {
+            is XpmVariableType -> variable.variableType?.typeName
+            is XpmVariableDeclaration -> variable.variableType?.typeName
+            else -> null
+        }
     }
 
     override fun getObject(): Any = variable

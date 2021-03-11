@@ -1532,12 +1532,11 @@ private class PluginPsiTest : ParserTestCase() {
         internal inner class BlockVarDeclEntry {
             @Test
             @DisplayName("NCName")
-            fun testBlockVarDeclEntry_NCName() {
-                val expr = parse<PluginBlockVarDeclEntry>(
-                    "block { declare \$x := \$y; 2 }"
-                )[0] as XpmVariableDeclaration
+            fun ncname() {
+                val decl = parse<XpmVariableDeclaration>("block { declare \$x := \$y; 2 }")[0]
+                assertThat(decl.variableType?.typeName, `is`(nullValue()))
 
-                val qname = expr.variableName!!
+                val qname = decl.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("x"))
@@ -1545,12 +1544,11 @@ private class PluginPsiTest : ParserTestCase() {
 
             @Test
             @DisplayName("QName")
-            fun testBlockVarDeclEntry_QName() {
-                val expr = parse<PluginBlockVarDeclEntry>(
-                    "block { declare \$a:x := \$a:y; 2 }"
-                )[0] as XpmVariableDeclaration
+            fun qname() {
+                val decl = parse<XpmVariableDeclaration>("block { declare \$a:x := \$a:y; 2 }")[0]
+                assertThat(decl.variableType?.typeName, `is`(nullValue()))
 
-                val qname = expr.variableName!!
+                val qname = decl.variableName!!
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix!!.data, `is`("a"))
                 assertThat(qname.localName!!.data, `is`("x"))
@@ -1558,12 +1556,13 @@ private class PluginPsiTest : ParserTestCase() {
 
             @Test
             @DisplayName("URIQualifiedName")
-            fun testBlockVarDeclEntry_URIQualifiedName() {
-                val expr = parse<PluginBlockVarDeclEntry>(
+            fun uriQualifiedName() {
+                val decl = parse<XpmVariableDeclaration>(
                     "block { declare \$Q{http://www.example.com}x := \$Q{http://www.example.com}y; 2 }"
-                )[0] as XpmVariableDeclaration
+                )[0]
+                assertThat(decl.variableType?.typeName, `is`(nullValue()))
 
-                val qname = expr.variableName!!
+                val qname = decl.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
                 assertThat(qname.localName!!.data, `is`("x"))
@@ -1571,11 +1570,22 @@ private class PluginPsiTest : ParserTestCase() {
 
             @Test
             @DisplayName("missing VarName")
-            fun testBlockVarDeclEntry_MissingVarName() {
-                val expr = parse<PluginBlockVarDeclEntry>(
-                    "block { declare \$ := \$y; 2 }"
-                )[0] as XpmVariableDeclaration
-                assertThat(expr.variableName, `is`(nullValue()))
+            fun missingVarName() {
+                val decl = parse<XpmVariableDeclaration>("block { declare \$ := \$y; 2 }")[0]
+                assertThat(decl.variableType?.typeName, `is`(nullValue()))
+                assertThat(decl.variableName, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("with type")
+            fun withType() {
+                val decl = parse<XpmVariableDeclaration>("block { declare \$a:x  as  node ( (::) )? := \$a:y; 2 }")[0]
+                assertThat(decl.variableType?.typeName, `is`("node()?"))
+
+                val qname = decl.variableName!!
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("a"))
+                assertThat(qname.localName!!.data, `is`("x"))
             }
         }
     }

@@ -64,7 +64,7 @@ class XQueryVarDeclPsiImpl(node: ASTNode) :
         get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
 
     // endregion
-    // region XpmVariableType
+    // region XpmVariableDeclaration
 
     override val variableType: XdmSequenceType?
         get() = children().filterIsInstance<XdmSequenceType>().firstOrNull()
