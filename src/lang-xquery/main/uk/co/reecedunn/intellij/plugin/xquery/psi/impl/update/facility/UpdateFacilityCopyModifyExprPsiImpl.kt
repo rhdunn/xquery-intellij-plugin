@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017, 2020 Reece H. Dunn
+ * Copyright (C) 2016-2017, 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,12 +18,10 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.update.facility
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.UpdateFacilityCopyModifyExpr
 import uk.co.reecedunn.intellij.plugin.intellij.lang.UpdateFacilitySpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
 class UpdateFacilityCopyModifyExprPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), UpdateFacilityCopyModifyExpr, VersionConformance {
@@ -31,12 +29,6 @@ class UpdateFacilityCopyModifyExprPsiImpl(node: ASTNode) :
 
     override val expressionElement: PsiElement
         get() = this
-
-    // endregion
-    // region XpmVariableBinding
-
-    override val variableName: XsQNameValue?
-        get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
 
     // endregion
     // region VersionConformance

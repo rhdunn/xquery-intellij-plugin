@@ -148,7 +148,7 @@ class XQueryModuleImpl(provider: FileViewProvider) :
             XQueryElementType.COMP_ELEM_CONSTRUCTOR to XpmUsageType.Element,
             XQueryElementType.COMP_NAMESPACE_CONSTRUCTOR to XpmUsageType.Namespace,
             XQueryElementType.COMP_PI_CONSTRUCTOR to XpmUsageType.ProcessingInstruction,
-            XQueryElementType.COPY_MODIFY_EXPR to XpmUsageType.Variable,
+            XQueryElementType.COPY_MODIFY_EXPR_BINDING to XpmUsageType.Variable,
             XQueryElementType.COUNT_CLAUSE to XpmUsageType.Variable,
             XQueryElementType.CURRENT_ITEM to XpmUsageType.Variable,
             XQueryElementType.DECIMAL_FORMAT_DECL to XpmUsageType.DecimalFormat,

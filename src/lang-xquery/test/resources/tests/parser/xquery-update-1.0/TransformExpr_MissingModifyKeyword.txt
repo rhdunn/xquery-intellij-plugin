@@ -4,19 +4,20 @@ XQueryModuleImpl[FILE(0:30)]
          UpdateFacilityCopyModifyExprImpl[XQUERY_COPY_MODIFY_EXPR(0:30)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_COPY(0:4)]('copy')
             PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
-            LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(5:6)]('$')
-            PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-            XQueryNCNameImpl[XQUERY_NCNAME(7:9)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(7:8)]('x')
-               PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
-            LeafPsiElement[XPATH_ASSIGN_EQUAL_TOKEN(9:11)](':=')
-            PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
-            XPathVarRefImpl[XPATH_VAR_REF(12:16)]
-               LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(12:13)]('$')
-               PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
-               XQueryNCNameImpl[XQUERY_NCNAME(14:16)]
-                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(14:15)]('y')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
+            PluginCopyModifyExprBindingImpl[XQUERY_COPY_MODIFY_EXPR_BINDING(5:16)]
+               LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(5:6)]('$')
+               PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
+               XQueryNCNameImpl[XQUERY_NCNAME(7:9)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(7:8)]('x')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
+               LeafPsiElement[XPATH_ASSIGN_EQUAL_TOKEN(9:11)](':=')
+               PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
+               XPathVarRefImpl[XPATH_VAR_REF(12:16)]
+                  LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(12:13)]('$')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
+                  XQueryNCNameImpl[XQUERY_NCNAME(14:16)]
+                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(14:15)]('y')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
             PsiErrorElementImpl[ERROR_ELEMENT(16:16)]('XPST0003: Expected keyword: modify.')
             XPathVarRefImpl[XPATH_VAR_REF(16:20)]
                LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(16:17)]('$')

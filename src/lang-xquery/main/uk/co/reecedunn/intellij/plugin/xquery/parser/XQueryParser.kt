@@ -2944,41 +2944,15 @@ class XQueryParser : XPathParser() {
         val marker = builder.matchTokenTypeWithMarker(XQueryTokenType.K_COPY)
         if (marker != null) {
             var haveErrors = false
-            var isFirstVarName = true
+            var isFirst = true
             do {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (!builder.matchTokenType(XPathTokenType.VARIABLE_INDICATOR) && !haveErrors) {
-                    if (isFirstVarName) {
-                        marker.rollbackTo()
-                        return false
-                    } else {
-                        builder.error(XPathBundle.message("parser.error.expected", "$"))
-                        haveErrors = true
-                    }
+                if (!parseCopyModifyExprBinding(builder, isFirst) && isFirst) {
+                    marker.rollbackTo()
+                    return false
                 }
 
-                parseWhiteSpaceAndCommentTokens(builder)
-                if (parseEQNameOrWildcard(builder, XPathElementType.VAR_REF, false) == null && !haveErrors) {
-                    builder.error(XPathBundle.message("parser.error.expected-eqname"))
-                    haveErrors = true
-                }
-
-                parseWhiteSpaceAndCommentTokens(builder)
-                if (
-                    builder.errorOnTokenType(XPathTokenType.EQUAL, XPathBundle.message("parser.error.expected", ":="))
-                ) {
-                    haveErrors = true
-                } else if (!builder.matchTokenType(XPathTokenType.ASSIGN_EQUAL) && !haveErrors) {
-                    builder.error(XPathBundle.message("parser.error.expected", ":="))
-                    haveErrors = true
-                }
-
-                parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseExprSingle(builder) && !haveErrors) {
-                    builder.error(XPathBundle.message("parser.error.expected-expression"))
-                }
-
-                isFirstVarName = false
+                isFirst = false
                 parseWhiteSpaceAndCommentTokens(builder)
             } while (builder.matchTokenType(XPathTokenType.COMMA))
 
@@ -3008,6 +2982,45 @@ class XQueryParser : XPathParser() {
             marker.done(XQueryElementType.COPY_MODIFY_EXPR)
             return true
         }
+        return false
+    }
+
+    private fun parseCopyModifyExprBinding(builder: PsiBuilder, isFirst: Boolean): Boolean {
+        val marker = builder.mark()
+
+        var haveErrors = false
+        val matched = builder.matchTokenType(XPathTokenType.VARIABLE_INDICATOR)
+        if (!matched && !isFirst) {
+            builder.error(XPathBundle.message("parser.error.expected", "$"))
+            haveErrors = true
+        }
+
+        if (matched || !isFirst) {
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (parseEQNameOrWildcard(builder, XPathElementType.VAR_REF, false) == null && !haveErrors) {
+                builder.error(XPathBundle.message("parser.error.expected-eqname"))
+                haveErrors = true
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (
+                builder.errorOnTokenType(XPathTokenType.EQUAL, XPathBundle.message("parser.error.expected", ":="))
+            ) {
+                haveErrors = true
+            } else if (!builder.matchTokenType(XPathTokenType.ASSIGN_EQUAL) && !haveErrors) {
+                builder.error(XPathBundle.message("parser.error.expected", ":="))
+                haveErrors = true
+            }
+
+            parseWhiteSpaceAndCommentTokens(builder)
+            if (!parseExprSingle(builder) && !haveErrors) {
+                builder.error(XPathBundle.message("parser.error.expected-expression"))
+            }
+
+            marker.done(XQueryElementType.COPY_MODIFY_EXPR_BINDING)
+            return true
+        }
+        marker.drop()
         return false
     }
 

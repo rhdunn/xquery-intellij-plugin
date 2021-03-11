@@ -1259,6 +1259,8 @@ These changes include support for:
 | \[149\]  | `InitialClause`                | ::= | `ForClause | ForMemberClause | LetClause | WindowClause` |  |
 | \[150\]  | `WithExpr`                     | ::= | `"with" NamespaceDeclaration ("," NamespaceDeclaration)* EnclosedExpr` | |
 | \[151\]  | `NamespaceDeclaration`         | ::= | `QName "=" URILiteral`              |                       |
+| \[152\]  | `CopyModifyExpr`               | ::= | `"copy" CopyModifyExprBinding ("," CopyModifyExprBinding)* "modify" ExprSingle "return" ExprSingle` | |
+| \[153\]  | `CopyModifyExprBinding`        | ::= | `"$" VarName ":=" ExprSingle`       |                       |
 
 ### A.2 Reserved Function Names
 

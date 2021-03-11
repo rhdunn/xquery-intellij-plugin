@@ -858,6 +858,12 @@ object XQueryElementType {
         XQuery
     )
 
+    val COPY_MODIFY_EXPR_BINDING: IElementType = ICompositeElementType(
+        "XQUERY_COPY_MODIFY_EXPR_BINDING",
+        PluginCopyModifyExprBindingPsiImpl::class.java,
+        XQuery
+    )
+
     val DEFAULT_CASE_CLAUSE: IElementType = ICompositeElementType(
         "XQUERY_DEFAULT_CASE_CLAUSE",
         PluginDefaultCaseClausePsiImpl::class.java,

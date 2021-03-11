@@ -4,17 +4,18 @@ XQueryModuleImpl[FILE(0:35)]
          UpdateFacilityCopyModifyExprImpl[XQUERY_COPY_MODIFY_EXPR(0:35)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_COPY(0:4)]('copy')
             PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
-            LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(5:6)]('$')
-            PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-            PsiErrorElementImpl[ERROR_ELEMENT(7:7)]('XPST0003: Missing qualified name or braced URI qualified name.')
-            LeafPsiElement[XPATH_ASSIGN_EQUAL_TOKEN(7:9)](':=')
-            PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
-            XPathVarRefImpl[XPATH_VAR_REF(10:14)]
-               LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(10:11)]('$')
-               PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
-               XQueryNCNameImpl[XQUERY_NCNAME(12:14)]
-                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(12:13)]('y')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
+            PluginCopyModifyExprBindingImpl[XQUERY_COPY_MODIFY_EXPR_BINDING(5:14)]
+               LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(5:6)]('$')
+               PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
+               PsiErrorElementImpl[ERROR_ELEMENT(7:7)]('XPST0003: Missing qualified name or braced URI qualified name.')
+               LeafPsiElement[XPATH_ASSIGN_EQUAL_TOKEN(7:9)](':=')
+               PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
+               XPathVarRefImpl[XPATH_VAR_REF(10:14)]
+                  LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(10:11)]('$')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
+                  XQueryNCNameImpl[XQUERY_NCNAME(12:14)]
+                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(12:13)]('y')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_MODIFY(14:20)]('modify')
             PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
             XPathVarRefImpl[XPATH_VAR_REF(21:25)]

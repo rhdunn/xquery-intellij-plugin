@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableBinding
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginCopyModifyExprBinding
 import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.*
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
@@ -125,13 +126,24 @@ private class UpdateFacilityPsiTest : ParserTestCase() {
     @Nested
     @DisplayName("XQuery Update Facility 3.0 (5.6) Copy Modify")
     internal inner class CopyModify {
-        @Nested
+        @Test
         @DisplayName("XQuery Update Facility 3.0 EBNF (208) CopyModifyExpr")
-        internal inner class CopyModifyExpr {
+        fun copyModifyExpr() {
+            val expr = parse<UpdateFacilityCopyModifyExpr>(
+                "copy \$x := () modify delete node \$y return \$z"
+            )[0] as XpmExpression
+
+            assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.COPY_MODIFY_EXPR))
+            assertThat(expr.expressionElement?.textOffset, `is`(0))
+        }
+
+        @Nested
+        @DisplayName("XQuery Update Facility 3.0 EBNF (208) CopyModifyExpr ; XQuery IntelliJ Plugin XQuery EBNF (153) CopyModifyExprBinding")
+        internal inner class CopyModifyExprBinding {
             @Test
             @DisplayName("NCName")
             fun ncname() {
-                val binding = parse<UpdateFacilityCopyModifyExpr>(
+                val binding = parse<PluginCopyModifyExprBinding>(
                     "copy \$x := () modify delete node \$y return \$z"
                 )[0] as XpmVariableBinding
 
@@ -139,16 +151,12 @@ private class UpdateFacilityPsiTest : ParserTestCase() {
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("x"))
-
-                val expr = binding as XpmExpression
-                assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.COPY_MODIFY_EXPR))
-                assertThat(expr.expressionElement?.textOffset, `is`(0))
             }
 
             @Test
             @DisplayName("QName")
             fun qname() {
-                val binding = parse<UpdateFacilityCopyModifyExpr>(
+                val binding = parse<PluginCopyModifyExprBinding>(
                     "copy \$a:x := () modify delete node \$a:y return \$a:z"
                 )[0] as XpmVariableBinding
 
@@ -156,16 +164,12 @@ private class UpdateFacilityPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix!!.data, `is`("a"))
                 assertThat(qname.localName!!.data, `is`("x"))
-
-                val expr = binding as XpmExpression
-                assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.COPY_MODIFY_EXPR))
-                assertThat(expr.expressionElement?.textOffset, `is`(0))
             }
 
             @Test
             @DisplayName("URIQualifiedName")
             fun uriQualifiedName() {
-                val binding = parse<UpdateFacilityCopyModifyExpr>(
+                val binding = parse<PluginCopyModifyExprBinding>(
                     """
                     copy ${'$'}Q{http://www.example.com}x := ()
                     modify delete node ${'$'}Q{http://www.example.com}y
@@ -177,10 +181,6 @@ private class UpdateFacilityPsiTest : ParserTestCase() {
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
                 assertThat(qname.localName!!.data, `is`("x"))
-
-                val expr = binding as XpmExpression
-                assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.COPY_MODIFY_EXPR))
-                assertThat(expr.expressionElement?.textOffset, `is`(0))
             }
         }
     }
