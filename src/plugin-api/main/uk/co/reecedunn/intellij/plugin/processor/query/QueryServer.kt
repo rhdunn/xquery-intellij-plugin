@@ -15,4 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.query
 
-data class QueryServer(val server: String, val database: String)
+import uk.co.reecedunn.intellij.plugin.processor.resources.PluginApiBundle
+
+data class QueryServer(val server: String, val database: String) {
+    companion object {
+        val NONE: String by lazy { PluginApiBundle.message("query.server.none") }
+    }
+}

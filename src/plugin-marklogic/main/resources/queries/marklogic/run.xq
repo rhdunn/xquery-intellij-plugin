@@ -70,7 +70,7 @@ declare variable $content-type-header-prefix as xs:string external := "X-Content
 declare variable $derived-type-header-prefix as xs:string external := "X-Derived-";
 
 declare function local:nullize($value) {
-    if (string-length($value) eq 0 or $value eq "(none)") then () else $value
+    if (string-length($value) eq 0) then () else $value
 };
 
 declare function local:version() {

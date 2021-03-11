@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.core.lang.*
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
 import uk.co.reecedunn.intellij.plugin.processor.query.execution.configurations.rdf.RDF_FORMATS
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryServer
 import uk.co.reecedunn.intellij.plugin.processor.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.query.execution.ui.QueryProcessorComboBox
 import uk.co.reecedunn.intellij.plugin.processor.query.execution.ui.QueryServerComboBoxModel
@@ -66,7 +67,7 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
             database = comboBox(column.horizontal().hgap().vgap()) {
                 model = QueryServerComboBoxModel()
                 addActionListener {
-                    val database = database.selectedItem as? String? ?: "(none)"
+                    val database = database.selectedItem as? String? ?: QueryServer.NONE
                     queryProcessor.servers { queryServers ->
                         val servers = queryServers.asSequence().filter { it.database == database }.map { it.server }
                         (server.model as QueryServerComboBoxModel).update(servers.toList())

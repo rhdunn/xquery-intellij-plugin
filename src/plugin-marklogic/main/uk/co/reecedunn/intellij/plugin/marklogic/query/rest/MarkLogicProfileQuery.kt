@@ -32,6 +32,7 @@ import uk.co.reecedunn.intellij.plugin.marklogic.profile.toMarkLogicProfileRepor
 import uk.co.reecedunn.intellij.plugin.processor.profile.FlatProfileReport
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileQueryResults
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryServer
 import uk.co.reecedunn.intellij.plugin.processor.query.http.BuildableQuery
 import uk.co.reecedunn.intellij.plugin.processor.run.StoppableQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
@@ -86,7 +87,7 @@ internal class MarkLogicProfileQuery(
         params.addProperty("types", types.toString())
         params.addProperty("rdf-output-format", rdfOutputFormat?.getLanguageMimeTypes()?.get(0) ?: "")
         params.addProperty("updating", updating.toString())
-        params.addProperty("server", server)
+        params.addProperty("server", if (server == QueryServer.NONE) "" else server)
         params.addProperty("database", database)
         params.addProperty("module-root", modulePath)
         params.addProperty("context-value", contextValue)

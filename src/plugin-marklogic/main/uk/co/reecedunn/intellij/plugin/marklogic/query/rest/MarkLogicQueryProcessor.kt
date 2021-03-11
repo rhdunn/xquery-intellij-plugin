@@ -66,7 +66,15 @@ internal class MarkLogicQueryProcessor(
         get() {
             val query = createRunnableQuery(MarkLogicQueries.Servers, XQuery)
             return query.run().results.chunked(2).map {
-                QueryServer(it[0].value as String, it[1].value as String)
+                val server = when (val value = it[0].value as String) {
+                    "(none)" -> QueryServer.NONE
+                    else -> value
+                }
+                val database = when (val value = it[1].value as String) {
+                    "(none)" -> QueryServer.NONE
+                    else -> value
+                }
+                QueryServer(server, database)
             }
         }
 
