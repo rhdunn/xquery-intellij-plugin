@@ -781,7 +781,7 @@ have annotations associated with it.
 The *annotations* property lists the user-specified annotations on the PSI
 node.
 
-### 5.4.1 Variables
+#### 5.4.1 Variables
 
 | Symbol                  | Interface                |
 |-------------------------|--------------------------|
@@ -825,7 +825,7 @@ The *variable name* of a *variable definition* is the `xs:QName` associated
 with that definition. The *variable name* of a *variable reference* is the
 `xs:QName` associated with that reference.
 
-#### 5.4.1.1 Variable Types
+##### 5.4.1.1 Variable Types
 
 | Symbol    | Interface         |
 |-----------|-------------------|
@@ -835,7 +835,7 @@ with that definition. The *variable name* of a *variable reference* is the
 The *variable type* of a *variable definition* is the `SequenceType` associated
 with that variable if specified.
 
-### 5.4.2 Functions
+#### 5.4.2 Functions
 
 | Symbol                     | Interface                     |
 |----------------------------|-------------------------------|
