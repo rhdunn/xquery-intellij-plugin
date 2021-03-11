@@ -49,7 +49,7 @@ internal class EXistDBQueryProcessor(
             return ItemPresentationImpl(icon, "${version[0].value} ${version[1].value}")
         }
 
-    override val servers: List<QueryServer> = listOf()
+    override val servers: List<QueryServer> = listOf(QueryServer(QueryServer.NONE, QueryServer.NONE))
 
     // endregion
     // region RunnableQueryProvider

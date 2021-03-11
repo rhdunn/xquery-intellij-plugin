@@ -46,7 +46,7 @@ internal class BaseXQueryProcessor(
             return ItemPresentationImpl(BaseXIcons.Product, "BaseX $version")
         }
 
-    override val servers: List<QueryServer> = listOf()
+    override val servers: List<QueryServer> = listOf(QueryServer(QueryServer.NONE, QueryServer.NONE))
 
     // endregion
     // region ProfileableQueryProvider
