@@ -59,6 +59,7 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
                 queryProcessor.servers(refresh = true) { queryServers ->
                     val databases = queryServers.map { it.database }.distinct()
                     (database.model as QueryServerComboBoxModel).update(databases)
+                    database.isEnabled = server.itemCount > 1
                 }
             }
         }
@@ -71,6 +72,7 @@ class QueryProcessorRunConfigurationEditor(private val project: Project, private
                     queryProcessor.servers { queryServers ->
                         val servers = queryServers.asSequence().filter { it.database == database }.map { it.server }
                         (server.model as QueryServerComboBoxModel).update(servers.toList())
+                        server.isEnabled = server.itemCount > 1
                     }
                 }
             }
