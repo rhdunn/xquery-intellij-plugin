@@ -99,6 +99,7 @@
     <p>XProc:</p>
     <ol>
       <li>Recognise xpl files as XProc XML files.</li>
+      <li>Add the XProc 1.0 RNG schema file.</li>
     </ol>
     <p>XRay Unit Tests:</p>
     <ol>

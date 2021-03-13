@@ -3,5 +3,7 @@
     <fileType name="XProc" language="XProc" extensions="xpl"
               implementationClass="uk.co.reecedunn.intellij.plugin.xproc.lang.fileTypes.XProcFileType"
               fieldName="INSTANCE"/>
+
+    <standardResourceProvider implementation="uk.co.reecedunn.intellij.plugin.xproc.resources.XProcResourceProvider"/>
   </extensions>
 </idea-plugin>
