@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xslt.lang
 
-import com.intellij.lang.Language
+import com.intellij.lang.xml.XMLLanguage
 import com.intellij.openapi.fileTypes.ExtensionFileNameMatcher
 import com.intellij.openapi.fileTypes.FileNameMatcher
 import com.intellij.openapi.fileTypes.LanguageFileType
@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmLanguageVersion
  * XML Stylesheet Language: Transform
  */
 @Suppress("MemberVisibilityCanBePrivate")
-object XSLT : Language("XSLT") {
+object XSLT : XMLLanguage(INSTANCE, "XSLT", "application/xslt+xml") {
     // region Language
 
     const val NAMESPACE: String = "http://www.w3.org/1999/XSL/Transform"
