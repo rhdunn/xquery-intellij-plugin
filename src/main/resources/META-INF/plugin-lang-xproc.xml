@@ -1,0 +1,7 @@
+<idea-plugin>
+  <extensions defaultExtensionNs="com.intellij">
+    <fileType name="XProc" language="XProc" extensions="xpl"
+              implementationClass="uk.co.reecedunn.intellij.plugin.xproc.lang.fileTypes.XProcFileType"
+              fieldName="INSTANCE"/>
+  </extensions>
+</idea-plugin>
