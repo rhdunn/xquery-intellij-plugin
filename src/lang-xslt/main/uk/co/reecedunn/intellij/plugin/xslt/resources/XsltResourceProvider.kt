@@ -26,6 +26,7 @@ class XsltResourceProvider : StandardResourceProvider {
         private const val XSLT_30_URI = "https://www.w3.org/TR/xslt-30/schema-for-xslt30.xsd"
 
         private const val EXSL_COMMON_NAMESPACE = "http://exslt.org/common"
+        private const val ELEMENT_SYNTAX_NAMESPACE = "http://www.w3.org/1999/XSL/Spec/ElementSyntax"
     }
 
     override fun registerResources(registrar: ResourceRegistrar?) {
@@ -38,5 +39,7 @@ class XsltResourceProvider : StandardResourceProvider {
         resources.addStdResource(XSLT.NAMESPACE, "4.0", "/schemas/xslt-4_0.xsd", XsltResourceProvider::class.java)
 
         resources.addStdResource(EXSL_COMMON_NAMESPACE, "/schemas/exsl-common.xsd", XsltResourceProvider::class.java)
+
+        resources.addIgnoredResource(ELEMENT_SYNTAX_NAMESPACE)
     }
 }
