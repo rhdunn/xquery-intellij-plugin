@@ -17,12 +17,13 @@ package uk.co.reecedunn.intellij.plugin.xproc.lang.fileTypes
 
 import com.intellij.ide.highlighter.XmlLikeFileType
 import uk.co.reecedunn.intellij.plugin.xproc.lang.XProc
+import uk.co.reecedunn.intellij.plugin.xproc.resources.XProcBundle
 import javax.swing.Icon
 
 object XProcFileType : XmlLikeFileType(XProc) {
     override fun getName(): String = "XProc"
 
-    override fun getDescription(): String = name
+    override fun getDescription(): String = XProcBundle.message("language.xproc.file-type.description")
 
     override fun getDefaultExtension(): String = "xpl"
 
