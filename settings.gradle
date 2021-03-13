@@ -14,6 +14,8 @@ include 'src:lang-java'
 include 'src:lang-xpath'
 include 'src:lang-xquery'
 include 'src:lang-xqdoc'
+
+include 'src:lang-xproc'
 include 'src:lang-xslt'
 
 include 'src:plugin-expath'
