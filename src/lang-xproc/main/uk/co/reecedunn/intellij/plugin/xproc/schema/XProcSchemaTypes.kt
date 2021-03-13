@@ -26,6 +26,7 @@ object XProcSchemaTypes {
     fun create(type: String?): ISchemaType? = when (type) {
         "XPathSequenceType" -> XPathSequenceType
         "XPathExpression" -> XPathExpression
+        "XSLTSelectionPattern" -> XSLTSelectionPattern
         else -> null
     }
 
