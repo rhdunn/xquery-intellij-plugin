@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.debugger
 
+import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.xdebugger.evaluation.XDebuggerEvaluator
 import com.intellij.xdebugger.frame.XCompositeNode
@@ -57,10 +58,12 @@ class SaxonStackFrame private constructor(
             val column = locator.columnNumber.let { if (it == -1) 1 else it } - 1
             val context = (locator as? InstructionInfo)?.getObjectName()?.toString()
             val children = SaxonStackFrame(xpathContext, processor)
-            return when (path) {
-                null, "" -> VirtualFileStackFrame(queryFile, line, column, context, children, null)
-                else -> VirtualFileStackFrame(XpmModuleUri(queryFile, path), line, column, context, children, null)
+            val file = when {
+                path.isNullOrEmpty() -> null
+                path.startsWith("file:/") -> LocalFileSystem.getInstance().findFileByPath(path.substring(6))
+                else -> XpmModuleUri(queryFile, path)
             }
+            return VirtualFileStackFrame(file ?: queryFile, line, column, context, children, null)
         }
     }
 }
