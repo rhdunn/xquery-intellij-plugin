@@ -31,7 +31,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xslt.ast.schema.XsltHashedKeyword
 import uk.co.reecedunn.intellij.plugin.xslt.resources.XsltBundle
-import uk.co.reecedunn.intellij.plugin.xslt.parser.XsltSchemaTypes
+import uk.co.reecedunn.intellij.plugin.xslt.schema.XsltSchemaTypes
 import uk.co.reecedunn.intellij.plugin.xslt.schema.*
 import java.lang.UnsupportedOperationException
 

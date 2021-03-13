@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xslt.parser
+package uk.co.reecedunn.intellij.plugin.xslt.schema
 
 import com.intellij.psi.PsiElement
 import com.intellij.psi.xml.XmlAttribute
@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.core.xml.attribute
 import uk.co.reecedunn.intellij.plugin.core.xml.schemaType
 import uk.co.reecedunn.intellij.plugin.xdm.schema.ISchemaType
 import uk.co.reecedunn.intellij.plugin.xslt.lang.XSLT
-import uk.co.reecedunn.intellij.plugin.xslt.schema.*
+import uk.co.reecedunn.intellij.plugin.xslt.parser.expandText
 
 object XsltSchemaTypes {
     fun create(type: String?): ISchemaType? = when (type) {

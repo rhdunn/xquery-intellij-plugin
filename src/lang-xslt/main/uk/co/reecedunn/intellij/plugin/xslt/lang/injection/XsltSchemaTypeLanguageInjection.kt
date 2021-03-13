@@ -21,7 +21,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiLanguageInjectionHost
 import com.intellij.psi.xml.XmlAttributeValue
 import com.intellij.psi.xml.XmlText
-import uk.co.reecedunn.intellij.plugin.xslt.parser.XsltSchemaTypes
+import uk.co.reecedunn.intellij.plugin.xslt.schema.XsltSchemaTypes
 import uk.co.reecedunn.intellij.plugin.xslt.lang.isIntellijXPathPluginEnabled
 
 class XsltSchemaTypeLanguageInjection : MultiHostInjector {
