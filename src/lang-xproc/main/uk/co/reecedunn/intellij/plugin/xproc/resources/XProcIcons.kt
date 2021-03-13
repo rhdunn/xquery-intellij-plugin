@@ -13,20 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xproc.lang.fileTypes
+package uk.co.reecedunn.intellij.plugin.xproc.resources
 
-import com.intellij.ide.highlighter.XmlLikeFileType
-import uk.co.reecedunn.intellij.plugin.xproc.lang.XProc
-import uk.co.reecedunn.intellij.plugin.xproc.resources.XProcBundle
-import uk.co.reecedunn.intellij.plugin.xproc.resources.XProcIcons
+import com.intellij.openapi.util.IconLoader
 import javax.swing.Icon
 
-object XProcFileType : XmlLikeFileType(XProc) {
-    override fun getName(): String = "XProc"
+object XProcIcons {
+    @Suppress("SameParameterValue")
+    private fun getIcon(path: String): Icon = IconLoader.getIcon(path, XProcIcons::class.java)
 
-    override fun getDescription(): String = XProcBundle.message("language.xproc.file-type.description")
-
-    override fun getDefaultExtension(): String = "xpl"
-
-    override fun getIcon(): Icon = XProcIcons.FileType
+    val FileType: Icon = getIcon("/icons/xproc/fileType.png")
 }

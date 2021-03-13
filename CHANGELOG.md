@@ -17,6 +17,16 @@ XPath, XQuery, and XSLT 4.0 Editor's Draft 13 January 2021:
 1. Support `type` in `DefaultNamespaceDecl` declarations in XQuery.
 1. Support item type declarations in XQuery.
 
+XQuery:
+
+1. Support resolving wildcard prefixes to the namespace declaration.
+1. Fix an exception in code completion when typing in a comment after a variable reference.
+1. Show public/private icons in the file structure view.
+
+XProc:
+
+1. Recognise xpl files as XProc XML files.
+
 XRay Unit Tests:
 
 1. Add an XRay run configuration.
@@ -35,12 +45,6 @@ Semantic Highlighting:
 1. Highlight `PITest` and `CompPIConstructor` names as processing instructions.
 1. Highlight `KeywordArgument` names as parameters.
 1. Highlight `WithExpr` using the same logic as `DirAttribute`.
-
-XQuery:
-
-1. Support resolving wildcard prefixes to the namespace declaration.
-1. Fix an exception in code completion when typing in a comment after a variable reference.
-1. Show public/private icons in the file structure view.
 
 Run Configuration:
 

@@ -90,6 +90,16 @@
       <li>Support <code>type</code> in <code>DefaultNamespaceDecl</code> declarations in XQuery.</li>
       <li>Support item type declarations in XQuery.</li>
     </ol>
+    <p>XQuery:</p>
+    <ol>
+      <li>Support resolving wildcard prefixes to the namespace declaration.</li>
+      <li>Fix an exception in code completion when typing in a comment after a variable reference.</li>
+      <li>Show public/private icons in the file structure view.</li>
+    </ol>
+    <p>XProc:</p>
+    <ol>
+      <li>Recognise xpl files as XProc XML files.</li>
+    </ol>
     <p>XRay Unit Tests:</p>
     <ol>
       <li>Add an XRay run configuration.</li>
@@ -108,12 +118,6 @@
       <li>Highlight <code>PITest</code> and <code>CompPIConstructor</code> names as processing instructions.</li>
       <li>Highlight <code>KeywordArgument</code> names as parameters.</li>
       <li>Highlight <code>WithExpr</code> using the same logic as <code>DirAttribute</code>.</li>
-    </ol>
-    <p>XQuery:</p>
-    <ol>
-      <li>Support resolving wildcard prefixes to the namespace declaration.</li>
-      <li>Fix an exception in code completion when typing in a comment after a variable reference.</li>
-      <li>Show public/private icons in the file structure view.</li>
     </ol>
     <p>Run Configuration:</p>
     <ol>
