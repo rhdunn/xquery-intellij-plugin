@@ -25,6 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.schema.ISchemaType
 object XProcSchemaTypes {
     fun create(type: String?): ISchemaType? = when (type) {
         "XPathSequenceType" -> XPathSequenceType
+        "XPathExpression" -> XPathExpression
         else -> null
     }
 
