@@ -28,5 +28,6 @@ class XProcResourceProvider : StandardResourceProvider {
         val resources = registrar as ResourceRegistrarImpl
 
         resources.addStdResource(XPROC_NAMESPACE, "1.0", "/schemas/xproc10.rng", XProcResourceProvider::class.java)
+        resources.addStdResource(XPROC_NAMESPACE, "3.0", "/schemas/xproc30.rng", XProcResourceProvider::class.java)
     }
 }

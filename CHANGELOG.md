@@ -26,7 +26,7 @@ XQuery:
 XProc:
 
 1. Recognise xpl files as XProc XML files.
-1. Add the XProc 1.0 RNG schema file.
+1. Add the XProc 1.0 and 3.0 RNG schema file.
 
 XRay Unit Tests:
 
