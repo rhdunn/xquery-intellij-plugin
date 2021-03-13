@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2020 Reece H. Dunn
+ * Copyright (C) 2019-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,4 +23,17 @@ val XmlAttributeValue.attribute: XmlAttribute?
     get() = parent as? XmlAttribute
 
 val XmlAttribute.schemaType: String?
-    get() = (descriptor?.declaration as? XmlTag)?.getAttributeValue("type")
+    get() {
+        val tag = descriptor?.declaration as? XmlTag
+        return when (tag?.namespace) {
+            "http://www.w3.org/2001/XMLSchema" -> tag.getAttributeValue("type")
+            "http://relaxng.org/ns/structure/1.0" -> tag.subTags.mapNotNull {
+                when (it.localName) {
+                    "data" -> it.getAttributeValue("type")
+                    "ref" -> it.getAttributeValue("name")
+                    else -> null
+                }
+            }.firstOrNull()
+            else -> null
+        }
+    }
