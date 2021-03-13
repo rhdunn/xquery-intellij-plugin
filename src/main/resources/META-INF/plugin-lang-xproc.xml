@@ -9,5 +9,7 @@
     <standardResourceProvider implementation="uk.co.reecedunn.intellij.plugin.xproc.resources.XProcResourceProvider"/>
 
     <lang.parserDefinition language="XProc" implementationClass="uk.co.reecedunn.intellij.plugin.xproc.lang.XProc$ParserDefinition"/>
+
+    <multiHostInjector implementation="uk.co.reecedunn.intellij.plugin.xproc.lang.injection.XProcSchemaTypeLanguageInjection"/>
   </extensions>
 </idea-plugin>
