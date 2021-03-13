@@ -7,5 +7,7 @@
     <fileIconPatcher implementation="uk.co.reecedunn.intellij.plugin.xproc.lang.fileTypes.XProcFileIconPatcher"/>
 
     <standardResourceProvider implementation="uk.co.reecedunn.intellij.plugin.xproc.resources.XProcResourceProvider"/>
+
+    <lang.parserDefinition language="XProc" implementationClass="uk.co.reecedunn.intellij.plugin.xproc.lang.XProc$ParserDefinition"/>
   </extensions>
 </idea-plugin>

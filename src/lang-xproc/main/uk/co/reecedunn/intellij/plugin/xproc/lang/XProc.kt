@@ -16,12 +16,13 @@
 package uk.co.reecedunn.intellij.plugin.xproc.lang
 
 import com.intellij.lang.xml.XMLLanguage
+import com.intellij.lang.xml.XMLParserDefinition
 import com.intellij.openapi.fileTypes.LanguageFileType
+import com.intellij.psi.FileViewProvider
+import com.intellij.psi.PsiFile
+import com.intellij.psi.impl.source.xml.XmlFileImpl
+import com.intellij.psi.tree.IFileElementType
 
-/**
- * XML Stylesheet Language: Transform
- */
-@Suppress("MemberVisibilityCanBePrivate")
 object XProc : XMLLanguage(INSTANCE, "XProc", "application/xproc+xml") {
     // region Language
 
@@ -32,6 +33,19 @@ object XProc : XMLLanguage(INSTANCE, "XProc", "application/xproc+xml") {
     override fun getDisplayName(): String = "XProc"
 
     override fun getAssociatedFileType(): LanguageFileType? = null
+
+    // endregion
+    // region Parser Definition
+
+    val FileElementType: IFileElementType = IFileElementType(this)
+
+    class ParserDefinition : XMLParserDefinition() {
+        override fun getFileNodeType(): IFileElementType = FileElementType
+
+        override fun createFile(viewProvider: FileViewProvider): PsiFile {
+            return XmlFileImpl(viewProvider, FileElementType)
+        }
+    }
 
     // endregion
 }
