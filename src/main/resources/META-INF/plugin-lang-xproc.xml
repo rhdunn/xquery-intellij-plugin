@@ -4,6 +4,8 @@
               implementationClass="uk.co.reecedunn.intellij.plugin.xproc.lang.fileTypes.XProcFileType"
               fieldName="INSTANCE"/>
 
+    <fileIconPatcher implementation="uk.co.reecedunn.intellij.plugin.xproc.lang.fileTypes.XProcFileIconPatcher"/>
+
     <standardResourceProvider implementation="uk.co.reecedunn.intellij.plugin.xproc.resources.XProcResourceProvider"/>
   </extensions>
 </idea-plugin>
