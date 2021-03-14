@@ -93,8 +93,8 @@ object XsltSchemaTypes : XdmSchemaTypes() {
     override fun getSchemaType(element: PsiElement) = when (element) {
         is XmlAttributeValue -> element.attribute?.let { attr ->
             when (attr.parent.namespace) {
-                XSD_NAMESPACE -> getAVTSchemaType(attr) // Calling attr.schemaType here causes an infinite recursion.
-                else -> create(attr.schemaType) ?: getAVTSchemaType(attr)
+                XSD_NAMESPACE -> create(attr) // Calling attr.schemaType here causes an infinite recursion.
+                else -> create(attr.schemaType) ?: create(attr)
             }
         }
         is XmlText -> {
@@ -106,7 +106,7 @@ object XsltSchemaTypes : XdmSchemaTypes() {
         else -> null
     }
 
-    private fun getAVTSchemaType(attribute: XmlAttribute): ISchemaType? = when {
+    private fun create(attribute: XmlAttribute): ISchemaType? = when {
         attribute.isNamespaceDeclaration -> null
         attribute.parent.ancestors().find { it is XmlTag && it.namespace == XSLT.NAMESPACE } == null -> null
         attribute.value?.contains('{') == true -> XslAVT
