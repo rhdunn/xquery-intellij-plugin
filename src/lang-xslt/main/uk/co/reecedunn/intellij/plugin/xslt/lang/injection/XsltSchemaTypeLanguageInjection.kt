@@ -30,7 +30,7 @@ class XsltSchemaTypeLanguageInjection : MultiHostInjector {
     }
 
     override fun getLanguagesToInject(registrar: MultiHostRegistrar, context: PsiElement) {
-        if (isIntellijXPathPluginEnabled())
+        if (!XsltSchemaTypes.isEnabled)
             return
 
         XsltSchemaTypes.create(context)?.let { schemaType ->

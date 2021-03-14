@@ -29,6 +29,9 @@ class XProcSchemaTypeLanguageInjection : MultiHostInjector {
     }
 
     override fun getLanguagesToInject(registrar: MultiHostRegistrar, context: PsiElement) {
+        if (!XProcSchemaTypes.isEnabled)
+            return
+
         XProcSchemaTypes.create(context)?.let { schemaType ->
             val host = context as PsiLanguageInjectionHost
             registrar.startInjecting(schemaType.language)

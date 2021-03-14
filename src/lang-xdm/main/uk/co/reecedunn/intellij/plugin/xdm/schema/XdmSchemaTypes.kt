@@ -24,6 +24,8 @@ import uk.co.reecedunn.intellij.plugin.core.xml.attribute
 import uk.co.reecedunn.intellij.plugin.core.xml.schemaType
 
 abstract class XdmSchemaTypes {
+    open val isEnabled: Boolean = true
+
     abstract fun create(type: String?): ISchemaType?
 
     fun create(element: PsiElement): ISchemaType? {

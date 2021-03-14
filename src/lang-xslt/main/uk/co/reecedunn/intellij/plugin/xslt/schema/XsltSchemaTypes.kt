@@ -21,6 +21,7 @@ import com.intellij.psi.xml.XmlText
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.xdm.schema.*
 import uk.co.reecedunn.intellij.plugin.xslt.lang.XSLT
+import uk.co.reecedunn.intellij.plugin.xslt.lang.isIntellijXPathPluginEnabled
 import uk.co.reecedunn.intellij.plugin.xslt.parser.expandText
 
 object XsltSchemaTypes : XdmSchemaTypes() {
@@ -55,6 +56,9 @@ object XsltSchemaTypes : XdmSchemaTypes() {
 
     // endregion
     // region XdmSchemaTypes
+
+    override val isEnabled: Boolean
+        get() = !isIntellijXPathPluginEnabled()
 
     override fun create(type: String?): ISchemaType? = when (type) {
         "xsl:accumulator-names" -> XslAccumulatorNames
