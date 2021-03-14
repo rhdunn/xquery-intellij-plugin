@@ -108,7 +108,7 @@ class SchemaTypeAnnotator(val schemaType: ISchemaType? = null) : Annotator() {
             else -> false
         }
         XsltSchemaTypes.XslSequenceType -> true
-        else -> throw UnsupportedOperationException()
+        else -> true
     }
 
     override fun annotateElement(element: PsiElement, holder: AnnotationHolder) {
