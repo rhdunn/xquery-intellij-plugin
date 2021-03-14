@@ -16,7 +16,12 @@
 package uk.co.reecedunn.intellij.plugin.xdm.schema
 
 import com.intellij.psi.PsiElement
+import com.intellij.psi.xml.XmlAttribute
+import com.intellij.psi.xml.XmlAttributeValue
+import com.intellij.psi.xml.XmlText
 import uk.co.reecedunn.intellij.plugin.core.sequences.contexts
+import uk.co.reecedunn.intellij.plugin.core.xml.attribute
+import uk.co.reecedunn.intellij.plugin.core.xml.schemaType
 
 abstract class XdmSchemaTypes {
     abstract fun create(type: String?): ISchemaType?
@@ -25,5 +30,22 @@ abstract class XdmSchemaTypes {
         return element.contexts(false).mapNotNull { getSchemaType(it) }.firstOrNull()
     }
 
-    abstract fun getSchemaType(element: PsiElement): ISchemaType?
+    open fun create(attribute: XmlAttribute): ISchemaType? = null
+
+    open fun create(text: XmlText): ISchemaType? = null
+
+    private fun getSchemaType(element: PsiElement) = when (element) {
+        is XmlAttributeValue -> element.attribute?.let { attr ->
+            when (attr.parent.namespace) {
+                XSD_NAMESPACE -> create(attr) // Calling attr.schemaType here causes an infinite recursion.
+                else -> create(attr.schemaType) ?: create(attr)
+            }
+        }
+        is XmlText -> create(element)
+        else -> null
+    }
+
+    companion object {
+        private const val XSD_NAMESPACE = "http://www.w3.org/2001/XMLSchema"
+    }
 }

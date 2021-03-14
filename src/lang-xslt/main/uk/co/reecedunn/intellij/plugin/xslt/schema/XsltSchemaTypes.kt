@@ -15,15 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xslt.schema
 
-import com.intellij.psi.PsiElement
 import com.intellij.psi.xml.XmlAttribute
-import com.intellij.psi.xml.XmlAttributeValue
 import com.intellij.psi.xml.XmlTag
 import com.intellij.psi.xml.XmlText
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
-import uk.co.reecedunn.intellij.plugin.core.sequences.contexts
-import uk.co.reecedunn.intellij.plugin.core.xml.attribute
-import uk.co.reecedunn.intellij.plugin.core.xml.schemaType
 import uk.co.reecedunn.intellij.plugin.xdm.schema.*
 import uk.co.reecedunn.intellij.plugin.xslt.lang.XSLT
 import uk.co.reecedunn.intellij.plugin.xslt.parser.expandText
@@ -90,30 +85,18 @@ object XsltSchemaTypes : XdmSchemaTypes() {
         else -> null
     }
 
-    override fun getSchemaType(element: PsiElement) = when (element) {
-        is XmlAttributeValue -> element.attribute?.let { attr ->
-            when (attr.parent.namespace) {
-                XSD_NAMESPACE -> create(attr) // Calling attr.schemaType here causes an infinite recursion.
-                else -> create(attr.schemaType) ?: create(attr)
-            }
-        }
-        is XmlText -> create(element)
-        else -> null
-    }
-
-    private fun create(attribute: XmlAttribute): ISchemaType? = when {
+    override fun create(attribute: XmlAttribute): ISchemaType? = when {
         attribute.isNamespaceDeclaration -> null
         attribute.parent.ancestors().find { it is XmlTag && it.namespace == XSLT.NAMESPACE } == null -> null
         attribute.value?.contains('{') == true -> XslAVT
         else -> null
     }
 
-    private fun create(text: XmlText): ISchemaType? = when {
+    override fun create(text: XmlText): ISchemaType? = when {
         (text.parent as? XmlTag)?.expandText == true && text.value.contains(BRACES) -> TextValueTemplate
         else -> null
     }
 
-    private const val XSD_NAMESPACE = "http://www.w3.org/2001/XMLSchema"
     private val BRACES = "[{}]".toRegex()
 
     // endregion

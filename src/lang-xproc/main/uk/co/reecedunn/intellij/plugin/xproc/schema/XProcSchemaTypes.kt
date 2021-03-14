@@ -15,11 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xproc.schema
 
-import com.intellij.psi.PsiElement
-import com.intellij.psi.xml.XmlAttributeValue
-import uk.co.reecedunn.intellij.plugin.core.sequences.contexts
-import uk.co.reecedunn.intellij.plugin.core.xml.attribute
-import uk.co.reecedunn.intellij.plugin.core.xml.schemaType
 import uk.co.reecedunn.intellij.plugin.xdm.schema.*
 
 object XProcSchemaTypes : XdmSchemaTypes() {
@@ -55,10 +50,5 @@ object XProcSchemaTypes : XdmSchemaTypes() {
         else -> null
     }
 
-    override fun getSchemaType(element: PsiElement) = when (element) {
-        is XmlAttributeValue -> element.attribute?.let { attr ->
-            create(attr.schemaType)
-        }
-        else -> null
-    }
+    // endregion
 }
