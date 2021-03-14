@@ -15,6 +15,15 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.schema
 
+import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.sequences.contexts
+
 abstract class XdmSchemaTypes {
     abstract fun create(type: String?): ISchemaType?
+
+    fun create(element: PsiElement): ISchemaType? {
+        return element.contexts(false).mapNotNull { getSchemaType(it) }.firstOrNull()
+    }
+
+    abstract fun getSchemaType(element: PsiElement): ISchemaType?
 }

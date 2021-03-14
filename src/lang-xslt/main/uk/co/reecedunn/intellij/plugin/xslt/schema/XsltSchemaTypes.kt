@@ -90,11 +90,7 @@ object XsltSchemaTypes : XdmSchemaTypes() {
         else -> null
     }
 
-    fun create(element: PsiElement): ISchemaType? {
-        return element.contexts(false).mapNotNull { getSchemaType(it) }.firstOrNull()
-    }
-
-    private fun getSchemaType(element: PsiElement) = when (element) {
+    override fun getSchemaType(element: PsiElement) = when (element) {
         is XmlAttributeValue -> element.attribute?.let { attr ->
             when (attr.parent.namespace) {
                 XSD_NAMESPACE -> getAVTSchemaType(attr) // Calling attr.schemaType here causes an infinite recursion.
