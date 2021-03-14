@@ -15,7 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.xproc.schema
 
+import com.intellij.psi.xml.XmlAttribute
+import com.intellij.psi.xml.XmlTag
+import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.xdm.schema.*
+import uk.co.reecedunn.intellij.plugin.xproc.lang.XProc
 
 object XProcSchemaTypes : XdmSchemaTypes() {
     // region Schema Types
@@ -49,6 +53,15 @@ object XProcSchemaTypes : XdmSchemaTypes() {
         "XSLTSelectionPattern" -> XSLTSelectionPattern
         else -> null
     }
+
+    override fun create(attribute: XmlAttribute): ISchemaType? = when {
+        attribute.isNamespaceDeclaration -> null
+        attribute.parent.ancestors().find { it is XmlTag && isInline(it) } == null -> null
+        attribute.value?.contains('{') == true -> AvtDatatype
+        else -> super.create(attribute)
+    }
+
+    private fun isInline(tag: XmlTag): Boolean = tag.localName == "inline" && tag.namespace == XProc.NAMESPACE
 
     // endregion
 }
