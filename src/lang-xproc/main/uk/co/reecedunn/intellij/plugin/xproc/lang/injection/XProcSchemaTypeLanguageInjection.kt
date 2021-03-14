@@ -15,28 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xproc.lang.injection
 
-import com.intellij.lang.injection.MultiHostInjector
-import com.intellij.lang.injection.MultiHostRegistrar
-import com.intellij.psi.PsiElement
-import com.intellij.psi.PsiLanguageInjectionHost
-import com.intellij.psi.xml.XmlAttributeValue
-import com.intellij.psi.xml.XmlText
+import uk.co.reecedunn.intellij.plugin.xdm.schema.injection.SchemaTypeLanguageInjection
 import uk.co.reecedunn.intellij.plugin.xproc.schema.XProcSchemaTypes
 
-class XProcSchemaTypeLanguageInjection : MultiHostInjector {
-    override fun elementsToInjectIn(): MutableList<out Class<out PsiElement>> {
-        return mutableListOf(XmlAttributeValue::class.java, XmlText::class.java)
-    }
-
-    override fun getLanguagesToInject(registrar: MultiHostRegistrar, context: PsiElement) {
-        if (!XProcSchemaTypes.isEnabled)
-            return
-
-        XProcSchemaTypes.create(context)?.let { schemaType ->
-            val host = context as PsiLanguageInjectionHost
-            registrar.startInjecting(schemaType.language)
-            registrar.addPlace(null, null, host, host.textRange.let { it.shiftLeft(it.startOffset) })
-            registrar.doneInjecting()
-        }
-    }
-}
+class XProcSchemaTypeLanguageInjection : SchemaTypeLanguageInjection(XProcSchemaTypes)
