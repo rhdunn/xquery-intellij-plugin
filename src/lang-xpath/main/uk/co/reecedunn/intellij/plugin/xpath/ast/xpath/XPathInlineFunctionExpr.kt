@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017, 2020 Reece H. Dunn
+ * Copyright (C) 2016-2017, 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,11 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
-import uk.co.reecedunn.intellij.plugin.xdm.types.XdmFunction
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 
 /**
  * An XPath 3.0 and XQuery 3.0 `InlineFunctionExpr` node in the XQuery AST.
  */
-interface XPathInlineFunctionExpr : XPathFunctionItemExpr, XdmFunction, XpmFunctionDeclaration, XpmExpression
+interface XPathInlineFunctionExpr : XPathFunctionItemExpr, XpmFunctionDeclaration, XpmExpression

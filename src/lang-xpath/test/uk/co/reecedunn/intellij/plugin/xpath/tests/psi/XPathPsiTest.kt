@@ -2351,6 +2351,12 @@ private class XPathPsiTest : ParserTestCase() {
         @DisplayName("XPath 4.0 ED (4.4) Functions ; XPath 3.1 (3.1) Primary Expressions")
         internal inner class Functions {
             @Nested
+            @DisplayName("XPath 4.0 ED (4.4.1) Static Functions")
+            internal inner class StaticFunctions {
+                //
+            }
+
+            @Nested
             @DisplayName("XPath 4.0 ED (4.4.1.1) Static Function Call Syntax ; XPath 3.1 (3.1.5) Static Function Calls")
             internal inner class StaticFunctionCallSyntax {
                 @Nested
