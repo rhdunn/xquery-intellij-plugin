@@ -17,7 +17,9 @@ package uk.co.reecedunn.intellij.plugin.xproc.schema
 
 import com.intellij.psi.xml.XmlAttribute
 import com.intellij.psi.xml.XmlTag
+import com.intellij.psi.xml.XmlText
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
+import uk.co.reecedunn.intellij.plugin.core.sequences.ancestorsAndSelf
 import uk.co.reecedunn.intellij.plugin.xdm.schema.*
 import uk.co.reecedunn.intellij.plugin.xproc.lang.XProc
 
@@ -32,6 +34,7 @@ object XProcSchemaTypes : XdmSchemaTypes() {
     private val ListOfQNames: ISchemaListType = XdmSchemaListType("ListOfQNames", "EQNames-or-hashed-keywords")
     private val PrefixList: ISchemaListType = XdmSchemaListType("PrefixList", "EQNames-or-hashed-keywords")
     private val QName: ISchemaListType = XdmSchemaListType("QName", "EQNames-or-hashed-keywords")
+    private val TvtDatatype: ISchemaType = XdmSchemaType("tvt.datatype", "xsl:value-template")
     private val XPathExpression: ISchemaType = XdmSchemaType("XPathExpression", "XMLPath")
     private val XPathSequenceType: ISchemaType = XdmSchemaType("XPathSequenceType", "xsl:sequence-type")
     private val XSLTSelectionPattern: ISchemaType = XdmSchemaType("XSLTSelectionPattern", "XMLPath")
@@ -61,7 +64,15 @@ object XProcSchemaTypes : XdmSchemaTypes() {
         else -> super.create(attribute)
     }
 
+    override fun create(text: XmlText): ISchemaType? = when {
+        text.parent.ancestorsAndSelf().find { it is XmlTag && isInline(it) } == null -> null
+        text.value.contains(BRACES) -> TvtDatatype
+        else -> null
+    }
+
     private fun isInline(tag: XmlTag): Boolean = tag.localName == "inline" && tag.namespace == XProc.NAMESPACE
+
+    private val BRACES = "[{}]".toRegex()
 
     // endregion
 }

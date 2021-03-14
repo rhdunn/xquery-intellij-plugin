@@ -27,6 +27,7 @@ XProc:
 
 1. Recognise xpl files as XProc XML files.
 1. Add the XProc 1.0 and 3.0 RNG schema file.
+1. Syntax highlighting for schema type, including `p:inline` value templates.
 
 XRay Unit Tests:
 

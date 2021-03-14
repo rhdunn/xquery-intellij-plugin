@@ -100,6 +100,7 @@
     <ol>
       <li>Recognise xpl files as XProc XML files.</li>
       <li>Add the XProc 1.0 and 3.0 RNG schema file.</li>
+      <li>Syntax highlighting for schema type, including <code>p:inline</code> value templates.</li>
     </ol>
     <p>XRay Unit Tests:</p>
     <ol>

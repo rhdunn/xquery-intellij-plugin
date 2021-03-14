@@ -20,11 +20,12 @@ import com.intellij.lang.injection.MultiHostRegistrar
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiLanguageInjectionHost
 import com.intellij.psi.xml.XmlAttributeValue
+import com.intellij.psi.xml.XmlText
 import uk.co.reecedunn.intellij.plugin.xproc.schema.XProcSchemaTypes
 
 class XProcSchemaTypeLanguageInjection : MultiHostInjector {
     override fun elementsToInjectIn(): MutableList<out Class<out PsiElement>> {
-        return mutableListOf(XmlAttributeValue::class.java)
+        return mutableListOf(XmlAttributeValue::class.java, XmlText::class.java)
     }
 
     override fun getLanguagesToInject(registrar: MultiHostRegistrar, context: PsiElement) {
