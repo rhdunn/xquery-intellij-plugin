@@ -24,14 +24,13 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.core.sequences.contexts
 import uk.co.reecedunn.intellij.plugin.core.xml.attribute
 import uk.co.reecedunn.intellij.plugin.core.xml.schemaType
-import uk.co.reecedunn.intellij.plugin.xdm.schema.ISchemaListType
-import uk.co.reecedunn.intellij.plugin.xdm.schema.ISchemaType
-import uk.co.reecedunn.intellij.plugin.xdm.schema.XdmSchemaListType
-import uk.co.reecedunn.intellij.plugin.xdm.schema.XdmSchemaType
+import uk.co.reecedunn.intellij.plugin.xdm.schema.*
 import uk.co.reecedunn.intellij.plugin.xslt.lang.XSLT
 import uk.co.reecedunn.intellij.plugin.xslt.parser.expandText
 
-object XsltSchemaTypes {
+object XsltSchemaTypes : XdmSchemaTypes() {
+    // region Schema Types
+
     private val TextValueTemplate: ISchemaType = XdmSchemaType("text-value-template", "xsl:value-template")
     val XslAccumulatorNames: ISchemaListType = XdmSchemaListType("xsl:accumulator-names", "EQNames-or-hashed-keywords")
     private val XslAVT: ISchemaType = XdmSchemaType("xsl:avt", "xsl:value-template")
@@ -59,7 +58,10 @@ object XsltSchemaTypes {
     val XslStreamabilityType: ISchemaType = XdmSchemaType("xsl:streamability-type", "EQNames-or-hashed-keywords")
     val XslTokens: ISchemaListType = XdmSchemaListType("xsl:tokens", "EQNames-or-hashed-keywords")
 
-    fun create(type: String?): ISchemaType? = when (type) {
+    // endregion
+    // region XdmSchemaTypes
+
+    override fun create(type: String?): ISchemaType? = when (type) {
         "xsl:accumulator-names" -> XslAccumulatorNames
         "xsl:avt" -> XslAVT
         "xsl:default-mode-type" -> XslDefaultModeType
@@ -117,4 +119,6 @@ object XsltSchemaTypes {
 
     private const val XSD_NAMESPACE = "http://www.w3.org/2001/XMLSchema"
     private val BRACES = "[{}]".toRegex()
+
+    // endregion
 }
