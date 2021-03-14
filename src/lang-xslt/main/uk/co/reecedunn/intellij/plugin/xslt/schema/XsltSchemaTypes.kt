@@ -97,12 +97,7 @@ object XsltSchemaTypes : XdmSchemaTypes() {
                 else -> create(attr.schemaType) ?: create(attr)
             }
         }
-        is XmlText -> {
-            if ((element.parent as? XmlTag)?.expandText == true && element.value.contains(BRACES))
-                TextValueTemplate
-            else
-                null
-        }
+        is XmlText -> create(element)
         else -> null
     }
 
@@ -110,6 +105,11 @@ object XsltSchemaTypes : XdmSchemaTypes() {
         attribute.isNamespaceDeclaration -> null
         attribute.parent.ancestors().find { it is XmlTag && it.namespace == XSLT.NAMESPACE } == null -> null
         attribute.value?.contains('{') == true -> XslAVT
+        else -> null
+    }
+
+    private fun create(text: XmlText): ISchemaType? = when {
+        (text.parent as? XmlTag)?.expandText == true && text.value.contains(BRACES) -> TextValueTemplate
         else -> null
     }
 
