@@ -21,9 +21,15 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.contexts
 import uk.co.reecedunn.intellij.plugin.core.xml.attribute
 import uk.co.reecedunn.intellij.plugin.core.xml.schemaType
 import uk.co.reecedunn.intellij.plugin.xdm.schema.ISchemaType
+import uk.co.reecedunn.intellij.plugin.xdm.schema.XdmSchemaType
 
 object XProcSchemaTypes {
-    fun create(type: String?): ISchemaType? = when (type) {
+    private val AvtDatatype: ISchemaType = XdmSchemaType("avt.datatype", "xsl:value-template")
+    private val XPathExpression: ISchemaType = XdmSchemaType("XPathExpression", "XMLPath")
+    private val XPathSequenceType: ISchemaType = XdmSchemaType("XPathSequenceType", "xsl:sequence-type")
+    private val XSLTSelectionPattern: ISchemaType = XdmSchemaType("XSLTSelectionPattern", "XMLPath")
+
+    private fun create(type: String?): ISchemaType? = when (type) {
         "avt.datatype" -> AvtDatatype
         "XPathSequenceType" -> XPathSequenceType
         "XPathExpression" -> XPathExpression
