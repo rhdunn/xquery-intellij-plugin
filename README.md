@@ -19,12 +19,10 @@ support for:
 1.  EXPath extensions;
 1.  BaseX, MarkLogic, and Saxon vendor extensions.
 
-In addition, the plugin provides experimental integration for XSLT
-when the IntelliJ XPathView plugin is disabled:
-1. Support parsing XSLT schema types such as `xsl:sequence-type` in `@as`
-   attributes;
-1. Support for attribute value templates;
-1. Support for XSLT 3.0 text value templates.
+This plugin also has limited support for the following XML-based
+languages that use XPath:
+1.  XSLT 1.0-3.0 (active when the IntelliJ XPathView plugin is disabled);
+1.  XProc 1.0-3.0.
 
 See https://rhdunn.github.io/xquery-intellij-plugin/ for the plugin documentation
 and tutorials.

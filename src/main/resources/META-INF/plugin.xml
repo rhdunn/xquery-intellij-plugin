@@ -18,11 +18,16 @@
 
   <description><![CDATA[
     <p>
-      XQuery 1.0-3.1, XPath 2.0-3.1, and XSLT 3.0 language support with BaseX,
-      MarkLogic, Saxon, and W3C extensions; run, debug, and profile queries;
-      log viewer; and more.
+      XQuery 1.0-3.1, XPath 2.0-3.1, XSLT 3.0, and XProc 1.0-3.0 language support
+      with BaseX, MarkLogic, Saxon, and W3C extensions; run, debug, and profile
+      queries; and more.
     </p>
     <p>&#xA0;</p>
+    <p>XML-based languages:</p>
+    <ol>
+      <li>XSLT 1.0-3.0 (active when the IntelliJ XPathView plugin is disabled).</li>
+      <li>XProc 1.0-3.0.</li>
+    </ol>
     <p>Query processor integration:</p>
     <ol>
       <li>Run BaseX, eXist-db, FusionDB, MarkLogic, and Saxon queries.</li>
@@ -37,13 +42,6 @@
       <li>MarkLogic Roxy &ndash; source root detection.</li>
       <li>MarkLogic ml-gradle &ndash; source root detection.</li>
       <li>Support running and profiling XRay unit tests.</li>
-    </ol>
-    <p>XPath and XSLT:</p>
-    <ol>
-      <li>XSLT 3.0 XMLSchema support.</li>
-      <li>Experimental XPath support when the IntelliJ XPathView plugin is disabled.</li>
-      <li>Support parsing XSLT 1.0, 2.0, and 3.0 schema types.</li>
-      <li>Support XSLT 3.0 text value templates.</li>
     </ol>
     <p>IntelliJ integration:</p>
     <ol>
@@ -73,6 +71,12 @@
   ]]></description>
 
   <change-notes><![CDATA[
+    <ol>
+      <li>XRay unit test run configurations and IntelliJ integration.</li>
+      <li>XProc 1.0-3.0 syntax highlighting and validation.</li>
+      <li>XPath, XQuery, and XSLT 4.0 Editor's Draft 13 January 2021 support.</li>
+      <li>MarkLogic ErrorLog.txt file syntax highlighting in the editor.</li>
+    </ol>
     <p>XPath, XQuery, and XSLT 4.0 Editor's Draft 13 January 2021:</p>
     <ol>
       <li>Add the XSLT 4.0 Editor's Draft XMLSchema file.</li>
@@ -129,10 +133,6 @@
       <li>Report test status in the run console.</li>
       <li>Fix reformatting the output when the option is specified in the configuration.</li>
       <li>Fix locating relative modules and includes in Saxon queries.</li>
-    </ol>
-    <p>Query Log Viewer:</p>
-    <ol>
-      <li>Support syntax highlighting MarkLogic error log files open in the editor.</li>
     </ol>
     <p>Debugging:</p>
     <ol>

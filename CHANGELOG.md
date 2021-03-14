@@ -2,6 +2,11 @@
 
 ## 1.9.0 - (In Development)
 
+1. XRay unit test run configurations and IntelliJ integration.
+1. XProc 1.0-3.0 syntax highlighting and validation.
+1. XPath, XQuery, and XSLT 4.0 Editor's Draft 13 January 2021 support.
+1. MarkLogic ErrorLog.txt file syntax highlighting in the editor.
+
 XPath, XQuery, and XSLT 4.0 Editor's Draft 13 January 2021:
 
 1. Add the XSLT 4.0 Editor's Draft XMLSchema file.
@@ -55,10 +60,6 @@ Run Configuration:
 1. Fix some encoding issues in handling UTF-8 output for MarkLogic.
 1. Fix reformatting the output when the option is specified in the configuration.
 1. Fix locating relative modules and includes in Saxon queries.
-
-Query Log Viewer:
-
-1. Support syntax highlighting MarkLogic error log files open in the editor.
 
 Debugging:
 
