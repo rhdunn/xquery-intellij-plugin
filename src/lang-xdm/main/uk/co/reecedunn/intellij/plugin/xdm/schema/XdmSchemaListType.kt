@@ -13,14 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xslt.schema
+package uk.co.reecedunn.intellij.plugin.xdm.schema
 
 import com.intellij.lang.Language
-import uk.co.reecedunn.intellij.plugin.xdm.schema.ISchemaListType
-import uk.co.reecedunn.intellij.plugin.xslt.lang.NameTests
 
-object XslNameTests : ISchemaListType {
-    override val type: String = "xsl:nametests"
+data class XdmSchemaListType(
+    override val type: String,
+    val languageId: String
+) : ISchemaListType {
+
     override val language: Language
-        get() = NameTests
+        get() = Language.findLanguageByID(languageId)!!
 }

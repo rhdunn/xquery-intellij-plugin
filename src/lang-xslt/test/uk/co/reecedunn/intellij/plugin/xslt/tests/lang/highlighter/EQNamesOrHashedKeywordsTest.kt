@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xslt.lang.highlighter.SchemaTypeAnnotator
 import uk.co.reecedunn.intellij.plugin.xslt.ast.schema.XsltSchemaType
 import uk.co.reecedunn.intellij.plugin.xslt.lang.EQNamesOrHashedKeywords
-import uk.co.reecedunn.intellij.plugin.xslt.schema.*
+import uk.co.reecedunn.intellij.plugin.xslt.schema.XsltSchemaTypes
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("Reformat")
@@ -39,7 +39,7 @@ private class EQNamesOrHashedKeywordsTest :
     @Nested
     @DisplayName("xsl:accumulator-names")
     inner class AccumulatorNamesTest {
-        val annotator = SchemaTypeAnnotator(XslAccumulatorNames)
+        val annotator = SchemaTypeAnnotator(XsltSchemaTypes.XslAccumulatorNames)
 
         @Test
         @DisplayName("XPath 2.0 EBNF (77) Comment ; XPath 2.0 EBNF (82) CommentContents")
@@ -99,7 +99,7 @@ private class EQNamesOrHashedKeywordsTest :
     @Nested
     @DisplayName("xsl:default-mode-type")
     inner class DefaultModeTypeTest {
-        val annotator = SchemaTypeAnnotator(XslDefaultModeType)
+        val annotator = SchemaTypeAnnotator(XsltSchemaTypes.XslDefaultModeType)
 
         @Test
         @DisplayName("XPath 2.0 EBNF (77) Comment ; XPath 2.0 EBNF (82) CommentContents")
@@ -177,7 +177,7 @@ private class EQNamesOrHashedKeywordsTest :
     @Nested
     @DisplayName("xsl:EQName")
     inner class EQNameTest {
-        val annotator = SchemaTypeAnnotator(XslEQName)
+        val annotator = SchemaTypeAnnotator(XsltSchemaTypes.XslEQName)
 
         @Test
         @DisplayName("XPath 2.0 EBNF (77) Comment ; XPath 2.0 EBNF (82) CommentContents")
@@ -256,7 +256,7 @@ private class EQNamesOrHashedKeywordsTest :
     @Nested
     @DisplayName("xsl:EQName-in-namespace")
     inner class EQNameInNamespaceTest {
-        val annotator = SchemaTypeAnnotator(XslEQNameInNamespace)
+        val annotator = SchemaTypeAnnotator(XsltSchemaTypes.XslEQNameInNamespace)
 
         @Test
         @DisplayName("XPath 2.0 EBNF (77) Comment ; XPath 2.0 EBNF (82) CommentContents")
@@ -335,7 +335,7 @@ private class EQNamesOrHashedKeywordsTest :
     @Nested
     @DisplayName("xsl:EQNames")
     inner class EQNamesTest {
-        val annotator = SchemaTypeAnnotator(XslEQNames)
+        val annotator = SchemaTypeAnnotator(XsltSchemaTypes.XslEQNames)
 
         @Test
         @DisplayName("XPath 2.0 EBNF (77) Comment ; XPath 2.0 EBNF (82) CommentContents")
@@ -396,7 +396,7 @@ private class EQNamesOrHashedKeywordsTest :
     @Nested
     @DisplayName("xsl:method")
     inner class MethodTest {
-        val annotator = SchemaTypeAnnotator(XslMethod)
+        val annotator = SchemaTypeAnnotator(XsltSchemaTypes.XslMethod)
 
         @Test
         @DisplayName("XPath 2.0 EBNF (77) Comment ; XPath 2.0 EBNF (82) CommentContents")
@@ -476,7 +476,7 @@ private class EQNamesOrHashedKeywordsTest :
     @Nested
     @DisplayName("xsl:mode")
     inner class ModeTest {
-        val annotator = SchemaTypeAnnotator(XslMode)
+        val annotator = SchemaTypeAnnotator(XsltSchemaTypes.XslMode)
 
         @Test
         @DisplayName("XPath 2.0 EBNF (77) Comment ; XPath 2.0 EBNF (82) CommentContents")
@@ -554,7 +554,7 @@ private class EQNamesOrHashedKeywordsTest :
     @Nested
     @DisplayName("xsl:modes")
     inner class ModesTest {
-        val annotator = SchemaTypeAnnotator(XslModes)
+        val annotator = SchemaTypeAnnotator(XsltSchemaTypes.XslModes)
 
         @Test
         @DisplayName("XPath 2.0 EBNF (77) Comment ; XPath 2.0 EBNF (82) CommentContents")
@@ -612,7 +612,7 @@ private class EQNamesOrHashedKeywordsTest :
     @Nested
     @DisplayName("xsl:prefix")
     inner class PrefixTest {
-        val annotator = SchemaTypeAnnotator(XslPrefix)
+        val annotator = SchemaTypeAnnotator(XsltSchemaTypes.XslPrefix)
 
         @Test
         @DisplayName("XPath 2.0 EBNF (77) Comment ; XPath 2.0 EBNF (82) CommentContents")
@@ -692,7 +692,7 @@ private class EQNamesOrHashedKeywordsTest :
     @Nested
     @DisplayName("xsl:prefixes")
     inner class PrefixesTest {
-        val annotator = SchemaTypeAnnotator(XslPrefixes)
+        val annotator = SchemaTypeAnnotator(XsltSchemaTypes.XslPrefixes)
 
         @Test
         @DisplayName("XPath 2.0 EBNF (77) Comment ; XPath 2.0 EBNF (82) CommentContents")
@@ -767,7 +767,7 @@ private class EQNamesOrHashedKeywordsTest :
     @Nested
     @DisplayName("xsl:prefix-list")
     inner class PrefixListTest {
-        val annotator = SchemaTypeAnnotator(XslPrefixList)
+        val annotator = SchemaTypeAnnotator(XsltSchemaTypes.XslPrefixList)
 
         @Test
         @DisplayName("XPath 2.0 EBNF (77) Comment ; XPath 2.0 EBNF (82) CommentContents")
@@ -841,7 +841,7 @@ private class EQNamesOrHashedKeywordsTest :
     @Nested
     @DisplayName("xsl:prefix-list-or-all")
     inner class PrefixListOrAllTest {
-        val annotator = SchemaTypeAnnotator(XslPrefixListOrAll)
+        val annotator = SchemaTypeAnnotator(XsltSchemaTypes.XslPrefixListOrAll)
 
         @Test
         @DisplayName("XPath 2.0 EBNF (77) Comment ; XPath 2.0 EBNF (82) CommentContents")
@@ -914,7 +914,7 @@ private class EQNamesOrHashedKeywordsTest :
     @Nested
     @DisplayName("xsl:prefix-or-default")
     inner class PrefixOrDefaultTest {
-        val annotator = SchemaTypeAnnotator(XslPrefixOrDefault)
+        val annotator = SchemaTypeAnnotator(XsltSchemaTypes.XslPrefixOrDefault)
 
         @Test
         @DisplayName("XPath 2.0 EBNF (77) Comment ; XPath 2.0 EBNF (82) CommentContents")
@@ -994,7 +994,7 @@ private class EQNamesOrHashedKeywordsTest :
     @Nested
     @DisplayName("xsl:QName")
     inner class QNameTest {
-        val annotator = SchemaTypeAnnotator(XslQName)
+        val annotator = SchemaTypeAnnotator(XsltSchemaTypes.XslQName)
 
         @Test
         @DisplayName("XPath 2.0 EBNF (77) Comment ; XPath 2.0 EBNF (82) CommentContents")
@@ -1074,7 +1074,7 @@ private class EQNamesOrHashedKeywordsTest :
     @Nested
     @DisplayName("xsl:QNames")
     inner class QNamesTest {
-        val annotator = SchemaTypeAnnotator(XslQNames)
+        val annotator = SchemaTypeAnnotator(XsltSchemaTypes.XslQNames)
 
         @Test
         @DisplayName("XPath 2.0 EBNF (77) Comment ; XPath 2.0 EBNF (82) CommentContents")
@@ -1142,7 +1142,7 @@ private class EQNamesOrHashedKeywordsTest :
     @Nested
     @DisplayName("xsl:streamability-type")
     inner class StreamabilityTypeTest {
-        val annotator = SchemaTypeAnnotator(XslStreamabilityType)
+        val annotator = SchemaTypeAnnotator(XsltSchemaTypes.XslStreamabilityType)
 
         @Test
         @DisplayName("XPath 2.0 EBNF (77) Comment ; XPath 2.0 EBNF (82) CommentContents")
@@ -1221,7 +1221,7 @@ private class EQNamesOrHashedKeywordsTest :
     @Nested
     @DisplayName("xsl:tokens")
     inner class TokensTest {
-        val annotator = SchemaTypeAnnotator(XslTokens)
+        val annotator = SchemaTypeAnnotator(XsltSchemaTypes.XslTokens)
 
         @Test
         @DisplayName("XPath 2.0 EBNF (77) Comment ; XPath 2.0 EBNF (82) CommentContents")

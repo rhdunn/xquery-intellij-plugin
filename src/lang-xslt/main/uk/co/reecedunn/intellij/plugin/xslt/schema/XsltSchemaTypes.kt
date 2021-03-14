@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,11 +24,41 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.core.sequences.contexts
 import uk.co.reecedunn.intellij.plugin.core.xml.attribute
 import uk.co.reecedunn.intellij.plugin.core.xml.schemaType
+import uk.co.reecedunn.intellij.plugin.xdm.schema.ISchemaListType
 import uk.co.reecedunn.intellij.plugin.xdm.schema.ISchemaType
+import uk.co.reecedunn.intellij.plugin.xdm.schema.XdmSchemaListType
+import uk.co.reecedunn.intellij.plugin.xdm.schema.XdmSchemaType
 import uk.co.reecedunn.intellij.plugin.xslt.lang.XSLT
 import uk.co.reecedunn.intellij.plugin.xslt.parser.expandText
 
 object XsltSchemaTypes {
+    private val TextValueTemplate: ISchemaType = XdmSchemaType("text-value-template", "xsl:value-template")
+    val XslAccumulatorNames: ISchemaListType = XdmSchemaListType("xsl:accumulator-names", "EQNames-or-hashed-keywords")
+    private val XslAVT: ISchemaType = XdmSchemaType("xsl:avt", "xsl:value-template")
+    val XslDefaultModeType: ISchemaType = XdmSchemaType("xsl:default-mode-type", "EQNames-or-hashed-keywords")
+    private val XslElementNames: ISchemaListType = XdmSchemaListType("xsl:element-names", "xsl:nametests")
+    val XslEQName: ISchemaType = XdmSchemaType("xsl:EQName", "EQNames-or-hashed-keywords")
+    val XslEQNameInNamespace: ISchemaType = XdmSchemaType("xsl:EQName-in-namespace", "EQNames-or-hashed-keywords")
+    val XslEQNames: ISchemaListType = XdmSchemaListType("xsl:EQNames", "EQNames-or-hashed-keywords")
+    private val XslExprAVT: ISchemaType = XdmSchemaType("xsl:expr-avt", "xsl:value-template")
+    private val XslExpression: ISchemaType = XdmSchemaType("xsl:expression", "XMLPath")
+    val XslItemType: ISchemaType = XdmSchemaType("xsl:item-type", "xsl:sequence-type")
+    val XslMethod: ISchemaType = XdmSchemaType("xsl:method", "EQNames-or-hashed-keywords")
+    val XslMode: ISchemaType = XdmSchemaType("xsl:mode", "EQNames-or-hashed-keywords")
+    val XslModes: ISchemaListType = XdmSchemaListType("xsl:modes", "EQNames-or-hashed-keywords")
+    private val XslNameTests: ISchemaListType = XdmSchemaListType("xsl:nametests", "xsl:nametests")
+    private val XslPattern: ISchemaType = XdmSchemaType("xsl:pattern", "XMLPath")
+    val XslPrefix: ISchemaType = XdmSchemaType("xsl:prefix", "EQNames-or-hashed-keywords")
+    val XslPrefixList: ISchemaListType = XdmSchemaListType("xsl:prefix-list", "EQNames-or-hashed-keywords")
+    val XslPrefixListOrAll: ISchemaListType = XdmSchemaListType("xsl:prefix-list-or-all", "EQNames-or-hashed-keywords")
+    val XslPrefixOrDefault: ISchemaType = XdmSchemaType("xsl:prefix-or-default", "EQNames-or-hashed-keywords")
+    val XslPrefixes: ISchemaListType = XdmSchemaListType("xsl:prefixes", "EQNames-or-hashed-keywords")
+    val XslQName: ISchemaType = XdmSchemaType("xsl:QName", "EQNames-or-hashed-keywords")
+    val XslQNames: ISchemaListType = XdmSchemaListType("xsl:QNames", "EQNames-or-hashed-keywords")
+    val XslSequenceType: ISchemaType = XdmSchemaType("xsl:sequence-type", "xsl:sequence-type")
+    val XslStreamabilityType: ISchemaType = XdmSchemaType("xsl:streamability-type", "EQNames-or-hashed-keywords")
+    val XslTokens: ISchemaListType = XdmSchemaListType("xsl:tokens", "EQNames-or-hashed-keywords")
+
     fun create(type: String?): ISchemaType? = when (type) {
         "xsl:accumulator-names" -> XslAccumulatorNames
         "xsl:avt" -> XslAVT

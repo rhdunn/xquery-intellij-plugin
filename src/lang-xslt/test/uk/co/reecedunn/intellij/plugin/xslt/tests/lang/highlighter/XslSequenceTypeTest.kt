@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,8 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xslt.lang.highlighter.SchemaTypeAnnotator
 import uk.co.reecedunn.intellij.plugin.xslt.ast.schema.XsltSchemaType
 import uk.co.reecedunn.intellij.plugin.xslt.lang.SequenceType
-import uk.co.reecedunn.intellij.plugin.xslt.schema.XslItemType
-import uk.co.reecedunn.intellij.plugin.xslt.schema.XslSequenceType
+import uk.co.reecedunn.intellij.plugin.xslt.schema.XsltSchemaTypes
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("Reformat", "RedundantVisibilityModifier")
@@ -38,7 +37,7 @@ private class XslSequenceTypeTest : AnnotatorTestCase(SequenceType.ParserDefinit
     @Nested
     @DisplayName("xsl:item-type")
     internal inner class ItemTypeTest {
-        val annotator = SchemaTypeAnnotator(XslItemType)
+        val annotator = SchemaTypeAnnotator(XsltSchemaTypes.XslItemType)
 
         @Test
         @DisplayName("XPath 3.1 EBNF (81) ItemType")
@@ -98,7 +97,7 @@ private class XslSequenceTypeTest : AnnotatorTestCase(SequenceType.ParserDefinit
     @Nested
     @DisplayName("xsl:sequence-type")
     internal inner class SequenceTypeTest {
-        val annotator = SchemaTypeAnnotator(XslSequenceType)
+        val annotator = SchemaTypeAnnotator(XsltSchemaTypes.XslSequenceType)
 
         @Test
         @DisplayName("XPath 3.1 EBNF (81) ItemType")

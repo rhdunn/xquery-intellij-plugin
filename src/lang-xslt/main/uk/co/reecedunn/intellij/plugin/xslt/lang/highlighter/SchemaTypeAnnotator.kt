@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xslt.ast.schema.XsltHashedKeyword
 import uk.co.reecedunn.intellij.plugin.xslt.resources.XsltBundle
 import uk.co.reecedunn.intellij.plugin.xslt.schema.XsltSchemaTypes
-import uk.co.reecedunn.intellij.plugin.xslt.schema.*
 import java.lang.UnsupportedOperationException
 
 class SchemaTypeAnnotator(val schemaType: ISchemaType? = null) : Annotator() {
@@ -49,17 +48,21 @@ class SchemaTypeAnnotator(val schemaType: ISchemaType? = null) : Annotator() {
     }
 
     fun accept(schemaType: ISchemaType, element: PsiElement): Boolean = when (schemaType) {
-        XslAccumulatorNames -> when (element) {
+        XsltSchemaTypes.XslAccumulatorNames -> when (element) {
             is XsltHashedKeyword -> element.keyword === XPathTokenType.K_ALL
             else -> true
         }
-        XslDefaultModeType -> when (element) {
+        XsltSchemaTypes.XslDefaultModeType -> when (element) {
             is XsltHashedKeyword -> element.keyword === XPathTokenType.K_UNNAMED
             else -> true
         }
-        XslEQName, XslEQNameInNamespace, XslEQNames, XslStreamabilityType -> element !is XsltHashedKeyword
-        XslItemType -> element !is XPathSequenceType
-        XslMode -> when (element) {
+        XsltSchemaTypes.XslEQName,
+        XsltSchemaTypes.XslEQNameInNamespace,
+        XsltSchemaTypes.XslEQNames,
+        XsltSchemaTypes.XslStreamabilityType ->
+            element !is XsltHashedKeyword
+        XsltSchemaTypes.XslItemType -> element !is XPathSequenceType
+        XsltSchemaTypes.XslMode -> when (element) {
             is XsltHashedKeyword -> when (element.keyword) {
                 XPathTokenType.K_CURRENT -> true
                 XPathTokenType.K_DEFAULT -> true
@@ -68,7 +71,7 @@ class SchemaTypeAnnotator(val schemaType: ISchemaType? = null) : Annotator() {
             }
             else -> true
         }
-        XslModes -> when (element) {
+        XsltSchemaTypes.XslModes -> when (element) {
             is XsltHashedKeyword -> when (element.keyword) {
                 XPathTokenType.K_ALL -> true
                 XPathTokenType.K_DEFAULT -> true
@@ -77,18 +80,18 @@ class SchemaTypeAnnotator(val schemaType: ISchemaType? = null) : Annotator() {
             }
             else -> true
         }
-        XslPrefixes, XslTokens -> when (element) {
+        XsltSchemaTypes.XslPrefixes, XsltSchemaTypes.XslTokens -> when (element) {
             is XPathNCName -> true
             is PsiWhiteSpace -> true
             else -> false
         }
-        XslPrefix, XslPrefixList, XslPrefixOrDefault -> when (element) {
+        XsltSchemaTypes.XslPrefix, XsltSchemaTypes.XslPrefixList, XsltSchemaTypes.XslPrefixOrDefault -> when (element) {
             is XsltHashedKeyword -> element.keyword === XPathTokenType.K_DEFAULT
             is XPathNCName -> true
             is PsiWhiteSpace -> true
             else -> false
         }
-        XslPrefixListOrAll -> when (element) {
+        XsltSchemaTypes.XslPrefixListOrAll -> when (element) {
             is XsltHashedKeyword -> when (element.keyword) {
                 XPathTokenType.K_ALL -> true
                 XPathTokenType.K_DEFAULT -> true
@@ -98,13 +101,13 @@ class SchemaTypeAnnotator(val schemaType: ISchemaType? = null) : Annotator() {
             is PsiWhiteSpace -> true
             else -> false
         }
-        XslMethod, XslQName, XslQNames -> when (element) {
+        XsltSchemaTypes.XslMethod, XsltSchemaTypes.XslQName, XsltSchemaTypes.XslQNames -> when (element) {
             is XPathNCName -> true
             is XPathQName -> true
             is PsiWhiteSpace -> true
             else -> false
         }
-        XslSequenceType -> true
+        XsltSchemaTypes.XslSequenceType -> true
         else -> throw UnsupportedOperationException()
     }
 
