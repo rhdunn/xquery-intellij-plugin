@@ -19,8 +19,7 @@ XQueryModuleImpl[FILE(0:31)]
                PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
             LeafPsiElement[XPATH_ASSIGN_EQUAL_TOKEN(24:26)](':=')
             PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
-            XQueryVarValueImpl[XQUERY_VAR_VALUE(27:28)]
-               XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(27:28)]('3')
+            XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(27:28)]('3')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(28:29)](';')
          PsiWhiteSpaceImpl[WHITE_SPACE(29:30)]('\n')
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(30:31)]

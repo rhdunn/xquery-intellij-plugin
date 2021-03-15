@@ -13,8 +13,7 @@ XQueryModuleImpl[FILE(0:30)]
             PsiErrorElementImpl[ERROR_ELEMENT(24:24)]('XPST0003: Expected 'ItemType'.')
             LeafPsiElement[XPATH_ASSIGN_EQUAL_TOKEN(24:26)](':=')
             PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
-            XQueryVarValueImpl[XQUERY_VAR_VALUE(27:29)]
-               XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(27:28)]('2')
-               PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
+            XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(27:28)]('2')
+            PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(29:30)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(30:30)]('XPST0003: Missing query body.')

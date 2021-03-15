@@ -538,12 +538,6 @@ object XQueryElementType {
         XQuery
     )
 
-    val VAR_VALUE: IElementType = ICompositeElementType(
-        "XQUERY_VAR_VALUE",
-        XQueryVarValuePsiImpl::class.java,
-        XQuery
-    )
-
     val WINDOW_CLAUSE: IElementType = ICompositeElementType(
         "XQUERY_WINDOW_CLAUSE",
         XQueryWindowClausePsiImpl::class.java,

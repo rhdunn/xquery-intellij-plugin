@@ -964,7 +964,7 @@ class XQueryParser : XPathParser() {
                     haveErrors
                 }) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseExprSingle(builder, XQueryElementType.VAR_VALUE) && !haveErrors) {
+                if (!parseExprSingle(builder) && !haveErrors) {
                     builder.error(XPathBundle.message("parser.error.expected-expression"))
                 }
             } else if (builder.matchTokenType(XQueryTokenType.K_EXTERNAL)) {
@@ -982,7 +982,7 @@ class XQueryParser : XPathParser() {
                 }
             } else {
                 builder.error(XQueryBundle.message("parser.error.expected-variable-value"))
-                parseExprSingle(builder, XQueryElementType.VAR_VALUE)
+                parseExprSingle(builder)
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
@@ -1100,7 +1100,7 @@ class XQueryParser : XPathParser() {
                     haveErrors
                 }) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseExprSingle(builder, XQueryElementType.VAR_VALUE) && !haveErrors) {
+                if (!parseExprSingle(builder) && !haveErrors) {
                     builder.error(XPathBundle.message("parser.error.expected-expression"))
                 }
             } else if (builder.matchTokenType(XQueryTokenType.K_EXTERNAL)) {
@@ -1113,7 +1113,7 @@ class XQueryParser : XPathParser() {
                 }
             } else {
                 builder.error(XQueryBundle.message("parser.error.expected-variable-value"))
-                parseExprSingle(builder, XQueryElementType.VAR_VALUE)
+                parseExprSingle(builder)
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
