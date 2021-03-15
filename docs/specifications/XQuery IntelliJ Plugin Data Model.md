@@ -814,8 +814,14 @@ A *variable declaration* is a *variable definition* that specifies a variable
 in the prolog or scripting block scope. The following properties are defined
 for *variable declarations*:
 
+1. The *is external* property is true if the variable is an *external variable*.
+
 1. The *variable type* property is the `SequenceType` associated with the
    declaration, if specified.
+
+1. The *expression* property is the expression that is used to evaluate the
+   value of this variable. For external variables this is only used when a
+   value is not provided from the caller of the module.
 
 ##### 5.5.3 Variable Bindings
 

@@ -21,6 +21,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnnotation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginBlockVarDeclEntry
 
 class PluginBlockVarDeclEntryPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginBlockVarDeclEntry {
@@ -30,6 +31,8 @@ class PluginBlockVarDeclEntryPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node)
 
     // endregion
     // region XpmVariableDefinition
+
+    override val isExternal: Boolean = false
 
     override val variableName: XsQNameValue?
         get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
@@ -41,6 +44,9 @@ class PluginBlockVarDeclEntryPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node)
 
     override val variableType: XdmSequenceType?
         get() = children().filterIsInstance<XdmSequenceType>().firstOrNull()
+
+    override val expression: XpmExpression?
+        get() = children().filterIsInstance<XpmExpression>().firstOrNull()
 
     // endregion
 }

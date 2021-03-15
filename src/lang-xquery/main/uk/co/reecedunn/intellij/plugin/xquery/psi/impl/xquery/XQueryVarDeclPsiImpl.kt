@@ -31,6 +31,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.filterNotWhitespace
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarDecl
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import javax.swing.Icon
 
@@ -66,8 +67,14 @@ class XQueryVarDeclPsiImpl(node: ASTNode) :
     // endregion
     // region XpmVariableDeclaration
 
+    override val isExternal: Boolean
+        get() = findChildByType<PsiElement>(XQueryTokenType.K_EXTERNAL) != null
+
     override val variableType: XdmSequenceType?
         get() = children().filterIsInstance<XdmSequenceType>().firstOrNull()
+
+    override val expression: XpmExpression?
+        get() = children().filterIsInstance<XpmExpression>().firstOrNull()
 
     // endregion
     // region NavigationItem

@@ -7931,7 +7931,9 @@ private class XQueryPsiTest : ParserTestCase() {
                 @DisplayName("NCName")
                 fun ncname() {
                     val decl = parse<XpmVariableDeclaration>("declare variable \$x := \$y;")[0]
+                    assertThat(decl.isExternal, `is`(false))
                     assertThat(decl.variableType?.typeName, `is`(nullValue()))
+                    assertThat(decl.expression?.text, `is`("\$y"))
 
                     val qname = decl.variableName!!
                     assertThat(qname.prefix, `is`(nullValue()))
@@ -7949,7 +7951,9 @@ private class XQueryPsiTest : ParserTestCase() {
                 @DisplayName("QName")
                 fun qname() {
                     val decl = parse<XpmVariableDeclaration>("declare variable \$a:x := \$a:y;")[0]
+                    assertThat(decl.isExternal, `is`(false))
                     assertThat(decl.variableType?.typeName, `is`(nullValue()))
+                    assertThat(decl.expression?.text, `is`("\$a:y"))
 
                     val qname = decl.variableName!!
                     assertThat(qname.namespace, `is`(nullValue()))
@@ -7969,7 +7973,9 @@ private class XQueryPsiTest : ParserTestCase() {
                     val decl = parse<XpmVariableDeclaration>(
                         "declare variable \$Q{http://www.example.com}x := \$Q{http://www.example.com}y;"
                     )[0]
+                    assertThat(decl.isExternal, `is`(false))
                     assertThat(decl.variableType?.typeName, `is`(nullValue()))
+                    assertThat(decl.expression?.text, `is`("\$Q{http://www.example.com}y"))
 
                     val qname = decl.variableName!!
                     assertThat(qname.prefix, `is`(nullValue()))
@@ -7987,8 +7993,9 @@ private class XQueryPsiTest : ParserTestCase() {
                 @DisplayName("missing VarName")
                 fun missingVarName() {
                     val decl = parse<XpmVariableDeclaration>("declare variable \$ := \$y;")[0]
-                    assertThat(decl.variableName, `is`(nullValue()))
+                    assertThat(decl.isExternal, `is`(false))
                     assertThat(decl.variableType?.typeName, `is`(nullValue()))
+                    assertThat(decl.expression?.text, `is`("\$y"))
 
                     val presentation = (decl as NavigatablePsiElement).presentation!!
                     assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.VarDecl)))
@@ -8001,7 +8008,9 @@ private class XQueryPsiTest : ParserTestCase() {
                 @DisplayName("invalid VarName")
                 fun invalidVarName() {
                     val decl = parse<XpmVariableDeclaration>("declare variable \$: := \$y;")[0]
-                    assertThat(decl.variableName, `is`(nullValue()))
+                    assertThat(decl.isExternal, `is`(false))
+                    assertThat(decl.variableType?.typeName, `is`(nullValue()))
+                    assertThat(decl.expression?.text, `is`("\$y"))
                     assertThat(decl.variableType?.typeName, `is`(nullValue()))
 
                     val presentation = (decl as NavigatablePsiElement).presentation!!
@@ -8015,7 +8024,9 @@ private class XQueryPsiTest : ParserTestCase() {
                 @DisplayName("with type")
                 fun withType() {
                     val decl = parse<XpmVariableDeclaration>("declare variable \$a:x  as  node ( (::) )? := \$a:y;")[0]
+                    assertThat(decl.isExternal, `is`(false))
                     assertThat(decl.variableType?.typeName, `is`("node()?"))
+                    assertThat(decl.expression?.text, `is`("\$a:y"))
 
                     val qname = decl.variableName!!
                     assertThat(qname.namespace, `is`(nullValue()))
@@ -8026,6 +8037,46 @@ private class XQueryPsiTest : ParserTestCase() {
                     assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.VarDecl)))
                     assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.VarDecl)))
                     assertThat(presentation.presentableText, `is`("a:x as node()?"))
+                    assertThat(presentation.locationString, `is`(nullValue()))
+                }
+
+                @Test
+                @DisplayName("external without default")
+                fun externalWithoutDefault() {
+                    val decl = parse<XpmVariableDeclaration>("declare variable \$x external;")[0]
+                    assertThat(decl.isExternal, `is`(true))
+                    assertThat(decl.variableType?.typeName, `is`(nullValue()))
+                    assertThat(decl.expression, `is`(nullValue()))
+
+                    val qname = decl.variableName!!
+                    assertThat(qname.prefix, `is`(nullValue()))
+                    assertThat(qname.namespace, `is`(nullValue()))
+                    assertThat(qname.localName!!.data, `is`("x"))
+
+                    val presentation = (decl as NavigatablePsiElement).presentation!!
+                    assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.VarDecl)))
+                    assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.VarDecl)))
+                    assertThat(presentation.presentableText, `is`("x"))
+                    assertThat(presentation.locationString, `is`(nullValue()))
+                }
+
+                @Test
+                @DisplayName("external with default")
+                fun externalWithDefault() {
+                    val decl = parse<XpmVariableDeclaration>("declare variable \$x external := \$y;")[0]
+                    assertThat(decl.isExternal, `is`(true))
+                    assertThat(decl.variableType?.typeName, `is`(nullValue()))
+                    assertThat(decl.expression?.text, `is`("\$y"))
+
+                    val qname = decl.variableName!!
+                    assertThat(qname.prefix, `is`(nullValue()))
+                    assertThat(qname.namespace, `is`(nullValue()))
+                    assertThat(qname.localName!!.data, `is`("x"))
+
+                    val presentation = (decl as NavigatablePsiElement).presentation!!
+                    assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.VarDecl)))
+                    assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.VarDecl)))
+                    assertThat(presentation.presentableText, `is`("x"))
                     assertThat(presentation.locationString, `is`(nullValue()))
                 }
             }
