@@ -56,6 +56,7 @@ various inspections.
     - [Variable Declarations](#552-variable-declarations)
     - [Variable Bindings](#553-variable-bindings)
     - [Parameters](#554-parameters)
+    - [Assignable Variables](#555-assignable-variables)
   - [Functions](#56-functions)
 - {: .toc-letter } [References](#a-references)
   - [W3C References](#a1-w3c-references)
@@ -841,7 +842,6 @@ in a FLWOR expression) for the scope of the expression.
 | `ForMemberBinding`      | `XpmVariableBinding`     |
 | `FTScoreVar`            | `XpmVariableBinding`     |
 | `GroupingSpec`          | `XpmVariableBinding`     |
-| `LetBinding`            | `XpmVariableBinding`     |
 | `NextItem`              | `XpmVariableBinding`     |
 | `PositionalVar`         | `XpmVariableBinding`     |
 | `PreviousItem`          | `XpmVariableBinding`     |
@@ -866,6 +866,22 @@ The following properties are defined for *parameters*:
 1. The *default expression* property is for *optional parameters*. This is
    the value of the parameter if no expression is provided for the parameter
    at the point at which the function is called.
+
+##### 5.5.5 Assignable Variables
+
+| Symbol                  | Interface               |
+|-------------------------|-------------------------|
+| `LetBinding`            | `XpmAssignableVariable` |
+
+An *assignable variable* is a *variable binding* that defines a variable that
+can have a value specified by the user. The following properties are defined
+for *assignable variables*:
+
+1. The *variable type* property is the `SequenceType` associated with the
+   variable, if specified.
+
+1. The *expression* property is the expression that is used to specify the
+   value of the variable.
 
 #### 5.6 Functions
 

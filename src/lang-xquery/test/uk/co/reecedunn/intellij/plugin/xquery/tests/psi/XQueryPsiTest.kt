@@ -5227,8 +5227,10 @@ private class XQueryPsiTest : ParserTestCase() {
                 internal inner class LetBinding {
                     @Test
                     @DisplayName("NCName")
-                    fun testLetBinding_NCName() {
-                        val expr = parse<XQueryLetBinding>("let \$x := 2 return \$w")[0] as XpmVariableBinding
+                    fun ncname() {
+                        val expr = parse<XQueryLetBinding>("let \$x := 2 return \$w")[0] as XpmAssignableVariable
+                        assertThat(expr.variableType?.typeName, `is`(nullValue()))
+                        assertThat(expr.expression?.text, `is`("2"))
 
                         val qname = expr.variableName!!
                         assertThat(qname.prefix, `is`(nullValue()))
@@ -5238,8 +5240,10 @@ private class XQueryPsiTest : ParserTestCase() {
 
                     @Test
                     @DisplayName("QName")
-                    fun testLetBinding_QName() {
-                        val expr = parse<XQueryLetBinding>("let \$a:x := 2 return \$a:w")[0] as XpmVariableBinding
+                    fun qname() {
+                        val expr = parse<XQueryLetBinding>("let \$a:x := 2 return \$a:w")[0] as XpmAssignableVariable
+                        assertThat(expr.variableType?.typeName, `is`(nullValue()))
+                        assertThat(expr.expression?.text, `is`("2"))
 
                         val qname = expr.variableName!!
                         assertThat(qname.namespace, `is`(nullValue()))
@@ -5249,10 +5253,12 @@ private class XQueryPsiTest : ParserTestCase() {
 
                     @Test
                     @DisplayName("URIQualifiedName")
-                    fun testLetBinding_URIQualifiedName() {
+                    fun uriQualifiedName() {
                         val expr = parse<XQueryLetBinding>(
                             "let \$Q{http://www.example.com}x := 2 return \$Q{http://www.example.com}w"
-                        )[0] as XpmVariableBinding
+                        )[0] as XpmAssignableVariable
+                        assertThat(expr.variableType?.typeName, `is`(nullValue()))
+                        assertThat(expr.expression?.text, `is`("2"))
 
                         val qname = expr.variableName!!
                         assertThat(qname.prefix, `is`(nullValue()))
@@ -5262,9 +5268,26 @@ private class XQueryPsiTest : ParserTestCase() {
 
                     @Test
                     @DisplayName("missing VarName")
-                    fun testLetBinding_MissingVarName() {
-                        val expr = parse<XQueryLetBinding>("let \$ := 2 return \$w")[0] as XpmVariableBinding
+                    fun missingVarName() {
+                        val expr = parse<XQueryLetBinding>("let \$ := 2 return \$w")[0] as XpmAssignableVariable
                         assertThat(expr.variableName, `is`(nullValue()))
+                        assertThat(expr.variableType?.typeName, `is`(nullValue()))
+                        assertThat(expr.expression?.text, `is`("2"))
+                    }
+
+                    @Test
+                    @DisplayName("with type")
+                    fun withType() {
+                        val expr = parse<XQueryLetBinding>(
+                            "let \$x  as  node ( (::) )? := 2 return \$w"
+                        )[0] as XpmAssignableVariable
+                        assertThat(expr.variableType?.typeName, `is`("node()?"))
+                        assertThat(expr.expression?.text, `is`("2"))
+
+                        val qname = expr.variableName!!
+                        assertThat(qname.prefix, `is`(nullValue()))
+                        assertThat(qname.namespace, `is`(nullValue()))
+                        assertThat(qname.localName!!.data, `is`("x"))
                     }
                 }
             }
