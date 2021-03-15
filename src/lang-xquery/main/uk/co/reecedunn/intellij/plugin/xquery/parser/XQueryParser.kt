@@ -976,7 +976,7 @@ class XQueryParser : XPathParser() {
                         haveErrors
                     }) {
                     parseWhiteSpaceAndCommentTokens(builder)
-                    if (!parseExprSingle(builder, XQueryElementType.VAR_DEFAULT_VALUE) && !haveErrors) {
+                    if (!parseExprSingle(builder) && !haveErrors) {
                         builder.error(XPathBundle.message("parser.error.expected-expression"))
                     }
                 }
@@ -1107,7 +1107,7 @@ class XQueryParser : XPathParser() {
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (builder.matchTokenType(XPathTokenType.ASSIGN_EQUAL)) {
                     parseWhiteSpaceAndCommentTokens(builder)
-                    if (!parseExprSingle(builder, XQueryElementType.VAR_DEFAULT_VALUE) && !haveErrors) {
+                    if (!parseExprSingle(builder) && !haveErrors) {
                         builder.error(XPathBundle.message("parser.error.expected-expression"))
                     }
                 }
