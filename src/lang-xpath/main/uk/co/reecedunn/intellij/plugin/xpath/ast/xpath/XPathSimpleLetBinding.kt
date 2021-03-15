@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2020 Reece H. Dunn
+ * Copyright (C) 2019-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,9 +16,9 @@
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableBinding
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmAssignableVariable
 
 /**
  * An XPath 3.0 `SimpleLetBinding` node in the XPath AST.
  */
-interface XPathSimpleLetBinding : PsiElement, XpmVariableBinding
+interface XPathSimpleLetBinding : PsiElement, XpmAssignableVariable

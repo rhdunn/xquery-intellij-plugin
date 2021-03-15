@@ -847,7 +847,6 @@ in a FLWOR expression) for the scope of the expression.
 | `PreviousItem`          | `XpmVariableBinding`     |
 | `QuantifierBinding`     | `XpmVariableBinding`     |
 | `SimpleForBinding`      | `XpmVariableBinding`     |
-| `SimpleLetBinding`      | `XpmVariableBinding`     |
 | `SlidingWindowClause`   | `XpmVariableBinding`     |
 | `TumblingWindowClause`  | `XpmVariableBinding`     |
 
@@ -872,6 +871,7 @@ The following properties are defined for *parameters*:
 | Symbol                  | Interface               |
 |-------------------------|-------------------------|
 | `LetBinding`            | `XpmAssignableVariable` |
+| `SimpleLetBinding`      | `XpmAssignableVariable` |
 
 An *assignable variable* is a *variable binding* that defines a variable that
 can have a value specified by the user. The following properties are defined

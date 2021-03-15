@@ -48,6 +48,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPathStep
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmAssignableVariable
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmParameter
 import java.math.BigDecimal
 import java.math.BigInteger
@@ -4043,9 +4044,11 @@ private class XPathPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("NCName")
                 fun ncname() {
-                    val ref = parse<XPathSimpleLetBinding>("let \$x := 2 return \$y")[0] as XpmVariableBinding
+                    val expr = parse<XPathSimpleLetBinding>("let \$x := 2 return \$y")[0] as XpmAssignableVariable
+                    assertThat(expr.variableType?.typeName, `is`(nullValue()))
+                    assertThat(expr.expression?.text, `is`("2"))
 
-                    val qname = ref.variableName!!
+                    val qname = expr.variableName!!
                     assertThat(qname.prefix, `is`(nullValue()))
                     assertThat(qname.namespace, `is`(nullValue()))
                     assertThat(qname.localName!!.data, `is`("x"))
@@ -4054,9 +4057,11 @@ private class XPathPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("QName")
                 fun qname() {
-                    val ref = parse<XPathSimpleLetBinding>("let \$a:x := 2 return \$a:y")[0] as XpmVariableBinding
+                    val expr = parse<XPathSimpleLetBinding>("let \$a:x := 2 return \$a:y")[0] as XpmAssignableVariable
+                    assertThat(expr.variableType?.typeName, `is`(nullValue()))
+                    assertThat(expr.expression?.text, `is`("2"))
 
-                    val qname = ref.variableName!!
+                    val qname = expr.variableName!!
                     assertThat(qname.namespace, `is`(nullValue()))
                     assertThat(qname.prefix!!.data, `is`("a"))
                     assertThat(qname.localName!!.data, `is`("x"))
@@ -4065,14 +4070,25 @@ private class XPathPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("URIQualifiedName")
                 fun uriQualifiedName() {
-                    val ref = parse<XPathSimpleLetBinding>(
+                    val expr = parse<XPathSimpleLetBinding>(
                         "let \$Q{http://www.example.com}x := 2 return \$Q{http://www.example.com}y"
-                    )[0] as XpmVariableBinding
+                    )[0] as XpmAssignableVariable
+                    assertThat(expr.variableType?.typeName, `is`(nullValue()))
+                    assertThat(expr.expression?.text, `is`("2"))
 
-                    val qname = ref.variableName!!
+                    val qname = expr.variableName!!
                     assertThat(qname.prefix, `is`(nullValue()))
                     assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
                     assertThat(qname.localName!!.data, `is`("x"))
+                }
+
+                @Test
+                @DisplayName("missing VarName")
+                fun missingVarName() {
+                    val expr = parse<XPathSimpleLetBinding>("let \$ := 2 return \$w")[0] as XpmAssignableVariable
+                    assertThat(expr.variableName, `is`(nullValue()))
+                    assertThat(expr.variableType?.typeName, `is`(nullValue()))
+                    assertThat(expr.expression?.text, `is`("2"))
                 }
             }
         }
