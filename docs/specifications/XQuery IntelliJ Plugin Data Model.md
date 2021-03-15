@@ -51,8 +51,12 @@ various inspections.
     - [Abbreviated Syntax](#522-abbreviated-syntax)
   - [Namespace Declarations](#53-namespace-declarations)
   - [Annotated PSI Nodes](#54-annotated-psi-nodes)
-    - [Variables](#541-variables)
-    - [Functions](#542-functions)
+  - [Variables](#55-variables)
+    - [Variable References](#551-variable-references)
+    - [Variable Declarations](#552-variable-declarations)
+    - [Variable Bindings](#553-variable-bindings)
+    - [Parameters](#554-parameters)
+  - [Functions](#56-functions)
 - {: .toc-letter } [References](#a-references)
   - [W3C References](#a1-w3c-references)
   - [XPath NG Proposals](#a2-xpath-ng-proposals)
@@ -780,11 +784,47 @@ have annotations associated with it.
 The *annotations* property lists the user-specified annotations on the PSI
 node.
 
-#### 5.4.1 Variables
+#### 5.5 Variables
+
+A *variable definition* is a construct that introduces a variable that can be
+referenced in the scope the variable is valid for. The following properties
+are defined for *variable definitions*:
+
+1. The *variable name* property is the `xs:QName` associated with that definition.
+
+##### 5.5.1 Variable References
+
+| Symbol   | Interface              |
+|----------|------------------------|
+| `VarRef` | `XpmVariableReference` |
+
+A *variable reference* is an expression that references a *variable definition*.
+
+1. The *variable name* property is the `xs:QName` associated with that reference,
+   used to locate the *variable definition* in the in-scope variables static context.
+
+##### 5.5.2 Variable Declarations
 
 | Symbol                  | Interface                |
 |-------------------------|--------------------------|
 | `BlockVarDecl`          | `XpmVariableDeclaration` |
+| `VarDecl`               | `XpmVariableDeclaration` |
+
+A *variable declaration* is a *variable definition* that specifies a variable
+in the prolog or scripting block scope. The following properties are defined
+for *variable declarations*:
+
+1. The *variable type* property is the `SequenceType` associated with the
+   declaration, if specified.
+
+##### 5.5.3 Variable Bindings
+
+A *variable binding* is a variable in an expression that is bound to the
+result of an expression or other context (such as the position of an item
+in a FLWOR expression) for the scope of the expression.
+
+| Symbol                  | Interface                |
+|-------------------------|--------------------------|
 | `CaseClause`            | `XpmVariableBinding`     |
 | `CatchClause`           | `XpmVariableBinding`     |
 | `CopyModifyExprBinding` | `XpmVariableBinding`     |
@@ -797,7 +837,6 @@ node.
 | `GroupingSpec`          | `XpmVariableBinding`     |
 | `LetBinding`            | `XpmVariableBinding`     |
 | `NextItem`              | `XpmVariableBinding`     |
-| `Param`                 | `XpmParameter`           |
 | `PositionalVar`         | `XpmVariableBinding`     |
 | `PreviousItem`          | `XpmVariableBinding`     |
 | `QuantifierBinding`     | `XpmVariableBinding`     |
@@ -805,25 +844,12 @@ node.
 | `SimpleLetBinding`      | `XpmVariableBinding`     |
 | `SlidingWindowClause`   | `XpmVariableBinding`     |
 | `TumblingWindowClause`  | `XpmVariableBinding`     |
-| `VarDecl`               | `XpmVariableDeclaration` |
-| `VarRef`                | `XpmVariableReference`   |
 
-A *variable definition* is a construct that introduces a variable that can be
-referenced in the scope the variable is valid for. The following properties
-are defined for *variable definitions*:
+##### 5.5.4 Parameters
 
-1. The *variable name* property is the `xs:QName` associated with that definition.
-
-A *variable declaration* is a *variable definition* that specifies a variable
-in the prolog or scripting block scope. The following properties are defined
-for *variable declarations*:
-
-1. The *variable type* property is the `SequenceType` associated with the
-   declaration, if specified.
-
-A *variable binding* is a variable in an expression that is bound to the
-result of an expression or other context (such as the position of an item
-in a FLWOR expression) for the scope of the expression.
+| Symbol  | Interface      |
+|---------|----------------|
+| `Param` | `XpmParameter` |
 
 A *parameter* is a *variable binding* that defines a parameter of a function.
 The following properties are defined for *parameters*:
@@ -831,12 +857,7 @@ The following properties are defined for *parameters*:
 1. The *variable type* property is the `SequenceType` associated with the
    parameter, if specified.
 
-A *variable reference* is an expression that references a *variable definition*.
-
-1. The *variable name* property is the `xs:QName` associated with that reference,
-   used to locate the *variable definition* in the in-scope variables static context.
-
-#### 5.4.2 Functions
+#### 5.6 Functions
 
 | Symbol                     | Interface                     |
 |----------------------------|-------------------------------|
