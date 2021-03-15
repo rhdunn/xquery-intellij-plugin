@@ -2585,6 +2585,7 @@ private class XPathPsiTest : ParserTestCase() {
                     fun ncname() {
                         val expr = parse<XPathParam>("function (\$x) {}")[0] as XpmParameter
                         assertThat(expr.variableType?.typeName, `is`(nullValue()))
+                        assertThat(expr.defaultExpression, `is`(nullValue()))
 
                         val qname = expr.variableName!!
                         assertThat(qname.prefix, `is`(nullValue()))
@@ -2603,6 +2604,7 @@ private class XPathPsiTest : ParserTestCase() {
                     fun qname() {
                         val expr = parse<XPathParam>("function (\$a:x) {}")[0] as XpmParameter
                         assertThat(expr.variableType?.typeName, `is`(nullValue()))
+                        assertThat(expr.defaultExpression, `is`(nullValue()))
 
                         val qname = expr.variableName!!
                         assertThat(qname.namespace, `is`(nullValue()))
@@ -2621,6 +2623,7 @@ private class XPathPsiTest : ParserTestCase() {
                     fun uriQualifiedName() {
                         val expr = parse<XPathParam>("function (\$Q{http://www.example.com}x) {}")[0] as XpmParameter
                         assertThat(expr.variableType?.typeName, `is`(nullValue()))
+                        assertThat(expr.defaultExpression, `is`(nullValue()))
 
                         val qname = expr.variableName!!
                         assertThat(qname.prefix, `is`(nullValue()))
@@ -2640,6 +2643,7 @@ private class XPathPsiTest : ParserTestCase() {
                         val expr = parse<XPathParam>("function (\$) {}")[0] as XpmParameter
                         assertThat(expr.variableName, `is`(nullValue()))
                         assertThat(expr.variableType?.typeName, `is`(nullValue()))
+                        assertThat(expr.defaultExpression, `is`(nullValue()))
 
                         val presentation = (expr as NavigatablePsiElement).presentation!!
                         assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.Param)))
@@ -2653,6 +2657,7 @@ private class XPathPsiTest : ParserTestCase() {
                     fun withType() {
                         val expr = parse<XPathParam>("function ( \$x  as  element() ) {}")[0] as XpmParameter
                         assertThat(expr.variableType?.typeName, `is`("element()"))
+                        assertThat(expr.defaultExpression, `is`(nullValue()))
 
                         val qname = expr.variableName!!
                         assertThat(qname.prefix, `is`(nullValue()))

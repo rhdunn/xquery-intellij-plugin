@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParam
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 import javax.swing.Icon
 
 class XPathParamPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathParam, ItemPresentation {
@@ -37,16 +38,18 @@ class XPathParamPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathParam,
     }
 
     // endregion
-    // region XPathVariableBinding
+    // region XpmVariableBinding
 
     override val variableName: XsQNameValue?
         get() = children().filterIsInstance<XPathEQName>().firstOrNull()
 
     // endregion
-    // region XPathVariableType
+    // region XpmParameter
 
     override val variableType: XdmSequenceType?
         get() = children().filterIsInstance<XdmSequenceType>().firstOrNull()
+
+    override val defaultExpression: XpmExpression? = null
 
     // endregion
     // region NavigationItem

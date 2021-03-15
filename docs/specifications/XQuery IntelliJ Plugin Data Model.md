@@ -857,6 +857,10 @@ The following properties are defined for *parameters*:
 1. The *variable type* property is the `SequenceType` associated with the
    parameter, if specified.
 
+1. The *default expression* property is for *optional parameters*. This is
+   the value of the parameter if no expression is provided for the parameter
+   at the point at which the function is called.
+
 #### 5.6 Functions
 
 | Symbol                     | Interface                     |
