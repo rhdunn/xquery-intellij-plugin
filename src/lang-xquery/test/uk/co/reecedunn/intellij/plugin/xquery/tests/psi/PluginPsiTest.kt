@@ -55,6 +55,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPathStep
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmAssignableVariable
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryItemTypeDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCatchClause
@@ -1451,10 +1452,12 @@ private class PluginPsiTest : ParserTestCase() {
         internal inner class DefaultCaseClause {
             @Test
             @DisplayName("NCName")
-            fun testDefaultCaseClause_NCName() {
+            fun ncname() {
                 val expr = parse<PluginDefaultCaseClause>(
                     "typeswitch (\$x) default \$y return \$z"
-                )[0] as XpmVariableBinding
+                )[0] as XpmAssignableVariable
+                assertThat(expr.variableType?.typeName, `is`(nullValue()))
+                assertThat(expr.expression?.text, `is`("\$x"))
 
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -1464,10 +1467,12 @@ private class PluginPsiTest : ParserTestCase() {
 
             @Test
             @DisplayName("QName")
-            fun testDefaultCaseClause_QName() {
+            fun qname() {
                 val expr = parse<PluginDefaultCaseClause>(
                     "typeswitch (\$a:x) default \$a:y return \$a:z"
-                )[0] as XpmVariableBinding
+                )[0] as XpmAssignableVariable
+                assertThat(expr.variableType?.typeName, `is`(nullValue()))
+                assertThat(expr.expression?.text, `is`("\$a:x"))
 
                 val qname = expr.variableName!!
                 assertThat(qname.namespace, `is`(nullValue()))
@@ -1477,14 +1482,16 @@ private class PluginPsiTest : ParserTestCase() {
 
             @Test
             @DisplayName("URIQualifiedName")
-            fun testDefaultCaseClause_URIQualifiedName() {
+            fun uriQualifiedName() {
                 val expr = parse<PluginDefaultCaseClause>(
                     """
                     typeswitch (${'$'}Q{http://www.example.com}x)
                     default ${'$'}Q{http://www.example.com}y
                     return ${'$'}Q{http://www.example.com}z
                     """
-                )[0] as XpmVariableBinding
+                )[0] as XpmAssignableVariable
+                assertThat(expr.variableType?.typeName, `is`(nullValue()))
+                assertThat(expr.expression?.text, `is`("\$Q{http://www.example.com}x"))
 
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -1493,12 +1500,14 @@ private class PluginPsiTest : ParserTestCase() {
             }
 
             @Test
-            @DisplayName("missing VarName")
-            fun testDefaultCaseClause_NoVarName() {
+            @DisplayName("without VarName")
+            fun withoutVarName() {
                 val expr = parse<PluginDefaultCaseClause>(
                     "typeswitch (\$x) default return \$z"
-                )[0] as XpmVariableBinding
+                )[0] as XpmAssignableVariable
                 assertThat(expr.variableName, `is`(nullValue()))
+                assertThat(expr.variableType?.typeName, `is`(nullValue()))
+                assertThat(expr.expression?.text, `is`("\$x"))
             }
         }
     }

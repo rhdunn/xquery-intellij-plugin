@@ -835,7 +835,6 @@ in a FLWOR expression) for the scope of the expression.
 | `CatchClause`           | `XpmVariableBinding`     |
 | `CountClause`           | `XpmVariableBinding`     |
 | `CurrentItem`           | `XpmVariableBinding`     |
-| `DefaultCaseClause`     | `XpmVariableBinding`     |
 | `ForBinding`            | `XpmVariableBinding`     |
 | `ForMemberBinding`      | `XpmVariableBinding`     |
 | `FTScoreVar`            | `XpmVariableBinding`     |
@@ -869,6 +868,7 @@ The following properties are defined for *parameters*:
 |-------------------------|-------------------------|
 | `CaseClause`            | `XpmAssignableVariable` |
 | `CopyModifyExprBinding` | `XpmAssignableVariable` |
+| `DefaultCaseClause`     | `XpmAssignableVariable` |
 | `GroupingSpec`          | `XpmAssignableVariable` |
 | `LetBinding`            | `XpmAssignableVariable` |
 | `SimpleLetBinding`      | `XpmAssignableVariable` |
