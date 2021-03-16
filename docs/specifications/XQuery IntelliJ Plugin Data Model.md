@@ -57,6 +57,7 @@ various inspections.
     - [Variable Bindings](#553-variable-bindings)
     - [Parameters](#554-parameters)
     - [Assignable Variables](#555-assignable-variables)
+    - [Collection Bindings](#556-collection-bindings)
   - [Functions](#56-functions)
 - {: .toc-letter } [References](#a-references)
   - [W3C References](#a1-w3c-references)
@@ -820,9 +821,9 @@ for *variable declarations*:
 1. The *variable type* property is the `SequenceType` associated with the
    declaration, if specified.
 
-1. The *expression* property is the expression that is used to evaluate the
-   value of this variable. For external variables this is only used when a
-   value is not provided from the caller of the module.
+1. The *variable expression* property is the expression that is used to
+   evaluate the value of this variable. For external variables this is only
+   used when a value is not provided from the caller of the module.
 
 ##### 5.5.3 Variable Bindings
 
@@ -835,7 +836,6 @@ in a FLWOR expression) for the scope of the expression.
 | `CatchClause`           | `XpmVariableBinding`     |
 | `CountClause`           | `XpmVariableBinding`     |
 | `CurrentItem`           | `XpmVariableBinding`     |
-| `ForBinding`            | `XpmVariableBinding`     |
 | `ForMemberBinding`      | `XpmVariableBinding`     |
 | `FTScoreVar`            | `XpmVariableBinding`     |
 | `NextItem`              | `XpmVariableBinding`     |
@@ -882,6 +882,21 @@ for *assignable variables*:
 
 1. The *variable expression* property is the expression that is used to
    specify the value of the variable.
+
+##### 5.5.6 Collection Bindings
+
+| Symbol                  | Interface              |
+|-------------------------|------------------------|
+| `ForBinding`            | `XpmCollectionBinding` |
+
+A *collection binding* is an *variable binding* that is bound to the
+values in a sequence or array.
+
+1. The *variable type* property is the `SequenceType` associated with the
+   variable, if specified.
+
+1. The *binding expression* property is the expression that is used to
+   calculate the *binding collection* for the symbol.
 
 #### 5.6 Functions
 

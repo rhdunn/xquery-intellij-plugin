@@ -5174,8 +5174,10 @@ private class XQueryPsiTest : ParserTestCase() {
                 internal inner class ForBinding {
                     @Test
                     @DisplayName("NCName")
-                    fun testForBinding_NCName() {
-                        val expr = parse<XQueryForBinding>("for \$x at \$y in \$z return \$w")[0] as XpmVariableBinding
+                    fun ncname() {
+                        val expr = parse<XQueryForBinding>("for \$x at \$y in \$z return \$w")[0] as XpmCollectionBinding
+                        assertThat(expr.variableType?.typeName, `is`(nullValue()))
+                        assertThat(expr.bindingExpression?.text, `is`("\$z "))
 
                         val qname = expr.variableName!!
                         assertThat(qname.prefix, `is`(nullValue()))
@@ -5185,10 +5187,12 @@ private class XQueryPsiTest : ParserTestCase() {
 
                     @Test
                     @DisplayName("QName")
-                    fun testForBinding_QName() {
+                    fun qname() {
                         val expr = parse<XQueryForBinding>(
                             "for \$a:x at \$a:y in \$a:z return \$a:w"
-                        )[0] as XpmVariableBinding
+                        )[0] as XpmCollectionBinding
+                        assertThat(expr.variableType?.typeName, `is`(nullValue()))
+                        assertThat(expr.bindingExpression?.text, `is`("\$a:z"))
 
                         val qname = expr.variableName!!
                         assertThat(qname.namespace, `is`(nullValue()))
@@ -5198,11 +5202,13 @@ private class XQueryPsiTest : ParserTestCase() {
 
                     @Test
                     @DisplayName("URIQualifiedName")
-                    fun testForBinding_URIQualifiedName() {
+                    fun uriQualifiedName() {
                         val expr = parse<XQueryForBinding>(
                             "for \$Q{http://www.example.com}x at \$Q{http://www.example.com}y in \$Q{http://www.example.com}z " +
                             "return \$Q{http://www.example.com}w"
-                        )[0] as XpmVariableBinding
+                        )[0] as XpmCollectionBinding
+                        assertThat(expr.variableType?.typeName, `is`(nullValue()))
+                        assertThat(expr.bindingExpression?.text, `is`("\$Q{http://www.example.com}z"))
 
                         val qname = expr.variableName!!
                         assertThat(qname.prefix, `is`(nullValue()))
@@ -5212,9 +5218,26 @@ private class XQueryPsiTest : ParserTestCase() {
 
                     @Test
                     @DisplayName("missing VarName")
-                    fun testForBinding_MissingVarName() {
-                        val expr = parse<XQueryForBinding>("for \$ \$y return \$w")[0] as XpmVariableBinding
+                    fun missingVarName() {
+                        val expr = parse<XQueryForBinding>("for \$ \$y return \$w")[0] as XpmCollectionBinding
                         assertThat(expr.variableName, `is`(nullValue()))
+                        assertThat(expr.variableType?.typeName, `is`(nullValue()))
+                        assertThat(expr.bindingExpression?.text, `is`("\$y "))
+                    }
+
+                    @Test
+                    @DisplayName("with type")
+                    fun withType() {
+                        val expr = parse<XQueryForBinding>(
+                            "for \$x as  node ( (: :) ) ? at \$y in \$z return \$w"
+                        )[0] as XpmCollectionBinding
+                        assertThat(expr.variableType?.typeName, `is`("node()?"))
+                        assertThat(expr.bindingExpression?.text, `is`("\$z "))
+
+                        val qname = expr.variableName!!
+                        assertThat(qname.prefix, `is`(nullValue()))
+                        assertThat(qname.namespace, `is`(nullValue()))
+                        assertThat(qname.localName!!.data, `is`("x"))
                     }
                 }
             }
