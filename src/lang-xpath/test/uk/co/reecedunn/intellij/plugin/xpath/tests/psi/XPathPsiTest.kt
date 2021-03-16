@@ -35,8 +35,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
-import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableBinding
-import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
@@ -48,8 +46,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPathStep
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
-import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmAssignableVariable
-import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmParameter
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.*
 import java.math.BigDecimal
 import java.math.BigInteger
 
@@ -3992,9 +3989,11 @@ private class XPathPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("NCName")
                 fun ncname() {
-                    val ref = parse<XPathSimpleForBinding>("for \$x in 2 return \$y")[0] as XpmVariableBinding
+                    val expr = parse<XPathSimpleForBinding>("for \$x in 2 return \$y")[0] as XpmCollectionBinding
+                    assertThat(expr.variableType?.typeName, `is`(nullValue()))
+                    assertThat(expr.bindingExpression?.text, `is`("2"))
 
-                    val qname = ref.variableName!!
+                    val qname = expr.variableName!!
                     assertThat(qname.prefix, `is`(nullValue()))
                     assertThat(qname.namespace, `is`(nullValue()))
                     assertThat(qname.localName!!.data, `is`("x"))
@@ -4003,9 +4002,11 @@ private class XPathPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("QName")
                 fun qname() {
-                    val ref = parse<XPathSimpleForBinding>("for \$a:x in 2 return \$a:y")[0] as XpmVariableBinding
+                    val expr = parse<XPathSimpleForBinding>("for \$a:x in 2 return \$a:y")[0] as XpmCollectionBinding
+                    assertThat(expr.variableType?.typeName, `is`(nullValue()))
+                    assertThat(expr.bindingExpression?.text, `is`("2"))
 
-                    val qname = ref.variableName!!
+                    val qname = expr.variableName!!
                     assertThat(qname.namespace, `is`(nullValue()))
                     assertThat(qname.prefix!!.data, `is`("a"))
                     assertThat(qname.localName!!.data, `is`("x"))
@@ -4014,11 +4015,13 @@ private class XPathPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("URIQualifiedName")
                 fun uriQualifiedName() {
-                    val ref = parse<XPathSimpleForBinding>(
+                    val expr = parse<XPathSimpleForBinding>(
                         "for \$Q{http://www.example.com}x in 2 return \$Q{http://www.example.com}y"
-                    )[0] as XpmVariableBinding
+                    )[0] as XpmCollectionBinding
+                    assertThat(expr.variableType?.typeName, `is`(nullValue()))
+                    assertThat(expr.bindingExpression?.text, `is`("2"))
 
-                    val qname = ref.variableName!!
+                    val qname = expr.variableName!!
                     assertThat(qname.prefix, `is`(nullValue()))
                     assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
                     assertThat(qname.localName!!.data, `is`("x"))
