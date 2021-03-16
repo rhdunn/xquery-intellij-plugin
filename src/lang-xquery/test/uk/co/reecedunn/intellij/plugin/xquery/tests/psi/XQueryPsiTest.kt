@@ -5167,7 +5167,7 @@ private class XQueryPsiTest : ParserTestCase() {
             }
 
             @Nested
-            @DisplayName("XQuery 3.1 (3.12.2) For Clause")
+            @DisplayName("XQuery 3.1 (3.12.2) For Clause ; XQuery 4.0 ED (4.15.2) For Clause")
             internal inner class ForClause {
                 @Nested
                 @DisplayName("XQuery 3.1 EBNF (45) ForBinding")
@@ -5230,6 +5230,83 @@ private class XQueryPsiTest : ParserTestCase() {
                     fun withType() {
                         val expr = parse<XQueryForBinding>(
                             "for \$x as  node ( (: :) ) ? at \$y in \$z return \$w"
+                        )[0] as XpmCollectionBinding
+                        assertThat(expr.variableType?.typeName, `is`("node()?"))
+                        assertThat(expr.bindingExpression?.text, `is`("\$z "))
+
+                        val qname = expr.variableName!!
+                        assertThat(qname.prefix, `is`(nullValue()))
+                        assertThat(qname.namespace, `is`(nullValue()))
+                        assertThat(qname.localName!!.data, `is`("x"))
+                    }
+                }
+
+                @Nested
+                @DisplayName("XQuery 4.0 ED EBNF (53) ForMemberBinding")
+                internal inner class ForMemberBinding {
+                    @Test
+                    @DisplayName("NCName")
+                    fun ncname() {
+                        val expr = parse<XQueryForMemberBinding>(
+                            "for member \$x at \$y in \$z return \$w"
+                        )[0] as XpmCollectionBinding
+                        assertThat(expr.variableType?.typeName, `is`(nullValue()))
+                        assertThat(expr.bindingExpression?.text, `is`("\$z "))
+
+                        val qname = expr.variableName!!
+                        assertThat(qname.prefix, `is`(nullValue()))
+                        assertThat(qname.namespace, `is`(nullValue()))
+                        assertThat(qname.localName!!.data, `is`("x"))
+                    }
+
+                    @Test
+                    @DisplayName("QName")
+                    fun qname() {
+                        val expr = parse<XQueryForMemberBinding>(
+                            "for member \$a:x at \$a:y in \$a:z return \$a:w"
+                        )[0] as XpmCollectionBinding
+                        assertThat(expr.variableType?.typeName, `is`(nullValue()))
+                        assertThat(expr.bindingExpression?.text, `is`("\$a:z"))
+
+                        val qname = expr.variableName!!
+                        assertThat(qname.namespace, `is`(nullValue()))
+                        assertThat(qname.prefix!!.data, `is`("a"))
+                        assertThat(qname.localName!!.data, `is`("x"))
+                    }
+
+                    @Test
+                    @DisplayName("URIQualifiedName")
+                    fun uriQualifiedName() {
+                        val expr = parse<XQueryForMemberBinding>(
+                            "for member \$Q{http://www.example.com}x at \$Q{http://www.example.com}y " +
+                            "in \$Q{http://www.example.com}z " +
+                            "return \$Q{http://www.example.com}w"
+                        )[0] as XpmCollectionBinding
+                        assertThat(expr.variableType?.typeName, `is`(nullValue()))
+                        assertThat(expr.bindingExpression?.text, `is`("\$Q{http://www.example.com}z"))
+
+                        val qname = expr.variableName!!
+                        assertThat(qname.prefix, `is`(nullValue()))
+                        assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+                        assertThat(qname.localName!!.data, `is`("x"))
+                    }
+
+                    @Test
+                    @DisplayName("missing VarName")
+                    fun missingVarName() {
+                        val expr = parse<XQueryForMemberBinding>(
+                            "for member \$ \$y return \$w"
+                        )[0] as XpmCollectionBinding
+                        assertThat(expr.variableName, `is`(nullValue()))
+                        assertThat(expr.variableType?.typeName, `is`(nullValue()))
+                        assertThat(expr.bindingExpression?.text, `is`("\$y "))
+                    }
+
+                    @Test
+                    @DisplayName("with type")
+                    fun withType() {
+                        val expr = parse<XQueryForMemberBinding>(
+                            "for member \$x as  node ( (: :) ) ? at \$y in \$z return \$w"
                         )[0] as XpmCollectionBinding
                         assertThat(expr.variableType?.typeName, `is`("node()?"))
                         assertThat(expr.bindingExpression?.text, `is`("\$z "))

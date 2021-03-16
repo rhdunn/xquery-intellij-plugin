@@ -16,9 +16,9 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathSimpleForBinding
-import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableBinding
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmCollectionBinding
 
 /**
  * An XQuery 4.0 ED `ForMemberBinding` node in the XQuery AST.
  */
-interface XQueryForMemberBinding : XPathSimpleForBinding, XpmVariableBinding
+interface XQueryForMemberBinding : XPathSimpleForBinding, XpmCollectionBinding
