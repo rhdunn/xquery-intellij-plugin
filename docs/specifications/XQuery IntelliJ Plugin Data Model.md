@@ -841,7 +841,6 @@ in a FLWOR expression) for the scope of the expression.
 | `ForBinding`            | `XpmVariableBinding`     |
 | `ForMemberBinding`      | `XpmVariableBinding`     |
 | `FTScoreVar`            | `XpmVariableBinding`     |
-| `GroupingSpec`          | `XpmVariableBinding`     |
 | `NextItem`              | `XpmVariableBinding`     |
 | `PositionalVar`         | `XpmVariableBinding`     |
 | `PreviousItem`          | `XpmVariableBinding`     |
@@ -870,6 +869,7 @@ The following properties are defined for *parameters*:
 
 | Symbol                  | Interface               |
 |-------------------------|-------------------------|
+| `GroupingSpec`          | `XpmAssignableVariable` |
 | `LetBinding`            | `XpmAssignableVariable` |
 | `SimpleLetBinding`      | `XpmAssignableVariable` |
 

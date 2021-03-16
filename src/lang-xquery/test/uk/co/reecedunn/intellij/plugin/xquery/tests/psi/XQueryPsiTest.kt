@@ -5676,7 +5676,9 @@ private class XQueryPsiTest : ParserTestCase() {
                     fun ncname() {
                         val expr = parse<XQueryGroupingSpec>(
                             "for \$x in \$y group by \$z return \$w"
-                        )[0] as XpmVariableBinding
+                        )[0] as XpmAssignableVariable
+                        assertThat(expr.variableType?.typeName, `is`(nullValue()))
+                        assertThat(expr.expression, `is`(nullValue()))
 
                         val qname = expr.variableName!!
                         assertThat(qname.prefix, `is`(nullValue()))
@@ -5689,7 +5691,9 @@ private class XQueryPsiTest : ParserTestCase() {
                     fun qname() {
                         val expr = parse<XQueryGroupingSpec>(
                             "for \$a:x in \$a:y group by \$a:z return \$a:w"
-                        )[0] as XpmVariableBinding
+                        )[0] as XpmAssignableVariable
+                        assertThat(expr.variableType?.typeName, `is`(nullValue()))
+                        assertThat(expr.expression, `is`(nullValue()))
 
                         val qname = expr.variableName!!
                         assertThat(qname.namespace, `is`(nullValue()))
@@ -5704,7 +5708,9 @@ private class XQueryPsiTest : ParserTestCase() {
                             "for \$Q{http://www.example.com}x in \$Q{http://www.example.com}y " +
                             "group by \$Q{http://www.example.com}z " +
                             "return \$Q{http://www.example.com}w"
-                        )[0] as XpmVariableBinding
+                        )[0] as XpmAssignableVariable
+                        assertThat(expr.variableType?.typeName, `is`(nullValue()))
+                        assertThat(expr.expression, `is`(nullValue()))
 
                         val qname = expr.variableName!!
                         assertThat(qname.prefix, `is`(nullValue()))
@@ -5715,8 +5721,40 @@ private class XQueryPsiTest : ParserTestCase() {
                     @Test
                     @DisplayName("missing VarName")
                     fun missingVarName() {
-                        val expr = parse<XQueryGroupingSpec>("for \$x in \$y group by \$")[0] as XpmVariableBinding
+                        val expr = parse<XQueryGroupingSpec>("for \$x in \$y group by \$")[0] as XpmAssignableVariable
                         assertThat(expr.variableName, `is`(nullValue()))
+                        assertThat(expr.variableType?.typeName, `is`(nullValue()))
+                        assertThat(expr.expression, `is`(nullValue()))
+                    }
+
+                    @Test
+                    @DisplayName("with expression")
+                    fun withExpression() {
+                        val expr = parse<XQueryGroupingSpec>(
+                            "for \$x in \$y group by \$z := 2 return \$w"
+                        )[0] as XpmAssignableVariable
+                        assertThat(expr.variableType?.typeName, `is`(nullValue()))
+                        assertThat(expr.expression?.text, `is`("2"))
+
+                        val qname = expr.variableName!!
+                        assertThat(qname.prefix, `is`(nullValue()))
+                        assertThat(qname.namespace, `is`(nullValue()))
+                        assertThat(qname.localName!!.data, `is`("z"))
+                    }
+
+                    @Test
+                    @DisplayName("with type and expression")
+                    fun withTypeAndExpression() {
+                        val expr = parse<XQueryGroupingSpec>(
+                            "for \$x in \$y group by \$z  as  node ( (: :) ) ? := 2 return \$w"
+                        )[0] as XpmAssignableVariable
+                        assertThat(expr.variableType?.typeName, `is`("node()?"))
+                        assertThat(expr.expression?.text, `is`("2"))
+
+                        val qname = expr.variableName!!
+                        assertThat(qname.prefix, `is`(nullValue()))
+                        assertThat(qname.namespace, `is`(nullValue()))
+                        assertThat(qname.localName!!.data, `is`("z"))
                     }
 
                     @Test
