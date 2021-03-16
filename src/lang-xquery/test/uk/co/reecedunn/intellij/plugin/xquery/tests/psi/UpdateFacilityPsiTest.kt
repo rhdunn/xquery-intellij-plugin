@@ -24,6 +24,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmAssignableVariable
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableBinding
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginCopyModifyExprBinding
 import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.*
@@ -143,11 +144,13 @@ private class UpdateFacilityPsiTest : ParserTestCase() {
             @Test
             @DisplayName("NCName")
             fun ncname() {
-                val binding = parse<PluginCopyModifyExprBinding>(
+                val expr = parse<PluginCopyModifyExprBinding>(
                     "copy \$x := () modify delete node \$y return \$z"
-                )[0] as XpmVariableBinding
+                )[0] as XpmAssignableVariable
+                assertThat(expr.variableType?.typeName, `is`(nullValue()))
+                assertThat(expr.expression?.text, `is`("()"))
 
-                val qname = binding.variableName!!
+                val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("x"))
@@ -156,11 +159,13 @@ private class UpdateFacilityPsiTest : ParserTestCase() {
             @Test
             @DisplayName("QName")
             fun qname() {
-                val binding = parse<PluginCopyModifyExprBinding>(
+                val expr = parse<PluginCopyModifyExprBinding>(
                     "copy \$a:x := () modify delete node \$a:y return \$a:z"
-                )[0] as XpmVariableBinding
+                )[0] as XpmAssignableVariable
+                assertThat(expr.variableType?.typeName, `is`(nullValue()))
+                assertThat(expr.expression?.text, `is`("()"))
 
-                val qname = binding.variableName!!
+                val qname = expr.variableName!!
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix!!.data, `is`("a"))
                 assertThat(qname.localName!!.data, `is`("x"))
@@ -169,15 +174,17 @@ private class UpdateFacilityPsiTest : ParserTestCase() {
             @Test
             @DisplayName("URIQualifiedName")
             fun uriQualifiedName() {
-                val binding = parse<PluginCopyModifyExprBinding>(
+                val expr = parse<PluginCopyModifyExprBinding>(
                     """
                     copy ${'$'}Q{http://www.example.com}x := ()
                     modify delete node ${'$'}Q{http://www.example.com}y
                     return ${'$'}Q{http://www.example.com}z
                     """.trimIndent()
-                )[0] as XpmVariableBinding
+                )[0] as XpmAssignableVariable
+                assertThat(expr.variableType?.typeName, `is`(nullValue()))
+                assertThat(expr.expression?.text, `is`("()"))
 
-                val qname = binding.variableName!!
+                val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
                 assertThat(qname.localName!!.data, `is`("x"))

@@ -18,14 +18,25 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginCopyModifyExprBinding
 
 class PluginCopyModifyExprBindingPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginCopyModifyExprBinding {
     // region XpmVariableBinding
 
     override val variableName: XsQNameValue?
-        get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
+        get() = children().filterIsInstance<XPathEQName>().firstOrNull()
+
+    // endregion
+    // region XpmAssignableVariable
+
+    override val variableType: XdmSequenceType? = null
+
+    override val expression: XpmExpression?
+        get() = children().filterIsInstance<XpmExpression>().firstOrNull()
 
     // endregion
 }

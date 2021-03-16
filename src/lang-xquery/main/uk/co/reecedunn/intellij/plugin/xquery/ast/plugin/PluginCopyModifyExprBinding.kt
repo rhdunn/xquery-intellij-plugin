@@ -15,9 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.plugin
 
-import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableBinding
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmAssignableVariable
 
 /**
  * An XQuery Update Facility 3.0 `CopyModifyExprBinding` node in the XQuery AST.
  */
-interface PluginCopyModifyExprBinding : XpmVariableBinding
+interface PluginCopyModifyExprBinding : XpmAssignableVariable
