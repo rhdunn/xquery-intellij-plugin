@@ -6011,10 +6011,12 @@ private class XQueryPsiTest : ParserTestCase() {
                 internal inner class CaseClause {
                     @Test
                     @DisplayName("NCName")
-                    fun testCaseClause_NCName() {
+                    fun ncname() {
                         val expr = parse<XQueryCaseClause>(
                             "typeswitch (\$x) case \$y as xs:string return \$z"
-                        )[0] as XpmVariableBinding
+                        )[0] as XpmAssignableVariable
+                        assertThat(expr.variableType?.typeName, `is`("xs:string"))
+                        assertThat(expr.expression?.text, `is`("\$x"))
 
                         val qname = expr.variableName!!
                         assertThat(qname.prefix, `is`(nullValue()))
@@ -6024,10 +6026,12 @@ private class XQueryPsiTest : ParserTestCase() {
 
                     @Test
                     @DisplayName("QName")
-                    fun testCaseClause_QName() {
+                    fun qname() {
                         val expr = parse<XQueryCaseClause>(
                             "typeswitch (\$a:x) case \$a:y as xs:string return \$a:z"
-                        )[0] as XpmVariableBinding
+                        )[0] as XpmAssignableVariable
+                        assertThat(expr.variableType?.typeName, `is`("xs:string"))
+                        assertThat(expr.expression?.text, `is`("\$a:x"))
 
                         val qname = expr.variableName!!
                         assertThat(qname.namespace, `is`(nullValue()))
@@ -6037,12 +6041,14 @@ private class XQueryPsiTest : ParserTestCase() {
 
                     @Test
                     @DisplayName("URIQualifiedName")
-                    fun testCaseClause_URIQualifiedName() {
+                    fun uriQualifiedName() {
                         val expr = parse<XQueryCaseClause>(
                             "typeswitch (\$Q{http://www.example.com}x) " +
                             "case \$Q{http://www.example.com}y as xs:string " +
                             "return \$Q{http://www.example.com}z"
-                        )[0] as XpmVariableBinding
+                        )[0] as XpmAssignableVariable
+                        assertThat(expr.variableType?.typeName, `is`("xs:string"))
+                        assertThat(expr.expression?.text, `is`("\$Q{http://www.example.com}x"))
 
                         val qname = expr.variableName!!
                         assertThat(qname.prefix, `is`(nullValue()))
@@ -6051,12 +6057,14 @@ private class XQueryPsiTest : ParserTestCase() {
                     }
 
                     @Test
-                    @DisplayName("missing VarName")
-                    fun testCaseClause_NoVarName() {
+                    @DisplayName("without VarName")
+                    fun withoutVarName() {
                         val expr = parse<XQueryCaseClause>(
-                            "typeswitch (\$x) case xs:string return \$z"
-                        )[0] as XpmVariableBinding
+                            "typeswitch (2 + 3) case xs:string return \$z"
+                        )[0] as XpmAssignableVariable
                         assertThat(expr.variableName, `is`(nullValue()))
+                        assertThat(expr.variableType?.typeName, `is`("xs:string"))
+                        assertThat(expr.expression?.text, `is`("2 + 3"))
                     }
                 }
 
