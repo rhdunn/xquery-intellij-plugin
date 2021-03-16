@@ -21,5 +21,5 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 interface XpmAssignableVariable : XpmVariableBinding {
     val variableType: XdmSequenceType?
 
-    val expression: XpmExpression?
+    val variableExpression: XpmExpression?
 }

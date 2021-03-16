@@ -5230,7 +5230,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     fun ncname() {
                         val expr = parse<XQueryLetBinding>("let \$x := 2 return \$w")[0] as XpmAssignableVariable
                         assertThat(expr.variableType?.typeName, `is`(nullValue()))
-                        assertThat(expr.expression?.text, `is`("2"))
+                        assertThat(expr.variableExpression?.text, `is`("2"))
 
                         val qname = expr.variableName!!
                         assertThat(qname.prefix, `is`(nullValue()))
@@ -5243,7 +5243,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     fun qname() {
                         val expr = parse<XQueryLetBinding>("let \$a:x := 2 return \$a:w")[0] as XpmAssignableVariable
                         assertThat(expr.variableType?.typeName, `is`(nullValue()))
-                        assertThat(expr.expression?.text, `is`("2"))
+                        assertThat(expr.variableExpression?.text, `is`("2"))
 
                         val qname = expr.variableName!!
                         assertThat(qname.namespace, `is`(nullValue()))
@@ -5258,7 +5258,7 @@ private class XQueryPsiTest : ParserTestCase() {
                             "let \$Q{http://www.example.com}x := 2 return \$Q{http://www.example.com}w"
                         )[0] as XpmAssignableVariable
                         assertThat(expr.variableType?.typeName, `is`(nullValue()))
-                        assertThat(expr.expression?.text, `is`("2"))
+                        assertThat(expr.variableExpression?.text, `is`("2"))
 
                         val qname = expr.variableName!!
                         assertThat(qname.prefix, `is`(nullValue()))
@@ -5272,7 +5272,7 @@ private class XQueryPsiTest : ParserTestCase() {
                         val expr = parse<XQueryLetBinding>("let \$ := 2 return \$w")[0] as XpmAssignableVariable
                         assertThat(expr.variableName, `is`(nullValue()))
                         assertThat(expr.variableType?.typeName, `is`(nullValue()))
-                        assertThat(expr.expression?.text, `is`("2"))
+                        assertThat(expr.variableExpression?.text, `is`("2"))
                     }
 
                     @Test
@@ -5282,7 +5282,7 @@ private class XQueryPsiTest : ParserTestCase() {
                             "let \$x  as  node ( (::) )? := 2 return \$w"
                         )[0] as XpmAssignableVariable
                         assertThat(expr.variableType?.typeName, `is`("node()?"))
-                        assertThat(expr.expression?.text, `is`("2"))
+                        assertThat(expr.variableExpression?.text, `is`("2"))
 
                         val qname = expr.variableName!!
                         assertThat(qname.prefix, `is`(nullValue()))
@@ -5678,7 +5678,7 @@ private class XQueryPsiTest : ParserTestCase() {
                             "for \$x in \$y group by \$z return \$w"
                         )[0] as XpmAssignableVariable
                         assertThat(expr.variableType?.typeName, `is`(nullValue()))
-                        assertThat(expr.expression, `is`(nullValue()))
+                        assertThat(expr.variableExpression, `is`(nullValue()))
 
                         val qname = expr.variableName!!
                         assertThat(qname.prefix, `is`(nullValue()))
@@ -5693,7 +5693,7 @@ private class XQueryPsiTest : ParserTestCase() {
                             "for \$a:x in \$a:y group by \$a:z return \$a:w"
                         )[0] as XpmAssignableVariable
                         assertThat(expr.variableType?.typeName, `is`(nullValue()))
-                        assertThat(expr.expression, `is`(nullValue()))
+                        assertThat(expr.variableExpression, `is`(nullValue()))
 
                         val qname = expr.variableName!!
                         assertThat(qname.namespace, `is`(nullValue()))
@@ -5710,7 +5710,7 @@ private class XQueryPsiTest : ParserTestCase() {
                             "return \$Q{http://www.example.com}w"
                         )[0] as XpmAssignableVariable
                         assertThat(expr.variableType?.typeName, `is`(nullValue()))
-                        assertThat(expr.expression, `is`(nullValue()))
+                        assertThat(expr.variableExpression, `is`(nullValue()))
 
                         val qname = expr.variableName!!
                         assertThat(qname.prefix, `is`(nullValue()))
@@ -5724,7 +5724,7 @@ private class XQueryPsiTest : ParserTestCase() {
                         val expr = parse<XQueryGroupingSpec>("for \$x in \$y group by \$")[0] as XpmAssignableVariable
                         assertThat(expr.variableName, `is`(nullValue()))
                         assertThat(expr.variableType?.typeName, `is`(nullValue()))
-                        assertThat(expr.expression, `is`(nullValue()))
+                        assertThat(expr.variableExpression, `is`(nullValue()))
                     }
 
                     @Test
@@ -5734,7 +5734,7 @@ private class XQueryPsiTest : ParserTestCase() {
                             "for \$x in \$y group by \$z := 2 return \$w"
                         )[0] as XpmAssignableVariable
                         assertThat(expr.variableType?.typeName, `is`(nullValue()))
-                        assertThat(expr.expression?.text, `is`("2"))
+                        assertThat(expr.variableExpression?.text, `is`("2"))
 
                         val qname = expr.variableName!!
                         assertThat(qname.prefix, `is`(nullValue()))
@@ -5749,7 +5749,7 @@ private class XQueryPsiTest : ParserTestCase() {
                             "for \$x in \$y group by \$z  as  node ( (: :) ) ? := 2 return \$w"
                         )[0] as XpmAssignableVariable
                         assertThat(expr.variableType?.typeName, `is`("node()?"))
-                        assertThat(expr.expression?.text, `is`("2"))
+                        assertThat(expr.variableExpression?.text, `is`("2"))
 
                         val qname = expr.variableName!!
                         assertThat(qname.prefix, `is`(nullValue()))
@@ -6016,7 +6016,7 @@ private class XQueryPsiTest : ParserTestCase() {
                             "typeswitch (\$x) case \$y as xs:string return \$z"
                         )[0] as XpmAssignableVariable
                         assertThat(expr.variableType?.typeName, `is`("xs:string"))
-                        assertThat(expr.expression?.text, `is`("\$x"))
+                        assertThat(expr.variableExpression?.text, `is`("\$x"))
 
                         val qname = expr.variableName!!
                         assertThat(qname.prefix, `is`(nullValue()))
@@ -6031,7 +6031,7 @@ private class XQueryPsiTest : ParserTestCase() {
                             "typeswitch (\$a:x) case \$a:y as xs:string return \$a:z"
                         )[0] as XpmAssignableVariable
                         assertThat(expr.variableType?.typeName, `is`("xs:string"))
-                        assertThat(expr.expression?.text, `is`("\$a:x"))
+                        assertThat(expr.variableExpression?.text, `is`("\$a:x"))
 
                         val qname = expr.variableName!!
                         assertThat(qname.namespace, `is`(nullValue()))
@@ -6048,7 +6048,7 @@ private class XQueryPsiTest : ParserTestCase() {
                             "return \$Q{http://www.example.com}z"
                         )[0] as XpmAssignableVariable
                         assertThat(expr.variableType?.typeName, `is`("xs:string"))
-                        assertThat(expr.expression?.text, `is`("\$Q{http://www.example.com}x"))
+                        assertThat(expr.variableExpression?.text, `is`("\$Q{http://www.example.com}x"))
 
                         val qname = expr.variableName!!
                         assertThat(qname.prefix, `is`(nullValue()))
@@ -6064,7 +6064,7 @@ private class XQueryPsiTest : ParserTestCase() {
                         )[0] as XpmAssignableVariable
                         assertThat(expr.variableName, `is`(nullValue()))
                         assertThat(expr.variableType?.typeName, `is`("xs:string"))
-                        assertThat(expr.expression?.text, `is`("2 + 3"))
+                        assertThat(expr.variableExpression?.text, `is`("2 + 3"))
                     }
                 }
 
@@ -8002,7 +8002,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     val decl = parse<XpmVariableDeclaration>("declare variable \$x := \$y;")[0]
                     assertThat(decl.isExternal, `is`(false))
                     assertThat(decl.variableType?.typeName, `is`(nullValue()))
-                    assertThat(decl.expression?.text, `is`("\$y"))
+                    assertThat(decl.variableExpression?.text, `is`("\$y"))
 
                     val qname = decl.variableName!!
                     assertThat(qname.prefix, `is`(nullValue()))
@@ -8022,7 +8022,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     val decl = parse<XpmVariableDeclaration>("declare variable \$a:x := \$a:y;")[0]
                     assertThat(decl.isExternal, `is`(false))
                     assertThat(decl.variableType?.typeName, `is`(nullValue()))
-                    assertThat(decl.expression?.text, `is`("\$a:y"))
+                    assertThat(decl.variableExpression?.text, `is`("\$a:y"))
 
                     val qname = decl.variableName!!
                     assertThat(qname.namespace, `is`(nullValue()))
@@ -8044,7 +8044,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     )[0]
                     assertThat(decl.isExternal, `is`(false))
                     assertThat(decl.variableType?.typeName, `is`(nullValue()))
-                    assertThat(decl.expression?.text, `is`("\$Q{http://www.example.com}y"))
+                    assertThat(decl.variableExpression?.text, `is`("\$Q{http://www.example.com}y"))
 
                     val qname = decl.variableName!!
                     assertThat(qname.prefix, `is`(nullValue()))
@@ -8064,7 +8064,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     val decl = parse<XpmVariableDeclaration>("declare variable \$ := \$y;")[0]
                     assertThat(decl.isExternal, `is`(false))
                     assertThat(decl.variableType?.typeName, `is`(nullValue()))
-                    assertThat(decl.expression?.text, `is`("\$y"))
+                    assertThat(decl.variableExpression?.text, `is`("\$y"))
 
                     val presentation = (decl as NavigatablePsiElement).presentation!!
                     assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.VarDecl)))
@@ -8079,7 +8079,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     val decl = parse<XpmVariableDeclaration>("declare variable \$: := \$y;")[0]
                     assertThat(decl.isExternal, `is`(false))
                     assertThat(decl.variableType?.typeName, `is`(nullValue()))
-                    assertThat(decl.expression?.text, `is`("\$y"))
+                    assertThat(decl.variableExpression?.text, `is`("\$y"))
                     assertThat(decl.variableType?.typeName, `is`(nullValue()))
 
                     val presentation = (decl as NavigatablePsiElement).presentation!!
@@ -8095,7 +8095,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     val decl = parse<XpmVariableDeclaration>("declare variable \$a:x  as  node ( (::) )? := \$a:y;")[0]
                     assertThat(decl.isExternal, `is`(false))
                     assertThat(decl.variableType?.typeName, `is`("node()?"))
-                    assertThat(decl.expression?.text, `is`("\$a:y"))
+                    assertThat(decl.variableExpression?.text, `is`("\$a:y"))
 
                     val qname = decl.variableName!!
                     assertThat(qname.namespace, `is`(nullValue()))
@@ -8115,7 +8115,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     val decl = parse<XpmVariableDeclaration>("declare variable \$x external;")[0]
                     assertThat(decl.isExternal, `is`(true))
                     assertThat(decl.variableType?.typeName, `is`(nullValue()))
-                    assertThat(decl.expression, `is`(nullValue()))
+                    assertThat(decl.variableExpression, `is`(nullValue()))
 
                     val qname = decl.variableName!!
                     assertThat(qname.prefix, `is`(nullValue()))
@@ -8135,7 +8135,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     val decl = parse<XpmVariableDeclaration>("declare variable \$x external := \$y;")[0]
                     assertThat(decl.isExternal, `is`(true))
                     assertThat(decl.variableType?.typeName, `is`(nullValue()))
-                    assertThat(decl.expression?.text, `is`("\$y"))
+                    assertThat(decl.variableExpression?.text, `is`("\$y"))
 
                     val qname = decl.variableName!!
                     assertThat(qname.prefix, `is`(nullValue()))

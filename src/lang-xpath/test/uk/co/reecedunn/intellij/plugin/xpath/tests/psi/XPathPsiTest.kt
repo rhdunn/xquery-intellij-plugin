@@ -4046,7 +4046,7 @@ private class XPathPsiTest : ParserTestCase() {
                 fun ncname() {
                     val expr = parse<XPathSimpleLetBinding>("let \$x := 2 return \$y")[0] as XpmAssignableVariable
                     assertThat(expr.variableType?.typeName, `is`(nullValue()))
-                    assertThat(expr.expression?.text, `is`("2"))
+                    assertThat(expr.variableExpression?.text, `is`("2"))
 
                     val qname = expr.variableName!!
                     assertThat(qname.prefix, `is`(nullValue()))
@@ -4059,7 +4059,7 @@ private class XPathPsiTest : ParserTestCase() {
                 fun qname() {
                     val expr = parse<XPathSimpleLetBinding>("let \$a:x := 2 return \$a:y")[0] as XpmAssignableVariable
                     assertThat(expr.variableType?.typeName, `is`(nullValue()))
-                    assertThat(expr.expression?.text, `is`("2"))
+                    assertThat(expr.variableExpression?.text, `is`("2"))
 
                     val qname = expr.variableName!!
                     assertThat(qname.namespace, `is`(nullValue()))
@@ -4074,7 +4074,7 @@ private class XPathPsiTest : ParserTestCase() {
                         "let \$Q{http://www.example.com}x := 2 return \$Q{http://www.example.com}y"
                     )[0] as XpmAssignableVariable
                     assertThat(expr.variableType?.typeName, `is`(nullValue()))
-                    assertThat(expr.expression?.text, `is`("2"))
+                    assertThat(expr.variableExpression?.text, `is`("2"))
 
                     val qname = expr.variableName!!
                     assertThat(qname.prefix, `is`(nullValue()))
@@ -4088,7 +4088,7 @@ private class XPathPsiTest : ParserTestCase() {
                     val expr = parse<XPathSimpleLetBinding>("let \$ := 2 return \$w")[0] as XpmAssignableVariable
                     assertThat(expr.variableName, `is`(nullValue()))
                     assertThat(expr.variableType?.typeName, `is`(nullValue()))
-                    assertThat(expr.expression?.text, `is`("2"))
+                    assertThat(expr.variableExpression?.text, `is`("2"))
                 }
             }
         }

@@ -24,5 +24,5 @@ interface XpmVariableDeclaration : XpmAnnotated, XpmVariableDefinition {
 
     val variableType: XdmSequenceType?
 
-    val expression: XpmExpression?
+    val variableExpression: XpmExpression?
 }

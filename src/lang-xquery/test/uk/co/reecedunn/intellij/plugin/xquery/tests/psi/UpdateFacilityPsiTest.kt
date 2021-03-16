@@ -25,7 +25,6 @@ import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmAssignableVariable
-import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableBinding
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginCopyModifyExprBinding
 import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.*
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
@@ -148,7 +147,7 @@ private class UpdateFacilityPsiTest : ParserTestCase() {
                     "copy \$x := () modify delete node \$y return \$z"
                 )[0] as XpmAssignableVariable
                 assertThat(expr.variableType?.typeName, `is`(nullValue()))
-                assertThat(expr.expression?.text, `is`("()"))
+                assertThat(expr.variableExpression?.text, `is`("()"))
 
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -163,7 +162,7 @@ private class UpdateFacilityPsiTest : ParserTestCase() {
                     "copy \$a:x := () modify delete node \$a:y return \$a:z"
                 )[0] as XpmAssignableVariable
                 assertThat(expr.variableType?.typeName, `is`(nullValue()))
-                assertThat(expr.expression?.text, `is`("()"))
+                assertThat(expr.variableExpression?.text, `is`("()"))
 
                 val qname = expr.variableName!!
                 assertThat(qname.namespace, `is`(nullValue()))
@@ -182,7 +181,7 @@ private class UpdateFacilityPsiTest : ParserTestCase() {
                     """.trimIndent()
                 )[0] as XpmAssignableVariable
                 assertThat(expr.variableType?.typeName, `is`(nullValue()))
-                assertThat(expr.expression?.text, `is`("()"))
+                assertThat(expr.variableExpression?.text, `is`("()"))
 
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))

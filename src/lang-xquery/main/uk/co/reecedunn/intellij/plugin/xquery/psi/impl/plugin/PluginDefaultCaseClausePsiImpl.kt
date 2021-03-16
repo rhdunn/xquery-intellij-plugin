@@ -35,7 +35,7 @@ class PluginDefaultCaseClausePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node)
 
     override val variableType: XdmSequenceType? = null
 
-    override val expression: XpmExpression?
+    override val variableExpression: XpmExpression?
         get() = parent.children().filterIsInstance<XpmExpression>().firstOrNull()
 
     // endregion

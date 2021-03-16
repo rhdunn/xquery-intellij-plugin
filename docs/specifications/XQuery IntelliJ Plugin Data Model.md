@@ -880,8 +880,8 @@ for *assignable variables*:
 1. The *variable type* property is the `SequenceType` associated with the
    variable, if specified.
 
-1. The *expression* property is the expression that is used to specify the
-   value of the variable.
+1. The *variable expression* property is the expression that is used to
+   specify the value of the variable.
 
 #### 5.6 Functions
 

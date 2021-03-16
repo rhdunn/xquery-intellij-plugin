@@ -36,7 +36,7 @@ class XQueryLetBindingPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQuer
     override val variableType: XdmSequenceType?
         get() = children().filterIsInstance<XdmSequenceType>().firstOrNull()
 
-    override val expression: XpmExpression?
+    override val variableExpression: XpmExpression?
         get() = children().filterIsInstance<XpmExpression>().firstOrNull()
 
     // endregion

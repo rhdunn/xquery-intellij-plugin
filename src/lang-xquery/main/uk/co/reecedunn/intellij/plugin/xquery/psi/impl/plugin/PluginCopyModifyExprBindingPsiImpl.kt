@@ -35,7 +35,7 @@ class PluginCopyModifyExprBindingPsiImpl(node: ASTNode) : ASTWrapperPsiElement(n
 
     override val variableType: XdmSequenceType? = null
 
-    override val expression: XpmExpression?
+    override val variableExpression: XpmExpression?
         get() = children().filterIsInstance<XpmExpression>().firstOrNull()
 
     // endregion

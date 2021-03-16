@@ -43,7 +43,7 @@ class XQueryGroupingSpecPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
     override val variableType: XdmSequenceType?
         get() = children().filterIsInstance<XdmSequenceType>().firstOrNull()
 
-    override val expression: XpmExpression?
+    override val variableExpression: XpmExpression?
         get() = children().filterIsInstance<XpmExpression>().firstOrNull()
 
     // endregion
