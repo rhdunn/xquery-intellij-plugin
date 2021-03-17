@@ -37,10 +37,10 @@ class XPathKeywordArgumentPsiImpl(node: ASTNode) :
     // endregion
     // region XPathKeywordArgument
 
-    override val name: XsAnyAtomicType
+    override val keyName: XsAnyAtomicType
         get() = (firstChild as XsQNameValue).localName!!
 
-    override val value: XpmExpression?
+    override val valueExpression: XpmExpression?
         get() = children().filterIsInstance<XpmExpression>().firstOrNull()
 
     // endregion

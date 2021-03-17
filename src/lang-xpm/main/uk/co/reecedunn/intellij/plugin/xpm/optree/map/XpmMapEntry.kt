@@ -13,11 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
+package uk.co.reecedunn.intellij.plugin.xpm.optree.map
 
-import uk.co.reecedunn.intellij.plugin.xpm.optree.map.XpmMapEntry
+import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyAtomicType
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 
-/**
- * An XPath 4.0 ED and XQuery 4.0 ED `KeywordArgument` node in the XPath/XQuery AST.
- */
-interface XPathKeywordArgument : XpmMapEntry
+interface XpmMapEntry : PsiElement {
+    val keyName: XsAnyAtomicType
+
+    val valueExpression: XpmExpression?
+}

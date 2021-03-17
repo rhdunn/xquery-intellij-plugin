@@ -2364,16 +2364,16 @@ private class XPathPsiTest : ParserTestCase() {
                     @DisplayName("ncname")
                     fun ncname() {
                         val f = parse<XPathKeywordArgument>("fn:matches(input: \"test\", pattern: \".*\")")[0]
-                        assertThat((f.name as XsNCNameValue).data, `is`("input"))
-                        assertThat((f.value as XPathStringLiteral).data, `is`("test"))
+                        assertThat((f.keyName as XsNCNameValue).data, `is`("input"))
+                        assertThat((f.valueExpression as XPathStringLiteral).data, `is`("test"))
                     }
 
                     @Test
                     @DisplayName("missing value")
                     fun missingValue() {
                         val f = parse<XPathKeywordArgument>("fn:matches(input: , \".*\")")[0]
-                        assertThat((f.name as XsNCNameValue).data, `is`("input"))
-                        assertThat(f.value, `is`(nullValue()))
+                        assertThat((f.keyName as XsNCNameValue).data, `is`("input"))
+                        assertThat(f.valueExpression, `is`(nullValue()))
                     }
                 }
 

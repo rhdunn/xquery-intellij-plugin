@@ -44,6 +44,7 @@ various inspections.
   - [EQNames and Wildcards](#42-eqnames-and-wildcards)
     - [Accepts Namespace Types](#421-accepts-namespace-types)
   - [Annotations](#43-annotations)
+  - [Maps](#44-maps)
 - [Operation Tree](#5-operation-tree)
   - [Expressions](#51-expressions)
   - [Path Steps](#52-path-steps)
@@ -645,6 +646,17 @@ The *values* of the annotation is the list of `xs:string`, `xs:integer`,
 `xs:decimal`, and `xs:decimal` arguments passed to the annotation. For
 `CompatibilityAnnotation` this is always empty.
 
+### 4.4 Maps
+
+| Symbol            | Interface     |
+|----------- -------|---------------|
+| `KeywordArgument` | `XpmMapEntry` |
+
+The *key name* of a *map entry* is the name of the entry in the map.
+
+The *value expression* of a *map entry* is the expression used to calculate
+the value of the map entry.
+
 ## 5 Operation Tree
 
 ### 5.1 Expressions
@@ -786,7 +798,7 @@ have annotations associated with it.
 The *annotations* property lists the user-specified annotations on the PSI
 node.
 
-#### 5.5 Variables
+### 5.5 Variables
 
 A *variable definition* is a construct that introduces a variable that can be
 referenced in the scope the variable is valid for. The following properties
@@ -794,7 +806,7 @@ are defined for *variable definitions*:
 
 1. The *variable name* property is the `xs:QName` associated with that definition.
 
-##### 5.5.1 Variable References
+#### 5.5.1 Variable References
 
 | Symbol   | Interface              |
 |----------|------------------------|
@@ -805,7 +817,7 @@ A *variable reference* is an expression that references a *variable definition*.
 1. The *variable name* property is the `xs:QName` associated with that reference,
    used to locate the *variable definition* in the in-scope variables static context.
 
-##### 5.5.2 Variable Declarations
+#### 5.5.2 Variable Declarations
 
 | Symbol                  | Interface                |
 |-------------------------|--------------------------|
@@ -825,7 +837,7 @@ for *variable declarations*:
    evaluate the value of this variable. For external variables this is only
    used when a value is not provided from the caller of the module.
 
-##### 5.5.3 Variable Bindings
+#### 5.5.3 Variable Bindings
 
 | Symbol                  | Interface            |
 |-------------------------|----------------------|
@@ -841,7 +853,7 @@ A *variable binding* is a variable in an expression that is bound to the
 result of an expression or other context (such as the position of an item
 in a FLWOR expression) for the scope of the expression.
 
-###### 5.5.3.1 Parameters
+##### 5.5.3.1 Parameters
 
 | Symbol  | Interface      |
 |---------|----------------|
@@ -857,7 +869,7 @@ The following properties are defined for *parameters*:
    the value of the parameter if no expression is provided for the parameter
    at the point at which the function is called.
 
-###### 5.5.3.2 Assignable Variables
+##### 5.5.3.2 Assignable Variables
 
 | Symbol                  | Interface               |
 |-------------------------|-------------------------|
@@ -878,7 +890,7 @@ for *assignable variables*:
 1. The *variable expression* property is the expression that is used to
    specify the value of the variable.
 
-###### 5.5.3.3 Collection Bindings
+##### 5.5.3.3 Collection Bindings
 
 | Symbol                  | Interface              |
 |-------------------------|------------------------|
@@ -898,7 +910,7 @@ values in a sequence or array.
 1. The *binding expression* property is the expression that is used to
    calculate the *binding collection* for the symbol.
 
-#### 5.6 Functions
+### 5.6 Functions
 
 | Symbol                     | Interface                     |
 |----------------------------|-------------------------------|
