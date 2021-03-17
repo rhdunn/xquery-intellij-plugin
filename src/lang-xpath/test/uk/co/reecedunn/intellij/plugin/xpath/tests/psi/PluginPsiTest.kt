@@ -413,9 +413,9 @@ private class PluginPsiTest : ParserTestCase() {
                     assertThat(decl.arity, `is`(Range(1, Int.MAX_VALUE)))
                     assertThat(decl.isVariadic, `is`(true))
 
-                    assertThat(decl.params.size, `is`(2))
-                    assertThat(op_qname_presentation(decl.params[0].variableName!!), `is`("one"))
-                    assertThat(op_qname_presentation(decl.params[1].variableName!!), `is`("two"))
+                    assertThat(decl.parameters.size, `is`(2))
+                    assertThat(op_qname_presentation(decl.parameters[0].variableName!!), `is`("one"))
+                    assertThat(op_qname_presentation(decl.parameters[1].variableName!!), `is`("two"))
                 }
             }
 

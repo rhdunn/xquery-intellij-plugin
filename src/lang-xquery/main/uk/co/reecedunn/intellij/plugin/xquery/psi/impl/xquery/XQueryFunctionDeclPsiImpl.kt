@@ -60,7 +60,7 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
     override val returnType: XdmSequenceType?
         get() = children().filterIsInstance<XdmSequenceType>().firstOrNull()
 
-    override val params: List<XpmVariableBinding>
+    override val parameters: List<XpmVariableBinding>
         get() = paramList?.params ?: emptyList()
 
     override val paramListPresentation: ItemPresentation?

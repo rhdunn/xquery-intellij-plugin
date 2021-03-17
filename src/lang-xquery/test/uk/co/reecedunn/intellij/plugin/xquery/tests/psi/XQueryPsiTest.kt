@@ -3090,7 +3090,7 @@ private class XQueryPsiTest : ParserTestCase() {
                         assertThat(decl.functionName, `is`(nullValue()))
                         assertThat(decl.returnType, `is`(nullValue()))
                         assertThat(decl.arity, `is`(Range(0, 0)))
-                        assertThat(decl.params.size, `is`(0))
+                        assertThat(decl.parameters.size, `is`(0))
                         assertThat(decl.isVariadic, `is`(false))
 
                         val expr = decl as XpmExpression
@@ -3106,9 +3106,9 @@ private class XQueryPsiTest : ParserTestCase() {
                         assertThat(decl.arity, `is`(Range(2, 2)))
                         assertThat(decl.isVariadic, `is`(false))
 
-                        assertThat(decl.params.size, `is`(2))
-                        assertThat(op_qname_presentation(decl.params[0].variableName!!), `is`("one"))
-                        assertThat(op_qname_presentation(decl.params[1].variableName!!), `is`("two"))
+                        assertThat(decl.parameters.size, `is`(2))
+                        assertThat(op_qname_presentation(decl.parameters[0].variableName!!), `is`("one"))
+                        assertThat(op_qname_presentation(decl.parameters[1].variableName!!), `is`("two"))
 
                         val expr = decl as XpmExpression
                         assertThat(expr.expressionElement, `is`(nullValue()))
@@ -3125,9 +3125,9 @@ private class XQueryPsiTest : ParserTestCase() {
                         assertThat(decl.arity, `is`(Range(2, 2)))
                         assertThat(decl.isVariadic, `is`(false))
 
-                        assertThat(decl.params.size, `is`(2))
-                        assertThat(op_qname_presentation(decl.params[0].variableName!!), `is`("one"))
-                        assertThat(op_qname_presentation(decl.params[1].variableName!!), `is`("two"))
+                        assertThat(decl.parameters.size, `is`(2))
+                        assertThat(op_qname_presentation(decl.parameters[0].variableName!!), `is`("one"))
+                        assertThat(op_qname_presentation(decl.parameters[1].variableName!!), `is`("two"))
 
                         val expr = decl as XpmExpression
                         assertThat(expr.expressionElement, `is`(nullValue()))
@@ -3140,7 +3140,7 @@ private class XQueryPsiTest : ParserTestCase() {
                         assertThat(decl.functionName, `is`(nullValue()))
                         assertThat(decl.returnType?.typeName, `is`("xs:boolean"))
                         assertThat(decl.arity, `is`(Range(0, 0)))
-                        assertThat(decl.params.size, `is`(0))
+                        assertThat(decl.parameters.size, `is`(0))
                         assertThat(decl.isVariadic, `is`(false))
 
                         val expr = decl as XpmExpression
@@ -8337,7 +8337,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     val decl = parse<XpmFunctionDeclaration>("declare function fn:true() external;")[0]
                     assertThat(decl.returnType, `is`(nullValue()))
                     assertThat(decl.arity, `is`(Range(0, 0)))
-                    assertThat(decl.params.size, `is`(0))
+                    assertThat(decl.parameters.size, `is`(0))
                     assertThat(decl.isVariadic, `is`(false))
 
                     val qname = decl.functionName!!
@@ -8364,9 +8364,9 @@ private class XQueryPsiTest : ParserTestCase() {
                     assertThat(decl.arity, `is`(Range(2, 2)))
                     assertThat(decl.isVariadic, `is`(false))
 
-                    assertThat(decl.params.size, `is`(2))
-                    assertThat(op_qname_presentation(decl.params[0].variableName!!), `is`("one"))
-                    assertThat(op_qname_presentation(decl.params[1].variableName!!), `is`("two"))
+                    assertThat(decl.parameters.size, `is`(2))
+                    assertThat(op_qname_presentation(decl.parameters[0].variableName!!), `is`("one"))
+                    assertThat(op_qname_presentation(decl.parameters[1].variableName!!), `is`("two"))
 
                     val qname = decl.functionName!!
                     assertThat(qname.prefix, `is`(nullValue()))
@@ -8392,9 +8392,9 @@ private class XQueryPsiTest : ParserTestCase() {
                     assertThat(decl.arity, `is`(Range(2, 2)))
                     assertThat(decl.isVariadic, `is`(false))
 
-                    assertThat(decl.params.size, `is`(2))
-                    assertThat(op_qname_presentation(decl.params[0].variableName!!), `is`("one"))
-                    assertThat(op_qname_presentation(decl.params[1].variableName!!), `is`("two"))
+                    assertThat(decl.parameters.size, `is`(2))
+                    assertThat(op_qname_presentation(decl.parameters[0].variableName!!), `is`("one"))
+                    assertThat(op_qname_presentation(decl.parameters[1].variableName!!), `is`("two"))
 
                     val qname = decl.functionName!!
                     assertThat(qname.prefix, `is`(nullValue()))
@@ -8418,7 +8418,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     val decl = parse<XpmFunctionDeclaration>("declare function fn:true()  as  xs:boolean  external;")[0]
                     assertThat(decl.returnType?.typeName, `is`("xs:boolean"))
                     assertThat(decl.arity, `is`(Range(0, 0)))
-                    assertThat(decl.params.size, `is`(0))
+                    assertThat(decl.parameters.size, `is`(0))
                     assertThat(decl.isVariadic, `is`(false))
 
                     val qname = decl.functionName!!
@@ -8446,7 +8446,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     assertThat(decl.functionName, `is`(nullValue()))
                     assertThat(decl.isVariadic, `is`(false))
 
-                    assertThat(decl.params.size, `is`(0))
+                    assertThat(decl.parameters.size, `is`(0))
 
                     val presentation = (decl as NavigatablePsiElement).presentation!! as ItemPresentationEx
                     assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.FunctionDecl)))
@@ -8466,7 +8466,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     val decl = parse<XpmFunctionDeclaration>("declare function fn:() external;")[0]
                     assertThat(decl.returnType, `is`(nullValue()))
                     assertThat(decl.arity, `is`(Range(0, 0)))
-                    assertThat(decl.params.size, `is`(0))
+                    assertThat(decl.parameters.size, `is`(0))
                     assertThat(decl.isVariadic, `is`(false))
 
                     val qname = decl.functionName!!

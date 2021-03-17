@@ -61,7 +61,7 @@ class XPathParameterInfoHandler : ParameterInfoHandler<XPathArgumentList, XpmFun
     override fun updateUI(p: XpmFunctionDeclaration?, context: ParameterInfoUIContext) {
         if (p == null) return
 
-        val params = p.params.map { (it as NavigatablePsiElement).presentation?.presentableText!! }
+        val params = p.parameters.map { (it as NavigatablePsiElement).presentation?.presentableText!! }
         if (params.isNotEmpty()) {
             val isVariadic = p.isVariadic
             var start = -1

@@ -58,7 +58,7 @@ open class XPathArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
             } ?: return listOf()
 
             val args = arguments.iterator()
-            val params = target.params
+            val params = target.parameters
             return params.mapIndexedNotNull { index, param ->
                 when {
                     index == 0 && parent.isArrowFunctionCall -> {

@@ -34,7 +34,7 @@ interface XpmFunctionDeclaration : XdmFunction, XpmAnnotated {
 
     val returnType: XdmSequenceType?
 
-    val params: List<XpmVariableBinding>
+    val parameters: List<XpmVariableBinding>
 
     val paramListPresentation: ItemPresentation?
 
