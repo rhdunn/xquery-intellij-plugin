@@ -841,7 +841,6 @@ in a FLWOR expression) for the scope of the expression.
 | `PositionalVar`         | `XpmVariableBinding`     |
 | `PreviousItem`          | `XpmVariableBinding`     |
 | `QuantifierBinding`     | `XpmVariableBinding`     |
-| `SlidingWindowClause`   | `XpmVariableBinding`     |
 | `TumblingWindowClause`  | `XpmVariableBinding`     |
 
 ##### 5.5.4 Parameters
@@ -888,6 +887,7 @@ for *assignable variables*:
 | `ForBinding`            | `XpmCollectionBinding` |
 | `ForMemberBinding`      | `XpmCollectionBinding` |
 | `SimpleForBinding`      | `XpmCollectionBinding` |
+| `SlidingWindowClause`   | `XpmCollectionBinding` |
 
 A *collection binding* is an *variable binding* that is bound to the
 values in a sequence or array.

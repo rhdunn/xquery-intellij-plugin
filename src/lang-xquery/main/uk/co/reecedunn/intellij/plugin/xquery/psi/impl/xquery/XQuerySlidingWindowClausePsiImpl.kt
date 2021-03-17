@@ -19,9 +19,12 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySlidingWindowClause
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 
 class XQuerySlidingWindowClausePsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
@@ -33,10 +36,19 @@ class XQuerySlidingWindowClausePsiImpl(node: ASTNode) :
         get() = firstChild
 
     // endregion
-    // region XPathVariableBinding
+    // region XpmVariableBinding
 
     override val variableName: XsQNameValue?
-        get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
+        get() = children().filterIsInstance<XPathEQName>().firstOrNull()
+
+    // endregion
+    // region XpmCollectionBinding
+
+    override val variableType: XdmSequenceType?
+        get() = children().filterIsInstance<XdmSequenceType>().firstOrNull()
+
+    override val bindingExpression: XpmExpression?
+        get() = children().filterIsInstance<XpmExpression>().firstOrNull()
 
     // endregion
 }
