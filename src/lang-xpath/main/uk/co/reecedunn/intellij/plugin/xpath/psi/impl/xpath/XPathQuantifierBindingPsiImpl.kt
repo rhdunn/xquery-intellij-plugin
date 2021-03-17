@@ -18,10 +18,26 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQuantifierBinding
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 
 class XPathQuantifierBindingPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathQuantifierBinding {
+    // region XpmVariableBinding
+
     override val variableName: XsQNameValue?
-        get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
+        get() = children().filterIsInstance<XPathEQName>().firstOrNull()
+
+    // endregion
+    // region XpmCollectionBinding
+
+    override val variableType: XdmSequenceType?
+        get() = children().filterIsInstance<XdmSequenceType>().firstOrNull()
+
+    override val bindingExpression: XpmExpression?
+        get() = children().filterIsInstance<XpmExpression>().firstOrNull()
+
+    // endregion
 }

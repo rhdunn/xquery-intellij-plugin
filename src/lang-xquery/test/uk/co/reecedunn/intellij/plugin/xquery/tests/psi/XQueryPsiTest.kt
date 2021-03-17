@@ -6047,7 +6047,9 @@ private class XQueryPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("NCName")
                 fun ncname() {
-                    val expr = parse<XPathQuantifierBinding>("some \$x in \$y satisfies \$z")[0] as XpmVariableBinding
+                    val expr = parse<XPathQuantifierBinding>("some \$x in \$y satisfies \$z")[0] as XpmCollectionBinding
+                    assertThat(expr.variableType?.typeName, `is`(nullValue()))
+                    assertThat(expr.bindingExpression?.text, `is`("\$y "))
 
                     val qname = expr.variableName!!
                     assertThat(qname.prefix, `is`(nullValue()))
@@ -6058,7 +6060,9 @@ private class XQueryPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("QName")
                 fun qname() {
-                    val expr = parse<XPathQuantifierBinding>("some \$a:x in \$a:y satisfies \$a:z")[0] as XpmVariableBinding
+                    val expr = parse<XPathQuantifierBinding>("some \$a:x in \$a:y satisfies \$a:z")[0] as XpmCollectionBinding
+                    assertThat(expr.variableType?.typeName, `is`(nullValue()))
+                    assertThat(expr.bindingExpression?.text, `is`("\$a:y"))
 
                     val qname = expr.variableName!!
                     assertThat(qname.namespace, `is`(nullValue()))
@@ -6071,7 +6075,9 @@ private class XQueryPsiTest : ParserTestCase() {
                 fun uriQualifiedName() {
                     val expr = parse<XPathQuantifierBinding>(
                         "some \$Q{http://www.example.com}x in \$Q{http://www.example.com}y satisfies \$Q{http://www.example.com}z"
-                    )[0] as XpmVariableBinding
+                    )[0] as XpmCollectionBinding
+                    assertThat(expr.variableType?.typeName, `is`(nullValue()))
+                    assertThat(expr.bindingExpression?.text, `is`("\$Q{http://www.example.com}y"))
 
                     val qname = expr.variableName!!
                     assertThat(qname.prefix, `is`(nullValue()))
@@ -6082,8 +6088,23 @@ private class XQueryPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("missing VarName")
                 fun missingVarName() {
-                    val expr = parse<XPathQuantifierBinding>("some \$")[0] as XpmVariableBinding
+                    val expr = parse<XPathQuantifierBinding>("some \$")[0] as XpmCollectionBinding
                     assertThat(expr.variableName, `is`(nullValue()))
+                    assertThat(expr.variableType?.typeName, `is`(nullValue()))
+                    assertThat(expr.bindingExpression?.text, `is`(nullValue()))
+                }
+
+                @Test
+                @DisplayName("with type")
+                fun withType() {
+                    val expr = parse<XPathQuantifierBinding>("some \$x  as  node ( (: :) ) ? in \$y satisfies \$z")[0] as XpmCollectionBinding
+                    assertThat(expr.variableType?.typeName, `is`("node()?"))
+                    assertThat(expr.bindingExpression?.text, `is`("\$y "))
+
+                    val qname = expr.variableName!!
+                    assertThat(qname.prefix, `is`(nullValue()))
+                    assertThat(qname.namespace, `is`(nullValue()))
+                    assertThat(qname.localName!!.data, `is`("x"))
                 }
             }
         }

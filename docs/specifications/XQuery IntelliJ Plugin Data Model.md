@@ -55,9 +55,9 @@ various inspections.
     - [Variable References](#551-variable-references)
     - [Variable Declarations](#552-variable-declarations)
     - [Variable Bindings](#553-variable-bindings)
-    - [Parameters](#554-parameters)
-    - [Assignable Variables](#555-assignable-variables)
-    - [Collection Bindings](#556-collection-bindings)
+      - [Parameters](#5531-parameters)
+      - [Assignable Variables](#5532-assignable-variables)
+      - [Collection Bindings](#5533-collection-bindings)
   - [Functions](#56-functions)
 - {: .toc-letter } [References](#a-references)
   - [W3C References](#a1-w3c-references)
@@ -827,22 +827,21 @@ for *variable declarations*:
 
 ##### 5.5.3 Variable Bindings
 
+| Symbol                  | Interface            |
+|-------------------------|----------------------|
+| `CatchClause`           | `XpmVariableBinding` |
+| `CountClause`           | `XpmVariableBinding` |
+| `CurrentItem`           | `XpmVariableBinding` |
+| `FTScoreVar`            | `XpmVariableBinding` |
+| `NextItem`              | `XpmVariableBinding` |
+| `PositionalVar`         | `XpmVariableBinding` |
+| `PreviousItem`          | `XpmVariableBinding` |
+
 A *variable binding* is a variable in an expression that is bound to the
 result of an expression or other context (such as the position of an item
 in a FLWOR expression) for the scope of the expression.
 
-| Symbol                  | Interface                |
-|-------------------------|--------------------------|
-| `CatchClause`           | `XpmVariableBinding`     |
-| `CountClause`           | `XpmVariableBinding`     |
-| `CurrentItem`           | `XpmVariableBinding`     |
-| `FTScoreVar`            | `XpmVariableBinding`     |
-| `NextItem`              | `XpmVariableBinding`     |
-| `PositionalVar`         | `XpmVariableBinding`     |
-| `PreviousItem`          | `XpmVariableBinding`     |
-| `QuantifierBinding`     | `XpmVariableBinding`     |
-
-##### 5.5.4 Parameters
+###### 5.5.3.1 Parameters
 
 | Symbol  | Interface      |
 |---------|----------------|
@@ -858,7 +857,7 @@ The following properties are defined for *parameters*:
    the value of the parameter if no expression is provided for the parameter
    at the point at which the function is called.
 
-##### 5.5.5 Assignable Variables
+###### 5.5.3.2 Assignable Variables
 
 | Symbol                  | Interface               |
 |-------------------------|-------------------------|
@@ -879,12 +878,13 @@ for *assignable variables*:
 1. The *variable expression* property is the expression that is used to
    specify the value of the variable.
 
-##### 5.5.6 Collection Bindings
+###### 5.5.3.3 Collection Bindings
 
 | Symbol                  | Interface              |
 |-------------------------|------------------------|
 | `ForBinding`            | `XpmCollectionBinding` |
 | `ForMemberBinding`      | `XpmCollectionBinding` |
+| `QuantifierBinding`     | `XpmCollectionBinding` |
 | `SimpleForBinding`      | `XpmCollectionBinding` |
 | `SlidingWindowClause`   | `XpmCollectionBinding` |
 | `TumblingWindowClause`  | `XpmCollectionBinding` |
