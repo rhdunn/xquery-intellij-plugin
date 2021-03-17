@@ -26,12 +26,12 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnnotation
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathInlineFunctionExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableBinding
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAnnotated
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmParameter
 
 class XPathInlineFunctionExprPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
@@ -65,7 +65,7 @@ class XPathInlineFunctionExprPsiImpl(node: ASTNode) :
     override val returnType: XdmSequenceType?
         get() = children().filterIsInstance<XdmSequenceType>().firstOrNull()
 
-    override val parameters: List<XpmVariableBinding>
+    override val parameters: List<XpmParameter>
         get() = paramList?.params ?: emptyList()
 
     override val paramListPresentation: ItemPresentation?

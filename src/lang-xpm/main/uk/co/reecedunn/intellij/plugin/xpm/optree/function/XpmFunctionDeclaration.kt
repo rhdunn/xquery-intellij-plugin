@@ -21,7 +21,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmFunction
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAnnotated
-import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableBinding
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmParameter
 
 interface XpmFunctionDeclaration : XdmFunction, XpmAnnotated {
     companion object {
@@ -34,7 +34,7 @@ interface XpmFunctionDeclaration : XdmFunction, XpmAnnotated {
 
     val returnType: XdmSequenceType?
 
-    val parameters: List<XpmVariableBinding>
+    val parameters: List<XpmParameter>
 
     val paramListPresentation: ItemPresentation?
 

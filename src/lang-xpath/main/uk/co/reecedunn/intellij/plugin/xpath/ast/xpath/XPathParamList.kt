@@ -17,13 +17,13 @@ package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
 import com.intellij.psi.NavigatablePsiElement
 import com.intellij.util.Range
-import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableBinding
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmParameter
 
 /**
  * An XPath 3.0 and XQuery 1.0 `ParamList` node in the XQuery AST.
  */
 interface XPathParamList : NavigatablePsiElement {
-    val params: List<XpmVariableBinding>
+    val params: List<XpmParameter>
 
     val arity: Range<Int>
 

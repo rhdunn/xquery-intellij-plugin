@@ -25,10 +25,10 @@ import uk.co.reecedunn.intellij.plugin.xpath.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
-import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableBinding
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDecorator
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmParameter
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 import javax.swing.Icon
 
@@ -60,7 +60,7 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
     override val returnType: XdmSequenceType?
         get() = children().filterIsInstance<XdmSequenceType>().firstOrNull()
 
-    override val parameters: List<XpmVariableBinding>
+    override val parameters: List<XpmParameter>
         get() = paramList?.params ?: emptyList()
 
     override val paramListPresentation: ItemPresentation?

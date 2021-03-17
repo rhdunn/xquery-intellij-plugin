@@ -28,10 +28,10 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.reverse
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParam
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
-import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableBinding
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmParameter
 import javax.swing.Icon
 
 class XPathParamListPsiImpl(node: ASTNode) :
@@ -83,7 +83,7 @@ class XPathParamListPsiImpl(node: ASTNode) :
         children().filterIsInstance<XPathParam>().toList()
     }
 
-    override val params: List<XpmVariableBinding>
+    override val params: List<XpmParameter>
         get() = cachedParams.get()!!
 
     private val cachedArity = CacheableProperty {
