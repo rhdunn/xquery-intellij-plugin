@@ -2802,7 +2802,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @DisplayName("XQuery 4.0 ED (4.4.1.1) Static Function Call Syntax ; XQuery 3.1 (3.1.5) Static Function Calls")
             internal inner class StaticFunctionCallSyntax {
                 @Nested
-                @DisplayName("XQuery 3.1 EBNF (137) KeywordArgument")
+                @DisplayName("XQuery 4.0 ED EBNF (137) KeywordArgument")
                 internal inner class KeywordArgument {
                     @Test
                     @DisplayName("ncname")
@@ -2968,6 +2968,13 @@ private class XQueryPsiTest : ParserTestCase() {
                         assertThat(renamed.text, `is`("lorem-ipsum"))
                         assertThat((renamed as PsiNameIdentifierOwner).name, `is`("lorem-ipsum"))
                     }
+                }
+
+                @Test
+                @DisplayName("XQuery 3.1 EBNF (139) ArgumentPlaceholder")
+                fun argumentPlaceholder() {
+                    val arg = parse<XPathArgumentPlaceholder>("math:sin(?)")[0] as XpmExpression
+                    assertThat(arg.expressionElement?.elementType, `is`(XPathTokenType.OPTIONAL))
                 }
             }
 

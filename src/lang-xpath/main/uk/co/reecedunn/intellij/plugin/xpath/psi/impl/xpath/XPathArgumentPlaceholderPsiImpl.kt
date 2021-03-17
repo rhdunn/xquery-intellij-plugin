@@ -25,10 +25,16 @@ class XPathArgumentPlaceholderPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XPathArgumentPlaceholder,
     XpmSyntaxValidationElement {
+    // region XpmExpression
+
+    override val expressionElement: PsiElement
+        get() = firstChild
+
+    // endregion
     // region XpmSyntaxValidationElement
 
     override val conformanceElement: PsiElement
-        get() = firstChild
+        get() = expressionElement
 
     // endregion
 }

@@ -2349,16 +2349,10 @@ private class XPathPsiTest : ParserTestCase() {
         @DisplayName("XPath 4.0 ED (4.4) Functions ; XPath 3.1 (3.1) Primary Expressions")
         internal inner class Functions {
             @Nested
-            @DisplayName("XPath 4.0 ED (4.4.1) Static Functions")
-            internal inner class StaticFunctions {
-                //
-            }
-
-            @Nested
             @DisplayName("XPath 4.0 ED (4.4.1.1) Static Function Call Syntax ; XPath 3.1 (3.1.5) Static Function Calls")
             internal inner class StaticFunctionCallSyntax {
                 @Nested
-                @DisplayName("XPath 3.1 EBNF (62) KeywordArgument")
+                @DisplayName("XPath 4.0 ED EBNF (62) KeywordArgument")
                 internal inner class KeywordArgument {
                     @Test
                     @DisplayName("ncname")
@@ -2491,6 +2485,13 @@ private class XPathPsiTest : ParserTestCase() {
                         val ref = (expr.functionName as PsiElement).reference
                         assertThat(ref, `is`(nullValue()))
                     }
+                }
+
+                @Test
+                @DisplayName("XPath 3.1 EBNF (65) ArgumentPlaceholder")
+                fun argumentPlaceholder() {
+                    val arg = parse<XPathArgumentPlaceholder>("math:sin(?)")[0] as XpmExpression
+                    assertThat(arg.expressionElement?.elementType, `is`(XPathTokenType.OPTIONAL))
                 }
             }
 

@@ -608,7 +608,7 @@ The `Wildcard` symbol is also an `XsQNameValue`, with the properties mirroring
 the `NCName`, `QName`, or `URIQualifiedName`. The prefix or local parts can be
 an instance of `xdm:wildcard` to indicate that any value matches.
 
-### 4.2.1 Accepts Namespace Types
+#### 4.2.1 Accepts Namespace Types
 
 An EQName accepts *prefixed* namespace declarations if it is a QName. It
 matches if the *namespace prefix* of the declaration is the same as the
@@ -914,6 +914,7 @@ values in a sequence or array.
 
 | Symbol                     | Interface                     |
 |----------------------------|-------------------------------|
+| `ArgumentPlaceholder`      | `XpmExpression`               |
 | `ArrowFunctionCall`        | `XpmFunctionReference`        |
 | `ArrowDynamicFunctionCall` | `XpmDynamicFunctionReference` |
 | `DynamicFunctionCall`      | `XpmDynamicFunctionReference` |
