@@ -30,6 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAnnotated
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmParameter
 
@@ -75,6 +76,9 @@ class XPathInlineFunctionExprPsiImpl(node: ASTNode) :
         get() = paramList?.isVariadic == true
 
     override val functionRefPresentableText: String? = null
+
+    override val functionBody: XpmExpression?
+        get() = children().filterIsInstance<XpmExpression>().firstOrNull()
 
     // endregion
     // region XpmExpression

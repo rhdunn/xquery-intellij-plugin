@@ -2696,6 +2696,7 @@ private class XPathPsiTest : ParserTestCase() {
                         assertThat(decl.arity, `is`(Range(0, 0)))
                         assertThat(decl.parameters.size, `is`(0))
                         assertThat(decl.isVariadic, `is`(false))
+                        assertThat(decl.functionBody?.elementType, `is`(XPathElementType.FUNCTION_BODY))
 
                         val expr = decl as XpmExpression
                         assertThat(expr.expressionElement, `is`(nullValue()))
@@ -2709,6 +2710,7 @@ private class XPathPsiTest : ParserTestCase() {
                         assertThat(decl.returnType, `is`(nullValue()))
                         assertThat(decl.arity, `is`(Range(2, 2)))
                         assertThat(decl.isVariadic, `is`(false))
+                        assertThat(decl.functionBody?.elementType, `is`(XPathElementType.FUNCTION_BODY))
 
                         assertThat(decl.parameters.size, `is`(2))
                         assertThat(op_qname_presentation(decl.parameters[0].variableName!!), `is`("one"))
@@ -2728,6 +2730,7 @@ private class XPathPsiTest : ParserTestCase() {
                         assertThat(decl.returnType, `is`(nullValue()))
                         assertThat(decl.arity, `is`(Range(2, 2)))
                         assertThat(decl.isVariadic, `is`(false))
+                        assertThat(decl.functionBody?.elementType, `is`(XPathElementType.FUNCTION_BODY))
 
                         assertThat(decl.parameters.size, `is`(2))
                         assertThat(op_qname_presentation(decl.parameters[0].variableName!!), `is`("one"))
@@ -2746,6 +2749,7 @@ private class XPathPsiTest : ParserTestCase() {
                         assertThat(decl.arity, `is`(Range(0, 0)))
                         assertThat(decl.parameters.size, `is`(0))
                         assertThat(decl.isVariadic, `is`(false))
+                        assertThat(decl.functionBody?.elementType, `is`(XPathElementType.FUNCTION_BODY))
 
                         val expr = decl as XpmExpression
                         assertThat(expr.expressionElement, `is`(nullValue()))

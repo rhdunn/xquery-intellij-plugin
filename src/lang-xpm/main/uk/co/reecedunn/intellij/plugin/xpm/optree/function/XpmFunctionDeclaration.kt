@@ -21,6 +21,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmFunction
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAnnotated
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmParameter
 
 interface XpmFunctionDeclaration : XdmFunction, XpmAnnotated {
@@ -41,4 +42,6 @@ interface XpmFunctionDeclaration : XdmFunction, XpmAnnotated {
     val isVariadic: Boolean
 
     val functionRefPresentableText: String?
+
+    val functionBody: XpmExpression?
 }

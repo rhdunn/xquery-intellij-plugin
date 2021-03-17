@@ -19,6 +19,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPrimaryExpr
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 
 /**
- * An `EmptySequenceType` node in the XQuery AST.
+ * An `EmptyExpr` node in the XQuery AST.
  */
 interface PluginEmptyExpr : XPathPrimaryExpr, XpmExpression
