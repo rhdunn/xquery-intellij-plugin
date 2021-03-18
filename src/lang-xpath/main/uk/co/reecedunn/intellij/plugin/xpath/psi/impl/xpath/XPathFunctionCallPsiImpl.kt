@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.map.XpmMapEntry
 
 class XPathFunctionCallPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathFunctionCall {
     // region PsiElement
@@ -31,6 +32,7 @@ class XPathFunctionCallPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPat
     override fun subtreeChanged() {
         super.subtreeChanged()
         cachedPositionalArguments.invalidate()
+        cachedKeywordArguments.invalidate()
     }
 
     // endregion
@@ -55,7 +57,7 @@ class XPathFunctionCallPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPat
         get() = firstChild as? XsQNameValue
 
     override val arity: Int
-        get() = argumentList.arity
+        get() = positionalArguments.size + keywordArguments.size
 
     // endregion
     // region XpmFunctionCall
@@ -66,6 +68,13 @@ class XPathFunctionCallPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPat
 
     override val positionalArguments: List<XpmExpression>
         get() = cachedPositionalArguments.get()!!
+
+    private val cachedKeywordArguments = CacheableProperty {
+        argumentList.children().filterIsInstance<XpmMapEntry>().toList()
+    }
+
+    override val keywordArguments: List<XpmMapEntry>
+        get() = cachedKeywordArguments.get()!!
 
     // endregion
 }

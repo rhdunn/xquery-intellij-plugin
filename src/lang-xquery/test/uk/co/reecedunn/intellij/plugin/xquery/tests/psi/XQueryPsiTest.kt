@@ -2826,8 +2826,8 @@ private class XQueryPsiTest : ParserTestCase() {
                 @DisplayName("XQuery 3.1 EBNF (137) FunctionCall")
                 internal inner class FunctionCall {
                     @Test
-                    @DisplayName("non-empty ArgumentList")
-                    fun nonEmptyArguments() {
+                    @DisplayName("positional arguments")
+                    fun positionalArguments() {
                         val f = parse<XPathFunctionCall>("math:pow(2, 8)")[0] as XpmFunctionCall
                         assertThat(f.arity, `is`(2))
 
@@ -2839,6 +2839,8 @@ private class XQueryPsiTest : ParserTestCase() {
                         assertThat(qname.element, sameInstance(qname as PsiElement))
 
                         assertThat(f.positionalArguments.size, `is`(2))
+                        assertThat(f.keywordArguments.size, `is`(0))
+
                         assertThat(f.positionalArguments[0].text, `is`("2"))
                         assertThat(f.positionalArguments[1].text, `is`("8"))
 
@@ -2848,7 +2850,59 @@ private class XQueryPsiTest : ParserTestCase() {
                     }
 
                     @Test
-                    @DisplayName("empty ArgumentList")
+                    @DisplayName("positional and keyword arguments")
+                    fun positionalAndKeywordArguments() {
+                        val f = parse<XPathFunctionCall>("math:pow(2, y: 8)")[0] as XpmFunctionCall
+                        assertThat(f.arity, `is`(2))
+
+                        val qname = f.functionName!!
+                        assertThat(qname.isLexicalQName, `is`(true))
+                        assertThat(qname.namespace, `is`(nullValue()))
+                        assertThat(qname.prefix!!.data, `is`("math"))
+                        assertThat(qname.localName!!.data, `is`("pow"))
+                        assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                        assertThat(f.positionalArguments.size, `is`(1))
+                        assertThat(f.positionalArguments[0].text, `is`("2"))
+
+                        assertThat(f.keywordArguments.size, `is`(1))
+                        assertThat((f.keywordArguments[0].keyName as XsNCNameValue).data, `is`("y"))
+                        assertThat(f.keywordArguments[0].valueExpression?.text, `is`("8"))
+
+                        val expr = f as XpmExpression
+                        assertThat(expr.expressionElement.elementType, `is`(XPathElementType.FUNCTION_CALL))
+                        assertThat(expr.expressionElement?.textOffset, `is`(0))
+                    }
+
+                    @Test
+                    @DisplayName("keyword arguments")
+                    fun keywordArguments() {
+                        val f = parse<XPathFunctionCall>("math:pow(x: 2, y: 8)")[0] as XpmFunctionCall
+                        assertThat(f.arity, `is`(2))
+
+                        val qname = f.functionName!!
+                        assertThat(qname.isLexicalQName, `is`(true))
+                        assertThat(qname.namespace, `is`(nullValue()))
+                        assertThat(qname.prefix!!.data, `is`("math"))
+                        assertThat(qname.localName!!.data, `is`("pow"))
+                        assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                        assertThat(f.positionalArguments.size, `is`(0))
+                        assertThat(f.keywordArguments.size, `is`(2))
+
+                        assertThat((f.keywordArguments[0].keyName as XsNCNameValue).data, `is`("x"))
+                        assertThat((f.keywordArguments[1].keyName as XsNCNameValue).data, `is`("y"))
+
+                        assertThat(f.keywordArguments[0].valueExpression?.text, `is`("2"))
+                        assertThat(f.keywordArguments[1].valueExpression?.text, `is`("8"))
+
+                        val expr = f as XpmExpression
+                        assertThat(expr.expressionElement.elementType, `is`(XPathElementType.FUNCTION_CALL))
+                        assertThat(expr.expressionElement?.textOffset, `is`(0))
+                    }
+
+                    @Test
+                    @DisplayName("empty arguments")
                     fun emptyArguments() {
                         val f = parse<XPathFunctionCall>("fn:true()")[0] as XpmFunctionCall
                         assertThat(f.arity, `is`(0))
@@ -2861,6 +2915,11 @@ private class XQueryPsiTest : ParserTestCase() {
                         assertThat(qname.element, sameInstance(qname as PsiElement))
 
                         assertThat(f.positionalArguments.size, `is`(0))
+                        assertThat(f.keywordArguments.size, `is`(0))
+
+                        val expr = f as XpmExpression
+                        assertThat(expr.expressionElement.elementType, `is`(XPathElementType.FUNCTION_CALL))
+                        assertThat(expr.expressionElement?.textOffset, `is`(0))
                     }
 
                     @Test
@@ -2877,7 +2936,13 @@ private class XQueryPsiTest : ParserTestCase() {
                         assertThat(qname.element, sameInstance(qname as PsiElement))
 
                         assertThat(f.positionalArguments.size, `is`(1))
+                        assertThat(f.keywordArguments.size, `is`(0))
+
                         assertThat(f.positionalArguments[0].text, `is`("?"))
+
+                        val expr = f as XpmExpression
+                        assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
+                        assertThat(expr.expressionElement?.textOffset, `is`(8))
                     }
 
                     @Test
@@ -2889,6 +2954,12 @@ private class XQueryPsiTest : ParserTestCase() {
 
                         assertThat(f.positionalArguments.size, `is`(1))
                         assertThat(f.positionalArguments[0].text, `is`("1"))
+
+                        assertThat(f.keywordArguments.size, `is`(0))
+
+                        val expr = f as XpmExpression
+                        assertThat(expr.expressionElement.elementType, `is`(XPathElementType.FUNCTION_CALL))
+                        assertThat(expr.expressionElement?.textOffset, `is`(0))
                     }
 
                     @Test

@@ -16,7 +16,10 @@
 package uk.co.reecedunn.intellij.plugin.xpm.optree.function
 
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.map.XpmMapEntry
 
 interface XpmFunctionCall : XpmFunctionReference {
     val positionalArguments: List<XpmExpression>
+
+    val keywordArguments: List<XpmMapEntry>
 }
