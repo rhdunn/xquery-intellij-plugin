@@ -26,7 +26,6 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpm.context.XpmUsageType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
-import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.*
@@ -416,73 +415,6 @@ private class PluginPsiTest : ParserTestCase() {
                     assertThat(decl.parameters.size, `is`(2))
                     assertThat(op_qname_presentation(decl.parameters[0].variableName!!), `is`("one"))
                     assertThat(op_qname_presentation(decl.parameters[1].variableName!!), `is`("two"))
-                }
-            }
-
-            @Nested
-            @DisplayName("XQuery 3.1 EBNF (137) FunctionCall ; XQuery IntelliJ Plugin EBNF (22) ParamList")
-            internal inner class FunctionCall {
-                @Test
-                @DisplayName("variadic; no arguments specified for the variadic parameter")
-                fun variadicEmpty() {
-                    val f = parse<XPathFunctionCall>("concat(2, 4)")[0] as XpmFunctionReference
-                    assertThat(f.arity, `is`(2))
-
-                    val qname = f.functionName!!
-                    assertThat(qname.isLexicalQName, `is`(true))
-                    assertThat(qname.namespace, `is`(nullValue()))
-                    assertThat(qname.prefix, `is`(nullValue()))
-                    assertThat(qname.localName!!.data, `is`("concat"))
-                    assertThat(qname.element, sameInstance(qname as PsiElement))
-
-                    val args = (f as XPathFunctionCall).argumentList
-                    assertThat(args.arity, `is`(2))
-                    assertThat(args.functionReference, `is`(sameInstance(f)))
-
-                    val bindings = args.bindings
-                    assertThat(bindings.size, `is`(0))
-                }
-
-                @Test
-                @DisplayName("variadic; single argument specified for the variadic parameter")
-                fun variadicSingle() {
-                    val f = parse<XPathFunctionCall>("concat(2, 4, 6)")[0] as XpmFunctionReference
-                    assertThat(f.arity, `is`(3))
-
-                    val qname = f.functionName!!
-                    assertThat(qname.isLexicalQName, `is`(true))
-                    assertThat(qname.namespace, `is`(nullValue()))
-                    assertThat(qname.prefix, `is`(nullValue()))
-                    assertThat(qname.localName!!.data, `is`("concat"))
-                    assertThat(qname.element, sameInstance(qname as PsiElement))
-
-                    val args = (f as XPathFunctionCall).argumentList
-                    assertThat(args.arity, `is`(3))
-                    assertThat(args.functionReference, `is`(sameInstance(f)))
-
-                    val bindings = args.bindings
-                    assertThat(bindings.size, `is`(0))
-                }
-
-                @Test
-                @DisplayName("variadic; multiple arguments specified for the variadic parameter")
-                fun variadicMultiple() {
-                    val f = parse<XPathFunctionCall>("concat(2, 4, 6, 8)")[0] as XpmFunctionReference
-                    assertThat(f.arity, `is`(4))
-
-                    val qname = f.functionName!!
-                    assertThat(qname.isLexicalQName, `is`(true))
-                    assertThat(qname.namespace, `is`(nullValue()))
-                    assertThat(qname.prefix, `is`(nullValue()))
-                    assertThat(qname.localName!!.data, `is`("concat"))
-                    assertThat(qname.element, sameInstance(qname as PsiElement))
-
-                    val args = (f as XPathFunctionCall).argumentList
-                    assertThat(args.arity, `is`(4))
-                    assertThat(args.functionReference, `is`(sameInstance(f)))
-
-                    val bindings = args.bindings
-                    assertThat(bindings.size, `is`(0))
                 }
             }
 

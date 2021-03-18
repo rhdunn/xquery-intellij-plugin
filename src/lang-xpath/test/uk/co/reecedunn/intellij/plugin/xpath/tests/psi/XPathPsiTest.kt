@@ -44,6 +44,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPathStep
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.*
@@ -2377,7 +2378,7 @@ private class XPathPsiTest : ParserTestCase() {
                     @Test
                     @DisplayName("non-empty ArgumentList")
                     fun nonEmptyArguments() {
-                        val f = parse<XPathFunctionCall>("math:pow(2, 8)")[0] as XpmFunctionReference
+                        val f = parse<XPathFunctionCall>("math:pow(2, 8)")[0] as XpmFunctionCall
                         assertThat(f.arity, `is`(2))
 
                         val qname = f.functionName!!
@@ -2387,12 +2388,9 @@ private class XPathPsiTest : ParserTestCase() {
                         assertThat(qname.localName!!.data, `is`("pow"))
                         assertThat(qname.element, sameInstance(qname as PsiElement))
 
-                        val args = (f as XPathFunctionCall).argumentList
-                        assertThat(args.arity, `is`(2))
-                        assertThat(args.functionReference, `is`(sameInstance(f)))
-
-                        val bindings = args.bindings
-                        assertThat(bindings.size, `is`(0))
+                        assertThat(f.positionalArguments.size, `is`(2))
+                        assertThat(f.positionalArguments[0].text, `is`("2"))
+                        assertThat(f.positionalArguments[1].text, `is`("8"))
 
                         val expr = f as XpmExpression
                         assertThat(expr.expressionElement.elementType, `is`(XPathElementType.FUNCTION_CALL))
@@ -2402,7 +2400,7 @@ private class XPathPsiTest : ParserTestCase() {
                     @Test
                     @DisplayName("empty ArgumentList")
                     fun emptyArguments() {
-                        val f = parse<XPathFunctionCall>("fn:true()")[0] as XpmFunctionReference
+                        val f = parse<XPathFunctionCall>("fn:true()")[0] as XpmFunctionCall
                         assertThat(f.arity, `is`(0))
 
                         val qname = f.functionName!!
@@ -2412,12 +2410,7 @@ private class XPathPsiTest : ParserTestCase() {
                         assertThat(qname.localName!!.data, `is`("true"))
                         assertThat(qname.element, sameInstance(qname as PsiElement))
 
-                        val args = (f as XPathFunctionCall).argumentList
-                        assertThat(args.arity, `is`(0))
-                        assertThat(args.functionReference, `is`(sameInstance(f)))
-
-                        val bindings = args.bindings
-                        assertThat(bindings.size, `is`(0))
+                        assertThat(f.positionalArguments.size, `is`(0))
 
                         val expr = f as XpmExpression
                         assertThat(expr.expressionElement.elementType, `is`(XPathElementType.FUNCTION_CALL))
@@ -2427,7 +2420,7 @@ private class XPathPsiTest : ParserTestCase() {
                     @Test
                     @DisplayName("partial function application")
                     fun partialFunctionApplication() {
-                        val f = parse<XPathFunctionCall>("math:sin(?)")[0] as XpmFunctionReference
+                        val f = parse<XPathFunctionCall>("math:sin(?)")[0] as XpmFunctionCall
                         assertThat(f.arity, `is`(1))
 
                         val qname = f.functionName!!
@@ -2437,12 +2430,8 @@ private class XPathPsiTest : ParserTestCase() {
                         assertThat(qname.localName!!.data, `is`("sin"))
                         assertThat(qname.element, sameInstance(qname as PsiElement))
 
-                        val args = (f as XPathFunctionCall).argumentList
-                        assertThat(args.arity, `is`(1))
-                        assertThat(args.functionReference, `is`(sameInstance(f)))
-
-                        val bindings = args.bindings
-                        assertThat(bindings.size, `is`(0))
+                        assertThat(f.positionalArguments.size, `is`(1))
+                        assertThat(f.positionalArguments[0].text, `is`("?"))
 
                         val expr = f as XpmExpression
                         assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
@@ -2452,16 +2441,12 @@ private class XPathPsiTest : ParserTestCase() {
                     @Test
                     @DisplayName("invalid EQName")
                     fun invalidEQName() {
-                        val f = parse<XPathFunctionCall>(":true(1)")[0] as XpmFunctionReference
+                        val f = parse<XPathFunctionCall>(":true(1)")[0] as XpmFunctionCall
                         assertThat(f.arity, `is`(1))
                         assertThat(f.functionName, `is`(nullValue()))
 
-                        val args = (f as XPathFunctionCall).argumentList
-                        assertThat(args.arity, `is`(1))
-                        assertThat(args.functionReference, `is`(sameInstance(f)))
-
-                        val bindings = args.bindings
-                        assertThat(bindings.size, `is`(0))
+                        assertThat(f.positionalArguments.size, `is`(1))
+                        assertThat(f.positionalArguments[0].text, `is`("1"))
                     }
 
                     @Test
@@ -2480,7 +2465,7 @@ private class XPathPsiTest : ParserTestCase() {
                     @Test
                     @DisplayName("reference rename")
                     fun referenceRename() {
-                        val expr = parse<XPathFunctionCall>("test()")[0] as XpmFunctionReference
+                        val expr = parse<XPathFunctionCall>("test()")[0] as XpmFunctionCall
 
                         val ref = (expr.functionName as PsiElement).reference
                         assertThat(ref, `is`(nullValue()))

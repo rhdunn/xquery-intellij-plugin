@@ -58,6 +58,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAnnotated
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPathStep
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.*
@@ -2827,7 +2828,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     @Test
                     @DisplayName("non-empty ArgumentList")
                     fun nonEmptyArguments() {
-                        val f = parse<XPathFunctionCall>("math:pow(2, 8)")[0] as XpmFunctionReference
+                        val f = parse<XPathFunctionCall>("math:pow(2, 8)")[0] as XpmFunctionCall
                         assertThat(f.arity, `is`(2))
 
                         val qname = f.functionName!!
@@ -2837,20 +2838,9 @@ private class XQueryPsiTest : ParserTestCase() {
                         assertThat(qname.localName!!.data, `is`("pow"))
                         assertThat(qname.element, sameInstance(qname as PsiElement))
 
-                        val args = (f as XPathFunctionCall).argumentList
-                        assertThat(args.arity, `is`(2))
-                        assertThat(args.functionReference, `is`(sameInstance(f)))
-
-                        val bindings = args.bindings
-                        assertThat(bindings.size, `is`(2))
-
-                        assertThat(op_qname_presentation(bindings[0].param.variableName!!), `is`("x"))
-                        assertThat(bindings[0].size, `is`(1))
-                        assertThat(bindings[0][0].text, `is`("2"))
-
-                        assertThat(op_qname_presentation(bindings[1].param.variableName!!), `is`("y"))
-                        assertThat(bindings[1].size, `is`(1))
-                        assertThat(bindings[1][0].text, `is`("8"))
+                        assertThat(f.positionalArguments.size, `is`(2))
+                        assertThat(f.positionalArguments[0].text, `is`("2"))
+                        assertThat(f.positionalArguments[1].text, `is`("8"))
 
                         val expr = f as XpmExpression
                         assertThat(expr.expressionElement.elementType, `is`(XPathElementType.FUNCTION_CALL))
@@ -2860,7 +2850,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     @Test
                     @DisplayName("empty ArgumentList")
                     fun emptyArguments() {
-                        val f = parse<XPathFunctionCall>("fn:true()")[0] as XpmFunctionReference
+                        val f = parse<XPathFunctionCall>("fn:true()")[0] as XpmFunctionCall
                         assertThat(f.arity, `is`(0))
 
                         val qname = f.functionName!!
@@ -2870,22 +2860,13 @@ private class XQueryPsiTest : ParserTestCase() {
                         assertThat(qname.localName!!.data, `is`("true"))
                         assertThat(qname.element, sameInstance(qname as PsiElement))
 
-                        val args = (f as XPathFunctionCall).argumentList
-                        assertThat(args.arity, `is`(0))
-                        assertThat(args.functionReference, `is`(sameInstance(f)))
-
-                        val bindings = args.bindings
-                        assertThat(bindings.size, `is`(0))
-
-                        val expr = f as XpmExpression
-                        assertThat(expr.expressionElement.elementType, `is`(XPathElementType.FUNCTION_CALL))
-                        assertThat(expr.expressionElement?.textOffset, `is`(0))
+                        assertThat(f.positionalArguments.size, `is`(0))
                     }
 
                     @Test
                     @DisplayName("partial function application")
                     fun partialFunctionApplication() {
-                        val f = parse<XPathFunctionCall>("math:sin(?)")[0] as XpmFunctionReference
+                        val f = parse<XPathFunctionCall>("math:sin(?)")[0] as XpmFunctionCall
                         assertThat(f.arity, `is`(1))
 
                         val qname = f.functionName!!
@@ -2895,35 +2876,19 @@ private class XQueryPsiTest : ParserTestCase() {
                         assertThat(qname.localName!!.data, `is`("sin"))
                         assertThat(qname.element, sameInstance(qname as PsiElement))
 
-                        val args = (f as XPathFunctionCall).argumentList
-                        assertThat(args.arity, `is`(1))
-                        assertThat(args.functionReference, `is`(sameInstance(f)))
-
-                        val bindings = args.bindings
-                        assertThat(bindings.size, `is`(1))
-
-                        assertThat(op_qname_presentation(bindings[0].param.variableName!!), `is`("θ"))
-                        assertThat(bindings[0].size, `is`(1))
-                        assertThat(bindings[0][0].text, `is`("?"))
-
-                        val expr = f as XpmExpression
-                        assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
-                        assertThat(expr.expressionElement?.textOffset, `is`(8))
+                        assertThat(f.positionalArguments.size, `is`(1))
+                        assertThat(f.positionalArguments[0].text, `is`("?"))
                     }
 
                     @Test
                     @DisplayName("invalid EQName")
                     fun invalidEQName() {
-                        val f = parse<XPathFunctionCall>(":true(1)")[0] as XpmFunctionReference
+                        val f = parse<XPathFunctionCall>(":true(1)")[0] as XpmFunctionCall
                         assertThat(f.arity, `is`(1))
                         assertThat(f.functionName, `is`(nullValue()))
 
-                        val args = (f as XPathFunctionCall).argumentList
-                        assertThat(args.arity, `is`(1))
-                        assertThat(args.functionReference, `is`(sameInstance(f)))
-
-                        val bindings = args.bindings
-                        assertThat(bindings.size, `is`(0))
+                        assertThat(f.positionalArguments.size, `is`(1))
+                        assertThat(f.positionalArguments[0].text, `is`("1"))
                     }
 
                     @Test
@@ -2975,6 +2940,122 @@ private class XQueryPsiTest : ParserTestCase() {
                 fun argumentPlaceholder() {
                     val arg = parse<XPathArgumentPlaceholder>("math:sin(?)")[0] as XpmExpression
                     assertThat(arg.expressionElement?.elementType, `is`(XPathTokenType.OPTIONAL))
+                }
+            }
+
+            @Nested
+            @DisplayName("XQuery 4.0 ED (4.4.1.2) Evaluating Static Function Calls ; XQuery 3.1 (3.1.5.1) Evaluating Static and Dynamic Function Calls")
+            internal inner class EvaluatingStaticFunctionCalls {
+                @Nested
+                @DisplayName("For non-variadic functions")
+                internal inner class ForNonVariadicFunctions {
+                    @Test
+                    @DisplayName("positional arguments")
+                    fun positionalArguments() {
+                        val f = parse<XPathFunctionCall>("math:pow(2, 8)")[0] as XpmFunctionCall
+                        val args = (f as XPathFunctionCall).argumentList
+                        assertThat(args.arity, `is`(2))
+                        assertThat(args.functionReference, `is`(sameInstance(f)))
+
+                        val bindings = args.bindings
+                        assertThat(bindings.size, `is`(2))
+
+                        assertThat(op_qname_presentation(bindings[0].param.variableName!!), `is`("x"))
+                        assertThat(bindings[0].size, `is`(1))
+                        assertThat(bindings[0][0].text, `is`("2"))
+
+                        assertThat(op_qname_presentation(bindings[1].param.variableName!!), `is`("y"))
+                        assertThat(bindings[1].size, `is`(1))
+                        assertThat(bindings[1][0].text, `is`("8"))
+                    }
+
+                    @Test
+                    @DisplayName("empty arguments")
+                    fun emptyArguments() {
+                        val f = parse<XPathFunctionCall>("fn:true()")[0] as XpmFunctionCall
+                        val args = (f as XPathFunctionCall).argumentList
+                        assertThat(args.arity, `is`(0))
+                        assertThat(args.functionReference, `is`(sameInstance(f)))
+
+                        val bindings = args.bindings
+                        assertThat(bindings.size, `is`(0))
+                    }
+                }
+
+                @Nested
+                @DisplayName("For ellipsis-variadic functions")
+                internal inner class ForEllipsisVariadicFunctions {
+                    @Test
+                    @DisplayName("no arguments specified for the variadic parameter")
+                    fun empty() {
+                        val f = parse<XPathFunctionCall>("fn:concat(2, 4)")[0] as XpmFunctionCall
+                        val args = (f as XPathFunctionCall).argumentList
+                        assertThat(args.arity, `is`(2))
+                        assertThat(args.functionReference, `is`(sameInstance(f)))
+
+                        val bindings = args.bindings
+                        assertThat(bindings.size, `is`(3))
+
+                        assertThat(op_qname_presentation(bindings[0].param.variableName!!), `is`("arg1"))
+                        assertThat(bindings[0].size, `is`(1))
+                        assertThat(bindings[0][0].text, `is`("2"))
+
+                        assertThat(op_qname_presentation(bindings[1].param.variableName!!), `is`("arg2"))
+                        assertThat(bindings[1].size, `is`(1))
+                        assertThat(bindings[1][0].text, `is`("4"))
+
+                        assertThat(op_qname_presentation(bindings[2].param.variableName!!), `is`("args"))
+                        assertThat(bindings[2].size, `is`(0))
+                    }
+
+                    @Test
+                    @DisplayName("single argument specified for the variadic parameter")
+                    fun single() {
+                        val f = parse<XPathFunctionCall>("fn:concat(2, 4, 6)")[0] as XpmFunctionReference
+                        val args = (f as XPathFunctionCall).argumentList
+                        assertThat(args.arity, `is`(3))
+                        assertThat(args.functionReference, `is`(sameInstance(f)))
+
+                        val bindings = args.bindings
+                        assertThat(bindings.size, `is`(3))
+
+                        assertThat(op_qname_presentation(bindings[0].param.variableName!!), `is`("arg1"))
+                        assertThat(bindings[0].size, `is`(1))
+                        assertThat(bindings[0][0].text, `is`("2"))
+
+                        assertThat(op_qname_presentation(bindings[1].param.variableName!!), `is`("arg2"))
+                        assertThat(bindings[1].size, `is`(1))
+                        assertThat(bindings[1][0].text, `is`("4"))
+
+                        assertThat(op_qname_presentation(bindings[2].param.variableName!!), `is`("args"))
+                        assertThat(bindings[2].size, `is`(1))
+                        assertThat(bindings[2][0].text, `is`("6"))
+                    }
+
+                    @Test
+                    @DisplayName("multiple arguments specified for the variadic parameter")
+                    fun multiple() {
+                        val f = parse<XPathFunctionCall>("fn:concat(2, 4, 6, 8)")[0] as XpmFunctionReference
+                        val args = (f as XPathFunctionCall).argumentList
+                        assertThat(args.arity, `is`(4))
+                        assertThat(args.functionReference, `is`(sameInstance(f)))
+
+                        val bindings = args.bindings
+                        assertThat(bindings.size, `is`(3))
+
+                        assertThat(op_qname_presentation(bindings[0].param.variableName!!), `is`("arg1"))
+                        assertThat(bindings[0].size, `is`(1))
+                        assertThat(bindings[0][0].text, `is`("2"))
+
+                        assertThat(op_qname_presentation(bindings[1].param.variableName!!), `is`("arg2"))
+                        assertThat(bindings[1].size, `is`(1))
+                        assertThat(bindings[1][0].text, `is`("4"))
+
+                        assertThat(op_qname_presentation(bindings[2].param.variableName!!), `is`("args"))
+                        assertThat(bindings[2].size, `is`(2))
+                        assertThat(bindings[2][0].text, `is`("6"))
+                        assertThat(bindings[2][1].text, `is`("8"))
+                    }
                 }
             }
 
