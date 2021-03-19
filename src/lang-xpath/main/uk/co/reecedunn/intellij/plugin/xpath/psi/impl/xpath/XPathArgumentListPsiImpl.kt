@@ -43,9 +43,6 @@ open class XPathArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
             else -> null
         }
 
-    override val arity: Int
-        get() = arguments.count()
-
     override val bindings: List<XpmFunctionParamBinding>
         get() {
             val ref = functionReference

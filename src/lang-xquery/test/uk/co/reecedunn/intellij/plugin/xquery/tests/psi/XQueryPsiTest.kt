@@ -3022,7 +3022,6 @@ private class XQueryPsiTest : ParserTestCase() {
                     fun positionalArguments() {
                         val f = parse<XPathFunctionCall>("math:pow(2, 8)")[0]
                         val args = f.argumentList
-                        assertThat(args.arity, `is`(2))
                         assertThat(args.functionReference, `is`(sameInstance(f)))
 
                         val bindings = args.bindings
@@ -3042,7 +3041,6 @@ private class XQueryPsiTest : ParserTestCase() {
                     fun emptyArguments() {
                         val f = parse<XPathFunctionCall>("fn:true()")[0]
                         val args = f.argumentList
-                        assertThat(args.arity, `is`(0))
                         assertThat(args.functionReference, `is`(sameInstance(f)))
 
                         val bindings = args.bindings
@@ -3058,7 +3056,6 @@ private class XQueryPsiTest : ParserTestCase() {
                     fun positionalArguments() {
                         val f = parse<PluginArrowFunctionCall>("\$x => format-date(1, 2, 3,  4)")[0]
                         val args = f.children().filterIsInstance<XPathArgumentList>().first()
-                        assertThat(args.arity, `is`(4))
                         assertThat(args.functionReference, `is`(sameInstance(f)))
 
                         val bindings = args.bindings
@@ -3090,7 +3087,6 @@ private class XQueryPsiTest : ParserTestCase() {
                     fun emptyArguments() {
                         val f = parse<PluginArrowFunctionCall>("\$x => upper-case()")[0]
                         val args = f.children().filterIsInstance<XPathArgumentList>().first()
-                        assertThat(args.arity, `is`(0))
                         assertThat(args.functionReference, `is`(sameInstance(f)))
 
                         val bindings = args.bindings
@@ -3106,7 +3102,6 @@ private class XQueryPsiTest : ParserTestCase() {
                     fun chainedArrows() {
                         val f = parse<PluginArrowFunctionCall>("\$x => upper-case() => string-to-codepoints()")[1]
                         val args = f.children().filterIsInstance<XPathArgumentList>().first()
-                        assertThat(args.arity, `is`(0))
                         assertThat(args.functionReference, `is`(sameInstance(f)))
 
                         val bindings = args.bindings
@@ -3126,7 +3121,6 @@ private class XQueryPsiTest : ParserTestCase() {
                     fun empty() {
                         val f = parse<XPathFunctionCall>("fn:concat(2, 4)")[0] as XpmFunctionCall
                         val args = (f as XPathFunctionCall).argumentList
-                        assertThat(args.arity, `is`(2))
                         assertThat(args.functionReference, `is`(sameInstance(f)))
 
                         val bindings = args.bindings
@@ -3149,7 +3143,6 @@ private class XQueryPsiTest : ParserTestCase() {
                     fun single() {
                         val f = parse<XPathFunctionCall>("fn:concat(2, 4, 6)")[0] as XpmFunctionReference
                         val args = (f as XPathFunctionCall).argumentList
-                        assertThat(args.arity, `is`(3))
                         assertThat(args.functionReference, `is`(sameInstance(f)))
 
                         val bindings = args.bindings
@@ -3173,7 +3166,6 @@ private class XQueryPsiTest : ParserTestCase() {
                     fun multiple() {
                         val f = parse<XPathFunctionCall>("fn:concat(2, 4, 6, 8)")[0] as XpmFunctionReference
                         val args = (f as XPathFunctionCall).argumentList
-                        assertThat(args.arity, `is`(4))
                         assertThat(args.functionReference, `is`(sameInstance(f)))
 
                         val bindings = args.bindings
@@ -3206,7 +3198,6 @@ private class XQueryPsiTest : ParserTestCase() {
                     fun positionalArguments() {
                         val f = parse<PluginDynamicFunctionCall>("math:pow#2(2, 8)")[0]
                         val args = f.children().filterIsInstance<XPathArgumentList>().first()
-                        assertThat(args.arity, `is`(2))
                         assertThat(args.functionReference, `is`(sameInstance(f.functionReference)))
 
                         val bindings = args.bindings
@@ -3226,7 +3217,6 @@ private class XQueryPsiTest : ParserTestCase() {
                     fun emptyArguments() {
                         val f = parse<PluginDynamicFunctionCall>("fn:true#0()")[0]
                         val args = f.children().filterIsInstance<XPathArgumentList>().first()
-                        assertThat(args.arity, `is`(0))
                         assertThat(args.functionReference, `is`(sameInstance(f.functionReference)))
 
                         val bindings = args.bindings
@@ -3242,7 +3232,6 @@ private class XQueryPsiTest : ParserTestCase() {
                     fun positionalArguments() {
                         val f = parse<PluginArrowDynamicFunctionCall>("2 => (math:pow#2)(8)")[0]
                         val args = f.children().filterIsInstance<XPathArgumentList>().first()
-                        assertThat(args.arity, `is`(1))
                         assertThat(args.functionReference, `is`(sameInstance(f.functionReference)))
 
                         val bindings = args.bindings
@@ -3262,7 +3251,6 @@ private class XQueryPsiTest : ParserTestCase() {
                     fun emptyArguments() {
                         val f = parse<PluginArrowDynamicFunctionCall>("2 => (fn:abs#1)()")[0]
                         val args = f.children().filterIsInstance<XPathArgumentList>().first()
-                        assertThat(args.arity, `is`(0))
                         assertThat(args.functionReference, `is`(sameInstance(f.functionReference)))
 
                         val bindings = args.bindings

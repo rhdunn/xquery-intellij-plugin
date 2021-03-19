@@ -25,7 +25,5 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionParamBindi
 interface XPathArgumentList : PsiElement {
     val functionReference: XpmFunctionReference?
 
-    val arity: Int
-
     val bindings: List<XpmFunctionParamBinding>
 }
