@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.reverse
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
@@ -26,11 +27,22 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.filterNotWhitespace
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.map.XpmMapEntry
 
 class PluginArrowFunctionCallPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     PluginArrowFunctionCall,
     XpmSyntaxValidationElement {
+    // region PsiElement
+
+    override fun subtreeChanged() {
+        super.subtreeChanged()
+        cachedPositionalArguments.invalidate()
+        cachedKeywordArguments.invalidate()
+    }
+
+    // endregion
     // region XpmExpression
 
     override val expressionElement: PsiElement
@@ -39,14 +51,31 @@ class PluginArrowFunctionCallPsiImpl(node: ASTNode) :
     // endregion
     // region XdmFunctionReference
 
-    override val arity: Int
-        get() {
-            val args = children().filterIsInstance<XPathArgumentList>().first()
-            return args.arity + 1
-        }
-
     override val functionName: XsQNameValue?
         get() = firstChild as? XsQNameValue
+
+    override val arity: Int
+        get() = positionalArguments.size + keywordArguments.size + 1
+
+    // endregion
+    // region XpmFunctionCall
+
+    private val argumentList: XPathArgumentList
+        get() = children().filterIsInstance<XPathArgumentList>().first()
+
+    private val cachedPositionalArguments = CacheableProperty {
+        argumentList.children().filterIsInstance<XpmExpression>().toList()
+    }
+
+    override val positionalArguments: List<XpmExpression>
+        get() = cachedPositionalArguments.get()!!
+
+    private val cachedKeywordArguments = CacheableProperty {
+        argumentList.children().filterIsInstance<XpmMapEntry>().toList()
+    }
+
+    override val keywordArguments: List<XpmMapEntry>
+        get() = cachedKeywordArguments.get()!!
 
     // endregion
     // region XpmSyntaxValidationElement

@@ -4528,9 +4528,9 @@ private class XPathPsiTest : ParserTestCase() {
             @DisplayName("XPath 3.1 EBNF (55) ArrowFunctionSpecifier; XPath 3.1 EBNF (112) EQName")
             internal inner class ArrowFunctionSpecifier_EQName {
                 @Test
-                @DisplayName("non-empty ArgumentList")
-                fun nonEmptyArgumentList() {
-                    val f = parse<PluginArrowFunctionCall>("\$x => format-date(1, 2, 3,  4)")[0] as XpmFunctionReference
+                @DisplayName("positional arguments")
+                fun positionalArguments() {
+                    val f = parse<PluginArrowFunctionCall>("\$x => format-date(1, 2, 3,  4)")[0] as XpmFunctionCall
                     assertThat(f.arity, `is`(5))
 
                     val qname = f.functionName!!
@@ -4540,18 +4540,76 @@ private class XPathPsiTest : ParserTestCase() {
                     assertThat(qname.localName!!.data, `is`("format-date"))
                     assertThat(qname.element, sameInstance(qname as PsiElement))
 
-                    val args = (f as PsiElement).children().filterIsInstance<XPathArgumentList>().first()
-                    assertThat(args.arity, `is`(4))
-                    assertThat(args.functionReference, `is`(sameInstance(f)))
+                    assertThat(f.positionalArguments.size, `is`(4))
+                    assertThat(f.keywordArguments.size, `is`(0))
 
-                    val bindings = args.bindings
-                    assertThat(bindings.size, `is`(0))
+                    assertThat(f.positionalArguments[0].text, `is`("1"))
+                    assertThat(f.positionalArguments[1].text, `is`("2"))
+                    assertThat(f.positionalArguments[2].text, `is`("3"))
+                    assertThat(f.positionalArguments[3].text, `is`("4"))
                 }
 
                 @Test
-                @DisplayName("empty ArgumentList")
-                fun emptyArgumentList() {
-                    val f = parse<PluginArrowFunctionCall>("\$x => upper-case()")[0] as XpmFunctionReference
+                @DisplayName("positional and keyword arguments")
+                fun positionalAndKeywordArguments() {
+                    val f = parse<PluginArrowFunctionCall>(
+                        "\$x => format-date(1, 2, calendar: 3,  place: 4)"
+                    )[0] as XpmFunctionCall
+                    assertThat(f.arity, `is`(5))
+
+                    val qname = f.functionName!!
+                    assertThat(qname.isLexicalQName, `is`(true))
+                    assertThat(qname.namespace, `is`(nullValue()))
+                    assertThat(qname.prefix, `is`(nullValue()))
+                    assertThat(qname.localName!!.data, `is`("format-date"))
+                    assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                    assertThat(f.positionalArguments.size, `is`(2))
+                    assertThat(f.keywordArguments.size, `is`(2))
+
+                    assertThat(f.positionalArguments[0].text, `is`("1"))
+                    assertThat(f.positionalArguments[1].text, `is`("2"))
+
+                    assertThat((f.keywordArguments[0].keyName as XsNCNameValue).data, `is`("calendar"))
+                    assertThat((f.keywordArguments[1].keyName as XsNCNameValue).data, `is`("place"))
+
+                    assertThat(f.keywordArguments[0].valueExpression?.text, `is`("3"))
+                    assertThat(f.keywordArguments[1].valueExpression?.text, `is`("4"))
+                }
+
+                @Test
+                @DisplayName("keyword arguments")
+                fun keywordArguments() {
+                    val f = parse<PluginArrowFunctionCall>(
+                        "\$x => format-date(picture: 1, language: 2, calendar: 3,  place: 4)"
+                    )[0] as XpmFunctionCall
+                    assertThat(f.arity, `is`(5))
+
+                    val qname = f.functionName!!
+                    assertThat(qname.isLexicalQName, `is`(true))
+                    assertThat(qname.namespace, `is`(nullValue()))
+                    assertThat(qname.prefix, `is`(nullValue()))
+                    assertThat(qname.localName!!.data, `is`("format-date"))
+                    assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                    assertThat(f.positionalArguments.size, `is`(0))
+                    assertThat(f.keywordArguments.size, `is`(4))
+
+                    assertThat((f.keywordArguments[0].keyName as XsNCNameValue).data, `is`("picture"))
+                    assertThat((f.keywordArguments[1].keyName as XsNCNameValue).data, `is`("language"))
+                    assertThat((f.keywordArguments[2].keyName as XsNCNameValue).data, `is`("calendar"))
+                    assertThat((f.keywordArguments[3].keyName as XsNCNameValue).data, `is`("place"))
+
+                    assertThat(f.keywordArguments[0].valueExpression?.text, `is`("1"))
+                    assertThat(f.keywordArguments[1].valueExpression?.text, `is`("2"))
+                    assertThat(f.keywordArguments[2].valueExpression?.text, `is`("3"))
+                    assertThat(f.keywordArguments[3].valueExpression?.text, `is`("4"))
+                }
+
+                @Test
+                @DisplayName("empty arguments")
+                fun emptyArguments() {
+                    val f = parse<PluginArrowFunctionCall>("\$x => upper-case()")[0] as XpmFunctionCall
                     assertThat(f.arity, `is`(1))
 
                     val qname = f.functionName!!
@@ -4561,50 +4619,19 @@ private class XPathPsiTest : ParserTestCase() {
                     assertThat(qname.localName!!.data, `is`("upper-case"))
                     assertThat(qname.element, sameInstance(qname as PsiElement))
 
-                    val args = (f as PsiElement).children().filterIsInstance<XPathArgumentList>().first()
-                    assertThat(args.arity, `is`(0))
-                    assertThat(args.functionReference, `is`(sameInstance(f)))
-
-                    val bindings = args.bindings
-                    assertThat(bindings.size, `is`(0))
-                }
-
-                @Test
-                @DisplayName("empty ArgumentList, second call in the chain")
-                fun secondFunctionSpecifier() {
-                    val f = parse<PluginArrowFunctionCall>(
-                        "\$x => upper-case() => string-to-codepoints()"
-                    )[1] as XpmFunctionReference
-                    assertThat(f.arity, `is`(1))
-
-                    val qname = f.functionName!!
-                    assertThat(qname.isLexicalQName, `is`(true))
-                    assertThat(qname.namespace, `is`(nullValue()))
-                    assertThat(qname.prefix, `is`(nullValue()))
-                    assertThat(qname.localName!!.data, `is`("string-to-codepoints"))
-                    assertThat(qname.element, sameInstance(qname as PsiElement))
-
-                    val args = (f as PsiElement).children().filterIsInstance<XPathArgumentList>().first()
-                    assertThat(args.arity, `is`(0))
-                    assertThat(args.functionReference, `is`(sameInstance(f)))
-
-                    val bindings = args.bindings
-                    assertThat(bindings.size, `is`(0))
+                    assertThat(f.positionalArguments.size, `is`(0))
+                    assertThat(f.keywordArguments.size, `is`(0))
                 }
 
                 @Test
                 @DisplayName("invalid EQName")
                 fun invalidEQName() {
-                    val f = parse<PluginArrowFunctionCall>("\$x => :upper-case()")[0] as XpmFunctionReference
+                    val f = parse<PluginArrowFunctionCall>("\$x => :upper-case()")[0] as XpmFunctionCall
                     assertThat(f.arity, `is`(1))
                     assertThat(f.functionName, `is`(nullValue()))
 
-                    val args = (f as PsiElement).children().filterIsInstance<XPathArgumentList>().first()
-                    assertThat(args.arity, `is`(0))
-                    assertThat(args.functionReference, `is`(sameInstance(f)))
-
-                    val bindings = args.bindings
-                    assertThat(bindings.size, `is`(0))
+                    assertThat(f.positionalArguments.size, `is`(0))
+                    assertThat(f.keywordArguments.size, `is`(0))
                 }
 
                 @Test

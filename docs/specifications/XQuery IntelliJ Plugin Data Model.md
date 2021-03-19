@@ -915,10 +915,10 @@ values in a sequence or array.
 | Symbol                     | Interface                     |
 |----------------------------|-------------------------------|
 | `ArgumentPlaceholder`      | `XpmExpression`               |
-| `ArrowFunctionCall`        | `XpmFunctionReference`        |
+| `ArrowFunctionCall`        | `XpmFunctionCall`             |
 | `ArrowDynamicFunctionCall` | `XpmDynamicFunctionReference` |
 | `DynamicFunctionCall`      | `XpmDynamicFunctionReference` |
-| `FunctionCall`             | `XpmFunctionReference`        |
+| `FunctionCall`             | `XpmFunctionCall`             |
 | `FunctionDecl`             | `XpmFunctionDeclaration`      |
 | `InlineFunctionExpr`       | `XpmFunctionDeclaration`      |
 | `NamedFunctionRef`         | `XpmFunctionReference`        |
@@ -928,6 +928,10 @@ or anonymous function.
 
 A *function reference* is an expression that specifies the name and arity of a
 function.
+
+A *function call* is a *function reference* that supplies *positional arguments*
+and *keyword arguments* to the referenced functions. If any of the arguments are
+placeholders, this is a *partially applied function call*.
 
 A *dynamic function reference* is an expression that evaluates to a *function
 reference*.

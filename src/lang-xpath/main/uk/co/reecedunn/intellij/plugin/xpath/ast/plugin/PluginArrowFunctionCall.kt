@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2020 Reece H. Dunn
+ * Copyright (C) 2019-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,10 +16,10 @@
 package uk.co.reecedunn.intellij.plugin.xpath.ast.plugin
 
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArrowFunctionSpecifier
-import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionCall
 
 /**
  * An `ArrowFunctionCall` node in the XPath and XQuery AST.
  */
-interface PluginArrowFunctionCall : XPathArrowFunctionSpecifier, XpmFunctionReference, XpmExpression
+interface PluginArrowFunctionCall : XPathArrowFunctionSpecifier, XpmFunctionCall, XpmExpression
