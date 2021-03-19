@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.reverse
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
@@ -25,22 +26,39 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.filterNotWhitespace
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowDynamicFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
 
 class PluginArrowDynamicFunctionCallPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     PluginArrowDynamicFunctionCall,
     XpmSyntaxValidationElement {
+    // region PsiElement
+
+    override fun subtreeChanged() {
+        super.subtreeChanged()
+        cachedPositionalArguments.invalidate()
+    }
+
+    // endregion
     // region XpmExpression
 
     override val expressionElement: XPathArgumentList
         get() = children().filterIsInstance<XPathArgumentList>().first()
 
     // endregion
-    // region XdmDynamicFunctionReference
+    // region XpmDynamicFunctionCall
 
     override val functionReference: XpmFunctionReference?
         get() = children().filterIsInstance<XpmFunctionReference>().firstOrNull()
+
+    private val cachedPositionalArguments = CacheableProperty {
+        val argumentList = children().filterIsInstance<XPathArgumentList>().first()
+        argumentList.children().filterIsInstance<XpmExpression>().toList()
+    }
+
+    override val positionalArguments: List<XpmExpression>
+        get() = cachedPositionalArguments.get()!!
 
     // endregion
     // region XpmSyntaxValidationElement

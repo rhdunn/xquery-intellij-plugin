@@ -27,8 +27,8 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentPlaceholder
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionParamBinding
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
-import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmDynamicFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmDynamicFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpm.staticallyKnownFunctions
 
 open class XPathArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathArgumentList {
@@ -40,7 +40,7 @@ open class XPathArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
     override val functionReference: XpmFunctionReference?
         get() = when (val parent = parent) {
             is XpmFunctionReference -> parent
-            is XpmDynamicFunctionReference -> parent.functionReference
+            is XpmDynamicFunctionCall -> parent.functionReference
             else -> null
         }
 

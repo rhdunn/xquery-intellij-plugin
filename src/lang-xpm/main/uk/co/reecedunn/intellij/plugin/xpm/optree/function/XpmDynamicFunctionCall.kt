@@ -17,6 +17,8 @@ package uk.co.reecedunn.intellij.plugin.xpm.optree.function
 
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 
-interface XpmDynamicFunctionCall : XpmDynamicFunctionReference {
+interface XpmDynamicFunctionCall {
+    val functionReference: XpmFunctionReference?
+
     val positionalArguments: List<XpmExpression>
 }

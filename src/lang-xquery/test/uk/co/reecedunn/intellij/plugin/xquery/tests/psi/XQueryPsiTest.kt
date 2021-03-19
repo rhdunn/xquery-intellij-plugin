@@ -3233,6 +3233,46 @@ private class XQueryPsiTest : ParserTestCase() {
                         assertThat(bindings.size, `is`(0))
                     }
                 }
+
+                @Nested
+                @DisplayName("XQuery IntelliJ Plugin EBNF (119) ArrowDynamicFunctionCall")
+                internal inner class ArrowDynamicFunctionCall {
+                    @Test
+                    @DisplayName("positional arguments")
+                    fun positionalArguments() {
+                        val f = parse<PluginArrowDynamicFunctionCall>("2 => (math:pow#2)(8)")[0]
+                        val args = f.children().filterIsInstance<XPathArgumentList>().first()
+                        assertThat(args.arity, `is`(1))
+                        assertThat(args.functionReference, `is`(sameInstance(f.functionReference)))
+
+                        val bindings = args.bindings
+                        assertThat(bindings.size, `is`(2))
+
+                        assertThat(op_qname_presentation(bindings[0].param.variableName!!), `is`("x"))
+                        assertThat(bindings[0].size, `is`(1))
+                        assertThat(bindings[0][0].text, `is`("2"))
+
+                        assertThat(op_qname_presentation(bindings[1].param.variableName!!), `is`("y"))
+                        assertThat(bindings[1].size, `is`(1))
+                        assertThat(bindings[1][0].text, `is`("8"))
+                    }
+
+                    @Test
+                    @DisplayName("empty arguments")
+                    fun emptyArguments() {
+                        val f = parse<PluginArrowDynamicFunctionCall>("2 => (fn:abs#1)()")[0]
+                        val args = f.children().filterIsInstance<XPathArgumentList>().first()
+                        assertThat(args.arity, `is`(0))
+                        assertThat(args.functionReference, `is`(sameInstance(f.functionReference)))
+
+                        val bindings = args.bindings
+                        assertThat(bindings.size, `is`(1))
+
+                        assertThat(op_qname_presentation(bindings[0].param.variableName!!), `is`("arg"))
+                        assertThat(bindings[0].size, `is`(1))
+                        assertThat(bindings[0][0].text, `is`("2"))
+                    }
+                }
             }
 
             @Nested
@@ -6652,7 +6692,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
         @Nested
         @DisplayName("XQuery 4.0 ED (4.24) Arrow Expressions ; XQuery 3.1 (3.20) Arrow Operator")
-        internal inner class ArrowOperator {
+        internal inner class ArrowExpressions {
             @Nested
             @DisplayName("XQuery 3.1 EBNF (96) ArrowExpr")
             internal inner class ArrowExpr {
@@ -6832,51 +6872,44 @@ private class XQueryPsiTest : ParserTestCase() {
                 }
             }
 
-            @Nested
+            @Test
+            @DisplayName("XQuery 3.1 EBNF (127) ArrowFunctionSpecifier; XQuery 3.1 EBNF (131) VarRef")
+            fun arrowFunctionSpecifier_VarRef() {
+                val f = parse<PluginArrowDynamicFunctionCall>(
+                    "let \$f := format-date#5 return \$x => \$f(1, 2, 3,  4)"
+                )[0] as XpmDynamicFunctionCall
+
+                assertThat(f.functionReference, `is`(nullValue())) // TODO: fn:format-date#5
+
+                assertThat(f.positionalArguments.size, `is`(4))
+                assertThat(f.positionalArguments[0].text, `is`("1"))
+                assertThat(f.positionalArguments[1].text, `is`("2"))
+                assertThat(f.positionalArguments[2].text, `is`("3"))
+                assertThat(f.positionalArguments[3].text, `is`("4"))
+            }
+
+            @Test
             @DisplayName("XQuery 3.1 EBNF (127) ArrowFunctionSpecifier; XQuery 3.1 EBNF (133) ParenthesizedExpr")
-            internal inner class ArrowFunctionSpecifier_ParenthesizedExpr {
-                @Test
-                @DisplayName("non-empty ArgumentList")
-                fun nonEmptyArgumentList() {
-                    val f = parse<PluginArrowDynamicFunctionCall>("\$x => (format-date#5)(1, 2, 3,  4)")[0]
+            fun arrowFunctionSpecifier_ParenthesizedExpr() {
+                val f = parse<PluginArrowDynamicFunctionCall>(
+                    "\$x => (format-date#5)(1, 2, 3,  4)"
+                )[0] as XpmDynamicFunctionCall
 
-                    val ref = f.functionReference!!
-                    assertThat(ref.arity, `is`(5))
+                val ref = f.functionReference!!
+                assertThat(ref.arity, `is`(5))
 
-                    val qname = ref.functionName!!
-                    assertThat(qname.isLexicalQName, `is`(true))
-                    assertThat(qname.namespace, `is`(nullValue()))
-                    assertThat(qname.prefix, `is`(nullValue()))
-                    assertThat(qname.localName!!.data, `is`("format-date"))
-                    assertThat(qname.element, sameInstance(qname as PsiElement))
+                val qname = ref.functionName!!
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("format-date"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
 
-                    val args = (f as PsiElement).children().filterIsInstance<XPathArgumentList>().first()
-                    assertThat(args.arity, `is`(4))
-                    assertThat(args.functionReference, `is`(sameInstance(ref)))
-
-                    val bindings = args.bindings
-                    assertThat(bindings.size, `is`(5))
-
-                    assertThat(op_qname_presentation(bindings[0].param.variableName!!), `is`("value"))
-                    assertThat(bindings[0].size, `is`(1))
-                    assertThat(bindings[0][0].text, `is`("\$x "))
-
-                    assertThat(op_qname_presentation(bindings[1].param.variableName!!), `is`("picture"))
-                    assertThat(bindings[1].size, `is`(1))
-                    assertThat(bindings[1][0].text, `is`("1"))
-
-                    assertThat(op_qname_presentation(bindings[2].param.variableName!!), `is`("language"))
-                    assertThat(bindings[2].size, `is`(1))
-                    assertThat(bindings[2][0].text, `is`("2"))
-
-                    assertThat(op_qname_presentation(bindings[3].param.variableName!!), `is`("calendar"))
-                    assertThat(bindings[3].size, `is`(1))
-                    assertThat(bindings[3][0].text, `is`("3"))
-
-                    assertThat(op_qname_presentation(bindings[4].param.variableName!!), `is`("place"))
-                    assertThat(bindings[4].size, `is`(1))
-                    assertThat(bindings[4][0].text, `is`("4"))
-                }
+                assertThat(f.positionalArguments.size, `is`(4))
+                assertThat(f.positionalArguments[0].text, `is`("1"))
+                assertThat(f.positionalArguments[1].text, `is`("2"))
+                assertThat(f.positionalArguments[2].text, `is`("3"))
+                assertThat(f.positionalArguments[3].text, `is`("4"))
             }
 
             @Nested

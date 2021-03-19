@@ -4695,31 +4695,44 @@ private class XPathPsiTest : ParserTestCase() {
                 }
             }
 
-            @Nested
+            @Test
+            @DisplayName("XPath 3.1 EBNF (55) ArrowFunctionSpecifier; XPath 3.1 EBNF (59) VarRef")
+            fun arrowFunctionSpecifier_VarRef() {
+                val f = parse<PluginArrowDynamicFunctionCall>(
+                    "let \$f := format-date#5 return \$x => \$f(1, 2, 3,  4)"
+                )[0] as XpmDynamicFunctionCall
+
+                assertThat(f.functionReference, `is`(nullValue())) // TODO: fn:format-date#5
+
+                assertThat(f.positionalArguments.size, `is`(4))
+                assertThat(f.positionalArguments[0].text, `is`("1"))
+                assertThat(f.positionalArguments[1].text, `is`("2"))
+                assertThat(f.positionalArguments[2].text, `is`("3"))
+                assertThat(f.positionalArguments[3].text, `is`("4"))
+            }
+
+            @Test
             @DisplayName("XPath 3.1 EBNF (55) ArrowFunctionSpecifier; XPath 3.1 EBNF (61) ParenthesizedExpr")
-            internal inner class ArrowFunctionSpecifier_ParenthesizedExpr {
-                @Test
-                @DisplayName("non-empty ArgumentList")
-                fun nonEmptyArgumentList() {
-                    val f = parse<PluginArrowDynamicFunctionCall>("\$x => (format-date#5)(1, 2, 3,  4)")[0]
+            fun arrowFunctionSpecifier_ParenthesizedExpr() {
+                val f = parse<PluginArrowDynamicFunctionCall>(
+                    "\$x => (format-date#5)(1, 2, 3,  4)"
+                )[0] as XpmDynamicFunctionCall
 
-                    val ref = f.functionReference!!
-                    assertThat(ref.arity, `is`(5))
+                val ref = f.functionReference!!
+                assertThat(ref.arity, `is`(5))
 
-                    val qname = ref.functionName!!
-                    assertThat(qname.isLexicalQName, `is`(true))
-                    assertThat(qname.namespace, `is`(nullValue()))
-                    assertThat(qname.prefix, `is`(nullValue()))
-                    assertThat(qname.localName!!.data, `is`("format-date"))
-                    assertThat(qname.element, sameInstance(qname as PsiElement))
+                val qname = ref.functionName!!
+                assertThat(qname.isLexicalQName, `is`(true))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("format-date"))
+                assertThat(qname.element, sameInstance(qname as PsiElement))
 
-                    val args = (f as PsiElement).children().filterIsInstance<XPathArgumentList>().first()
-                    assertThat(args.arity, `is`(4))
-                    assertThat(args.functionReference, `is`(sameInstance(ref)))
-
-                    val bindings = args.bindings
-                    assertThat(bindings.size, `is`(0))
-                }
+                assertThat(f.positionalArguments.size, `is`(4))
+                assertThat(f.positionalArguments[0].text, `is`("1"))
+                assertThat(f.positionalArguments[1].text, `is`("2"))
+                assertThat(f.positionalArguments[2].text, `is`("3"))
+                assertThat(f.positionalArguments[3].text, `is`("4"))
             }
 
             @Nested

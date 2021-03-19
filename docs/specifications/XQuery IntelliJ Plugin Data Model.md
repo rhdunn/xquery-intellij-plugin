@@ -912,16 +912,16 @@ values in a sequence or array.
 
 ### 5.6 Functions
 
-| Symbol                     | Interface                     |
-|----------------------------|-------------------------------|
-| `ArgumentPlaceholder`      | `XpmExpression`               |
-| `ArrowFunctionCall`        | `XpmFunctionCall`             |
-| `ArrowDynamicFunctionCall` | `XpmDynamicFunctionReference` |
-| `DynamicFunctionCall`      | `XpmDynamicFunctionCall`      |
-| `FunctionCall`             | `XpmFunctionCall`             |
-| `FunctionDecl`             | `XpmFunctionDeclaration`      |
-| `InlineFunctionExpr`       | `XpmFunctionDeclaration`      |
-| `NamedFunctionRef`         | `XpmFunctionReference`        |
+| Symbol                     | Interface                |
+|----------------------------|--------------------------|
+| `ArgumentPlaceholder`      | `XpmExpression`          |
+| `ArrowFunctionCall`        | `XpmFunctionCall`        |
+| `ArrowDynamicFunctionCall` | `XpmDynamicFunctionCall` |
+| `DynamicFunctionCall`      | `XpmDynamicFunctionCall` |
+| `FunctionCall`             | `XpmFunctionCall`        |
+| `FunctionDecl`             | `XpmFunctionDeclaration` |
+| `InlineFunctionExpr`       | `XpmFunctionDeclaration` |
+| `NamedFunctionRef`         | `XpmFunctionReference`   |
 
 A *function declaration* is a declaration or expression that introduces a named
 or anonymous function.
@@ -932,9 +932,6 @@ function.
 A *function call* is a *function reference* that supplies *positional arguments*
 and *keyword arguments* to the referenced functions. If any of the arguments are
 placeholders, this is a *partially applied function call*.
-
-A *dynamic function reference* is an expression that evaluates to a *function
-reference*.
 
 A *dynamic function call* is an expression that evaluates to a *function
 reference*. The *dynamic function call* supplies *positional arguments* to the
