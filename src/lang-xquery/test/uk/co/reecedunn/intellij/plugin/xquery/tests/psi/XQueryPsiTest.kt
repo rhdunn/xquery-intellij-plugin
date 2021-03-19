@@ -41,8 +41,6 @@ import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
 import uk.co.reecedunn.intellij.plugin.xpath.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryIcons
 import uk.co.reecedunn.intellij.plugin.xpm.context.XpmUsageType
-import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
-import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
@@ -58,8 +56,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAnnotated
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPathStep
-import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionCall
-import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProvider
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.*
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
@@ -3199,6 +3196,46 @@ private class XQueryPsiTest : ParserTestCase() {
             }
 
             @Nested
+            @DisplayName("XQuery 4.0 ED (4.4.2.1) Evaluating Dynamic Function Calls ; XQuery 3.1 (3.1.5.1) Evaluating Static and Dynamic Function Calls")
+            internal inner class EvaluatingDynamicFunctionCalls {
+                @Nested
+                @DisplayName("XQuery IntelliJ Plugin EBNF (129) DynamicFunctionCall")
+                internal inner class DynamicFunctionCall {
+                    @Test
+                    @DisplayName("positional arguments")
+                    fun positionalArguments() {
+                        val f = parse<PluginDynamicFunctionCall>("math:pow#2(2, 8)")[0]
+                        val args = f.children().filterIsInstance<XPathArgumentList>().first()
+                        assertThat(args.arity, `is`(2))
+                        assertThat(args.functionReference, `is`(sameInstance(f.functionReference)))
+
+                        val bindings = args.bindings
+                        assertThat(bindings.size, `is`(2))
+
+                        assertThat(op_qname_presentation(bindings[0].param.variableName!!), `is`("x"))
+                        assertThat(bindings[0].size, `is`(1))
+                        assertThat(bindings[0][0].text, `is`("2"))
+
+                        assertThat(op_qname_presentation(bindings[1].param.variableName!!), `is`("y"))
+                        assertThat(bindings[1].size, `is`(1))
+                        assertThat(bindings[1][0].text, `is`("8"))
+                    }
+
+                    @Test
+                    @DisplayName("empty arguments")
+                    fun emptyArguments() {
+                        val f = parse<PluginDynamicFunctionCall>("fn:true#0()")[0]
+                        val args = f.children().filterIsInstance<XPathArgumentList>().first()
+                        assertThat(args.arity, `is`(0))
+                        assertThat(args.functionReference, `is`(sameInstance(f.functionReference)))
+
+                        val bindings = args.bindings
+                        assertThat(bindings.size, `is`(0))
+                    }
+                }
+            }
+
+            @Nested
             @DisplayName("XQuery 4.0 ED (4.4.2.3) Named Function References ; XQuery 3.1 (3.1.6) Named Function References")
             internal inner class NamedFunctionReferences {
                 @Nested
@@ -3488,8 +3525,8 @@ private class XQueryPsiTest : ParserTestCase() {
             @DisplayName("XQuery 3.1 (3.2.2) Dynamic Function Calls")
             internal inner class DynamicFunctionCalls {
                 @Test
-                @DisplayName("XQuery IntelliJ Plugin EBNF (129) DynamicFunctionCall")
-                fun dynamicFunctionCall() {
+                @DisplayName("path step")
+                fun pathStep() {
                     val step = parse<XPathPostfixExpr>("\$x(1)")[0] as XpmPathStep
                     assertThat(step.axisType, `is`(XpmAxisType.Self))
                     assertThat(step.nodeName, `is`(nullValue()))
@@ -3499,6 +3536,43 @@ private class XQueryPsiTest : ParserTestCase() {
                     val expr = step as XpmExpression
                     assertThat(expr.expressionElement.elementType, `is`(XPathElementType.POSITIONAL_ARGUMENT_LIST))
                     assertThat(expr.expressionElement?.textOffset, `is`(2))
+                }
+
+                @Test
+                @DisplayName("XQuery 3.1 EBNF (168) NamedFunctionRef")
+                fun namedFunctionRef() {
+                    val f = parse<PluginDynamicFunctionCall>("fn:abs#1(1)")[0]
+                    assertThat(f.positionalArguments.size, `is`(1))
+                    assertThat(f.positionalArguments[0].text, `is`("1"))
+
+                    val ref = f.functionReference
+                    assertThat(op_qname_presentation(ref?.functionName!!), `is`("fn:abs"))
+                    assertThat(ref.arity, `is`(1))
+                }
+
+                @Nested
+                @DisplayName("XQuery 3.1 EBNF (133) ParenthesizedExpr ; XQuery 3.1 EBNF (168) NamedFunctionRef")
+                internal inner class ParenthesizedExprWithNamedFunctionRef {
+                    @Test
+                    @DisplayName("single")
+                    fun single() {
+                        val f = parse<PluginDynamicFunctionCall>("(fn:abs#1)(1)")[0] as XpmDynamicFunctionCall
+                        assertThat(f.positionalArguments.size, `is`(1))
+                        assertThat(f.positionalArguments[0].text, `is`("1"))
+
+                        val ref = f.functionReference
+                        assertThat(op_qname_presentation(ref?.functionName!!), `is`("fn:abs"))
+                        assertThat(ref.arity, `is`(1))
+                    }
+
+                    @Test
+                    @DisplayName("multiple")
+                    fun multiple() {
+                        val f = parse<PluginDynamicFunctionCall>("(fn:abs#1, fn:count#1)(1)")[0] as XpmDynamicFunctionCall
+                        assertThat(f.functionReference, `is`(nullValue()))
+                        assertThat(f.positionalArguments.size, `is`(1))
+                        assertThat(f.positionalArguments[0].text, `is`("1"))
+                    }
                 }
             }
         }
@@ -3588,7 +3662,7 @@ private class XQueryPsiTest : ParserTestCase() {
             }
 
             @Nested
-            @DisplayName("XQuery 3.1 (3.3.2) Axes")
+            @DisplayName("XQuery 3.1 (3.3.2) Steps")
             internal inner class Steps {
                 @Nested
                 @DisplayName("XQuery 3.1 EBNF (39) AxisStep")

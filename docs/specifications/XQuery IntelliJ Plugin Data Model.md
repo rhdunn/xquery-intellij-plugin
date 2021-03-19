@@ -917,7 +917,7 @@ values in a sequence or array.
 | `ArgumentPlaceholder`      | `XpmExpression`               |
 | `ArrowFunctionCall`        | `XpmFunctionCall`             |
 | `ArrowDynamicFunctionCall` | `XpmDynamicFunctionReference` |
-| `DynamicFunctionCall`      | `XpmDynamicFunctionReference` |
+| `DynamicFunctionCall`      | `XpmDynamicFunctionCall`      |
 | `FunctionCall`             | `XpmFunctionCall`             |
 | `FunctionDecl`             | `XpmFunctionDeclaration`      |
 | `InlineFunctionExpr`       | `XpmFunctionDeclaration`      |
@@ -935,6 +935,11 @@ placeholders, this is a *partially applied function call*.
 
 A *dynamic function reference* is an expression that evaluates to a *function
 reference*.
+
+A *dynamic function call* is an expression that evaluates to a *function
+reference*. The *dynamic function call* supplies *positional arguments* to the
+evaluated function reference. If any of the arguments are placeholders, this
+is a *partially applied function call*.
 
 ## A References
 

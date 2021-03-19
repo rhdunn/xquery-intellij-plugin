@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNodeItem
@@ -27,12 +28,21 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAxisType
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPredicate
 
 class PluginDynamicFunctionCallPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     PluginDynamicFunctionCall,
     XpmSyntaxValidationElement {
+    // region PsiElement
+
+    override fun subtreeChanged() {
+        super.subtreeChanged()
+        cachedPositionalArguments.invalidate()
+    }
+
+    // endregion
     // region XpmPathStep
 
     override val axisType: XpmAxisType = XpmAxisType.Self
@@ -50,10 +60,18 @@ class PluginDynamicFunctionCallPsiImpl(node: ASTNode) :
         get() = children().filterIsInstance<XPathArgumentList>().first()
 
     // endregion
-    // region XpmDynamicFunctionReference
+    // region XpmDynamicFunctionCall
 
     override val functionReference: XpmFunctionReference?
         get() = children().filterIsInstance<XpmFunctionReference>().firstOrNull()
+
+    private val cachedPositionalArguments = CacheableProperty {
+        val argumentList = children().filterIsInstance<XPathArgumentList>().first()
+        argumentList.children().filterIsInstance<XpmExpression>().toList()
+    }
+
+    override val positionalArguments: List<XpmExpression>
+        get() = cachedPositionalArguments.get()!!
 
     // endregion
     // region XpmSyntaxValidationElement

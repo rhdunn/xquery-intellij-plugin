@@ -44,6 +44,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPathStep
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmDynamicFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
@@ -2920,8 +2921,8 @@ private class XPathPsiTest : ParserTestCase() {
             @DisplayName("XQuery 3.1 (3.2.2) Dynamic Function Calls")
             internal inner class DynamicFunctionCalls {
                 @Test
-                @DisplayName("XQuery IntelliJ Plugin XPath EBNF (47) DynamicFunctionCall")
-                fun dynamicFunctionCall() {
+                @DisplayName("path step")
+                fun pathStep() {
                     val step = parse<XPathPostfixExpr>("\$x(1)")[0] as XpmPathStep
                     assertThat(step.axisType, `is`(XpmAxisType.Self))
                     assertThat(step.nodeName, `is`(nullValue()))
@@ -2931,6 +2932,43 @@ private class XPathPsiTest : ParserTestCase() {
                     val expr = step as XpmExpression
                     assertThat(expr.expressionElement.elementType, `is`(XPathElementType.POSITIONAL_ARGUMENT_LIST))
                     assertThat(expr.expressionElement?.textOffset, `is`(2))
+                }
+
+                @Test
+                @DisplayName("XPath 3.1 EBNF (67) NamedFunctionRef")
+                fun namedFunctionRef() {
+                    val f = parse<PluginDynamicFunctionCall>("fn:abs#1(1)")[0] as XpmDynamicFunctionCall
+                    assertThat(f.positionalArguments.size, `is`(1))
+                    assertThat(f.positionalArguments[0].text, `is`("1"))
+
+                    val ref = f.functionReference
+                    assertThat(op_qname_presentation(ref?.functionName!!), `is`("fn:abs"))
+                    assertThat(ref.arity, `is`(1))
+                }
+
+                @Nested
+                @DisplayName("XPath 3.1 EBNF (61) ParenthesizedExpr ; XPath 3.1 EBNF (67) NamedFunctionRef")
+                internal inner class ParenthesizedExprWithNamedFunctionRef {
+                    @Test
+                    @DisplayName("single")
+                    fun single() {
+                        val f = parse<PluginDynamicFunctionCall>("(fn:abs#1)(1)")[0] as XpmDynamicFunctionCall
+                        assertThat(f.positionalArguments.size, `is`(1))
+                        assertThat(f.positionalArguments[0].text, `is`("1"))
+
+                        val ref = f.functionReference
+                        assertThat(op_qname_presentation(ref?.functionName!!), `is`("fn:abs"))
+                        assertThat(ref.arity, `is`(1))
+                    }
+
+                    @Test
+                    @DisplayName("multiple")
+                    fun multiple() {
+                        val f = parse<PluginDynamicFunctionCall>("(fn:abs#1, fn:count#1)(1)")[0] as XpmDynamicFunctionCall
+                        assertThat(f.functionReference, `is`(nullValue()))
+                        assertThat(f.positionalArguments.size, `is`(1))
+                        assertThat(f.positionalArguments[0].text, `is`("1"))
+                    }
                 }
             }
         }
@@ -3020,7 +3058,7 @@ private class XPathPsiTest : ParserTestCase() {
             }
 
             @Nested
-            @DisplayName("XPath 3.1 (3.3.2) Axes")
+            @DisplayName("XPath 3.1 (3.3.2) Steps")
             internal inner class Steps {
                 @Nested
                 @DisplayName("XPath 3.1 EBNF (39) AxisStep")
