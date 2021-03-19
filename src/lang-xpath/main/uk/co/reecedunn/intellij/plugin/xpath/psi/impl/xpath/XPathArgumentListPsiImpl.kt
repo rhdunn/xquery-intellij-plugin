@@ -36,16 +36,13 @@ open class XPathArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
     private val arguments: Sequence<PsiElement>
         get() = children().filter { it is XpmExpression || it is XPathArgumentPlaceholder }
 
-    override val functionReference: XpmFunctionReference?
-        get() = when (val parent = parent) {
-            is XpmFunctionReference -> parent
-            is XpmDynamicFunctionCall -> parent.functionReference
-            else -> null
-        }
-
     override val bindings: List<XpmFunctionParamBinding>
         get() {
-            val ref = functionReference
+            val ref = when (val parent = parent) {
+                is XpmFunctionReference -> parent
+                is XpmDynamicFunctionCall -> parent.functionReference
+                else -> null
+            }
             val target = ref?.functionName?.staticallyKnownFunctions()?.firstOrNull { f ->
                 f.arity.isWithin(ref.arity)
             } ?: return listOf()

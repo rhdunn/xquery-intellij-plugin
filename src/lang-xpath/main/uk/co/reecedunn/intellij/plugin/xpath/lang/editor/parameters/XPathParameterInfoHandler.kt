@@ -24,6 +24,8 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.isArrowFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmDynamicFunctionCall
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpm.staticallyKnownFunctions
 
 class XPathParameterInfoHandler : ParameterInfoHandler<XPathArgumentList, XpmFunctionDeclaration> {
@@ -94,7 +96,11 @@ class XPathParameterInfoHandler : ParameterInfoHandler<XPathArgumentList, XpmFun
     }
 
     private fun functionCandidates(args: XPathArgumentList?): Sequence<XpmFunctionDeclaration> {
-        val functionName = args?.functionReference?.functionName
+        val functionName = when (val parent = args?.parent) {
+            is XpmFunctionCall -> parent.functionName
+            is XpmDynamicFunctionCall -> parent.functionReference?.functionName
+            else -> null
+        }
         return functionName?.staticallyKnownFunctions()?.sortedBy { it.arity.from }?.distinct() ?: emptySequence()
     }
 
