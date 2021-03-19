@@ -27,7 +27,5 @@ interface XPathArgumentList : PsiElement {
 
     val arity: Int
 
-    val isPartialFunctionApplication: Boolean
-
     val bindings: List<XpmFunctionParamBinding>
 }

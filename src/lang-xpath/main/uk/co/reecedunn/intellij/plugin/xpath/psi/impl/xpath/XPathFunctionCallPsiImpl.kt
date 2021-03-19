@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentPlaceholder
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.map.XpmMapEntry
 
@@ -39,12 +40,9 @@ class XPathFunctionCallPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPat
     // region XpmExpression
 
     override val expressionElement: PsiElement
-        get() {
-            val argumentList = argumentList
-            return when {
-                argumentList.isPartialFunctionApplication -> argumentList
-                else -> this
-            }
+        get() = when {
+            positionalArguments.find { it is XPathArgumentPlaceholder } != null -> argumentList
+            else -> this
         }
 
     // endregion

@@ -26,7 +26,6 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentPlaceholder
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionParamBinding
-import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmDynamicFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpm.staticallyKnownFunctions
@@ -46,9 +45,6 @@ open class XPathArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
 
     override val arity: Int
         get() = arguments.count()
-
-    override val isPartialFunctionApplication: Boolean
-        get() = findChildByType<PsiElement>(XPathElementType.ARGUMENT_PLACEHOLDER) != null
 
     override val bindings: List<XpmFunctionParamBinding>
         get() {
