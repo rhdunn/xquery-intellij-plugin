@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xpm.optree
 
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 
 interface XpmPathStep {
     val axisType: XpmAxisType
@@ -25,5 +26,5 @@ interface XpmPathStep {
 
     val nodeType: XdmItemType
 
-    val predicate: XpmPredicate?
+    val predicateExpression: XpmExpression?
 }

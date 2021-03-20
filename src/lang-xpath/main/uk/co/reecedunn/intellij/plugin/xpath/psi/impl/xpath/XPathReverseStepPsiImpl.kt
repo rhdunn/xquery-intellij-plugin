@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2020 Reece H. Dunn
+ * Copyright (C) 2016, 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathReverseStep
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAxisType
-import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPredicate
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 import java.lang.UnsupportedOperationException
 
 class XPathReverseStepPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathReverseStep {
@@ -45,5 +45,5 @@ class XPathReverseStepPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPath
     override val nodeType: XdmItemType
         get() = (lastChild as? XPathNodeTest)?.nodeType ?: axisType.principalNodeKind
 
-    override val predicate: XpmPredicate? = null
+    override val predicateExpression: XpmExpression? = null
 }

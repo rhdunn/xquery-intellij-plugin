@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginPostfixLookup
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathLookup
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAxisType
-import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPredicate
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 
 class PluginPostfixLookupPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginPostfixLookup {
     // region XpmPathStep
@@ -36,7 +36,7 @@ class PluginPostfixLookupPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), Pl
 
     override val nodeType: XdmItemType = XdmNodeItem
 
-    override val predicate: XpmPredicate? = null
+    override val predicateExpression: XpmExpression? = null
 
     // endregion
     // region XpmExpression

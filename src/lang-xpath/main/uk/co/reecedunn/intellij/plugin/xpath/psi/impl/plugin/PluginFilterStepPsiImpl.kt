@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,9 +22,10 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginFilterStep
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPredicate
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPathStep
-import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPredicate
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 
 class PluginFilterStepPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginFilterStep {
     // region XpmExpression
@@ -43,8 +44,11 @@ class PluginFilterStepPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), Plugi
     override val nodeType: XdmItemType
         get() = (firstChild as XpmPathStep).nodeType
 
-    override val predicate: XpmPredicate?
-        get() = children().filterIsInstance<XpmPredicate>().firstOrNull()
+    override val predicateExpression: XpmExpression?
+        get() {
+            val predicate = children().filterIsInstance<XPathPredicate>().firstOrNull()
+            return predicate?.children()?.filterIsInstance<XpmExpression>()?.firstOrNull()
+        }
 
     // endregion
 }

@@ -3420,7 +3420,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     assertThat(step.axisType, `is`(XpmAxisType.Self))
                     assertThat(step.nodeName, `is`(nullValue()))
                     assertThat(step.nodeType, sameInstance(XdmNodeItem))
-                    assertThat(step.predicate, `is`(nullValue()))
+                    assertThat(step.predicateExpression, `is`(nullValue()))
 
                     val expr = step as XpmExpression
                     assertThat(expr.expressionElement, `is`(nullValue()))
@@ -3433,7 +3433,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     assertThat(step.axisType, `is`(XpmAxisType.Self))
                     assertThat(step.nodeName, `is`(nullValue()))
                     assertThat(step.nodeType, sameInstance(XdmNodeItem))
-                    assertThat(step.predicate, `is`(nullValue()))
+                    assertThat(step.predicateExpression, `is`(nullValue()))
 
                     val expr = step as XpmExpression
                     assertThat(expr.expressionElement, `is`(nullValue()))
@@ -3446,7 +3446,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     assertThat(step.axisType, `is`(XpmAxisType.Self))
                     assertThat(step.nodeName, `is`(nullValue()))
                     assertThat(step.nodeType, sameInstance(XdmNodeItem))
-                    assertThat(step.predicate, `is`(nullValue()))
+                    assertThat(step.predicateExpression, `is`(nullValue()))
 
                     val expr = step as XpmExpression
                     assertThat(expr.expressionElement, `is`(nullValue()))
@@ -3466,7 +3466,7 @@ private class XQueryPsiTest : ParserTestCase() {
                         assertThat(step.axisType, `is`(XpmAxisType.Self))
                         assertThat(step.nodeName, `is`(nullValue()))
                         assertThat(step.nodeType, sameInstance(XdmNodeItem))
-                        assertThat((step.predicate as? PsiElement)?.text, `is`("[1]"))
+                        assertThat((step.predicateExpression as? XsIntegerValue)?.data, `is`(BigInteger.ONE))
 
                         val expr = step as XpmExpression
                         assertThat(expr.expressionElement.elementType, `is`(XPathElementType.VAR_REF))
@@ -3480,7 +3480,7 @@ private class XQueryPsiTest : ParserTestCase() {
                         assertThat(step.axisType, `is`(XpmAxisType.Self))
                         assertThat(step.nodeName, `is`(nullValue()))
                         assertThat(step.nodeType, sameInstance(XdmNodeItem))
-                        assertThat((step.predicate as? PsiElement)?.text, `is`("[1]"))
+                        assertThat((step.predicateExpression as? XsIntegerValue)?.data, `is`(BigInteger.ONE))
 
                         val expr = step as XpmExpression
                         assertThat(expr.expressionElement.elementType, `is`(XPathElementType.MAP_CONSTRUCTOR_ENTRY))
@@ -3494,7 +3494,7 @@ private class XQueryPsiTest : ParserTestCase() {
                         assertThat(step.axisType, `is`(XpmAxisType.Self))
                         assertThat(step.nodeName, `is`(nullValue()))
                         assertThat(step.nodeType, sameInstance(XdmNodeItem))
-                        assertThat((step.predicate as? PsiElement)?.text, `is`("[1]"))
+                        assertThat((step.predicateExpression as? XsIntegerValue)?.data, `is`(BigInteger.ONE))
 
                         val expr = step as XpmExpression
                         assertThat(expr.expressionElement.elementType, `is`(XPathElementType.VAR_REF))
@@ -3508,7 +3508,7 @@ private class XQueryPsiTest : ParserTestCase() {
                         assertThat(step.axisType, `is`(XpmAxisType.Self))
                         assertThat(step.nodeName, `is`(nullValue()))
                         assertThat(step.nodeType, sameInstance(XdmNodeItem))
-                        assertThat((step.predicate as? PsiElement)?.text, `is`("[2]"))
+                        assertThat((step.predicateExpression as? XsIntegerValue)?.data, `is`(BigInteger.TWO))
 
                         val expr = step as XpmExpression
                         assertThat(expr.expressionElement.elementType, `is`(XPathElementType.VAR_REF))
@@ -3527,7 +3527,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     assertThat(step.axisType, `is`(XpmAxisType.Self))
                     assertThat(step.nodeName, `is`(nullValue()))
                     assertThat(step.nodeType, sameInstance(XdmNodeItem))
-                    assertThat(step.predicate, `is`(nullValue()))
+                    assertThat(step.predicateExpression, `is`(nullValue()))
 
                     val expr = step as XpmExpression
                     assertThat(expr.expressionElement.elementType, `is`(XPathElementType.POSITIONAL_ARGUMENT_LIST))
@@ -3653,7 +3653,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     assertThat(step.axisType, `is`(XpmAxisType.DescendantOrSelf))
                     assertThat(step.nodeName, `is`(nullValue()))
                     assertThat(step.nodeType, sameInstance(XdmNodeItem))
-                    assertThat(step.predicate, `is`(nullValue()))
+                    assertThat(step.predicateExpression, `is`(nullValue()))
                 }
             }
 
@@ -3671,7 +3671,7 @@ private class XQueryPsiTest : ParserTestCase() {
                         assertThat(step.axisType, `is`(XpmAxisType.Child))
                         assertThat(step.nodeName, sameInstance(qname))
                         assertThat(step.nodeType, sameInstance(XdmElementItem))
-                        assertThat((step.predicate as? PsiElement)?.text, `is`("[1]"))
+                        assertThat((step.predicateExpression as? XsIntegerValue)?.data, `is`(BigInteger.ONE))
                     }
 
                     @Test
@@ -3682,7 +3682,7 @@ private class XQueryPsiTest : ParserTestCase() {
                         assertThat(step.axisType, `is`(XpmAxisType.Child))
                         assertThat(step.nodeName, sameInstance(qname))
                         assertThat(step.nodeType, sameInstance(XdmElementItem))
-                        assertThat((step.predicate as? PsiElement)?.text, `is`("[2]"))
+                        assertThat((step.predicateExpression as? XsIntegerValue)?.data, `is`(BigInteger.TWO))
                     }
 
                     @Test
@@ -3692,7 +3692,7 @@ private class XQueryPsiTest : ParserTestCase() {
                         assertThat(step.axisType, `is`(XpmAxisType.Parent))
                         assertThat(step.nodeName, `is`(nullValue()))
                         assertThat(step.nodeType, sameInstance(XdmNodeItem))
-                        assertThat((step.predicate as? PsiElement)?.text, `is`("[1]"))
+                        assertThat((step.predicateExpression as? XsIntegerValue)?.data, `is`(BigInteger.ONE))
                     }
 
                     @Test
@@ -3703,7 +3703,7 @@ private class XQueryPsiTest : ParserTestCase() {
                         assertThat(step.axisType, `is`(XpmAxisType.Child))
                         assertThat(step.nodeName, sameInstance(qname))
                         assertThat(step.nodeType, sameInstance(XdmElementItem))
-                        assertThat((step.predicate as? PsiElement)?.text, `is`("[1]"))
+                        assertThat((step.predicateExpression as? XsIntegerValue)?.data, `is`(BigInteger.ONE))
                     }
 
                     @Test
@@ -3714,7 +3714,7 @@ private class XQueryPsiTest : ParserTestCase() {
                         assertThat(step.axisType, `is`(XpmAxisType.Child))
                         assertThat(step.nodeName, `is`(nullValue()))
                         assertThat(step.nodeType, sameInstance(itemType))
-                        assertThat((step.predicate as? PsiElement)?.text, `is`("[1]"))
+                        assertThat((step.predicateExpression as? XsIntegerValue)?.data, `is`(BigInteger.ONE))
                     }
                 }
             }
@@ -3733,7 +3733,7 @@ private class XQueryPsiTest : ParserTestCase() {
                         assertThat(step.axisType, `is`(XpmAxisType.Child))
                         assertThat(step.nodeName, sameInstance(qname))
                         assertThat(step.nodeType, sameInstance(XdmElementItem))
-                        assertThat(step.predicate, `is`(nullValue()))
+                        assertThat(step.predicateExpression, `is`(nullValue()))
                     }
 
                     @Test
@@ -3744,7 +3744,7 @@ private class XQueryPsiTest : ParserTestCase() {
                         assertThat(step.axisType, `is`(XpmAxisType.Child))
                         assertThat(step.nodeName, `is`(nullValue()))
                         assertThat(step.nodeType, sameInstance(itemType))
-                        assertThat(step.predicate, `is`(nullValue()))
+                        assertThat(step.predicateExpression, `is`(nullValue()))
                     }
 
                     @Test
@@ -3855,7 +3855,7 @@ private class XQueryPsiTest : ParserTestCase() {
                         assertThat(step.axisType, `is`(XpmAxisType.Parent))
                         assertThat(step.nodeName, sameInstance(qname))
                         assertThat(step.nodeType, sameInstance(XdmElementItem))
-                        assertThat(step.predicate, `is`(nullValue()))
+                        assertThat(step.predicateExpression, `is`(nullValue()))
                     }
 
                     @Test
@@ -3866,7 +3866,7 @@ private class XQueryPsiTest : ParserTestCase() {
                         assertThat(step.axisType, `is`(XpmAxisType.Parent))
                         assertThat(step.nodeName, `is`(nullValue()))
                         assertThat(step.nodeType, sameInstance(itemType))
-                        assertThat(step.predicate, `is`(nullValue()))
+                        assertThat(step.predicateExpression, `is`(nullValue()))
                     }
 
                     @Test
@@ -4176,7 +4176,7 @@ private class XQueryPsiTest : ParserTestCase() {
                         assertThat(step.axisType, `is`(XpmAxisType.Attribute))
                         assertThat(step.nodeName, sameInstance(qname))
                         assertThat(step.nodeType, sameInstance(XdmAttributeItem))
-                        assertThat(step.predicate, `is`(nullValue()))
+                        assertThat(step.predicateExpression, `is`(nullValue()))
                     }
 
                     @Test
@@ -4187,7 +4187,7 @@ private class XQueryPsiTest : ParserTestCase() {
                         assertThat(step.axisType, `is`(XpmAxisType.Attribute))
                         assertThat(step.nodeName, `is`(nullValue()))
                         assertThat(step.nodeType, sameInstance(itemType))
-                        assertThat(step.predicate, `is`(nullValue()))
+                        assertThat(step.predicateExpression, `is`(nullValue()))
                     }
                 }
 
@@ -4205,7 +4205,7 @@ private class XQueryPsiTest : ParserTestCase() {
                             assertThat(step.axisType, `is`(XpmAxisType.Child))
                             assertThat(step.nodeName, sameInstance(qname))
                             assertThat(step.nodeType, sameInstance(XdmElementItem))
-                            assertThat(step.predicate, `is`(nullValue()))
+                            assertThat(step.predicateExpression, `is`(nullValue()))
                         }
 
                         @Test
@@ -4216,7 +4216,7 @@ private class XQueryPsiTest : ParserTestCase() {
                             assertThat(step.axisType, `is`(XpmAxisType.Child))
                             assertThat(step.nodeName, `is`(nullValue()))
                             assertThat(step.nodeType, sameInstance(itemType))
-                            assertThat(step.predicate, `is`(nullValue()))
+                            assertThat(step.predicateExpression, `is`(nullValue()))
                         }
 
                         @Test
@@ -4227,7 +4227,7 @@ private class XQueryPsiTest : ParserTestCase() {
                             assertThat(step.axisType, `is`(XpmAxisType.Child))
                             assertThat(step.nodeName, `is`(nullValue()))
                             assertThat(step.nodeType, sameInstance(itemType))
-                            assertThat(step.predicate, `is`(nullValue()))
+                            assertThat(step.predicateExpression, `is`(nullValue()))
                         }
 
                         @Test
@@ -4238,7 +4238,7 @@ private class XQueryPsiTest : ParserTestCase() {
                             assertThat(step.axisType, `is`(XpmAxisType.Child))
                             assertThat(step.nodeName, `is`(nullValue()))
                             assertThat(step.nodeType, sameInstance(itemType))
-                            assertThat(step.predicate, `is`(nullValue()))
+                            assertThat(step.predicateExpression, `is`(nullValue()))
                         }
 
                         @Test
@@ -4249,7 +4249,7 @@ private class XQueryPsiTest : ParserTestCase() {
                             assertThat(step.axisType, `is`(XpmAxisType.Child))
                             assertThat(step.nodeName, `is`(nullValue()))
                             assertThat(step.nodeType, sameInstance(itemType))
-                            assertThat(step.predicate, `is`(nullValue()))
+                            assertThat(step.predicateExpression, `is`(nullValue()))
                         }
 
                         @Test
@@ -4260,7 +4260,7 @@ private class XQueryPsiTest : ParserTestCase() {
                             assertThat(step.axisType, `is`(XpmAxisType.Child))
                             assertThat(step.nodeName, `is`(nullValue()))
                             assertThat(step.nodeType, sameInstance(itemType))
-                            assertThat(step.predicate, `is`(nullValue()))
+                            assertThat(step.predicateExpression, `is`(nullValue()))
                         }
 
                         @Test
@@ -4271,7 +4271,7 @@ private class XQueryPsiTest : ParserTestCase() {
                             assertThat(step.axisType, `is`(XpmAxisType.Child))
                             assertThat(step.nodeName, `is`(nullValue()))
                             assertThat(step.nodeType, sameInstance(itemType))
-                            assertThat(step.predicate, `is`(nullValue()))
+                            assertThat(step.predicateExpression, `is`(nullValue()))
                         }
 
                         @Test
@@ -4282,7 +4282,7 @@ private class XQueryPsiTest : ParserTestCase() {
                             assertThat(step.axisType, `is`(XpmAxisType.Child))
                             assertThat(step.nodeName, `is`(nullValue()))
                             assertThat(step.nodeType, sameInstance(itemType))
-                            assertThat(step.predicate, `is`(nullValue()))
+                            assertThat(step.predicateExpression, `is`(nullValue()))
                         }
                     }
 
@@ -4297,7 +4297,7 @@ private class XQueryPsiTest : ParserTestCase() {
                             assertThat(step.axisType, `is`(XpmAxisType.Attribute))
                             assertThat(step.nodeName, `is`(nullValue()))
                             assertThat(step.nodeType, sameInstance(itemType))
-                            assertThat(step.predicate, `is`(nullValue()))
+                            assertThat(step.predicateExpression, `is`(nullValue()))
                         }
 
                         @Test
@@ -4308,7 +4308,7 @@ private class XQueryPsiTest : ParserTestCase() {
                             assertThat(step.axisType, `is`(XpmAxisType.Attribute))
                             assertThat(step.nodeName, `is`(nullValue()))
                             assertThat(step.nodeType, sameInstance(itemType))
-                            assertThat(step.predicate, `is`(nullValue()))
+                            assertThat(step.predicateExpression, `is`(nullValue()))
                         }
                     }
 
@@ -4320,7 +4320,7 @@ private class XQueryPsiTest : ParserTestCase() {
                         assertThat(step.axisType, `is`(XpmAxisType.Namespace))
                         assertThat(step.nodeName, `is`(nullValue()))
                         assertThat(step.nodeType, sameInstance(itemType))
-                        assertThat(step.predicate, `is`(nullValue()))
+                        assertThat(step.predicateExpression, `is`(nullValue()))
                     }
                 }
 
@@ -4331,7 +4331,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     assertThat(step.axisType, `is`(XpmAxisType.DescendantOrSelf))
                     assertThat(step.nodeName, `is`(nullValue()))
                     assertThat(step.nodeType, sameInstance(XdmNodeItem))
-                    assertThat(step.predicate, `is`(nullValue()))
+                    assertThat(step.predicateExpression, `is`(nullValue()))
                 }
 
                 @Test
@@ -4341,7 +4341,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     assertThat(step.axisType, `is`(XpmAxisType.Parent))
                     assertThat(step.nodeName, `is`(nullValue()))
                     assertThat(step.nodeType, sameInstance(XdmNodeItem))
-                    assertThat(step.predicate, `is`(nullValue()))
+                    assertThat(step.predicateExpression, `is`(nullValue()))
                 }
 
                 @Nested
@@ -5398,7 +5398,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     assertThat(step.axisType, `is`(XpmAxisType.Self))
                     assertThat(step.nodeName, `is`(nullValue()))
                     assertThat(step.nodeType, sameInstance(XdmNodeItem))
-                    assertThat(step.predicate, `is`(nullValue()))
+                    assertThat(step.predicateExpression, `is`(nullValue()))
 
                     val expr = step as XpmExpression
                     assertThat(expr.expressionElement.elementType, `is`(XPathElementType.LOOKUP))

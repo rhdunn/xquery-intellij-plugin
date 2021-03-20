@@ -29,7 +29,6 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationEl
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
-import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPredicate
 
 class PluginDynamicFunctionCallPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
@@ -51,7 +50,7 @@ class PluginDynamicFunctionCallPsiImpl(node: ASTNode) :
 
     override val nodeType: XdmItemType = XdmNodeItem
 
-    override val predicate: XpmPredicate? = null
+    override val predicateExpression: XpmExpression? = null
 
     // endregion
     // region XpmExpression

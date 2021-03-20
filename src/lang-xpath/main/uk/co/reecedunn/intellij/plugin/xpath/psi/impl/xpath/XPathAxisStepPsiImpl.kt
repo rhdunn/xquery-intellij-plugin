@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2020 Reece H. Dunn
+ * Copyright (C) 2016, 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAxisStep
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPathStep
-import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPredicate
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 
 class XPathAxisStepPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathAxisStep {
     override val axisType: XpmAxisType
@@ -34,5 +34,5 @@ class XPathAxisStepPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathAxi
     override val nodeType: XdmItemType
         get() = (firstChild as XpmPathStep).nodeType
 
-    override val predicate: XpmPredicate? = null
+    override val predicateExpression: XpmExpression? = null
 }
