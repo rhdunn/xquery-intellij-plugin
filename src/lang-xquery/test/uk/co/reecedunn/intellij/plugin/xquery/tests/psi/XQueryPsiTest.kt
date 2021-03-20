@@ -3508,7 +3508,7 @@ private class XQueryPsiTest : ParserTestCase() {
                         assertThat(step.axisType, `is`(XpmAxisType.Self))
                         assertThat(step.nodeName, `is`(nullValue()))
                         assertThat(step.nodeType, sameInstance(XdmNodeItem))
-                        assertThat((step.predicateExpression as? XsIntegerValue)?.data, `is`(BigInteger.TWO))
+                        assertThat((step.predicateExpression as? XsIntegerValue)?.data, `is`(BigInteger.valueOf(2)))
 
                         val expr = step as XpmExpression
                         assertThat(expr.expressionElement.elementType, `is`(XPathElementType.VAR_REF))
@@ -3682,7 +3682,7 @@ private class XQueryPsiTest : ParserTestCase() {
                         assertThat(step.axisType, `is`(XpmAxisType.Child))
                         assertThat(step.nodeName, sameInstance(qname))
                         assertThat(step.nodeType, sameInstance(XdmElementItem))
-                        assertThat((step.predicateExpression as? XsIntegerValue)?.data, `is`(BigInteger.TWO))
+                        assertThat((step.predicateExpression as? XsIntegerValue)?.data, `is`(BigInteger.valueOf(2)))
                     }
 
                     @Test
