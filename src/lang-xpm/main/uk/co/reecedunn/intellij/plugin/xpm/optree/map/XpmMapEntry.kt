@@ -15,11 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.optree.map
 
-import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyAtomicType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 
-interface XpmMapEntry : PsiElement {
+interface XpmMapEntry {
     val keyName: XsAnyAtomicType
 
     val valueExpression: XpmExpression?
