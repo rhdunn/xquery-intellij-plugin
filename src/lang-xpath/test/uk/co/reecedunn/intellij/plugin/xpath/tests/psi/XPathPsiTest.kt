@@ -2866,7 +2866,7 @@ private class XPathPsiTest : ParserTestCase() {
                         assertThat(step.axisType, `is`(XpmAxisType.Self))
                         assertThat(step.nodeName, `is`(nullValue()))
                         assertThat(step.nodeType, sameInstance(XdmNodeItem))
-                        assertThat(step.predicate?.text, `is`("[1]"))
+                        assertThat((step.predicate as? PsiElement)?.text, `is`("[1]"))
 
                         val expr = step as XpmExpression
                         assertThat(expr.expressionElement.elementType, `is`(XPathElementType.VAR_REF))
@@ -2880,7 +2880,7 @@ private class XPathPsiTest : ParserTestCase() {
                         assertThat(step.axisType, `is`(XpmAxisType.Self))
                         assertThat(step.nodeName, `is`(nullValue()))
                         assertThat(step.nodeType, sameInstance(XdmNodeItem))
-                        assertThat(step.predicate?.text, `is`("[1]"))
+                        assertThat((step.predicate as? PsiElement)?.text, `is`("[1]"))
 
                         val expr = step as XpmExpression
                         assertThat(expr.expressionElement.elementType, `is`(XPathElementType.MAP_CONSTRUCTOR_ENTRY))
@@ -2894,7 +2894,7 @@ private class XPathPsiTest : ParserTestCase() {
                         assertThat(step.axisType, `is`(XpmAxisType.Self))
                         assertThat(step.nodeName, `is`(nullValue()))
                         assertThat(step.nodeType, sameInstance(XdmNodeItem))
-                        assertThat(step.predicate?.text, `is`("[1]"))
+                        assertThat((step.predicate as? PsiElement)?.text, `is`("[1]"))
 
                         val expr = step as XpmExpression
                         assertThat(expr.expressionElement.elementType, `is`(XPathElementType.VAR_REF))
@@ -2908,7 +2908,7 @@ private class XPathPsiTest : ParserTestCase() {
                         assertThat(step.axisType, `is`(XpmAxisType.Self))
                         assertThat(step.nodeName, `is`(nullValue()))
                         assertThat(step.nodeType, sameInstance(XdmNodeItem))
-                        assertThat(step.predicate?.text, `is`("[2]"))
+                        assertThat((step.predicate as? PsiElement)?.text, `is`("[2]"))
 
                         val expr = step as XpmExpression
                         assertThat(expr.expressionElement.elementType, `is`(XPathElementType.VAR_REF))
@@ -3071,7 +3071,7 @@ private class XPathPsiTest : ParserTestCase() {
                         assertThat(step.axisType, `is`(XpmAxisType.Child))
                         assertThat(step.nodeName, sameInstance(qname))
                         assertThat(step.nodeType, sameInstance(XdmElementItem))
-                        assertThat(step.predicate?.text, `is`("[1]"))
+                        assertThat((step.predicate as? PsiElement)?.text, `is`("[1]"))
                     }
 
                     @Test
@@ -3082,7 +3082,7 @@ private class XPathPsiTest : ParserTestCase() {
                         assertThat(step.axisType, `is`(XpmAxisType.Child))
                         assertThat(step.nodeName, sameInstance(qname))
                         assertThat(step.nodeType, sameInstance(XdmElementItem))
-                        assertThat(step.predicate?.text, `is`("[2]"))
+                        assertThat((step.predicate as? PsiElement)?.text, `is`("[2]"))
                     }
 
                     @Test
@@ -3092,7 +3092,7 @@ private class XPathPsiTest : ParserTestCase() {
                         assertThat(step.axisType, `is`(XpmAxisType.Parent))
                         assertThat(step.nodeName, `is`(nullValue()))
                         assertThat(step.nodeType, sameInstance(XdmNodeItem))
-                        assertThat(step.predicate?.text, `is`("[1]"))
+                        assertThat((step.predicate as? PsiElement)?.text, `is`("[1]"))
                     }
 
                     @Test
@@ -3103,7 +3103,7 @@ private class XPathPsiTest : ParserTestCase() {
                         assertThat(step.axisType, `is`(XpmAxisType.Child))
                         assertThat(step.nodeName, sameInstance(qname))
                         assertThat(step.nodeType, sameInstance(XdmElementItem))
-                        assertThat(step.predicate?.text, `is`("[1]"))
+                        assertThat((step.predicate as? PsiElement)?.text, `is`("[1]"))
                     }
 
                     @Test
@@ -3114,7 +3114,7 @@ private class XPathPsiTest : ParserTestCase() {
                         assertThat(step.axisType, `is`(XpmAxisType.Child))
                         assertThat(step.nodeName, `is`(nullValue()))
                         assertThat(step.nodeType, sameInstance(itemType))
-                        assertThat(step.predicate?.text, `is`("[1]"))
+                        assertThat((step.predicate as? PsiElement)?.text, `is`("[1]"))
                     }
                 }
             }
