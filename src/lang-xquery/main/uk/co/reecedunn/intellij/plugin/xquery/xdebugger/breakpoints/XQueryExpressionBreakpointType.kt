@@ -19,6 +19,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.TextRange
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.NavigatablePsiElement
+import com.intellij.psi.PsiElement
 import com.intellij.xdebugger.XSourcePosition
 import com.intellij.xdebugger.breakpoints.XLineBreakpoint
 import com.intellij.xdebugger.breakpoints.XLineBreakpointType
@@ -54,7 +55,8 @@ class XQueryExpressionBreakpointType :
         val module = position.file.toPsiFile(project) as? XQueryModule ?: return mutableListOf()
         return getExpressionsAt(module, position.line)
             .distinctBy { it.hashCode() }
-            .mapNotNull { element ->
+            .mapNotNull { expression ->
+                val element = expression as PsiElement
                 XSourcePositionImpl.createByElement(element)?.let { ExpressionBreakpointVariant(it, element) }
             }
             .sortedBy { it.highlightRange?.startOffset }
@@ -62,7 +64,7 @@ class XQueryExpressionBreakpointType :
     }
 
     override fun getHighlightRange(breakpoint: XLineBreakpoint<XQueryBreakpointProperties>?): TextRange? {
-        return breakpoint?.properties?.getExpression(breakpoint)?.textRange
+        return (breakpoint?.properties?.getExpression(breakpoint) as? PsiElement)?.textRange
     }
 
     private fun getExpressionsAt(module: XQueryModule, line: Int): Sequence<XpmExpression> {
@@ -76,7 +78,7 @@ class XQueryExpressionBreakpointType :
 
     inner class ExpressionBreakpointVariant(
         position: XSourcePosition,
-        private val element: XpmExpression
+        private val element: PsiElement
     ) : XLinePsiElementBreakpointVariant(position, element) {
         override fun createProperties(): XQueryBreakpointProperties? {
             val properties = super.createProperties() ?: return null

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,10 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpm.optree
+package uk.co.reecedunn.intellij.plugin.xpm.optree.expr
 
 import com.intellij.psi.PsiElement
+import com.intellij.psi.tree.IElementType
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
 
-interface XpmExpression {
-    val expressionElement: PsiElement?
-}
+val XpmExpression.elementType: IElementType?
+    get() = (this as? PsiElement)?.elementType
+
+val XpmExpression.text: String?
+    get() = (this as? PsiElement)?.text

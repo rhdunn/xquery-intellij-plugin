@@ -19,6 +19,7 @@ import com.intellij.lang.Language
 import com.intellij.openapi.application.runInEdt
 import com.intellij.openapi.application.runReadAction
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.psi.PsiElement
 import com.intellij.xdebugger.XSourcePosition
 import com.intellij.xdebugger.breakpoints.XBreakpointHandler
 import com.intellij.xdebugger.evaluation.XDebuggerEvaluator
@@ -123,7 +124,7 @@ internal class MarkLogicDebugSession(
 
     // endregion
 
-    private fun getModuleUri(element: XpmExpression): String? {
+    private fun getModuleUri(element: PsiElement): String? {
         val file = element.containingFile.virtualFile
         if (file == query) return ""
 
@@ -150,7 +151,7 @@ internal class MarkLogicDebugSession(
     fun updateBreakpoint(element: XpmExpression, register: Boolean, initializing: Boolean = false): Boolean {
         if (!initializing && state === QueryProcessState.Starting) return true
 
-        val uri = getModuleUri(element) ?: return false
+        val uri = getModuleUri(element as PsiElement) ?: return false
         val document = element.containingFile.document ?: return false
         val offset = element.expressionElement?.textOffset ?: return false
         val line = document.getLineNumber(offset)
