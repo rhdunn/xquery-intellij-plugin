@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
-import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 
 /**
  * An XPath 4.0 ED and XQuery 4.0 ED `WithExpr` node in the XPath/XQuery AST.

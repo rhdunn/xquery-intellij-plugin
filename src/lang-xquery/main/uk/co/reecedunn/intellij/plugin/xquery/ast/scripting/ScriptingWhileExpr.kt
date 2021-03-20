@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.scripting
 
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExprSingle
-import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 
 /**
  * An XQuery Scripting Extension 1.0 `WhileExpr` node in the XQuery AST.

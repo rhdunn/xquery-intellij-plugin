@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmMap
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmObjectNode
-import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 
 /**
  * A XPath 3.1 and XQuery 3.1 `MapConstructor` node in the XQuery AST.

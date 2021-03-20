@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.plugin
 
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmBooleanNode
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPrimaryExpr
-import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 
 /**
  * A MarkLogic 8.0 `BooleanConstructor` node in the XQuery AST.

@@ -21,7 +21,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmFunction
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAnnotated
-import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmParameter
 
 interface XpmFunctionDeclaration : XdmFunction, XpmAnnotated {

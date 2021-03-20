@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xpm.optree.variable
 
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAnnotated
-import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 
 interface XpmVariableDeclaration : XpmAnnotated, XpmVariableDefinition {
     val isExternal: Boolean

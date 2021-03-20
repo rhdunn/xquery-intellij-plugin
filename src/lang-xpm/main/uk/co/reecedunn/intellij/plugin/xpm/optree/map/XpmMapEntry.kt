@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpm.optree.map
 
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyAtomicType
-import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 
 interface XpmMapEntry {
     val keyName: XsAnyAtomicType
