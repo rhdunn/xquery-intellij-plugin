@@ -15,8 +15,18 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.optree.function
 
+import uk.co.reecedunn.intellij.plugin.xpm.staticallyKnownFunctions
+
 val XpmFunctionCall.functionReference: XpmFunctionReference?
     get() = when (val expr = functionCallExpression) {
         is XpmFunctionReference -> expr
         else -> null
+    }
+
+val XpmFunctionCall.functionDeclaration: XpmFunctionDeclaration?
+    get() {
+        val ref = functionReference
+        return ref?.functionName?.staticallyKnownFunctions()?.firstOrNull { f ->
+            f.arity.isWithin(ref.arity)
+        }
     }
