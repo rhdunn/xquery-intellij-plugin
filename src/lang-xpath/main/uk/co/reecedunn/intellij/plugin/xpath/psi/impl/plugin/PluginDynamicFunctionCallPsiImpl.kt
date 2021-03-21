@@ -26,9 +26,9 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginDynamicFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
-import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.map.XpmMapEntry
 
 class PluginDynamicFunctionCallPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
@@ -59,10 +59,10 @@ class PluginDynamicFunctionCallPsiImpl(node: ASTNode) :
         get() = children().filterIsInstance<XPathArgumentList>().first()
 
     // endregion
-    // region XpmDynamicFunctionCall
+    // region XpmFunctionCall
 
-    override val functionReference: XpmFunctionReference?
-        get() = children().filterIsInstance<XpmFunctionReference>().firstOrNull()
+    override val functionCallExpression: XpmExpression?
+        get() = children().filterIsInstance<XpmExpression>().firstOrNull()
 
     private val cachedPositionalArguments = CacheableProperty {
         val argumentList = children().filterIsInstance<XPathArgumentList>().first()
@@ -71,6 +71,8 @@ class PluginDynamicFunctionCallPsiImpl(node: ASTNode) :
 
     override val positionalArguments: List<XpmExpression>
         get() = cachedPositionalArguments.get()!!
+
+    override val keywordArguments: List<XpmMapEntry> = listOf()
 
     // endregion
     // region XpmSyntaxValidationElement

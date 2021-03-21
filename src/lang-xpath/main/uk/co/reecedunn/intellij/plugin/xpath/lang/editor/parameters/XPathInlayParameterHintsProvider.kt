@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2020 Reece H. Dunn
+ * Copyright (C) 2019-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.isArrowFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.parenthesizedExprTextOffset
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpm.context.expand
-import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmDynamicFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.functionReference
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableReference
@@ -66,7 +65,6 @@ class XPathInlayParameterHintsProvider : InlayParameterHintsProvider {
 
         private fun getFunctionName(element: PsiElement): XsQNameValue? = when (element) {
             is XpmFunctionCall -> element.functionReference?.functionName?.expand()?.firstOrNull()
-            is XpmDynamicFunctionCall -> element.functionReference?.functionName?.expand()?.firstOrNull()
             else -> null
         }
 

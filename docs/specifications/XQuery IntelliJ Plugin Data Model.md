@@ -912,16 +912,16 @@ values in a sequence or array.
 
 ### 5.6 Functions
 
-| Symbol                     | Interface                |
-|----------------------------|--------------------------|
-| `ArgumentPlaceholder`      | `XpmExpression`          |
-| `ArrowFunctionCall`        | `XpmFunctionCall`        |
-| `ArrowDynamicFunctionCall` | `XpmDynamicFunctionCall` |
-| `DynamicFunctionCall`      | `XpmDynamicFunctionCall` |
-| `FunctionCall`             | `XpmFunctionCall`        |
-| `FunctionDecl`             | `XpmFunctionDeclaration` |
-| `InlineFunctionExpr`       | `XpmFunctionDeclaration` |
-| `NamedFunctionRef`         | `XpmFunctionReference`   |
+| Symbol                     | Interface                                 |
+|----------------------------|-------------------------------------------|
+| `ArgumentPlaceholder`      | `XpmExpression`                           |
+| `ArrowDynamicFunctionCall` | `XpmFunctionCall`                         |
+| `ArrowFunctionCall`        | `XpmFunctionCall`, `XpmFunctionReference` |
+| `DynamicFunctionCall`      | `XpmFunctionCall`                         |
+| `FunctionCall`             | `XpmFunctionCall`, `XpmFunctionReference` |
+| `FunctionDecl`             | `XpmFunctionDeclaration`                  |
+| `InlineFunctionExpr`       | `XpmFunctionDeclaration`                  |
+| `NamedFunctionRef`         | `XpmFunctionReference`                    |
 
 A *function declaration* is a declaration or expression that introduces a named
 or anonymous function.
@@ -929,14 +929,16 @@ or anonymous function.
 A *function reference* is an expression that specifies the name and arity of a
 function.
 
-A *function call* is a *function reference* that supplies *positional arguments*
-and *keyword arguments* to the referenced functions. If any of the arguments are
-placeholders, this is a *partially applied function call*.
+A *function call* is an expression that evaluates to a *function reference*. It
+supplies positional and keyword arguments that are used to evaluate the
+function. If any of the positional arguments are placeholders, this is a
+*partially applied function call*.
 
-A *dynamic function call* is an expression that evaluates to a *function
-reference*. The *dynamic function call* supplies *positional arguments* to the
-evaluated function reference. If any of the arguments are placeholders, this
-is a *partially applied function call*.
+A *static function call* is a *function call* that has the name and arity of
+the function it references.
+
+A *dynamic function call* is a *function call* that has an expression that
+evaluates to the function to be called.
 
 ## A References
 

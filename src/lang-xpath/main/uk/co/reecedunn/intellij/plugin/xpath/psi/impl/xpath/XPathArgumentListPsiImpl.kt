@@ -22,12 +22,10 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.reverse
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.xpath.ast.isArrowFunctionCall
-import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentPlaceholder
-import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionParamBinding
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
-import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmDynamicFunctionCall
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.*
 import uk.co.reecedunn.intellij.plugin.xpm.staticallyKnownFunctions
 
 open class XPathArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathArgumentList {
@@ -38,11 +36,7 @@ open class XPathArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
 
     override val bindings: List<XpmFunctionParamBinding>
         get() {
-            val ref = when (val parent = parent) {
-                is XpmFunctionReference -> parent
-                is XpmDynamicFunctionCall -> parent.functionReference
-                else -> null
-            }
+            val ref = (parent as? XpmFunctionCall)?.functionReference
             val target = ref?.functionName?.staticallyKnownFunctions()?.firstOrNull { f ->
                 f.arity.isWithin(ref.arity)
             } ?: return listOf()

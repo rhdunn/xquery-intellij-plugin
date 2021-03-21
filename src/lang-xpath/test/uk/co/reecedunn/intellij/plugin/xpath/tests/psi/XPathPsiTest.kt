@@ -2960,7 +2960,7 @@ private class XPathPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("XPath 3.1 EBNF (67) NamedFunctionRef")
                 fun namedFunctionRef() {
-                    val f = parse<PluginDynamicFunctionCall>("fn:abs#1(1)")[0] as XpmDynamicFunctionCall
+                    val f = parse<PluginDynamicFunctionCall>("fn:abs#1(1)")[0] as XpmFunctionCall
                     assertThat(f.positionalArguments.size, `is`(1))
                     assertThat(f.positionalArguments[0].text, `is`("1"))
 
@@ -2975,7 +2975,7 @@ private class XPathPsiTest : ParserTestCase() {
                     @Test
                     @DisplayName("single")
                     fun single() {
-                        val f = parse<PluginDynamicFunctionCall>("(fn:abs#1)(1)")[0] as XpmDynamicFunctionCall
+                        val f = parse<PluginDynamicFunctionCall>("(fn:abs#1)(1)")[0] as XpmFunctionCall
                         assertThat(f.positionalArguments.size, `is`(1))
                         assertThat(f.positionalArguments[0].text, `is`("1"))
 
@@ -2987,7 +2987,7 @@ private class XPathPsiTest : ParserTestCase() {
                     @Test
                     @DisplayName("multiple")
                     fun multiple() {
-                        val f = parse<PluginDynamicFunctionCall>("(fn:abs#1, fn:count#1)(1)")[0] as XpmDynamicFunctionCall
+                        val f = parse<PluginDynamicFunctionCall>("(fn:abs#1, fn:count#1)(1)")[0] as XpmFunctionCall
                         assertThat(f.functionReference, `is`(nullValue()))
                         assertThat(f.positionalArguments.size, `is`(1))
                         assertThat(f.positionalArguments[0].text, `is`("1"))
@@ -4757,7 +4757,7 @@ private class XPathPsiTest : ParserTestCase() {
             fun arrowFunctionSpecifier_VarRef() {
                 val f = parse<PluginArrowDynamicFunctionCall>(
                     "let \$f := format-date#5 return \$x => \$f(1, 2, 3,  4)"
-                )[0] as XpmDynamicFunctionCall
+                )[0] as XpmFunctionCall
 
                 assertThat(f.functionReference, `is`(nullValue())) // TODO: fn:format-date#5
 
@@ -4773,7 +4773,7 @@ private class XPathPsiTest : ParserTestCase() {
             fun arrowFunctionSpecifier_ParenthesizedExpr() {
                 val f = parse<PluginArrowDynamicFunctionCall>(
                     "\$x => (format-date#5)(1, 2, 3,  4)"
-                )[0] as XpmDynamicFunctionCall
+                )[0] as XpmFunctionCall
 
                 val ref = f.functionReference!!
                 assertThat(ref.arity, `is`(5))
