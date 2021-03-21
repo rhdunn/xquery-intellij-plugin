@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.parenthesizedExprTextOffset
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpm.context.expand
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpressions
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmArrowFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.resolve
@@ -35,14 +36,20 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableReference
 class XPathInlayParameterHintsProvider : InlayParameterHintsProvider {
     override fun getParameterHints(element: PsiElement): List<InlayInfo> {
         if (element !is XPathArgumentList) return emptyList()
-        return element.bindings.mapIndexedNotNull { index, binding ->
+        val (_, bindings) = (element.parent as XpmFunctionCall).resolve ?: return emptyList()
+        return bindings.mapIndexedNotNull { index, binding ->
+            val expr = when (val expr = binding.variableExpression) {
+                is PsiElement -> expr
+                is XpmExpressions -> expr.expressions.firstOrNull() as? PsiElement
+                else -> null
+            }
             when {
-                binding.param.variableName == null -> null // Parameter with incomplete variable name.
-                binding.isEmpty() -> null // Empty variadic parameter.
+                binding.variableName == null -> null // Parameter with incomplete variable name.
+                expr == null -> null // Empty variadic parameter.
                 index == 0 && element.parent is XpmArrowFunctionCall -> null // Arrow function call context argument.
-                getName(binding[0])?.localName?.data == binding.param.variableName?.localName?.data -> null
-                else -> op_qname_presentation(binding.param.variableName!!)?.let { name ->
-                    InlayInfo(name, binding[0].let { it.parenthesizedExprTextOffset ?: it.textOffset }, false)
+                getName(expr)?.localName?.data == binding.variableName?.localName?.data -> null
+                else -> op_qname_presentation(binding.variableName!!)?.let { name ->
+                    InlayInfo(name, expr.let { it.parenthesizedExprTextOffset ?: it.textOffset }, false)
                 }
             }
         }
