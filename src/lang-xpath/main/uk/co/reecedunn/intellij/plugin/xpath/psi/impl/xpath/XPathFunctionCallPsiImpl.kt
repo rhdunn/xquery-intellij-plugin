@@ -48,7 +48,7 @@ class XPathFunctionCallPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPat
     // endregion
     // region XpmFunctionReference
 
-    override val argumentList: XPathArgumentList
+    private val argumentList: XPathArgumentList
         get() = children().filterIsInstance<XPathArgumentList>().first()
 
     override val functionName: XsQNameValue?

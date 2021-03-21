@@ -22,6 +22,4 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
 /**
  * An XPath 2.0 and XQuery 1.0 `FunctionCall` node in the XQuery AST.
  */
-interface XPathFunctionCall : XPathPrimaryExpr, XpmFunctionReference, XpmFunctionCall, XpmExpression {
-    val argumentList: XPathArgumentList
-}
+interface XPathFunctionCall : XPathPrimaryExpr, XpmFunctionReference, XpmFunctionCall, XpmExpression
