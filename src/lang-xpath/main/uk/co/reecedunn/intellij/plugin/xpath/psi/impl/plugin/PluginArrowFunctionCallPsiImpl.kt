@@ -60,6 +60,9 @@ class PluginArrowFunctionCallPsiImpl(node: ASTNode) :
     // endregion
     // region XpmFunctionCall
 
+    override val functionCallExpression: XpmExpression
+        get() = this
+
     private val argumentList: XPathArgumentList
         get() = children().filterIsInstance<XPathArgumentList>().first()
 

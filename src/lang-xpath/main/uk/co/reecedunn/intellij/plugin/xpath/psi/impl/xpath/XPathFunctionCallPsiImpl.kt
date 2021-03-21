@@ -60,6 +60,9 @@ class XPathFunctionCallPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPat
     // endregion
     // region XpmFunctionCall
 
+    override val functionCallExpression: XpmExpression
+        get() = this
+
     private val cachedPositionalArguments = CacheableProperty {
         argumentList.children().filterIsInstance<XpmExpression>().toList()
     }

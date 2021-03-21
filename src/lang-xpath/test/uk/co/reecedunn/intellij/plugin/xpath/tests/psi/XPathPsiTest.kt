@@ -2382,6 +2382,7 @@ private class XPathPsiTest : ParserTestCase() {
                     @DisplayName("positional arguments")
                     fun positionalArguments() {
                         val f = parse<XPathFunctionCall>("math:pow(2, 8)")[0] as XpmFunctionCall
+                        assertThat(f.functionCallExpression, sameInstance(f))
                         assertThat(f.arity, `is`(2))
 
                         val qname = f.functionName!!
@@ -2406,6 +2407,7 @@ private class XPathPsiTest : ParserTestCase() {
                     @DisplayName("keyword arguments")
                     fun keywordArguments() {
                         val f = parse<XPathFunctionCall>("math:pow(x: 2, y: 8)")[0] as XpmFunctionCall
+                        assertThat(f.functionCallExpression, sameInstance(f))
                         assertThat(f.arity, `is`(2))
 
                         val qname = f.functionName!!
@@ -2433,6 +2435,7 @@ private class XPathPsiTest : ParserTestCase() {
                     @DisplayName("positional and keyword arguments")
                     fun positionalAndKeywordArguments() {
                         val f = parse<XPathFunctionCall>("math:pow(2, y: 8)")[0] as XpmFunctionCall
+                        assertThat(f.functionCallExpression, sameInstance(f))
                         assertThat(f.arity, `is`(2))
 
                         val qname = f.functionName!!
@@ -2458,6 +2461,7 @@ private class XPathPsiTest : ParserTestCase() {
                     @DisplayName("empty arguments")
                     fun emptyArguments() {
                         val f = parse<XPathFunctionCall>("fn:true()")[0] as XpmFunctionCall
+                        assertThat(f.functionCallExpression, sameInstance(f))
                         assertThat(f.arity, `is`(0))
 
                         val qname = f.functionName!!
@@ -2479,6 +2483,7 @@ private class XPathPsiTest : ParserTestCase() {
                     @DisplayName("partial function application")
                     fun partialFunctionApplication() {
                         val f = parse<XPathFunctionCall>("math:sin(?)")[0] as XpmFunctionCall
+                        assertThat(f.functionCallExpression, sameInstance(f))
                         assertThat(f.arity, `is`(1))
 
                         val qname = f.functionName!!
@@ -2502,6 +2507,7 @@ private class XPathPsiTest : ParserTestCase() {
                     @DisplayName("invalid EQName")
                     fun invalidEQName() {
                         val f = parse<XPathFunctionCall>(":true(1)")[0] as XpmFunctionCall
+                        assertThat(f.functionCallExpression, sameInstance(f))
                         assertThat(f.arity, `is`(1))
                         assertThat(f.functionName, `is`(nullValue()))
 
@@ -4585,6 +4591,7 @@ private class XPathPsiTest : ParserTestCase() {
                 @DisplayName("positional arguments")
                 fun positionalArguments() {
                     val f = parse<PluginArrowFunctionCall>("\$x => format-date(1, 2, 3,  4)")[0] as XpmFunctionCall
+                    assertThat(f.functionCallExpression, sameInstance(f))
                     assertThat(f.arity, `is`(5))
 
                     val qname = f.functionName!!
@@ -4609,6 +4616,7 @@ private class XPathPsiTest : ParserTestCase() {
                     val f = parse<PluginArrowFunctionCall>(
                         "\$x => format-date(1, 2, calendar: 3,  place: 4)"
                     )[0] as XpmFunctionCall
+                    assertThat(f.functionCallExpression, sameInstance(f))
                     assertThat(f.arity, `is`(5))
 
                     val qname = f.functionName!!
@@ -4637,6 +4645,7 @@ private class XPathPsiTest : ParserTestCase() {
                     val f = parse<PluginArrowFunctionCall>(
                         "\$x => format-date(picture: 1, language: 2, calendar: 3,  place: 4)"
                     )[0] as XpmFunctionCall
+                    assertThat(f.functionCallExpression, sameInstance(f))
                     assertThat(f.arity, `is`(5))
 
                     val qname = f.functionName!!
@@ -4664,6 +4673,7 @@ private class XPathPsiTest : ParserTestCase() {
                 @DisplayName("empty arguments")
                 fun emptyArguments() {
                     val f = parse<PluginArrowFunctionCall>("\$x => upper-case()")[0] as XpmFunctionCall
+                    assertThat(f.functionCallExpression, sameInstance(f))
                     assertThat(f.arity, `is`(1))
 
                     val qname = f.functionName!!
@@ -4681,6 +4691,7 @@ private class XPathPsiTest : ParserTestCase() {
                 @DisplayName("invalid EQName")
                 fun invalidEQName() {
                     val f = parse<PluginArrowFunctionCall>("\$x => :upper-case()")[0] as XpmFunctionCall
+                    assertThat(f.functionCallExpression, sameInstance(f))
                     assertThat(f.arity, `is`(1))
                     assertThat(f.functionName, `is`(nullValue()))
 

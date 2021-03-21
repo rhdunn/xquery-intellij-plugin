@@ -19,6 +19,8 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.map.XpmMapEntry
 
 interface XpmFunctionCall : XpmFunctionReference {
+    val functionCallExpression: XpmExpression?
+
     val positionalArguments: List<XpmExpression>
 
     val keywordArguments: List<XpmMapEntry>
