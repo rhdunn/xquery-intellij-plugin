@@ -21,7 +21,9 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
+import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowDynamicFunctionCall
+import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowFunctionCall
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.lang.editor.parameters.XPathInlayParameterHintsProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
@@ -51,9 +53,9 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
             @Test
             @DisplayName("XQuery 3.1 EBNF (218) EQName ; XQuery 3.1 EBNF (235) NCName")
             fun ncname() {
-                val args = parse<XPathArgumentList>("abs(2)")[0]
+                val f = parse<XPathFunctionCall>("abs(2)")[0]
 
-                val info = provider.getHintInfo(args)!!
+                val info = provider.getHintInfo(f)!!
                 assertThat(info.fullyQualifiedName, `is`("Q{http://www.w3.org/2005/xpath-functions}abs"))
                 assertThat(info.language, `is`(nullValue()))
                 assertThat(info.getMethodName(), `is`("abs"))
@@ -65,9 +67,9 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
             @Test
             @DisplayName("XQuery 3.1 EBNF (218) EQName ; XQuery 3.1 EBNF (234) QName")
             fun qname() {
-                val args = parse<XPathArgumentList>("fn:abs(2)")[0]
+                val f = parse<XPathFunctionCall>("fn:abs(2)")[0]
 
-                val info = provider.getHintInfo(args)!!
+                val info = provider.getHintInfo(f)!!
                 assertThat(info.fullyQualifiedName, `is`("Q{http://www.w3.org/2005/xpath-functions}abs"))
                 assertThat(info.language, `is`(nullValue()))
                 assertThat(info.getMethodName(), `is`("abs"))
@@ -79,9 +81,9 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
             @Test
             @DisplayName("XQuery 3.1 EBNF (218) EQName ; XQuery 3.1 EBNF (223) URIQualifiedName")
             fun uriQualifiedName() {
-                val args = parse<XPathArgumentList>("Q{http://www.w3.org/2005/xpath-functions}abs(2)")[0]
+                val f = parse<XPathFunctionCall>("Q{http://www.w3.org/2005/xpath-functions}abs(2)")[0]
 
-                val info = provider.getHintInfo(args)!!
+                val info = provider.getHintInfo(f)!!
                 assertThat(info.fullyQualifiedName, `is`("Q{http://www.w3.org/2005/xpath-functions}abs"))
                 assertThat(info.language, `is`(nullValue()))
                 assertThat(info.getMethodName(), `is`("abs"))
@@ -97,18 +99,18 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
             @Test
             @DisplayName("XQuery 3.1 EBNF (131) VarRef")
             fun varRef() {
-                val args = parse<XPathArgumentList>("let \$a := abs#1 return 2 => \$a()")[0]
+                val f = parse<PluginArrowDynamicFunctionCall>("let \$a := abs#1 return 2 => \$a()")[0]
 
-                val info = provider.getHintInfo(args)
+                val info = provider.getHintInfo(f)
                 assertThat(info, `is`(nullValue()))
             }
 
             @Test
             @DisplayName("XQuery 3.1 EBNF (218) EQName ; XQuery 3.1 EBNF (235) NCName")
             fun ncname() {
-                val args = parse<XPathArgumentList>("2 => abs()")[0]
+                val f = parse<PluginArrowFunctionCall>("2 => abs()")[0]
 
-                val info = provider.getHintInfo(args)!!
+                val info = provider.getHintInfo(f)!!
                 assertThat(info.fullyQualifiedName, `is`("Q{http://www.w3.org/2005/xpath-functions}abs"))
                 assertThat(info.language, `is`(nullValue()))
                 assertThat(info.getMethodName(), `is`("abs"))
@@ -120,9 +122,9 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
             @Test
             @DisplayName("XQuery 3.1 EBNF (218) EQName ; XQuery 3.1 EBNF (234) QName")
             fun qname() {
-                val args = parse<XPathArgumentList>("2 => fn:abs()")[0]
+                val f = parse<PluginArrowFunctionCall>("2 => fn:abs()")[0]
 
-                val info = provider.getHintInfo(args)!!
+                val info = provider.getHintInfo(f)!!
                 assertThat(info.fullyQualifiedName, `is`("Q{http://www.w3.org/2005/xpath-functions}abs"))
                 assertThat(info.language, `is`(nullValue()))
                 assertThat(info.getMethodName(), `is`("abs"))
@@ -134,9 +136,9 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
             @Test
             @DisplayName("XQuery 3.1 EBNF (218) EQName ; XQuery 3.1 EBNF (223) URIQualifiedName")
             fun uriQualifiedName() {
-                val args = parse<XPathArgumentList>("2 => Q{http://www.w3.org/2005/xpath-functions}abs()")[0]
+                val f = parse<PluginArrowFunctionCall>("2 => Q{http://www.w3.org/2005/xpath-functions}abs()")[0]
 
-                val info = provider.getHintInfo(args)!!
+                val info = provider.getHintInfo(f)!!
                 assertThat(info.fullyQualifiedName, `is`("Q{http://www.w3.org/2005/xpath-functions}abs"))
                 assertThat(info.language, `is`(nullValue()))
                 assertThat(info.getMethodName(), `is`("abs"))
@@ -148,9 +150,9 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
             @Test
             @DisplayName("XQuery 3.1 EBNF (133) ParenthesizedExpr")
             fun parenthesizedExpr() {
-                val args = parse<XPathArgumentList>("2 => (fn:abs#1)()")[0]
+                val f = parse<PluginArrowDynamicFunctionCall>("2 => (fn:abs#1)()")[0]
 
-                val info = provider.getHintInfo(args)!!
+                val info = provider.getHintInfo(f)!!
                 assertThat(info.fullyQualifiedName, `is`("Q{http://www.w3.org/2005/xpath-functions}abs"))
                 assertThat(info.language, `is`(nullValue()))
                 assertThat(info.getMethodName(), `is`("abs"))
@@ -166,9 +168,9 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
             @Test
             @DisplayName("XQuery 3.1 EBNF (218) EQName ; XQuery 3.1 EBNF (235) NCName")
             fun ncname() {
-                val args = parse<XPathArgumentList>("declare function local:test(\$x) {}; local:test(2)")[0]
+                val f = parse<XPathFunctionCall>("declare function local:test(\$x) {}; local:test(2)")[0]
 
-                val info = provider.getHintInfo(args)!!
+                val info = provider.getHintInfo(f)!!
                 assertThat(info.fullyQualifiedName, `is`("Q{http://www.w3.org/2005/xquery-local-functions}test"))
                 assertThat(info.language, `is`(nullValue()))
                 assertThat(info.getMethodName(), `is`("test"))
@@ -180,9 +182,9 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
             @Test
             @DisplayName("XQuery 3.1 EBNF (218) EQName ; XQuery 3.1 EBNF (234) QName")
             fun qname() {
-                val args = parse<XPathArgumentList>("declare function local:test(\$fn:x) {}; local:test(2)")[0]
+                val f = parse<XPathFunctionCall>("declare function local:test(\$fn:x) {}; local:test(2)")[0]
 
-                val info = provider.getHintInfo(args)!!
+                val info = provider.getHintInfo(f)!!
                 assertThat(info.fullyQualifiedName, `is`("Q{http://www.w3.org/2005/xquery-local-functions}test"))
                 assertThat(info.language, `is`(nullValue()))
                 assertThat(info.getMethodName(), `is`("test"))
@@ -194,11 +196,11 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
             @Test
             @DisplayName("XQuery 3.1 EBNF (218) EQName ; XQuery 3.1 EBNF (223) URIQualifiedName")
             fun uriQualifiedName() {
-                val args = parse<XPathArgumentList>(
+                val f = parse<XPathFunctionCall>(
                     "declare function local:test(\$Q{http://www.example.com}x) {}; local:test(2)"
                 )[0]
 
-                val info = provider.getHintInfo(args)!!
+                val info = provider.getHintInfo(f)!!
                 assertThat(info.fullyQualifiedName, `is`("Q{http://www.w3.org/2005/xquery-local-functions}test"))
                 assertThat(info.language, `is`(nullValue()))
                 assertThat(info.getMethodName(), `is`("test"))
@@ -218,9 +220,9 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
             @Test
             @DisplayName("XQuery 3.1 EBNF (219) IntegerLiteral")
             fun integerLiteral() {
-                val args = parse<XPathArgumentList>("declare function local:f(\$arg1, \$arg2) {}; local:f(3, 6)")[0]
+                val f = parse<XPathFunctionCall>("declare function local:f(\$arg1, \$arg2) {}; local:f(3, 6)")[0]
 
-                val hints = provider.getParameterHints(args)
+                val hints = provider.getParameterHints(f)
                 assertThat(hints.size, `is`(2))
 
                 assertThat(hints[0].text, `is`("arg1"))
@@ -238,14 +240,14 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 @Test
                 @DisplayName("variable names not matching the parameter names")
                 fun different() {
-                    val args = parse<XPathArgumentList>(
+                    val f = parse<XPathFunctionCall>(
                         """
                         |declare function local:f(${'$'}arg1, ${'$'}arg2) {};
                         |local:f(${'$'}one, ${'$'}two)
                         """.trimMargin()
                     )[0]
 
-                    val hints = provider.getParameterHints(args)
+                    val hints = provider.getParameterHints(f)
                     assertThat(hints.size, `is`(2))
 
                     assertThat(hints[0].text, `is`("arg1"))
@@ -260,14 +262,14 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 @Test
                 @DisplayName("variable names matching the parameter names")
                 fun same() {
-                    val args = parse<XPathArgumentList>(
+                    val f = parse<XPathFunctionCall>(
                         """
                         |declare function local:f(${'$'}arg1, ${'$'}arg2, ${'$'}arg3) {};
                         |local:f(${'$'}one, ${'$'}arg2, ${'$'}three)
                         """.trimMargin()
                     )[0]
 
-                    val hints = provider.getParameterHints(args)
+                    val hints = provider.getParameterHints(f)
                     assertThat(hints.size, `is`(2))
 
                     assertThat(hints[0].text, `is`("arg1"))
@@ -286,14 +288,14 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 @Test
                 @DisplayName("name test not matching the parameter names")
                 fun different() {
-                    val args = parse<XPathArgumentList>(
+                    val f = parse<XPathFunctionCall>(
                         """
                         |declare function local:f(${'$'}arg1, ${'$'}arg2) {};
                         |local:f(${'$'}x/one, ${'$'}x/lorem//two)
                         """.trimMargin()
                     )[0]
 
-                    val hints = provider.getParameterHints(args)
+                    val hints = provider.getParameterHints(f)
                     assertThat(hints.size, `is`(2))
 
                     assertThat(hints[0].text, `is`("arg1"))
@@ -308,14 +310,14 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 @Test
                 @DisplayName("name test matching the parameter names")
                 fun same() {
-                    val args = parse<XPathArgumentList>(
+                    val f = parse<XPathFunctionCall>(
                         """
                         |declare function local:f(${'$'}arg1, ${'$'}arg2, ${'$'}arg3) {};
                         |local:f(${'$'}x/one, ${'$'}x/arg2, ${'$'}x/lorem//three)
                         """.trimMargin()
                     )[0]
 
-                    val hints = provider.getParameterHints(args)
+                    val hints = provider.getParameterHints(f)
                     assertThat(hints.size, `is`(2))
 
                     assertThat(hints[0].text, `is`("arg1"))
@@ -334,14 +336,14 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 @Test
                 @DisplayName("name test not matching the parameter names")
                 fun different() {
-                    val args = parse<XPathArgumentList>(
+                    val f = parse<XPathFunctionCall>(
                         """
                         |declare function local:f(${'$'}arg1, ${'$'}arg2) {};
                         |local:f(${'$'}x/@one, ${'$'}x/lorem//@two)
                         """.trimMargin()
                     )[0]
 
-                    val hints = provider.getParameterHints(args)
+                    val hints = provider.getParameterHints(f)
                     assertThat(hints.size, `is`(2))
 
                     assertThat(hints[0].text, `is`("arg1"))
@@ -356,14 +358,14 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 @Test
                 @DisplayName("name test matching the parameter names")
                 fun same() {
-                    val args = parse<XPathArgumentList>(
+                    val f = parse<XPathFunctionCall>(
                         """
                         |declare function local:f(${'$'}arg1, ${'$'}arg2, ${'$'}arg3) {};
                         |local:f(${'$'}x/@one, ${'$'}x/@arg2, ${'$'}x/lorem//@three)
                         """.trimMargin()
                     )[0]
 
-                    val hints = provider.getParameterHints(args)
+                    val hints = provider.getParameterHints(f)
                     assertThat(hints.size, `is`(2))
 
                     assertThat(hints[0].text, `is`("arg1"))
@@ -382,14 +384,14 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 @Test
                 @DisplayName("name test not matching the parameter names")
                 fun different() {
-                    val args = parse<XPathArgumentList>(
+                    val f = parse<XPathFunctionCall>(
                         """
                         |declare function local:f(${'$'}arg1, ${'$'}arg2) {};
                         |local:f(${'$'}x/child::one, ${'$'}x/lorem//child::two)
                         """.trimMargin()
                     )[0]
 
-                    val hints = provider.getParameterHints(args)
+                    val hints = provider.getParameterHints(f)
                     assertThat(hints.size, `is`(2))
 
                     assertThat(hints[0].text, `is`("arg1"))
@@ -404,14 +406,14 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 @Test
                 @DisplayName("name test matching the parameter names")
                 fun same() {
-                    val args = parse<XPathArgumentList>(
+                    val f = parse<XPathFunctionCall>(
                         """
                         |declare function local:f(${'$'}arg1, ${'$'}arg2, ${'$'}arg3) {};
                         |local:f(${'$'}x/child::one, ${'$'}x/child::arg2, ${'$'}x/lorem//child::three)
                         """.trimMargin()
                     )[0]
 
-                    val hints = provider.getParameterHints(args)
+                    val hints = provider.getParameterHints(f)
                     assertThat(hints.size, `is`(2))
 
                     assertThat(hints[0].text, `is`("arg1"))
@@ -430,14 +432,14 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 @Test
                 @DisplayName("name test not matching the parameter names")
                 fun different() {
-                    val args = parse<XPathArgumentList>(
+                    val f = parse<XPathFunctionCall>(
                         """
                         |declare function local:f(${'$'}arg1, ${'$'}arg2) {};
                         |local:f(${'$'}x/parent::one, ${'$'}x/lorem//parent::two)
                         """.trimMargin()
                     )[0]
 
-                    val hints = provider.getParameterHints(args)
+                    val hints = provider.getParameterHints(f)
                     assertThat(hints.size, `is`(2))
 
                     assertThat(hints[0].text, `is`("arg1"))
@@ -452,14 +454,14 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 @Test
                 @DisplayName("name test matching the parameter names")
                 fun same() {
-                    val args = parse<XPathArgumentList>(
+                    val f = parse<XPathFunctionCall>(
                         """
                         |declare function local:f(${'$'}arg1, ${'$'}arg2, ${'$'}arg3) {};
                         |local:f(${'$'}x/parent::one, ${'$'}x/parent::arg2, ${'$'}x/lorem//parent::three)
                         """.trimMargin()
                     )[0]
 
-                    val hints = provider.getParameterHints(args)
+                    val hints = provider.getParameterHints(f)
                     assertThat(hints.size, `is`(2))
 
                     assertThat(hints[0].text, `is`("arg1"))
@@ -478,14 +480,14 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 @Test
                 @DisplayName("name test not matching the parameter names")
                 fun different() {
-                    val args = parse<XPathArgumentList>(
+                    val f = parse<XPathFunctionCall>(
                         """
                         |declare function local:f(${'$'}arg1, ${'$'}arg2) {};
                         |local:f(<one/>, <two/>)
                         """.trimMargin()
                     )[0]
 
-                    val hints = provider.getParameterHints(args)
+                    val hints = provider.getParameterHints(f)
                     assertThat(hints.size, `is`(2))
 
                     assertThat(hints[0].text, `is`("arg1"))
@@ -500,14 +502,14 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 @Test
                 @DisplayName("name test matching the parameter names")
                 fun same() {
-                    val args = parse<XPathArgumentList>(
+                    val f = parse<XPathFunctionCall>(
                         """
                         |declare function local:f(${'$'}arg1, ${'$'}arg2, ${'$'}arg3) {};
                         |local:f(<one/>, <arg2/>, <three/>)
                         """.trimMargin()
                     )[0]
 
-                    val hints = provider.getParameterHints(args)
+                    val hints = provider.getParameterHints(f)
                     assertThat(hints.size, `is`(2))
 
                     assertThat(hints[0].text, `is`("arg1"))
@@ -526,14 +528,14 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 @Test
                 @DisplayName("name test not matching the parameter names")
                 fun different() {
-                    val args = parse<XPathArgumentList>(
+                    val f = parse<XPathFunctionCall>(
                         """
                         |declare function local:f(${'$'}arg1, ${'$'}arg2) {};
                         |local:f(element one {}, element two {})
                         """.trimMargin()
                     )[0]
 
-                    val hints = provider.getParameterHints(args)
+                    val hints = provider.getParameterHints(f)
                     assertThat(hints.size, `is`(2))
 
                     assertThat(hints[0].text, `is`("arg1"))
@@ -548,14 +550,14 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 @Test
                 @DisplayName("name test matching the parameter names")
                 fun same() {
-                    val args = parse<XPathArgumentList>(
+                    val f = parse<XPathFunctionCall>(
                         """
                         |declare function local:f(${'$'}arg1, ${'$'}arg2, ${'$'}arg3) {};
                         |local:f(element one {}, element arg2 {}, element three {})
                         """.trimMargin()
                     )[0]
 
-                    val hints = provider.getParameterHints(args)
+                    val hints = provider.getParameterHints(f)
                     assertThat(hints.size, `is`(2))
 
                     assertThat(hints[0].text, `is`("arg1"))
@@ -574,14 +576,14 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 @Test
                 @DisplayName("name test not matching the parameter names")
                 fun different() {
-                    val args = parse<XPathArgumentList>(
+                    val f = parse<XPathFunctionCall>(
                         """
                         |declare function local:f(${'$'}arg1, ${'$'}arg2) {};
                         |local:f(attribute one {}, attribute two {})
                         """.trimMargin()
                     )[0]
 
-                    val hints = provider.getParameterHints(args)
+                    val hints = provider.getParameterHints(f)
                     assertThat(hints.size, `is`(2))
 
                     assertThat(hints[0].text, `is`("arg1"))
@@ -596,14 +598,14 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 @Test
                 @DisplayName("name test matching the parameter names")
                 fun same() {
-                    val args = parse<XPathArgumentList>(
+                    val f = parse<XPathFunctionCall>(
                         """
                         |declare function local:f(${'$'}arg1, ${'$'}arg2, ${'$'}arg3) {};
                         |local:f(attribute one {}, attribute arg2 {}, attribute three {})
                         """.trimMargin()
                     )[0]
 
-                    val hints = provider.getParameterHints(args)
+                    val hints = provider.getParameterHints(f)
                     assertThat(hints.size, `is`(2))
 
                     assertThat(hints[0].text, `is`("arg1"))
@@ -623,9 +625,9 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
             @Test
             @DisplayName("XQuery 3.1 EBNF (219) IntegerLiteral")
             fun integerLiteral() {
-                val args = parse<XPathArgumentList>("declare function local:f(\$arg1, \$arg2) {}; 3 => local:f(6)")[0]
+                val f = parse<PluginArrowFunctionCall>("declare function local:f(\$arg1, \$arg2) {}; 3 => local:f(6)")[0]
 
-                val hints = provider.getParameterHints(args)
+                val hints = provider.getParameterHints(f)
                 assertThat(hints.size, `is`(1))
 
                 assertThat(hints[0].text, `is`("arg2"))
@@ -639,14 +641,14 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 @Test
                 @DisplayName("variable names not matching the parameter names")
                 fun different() {
-                    val args = parse<XPathArgumentList>(
+                    val f = parse<PluginArrowFunctionCall>(
                         """
                         |declare function local:f(${'$'}arg1, ${'$'}arg2, ${'$'}arg3) {};
                         |${'$'}one => local:f(${'$'}two, ${'$'}three)
                         """.trimMargin()
                     )[0]
 
-                    val hints = provider.getParameterHints(args)
+                    val hints = provider.getParameterHints(f)
                     assertThat(hints.size, `is`(2))
 
                     assertThat(hints[0].text, `is`("arg2"))
@@ -661,14 +663,14 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 @Test
                 @DisplayName("variable names matching the parameter names")
                 fun same() {
-                    val args = parse<XPathArgumentList>(
+                    val f = parse<PluginArrowFunctionCall>(
                         """
                         |declare function local:f(${'$'}arg1, ${'$'}arg2, ${'$'}arg3, ${'$'}arg4) {};
                         |${'$'}one => local:f(${'$'}two, ${'$'}arg3, ${'$'}four)
                         """.trimMargin()
                     )[0]
 
-                    val hints = provider.getParameterHints(args)
+                    val hints = provider.getParameterHints(f)
                     assertThat(hints.size, `is`(2))
 
                     assertThat(hints[0].text, `is`("arg2"))
@@ -687,14 +689,14 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 @Test
                 @DisplayName("name test not matching the parameter names")
                 fun different() {
-                    val args = parse<XPathArgumentList>(
+                    val f = parse<PluginArrowFunctionCall>(
                         """
                         |declare function local:f(${'$'}arg1, ${'$'}arg2, ${'$'}arg3) {};
                         |${'$'}one => local:f(${'$'}x/two, ${'$'}x/lorem//three)
                         """.trimMargin()
                     )[0]
 
-                    val hints = provider.getParameterHints(args)
+                    val hints = provider.getParameterHints(f)
                     assertThat(hints.size, `is`(2))
 
                     assertThat(hints[0].text, `is`("arg2"))
@@ -709,14 +711,14 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 @Test
                 @DisplayName("name test matching the parameter names")
                 fun same() {
-                    val args = parse<XPathArgumentList>(
+                    val f = parse<PluginArrowFunctionCall>(
                         """
                         |declare function local:f(${'$'}arg1, ${'$'}arg2, ${'$'}arg3, ${'$'}arg4) {};
                         |${'$'}one => local:f(${'$'}x/two, ${'$'}x/arg3, ${'$'}x/lorem//four)
                         """.trimMargin()
                     )[0]
 
-                    val hints = provider.getParameterHints(args)
+                    val hints = provider.getParameterHints(f)
                     assertThat(hints.size, `is`(2))
 
                     assertThat(hints[0].text, `is`("arg2"))
@@ -735,14 +737,14 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 @Test
                 @DisplayName("name test not matching the parameter names")
                 fun different() {
-                    val args = parse<XPathArgumentList>(
+                    val f = parse<PluginArrowFunctionCall>(
                         """
                         |declare function local:f(${'$'}arg1, ${'$'}arg2, ${'$'}arg3) {};
                         |${'$'}one => local:f(${'$'}x/@two, ${'$'}x/lorem//@three)
                         """.trimMargin()
                     )[0]
 
-                    val hints = provider.getParameterHints(args)
+                    val hints = provider.getParameterHints(f)
                     assertThat(hints.size, `is`(2))
 
                     assertThat(hints[0].text, `is`("arg2"))
@@ -757,14 +759,14 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 @Test
                 @DisplayName("name test matching the parameter names")
                 fun same() {
-                    val args = parse<XPathArgumentList>(
+                    val f = parse<PluginArrowFunctionCall>(
                         """
                         |declare function local:f(${'$'}arg1, ${'$'}arg2, ${'$'}arg3, ${'$'}arg4) {};
                         |${'$'}one => local:f(${'$'}x/@two, ${'$'}x/@arg3, ${'$'}x/lorem//@four)
                         """.trimMargin()
                     )[0]
 
-                    val hints = provider.getParameterHints(args)
+                    val hints = provider.getParameterHints(f)
                     assertThat(hints.size, `is`(2))
 
                     assertThat(hints[0].text, `is`("arg2"))
@@ -783,14 +785,14 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 @Test
                 @DisplayName("name test not matching the parameter names")
                 fun different() {
-                    val args = parse<XPathArgumentList>(
+                    val f = parse<PluginArrowFunctionCall>(
                         """
                         |declare function local:f(${'$'}arg1, ${'$'}arg2, ${'$'}arg3) {};
                         |${'$'}one => local:f(${'$'}x/child::two, ${'$'}x/lorem//child::three)
                         """.trimMargin()
                     )[0]
 
-                    val hints = provider.getParameterHints(args)
+                    val hints = provider.getParameterHints(f)
                     assertThat(hints.size, `is`(2))
 
                     assertThat(hints[0].text, `is`("arg2"))
@@ -805,14 +807,14 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 @Test
                 @DisplayName("name test matching the parameter names")
                 fun same() {
-                    val args = parse<XPathArgumentList>(
+                    val f = parse<PluginArrowFunctionCall>(
                         """
                         |declare function local:f(${'$'}arg1, ${'$'}arg2, ${'$'}arg3, ${'$'}arg4) {};
                         |${'$'}one => local:f(${'$'}x/child::two, ${'$'}x/child::arg3, ${'$'}x/lorem//child::four)
                         """.trimMargin()
                     )[0]
 
-                    val hints = provider.getParameterHints(args)
+                    val hints = provider.getParameterHints(f)
                     assertThat(hints.size, `is`(2))
 
                     assertThat(hints[0].text, `is`("arg2"))
@@ -831,14 +833,14 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 @Test
                 @DisplayName("name test not matching the parameter names")
                 fun different() {
-                    val args = parse<XPathArgumentList>(
+                    val f = parse<PluginArrowFunctionCall>(
                         """
                         |declare function local:f(${'$'}arg1, ${'$'}arg2, ${'$'}arg3) {};
                         |${'$'}one => local:f(${'$'}x/parent::two, ${'$'}x/lorem//parent::three)
                         """.trimMargin()
                     )[0]
 
-                    val hints = provider.getParameterHints(args)
+                    val hints = provider.getParameterHints(f)
                     assertThat(hints.size, `is`(2))
 
                     assertThat(hints[0].text, `is`("arg2"))
@@ -853,14 +855,14 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 @Test
                 @DisplayName("name test matching the parameter names")
                 fun same() {
-                    val args = parse<XPathArgumentList>(
+                    val f = parse<PluginArrowFunctionCall>(
                         """
                         |declare function local:f(${'$'}arg1, ${'$'}arg2, ${'$'}arg3, ${'$'}arg4) {};
                         |${'$'}one => local:f(${'$'}x/parent::two, ${'$'}x/parent::arg3, ${'$'}x/lorem//parent::four)
                         """.trimMargin()
                     )[0]
 
-                    val hints = provider.getParameterHints(args)
+                    val hints = provider.getParameterHints(f)
                     assertThat(hints.size, `is`(2))
 
                     assertThat(hints[0].text, `is`("arg2"))
@@ -879,14 +881,14 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 @Test
                 @DisplayName("name test not matching the parameter names")
                 fun different() {
-                    val args = parse<XPathArgumentList>(
+                    val f = parse<PluginArrowFunctionCall>(
                         """
                         |declare function local:f(${'$'}arg1, ${'$'}arg2, ${'$'}arg3) {};
                         |<one/> => local:f(<two/>, <three/>)
                         """.trimMargin()
                     )[0]
 
-                    val hints = provider.getParameterHints(args)
+                    val hints = provider.getParameterHints(f)
                     assertThat(hints.size, `is`(2))
 
                     assertThat(hints[0].text, `is`("arg2"))
@@ -901,14 +903,14 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 @Test
                 @DisplayName("name test matching the parameter names")
                 fun same() {
-                    val args = parse<XPathArgumentList>(
+                    val f = parse<PluginArrowFunctionCall>(
                         """
                         |declare function local:f(${'$'}arg1, ${'$'}arg2, ${'$'}arg3, ${'$'}arg4) {};
                         |<one/> => local:f(<two/>, <arg3/>, <four/>)
                         """.trimMargin()
                     )[0]
 
-                    val hints = provider.getParameterHints(args)
+                    val hints = provider.getParameterHints(f)
                     assertThat(hints.size, `is`(2))
 
                     assertThat(hints[0].text, `is`("arg2"))
@@ -927,14 +929,14 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 @Test
                 @DisplayName("name test not matching the parameter names")
                 fun different() {
-                    val args = parse<XPathArgumentList>(
+                    val f = parse<PluginArrowFunctionCall>(
                         """
                         |declare function local:f(${'$'}arg1, ${'$'}arg2, ${'$'}arg3) {};
                         |element one {} => local:f(element two {}, element three {})
                         """.trimMargin()
                     )[0]
 
-                    val hints = provider.getParameterHints(args)
+                    val hints = provider.getParameterHints(f)
                     assertThat(hints.size, `is`(2))
 
                     assertThat(hints[0].text, `is`("arg2"))
@@ -949,14 +951,14 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 @Test
                 @DisplayName("name test matching the parameter names")
                 fun same() {
-                    val args = parse<XPathArgumentList>(
+                    val f = parse<PluginArrowFunctionCall>(
                         """
                         |declare function local:f(${'$'}arg1, ${'$'}arg2, ${'$'}arg3, ${'$'}arg4) {};
                         |element one {} => local:f(element two {}, element arg3 {}, element four {})
                         """.trimMargin()
                     )[0]
 
-                    val hints = provider.getParameterHints(args)
+                    val hints = provider.getParameterHints(f)
                     assertThat(hints.size, `is`(2))
 
                     assertThat(hints[0].text, `is`("arg2"))
@@ -975,14 +977,14 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 @Test
                 @DisplayName("name test not matching the parameter names")
                 fun different() {
-                    val args = parse<XPathArgumentList>(
+                    val f = parse<PluginArrowFunctionCall>(
                         """
                         |declare function local:f(${'$'}arg1, ${'$'}arg2, ${'$'}arg3) {};
                         |attribute one {} => local:f(attribute two {}, attribute three {})
                         """.trimMargin()
                     )[0]
 
-                    val hints = provider.getParameterHints(args)
+                    val hints = provider.getParameterHints(f)
                     assertThat(hints.size, `is`(2))
 
                     assertThat(hints[0].text, `is`("arg2"))
@@ -997,14 +999,14 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 @Test
                 @DisplayName("name test matching the parameter names")
                 fun same() {
-                    val args = parse<XPathArgumentList>(
+                    val f = parse<PluginArrowFunctionCall>(
                         """
                         |declare function local:f(${'$'}arg1, ${'$'}arg2, ${'$'}arg3, ${'$'}arg4) {};
                         |attribute one {} => local:f(attribute two {}, attribute arg3 {}, attribute four {})
                         """.trimMargin()
                     )[0]
 
-                    val hints = provider.getParameterHints(args)
+                    val hints = provider.getParameterHints(f)
                     assertThat(hints.size, `is`(2))
 
                     assertThat(hints[0].text, `is`("arg2"))
@@ -1024,9 +1026,9 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
             @Test
             @DisplayName("incomplete variable name")
             fun incompleteVariableName() {
-                val args = parse<XPathArgumentList>("declare function local:f(\$, \$arg2) {}; local:f(3, 4)")[0]
+                val f = parse<XPathFunctionCall>("declare function local:f(\$, \$arg2) {}; local:f(3, 4)")[0]
 
-                val hints = provider.getParameterHints(args)
+                val hints = provider.getParameterHints(f)
                 assertThat(hints.size, `is`(1))
 
                 assertThat(hints[0].text, `is`("arg2"))
@@ -1040,10 +1042,11 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 @Test
                 @DisplayName("zero")
                 fun zero() {
-                    val args =
-                        parse<XPathArgumentList>("declare function local:f(\$arg1, \$arg2 ...) {}; local:f(3)")[0]
+                    val f = parse<XPathFunctionCall>(
+                        "declare function local:f(\$arg1, \$arg2 ...) {}; local:f(3)"
+                    )[0]
 
-                    val hints = provider.getParameterHints(args)
+                    val hints = provider.getParameterHints(f)
                     assertThat(hints.size, `is`(1))
 
                     assertThat(hints[0].text, `is`("arg1"))
@@ -1054,10 +1057,11 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 @Test
                 @DisplayName("one")
                 fun one() {
-                    val args =
-                        parse<XPathArgumentList>("declare function local:f(\$arg1, \$arg2 ...) {}; local:f(3, 6)")[0]
+                    val f = parse<XPathFunctionCall>(
+                        "declare function local:f(\$arg1, \$arg2 ...) {}; local:f(3, 6)"
+                    )[0]
 
-                    val hints = provider.getParameterHints(args)
+                    val hints = provider.getParameterHints(f)
                     assertThat(hints.size, `is`(2))
 
                     assertThat(hints[0].text, `is`("arg1"))
@@ -1072,10 +1076,11 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 @Test
                 @DisplayName("many")
                 fun many() {
-                    val args =
-                        parse<XPathArgumentList>("declare function local:f(\$arg1, \$arg2 ...) {}; local:f(3, 6, 9, 12)")[0]
+                    val f = parse<XPathFunctionCall>(
+                        "declare function local:f(\$arg1, \$arg2 ...) {}; local:f(3, 6, 9, 12)"
+                    )[0]
 
-                    val hints = provider.getParameterHints(args)
+                    val hints = provider.getParameterHints(f)
                     assertThat(hints.size, `is`(2))
 
                     assertThat(hints[0].text, `is`("arg1"))

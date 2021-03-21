@@ -35,8 +35,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableReference
 @Suppress("UnstableApiUsage", "UnstableTypeUsedInSignature")
 class XPathInlayParameterHintsProvider : InlayParameterHintsProvider {
     override fun getParameterHints(element: PsiElement): List<InlayInfo> {
-        if (element !is XPathArgumentList) return emptyList()
-        val (_, bindings) = (element.parent as XpmFunctionCall).resolve ?: return emptyList()
+        val (_, bindings) = (element as? XpmFunctionCall)?.resolve ?: return emptyList()
         return bindings.mapIndexedNotNull { index, binding ->
             val expr = when (val expr = binding.variableExpression) {
                 is PsiElement -> expr
@@ -46,7 +45,7 @@ class XPathInlayParameterHintsProvider : InlayParameterHintsProvider {
             when {
                 binding.variableName == null -> null // Parameter with incomplete variable name.
                 expr == null -> null // Empty variadic parameter.
-                index == 0 && element.parent is XpmArrowFunctionCall -> null // Arrow function call context argument.
+                index == 0 && element is XpmArrowFunctionCall -> null // Arrow function call context argument.
                 getName(expr)?.localName?.data == binding.variableName?.localName?.data -> null
                 else -> op_qname_presentation(binding.variableName!!)?.let { name ->
                     InlayInfo(name, expr.let { it.parenthesizedExprTextOffset ?: it.textOffset }, false)
@@ -58,8 +57,7 @@ class XPathInlayParameterHintsProvider : InlayParameterHintsProvider {
     override fun getDefaultBlackList(): Set<String> = DEFAULT_BLACKLIST
 
     override fun getHintInfo(element: PsiElement): HintInfo.MethodInfo? {
-        if (element !is XPathArgumentList) return null
-        val (decl, bindings) = (element.parent as XpmFunctionCall).resolve ?: return null
+        val (decl, bindings) = (element as? XpmFunctionCall)?.resolve ?: return null
         val functionName = decl.functionName?.expand()?.firstOrNull()
         val eqname = functionName?.let { op_qname_presentation(it, true) } ?: return null
         val params = bindings.mapNotNull { it.variableName?.localName?.data }
