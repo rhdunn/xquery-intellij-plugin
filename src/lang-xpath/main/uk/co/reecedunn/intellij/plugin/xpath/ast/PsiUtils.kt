@@ -20,8 +20,6 @@ import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.reverse
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
-import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowDynamicFunctionCall
-import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathComment
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEnclosedExpr
@@ -49,13 +47,6 @@ inline fun <reified T> PsiElement.filterEnclosedExpressions(): Sequence<T> = fil
 fun Sequence<PsiElement>.filterNotWhitespace(): Sequence<PsiElement> = filterNot { e ->
     e.elementType === XPathTokenType.WHITE_SPACE || e is XPathComment
 }
-
-val PsiElement.isArrowFunctionCall: Boolean
-    get() = when (this) {
-        is PluginArrowFunctionCall -> true
-        is PluginArrowDynamicFunctionCall -> true
-        else -> false
-    }
 
 val PsiElement.parenthesizedExprTextOffset: Int?
     get() {

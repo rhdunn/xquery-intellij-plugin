@@ -19,9 +19,6 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.core.sequences.reverse
-import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
-import uk.co.reecedunn.intellij.plugin.xpath.ast.isArrowFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentPlaceholder
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
@@ -41,12 +38,10 @@ open class XPathArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
             val params = target.parameters
             return params.mapIndexedNotNull { index, param ->
                 when {
-                    index == 0 && parent.isArrowFunctionCall -> {
+                    index == 0 && parent is XpmArrowFunctionCall -> {
                         // First argument bound to an ArrowExpr evaluation result.
-                        val context = reverse(parent.siblings()).filter {
-                            it.isArrowFunctionCall
-                        }.firstOrNull() ?: parent.parent.firstChild
-                        XpmFunctionParamBinding(param, context)
+                        val context = (parent as XpmArrowFunctionCall).sourceExpression
+                        XpmFunctionParamBinding(param, context as PsiElement)
                     }
                     index == params.size - 1 -> {
                         // Last argument, maybe variadic.
