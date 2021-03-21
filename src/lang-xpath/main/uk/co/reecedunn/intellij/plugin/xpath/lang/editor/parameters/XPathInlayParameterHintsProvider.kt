@@ -45,6 +45,7 @@ class XPathInlayParameterHintsProvider : InlayParameterHintsProvider {
             when {
                 binding.variableName == null -> null // Parameter with incomplete variable name.
                 expr == null -> null // Empty variadic parameter.
+                expr.parent is XPathKeywordArgument -> null // keyword argument
                 index == 0 && element is XpmArrowFunctionCall -> null // Arrow function call context argument.
                 getName(expr)?.localName?.data == binding.variableName?.localName?.data -> null
                 else -> op_qname_presentation(binding.variableName!!)?.let { name ->

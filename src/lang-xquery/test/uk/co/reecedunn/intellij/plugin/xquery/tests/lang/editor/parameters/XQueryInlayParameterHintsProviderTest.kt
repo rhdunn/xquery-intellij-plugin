@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -232,6 +232,19 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 assertThat(hints[1].text, `is`("arg2"))
                 assertThat(hints[1].offset, `is`(54))
                 assertThat(hints[1].isShowOnlyIfExistedBefore, `is`(false))
+            }
+
+            @Test
+            @DisplayName("XQuery 4.0 ED EBNF (137) KeywordArgument")
+            fun keywordArgument() {
+                val f = parse<XPathFunctionCall>("declare function local:f(\$arg1, \$arg2) {}; local:f(3, arg2: 6)")[0]
+
+                val hints = provider.getParameterHints(f)
+                assertThat(hints.size, `is`(1))
+
+                assertThat(hints[0].text, `is`("arg1"))
+                assertThat(hints[0].offset, `is`(51))
+                assertThat(hints[0].isShowOnlyIfExistedBefore, `is`(false))
             }
 
             @Nested
