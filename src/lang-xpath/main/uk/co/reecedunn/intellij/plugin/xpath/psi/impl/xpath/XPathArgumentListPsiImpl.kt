@@ -17,44 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentPlaceholder
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
-import uk.co.reecedunn.intellij.plugin.xpm.optree.function.*
 
-open class XPathArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathArgumentList {
-    // region XPathArgumentList
-
-    private val arguments: Sequence<PsiElement>
-        get() = children().filter { it is XpmExpression || it is XPathArgumentPlaceholder }
-
-    override val bindings: List<XpmFunctionParamBinding>
-        get() {
-            val target = (parent as? XpmFunctionCall)?.functionDeclaration ?: return listOf()
-
-            val args = arguments.iterator()
-            val params = target.parameters
-            return params.mapIndexedNotNull { index, param ->
-                when {
-                    index == 0 && parent is XpmArrowFunctionCall -> {
-                        // First argument bound to an ArrowExpr evaluation result.
-                        val context = (parent as XpmArrowFunctionCall).sourceExpression
-                        XpmFunctionParamBinding(param, context as PsiElement)
-                    }
-                    index == params.size - 1 -> {
-                        // Last argument, maybe variadic.
-                        XpmFunctionParamBinding(param, args.asSequence().toList())
-                    }
-                    args.hasNext() -> {
-                        // Other argument bound to the relevant parameter.
-                        XpmFunctionParamBinding(param, args.next())
-                    }
-                    else -> null
-                }
-            }
-        }
-
-    // endregion
-}
+open class XPathArgumentListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathArgumentList
