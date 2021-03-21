@@ -3046,26 +3046,31 @@ private class XQueryPsiTest : ParserTestCase() {
                     @Test
                     @DisplayName("positional arguments")
                     fun positionalArguments() {
-                        val bindings = parse<XPathFunctionCall>("math:pow(2, 8)")[0].argumentList.bindings
+                        val f = parse<XPathFunctionCall>("math:pow(2, 8)")[0] as XpmFunctionCall
+                        val (decl, bindings) = f.resolve!!
+
+                        assertThat(op_qname_presentation(decl.functionName!!), `is`("math:pow"))
                         assertThat(bindings.size, `is`(2))
 
-                        assertThat(op_qname_presentation(bindings[0].param.variableName!!), `is`("x"))
-                        assertThat(bindings[0].size, `is`(1))
-                        assertThat(bindings[0][0].text, `is`("2"))
+                        var arg = bindings[0] as XpmAssignableVariable
+                        assertThat(op_qname_presentation(arg.variableName!!), `is`("x"))
+                        assertThat(arg.variableType?.typeName, `is`("xs:double?"))
+                        assertThat(arg.variableExpression, sameInstance(f.positionalArguments[0]))
 
-                        assertThat(op_qname_presentation(bindings[1].param.variableName!!), `is`("y"))
-                        assertThat(bindings[1].size, `is`(1))
-                        assertThat(bindings[1][0].text, `is`("8"))
+                        arg = bindings[1] as XpmAssignableVariable
+                        assertThat(op_qname_presentation(arg.variableName!!), `is`("y"))
+                        assertThat(arg.variableType?.typeName, `is`("xs:numeric"))
+                        assertThat(arg.variableExpression, sameInstance(f.positionalArguments[1]))
                     }
 
                     @Test
                     @DisplayName("empty arguments")
                     fun emptyArguments() {
                         val f = parse<XPathFunctionCall>("fn:true()")[0] as XpmFunctionCall
-                        val (decl, vars) = f.resolve!!
+                        val (decl, bindings) = f.resolve!!
 
                         assertThat(op_qname_presentation(decl.functionName!!), `is`("fn:true"))
-                        assertThat(vars.size, `is`(0))
+                        assertThat(bindings.size, `is`(0))
                     }
                 }
 
@@ -3199,28 +3204,31 @@ private class XQueryPsiTest : ParserTestCase() {
                     @Test
                     @DisplayName("positional arguments")
                     fun positionalArguments() {
-                        val f = parse<PluginDynamicFunctionCall>("math:pow#2(2, 8)")[0]
-                        val args = f.children().filterIsInstance<XPathArgumentList>().first()
-                        val bindings = args.bindings
+                        val f = parse<PluginDynamicFunctionCall>("math:pow#2(2, 8)")[0] as XpmFunctionCall
+                        val (decl, bindings) = f.resolve!!
+
+                        assertThat(op_qname_presentation(decl.functionName!!), `is`("math:pow"))
                         assertThat(bindings.size, `is`(2))
 
-                        assertThat(op_qname_presentation(bindings[0].param.variableName!!), `is`("x"))
-                        assertThat(bindings[0].size, `is`(1))
-                        assertThat(bindings[0][0].text, `is`("2"))
+                        var arg = bindings[0] as XpmAssignableVariable
+                        assertThat(op_qname_presentation(arg.variableName!!), `is`("x"))
+                        assertThat(arg.variableType?.typeName, `is`("xs:double?"))
+                        assertThat(arg.variableExpression, sameInstance(f.positionalArguments[0]))
 
-                        assertThat(op_qname_presentation(bindings[1].param.variableName!!), `is`("y"))
-                        assertThat(bindings[1].size, `is`(1))
-                        assertThat(bindings[1][0].text, `is`("8"))
+                        arg = bindings[1] as XpmAssignableVariable
+                        assertThat(op_qname_presentation(arg.variableName!!), `is`("y"))
+                        assertThat(arg.variableType?.typeName, `is`("xs:numeric"))
+                        assertThat(arg.variableExpression, sameInstance(f.positionalArguments[1]))
                     }
 
                     @Test
                     @DisplayName("empty arguments")
                     fun emptyArguments() {
                         val f = parse<PluginDynamicFunctionCall>("fn:true#0()")[0] as XpmFunctionCall
-                        val (decl, vars) = f.resolve!!
+                        val (decl, bindings) = f.resolve!!
 
                         assertThat(op_qname_presentation(decl.functionName!!), `is`("fn:true"))
-                        assertThat(vars.size, `is`(0))
+                        assertThat(bindings.size, `is`(0))
                     }
                 }
 
