@@ -56,7 +56,9 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAnnotated
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPathStep
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpressions
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.elementType
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.impl.XpmEmptyExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.text
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.*
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
@@ -3149,58 +3151,80 @@ private class XQueryPsiTest : ParserTestCase() {
                     @Test
                     @DisplayName("no arguments specified for the variadic parameter")
                     fun empty() {
-                        val bindings = parse<XPathFunctionCall>("fn:concat(2, 4)")[0].argumentList.bindings
+                        val f = parse<XPathFunctionCall>("fn:concat(2, 4)")[0]
+                        val (decl, bindings) = f.resolve!!
+
+                        assertThat(op_qname_presentation(decl.functionName!!), `is`("fn:concat"))
                         assertThat(bindings.size, `is`(3))
 
-                        assertThat(op_qname_presentation(bindings[0].param.variableName!!), `is`("arg1"))
-                        assertThat(bindings[0].size, `is`(1))
-                        assertThat(bindings[0][0].text, `is`("2"))
+                        var arg = bindings[0] as XpmAssignableVariable
+                        assertThat(op_qname_presentation(arg.variableName!!), `is`("arg1"))
+                        assertThat(arg.variableType?.typeName, `is`("xs:anyAtomicType?"))
+                        assertThat(arg.variableExpression, sameInstance(f.positionalArguments[0]))
 
-                        assertThat(op_qname_presentation(bindings[1].param.variableName!!), `is`("arg2"))
-                        assertThat(bindings[1].size, `is`(1))
-                        assertThat(bindings[1][0].text, `is`("4"))
+                        arg = bindings[1] as XpmAssignableVariable
+                        assertThat(op_qname_presentation(arg.variableName!!), `is`("arg2"))
+                        assertThat(arg.variableType?.typeName, `is`("xs:anyAtomicType?"))
+                        assertThat(arg.variableExpression, sameInstance(f.positionalArguments[1]))
 
-                        assertThat(op_qname_presentation(bindings[2].param.variableName!!), `is`("args"))
-                        assertThat(bindings[2].size, `is`(0))
+                        arg = bindings[2] as XpmAssignableVariable
+                        assertThat(op_qname_presentation(arg.variableName!!), `is`("args"))
+                        assertThat(arg.variableType?.typeName, `is`("xs:anyAtomicType?"))
+                        assertThat(arg.variableExpression, sameInstance(XpmEmptyExpression))
                     }
 
                     @Test
                     @DisplayName("single argument specified for the variadic parameter")
                     fun single() {
-                        val bindings = parse<XPathFunctionCall>("fn:concat(2, 4, 6)")[0].argumentList.bindings
+                        val f = parse<XPathFunctionCall>("fn:concat(2, 4, 6)")[0]
+                        val (decl, bindings) = f.resolve!!
+
+                        assertThat(op_qname_presentation(decl.functionName!!), `is`("fn:concat"))
                         assertThat(bindings.size, `is`(3))
 
-                        assertThat(op_qname_presentation(bindings[0].param.variableName!!), `is`("arg1"))
-                        assertThat(bindings[0].size, `is`(1))
-                        assertThat(bindings[0][0].text, `is`("2"))
+                        var arg = bindings[0] as XpmAssignableVariable
+                        assertThat(op_qname_presentation(arg.variableName!!), `is`("arg1"))
+                        assertThat(arg.variableType?.typeName, `is`("xs:anyAtomicType?"))
+                        assertThat(arg.variableExpression, sameInstance(f.positionalArguments[0]))
 
-                        assertThat(op_qname_presentation(bindings[1].param.variableName!!), `is`("arg2"))
-                        assertThat(bindings[1].size, `is`(1))
-                        assertThat(bindings[1][0].text, `is`("4"))
+                        arg = bindings[1] as XpmAssignableVariable
+                        assertThat(op_qname_presentation(arg.variableName!!), `is`("arg2"))
+                        assertThat(arg.variableType?.typeName, `is`("xs:anyAtomicType?"))
+                        assertThat(arg.variableExpression, sameInstance(f.positionalArguments[1]))
 
-                        assertThat(op_qname_presentation(bindings[2].param.variableName!!), `is`("args"))
-                        assertThat(bindings[2].size, `is`(1))
-                        assertThat(bindings[2][0].text, `is`("6"))
+                        arg = bindings[2] as XpmAssignableVariable
+                        assertThat(op_qname_presentation(arg.variableName!!), `is`("args"))
+                        assertThat(arg.variableType?.typeName, `is`("xs:anyAtomicType?"))
+                        assertThat(arg.variableExpression, sameInstance(f.positionalArguments[2]))
                     }
 
                     @Test
                     @DisplayName("multiple arguments specified for the variadic parameter")
                     fun multiple() {
-                        val bindings = parse<XPathFunctionCall>("fn:concat(2, 4, 6, 8)")[0].argumentList.bindings
+                        val f = parse<XPathFunctionCall>("fn:concat(2, 4, 6, 8)")[0]
+                        val (decl, bindings) = f.resolve!!
+
+                        assertThat(op_qname_presentation(decl.functionName!!), `is`("fn:concat"))
                         assertThat(bindings.size, `is`(3))
 
-                        assertThat(op_qname_presentation(bindings[0].param.variableName!!), `is`("arg1"))
-                        assertThat(bindings[0].size, `is`(1))
-                        assertThat(bindings[0][0].text, `is`("2"))
+                        var arg = bindings[0] as XpmAssignableVariable
+                        assertThat(op_qname_presentation(arg.variableName!!), `is`("arg1"))
+                        assertThat(arg.variableType?.typeName, `is`("xs:anyAtomicType?"))
+                        assertThat(arg.variableExpression, sameInstance(f.positionalArguments[0]))
 
-                        assertThat(op_qname_presentation(bindings[1].param.variableName!!), `is`("arg2"))
-                        assertThat(bindings[1].size, `is`(1))
-                        assertThat(bindings[1][0].text, `is`("4"))
+                        arg = bindings[1] as XpmAssignableVariable
+                        assertThat(op_qname_presentation(arg.variableName!!), `is`("arg2"))
+                        assertThat(arg.variableType?.typeName, `is`("xs:anyAtomicType?"))
+                        assertThat(arg.variableExpression, sameInstance(f.positionalArguments[1]))
 
-                        assertThat(op_qname_presentation(bindings[2].param.variableName!!), `is`("args"))
-                        assertThat(bindings[2].size, `is`(2))
-                        assertThat(bindings[2][0].text, `is`("6"))
-                        assertThat(bindings[2][1].text, `is`("8"))
+                        arg = bindings[2] as XpmAssignableVariable
+                        assertThat(op_qname_presentation(arg.variableName!!), `is`("args"))
+                        assertThat(arg.variableType?.typeName, `is`("xs:anyAtomicType?"))
+
+                        val rest = arg.variableExpression as XpmExpressions
+                        assertThat(rest.expressions.size, `is`(2))
+                        assertThat(rest.expressions[0], sameInstance(f.positionalArguments[2]))
+                        assertThat(rest.expressions[1], sameInstance(f.positionalArguments[3]))
                     }
                 }
             }

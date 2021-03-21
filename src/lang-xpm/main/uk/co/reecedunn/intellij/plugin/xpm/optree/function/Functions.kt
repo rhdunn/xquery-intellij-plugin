@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.optree.function
 
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.impl.XpmEmptyExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.impl.XpmExpressionsImpl
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.impl.XpmBoundParameter
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableBinding
 import uk.co.reecedunn.intellij.plugin.xpm.staticallyKnownFunctions
@@ -39,14 +41,28 @@ val XpmFunctionCall.resolve: Pair<XpmFunctionDeclaration, List<XpmVariableBindin
         val parameters = decl.parameters
 
         val positionalArguments = positionalArguments
-        var offset = 0
+        var positionalIndex = -1
         return decl to parameters.mapIndexed { index, parameter ->
             when {
-                index == 0 && this is XpmArrowFunctionCall -> {
-                    offset = -1
+                index == 0 && this is XpmArrowFunctionCall /* arrow expression initial argument */ -> {
                     XpmBoundParameter(parameter, sourceExpression)
                 }
-                else -> XpmBoundParameter(parameter, positionalArguments[index + offset])
+                index == parameters.size - 1 /* last parameter */ -> {
+                    positionalIndex += 1
+                    val remaining = positionalArguments.size - positionalIndex
+                    when {
+                        remaining == 0 -> XpmBoundParameter(parameter, XpmEmptyExpression)
+                        remaining == 1 -> XpmBoundParameter(parameter, positionalArguments.last())
+                        else -> {
+                            val args = positionalArguments.subList(positionalIndex, positionalArguments.size)
+                            XpmBoundParameter(parameter, XpmExpressionsImpl(args))
+                        }
+                    }
+                }
+                else -> {
+                    positionalIndex += 1
+                    XpmBoundParameter(parameter, positionalArguments[positionalIndex])
+                }
             }
         }
     }
