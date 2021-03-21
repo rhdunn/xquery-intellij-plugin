@@ -912,16 +912,16 @@ values in a sequence or array.
 
 ### 5.6 Functions
 
-| Symbol                     | Interface                                 |
-|----------------------------|-------------------------------------------|
-| `ArgumentPlaceholder`      | `XpmExpression`                           |
-| `ArrowDynamicFunctionCall` | `XpmFunctionCall`                         |
-| `ArrowFunctionCall`        | `XpmFunctionCall`, `XpmFunctionReference` |
-| `DynamicFunctionCall`      | `XpmFunctionCall`                         |
-| `FunctionCall`             | `XpmFunctionCall`, `XpmFunctionReference` |
-| `FunctionDecl`             | `XpmFunctionDeclaration`                  |
-| `InlineFunctionExpr`       | `XpmFunctionDeclaration`                  |
-| `NamedFunctionRef`         | `XpmFunctionReference`                    |
+| Symbol                     | Interface                                      |
+|----------------------------|------------------------------------------------|
+| `ArgumentPlaceholder`      | `XpmExpression`                                |
+| `ArrowDynamicFunctionCall` | `XpmArrowFunctionCall`                         |
+| `ArrowFunctionCall`        | `XpmArrowFunctionCall`, `XpmFunctionReference` |
+| `DynamicFunctionCall`      | `XpmFunctionCall`                              |
+| `FunctionCall`             | `XpmFunctionCall`, `XpmFunctionReference`      |
+| `FunctionDecl`             | `XpmFunctionDeclaration`                       |
+| `InlineFunctionExpr`       | `XpmFunctionDeclaration`                       |
+| `NamedFunctionRef`         | `XpmFunctionReference`                         |
 
 A *function declaration* is a declaration or expression that introduces a named
 or anonymous function.
@@ -933,6 +933,11 @@ A *function call* is an expression that evaluates to a *function reference*. It
 supplies positional and keyword arguments that are used to evaluate the
 function. If any of the positional arguments are placeholders, this is a
 *partially applied function call*.
+
+An *arrow function call* is a *function call* that is used in an arrow expression.
+The *source expression* property references the initial unary expression if this
+is the first arrow target in the chain; otherwise, it references the previous
+arrow target.
 
 A *static function call* is a *function call* that has the name and arity of
 the function it references.

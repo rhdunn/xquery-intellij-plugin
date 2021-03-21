@@ -47,7 +47,7 @@ class PluginArrowDynamicFunctionCallPsiImpl(node: ASTNode) :
         get() = children().filterIsInstance<XPathArgumentList>().first()
 
     // endregion
-    // region XpmFunctionCall
+    // region XpmArrowFunctionCall
 
     override val functionCallExpression: XpmExpression?
         get() = children().filterIsInstance<XpmExpression>().firstOrNull()
@@ -61,6 +61,9 @@ class PluginArrowDynamicFunctionCallPsiImpl(node: ASTNode) :
         get() = cachedPositionalArguments.get()!!
 
     override val keywordArguments: List<XpmMapEntry> = listOf()
+
+    override val sourceExpression: XpmExpression?
+        get() = reverse(siblings()).filterIsInstance<XpmExpression>().firstOrNull()
 
     // endregion
     // region XpmSyntaxValidationElement

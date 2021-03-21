@@ -80,6 +80,9 @@ class PluginArrowFunctionCallPsiImpl(node: ASTNode) :
     override val keywordArguments: List<XpmMapEntry>
         get() = cachedKeywordArguments.get()!!
 
+    override val sourceExpression: XpmExpression?
+        get() = reverse(siblings()).filterIsInstance<XpmExpression>().firstOrNull()
+
     // endregion
     // region XpmSyntaxValidationElement
 

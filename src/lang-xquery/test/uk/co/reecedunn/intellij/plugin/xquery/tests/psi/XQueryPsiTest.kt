@@ -6903,8 +6903,9 @@ private class XQueryPsiTest : ParserTestCase() {
             fun arrowFunctionSpecifier_VarRef() {
                 val f = parse<PluginArrowDynamicFunctionCall>(
                     "let \$f := format-date#5 return \$x => \$f(1, 2, 3,  4)"
-                )[0] as XpmFunctionCall
+                )[0] as XpmArrowFunctionCall
 
+                assertThat(f.sourceExpression?.text, `is`("\$x "))
                 assertThat(f.functionReference, `is`(nullValue())) // TODO: fn:format-date#5
 
                 assertThat(f.positionalArguments.size, `is`(4))
@@ -6919,7 +6920,9 @@ private class XQueryPsiTest : ParserTestCase() {
             fun arrowFunctionSpecifier_ParenthesizedExpr() {
                 val f = parse<PluginArrowDynamicFunctionCall>(
                     "\$x => (format-date#5)(1, 2, 3,  4)"
-                )[0] as XpmFunctionCall
+                )[0] as XpmArrowFunctionCall
+
+                assertThat(f.sourceExpression?.text, `is`("\$x "))
 
                 val ref = f.functionReference!!
                 assertThat(ref.arity, `is`(5))
@@ -6990,6 +6993,8 @@ private class XQueryPsiTest : ParserTestCase() {
 
                     assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
                     assertThat(expr.expressionElement?.textOffset, `is`(33))
+
+                    assertThat((expr as XpmArrowFunctionCall).sourceExpression?.text, `is`("1"))
                 }
 
                 @Test
@@ -7001,6 +7006,8 @@ private class XQueryPsiTest : ParserTestCase() {
 
                     assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
                     assertThat(expr.expressionElement?.textOffset, `is`(54))
+
+                    assertThat((expr as XpmArrowFunctionCall).sourceExpression?.text, `is`("1"))
                 }
 
                 @Test
@@ -7012,6 +7019,8 @@ private class XQueryPsiTest : ParserTestCase() {
 
                     assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
                     assertThat(expr.expressionElement?.textOffset, `is`(62))
+
+                    assertThat((expr as XpmArrowFunctionCall).sourceExpression?.text, `is`("\$x()"))
                 }
             }
 
@@ -7025,6 +7034,8 @@ private class XQueryPsiTest : ParserTestCase() {
 
                     assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
                     assertThat(expr.expressionElement?.textOffset, `is`(15))
+
+                    assertThat((expr as XpmArrowFunctionCall).sourceExpression?.text, `is`("1"))
                 }
 
                 @Test
@@ -7036,6 +7047,8 @@ private class XQueryPsiTest : ParserTestCase() {
 
                     assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
                     assertThat(expr.expressionElement?.textOffset, `is`(15))
+
+                    assertThat((expr as XpmArrowFunctionCall).sourceExpression?.text, `is`("1"))
                 }
 
                 @Test
@@ -7047,6 +7060,8 @@ private class XQueryPsiTest : ParserTestCase() {
 
                     assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
                     assertThat(expr.expressionElement?.textOffset, `is`(33))
+
+                    assertThat((expr as XpmArrowFunctionCall).sourceExpression?.text, `is`("(fn:abs#1)()"))
                 }
             }
         }

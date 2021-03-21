@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2021 Reece H. Dunn
+ * Copyright (C) 2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,13 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.ast.plugin
+package uk.co.reecedunn.intellij.plugin.xpm.optree.function
 
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArrowFunctionSpecifier
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
-import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmArrowFunctionCall
 
-/**
- * An `ArrowDynamicFunctionCall` node in the XPath and XQuery AST.
- */
-interface PluginArrowDynamicFunctionCall : XPathArrowFunctionSpecifier, XpmArrowFunctionCall, XpmExpression
+interface XpmArrowFunctionCall : XpmFunctionCall {
+    val sourceExpression: XpmExpression?
+}
