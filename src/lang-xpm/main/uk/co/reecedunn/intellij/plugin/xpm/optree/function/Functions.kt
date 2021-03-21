@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.optree.function
 
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableBinding
 import uk.co.reecedunn.intellij.plugin.xpm.staticallyKnownFunctions
 
 val XpmFunctionCall.functionReference: XpmFunctionReference?
@@ -29,4 +30,10 @@ val XpmFunctionCall.functionDeclaration: XpmFunctionDeclaration?
         return ref?.functionName?.staticallyKnownFunctions()?.firstOrNull { f ->
             f.arity.isWithin(ref.arity)
         }
+    }
+
+val XpmFunctionCall.resolve: Pair<XpmFunctionDeclaration, List<XpmVariableBinding>>?
+    get() {
+        val decl = functionDeclaration ?: return null
+        return decl to listOf()
     }

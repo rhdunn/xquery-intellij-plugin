@@ -3061,8 +3061,11 @@ private class XQueryPsiTest : ParserTestCase() {
                     @Test
                     @DisplayName("empty arguments")
                     fun emptyArguments() {
-                        val bindings = parse<XPathFunctionCall>("fn:true()")[0].argumentList.bindings
-                        assertThat(bindings.size, `is`(0))
+                        val f = parse<XPathFunctionCall>("fn:true()")[0] as XpmFunctionCall
+                        val (decl, vars) = f.resolve!!
+
+                        assertThat(op_qname_presentation(decl.functionName!!), `is`("fn:true"))
+                        assertThat(vars.size, `is`(0))
                     }
                 }
 
@@ -3213,10 +3216,11 @@ private class XQueryPsiTest : ParserTestCase() {
                     @Test
                     @DisplayName("empty arguments")
                     fun emptyArguments() {
-                        val f = parse<PluginDynamicFunctionCall>("fn:true#0()")[0]
-                        val args = f.children().filterIsInstance<XPathArgumentList>().first()
-                        val bindings = args.bindings
-                        assertThat(bindings.size, `is`(0))
+                        val f = parse<PluginDynamicFunctionCall>("fn:true#0()")[0] as XpmFunctionCall
+                        val (decl, vars) = f.resolve!!
+
+                        assertThat(op_qname_presentation(decl.functionName!!), `is`("fn:true"))
+                        assertThat(vars.size, `is`(0))
                     }
                 }
 
