@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpm.context.expand
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmArrowFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionCall
-import uk.co.reecedunn.intellij.plugin.xpm.optree.function.functionReference
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.resolve
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableReference
 
 @Suppress("UnstableApiUsage", "UnstableTypeUsedInSignature")
@@ -52,9 +52,10 @@ class XPathInlayParameterHintsProvider : InlayParameterHintsProvider {
 
     override fun getHintInfo(element: PsiElement): HintInfo.MethodInfo? {
         if (element !is XPathArgumentList) return null
-        val functionName = getFunctionName(element.parent)
+        val (decl, bindings) = (element.parent as XpmFunctionCall).resolve ?: return null
+        val functionName = decl.functionName?.expand()?.firstOrNull()
         val eqname = functionName?.let { op_qname_presentation(it, true) } ?: return null
-        val params = element.bindings.mapNotNull { it.param.variableName?.localName?.data }
+        val params = bindings.mapNotNull { it.variableName?.localName?.data }
         return XPathMethodInfo(eqname, functionName.localName!!.data, params)
     }
 
@@ -62,11 +63,6 @@ class XPathInlayParameterHintsProvider : InlayParameterHintsProvider {
         private val DEFAULT_BLACKLIST = setOf(
             "(arg)" // e.g. fn:string#1, xs:QName#1
         )
-
-        private fun getFunctionName(element: PsiElement): XsQNameValue? = when (element) {
-            is XpmFunctionCall -> element.functionReference?.functionName?.expand()?.firstOrNull()
-            else -> null
-        }
 
         private fun getName(element: PsiElement): XsQNameValue? = when (element) {
             is XpmVariableReference -> element.variableName
