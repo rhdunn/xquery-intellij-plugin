@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.optree.function
 
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.impl.XpmEmptyExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.impl.XpmExpressionsImpl
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.impl.XpmBoundParameter
@@ -51,7 +52,11 @@ val XpmFunctionCall.resolve: Pair<XpmFunctionDeclaration, List<XpmAssignableVari
                     positionalIndex += 1
                     val remaining = positionalArguments.size - positionalIndex
                     when {
-                        remaining == 0 -> XpmBoundParameter(parameter, XpmEmptyExpression)
+                        remaining <= 0 -> {
+                            val parameterName = parameter.variableName?.localName?.data
+                            val arg = keywordArguments.find { (it.keyName as? XsNCNameValue)?.data == parameterName }
+                            XpmBoundParameter(parameter, arg?.valueExpression ?: XpmEmptyExpression)
+                        }
                         remaining == 1 -> XpmBoundParameter(parameter, positionalArguments.last())
                         else -> {
                             val args = positionalArguments.subList(positionalIndex, positionalArguments.size)
@@ -61,7 +66,15 @@ val XpmFunctionCall.resolve: Pair<XpmFunctionDeclaration, List<XpmAssignableVari
                 }
                 else -> {
                     positionalIndex += 1
-                    XpmBoundParameter(parameter, positionalArguments[positionalIndex])
+                    val remaining = positionalArguments.size - positionalIndex
+                    when {
+                        remaining <= 0 -> {
+                            val parameterName = parameter.variableName?.localName?.data
+                            val arg = keywordArguments.find { (it.keyName as? XsNCNameValue)?.data == parameterName }
+                            XpmBoundParameter(parameter, arg?.valueExpression)
+                        }
+                        else -> XpmBoundParameter(parameter, positionalArguments[positionalIndex])
+                    }
                 }
             }
         }
