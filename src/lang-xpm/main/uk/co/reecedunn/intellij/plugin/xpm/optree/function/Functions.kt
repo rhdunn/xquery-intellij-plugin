@@ -39,7 +39,14 @@ val XpmFunctionCall.resolve: Pair<XpmFunctionDeclaration, List<XpmVariableBindin
         val parameters = decl.parameters
 
         val positionalArguments = positionalArguments
+        var offset = 0
         return decl to parameters.mapIndexed { index, parameter ->
-            XpmBoundParameter(parameter, positionalArguments[index])
+            when {
+                index == 0 && this is XpmArrowFunctionCall -> {
+                    offset = -1
+                    XpmBoundParameter(parameter, sourceExpression)
+                }
+                else -> XpmBoundParameter(parameter, positionalArguments[index + offset])
+            }
         }
     }
