@@ -29,6 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpm.context.expand
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmDynamicFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionCall
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.functionReference
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableReference
 
 @Suppress("UnstableApiUsage", "UnstableTypeUsedInSignature")
@@ -64,7 +65,7 @@ class XPathInlayParameterHintsProvider : InlayParameterHintsProvider {
         )
 
         private fun getFunctionName(element: PsiElement): XsQNameValue? = when (element) {
-            is XpmFunctionCall -> element.functionName?.expand()?.firstOrNull()
+            is XpmFunctionCall -> element.functionReference?.functionName?.expand()?.firstOrNull()
             is XpmDynamicFunctionCall -> element.functionReference?.functionName?.expand()?.firstOrNull()
             else -> null
         }

@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmDynamicFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionCall
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.functionReference
 import uk.co.reecedunn.intellij.plugin.xpm.staticallyKnownFunctions
 
 class XPathParameterInfoHandler : ParameterInfoHandler<XPathArgumentList, XpmFunctionDeclaration> {
@@ -97,7 +98,7 @@ class XPathParameterInfoHandler : ParameterInfoHandler<XPathArgumentList, XpmFun
 
     private fun functionCandidates(args: XPathArgumentList?): Sequence<XpmFunctionDeclaration> {
         val functionName = when (val parent = args?.parent) {
-            is XpmFunctionCall -> parent.functionName
+            is XpmFunctionCall -> parent.functionReference?.functionName
             is XpmDynamicFunctionCall -> parent.functionReference?.functionName
             else -> null
         }

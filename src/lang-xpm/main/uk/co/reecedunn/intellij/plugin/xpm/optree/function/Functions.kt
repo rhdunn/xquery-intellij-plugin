@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2021 Reece H. Dunn
+ * Copyright (C) 2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,15 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
+package uk.co.reecedunn.intellij.plugin.xpm.optree.function
 
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
-import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionCall
-import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
-
-/**
- * An XPath 2.0 and XQuery 1.0 `FunctionCall` node in the XQuery AST.
- */
-interface XPathFunctionCall : XPathPrimaryExpr, XpmFunctionReference, XpmFunctionCall, XpmExpression {
-    val argumentList: XPathArgumentList
-}
+val XpmFunctionCall.functionReference: XpmFunctionReference?
+    get() = when (val expr = functionCallExpression) {
+        is XpmFunctionReference -> expr
+        else -> null
+    }

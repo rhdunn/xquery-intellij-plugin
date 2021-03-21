@@ -49,7 +49,7 @@ class PluginArrowFunctionCallPsiImpl(node: ASTNode) :
         get() = this
 
     // endregion
-    // region XdmFunctionReference
+    // region XpmFunctionReference
 
     override val functionName: XsQNameValue?
         get() = firstChild as? XsQNameValue
