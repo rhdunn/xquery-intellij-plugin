@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xpm.optree.function
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.impl.XpmEmptyExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.impl.XpmExpressionsImpl
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.impl.XpmBoundParameter
-import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableBinding
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmAssignableVariable
 import uk.co.reecedunn.intellij.plugin.xpm.staticallyKnownFunctions
 
 val XpmFunctionCall.functionReference: XpmFunctionReference?
@@ -35,7 +35,7 @@ val XpmFunctionCall.functionDeclaration: XpmFunctionDeclaration?
         }
     }
 
-val XpmFunctionCall.resolve: Pair<XpmFunctionDeclaration, List<XpmVariableBinding>>?
+val XpmFunctionCall.resolve: Pair<XpmFunctionDeclaration, List<XpmAssignableVariable>>?
     get() {
         val decl = functionDeclaration ?: return null
         val parameters = decl.parameters
