@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.optree.function.impl
 
+import com.intellij.psi.NavigatablePsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
@@ -30,4 +31,6 @@ data class XpmBoundParameter(val parameter: XpmParameter, val argument: XpmExpre
 
     override val variableExpression: XpmExpression?
         get() = argument ?: parameter.defaultExpression
+
+    override fun toString(): String = (parameter as NavigatablePsiElement).presentation?.presentableText!!
 }

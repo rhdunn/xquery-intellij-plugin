@@ -18,14 +18,10 @@ package uk.co.reecedunn.intellij.plugin.xpath.lang.editor.parameters
 import com.intellij.codeInsight.CodeInsightBundle
 import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.lang.parameterInfo.*
-import com.intellij.psi.NavigatablePsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
-import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmArrowFunctionCall
-import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionCall
-import uk.co.reecedunn.intellij.plugin.xpm.optree.function.functionReference
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.*
 import uk.co.reecedunn.intellij.plugin.xpm.staticallyKnownFunctions
 
 class XPathParameterInfoHandler : ParameterInfoHandler<XPathArgumentList, XpmFunctionDeclaration> {
@@ -70,11 +66,12 @@ class XPathParameterInfoHandler : ParameterInfoHandler<XPathArgumentList, XpmFun
             var start = -1
             var end = -1
             val withinArity = context.currentParameterIndex < p.arity.to
-            parameters.withIndex().forEach { (i, parameter) ->
+            val functionCall = context.parameterOwner.parent as XpmFunctionCall
+            functionCall.bindTo(parameters).withIndex().forEach { (i, binding) ->
                 if (i <= context.currentParameterIndex && withinArity) {
                     start = text.length
                 }
-                text.append((parameter as NavigatablePsiElement).presentation?.presentableText!!)
+                text.append(binding.toString())
                 if (i == parameters.size - 1 && isVariadic) {
                     text.append(VARIADIC_MARKER)
                 }
