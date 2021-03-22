@@ -20,6 +20,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.impl.XpmEmptyExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.impl.XpmExpressionsImpl
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.impl.XpmBoundParameter
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmAssignableVariable
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmParameter
 import uk.co.reecedunn.intellij.plugin.xpm.staticallyKnownFunctions
 
 val XpmFunctionCall.functionReference: XpmFunctionReference?
@@ -37,45 +38,45 @@ val XpmFunctionCall.functionDeclaration: XpmFunctionDeclaration?
     }
 
 val XpmFunctionCall.resolve: Pair<XpmFunctionDeclaration, List<XpmAssignableVariable>>?
-    get() {
-        val decl = functionDeclaration ?: return null
-        val parameters = decl.parameters
+    get() = functionDeclaration?.let { it to bindTo(it.parameters) }
 
-        val positionalArguments = positionalArguments
-        var positionalIndex = -1
-        return decl to parameters.mapIndexed { index, parameter ->
-            when {
-                index == 0 && this is XpmArrowFunctionCall /* arrow expression initial argument */ -> {
-                    XpmBoundParameter(parameter, sourceExpression)
-                }
-                index == parameters.size - 1 /* last parameter */ -> {
-                    positionalIndex += 1
-                    val remaining = positionalArguments.size - positionalIndex
-                    when {
-                        remaining <= 0 -> {
-                            val parameterName = parameter.variableName?.localName?.data
-                            val arg = keywordArguments.find { (it.keyName as? XsNCNameValue)?.data == parameterName }
-                            XpmBoundParameter(parameter, arg?.valueExpression ?: XpmEmptyExpression)
-                        }
-                        remaining == 1 -> XpmBoundParameter(parameter, positionalArguments.last())
-                        else -> {
-                            val args = positionalArguments.subList(positionalIndex, positionalArguments.size)
-                            XpmBoundParameter(parameter, XpmExpressionsImpl(args))
-                        }
+fun XpmFunctionCall.bindTo(parameters: List<XpmParameter>): List<XpmAssignableVariable> {
+    val positionalArguments = positionalArguments
+    var positionalIndex = -1
+
+    return parameters.mapIndexed { index, parameter ->
+        when {
+            index == 0 && this is XpmArrowFunctionCall /* arrow expression initial argument */ -> {
+                XpmBoundParameter(parameter, sourceExpression)
+            }
+            index == parameters.size - 1 /* last parameter */ -> {
+                positionalIndex += 1
+                val remaining = positionalArguments.size - positionalIndex
+                when {
+                    remaining <= 0 -> {
+                        val parameterName = parameter.variableName?.localName?.data
+                        val arg = keywordArguments.find { (it.keyName as? XsNCNameValue)?.data == parameterName }
+                        XpmBoundParameter(parameter, arg?.valueExpression ?: XpmEmptyExpression)
+                    }
+                    remaining == 1 -> XpmBoundParameter(parameter, positionalArguments.last())
+                    else -> {
+                        val args = positionalArguments.subList(positionalIndex, positionalArguments.size)
+                        XpmBoundParameter(parameter, XpmExpressionsImpl(args))
                     }
                 }
-                else -> {
-                    positionalIndex += 1
-                    val remaining = positionalArguments.size - positionalIndex
-                    when {
-                        remaining <= 0 -> {
-                            val parameterName = parameter.variableName?.localName?.data
-                            val arg = keywordArguments.find { (it.keyName as? XsNCNameValue)?.data == parameterName }
-                            XpmBoundParameter(parameter, arg?.valueExpression)
-                        }
-                        else -> XpmBoundParameter(parameter, positionalArguments[positionalIndex])
+            }
+            else -> {
+                positionalIndex += 1
+                val remaining = positionalArguments.size - positionalIndex
+                when {
+                    remaining <= 0 -> {
+                        val parameterName = parameter.variableName?.localName?.data
+                        val arg = keywordArguments.find { (it.keyName as? XsNCNameValue)?.data == parameterName }
+                        XpmBoundParameter(parameter, arg?.valueExpression)
                     }
+                    else -> XpmBoundParameter(parameter, positionalArguments[positionalIndex])
                 }
             }
         }
     }
+}
