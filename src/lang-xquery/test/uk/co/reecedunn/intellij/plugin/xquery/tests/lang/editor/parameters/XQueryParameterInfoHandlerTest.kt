@@ -1128,36 +1128,62 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 EBNF (137) FunctionCall")
-        internal inner class FunctionCall {
-            @Test
-            @DisplayName("no parameters")
-            fun empty() {
-                val context = createParameterInfoContext("true()", 5)
+        @DisplayName("XQuery 4.0 ED (4.4.1.2) Evaluating Static Function Calls ; XQuery 3.1 (3.1.5.1) Evaluating Static and Dynamic Function Calls")
+        internal inner class EvaluatingStaticFunctionCalls {
+            @Nested
+            @DisplayName("For non-variadic functions")
+            internal inner class ForNonVariadicFunctions {
+                @Test
+                @DisplayName("empty arguments")
+                fun emptyArguments() {
+                    val context = createParameterInfoContext("true()", 5)
 
-                val ui = updateUI(context, -1)
-                assertThat(ui.text, `is`("<no parameters>"))
-                assertThat(highlighted(ui), `is`("<none>"))
+                    val ui = updateUI(context, -1)
+                    assertThat(ui.text, `is`("<no parameters>"))
+                    assertThat(highlighted(ui), `is`("<none>"))
+                }
+
+                @Test
+                @DisplayName("positional arguments")
+                fun positionalArguments() {
+                    val context = createParameterInfoContext("replace(1, 2, 3)", 8)
+
+                    val ui = updateUI(context, -1)
+                    assertThat(ui.text, `is`("\$input as xs:string?, \$pattern as xs:string, \$replacement as xs:string"))
+                    assertThat(highlighted(ui), `is`("<none>"))
+
+                    assertThat(highlighted(context, 0), `is`("\$input as xs:string?"))
+                    assertThat(highlighted(context, 1), `is`("\$pattern as xs:string"))
+                    assertThat(highlighted(context, 2), `is`("\$replacement as xs:string"))
+                    assertThat(highlighted(context, 3), `is`("<none>"))
+                }
+            }
+
+            @Nested
+            @DisplayName("For non-variadic arrow functions")
+            internal inner class ForNonVariadicArrowFunctions {
+                @Test
+                @DisplayName("positional arguments")
+                fun positionalArguments() {
+                    val context = createParameterInfoContext("1 => replace(2, 3)", 13)
+
+                    val ui = updateUI(context, -1)
+                    assertThat(
+                        ui.text,
+                        `is`("\$input as xs:string?, \$pattern as xs:string, \$replacement as xs:string")
+                    )
+                    assertThat(highlighted(ui), `is`("<none>"))
+
+                    assertThat(highlighted(context, 0), `is`("\$input as xs:string?"))
+                    assertThat(highlighted(context, 1), `is`("\$pattern as xs:string"))
+                    assertThat(highlighted(context, 2), `is`("\$replacement as xs:string"))
+                    assertThat(highlighted(context, 3), `is`("<none>"))
+                }
             }
 
             @Test
-            @DisplayName("parameters")
-            fun parameters() {
-                val context = createParameterInfoContext("replace(1, 2, 3)", 8)
-
-                val ui = updateUI(context, -1)
-                assertThat(ui.text, `is`("\$input as xs:string?, \$pattern as xs:string, \$replacement as xs:string"))
-                assertThat(highlighted(ui), `is`("<none>"))
-
-                assertThat(highlighted(context, 0), `is`("\$input as xs:string?"))
-                assertThat(highlighted(context, 1), `is`("\$pattern as xs:string"))
-                assertThat(highlighted(context, 2), `is`("\$replacement as xs:string"))
-                assertThat(highlighted(context, 3), `is`("<none>"))
-            }
-
-            @Test
-            @DisplayName("parameters; variadic parameter")
-            fun parameters_variadic() {
+            @DisplayName("For ellipsis-variadic functions")
+            fun forEllipsisVariadicFunctions() {
                 val context = createParameterInfoContext("concat(1, 2, 3, 4, 5)", 19)
 
                 val ui = updateUI(context, -1, itemToShow = 2)
@@ -1174,29 +1200,10 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(highlighted(context, 4, itemToShow = 2), `is`("\$args as xs:anyAtomicType? ..."))
                 assertThat(highlighted(context, 5, itemToShow = 2), `is`("\$args as xs:anyAtomicType? ..."))
             }
-        }
-
-        @Nested
-        @DisplayName("XQuery 3.1 EBNF (96) ArrowExpr ; XQuery 3.1 EBNF (127) ArrowFunctionSpecifier")
-        internal inner class ArrowExpr {
-            @Test
-            @DisplayName("parameters")
-            fun parameters() {
-                val context = createParameterInfoContext("1 => replace(2, 3)", 13)
-
-                val ui = updateUI(context, -1)
-                assertThat(ui.text, `is`("\$input as xs:string?, \$pattern as xs:string, \$replacement as xs:string"))
-                assertThat(highlighted(ui), `is`("<none>"))
-
-                assertThat(highlighted(context, 0), `is`("\$input as xs:string?"))
-                assertThat(highlighted(context, 1), `is`("\$pattern as xs:string"))
-                assertThat(highlighted(context, 2), `is`("\$replacement as xs:string"))
-                assertThat(highlighted(context, 3), `is`("<none>"))
-            }
 
             @Test
-            @DisplayName("parameters; variadic parameter highlighted")
-            fun parameters_variadic() {
+            @DisplayName("For ellipsis-variadic arrow functions")
+            fun forEllipsisVariadicArrowFunctions() {
                 val context = createParameterInfoContext("1 => concat(2, 3, 4, 5)", 21)
 
                 val ui = updateUI(context, -1, itemToShow = 1)
