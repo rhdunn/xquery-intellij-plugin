@@ -63,28 +63,32 @@ class XPathParameterInfoHandler : ParameterInfoHandler<XPathArgumentList, XpmFun
     override fun updateUI(p: XpmFunctionDeclaration?, context: ParameterInfoUIContext) {
         if (p == null) return
 
-        val params = p.parameters.map { (it as NavigatablePsiElement).presentation?.presentableText!! }
-        if (params.isNotEmpty()) {
+        val parameters = p.parameters
+        if (parameters.isNotEmpty()) {
+            val text = StringBuffer()
             val isVariadic = p.isVariadic
             var start = -1
             var end = -1
-            if (context.currentParameterIndex < p.arity.to) {
-                params.withIndex().forEach { (i, param) ->
-                    if (i <= context.currentParameterIndex) {
-                        start = if (i == 0) 0 else end + PARAM_SEPARATOR.length
-                        end = start + param.length
-                        if (i == params.size - 1 && isVariadic) {
-                            end += VARIADIC_MARKER.length
-                        }
-                    }
+            val withinArity = context.currentParameterIndex < p.arity.to
+            parameters.withIndex().forEach { (i, parameter) ->
+                if (i <= context.currentParameterIndex && withinArity) {
+                    start = text.length
+                }
+                text.append((parameter as NavigatablePsiElement).presentation?.presentableText!!)
+                if (i == parameters.size - 1 && isVariadic) {
+                    text.append(VARIADIC_MARKER)
+                }
+                if (i <= context.currentParameterIndex && withinArity) {
+                    end = text.length
+                }
+
+                if (i < parameters.size - 1) {
+                    text.append(PARAM_SEPARATOR)
                 }
             }
 
             context.setupUIComponentPresentation(
-                if (isVariadic)
-                    "${params.joinToString(PARAM_SEPARATOR)}$VARIADIC_MARKER"
-                else
-                    params.joinToString(", "),
+                text.toString(),
                 start, end, false, false, false, context.defaultParameterColor
             )
         } else {
