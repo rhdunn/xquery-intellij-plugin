@@ -24,6 +24,7 @@ import com.intellij.lang.parameterInfo.UpdateParameterInfoContext
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpressions
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.*
 import uk.co.reecedunn.intellij.plugin.xpm.staticallyKnownFunctions
 
@@ -60,21 +61,31 @@ class XPathParameterInfoHandler : ParameterInfoHandler<XPathArgumentList, XpmFun
 
         val parameters = p.parameters
         if (parameters.isNotEmpty()) {
+            val functionCall = context.parameterOwner.parent as XpmFunctionCall
+            val argument = when {
+                context.currentParameterIndex < 0 -> null
+                context.currentParameterIndex >= p.arity.to -> null
+                else -> functionCall.argumentAt(context.currentParameterIndex)
+            }
+
             val text = StringBuffer()
             val isVariadic = p.isVariadic
             var start = -1
             var end = -1
-            val withinArity = context.currentParameterIndex < p.arity.to
-            val functionCall = context.parameterOwner.parent as XpmFunctionCall
             functionCall.bindTo(parameters).withIndex().forEach { (i, binding) ->
-                if (i <= context.currentParameterIndex && withinArity) {
+                val match = when (val expr = binding.variableExpression) {
+                    is XpmExpressions -> expr.expressions.contains(argument)
+                    else -> expr === argument
+                }
+
+                if (match) {
                     start = text.length
                 }
                 text.append(binding.toString())
                 if (i == parameters.size - 1 && isVariadic) {
                     text.append(VARIADIC_MARKER)
                 }
-                if (i <= context.currentParameterIndex && withinArity) {
+                if (match) {
                     end = text.length
                 }
 

@@ -1157,6 +1157,36 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                     assertThat(highlighted(context, 2), `is`("\$replacement as xs:string"))
                     assertThat(highlighted(context, 3), `is`("<none>"))
                 }
+
+                @Test
+                @DisplayName("keyword arguments")
+                fun keywordArguments() {
+                    val context = createParameterInfoContext("replace(pattern: 1, input: 2, replacement: 3)", 8)
+
+                    val ui = updateUI(context, -1)
+                    assertThat(ui.text, `is`("\$input as xs:string?, \$pattern as xs:string, \$replacement as xs:string"))
+                    assertThat(highlighted(ui), `is`("<none>"))
+
+                    assertThat(highlighted(context, 0), `is`("\$pattern as xs:string"))
+                    assertThat(highlighted(context, 1), `is`("\$input as xs:string?"))
+                    assertThat(highlighted(context, 2), `is`("\$replacement as xs:string"))
+                    assertThat(highlighted(context, 3), `is`("<none>"))
+                }
+
+                @Test
+                @DisplayName("positional and keyword arguments")
+                fun positionalAndKeywordArguments() {
+                    val context = createParameterInfoContext("replace(1, replacement: 2, pattern: 3)", 8)
+
+                    val ui = updateUI(context, -1)
+                    assertThat(ui.text, `is`("\$input as xs:string?, \$pattern as xs:string, \$replacement as xs:string"))
+                    assertThat(highlighted(ui), `is`("<none>"))
+
+                    assertThat(highlighted(context, 0), `is`("\$input as xs:string?"))
+                    assertThat(highlighted(context, 1), `is`("\$replacement as xs:string"))
+                    assertThat(highlighted(context, 2), `is`("\$pattern as xs:string"))
+                    assertThat(highlighted(context, 3), `is`("<none>"))
+                }
             }
 
             @Nested
@@ -1166,6 +1196,42 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 @DisplayName("positional arguments")
                 fun positionalArguments() {
                     val context = createParameterInfoContext("1 => replace(2, 3)", 13)
+
+                    val ui = updateUI(context, -1)
+                    assertThat(
+                        ui.text,
+                        `is`("\$input as xs:string?, \$pattern as xs:string, \$replacement as xs:string")
+                    )
+                    assertThat(highlighted(ui), `is`("<none>"))
+
+                    assertThat(highlighted(context, 0), `is`("\$input as xs:string?"))
+                    assertThat(highlighted(context, 1), `is`("\$pattern as xs:string"))
+                    assertThat(highlighted(context, 2), `is`("\$replacement as xs:string"))
+                    assertThat(highlighted(context, 3), `is`("<none>"))
+                }
+
+                @Test
+                @DisplayName("keyword arguments")
+                fun keywordArguments() {
+                    val context = createParameterInfoContext("1 => replace(replacement: 2, pattern: 3)", 13)
+
+                    val ui = updateUI(context, -1)
+                    assertThat(
+                        ui.text,
+                        `is`("\$input as xs:string?, \$pattern as xs:string, \$replacement as xs:string")
+                    )
+                    assertThat(highlighted(ui), `is`("<none>"))
+
+                    assertThat(highlighted(context, 0), `is`("\$input as xs:string?"))
+                    assertThat(highlighted(context, 1), `is`("\$replacement as xs:string"))
+                    assertThat(highlighted(context, 2), `is`("\$pattern as xs:string"))
+                    assertThat(highlighted(context, 3), `is`("<none>"))
+                }
+
+                @Test
+                @DisplayName("positional and keyword arguments")
+                fun positionalAndKeywordArguments() {
+                    val context = createParameterInfoContext("1 => replace(2, replacement: 3)", 13)
 
                     val ui = updateUI(context, -1)
                     assertThat(
@@ -1198,7 +1264,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(highlighted(context, 2, itemToShow = 2), `is`("\$args as xs:anyAtomicType? ..."))
                 assertThat(highlighted(context, 3, itemToShow = 2), `is`("\$args as xs:anyAtomicType? ..."))
                 assertThat(highlighted(context, 4, itemToShow = 2), `is`("\$args as xs:anyAtomicType? ..."))
-                assertThat(highlighted(context, 5, itemToShow = 2), `is`("\$args as xs:anyAtomicType? ..."))
+                assertThat(highlighted(context, 5, itemToShow = 2), `is`("<none>"))
             }
 
             @Test
@@ -1218,7 +1284,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(highlighted(context, 2, itemToShow = 1), `is`("\$args as xs:anyAtomicType? ..."))
                 assertThat(highlighted(context, 3, itemToShow = 1), `is`("\$args as xs:anyAtomicType? ..."))
                 assertThat(highlighted(context, 4, itemToShow = 1), `is`("\$args as xs:anyAtomicType? ..."))
-                assertThat(highlighted(context, 5, itemToShow = 1), `is`("\$args as xs:anyAtomicType? ..."))
+                assertThat(highlighted(context, 5, itemToShow = 1), `is`("<none>"))
             }
         }
     }

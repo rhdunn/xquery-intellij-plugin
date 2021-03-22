@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpm.optree.function
 
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.impl.XpmEmptyExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.impl.XpmExpressionsImpl
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.impl.XpmBoundParameter
@@ -78,5 +79,17 @@ fun XpmFunctionCall.bindTo(parameters: List<XpmParameter>): List<XpmAssignableVa
                 }
             }
         }
+    }
+}
+
+fun XpmFunctionCall.argumentAt(index: Int): XpmExpression? {
+    val arrowOffset = if (this is XpmArrowFunctionCall) 1 else 0
+    val p = positionalArguments.size
+    val k = keywordArguments.size
+    return when {
+        index == 0 && arrowOffset == 1 -> (this as XpmArrowFunctionCall).sourceExpression
+        index < (p + arrowOffset) -> positionalArguments[index - arrowOffset]
+        index < (p + k + arrowOffset) -> keywordArguments[index - arrowOffset - p].valueExpression
+        else -> null
     }
 }
