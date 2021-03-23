@@ -257,28 +257,4 @@ fun PsiElement.xqueryInScopeVariables(): Sequence<XpmVariableDefinition> {
         .filter { variable -> variable.variableName != null }
 }
 
-fun XPathEQName.variableDefinition(): XpmVariableDefinition? {
-    val name = this as XsQNameValue
-    return inScopeVariables().find { variable ->
-        val qname = variable.variableName!!
-        if (variable is XpmVariableBinding) { // Locally defined, so can compare the prefix name.
-            val matchPrefix = name.prefix?.data == qname.prefix?.data
-            val matchLocalName = name.localName?.data == qname.localName?.data
-            matchPrefix && matchLocalName
-        } else {
-            // NOTE: If there are a large number of variables, opening the context menu
-            // can be is slow (~10 seconds) when just checking the expanded QName, so
-            // check local-name first ...
-            if (qname.localName?.data == name.localName?.data) {
-                // ... then check the expanded QName namespace.
-                val expanded = name.expand().firstOrNull()
-                expanded != null && qname.expand().firstOrNull()?.let { op_qname_equal(it, expanded) } == true
-                //true
-            } else {
-                false
-            }
-        }
-    }
-}
-
 // endregion

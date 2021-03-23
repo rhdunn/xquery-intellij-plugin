@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2020 Reece H. Dunn
+ * Copyright (C) 2016-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,12 +20,12 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiNamedElement
 import com.intellij.psi.PsiReferenceBase
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
-import uk.co.reecedunn.intellij.plugin.xquery.model.variableDefinition
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.variableDefinition
 
 class XQueryVariableNameReference(element: XPathEQName, range: TextRange) :
     PsiReferenceBase<XPathEQName>(element, range) {
 
-    override fun resolve(): PsiElement? = element.variableDefinition()?.variableName as? PsiElement
+    override fun resolve(): PsiElement? = element.variableDefinition?.variableName as? PsiElement
 
     override fun getVariants(): Array<Any> = arrayOf()
 
