@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2020 Reece H. Dunn
+ * Copyright (C) 2016-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,8 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.navigation.ItemPresentation
+import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
 import org.jetbrains.annotations.NonNls
@@ -25,6 +27,10 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.reference.XPathFunctionNameReference
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.reference.XPathVariableNameReference
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableReference
 
 open class XPathNCNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathNCName {
     // region XsQNameValue
@@ -46,7 +52,21 @@ open class XPathNCNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPath
         return if (references.isEmpty()) null else references[0]
     }
 
-    override fun getReferences(): Array<PsiReference> = PsiReference.EMPTY_ARRAY
+    override fun getReferences(): Array<PsiReference> {
+        return (localName as? PsiElement)?.let {
+            when (parent) {
+                is XpmFunctionReference -> {
+                    val ref = XPathFunctionNameReference(this, it.textRange.shiftRight(-node.startOffset))
+                    arrayOf(ref as PsiReference)
+                }
+                is XpmVariableReference -> {
+                    val ref = XPathVariableNameReference(this, it.textRange.shiftRight(-node.startOffset))
+                    arrayOf(ref as PsiReference)
+                }
+                else -> null
+            }
+        } ?: PsiReference.EMPTY_ARRAY
+    }
 
     // endregion
     // region PsiNameIdentifierOwner
@@ -62,6 +82,11 @@ open class XPathNCNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPath
         val renamed = createElement<XPathNCName>(name) ?: return this
         return replace(renamed)
     }
+
+    // endregion
+    // region NavigationItem
+
+    override fun getPresentation(): ItemPresentation? = (parent as NavigatablePsiElement).presentation
 
     // endregion
 }

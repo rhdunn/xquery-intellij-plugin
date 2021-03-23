@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.tests.lang.highlighter
 
+import com.intellij.compat.testFramework.registerExtensionPointBean
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.PluginId
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
@@ -26,6 +28,8 @@ import uk.co.reecedunn.intellij.plugin.xpath.lang.highlighter.QNameAnnotator
 import uk.co.reecedunn.intellij.plugin.xpath.lang.highlighter.XPathSemanticHighlighter
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath
 import uk.co.reecedunn.intellij.plugin.xpm.lang.highlighter.XpmSemanticHighlighter
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableProvider
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableProviderBean
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("ClassName", "RedundantVisibilityModifier")
@@ -34,6 +38,9 @@ private class XPathSemanticHighlighterTest : AnnotatorTestCase() {
     override val pluginId: PluginId = PluginId.getId("XPathSemanticHighlighterTest")
 
     override fun registerExtensions() {
+        val app = ApplicationManager.getApplication()
+        app.registerExtensionPointBean(XpmVariableProvider.EP_NAME, XpmVariableProviderBean::class.java, pluginDisposable)
+
         XpmSemanticHighlighter.register(this, XPathSemanticHighlighter)
     }
 

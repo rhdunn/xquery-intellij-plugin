@@ -38,6 +38,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.reference.XPathFunctionNameReference
 import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
@@ -2554,8 +2555,13 @@ private class XPathPsiTest : ParserTestCase() {
                     fun referenceRename() {
                         val expr = parse<XPathFunctionCall>("test()")[0] as XpmFunctionReference
 
-                        val ref = (expr.functionName as PsiElement).reference
-                        assertThat(ref, `is`(nullValue()))
+                        val ref = (expr.functionName as PsiElement).reference!!
+                        assertThat(ref, `is`(instanceOf(XPathFunctionNameReference::class.java)))
+
+                        val renamed = ref.handleElementRename("lorem-ipsum")
+                        assertThat(renamed, `is`(instanceOf(XPathNCName::class.java)))
+                        assertThat(renamed.text, `is`("lorem-ipsum"))
+                        assertThat((renamed as PsiNameIdentifierOwner).name, `is`("lorem-ipsum"))
                     }
                 }
 
@@ -2639,8 +2645,13 @@ private class XPathPsiTest : ParserTestCase() {
                     fun referenceRename() {
                         val expr = parse<XPathNamedFunctionRef>("test#1")[0] as XpmFunctionReference
 
-                        val ref = (expr.functionName as PsiElement).reference
-                        assertThat(ref, `is`(nullValue()))
+                        val ref = (expr.functionName as PsiElement).reference!!
+                        assertThat(ref, `is`(instanceOf(XPathFunctionNameReference::class.java)))
+
+                        val renamed = ref.handleElementRename("lorem-ipsum")
+                        assertThat(renamed, `is`(instanceOf(XPathNCName::class.java)))
+                        assertThat(renamed.text, `is`("lorem-ipsum"))
+                        assertThat((renamed as PsiNameIdentifierOwner).name, `is`("lorem-ipsum"))
                     }
                 }
             }
@@ -4747,8 +4758,13 @@ private class XPathPsiTest : ParserTestCase() {
                 fun referenceRename() {
                     val expr = parse<PluginArrowFunctionCall>("1 => test()")[0] as XpmFunctionReference
 
-                    val ref = (expr.functionName as PsiElement).reference
-                    assertThat(ref, `is`(nullValue()))
+                    val ref = (expr.functionName as PsiElement).reference!!
+                    assertThat(ref, `is`(instanceOf(XPathFunctionNameReference::class.java)))
+
+                    val renamed = ref.handleElementRename("lorem-ipsum")
+                    assertThat(renamed, `is`(instanceOf(XPathNCName::class.java)))
+                    assertThat(renamed.text, `is`("lorem-ipsum"))
+                    assertThat((renamed as PsiNameIdentifierOwner).name, `is`("lorem-ipsum"))
                 }
             }
 
