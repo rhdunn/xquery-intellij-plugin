@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.core.lang.matchTokenType
 import uk.co.reecedunn.intellij.plugin.core.lang.matchTokenTypeWithMarker
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.INCNameType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParser
 import uk.co.reecedunn.intellij.plugin.xslt.lang.EQNamesOrHashedKeywords
 import uk.co.reecedunn.intellij.plugin.xslt.lang.NameTests
@@ -103,7 +104,9 @@ class XsltSchemaTypesParser(
         return matched
     }
 
-    private fun parseEQName(builder: PsiBuilder): Boolean = parseEQNameOrWildcard(builder, QNAME) != null
+    private fun parseEQName(builder: PsiBuilder): Boolean {
+        return parseEQNameOrWildcard(builder, XPathElementType.QNAME) != null
+    }
 
     private fun parseNameTest(builder: PsiBuilder): Boolean {
         return parseNameTest(builder, null, allowAxisStep = false) != null

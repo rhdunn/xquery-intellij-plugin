@@ -4,7 +4,7 @@ XQueryModuleImpl[FILE(0:22)]
          XPathWithExprImpl[XPATH_WITH_EXPR(0:22)]
             XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_WITH(0:4)]('with')
             PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
-            XQueryQNameImpl[XQUERY_QNAME(5:12)]
+            XPathQNameImpl[XPATH_QNAME(5:12)]
                XmlNCNameImpl[XPATH_NCNAME_TOKEN(5:10)]('xmlns')
                LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(10:11)](':')
                XmlNCNameImpl[XPATH_NCNAME_TOKEN(11:12)]('a')

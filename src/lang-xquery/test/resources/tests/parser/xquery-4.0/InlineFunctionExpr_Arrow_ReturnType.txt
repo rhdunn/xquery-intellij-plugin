@@ -11,7 +11,7 @@ XQueryModuleImpl[FILE(0:26)]
             XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AS(7:9)]('as')
             PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
             XPathAtomicOrUnionTypeImpl[XPATH_ATOMIC_OR_UNION_TYPE(10:20)]
-               XQueryQNameImpl[XQUERY_QNAME(10:20)]
+               XPathQNameImpl[XPATH_QNAME(10:20)]
                   XmlNCNameImpl[XPATH_NCNAME_TOKEN(10:12)]('xs')
                   LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(12:13)](':')
                   XmlNCNameImpl[XPATH_NCNAME_TOKEN(13:20)]('integer')

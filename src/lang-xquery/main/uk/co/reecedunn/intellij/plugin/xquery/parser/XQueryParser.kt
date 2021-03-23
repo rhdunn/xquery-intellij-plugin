@@ -732,7 +732,7 @@ class XQueryParser : XPathParser() {
             var haveErrors = false
             if (!isDefault) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false) == null) {
+                if (parseEQNameOrWildcard(builder, XPathElementType.QNAME, false) == null) {
                     builder.error(XPathBundle.message("parser.error.expected-eqname"))
                     haveErrors = true
                 }
@@ -1038,7 +1038,7 @@ class XQueryParser : XPathParser() {
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false) == null) {
+            if (parseEQNameOrWildcard(builder, XPathElementType.QNAME, false) == null) {
                 builder.error(XPathBundle.message("parser.error.expected-eqname"))
                 haveErrors = true
             }
@@ -1131,7 +1131,7 @@ class XQueryParser : XPathParser() {
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false) == null) {
+            if (parseEQNameOrWildcard(builder, XPathElementType.QNAME, false) == null) {
                 builder.error(XPathBundle.message("parser.error.expected-eqname"))
                 haveErrors = true
             }
@@ -1179,7 +1179,7 @@ class XQueryParser : XPathParser() {
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false) == null) {
+            if (parseEQNameOrWildcard(builder, XPathElementType.QNAME, false) == null) {
                 builder.error(XPathBundle.message("parser.error.expected-eqname"))
                 haveErrors = true
             }
@@ -1209,7 +1209,7 @@ class XQueryParser : XPathParser() {
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false) == null) {
+            if (parseEQNameOrWildcard(builder, XPathElementType.QNAME, false) == null) {
                 builder.error(XPathBundle.message("parser.error.expected-eqname"))
                 haveErrors = true
             }
@@ -3610,7 +3610,7 @@ class XQueryParser : XPathParser() {
         }
 
         val marker = builder.mark()
-        if (parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false) != null) {
+        if (parseEQNameOrWildcard(builder, XPathElementType.QNAME, false) != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!parseArgumentList(builder)) {
                 marker.rollbackTo()
@@ -3768,7 +3768,7 @@ class XQueryParser : XPathParser() {
             builder.errorOnTokenType(
                 XQueryTokenType.XML_WHITE_SPACE, XQueryBundle.message("parser.error.unexpected-whitespace")
             )
-            parseQNameOrWildcard(builder, XQueryElementType.QNAME, false)
+            parseQNameOrWildcard(builder, XPathElementType.QNAME, false)
 
             parseDirAttributeList(builder)
 
@@ -3778,7 +3778,7 @@ class XQueryParser : XPathParser() {
 
                     if (builder.matchTokenType(XQueryTokenType.CLOSE_XML_TAG)) {
                         var haveError = false
-                        if (parseQNameOrWildcard(builder, XQueryElementType.QNAME, false) == null) {
+                        if (parseQNameOrWildcard(builder, XPathElementType.QNAME, false) == null) {
                             builder.error(XQueryBundle.message("parser.error.expected-qname"))
                             haveError = true
                         }
@@ -3800,7 +3800,7 @@ class XQueryParser : XPathParser() {
         } else if (depth == 0 && builder.tokenType === XQueryTokenType.CLOSE_XML_TAG) {
             builder.error(XQueryBundle.message("parser.error.unexpected-closing-tag"))
             builder.matchTokenType(XQueryTokenType.CLOSE_XML_TAG)
-            parseQNameOrWildcard(builder, XQueryElementType.QNAME, false)
+            parseQNameOrWildcard(builder, XPathElementType.QNAME, false)
             builder.matchTokenType(XPathTokenType.WHITE_SPACE)
             builder.matchTokenType(XPathTokenType.GREATER_THAN)
 
@@ -3826,7 +3826,7 @@ class XQueryParser : XPathParser() {
 
     private fun parseDirAttribute(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
-        if (parseQNameOrWildcard(builder, XQueryElementType.QNAME, false) != null) {
+        if (parseQNameOrWildcard(builder, XPathElementType.QNAME, false) != null) {
             var haveErrors = false
 
             builder.matchTokenType(XQueryTokenType.XML_WHITE_SPACE)
@@ -4068,7 +4068,7 @@ class XQueryParser : XPathParser() {
                 return false
             }
 
-            val name = parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false)
+            val name = parseEQNameOrWildcard(builder, XPathElementType.QNAME, false)
             if (name == null && !parseEnclosedExprOrBlock(builder, null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)) {
                 if (builder.tokenType === XPathTokenType.STRING_LITERAL_START) {
                     val errorMarker = builder.mark()
@@ -4110,7 +4110,7 @@ class XQueryParser : XPathParser() {
                 return false
             }
 
-            val name = parseEQNameOrWildcard(builder, XQueryElementType.QNAME, false)
+            val name = parseEQNameOrWildcard(builder, XPathElementType.QNAME, false)
             if (name == null && !parseEnclosedExprOrBlock(builder, null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)) {
                 if (builder.tokenType === XPathTokenType.STRING_LITERAL_START) {
                     val errorMarker = builder.mark()
@@ -5253,8 +5253,6 @@ class XQueryParser : XPathParser() {
 
     // endregion
     // region Lexical Structure :: Terminal Symbols :: QName
-
-    override val QNAME: IElementType = XQueryElementType.QNAME
 
     override fun parseQNameSeparator(builder: PsiBuilder, type: IElementType?): Boolean {
         if (

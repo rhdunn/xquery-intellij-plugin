@@ -522,7 +522,7 @@ private class XQueryInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XQST0118: The closing tag 'c:b' does not match the open tag 'a:b'.")
                     )
-                    assertThat(problems[0].psiElement.elementType, `is`(XQueryElementType.QNAME))
+                    assertThat(problems[0].psiElement.elementType, `is`(XPathElementType.QNAME))
                     assertThat(problems[0].psiElement.text, `is`("c:b"))
                 }
 
@@ -540,7 +540,7 @@ private class XQueryInspectionTest : InspectionTestCase() {
                         problems[0].descriptionTemplate,
                         `is`("XQST0118: The closing tag 'a:c' does not match the open tag 'a:b'.")
                     )
-                    assertThat(problems[0].psiElement.elementType, `is`(XQueryElementType.QNAME))
+                    assertThat(problems[0].psiElement.elementType, `is`(XPathElementType.QNAME))
                     assertThat(problems[0].psiElement.text, `is`("a:c"))
                 }
             }

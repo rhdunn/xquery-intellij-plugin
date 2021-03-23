@@ -77,7 +77,7 @@ class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
                 start = start!!.nextSibling
             if (
                 start!!.elementType === XPathElementType.NCNAME ||
-                start!!.elementType === XQueryElementType.QNAME
+                start!!.elementType === XPathElementType.QNAME
             )
                 start = start!!.nextSibling
             if (start?.elementType === XQueryTokenType.XML_WHITE_SPACE)
@@ -137,7 +137,7 @@ class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
             XQueryTokenType.OPEN_XML_TAG,
             XQueryTokenType.XML_WHITE_SPACE,
             XPathElementType.NCNAME,
-            XQueryElementType.QNAME,
+            XPathElementType.QNAME,
             XQueryElementType.DIR_ATTRIBUTE,
             XQueryTokenType.END_XML_TAG,
             XQueryTokenType.CLOSE_XML_TAG,

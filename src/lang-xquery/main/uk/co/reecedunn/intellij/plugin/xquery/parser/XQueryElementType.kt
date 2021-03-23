@@ -271,12 +271,6 @@ object XQueryElementType {
         XQuery
     )
 
-    val QNAME: IElementType = ICompositeElementType(
-        "XQUERY_QNAME",
-        XQueryQNamePsiImpl::class.java,
-        XQuery
-    )
-
     val QUERY_BODY: IElementType = ICompositeElementType(
         "XQUERY_QUERY_BODY",
         XQueryQueryBodyPsiImpl::class.java,

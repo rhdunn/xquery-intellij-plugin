@@ -8,7 +8,7 @@ XQueryModuleImpl[FILE(0:18)]
                XPathMapKeyExprImpl[XPATH_MAP_KEY_EXPR(12:17)]
                   XPathPathExprImpl[XPATH_PATH_EXPR(12:17)]
                      XPathNameTestImpl[XPATH_NAME_TEST(12:17)]
-                        XQueryQNameImpl[XQUERY_QNAME(12:17)]
+                        XPathQNameImpl[XPATH_QNAME(12:17)]
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(12:13)]('a')
                            LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(13:14)](':')
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(14:17)]('one')

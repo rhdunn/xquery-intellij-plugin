@@ -12,7 +12,7 @@ XQueryModuleImpl[FILE(0:26)]
             LeafPsiElement[XPATH_DIRECT_DESCENDANTS_PATH_TOKEN(7:8)]('/')
             PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
             XPathNameTestImpl[XPATH_NAME_TEST(9:13)]
-               XQueryQNameImpl[XQUERY_QNAME(9:13)]
+               XPathQNameImpl[XPATH_QNAME(9:13)]
                   XmlNCNameImpl[XPATH_NCNAME_TOKEN(9:11)]('xh')
                   LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(11:12)](':')
                   XmlNCNameImpl[XPATH_NCNAME_TOKEN(12:13)]('p')

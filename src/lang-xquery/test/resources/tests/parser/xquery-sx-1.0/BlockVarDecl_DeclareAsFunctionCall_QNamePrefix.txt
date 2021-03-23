@@ -22,7 +22,7 @@ XQueryModuleImpl[FILE(0:59)]
                ScriptingBlockDeclsImpl[XQUERY_BLOCK_DECLS(36:36)]
                ScriptingBlockBodyImpl[XQUERY_BLOCK_BODY(36:56)]
                   XPathFunctionCallImpl[XPATH_FUNCTION_CALL(36:55)]
-                     XQueryQNameImpl[XQUERY_QNAME(36:51)]
+                     XPathQNameImpl[XPATH_QNAME(36:51)]
                         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(36:43)]('declare')
                         PsiWhiteSpaceImpl[WHITE_SPACE(43:44)](' ')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(44:45)](':')

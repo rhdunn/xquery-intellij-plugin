@@ -268,7 +268,7 @@ open class XPathParser : PsiParser {
 
     private fun parseNamespaceDeclaration(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
-        if (parseQNameOrWildcard(builder, QNAME) != null) {
+        if (parseQNameOrWildcard(builder, XPathElementType.QNAME) != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.EQUAL)) {
                 marker.rollbackTo()
@@ -1193,7 +1193,7 @@ open class XPathParser : PsiParser {
     private fun parseArrowFunctionCall(builder: PsiBuilder, targetType: IElementType?): Boolean {
         val marker = builder.mark()
         val elementType = when {
-            this.parseEQNameOrWildcard(builder, QNAME, false) != null -> XPathElementType.ARROW_FUNCTION_CALL
+            this.parseEQNameOrWildcard(builder, XPathElementType.QNAME, false) != null -> XPathElementType.ARROW_FUNCTION_CALL
             parseVarOrParamRef(builder, null) -> XPathElementType.ARROW_DYNAMIC_FUNCTION_CALL
             parseParenthesizedExpr(builder) -> XPathElementType.ARROW_DYNAMIC_FUNCTION_CALL
             builder.tokenType === XPathTokenType.BLOCK_OPEN -> {
@@ -1316,7 +1316,7 @@ open class XPathParser : PsiParser {
             var haveErrors = false
 
             builder.matchTokenType(XPathTokenType.WHITE_SPACE)
-            if (this.parseEQNameOrWildcard(builder, QNAME, false) == null) {
+            if (this.parseEQNameOrWildcard(builder, XPathElementType.QNAME, false) == null) {
                 builder.error(XPathBundle.message("parser.error.expected-eqname"))
                 haveErrors = true
             }
@@ -1788,7 +1788,7 @@ open class XPathParser : PsiParser {
 
     open fun parseFunctionCall(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
-        if (this.parseEQNameOrWildcard(builder, QNAME, false) != null) {
+        if (this.parseEQNameOrWildcard(builder, XPathElementType.QNAME, false) != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!parseArgumentList(builder)) {
                 marker.rollbackTo()
@@ -1931,7 +1931,7 @@ open class XPathParser : PsiParser {
 
     private fun parseNamedFunctionRef(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
-        if (this.parseEQNameOrWildcard(builder, QNAME, false) != null) {
+        if (this.parseEQNameOrWildcard(builder, XPathElementType.QNAME, false) != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.FUNCTION_REF_OPERATOR)) {
                 marker.rollbackTo()
@@ -2067,7 +2067,7 @@ open class XPathParser : PsiParser {
         val marker = builder.mark()
         if (builder.matchTokenType(XPathTokenType.VARIABLE_INDICATOR)) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (this.parseEQNameOrWildcard(builder, QNAME, false) == null) {
+            if (this.parseEQNameOrWildcard(builder, XPathElementType.QNAME, false) == null) {
                 builder.error(XPathBundle.message("parser.error.expected-eqname"))
             }
 
@@ -2078,7 +2078,7 @@ open class XPathParser : PsiParser {
             return true
         } else if (builder.tokenType === XPathTokenType.NCNAME || builder.tokenType is IKeywordOrNCNameType || builder.tokenType === XPathTokenType.QNAME_SEPARATOR) {
             builder.error(XPathBundle.message("parser.error.expected", "$"))
-            this.parseEQNameOrWildcard(builder, QNAME, false)
+            this.parseEQNameOrWildcard(builder, XPathElementType.QNAME, false)
 
             parseWhiteSpaceAndCommentTokens(builder)
             parseTypeDeclaration(builder)
@@ -3080,7 +3080,7 @@ open class XPathParser : PsiParser {
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (this.parseEQNameOrWildcard(builder, QNAME, false) == null) {
+            if (this.parseEQNameOrWildcard(builder, XPathElementType.QNAME, false) == null) {
                 builder.error(XPathBundle.message("parser.error.expected-eqname"))
                 haveErrors = true
             }
@@ -3495,7 +3495,7 @@ open class XPathParser : PsiParser {
         var marker = builder.matchTokenTypeWithMarker(XPathTokenType.TYPE_ALIAS)
         if (marker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (this.parseEQNameOrWildcard(builder, QNAME, false) == null) {
+            if (this.parseEQNameOrWildcard(builder, XPathElementType.QNAME, false) == null) {
                 builder.error(XPathBundle.message("parser.error.expected", "EQName"))
                 marker.drop()
             } else {
@@ -3516,7 +3516,7 @@ open class XPathParser : PsiParser {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (this.parseEQNameOrWildcard(builder, QNAME, false) == null) {
+            if (this.parseEQNameOrWildcard(builder, XPathElementType.QNAME, false) == null) {
                 builder.error(XPathBundle.message("parser.error.expected", "EQName"))
                 haveTypeAlias = false
                 marker.drop()
@@ -3708,10 +3708,10 @@ open class XPathParser : PsiParser {
     // region Grammar :: TypeDeclaration :: KindTest
 
     private val ATTRIBUTE_DECLARATION: IElementType
-        get() = QNAME
+        get() = XPathElementType.QNAME
 
     private val ELEMENT_DECLARATION: IElementType
-        get() = QNAME
+        get() = XPathElementType.QNAME
 
     open val EXTERNAL_KEYWORD: IElementType? = null
 
@@ -4094,7 +4094,7 @@ open class XPathParser : PsiParser {
             ?: parseURIQualifiedNameOrWildcard(builder, type)
         if (eqnameType != null) {
             when {
-                type === QNAME -> marker.drop()
+                type === XPathElementType.QNAME -> marker.drop()
                 type === XPathElementType.NCNAME -> marker.drop()
                 type === XPathElementType.WILDCARD -> marker.drop()
                 type === XPathElementType.VAR_REF -> marker.drop()
@@ -4145,8 +4145,6 @@ open class XPathParser : PsiParser {
 
     // endregion
     // region Lexical Structure :: Terminal Symbols :: QName
-
-    open val QNAME: IElementType = XPathElementType.QNAME
 
     private fun parseNCName(builder: PsiBuilder): Boolean {
         if (builder.tokenType is INCNameType) {
@@ -4207,8 +4205,8 @@ open class XPathParser : PsiParser {
                     marker.done(XPathElementType.WILDCARD)
                     XPathElementType.WILDCARD
                 } else {
-                    marker.done(QNAME)
-                    QNAME
+                    marker.done(XPathElementType.QNAME)
+                    XPathElementType.QNAME
                 }
             } else if (
                 (type === XPathElementType.WILDCARD || isElementOrAttributeName) && prefix == XPathTokenType.STAR

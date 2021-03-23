@@ -8,7 +8,7 @@ XQueryModuleImpl[FILE(0:37)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
                   LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(10:11)]('(')
                   PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
-                  XQueryQNameImpl[XQUERY_QNAME(12:22)]
+                  XPathQNameImpl[XPATH_QNAME(12:22)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(12:14)]('ns')
                      LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(14:15)](':')
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(15:22)]('enabled')
@@ -16,7 +16,7 @@ XQueryModuleImpl[FILE(0:37)]
                   LeafPsiElement[XPATH_COMMA_TOKEN(23:24)](',')
                   PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
                   XPathTypeNameImpl[XPATH_TYPE_NAME(25:35)]
-                     XQueryQNameImpl[XQUERY_QNAME(25:35)]
+                     XPathQNameImpl[XPATH_QNAME(25:35)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(25:27)]('xs')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(27:28)](':')
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(28:35)]('boolean')

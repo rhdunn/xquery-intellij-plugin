@@ -14,7 +14,7 @@ XQueryModuleImpl[FILE(0:55)]
                   LeafPsiElement[XPATH_ASSIGN_EQUAL_TOKEN(8:10)](':=')
                   PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
                   XPathNamedFunctionRefImpl[XPATH_NAMED_FUNCTION_REF(11:22)]
-                     XQueryQNameImpl[XQUERY_QNAME(11:18)]
+                     XPathQNameImpl[XPATH_QNAME(11:18)]
                         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FN(11:13)]('fn')
                         LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(13:14)](':')
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(14:18)]('true')

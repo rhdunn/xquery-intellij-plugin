@@ -10,7 +10,7 @@ XQueryModuleImpl[FILE(0:17)]
                XPathMapKeyExprImpl[XPATH_MAP_KEY_EXPR(6:10)]
                   XPathPathExprImpl[XPATH_PATH_EXPR(6:10)]
                      XPathNameTestImpl[XPATH_NAME_TEST(6:9)]
-                        XQueryQNameImpl[XQUERY_QNAME(6:9)]
+                        XPathQNameImpl[XPATH_QNAME(6:9)]
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(6:7)]('a')
                            LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(7:8)](':')
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(8:9)]('b')

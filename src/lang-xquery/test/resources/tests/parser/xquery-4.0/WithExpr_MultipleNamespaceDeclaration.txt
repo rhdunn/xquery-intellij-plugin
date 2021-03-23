@@ -5,7 +5,7 @@ XQueryModuleImpl[FILE(0:88)]
             XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_WITH(0:4)]('with')
             PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
             XPathNamespaceDeclarationImpl[XPATH_NAMESPACE_DECLARATION(5:41)]
-               XQueryQNameImpl[XQUERY_QNAME(5:12)]
+               XPathQNameImpl[XPATH_QNAME(5:12)]
                   XmlNCNameImpl[XPATH_NCNAME_TOKEN(5:10)]('xmlns')
                   LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(10:11)](':')
                   XmlNCNameImpl[XPATH_NCNAME_TOKEN(11:12)]('a')
@@ -20,7 +20,7 @@ XQueryModuleImpl[FILE(0:88)]
             LeafPsiElement[XPATH_COMMA_TOKEN(42:43)](',')
             PsiWhiteSpaceImpl[WHITE_SPACE(43:44)](' ')
             XPathNamespaceDeclarationImpl[XPATH_NAMESPACE_DECLARATION(44:80)]
-               XQueryQNameImpl[XQUERY_QNAME(44:51)]
+               XPathQNameImpl[XPATH_QNAME(44:51)]
                   XmlNCNameImpl[XPATH_NCNAME_TOKEN(44:49)]('xmlns')
                   LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(49:50)](':')
                   XmlNCNameImpl[XPATH_NCNAME_TOKEN(50:51)]('a')

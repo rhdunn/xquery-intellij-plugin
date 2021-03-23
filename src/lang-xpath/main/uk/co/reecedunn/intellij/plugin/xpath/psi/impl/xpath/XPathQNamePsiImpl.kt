@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2020 Reece H. Dunn
+ * Copyright (C) 2016-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,8 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.navigation.ItemPresentation
+import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
 import org.jetbrains.annotations.NonNls
@@ -25,8 +27,13 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQName
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.reference.XPathFunctionNameReference
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.reference.XPathQNamePrefixReference
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.reference.XPathVariableNameReference
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableReference
 
-open class XPathQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathQName {
+class XPathQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathQName {
     // region XsQNameValue
 
     private val names: Sequence<XsNCNameValue>
@@ -50,7 +57,37 @@ open class XPathQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathQ
         return if (references.isEmpty()) null else references[0]
     }
 
-    override fun getReferences(): Array<PsiReference> = PsiReference.EMPTY_ARRAY
+    @Suppress("DuplicatedCode") // Same logic in XQueryURIQualifiedNamePsiImpl.
+    override fun getReferences(): Array<PsiReference> {
+        val eqnameStart = node.startOffset
+        val localName = localName as? PsiElement
+        val localNameRef: PsiReference? =
+            if (localName != null) when (parent) {
+                is XpmFunctionReference ->
+                    XPathFunctionNameReference(this, localName.textRange.shiftRight(-eqnameStart))
+                is XpmVariableReference ->
+                    XPathVariableNameReference(this, localName.textRange.shiftRight(-eqnameStart))
+                else -> null
+            } else {
+                null
+            }
+
+        val prefix = prefix as? PsiElement
+        if (prefix == null) { // local name only
+            if (localNameRef != null) {
+                return arrayOf(localNameRef)
+            }
+            return PsiReference.EMPTY_ARRAY
+        } else {
+            if (localNameRef != null) {
+                return arrayOf(
+                    XPathQNamePrefixReference(this, prefix.textRange.shiftRight(-eqnameStart)),
+                    localNameRef
+                )
+            }
+            return arrayOf(XPathQNamePrefixReference(this, prefix.textRange.shiftRight(-eqnameStart)))
+        }
+    }
 
     override fun getTextOffset(): Int = nameIdentifier?.textOffset ?: super.getTextOffset()
 
@@ -68,6 +105,11 @@ open class XPathQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathQ
         val renamed = createElement<XPathQName>("${prefix?.data ?: ""}:$name") ?: return this
         return replace(renamed)
     }
+
+    // endregion
+    // region NavigationItem
+
+    override fun getPresentation(): ItemPresentation? = (parent as NavigatablePsiElement).presentation
 
     // endregion
 }
