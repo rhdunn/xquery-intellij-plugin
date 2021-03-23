@@ -57,7 +57,7 @@ class XPathQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathQName 
         return if (references.isEmpty()) null else references[0]
     }
 
-    @Suppress("DuplicatedCode") // Same logic in XQueryURIQualifiedNamePsiImpl.
+    @Suppress("DuplicatedCode") // Same logic in XPathURIQualifiedNamePsiImpl.
     override fun getReferences(): Array<PsiReference> {
         val eqnameStart = node.startOffset
         val localName = localName as? PsiElement
