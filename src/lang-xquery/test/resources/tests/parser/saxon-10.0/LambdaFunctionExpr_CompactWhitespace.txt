@@ -5,7 +5,7 @@ XQueryModuleImpl[FILE(0:11)]
             PluginLambdaFunctionExprImpl[XPATH_LAMBDA_FUNCTION_EXPR(0:9)]
                LeafPsiElement[XPATH_LAMBDA_FUNCTION(0:2)]('_{')
                XPathFunctionCallImpl[XPATH_FUNCTION_CALL(2:8)]
-                  XQueryNCNameImpl[XQUERY_NCNAME(2:6)]
+                  XPathNCNameImpl[XPATH_NCNAME(2:6)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(2:6)]('true')
                   XPathArgumentListImpl[XPATH_ARGUMENT_LIST(6:8)]
                      LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(6:7)]('(')

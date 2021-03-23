@@ -8,14 +8,14 @@ XQueryModuleImpl[FILE(0:22)]
                XQueryLetBindingImpl[XQUERY_LET_BINDING(4:12)]
                   LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(4:5)]('$')
                   PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
-                  XQueryNCNameImpl[XQUERY_NCNAME(6:8)]
+                  XPathNCNameImpl[XPATH_NCNAME(6:8)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(6:7)]('x')
                      PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
                   PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('XPST0003: Missing variable assignment operator ':=' or keyword: as.')
                   XPathVarRefImpl[XPATH_VAR_REF(8:12)]
                      LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(8:9)]('$')
                      PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
-                     XQueryNCNameImpl[XQUERY_NCNAME(10:12)]
+                     XPathNCNameImpl[XPATH_NCNAME(10:12)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(10:11)]('y')
                         PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
             PluginReturnClauseImpl[XPATH_RETURN_CLAUSE(12:22)]
@@ -24,5 +24,5 @@ XQueryModuleImpl[FILE(0:22)]
                XPathVarRefImpl[XPATH_VAR_REF(19:22)]
                   LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(19:20)]('$')
                   PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
-                  XQueryNCNameImpl[XQUERY_NCNAME(21:22)]
+                  XPathNCNameImpl[XPATH_NCNAME(21:22)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(21:22)]('x')

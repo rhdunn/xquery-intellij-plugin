@@ -6,5 +6,5 @@ XQueryModuleImpl[FILE(0:23)]
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FOLLOWING_SIBLING(0:17)]('following-sibling')
                LeafPsiElement[XPATH_AXIS_SEPARATOR_TOKEN(17:19)]('::')
                XPathNameTestImpl[XPATH_NAME_TEST(19:23)]
-                  XQueryNCNameImpl[XQUERY_NCNAME(19:23)]
+                  XPathNCNameImpl[XPATH_NCNAME(19:23)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(19:23)]('para')

@@ -12,7 +12,7 @@ XQueryModuleImpl[FILE(0:41)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
                   LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(20:21)]('$')
                   PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
-                  XQueryNCNameImpl[XQUERY_NCNAME(22:24)]
+                  XPathNCNameImpl[XPATH_NCNAME(22:24)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(22:23)]('x')
                      PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_IN(24:26)]('in')
@@ -20,7 +20,7 @@ XQueryModuleImpl[FILE(0:41)]
                   XPathVarRefImpl[XPATH_VAR_REF(27:31)]
                      LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(27:28)]('$')
                      PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
-                     XQueryNCNameImpl[XQUERY_NCNAME(29:31)]
+                     XPathNCNameImpl[XPATH_NCNAME(29:31)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(29:30)]('y')
                         PsiWhiteSpaceImpl[WHITE_SPACE(30:31)](' ')
                   PsiErrorElementImpl[ERROR_ELEMENT(31:31)]('XPST0003: Expected 'WindowStartCondition'.')
@@ -30,5 +30,5 @@ XQueryModuleImpl[FILE(0:41)]
                XPathVarRefImpl[XPATH_VAR_REF(38:41)]
                   LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(38:39)]('$')
                   PsiWhiteSpaceImpl[WHITE_SPACE(39:40)](' ')
-                  XQueryNCNameImpl[XQUERY_NCNAME(40:41)]
+                  XPathNCNameImpl[XPATH_NCNAME(40:41)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(40:41)]('x')

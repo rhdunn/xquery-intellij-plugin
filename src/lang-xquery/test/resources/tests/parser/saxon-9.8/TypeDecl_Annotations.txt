@@ -7,7 +7,7 @@ XQueryModuleImpl[FILE(0:44)]
             XQueryAnnotationImpl[XQUERY_ANNOTATION(8:18)]
                LeafPsiElement[XQUERY_ANNOTATION_INDICATOR_TOKEN(8:9)]('%')
                PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
-               XQueryNCNameImpl[XQUERY_NCNAME(10:18)]
+               XPathNCNameImpl[XPATH_NCNAME(10:18)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_PRIVATE(10:17)]('private')
                   PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
             PsiErrorElementImpl[ERROR_ELEMENT(18:22)]('XPST0003: Expected keyword: function, item-type, variable.')

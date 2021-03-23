@@ -10,7 +10,7 @@ XQueryModuleImpl[FILE(0:30)]
                XPathVarRefImpl[XPATH_VAR_REF(12:16)]
                   LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(12:13)]('$')
                   PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
-                  XQueryNCNameImpl[XQUERY_NCNAME(14:16)]
+                  XPathNCNameImpl[XPATH_NCNAME(14:16)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(14:15)]('x')
                      PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
             UpdateFacilityInsertExprTargetChoiceImpl[XQUERY_INSERT_EXPR_TARGET_CHOICE(16:26)]
@@ -23,5 +23,5 @@ XQueryModuleImpl[FILE(0:30)]
                XPathVarRefImpl[XPATH_VAR_REF(27:30)]
                   LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(27:28)]('$')
                   PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
-                  XQueryNCNameImpl[XQUERY_NCNAME(29:30)]
+                  XPathNCNameImpl[XPATH_NCNAME(29:30)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(29:30)]('y')

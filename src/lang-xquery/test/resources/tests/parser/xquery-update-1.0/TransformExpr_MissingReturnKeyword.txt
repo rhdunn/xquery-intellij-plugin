@@ -7,7 +7,7 @@ XQueryModuleImpl[FILE(0:30)]
             PluginCopyModifyExprBindingImpl[XQUERY_COPY_MODIFY_EXPR_BINDING(5:16)]
                LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(5:6)]('$')
                PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-               XQueryNCNameImpl[XQUERY_NCNAME(7:9)]
+               XPathNCNameImpl[XPATH_NCNAME(7:9)]
                   XmlNCNameImpl[XPATH_NCNAME_TOKEN(7:8)]('x')
                   PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
                LeafPsiElement[XPATH_ASSIGN_EQUAL_TOKEN(9:11)](':=')
@@ -15,7 +15,7 @@ XQueryModuleImpl[FILE(0:30)]
                XPathVarRefImpl[XPATH_VAR_REF(12:16)]
                   LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(12:13)]('$')
                   PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
-                  XQueryNCNameImpl[XQUERY_NCNAME(14:16)]
+                  XPathNCNameImpl[XPATH_NCNAME(14:16)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(14:15)]('y')
                      PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_MODIFY(16:22)]('modify')
@@ -23,12 +23,12 @@ XQueryModuleImpl[FILE(0:30)]
             XPathVarRefImpl[XPATH_VAR_REF(23:27)]
                LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(23:24)]('$')
                PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
-               XQueryNCNameImpl[XQUERY_NCNAME(25:27)]
+               XPathNCNameImpl[XPATH_NCNAME(25:27)]
                   XmlNCNameImpl[XPATH_NCNAME_TOKEN(25:26)]('x')
                   PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
             PsiErrorElementImpl[ERROR_ELEMENT(27:27)]('XPST0003: Expected keyword: return.')
             XPathVarRefImpl[XPATH_VAR_REF(27:30)]
                LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(27:28)]('$')
                PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
-               XQueryNCNameImpl[XQUERY_NCNAME(29:30)]
+               XPathNCNameImpl[XPATH_NCNAME(29:30)]
                   XmlNCNameImpl[XPATH_NCNAME_TOKEN(29:30)]('x')

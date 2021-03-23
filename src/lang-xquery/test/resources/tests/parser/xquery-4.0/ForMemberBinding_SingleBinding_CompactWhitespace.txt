@@ -8,7 +8,7 @@ XQueryModuleImpl[FILE(0:25)]
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_MEMBER(4:10)]('member')
                XQueryForMemberBindingImpl[XQUERY_FOR_MEMBER_BINDING(10:17)]
                   LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(10:11)]('$')
-                  XQueryNCNameImpl[XQUERY_NCNAME(11:13)]
+                  XPathNCNameImpl[XPATH_NCNAME(11:13)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(11:12)]('m')
                      PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_IN(13:15)]('in')

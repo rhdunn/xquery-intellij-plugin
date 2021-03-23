@@ -4,11 +4,11 @@ XQueryModuleImpl[FILE(0:16)]
          XPathArrowExprImpl[XPATH_ARROW_EXPR(0:16)]
             XPathVarRefImpl[XPATH_VAR_REF(0:2)]
                LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(0:1)]('$')
-               XQueryNCNameImpl[XQUERY_NCNAME(1:2)]
+               XPathNCNameImpl[XPATH_NCNAME(1:2)]
                   XmlNCNameImpl[XPATH_NCNAME_TOKEN(1:2)]('x')
             LeafPsiElement[XPATH_ARROW_TOKEN(2:4)]('=>')
             PluginArrowFunctionCallImpl[XPATH_ARROW_FUNCTION_CALL(4:16)]
-               XQueryNCNameImpl[XQUERY_NCNAME(4:14)]
+               XPathNCNameImpl[XPATH_NCNAME(4:14)]
                   XmlNCNameImpl[XPATH_NCNAME_TOKEN(4:14)]('upper-case')
                XPathArgumentListImpl[XPATH_ARGUMENT_LIST(14:16)]
                   LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(14:15)]('(')

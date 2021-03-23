@@ -6,5 +6,5 @@ XQueryModuleImpl[FILE(0:4)]
                LeafPsiElement[XPATH_ATTRIBUTE_SELECTOR_TOKEN(0:1)]('@')
                PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
                XPathNameTestImpl[XPATH_NAME_TEST(2:4)]
-                  XQueryNCNameImpl[XQUERY_NCNAME(2:4)]
+                  XPathNCNameImpl[XPATH_NCNAME(2:4)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(2:4)]('id')

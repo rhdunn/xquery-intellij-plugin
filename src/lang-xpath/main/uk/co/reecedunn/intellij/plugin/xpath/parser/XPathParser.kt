@@ -1771,7 +1771,7 @@ open class XPathParser : PsiParser {
         if (
             builder.matchTokenType(XPathTokenType.STAR) ||
             builder.matchTokenType(XPathTokenType.INTEGER_LITERAL) ||
-            this.parseEQNameOrWildcard(builder, NCNAME, false) != null ||
+            this.parseEQNameOrWildcard(builder, XPathElementType.NCNAME, false) != null ||
             parseStringLiteral(builder) ||
             parseVarOrParamRef(builder, null) ||
             parseParenthesizedExpr(builder)
@@ -3844,7 +3844,7 @@ open class XPathParser : PsiParser {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            parseQNameOrWildcard(builder, NCNAME) != null || parseStringLiteral(builder)
+            parseQNameOrWildcard(builder, XPathElementType.NCNAME) != null || parseStringLiteral(builder)
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE)) {
@@ -4095,7 +4095,7 @@ open class XPathParser : PsiParser {
         if (eqnameType != null) {
             when {
                 type === QNAME -> marker.drop()
-                type === NCNAME -> marker.drop()
+                type === XPathElementType.NCNAME -> marker.drop()
                 type === XPathElementType.WILDCARD -> marker.drop()
                 type === XPathElementType.VAR_REF -> marker.drop()
                 else -> marker.done(type)
@@ -4146,14 +4146,13 @@ open class XPathParser : PsiParser {
     // endregion
     // region Lexical Structure :: Terminal Symbols :: QName
 
-    open val NCNAME: IElementType = XPathElementType.NCNAME
     open val QNAME: IElementType = XPathElementType.QNAME
 
     private fun parseNCName(builder: PsiBuilder): Boolean {
         if (builder.tokenType is INCNameType) {
             val marker = builder.mark()
             builder.advanceLexer()
-            marker.done(NCNAME)
+            marker.done(XPathElementType.NCNAME)
             return true
         }
         return false
@@ -4174,7 +4173,7 @@ open class XPathParser : PsiParser {
                     marker.done(XPathElementType.WILDCARD)
                     XPathElementType.WILDCARD
                 } else {
-                    marker.done(NCNAME)
+                    marker.done(XPathElementType.NCNAME)
                     prefix
                 }
             }
@@ -4188,7 +4187,7 @@ open class XPathParser : PsiParser {
                         marker.done(XPathElementType.WILDCARD)
                         XPathElementType.WILDCARD
                     } else {
-                        marker.done(NCNAME)
+                        marker.done(XPathElementType.NCNAME)
                         prefix
                     }
                 }
@@ -4226,7 +4225,7 @@ open class XPathParser : PsiParser {
                 return XPathElementType.WILDCARD
             } else {
                 nameMarker.drop()
-                marker.done(NCNAME)
+                marker.done(XPathElementType.NCNAME)
                 return prefix
             }
         }
@@ -4237,7 +4236,7 @@ open class XPathParser : PsiParser {
             if (builder.tokenType is INCNameType || builder.tokenType == XPathTokenType.STAR) {
                 builder.advanceLexer()
             }
-            if (type === NCNAME) {
+            if (type === XPathElementType.NCNAME) {
                 marker.error(XPathBundle.message("parser.error.expected-ncname-not-qname"))
             } else {
                 marker.error(XPathBundle.message("parser.error.qname.missing-prefix"))

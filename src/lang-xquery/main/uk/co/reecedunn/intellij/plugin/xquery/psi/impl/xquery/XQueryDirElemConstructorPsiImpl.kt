@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.core.editor.folding.FoldablePsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAttributeNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.filterEnclosedExpressions
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
@@ -75,7 +76,7 @@ class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
             if (start!!.elementType === XQueryTokenType.XML_WHITE_SPACE)
                 start = start!!.nextSibling
             if (
-                start!!.elementType === XQueryElementType.NCNAME ||
+                start!!.elementType === XPathElementType.NCNAME ||
                 start!!.elementType === XQueryElementType.QNAME
             )
                 start = start!!.nextSibling
@@ -135,7 +136,7 @@ class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
         private val ELEMENT_CONSTRUCTOR_TOKENS = TokenSet.create(
             XQueryTokenType.OPEN_XML_TAG,
             XQueryTokenType.XML_WHITE_SPACE,
-            XQueryElementType.NCNAME,
+            XPathElementType.NCNAME,
             XQueryElementType.QNAME,
             XQueryElementType.DIR_ATTRIBUTE,
             XQueryTokenType.END_XML_TAG,

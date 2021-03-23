@@ -12,7 +12,7 @@ XQueryModuleImpl[FILE(0:45)]
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_TUPLE(14:19)]('tuple')
                LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(19:20)]('(')
                XPathFieldDeclarationImpl[XPATH_FIELD_DECLARATION(20:31)]
-                  XQueryNCNameImpl[XQUERY_NCNAME(20:21)]
+                  XPathNCNameImpl[XPATH_NCNAME(20:21)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(20:21)]('a')
                   LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(21:22)](':')
                   XPathAtomicOrUnionTypeImpl[XPATH_ATOMIC_OR_UNION_TYPE(22:31)]
@@ -22,7 +22,7 @@ XQueryModuleImpl[FILE(0:45)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(25:31)]('string')
                LeafPsiElement[XPATH_COMMA_TOKEN(31:32)](',')
                XPathFieldDeclarationImpl[XPATH_FIELD_DECLARATION(32:44)]
-                  XQueryNCNameImpl[XQUERY_NCNAME(32:33)]
+                  XPathNCNameImpl[XPATH_NCNAME(32:33)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(32:33)]('b')
                   LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(33:34)](':')
                   XPathAtomicOrUnionTypeImpl[XPATH_ATOMIC_OR_UNION_TYPE(34:44)]

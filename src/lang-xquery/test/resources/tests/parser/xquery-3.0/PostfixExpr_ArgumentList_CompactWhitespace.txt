@@ -4,7 +4,7 @@ XQueryModuleImpl[FILE(0:7)]
          PluginDynamicFunctionCallImpl[XPATH_DYNAMIC_FUNCTION_CALL(0:7)]
             XPathVarRefImpl[XPATH_VAR_REF(0:2)]
                LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(0:1)]('$')
-               XQueryNCNameImpl[XQUERY_NCNAME(1:2)]
+               XPathNCNameImpl[XPATH_NCNAME(1:2)]
                   XmlNCNameImpl[XPATH_NCNAME_TOKEN(1:2)]('f')
             XPathPositionalArgumentListImpl[XPATH_POSITIONAL_ARGUMENT_LIST(2:7)]
                LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(2:3)]('(')

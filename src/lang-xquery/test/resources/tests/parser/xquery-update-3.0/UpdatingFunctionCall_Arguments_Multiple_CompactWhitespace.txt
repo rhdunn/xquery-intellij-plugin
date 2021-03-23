@@ -7,7 +7,7 @@ XQueryModuleImpl[FILE(0:27)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_UPDATING(7:15)]('updating')
             XPathVarRefImpl[XPATH_VAR_REF(15:20)]
                LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(15:16)]('$')
-               XQueryNCNameImpl[XQUERY_NCNAME(16:20)]
+               XPathNCNameImpl[XPATH_NCNAME(16:20)]
                   XmlNCNameImpl[XPATH_NCNAME_TOKEN(16:20)]('test')
             LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(20:21)]('(')
             XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(21:22)]('1')

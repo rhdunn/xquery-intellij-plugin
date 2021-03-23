@@ -12,7 +12,7 @@ XQueryModuleImpl[FILE(0:36)]
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_RECORD(14:20)]('record')
                LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(20:21)]('(')
                XPathFieldDeclarationImpl[XPATH_FIELD_DECLARATION(21:35)]
-                  XQueryNCNameImpl[XQUERY_NCNAME(21:22)]
+                  XPathNCNameImpl[XPATH_NCNAME(21:22)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(21:22)]('a')
                   LeafPsiElement[XPATH_OPTIONAL_TOKEN(22:23)]('?')
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AS(23:25)]('as')

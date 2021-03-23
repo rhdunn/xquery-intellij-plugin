@@ -32,7 +32,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.reference.XPathVariableNam
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableReference
 
-open class XPathNCNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathNCName {
+class XPathNCNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathNCName {
     // region XsQNameValue
 
     override val namespace: XsAnyUriValue? = null

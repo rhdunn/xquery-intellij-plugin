@@ -6,7 +6,7 @@ XQueryModuleImpl[FILE(0:142)]
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_NAMESPACE(8:17)]('namespace')
             PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
-            XQueryNCNameImpl[XQUERY_NCNAME(18:23)]
+            XPathNCNameImpl[XPATH_NCNAME(18:23)]
                XmlNCNameImpl[XPATH_NCNAME_TOKEN(18:22)]('test')
                PsiWhiteSpaceImpl[WHITE_SPACE(22:23)](' ')
             LeafPsiElement[XPATH_EQUAL_TOKEN(23:24)]('=')
@@ -24,7 +24,7 @@ XQueryModuleImpl[FILE(0:142)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VARIABLE(65:73)]('variable')
             PsiWhiteSpaceImpl[WHITE_SPACE(73:74)](' ')
             LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(74:75)]('$')
-            XQueryNCNameImpl[XQUERY_NCNAME(75:77)]
+            XPathNCNameImpl[XPATH_NCNAME(75:77)]
                XmlNCNameImpl[XPATH_NCNAME_TOKEN(75:76)]('x')
                PsiWhiteSpaceImpl[WHITE_SPACE(76:77)](' ')
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(77:85)]('external')
@@ -35,7 +35,7 @@ XQueryModuleImpl[FILE(0:142)]
             PsiWhiteSpaceImpl[WHITE_SPACE(94:95)](' ')
             XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FUNCTION(95:103)]('function')
             PsiWhiteSpaceImpl[WHITE_SPACE(103:104)](' ')
-            XQueryNCNameImpl[XQUERY_NCNAME(104:105)]
+            XPathNCNameImpl[XPATH_NCNAME(104:105)]
                XmlNCNameImpl[XPATH_NCNAME_TOKEN(104:105)]('y')
             LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(105:106)]('(')
             LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(106:107)](')')
@@ -48,7 +48,7 @@ XQueryModuleImpl[FILE(0:142)]
             PsiWhiteSpaceImpl[WHITE_SPACE(125:126)](' ')
             XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_OPTION(126:132)]('option')
             PsiWhiteSpaceImpl[WHITE_SPACE(132:133)](' ')
-            XQueryNCNameImpl[XQUERY_NCNAME(133:135)]
+            XPathNCNameImpl[XPATH_NCNAME(133:135)]
                XmlNCNameImpl[XPATH_NCNAME_TOKEN(133:134)]('z')
                PsiWhiteSpaceImpl[WHITE_SPACE(134:135)](' ')
             XPathStringLiteralImpl[XPATH_STRING_LITERAL(135:141)]

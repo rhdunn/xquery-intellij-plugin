@@ -8,7 +8,7 @@ XQueryModuleImpl[FILE(0:40)]
             PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
             LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(17:18)]('$')
             PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
-            XQueryNCNameImpl[XQUERY_NCNAME(19:21)]
+            XPathNCNameImpl[XPATH_NCNAME(19:21)]
                XmlNCNameImpl[XPATH_NCNAME_TOKEN(19:20)]('x')
                PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
             XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AS(21:23)]('as')

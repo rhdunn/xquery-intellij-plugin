@@ -240,7 +240,7 @@ class XQueryParser : XPathParser() {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (parseQNameOrWildcard(builder, XQueryElementType.NCNAME, false) == null && !haveErrors) {
+            if (parseQNameOrWildcard(builder, XPathElementType.NCNAME, false) == null && !haveErrors) {
                 builder.error(XQueryBundle.message("parser.error.expected-ncname"))
                 haveErrors = true
             }
@@ -482,7 +482,7 @@ class XQueryParser : XPathParser() {
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (parseQNameOrWildcard(builder, XQueryElementType.NCNAME, false) == null) {
+            if (parseQNameOrWildcard(builder, XPathElementType.NCNAME, false) == null) {
                 builder.error(XQueryBundle.message("parser.error.expected-ncname"))
                 haveErrors = true
             }
@@ -825,7 +825,7 @@ class XQueryParser : XPathParser() {
         var marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_NAMESPACE)
         if (marker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (parseQNameOrWildcard(builder, XQueryElementType.NCNAME, false) == null) {
+            if (parseQNameOrWildcard(builder, XPathElementType.NCNAME, false) == null) {
                 builder.error(XQueryBundle.message("parser.error.expected-ncname"))
                 haveErrors = true
             }
@@ -891,7 +891,7 @@ class XQueryParser : XPathParser() {
             parseWhiteSpaceAndCommentTokens(builder)
             if (builder.matchTokenType(XPathTokenType.K_NAMESPACE)) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (parseQNameOrWildcard(builder, XQueryElementType.NCNAME, false) == null) {
+                if (parseQNameOrWildcard(builder, XPathElementType.NCNAME, false) == null) {
                     builder.error(XQueryBundle.message("parser.error.expected-ncname"))
                     haveErrors = true
                 }
@@ -3915,7 +3915,7 @@ class XQueryParser : XPathParser() {
                 haveErrors = true
             }
 
-            if (parseQNameOrWildcard(builder, XQueryElementType.NCNAME, false) == null && !haveErrors) {
+            if (parseQNameOrWildcard(builder, XPathElementType.NCNAME, false) == null && !haveErrors) {
                 builder.error(XQueryBundle.message("parser.error.expected-ncname"))
                 haveErrors = true
             }
@@ -4152,7 +4152,7 @@ class XQueryParser : XPathParser() {
                 return false
             }
 
-            val name = parseEQNameOrWildcard(builder, XQueryElementType.NCNAME, false)
+            val name = parseEQNameOrWildcard(builder, XPathElementType.NCNAME, false)
             if (
                 name == null &&
                 !parseEnclosedExprOrBlock(
@@ -4237,7 +4237,7 @@ class XQueryParser : XPathParser() {
                 return false
             }
 
-            val name = parseQNameOrWildcard(builder, XQueryElementType.NCNAME, false)
+            val name = parseQNameOrWildcard(builder, XPathElementType.NCNAME, false)
             if (name == null && !parseEnclosedExprOrBlock(builder, null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)) {
                 if (builder.tokenType === XPathTokenType.STRING_LITERAL_START) {
                     val errorMarker = builder.mark()
@@ -5254,7 +5254,6 @@ class XQueryParser : XPathParser() {
     // endregion
     // region Lexical Structure :: Terminal Symbols :: QName
 
-    override val NCNAME: IElementType = XQueryElementType.NCNAME
     override val QNAME: IElementType = XQueryElementType.QNAME
 
     override fun parseQNameSeparator(builder: PsiBuilder, type: IElementType?): Boolean {
@@ -5263,7 +5262,7 @@ class XQueryParser : XPathParser() {
             builder.tokenType === XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR ||
             builder.tokenType === XQueryTokenType.XML_TAG_QNAME_SEPARATOR
         ) {
-            if (type === XQueryElementType.NCNAME) {
+            if (type === XPathElementType.NCNAME) {
                 val errorMarker = builder.mark()
                 builder.advanceLexer()
                 errorMarker.error(XPathBundle.message("parser.error.expected-ncname-not-qname"))

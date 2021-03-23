@@ -6,7 +6,7 @@ XQueryModuleImpl[FILE(0:60)]
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VARIABLE(8:16)]('variable')
             LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(16:17)]('$')
-            XQueryNCNameImpl[XQUERY_NCNAME(17:21)]
+            XPathNCNameImpl[XPATH_NCNAME(17:21)]
                XmlNCNameImpl[XPATH_NCNAME_TOKEN(17:20)]('one')
                PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
             XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AS(21:23)]('as')
@@ -14,7 +14,7 @@ XQueryModuleImpl[FILE(0:60)]
             PluginAttributeDeclTestImpl[XQUERY_ATTRIBUTE_DECL_TEST(24:51)]
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_ATTRIBUTE_DECL_NODE(24:38)]('attribute-decl')
                LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(38:39)]('(')
-               XQueryNCNameImpl[XQUERY_NCNAME(39:50)]
+               XPathNCNameImpl[XPATH_NCNAME(39:50)]
                   XmlNCNameImpl[XPATH_NCNAME_TOKEN(39:50)]('lorem-ipsum')
                LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(50:51)](')')
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(51:59)]('external')

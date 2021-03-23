@@ -6,13 +6,13 @@ XQueryModuleImpl[FILE(0:47)]
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FOR(0:3)]('for')
                XQueryForBindingImpl[XQUERY_FOR_BINDING(3:11)]
                   LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(3:4)]('$')
-                  XQueryNCNameImpl[XQUERY_NCNAME(4:6)]
+                  XPathNCNameImpl[XPATH_NCNAME(4:6)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(4:5)]('x')
                      PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_IN(6:8)]('in')
                   XPathVarRefImpl[XPATH_VAR_REF(8:11)]
                      LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(8:9)]('$')
-                     XQueryNCNameImpl[XQUERY_NCNAME(9:11)]
+                     XPathNCNameImpl[XPATH_NCNAME(9:11)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(9:10)]('y')
                         PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
             XQueryIntermediateClauseImpl[XQUERY_INTERMEDIATE_CLAUSE(11:39)]
@@ -23,7 +23,7 @@ XQueryModuleImpl[FILE(0:47)]
                   XQueryGroupingSpecListImpl[XQUERY_GROUPING_SPEC_LIST(19:39)]
                      XQueryGroupingSpecImpl[XQUERY_GROUPING_SPEC(19:39)]
                         LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(19:20)]('$')
-                        XQueryNCNameImpl[XQUERY_NCNAME(20:22)]
+                        XPathNCNameImpl[XPATH_NCNAME(20:22)]
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(20:21)]('x')
                            PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
                         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AS(22:24)]('as')
@@ -40,5 +40,5 @@ XQueryModuleImpl[FILE(0:47)]
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_RETURN(39:45)]('return')
                XPathVarRefImpl[XPATH_VAR_REF(45:47)]
                   LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(45:46)]('$')
-                  XQueryNCNameImpl[XQUERY_NCNAME(46:47)]
+                  XPathNCNameImpl[XPATH_NCNAME(46:47)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(46:47)]('x')

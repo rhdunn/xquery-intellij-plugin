@@ -4,7 +4,7 @@ XQueryModuleImpl[FILE(0:27)]
          FTContainsExprImpl[XPATH_FT_CONTAINS_EXPR(0:27)]
             XPathPathExprImpl[XPATH_PATH_EXPR(0:6)]
                XPathNameTestImpl[XPATH_NAME_TEST(0:6)]
-                  XQueryNCNameImpl[XQUERY_NCNAME(0:6)]
+                  XPathNCNameImpl[XPATH_NCNAME(0:6)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:5)]('title')
                      PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
             XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_CONTAINS(6:14)]('contains')
@@ -15,6 +15,6 @@ XQueryModuleImpl[FILE(0:27)]
                   LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(19:20)]('{')
                   XPathVarRefImpl[XPATH_VAR_REF(20:26)]
                      LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(20:21)]('$')
-                     XQueryNCNameImpl[XQUERY_NCNAME(21:26)]
+                     XPathNCNameImpl[XPATH_NCNAME(21:26)]
                         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VALUE(21:26)]('value')
                   LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(26:27)]('}')

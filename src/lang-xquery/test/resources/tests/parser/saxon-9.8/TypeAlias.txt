@@ -11,5 +11,5 @@ XQueryModuleImpl[FILE(0:20)]
             PluginTypeAliasImpl[XPATH_TYPE_ALIAS(14:20)]
                LeafPsiElement[XPATH_TYPE_ALIAS(14:15)]('~')
                PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
-               XQueryNCNameImpl[XQUERY_NCNAME(16:20)]
+               XPathNCNameImpl[XPATH_NCNAME(16:20)]
                   XmlNCNameImpl[XPATH_NCNAME_TOKEN(16:20)]('test')

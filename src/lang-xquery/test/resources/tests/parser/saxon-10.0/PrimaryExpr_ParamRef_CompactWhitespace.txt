@@ -3,5 +3,5 @@ XQueryModuleImpl[FILE(0:5)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:5)]
          PluginParamRefImpl[XPATH_PARAM_REF(0:5)]
             LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(0:1)]('$')
-            XQueryNCNameImpl[XQUERY_NCNAME(1:5)]
+            XPathNCNameImpl[XPATH_NCNAME(1:5)]
                XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(1:5)]('1234')

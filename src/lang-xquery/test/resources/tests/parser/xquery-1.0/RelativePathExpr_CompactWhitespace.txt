@@ -5,12 +5,12 @@ XQueryModuleImpl[FILE(0:14)]
             XPathPostfixExprImpl[XPATH_POSTFIX_EXPR(0:5)]
                XPathVarRefImpl[XPATH_VAR_REF(0:5)]
                   LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(0:1)]('$')
-                  XQueryNCNameImpl[XQUERY_NCNAME(1:5)]
+                  XPathNCNameImpl[XPATH_NCNAME(1:5)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(1:5)]('test')
             LeafPsiElement[XPATH_DIRECT_DESCENDANTS_PATH_TOKEN(5:6)]('/')
             XPathPostfixExprImpl[XPATH_POSTFIX_EXPR(6:14)]
                XPathFunctionCallImpl[XPATH_FUNCTION_CALL(6:14)]
-                  XQueryNCNameImpl[XQUERY_NCNAME(6:12)]
+                  XPathNCNameImpl[XPATH_NCNAME(6:12)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(6:12)]('string')
                   XPathArgumentListImpl[XPATH_ARGUMENT_LIST(12:14)]
                      LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(12:13)]('(')

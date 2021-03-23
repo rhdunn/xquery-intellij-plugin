@@ -13,7 +13,7 @@ XQueryModuleImpl[FILE(0:27)]
                PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
                LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(19:20)]('(')
                PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
-               XQueryNCNameImpl[XQUERY_NCNAME(21:26)]
+               XPathNCNameImpl[XPATH_NCNAME(21:26)]
                   XmlNCNameImpl[XPATH_NCNAME_TOKEN(21:25)]('test')
                   PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
                LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(26:27)](')')

@@ -5,14 +5,14 @@ XQueryModuleImpl[FILE(0:20)]
             PluginAbbrevDescendantOrSelfStepImpl[XPATH_ALL_DESCENDANTS_PATH_TOKEN(0:2)]('//')
             PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
             XPathNameTestImpl[XPATH_NAME_TEST(3:8)]
-               XQueryNCNameImpl[XQUERY_NCNAME(3:8)]
+               XPathNCNameImpl[XPATH_NCNAME(3:8)]
                   XmlNCNameImpl[XPATH_NCNAME_TOKEN(3:7)]('test')
                   PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             LeafPsiElement[XPATH_DIRECT_DESCENDANTS_PATH_TOKEN(8:9)]('/')
             PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
             XPathPostfixExprImpl[XPATH_POSTFIX_EXPR(10:20)]
                XPathFunctionCallImpl[XPATH_FUNCTION_CALL(10:20)]
-                  XQueryNCNameImpl[XQUERY_NCNAME(10:17)]
+                  XPathNCNameImpl[XPATH_NCNAME(10:17)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(10:16)]('string')
                      PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
                   XPathArgumentListImpl[XPATH_ARGUMENT_LIST(17:20)]

@@ -6,5 +6,5 @@ XQueryModuleImpl[FILE(0:15)]
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_NAMESPACE(0:9)]('namespace')
                LeafPsiElement[XPATH_AXIS_SEPARATOR_TOKEN(9:11)]('::')
                XPathNameTestImpl[XPATH_NAME_TEST(11:15)]
-                  XQueryNCNameImpl[XQUERY_NCNAME(11:15)]
+                  XPathNCNameImpl[XPATH_NCNAME(11:15)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(11:15)]('para')
