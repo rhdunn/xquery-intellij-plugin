@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathQNamePsiImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.reference.XPathQNamePrefixReference
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.reference.XPathFunctionNameReference
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableReference
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.reference.XQueryVariableNameReference
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.reference.XPathVariableNameReference
 
 class XQueryQNamePsiImpl(node: ASTNode) : XPathQNamePsiImpl(node) {
     // region PsiElement
@@ -39,7 +39,7 @@ class XQueryQNamePsiImpl(node: ASTNode) : XPathQNamePsiImpl(node) {
                 is XpmFunctionReference ->
                     XPathFunctionNameReference(this, localName.textRange.shiftRight(-eqnameStart))
                 is XpmVariableReference ->
-                    XQueryVariableNameReference(this, localName.textRange.shiftRight(-eqnameStart))
+                    XPathVariableNameReference(this, localName.textRange.shiftRight(-eqnameStart))
                 else -> null
             } else {
                 null

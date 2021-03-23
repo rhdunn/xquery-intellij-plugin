@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.reference
+package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.reference
 
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
@@ -22,7 +22,7 @@ import com.intellij.psi.PsiReferenceBase
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.variableDefinition
 
-class XQueryVariableNameReference(element: XPathEQName, range: TextRange) :
+class XPathVariableNameReference(element: XPathEQName, range: TextRange) :
     PsiReferenceBase<XPathEQName>(element, range) {
 
     override fun resolve(): PsiElement? = element.variableDefinition?.variableName as? PsiElement

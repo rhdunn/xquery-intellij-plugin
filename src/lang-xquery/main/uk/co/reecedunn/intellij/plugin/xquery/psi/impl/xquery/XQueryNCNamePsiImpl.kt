@@ -24,7 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathNCNamePsiImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.reference.XPathFunctionNameReference
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableReference
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.reference.XQueryVariableNameReference
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.reference.XPathVariableNameReference
 
 open class XQueryNCNamePsiImpl(node: ASTNode) : XPathNCNamePsiImpl(node) {
     // region PsiElement
@@ -37,7 +37,7 @@ open class XQueryNCNamePsiImpl(node: ASTNode) : XPathNCNamePsiImpl(node) {
                     arrayOf(ref as PsiReference)
                 }
                 is XpmVariableReference -> {
-                    val ref = XQueryVariableNameReference(this, it.textRange.shiftRight(-node.startOffset))
+                    val ref = XPathVariableNameReference(this, it.textRange.shiftRight(-node.startOffset))
                     arrayOf(ref as PsiReference)
                 }
                 else -> null
