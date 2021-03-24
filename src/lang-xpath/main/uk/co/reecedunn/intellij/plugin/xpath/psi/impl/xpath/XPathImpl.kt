@@ -21,12 +21,14 @@ import com.intellij.psi.FileViewProvider
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.lang.fileTypes.XPathFileType
 import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xpm.context.XpmUsageType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpm.context.XpmStaticContext
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 
 class XPathImpl(provider: FileViewProvider) :
     PsiFileBase(provider, XPath),
@@ -60,9 +62,12 @@ class XPathImpl(provider: FileViewProvider) :
     override fun expandQName(qname: XsQNameValue): Sequence<XsQNameValue> = emptySequence()
 
     // endregion
-    // region XpmExpression
+    // region XpmExpressions
 
     override val expressionElement: PsiElement? = null
+
+    override val expressions: Sequence<XpmExpression>
+        get() = children().filterIsInstance<XpmExpression>()
 
     // endregion
 

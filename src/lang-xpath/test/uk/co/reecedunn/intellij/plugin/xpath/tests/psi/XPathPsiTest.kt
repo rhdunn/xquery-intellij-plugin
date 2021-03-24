@@ -43,6 +43,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPathStep
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpressions
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.elementType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.text
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.*
@@ -2089,11 +2090,32 @@ private class XPathPsiTest : ParserTestCase() {
     @Nested
     @DisplayName("XPath 4.0 ED (4) Expressions ; XPath 3.1 (3) Expressions")
     internal inner class Expressions {
-        @Test
+        @Nested
         @DisplayName("XPath 3.1 EBNF (1) XPath")
-        fun xpath() {
-            val expr = parse<XPath>("1, 2 + 3, 4")[0] as XpmExpression
-            assertThat(expr.expressionElement, `is`(nullValue()))
+        internal inner class XPathTest {
+            @Test
+            @DisplayName("single")
+            fun single() {
+                val expr = parse<XPath>("1")[0] as XpmExpressions
+                assertThat(expr.expressionElement, `is`(nullValue()))
+
+                val exprs = expr.expressions.toList()
+                assertThat(exprs.size, `is`(1))
+                assertThat(exprs[0].text, `is`("1"))
+            }
+
+            @Test
+            @DisplayName("multiple")
+            fun multiple() {
+                val expr = parse<XPath>("1, 2 + 3, 4")[0] as XpmExpressions
+                assertThat(expr.expressionElement, `is`(nullValue()))
+
+                val exprs = expr.expressions.toList()
+                assertThat(exprs.size, `is`(3))
+                assertThat(exprs[0].text, `is`("1"))
+                assertThat(exprs[1].text, `is`("2 + 3"))
+                assertThat(exprs[2].text, `is`("4"))
+            }
         }
 
         @Nested
