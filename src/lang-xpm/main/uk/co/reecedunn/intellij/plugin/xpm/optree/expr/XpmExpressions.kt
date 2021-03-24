@@ -16,5 +16,5 @@
 package uk.co.reecedunn.intellij.plugin.xpm.optree.expr
 
 interface XpmExpressions : XpmExpression {
-    val expressions: List<XpmExpression>
+    val expressions: Sequence<XpmExpression>
 }

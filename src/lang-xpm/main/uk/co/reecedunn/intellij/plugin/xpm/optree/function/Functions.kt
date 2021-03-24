@@ -62,7 +62,7 @@ fun XpmFunctionCall.bindTo(parameters: List<XpmParameter>): List<XpmAssignableVa
                     remaining == 1 -> XpmBoundParameter(parameter, positionalArguments.last())
                     else -> {
                         val args = positionalArguments.subList(positionalIndex, positionalArguments.size)
-                        XpmBoundParameter(parameter, XpmExpressionsImpl(args))
+                        XpmBoundParameter(parameter, XpmExpressionsImpl(args.asSequence()))
                     }
                 }
             }

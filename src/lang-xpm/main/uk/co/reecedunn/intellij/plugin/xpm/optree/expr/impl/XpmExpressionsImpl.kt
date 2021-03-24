@@ -19,6 +19,6 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpressions
 
-data class XpmExpressionsImpl(override val expressions: List<XpmExpression>) : XpmExpressions {
+data class XpmExpressionsImpl(override val expressions: Sequence<XpmExpression>) : XpmExpressions {
     override val expressionElement: PsiElement? = null
 }

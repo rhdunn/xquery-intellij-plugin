@@ -3335,10 +3335,10 @@ private class XQueryPsiTest : ParserTestCase() {
                         assertThat(op_qname_presentation(arg.variableName!!), `is`("args"))
                         assertThat(arg.variableType?.typeName, `is`("xs:anyAtomicType?"))
 
-                        val rest = arg.variableExpression as XpmExpressions
-                        assertThat(rest.expressions.size, `is`(2))
-                        assertThat(rest.expressions[0], sameInstance(f.positionalArguments[2]))
-                        assertThat(rest.expressions[1], sameInstance(f.positionalArguments[3]))
+                        val rest = (arg.variableExpression as XpmExpressions).expressions.toList()
+                        assertThat(rest.size, `is`(2))
+                        assertThat(rest[0], sameInstance(f.positionalArguments[2]))
+                        assertThat(rest[1], sameInstance(f.positionalArguments[3]))
                     }
                 }
             }
