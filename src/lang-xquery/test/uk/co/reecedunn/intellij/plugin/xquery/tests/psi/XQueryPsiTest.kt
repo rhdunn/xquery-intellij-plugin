@@ -7464,6 +7464,31 @@ private class XQueryPsiTest : ParserTestCase() {
             }
 
             @Test
+            @DisplayName("single")
+            fun single() {
+                val expr = parse<XQueryQueryBody>("1")[0] as XpmExpressions
+                assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.QUERY_BODY))
+                assertThat(expr.expressionElement?.textOffset, `is`(0))
+
+                val exprs = expr.expressions.toList()
+                assertThat(exprs.size, `is`(1))
+                assertThat(exprs[0].text, `is`("1"))
+            }
+
+            @Test
+            @DisplayName("multiple")
+            fun multiple() {
+                val expr = parse<XQueryQueryBody>("1, 2 + 3, 4")[0] as XpmExpressions
+                assertThat(expr.expressionElement, `is`(nullValue()))
+
+                val exprs = expr.expressions.toList()
+                assertThat(exprs.size, `is`(3))
+                assertThat(exprs[0].text, `is`("1"))
+                assertThat(exprs[1].text, `is`("2 + 3"))
+                assertThat(exprs[2].text, `is`("4"))
+            }
+
+            @Test
             @DisplayName("literal-only expression")
             fun literalOnly() {
                 val expr = parse<XQueryQueryBody>("  1, 2, 3.5, 4e2, \"test\"")[0] as XpmExpression

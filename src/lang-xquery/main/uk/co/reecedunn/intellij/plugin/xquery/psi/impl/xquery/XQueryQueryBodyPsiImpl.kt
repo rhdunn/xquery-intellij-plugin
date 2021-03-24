@@ -24,8 +24,10 @@ import com.intellij.util.BitUtil
 import com.intellij.util.PlatformIcons
 import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationEx
 import uk.co.reecedunn.intellij.plugin.core.psi.resourcePath
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingConcatExpr
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryIcons
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryQueryBody
@@ -46,7 +48,7 @@ class XQueryQueryBodyPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQuery
     }
 
     // endregion
-    // region XpmExpression
+    // region XpmExpressions
 
     override val expressionElement: PsiElement?
         get() {
@@ -57,6 +59,12 @@ class XQueryQueryBodyPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQuery
                     null
             }.firstOrNull()
             return if (expr == null) this else null
+        }
+
+    override val expressions: Sequence<XpmExpression>
+        get() = when (val expr = children().filterIsInstance<XpmExpression>().first()) {
+            is ScriptingConcatExpr -> expr.expressions
+            else -> sequenceOf(expr)
         }
 
     // endregion
