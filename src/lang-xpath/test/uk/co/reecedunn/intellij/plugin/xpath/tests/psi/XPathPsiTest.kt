@@ -43,7 +43,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPathStep
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpressions
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmConcatenatingExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.elementType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.text
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.*
@@ -2096,7 +2096,7 @@ private class XPathPsiTest : ParserTestCase() {
             @Test
             @DisplayName("single")
             fun single() {
-                val expr = parse<XPath>("1")[0] as XpmExpressions
+                val expr = parse<XPath>("1")[0] as XpmConcatenatingExpression
                 assertThat(expr.expressionElement, `is`(nullValue()))
 
                 val exprs = expr.expressions.toList()
@@ -2107,7 +2107,7 @@ private class XPathPsiTest : ParserTestCase() {
             @Test
             @DisplayName("multiple")
             fun multiple() {
-                val expr = parse<XPath>("1, 2 + 3, 4")[0] as XpmExpressions
+                val expr = parse<XPath>("1, 2 + 3, 4")[0] as XpmConcatenatingExpression
                 assertThat(expr.expressionElement, `is`(nullValue()))
 
                 val exprs = expr.expressions.toList()
@@ -3792,7 +3792,7 @@ private class XPathPsiTest : ParserTestCase() {
             @Test
             @DisplayName("XPath 3.1 EBNF (6) Expr")
             fun expr() {
-                val expr = parse<XPathExpr>("(1, 2 + 3, 4)")[1] as XpmExpressions
+                val expr = parse<XPathExpr>("(1, 2 + 3, 4)")[1] as XpmConcatenatingExpression
                 assertThat(expr.expressionElement, `is`(nullValue()))
 
                 val exprs = expr.expressions.toList()

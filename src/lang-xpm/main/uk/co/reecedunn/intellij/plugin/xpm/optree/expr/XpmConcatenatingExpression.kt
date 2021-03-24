@@ -15,6 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.optree.expr
 
-interface XpmExpressions : XpmExpression {
+interface XpmConcatenatingExpression : XpmExpression {
     val expressions: Sequence<XpmExpression>
 }

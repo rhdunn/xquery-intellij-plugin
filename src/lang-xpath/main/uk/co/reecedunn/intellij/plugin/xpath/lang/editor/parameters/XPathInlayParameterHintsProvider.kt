@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.parenthesizedExprTextOffset
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpm.context.expand
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpressions
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmConcatenatingExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmArrowFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.resolve
@@ -39,7 +39,7 @@ class XPathInlayParameterHintsProvider : InlayParameterHintsProvider {
         return bindings.mapIndexedNotNull { index, binding ->
             val expr = when (val expr = binding.variableExpression) {
                 is PsiElement -> expr
-                is XpmExpressions -> expr.expressions.firstOrNull() as? PsiElement
+                is XpmConcatenatingExpression -> expr.expressions.firstOrNull() as? PsiElement
                 else -> null
             }
             when {

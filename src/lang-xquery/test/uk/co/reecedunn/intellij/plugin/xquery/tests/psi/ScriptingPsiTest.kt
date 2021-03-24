@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpressions
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmConcatenatingExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.text
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableBinding
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.*
@@ -70,7 +70,7 @@ private class ScriptingPsiTest : ParserTestCase() {
             @Test
             @DisplayName("single")
             fun single() {
-                val expr = parse<ScriptingBlockBody>("block { 1 }")[0] as XpmExpressions
+                val expr = parse<ScriptingBlockBody>("block { 1 }")[0] as XpmConcatenatingExpression
                 assertThat(expr.expressionElement, `is`(nullValue()))
 
                 val exprs = expr.expressions.toList()
@@ -81,7 +81,7 @@ private class ScriptingPsiTest : ParserTestCase() {
             @Test
             @DisplayName("multiple")
             fun multiple() {
-                val expr = parse<ScriptingBlockBody>("block { 1, 2 + 3, 4 }")[0] as XpmExpressions
+                val expr = parse<ScriptingBlockBody>("block { 1, 2 + 3, 4 }")[0] as XpmConcatenatingExpression
                 assertThat(expr.expressionElement, `is`(nullValue()))
 
                 val exprs = expr.expressions.toList()
@@ -180,7 +180,7 @@ private class ScriptingPsiTest : ParserTestCase() {
         @Test
         @DisplayName("XQuery Scripting Extension 1.0 EBNF (33) ConcatExpr")
         fun concatExpr() {
-            val expr = parse<ScriptingConcatExpr>("1, 2 + 3, 4")[0] as XpmExpressions
+            val expr = parse<ScriptingConcatExpr>("1, 2 + 3, 4")[0] as XpmConcatenatingExpression
             assertThat(expr.expressionElement, `is`(nullValue()))
 
             val exprs = expr.expressions.toList()

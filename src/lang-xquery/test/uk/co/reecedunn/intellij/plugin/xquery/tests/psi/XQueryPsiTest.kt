@@ -56,7 +56,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAnnotated
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPathStep
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpressions
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmConcatenatingExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.elementType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.impl.XpmEmptyExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.text
@@ -3335,7 +3335,7 @@ private class XQueryPsiTest : ParserTestCase() {
                         assertThat(op_qname_presentation(arg.variableName!!), `is`("args"))
                         assertThat(arg.variableType?.typeName, `is`("xs:anyAtomicType?"))
 
-                        val rest = (arg.variableExpression as XpmExpressions).expressions.toList()
+                        val rest = (arg.variableExpression as XpmConcatenatingExpression).expressions.toList()
                         assertThat(rest.size, `is`(2))
                         assertThat(rest[0], sameInstance(f.positionalArguments[2]))
                         assertThat(rest[1], sameInstance(f.positionalArguments[3]))
@@ -4565,7 +4565,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("XQuery 3.1 EBNF (39) Expr")
             fun expr() {
-                val expr = parse<XPathExpr>("(1, 2 + 3, 4)")[0] as XpmExpressions
+                val expr = parse<XPathExpr>("(1, 2 + 3, 4)")[0] as XpmConcatenatingExpression
                 assertThat(expr.expressionElement, `is`(nullValue()))
 
                 val exprs = expr.expressions.toList()
@@ -7472,7 +7472,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("single")
             fun single() {
-                val expr = parse<XQueryQueryBody>("1")[0] as XpmExpressions
+                val expr = parse<XQueryQueryBody>("1")[0] as XpmConcatenatingExpression
                 assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.QUERY_BODY))
                 assertThat(expr.expressionElement?.textOffset, `is`(0))
 
@@ -7484,7 +7484,7 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("multiple")
             fun multiple() {
-                val expr = parse<XQueryQueryBody>("1, 2 + 3, 4")[0] as XpmExpressions
+                val expr = parse<XQueryQueryBody>("1, 2 + 3, 4")[0] as XpmConcatenatingExpression
                 assertThat(expr.expressionElement, `is`(nullValue()))
 
                 val exprs = expr.expressions.toList()

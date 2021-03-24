@@ -24,7 +24,7 @@ import com.intellij.lang.parameterInfo.UpdateParameterInfoContext
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpressions
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmConcatenatingExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.*
 import uk.co.reecedunn.intellij.plugin.xpm.staticallyKnownFunctions
 
@@ -74,7 +74,7 @@ class XPathParameterInfoHandler : ParameterInfoHandler<XPathArgumentList, XpmFun
             var end = -1
             functionCall.bindTo(parameters).withIndex().forEach { (i, binding) ->
                 val match = when (val expr = binding.variableExpression) {
-                    is XpmExpressions -> expr.expressions.contains(argument)
+                    is XpmConcatenatingExpression -> expr.expressions.contains(argument)
                     else -> expr === argument
                 }
 

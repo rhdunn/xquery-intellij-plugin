@@ -47,6 +47,7 @@ various inspections.
   - [Maps](#44-maps)
 - [Operation Tree](#5-operation-tree)
   - [Expressions](#51-expressions)
+    - [Concatenating Expressions](#511-concatenating-expressions)
   - [Path Steps](#52-path-steps)
     - [Predicates](#521-predicates)
     - [Abbreviated Syntax](#522-abbreviated-syntax)
@@ -674,7 +675,7 @@ to correctly map to MarkLogic expression breakpoints.
 > Note:
 >
 > When constructing the PSI tree for `ParenthesizedExpr`, if the `Expr` is
-> missing then an `EmptyExpr` node is used, otherwise the node is not
+> missing (`()`) then an `EmptyExpr` node is used, otherwise the node is not
 > included in the PSI tree. This way, `(2)` and `2` have the same tree
 > hierarchy.
 
@@ -682,6 +683,27 @@ to correctly map to MarkLogic expression breakpoints.
 >
 > When constructing the PSI tree for `Expr`, if the `Expr` is a single
 > `ExprSingle` node then the `Expr` is not included in the PSI tree.
+
+#### 5.1.1 Concatenating Expressions
+
+| Symbol       | Interface                    |
+|--------------|------------------------------|
+| `BlockBody`  | `XpmConcatenatingExpression` |
+| `ConcatExpr` | `XpmConcatenatingExpression` |
+| `Expr`       | `XpmConcatenatingExpression` |
+| `QueryBody`  | `XpmConcatenatingExpression` |
+| `XPath`      | `XpmConcatenatingExpression` |
+
+A *concatenating expression* is an expression that constructs a sequence by
+concatenating the results of the expressions contained within it.
+
+The *expressions* property of a concatenating expression is the list of
+expressions that are to be concatenated into the resulting sequence.
+
+> Note:
+>
+> In XQuery, a Scripting Extensions `ConcatExpr` node is created instead
+> of an `Expr` node for a miltiple `ExprSingle` expression.
 
 ### 5.2 Path Steps
 
