@@ -4565,8 +4565,14 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("XQuery 3.1 EBNF (39) Expr")
             fun expr() {
-                val expr = parse<XPathExpr>("(1, 2 + 3, 4)")[0] as XpmExpression
+                val expr = parse<XPathExpr>("(1, 2 + 3, 4)")[0] as XpmExpressions
                 assertThat(expr.expressionElement, `is`(nullValue()))
+
+                val exprs = expr.expressions.toList()
+                assertThat(exprs.size, `is`(3))
+                assertThat(exprs[0].text, `is`("1"))
+                assertThat(exprs[1].text, `is`("2 + 3"))
+                assertThat(exprs[2].text, `is`("4"))
             }
         }
 

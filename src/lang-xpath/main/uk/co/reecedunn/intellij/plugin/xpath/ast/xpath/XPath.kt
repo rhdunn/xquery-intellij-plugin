@@ -16,9 +16,8 @@
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
 import com.intellij.psi.PsiFile
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpressions
 
 /**
  * An XPath 2.0 `XPath` node in the XPath AST.
  */
-interface XPath : PsiFile, XPathExpr, XpmExpressions
+interface XPath : PsiFile, XPathExpr

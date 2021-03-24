@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpressions
 
 /**
  * An XPath 2.0 and XQuery 1.0 `Expr` node in the XQuery AST.
@@ -25,4 +25,4 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
  * `QueryBody`), the `Expr` node is not stored directly
  * in the AST. Instead, it is exposed as an instance of that specialised node.
  */
-interface XPathExpr : PsiElement, XpmExpression
+interface XPathExpr : PsiElement, XpmExpressions
