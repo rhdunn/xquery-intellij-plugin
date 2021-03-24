@@ -1187,6 +1187,21 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                     assertThat(highlighted(context, 2), `is`("\$pattern as xs:string"))
                     assertThat(highlighted(context, 3), `is`("<none>"))
                 }
+
+                @Test
+                @DisplayName("positional arguments")
+                fun sequenceArgument() {
+                    val context = createParameterInfoContext("replace(1, 2, (3, 4, 5))", 8)
+
+                    val ui = updateUI(context, -1)
+                    assertThat(ui.text, `is`("\$input as xs:string?, \$pattern as xs:string, \$replacement as xs:string"))
+                    assertThat(highlighted(ui), `is`("<none>"))
+
+                    assertThat(highlighted(context, 0), `is`("\$input as xs:string?"))
+                    assertThat(highlighted(context, 1), `is`("\$pattern as xs:string"))
+                    assertThat(highlighted(context, 2), `is`("\$replacement as xs:string"))
+                    assertThat(highlighted(context, 3), `is`("<none>"))
+                }
             }
 
             @Nested
@@ -1245,6 +1260,25 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                     assertThat(highlighted(context, 2), `is`("\$replacement as xs:string"))
                     assertThat(highlighted(context, 3), `is`("<none>"))
                 }
+
+                @Test
+                @DisplayName("positional arguments")
+                fun sequenceArgument() {
+                    val context = createParameterInfoContext("1 => replace(2, (3, 4, 5))", 13)
+
+                    val ui = updateUI(context, -1)
+                    assertThat(
+                        ui.text,
+                        `is`("\$input as xs:string?, \$pattern as xs:string, \$replacement as xs:string")
+                    )
+                    assertThat(highlighted(ui), `is`("<none>"))
+
+                    assertThat(highlighted(context, 0), `is`("\$input as xs:string?"))
+                    assertThat(highlighted(context, 1), `is`("\$pattern as xs:string"))
+                    assertThat(highlighted(context, 2), `is`("\$replacement as xs:string"))
+                    assertThat(highlighted(context, 3), `is`("<none>"))
+                }
+
             }
 
             @Test
