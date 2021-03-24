@@ -477,12 +477,6 @@ object XPathElementType {
         XPath
     )
 
-    val MAP_KEY_EXPR: IElementType = ICompositeElementType(
-        "XPATH_MAP_KEY_EXPR",
-        XPathMapKeyExprPsiImpl::class.java,
-        XPath
-    )
-
     val MAP_VALUE_EXPR: IElementType = ICompositeElementType(
         "XPATH_MAP_VALUE_EXPR",
         XPathMapValueExprPsiImpl::class.java,

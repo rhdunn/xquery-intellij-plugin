@@ -5,11 +5,10 @@ XQueryModuleImpl[FILE(0:24)]
             XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_MAP(0:3)]('map')
             LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(3:4)]('{')
             XPathMapConstructorEntryImpl[XPATH_MAP_CONSTRUCTOR_ENTRY(4:13)]
-               XPathMapKeyExprImpl[XPATH_MAP_KEY_EXPR(4:7)]
-                  XPathStringLiteralImpl[XPATH_STRING_LITERAL(4:7)]
-                     LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(4:5)]('"')
-                     XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(5:6)]('1')
-                     LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(6:7)]('"')
+               XPathStringLiteralImpl[XPATH_STRING_LITERAL(4:7)]
+                  LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(4:5)]('"')
+                  XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(5:6)]('1')
+                  LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(6:7)]('"')
                LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(7:8)](':')
                XPathMapValueExprImpl[XPATH_MAP_VALUE_EXPR(8:13)]
                   XPathStringLiteralImpl[XPATH_STRING_LITERAL(8:13)]
@@ -18,11 +17,10 @@ XQueryModuleImpl[FILE(0:24)]
                      LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(12:13)]('"')
             LeafPsiElement[XPATH_COMMA_TOKEN(13:14)](',')
             XPathMapConstructorEntryImpl[XPATH_MAP_CONSTRUCTOR_ENTRY(14:23)]
-               XPathMapKeyExprImpl[XPATH_MAP_KEY_EXPR(14:17)]
-                  XPathStringLiteralImpl[XPATH_STRING_LITERAL(14:17)]
-                     LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(14:15)]('"')
-                     XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(15:16)]('2')
-                     LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(16:17)]('"')
+               XPathStringLiteralImpl[XPATH_STRING_LITERAL(14:17)]
+                  LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(14:15)]('"')
+                  XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(15:16)]('2')
+                  LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(16:17)]('"')
                LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(17:18)](':')
                XPathMapValueExprImpl[XPATH_MAP_VALUE_EXPR(18:23)]
                   XPathStringLiteralImpl[XPATH_STRING_LITERAL(18:23)]

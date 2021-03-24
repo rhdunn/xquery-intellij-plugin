@@ -2135,7 +2135,7 @@ open class XPathParser : PsiParser {
 
     private fun parseMapConstructorEntry(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
-        if (parseExprSingle(builder, XPathElementType.MAP_KEY_EXPR, XPathElementType.MAP_CONSTRUCTOR_ENTRY)) {
+        if (parseExprSingle(builder, null, XPathElementType.MAP_CONSTRUCTOR_ENTRY)) {
             var haveError = false
 
             parseWhiteSpaceAndCommentTokens(builder)

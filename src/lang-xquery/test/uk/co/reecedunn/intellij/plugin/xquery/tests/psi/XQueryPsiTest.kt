@@ -5517,7 +5517,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     @DisplayName("key, no value")
                     fun noValue() {
                         val entry = parse<XPathMapConstructorEntry>("map { \$ a }")[0]
-                        assertThat(entry.separator.elementType, `is`(XPathElementType.MAP_KEY_EXPR))
+                        assertThat(entry.separator.elementType, `is`(XPathElementType.VAR_REF))
                     }
                 }
             }

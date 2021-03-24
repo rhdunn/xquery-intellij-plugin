@@ -7,13 +7,12 @@ XQueryModuleImpl[FILE(0:17)]
             LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(4:5)]('{')
             PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
             XPathMapConstructorEntryImpl[XPATH_MAP_CONSTRUCTOR_ENTRY(6:16)]
-               XPathMapKeyExprImpl[XPATH_MAP_KEY_EXPR(6:10)]
-                  XPathVarRefImpl[XPATH_VAR_REF(6:10)]
-                     LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(6:7)]('$')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-                     XPathNCNameImpl[XPATH_NCNAME(8:10)]
-                        XmlNCNameImpl[XPATH_NCNAME_TOKEN(8:9)]('a')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
+               XPathVarRefImpl[XPATH_VAR_REF(6:10)]
+                  LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(6:7)]('$')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+                  XPathNCNameImpl[XPATH_NCNAME(8:10)]
+                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(8:9)]('a')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
                LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(10:11)](':')
                PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
                XPathMapValueExprImpl[XPATH_MAP_VALUE_EXPR(12:16)]

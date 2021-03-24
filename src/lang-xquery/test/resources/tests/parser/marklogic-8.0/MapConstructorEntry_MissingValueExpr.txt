@@ -7,12 +7,11 @@ XQueryModuleImpl[FILE(0:21)]
             LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(12:13)]('{')
             PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
             XPathMapConstructorEntryImpl[XPATH_MAP_CONSTRUCTOR_ENTRY(14:20)]
-               XPathMapKeyExprImpl[XPATH_MAP_KEY_EXPR(14:18)]
-                  XPathStringLiteralImpl[XPATH_STRING_LITERAL(14:17)]
-                     LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(14:15)]('"')
-                     XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(15:16)]('1')
-                     LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(16:17)]('"')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
+               XPathStringLiteralImpl[XPATH_STRING_LITERAL(14:17)]
+                  LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(14:15)]('"')
+                  XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(15:16)]('1')
+                  LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(16:17)]('"')
+               PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
                LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(18:19)](':')
                PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
                PsiErrorElementImpl[ERROR_ELEMENT(20:20)]('XPST0003: Missing expression.')
