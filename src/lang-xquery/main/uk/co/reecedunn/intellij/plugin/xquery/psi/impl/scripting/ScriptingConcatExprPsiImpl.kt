@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2020 Reece H. Dunn
+ * Copyright (C) 2016, 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,8 +18,13 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.scripting
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingConcatExpr
 
 class ScriptingConcatExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), ScriptingConcatExpr {
     override val expressionElement: PsiElement? = null
+
+    override val expressions: Sequence<XpmExpression>
+        get() = children().filterIsInstance<XpmExpression>()
 }

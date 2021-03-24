@@ -23,8 +23,11 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpressions
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.text
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableBinding
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.*
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
@@ -156,8 +159,14 @@ private class ScriptingPsiTest : ParserTestCase() {
         @Test
         @DisplayName("XQuery Scripting Extension 1.0 EBNF (33) ConcatExpr")
         fun concatExpr() {
-            val expr = parse<ScriptingConcatExpr>("1, 2")[0] as XpmExpression
+            val expr = parse<ScriptingConcatExpr>("1, 2 + 3, 4")[0] as XpmExpressions
             assertThat(expr.expressionElement, `is`(nullValue()))
+
+            val exprs = expr.expressions.toList()
+            assertThat(exprs.size, `is`(3))
+            assertThat(exprs[0].text, `is`("1"))
+            assertThat(exprs[1].text, `is`("2 + 3"))
+            assertThat(exprs[2].text, `is`("4"))
         }
     }
 }

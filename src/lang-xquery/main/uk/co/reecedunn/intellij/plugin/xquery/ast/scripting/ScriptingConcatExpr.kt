@@ -16,8 +16,9 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.scripting
 
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExpr
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpressions
 
 /**
  * An XQuery Scripting Extension 1.0 `ConcatExpr` node in the XQuery AST.
  */
-interface ScriptingConcatExpr : XPathExpr
+interface ScriptingConcatExpr : XPathExpr, XpmExpressions
