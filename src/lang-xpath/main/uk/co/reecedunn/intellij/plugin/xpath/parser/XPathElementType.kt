@@ -477,12 +477,6 @@ object XPathElementType {
         XPath
     )
 
-    val MAP_VALUE_EXPR: IElementType = ICompositeElementType(
-        "XPATH_MAP_VALUE_EXPR",
-        XPathMapValueExprPsiImpl::class.java,
-        XPath
-    )
-
     val SQUARE_ARRAY_CONSTRUCTOR: IElementType = ICompositeElementType(
         "XPATH_SQUARE_ARRAY_CONSTRUCTOR",
         XPathSquareArrayConstructorPsiImpl::class.java,

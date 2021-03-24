@@ -11,10 +11,9 @@ XPathImpl[FILE(0:17)]
             LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(8:9)]('"')
          PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
          PsiErrorElementImpl[ERROR_ELEMENT(10:10)]('XPST0003: Expected ':' (XQuery 3.1/MarkLogic) or ':=' (Saxon 9.4-9.6).')
-         XPathMapValueExprImpl[XPATH_MAP_VALUE_EXPR(10:16)]
-            XPathStringLiteralImpl[XPATH_STRING_LITERAL(10:15)]
-               LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(10:11)]('"')
-               XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(11:14)]('one')
-               LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(14:15)]('"')
-            PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
+         XPathStringLiteralImpl[XPATH_STRING_LITERAL(10:15)]
+            LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(10:11)]('"')
+            XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(11:14)]('one')
+            LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(14:15)]('"')
+         PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
       LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(16:17)]('}')

@@ -2145,7 +2145,7 @@ open class XPathParser : PsiParser {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseExprSingle(builder, XPathElementType.MAP_VALUE_EXPR) && !haveError) {
+            if (!parseExprSingle(builder) && !haveError) {
                 builder.error(XPathBundle.message("parser.error.expected-expression"))
             }
 
