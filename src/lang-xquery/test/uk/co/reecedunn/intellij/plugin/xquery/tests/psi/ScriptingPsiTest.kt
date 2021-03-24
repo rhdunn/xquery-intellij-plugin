@@ -64,11 +64,32 @@ private class ScriptingPsiTest : ParserTestCase() {
             assertThat(expr.expressionElement?.textOffset, `is`(0))
         }
 
-        @Test
+        @Nested
         @DisplayName("XQuery Scripting Extension 1.0 EBNF (157) BlockBody")
-        fun blockBody() {
-            val expr = parse<ScriptingBlockBody>("block { 1, 2 }")[0] as XpmExpression
-            assertThat(expr.expressionElement, `is`(nullValue()))
+        internal inner class BlockBody {
+            @Test
+            @DisplayName("single")
+            fun single() {
+                val expr = parse<ScriptingBlockBody>("block { 1 }")[0] as XpmExpressions
+                assertThat(expr.expressionElement, `is`(nullValue()))
+
+                val exprs = expr.expressions.toList()
+                assertThat(exprs.size, `is`(1))
+                assertThat(exprs[0].text, `is`("1"))
+            }
+
+            @Test
+            @DisplayName("multiple")
+            fun multiple() {
+                val expr = parse<ScriptingBlockBody>("block { 1, 2 + 3, 4 }")[0] as XpmExpressions
+                assertThat(expr.expressionElement, `is`(nullValue()))
+
+                val exprs = expr.expressions.toList()
+                assertThat(exprs.size, `is`(3))
+                assertThat(exprs[0].text, `is`("1"))
+                assertThat(exprs[1].text, `is`("2 + 3"))
+                assertThat(exprs[2].text, `is`("4"))
+            }
         }
     }
 
