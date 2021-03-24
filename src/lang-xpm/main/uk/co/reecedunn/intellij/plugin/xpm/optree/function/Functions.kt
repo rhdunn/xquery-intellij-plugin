@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xpm.optree.function
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.impl.XpmEmptyExpression
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.impl.XpmExpressionsImpl
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.impl.XpmConcatenatingExpressionImpl
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.impl.XpmBoundParameter
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmAssignableVariable
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmParameter
@@ -62,7 +62,7 @@ fun XpmFunctionCall.bindTo(parameters: List<XpmParameter>): List<XpmAssignableVa
                     remaining == 1 -> XpmBoundParameter(parameter, positionalArguments.last())
                     else -> {
                         val args = positionalArguments.subList(positionalIndex, positionalArguments.size)
-                        XpmBoundParameter(parameter, XpmExpressionsImpl(args.asSequence()))
+                        XpmBoundParameter(parameter, XpmConcatenatingExpressionImpl(args.asSequence()))
                     }
                 }
             }
