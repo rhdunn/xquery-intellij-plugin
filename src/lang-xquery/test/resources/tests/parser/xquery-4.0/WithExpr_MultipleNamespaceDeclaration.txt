@@ -32,12 +32,11 @@ XQueryModuleImpl[FILE(0:88)]
                   XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(55:79)]('http://www.example.com/b')
                   LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(79:80)]('"')
             PsiWhiteSpaceImpl[WHITE_SPACE(80:81)](' ')
-            XQueryEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(81:88)]
-               LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(81:82)]('{')
-               PsiWhiteSpaceImpl[WHITE_SPACE(82:83)](' ')
-               PluginEmptyExprImpl[XPATH_EMPTY_EXPR(83:86)]
-                  LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(83:84)]('(')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(84:85)](' ')
-                  LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(85:86)](')')
-               PsiWhiteSpaceImpl[WHITE_SPACE(86:87)](' ')
-               LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(87:88)]('}')
+            LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(81:82)]('{')
+            PsiWhiteSpaceImpl[WHITE_SPACE(82:83)](' ')
+            PluginEmptyExprImpl[XPATH_EMPTY_EXPR(83:86)]
+               LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(83:84)]('(')
+               PsiWhiteSpaceImpl[WHITE_SPACE(84:85)](' ')
+               LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(85:86)](')')
+            PsiWhiteSpaceImpl[WHITE_SPACE(86:87)](' ')
+            LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(87:88)]('}')

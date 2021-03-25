@@ -23,9 +23,8 @@ XPathImpl[FILE(0:78)]
             LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(48:49)]('"')
             XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(49:73)]('http://www.example.com/b')
             LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(73:74)]('"')
-      XPathEnclosedExprImpl[XPATH_ENCLOSED_EXPR(74:78)]
-         LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(74:75)]('{')
-         PluginEmptyExprImpl[XPATH_EMPTY_EXPR(75:77)]
-            LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(75:76)]('(')
-            LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(76:77)](')')
-         LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(77:78)]('}')
+      LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(74:75)]('{')
+      PluginEmptyExprImpl[XPATH_EMPTY_EXPR(75:77)]
+         LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(75:76)]('(')
+         LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(76:77)](')')
+      LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(77:78)]('}')

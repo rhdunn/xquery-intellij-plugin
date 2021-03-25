@@ -247,7 +247,7 @@ open class XPathParser : PsiParser {
             parseWhiteSpaceAndCommentTokens(builder)
             when {
                 builder.tokenType === XPathTokenType.BLOCK_OPEN -> {
-                    parseEnclosedExprOrBlock(builder, ENCLOSED_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)
+                    parseEnclosedExprOrBlock(builder, null, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)
 
                     marker.done(XPathElementType.WITH_EXPR)
                     return true
