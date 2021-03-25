@@ -1200,7 +1200,7 @@ open class XPathParser : PsiParser {
                 if (targetType === XPathTokenType.ARROW) {
                     builder.error(XPathBundle.message("parser.error.enclosed-expr-on-fat-arrow-target"))
                 }
-                parseEnclosedExprOrBlock(builder, ENCLOSED_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)
+                parseEnclosedExprOrBlock(builder, null, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)
                 XPathElementType.ARROW_INLINE_FUNCTION_CALL
             }
             else -> {

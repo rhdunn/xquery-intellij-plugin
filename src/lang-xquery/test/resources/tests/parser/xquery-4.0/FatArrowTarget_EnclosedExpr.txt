@@ -11,14 +11,13 @@ XQueryModuleImpl[FILE(0:15)]
             PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
             PluginArrowInlineFunctionCallImpl[XPATH_ARROW_INLINE_FUNCTION_CALL(6:15)]
                PsiErrorElementImpl[ERROR_ELEMENT(6:6)]('XPST0003: '{...}' style inline functions require '->' arrow targets.')
-               XQueryEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(6:15)]
-                  LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(6:7)]('{')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-                  XPathAdditiveExprImpl[XPATH_ADDITIVE_EXPR(8:14)]
-                     XPathContextItemExprImpl[XPATH_DOT_TOKEN(8:9)]('.')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
-                     LeafPsiElement[XPATH_PLUS_TOKEN(10:11)]('+')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
-                     XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(12:13)]('2')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
-                  LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(14:15)]('}')
+               LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(6:7)]('{')
+               PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+               XPathAdditiveExprImpl[XPATH_ADDITIVE_EXPR(8:14)]
+                  XPathContextItemExprImpl[XPATH_DOT_TOKEN(8:9)]('.')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
+                  LeafPsiElement[XPATH_PLUS_TOKEN(10:11)]('+')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
+                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(12:13)]('2')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
+               LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(14:15)]('}')
