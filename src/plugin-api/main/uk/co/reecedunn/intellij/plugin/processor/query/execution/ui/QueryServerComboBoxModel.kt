@@ -15,10 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.query.execution.ui
 
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryServer
 import javax.swing.AbstractListModel
 import javax.swing.ComboBoxModel
 
-open class QueryServerComboBoxModel : AbstractListModel<String>(), ComboBoxModel<String> {
+class QueryServerComboBoxModel : AbstractListModel<String>(), ComboBoxModel<String> {
     // region ComboBoxModel
 
     var defaultSelection: String? = null
@@ -55,6 +56,12 @@ open class QueryServerComboBoxModel : AbstractListModel<String>(), ComboBoxModel
 
     fun update(items: List<String>) {
         this.items = items
+        this.selected = when {
+            items.isEmpty() -> defaultSelection
+            defaultSelection == QueryServer.NONE -> items.first()
+            items.contains(defaultSelection) -> defaultSelection
+            else -> items.first()
+        }
         fireContentsChanged(this, -1, -1)
     }
 
