@@ -2201,7 +2201,7 @@ open class XPathParser : PsiParser {
 
         if (marker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseEnclosedExprOrBlock(builder, ENCLOSED_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)) {
+            if (!parseEnclosedExprOrBlock(builder, null, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)) {
                 marker.rollbackTo()
                 return false
             }

@@ -401,37 +401,6 @@ private class XQueryConformanceTest : ParserTestCase() {
     }
 
     // endregion
-    // region EnclosedExpr (CurlyArrayConstructor)
-
-    @Test
-    fun testEnclosedExpr_CurlyArrayConstructor() {
-        val file = parseResource("tests/parser/xquery-3.1/CurlyArrayConstructor.xq")
-
-        val curlyArrayConstructor = file.descendants().filterIsInstance<XPathCurlyArrayConstructor>().first()
-        val enclosedExprPsi = curlyArrayConstructor.children().filterIsInstance<XPathEnclosedExpr>().first()
-        val versioned = enclosedExprPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.INTEGER_LITERAL))
-    }
-
-    @Test
-    fun testEnclosedExpr_CurlyArrayConstructor_NoExpr() {
-        val file = parseResource("tests/parser/xquery-3.1/CurlyArrayConstructor_MissingExpr.xq")
-
-        val curlyArrayConstructor = file.descendants().filterIsInstance<XPathCurlyArrayConstructor>().first()
-        val enclosedExprPsi = curlyArrayConstructor.children().filterIsInstance<XPathEnclosedExpr>().first()
-        val versioned = enclosedExprPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.BLOCK_OPEN))
-    }
-
-    // endregion
     // region EnclosedExpr (DirAttributeValue)
 
     @Test
