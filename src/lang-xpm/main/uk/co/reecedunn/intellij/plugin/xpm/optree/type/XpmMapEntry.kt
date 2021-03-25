@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpm.optree.map
+package uk.co.reecedunn.intellij.plugin.xpm.optree.type
 
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyAtomicType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
