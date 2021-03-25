@@ -20,7 +20,6 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyAtomicType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathMapConstructorEntry
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
@@ -40,12 +39,6 @@ class XPathMapConstructorEntryPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node
 
     override val keyExpression: XpmExpression
         get() = firstChild as XpmExpression
-
-    override val keyNameValue: XsAnyAtomicType?
-        get() = when (val expr = keyExpression) {
-            is XsAnyAtomicType -> expr
-            else -> null
-        }
 
     override val valueExpression: XpmExpression?
         get() = firstChild.siblings().filterIsInstance<XpmExpression>().firstOrNull()

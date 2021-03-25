@@ -649,14 +649,20 @@ The *values* of the annotation is the list of `xs:string`, `xs:integer`,
 
 ### 4.4 Maps
 
-| Symbol            | Interface     |
-|----------- -------|---------------|
-| `KeywordArgument` | `XpmMapEntry` |
+| Symbol                | Interface          |
+|-----------------------|--------------------|
+| `KeywordArgument`     | `XpmMapEntry`      |
+| `MapConstructor`      | `XpmMapExpression` |
+| `MapConstructorEntry` | `XpmMapEntry`      |
 
-The *key name* of a *map entry* is the name of the entry in the map.
+The *entries* of a *map expression* are the map entries that constitute
+the constructed map.
+
+The *key expression* of a *map entry* is the expression used to calculate
+the key name, or the atomic value of the key name.
 
 The *value expression* of a *map entry* is the expression used to calculate
-the value of the map entry.
+the entry value.
 
 ## 5 Operation Tree
 

@@ -15,12 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.optree.type
 
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyAtomicType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
 val XpmMapEntry.keyName: String?
-    get() = when (val name = keyNameValue) {
+    get() = when (val name = keyExpression) {
         is XsNCNameValue -> name.data
         else -> null
     }

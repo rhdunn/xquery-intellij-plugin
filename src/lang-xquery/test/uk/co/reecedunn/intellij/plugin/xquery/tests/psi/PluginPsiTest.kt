@@ -1727,11 +1727,9 @@ private class PluginPsiTest : ParserTestCase() {
 
                     assertThat((entries[0].keyExpression as XPathStringLiteral).data, `is`("1"))
                     assertThat((entries[0].valueExpression as XPathStringLiteral).data, `is`("one"))
-                    assertThat((entries[0].keyNameValue as XPathStringLiteral).data, `is`("1"))
 
                     assertThat((entries[1].keyExpression as XPathStringLiteral).data, `is`("2"))
                     assertThat((entries[1].valueExpression as XPathStringLiteral).data, `is`("two"))
-                    assertThat((entries[1].keyNameValue as XPathStringLiteral).data, `is`("2"))
                 }
             }
 
@@ -1746,7 +1744,6 @@ private class PluginPsiTest : ParserTestCase() {
 
                     assertThat((entry.keyExpression as XPathStringLiteral).data, `is`("1"))
                     assertThat((entry.valueExpression as XPathStringLiteral).data, `is`("one"))
-                    assertThat((entry.keyNameValue as XPathStringLiteral).data, `is`("1"))
                     assertThat(entry.keyName, `is`(nullValue()))
                 }
 
@@ -1758,7 +1755,6 @@ private class PluginPsiTest : ParserTestCase() {
 
                     assertThat((entry.keyExpression as XPathStringLiteral).data, `is`("1"))
                     assertThat((entry.valueExpression as XPathStringLiteral).data, `is`("one"))
-                    assertThat((entry.keyNameValue as XPathStringLiteral).data, `is`("1"))
                     assertThat(entry.keyName, `is`(nullValue()))
                 }
             }

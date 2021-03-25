@@ -2384,9 +2384,8 @@ private class XPathPsiTest : ParserTestCase() {
                     @DisplayName("ncname")
                     fun ncname() {
                         val f = parse<XPathKeywordArgument>("fn:matches(input: \"test\", pattern: \".*\")")[0]
-                        assertThat(f.keyExpression, `is`(nullValue()))
+                        assertThat((f.keyExpression as XsNCNameValue).data, `is`("input"))
                         assertThat((f.valueExpression as XPathStringLiteral).data, `is`("test"))
-                        assertThat((f.keyNameValue as XsNCNameValue).data, `is`("input"))
                         assertThat(f.keyName, `is`("input"))
                     }
 
@@ -2394,9 +2393,8 @@ private class XPathPsiTest : ParserTestCase() {
                     @DisplayName("missing value")
                     fun missingValue() {
                         val f = parse<XPathKeywordArgument>("fn:matches(input: , \".*\")")[0]
-                        assertThat(f.keyExpression, `is`(nullValue()))
+                        assertThat((f.keyExpression as XsNCNameValue).data, `is`("input"))
                         assertThat(f.valueExpression, `is`(nullValue()))
-                        assertThat((f.keyNameValue as XsNCNameValue).data, `is`("input"))
                         assertThat(f.keyName, `is`("input"))
                     }
                 }
@@ -4301,11 +4299,9 @@ private class XPathPsiTest : ParserTestCase() {
 
                         assertThat((entries[0].keyExpression as XPathStringLiteral).data, `is`("1"))
                         assertThat((entries[0].valueExpression as XPathStringLiteral).data, `is`("one"))
-                        assertThat((entries[0].keyNameValue as XPathStringLiteral).data, `is`("1"))
 
                         assertThat((entries[1].keyExpression as XPathStringLiteral).data, `is`("2"))
                         assertThat((entries[1].valueExpression as XPathStringLiteral).data, `is`("two"))
-                        assertThat((entries[1].keyNameValue as XPathStringLiteral).data, `is`("2"))
                     }
                 }
 
@@ -4320,7 +4316,6 @@ private class XPathPsiTest : ParserTestCase() {
 
                         assertThat((entry.keyExpression as XPathStringLiteral).data, `is`("1"))
                         assertThat((entry.valueExpression as XPathStringLiteral).data, `is`("one"))
-                        assertThat((entry.keyNameValue as XPathStringLiteral).data, `is`("1"))
                         assertThat(entry.keyName, `is`(nullValue()))
                     }
 
@@ -4332,7 +4327,6 @@ private class XPathPsiTest : ParserTestCase() {
 
                         assertThat((entry.keyExpression as XPathIntegerLiteral).data, `is`(BigInteger.ONE))
                         assertThat((entry.valueExpression as XPathStringLiteral).data, `is`("one"))
-                        assertThat((entry.keyNameValue as XPathIntegerLiteral).data, `is`(BigInteger.ONE))
                         assertThat(entry.keyName, `is`(nullValue()))
                     }
 
@@ -4344,7 +4338,6 @@ private class XPathPsiTest : ParserTestCase() {
 
                         assertThat((entry.keyExpression as XpmVariableReference).variableName?.localName?.data, `is`("a"))
                         assertThat(entry.valueExpression, `is`(nullValue()))
-                        assertThat(entry.keyNameValue, `is`(nullValue()))
                         assertThat(entry.keyName, `is`(nullValue()))
                     }
                 }
