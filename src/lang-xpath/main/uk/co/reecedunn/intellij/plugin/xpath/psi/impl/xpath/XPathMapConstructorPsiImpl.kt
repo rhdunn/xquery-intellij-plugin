@@ -25,15 +25,23 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathMapConstructor
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathMapConstructorEntry
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
+import uk.co.reecedunn.intellij.plugin.xpm.optree.type.XpmMapEntry
 
 private val XQUERY31: List<Version> = listOf(XQuerySpec.REC_3_1_20170321, Saxon.VERSION_9_4)
 private val MARKLOGIC80: List<Version> = listOf()
 
 class XPathMapConstructorPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), XPathMapConstructor, VersionConformance, XpmSyntaxValidationElement {
+    // region XpmMapExpression
 
     override val expressionElement: PsiElement
         get() = children().firstOrNull { it is XPathMapConstructorEntry } ?: this
+
+    override val entries: Sequence<XpmMapEntry>
+        get() = children().filterIsInstance<XpmMapEntry>()
+
+    // endregion
+    // region VersionConformance/XpmSyntaxValidationElement
 
     override val requiresConformance: List<Version>
         get() {
@@ -45,4 +53,6 @@ class XPathMapConstructorPsiImpl(node: ASTNode) :
 
     override val conformanceElement: PsiElement
         get() = firstChild
+
+    // endregion
 }

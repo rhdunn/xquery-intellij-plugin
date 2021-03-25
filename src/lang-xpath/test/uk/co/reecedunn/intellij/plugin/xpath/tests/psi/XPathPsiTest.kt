@@ -49,6 +49,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.text
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.*
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.optree.type.XpmMapExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.type.keyName
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.*
 import java.math.BigDecimal
@@ -4280,19 +4281,31 @@ private class XPathPsiTest : ParserTestCase() {
                     @Test
                     @DisplayName("empty")
                     fun empty() {
-                        val expr = parse<XPathMapConstructor>("map {}")[0] as XpmExpression
-
+                        val expr = parse<XPathMapConstructor>("map {}")[0] as XpmMapExpression
                         assertThat(expr.expressionElement.elementType, `is`(XPathElementType.MAP_CONSTRUCTOR))
                         assertThat(expr.expressionElement?.textOffset, `is`(0))
+
+                        val entries = expr.entries.toList()
+                        assertThat(entries.size, `is`(0))
                     }
 
                     @Test
-                    @DisplayName("with entry")
-                    fun withEntry() {
-                        val expr = parse<XPathMapConstructor>("map { \"1\" : \"one\" }")[0] as XpmExpression
-
+                    @DisplayName("with entries")
+                    fun withEntries() {
+                        val expr = parse<XPathMapConstructor>("map { \"1\" : \"one\", \"2\" : \"two\" }")[0] as XpmMapExpression
                         assertThat(expr.expressionElement.elementType, `is`(XPathElementType.MAP_CONSTRUCTOR_ENTRY))
                         assertThat(expr.expressionElement?.textOffset, `is`(6))
+
+                        val entries = expr.entries.toList()
+                        assertThat(entries.size, `is`(2))
+
+                        assertThat((entries[0].keyExpression as XPathStringLiteral).data, `is`("1"))
+                        assertThat((entries[0].valueExpression as XPathStringLiteral).data, `is`("one"))
+                        assertThat((entries[0].keyNameValue as XPathStringLiteral).data, `is`("1"))
+
+                        assertThat((entries[1].keyExpression as XPathStringLiteral).data, `is`("2"))
+                        assertThat((entries[1].valueExpression as XPathStringLiteral).data, `is`("two"))
+                        assertThat((entries[1].keyNameValue as XPathStringLiteral).data, `is`("2"))
                     }
                 }
 
