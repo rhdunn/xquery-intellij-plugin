@@ -87,7 +87,7 @@ internal class MarkLogicRunQuery(
         params.addProperty("rdf-output-format", rdfOutputFormat?.getLanguageMimeTypes()?.get(0) ?: "")
         params.addProperty("updating", updating.toString())
         params.addProperty("server", if (server == QueryServer.NONE) "" else server)
-        params.addProperty("database", database)
+        params.addProperty("database", if (database == QueryServer.NONE) "" else database)
         params.addProperty("module-root", modulePath)
         params.addProperty("context-value", contextValue)
         params.addProperty("context-path", contextPath)
