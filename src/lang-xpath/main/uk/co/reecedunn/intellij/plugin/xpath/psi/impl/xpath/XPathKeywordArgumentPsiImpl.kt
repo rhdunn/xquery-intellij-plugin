@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyAtomicType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathKeywordArgument
@@ -37,11 +37,14 @@ class XPathKeywordArgumentPsiImpl(node: ASTNode) :
     // endregion
     // region XPathKeywordArgument
 
-    override val keyName: XsAnyAtomicType
+    override val keyExpression: XpmExpression?
+        get() = null
+
+    override val keyNameValue: XsAnyAtomicType
         get() = (firstChild as XsQNameValue).localName!!
 
     override val valueExpression: XpmExpression?
-        get() = children().filterIsInstance<XpmExpression>().firstOrNull()
+        get() = firstChild.siblings().filterIsInstance<XpmExpression>().firstOrNull()
 
     // endregion
 }

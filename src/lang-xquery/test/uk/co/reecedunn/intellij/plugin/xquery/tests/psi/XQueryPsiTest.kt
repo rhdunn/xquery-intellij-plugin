@@ -62,6 +62,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.impl.XpmEmptyExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.text
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.*
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
+import uk.co.reecedunn.intellij.plugin.xpm.optree.type.keyName
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
@@ -2810,16 +2811,20 @@ private class XQueryPsiTest : ParserTestCase() {
                     @DisplayName("ncname")
                     fun ncname() {
                         val f = parse<XPathKeywordArgument>("fn:matches(input: \"test\", pattern: \".*\")")[0]
-                        assertThat((f.keyName as XsNCNameValue).data, `is`("input"))
+                        assertThat(f.keyExpression, `is`(nullValue()))
                         assertThat((f.valueExpression as XPathStringLiteral).data, `is`("test"))
+                        assertThat((f.keyNameValue as XsNCNameValue).data, `is`("input"))
+                        assertThat(f.keyName, `is`("input"))
                     }
 
                     @Test
                     @DisplayName("missing value")
                     fun missingValue() {
                         val f = parse<XPathKeywordArgument>("fn:matches(input: , \".*\")")[0]
-                        assertThat((f.keyName as XsNCNameValue).data, `is`("input"))
+                        assertThat(f.keyExpression, `is`(nullValue()))
                         assertThat(f.valueExpression, `is`(nullValue()))
+                        assertThat((f.keyNameValue as XsNCNameValue).data, `is`("input"))
+                        assertThat(f.keyName, `is`("input"))
                     }
                 }
 
@@ -2875,7 +2880,7 @@ private class XQueryPsiTest : ParserTestCase() {
                         assertThat(f.positionalArguments[0].text, `is`("2"))
 
                         assertThat(f.keywordArguments.size, `is`(1))
-                        assertThat((f.keywordArguments[0].keyName as XsNCNameValue).data, `is`("y"))
+                        assertThat(f.keywordArguments[0].keyName, `is`("y"))
                         assertThat(f.keywordArguments[0].valueExpression?.text, `is`("8"))
 
                         val expr = f as XpmExpression
@@ -2903,8 +2908,8 @@ private class XQueryPsiTest : ParserTestCase() {
                         assertThat(f.positionalArguments.size, `is`(0))
                         assertThat(f.keywordArguments.size, `is`(2))
 
-                        assertThat((f.keywordArguments[0].keyName as XsNCNameValue).data, `is`("x"))
-                        assertThat((f.keywordArguments[1].keyName as XsNCNameValue).data, `is`("y"))
+                        assertThat(f.keywordArguments[0].keyName, `is`("x"))
+                        assertThat(f.keywordArguments[1].keyName, `is`("y"))
 
                         assertThat(f.keywordArguments[0].valueExpression?.text, `is`("2"))
                         assertThat(f.keywordArguments[1].valueExpression?.text, `is`("8"))
@@ -6937,8 +6942,8 @@ private class XQueryPsiTest : ParserTestCase() {
                     assertThat(f.positionalArguments[0].text, `is`("1"))
                     assertThat(f.positionalArguments[1].text, `is`("2"))
 
-                    assertThat((f.keywordArguments[0].keyName as XsNCNameValue).data, `is`("calendar"))
-                    assertThat((f.keywordArguments[1].keyName as XsNCNameValue).data, `is`("place"))
+                    assertThat(f.keywordArguments[0].keyName, `is`("calendar"))
+                    assertThat(f.keywordArguments[1].keyName, `is`("place"))
 
                     assertThat(f.keywordArguments[0].valueExpression?.text, `is`("3"))
                     assertThat(f.keywordArguments[1].valueExpression?.text, `is`("4"))
@@ -6966,10 +6971,10 @@ private class XQueryPsiTest : ParserTestCase() {
                     assertThat(f.positionalArguments.size, `is`(0))
                     assertThat(f.keywordArguments.size, `is`(4))
 
-                    assertThat((f.keywordArguments[0].keyName as XsNCNameValue).data, `is`("picture"))
-                    assertThat((f.keywordArguments[1].keyName as XsNCNameValue).data, `is`("language"))
-                    assertThat((f.keywordArguments[2].keyName as XsNCNameValue).data, `is`("calendar"))
-                    assertThat((f.keywordArguments[3].keyName as XsNCNameValue).data, `is`("place"))
+                    assertThat(f.keywordArguments[0].keyName, `is`("picture"))
+                    assertThat(f.keywordArguments[1].keyName, `is`("language"))
+                    assertThat(f.keywordArguments[2].keyName, `is`("calendar"))
+                    assertThat(f.keywordArguments[3].keyName, `is`("place"))
 
                     assertThat(f.keywordArguments[0].valueExpression?.text, `is`("1"))
                     assertThat(f.keywordArguments[1].valueExpression?.text, `is`("2"))

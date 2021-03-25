@@ -20,6 +20,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.impl.XpmEmptyExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.impl.XpmConcatenatingExpressionImpl
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.impl.XpmBoundParameter
+import uk.co.reecedunn.intellij.plugin.xpm.optree.type.keyName
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmAssignableVariable
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmParameter
 import uk.co.reecedunn.intellij.plugin.xpm.staticallyKnownFunctions
@@ -56,7 +57,7 @@ fun XpmFunctionCall.bindTo(parameters: List<XpmParameter>): List<XpmAssignableVa
                 when {
                     remaining <= 0 -> {
                         val parameterName = parameter.variableName?.localName?.data
-                        val arg = keywordArguments.find { (it.keyName as? XsNCNameValue)?.data == parameterName }
+                        val arg = keywordArguments.find { it.keyName == parameterName }
                         XpmBoundParameter(parameter, arg?.valueExpression ?: XpmEmptyExpression)
                     }
                     remaining == 1 -> XpmBoundParameter(parameter, positionalArguments.last())
@@ -72,7 +73,7 @@ fun XpmFunctionCall.bindTo(parameters: List<XpmParameter>): List<XpmAssignableVa
                 when {
                     remaining <= 0 -> {
                         val parameterName = parameter.variableName?.localName?.data
-                        val arg = keywordArguments.find { (it.keyName as? XsNCNameValue)?.data == parameterName }
+                        val arg = keywordArguments.find { it.keyName == parameterName }
                         XpmBoundParameter(parameter, arg?.valueExpression)
                     }
                     else -> XpmBoundParameter(parameter, positionalArguments[positionalIndex])
