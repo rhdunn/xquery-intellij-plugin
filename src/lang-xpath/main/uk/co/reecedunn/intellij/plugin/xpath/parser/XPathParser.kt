@@ -39,7 +39,6 @@ open class XPathParser : PsiParser {
     // These element types have different PSI implementations in XPath and XQuery.
 
     open val EXPR: IElementType = XPathElementType.EXPR
-    open val FUNCTION_BODY: IElementType = XPathElementType.FUNCTION_BODY
 
     // endregion
     // region PsiParser
@@ -1966,7 +1965,7 @@ open class XPathParser : PsiParser {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseEnclosedExprOrBlock(builder, FUNCTION_BODY, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)) {
+            if (!parseEnclosedExprOrBlock(builder, XPathElementType.FUNCTION_BODY, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)) {
                 builder.error(XPathBundle.message("parser.error.expected", "{"))
                 parseExpr(builder, EXPR)
 
