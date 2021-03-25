@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018, 2020 Reece H. Dunn
+ * Copyright (C) 2018, 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,10 +16,9 @@
 package uk.co.reecedunn.intellij.plugin.xpath.ast.plugin
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xdm.types.XdmFunction
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 
 /**
  * A Saxon 9.8 `ContextItemFunctionExpr` node in the XQuery AST.
  */
-interface PluginContextItemFunctionExpr : PsiElement, XdmFunction, XpmExpression
+interface PluginContextItemFunctionExpr : PsiElement, XpmExpression
