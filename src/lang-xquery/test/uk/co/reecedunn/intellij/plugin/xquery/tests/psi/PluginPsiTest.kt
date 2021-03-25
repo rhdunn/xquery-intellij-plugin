@@ -55,7 +55,9 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPathStep
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.text
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
+import uk.co.reecedunn.intellij.plugin.xpm.optree.type.keyName
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmAssignableVariable
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableReference
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryItemTypeDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCatchClause
@@ -1728,6 +1730,11 @@ private class PluginPsiTest : ParserTestCase() {
                 fun markLogic() {
                     val entry = parse<XPathMapConstructorEntry>("object-node { \"1\" : \"one\" }")[0]
                     assertThat(entry.separator.elementType, `is`(XPathTokenType.QNAME_SEPARATOR))
+
+                    assertThat((entry.keyExpression as XPathStringLiteral).data, `is`("1"))
+                    assertThat((entry.valueExpression as XPathStringLiteral).data, `is`("one"))
+                    assertThat((entry.keyNameValue as XPathStringLiteral).data, `is`("1"))
+                    assertThat(entry.keyName, `is`(nullValue()))
                 }
 
                 @Test
@@ -1735,6 +1742,11 @@ private class PluginPsiTest : ParserTestCase() {
                 fun saxon() {
                     val entry = parse<XPathMapConstructorEntry>("map { \"1\" := \"one\" }")[0]
                     assertThat(entry.separator.elementType, `is`(XPathTokenType.ASSIGN_EQUAL))
+
+                    assertThat((entry.keyExpression as XPathStringLiteral).data, `is`("1"))
+                    assertThat((entry.valueExpression as XPathStringLiteral).data, `is`("one"))
+                    assertThat((entry.keyNameValue as XPathStringLiteral).data, `is`("1"))
+                    assertThat(entry.keyName, `is`(nullValue()))
                 }
             }
         }

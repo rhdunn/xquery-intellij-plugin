@@ -4300,17 +4300,39 @@ private class XPathPsiTest : ParserTestCase() {
                 @DisplayName("XPath 3.1 EBNF (70) MapConstructorEntry")
                 internal inner class MapConstructorEntry {
                     @Test
-                    @DisplayName("key, value")
-                    fun keyValue() {
+                    @DisplayName("string key, value")
+                    fun stringKey() {
                         val entry = parse<XPathMapConstructorEntry>("map { \"1\" : \"one\" }")[0]
                         assertThat(entry.separator.elementType, `is`(XPathTokenType.QNAME_SEPARATOR))
+
+                        assertThat((entry.keyExpression as XPathStringLiteral).data, `is`("1"))
+                        assertThat((entry.valueExpression as XPathStringLiteral).data, `is`("one"))
+                        assertThat((entry.keyNameValue as XPathStringLiteral).data, `is`("1"))
+                        assertThat(entry.keyName, `is`(nullValue()))
+                    }
+
+                    @Test
+                    @DisplayName("integer key, value")
+                    fun integerKey() {
+                        val entry = parse<XPathMapConstructorEntry>("map { 1 : \"one\" }")[0]
+                        assertThat(entry.separator.elementType, `is`(XPathTokenType.QNAME_SEPARATOR))
+
+                        assertThat((entry.keyExpression as XPathIntegerLiteral).data, `is`(BigInteger.ONE))
+                        assertThat((entry.valueExpression as XPathStringLiteral).data, `is`("one"))
+                        assertThat((entry.keyNameValue as XPathIntegerLiteral).data, `is`(BigInteger.ONE))
+                        assertThat(entry.keyName, `is`(nullValue()))
                     }
 
                     @Test
                     @DisplayName("key, no value")
-                    fun saxon() {
+                    fun missingValue() {
                         val entry = parse<XPathMapConstructorEntry>("map { \$ a }")[0]
                         assertThat(entry.separator.elementType, `is`(XPathElementType.VAR_REF))
+
+                        assertThat((entry.keyExpression as XpmVariableReference).variableName?.localName?.data, `is`("a"))
+                        assertThat(entry.valueExpression, `is`(nullValue()))
+                        assertThat(entry.keyNameValue, `is`(nullValue()))
+                        assertThat(entry.keyName, `is`(nullValue()))
                     }
                 }
             }
