@@ -59,7 +59,6 @@ class XQueryParser : XPathParser() {
     //
     // These element types have different PSI implementations in XPath and XQuery.
 
-    override val ENCLOSED_EXPR: IElementType = XQueryElementType.ENCLOSED_EXPR
     override val EXPR: IElementType = XQueryElementType.CONCAT_EXPR
     override val FUNCTION_BODY: IElementType = XQueryElementType.FUNCTION_BODY
 

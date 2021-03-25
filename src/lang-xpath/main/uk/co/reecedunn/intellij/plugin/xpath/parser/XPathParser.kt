@@ -38,7 +38,6 @@ open class XPathParser : PsiParser {
     //
     // These element types have different PSI implementations in XPath and XQuery.
 
-    open val ENCLOSED_EXPR: IElementType = XPathElementType.ENCLOSED_EXPR
     open val EXPR: IElementType = XPathElementType.EXPR
     open val FUNCTION_BODY: IElementType = XPathElementType.FUNCTION_BODY
 

@@ -231,7 +231,7 @@ private class LanguageInjectionPsiTest : ParserTestCase() {
             @DisplayName("enclosed expression")
             fun enclosedExpr() {
                 val host = parse<XQueryDirAttributeValue>("<a test=\"a{1}b\"/>")[0] as PsiLanguageInjectionHost
-                assertThat(host.isValidHost, `is`(true))
+                assertThat(host.isValidHost, `is`(false))
             }
         }
 

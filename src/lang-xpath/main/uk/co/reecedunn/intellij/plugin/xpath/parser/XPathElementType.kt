@@ -364,12 +364,6 @@ object XPathElementType {
         XPath
     )
 
-    val ENCLOSED_EXPR: IElementType = ICompositeElementType(
-        "XPATH_ENCLOSED_EXPR",
-        XPathEnclosedExprPsiImpl::class.java,
-        XPath
-    )
-
     val STRING_CONCAT_EXPR: IElementType = ICompositeElementType(
         "XPATH_STRING_CONCAT_EXPR",
         XPathStringConcatExprPsiImpl::class.java,
