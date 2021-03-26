@@ -15,11 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.plugin
 
-import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNullNode
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPrimaryExpr
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 
 /**
  * A MarkLogic 8.0 `NullConstructor` node in the XQuery AST.
  */
-interface PluginNullConstructor : XPathPrimaryExpr, XdmNullNode, XpmExpression
+interface PluginNullConstructor : XPathPrimaryExpr, XpmExpression
