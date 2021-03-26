@@ -15,11 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.plugin
 
-import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNumberNode
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPrimaryExpr
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 
 /**
  * A MarkLogic 8.0 `NumberConstructor` node in the XQuery AST.
  */
-interface PluginNumberConstructor : XPathPrimaryExpr, XdmNumberNode, XpmExpression
+interface PluginNumberConstructor : XPathPrimaryExpr, XpmExpression
