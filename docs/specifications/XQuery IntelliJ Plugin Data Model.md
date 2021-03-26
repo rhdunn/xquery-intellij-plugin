@@ -682,6 +682,7 @@ to correctly map to MarkLogic expression breakpoints.
 | `ConcatExpr` | `XpmConcatenatingExpression` |
 | `Expr`       | `XpmConcatenatingExpression` |
 | `QueryBody`  | `XpmConcatenatingExpression` |
+| `WithExpr`   | `XpmConcatenatingExpression` |
 | `XPath`      | `XpmConcatenatingExpression` |
 
 A *concatenating expression* is an expression that constructs a sequence by

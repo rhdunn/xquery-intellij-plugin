@@ -2526,11 +2526,42 @@ private class XQueryPsiTest : ParserTestCase() {
         @Nested
         @DisplayName("XQuery 4.0 ED (4.1) Setting Namespace Context")
         internal inner class SettingNamespaceContext {
-            @Test
-            @DisplayName("XPath 4.0 ED EBNF (9) WithExpr")
-            fun withExpr() {
-                val expr = parse<XPathWithExpr>("with xmlns=\"\" {}")[0] as XpmExpression
-                assertThat(expr.expressionElement, `is`(sameInstance(expr)))
+            @Nested
+            @DisplayName("XQuery 4.0 ED EBNF (43) WithExpr")
+            internal inner class WithExpr {
+                @Test
+                @DisplayName("empty")
+                fun empty() {
+                    val expr = parse<XPathWithExpr>("with xmlns=\"\" {}")[0] as XpmConcatenatingExpression
+                    assertThat(expr.expressionElement, `is`(sameInstance(expr)))
+
+                    val exprs = expr.expressions.toList()
+                    assertThat(exprs.size, `is`(0))
+                }
+
+                @Test
+                @DisplayName("single")
+                fun single() {
+                    val expr = parse<XPathWithExpr>("with xmlns=\"\" { 1 }")[0] as XpmConcatenatingExpression
+                    assertThat(expr.expressionElement, `is`(sameInstance(expr)))
+
+                    val exprs = expr.expressions.toList()
+                    assertThat(exprs.size, `is`(1))
+                    assertThat(exprs[0].text, `is`("1"))
+                }
+
+                @Test
+                @DisplayName("multiplw")
+                fun multiple() {
+                    val expr = parse<XPathWithExpr>("with xmlns=\"\" { 1, 2 + 3, 4 }")[0] as XpmConcatenatingExpression
+                    assertThat(expr.expressionElement, `is`(sameInstance(expr)))
+
+                    val exprs = expr.expressions.toList()
+                    assertThat(exprs.size, `is`(3))
+                    assertThat(exprs[0].text, `is`("1"))
+                    assertThat(exprs[1].text, `is`("2 + 3"))
+                    assertThat(exprs[2].text, `is`("4"))
+                }
             }
 
             @Nested
