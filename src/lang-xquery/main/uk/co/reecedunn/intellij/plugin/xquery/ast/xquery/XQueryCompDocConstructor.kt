@@ -15,10 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
-import uk.co.reecedunn.intellij.plugin.xdm.types.XdmDocumentNode
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 
 /**
  * An XQuery 1.0 `CompDocConstructor` node in the XQuery AST.
  */
-interface XQueryCompDocConstructor : XQueryComputedConstructor, XdmDocumentNode, XpmExpression
+interface XQueryCompDocConstructor : XQueryComputedConstructor, XpmExpression
