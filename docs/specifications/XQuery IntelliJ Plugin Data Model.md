@@ -48,8 +48,7 @@ various inspections.
   - [Expressions](#51-expressions)
     - [Concatenating Expressions](#511-concatenating-expressions)
   - [Path Steps](#52-path-steps)
-    - [Predicates](#521-predicates)
-    - [Abbreviated Syntax](#522-abbreviated-syntax)
+    - [Abbreviated Syntax](#521-abbreviated-syntax)
   - [Namespace Declarations](#53-namespace-declarations)
   - [Annotated PSI Nodes](#54-annotated-psi-nodes)
   - [Variables](#55-variables)
@@ -724,22 +723,15 @@ The *node type* property is the `KindTest` associated with the given step. If th
 `NodeTest` is a `KindTest`, then the *node type* is that `KindTest`. Otherwise, it
 is the principal node kind associated with the *axis type*.
 
-The *predicate* property is the `Predicate` node associated with the step.
+The *predicate expression* property is the expression associated with the
+`Predicate` node of the current step.
 
 A `PostfixExpr` is treated as a path step as it may occur anywhere in a path
 expression. It is not added to the PSI tree if the `PrimaryExpr` is not preceded
 or followed by another step. The *axis type* is `self` and the *node type* is
 `node()`.
 
-#### 5.2.1 Predicates
-
-| Symbol                       | Interface      |
-|------------------------------|----------------|
-| `Predicate`                  | `XpmPredicate` |
-
-A *predicate* is associated with a `FilterStep` or `FilterExpr` node.
-
-#### 5.2.2 Abbreviated Syntax
+#### 5.2.1 Abbreviated Syntax
 
 The abbreviated syntax permits the following additional abbreviations:
 
