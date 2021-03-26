@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpm.optree.type
+package uk.co.reecedunn.intellij.plugin.xpm.optree.item
 
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 
-val XpmMapEntry.keyName: String?
-    get() = when (val name = keyExpression) {
-        is XsNCNameValue -> name.data
-        else -> null
-    }
+interface XpmMapEntry {
+    val keyExpression: Any?
+
+    val valueExpression: XpmExpression?
+}

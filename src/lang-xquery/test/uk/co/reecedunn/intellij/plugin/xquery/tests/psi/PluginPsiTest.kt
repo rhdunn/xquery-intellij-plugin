@@ -55,10 +55,9 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPathStep
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.text
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
-import uk.co.reecedunn.intellij.plugin.xpm.optree.type.XpmMapExpression
-import uk.co.reecedunn.intellij.plugin.xpm.optree.type.keyName
+import uk.co.reecedunn.intellij.plugin.xpm.optree.item.XpmMapExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.item.keyName
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmAssignableVariable
-import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableReference
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryItemTypeDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCatchClause

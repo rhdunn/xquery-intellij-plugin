@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xpm.optree.type.XpmMapEntry
+import uk.co.reecedunn.intellij.plugin.xpm.optree.item.XpmMapEntry
 
 /**
  * A XPath 3.1 and XQuery 3.1 `MapConstructorEntry` node in the XQuery AST.

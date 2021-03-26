@@ -62,8 +62,8 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.impl.XpmEmptyExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.text
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.*
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
-import uk.co.reecedunn.intellij.plugin.xpm.optree.type.XpmMapExpression
-import uk.co.reecedunn.intellij.plugin.xpm.optree.type.keyName
+import uk.co.reecedunn.intellij.plugin.xpm.optree.item.XpmMapExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.item.keyName
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver

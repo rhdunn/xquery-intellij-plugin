@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
-import uk.co.reecedunn.intellij.plugin.xpm.optree.type.XpmMapEntry
+import uk.co.reecedunn.intellij.plugin.xpm.optree.item.XpmMapEntry
 
 /**
  * An XPath 4.0 ED and XQuery 4.0 ED `KeywordArgument` node in the XPath/XQuery AST.
