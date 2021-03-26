@@ -16,9 +16,8 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.plugin
 
 import com.intellij.psi.PsiLanguageInjectionHost
-import uk.co.reecedunn.intellij.plugin.xdm.types.XdmTextNode
 
 /**
  * A `DirTextConstructor` node in the XQuery AST.
  */
-interface PluginDirTextConstructor : PsiLanguageInjectionHost, XdmTextNode
+interface PluginDirTextConstructor : PsiLanguageInjectionHost
