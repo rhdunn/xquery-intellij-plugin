@@ -247,7 +247,10 @@ open class XPathParser : PsiParser {
                 builder.tokenType === XPathTokenType.BLOCK_OPEN -> {
                     parseEnclosedExprOrBlock(builder, null, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)
 
-                    marker.done(XPathElementType.WITH_EXPR)
+                    if (!haveNamespaceDeclaration)
+                        marker.drop()
+                    else
+                        marker.done(XPathElementType.WITH_EXPR)
                     return true
                 }
                 haveNamespaceDeclaration -> {
