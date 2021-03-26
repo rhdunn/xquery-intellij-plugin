@@ -18,17 +18,43 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmArray
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmArrayNode
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathCurlyArrayConstructor
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmConcatenatingExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 
 class XPathCurlyArrayConstructorPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XPathCurlyArrayConstructor,
     XpmSyntaxValidationElement {
-    // region XpmExpression
+    // region XpmConstructableItemExpression
+
+    override val itemTypeClass: Class<*>
+        get() = when (conformanceElement.elementType) {
+            XPathTokenType.K_ARRAY_NODE -> XdmArrayNode::class.java
+            else -> XdmArray::class.java
+        }
+
+    override val itemExpression: XpmExpression?
+        get() = this
+
+    // endregion
+    // region XpmArrayExpression
 
     override val expressionElement: PsiElement
         get() = this
+
+    override val memberExpressions: Sequence<XpmExpression>
+        get() = when (val expr = children().filterIsInstance<XpmExpression>().firstOrNull()) {
+            null -> emptySequence()
+            is XpmConcatenatingExpression -> expr.expressions
+            else -> sequenceOf(expr)
+        }
 
     // endregion
     // region XpmSyntaxValidationElement

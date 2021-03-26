@@ -54,6 +54,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPathStep
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.text
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProvider
+import uk.co.reecedunn.intellij.plugin.xpm.optree.item.XpmArrayExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.item.XpmMapExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.item.keyName
@@ -1798,19 +1799,47 @@ private class PluginPsiTest : ParserTestCase() {
             @Test
             @DisplayName("empty")
             fun empty() {
-                val expr = parse<XPathCurlyArrayConstructor>("array-node {}")[0] as XpmExpression
-
+                val expr = parse<XPathCurlyArrayConstructor>("array-node {}")[0] as XpmArrayExpression
                 assertThat(expr.expressionElement.elementType, `is`(XPathElementType.CURLY_ARRAY_CONSTRUCTOR))
                 assertThat(expr.expressionElement?.textOffset, `is`(0))
+
+                assertThat(expr.itemTypeClass, sameInstance(XdmArrayNode::class.java))
+                assertThat(expr.itemExpression, sameInstance(expr))
+
+                val entries = expr.memberExpressions.toList()
+                assertThat(entries.size, `is`(0))
             }
 
             @Test
-            @DisplayName("with members")
-            fun withMembers() {
-                val expr = parse<XPathCurlyArrayConstructor>("array-node { 1, 2, 3 }")[0] as XpmExpression
-
+            @DisplayName("single member")
+            fun singleMember() {
+                val expr = parse<XPathCurlyArrayConstructor>("array-node { 1 }")[0] as XpmArrayExpression
                 assertThat(expr.expressionElement.elementType, `is`(XPathElementType.CURLY_ARRAY_CONSTRUCTOR))
                 assertThat(expr.expressionElement?.textOffset, `is`(0))
+
+                assertThat(expr.itemTypeClass, sameInstance(XdmArrayNode::class.java))
+                assertThat(expr.itemExpression, sameInstance(expr))
+
+                val entries = expr.memberExpressions.toList()
+                assertThat(entries.size, `is`(1))
+                assertThat(entries[0].text, `is`("1"))
+            }
+
+            @Test
+            @DisplayName("multiple members")
+            fun multipleMembers() {
+                val expr = parse<XPathCurlyArrayConstructor>("array-node { 1, 2 + 3, 4 }")[0] as XpmArrayExpression
+                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.CURLY_ARRAY_CONSTRUCTOR))
+                assertThat(expr.expressionElement?.textOffset, `is`(0))
+
+                assertThat(expr.itemTypeClass, sameInstance(XdmArrayNode::class.java))
+                assertThat(expr.itemExpression, sameInstance(expr))
+
+                val entries = expr.memberExpressions.toList()
+                assertThat(entries.size, `is`(3))
+                assertThat(entries[0].text, `is`("1"))
+                assertThat(entries[1].text, `is`("2 + 3"))
+                assertThat(entries[2].text, `is`("4"))
             }
         }
     }

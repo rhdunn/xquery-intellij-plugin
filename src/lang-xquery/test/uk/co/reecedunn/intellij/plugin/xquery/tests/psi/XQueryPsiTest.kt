@@ -5614,8 +5614,23 @@ private class XQueryPsiTest : ParserTestCase() {
                     }
 
                     @Test
-                    @DisplayName("with members")
-                    fun withMembers() {
+                    @DisplayName("single member")
+                    fun singleMember() {
+                        val expr = parse<XPathSquareArrayConstructor>("[ 1 ]")[0] as XpmArrayExpression
+                        assertThat(expr.expressionElement.elementType, `is`(XPathElementType.SQUARE_ARRAY_CONSTRUCTOR))
+                        assertThat(expr.expressionElement?.textOffset, `is`(0))
+
+                        assertThat(expr.itemTypeClass, sameInstance(XdmArray::class.java))
+                        assertThat(expr.itemExpression, sameInstance(expr))
+
+                        val entries = expr.memberExpressions.toList()
+                        assertThat(entries.size, `is`(1))
+                        assertThat(entries[0].text, `is`("1"))
+                    }
+
+                    @Test
+                    @DisplayName("multiple members")
+                    fun multipleMembers() {
                         val expr = parse<XPathSquareArrayConstructor>("[ 1, 2 + 3, 4 ]")[0] as XpmArrayExpression
                         assertThat(expr.expressionElement.elementType, `is`(XPathElementType.SQUARE_ARRAY_CONSTRUCTOR))
                         assertThat(expr.expressionElement?.textOffset, `is`(0))
@@ -5637,19 +5652,47 @@ private class XQueryPsiTest : ParserTestCase() {
                     @Test
                     @DisplayName("empty")
                     fun empty() {
-                        val expr = parse<XPathCurlyArrayConstructor>("array {}")[0] as XpmExpression
-
+                        val expr = parse<XPathCurlyArrayConstructor>("array {}")[0] as XpmArrayExpression
                         assertThat(expr.expressionElement.elementType, `is`(XPathElementType.CURLY_ARRAY_CONSTRUCTOR))
                         assertThat(expr.expressionElement?.textOffset, `is`(0))
+
+                        assertThat(expr.itemTypeClass, sameInstance(XdmArray::class.java))
+                        assertThat(expr.itemExpression, sameInstance(expr))
+
+                        val entries = expr.memberExpressions.toList()
+                        assertThat(entries.size, `is`(0))
                     }
 
                     @Test
-                    @DisplayName("with members")
-                    fun withMembers() {
-                        val expr = parse<XPathCurlyArrayConstructor>("array { 1, 2, 3 }")[0] as XpmExpression
-
+                    @DisplayName("single member")
+                    fun singleMember() {
+                        val expr = parse<XPathCurlyArrayConstructor>("array { 1 }")[0] as XpmArrayExpression
                         assertThat(expr.expressionElement.elementType, `is`(XPathElementType.CURLY_ARRAY_CONSTRUCTOR))
                         assertThat(expr.expressionElement?.textOffset, `is`(0))
+
+                        assertThat(expr.itemTypeClass, sameInstance(XdmArray::class.java))
+                        assertThat(expr.itemExpression, sameInstance(expr))
+
+                        val entries = expr.memberExpressions.toList()
+                        assertThat(entries.size, `is`(1))
+                        assertThat(entries[0].text, `is`("1"))
+                    }
+
+                    @Test
+                    @DisplayName("multiple members")
+                    fun multipleMembers() {
+                        val expr = parse<XPathCurlyArrayConstructor>("array { 1, 2 + 3, 4 }")[0] as XpmArrayExpression
+                        assertThat(expr.expressionElement.elementType, `is`(XPathElementType.CURLY_ARRAY_CONSTRUCTOR))
+                        assertThat(expr.expressionElement?.textOffset, `is`(0))
+
+                        assertThat(expr.itemTypeClass, sameInstance(XdmArray::class.java))
+                        assertThat(expr.itemExpression, sameInstance(expr))
+
+                        val entries = expr.memberExpressions.toList()
+                        assertThat(entries.size, `is`(3))
+                        assertThat(entries[0].text, `is`("1"))
+                        assertThat(entries[1].text, `is`("2 + 3"))
+                        assertThat(entries[2].text, `is`("4"))
                     }
                 }
             }
