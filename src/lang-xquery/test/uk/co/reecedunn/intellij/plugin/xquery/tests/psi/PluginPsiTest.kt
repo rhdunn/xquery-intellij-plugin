@@ -1710,6 +1710,9 @@ private class PluginPsiTest : ParserTestCase() {
                     assertThat(expr.expressionElement.elementType, `is`(XPathElementType.MAP_CONSTRUCTOR))
                     assertThat(expr.expressionElement?.textOffset, `is`(0))
 
+                    assertThat(expr.itemTypeClass, sameInstance(XdmObjectNode::class.java))
+                    assertThat(expr.itemExpression, sameInstance(expr))
+
                     val entries = expr.entries.toList()
                     assertThat(entries.size, `is`(0))
                 }
@@ -1720,6 +1723,9 @@ private class PluginPsiTest : ParserTestCase() {
                     val expr = parse<XPathMapConstructor>("object-node { \"1\" : \"one\", \"2\" : \"two\" }")[0] as XpmMapExpression
                     assertThat(expr.expressionElement.elementType, `is`(XPathElementType.MAP_CONSTRUCTOR_ENTRY))
                     assertThat(expr.expressionElement?.textOffset, `is`(14))
+
+                    assertThat(expr.itemTypeClass, sameInstance(XdmObjectNode::class.java))
+                    assertThat(expr.itemExpression, sameInstance(expr))
 
                     val entries = expr.entries.toList()
                     assertThat(entries.size, `is`(2))

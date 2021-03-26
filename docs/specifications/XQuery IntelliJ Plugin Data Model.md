@@ -44,7 +44,6 @@ various inspections.
   - [EQNames and Wildcards](#42-eqnames-and-wildcards)
     - [Accepts Namespace Types](#421-accepts-namespace-types)
   - [Annotations](#43-annotations)
-  - [Maps](#44-maps)
 - [Operation Tree](#5-operation-tree)
   - [Expressions](#51-expressions)
     - [Concatenating Expressions](#511-concatenating-expressions)
@@ -61,6 +60,8 @@ various inspections.
       - [Assignable Variables](#5532-assignable-variables)
       - [Collection Bindings](#5533-collection-bindings)
   - [Functions](#56-functions)
+  - [Constructable Items](#57-constructable-items)
+    - [Maps](#571-maps)
 - {: .toc-letter } [References](#a-references)
   - [W3C References](#a1-w3c-references)
   - [XPath NG Proposals](#a2-xpath-ng-proposals)
@@ -647,23 +648,6 @@ The *values* of the annotation is the list of `xs:string`, `xs:integer`,
 `xs:decimal`, and `xs:decimal` arguments passed to the annotation. For
 `CompatibilityAnnotation` this is always empty.
 
-### 4.4 Maps
-
-| Symbol                | Interface          |
-|-----------------------|--------------------|
-| `KeywordArgument`     | `XpmMapEntry`      |
-| `MapConstructor`      | `XpmMapExpression` |
-| `MapConstructorEntry` | `XpmMapEntry`      |
-
-The *entries* of a *map expression* are the map entries that constitute
-the constructed map.
-
-The *key expression* of a *map entry* is the expression used to calculate
-the key name, or the atomic value of the key name.
-
-The *value expression* of a *map entry* is the expression used to calculate
-the entry value.
-
 ## 5 Operation Tree
 
 ### 5.1 Expressions
@@ -972,6 +956,36 @@ the function it references.
 
 A *dynamic function call* is a *function call* that has an expression that
 evaluates to the function to be called.
+
+### 5.7 Constructable Items
+
+A *constructable item* is an expression that evaluates to an `ItemType`.
+
+The *item type class* of a *constructable item* is the class instance of
+the associated type, such as `XdmArray` for an `array(*)` item.
+
+The *item expression* is the associated expression that is used to
+construct the item of the specified type.
+
+#### 5.7.1 Maps
+
+| Symbol                | Interface          |
+|-----------------------|--------------------|
+| `KeywordArgument`     | `XpmMapEntry`      |
+| `MapConstructor`      | `XpmMapExpression` |
+| `MapConstructorEntry` | `XpmMapEntry`      |
+
+A *map expression* is a *constructable item* that is used to create
+`map(*)` or `object-node()` items.
+
+The *entries* of a *map expression* are the map entries that constitute
+the constructed map.
+
+The *key expression* of a *map entry* is the expression used to calculate
+the key name, or the atomic value of the key name.
+
+The *value expression* of a *map entry* is the expression used to calculate
+the entry value.
 
 ## A References
 

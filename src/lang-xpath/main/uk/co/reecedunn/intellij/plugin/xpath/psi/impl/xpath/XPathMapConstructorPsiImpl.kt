@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017, 2020 Reece H. Dunn
+ * Copyright (C) 2016-2017, 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,10 +21,14 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmMap
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmObjectNode
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathMapConstructor
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathMapConstructorEntry
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.item.XpmMapEntry
 
 private val XQUERY31: List<Version> = listOf(XQuerySpec.REC_3_1_20170321, Saxon.VERSION_9_4)
@@ -32,6 +36,18 @@ private val MARKLOGIC80: List<Version> = listOf()
 
 class XPathMapConstructorPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), XPathMapConstructor, VersionConformance, XpmSyntaxValidationElement {
+    // region XpmConstructableItemExpression
+
+    override val itemTypeClass: Class<*>
+        get() = when (conformanceElement.elementType) {
+            XPathTokenType.K_OBJECT_NODE -> XdmObjectNode::class.java
+            else -> XdmMap::class.java
+        }
+
+    override val itemExpression: XpmExpression?
+        get() = this
+
+    // endregion
     // region XpmMapExpression
 
     override val expressionElement: PsiElement

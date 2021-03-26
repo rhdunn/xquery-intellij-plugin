@@ -17,6 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xpm.optree.item
 
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 
-interface XpmMapExpression : XpmExpression {
+interface XpmMapExpression : XpmConstructableItemExpression {
     val entries: Sequence<XpmMapEntry>
 }
