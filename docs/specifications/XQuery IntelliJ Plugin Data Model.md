@@ -61,6 +61,7 @@ various inspections.
   - [Functions](#56-functions)
   - [Constructable Items](#57-constructable-items)
     - [Maps](#571-maps)
+    - [Arrays](#572-arrays)
 - {: .toc-letter } [References](#a-references)
   - [W3C References](#a1-w3c-references)
   - [XPath NG Proposals](#a2-xpath-ng-proposals)
@@ -971,7 +972,7 @@ construct the item of the specified type.
 A *map expression* is a *constructable item* that is used to create
 `map(*)` or `object-node()` items.
 
-The *entries* of a *map expression* are the map entries that constitute
+The *entries* of a *map expression* are the *map entries* that constitute
 the constructed map.
 
 The *key expression* of a *map entry* is the expression used to calculate
@@ -979,6 +980,18 @@ the key name, or the atomic value of the key name.
 
 The *value expression* of a *map entry* is the expression used to calculate
 the entry value.
+
+#### 5.7.2 Arrays
+
+| Symbol                   | Interface            |
+|--------------------------|----------------------|
+| `SquareArrayConstructor` | `XpmArrayExpression` |
+
+An *array expression* is a *constructale item* that is used to create
+`array(*)` or `array-node()` items.
+
+The *member expressions* of an *array expression* are the expressions
+that are used to create the members of the constructed array.
 
 ## A References
 

@@ -15,7 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
+import uk.co.reecedunn.intellij.plugin.xpm.optree.item.XpmArrayExpression
+
 /**
  * An XPath 3.1 and XQuery 3.1 `SquareArrayConstructor` node in the XQuery AST.
  */
-interface XPathSquareArrayConstructor : XPathArrayConstructor
+interface XPathSquareArrayConstructor : XPathArrayConstructor, XpmArrayExpression

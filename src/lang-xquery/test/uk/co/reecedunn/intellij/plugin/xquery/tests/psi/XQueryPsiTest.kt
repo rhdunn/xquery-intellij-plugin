@@ -61,6 +61,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.elementType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.impl.XpmEmptyExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.text
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.*
+import uk.co.reecedunn.intellij.plugin.xpm.optree.item.XpmArrayExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.item.XpmMapExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.item.keyName
@@ -5601,19 +5602,32 @@ private class XQueryPsiTest : ParserTestCase() {
                     @Test
                     @DisplayName("empty")
                     fun empty() {
-                        val expr = parse<XPathSquareArrayConstructor>("[]")[0] as XpmExpression
-
+                        val expr = parse<XPathSquareArrayConstructor>("[]")[0] as XpmArrayExpression
                         assertThat(expr.expressionElement.elementType, `is`(XPathElementType.SQUARE_ARRAY_CONSTRUCTOR))
                         assertThat(expr.expressionElement?.textOffset, `is`(0))
+
+                        assertThat(expr.itemTypeClass, sameInstance(XdmArray::class.java))
+                        assertThat(expr.itemExpression, sameInstance(expr))
+
+                        val entries = expr.memberExpressions.toList()
+                        assertThat(entries.size, `is`(0))
                     }
 
                     @Test
                     @DisplayName("with members")
                     fun withMembers() {
-                        val expr = parse<XPathSquareArrayConstructor>("[ 1, 2, 3 ]")[0] as XpmExpression
-
+                        val expr = parse<XPathSquareArrayConstructor>("[ 1, 2 + 3, 4 ]")[0] as XpmArrayExpression
                         assertThat(expr.expressionElement.elementType, `is`(XPathElementType.SQUARE_ARRAY_CONSTRUCTOR))
                         assertThat(expr.expressionElement?.textOffset, `is`(0))
+
+                        assertThat(expr.itemTypeClass, sameInstance(XdmArray::class.java))
+                        assertThat(expr.itemExpression, sameInstance(expr))
+
+                        val entries = expr.memberExpressions.toList()
+                        assertThat(entries.size, `is`(3))
+                        assertThat(entries[0].text, `is`("1"))
+                        assertThat(entries[1].text, `is`("2 + 3"))
+                        assertThat(entries[2].text, `is`("4"))
                     }
                 }
 

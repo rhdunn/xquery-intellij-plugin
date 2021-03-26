@@ -18,17 +18,32 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmArray
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathSquareArrayConstructor
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 
 class XPathSquareArrayConstructorPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XPathSquareArrayConstructor,
     XpmSyntaxValidationElement {
-    // region XpmExpression
+    // region XpmConstructableItemExpression
+
+    override val itemTypeClass: Class<*>
+        get() = XdmArray::class.java
+
+    override val itemExpression: XpmExpression
+        get() = this
+
+    // endregion
+    // region XpmArrayExpression
 
     override val expressionElement: PsiElement
         get() = this
+
+    override val memberExpressions: Sequence<XpmExpression>
+        get() = children().filterIsInstance<XpmExpression>()
 
     // endregion
     // region XpmSyntaxValidationElement
