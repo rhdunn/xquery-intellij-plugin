@@ -18,7 +18,6 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.lang.ASTNode
 import com.intellij.openapi.util.Key
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
@@ -31,17 +30,21 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.item.XpmMapEntry
 class XPathFunctionCallPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathFunctionCall {
     companion object {
         private val POSITIONAL_ARGUMENTS = Key.create<List<XpmExpression>>("POSITIONAL_ARGUMENTS")
+        private val KEYWORD_ARGUMENTS = Key.create<List<XpmMapEntry>>("KEYWORD_ARGUMENTS")
     }
     // region PsiElement
 
     override fun subtreeChanged() {
         super.subtreeChanged()
         clearUserData(POSITIONAL_ARGUMENTS)
-        cachedKeywordArguments.invalidate()
+        clearUserData(KEYWORD_ARGUMENTS)
     }
 
     // endregion
     // region XpmExpression
+
+    private val argumentList: XPathArgumentList
+        get() = children().filterIsInstance<XPathArgumentList>().first()
 
     override val expressionElement: PsiElement
         get() = when {
@@ -51,9 +54,6 @@ class XPathFunctionCallPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPat
 
     // endregion
     // region XpmFunctionReference
-
-    private val argumentList: XPathArgumentList
-        get() = children().filterIsInstance<XPathArgumentList>().first()
 
     override val functionName: XsQNameValue?
         get() = firstChild as? XsQNameValue
@@ -69,16 +69,13 @@ class XPathFunctionCallPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPat
 
     override val positionalArguments: List<XpmExpression>
         get() = computeUserDataIfAbsent(POSITIONAL_ARGUMENTS) {
-            val argumentList = children().filterIsInstance<XPathArgumentList>().first()
             argumentList.children().filterIsInstance<XpmExpression>().toList()
         }
 
-    private val cachedKeywordArguments = CacheableProperty {
-        argumentList.children().filterIsInstance<XpmMapEntry>().toList()
-    }
-
     override val keywordArguments: List<XpmMapEntry>
-        get() = cachedKeywordArguments.get()!!
+        get() = computeUserDataIfAbsent(KEYWORD_ARGUMENTS) {
+            argumentList.children().filterIsInstance<XpmMapEntry>().toList()
+        }
 
     // endregion
 }
