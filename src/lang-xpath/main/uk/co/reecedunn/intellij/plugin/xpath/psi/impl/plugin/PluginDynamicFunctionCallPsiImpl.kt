@@ -15,10 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.openapi.util.Key
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNodeItem
@@ -34,11 +34,14 @@ class PluginDynamicFunctionCallPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     PluginDynamicFunctionCall,
     XpmSyntaxValidationElement {
+    companion object {
+        private val POSITIONAL_ARGUMENTS = Key.create<List<XpmExpression>>("POSITIONAL_ARGUMENTS")
+    }
     // region PsiElement
 
     override fun subtreeChanged() {
         super.subtreeChanged()
-        cachedPositionalArguments.invalidate()
+        clearUserData(POSITIONAL_ARGUMENTS)
     }
 
     // endregion
@@ -64,13 +67,11 @@ class PluginDynamicFunctionCallPsiImpl(node: ASTNode) :
     override val functionCallExpression: XpmExpression?
         get() = children().filterIsInstance<XpmExpression>().firstOrNull()
 
-    private val cachedPositionalArguments = CacheableProperty {
-        val argumentList = children().filterIsInstance<XPathArgumentList>().first()
-        argumentList.children().filterIsInstance<XpmExpression>().toList()
-    }
-
     override val positionalArguments: List<XpmExpression>
-        get() = cachedPositionalArguments.get()!!
+        get() = computeUserDataIfAbsent(POSITIONAL_ARGUMENTS) {
+            val argumentList = children().filterIsInstance<XPathArgumentList>().first()
+            argumentList.children().filterIsInstance<XpmExpression>().toList()
+        }
 
     override val keywordArguments: List<XpmMapEntry> = listOf()
 

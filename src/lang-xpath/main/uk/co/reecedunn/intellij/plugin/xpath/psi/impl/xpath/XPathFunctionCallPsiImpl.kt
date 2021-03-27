@@ -15,10 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.openapi.util.Key
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
@@ -28,11 +29,14 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.item.XpmMapEntry
 
 class XPathFunctionCallPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathFunctionCall {
+    companion object {
+        private val POSITIONAL_ARGUMENTS = Key.create<List<XpmExpression>>("POSITIONAL_ARGUMENTS")
+    }
     // region PsiElement
 
     override fun subtreeChanged() {
         super.subtreeChanged()
-        cachedPositionalArguments.invalidate()
+        clearUserData(POSITIONAL_ARGUMENTS)
         cachedKeywordArguments.invalidate()
     }
 
@@ -63,12 +67,11 @@ class XPathFunctionCallPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPat
     override val functionCallExpression: XpmExpression
         get() = this
 
-    private val cachedPositionalArguments = CacheableProperty {
-        argumentList.children().filterIsInstance<XpmExpression>().toList()
-    }
-
     override val positionalArguments: List<XpmExpression>
-        get() = cachedPositionalArguments.get()!!
+        get() = computeUserDataIfAbsent(POSITIONAL_ARGUMENTS) {
+            val argumentList = children().filterIsInstance<XPathArgumentList>().first()
+            argumentList.children().filterIsInstance<XpmExpression>().toList()
+        }
 
     private val cachedKeywordArguments = CacheableProperty {
         argumentList.children().filterIsInstance<XpmMapEntry>().toList()
