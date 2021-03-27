@@ -22,7 +22,6 @@ import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.TokenSet
 import com.intellij.util.Range
-import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
@@ -40,6 +39,7 @@ class XPathParamListPsiImpl(node: ASTNode) :
     companion object {
         private val PRESENTABLE_TEXT = Key.create<String>("PRESENTABLE_TEXT")
         private val PARAMETERS = Key.create<List<XpmParameter>>("PARAMETERS")
+        private val ARITY = Key.create<Range<Int>>("ARITY")
 
         private val PARAM_OR_VARIADIC = TokenSet.create(XPathElementType.PARAM, XPathTokenType.ELLIPSIS)
     }
@@ -55,7 +55,7 @@ class XPathParamListPsiImpl(node: ASTNode) :
         super.subtreeChanged()
         clearUserData(PRESENTABLE_TEXT)
         clearUserData(PARAMETERS)
-        cachedArity.invalidate()
+        clearUserData(ARITY)
     }
 
     // endregion
@@ -85,17 +85,14 @@ class XPathParamListPsiImpl(node: ASTNode) :
             children().filterIsInstance<XPathParam>().toList()
         }
 
-    private val cachedArity = CacheableProperty {
-        params.size.let {
-            if (conformanceElement.elementType == XPathElementType.PARAM)
-                Range(it, it) // non-variadic parameter list
-            else
-                Range(it - 1, Int.MAX_VALUE) // variadic parameter list
-        }
-    }
-
     override val arity: Range<Int>
-        get() = cachedArity.get()!!
+        get() = computeUserDataIfAbsent(ARITY) {
+            val size = params.size
+            if (conformanceElement.elementType == XPathElementType.PARAM)
+                Range(size, size) // non-variadic parameter list
+            else
+                Range(size - 1, Int.MAX_VALUE) // variadic parameter list
+        }
 
     override val isVariadic: Boolean
         get() = conformanceElement.elementType == XPathTokenType.ELLIPSIS
