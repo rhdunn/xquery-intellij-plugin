@@ -2,12 +2,6 @@ ext.intellij_version = project.property('idea_since_build')
 
 version = ext.intellij_version
 
-if (ext.intellij_version >= 193) {
-    sourceSets.main.java.srcDirs += 'src/193/native'
-} else {
-    sourceSets.main.java.srcDirs += 'src/193/compat'
-}
-
 if (ext.intellij_version >= 201) {
     sourceSets.main.java.srcDirs += 'src/201/native'
     if (ext.intellij_version >= 203) {

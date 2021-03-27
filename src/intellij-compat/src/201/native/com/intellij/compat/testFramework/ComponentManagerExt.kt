@@ -18,39 +18,34 @@ package com.intellij.compat.testFramework
 
 import com.intellij.mock.MockComponentManager
 import com.intellij.openapi.Disposable
-import com.intellij.openapi.application.Application
 import com.intellij.openapi.components.ComponentManager
 import com.intellij.openapi.extensions.BaseExtensionPointName
 import com.intellij.openapi.extensions.ExtensionPoint
 import com.intellij.openapi.extensions.ExtensionPointName
-import com.intellij.openapi.extensions.Extensions
 import com.intellij.openapi.util.Disposer
 import org.jetbrains.annotations.TestOnly
 
 @TestOnly
-@Suppress("unused")
-fun <T : Any> Application.registerExtensionPointBean(
+fun <T : Any> ComponentManager.registerExtensionPointBean(
     name: ExtensionPointName<*>,
     aClass: Class<T>,
     parentDisposable: Disposable
 ) {
-    val area = Extensions.getRootArea()
-    if (!area.hasExtensionPoint(name)) {
-        area.registerExtensionPoint(name.name, aClass.name, ExtensionPoint.Kind.BEAN_CLASS)
+    if (!extensionArea.hasExtensionPoint(name)) {
+        extensionArea.registerExtensionPoint(name.name, aClass.name, ExtensionPoint.Kind.BEAN_CLASS)
         Disposer.register(parentDisposable, Disposable {
-            area.unregisterExtensionPoint(name.name)
+            extensionArea.unregisterExtensionPoint(name.name)
         })
     }
 }
 
 @TestOnly
-@Suppress("unused")
-fun <T : Any> Application.registerExtension(
-    name: BaseExtensionPointName,
+fun <T : Any> ComponentManager.registerExtension(
+    name: BaseExtensionPointName<*>,
     instance: T,
     parentDisposable: Disposable
 ) {
-    Extensions.getRootArea().getExtensionPoint<T>(name.name).registerExtension(instance, parentDisposable)
+    extensionArea.getExtensionPoint<T>(name.name).registerExtension(instance, parentDisposable)
 }
 
 @TestOnly

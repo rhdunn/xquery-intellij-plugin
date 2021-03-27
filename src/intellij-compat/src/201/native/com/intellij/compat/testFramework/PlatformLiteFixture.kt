@@ -17,14 +17,12 @@
 package com.intellij.compat.testFramework
 
 import com.intellij.mock.MockApplication
-import com.intellij.mock.MockApplicationEx
 import com.intellij.mock.MockProjectEx
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.*
-import com.intellij.openapi.fileTypes.FileTypeManager
+import com.intellij.openapi.extensions.impl.ExtensionsAreaImpl
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Disposer
-import com.intellij.openapi.util.Getter
 import java.lang.reflect.Modifier
 
 abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase() {
@@ -33,9 +31,8 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
     private var myApp: MockApplication? = null
 
     fun initApplication(): MockApplication {
-        val app = MockApplicationEx(testRootDisposable)
-        ApplicationManager.setApplication(app, Getter { FileTypeManager.getInstance() }, testRootDisposable)
-        Extensions.registerAreaClass("IDEA_PROJECT", null) // Deprecated in IntelliJ 2019.3.
+        val app = MockApplication.setUp(testRootDisposable)
+        myApp = app
         return app
     }
 
@@ -55,18 +52,16 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
     // endregion
     // region JUnit
 
-    @Suppress("UnstableApiUsage")
-    @Throws(Exception::class)
-    override fun setUp() {
-        super.setUp()
-        Extensions.cleanRootArea(testRootDisposable)
-    }
-
     @Throws(Exception::class)
     override fun tearDown() {
         myProjectEx = null
         try {
             super.tearDown()
+        } catch (e: Throwable) {
+            // IntelliJ 2020.1 can throw an error in CodeStyleSettingsManager.getCurrentSettings
+            // when trying to clean up the registered endpoints. Log that error, but don't make
+            // it fail the test.
+            LOG.warn(e)
         } finally {
             clearFields(this)
         }
@@ -76,11 +71,11 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
     // region Registering Extension Points
 
     fun <T> registerExtensionPoint(extensionPointName: ExtensionPointName<T>, aClass: Class<T>) {
-        registerExtensionPoint(Extensions.getRootArea(), extensionPointName, aClass)
+        registerExtensionPoint(ApplicationManager.getApplication().extensionArea, extensionPointName, aClass)
     }
 
     fun registerExtensionPoint(epClassName: String, epField: String, aClass: Class<*>? = null) {
-        registerExtensionPoint(Extensions.getRootArea(), epClassName, epField, aClass)
+        registerExtensionPoint(ApplicationManager.getApplication().extensionArea, epClassName, epField, aClass)
     }
 
     @Suppress("UnstableApiUsage")
@@ -95,7 +90,8 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
                     ExtensionPoint.Kind.INTERFACE
                 else
                     ExtensionPoint.Kind.BEAN_CLASS
-            area.registerExtensionPoint(extensionPointName, aClass.name, kind, testRootDisposable)
+            val impl = area as ExtensionsAreaImpl
+            impl.registerExtensionPoint(extensionPointName, aClass.name, kind, testRootDisposable)
             Disposer.register(myProject, com.intellij.openapi.Disposable {
                 area.unregisterExtensionPoint(extensionPointName.name)
             })
@@ -105,30 +101,31 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
     fun registerExtensionPoint(area: ExtensionsArea, epClassName: String, epField: String, aClass: Class<*>? = null) {
         try {
             val epClass = Class.forName(epClassName)
-            val epname = epClass.getDeclaredField(epField)
+            val epName = epClass.getDeclaredField(epField)
             val register = PlatformLiteFixture::class.java.getDeclaredMethod(
                 "registerExtensionPoint", ExtensionsArea::class.java, ExtensionPointName::class.java, Class::class.java
             )
-            epname.isAccessible = true
-            register.invoke(this, area, epname.get(null), aClass ?: epClass)
+            epName.isAccessible = true
+            register.invoke(this, area, epName.get(null), aClass ?: epClass)
         } catch (e: Exception) {
             // Don't register the extension point, as the associated class is not found.
         }
     }
 
     // IntelliJ >= 2019.3 deprecates Extensions#getArea
-    @Suppress("SameParameterValue")
+    @Suppress("UnstableApiUsage", "SameParameterValue")
     fun <T> registerExtensionPoint(
         area: AreaInstance,
         extensionPointName: ExtensionPointName<T>,
         aClass: Class<out T>
     ) {
-        registerExtensionPoint(Extensions.getArea(area), extensionPointName, aClass)
+        registerExtensionPoint(area.extensionArea, extensionPointName, aClass)
     }
 
     // IntelliJ >= 2019.3 deprecates Extensions#getArea
+    @Suppress("UnstableApiUsage")
     fun registerExtensionPoint(area: AreaInstance, epClassName: String, epField: String, aClass: Class<*>? = null) {
-        registerExtensionPoint(Extensions.getArea(area), epClassName, epField, aClass)
+        registerExtensionPoint(area.extensionArea, epClassName, epField, aClass)
     }
 
     // endregion
