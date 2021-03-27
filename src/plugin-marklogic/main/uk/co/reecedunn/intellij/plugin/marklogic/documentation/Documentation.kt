@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicQueries
 import uk.co.reecedunn.intellij.plugin.marklogic.lang.MarkLogic
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorApi
+import uk.co.reecedunn.intellij.plugin.processor.run.RunnableQuery
 import uk.co.reecedunn.intellij.plugin.processor.run.RunnableQueryProvider
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.*
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
@@ -63,7 +64,7 @@ private data class MarkLogicZippedDocumentation(
     // endregion
     // region XQDocDocumentationIndex
 
-    private val query = CacheableProperty {
+    private val query: RunnableQuery by lazy {
         val s9api = QueryProcessorApi.apis.find { api -> api.id == "saxon.s9api" }!!
         val saxon = s9api.newInstanceManager(javaClass.classLoader, null).create() as RunnableQueryProvider
         val query = saxon.createRunnableQuery(MarkLogicQueries.ApiDocs, XQuery)
@@ -83,8 +84,8 @@ private data class MarkLogicZippedDocumentation(
                 }
             }
             docs.save(File(it.path.replace("\\.zip$".toRegex(), ".xml")))
-            query.get()!!.bindContextItem(docs, "document-node()")
-            query.get()?.bindVariable("marklogic-version", version, "xs:string")
+            query.bindContextItem(docs, "document-node()")
+            query.bindVariable("marklogic-version", version, "xs:string")
             docs
         }
     }
@@ -104,9 +105,9 @@ private data class MarkLogicZippedDocumentation(
     fun lookup(ref: XpmFunctionReference): XQDocFunctionDocumentation? = ref.functionName?.let {
         if (isMarkLogicNamespace(it.namespace?.data)) {
             apidocs.get()
-            query.get()?.bindVariable("namespace", it.namespace?.data, "xs:string")
-            query.get()?.bindVariable("local-name", it.localName?.data, "xs:string")
-            val ret = query.get()!!.run().results.map { result -> (result.value as String).nullize() }
+            query.bindVariable("namespace", it.namespace?.data, "xs:string")
+            query.bindVariable("local-name", it.localName?.data, "xs:string")
+            val ret = query.run().results.map { result -> (result.value as String).nullize() }
             ret.takeIf { results -> results.isNotEmpty() }?.let { results ->
                 FunctionDocumentation(results)
             }
