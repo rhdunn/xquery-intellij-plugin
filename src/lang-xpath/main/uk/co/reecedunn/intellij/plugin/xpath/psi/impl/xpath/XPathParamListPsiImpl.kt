@@ -39,6 +39,7 @@ class XPathParamListPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), XPathParamList, ItemPresentation, XpmSyntaxValidationElement {
     companion object {
         private val PRESENTABLE_TEXT = Key.create<String>("PRESENTABLE_TEXT")
+        private val PARAMETERS = Key.create<List<XpmParameter>>("PARAMETERS")
 
         private val PARAM_OR_VARIADIC = TokenSet.create(XPathElementType.PARAM, XPathTokenType.ELLIPSIS)
     }
@@ -53,7 +54,7 @@ class XPathParamListPsiImpl(node: ASTNode) :
     override fun subtreeChanged() {
         super.subtreeChanged()
         clearUserData(PRESENTABLE_TEXT)
-        cachedParams.invalidate()
+        clearUserData(PARAMETERS)
         cachedArity.invalidate()
     }
 
@@ -79,12 +80,10 @@ class XPathParamListPsiImpl(node: ASTNode) :
     // endregion
     // region XPathParamList
 
-    private val cachedParams = CacheableProperty {
-        children().filterIsInstance<XPathParam>().toList()
-    }
-
     override val params: List<XpmParameter>
-        get() = cachedParams.get()!!
+        get() = computeUserDataIfAbsent(PARAMETERS) {
+            children().filterIsInstance<XPathParam>().toList()
+        }
 
     private val cachedArity = CacheableProperty {
         params.size.let {
