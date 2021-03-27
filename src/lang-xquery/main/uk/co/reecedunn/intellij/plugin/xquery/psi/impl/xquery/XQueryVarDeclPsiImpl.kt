@@ -20,7 +20,6 @@ import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.util.Key
 import com.intellij.psi.PsiElement
 import com.intellij.util.containers.orNull
-import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.reverse
@@ -45,13 +44,14 @@ class XQueryVarDeclPsiImpl(node: ASTNode) :
     ItemPresentation {
     companion object {
         private val PRESENTABLE_TEXT = Key.create<Optional<String>>("PRESENTABLE_TEXT")
+        private val ALPHA_SORT_KEY = Key.create<String>("ALPHA_SORT_KEY")
     }
     // region ASTDelegatePsiElement
 
     override fun subtreeChanged() {
         super.subtreeChanged()
         clearUserData(PRESENTABLE_TEXT)
-        cachedAlphaSortKey.invalidate()
+        clearUserData(ALPHA_SORT_KEY)
     }
 
     // endregion
@@ -107,11 +107,9 @@ class XQueryVarDeclPsiImpl(node: ASTNode) :
     // endregion
     // region SortableTreeElement
 
-    private val cachedAlphaSortKey = CacheableProperty {
+    override fun getAlphaSortKey(): String = computeUserDataIfAbsent(ALPHA_SORT_KEY) {
         variableName?.let { op_qname_presentation(it) } ?: ""
     }
-
-    override fun getAlphaSortKey(): String = cachedAlphaSortKey.get()!!
 
     // endregion
 }
