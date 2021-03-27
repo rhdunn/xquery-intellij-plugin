@@ -187,7 +187,7 @@ abstract class ParsingTestCase<File : PsiFile>(
         )
         project.registerServiceInstance(
             ProjectCodeStyleSettingsManager::class.java,
-            com.intellij.compat.psi.codeStyle.ProjectCodeStyleSettingsManager(project)
+            ProjectCodeStyleSettingsManager(project)
         )
 
         @Suppress("UnstableApiUsage")
