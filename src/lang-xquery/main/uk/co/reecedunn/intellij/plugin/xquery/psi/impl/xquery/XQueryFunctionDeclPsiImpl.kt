@@ -20,7 +20,6 @@ import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.util.Key
 import com.intellij.util.Range
 import com.intellij.util.containers.orNull
-import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationEx
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.resources.XPathIcons
@@ -43,6 +42,7 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
     companion object {
         private val PRESENTABLE_TEXT = Key.create<Optional<String>>("PRESENTABLE_TEXT")
         private val STRUCTURE_PRESENTABLE_TEXT = Key.create<Optional<String>>("STRUCTURE_PRESENTABLE_TEXT")
+        private val FUNCTION_REF_PRESENTABLE_TEXT = Key.create<String>("FUNCTION_REF_PRESENTABLE_TEXT")
     }
     // region ASTDelegatePsiElement
 
@@ -50,7 +50,7 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
         super.subtreeChanged()
         clearUserData(PRESENTABLE_TEXT)
         clearUserData(STRUCTURE_PRESENTABLE_TEXT)
-        cachedFunctionRefPresentableText.invalidate()
+        clearUserData(FUNCTION_REF_PRESENTABLE_TEXT)
     }
 
     // endregion
@@ -78,11 +78,9 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
         get() = paramList?.isVariadic == true
 
     override val functionRefPresentableText: String?
-        get() = cachedFunctionRefPresentableText.get()
-
-    private val cachedFunctionRefPresentableText = CacheableProperty {
-        functionName?.let { "${op_qname_presentation(it)}#${arity.from}" } ?: ""
-    }
+        get() = computeUserDataIfAbsent(FUNCTION_REF_PRESENTABLE_TEXT) {
+            functionName?.let { "${op_qname_presentation(it)}#${arity.from}" } ?: ""
+        }
 
     override val functionBody: XpmExpression?
         get() = children().filterIsInstance<XpmExpression>().firstOrNull()
