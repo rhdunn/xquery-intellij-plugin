@@ -36,7 +36,7 @@ buildscript {
     ext.idea_since_build = ext.since_from_version(ext.idea_version).toInteger()
 
     if (ext.idea_since_build >= 203) {
-        ext.kotlin_version = "1.4.0"
+        ext.kotlin_version = "1.4.32"
         ext.kotlin_stdlib = "kotlin-stdlib"
         ext.java_version = "11"
     } else {

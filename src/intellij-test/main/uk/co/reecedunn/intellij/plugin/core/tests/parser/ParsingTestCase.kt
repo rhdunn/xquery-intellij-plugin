@@ -214,7 +214,7 @@ abstract class ParsingTestCase<File : PsiFile>(
     // region IntelliJ ParsingTestCase Methods
 
     protected fun <T> addExplicitExtension(instance: LanguageExtension<T>, language: Language, `object`: T) {
-        instance.addExplicitExtension(language, `object`)
+        instance.addExplicitExtension(language, `object`!!)
         Disposer.register(myProject, com.intellij.openapi.Disposable {
             instance.removeExplicitExtension(language, `object`)
         })
