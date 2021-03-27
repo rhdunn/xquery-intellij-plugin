@@ -20,7 +20,6 @@ import com.intellij.codeInsight.completion.InsertionContext
 import com.intellij.codeInsight.completion.OffsetMap
 import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.compat.mock.MockFileDocumentManagerImpl
-import com.intellij.compat.psi.impl.PsiCachedValuesFactory
 import com.intellij.compat.testFramework.PlatformLiteFixture
 import com.intellij.compat.testFramework.registerProgressManager
 import com.intellij.compat.testFramework.registerServiceInstance
@@ -50,6 +49,7 @@ import com.intellij.openapi.vfs.encoding.EncodingManager
 import com.intellij.psi.*
 import com.intellij.psi.codeStyle.*
 import com.intellij.psi.codeStyle.modifier.CodeStyleSettingsModifier
+import com.intellij.psi.impl.PsiCachedValuesFactory
 import com.intellij.psi.impl.PsiFileFactoryImpl
 import com.intellij.psi.impl.source.codeStyle.IndentHelper
 import com.intellij.psi.impl.source.codeStyle.IndentHelperImpl

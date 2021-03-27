@@ -16,8 +16,5 @@
 package com.intellij.compat.psi.impl
 
 // IntelliJ >= 2019.3 changes the constructor parameter to a Project instance.
-typealias PsiCachedValuesFactory = com.intellij.psi.impl.PsiCachedValuesFactory
-
-// IntelliJ >= 2019.3 changes the constructor parameter to a Project instance.
 // IntelliJ >= 2019.3 adds a commitAllDocumentsUnderProgress method.
 typealias PsiDocumentManagerBase = com.intellij.psi.impl.PsiDocumentManagerBase
