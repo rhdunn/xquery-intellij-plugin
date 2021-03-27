@@ -15,14 +15,15 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
+import com.intellij.openapi.util.Key
 import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.TokenSet
 import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.reverse
@@ -36,21 +37,22 @@ import javax.swing.Icon
 
 class XPathParamListPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), XPathParamList, ItemPresentation, XpmSyntaxValidationElement {
+    companion object {
+        private val PRESENTABLE_TEXT = Key.create<String>("PRESENTABLE_TEXT")
+
+        private val PARAM_OR_VARIADIC = TokenSet.create(XPathElementType.PARAM, XPathTokenType.ELLIPSIS)
+    }
     // region XpmSyntaxValidationElement
 
     override val conformanceElement: PsiElement
         get() = reverse(children()).firstOrNull { e -> PARAM_OR_VARIADIC.contains(e.elementType) } ?: firstChild
-
-    companion object {
-        private val PARAM_OR_VARIADIC = TokenSet.create(XPathElementType.PARAM, XPathTokenType.ELLIPSIS)
-    }
 
     // endregion
     // region PsiElement
 
     override fun subtreeChanged() {
         super.subtreeChanged()
-        cachedPresentableText.invalidate()
+        clearUserData(PRESENTABLE_TEXT)
         cachedParams.invalidate()
         cachedArity.invalidate()
     }
@@ -67,14 +69,12 @@ class XPathParamListPsiImpl(node: ASTNode) :
 
     override fun getLocationString(): String? = null
 
-    private val cachedPresentableText = CacheableProperty {
+    override fun getPresentableText(): String? = computeUserDataIfAbsent(PRESENTABLE_TEXT) {
         val params = params.mapNotNull { param ->
             (param as NavigatablePsiElement).presentation?.presentableText
         }.joinToString()
         if (isVariadic) "($params ...)" else "($params)"
     }
-
-    override fun getPresentableText(): String? = cachedPresentableText.get()
 
     // endregion
     // region XPathParamList

@@ -15,11 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
+import com.intellij.openapi.util.Key
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import com.intellij.util.containers.orNull
+import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryIcons
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNumericLiteral
@@ -30,6 +31,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotation
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
+import java.util.*
 import javax.swing.Icon
 
 class XQueryAnnotationPsiImpl(node: ASTNode) :
@@ -37,11 +39,14 @@ class XQueryAnnotationPsiImpl(node: ASTNode) :
     XQueryAnnotation,
     XpmSyntaxValidationElement,
     ItemPresentation {
+    companion object {
+        private val PRESENTABLE_TEXT = Key.create<Optional<String>>("PRESENTABLE_TEXT")
+    }
     // region ASTDelegatePsiElement
 
     override fun subtreeChanged() {
         super.subtreeChanged()
-        cachedPresentableText.invalidate()
+        clearUserData(PRESENTABLE_TEXT)
     }
 
     // endregion
@@ -72,17 +77,15 @@ class XQueryAnnotationPsiImpl(node: ASTNode) :
 
     override fun getLocationString(): String? = null
 
-    private val cachedPresentableText = CacheableProperty {
+    override fun getPresentableText(): String? = computeUserDataIfAbsent(PRESENTABLE_TEXT) {
         val values = values.joinToString { (it as PsiElement).text }
         name?.let {
             if (values.isEmpty())
-                "%${op_qname_presentation(it)}"
+                Optional.of("%${op_qname_presentation(it)}")
             else
-                "%${op_qname_presentation(it)}($values)"
-        }
-    }
-
-    override fun getPresentableText(): String? = cachedPresentableText.get()
+                Optional.of("%${op_qname_presentation(it)}($values)")
+        } ?: Optional.empty()
+    }.orNull()
 
     // endregion
 }

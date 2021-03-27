@@ -17,7 +17,9 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
+import com.intellij.openapi.util.Key
 import com.intellij.util.Range
+import com.intellij.util.containers.orNull
 import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationEx
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
@@ -31,17 +33,21 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDecorator
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmParameter
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
+import java.util.*
 import javax.swing.Icon
 
 class XQueryFunctionDeclPsiImpl(node: ASTNode) :
     XQueryAnnotatedDeclPsiImpl(node),
     XQueryFunctionDecl,
     ItemPresentationEx {
+    companion object {
+        private val PRESENTABLE_TEXT = Key.create<Optional<String>>("PRESENTABLE_TEXT")
+    }
     // region ASTDelegatePsiElement
 
     override fun subtreeChanged() {
         super.subtreeChanged()
-        cachedPresentableText.invalidate()
+        clearUserData(PRESENTABLE_TEXT)
         cachedStructurePresentableText.invalidate()
         cachedFunctionRefPresentableText.invalidate()
     }
@@ -92,14 +98,12 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
 
     override fun getLocationString(): String? = null
 
-    private val cachedPresentableText = CacheableProperty {
-        val name = functionName
-        name?.localName ?: return@CacheableProperty null
-        op_qname_presentation(name)
-    }
-
     // e.g. the documentation tool window title.
-    override fun getPresentableText(): String? = cachedPresentableText.get()
+    override fun getPresentableText(): String? = computeUserDataIfAbsent(PRESENTABLE_TEXT) {
+        val name = functionName
+        name?.localName ?: return@computeUserDataIfAbsent Optional.empty()
+        Optional.ofNullable(op_qname_presentation(name))
+    }.orNull()
 
     // endregion
     // region ItemPresentationEx

@@ -17,8 +17,9 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
+import com.intellij.openapi.util.Key
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import com.intellij.util.containers.orNull
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryItemTypeDecl
 import uk.co.reecedunn.intellij.plugin.xpath.resources.XPathIcons
@@ -26,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
+import java.util.*
 import javax.swing.Icon
 
 class XQueryItemTypeDeclPsiImpl(node: ASTNode) :
@@ -33,11 +35,14 @@ class XQueryItemTypeDeclPsiImpl(node: ASTNode) :
     XQueryItemTypeDecl,
     XpmSyntaxValidationElement,
     ItemPresentation {
+    companion object {
+        private val PRESENTABLE_TEXT = Key.create<Optional<String>>("PRESENTABLE_TEXT")
+    }
     // region ASTDelegatePsiElement
 
     override fun subtreeChanged() {
         super.subtreeChanged()
-        cachedPresentableText.invalidate()
+        clearUserData(PRESENTABLE_TEXT)
     }
 
     // endregion
@@ -64,11 +69,9 @@ class XQueryItemTypeDeclPsiImpl(node: ASTNode) :
 
     override fun getLocationString(): String? = null
 
-    private val cachedPresentableText = CacheableProperty {
-        typeName?.let { op_qname_presentation(it) }
-    }
-
-    override fun getPresentableText(): String? = cachedPresentableText.get()
+    override fun getPresentableText(): String? = computeUserDataIfAbsent(PRESENTABLE_TEXT) {
+        Optional.ofNullable(typeName?.let { op_qname_presentation(it) })
+    }.orNull()
 
     // endregion
     // region SortableTreeElement
