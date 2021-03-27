@@ -17,7 +17,6 @@ package uk.co.reecedunn.intellij.plugin.marklogic.documentation
 
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.util.Key
-import com.intellij.util.containers.orNull
 import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.core.util.UserDataHolderBase
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
@@ -103,7 +102,7 @@ private data class MarkLogicZippedDocumentation(
                 query.bindVariable("marklogic-version", version, "xs:string")
                 docs
             })
-        }.orNull()
+        }.orElse(null)
 
     fun invalidate() {
         clearUserData(APIDOCS)

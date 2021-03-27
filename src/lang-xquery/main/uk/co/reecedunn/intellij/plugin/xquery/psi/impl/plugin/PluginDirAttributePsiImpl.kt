@@ -17,7 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin
 
 import com.intellij.lang.ASTNode
 import com.intellij.openapi.util.Key
-import com.intellij.util.containers.orNull
 import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
 import uk.co.reecedunn.intellij.plugin.core.psi.contains
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
@@ -94,7 +93,7 @@ class PluginDirAttributePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), Plu
                 }
                 else -> XsUntypedAtomic(contents, this)
             })
-        }.orNull()
+        }.orElse(null)
 
     // endregion
     // region XQueryPrologResolver

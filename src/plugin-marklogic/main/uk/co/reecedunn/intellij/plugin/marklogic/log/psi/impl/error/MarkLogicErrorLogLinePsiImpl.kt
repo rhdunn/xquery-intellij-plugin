@@ -18,7 +18,6 @@ package uk.co.reecedunn.intellij.plugin.marklogic.log.psi.impl.error
 import com.intellij.lang.ASTNode
 import com.intellij.openapi.util.Key
 import com.intellij.psi.PsiElement
-import com.intellij.util.containers.orNull
 import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
@@ -40,5 +39,5 @@ class MarkLogicErrorLogLinePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), 
     override val logLevel: PsiElement?
         get() = computeUserDataIfAbsent(LOG_LEVEL) {
             Optional.ofNullable(children().find { it.elementType is ILogLevelElementType })
-        }.orNull()
+        }.orElse(null)
 }

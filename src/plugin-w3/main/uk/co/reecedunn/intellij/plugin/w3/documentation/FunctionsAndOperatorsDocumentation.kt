@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.w3.documentation
 
 import com.intellij.openapi.util.Key
-import com.intellij.util.containers.orNull
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.TextNode
@@ -51,7 +50,7 @@ object FunctionsAndOperatorsDocumentation :
         get() = computeUserDataIfAbsent(DOCUMENT) {
             val file = XQDocDocumentationDownloader.getInstance().load(active, download = true)
             Optional.ofNullable(file?.let { Jsoup.parse(it.inputStream, null, "") })
-        }.orNull()
+        }.orElse(null)
 
     override fun invalidate(source: XpmDocumentationSource) {
         if (source === active) {

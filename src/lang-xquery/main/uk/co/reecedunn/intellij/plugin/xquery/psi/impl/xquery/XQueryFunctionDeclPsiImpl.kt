@@ -19,7 +19,6 @@ import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.util.Key
 import com.intellij.util.Range
-import com.intellij.util.containers.orNull
 import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationEx
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.resources.XPathIcons
@@ -102,7 +101,7 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
         val name = functionName
         name?.localName ?: return@computeUserDataIfAbsent Optional.empty()
         Optional.ofNullable(op_qname_presentation(name))
-    }.orNull()
+    }.orElse(null)
 
     // endregion
     // region ItemPresentationEx
@@ -119,7 +118,7 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
                 Optional.of("${op_qname_presentation(name)}${
                     paramList?.presentation?.presentableText ?: "()"
                 } as ${returnType.typeName}")
-        }.orNull()
+        }.orElse(null)
 
     override fun getPresentableText(type: ItemPresentationEx.Type): String? = when (type) {
         ItemPresentationEx.Type.StructureView -> structurePresentableText

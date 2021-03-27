@@ -18,7 +18,6 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.util.Key
-import com.intellij.util.containers.orNull
 import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.resources.XPathIcons
@@ -76,7 +75,7 @@ class XPathParamPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathParam,
             else
                 Optional.of("\$${op_qname_presentation(name)} as ${type.typeName}")
         } ?: Optional.empty()
-    }.orNull()
+    }.orElse(null)
 
     // endregion
 }

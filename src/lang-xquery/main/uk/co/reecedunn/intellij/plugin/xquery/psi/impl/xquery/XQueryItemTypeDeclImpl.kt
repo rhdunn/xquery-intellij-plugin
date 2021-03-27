@@ -19,7 +19,6 @@ import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.util.Key
 import com.intellij.psi.PsiElement
-import com.intellij.util.containers.orNull
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryItemTypeDecl
 import uk.co.reecedunn.intellij.plugin.xpath.resources.XPathIcons
@@ -71,7 +70,7 @@ class XQueryItemTypeDeclPsiImpl(node: ASTNode) :
 
     override fun getPresentableText(): String? = computeUserDataIfAbsent(PRESENTABLE_TEXT) {
         Optional.ofNullable(typeName?.let { op_qname_presentation(it) })
-    }.orNull()
+    }.orElse(null)
 
     // endregion
     // region SortableTreeElement

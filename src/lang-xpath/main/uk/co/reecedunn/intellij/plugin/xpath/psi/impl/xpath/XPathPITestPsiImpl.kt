@@ -17,7 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.lang.ASTNode
 import com.intellij.openapi.util.Key
-import com.intellij.util.containers.orNull
 import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
@@ -50,7 +49,7 @@ class XPathPITestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathPITes
                     else -> null
                 }
             }.filterNotNull().firstOrNull())
-        }.orNull()
+        }.orElse(null)
 
     // endregion
     // region XdmSequenceType

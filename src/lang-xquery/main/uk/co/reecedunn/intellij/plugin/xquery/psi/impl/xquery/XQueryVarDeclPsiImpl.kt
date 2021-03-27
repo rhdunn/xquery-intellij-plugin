@@ -19,7 +19,6 @@ import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.util.Key
 import com.intellij.psi.PsiElement
-import com.intellij.util.containers.orNull
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.reverse
@@ -102,7 +101,7 @@ class XQueryVarDeclPsiImpl(node: ASTNode) :
             else
                 Optional.of("${op_qname_presentation(name)} as ${type.typeName}")
         } ?: Optional.empty()
-    }.orNull()
+    }.orElse(null)
 
     // endregion
     // region SortableTreeElement
