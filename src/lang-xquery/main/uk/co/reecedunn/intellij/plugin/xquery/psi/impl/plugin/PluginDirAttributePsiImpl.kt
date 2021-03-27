@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2020 Reece H. Dunn
+ * Copyright (C) 2016-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import com.intellij.openapi.util.Key
+import com.intellij.util.containers.orNull
+import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
 import uk.co.reecedunn.intellij.plugin.core.psi.contains
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
@@ -35,13 +36,17 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
+import java.util.*
 
 class PluginDirAttributePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginDirAttribute, XQueryPrologResolver {
+    companion object {
+        private val NODE_VALUE = Key.create<Optional<XsAnyAtomicType>>("NODE_VALUE")
+    }
     // region PsiElement
 
     override fun subtreeChanged() {
         super.subtreeChanged()
-        cachedNodeValue.invalidate()
+        clearUserData(NODE_VALUE)
     }
 
     // endregion
@@ -51,47 +56,45 @@ class PluginDirAttributePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), Plu
         get() = firstChild as? XsQNameValue
 
     override val typedValue: XsAnyAtomicType?
-        get() = cachedNodeValue.get()
-
-    private val cachedNodeValue = CacheableProperty {
-        val qname = nodeName ?: return@CacheableProperty null
-        val attrValue = children().filterIsInstance<XQueryDirAttributeValue>().firstOrNull()
-            ?: return@CacheableProperty null
-        val contents =
-            if (attrValue.contains(XQueryElementType.ENCLOSED_EXPR))
-                null // Cannot evaluate enclosed content expressions statically.
-            else
-                attrValue.children().map { child ->
-                    when (child.elementType) {
-                        XQueryTokenType.XML_ATTRIBUTE_VALUE_START, XQueryTokenType.XML_ATTRIBUTE_VALUE_END ->
-                            null
-                        XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE ->
-                            (child as XQueryPredefinedEntityRef).entityRef.value
-                        XQueryTokenType.XML_CHARACTER_REFERENCE ->
-                            (child as XQueryCharRef).codepoint.toString()
-                        XQueryTokenType.XML_ESCAPED_CHARACTER ->
-                            (child as XPathEscapeCharacter).unescapedCharacter.toString()
-                        else ->
-                            child.text
-                    }
-                }.filterNotNull().joinToString(separator = "")
-        when {
-            contents == null -> {
-                @Suppress("USELESS_CAST") // Needed, otherwise type inference results in `Any?` with warnings.
-                null as XsAnyAtomicType?
-            }
-            qname.prefix?.data == "xmlns" -> {
-                XsAnyUri(contents, XdmUriContext.NamespaceDeclaration, XdmModuleType.MODULE_OR_SCHEMA, this)
-            }
-            qname.localName?.data == "xmlns" && qname.prefix == null -> {
-                XsAnyUri(contents, XdmUriContext.NamespaceDeclaration, XdmModuleType.MODULE_OR_SCHEMA, this)
-            }
-            qname.prefix?.data == "xml" && qname.localName?.data == "id" -> {
-                XsID(contents, this)
-            }
-            else -> XsUntypedAtomic(contents, this)
-        }
-    }
+        get() = computeUserDataIfAbsent(NODE_VALUE) {
+            val qname = nodeName ?: return@computeUserDataIfAbsent Optional.empty()
+            val attrValue = children().filterIsInstance<XQueryDirAttributeValue>().firstOrNull()
+                ?: return@computeUserDataIfAbsent Optional.empty()
+            val contents =
+                if (attrValue.contains(XQueryElementType.ENCLOSED_EXPR))
+                    null // Cannot evaluate enclosed content expressions statically.
+                else
+                    attrValue.children().map { child ->
+                        when (child.elementType) {
+                            XQueryTokenType.XML_ATTRIBUTE_VALUE_START, XQueryTokenType.XML_ATTRIBUTE_VALUE_END ->
+                                null
+                            XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE ->
+                                (child as XQueryPredefinedEntityRef).entityRef.value
+                            XQueryTokenType.XML_CHARACTER_REFERENCE ->
+                                (child as XQueryCharRef).codepoint.toString()
+                            XQueryTokenType.XML_ESCAPED_CHARACTER ->
+                                (child as XPathEscapeCharacter).unescapedCharacter.toString()
+                            else ->
+                                child.text
+                        }
+                    }.filterNotNull().joinToString(separator = "")
+            Optional.ofNullable(when {
+                contents == null -> {
+                    @Suppress("USELESS_CAST") // Needed, otherwise type inference results in `Any?` with warnings.
+                    null as XsAnyAtomicType?
+                }
+                qname.prefix?.data == "xmlns" -> {
+                    XsAnyUri(contents, XdmUriContext.NamespaceDeclaration, XdmModuleType.MODULE_OR_SCHEMA, this)
+                }
+                qname.localName?.data == "xmlns" && qname.prefix == null -> {
+                    XsAnyUri(contents, XdmUriContext.NamespaceDeclaration, XdmModuleType.MODULE_OR_SCHEMA, this)
+                }
+                qname.prefix?.data == "xml" && qname.localName?.data == "id" -> {
+                    XsID(contents, this)
+                }
+                else -> XsUntypedAtomic(contents, this)
+            })
+        }.orNull()
 
     // endregion
     // region XQueryPrologResolver
