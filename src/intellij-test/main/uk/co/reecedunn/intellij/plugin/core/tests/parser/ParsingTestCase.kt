@@ -21,7 +21,6 @@ import com.intellij.codeInsight.completion.OffsetMap
 import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.compat.mock.MockFileDocumentManagerImpl
 import com.intellij.compat.testFramework.PlatformLiteFixture
-import com.intellij.compat.testFramework.registerProgressManager
 import com.intellij.compat.testFramework.registerServiceInstance
 import com.intellij.ide.startup.impl.StartupManagerImpl
 import com.intellij.lang.*
@@ -40,6 +39,8 @@ import com.intellij.openapi.fileTypes.FileType
 import com.intellij.openapi.fileTypes.FileTypeManager
 import com.intellij.openapi.fileTypes.PlainTextLanguage
 import com.intellij.openapi.options.SchemeManagerFactory
+import com.intellij.openapi.progress.ProgressManager
+import com.intellij.openapi.progress.impl.ProgressManagerImpl
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.startup.StartupManager
 import com.intellij.openapi.util.Disposer
@@ -65,6 +66,7 @@ import com.intellij.testFramework.utils.parameterInfo.MockUpdateParameterInfoCon
 import com.intellij.util.CachedValuesManagerImpl
 import com.intellij.util.messages.MessageBus
 import org.jetbrains.annotations.NonNls
+import org.picocontainer.MutablePicoContainer
 import uk.co.reecedunn.intellij.plugin.core.psi.document
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.editor.MockEditorFactoryEx
@@ -99,7 +101,7 @@ abstract class ParsingTestCase<File : PsiFile>(
         // IntelliJ ParsingTestCase setUp
         val app = initApplication()
         val appContainer = app.picoContainer
-        appContainer.registerProgressManager()
+        appContainer.registerComponentInstance(ProgressManager::class.java.name, ProgressManagerImpl())
 
         myProject = MockProjectEx(testRootDisposable)
         val psiManager = MockPsiManager(myProject)
