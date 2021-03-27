@@ -16,9 +16,10 @@
 package uk.co.reecedunn.intellij.plugin.xpm.project.configuration
 
 import com.intellij.compat.extensions.extensionPoint
-import com.intellij.compat.extensions.ExtensionPointListener
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.components.ServiceManager
+import com.intellij.openapi.extensions.ExtensionPointListener
+import com.intellij.openapi.extensions.PluginDescriptor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.openapi.vfs.LocalFileSystem
@@ -29,15 +30,15 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.isAncestorOf
 import uk.co.reecedunn.intellij.plugin.core.vfs.relativePathTo
 
 class XpmProjectConfigurations(private val project: Project) :
-    ExtensionPointListener<XpmProjectConfigurationFactoryBean>(),
+    ExtensionPointListener<XpmProjectConfigurationFactoryBean>,
     Disposable {
     // region ExtensionPointListener
 
-    override fun extensionAdded(extension: XpmProjectConfigurationFactoryBean) {
+    override fun extensionAdded(extension: XpmProjectConfigurationFactoryBean, pluginDescriptor: PluginDescriptor) {
         cachedConfigurations.invalidate()
     }
 
-    override fun extensionRemoved(extension: XpmProjectConfigurationFactoryBean) {
+    override fun extensionRemoved(extension: XpmProjectConfigurationFactoryBean, pluginDescriptor: PluginDescriptor) {
         cachedConfigurations.invalidate()
     }
 
