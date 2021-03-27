@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2020 Reece H. Dunn
+ * Copyright (C) 2018-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import com.intellij.openapi.util.Key
+import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathBracedURILiteral
@@ -28,33 +28,34 @@ import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 
 class XPathBracedURILiteralPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), XPathBracedURILiteral, XpmModulePath {
+    companion object {
+        private val DATA = Key.create<String>("DATA")
+    }
     // region PsiElement
 
     override fun subtreeChanged() {
         super.subtreeChanged()
-        cachedContent.invalidate()
+        clearUserData(DATA)
     }
 
     // endregion
     // region XsAnyUriValue
 
     override val data: String
-        get() = cachedContent.get()!!
+        get() = computeUserDataIfAbsent(DATA) {
+            children().map { child ->
+                when (child.elementType) {
+                    XPathTokenType.BRACED_URI_LITERAL_START, XPathTokenType.BRACED_URI_LITERAL_END ->
+                        null
+                    else ->
+                        child.text
+                }
+            }.filterNotNull().joinToString(separator = "")
+        }
 
     override val context: XdmUriContext = XdmUriContext.Namespace
 
     override val moduleTypes: Array<XdmModuleType> = XdmModuleType.MODULE_OR_SCHEMA
-
-    private val cachedContent = CacheableProperty {
-        children().map { child ->
-            when (child.elementType) {
-                XPathTokenType.BRACED_URI_LITERAL_START, XPathTokenType.BRACED_URI_LITERAL_END ->
-                    null
-                else ->
-                    child.text
-            }
-        }.filterNotNull().joinToString(separator = "")
-    }
 
     // endregion
 }

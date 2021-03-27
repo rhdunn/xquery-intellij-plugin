@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2020 Reece H. Dunn
+ * Copyright (C) 2018-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,16 +15,16 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.openapi.util.Key
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.LiteralTextEscaper
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiLanguageInjectionHost
-import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.lang.injection.LiteralTextEscaperImpl
 import uk.co.reecedunn.intellij.plugin.core.lang.injection.LiteralTextHost
 import uk.co.reecedunn.intellij.plugin.core.lang.injection.PsiElementTextDecoder
+import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
 import uk.co.reecedunn.intellij.plugin.core.psi.createElement
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
@@ -33,11 +33,14 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
 class XPathStringLiteralPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), LiteralTextHost, XPathStringLiteral {
+    companion object {
+        private val DATA = Key.create<String>("DATA")
+    }
     // region PsiElement
 
     override fun subtreeChanged() {
         super.subtreeChanged()
-        cachedData.invalidate()
+        clearUserData(DATA)
     }
 
     // endregion
@@ -95,13 +98,12 @@ class XPathStringLiteralPsiImpl(node: ASTNode) :
     // region XsStringValue
 
     override val data: String
-        get() = cachedData.get()!!
-
-    private val cachedData: CacheableProperty<String> = CacheableProperty {
-        val decoded = StringBuilder()
-        children().filterIsInstance<PsiElementTextDecoder>().forEach { decoder -> decoder.decode(decoded) }
-        decoded.toString()
-    }
+        get() = computeUserDataIfAbsent(DATA) {
+            val decoded = StringBuilder()
+            children().filterIsInstance<PsiElementTextDecoder>().forEach { decoder -> decoder.decode(decoded) }
+            decoded.toString()
+        }
 
     // endregion
 }
+
