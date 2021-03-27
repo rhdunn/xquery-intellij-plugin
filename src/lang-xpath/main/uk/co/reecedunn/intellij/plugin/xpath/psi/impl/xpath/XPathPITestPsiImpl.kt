@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2020 Reece H. Dunn
+ * Copyright (C) 2016-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,39 +15,42 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import com.intellij.openapi.util.Key
+import com.intellij.util.containers.orNull
+import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.psi.XsNCName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPITest
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
+import java.util.*
 
 class XPathPITestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathPITest {
+    companion object {
+        private val NODE_NAME = Key.create<Optional<XsAnyAtomicType>>("NODE_NAME")
+    }
     // region ASTDelegatePsiElement
 
     override fun subtreeChanged() {
         super.subtreeChanged()
-        cachedNodeName.invalidate()
+        clearUserData(NODE_NAME)
     }
 
     // endregion
     // region XPathPITest
 
-    private val cachedNodeName = CacheableProperty {
-        children().map {
-            when (it) {
-                is XsQNameValue -> it.localName
-                // TODO: Provide a way of validating that the StringLiteral is an NCName [XPTY0004].
-                is XPathStringLiteral -> XsNCName((it as XsStringValue).data.trim(), it)
-                else -> null
-            }
-        }.filterNotNull().firstOrNull()
-    }
-
     override val nodeName: XsAnyAtomicType?
-        get() = cachedNodeName.get()
+        get() = computeUserDataIfAbsent(NODE_NAME) {
+            Optional.ofNullable(children().map {
+                when (it) {
+                    is XsQNameValue -> it.localName
+                    // TODO: Provide a way of validating that the StringLiteral is an NCName [XPTY0004].
+                    is XPathStringLiteral -> XsNCName((it as XsStringValue).data.trim(), it)
+                    else -> null
+                }
+            }.filterNotNull().firstOrNull())
+        }.orNull()
 
     // endregion
     // region XdmSequenceType
