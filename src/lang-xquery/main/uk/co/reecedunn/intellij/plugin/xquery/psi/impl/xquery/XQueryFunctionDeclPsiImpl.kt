@@ -42,13 +42,14 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
     ItemPresentationEx {
     companion object {
         private val PRESENTABLE_TEXT = Key.create<Optional<String>>("PRESENTABLE_TEXT")
+        private val STRUCTURE_PRESENTABLE_TEXT = Key.create<Optional<String>>("STRUCTURE_PRESENTABLE_TEXT")
     }
     // region ASTDelegatePsiElement
 
     override fun subtreeChanged() {
         super.subtreeChanged()
         clearUserData(PRESENTABLE_TEXT)
-        cachedStructurePresentableText.invalidate()
+        clearUserData(STRUCTURE_PRESENTABLE_TEXT)
         cachedFunctionRefPresentableText.invalidate()
     }
 
@@ -108,22 +109,23 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
     // endregion
     // region ItemPresentationEx
 
-    private val cachedStructurePresentableText = CacheableProperty {
-        val name = functionName
-        name?.localName ?: return@CacheableProperty null
+    private val structurePresentableText: String?
+        get() = computeUserDataIfAbsent(STRUCTURE_PRESENTABLE_TEXT) {
+            val name = functionName
+            name?.localName ?: return@computeUserDataIfAbsent Optional.empty()
 
-        val returnType = returnType
-        if (returnType == null)
-            "${op_qname_presentation(name)}${paramList?.presentation?.presentableText ?: "()"}"
-        else
-            "${op_qname_presentation(name)}${
-                paramList?.presentation?.presentableText ?: "()"
-            } as ${returnType.typeName}"
-    }
+            val returnType = returnType
+            if (returnType == null)
+                Optional.of("${op_qname_presentation(name)}${paramList?.presentation?.presentableText ?: "()"}")
+            else
+                Optional.of("${op_qname_presentation(name)}${
+                    paramList?.presentation?.presentableText ?: "()"
+                } as ${returnType.typeName}")
+        }.orNull()
 
     override fun getPresentableText(type: ItemPresentationEx.Type): String? = when (type) {
-        ItemPresentationEx.Type.StructureView -> cachedStructurePresentableText.get()
-        ItemPresentationEx.Type.NavBarPopup -> cachedStructurePresentableText.get()
+        ItemPresentationEx.Type.StructureView -> structurePresentableText
+        ItemPresentationEx.Type.NavBarPopup -> structurePresentableText
         else -> presentableText
     }
 
