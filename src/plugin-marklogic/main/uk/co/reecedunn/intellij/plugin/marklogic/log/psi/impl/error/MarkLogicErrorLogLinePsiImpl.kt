@@ -15,25 +15,30 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.log.psi.impl.error
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.openapi.util.Key
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import com.intellij.util.containers.orNull
+import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.marklogic.log.ast.error.MarkLogicErrorLogLine
 import uk.co.reecedunn.intellij.plugin.marklogic.log.lexer.ILogLevelElementType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyAtomicType
+import java.util.*
 
 class MarkLogicErrorLogLinePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), MarkLogicErrorLogLine {
-    override fun subtreeChanged() {
-        super.subtreeChanged()
-        cachedLogLevel.invalidate()
+    companion object {
+        private val LOG_LEVEL = Key.create<Optional<PsiElement>>("LOG_LEVEL")
     }
 
-    private val cachedLogLevel = CacheableProperty {
-        children().find { it.elementType is ILogLevelElementType }
+    override fun subtreeChanged() {
+        super.subtreeChanged()
+        clearUserData(LOG_LEVEL)
     }
 
     override val logLevel: PsiElement?
-        get() = cachedLogLevel.get()
+        get() = computeUserDataIfAbsent(LOG_LEVEL) {
+            Optional.ofNullable(children().find { it.elementType is ILogLevelElementType })
+        }.orNull()
 }
