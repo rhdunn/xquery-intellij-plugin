@@ -16,8 +16,10 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.documentation
 
 import com.intellij.navigation.ItemPresentation
+import com.intellij.openapi.util.Key
+import com.intellij.util.containers.orNull
 import com.intellij.util.text.nullize
-import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.util.UserDataHolderBase
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.core.zip.unzip
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
@@ -29,9 +31,11 @@ import uk.co.reecedunn.intellij.plugin.processor.run.RunnableQueryProvider
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.*
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyAtomicType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.documentation.XpmDocumentationSource
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
 import java.io.File
+import java.util.*
 
 private class FunctionDocumentation(docs: List<String?>) : XQDocFunctionDocumentation {
     override val moduleTypes: Array<XdmModuleType> = arrayOf(XdmModuleType.XQuery, XdmModuleType.XPath)
@@ -52,7 +56,17 @@ private class FunctionDocumentation(docs: List<String?>) : XQDocFunctionDocument
 private data class MarkLogicZippedDocumentation(
     override val version: String,
     private val zip: String
-) : XpmDocumentationSource {
+) : UserDataHolderBase(), XpmDocumentationSource {
+    companion object {
+        private val APIDOCS = Key.create<Optional<XmlDocument>>("APIDOCS")
+
+        private val NAMESPACES = mapOf(
+            "apidoc" to "http://marklogic.com/xdmp/apidoc"
+        )
+
+        // language=xml
+        private const val ML_DOC_TEMPLATE = "<apidoc:apidoc xmlns:apidoc=\"http://marklogic.com/xdmp/apidoc\"/>"
+    }
     // region XQDocDocumentationSource
 
     override val presentation: ItemPresentation = MarkLogic
@@ -71,26 +85,30 @@ private data class MarkLogicZippedDocumentation(
         query
     }
 
-    private val apidocs = CacheableProperty {
-        XQDocDocumentationDownloader.getInstance().load(this, download = true)?.let {
-            val docs = XmlDocument.parse(ML_DOC_TEMPLATE, NAMESPACES)
-            it.inputStream.unzip { entry, stream ->
-                if (entry.name.contains("pubs/raw/apidoc") && entry.name.endsWith(".xml")) {
-                    val xml = XmlDocument.parse(stream, NAMESPACES)
-                    if (xml.root.`is`("apidoc:module")) {
-                        val node = docs.doc.importNode(xml.root.element, true)
-                        docs.root.appendChild(node)
+    private val apidocs: XmlDocument?
+        get() = computeUserDataIfAbsent(APIDOCS) {
+            Optional.ofNullable(XQDocDocumentationDownloader.getInstance().load(this, download = true)?.let {
+                val docs = XmlDocument.parse(ML_DOC_TEMPLATE, NAMESPACES)
+                it.inputStream.unzip { entry, stream ->
+                    if (entry.name.contains("pubs/raw/apidoc") && entry.name.endsWith(".xml")) {
+                        val xml = XmlDocument.parse(stream, NAMESPACES)
+                        if (xml.root.`is`("apidoc:module")) {
+                            val node = docs.doc.importNode(xml.root.element, true)
+                            docs.root.appendChild(node)
+                        }
                     }
                 }
-            }
-            docs.save(File(it.path.replace("\\.zip$".toRegex(), ".xml")))
-            query.bindContextItem(docs, "document-node()")
-            query.bindVariable("marklogic-version", version, "xs:string")
-            docs
-        }
-    }
+                docs.save(File(it.path.replace("\\.zip$".toRegex(), ".xml")))
+                query.bindContextItem(docs, "document-node()")
+                query.bindVariable("marklogic-version", version, "xs:string")
+                docs
+            })
+        }.orNull()
 
-    fun invalidate() = apidocs.invalidate()
+    fun invalidate() {
+        clearUserData(APIDOCS)
+        query.bindContextItem("1", "xs:integer") // Can't assign an empty sequence.
+    }
 
     private fun isMarkLogicNamespace(namespace: String?): Boolean = when {
         namespace == null -> false
@@ -104,7 +122,7 @@ private data class MarkLogicZippedDocumentation(
 
     fun lookup(ref: XpmFunctionReference): XQDocFunctionDocumentation? = ref.functionName?.let {
         if (isMarkLogicNamespace(it.namespace?.data)) {
-            apidocs.get()
+            apidocs // Ensure the apidocs are loaded
             query.bindVariable("namespace", it.namespace?.data, "xs:string")
             query.bindVariable("local-name", it.localName?.data, "xs:string")
             val ret = query.run().results.map { result -> (result.value as String).nullize() }
@@ -116,15 +134,6 @@ private data class MarkLogicZippedDocumentation(
     }
 
     // endregion
-
-    companion object {
-        private val NAMESPACES = mapOf(
-            "apidoc" to "http://marklogic.com/xdmp/apidoc"
-        )
-
-        // language=xml
-        private const val ML_DOC_TEMPLATE = "<apidoc:apidoc xmlns:apidoc=\"http://marklogic.com/xdmp/apidoc\"/>"
-    }
 }
 
 object MarkLogicProductDocumentation : XQDocDocumentationSourceProvider, XQDocDocumentationIndex {
