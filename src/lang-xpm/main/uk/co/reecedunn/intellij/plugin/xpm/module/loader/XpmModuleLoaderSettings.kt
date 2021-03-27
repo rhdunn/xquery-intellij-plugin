@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2020 Reece H. Dunn
+ * Copyright (C) 2019-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,11 +20,13 @@ import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.application.runInEdt
 import com.intellij.openapi.components.*
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.util.Key
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.PsiElement
 import com.intellij.util.xmlb.XmlSerializerUtil
-import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
 import uk.co.reecedunn.intellij.plugin.core.progress.TaskManager
+import uk.co.reecedunn.intellij.plugin.core.util.UserDataHolderBase
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyAtomicType
 import uk.co.reecedunn.intellij.plugin.xpm.resources.XpmBundle
 import uk.co.reecedunn.intellij.plugin.xpm.context.XpmStaticContext
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePath
@@ -32,6 +34,8 @@ import uk.co.reecedunn.intellij.plugin.xpm.module.path.paths
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmVendorType
+import java.util.*
+import kotlin.collections.ArrayList
 
 data class XpmModuleLoaderSettingsData(
     var databasePath: String = "",
@@ -40,8 +44,16 @@ data class XpmModuleLoaderSettingsData(
 
 @State(name = "XIJPModuleLoaderSettings", storages = [Storage(StoragePathMacros.WORKSPACE_FILE)])
 class XpmModuleLoaderSettings(val project: Project) :
+    UserDataHolderBase(),
     XpmModuleLoader,
     PersistentStateComponent<XpmModuleLoaderSettingsData> {
+    companion object {
+        private val LOADERS = Key.create<List<XpmModuleLoader>>("LOADERS")
+
+        fun getInstance(project: Project): XpmModuleLoaderSettings {
+            return ServiceManager.getService(project, XpmModuleLoaderSettings::class.java)
+        }
+    }
     // region Settings :: Module Loaders
 
     private val loaderBeans: List<XpmModuleLoaderBean> = arrayListOf(
@@ -52,19 +64,22 @@ class XpmModuleLoaderSettings(val project: Project) :
         XpmModuleLoaderBean("relative", null)
     )
 
-    private val loaders = CacheableProperty { loaderBeans.mapNotNull { it.loader } }
+    private val loaders: Sequence<XpmModuleLoader>
+        get() = computeUserDataIfAbsent(LOADERS) {
+            loaderBeans.mapNotNull { it.loader }
+        }.asSequence()
 
     private fun registerModulePath(path: String) {
         if (loaderBeans.find { it.name == "fixed" && it.context == path } == null) {
             (loaderBeans as ArrayList).add(XpmModuleLoaderBean("fixed", path))
-            loaders.invalidate()
+            clearUserData(LOADERS)
         }
     }
 
     private fun unregisterModulePath(path: String) {
         loaderBeans.find { it.name == "fixed" && it.context == path }?.let {
             (loaderBeans as ArrayList).remove(it)
-            loaders.invalidate()
+            clearUserData(LOADERS)
         }
     }
 
@@ -151,15 +166,15 @@ class XpmModuleLoaderSettings(val project: Project) :
     // region XpmModuleLoader
 
     override fun resolve(path: XpmModulePath, context: VirtualFile?): PsiElement? {
-        return loaders.get()?.asSequence()?.mapNotNull { it.resolve(path, context) }?.firstOrNull()
+        return loaders.mapNotNull { it.resolve(path, context) }.firstOrNull()
     }
 
     override fun context(path: XpmModulePath, context: VirtualFile?): XpmStaticContext? {
-        return loaders.get()?.asSequence()?.mapNotNull { it.context(path, context) }?.firstOrNull()
+        return loaders.mapNotNull { it.context(path, context) }.firstOrNull()
     }
 
     override fun relativePathTo(file: VirtualFile, project: Project): String? {
-        return loaders.get()?.asSequence()?.mapNotNull { it.relativePathTo(file, project) }?.firstOrNull()
+        return loaders.mapNotNull { it.relativePathTo(file, project) }.firstOrNull()
     }
 
     // endregion
@@ -177,12 +192,6 @@ class XpmModuleLoaderSettings(val project: Project) :
     }
 
     // endregion
-
-    companion object {
-        fun getInstance(project: Project): XpmModuleLoaderSettings {
-            return ServiceManager.getService(project, XpmModuleLoaderSettings::class.java)
-        }
-    }
 }
 
 fun XsAnyUriValue.resolve(): PsiElement? = element?.let { this.resolve(it) }
