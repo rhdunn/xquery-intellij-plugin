@@ -15,16 +15,22 @@
  */
 package uk.co.reecedunn.intellij.plugin.w3.documentation
 
+import com.intellij.openapi.util.Key
+import com.intellij.util.containers.orNull
 import org.jsoup.Jsoup
+import org.jsoup.nodes.Document
 import org.jsoup.nodes.TextNode
-import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.util.UserDataHolderBase
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyAtomicType
 import uk.co.reecedunn.intellij.plugin.xpath.lang.FunctionsAndOperatorsSpec
 import uk.co.reecedunn.intellij.plugin.xpm.lang.documentation.XpmDocumentationSource
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.*
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
+import java.util.*
 
-object FunctionsAndOperatorsDocumentation : XQDocDocumentationSourceProvider, XQDocDocumentationIndex {
+object FunctionsAndOperatorsDocumentation :
+    UserDataHolderBase(), XQDocDocumentationSourceProvider, XQDocDocumentationIndex {
     // region Namespaces
 
     private val NAMESPACES_31 = mapOf(
@@ -37,16 +43,19 @@ object FunctionsAndOperatorsDocumentation : XQDocDocumentationSourceProvider, XQ
     // endregion
     // region XQDocDocumentationIndex
 
+    private val DOCUMENT = Key.create<Optional<Document>>("DOCUMENT")
+
     private val active = FunctionsAndOperatorsSpec.REC_3_1_20170321 as XpmDocumentationSource
 
-    private val doc = CacheableProperty {
-        val file = XQDocDocumentationDownloader.getInstance().load(active, download = true)
-        file?.let { Jsoup.parse(it.inputStream, null, "") }
-    }
+    private val doc: Document?
+        get() = computeUserDataIfAbsent(DOCUMENT) {
+            val file = XQDocDocumentationDownloader.getInstance().load(active, download = true)
+            Optional.ofNullable(file?.let { Jsoup.parse(it.inputStream, null, "") })
+        }.orNull()
 
     override fun invalidate(source: XpmDocumentationSource) {
         if (source === active) {
-            doc.invalidate()
+            clearUserData(DOCUMENT)
         }
     }
 
@@ -54,7 +63,7 @@ object FunctionsAndOperatorsDocumentation : XQDocDocumentationSourceProvider, XQ
         val prefix = NAMESPACES_31[ref.functionName?.namespace?.data] ?: return null
         val localName = ref.functionName?.localName?.data ?: return null
         val lookupName = "$prefix:$localName"
-        val match = doc.get()?.select("h3 > a, h4 > a")?.firstOrNull {
+        val match = doc?.select("h3 > a, h4 > a")?.firstOrNull {
             val parts = (it.nextSibling() as? TextNode)?.text()?.split(" ") ?: return@firstOrNull false
             val name = parts.asReversed().find { part -> part.isNotEmpty() }
             name == lookupName
