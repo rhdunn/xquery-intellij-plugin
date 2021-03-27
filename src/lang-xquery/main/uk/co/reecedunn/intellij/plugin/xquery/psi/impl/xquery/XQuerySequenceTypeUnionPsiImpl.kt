@@ -15,10 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.openapi.util.Key
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.reverse
@@ -35,11 +35,14 @@ class XQuerySequenceTypeUnionPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XQuerySequenceTypeUnion,
     XpmSyntaxValidationElement {
+    companion object {
+        private val TYPE_NAME = Key.create<String>("TYPE_NAME")
+    }
     // region ASTDelegatePsiElement
 
     override fun subtreeChanged() {
         super.subtreeChanged()
-        cachedTypeName.invalidate()
+        clearUserData(TYPE_NAME)
     }
 
     // endregion
@@ -60,16 +63,14 @@ class XQuerySequenceTypeUnionPsiImpl(node: ASTNode) :
     // endregion
     // region XdmSequenceType
 
-    private val cachedTypeName = CacheableProperty {
-        val name = types.joinToString(" | ") { it.typeName }
-        if (isParenthesized)
-            "($name)"
-        else
-            name
-    }
-
     override val typeName: String
-        get() = cachedTypeName.get()!!
+        get() = computeUserDataIfAbsent(TYPE_NAME) {
+            val name = types.joinToString(" | ") { it.typeName }
+            if (isParenthesized)
+                "($name)"
+            else
+                name
+        }
 
     override val itemType: XdmItemType
         get() = XdmSingleItemType

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2019-2020 Reece H. Dunn
+ * Copyright (C) 2016, 2019-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,10 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.openapi.util.Key
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathElementTest
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
@@ -32,11 +32,14 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationEl
 
 class XPathElementTestPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), XpmSyntaxValidationElement, XPathElementTest {
+    companion object {
+        private val TYPE_NAME = Key.create<String>("TYPE_NAME")
+    }
     // region ASTDelegatePsiElement
 
     override fun subtreeChanged() {
         super.subtreeChanged()
-        cachedTypeName.invalidate()
+        clearUserData(TYPE_NAME)
     }
 
     // endregion
@@ -60,20 +63,18 @@ class XPathElementTestPsiImpl(node: ASTNode) :
     // endregion
     // region XdmSequenceType
 
-    private val cachedTypeName = CacheableProperty {
-        val name = nodeName
-        val type = nodeType
-        when {
-            name == null -> {
-                type?.let { "element(*,${type.typeName})" } ?: "element()"
-            }
-            type == null -> "element(${op_qname_presentation(name)})"
-            else -> "element(${op_qname_presentation(name)},${type.typeName})"
-        }
-    }
-
     override val typeName: String
-        get() = cachedTypeName.get()!!
+        get() = computeUserDataIfAbsent(TYPE_NAME) {
+            val name = nodeName
+            val type = nodeType
+            when {
+                name == null -> {
+                    type?.let { "element(*,${type.typeName})" } ?: "element()"
+                }
+                type == null -> "element(${op_qname_presentation(name)})"
+                else -> "element(${op_qname_presentation(name)},${type.typeName})"
+            }
+        }
 
     override val itemType: XdmItemType
         get() = this

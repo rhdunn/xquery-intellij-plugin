@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2019-2020 Reece H. Dunn
+ * Copyright (C) 2016, 2019-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import com.intellij.openapi.util.Key
+import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathSchemaElementTest
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
@@ -26,11 +26,14 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
 class XPathSchemaElementTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathSchemaElementTest {
+    companion object {
+        private val TYPE_NAME = Key.create<String>("TYPE_NAME")
+    }
     // region ASTDelegatePsiElement
 
     override fun subtreeChanged() {
         super.subtreeChanged()
-        cachedTypeName.invalidate()
+        clearUserData(TYPE_NAME)
     }
 
     // endregion
@@ -42,12 +45,10 @@ class XPathSchemaElementTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
     // endregion
     // region XdmSequenceType
 
-    private val cachedTypeName = CacheableProperty {
-        nodeName?.let { "schema-element(${op_qname_presentation(it)})" } ?: "schema-element(<unknown>)"
-    }
-
     override val typeName: String
-        get() = cachedTypeName.get()!!
+        get() = computeUserDataIfAbsent(TYPE_NAME) {
+            nodeName?.let { "schema-element(${op_qname_presentation(it)})" } ?: "schema-element(<unknown>)"
+        }
 
     override val itemType: XdmItemType
         get() = this

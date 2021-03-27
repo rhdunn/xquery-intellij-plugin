@@ -15,11 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.openapi.util.Key
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.TokenSet
-import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathRecordTest
@@ -31,11 +31,16 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationEl
 
 class XPathRecordTestPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), XPathRecordTest, XpmSyntaxValidationElement {
+    companion object {
+        private val TYPE_NAME = Key.create<String>("TYPE_NAME")
+
+        val CONFORMANCE_TOKENS = TokenSet.create(XPathTokenType.K_RECORD, XPathTokenType.STAR)
+    }
     // region ASTDelegatePsiElement
 
     override fun subtreeChanged() {
         super.subtreeChanged()
-        cachedTypeName.invalidate()
+        clearUserData(TYPE_NAME)
     }
 
     // endregion
@@ -50,37 +55,35 @@ class XPathRecordTestPsiImpl(node: ASTNode) :
     // endregion
     // region XdmSequenceType
 
-    private val cachedTypeName = CacheableProperty {
-        val fields = fields.map {
-            val fieldName = it.fieldName.data.let { name ->
-                if (name.contains("\\s".toRegex()))
-                    "\"$name\""
-                else
-                    name
-            }
-            val name = if (it.isOptional) "$fieldName?" else fieldName
-            it.fieldType?.let { type ->
-                when (it.fieldSeparator) {
-                    XPathTokenType.QNAME_SEPARATOR, XPathTokenType.ELVIS -> when (firstChild.elementType) {
-                        XPathTokenType.K_TUPLE -> "$name: ${type.typeName}"
-                        else -> "$name as ${type.typeName}"
-                    }
-                    XPathTokenType.K_AS -> "$name as ${type.typeName}"
-                    else -> name
-                }
-            } ?: name
-        }.filterNotNull().joinToString()
-
-        val name = firstChild.text
-        when {
-            fields == "" -> "map(*)"
-            isExtensible -> "$name($fields, *)"
-            else -> "$name($fields)"
-        }
-    }
-
     override val typeName: String
-        get() = cachedTypeName.get()!!
+        get() = computeUserDataIfAbsent(TYPE_NAME) {
+            val fields = fields.map {
+                val fieldName = it.fieldName.data.let { name ->
+                    if (name.contains("\\s".toRegex()))
+                        "\"$name\""
+                    else
+                        name
+                }
+                val name = if (it.isOptional) "$fieldName?" else fieldName
+                it.fieldType?.let { type ->
+                    when (it.fieldSeparator) {
+                        XPathTokenType.QNAME_SEPARATOR, XPathTokenType.ELVIS -> when (firstChild.elementType) {
+                            XPathTokenType.K_TUPLE -> "$name: ${type.typeName}"
+                            else -> "$name as ${type.typeName}"
+                        }
+                        XPathTokenType.K_AS -> "$name as ${type.typeName}"
+                        else -> name
+                    }
+                } ?: name
+            }.filterNotNull().joinToString()
+
+            val name = firstChild.text
+            when {
+                fields == "" -> "map(*)"
+                isExtensible -> "$name($fields, *)"
+                else -> "$name($fields)"
+            }
+        }
 
     override val itemType: XdmItemType
         get() = this
@@ -99,10 +102,6 @@ class XPathRecordTestPsiImpl(node: ASTNode) :
 
     override val conformanceElement: PsiElement
         get() = findChildByType(CONFORMANCE_TOKENS) ?: firstChild
-
-    companion object {
-        val CONFORMANCE_TOKENS = TokenSet.create(XPathTokenType.K_RECORD, XPathTokenType.STAR)
-    }
 
     // endregion
 }

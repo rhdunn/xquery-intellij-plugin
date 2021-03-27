@@ -15,11 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
+import com.intellij.openapi.util.Key
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.reverse
@@ -35,11 +35,14 @@ class XPathTypedFunctionTestPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XPathTypedFunctionTest,
     XpmSyntaxValidationElement {
+    companion object {
+        private val TYPE_NAME = Key.create<String>("TYPE_NAME")
+    }
     // region ASTDelegatePsiElement
 
     override fun subtreeChanged() {
         super.subtreeChanged()
-        cachedTypeName.invalidate()
+        clearUserData(TYPE_NAME)
     }
 
     // endregion
@@ -60,16 +63,15 @@ class XPathTypedFunctionTestPsiImpl(node: ASTNode) :
     // endregion
     // region XdmSequenceType
 
-    private val cachedTypeName = CacheableProperty {
-        val returnType = returnType?.typeName ?: "item()*"
-        when (val annotations = annotations.mapNotNull { (it as ItemPresentation).presentableText }.joinToString(" ")) {
-            "" -> "function(${paramTypes.joinToString { it.typeName }}) as $returnType"
-            else -> "$annotations function(${paramTypes.joinToString { it.typeName }}) as $returnType"
-        }
-    }
-
     override val typeName: String
-        get() = cachedTypeName.get()!!
+        get() = computeUserDataIfAbsent(TYPE_NAME) {
+            val returnType = returnType?.typeName ?: "item()*"
+            val annotations = annotations.mapNotNull { (it as ItemPresentation).presentableText }.joinToString(" ")
+            when (annotations) {
+                "" -> "function(${paramTypes.joinToString { it.typeName }}) as $returnType"
+                else -> "$annotations function(${paramTypes.joinToString { it.typeName }}) as $returnType"
+            }
+        }
 
     override val itemType: XdmItemType
         get() = this

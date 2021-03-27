@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017, 2019-2020 Reece H. Dunn
+ * Copyright (C) 2017, 2019-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,10 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.openapi.util.Key
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.core.data.CacheableProperty
+import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathLocalUnionType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnyUnionType
@@ -29,11 +29,14 @@ class XPathLocalUnionTypePsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XPathLocalUnionType,
     XpmSyntaxValidationElement {
+    companion object {
+        private val TYPE_NAME = Key.create<String>("TYPE_NAME")
+    }
     // region ASTDelegatePsiElement
 
     override fun subtreeChanged() {
         super.subtreeChanged()
-        cachedTypeName.invalidate()
+        clearUserData(TYPE_NAME)
     }
 
     // endregion
@@ -45,12 +48,10 @@ class XPathLocalUnionTypePsiImpl(node: ASTNode) :
     // endregion
     // region XdmSequenceType
 
-    private val cachedTypeName = CacheableProperty {
-        "union(${memberTypes.mapNotNull { it.typeName }.joinToString()})"
-    }
-
     override val typeName: String
-        get() = cachedTypeName.get()!!
+        get() = computeUserDataIfAbsent(TYPE_NAME) {
+            "union(${memberTypes.mapNotNull { it.typeName }.joinToString()})"
+        }
 
     override val itemType: XdmItemType
         get() = this
