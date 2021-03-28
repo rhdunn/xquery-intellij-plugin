@@ -13,12 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpm.optree.item
+package uk.co.reecedunn.intellij.plugin.xpm.optree.expr.impl
 
+import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 
-interface XpmMapEntry {
-    val keyExpression: XpmExpression?
+class XsNCNameExpression(ncname: XsNCNameValue) : XpmExpression, XsNCNameValue {
+    override val expressionElement: PsiElement? = null
 
-    val valueExpression: XpmExpression?
+    override val data: String = ncname.data
 }

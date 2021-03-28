@@ -976,7 +976,8 @@ The *entries* of a *map expression* are the *map entries* that constitute
 the constructed map.
 
 The *key expression* of a *map entry* is the expression used to calculate
-the key name, or the atomic value of the key name.
+the key name. For keyword arguments this is the `xs:NCName` that specifies
+the parameter or map key name.
 
 The *value expression* of a *map entry* is the expression used to calculate
 the entry value.

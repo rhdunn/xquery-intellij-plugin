@@ -15,19 +15,32 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.openapi.util.Key
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathKeywordArgument
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.impl.XsNCNameExpression
 
 class XPathKeywordArgumentPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XPathKeywordArgument,
     XpmSyntaxValidationElement {
+    companion object {
+        private val KEY_EXPRESSION = Key.create<XpmExpression>("KEY_EXPRESSION")
+    }
+    // region ASTDelegatePsiElement
+
+    override fun subtreeChanged() {
+        super.subtreeChanged()
+        clearUserData(KEY_EXPRESSION)
+    }
+
+    // endregion
     // region XpmSyntaxValidationElement
 
     override val conformanceElement: PsiElement
@@ -36,8 +49,10 @@ class XPathKeywordArgumentPsiImpl(node: ASTNode) :
     // endregion
     // region XPathKeywordArgument
 
-    override val keyExpression: Any?
-        get() = (firstChild as XsQNameValue).localName
+    override val keyExpression: XpmExpression
+        get() = computeUserDataIfAbsent(KEY_EXPRESSION) {
+            XsNCNameExpression((firstChild as XsQNameValue).localName!!)
+        }
 
     override val valueExpression: XpmExpression?
         get() = firstChild.siblings().filterIsInstance<XpmExpression>().firstOrNull()
