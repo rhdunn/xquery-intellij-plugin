@@ -28,6 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.blockOpen
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathInlineFunctionExprPsiImpl
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.impl.XpmEmptyExpression
@@ -45,7 +46,6 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
         private val PRESENTABLE_TEXT = Key.create<Optional<String>>("PRESENTABLE_TEXT")
         private val STRUCTURE_PRESENTABLE_TEXT = Key.create<Optional<String>>("STRUCTURE_PRESENTABLE_TEXT")
         private val FUNCTION_REF_PRESENTABLE_TEXT = Key.create<String>("FUNCTION_REF_PRESENTABLE_TEXT")
-        private val FUNCTION_BODY = Key.create<Optional<XpmExpression>>("FUNCTION_BODY")
     }
     // region ASTDelegatePsiElement
 
@@ -54,7 +54,6 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
         clearUserData(PRESENTABLE_TEXT)
         clearUserData(STRUCTURE_PRESENTABLE_TEXT)
         clearUserData(FUNCTION_REF_PRESENTABLE_TEXT)
-        clearUserData(FUNCTION_BODY)
     }
 
     // endregion
@@ -87,11 +86,10 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
         }
 
     override val functionBody: XpmExpression?
-        get() = computeUserDataIfAbsent(FUNCTION_BODY) {
-            val body = children().filterIsInstance<XpmExpression>().firstOrNull() as? PsiElement
-                ?: return@computeUserDataIfAbsent Optional.empty()
-            Optional.of(body.children().filterIsInstance<XpmExpression>().firstOrNull() ?: XpmEmptyExpression)
-        }.orElse(null)
+        get() = when (blockOpen) {
+            null -> null
+            else -> children().filterIsInstance<XpmExpression>().firstOrNull() ?: XpmEmptyExpression
+        }
 
     // endregion
     // region NavigationItem

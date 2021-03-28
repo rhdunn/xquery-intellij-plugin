@@ -1149,7 +1149,7 @@ class XQueryParser : XPathParser() {
             val bodyType = if (firstAnnotation === XQueryTokenType.K_SEQUENTIAL)
                 XQueryElementType.BLOCK
             else
-                XQueryElementType.FUNCTION_BODY
+                null
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (

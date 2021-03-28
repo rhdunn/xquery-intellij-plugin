@@ -471,38 +471,6 @@ private class XQueryConformanceTest : ParserTestCase() {
     }
 
     // endregion
-    // region EnclosedExpr (FunctionDecl)
-
-    @Test
-    fun testEnclosedExpr_FunctionDecl() {
-        val file = parseResource("tests/parser/xquery-1.0/EnclosedExpr.xq")
-
-        val functionDeclPsi = file.descendants().filterIsInstance<XQueryFunctionDecl>().first()
-        val enclosedExprPsi = functionDeclPsi.children().filterIsInstance<XPathEnclosedExpr>().first()
-        val versioned = enclosedExprPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XPathElementType.STRING_LITERAL))
-    }
-
-    @Test
-    fun testEnclosedExpr_FunctionDecl_NoExpr() {
-        val file = parseResource("tests/parser/xquery-3.1/EnclosedExpr_MissingExpr.xq")
-
-        val functionDeclPsi = file.descendants().filterIsInstance<XQueryFunctionDecl>().first()
-        val enclosedExprPsi = functionDeclPsi.children().filterIsInstance<XPathEnclosedExpr>().first()
-        val versioned = enclosedExprPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`(XQuerySpec.REC_3_1_20170321))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.BLOCK_OPEN))
-    }
-
-    // endregion
     // region EnclosedExpr (OrderedExpr)
 
     @Test

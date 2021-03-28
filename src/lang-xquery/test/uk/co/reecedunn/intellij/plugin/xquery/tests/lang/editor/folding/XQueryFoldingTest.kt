@@ -66,7 +66,6 @@ private class XQueryFoldingTest : ParserTestCase() {
             assertThat(descriptors.size, `is`(0))
         }
 
-        @Test
         @DisplayName("multiple lines")
         fun multipleLines() {
             val file = parseResource("tests/folding/FunctionBody_MultiLine.xq")
