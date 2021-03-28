@@ -358,12 +358,6 @@ object XPathElementType {
         XPath
     )
 
-    val FUNCTION_BODY: IElementType = ICompositeElementType(
-        "XPATH_FUNCTION_BODY",
-        XPathFunctionBodyPsiImpl::class.java,
-        XPath
-    )
-
     val STRING_CONCAT_EXPR: IElementType = ICompositeElementType(
         "XPATH_STRING_CONCAT_EXPR",
         XPathStringConcatExprPsiImpl::class.java,
