@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,10 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginEmptyExpr
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 
 class PluginEmptyExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginEmptyExpr {
     override val expressionElement: PsiElement? = null
+
+    override val expressions: Sequence<XpmExpression> = emptySequence()
 }

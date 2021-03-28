@@ -2814,8 +2814,9 @@ private class XQueryPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("XQuery 3.1 EBNF (133) ParenthesizedExpr ; XQuery IntelliJ Plugin XQuery EBNF (134) EmptyExpr")
                 fun emptyExpr() {
-                    val expr = parse<PluginEmptyExpr>("()")[0] as XpmExpression
+                    val expr = parse<PluginEmptyExpr>("()")[0] as XpmConcatenatingExpression
                     assertThat(expr.expressionElement, `is`(nullValue()))
+                    assertThat(expr.expressions.count(), `is`(0))
                 }
             }
 

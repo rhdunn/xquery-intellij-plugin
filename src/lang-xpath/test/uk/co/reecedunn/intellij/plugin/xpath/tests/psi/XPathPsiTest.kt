@@ -2387,8 +2387,9 @@ private class XPathPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("XPath 3.1 EBNF (61) ParenthesizedExpr ; XQuery IntelliJ Plugin XPath EBNF (52) EmptyExpr")
                 fun emptyExpr() {
-                    val expr = parse<PluginEmptyExpr>("()")[0] as XpmExpression
+                    val expr = parse<PluginEmptyExpr>("()")[0] as XpmConcatenatingExpression
                     assertThat(expr.expressionElement, `is`(nullValue()))
+                    assertThat(expr.expressions.count(), `is`(0))
                 }
             }
 
