@@ -16,8 +16,11 @@
 package uk.co.reecedunn.intellij.plugin.xpm.optree.expr.impl
 
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmConcatenatingExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 
-object XpmEmptyExpression : XpmExpression {
+object XpmEmptyExpression : XpmConcatenatingExpression {
     override val expressionElement: PsiElement? = null
+
+    override val expressions: Sequence<XpmExpression> = emptySequence()
 }
