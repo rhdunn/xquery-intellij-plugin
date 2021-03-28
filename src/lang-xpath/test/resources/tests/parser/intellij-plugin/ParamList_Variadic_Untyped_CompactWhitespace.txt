@@ -10,6 +10,5 @@ XPathImpl[FILE(0:18)]
                PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
          LeafPsiElement[XQUERY_ELLIPSIS_TOKEN(12:15)]('...')
       LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(15:16)](')')
-      XPathFunctionBodyImpl[XPATH_FUNCTION_BODY(16:18)]
-         LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(16:17)]('{')
-         LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(17:18)]('}')
+      LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(16:17)]('{')
+      LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(17:18)]('}')

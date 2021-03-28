@@ -3653,11 +3653,7 @@ class XQueryParser : XPathParser() {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (
-                !parseEnclosedExprOrBlock(
-                    builder, XQueryElementType.FUNCTION_BODY, BlockOpen.REQUIRED, BlockExpr.OPTIONAL
-                ) && !haveErrors
-            ) {
+            if (!parseEnclosedExprOrBlock(builder, null, BlockOpen.REQUIRED, BlockExpr.OPTIONAL) && !haveErrors) {
                 builder.error(XPathBundle.message("parser.error.expected", "{"))
                 parseExpr(builder, EXPR)
 

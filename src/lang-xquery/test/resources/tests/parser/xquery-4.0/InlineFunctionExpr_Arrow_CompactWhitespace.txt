@@ -5,7 +5,6 @@ XQueryModuleImpl[FILE(0:7)]
             LeafPsiElement[XPATH_THIN_ARROW_TOKEN(0:2)]('->')
             LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(2:3)]('(')
             LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(3:4)](')')
-            XQueryFunctionBodyImpl[XQUERY_FUNCTION_BODY(4:7)]
-               LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(4:5)]('{')
-               XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(5:6)]('2')
-               LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(6:7)]('}')
+            LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(4:5)]('{')
+            XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(5:6)]('2')
+            LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(6:7)]('}')
