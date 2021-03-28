@@ -70,6 +70,7 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
         is XPathEnumerationType -> reporter.requires(element, XQUERY_4_0)
         is XPathInlineFunctionExpr -> when (element.conformanceElement.elementType) {
             XPathTokenType.K_FUNCTION -> reporter.requires(element, XQUERY_3_0)
+            XPathTokenType.BLOCK_OPEN -> reporter.requires(element, XQUERY_3_1)
             else -> reporter.requires(element, XQUERY_4_0)
         }
         is XPathKeySpecifier -> when (element.conformanceElement.elementType) {

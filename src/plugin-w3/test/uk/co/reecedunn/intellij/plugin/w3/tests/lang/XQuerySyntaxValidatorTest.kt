@@ -755,6 +755,58 @@ class XQuerySyntaxValidatorTest :
     }
 
     @Nested
+    @DisplayName("XQuery 3.1 EBNF (36) EnclosedExpr")
+    internal inner class EnclosedExpr {
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (169) InlineFunctionExpr; XQuery 3.1 EBNF (35) FunctionBody")
+        internal inner class InlineFunctionExpr {
+            @Test
+            @DisplayName("XQuery < 3.0 (InlineFunctionExpr not supported)")
+            fun inlineFunctionExpr_notSupported() {
+                val file = parse<XQueryModule>("function () {} , %public function () {}")[0]
+                validator.configuration = XQUERY_1_0
+                validator.validate(file, this@XQuerySyntaxValidatorTest)
+                assertThat(
+                    report.toString(),
+                    `is`(
+                        """
+                        E XPST0003(12:13): XQuery version string '1.0' does not support XQuery 3.1 constructs.
+                        E XPST0003(37:38): XQuery version string '1.0' does not support XQuery 3.1 constructs.
+                        E XPST0003(17:18): XQuery version string '1.0' does not support XQuery 3.0 constructs.
+                        """.trimIndent()
+                    )
+                )
+            }
+
+            @Test
+            @DisplayName("XQuery == 3.0")
+            fun xquery_notSupported() {
+                val file = parse<XQueryModule>("function () {} , %public function () {}")[0]
+                validator.configuration = XQUERY_3_0
+                validator.validate(file, this@XQuerySyntaxValidatorTest)
+                assertThat(
+                    report.toString(),
+                    `is`(
+                        """
+                        E XPST0003(12:13): XQuery version string '3.0' does not support XQuery 3.1 constructs.
+                        E XPST0003(37:38): XQuery version string '3.0' does not support XQuery 3.1 constructs.
+                        """.trimIndent()
+                    )
+                )
+            }
+
+            @Test
+            @DisplayName("XQuery >= 3.1")
+            fun xquery_supported() {
+                val file = parse<XQueryModule>("function () {} , %public function () {}")[0]
+                validator.configuration = XQUERY_3_1
+                validator.validate(file, this@XQuerySyntaxValidatorTest)
+                assertThat(report.toString(), `is`(""))
+            }
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.1 EBNF (105) ArrowExpr ; XQuery 4.0 ED EBNF (108) FatArrowTarget")
     internal inner class ArrowExpr {
         @Nested
@@ -1374,7 +1426,7 @@ class XQuerySyntaxValidatorTest :
         @Test
         @DisplayName("XQuery < 4.0")
         fun xquery_notSupported() {
-            val file = parse<XQueryModule>("-> () { 2 } , -> { 2 } , %public -> { 2 }")[0]
+            val file = parse<XQueryModule>("-> () { 2 } , -> { 2 } , %public -> { 2 } , -> {}")[0]
             validator.configuration = XQUERY_1_0
             validator.validate(file, this@XQuerySyntaxValidatorTest)
             assertThat(
@@ -1385,6 +1437,7 @@ class XQuerySyntaxValidatorTest :
                     E XPST0003(14:16): XQuery version string '1.0' does not support XQuery 4.0 constructs.
                     E XPST0003(33:35): XQuery version string '1.0' does not support XQuery 4.0 constructs.
                     E XPST0003(25:26): XQuery version string '1.0' does not support XQuery 3.0 constructs.
+                    E XPST0003(44:46): XQuery version string '1.0' does not support XQuery 4.0 constructs.
                     """.trimIndent()
                 )
             )
@@ -1393,7 +1446,7 @@ class XQuerySyntaxValidatorTest :
         @Test
         @DisplayName("XQuery >= 4.0")
         fun xquery_supported() {
-            val file = parse<XQueryModule>("-> () { 2 } , -> { 2 } , %public -> { 2 }")[0]
+            val file = parse<XQueryModule>("-> () { 2 } , -> { 2 } , %public -> { 2 } , -> {}")[0]
             validator.configuration = XQUERY_4_0
             validator.validate(file, this@XQuerySyntaxValidatorTest)
             assertThat(report.toString(), `is`(""))

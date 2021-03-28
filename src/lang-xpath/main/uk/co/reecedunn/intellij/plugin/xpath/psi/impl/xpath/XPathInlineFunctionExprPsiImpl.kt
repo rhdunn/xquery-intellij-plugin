@@ -20,7 +20,11 @@ import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
 import com.intellij.psi.PsiElement
 import com.intellij.util.Range
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.core.sequences.filterIsElementType
+import uk.co.reecedunn.intellij.plugin.core.sequences.reverse
+import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnnotation
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathInlineFunctionExpr
@@ -28,6 +32,8 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.blockOpen
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.isEmptyEnclosedExpr
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAnnotated
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
@@ -43,7 +49,15 @@ class XPathInlineFunctionExprPsiImpl(node: ASTNode) :
     // region XpmSyntaxValidationElement
 
     override val conformanceElement: PsiElement
-        get() = findChildByType(XPathTokenType.INLINE_FUNCTION_TOKENS)!!
+        get() {
+            val context = findChildByType<PsiElement>(XPathTokenType.INLINE_FUNCTION_TOKENS)!!
+            val blockOpen = blockOpen
+            return when {
+                context.elementType === XPathTokenType.THIN_ARROW -> context
+                blockOpen?.isEmptyEnclosedExpr == true -> blockOpen
+                else -> context
+            }
+        }
 
     // endregion
     // region XdmAnnotatedDeclaration
