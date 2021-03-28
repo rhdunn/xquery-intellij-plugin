@@ -15,11 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
+import com.intellij.openapi.util.Key
 import com.intellij.psi.PsiElement
 import com.intellij.util.Range
+import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnnotation
@@ -32,12 +33,25 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationEl
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAnnotated
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.impl.XpmEmptyExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmParameter
+import java.util.*
 
 class XPathInlineFunctionExprPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XPathInlineFunctionExpr,
     XpmSyntaxValidationElement {
+    companion object {
+        private val FUNCTION_BODY = Key.create<Optional<XpmExpression>>("FUNCTION_BODY")
+    }
+    // region ASTDelegatePsiElement
+
+    override fun subtreeChanged() {
+        super.subtreeChanged()
+        clearUserData(FUNCTION_BODY)
+    }
+
+    // endregion
     // region XpmSyntaxValidationElement
 
     override val conformanceElement: PsiElement
@@ -78,7 +92,11 @@ class XPathInlineFunctionExprPsiImpl(node: ASTNode) :
     override val functionRefPresentableText: String? = null
 
     override val functionBody: XpmExpression?
-        get() = children().filterIsInstance<XpmExpression>().firstOrNull()
+        get() = computeUserDataIfAbsent(FUNCTION_BODY) {
+            val body = children().filterIsInstance<XpmExpression>().firstOrNull() as? PsiElement
+                ?: return@computeUserDataIfAbsent Optional.empty()
+            Optional.of(body.children().filterIsInstance<XpmExpression>().firstOrNull() ?: XpmEmptyExpression)
+        }.orElse(null)
 
     // endregion
     // region XpmExpression

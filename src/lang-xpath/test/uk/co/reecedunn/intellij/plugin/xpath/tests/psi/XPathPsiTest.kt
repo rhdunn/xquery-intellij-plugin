@@ -45,6 +45,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPathStep
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmConcatenatingExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.elementType
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.impl.XpmEmptyExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.text
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.*
 import uk.co.reecedunn.intellij.plugin.xpm.optree.item.XpmArrayExpression
@@ -2837,7 +2838,7 @@ private class XPathPsiTest : ParserTestCase() {
                         assertThat(decl.arity, `is`(Range(0, 0)))
                         assertThat(decl.parameters.size, `is`(0))
                         assertThat(decl.isVariadic, `is`(false))
-                        assertThat(decl.functionBody?.elementType, `is`(XPathElementType.FUNCTION_BODY))
+                        assertThat(decl.functionBody, sameInstance(XpmEmptyExpression))
 
                         val expr = decl as XpmExpression
                         assertThat(expr.expressionElement, `is`(nullValue()))
@@ -2851,7 +2852,7 @@ private class XPathPsiTest : ParserTestCase() {
                         assertThat(decl.returnType, `is`(nullValue()))
                         assertThat(decl.arity, `is`(Range(2, 2)))
                         assertThat(decl.isVariadic, `is`(false))
-                        assertThat(decl.functionBody?.elementType, `is`(XPathElementType.FUNCTION_BODY))
+                        assertThat(decl.functionBody, sameInstance(XpmEmptyExpression))
 
                         assertThat(decl.parameters.size, `is`(2))
                         assertThat(op_qname_presentation(decl.parameters[0].variableName!!), `is`("one"))
@@ -2871,7 +2872,7 @@ private class XPathPsiTest : ParserTestCase() {
                         assertThat(decl.returnType, `is`(nullValue()))
                         assertThat(decl.arity, `is`(Range(2, 2)))
                         assertThat(decl.isVariadic, `is`(false))
-                        assertThat(decl.functionBody?.elementType, `is`(XPathElementType.FUNCTION_BODY))
+                        assertThat(decl.functionBody, sameInstance(XpmEmptyExpression))
 
                         assertThat(decl.parameters.size, `is`(2))
                         assertThat(op_qname_presentation(decl.parameters[0].variableName!!), `is`("one"))
@@ -2890,7 +2891,22 @@ private class XPathPsiTest : ParserTestCase() {
                         assertThat(decl.arity, `is`(Range(0, 0)))
                         assertThat(decl.parameters.size, `is`(0))
                         assertThat(decl.isVariadic, `is`(false))
-                        assertThat(decl.functionBody?.elementType, `is`(XPathElementType.FUNCTION_BODY))
+                        assertThat(decl.functionBody, sameInstance(XpmEmptyExpression))
+
+                        val expr = decl as XpmExpression
+                        assertThat(expr.expressionElement, `is`(nullValue()))
+                    }
+
+                    @Test
+                    @DisplayName("function body expression")
+                    fun functionBodyExpression() {
+                        val decl = parse<XpmFunctionDeclaration>("function () { 2 + 3 }")[0]
+                        assertThat(decl.functionName, `is`(nullValue()))
+                        assertThat(decl.returnType, `is`(nullValue()))
+                        assertThat(decl.arity, `is`(Range(0, 0)))
+                        assertThat(decl.parameters.size, `is`(0))
+                        assertThat(decl.isVariadic, `is`(false))
+                        assertThat(decl.functionBody?.text, `is`("2 + 3 "))
 
                         val expr = decl as XpmExpression
                         assertThat(expr.expressionElement, `is`(nullValue()))
