@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2020 Reece H. Dunn
+ * Copyright (C) 2016-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,10 +15,16 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
+import uk.co.reecedunn.intellij.plugin.core.editor.folding.FoldablePsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 
 /**
  * An XQuery 1.0 `DirElemConstructor` node in the XQuery AST.
  */
-interface XQueryDirElemConstructor : XQueryDirectConstructor, XQueryDirAttributeList, XdmElementNode, XpmExpression
+interface XQueryDirElemConstructor :
+    FoldablePsiElement,
+    XQueryDirectConstructor,
+    XQueryDirAttributeList,
+    XdmElementNode,
+    XpmExpression
