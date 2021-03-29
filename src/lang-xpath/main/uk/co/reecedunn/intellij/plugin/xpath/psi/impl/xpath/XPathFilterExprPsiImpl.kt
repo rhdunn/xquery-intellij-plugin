@@ -23,7 +23,6 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNodeItem
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFilterExpr
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPredicate
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPrimaryExpr
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
@@ -37,11 +36,8 @@ class XPathFilterExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathF
 
     override val nodeType: XdmItemType = XdmNodeItem
 
-    override val predicateExpression: XpmExpression?
-        get() {
-            val predicate = children().filterIsInstance<XPathPredicate>().firstOrNull()
-            return predicate?.children()?.filterIsInstance<XpmExpression>()?.firstOrNull()
-        }
+    override val predicateExpression: XpmExpression
+        get() = children().filterIsInstance<XpmExpression>().last()
 
     // endregion
     // region XpmExpression

@@ -118,12 +118,6 @@ object XPathElementType {
         XPath
     )
 
-    val PREDICATE: IElementType = ICompositeElementType(
-        "XPATH_PREDICATE",
-        XPathPredicatePsiImpl::class.java,
-        XPath
-    )
-
     val VAR_REF: IElementType = ICompositeElementType(
         "XPATH_VAR_REF",
         XPathVarRefPsiImpl::class.java,

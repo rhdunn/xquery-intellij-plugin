@@ -7,7 +7,6 @@ XPathImpl[FILE(0:14)]
             XPathNameTestImpl[XPATH_NAME_TEST(8:11)]
                XPathNCNameImpl[XPATH_NCNAME(8:11)]
                   XmlNCNameImpl[XPATH_NCNAME_TOKEN(8:11)]('two')
-         XPathPredicateImpl[XPATH_PREDICATE(11:14)]
-            LeafPsiElement[XPATH_SQUARE_OPEN_TOKEN(11:12)]('[')
-            XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(12:13)]('3')
-            LeafPsiElement[XPATH_SQUARE_CLOSE_TOKEN(13:14)](']')
+         LeafPsiElement[XPATH_SQUARE_OPEN_TOKEN(11:12)]('[')
+         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(12:13)]('3')
+         LeafPsiElement[XPATH_SQUARE_CLOSE_TOKEN(13:14)](']')

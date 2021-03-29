@@ -1604,8 +1604,7 @@ open class XPathParser : PsiParser {
     }
 
     private fun parsePredicate(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.SQUARE_OPEN)
-        if (marker != null) {
+        if (builder.matchTokenType(XPathTokenType.SQUARE_OPEN)) {
             var haveErrors = false
             parseWhiteSpaceAndCommentTokens(builder)
 
@@ -1618,14 +1617,8 @@ open class XPathParser : PsiParser {
             if (!builder.matchTokenType(XPathTokenType.SQUARE_CLOSE) && !haveErrors) {
                 builder.error(XPathBundle.message("parser.error.expected", "]"))
             }
-
-            if (haveErrors)
-                marker.drop()
-            else
-                marker.done(XPathElementType.PREDICATE)
             return true
         }
-
         return false
     }
 

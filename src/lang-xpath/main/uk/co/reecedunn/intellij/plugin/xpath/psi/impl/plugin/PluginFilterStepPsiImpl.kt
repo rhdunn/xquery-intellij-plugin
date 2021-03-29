@@ -22,7 +22,6 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginFilterStep
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPredicate
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPathStep
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
@@ -44,11 +43,8 @@ class PluginFilterStepPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), Plugi
     override val nodeType: XdmItemType
         get() = (firstChild as XpmPathStep).nodeType
 
-    override val predicateExpression: XpmExpression?
-        get() {
-            val predicate = children().filterIsInstance<XPathPredicate>().firstOrNull()
-            return predicate?.children()?.filterIsInstance<XpmExpression>()?.firstOrNull()
-        }
+    override val predicateExpression: XpmExpression
+        get() = children().filterIsInstance<XpmExpression>().last()
 
     // endregion
 }
