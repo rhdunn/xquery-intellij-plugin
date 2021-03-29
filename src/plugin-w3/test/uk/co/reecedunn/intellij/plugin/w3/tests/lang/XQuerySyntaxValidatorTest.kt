@@ -171,7 +171,12 @@ class XQuerySyntaxValidatorTest :
             validator.validate(file, this@XQuerySyntaxValidatorTest)
             assertThat(
                 report.toString(),
-                `is`("E XPST0003(8:9): XQuery version string '1.0' does not support XQuery 3.0 constructs.")
+                `is`(
+                    """
+                    E XPST0003(30:31): XQuery version string '1.0' does not support XQuery 3.1 constructs.
+                    E XPST0003(8:9): XQuery version string '1.0' does not support XQuery 3.0 constructs.
+                    """.trimIndent()
+                )
             )
         }
 
@@ -181,7 +186,10 @@ class XQuerySyntaxValidatorTest :
             val file = parse<XQueryModule>("declare %private function f() {}; 2")[0]
             validator.configuration = XQUERY_3_0
             validator.validate(file, this@XQuerySyntaxValidatorTest)
-            assertThat(report.toString(), `is`(""))
+            assertThat(
+                report.toString(),
+                `is`("E XPST0003(30:31): XQuery version string '3.0' does not support XQuery 3.1 constructs.")
+            )
         }
     }
 
@@ -757,6 +765,31 @@ class XQuerySyntaxValidatorTest :
     @Nested
     @DisplayName("XQuery 3.1 EBNF (36) EnclosedExpr")
     internal inner class EnclosedExpr {
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (32) FunctionDecl; XQuery 3.1 EBNF (35) FunctionBody")
+        internal inner class FunctionDecl {
+            @Test
+            @DisplayName("XQuery < 3.1")
+            fun xquery_notSupported() {
+                val file = parse<XQueryModule>("declare function local:test() {};")[0]
+                validator.configuration = XQUERY_1_0
+                validator.validate(file, this@XQuerySyntaxValidatorTest)
+                assertThat(
+                    report.toString(),
+                    `is`("E XPST0003(30:31): XQuery version string '1.0' does not support XQuery 3.1 constructs.")
+                )
+            }
+
+            @Test
+            @DisplayName("XQuery >= 3.1")
+            fun xquery_supported() {
+                val file = parse<XQueryModule>("function () {} , %public function () {}")[0]
+                validator.configuration = XQUERY_3_1
+                validator.validate(file, this@XQuerySyntaxValidatorTest)
+                assertThat(report.toString(), `is`(""))
+            }
+        }
+
         @Nested
         @DisplayName("XQuery 3.1 EBNF (169) InlineFunctionExpr; XQuery 3.1 EBNF (35) FunctionBody")
         internal inner class InlineFunctionExpr {

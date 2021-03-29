@@ -112,6 +112,11 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
             else -> {
             }
         }
+        is XQueryFunctionDecl -> when (element.conformanceElement.elementType) {
+            XPathTokenType.BLOCK_OPEN -> reporter.requires(element, XQUERY_3_1)
+            else -> {
+            }
+        }
         is XQueryItemTypeDecl -> when (element.conformanceElement.elementType) {
             XQueryTokenType.K_ITEM_TYPE -> reporter.requires(element, XQUERY_4_0)
             else -> {

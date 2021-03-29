@@ -22,6 +22,7 @@ import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationEx
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
@@ -29,9 +30,12 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.blockFoldingRange
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.blockOpen
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.isEmptyEnclosedExpr
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathInlineFunctionExprPsiImpl
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.impl.XpmEmptyExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDecorator
@@ -43,7 +47,8 @@ import javax.swing.Icon
 class XQueryFunctionDeclPsiImpl(node: ASTNode) :
     XQueryAnnotatedDeclPsiImpl(node),
     XQueryFunctionDecl,
-    ItemPresentationEx {
+    ItemPresentationEx,
+    XpmSyntaxValidationElement {
     companion object {
         private val PRESENTABLE_TEXT = Key.create<Optional<String>>("PRESENTABLE_TEXT")
         private val STRUCTURE_PRESENTABLE_TEXT = Key.create<Optional<String>>("STRUCTURE_PRESENTABLE_TEXT")
@@ -147,6 +152,18 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
         get() = blockFoldingRange
 
     override val foldingPlaceholderText: String = "{...}"
+
+    // endregion
+    // region XpmSyntaxValidationElement
+
+    override val conformanceElement: PsiElement
+        get() {
+            val blockOpen = blockOpen
+            return when {
+                blockOpen?.isEmptyEnclosedExpr == true -> blockOpen
+                else -> firstChild
+            }
+        }
 
     // endregion
 }
