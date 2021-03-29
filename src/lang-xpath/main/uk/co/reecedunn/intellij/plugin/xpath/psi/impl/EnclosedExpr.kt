@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.psi.impl
 
+import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
@@ -29,6 +30,12 @@ val PsiElement.blockOpen: PsiElement?
 
 val PsiElement.isEmptyEnclosedExpr: Boolean
     get() = siblings().filterIsNotElementType(IGNORE_TOKENS).firstOrNull() == null
+
+val PsiElement.blockFoldingRange: TextRange?
+    get() = when (val blockOpen = blockOpen) {
+        null -> null
+        else -> TextRange.create(blockOpen.textOffset, textRange.endOffset)
+    }
 
 private val IGNORE_TOKENS = TokenSet.create(
     XPathTokenType.WHITE_SPACE,
