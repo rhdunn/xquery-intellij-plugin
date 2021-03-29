@@ -20,14 +20,10 @@ import com.intellij.lang.ASTNode
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
-import uk.co.reecedunn.intellij.plugin.core.editor.folding.FoldablePsiElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirCommentConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
-class XQueryDirCommentConstructorPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node),
-    XQueryDirCommentConstructor,
-    FoldablePsiElement {
+class XQueryDirCommentConstructorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryDirCommentConstructor {
     // region XpmExpression
 
     override val expressionElement: PsiElement
