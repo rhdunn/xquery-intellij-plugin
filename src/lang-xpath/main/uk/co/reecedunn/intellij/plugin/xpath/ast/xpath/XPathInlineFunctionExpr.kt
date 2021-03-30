@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
-import uk.co.reecedunn.intellij.plugin.core.editor.folding.FoldablePsiElement
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 
@@ -24,6 +23,5 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
  */
 interface XPathInlineFunctionExpr :
     XPathFunctionItemExpr,
-    FoldablePsiElement,
     XpmFunctionDeclaration,
     XpmExpression

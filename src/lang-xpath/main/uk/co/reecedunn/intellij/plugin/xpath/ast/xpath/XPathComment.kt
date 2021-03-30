@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
-import uk.co.reecedunn.intellij.plugin.core.editor.folding.FoldablePsiElement
+import com.intellij.psi.PsiElement
 
 /**
  * An XPath 2.0 and XQuery 1.0 `Comment` node in the XQuery AST containing
@@ -26,6 +26,6 @@ import uk.co.reecedunn.intellij.plugin.core.editor.folding.FoldablePsiElement
  * comment nesting is handled within the
  * [uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer].
  */
-interface XPathComment : FoldablePsiElement {
+interface XPathComment : PsiElement {
     val isXQDoc: Boolean
 }

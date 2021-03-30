@@ -16,9 +16,8 @@
 package uk.co.reecedunn.intellij.plugin.xpath.ast.plugin
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.core.editor.folding.FoldablePsiElement
 
 /**
  * An `ArrowInlineFunctionCall` node in the XPath and XQuery AST.
  */
-interface PluginArrowInlineFunctionCall : FoldablePsiElement
+interface PluginArrowInlineFunctionCall : PsiElement
