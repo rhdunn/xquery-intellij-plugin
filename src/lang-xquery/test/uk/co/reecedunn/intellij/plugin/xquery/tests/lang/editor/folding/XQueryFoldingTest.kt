@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017-2020 Reece H. Dunn
+ * Copyright (C) 2017-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.lang.editor.folding
 
+import com.intellij.lang.folding.FoldingBuilderEx
 import com.intellij.openapi.extensions.PluginId
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
@@ -39,11 +40,12 @@ private class XQueryFoldingTest : ParserTestCase() {
 
     fun parseResource(resource: String): XQueryModule = res.toPsiFile(resource, project)
 
+    private val builder: FoldingBuilderEx = FoldingBuilderImpl()
+
     @Test
     @DisplayName("XQuery 3.1 EBNF (9) BoundarySpaceDecl")
     fun boundarySpaceDecl() {
         val file = parseResource("tests/folding/BoundarySpaceDecl.xq")
-        val builder = FoldingBuilderImpl()
 
         val descriptors = builder.buildFoldRegions(file, file.document!!, false)
         assertThat(descriptors, `is`(notNullValue()))
@@ -60,7 +62,6 @@ private class XQueryFoldingTest : ParserTestCase() {
         @DisplayName("single line")
         fun singleLine() {
             val file = parseResource("tests/folding/FunctionDecl/SingleLine.xq")
-            val builder = FoldingBuilderImpl()
 
             val descriptors = builder.buildFoldRegions(file, file.document!!, false)
             assertThat(descriptors, `is`(notNullValue()))
@@ -71,7 +72,6 @@ private class XQueryFoldingTest : ParserTestCase() {
         @DisplayName("multiple lines")
         fun multipleLines() {
             val file = parseResource("tests/folding/FunctionDecl/MultiLine.xq")
-            val builder = FoldingBuilderImpl()
 
             val descriptors = builder.buildFoldRegions(file, file.document!!, false)
             assertThat(descriptors, `is`(notNullValue()))
@@ -97,7 +97,6 @@ private class XQueryFoldingTest : ParserTestCase() {
         @DisplayName("single line")
         fun singleLine() {
             val file = parseResource("tests/folding/InlineFunctionExpr/SingleLine.xq")
-            val builder = FoldingBuilderImpl()
 
             val descriptors = builder.buildFoldRegions(file, file.document!!, false)
             assertThat(descriptors, `is`(notNullValue()))
@@ -108,7 +107,6 @@ private class XQueryFoldingTest : ParserTestCase() {
         @DisplayName("multiple lines")
         fun multipleLines() {
             val file = parseResource("tests/folding/InlineFunctionExpr/MultiLine.xq")
-            val builder = FoldingBuilderImpl()
 
             val descriptors = builder.buildFoldRegions(file, file.document!!, false)
             assertThat(descriptors, `is`(notNullValue()))
@@ -134,7 +132,6 @@ private class XQueryFoldingTest : ParserTestCase() {
         @DisplayName("single line")
         fun singleLine() {
             val file = parseResource("tests/folding/ThinArrowTarget/SingleLine.xq")
-            val builder = FoldingBuilderImpl()
 
             val descriptors = builder.buildFoldRegions(file, file.document!!, false)
             assertThat(descriptors, `is`(notNullValue()))
@@ -145,7 +142,6 @@ private class XQueryFoldingTest : ParserTestCase() {
         @DisplayName("multiple lines")
         fun multipleLines() {
             val file = parseResource("tests/folding/ThinArrowTarget/MultiLine.xq")
-            val builder = FoldingBuilderImpl()
 
             val descriptors = builder.buildFoldRegions(file, file.document!!, false)
             assertThat(descriptors, `is`(notNullValue()))
@@ -171,7 +167,6 @@ private class XQueryFoldingTest : ParserTestCase() {
         @DisplayName("single line")
         fun singleLine() {
             val file = parseResource("tests/folding/DirElemConstructor/SingleLine.xq")
-            val builder = FoldingBuilderImpl()
 
             val descriptors = builder.buildFoldRegions(file, file.document!!, false)
             assertThat(descriptors, `is`(notNullValue()))
@@ -182,7 +177,6 @@ private class XQueryFoldingTest : ParserTestCase() {
         @DisplayName("single line; self-closing")
         fun singleLine_SelfClosing() {
             val file = parseResource("tests/folding/DirElemConstructor/SelfClosing.xq")
-            val builder = FoldingBuilderImpl()
 
             val descriptors = builder.buildFoldRegions(file, file.document!!, false)
             assertThat(descriptors, `is`(notNullValue()))
@@ -193,7 +187,6 @@ private class XQueryFoldingTest : ParserTestCase() {
         @DisplayName("incomplete")
         fun incomplete() {
             val file = parseResource("tests/folding/DirElemConstructor/Incomplete.xq")
-            val builder = FoldingBuilderImpl()
 
             val descriptors = builder.buildFoldRegions(file, file.document!!, false)
             assertThat(descriptors, `is`(notNullValue()))
@@ -204,7 +197,6 @@ private class XQueryFoldingTest : ParserTestCase() {
         @DisplayName("incomplete open tag with query content after")
         fun incompleteNamespace() {
             val file = parseResource("tests/folding/DirElemConstructor/IncompleteNamespace.xq")
-            val builder = FoldingBuilderImpl()
 
             val descriptors = builder.buildFoldRegions(file, file.document!!, false)
             assertThat(descriptors, `is`(notNullValue()))
@@ -215,7 +207,6 @@ private class XQueryFoldingTest : ParserTestCase() {
         @DisplayName("incomplete open tag with query content after inside a direct element")
         fun inner_IncompleteNamespace() {
             val file = parseResource("tests/folding/DirElemConstructor/Inner_IncompleteNamespace.xq")
-            val builder = FoldingBuilderImpl()
 
             val descriptors = builder.buildFoldRegions(file, file.document!!, false)
             assertThat(descriptors, `is`(notNullValue()))
@@ -237,7 +228,6 @@ private class XQueryFoldingTest : ParserTestCase() {
         @DisplayName("multiple lines")
         fun multipleLines() {
             val file = parseResource("tests/folding/DirElemConstructor/MultiLine.xq")
-            val builder = FoldingBuilderImpl()
 
             val descriptors = builder.buildFoldRegions(file, file.document!!, false)
             assertThat(descriptors, `is`(notNullValue()))
@@ -259,7 +249,6 @@ private class XQueryFoldingTest : ParserTestCase() {
         @DisplayName("multiple lines; self closing")
         fun multipleLines_SelfClosing() {
             val file = parseResource("tests/folding/DirElemConstructor/MultiLine_SelfClosing.xq")
-            val builder = FoldingBuilderImpl()
 
             val descriptors = builder.buildFoldRegions(file, file.document!!, false)
             assertThat(descriptors, `is`(notNullValue()))
@@ -270,7 +259,6 @@ private class XQueryFoldingTest : ParserTestCase() {
         @DisplayName("multiple lines with attributes")
         fun multipleLinesWithAttributes() {
             val file = parseResource("tests/folding/DirElemConstructor/MultiLineWithAttributes.xq")
-            val builder = FoldingBuilderImpl()
 
             val descriptors = builder.buildFoldRegions(file, file.document!!, false)
             assertThat(descriptors, `is`(notNullValue()))
@@ -292,7 +280,6 @@ private class XQueryFoldingTest : ParserTestCase() {
         @DisplayName("multiple lines with attributes; space after attribute list")
         fun multipleLinesWithAttributesAndSpace() {
             val file = parseResource("tests/folding/DirElemConstructor/MultiLineWithAttributesAndSpace.xq")
-            val builder = FoldingBuilderImpl()
 
             val descriptors = builder.buildFoldRegions(file, file.document!!, false)
             assertThat(descriptors, `is`(notNullValue()))
@@ -314,7 +301,6 @@ private class XQueryFoldingTest : ParserTestCase() {
         @DisplayName("EnclosedExpr only")
         fun enclosedExprOnly() {
             val file = parseResource("tests/folding/DirElemConstructor/EnclosedExprOnly.xq")
-            val builder = FoldingBuilderImpl()
 
             val descriptors = builder.buildFoldRegions(file, file.document!!, false)
             assertThat(descriptors, `is`(notNullValue()))
@@ -336,7 +322,6 @@ private class XQueryFoldingTest : ParserTestCase() {
         @DisplayName("EnclosedExpr only, with attributes across multiple lines")
         fun enclosedExprOnly_multipleLineAttributes() {
             val file = parseResource("tests/folding/DirElemConstructor/EnclosedExprOnly_MultiLineAttributes.xq")
-            val builder = FoldingBuilderImpl()
 
             val descriptors = builder.buildFoldRegions(file, file.document!!, false)
             assertThat(descriptors, `is`(notNullValue()))
@@ -373,7 +358,6 @@ private class XQueryFoldingTest : ParserTestCase() {
         @DisplayName("single line")
         fun singleLine() {
             val file = parseResource("tests/folding/DirCommentConstructor/SingleLine.xq")
-            val builder = FoldingBuilderImpl()
 
             val descriptors = builder.buildFoldRegions(file, file.document!!, false)
             assertThat(descriptors, `is`(notNullValue()))
@@ -384,7 +368,6 @@ private class XQueryFoldingTest : ParserTestCase() {
         @DisplayName("multiple lines; empty text")
         fun multipleLines_EmptyText() {
             val file = parseResource("tests/folding/DirCommentConstructor/Empty.xq")
-            val builder = FoldingBuilderImpl()
 
             val descriptors = builder.buildFoldRegions(file, file.document!!, false)
             assertThat(descriptors, `is`(notNullValue()))
@@ -406,7 +389,6 @@ private class XQueryFoldingTest : ParserTestCase() {
         @DisplayName("multiple lines")
         fun multipleLines() {
             val file = parseResource("tests/folding/DirCommentConstructor/MultiLine.xq")
-            val builder = FoldingBuilderImpl()
 
             val descriptors = builder.buildFoldRegions(file, file.document!!, false)
             assertThat(descriptors, `is`(notNullValue()))
@@ -428,7 +410,6 @@ private class XQueryFoldingTest : ParserTestCase() {
         @DisplayName("multiple lines; incomplete")
         fun multipleLines_Incomplete() {
             val file = parseResource("tests/folding/DirCommentConstructor/MultiLine_Incomplete.xq")
-            val builder = FoldingBuilderImpl()
 
             val descriptors = builder.buildFoldRegions(file, file.document!!, false)
             assertThat(descriptors, `is`(notNullValue()))
@@ -454,7 +435,6 @@ private class XQueryFoldingTest : ParserTestCase() {
         @DisplayName("single line")
         fun singleLine() {
             val file = parseResource("tests/folding/Comment/SingleLine.xq")
-            val builder = FoldingBuilderImpl()
 
             val descriptors = builder.buildFoldRegions(file, file.document!!, false)
             assertThat(descriptors, `is`(notNullValue()))
@@ -465,7 +445,6 @@ private class XQueryFoldingTest : ParserTestCase() {
         @DisplayName("multiple lines; empty text")
         fun multipleLines_EmptyText() {
             val file = parseResource("tests/folding/Comment/Empty.xq")
-            val builder = FoldingBuilderImpl()
 
             val descriptors = builder.buildFoldRegions(file, file.document!!, false)
             assertThat(descriptors, `is`(notNullValue()))
@@ -487,7 +466,6 @@ private class XQueryFoldingTest : ParserTestCase() {
         @DisplayName("multiple lines")
         fun multipleLines() {
             val file = parseResource("tests/folding/Comment/MultiLine.xq")
-            val builder = FoldingBuilderImpl()
 
             val descriptors = builder.buildFoldRegions(file, file.document!!, false)
             assertThat(descriptors, `is`(notNullValue()))
@@ -509,7 +487,6 @@ private class XQueryFoldingTest : ParserTestCase() {
         @DisplayName("multiple lines; xqdoc")
         fun multipleLines_XQDoc() {
             val file = parseResource("tests/folding/Comment/MultiLine_XQDoc.xq")
-            val builder = FoldingBuilderImpl()
 
             val descriptors = builder.buildFoldRegions(file, file.document!!, false)
             assertThat(descriptors, `is`(notNullValue()))
@@ -531,7 +508,6 @@ private class XQueryFoldingTest : ParserTestCase() {
         @DisplayName("multiple lines; incomplete")
         fun multipleLines_Incomplete() {
             val file = parseResource("tests/folding/Comment/MultiLine_Incomplete.xq")
-            val builder = FoldingBuilderImpl()
 
             val descriptors = builder.buildFoldRegions(file, file.document!!, false)
             assertThat(descriptors, `is`(notNullValue()))
@@ -553,7 +529,6 @@ private class XQueryFoldingTest : ParserTestCase() {
         @DisplayName("multiple lines; incomplete; xqdoc")
         fun multipleLines_Incomplete_XQDoc() {
             val file = parseResource("tests/folding/Comment/MultiLine_Incomplete_XQDoc.xq")
-            val builder = FoldingBuilderImpl()
 
             val descriptors = builder.buildFoldRegions(file, file.document!!, false)
             assertThat(descriptors, `is`(notNullValue()))
