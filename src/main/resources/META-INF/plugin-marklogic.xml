@@ -10,7 +10,7 @@
     <projectService serviceImplementation="uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestService"/>
     <configurationType implementation="uk.co.reecedunn.intellij.plugin.marklogic.xray.configuration.XRayTestConfigurationType"/>
     <runConfigurationProducer implementation="uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestRunConfigurationProducer"/>
-    <runLineMarkerContributor language="XQuery" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestRunLineMarkerProvider"/>
+    <runLineMarkerContributor language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestRunLineMarkerProvider"/>
 
     <!-- Error Logs -->
     <fileType name="MLErrorLog" language="MLErrorLog" patterns="ErrorLog.txt;*_ErrorLog.txt;ErrorLog_*.txt;*_ErrorLog_*.txt"
