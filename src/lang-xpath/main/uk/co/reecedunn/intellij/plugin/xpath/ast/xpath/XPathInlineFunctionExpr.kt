@@ -15,10 +15,15 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
+import uk.co.reecedunn.intellij.plugin.core.editor.folding.FoldablePsiElement
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 
 /**
  * An XPath 3.0 and XQuery 3.0 `InlineFunctionExpr` node in the XQuery AST.
  */
-interface XPathInlineFunctionExpr : XPathFunctionItemExpr, XpmFunctionDeclaration, XpmExpression
+interface XPathInlineFunctionExpr :
+    XPathFunctionItemExpr,
+    FoldablePsiElement,
+    XpmFunctionDeclaration,
+    XpmExpression

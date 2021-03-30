@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.editor.folding.FoldingBuilderImpl
 import uk.co.reecedunn.intellij.plugin.core.psi.document
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
@@ -83,6 +84,43 @@ private class XQueryFoldingTest : ParserTestCase() {
             assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.FUNCTION_DECL))
             assertThat(descriptors[0].range.startOffset, `is`(27))
             assertThat(descriptors[0].range.endOffset, `is`(39))
+
+            assertThat(builder.getPlaceholderText(descriptors[0].element), `is`("{...}"))
+            assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.1 EBNF (35) FunctionBody ; XQuery 3.1 EBNF (169) InlineFunctionExpr")
+    internal inner class InlineFunctionExpr {
+        @Test
+        @DisplayName("single line")
+        fun singleLine() {
+            val file = parseResource("tests/folding/InlineFunctionExpr/SingleLine.xq")
+            val builder = FoldingBuilderImpl()
+
+            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(0))
+        }
+
+        @Test
+        @DisplayName("multiple lines")
+        fun multipleLines() {
+            val file = parseResource("tests/folding/InlineFunctionExpr/MultiLine.xq")
+            val builder = FoldingBuilderImpl()
+
+            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(1))
+
+            assertThat(descriptors[0].canBeRemovedWhenCollapsed(), `is`(false))
+            assertThat(descriptors[0].dependencies, `is`(notNullValue()))
+            assertThat(descriptors[0].dependencies.size, `is`(0))
+            assertThat(descriptors[0].group, `is`(nullValue()))
+            assertThat(descriptors[0].element.elementType, `is`(XPathElementType.INLINE_FUNCTION_EXPR))
+            assertThat(descriptors[0].range.startOffset, `is`(12))
+            assertThat(descriptors[0].range.endOffset, `is`(24))
 
             assertThat(builder.getPlaceholderText(descriptors[0].element), `is`("{...}"))
             assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
