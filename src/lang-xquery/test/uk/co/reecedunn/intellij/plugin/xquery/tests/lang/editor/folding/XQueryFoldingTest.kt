@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.core.psi.document
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
-import uk.co.reecedunn.intellij.plugin.xquery.lang.folding.XQueryFoldingBuilder
+import uk.co.reecedunn.intellij.plugin.xquery.lang.editor.folding.XQueryFoldingBuilder
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
