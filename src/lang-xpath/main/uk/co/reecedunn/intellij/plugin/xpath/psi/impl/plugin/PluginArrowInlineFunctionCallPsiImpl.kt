@@ -17,11 +17,13 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.reverse
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.xpath.ast.filterNotWhitespace
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowInlineFunctionCall
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.blockFoldingRange
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
 class PluginArrowInlineFunctionCallPsiImpl(node: ASTNode) :
@@ -32,6 +34,14 @@ class PluginArrowInlineFunctionCallPsiImpl(node: ASTNode) :
 
     override val conformanceElement: PsiElement
         get() = reverse(siblings()).filterNotWhitespace().firstOrNull() ?: firstChild
+
+    // endregion
+    // region FoldablePsiElement
+
+    override val foldingRange: TextRange?
+        get() = blockFoldingRange
+
+    override val foldingPlaceholderText: String = "{...}"
 
     // endregion
 }

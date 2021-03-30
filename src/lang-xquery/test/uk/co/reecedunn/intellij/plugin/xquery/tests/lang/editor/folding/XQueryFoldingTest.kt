@@ -128,6 +128,43 @@ private class XQueryFoldingTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery 3.1 EBNF (35) FunctionBody ; XQuery 4.0 ED EBNF (109) ThinArrowTarget")
+    internal inner class ThinArrowTarget {
+        @Test
+        @DisplayName("single line")
+        fun singleLine() {
+            val file = parseResource("tests/folding/ThinArrowTarget/SingleLine.xq")
+            val builder = FoldingBuilderImpl()
+
+            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(0))
+        }
+
+        @Test
+        @DisplayName("multiple lines")
+        fun multipleLines() {
+            val file = parseResource("tests/folding/ThinArrowTarget/MultiLine.xq")
+            val builder = FoldingBuilderImpl()
+
+            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(1))
+
+            assertThat(descriptors[0].canBeRemovedWhenCollapsed(), `is`(false))
+            assertThat(descriptors[0].dependencies, `is`(notNullValue()))
+            assertThat(descriptors[0].dependencies.size, `is`(0))
+            assertThat(descriptors[0].group, `is`(nullValue()))
+            assertThat(descriptors[0].element.elementType, `is`(XPathElementType.ARROW_INLINE_FUNCTION_CALL))
+            assertThat(descriptors[0].range.startOffset, `is`(5))
+            assertThat(descriptors[0].range.endOffset, `is`(17))
+
+            assertThat(builder.getPlaceholderText(descriptors[0].element), `is`("{...}"))
+            assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.1 EBNF (142) DirElemConstructor")
     internal inner class DirElemConstructor {
         @Test
