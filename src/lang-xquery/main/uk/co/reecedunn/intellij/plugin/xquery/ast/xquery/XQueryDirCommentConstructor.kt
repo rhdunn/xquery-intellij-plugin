@@ -15,10 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
-import uk.co.reecedunn.intellij.plugin.core.editor.folding.FoldablePsiElement
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 
 /**
  * An XQuery 1.0 `DirCommentConstructor` node in the XQuery AST.
  */
-interface XQueryDirCommentConstructor : FoldablePsiElement, XQueryDirectConstructor, XpmExpression
+interface XQueryDirCommentConstructor : XQueryDirectConstructor, XpmExpression

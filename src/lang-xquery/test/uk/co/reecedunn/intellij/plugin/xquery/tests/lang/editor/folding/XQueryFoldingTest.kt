@@ -22,17 +22,17 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.core.editor.folding.FoldingBuilderImpl
 import uk.co.reecedunn.intellij.plugin.core.psi.document
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
+import uk.co.reecedunn.intellij.plugin.xquery.lang.folding.XQueryFoldingBuilder
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("RedundantVisibilityModifier")
-@DisplayName("IntelliJ - Custom Language Support - Code Folding - XQuery FoldingBuilder")
+@DisplayName("IntelliJ - Custom Language Support - Code Folding - XQuery")
 private class XQueryFoldingTest : ParserTestCase() {
     override val pluginId: PluginId = PluginId.getId("XQueryFoldingTest")
 
@@ -40,7 +40,7 @@ private class XQueryFoldingTest : ParserTestCase() {
 
     fun parseResource(resource: String): XQueryModule = res.toPsiFile(resource, project)
 
-    private val builder: FoldingBuilderEx = FoldingBuilderImpl()
+    private val builder: FoldingBuilderEx = XQueryFoldingBuilder()
 
     @Nested
     @DisplayName("XQuery 3.1 EBNF (35) FunctionBody ; XQuery 3.1 EBNF (32) FunctionDecl")

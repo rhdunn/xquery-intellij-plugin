@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
-import uk.co.reecedunn.intellij.plugin.core.editor.folding.FoldablePsiElement
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ide.structureView.XQueryStructureViewElement
 
@@ -25,5 +24,4 @@ import uk.co.reecedunn.intellij.plugin.xquery.ide.structureView.XQueryStructureV
 interface XQueryFunctionDecl :
     XQueryAnnotatedDecl,
     XQueryStructureViewElement,
-    FoldablePsiElement,
     XpmFunctionDeclaration

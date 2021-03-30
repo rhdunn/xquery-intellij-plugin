@@ -18,7 +18,6 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.util.Key
-import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationEx
@@ -31,7 +30,6 @@ import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.blockFoldingRange
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.blockOpen
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.isEmptyEnclosedExpr
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathInlineFunctionExprPsiImpl
@@ -144,14 +142,6 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
     // region SortableTreeElement
 
     override fun getAlphaSortKey(): String = functionRefPresentableText ?: ""
-
-    // endregion
-    // region FoldablePsiElement
-
-    override val foldingRange: TextRange?
-        get() = blockFoldingRange
-
-    override val foldingPlaceholderText: String = "{...}"
 
     // endregion
     // region XpmSyntaxValidationElement
