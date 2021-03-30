@@ -42,19 +42,6 @@ private class XQueryFoldingTest : ParserTestCase() {
 
     private val builder: FoldingBuilderEx = FoldingBuilderImpl()
 
-    @Test
-    @DisplayName("XQuery 3.1 EBNF (9) BoundarySpaceDecl")
-    fun boundarySpaceDecl() {
-        val file = parseResource("tests/folding/BoundarySpaceDecl.xq")
-
-        val descriptors = builder.buildFoldRegions(file, file.document!!, false)
-        assertThat(descriptors, `is`(notNullValue()))
-        assertThat(descriptors.size, `is`(0))
-
-        assertThat(builder.getPlaceholderText(file.node), `is`(nullValue()))
-        assertThat(builder.isCollapsedByDefault(file.node), `is`(false))
-    }
-
     @Nested
     @DisplayName("XQuery 3.1 EBNF (35) FunctionBody ; XQuery 3.1 EBNF (32) FunctionDecl")
     internal inner class FunctionDecl {

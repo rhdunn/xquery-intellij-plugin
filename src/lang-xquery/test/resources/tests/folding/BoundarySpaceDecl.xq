@@ -1,1 +1,0 @@
-declare boundary-space strip ;
