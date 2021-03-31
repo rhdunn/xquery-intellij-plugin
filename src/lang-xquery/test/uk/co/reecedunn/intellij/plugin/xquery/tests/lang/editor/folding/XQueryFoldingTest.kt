@@ -148,6 +148,62 @@ private class XQueryFoldingTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery 3.1 EBNF (37) EnclosedExpr ; XQuery 4.0 ED EBNF (43) WithExpr")
+    internal inner class WithExpr {
+        @Test
+        @DisplayName("single line")
+        fun singleLine() {
+            val file = parseResource("tests/folding/WithExpr/SingleLine.xq")
+
+            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(0))
+        }
+
+        @Test
+        @DisplayName("multiple lines")
+        fun multipleLines() {
+            val file = parseResource("tests/folding/WithExpr/MultiLine.xq")
+
+            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(1))
+
+            assertThat(descriptors[0].canBeRemovedWhenCollapsed(), `is`(false))
+            assertThat(descriptors[0].dependencies, `is`(notNullValue()))
+            assertThat(descriptors[0].dependencies.size, `is`(0))
+            assertThat(descriptors[0].group, `is`(nullValue()))
+            assertThat(descriptors[0].element.elementType, `is`(XPathElementType.WITH_EXPR))
+            assertThat(descriptors[0].range.startOffset, `is`(14))
+            assertThat(descriptors[0].range.endOffset, `is`(27))
+
+            assertThat(builder.getPlaceholderText(descriptors[0].element), `is`("{...}"))
+            assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
+        }
+
+        @Test
+        @DisplayName("multiple line namespaces")
+        fun multipleLineNamespaces() {
+            val file = parseResource("tests/folding/WithExpr/MultiLineNamespaces.xq")
+
+            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(1))
+
+            assertThat(descriptors[0].canBeRemovedWhenCollapsed(), `is`(false))
+            assertThat(descriptors[0].dependencies, `is`(notNullValue()))
+            assertThat(descriptors[0].dependencies.size, `is`(0))
+            assertThat(descriptors[0].group, `is`(nullValue()))
+            assertThat(descriptors[0].element.elementType, `is`(XPathElementType.WITH_EXPR))
+            assertThat(descriptors[0].range.startOffset, `is`(55))
+            assertThat(descriptors[0].range.endOffset, `is`(68))
+
+            assertThat(builder.getPlaceholderText(descriptors[0].element), `is`("{...}"))
+            assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.1 EBNF (142) DirElemConstructor")
     internal inner class DirElemConstructor {
         @Test

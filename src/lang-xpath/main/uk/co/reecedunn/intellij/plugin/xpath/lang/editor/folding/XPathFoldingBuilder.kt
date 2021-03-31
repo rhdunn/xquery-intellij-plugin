@@ -29,6 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowInlineFunctio
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathComment
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEnclosedExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathInlineFunctionExpr
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathWithExpr
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.blockFoldingRange
 import java.util.ArrayList
@@ -47,8 +48,9 @@ class XPathFoldingBuilder : FoldingBuilderEx() {
 
     override fun getPlaceholderText(node: ASTNode): String? = when (node.elementType) {
         XPathElementType.ARROW_INLINE_FUNCTION_CALL -> "{...}"
-        XPathElementType.INLINE_FUNCTION_EXPR -> "{...}"
         XPathElementType.COMMENT -> "(:...:)"
+        XPathElementType.INLINE_FUNCTION_EXPR -> "{...}"
+        XPathElementType.WITH_EXPR -> "{...}"
         else -> null
     }
 
@@ -58,6 +60,7 @@ class XPathFoldingBuilder : FoldingBuilderEx() {
         is PluginArrowInlineFunctionCall -> element.blockFoldingRange
         is XPathComment -> element.textRange
         is XPathInlineFunctionExpr -> element.blockFoldingRange
+        is XPathWithExpr -> element.blockFoldingRange
         else -> null
     }
 }

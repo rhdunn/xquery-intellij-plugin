@@ -29,6 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowInlineFunctio
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathComment
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEnclosedExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathInlineFunctionExpr
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathWithExpr
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.blockFoldingRange
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirCommentConstructor
@@ -54,6 +55,7 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
     override fun getPlaceholderText(node: ASTNode): String? = when (node.elementType) {
         XPathElementType.ARROW_INLINE_FUNCTION_CALL -> "{...}"
         XPathElementType.INLINE_FUNCTION_EXPR -> "{...}"
+        XPathElementType.WITH_EXPR -> "{...}"
         XQueryElementType.COMMENT -> getCommentPlaceholderText(node.text)
         XQueryElementType.DIR_COMMENT_CONSTRUCTOR -> getDirCommentConstructorPlaceholderTest(node.psi)
         XQueryElementType.DIR_ELEM_CONSTRUCTOR -> "..."
@@ -69,6 +71,7 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
         is XPathComment -> element.textRange
         is XPathEnclosedExpr -> element.textRange
         is XPathInlineFunctionExpr -> element.blockFoldingRange
+        is XPathWithExpr -> element.blockFoldingRange
         is XQueryDirCommentConstructor -> element.textRange
         is XQueryDirElemConstructor -> getDirElemConstructorFoldingRange(element)
         is XQueryFunctionDecl -> element.blockFoldingRange
