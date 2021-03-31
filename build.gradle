@@ -45,12 +45,12 @@ buildscript {
         ext.java_version = "1.8"
     }
 
-    ext.plugin_version = '1.9.0'
+    ext.plugin_version = '1.10.0'
     // Suffix ordering:
     //    `'-snapshot'` -- for development builds
     //    `'-eap-###'`  -- for early access preview builds (`-eap-1`, `-eap-2`, `-eap-3`, etc.)
     //    `''`          -- for release builds
-    ext.suffix = ''
+    ext.suffix = '-snapshot'
 
     repositories {
         maven { url 'http://dl.bintray.com/jetbrains/intellij-plugin-service' }
