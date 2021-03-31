@@ -42,7 +42,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.reference.XPathFunctionNam
 import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
 import uk.co.reecedunn.intellij.plugin.xpm.optree.path.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
-import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPathStep
+import uk.co.reecedunn.intellij.plugin.xpm.optree.path.XpmPathStep
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmConcatenatingExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.impl.XpmEmptyExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.text

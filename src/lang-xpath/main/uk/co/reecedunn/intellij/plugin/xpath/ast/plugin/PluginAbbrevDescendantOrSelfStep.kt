@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpath.ast.plugin
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPathStep
+import uk.co.reecedunn.intellij.plugin.xpm.optree.path.XpmPathStep
 
 /**
  * An XPath 2.0 and XQuery 1.0 `AbbrevDescendantOrSelfStep` node in the XQuery AST.

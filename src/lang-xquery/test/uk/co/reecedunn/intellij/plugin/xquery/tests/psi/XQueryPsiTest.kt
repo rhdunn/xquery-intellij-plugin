@@ -54,7 +54,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.reference.XPathFunctionNam
 import uk.co.reecedunn.intellij.plugin.xpm.context.expand
 import uk.co.reecedunn.intellij.plugin.xpm.optree.path.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
-import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPathStep
+import uk.co.reecedunn.intellij.plugin.xpm.optree.path.XpmPathStep
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmAccessLevel
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmAnnotated
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmConcatenatingExpression

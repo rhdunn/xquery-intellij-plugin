@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
-import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPathStep
+import uk.co.reecedunn.intellij.plugin.xpm.optree.path.XpmPathStep
 
 /**
  * An XPath 3.0 and XQuery 3.0 `PostfixExpr` node in the XQuery AST.

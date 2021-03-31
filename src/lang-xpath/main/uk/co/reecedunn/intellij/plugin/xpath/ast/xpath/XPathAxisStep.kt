@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
-import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPathStep
+import uk.co.reecedunn.intellij.plugin.xpm.optree.path.XpmPathStep
 
 /**
  * An XPath 2.0 and XQuery 1.0 `AxisStep` node in the XQuery AST.

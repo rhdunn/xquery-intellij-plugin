@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.reverse
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPathExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPostfixExpr
-import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPathStep
+import uk.co.reecedunn.intellij.plugin.xpm.optree.path.XpmPathStep
 
 class XPathPathExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathPathExpr {
     override val expressionElement: PsiElement
