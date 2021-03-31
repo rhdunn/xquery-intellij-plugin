@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAttributeNode
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 
 /**
  * An XQuery 1.0 `CompAttrConstructor` node in the XQuery AST.

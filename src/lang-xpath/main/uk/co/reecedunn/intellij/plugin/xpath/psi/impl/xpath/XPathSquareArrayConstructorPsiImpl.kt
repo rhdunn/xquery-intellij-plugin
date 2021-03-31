@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmArray
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathSquareArrayConstructor
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 
 class XPathSquareArrayConstructorPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),

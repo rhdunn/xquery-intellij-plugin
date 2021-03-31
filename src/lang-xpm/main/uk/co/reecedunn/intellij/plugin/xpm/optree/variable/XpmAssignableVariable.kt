@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpm.optree.variable
 
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 
 interface XpmAssignableVariable : XpmVariableBinding {
     val variableType: XdmSequenceType?

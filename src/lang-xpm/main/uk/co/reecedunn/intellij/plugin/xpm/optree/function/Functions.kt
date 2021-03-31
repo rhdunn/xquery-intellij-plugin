@@ -15,9 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.optree.function
 
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.impl.XpmEmptyExpression
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.impl.XpmConcatenatingExpressionImpl
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.impl.XpmEmptyExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.impl.XpmConcatenatingExpressionImpl
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.impl.XpmBoundParameter
 import uk.co.reecedunn.intellij.plugin.xpm.optree.item.keyName
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmAssignableVariable

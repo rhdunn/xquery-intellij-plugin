@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.plugin
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 
 /**
  * A BaseX 7.8/8.5 `UpdateExpr` node in the XQuery AST.

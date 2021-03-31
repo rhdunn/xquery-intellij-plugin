@@ -38,7 +38,7 @@ import uk.co.reecedunn.intellij.plugin.processor.debug.frame.QueryResultsValue
 import uk.co.reecedunn.intellij.plugin.processor.debug.frame.QuerySuspendContext
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessState
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderSettings
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xquery.xdebugger.breakpoints.XQueryExpressionBreakpointType
 import java.lang.RuntimeException
 import java.lang.ref.WeakReference

@@ -21,7 +21,6 @@ import com.intellij.openapi.util.Key
 import com.intellij.psi.PsiElement
 import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationEx
-import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
@@ -29,13 +28,11 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
-import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.blockOpen
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.isEmptyEnclosedExpr
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathInlineFunctionExprPsiImpl
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.impl.XpmEmptyExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.impl.XpmEmptyExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDecorator
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmParameter
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl

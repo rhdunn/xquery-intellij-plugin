@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNodeItem
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPostfixExpr
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAxisType
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 
 class XPathPostfixExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathPostfixExpr {
     // region XpmPathStep

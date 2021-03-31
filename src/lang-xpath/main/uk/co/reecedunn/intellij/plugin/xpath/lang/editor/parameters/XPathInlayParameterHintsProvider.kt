@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.parenthesizedExprTextOffset
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpm.context.expand
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmConcatenatingExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmConcatenatingExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmArrowFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.resolve

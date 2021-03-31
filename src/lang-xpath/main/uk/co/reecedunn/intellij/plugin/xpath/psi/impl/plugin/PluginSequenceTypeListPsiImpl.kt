@@ -30,8 +30,6 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSingleItemType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.filterNotWhitespace
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
-import uk.co.reecedunn.intellij.plugin.xpm.optree.item.XpmMapEntry
 
 class PluginSequenceTypeListPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), PluginSequenceTypeList, XpmSyntaxValidationElement {

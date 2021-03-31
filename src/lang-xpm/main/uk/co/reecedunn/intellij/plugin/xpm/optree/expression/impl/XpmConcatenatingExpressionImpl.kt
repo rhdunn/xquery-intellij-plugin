@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,10 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpm.optree.expr
+package uk.co.reecedunn.intellij.plugin.xpm.optree.expression.impl
 
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmConcatenatingExpression
 
-interface XpmExpression {
-    val expressionElement: PsiElement?
+data class XpmConcatenatingExpressionImpl(override val expressions: Sequence<XpmExpression>) :
+    XpmConcatenatingExpression {
+
+    override val expressionElement: PsiElement? = null
 }

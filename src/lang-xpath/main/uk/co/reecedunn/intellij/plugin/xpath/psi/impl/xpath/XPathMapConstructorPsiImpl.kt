@@ -21,14 +21,13 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
-import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmMap
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmObjectNode
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathMapConstructor
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathMapConstructorEntry
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.item.XpmMapEntry
 
 private val XQUERY31: List<Version> = listOf(XQuerySpec.REC_3_1_20170321, Saxon.VERSION_9_4)

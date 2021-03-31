@@ -13,14 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpm.optree.expr
+package uk.co.reecedunn.intellij.plugin.xpm.optree.expression
 
-import com.intellij.psi.PsiElement
-import com.intellij.psi.tree.IElementType
-import uk.co.reecedunn.intellij.plugin.core.psi.elementType
-
-val XpmExpression.elementType: IElementType?
-    get() = (this as? PsiElement)?.elementType
-
-val XpmExpression.text: String?
-    get() = (this as? PsiElement)?.text
+interface XpmConcatenatingExpression : XpmExpression {
+    val expressions: Sequence<XpmExpression>
+}

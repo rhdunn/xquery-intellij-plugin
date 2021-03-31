@@ -22,9 +22,6 @@ import com.intellij.psi.PsiElement
 import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.core.sequences.filterIsElementType
-import uk.co.reecedunn.intellij.plugin.core.sequences.reverse
-import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnnotation
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathInlineFunctionExpr
@@ -36,11 +33,9 @@ import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.blockOpen
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.isEmptyEnclosedExpr
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmAccessLevel
-import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmAnnotated
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.impl.XpmEmptyExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.impl.XpmEmptyExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmParameter
-import java.util.*
 
 class XPathInlineFunctionExprPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),

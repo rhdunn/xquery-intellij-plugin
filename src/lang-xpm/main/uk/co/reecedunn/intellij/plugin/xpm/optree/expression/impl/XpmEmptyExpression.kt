@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpm.optree.expr.impl
+package uk.co.reecedunn.intellij.plugin.xpm.optree.expression.impl
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmConcatenatingExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 
-class XsNCNameExpression(ncname: XsNCNameValue) : XpmExpression, XsNCNameValue {
+object XpmEmptyExpression : XpmConcatenatingExpression {
     override val expressionElement: PsiElement? = null
 
-    override val data: String = ncname.data
+    override val expressions: Sequence<XpmExpression> = emptySequence()
 }

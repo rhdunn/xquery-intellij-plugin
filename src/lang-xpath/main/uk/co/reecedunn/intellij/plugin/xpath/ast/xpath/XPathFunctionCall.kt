@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
 

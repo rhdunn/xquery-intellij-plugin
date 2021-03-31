@@ -41,12 +41,11 @@ import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.reference.XPathFunctionNameReference
 import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAxisType
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPathStep
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmConcatenatingExpression
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.elementType
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.impl.XpmEmptyExpression
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.text
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmConcatenatingExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.impl.XpmEmptyExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.text
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.*
 import uk.co.reecedunn.intellij.plugin.xpm.optree.item.XpmArrayExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XdmNamespaceType

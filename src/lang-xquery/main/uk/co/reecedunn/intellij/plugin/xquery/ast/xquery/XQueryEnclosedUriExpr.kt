@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEnclosedExpr
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 
 /**
  * An XQuery 3.1 `EnclosedURIExpr` node in the XQuery AST.

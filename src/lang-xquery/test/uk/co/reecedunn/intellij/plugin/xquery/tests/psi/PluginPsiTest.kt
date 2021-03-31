@@ -49,11 +49,11 @@ import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpm.context.expand
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAxisType
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPathStep
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmAccessLevel
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmAnnotated
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.text
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.text
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.item.XpmArrayExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider

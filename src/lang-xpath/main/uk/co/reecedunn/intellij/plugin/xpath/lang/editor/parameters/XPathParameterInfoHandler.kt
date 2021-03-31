@@ -24,7 +24,7 @@ import com.intellij.lang.parameterInfo.UpdateParameterInfoContext
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmConcatenatingExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmConcatenatingExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.*
 import uk.co.reecedunn.intellij.plugin.xpm.staticallyKnownFunctions
 

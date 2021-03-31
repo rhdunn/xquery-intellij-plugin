@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathReverseStep
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAxisType
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 import java.lang.UnsupportedOperationException
 
 class XPathReverseStepPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathReverseStep {

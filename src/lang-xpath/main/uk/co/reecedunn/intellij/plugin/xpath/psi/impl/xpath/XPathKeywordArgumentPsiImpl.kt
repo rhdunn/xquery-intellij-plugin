@@ -23,8 +23,8 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathKeywordArgument
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.impl.XsNCNameExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.impl.XsNCNameExpression
 
 class XPathKeywordArgumentPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),

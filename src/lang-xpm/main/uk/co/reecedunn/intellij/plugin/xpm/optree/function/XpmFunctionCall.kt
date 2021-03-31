@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.optree.function
 
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.item.XpmMapEntry
 
 interface XpmFunctionCall {

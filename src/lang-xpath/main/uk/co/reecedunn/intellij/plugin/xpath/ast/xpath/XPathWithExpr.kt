@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmConcatenatingExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmConcatenatingExpression
 
 /**
  * An XPath 4.0 ED and XQuery 4.0 ED `WithExpr` node in the XPath/XQuery AST.

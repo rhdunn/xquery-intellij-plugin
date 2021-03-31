@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginPostfixLookup
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathLookup
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAxisType
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 
 class PluginPostfixLookupPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginPostfixLookup {
     // region XpmPathStep

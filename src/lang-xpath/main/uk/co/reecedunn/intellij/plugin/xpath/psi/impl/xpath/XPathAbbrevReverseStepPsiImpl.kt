@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNodeItem
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAbbrevReverseStep
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAxisType
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 
 class XPathAbbrevReverseStepPsiImpl(type: IElementType, text: CharSequence) :
     LeafPsiElement(type, text), XPathAbbrevReverseStep {

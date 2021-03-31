@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility
 
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExprSingle
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 
 /**
  * An XQuery Update Facility 3.0 `UpdatingFunctionCall` node in the XQuery AST.

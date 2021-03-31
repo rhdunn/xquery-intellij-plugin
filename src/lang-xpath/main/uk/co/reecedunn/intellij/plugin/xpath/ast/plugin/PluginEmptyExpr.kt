@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpath.ast.plugin
 
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPrimaryExpr
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmConcatenatingExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmConcatenatingExpression
 
 /**
  * An `EmptyExpr` node in the XQuery AST.

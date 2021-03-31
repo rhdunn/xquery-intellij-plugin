@@ -19,7 +19,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginEmptyExpr
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 
 class PluginEmptyExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginEmptyExpr {
     override val expressionElement: PsiElement? = null
