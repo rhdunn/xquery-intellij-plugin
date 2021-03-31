@@ -23,6 +23,7 @@ import com.intellij.util.PlatformIcons
 import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnnotation
+import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmAccessLevel
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmAnnotated
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.annotation
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
@@ -36,9 +37,8 @@ open class XQueryAnnotatedDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node
             val icon = getIcon(false)
             val isLocked = BitUtil.isSet(flags, ICON_FLAG_READ_STATUS) && !isWritable
             val baseIcon = IconManager.getInstance().createLayeredIcon(this, icon, if (isLocked) FLAGS_LOCKED else 0)
-            if (BitUtil.isSet(flags, ICON_FLAG_VISIBILITY)) when (isPublic) {
-                true -> baseIcon.setIcon(PlatformIcons.PUBLIC_ICON, 1)
-                false -> baseIcon.setIcon(PlatformIcons.PRIVATE_ICON, 1)
+            if (BitUtil.isSet(flags, ICON_FLAG_VISIBILITY)) {
+                accessLevel.icon?.let { baseIcon.setIcon(it, 1) }
             }
             baseIcon
         }
@@ -51,8 +51,8 @@ open class XQueryAnnotatedDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node
     override val annotations: Sequence<XdmAnnotation>
         get() = children().filterIsInstance<XdmAnnotation>()
 
-    override val isPublic: Boolean
-        get() = annotation(XpmAnnotated.PRIVATE) == null
+    override val accessLevel: XpmAccessLevel
+        get() = XpmAccessLevel.get(this)
 
     // endregion
 }

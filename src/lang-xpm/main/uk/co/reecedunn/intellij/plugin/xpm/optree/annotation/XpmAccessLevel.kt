@@ -15,10 +15,13 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.optree.annotation
 
-enum class XpmAccessLevel(val sortOrder: Int) {
-    Public(2),
-    Private(1),
-    Unknown(-1);
+import com.intellij.util.PlatformIcons
+import javax.swing.Icon
+
+enum class XpmAccessLevel(val sortOrder: Int, val icon: Icon?) {
+    Public(2, PlatformIcons.PUBLIC_ICON),
+    Private(1, PlatformIcons.PRIVATE_ICON),
+    Unknown(-1, null);
 
     companion object {
         fun get(annotated: XpmAnnotated): XpmAccessLevel = when {

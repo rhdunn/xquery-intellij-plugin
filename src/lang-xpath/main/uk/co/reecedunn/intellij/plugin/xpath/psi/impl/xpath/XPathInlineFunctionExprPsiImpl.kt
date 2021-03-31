@@ -35,8 +35,8 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.blockOpen
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.isEmptyEnclosedExpr
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
+import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmAccessLevel
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmAnnotated
-import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.annotation
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.impl.XpmEmptyExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmParameter
@@ -65,8 +65,8 @@ class XPathInlineFunctionExprPsiImpl(node: ASTNode) :
     override val annotations: Sequence<XdmAnnotation>
         get() = children().filterIsInstance<XdmAnnotation>()
 
-    override val isPublic: Boolean
-        get() = annotation(XpmAnnotated.PRIVATE) == null
+    override val accessLevel: XpmAccessLevel
+        get() = XpmAccessLevel.get(this)
 
     // endregion
     // region XdmFunctionDeclaration

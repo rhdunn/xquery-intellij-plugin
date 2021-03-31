@@ -51,6 +51,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclarat
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPathStep
+import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmAccessLevel
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmAnnotated
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.text
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProvider
@@ -2131,8 +2132,8 @@ private class PluginPsiTest : ParserTestCase() {
                     declare private variable ${'$'}c := 3;
                     """.trimIndent()
                 )
-                assertThat(decls[0].isPublic, `is`(true))
-                assertThat(decls[1].isPublic, `is`(false))
+                assertThat(decls[0].accessLevel, `is`(XpmAccessLevel.Public))
+                assertThat(decls[1].accessLevel, `is`(XpmAccessLevel.Private))
             }
         }
 
@@ -2148,8 +2149,8 @@ private class PluginPsiTest : ParserTestCase() {
                     declare private function c() {};
                     """.trimIndent()
                 )
-                assertThat(decls[0].isPublic, `is`(true))
-                assertThat(decls[1].isPublic, `is`(false))
+                assertThat(decls[0].accessLevel, `is`(XpmAccessLevel.Public))
+                assertThat(decls[1].accessLevel, `is`(XpmAccessLevel.Private))
             }
         }
     }

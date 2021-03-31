@@ -49,7 +49,7 @@ class StructureViewLeafNode(leaf: XQueryStructureViewElement) :
     override fun getAlphaSortKey(): String = element!!.alphaSortKey
 
     val accessLevel: XpmAccessLevel = when (val element = element) {
-        is XpmAnnotated -> XpmAccessLevel.get(element)
+        is XpmAnnotated -> element.accessLevel
         else -> XpmAccessLevel.Unknown
     }
 

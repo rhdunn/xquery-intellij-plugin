@@ -55,6 +55,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.context.expand
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPathStep
+import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmAccessLevel
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmAnnotated
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.XpmConcatenatingExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expr.elementType
@@ -8607,9 +8608,9 @@ private class XQueryPsiTest : ParserTestCase() {
                         declare %private variable ${'$'}c := 3;
                         """.trimIndent()
                     )
-                    assertThat(decls[0].isPublic, `is`(true))
-                    assertThat(decls[1].isPublic, `is`(true))
-                    assertThat(decls[2].isPublic, `is`(false))
+                    assertThat(decls[0].accessLevel, `is`(XpmAccessLevel.Public))
+                    assertThat(decls[1].accessLevel, `is`(XpmAccessLevel.Public))
+                    assertThat(decls[2].accessLevel, `is`(XpmAccessLevel.Private))
                 }
             }
 
@@ -8620,7 +8621,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 @DisplayName("no annotation")
                 fun none() {
                     val decl = parse<XpmAnnotated>("declare function f() {};")[0]
-                    assertThat(decl.isPublic, `is`(true))
+                    assertThat(decl.accessLevel, `is`(XpmAccessLevel.Public))
 
                     val annotations = decl.annotations.toList()
                     assertThat(annotations.size, `is`(0))
@@ -8657,9 +8658,9 @@ private class XQueryPsiTest : ParserTestCase() {
                         declare %private function c() {};
                         """.trimIndent()
                     )
-                    assertThat(decls[0].isPublic, `is`(true))
-                    assertThat(decls[1].isPublic, `is`(true))
-                    assertThat(decls[2].isPublic, `is`(false))
+                    assertThat(decls[0].accessLevel, `is`(XpmAccessLevel.Public))
+                    assertThat(decls[1].accessLevel, `is`(XpmAccessLevel.Public))
+                    assertThat(decls[2].accessLevel, `is`(XpmAccessLevel.Private))
                 }
             }
 
@@ -8670,7 +8671,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 @DisplayName("no annotation")
                 fun none() {
                     val expr = parse<XpmAnnotated>("function() {};")[0]
-                    assertThat(expr.isPublic, `is`(true))
+                    assertThat(expr.accessLevel, `is`(XpmAccessLevel.Public))
 
                     val annotations = expr.annotations.toList()
                     assertThat(annotations.size, `is`(0))
@@ -8707,9 +8708,9 @@ private class XQueryPsiTest : ParserTestCase() {
                         %private function() {}
                         """.trimIndent()
                     )
-                    assertThat(exprs[0].isPublic, `is`(true))
-                    assertThat(exprs[1].isPublic, `is`(true))
-                    assertThat(exprs[2].isPublic, `is`(false))
+                    assertThat(exprs[0].accessLevel, `is`(XpmAccessLevel.Public))
+                    assertThat(exprs[1].accessLevel, `is`(XpmAccessLevel.Public))
+                    assertThat(exprs[2].accessLevel, `is`(XpmAccessLevel.Private))
                 }
             }
 
@@ -8756,9 +8757,9 @@ private class XQueryPsiTest : ParserTestCase() {
                         1 instance of %private function(*)
                         """.trimIndent()
                     )
-                    assertThat(tests[0].isPublic, `is`(true))
-                    assertThat(tests[1].isPublic, `is`(true))
-                    assertThat(tests[2].isPublic, `is`(false))
+                    assertThat(tests[0].accessLevel, `is`(XpmAccessLevel.Public))
+                    assertThat(tests[1].accessLevel, `is`(XpmAccessLevel.Public))
+                    assertThat(tests[2].accessLevel, `is`(XpmAccessLevel.Private))
                 }
             }
 
@@ -8805,9 +8806,9 @@ private class XQueryPsiTest : ParserTestCase() {
                         1 instance of %private function(item()) as item()
                         """.trimIndent()
                     )
-                    assertThat(tests[0].isPublic, `is`(true))
-                    assertThat(tests[1].isPublic, `is`(true))
-                    assertThat(tests[2].isPublic, `is`(false))
+                    assertThat(tests[0].accessLevel, `is`(XpmAccessLevel.Public))
+                    assertThat(tests[1].accessLevel, `is`(XpmAccessLevel.Public))
+                    assertThat(tests[2].accessLevel, `is`(XpmAccessLevel.Private))
                 }
             }
 
@@ -8818,7 +8819,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 @DisplayName("no annotation")
                 fun none() {
                     val decl = parse<XpmAnnotated>("declare item-type test as item();")[0]
-                    assertThat(decl.isPublic, `is`(true))
+                    assertThat(decl.accessLevel, `is`(XpmAccessLevel.Public))
 
                     val annotations = decl.annotations.toList()
                     assertThat(annotations.size, `is`(0))
@@ -8855,9 +8856,9 @@ private class XQueryPsiTest : ParserTestCase() {
                         declare %private item-type c as item();
                         """.trimIndent()
                     )
-                    assertThat(decls[0].isPublic, `is`(true))
-                    assertThat(decls[1].isPublic, `is`(true))
-                    assertThat(decls[2].isPublic, `is`(false))
+                    assertThat(decls[0].accessLevel, `is`(XpmAccessLevel.Public))
+                    assertThat(decls[1].accessLevel, `is`(XpmAccessLevel.Public))
+                    assertThat(decls[2].accessLevel, `is`(XpmAccessLevel.Private))
                 }
             }
         }
