@@ -50,7 +50,7 @@ buildscript {
     //    `'-snapshot'` -- for development builds
     //    `'-eap-###'`  -- for early access preview builds (`-eap-1`, `-eap-2`, `-eap-3`, etc.)
     //    `''`          -- for release builds
-    ext.suffix = '-snapshot'
+    ext.suffix = ''
 
     repositories {
         maven { url 'http://dl.bintray.com/jetbrains/intellij-plugin-service' }
