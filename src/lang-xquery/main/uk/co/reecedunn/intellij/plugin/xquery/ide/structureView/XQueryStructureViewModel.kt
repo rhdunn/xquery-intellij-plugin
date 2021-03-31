@@ -24,6 +24,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 class XQueryStructureViewModel(psiFile: PsiFile, editor: Editor?) :
     StructureViewModelBase(psiFile, editor, XQueryModuleStructureView(psiFile as XQueryModule)) {
     init {
-        withSuitableClasses(XQueryStructureViewElement::class.java).withSorters(Sorter.ALPHA_SORTER)
+        withSuitableClasses(XQueryStructureViewElement::class.java).withSorters(
+            VisibilitySorter,
+            Sorter.ALPHA_SORTER
+        )
     }
 }

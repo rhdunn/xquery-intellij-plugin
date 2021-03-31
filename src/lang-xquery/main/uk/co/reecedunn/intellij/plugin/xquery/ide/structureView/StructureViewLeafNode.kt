@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2020 Reece H. Dunn
+ * Copyright (C) 2019-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,8 @@ import com.intellij.ide.structureView.impl.common.PsiTreeElementBase
 import com.intellij.ide.util.treeView.smartTree.SortableTreeElement
 import com.intellij.navigation.ItemPresentation
 import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationEx
+import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAnnotated
+import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmAccessLevel
 
 class StructureViewLeafNode(leaf: XQueryStructureViewElement) :
     PsiTreeElementBase<XQueryStructureViewElement>(leaf),
@@ -45,6 +47,11 @@ class StructureViewLeafNode(leaf: XQueryStructureViewElement) :
     // region SortableTreeElement
 
     override fun getAlphaSortKey(): String = element!!.alphaSortKey
+
+    val accessLevel: XpmAccessLevel = when (val element = element) {
+        is XpmAnnotated -> XpmAccessLevel.get(element)
+        else -> XpmAccessLevel.Unknown
+    }
 
     // endregion
 }
