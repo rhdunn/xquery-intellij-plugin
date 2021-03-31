@@ -131,22 +131,18 @@ private class XQueryReferenceTest : ParserTestCase() {
             @DisplayName("empty uri")
             fun emptyUri() {
                 val file = parseResource("tests/resolve-xquery/files/ModuleImport_URILiteral_Empty.xq")
-
-                val moduleImportPsi = file.descendants().filterIsInstance<XQueryModuleImport>().first()
-                assertThat(moduleImportPsi, `is`(notNullValue()))
-
-                val uriLiterals = moduleImportPsi.walkTree().filterIsInstance<XPathUriLiteral>().toList()
+                val uriLiterals = file.walkTree().filterIsInstance<XPathUriLiteral>().toList()
                 assertThat(uriLiterals.size, `is`(2))
+                assertThat(uriLiterals.last().reference, `is`(nullValue()))
+            }
 
-                val ref = uriLiterals.last().reference!!
-                assertThat(ref.element, `is`(sameInstance(uriLiterals.last())))
-                assertThat(ref.canonicalText, `is`(""))
-                assertThat(ref.rangeInElement.startOffset, `is`(1))
-                assertThat(ref.rangeInElement.endOffset, `is`(1))
-                assertThat(ref.variants.size, `is`(0))
-
-                val resolved = ref.resolve()
-                assertThat(resolved, `is`(nullValue()))
+            @Test
+            @DisplayName("incomplete uri")
+            fun incompleteUri() {
+                val file = parseResource("tests/resolve-xquery/files/ModuleImport_URILiteral_Incomplete.xq")
+                val uriLiterals = file.walkTree().filterIsInstance<XPathUriLiteral>().toList()
+                assertThat(uriLiterals.size, `is`(2))
+                assertThat(uriLiterals.last().reference, `is`(nullValue()))
             }
         }
     }

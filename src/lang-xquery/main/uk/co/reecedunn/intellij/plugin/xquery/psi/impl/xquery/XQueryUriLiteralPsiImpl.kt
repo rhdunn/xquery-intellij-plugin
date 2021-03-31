@@ -45,9 +45,9 @@ class XQueryUriLiteralPsiImpl(node: ASTNode) :
     }
     // region PsiElement
 
-    override fun getReference(): PsiReference {
-        val range = textRange
-        return XPathUriLiteralReference(this, TextRange(1, range.length - 1))
+    override fun getReference(): PsiReference? = when (val length = textLength) {
+        0, 1, 2 -> null // incomplete or empty
+        else -> XPathUriLiteralReference(this, TextRange(1, length - 1))
     }
 
     override fun subtreeChanged() {
