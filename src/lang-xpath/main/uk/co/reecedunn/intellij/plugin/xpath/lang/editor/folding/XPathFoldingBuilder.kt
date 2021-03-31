@@ -26,10 +26,7 @@ import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowInlineFunctionCall
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathComment
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEnclosedExpr
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathInlineFunctionExpr
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathWithExpr
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.blockFoldingRange
 import java.util.ArrayList
@@ -49,6 +46,7 @@ class XPathFoldingBuilder : FoldingBuilderEx() {
     override fun getPlaceholderText(node: ASTNode): String? = when (node.elementType) {
         XPathElementType.ARROW_INLINE_FUNCTION_CALL -> "{...}"
         XPathElementType.COMMENT -> "(:...:)"
+        XPathElementType.CURLY_ARRAY_CONSTRUCTOR -> "{...}"
         XPathElementType.INLINE_FUNCTION_EXPR -> "{...}"
         XPathElementType.WITH_EXPR -> "{...}"
         else -> null
@@ -59,6 +57,7 @@ class XPathFoldingBuilder : FoldingBuilderEx() {
     private fun getSingleFoldingRange(element: PsiElement): TextRange? = when (element) {
         is PluginArrowInlineFunctionCall -> element.blockFoldingRange
         is XPathComment -> element.textRange
+        is XPathCurlyArrayConstructor -> element.blockFoldingRange
         is XPathInlineFunctionExpr -> element.blockFoldingRange
         is XPathWithExpr -> element.blockFoldingRange
         else -> null
