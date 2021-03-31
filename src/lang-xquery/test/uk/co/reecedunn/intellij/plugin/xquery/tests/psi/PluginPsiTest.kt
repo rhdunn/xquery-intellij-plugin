@@ -48,7 +48,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.model.*
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpm.context.expand
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
-import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAxisType
+import uk.co.reecedunn.intellij.plugin.xpm.optree.path.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmPathStep
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmAccessLevel

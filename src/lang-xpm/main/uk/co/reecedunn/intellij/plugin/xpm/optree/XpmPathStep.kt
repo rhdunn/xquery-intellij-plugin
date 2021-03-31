@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xpm.optree
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.path.XpmAxisType
 
 interface XpmPathStep {
     val axisType: XpmAxisType
