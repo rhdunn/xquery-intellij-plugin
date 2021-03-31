@@ -48,6 +48,7 @@ class XPathFoldingBuilder : FoldingBuilderEx() {
         XPathElementType.COMMENT -> "(:...:)"
         XPathElementType.CURLY_ARRAY_CONSTRUCTOR -> "{...}"
         XPathElementType.INLINE_FUNCTION_EXPR -> "{...}"
+        XPathElementType.MAP_CONSTRUCTOR -> "{...}"
         XPathElementType.WITH_EXPR -> "{...}"
         else -> null
     }
@@ -59,6 +60,7 @@ class XPathFoldingBuilder : FoldingBuilderEx() {
         is XPathComment -> element.textRange
         is XPathCurlyArrayConstructor -> element.blockFoldingRange
         is XPathInlineFunctionExpr -> element.blockFoldingRange
+        is XPathMapConstructor -> element.blockFoldingRange
         is XPathWithExpr -> element.blockFoldingRange
         else -> null
     }

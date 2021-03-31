@@ -507,6 +507,41 @@ private class XQueryFoldingTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery 3.1 EBNF (170) MapConstructor")
+    internal inner class MapConstructor {
+        @Test
+        @DisplayName("single line")
+        fun singleLine() {
+            val file = parseResource("tests/folding/MapConstructor/SingleLine.xq")
+
+            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(0))
+        }
+
+        @Test
+        @DisplayName("multiple lines")
+        fun multipleLines() {
+            val file = parseResource("tests/folding/MapConstructor/MultiLine.xq")
+
+            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(1))
+
+            assertThat(descriptors[0].canBeRemovedWhenCollapsed(), `is`(false))
+            assertThat(descriptors[0].dependencies, `is`(notNullValue()))
+            assertThat(descriptors[0].dependencies.size, `is`(0))
+            assertThat(descriptors[0].group, `is`(nullValue()))
+            assertThat(descriptors[0].element.elementType, `is`(XPathElementType.MAP_CONSTRUCTOR))
+            assertThat(descriptors[0].range.startOffset, `is`(4))
+            assertThat(descriptors[0].range.endOffset, `is`(30))
+
+            assertThat(builder.getPlaceholderText(descriptors[0].element), `is`("{...}"))
+            assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.1 EBNF (231) Comment")
     internal inner class Comment {
         @Test
