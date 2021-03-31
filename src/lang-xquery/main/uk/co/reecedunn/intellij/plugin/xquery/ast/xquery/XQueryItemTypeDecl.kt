@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
 import uk.co.reecedunn.intellij.plugin.xquery.ide.structureView.XQueryStructureViewElement
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
-import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAnnotated
+import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmAnnotated
 
 /**
  * An XQuery 4.0 ED `ItemTypeDecl` node in the XQuery AST.

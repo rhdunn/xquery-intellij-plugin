@@ -23,8 +23,8 @@ import com.intellij.util.PlatformIcons
 import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnnotation
-import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAnnotated
-import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation
+import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmAnnotated
+import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.annotation
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
 import javax.swing.Icon
 

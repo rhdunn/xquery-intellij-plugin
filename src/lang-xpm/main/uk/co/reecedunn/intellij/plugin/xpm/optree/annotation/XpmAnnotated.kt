@@ -13,10 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpm.optree
+package uk.co.reecedunn.intellij.plugin.xpm.optree.annotation
 
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnnotation
-import uk.co.reecedunn.intellij.plugin.xpm.context.expand
 
 interface XpmAnnotated {
     val annotations: Sequence<XdmAnnotation>
@@ -30,11 +29,4 @@ interface XpmAnnotated {
         const val PUBLIC = "public"
         const val PRIVATE = "private"
     }
-}
-
-fun XpmAnnotated.annotation(name: String): XdmAnnotation? = annotations.find { annotation ->
-    if (annotation.name?.localName?.data == name)
-        annotation.name?.expand()?.find { it.namespace?.data == XpmAnnotated.NAMESPACE } != null
-    else
-        false
 }

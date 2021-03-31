@@ -15,15 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.optree.annotation
 
-enum class XpmAccessLevel(val sortOrder: Int) {
-    Public(2),
-    Private(1),
-    Unknown(-1);
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnnotation
+import uk.co.reecedunn.intellij.plugin.xpm.context.expand
 
-    companion object {
-        fun get(annotated: XpmAnnotated): XpmAccessLevel = when {
-            annotated.annotation(XpmAnnotated.PRIVATE) == null -> Public
-            else -> Private
-        }
-    }
+fun XpmAnnotated.annotation(name: String): XdmAnnotation? = annotations.find { annotation ->
+    if (annotation.name?.localName?.data == name)
+        annotation.name?.expand()?.find { it.namespace?.data == XpmAnnotated.NAMESPACE } != null
+    else
+        false
 }

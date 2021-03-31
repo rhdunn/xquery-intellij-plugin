@@ -26,8 +26,8 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAnyFunctionTest
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmFunction
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
-import uk.co.reecedunn.intellij.plugin.xpm.optree.XpmAnnotated
-import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation
+import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmAnnotated
+import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.annotation
 
 class XPathAnyFunctionTestPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
