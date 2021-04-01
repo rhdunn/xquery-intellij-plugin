@@ -33,9 +33,8 @@ XQueryModuleImpl[FILE(0:55)]
                      XPathNCNameImpl[XPATH_NCNAME(41:49)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(41:49)]('XPTY0004')
                   PsiWhiteSpaceImpl[WHITE_SPACE(49:50)](' ')
-               XQueryEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(50:55)]
-                  LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(50:51)]('{')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(51:52)](' ')
-                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(52:53)]('2')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(53:54)](' ')
-                  LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(54:55)]('}')
+               LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(50:51)]('{')
+               PsiWhiteSpaceImpl[WHITE_SPACE(51:52)](' ')
+               XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(52:53)]('2')
+               PsiWhiteSpaceImpl[WHITE_SPACE(53:54)](' ')
+               LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(54:55)]('}')

@@ -2682,7 +2682,7 @@ class XQueryParser : XPathParser() {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            parseEnclosedExprOrBlock(builder, XQueryElementType.ENCLOSED_EXPR, BlockOpen.OPTIONAL, BlockExpr.OPTIONAL)
+            parseEnclosedExprOrBlock(builder, null, BlockOpen.OPTIONAL, BlockExpr.OPTIONAL)
 
             marker.done(XQueryElementType.CATCH_CLAUSE)
             return nextType

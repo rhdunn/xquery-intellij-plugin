@@ -149,7 +149,7 @@ private class XQueryFoldingTest : ParserTestCase() {
             assertThat(descriptors[1].dependencies, `is`(notNullValue()))
             assertThat(descriptors[1].dependencies.size, `is`(0))
             assertThat(descriptors[1].group, `is`(nullValue()))
-            assertThat(descriptors[1].element.elementType, `is`(XQueryElementType.ENCLOSED_EXPR))
+            assertThat(descriptors[1].element.elementType, `is`(XQueryElementType.CATCH_CLAUSE))
             assertThat(descriptors[1].range.startOffset, `is`(20))
             assertThat(descriptors[1].range.endOffset, `is`(27))
 

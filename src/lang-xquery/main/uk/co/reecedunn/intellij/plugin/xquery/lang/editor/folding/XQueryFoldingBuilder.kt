@@ -29,10 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowInlineFunctio
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.blockFoldingRange
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirCommentConstructor
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryTryClause
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQDocCommentLineExtractor
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
@@ -56,6 +53,7 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
         XPathElementType.INLINE_FUNCTION_EXPR -> "{...}"
         XPathElementType.MAP_CONSTRUCTOR -> "{...}"
         XPathElementType.WITH_EXPR -> "{...}"
+        XQueryElementType.CATCH_CLAUSE -> "{...}"
         XQueryElementType.COMMENT -> getCommentPlaceholderText(node.text)
         XQueryElementType.DIR_COMMENT_CONSTRUCTOR -> getDirCommentConstructorPlaceholderTest(node.psi)
         XQueryElementType.DIR_ELEM_CONSTRUCTOR -> "..."
@@ -75,6 +73,7 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
         is XPathInlineFunctionExpr -> element.blockFoldingRange
         is XPathMapConstructor -> element.blockFoldingRange
         is XPathWithExpr -> element.blockFoldingRange
+        is XQueryCatchClause -> element.blockFoldingRange
         is XQueryDirCommentConstructor -> element.textRange
         is XQueryDirElemConstructor -> getDirElemConstructorFoldingRange(element)
         is XQueryFunctionDecl -> element.blockFoldingRange
