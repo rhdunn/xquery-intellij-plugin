@@ -32,6 +32,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.blockFoldingRange
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirCommentConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryTryClause
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQDocCommentLineExtractor
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
@@ -59,7 +60,7 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
         XQueryElementType.DIR_COMMENT_CONSTRUCTOR -> getDirCommentConstructorPlaceholderTest(node.psi)
         XQueryElementType.DIR_ELEM_CONSTRUCTOR -> "..."
         XQueryElementType.ENCLOSED_EXPR -> "{...}"
-        XQueryElementType.ENCLOSED_TRY_TARGET_EXPR -> "{...}"
+        XQueryElementType.TRY_CLAUSE -> "{...}"
         XQueryElementType.FUNCTION_DECL -> "{...}"
         else -> null
     }
@@ -77,6 +78,7 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
         is XQueryDirCommentConstructor -> element.textRange
         is XQueryDirElemConstructor -> getDirElemConstructorFoldingRange(element)
         is XQueryFunctionDecl -> element.blockFoldingRange
+        is XQueryTryClause -> element.blockFoldingRange
         else -> null
     }
 

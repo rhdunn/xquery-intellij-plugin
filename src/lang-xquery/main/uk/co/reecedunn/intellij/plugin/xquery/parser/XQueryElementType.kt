@@ -553,12 +553,6 @@ object XQueryElementType {
         XQuery
     )
 
-    val ENCLOSED_TRY_TARGET_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_ENCLOSED_TRY_TARGET_EXPR",
-        XQueryEnclosedTryTargetExprPsiImpl::class.java,
-        XQuery
-    )
-
     val ENCLOSED_URI_EXPR: IElementType = ICompositeElementType(
         "XQUERY_ENCLOSED_URI_EXPR",
         XQueryEnclosedUriExprPsiImpl::class.java,

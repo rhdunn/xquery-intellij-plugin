@@ -503,40 +503,6 @@ private class XQueryConformanceTest : ParserTestCase() {
     }
 
     // endregion
-    // region EnclosedExpr (TryClause)
-
-    @Test
-    fun testEnclosedExpr_TryClause() {
-        val file = parseResource("tests/parser/xquery-3.0/TryClause.xq")
-
-        val tryCatchExprPsi = file.descendants().filterIsInstance<XQueryTryCatchExpr>().first()
-        val tryClausePsi = tryCatchExprPsi.children().filterIsInstance<XQueryTryClause>().first()
-        val enclosedExprPsi = tryClausePsi.children().filterIsInstance<XPathEnclosedExpr>().first()
-        val versioned = enclosedExprPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.INTEGER_LITERAL))
-    }
-
-    @Test
-    fun testEnclosedExpr_TryClause_NoExpr() {
-        val file = parseResource("tests/parser/xquery-3.1/TryClause_MissingExpr.xq")
-
-        val tryCatchExprPsi = file.descendants().filterIsInstance<XQueryTryCatchExpr>().first()
-        val tryClausePsi = tryCatchExprPsi.children().filterIsInstance<XQueryTryClause>().first()
-        val enclosedExprPsi = tryClausePsi.children().filterIsInstance<XPathEnclosedExpr>().first()
-        val versioned = enclosedExprPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`(XQuerySpec.REC_3_1_20170321))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.BLOCK_OPEN))
-    }
-
-    // endregion
     // region EnclosedExpr (UnorderedExpr)
 
     @Test
