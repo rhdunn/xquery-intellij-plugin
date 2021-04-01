@@ -59,6 +59,7 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
         XQueryElementType.DIR_COMMENT_CONSTRUCTOR -> getDirCommentConstructorPlaceholderTest(node.psi)
         XQueryElementType.DIR_ELEM_CONSTRUCTOR -> "..."
         XQueryElementType.ENCLOSED_EXPR -> "{...}"
+        XQueryElementType.ENCLOSED_TRY_TARGET_EXPR -> "{...}"
         XQueryElementType.FUNCTION_DECL -> "{...}"
         else -> null
     }

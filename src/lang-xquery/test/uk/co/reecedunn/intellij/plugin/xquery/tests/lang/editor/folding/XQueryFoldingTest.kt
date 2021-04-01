@@ -113,6 +113,87 @@ private class XQueryFoldingTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery 3.1 EBNF (37) EnclosedExpr ; XQuery 3.1 EBNF (79) TryClause ; XQuery 3.1 EBNF (81) CatchClause")
+    internal inner class TryCatchExpr {
+        @Test
+        @DisplayName("single line")
+        fun singleLine() {
+            val file = parseResource("tests/folding/TryCatchExpr/SingleLine.xq")
+
+            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(0))
+        }
+
+        @Test
+        @DisplayName("multiple lines")
+        fun multipleLines() {
+            val file = parseResource("tests/folding/TryCatchExpr/MultiLine.xq")
+
+            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(2))
+
+            assertThat(descriptors[0].canBeRemovedWhenCollapsed(), `is`(false))
+            assertThat(descriptors[0].dependencies, `is`(notNullValue()))
+            assertThat(descriptors[0].dependencies.size, `is`(0))
+            assertThat(descriptors[0].group, `is`(nullValue()))
+            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.ENCLOSED_TRY_TARGET_EXPR))
+            assertThat(descriptors[0].range.startOffset, `is`(4))
+            assertThat(descriptors[0].range.endOffset, `is`(11))
+
+            assertThat(builder.getPlaceholderText(descriptors[0].element), `is`("{...}"))
+            assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
+
+            assertThat(descriptors[1].canBeRemovedWhenCollapsed(), `is`(false))
+            assertThat(descriptors[1].dependencies, `is`(notNullValue()))
+            assertThat(descriptors[1].dependencies.size, `is`(0))
+            assertThat(descriptors[1].group, `is`(nullValue()))
+            assertThat(descriptors[1].element.elementType, `is`(XQueryElementType.ENCLOSED_EXPR))
+            assertThat(descriptors[1].range.startOffset, `is`(20))
+            assertThat(descriptors[1].range.endOffset, `is`(27))
+
+            assertThat(builder.getPlaceholderText(descriptors[1].element), `is`("{...}"))
+            assertThat(builder.isCollapsedByDefault(descriptors[1].element), `is`(false))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.1 EBNF (37) EnclosedExpr ; XQuery 3.1 EBNF (176) CurlyArrayConstructor")
+    internal inner class CurlyArrayConstructor {
+        @Test
+        @DisplayName("single line")
+        fun singleLine() {
+            val file = parseResource("tests/folding/CurlyArrayConstructor/SingleLine.xq")
+
+            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(0))
+        }
+
+        @Test
+        @DisplayName("multiple lines")
+        fun multipleLines() {
+            val file = parseResource("tests/folding/CurlyArrayConstructor/MultiLine.xq")
+
+            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(1))
+
+            assertThat(descriptors[0].canBeRemovedWhenCollapsed(), `is`(false))
+            assertThat(descriptors[0].dependencies, `is`(notNullValue()))
+            assertThat(descriptors[0].dependencies.size, `is`(0))
+            assertThat(descriptors[0].group, `is`(nullValue()))
+            assertThat(descriptors[0].element.elementType, `is`(XPathElementType.CURLY_ARRAY_CONSTRUCTOR))
+            assertThat(descriptors[0].range.startOffset, `is`(6))
+            assertThat(descriptors[0].range.endOffset, `is`(19))
+
+            assertThat(builder.getPlaceholderText(descriptors[0].element), `is`("{...}"))
+            assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.1 EBNF (35) FunctionBody ; XQuery 4.0 ED EBNF (109) ThinArrowTarget")
     internal inner class ThinArrowTarget {
         @Test
@@ -197,41 +278,6 @@ private class XQueryFoldingTest : ParserTestCase() {
             assertThat(descriptors[0].element.elementType, `is`(XPathElementType.WITH_EXPR))
             assertThat(descriptors[0].range.startOffset, `is`(55))
             assertThat(descriptors[0].range.endOffset, `is`(68))
-
-            assertThat(builder.getPlaceholderText(descriptors[0].element), `is`("{...}"))
-            assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
-        }
-    }
-
-    @Nested
-    @DisplayName("XQuery 3.1 EBNF (37) EnclosedExpr ; XQuery 3.1 EBNF (176) CurlyArrayConstructor")
-    internal inner class CurlyArrayConstructor {
-        @Test
-        @DisplayName("single line")
-        fun singleLine() {
-            val file = parseResource("tests/folding/CurlyArrayConstructor/SingleLine.xq")
-
-            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
-            assertThat(descriptors, `is`(notNullValue()))
-            assertThat(descriptors.size, `is`(0))
-        }
-
-        @Test
-        @DisplayName("multiple lines")
-        fun multipleLines() {
-            val file = parseResource("tests/folding/CurlyArrayConstructor/MultiLine.xq")
-
-            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
-            assertThat(descriptors, `is`(notNullValue()))
-            assertThat(descriptors.size, `is`(1))
-
-            assertThat(descriptors[0].canBeRemovedWhenCollapsed(), `is`(false))
-            assertThat(descriptors[0].dependencies, `is`(notNullValue()))
-            assertThat(descriptors[0].dependencies.size, `is`(0))
-            assertThat(descriptors[0].group, `is`(nullValue()))
-            assertThat(descriptors[0].element.elementType, `is`(XPathElementType.CURLY_ARRAY_CONSTRUCTOR))
-            assertThat(descriptors[0].range.startOffset, `is`(6))
-            assertThat(descriptors[0].range.endOffset, `is`(19))
 
             assertThat(builder.getPlaceholderText(descriptors[0].element), `is`("{...}"))
             assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
