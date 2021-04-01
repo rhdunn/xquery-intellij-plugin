@@ -839,36 +839,46 @@ class XQuerySyntaxValidatorTest :
         }
 
         @Nested
-        @DisplayName("XQuery 3.1 EBNF (79) TryClause ; XQuery 3.1 EBNF (80) EnclosedTryTargetExpr")
-        internal inner class TryClause {
+        @DisplayName("XQuery 3.1 EBNF (78) TryCatchExpr ; XQuery 3.1 EBNF (36) EnclosedExpr")
+        internal inner class TryCatchExpr {
             @Test
             @DisplayName("XQuery < 3.0 (TryCatchExpr not supported)")
             fun tryCatchExpr_notSupported() {
-                val file = parse<XQueryModule>("try { } catch * { 2 }")[0]
+                val file = parse<XQueryModule>("try { } catch * { }")[0]
                 validator.configuration = XQUERY_1_0
                 validator.validate(file, this@XQuerySyntaxValidatorTest)
                 assertThat(
                     report.toString(),
-                    `is`("E XPST0003(4:5): XQuery version string '1.0' does not support XQuery 3.1 constructs.")
+                    `is`(
+                        """
+                        E XPST0003(4:5): XQuery version string '1.0' does not support XQuery 3.1 constructs.
+                        E XPST0003(16:17): XQuery version string '1.0' does not support XQuery 3.1 constructs.
+                        """.trimIndent()
+                    )
                 )
             }
 
             @Test
             @DisplayName("XQuery == 3.0")
             fun xquery_notSupported() {
-                val file = parse<XQueryModule>("try { } catch * { 2 }")[0]
+                val file = parse<XQueryModule>("try { } catch * { }")[0]
                 validator.configuration = XQUERY_3_0
                 validator.validate(file, this@XQuerySyntaxValidatorTest)
                 assertThat(
                     report.toString(),
-                    `is`("E XPST0003(4:5): XQuery version string '3.0' does not support XQuery 3.1 constructs.")
+                    `is`(
+                        """
+                        E XPST0003(4:5): XQuery version string '3.0' does not support XQuery 3.1 constructs.
+                        E XPST0003(16:17): XQuery version string '3.0' does not support XQuery 3.1 constructs.
+                        """.trimIndent()
+                    )
                 )
             }
 
             @Test
             @DisplayName("XQuery >= 3.1")
             fun xquery_supported() {
-                val file = parse<XQueryModule>("try { } catch * { 2 }")[0]
+                val file = parse<XQueryModule>("try { } catch * { }")[0]
                 validator.configuration = XQUERY_3_1
                 validator.validate(file, this@XQuerySyntaxValidatorTest)
                 assertThat(report.toString(), `is`(""))

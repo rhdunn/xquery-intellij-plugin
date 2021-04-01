@@ -18,10 +18,13 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCatchClause
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.blockOpen
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.isEmptyEnclosedExpr
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
 class XQueryCatchClausePsiImpl(node: ASTNode) :
@@ -35,7 +38,15 @@ class XQueryCatchClausePsiImpl(node: ASTNode) :
     // region XpmSyntaxValidationElement
 
     override val conformanceElement: PsiElement
-        get() = findChildByType(XPathTokenType.PARENTHESIS_OPEN) ?: firstChild
+        get() {
+            val context = findChildByType<PsiElement>(XPathTokenType.PARENTHESIS_OPEN)
+            val blockOpen = blockOpen
+            return when {
+                context != null -> context
+                blockOpen?.isEmptyEnclosedExpr == true -> blockOpen
+                else -> firstChild
+            }
+        }
 
     // endregion
 }
