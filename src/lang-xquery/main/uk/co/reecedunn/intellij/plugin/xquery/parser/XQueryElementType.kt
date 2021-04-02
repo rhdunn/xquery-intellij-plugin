@@ -364,12 +364,6 @@ object XQueryElementType {
         XQuery
     )
 
-    val CATCH_ERROR_LIST: IElementType = ICompositeElementType(
-        "XQUERY_CATCH_ERROR_LIST",
-        XQueryCatchErrorListPsiImpl::class.java,
-        XQuery
-    )
-
     val COMP_NAMESPACE_CONSTRUCTOR: IElementType = ICompositeElementType(
         "XQUERY_COMP_NAMESPACE_CONSTRUCTOR",
         XQueryCompNamespaceConstructorPsiImpl::class.java,

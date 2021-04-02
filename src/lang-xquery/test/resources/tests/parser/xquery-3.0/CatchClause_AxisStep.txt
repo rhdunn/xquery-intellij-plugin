@@ -14,15 +14,14 @@ XQueryModuleImpl[FILE(0:37)]
             XQueryCatchClauseImpl[XQUERY_CATCH_CLAUSE(10:37)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_CATCH(10:15)]('catch')
                PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
-               XQueryCatchErrorListImpl[XQUERY_CATCH_ERROR_LIST(16:32)]
-                  XPathNameTestImpl[XPATH_NAME_TEST(16:31)]
-                     XPathNCNameImpl[XPATH_NCNAME(16:21)]
-                        XmlNCNameImpl[XPATH_NCNAME_TOKEN(16:21)]('error')
-                     PsiErrorElementImpl[ERROR_ELEMENT(21:23)]('XPST0003: Axis specifier '::' is not allowed in NameTests.')
-                        LeafPsiElement[XPATH_AXIS_SEPARATOR_TOKEN(21:23)]('::')
-                     XPathNCNameImpl[XPATH_NCNAME(23:31)]
-                        XmlNCNameImpl[XPATH_NCNAME_TOKEN(23:31)]('XQST0084')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
+               XPathNameTestImpl[XPATH_NAME_TEST(16:31)]
+                  XPathNCNameImpl[XPATH_NCNAME(16:21)]
+                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(16:21)]('error')
+                  PsiErrorElementImpl[ERROR_ELEMENT(21:23)]('XPST0003: Axis specifier '::' is not allowed in NameTests.')
+                     LeafPsiElement[XPATH_AXIS_SEPARATOR_TOKEN(21:23)]('::')
+                  XPathNCNameImpl[XPATH_NCNAME(23:31)]
+                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(23:31)]('XQST0084')
+               PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
                LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(32:33)]('{')
                PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
                XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(34:35)]('2')

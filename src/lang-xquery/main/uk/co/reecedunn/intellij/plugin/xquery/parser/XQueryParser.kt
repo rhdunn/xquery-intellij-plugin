@@ -2691,7 +2691,6 @@ class XQueryParser : XPathParser() {
     }
 
     private fun parseCatchErrorList(builder: PsiBuilder): Boolean {
-        val marker = builder.mark()
         if (parseNameTest(builder, XPathElementType.NAME_TEST, allowAxisStep = false) != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             while (builder.matchTokenType(XPathTokenType.UNION)) {
@@ -2701,10 +2700,8 @@ class XQueryParser : XPathParser() {
                 }
                 parseWhiteSpaceAndCommentTokens(builder)
             }
-            marker.done(XQueryElementType.CATCH_ERROR_LIST)
             return true
         }
-        marker.drop()
         return false
     }
 
