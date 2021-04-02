@@ -490,12 +490,6 @@ object XQueryElementType {
         XQuery
     )
 
-    val TRY_CLAUSE: IElementType = ICompositeElementType(
-        "XQUERY_TRY_CLAUSE",
-        XQueryTryClausePsiImpl::class.java,
-        XQuery
-    )
-
     val TUMBLING_WINDOW_CLAUSE: IElementType = ICompositeElementType(
         "XQUERY_TUMBLING_WINDOW_CLAUSE",
         XQueryTumblingWindowClausePsiImpl::class.java,

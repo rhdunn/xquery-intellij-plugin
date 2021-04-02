@@ -135,7 +135,7 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
         is XQuerySlidingWindowClause -> reporter.requires(element, XQUERY_3_0)
         is XQueryStringConstructor -> reporter.requires(element, XQUERY_3_1)
         is XQuerySwitchExpr -> reporter.requires(element, XQUERY_3_0)
-        is XQueryTryClause -> when (element.conformanceElement.elementType) {
+        is XQueryTryCatchExpr -> when (element.conformanceElement.elementType) {
             XPathTokenType.BLOCK_OPEN -> reporter.requires(element, XQUERY_3_1)
             else -> reporter.requires(element, XQUERY_3_0)
         }

@@ -122,7 +122,7 @@ object MarkLogicSyntaxValidator : XpmSyntaxValidator {
             }
         }
         is XQuerySwitchExpr -> reporter.requires(element, MARKLOGIC_6)
-        is XQueryTryClause -> reporter.requires(element, MARKLOGIC_6)
+        is XQueryTryCatchExpr -> reporter.requires(element, MARKLOGIC_6)
         is XQueryValidateExpr -> when (element.conformanceElement.elementType) {
             XPathTokenType.K_TYPE -> reporter.requires(element, MARKLOGIC_6)
             XPathTokenType.K_AS -> reporter.requires(element, MARKLOGIC_6)

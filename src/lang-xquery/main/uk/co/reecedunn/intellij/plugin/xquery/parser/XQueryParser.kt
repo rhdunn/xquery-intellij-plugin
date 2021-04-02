@@ -2637,8 +2637,7 @@ class XQueryParser : XPathParser() {
                 marker.rollbackTo()
                 return false
             }
-
-            marker.done(XQueryElementType.TRY_CLAUSE)
+            marker.drop()
             return true
         }
         return false

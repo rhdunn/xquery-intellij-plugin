@@ -58,7 +58,7 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
         XQueryElementType.DIR_COMMENT_CONSTRUCTOR -> getDirCommentConstructorPlaceholderTest(node.psi)
         XQueryElementType.DIR_ELEM_CONSTRUCTOR -> "..."
         XQueryElementType.ENCLOSED_EXPR -> "{...}"
-        XQueryElementType.TRY_CLAUSE -> "{...}"
+        XQueryElementType.TRY_CATCH_EXPR -> "{...}"
         XQueryElementType.FUNCTION_DECL -> "{...}"
         else -> null
     }
@@ -77,7 +77,7 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
         is XQueryDirCommentConstructor -> element.textRange
         is XQueryDirElemConstructor -> getDirElemConstructorFoldingRange(element)
         is XQueryFunctionDecl -> element.blockFoldingRange
-        is XQueryTryClause -> element.blockFoldingRange
+        is XQueryTryCatchExpr -> element.blockFoldingRange
         else -> null
     }
 

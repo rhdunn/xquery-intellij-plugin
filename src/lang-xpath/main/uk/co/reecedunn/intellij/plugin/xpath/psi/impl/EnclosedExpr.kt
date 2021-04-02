@@ -30,17 +30,22 @@ import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 val PsiElement.blockOpen: PsiElement?
     get() = children().filterIsElementType(XPathTokenType.BLOCK_OPEN).firstOrNull()
 
+private val PsiElement.blockClose: PsiElement?
+    get() = siblings().filterIsElementType(XPathTokenType.BLOCK_CLOSE).firstOrNull()
+
 val PsiElement.isEmptyEnclosedExpr: Boolean
-    get() = siblings().filter { it.elementType !in IGNORE_TOKENS && it !is XPathComment }.firstOrNull() == null
+    get() {
+        val e = siblings().filter { it.elementType !in IGNORE_TOKENS && it !is XPathComment }.firstOrNull()
+        return e == null || e.elementType === XPathTokenType.BLOCK_CLOSE
+    }
 
 val PsiElement.blockFoldingRange: TextRange?
     get() = when (val blockOpen = blockOpen) {
         null -> null
-        else -> TextRange.create(blockOpen.textOffset, textRange.endOffset)
+        else -> TextRange.create(blockOpen.textOffset, blockOpen.blockClose?.textRange?.endOffset ?: textRange.endOffset)
     }
 
 private val IGNORE_TOKENS = TokenSet.create(
     XPathTokenType.WHITE_SPACE,
-    XPathTokenType.BLOCK_OPEN,
-    XPathTokenType.BLOCK_CLOSE
+    XPathTokenType.BLOCK_OPEN
 )
