@@ -436,38 +436,6 @@ private class XQueryConformanceTest : ParserTestCase() {
     }
 
     // endregion
-    // region EnclosedExpr (UnorderedExpr)
-
-    @Test
-    fun testEnclosedExpr_UnorderedExpr() {
-        val file = parseResource("tests/parser/xquery-1.0/UnorderedExpr.xq")
-
-        val unorderedExprPsi = file.descendants().filterIsInstance<XQueryUnorderedExpr>().first()
-        val enclosedExprPsi = unorderedExprPsi.children().filterIsInstance<XPathEnclosedExpr>().first()
-        val versioned = enclosedExprPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.INTEGER_LITERAL))
-    }
-
-    @Test
-    fun testEnclosedExpr_UnorderedExpr_NoExpr() {
-        val file = parseResource("tests/parser/xquery-3.1/UnorderedExpr_MissingExpr.xq")
-
-        val unorderedExprPsi = file.descendants().filterIsInstance<XQueryUnorderedExpr>().first()
-        val enclosedExprPsi = unorderedExprPsi.children().filterIsInstance<XPathEnclosedExpr>().first()
-        val versioned = enclosedExprPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`(XQuerySpec.REC_3_1_20170321))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.BLOCK_OPEN))
-    }
-
-    // endregion
     // region IntermediateClause (ForClause)
 
     @Test

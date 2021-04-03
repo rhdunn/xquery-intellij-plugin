@@ -3474,11 +3474,7 @@ class XQueryParser : XPathParser() {
         val marker = builder.matchTokenTypeWithMarker(XQueryTokenType.K_UNORDERED)
         if (marker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (
-                !parseEnclosedExprOrBlock(
-                    builder, XQueryElementType.ENCLOSED_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL
-                )
-            ) {
+            if (!parseEnclosedExprOrBlock(builder, null, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)) {
                 marker.rollbackTo()
                 return false
             }
