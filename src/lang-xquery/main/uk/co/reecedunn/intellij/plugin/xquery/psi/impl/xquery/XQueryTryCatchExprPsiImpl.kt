@@ -18,19 +18,25 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.blockOpen
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.isEmptyEnclosedExpr
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.impl.XpmEmptyExpression
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryTryCatchExpr
 
 class XQueryTryCatchExprPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XQueryTryCatchExpr,
     XpmSyntaxValidationElement {
-    // region XpmExpression
+    // region XpmTryCatchExpression
 
     override val expressionElement: PsiElement
         get() = this
+
+    override val tryExpression: XpmExpression
+        get() = children().filterIsInstance<XpmExpression>().firstOrNull() ?: XpmEmptyExpression
 
     // endregion
     // region XpmSyntaxValidationElement

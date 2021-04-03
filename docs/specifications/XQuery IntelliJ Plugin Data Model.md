@@ -47,6 +47,7 @@ various inspections.
 - [Operation Tree](#5-operation-tree)
   - [Expressions](#51-expressions)
     - [Concatenating Expressions](#511-concatenating-expressions)
+    - [Try/Catch Expressions](#512-try-catch-expressions)
   - [Path Steps](#52-path-steps)
     - [Abbreviated Syntax](#521-abbreviated-syntax)
   - [Namespace Declarations](#53-namespace-declarations)
@@ -695,6 +696,15 @@ expressions that are to be concatenated into the resulting sequence.
 >
 > In XQuery, a Scripting Extensions `ConcatExpr` node is created instead
 > of an `Expr` node for a miltiple `ExprSingle` expression.
+
+#### 5.1.2 Try/Catch Expressions
+
+| Symbol         | Interface               |
+|----------------|-------------------------|
+| `TryCatchExpr` | `XpmTryCatchExpression` |
+
+The *try expression* of a *try/catch expression* is the expression to be
+evaluated.
 
 ### 5.2 Path Steps
 

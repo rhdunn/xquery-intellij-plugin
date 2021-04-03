@@ -58,6 +58,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.path.XpmPathStep
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmAccessLevel
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmAnnotated
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmConcatenatingExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmTryCatchExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.impl.XpmEmptyExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.text
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.*
@@ -6765,13 +6766,26 @@ private class XQueryPsiTest : ParserTestCase() {
         @Nested
         @DisplayName("XQuery 4.0 ED (4.21) Try/Catch Expressions ; XQuery 3.1 (3.17) Try/Catch Expressions")
         internal inner class TryCatchExpressions {
-            @Test
+            @Nested
             @DisplayName("XQuery 3.1 EBNF (78) TryCatchExpr")
-            fun tryCatchExpr() {
-                val expr = parse<XQueryTryCatchExpr>("try { 1 } catch * { 2 }")[0] as XpmExpression
+            internal inner class TryCatchExpr {
+                @Test
+                @DisplayName("expression")
+                fun expression() {
+                    val expr = parse<XQueryTryCatchExpr>("try { 1 } catch * { 2 }")[0] as XpmTryCatchExpression
+                    assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.TRY_CATCH_EXPR))
+                    assertThat(expr.expressionElement?.textOffset, `is`(0))
+                    assertThat(expr.tryExpression.text, `is`("1"))
+                }
 
-                assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.TRY_CATCH_EXPR))
-                assertThat(expr.expressionElement?.textOffset, `is`(0))
+                @Test
+                @DisplayName("empty expression")
+                fun emptyExpression() {
+                    val expr = parse<XQueryTryCatchExpr>("try { } catch * { 2 }")[0] as XpmTryCatchExpression
+                    assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.TRY_CATCH_EXPR))
+                    assertThat(expr.expressionElement?.textOffset, `is`(0))
+                    assertThat(expr.tryExpression, sameInstance(XpmEmptyExpression))
+                }
             }
 
             @Test
