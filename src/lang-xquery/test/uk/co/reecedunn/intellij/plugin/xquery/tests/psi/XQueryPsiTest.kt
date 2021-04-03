@@ -53,14 +53,11 @@ import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.reference.XPathFunctionNameReference
 import uk.co.reecedunn.intellij.plugin.xpm.context.expand
 import uk.co.reecedunn.intellij.plugin.xpm.optree.path.XpmAxisType
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.path.XpmPathStep
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmAccessLevel
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmAnnotated
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmConcatenatingExpression
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmTryCatchExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.*
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.impl.XpmEmptyExpression
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.text
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.*
 import uk.co.reecedunn.intellij.plugin.xpm.optree.item.XpmArrayExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
@@ -6770,29 +6767,101 @@ private class XQueryPsiTest : ParserTestCase() {
             @DisplayName("XQuery 3.1 EBNF (78) TryCatchExpr")
             internal inner class TryCatchExpr {
                 @Test
-                @DisplayName("expression")
+                @DisplayName("with expression ; single catch clause")
                 fun expression() {
                     val expr = parse<XQueryTryCatchExpr>("try { 1 } catch * { 2 }")[0] as XpmTryCatchExpression
                     assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.TRY_CATCH_EXPR))
                     assertThat(expr.expressionElement?.textOffset, `is`(0))
                     assertThat(expr.tryExpression.text, `is`("1"))
+
+                    val catchClauses = expr.catchClauses.toList()
+                    assertThat(catchClauses.size, `is`(1))
+                    assertThat((catchClauses[0] as PsiElement).text, `is`("catch * { 2 }"))
                 }
 
                 @Test
-                @DisplayName("empty expression")
+                @DisplayName("empty expression ; single catch clause")
                 fun emptyExpression() {
                     val expr = parse<XQueryTryCatchExpr>("try { } catch * { 2 }")[0] as XpmTryCatchExpression
                     assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.TRY_CATCH_EXPR))
                     assertThat(expr.expressionElement?.textOffset, `is`(0))
                     assertThat(expr.tryExpression, sameInstance(XpmEmptyExpression))
+
+                    val catchClauses = expr.catchClauses.toList()
+                    assertThat(catchClauses.size, `is`(1))
+                    assertThat((catchClauses[0] as PsiElement).text, `is`("catch * { 2 }"))
+                }
+
+                @Test
+                @DisplayName("with expression ; multiple catch clauses")
+                fun multipleCatchClauses() {
+                    val expr = parse<XQueryTryCatchExpr>(
+                        "try { 1 } catch err:XPTY0004 { 2 } catch err:XPTY0005 { 3 }"
+                    )[0] as XpmTryCatchExpression
+                    assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.TRY_CATCH_EXPR))
+                    assertThat(expr.expressionElement?.textOffset, `is`(0))
+                    assertThat(expr.tryExpression.text, `is`("1"))
+
+                    val catchClauses = expr.catchClauses.toList()
+                    assertThat(catchClauses.size, `is`(2))
+                    assertThat((catchClauses[0] as PsiElement).text, `is`("catch err:XPTY0004 { 2 }"))
+                    assertThat((catchClauses[1] as PsiElement).text, `is`("catch err:XPTY0005 { 3 }"))
                 }
             }
 
-            @Test
+            @Nested
             @DisplayName("XQuery 3.1 EBNF (81) CatchClause")
-            fun catchClause() {
-                val expr = parse<XQueryCatchClause>("try { \$x } catch err:XPTY0004 { \$y }")[0] as XpmVariableBinding
-                assertThat(expr.variableName, `is`(nullValue()))
+            internal inner class CatchClause {
+                @Test
+                @DisplayName("with expression ; wildcard error name")
+                fun wildcard() {
+                    val expr = parse<XQueryCatchClause>("try { 1 } catch * { 2 }")[0] as XpmCatchClause
+                    assertThat(expr.variableName, `is`(nullValue()))
+                    assertThat(expr.catchExpression.text, `is`("2"))
+
+                    val errorList = expr.errorList.toList()
+                    assertThat(errorList.size, `is`(1))
+                    assertThat(op_qname_presentation(errorList[0]), `is`("*:*"))
+                }
+
+                @Test
+                @DisplayName("with expression ; single error name")
+                fun expression() {
+                    val expr = parse<XQueryCatchClause>("try { 1 } catch err:XPTY0004 { 2 }")[0] as XpmCatchClause
+                    assertThat(expr.variableName, `is`(nullValue()))
+                    assertThat(expr.catchExpression.text, `is`("2"))
+
+                    val errorList = expr.errorList.toList()
+                    assertThat(errorList.size, `is`(1))
+                    assertThat(op_qname_presentation(errorList[0]), `is`("err:XPTY0004"))
+                }
+
+                @Test
+                @DisplayName("empty expression ; single error name")
+                fun emptyExpression() {
+                    val expr = parse<XQueryCatchClause>("try { 1 } catch err:XPTY0004 { }")[0] as XpmCatchClause
+                    assertThat(expr.variableName, `is`(nullValue()))
+                    assertThat(expr.catchExpression, sameInstance(XpmEmptyExpression))
+
+                    val errorList = expr.errorList.toList()
+                    assertThat(errorList.size, `is`(1))
+                    assertThat(op_qname_presentation(errorList[0]), `is`("err:XPTY0004"))
+                }
+
+                @Test
+                @DisplayName("with expression ; multiple error names")
+                fun multipleErrorNames() {
+                    val expr = parse<XQueryCatchClause>(
+                        "try { 1 } catch err:XPTY0004 | err:XPTY0005 { 2 }"
+                    )[0] as XpmCatchClause
+                    assertThat(expr.variableName, `is`(nullValue()))
+                    assertThat(expr.catchExpression.text, `is`("2"))
+
+                    val errorList = expr.errorList.toList()
+                    assertThat(errorList.size, `is`(2))
+                    assertThat(op_qname_presentation(errorList[0]), `is`("err:XPTY0004"))
+                    assertThat(op_qname_presentation(errorList[1]), `is`("err:XPTY0005"))
+                }
             }
         }
 

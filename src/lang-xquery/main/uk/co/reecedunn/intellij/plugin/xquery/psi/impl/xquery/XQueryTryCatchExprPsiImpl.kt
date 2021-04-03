@@ -22,6 +22,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.blockOpen
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.isEmptyEnclosedExpr
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmCatchClause
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.impl.XpmEmptyExpression
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryTryCatchExpr
@@ -37,6 +38,9 @@ class XQueryTryCatchExprPsiImpl(node: ASTNode) :
 
     override val tryExpression: XpmExpression
         get() = children().filterIsInstance<XpmExpression>().firstOrNull() ?: XpmEmptyExpression
+
+    override val catchClauses: Sequence<XpmCatchClause>
+        get() = children().filterIsInstance<XpmCatchClause>()
 
     // endregion
     // region XpmSyntaxValidationElement

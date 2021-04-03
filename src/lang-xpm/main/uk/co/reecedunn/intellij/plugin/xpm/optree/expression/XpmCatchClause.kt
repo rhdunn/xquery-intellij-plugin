@@ -15,8 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.optree.expression
 
-interface XpmTryCatchExpression : XpmExpression {
-    val tryExpression: XpmExpression
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableBinding
 
-    val catchClauses: Sequence<XpmCatchClause>
+interface XpmCatchClause : XpmVariableBinding {
+    val errorList: Sequence<XsQNameValue>
+
+    val catchExpression: XpmExpression
 }

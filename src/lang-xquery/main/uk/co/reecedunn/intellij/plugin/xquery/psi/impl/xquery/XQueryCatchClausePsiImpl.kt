@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018, 2020 Reece H. Dunn
+ * Copyright (C) 2016-2018, 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,9 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.blockOpen
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.isEmptyEnclosedExpr
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.impl.XpmEmptyExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.path.XpmPathStep
 
 class XQueryCatchClausePsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), XQueryCatchClause, XpmSyntaxValidationElement {
@@ -33,6 +36,15 @@ class XQueryCatchClausePsiImpl(node: ASTNode) :
 
     override val variableName: XsQNameValue?
         get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
+
+    // endregion
+    // region XpmCatchClause
+
+    override val errorList: Sequence<XsQNameValue>
+        get() = children().filterIsInstance<XpmPathStep>().mapNotNull { it.nodeName }
+
+    override val catchExpression: XpmExpression
+        get() = children().filterIsInstance<XpmExpression>().firstOrNull() ?: XpmEmptyExpression
 
     // endregion
     // region XpmSyntaxValidationElement

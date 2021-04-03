@@ -701,10 +701,27 @@ expressions that are to be concatenated into the resulting sequence.
 
 | Symbol         | Interface               |
 |----------------|-------------------------|
+| `CatchClause`  | `XpmCatchClause`        |
 | `TryCatchExpr` | `XpmTryCatchExpression` |
 
 The *try expression* of a *try/catch expression* is the expression to be
 evaluated.
+
+The *catch clauses* of a *try/catch expression* are the expressions that
+may be evaluated if the *try expression* resulted in an error.
+
+The *error list* of a *catch clause* is the list of error names to check
+against the raised error.
+
+The *catch expression* of a *catch clause* is the expression to be evaluated
+if a raised error matches the specified error list.
+
+> Note:
+> 
+> If a catch clause is a MarkLogic catch clause then there are no error names
+> listed. The error object is bound to the catch variable as defined by the
+> *variable binding* for the catch clause, and the catch clause automatically
+> matches a raised error.
 
 ### 5.2 Path Steps
 

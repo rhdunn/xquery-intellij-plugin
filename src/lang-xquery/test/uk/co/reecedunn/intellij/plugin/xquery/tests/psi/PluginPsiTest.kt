@@ -53,6 +53,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.path.XpmPathStep
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmAccessLevel
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmAnnotated
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmCatchClause
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.text
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.item.XpmArrayExpression
@@ -1896,7 +1897,9 @@ private class PluginPsiTest : ParserTestCase() {
             @Test
             @DisplayName("NCName")
             fun ncname() {
-                val expr = parse<XQueryCatchClause>("try { () } catch (\$x) { \$y }")[0] as XpmVariableBinding
+                val expr = parse<XQueryCatchClause>("try { 1 } catch (\$x) { 2 }")[0] as XpmCatchClause
+                assertThat(expr.catchExpression.text, `is`("2"))
+                assertThat(expr.errorList.count(), `is`(0))
 
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -1907,7 +1910,9 @@ private class PluginPsiTest : ParserTestCase() {
             @Test
             @DisplayName("QName")
             fun qname() {
-                val expr = parse<XQueryCatchClause>("try { () } catch (\$a:x) { \$a:y }")[0] as XpmVariableBinding
+                val expr = parse<XQueryCatchClause>("try { 1 } catch (\$a:x) { 2 }")[0] as XpmCatchClause
+                assertThat(expr.catchExpression.text, `is`("2"))
+                assertThat(expr.errorList.count(), `is`(0))
 
                 val qname = expr.variableName!!
                 assertThat(qname.namespace, `is`(nullValue()))
@@ -1919,8 +1924,10 @@ private class PluginPsiTest : ParserTestCase() {
             @DisplayName("URIQualifiedName")
             fun uriQualifiedName() {
                 val expr = parse<XQueryCatchClause>(
-                    "try { () } catch (\$Q{http://www.example.com}x) { \$Q{http://www.example.com}y }"
-                )[0] as XpmVariableBinding
+                    "try { 1 } catch (\$Q{http://www.example.com}x) { 2 }"
+                )[0] as XpmCatchClause
+                assertThat(expr.catchExpression.text, `is`("2"))
+                assertThat(expr.errorList.count(), `is`(0))
 
                 val qname = expr.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -1931,8 +1938,10 @@ private class PluginPsiTest : ParserTestCase() {
             @Test
             @DisplayName("missing VarName")
             fun noVarName() {
-                val expr = parse<XQueryCatchClause>("try { () } catch () { \$x }")[0] as XpmVariableBinding
+                val expr = parse<XQueryCatchClause>("try { 1 } catch () { 2 }")[0] as XpmCatchClause
                 assertThat(expr.variableName, `is`(nullValue()))
+                assertThat(expr.catchExpression.text, `is`("2"))
+                assertThat(expr.errorList.count(), `is`(0))
             }
         }
     }
