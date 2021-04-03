@@ -145,6 +145,11 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
             else -> reporter.requires(element, XQUERY_3_0)
         }
         is XQueryTumblingWindowClause -> reporter.requires(element, XQUERY_3_0)
+        is XQueryUnorderedExpr -> when (element.conformanceElement.elementType) {
+            XPathTokenType.BLOCK_OPEN -> reporter.requires(element, XQUERY_3_1)
+            else -> {
+            }
+        }
         is XQueryValidateExpr -> when (element.conformanceElement.elementType) {
             XPathTokenType.K_TYPE -> reporter.requires(element, XQUERY_3_0)
             else -> {
