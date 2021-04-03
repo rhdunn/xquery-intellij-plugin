@@ -127,6 +127,11 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
             else -> {
             }
         }
+        is XQueryOrderedExpr -> when (element.conformanceElement.elementType) {
+            XPathTokenType.BLOCK_OPEN -> reporter.requires(element, XQUERY_3_1)
+            else -> {
+            }
+        }
         is XQuerySequenceTypeUnion -> when ((element as PsiElement).parent) {
             is XQueryCaseClause -> reporter.requires(element, XQUERY_3_0)
             else -> {

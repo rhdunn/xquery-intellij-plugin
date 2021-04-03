@@ -884,6 +884,31 @@ class XQuerySyntaxValidatorTest :
                 assertThat(report.toString(), `is`(""))
             }
         }
+
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (135) OrderedExpr ; XQuery 3.1 EBNF (36) EnclosedExpr")
+        internal inner class OrderedExpr {
+            @Test
+            @DisplayName("XQuery < 3.1")
+            fun notSupported() {
+                val file = parse<XQueryModule>("ordered { }")[0]
+                validator.configuration = XQUERY_1_0
+                validator.validate(file, this@XQuerySyntaxValidatorTest)
+                assertThat(
+                    report.toString(),
+                    `is`("E XPST0003(8:9): XQuery version string '1.0' does not support XQuery 3.1 constructs.")
+                )
+            }
+
+            @Test
+            @DisplayName("XQuery >= 3.1")
+            fun supported() {
+                val file = parse<XQueryModule>("ordered { }")[0]
+                validator.configuration = XQUERY_3_1
+                validator.validate(file, this@XQuerySyntaxValidatorTest)
+                assertThat(report.toString(), `is`(""))
+            }
+        }
     }
 
     @Nested
