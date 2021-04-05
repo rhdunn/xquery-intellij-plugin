@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowInlineFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.blockFoldingRange
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.enclosedExpressionBlocks
 import java.util.ArrayList
 
 class XPathFoldingBuilder : FoldingBuilderEx() {
@@ -38,6 +38,11 @@ class XPathFoldingBuilder : FoldingBuilderEx() {
             val range = getSingleFoldingRange(child)
             if (range?.isEmpty == false && child.textContains('\n')) {
                 descriptors.add(FoldingDescriptor(child, range))
+            }
+            getEnclosedExprContainer(child)?.enclosedExpressionBlocks?.forEach { block ->
+                if (block.isMultiLine) {
+                    descriptors.add(FoldingDescriptor(child, block.textRange))
+                }
             }
         }
         return descriptors.toTypedArray()
@@ -55,13 +60,17 @@ class XPathFoldingBuilder : FoldingBuilderEx() {
 
     override fun isCollapsedByDefault(node: ASTNode): Boolean = false
 
+    private fun getEnclosedExprContainer(element: PsiElement): PsiElement? = when (element) {
+        is PluginArrowInlineFunctionCall -> element
+        is XPathCurlyArrayConstructor -> element
+        is XPathInlineFunctionExpr -> element
+        is XPathMapConstructor -> element
+        is XPathWithExpr -> element
+        else -> null
+    }
+
     private fun getSingleFoldingRange(element: PsiElement): TextRange? = when (element) {
-        is PluginArrowInlineFunctionCall -> element.blockFoldingRange
         is XPathComment -> element.textRange
-        is XPathCurlyArrayConstructor -> element.blockFoldingRange
-        is XPathInlineFunctionExpr -> element.blockFoldingRange
-        is XPathMapConstructor -> element.blockFoldingRange
-        is XPathWithExpr -> element.blockFoldingRange
         else -> null
     }
 }

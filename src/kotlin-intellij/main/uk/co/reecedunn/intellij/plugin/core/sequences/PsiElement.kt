@@ -57,9 +57,12 @@ private class PsiElementTreeIterator(node: PsiElement?) : Iterator<PsiElement> {
 
 private class PsiElementIterator(
     private var node: PsiElement?,
+    private val end: PsiElement?,
     private var walk: (PsiElement) -> PsiElement?
 ) : Iterator<PsiElement> {
-    override fun hasNext(): Boolean = node != null
+    constructor(node: PsiElement?, walk: (PsiElement) -> PsiElement?) : this(node, null, walk)
+
+    override fun hasNext(): Boolean = node != end
 
     override fun next(): PsiElement {
         val ret = node!!
@@ -102,9 +105,9 @@ fun PsiElement.children(): PsiElementReversibleSequence = PsiElementReversibleSe
     { e -> PsiElementIterator(e.lastChild, PsiElement::getPrevSibling) }
 )
 
-fun PsiElement.siblings(): PsiElementReversibleSequence = PsiElementReversibleSequence(this,
-    { e -> PsiElementIterator(e.nextSibling, PsiElement::getNextSibling) },
-    { e -> PsiElementIterator(e.prevSibling, PsiElement::getPrevSibling) }
+fun PsiElement.siblings(end: PsiElement? = null): PsiElementReversibleSequence = PsiElementReversibleSequence(this,
+    { e -> PsiElementIterator(e.nextSibling, end, PsiElement::getNextSibling) },
+    { e -> PsiElementIterator(e.prevSibling, end, PsiElement::getPrevSibling) }
 )
 
 fun PsiElement.walkTree(): PsiElementReversibleSequence = PsiElementReversibleSequence(this,

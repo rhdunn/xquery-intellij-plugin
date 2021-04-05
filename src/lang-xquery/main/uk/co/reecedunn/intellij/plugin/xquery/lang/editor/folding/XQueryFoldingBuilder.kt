@@ -28,7 +28,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowInlineFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.blockFoldingRange
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.enclosedExpressionBlocks
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQDocCommentLineExtractor
@@ -42,6 +42,11 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
             val range = getSingleFoldingRange(child)
             if (range?.isEmpty == false && child.textContains('\n')) {
                 descriptors.add(FoldingDescriptor(child, range))
+            }
+            getEnclosedExprContainer(child)?.enclosedExpressionBlocks?.forEach { block ->
+                if (block.isMultiLine) {
+                    descriptors.add(FoldingDescriptor(child, block.textRange))
+                }
             }
         }
         return descriptors.toTypedArray()
@@ -68,22 +73,26 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
 
     override fun isCollapsedByDefault(node: ASTNode): Boolean = false
 
+    private fun getEnclosedExprContainer(element: PsiElement): PsiElement? = when (element) {
+        is PluginArrowInlineFunctionCall -> element
+        is XPathCurlyArrayConstructor -> element
+        is XPathInlineFunctionExpr -> element
+        is XPathMapConstructor -> element
+        is XPathWithExpr -> element
+        is XQueryCatchClause -> element
+        is XQueryCompDocConstructor -> element
+        is XQueryFunctionDecl -> element
+        is XQueryOrderedExpr -> element
+        is XQueryTryCatchExpr -> element
+        is XQueryUnorderedExpr -> element
+        else -> null
+    }
+
     private fun getSingleFoldingRange(element: PsiElement): TextRange? = when (element) {
-        is PluginArrowInlineFunctionCall -> element.blockFoldingRange
         is XPathComment -> element.textRange
-        is XPathCurlyArrayConstructor -> element.blockFoldingRange
         is XPathEnclosedExpr -> element.textRange
-        is XPathInlineFunctionExpr -> element.blockFoldingRange
-        is XPathMapConstructor -> element.blockFoldingRange
-        is XPathWithExpr -> element.blockFoldingRange
-        is XQueryCatchClause -> element.blockFoldingRange
-        is XQueryCompDocConstructor -> element.blockFoldingRange
         is XQueryDirCommentConstructor -> element.textRange
         is XQueryDirElemConstructor -> getDirElemConstructorFoldingRange(element)
-        is XQueryFunctionDecl -> element.blockFoldingRange
-        is XQueryOrderedExpr -> element.blockFoldingRange
-        is XQueryTryCatchExpr -> element.blockFoldingRange
-        is XQueryUnorderedExpr -> element.blockFoldingRange
         else -> null
     }
 

@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.TokenSet
+import com.intellij.psi.util.siblings
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.filterIsElementType
@@ -30,6 +31,9 @@ import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 data class EnclosedExprBlock(val open: PsiElement, val close: PsiElement) {
     val textRange: TextRange
         get() = TextRange.create(open.textOffset, close.textRange.endOffset)
+
+    val isMultiLine: Boolean
+        get() = open.siblings(end = close).any { it.textContains('\n') }
 }
 
 val PsiElement.blockOpen: PsiElement?
@@ -61,9 +65,6 @@ val PsiElement.isEmptyEnclosedExpr: Boolean
         val e = siblings().filter { it.elementType !in IGNORE_TOKENS && it !is XPathComment }.firstOrNull()
         return e == null || e.elementType === XPathTokenType.BLOCK_CLOSE
     }
-
-val PsiElement.blockFoldingRange: TextRange?
-    get() = enclosedExpressionBlocks.firstOrNull()?.textRange
 
 private val IGNORE_TOKENS = TokenSet.create(
     XPathTokenType.WHITE_SPACE,
