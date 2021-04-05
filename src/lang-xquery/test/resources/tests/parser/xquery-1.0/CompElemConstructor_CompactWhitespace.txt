@@ -8,9 +8,8 @@ XQueryModuleImpl[FILE(0:18)]
                XmlNCNameImpl[XPATH_NCNAME_TOKEN(8:10)]('xh')
                LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(10:11)](':')
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_DIV(11:14)]('div')
-            XQueryEnclosedContentExprImpl[XQUERY_ENCLOSED_CONTENT_EXPR(14:18)]
-               LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(14:15)]('{')
-               PluginEmptyExprImpl[XPATH_EMPTY_EXPR(15:17)]
-                  LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(15:16)]('(')
-                  LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(16:17)](')')
-               LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(17:18)]('}')
+            LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(14:15)]('{')
+            PluginEmptyExprImpl[XPATH_EMPTY_EXPR(15:17)]
+               LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(15:16)]('(')
+               LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(16:17)](')')
+            LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(17:18)]('}')

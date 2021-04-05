@@ -9,9 +9,8 @@ XQueryModuleImpl[FILE(0:18)]
                XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(9:12)]('div')
                LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(12:13)]('"')
             LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(13:14)]('}')
-            XQueryEnclosedContentExprImpl[XQUERY_ENCLOSED_CONTENT_EXPR(14:18)]
-               LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(14:15)]('{')
-               PluginEmptyExprImpl[XPATH_EMPTY_EXPR(15:17)]
-                  LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(15:16)]('(')
-                  LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(16:17)](')')
-               LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(17:18)]('}')
+            LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(14:15)]('{')
+            PluginEmptyExprImpl[XPATH_EMPTY_EXPR(15:17)]
+               LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(15:16)]('(')
+               LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(16:17)](')')
+            LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(17:18)]('}')

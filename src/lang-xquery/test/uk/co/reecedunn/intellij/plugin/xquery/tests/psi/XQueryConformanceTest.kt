@@ -175,37 +175,6 @@ private class XQueryConformanceTest : ParserTestCase() {
     }
 
     // endregion
-    // region EnclosedExpr (CompElemConstructor)
-
-    @Test
-    fun testEnclosedExpr_CompElemConstructor() {
-        val file = parseResource("tests/parser/xquery-1.0/CompElemConstructor.xq")
-
-        val compElemConstructorPsi = file.descendants().filterIsInstance<XQueryCompElemConstructor>().first()
-        val enclosedContentExprPsi = compElemConstructorPsi.children().filterIsInstance<XQueryEnclosedContentExpr>().first()
-        val versioned = enclosedContentExprPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XPathElementType.EMPTY_EXPR))
-    }
-
-    @Test
-    fun testEnclosedExpr_CompElemConstructor_NoExpr() {
-        val file = parseResource("tests/parser/xquery-1.0/CompElemConstructor_NoExpr.xq")
-
-        val compElemConstructorPsi = file.descendants().filterIsInstance<XQueryCompElemConstructor>().first()
-        val enclosedContentExprPsi = compElemConstructorPsi.children().filterIsInstance<XQueryEnclosedContentExpr>().first()
-        val versioned = enclosedContentExprPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.BLOCK_OPEN))
-    }
-
-    // endregion
     // region EnclosedExpr (CompNamespaceConstructor + EnclosedPrefixExpr)
 
     @Test
