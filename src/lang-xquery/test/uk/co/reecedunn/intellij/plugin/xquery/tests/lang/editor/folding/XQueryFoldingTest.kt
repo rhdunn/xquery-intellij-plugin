@@ -299,6 +299,125 @@ private class XQueryFoldingTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery 3.1 EBNF (37) EnclosedExpr ; XQuery 3.1 EBNF (157) CompElemConstructor")
+    internal inner class CompElemConstructor {
+        @Test
+        @DisplayName("EQName node name ; single line")
+        fun eqname_singleLine() {
+            val file = parseResource("tests/folding/CompElemConstructor/EQNameNodeName_SingleLine.xq")
+
+            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(0))
+        }
+
+        @Test
+        @DisplayName("EQName node name ; multiple lines")
+        fun eqname_multipleLines() {
+            val file = parseResource("tests/folding/CompElemConstructor/EQNameNodeName_MultiLine.xq")
+
+            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(1))
+
+            assertThat(descriptors[0].canBeRemovedWhenCollapsed(), `is`(false))
+            assertThat(descriptors[0].dependencies, `is`(notNullValue()))
+            assertThat(descriptors[0].dependencies.size, `is`(0))
+            assertThat(descriptors[0].group, `is`(nullValue()))
+            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.COMP_ELEM_CONSTRUCTOR))
+            assertThat(descriptors[0].range.startOffset, `is`(13))
+            assertThat(descriptors[0].range.endOffset, `is`(26))
+
+            assertThat(builder.getPlaceholderText(descriptors[0].element), `is`("{...}"))
+            assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
+        }
+
+        @Test
+        @DisplayName("EQName node name ; single line")
+        fun enclosedExpr_singleLine() {
+            val file = parseResource("tests/folding/CompElemConstructor/EnclosedExprNodeName_SingleLine.xq")
+
+            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(0))
+        }
+
+        @Test
+        @DisplayName("EQName node name ; multiple lines (first)")
+        fun enclosedExpr_multipleLinesFirst() {
+            val file = parseResource("tests/folding/CompElemConstructor/EnclosedExprNodeName_MultiLineFirst.xq")
+
+            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(1))
+
+            assertThat(descriptors[0].canBeRemovedWhenCollapsed(), `is`(false))
+            assertThat(descriptors[0].dependencies, `is`(notNullValue()))
+            assertThat(descriptors[0].dependencies.size, `is`(0))
+            assertThat(descriptors[0].group, `is`(nullValue()))
+            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.COMP_ELEM_CONSTRUCTOR))
+            assertThat(descriptors[0].range.startOffset, `is`(8))
+            assertThat(descriptors[0].range.endOffset, `is`(22))
+
+            assertThat(builder.getPlaceholderText(descriptors[0].element), `is`("{...}"))
+            assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
+        }
+
+        @Test
+        @DisplayName("EQName node name ; multiple lines (last)")
+        fun enclosedExpr_multipleLinesLast() {
+            val file = parseResource("tests/folding/CompElemConstructor/EnclosedExprNodeName_MultiLineLast.xq")
+
+            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(1))
+
+            assertThat(descriptors[0].canBeRemovedWhenCollapsed(), `is`(false))
+            assertThat(descriptors[0].dependencies, `is`(notNullValue()))
+            assertThat(descriptors[0].dependencies.size, `is`(0))
+            assertThat(descriptors[0].group, `is`(nullValue()))
+            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.COMP_ELEM_CONSTRUCTOR))
+            assertThat(descriptors[0].range.startOffset, `is`(19))
+            assertThat(descriptors[0].range.endOffset, `is`(32))
+
+            assertThat(builder.getPlaceholderText(descriptors[0].element), `is`("{...}"))
+            assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
+        }
+
+        @Test
+        @DisplayName("EQName node name ; multiple lines (both)")
+        fun enclosedExpr_multipleLinesBoth() {
+            val file = parseResource("tests/folding/CompElemConstructor/EnclosedExprNodeName_MultiLineBoth.xq")
+
+            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(2))
+
+            assertThat(descriptors[0].canBeRemovedWhenCollapsed(), `is`(false))
+            assertThat(descriptors[0].dependencies, `is`(notNullValue()))
+            assertThat(descriptors[0].dependencies.size, `is`(0))
+            assertThat(descriptors[0].group, `is`(nullValue()))
+            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.COMP_ELEM_CONSTRUCTOR))
+            assertThat(descriptors[0].range.startOffset, `is`(8))
+            assertThat(descriptors[0].range.endOffset, `is`(20))
+
+            assertThat(builder.getPlaceholderText(descriptors[0].element), `is`("{...}"))
+            assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
+
+            assertThat(descriptors[1].canBeRemovedWhenCollapsed(), `is`(false))
+            assertThat(descriptors[1].dependencies, `is`(notNullValue()))
+            assertThat(descriptors[1].dependencies.size, `is`(0))
+            assertThat(descriptors[1].group, `is`(nullValue()))
+            assertThat(descriptors[1].element.elementType, `is`(XQueryElementType.COMP_ELEM_CONSTRUCTOR))
+            assertThat(descriptors[1].range.startOffset, `is`(21))
+            assertThat(descriptors[1].range.endOffset, `is`(34))
+
+            assertThat(builder.getPlaceholderText(descriptors[1].element), `is`("{...}"))
+            assertThat(builder.isCollapsedByDefault(descriptors[1].element), `is`(false))
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.1 EBNF (37) EnclosedExpr ; XQuery 3.1 EBNF (176) CurlyArrayConstructor")
     internal inner class CurlyArrayConstructor {
         @Test
