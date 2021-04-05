@@ -27,11 +27,31 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathComment
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 
+data class EnclosedExprBlock(val open: PsiElement, val close: PsiElement)
+
 val PsiElement.blockOpen: PsiElement?
     get() = children().filterIsElementType(XPathTokenType.BLOCK_OPEN).firstOrNull()
 
-private val PsiElement.blockClose: PsiElement?
-    get() = siblings().filterIsElementType(XPathTokenType.BLOCK_CLOSE).firstOrNull()
+val PsiElement.enclosedExpressionBlocks: List<EnclosedExprBlock>
+    get() {
+        val enclosedExpressions = mutableListOf<EnclosedExprBlock>()
+        var blockOpen: PsiElement? = null
+        children().forEach { child ->
+            when (child.elementType) {
+                XPathTokenType.BLOCK_OPEN -> {
+                    blockOpen = child
+                }
+                XPathTokenType.BLOCK_CLOSE -> {
+                    enclosedExpressions.add(EnclosedExprBlock(blockOpen!!, child))
+                    blockOpen = null
+                }
+            }
+        }
+        if (blockOpen != null) {
+            enclosedExpressions.add(EnclosedExprBlock(blockOpen!!, lastChild))
+        }
+        return enclosedExpressions
+    }
 
 val PsiElement.isEmptyEnclosedExpr: Boolean
     get() {
@@ -40,9 +60,9 @@ val PsiElement.isEmptyEnclosedExpr: Boolean
     }
 
 val PsiElement.blockFoldingRange: TextRange?
-    get() = when (val blockOpen = blockOpen) {
-        null -> null
-        else -> TextRange.create(blockOpen.textOffset, blockOpen.blockClose?.textRange?.endOffset ?: textRange.endOffset)
+    get() {
+        val block = enclosedExpressionBlocks.firstOrNull() ?: return null
+        return TextRange.create(block.open.textOffset, block.close.textRange.endOffset)
     }
 
 private val IGNORE_TOKENS = TokenSet.create(
