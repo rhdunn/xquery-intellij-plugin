@@ -27,7 +27,10 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathComment
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 
-data class EnclosedExprBlock(val open: PsiElement, val close: PsiElement)
+data class EnclosedExprBlock(val open: PsiElement, val close: PsiElement) {
+    val textRange: TextRange
+        get() = TextRange.create(open.textOffset, close.textRange.endOffset)
+}
 
 val PsiElement.blockOpen: PsiElement?
     get() = children().filterIsElementType(XPathTokenType.BLOCK_OPEN).firstOrNull()
@@ -60,10 +63,7 @@ val PsiElement.isEmptyEnclosedExpr: Boolean
     }
 
 val PsiElement.blockFoldingRange: TextRange?
-    get() {
-        val block = enclosedExpressionBlocks.firstOrNull() ?: return null
-        return TextRange.create(block.open.textOffset, block.close.textRange.endOffset)
-    }
+    get() = enclosedExpressionBlocks.firstOrNull()?.textRange
 
 private val IGNORE_TOKENS = TokenSet.create(
     XPathTokenType.WHITE_SPACE,
