@@ -208,39 +208,6 @@ private class XQueryConformanceTest : ParserTestCase() {
     }
 
     // endregion
-    // region EnclosedExpr (CompTextConstructor)
-
-    @Test
-    fun testEnclosedExpr_CompTextConstructor() {
-        val file = parseResource("tests/parser/xquery-1.0/CompTextConstructor.xq")
-
-        val compTextConstructorPsi = file.descendants().filterIsInstance<XQueryCompTextConstructor>().first()
-        val enclosedExprPsi = compTextConstructorPsi.children().filterIsInstance<XPathEnclosedExpr>().first()
-        val versioned = enclosedExprPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XPathElementType.STRING_LITERAL))
-    }
-
-    @Test
-    fun testEnclosedExpr_CompTextConstructor_NoExpr() {
-        val file = parseResource("tests/parser/xquery-3.1/CompTextConstructor_MissingExpr.xq")
-
-        val compTextConstructorPsi = file.descendants().filterIsInstance<XQueryCompTextConstructor>().first()
-        val enclosedExprPsi = compTextConstructorPsi.children().filterIsInstance<XPathEnclosedExpr>().first()
-        val versioned = enclosedExprPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(2))
-        assertThat(versioned.requiresConformance[0], `is`(XQuerySpec.REC_3_1_20170321))
-        assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.BLOCK_OPEN))
-    }
-
-    // endregion
     // region EnclosedExpr (DirAttributeValue)
 
     @Test
