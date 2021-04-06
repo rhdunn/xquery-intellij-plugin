@@ -1,0 +1,3 @@
+processing-instruction {
+    "test"
+} { <test/> }

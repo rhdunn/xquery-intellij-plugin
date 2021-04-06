@@ -63,6 +63,7 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
         XQueryElementType.COMP_ATTR_CONSTRUCTOR -> "{...}"
         XQueryElementType.COMP_DOC_CONSTRUCTOR -> "{...}"
         XQueryElementType.COMP_ELEM_CONSTRUCTOR -> "{...}"
+        XQueryElementType.COMP_PI_CONSTRUCTOR -> "{...}"
         XQueryElementType.DIR_COMMENT_CONSTRUCTOR -> getDirCommentConstructorPlaceholderTest(node.psi)
         XQueryElementType.DIR_ELEM_CONSTRUCTOR -> "..."
         XQueryElementType.ENCLOSED_EXPR -> "{...}"
@@ -85,6 +86,7 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
         is XQueryCompAttrConstructor -> element
         is XQueryCompDocConstructor -> element
         is XQueryCompElemConstructor -> element
+        is XQueryCompPIConstructor -> element
         is XQueryFunctionDecl -> element
         is XQueryOrderedExpr -> element
         is XQueryTryCatchExpr -> element

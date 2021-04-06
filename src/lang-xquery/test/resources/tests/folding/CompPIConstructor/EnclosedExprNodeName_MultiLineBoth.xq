@@ -1,0 +1,5 @@
+processing-instruction {
+  "test"
+} {
+  <test/>
+}
