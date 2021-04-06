@@ -20,12 +20,11 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.TextNode
 import uk.co.reecedunn.intellij.plugin.core.util.UserDataHolderBase
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyAtomicType
 import uk.co.reecedunn.intellij.plugin.xpath.lang.FunctionsAndOperatorsSpec
 import uk.co.reecedunn.intellij.plugin.xpm.lang.documentation.XpmDocumentationSource
-import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.*
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.*
 import java.util.*
 
 object FunctionsAndOperatorsDocumentation :

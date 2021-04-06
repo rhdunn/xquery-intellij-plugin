@@ -32,7 +32,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xslt.ast.schema.XsltHashedKeyword
 import uk.co.reecedunn.intellij.plugin.xslt.resources.XsltBundle
 import uk.co.reecedunn.intellij.plugin.xslt.schema.XsltSchemaTypes
-import java.lang.UnsupportedOperationException
 
 class SchemaTypeAnnotator(val schemaType: ISchemaType? = null) : Annotator() {
     companion object {

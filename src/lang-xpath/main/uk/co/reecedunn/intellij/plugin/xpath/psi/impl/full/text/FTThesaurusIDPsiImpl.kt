@@ -18,9 +18,9 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.full.text
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTThesaurusID
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 
 class FTThesaurusIDPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), FTThesaurusID {
     override val source: XsAnyUriValue?

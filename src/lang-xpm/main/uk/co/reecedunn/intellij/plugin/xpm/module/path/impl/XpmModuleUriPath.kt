@@ -16,9 +16,9 @@
 package uk.co.reecedunn.intellij.plugin.xpm.module.path.impl
 
 import com.intellij.openapi.project.Project
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePath
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePathFactory
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 
 object XpmModuleUriPath : XpmModulePathFactory {
     override fun create(project: Project, uri: XsAnyUriValue): XpmModulePath? = uri as? XpmModulePath

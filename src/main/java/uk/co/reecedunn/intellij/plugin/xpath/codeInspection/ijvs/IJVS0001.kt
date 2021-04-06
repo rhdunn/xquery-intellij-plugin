@@ -18,28 +18,26 @@ package uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs
 import com.intellij.codeInspection.InspectionManager
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.psi.PsiFile
-import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
-import uk.co.reecedunn.intellij.plugin.basex.lang.BaseX as BaseXProduct
 import uk.co.reecedunn.intellij.plugin.core.codeInspection.Inspection
-import uk.co.reecedunn.intellij.plugin.existdb.lang.EXistDB as EXistDBProduct
+import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
-import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryPluginBundle
-import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSettings
-import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformanceName
 import uk.co.reecedunn.intellij.plugin.saxon.lang.SaxonEE
 import uk.co.reecedunn.intellij.plugin.saxon.lang.SaxonHE
 import uk.co.reecedunn.intellij.plugin.saxon.lang.SaxonPE
 import uk.co.reecedunn.intellij.plugin.w3.lang.W3CSpecifications
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmLanguageVersion
-import uk.co.reecedunn.intellij.plugin.marklogic.lang.MarkLogic as MarkLogicProduct
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
 import uk.co.reecedunn.intellij.plugin.xpm.lang.configuration.XpmLanguageConfiguration
 import uk.co.reecedunn.intellij.plugin.xpm.lang.diagnostics.XpmDiagnostics
 import uk.co.reecedunn.intellij.plugin.xpm.lang.diagnostics.XpmInspectionDiagnostics
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidation
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSettings
+import uk.co.reecedunn.intellij.plugin.basex.lang.BaseX as BaseXProduct
+import uk.co.reecedunn.intellij.plugin.existdb.lang.EXistDB as EXistDBProduct
+import uk.co.reecedunn.intellij.plugin.marklogic.lang.MarkLogic as MarkLogicProduct
 
 private fun supports(a: Specification, b: Version): Boolean {
     return when (a) {

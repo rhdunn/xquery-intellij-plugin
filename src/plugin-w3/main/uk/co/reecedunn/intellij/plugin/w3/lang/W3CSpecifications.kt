@@ -16,9 +16,9 @@
 package uk.co.reecedunn.intellij.plugin.w3.lang
 
 import com.intellij.navigation.ItemPresentation
-import uk.co.reecedunn.intellij.plugin.xpm.resources.XpmIcons
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
+import uk.co.reecedunn.intellij.plugin.xpm.resources.XpmIcons
 import javax.swing.Icon
 
 object W3CSpecifications : ItemPresentation, XpmProductType {

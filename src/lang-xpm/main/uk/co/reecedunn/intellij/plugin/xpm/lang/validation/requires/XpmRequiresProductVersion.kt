@@ -15,9 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires
 
-import uk.co.reecedunn.intellij.plugin.xpm.resources.XpmBundle
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
 import uk.co.reecedunn.intellij.plugin.xpm.lang.configuration.XpmLanguageConfiguration
+import uk.co.reecedunn.intellij.plugin.xpm.resources.XpmBundle
 
 open class XpmRequiresProductVersion(private val requires: XpmProductVersion) : XpmRequiresConformanceTo {
     override fun conformanceTo(configuration: XpmLanguageConfiguration): Boolean {

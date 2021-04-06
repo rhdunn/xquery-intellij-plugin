@@ -21,8 +21,8 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementItem
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNameTest
-import uk.co.reecedunn.intellij.plugin.xpm.optree.path.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.path.XpmAxisType
 
 class XPathNameTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathNameTest {
     override val axisType: XpmAxisType = XpmAxisType.Child

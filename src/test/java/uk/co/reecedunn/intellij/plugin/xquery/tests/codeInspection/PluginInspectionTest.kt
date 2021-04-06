@@ -24,17 +24,13 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.core.tests.codeInspection.InspectionTestCase
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Specification
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
-import uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs.IJVS0001
-import uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs.IJVS0002
-import uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs.IJVS0003
-import uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs.IJVS0004
-import uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs.IJVS0005
+import uk.co.reecedunn.intellij.plugin.xpath.codeInspection.ijvs.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 // region XML Entities
 

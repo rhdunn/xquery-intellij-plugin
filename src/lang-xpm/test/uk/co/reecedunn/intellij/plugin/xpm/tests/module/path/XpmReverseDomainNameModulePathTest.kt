@@ -17,14 +17,16 @@ package uk.co.reecedunn.intellij.plugin.xpm.tests.module.path
 
 import com.intellij.openapi.extensions.PluginId
 import org.hamcrest.CoreMatchers.*
-import org.junit.jupiter.api.*
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Nested
+import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
-import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
-import uk.co.reecedunn.intellij.plugin.xpm.module.path.impl.XpmReverseDomainNameModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsAnyUri
+import uk.co.reecedunn.intellij.plugin.xpm.module.path.impl.XpmReverseDomainNameModulePath
 
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("Modules - BaseX Reverse Domain Name Paths")

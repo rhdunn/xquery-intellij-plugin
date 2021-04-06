@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xdm.tests.functions.op
 
 import com.intellij.openapi.extensions.PluginId
-import org.hamcrest.CoreMatchers.*
+import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test

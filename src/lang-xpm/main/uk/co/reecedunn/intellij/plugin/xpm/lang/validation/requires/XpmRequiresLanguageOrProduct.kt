@@ -15,8 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires
 
-import uk.co.reecedunn.intellij.plugin.xpm.resources.XpmBundle
 import uk.co.reecedunn.intellij.plugin.xpm.lang.configuration.XpmLanguageConfiguration
+import uk.co.reecedunn.intellij.plugin.xpm.resources.XpmBundle
 
 class XpmRequiresLanguageOrProduct(
     private val languageVersion: XpmRequiresLanguageVersion,

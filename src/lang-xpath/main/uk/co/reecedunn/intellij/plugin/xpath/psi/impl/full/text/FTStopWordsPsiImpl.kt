@@ -18,9 +18,9 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.full.text
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTStopWords
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUriLiteral
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 
 class FTStopWordsPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), FTStopWords {
     override val source: XsAnyUriValue?

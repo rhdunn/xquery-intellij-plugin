@@ -18,11 +18,11 @@ package uk.co.reecedunn.intellij.plugin.xpm.java
 import com.intellij.openapi.project.Project
 import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.core.text.pascalCase
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePath
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePathFactory
-import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 
 /**
  * BaseX, eXist-db, and Saxon allow declaring a namespace to a Java class.

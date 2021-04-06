@@ -20,9 +20,9 @@ import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAxisStep
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.path.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.path.XpmPathStep
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 
 class XPathAxisStepPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathAxisStep {
     override val axisType: XpmAxisType

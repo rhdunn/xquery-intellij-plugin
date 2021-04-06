@@ -28,7 +28,9 @@ import uk.co.reecedunn.intellij.plugin.xslt.ast.marklogic.MarkLogicCatch
 import uk.co.reecedunn.intellij.plugin.xslt.ast.marklogic.MarkLogicImportModule
 import uk.co.reecedunn.intellij.plugin.xslt.ast.marklogic.MarkLogicTry
 import uk.co.reecedunn.intellij.plugin.xslt.ast.saxon.*
-import uk.co.reecedunn.intellij.plugin.xslt.ast.xslt.*
+import uk.co.reecedunn.intellij.plugin.xslt.ast.xslt.XsltResultDocument
+import uk.co.reecedunn.intellij.plugin.xslt.ast.xslt.XsltStylesheet
+import uk.co.reecedunn.intellij.plugin.xslt.ast.xslt.XsltTemplate
 import uk.co.reecedunn.intellij.plugin.xslt.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.

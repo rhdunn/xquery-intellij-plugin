@@ -27,7 +27,6 @@ import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPragma
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import java.lang.StringBuilder
 
 class XPathPragmaPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathPragma, LiteralTextHost {
     // region PsiLanguageInjectionHost

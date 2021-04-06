@@ -16,8 +16,8 @@
 package uk.co.reecedunn.intellij.plugin.w3.documentation
 
 import org.jsoup.nodes.Element
-import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.*
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
+import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocFunctionDocumentation
 
 internal class W3CFunctionReference(private val node: Element, baseHref: String) :
     XQDocFunctionDocumentation {

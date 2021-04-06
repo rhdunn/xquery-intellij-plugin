@@ -19,14 +19,14 @@ import com.intellij.patterns.PlatformPatterns
 import com.intellij.patterns.PsiElementPattern
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionContributorEx
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath as XPathElement
 import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.*
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathCompletionProperty
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathDefaultNamespace
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathStaticallyKnownNamespaces
-import uk.co.reecedunn.intellij.plugin.xslt.completion.xpath.property.XPathVersion
 import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.*
+import uk.co.reecedunn.intellij.plugin.xslt.completion.xpath.property.XPathVersion
 import uk.co.reecedunn.intellij.plugin.xslt.lang.isIntellijXPathPluginEnabled
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath as XPathElement
 
 class XPathCompletionContributor : CompletionContributorEx() {
     @Suppress("PropertyName")

@@ -26,16 +26,13 @@ import com.intellij.psi.PsiElement
 import com.intellij.util.xmlb.XmlSerializerUtil
 import uk.co.reecedunn.intellij.plugin.core.progress.TaskManager
 import uk.co.reecedunn.intellij.plugin.core.util.UserDataHolderBase
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyAtomicType
-import uk.co.reecedunn.intellij.plugin.xpm.resources.XpmBundle
-import uk.co.reecedunn.intellij.plugin.xpm.context.XpmStaticContext
-import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePath
-import uk.co.reecedunn.intellij.plugin.xpm.module.path.paths
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
+import uk.co.reecedunn.intellij.plugin.xpm.context.XpmStaticContext
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmVendorType
-import java.util.*
-import kotlin.collections.ArrayList
+import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePath
+import uk.co.reecedunn.intellij.plugin.xpm.module.path.paths
+import uk.co.reecedunn.intellij.plugin.xpm.resources.XpmBundle
 
 data class XpmModuleLoaderSettingsData(
     var databasePath: String = "",

@@ -26,9 +26,8 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNameTest
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
-import uk.co.reecedunn.intellij.plugin.xpm.optree.path.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
-import java.lang.UnsupportedOperationException
+import uk.co.reecedunn.intellij.plugin.xpm.optree.path.XpmAxisType
 
 class XPathForwardStepPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), XPathForwardStep, XpmSyntaxValidationElement {

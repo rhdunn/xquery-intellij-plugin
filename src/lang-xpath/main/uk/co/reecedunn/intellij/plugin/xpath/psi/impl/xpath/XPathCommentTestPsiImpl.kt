@@ -17,9 +17,9 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathCommentTest
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmCommentNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathCommentTest
 
 class XPathCommentTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathCommentTest {
     // region XdmSequenceType
