@@ -60,6 +60,7 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
         XPathElementType.WITH_EXPR -> "{...}"
         XQueryElementType.CATCH_CLAUSE -> "{...}"
         XQueryElementType.COMMENT -> getCommentPlaceholderText(node.text)
+        XQueryElementType.COMP_ATTR_CONSTRUCTOR -> "{...}"
         XQueryElementType.COMP_DOC_CONSTRUCTOR -> "{...}"
         XQueryElementType.COMP_ELEM_CONSTRUCTOR -> "{...}"
         XQueryElementType.DIR_COMMENT_CONSTRUCTOR -> getDirCommentConstructorPlaceholderTest(node.psi)
@@ -81,6 +82,7 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
         is XPathMapConstructor -> element
         is XPathWithExpr -> element
         is XQueryCatchClause -> element
+        is XQueryCompAttrConstructor -> element
         is XQueryCompDocConstructor -> element
         is XQueryCompElemConstructor -> element
         is XQueryFunctionDecl -> element

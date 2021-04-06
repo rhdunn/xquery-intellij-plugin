@@ -1,0 +1,5 @@
+attribute {
+  "test"
+} {
+  <test/>
+}
