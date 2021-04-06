@@ -115,6 +115,11 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
             else -> {
             }
         }
+        is XQueryCompTextConstructor -> when (element.conformanceElement.elementType) {
+            XPathTokenType.BLOCK_OPEN -> reporter.requires(element, XQUERY_3_1)
+            else -> {
+            }
+        }
         is XQueryCompNamespaceConstructor -> reporter.requires(element, XQUERY_3_0)
         is XQueryContextItemDecl -> reporter.requires(element, XQUERY_3_0)
         is XQueryDefaultNamespaceDecl -> when (element.conformanceElement.elementType) {
