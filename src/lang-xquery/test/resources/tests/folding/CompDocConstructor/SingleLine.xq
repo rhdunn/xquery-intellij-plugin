@@ -1,1 +1,1 @@
-document { <test/> }
+text { <test/> }
