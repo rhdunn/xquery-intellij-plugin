@@ -529,12 +529,6 @@ object XQueryElementType {
     // endregion
     // region XQuery 3.1
 
-    val ENCLOSED_PREFIX_EXPR: IElementType = ICompositeElementType(
-        "XQUERY_ENCLOSED_PREFIX_EXPR",
-        XQueryEnclosedPrefixExprPsiImpl::class.java,
-        XQuery
-    )
-
     val ENCLOSED_URI_EXPR: IElementType = ICompositeElementType(
         "XQUERY_ENCLOSED_URI_EXPR",
         XQueryEnclosedUriExprPsiImpl::class.java,
