@@ -961,6 +961,77 @@ class XQuerySyntaxValidatorTest :
         }
 
         @Nested
+        @DisplayName("XQuery 3.1 EBNF (164) CompTextConstructor ; XQuery 3.1 EBNF (162) EnclosedPrefixExpr")
+        internal inner class EnclosedPrefixExpr {
+            @Test
+            @DisplayName("XQuery < 3.1")
+            fun notSupported() {
+                val file = parse<XQueryModule>("namespace { } { 2 }")[0]
+                validator.configuration = XQUERY_1_0
+                validator.validate(file, this@XQuerySyntaxValidatorTest)
+                assertThat(
+                    report.toString(),
+                    `is`("E XPST0003(10:11): XQuery version string '1.0' does not support XQuery 3.1 constructs.")
+                )
+            }
+
+            @Test
+            @DisplayName("XQuery >= 3.1")
+            fun supported() {
+                val file = parse<XQueryModule>("namespace { } { 2 }")[0]
+                validator.configuration = XQUERY_3_1
+                validator.validate(file, this@XQuerySyntaxValidatorTest)
+                assertThat(report.toString(), `is`(""))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (164) CompTextConstructor ; XQuery 3.1 EBNF (163) EnclosedURIExpr")
+        internal inner class EnclosedURIExpr {
+            @Test
+            @DisplayName("NCName prefix ; XQuery < 3.1")
+            fun ncnamePrefix_notSupported() {
+                val file = parse<XQueryModule>("namespace test { }")[0]
+                validator.configuration = XQUERY_1_0
+                validator.validate(file, this@XQuerySyntaxValidatorTest)
+                assertThat(
+                    report.toString(),
+                    `is`("E XPST0003(15:16): XQuery version string '1.0' does not support XQuery 3.1 constructs.")
+                )
+            }
+
+            @Test
+            @DisplayName("NCName prefix ; XQuery >= 3.1")
+            fun ncnamePrefix_supported() {
+                val file = parse<XQueryModule>("namespace test { }")[0]
+                validator.configuration = XQUERY_3_1
+                validator.validate(file, this@XQuerySyntaxValidatorTest)
+                assertThat(report.toString(), `is`(""))
+            }
+
+            @Test
+            @DisplayName("enclosed prefix ; XQuery < 3.1")
+            fun enclosedExprPrefix_notSupported() {
+                val file = parse<XQueryModule>("namespace { 1 } { }")[0]
+                validator.configuration = XQUERY_1_0
+                validator.validate(file, this@XQuerySyntaxValidatorTest)
+                assertThat(
+                    report.toString(),
+                    `is`("E XPST0003(16:17): XQuery version string '1.0' does not support XQuery 3.1 constructs.")
+                )
+            }
+
+            @Test
+            @DisplayName("enclosed prefix ; XQuery >= 3.1")
+            fun enclosedExprPrefix_supported() {
+                val file = parse<XQueryModule>("namespace { 1 } { }")[0]
+                validator.configuration = XQUERY_3_1
+                validator.validate(file, this@XQuerySyntaxValidatorTest)
+                assertThat(report.toString(), `is`(""))
+            }
+        }
+
+        @Nested
         @DisplayName("XQuery 3.1 EBNF (164) CompTextConstructor ; XQuery 3.1 EBNF (36) EnclosedExpr")
         internal inner class CompTextConstructor {
             @Test

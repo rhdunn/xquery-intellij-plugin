@@ -33,6 +33,12 @@ data class EnclosedExprBlock(val open: PsiElement, val close: PsiElement) {
 
     val isMultiLine: Boolean
         get() = open.siblings(end = close).any { it.textContains('\n') }
+
+    val isEmpty: Boolean
+        get() {
+            val e = open.siblings(end = close).firstOrNull { it.elementType !in IGNORE_TOKENS && it !is XPathComment }
+            return e == null || e.elementType === XPathTokenType.BLOCK_CLOSE
+        }
 }
 
 val PsiElement.blockOpen: PsiElement?
