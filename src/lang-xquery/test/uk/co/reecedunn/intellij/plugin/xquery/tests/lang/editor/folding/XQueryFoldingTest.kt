@@ -368,7 +368,7 @@ private class XQueryFoldingTest : ParserTestCase() {
         }
 
         @Test
-        @DisplayName("EQName node name ; single line")
+        @DisplayName("EnclosedExpr node name ; single line")
         fun enclosedExpr_singleLine() {
             val file = parseResource("tests/folding/CompElemConstructor/EnclosedExprNodeName_SingleLine.xq")
 
@@ -378,7 +378,7 @@ private class XQueryFoldingTest : ParserTestCase() {
         }
 
         @Test
-        @DisplayName("EQName node name ; multiple lines (first)")
+        @DisplayName("EnclosedExpr node name ; multiple lines (first)")
         fun enclosedExpr_multipleLinesFirst() {
             val file = parseResource("tests/folding/CompElemConstructor/EnclosedExprNodeName_MultiLineFirst.xq")
 
@@ -399,7 +399,7 @@ private class XQueryFoldingTest : ParserTestCase() {
         }
 
         @Test
-        @DisplayName("EQName node name ; multiple lines (last)")
+        @DisplayName("EnclosedExpr node name ; multiple lines (last)")
         fun enclosedExpr_multipleLinesLast() {
             val file = parseResource("tests/folding/CompElemConstructor/EnclosedExprNodeName_MultiLineLast.xq")
 
@@ -420,7 +420,7 @@ private class XQueryFoldingTest : ParserTestCase() {
         }
 
         @Test
-        @DisplayName("EQName node name ; multiple lines (both)")
+        @DisplayName("EnclosedExpr node name ; multiple lines (both)")
         fun enclosedExpr_multipleLinesBoth() {
             val file = parseResource("tests/folding/CompElemConstructor/EnclosedExprNodeName_MultiLineBoth.xq")
 
@@ -487,7 +487,7 @@ private class XQueryFoldingTest : ParserTestCase() {
         }
 
         @Test
-        @DisplayName("EQName node name ; single line")
+        @DisplayName("EnclosedExpr node name ; single line")
         fun enclosedExpr_singleLine() {
             val file = parseResource("tests/folding/CompAttrConstructor/EnclosedExprNodeName_SingleLine.xq")
 
@@ -497,7 +497,7 @@ private class XQueryFoldingTest : ParserTestCase() {
         }
 
         @Test
-        @DisplayName("EQName node name ; multiple lines (first)")
+        @DisplayName("EnclosedExpr node name ; multiple lines (first)")
         fun enclosedExpr_multipleLinesFirst() {
             val file = parseResource("tests/folding/CompAttrConstructor/EnclosedExprNodeName_MultiLineFirst.xq")
 
@@ -518,7 +518,7 @@ private class XQueryFoldingTest : ParserTestCase() {
         }
 
         @Test
-        @DisplayName("EQName node name ; multiple lines (last)")
+        @DisplayName("EnclosedExpr node name ; multiple lines (last)")
         fun enclosedExpr_multipleLinesLast() {
             val file = parseResource("tests/folding/CompAttrConstructor/EnclosedExprNodeName_MultiLineLast.xq")
 
@@ -539,7 +539,7 @@ private class XQueryFoldingTest : ParserTestCase() {
         }
 
         @Test
-        @DisplayName("EQName node name ; multiple lines (both)")
+        @DisplayName("EnclosedExpr node name ; multiple lines (both)")
         fun enclosedExpr_multipleLinesBoth() {
             val file = parseResource("tests/folding/CompAttrConstructor/EnclosedExprNodeName_MultiLineBoth.xq")
 
@@ -563,6 +563,125 @@ private class XQueryFoldingTest : ParserTestCase() {
             assertThat(descriptors[1].dependencies.size, `is`(0))
             assertThat(descriptors[1].group, `is`(nullValue()))
             assertThat(descriptors[1].element.elementType, `is`(XQueryElementType.COMP_ATTR_CONSTRUCTOR))
+            assertThat(descriptors[1].range.startOffset, `is`(23))
+            assertThat(descriptors[1].range.endOffset, `is`(36))
+
+            assertThat(builder.getPlaceholderText(descriptors[1].element), `is`("{...}"))
+            assertThat(builder.isCollapsedByDefault(descriptors[1].element), `is`(false))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.1 EBNF (37) EnclosedExpr ; XQuery 3.1 EBNF (160) CompNamespaceConstructor")
+    internal inner class CompNamespaceConstructor {
+        @Test
+        @DisplayName("NCName node name ; single line")
+        fun ncname_singleLine() {
+            val file = parseResource("tests/folding/CompNamespaceConstructor/NCNameNodeName_SingleLine.xq")
+
+            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(0))
+        }
+
+        @Test
+        @DisplayName("NCName node name ; multiple lines")
+        fun ncname_multipleLines() {
+            val file = parseResource("tests/folding/CompNamespaceConstructor/NCNameNodeName_MultiLine.xq")
+
+            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(1))
+
+            assertThat(descriptors[0].canBeRemovedWhenCollapsed(), `is`(false))
+            assertThat(descriptors[0].dependencies, `is`(notNullValue()))
+            assertThat(descriptors[0].dependencies.size, `is`(0))
+            assertThat(descriptors[0].group, `is`(nullValue()))
+            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.COMP_NAMESPACE_CONSTRUCTOR))
+            assertThat(descriptors[0].range.startOffset, `is`(15))
+            assertThat(descriptors[0].range.endOffset, `is`(28))
+
+            assertThat(builder.getPlaceholderText(descriptors[0].element), `is`("{...}"))
+            assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
+        }
+
+        @Test
+        @DisplayName("EnclosedExpr node name ; single line")
+        fun enclosedExpr_singleLine() {
+            val file = parseResource("tests/folding/CompNamespaceConstructor/EnclosedExprNodeName_SingleLine.xq")
+
+            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(0))
+        }
+
+        @Test
+        @DisplayName("EnclosedExpr node name ; multiple lines (first)")
+        fun enclosedExpr_multipleLinesFirst() {
+            val file = parseResource("tests/folding/CompNamespaceConstructor/EnclosedExprNodeName_MultiLineFirst.xq")
+
+            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(1))
+
+            assertThat(descriptors[0].canBeRemovedWhenCollapsed(), `is`(false))
+            assertThat(descriptors[0].dependencies, `is`(notNullValue()))
+            assertThat(descriptors[0].dependencies.size, `is`(0))
+            assertThat(descriptors[0].group, `is`(nullValue()))
+            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.COMP_NAMESPACE_CONSTRUCTOR))
+            assertThat(descriptors[0].range.startOffset, `is`(10))
+            assertThat(descriptors[0].range.endOffset, `is`(24))
+
+            assertThat(builder.getPlaceholderText(descriptors[0].element), `is`("{...}"))
+            assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
+        }
+
+        @Test
+        @DisplayName("EnclosedExpr node name ; multiple lines (last)")
+        fun enclosedExpr_multipleLinesLast() {
+            val file = parseResource("tests/folding/CompNamespaceConstructor/EnclosedExprNodeName_MultiLineLast.xq")
+
+            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(1))
+
+            assertThat(descriptors[0].canBeRemovedWhenCollapsed(), `is`(false))
+            assertThat(descriptors[0].dependencies, `is`(notNullValue()))
+            assertThat(descriptors[0].dependencies.size, `is`(0))
+            assertThat(descriptors[0].group, `is`(nullValue()))
+            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.COMP_NAMESPACE_CONSTRUCTOR))
+            assertThat(descriptors[0].range.startOffset, `is`(21))
+            assertThat(descriptors[0].range.endOffset, `is`(34))
+
+            assertThat(builder.getPlaceholderText(descriptors[0].element), `is`("{...}"))
+            assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
+        }
+
+        @Test
+        @DisplayName("EnclosedExpr node name ; multiple lines (both)")
+        fun enclosedExpr_multipleLinesBoth() {
+            val file = parseResource("tests/folding/CompNamespaceConstructor/EnclosedExprNodeName_MultiLineBoth.xq")
+
+            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(2))
+
+            assertThat(descriptors[0].canBeRemovedWhenCollapsed(), `is`(false))
+            assertThat(descriptors[0].dependencies, `is`(notNullValue()))
+            assertThat(descriptors[0].dependencies.size, `is`(0))
+            assertThat(descriptors[0].group, `is`(nullValue()))
+            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.COMP_NAMESPACE_CONSTRUCTOR))
+            assertThat(descriptors[0].range.startOffset, `is`(10))
+            assertThat(descriptors[0].range.endOffset, `is`(22))
+
+            assertThat(builder.getPlaceholderText(descriptors[0].element), `is`("{...}"))
+            assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
+
+            assertThat(descriptors[1].canBeRemovedWhenCollapsed(), `is`(false))
+            assertThat(descriptors[1].dependencies, `is`(notNullValue()))
+            assertThat(descriptors[1].dependencies.size, `is`(0))
+            assertThat(descriptors[1].group, `is`(nullValue()))
+            assertThat(descriptors[1].element.elementType, `is`(XQueryElementType.COMP_NAMESPACE_CONSTRUCTOR))
             assertThat(descriptors[1].range.startOffset, `is`(23))
             assertThat(descriptors[1].range.endOffset, `is`(36))
 
@@ -641,7 +760,7 @@ private class XQueryFoldingTest : ParserTestCase() {
         }
 
         @Test
-        @DisplayName("EQName node name ; single line")
+        @DisplayName("EnclosedExpr node name ; single line")
         fun enclosedExpr_singleLine() {
             val file = parseResource("tests/folding/CompPIConstructor/EnclosedExprNodeName_SingleLine.xq")
 
@@ -651,7 +770,7 @@ private class XQueryFoldingTest : ParserTestCase() {
         }
 
         @Test
-        @DisplayName("EQName node name ; multiple lines (first)")
+        @DisplayName("EnclosedExpr node name ; multiple lines (first)")
         fun enclosedExpr_multipleLinesFirst() {
             val file = parseResource("tests/folding/CompPIConstructor/EnclosedExprNodeName_MultiLineFirst.xq")
 
@@ -672,7 +791,7 @@ private class XQueryFoldingTest : ParserTestCase() {
         }
 
         @Test
-        @DisplayName("EQName node name ; multiple lines (last)")
+        @DisplayName("EnclosedExpr node name ; multiple lines (last)")
         fun enclosedExpr_multipleLinesLast() {
             val file = parseResource("tests/folding/CompPIConstructor/EnclosedExprNodeName_MultiLineLast.xq")
 
@@ -693,7 +812,7 @@ private class XQueryFoldingTest : ParserTestCase() {
         }
 
         @Test
-        @DisplayName("EQName node name ; multiple lines (both)")
+        @DisplayName("EnclosedExpr node name ; multiple lines (both)")
         fun enclosedExpr_multipleLinesBoth() {
             val file = parseResource("tests/folding/CompPIConstructor/EnclosedExprNodeName_MultiLineBoth.xq")
 
