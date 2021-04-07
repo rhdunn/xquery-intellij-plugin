@@ -112,38 +112,6 @@ private class XQueryConformanceTest : ParserTestCase() {
     }
 
     // endregion
-    // region EnclosedExpr (CompNamespaceConstructor + EnclosedURIExpr)
-
-    @Test
-    fun testEnclosedExpr_CompNamespaceConstructor_UriExpr() {
-        val file = parseResource("tests/parser/xquery-3.0/CompNamespaceConstructor.xq")
-
-        val compNamespaceConstructorPsi = file.descendants().filterIsInstance<XQueryCompNamespaceConstructor>().first()
-        val enclosedExprPsi = compNamespaceConstructorPsi.children().filterIsInstance<XQueryEnclosedUriExpr>().first()
-        val versioned = enclosedExprPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XPathElementType.STRING_LITERAL))
-    }
-
-    @Test
-    fun testEnclosedExpr_CompNamespaceConstructor_NoUriExpr() {
-        val file = parseResource("tests/parser/xquery-3.1/CompNamespaceConstructor_MissingURIExpr.xq")
-
-        val compNamespaceConstructorPsi = file.descendants().filterIsInstance<XQueryCompNamespaceConstructor>().first()
-        val enclosedExprPsi = compNamespaceConstructorPsi.children().filterIsInstance<XQueryEnclosedUriExpr>().first()
-        val versioned = enclosedExprPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`(XQuerySpec.REC_3_1_20170321))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.BLOCK_OPEN))
-    }
-
-    // endregion
     // region EnclosedExpr (DirAttributeValue)
 
     @Test
