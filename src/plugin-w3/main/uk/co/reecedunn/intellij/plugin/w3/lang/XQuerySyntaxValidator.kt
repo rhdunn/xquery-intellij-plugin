@@ -110,6 +110,11 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
             else -> {
             }
         }
+        is XQueryCompCommentConstructor -> when (element.conformanceElement.elementType) {
+            XPathTokenType.BLOCK_OPEN -> reporter.requires(element, XQUERY_3_1)
+            else -> {
+            }
+        }
         is XQueryCompDocConstructor -> when (element.conformanceElement.elementType) {
             XPathTokenType.BLOCK_OPEN -> reporter.requires(element, XQUERY_3_1)
             else -> {

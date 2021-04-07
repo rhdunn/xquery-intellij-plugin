@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2020 Reece H. Dunn
+ * Copyright (C) 2016, 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,9 +18,29 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.blockOpen
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.isEmptyEnclosedExpr
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompCommentConstructor
 
-class XQueryCompCommentConstructorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryCompCommentConstructor {
+class XQueryCompCommentConstructorPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node), XQueryCompCommentConstructor, XpmSyntaxValidationElement {
+    // region XpmExpression
+
     override val expressionElement: PsiElement
         get() = this
+
+    // endregion
+    // region XpmSyntaxValidationElement
+
+    override val conformanceElement: PsiElement
+        get() {
+            val blockOpen = blockOpen
+            return when {
+                blockOpen?.isEmptyEnclosedExpr == true -> blockOpen
+                else -> firstChild
+            }
+        }
+
+    // endregion
 }
