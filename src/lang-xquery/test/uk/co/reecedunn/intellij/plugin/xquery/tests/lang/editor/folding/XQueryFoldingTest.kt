@@ -1163,9 +1163,9 @@ private class XQueryFoldingTest : ParserTestCase() {
         }
 
         @Test
-        @DisplayName("multiple lines")
-        fun multipleLines() {
-            val file = parseResource("tests/folding/DirElemConstructor/MultiLine.xq")
+        @DisplayName("text; multiple lines")
+        fun text_multipleLines() {
+            val file = parseResource("tests/folding/DirElemConstructor/Text_MultiLine.xq")
 
             val descriptors = builder.buildFoldRegions(file, file.document!!, false)
             assertThat(descriptors, `is`(notNullValue()))
@@ -1184,9 +1184,9 @@ private class XQueryFoldingTest : ParserTestCase() {
         }
 
         @Test
-        @DisplayName("multiple lines; self closing")
-        fun multipleLines_SelfClosing() {
-            val file = parseResource("tests/folding/DirElemConstructor/MultiLine_SelfClosing.xq")
+        @DisplayName("attributes; multiple lines; self closing")
+        fun attributes_multipleLines_SelfClosing() {
+            val file = parseResource("tests/folding/DirElemConstructor/Attributes_MultiLine_SelfClosing.xq")
 
             val descriptors = builder.buildFoldRegions(file, file.document!!, false)
             assertThat(descriptors, `is`(notNullValue()))
@@ -1194,9 +1194,9 @@ private class XQueryFoldingTest : ParserTestCase() {
         }
 
         @Test
-        @DisplayName("multiple lines with attributes")
-        fun multipleLinesWithAttributes() {
-            val file = parseResource("tests/folding/DirElemConstructor/MultiLineWithAttributes.xq")
+        @DisplayName("text; multiple lines with attributes")
+        fun text_multipleLinesWithAttributes() {
+            val file = parseResource("tests/folding/DirElemConstructor/Text_MultiLineWithAttributes.xq")
 
             val descriptors = builder.buildFoldRegions(file, file.document!!, false)
             assertThat(descriptors, `is`(notNullValue()))
@@ -1217,7 +1217,7 @@ private class XQueryFoldingTest : ParserTestCase() {
         @Test
         @DisplayName("multiple lines with attributes; space after attribute list")
         fun multipleLinesWithAttributesAndSpace() {
-            val file = parseResource("tests/folding/DirElemConstructor/MultiLineWithAttributesAndSpace.xq")
+            val file = parseResource("tests/folding/DirElemConstructor/Text_MultiLineWithAttributesAndSpace.xq")
 
             val descriptors = builder.buildFoldRegions(file, file.document!!, false)
             assertThat(descriptors, `is`(notNullValue()))
@@ -1230,48 +1230,6 @@ private class XQueryFoldingTest : ParserTestCase() {
             assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.DIR_ELEM_CONSTRUCTOR))
             assertThat(descriptors[0].range.startOffset, `is`(20))
             assertThat(descriptors[0].range.endOffset, `is`(39))
-
-            assertThat(builder.getPlaceholderText(descriptors[0].element), `is`("..."))
-            assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
-        }
-
-        @Test
-        @DisplayName("EnclosedExpr only")
-        fun enclosedExprOnly() {
-            val file = parseResource("tests/folding/DirElemConstructor/EnclosedExprOnly.xq")
-
-            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
-            assertThat(descriptors, `is`(notNullValue()))
-            assertThat(descriptors.size, `is`(1))
-
-            assertThat(descriptors[0].canBeRemovedWhenCollapsed(), `is`(false))
-            assertThat(descriptors[0].dependencies, `is`(notNullValue()))
-            assertThat(descriptors[0].dependencies.size, `is`(0))
-            assertThat(descriptors[0].group, `is`(nullValue()))
-            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.DIR_ELEM_CONSTRUCTOR))
-            assertThat(descriptors[0].range.startOffset, `is`(2))
-            assertThat(descriptors[0].range.endOffset, `is`(13))
-
-            assertThat(builder.getPlaceholderText(descriptors[0].element), `is`("..."))
-            assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
-        }
-
-        @Test
-        @DisplayName("EnclosedExpr only, with attributes across multiple lines")
-        fun enclosedExprOnly_multipleLineAttributes() {
-            val file = parseResource("tests/folding/DirElemConstructor/EnclosedExprOnly_MultiLineAttributes.xq")
-
-            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
-            assertThat(descriptors, `is`(notNullValue()))
-            assertThat(descriptors.size, `is`(1))
-
-            assertThat(descriptors[0].canBeRemovedWhenCollapsed(), `is`(false))
-            assertThat(descriptors[0].dependencies, `is`(notNullValue()))
-            assertThat(descriptors[0].dependencies.size, `is`(0))
-            assertThat(descriptors[0].group, `is`(nullValue()))
-            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.DIR_ELEM_CONSTRUCTOR))
-            assertThat(descriptors[0].range.startOffset, `is`(3))
-            assertThat(descriptors[0].range.endOffset, `is`(32))
 
             assertThat(builder.getPlaceholderText(descriptors[0].element), `is`("..."))
             assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
