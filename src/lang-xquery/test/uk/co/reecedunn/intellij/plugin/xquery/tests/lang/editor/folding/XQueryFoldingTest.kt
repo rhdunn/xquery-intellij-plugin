@@ -51,7 +51,7 @@ private class XQueryFoldingTest : ParserTestCase() {
     }
 
     fun getPlaceholderText(descriptor: FoldingDescriptor): String? {
-        return builder.getPlaceholderText(descriptor.element)
+        return builder.getPlaceholderText(descriptor.element, descriptor.range)
     }
 
     fun isCollapsedByDefault(descriptor: FoldingDescriptor): Boolean {
