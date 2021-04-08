@@ -16,7 +16,9 @@
 package uk.co.reecedunn.intellij.plugin.xpath.tests.lang.editor.folding
 
 import com.intellij.lang.folding.FoldingBuilderEx
+import com.intellij.lang.folding.FoldingDescriptor
 import com.intellij.openapi.extensions.PluginId
+import com.intellij.psi.PsiFile
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -39,6 +41,10 @@ private class XPathFoldingTest : ParserTestCase() {
 
     private val builder: FoldingBuilderEx = XPathFoldingBuilder()
 
+    fun buildFoldRegions(root: PsiFile, quick: Boolean = false): Array<FoldingDescriptor> {
+        return builder.buildFoldRegions(root, root.document!!, quick)
+    }
+
     @Nested
     @DisplayName("XPath 3.1 EBNF (4) FunctionBody ; XPath 3.1 EBNF (68) InlineFunctionExpr")
     internal inner class InlineFunctionExpr {
@@ -47,7 +53,7 @@ private class XPathFoldingTest : ParserTestCase() {
         fun singleLine() {
             val file = parseResource("tests/folding/InlineFunctionExpr/SingleLine.xq")
 
-            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
+            val descriptors = buildFoldRegions(file)
             assertThat(descriptors, `is`(notNullValue()))
             assertThat(descriptors.size, `is`(0))
         }
@@ -57,7 +63,7 @@ private class XPathFoldingTest : ParserTestCase() {
         fun multipleLines() {
             val file = parseResource("tests/folding/InlineFunctionExpr/MultiLine.xq")
 
-            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
+            val descriptors = buildFoldRegions(file)
             assertThat(descriptors, `is`(notNullValue()))
             assertThat(descriptors.size, `is`(1))
 
@@ -82,7 +88,7 @@ private class XPathFoldingTest : ParserTestCase() {
         fun singleLine() {
             val file = parseResource("tests/folding/ThinArrowTarget/SingleLine.xq")
 
-            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
+            val descriptors = buildFoldRegions(file)
             assertThat(descriptors, `is`(notNullValue()))
             assertThat(descriptors.size, `is`(0))
         }
@@ -92,7 +98,7 @@ private class XPathFoldingTest : ParserTestCase() {
         fun multipleLines() {
             val file = parseResource("tests/folding/ThinArrowTarget/MultiLine.xq")
 
-            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
+            val descriptors = buildFoldRegions(file)
             assertThat(descriptors, `is`(notNullValue()))
             assertThat(descriptors.size, `is`(1))
 
@@ -117,7 +123,7 @@ private class XPathFoldingTest : ParserTestCase() {
         fun singleLine() {
             val file = parseResource("tests/folding/WithExpr/SingleLine.xq")
 
-            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
+            val descriptors = buildFoldRegions(file)
             assertThat(descriptors, `is`(notNullValue()))
             assertThat(descriptors.size, `is`(0))
         }
@@ -127,7 +133,7 @@ private class XPathFoldingTest : ParserTestCase() {
         fun multipleLines() {
             val file = parseResource("tests/folding/WithExpr/MultiLine.xq")
 
-            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
+            val descriptors = buildFoldRegions(file)
             assertThat(descriptors, `is`(notNullValue()))
             assertThat(descriptors.size, `is`(1))
 
@@ -148,7 +154,7 @@ private class XPathFoldingTest : ParserTestCase() {
         fun multipleLineNamespaces() {
             val file = parseResource("tests/folding/WithExpr/MultiLineNamespaces.xq")
 
-            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
+            val descriptors = buildFoldRegions(file)
             assertThat(descriptors, `is`(notNullValue()))
             assertThat(descriptors.size, `is`(1))
 
@@ -173,7 +179,7 @@ private class XPathFoldingTest : ParserTestCase() {
         fun singleLine() {
             val file = parseResource("tests/folding/CurlyArrayConstructor/SingleLine.xq")
 
-            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
+            val descriptors = buildFoldRegions(file)
             assertThat(descriptors, `is`(notNullValue()))
             assertThat(descriptors.size, `is`(0))
         }
@@ -183,7 +189,7 @@ private class XPathFoldingTest : ParserTestCase() {
         fun multipleLines() {
             val file = parseResource("tests/folding/CurlyArrayConstructor/MultiLine.xq")
 
-            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
+            val descriptors = buildFoldRegions(file)
             assertThat(descriptors, `is`(notNullValue()))
             assertThat(descriptors.size, `is`(1))
 
@@ -208,7 +214,7 @@ private class XPathFoldingTest : ParserTestCase() {
         fun singleLine() {
             val file = parseResource("tests/folding/MapConstructor/SingleLine.xq")
 
-            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
+            val descriptors = buildFoldRegions(file)
             assertThat(descriptors, `is`(notNullValue()))
             assertThat(descriptors.size, `is`(0))
         }
@@ -218,7 +224,7 @@ private class XPathFoldingTest : ParserTestCase() {
         fun multipleLines() {
             val file = parseResource("tests/folding/MapConstructor/MultiLine.xq")
 
-            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
+            val descriptors = buildFoldRegions(file)
             assertThat(descriptors, `is`(notNullValue()))
             assertThat(descriptors.size, `is`(1))
 
@@ -243,7 +249,7 @@ private class XPathFoldingTest : ParserTestCase() {
         fun singleLine() {
             val file = parseResource("tests/folding/Comment/SingleLine.xq")
 
-            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
+            val descriptors = buildFoldRegions(file)
             assertThat(descriptors, `is`(notNullValue()))
             assertThat(descriptors.size, `is`(0))
         }
@@ -253,7 +259,7 @@ private class XPathFoldingTest : ParserTestCase() {
         fun multipleLines_EmptyText() {
             val file = parseResource("tests/folding/Comment/Empty.xq")
 
-            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
+            val descriptors = buildFoldRegions(file)
             assertThat(descriptors, `is`(notNullValue()))
             assertThat(descriptors.size, `is`(1))
 
@@ -274,7 +280,7 @@ private class XPathFoldingTest : ParserTestCase() {
         fun multipleLines() {
             val file = parseResource("tests/folding/Comment/MultiLine.xq")
 
-            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
+            val descriptors = buildFoldRegions(file)
             assertThat(descriptors, `is`(notNullValue()))
             assertThat(descriptors.size, `is`(1))
 
@@ -295,7 +301,7 @@ private class XPathFoldingTest : ParserTestCase() {
         fun multipleLines_Incomplete() {
             val file = parseResource("tests/folding/Comment/MultiLine_Incomplete.xq")
 
-            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
+            val descriptors = buildFoldRegions(file)
             assertThat(descriptors, `is`(notNullValue()))
             assertThat(descriptors.size, `is`(1))
 
