@@ -472,7 +472,7 @@ private class XQueryFoldingTest : ParserTestCase() {
             assertThat(descriptors[0].range.startOffset, `is`(6))
             assertThat(descriptors[0].range.endOffset, `is`(19))
 
-            assertThat(getPlaceholderText(descriptors[0]), `is`("..."))
+            assertThat(getPlaceholderText(descriptors[0]), `is`("{...}"))
             assertThat(isCollapsedByDefault(descriptors[0]), `is`(false))
         }
 
@@ -503,7 +503,7 @@ private class XQueryFoldingTest : ParserTestCase() {
             assertThat(descriptors[0].range.startOffset, `is`(6))
             assertThat(descriptors[0].range.endOffset, `is`(19))
 
-            assertThat(getPlaceholderText(descriptors[0]), `is`("..."))
+            assertThat(getPlaceholderText(descriptors[0]), `is`("{...}"))
             assertThat(isCollapsedByDefault(descriptors[0]), `is`(false))
         }
 
@@ -524,7 +524,7 @@ private class XQueryFoldingTest : ParserTestCase() {
             assertThat(descriptors[0].range.startOffset, `is`(18))
             assertThat(descriptors[0].range.endOffset, `is`(31))
 
-            assertThat(getPlaceholderText(descriptors[0]), `is`("..."))
+            assertThat(getPlaceholderText(descriptors[0]), `is`("{...}"))
             assertThat(isCollapsedByDefault(descriptors[0]), `is`(false))
         }
 
@@ -545,7 +545,7 @@ private class XQueryFoldingTest : ParserTestCase() {
             assertThat(descriptors[0].range.startOffset, `is`(6))
             assertThat(descriptors[0].range.endOffset, `is`(19))
 
-            assertThat(getPlaceholderText(descriptors[0]), `is`("..."))
+            assertThat(getPlaceholderText(descriptors[0]), `is`("{...}"))
             assertThat(isCollapsedByDefault(descriptors[0]), `is`(false))
 
             assertThat(descriptors[1].canBeRemovedWhenCollapsed(), `is`(false))
@@ -556,7 +556,7 @@ private class XQueryFoldingTest : ParserTestCase() {
             assertThat(descriptors[1].range.startOffset, `is`(22))
             assertThat(descriptors[1].range.endOffset, `is`(35))
 
-            assertThat(getPlaceholderText(descriptors[1]), `is`("..."))
+            assertThat(getPlaceholderText(descriptors[1]), `is`("{...}"))
             assertThat(isCollapsedByDefault(descriptors[1]), `is`(false))
         }
     }

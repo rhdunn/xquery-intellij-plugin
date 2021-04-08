@@ -55,7 +55,9 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
         return descriptors.toTypedArray()
     }
 
-    override fun getPlaceholderText(node: ASTNode): String? = when (node.elementType) {
+    override fun getPlaceholderText(node: ASTNode): String? = null
+
+    override fun getPlaceholderText(node: ASTNode, textRange: TextRange): String? = when (node.elementType) {
         XPathElementType.ARROW_INLINE_FUNCTION_CALL -> "{...}"
         XPathElementType.CURLY_ARRAY_CONSTRUCTOR -> "{...}"
         XPathElementType.INLINE_FUNCTION_EXPR -> "{...}"
@@ -72,7 +74,13 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
         XQueryElementType.COMP_TEXT_CONSTRUCTOR -> "{...}"
         XQueryElementType.DIR_COMMENT_CONSTRUCTOR -> getDirCommentConstructorPlaceholderTest(node.psi)
         XQueryElementType.DIR_ATTRIBUTE_VALUE -> "{...}"
-        XQueryElementType.DIR_ELEM_CONSTRUCTOR -> "..."
+        XQueryElementType.DIR_ELEM_CONSTRUCTOR -> {
+            val child = node.findLeafElementAt(textRange.startOffset - node.startOffset)
+            if (child?.elementType === XPathTokenType.BLOCK_OPEN)
+                "{...}"
+            else
+                "..."
+        }
         XQueryElementType.FUNCTION_DECL -> "{...}"
         XQueryElementType.ORDERED_EXPR -> "{...}"
         XQueryElementType.TRY_CATCH_EXPR -> "{...}"
