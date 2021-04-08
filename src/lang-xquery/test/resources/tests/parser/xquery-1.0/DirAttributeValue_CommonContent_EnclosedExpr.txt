@@ -13,12 +13,11 @@ XQueryModuleImpl[FILE(0:16)]
                XQueryDirAttributeValueImpl[XQUERY_DIR_ATTRIBUTE_VALUE(5:14)]
                   LeafPsiElement[XQUERY_XML_ATTRIBUTE_VALUE_START_TOKEN(5:6)]('"')
                   XQueryDirAttributeValueContentsImpl[XQUERY_XML_ATTRIBUTE_VALUE_CONTENTS_TOKEN(6:7)]('1')
-                  XQueryEnclosedExprImpl[XQUERY_ENCLOSED_EXPR(7:12)]
-                     LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(7:8)]('{')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
-                     XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(9:10)]('2')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
-                     LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(11:12)]('}')
+                  LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(7:8)]('{')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
+                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(9:10)]('2')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
+                  LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(11:12)]('}')
                   XQueryDirAttributeValueContentsImpl[XQUERY_XML_ATTRIBUTE_VALUE_CONTENTS_TOKEN(12:13)]('3')
                   LeafPsiElement[XQUERY_XML_ATTRIBUTE_VALUE_END_TOKEN(13:14)]('"')
             LeafPsiElement[XQUERY_SELF_CLOSING_XML_TAG_TOKEN(14:16)]('/>')

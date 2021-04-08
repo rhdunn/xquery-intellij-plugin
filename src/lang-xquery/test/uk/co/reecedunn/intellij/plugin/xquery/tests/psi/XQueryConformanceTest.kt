@@ -112,43 +112,6 @@ private class XQueryConformanceTest : ParserTestCase() {
     }
 
     // endregion
-    // region EnclosedExpr (DirAttributeValue)
-
-    @Test
-    fun testEnclosedExpr_DirAttributeValue() {
-        val file = parseResource("tests/parser/xquery-1.0/DirAttributeValue_CommonContent_EnclosedExpr.xq")
-
-        val dirElemConstructorPsi = file.descendants().filterIsInstance<XQueryDirElemConstructor>().first()
-        val dirAttributePsi = dirElemConstructorPsi.children().filterIsInstance<PluginDirAttribute>().first()
-        val dirAttributeValuePsi = dirAttributePsi.children().filterIsInstance<XQueryDirAttributeValue>().first()
-        val enclosedExprPsi = dirAttributeValuePsi.children().filterIsInstance<XPathEnclosedExpr>().first()
-        val versioned = enclosedExprPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.INTEGER_LITERAL))
-    }
-
-    @Test
-    fun testEnclosedExpr_DirAttributeValue_NoExpr() {
-        val file = parseResource("tests/parser/xquery-3.1/DirAttributeValue_CommonContent_EnclosedExpr_MissingExpr.xq")
-
-        val dirElemConstructorPsi = file.descendants().filterIsInstance<XQueryDirElemConstructor>().first()
-        val dirAttributePsi = dirElemConstructorPsi.children().filterIsInstance<PluginDirAttribute>().first()
-        val dirAttributeValuePsi = dirAttributePsi.children().filterIsInstance<XQueryDirAttributeValue>().first()
-        val enclosedExprPsi = dirAttributeValuePsi.children().filterIsInstance<XPathEnclosedExpr>().first()
-        val versioned = enclosedExprPsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(2))
-        assertThat(versioned.requiresConformance[0], `is`(XQuerySpec.REC_3_1_20170321))
-        assertThat(versioned.requiresConformance[1], `is`(MarkLogic.VERSION_6_0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.BLOCK_OPEN))
-    }
-
-    // endregion
     // region EnclosedExpr (DirElemContent)
 
     @Test

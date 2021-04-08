@@ -3847,9 +3847,8 @@ class XQueryParser : XPathParser() {
             ) {
                 continue
             } else if (
-                parseEnclosedExprOrBlock(
-                    builder, XQueryElementType.ENCLOSED_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL
-                ) || builder.errorOnTokenType(
+                parseEnclosedExprOrBlock(builder, null, BlockOpen.REQUIRED, BlockExpr.OPTIONAL) ||
+                builder.errorOnTokenType(
                     XPathTokenType.BLOCK_CLOSE, XQueryBundle.message("parser.error.mismatched-exclosed-expr")
                 )
             ) {

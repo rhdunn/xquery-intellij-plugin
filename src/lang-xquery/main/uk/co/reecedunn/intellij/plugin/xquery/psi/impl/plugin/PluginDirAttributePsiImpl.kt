@@ -60,7 +60,7 @@ class PluginDirAttributePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), Plu
             val attrValue = children().filterIsInstance<XQueryDirAttributeValue>().firstOrNull()
                 ?: return@computeUserDataIfAbsent Optional.empty()
             val contents =
-                if (attrValue.contains(XQueryElementType.ENCLOSED_EXPR))
+                if (!attrValue.isValidHost)
                     null // Cannot evaluate enclosed content expressions statically.
                 else
                     attrValue.children().map { child ->

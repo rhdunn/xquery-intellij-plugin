@@ -27,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.core.psi.createElement
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeValue
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
@@ -52,7 +53,7 @@ class XQueryDirAttributeValuePsiImpl(node: ASTNode) :
         return out.toString()
     }
 
-    override fun isValidHost(): Boolean = children().none { it.elementType === XQueryElementType.ENCLOSED_EXPR }
+    override fun isValidHost(): Boolean = children().none { it is XpmExpression }
 
     override fun updateText(text: String): PsiLanguageInjectionHost {
         val quote = text[0]
