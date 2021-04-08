@@ -49,6 +49,10 @@ private class XPathFoldingTest : ParserTestCase() {
         return builder.getPlaceholderText(descriptor.element)
     }
 
+    fun isCollapsedByDefault(descriptor: FoldingDescriptor): Boolean {
+        return builder.isCollapsedByDefault(descriptor.element)
+    }
+
     @Nested
     @DisplayName("XPath 3.1 EBNF (4) FunctionBody ; XPath 3.1 EBNF (68) InlineFunctionExpr")
     internal inner class InlineFunctionExpr {
@@ -80,7 +84,7 @@ private class XPathFoldingTest : ParserTestCase() {
             assertThat(descriptors[0].range.endOffset, `is`(24))
 
             assertThat(getPlaceholderText(descriptors[0]), `is`("{...}"))
-            assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
+            assertThat(isCollapsedByDefault(descriptors[0]), `is`(false))
         }
     }
 
@@ -115,7 +119,7 @@ private class XPathFoldingTest : ParserTestCase() {
             assertThat(descriptors[0].range.endOffset, `is`(17))
 
             assertThat(getPlaceholderText(descriptors[0]), `is`("{...}"))
-            assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
+            assertThat(isCollapsedByDefault(descriptors[0]), `is`(false))
         }
     }
 
@@ -150,7 +154,7 @@ private class XPathFoldingTest : ParserTestCase() {
             assertThat(descriptors[0].range.endOffset, `is`(27))
 
             assertThat(getPlaceholderText(descriptors[0]), `is`("{...}"))
-            assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
+            assertThat(isCollapsedByDefault(descriptors[0]), `is`(false))
         }
 
         @Test
@@ -171,7 +175,7 @@ private class XPathFoldingTest : ParserTestCase() {
             assertThat(descriptors[0].range.endOffset, `is`(68))
 
             assertThat(getPlaceholderText(descriptors[0]), `is`("{...}"))
-            assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
+            assertThat(isCollapsedByDefault(descriptors[0]), `is`(false))
         }
     }
 
@@ -206,7 +210,7 @@ private class XPathFoldingTest : ParserTestCase() {
             assertThat(descriptors[0].range.endOffset, `is`(19))
 
             assertThat(getPlaceholderText(descriptors[0]), `is`("{...}"))
-            assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
+            assertThat(isCollapsedByDefault(descriptors[0]), `is`(false))
         }
     }
 
@@ -241,7 +245,7 @@ private class XPathFoldingTest : ParserTestCase() {
             assertThat(descriptors[0].range.endOffset, `is`(30))
 
             assertThat(getPlaceholderText(descriptors[0]), `is`("{...}"))
-            assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
+            assertThat(isCollapsedByDefault(descriptors[0]), `is`(false))
         }
     }
 
@@ -276,7 +280,7 @@ private class XPathFoldingTest : ParserTestCase() {
             assertThat(descriptors[0].range.endOffset, `is`(5))
 
             assertThat(getPlaceholderText(descriptors[0]), `is`("(:...:)"))
-            assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
+            assertThat(isCollapsedByDefault(descriptors[0]), `is`(false))
         }
 
         @Test
@@ -297,7 +301,7 @@ private class XPathFoldingTest : ParserTestCase() {
             assertThat(descriptors[0].range.endOffset, `is`(34))
 
             assertThat(getPlaceholderText(descriptors[0]), `is`("(:...:)"))
-            assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
+            assertThat(isCollapsedByDefault(descriptors[0]), `is`(false))
         }
 
         @Test
@@ -318,7 +322,7 @@ private class XPathFoldingTest : ParserTestCase() {
             assertThat(descriptors[0].range.endOffset, `is`(15))
 
             assertThat(getPlaceholderText(descriptors[0]), `is`("(:...:)"))
-            assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
+            assertThat(isCollapsedByDefault(descriptors[0]), `is`(false))
         }
     }
 }
