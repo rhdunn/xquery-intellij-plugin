@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2020 Reece H. Dunn
+ * Copyright (C) 2016-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.LiteralTextEscaper
+import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiLanguageInjectionHost
 import uk.co.reecedunn.intellij.plugin.core.lang.injection.LiteralTextEscaperImpl
 import uk.co.reecedunn.intellij.plugin.core.lang.injection.LiteralTextHost
@@ -27,13 +28,15 @@ import uk.co.reecedunn.intellij.plugin.core.psi.createElement
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.enclosedExpressionBlocks
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeValue
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 
 class XQueryDirAttributeValuePsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), XQueryDirAttributeValue, LiteralTextHost {
+    ASTWrapperPsiElement(node), XQueryDirAttributeValue, LiteralTextHost, XpmSyntaxValidationElement {
     // region PsiLanguageInjectionHost
 
     private fun encoded(text: String, quote: Char): String {
@@ -85,6 +88,15 @@ class XQueryDirAttributeValuePsiImpl(node: ASTNode) :
             val decoded = StringBuilder()
             children().filterIsInstance<PsiElementTextDecoder>().forEach { decoder -> decoder.decode(decoded) }
             return decoded.toString()
+        }
+
+    // endregion
+    // region XpmSyntaxValidationElement
+
+    override val conformanceElement: PsiElement
+        get() = when (val expr = enclosedExpressionBlocks.find { it.isEmpty }) {
+            null -> firstChild
+            else -> expr.open
         }
 
     // endregion
