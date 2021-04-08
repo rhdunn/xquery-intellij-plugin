@@ -427,6 +427,125 @@ private class XQueryFoldingTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery 3.1 EBNF (37) EnclosedExpr ; XQuery 3.1 EBNF (147) DirElemContent")
+    internal inner class DirElemContent {
+        @Test
+        @DisplayName("single expressions ; single line")
+        fun single_singleLine() {
+            val file = parseResource("tests/folding/DirElemContent/Single_SingleLine.xq")
+
+            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(0))
+        }
+
+        @Test
+        @DisplayName("single expressions ; multiple lines")
+        fun single_multipleLines() {
+            val file = parseResource("tests/folding/DirElemContent/Single_MultiLine.xq")
+
+            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(1))
+
+            assertThat(descriptors[0].canBeRemovedWhenCollapsed(), `is`(false))
+            assertThat(descriptors[0].dependencies, `is`(notNullValue()))
+            assertThat(descriptors[0].dependencies.size, `is`(0))
+            assertThat(descriptors[0].group, `is`(nullValue()))
+            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.DIR_ELEM_CONSTRUCTOR))
+            assertThat(descriptors[0].range.startOffset, `is`(6))
+            assertThat(descriptors[0].range.endOffset, `is`(19))
+
+            assertThat(builder.getPlaceholderText(descriptors[0].element), `is`("..."))
+            assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
+        }
+
+        @Test
+        @DisplayName("multiple expressions ; single line")
+        fun multiple_singleLine() {
+            val file = parseResource("tests/folding/DirElemContent/Multiple_SingleLine.xq")
+
+            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(0))
+        }
+
+        @Test
+        @DisplayName("multiple expressions ; multiple lines (first)")
+        fun multiple_multipleLinesFirst() {
+            val file = parseResource("tests/folding/DirElemContent/Multiple_MultiLineFirst.xq")
+
+            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(1))
+
+            assertThat(descriptors[0].canBeRemovedWhenCollapsed(), `is`(false))
+            assertThat(descriptors[0].dependencies, `is`(notNullValue()))
+            assertThat(descriptors[0].dependencies.size, `is`(0))
+            assertThat(descriptors[0].group, `is`(nullValue()))
+            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.DIR_ELEM_CONSTRUCTOR))
+            assertThat(descriptors[0].range.startOffset, `is`(6))
+            assertThat(descriptors[0].range.endOffset, `is`(19))
+
+            assertThat(builder.getPlaceholderText(descriptors[0].element), `is`("..."))
+            assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
+        }
+
+        @Test
+        @DisplayName("multiple expressions ; multiple lines (last)")
+        fun multiple_multipleLinesLast() {
+            val file = parseResource("tests/folding/DirElemContent/Multiple_MultiLineLast.xq")
+
+            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(1))
+
+            assertThat(descriptors[0].canBeRemovedWhenCollapsed(), `is`(false))
+            assertThat(descriptors[0].dependencies, `is`(notNullValue()))
+            assertThat(descriptors[0].dependencies.size, `is`(0))
+            assertThat(descriptors[0].group, `is`(nullValue()))
+            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.DIR_ELEM_CONSTRUCTOR))
+            assertThat(descriptors[0].range.startOffset, `is`(18))
+            assertThat(descriptors[0].range.endOffset, `is`(31))
+
+            assertThat(builder.getPlaceholderText(descriptors[0].element), `is`("..."))
+            assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
+        }
+
+        @Test
+        @DisplayName("multiple expressions ; multiple lines (both)")
+        fun multiple_multipleLinesBoth() {
+            val file = parseResource("tests/folding/DirElemContent/Multiple_MultiLineBoth.xq")
+
+            val descriptors = builder.buildFoldRegions(file, file.document!!, false)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(2))
+
+            assertThat(descriptors[0].canBeRemovedWhenCollapsed(), `is`(false))
+            assertThat(descriptors[0].dependencies, `is`(notNullValue()))
+            assertThat(descriptors[0].dependencies.size, `is`(0))
+            assertThat(descriptors[0].group, `is`(nullValue()))
+            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.DIR_ELEM_CONSTRUCTOR))
+            assertThat(descriptors[0].range.startOffset, `is`(6))
+            assertThat(descriptors[0].range.endOffset, `is`(19))
+
+            assertThat(builder.getPlaceholderText(descriptors[0].element), `is`("..."))
+            assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
+
+            assertThat(descriptors[1].canBeRemovedWhenCollapsed(), `is`(false))
+            assertThat(descriptors[1].dependencies, `is`(notNullValue()))
+            assertThat(descriptors[1].dependencies.size, `is`(0))
+            assertThat(descriptors[1].group, `is`(nullValue()))
+            assertThat(descriptors[1].element.elementType, `is`(XQueryElementType.DIR_ELEM_CONSTRUCTOR))
+            assertThat(descriptors[1].range.startOffset, `is`(22))
+            assertThat(descriptors[1].range.endOffset, `is`(35))
+
+            assertThat(builder.getPlaceholderText(descriptors[1].element), `is`("..."))
+            assertThat(builder.isCollapsedByDefault(descriptors[1].element), `is`(false))
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.1 EBNF (37) EnclosedExpr ; XQuery 3.1 EBNF (165) CompCommentConstructor")
     internal inner class CompCommentConstructor {
         @Test

@@ -27,9 +27,11 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowInlineFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.enclosedExpressionBlocks
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirTextConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQDocCommentLineExtractor
@@ -95,6 +97,7 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
         is XQueryCompPIConstructor -> element
         is XQueryCompTextConstructor -> element
         is XQueryDirAttributeValue -> element
+        is XQueryDirElemConstructor -> element
         is XQueryFunctionDecl -> element
         is XQueryOrderedExpr -> element
         is XQueryTryCatchExpr -> element
@@ -166,23 +169,16 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
                 end.textRange.startOffset
             }
 
-        if (hasEnclosedExprOnlyContent(element) && !hasMultiLineAttributes || start == null) {
-            return null
+        return when {
+            start == null -> null
+            !hasMultiLineText(element)  && !hasMultiLineAttributes -> null
+            else -> TextRange(start.textRange.startOffset, endOffset)
         }
-        return TextRange(start.textRange.startOffset, endOffset)
     }
 
     companion object {
-        private fun hasEnclosedExprOnlyContent(element: PsiElement): Boolean {
-            var n = 0
-            element.children().forEach { child ->
-                n += when {
-                    child.elementType in ELEMENT_CONSTRUCTOR_TOKENS -> 0
-                    child is XpmExpression -> 1
-                    else -> return false
-                }
-            }
-            return n == 1
+        private fun hasMultiLineText(element: PsiElement): Boolean {
+            return element.children().find { it is PluginDirTextConstructor && it.textContains('\n') } != null
         }
 
         private fun parseDirAttributeList(first: PsiElement?): Pair<Boolean, PsiElement?> {
