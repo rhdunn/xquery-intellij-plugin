@@ -22,7 +22,6 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.reverse
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathComment
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEnclosedExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExpr
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
@@ -36,13 +35,6 @@ fun <T> PsiElement.filterExpressions(klass: Class<T>): Sequence<T> {
 }
 
 inline fun <reified T> PsiElement.filterExpressions(): Sequence<T> = filterExpressions(T::class.java)
-
-fun <T> PsiElement.filterEnclosedExpressions(klass: Class<T>): Sequence<T> {
-    val enclosed = children().filterIsInstance<XPathEnclosedExpr>().firstOrNull()
-    return enclosed?.filterExpressions(klass) ?: sequenceOf()
-}
-
-inline fun <reified T> PsiElement.filterEnclosedExpressions(): Sequence<T> = filterEnclosedExpressions(T::class.java)
 
 fun Sequence<PsiElement>.filterNotWhitespace(): Sequence<PsiElement> = filterNot { e ->
     e.elementType === XPathTokenType.WHITE_SPACE || e is XPathComment

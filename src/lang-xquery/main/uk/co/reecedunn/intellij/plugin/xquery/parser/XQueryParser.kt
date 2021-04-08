@@ -3927,9 +3927,7 @@ class XQueryParser : XPathParser() {
         while (true) {
             if (
                 parseDirTextConstructor(builder) ||
-                parseEnclosedExprOrBlock(
-                    builder, XQueryElementType.ENCLOSED_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL
-                ) ||
+                parseEnclosedExprOrBlock(builder, null, BlockOpen.REQUIRED, BlockExpr.OPTIONAL) ||
                 parseCDataSection(builder, XQueryElementType.DIR_ELEM_CONSTRUCTOR) ||
                 parseDirectConstructor(builder, depth)
             ) {

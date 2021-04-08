@@ -21,7 +21,7 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAttributeNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
-import uk.co.reecedunn.intellij.plugin.xpath.ast.filterEnclosedExpressions
+import uk.co.reecedunn.intellij.plugin.xpath.ast.filterExpressions
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 
 class XQueryDirElemConstructorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryDirElemConstructor {
@@ -34,7 +34,7 @@ class XQueryDirElemConstructorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node
     // region XdmElementNode
 
     override val attributes: Sequence<XdmAttributeNode>
-        get() = sequenceOf(children().filterIsInstance<XdmAttributeNode>(), filterEnclosedExpressions()).flatten()
+        get() = filterExpressions()
 
     override val nodeName: XsQNameValue?
         get() = children().filterIsInstance<XsQNameValue>().firstOrNull()

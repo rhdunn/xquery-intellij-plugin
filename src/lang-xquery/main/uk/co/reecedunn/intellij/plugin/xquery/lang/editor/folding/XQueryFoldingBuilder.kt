@@ -29,6 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowInlineFunctio
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.enclosedExpressionBlocks
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQDocCommentLineExtractor
@@ -70,7 +71,6 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
         XQueryElementType.DIR_COMMENT_CONSTRUCTOR -> getDirCommentConstructorPlaceholderTest(node.psi)
         XQueryElementType.DIR_ATTRIBUTE_VALUE -> "{...}"
         XQueryElementType.DIR_ELEM_CONSTRUCTOR -> "..."
-        XQueryElementType.ENCLOSED_EXPR -> "{...}"
         XQueryElementType.FUNCTION_DECL -> "{...}"
         XQueryElementType.ORDERED_EXPR -> "{...}"
         XQueryElementType.TRY_CATCH_EXPR -> "{...}"
@@ -104,7 +104,6 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
 
     private fun getSingleFoldingRange(element: PsiElement): TextRange? = when (element) {
         is XPathComment -> element.textRange
-        is XPathEnclosedExpr -> element.textRange
         is XQueryDirCommentConstructor -> element.textRange
         is XQueryDirElemConstructor -> getDirElemConstructorFoldingRange(element)
         else -> null
@@ -177,9 +176,9 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
         private fun hasEnclosedExprOnlyContent(element: PsiElement): Boolean {
             var n = 0
             element.children().forEach { child ->
-                n += when (child.elementType) {
-                    in ELEMENT_CONSTRUCTOR_TOKENS -> 0
-                    XQueryElementType.ENCLOSED_EXPR -> 1
+                n += when {
+                    child.elementType in ELEMENT_CONSTRUCTOR_TOKENS -> 0
+                    child is XpmExpression -> 1
                     else -> return false
                 }
             }

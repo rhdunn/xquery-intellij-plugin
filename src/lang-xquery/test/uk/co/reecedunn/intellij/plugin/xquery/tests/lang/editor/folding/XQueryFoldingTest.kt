@@ -1248,11 +1248,11 @@ private class XQueryFoldingTest : ParserTestCase() {
             assertThat(descriptors[0].dependencies, `is`(notNullValue()))
             assertThat(descriptors[0].dependencies.size, `is`(0))
             assertThat(descriptors[0].group, `is`(nullValue()))
-            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.ENCLOSED_EXPR))
-            assertThat(descriptors[0].range.startOffset, `is`(3))
-            assertThat(descriptors[0].range.endOffset, `is`(10))
+            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.DIR_ELEM_CONSTRUCTOR))
+            assertThat(descriptors[0].range.startOffset, `is`(2))
+            assertThat(descriptors[0].range.endOffset, `is`(13))
 
-            assertThat(builder.getPlaceholderText(descriptors[0].element), `is`("{...}"))
+            assertThat(builder.getPlaceholderText(descriptors[0].element), `is`("..."))
             assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
         }
 
@@ -1263,7 +1263,7 @@ private class XQueryFoldingTest : ParserTestCase() {
 
             val descriptors = builder.buildFoldRegions(file, file.document!!, false)
             assertThat(descriptors, `is`(notNullValue()))
-            assertThat(descriptors.size, `is`(2))
+            assertThat(descriptors.size, `is`(1))
 
             assertThat(descriptors[0].canBeRemovedWhenCollapsed(), `is`(false))
             assertThat(descriptors[0].dependencies, `is`(notNullValue()))
@@ -1275,17 +1275,6 @@ private class XQueryFoldingTest : ParserTestCase() {
 
             assertThat(builder.getPlaceholderText(descriptors[0].element), `is`("..."))
             assertThat(builder.isCollapsedByDefault(descriptors[0].element), `is`(false))
-
-            assertThat(descriptors[1].canBeRemovedWhenCollapsed(), `is`(false))
-            assertThat(descriptors[1].dependencies, `is`(notNullValue()))
-            assertThat(descriptors[1].dependencies.size, `is`(0))
-            assertThat(descriptors[1].group, `is`(nullValue()))
-            assertThat(descriptors[1].element.elementType, `is`(XQueryElementType.ENCLOSED_EXPR))
-            assertThat(descriptors[1].range.startOffset, `is`(22))
-            assertThat(descriptors[1].range.endOffset, `is`(29))
-
-            assertThat(builder.getPlaceholderText(descriptors[1].element), `is`("{...}"))
-            assertThat(builder.isCollapsedByDefault(descriptors[1].element), `is`(false))
         }
     }
 
