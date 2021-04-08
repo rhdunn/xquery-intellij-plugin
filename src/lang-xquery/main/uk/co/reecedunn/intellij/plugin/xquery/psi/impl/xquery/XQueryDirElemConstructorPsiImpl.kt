@@ -22,9 +22,12 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAttributeNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.filterExpressions
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.enclosedExpressionBlocks
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 
-class XQueryDirElemConstructorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryDirElemConstructor {
+class XQueryDirElemConstructorPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node), XQueryDirElemConstructor, XpmSyntaxValidationElement {
     // region XpmExpression
 
     override val expressionElement: PsiElement
@@ -41,6 +44,15 @@ class XQueryDirElemConstructorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node
 
     override val closingTag: XsQNameValue?
         get() = children().filterIsInstance<XsQNameValue>().lastOrNull()
+
+    // endregion
+    // region XpmSyntaxValidationElement
+
+    override val conformanceElement: PsiElement
+        get() = when (val expr = enclosedExpressionBlocks.find { it.isEmpty }) {
+            null -> firstChild
+            else -> expr.open
+        }
 
     // endregion
 }
