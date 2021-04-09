@@ -47,51 +47,56 @@ fun XpmFunctionCall.bindTo(parameters: List<XpmParameter>): List<XpmAssignableVa
 
     // region Arrow Expressions
 
+    var arrowOffset = 0
     if (this is XpmArrowFunctionCall) {
         bindings[0] = XpmBoundParameter(parameters[0], sourceExpression)
         ++index
+        arrowOffset = 1
     }
 
     // endregion
+    // region Positional Arguments
 
-    var positionalIndex = -1
-    (index until parameters.size).forEach { i ->
-        val parameter = parameters[i]
-        when {
-            index == parameters.size - 1 /* last parameter */ -> {
-                positionalIndex += 1
-                val remaining = positionalArguments.size - positionalIndex
-                when {
-                    remaining <= 0 -> {
-                        val parameterName = parameter.variableName?.localName?.data
-                        val arg = keywordArguments.find { it.keyName == parameterName }
-                        bindings[index++] = XpmBoundParameter(parameter, arg?.valueExpression ?: XpmEmptyExpression)
-                    }
-                    remaining == 1 -> {
-                        bindings[index++] = XpmBoundParameter(parameter, positionalArguments.last())
-                    }
-                    else -> {
-                        val args = positionalArguments.subList(positionalIndex, positionalArguments.size)
-                        bindings[index++] = XpmBoundParameter(parameter, XpmConcatenatingExpressionImpl(args.asSequence()))
-                    }
-                }
-            }
-            else -> {
-                positionalIndex += 1
-                val remaining = positionalArguments.size - positionalIndex
-                when {
-                    remaining <= 0 -> {
-                        val parameterName = parameter.variableName?.localName?.data
-                        val arg = keywordArguments.find { it.keyName == parameterName }
-                        bindings[index++] = XpmBoundParameter(parameter, arg?.valueExpression)
-                    }
-                    else -> {
-                        bindings[index++] = XpmBoundParameter(parameter, positionalArguments[positionalIndex])
-                    }
-                }
-            }
+    val positionalArguments = positionalArguments
+    for (i in 0 until positionalArguments.size) when {
+        // Positional argument position is less than the number of declared parameters.
+        index < bindings.size - 1 -> {
+            bindings[index] = XpmBoundParameter(parameters[index], positionalArguments[i])
+            ++index
+        }
+        // Only one value corresponding to the last parameter.
+        index == bindings.size - 1 && bindings.size == positionalArguments.size + arrowOffset -> {
+            bindings[index] = XpmBoundParameter(parameters[index], positionalArguments[i])
+            ++index
+        }
+        // Multiple values corresponding to the last parameter.
+        index == bindings.size - 1 -> {
+            val args = positionalArguments.subList(i, positionalArguments.size)
+            bindings[index] = XpmBoundParameter(parameters[index], XpmConcatenatingExpressionImpl(args.asSequence()))
+            ++index
         }
     }
+
+    // endregion
+    // region Keyword Arguments
+
+    keywordArguments.forEach { arg ->
+        val parameter = parameters.withIndex().find { it.value.variableName?.localName?.data == arg.keyName }
+        if (parameter != null) {
+            bindings[parameter.index] = XpmBoundParameter(parameter.value, arg.valueExpression)
+        }
+    }
+
+    // endregion
+    // region Default Arguments
+
+    parameters.withIndex().filter { bindings[it.index] == null }.forEach { (i, parameter) ->
+        if (i == parameters.size - 1) {
+            bindings[i] = XpmBoundParameter(parameter, XpmEmptyExpression)
+        }
+    }
+
+    // endregion
 
     return bindings.map { it!! }
 }
