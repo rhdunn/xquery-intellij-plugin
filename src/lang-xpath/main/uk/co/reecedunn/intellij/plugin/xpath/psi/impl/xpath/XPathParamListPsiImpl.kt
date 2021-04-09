@@ -39,7 +39,6 @@ class XPathParamListPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), XPathParamList, ItemPresentation, XpmSyntaxValidationElement {
     companion object {
         private val PRESENTABLE_TEXT = Key.create<String>("PRESENTABLE_TEXT")
-        private val ARITY = Key.create<Range<Int>>("ARITY")
 
         private val PARAM_OR_VARIADIC = TokenSet.create(XPathElementType.PARAM, XPathTokenType.ELLIPSIS)
     }
@@ -54,7 +53,6 @@ class XPathParamListPsiImpl(node: ASTNode) :
     override fun subtreeChanged() {
         super.subtreeChanged()
         clearUserData(PRESENTABLE_TEXT)
-        clearUserData(ARITY)
     }
 
     // endregion
@@ -81,15 +79,6 @@ class XPathParamListPsiImpl(node: ASTNode) :
 
     private val params: List<XpmParameter>
         get() = children().filterIsInstance<XPathParam>().toList()
-
-    override val arity: Range<Int>
-        get() = computeUserDataIfAbsent(ARITY) {
-            val size = params.size
-            if (conformanceElement.elementType == XPathElementType.PARAM)
-                Range(size, size) // non-variadic parameter list
-            else
-                Range(size - 1, Int.MAX_VALUE) // variadic parameter list
-        }
 
     override val variadicType: XpmVariadic
         get() = when (conformanceElement.elementType) {

@@ -38,6 +38,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmAccessLevel
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmVariadic
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.impl.XpmEmptyExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.computeArgumentArity
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmParameter
 
 class XPathInlineFunctionExprPsiImpl(node: ASTNode) :
@@ -46,12 +47,14 @@ class XPathInlineFunctionExprPsiImpl(node: ASTNode) :
     XpmSyntaxValidationElement {
     companion object {
         private val PARAMETERS = Key.create<List<XpmParameter>>("PARAMETERS")
+        private val ARGUMENT_ARITY = Key.create<Range<Int>>("ARGUMENT_ARITY")
     }
     // region PsiElement
 
     override fun subtreeChanged() {
         super.subtreeChanged()
         clearUserData(PARAMETERS)
+        clearUserData(ARGUMENT_ARITY)
     }
 
     // endregion
@@ -86,7 +89,7 @@ class XPathInlineFunctionExprPsiImpl(node: ASTNode) :
     override val functionName: XsQNameValue? = null
 
     override val argumentArity: Range<Int>
-        get() = paramList?.arity ?: XpmFunctionDeclaration.ARITY_ZERO
+        get() = computeUserDataIfAbsent(ARGUMENT_ARITY) { computeArgumentArity() }
 
     override val returnType: XdmSequenceType?
         get() = children().filterIsInstance<XdmSequenceType>().firstOrNull()

@@ -36,6 +36,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmVariadic
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.impl.XpmEmptyExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDecorator
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.computeArgumentArity
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmParameter
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 import java.util.*
@@ -48,6 +49,7 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
     XpmSyntaxValidationElement {
     companion object {
         private val PARAMETERS = Key.create<List<XpmParameter>>("PARAMETERS")
+        private val ARGUMENT_ARITY = Key.create<Range<Int>>("ARGUMENT_ARITY")
         private val PRESENTABLE_TEXT = Key.create<Optional<String>>("PRESENTABLE_TEXT")
         private val STRUCTURE_PRESENTABLE_TEXT = Key.create<Optional<String>>("STRUCTURE_PRESENTABLE_TEXT")
         private val FUNCTION_REF_PRESENTABLE_TEXT = Key.create<String>("FUNCTION_REF_PRESENTABLE_TEXT")
@@ -57,6 +59,7 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
     override fun subtreeChanged() {
         super.subtreeChanged()
         clearUserData(PARAMETERS)
+        clearUserData(ARGUMENT_ARITY)
         clearUserData(PRESENTABLE_TEXT)
         clearUserData(STRUCTURE_PRESENTABLE_TEXT)
         clearUserData(FUNCTION_REF_PRESENTABLE_TEXT)
@@ -72,7 +75,7 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
         get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
 
     override val argumentArity: Range<Int>
-        get() = paramList?.arity ?: XpmFunctionDeclaration.ARITY_ZERO
+        get() = computeUserDataIfAbsent(ARGUMENT_ARITY) { computeArgumentArity() }
 
     override val returnType: XdmSequenceType?
         get() = children().filterIsInstance<XdmSequenceType>().firstOrNull()
