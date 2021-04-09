@@ -60,7 +60,7 @@ class XQueryDocumentationProvider : AbstractDocumentationProvider() {
                 "declare function $sig"
             }
             is XPathInlineFunctionExpr -> (parent as XpmFunctionDeclaration).let {
-                val params = it.paramListPresentation?.presentableText ?: "()"
+                val params = it.paramListPresentableText
                 val returnType = it.returnType
                 if (returnType == null)
                     "function $params"

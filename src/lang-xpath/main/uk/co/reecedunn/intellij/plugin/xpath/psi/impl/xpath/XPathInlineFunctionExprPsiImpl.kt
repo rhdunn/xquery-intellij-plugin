@@ -150,8 +150,8 @@ class XPathInlineFunctionExprPsiImpl(node: ASTNode) :
     private val paramList: XPathParamList?
         get() = children().filterIsInstance<XPathParamList>().firstOrNull()
 
-    override val paramListPresentation: ItemPresentation?
-        get() = paramList?.presentation
+    override val paramListPresentableText: String
+        get() = paramList?.presentation?.presentableText ?: "()"
 
     override val functionRefPresentableText: String? = null
 

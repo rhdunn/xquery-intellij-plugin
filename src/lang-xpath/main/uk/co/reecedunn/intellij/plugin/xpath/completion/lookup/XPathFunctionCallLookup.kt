@@ -26,7 +26,7 @@ class XPathFunctionCallLookup(localName: String, prefix: String?, private val fu
     XPathLookupElement(prefix?.let { "$it:$localName" } ?: localName) {
     init {
         presentation.icon = XPathIcons.Nodes.FunctionDecl
-        presentation.tailText = function.paramListPresentation?.presentableText ?: "()"
+        presentation.tailText = function.paramListPresentableText
         presentation.typeText = function.returnType?.typeName
     }
 

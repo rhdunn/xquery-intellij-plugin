@@ -48,7 +48,7 @@ interface XpmFunctionDeclaration : XpmAnnotated {
     // endregion
     // region Presentation
 
-    val paramListPresentation: ItemPresentation?
+    val paramListPresentableText: String
 
     val functionRefPresentableText: String?
 
