@@ -27,11 +27,4 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
-class XPathParamListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathParamList, XpmSyntaxValidationElement {
-    companion object {
-        private val PARAM_OR_VARIADIC = TokenSet.create(XPathElementType.PARAM, XPathTokenType.ELLIPSIS)
-    }
-
-    override val conformanceElement: PsiElement
-        get() = reverse(children()).firstOrNull { e -> PARAM_OR_VARIADIC.contains(e.elementType) } ?: firstChild
-}
+class XPathParamListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathParamList

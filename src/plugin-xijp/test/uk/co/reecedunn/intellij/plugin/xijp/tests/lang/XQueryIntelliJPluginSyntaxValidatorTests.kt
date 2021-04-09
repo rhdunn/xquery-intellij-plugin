@@ -119,8 +119,8 @@ class XQueryIntelliJPluginSyntaxValidatorTest :
     private val VERSION_1_4 = XpmLanguageConfiguration(XQuery.VERSION_1_0, XQueryIntelliJPlugin.VERSION_1_4)
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (22) ParamList")
-    internal inner class ParamList {
+    @DisplayName("XQuery IntelliJ Plugin EBNF (95) ParamList; XQuery 3.1 EBNF (32) FunctionDecl")
+    internal inner class ParamList_FunctionDecl {
         @Test
         @DisplayName("variadic; XQuery IntelliJ Plugin >= 1.3")
         fun supported() {
@@ -149,6 +149,43 @@ class XQueryIntelliJPluginSyntaxValidatorTest :
         @DisplayName("non-variadic")
         fun nonVariadic() {
             val file = parse<XQueryModule>("declare function f(\$a as xs:string) external;")[0]
+            validator.configuration = VERSION_1_0
+            validator.validate(file, this@XQueryIntelliJPluginSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (95) ParamList; XQuery 3.1 EBNF (169) InlineFunctionExpr")
+    internal inner class ParamList_InlineFunctionExpr {
+        @Test
+        @DisplayName("variadic; XQuery IntelliJ Plugin >= 1.3")
+        fun supported() {
+            val file = parse<XQueryModule>("function f(\$a as xs:string ...) { 2 }")[0]
+            validator.configuration = VERSION_1_4
+            validator.validate(file, this@XQueryIntelliJPluginSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("variadic; XQuery IntelliJ Plugin < 1.3")
+        fun notSupported() {
+            val file = parse<XQueryModule>("function (\$a as xs:string ...) { 2 }")[0]
+            validator.configuration = VERSION_1_3
+            validator.validate(file, this@XQueryIntelliJPluginSyntaxValidatorTest)
+            assertThat(
+                report.toString(), `is`(
+                    """
+                    E XPST0003(26:29): XQuery IntelliJ Plugin 1.3 does not support XQuery IntelliJ Plugin 1.4 constructs.
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("non-variadic")
+        fun nonVariadic() {
+            val file = parse<XQueryModule>("function (\$a as xs:string) { 2 }")[0]
             validator.configuration = VERSION_1_0
             validator.validate(file, this@XQueryIntelliJPluginSyntaxValidatorTest)
             assertThat(report.toString(), `is`(""))

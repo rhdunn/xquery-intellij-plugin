@@ -207,7 +207,7 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
             val blockOpen = blockOpen
             return when {
                 blockOpen?.isEmptyEnclosedExpr == true -> blockOpen
-                else -> firstChild
+                else -> variadicParameter ?: firstChild
             }
         }
 

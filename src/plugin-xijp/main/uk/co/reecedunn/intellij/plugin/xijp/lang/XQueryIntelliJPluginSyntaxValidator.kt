@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xijp.lang
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginSequenceTypeList
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathInlineFunctionExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathTypedFunctionTest
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
@@ -27,6 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires.XpmRequiresProductVersion
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmVariadic
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCaseClause
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySequenceTypeUnion
 
 object XQueryIntelliJPluginSyntaxValidator : XpmSyntaxValidator {
@@ -39,15 +41,20 @@ object XQueryIntelliJPluginSyntaxValidator : XpmSyntaxValidator {
             }
             else -> reporter.requires(element, XIJP_1_3)
         }
+        is XPathInlineFunctionExpr -> when (element.conformanceElement.elementType) {
+            XPathTokenType.ELLIPSIS -> reporter.requires(element, XIJP_1_4)
+            else -> {
+            }
+        }
+        is XQueryFunctionDecl -> when (element.conformanceElement.elementType) {
+            XPathTokenType.ELLIPSIS -> reporter.requires(element, XIJP_1_4)
+            else -> {
+            }
+        }
         is XQuerySequenceTypeUnion -> when ((element as PsiElement).parent) {
             is XQueryCaseClause -> {
             }
             else -> reporter.requires(element, XIJP_1_3)
-        }
-        is XPathParamList -> when (element.conformanceElement.elementType) {
-            XPathTokenType.ELLIPSIS -> reporter.requires(element, XIJP_1_4)
-            else -> {
-            }
         }
         else -> {
         }
