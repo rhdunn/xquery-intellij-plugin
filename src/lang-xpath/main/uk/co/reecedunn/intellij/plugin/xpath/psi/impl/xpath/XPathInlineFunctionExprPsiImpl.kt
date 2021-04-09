@@ -33,6 +33,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.blockOpen
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.isEmptyEnclosedExpr
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmAccessLevel
+import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmVariadic
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.impl.XpmEmptyExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmParameter
@@ -83,8 +84,8 @@ class XPathInlineFunctionExprPsiImpl(node: ASTNode) :
     override val paramListPresentation: ItemPresentation?
         get() = paramList?.presentation
 
-    override val isVariadic: Boolean
-        get() = paramList?.isVariadic == true
+    override val variadicType: XpmVariadic
+        get() = paramList?.variadicType ?: XpmVariadic.No
 
     override val functionRefPresentableText: String? = null
 

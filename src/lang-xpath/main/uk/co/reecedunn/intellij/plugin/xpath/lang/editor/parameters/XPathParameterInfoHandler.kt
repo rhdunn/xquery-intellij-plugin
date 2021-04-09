@@ -24,6 +24,7 @@ import com.intellij.lang.parameterInfo.UpdateParameterInfoContext
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
+import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmVariadic
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmConcatenatingExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.*
 import uk.co.reecedunn.intellij.plugin.xpm.staticallyKnownFunctions
@@ -69,10 +70,10 @@ class XPathParameterInfoHandler : ParameterInfoHandler<XPathArgumentList, XpmFun
             }
 
             val text = StringBuffer()
-            val isVariadic = p.isVariadic
+            val variadicType = p.variadicType
             var start = -1
             var end = -1
-            functionCall.bindTo(parameters, isVariadic).withIndex().forEach { (i, binding) ->
+            functionCall.bindTo(parameters, variadicType).withIndex().forEach { (i, binding) ->
                 val match = when (val expr = binding.variableExpression) {
                     is XpmConcatenatingExpression -> expr === argument || expr.expressions.contains(argument)
                     else -> expr === argument
@@ -82,8 +83,8 @@ class XPathParameterInfoHandler : ParameterInfoHandler<XPathArgumentList, XpmFun
                     start = text.length
                 }
                 text.append(binding.toString())
-                if (i == parameters.size - 1 && isVariadic) {
-                    text.append(VARIADIC_MARKER)
+                if (i == parameters.size - 1 && variadicType === XpmVariadic.Ellipsis) {
+                    text.append(ELLIPSIS_VARIADIC_MARKER)
                 }
                 if (match) {
                     end = text.length
@@ -116,6 +117,6 @@ class XPathParameterInfoHandler : ParameterInfoHandler<XPathArgumentList, XpmFun
 
     companion object {
         private const val PARAM_SEPARATOR = ", "
-        private const val VARIADIC_MARKER = " ..."
+        private const val ELLIPSIS_VARIADIC_MARKER = " ..."
     }
 }

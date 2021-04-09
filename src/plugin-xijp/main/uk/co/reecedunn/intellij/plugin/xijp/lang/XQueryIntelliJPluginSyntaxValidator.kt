@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxErrorReporte
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires.XpmRequiresProductVersion
+import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmVariadic
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCaseClause
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySequenceTypeUnion
 
@@ -41,8 +42,8 @@ object XQueryIntelliJPluginSyntaxValidator : XpmSyntaxValidator {
             }
             else -> reporter.requires(element, XIJP_1_3)
         }
-        is XPathParamList -> when {
-            element.isVariadic -> reporter.requires(element, XIJP_1_4)
+        is XPathParamList -> when (element.variadicType) {
+            XpmVariadic.Ellipsis -> reporter.requires(element, XIJP_1_4)
             else -> {
             }
         }

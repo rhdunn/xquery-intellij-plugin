@@ -53,6 +53,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.path.XpmPathStep
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmAccessLevel
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmAnnotated
+import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmVariadic
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmCatchClause
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.text
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProvider
@@ -1669,7 +1670,7 @@ private class PluginPsiTest : ParserTestCase() {
                     assertThat(decl.functionName, `is`(nullValue()))
                     assertThat(decl.returnType, `is`(nullValue()))
                     assertThat(decl.arity, `is`(Range(1, Int.MAX_VALUE)))
-                    assertThat(decl.isVariadic, `is`(true))
+                    assertThat(decl.variadicType, `is`(XpmVariadic.Ellipsis))
 
                     assertThat(decl.parameters.size, `is`(2))
                     assertThat(op_qname_presentation(decl.parameters[0].variableName!!), `is`("one"))
@@ -2205,7 +2206,7 @@ private class PluginPsiTest : ParserTestCase() {
                 val decl = parse<XpmFunctionDeclaration>("declare function test(\$one, \$two ...) external;")[0]
                 assertThat(decl.returnType, `is`(nullValue()))
                 assertThat(decl.arity, `is`(Range(1, Int.MAX_VALUE)))
-                assertThat(decl.isVariadic, `is`(true))
+                assertThat(decl.variadicType, `is`(XpmVariadic.Ellipsis))
 
                 assertThat(decl.parameters.size, `is`(2))
                 assertThat(op_qname_presentation(decl.parameters[0].variableName!!), `is`("one"))

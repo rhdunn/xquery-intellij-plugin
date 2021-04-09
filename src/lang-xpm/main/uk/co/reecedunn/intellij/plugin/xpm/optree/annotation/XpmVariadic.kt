@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Reece H. Dunn
+ * Copyright (C) 2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,20 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
+package uk.co.reecedunn.intellij.plugin.xpm.optree.annotation
 
-import com.intellij.psi.NavigatablePsiElement
-import com.intellij.util.Range
-import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmVariadic
-import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmParameter
-
-/**
- * An XPath 3.0 and XQuery 1.0 `ParamList` node in the XQuery AST.
- */
-interface XPathParamList : NavigatablePsiElement {
-    val params: List<XpmParameter>
-
-    val arity: Range<Int>
-
-    val variadicType: XpmVariadic
+enum class XpmVariadic(val id: String) {
+    Ellipsis("ellipsis"), // XPath-NG proposal 1
+    Map("map"),
+    No("no"),
+    Sequence("sequence")
 }

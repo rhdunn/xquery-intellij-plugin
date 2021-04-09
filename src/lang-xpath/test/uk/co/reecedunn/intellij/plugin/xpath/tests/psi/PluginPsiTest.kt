@@ -34,6 +34,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.getUsageType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
+import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmVariadic
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
@@ -410,7 +411,7 @@ private class PluginPsiTest : ParserTestCase() {
                     assertThat(decl.functionName, `is`(nullValue()))
                     assertThat(decl.returnType, `is`(nullValue()))
                     assertThat(decl.arity, `is`(Range(1, Int.MAX_VALUE)))
-                    assertThat(decl.isVariadic, `is`(true))
+                    assertThat(decl.variadicType, `is`(XpmVariadic.Ellipsis))
 
                     assertThat(decl.parameters.size, `is`(2))
                     assertThat(op_qname_presentation(decl.parameters[0].variableName!!), `is`("one"))

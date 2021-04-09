@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.optree.function
 
+import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmVariadic
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.impl.XpmConcatenatingExpressionImpl
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.impl.XpmEmptyExpression
@@ -40,9 +41,9 @@ val XpmFunctionCall.functionDeclaration: XpmFunctionDeclaration?
     }
 
 val XpmFunctionCall.resolve: Pair<XpmFunctionDeclaration, List<XpmAssignableVariable>>?
-    get() = functionDeclaration?.let { it to bindTo(it.parameters, it.isVariadic) }
+    get() = functionDeclaration?.let { it to bindTo(it.parameters, it.variadicType) }
 
-fun XpmFunctionCall.bindTo(parameters: List<XpmParameter>, isVariadic: Boolean): List<XpmAssignableVariable> {
+fun XpmFunctionCall.bindTo(parameters: List<XpmParameter>, variadicType: XpmVariadic): List<XpmAssignableVariable> {
     val bindings = arrayOfNulls<XpmAssignableVariable>(parameters.size)
     var index = 0
 
@@ -93,7 +94,7 @@ fun XpmFunctionCall.bindTo(parameters: List<XpmParameter>, isVariadic: Boolean):
 
     parameters.withIndex().filter { bindings[it.index] == null }.forEach { (i, parameter) ->
         when {
-            i == parameters.size - 1 && isVariadic -> {
+            i == parameters.size - 1 && variadicType === XpmVariadic.Ellipsis -> {
                 bindings[i] = XpmBoundParameter(parameter, XpmEmptyExpression)
             }
             else -> bindings[i] = XpmBoundParameter(parameter, XpmMissingArgument)

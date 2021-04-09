@@ -31,6 +31,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
+import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmVariadic
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmParameter
 import javax.swing.Icon
 
@@ -74,7 +75,7 @@ class XPathParamListPsiImpl(node: ASTNode) :
         val params = params.mapNotNull { param ->
             (param as NavigatablePsiElement).presentation?.presentableText
         }.joinToString()
-        if (isVariadic) "($params ...)" else "($params)"
+        if (variadicType === XpmVariadic.Ellipsis) "($params ...)" else "($params)"
     }
 
     // endregion
@@ -94,8 +95,11 @@ class XPathParamListPsiImpl(node: ASTNode) :
                 Range(size - 1, Int.MAX_VALUE) // variadic parameter list
         }
 
-    override val isVariadic: Boolean
-        get() = conformanceElement.elementType == XPathTokenType.ELLIPSIS
+    override val variadicType: XpmVariadic
+        get() = when (conformanceElement.elementType) {
+            XPathTokenType.ELLIPSIS -> XpmVariadic.Ellipsis
+            else -> XpmVariadic.No
+        }
 
     // endregion
 }

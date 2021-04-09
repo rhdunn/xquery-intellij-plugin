@@ -20,6 +20,7 @@ import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmAnnotated
+import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmVariadic
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmParameter
 
@@ -38,7 +39,7 @@ interface XpmFunctionDeclaration : XpmAnnotated {
 
     val paramListPresentation: ItemPresentation?
 
-    val isVariadic: Boolean
+    val variadicType: XpmVariadic
 
     val functionRefPresentableText: String?
 
