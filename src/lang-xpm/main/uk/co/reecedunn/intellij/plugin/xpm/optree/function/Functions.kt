@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.optree.function
 
-import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmVariadic
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.impl.XpmConcatenatingExpressionImpl
@@ -117,21 +116,4 @@ fun XpmFunctionCall.argumentAt(index: Int): XpmExpression? {
         index < (p + k + arrowOffset) -> keywordArguments[index - arrowOffset - p].valueExpression
         else -> null
     }
-}
-
-val XpmFunctionDeclaration.declaredArity: Int
-    get() = parameters.size
-
-private val XpmFunctionDeclaration.defaultArgumentCount: Int
-    get() = when (variadicType) {
-        XpmVariadic.Ellipsis -> 1
-        else -> 0
-    }
-
-val XpmFunctionDeclaration.requiredArity: Int
-    get() = parameters.size - defaultArgumentCount
-
-fun XpmFunctionDeclaration.computeArgumentArity(): Range<Int> = when (variadicType) {
-    XpmVariadic.No -> Range(requiredArity, declaredArity)
-    else -> Range(requiredArity, Int.MAX_VALUE)
 }

@@ -23,7 +23,6 @@ import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationEx
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.resources.XPathIcons
-import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
@@ -36,7 +35,6 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmVariadic
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.impl.XpmEmptyExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDecorator
-import uk.co.reecedunn.intellij.plugin.xpm.optree.function.computeArgumentArity
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmParameter
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 import java.util.*
@@ -92,8 +90,25 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
     override val variadicType: XpmVariadic
         get() = paramList?.variadicType ?: XpmVariadic.No
 
+    private val declaredArity: Int
+        get() = parameters.size
+
+    private val defaultArgumentCount: Int
+        get() = when (variadicType) {
+            XpmVariadic.Ellipsis -> 1
+            else -> 0
+        }
+
+    private val requiredArity: Int
+        get() = declaredArity - defaultArgumentCount
+
     override val argumentArity: Range<Int>
-        get() = computeUserDataIfAbsent(ARGUMENT_ARITY) { computeArgumentArity() }
+        get() = computeUserDataIfAbsent(ARGUMENT_ARITY) {
+            when (variadicType) {
+                XpmVariadic.No -> Range(requiredArity, declaredArity)
+                else -> Range(requiredArity, Int.MAX_VALUE)
+            }
+        }
 
     // endregion
     // region XdmFunctionDeclaration (Presentation)
