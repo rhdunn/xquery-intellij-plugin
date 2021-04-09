@@ -310,12 +310,6 @@ object XPathElementType {
         XPath
     )
 
-    val PARAM_LIST: IElementType = ICompositeElementType(
-        "XPATH_PARAM_LIST",
-        XPathParamListPsiImpl::class.java,
-        XPath
-    )
-
     val PARAM: IElementType = ICompositeElementType(
         "XPATH_PARAM",
         XPathParamPsiImpl::class.java,

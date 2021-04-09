@@ -27,7 +27,6 @@ import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.reverse
 import uk.co.reecedunn.intellij.plugin.xpath.resources.XPathIcons
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
@@ -36,7 +35,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.blockOpen
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.isEmptyEnclosedExpr
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathParamListPsiImpl
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmVariadic
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
@@ -87,8 +85,7 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
 
     override val parameters: List<XpmParameter>
         get() = computeUserDataIfAbsent(PARAMETERS) {
-            val paramList = children().filterIsInstance<XPathParamList>().firstOrNull()
-            paramList?.children()?.filterIsInstance<XPathParam>()?.toList() ?: emptyList()
+            children().filterIsInstance<XPathParam>().toList()
         }
 
     override val returnType: XdmSequenceType?
@@ -104,10 +101,7 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
     // region XdmFunctionDeclaration (Variadic Type and Arity)
 
     private val variadicParameter: PsiElement?
-        get() {
-            val paramList = children().filterIsInstance<XPathParamList>().firstOrNull() ?: return null
-            return reverse(paramList.children()).firstOrNull { e -> PARAM_OR_VARIADIC.contains(e.elementType) }
-        }
+        get() = reverse(children()).firstOrNull { e -> PARAM_OR_VARIADIC.contains(e.elementType) }
 
     override val variadicType: XpmVariadic
         get() = computeUserDataIfAbsent(VARIADIC_TYPE) {

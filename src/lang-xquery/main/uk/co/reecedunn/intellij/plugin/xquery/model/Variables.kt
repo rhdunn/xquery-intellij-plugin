@@ -21,14 +21,16 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.reverse
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQuantifierBinding
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_equal
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathInlineFunctionExpr
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableBinding
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableDefinition
 import uk.co.reecedunn.intellij.plugin.xpm.context.expand
 import uk.co.reecedunn.intellij.plugin.xpm.inScopeVariables
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmParameter
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginBlockVarDeclEntry
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDefaultCaseClause
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockDecls
@@ -47,6 +49,7 @@ private class InScopeVariableContext {
     var visitedBlockVarDeclEntry = false
     var visitedBlockVarDecl = false
     var visitedBlockDecls = false
+    var visitingFuntionDeclaration = false
 }
 
 // ForBinding, ForMemberBinding, LetBinding, GroupingSpec
@@ -154,6 +157,14 @@ private fun PsiElement.blockVarDeclEntry(context: InScopeVariableContext): Seque
         sequenceOf(this as XpmVariableDeclaration)
 }
 
+private fun PsiElement.parameters(context: InScopeVariableContext): Sequence<XpmParameter> {
+    return if (context.visitingFuntionDeclaration) {
+        context.visitingFuntionDeclaration = false
+        (this as XpmFunctionDeclaration).parameters.asSequence()
+    } else
+        emptySequence()
+}
+
 private fun PsiElement.blockVarDecl(context: InScopeVariableContext): Sequence<XpmVariableDeclaration> {
     return if (context.visitedBlockVarDecl) {
         context.visitedBlockVarDecl = false
@@ -217,7 +228,7 @@ fun PsiElement.xqueryInScopeVariables(): Sequence<XpmVariableDefinition> {
                     context.visitedTypeswitch = false // Reset the visited logic now the `typeswitch` has been resolved.
                     emptySequence()
                 }
-                is XPathParamList -> node.children().filterIsInstance<XpmVariableBinding>()
+                is XpmFunctionDeclaration -> node.parameters(context)
                 is PluginBlockVarDeclEntry -> node.blockVarDeclEntry(context)
                 is ScriptingBlockVarDecl -> node.blockVarDecl(context)
                 is ScriptingBlockDecls -> node.blockDecls(context)
@@ -246,6 +257,9 @@ fun PsiElement.xqueryInScopeVariables(): Sequence<XpmVariableDefinition> {
                             context.visitedBlockVarDeclEntry = true
                             context.visitedBlockVarDecl = true
                             context.visitedBlockDecls = true
+                        }
+                        is XpmFunctionDeclaration -> {
+                            context.visitingFuntionDeclaration = true
                         }
                         else -> {
                         }

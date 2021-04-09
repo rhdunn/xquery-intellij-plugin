@@ -29,7 +29,6 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.reverse
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnnotation
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathInlineFunctionExpr
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
@@ -99,8 +98,7 @@ class XPathInlineFunctionExprPsiImpl(node: ASTNode) :
 
     override val parameters: List<XpmParameter>
         get() = computeUserDataIfAbsent(PARAMETERS) {
-            val paramList = children().filterIsInstance<XPathParamList>().firstOrNull()
-            paramList?.children()?.filterIsInstance<XPathParam>()?.toList() ?: emptyList()
+            children().filterIsInstance<XPathParam>().toList()
         }
 
     override val returnType: XdmSequenceType?
@@ -113,10 +111,7 @@ class XPathInlineFunctionExprPsiImpl(node: ASTNode) :
     // region XdmFunctionDeclaration (Variadic Type and Arity)
 
     private val variadicParameter: PsiElement?
-        get() {
-            val paramList = children().filterIsInstance<XPathParamList>().firstOrNull() ?: return null
-            return reverse(paramList.children()).firstOrNull { e -> PARAM_OR_VARIADIC.contains(e.elementType) }
-        }
+        get() = reverse(children()).firstOrNull { e -> PARAM_OR_VARIADIC.contains(e.elementType) }
 
     override val variadicType: XpmVariadic
         get() = computeUserDataIfAbsent(VARIADIC_TYPE) {

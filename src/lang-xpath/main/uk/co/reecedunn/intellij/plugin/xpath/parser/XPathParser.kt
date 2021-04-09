@@ -2037,23 +2037,17 @@ open class XPathParser : PsiParser {
     }
 
     private fun parseParamList(builder: PsiBuilder): Boolean {
-        val marker = builder.mark()
-
         while (parseParam(builder)) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (builder.tokenType === XPathTokenType.VARIABLE_INDICATOR) {
                 builder.error(XPathBundle.message("parser.error.expected", ","))
             } else if (!builder.matchTokenType(XPathTokenType.COMMA)) {
                 builder.matchTokenType(XPathTokenType.ELLIPSIS)
-
-                marker.done(XPathElementType.PARAM_LIST)
                 return true
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
         }
-
-        marker.drop()
         return false
     }
 

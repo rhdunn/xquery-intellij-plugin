@@ -2,13 +2,12 @@ XPathImpl[FILE(0:18)]
    XPathInlineFunctionExprImpl[XPATH_INLINE_FUNCTION_EXPR(0:18)]
       XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FUNCTION(0:8)]('function')
       LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(8:9)]('(')
-      XPathParamListImpl[XPATH_PARAM_LIST(9:15)]
-         XPathParamImpl[XPATH_PARAM(9:12)]
-            LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(9:10)]('$')
-            XPathNCNameImpl[XPATH_NCNAME(10:12)]
-               XmlNCNameImpl[XPATH_NCNAME_TOKEN(10:11)]('x')
-               PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
-         LeafPsiElement[XQUERY_ELLIPSIS_TOKEN(12:15)]('...')
+      XPathParamImpl[XPATH_PARAM(9:12)]
+         LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(9:10)]('$')
+         XPathNCNameImpl[XPATH_NCNAME(10:12)]
+            XmlNCNameImpl[XPATH_NCNAME_TOKEN(10:11)]('x')
+            PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
+      LeafPsiElement[XQUERY_ELLIPSIS_TOKEN(12:15)]('...')
       LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(15:16)](')')
       LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(16:17)]('{')
       LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(17:18)]('}')
