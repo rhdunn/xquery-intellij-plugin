@@ -85,7 +85,7 @@ class XPathInlineFunctionExprPsiImpl(node: ASTNode) :
 
     override val functionName: XsQNameValue? = null
 
-    override val arity: Range<Int>
+    override val argumentArity: Range<Int>
         get() = paramList?.arity ?: XpmFunctionDeclaration.ARITY_ZERO
 
     override val returnType: XdmSequenceType?

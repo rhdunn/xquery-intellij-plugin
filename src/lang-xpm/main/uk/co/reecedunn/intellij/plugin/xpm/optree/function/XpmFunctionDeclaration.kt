@@ -31,7 +31,7 @@ interface XpmFunctionDeclaration : XpmAnnotated {
 
     val functionName: XsQNameValue?
 
-    val arity: Range<Int>
+    val argumentArity: Range<Int>
 
     val returnType: XdmSequenceType?
 

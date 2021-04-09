@@ -55,7 +55,7 @@ class XPST0017 : Inspection("xpst/XPST0017.md", XPST0017::class.java.classLoader
                 } else {
                     // 2. The number of arguments does not match the arity of a function signature in the static context.
                     val arity = (qname.parent as? XpmFunctionReference)?.arity ?: -1
-                    if (declarations.firstOrNull { f -> f.arity.isWithin(arity) } == null) {
+                    if (declarations.firstOrNull { f -> f.argumentArity.isWithin(arity) } == null) {
                         descriptors.add(
                             manager.createProblemDescriptor(
                                 qname.localName?.element!!,

@@ -3410,7 +3410,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(1))
 
-                    assertThat(decls[0].arity, `is`(Range(0, 0)))
+                    assertThat(decls[0].argumentArity, `is`(Range(0, 0)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("fn:true"))
                 }
 
@@ -3427,7 +3427,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(1))
 
-                    assertThat(decls[0].arity, `is`(Range(1, 1)))
+                    assertThat(decls[0].argumentArity, `is`(Range(1, 1)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("xs:string"))
                 }
 
@@ -3445,7 +3445,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(1))
 
-                    assertThat(decls[0].arity, `is`(Range(0, 0)))
+                    assertThat(decls[0].argumentArity, `is`(Range(0, 0)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("test:func"))
                 }
 
@@ -3467,19 +3467,19 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     var decls = qname[0].staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(2))
 
-                    assertThat(decls[0].arity, `is`(Range(1, 1)))
+                    assertThat(decls[0].argumentArity, `is`(Range(1, 1)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("json:transform-to-json"))
 
-                    assertThat(decls[1].arity, `is`(Range(2, 2)))
+                    assertThat(decls[1].argumentArity, `is`(Range(2, 2)))
                     assertThat(decls[1].functionName!!.element!!.text, `is`("json:transform-to-json"))
 
                     decls = qname[1].staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(2))
 
-                    assertThat(decls[0].arity, `is`(Range(1, 1)))
+                    assertThat(decls[0].argumentArity, `is`(Range(1, 1)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("json:array"))
 
-                    assertThat(decls[1].arity, `is`(Range(0, 0)))
+                    assertThat(decls[1].argumentArity, `is`(Range(0, 0)))
                     assertThat(decls[1].functionName!!.element!!.text, `is`("json:array"))
                 }
 
@@ -3497,7 +3497,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(1))
 
-                    assertThat(decls[0].arity, `is`(Range(0, 0)))
+                    assertThat(decls[0].argumentArity, `is`(Range(0, 0)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("test"))
                 }
             }
@@ -3513,7 +3513,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(1))
 
-                    assertThat(decls[0].arity, `is`(Range(0, 0)))
+                    assertThat(decls[0].argumentArity, `is`(Range(0, 0)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("fn:false"))
                 }
 
@@ -3532,7 +3532,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     val decls = qname[2].staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(1))
 
-                    assertThat(decls[0].arity, `is`(Range(0, 0)))
+                    assertThat(decls[0].argumentArity, `is`(Range(0, 0)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("test:g"))
                     assertThat(decls[0].functionName!!.element, sameInstance(qname[3]))
                 }
@@ -3553,7 +3553,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(1))
 
-                    assertThat(decls[0].arity, `is`(Range(0, 0)))
+                    assertThat(decls[0].argumentArity, `is`(Range(0, 0)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("admin:sessions"))
                 }
 
@@ -3574,19 +3574,19 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     var decls = qname[0].staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(2))
 
-                    assertThat(decls[0].arity, `is`(Range(1, 1)))
+                    assertThat(decls[0].argumentArity, `is`(Range(1, 1)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("json:transform-to-json"))
 
-                    assertThat(decls[1].arity, `is`(Range(2, 2)))
+                    assertThat(decls[1].argumentArity, `is`(Range(2, 2)))
                     assertThat(decls[1].functionName!!.element!!.text, `is`("json:transform-to-json"))
 
                     decls = qname[1].staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(2))
 
-                    assertThat(decls[0].arity, `is`(Range(1, 1)))
+                    assertThat(decls[0].argumentArity, `is`(Range(1, 1)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("json:array"))
 
-                    assertThat(decls[1].arity, `is`(Range(0, 0)))
+                    assertThat(decls[1].argumentArity, `is`(Range(0, 0)))
                     assertThat(decls[1].functionName!!.element!!.text, `is`("json:array"))
                 }
 
@@ -3606,7 +3606,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(1))
 
-                    assertThat(decls[0].arity, `is`(Range(0, 0)))
+                    assertThat(decls[0].argumentArity, `is`(Range(0, 0)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("admin:sessions"))
                 }
 
@@ -3627,7 +3627,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(1))
 
-                    assertThat(decls[0].arity, `is`(Range(0, 0)))
+                    assertThat(decls[0].argumentArity, `is`(Range(0, 0)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("e:test"))
                 }
             }
@@ -3643,7 +3643,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(1))
 
-                    assertThat(decls[0].arity, `is`(Range(0, 0)))
+                    assertThat(decls[0].argumentArity, `is`(Range(0, 0)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("fn:false"))
                 }
             }
@@ -3659,7 +3659,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(1))
 
-                    assertThat(decls[0].arity, `is`(Range(0, 0)))
+                    assertThat(decls[0].argumentArity, `is`(Range(0, 0)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("fn:true"))
                 }
 
@@ -3671,10 +3671,10 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(2))
 
-                    assertThat(decls[0].arity, `is`(Range(1, 1)))
+                    assertThat(decls[0].argumentArity, `is`(Range(1, 1)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("fn:data"))
 
-                    assertThat(decls[1].arity, `is`(Range(0, 0)))
+                    assertThat(decls[1].argumentArity, `is`(Range(0, 0)))
                     assertThat(decls[1].functionName!!.element!!.text, `is`("fn:data"))
                 }
 
@@ -3686,13 +3686,13 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(3))
 
-                    assertThat(decls[0].arity, `is`(Range(2, Int.MAX_VALUE)))
+                    assertThat(decls[0].argumentArity, `is`(Range(2, Int.MAX_VALUE)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("fn:concat"))
 
-                    assertThat(decls[1].arity, `is`(Range(1, 1)))
+                    assertThat(decls[1].argumentArity, `is`(Range(1, 1)))
                     assertThat(decls[1].functionName!!.element!!.text, `is`("fn:concat"))
 
-                    assertThat(decls[2].arity, `is`(Range(0, 0)))
+                    assertThat(decls[2].argumentArity, `is`(Range(0, 0)))
                     assertThat(decls[2].functionName!!.element!!.text, `is`("fn:concat"))
                 }
             }
@@ -3712,7 +3712,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(1))
 
-                    assertThat(decls[0].arity, `is`(Range(0, 0)))
+                    assertThat(decls[0].argumentArity, `is`(Range(0, 0)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("fn:true"))
                 }
 
@@ -3729,7 +3729,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(1))
 
-                    assertThat(decls[0].arity, `is`(Range(1, 1)))
+                    assertThat(decls[0].argumentArity, `is`(Range(1, 1)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("xs:string"))
                 }
 
@@ -3747,7 +3747,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(1))
 
-                    assertThat(decls[0].arity, `is`(Range(0, 0)))
+                    assertThat(decls[0].argumentArity, `is`(Range(0, 0)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("test:func"))
                 }
 
@@ -3769,19 +3769,19 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     var decls = qname[0].staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(2))
 
-                    assertThat(decls[0].arity, `is`(Range(1, 1)))
+                    assertThat(decls[0].argumentArity, `is`(Range(1, 1)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("json:transform-to-json"))
 
-                    assertThat(decls[1].arity, `is`(Range(2, 2)))
+                    assertThat(decls[1].argumentArity, `is`(Range(2, 2)))
                     assertThat(decls[1].functionName!!.element!!.text, `is`("json:transform-to-json"))
 
                     decls = qname[1].staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(2))
 
-                    assertThat(decls[0].arity, `is`(Range(1, 1)))
+                    assertThat(decls[0].argumentArity, `is`(Range(1, 1)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("json:array"))
 
-                    assertThat(decls[1].arity, `is`(Range(0, 0)))
+                    assertThat(decls[1].argumentArity, `is`(Range(0, 0)))
                     assertThat(decls[1].functionName!!.element!!.text, `is`("json:array"))
                 }
 
@@ -3799,7 +3799,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(1))
 
-                    assertThat(decls[0].arity, `is`(Range(0, 0)))
+                    assertThat(decls[0].argumentArity, `is`(Range(0, 0)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("test"))
                 }
             }
@@ -3815,7 +3815,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(1))
 
-                    assertThat(decls[0].arity, `is`(Range(0, 0)))
+                    assertThat(decls[0].argumentArity, `is`(Range(0, 0)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("fn:false"))
                 }
 
@@ -3834,7 +3834,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     val decls = qname[2].staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(1))
 
-                    assertThat(decls[0].arity, `is`(Range(0, 0)))
+                    assertThat(decls[0].argumentArity, `is`(Range(0, 0)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("test:g"))
                     assertThat(decls[0].functionName!!.element, sameInstance(qname[3]))
                 }
@@ -3855,7 +3855,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(1))
 
-                    assertThat(decls[0].arity, `is`(Range(0, 0)))
+                    assertThat(decls[0].argumentArity, `is`(Range(0, 0)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("admin:sessions"))
                 }
 
@@ -3876,19 +3876,19 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     var decls = qname[0].staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(2))
 
-                    assertThat(decls[0].arity, `is`(Range(1, 1)))
+                    assertThat(decls[0].argumentArity, `is`(Range(1, 1)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("json:transform-to-json"))
 
-                    assertThat(decls[1].arity, `is`(Range(2, 2)))
+                    assertThat(decls[1].argumentArity, `is`(Range(2, 2)))
                     assertThat(decls[1].functionName!!.element!!.text, `is`("json:transform-to-json"))
 
                     decls = qname[1].staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(2))
 
-                    assertThat(decls[0].arity, `is`(Range(1, 1)))
+                    assertThat(decls[0].argumentArity, `is`(Range(1, 1)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("json:array"))
 
-                    assertThat(decls[1].arity, `is`(Range(0, 0)))
+                    assertThat(decls[1].argumentArity, `is`(Range(0, 0)))
                     assertThat(decls[1].functionName!!.element!!.text, `is`("json:array"))
                 }
 
@@ -3908,7 +3908,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(1))
 
-                    assertThat(decls[0].arity, `is`(Range(0, 0)))
+                    assertThat(decls[0].argumentArity, `is`(Range(0, 0)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("admin:sessions"))
                 }
 
@@ -3929,7 +3929,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(1))
 
-                    assertThat(decls[0].arity, `is`(Range(0, 0)))
+                    assertThat(decls[0].argumentArity, `is`(Range(0, 0)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("e:test"))
                 }
             }
@@ -3945,7 +3945,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(1))
 
-                    assertThat(decls[0].arity, `is`(Range(0, 0)))
+                    assertThat(decls[0].argumentArity, `is`(Range(0, 0)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("fn:false"))
                 }
             }
@@ -3961,7 +3961,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(1))
 
-                    assertThat(decls[0].arity, `is`(Range(0, 0)))
+                    assertThat(decls[0].argumentArity, `is`(Range(0, 0)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("fn:true"))
                 }
 
@@ -3973,10 +3973,10 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(2))
 
-                    assertThat(decls[0].arity, `is`(Range(1, 1)))
+                    assertThat(decls[0].argumentArity, `is`(Range(1, 1)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("fn:data"))
 
-                    assertThat(decls[1].arity, `is`(Range(0, 0)))
+                    assertThat(decls[1].argumentArity, `is`(Range(0, 0)))
                     assertThat(decls[1].functionName!!.element!!.text, `is`("fn:data"))
                 }
 
@@ -3988,13 +3988,13 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(3))
 
-                    assertThat(decls[0].arity, `is`(Range(2, Int.MAX_VALUE)))
+                    assertThat(decls[0].argumentArity, `is`(Range(2, Int.MAX_VALUE)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("fn:concat"))
 
-                    assertThat(decls[1].arity, `is`(Range(1, 1)))
+                    assertThat(decls[1].argumentArity, `is`(Range(1, 1)))
                     assertThat(decls[1].functionName!!.element!!.text, `is`("fn:concat"))
 
-                    assertThat(decls[2].arity, `is`(Range(0, 0)))
+                    assertThat(decls[2].argumentArity, `is`(Range(0, 0)))
                     assertThat(decls[2].functionName!!.element!!.text, `is`("fn:concat"))
                 }
             }
@@ -4014,7 +4014,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(1))
 
-                    assertThat(decls[0].arity, `is`(Range(0, 0)))
+                    assertThat(decls[0].argumentArity, `is`(Range(0, 0)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("fn:true"))
                 }
 
@@ -4031,7 +4031,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(1))
 
-                    assertThat(decls[0].arity, `is`(Range(1, 1)))
+                    assertThat(decls[0].argumentArity, `is`(Range(1, 1)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("xs:string"))
                 }
 
@@ -4049,7 +4049,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(1))
 
-                    assertThat(decls[0].arity, `is`(Range(0, 0)))
+                    assertThat(decls[0].argumentArity, `is`(Range(0, 0)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("test:func"))
                 }
 
@@ -4071,19 +4071,19 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     var decls = qname[0].staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(2))
 
-                    assertThat(decls[0].arity, `is`(Range(1, 1)))
+                    assertThat(decls[0].argumentArity, `is`(Range(1, 1)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("json:transform-to-json"))
 
-                    assertThat(decls[1].arity, `is`(Range(2, 2)))
+                    assertThat(decls[1].argumentArity, `is`(Range(2, 2)))
                     assertThat(decls[1].functionName!!.element!!.text, `is`("json:transform-to-json"))
 
                     decls = qname[1].staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(2))
 
-                    assertThat(decls[0].arity, `is`(Range(1, 1)))
+                    assertThat(decls[0].argumentArity, `is`(Range(1, 1)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("json:array"))
 
-                    assertThat(decls[1].arity, `is`(Range(0, 0)))
+                    assertThat(decls[1].argumentArity, `is`(Range(0, 0)))
                     assertThat(decls[1].functionName!!.element!!.text, `is`("json:array"))
                 }
 
@@ -4101,7 +4101,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(1))
 
-                    assertThat(decls[0].arity, `is`(Range(0, 0)))
+                    assertThat(decls[0].argumentArity, `is`(Range(0, 0)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("test"))
                 }
             }
@@ -4117,7 +4117,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(1))
 
-                    assertThat(decls[0].arity, `is`(Range(0, 0)))
+                    assertThat(decls[0].argumentArity, `is`(Range(0, 0)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("fn:false"))
                 }
 
@@ -4136,7 +4136,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     val decls = qname[2].staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(1))
 
-                    assertThat(decls[0].arity, `is`(Range(0, 0)))
+                    assertThat(decls[0].argumentArity, `is`(Range(0, 0)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("test:g"))
                     assertThat(decls[0].functionName!!.element, sameInstance(qname[3]))
                 }
@@ -4157,7 +4157,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(1))
 
-                    assertThat(decls[0].arity, `is`(Range(0, 0)))
+                    assertThat(decls[0].argumentArity, `is`(Range(0, 0)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("admin:sessions"))
                 }
 
@@ -4178,19 +4178,19 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     var decls = qname[0].staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(2))
 
-                    assertThat(decls[0].arity, `is`(Range(1, 1)))
+                    assertThat(decls[0].argumentArity, `is`(Range(1, 1)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("json:transform-to-json"))
 
-                    assertThat(decls[1].arity, `is`(Range(2, 2)))
+                    assertThat(decls[1].argumentArity, `is`(Range(2, 2)))
                     assertThat(decls[1].functionName!!.element!!.text, `is`("json:transform-to-json"))
 
                     decls = qname[1].staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(2))
 
-                    assertThat(decls[0].arity, `is`(Range(1, 1)))
+                    assertThat(decls[0].argumentArity, `is`(Range(1, 1)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("json:array"))
 
-                    assertThat(decls[1].arity, `is`(Range(0, 0)))
+                    assertThat(decls[1].argumentArity, `is`(Range(0, 0)))
                     assertThat(decls[1].functionName!!.element!!.text, `is`("json:array"))
                 }
 
@@ -4210,7 +4210,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(1))
 
-                    assertThat(decls[0].arity, `is`(Range(0, 0)))
+                    assertThat(decls[0].argumentArity, `is`(Range(0, 0)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("admin:sessions"))
                 }
 
@@ -4231,7 +4231,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(1))
 
-                    assertThat(decls[0].arity, `is`(Range(0, 0)))
+                    assertThat(decls[0].argumentArity, `is`(Range(0, 0)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("e:test"))
                 }
             }
@@ -4247,7 +4247,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(1))
 
-                    assertThat(decls[0].arity, `is`(Range(0, 0)))
+                    assertThat(decls[0].argumentArity, `is`(Range(0, 0)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("fn:false"))
                 }
             }
@@ -4263,7 +4263,7 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(1))
 
-                    assertThat(decls[0].arity, `is`(Range(0, 0)))
+                    assertThat(decls[0].argumentArity, `is`(Range(0, 0)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("fn:true"))
                 }
 
@@ -4275,10 +4275,10 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(2))
 
-                    assertThat(decls[0].arity, `is`(Range(1, 1)))
+                    assertThat(decls[0].argumentArity, `is`(Range(1, 1)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("fn:data"))
 
-                    assertThat(decls[1].arity, `is`(Range(0, 0)))
+                    assertThat(decls[1].argumentArity, `is`(Range(0, 0)))
                     assertThat(decls[1].functionName!!.element!!.text, `is`("fn:data"))
                 }
 
@@ -4290,13 +4290,13 @@ private class XQueryStaticContextTest : ParserTestCase() {
                     val decls = qname.staticallyKnownFunctions().toList()
                     assertThat(decls.size, `is`(3))
 
-                    assertThat(decls[0].arity, `is`(Range(2, Int.MAX_VALUE)))
+                    assertThat(decls[0].argumentArity, `is`(Range(2, Int.MAX_VALUE)))
                     assertThat(decls[0].functionName!!.element!!.text, `is`("fn:concat"))
 
-                    assertThat(decls[1].arity, `is`(Range(1, 1)))
+                    assertThat(decls[1].argumentArity, `is`(Range(1, 1)))
                     assertThat(decls[1].functionName!!.element!!.text, `is`("fn:concat"))
 
-                    assertThat(decls[2].arity, `is`(Range(0, 0)))
+                    assertThat(decls[2].argumentArity, `is`(Range(0, 0)))
                     assertThat(decls[2].functionName!!.element!!.text, `is`("fn:concat"))
                 }
             }

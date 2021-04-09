@@ -45,7 +45,7 @@ object XQueryFunctionCallProvider : CompletionProviderEx {
                         // statically-known namespaces
                         namespaces.forEach { ns ->
                             if (ns.namespaceUri?.data == name.namespace?.data) {
-                                if ((isArrowExpr && function.arity.from > 0) || !isArrowExpr) {
+                                if ((isArrowExpr && function.argumentArity.from > 0) || !isArrowExpr) {
                                     val declPrefix = ns.namespacePrefix?.data
                                     result.addElement(XPathFunctionCallLookup(localName, declPrefix, function))
                                 }
@@ -54,7 +54,7 @@ object XQueryFunctionCallProvider : CompletionProviderEx {
 
                         // default function namespace
                         if (defaultNamespace?.namespaceUri?.data == name.namespace?.data) {
-                            if ((isArrowExpr && function.arity.from > 0) || !isArrowExpr) {
+                            if ((isArrowExpr && function.argumentArity.from > 0) || !isArrowExpr) {
                                 result.addElement(XPathFunctionCallLookup(localName, null, function))
                             }
                         }
@@ -70,7 +70,7 @@ object XQueryFunctionCallProvider : CompletionProviderEx {
                             namespaces.forEach { ns ->
                                 if (ns.namespaceUri?.data == name.namespace?.data) {
                                     if (ns.namespacePrefix?.data == ref.prefix?.data) { // Prefix matches, and is already specified.
-                                        if ((isArrowExpr && function.arity.from > 0) || !isArrowExpr) {
+                                        if ((isArrowExpr && function.argumentArity.from > 0) || !isArrowExpr) {
                                             result.addElement(XPathFunctionCallLookup(localName, null, function))
                                         }
                                     }
@@ -87,7 +87,7 @@ object XQueryFunctionCallProvider : CompletionProviderEx {
                     if (function.functionName?.prefix != null || function.functionName?.namespace != null) {
                         val expanded = function.functionName?.expand()?.firstOrNull()
                         if (expanded?.namespace?.data == ref.namespace?.data) {
-                            if ((isArrowExpr && function.arity.from > 0) || !isArrowExpr) {
+                            if ((isArrowExpr && function.argumentArity.from > 0) || !isArrowExpr) {
                                 result.addElement(XPathFunctionCallLookup(localName, null, function))
                             }
                         }

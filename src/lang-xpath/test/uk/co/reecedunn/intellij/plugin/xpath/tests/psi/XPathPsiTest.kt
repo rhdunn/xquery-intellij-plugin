@@ -2836,7 +2836,7 @@ private class XPathPsiTest : ParserTestCase() {
                         val decl = parse<XpmFunctionDeclaration>("function () {}")[0]
                         assertThat(decl.functionName, `is`(nullValue()))
                         assertThat(decl.returnType, `is`(nullValue()))
-                        assertThat(decl.arity, `is`(Range(0, 0)))
+                        assertThat(decl.argumentArity, `is`(Range(0, 0)))
                         assertThat(decl.parameters.size, `is`(0))
                         assertThat(decl.variadicType, `is`(XpmVariadic.No))
                         assertThat(decl.functionBody, sameInstance(XpmEmptyExpression))
@@ -2851,7 +2851,7 @@ private class XPathPsiTest : ParserTestCase() {
                         val decl = parse<XpmFunctionDeclaration>("function (\$one, \$two) {}")[0]
                         assertThat(decl.functionName, `is`(nullValue()))
                         assertThat(decl.returnType, `is`(nullValue()))
-                        assertThat(decl.arity, `is`(Range(2, 2)))
+                        assertThat(decl.argumentArity, `is`(Range(2, 2)))
                         assertThat(decl.variadicType, `is`(XpmVariadic.No))
                         assertThat(decl.functionBody, sameInstance(XpmEmptyExpression))
 
@@ -2871,7 +2871,7 @@ private class XPathPsiTest : ParserTestCase() {
                         )[0]
                         assertThat(decl.functionName, `is`(nullValue()))
                         assertThat(decl.returnType, `is`(nullValue()))
-                        assertThat(decl.arity, `is`(Range(2, 2)))
+                        assertThat(decl.argumentArity, `is`(Range(2, 2)))
                         assertThat(decl.variadicType, `is`(XpmVariadic.No))
                         assertThat(decl.functionBody, sameInstance(XpmEmptyExpression))
 
@@ -2889,7 +2889,7 @@ private class XPathPsiTest : ParserTestCase() {
                         val decl = parse<XpmFunctionDeclaration>("function ()  as  xs:boolean  {}")[0]
                         assertThat(decl.functionName, `is`(nullValue()))
                         assertThat(decl.returnType?.typeName, `is`("xs:boolean"))
-                        assertThat(decl.arity, `is`(Range(0, 0)))
+                        assertThat(decl.argumentArity, `is`(Range(0, 0)))
                         assertThat(decl.parameters.size, `is`(0))
                         assertThat(decl.variadicType, `is`(XpmVariadic.No))
                         assertThat(decl.functionBody, sameInstance(XpmEmptyExpression))
@@ -2904,7 +2904,7 @@ private class XPathPsiTest : ParserTestCase() {
                         val decl = parse<XpmFunctionDeclaration>("function () { 2 + 3 }")[0]
                         assertThat(decl.functionName, `is`(nullValue()))
                         assertThat(decl.returnType, `is`(nullValue()))
-                        assertThat(decl.arity, `is`(Range(0, 0)))
+                        assertThat(decl.argumentArity, `is`(Range(0, 0)))
                         assertThat(decl.parameters.size, `is`(0))
                         assertThat(decl.variadicType, `is`(XpmVariadic.No))
                         assertThat(decl.functionBody?.text, `is`("2 + 3 "))

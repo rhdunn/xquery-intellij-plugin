@@ -31,7 +31,6 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParam
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.blockOpen
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.isEmptyEnclosedExpr
-import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathInlineFunctionExprPsiImpl
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmVariadic
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
@@ -72,7 +71,7 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
     override val functionName: XsQNameValue?
         get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
 
-    override val arity: Range<Int>
+    override val argumentArity: Range<Int>
         get() = paramList?.arity ?: XpmFunctionDeclaration.ARITY_ZERO
 
     override val returnType: XdmSequenceType?
@@ -92,7 +91,7 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
 
     override val functionRefPresentableText: String?
         get() = computeUserDataIfAbsent(FUNCTION_REF_PRESENTABLE_TEXT) {
-            functionName?.let { "${op_qname_presentation(it)}#${arity.from}" } ?: ""
+            functionName?.let { "${op_qname_presentation(it)}#${argumentArity.from}" } ?: ""
         }
 
     override val functionBody: XpmExpression?

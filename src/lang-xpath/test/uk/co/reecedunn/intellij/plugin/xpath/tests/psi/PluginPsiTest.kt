@@ -410,7 +410,7 @@ private class PluginPsiTest : ParserTestCase() {
                     val decl = parse<XpmFunctionDeclaration>("function (\$one, \$two ...) {}")[0]
                     assertThat(decl.functionName, `is`(nullValue()))
                     assertThat(decl.returnType, `is`(nullValue()))
-                    assertThat(decl.arity, `is`(Range(1, Int.MAX_VALUE)))
+                    assertThat(decl.argumentArity, `is`(Range(1, Int.MAX_VALUE)))
                     assertThat(decl.variadicType, `is`(XpmVariadic.Ellipsis))
 
                     assertThat(decl.parameters.size, `is`(2))

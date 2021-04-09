@@ -130,7 +130,7 @@ class XQueryDocumentationProvider : AbstractDocumentationProvider() {
     private fun lookupLocalName(qname: XsQNameValue): Sequence<XQDocDocumentation> {
         return when (val ref = qname.element?.parent) {
             is XpmFunctionReference -> lookupFunction(ref.functionName, ref.arity)
-            is XpmFunctionDeclaration -> lookupFunction(ref.functionName, ref.arity.from)
+            is XpmFunctionDeclaration -> lookupFunction(ref.functionName, ref.argumentArity.from)
             is XpmNamespaceDeclaration -> XQDocDocumentationSourceProvider.lookup(ref)
             else -> emptySequence()
         }

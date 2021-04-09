@@ -71,7 +71,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(items.size, `is`(1))
 
                 assertThat(op_qname_presentation(items[0].functionName!!), `is`("fn:abs"))
-                assertThat(items[0].arity, `is`(Range(1, 1)))
+                assertThat(items[0].argumentArity, `is`(Range(1, 1)))
 
                 val hint = context as MockCreateParameterInfoContext
                 assertThat(hint.showHintElement, `is`(nullValue()))
@@ -94,7 +94,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(items.size, `is`(1))
 
                 assertThat(op_qname_presentation(items[0].functionName!!), `is`("fn:abs"))
-                assertThat(items[0].arity, `is`(Range(1, 1)))
+                assertThat(items[0].argumentArity, `is`(Range(1, 1)))
 
                 val hint = context as MockCreateParameterInfoContext
                 assertThat(hint.showHintElement, `is`(nullValue()))
@@ -117,7 +117,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(items.size, `is`(1))
 
                 assertThat(op_qname_presentation(items[0].functionName!!), `is`("fn:abs"))
-                assertThat(items[0].arity, `is`(Range(1, 1)))
+                assertThat(items[0].argumentArity, `is`(Range(1, 1)))
 
                 val hint = context as MockCreateParameterInfoContext
                 assertThat(hint.showHintElement, `is`(nullValue()))
@@ -140,10 +140,10 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(items.size, `is`(2))
 
                 assertThat(op_qname_presentation(items[0].functionName!!), `is`("fn:string"))
-                assertThat(items[0].arity, `is`(Range(0, 0)))
+                assertThat(items[0].argumentArity, `is`(Range(0, 0)))
 
                 assertThat(op_qname_presentation(items[1].functionName!!), `is`("fn:string"))
-                assertThat(items[1].arity, `is`(Range(1, 1)))
+                assertThat(items[1].argumentArity, `is`(Range(1, 1)))
 
                 val hint = context as MockCreateParameterInfoContext
                 assertThat(hint.showHintElement, `is`(nullValue()))
@@ -172,7 +172,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(items.size, `is`(1))
 
                 assertThat(op_qname_presentation(items[0].functionName!!), `is`("f"))
-                assertThat(items[0].arity, `is`(Range(1, 1)))
+                assertThat(items[0].argumentArity, `is`(Range(1, 1)))
 
                 val hint = context as MockCreateParameterInfoContext
                 assertThat(hint.showHintElement, `is`(nullValue()))
@@ -219,7 +219,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(items.size, `is`(1))
 
                 assertThat(op_qname_presentation(items[0].functionName!!), `is`("fn:abs"))
-                assertThat(items[0].arity, `is`(Range(1, 1)))
+                assertThat(items[0].argumentArity, `is`(Range(1, 1)))
 
                 val hint = context as MockCreateParameterInfoContext
                 assertThat(hint.showHintElement, `is`(nullValue()))
@@ -266,7 +266,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(items.size, `is`(1))
 
                 assertThat(op_qname_presentation(items[0].functionName!!), `is`("fn:abs"))
-                assertThat(items[0].arity, `is`(Range(1, 1)))
+                assertThat(items[0].argumentArity, `is`(Range(1, 1)))
 
                 val hint = context as MockCreateParameterInfoContext
                 assertThat(hint.showHintElement, `is`(nullValue()))
@@ -289,7 +289,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(items.size, `is`(1))
 
                 assertThat(op_qname_presentation(items[0].functionName!!), `is`("fn:abs"))
-                assertThat(items[0].arity, `is`(Range(1, 1)))
+                assertThat(items[0].argumentArity, `is`(Range(1, 1)))
 
                 val hint = context as MockCreateParameterInfoContext
                 assertThat(hint.showHintElement, `is`(nullValue()))
@@ -312,7 +312,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(items.size, `is`(1))
 
                 assertThat(op_qname_presentation(items[0].functionName!!), `is`("fn:abs"))
-                assertThat(items[0].arity, `is`(Range(1, 1)))
+                assertThat(items[0].argumentArity, `is`(Range(1, 1)))
 
                 val hint = context as MockCreateParameterInfoContext
                 assertThat(hint.showHintElement, `is`(nullValue()))
@@ -335,7 +335,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(items.size, `is`(1))
 
                 assertThat(op_qname_presentation(items[0].functionName!!), `is`("fn:abs"))
-                assertThat(items[0].arity, `is`(Range(1, 1)))
+                assertThat(items[0].argumentArity, `is`(Range(1, 1)))
 
                 val hint = context as MockCreateParameterInfoContext
                 assertThat(hint.showHintElement, `is`(nullValue()))
@@ -358,10 +358,10 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(items.size, `is`(2))
 
                 assertThat(op_qname_presentation(items[0].functionName!!), `is`("fn:adjust-date-to-timezone"))
-                assertThat(items[0].arity, `is`(Range(1, 1)))
+                assertThat(items[0].argumentArity, `is`(Range(1, 1)))
 
                 assertThat(op_qname_presentation(items[1].functionName!!), `is`("fn:adjust-date-to-timezone"))
-                assertThat(items[1].arity, `is`(Range(2, 2)))
+                assertThat(items[1].argumentArity, `is`(Range(2, 2)))
 
                 val hint = context as MockCreateParameterInfoContext
                 assertThat(hint.showHintElement, `is`(nullValue()))
@@ -390,7 +390,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(items.size, `is`(1))
 
                 assertThat(op_qname_presentation(items[0].functionName!!), `is`("f"))
-                assertThat(items[0].arity, `is`(Range(1, 1)))
+                assertThat(items[0].argumentArity, `is`(Range(1, 1)))
 
                 val hint = context as MockCreateParameterInfoContext
                 assertThat(hint.showHintElement, `is`(nullValue()))
@@ -413,7 +413,7 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 assertThat(items.size, `is`(1))
 
                 assertThat(op_qname_presentation(items[0].functionName!!), `is`("fn:string"))
-                assertThat(items[0].arity, `is`(Range(1, 1)))
+                assertThat(items[0].argumentArity, `is`(Range(1, 1)))
 
                 val hint = context as MockCreateParameterInfoContext
                 assertThat(hint.showHintElement, `is`(nullValue()))

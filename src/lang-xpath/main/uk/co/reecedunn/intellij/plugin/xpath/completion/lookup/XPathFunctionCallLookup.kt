@@ -35,7 +35,7 @@ class XPathFunctionCallLookup(localName: String, prefix: String?, private val fu
 
     override val insertText: XPathInsertText
         get() {
-            val arity = function.arity
+            val arity = function.argumentArity
             return if (arity.from == arity.to && arity.from == 0)
                 XPathInsertText.EMPTY_PARAMS
             else

@@ -34,7 +34,7 @@ class XPathParameterInfoHandler : ParameterInfoHandler<XPathArgumentList, XpmFun
         val e = context.file.findElementAt(context.offset)
         val args = e?.ancestors()?.filterIsInstance<XPathArgumentList>()?.firstOrNull()
         context.itemsToShow = functionCandidates(args).filter {
-            if (it.arity.from == 0 && it.arity.to == 0)
+            if (it.argumentArity.from == 0 && it.argumentArity.to == 0)
                 args?.parent !is XpmArrowFunctionCall
             else
                 true
@@ -65,7 +65,7 @@ class XPathParameterInfoHandler : ParameterInfoHandler<XPathArgumentList, XpmFun
             val functionCall = context.parameterOwner.parent as XpmFunctionCall
             val argument = when {
                 context.currentParameterIndex < 0 -> null
-                context.currentParameterIndex >= p.arity.to -> null
+                context.currentParameterIndex >= p.argumentArity.to -> null
                 else -> functionCall.argumentAt(context.currentParameterIndex)
             }
 
@@ -112,7 +112,7 @@ class XPathParameterInfoHandler : ParameterInfoHandler<XPathArgumentList, XpmFun
             is XpmFunctionCall -> parent.functionReference?.functionName
             else -> null
         }
-        return functionName?.staticallyKnownFunctions()?.sortedBy { it.arity.from }?.distinct() ?: emptySequence()
+        return functionName?.staticallyKnownFunctions()?.sortedBy { it.argumentArity.from }?.distinct() ?: emptySequence()
     }
 
     companion object {
