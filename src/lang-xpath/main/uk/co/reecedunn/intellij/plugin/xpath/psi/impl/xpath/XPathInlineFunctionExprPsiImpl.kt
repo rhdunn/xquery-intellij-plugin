@@ -81,18 +81,9 @@ class XPathInlineFunctionExprPsiImpl(node: ASTNode) :
         get() = XpmAccessLevel.get(this)
 
     // endregion
-    // region XdmFunctionDeclaration
-
-    private val paramList: XPathParamList?
-        get() = children().filterIsInstance<XPathParamList>().firstOrNull()
+    // region XdmFunctionDeclaration (Data Model)
 
     override val functionName: XsQNameValue? = null
-
-    override val argumentArity: Range<Int>
-        get() = computeUserDataIfAbsent(ARGUMENT_ARITY) { computeArgumentArity() }
-
-    override val returnType: XdmSequenceType?
-        get() = children().filterIsInstance<XdmSequenceType>().firstOrNull()
 
     override val parameters: List<XpmParameter>
         get() = computeUserDataIfAbsent(PARAMETERS) {
@@ -100,16 +91,31 @@ class XPathInlineFunctionExprPsiImpl(node: ASTNode) :
             paramList?.children()?.filterIsInstance<XPathParam>()?.toList() ?: emptyList()
         }
 
-    override val paramListPresentation: ItemPresentation?
-        get() = paramList?.presentation
+    override val returnType: XdmSequenceType?
+        get() = children().filterIsInstance<XdmSequenceType>().firstOrNull()
+
+    override val functionBody: XpmExpression
+        get() = children().filterIsInstance<XpmExpression>().firstOrNull() ?: XpmEmptyExpression
+
+    // endregion
+    // region XdmFunctionDeclaration (Variadic Type and Arity)
 
     override val variadicType: XpmVariadic
         get() = paramList?.variadicType ?: XpmVariadic.No
 
-    override val functionRefPresentableText: String? = null
+    override val argumentArity: Range<Int>
+        get() = computeUserDataIfAbsent(ARGUMENT_ARITY) { computeArgumentArity() }
 
-    override val functionBody: XpmExpression
-        get() = children().filterIsInstance<XpmExpression>().firstOrNull() ?: XpmEmptyExpression
+    // endregion
+    // region XdmFunctionDeclaration (Presentation)
+
+    private val paramList: XPathParamList?
+        get() = children().filterIsInstance<XPathParamList>().firstOrNull()
+
+    override val paramListPresentation: ItemPresentation?
+        get() = paramList?.presentation
+
+    override val functionRefPresentableText: String? = null
 
     // endregion
     // region XpmExpression

@@ -28,20 +28,29 @@ interface XpmFunctionDeclaration : XpmAnnotated {
     companion object {
         val ARITY_ZERO: Range<Int> = Range(0, 0)
     }
+    // region Data Model
 
     val functionName: XsQNameValue?
 
-    val argumentArity: Range<Int>
+    val parameters: List<XpmParameter>
 
     val returnType: XdmSequenceType?
 
-    val parameters: List<XpmParameter>
+    val functionBody: XpmExpression?
 
-    val paramListPresentation: ItemPresentation?
+    // endregion
+    // region Variadic Type and Arity
 
     val variadicType: XpmVariadic
 
+    val argumentArity: Range<Int>
+
+    // endregion
+    // region Presentation
+
+    val paramListPresentation: ItemPresentation?
+
     val functionRefPresentableText: String?
 
-    val functionBody: XpmExpression?
+    // endregion
 }
