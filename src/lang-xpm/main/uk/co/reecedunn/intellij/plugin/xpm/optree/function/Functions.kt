@@ -40,9 +40,9 @@ val XpmFunctionCall.functionDeclaration: XpmFunctionDeclaration?
     }
 
 val XpmFunctionCall.resolve: Pair<XpmFunctionDeclaration, List<XpmAssignableVariable>>?
-    get() = functionDeclaration?.let { it to bindTo(it.parameters) }
+    get() = functionDeclaration?.let { it to bindTo(it.parameters, it.isVariadic) }
 
-fun XpmFunctionCall.bindTo(parameters: List<XpmParameter>): List<XpmAssignableVariable> {
+fun XpmFunctionCall.bindTo(parameters: List<XpmParameter>, isVariadic: Boolean): List<XpmAssignableVariable> {
     val bindings = arrayOfNulls<XpmAssignableVariable>(parameters.size)
     var index = 0
 
@@ -92,10 +92,11 @@ fun XpmFunctionCall.bindTo(parameters: List<XpmParameter>): List<XpmAssignableVa
     // region Default and Missing Arguments
 
     parameters.withIndex().filter { bindings[it.index] == null }.forEach { (i, parameter) ->
-        if (i == parameters.size - 1) {
-            bindings[i] = XpmBoundParameter(parameter, XpmEmptyExpression)
-        } else {
-            bindings[i] = XpmBoundParameter(parameter, XpmMissingArgument)
+        when {
+            i == parameters.size - 1 && isVariadic -> {
+                bindings[i] = XpmBoundParameter(parameter, XpmEmptyExpression)
+            }
+            else -> bindings[i] = XpmBoundParameter(parameter, XpmMissingArgument)
         }
     }
 

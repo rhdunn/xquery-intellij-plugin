@@ -72,7 +72,7 @@ class XPathParameterInfoHandler : ParameterInfoHandler<XPathArgumentList, XpmFun
             val isVariadic = p.isVariadic
             var start = -1
             var end = -1
-            functionCall.bindTo(parameters).withIndex().forEach { (i, binding) ->
+            functionCall.bindTo(parameters, isVariadic).withIndex().forEach { (i, binding) ->
                 val match = when (val expr = binding.variableExpression) {
                     is XpmConcatenatingExpression -> expr === argument || expr.expressions.contains(argument)
                     else -> expr === argument
