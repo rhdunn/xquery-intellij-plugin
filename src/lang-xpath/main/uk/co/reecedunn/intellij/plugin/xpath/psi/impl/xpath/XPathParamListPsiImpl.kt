@@ -15,76 +15,23 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
+import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import com.intellij.navigation.ItemPresentation
-import com.intellij.openapi.util.Key
-import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.TokenSet
-import com.intellij.util.Range
-import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.reverse
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParam
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
-import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmVariadic
-import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmParameter
-import javax.swing.Icon
 
-class XPathParamListPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), XPathParamList, ItemPresentation, XpmSyntaxValidationElement {
+class XPathParamListPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathParamList, XpmSyntaxValidationElement {
     companion object {
-        private val PRESENTABLE_TEXT = Key.create<String>("PRESENTABLE_TEXT")
-
         private val PARAM_OR_VARIADIC = TokenSet.create(XPathElementType.PARAM, XPathTokenType.ELLIPSIS)
     }
-    // region XpmSyntaxValidationElement
 
     override val conformanceElement: PsiElement
         get() = reverse(children()).firstOrNull { e -> PARAM_OR_VARIADIC.contains(e.elementType) } ?: firstChild
-
-    // endregion
-    // region PsiElement
-
-    override fun subtreeChanged() {
-        super.subtreeChanged()
-        clearUserData(PRESENTABLE_TEXT)
-    }
-
-    // endregion
-    // region NavigationItem
-
-    override fun getPresentation(): ItemPresentation = this
-
-    // endregion
-    // region ItemPresentation
-
-    override fun getIcon(unused: Boolean): Icon? = null
-
-    override fun getLocationString(): String? = null
-
-    override fun getPresentableText(): String? = computeUserDataIfAbsent(PRESENTABLE_TEXT) {
-        val params = params.mapNotNull { param ->
-            (param as NavigatablePsiElement).presentation?.presentableText
-        }.joinToString()
-        if (variadicType === XpmVariadic.Ellipsis) "($params ...)" else "($params)"
-    }
-
-    // endregion
-    // region XPathParamList
-
-    private val params: List<XpmParameter>
-        get() = children().filterIsInstance<XPathParam>().toList()
-
-    private val variadicType: XpmVariadic
-        get() = when (conformanceElement.elementType) {
-            XPathTokenType.ELLIPSIS -> XpmVariadic.Ellipsis
-            else -> XpmVariadic.No
-        }
-
-    // endregion
 }

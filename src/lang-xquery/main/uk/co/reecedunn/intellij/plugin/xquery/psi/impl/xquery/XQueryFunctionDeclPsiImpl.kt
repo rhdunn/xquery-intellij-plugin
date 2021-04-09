@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.util.Key
+import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.TokenSet
 import com.intellij.util.Range
@@ -57,6 +58,7 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
         private val ARGUMENT_ARITY = Key.create<Range<Int>>("ARGUMENT_ARITY")
         private val PRESENTABLE_TEXT = Key.create<Optional<String>>("PRESENTABLE_TEXT")
         private val STRUCTURE_PRESENTABLE_TEXT = Key.create<Optional<String>>("STRUCTURE_PRESENTABLE_TEXT")
+        private val PARAM_LIST_PRESENTABLE_TEXT = Key.create<String>("PARAM_LIST_PRESENTABLE_TEXT")
         private val FUNCTION_REF_PRESENTABLE_TEXT = Key.create<String>("FUNCTION_REF_PRESENTABLE_TEXT")
 
         private val PARAM_OR_VARIADIC = TokenSet.create(
@@ -73,6 +75,7 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
         clearUserData(ARGUMENT_ARITY)
         clearUserData(PRESENTABLE_TEXT)
         clearUserData(STRUCTURE_PRESENTABLE_TEXT)
+        clearUserData(PARAM_LIST_PRESENTABLE_TEXT)
         clearUserData(FUNCTION_REF_PRESENTABLE_TEXT)
     }
 
@@ -138,11 +141,13 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
     // endregion
     // region XdmFunctionDeclaration (Presentation)
 
-    private val paramList: XPathParamList?
-        get() = children().filterIsInstance<XPathParamList>().firstOrNull()
-
     override val paramListPresentableText: String
-        get() = paramList?.presentation?.presentableText ?: "()"
+        get() = computeUserDataIfAbsent(PARAM_LIST_PRESENTABLE_TEXT) {
+            val params = parameters.mapNotNull { param ->
+                (param as NavigatablePsiElement).presentation?.presentableText
+            }.joinToString()
+            if (variadicType === XpmVariadic.Ellipsis) "($params ...)" else "($params)"
+        }
 
     override val functionRefPresentableText: String?
         get() = computeUserDataIfAbsent(FUNCTION_REF_PRESENTABLE_TEXT) {
@@ -178,11 +183,9 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
 
             val returnType = returnType
             if (returnType == null)
-                Optional.of("${op_qname_presentation(name)}${paramList?.presentation?.presentableText ?: "()"}")
+                Optional.of("${op_qname_presentation(name)}$paramListPresentableText")
             else
-                Optional.of("${op_qname_presentation(name)}${
-                    paramList?.presentation?.presentableText ?: "()"
-                } as ${returnType.typeName}")
+                Optional.of("${op_qname_presentation(name)}$paramListPresentableText as ${returnType.typeName}")
         }.orElse(null)
 
     override fun getPresentableText(type: ItemPresentationEx.Type): String? = when (type) {

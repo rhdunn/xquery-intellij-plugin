@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.util.Key
+import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.TokenSet
 import com.intellij.util.Range
@@ -51,6 +52,7 @@ class XPathInlineFunctionExprPsiImpl(node: ASTNode) :
         private val PARAMETERS = Key.create<List<XpmParameter>>("PARAMETERS")
         private val VARIADIC_TYPE = Key.create<XpmVariadic>("VARIADIC_TYPE")
         private val ARGUMENT_ARITY = Key.create<Range<Int>>("ARGUMENT_ARITY")
+        private val PARAM_LIST_PRESENTABLE_TEXT = Key.create<String>("PARAM_LIST_PRESENTABLE_TEXT")
 
         private val PARAM_OR_VARIADIC = TokenSet.create(
             XPathElementType.PARAM,
@@ -64,6 +66,7 @@ class XPathInlineFunctionExprPsiImpl(node: ASTNode) :
         clearUserData(PARAMETERS)
         clearUserData(VARIADIC_TYPE)
         clearUserData(ARGUMENT_ARITY)
+        clearUserData(PARAM_LIST_PRESENTABLE_TEXT)
     }
 
     // endregion
@@ -147,11 +150,13 @@ class XPathInlineFunctionExprPsiImpl(node: ASTNode) :
     // endregion
     // region XdmFunctionDeclaration (Presentation)
 
-    private val paramList: XPathParamList?
-        get() = children().filterIsInstance<XPathParamList>().firstOrNull()
-
     override val paramListPresentableText: String
-        get() = paramList?.presentation?.presentableText ?: "()"
+        get() = computeUserDataIfAbsent(PARAM_LIST_PRESENTABLE_TEXT) {
+            val params = parameters.mapNotNull { param ->
+                (param as NavigatablePsiElement).presentation?.presentableText
+            }.joinToString()
+            if (variadicType === XpmVariadic.Ellipsis) "($params ...)" else "($params)"
+        }
 
     override val functionRefPresentableText: String? = null
 
