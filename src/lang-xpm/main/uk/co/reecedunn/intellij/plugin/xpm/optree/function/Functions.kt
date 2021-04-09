@@ -45,12 +45,19 @@ fun XpmFunctionCall.bindTo(parameters: List<XpmParameter>): List<XpmAssignableVa
     val bindings = arrayOfNulls<XpmAssignableVariable>(parameters.size)
     var index = 0
 
+    // region Arrow Expressions
+
+    if (this is XpmArrowFunctionCall) {
+        bindings[0] = XpmBoundParameter(parameters[0], sourceExpression)
+        ++index
+    }
+
+    // endregion
+
     var positionalIndex = -1
-    parameters.forEach { parameter ->
+    (index until parameters.size).forEach { i ->
+        val parameter = parameters[i]
         when {
-            index == 0 && this is XpmArrowFunctionCall /* arrow expression initial argument */ -> {
-                bindings[index++] = XpmBoundParameter(parameter, sourceExpression)
-            }
             index == parameters.size - 1 /* last parameter */ -> {
                 positionalIndex += 1
                 val remaining = positionalArguments.size - positionalIndex
