@@ -19,6 +19,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.impl.XpmConcatenatingExpressionImpl
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.impl.XpmEmptyExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.impl.XpmBoundParameter
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.impl.XpmMissingArgument
 import uk.co.reecedunn.intellij.plugin.xpm.optree.item.keyName
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmAssignableVariable
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmParameter
@@ -88,11 +89,13 @@ fun XpmFunctionCall.bindTo(parameters: List<XpmParameter>): List<XpmAssignableVa
     }
 
     // endregion
-    // region Default Arguments
+    // region Default and Missing Arguments
 
     parameters.withIndex().filter { bindings[it.index] == null }.forEach { (i, parameter) ->
         if (i == parameters.size - 1) {
             bindings[i] = XpmBoundParameter(parameter, XpmEmptyExpression)
+        } else {
+            bindings[i] = XpmBoundParameter(parameter, XpmMissingArgument)
         }
     }
 

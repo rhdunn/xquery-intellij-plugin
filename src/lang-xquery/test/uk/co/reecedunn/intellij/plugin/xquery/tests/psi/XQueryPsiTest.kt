@@ -59,6 +59,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmAnnotated
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.*
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.impl.XpmEmptyExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.*
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.impl.XpmMissingArgument
 import uk.co.reecedunn.intellij.plugin.xpm.optree.item.XpmArrayExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.item.XpmMapExpression
@@ -3141,6 +3142,26 @@ private class XQueryPsiTest : ParserTestCase() {
                     }
 
                     @Test
+                    @DisplayName("keyword argument not matching any parameter names")
+                    fun keywordArgumentNotMatchingAnyParameterNames() {
+                        val f = parse<XPathFunctionCall>("math:pow(y: 2, z: 8)")[0]
+                        val (decl, bindings) = f.resolve!!
+
+                        assertThat(op_qname_presentation(decl.functionName!!), `is`("math:pow"))
+                        assertThat(bindings.size, `is`(2))
+
+                        var arg = bindings[0]
+                        assertThat(op_qname_presentation(arg.variableName!!), `is`("x"))
+                        assertThat(arg.variableType?.typeName, `is`("xs:double?"))
+                        assertThat(arg.variableExpression, sameInstance(XpmMissingArgument))
+
+                        arg = bindings[1]
+                        assertThat(op_qname_presentation(arg.variableName!!), `is`("y"))
+                        assertThat(arg.variableType?.typeName, `is`("xs:numeric"))
+                        assertThat(arg.variableExpression, sameInstance(f.keywordArguments[0].valueExpression))
+                    }
+
+                    @Test
                     @DisplayName("empty arguments")
                     fun emptyArguments() {
                         val f = parse<XPathFunctionCall>("fn:true()")[0]
@@ -3256,6 +3277,43 @@ private class XQueryPsiTest : ParserTestCase() {
                         assertThat(op_qname_presentation(arg.variableName!!), `is`("calendar"))
                         assertThat(arg.variableType?.typeName, `is`("xs:string?"))
                         assertThat(arg.variableExpression, sameInstance(f.keywordArguments[0].valueExpression))
+
+                        arg = bindings[4]
+                        assertThat(op_qname_presentation(arg.variableName!!), `is`("place"))
+                        assertThat(arg.variableType?.typeName, `is`("xs:string?"))
+                        assertThat(arg.variableExpression, sameInstance(f.keywordArguments[3].valueExpression))
+                    }
+
+                    @Test
+                    @DisplayName("keyword argument not matching any parameter names")
+                    fun keywordArgumentNotMatchingAnyParameterNames() {
+                        val f = parse<PluginArrowFunctionCall>(
+                            "\$x => format-date(calender: 1, language: 2, picture: 3,  place: 4)"
+                        )[0]
+                        val (decl, bindings) = f.resolve!!
+
+                        assertThat(op_qname_presentation(decl.functionName!!), `is`("fn:format-date"))
+                        assertThat(bindings.size, `is`(5))
+
+                        var arg = bindings[0]
+                        assertThat(op_qname_presentation(arg.variableName!!), `is`("value"))
+                        assertThat(arg.variableType?.typeName, `is`("xs:date?"))
+                        assertThat(arg.variableExpression, sameInstance(f.sourceExpression))
+
+                        arg = bindings[1]
+                        assertThat(op_qname_presentation(arg.variableName!!), `is`("picture"))
+                        assertThat(arg.variableType?.typeName, `is`("xs:string"))
+                        assertThat(arg.variableExpression, sameInstance(f.keywordArguments[2].valueExpression))
+
+                        arg = bindings[2]
+                        assertThat(op_qname_presentation(arg.variableName!!), `is`("language"))
+                        assertThat(arg.variableType?.typeName, `is`("xs:string?"))
+                        assertThat(arg.variableExpression, sameInstance(f.keywordArguments[1].valueExpression))
+
+                        arg = bindings[3]
+                        assertThat(op_qname_presentation(arg.variableName!!), `is`("calendar"))
+                        assertThat(arg.variableType?.typeName, `is`("xs:string?"))
+                        assertThat(arg.variableExpression, sameInstance(XpmMissingArgument))
 
                         arg = bindings[4]
                         assertThat(op_qname_presentation(arg.variableName!!), `is`("place"))
