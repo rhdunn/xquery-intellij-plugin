@@ -80,7 +80,7 @@ class XPathParamListPsiImpl(node: ASTNode) :
     private val params: List<XpmParameter>
         get() = children().filterIsInstance<XPathParam>().toList()
 
-    override val variadicType: XpmVariadic
+    private val variadicType: XpmVariadic
         get() = when (conformanceElement.elementType) {
             XPathTokenType.ELLIPSIS -> XpmVariadic.Ellipsis
             else -> XpmVariadic.No

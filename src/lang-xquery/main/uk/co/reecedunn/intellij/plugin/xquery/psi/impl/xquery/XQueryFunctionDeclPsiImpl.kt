@@ -19,17 +19,23 @@ import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.util.Key
 import com.intellij.psi.PsiElement
+import com.intellij.psi.tree.TokenSet
 import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationEx
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.core.sequences.reverse
 import uk.co.reecedunn.intellij.plugin.xpath.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParam
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.blockOpen
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.isEmptyEnclosedExpr
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathParamListPsiImpl
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmVariadic
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
@@ -47,16 +53,23 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
     XpmSyntaxValidationElement {
     companion object {
         private val PARAMETERS = Key.create<List<XpmParameter>>("PARAMETERS")
+        private val VARIADIC_TYPE = Key.create<XpmVariadic>("VARIADIC_TYPE")
         private val ARGUMENT_ARITY = Key.create<Range<Int>>("ARGUMENT_ARITY")
         private val PRESENTABLE_TEXT = Key.create<Optional<String>>("PRESENTABLE_TEXT")
         private val STRUCTURE_PRESENTABLE_TEXT = Key.create<Optional<String>>("STRUCTURE_PRESENTABLE_TEXT")
         private val FUNCTION_REF_PRESENTABLE_TEXT = Key.create<String>("FUNCTION_REF_PRESENTABLE_TEXT")
+
+        private val PARAM_OR_VARIADIC = TokenSet.create(
+            XPathElementType.PARAM,
+            XPathTokenType.ELLIPSIS
+        )
     }
     // region ASTDelegatePsiElement
 
     override fun subtreeChanged() {
         super.subtreeChanged()
         clearUserData(PARAMETERS)
+        clearUserData(VARIADIC_TYPE)
         clearUserData(ARGUMENT_ARITY)
         clearUserData(PRESENTABLE_TEXT)
         clearUserData(STRUCTURE_PRESENTABLE_TEXT)
@@ -87,8 +100,20 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
     // endregion
     // region XdmFunctionDeclaration (Variadic Type and Arity)
 
+    private val variadicParameter: PsiElement?
+        get() {
+            val paramList = children().filterIsInstance<XPathParamList>().firstOrNull() ?: return null
+            return reverse(paramList.children()).firstOrNull { e -> PARAM_OR_VARIADIC.contains(e.elementType) }
+        }
+
     override val variadicType: XpmVariadic
-        get() = paramList?.variadicType ?: XpmVariadic.No
+        get() = computeUserDataIfAbsent(VARIADIC_TYPE) {
+            val variadicParameter = variadicParameter
+            when (variadicParameter.elementType) {
+                XPathTokenType.ELLIPSIS -> XpmVariadic.Ellipsis
+                else -> XpmVariadic.No
+            }
+        }
 
     private val declaredArity: Int
         get() = parameters.size

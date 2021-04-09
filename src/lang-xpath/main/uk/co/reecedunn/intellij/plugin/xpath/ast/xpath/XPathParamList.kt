@@ -23,6 +23,4 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmParameter
 /**
  * An XPath 3.0 and XQuery 1.0 `ParamList` node in the XQuery AST.
  */
-interface XPathParamList : NavigatablePsiElement {
-    val variadicType: XpmVariadic
-}
+interface XPathParamList : NavigatablePsiElement
