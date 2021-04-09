@@ -28,8 +28,10 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParam
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.blockOpen
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.isEmptyEnclosedExpr
+import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathInlineFunctionExprPsiImpl
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmVariadic
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
@@ -46,6 +48,7 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
     ItemPresentationEx,
     XpmSyntaxValidationElement {
     companion object {
+        private val PARAMETERS = Key.create<List<XpmParameter>>("PARAMETERS")
         private val PRESENTABLE_TEXT = Key.create<Optional<String>>("PRESENTABLE_TEXT")
         private val STRUCTURE_PRESENTABLE_TEXT = Key.create<Optional<String>>("STRUCTURE_PRESENTABLE_TEXT")
         private val FUNCTION_REF_PRESENTABLE_TEXT = Key.create<String>("FUNCTION_REF_PRESENTABLE_TEXT")
@@ -54,6 +57,7 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
 
     override fun subtreeChanged() {
         super.subtreeChanged()
+        clearUserData(PARAMETERS)
         clearUserData(PRESENTABLE_TEXT)
         clearUserData(STRUCTURE_PRESENTABLE_TEXT)
         clearUserData(FUNCTION_REF_PRESENTABLE_TEXT)
@@ -75,7 +79,10 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
         get() = children().filterIsInstance<XdmSequenceType>().firstOrNull()
 
     override val parameters: List<XpmParameter>
-        get() = paramList?.params ?: emptyList()
+        get() = computeUserDataIfAbsent(PARAMETERS) {
+            val paramList = children().filterIsInstance<XPathParamList>().firstOrNull()
+            paramList?.children()?.filterIsInstance<XPathParam>()?.toList() ?: emptyList()
+        }
 
     override val paramListPresentation: ItemPresentation?
         get() = paramList?.presentation

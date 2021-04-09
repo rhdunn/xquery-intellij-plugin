@@ -15,11 +15,12 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
+import com.intellij.openapi.util.Key
 import com.intellij.psi.PsiElement
 import com.intellij.util.Range
+import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
@@ -29,6 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParamList
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParam
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.blockOpen
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.isEmptyEnclosedExpr
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
@@ -42,6 +44,17 @@ class XPathInlineFunctionExprPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XPathInlineFunctionExpr,
     XpmSyntaxValidationElement {
+    companion object {
+        private val PARAMETERS = Key.create<List<XpmParameter>>("PARAMETERS")
+    }
+    // region PsiElement
+
+    override fun subtreeChanged() {
+        super.subtreeChanged()
+        clearUserData(PARAMETERS)
+    }
+
+    // endregion
     // region XpmSyntaxValidationElement
 
     override val conformanceElement: PsiElement
@@ -79,7 +92,10 @@ class XPathInlineFunctionExprPsiImpl(node: ASTNode) :
         get() = children().filterIsInstance<XdmSequenceType>().firstOrNull()
 
     override val parameters: List<XpmParameter>
-        get() = paramList?.params ?: emptyList()
+        get() = computeUserDataIfAbsent(PARAMETERS) {
+            val paramList = children().filterIsInstance<XPathParamList>().firstOrNull()
+            paramList?.children()?.filterIsInstance<XPathParam>()?.toList() ?: emptyList()
+        }
 
     override val paramListPresentation: ItemPresentation?
         get() = paramList?.presentation
