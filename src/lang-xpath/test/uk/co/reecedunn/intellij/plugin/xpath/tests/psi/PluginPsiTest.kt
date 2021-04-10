@@ -401,24 +401,6 @@ private class PluginPsiTest : ParserTestCase() {
         @Nested
         @DisplayName("XQuery IntelliJ Plugin XPath (3.6.1) Inline Function Expressions")
         internal inner class InlineFunctionExpressions {
-            @Nested
-            @DisplayName("XQuery 3.1 EBNF (169) InlineFunctionExpr ; XQuery IntelliJ Plugin XPath EBNF (22) ParamList")
-            internal inner class InlineFunctionExpr {
-                @Test
-                @DisplayName("variadic")
-                fun variadic() {
-                    val decl = parse<XpmFunctionDeclaration>("function (\$one, \$two ...) {}")[0]
-                    assertThat(decl.functionName, `is`(nullValue()))
-                    assertThat(decl.returnType, `is`(nullValue()))
-                    assertThat(decl.argumentArity, `is`(Range(1, Int.MAX_VALUE)))
-                    assertThat(decl.variadicType, `is`(XpmVariadic.Ellipsis))
-
-                    assertThat(decl.parameters.size, `is`(2))
-                    assertThat(op_qname_presentation(decl.parameters[0].variableName!!), `is`("one"))
-                    assertThat(op_qname_presentation(decl.parameters[1].variableName!!), `is`("two"))
-                }
-            }
-
             @Test
             @DisplayName("XQuery IntelliJ Plugin XPath EBNF (24) ContextItemFunctionExpr")
             fun contextItemFunctionExpr() {

@@ -2836,6 +2836,70 @@ private class XQueryPsiTest : ParserTestCase() {
         @DisplayName("XQuery 4.0 ED (4.4) Functions ; XQuery 3.1 (3.1) Primary Expressions")
         internal inner class Functions {
             @Nested
+            @DisplayName("XQuery 4.0 ED (4.4.1) Static Functions ; XQuery 3.1 (3.1.5) Static Function Calls")
+            internal inner class StaticFunctions {
+                @Nested
+                @DisplayName("%variadic(\"no\"); empty parameters")
+                internal inner class VariadicNo_EmptyParameters {
+                    @Test
+                    @DisplayName("XQuery 3.1 EBNF (32) FunctionDecl")
+                    fun functionDecl() {
+                        val decl = parse<XpmFunctionDeclaration>("declare function fn:true() external;")[0]
+                        assertThat(decl.variadicType, `is`(XpmVariadic.No))
+                        assertThat(decl.argumentArity, `is`(Range(0, 0)))
+                    }
+
+                    @Test
+                    @DisplayName("XQuery 3.1 EBNF (169) InlineFunctionExpr")
+                    fun inlineFunctionExpr() {
+                        val decl = parse<XpmFunctionDeclaration>("function () {}")[0]
+                        assertThat(decl.variadicType, `is`(XpmVariadic.No))
+                        assertThat(decl.argumentArity, `is`(Range(0, 0)))
+                    }
+                }
+
+                @Nested
+                @DisplayName("%variadic(\"no\"); multiple parameters")
+                internal inner class VariadicNo_MultipleParameters {
+                    @Test
+                    @DisplayName("XQuery 3.1 EBNF (32) FunctionDecl")
+                    fun functionDecl() {
+                        val decl = parse<XpmFunctionDeclaration>("declare function test(\$one, \$two) external;")[0]
+                        assertThat(decl.variadicType, `is`(XpmVariadic.No))
+                        assertThat(decl.argumentArity, `is`(Range(2, 2)))
+                    }
+
+                    @Test
+                    @DisplayName("XQuery 3.1 EBNF (169) InlineFunctionExpr")
+                    fun inlineFunctionExpr() {
+                        val decl = parse<XpmFunctionDeclaration>("function (\$one, \$two) {}")[0]
+                        assertThat(decl.variadicType, `is`(XpmVariadic.No))
+                        assertThat(decl.argumentArity, `is`(Range(2, 2)))
+                    }
+                }
+
+                @Nested
+                @DisplayName("%variadic(\"sequence\"); ellipsis")
+                internal inner class VariadicSequence_Ellipsis {
+                    @Test
+                    @DisplayName("XQuery 3.1 EBNF (32) FunctionDecl")
+                    fun functionDecl() {
+                        val decl = parse<XpmFunctionDeclaration>("declare function test(\$one, \$two ...) external;")[0]
+                        assertThat(decl.variadicType, `is`(XpmVariadic.Ellipsis))
+                        assertThat(decl.argumentArity, `is`(Range(1, Int.MAX_VALUE)))
+                    }
+
+                    @Test
+                    @DisplayName("XQuery 3.1 EBNF (169) InlineFunctionExpr")
+                    fun inlineFunctionExpr() {
+                        val decl = parse<XpmFunctionDeclaration>("function (\$one, \$two ...) {}")[0]
+                        assertThat(decl.variadicType, `is`(XpmVariadic.Ellipsis))
+                        assertThat(decl.argumentArity, `is`(Range(1, Int.MAX_VALUE)))
+                    }
+                }
+            }
+
+            @Nested
             @DisplayName("XQuery 4.0 ED (4.4.1.1) Static Function Call Syntax ; XQuery 3.1 (3.1.5) Static Function Calls")
             internal inner class StaticFunctionCallSyntax {
                 @Nested
@@ -3625,9 +3689,7 @@ private class XQueryPsiTest : ParserTestCase() {
                         val decl = parse<XpmFunctionDeclaration>("function () {}")[0]
                         assertThat(decl.functionName, `is`(nullValue()))
                         assertThat(decl.returnType, `is`(nullValue()))
-                        assertThat(decl.argumentArity, `is`(Range(0, 0)))
                         assertThat(decl.parameters.size, `is`(0))
-                        assertThat(decl.variadicType, `is`(XpmVariadic.No))
                         assertThat(decl.functionBody, sameInstance(XpmEmptyExpression))
 
                         val expr = decl as XpmExpression
@@ -3640,8 +3702,6 @@ private class XQueryPsiTest : ParserTestCase() {
                         val decl = parse<XpmFunctionDeclaration>("function (\$one, \$two) {}")[0]
                         assertThat(decl.functionName, `is`(nullValue()))
                         assertThat(decl.returnType, `is`(nullValue()))
-                        assertThat(decl.argumentArity, `is`(Range(2, 2)))
-                        assertThat(decl.variadicType, `is`(XpmVariadic.No))
                         assertThat(decl.functionBody, sameInstance(XpmEmptyExpression))
 
                         assertThat(decl.parameters.size, `is`(2))
@@ -3660,8 +3720,6 @@ private class XQueryPsiTest : ParserTestCase() {
                         )[0]
                         assertThat(decl.functionName, `is`(nullValue()))
                         assertThat(decl.returnType, `is`(nullValue()))
-                        assertThat(decl.argumentArity, `is`(Range(2, 2)))
-                        assertThat(decl.variadicType, `is`(XpmVariadic.No))
                         assertThat(decl.functionBody, sameInstance(XpmEmptyExpression))
 
                         assertThat(decl.parameters.size, `is`(2))
@@ -3678,9 +3736,7 @@ private class XQueryPsiTest : ParserTestCase() {
                         val decl = parse<XpmFunctionDeclaration>("function ()  as  xs:boolean  {}")[0]
                         assertThat(decl.functionName, `is`(nullValue()))
                         assertThat(decl.returnType?.typeName, `is`("xs:boolean"))
-                        assertThat(decl.argumentArity, `is`(Range(0, 0)))
                         assertThat(decl.parameters.size, `is`(0))
-                        assertThat(decl.variadicType, `is`(XpmVariadic.No))
                         assertThat(decl.functionBody, sameInstance(XpmEmptyExpression))
 
                         val expr = decl as XpmExpression
@@ -3693,9 +3749,7 @@ private class XQueryPsiTest : ParserTestCase() {
                         val decl = parse<XpmFunctionDeclaration>("function () { 2 + 3 }")[0]
                         assertThat(decl.functionName, `is`(nullValue()))
                         assertThat(decl.returnType, `is`(nullValue()))
-                        assertThat(decl.argumentArity, `is`(Range(0, 0)))
                         assertThat(decl.parameters.size, `is`(0))
-                        assertThat(decl.variadicType, `is`(XpmVariadic.No))
                         assertThat(decl.functionBody?.text, `is`("2 + 3 "))
 
                         val expr = decl as XpmExpression
@@ -9176,9 +9230,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 fun emptyParamList() {
                     val decl = parse<XpmFunctionDeclaration>("declare function fn:true() external;")[0]
                     assertThat(decl.returnType, `is`(nullValue()))
-                    assertThat(decl.argumentArity, `is`(Range(0, 0)))
                     assertThat(decl.parameters.size, `is`(0))
-                    assertThat(decl.variadicType, `is`(XpmVariadic.No))
                     assertThat(decl.functionBody, `is`(nullValue()))
 
                     val qname = decl.functionName!!
@@ -9202,8 +9254,6 @@ private class XQueryPsiTest : ParserTestCase() {
                 fun nonEmptyParamList() {
                     val decl = parse<XpmFunctionDeclaration>("declare function test(\$one, \$two) external;")[0]
                     assertThat(decl.returnType, `is`(nullValue()))
-                    assertThat(decl.argumentArity, `is`(Range(2, 2)))
-                    assertThat(decl.variadicType, `is`(XpmVariadic.No))
                     assertThat(decl.functionBody, `is`(nullValue()))
 
                     assertThat(decl.parameters.size, `is`(2))
@@ -9231,8 +9281,6 @@ private class XQueryPsiTest : ParserTestCase() {
                 fun nonEmptyParamListWithTypes() {
                     val decl = parse<XpmFunctionDeclaration>("declare function test(\$one  as  array ( * ), \$two  as  node((::))) external;")[0]
                     assertThat(decl.returnType, `is`(nullValue()))
-                    assertThat(decl.argumentArity, `is`(Range(2, 2)))
-                    assertThat(decl.variadicType, `is`(XpmVariadic.No))
                     assertThat(decl.functionBody, `is`(nullValue()))
 
                     assertThat(decl.parameters.size, `is`(2))
@@ -9260,9 +9308,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 fun returnType() {
                     val decl = parse<XpmFunctionDeclaration>("declare function fn:true()  as  xs:boolean  external;")[0]
                     assertThat(decl.returnType?.typeName, `is`("xs:boolean"))
-                    assertThat(decl.argumentArity, `is`(Range(0, 0)))
                     assertThat(decl.parameters.size, `is`(0))
-                    assertThat(decl.variadicType, `is`(XpmVariadic.No))
                     assertThat(decl.functionBody, `is`(nullValue()))
 
                     val qname = decl.functionName!!
@@ -9286,9 +9332,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 fun invalidEQName() {
                     val decl = parse<XpmFunctionDeclaration>("declare function :true() external;")[0]
                     assertThat(decl.returnType, `is`(nullValue()))
-                    assertThat(decl.argumentArity, `is`(Range(0, 0)))
                     assertThat(decl.functionName, `is`(nullValue()))
-                    assertThat(decl.variadicType, `is`(XpmVariadic.No))
                     assertThat(decl.functionBody, `is`(nullValue()))
 
                     assertThat(decl.parameters.size, `is`(0))
@@ -9310,9 +9354,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     // e.g. MarkLogic's roxy framework has template files declaring 'c:#function-name'.
                     val decl = parse<XpmFunctionDeclaration>("declare function fn:() external;")[0]
                     assertThat(decl.returnType, `is`(nullValue()))
-                    assertThat(decl.argumentArity, `is`(Range(0, 0)))
                     assertThat(decl.parameters.size, `is`(0))
-                    assertThat(decl.variadicType, `is`(XpmVariadic.No))
                     assertThat(decl.functionBody, `is`(nullValue()))
 
                     val qname = decl.functionName!!
@@ -9336,9 +9378,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 fun emptyFunctionBody() {
                     val decl = parse<XpmFunctionDeclaration>("declare function fn:true() {};")[0]
                     assertThat(decl.returnType, `is`(nullValue()))
-                    assertThat(decl.argumentArity, `is`(Range(0, 0)))
                     assertThat(decl.parameters.size, `is`(0))
-                    assertThat(decl.variadicType, `is`(XpmVariadic.No))
                     assertThat(decl.functionBody, sameInstance(XpmEmptyExpression))
 
                     val qname = decl.functionName!!
@@ -9362,9 +9402,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 fun functionBodyExpression() {
                     val decl = parse<XpmFunctionDeclaration>("declare function fn:true() { \"1\" cast as xs:boolean };")[0]
                     assertThat(decl.returnType, `is`(nullValue()))
-                    assertThat(decl.argumentArity, `is`(Range(0, 0)))
                     assertThat(decl.parameters.size, `is`(0))
-                    assertThat(decl.variadicType, `is`(XpmVariadic.No))
                     assertThat(decl.functionBody?.text, `is`("\"1\" cast as xs:boolean "))
 
                     val qname = decl.functionName!!
