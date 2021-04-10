@@ -63,11 +63,7 @@ class XPathParameterInfoHandler : ParameterInfoHandler<XPathArgumentList, XpmFun
         val parameters = p.parameters
         if (parameters.isNotEmpty()) {
             val functionCall = context.parameterOwner.parent as XpmFunctionCall
-            val argument = when {
-                context.currentParameterIndex < 0 -> null
-                context.currentParameterIndex >= p.argumentArity.to -> null
-                else -> functionCall.argumentAt(context.currentParameterIndex)
-            }
+            val argument = functionCall.argumentAt(context.currentParameterIndex)
 
             val text = StringBuffer()
             val variadicType = p.variadicType

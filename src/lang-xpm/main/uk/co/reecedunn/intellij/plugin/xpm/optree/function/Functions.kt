@@ -111,6 +111,7 @@ fun XpmFunctionCall.argumentAt(index: Int): XpmExpression? {
     val p = positionalArguments.size
     val k = keywordArguments.size
     return when {
+        index < 0 -> null
         index == 0 && arrowOffset == 1 -> (this as XpmArrowFunctionCall).sourceExpression
         index < (p + arrowOffset) -> positionalArguments[index - arrowOffset]
         index < (p + k + arrowOffset) -> keywordArguments[index - arrowOffset - p].valueExpression
