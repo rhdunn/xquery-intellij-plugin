@@ -50,7 +50,6 @@ class XPathInlineFunctionExprPsiImpl(node: ASTNode) :
     companion object {
         private val PARAMETERS = Key.create<List<XpmParameter>>("PARAMETERS")
         private val VARIADIC_TYPE = Key.create<XpmVariadic>("VARIADIC_TYPE")
-        private val ARGUMENT_ARITY = Key.create<Range<Int>>("ARGUMENT_ARITY")
         private val PARAM_LIST_PRESENTABLE_TEXT = Key.create<String>("PARAM_LIST_PRESENTABLE_TEXT")
 
         private val PARAM_OR_VARIADIC = TokenSet.create(
@@ -64,7 +63,6 @@ class XPathInlineFunctionExprPsiImpl(node: ASTNode) :
         super.subtreeChanged()
         clearUserData(PARAMETERS)
         clearUserData(VARIADIC_TYPE)
-        clearUserData(ARGUMENT_ARITY)
         clearUserData(PARAM_LIST_PRESENTABLE_TEXT)
     }
 
@@ -133,14 +131,6 @@ class XPathInlineFunctionExprPsiImpl(node: ASTNode) :
 
     override val requiredArity: Int
         get() = declaredArity - defaultArgumentCount
-
-    override val argumentArity: Range<Int>
-        get() = computeUserDataIfAbsent(ARGUMENT_ARITY) {
-            when (variadicType) {
-                XpmVariadic.No -> Range(requiredArity, declaredArity)
-                else -> Range(requiredArity, Int.MAX_VALUE)
-            }
-        }
 
     // endregion
     // region XdmFunctionDeclaration (Presentation)

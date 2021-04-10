@@ -53,7 +53,6 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
     companion object {
         private val PARAMETERS = Key.create<List<XpmParameter>>("PARAMETERS")
         private val VARIADIC_TYPE = Key.create<XpmVariadic>("VARIADIC_TYPE")
-        private val ARGUMENT_ARITY = Key.create<Range<Int>>("ARGUMENT_ARITY")
         private val PRESENTABLE_TEXT = Key.create<Optional<String>>("PRESENTABLE_TEXT")
         private val STRUCTURE_PRESENTABLE_TEXT = Key.create<Optional<String>>("STRUCTURE_PRESENTABLE_TEXT")
         private val PARAM_LIST_PRESENTABLE_TEXT = Key.create<String>("PARAM_LIST_PRESENTABLE_TEXT")
@@ -70,7 +69,6 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
         super.subtreeChanged()
         clearUserData(PARAMETERS)
         clearUserData(VARIADIC_TYPE)
-        clearUserData(ARGUMENT_ARITY)
         clearUserData(PRESENTABLE_TEXT)
         clearUserData(STRUCTURE_PRESENTABLE_TEXT)
         clearUserData(PARAM_LIST_PRESENTABLE_TEXT)
@@ -123,14 +121,6 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
 
     override val requiredArity: Int
         get() = declaredArity - defaultArgumentCount
-
-    override val argumentArity: Range<Int>
-        get() = computeUserDataIfAbsent(ARGUMENT_ARITY) {
-            when (variadicType) {
-                XpmVariadic.No -> Range(requiredArity, declaredArity)
-                else -> Range(requiredArity, Int.MAX_VALUE)
-            }
-        }
 
     // endregion
     // region XdmFunctionDeclaration (Presentation)

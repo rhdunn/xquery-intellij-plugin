@@ -16,7 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.xpm.optree.function
 
 import com.intellij.navigation.ItemPresentation
-import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmAnnotated
@@ -25,9 +24,6 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmParameter
 
 interface XpmFunctionDeclaration : XpmAnnotated {
-    companion object {
-        val ARITY_ZERO: Range<Int> = Range(0, 0)
-    }
     // region Data Model
 
     val functionName: XsQNameValue?
@@ -42,8 +38,6 @@ interface XpmFunctionDeclaration : XpmAnnotated {
     // region Variadic Type and Arity
 
     val variadicType: XpmVariadic
-
-    val argumentArity: Range<Int>
 
     val declaredArity: Int
 
