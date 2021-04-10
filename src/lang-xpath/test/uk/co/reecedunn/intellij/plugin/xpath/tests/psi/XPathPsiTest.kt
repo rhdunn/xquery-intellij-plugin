@@ -2420,6 +2420,8 @@ private class XPathPsiTest : ParserTestCase() {
                         val decl = parse<XpmFunctionDeclaration>("function () {}")[0]
                         assertThat(decl.variadicType, `is`(XpmVariadic.No))
                         assertThat(decl.argumentArity, `is`(Range(0, 0)))
+                        assertThat(decl.declaredArity, `is`(0))
+                        assertThat(decl.requiredArity, `is`(0))
                     }
                 }
 
@@ -2432,6 +2434,8 @@ private class XPathPsiTest : ParserTestCase() {
                         val decl = parse<XpmFunctionDeclaration>("function (\$one, \$two) {}")[0]
                         assertThat(decl.variadicType, `is`(XpmVariadic.No))
                         assertThat(decl.argumentArity, `is`(Range(2, 2)))
+                        assertThat(decl.declaredArity, `is`(2))
+                        assertThat(decl.requiredArity, `is`(2))
                     }
                 }
 
@@ -2444,6 +2448,8 @@ private class XPathPsiTest : ParserTestCase() {
                         val decl = parse<XpmFunctionDeclaration>("function (\$one, \$two ...) {}")[0]
                         assertThat(decl.variadicType, `is`(XpmVariadic.Ellipsis))
                         assertThat(decl.argumentArity, `is`(Range(1, Int.MAX_VALUE)))
+                        assertThat(decl.declaredArity, `is`(2))
+                        assertThat(decl.requiredArity, `is`(1))
                     }
                 }
             }

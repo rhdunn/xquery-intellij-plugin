@@ -112,7 +112,7 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
             }
         }
 
-    private val declaredArity: Int
+    override val declaredArity: Int
         get() = parameters.size
 
     private val defaultArgumentCount: Int
@@ -121,7 +121,7 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
             else -> 0
         }
 
-    private val requiredArity: Int
+    override val requiredArity: Int
         get() = declaredArity - defaultArgumentCount
 
     override val argumentArity: Range<Int>

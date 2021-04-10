@@ -45,6 +45,10 @@ interface XpmFunctionDeclaration : XpmAnnotated {
 
     val argumentArity: Range<Int>
 
+    val declaredArity: Int
+
+    val requiredArity: Int
+
     // endregion
     // region Presentation
 
