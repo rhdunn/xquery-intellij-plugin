@@ -112,7 +112,7 @@ class XPathParameterInfoHandler : ParameterInfoHandler<XPathArgumentList, XpmFun
             is XpmFunctionCall -> parent.functionReference?.functionName
             else -> null
         }
-        return functionName?.staticallyKnownFunctions()?.sortedBy { it.argumentArity.from }?.distinct() ?: emptySequence()
+        return functionName?.staticallyKnownFunctions()?.sortedBy { it.declaredArity }?.distinct() ?: emptySequence()
     }
 
     companion object {
