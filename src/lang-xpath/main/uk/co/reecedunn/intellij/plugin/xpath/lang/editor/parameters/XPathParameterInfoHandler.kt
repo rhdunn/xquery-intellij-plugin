@@ -34,7 +34,7 @@ class XPathParameterInfoHandler : ParameterInfoHandler<XPathArgumentList, XpmFun
         val e = context.file.findElementAt(context.offset)
         val args = e?.ancestors()?.filterIsInstance<XPathArgumentList>()?.firstOrNull()
         context.itemsToShow = functionCandidates(args).filter {
-            if (it.argumentArity.from == 0 && it.argumentArity.to == 0)
+            if (it.declaredArity == 0)
                 args?.parent !is XpmArrowFunctionCall
             else
                 true
