@@ -35,9 +35,7 @@ val XpmFunctionCall.functionReference: XpmFunctionReference?
 val XpmFunctionCall.functionDeclaration: XpmFunctionDeclaration?
     get() {
         val ref = functionReference
-        return ref?.functionName?.staticallyKnownFunctions()?.firstOrNull { f ->
-            f.argumentArity.isWithin(ref.positionalArity + ref.keywordArity)
-        }
+        return ref?.functionName?.staticallyKnownFunctions()?.firstOrNull { f -> f.acceptsArity(ref) }
     }
 
 val XpmFunctionCall.resolve: Pair<XpmFunctionDeclaration, List<XpmAssignableVariable>>?
@@ -117,4 +115,8 @@ fun XpmFunctionCall.argumentAt(index: Int): XpmExpression? {
         index < (p + k + arrowOffset) -> keywordArguments[index - arrowOffset - p].valueExpression
         else -> null
     }
+}
+
+fun XpmFunctionDeclaration.acceptsArity(ref: XpmFunctionReference): Boolean {
+    return argumentArity.isWithin(ref.positionalArity + ref.keywordArity)
 }

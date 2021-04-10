@@ -21,16 +21,15 @@ import com.intellij.psi.PsiNamedElement
 import com.intellij.psi.PsiReferenceBase
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.acceptsArity
 import uk.co.reecedunn.intellij.plugin.xpm.staticallyKnownFunctions
 
 class XPathFunctionNameReference(element: XPathEQName, range: TextRange) :
     PsiReferenceBase<XPathEQName>(element, range) {
 
     override fun resolve(): PsiElement? {
-        val arity = (element.parent as? XpmFunctionReference)?.let { it.positionalArity + it.keywordArity } ?: -1
-        return element.staticallyKnownFunctions().firstOrNull { f ->
-            f.argumentArity.isWithin(arity)
-        }?.functionName as? PsiElement
+        val ref = element.parent as XpmFunctionReference
+        return element.staticallyKnownFunctions().firstOrNull { f -> f.acceptsArity(ref) }?.functionName as? PsiElement
     }
 
     override fun getVariants(): Array<Any> = arrayOf()
