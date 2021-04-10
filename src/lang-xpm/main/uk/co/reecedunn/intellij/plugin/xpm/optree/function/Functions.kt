@@ -36,7 +36,7 @@ val XpmFunctionCall.functionDeclaration: XpmFunctionDeclaration?
     get() {
         val ref = functionReference
         return ref?.functionName?.staticallyKnownFunctions()?.firstOrNull { f ->
-            f.argumentArity.isWithin(ref.arity)
+            f.argumentArity.isWithin(ref.positionalArity)
         }
     }
 

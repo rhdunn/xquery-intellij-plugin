@@ -27,7 +27,7 @@ class XPathFunctionNameReference(element: XPathEQName, range: TextRange) :
     PsiReferenceBase<XPathEQName>(element, range) {
 
     override fun resolve(): PsiElement? {
-        val arity = (element.parent as? XpmFunctionReference)?.arity ?: -1
+        val arity = (element.parent as? XpmFunctionReference)?.positionalArity ?: -1
         return element.staticallyKnownFunctions().firstOrNull { f ->
             f.argumentArity.isWithin(arity)
         }?.functionName as? PsiElement

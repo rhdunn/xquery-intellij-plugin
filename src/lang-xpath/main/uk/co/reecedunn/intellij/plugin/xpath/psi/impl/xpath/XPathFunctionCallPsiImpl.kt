@@ -58,7 +58,7 @@ class XPathFunctionCallPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPat
     override val functionName: XsQNameValue?
         get() = firstChild as? XsQNameValue
 
-    override val arity: Int
+    override val positionalArity: Int
         get() = positionalArguments.size + keywordArguments.size
 
     // endregion

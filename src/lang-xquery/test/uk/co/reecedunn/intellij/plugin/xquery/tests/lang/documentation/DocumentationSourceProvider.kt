@@ -39,9 +39,9 @@ object DocumentationSourceProvider : XQDocDocumentationSourceProvider, XQDocDocu
                 "[prefix=${it.prefix?.data ?: "(null)"} namespace=${it.namespace?.data ?: "(null)"} localname=${it.localName?.data ?: "(null)"}]"
             } ?: "(null)"
 
-            override val href: String = "function href=${name}#${ref.arity}"
+            override val href: String = "function href=${name}#${ref.positionalArity}"
 
-            override val summary: String = "function summary=${name}#${ref.arity}"
+            override val summary: String = "function summary=${name}#${ref.positionalArity}"
 
             override val notes: String? = null
 

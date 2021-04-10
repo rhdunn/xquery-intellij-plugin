@@ -2947,7 +2947,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                         val ref = f.functionReference!!
                         assertThat(ref, sameInstance(f))
-                        assertThat(ref.arity, `is`(2))
+                        assertThat(ref.positionalArity, `is`(2))
 
                         val qname = ref.functionName!!
                         assertThat(qname.isLexicalQName, `is`(true))
@@ -2975,7 +2975,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                         val ref = f.functionReference!!
                         assertThat(ref, sameInstance(f))
-                        assertThat(ref.arity, `is`(2))
+                        assertThat(ref.positionalArity, `is`(2))
 
                         val qname = ref.functionName!!
                         assertThat(qname.isLexicalQName, `is`(true))
@@ -3004,7 +3004,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                         val ref = f.functionReference!!
                         assertThat(ref, sameInstance(f))
-                        assertThat(ref.arity, `is`(2))
+                        assertThat(ref.positionalArity, `is`(2))
 
                         val qname = ref.functionName!!
                         assertThat(qname.isLexicalQName, `is`(true))
@@ -3035,7 +3035,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                         val ref = f.functionReference!!
                         assertThat(ref, sameInstance(f))
-                        assertThat(ref.arity, `is`(0))
+                        assertThat(ref.positionalArity, `is`(0))
 
                         val qname = ref.functionName!!
                         assertThat(qname.isLexicalQName, `is`(true))
@@ -3060,7 +3060,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                         val ref = f.functionReference!!
                         assertThat(ref, sameInstance(f))
-                        assertThat(ref.arity, `is`(1))
+                        assertThat(ref.positionalArity, `is`(1))
 
                         val qname = ref.functionName!!
                         assertThat(qname.isLexicalQName, `is`(true))
@@ -3087,7 +3087,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                         val ref = f.functionReference!!
                         assertThat(ref, sameInstance(f))
-                        assertThat(ref.arity, `is`(1))
+                        assertThat(ref.positionalArity, `is`(1))
                         assertThat(ref.functionName, `is`(nullValue()))
 
                         assertThat(f.positionalArguments.size, `is`(1))
@@ -3600,7 +3600,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     @DisplayName("named function reference")
                     fun namedFunctionRef() {
                         val f = parse<XPathNamedFunctionRef>("true#3")[0] as XpmFunctionReference
-                        assertThat(f.arity, `is`(3))
+                        assertThat(f.positionalArity, `is`(3))
 
                         val qname = f.functionName!!
                         assertThat(qname.isLexicalQName, `is`(true))
@@ -3618,7 +3618,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     @DisplayName("missing arity")
                     fun missingArity() {
                         val f = parse<XPathNamedFunctionRef>("true#")[0] as XpmFunctionReference
-                        assertThat(f.arity, `is`(0))
+                        assertThat(f.positionalArity, `is`(0))
 
                         val qname = f.functionName!!
                         assertThat(qname.isLexicalQName, `is`(true))
@@ -3636,7 +3636,7 @@ private class XQueryPsiTest : ParserTestCase() {
                     @DisplayName("invalid EQName")
                     fun invalidEQName() {
                         val f = parse<XPathNamedFunctionRef>(":true#0")[0] as XpmFunctionReference
-                        assertThat(f.arity, `is`(0))
+                        assertThat(f.positionalArity, `is`(0))
                         assertThat(f.functionName, `is`(nullValue()))
 
                         val expr = f as XpmExpression
@@ -3907,7 +3907,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                     val ref = f.functionReference
                     assertThat(op_qname_presentation(ref?.functionName!!), `is`("fn:abs"))
-                    assertThat(ref.arity, `is`(1))
+                    assertThat(ref.positionalArity, `is`(1))
                 }
 
                 @Nested
@@ -3922,7 +3922,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                         val ref = f.functionReference
                         assertThat(op_qname_presentation(ref?.functionName!!), `is`("fn:abs"))
-                        assertThat(ref.arity, `is`(1))
+                        assertThat(ref.positionalArity, `is`(1))
                     }
 
                     @Test
@@ -7245,7 +7245,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                     val ref = f.functionReference!!
                     assertThat(ref, sameInstance(f))
-                    assertThat(ref.arity, `is`(5))
+                    assertThat(ref.positionalArity, `is`(5))
 
                     val qname = ref.functionName!!
                     assertThat(qname.isLexicalQName, `is`(true))
@@ -7273,7 +7273,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                     val ref = f.functionReference!!
                     assertThat(ref, sameInstance(f))
-                    assertThat(ref.arity, `is`(5))
+                    assertThat(ref.positionalArity, `is`(5))
 
                     val qname = ref.functionName!!
                     assertThat(qname.isLexicalQName, `is`(true))
@@ -7305,7 +7305,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                     val ref = f.functionReference!!
                     assertThat(ref, sameInstance(f))
-                    assertThat(ref.arity, `is`(5))
+                    assertThat(ref.positionalArity, `is`(5))
 
                     val qname = ref.functionName!!
                     assertThat(qname.isLexicalQName, `is`(true))
@@ -7336,7 +7336,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                     val ref = f.functionReference!!
                     assertThat(ref, sameInstance(f))
-                    assertThat(ref.arity, `is`(1))
+                    assertThat(ref.positionalArity, `is`(1))
 
                     val qname = ref.functionName!!
                     assertThat(qname.isLexicalQName, `is`(true))
@@ -7357,7 +7357,7 @@ private class XQueryPsiTest : ParserTestCase() {
 
                     val ref = f.functionReference!!
                     assertThat(ref, sameInstance(f))
-                    assertThat(ref.arity, `is`(1))
+                    assertThat(ref.positionalArity, `is`(1))
                     assertThat(ref.functionName, `is`(nullValue()))
 
                     assertThat(f.positionalArguments.size, `is`(0))
@@ -7435,7 +7435,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 assertThat(f.sourceExpression?.text, `is`("\$x "))
 
                 val ref = f.functionReference!!
-                assertThat(ref.arity, `is`(5))
+                assertThat(ref.positionalArity, `is`(5))
 
                 val qname = ref.functionName!!
                 assertThat(qname.isLexicalQName, `is`(true))

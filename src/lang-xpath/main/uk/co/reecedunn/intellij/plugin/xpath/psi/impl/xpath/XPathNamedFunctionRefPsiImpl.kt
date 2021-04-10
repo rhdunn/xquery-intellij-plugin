@@ -42,7 +42,7 @@ class XPathNamedFunctionRefPsiImpl(node: ASTNode) :
     override val functionName: XsQNameValue?
         get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
 
-    override val arity: Int
+    override val positionalArity: Int
         get() = (children().filterIsInstance<XPathIntegerLiteral>().firstOrNull() as? XsIntegerValue)?.toInt() ?: 0
 
     // endregion

@@ -20,5 +20,5 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
 
 data class XpmFunctionReferenceImpl(
     override val functionName: XsQNameValue,
-    override val arity: Int
+    override val positionalArity: Int
 ) : XpmFunctionReference
