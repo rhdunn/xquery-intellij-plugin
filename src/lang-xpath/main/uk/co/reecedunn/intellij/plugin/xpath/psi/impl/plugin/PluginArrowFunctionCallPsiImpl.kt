@@ -59,7 +59,10 @@ class PluginArrowFunctionCallPsiImpl(node: ASTNode) :
         get() = firstChild as? XsQNameValue
 
     override val positionalArity: Int
-        get() = positionalArguments.size + keywordArguments.size + 1
+        get() = positionalArguments.size + 1
+
+    override val keywordArity: Int
+        get() = keywordArguments.size
 
     // endregion
     // region XpmFunctionCall

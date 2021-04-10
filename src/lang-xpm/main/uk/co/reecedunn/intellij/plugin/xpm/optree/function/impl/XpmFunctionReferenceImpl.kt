@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,5 +20,6 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
 
 data class XpmFunctionReferenceImpl(
     override val functionName: XsQNameValue,
-    override val positionalArity: Int
+    override val positionalArity: Int,
+    override val keywordArity: Int
 ) : XpmFunctionReference

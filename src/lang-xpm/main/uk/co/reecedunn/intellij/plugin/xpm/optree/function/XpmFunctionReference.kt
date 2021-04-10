@@ -21,4 +21,6 @@ interface XpmFunctionReference {
     val functionName: XsQNameValue?
 
     val positionalArity: Int
+
+    val keywordArity: Int
 }

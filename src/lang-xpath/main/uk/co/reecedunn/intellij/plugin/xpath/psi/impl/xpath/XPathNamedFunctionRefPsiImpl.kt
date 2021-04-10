@@ -45,6 +45,8 @@ class XPathNamedFunctionRefPsiImpl(node: ASTNode) :
     override val positionalArity: Int
         get() = (children().filterIsInstance<XPathIntegerLiteral>().firstOrNull() as? XsIntegerValue)?.toInt() ?: 0
 
+    override val keywordArity: Int = 0
+
     // endregion
     // region XpmExpression
 

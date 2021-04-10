@@ -129,17 +129,17 @@ class XQueryDocumentationProvider : AbstractDocumentationProvider() {
 
     private fun lookupLocalName(qname: XsQNameValue): Sequence<XQDocDocumentation> {
         return when (val ref = qname.element?.parent) {
-            is XpmFunctionReference -> lookupFunction(ref.functionName, ref.positionalArity)
-            is XpmFunctionDeclaration -> lookupFunction(ref.functionName, ref.argumentArity.from)
+            is XpmFunctionReference -> lookupFunction(ref.functionName, ref.positionalArity, ref.keywordArity)
+            is XpmFunctionDeclaration -> lookupFunction(ref.functionName, ref.declaredArity, 0)
             is XpmNamespaceDeclaration -> XQDocDocumentationSourceProvider.lookup(ref)
             else -> emptySequence()
         }
     }
 
-    private fun lookupFunction(functionName: XsQNameValue?, arity: Int): Sequence<XQDocDocumentation> {
+    private fun lookupFunction(functionName: XsQNameValue?, positionalArity: Int, keywordArity: Int): Sequence<XQDocDocumentation> {
         // NOTE: NCName may bind to the current module (MarkLogic behaviour) and the default function namespace.
         return functionName?.expand()?.flatMap {
-            XQDocDocumentationSourceProvider.lookup(XpmFunctionReferenceImpl(it, arity))
+            XQDocDocumentationSourceProvider.lookup(XpmFunctionReferenceImpl(it, positionalArity, keywordArity))
         }?.filter { it.moduleTypes.contains(XdmModuleType.XQuery) } ?: emptySequence()
     }
 }
