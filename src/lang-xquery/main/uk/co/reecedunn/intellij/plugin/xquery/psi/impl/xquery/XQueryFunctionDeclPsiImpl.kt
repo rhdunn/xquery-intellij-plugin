@@ -145,7 +145,7 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
 
     override val functionRefPresentableText: String?
         get() = computeUserDataIfAbsent(FUNCTION_REF_PRESENTABLE_TEXT) {
-            functionName?.let { "${op_qname_presentation(it)}#${argumentArity.from}" } ?: ""
+            functionName?.let { "${op_qname_presentation(it)}#$declaredArity" } ?: ""
         }
 
     // endregion
