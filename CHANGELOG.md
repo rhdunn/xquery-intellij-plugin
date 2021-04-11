@@ -2,6 +2,9 @@
 
 ## 1.10.0 - (In Development)
 
+1. Fix detecting empty enclosed expressions that contain an XQuery comment.
+1. Fix the code folding placeholder text for some enclosed expressions.
+
 ## 2021
 
 *  [1.9.0 - 2021-03-31](docs/_posts/2021-03-31-release-1.9.0.md)

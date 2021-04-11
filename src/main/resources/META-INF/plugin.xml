@@ -71,6 +71,10 @@
   ]]></description>
 
   <change-notes><![CDATA[
+    <ol>
+      <li>Fix detecting empty enclosed expressions that contain an XQuery comment.</li>
+      <li>Fix the code folding placeholder text for some enclosed expressions.</li>
+    </ol>
   ]]></change-notes>
 
   <idea-version since-build="161"/>
