@@ -54,14 +54,12 @@ val PsiElement.enclosedExpressionBlocks: List<EnclosedExprBlock>
                     blockOpen = child
                 }
                 XPathTokenType.BLOCK_CLOSE -> {
-                    enclosedExpressions.add(EnclosedExprBlock(blockOpen!!, child))
+                    blockOpen?.let { enclosedExpressions.add(EnclosedExprBlock(it, child)) }
                     blockOpen = null
                 }
             }
         }
-        if (blockOpen != null) {
-            enclosedExpressions.add(EnclosedExprBlock(blockOpen!!, lastChild))
-        }
+        blockOpen?.let { enclosedExpressions.add(EnclosedExprBlock(it, lastChild)) }
         return enclosedExpressions
     }
 
