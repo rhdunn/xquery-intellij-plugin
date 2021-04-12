@@ -53,8 +53,6 @@ buildscript {
     ext.suffix = '-snapshot'
 
     repositories {
-        maven { url 'http://dl.bintray.com/jetbrains/intellij-plugin-service' }
-        maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
         mavenCentral()
     }
 
@@ -213,7 +211,6 @@ jacocoTestReport {
 check.dependsOn jacocoTestReport
 
 repositories {
-    maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
     mavenCentral()
 }
 
