@@ -12,8 +12,7 @@ XPathImpl[FILE(0:18)]
          XPathUnaryLookupImpl[XPATH_UNARY_LOOKUP(6:9)]
             LeafPsiElement[XPATH_OPTIONAL_TOKEN(6:7)]('?')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-            XPathKeySpecifierImpl[XPATH_KEY_SPECIFIER(8:9)]
-               XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(8:9)]('2')
+            XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(8:9)]('2')
          PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
       LeafPsiElement[XPATH_EQUAL_TOKEN(10:11)]('=')
       PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')

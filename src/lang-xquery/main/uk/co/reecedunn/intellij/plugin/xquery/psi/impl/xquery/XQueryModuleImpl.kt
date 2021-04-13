@@ -162,9 +162,10 @@ class XQueryModuleImpl(provider: FileViewProvider) :
             XPathElementType.FUNCTION_CALL to XpmUsageType.FunctionRef,
             XQueryElementType.FUNCTION_DECL to XpmUsageType.FunctionDecl,
             XQueryElementType.GROUPING_SPEC to XpmUsageType.Variable,
-            XPathElementType.KEY_SPECIFIER to XpmUsageType.MapKey,
             XPathElementType.KEYWORD_ARGUMENT to XpmUsageType.Parameter,
             XQueryElementType.LET_BINDING to XpmUsageType.Variable,
+            XPathElementType.LOCAL_UNION_TYPE to XpmUsageType.Type,
+            XPathElementType.LOOKUP to XpmUsageType.MapKey,
             XQueryElementType.MODULE_DECL to XpmUsageType.Namespace,
             XQueryElementType.MODULE_IMPORT to XpmUsageType.Namespace,
             XPathElementType.NAMED_FUNCTION_REF to XpmUsageType.FunctionRef,
@@ -186,7 +187,7 @@ class XQueryModuleImpl(provider: FileViewProvider) :
             XPathElementType.TYPE_ALIAS to XpmUsageType.Type,
             XQueryElementType.ITEM_TYPE_DECL to XpmUsageType.Type,
             XPathElementType.TYPE_NAME to XpmUsageType.Type,
-            XPathElementType.LOCAL_UNION_TYPE to XpmUsageType.Type,
+            XPathElementType.UNARY_LOOKUP to XpmUsageType.MapKey,
             XQueryElementType.VAR_DECL to XpmUsageType.Variable,
             XPathElementType.VAR_REF to XpmUsageType.Variable
         )

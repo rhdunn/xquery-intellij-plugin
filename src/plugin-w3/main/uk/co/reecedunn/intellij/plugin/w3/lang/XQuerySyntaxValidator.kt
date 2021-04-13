@@ -73,15 +73,13 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
             XPathTokenType.BLOCK_OPEN -> reporter.requires(element, XQUERY_3_1)
             else -> reporter.requires(element, XQUERY_4_0)
         }
-        is XPathKeySpecifier -> when (element.conformanceElement.elementType) {
-            XPathElementType.STRING_LITERAL -> reporter.requires(element, XQUERY_4_0)
-            XPathElementType.VAR_REF -> reporter.requires(element, XQUERY_4_0)
-            else -> {
-            }
-        }
         is XPathKeywordArgument -> reporter.requires(element, XQUERY_4_0)
         is XPathLocalUnionType -> reporter.requires(element, XQUERY_4_0)
-        is XPathLookup -> reporter.requires(element, XQUERY_3_1)
+        is XPathLookup -> when (element.conformanceElement.elementType) {
+            XPathElementType.STRING_LITERAL -> reporter.requires(element, XQUERY_4_0)
+            XPathElementType.VAR_REF -> reporter.requires(element, XQUERY_4_0)
+            else -> reporter.requires(element, XQUERY_3_1)
+        }
         is XPathNamedFunctionRef -> reporter.requires(element, XQUERY_3_0)
         is XPathNamespaceNodeTest -> reporter.requires(element, XQUERY_3_0)
         is XPathOtherwiseExpr -> reporter.requires(element, XQUERY_4_0)
@@ -101,7 +99,11 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
         is XPathTernaryConditionalExpr -> reporter.requires(element, XQUERY_4_0)
         is XPathTypedArrayTest -> reporter.requires(element, XQUERY_3_1)
         is XPathTypedFunctionTest -> reporter.requires(element, XQUERY_3_0)
-        is XPathUnaryLookup -> reporter.requires(element, XQUERY_3_1)
+        is XPathUnaryLookup -> when (element.conformanceElement.elementType) {
+            XPathElementType.STRING_LITERAL -> reporter.requires(element, XQUERY_4_0)
+            XPathElementType.VAR_REF -> reporter.requires(element, XQUERY_4_0)
+            else -> reporter.requires(element, XQUERY_3_1)
+        }
         is XPathWithExpr -> reporter.requires(element, XQUERY_4_0)
         is XQueryAllowingEmpty -> reporter.requires(element, XQUERY_3_0)
         is XQueryAnnotation -> reporter.requires(element, XQUERY_3_0)

@@ -18,8 +18,12 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathUnaryLookup
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.elementType
 
 class XPathUnaryLookupPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
@@ -34,7 +38,14 @@ class XPathUnaryLookupPsiImpl(node: ASTNode) :
     // region XpmSyntaxValidationElement
 
     override val conformanceElement: PsiElement
-        get() = firstChild
+        get() {
+            val lookup = children().filterIsInstance<XpmExpression>().firstOrNull()
+            return when (lookup?.elementType) {
+                XPathElementType.STRING_LITERAL -> lookup as PsiElement
+                XPathElementType.VAR_REF -> lookup as PsiElement
+                else -> firstChild
+            }
+        }
 
     // endregion
 }

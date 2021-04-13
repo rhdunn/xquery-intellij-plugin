@@ -12,13 +12,12 @@ XPathImpl[FILE(0:24)]
          XPathUnaryLookupImpl[XPATH_UNARY_LOOKUP(6:15)]
             LeafPsiElement[XPATH_OPTIONAL_TOKEN(6:7)]('?')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-            XPathKeySpecifierImpl[XPATH_KEY_SPECIFIER(8:15)]
-               LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(8:9)]('(')
-               XPathStringLiteralImpl[XPATH_STRING_LITERAL(9:14)]
-                  LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(9:10)]('"')
-                  XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(10:13)]('key')
-                  LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(13:14)]('"')
-               LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(14:15)](')')
+            LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(8:9)]('(')
+            XPathStringLiteralImpl[XPATH_STRING_LITERAL(9:14)]
+               LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(9:10)]('"')
+               XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(10:13)]('key')
+               LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(13:14)]('"')
+            LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(14:15)](')')
          PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
       LeafPsiElement[XPATH_EQUAL_TOKEN(16:17)]('=')
       PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')

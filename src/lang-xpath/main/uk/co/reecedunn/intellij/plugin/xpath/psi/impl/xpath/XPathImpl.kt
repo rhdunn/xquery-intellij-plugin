@@ -80,8 +80,9 @@ class XPathImpl(provider: FileViewProvider) :
             XPathElementType.FIELD_DECLARATION to XpmUsageType.MapKey,
             XPathElementType.FT_SCORE_VAR to XpmUsageType.Variable,
             XPathElementType.FUNCTION_CALL to XpmUsageType.FunctionRef,
-            XPathElementType.KEY_SPECIFIER to XpmUsageType.MapKey,
             XPathElementType.KEYWORD_ARGUMENT to XpmUsageType.Parameter,
+            XPathElementType.LOCAL_UNION_TYPE to XpmUsageType.Type,
+            XPathElementType.LOOKUP to XpmUsageType.MapKey,
             XPathElementType.NAMED_FUNCTION_REF to XpmUsageType.FunctionRef,
             XPathElementType.PARAM to XpmUsageType.Parameter,
             XPathElementType.PI_TEST to XpmUsageType.ProcessingInstruction,
@@ -94,7 +95,7 @@ class XPathImpl(provider: FileViewProvider) :
             XPathElementType.SIMPLE_TYPE_NAME to XpmUsageType.Type,
             XPathElementType.TYPE_ALIAS to XpmUsageType.Type,
             XPathElementType.TYPE_NAME to XpmUsageType.Type,
-            XPathElementType.LOCAL_UNION_TYPE to XpmUsageType.Type,
+            XPathElementType.UNARY_LOOKUP to XpmUsageType.MapKey,
             XPathElementType.VAR_REF to XpmUsageType.Variable
         )
     }

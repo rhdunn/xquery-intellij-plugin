@@ -14,10 +14,9 @@ XQueryModuleImpl[FILE(0:20)]
                XPathUnaryLookupImpl[XPATH_UNARY_LOOKUP(6:12)]
                   LeafPsiElement[XPATH_OPTIONAL_TOKEN(6:7)]('?')
                   PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-                  XPathKeySpecifierImpl[XPATH_KEY_SPECIFIER(8:12)]
-                     XPathNCNameImpl[XPATH_NCNAME(8:12)]
-                        XmlNCNameImpl[XPATH_NCNAME_TOKEN(8:11)]('key')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
+                  XPathNCNameImpl[XPATH_NCNAME(8:12)]
+                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(8:11)]('key')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
             LeafPsiElement[XPATH_EQUAL_TOKEN(12:13)]('=')
             PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
             XPathStringLiteralImpl[XPATH_STRING_LITERAL(14:20)]

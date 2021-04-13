@@ -435,12 +435,6 @@ object XPathElementType {
         XPath
     )
 
-    val KEY_SPECIFIER: IElementType = ICompositeElementType(
-        "XPATH_KEY_SPECIFIER",
-        XPathKeySpecifierPsiImpl::class.java,
-        XPath
-    )
-
     val MAP_CONSTRUCTOR: IElementType = ICompositeElementType(
         "XPATH_MAP_CONSTRUCTOR",
         XPathMapConstructorPsiImpl::class.java,

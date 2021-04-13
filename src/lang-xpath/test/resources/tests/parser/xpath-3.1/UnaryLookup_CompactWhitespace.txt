@@ -8,9 +8,8 @@ XPathImpl[FILE(0:14)]
          LeafPsiElement[XPATH_MAP_OPERATOR_TOKEN(2:3)]('!')
          XPathUnaryLookupImpl[XPATH_UNARY_LOOKUP(3:7)]
             LeafPsiElement[XPATH_OPTIONAL_TOKEN(3:4)]('?')
-            XPathKeySpecifierImpl[XPATH_KEY_SPECIFIER(4:7)]
-               XPathNCNameImpl[XPATH_NCNAME(4:7)]
-                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(4:7)]('key')
+            XPathNCNameImpl[XPATH_NCNAME(4:7)]
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(4:7)]('key')
       LeafPsiElement[XPATH_EQUAL_TOKEN(7:8)]('=')
       XPathStringLiteralImpl[XPATH_STRING_LITERAL(8:14)]
          LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(8:9)]('"')

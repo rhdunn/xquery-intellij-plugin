@@ -1760,21 +1760,14 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    private fun parseKeySpecifier(builder: PsiBuilder): Boolean {
-        val marker = builder.mark()
-        if (
-            builder.matchTokenType(XPathTokenType.STAR) ||
-            builder.matchTokenType(XPathTokenType.INTEGER_LITERAL) ||
-            this.parseEQNameOrWildcard(builder, XPathElementType.NCNAME, false) != null ||
-            parseStringLiteral(builder) ||
-            parseVarOrParamRef(builder, null) ||
-            parseParenthesizedExpr(builder)
-        ) {
-            marker.done(XPathElementType.KEY_SPECIFIER)
-            return true
-        }
-        marker.drop()
-        return false
+    private fun parseKeySpecifier(builder: PsiBuilder): Boolean = when {
+        builder.matchTokenType(XPathTokenType.STAR) -> true
+        builder.matchTokenType(XPathTokenType.INTEGER_LITERAL) -> true
+        this.parseEQNameOrWildcard(builder, XPathElementType.NCNAME, false) != null -> true
+        parseStringLiteral(builder) -> true
+        parseVarOrParamRef(builder, null) -> true
+        parseParenthesizedExpr(builder) -> true
+        else -> false
     }
 
     // endregion

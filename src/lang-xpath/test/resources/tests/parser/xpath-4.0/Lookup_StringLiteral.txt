@@ -10,11 +10,10 @@ XPathImpl[FILE(0:23)]
          XPathLookupImpl[XPATH_LOOKUP(4:13)]
             LeafPsiElement[XPATH_OPTIONAL_TOKEN(4:5)]('?')
             PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
-            XPathKeySpecifierImpl[XPATH_KEY_SPECIFIER(6:13)]
-               XPathStringLiteralImpl[XPATH_STRING_LITERAL(6:13)]
-                  LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(6:7)]('"')
-                  XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(7:12)]('lorem')
-                  LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(12:13)]('"')
+            XPathStringLiteralImpl[XPATH_STRING_LITERAL(6:13)]
+               LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(6:7)]('"')
+               XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(7:12)]('lorem')
+               LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(12:13)]('"')
          PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
       LeafPsiElement[XPATH_EQUAL_TOKEN(14:15)]('=')
       PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
