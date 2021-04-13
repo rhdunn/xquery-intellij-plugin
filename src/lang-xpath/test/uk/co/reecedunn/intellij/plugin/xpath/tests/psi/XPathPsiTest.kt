@@ -4570,7 +4570,7 @@ private class XPathPsiTest : ParserTestCase() {
                     assertThat(step.predicateExpression, `is`(nullValue()))
 
                     val expr = step as XpmExpression
-                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.LOOKUP))
+                    assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.OPTIONAL))
                     assertThat(expr.expressionElement?.textOffset, `is`(2))
                 }
             }

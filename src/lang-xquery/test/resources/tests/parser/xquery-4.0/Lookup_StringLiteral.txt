@@ -9,13 +9,12 @@ XQueryModuleImpl[FILE(0:23)]
                   XPathNCNameImpl[XPATH_NCNAME(2:4)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(2:3)]('m')
                      PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
-               XPathLookupImpl[XPATH_LOOKUP(4:13)]
-                  LeafPsiElement[XPATH_OPTIONAL_TOKEN(4:5)]('?')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
-                  XPathStringLiteralImpl[XPATH_STRING_LITERAL(6:13)]
-                     LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(6:7)]('"')
-                     XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(7:12)]('lorem')
-                     LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(12:13)]('"')
+               LeafPsiElement[XPATH_OPTIONAL_TOKEN(4:5)]('?')
+               PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
+               XPathStringLiteralImpl[XPATH_STRING_LITERAL(6:13)]
+                  LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(6:7)]('"')
+                  XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(7:12)]('lorem')
+                  LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(12:13)]('"')
                PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
             LeafPsiElement[XPATH_EQUAL_TOKEN(14:15)]('=')
             PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')

@@ -19,6 +19,7 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowInlineFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginDynamicFunctionCall
+import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginPostfixLookup
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
@@ -38,6 +39,11 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
     ): Unit = when (element) {
         is PluginArrowInlineFunctionCall -> reporter.requires(element, XQUERY_4_0)
         is PluginDynamicFunctionCall -> reporter.requires(element, XQUERY_3_0)
+        is PluginPostfixLookup -> when (element.conformanceElement.elementType) {
+            XPathElementType.STRING_LITERAL -> reporter.requires(element, XQUERY_4_0)
+            XPathElementType.VAR_REF -> reporter.requires(element, XQUERY_4_0)
+            else -> reporter.requires(element, XQUERY_3_1)
+        }
         is XPathAnyArrayTest -> reporter.requires(element, XQUERY_3_1)
         is XPathAnyFunctionTest -> reporter.requires(element, XQUERY_3_0)
         is XPathArgumentPlaceholder -> reporter.requires(element, XQUERY_3_0)
@@ -75,11 +81,6 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
         }
         is XPathKeywordArgument -> reporter.requires(element, XQUERY_4_0)
         is XPathLocalUnionType -> reporter.requires(element, XQUERY_4_0)
-        is XPathLookup -> when (element.conformanceElement.elementType) {
-            XPathElementType.STRING_LITERAL -> reporter.requires(element, XQUERY_4_0)
-            XPathElementType.VAR_REF -> reporter.requires(element, XQUERY_4_0)
-            else -> reporter.requires(element, XQUERY_3_1)
-        }
         is XPathNamedFunctionRef -> reporter.requires(element, XQUERY_3_0)
         is XPathNamespaceNodeTest -> reporter.requires(element, XQUERY_3_0)
         is XPathOtherwiseExpr -> reporter.requires(element, XQUERY_4_0)

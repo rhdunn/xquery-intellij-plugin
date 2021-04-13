@@ -429,12 +429,6 @@ object XPathElementType {
         XPath
     )
 
-    val LOOKUP: IElementType = ICompositeElementType(
-        "XPATH_LOOKUP",
-        XPathLookupPsiImpl::class.java,
-        XPath
-    )
-
     val MAP_CONSTRUCTOR: IElementType = ICompositeElementType(
         "XPATH_MAP_CONSTRUCTOR",
         XPathMapConstructorPsiImpl::class.java,

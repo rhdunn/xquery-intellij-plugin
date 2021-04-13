@@ -1552,7 +1552,7 @@ open class XPathParser : PsiParser {
                         // Keep PostfixExpr if there is a dynamic function call.
                         havePostfixExpr = true
                     }
-                    parseLookup(builder, XPathElementType.LOOKUP) -> {
+                    parseLookup(builder, null) -> {
                         parseWhiteSpaceAndCommentTokens(builder)
 
                         marker.done(XPathElementType.POSTFIX_LOOKUP)
@@ -1740,7 +1740,7 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    private fun parseLookup(builder: PsiBuilder, type: IElementType): Boolean {
+    private fun parseLookup(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.OPTIONAL)
         if (marker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
@@ -1754,7 +1754,10 @@ open class XPathParser : PsiParser {
                 }
             }
 
-            marker.done(type)
+            if (type != null)
+                marker.done(type)
+            else
+                marker.drop()
             return true
         }
         return false

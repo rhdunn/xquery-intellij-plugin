@@ -9,12 +9,11 @@ XQueryModuleImpl[FILE(0:18)]
                   XPathNCNameImpl[XPATH_NCNAME(2:4)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(2:3)]('m')
                      PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
-               XPathLookupImpl[XPATH_LOOKUP(4:10)]
-                  LeafPsiElement[XPATH_OPTIONAL_TOKEN(4:5)]('?')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
-                  XPathNCNameImpl[XPATH_NCNAME(6:10)]
-                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(6:9)]('key')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
+               LeafPsiElement[XPATH_OPTIONAL_TOKEN(4:5)]('?')
+               PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
+               XPathNCNameImpl[XPATH_NCNAME(6:10)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(6:9)]('key')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
             LeafPsiElement[XPATH_EQUAL_TOKEN(10:11)]('=')
             PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
             XPathStringLiteralImpl[XPATH_STRING_LITERAL(12:18)]

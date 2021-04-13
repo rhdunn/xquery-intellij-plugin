@@ -7,10 +7,9 @@ XQueryModuleImpl[FILE(0:13)]
                   LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(0:1)]('$')
                   XPathNCNameImpl[XPATH_NCNAME(1:2)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(1:2)]('m')
-               XPathLookupImpl[XPATH_LOOKUP(2:6)]
-                  LeafPsiElement[XPATH_OPTIONAL_TOKEN(2:3)]('?')
-                  XPathNCNameImpl[XPATH_NCNAME(3:6)]
-                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(3:6)]('key')
+               LeafPsiElement[XPATH_OPTIONAL_TOKEN(2:3)]('?')
+               XPathNCNameImpl[XPATH_NCNAME(3:6)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(3:6)]('key')
             LeafPsiElement[XPATH_EQUAL_TOKEN(6:7)]('=')
             XPathStringLiteralImpl[XPATH_STRING_LITERAL(7:13)]
                LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(7:8)]('"')

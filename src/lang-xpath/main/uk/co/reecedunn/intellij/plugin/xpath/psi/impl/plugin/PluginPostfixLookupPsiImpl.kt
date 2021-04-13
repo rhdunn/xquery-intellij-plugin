@@ -19,15 +19,22 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.core.sequences.filterIsElementType
+import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNodeItem
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginPostfixLookup
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathLookup
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xpm.optree.path.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.elementType
+import kotlin.math.exp
 
-class PluginPostfixLookupPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginPostfixLookup {
+class PluginPostfixLookupPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node), PluginPostfixLookup, XpmSyntaxValidationElement {
     // region XpmPathStep
 
     override val axisType: XpmAxisType = XpmAxisType.Self
@@ -42,7 +49,21 @@ class PluginPostfixLookupPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), Pl
     // region XpmExpression
 
     override val expressionElement: PsiElement?
-        get() = children().filterIsInstance<XPathLookup>().firstOrNull()
+        get() = children().filterIsElementType(XPathTokenType.OPTIONAL).firstOrNull()
+
+    // endregion
+    // region XpmSyntaxValidationElement
+
+    override val conformanceElement: PsiElement
+        get() {
+            val expr = expressionElement
+            val lookup = expr?.siblings()?.filterIsInstance<XpmExpression>()?.firstOrNull()
+            return when (lookup?.elementType) {
+                XPathElementType.STRING_LITERAL -> lookup as PsiElement
+                XPathElementType.VAR_REF -> lookup as PsiElement
+                else -> expr ?: firstChild
+            }
+        }
 
     // endregion
 }
