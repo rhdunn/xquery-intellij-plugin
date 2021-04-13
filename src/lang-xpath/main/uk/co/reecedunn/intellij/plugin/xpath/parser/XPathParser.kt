@@ -1748,10 +1748,11 @@ open class XPathParser : PsiParser {
                 if (type === XPathElementType.UNARY_LOOKUP) {
                     // NOTE: This conflicts with '?' used as an ArgumentPlaceholder, so don't match '?' only as UnaryLookup.
                     marker.rollbackTo()
-                    return false
                 } else {
                     builder.error(XPathBundle.message("parser.error.expected", "KeySpecifier"))
+                    marker.drop()
                 }
+                return false
             }
 
             if (type != null)

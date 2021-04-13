@@ -1,12 +1,11 @@
 XQueryModuleImpl[FILE(0:5)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:5)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:5)]
-         PluginPostfixLookupImpl[XPATH_POSTFIX_LOOKUP(0:5)]
-            XPathVarRefImpl[XPATH_VAR_REF(0:4)]
-               LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(0:1)]('$')
-               PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
-               XPathNCNameImpl[XPATH_NCNAME(2:4)]
-                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(2:3)]('m')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
-            LeafPsiElement[XPATH_OPTIONAL_TOKEN(4:5)]('?')
-            PsiErrorElementImpl[ERROR_ELEMENT(5:5)]('XPST0003: Expected 'KeySpecifier'.')
+         XPathVarRefImpl[XPATH_VAR_REF(0:4)]
+            LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(0:1)]('$')
+            PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+            XPathNCNameImpl[XPATH_NCNAME(2:4)]
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(2:3)]('m')
+               PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
+         LeafPsiElement[XPATH_OPTIONAL_TOKEN(4:5)]('?')
+         PsiErrorElementImpl[ERROR_ELEMENT(5:5)]('XPST0003: Expected 'KeySpecifier'.')
