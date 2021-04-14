@@ -15,26 +15,41 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.openapi.util.Key
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.filterIsElementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNodeItem
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmWildcardValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginPostfixLookup
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xpm.optree.path.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.elementType
-import kotlin.math.exp
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.impl.XdmWildcardExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.impl.XsNCNameExpression
 
 class PluginPostfixLookupPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), PluginPostfixLookup, XpmSyntaxValidationElement {
+    companion object {
+        private val KEY_EXPRESSION = Key.create<XpmExpression>("KEY_EXPRESSION")
+    }
+    // region PsiElement
+
+    override fun subtreeChanged() {
+        super.subtreeChanged()
+        clearUserData(KEY_EXPRESSION)
+    }
+
+    // endregion
     // region XpmPathStep
 
     override val axisType: XpmAxisType = XpmAxisType.Self
@@ -46,23 +61,34 @@ class PluginPostfixLookupPsiImpl(node: ASTNode) :
     override val predicateExpression: XpmExpression? = null
 
     // endregion
-    // region XpmExpression
+    // region XpmLookupExpression
 
-    override val expressionElement: PsiElement?
-        get() = children().filterIsElementType(XPathTokenType.OPTIONAL).firstOrNull()
+    override val expressionElement: PsiElement
+        get() = children().filterIsElementType(XPathTokenType.OPTIONAL).first()
+
+    override val contextExpression: XpmExpression
+        get() = firstChild as XpmExpression
+
+    override val keyExpression: XpmExpression
+        get() = computeUserDataIfAbsent(KEY_EXPRESSION) {
+            expressionElement.siblings().mapNotNull {
+                when (it) {
+                    is XpmExpression -> it
+                    is XPathNCName -> XsNCNameExpression(it.localName!!)
+                    is XdmWildcardValue -> XdmWildcardExpression
+                    else -> null
+                }
+            }.first()
+        }
 
     // endregion
     // region XpmSyntaxValidationElement
 
     override val conformanceElement: PsiElement
-        get() {
-            val expr = expressionElement
-            val lookup = expr?.siblings()?.filterIsInstance<XpmExpression>()?.firstOrNull()
-            return when (lookup?.elementType) {
-                XPathElementType.STRING_LITERAL -> lookup as PsiElement
-                XPathElementType.VAR_REF -> lookup as PsiElement
-                else -> expr ?: firstChild
-            }
+        get() = when (val lookup = keyExpression) {
+            is XPathStringLiteral -> lookup
+            is XPathVarRef -> lookup
+            else -> expressionElement
         }
 
     // endregion
