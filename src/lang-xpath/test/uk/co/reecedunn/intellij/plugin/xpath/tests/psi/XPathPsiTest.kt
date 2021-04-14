@@ -42,6 +42,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.reference.XPathFunctionNam
 import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmVariadic
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.*
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.impl.XpmContextItem
 import uk.co.reecedunn.intellij.plugin.xpm.optree.path.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.path.XpmPathStep
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.impl.XpmEmptyExpression
@@ -4550,8 +4551,38 @@ private class XPathPsiTest : ParserTestCase() {
                 fun unaryLookup() {
                     val expr = parse<XPathUnaryLookup>("map{} ! ?name")[0] as XpmExpression
 
-                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.UNARY_LOOKUP))
+                    assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.OPTIONAL))
                     assertThat(expr.expressionElement?.textOffset, `is`(8))
+                }
+
+                @Test
+                @DisplayName("XPath 3.1 EBNF (54) KeySpecifier ; XPath 3.1 EBNF (113) IntegerLiteral")
+                fun keySpecifier_expression() {
+                    val expr = parse<XPathUnaryLookup>("map{} ! ?2")[0] as XpmLookupExpression
+                    assertThat(expr.contextExpression, sameInstance(XpmContextItem))
+
+                    val key = expr.keyExpression as XsIntegerValue
+                    assertThat(key.data, `is`(BigInteger.valueOf(2)))
+                }
+
+                @Test
+                @DisplayName("XPath 3.1 EBNF (54) KeySpecifier ; XPath 3.1 EBNF (123) NCName")
+                fun keySpecifier_ncname() {
+                    val expr = parse<XPathUnaryLookup>("map{} ! ?name")[0] as XpmLookupExpression
+                    assertThat(expr.contextExpression, sameInstance(XpmContextItem))
+
+                    val key = expr.keyExpression as XsNCNameValue
+                    assertThat(key.data, `is`("name"))
+                }
+
+                @Test
+                @DisplayName("XPath 3.1 EBNF (54) KeySpecifier ; wildcard")
+                fun keySpecifier_wildcard() {
+                    val expr = parse<XPathUnaryLookup>("map{} ! ?*")[0] as XpmLookupExpression
+                    assertThat(expr.contextExpression, sameInstance(XpmContextItem))
+
+                    val key = expr.keyExpression as XdmWildcardValue
+                    assertThat(key.data, `is`("*"))
                 }
             }
 

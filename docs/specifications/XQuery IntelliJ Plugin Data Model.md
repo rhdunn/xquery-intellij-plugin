@@ -49,6 +49,7 @@ various inspections.
     - [Concatenating Expressions](#511-concatenating-expressions)
     - [Try/Catch Expressions](#512-try-catch-expressions)
     - [Context Item Expressions](#513-context-item-expressions)
+    - [Lookup Expressions](#514-lookup-expressions)
   - [Path Steps](#52-path-steps)
     - [Abbreviated Syntax](#521-abbreviated-syntax)
   - [Namespace Declarations](#53-namespace-declarations)
@@ -729,6 +730,19 @@ if a raised error matches the specified error list.
 | Symbol            | Interface                  |
 |-------------------|----------------------------|
 | `ContextItemExpr` | `XpmContextItemExpression` |
+
+#### 5.1.4 Lookup Expressions
+
+| Symbol            | Interface             |
+|-------------------|-----------------------|
+| `PostfixLookup`   | `XpmLookupExpression` |
+| `UnaryLookup`     | `XpmLookupExpression` |
+
+The *context expression* is the expression used to locate the map or array object
+to look up the specified key.
+
+The *key expression* is the expression used to determine the keys to look up in
+the specified map or array context object.
 
 ### 5.2 Path Steps
 
