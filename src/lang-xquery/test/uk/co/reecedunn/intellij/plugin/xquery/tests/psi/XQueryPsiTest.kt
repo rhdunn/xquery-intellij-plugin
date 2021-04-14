@@ -2826,7 +2826,7 @@ private class XQueryPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("XQuery 3.1 EBNF (134) ContextItemExpr")
                 fun contextItemExpr() {
-                    val expr = parse<XPathContextItemExpr>("() ! .")[0] as XpmExpression
+                    val expr = parse<XPathContextItemExpr>("() ! .")[0] as XpmContextItemExpression
                     assertThat(expr.expressionElement, `is`(nullValue()))
                 }
             }

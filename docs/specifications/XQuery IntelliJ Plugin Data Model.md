@@ -48,6 +48,7 @@ various inspections.
   - [Expressions](#51-expressions)
     - [Concatenating Expressions](#511-concatenating-expressions)
     - [Try/Catch Expressions](#512-try-catch-expressions)
+    - [Context Item Expressions](#513-context-item-expressions)
   - [Path Steps](#52-path-steps)
     - [Abbreviated Syntax](#521-abbreviated-syntax)
   - [Namespace Declarations](#53-namespace-declarations)
@@ -722,6 +723,12 @@ if a raised error matches the specified error list.
 > listed. The error object is bound to the catch variable as defined by the
 > *variable binding* for the catch clause, and the catch clause automatically
 > matches a raised error.
+
+#### 5.1.3 Context Item Expressions
+
+| Symbol            | Interface                  |
+|-------------------|----------------------------|
+| `ContextItemExpr` | `XpmContextItemExpression` |
 
 ### 5.2 Path Steps
 

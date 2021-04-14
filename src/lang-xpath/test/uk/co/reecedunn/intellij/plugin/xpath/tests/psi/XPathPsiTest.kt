@@ -41,13 +41,10 @@ import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.reference.XPathFunctionNameReference
 import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmVariadic
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.*
 import uk.co.reecedunn.intellij.plugin.xpm.optree.path.XpmAxisType
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.path.XpmPathStep
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmConcatenatingExpression
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmLookupExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.impl.XpmEmptyExpression
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.text
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.*
 import uk.co.reecedunn.intellij.plugin.xpm.optree.item.XpmArrayExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XdmNamespaceType
@@ -2400,7 +2397,7 @@ private class XPathPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("XPath 3.1 EBNF (62) ContextItemExpr")
                 fun contextItemExpr() {
-                    val expr = parse<XPathContextItemExpr>("() ! .")[0] as XpmExpression
+                    val expr = parse<XPathContextItemExpr>("() ! .")[0] as XpmContextItemExpression
                     assertThat(expr.expressionElement, `is`(nullValue()))
                 }
             }
