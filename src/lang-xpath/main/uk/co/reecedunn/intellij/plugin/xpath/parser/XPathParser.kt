@@ -1014,10 +1014,14 @@ open class XPathParser : PsiParser {
                     }
 
                     parseWhiteSpaceAndCommentTokens(builder)
-                    if (!parseSequenceType(builder) && !haveErrors) {
-                        builder.error(XPathBundle.message("parser.error.expected", "SequenceType"))
+                    if (!parseSequenceType(builder)) {
+                        if (!haveErrors) {
+                            builder.error(XPathBundle.message("parser.error.expected", "SequenceType"))
+                        }
+                        marker.drop()
+                    } else {
+                        marker.done(XPathElementType.INSTANCEOF_EXPR)
                     }
-                    marker.done(XPathElementType.INSTANCEOF_EXPR)
                 }
                 builder.tokenType === XPathTokenType.K_OF -> {
                     builder.error(XPathBundle.message("parser.error.expected-keyword", "instance"))
