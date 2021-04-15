@@ -50,6 +50,7 @@ various inspections.
     - [Try/Catch Expressions](#512-try-catch-expressions)
     - [Context Item Expressions](#513-context-item-expressions)
     - [Lookup Expressions](#514-lookup-expressions)
+    - [Sequence Type Expressions](#515-sequence-type-expressions)
   - [Path Steps](#52-path-steps)
     - [Abbreviated Syntax](#521-abbreviated-syntax)
   - [Namespace Declarations](#53-namespace-declarations)
@@ -743,6 +744,22 @@ to look up the specified key.
 
 The *key expression* is the expression used to determine the keys to look up in
 the specified map or array context object.
+
+### 5.1.5 Sequence Type Expressions
+
+| Symbol           | Interface                   |
+|------------------|-----------------------------|
+| `InstanceofExpr` | `XpmSequenceTypeExpression` |
+
+The *operation* property is the action that is performed on the sequence
+associated with this expression. This is one of: *cast as*, *castable as*,
+*instance of*, or *treat as*.
+
+The *expression* property is the expression used to calculate the sequence
+that this operation is applied to.
+
+The *type* property is the sequence type or item type the sequence is to
+be checked against, cast to, or treated as.
 
 ### 5.2 Path Steps
 

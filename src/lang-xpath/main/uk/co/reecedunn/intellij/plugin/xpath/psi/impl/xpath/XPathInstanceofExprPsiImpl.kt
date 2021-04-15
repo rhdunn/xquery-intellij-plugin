@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2020 Reece H. Dunn
+ * Copyright (C) 2016, 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,10 +18,21 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathInstanceofExpr
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.type.XpmSequenceTypeOperation
 
 class XPathInstanceofExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathInstanceofExpr {
     override val expressionElement: PsiElement
         get() = findChildByType(XPathTokenType.K_INSTANCE)!!
+
+    override val operation: XpmSequenceTypeOperation = XpmSequenceTypeOperation.InstanceOf
+
+    override val expression: XpmExpression
+        get() = firstChild as XpmExpression
+
+    override val type: XdmSequenceType
+        get() = lastChild as XdmSequenceType
 }

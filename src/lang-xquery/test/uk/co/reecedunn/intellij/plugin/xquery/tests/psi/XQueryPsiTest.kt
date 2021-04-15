@@ -60,6 +60,8 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmVariadic
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.*
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.impl.XpmContextItem
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.impl.XpmEmptyExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.type.XpmSequenceTypeExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.type.XpmSequenceTypeOperation
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.*
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.impl.XpmMissingArgument
 import uk.co.reecedunn.intellij.plugin.xpm.optree.item.XpmArrayExpression
@@ -7060,10 +7062,14 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("XQuery 3.1 EBNF (92) InstanceofExpr")
             fun instanceOfExpr() {
-                val expr = parse<XPathInstanceofExpr>("1 instance of xs:string")[0] as XpmExpression
+                val expr = parse<XPathInstanceofExpr>("1 instance of xs:string")[0] as XpmSequenceTypeExpression
 
                 assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_INSTANCE))
                 assertThat(expr.expressionElement?.textOffset, `is`(2))
+
+                assertThat(expr.operation, `is`(XpmSequenceTypeOperation.InstanceOf))
+                assertThat((expr.expression as XsIntegerValue).data, `is`(BigInteger.ONE))
+                assertThat(expr.type.typeName, `is`("xs:string"))
             }
 
             @Test
