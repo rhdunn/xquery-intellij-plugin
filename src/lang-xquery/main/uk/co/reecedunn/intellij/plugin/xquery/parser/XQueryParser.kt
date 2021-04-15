@@ -3287,33 +3287,37 @@ class XQueryParser : XPathParser() {
         val marker = builder.mark()
         if (parseCastableExpr(builder, type)) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (builder.matchTokenType(XPathTokenType.K_TREAT)) {
-                var haveErrors = false
+            when {
+                builder.matchTokenType(XPathTokenType.K_TREAT) -> {
+                    var haveErrors = false
 
-                parseWhiteSpaceAndCommentTokens(builder)
-                if (!builder.matchTokenType(XPathTokenType.K_AS)) {
-                    haveErrors = true
-                    builder.error(XPathBundle.message("parser.error.expected-keyword", "as"))
-                }
+                    parseWhiteSpaceAndCommentTokens(builder)
+                    if (!builder.matchTokenType(XPathTokenType.K_AS)) {
+                        haveErrors = true
+                        builder.error(XPathBundle.message("parser.error.expected-keyword", "as"))
+                    }
 
-                parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseSequenceType(builder) && !haveErrors) {
-                    builder.error(XPathBundle.message("parser.error.expected", "SequenceType"))
+                    parseWhiteSpaceAndCommentTokens(builder)
+                    if (!parseSequenceType(builder)) {
+                        if (!haveErrors) {
+                            builder.error(XPathBundle.message("parser.error.expected", "SequenceType"))
+                        }
+                        marker.drop()
+                    } else {
+                        marker.done(XPathElementType.TREAT_EXPR)
+                    }
                 }
-                marker.done(XPathElementType.TREAT_EXPR)
-            } else if (
                 builder.tokenType === XPathTokenType.K_AS &&
-                type !== XQueryElementType.SOURCE_EXPR &&
-                type !== XQueryElementType.TARGET_EXPR
-            ) {
-                builder.error(XPathBundle.message("parser.error.expected-keyword", "cast, castable, treat"))
-                builder.advanceLexer()
+                        type !== XQueryElementType.SOURCE_EXPR &&
+                        type !== XQueryElementType.TARGET_EXPR -> {
+                    builder.error(XPathBundle.message("parser.error.expected-keyword", "cast, castable, treat"))
+                    builder.advanceLexer()
 
-                parseWhiteSpaceAndCommentTokens(builder)
-                parseSequenceType(builder)
-                marker.drop()
-            } else {
-                marker.drop()
+                    parseWhiteSpaceAndCommentTokens(builder)
+                    parseSequenceType(builder)
+                    marker.drop()
+                }
+                else -> marker.drop()
             }
             return true
         }
