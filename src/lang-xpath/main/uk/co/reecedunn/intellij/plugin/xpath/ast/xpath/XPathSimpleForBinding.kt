@@ -16,9 +16,9 @@
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmCollectionBinding
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.flwor.XpmForBinding
 
 /**
  * An XPath 3.0 `SimpleForBinding` node in the XPath AST.
  */
-interface XPathSimpleForBinding : PsiElement, XpmCollectionBinding
+interface XPathSimpleForBinding : PsiElement, XpmForBinding

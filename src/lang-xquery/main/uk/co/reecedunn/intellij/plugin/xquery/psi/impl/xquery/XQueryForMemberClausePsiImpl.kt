@@ -18,14 +18,22 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.flwor.XpmForBinding
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryForMemberClause
 
 class XQueryForMemberClausePsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XQueryForMemberClause,
     XpmSyntaxValidationElement {
+    // region XpmForClause
+
+    override val bindings: Sequence<XpmForBinding>
+        get() = children().filterIsInstance<XpmForBinding>()
+
+    // endregion
     // region XpmSyntaxValidationElement
 
     override val conformanceElement: PsiElement

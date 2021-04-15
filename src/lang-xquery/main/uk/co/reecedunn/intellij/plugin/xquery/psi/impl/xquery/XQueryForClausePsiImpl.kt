@@ -17,6 +17,11 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.flwor.XpmForBinding
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryForClause
 
-class XQueryForClausePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryForClause
+class XQueryForClausePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryForClause {
+    override val bindings: Sequence<XpmForBinding>
+        get() = children().filterIsInstance<XpmForBinding>()
+}

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019, 2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,11 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathSimpleForClause
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.flwor.XpmForBinding
 
-class XPathSimpleForClausePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathSimpleForClause
+class XPathSimpleForClausePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathSimpleForClause {
+    override val bindings: Sequence<XpmForBinding>
+        get() = children().filterIsInstance<XpmForBinding>()
+}
