@@ -1093,10 +1093,14 @@ open class XPathParser : PsiParser {
                 }
 
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseSingleType(builder) && !haveErrors) {
-                    builder.error(XPathBundle.message("parser.error.expected", "SingleType"))
+                if (!parseSingleType(builder)) {
+                    if (!haveErrors) {
+                        builder.error(XPathBundle.message("parser.error.expected", "SingleType"))
+                    }
+                    marker.drop()
+                } else {
+                    marker.done(XPathElementType.CASTABLE_EXPR)
                 }
-                marker.done(XPathElementType.CASTABLE_EXPR)
             } else {
                 marker.drop()
             }
