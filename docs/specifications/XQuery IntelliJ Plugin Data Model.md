@@ -750,6 +750,7 @@ the specified map or array context object.
 | Symbol           | Interface                   |
 |------------------|-----------------------------|
 | `InstanceofExpr` | `XpmSequenceTypeExpression` |
+| `TreatExpr`      | `XpmSequenceTypeExpression` |
 
 The *operation* property is the action that is performed on the sequence
 associated with this expression. This is one of: *cast as*, *castable as*,

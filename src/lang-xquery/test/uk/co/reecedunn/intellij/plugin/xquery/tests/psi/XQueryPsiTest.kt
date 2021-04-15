@@ -7075,10 +7075,14 @@ private class XQueryPsiTest : ParserTestCase() {
             @Test
             @DisplayName("XQuery 3.1 EBNF (93) TreatExpr")
             fun treatExpr() {
-                val expr = parse<XPathTreatExpr>("1 treat as xs:string")[0] as XpmExpression
+                val expr = parse<XPathTreatExpr>("1 treat as xs:string")[0] as XpmSequenceTypeExpression
 
                 assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_TREAT))
                 assertThat(expr.expressionElement?.textOffset, `is`(2))
+
+                assertThat(expr.operation, `is`(XpmSequenceTypeOperation.TreatAs))
+                assertThat((expr.expression as XsIntegerValue).data, `is`(BigInteger.ONE))
+                assertThat(expr.type.typeName, `is`("xs:string"))
             }
 
             @Test
