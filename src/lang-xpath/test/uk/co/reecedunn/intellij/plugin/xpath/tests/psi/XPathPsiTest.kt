@@ -4804,10 +4804,14 @@ private class XPathPsiTest : ParserTestCase() {
                 @Test
                 @DisplayName("XPath 3.1 EBNF (28) CastExpr")
                 fun castExpr() {
-                    val expr = parse<XPathCastExpr>("1 cast as xs:string")[0] as XpmExpression
+                    val expr = parse<XPathCastExpr>("1 cast as xs:string")[0] as XpmSequenceTypeExpression
 
                     assertThat(expr.expressionElement.elementType, `is`(XPathTokenType.K_CAST))
                     assertThat(expr.expressionElement?.textOffset, `is`(2))
+
+                    assertThat(expr.operation, `is`(XpmSequenceTypeOperation.CastAs))
+                    assertThat((expr.expression as XsIntegerValue).data, `is`(BigInteger.ONE))
+                    assertThat(expr.type.typeName, `is`("xs:string"))
                 }
 
                 @Nested
