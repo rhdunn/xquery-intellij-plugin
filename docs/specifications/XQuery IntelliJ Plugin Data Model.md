@@ -749,6 +749,7 @@ the specified map or array context object.
 
 | Symbol           | Interface                   |
 |------------------|-----------------------------|
+| `CastableExpr`   | `XpmSequenceTypeExpression` |
 | `InstanceofExpr` | `XpmSequenceTypeExpression` |
 | `TreatExpr`      | `XpmSequenceTypeExpression` |
 
