@@ -3339,10 +3339,14 @@ class XQueryParser : XPathParser() {
                 }
 
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseSingleType(builder) && !haveErrors) {
-                    builder.error(XPathBundle.message("parser.error.expected", "SingleType"))
+                if (!parseSingleType(builder)) {
+                    if (!haveErrors) {
+                        builder.error(XPathBundle.message("parser.error.expected", "SingleType"))
+                    }
+                    marker.drop()
+                } else {
+                    marker.done(XPathElementType.CAST_EXPR)
                 }
-                marker.done(XPathElementType.CAST_EXPR)
             } else {
                 marker.drop()
             }
