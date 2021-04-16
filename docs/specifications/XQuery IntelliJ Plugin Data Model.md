@@ -53,6 +53,7 @@ various inspections.
     - [Sequence Type Expressions](#515-sequence-type-expressions)
     - [FLWOR Expressions](#516-flwor-expressions)
       - [For Clauses](#5161-for-clauses)
+      - [Let Clauses](#5162-let-clauses)
   - [Path Steps](#52-path-steps)
     - [Abbreviated Syntax](#521-abbreviated-syntax)
   - [Namespace Declarations](#53-namespace-declarations)
@@ -782,8 +783,8 @@ items matching the clauses.
 
 | Symbol             | Interface       |
 |--------------------|-----------------|
-| `SimpleForClause`  | `XpmForClause`  |
 | `SimpleForBinding` | `XpmForBinding` |
+| `SimpleForClause`  | `XpmForClause`  |
 
 The *bindings* property of a *for clause* is the list of *for bindings* associated
 with the clause.
@@ -793,11 +794,15 @@ A *for binding* is a [collection binding](#5533-collection-bindings).
 The *binding collection type* property of a *for binding* is *sequence item* for
 sequence-style for bindings, and *array member* for member-style for bindings.
 
-##### 5.1.6.1 Let Clauses
+##### 5.1.6.2 Let Clauses
 
 | Symbol             | Interface       |
 |--------------------|-----------------|
 | `SimpleLetBinding` | `XpmLetBinding` |
+| `SimpleLetClause`  | `XpmLetClause`  |
+
+The *bindings* property of a *let clause* is the list of *let bindings* associated
+with the clause.
 
 A *let binding* is an [assignable variable](#5532-assignable-variables).
 

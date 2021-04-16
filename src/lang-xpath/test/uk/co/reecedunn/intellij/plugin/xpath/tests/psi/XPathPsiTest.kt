@@ -42,10 +42,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.reference.XPathFunctionNam
 import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmVariadic
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.*
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.flwor.XpmBindingCollectionType
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.flwor.XpmFlworExpression
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.flwor.XpmForBinding
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.flwor.XpmForClause
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.flwor.*
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.impl.XpmContextItem
 import uk.co.reecedunn.intellij.plugin.xpm.optree.path.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.path.XpmPathStep
@@ -4407,6 +4404,39 @@ private class XPathPsiTest : ParserTestCase() {
 
                 assertThat(expr.expressionElement.elementType, `is`(XPathElementType.LET_EXPR))
                 assertThat(expr.expressionElement?.textOffset, `is`(0))
+            }
+
+            @Nested
+            @DisplayName("XPath 3.1 EBNF (12) SimpleLetClause")
+            internal inner class SimpleLetClause {
+                @Test
+                @DisplayName("single binding")
+                fun singleBinding() {
+                    val expr = parse<XPathSimpleLetClause>("let \$x := (1, 2, 3) return \$x")[0] as XpmLetClause
+
+                    val bindings = expr.bindings.toList()
+                    assertThat(bindings.size, `is`(1))
+
+                    assertThat(op_qname_presentation(bindings[0].variableName!!), `is`("x"))
+                    assertThat(bindings[0].variableExpression?.text, `is`("1, 2, 3"))
+                }
+
+                @Test
+                @DisplayName("multiple bindings")
+                fun multipleBindings() {
+                    val expr = parse<XPathSimpleLetClause>(
+                        "let \$x := (1, 2, 3), \$y := (4, 5, 6) return \$x"
+                    )[0] as XpmLetClause
+
+                    val bindings = expr.bindings.toList()
+                    assertThat(bindings.size, `is`(2))
+
+                    assertThat(op_qname_presentation(bindings[0].variableName!!), `is`("x"))
+                    assertThat(bindings[0].variableExpression?.text, `is`("1, 2, 3"))
+
+                    assertThat(op_qname_presentation(bindings[1].variableName!!), `is`("y"))
+                    assertThat(bindings[1].variableExpression?.text, `is`("4, 5, 6"))
+                }
             }
 
             @Nested
