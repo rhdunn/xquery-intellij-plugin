@@ -458,7 +458,7 @@ open class XPathParser : PsiParser {
         val marker = builder.mark()
         if (parseSimpleLetClause(builder)) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseReturnClause(builder)) {
+            if (!parseReturnClause(builder, keep = false)) {
                 builder.error(XPathBundle.message("parser.error.expected-keyword", "return"))
                 parseWhiteSpaceAndCommentTokens(builder)
                 parseExprSingle(builder)
