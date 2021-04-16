@@ -790,6 +790,9 @@ with the clause.
 
 A *for binding* is a [collection binding](#5533-collection-bindings).
 
+The *binding collection type* property of a *for binding* is *sequence item* for
+sequence-style for bindings, and *array member* for member-style for bindings.
+
 ### 5.2 Path Steps
 
 | Symbol                       | Interface     |

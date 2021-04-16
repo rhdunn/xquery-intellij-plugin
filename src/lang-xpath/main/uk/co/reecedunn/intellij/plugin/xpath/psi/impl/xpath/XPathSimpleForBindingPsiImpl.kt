@@ -19,6 +19,7 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.core.sequences.filterIsElementType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
@@ -26,6 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathSimpleForBinding
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.flwor.XpmBindingCollectionType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmCollectionBinding
 
 class XPathSimpleForBindingPsiImpl(node: ASTNode) :
@@ -46,6 +48,15 @@ class XPathSimpleForBindingPsiImpl(node: ASTNode) :
 
     override val bindingExpression: XpmExpression?
         get() = children().filterIsInstance<XpmExpression>().firstOrNull()
+
+    // endregion
+    // region XpmForBinding
+
+    override val bindingCollectionType: XpmBindingCollectionType
+        get() = when (parent.children().filterIsElementType(XPathTokenType.K_MEMBER).firstOrNull()) {
+            null -> XpmBindingCollectionType.SequenceItem
+            else -> XpmBindingCollectionType.ArrayMember
+        }
 
     // endregion
     // region XpmSyntaxValidationElement

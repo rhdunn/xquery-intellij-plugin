@@ -15,8 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.optree.expression.flwor
 
-import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmCollectionBinding
-
-interface XpmForBinding : XpmCollectionBinding {
-    val bindingCollectionType: XpmBindingCollectionType
+enum class XpmBindingCollectionType {
+    SequenceItem,
+    ArrayMember
 }

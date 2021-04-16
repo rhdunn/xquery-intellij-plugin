@@ -22,6 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.flwor.XpmBindingCollectionType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryForMemberBinding
 
 class XQueryForMemberBindingPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryForMemberBinding {
@@ -38,6 +39,12 @@ class XQueryForMemberBindingPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
 
     override val bindingExpression: XpmExpression?
         get() = children().filterIsInstance<XpmExpression>().firstOrNull()
+
+    // endregion
+    // region XpmForBinding
+
+    override val bindingCollectionType: XpmBindingCollectionType
+        get() = XpmBindingCollectionType.ArrayMember
 
     // endregion
 }

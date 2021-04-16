@@ -42,6 +42,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.reference.XPathFunctionNam
 import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmVariadic
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.*
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.flwor.XpmBindingCollectionType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.flwor.XpmFlworExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.flwor.XpmForBinding
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.flwor.XpmForClause
@@ -4280,7 +4281,7 @@ private class XPathPsiTest : ParserTestCase() {
 
             @Nested
             @DisplayName("XPath 3.1 EBNF (9) SimpleForClause")
-            internal inner class SimpleForClause {
+            internal inner class SimpleForClause31 {
                 @Test
                 @DisplayName("single binding")
                 fun singleBinding() {
@@ -4291,6 +4292,7 @@ private class XPathPsiTest : ParserTestCase() {
 
                     assertThat(op_qname_presentation(bindings[0].variableName!!), `is`("x"))
                     assertThat(bindings[0].bindingExpression?.text, `is`("1, 2, 3"))
+                    assertThat(bindings[0].bindingCollectionType, `is`(XpmBindingCollectionType.SequenceItem))
                 }
 
                 @Test
@@ -4305,9 +4307,47 @@ private class XPathPsiTest : ParserTestCase() {
 
                     assertThat(op_qname_presentation(bindings[0].variableName!!), `is`("x"))
                     assertThat(bindings[0].bindingExpression?.text, `is`("1, 2, 3"))
+                    assertThat(bindings[0].bindingCollectionType, `is`(XpmBindingCollectionType.SequenceItem))
 
                     assertThat(op_qname_presentation(bindings[1].variableName!!), `is`("y"))
                     assertThat(bindings[1].bindingExpression?.text, `is`("4, 5, 6"))
+                    assertThat(bindings[1].bindingCollectionType, `is`(XpmBindingCollectionType.SequenceItem))
+                }
+            }
+
+            @Nested
+            @DisplayName("XPath 4.0 ED EBNF (13) SimpleForClause")
+            internal inner class SimpleForClause40 {
+                @Test
+                @DisplayName("single binding")
+                fun singleBinding() {
+                    val expr = parse<XPathSimpleForClause>("for member \$x in (1, 2, 3) return \$x")[0] as XpmForClause
+
+                    val bindings = expr.bindings.toList()
+                    assertThat(bindings.size, `is`(1))
+
+                    assertThat(op_qname_presentation(bindings[0].variableName!!), `is`("x"))
+                    assertThat(bindings[0].bindingExpression?.text, `is`("1, 2, 3"))
+                    assertThat(bindings[0].bindingCollectionType, `is`(XpmBindingCollectionType.ArrayMember))
+                }
+
+                @Test
+                @DisplayName("multiple bindings")
+                fun multipleBindings() {
+                    val expr = parse<XPathSimpleForClause>(
+                        "for member \$x in (1, 2, 3), \$y in (4, 5, 6) return \$x"
+                    )[0] as XpmForClause
+
+                    val bindings = expr.bindings.toList()
+                    assertThat(bindings.size, `is`(2))
+
+                    assertThat(op_qname_presentation(bindings[0].variableName!!), `is`("x"))
+                    assertThat(bindings[0].bindingExpression?.text, `is`("1, 2, 3"))
+                    assertThat(bindings[0].bindingCollectionType, `is`(XpmBindingCollectionType.ArrayMember))
+
+                    assertThat(op_qname_presentation(bindings[1].variableName!!), `is`("y"))
+                    assertThat(bindings[1].bindingExpression?.text, `is`("4, 5, 6"))
+                    assertThat(bindings[1].bindingCollectionType, `is`(XpmBindingCollectionType.ArrayMember))
                 }
             }
 
