@@ -292,7 +292,7 @@ open class XPathParser : PsiParser {
     // endregion
     // region Grammar :: Expr :: ForExpr
 
-    fun parseReturnClause(builder: PsiBuilder): Boolean {
+    fun parseReturnClause(builder: PsiBuilder, keep: Boolean = true): Boolean {
         val marker = builder.mark()
         if (builder.matchTokenType(XPathTokenType.K_RETURN)) {
             parseWhiteSpaceAndCommentTokens(builder)
@@ -300,7 +300,10 @@ open class XPathParser : PsiParser {
                 builder.error(XPathBundle.message("parser.error.expected-expression"))
             }
 
-            marker.done(XPathElementType.RETURN_CLAUSE)
+            if (keep)
+                marker.done(XPathElementType.RETURN_CLAUSE)
+            else
+                marker.drop()
             return true
         }
         marker.drop()
@@ -312,7 +315,7 @@ open class XPathParser : PsiParser {
         val match = parseForOrWindowClause(builder)
         if (match != null) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseReturnClause(builder)) {
+            if (!parseReturnClause(builder, keep = false)) {
                 builder.error(XPathBundle.message("parser.error.expected-keyword", "return"))
                 parseWhiteSpaceAndCommentTokens(builder)
                 parseExprSingle(builder)

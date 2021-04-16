@@ -32,8 +32,5 @@ class XPathForExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathForE
         get() = children().filterIsInstance<XpmFlworClause>()
 
     override val returnExpression: XpmExpression?
-        get() {
-            val expr = children().filterIsInstance<PluginReturnClause>().firstOrNull() ?: return null
-            return expr.children().filterIsInstance<XpmExpression>().firstOrNull()
-        }
+        get() = children().filterIsInstance<XpmExpression>().firstOrNull()
 }

@@ -18,7 +18,6 @@ XPathImpl[FILE(0:30)]
                PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
                LeafPsiElement[XPATH_SQUARE_CLOSE_TOKEN(20:21)](']')
             PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
-      PluginReturnClauseImpl[XPATH_RETURN_CLAUSE(22:30)]
-         XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_RETURN(22:28)]('return')
-         PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
-         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(29:30)]('1')
+      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_RETURN(22:28)]('return')
+      PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
+      XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(29:30)]('1')
