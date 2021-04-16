@@ -772,6 +772,7 @@ be checked against, cast to, or treated as.
 | Symbol             | Interface            |
 |--------------------|----------------------|
 | `ForExpr`          | `XpmFlworExpression` |
+| `LetExpr`          | `XpmFlworExpression` |
 
 The *clauses* property is the list of clauses associated with the expression.
 All the clauses are derived from `XpmFlworClause`.

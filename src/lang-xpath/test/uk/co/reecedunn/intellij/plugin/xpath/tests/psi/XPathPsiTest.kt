@@ -4397,13 +4397,42 @@ private class XPathPsiTest : ParserTestCase() {
         @Nested
         @DisplayName("XPath 4.0 ED (4.13) Let Expressions ; XPath 3.1 (3.10) Let Expressions")
         internal inner class LetExpressions {
-            @Test
+            @Nested
             @DisplayName("XPath 3.1 EBNF (11) LetExpr")
-            fun letExpr() {
-                val expr = parse<XPathLetExpr>("let \$x := 1 return \$x")[0] as XpmExpression
+            internal inner class LetExpr {
+                @Test
+                @DisplayName("let expression")
+                fun letExpr() {
+                    val expr = parse<XPathLetExpr>("let \$x := (1, 2, 3) return \$x")[0] as XpmFlworExpression
 
-                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.LET_EXPR))
-                assertThat(expr.expressionElement?.textOffset, `is`(0))
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.LET_EXPR))
+                    assertThat(expr.expressionElement?.textOffset, `is`(0))
+
+                    val clauses = expr.clauses.toList()
+                    assertThat(clauses.size, `is`(1))
+
+                    assertThat(clauses[0], instanceOf(XpmLetClause::class.java))
+                    assertThat((clauses[0] as PsiElement).text, `is`("let \$x := (1, 2, 3) "))
+
+                    assertThat(expr.returnExpression?.text, `is`("\$x"))
+                }
+
+                @Test
+                @DisplayName("missing return expression")
+                fun missingReturnExpr() {
+                    val expr = parse<XPathLetExpr>("let \$x := (1, 2, 3) return")[0] as XpmFlworExpression
+
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.LET_EXPR))
+                    assertThat(expr.expressionElement?.textOffset, `is`(0))
+
+                    val clauses = expr.clauses.toList()
+                    assertThat(clauses.size, `is`(1))
+
+                    assertThat(clauses[0], instanceOf(XpmLetClause::class.java))
+                    assertThat((clauses[0] as PsiElement).text, `is`("let \$x := (1, 2, 3) "))
+
+                    assertThat(expr.returnExpression, `is`(nullValue()))
+                }
             }
 
             @Nested
