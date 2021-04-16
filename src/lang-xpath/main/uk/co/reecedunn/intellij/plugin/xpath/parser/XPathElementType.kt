@@ -858,12 +858,6 @@ object XPathElementType {
         XPath
     )
 
-    val RETURN_CLAUSE: IElementType = ICompositeElementType(
-        "XPATH_RETURN_CLAUSE",
-        PluginReturnClausePsiImpl::class.java,
-        XPath
-    )
-
     val SEQUENCE_TYPE_LIST: IElementType = ICompositeElementType(
         "XPATH_SEQUENCE_TYPE_LIST",
         PluginSequenceTypeListPsiImpl::class.java,

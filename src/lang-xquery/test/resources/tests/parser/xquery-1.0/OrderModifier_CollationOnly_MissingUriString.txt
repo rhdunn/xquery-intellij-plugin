@@ -37,11 +37,10 @@ XQueryModuleImpl[FILE(0:48)]
                            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_COLLATION(28:37)]('collation')
                            PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
                            PsiErrorElementImpl[ERROR_ELEMENT(38:38)]('XPST0003: Missing URI string.')
-            PluginReturnClauseImpl[XPATH_RETURN_CLAUSE(38:48)]
-               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_RETURN(38:44)]('return')
-               PsiWhiteSpaceImpl[WHITE_SPACE(44:45)](' ')
-               XPathVarRefImpl[XPATH_VAR_REF(45:48)]
-                  LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(45:46)]('$')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(46:47)](' ')
-                  XPathNCNameImpl[XPATH_NCNAME(47:48)]
-                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(47:48)]('x')
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_RETURN(38:44)]('return')
+            PsiWhiteSpaceImpl[WHITE_SPACE(44:45)](' ')
+            XPathVarRefImpl[XPATH_VAR_REF(45:48)]
+               LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(45:46)]('$')
+               PsiWhiteSpaceImpl[WHITE_SPACE(46:47)](' ')
+               XPathNCNameImpl[XPATH_NCNAME(47:48)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(47:48)]('x')

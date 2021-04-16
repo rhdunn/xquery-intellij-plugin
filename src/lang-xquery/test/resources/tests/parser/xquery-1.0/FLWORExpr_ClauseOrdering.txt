@@ -104,10 +104,9 @@ XQueryModuleImpl[FILE(0:92)]
                               XmlNCNameImpl[XPATH_NCNAME_TOKEN(81:82)]('b')
                               PsiWhiteSpaceImpl[WHITE_SPACE(82:83)]('\n')
                         XQueryOrderModifierImpl[XQUERY_ORDER_MODIFIER(83:83)]
-            PluginReturnClauseImpl[XPATH_RETURN_CLAUSE(83:92)]
-               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_RETURN(83:89)]('return')
-               PsiWhiteSpaceImpl[WHITE_SPACE(89:90)](' ')
-               XPathVarRefImpl[XPATH_VAR_REF(90:92)]
-                  LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(90:91)]('$')
-                  XPathNCNameImpl[XPATH_NCNAME(91:92)]
-                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(91:92)]('x')
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_RETURN(83:89)]('return')
+            PsiWhiteSpaceImpl[WHITE_SPACE(89:90)](' ')
+            XPathVarRefImpl[XPATH_VAR_REF(90:92)]
+               LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(90:91)]('$')
+               XPathNCNameImpl[XPATH_NCNAME(91:92)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(91:92)]('x')

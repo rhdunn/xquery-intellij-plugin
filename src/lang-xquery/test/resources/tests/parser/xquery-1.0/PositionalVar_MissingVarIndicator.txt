@@ -26,11 +26,10 @@ XQueryModuleImpl[FILE(0:30)]
                      XPathNCNameImpl[XPATH_NCNAME(18:20)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(18:19)]('y')
                         PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
-            PluginReturnClauseImpl[XPATH_RETURN_CLAUSE(20:30)]
-               XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_RETURN(20:26)]('return')
-               PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
-               XPathVarRefImpl[XPATH_VAR_REF(27:30)]
-                  LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(27:28)]('$')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
-                  XPathNCNameImpl[XPATH_NCNAME(29:30)]
-                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(29:30)]('x')
+            XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_RETURN(20:26)]('return')
+            PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
+            XPathVarRefImpl[XPATH_VAR_REF(27:30)]
+               LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(27:28)]('$')
+               PsiWhiteSpaceImpl[WHITE_SPACE(28:29)](' ')
+               XPathNCNameImpl[XPATH_NCNAME(29:30)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(29:30)]('x')

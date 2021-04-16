@@ -292,21 +292,14 @@ open class XPathParser : PsiParser {
     // endregion
     // region Grammar :: Expr :: ForExpr
 
-    fun parseReturnClause(builder: PsiBuilder, keep: Boolean = true): Boolean {
-        val marker = builder.mark()
+    fun parseReturnClause(builder: PsiBuilder): Boolean {
         if (builder.matchTokenType(XPathTokenType.K_RETURN)) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!parseExprSingle(builder)) {
                 builder.error(XPathBundle.message("parser.error.expected-expression"))
             }
-
-            if (keep)
-                marker.done(XPathElementType.RETURN_CLAUSE)
-            else
-                marker.drop()
             return true
         }
-        marker.drop()
         return false
     }
 
@@ -315,7 +308,7 @@ open class XPathParser : PsiParser {
         val match = parseForOrWindowClause(builder)
         if (match != null) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseReturnClause(builder, keep = false)) {
+            if (!parseReturnClause(builder)) {
                 builder.error(XPathBundle.message("parser.error.expected-keyword", "return"))
                 parseWhiteSpaceAndCommentTokens(builder)
                 parseExprSingle(builder)
@@ -458,7 +451,7 @@ open class XPathParser : PsiParser {
         val marker = builder.mark()
         if (parseSimpleLetClause(builder)) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseReturnClause(builder, keep = false)) {
+            if (!parseReturnClause(builder)) {
                 builder.error(XPathBundle.message("parser.error.expected-keyword", "return"))
                 parseWhiteSpaceAndCommentTokens(builder)
                 parseExprSingle(builder)
