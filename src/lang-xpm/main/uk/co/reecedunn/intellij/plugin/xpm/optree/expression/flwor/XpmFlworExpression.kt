@@ -20,5 +20,5 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 interface XpmFlworExpression : XpmExpression {
     val clauses: Sequence<XpmFlworClause>
 
-    val returnExpression: XpmExpression
+    val returnExpression: XpmExpression?
 }

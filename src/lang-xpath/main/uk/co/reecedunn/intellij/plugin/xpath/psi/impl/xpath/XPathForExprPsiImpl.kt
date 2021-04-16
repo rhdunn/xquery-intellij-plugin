@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2020 Reece H. Dunn
+ * Copyright (C) 2019-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,9 +18,22 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginReturnClause
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathForExpr
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.flwor.XpmFlworClause
 
 class XPathForExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathForExpr {
     override val expressionElement: PsiElement
         get() = this
+
+    override val clauses: Sequence<XpmFlworClause>
+        get() = children().filterIsInstance<XpmFlworClause>()
+
+    override val returnExpression: XpmExpression?
+        get() {
+            val expr = children().filterIsInstance<PluginReturnClause>().firstOrNull() ?: return null
+            return expr.children().filterIsInstance<XpmExpression>().firstOrNull()
+        }
 }

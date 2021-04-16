@@ -42,6 +42,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.reference.XPathFunctionNam
 import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmVariadic
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.*
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.flwor.XpmFlworExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.flwor.XpmForBinding
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.flwor.XpmForClause
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.impl.XpmContextItem
@@ -4239,17 +4240,46 @@ private class XPathPsiTest : ParserTestCase() {
         @Nested
         @DisplayName("XPath 4.0 ED (4.12) For Expressions ; XPath 3.1 (3.9) For Expressions")
         internal inner class ForExpressions {
-            @Test
+            @Nested
             @DisplayName("XPath 3.1 EBNF (8) ForExpr")
-            fun forExpr() {
-                val expr = parse<XPathForExpr>("for \$x in (1, 2, 3) return \$x")[0] as XpmExpression
+            internal inner class ForExpr {
+                @Test
+                @DisplayName("for expression")
+                fun forExpr() {
+                    val expr = parse<XPathForExpr>("for \$x in (1, 2, 3) return \$x")[0] as XpmFlworExpression
 
-                assertThat(expr.expressionElement.elementType, `is`(XPathElementType.FOR_EXPR))
-                assertThat(expr.expressionElement?.textOffset, `is`(0))
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.FOR_EXPR))
+                    assertThat(expr.expressionElement?.textOffset, `is`(0))
+
+                    val clauses = expr.clauses.toList()
+                    assertThat(clauses.size, `is`(1))
+
+                    assertThat(clauses[0], instanceOf(XpmForClause::class.java))
+                    assertThat((clauses[0] as PsiElement).text, `is`("for \$x in (1, 2, 3) "))
+
+                    assertThat(expr.returnExpression?.text, `is`("\$x"))
+                }
+
+                @Test
+                @DisplayName("missing return expression")
+                fun missingReturnExpr() {
+                    val expr = parse<XPathForExpr>("for \$x in (1, 2, 3) return")[0] as XpmFlworExpression
+
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.FOR_EXPR))
+                    assertThat(expr.expressionElement?.textOffset, `is`(0))
+
+                    val clauses = expr.clauses.toList()
+                    assertThat(clauses.size, `is`(1))
+
+                    assertThat(clauses[0], instanceOf(XpmForClause::class.java))
+                    assertThat((clauses[0] as PsiElement).text, `is`("for \$x in (1, 2, 3) "))
+
+                    assertThat(expr.returnExpression, `is`(nullValue()))
+                }
             }
 
             @Nested
-            @DisplayName("XPath 3.1 EBNF (8) ForExpr ; XPath 3.1 EBNF (9) SimpleForClause")
+            @DisplayName("XPath 3.1 EBNF (9) SimpleForClause")
             internal inner class SimpleForClause {
                 @Test
                 @DisplayName("single binding")

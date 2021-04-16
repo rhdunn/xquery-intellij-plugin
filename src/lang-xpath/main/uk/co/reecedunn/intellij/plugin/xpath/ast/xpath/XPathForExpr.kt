@@ -15,9 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.flwor.XpmFlworExpression
 
 /**
  * An XPath 2.0 `ForExpr` node in the XPath AST.
  */
-interface XPathForExpr : XPathExprSingle, XpmExpression
+interface XPathForExpr : XPathExprSingle, XpmFlworExpression

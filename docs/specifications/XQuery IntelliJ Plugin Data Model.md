@@ -51,6 +51,8 @@ various inspections.
     - [Context Item Expressions](#513-context-item-expressions)
     - [Lookup Expressions](#514-lookup-expressions)
     - [Sequence Type Expressions](#515-sequence-type-expressions)
+    - [FLWOR Expressions](#516-flwor-expressions)
+      - [For Clauses](#5161-for-clauses)
   - [Path Steps](#52-path-steps)
     - [Abbreviated Syntax](#521-abbreviated-syntax)
   - [Namespace Declarations](#53-namespace-declarations)
@@ -745,7 +747,7 @@ to look up the specified key.
 The *key expression* is the expression used to determine the keys to look up in
 the specified map or array context object.
 
-### 5.1.5 Sequence Type Expressions
+#### 5.1.5 Sequence Type Expressions
 
 | Symbol           | Interface                   |
 |------------------|-----------------------------|
@@ -763,6 +765,30 @@ that this operation is applied to.
 
 The *type* property is the sequence type or item type the sequence is to
 be checked against, cast to, or treated as.
+
+#### 5.1.6 FLWOR Expressions
+
+| Symbol             | Interface            |
+|--------------------|----------------------|
+| `ForExpr`          | `XpmFlworExpression` |
+
+The *clauses* property is the list of clauses associated with the expression.
+All the clauses are derived from `XpmFlworClause`.
+
+The *return expression* property is the expression used to evaluate on the
+items matching the clauses.
+
+##### 5.1.6.1 For Clauses
+
+| Symbol             | Interface       |
+|--------------------|-----------------|
+| `SimpleForClause`  | `XpmForClause`  |
+| `SimpleForBinding` | `XpmForBinding` |
+
+The *bindings* property of a *for clause* is the list of *for bindings* associated
+with the clause.
+
+A *for binding* is a [collection binding](#5533-collection-bindings).
 
 ### 5.2 Path Steps
 
