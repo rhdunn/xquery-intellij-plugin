@@ -15,10 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.optree.function
 
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
-
-interface XpmArrowFunctionCall : XpmFunctionCall {
-    val sourceExpression: XpmExpression?
-
-    val operation: XpmArrowOperation
+enum class XpmArrowOperation {
+    Chaining,
+    Mapping
 }

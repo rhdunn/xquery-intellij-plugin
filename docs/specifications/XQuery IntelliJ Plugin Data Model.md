@@ -1051,11 +1051,13 @@ supplies positional and keyword arguments that are used to evaluate the
 function. If any of the positional arguments are placeholders, this is a
 *partially applied function call*.
 
-An *arrow function call* is a *function call* that is used in an arrow expression.
-The *source expression* property references the initial unary expression if this
-is the first arrow target in the chain; otherwise, it references the previous
-arrow target.
-
+An *arrow function call* is a *function call* that is used in an arrow expression:
+1. The *source expression* property references the initial unary expression if this
+   is the first arrow target in the chain; otherwise, it references the previous
+   arrow target.
+1. The *operation* property is *chaining* for `FatArrowTarget` (`=>`), or *mapping*
+   for `ThinArrowTarget` (`->`).
+d
 A *static function call* is a *function call* that has the name and arity of
 the function it references.
 

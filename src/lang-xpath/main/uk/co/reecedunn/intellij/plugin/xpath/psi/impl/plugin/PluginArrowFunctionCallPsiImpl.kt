@@ -19,6 +19,7 @@ import com.intellij.lang.ASTNode
 import com.intellij.openapi.util.Key
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
+import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.reverse
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
@@ -26,8 +27,10 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.filterNotWhitespace
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmArrowOperation
 import uk.co.reecedunn.intellij.plugin.xpm.optree.item.XpmMapEntry
 
 class PluginArrowFunctionCallPsiImpl(node: ASTNode) :
@@ -84,6 +87,12 @@ class PluginArrowFunctionCallPsiImpl(node: ASTNode) :
 
     override val sourceExpression: XpmExpression?
         get() = reverse(siblings()).filterIsInstance<XpmExpression>().firstOrNull()
+
+    override val operation: XpmArrowOperation
+        get() = when (conformanceElement.elementType) {
+            XPathTokenType.THIN_ARROW -> XpmArrowOperation.Mapping
+            else -> XpmArrowOperation.Chaining
+        }
 
     // endregion
     // region XpmSyntaxValidationElement

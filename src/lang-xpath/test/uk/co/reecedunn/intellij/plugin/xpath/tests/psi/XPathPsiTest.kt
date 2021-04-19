@@ -5273,48 +5273,60 @@ private class XPathPsiTest : ParserTestCase() {
             }
 
             @Nested
-            @DisplayName("XPath 4.0 EBNF (67) ArrowStaticFunction; XQuery IntelliJ Plugin XPath EBNF (28) ArrowFunctionCall")
-            internal inner class ArrowStaticFunction {
+            @DisplayName("XPath 4.0 EBNF (38) FatArrowTarget ; XPath 4.0 EBNF (67) ArrowStaticFunction")
+            internal inner class FatArrowTarget_ArrowStaticFunction {
                 @Test
                 @DisplayName("single function call")
                 fun singleFunctionCall() {
                     val expr = parse<PluginArrowFunctionCall>("1 => fn:abs()")[0] as XpmExpression
-
                     assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARROW_FUNCTION_CALL))
                     assertThat(expr.expressionElement?.textOffset, `is`(5))
+
+                    val f = expr as XpmArrowFunctionCall
+                    assertThat(f.operation, `is`(XpmArrowOperation.Chaining))
+                    assertThat(f.sourceExpression?.text, `is`("1"))
                 }
 
                 @Test
                 @DisplayName("multiple function call; inner")
                 fun multipleFunctionCallInner() {
                     val expr = parse<PluginArrowFunctionCall>("1 => fn:abs() => math:pow(2)")[0] as XpmExpression
-
                     assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARROW_FUNCTION_CALL))
                     assertThat(expr.expressionElement?.textOffset, `is`(5))
+
+                    val f = expr as XpmArrowFunctionCall
+                    assertThat(f.operation, `is`(XpmArrowOperation.Chaining))
+                    assertThat(f.sourceExpression?.text, `is`("1"))
                 }
 
                 @Test
                 @DisplayName("multiple function call; outer")
                 fun multipleFunctionCallOuter() {
                     val expr = parse<PluginArrowFunctionCall>("1 => fn:abs() => math:pow(2)")[1] as XpmExpression
-
                     assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARROW_FUNCTION_CALL))
                     assertThat(expr.expressionElement?.textOffset, `is`(17))
+
+                    val f = expr as XpmArrowFunctionCall
+                    assertThat(f.operation, `is`(XpmArrowOperation.Chaining))
+                    assertThat(f.sourceExpression?.text, `is`("fn:abs()"))
                 }
 
                 @Test
                 @DisplayName("invalid EQName")
                 fun invalidEQName() {
                     val expr = parse<PluginArrowFunctionCall>("1 => :abs()")[0] as XpmExpression
-
                     assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARROW_FUNCTION_CALL))
                     assertThat(expr.expressionElement?.textOffset, `is`(5))
+
+                    val f = expr as XpmArrowFunctionCall
+                    assertThat(f.operation, `is`(XpmArrowOperation.Chaining))
+                    assertThat(f.sourceExpression?.text, `is`("1"))
                 }
             }
 
             @Nested
-            @DisplayName("XPath 4.0 EBNF (67) ArrowDynamicFunction; XQuery IntelliJ Plugin XPath EBNF (28) ArrowFunctionCall")
-            internal inner class ArrowDynamicFunction {
+            @DisplayName("XPath 4.0 EBNF (38) FatArrowTarget ; XPath 4.0 EBNF (67) ArrowDynamicFunction")
+            internal inner class FatArrowTarget_ArrowDynamicFunction {
                 @Test
                 @DisplayName("single function call")
                 fun singleFunctionCall() {
@@ -5326,6 +5338,10 @@ private class XPathPsiTest : ParserTestCase() {
                     assertThat(expr.expressionElement?.textOffset, `is`(33))
 
                     assertThat((expr as XpmArrowFunctionCall).sourceExpression?.text, `is`("1"))
+
+                    val f = expr as XpmArrowFunctionCall
+                    assertThat(f.operation, `is`(XpmArrowOperation.Chaining))
+                    assertThat(f.sourceExpression?.text, `is`("1"))
                 }
 
                 @Test
@@ -5339,6 +5355,10 @@ private class XPathPsiTest : ParserTestCase() {
                     assertThat(expr.expressionElement?.textOffset, `is`(54))
 
                     assertThat((expr as XpmArrowFunctionCall).sourceExpression?.text, `is`("1"))
+
+                    val f = expr as XpmArrowFunctionCall
+                    assertThat(f.operation, `is`(XpmArrowOperation.Chaining))
+                    assertThat(f.sourceExpression?.text, `is`("1"))
                 }
 
                 @Test
@@ -5352,6 +5372,117 @@ private class XPathPsiTest : ParserTestCase() {
                     assertThat(expr.expressionElement?.textOffset, `is`(62))
 
                     assertThat((expr as XpmArrowFunctionCall).sourceExpression?.text, `is`("\$x()"))
+
+                    val f = expr as XpmArrowFunctionCall
+                    assertThat(f.operation, `is`(XpmArrowOperation.Chaining))
+                    assertThat(f.sourceExpression?.text, `is`("\$x()"))
+                }
+            }
+
+            @Nested
+            @DisplayName("XPath 4.0 EBNF (39) ThinArrowTarget ; XPath 4.0 EBNF (67) ArrowStaticFunction")
+            internal inner class ThinArrowTarget_ArrowStaticFunction {
+                @Test
+                @DisplayName("single function call")
+                fun singleFunctionCall() {
+                    val expr = parse<PluginArrowFunctionCall>("1 -> fn:abs()")[0] as XpmExpression
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARROW_FUNCTION_CALL))
+                    assertThat(expr.expressionElement?.textOffset, `is`(5))
+
+                    val f = expr as XpmArrowFunctionCall
+                    assertThat(f.operation, `is`(XpmArrowOperation.Mapping))
+                    assertThat(f.sourceExpression?.text, `is`("1"))
+                }
+
+                @Test
+                @DisplayName("multiple function call; inner")
+                fun multipleFunctionCallInner() {
+                    val expr = parse<PluginArrowFunctionCall>("1 -> fn:abs() -> math:pow(2)")[0] as XpmExpression
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARROW_FUNCTION_CALL))
+                    assertThat(expr.expressionElement?.textOffset, `is`(5))
+
+                    val f = expr as XpmArrowFunctionCall
+                    assertThat(f.operation, `is`(XpmArrowOperation.Mapping))
+                    assertThat(f.sourceExpression?.text, `is`("1"))
+                }
+
+                @Test
+                @DisplayName("multiple function call; outer")
+                fun multipleFunctionCallOuter() {
+                    val expr = parse<PluginArrowFunctionCall>("1 -> fn:abs() -> math:pow(2)")[1] as XpmExpression
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARROW_FUNCTION_CALL))
+                    assertThat(expr.expressionElement?.textOffset, `is`(17))
+
+                    val f = expr as XpmArrowFunctionCall
+                    assertThat(f.operation, `is`(XpmArrowOperation.Mapping))
+                    assertThat(f.sourceExpression?.text, `is`("fn:abs()"))
+                }
+
+                @Test
+                @DisplayName("invalid EQName")
+                fun invalidEQName() {
+                    val expr = parse<PluginArrowFunctionCall>("1 -> :abs()")[0] as XpmExpression
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARROW_FUNCTION_CALL))
+                    assertThat(expr.expressionElement?.textOffset, `is`(5))
+
+                    val f = expr as XpmArrowFunctionCall
+                    assertThat(f.operation, `is`(XpmArrowOperation.Mapping))
+                    assertThat(f.sourceExpression?.text, `is`("1"))
+                }
+            }
+
+            @Nested
+            @DisplayName("XPath 4.0 EBNF (39) ThinArrowTarget ; XPath 4.0 EBNF (67) ArrowDynamicFunction")
+            internal inner class ThinArrowTarget_ArrowDynamicFunction {
+                @Test
+                @DisplayName("single function call")
+                fun singleFunctionCall() {
+                    val expr = parse<PluginArrowDynamicFunctionCall>(
+                        "let \$x := fn:abs#1 return 1 -> \$x()"
+                    )[0] as XpmExpression
+
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
+                    assertThat(expr.expressionElement?.textOffset, `is`(33))
+
+                    assertThat((expr as XpmArrowFunctionCall).sourceExpression?.text, `is`("1"))
+
+                    val f = expr as XpmArrowFunctionCall
+                    assertThat(f.operation, `is`(XpmArrowOperation.Mapping))
+                    assertThat(f.sourceExpression?.text, `is`("1"))
+                }
+
+                @Test
+                @DisplayName("multiple function call; inner")
+                fun multipleFunctionCallInner() {
+                    val expr = parse<PluginArrowDynamicFunctionCall>(
+                        "let \$x := fn:abs#1 let \$y := math:pow#2 return 1 -> \$x() -> \$y(2)"
+                    )[0] as XpmExpression
+
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
+                    assertThat(expr.expressionElement?.textOffset, `is`(54))
+
+                    assertThat((expr as XpmArrowFunctionCall).sourceExpression?.text, `is`("1"))
+
+                    val f = expr as XpmArrowFunctionCall
+                    assertThat(f.operation, `is`(XpmArrowOperation.Mapping))
+                    assertThat(f.sourceExpression?.text, `is`("1"))
+                }
+
+                @Test
+                @DisplayName("multiple function call; outer")
+                fun multipleFunctionCallOuter() {
+                    val expr = parse<PluginArrowDynamicFunctionCall>(
+                        "let \$x := fn:abs#1 let \$y := math:pow#2 return 1 -> \$x() -> \$y(2)"
+                    )[1] as XpmExpression
+
+                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
+                    assertThat(expr.expressionElement?.textOffset, `is`(62))
+
+                    assertThat((expr as XpmArrowFunctionCall).sourceExpression?.text, `is`("\$x()"))
+
+                    val f = expr as XpmArrowFunctionCall
+                    assertThat(f.operation, `is`(XpmArrowOperation.Mapping))
+                    assertThat(f.sourceExpression?.text, `is`("\$x()"))
                 }
             }
         }
