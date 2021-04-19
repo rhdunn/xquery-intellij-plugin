@@ -5235,7 +5235,6 @@ private class XPathPsiTest : ParserTestCase() {
                     "let \$f := format-date#5 return \$x => \$f(1, 2, 3,  4)"
                 )[0] as XpmArrowFunctionCall
 
-                assertThat(f.sourceExpression.text, `is`("\$x "))
                 assertThat(f.functionReference, `is`(nullValue())) // TODO: fn:format-date#5
 
                 assertThat(f.positionalArguments.size, `is`(4))
@@ -5251,8 +5250,6 @@ private class XPathPsiTest : ParserTestCase() {
                 val f = parse<PluginArrowDynamicFunctionCall>(
                     "\$x => (format-date#5)(1, 2, 3,  4)"
                 )[0] as XpmArrowFunctionCall
-
-                assertThat(f.sourceExpression.text, `is`("\$x "))
 
                 val ref = f.functionReference!!
                 assertThat(ref.positionalArity, `is`(5))
@@ -5337,8 +5334,6 @@ private class XPathPsiTest : ParserTestCase() {
                     assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
                     assertThat(expr.expressionElement?.textOffset, `is`(33))
 
-                    assertThat((expr as XpmArrowFunctionCall).sourceExpression.text, `is`("1"))
-
                     val f = expr as XpmArrowFunctionCall
                     assertThat(f.operation, `is`(XpmArrowOperation.Chaining))
                     assertThat(f.sourceExpression.text, `is`("1"))
@@ -5354,8 +5349,6 @@ private class XPathPsiTest : ParserTestCase() {
                     assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
                     assertThat(expr.expressionElement?.textOffset, `is`(54))
 
-                    assertThat((expr as XpmArrowFunctionCall).sourceExpression.text, `is`("1"))
-
                     val f = expr as XpmArrowFunctionCall
                     assertThat(f.operation, `is`(XpmArrowOperation.Chaining))
                     assertThat(f.sourceExpression.text, `is`("1"))
@@ -5370,8 +5363,6 @@ private class XPathPsiTest : ParserTestCase() {
 
                     assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
                     assertThat(expr.expressionElement?.textOffset, `is`(62))
-
-                    assertThat((expr as XpmArrowFunctionCall).sourceExpression.text, `is`("\$x()"))
 
                     val f = expr as XpmArrowFunctionCall
                     assertThat(f.operation, `is`(XpmArrowOperation.Chaining))
@@ -5444,8 +5435,6 @@ private class XPathPsiTest : ParserTestCase() {
                     assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
                     assertThat(expr.expressionElement?.textOffset, `is`(33))
 
-                    assertThat((expr as XpmArrowFunctionCall).sourceExpression.text, `is`("1"))
-
                     val f = expr as XpmArrowFunctionCall
                     assertThat(f.operation, `is`(XpmArrowOperation.Mapping))
                     assertThat(f.sourceExpression.text, `is`("1"))
@@ -5461,8 +5450,6 @@ private class XPathPsiTest : ParserTestCase() {
                     assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
                     assertThat(expr.expressionElement?.textOffset, `is`(54))
 
-                    assertThat((expr as XpmArrowFunctionCall).sourceExpression.text, `is`("1"))
-
                     val f = expr as XpmArrowFunctionCall
                     assertThat(f.operation, `is`(XpmArrowOperation.Mapping))
                     assertThat(f.sourceExpression.text, `is`("1"))
@@ -5477,8 +5464,6 @@ private class XPathPsiTest : ParserTestCase() {
 
                     assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
                     assertThat(expr.expressionElement?.textOffset, `is`(62))
-
-                    assertThat((expr as XpmArrowFunctionCall).sourceExpression.text, `is`("\$x()"))
 
                     val f = expr as XpmArrowFunctionCall
                     assertThat(f.operation, `is`(XpmArrowOperation.Mapping))
