@@ -7540,8 +7540,8 @@ private class XQueryPsiTest : ParserTestCase() {
             }
 
             @Nested
-            @DisplayName("XQuery IntelliJ Plugin EBNF (95) ArrowFunctionCall; XQuery 3.1 EBNF (218) EQName")
-            internal inner class ArrowFunctionCall_EQName {
+            @DisplayName("XQuery 4.0 ED EBNF (142) ArrowStaticFunction; XQuery IntelliJ Plugin EBNF (95) ArrowFunctionCall")
+            internal inner class ArrowStaticFunction {
                 @Test
                 @DisplayName("single function call")
                 fun singleFunctionCall() {
@@ -7580,8 +7580,8 @@ private class XQueryPsiTest : ParserTestCase() {
             }
 
             @Nested
-            @DisplayName("XQuery IntelliJ Plugin EBNF (95) ArrowFunctionCall; XQuery 3.1 EBNF (131) VarRef")
-            internal inner class ArrowFunctionCall_VarRef {
+            @DisplayName("XQuery 4.0 ED EBNF (143) ArrowDynamicFunction; XQuery IntelliJ Plugin EBNF (119) ArrowDynamicFunctionCall")
+            internal inner class ArrowDynamicFunction {
                 @Test
                 @DisplayName("single function call")
                 fun singleFunctionCall() {
@@ -7619,47 +7619,6 @@ private class XQueryPsiTest : ParserTestCase() {
                     assertThat(expr.expressionElement?.textOffset, `is`(62))
 
                     assertThat((expr as XpmArrowFunctionCall).sourceExpression?.text, `is`("\$x()"))
-                }
-            }
-
-            @Nested
-            @DisplayName("XQuery IntelliJ Plugin EBNF (95) ArrowFunctionCall; XQuery 3.1 EBNF (133) ParenthesizedExpr")
-            internal inner class ArrowFunctionCall_ParenthesizedExpr {
-                @Test
-                @DisplayName("single function call")
-                fun singleFunctionCall() {
-                    val expr = parse<PluginArrowDynamicFunctionCall>("1 => (fn:abs#1)()")[0] as XpmExpression
-
-                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
-                    assertThat(expr.expressionElement?.textOffset, `is`(15))
-
-                    assertThat((expr as XpmArrowFunctionCall).sourceExpression?.text, `is`("1"))
-                }
-
-                @Test
-                @DisplayName("multiple function call; inner")
-                fun multipleFunctionCallInner() {
-                    val expr = parse<PluginArrowDynamicFunctionCall>(
-                        "1 => (fn:abs#1)() => (math:pow#2)(2)"
-                    )[0] as XpmExpression
-
-                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
-                    assertThat(expr.expressionElement?.textOffset, `is`(15))
-
-                    assertThat((expr as XpmArrowFunctionCall).sourceExpression?.text, `is`("1"))
-                }
-
-                @Test
-                @DisplayName("multiple function call; outer")
-                fun multipleFunctionCallOuter() {
-                    val expr = parse<PluginArrowDynamicFunctionCall>(
-                        "1 => (fn:abs#1)() => (math:pow#2)(2)"
-                    )[1] as XpmExpression
-
-                    assertThat(expr.expressionElement.elementType, `is`(XPathElementType.ARGUMENT_LIST))
-                    assertThat(expr.expressionElement?.textOffset, `is`(33))
-
-                    assertThat((expr as XpmArrowFunctionCall).sourceExpression?.text, `is`("(fn:abs#1)()"))
                 }
             }
         }
