@@ -85,8 +85,8 @@ class PluginArrowFunctionCallPsiImpl(node: ASTNode) :
             argumentList.children().filterIsInstance<XpmMapEntry>().toList()
         }
 
-    override val sourceExpression: XpmExpression?
-        get() = reverse(siblings()).filterIsInstance<XpmExpression>().firstOrNull()
+    override val sourceExpression: XpmExpression
+        get() = reverse(siblings()).filterIsInstance<XpmExpression>().first()
 
     override val operation: XpmArrowOperation
         get() = when (conformanceElement.elementType) {

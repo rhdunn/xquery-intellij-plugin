@@ -66,8 +66,8 @@ class PluginArrowDynamicFunctionCallPsiImpl(node: ASTNode) :
 
     override val keywordArguments: List<XpmMapEntry> = listOf()
 
-    override val sourceExpression: XpmExpression?
-        get() = reverse(siblings()).filterIsInstance<XpmExpression>().firstOrNull()
+    override val sourceExpression: XpmExpression
+        get() = reverse(siblings()).filterIsInstance<XpmExpression>().first()
 
     override val operation: XpmArrowOperation
         get() = when (conformanceElement.elementType) {
