@@ -15,11 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
 
 /**
  * An XPath 2.0 and XQuery 1.0 `FunctionCall` node in the XQuery AST.
  */
-interface XPathFunctionCall : XPathPrimaryExpr, XpmFunctionReference, XpmFunctionCall, XpmExpression
+interface XPathFunctionCall : XPathPrimaryExpr, XpmFunctionReference, XpmFunctionCall
