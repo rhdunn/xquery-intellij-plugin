@@ -2,7 +2,7 @@
 <idea-plugin xmlns:xi="http://www.w3.org/2001/XInclude">
   <id>uk.co.reecedunn.intellij.plugin.xquery</id>
   <!--suppress PluginXmlValidity -->
-  <name>XQuery IntelliJ Plugin</name>
+  <name>XQuery and XSLT</name>
   <version>VERSION</version>
   <vendor email="msclrhd@gmail.com" url="http://reecedunn.co.uk">Reece H. Dunn</vendor>
   <category>XML</category>
