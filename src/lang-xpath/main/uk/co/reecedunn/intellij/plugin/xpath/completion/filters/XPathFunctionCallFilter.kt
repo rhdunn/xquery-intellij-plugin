@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,7 +39,7 @@ object XPathFunctionCallFilter : CompletionFilter {
                     }
                 }
                 is XPathArrowFunctionSpecifier -> {
-                    if ((element.parent as XsQNameValue).isLocalNameOrNCName(element)) {
+                    if ((element.parent as? XsQNameValue)?.isLocalNameOrNCName(element) == true) {
                         element.parent.parent is XPathArrowFunctionSpecifier
                     } else {
                         false

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -288,6 +288,14 @@ private class XPathCompletionFilterTest : ParserTestCase() {
                 val context = ProcessingContext()
                 val element = completion("2 => Q{lorem}ipsum()", "ipsum")
                 assertThat(XPathFunctionCallFilter.accepts(element, context), `is`(true))
+            }
+
+            @Test
+            @DisplayName("XPath 3.1 EBNF (116) StringLiteral")
+            fun stringLiteral() {
+                val context = ProcessingContext()
+                val element = completion("1 => test(\"completion-point\")")
+                assertThat(XPathFunctionCallFilter.accepts(element, context), `is`(false))
             }
         }
 

@@ -4,6 +4,7 @@
 
 1. Fix detecting empty enclosed expressions that contain an XQuery comment.
 1. Fix the code folding placeholder text for some enclosed expressions.
+1. Fix a crash when autocompleting in a StringLiteral from an arrow function call.
 
 ## 2021
 
