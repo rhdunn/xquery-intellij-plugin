@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2018-2020 Reece H. Dunn
+ * Copyright (C) 2016, 2018-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,29 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.xslt.resources
 
-import com.intellij.BundleBase
-import org.jetbrains.annotations.NonNls
+import com.intellij.DynamicBundle
 import org.jetbrains.annotations.PropertyKey
-import java.lang.ref.SoftReference
-import java.util.*
 
-object XsltBundle {
-    @NonNls
-    private const val PATH_TO_BUNDLE = "messages.XsltBundle"
-
-    private var sBundle: SoftReference<ResourceBundle>? = null
-    private val bundle: ResourceBundle
-        get() {
-            var value = com.intellij.reference.SoftReference.dereference(sBundle)
-            if (value == null) {
-                // This is called if the bundle has not been loaded, or has been garbage collected.
-                value = ResourceBundle.getBundle(PATH_TO_BUNDLE)
-                sBundle = SoftReference(value)
-            }
-            return value!!
-        }
-
-    fun message(@PropertyKey(resourceBundle = PATH_TO_BUNDLE) key: String, vararg params: Any): String {
-        return BundleBase.message(bundle, key, *params)
+object XsltBundle : DynamicBundle("messages.XsltBundle") {
+    fun message(@PropertyKey(resourceBundle = "messages.XsltBundle") key: String, vararg params: Any): String {
+        return getMessage(key, *params)
     }
 }
