@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2018-2021 Reece H. Dunn
+ * Copyright (C) 2020 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,13 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.processor.resources
+package com.intellij.compat
 
-import com.intellij.compat.DynamicBundle
-import org.jetbrains.annotations.PropertyKey
-
-object PluginApiBundle : DynamicBundle("messages.PluginApiBundle") {
-    fun message(@PropertyKey(resourceBundle = "messages.PluginApiBundle") key: String, vararg params: Any): String {
-        return getMessage(key, *params)
-    }
-}
+typealias DynamicBundle = com.intellij.DynamicBundle

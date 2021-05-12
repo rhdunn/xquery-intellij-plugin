@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xslt.resources
 
-import com.intellij.DynamicBundle
+import com.intellij.compat.DynamicBundle
 import org.jetbrains.annotations.PropertyKey
 
 object XsltBundle : DynamicBundle("messages.XsltBundle") {

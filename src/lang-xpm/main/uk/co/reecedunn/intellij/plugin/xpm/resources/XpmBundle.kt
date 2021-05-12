@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.resources
 
-import com.intellij.DynamicBundle
+import com.intellij.compat.DynamicBundle
 import org.jetbrains.annotations.PropertyKey
 
 object XpmBundle : DynamicBundle("messages.XpmBundle") {

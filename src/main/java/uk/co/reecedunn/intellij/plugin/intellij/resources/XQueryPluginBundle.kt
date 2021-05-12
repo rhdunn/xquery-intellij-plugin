@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.intellij.resources
 
-import com.intellij.DynamicBundle
+import com.intellij.compat.DynamicBundle
 import org.jetbrains.annotations.PropertyKey
 
 object XQueryPluginBundle : DynamicBundle("messages.XQueryPluginBundle") {

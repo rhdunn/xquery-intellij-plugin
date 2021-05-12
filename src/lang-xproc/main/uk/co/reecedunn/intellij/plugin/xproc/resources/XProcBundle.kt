@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xproc.resources
 
-import com.intellij.DynamicBundle
+import com.intellij.compat.DynamicBundle
 import org.jetbrains.annotations.PropertyKey
 
 object XProcBundle : DynamicBundle("messages.XProcBundle") {
