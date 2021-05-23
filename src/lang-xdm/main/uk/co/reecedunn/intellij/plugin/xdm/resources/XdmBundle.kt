@@ -15,10 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.resources
 
-import com.intellij.compat.DynamicBundle
+import com.intellij.AbstractBundle
 import org.jetbrains.annotations.PropertyKey
 
-object XdmBundle : DynamicBundle("messages.XdmBundle") {
+object XdmBundle : AbstractBundle("messages.XdmBundle") {
     fun message(@PropertyKey(resourceBundle = "messages.XdmBundle") key: String, vararg params: Any): String {
         return getMessage(key, *params)
     }

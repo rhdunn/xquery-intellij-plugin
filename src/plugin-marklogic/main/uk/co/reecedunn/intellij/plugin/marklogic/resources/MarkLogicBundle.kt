@@ -15,10 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.resources
 
-import com.intellij.compat.DynamicBundle
+import com.intellij.AbstractBundle
 import org.jetbrains.annotations.PropertyKey
 
-object MarkLogicBundle : DynamicBundle("messages.MarkLogicBundle") {
+object MarkLogicBundle : AbstractBundle("messages.MarkLogicBundle") {
     fun message(@PropertyKey(resourceBundle = "messages.MarkLogicBundle") key: String, vararg params: Any): String {
         return getMessage(key, *params)
     }

@@ -15,10 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xqdoc.resources
 
-import com.intellij.compat.DynamicBundle
+import com.intellij.AbstractBundle
 import org.jetbrains.annotations.PropertyKey
 
-object XQDocBundle : DynamicBundle("messages.XQDocBundle") {
+object XQDocBundle : AbstractBundle("messages.XQDocBundle") {
     fun message(@PropertyKey(resourceBundle = "messages.XQDocBundle") key: String, vararg params: Any): String {
         return getMessage(key, *params)
     }

@@ -15,10 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.resources
 
-import com.intellij.compat.DynamicBundle
+import com.intellij.AbstractBundle
 import org.jetbrains.annotations.PropertyKey
 
-object XQueryBundle : DynamicBundle("messages.XQueryBundle") {
+object XQueryBundle : AbstractBundle("messages.XQueryBundle") {
     fun message(@PropertyKey(resourceBundle = "messages.XQueryBundle") key: String, vararg params: Any): String {
         return getMessage(key, *params)
     }

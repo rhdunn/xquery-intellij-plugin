@@ -15,10 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.basex.resources
 
-import com.intellij.compat.DynamicBundle
+import com.intellij.AbstractBundle
 import org.jetbrains.annotations.PropertyKey
 
-object BaseXBundle : DynamicBundle("messages.BaseXBundle") {
+object BaseXBundle : AbstractBundle("messages.BaseXBundle") {
     fun message(@PropertyKey(resourceBundle = "messages.BaseXBundle") key: String, vararg params: Any): String {
         return getMessage(key, *params)
     }

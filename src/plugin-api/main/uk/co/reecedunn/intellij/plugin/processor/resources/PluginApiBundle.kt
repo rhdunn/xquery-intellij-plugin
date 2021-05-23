@@ -15,10 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.resources
 
-import com.intellij.compat.DynamicBundle
+import com.intellij.AbstractBundle
 import org.jetbrains.annotations.PropertyKey
 
-object PluginApiBundle : DynamicBundle("messages.PluginApiBundle") {
+object PluginApiBundle : AbstractBundle("messages.PluginApiBundle") {
     fun message(@PropertyKey(resourceBundle = "messages.PluginApiBundle") key: String, vararg params: Any): String {
         return getMessage(key, *params)
     }

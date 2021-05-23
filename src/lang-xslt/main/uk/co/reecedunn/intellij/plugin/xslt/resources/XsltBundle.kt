@@ -15,10 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xslt.resources
 
-import com.intellij.compat.DynamicBundle
+import com.intellij.AbstractBundle
 import org.jetbrains.annotations.PropertyKey
 
-object XsltBundle : DynamicBundle("messages.XsltBundle") {
+object XsltBundle : AbstractBundle("messages.XsltBundle") {
     fun message(@PropertyKey(resourceBundle = "messages.XsltBundle") key: String, vararg params: Any): String {
         return getMessage(key, *params)
     }
