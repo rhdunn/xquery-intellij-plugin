@@ -22,6 +22,7 @@ import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.compat.mock.MockFileDocumentManagerImpl
 import com.intellij.compat.testFramework.PlatformLiteFixture
 import com.intellij.compat.testFramework.registerServiceInstance
+import com.intellij.compat.util.registry.initializeRegistryForTests
 import com.intellij.ide.startup.impl.StartupManagerImpl
 import com.intellij.lang.*
 import com.intellij.lang.impl.PsiBuilderFactoryImpl
@@ -97,6 +98,7 @@ abstract class ParsingTestCase<File : PsiFile>(
     @Suppress("UnstableApiUsage")
     override fun setUp() {
         super.setUp()
+        initializeRegistryForTests()
 
         // IntelliJ ParsingTestCase setUp
         val app = initApplication()
