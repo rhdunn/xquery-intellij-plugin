@@ -68,7 +68,7 @@ class XQueryProjectSettings : PersistentStateComponent<XQueryProjectSettings> {
 
     companion object {
         fun getInstance(project: Project): XQueryProjectSettings {
-            return ServiceManager.getService(project, XQueryProjectSettings::class.java)
+            return project.getService(XQueryProjectSettings::class.java)
         }
     }
 }

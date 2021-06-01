@@ -38,7 +38,7 @@ class XpmProjectConfigurations(private val project: Project) :
         private val CONFIGURATIONS = Key.create<List<XpmProjectConfiguration>>("CONFIGURATIONS")
 
         fun getInstance(project: Project): XpmProjectConfigurations {
-            return ServiceManager.getService(project, XpmProjectConfigurations::class.java)
+            return project.getService(XpmProjectConfigurations::class.java)
         }
     }
     // region ExtensionPointListener

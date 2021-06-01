@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xqdoc.documentation
 
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.application.PathManager
 import com.intellij.openapi.components.*
 import com.intellij.openapi.vfs.LocalFileSystem
@@ -88,7 +89,7 @@ class XQDocDocumentationDownloader : PersistentStateComponent<XQDocDocumentation
 
     companion object {
         fun getInstance(): XQDocDocumentationDownloader {
-            return ServiceManager.getService(XQDocDocumentationDownloader::class.java)
+            return ApplicationManager.getApplication().getService(XQDocDocumentationDownloader::class.java)
         }
     }
 }

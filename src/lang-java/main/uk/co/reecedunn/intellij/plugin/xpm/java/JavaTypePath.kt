@@ -64,7 +64,7 @@ data class JavaTypePath(val project: Project) : XpmModulePath, XpmStaticContext 
     companion object : XpmModulePathFactory {
         private const val JAVA_TYPE_NS = "http://saxon.sf.net/java-type"
 
-        fun getInstance(project: Project): JavaTypePath = ServiceManager.getService(project, JavaTypePath::class.java)
+        fun getInstance(project: Project): JavaTypePath = project.getService(JavaTypePath::class.java)
 
         override fun create(project: Project, uri: XsAnyUriValue): JavaTypePath? = when (uri.context) {
             XdmUriContext.Namespace, XdmUriContext.TargetNamespace, XdmUriContext.NamespaceDeclaration -> {

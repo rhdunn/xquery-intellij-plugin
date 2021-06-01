@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.query.settings
 
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.PersistentStateComponent
 import com.intellij.openapi.components.ServiceManager
 import com.intellij.openapi.components.State
@@ -79,7 +80,7 @@ class QueryProcessors : PersistentStateComponent<QueryProcessorsData> {
     // region Instance
 
     companion object {
-        fun getInstance(): QueryProcessors = ServiceManager.getService(QueryProcessors::class.java)
+        fun getInstance(): QueryProcessors = ApplicationManager.getApplication().getService(QueryProcessors::class.java)
     }
 
     // endregion

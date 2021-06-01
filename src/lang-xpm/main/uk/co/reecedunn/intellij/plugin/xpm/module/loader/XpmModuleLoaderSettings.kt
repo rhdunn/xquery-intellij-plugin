@@ -48,7 +48,7 @@ class XpmModuleLoaderSettings(val project: Project) :
         private val LOADERS = Key.create<List<XpmModuleLoader>>("LOADERS")
 
         fun getInstance(project: Project): XpmModuleLoaderSettings {
-            return ServiceManager.getService(project, XpmModuleLoaderSettings::class.java)
+            return project.getService(XpmModuleLoaderSettings::class.java)
         }
     }
     // region Settings :: Module Loaders

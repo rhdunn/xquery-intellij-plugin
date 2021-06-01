@@ -67,7 +67,7 @@ class XRayTestService(private val project: Project) {
 
     companion object {
         fun getInstance(project: Project): XRayTestService {
-            return ServiceManager.getService(project, XRayTestService::class.java)
+            return project.getService(XRayTestService::class.java)
         }
 
         const val FRAMEWORK_NAME = "XRay"
