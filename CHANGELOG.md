@@ -4,7 +4,7 @@
 
 Inlay Parameters:
 
-1. Don't display inlay parameter hints when a `UnaryLookup` name matches the parameter name.
+1. Don't display inlay parameter hints when a `UnaryLookup` or `Lookup` name matches the parameter name.
 
 Code Folding:
 

@@ -73,7 +73,7 @@
   <change-notes><![CDATA[
     <p>Inlay Parameters:</p>
     <ol>
-      <li>Don't display inlay parameter hints when a <code>UnaryLookup</code> name matches the parameter name.</li>
+      <li>Don't display inlay parameter hints when a <code>UnaryLookup</code> or <code>Lookup</code> name matches the parameter name.</li>
     </ol>
     <p>Code Folding:</p>
     <ol>
