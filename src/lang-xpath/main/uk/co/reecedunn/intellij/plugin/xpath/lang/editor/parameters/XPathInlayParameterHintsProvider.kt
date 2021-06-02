@@ -73,7 +73,6 @@ class XPathInlayParameterHintsProvider : InlayParameterHintsProvider {
         )
 
         private fun getName(element: PsiElement): XsNCNameValue? = when (element) {
-            is XpmVariableReference -> element.variableName?.localName
             is XPathRelativePathExpr -> when (val step = element.lastChild) {
                 is XPathNameTest -> (step.firstChild as? XsQNameValue)?.localName
                 is XPathAbbrevForwardStep, is XPathForwardStep, is XPathReverseStep -> when (step.lastChild) {
@@ -82,8 +81,10 @@ class XPathInlayParameterHintsProvider : InlayParameterHintsProvider {
                 }
                 else -> null
             }
+            is XPathSimpleMapExpr -> getName(element.lastChild)
             is XdmAttributeNode -> element.nodeName?.localName
             is XdmElementNode -> element.nodeName?.localName
+            is XpmVariableReference -> element.variableName?.localName
             is XpmLookupExpression -> element.keyExpression as? XsNCNameValue
             else -> null
         }

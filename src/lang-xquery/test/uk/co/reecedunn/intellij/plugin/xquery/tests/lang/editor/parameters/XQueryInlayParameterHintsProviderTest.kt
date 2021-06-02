@@ -248,6 +248,54 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
             }
 
             @Nested
+            @DisplayName("XQuery 3.1 EBNF (107) SimpleMapExpr")
+            internal inner class SimpleMapExpr {
+                @Test
+                @DisplayName("name not matching the parameter names")
+                fun different() {
+                    val f = parse<XPathFunctionCall>(
+                        """
+                        |declare function local:f(${'$'}arg1, ${'$'}arg2) {};
+                        |local:f(a!?one, a!?two)
+                        """.trimMargin()
+                    )[0]
+
+                    val hints = provider.getParameterHints(f)
+                    assertThat(hints.size, `is`(2))
+
+                    assertThat(hints[0].text, `is`("arg1"))
+                    assertThat(hints[0].offset, `is`(51))
+                    assertThat(hints[0].isShowOnlyIfExistedBefore, `is`(false))
+
+                    assertThat(hints[1].text, `is`("arg2"))
+                    assertThat(hints[1].offset, `is`(59))
+                    assertThat(hints[1].isShowOnlyIfExistedBefore, `is`(false))
+                }
+
+                @Test
+                @DisplayName("name matching the parameter names")
+                fun same() {
+                    val f = parse<XPathFunctionCall>(
+                        """
+                        |declare function local:f(${'$'}arg1, ${'$'}arg2, ${'$'}arg3) {};
+                        |local:f(a!?one, a!?arg2, a!?three)
+                        """.trimMargin()
+                    )[0]
+
+                    val hints = provider.getParameterHints(f)
+                    assertThat(hints.size, `is`(2))
+
+                    assertThat(hints[0].text, `is`("arg1"))
+                    assertThat(hints[0].offset, `is`(58))
+                    assertThat(hints[0].isShowOnlyIfExistedBefore, `is`(false))
+
+                    assertThat(hints[1].text, `is`("arg3"))
+                    assertThat(hints[1].offset, `is`(75))
+                    assertThat(hints[1].isShowOnlyIfExistedBefore, `is`(false))
+                }
+            }
+
+            @Nested
             @DisplayName("XQuery 3.1 EBNF (126) KeySpecifier ; XQuery 3.1 EBNF (181) UnaryLookup")
             internal inner class UnaryLookup {
                 @Test
@@ -786,6 +834,54 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 assertThat(hints[0].text, `is`("arg2"))
                 assertThat(hints[0].offset, `is`(56))
                 assertThat(hints[0].isShowOnlyIfExistedBefore, `is`(false))
+            }
+
+            @Nested
+            @DisplayName("XQuery 3.1 EBNF (107) SimpleMapExpr")
+            internal inner class SimpleMapExpr {
+                @Test
+                @DisplayName("name not matching the parameter names")
+                fun different() {
+                    val f = parse<PluginArrowFunctionCall>(
+                        """
+                        |declare function local:f(${'$'}arg1, ${'$'}arg2, ${'$'}arg3) {};
+                        |a!?one => local:f(a!?two, a!?three)
+                        """.trimMargin()
+                    )[0]
+
+                    val hints = provider.getParameterHints(f)
+                    assertThat(hints.size, `is`(2))
+
+                    assertThat(hints[0].text, `is`("arg2"))
+                    assertThat(hints[0].offset, `is`(68))
+                    assertThat(hints[0].isShowOnlyIfExistedBefore, `is`(false))
+
+                    assertThat(hints[1].text, `is`("arg3"))
+                    assertThat(hints[1].offset, `is`(76))
+                    assertThat(hints[1].isShowOnlyIfExistedBefore, `is`(false))
+                }
+
+                @Test
+                @DisplayName("name matching the parameter names")
+                fun same() {
+                    val f = parse<PluginArrowFunctionCall>(
+                        """
+                        |declare function local:f(${'$'}arg1, ${'$'}arg2, ${'$'}arg3, ${'$'}arg4) {};
+                        |a!?one => local:f(a!?two, a!?arg3, a!?four)
+                        """.trimMargin()
+                    )[0]
+
+                    val hints = provider.getParameterHints(f)
+                    assertThat(hints.size, `is`(2))
+
+                    assertThat(hints[0].text, `is`("arg2"))
+                    assertThat(hints[0].offset, `is`(75))
+                    assertThat(hints[0].isShowOnlyIfExistedBefore, `is`(false))
+
+                    assertThat(hints[1].text, `is`("arg4"))
+                    assertThat(hints[1].offset, `is`(92))
+                    assertThat(hints[1].isShowOnlyIfExistedBefore, `is`(false))
+                }
             }
 
             @Nested
