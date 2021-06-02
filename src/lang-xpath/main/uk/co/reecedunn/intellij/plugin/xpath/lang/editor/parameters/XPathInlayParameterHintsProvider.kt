@@ -22,6 +22,7 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAttributeNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.parenthesizedExprTextOffset
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
@@ -47,7 +48,7 @@ class XPathInlayParameterHintsProvider : InlayParameterHintsProvider {
                 expr == null -> null // Empty variadic parameter.
                 expr.parent is XPathKeywordArgument -> null // keyword argument
                 index == 0 && element is XpmArrowFunctionCall -> null // Arrow function call context argument.
-                getName(expr)?.localName?.data == binding.variableName?.localName?.data -> null
+                getName(expr)?.data == binding.variableName?.localName?.data -> null
                 else -> op_qname_presentation(binding.variableName!!)?.let { name ->
                     InlayInfo(name, expr.let { it.parenthesizedExprTextOffset ?: it.textOffset }, false)
                 }
@@ -70,18 +71,18 @@ class XPathInlayParameterHintsProvider : InlayParameterHintsProvider {
             "(arg)" // e.g. fn:string#1, xs:QName#1
         )
 
-        private fun getName(element: PsiElement): XsQNameValue? = when (element) {
-            is XpmVariableReference -> element.variableName
+        private fun getName(element: PsiElement): XsNCNameValue? = when (element) {
+            is XpmVariableReference -> element.variableName?.localName
             is XPathRelativePathExpr -> when (val step = element.lastChild) {
-                is XPathNameTest -> step.firstChild as? XsQNameValue
+                is XPathNameTest -> (step.firstChild as? XsQNameValue)?.localName
                 is XPathAbbrevForwardStep, is XPathForwardStep, is XPathReverseStep -> when (step.lastChild) {
-                    is XPathNameTest -> step.lastChild.firstChild as? XsQNameValue
+                    is XPathNameTest -> (step.lastChild.firstChild as? XsQNameValue)?.localName
                     else -> null
                 }
                 else -> null
             }
-            is XdmAttributeNode -> element.nodeName
-            is XdmElementNode -> element.nodeName
+            is XdmAttributeNode -> element.nodeName?.localName
+            is XdmElementNode -> element.nodeName?.localName
             else -> null
         }
     }
