@@ -2,8 +2,17 @@
 
 ## 1.10.0 - (In Development)
 
+Inlay Parameters:
+
+1. Don't display inlay parameter hints when a `UnaryLookup` name matches the parameter name.
+
+Code Folding:
+
 1. Fix detecting empty enclosed expressions that contain an XQuery comment.
 1. Fix the code folding placeholder text for some enclosed expressions.
+
+Code Completion:
+
 1. Fix a crash when autocompleting in a StringLiteral from an arrow function call.
 
 ## 2021

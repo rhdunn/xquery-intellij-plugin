@@ -28,6 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.parenthesizedExprTextOffset
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpm.context.expand
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmConcatenatingExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmLookupExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmArrowFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.resolve
@@ -83,6 +84,7 @@ class XPathInlayParameterHintsProvider : InlayParameterHintsProvider {
             }
             is XdmAttributeNode -> element.nodeName?.localName
             is XdmElementNode -> element.nodeName?.localName
+            is XpmLookupExpression -> element.keyExpression as? XsNCNameValue
             else -> null
         }
     }

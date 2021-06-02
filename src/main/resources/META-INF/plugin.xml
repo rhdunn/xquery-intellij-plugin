@@ -71,9 +71,17 @@
   ]]></description>
 
   <change-notes><![CDATA[
+    <p>Inlay Parameters:</p>
+    <ol>
+      <li>Don't display inlay parameter hints when a <code>UnaryLookup</code> name matches the parameter name.</li>
+    </ol>
+    <p>Code Folding:</p>
     <ol>
       <li>Fix detecting empty enclosed expressions that contain an XQuery comment.</li>
       <li>Fix the code folding placeholder text for some enclosed expressions.</li>
+    </ol>
+    <p>Code Completion:</p>
+    <ol>
       <li>Fix a crash when autocompleting in a StringLiteral from an arrow function call.</li>
     </ol>
   ]]></change-notes>
