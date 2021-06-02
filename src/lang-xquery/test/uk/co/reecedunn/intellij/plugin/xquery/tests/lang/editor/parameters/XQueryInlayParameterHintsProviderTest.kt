@@ -251,7 +251,7 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
             @DisplayName("XQuery 3.1 EBNF (131) VarRef")
             internal inner class VarRef {
                 @Test
-                @DisplayName("variable names not matching the parameter names")
+                @DisplayName("name not matching the parameter names")
                 fun different() {
                     val f = parse<XPathFunctionCall>(
                         """
@@ -273,7 +273,7 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 }
 
                 @Test
-                @DisplayName("variable names matching the parameter names")
+                @DisplayName("name matching the parameter names")
                 fun same() {
                     val f = parse<XPathFunctionCall>(
                         """
@@ -299,7 +299,7 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
             @DisplayName("XQuery 3.1 EBNF (118) NodeTest ; XQuery 3.1 EBNF (119) NameTest")
             internal inner class NameTest {
                 @Test
-                @DisplayName("name test not matching the parameter names")
+                @DisplayName("name not matching the parameter names")
                 fun different() {
                     val f = parse<XPathFunctionCall>(
                         """
@@ -321,7 +321,7 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 }
 
                 @Test
-                @DisplayName("name test matching the parameter names")
+                @DisplayName("name matching the parameter names")
                 fun same() {
                     val f = parse<XPathFunctionCall>(
                         """
@@ -347,7 +347,7 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
             @DisplayName("XQuery 3.1 EBNF (112) ForwardStep ; XQuery 3.1 EBNF (114) AbbrevForwardStep")
             internal inner class AbbrevForwardStep {
                 @Test
-                @DisplayName("name test not matching the parameter names")
+                @DisplayName("name not matching the parameter names")
                 fun different() {
                     val f = parse<XPathFunctionCall>(
                         """
@@ -369,7 +369,7 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 }
 
                 @Test
-                @DisplayName("name test matching the parameter names")
+                @DisplayName("name matching the parameter names")
                 fun same() {
                     val f = parse<XPathFunctionCall>(
                         """
@@ -395,7 +395,7 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
             @DisplayName("XQuery 3.1 EBNF (112) ForwardStep")
             internal inner class ForwardStep {
                 @Test
-                @DisplayName("name test not matching the parameter names")
+                @DisplayName("name not matching the parameter names")
                 fun different() {
                     val f = parse<XPathFunctionCall>(
                         """
@@ -417,7 +417,7 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 }
 
                 @Test
-                @DisplayName("name test matching the parameter names")
+                @DisplayName("name matching the parameter names")
                 fun same() {
                     val f = parse<XPathFunctionCall>(
                         """
@@ -443,7 +443,7 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
             @DisplayName("XQuery 3.1 EBNF (115) ReverseStep")
             internal inner class ReverseStep {
                 @Test
-                @DisplayName("name test not matching the parameter names")
+                @DisplayName("name not matching the parameter names")
                 fun different() {
                     val f = parse<XPathFunctionCall>(
                         """
@@ -465,7 +465,7 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 }
 
                 @Test
-                @DisplayName("name test matching the parameter names")
+                @DisplayName("name matching the parameter names")
                 fun same() {
                     val f = parse<XPathFunctionCall>(
                         """
@@ -491,7 +491,7 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
             @DisplayName("XQuery 3.1 EBNF (142) DirElemConstructor")
             internal inner class DirElemConstructor {
                 @Test
-                @DisplayName("name test not matching the parameter names")
+                @DisplayName("name not matching the parameter names")
                 fun different() {
                     val f = parse<XPathFunctionCall>(
                         """
@@ -513,7 +513,7 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 }
 
                 @Test
-                @DisplayName("name test matching the parameter names")
+                @DisplayName("name matching the parameter names")
                 fun same() {
                     val f = parse<XPathFunctionCall>(
                         """
@@ -539,7 +539,7 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
             @DisplayName("XQuery 3.1 EBNF (157) CompElemConstructor")
             internal inner class CompElemConstructor {
                 @Test
-                @DisplayName("name test not matching the parameter names")
+                @DisplayName("name not matching the parameter names")
                 fun different() {
                     val f = parse<XPathFunctionCall>(
                         """
@@ -561,7 +561,7 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 }
 
                 @Test
-                @DisplayName("name test matching the parameter names")
+                @DisplayName("name matching the parameter names")
                 fun same() {
                     val f = parse<XPathFunctionCall>(
                         """
@@ -587,7 +587,7 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
             @DisplayName("XQuery 3.1 EBNF (159) CompAttrConstructor")
             internal inner class CompAttrConstructor {
                 @Test
-                @DisplayName("name test not matching the parameter names")
+                @DisplayName("name not matching the parameter names")
                 fun different() {
                     val f = parse<XPathFunctionCall>(
                         """
@@ -609,7 +609,7 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 }
 
                 @Test
-                @DisplayName("name test matching the parameter names")
+                @DisplayName("name matching the parameter names")
                 fun same() {
                     val f = parse<XPathFunctionCall>(
                         """
@@ -652,7 +652,7 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
             @DisplayName("XQuery 3.1 EBNF (131) VarRef")
             internal inner class VarRef {
                 @Test
-                @DisplayName("variable names not matching the parameter names")
+                @DisplayName("name not matching the parameter names")
                 fun different() {
                     val f = parse<PluginArrowFunctionCall>(
                         """
@@ -674,7 +674,7 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 }
 
                 @Test
-                @DisplayName("variable names matching the parameter names")
+                @DisplayName("name matching the parameter names")
                 fun same() {
                     val f = parse<PluginArrowFunctionCall>(
                         """
@@ -700,7 +700,7 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
             @DisplayName("XQuery 3.1 EBNF (118) NodeTest ; XQuery 3.1 EBNF (119) NameTest")
             internal inner class NameTest {
                 @Test
-                @DisplayName("name test not matching the parameter names")
+                @DisplayName("name not matching the parameter names")
                 fun different() {
                     val f = parse<PluginArrowFunctionCall>(
                         """
@@ -722,7 +722,7 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 }
 
                 @Test
-                @DisplayName("name test matching the parameter names")
+                @DisplayName("name matching the parameter names")
                 fun same() {
                     val f = parse<PluginArrowFunctionCall>(
                         """
@@ -748,7 +748,7 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
             @DisplayName("XQuery 3.1 EBNF (112) ForwardStep ; XQuery 3.1 EBNF (114) AbbrevForwardStep")
             internal inner class AbbrevForwardStep {
                 @Test
-                @DisplayName("name test not matching the parameter names")
+                @DisplayName("name not matching the parameter names")
                 fun different() {
                     val f = parse<PluginArrowFunctionCall>(
                         """
@@ -770,7 +770,7 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 }
 
                 @Test
-                @DisplayName("name test matching the parameter names")
+                @DisplayName("name matching the parameter names")
                 fun same() {
                     val f = parse<PluginArrowFunctionCall>(
                         """
@@ -796,7 +796,7 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
             @DisplayName("XQuery 3.1 EBNF (112) ForwardStep")
             internal inner class ForwardStep {
                 @Test
-                @DisplayName("name test not matching the parameter names")
+                @DisplayName("name not matching the parameter names")
                 fun different() {
                     val f = parse<PluginArrowFunctionCall>(
                         """
@@ -818,7 +818,7 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 }
 
                 @Test
-                @DisplayName("name test matching the parameter names")
+                @DisplayName("name matching the parameter names")
                 fun same() {
                     val f = parse<PluginArrowFunctionCall>(
                         """
@@ -844,7 +844,7 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
             @DisplayName("XQuery 3.1 EBNF (115) ReverseStep")
             internal inner class ReverseStep {
                 @Test
-                @DisplayName("name test not matching the parameter names")
+                @DisplayName("name not matching the parameter names")
                 fun different() {
                     val f = parse<PluginArrowFunctionCall>(
                         """
@@ -866,7 +866,7 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 }
 
                 @Test
-                @DisplayName("name test matching the parameter names")
+                @DisplayName("name matching the parameter names")
                 fun same() {
                     val f = parse<PluginArrowFunctionCall>(
                         """
@@ -892,7 +892,7 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
             @DisplayName("XQuery 3.1 EBNF (142) DirElemConstructor")
             internal inner class DirElemConstructor {
                 @Test
-                @DisplayName("name test not matching the parameter names")
+                @DisplayName("name not matching the parameter names")
                 fun different() {
                     val f = parse<PluginArrowFunctionCall>(
                         """
@@ -914,7 +914,7 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 }
 
                 @Test
-                @DisplayName("name test matching the parameter names")
+                @DisplayName("name matching the parameter names")
                 fun same() {
                     val f = parse<PluginArrowFunctionCall>(
                         """
@@ -940,7 +940,7 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
             @DisplayName("XQuery 3.1 EBNF (157) CompElemConstructor")
             internal inner class CompElemConstructor {
                 @Test
-                @DisplayName("name test not matching the parameter names")
+                @DisplayName("name not matching the parameter names")
                 fun different() {
                     val f = parse<PluginArrowFunctionCall>(
                         """
@@ -962,7 +962,7 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 }
 
                 @Test
-                @DisplayName("name test matching the parameter names")
+                @DisplayName("name matching the parameter names")
                 fun same() {
                     val f = parse<PluginArrowFunctionCall>(
                         """
@@ -988,7 +988,7 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
             @DisplayName("XQuery 3.1 EBNF (159) CompAttrConstructor")
             internal inner class CompAttrConstructor {
                 @Test
-                @DisplayName("name test not matching the parameter names")
+                @DisplayName("name not matching the parameter names")
                 fun different() {
                     val f = parse<PluginArrowFunctionCall>(
                         """
@@ -1010,7 +1010,7 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 }
 
                 @Test
-                @DisplayName("name test matching the parameter names")
+                @DisplayName("name matching the parameter names")
                 fun same() {
                     val f = parse<PluginArrowFunctionCall>(
                         """
