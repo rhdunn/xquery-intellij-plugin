@@ -76,7 +76,11 @@ class XPathInlineFunctionExprPsiImpl(node: ASTNode) :
             return when {
                 context.elementType === XPathTokenType.THIN_ARROW -> context
                 blockOpen?.isEmptyEnclosedExpr == true -> blockOpen
-                else -> variadicParameter ?: context
+                else -> when (val parameter = variadicParameter) {
+                    null -> context
+                    is XPathParam -> context
+                    else -> parameter
+                }
             }
         }
 

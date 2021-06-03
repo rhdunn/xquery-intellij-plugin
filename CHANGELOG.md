@@ -16,6 +16,10 @@ Code Completion:
 
 1. Fix a crash when autocompleting in a StringLiteral from an arrow function call.
 
+Syntax Validation:
+
+1. Don't warn if using an `InlineFunctionExpr` with parameters when targetting XQuery 3.0 or 3.1.
+
 ## 2021
 
 *  [1.9.0 - 2021-03-31](docs/_posts/2021-03-31-release-1.9.0.md)

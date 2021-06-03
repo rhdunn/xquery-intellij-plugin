@@ -85,6 +85,10 @@
     <ol>
       <li>Fix a crash when autocompleting in a StringLiteral from an arrow function call.</li>
     </ol>
+    <p>Syntax Validation:</p>
+    <ol>
+      <li>Don't warn if using an <code>InlineFunctionExpr</code> with parameters when targetting XQuery 3.0 or 3.1.</li>
+    </ol>
   ]]></change-notes>
 
   <idea-version since-build="161"/>

@@ -635,6 +635,24 @@ class XQuerySyntaxValidatorTest :
     @DisplayName("XQuery 3.0 EBNF (165) InlineFunctionExpr")
     internal inner class InlineFunctionExpr_XQuery30 {
         @Test
+        @DisplayName("with parameters")
+        fun withParameters() {
+            val file = parse<XQueryModule>("function (\$x) { 2 } , %public function (\$x) { 2 }")[0]
+            validator.configuration = XQUERY_1_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(
+                report.toString(),
+                `is`(
+                    """
+                    E XPST0003(0:8): XQuery version string '1.0' does not support XQuery 3.0 constructs.
+                    E XPST0003(30:38): XQuery version string '1.0' does not support XQuery 3.0 constructs.
+                    E XPST0003(22:23): XQuery version string '1.0' does not support XQuery 3.0 constructs.
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
         @DisplayName("XQuery < 3.0")
         fun xquery_notSupported() {
             val file = parse<XQueryModule>("function () { 2 } , %public function () { 2 }")[0]
