@@ -76,6 +76,10 @@
       <li>Don't display inlay parameter hints when a <code>UnaryLookup</code> or <code>Lookup</code> name matches the parameter name.</li>
       <li>Don't display inlay parameter hints when the name at the end of a <code>SimpleMapExpr</code> matches the parameter name.</li>
     </ol>
+    <p>Syntax Highlighting:</p>
+    <ol>
+      <ol>Default to the XML entity reference colours for entity references in XQuery.</ol>
+    </ol>
     <p>Code Folding:</p>
     <ol>
       <li>Fix detecting empty enclosed expressions that contain an XQuery comment.</li>

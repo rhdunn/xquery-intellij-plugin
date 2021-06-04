@@ -34,7 +34,7 @@ object XQuerySyntaxHighlighterColors {
     )
 
     val ENTITY_REFERENCE: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
-        "XQUERY_ENTITY_REFERENCE", DefaultLanguageHighlighterColors.VALID_STRING_ESCAPE
+        "XQUERY_ENTITY_REFERENCE", XmlHighlighterColors.XML_ENTITY_REFERENCE
     )
 
     val ESCAPED_CHARACTER: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
