@@ -4,6 +4,11 @@ version = ext.intellij_version
 
 if (ext.intellij_version >= 201) {
     sourceSets.main.java.srcDirs += 'src/201/native'
+    if (ext.intellij_version >= 212) {
+        sourceSets.main.java.srcDirs += 'src/201-212/212'
+    } else {
+        sourceSets.main.java.srcDirs += 'src/201-212/201'
+    }
     if (ext.intellij_version >= 203) {
         sourceSets.main.java.srcDirs += 'src/201-203/203'
     } else {
@@ -11,6 +16,7 @@ if (ext.intellij_version >= 201) {
     }
 } else {
     sourceSets.main.java.srcDirs += 'src/201/compat'
+    sourceSets.main.java.srcDirs += 'src/201-212/compat'
     sourceSets.main.java.srcDirs += 'src/201-203/compat'
 }
 
