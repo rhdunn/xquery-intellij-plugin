@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019, 2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -52,7 +52,7 @@ class XmlCodePointRangeImpl : CodePointRange {
                             else -> 0xFFFE
                         }
                     }
-                    else -> 0xFFFE
+                    else -> 38
                 }
                 seek(savedEnd)
                 return ret
@@ -72,7 +72,10 @@ class XmlCodePointRangeImpl : CodePointRange {
         val c = range.codePoint
         if (c == '&'.toInt()) {
             range.match()
-            range.matchEntityReference()
+            val savedEnd = end
+            if (range.matchEntityReference() !== EntityReferenceType.PredefinedEntityReference) {
+                seek(savedEnd)
+            }
         } else {
             range.match()
         }

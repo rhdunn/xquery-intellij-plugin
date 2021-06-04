@@ -78,7 +78,11 @@
     </ol>
     <p>Syntax Highlighting:</p>
     <ol>
-      <ol>Default to the XML entity reference colours for entity references in XQuery.</ol>
+      <li>Default to the XML entity reference colours for entity references in XQuery.</li>
+    </ol>
+    <p>XPath:</p>
+    <ol>
+      <li>Fix parsing entity references before closing string quotes, such as <code>'&amp;amp;'</code>.</li>
     </ol>
     <p>Code Folding:</p>
     <ol>

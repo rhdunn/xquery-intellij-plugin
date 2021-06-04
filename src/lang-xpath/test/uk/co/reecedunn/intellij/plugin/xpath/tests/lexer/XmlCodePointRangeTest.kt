@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Reece H. Dunn
+ * Copyright (C) 2016-2019, 2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -154,6 +154,37 @@ class XmlCodePointRangeTest {
         range.match()
         assertThat(range.start, `is`(0))
         assertThat(range.end, `is`(6))
+        assertThat(range.codePoint, `is`(CodePointRange.END_OF_BUFFER))
+    }
+
+    @Test
+    @DisplayName("partial entity references")
+    fun testPartialEntityReferences() {
+        val range: CodePointRange = XmlCodePointRangeImpl()
+
+        range.start("'&'", 0, 3)
+        assertThat(range.bufferEnd, `is`(3))
+
+        assertThat(range.start, `is`(0))
+        assertThat(range.end, `is`(0))
+        assertThat(range.codePoint, `is`('\''.toInt()))
+        assertThat(range.codePoint, `is`('\''.toInt()))
+
+        range.match()
+        assertThat(range.start, `is`(0))
+        assertThat(range.end, `is`(1))
+        assertThat(range.codePoint, `is`('&'.toInt()))
+        assertThat(range.codePoint, `is`('&'.toInt()))
+
+        range.match()
+        assertThat(range.start, `is`(0))
+        assertThat(range.end, `is`(2))
+        assertThat(range.codePoint, `is`('\''.toInt()))
+        assertThat(range.codePoint, `is`('\''.toInt()))
+
+        range.match()
+        assertThat(range.start, `is`(0))
+        assertThat(range.end, `is`(3))
         assertThat(range.codePoint, `is`(CodePointRange.END_OF_BUFFER))
     }
 

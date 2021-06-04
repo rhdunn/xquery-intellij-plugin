@@ -11,6 +11,10 @@ Syntax Highlighting:
 
 1. Default to the XML entity reference colours for entity references in XQuery.
 
+XPath:
+
+1. Fix parsing entity references before closing string quotes, such as `'&amp;'`.
+
 Code Folding:
 
 1. Fix detecting empty enclosed expressions that contain an XQuery comment.
