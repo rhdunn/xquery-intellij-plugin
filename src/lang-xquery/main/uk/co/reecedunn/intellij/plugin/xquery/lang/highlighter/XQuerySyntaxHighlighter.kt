@@ -29,7 +29,8 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQDocLexer
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQDocTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.*
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 object XQuerySyntaxHighlighter : SyntaxHighlighterBase() {
     // region SyntaxHighlighter

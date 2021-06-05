@@ -31,10 +31,12 @@ import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
 import uk.co.reecedunn.intellij.plugin.core.ui.Dialog
 import uk.co.reecedunn.intellij.plugin.core.ui.Insets
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
-import uk.co.reecedunn.intellij.plugin.processor.resources.PluginApiBundle
-import uk.co.reecedunn.intellij.plugin.processor.query.*
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorApi
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.connection.AWSConnectionSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.connection.ConnectionSettings
+import uk.co.reecedunn.intellij.plugin.processor.query.toQueryUserMessage
+import uk.co.reecedunn.intellij.plugin.processor.resources.PluginApiBundle
 import java.awt.Dimension
 import java.awt.event.ActionListener
 import javax.swing.*

@@ -21,7 +21,8 @@ import com.intellij.openapi.actionSystem.DataProvider
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
 import uk.co.reecedunn.intellij.microservices.endpoints.Endpoint
-import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
+import uk.co.reecedunn.intellij.plugin.core.ui.layout.details
+import uk.co.reecedunn.intellij.plugin.core.ui.layout.detailsPanel
 import uk.co.reecedunn.intellij.plugin.exquery.resources.EXQueryBundle
 import uk.co.reecedunn.intellij.plugin.exquery.resources.EXQueryIcons
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration

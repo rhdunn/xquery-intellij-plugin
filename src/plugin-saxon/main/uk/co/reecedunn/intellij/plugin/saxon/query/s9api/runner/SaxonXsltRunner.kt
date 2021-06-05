@@ -22,8 +22,10 @@ import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.core.xml.toStreamSource
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryResults
 import uk.co.reecedunn.intellij.plugin.processor.resources.PluginApiBundle
-import uk.co.reecedunn.intellij.plugin.processor.query.*
 import uk.co.reecedunn.intellij.plugin.processor.run.RunnableQuery
 import uk.co.reecedunn.intellij.plugin.processor.run.StoppableQuery
 import uk.co.reecedunn.intellij.plugin.processor.validate.ValidatableQuery

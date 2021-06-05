@@ -23,8 +23,8 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAbbrevForwardStep
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNameTest
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNodeTest
-import uk.co.reecedunn.intellij.plugin.xpm.optree.path.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.path.XpmAxisType
 
 class XPathAbbrevForwardStepPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathAbbrevForwardStep {
     override val axisType: XpmAxisType = XpmAxisType.Attribute

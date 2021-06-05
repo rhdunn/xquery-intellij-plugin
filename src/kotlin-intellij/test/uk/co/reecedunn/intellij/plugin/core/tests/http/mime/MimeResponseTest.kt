@@ -17,8 +17,8 @@ package uk.co.reecedunn.intellij.plugin.core.tests.http.mime
 
 import org.apache.http.Header
 import org.apache.http.message.BasicHeader
-
-import org.hamcrest.CoreMatchers.*
+import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.CoreMatchers.nullValue
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.http.StringMessage

@@ -22,7 +22,6 @@ import com.intellij.xdebugger.frame.presentation.XErrorValuePresentation
 import com.intellij.xdebugger.frame.presentation.XValuePresentation
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.processor.debug.frame.QueryResultsValue
-import uk.co.reecedunn.intellij.plugin.xpath.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.processor.debug.frame.presentation.QueryValuePresentation
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
@@ -31,6 +30,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsAnyUri
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsNCName
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsQName
+import uk.co.reecedunn.intellij.plugin.xpath.resources.XPathIcons
 
 class MarkLogicVariable private constructor(
     val variableName: XsQNameValue,

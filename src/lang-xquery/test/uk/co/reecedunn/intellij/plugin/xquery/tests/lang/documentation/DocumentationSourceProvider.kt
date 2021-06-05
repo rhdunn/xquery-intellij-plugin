@@ -15,11 +15,14 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.lang.documentation
 
-import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.*
-import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.documentation.XpmDocumentationSource
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
+import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentation
+import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationIndex
+import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationSourceProvider
+import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocFunctionDocumentation
 
 object DocumentationSourceProvider : XQDocDocumentationSourceProvider, XQDocDocumentationIndex {
     // region XdmDocumentationSourceProvider

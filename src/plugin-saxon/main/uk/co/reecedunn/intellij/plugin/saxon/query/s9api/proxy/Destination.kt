@@ -18,10 +18,9 @@ package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.proxy
 import uk.co.reecedunn.intellij.plugin.core.reflection.loadClassOrNull
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.Action
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.event.Receiver
-import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.Destination as SaxonDestination
-
 import java.lang.reflect.Proxy
 import java.net.URI
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.Destination as SaxonDestination
 
 interface Destination : SaxonDestination {
     fun setDestinationBaseURI(baseURI: URI?)

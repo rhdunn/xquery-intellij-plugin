@@ -19,8 +19,8 @@ import com.intellij.psi.PsiElement
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProperty
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Product
-import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSettings
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathCompletionProperty
+import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSettings
 
 object XQueryProduct : CompletionProperty {
     override fun computeProperty(element: PsiElement, context: ProcessingContext) {

@@ -18,8 +18,8 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginFTFuzzyOption
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginFTFuzzyOption
 
 class PluginFTFuzzyOptionPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), PluginFTFuzzyOption, XpmSyntaxValidationElement {

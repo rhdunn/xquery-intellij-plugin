@@ -23,15 +23,15 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.vfs.ZipFileSystem
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlDocument
-import uk.co.reecedunn.intellij.plugin.xpm.context.XpmStaticContext
-import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
-import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoader
-import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePath
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriPsiElement
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsAnyUri
+import uk.co.reecedunn.intellij.plugin.xpm.context.XpmStaticContext
+import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoader
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderFactory
+import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePath
 
 data class EXPathPackage internal constructor(
     private val filesystem: VirtualFileSystem,

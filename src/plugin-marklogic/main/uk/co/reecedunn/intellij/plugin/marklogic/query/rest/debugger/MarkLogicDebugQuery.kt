@@ -25,12 +25,13 @@ import uk.co.reecedunn.intellij.plugin.core.http.toStringMessage
 import uk.co.reecedunn.intellij.plugin.core.lang.getLanguageMimeTypes
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
-import uk.co.reecedunn.intellij.plugin.processor.query.http.BuildableQuery
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.MarkLogicQueryProcessor
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.queryResults
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSession
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebuggableQuery
-import uk.co.reecedunn.intellij.plugin.processor.query.*
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryResults
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryServer
+import uk.co.reecedunn.intellij.plugin.processor.query.http.BuildableQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 import uk.co.reecedunn.intellij.plugin.processor.run.StoppableQuery
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsDuration

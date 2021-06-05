@@ -20,10 +20,9 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
-import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
-import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginEmptySequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginEmptySequenceType
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
 private val XQUERY10_REC_EMPTY: List<Version> = listOf(
     XQuerySpec.REC_1_0_20070123,

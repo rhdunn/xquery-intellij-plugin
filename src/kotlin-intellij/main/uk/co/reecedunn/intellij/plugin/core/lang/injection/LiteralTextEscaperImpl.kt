@@ -18,7 +18,6 @@ package uk.co.reecedunn.intellij.plugin.core.lang.injection
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.LiteralTextEscaper
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import java.lang.StringBuilder
 
 open class LiteralTextEscaperImpl<T : LiteralTextHost>(host: T) : LiteralTextEscaper<T>(host) {
     protected var decoded: Array<Int>? = null

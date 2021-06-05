@@ -22,7 +22,9 @@ import com.intellij.util.text.nullize
 import org.jetbrains.annotations.Nls
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
 import uk.co.reecedunn.intellij.plugin.processor.resources.PluginApiBundle
-import javax.swing.*
+import javax.swing.ButtonGroup
+import javax.swing.JRadioButton
+import javax.swing.JTextField
 
 class QueryProcessorDataSource(private val allowUnspecified: Boolean = false) {
     internal lateinit var localFilePath: TextFieldWithBrowseButton

@@ -18,12 +18,12 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.update.facility
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.UpdateFacilityTransformWithExpr
 import uk.co.reecedunn.intellij.plugin.intellij.lang.BaseX
 import uk.co.reecedunn.intellij.plugin.intellij.lang.UpdateFacilitySpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
+import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.UpdateFacilityTransformWithExpr
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 class UpdateFacilityTransformWithExprPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),

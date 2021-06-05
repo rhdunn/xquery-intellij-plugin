@@ -24,7 +24,6 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsDuration
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.HashMap
 
 private val XMLSCHEMA_DATETIME_FORMAT: DateFormat by lazy {
     val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")

@@ -22,9 +22,9 @@ import com.intellij.openapi.fileTypes.SyntaxHighlighter
 import com.intellij.openapi.options.colors.AttributesDescriptor
 import com.intellij.openapi.options.colors.ColorDescriptor
 import com.intellij.openapi.options.colors.ColorSettingsPage
+import uk.co.reecedunn.intellij.plugin.processor.log.LogFileContentType
 import uk.co.reecedunn.intellij.plugin.processor.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.resources.PluginFiles
-import uk.co.reecedunn.intellij.plugin.processor.log.LogFileContentType
 import javax.swing.Icon
 
 class QueryLogColorSettings : ColorSettingsPage {

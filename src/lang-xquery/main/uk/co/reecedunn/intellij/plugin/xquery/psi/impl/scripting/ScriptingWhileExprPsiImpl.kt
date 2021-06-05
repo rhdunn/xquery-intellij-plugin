@@ -18,10 +18,10 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.scripting
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingWhileExpr
 import uk.co.reecedunn.intellij.plugin.intellij.lang.ScriptingSpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
+import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingWhileExpr
 
 class ScriptingWhileExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), ScriptingWhileExpr, VersionConformance {
     override val expressionElement: PsiElement

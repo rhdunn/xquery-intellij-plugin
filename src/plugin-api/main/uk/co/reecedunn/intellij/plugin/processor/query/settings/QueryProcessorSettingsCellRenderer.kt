@@ -19,7 +19,9 @@ import com.intellij.navigation.ItemPresentation
 import com.intellij.ui.ColoredListCellRenderer
 import com.intellij.ui.SimpleTextAttributes
 import uk.co.reecedunn.intellij.plugin.core.ui.Insets
-import uk.co.reecedunn.intellij.plugin.processor.query.*
+import uk.co.reecedunn.intellij.plugin.processor.query.CachedQueryProcessorSettings
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
+import uk.co.reecedunn.intellij.plugin.processor.query.toQueryUserMessage
 import javax.swing.JList
 
 class QueryProcessorSettingsCellRenderer : ColoredListCellRenderer<CachedQueryProcessorSettings>() {

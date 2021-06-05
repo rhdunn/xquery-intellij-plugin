@@ -18,10 +18,10 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.scripting
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockVarDecl
 import uk.co.reecedunn.intellij.plugin.intellij.lang.ScriptingSpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
+import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlockVarDecl
 
 class ScriptingBlockVarDeclPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), ScriptingBlockVarDecl, VersionConformance {

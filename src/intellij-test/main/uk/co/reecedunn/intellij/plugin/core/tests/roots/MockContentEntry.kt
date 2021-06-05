@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.tests.roots
 
+import com.intellij.openapi.roots.ContentEntry
 import com.intellij.openapi.roots.ExcludeFolder
 import com.intellij.openapi.roots.ModuleRootModel
 import com.intellij.openapi.roots.SourceFolder
@@ -22,7 +23,6 @@ import com.intellij.openapi.vfs.VirtualFile
 import org.jetbrains.jps.model.JpsElement
 import org.jetbrains.jps.model.java.JavaSourceRootType
 import org.jetbrains.jps.model.module.JpsModuleSourceRootType
-import com.intellij.openapi.roots.ContentEntry
 
 @Suppress("NonExtendableApiUsage")
 class MockContentEntry(private val file: VirtualFile) : ContentEntry {

@@ -15,8 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.ui.layout
 
-import javax.swing.table.TableCellRenderer
 import com.intellij.util.ui.ColumnInfo
+import javax.swing.table.TableCellRenderer
 
 private abstract class ColumnInfoImpl<Item, Aspect : Comparable<Aspect>>(
     heading: String,

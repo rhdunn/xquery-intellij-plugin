@@ -21,9 +21,8 @@ import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.xquery.lang.highlighter.XQuerySyntaxHighlighterColors
 import uk.co.reecedunn.intellij.plugin.xquery.lang.highlighter.XQueryColorSettingsPage
-import java.util.*
+import uk.co.reecedunn.intellij.plugin.xquery.lang.highlighter.XQuerySyntaxHighlighterColors
 
 @DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - XQuery Color Settings Page")
 class XQueryColorSettingsPageTest {

@@ -18,9 +18,9 @@ package uk.co.reecedunn.intellij.plugin.existdb.query.rest
 import com.intellij.execution.executors.DefaultRunExecutor
 import com.intellij.lang.Language
 import com.intellij.navigation.ItemPresentation
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorApi
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorInstanceManager
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import java.io.InputStream
 
 object EXistDBRest : QueryProcessorApi {

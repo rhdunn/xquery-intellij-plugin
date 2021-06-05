@@ -19,8 +19,8 @@ import com.intellij.openapi.editor.DefaultLanguageHighlighterColors
 import com.intellij.openapi.editor.XmlHighlighterColors
 import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.options.colors.AttributesDescriptor
-import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.xpath.lang.highlighter.XPathSyntaxHighlighterColors
+import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 
 object XQuerySyntaxHighlighterColors {
     // region Syntax Highlighting (Lexical Tokens)

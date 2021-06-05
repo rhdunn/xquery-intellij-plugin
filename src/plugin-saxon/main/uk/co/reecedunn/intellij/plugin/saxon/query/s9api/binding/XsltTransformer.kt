@@ -16,9 +16,8 @@
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding
 
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.proxy.proxy
-import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.proxy.Destination as ProxyDestination
-
 import javax.xml.transform.Source
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.proxy.Destination as ProxyDestination
 
 class XsltTransformer(private val `object`: Any, private val `class`: Class<*>) {
     fun setSource(source: Source) {

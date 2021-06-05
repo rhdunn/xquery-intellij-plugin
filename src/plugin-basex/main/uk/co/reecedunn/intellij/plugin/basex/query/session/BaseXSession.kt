@@ -19,8 +19,11 @@ import com.intellij.execution.executors.DefaultRunExecutor
 import com.intellij.lang.Language
 import com.intellij.navigation.ItemPresentation
 import uk.co.reecedunn.intellij.plugin.processor.profile.execution.DefaultProfileExecutor
+import uk.co.reecedunn.intellij.plugin.processor.query.MissingJarFileException
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorApi
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorInstanceManager
+import uk.co.reecedunn.intellij.plugin.processor.query.UnsupportedJarFileException
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
-import uk.co.reecedunn.intellij.plugin.processor.query.*
 import java.io.File
 import java.io.InputStream
 

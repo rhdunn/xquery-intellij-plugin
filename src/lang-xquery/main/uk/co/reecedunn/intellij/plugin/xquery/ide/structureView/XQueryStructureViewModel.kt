@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ide.structureView
 
-import com.intellij.ide.structureView.*
+import com.intellij.ide.structureView.StructureViewModelBase
 import com.intellij.ide.util.treeView.smartTree.Sorter
 import com.intellij.openapi.editor.Editor
 import com.intellij.psi.PsiFile

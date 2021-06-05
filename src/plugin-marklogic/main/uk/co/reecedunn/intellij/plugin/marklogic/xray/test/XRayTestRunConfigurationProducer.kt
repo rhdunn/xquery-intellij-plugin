@@ -24,8 +24,8 @@ import com.intellij.openapi.util.Ref
 import com.intellij.psi.PsiDirectory
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
-import uk.co.reecedunn.intellij.plugin.marklogic.xray.configuration.XRayTestConfigurationType
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.configuration.XRayTestConfiguration
+import uk.co.reecedunn.intellij.plugin.marklogic.xray.configuration.XRayTestConfigurationType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 
 class XRayTestRunConfigurationProducer : LazyRunConfigurationProducer<XRayTestConfiguration>() {

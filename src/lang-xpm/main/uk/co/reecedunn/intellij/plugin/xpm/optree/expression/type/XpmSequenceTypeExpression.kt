@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.optree.expression.type
 
-import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 

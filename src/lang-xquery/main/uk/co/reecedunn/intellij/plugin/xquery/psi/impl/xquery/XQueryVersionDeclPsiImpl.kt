@@ -20,14 +20,14 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import com.intellij.psi.impl.source.tree.PsiErrorElementImpl
 import com.intellij.psi.tree.TokenSet
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVersionDecl
-import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
-import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsStringValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathComment
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
+import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVersionDecl
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 class XQueryVersionDeclPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),

@@ -19,17 +19,17 @@ import com.intellij.lang.Language
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.ui.*
+import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.core.fileChooser.FileNameMatcherDescriptor
 import uk.co.reecedunn.intellij.plugin.core.lang.*
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
-import uk.co.reecedunn.intellij.plugin.processor.query.execution.configurations.rdf.RDF_FORMATS
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryServer
-import uk.co.reecedunn.intellij.plugin.processor.resources.PluginApiBundle
+import uk.co.reecedunn.intellij.plugin.processor.query.execution.configurations.rdf.RDF_FORMATS
 import uk.co.reecedunn.intellij.plugin.processor.query.execution.ui.QueryProcessorComboBox
 import uk.co.reecedunn.intellij.plugin.processor.query.execution.ui.QueryServerComboBoxModel
+import uk.co.reecedunn.intellij.plugin.processor.resources.PluginApiBundle
 import javax.swing.*
 
 class QueryProcessorRunConfigurationEditor(private val project: Project, private vararg val languages: Language) :

@@ -24,13 +24,13 @@ import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.execution.configurations.RunConfigurationBase
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
-import uk.co.reecedunn.intellij.plugin.xpath.lang.configuration.XPathConfigurationType
-import uk.co.reecedunn.intellij.plugin.processor.query.execution.configurations.rdf.Turtle
-import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.processor.query.execution.configurations.QueryProcessorDataSourceType
 import uk.co.reecedunn.intellij.plugin.processor.query.execution.configurations.QueryProcessorRunConfiguration
 import uk.co.reecedunn.intellij.plugin.processor.query.execution.configurations.QueryProcessorRunConfigurationData
+import uk.co.reecedunn.intellij.plugin.processor.query.execution.configurations.rdf.Turtle
+import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath
+import uk.co.reecedunn.intellij.plugin.xpath.lang.configuration.XPathConfigurationType
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)

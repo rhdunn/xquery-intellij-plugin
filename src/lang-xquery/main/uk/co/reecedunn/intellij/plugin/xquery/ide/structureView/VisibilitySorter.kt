@@ -20,7 +20,6 @@ import com.intellij.ide.util.treeView.smartTree.ActionPresentation
 import com.intellij.ide.util.treeView.smartTree.Sorter
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmAccessLevel
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
-import java.util.Comparator
 import javax.swing.Icon
 
 object VisibilitySorter : Sorter, ActionPresentation, Comparator<Any> {

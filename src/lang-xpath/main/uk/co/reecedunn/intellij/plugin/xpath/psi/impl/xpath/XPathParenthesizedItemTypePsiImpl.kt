@@ -21,12 +21,12 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
-import uk.co.reecedunn.intellij.plugin.xpath.resources.XPathBundle
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParenthesizedItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmEmptySequence
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathParenthesizedItemType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
+import uk.co.reecedunn.intellij.plugin.xpath.resources.XPathBundle
 
 private val XQUERY3 = listOf(XQuerySpec.REC_3_0_20140408, MarkLogic.VERSION_6_0)
 private val SEMANTICS = listOf(FormalSemanticsSpec.REC_1_0_20070123)

@@ -17,13 +17,17 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.lang.editor.breadcrumbs
 
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.PsiElement
-import org.hamcrest.CoreMatchers.*
-import org.junit.jupiter.api.*
+import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.CoreMatchers.sameInstance
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Nested
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestInstance
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.lang.editor.breadcrumbs.XQueryBreadcrumbProvider
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.

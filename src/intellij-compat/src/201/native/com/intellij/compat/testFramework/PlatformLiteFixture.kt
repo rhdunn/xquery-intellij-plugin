@@ -19,7 +19,10 @@ package com.intellij.compat.testFramework
 import com.intellij.mock.MockApplication
 import com.intellij.mock.MockProjectEx
 import com.intellij.openapi.application.ApplicationManager
-import com.intellij.openapi.extensions.*
+import com.intellij.openapi.extensions.AreaInstance
+import com.intellij.openapi.extensions.ExtensionPoint
+import com.intellij.openapi.extensions.ExtensionPointName
+import com.intellij.openapi.extensions.ExtensionsArea
 import com.intellij.openapi.extensions.impl.ExtensionsAreaImpl
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Disposer

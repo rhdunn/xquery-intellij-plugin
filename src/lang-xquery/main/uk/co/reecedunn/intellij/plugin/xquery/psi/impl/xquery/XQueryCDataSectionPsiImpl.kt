@@ -27,7 +27,6 @@ import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCDataSection
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import java.lang.StringBuilder
 
 class XQueryCDataSectionPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryCDataSection, LiteralTextHost {
     // region PsiLanguageInjectionHost

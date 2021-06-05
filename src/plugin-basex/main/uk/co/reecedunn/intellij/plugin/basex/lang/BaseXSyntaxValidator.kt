@@ -17,8 +17,8 @@ package uk.co.reecedunn.intellij.plugin.basex.lang
 
 import uk.co.reecedunn.intellij.plugin.basex.resources.BaseXBundle
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathTernaryConditionalExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathIfExpr
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathTernaryConditionalExpr
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxErrorReporter
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement

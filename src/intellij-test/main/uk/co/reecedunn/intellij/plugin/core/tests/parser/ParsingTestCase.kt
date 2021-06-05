@@ -28,7 +28,9 @@ import com.intellij.lang.*
 import com.intellij.lang.impl.PsiBuilderFactoryImpl
 import com.intellij.lang.parameterInfo.CreateParameterInfoContext
 import com.intellij.lang.parameterInfo.UpdateParameterInfoContext
-import com.intellij.mock.*
+import com.intellij.mock.MockFileTypeManager
+import com.intellij.mock.MockLanguageFileType
+import com.intellij.mock.MockProjectEx
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.command.CommandProcessor
 import com.intellij.openapi.command.impl.CoreCommandProcessor
@@ -67,7 +69,6 @@ import com.intellij.testFramework.utils.parameterInfo.MockUpdateParameterInfoCon
 import com.intellij.util.CachedValuesManagerImpl
 import com.intellij.util.messages.MessageBus
 import org.jetbrains.annotations.NonNls
-import org.picocontainer.MutablePicoContainer
 import uk.co.reecedunn.intellij.plugin.core.psi.document
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.editor.MockEditorFactoryEx

@@ -22,12 +22,11 @@ import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnnotation
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAnyFunctionTest
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmFunction
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAnyFunctionTest
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmAccessLevel
-import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmAnnotated
 
 class XPathAnyFunctionTestPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),

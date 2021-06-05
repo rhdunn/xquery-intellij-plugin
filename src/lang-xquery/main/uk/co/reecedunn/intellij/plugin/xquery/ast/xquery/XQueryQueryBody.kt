@@ -15,8 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
-import uk.co.reecedunn.intellij.plugin.xquery.ide.structureView.XQueryStructureViewElement
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExpr
+import uk.co.reecedunn.intellij.plugin.xquery.ide.structureView.XQueryStructureViewElement
 
 /**
  * An XQuery 1.0 `QueryBody` node in the XQuery AST.

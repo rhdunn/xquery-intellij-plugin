@@ -24,7 +24,7 @@
 package uk.co.reecedunn.intellij.plugin.core.ui.layout
 
 import com.intellij.ui.ColoredListCellRenderer
-import javax.swing.*
+import javax.swing.JList
 
 // region colored list cell renderer
 

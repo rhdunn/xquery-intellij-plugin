@@ -15,8 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.testframework.execution
 
-import org.hamcrest.CoreMatchers.*
-import org.junit.jupiter.api.*
+import org.hamcrest.CoreMatchers.`is`
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xquery.testframework.execution.XQueryTestLocationProvider
 

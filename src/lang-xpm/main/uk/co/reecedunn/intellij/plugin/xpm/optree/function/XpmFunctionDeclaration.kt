@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.optree.function
 
-import com.intellij.navigation.ItemPresentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmAnnotated

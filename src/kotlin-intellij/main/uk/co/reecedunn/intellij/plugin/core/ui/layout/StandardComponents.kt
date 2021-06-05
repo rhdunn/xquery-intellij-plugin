@@ -28,7 +28,8 @@ import com.intellij.openapi.ui.ComponentWithBrowseButton
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.ui.TitledSeparator
 import com.intellij.ui.components.*
-import java.awt.*
+import java.awt.Container
+import java.awt.GridBagConstraints
 import java.awt.event.ActionListener
 import javax.swing.*
 

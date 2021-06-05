@@ -29,9 +29,9 @@ import com.intellij.psi.PsiFileFactory
 import com.intellij.ui.content.Content
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ContentProvider
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.TextConsoleView
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.run.execution.process.QueryProcessHandlerBase
 import uk.co.reecedunn.intellij.plugin.processor.run.execution.process.QueryResultListener
-import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.test.TestFormat
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsDurationValue
 

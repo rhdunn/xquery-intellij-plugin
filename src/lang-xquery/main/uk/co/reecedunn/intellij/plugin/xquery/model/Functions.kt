@@ -15,11 +15,11 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.model
 
-import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_equal
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpm.context.expand
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryProlog
 
 fun XQueryProlog.staticallyKnownFunctions(name: XsQNameValue): Sequence<XpmFunctionDeclaration?> {
     return annotatedDeclarations<XpmFunctionDeclaration>().filter { function ->

@@ -15,10 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.lang.requires
 
-import uk.co.reecedunn.intellij.plugin.xpm.resources.XpmBundle
 import uk.co.reecedunn.intellij.plugin.xpm.lang.configuration.XpmLanguageConfiguration
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires.XpmRequiresConformanceTo
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires.XpmRequiresLanguageVersion
+import uk.co.reecedunn.intellij.plugin.xpm.resources.XpmBundle
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 
 class XpmRequiresLanguageOrMarkLogic(

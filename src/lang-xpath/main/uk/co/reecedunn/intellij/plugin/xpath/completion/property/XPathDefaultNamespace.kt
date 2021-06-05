@@ -19,10 +19,9 @@ import com.intellij.openapi.util.Key
 import com.intellij.psi.PsiElement
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProperty
-import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xpm.defaultNamespace
+import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XdmNamespaceType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclaration
-import java.lang.UnsupportedOperationException
 
 class XPathDefaultNamespace(private val property: Key<XpmNamespaceDeclaration?>) : CompletionProperty {
     override fun computeProperty(element: PsiElement, context: ProcessingContext) {

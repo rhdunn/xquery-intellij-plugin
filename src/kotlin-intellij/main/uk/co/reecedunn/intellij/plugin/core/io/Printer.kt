@@ -15,7 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.io
 
-import java.io.*
+import java.io.PrintWriter
+import java.io.StringWriter
+import java.io.Writer
 
 fun Writer.printCharsToString(f: (pw: PrintWriter) -> Unit): String {
     val pw = PrintWriter(this)

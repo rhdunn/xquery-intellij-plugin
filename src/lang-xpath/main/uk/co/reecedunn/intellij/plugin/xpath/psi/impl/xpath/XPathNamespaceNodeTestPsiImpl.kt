@@ -18,9 +18,9 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNamespaceNodeTest
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNamespaceNode
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNamespaceNodeTest
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
 class XPathNamespaceNodeTestPsiImpl(node: ASTNode) :

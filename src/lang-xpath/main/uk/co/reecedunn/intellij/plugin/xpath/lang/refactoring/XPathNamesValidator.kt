@@ -17,7 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xpath.lang.refactoring
 
 import com.intellij.lang.refactoring.NamesValidator
 import com.intellij.openapi.project.Project
-import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRangeImpl
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.INCNameType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType

@@ -21,8 +21,8 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNodeItem
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginAbbrevDescendantOrSelfStep
-import uk.co.reecedunn.intellij.plugin.xpm.optree.path.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.path.XpmAxisType
 
 class PluginAbbrevDescendantOrSelfStepPsiImpl(type: IElementType, text: CharSequence) :
     LeafPsiElement(type, text), PluginAbbrevDescendantOrSelfStep {

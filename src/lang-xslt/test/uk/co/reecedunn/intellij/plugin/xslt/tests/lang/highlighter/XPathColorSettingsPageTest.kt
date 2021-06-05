@@ -24,7 +24,6 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.lang.highlighter.XPathSyntaxHighlighterColors
 import uk.co.reecedunn.intellij.plugin.xslt.lang.highlighter.XPathColorSettingsPage
 import uk.co.reecedunn.intellij.plugin.xslt.lang.highlighter.XsltSyntaxHighlighterColors
-import java.util.*
 
 @DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - XPath Color Settings Page")
 class XPathColorSettingsPageTest {

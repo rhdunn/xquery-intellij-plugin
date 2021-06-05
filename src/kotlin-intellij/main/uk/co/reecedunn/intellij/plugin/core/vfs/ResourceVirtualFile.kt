@@ -19,8 +19,7 @@ import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.VirtualFileSystem
 import uk.co.reecedunn.intellij.plugin.core.vfs.impl.ResourceVirtualFileImpl
 import uk.co.reecedunn.intellij.plugin.core.vfs.impl.URLConnectionVirtualFileImpl
-import java.io.*
-
+import java.io.File
 import java.lang.ref.WeakReference
 
 object ResourceVirtualFile {

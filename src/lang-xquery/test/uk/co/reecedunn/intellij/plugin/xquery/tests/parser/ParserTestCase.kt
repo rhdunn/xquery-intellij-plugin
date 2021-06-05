@@ -32,23 +32,23 @@ import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.roots.MockProjectRootsManager
 import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
-import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSettings
-import uk.co.reecedunn.intellij.plugin.xpm.java.JavaTypePath
-import uk.co.reecedunn.intellij.plugin.xpm.module.ImportPathResolver
-import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePathFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
-import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDecorator
-import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDecoratorBean
+import uk.co.reecedunn.intellij.plugin.xpm.java.JavaTypePath
+import uk.co.reecedunn.intellij.plugin.xpm.module.ImportPathResolver
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderFactory
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.XpmModuleLoaderSettings
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.JspModuleSourceRootLoader
 import uk.co.reecedunn.intellij.plugin.xpm.module.loader.impl.RelativeModuleLoader
+import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModulePathFactory
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.impl.XpmModuleLocationPath
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDecorator
+import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDecoratorBean
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory
+import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
+import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSettings
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 abstract class ParserTestCase :

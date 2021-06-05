@@ -15,18 +15,16 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.tests.module
 
+import com.intellij.compat.openapi.module.ModuleManager
+import com.intellij.compat.testFramework.registerServiceInstance
 import com.intellij.openapi.module.*
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ModuleRootManager
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.util.graph.Graph
-import com.intellij.compat.openapi.module.ModuleManager
-import com.intellij.compat.testFramework.registerServiceInstance
 import org.jetbrains.annotations.ApiStatus
 import uk.co.reecedunn.intellij.plugin.core.tests.roots.MockModuleRootsManager
-
 import java.nio.file.Path
-import java.util.Comparator
 
 class MockModuleManager(private val project: Project) : ModuleManager() {
     private var modules: Array<Module> = arrayOf()

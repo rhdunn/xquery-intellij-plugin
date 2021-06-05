@@ -18,7 +18,6 @@ package uk.co.reecedunn.intellij.plugin.core.lexer
 import com.intellij.lexer.Lexer
 import com.intellij.lexer.LexerBase
 import com.intellij.psi.tree.IElementType
-import java.util.*
 
 class CombinedLexer(private val mLanguage: Lexer) : LexerBase() {
     private val mStates = HashMap<Int, State>()

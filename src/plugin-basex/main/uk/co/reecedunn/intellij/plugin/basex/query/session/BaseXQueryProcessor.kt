@@ -18,19 +18,20 @@ package uk.co.reecedunn.intellij.plugin.basex.query.session
 import com.intellij.lang.Language
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.vfs.VirtualFile
-import uk.co.reecedunn.intellij.plugin.basex.resources.BaseXIcons
-import uk.co.reecedunn.intellij.plugin.basex.query.session.binding.Session
-import uk.co.reecedunn.intellij.plugin.basex.resources.BaseXQueries
 import uk.co.reecedunn.intellij.plugin.basex.log.BaseXLogLine
+import uk.co.reecedunn.intellij.plugin.basex.query.session.binding.Session
+import uk.co.reecedunn.intellij.plugin.basex.resources.BaseXIcons
+import uk.co.reecedunn.intellij.plugin.basex.resources.BaseXQueries
 import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationImpl
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.processor.log.LogViewProvider
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQueryProvider
-import uk.co.reecedunn.intellij.plugin.processor.query.*
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryServer
+import uk.co.reecedunn.intellij.plugin.processor.query.UnsupportedQueryType
 import uk.co.reecedunn.intellij.plugin.processor.run.RunnableQuery
 import uk.co.reecedunn.intellij.plugin.processor.run.RunnableQueryProvider
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 
 internal class BaseXQueryProcessor(
     val session: Session,

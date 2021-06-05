@@ -28,7 +28,6 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import java.awt.Color
-import java.util.*
 import kotlin.math.min
 
 // NOTE: The IntelliJ XmlTagTreeHighlightingUtil helper methods are package private.

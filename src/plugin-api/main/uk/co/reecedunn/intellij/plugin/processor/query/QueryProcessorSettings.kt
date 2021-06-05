@@ -15,9 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.query
 
-import uk.co.reecedunn.intellij.plugin.processor.query.settings.QueryProcessorSettingsModel
 import uk.co.reecedunn.intellij.plugin.processor.query.connection.AWSConnectionSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.connection.ConnectionSettings
+import uk.co.reecedunn.intellij.plugin.processor.query.settings.QueryProcessorSettingsModel
 import java.io.Closeable
 import java.io.FileInputStream
 import java.io.FileNotFoundException

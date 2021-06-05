@@ -15,7 +15,6 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.optree.function
 
-import com.intellij.util.Range
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmVariadic
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.impl.XpmConcatenatingExpressionImpl

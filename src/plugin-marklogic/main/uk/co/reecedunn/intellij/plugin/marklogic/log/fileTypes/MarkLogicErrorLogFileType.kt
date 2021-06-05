@@ -16,9 +16,9 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.log.fileTypes
 
 import com.intellij.openapi.fileTypes.LanguageFileType
+import uk.co.reecedunn.intellij.plugin.marklogic.log.lang.MarkLogicErrorLog
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicBundle
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicIcons
-import uk.co.reecedunn.intellij.plugin.marklogic.log.lang.MarkLogicErrorLog
 import javax.swing.Icon
 
 object MarkLogicErrorLogFileType : LanguageFileType(MarkLogicErrorLog) {

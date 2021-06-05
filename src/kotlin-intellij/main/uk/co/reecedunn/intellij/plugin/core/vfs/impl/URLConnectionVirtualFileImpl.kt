@@ -18,7 +18,9 @@ package uk.co.reecedunn.intellij.plugin.core.vfs.impl
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.VirtualFileSystem
 import org.apache.commons.compress.utils.IOUtils
-import java.io.*
+import java.io.IOException
+import java.io.InputStream
+import java.io.OutputStream
 import java.lang.ref.WeakReference
 import java.net.URLConnection
 

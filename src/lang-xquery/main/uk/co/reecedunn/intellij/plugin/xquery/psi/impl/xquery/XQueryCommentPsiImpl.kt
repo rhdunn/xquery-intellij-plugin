@@ -19,7 +19,6 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathComment
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQDocTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.parser.XQDocCommentLineExtractor
 
 class XQueryCommentPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathComment {
     // region XPathComment

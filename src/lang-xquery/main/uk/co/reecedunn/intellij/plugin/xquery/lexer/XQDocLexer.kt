@@ -15,7 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.lexer
 
-import uk.co.reecedunn.intellij.plugin.core.lexer.*
+import uk.co.reecedunn.intellij.plugin.core.lexer.CharacterClass
+import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRange
+import uk.co.reecedunn.intellij.plugin.core.lexer.LexerImpl
+import uk.co.reecedunn.intellij.plugin.core.lexer.STATE_DEFAULT
 
 @Suppress("DuplicatedCode")
 class XQDocLexer : LexerImpl(STATE_CONTENTS) {

@@ -15,7 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.rewriter.reference
 
-import com.intellij.psi.*
+import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiReference
+import com.intellij.psi.PsiReferenceBase
+import com.intellij.psi.PsiReferenceProvider
 import com.intellij.psi.xml.XmlTag
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.sequences.children

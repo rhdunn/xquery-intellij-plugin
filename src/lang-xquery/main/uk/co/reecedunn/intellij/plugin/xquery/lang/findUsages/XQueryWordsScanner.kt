@@ -19,7 +19,8 @@ import com.intellij.lang.cacheBuilder.WordOccurrence
 import com.intellij.util.Processor
 import uk.co.reecedunn.intellij.plugin.xpath.lang.findUsages.XPathWordsScanner
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.*
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 class XQueryWordsScanner : XPathWordsScanner(XQueryLexer()) {
     override fun processWordsEx(fileText: CharSequence, processor: Processor<in WordOccurrence>) {

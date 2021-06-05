@@ -19,13 +19,10 @@ import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
 import com.intellij.ui.IconManager
 import com.intellij.util.BitUtil
-import com.intellij.util.PlatformIcons
 import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnnotation
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmAccessLevel
-import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmAnnotated
-import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.annotation
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryAnnotatedDecl
 import javax.swing.Icon
 

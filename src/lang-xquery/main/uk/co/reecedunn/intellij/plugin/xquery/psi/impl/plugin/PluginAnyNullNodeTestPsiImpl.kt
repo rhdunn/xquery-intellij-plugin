@@ -18,10 +18,10 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginAnyNullNodeTest
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNullNode
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginAnyNullNodeTest
 
 class PluginAnyNullNodeTestPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), PluginAnyNullNodeTest, XpmSyntaxValidationElement {

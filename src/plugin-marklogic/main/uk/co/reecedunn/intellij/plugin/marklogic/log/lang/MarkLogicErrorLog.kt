@@ -17,7 +17,6 @@ package uk.co.reecedunn.intellij.plugin.marklogic.log.lang
 
 import com.intellij.lang.ASTNode
 import com.intellij.lang.Language
-import com.intellij.lang.ParserDefinition as LanguageParserDefinition
 import com.intellij.lang.PsiParser
 import com.intellij.lexer.Lexer
 import com.intellij.openapi.project.Project
@@ -27,11 +26,12 @@ import com.intellij.psi.PsiFile
 import com.intellij.psi.tree.IFileElementType
 import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
-import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicBundle
 import uk.co.reecedunn.intellij.plugin.marklogic.log.lexer.MarkLogicErrorLogLexer
 import uk.co.reecedunn.intellij.plugin.marklogic.log.parser.MarkLogicErrorLogElementType
 import uk.co.reecedunn.intellij.plugin.marklogic.log.parser.MarkLogicErrorLogParser
 import uk.co.reecedunn.intellij.plugin.marklogic.log.psi.impl.error.MarkLogicErrorLogPsiImpl
+import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicBundle
+import com.intellij.lang.ParserDefinition as LanguageParserDefinition
 
 object MarkLogicErrorLog : Language("MLErrorLog") {
     // region Language

@@ -20,8 +20,8 @@ import com.intellij.psi.PsiFile
 import com.intellij.ui.table.TableView
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.columnInfo
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.columns
-import uk.co.reecedunn.intellij.plugin.processor.resources.PluginApiBundle
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
+import uk.co.reecedunn.intellij.plugin.processor.resources.PluginApiBundle
 import javax.swing.JScrollPane
 
 data class QueryResultReference(private val textOffset: Int, internal var element: PsiElement? = null) {

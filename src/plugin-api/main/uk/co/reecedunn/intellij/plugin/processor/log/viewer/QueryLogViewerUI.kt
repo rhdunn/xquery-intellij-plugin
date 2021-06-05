@@ -27,18 +27,17 @@ import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleViewEx
 import uk.co.reecedunn.intellij.plugin.core.ui.Borders
 import uk.co.reecedunn.intellij.plugin.core.ui.layout.*
-import uk.co.reecedunn.intellij.plugin.processor.resources.PluginApiBundle
-import uk.co.reecedunn.intellij.plugin.processor.query.settings.QueryProcessorSettingsCellRenderer
-import uk.co.reecedunn.intellij.plugin.processor.query.settings.QueryProcessorSettingsModel
-import uk.co.reecedunn.intellij.plugin.processor.query.settings.QueryProcessors
-import uk.co.reecedunn.intellij.plugin.processor.query.settings.QueryProcessorsListener
 import uk.co.reecedunn.intellij.plugin.processor.log.LogLine
 import uk.co.reecedunn.intellij.plugin.processor.log.LogLineContinuation
 import uk.co.reecedunn.intellij.plugin.processor.log.LogViewProvider
 import uk.co.reecedunn.intellij.plugin.processor.query.CachedQueryProcessorSettings
 import uk.co.reecedunn.intellij.plugin.processor.query.addToModel
+import uk.co.reecedunn.intellij.plugin.processor.query.settings.QueryProcessorSettingsCellRenderer
+import uk.co.reecedunn.intellij.plugin.processor.query.settings.QueryProcessorSettingsModel
+import uk.co.reecedunn.intellij.plugin.processor.query.settings.QueryProcessors
+import uk.co.reecedunn.intellij.plugin.processor.query.settings.QueryProcessorsListener
+import uk.co.reecedunn.intellij.plugin.processor.resources.PluginApiBundle
 import java.awt.Dimension
-import java.lang.UnsupportedOperationException
 import javax.swing.JComboBox
 import javax.swing.JPanel
 

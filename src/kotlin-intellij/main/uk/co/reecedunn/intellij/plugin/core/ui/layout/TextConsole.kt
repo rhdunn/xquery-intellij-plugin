@@ -25,7 +25,7 @@ package uk.co.reecedunn.intellij.plugin.core.ui.layout
 
 import com.intellij.openapi.project.Project
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.TextConsoleView
-import java.awt.*
+import java.awt.Container
 
 fun Container.textConsole(project: Project, constraints: Any?, init: TextConsoleView.() -> Unit): TextConsoleView {
     val view = TextConsoleView(project)

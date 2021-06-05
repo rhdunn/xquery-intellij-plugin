@@ -22,9 +22,9 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginFilterStep
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.path.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.path.XpmPathStep
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 
 class PluginFilterStepPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginFilterStep {
     // region XpmExpression

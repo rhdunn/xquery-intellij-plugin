@@ -28,9 +28,9 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingConcatExpr
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryQueryBody
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
 import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryIcons
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryQueryBody
 import javax.swing.Icon
 
 class XQueryQueryBodyPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryQueryBody, ItemPresentationEx {

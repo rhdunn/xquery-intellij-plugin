@@ -17,7 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xpm.project.configuration
 
 import com.intellij.compat.extensions.extensionPoint
 import com.intellij.openapi.Disposable
-import com.intellij.openapi.components.ServiceManager
 import com.intellij.openapi.extensions.ExtensionPointListener
 import com.intellij.openapi.extensions.PluginDescriptor
 import com.intellij.openapi.project.Project

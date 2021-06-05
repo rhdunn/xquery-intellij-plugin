@@ -21,7 +21,6 @@ import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.text.XRayTextFormat
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.xray.XRayXmlFormat
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.xunit.XRayXUnitFormat
 import uk.co.reecedunn.intellij.plugin.processor.test.TestFormat
-import java.lang.UnsupportedOperationException
 
 object XRayTestFormat {
     fun format(id: String): TestFormat = when (id) {

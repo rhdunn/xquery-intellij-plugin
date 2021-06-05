@@ -17,8 +17,11 @@ package uk.co.reecedunn.intellij.plugin.marklogic.xray.runner
 
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.process.ProcessOutputType
+import uk.co.reecedunn.intellij.plugin.processor.test.TestCase
+import uk.co.reecedunn.intellij.plugin.processor.test.TestFormat
+import uk.co.reecedunn.intellij.plugin.processor.test.TestStatistics
+import uk.co.reecedunn.intellij.plugin.processor.test.TestSuite
 import uk.co.reecedunn.intellij.plugin.processor.test.execution.process.TestProcessListener
-import uk.co.reecedunn.intellij.plugin.processor.test.*
 import uk.co.reecedunn.intellij.plugin.xquery.testframework.execution.XQueryTestLocationProvider
 
 class XRayTestProcessListener(processHandler: ProcessHandler, outputFormat: TestFormat) :

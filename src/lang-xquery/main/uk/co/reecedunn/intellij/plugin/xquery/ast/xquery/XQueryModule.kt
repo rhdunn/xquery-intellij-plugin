@@ -19,9 +19,9 @@ import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiFile
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Specification
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
-import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSettings
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsStringValue
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
+import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSettings
 
 data class XQueryVersionRef(val declaration: XsStringValue?, val version: Specification?) {
     fun getVersionOrDefault(project: Project): Specification {

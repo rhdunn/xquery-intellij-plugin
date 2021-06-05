@@ -32,10 +32,10 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathVarRef
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
-import uk.co.reecedunn.intellij.plugin.xpm.optree.path.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.impl.XdmWildcardExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.impl.XsNCNameExpression
+import uk.co.reecedunn.intellij.plugin.xpm.optree.path.XpmAxisType
 
 class PluginPostfixLookupPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), PluginPostfixLookup, XpmSyntaxValidationElement {

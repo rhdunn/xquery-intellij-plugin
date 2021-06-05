@@ -19,8 +19,8 @@ import com.intellij.compat.ide.navigationToolbar.StructureAwareNavBarModelExtens
 import com.intellij.navigation.ItemPresentation
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationEx
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 
 class XQueryNavBarModelExtension : StructureAwareNavBarModelExtension() {
     override fun getPresentableText(`object`: Any?): String? = getPresentableText(`object`, false)

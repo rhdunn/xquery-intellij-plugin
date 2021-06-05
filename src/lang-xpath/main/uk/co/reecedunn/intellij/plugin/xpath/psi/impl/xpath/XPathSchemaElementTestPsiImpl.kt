@@ -19,11 +19,11 @@ import com.intellij.lang.ASTNode
 import com.intellij.openapi.util.Key
 import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathSchemaElementTest
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathSchemaElementTest
 
 class XPathSchemaElementTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathSchemaElementTest {
     companion object {

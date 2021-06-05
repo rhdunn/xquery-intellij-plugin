@@ -16,7 +16,8 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.lang.editor.parameters
 
 import com.intellij.openapi.extensions.PluginId
-import org.hamcrest.CoreMatchers.*
+import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.CoreMatchers.nullValue
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test

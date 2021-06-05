@@ -20,16 +20,17 @@ import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.vfs.VirtualFile
 import org.apache.http.client.methods.RequestBuilder
 import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationImpl
+import uk.co.reecedunn.intellij.plugin.existdb.log.Log4JPattern
 import uk.co.reecedunn.intellij.plugin.existdb.resources.EXistDBIcons
 import uk.co.reecedunn.intellij.plugin.existdb.resources.EXistDBQueries
-import uk.co.reecedunn.intellij.plugin.existdb.log.Log4JPattern
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.processor.log.LogViewProvider
-import uk.co.reecedunn.intellij.plugin.processor.query.*
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryServer
+import uk.co.reecedunn.intellij.plugin.processor.query.UnsupportedQueryType
 import uk.co.reecedunn.intellij.plugin.processor.query.connection.InstanceDetails
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 import uk.co.reecedunn.intellij.plugin.processor.run.RunnableQuery
 import uk.co.reecedunn.intellij.plugin.processor.run.RunnableQueryProvider
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 
 internal class EXistDBQueryProcessor(
     private val baseUri: String,

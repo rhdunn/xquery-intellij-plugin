@@ -17,13 +17,11 @@ package uk.co.reecedunn.intellij.plugin.processor.query.settings
 
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.PersistentStateComponent
-import com.intellij.openapi.components.ServiceManager
 import com.intellij.openapi.components.State
 import com.intellij.openapi.components.Storage
 import com.intellij.util.containers.ContainerUtil
 import com.intellij.util.xmlb.XmlSerializerUtil
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryProcessorSettings
-import kotlin.collections.ArrayList
 
 @State(name = "XIJPQueryProcessors", storages = [Storage("xijp_processors_config.xml")])
 class QueryProcessors : PersistentStateComponent<QueryProcessorsData> {

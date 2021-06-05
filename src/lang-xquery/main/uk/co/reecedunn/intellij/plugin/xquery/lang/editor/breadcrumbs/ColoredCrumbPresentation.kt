@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.lang.editor.breadcrumbs
 
-import com.intellij.compat.util.ui.UIUtil.makeTransparent
+import com.intellij.util.ui.UIUtil.makeTransparent
 import com.intellij.xml.breadcrumbs.DefaultCrumbsPresentation
 import uk.co.reecedunn.intellij.plugin.xquery.lang.highlighter.xml.toLineMarkerColor
 import java.awt.Color

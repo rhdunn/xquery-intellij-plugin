@@ -26,9 +26,10 @@ import uk.co.reecedunn.intellij.plugin.core.http.toStringMessage
 import uk.co.reecedunn.intellij.plugin.core.lang.getLanguageMimeTypes
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
-import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.marklogic.resources.MarkLogicQueries
-import uk.co.reecedunn.intellij.plugin.processor.query.*
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryResults
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryServer
 import uk.co.reecedunn.intellij.plugin.processor.query.http.BuildableQuery
 import uk.co.reecedunn.intellij.plugin.processor.query.http.HttpConnection
 import uk.co.reecedunn.intellij.plugin.processor.run.RunnableQuery
@@ -37,6 +38,7 @@ import uk.co.reecedunn.intellij.plugin.processor.validate.ValidatableQuery
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsDuration
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.toXsDuration
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModuleUri
+import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 
 internal class MarkLogicRunQuery(
     private val builder: RequestBuilder,

@@ -25,8 +25,8 @@ import uk.co.reecedunn.intellij.plugin.core.tests.parser.prettyPrint
 import uk.co.reecedunn.intellij.plugin.xpath.lang.highlighter.QNameAnnotator
 import uk.co.reecedunn.intellij.plugin.xpath.lang.highlighter.XPathSemanticHighlighter
 import uk.co.reecedunn.intellij.plugin.xpm.lang.highlighter.XpmSemanticHighlighter
-import uk.co.reecedunn.intellij.plugin.xquery.lang.highlighter.XQuerySemanticHighlighter
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
+import uk.co.reecedunn.intellij.plugin.xquery.lang.highlighter.XQuerySemanticHighlighter
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("ClassName", "RedundantVisibilityModifier")

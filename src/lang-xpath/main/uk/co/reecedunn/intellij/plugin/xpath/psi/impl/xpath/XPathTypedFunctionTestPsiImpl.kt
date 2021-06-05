@@ -29,7 +29,6 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathTypedFunctionTest
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmAccessLevel
-import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmAnnotated
 
 class XPathTypedFunctionTestPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),

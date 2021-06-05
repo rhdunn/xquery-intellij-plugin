@@ -24,17 +24,19 @@ import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
-import uk.co.reecedunn.intellij.plugin.xquery.lang.fileTypes.XQueryFileType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.*
-import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSettings
-import uk.co.reecedunn.intellij.plugin.xpm.context.XpmUsageType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpm.context.XpmStaticContext
+import uk.co.reecedunn.intellij.plugin.xpm.context.XpmUsageType
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
-import uk.co.reecedunn.intellij.plugin.xquery.model.*
+import uk.co.reecedunn.intellij.plugin.xquery.lang.fileTypes.XQueryFileType
+import uk.co.reecedunn.intellij.plugin.xquery.model.StaticContextDefinitions
+import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
+import uk.co.reecedunn.intellij.plugin.xquery.model.expandQName
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
+import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSettings
 
 class XQueryModuleImpl(provider: FileViewProvider) :
     PsiFileBase(provider, XQuery), XQueryModule, XpmStaticContext {

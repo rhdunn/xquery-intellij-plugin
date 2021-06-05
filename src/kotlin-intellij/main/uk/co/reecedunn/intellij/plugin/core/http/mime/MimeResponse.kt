@@ -19,8 +19,6 @@ import org.apache.http.Header
 import org.apache.http.message.BasicHeader
 import uk.co.reecedunn.intellij.plugin.core.http.StringMessage
 
-import java.util.ArrayList
-
 class MimeResponse(private val message: StringMessage) {
     val parts: Array<StringMessage>
 

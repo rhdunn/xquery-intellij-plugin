@@ -18,9 +18,9 @@ package uk.co.reecedunn.intellij.plugin.xpath.completion.lookup
 import com.intellij.codeInsight.AutoPopupController
 import com.intellij.codeInsight.completion.InsertionContext
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpath.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
-import uk.co.reecedunn.intellij.plugin.xdm.types.element
 
 class XPathFunctionCallLookup(localName: String, prefix: String?, private val function: XpmFunctionDeclaration) :
     XPathLookupElement(prefix?.let { "$it:$localName" } ?: localName) {

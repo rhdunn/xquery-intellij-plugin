@@ -17,9 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.lang.editor.folding
 
 import com.intellij.lang.folding.FoldingBuilderEx
 import com.intellij.lang.folding.FoldingDescriptor
-import com.intellij.openapi.editor.Document
 import com.intellij.openapi.extensions.PluginId
-import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName

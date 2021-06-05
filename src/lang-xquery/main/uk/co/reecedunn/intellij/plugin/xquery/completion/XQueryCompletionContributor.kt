@@ -20,10 +20,15 @@ import com.intellij.patterns.PsiElementPattern
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionContributorEx
 import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.*
-import uk.co.reecedunn.intellij.plugin.xpath.completion.property.*
+import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathCompletionProperty
+import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathDefaultNamespace
+import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathStaticallyKnownNamespaces
 import uk.co.reecedunn.intellij.plugin.xpath.completion.providers.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
-import uk.co.reecedunn.intellij.plugin.xquery.completion.property.*
+import uk.co.reecedunn.intellij.plugin.xquery.completion.property.XPathVersion
+import uk.co.reecedunn.intellij.plugin.xquery.completion.property.XQueryProduct
+import uk.co.reecedunn.intellij.plugin.xquery.completion.property.XQueryProductVersion
+import uk.co.reecedunn.intellij.plugin.xquery.completion.property.XQueryVersion
 import uk.co.reecedunn.intellij.plugin.xquery.completion.providers.XQueryForwardOrReverseAxisProvider
 import uk.co.reecedunn.intellij.plugin.xquery.completion.providers.XQueryFunctionCallProvider
 import uk.co.reecedunn.intellij.plugin.xquery.completion.providers.XQueryKindTestProvider

@@ -20,10 +20,12 @@ import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.psi.PsiElement
 import com.intellij.util.ProcessingContext
 import uk.co.reecedunn.intellij.plugin.core.completion.CompletionProviderEx
-import uk.co.reecedunn.intellij.plugin.intellij.lang.*
+import uk.co.reecedunn.intellij.plugin.intellij.lang.W3C
+import uk.co.reecedunn.intellij.plugin.intellij.lang.XmlSchemaSpec
+import uk.co.reecedunn.intellij.plugin.intellij.lang.defaultProductVersion
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathAtomicOrUnionTypeLookup
 import uk.co.reecedunn.intellij.plugin.xpath.completion.property.XPathCompletionProperty
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
 object XPathAtomicOrUnionTypeProvider : CompletionProviderEx {
     private const val XS_NAMESPACE_URI = "http://www.w3.org/2001/XMLSchema"

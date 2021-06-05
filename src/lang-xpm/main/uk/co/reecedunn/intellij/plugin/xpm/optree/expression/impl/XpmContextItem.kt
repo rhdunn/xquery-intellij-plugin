@@ -17,7 +17,6 @@ package uk.co.reecedunn.intellij.plugin.xpm.optree.expression.impl
 
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmContextItemExpression
-import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 
 object XpmContextItem : XpmContextItemExpression {
     override val expressionElement: PsiElement? = null

@@ -17,11 +17,11 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAtomicOrUnionType
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAtomicType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnySimpleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAtomicOrUnionType
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathAtomicType
 
 class XPathAtomicOrUnionTypePsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), XPathAtomicOrUnionType, XPathAtomicType {

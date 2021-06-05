@@ -19,8 +19,8 @@ import com.intellij.lexer.Lexer
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.lexer.LexerTestCase
-import uk.co.reecedunn.intellij.plugin.xquery.lang.highlighter.XQuerySyntaxHighlighter
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
+import uk.co.reecedunn.intellij.plugin.xquery.lang.highlighter.XQuerySyntaxHighlighter
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQDocTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 

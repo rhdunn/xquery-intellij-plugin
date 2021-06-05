@@ -26,18 +26,18 @@ import com.intellij.execution.runners.ProgramRunner
 import com.intellij.execution.ui.ConsoleView
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.ConsoleRunnerLayoutUiBuilder
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebuggableQueryProvider
-import uk.co.reecedunn.intellij.plugin.processor.profile.execution.DefaultProfileExecutor
-import uk.co.reecedunn.intellij.plugin.processor.profile.execution.process.ProfileableQueryProcessHandler
-import uk.co.reecedunn.intellij.plugin.processor.run.execution.process.QueryProcessHandlerBase
-import uk.co.reecedunn.intellij.plugin.processor.run.execution.process.RunnableQueryProcessHandler
-import uk.co.reecedunn.intellij.plugin.processor.run.execution.ui.QueryConsoleView
-import uk.co.reecedunn.intellij.plugin.processor.run.execution.ui.QueryTextConsoleView
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQueryProvider
+import uk.co.reecedunn.intellij.plugin.processor.profile.execution.DefaultProfileExecutor
+import uk.co.reecedunn.intellij.plugin.processor.profile.execution.process.ProfileableQueryProcessHandler
 import uk.co.reecedunn.intellij.plugin.processor.profile.execution.ui.FlatProfileTableView
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
 import uk.co.reecedunn.intellij.plugin.processor.run.RunnableQuery
 import uk.co.reecedunn.intellij.plugin.processor.run.RunnableQueryProvider
+import uk.co.reecedunn.intellij.plugin.processor.run.execution.process.QueryProcessHandlerBase
+import uk.co.reecedunn.intellij.plugin.processor.run.execution.process.RunnableQueryProcessHandler
+import uk.co.reecedunn.intellij.plugin.processor.run.execution.ui.QueryConsoleView
+import uk.co.reecedunn.intellij.plugin.processor.run.execution.ui.QueryTextConsoleView
 
 class QueryProcessorRunState(private val environment: ExecutionEnvironment) : RunProfileStateEx {
     override fun execute(executor: Executor?, runner: ProgramRunner<*>): ExecutionResult {

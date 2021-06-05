@@ -27,17 +27,17 @@ import com.intellij.execution.ui.ConsoleView
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.configuration.XRayTestConfiguration
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.test.XRayTestService
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebuggableQueryProvider
-import uk.co.reecedunn.intellij.plugin.processor.run.execution.filters.QueryErrorStackTraceFilter
-import uk.co.reecedunn.intellij.plugin.processor.query.execution.configurations.RunProfileStateEx
-import uk.co.reecedunn.intellij.plugin.processor.profile.execution.DefaultProfileExecutor
-import uk.co.reecedunn.intellij.plugin.processor.profile.execution.process.ProfileableQueryProcessHandler
-import uk.co.reecedunn.intellij.plugin.processor.run.execution.process.QueryProcessHandlerBase
-import uk.co.reecedunn.intellij.plugin.processor.run.execution.process.RunnableQueryProcessHandler
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQuery
 import uk.co.reecedunn.intellij.plugin.processor.profile.ProfileableQueryProvider
+import uk.co.reecedunn.intellij.plugin.processor.profile.execution.DefaultProfileExecutor
+import uk.co.reecedunn.intellij.plugin.processor.profile.execution.process.ProfileableQueryProcessHandler
 import uk.co.reecedunn.intellij.plugin.processor.query.Query
+import uk.co.reecedunn.intellij.plugin.processor.query.execution.configurations.RunProfileStateEx
 import uk.co.reecedunn.intellij.plugin.processor.run.RunnableQuery
 import uk.co.reecedunn.intellij.plugin.processor.run.RunnableQueryProvider
+import uk.co.reecedunn.intellij.plugin.processor.run.execution.filters.QueryErrorStackTraceFilter
+import uk.co.reecedunn.intellij.plugin.processor.run.execution.process.QueryProcessHandlerBase
+import uk.co.reecedunn.intellij.plugin.processor.run.execution.process.RunnableQueryProcessHandler
 import uk.co.reecedunn.intellij.plugin.xpm.project.configuration.XpmProjectConfigurations
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 

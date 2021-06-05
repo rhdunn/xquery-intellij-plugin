@@ -27,11 +27,11 @@ import com.intellij.psi.PsiFile
 import com.intellij.psi.PsiFileFactory
 import uk.co.reecedunn.intellij.plugin.core.execution.ui.TextConsoleView
 import uk.co.reecedunn.intellij.plugin.core.io.printCharsToString
-import uk.co.reecedunn.intellij.plugin.processor.run.execution.process.QueryProcessHandlerBase
-import uk.co.reecedunn.intellij.plugin.processor.run.execution.process.QueryResultListener
 import uk.co.reecedunn.intellij.plugin.processor.debug.position.QuerySourcePosition
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
+import uk.co.reecedunn.intellij.plugin.processor.run.execution.process.QueryProcessHandlerBase
+import uk.co.reecedunn.intellij.plugin.processor.run.execution.process.QueryResultListener
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsDurationValue
 import javax.swing.JComponent
 

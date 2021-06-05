@@ -23,7 +23,6 @@ import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.marklogic.log.ast.error.MarkLogicErrorLogLine
 import uk.co.reecedunn.intellij.plugin.marklogic.log.lexer.ILogLevelElementType
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyAtomicType
 import java.util.*
 
 class MarkLogicErrorLogLinePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), MarkLogicErrorLogLine {

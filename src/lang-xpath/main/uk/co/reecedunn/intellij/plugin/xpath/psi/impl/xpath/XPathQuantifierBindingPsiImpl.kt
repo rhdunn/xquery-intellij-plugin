@@ -19,9 +19,9 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQuantifierBinding
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQuantifierBinding
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 
 class XPathQuantifierBindingPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathQuantifierBinding {

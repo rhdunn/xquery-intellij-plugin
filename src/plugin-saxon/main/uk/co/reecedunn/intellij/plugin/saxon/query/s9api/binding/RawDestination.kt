@@ -17,10 +17,8 @@ package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding
 
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.event.Receiver
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.event.SequenceOutputter
-import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.proxy.Destination as ProxyDestination
-
 import java.net.URI
-import java.util.ArrayList
+import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.proxy.Destination as ProxyDestination
 
 // Saxon 9.8 and earlier do not implement the RawDestination class.
 class RawDestination(val classLoader: ClassLoader) : ProxyDestination {

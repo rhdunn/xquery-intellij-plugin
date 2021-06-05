@@ -24,7 +24,7 @@ import com.intellij.psi.tree.IFileElementType
 import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xquery.lang.highlighter.XQuerySyntaxHighlighter
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.*
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryModuleImpl
 
 class XQueryParserDefinition : XPathParserDefinition() {

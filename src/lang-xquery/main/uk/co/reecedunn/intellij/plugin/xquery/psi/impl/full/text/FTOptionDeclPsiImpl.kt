@@ -18,11 +18,11 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTOptionDecl
 import uk.co.reecedunn.intellij.plugin.intellij.lang.FullTextSpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
+import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTOptionDecl
+import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 class FTOptionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), FTOptionDecl, VersionConformance {
     override val requiresConformance: List<Version>

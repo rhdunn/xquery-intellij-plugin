@@ -20,12 +20,12 @@ import com.intellij.openapi.util.Key
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginElementDeclTest
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementDecl
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginElementDeclTest
 
 class PluginElementDeclTestPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), PluginElementDeclTest, XpmSyntaxValidationElement {

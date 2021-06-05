@@ -26,11 +26,11 @@ import com.intellij.xdebugger.breakpoints.XBreakpointHandler
 import com.intellij.xdebugger.evaluation.XDebuggerEditorsProvider
 import com.intellij.xdebugger.frame.XSuspendContext
 import uk.co.reecedunn.intellij.plugin.core.async.invokeLater
-import uk.co.reecedunn.intellij.plugin.processor.debug.evaluation.QueryEditorsProvider
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSession
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebugSessionListener
 import uk.co.reecedunn.intellij.plugin.processor.debug.DebuggableQuery
 import uk.co.reecedunn.intellij.plugin.processor.debug.StepAction
+import uk.co.reecedunn.intellij.plugin.processor.debug.evaluation.QueryEditorsProvider
 import uk.co.reecedunn.intellij.plugin.processor.query.execution.configurations.RunProfileStateEx
 
 class QueryDebugProcess(

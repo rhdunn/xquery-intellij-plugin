@@ -15,8 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.plugin
 
-import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathTextTest
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsStringValue
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathTextTest
 
 /**
  * A MarkLogic 8.0 `NamedTextTest` node in the XQuery AST.

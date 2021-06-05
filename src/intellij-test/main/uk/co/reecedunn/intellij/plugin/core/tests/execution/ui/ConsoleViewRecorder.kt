@@ -21,7 +21,6 @@ import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.ui.ConsoleView
 import com.intellij.execution.ui.ConsoleViewContentType
 import com.intellij.openapi.actionSystem.AnAction
-import java.lang.UnsupportedOperationException
 import javax.swing.JComponent
 
 class ConsoleViewRecorder : ConsoleView {
