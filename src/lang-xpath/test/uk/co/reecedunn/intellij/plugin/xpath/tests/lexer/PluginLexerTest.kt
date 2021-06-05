@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
 @DisplayName("XQuery IntelliJ Plugin - Lexer")
 class PluginLexerTest : LexerTestCase() {
-    override val lexer: Lexer = XPathLexer(XmlCodePointRangeImpl())
+    override val lexer: Lexer = XPathLexer()
 
     @Test
     @DisplayName("XQuery IntelliJ Plugin XPath EBNF (20) AndExpr")

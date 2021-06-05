@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,7 +51,7 @@ object ValueTemplate : Language(XPath, "xsl:value-template") {
     val FileElementType: IFileElementType = IFileElementType(this)
 
     class ParserDefinition : XPathParserDefinition() {
-        override fun createLexer(project: Project): Lexer = XsltValueTemplateLexer(XmlCodePointRangeImpl())
+        override fun createLexer(project: Project): Lexer = XsltValueTemplateLexer()
 
         override fun createParser(project: Project): PsiParser = XsltSchemaTypesParser(ValueTemplate)
 

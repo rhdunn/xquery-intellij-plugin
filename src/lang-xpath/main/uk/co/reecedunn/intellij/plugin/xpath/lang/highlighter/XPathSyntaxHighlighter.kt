@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2020 Reece H. Dunn
+ * Copyright (C) 2016-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 object XPathSyntaxHighlighter : SyntaxHighlighterBase() {
     // region SyntaxHighlighter
 
-    override fun getHighlightingLexer(): Lexer = XPathLexer(XmlCodePointRangeImpl())
+    override fun getHighlightingLexer(): Lexer = XPathLexer()
 
     override fun getTokenHighlights(type: IElementType): Array<out TextAttributesKey> {
         val default =

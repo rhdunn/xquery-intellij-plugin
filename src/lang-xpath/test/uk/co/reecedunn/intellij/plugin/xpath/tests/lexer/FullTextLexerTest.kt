@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
 @DisplayName("XPath 3.1 with Full Text 3.0 - Lexer")
 class FullTextLexerTest : LexerTestCase() {
-    override val lexer: Lexer = XPathLexer(CodePointRangeImpl())
+    override val lexer: Lexer = XPathLexer()
 
     @Test
     @DisplayName("XPath 2.0 with Full Text EBNF (6) FTScoreVar")

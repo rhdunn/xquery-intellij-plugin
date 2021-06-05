@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2019-2020 Reece H. Dunn
+ * Copyright (C) 2016, 2019-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XmlCodePointRangeImpl
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
-open class XPathWordsScanner(protected val mLexer: Lexer = XPathLexer(XmlCodePointRangeImpl())) : WordsScanner() {
+open class XPathWordsScanner(protected val mLexer: Lexer = XPathLexer()) : WordsScanner() {
     protected val mOccurrence: WordOccurrence = WordOccurrence(null, 0, 0, null)
     protected val mRange: CodePointRange = CodePointRangeImpl()
 

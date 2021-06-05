@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2018 2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,8 @@ import java.util.*
 
 const val STATE_DEFAULT: Int = 0
 
-abstract class LexerImpl(private val baseState: Int, protected val mTokenRange: CodePointRange) : LexerBase() {
+abstract class LexerImpl(private val baseState: Int) : LexerBase() {
+    protected val mTokenRange: CodePointRange = CodePointRangeImpl()
     protected var mType: IElementType? = null
 
     // region States

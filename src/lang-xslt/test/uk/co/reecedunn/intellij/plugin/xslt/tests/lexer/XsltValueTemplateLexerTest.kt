@@ -27,7 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xslt.lexer.XsltValueTemplateLexer
 
 @DisplayName("XSLT 3.0 - Lexer - Value Templates")
 class XsltValueTemplateLexerTest : LexerTestCase() {
-    override val lexer: Lexer = XsltValueTemplateLexer(XmlCodePointRangeImpl())
+    override val lexer: Lexer = XsltValueTemplateLexer()
 
     @Nested
     @DisplayName("XQuery IntelliJ Plugin XSLT EBNF (1) ValueTemplate")

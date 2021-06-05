@@ -29,7 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
 @DisplayName("XPath 3.1 - Lexer")
 class XPathLexerTest : LexerTestCase() {
-    override val lexer: Lexer = XPathLexer(XmlCodePointRangeImpl())
+    override val lexer: Lexer = XPathLexer()
 
     @Nested
     @DisplayName("Lexer")

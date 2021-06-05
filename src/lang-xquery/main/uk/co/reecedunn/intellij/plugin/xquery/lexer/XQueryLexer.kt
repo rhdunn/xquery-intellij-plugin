@@ -19,7 +19,7 @@ import uk.co.reecedunn.intellij.plugin.core.lexer.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.*
 
 @Suppress("DuplicatedCode")
-class XQueryLexer : XPathLexer(CodePointRangeImpl()) {
+class XQueryLexer : XPathLexer() {
     // region States
 
     override fun ncnameToKeyword(name: CharSequence): IKeywordOrNCNameType? {

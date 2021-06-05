@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.lexer
 import uk.co.reecedunn.intellij.plugin.core.lexer.*
 
 @Suppress("DuplicatedCode")
-class XQDocLexer : LexerImpl(STATE_CONTENTS, CodePointRangeImpl()) {
+class XQDocLexer : LexerImpl(STATE_CONTENTS) {
     // region States
 
     private fun matchEntityReference() {
