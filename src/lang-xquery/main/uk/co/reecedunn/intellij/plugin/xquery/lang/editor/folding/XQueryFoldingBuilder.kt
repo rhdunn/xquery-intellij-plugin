@@ -210,16 +210,5 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
         }
 
         private val CLOSE_TAG = TokenSet.create(XQueryTokenType.END_XML_TAG, XQueryTokenType.SELF_CLOSING_XML_TAG)
-
-        private val ELEMENT_CONSTRUCTOR_TOKENS = TokenSet.create(
-            XQueryTokenType.OPEN_XML_TAG,
-            XQueryTokenType.XML_WHITE_SPACE,
-            XPathElementType.NCNAME,
-            XPathElementType.QNAME,
-            XQueryElementType.DIR_ATTRIBUTE,
-            XQueryTokenType.END_XML_TAG,
-            XQueryTokenType.CLOSE_XML_TAG,
-            XQueryTokenType.SELF_CLOSING_XML_TAG
-        )
     }
 }

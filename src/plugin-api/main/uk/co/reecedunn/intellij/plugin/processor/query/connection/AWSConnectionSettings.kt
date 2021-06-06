@@ -31,7 +31,9 @@ data class AWSConnectionSettings(
     override var databasePort: Int,
     override var username: String?
 ) : InstanceDetails {
+    @Suppress("unused")
     constructor() : this("", "", "", "", 0, null)
+
     // region hostname
 
     private val awsCommandLine: GeneralCommandLine

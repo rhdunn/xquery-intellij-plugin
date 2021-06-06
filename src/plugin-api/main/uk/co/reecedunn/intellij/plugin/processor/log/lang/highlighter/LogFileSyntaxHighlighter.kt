@@ -21,7 +21,7 @@ import com.intellij.openapi.fileTypes.SyntaxHighlighterBase
 import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.processor.log.LogFileContentType
 
-@Suppress("PropertyName")
+@Suppress("PropertyName", "unused")
 abstract class LogFileSyntaxHighlighter : SyntaxHighlighterBase() {
     // region SyntaxHighlighter
 

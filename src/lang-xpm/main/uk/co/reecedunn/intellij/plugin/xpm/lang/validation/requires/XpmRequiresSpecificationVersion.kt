@@ -19,6 +19,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmSpecificationVersion
 import uk.co.reecedunn.intellij.plugin.xpm.lang.configuration.XpmLanguageConfiguration
 import uk.co.reecedunn.intellij.plugin.xpm.resources.XpmBundle
 
+@Suppress("unused")
 class XpmRequiresSpecificationVersion(private val requires: XpmSpecificationVersion) : XpmRequiresConformanceTo {
     override fun conformanceTo(configuration: XpmLanguageConfiguration): Boolean {
         val implements = configuration.implements[requires.specification.id] ?: return false

@@ -139,6 +139,7 @@ fun Sequence<PsiElement>.filterIsNotElementType(elementType: IElementType): Sequ
     it.elementType !== elementType
 }
 
+@Suppress("unused")
 fun Sequence<PsiElement>.filterIsNotElementType(tokens: TokenSet): Sequence<PsiElement> = filter {
     !tokens.contains(it.elementType)
 }

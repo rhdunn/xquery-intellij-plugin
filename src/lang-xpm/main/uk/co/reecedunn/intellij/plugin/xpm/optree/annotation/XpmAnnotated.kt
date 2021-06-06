@@ -22,6 +22,7 @@ interface XpmAnnotated {
 
     val accessLevel: XpmAccessLevel
 
+    @Suppress("unused")
     companion object {
         const val NAMESPACE = "http://www.w3.org/2012/xquery"
 

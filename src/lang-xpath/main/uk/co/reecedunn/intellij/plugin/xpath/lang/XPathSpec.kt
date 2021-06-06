@@ -22,7 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.impl.W3CSpecification
 import uk.co.reecedunn.intellij.plugin.xpm.resources.XpmIcons
 import javax.swing.Icon
 
-@Suppress("MemberVisibilityCanBePrivate")
+@Suppress("MemberVisibilityCanBePrivate", "unused")
 object XPathSpec : ItemPresentation, XpmSpecificationType {
     // region ItemPresentation
 

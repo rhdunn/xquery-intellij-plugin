@@ -75,6 +75,7 @@ fun <T> Container.comboBox(constraints: Any?, init: ComboBox<T>.() -> Unit = {})
 // endregion
 // region component with browse button
 
+@Suppress("unused")
 fun <T : JComponent> Container.componentWithBrowseButton(
     constraints: Any?,
     browseActionListener: ActionListener,

@@ -24,6 +24,7 @@ data class ConnectionSettings(
     override var databasePort: Int,
     override var username: String?
 ) : InstanceDetails {
+    @Suppress("unused")
     constructor() : this("", 0, null)
 
     private val serviceName: String
