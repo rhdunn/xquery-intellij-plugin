@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.core.util
 
 import com.intellij.openapi.util.Key
 
-open class UserDataHolderBase() : com.intellij.openapi.util.UserDataHolderBase() {
+open class UserDataHolderBase : com.intellij.openapi.util.UserDataHolderBase() {
     fun <T> clearUserData(key: Key<T>): Boolean {
         val map = userMap
         val newMap = map.minus(key)
