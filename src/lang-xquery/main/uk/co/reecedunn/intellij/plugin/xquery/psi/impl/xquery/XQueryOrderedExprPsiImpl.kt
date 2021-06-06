@@ -35,8 +35,8 @@ class XQueryOrderedExprPsiImpl(node: ASTNode) :
     override val conformanceElement: PsiElement
         get() {
             val blockOpen = blockOpen
-            return when {
-                blockOpen?.isEmptyEnclosedExpr == true -> blockOpen
+            return when (blockOpen?.isEmptyEnclosedExpr) {
+                true -> blockOpen
                 else -> firstChild
             }
         }
