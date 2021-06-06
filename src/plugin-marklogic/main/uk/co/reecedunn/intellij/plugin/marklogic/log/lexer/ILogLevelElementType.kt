@@ -19,5 +19,4 @@ import com.intellij.lang.Language
 import com.intellij.psi.tree.IElementType
 
 class ILogLevelElementType(val name: String, language: Language) :
-    IElementType("MARK_LOGIC_ERROR_LOG_LEVEL_${name.toUpperCase()}", language) {
-}
+    IElementType("MARK_LOGIC_ERROR_LOG_LEVEL_${name.toUpperCase()}", language)
