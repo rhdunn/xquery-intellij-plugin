@@ -26,7 +26,7 @@ class EditedVirtualFile(
     val original: VirtualFile,
     val contents: String,
     private val modificationStampValue: Long
-): VirtualFile() {
+) : VirtualFile() {
     override fun getName(): String = original.name
 
     override fun getFileSystem(): VirtualFileSystem = original.fileSystem

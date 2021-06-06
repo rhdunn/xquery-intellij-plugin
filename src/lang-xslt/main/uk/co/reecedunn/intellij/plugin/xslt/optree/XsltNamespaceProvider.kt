@@ -52,7 +52,8 @@ object XsltNamespaceProvider : XpmNamespaceProvider {
     private val DefaultFunctionDeclOrRefNamespace = sequenceOf(DefaultFunctionXPathNamespace)
 
     private fun defaultElementOrTypeXPathNamespace(context: PsiElement): Sequence<XpmNamespaceDeclaration> {
-        return context.contextOfType<XmlAttributeValue>(false)?.ancestors()?.filterIsInstance<XmlTag>()?.flatMap { tag ->
+        val tags = context.contextOfType<XmlAttributeValue>(false)?.ancestors()?.filterIsInstance<XmlTag>()
+        return tags?.flatMap { tag ->
             tag.attributes.asSequence().map { attribute -> toDefaultNamespaceDeclaration(attribute) }
         }?.filterNotNull() ?: sequenceOf()
     }
@@ -78,7 +79,8 @@ object XsltNamespaceProvider : XpmNamespaceProvider {
     }
 
     private fun staticallyKnownXPathNamespaces(context: PsiElement): Sequence<XpmNamespaceDeclaration> {
-        return context.contextOfType<XmlAttributeValue>(false)?.ancestors()?.filterIsInstance<XmlTag>()?.flatMap { tag ->
+        val tags = context.contextOfType<XmlAttributeValue>(false)?.ancestors()?.filterIsInstance<XmlTag>()
+        return tags?.flatMap { tag ->
             tag.attributes.asSequence().map { attribute -> toNamespaceDeclaration(attribute) }
         }?.filterNotNull() ?: sequenceOf()
     }

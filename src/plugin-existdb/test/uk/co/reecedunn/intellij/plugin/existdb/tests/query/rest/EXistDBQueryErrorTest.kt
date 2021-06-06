@@ -34,6 +34,7 @@ import uk.co.reecedunn.intellij.plugin.existdb.query.rest.toEXistDBQueryError
 import uk.co.reecedunn.intellij.plugin.processor.debug.position.QuerySourcePosition
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 
+@Suppress("Reformat")
 @DisplayName("IntelliJ - Base Platform - Run Configuration - XQuery Processor - EXistDBQueryError")
 class EXistDBQueryErrorTest : IdeaPlatformTestCase() {
     override val pluginId: PluginId = PluginId.getId("EXistDBQueryErrorTest")

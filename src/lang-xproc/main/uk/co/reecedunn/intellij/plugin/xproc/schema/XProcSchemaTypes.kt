@@ -23,6 +23,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.ancestorsAndSelf
 import uk.co.reecedunn.intellij.plugin.xdm.schema.*
 import uk.co.reecedunn.intellij.plugin.xproc.lang.XProc
 
+@Suppress("Reformat")
 object XProcSchemaTypes : XdmSchemaTypes() {
     // region Schema Types
 

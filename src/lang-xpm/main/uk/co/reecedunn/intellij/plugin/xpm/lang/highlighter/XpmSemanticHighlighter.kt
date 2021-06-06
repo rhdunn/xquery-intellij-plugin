@@ -55,7 +55,11 @@ interface XpmSemanticHighlighter {
 
         @TestOnly
         @Suppress("UsePropertyAccessSyntax")
-        fun register(plugin: PluginDescriptorProvider, factory: XpmSemanticHighlighter, fieldName: String = "INSTANCE") {
+        fun register(
+            plugin: PluginDescriptorProvider,
+            factory: XpmSemanticHighlighter,
+            fieldName: String = "INSTANCE"
+        ) {
             val bean = XpmSemanticHighlighterBean()
             bean.implementationClass = factory.javaClass.name
             bean.fieldName = fieldName

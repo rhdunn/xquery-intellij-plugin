@@ -75,7 +75,7 @@ class PluginDirAttributePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), Plu
                                 child.text
                         }
                     }.filterNotNull().joinToString(separator = "")
-            Optional.ofNullable(when {
+            val ret = when {
                 contents == null -> {
                     @Suppress("USELESS_CAST") // Needed, otherwise type inference results in `Any?` with warnings.
                     null as XsAnyAtomicType?
@@ -90,7 +90,8 @@ class PluginDirAttributePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), Plu
                     XsID(contents, this)
                 }
                 else -> XsUntypedAtomic(contents, this)
-            })
+            }
+            Optional.ofNullable(ret)
         }.orElse(null)
 
     // endregion

@@ -30,6 +30,7 @@ class XpmRequiresLanguageOrMarkLogic(
         else -> languageVersion.conformanceTo(configuration)
     }
 
+    @Suppress("Reformat")
     override fun message(
         configuration: XpmLanguageConfiguration,
         conformanceName: String?
@@ -50,5 +51,7 @@ class XpmRequiresLanguageOrMarkLogic(
         throw UnsupportedOperationException()
     }
 
-    override fun toString(): String = sequenceOf(languageVersion, requires).joinToString(XpmBundle.message("diagnostic.or"))
+    override fun toString(): String {
+        return sequenceOf(languageVersion, requires).joinToString(XpmBundle.message("diagnostic.or"))
+    }
 }

@@ -28,6 +28,7 @@ import uk.co.reecedunn.intellij.plugin.existdb.log.Log4JLogLine
 import uk.co.reecedunn.intellij.plugin.existdb.log.Log4JPattern
 import uk.co.reecedunn.intellij.plugin.processor.log.LogFileContentType
 
+@Suppress("Reformat")
 @DisplayName("IntelliJ - Base Platform - Run Configuration - Query Log - eXist-db Log4J logs")
 class Log4JLogLineTest : IdeaPlatformTestCase() {
     override val pluginId: PluginId = PluginId.getId("Log4JLogLineTest")

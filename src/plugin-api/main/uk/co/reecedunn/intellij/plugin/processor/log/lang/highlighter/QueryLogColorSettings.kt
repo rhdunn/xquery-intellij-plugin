@@ -36,7 +36,7 @@ class QueryLogColorSettings : ColorSettingsPage {
 
     override fun getDemoText(): String = PluginFiles.ColorSettingsDemo
 
-    @Suppress("PrivatePropertyName")
+    @Suppress("PrivatePropertyName", "Reformat")
     private val ATTRIBUTE_DESCRIPTORS = arrayOf(
         AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.datetime.name"), LogFileContentType.DATE_TIME_KEY),
         AttributesDescriptor(PluginApiBundle.message("query.log.color.settings.thread.name"), LogFileContentType.THREAD_KEY),

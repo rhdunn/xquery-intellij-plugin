@@ -136,7 +136,11 @@ class XQueryDocumentationProvider : AbstractDocumentationProvider() {
         }
     }
 
-    private fun lookupFunction(functionName: XsQNameValue?, positionalArity: Int, keywordArity: Int): Sequence<XQDocDocumentation> {
+    private fun lookupFunction(
+        functionName: XsQNameValue?,
+        positionalArity: Int,
+        keywordArity: Int
+    ): Sequence<XQDocDocumentation> {
         // NOTE: NCName may bind to the current module (MarkLogic behaviour) and the default function namespace.
         return functionName?.expand()?.flatMap {
             XQDocDocumentationSourceProvider.lookup(XpmFunctionReferenceImpl(it, positionalArity, keywordArity))

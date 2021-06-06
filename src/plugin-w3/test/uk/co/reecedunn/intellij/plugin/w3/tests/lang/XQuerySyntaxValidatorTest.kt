@@ -326,7 +326,9 @@ class XQuerySyntaxValidatorTest :
         @Test
         @DisplayName("XQuery < 3.0")
         fun notSupported() {
-            val file = parse<XQueryModule>("for sliding window \$x in \$y start when true() end when false() return \$x")[0]
+            val file = parse<XQueryModule>(
+                "for sliding window \$x in \$y start when true() end when false() return \$x"
+            )[0]
             validator.configuration = XQUERY_1_0
             validator.validate(file, this@XQuerySyntaxValidatorTest)
             assertThat(

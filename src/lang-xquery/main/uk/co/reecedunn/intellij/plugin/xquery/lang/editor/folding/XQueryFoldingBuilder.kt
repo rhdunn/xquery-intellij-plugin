@@ -177,7 +177,7 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
 
         return when {
             start == null -> null
-            !hasMultiLineText(element)  && !hasMultiLineAttributes -> null
+            !hasMultiLineText(element) && !hasMultiLineAttributes -> null
             else -> TextRange(start.textRange.startOffset, endOffset)
         }
     }

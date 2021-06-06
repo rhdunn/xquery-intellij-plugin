@@ -827,7 +827,9 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
             @Test
             @DisplayName("XQuery 3.1 EBNF (219) IntegerLiteral")
             fun integerLiteral() {
-                val f = parse<PluginArrowFunctionCall>("declare function local:f(\$arg1, \$arg2) {}; 3 => local:f(6)")[0]
+                val f = parse<PluginArrowFunctionCall>(
+                    "declare function local:f(\$arg1, \$arg2) {}; 3 => local:f(6)"
+                )[0]
 
                 val hints = provider.getParameterHints(f)
                 assertThat(hints.size, `is`(1))

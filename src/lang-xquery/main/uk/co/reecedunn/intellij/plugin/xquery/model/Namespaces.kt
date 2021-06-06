@@ -53,8 +53,8 @@ fun PsiElement.defaultNamespace(
             }
             is XQueryModule -> {
                 if (resolveProlog) {
-                    val context = node.predefinedStaticContext ?:
-                        return@flatMap emptySequence<XpmNamespaceDeclaration>()
+                    val context = node.predefinedStaticContext
+                        ?: return@flatMap emptySequence<XpmNamespaceDeclaration>()
                     reverse(context.children()).filterIsInstance<XpmNamespaceDeclaration>()
                 } else
                     emptySequence()

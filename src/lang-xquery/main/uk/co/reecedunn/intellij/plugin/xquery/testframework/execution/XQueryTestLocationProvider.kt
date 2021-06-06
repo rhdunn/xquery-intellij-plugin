@@ -63,13 +63,9 @@ object XQueryTestLocationProvider : SMTestLocator, TestLocationProvider {
         }
     }
 
-    override fun locationHint(testsuite: String): String  {
-        return "$PROTOCOL$SCHEME_SEPARATOR$testsuite"
-    }
+    override fun locationHint(testsuite: String): String = "$PROTOCOL$SCHEME_SEPARATOR$testsuite"
 
-    override fun locationHint(test: String, testsuite: String): String  {
-        return "$PROTOCOL$SCHEME_SEPARATOR$testsuite#$test"
-    }
+    override fun locationHint(test: String, testsuite: String): String = "$PROTOCOL$SCHEME_SEPARATOR$testsuite#$test"
 
     private const val PROTOCOL = "xquery"
 }

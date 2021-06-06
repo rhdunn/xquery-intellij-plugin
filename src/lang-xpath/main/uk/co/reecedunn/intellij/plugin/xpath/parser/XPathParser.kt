@@ -1125,7 +1125,7 @@ open class XPathParser : PsiParser {
                         builder.error(XPathBundle.message("parser.error.expected", "SingleType"))
                     }
                     marker.drop()
-                }  else {
+                } else {
                     marker.done(XPathElementType.CAST_EXPR)
                 }
             } else {
@@ -1206,7 +1206,8 @@ open class XPathParser : PsiParser {
     private fun parseArrowFunctionCall(builder: PsiBuilder, targetType: IElementType?): Boolean {
         val marker = builder.mark()
         val elementType = when {
-            this.parseEQNameOrWildcard(builder, XPathElementType.QNAME, false) != null -> XPathElementType.ARROW_FUNCTION_CALL
+            this.parseEQNameOrWildcard(builder, XPathElementType.QNAME, false) != null ->
+                XPathElementType.ARROW_FUNCTION_CALL
             parseVarOrParamRef(builder, null) -> XPathElementType.ARROW_DYNAMIC_FUNCTION_CALL
             parseParenthesizedExpr(builder) -> XPathElementType.ARROW_DYNAMIC_FUNCTION_CALL
             builder.tokenType === XPathTokenType.BLOCK_OPEN -> {
@@ -3237,7 +3238,7 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    open fun parseFunctionTest(builder: PsiBuilder, marker: PsiBuilder.Marker = builder.mark()): Boolean  {
+    open fun parseFunctionTest(builder: PsiBuilder, marker: PsiBuilder.Marker = builder.mark()): Boolean {
         if (builder.matchTokenType(XPathTokenType.K_FUNCTION)) {
             var haveErrors = false
 

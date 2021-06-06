@@ -40,6 +40,7 @@ class XQueryColorSettingsPage : ColorSettingsPage {
     override fun getDisplayName(): String = "XQuery"
 
     companion object {
+        @Suppress("Reformat")
         private val demo: String by lazy {
             var ret = XQueryQueries.ColorSettingsDemo
             ret = ret.replace("\r\n", "\n")

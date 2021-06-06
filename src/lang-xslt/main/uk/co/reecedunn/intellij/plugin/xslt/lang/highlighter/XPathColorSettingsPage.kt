@@ -47,7 +47,7 @@ class XPathColorSettingsPage : ColorSettingsPage {
             XsltSyntaxHighlighterColors.DESCRIPTORS
         ).flatten().toTypedArray()
 
-        @Suppress("RegExpAnonymousGroup")
+        @Suppress("RegExpAnonymousGroup", "Reformat")
         private val demo: String by lazy {
             var ret = XPathQueries.ColorSettingsDemo
             ret = ret.replace("\r\n", "\n")

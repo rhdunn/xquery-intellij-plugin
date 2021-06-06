@@ -99,6 +99,7 @@ object XPathSyntaxHighlighterColors {
     // endregion
     // region Descriptors
 
+    @Suppress("Reformat")
     val DESCRIPTORS: Array<AttributesDescriptor> = arrayOf(
         AttributesDescriptor(XPathBundle.message("xpath.settings.colors.attribute"), ATTRIBUTE),
         AttributesDescriptor(XPathBundle.message("xpath.settings.colors.bad.character"), BAD_CHARACTER),

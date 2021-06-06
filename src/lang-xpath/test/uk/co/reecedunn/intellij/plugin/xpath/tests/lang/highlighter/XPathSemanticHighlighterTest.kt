@@ -39,7 +39,9 @@ private class XPathSemanticHighlighterTest : AnnotatorTestCase() {
 
     override fun registerExtensions() {
         val app = ApplicationManager.getApplication()
-        app.registerExtensionPointBean(XpmVariableProvider.EP_NAME, XpmVariableProviderBean::class.java, pluginDisposable)
+        app.registerExtensionPointBean(
+            XpmVariableProvider.EP_NAME, XpmVariableProviderBean::class.java, pluginDisposable
+        )
 
         XpmSemanticHighlighter.register(this, XPathSemanticHighlighter)
     }
@@ -701,7 +703,9 @@ private class XPathSemanticHighlighterTest : AnnotatorTestCase() {
         @Test
         @DisplayName("XPath 4.0 ED EBNF (9) WithExpr ; XPath 4.0 ED EBNF (10) NamespaceDeclaration")
         fun withExpr() {
-            val file = parse<XPath>("with xmlns:a=\"http://www.example.com/a\", xmlns=\"http://www.example.com/\" {}")[0]
+            val file = parse<XPath>(
+                "with xmlns:a=\"http://www.example.com/a\", xmlns=\"http://www.example.com/\" {}"
+            )[0]
             val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
             assertThat(
                 annotations, `is`(

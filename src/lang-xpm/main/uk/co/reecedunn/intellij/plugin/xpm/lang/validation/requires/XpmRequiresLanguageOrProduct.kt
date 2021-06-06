@@ -51,5 +51,7 @@ class XpmRequiresLanguageOrProduct(
         throw UnsupportedOperationException()
     }
 
-    override fun toString(): String = sequenceOf(languageVersion, requires).joinToString(XpmBundle.message("diagnostic.or"))
+    override fun toString(): String {
+        return sequenceOf(languageVersion, requires).joinToString(XpmBundle.message("diagnostic.or"))
+    }
 }

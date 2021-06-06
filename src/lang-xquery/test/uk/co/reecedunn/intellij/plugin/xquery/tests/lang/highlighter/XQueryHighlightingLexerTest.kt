@@ -54,9 +54,9 @@ class XQueryHighlightingLexerTest : LexerTestCase() {
     fun xqdocComment() = tokenize("(:~\n@xqdoc comment:)") {
         token("(:", XPathTokenType.COMMENT_START_TAG)
         state(0x70000000 or 0)
-        token("~",XQDocTokenType.XQDOC_COMMENT_MARKER)
+        token("~", XQDocTokenType.XQDOC_COMMENT_MARKER)
         state(0x70000000 or 8)
-        token("\n",  XQDocTokenType.TRIM)
+        token("\n", XQDocTokenType.TRIM)
         token("@", XQDocTokenType.TAG_MARKER)
         state(0x70000000 or 2)
         token("xqdoc", XQDocTokenType.TAG)
