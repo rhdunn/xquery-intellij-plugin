@@ -58,7 +58,7 @@ fun XpmFunctionCall.bindTo(parameters: List<XpmParameter>, variadicType: XpmVari
     // region Positional Arguments
 
     val positionalArguments = positionalArguments
-    for (i in 0 until positionalArguments.size) when {
+    for (i in positionalArguments.indices) when {
         // Positional argument position is less than the number of declared parameters.
         index < bindings.size - 1 -> {
             bindings[index] = XpmBoundParameter(parameters[index], positionalArguments[i])
