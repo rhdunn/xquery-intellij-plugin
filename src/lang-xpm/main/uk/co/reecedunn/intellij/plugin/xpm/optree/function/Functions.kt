@@ -120,7 +120,7 @@ fun XpmFunctionCall.argumentAt(index: Int): XpmExpression? {
 fun XpmFunctionDeclaration.acceptsArity(positionalArity: Int, keywordArity: Int): Boolean {
     val argumentArity = positionalArity + keywordArity
     return when (variadicType) {
-        XpmVariadic.No -> argumentArity >= requiredArity && argumentArity <= declaredArity
+        XpmVariadic.No -> argumentArity in requiredArity..declaredArity
         XpmVariadic.Ellipsis -> argumentArity >= requiredArity
         else -> TODO()
     }
