@@ -102,7 +102,7 @@ class XPathQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathQName 
     override fun getName(): String? = nameIdentifier?.text
 
     override fun setName(@NonNls name: String): PsiElement {
-        val renamed = createElement<XPathQName>("${prefix.data ?: ""}:$name") ?: return this
+        val renamed = createElement<XPathQName>("${prefix.data}:$name") ?: return this
         return replace(renamed)
     }
 
