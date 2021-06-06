@@ -46,7 +46,7 @@ class XPathMapConstructorPsiImpl(node: ASTNode) :
             else -> XdmMap::class.java
         }
 
-    override val itemExpression: XpmExpression?
+    override val itemExpression: XpmExpression
         get() = this
 
     // endregion

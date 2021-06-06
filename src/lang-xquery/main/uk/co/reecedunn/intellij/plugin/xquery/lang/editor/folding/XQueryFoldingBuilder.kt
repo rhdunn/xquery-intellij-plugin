@@ -118,7 +118,7 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
         else -> null
     }
 
-    private fun getCommentPlaceholderText(text: String): String? {
+    private fun getCommentPlaceholderText(text: String): String {
         val parser =
             if (text.endsWith(":)"))
                 XQDocCommentLineExtractor(text.subSequence(2, text.length - 2))
@@ -133,7 +133,7 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
             "(:...:)"
     }
 
-    private fun getDirCommentConstructorPlaceholderTest(element: PsiElement): String? {
+    private fun getDirCommentConstructorPlaceholderTest(element: PsiElement): String {
         var length = element.textRange.length
         if (element.lastChild.elementType === XQueryTokenType.XML_COMMENT_END_TAG)
             length -= 3

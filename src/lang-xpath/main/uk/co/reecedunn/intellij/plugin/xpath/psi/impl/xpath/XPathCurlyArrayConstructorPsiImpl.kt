@@ -40,7 +40,7 @@ class XPathCurlyArrayConstructorPsiImpl(node: ASTNode) :
             else -> XdmArray::class.java
         }
 
-    override val itemExpression: XpmExpression?
+    override val itemExpression: XpmExpression
         get() = this
 
     // endregion

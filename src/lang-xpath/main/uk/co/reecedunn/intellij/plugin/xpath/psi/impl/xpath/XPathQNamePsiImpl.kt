@@ -41,7 +41,7 @@ class XPathQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathQName 
 
     override val namespace: XsAnyUriValue? = null
 
-    override val prefix: XsNCNameValue?
+    override val prefix: XsNCNameValue
         get() = names.first()
 
     override val localName: XsNCNameValue?
