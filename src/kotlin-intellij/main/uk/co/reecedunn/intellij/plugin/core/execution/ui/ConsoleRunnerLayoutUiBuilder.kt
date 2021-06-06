@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.execution.ui
 
-import com.intellij.CommonBundle
+import com.intellij.compat.CommonBundle
 import com.intellij.compat.execution.ui.setTopLeftToolbar
 import com.intellij.execution.console.ConsoleViewWrapperBase
 import com.intellij.execution.process.ProcessHandler

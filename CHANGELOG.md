@@ -22,11 +22,15 @@ Code Folding:
 
 Code Completion:
 
-1. Fix a crash when autocompleting in a StringLiteral from an arrow function call.
+1. Fix a crash when autocompleting in a `StringLiteral` from an arrow function call.
 
 Syntax Validation:
 
 1. Don't warn if using an `InlineFunctionExpr` with parameters when targetting XQuery 3.0 or 3.1.
+
+XRay Tests:
+
+1. Fix running the XRay tests on IntelliJ 2019.3 due to a missing "Console" message string.
 
 ## 2021
 
