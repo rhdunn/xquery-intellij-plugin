@@ -43,7 +43,7 @@ abstract class LexerImpl(private val baseState: Int) : LexerBase() {
 
     }
 
-    protected fun nextState(): Int {
+    private fun nextState(): Int {
         mTokenRange.flush()
         mState = try {
             mStates.peek()

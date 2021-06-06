@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclarat
 
 interface XQDocDocumentationSourceProvider {
     companion object {
+        @Suppress("MemberVisibilityCanBePrivate")
         val EP_NAME: ExtensionPointName<XQDocDocumentationSourceProviderBean> = ExtensionPointName.create(
             "uk.co.reecedunn.intellij.documentationSourceProvider"
         )

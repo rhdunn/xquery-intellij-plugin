@@ -17,7 +17,10 @@ package uk.co.reecedunn.intellij.plugin.core.http
 
 import org.apache.http.Header
 
-class StringMessage(val headers: Array<Header>, val body: String) {
+class StringMessage(
+    @Suppress("MemberVisibilityCanBePrivate") val headers: Array<Header>,
+    val body: String
+) {
     fun getHeaders(header: String): Sequence<String> {
         return this.headers.asSequence().filter { h -> h.name == header }.map { h -> h.value }
     }

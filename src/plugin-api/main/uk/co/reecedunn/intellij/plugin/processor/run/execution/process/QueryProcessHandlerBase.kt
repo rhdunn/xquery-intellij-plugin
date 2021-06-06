@@ -69,6 +69,7 @@ abstract class QueryProcessHandlerBase : ProcessHandler() {
         queryResultListeners.forEach { it.onQueryElapsedTime(time) }
     }
 
+    @Suppress("MemberVisibilityCanBePrivate")
     fun notifyQueryResultsPsiFile(psiFile: PsiFile) {
         if (psiFile.language == PlainTextLanguage.INSTANCE) return
 
