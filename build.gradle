@@ -62,7 +62,7 @@ buildscript {
 }
 
 plugins {
-    id "org.jetbrains.intellij" version "0.7.2"
+    id "org.jetbrains.intellij" version "1.0"
 }
 
 configure(allprojects - project(':src')) {
@@ -184,17 +184,13 @@ tasks {
     buildSearchableOptions.enabled = true
 }
 
-intellij {
-    println "Building for IntelliJ version '${version}', since build '${idea_since_build}'"
+println "Building for IntelliJ version '${version}', since build '${idea_since_build}'"
 
-    updateSinceUntilBuild = true
-    sameSinceUntilBuild = true // 'until' is an open 'since' build
-
-    pluginName 'xquery-intellij-plugin'
-}
+intellij.updateSinceUntilBuild = true
+intellij.sameSinceUntilBuild = true // 'until' is an open 'since' build
 
 patchPluginXml {
-    sinceBuild = idea_since_build
+    sinceBuild = "${idea_since_build}"
 }
 
 jacoco {
