@@ -26,7 +26,7 @@ class XRayTextTests(private val tests: String) : TestSuites {
             else
                 tests.split("\nFinished: ").last()
         summary.split(", ").associate {
-            it.split(' ').let { parts -> parts[0] to parts[1].toInt() }
+            it.split(' ').let { parts -> parts[0] to parts[1].trim().toInt() }
         }
     }
 

@@ -1,0 +1,8 @@
+{
+  "tests": {
+    "dir": "",
+    "module-pattern": "",
+    "test-pattern": "",
+    "xray-version": "2.0"
+  }
+}
