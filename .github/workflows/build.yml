@@ -59,7 +59,7 @@ jobs:
 
       - name: Create a Gradle Wrapper
         # Use a null gradle file so gradle < 4.6 does not fail parsing 'useJUnitPlatform()'.
-        run: touch null.gradle ; gradle -b null.gradle wrapper --gradle-version 6.2 ; rm null.gradle
+        run: touch null.gradle ; gradle -b null.gradle wrapper --gradle-version 6.7 ; rm null.gradle
 
       - name: Cache Gradle Packages
         uses: actions/cache@v2
