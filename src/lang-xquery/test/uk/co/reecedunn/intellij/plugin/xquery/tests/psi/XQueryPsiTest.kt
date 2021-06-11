@@ -9549,6 +9549,30 @@ private class XQueryPsiTest : ParserTestCase() {
                 }
 
                 @Test
+                @DisplayName("with CompatibilityAnnotation")
+                fun withCompatibilityAnnotation() {
+                    val decl = parse<XpmFunctionDeclaration>("declare private function fn:true() external;")[0]
+                    assertThat(decl.returnType, `is`(nullValue()))
+                    assertThat(decl.parameters.size, `is`(0))
+                    assertThat(decl.functionBody, `is`(nullValue()))
+
+                    val qname = decl.functionName!!
+                    assertThat(qname.prefix!!.data, `is`("fn"))
+                    assertThat(qname.localName!!.data, `is`("true"))
+                    assertThat(qname.element, sameInstance(qname as PsiElement))
+
+                    val presentation = (decl as NavigatablePsiElement).presentation!! as ItemPresentationEx
+                    assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.FunctionDecl)))
+                    assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.FunctionDecl)))
+                    assertThat(presentation.getPresentableText(ItemPresentationEx.Type.Default), `is`("fn:true"))
+                    assertThat(presentation.getPresentableText(ItemPresentationEx.Type.StructureView), `is`("fn:true()"))
+                    assertThat(presentation.getPresentableText(ItemPresentationEx.Type.NavBar), `is`("fn:true"))
+                    assertThat(presentation.getPresentableText(ItemPresentationEx.Type.NavBarPopup), `is`("fn:true()"))
+                    assertThat(presentation.presentableText, `is`("fn:true"))
+                    assertThat(presentation.locationString, `is`(nullValue()))
+                }
+
+                @Test
                 @DisplayName("empty function body")
                 fun emptyFunctionBody() {
                     val decl = parse<XpmFunctionDeclaration>("declare function fn:true() {};")[0]

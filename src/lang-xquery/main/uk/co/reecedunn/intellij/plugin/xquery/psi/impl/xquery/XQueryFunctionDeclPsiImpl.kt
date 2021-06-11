@@ -40,6 +40,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.impl.XpmEmptyExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDecorator
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmParameter
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginCompatibilityAnnotation
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFunctionDecl
 import java.util.*
 import javax.swing.Icon
@@ -78,7 +79,9 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
     // region XdmFunctionDeclaration (Data Model)
 
     override val functionName: XsQNameValue?
-        get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
+        get() = children().filter {
+            it is XsQNameValue && it !is PluginCompatibilityAnnotation
+        }.firstOrNull() as? XsQNameValue?
 
     override val parameters: List<XpmParameter>
         get() = computeUserDataIfAbsent(PARAMETERS) {

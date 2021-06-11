@@ -15,6 +15,10 @@ XPath:
 
 1. Fix parsing entity references before closing string quotes, such as `'&amp;'`.
 
+References and Resolve:
+
+1. Fix locating the function name when the function declaration contains a compatibility annotation.
+
 Code Folding:
 
 1. Fix detecting empty enclosed expressions that contain an XQuery comment.
