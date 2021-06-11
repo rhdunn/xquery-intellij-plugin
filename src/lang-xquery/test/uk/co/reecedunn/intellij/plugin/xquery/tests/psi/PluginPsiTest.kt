@@ -2002,6 +2002,23 @@ private class PluginPsiTest : ParserTestCase() {
             }
 
             @Test
+            @DisplayName("with CompatibilityAnnotation")
+            fun withCompatibiliyAnnotation() {
+                val expr = parse<XQueryItemTypeDecl>("declare private type test := xs:string;")[0]
+
+                val qname = expr.typeName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("test"))
+
+                val presentation = expr.presentation!!
+                assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.TypeDecl)))
+                assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.TypeDecl)))
+                assertThat(presentation.presentableText, `is`("test"))
+                assertThat(presentation.locationString, `is`(nullValue()))
+            }
+
+            @Test
             @DisplayName("NCName namespace resolution")
             fun ncnameResolution() {
                 val qname = parse<XPathEQName>(

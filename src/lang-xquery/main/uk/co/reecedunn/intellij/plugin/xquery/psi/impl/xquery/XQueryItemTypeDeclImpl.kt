@@ -24,6 +24,7 @@ import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginCompatibilityAnnotation
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryItemTypeDecl
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import java.util.*
@@ -48,7 +49,9 @@ class XQueryItemTypeDeclPsiImpl(node: ASTNode) :
     // region PluginTypeDecl
 
     override val typeName: XsQNameValue?
-        get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
+        get() = children().filter {
+            it is XsQNameValue && it !is PluginCompatibilityAnnotation
+        }.firstOrNull() as? XsQNameValue?
 
     // endregion
     // region XpmSyntaxValidationElement
