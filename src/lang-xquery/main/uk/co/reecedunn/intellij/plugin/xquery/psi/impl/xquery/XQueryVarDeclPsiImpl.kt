@@ -31,6 +31,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginCompatibilityAnnotation
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarDecl
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import java.util.*
@@ -67,7 +68,9 @@ class XQueryVarDeclPsiImpl(node: ASTNode) :
     // region XpmVariableDefinition
 
     override val variableName: XsQNameValue?
-        get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
+        get() = children().filter {
+            it is XsQNameValue && it !is PluginCompatibilityAnnotation
+        }.firstOrNull() as? XsQNameValue?
 
     // endregion
     // region XpmVariableDeclaration

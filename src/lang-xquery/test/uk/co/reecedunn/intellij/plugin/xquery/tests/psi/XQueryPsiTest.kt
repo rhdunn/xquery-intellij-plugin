@@ -9302,6 +9302,26 @@ private class XQueryPsiTest : ParserTestCase() {
                 }
 
                 @Test
+                @DisplayName("with CompatibilityAnnotation")
+                fun withCompatibilityAnnotation() {
+                    val decl = parse<XpmVariableDeclaration>("declare private variable \$a:x := \$a:y;")[0]
+                    assertThat(decl.isExternal, `is`(false))
+                    assertThat(decl.variableType?.typeName, `is`(nullValue()))
+                    assertThat(decl.variableExpression?.text, `is`("\$a:y"))
+
+                    val qname = decl.variableName!!
+                    assertThat(qname.namespace, `is`(nullValue()))
+                    assertThat(qname.prefix!!.data, `is`("a"))
+                    assertThat(qname.localName!!.data, `is`("x"))
+
+                    val presentation = (decl as NavigatablePsiElement).presentation!!
+                    assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.VarDecl)))
+                    assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.VarDecl)))
+                    assertThat(presentation.presentableText, `is`("a:x"))
+                    assertThat(presentation.locationString, `is`(nullValue()))
+                }
+
+                @Test
                 @DisplayName("missing VarName")
                 fun missingVarName() {
                     val decl = parse<XpmVariableDeclaration>("declare variable \$ := \$y;")[0]

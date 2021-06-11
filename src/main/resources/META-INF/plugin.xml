@@ -87,6 +87,7 @@
     <p>References and Resolve:</p>
     <ol>
       <li>Fix locating the function name when the function declaration contains a compatibility annotation.</li>
+      <li>Fix locating the variable name when the variable declaration contains a compatibility annotation.</li>
     </ol>
     <p>Code Folding:</p>
     <ol>

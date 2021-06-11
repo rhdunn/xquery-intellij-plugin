@@ -18,6 +18,7 @@ XPath:
 References and Resolve:
 
 1. Fix locating the function name when the function declaration contains a compatibility annotation.
+1. Fix locating the variable name when the variable declaration contains a compatibility annotation.
 
 Code Folding:
 
