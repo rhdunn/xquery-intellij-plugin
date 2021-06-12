@@ -155,12 +155,11 @@ intellij.plugins = [
     'java'
 ]
 
-idea_version = project.property('idea_since_build').toInteger()
-if (idea_version >= 203) {
+if (idea_since_build >= 203) {
     compileKotlin.kotlinOptions.useIR = true
 }
 if (intellij.type == 'IU') {
-    if (idea_version >= 193) {
+    if (idea_since_build >= 193) {
         sourceSets.main.resources.srcDirs += 'src/main/resources-microservices/193'
     } else {
         sourceSets.main.resources.srcDirs += 'src/main/resources-microservices/compat'
@@ -184,7 +183,7 @@ tasks {
     buildSearchableOptions.enabled = true
 }
 
-println "Building for IntelliJ version '${version}', since build '${idea_since_build}'"
+println "Building for IntelliJ version '${idea_version}', since build '${idea_since_build}'"
 
 intellij.updateSinceUntilBuild = true
 intellij.sameSinceUntilBuild = true // 'until' is an open 'since' build
