@@ -1,0 +1,105 @@
+<!DOCTYPE html><html xmlns:error="http://marklogic.com/xdmp/error" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>xray</title>
+    <link rel="icon" type="image/png" href="favicon.ico">
+    <link href="http://fonts.googleapis.com/css?family=Cousine:400,700" rel="stylesheet" type="text/css">
+    <style type="text/css">
+        body { margin: 0 10px; }
+        body, input, button { font-family: Cousine, "Courier New", Sans-serif; }
+
+        h1 { margin: 0 0 30px 0; }
+        h1 a:link, h1 a:visited, h1 a:hover, h1 a:active {
+            font-family: "Courier New", Sans-serif;
+            padding: 10px 10px;
+            text-decoration:none;
+            color: #fff;
+            background-color: #000;
+            border: 1px solid #000;
+            text-shadow: #fff 1px 1px 15px;
+            -webkit-font-smoothing: antialiased;
+        }
+        h1 a:hover { color: #000; background-color: #fff; }
+
+        summary, h4, pre { margin: 0; padding: 5px 10px; font-weight: normal; }
+        summary { background-color: #eee; }
+        summary.passed { background-color: #393; }
+        summary.failed, h3.error { background-color: #c33; }
+        summary.ignored { background-color: #f80; }
+        summary a { color: white; text-decoration: none; }
+        summary a:hover { text-decoration: underline; }
+        h4 a { text-decoration: none; }
+        h4 a:hover { text-decoration: underline; }
+
+        p.failed, h4.failed a, p.error, h4.error a { color: #c33; }
+        p.ignored, h4.ignored a { color: #f80; }
+        p.passed, h4.passed a { color: #393; }
+
+        label { padding-left: 10px; }
+        abbr, .abbr { border-bottom: 1px dotted #ccc; }
+        form { position: absolute; top: 10px; right: 10px; }
+        section { border: 1px solid #ccc; margin: 10px 0; }
+
+        .code .c { color: #999; }
+        .code .s { color: #d00; }
+        .code .v { color: purple; }
+        .code .f { color: blue; }
+        .code .x { color: #090; }
+
+        summary::-webkit-details-marker {
+            color: #fff;
+            margin-right: 2px;
+        }
+        summary:focus { outline-style: none; }
+    </style>
+</head>
+<body>
+<header>
+    <h1>
+        <a href="http://robwhitby.github.com/xray">xray</a>
+    </h1>
+    <form>
+        <label for="test-dir">
+            <abbr title="test directory path relative from app server root">directory</abbr>
+        </label>
+        <input type="text" name="dir" id="test-dir" value="">
+        <label for="module-pattern">
+            <abbr title="regex match on module name">modules</abbr>
+        </label>
+        <input type="text" name="modules" id="module-pattern" value="/default-fn-namespace.xqy">
+        <label for="test-pattern">
+            <abbr title="regex match on test name">tests</abbr>
+        </label>
+        <input type="text" name="tests" id="test-pattern" value="">
+        <input type="hidden" name="format" value="html">
+        <button>run</button>
+    </form>
+    <button onclick="collapseAll()">Collapse All</button>
+    <button onclick="expandAll()">Expand All</button>
+    <script type="text/javascript">
+        function collapseAll() {
+            document.querySelectorAll("details").forEach(function(d) { d.removeAttribute("open") });
+        };
+        function expandAll() {
+            document.querySelectorAll("details").forEach(function(d) { d.setAttribute("open", "true") });
+        };
+    </script>
+</header>
+<section>
+    <details>
+        <summary class="passed">
+            <a href="?dir=&amp;modules=%2Fxray%2Ftest%2Fdefault-fn-namespace.xqy&amp;tests=&amp;format=html" title="run this module only">/xray/test/default-fn-namespace.xqy</a>
+        </summary>
+        <h4 class="passed">
+            <a href="?dir=&amp;modules=%2Fxray%2Ftest%2Fdefault-fn-namespace.xqy&amp;tests=should-allow-setting-default-function-namespace&amp;format=html" title="run this test only">should-allow-setting-default-function-namespace -- PASSED    --  0.0001787S</a>
+        </h4>
+    </details>
+</section>
+<footer>
+    <p class="passed">Summary: Total 1, Failed 0, Ignored 0, Errors 0, Passed 1</p>
+    <p>
+        View results as
+        <a href="?dir=&amp;modules=%2Fdefault-fn-namespace.xqy&amp;tests=&amp;format=xml">xml</a> | <a href="?dir=&amp;modules=%2Fdefault-fn-namespace.xqy&amp;tests=&amp;format=xunit">xUnit</a> | <a href="?dir=&amp;modules=%2Fdefault-fn-namespace.xqy&amp;tests=&amp;format=text">text</a> | <a href="?dir=&amp;modules=%2Fdefault-fn-namespace.xqy&amp;tests=&amp;format=json">json</a><br><a href="http://github.com/robwhitby/xray">xray</a> version 2.0</p>
+</footer>
+</body>
+</html>

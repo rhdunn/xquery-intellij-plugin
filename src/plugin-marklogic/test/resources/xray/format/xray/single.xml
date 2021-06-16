@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests dir="" module-pattern="/default-fn-namespace.xqy" test-pattern="" xray-version="2.0" xmlns="http://github.com/robwhitby/xray">
+  <module path="/xray/test/default-fn-namespace.xqy" total="1" passed="1" ignored="0" failed="0" error="0">
+    <test name="should-allow-setting-default-function-namespace" result="passed" time="PT0.000172S">
+      <assert test="true" result="passed">
+        <actual>true</actual>
+        <expected>true</expected>
+        <message/>
+      </assert>
+    </test>
+  </module>
+</tests>

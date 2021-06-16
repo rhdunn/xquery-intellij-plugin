@@ -1,0 +1,3 @@
+Module /xray/test/default-fn-namespace.xqy
+-- should-allow-setting-default-function-namespace -- PASSED
+Finished: Total 1, Failed 0, Ignored 0, Errors 0, Passed 1

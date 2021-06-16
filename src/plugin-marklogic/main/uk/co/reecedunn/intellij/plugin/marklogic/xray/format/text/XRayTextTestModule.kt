@@ -20,7 +20,9 @@ import uk.co.reecedunn.intellij.plugin.processor.test.TestCase
 import uk.co.reecedunn.intellij.plugin.processor.test.TestSuite
 
 class XRayTextTestModule(private val module: String) : TestSuite {
-    override val name: String by lazy { module.substringBefore("\n").substringAfter("Module ") }
+    override val name: String by lazy {
+        module.substringBefore("\n").substringAfter("Module ").replace("\r", "")
+    }
 
     private val testCasesList by lazy {
         module.substringAfter("\n").split("\n-- ").mapNotNull {
