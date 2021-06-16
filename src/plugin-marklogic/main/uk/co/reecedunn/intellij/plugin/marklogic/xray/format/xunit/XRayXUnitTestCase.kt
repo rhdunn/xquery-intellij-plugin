@@ -43,7 +43,7 @@ class XRayXUnitTestCase(private val test: XmlElement) : TestCase {
         test.children("failure").map { XRayXUnitTestFailure(it) }.toList()
     }
 
-    override val failures: Sequence<TestAssert>
+    override val asserts: Sequence<TestAssert>
         get() = failuresList.asSequence()
 
     override val error: Throwable? by lazy {

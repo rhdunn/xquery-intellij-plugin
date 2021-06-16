@@ -42,7 +42,7 @@ class XRayTextTest(private val test: String) : TestCase {
             XRayXmlTestAssert.parseList(test.substring(start)).toList()
     }
 
-    override val failures: Sequence<TestAssert>
+    override val asserts: Sequence<TestAssert>
         get() = failuresList.asSequence()
 
     override val error: Throwable? by lazy {

@@ -36,7 +36,7 @@ class XRayXmlTest(private val test: XmlElement) : TestCase {
         test.children("xray:assert").map { XRayXmlTestAssert(it) }.toList()
     }
 
-    override val failures: Sequence<TestAssert>
+    override val asserts: Sequence<TestAssert>
         get() = failuresList.asSequence()
 
     override val error: Throwable? by lazy { test.child("error:error")?.toMarkLogicQueryError(null) }

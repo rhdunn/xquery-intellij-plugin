@@ -34,7 +34,7 @@ class XRayJsonTest(private val test: JsonObject) : TestCase {
         test.getAsJsonArray("assert").map { XRayJsonTestAssert(it.asJsonObject) }.toList()
     }
 
-    override val failures: Sequence<TestAssert>
+    override val asserts: Sequence<TestAssert>
         get() = failuresList.asSequence()
 
     override val error: Throwable? by lazy { test.getAsJsonObject("error").toMarkLogicQueryError(null) }

@@ -105,7 +105,7 @@ open class TestProcessListener(
     }
 
     open fun onTestFailed(test: TestCase) {
-        test.failures.forEach { failures ->
+        test.asserts.forEach { failures ->
             if (failures.result == TestResult.Failed) {
                 notifyTestFailed(
                     test.name,
