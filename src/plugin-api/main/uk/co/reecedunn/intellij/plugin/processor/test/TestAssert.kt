@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.test
 
-interface TestFailure {
+interface TestAssert {
     val type: String
 
     val result: TestResult

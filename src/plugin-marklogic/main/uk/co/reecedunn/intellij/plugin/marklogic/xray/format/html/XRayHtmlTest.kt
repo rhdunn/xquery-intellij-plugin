@@ -19,7 +19,7 @@ import org.jsoup.nodes.Element
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.toMarkLogicQueryError
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.xray.XRayXmlTestAssert
 import uk.co.reecedunn.intellij.plugin.processor.test.TestCase
-import uk.co.reecedunn.intellij.plugin.processor.test.TestFailure
+import uk.co.reecedunn.intellij.plugin.processor.test.TestAssert
 import uk.co.reecedunn.intellij.plugin.processor.test.TestResult
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsDurationValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.toXsDuration
@@ -51,7 +51,7 @@ class XRayHtmlTest(private val test: Element) : TestCase {
         }.toList()
     }
 
-    override val failures: Sequence<TestFailure>
+    override val failures: Sequence<TestAssert>
         get() = failuresList.asSequence()
 
     override val error: Throwable? by lazy {

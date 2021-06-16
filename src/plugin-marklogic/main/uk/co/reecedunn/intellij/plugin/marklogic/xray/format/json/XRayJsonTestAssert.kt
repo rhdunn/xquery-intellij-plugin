@@ -17,10 +17,10 @@ package uk.co.reecedunn.intellij.plugin.marklogic.xray.format.json
 
 import com.google.gson.JsonObject
 import com.intellij.util.text.nullize
-import uk.co.reecedunn.intellij.plugin.processor.test.TestFailure
+import uk.co.reecedunn.intellij.plugin.processor.test.TestAssert
 import uk.co.reecedunn.intellij.plugin.processor.test.TestResult
 
-class XRayJsonTestAssert(private val assertion: JsonObject) : TestFailure {
+class XRayJsonTestAssert(private val assertion: JsonObject) : TestAssert {
     override val type: String by lazy { assertion.get("test").asString }
 
     override val result: TestResult by lazy { TestResult.value(assertion.get("result").asString) }
