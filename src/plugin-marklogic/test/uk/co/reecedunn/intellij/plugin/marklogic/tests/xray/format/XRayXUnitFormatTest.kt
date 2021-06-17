@@ -180,4 +180,23 @@ class XRayXUnitFormatTest : IdeaPlatformTestCase() {
             assertThat(e.description, `is`("error"))
         }
     }
+
+    @Nested
+    @DisplayName("test assert")
+    internal inner class Assert {
+        @Test
+        @DisplayName("failed assertion")
+        fun failed() {
+            val tests = parse("xray/format/xunit/test-cases.xml")
+            val suite = tests.testSuites.first()
+            val case = suite.testCases.elementAt(1)
+            val assert = case.asserts.first()
+
+            assertThat(assert.result, `is`(TestResult.Failed))
+            assertThat(assert.type, `is`("equal"))
+            assertThat(assert.expected, `is`(nullValue()))
+            assertThat(assert.actual, `is`(nullValue()))
+            assertThat(assert.message, `is`("expected: 2, actual: 1"))
+        }
+    }
 }

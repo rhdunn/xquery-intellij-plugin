@@ -174,4 +174,23 @@ class XRayHtmlFormatTest : IdeaPlatformTestCase() {
             assertThat(e.description, `is`("error"))
         }
     }
+
+    @Nested
+    @DisplayName("test assert")
+    internal inner class Assert {
+        @Test
+        @DisplayName("failed assertion")
+        fun failed() {
+            val tests = parse("xray/format/html/test-cases.html")
+            val suite = tests.testSuites.first()
+            val case = suite.testCases.elementAt(1)
+            val assert = case.asserts.first()
+
+            assertThat(assert.result, `is`(TestResult.Failed))
+            assertThat(assert.type, `is`("equal"))
+            assertThat(assert.expected, `is`("2"))
+            assertThat(assert.actual, `is`("1"))
+            assertThat(assert.message, `is`(nullValue()))
+        }
+    }
 }

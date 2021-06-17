@@ -38,9 +38,6 @@ import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
 import uk.co.reecedunn.intellij.plugin.processor.test.TestResult
 import uk.co.reecedunn.intellij.plugin.processor.test.TestStatistics
 import uk.co.reecedunn.intellij.plugin.processor.test.TestSuites
-import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsDecimal
-import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsInteger
-import java.math.BigDecimal
 
 @DisplayName("XRay Unit Tests - Text Output Format")
 class XRayTextFormatTest : IdeaPlatformTestCase() {
@@ -169,6 +166,25 @@ class XRayTextFormatTest : IdeaPlatformTestCase() {
             assertThat(e.standardCode, `is`("FOER0000"))
             assertThat(e.vendorCode, `is`(nullValue()))
             assertThat(e.description, `is`("error"))
+        }
+    }
+
+    @Nested
+    @DisplayName("test assert")
+    internal inner class Assert {
+        @Test
+        @DisplayName("failed assertion")
+        fun failed() {
+            val tests = parse("xray/format/text/test-cases.txt")
+            val suite = tests.testSuites.first()
+            val case = suite.testCases.elementAt(1)
+            val assert = case.asserts.first()
+
+            assertThat(assert.result, `is`(TestResult.Failed))
+            assertThat(assert.type, `is`("equal"))
+            assertThat(assert.expected, `is`("2"))
+            assertThat(assert.actual, `is`("1"))
+            assertThat(assert.message, `is`(nullValue()))
         }
     }
 }

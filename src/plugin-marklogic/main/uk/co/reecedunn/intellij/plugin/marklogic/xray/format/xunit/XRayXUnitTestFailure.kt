@@ -20,7 +20,7 @@ import uk.co.reecedunn.intellij.plugin.processor.test.TestAssert
 import uk.co.reecedunn.intellij.plugin.processor.test.TestResult
 
 class XRayXUnitTestFailure(private val failure: XmlElement) : TestAssert {
-    override val type: String by lazy { failure.attribute("test")!! }
+    override val type: String by lazy { failure.attributes.find { it.localName == "type" }!!.value }
 
     override val result: TestResult = TestResult.Failed
 

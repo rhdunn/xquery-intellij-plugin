@@ -17,10 +17,7 @@ package uk.co.reecedunn.intellij.plugin.core.xml
 
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.util.text.nullize
-import org.w3c.dom.Document
-import org.w3c.dom.Element
-import org.w3c.dom.Node
-import org.w3c.dom.NodeList
+import org.w3c.dom.*
 import org.xml.sax.InputSource
 import java.io.*
 import javax.xml.namespace.QName
@@ -42,6 +39,18 @@ fun NodeList.asSequence(): Sequence<Node> = NodeListIterator(this).asSequence()
 
 fun <E> NodeList.elements(map: (Element) -> E): Sequence<E> = asSequence().filterIsInstance<Element>().map(map)
 
+class NamedNodeMapIterator(val nodes: NamedNodeMap) : Iterator<Node> {
+    private var current: Int = 0
+
+    override fun hasNext(): Boolean = current != nodes.length
+
+    override fun next(): Node = nodes.item(current++)
+}
+
+inline fun <reified E> NamedNodeMap.asSequence(): Sequence<E> {
+    return NamedNodeMapIterator(this).asSequence().filterIsInstance<E>()
+}
+
 fun String.toQName(namespaces: Map<String, String>): QName = when {
     startsWith("*:") -> split(":").let { QName(it[0], it[1], it[0]) }
     contains(':') -> split(":").let { QName(namespaces[it[0]], it[1], it[0]) }
@@ -60,6 +69,9 @@ class XmlElement(val element: Element, private val namespaces: Map<String, Strin
     fun child(qname: QName): XmlElement? = children(qname).firstOrNull()
 
     fun text(): String? = element.firstChild?.nodeValue
+
+    val attributes: Sequence<Attr>
+        get() = element.attributes.asSequence()
 
     fun attribute(qname: String): String? = attribute(qname.toQName(namespaces))
 

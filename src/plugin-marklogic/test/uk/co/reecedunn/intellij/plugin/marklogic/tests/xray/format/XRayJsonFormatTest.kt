@@ -180,4 +180,38 @@ class XRayJsonFormatTest : IdeaPlatformTestCase() {
             assertThat(e.description, `is`("error"))
         }
     }
+
+    @Nested
+    @DisplayName("test assert")
+    internal inner class Assert {
+        @Test
+        @DisplayName("passed assertion")
+        fun passed() {
+            val tests = parse("xray/format/json/test-cases.json")
+            val suite = tests.testSuites.first()
+            val case = suite.testCases.elementAt(3)
+            val assert = case.asserts.first()
+
+            assertThat(assert.result, `is`(TestResult.Passed))
+            assertThat(assert.type, `is`("equal"))
+            assertThat(assert.expected, `is`("1"))
+            assertThat(assert.actual, `is`("1"))
+            assertThat(assert.message, `is`(nullValue()))
+        }
+
+        @Test
+        @DisplayName("failed assertion")
+        fun failed() {
+            val tests = parse("xray/format/json/test-cases.json")
+            val suite = tests.testSuites.first()
+            val case = suite.testCases.elementAt(1)
+            val assert = case.asserts.first()
+
+            assertThat(assert.result, `is`(TestResult.Failed))
+            assertThat(assert.type, `is`("equal"))
+            assertThat(assert.expected, `is`("2"))
+            assertThat(assert.actual, `is`("1"))
+            assertThat(assert.message, `is`(nullValue()))
+        }
+    }
 }
