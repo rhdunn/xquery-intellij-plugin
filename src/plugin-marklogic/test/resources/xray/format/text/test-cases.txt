@@ -1,0 +1,191 @@
+Module /xray/test/test-cases.xqy
+-- exception -- ERROR
+ERROR:  error
+<error:error xsi:schemaLocation="http://marklogic.com/xdmp/error error.xsd" xmlns="http://github.com/robwhitby/xray" xmlns:error="http://marklogic.com/xdmp/error" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <error:code>error</error:code>
+  <error:name>err:FOER0000</error:name>
+  <error:xquery-version>1.0-ml</error:xquery-version>
+  <error:message>error</error:message>
+  <error:format-string>error (err:FOER0000):</error:format-string>
+  <error:retryable>false</error:retryable>
+  <error:expr> </error:expr>
+  <error:data/>
+  <error:stack>
+    <error:frame>
+      <error:uri>/xray/test/test-cases.xqy</error:uri>
+      <error:line>23</error:line>
+      <error:column>2</error:column>
+      <error:operation>test:exception()</error:operation>
+      <error:xquery-version>1.0-ml</error:xquery-version>
+    </error:frame>
+    <error:frame>
+      <error:line>6</error:line>
+      <error:column>28</error:column>
+      <error:operation>xdmp:eval("&amp;#10;      xquery version &amp;quot;1.0-ml&amp;quot;;&amp;#10;      import m...")</error:operation>
+      <error:variables>
+	<error:variable>
+	  <error:name xmlns="">start</error:name>
+	  <error:value>xs:dayTimeDuration("PT0.0000223S")</error:value>
+	</error:variable>
+      </error:variables>
+      <error:xquery-version>1.0-ml</error:xquery-version>
+    </error:frame>
+    <error:frame>
+      <error:uri>/xray/src/xray.xqy</error:uri>
+      <error:line>112</error:line>
+      <error:column>4</error:column>
+      <error:operation>xray:apply(exception#0, "/xray/test/test-cases.xqy")</error:operation>
+      <error:variables>
+	<error:variable>
+	  <error:name>fn</error:name>
+	  <error:value>exception#0</error:value>
+	</error:variable>
+	<error:variable>
+	  <error:name>path</error:name>
+	  <error:value>"/xray/test/test-cases.xqy"</error:value>
+	</error:variable>
+      </error:variables>
+      <error:xquery-version>1.0-ml</error:xquery-version>
+    </error:frame>
+    <error:frame>
+      <error:uri>/xray/src/xray.xqy</error:uri>
+      <error:line>60</error:line>
+      <error:column>40</error:column>
+      <error:operation>run-test((exception#0, failing-test#0, ignored-test#0, ...), "/xray/test/test-cases.xqy")</error:operation>
+      <error:variables>
+	<error:variable>
+	  <error:name>fn</error:name>
+	  <error:value>exception#0</error:value>
+	</error:variable>
+	<error:variable>
+	  <error:name>path</error:name>
+	  <error:value>"/xray/test/test-cases.xqy"</error:value>
+	</error:variable>
+	<error:variable>
+	  <error:name>ignore</error:name>
+	  <error:value>fn:false()</error:value>
+	</error:variable>
+      </error:variables>
+      <error:xquery-version>1.0-ml</error:xquery-version>
+    </error:frame>
+    <error:frame>
+      <error:uri>/xray/src/xray.xqy</error:uri>
+      <error:line>181</error:line>
+      <error:column>4</error:column>
+      <error:operation>xray:run-module-tests("/xray/test/test-cases.xqy", "")</error:operation>
+      <error:variables>
+	<error:variable>
+	  <error:name>path</error:name>
+	  <error:value>"/xray/test/test-cases.xqy"</error:value>
+	</error:variable>
+	<error:variable>
+	  <error:name>test-pattern</error:name>
+	  <error:value>""</error:value>
+	</error:variable>
+	<error:variable>
+	  <error:name>fns</error:name>
+	  <error:value>(exception#0, failing-test#0, ignored-test#0, ...)</error:value>
+	</error:variable>
+      </error:variables>
+      <error:xquery-version>1.0-ml</error:xquery-version>
+    </error:frame>
+    <error:frame>
+      <error:line>7</error:line>
+      <error:column>6</error:column>
+      <error:operation>xdmp:eval("&amp;#10;      xquery version &amp;quot;1.0-ml&amp;quot;;&amp;#10;      import m...", (fn:QName("http://github.com/robwhitby/xray","path"), "/xray/test/test-cases.xqy", fn:QName("http://github.com/robwhitby/xray","test-pattern"), ...))</error:operation>
+      <error:xquery-version>1.0-ml</error:xquery-version>
+    </error:frame>
+    <error:frame>
+      <error:uri>/xray/src/xray.xqy</error:uri>
+      <error:line>137</error:line>
+      <error:column>4</error:column>
+      <error:operation>run-module("/xray/test/test-cases.xqy", ())</error:operation>
+      <error:variables>
+	<error:variable>
+	  <error:name>path</error:name>
+	  <error:value>"/xray/test/test-cases.xqy"</error:value>
+	</error:variable>
+	<error:variable>
+	  <error:name>test-pattern</error:name>
+	  <error:value>()</error:value>
+	</error:variable>
+      </error:variables>
+      <error:xquery-version>1.0-ml</error:xquery-version>
+    </error:frame>
+    <error:frame>
+      <error:uri>/xray/src/xray.xqy</error:uri>
+      <error:line>26</error:line>
+      <error:column>22</error:column>
+      <error:operation>xray:run-tests("", "/test-cases.xqy", (), "text")</error:operation>
+      <error:variables>
+	<error:variable>
+	  <error:name>test-dir</error:name>
+	  <error:value>""</error:value>
+	</error:variable>
+	<error:variable>
+	  <error:name>module-pattern</error:name>
+	  <error:value>"/test-cases.xqy"</error:value>
+	</error:variable>
+	<error:variable>
+	  <error:name>test-pattern</error:name>
+	  <error:value>()</error:value>
+	</error:variable>
+	<error:variable>
+	  <error:name>format</error:name>
+	  <error:value>"text"</error:value>
+	</error:variable>
+	<error:variable>
+	  <error:name>modules</error:name>
+	  <error:value>"/xray/test/test-cases.xqy"</error:value>
+	</error:variable>
+	<error:variable>
+	  <error:name>module</error:name>
+	  <error:value>"/xray/test/test-cases.xqy"</error:value>
+	</error:variable>
+      </error:variables>
+      <error:xquery-version>1.0-ml</error:xquery-version>
+    </error:frame>
+    <error:frame>
+      <error:line>25</error:line>
+      <error:column>0</error:column>
+      <error:operation>xdmp:eval("(:&amp;#10; : Copyright (C) 2021 Reece H. Dunn&amp;#10; :&amp;#10; : License...", (fn:QName("","module-pattern"), "/test-cases.xqy", fn:QName("","format"), ...), &lt;eval:options xmlns:eval="xdmp:eval"&gt;&lt;eval:database&gt;7781847705269953758&lt;/eval:database&gt;...&lt;/eval:options&gt;)</error:operation>
+      <error:xquery-version>1.0-ml</error:xquery-version>
+    </error:frame>
+    <error:frame>
+      <error:uri>/eval</error:uri>
+      <error:line>410</error:line>
+      <error:column>24</error:column>
+      <error:operation>local:xquery()</error:operation>
+      <error:variables>
+	<error:variable>
+	  <error:name xmlns="">variables</error:name>
+	  <error:value>(fn:QName("","module-pattern"), "/test-cases.xqy", fn:QName("","format"), ...)</error:value>
+	</error:variable>
+	<error:variable>
+	  <error:name xmlns="">options</error:name>
+	  <error:value>&lt;eval:options xmlns:eval="xdmp:eval"&gt;&lt;eval:database&gt;7781847705269953758&lt;/eval:database&gt;...&lt;/eval:options&gt;</error:value>
+	</error:variable>
+	<error:variable>
+	  <error:name xmlns="">start</error:name>
+	  <error:value>xs:dayTimeDuration("PT0.012789S")</error:value>
+	</error:variable>
+      </error:variables>
+      <error:xquery-version>1.0-ml</error:xquery-version>
+    </error:frame>
+    <error:frame>
+      <error:uri>/eval</error:uri>
+      <error:line>458</error:line>
+      <error:column>41</error:column>
+      <error:xquery-version>1.0-ml</error:xquery-version>
+    </error:frame>
+  </error:stack>
+</error:error>
+-- failing-test -- FAILED
+<assert test="equal" result="failed" xmlns="http://github.com/robwhitby/xray">
+  <actual>1</actual>
+  <expected>2</expected>
+  <message/>
+</assert>
+-- ignored-test -- IGNORED
+-- passing-test -- PASSED
+Finished: Total 4, Failed 1, Ignored 1, Errors 1, Passed 1

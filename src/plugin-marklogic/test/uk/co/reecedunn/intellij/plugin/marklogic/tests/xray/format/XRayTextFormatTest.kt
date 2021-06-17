@@ -21,6 +21,8 @@ import com.intellij.openapi.editor.EditorFactory
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.openapi.vfs.encoding.EncodingManager
 import com.intellij.openapi.vfs.encoding.EncodingManagerImpl
+import com.intellij.xdebugger.XDebuggerUtil
+import com.intellij.xdebugger.impl.XDebuggerUtilImpl
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -31,9 +33,14 @@ import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTest
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.marklogic.xray.format.XRayTestFormat
+import uk.co.reecedunn.intellij.plugin.processor.query.QueryError
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult
+import uk.co.reecedunn.intellij.plugin.processor.test.TestResult
 import uk.co.reecedunn.intellij.plugin.processor.test.TestStatistics
 import uk.co.reecedunn.intellij.plugin.processor.test.TestSuites
+import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsDecimal
+import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsInteger
+import java.math.BigDecimal
 
 @DisplayName("XRay Unit Tests - Text Output Format")
 class XRayTextFormatTest : IdeaPlatformTestCase() {
@@ -49,6 +56,7 @@ class XRayTextFormatTest : IdeaPlatformTestCase() {
 
     override fun registerServicesAndExtensions() {
         val app = ApplicationManager.getApplication()
+        app.registerServiceInstance(XDebuggerUtil::class.java, XDebuggerUtilImpl())
         app.registerServiceInstance(EditorFactory::class.java, MockEditorFactoryEx())
         app.registerServiceInstance(EncodingManager::class.java, EncodingManagerImpl())
     }
@@ -97,6 +105,70 @@ class XRayTextFormatTest : IdeaPlatformTestCase() {
             assertThat(suite.testCases.count(), `is`(1))
 
             assertThat(suite, `is`(not(instanceOf(TestStatistics::class.java))))
+        }
+    }
+
+    @Nested
+    @DisplayName("test case")
+    internal inner class Case {
+        @Test
+        @DisplayName("passed test")
+        fun passed() {
+            val tests = parse("xray/format/text/test-cases.txt")
+            val suite = tests.testSuites.first()
+            val case = suite.testCases.elementAt(3)
+
+            assertThat(case.name, `is`("passing-test"))
+            assertThat(case.result, `is`(TestResult.Passed))
+            assertThat(case.duration, `is`(nullValue()))
+            assertThat(case.asserts.count(), `is`(0))
+            assertThat(case.error, `is`(nullValue()))
+        }
+
+        @Test
+        @DisplayName("failed test")
+        fun failed() {
+            val tests = parse("xray/format/text/test-cases.txt")
+            val suite = tests.testSuites.first()
+            val case = suite.testCases.elementAt(1)
+
+            assertThat(case.name, `is`("failing-test"))
+            assertThat(case.result, `is`(TestResult.Failed))
+            assertThat(case.duration, `is`(nullValue()))
+            assertThat(case.asserts.count(), `is`(1))
+            assertThat(case.error, `is`(nullValue()))
+        }
+
+        @Test
+        @DisplayName("ignored test")
+        fun ignored() {
+            val tests = parse("xray/format/text/test-cases.txt")
+            val suite = tests.testSuites.first()
+            val case = suite.testCases.elementAt(2)
+
+            assertThat(case.name, `is`("ignored-test"))
+            assertThat(case.result, `is`(TestResult.Ignored))
+            assertThat(case.duration, `is`(nullValue()))
+            assertThat(case.asserts.count(), `is`(0))
+            assertThat(case.error, `is`(nullValue()))
+        }
+
+        @Test
+        @DisplayName("exception")
+        fun exception() {
+            val tests = parse("xray/format/text/test-cases.txt")
+            val suite = tests.testSuites.first()
+            val case = suite.testCases.elementAt(0)
+
+            assertThat(case.name, `is`("exception"))
+            assertThat(case.result, `is`(TestResult.Error))
+            assertThat(case.duration, `is`(nullValue()))
+            assertThat(case.asserts.count(), `is`(0))
+
+            val e = case.error as QueryError
+            assertThat(e.standardCode, `is`("FOER0000"))
+            assertThat(e.vendorCode, `is`(nullValue()))
+            assertThat(e.description, `is`("error"))
         }
     }
 }

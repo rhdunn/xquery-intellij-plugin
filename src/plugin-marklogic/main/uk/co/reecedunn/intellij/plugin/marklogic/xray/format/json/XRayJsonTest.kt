@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.format.json
 
 import com.google.gson.JsonObject
+import uk.co.reecedunn.intellij.plugin.core.gson.getOrNull
 import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.toMarkLogicQueryError
 import uk.co.reecedunn.intellij.plugin.processor.test.TestCase
 import uk.co.reecedunn.intellij.plugin.processor.test.TestAssert
@@ -31,11 +32,14 @@ class XRayJsonTest(private val test: JsonObject) : TestCase {
     override val duration: XsDurationValue? by lazy { test.get("time").asString.toXsDuration() }
 
     private val failuresList by lazy {
-        test.getAsJsonArray("assert").map { XRayJsonTestAssert(it.asJsonObject) }.toList()
+        test.getOrNull("assert")?.asJsonArray?.map { XRayJsonTestAssert(it.asJsonObject) }?.toList()
+            ?: listOf()
     }
 
     override val asserts: Sequence<TestAssert>
         get() = failuresList.asSequence()
 
-    override val error: Throwable? by lazy { test.getAsJsonObject("error").toMarkLogicQueryError(null) }
+    override val error: Throwable? by lazy {
+        test.getOrNull("error")?.asJsonObject?.toMarkLogicQueryError(null)
+    }
 }

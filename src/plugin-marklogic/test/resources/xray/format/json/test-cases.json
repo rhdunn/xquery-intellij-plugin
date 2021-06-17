@@ -1,0 +1,191 @@
+{
+  "tests": {
+    "dir": "",
+    "module-pattern": "/test-cases.xqy",
+    "test-pattern": "",
+    "xray-version": "2.0",
+    "module": [
+      {
+        "path": "/xray/test/test-cases.xqy",
+        "total": "4",
+        "passed": "1",
+        "ignored": "1",
+        "failed": "1",
+        "error": "1",
+        "test": [
+          {
+            "name": "exception",
+            "result": "error",
+            "time": "PT0.0004989S",
+            "error": {
+              "schemaLocation": [
+                "http://marklogic.com/xdmp/error",
+                "error.xsd"
+              ],
+              "code": "error",
+              "name": "err:FOER0000",
+              "xquery-version": "1.0-ml",
+              "message": "error",
+              "format-string": "error (err:FOER0000):",
+              "retryable": false,
+              "expr": " ",
+              "data": null,
+              "stack": {
+                "frame": [
+                  {
+                    "uri": "/xray/test/test-cases.xqy",
+                    "line": 23,
+                    "column": 2,
+                    "operation": "test:exception()",
+                    "xquery-version": "1.0-ml"
+                  },
+                  {
+                    "line": 6,
+                    "column": 28,
+                    "operation": "xdmp:eval(\"&#10;      xquery version &quot;1.0-ml&quot;;&#10;      import m...\")",
+                    "variables": {
+                      "variable": {
+                        "name": "start",
+                        "value": "xs:dayTimeDuration(\"PT0.0000192S\")"
+                      }
+                    },
+                    "xquery-version": "1.0-ml"
+                  },
+                  {
+                    "uri": "/xray/src/xray.xqy",
+                    "line": 112,
+                    "column": 4,
+                    "operation": "xray:apply(exception#0, \"/xray/test/test-cases.xqy\")",
+                    "variables": {
+                      "variable": {
+                        "name": "path",
+                        "value": "\"/xray/test/test-cases.xqy\""
+                      }
+                    },
+                    "xquery-version": "1.0-ml"
+                  },
+                  {
+                    "uri": "/xray/src/xray.xqy",
+                    "line": 60,
+                    "column": 40,
+                    "operation": "run-test((exception#0, failing-test#0, ignored-test#0, ...), \"/xray/test/test-cases.xqy\")",
+                    "variables": {
+                      "variable": {
+                        "name": "ignore",
+                        "value": "fn:false()"
+                      }
+                    },
+                    "xquery-version": "1.0-ml"
+                  },
+                  {
+                    "uri": "/xray/src/xray.xqy",
+                    "line": 181,
+                    "column": 4,
+                    "operation": "xray:run-module-tests(\"/xray/test/test-cases.xqy\", \"\")",
+                    "variables": {
+                      "variable": {
+                        "name": "fns",
+                        "value": "(exception#0, failing-test#0, ignored-test#0, ...)"
+                      }
+                    },
+                    "xquery-version": "1.0-ml"
+                  },
+                  {
+                    "line": 7,
+                    "column": 6,
+                    "operation": "xdmp:eval(\"&#10;      xquery version &quot;1.0-ml&quot;;&#10;      import m...\", (fn:QName(\"http://github.com/robwhitby/xray\",\"path\"), \"/xray/test/test-cases.xqy\", fn:QName(\"http://github.com/robwhitby/xray\",\"test-pattern\"), ...))",
+                    "xquery-version": "1.0-ml"
+                  },
+                  {
+                    "uri": "/xray/src/xray.xqy",
+                    "line": 137,
+                    "column": 4,
+                    "operation": "run-module(\"/xray/test/test-cases.xqy\", ())",
+                    "variables": {
+                      "variable": {
+                        "name": "test-pattern",
+                        "value": "()"
+                      }
+                    },
+                    "xquery-version": "1.0-ml"
+                  },
+                  {
+                    "uri": "/xray/src/xray.xqy",
+                    "line": 26,
+                    "column": 22,
+                    "operation": "xray:run-tests(\"\", \"/test-cases.xqy\", (), \"json\")",
+                    "variables": {
+                      "variable": {
+                        "name": "module",
+                        "value": "\"/xray/test/test-cases.xqy\""
+                      }
+                    },
+                    "xquery-version": "1.0-ml"
+                  },
+                  {
+                    "line": 25,
+                    "column": 0,
+                    "operation": "xdmp:eval(\"(:&#10; : Copyright (C) 2021 Reece H. Dunn&#10; :&#10; : License...\", (fn:QName(\"\",\"module-pattern\"), \"/test-cases.xqy\", fn:QName(\"\",\"format\"), ...), <eval:options xmlns:eval=\"xdmp:eval\"><eval:database>7781847705269953758</eval:database>...</eval:options>)",
+                    "xquery-version": "1.0-ml"
+                  },
+                  {
+                    "uri": "/eval",
+                    "line": 410,
+                    "column": 24,
+                    "operation": "local:xquery()",
+                    "variables": {
+                      "variable": {
+                        "name": "start",
+                        "value": "xs:dayTimeDuration(\"PT0.0177376S\")"
+                      }
+                    },
+                    "xquery-version": "1.0-ml"
+                  },
+                  {
+                    "uri": "/eval",
+                    "line": 458,
+                    "column": 41,
+                    "xquery-version": "1.0-ml"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "name": "failing-test",
+            "result": "failed",
+            "time": "PT0.0001045S",
+            "assert": [
+              {
+                "test": "equal",
+                "result": "failed",
+                "actual": "1",
+                "expected": "2",
+                "message": ""
+              }
+            ]
+          },
+          {
+            "name": "ignored-test",
+            "result": "ignored",
+            "time": "PT0S"
+          },
+          {
+            "name": "passing-test",
+            "result": "passed",
+            "time": "PT0.000044S",
+            "assert": [
+              {
+                "test": "equal",
+                "result": "passed",
+                "actual": "1",
+                "expected": "1",
+                "message": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
