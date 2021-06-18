@@ -1,0 +1,12 @@
+Module /xray/test/test-values.xqy
+-- compare-1-xml -- FAILED
+<assert test="equal" result="failed" xmlns="http://github.com/robwhitby/xray">
+  <actual>
+    <a lorem="ipsum" xmlns=""/>
+  </actual>
+  <expected>
+    <b lorem="ipsum" xmlns=""/>
+  </expected>
+  <message/>
+</assert>
+Finished: Total 1, Failed 1, Ignored 0, Errors 0, Passed 0

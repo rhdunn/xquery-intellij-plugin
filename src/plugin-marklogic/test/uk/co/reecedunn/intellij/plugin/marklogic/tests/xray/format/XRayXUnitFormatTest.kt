@@ -198,5 +198,28 @@ class XRayXUnitFormatTest : IdeaPlatformTestCase() {
             assertThat(assert.actual, `is`(nullValue()))
             assertThat(assert.message, `is`("expected: 2, actual: 1"))
         }
+
+        @Test
+        @DisplayName("xml in expected and actual")
+        fun xml() {
+            val tests = parse("xray/format/xunit/test-values.xml")
+            val suite = tests.testSuites.first()
+            val case = suite.testCases.elementAt(0)
+            val assert = case.asserts.first()
+
+            assertThat(assert.result, `is`(TestResult.Failed))
+            assertThat(assert.type, `is`("equal"))
+            assertThat(assert.expected, `is`(nullValue()))
+            assertThat(assert.actual, `is`(nullValue()))
+            assertThat(
+                assert.message, `is`(
+                    """
+                    |expected: <?xml version="1.0" encoding="UTF-8"?>
+                    |                <b lorem="ipsum" xmlns=""/>, actual: <?xml version="1.0" encoding="UTF-8"?>
+                    |                <a lorem="ipsum" xmlns=""/>
+                    """.trimMargin()
+                )
+            )
+        }
     }
 }

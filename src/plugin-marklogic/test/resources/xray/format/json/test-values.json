@@ -1,0 +1,42 @@
+{
+  "tests": {
+    "dir": "",
+    "module-pattern": "/test-values.xqy",
+    "test-pattern": "",
+    "xray-version": "2.0",
+    "module": [
+      {
+        "path": "/xray/test/test-values.xqy",
+        "total": "1",
+        "passed": "0",
+        "ignored": "0",
+        "failed": "1",
+        "error": "0",
+        "test": [
+          {
+            "name": "compare-1-xml",
+            "result": "failed",
+            "time": "PT0.0001981S",
+            "assert": [
+              {
+                "test": "equal",
+                "result": "failed",
+                "actual": {
+                  "a": {
+                    "lorem": "ipsum"
+                  }
+                },
+                "expected": {
+                  "b": {
+                    "lorem": "ipsum"
+                  }
+                },
+                "message": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

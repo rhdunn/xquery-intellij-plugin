@@ -15,19 +15,29 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.format.json
 
+import com.google.gson.JsonElement
 import com.google.gson.JsonObject
+import com.google.gson.JsonPrimitive
 import com.intellij.util.text.nullize
 import uk.co.reecedunn.intellij.plugin.processor.test.TestAssert
 import uk.co.reecedunn.intellij.plugin.processor.test.TestResult
 
 class XRayJsonTestAssert(private val assertion: JsonObject) : TestAssert {
+    private fun value(json: JsonElement): String? = when (json) {
+        is JsonPrimitive -> when {
+            json.isString -> json.asString
+            else -> null
+        }
+        else -> null
+    }
+
     override val type: String by lazy { assertion.get("test").asString }
 
     override val result: TestResult by lazy { TestResult.value(assertion.get("result").asString) }
 
-    override val expected: String? by lazy { assertion.get("expected").asString.nullize() }
+    override val expected: String? by lazy { value(assertion.get("expected"))?.nullize() }
 
-    override val actual: String? by lazy { assertion.get("actual").asString.nullize() }
+    override val actual: String? by lazy { value(assertion.get("actual"))?.nullize() }
 
     override val message: String? by lazy { assertion.get("message").asString.nullize() }
 }

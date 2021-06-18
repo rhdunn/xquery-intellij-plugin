@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="" errors="0" failures="1" skipped="0" tests="1">
+    <testsuite name="/xray/test/test-values.xqy" classname="/xray/test/test-values.xqy" errors="0" failures="1" skipped="0" tests="1">
+        <testcase name="compare-1-xml" time="0.0001943">
+            <failure type="equal">expected: &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+                &lt;b lorem="ipsum" xmlns=""/&gt;, actual: &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+                &lt;a lorem="ipsum" xmlns=""/&gt;</failure>
+        </testcase>
+    </testsuite>
+</testsuites>

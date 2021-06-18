@@ -193,4 +193,19 @@ class XRayHtmlFormatTest : IdeaPlatformTestCase() {
             assertThat(assert.message, `is`(nullValue()))
         }
     }
+
+    @Test
+    @DisplayName("xml in expected and actual")
+    fun xml() {
+        val tests = parse("xray/format/html/test-values.html")
+        val suite = tests.testSuites.first()
+        val case = suite.testCases.first()
+        val assert = case.asserts.first()
+
+        assertThat(assert.result, `is`(TestResult.Failed))
+        assertThat(assert.type, `is`("equal"))
+        assertThat(assert.expected, `is`("\n    "))
+        assertThat(assert.actual, `is`("\n    "))
+        assertThat(assert.message, `is`(nullValue()))
+    }
 }

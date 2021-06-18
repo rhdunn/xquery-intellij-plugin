@@ -213,5 +213,20 @@ class XRayJsonFormatTest : IdeaPlatformTestCase() {
             assertThat(assert.actual, `is`("1"))
             assertThat(assert.message, `is`(nullValue()))
         }
+
+        @Test
+        @DisplayName("xml in expected and actual")
+        fun xml() {
+            val tests = parse("xray/format/json/test-values.json")
+            val suite = tests.testSuites.first()
+            val case = suite.testCases.first()
+            val assert = case.asserts.first()
+
+            assertThat(assert.result, `is`(TestResult.Failed))
+            assertThat(assert.type, `is`("equal"))
+            assertThat(assert.expected, `is`(nullValue()))
+            assertThat(assert.actual, `is`(nullValue()))
+            assertThat(assert.message, `is`(nullValue()))
+        }
     }
 }
