@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2020 Reece H. Dunn
+ * Copyright (C) 2018-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -67,7 +67,9 @@ class MarkLogicQueryErrorTest : IdeaPlatformTestCase() {
         val e = exception.toMarkLogicQueryError(testFile)
         assertThat(e.standardCode, `is`("XPST0003"))
         assertThat(e.vendorCode, `is`("XDMP-UNEXPECTED"))
+        assertThat(e.errorCode, `is`("XPST0003"))
         assertThat(e.description, `is`("Unexpected token"))
+        assertThat(e.message, `is`("[XPST0003] Unexpected token"))
         assertThat(e.frames[0].sourcePosition?.file, `is`(sameInstance(testFile)))
         assertThat(e.frames[0].sourcePosition?.line, `is`(0))
         assertThat((e.frames[0].sourcePosition as QuerySourcePosition).column, `is`(5))
@@ -94,7 +96,9 @@ class MarkLogicQueryErrorTest : IdeaPlatformTestCase() {
         val e = exception.toMarkLogicQueryError(testFile)
         assertThat(e.standardCode, `is`("FOER0000"))
         assertThat(e.vendorCode, `is`("XDMP-XQUERYVERSIONSWITCH"))
+        assertThat(e.errorCode, `is`("XDMP-XQUERYVERSIONSWITCH"))
         assertThat(e.description, `is`("All modules in a module sequence must use the same XQuery version"))
+        assertThat(e.message, `is`("[XDMP-XQUERYVERSIONSWITCH] All modules in a module sequence must use the same XQuery version"))
         assertThat(e.frames[0].sourcePosition?.file, `is`(sameInstance(testFile)))
         assertThat(e.frames[0].sourcePosition?.line, `is`(0))
         assertThat((e.frames[0].sourcePosition as QuerySourcePosition).column, `is`(52))
@@ -121,7 +125,9 @@ class MarkLogicQueryErrorTest : IdeaPlatformTestCase() {
         val e = exception.toMarkLogicQueryError(testFile)
         assertThat(e.standardCode, `is`("FOER0000"))
         assertThat(e.vendorCode, `is`(nullValue()))
+        assertThat(e.errorCode, `is`("FOER0000"))
         assertThat(e.description, `is`("An error message"))
+        assertThat(e.message, `is`("[FOER0000] An error message"))
         assertThat(e.frames[0].sourcePosition?.file, `is`(sameInstance(testFile)))
         assertThat(e.frames[0].sourcePosition?.line, `is`(0))
         assertThat((e.frames[0].sourcePosition as QuerySourcePosition).column, `is`(5))
@@ -151,7 +157,9 @@ class MarkLogicQueryErrorTest : IdeaPlatformTestCase() {
         val e = exception.toMarkLogicQueryError(testFile)
         assertThat(e.standardCode, `is`("XPST0003"))
         assertThat(e.vendorCode, `is`("XDMP-UNEXPECTED"))
+        assertThat(e.errorCode, `is`("XPST0003"))
         assertThat(e.description, `is`("Unexpected token"))
+        assertThat(e.message, `is`("[XPST0003] Unexpected token"))
         assertThat(e.frames[0].sourcePosition?.file, `is`(sameInstance(testFile)))
         assertThat(e.frames[0].sourcePosition?.line, `is`(0))
         assertThat((e.frames[0].sourcePosition as QuerySourcePosition).column, `is`(5))

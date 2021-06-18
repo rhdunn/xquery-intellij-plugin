@@ -108,6 +108,10 @@
       <li>Fix various crashes when parsing XRay test result output.</li>
       <li>Fix test suites and test suite statistics for module-level errors in the HTML and XUnit tests.</li>
     </ol>
+    <p>MarkLogic:</p>
+    <ol>
+      <li>Display the MarkLogic vendor code in query errors when no standard code is provided.</li>
+    </ol>
   ]]></change-notes>
 
   <idea-version since-build="161"/>

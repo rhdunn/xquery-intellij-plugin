@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.query
 
+import com.intellij.util.text.nullize
 import com.intellij.xdebugger.frame.XStackFrame
 import uk.co.reecedunn.intellij.plugin.processor.debug.position.QuerySourcePosition
 import java.io.PrintStream
@@ -28,8 +29,14 @@ data class QueryError(
     val frames: List<XStackFrame>
 ) : RuntimeException() {
 
+    val errorCode: String
+        get() = when (standardCode) {
+            "", "FOER0000" -> vendorCode ?: "FOER0000"
+            else -> standardCode
+        }
+
     override val message: String
-        get() = description?.let { "[$standardCode] $it" } ?: standardCode
+        get() = description?.let { "[$errorCode] $it" } ?: errorCode
 
     override fun toString(): String = message
 

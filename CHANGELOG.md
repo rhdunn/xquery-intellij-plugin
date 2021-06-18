@@ -39,6 +39,10 @@ XRay Tests:
 1. Fix various crashes when parsing XRay test result output.
 1. Fix test suites and test suite statistics for module-level errors in the HTML and XUnit tests.
 
+MarkLogic:
+
+1. Display the MarkLogic vendor code in query errors when no standard code is provided.
+
 ## 2021
 
 *  [1.9.0 - 2021-03-31](docs/_posts/2021-03-31-release-1.9.0.md)
