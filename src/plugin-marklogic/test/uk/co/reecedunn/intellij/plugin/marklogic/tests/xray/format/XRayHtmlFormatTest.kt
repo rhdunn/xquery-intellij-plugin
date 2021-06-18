@@ -97,7 +97,7 @@ class XRayHtmlFormatTest : IdeaPlatformTestCase() {
             assertThat(tests.passed, `is`(0))
             assertThat(tests.failed, `is`(0))
             assertThat(tests.ignored, `is`(0))
-            assertThat(tests.errors, `is`(0))
+            assertThat(tests.errors, `is`(1))
             assertThat(tests.total, `is`(0))
 
             assertThat(tests.testSuites.count(), `is`(1))

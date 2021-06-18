@@ -37,7 +37,7 @@ XRay Tests:
 
 1. Fix running the XRay tests on IntelliJ 2019.3 due to a missing "Console" message string.
 1. Fix various crashes when parsing XRay test result output.
-1. Fix test suites and test suite statistics for module-level errors in the XUnit tests.
+1. Fix test suites and test suite statistics for module-level errors in the HTML and XUnit tests.
 
 ## 2021
 

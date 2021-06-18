@@ -106,7 +106,7 @@
     <ol>
       <li>Fix running the XRay tests on IntelliJ 2019.3 due to a missing "Console" message string.</li>
       <li>Fix various crashes when parsing XRay test result output.</li>
-      <li>Fix test suites and test suite statistics for module-level errors in the XUnit tests.</li>
+      <li>Fix test suites and test suite statistics for module-level errors in the HTML and XUnit tests.</li>
     </ol>
   ]]></change-notes>
 

@@ -41,7 +41,7 @@ class XRayHtmlTests(private val tests: Element) : TestSuites {
         get() = summary["Failed"] ?: 0
 
     override val errors: Int
-        get() = summary["Errors"] ?: 0
+        get() = (summary["Errors"] ?: 0) + testSuites.count { it.error != null }
 
     private val testSuitesList by lazy {
         tests.select("section > details").mapNotNull {
