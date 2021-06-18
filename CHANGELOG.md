@@ -37,7 +37,8 @@ XRay Tests:
 
 1. Fix running the XRay tests on IntelliJ 2019.3 due to a missing "Console" message string.
 1. Fix various crashes when parsing XRay test result output.
-1. Fix test suites and test suite statistics for module-level errors in the HTML and XUnit tests.
+1. Fix test suites and test suite statistics for module-level errors in the HTML and XUnit XML output formats.
+1. Fix serializing XML expected/actual values in Text, HTML, and XRay XML output formats.
 
 MarkLogic:
 

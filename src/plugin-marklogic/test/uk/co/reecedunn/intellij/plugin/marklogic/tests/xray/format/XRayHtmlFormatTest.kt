@@ -232,8 +232,8 @@ class XRayHtmlFormatTest : IdeaPlatformTestCase() {
 
         assertThat(assert.result, `is`(TestResult.Failed))
         assertThat(assert.type, `is`("equal"))
-        assertThat(assert.expected, `is`("\n    "))
-        assertThat(assert.actual, `is`("\n    "))
+        assertThat(assert.expected, `is`("<b lorem=\"ipsum\"/>"))
+        assertThat(assert.actual, `is`("<a lorem=\"ipsum\"/>"))
         assertThat(assert.message, `is`(nullValue()))
     }
 }
