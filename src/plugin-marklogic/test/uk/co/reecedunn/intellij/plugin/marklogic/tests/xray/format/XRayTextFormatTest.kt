@@ -86,6 +86,19 @@ class XRayTextFormatTest : IdeaPlatformTestCase() {
 
             assertThat(tests.testSuites.count(), `is`(1))
         }
+
+        @Test
+        @DisplayName("module exception")
+        fun moduleException() {
+            val tests = parse("xray/format/text/syntax-error.txt")
+            assertThat(tests.passed, `is`(0))
+            assertThat(tests.failed, `is`(0))
+            assertThat(tests.ignored, `is`(0))
+            assertThat(tests.errors, `is`(1))
+            assertThat(tests.total, `is`(0))
+
+            assertThat(tests.testSuites.count(), `is`(1))
+        }
     }
 
     @Nested
@@ -102,6 +115,21 @@ class XRayTextFormatTest : IdeaPlatformTestCase() {
             assertThat(suite.testCases.count(), `is`(1))
 
             assertThat(suite, `is`(not(instanceOf(TestStatistics::class.java))))
+        }
+
+        @Test
+        @DisplayName("exception")
+        fun exception() {
+            val tests = parse("xray/format/text/syntax-error.txt")
+            val suite = tests.testSuites.first()
+
+            assertThat(suite.name, `is`("/xray/test/syntax-error.xqy"))
+            assertThat(suite.testCases.count(), `is`(0))
+
+            val e = suite.error as QueryError
+            assertThat(e.standardCode, `is`("XPST0003"))
+            assertThat(e.vendorCode, `is`("XDMP-UNEXPECTED"))
+            assertThat(e.description, `is`("Unexpected token"))
         }
     }
 

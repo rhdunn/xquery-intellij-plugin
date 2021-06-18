@@ -1,0 +1,108 @@
+Module /xray/test/syntax-error.xqy
+ERROR:  Unexpected token
+<error:error xsi:schemaLocation="http://marklogic.com/xdmp/error error.xsd" xmlns="http://github.com/robwhitby/xray" xmlns:error="http://marklogic.com/xdmp/error" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <error:code>XDMP-UNEXPECTED</error:code>
+  <error:name>err:XPST0003</error:name>
+  <error:xquery-version>1.0-ml</error:xquery-version>
+  <error:message>Unexpected token</error:message>
+  <error:format-string>XDMP-UNEXPECTED: (err:XPST0003) Unexpected token syntax error, unexpected $end, expecting SemiColon_</error:format-string>
+  <error:retryable>false</error:retryable>
+  <error:expr> </error:expr>
+  <error:data>
+    <error:datum>syntax error, unexpected $end, expecting SemiColon_</error:datum>
+    <error:datum/>
+  </error:data>
+  <error:stack>
+    <error:frame>
+      <error:uri>/xray/test/syntax-error.xqy</error:uri>
+      <error:line>10</error:line>
+      <error:column>1</error:column>
+      <error:operation>xdmp:eval("&amp;#10;      xquery version &amp;quot;1.0-ml&amp;quot;;&amp;#10;      import m...", (fn:QName("http://github.com/robwhitby/xray","path"), "/xray/test/syntax-error.xqy", fn:QName("http://github.com/robwhitby/xray","test-pattern"), ...))</error:operation>
+      <error:xquery-version>1.0-ml</error:xquery-version>
+    </error:frame>
+    <error:frame>
+      <error:uri>/xray/src/xray.xqy</error:uri>
+      <error:line>137</error:line>
+      <error:column>4</error:column>
+      <error:operation>run-module("/xray/test/syntax-error.xqy", ())</error:operation>
+      <error:variables>
+	<error:variable>
+	  <error:name>path</error:name>
+	  <error:value>"/xray/test/syntax-error.xqy"</error:value>
+	</error:variable>
+	<error:variable>
+	  <error:name>test-pattern</error:name>
+	  <error:value>()</error:value>
+	</error:variable>
+      </error:variables>
+      <error:xquery-version>1.0-ml</error:xquery-version>
+    </error:frame>
+    <error:frame>
+      <error:uri>/xray/src/xray.xqy</error:uri>
+      <error:line>26</error:line>
+      <error:column>22</error:column>
+      <error:operation>xray:run-tests("", "/syntax-error.xqy", (), "text")</error:operation>
+      <error:variables>
+	<error:variable>
+	  <error:name>test-dir</error:name>
+	  <error:value>""</error:value>
+	</error:variable>
+	<error:variable>
+	  <error:name>module-pattern</error:name>
+	  <error:value>"/syntax-error.xqy"</error:value>
+	</error:variable>
+	<error:variable>
+	  <error:name>test-pattern</error:name>
+	  <error:value>()</error:value>
+	</error:variable>
+	<error:variable>
+	  <error:name>format</error:name>
+	  <error:value>"text"</error:value>
+	</error:variable>
+	<error:variable>
+	  <error:name>modules</error:name>
+	  <error:value>"/xray/test/syntax-error.xqy"</error:value>
+	</error:variable>
+	<error:variable>
+	  <error:name>module</error:name>
+	  <error:value>"/xray/test/syntax-error.xqy"</error:value>
+	</error:variable>
+      </error:variables>
+      <error:xquery-version>1.0-ml</error:xquery-version>
+    </error:frame>
+    <error:frame>
+      <error:line>25</error:line>
+      <error:column>0</error:column>
+      <error:operation>xdmp:eval("(:&amp;#10; : Copyright (C) 2021 Reece H. Dunn&amp;#10; :&amp;#10; : License...", (fn:QName("","module-pattern"), "/syntax-error.xqy", fn:QName("","format"), ...), &lt;eval:options xmlns:eval="xdmp:eval"&gt;&lt;eval:database&gt;7781847705269953758&lt;/eval:database&gt;...&lt;/eval:options&gt;)</error:operation>
+      <error:xquery-version>1.0-ml</error:xquery-version>
+    </error:frame>
+    <error:frame>
+      <error:uri>/eval</error:uri>
+      <error:line>410</error:line>
+      <error:column>24</error:column>
+      <error:operation>local:xquery()</error:operation>
+      <error:variables>
+	<error:variable>
+	  <error:name xmlns="">variables</error:name>
+	  <error:value>(fn:QName("","module-pattern"), "/syntax-error.xqy", fn:QName("","format"), ...)</error:value>
+	</error:variable>
+	<error:variable>
+	  <error:name xmlns="">options</error:name>
+	  <error:value>&lt;eval:options xmlns:eval="xdmp:eval"&gt;&lt;eval:database&gt;7781847705269953758&lt;/eval:database&gt;...&lt;/eval:options&gt;</error:value>
+	</error:variable>
+	<error:variable>
+	  <error:name xmlns="">start</error:name>
+	  <error:value>xs:dayTimeDuration("PT0.0006657S")</error:value>
+	</error:variable>
+      </error:variables>
+      <error:xquery-version>1.0-ml</error:xquery-version>
+    </error:frame>
+    <error:frame>
+      <error:uri>/eval</error:uri>
+      <error:line>458</error:line>
+      <error:column>41</error:column>
+      <error:xquery-version>1.0-ml</error:xquery-version>
+    </error:frame>
+  </error:stack>
+</error:error>
+Finished: Total 0, Failed 0, Ignored 0, Errors 1, Passed 0

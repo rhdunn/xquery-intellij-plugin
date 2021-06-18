@@ -1,0 +1,95 @@
+{
+  "tests": {
+    "dir": "",
+    "module-pattern": "/syntax-error.xqy",
+    "test-pattern": "",
+    "xray-version": "2.0",
+    "module": [
+      {
+        "path": "/xray/test/syntax-error.xqy",
+        "total": "0",
+        "passed": "0",
+        "ignored": "0",
+        "failed": "0",
+        "error": {
+          "schemaLocation": [
+            "http://marklogic.com/xdmp/error",
+            "error.xsd"
+          ],
+          "code": "XDMP-UNEXPECTED",
+          "name": "err:XPST0003",
+          "xquery-version": "1.0-ml",
+          "message": "Unexpected token",
+          "format-string": "XDMP-UNEXPECTED: (err:XPST0003) Unexpected token syntax error, unexpected $end, expecting SemiColon_",
+          "retryable": false,
+          "expr": " ",
+          "data": {
+            "datum": ""
+          },
+          "stack": {
+            "frame": [
+              {
+                "uri": "/xray/test/syntax-error.xqy",
+                "line": 10,
+                "column": 1,
+                "operation": "xdmp:eval(\"&#10;      xquery version &quot;1.0-ml&quot;;&#10;      import m...\", (fn:QName(\"http://github.com/robwhitby/xray\",\"path\"), \"/xray/test/syntax-error.xqy\", fn:QName(\"http://github.com/robwhitby/xray\",\"test-pattern\"), ...))",
+                "xquery-version": "1.0-ml"
+              },
+              {
+                "uri": "/xray/src/xray.xqy",
+                "line": 137,
+                "column": 4,
+                "operation": "run-module(\"/xray/test/syntax-error.xqy\", ())",
+                "variables": {
+                  "variable": {
+                    "name": "test-pattern",
+                    "value": "()"
+                  }
+                },
+                "xquery-version": "1.0-ml"
+              },
+              {
+                "uri": "/xray/src/xray.xqy",
+                "line": 26,
+                "column": 22,
+                "operation": "xray:run-tests(\"\", \"/syntax-error.xqy\", (), \"json\")",
+                "variables": {
+                  "variable": {
+                    "name": "module",
+                    "value": "\"/xray/test/syntax-error.xqy\""
+                  }
+                },
+                "xquery-version": "1.0-ml"
+              },
+              {
+                "line": 25,
+                "column": 0,
+                "operation": "xdmp:eval(\"(:&#10; : Copyright (C) 2021 Reece H. Dunn&#10; :&#10; : License...\", (fn:QName(\"\",\"module-pattern\"), \"/syntax-error.xqy\", fn:QName(\"\",\"format\"), ...), <eval:options xmlns:eval=\"xdmp:eval\"><eval:database>7781847705269953758</eval:database>...</eval:options>)",
+                "xquery-version": "1.0-ml"
+              },
+              {
+                "uri": "/eval",
+                "line": 410,
+                "column": 24,
+                "operation": "local:xquery()",
+                "variables": {
+                  "variable": {
+                    "name": "start",
+                    "value": "xs:dayTimeDuration(\"PT0.0006455S\")"
+                  }
+                },
+                "xquery-version": "1.0-ml"
+              },
+              {
+                "uri": "/eval",
+                "line": 458,
+                "column": 41,
+                "xquery-version": "1.0-ml"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

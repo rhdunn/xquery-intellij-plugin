@@ -1,0 +1,209 @@
+<!DOCTYPE html><html xmlns:error="http://marklogic.com/xdmp/error" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>xray</title>
+    <link rel="icon" type="image/png" href="favicon.ico">
+    <link href="http://fonts.googleapis.com/css?family=Cousine:400,700" rel="stylesheet" type="text/css">
+    <style type="text/css">
+        body { margin: 0 10px; }
+        body, input, button { font-family: Cousine, "Courier New", Sans-serif; }
+
+        h1 { margin: 0 0 30px 0; }
+        h1 a:link, h1 a:visited, h1 a:hover, h1 a:active {
+            font-family: "Courier New", Sans-serif;
+            padding: 10px 10px;
+            text-decoration:none;
+            color: #fff;
+            background-color: #000;
+            border: 1px solid #000;
+            text-shadow: #fff 1px 1px 15px;
+            -webkit-font-smoothing: antialiased;
+        }
+        h1 a:hover { color: #000; background-color: #fff; }
+
+        summary, h4, pre { margin: 0; padding: 5px 10px; font-weight: normal; }
+        summary { background-color: #eee; }
+        summary.passed { background-color: #393; }
+        summary.failed, h3.error { background-color: #c33; }
+        summary.ignored { background-color: #f80; }
+        summary a { color: white; text-decoration: none; }
+        summary a:hover { text-decoration: underline; }
+        h4 a { text-decoration: none; }
+        h4 a:hover { text-decoration: underline; }
+
+        p.failed, h4.failed a, p.error, h4.error a { color: #c33; }
+        p.ignored, h4.ignored a { color: #f80; }
+        p.passed, h4.passed a { color: #393; }
+
+        label { padding-left: 10px; }
+        abbr, .abbr { border-bottom: 1px dotted #ccc; }
+        form { position: absolute; top: 10px; right: 10px; }
+        section { border: 1px solid #ccc; margin: 10px 0; }
+
+        .code .c { color: #999; }
+        .code .s { color: #d00; }
+        .code .v { color: purple; }
+        .code .f { color: blue; }
+        .code .x { color: #090; }
+
+        summary::-webkit-details-marker {
+            color: #fff;
+            margin-right: 2px;
+        }
+        summary:focus { outline-style: none; }
+    </style>
+</head>
+<body>
+<header>
+    <h1>
+        <a href="http://robwhitby.github.com/xray">xray</a>
+    </h1>
+    <form>
+        <label for="test-dir">
+            <abbr title="test directory path relative from app server root">directory</abbr>
+        </label>
+        <input type="text" name="dir" id="test-dir" value="">
+        <label for="module-pattern">
+            <abbr title="regex match on module name">modules</abbr>
+        </label>
+        <input type="text" name="modules" id="module-pattern" value="/syntax-error.xqy">
+        <label for="test-pattern">
+            <abbr title="regex match on test name">tests</abbr>
+        </label>
+        <input type="text" name="tests" id="test-pattern" value="">
+        <input type="hidden" name="format" value="html">
+        <button>run</button>
+    </form>
+    <button onclick="collapseAll()">Collapse All</button>
+    <button onclick="expandAll()">Expand All</button>
+    <script type="text/javascript">
+        function collapseAll() {
+            document.querySelectorAll("details").forEach(function(d) { d.removeAttribute("open") });
+        };
+        function expandAll() {
+            document.querySelectorAll("details").forEach(function(d) { d.setAttribute("open", "true") });
+        };
+    </script>
+</header>
+<section>
+    <details open="true">
+        <summary class="failed">
+            <a href="?dir=&amp;modules=%2Fxray%2Ftest%2Fsyntax-error.xqy&amp;tests=&amp;format=html" title="run this module only">/xray/test/syntax-error.xqy</a>
+        </summary>
+        <pre>Unexpected token</pre>
+        <pre>XDMP-UNEXPECTED: (err:XPST0003) Unexpected token syntax error, unexpected $end, expecting SemiColon_</pre>
+        <pre class="error">&lt;error:error xsi:schemaLocation="http://marklogic.com/xdmp/error error.xsd" xmlns="http://github.com/robwhitby/xray" xmlns:error="http://marklogic.com/xdmp/error" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+  &lt;error:code&gt;XDMP-UNEXPECTED&lt;/error:code&gt;
+  &lt;error:name&gt;err:XPST0003&lt;/error:name&gt;
+  &lt;error:xquery-version&gt;1.0-ml&lt;/error:xquery-version&gt;
+  &lt;error:message&gt;Unexpected token&lt;/error:message&gt;
+  &lt;error:format-string&gt;XDMP-UNEXPECTED: (err:XPST0003) Unexpected token syntax error, unexpected $end, expecting SemiColon_&lt;/error:format-string&gt;
+  &lt;error:retryable&gt;false&lt;/error:retryable&gt;
+  &lt;error:expr&gt; &lt;/error:expr&gt;
+  &lt;error:data&gt;
+    &lt;error:datum&gt;syntax error, unexpected $end, expecting SemiColon_&lt;/error:datum&gt;
+    &lt;error:datum&gt;&lt;/error:datum&gt;
+  &lt;/error:data&gt;
+  &lt;error:stack&gt;
+    &lt;error:frame&gt;
+      &lt;error:uri&gt;/xray/test/syntax-error.xqy&lt;/error:uri&gt;
+      &lt;error:line&gt;10&lt;/error:line&gt;
+      &lt;error:column&gt;1&lt;/error:column&gt;
+      &lt;error:operation&gt;xdmp:eval("&amp;amp;#10;      xquery version &amp;amp;quot;1.0-ml&amp;amp;quot;;&amp;amp;#10;      import m...", (fn:QName("http://github.com/robwhitby/xray","path"), "/xray/test/syntax-error.xqy", fn:QName("http://github.com/robwhitby/xray","test-pattern"), ...))&lt;/error:operation&gt;
+      &lt;error:xquery-version&gt;1.0-ml&lt;/error:xquery-version&gt;
+    &lt;/error:frame&gt;
+    &lt;error:frame&gt;
+      &lt;error:uri&gt;/xray/src/xray.xqy&lt;/error:uri&gt;
+      &lt;error:line&gt;137&lt;/error:line&gt;
+      &lt;error:column&gt;4&lt;/error:column&gt;
+      &lt;error:operation&gt;run-module("/xray/test/syntax-error.xqy", ())&lt;/error:operation&gt;
+      &lt;error:variables&gt;
+	&lt;error:variable&gt;
+	  &lt;error:name&gt;path&lt;/error:name&gt;
+	  &lt;error:value&gt;"/xray/test/syntax-error.xqy"&lt;/error:value&gt;
+	&lt;/error:variable&gt;
+	&lt;error:variable&gt;
+	  &lt;error:name&gt;test-pattern&lt;/error:name&gt;
+	  &lt;error:value&gt;()&lt;/error:value&gt;
+	&lt;/error:variable&gt;
+      &lt;/error:variables&gt;
+      &lt;error:xquery-version&gt;1.0-ml&lt;/error:xquery-version&gt;
+    &lt;/error:frame&gt;
+    &lt;error:frame&gt;
+      &lt;error:uri&gt;/xray/src/xray.xqy&lt;/error:uri&gt;
+      &lt;error:line&gt;26&lt;/error:line&gt;
+      &lt;error:column&gt;22&lt;/error:column&gt;
+      &lt;error:operation&gt;xray:run-tests("", "/syntax-error.xqy", (), "html")&lt;/error:operation&gt;
+      &lt;error:variables&gt;
+	&lt;error:variable&gt;
+	  &lt;error:name&gt;test-dir&lt;/error:name&gt;
+	  &lt;error:value&gt;""&lt;/error:value&gt;
+	&lt;/error:variable&gt;
+	&lt;error:variable&gt;
+	  &lt;error:name&gt;module-pattern&lt;/error:name&gt;
+	  &lt;error:value&gt;"/syntax-error.xqy"&lt;/error:value&gt;
+	&lt;/error:variable&gt;
+	&lt;error:variable&gt;
+	  &lt;error:name&gt;test-pattern&lt;/error:name&gt;
+	  &lt;error:value&gt;()&lt;/error:value&gt;
+	&lt;/error:variable&gt;
+	&lt;error:variable&gt;
+	  &lt;error:name&gt;format&lt;/error:name&gt;
+	  &lt;error:value&gt;"html"&lt;/error:value&gt;
+	&lt;/error:variable&gt;
+	&lt;error:variable&gt;
+	  &lt;error:name&gt;modules&lt;/error:name&gt;
+	  &lt;error:value&gt;"/xray/test/syntax-error.xqy"&lt;/error:value&gt;
+	&lt;/error:variable&gt;
+	&lt;error:variable&gt;
+	  &lt;error:name&gt;module&lt;/error:name&gt;
+	  &lt;error:value&gt;"/xray/test/syntax-error.xqy"&lt;/error:value&gt;
+	&lt;/error:variable&gt;
+      &lt;/error:variables&gt;
+      &lt;error:xquery-version&gt;1.0-ml&lt;/error:xquery-version&gt;
+    &lt;/error:frame&gt;
+    &lt;error:frame&gt;
+      &lt;error:line&gt;25&lt;/error:line&gt;
+      &lt;error:column&gt;0&lt;/error:column&gt;
+      &lt;error:operation&gt;xdmp:eval("(:&amp;amp;#10; : Copyright (C) 2021 Reece H. Dunn&amp;amp;#10; :&amp;amp;#10; : License...", (fn:QName("","module-pattern"), "/syntax-error.xqy", fn:QName("","format"), ...), &amp;lt;eval:options xmlns:eval="xdmp:eval"&amp;gt;&amp;lt;eval:database&amp;gt;7781847705269953758&amp;lt;/eval:database&amp;gt;...&amp;lt;/eval:options&amp;gt;)&lt;/error:operation&gt;
+      &lt;error:xquery-version&gt;1.0-ml&lt;/error:xquery-version&gt;
+    &lt;/error:frame&gt;
+    &lt;error:frame&gt;
+      &lt;error:uri&gt;/eval&lt;/error:uri&gt;
+      &lt;error:line&gt;410&lt;/error:line&gt;
+      &lt;error:column&gt;24&lt;/error:column&gt;
+      &lt;error:operation&gt;local:xquery()&lt;/error:operation&gt;
+      &lt;error:variables&gt;
+	&lt;error:variable&gt;
+	  &lt;error:name xmlns=""&gt;variables&lt;/error:name&gt;
+	  &lt;error:value&gt;(fn:QName("","module-pattern"), "/syntax-error.xqy", fn:QName("","format"), ...)&lt;/error:value&gt;
+	&lt;/error:variable&gt;
+	&lt;error:variable&gt;
+	  &lt;error:name xmlns=""&gt;options&lt;/error:name&gt;
+	  &lt;error:value&gt;&amp;lt;eval:options xmlns:eval="xdmp:eval"&amp;gt;&amp;lt;eval:database&amp;gt;7781847705269953758&amp;lt;/eval:database&amp;gt;...&amp;lt;/eval:options&amp;gt;&lt;/error:value&gt;
+	&lt;/error:variable&gt;
+	&lt;error:variable&gt;
+	  &lt;error:name xmlns=""&gt;start&lt;/error:name&gt;
+	  &lt;error:value&gt;xs:dayTimeDuration("PT0.0007444S")&lt;/error:value&gt;
+	&lt;/error:variable&gt;
+      &lt;/error:variables&gt;
+      &lt;error:xquery-version&gt;1.0-ml&lt;/error:xquery-version&gt;
+    &lt;/error:frame&gt;
+    &lt;error:frame&gt;
+      &lt;error:uri&gt;/eval&lt;/error:uri&gt;
+      &lt;error:line&gt;458&lt;/error:line&gt;
+      &lt;error:column&gt;41&lt;/error:column&gt;
+      &lt;error:xquery-version&gt;1.0-ml&lt;/error:xquery-version&gt;
+    &lt;/error:frame&gt;
+  &lt;/error:stack&gt;
+&lt;/error:error&gt;</pre>
+    </details>
+</section>
+<footer>
+    <p class="passed">Summary: Total 0, Failed 0, Ignored 0, Errors 0, Passed 0</p>
+    <p>
+        View results as
+        <a href="?dir=&amp;modules=%2Fsyntax-error.xqy&amp;tests=&amp;format=xml">xml</a> | <a href="?dir=&amp;modules=%2Fsyntax-error.xqy&amp;tests=&amp;format=xunit">xUnit</a> | <a href="?dir=&amp;modules=%2Fsyntax-error.xqy&amp;tests=&amp;format=text">text</a> | <a href="?dir=&amp;modules=%2Fsyntax-error.xqy&amp;tests=&amp;format=json">json</a><br><a href="http://github.com/robwhitby/xray">xray</a> version 2.0</p>
+</footer>
+</body>
+</html>
