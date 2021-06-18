@@ -94,7 +94,7 @@ class XRayXUnitFormatTest : IdeaPlatformTestCase() {
         @DisplayName("module exception")
         fun moduleException() {
             val tests = parse("xray/format/xunit/syntax-error.xml")
-            assertThat(tests.passed, `is`(-1))
+            assertThat(tests.passed, `is`(0))
             assertThat(tests.failed, `is`(0))
             assertThat(tests.ignored, `is`(0))
             assertThat(tests.errors, `is`(1))
@@ -135,7 +135,7 @@ class XRayXUnitFormatTest : IdeaPlatformTestCase() {
             assertThat(suite.testCases.count(), `is`(0))
 
             val statistics = suite as TestStatistics
-            assertThat(statistics.passed, `is`(-1))
+            assertThat(statistics.passed, `is`(0))
             assertThat(statistics.failed, `is`(0))
             assertThat(statistics.ignored, `is`(0))
             assertThat(statistics.errors, `is`(1))

@@ -20,13 +20,14 @@ import uk.co.reecedunn.intellij.plugin.marklogic.query.rest.toMarkLogicQueryErro
 import uk.co.reecedunn.intellij.plugin.processor.test.TestCase
 import uk.co.reecedunn.intellij.plugin.processor.test.TestStatistics
 import uk.co.reecedunn.intellij.plugin.processor.test.TestSuite
+import kotlin.math.max
 
 class XRayXUnitTestSuite(private val suite: XmlElement) : TestSuite, TestStatistics {
     override val name: String by lazy { suite.attribute("name")!! }
 
     override val total: Int by lazy { suite.attribute("tests")!!.toInt() }
 
-    override val passed: Int by lazy { total - ignored - failed - errors }
+    override val passed: Int by lazy { max(total - ignored - failed - errors, 0) }
 
     override val ignored: Int by lazy { suite.attribute("skipped")!!.toInt() }
 

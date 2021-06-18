@@ -19,11 +19,12 @@ import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.processor.test.TestStatistics
 import uk.co.reecedunn.intellij.plugin.processor.test.TestSuite
 import uk.co.reecedunn.intellij.plugin.processor.test.TestSuites
+import kotlin.math.max
 
 class XRayXUnitTestSuites(private val suites: XmlElement) : TestSuites {
     override val total: Int by lazy { suites.attribute("tests")!!.toInt() }
 
-    override val passed: Int by lazy { total - ignored - failed - errors }
+    override val passed: Int by lazy { max(total - ignored - failed - errors, 0) }
 
     override val ignored: Int by lazy { suites.attribute("skipped")!!.toInt() }
 
