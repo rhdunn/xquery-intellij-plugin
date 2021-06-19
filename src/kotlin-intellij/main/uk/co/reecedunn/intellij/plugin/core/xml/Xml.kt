@@ -95,6 +95,15 @@ class XmlElement(val element: Element, private val namespaces: Map<String, Strin
         return buffer.toString()
     }
 
+    fun innerXml(): String {
+        val buffer = StringWriter()
+        val result = StreamResult(buffer)
+        element.childNodes.asSequence().forEach { node ->
+            transformer.transform(DOMSource(node), result)
+        }
+        return buffer.toString()
+    }
+
     companion object {
         private val transformer by lazy {
             val transformer = TransformerFactory.newInstance().newTransformer()

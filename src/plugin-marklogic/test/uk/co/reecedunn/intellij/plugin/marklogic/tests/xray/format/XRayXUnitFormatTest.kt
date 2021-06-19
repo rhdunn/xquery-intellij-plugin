@@ -250,8 +250,8 @@ class XRayXUnitFormatTest : IdeaPlatformTestCase() {
                 assert.message, `is`(
                     """
                     |expected: <?xml version="1.0" encoding="UTF-8"?>
-                    |                <b lorem="ipsum" xmlns=""/>, actual: <?xml version="1.0" encoding="UTF-8"?>
-                    |                <a lorem="ipsum" xmlns=""/>
+                    |<b lorem="ipsum" xmlns=""/>, actual: <?xml version="1.0" encoding="UTF-8"?>
+                    |<a lorem="ipsum" xmlns=""/>
                     """.trimMargin()
                 )
             )
@@ -277,6 +277,39 @@ class XRayXUnitFormatTest : IdeaPlatformTestCase() {
             assertThat(assert.expected, `is`(nullValue()))
             assertThat(assert.actual, `is`(nullValue()))
             assertThat(assert.message, `is`("expected: , actual: 2"))
+        }
+
+        @Test
+        @DisplayName("mixed sequence in expected and actual")
+        fun mixedSequence() {
+            val tests = parse("xray/format/xunit/test-values.xml")
+            val suite = tests.testSuites.first()
+            val case = suite.testCases.elementAt(2)
+            val assert = case.asserts.first()
+
+            assertThat(assert.result, `is`(TestResult.Failed))
+            assertThat(assert.type, `is`("equal"))
+            assertThat(assert.expected, `is`(nullValue()))
+            assertThat(assert.actual, `is`(nullValue()))
+            assertThat(
+                assert.message, `is`(
+                    """
+                    |expected: <?xml version="1.0" encoding="UTF-8"?>
+                    |<a xmlns=""/>
+                    |<?xml version="1.0" encoding="UTF-8"?>
+                    |<d xmlns=""/>
+                    |6 8
+                    |<?xml version="1.0" encoding="UTF-8"?>
+                    |<c xmlns=""/>, actual: <?xml version="1.0" encoding="UTF-8"?>
+                    |<a xmlns=""/>
+                    |<?xml version="1.0" encoding="UTF-8"?>
+                    |<b xmlns=""/>
+                    |3 4
+                    |<?xml version="1.0" encoding="UTF-8"?>
+                    |<c xmlns=""/>
+                    """.trimMargin()
+                )
+            )
         }
     }
 }

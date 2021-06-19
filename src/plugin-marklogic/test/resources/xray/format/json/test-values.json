@@ -7,16 +7,16 @@
     "module": [
       {
         "path": "/xray/test/test-values.xqy",
-        "total": "2",
+        "total": "3",
         "passed": "0",
         "ignored": "0",
-        "failed": "2",
+        "failed": "3",
         "error": "0",
         "test": [
           {
-            "name": "compare-1-xml",
+            "name": "compare-1-element",
             "result": "failed",
-            "time": "PT0.0002069S",
+            "time": "PT0.0001862S",
             "assert": [
               {
                 "test": "equal",
@@ -38,7 +38,7 @@
           {
             "name": "compare-2-empty-sequence",
             "result": "failed",
-            "time": "PT0.0001529S",
+            "time": "PT0.0001373S",
             "assert": [
               {
                 "test": "equal",
@@ -59,6 +59,30 @@
                 "result": "failed",
                 "actual": "2",
                 "expected": "",
+                "message": ""
+              }
+            ]
+          },
+          {
+            "name": "compare-3-sequence",
+            "result": "failed",
+            "time": "PT0.000067S",
+            "assert": [
+              {
+                "test": "equal",
+                "result": "failed",
+                "actual": {
+                  "a": "",
+                  "b": "",
+                  "c": "",
+                  "_value": "3 4"
+                },
+                "expected": {
+                  "a": "",
+                  "d": "",
+                  "c": "",
+                  "_value": "6 8"
+                },
                 "message": ""
               }
             ]

@@ -1,14 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="" errors="0" failures="2" skipped="0" tests="2">
-    <testsuite name="/xray/test/test-values.xqy" classname="/xray/test/test-values.xqy" errors="0" failures="2" skipped="0" tests="2">
-        <testcase name="compare-1-xml" time="0.0002206">
+<testsuites name="" errors="0" failures="3" skipped="0" tests="3">
+    <testsuite name="/xray/test/test-values.xqy" classname="/xray/test/test-values.xqy" errors="0" failures="3" skipped="0" tests="3">
+        <testcase name="compare-1-element" time="0.0001636">
             <failure type="equal">expected: &lt;?xml version="1.0" encoding="UTF-8"?&gt;
-                &lt;b lorem="ipsum" xmlns=""/&gt;, actual: &lt;?xml version="1.0" encoding="UTF-8"?&gt;
-                &lt;a lorem="ipsum" xmlns=""/&gt;</failure>
+&lt;b lorem="ipsum" xmlns=""/&gt;, actual: &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;a lorem="ipsum" xmlns=""/&gt;</failure>
         </testcase>
-        <testcase name="compare-2-empty-sequence" time="0.0002299">
+        <testcase name="compare-2-empty-sequence" time="0.0001333">
             <failure type="equal">expected: 1, actual: </failure>
             <failure type="equal">expected: , actual: 2</failure>
+        </testcase>
+        <testcase name="compare-3-sequence" time="0.0000767">
+            <failure type="equal">expected: &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;a xmlns=""/&gt;
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;d xmlns=""/&gt;
+6 8
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;c xmlns=""/&gt;, actual: &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;a xmlns=""/&gt;
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;b xmlns=""/&gt;
+3 4
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;c xmlns=""/&gt;</failure>
         </testcase>
     </testsuite>
 </testsuites>

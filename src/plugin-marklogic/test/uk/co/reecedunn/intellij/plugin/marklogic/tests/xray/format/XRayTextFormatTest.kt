@@ -221,7 +221,7 @@ class XRayTextFormatTest : IdeaPlatformTestCase() {
     fun element() {
         val tests = parse("xray/format/text/test-values.txt")
         val suite = tests.testSuites.first()
-        val case = suite.testCases.first()
+        val case = suite.testCases.elementAt(0)
         val assert = case.asserts.first()
 
         assertThat(assert.result, `is`(TestResult.Failed))
@@ -250,6 +250,21 @@ class XRayTextFormatTest : IdeaPlatformTestCase() {
         assertThat(assert.type, `is`("equal"))
         assertThat(assert.expected, `is`(""))
         assertThat(assert.actual, `is`("2"))
+        assertThat(assert.message, `is`(nullValue()))
+    }
+
+    @Test
+    @DisplayName("mixed sequence in expected and actual")
+    fun mixedSequence() {
+        val tests = parse("xray/format/text/test-values.txt")
+        val suite = tests.testSuites.first()
+        val case = suite.testCases.elementAt(2)
+        val assert = case.asserts.first()
+
+        assertThat(assert.result, `is`(TestResult.Failed))
+        assertThat(assert.type, `is`("equal"))
+        assertThat(assert.expected, `is`("<a/><d/>6 8<c/>"))
+        assertThat(assert.actual, `is`("<a/><b/>3 4<c/>"))
         assertThat(assert.message, `is`(nullValue()))
     }
 }

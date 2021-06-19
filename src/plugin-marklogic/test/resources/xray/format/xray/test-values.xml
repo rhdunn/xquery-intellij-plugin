@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tests dir="" module-pattern="/test-values.xqy" test-pattern="" xray-version="2.0"
        xmlns="http://github.com/robwhitby/xray">
-    <module path="/xray/test/test-values.xqy" total="2" passed="0" ignored="0" failed="2" error="0">
-        <test name="compare-1-xml" result="failed" time="PT0.0001867S">
+    <module path="/xray/test/test-values.xqy" total="3" passed="0" ignored="0" failed="3" error="0">
+        <test name="compare-1-element" result="failed" time="PT0.0002184S">
             <assert test="equal" result="failed">
                 <actual>
                     <a lorem="ipsum" xmlns=""/>
@@ -13,7 +13,7 @@
                 <message/>
             </assert>
         </test>
-        <test name="compare-2-empty-sequence" result="failed" time="PT0.0002153S">
+        <test name="compare-2-empty-sequence" result="failed" time="PT0.000143S">
             <assert test="equal" result="passed">
                 <actual/>
                 <expected/>
@@ -27,6 +27,13 @@
             <assert test="equal" result="failed">
                 <actual>2</actual>
                 <expected/>
+                <message/>
+            </assert>
+        </test>
+        <test name="compare-3-sequence" result="failed" time="PT0.0000844S">
+            <assert test="equal" result="failed">
+                <actual><a xmlns=""/><b xmlns=""/>3 4<c xmlns=""/></actual>
+                <expected><a xmlns=""/><d xmlns=""/>6 8<c xmlns=""/></expected>
                 <message/>
             </assert>
         </test>

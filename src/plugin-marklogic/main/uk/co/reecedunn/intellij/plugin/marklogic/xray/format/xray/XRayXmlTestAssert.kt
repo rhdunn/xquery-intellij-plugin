@@ -29,14 +29,12 @@ class XRayXmlTestAssert(private val assertion: XmlElement) : TestAssert {
 
     override val expected: String? by lazy {
         val expected = assertion.child("xray:expected") ?: return@lazy null
-        val c = expected.children().firstOrNull() ?: return@lazy expected.text() ?: ""
-        c.xml()
+        expected.innerXml().trim()
     }
 
     override val actual: String? by lazy {
         val actual = assertion.child("xray:actual") ?: return@lazy null
-        val c = actual.children().firstOrNull() ?: return@lazy actual.text() ?: ""
-        c.xml()
+        actual.innerXml().trim()
     }
 
     override val message: String? by lazy { assertion.child("xray:message")?.text() }

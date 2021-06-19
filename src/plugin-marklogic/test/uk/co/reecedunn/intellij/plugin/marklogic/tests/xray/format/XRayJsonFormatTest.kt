@@ -254,7 +254,7 @@ class XRayJsonFormatTest : IdeaPlatformTestCase() {
         fun element() {
             val tests = parse("xray/format/json/test-values.json")
             val suite = tests.testSuites.first()
-            val case = suite.testCases.first()
+            val case = suite.testCases.elementAt(0)
             val assert = case.asserts.first()
 
             assertThat(assert.result, `is`(TestResult.Failed))
@@ -283,6 +283,21 @@ class XRayJsonFormatTest : IdeaPlatformTestCase() {
             assertThat(assert.type, `is`("equal"))
             assertThat(assert.expected, `is`(""))
             assertThat(assert.actual, `is`("2"))
+            assertThat(assert.message, `is`(nullValue()))
+        }
+
+        @Test
+        @DisplayName("mixed sequence in expected and actual")
+        fun mixedSequence() {
+            val tests = parse("xray/format/json/test-values.json")
+            val suite = tests.testSuites.first()
+            val case = suite.testCases.elementAt(2)
+            val assert = case.asserts.first()
+
+            assertThat(assert.result, `is`(TestResult.Failed))
+            assertThat(assert.type, `is`("equal"))
+            assertThat(assert.expected, `is`(nullValue()))
+            assertThat(assert.actual, `is`(nullValue()))
             assertThat(assert.message, `is`(nullValue()))
         }
     }

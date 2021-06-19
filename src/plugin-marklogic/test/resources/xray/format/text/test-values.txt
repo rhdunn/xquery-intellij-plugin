@@ -1,5 +1,5 @@
 Module /xray/test/test-values.xqy
--- compare-1-xml -- FAILED
+-- compare-1-element -- FAILED
 <assert test="equal" result="failed" xmlns="http://github.com/robwhitby/xray">
   <actual>
     <a lorem="ipsum" xmlns=""/>
@@ -19,4 +19,10 @@ Module /xray/test/test-values.xqy
   <expected/>
   <message/>
 </assert>
-Finished: Total 2, Failed 2, Ignored 0, Errors 0, Passed 0
+-- compare-3-sequence -- FAILED
+<assert test="equal" result="failed" xmlns="http://github.com/robwhitby/xray">
+  <actual><a xmlns=""/><b xmlns=""/>3 4<c xmlns=""/></actual>
+  <expected><a xmlns=""/><d xmlns=""/>6 8<c xmlns=""/></expected>
+  <message/>
+</assert>
+Finished: Total 3, Failed 3, Ignored 0, Errors 0, Passed 0
