@@ -20,13 +20,34 @@ import uk.co.reecedunn.intellij.plugin.processor.test.TestAssert
 import uk.co.reecedunn.intellij.plugin.processor.test.TestResult
 
 class XRayXUnitTestFailure(private val failure: XmlElement) : TestAssert {
+    companion object {
+        private val RE_ACTUAL = ", actual: ".toRegex()
+    }
+
+    private val expectedActual by lazy {
+        val message = failure.text()
+        when {
+            message == null -> null
+            message.startsWith("expected: ") && RE_ACTUAL.findAll(message).count() == 1 -> {
+                val parts = message.substring(10).split(", actual: ")
+                parts[0] to parts[1]
+            }
+            else -> null
+        }
+    }
+
     override val type: String by lazy { failure.attributes.find { it.localName == "type" }!!.value }
 
     override val result: TestResult = TestResult.Failed
 
-    override val expected: String? = null
+    override val expected: String? = expectedActual?.first
 
-    override val actual: String? = null
+    override val actual: String? = expectedActual?.second
 
-    override val message: String? by lazy { failure.text() }
+    override val message: String? by lazy {
+        when (expectedActual) {
+            null -> failure.text()
+            else -> null
+        }
+    }
 }

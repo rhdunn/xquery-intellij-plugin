@@ -229,9 +229,9 @@ class XRayXUnitFormatTest : IdeaPlatformTestCase() {
 
             assertThat(assert.result, `is`(TestResult.Failed))
             assertThat(assert.type, `is`("equal"))
-            assertThat(assert.expected, `is`(nullValue()))
-            assertThat(assert.actual, `is`(nullValue()))
-            assertThat(assert.message, `is`("expected: 2, actual: 1"))
+            assertThat(assert.expected, `is`("2"))
+            assertThat(assert.actual, `is`("1"))
+            assertThat(assert.message, `is`(nullValue()))
         }
 
         @Test
@@ -244,17 +244,17 @@ class XRayXUnitFormatTest : IdeaPlatformTestCase() {
 
             assertThat(assert.result, `is`(TestResult.Failed))
             assertThat(assert.type, `is`("equal"))
-            assertThat(assert.expected, `is`(nullValue()))
-            assertThat(assert.actual, `is`(nullValue()))
             assertThat(
-                assert.message, `is`(
-                    """
-                    |expected: <?xml version="1.0" encoding="UTF-8"?>
-                    |<b lorem="ipsum" xmlns=""/>, actual: <?xml version="1.0" encoding="UTF-8"?>
-                    |<a lorem="ipsum" xmlns=""/>
-                    """.trimMargin()
+                assert.expected, `is`(
+                    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<b lorem=\"ipsum\" xmlns=\"\"/>"
                 )
             )
+            assertThat(
+                assert.actual, `is`(
+                    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<a lorem=\"ipsum\" xmlns=\"\"/>"
+                )
+            )
+            assertThat(assert.message, `is`(nullValue()))
         }
 
         @Test
@@ -267,16 +267,16 @@ class XRayXUnitFormatTest : IdeaPlatformTestCase() {
             var assert = case.asserts.elementAt(0)
             assertThat(assert.result, `is`(TestResult.Failed))
             assertThat(assert.type, `is`("equal"))
-            assertThat(assert.expected, `is`(nullValue()))
-            assertThat(assert.actual, `is`(nullValue()))
-            assertThat(assert.message, `is`("expected: 1, actual: "))
+            assertThat(assert.expected, `is`("1"))
+            assertThat(assert.actual, `is`(""))
+            assertThat(assert.message, `is`(nullValue()))
 
             assert = case.asserts.elementAt(1)
             assertThat(assert.result, `is`(TestResult.Failed))
             assertThat(assert.type, `is`("equal"))
-            assertThat(assert.expected, `is`(nullValue()))
-            assertThat(assert.actual, `is`(nullValue()))
-            assertThat(assert.message, `is`("expected: , actual: 2"))
+            assertThat(assert.expected, `is`(""))
+            assertThat(assert.actual, `is`("2"))
+            assertThat(assert.message, `is`(nullValue()))
         }
 
         @Test
@@ -289,18 +289,23 @@ class XRayXUnitFormatTest : IdeaPlatformTestCase() {
 
             assertThat(assert.result, `is`(TestResult.Failed))
             assertThat(assert.type, `is`("equal"))
-            assertThat(assert.expected, `is`(nullValue()))
-            assertThat(assert.actual, `is`(nullValue()))
             assertThat(
-                assert.message, `is`(
+                assert.expected, `is`(
                     """
-                    |expected: <?xml version="1.0" encoding="UTF-8"?>
+                    |<?xml version="1.0" encoding="UTF-8"?>
                     |<a xmlns=""/>
                     |<?xml version="1.0" encoding="UTF-8"?>
                     |<d xmlns=""/>
                     |6 8
                     |<?xml version="1.0" encoding="UTF-8"?>
-                    |<c xmlns=""/>, actual: <?xml version="1.0" encoding="UTF-8"?>
+                    |<c xmlns=""/>
+                    """.trimMargin()
+                )
+            )
+            assertThat(
+                assert.actual, `is`(
+                    """
+                    |<?xml version="1.0" encoding="UTF-8"?>
                     |<a xmlns=""/>
                     |<?xml version="1.0" encoding="UTF-8"?>
                     |<b xmlns=""/>
@@ -310,6 +315,7 @@ class XRayXUnitFormatTest : IdeaPlatformTestCase() {
                     """.trimMargin()
                 )
             )
+            assertThat(assert.message, `is`(nullValue()))
         }
     }
 }
