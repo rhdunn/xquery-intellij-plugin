@@ -235,8 +235,8 @@ class XRayXUnitFormatTest : IdeaPlatformTestCase() {
         }
 
         @Test
-        @DisplayName("xml in expected and actual")
-        fun xml() {
+        @DisplayName("element() in expected and actual")
+        fun element() {
             val tests = parse("xray/format/xunit/test-values.xml")
             val suite = tests.testSuites.first()
             val case = suite.testCases.elementAt(0)
@@ -255,6 +255,28 @@ class XRayXUnitFormatTest : IdeaPlatformTestCase() {
                     """.trimMargin()
                 )
             )
+        }
+
+        @Test
+        @DisplayName("empty-sequence() in expected and actual")
+        fun emptySequence() {
+            val tests = parse("xray/format/xunit/test-values.xml")
+            val suite = tests.testSuites.first()
+            val case = suite.testCases.elementAt(1)
+
+            var assert = case.asserts.elementAt(0)
+            assertThat(assert.result, `is`(TestResult.Failed))
+            assertThat(assert.type, `is`("equal"))
+            assertThat(assert.expected, `is`(nullValue()))
+            assertThat(assert.actual, `is`(nullValue()))
+            assertThat(assert.message, `is`("expected: 1, actual: "))
+
+            assert = case.asserts.elementAt(1)
+            assertThat(assert.result, `is`(TestResult.Failed))
+            assertThat(assert.type, `is`("equal"))
+            assertThat(assert.expected, `is`(nullValue()))
+            assertThat(assert.actual, `is`(nullValue()))
+            assertThat(assert.message, `is`("expected: , actual: 2"))
         }
     }
 }

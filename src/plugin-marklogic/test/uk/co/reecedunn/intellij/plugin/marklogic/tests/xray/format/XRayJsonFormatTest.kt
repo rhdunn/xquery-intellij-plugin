@@ -250,8 +250,8 @@ class XRayJsonFormatTest : IdeaPlatformTestCase() {
         }
 
         @Test
-        @DisplayName("xml in expected and actual")
-        fun xml() {
+        @DisplayName("element() in expected and actual")
+        fun element() {
             val tests = parse("xray/format/json/test-values.json")
             val suite = tests.testSuites.first()
             val case = suite.testCases.first()
@@ -261,6 +261,28 @@ class XRayJsonFormatTest : IdeaPlatformTestCase() {
             assertThat(assert.type, `is`("equal"))
             assertThat(assert.expected, `is`(nullValue()))
             assertThat(assert.actual, `is`(nullValue()))
+            assertThat(assert.message, `is`(nullValue()))
+        }
+
+        @Test
+        @DisplayName("empty-sequence() in expected and actual")
+        fun emptySequence() {
+            val tests = parse("xray/format/json/test-values.json")
+            val suite = tests.testSuites.first()
+            val case = suite.testCases.elementAt(1)
+
+            var assert = case.asserts.elementAt(1)
+            assertThat(assert.result, `is`(TestResult.Failed))
+            assertThat(assert.type, `is`("equal"))
+            assertThat(assert.expected, `is`("1"))
+            assertThat(assert.actual, `is`(""))
+            assertThat(assert.message, `is`(nullValue()))
+
+            assert = case.asserts.elementAt(2)
+            assertThat(assert.result, `is`(TestResult.Failed))
+            assertThat(assert.type, `is`("equal"))
+            assertThat(assert.expected, `is`(""))
+            assertThat(assert.actual, `is`("2"))
             assertThat(assert.message, `is`(nullValue()))
         }
     }

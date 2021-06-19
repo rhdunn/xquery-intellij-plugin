@@ -35,9 +35,9 @@ class XRayJsonTestAssert(private val assertion: JsonObject) : TestAssert {
 
     override val result: TestResult by lazy { TestResult.value(assertion.get("result").asString) }
 
-    override val expected: String? by lazy { value(assertion.get("expected"))?.nullize() }
+    override val expected: String? by lazy { value(assertion.get("expected")) }
 
-    override val actual: String? by lazy { value(assertion.get("actual"))?.nullize() }
+    override val actual: String? by lazy { value(assertion.get("actual")) }
 
     override val message: String? by lazy { assertion.get("message").asString.nullize() }
 }

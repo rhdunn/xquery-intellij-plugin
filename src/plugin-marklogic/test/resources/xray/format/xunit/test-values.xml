@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="" errors="0" failures="1" skipped="0" tests="1">
-    <testsuite name="/xray/test/test-values.xqy" classname="/xray/test/test-values.xqy" errors="0" failures="1" skipped="0" tests="1">
-        <testcase name="compare-1-xml" time="0.0001943">
+<testsuites name="" errors="0" failures="2" skipped="0" tests="2">
+    <testsuite name="/xray/test/test-values.xqy" classname="/xray/test/test-values.xqy" errors="0" failures="2" skipped="0" tests="2">
+        <testcase name="compare-1-xml" time="0.0002206">
             <failure type="equal">expected: &lt;?xml version="1.0" encoding="UTF-8"?&gt;
                 &lt;b lorem="ipsum" xmlns=""/&gt;, actual: &lt;?xml version="1.0" encoding="UTF-8"?&gt;
                 &lt;a lorem="ipsum" xmlns=""/&gt;</failure>
+        </testcase>
+        <testcase name="compare-2-empty-sequence" time="0.0002299">
+            <failure type="equal">expected: 1, actual: </failure>
+            <failure type="equal">expected: , actual: 2</failure>
         </testcase>
     </testsuite>
 </testsuites>

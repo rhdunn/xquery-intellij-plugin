@@ -7,16 +7,16 @@
     "module": [
       {
         "path": "/xray/test/test-values.xqy",
-        "total": "1",
+        "total": "2",
         "passed": "0",
         "ignored": "0",
-        "failed": "1",
+        "failed": "2",
         "error": "0",
         "test": [
           {
             "name": "compare-1-xml",
             "result": "failed",
-            "time": "PT0.0001981S",
+            "time": "PT0.0002069S",
             "assert": [
               {
                 "test": "equal",
@@ -31,6 +31,34 @@
                     "lorem": "ipsum"
                   }
                 },
+                "message": ""
+              }
+            ]
+          },
+          {
+            "name": "compare-2-empty-sequence",
+            "result": "failed",
+            "time": "PT0.0001529S",
+            "assert": [
+              {
+                "test": "equal",
+                "result": "passed",
+                "actual": "",
+                "expected": "",
+                "message": ""
+              },
+              {
+                "test": "equal",
+                "result": "failed",
+                "actual": "",
+                "expected": "1",
+                "message": ""
+              },
+              {
+                "test": "equal",
+                "result": "failed",
+                "actual": "2",
+                "expected": "",
                 "message": ""
               }
             ]

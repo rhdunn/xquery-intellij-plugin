@@ -9,4 +9,14 @@ Module /xray/test/test-values.xqy
   </expected>
   <message/>
 </assert>
-Finished: Total 1, Failed 1, Ignored 0, Errors 0, Passed 0
+-- compare-2-empty-sequence -- FAILED
+<assert test="equal" result="failed" xmlns="http://github.com/robwhitby/xray">
+  <actual/>
+  <expected>1</expected>
+  <message/>
+</assert><assert test="equal" result="failed" xmlns="http://github.com/robwhitby/xray">
+  <actual>2</actual>
+  <expected/>
+  <message/>
+</assert>
+Finished: Total 2, Failed 2, Ignored 0, Errors 0, Passed 0

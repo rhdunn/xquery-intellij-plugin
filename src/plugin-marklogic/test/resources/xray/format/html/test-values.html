@@ -91,7 +91,7 @@
       <a href="?dir=&amp;modules=%2Fxray%2Ftest%2Ftest-values.xqy&amp;tests=&amp;format=html" title="run this module only">/xray/test/test-values.xqy</a>
     </summary>
     <h4 class="failed">
-      <a href="?dir=&amp;modules=%2Fxray%2Ftest%2Ftest-values.xqy&amp;tests=compare-1-xml&amp;format=html" title="run this test only">compare-1-xml -- FAILED    --  0.000194S</a>
+      <a href="?dir=&amp;modules=%2Fxray%2Ftest%2Ftest-values.xqy&amp;tests=compare-1-xml&amp;format=html" title="run this test only">compare-1-xml -- FAILED    --  0.0002024S</a>
     </h4>
     <pre>&lt;assert test="equal" result="failed" xmlns="http://github.com/robwhitby/xray"&gt;
   &lt;actual&gt;
@@ -102,10 +102,23 @@
   &lt;/expected&gt;
   &lt;message&gt;&lt;/message&gt;
 &lt;/assert&gt;</pre>
+    <h4 class="failed">
+      <a href="?dir=&amp;modules=%2Fxray%2Ftest%2Ftest-values.xqy&amp;tests=compare-2-empty-sequence&amp;format=html" title="run this test only">compare-2-empty-sequence -- FAILED    --  0.0001471S</a>
+    </h4>
+    <pre>&lt;assert test="equal" result="failed" xmlns="http://github.com/robwhitby/xray"&gt;
+  &lt;actual&gt;&lt;/actual&gt;
+  &lt;expected&gt;1&lt;/expected&gt;
+  &lt;message&gt;&lt;/message&gt;
+&lt;/assert&gt;
+&lt;assert test="equal" result="failed" xmlns="http://github.com/robwhitby/xray"&gt;
+  &lt;actual&gt;2&lt;/actual&gt;
+  &lt;expected&gt;&lt;/expected&gt;
+  &lt;message&gt;&lt;/message&gt;
+&lt;/assert&gt;</pre>
   </details>
 </section>
 <footer>
-  <p class="failed">Summary: Total 1, Failed 1, Ignored 0, Errors 0, Passed 0</p>
+  <p class="failed">Summary: Total 2, Failed 2, Ignored 0, Errors 0, Passed 0</p>
   <p>
     View results as
     <a href="?dir=&amp;modules=%2Ftest-values.xqy&amp;tests=&amp;format=xml">xml</a> | <a href="?dir=&amp;modules=%2Ftest-values.xqy&amp;tests=&amp;format=xunit">xUnit</a> | <a href="?dir=&amp;modules=%2Ftest-values.xqy&amp;tests=&amp;format=text">text</a> | <a href="?dir=&amp;modules=%2Ftest-values.xqy&amp;tests=&amp;format=json">json</a><br><a href="http://github.com/robwhitby/xray">xray</a> version 2.0</p>
