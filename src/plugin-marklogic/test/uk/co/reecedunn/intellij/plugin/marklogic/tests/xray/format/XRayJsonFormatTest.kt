@@ -259,8 +259,8 @@ class XRayJsonFormatTest : IdeaPlatformTestCase() {
 
             assertThat(assert.result, `is`(TestResult.Failed))
             assertThat(assert.type, `is`("equal"))
-            assertThat(assert.expected, `is`(nullValue()))
-            assertThat(assert.actual, `is`(nullValue()))
+            assertThat(assert.expected, `is`("{\"b\":{\"lorem\":\"ipsum\"}}"))
+            assertThat(assert.actual, `is`("{\"a\":{\"lorem\":\"ipsum\"}}"))
             assertThat(assert.message, `is`(nullValue()))
         }
 
@@ -296,8 +296,8 @@ class XRayJsonFormatTest : IdeaPlatformTestCase() {
 
             assertThat(assert.result, `is`(TestResult.Failed))
             assertThat(assert.type, `is`("equal"))
-            assertThat(assert.expected, `is`(nullValue()))
-            assertThat(assert.actual, `is`(nullValue()))
+            assertThat(assert.expected, `is`("{\"a\":\"\",\"d\":\"\",\"c\":\"\",\"_value\":\"6 8\"}"))
+            assertThat(assert.actual, `is`("{\"a\":\"\",\"b\":\"\",\"c\":\"\",\"_value\":\"3 4\"}"))
             assertThat(assert.message, `is`(nullValue()))
         }
     }

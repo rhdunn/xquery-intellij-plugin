@@ -24,11 +24,8 @@ import uk.co.reecedunn.intellij.plugin.processor.test.TestResult
 
 class XRayJsonTestAssert(private val assertion: JsonObject) : TestAssert {
     private fun value(json: JsonElement): String? = when (json) {
-        is JsonPrimitive -> when {
-            json.isString -> json.asString
-            else -> null
-        }
-        else -> null
+        is JsonPrimitive -> json.asString
+        else -> json.toString()
     }
 
     override val type: String by lazy { assertion.get("test").asString }
