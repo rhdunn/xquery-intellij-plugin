@@ -1057,7 +1057,7 @@ An *arrow function call* is a *function call* that is used in an arrow expressio
    arrow target.
 1. The *operation* property is *chaining* for `FatArrowTarget` (`=>`), or *mapping*
    for `ThinArrowTarget` (`->`).
-d
+
 A *static function call* is a *function call* that has the name and arity of
 the function it references.
 
