@@ -10,6 +10,8 @@ Inlay Parameters:
 Syntax Highlighting:
 
 1. Default to the XML entity reference colours for entity references in XQuery.
+1. Workaround [IDEA-234709](https://youtrack.jetbrains.com/issue/IDEA-234709) to correctly highlight XML namespace
+   prefices when using the Darcula theme.
 
 XPath:
 

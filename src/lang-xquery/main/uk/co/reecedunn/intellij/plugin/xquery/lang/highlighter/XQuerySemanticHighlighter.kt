@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.lang.highlighter
 
 import com.intellij.compat.lang.annotation.AnnotationHolder
 import com.intellij.lang.annotation.HighlightSeverity
+import com.intellij.openapi.editor.colors.EditorColorsManager
 import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.editor.markup.TextAttributes
 import com.intellij.psi.PsiElement
@@ -84,9 +85,12 @@ object XQuerySemanticHighlighter : XpmSemanticHighlighter {
 
         val parent = element.parent.parent
         if (parent is PluginDirAttribute || parent is XQueryDirElemConstructor) {
-            holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(element)
-                .textAttributes(XQuerySyntaxHighlighterColors.XML_TAG)
-                .create()
+            // Workaround IDEA-234709 -- XML_TAG is overriding the text colour of textAttributes.
+            if (!EditorColorsManager.getInstance().isDarkEditor) {
+                holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(element)
+                    .textAttributes(XQuerySyntaxHighlighterColors.XML_TAG)
+                    .create()
+            }
         }
 
         holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(element)

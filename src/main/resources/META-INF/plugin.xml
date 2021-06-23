@@ -79,6 +79,10 @@
     <p>Syntax Highlighting:</p>
     <ol>
       <li>Default to the XML entity reference colours for entity references in XQuery.</li>
+      <li>
+        Workaround <a href="https://youtrack.jetbrains.com/issue/IDEA-234709">IDEA-234709</a> to correctly highlight
+        XML namespace prefices when using the Darcula theme.
+      </li>
     </ol>
     <p>XPath:</p>
     <ol>
