@@ -21,17 +21,12 @@ import org.hamcrest.CoreMatchers.notNullValue
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
-import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
 import uk.co.reecedunn.intellij.plugin.intellij.lang.FullTextSpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
-import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTScoreVar
-import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTOptionDecl
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryForBinding
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryForClause
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
@@ -44,23 +39,6 @@ private class FullTextConformanceTest : ParserTestCase() {
     private val res = ResourceVirtualFileSystem(this::class.java.classLoader)
 
     fun parseResource(resource: String): XQueryModule = res.toPsiFile(resource, project)
-
-    @Test
-    @DisplayName("XQuery 3.1 with Full Text EBNF (37) FTScoreVar")
-    fun testFTScoreVar() {
-        val file = parseResource("tests/parser/full-text-1.0/ForBinding_FTScoreVar.xq")
-
-        val forClausePsi = file.descendants().filterIsInstance<XQueryForClause>().first()
-        val forBindingPsi = forClausePsi.children().filterIsInstance<XQueryForBinding>().first()
-        val scoreVarPsi = forBindingPsi.children().filterIsInstance<FTScoreVar>().first()
-        val conformance = scoreVarPsi as VersionConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(FullTextSpec.REC_1_0_20110317))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.elementType, `is`(XPathTokenType.K_SCORE))
-    }
 
     @Test
     @DisplayName("XQuery 3.1 with Full Text EBNF (24) FTOptionDecl")

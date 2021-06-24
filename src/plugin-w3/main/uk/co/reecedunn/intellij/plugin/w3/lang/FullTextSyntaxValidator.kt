@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.w3.lang
 
 import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTContainsExpr
+import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTScoreVar
 import uk.co.reecedunn.intellij.plugin.xpath.lang.FullTextSpec
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxErrorReporter
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
@@ -27,10 +28,11 @@ object FullTextSyntaxValidator : XpmSyntaxValidator {
         element: XpmSyntaxValidationElement,
         reporter: XpmSyntaxErrorReporter
     ): Unit = when (element) {
-        is FTContainsExpr -> reporter.requires(element, FULL_TEXT)
+        is FTContainsExpr -> reporter.requires(element, FULL_TEXT_1_0)
+        is FTScoreVar -> reporter.requires(element, FULL_TEXT_1_0)
         else -> {
         }
     }
 
-    private val FULL_TEXT = XpmRequiresSpecificationVersion(FullTextSpec.REC_1_0_20110317)
+    private val FULL_TEXT_1_0 = XpmRequiresSpecificationVersion(FullTextSpec.REC_1_0_20110317)
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017, 2020 Reece H. Dunn
+ * Copyright (C) 2017, 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,23 +19,18 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.intellij.lang.FullTextSpec
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTScoreVar
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
-class FTScoreVarPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), FTScoreVar, VersionConformance {
+class FTScoreVarPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), FTScoreVar, XpmSyntaxValidationElement {
     // region XpmVariableBinding
 
     override val variableName: XsQNameValue?
         get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
 
     // endregion
-    // region VersionConformance
-
-    override val requiresConformance: List<Version>
-        get() = listOf(FullTextSpec.REC_1_0_20110317)
+    // region XpmSyntaxValidationElement
 
     override val conformanceElement: PsiElement
         get() = firstChild
