@@ -15,12 +15,16 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.lang.highlighter
 
+import com.intellij.compat.testFramework.registerServiceInstance
+import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.editor.colors.EditorColorsManager
 import com.intellij.openapi.extensions.PluginId
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.core.tests.editor.colors.MockEditorColorsManager
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.prettyPrint
 import uk.co.reecedunn.intellij.plugin.xpath.lang.highlighter.QNameAnnotator
 import uk.co.reecedunn.intellij.plugin.xpath.lang.highlighter.XPathSemanticHighlighter
@@ -35,6 +39,9 @@ private class XQuerySemanticHighlighterTest : AnnotatorTestCase() {
     override val pluginId: PluginId = PluginId.getId("XQuerySemanticHighlighterTest")
 
     override fun registerExtensions() {
+        val app = ApplicationManager.getApplication()
+        app.registerServiceInstance(EditorColorsManager::class.java, MockEditorColorsManager())
+
         XpmSemanticHighlighter.register(this, XPathSemanticHighlighter)
         XpmSemanticHighlighter.register(this, XQuerySemanticHighlighter)
     }
