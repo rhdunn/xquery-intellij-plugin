@@ -115,19 +115,19 @@ class XQueryFullTextSyntaxValidatorTest :
     )
 
     @Nested
-    @DisplayName("XQuery 3.1 with Full Text EBNF (51) FTContainsExpr")
-    internal inner class FTContainsExpr {
+    @DisplayName("XQuery 3.1 with Full Text EBNF (24) FTOptionDecl")
+    internal inner class FTOptionDecl {
         @Test
         @DisplayName("without Full Text")
         fun notSupported() {
-            val file = parse<XQueryModule>("title contains text \"lorem\"")[0]
+            val file = parse<XQueryModule>("declare ft-option using language \"en-IE\";")[0]
             validator.configuration = XQUERY_1_0
             validator.validate(file, this@XQueryFullTextSyntaxValidatorTest)
             assertThat(
                 report.toString(),
                 `is`(
                     """
-                    E XPST0003(6:14): W3C Specifications REC does not support XQuery and XPath Full Text 1.0 constructs.
+                    E XPST0003(8:17): W3C Specifications REC does not support XQuery and XPath Full Text 1.0 constructs.
                     """.trimIndent()
                 )
             )
@@ -136,7 +136,7 @@ class XQueryFullTextSyntaxValidatorTest :
         @Test
         @DisplayName("with Full Text")
         fun supported() {
-            val file = parse<XQueryModule>("title contains text \"lorem\"")[0]
+            val file = parse<XQueryModule>("declare ft-option using language \"en-IE\";")[0]
             validator.configuration = FULL_TEXT_1_0
             validator.validate(file, this@XQueryFullTextSyntaxValidatorTest)
             assertThat(report.toString(), `is`(""))
@@ -166,6 +166,35 @@ class XQueryFullTextSyntaxValidatorTest :
         @DisplayName("with Full Text")
         fun supported() {
             val file = parse<XQueryModule>("for \$x score \$y in \$z return \$x")[0]
+            validator.configuration = FULL_TEXT_1_0
+            validator.validate(file, this@XQueryFullTextSyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.1 with Full Text EBNF (51) FTContainsExpr")
+    internal inner class FTContainsExpr {
+        @Test
+        @DisplayName("without Full Text")
+        fun notSupported() {
+            val file = parse<XQueryModule>("title contains text \"lorem\"")[0]
+            validator.configuration = XQUERY_1_0
+            validator.validate(file, this@XQueryFullTextSyntaxValidatorTest)
+            assertThat(
+                report.toString(),
+                `is`(
+                    """
+                    E XPST0003(6:14): W3C Specifications REC does not support XQuery and XPath Full Text 1.0 constructs.
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("with Full Text")
+        fun supported() {
+            val file = parse<XQueryModule>("title contains text \"lorem\"")[0]
             validator.configuration = FULL_TEXT_1_0
             validator.validate(file, this@XQueryFullTextSyntaxValidatorTest)
             assertThat(report.toString(), `is`(""))

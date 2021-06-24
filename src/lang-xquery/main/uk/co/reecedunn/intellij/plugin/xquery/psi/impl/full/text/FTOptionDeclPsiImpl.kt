@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Reece H. Dunn
+ * Copyright (C) 2017, 2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,16 +18,11 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.intellij.lang.FullTextSpec
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTOptionDecl
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
-class FTOptionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), FTOptionDecl, VersionConformance {
-    override val requiresConformance: List<Version>
-        get() = listOf(FullTextSpec.REC_1_0_20110317)
-
+class FTOptionDeclPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), FTOptionDecl, XpmSyntaxValidationElement {
     override val conformanceElement: PsiElement
         get() = findChildByType(XQueryTokenType.K_FT_OPTION) ?: firstChild
 }

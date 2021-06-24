@@ -22,6 +22,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxErrorReporte
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires.XpmRequiresSpecificationVersion
+import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTOptionDecl
 
 object FullTextSyntaxValidator : XpmSyntaxValidator {
     override fun validate(
@@ -29,6 +30,7 @@ object FullTextSyntaxValidator : XpmSyntaxValidator {
         reporter: XpmSyntaxErrorReporter
     ): Unit = when (element) {
         is FTContainsExpr -> reporter.requires(element, FULL_TEXT_1_0)
+        is FTOptionDecl -> reporter.requires(element, FULL_TEXT_1_0)
         is FTScoreVar -> reporter.requires(element, FULL_TEXT_1_0)
         else -> {
         }
