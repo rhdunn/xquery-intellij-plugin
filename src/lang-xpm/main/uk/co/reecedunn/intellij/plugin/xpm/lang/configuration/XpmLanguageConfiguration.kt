@@ -24,10 +24,12 @@ data class XpmLanguageConfiguration(
     val product: XpmProductVersion,
     val implements: MutableMap<String, XpmSpecificationVersion> = mutableMapOf()
 ) {
-    constructor(language: XpmLanguageVersion, product: XpmProductVersion, vararg implements: XpmSpecificationVersion) :
-            this(language, product, implements.associateByTo(mutableMapOf()) { it.specification.id })
+    fun implements(specification: XpmSpecificationVersion) {
+        implements[specification.id] = specification
+    }
 
-    fun implements(spec: XpmSpecificationVersion) {
-        implements[spec.id] = spec
+    fun withImplementations(vararg specifications: XpmSpecificationVersion): XpmLanguageConfiguration {
+        specifications.associateByTo(implements) { it.specification.id }
+        return this
     }
 }

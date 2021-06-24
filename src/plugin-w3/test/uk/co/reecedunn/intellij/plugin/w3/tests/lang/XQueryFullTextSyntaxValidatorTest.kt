@@ -110,9 +110,8 @@ class XQueryFullTextSyntaxValidatorTest :
     private val XQUERY_1_0 = XpmLanguageConfiguration(XQuery.VERSION_1_0, W3CSpecifications.REC)
 
     @Suppress("PrivatePropertyName")
-    private val FULL_TEXT_1_0 = XpmLanguageConfiguration(
-        XQuery.VERSION_1_0, W3CSpecifications.REC, FullTextSpec.REC_1_0_20110317
-    )
+    private val FULL_TEXT_1_0 = XpmLanguageConfiguration(XQuery.VERSION_1_0, W3CSpecifications.REC)
+        .withImplementations(FullTextSpec.REC_1_0_20110317)
 
     @Nested
     @DisplayName("XQuery 3.1 with Full Text EBNF (24) FTOptionDecl")
