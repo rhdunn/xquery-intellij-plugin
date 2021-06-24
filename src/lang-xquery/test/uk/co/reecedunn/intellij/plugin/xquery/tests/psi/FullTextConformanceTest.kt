@@ -27,7 +27,6 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
 import uk.co.reecedunn.intellij.plugin.intellij.lang.FullTextSpec
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
-import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTContainsExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTScoreVar
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.full.text.FTOptionDecl
@@ -45,21 +44,6 @@ private class FullTextConformanceTest : ParserTestCase() {
     private val res = ResourceVirtualFileSystem(this::class.java.classLoader)
 
     fun parseResource(resource: String): XQueryModule = res.toPsiFile(resource, project)
-
-    @Test
-    @DisplayName("XQuery 3.1 with Full Text EBNF (51) FTContainsExpr")
-    fun testFTContainsExpr() {
-        val file = parseResource("tests/parser/full-text-1.0/FTWordsValue.xq")
-
-        val ftcontainsExprPsi = file.descendants().filterIsInstance<FTContainsExpr>().first()
-        val conformance = ftcontainsExprPsi as VersionConformance
-
-        assertThat(conformance.requiresConformance.size, `is`(1))
-        assertThat(conformance.requiresConformance[0], `is`(FullTextSpec.REC_1_0_20110317))
-
-        assertThat(conformance.conformanceElement, `is`(notNullValue()))
-        assertThat(conformance.conformanceElement.elementType, `is`(XPathTokenType.K_CONTAINS))
-    }
 
     @Test
     @DisplayName("XQuery 3.1 with Full Text EBNF (37) FTScoreVar")

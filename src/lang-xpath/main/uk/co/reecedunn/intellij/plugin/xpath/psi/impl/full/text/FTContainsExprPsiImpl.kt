@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017, 2020 Reece H. Dunn
+ * Copyright (C) 2017, 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,19 +18,24 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.full.text
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.intellij.lang.FullTextSpec
-import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
-import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTContainsExpr
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 
-class FTContainsExprPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), FTContainsExpr, VersionConformance {
+class FTContainsExprPsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node),
+    FTContainsExpr,
+    XpmSyntaxValidationElement {
+    // region XpmExpression
+
     override val expressionElement: PsiElement
         get() = findChildByType(XPathTokenType.K_CONTAINS)!!
 
-    override val requiresConformance: List<Version>
-        get() = listOf(FullTextSpec.REC_1_0_20110317)
+    // endregion
+    // region XpmSyntaxValidationElement
 
     override val conformanceElement: PsiElement
         get() = expressionElement
+
+    // endregion
 }

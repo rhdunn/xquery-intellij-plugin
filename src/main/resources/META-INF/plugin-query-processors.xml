@@ -62,6 +62,8 @@
 
     <syntaxValidator implementationClass="uk.co.reecedunn.intellij.plugin.w3.lang.XQuerySyntaxValidator" fieldName="INSTANCE"/>
 
+    <syntaxValidator implementationClass="uk.co.reecedunn.intellij.plugin.w3.lang.FullTextSyntaxValidator" fieldName="INSTANCE"/>
+
     <syntaxValidator implementationClass="uk.co.reecedunn.intellij.plugin.basex.lang.BaseXSyntaxValidator" fieldName="INSTANCE"/>
     <syntaxValidator implementationClass="uk.co.reecedunn.intellij.plugin.marklogic.lang.MarkLogicSyntaxValidator" fieldName="INSTANCE"/>
     <syntaxValidator implementationClass="uk.co.reecedunn.intellij.plugin.saxon.lang.SaxonSyntaxValidator" fieldName="INSTANCE"/>
