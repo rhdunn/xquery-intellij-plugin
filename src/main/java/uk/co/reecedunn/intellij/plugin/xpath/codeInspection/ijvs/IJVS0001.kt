@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018, 2020 Reece H. Dunn
+ * Copyright (C) 2016-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.saxon.lang.SaxonEE
 import uk.co.reecedunn.intellij.plugin.saxon.lang.SaxonHE
 import uk.co.reecedunn.intellij.plugin.saxon.lang.SaxonPE
 import uk.co.reecedunn.intellij.plugin.w3.lang.W3CSpecifications
+import uk.co.reecedunn.intellij.plugin.xpath.lang.FullTextSpec as FullText
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmLanguageVersion
 import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
 import uk.co.reecedunn.intellij.plugin.xpm.lang.configuration.XpmLanguageConfiguration
@@ -33,6 +34,8 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.diagnostics.XpmDiagnostics
 import uk.co.reecedunn.intellij.plugin.xpm.lang.diagnostics.XpmInspectionDiagnostics
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidation
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
+import uk.co.reecedunn.intellij.plugin.xquery.lang.ScriptingSpec as Scripting
+import uk.co.reecedunn.intellij.plugin.xquery.lang.UpdateFacilitySpec as UpdateFacility
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSettings
 import uk.co.reecedunn.intellij.plugin.basex.lang.BaseX as BaseXProduct
@@ -129,6 +132,33 @@ class IJVS0001 : Inspection("ijvs/IJVS0001.md", IJVS0001::class.java.classLoader
         else -> XQuery.VERSION_1_0
     }
 
+    private fun getLanguageConfiguration(
+        xquery: Specification,
+        product: Product,
+        version: Version
+    ): XpmLanguageConfiguration {
+        val configuration = XpmLanguageConfiguration(
+            getXQueryVersion(xquery),
+            getProductVersion(product, version)
+        )
+        if (product.conformsTo(version, FullTextSpec.REC_1_0_20110317)) {
+            configuration.implements(FullText.REC_1_0_20110317)
+        }
+        if (product.conformsTo(version, FullTextSpec.REC_3_0_20151124)) {
+            configuration.implements(FullText.REC_3_0_20151124)
+        }
+        if (product.conformsTo(version, UpdateFacilitySpec.REC_1_0_20110317)) {
+            configuration.implements(UpdateFacility.REC_1_0_20110317)
+        }
+        if (product.conformsTo(version, UpdateFacilitySpec.NOTE_3_0_20170124)) {
+            configuration.implements(UpdateFacility.NOTE_3_0_20170124)
+        }
+        if (product.conformsTo(version, ScriptingSpec.NOTE_1_0_20140918)) {
+            configuration.implements(Scripting.NOTE_1_0_20140918)
+        }
+        return configuration
+    }
+
     override fun checkFile(file: PsiFile, manager: InspectionManager, isOnTheFly: Boolean): Array<ProblemDescriptor>? {
         if (file !is XQueryModule) return null
 
@@ -181,10 +211,7 @@ class IJVS0001 : Inspection("ijvs/IJVS0001.md", IJVS0001::class.java.classLoader
         }
 
         val validator = XpmSyntaxValidation()
-        validator.configuration = XpmLanguageConfiguration(
-            getXQueryVersion(xquery),
-            getProductVersion(product, productVersion)
-        )
+        validator.configuration = getLanguageConfiguration(xquery, product, productVersion)
         validator.validate(file, diagnostics)
 
         return diagnostics.toTypedArray()

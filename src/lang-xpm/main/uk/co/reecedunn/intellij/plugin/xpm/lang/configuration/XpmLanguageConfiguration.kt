@@ -22,8 +22,12 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmSpecificationVersion
 data class XpmLanguageConfiguration(
     val language: XpmLanguageVersion,
     val product: XpmProductVersion,
-    val implements: Map<String, XpmSpecificationVersion> = mapOf()
+    val implements: MutableMap<String, XpmSpecificationVersion> = mutableMapOf()
 ) {
     constructor(language: XpmLanguageVersion, product: XpmProductVersion, vararg implements: XpmSpecificationVersion) :
-            this(language, product, implements.associateBy { it.specification.id })
+            this(language, product, implements.associateByTo(mutableMapOf()) { it.specification.id })
+
+    fun implements(spec: XpmSpecificationVersion) {
+        implements[spec.id] = spec
+    }
 }
