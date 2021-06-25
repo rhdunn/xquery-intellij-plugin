@@ -19,9 +19,11 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
 import uk.co.reecedunn.intellij.plugin.xpm.lang.configuration.XpmLanguageConfiguration
 import uk.co.reecedunn.intellij.plugin.xpm.resources.XpmBundle
 
-open class XpmRequiresProductVersion(private val requires: XpmProductVersion) : XpmRequiresConformanceTo {
+open class XpmRequiresProductVersion(
+    private val from: XpmProductVersion
+) : XpmRequiresConformanceTo {
     override fun conformanceTo(configuration: XpmLanguageConfiguration): Boolean {
-        return configuration.product.let { it.product === requires.product && it >= requires }
+        return configuration.product.let { it.product === from.product && it >= from }
     }
 
     override fun message(
@@ -37,5 +39,5 @@ open class XpmRequiresProductVersion(private val requires: XpmProductVersion) : 
         else -> throw UnsupportedOperationException()
     }
 
-    override fun toString(): String = requires.toString()
+    override fun toString(): String = from.toString()
 }
