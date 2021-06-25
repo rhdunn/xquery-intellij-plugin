@@ -111,8 +111,8 @@ object SaxonSyntaxValidator : XpmSyntaxValidator {
     }
 
     private val SAXON_PE_9_8 = XpmRequiresAny(
-        XpmRequiresProductVersion(SaxonPE.VERSION_9_8),
-        XpmRequiresProductVersion(SaxonEE.VERSION_9_8)
+        XpmRequiresProductVersion.since(SaxonPE.VERSION_9_8),
+        XpmRequiresProductVersion.since(SaxonEE.VERSION_9_8)
     )
 
     private val SAXON_PE_9_8_TO_9_9 = XpmRequiresAny(
@@ -121,8 +121,8 @@ object SaxonSyntaxValidator : XpmSyntaxValidator {
     )
 
     private val SAXON_PE_9_9 = XpmRequiresAny(
-        XpmRequiresProductVersion(SaxonPE.VERSION_9_9),
-        XpmRequiresProductVersion(SaxonEE.VERSION_9_9)
+        XpmRequiresProductVersion.since(SaxonPE.VERSION_9_9),
+        XpmRequiresProductVersion.since(SaxonEE.VERSION_9_9)
     )
 
     private val SAXON_PE_9_9_ONLY = XpmRequiresAny(
@@ -131,7 +131,7 @@ object SaxonSyntaxValidator : XpmSyntaxValidator {
     )
 
     private val SAXON_PE_10 = XpmRequiresAny(
-        XpmRequiresProductVersion(SaxonPE.VERSION_10_0),
-        XpmRequiresProductVersion(SaxonEE.VERSION_10_0)
+        XpmRequiresProductVersion.since(SaxonPE.VERSION_10_0),
+        XpmRequiresProductVersion.since(SaxonEE.VERSION_10_0)
     )
 }

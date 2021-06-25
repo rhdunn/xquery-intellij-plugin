@@ -19,7 +19,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
 import uk.co.reecedunn.intellij.plugin.xpm.lang.configuration.XpmLanguageConfiguration
 import uk.co.reecedunn.intellij.plugin.xpm.resources.XpmBundle
 
-open class XpmRequiresProductVersion(
+open class XpmRequiresProductVersion protected constructor(
     private val from: XpmProductVersion
 ) : XpmRequiresConformanceTo {
     override fun conformanceTo(configuration: XpmLanguageConfiguration): Boolean {
@@ -40,4 +40,8 @@ open class XpmRequiresProductVersion(
     }
 
     override fun toString(): String = from.toString()
+
+    companion object {
+        fun since(version: XpmProductVersion): XpmRequiresConformanceTo = XpmRequiresProductVersion(version)
+    }
 }

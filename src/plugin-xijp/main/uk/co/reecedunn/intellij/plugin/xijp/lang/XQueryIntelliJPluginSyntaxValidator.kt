@@ -58,6 +58,6 @@ object XQueryIntelliJPluginSyntaxValidator : XpmSyntaxValidator {
         }
     }
 
-    private val XIJP_1_3 = XpmRequiresProductVersion(XQueryIntelliJPlugin.VERSION_1_3)
-    private val XIJP_1_4 = XpmRequiresProductVersion(XQueryIntelliJPlugin.VERSION_1_4)
+    private val XIJP_1_3 = XpmRequiresProductVersion.since(XQueryIntelliJPlugin.VERSION_1_3)
+    private val XIJP_1_4 = XpmRequiresProductVersion.since(XQueryIntelliJPlugin.VERSION_1_4)
 }

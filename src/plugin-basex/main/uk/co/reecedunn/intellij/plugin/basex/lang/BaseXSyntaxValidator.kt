@@ -54,9 +54,10 @@ object BaseXSyntaxValidator : XpmSyntaxValidator {
         }
     }
 
-    private val BASEX_6_1 = XpmRequiresProductVersion(BaseX.VERSION_6_1)
-    private val BASEX_7_8 = XpmRequiresProductVersion(BaseX.VERSION_7_8)
-    private val BASEX_8_4 = XpmRequiresProductVersion(BaseX.VERSION_8_4)
-    private val BASEX_8_5 = XpmRequiresProductVersion(BaseX.VERSION_8_5)
-    private val BASEX_9_1 = XpmRequiresProductVersion(BaseX.VERSION_9_1)
+    private val BASEX_6_1 = XpmRequiresProductVersion.since(BaseX.VERSION_6_1)
+    private val BASEX_7_8 = XpmRequiresProductVersion.since(BaseX.VERSION_7_8)
+    private val BASEX_8_4 = XpmRequiresProductVersion.since(BaseX.VERSION_8_4)
+    private val BASEX_8_5 = XpmRequiresProductVersion.since(BaseX.VERSION_8_5)
+    private val BASEX_9_1 = XpmRequiresProductVersion.since(BaseX.VERSION_9_1)
 }
+
