@@ -20,16 +20,13 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.configuration.XpmLanguageConfigu
 import uk.co.reecedunn.intellij.plugin.xpm.resources.XpmBundle
 
 open class XpmRequiresProductVersion protected constructor(
-    private val from: XpmProductVersion,
+    private val from: XpmProductVersion?,
     private val to: XpmProductVersion?
 ) : XpmRequiresConformanceTo {
-    override fun conformanceTo(configuration: XpmLanguageConfiguration): Boolean {
-        return configuration.product.let { it.product === from.product && compareWith(it) }
-    }
-
-    private fun compareWith(base: XpmProductVersion): Boolean = when {
-        to == null -> base >= from
-        else -> base >= from && base <= to
+    override fun conformanceTo(configuration: XpmLanguageConfiguration): Boolean = when {
+        from == null -> configuration.product.let { it.product === to!!.product && it < to!! }
+        to == null -> configuration.product.let { it.product === from.product && it >= from }
+        else -> configuration.product.let { it.product === from.product && it >= from && it <= to }
     }
 
     override fun message(
@@ -46,12 +43,15 @@ open class XpmRequiresProductVersion protected constructor(
     }
 
     override fun toString(): String = when {
+        from == null -> "${to!!.product.presentation.presentableText} < ${to.id}"
         to == null -> from.toString()
         else -> "${from.product.presentation.presentableText} ${from.id}-${to.id}"
     }
 
     companion object {
         fun since(version: XpmProductVersion): XpmRequiresConformanceTo = XpmRequiresProductVersion(version, null)
+
+        fun until(version: XpmProductVersion): XpmRequiresConformanceTo = XpmRequiresProductVersion(null, version)
 
         fun between(from: XpmProductVersion, to: XpmProductVersion): XpmRequiresConformanceTo {
             return XpmRequiresProductVersion(from, to)
