@@ -20,7 +20,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires.XpmRequiresC
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires.XpmRequiresLanguageVersion
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires.XpmRequiresProductVersion
 
-class XpmRequiresMarkLogic(requires: XpmProductVersion) : XpmRequiresProductVersion(requires) {
+class XpmRequiresMarkLogic(requires: XpmProductVersion) : XpmRequiresProductVersion(from = requires, to = null) {
     override fun or(requires: XpmRequiresConformanceTo): XpmRequiresConformanceTo = when (requires) {
         is XpmRequiresLanguageVersion -> XpmRequiresLanguageOrMarkLogic(requires, this)
         else -> throw UnsupportedOperationException()
