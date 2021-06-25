@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,6 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationEl
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidator
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires.XpmRequiresAny
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires.XpmRequiresProductVersion
-import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.requires.XpmRequiresProductVersionRange
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryItemTypeDecl
 
 object SaxonSyntaxValidator : XpmSyntaxValidator {
@@ -116,8 +115,8 @@ object SaxonSyntaxValidator : XpmSyntaxValidator {
     )
 
     private val SAXON_PE_9_8_TO_9_9 = XpmRequiresAny(
-        XpmRequiresProductVersionRange(SaxonPE.VERSION_9_8, SaxonPE.VERSION_9_9),
-        XpmRequiresProductVersionRange(SaxonEE.VERSION_9_8, SaxonEE.VERSION_9_9)
+        XpmRequiresProductVersion.between(SaxonPE.VERSION_9_8, SaxonPE.VERSION_9_9),
+        XpmRequiresProductVersion.between(SaxonEE.VERSION_9_8, SaxonEE.VERSION_9_9)
     )
 
     private val SAXON_PE_9_9 = XpmRequiresAny(
@@ -126,8 +125,8 @@ object SaxonSyntaxValidator : XpmSyntaxValidator {
     )
 
     private val SAXON_PE_9_9_ONLY = XpmRequiresAny(
-        XpmRequiresProductVersionRange(SaxonPE.VERSION_9_9, SaxonPE.VERSION_9_9),
-        XpmRequiresProductVersionRange(SaxonEE.VERSION_9_9, SaxonEE.VERSION_9_9)
+        XpmRequiresProductVersion.between(SaxonPE.VERSION_9_9, SaxonPE.VERSION_9_9),
+        XpmRequiresProductVersion.between(SaxonEE.VERSION_9_9, SaxonEE.VERSION_9_9)
     )
 
     private val SAXON_PE_10 = XpmRequiresAny(

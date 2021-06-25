@@ -43,5 +43,9 @@ open class XpmRequiresProductVersion protected constructor(
 
     companion object {
         fun since(version: XpmProductVersion): XpmRequiresConformanceTo = XpmRequiresProductVersion(version)
+
+        fun between(from: XpmProductVersion, to: XpmProductVersion): XpmRequiresConformanceTo {
+            return XpmRequiresProductVersionRange(from, to)
+        }
     }
 }

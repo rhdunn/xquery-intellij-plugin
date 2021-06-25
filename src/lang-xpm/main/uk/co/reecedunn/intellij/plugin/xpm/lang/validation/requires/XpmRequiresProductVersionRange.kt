@@ -19,7 +19,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.XpmProductVersion
 import uk.co.reecedunn.intellij.plugin.xpm.lang.configuration.XpmLanguageConfiguration
 import uk.co.reecedunn.intellij.plugin.xpm.resources.XpmBundle
 
-class XpmRequiresProductVersionRange(
+class XpmRequiresProductVersionRange internal constructor(
     private val from: XpmProductVersion,
     private val to: XpmProductVersion
 ) : XpmRequiresConformanceTo {
