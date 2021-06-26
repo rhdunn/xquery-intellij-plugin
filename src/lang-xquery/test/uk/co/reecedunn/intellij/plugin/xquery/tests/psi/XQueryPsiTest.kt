@@ -3411,7 +3411,7 @@ private class XQueryPsiTest : ParserTestCase() {
                         assertThat(bindings.size, `is`(1))
 
                         val arg = bindings[0]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("arg"))
+                        assertThat(op_qname_presentation(arg.variableName!!), `is`("value"))
                         assertThat(arg.variableType?.typeName, `is`("xs:string?"))
                         assertThat(arg.variableExpression, sameInstance(f.sourceExpression))
                     }
@@ -3426,7 +3426,7 @@ private class XQueryPsiTest : ParserTestCase() {
                         assertThat(bindings.size, `is`(1))
 
                         val arg = bindings[0]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("arg"))
+                        assertThat(op_qname_presentation(arg.variableName!!), `is`("value"))
                         assertThat(arg.variableType?.typeName, `is`("xs:string?"))
                         assertThat(arg.variableExpression, sameInstance(f.sourceExpression))
                     }
@@ -3445,17 +3445,17 @@ private class XQueryPsiTest : ParserTestCase() {
                         assertThat(bindings.size, `is`(3))
 
                         var arg = bindings[0]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("arg1"))
+                        assertThat(op_qname_presentation(arg.variableName!!), `is`("value1"))
                         assertThat(arg.variableType?.typeName, `is`("xs:anyAtomicType?"))
                         assertThat(arg.variableExpression, sameInstance(f.positionalArguments[0]))
 
                         arg = bindings[1]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("arg2"))
+                        assertThat(op_qname_presentation(arg.variableName!!), `is`("value2"))
                         assertThat(arg.variableType?.typeName, `is`("xs:anyAtomicType?"))
                         assertThat(arg.variableExpression, sameInstance(f.positionalArguments[1]))
 
                         arg = bindings[2]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("args"))
+                        assertThat(op_qname_presentation(arg.variableName!!), `is`("values"))
                         assertThat(arg.variableType?.typeName, `is`("xs:anyAtomicType?"))
                         assertThat(arg.variableExpression, sameInstance(XpmEmptyExpression))
                     }
@@ -3470,17 +3470,17 @@ private class XQueryPsiTest : ParserTestCase() {
                         assertThat(bindings.size, `is`(3))
 
                         var arg = bindings[0]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("arg1"))
+                        assertThat(op_qname_presentation(arg.variableName!!), `is`("value1"))
                         assertThat(arg.variableType?.typeName, `is`("xs:anyAtomicType?"))
                         assertThat(arg.variableExpression, sameInstance(f.positionalArguments[0]))
 
                         arg = bindings[1]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("arg2"))
+                        assertThat(op_qname_presentation(arg.variableName!!), `is`("value2"))
                         assertThat(arg.variableType?.typeName, `is`("xs:anyAtomicType?"))
                         assertThat(arg.variableExpression, sameInstance(f.positionalArguments[1]))
 
                         arg = bindings[2]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("args"))
+                        assertThat(op_qname_presentation(arg.variableName!!), `is`("values"))
                         assertThat(arg.variableType?.typeName, `is`("xs:anyAtomicType?"))
                         assertThat(arg.variableExpression, sameInstance(f.positionalArguments[2]))
                     }
@@ -3495,17 +3495,17 @@ private class XQueryPsiTest : ParserTestCase() {
                         assertThat(bindings.size, `is`(3))
 
                         var arg = bindings[0]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("arg1"))
+                        assertThat(op_qname_presentation(arg.variableName!!), `is`("value1"))
                         assertThat(arg.variableType?.typeName, `is`("xs:anyAtomicType?"))
                         assertThat(arg.variableExpression, sameInstance(f.positionalArguments[0]))
 
                         arg = bindings[1]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("arg2"))
+                        assertThat(op_qname_presentation(arg.variableName!!), `is`("value2"))
                         assertThat(arg.variableType?.typeName, `is`("xs:anyAtomicType?"))
                         assertThat(arg.variableExpression, sameInstance(f.positionalArguments[1]))
 
                         arg = bindings[2]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("args"))
+                        assertThat(op_qname_presentation(arg.variableName!!), `is`("values"))
                         assertThat(arg.variableType?.typeName, `is`("xs:anyAtomicType?"))
 
                         val rest = (arg.variableExpression as XpmConcatenatingExpression).expressions.toList()
@@ -3586,7 +3586,7 @@ private class XQueryPsiTest : ParserTestCase() {
                         assertThat(bindings.size, `is`(1))
 
                         val arg = bindings[0]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("arg"))
+                        assertThat(op_qname_presentation(arg.variableName!!), `is`("value"))
                         assertThat(arg.variableType?.typeName, `is`("xs:numeric?"))
                         assertThat(arg.variableExpression, sameInstance(f.sourceExpression))
                     }

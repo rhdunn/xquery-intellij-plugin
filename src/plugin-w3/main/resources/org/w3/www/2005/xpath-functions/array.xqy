@@ -23,7 +23,7 @@ declare %a:since("xpath-functions", "3.1-20170321") function array:append(
 
 declare %a:since("xpath-functions", "3.1-20170321") function array:filter(
   $array as array(*),
-  $function as function(item()*) as xs:boolean
+  $predicate as function(item()*) as xs:boolean
 ) as array(*) external;
 
 declare %a:since("xpath-functions", "3.1-20170321") function array:flatten(
@@ -33,13 +33,13 @@ declare %a:since("xpath-functions", "3.1-20170321") function array:flatten(
 declare %a:since("xpath-functions", "3.1-20170321") function array:fold-left(
   $array as array(*),
   $zero as item()*,
-  $function as function(item()*, item()*) as item()*
+  $action as function(item()*, item()*) as item()*
 ) as item()* external;
 
 declare %a:since("xpath-functions", "3.1-20170321") function array:fold-right(
   $array as array(*),
   $zero as item()*,
-  $function as function(item()*, item()*) as item()*
+  $action as function(item()*, item()*) as item()*
 ) as item()* external;
 
 declare %a:since("xpath-functions", "3.1-20170321") function array:for-each(
@@ -50,7 +50,16 @@ declare %a:since("xpath-functions", "3.1-20170321") function array:for-each(
 declare %a:since("xpath-functions", "3.1-20170321") function array:for-each-pair(
   $array1 as array(*),
   $array2 as array(*),
-  $function as function(item()*, item()*) as item()*
+  $action as function(item()*, item()*) as item()*
+) as array(*) external;
+
+declare %a:since("xpath-functions", "4.0-20210113") function array:from-sequence(
+  $input as item()*
+) as array(*) external;
+
+declare %a:since("xpath-functions", "4.0-20210113") function array:from-sequence(
+  $input as item()*,
+  $action as function(item()) as item()*
 ) as array(*) external;
 
 declare %a:since("xpath-functions", "3.1-20170321") function array:get(

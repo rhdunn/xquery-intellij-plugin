@@ -16,15 +16,15 @@ declare namespace o = "http://reecedunn.co.uk/xquery/options";
 declare option o:requires "xpath-functions/3.0";
 
 declare %a:since("xpath-functions", "3.0-20140408") function math:acos(
-  $arg as xs:double?
+  $value as xs:double?
 ) as xs:double? external;
 
 declare %a:since("xpath-functions", "3.0-20140408") function math:asin(
-  $arg as xs:double?
+  $value as xs:double?
 ) as xs:double? external;
 
 declare %a:since("xpath-functions", "3.0-20140408") function math:atan(
-  $arg as xs:double?
+  $value as xs:double?
 ) as xs:double? external;
 
 declare %a:since("xpath-functions", "3.0-20140408") function math:atan2(
@@ -33,23 +33,23 @@ declare %a:since("xpath-functions", "3.0-20140408") function math:atan2(
 ) as xs:double external;
 
 declare %a:since("xpath-functions", "3.0-20140408") function math:cos(
-  $θ as xs:double?
+  $radians as xs:double?
 ) as xs:double? external;
 
 declare %a:since("xpath-functions", "3.0-20140408") function math:exp(
-  $arg as xs:double?
+  $value as xs:double?
 ) as xs:double? external;
 
 declare %a:since("xpath-functions", "3.0-20140408") function math:exp10(
-  $arg as xs:double?
+  $value as xs:double?
 ) as xs:double? external;
 
 declare %a:since("xpath-functions", "3.0-20140408") function math:log(
-  $arg as xs:double?
+  $value as xs:double?
 ) as xs:double? external;
 
 declare %a:since("xpath-functions", "3.0-20140408") function math:log10(
-  $arg as xs:double?
+  $value as xs:double?
 ) as xs:double? external;
 
 declare %a:since("xpath-functions", "3.0-20140408") function math:pi() as xs:double external;
@@ -60,29 +60,29 @@ declare %a:since("xpath-functions", "3.0-20140408") function math:pow(
 ) as xs:double? external;
 
 declare %a:since("xpath-functions", "3.0-20140408") function math:sin(
-  $θ as xs:double?
+  $radians as xs:double?
 ) as xs:double? external;
 
 declare %a:since("xpath-functions", "3.0-20140408") function math:sqrt(
-  $arg as xs:double?
+  $value as xs:double?
 ) as xs:double? external;
 
 declare %a:since("xpath-functions", "3.0-20140408") function math:tan(
-  $θ as xs:double?
+  $radians as xs:double?
 ) as xs:double? external;
 
 declare %a:since("basex", "7.0") function math:e() as xs:double external;
 
 declare %a:since("basex", "7.0") function math:sinh(
-  $arg as xs:double?
+  $value as xs:double?
 ) as xs:double? external;
 
 declare %a:since("basex", "7.0") function math:cosh(
-  $arg as xs:double?
+  $value as xs:double?
 ) as xs:double? external;
 
 declare %a:since("basex", "7.0") function math:tanh(
-  $arg as xs:double?
+  $value as xs:double?
 ) as xs:double? external;
 
 declare %a:restrict-until("$string", "basex", "9.1", "xs:string")

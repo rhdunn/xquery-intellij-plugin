@@ -62,7 +62,7 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 assertThat(info.getMethodName(), `is`("abs"))
 
                 assertThat(info.paramNames.size, `is`(1))
-                assertThat(info.paramNames[0], `is`("arg"))
+                assertThat(info.paramNames[0], `is`("value"))
             }
 
             @Test
@@ -76,7 +76,7 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 assertThat(info.getMethodName(), `is`("abs"))
 
                 assertThat(info.paramNames.size, `is`(1))
-                assertThat(info.paramNames[0], `is`("arg"))
+                assertThat(info.paramNames[0], `is`("value"))
             }
 
             @Test
@@ -90,7 +90,7 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 assertThat(info.getMethodName(), `is`("abs"))
 
                 assertThat(info.paramNames.size, `is`(1))
-                assertThat(info.paramNames[0], `is`("arg"))
+                assertThat(info.paramNames[0], `is`("value"))
             }
         }
 
@@ -117,7 +117,7 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 assertThat(info.getMethodName(), `is`("abs"))
 
                 assertThat(info.paramNames.size, `is`(1))
-                assertThat(info.paramNames[0], `is`("arg"))
+                assertThat(info.paramNames[0], `is`("value"))
             }
 
             @Test
@@ -131,7 +131,7 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 assertThat(info.getMethodName(), `is`("abs"))
 
                 assertThat(info.paramNames.size, `is`(1))
-                assertThat(info.paramNames[0], `is`("arg"))
+                assertThat(info.paramNames[0], `is`("value"))
             }
 
             @Test
@@ -145,7 +145,7 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 assertThat(info.getMethodName(), `is`("abs"))
 
                 assertThat(info.paramNames.size, `is`(1))
-                assertThat(info.paramNames[0], `is`("arg"))
+                assertThat(info.paramNames[0], `is`("value"))
             }
 
             @Test
@@ -159,7 +159,7 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
                 assertThat(info.getMethodName(), `is`("abs"))
 
                 assertThat(info.paramNames.size, `is`(1))
-                assertThat(info.paramNames[0], `is`("arg"))
+                assertThat(info.paramNames[0], `is`("value"))
             }
         }
 
