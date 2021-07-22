@@ -1,4 +1,5 @@
 ext.intellij_version = project.property('idea_since_build')
+ext.intellij_type = project.property('idea_type')
 
 version = ext.intellij_version
 
@@ -48,7 +49,7 @@ if (ext.intellij_version >= 212) {
 
 sourceSets.main.java.srcDirs += 'src/microservices/api'
 
-if (intellij.type == 'IU') {
+if (ext.intellij_type == 'IU') {
     if (ext.intellij_version == 193) {
         sourceSets.main.java.srcDirs += 'src/microservices/193'
     } else if (ext.intellij_version == 201) {

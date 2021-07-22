@@ -34,6 +34,7 @@ buildscript {
 
     ext.idea_version = System.getenv("IDEA_VERSION") ?: '2021.1'
     ext.idea_since_build = ext.since_from_version(ext.idea_version).toInteger()
+    ext.idea_type = System.getenv("IDEA_TYPE") ?: 'IC'
 
     if (ext.idea_since_build >= 203) {
         ext.kotlin_version = "1.4.32"
@@ -93,6 +94,7 @@ configure(allprojects - project(':src')) {
 
     intellij {
         version = idea_version
+        type = idea_type
     }
 
     runIde {
@@ -158,7 +160,7 @@ intellij.plugins = [
 if (idea_since_build >= 203) {
     compileKotlin.kotlinOptions.useIR = true
 }
-if (intellij.type == 'IU') {
+if (idea_type == 'IU') {
     if (idea_since_build >= 193) {
         sourceSets.main.resources.srcDirs += 'src/main/resources-microservices/193'
     } else {
@@ -183,7 +185,7 @@ tasks {
     buildSearchableOptions.enabled = true
 }
 
-println "Building for IntelliJ version '${idea_version}', since build '${idea_since_build}'"
+println "Building for IntelliJ ${idea_type} version '${idea_version}', since build '${idea_since_build}'"
 
 intellij.updateSinceUntilBuild = true
 intellij.sameSinceUntilBuild = true // 'until' is an open 'since' build
