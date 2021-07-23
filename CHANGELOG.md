@@ -2,53 +2,10 @@
 
 ## 1.10.0 - (In Development)
 
-Inlay Parameters:
-
-1. Don't display inlay parameter hints when a `UnaryLookup` or `Lookup` name matches the parameter name.
-1. Don't display inlay parameter hints when the name at the end of a `SimpleMapExpr` matches the parameter name.
-
-Syntax Highlighting:
-
-1. Default to the XML entity reference colours for entity references in XQuery.
-1. Workaround [IDEA-234709](https://youtrack.jetbrains.com/issue/IDEA-234709) to correctly highlight XML namespace
-   prefices when using the Darcula theme.
-
-XPath:
-
-1. Fix parsing entity references before closing string quotes, such as `'&amp;'`.
-
-References and Resolve:
-
-1. Fix locating the function name when the function declaration contains a compatibility annotation.
-1. Fix locating the variable name when the variable declaration contains a compatibility annotation.
-
-Code Folding:
-
-1. Fix detecting empty enclosed expressions that contain an XQuery comment.
-1. Fix the code folding placeholder text for some enclosed expressions.
-
-Code Completion:
-
-1. Fix a crash when autocompleting in a `StringLiteral` from an arrow function call.
-
-Syntax Validation:
-
-1. Don't warn if using an `InlineFunctionExpr` with parameters when targetting XQuery 3.0 or 3.1.
-
-XRay Tests:
-
-1. Fix running the XRay tests on IntelliJ 2019.3 due to a missing "Console" message string.
-1. Fix various crashes when parsing XRay test result output.
-1. Fix test suites and test suite statistics for module-level errors in the HTML and XUnit XML output formats.
-1. Fix serializing XML expected/actual values in Text, HTML, and XRay XML output formats.
-
-MarkLogic:
-
-1. Display the MarkLogic vendor code in query errors when no standard code is provided.
-
 ## 2021
 
 *  [1.9.0 - 2021-03-31](docs/_posts/2021-03-31-release-1.9.0.md)
+*  [1.9.1 - 2021-07-23](docs/_posts/2021-07-23-release-1.9.1.md)
 
 ## 2020
 
