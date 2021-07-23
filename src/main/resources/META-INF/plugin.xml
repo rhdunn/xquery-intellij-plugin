@@ -71,52 +71,6 @@
   ]]></description>
 
   <change-notes><![CDATA[
-    <p>Inlay Parameters:</p>
-    <ol>
-      <li>Don't display inlay parameter hints when a <code>UnaryLookup</code> or <code>Lookup</code> name matches the parameter name.</li>
-      <li>Don't display inlay parameter hints when the name at the end of a <code>SimpleMapExpr</code> matches the parameter name.</li>
-    </ol>
-    <p>Syntax Highlighting:</p>
-    <ol>
-      <li>Default to the XML entity reference colours for entity references in XQuery.</li>
-      <li>
-        Workaround <a href="https://youtrack.jetbrains.com/issue/IDEA-234709">IDEA-234709</a> to correctly highlight
-        XML namespace prefices when using the Darcula theme.
-      </li>
-    </ol>
-    <p>XPath:</p>
-    <ol>
-      <li>Fix parsing entity references before closing string quotes, such as <code>'&amp;amp;'</code>.</li>
-    </ol>
-    <p>References and Resolve:</p>
-    <ol>
-      <li>Fix locating the function name when the function declaration contains a compatibility annotation.</li>
-      <li>Fix locating the variable name when the variable declaration contains a compatibility annotation.</li>
-    </ol>
-    <p>Code Folding:</p>
-    <ol>
-      <li>Fix detecting empty enclosed expressions that contain an XQuery comment.</li>
-      <li>Fix the code folding placeholder text for some enclosed expressions.</li>
-    </ol>
-    <p>Code Completion:</p>
-    <ol>
-      <li>Fix a crash when autocompleting in a <code>StringLiteral</code> from an arrow function call.</li>
-    </ol>
-    <p>Syntax Validation:</p>
-    <ol>
-      <li>Don't warn if using an <code>InlineFunctionExpr</code> with parameters when targetting XQuery 3.0 or 3.1.</li>
-    </ol>
-    <p>XRay Tests:</p>
-    <ol>
-      <li>Fix running the XRay tests on IntelliJ 2019.3 due to a missing "Console" message string.</li>
-      <li>Fix various crashes when parsing XRay test result output.</li>
-      <li>Fix test suites and test suite statistics for module-level errors in the HTML and XUnit XML output formats.</li>
-      <li>Fix serializing XML expected/actual values in Text, HTML, and XRay XML output formats.</li>
-    </ol>
-    <p>MarkLogic:</p>
-    <ol>
-      <li>Display the MarkLogic vendor code in query errors when no standard code is provided.</li>
-    </ol>
   ]]></change-notes>
 
   <idea-version since-build="161"/>
