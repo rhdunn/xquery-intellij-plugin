@@ -51,7 +51,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
     @Suppress("UsePropertyAccessSyntax")
     fun defaultValues() {
         val factory = XPathConfigurationType().configurationFactories[0]
-        val settings = factory.createTemplateConfiguration(myProject) as QueryProcessorRunConfiguration
+        val settings = factory.createTemplateConfiguration(project) as QueryProcessorRunConfiguration
         assertThat(settings.language, `is`(XPath))
 
         assertThat(settings.processorId, `is`(nullValue()))
@@ -101,7 +101,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
         </configuration>""".replace("\n[ ]*".toRegex(), "")
 
         val factory = XPathConfigurationType().configurationFactories[0]
-        val settings = factory.createTemplateConfiguration(myProject) as QueryProcessorRunConfiguration
+        val settings = factory.createTemplateConfiguration(project) as QueryProcessorRunConfiguration
 
         settings.processorId = 1
         assertThat(settings.processorId, `is`(1))
@@ -128,7 +128,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
         </configuration>""".replace("\n[ ]*".toRegex(), "")
 
         val factory = XPathConfigurationType().configurationFactories[0]
-        val settings = factory.createTemplateConfiguration(myProject) as QueryProcessorRunConfiguration
+        val settings = factory.createTemplateConfiguration(project) as QueryProcessorRunConfiguration
 
         settings.rdfOutputFormat = Turtle
         assertThat(settings.rdfOutputFormat, `is`(Turtle))
@@ -155,7 +155,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
         </configuration>""".replace("\n[ ]*".toRegex(), "")
 
         val factory = XPathConfigurationType().configurationFactories[0]
-        val settings = factory.createTemplateConfiguration(myProject) as QueryProcessorRunConfiguration
+        val settings = factory.createTemplateConfiguration(project) as QueryProcessorRunConfiguration
 
         settings.reformatResults = true
         assertThat(settings.reformatResults, `is`(true))
@@ -182,7 +182,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
         </configuration>""".replace("\n[ ]*".toRegex(), "")
 
         val factory = XPathConfigurationType().configurationFactories[0]
-        val settings = factory.createTemplateConfiguration(myProject) as QueryProcessorRunConfiguration
+        val settings = factory.createTemplateConfiguration(project) as QueryProcessorRunConfiguration
 
         settings.updating = true
         assertThat(settings.updating, `is`(true))
@@ -209,7 +209,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
         </configuration>""".replace("\n[ ]*".toRegex(), "")
 
         val factory = XPathConfigurationType().configurationFactories[0]
-        val settings = factory.createTemplateConfiguration(myProject) as QueryProcessorRunConfiguration
+        val settings = factory.createTemplateConfiguration(project) as QueryProcessorRunConfiguration
 
         settings.xpathSubset = XPathSubset.XsltPattern
         assertThat(settings.xpathSubset, `is`(XPathSubset.XsltPattern))
@@ -236,7 +236,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
         </configuration>""".replace("\n[ ]*".toRegex(), "")
 
         val factory = XPathConfigurationType().configurationFactories[0]
-        val settings = factory.createTemplateConfiguration(myProject) as QueryProcessorRunConfiguration
+        val settings = factory.createTemplateConfiguration(project) as QueryProcessorRunConfiguration
 
         settings.server = "test-server"
         assertThat(settings.server, `is`("test-server"))
@@ -263,7 +263,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
         </configuration>""".replace("\n[ ]*".toRegex(), "")
 
         val factory = XPathConfigurationType().configurationFactories[0]
-        val settings = factory.createTemplateConfiguration(myProject) as QueryProcessorRunConfiguration
+        val settings = factory.createTemplateConfiguration(project) as QueryProcessorRunConfiguration
 
         settings.database = "test-database"
         assertThat(settings.database, `is`("test-database"))
@@ -290,7 +290,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
         </configuration>""".replace("\n[ ]*".toRegex(), "")
 
         val factory = XPathConfigurationType().configurationFactories[0]
-        val settings = factory.createTemplateConfiguration(myProject) as QueryProcessorRunConfiguration
+        val settings = factory.createTemplateConfiguration(project) as QueryProcessorRunConfiguration
 
         settings.modulePath = "/test/path"
         assertThat(settings.modulePath, `is`("/test/path"))
@@ -317,7 +317,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
         </configuration>""".replace("\n[ ]*".toRegex(), "")
 
         val factory = XPathConfigurationType().configurationFactories[0]
-        val settings = factory.createTemplateConfiguration(myProject) as QueryProcessorRunConfiguration
+        val settings = factory.createTemplateConfiguration(project) as QueryProcessorRunConfiguration
 
         settings.scriptSource = QueryProcessorDataSourceType.ActiveEditorFile
         assertThat(settings.scriptSource, `is`(QueryProcessorDataSourceType.ActiveEditorFile))
@@ -344,7 +344,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
         </configuration>""".replace("\n[ ]*".toRegex(), "")
 
         val factory = XPathConfigurationType().configurationFactories[0]
-        val settings = factory.createTemplateConfiguration(myProject) as QueryProcessorRunConfiguration
+        val settings = factory.createTemplateConfiguration(project) as QueryProcessorRunConfiguration
 
         settings.scriptFilePath = "/test/script.xqy"
         assertThat(settings.scriptFilePath, `is`("/test/script.xqy"))
@@ -371,7 +371,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
         </configuration>""".replace("\n[ ]*".toRegex(), "")
 
         val factory = XPathConfigurationType().configurationFactories[0]
-        val settings = factory.createTemplateConfiguration(myProject) as QueryProcessorRunConfiguration
+        val settings = factory.createTemplateConfiguration(project) as QueryProcessorRunConfiguration
 
         settings.contextItemSource = QueryProcessorDataSourceType.ActiveEditorFile
         assertThat(settings.contextItemSource, `is`(QueryProcessorDataSourceType.ActiveEditorFile))
@@ -398,7 +398,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
         </configuration>""".replace("\n[ ]*".toRegex(), "")
 
         val factory = XPathConfigurationType().configurationFactories[0]
-        val settings = factory.createTemplateConfiguration(myProject) as QueryProcessorRunConfiguration
+        val settings = factory.createTemplateConfiguration(project) as QueryProcessorRunConfiguration
 
         settings.contextItemValue = "/test/input.xml"
         assertThat(settings.contextItemValue, `is`("/test/input.xml"))
@@ -411,7 +411,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
     @Suppress("UsePropertyAccessSyntax")
     fun getState() {
         val factory = XPathConfigurationType().configurationFactories[0]
-        val settings = factory.createTemplateConfiguration(myProject) as QueryProcessorRunConfiguration
+        val settings = factory.createTemplateConfiguration(project) as QueryProcessorRunConfiguration
 
         settings.processorId = 1
         settings.rdfOutputFormat = Turtle
@@ -457,7 +457,7 @@ private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null
         state.contextItemSource = QueryProcessorDataSourceType.LocalFile
         state.contextItem = "/test/input.xml"
 
-        val settings = factory.createTemplateConfiguration(myProject) as QueryProcessorRunConfiguration
+        val settings = factory.createTemplateConfiguration(project) as QueryProcessorRunConfiguration
         settings.loadState(state)
 
         assertThat(settings.processorId, `is`(1))
