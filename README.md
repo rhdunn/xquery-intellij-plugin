@@ -5,9 +5,9 @@
 
 <img src="images/xquery-intellij-plugin.png" alt="Syntax Highlighting" width="60%" align="right"/>
 
-## IntelliJ XQuery Plugin
+## XQuery and XSLT
 
-This is a plugin for IntelliJ IDE 2019.3 &ndash; 2021.1 that adds support
+This is a plugin for IntelliJ IDE 2019.3 &ndash; 2021.2 that adds support
 for the XML Query (XQuery) and XML Path (XPath) languages. This covers
 support for:
 1.  XPath 2.0, 3.0, and 3.1;
