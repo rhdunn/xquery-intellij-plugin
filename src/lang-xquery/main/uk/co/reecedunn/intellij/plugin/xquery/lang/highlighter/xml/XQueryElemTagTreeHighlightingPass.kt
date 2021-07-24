@@ -19,7 +19,7 @@ import com.intellij.application.options.editor.WebEditorOptions
 import com.intellij.codeHighlighting.TextEditorHighlightingPass
 import com.intellij.codeInsight.daemon.impl.HighlightInfo
 import com.intellij.codeInsight.daemon.impl.HighlightInfoType
-import com.intellij.compat.codeInsight.daemon.impl.setHighlightersToSingleEditor
+import com.intellij.codeInsight.daemon.impl.UpdateHighlightersUtil.setHighlightersToSingleEditor
 import com.intellij.compat.openapi.editor.XmlHighlighterColors
 import com.intellij.lang.annotation.HighlightSeverity
 import com.intellij.openapi.editor.colors.TextAttributesKey
