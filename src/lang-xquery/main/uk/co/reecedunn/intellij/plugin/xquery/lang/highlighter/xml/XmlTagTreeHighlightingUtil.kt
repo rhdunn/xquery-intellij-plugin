@@ -18,11 +18,11 @@ package uk.co.reecedunn.intellij.plugin.xquery.lang.highlighter.xml
 
 import com.intellij.application.options.editor.WebEditorOptions
 import com.intellij.codeInsight.daemon.impl.tagTreeHighlighting.XmlTagTreeHighlightingColors
-import com.intellij.compat.util.ui.UIUtil
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.editor.colors.EditorColorsManager
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
+import com.intellij.util.ui.UIUtil.makeTransparent
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
@@ -71,7 +71,7 @@ fun toColorsForEditor(baseColors: Array<Color?>, tagBackground: Color): Array<Co
     val transparency = WebEditorOptions.getInstance().tagTreeHighlightingOpacity * 0.01
     return Array(baseColors.size) {
         val color = baseColors[it]
-        if (color != null) UIUtil.makeTransparent(color, tagBackground, transparency) else null
+        if (color != null) makeTransparent(color, tagBackground, transparency) else null
     }
 }
 
