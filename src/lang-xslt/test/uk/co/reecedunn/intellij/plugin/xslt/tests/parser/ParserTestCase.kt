@@ -84,7 +84,7 @@ abstract class ParserTestCase(vararg definitions: ParserDefinition) :
     fun parseXml(resource: String): XmlFile {
         if (resource.endsWith(".xsl")) {
             val file = ResourceVirtualFile.create(this::class.java.classLoader, resource)
-            return file.toPsiFile(myProject) as XmlFile
+            return file.toPsiFile(project) as XmlFile
         }
         return super.parseText(resource)
     }
