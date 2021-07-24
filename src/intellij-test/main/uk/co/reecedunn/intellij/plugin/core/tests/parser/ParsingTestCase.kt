@@ -30,7 +30,6 @@ import com.intellij.lang.parameterInfo.CreateParameterInfoContext
 import com.intellij.lang.parameterInfo.UpdateParameterInfoContext
 import com.intellij.mock.MockFileTypeManager
 import com.intellij.mock.MockLanguageFileType
-import com.intellij.mock.MockProjectEx
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.command.CommandProcessor
 import com.intellij.openapi.command.impl.CoreCommandProcessor
@@ -102,11 +101,10 @@ abstract class ParsingTestCase<File : PsiFile>(
         initializeRegistryForTests()
 
         // IntelliJ ParsingTestCase setUp
-        val app = initApplication()
+        val app = ApplicationManager.getApplication()
         app.registerServiceInstance(ProgressManager::class.java, ProgressManagerImpl())
 
-        myProject = MockProjectEx(testRootDisposable)
-        val psiManager = MockPsiManager(myProject)
+        val psiManager = MockPsiManager(project)
         mFileFactory = PsiFileFactoryImpl(psiManager)
         app.registerServiceInstance(MessageBus::class.java, app.messageBus)
         val editorFactory = MockEditorFactoryEx()
@@ -217,7 +215,7 @@ abstract class ParsingTestCase<File : PsiFile>(
 
     protected fun <T> addExplicitExtension(instance: LanguageExtension<T>, language: Language, `object`: T) {
         instance.addExplicitExtension(language, `object`!!)
-        Disposer.register(myProject, com.intellij.openapi.Disposable {
+        Disposer.register(project, com.intellij.openapi.Disposable {
             instance.removeExplicitExtension(language, `object`)
         })
     }
@@ -237,7 +235,7 @@ abstract class ParsingTestCase<File : PsiFile>(
     }
 
     @Suppress("UNCHECKED_CAST")
-    fun parseText(text: String): File = createVirtualFile("testcase.xqy", text).toPsiFile(myProject) as File
+    fun parseText(text: String): File = createVirtualFile("testcase.xqy", text).toPsiFile(project) as File
 
     protected inline fun <reified T> parse(xquery: String): List<T> {
         return parseText(xquery).walkTree().filterIsInstance<T>().toList()

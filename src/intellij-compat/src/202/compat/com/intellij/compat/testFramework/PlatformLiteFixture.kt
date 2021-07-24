@@ -29,35 +29,23 @@ import com.intellij.openapi.util.Disposer
 import java.lang.reflect.Modifier
 
 abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase() {
-    // region Application
-
-    private var myApp: MockApplication? = null
-
-    fun initApplication(): MockApplication {
-        val app = MockApplication.setUp(testRootDisposable)
-        myApp = app
-        return app
-    }
-
-    // endregion
     // region Project
 
-    private var myProjectEx: MockProjectEx? = null
-    protected var myProject: MockProjectEx
-        get() = myProjectEx!!
-        set(value) {
-            myProjectEx = value
-        }
-
+    private var mainProject: Project? = null
     val project: Project
-        get() = myProject
+        get() = mainProject!!
 
     // endregion
     // region JUnit
 
+    override fun setUp() {
+        MockApplication.setUp(testRootDisposable)
+        mainProject = MockProjectEx(testRootDisposable)
+    }
+
     @Throws(Exception::class)
     override fun tearDown() {
-        myProjectEx = null
+        mainProject = null
         try {
             super.tearDown()
         } catch (e: Throwable) {
@@ -95,7 +83,7 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
                     ExtensionPoint.Kind.BEAN_CLASS
             val impl = area as ExtensionsAreaImpl
             impl.registerExtensionPoint(extensionPointName, aClass.name, kind, testRootDisposable)
-            Disposer.register(myProject, com.intellij.openapi.Disposable {
+            Disposer.register(project, com.intellij.openapi.Disposable {
                 area.unregisterExtensionPoint(extensionPointName.name)
             })
         }
