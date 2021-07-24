@@ -27,10 +27,8 @@ if (ext.intellij_version >= 211) {
 
 if (ext.intellij_version >= 212) {
     sourceSets.main.java.srcDirs += 'src/212/native'
-    sourceSets.main.java.srcDirs += 'src/201-212/212'
 } else {
     sourceSets.main.java.srcDirs += 'src/212/compat'
-    sourceSets.main.java.srcDirs += 'src/201-212/201'
 }
 
 // Microservices
