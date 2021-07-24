@@ -13,10 +13,8 @@ if (ext.intellij_version >= 202) {
 
 if (ext.intellij_version >= 203) {
     sourceSets.main.java.srcDirs += 'src/203/native'
-    sourceSets.main.java.srcDirs += 'src/201-203/203'
 } else {
     sourceSets.main.java.srcDirs += 'src/203/compat'
-    sourceSets.main.java.srcDirs += 'src/201-203/201'
 }
 
 if (ext.intellij_version >= 211) {
