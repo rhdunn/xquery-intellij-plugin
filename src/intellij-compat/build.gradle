@@ -32,9 +32,7 @@ if (ext.intellij_version >= 212) {
 sourceSets.main.java.srcDirs += 'src/microservices/api'
 
 if (ext.intellij_type == 'IU') {
-    if (ext.intellij_version == 193) {
-        sourceSets.main.java.srcDirs += 'src/microservices/193'
-    } else if (ext.intellij_version == 201) {
+    if (ext.intellij_version == 201) {
         sourceSets.main.java.srcDirs += 'src/microservices/201'
     } else if (ext.intellij_version == 202) {
         sourceSets.main.java.srcDirs += 'src/microservices/202'
