@@ -71,7 +71,7 @@ abstract class ParserTestCase :
         super.setUp()
         registerPomModel(project)
         registerPsiModification()
-        myProject.registerCodeStyleCachingService()
+        project.registerCodeStyleCachingService()
 
         project.registerServiceInstance(XQueryProjectSettings::class.java, XQueryProjectSettings())
         addExplicitExtension(LanguageASTFactory.INSTANCE, XPath, XPathASTFactory())

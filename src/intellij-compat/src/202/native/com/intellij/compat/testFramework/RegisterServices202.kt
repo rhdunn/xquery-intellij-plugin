@@ -36,6 +36,6 @@ fun registerPomModel(project: Project) {
     project.registerServiceInstance(PomModel::class.java, MockPomModelImpl(project))
 }
 
-fun MockProjectEx.registerCodeStyleCachingService() {
-    registerService(CodeStyleCachingService::class.java, CodeStyleCachingServiceImpl())
+fun Project.registerCodeStyleCachingService() {
+    registerServiceInstance(CodeStyleCachingService::class.java, CodeStyleCachingServiceImpl())
 }

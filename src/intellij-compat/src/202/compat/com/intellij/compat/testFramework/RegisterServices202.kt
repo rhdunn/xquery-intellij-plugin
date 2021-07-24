@@ -36,5 +36,5 @@ fun registerPomModel(project: Project) {
 }
 
 @Suppress("unused")
-fun MockProjectEx.registerCodeStyleCachingService() {
+fun Project.registerCodeStyleCachingService() {
 }

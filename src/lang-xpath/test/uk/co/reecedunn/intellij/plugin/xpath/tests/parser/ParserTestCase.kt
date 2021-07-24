@@ -41,7 +41,7 @@ abstract class ParserTestCase : ParsingTestCase<PsiFile>(null, XPathParserDefini
         super.setUp()
         registerPomModel(project)
         registerPsiModification()
-        myProject.registerCodeStyleCachingService()
+        project.registerCodeStyleCachingService()
 
         addExplicitExtension(LanguageASTFactory.INSTANCE, XPath, XPathASTFactory())
         project.registerServiceInstance(ProjectRootManager::class.java, MockProjectRootsManager())
