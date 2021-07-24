@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xslt.lang.highlighter
 
 import com.intellij.compat.lang.annotation.AnnotationHolder
-import com.intellij.compat.lang.annotation.Annotator
+import com.intellij.lang.annotation.Annotator
 import com.intellij.lang.annotation.HighlightSeverity
 import com.intellij.openapi.editor.XmlHighlighterColors
 import com.intellij.psi.PsiElement
@@ -33,7 +33,7 @@ import uk.co.reecedunn.intellij.plugin.xslt.ast.schema.XsltHashedKeyword
 import uk.co.reecedunn.intellij.plugin.xslt.resources.XsltBundle
 import uk.co.reecedunn.intellij.plugin.xslt.schema.XsltSchemaTypes
 
-class SchemaTypeAnnotator(val schemaType: ISchemaType? = null) : Annotator() {
+class SchemaTypeAnnotator(val schemaType: ISchemaType? = null) : Annotator {
     companion object {
         @Suppress("RegExpAnonymousGroup")
         val REMOVE_START: Regex = "^(Plugin|Scripting|UpdateFacility|XPath|XQuery|Xslt)".toRegex()
@@ -110,7 +110,7 @@ class SchemaTypeAnnotator(val schemaType: ISchemaType? = null) : Annotator() {
         else -> true
     }
 
-    override fun annotateElement(element: PsiElement, holder: AnnotationHolder) {
+    override fun annotate(element: PsiElement, holder: AnnotationHolder) {
         if (element !is PsiFile) return
         val schemaType = schemaType ?: XsltSchemaTypes.create(element) ?: return
 

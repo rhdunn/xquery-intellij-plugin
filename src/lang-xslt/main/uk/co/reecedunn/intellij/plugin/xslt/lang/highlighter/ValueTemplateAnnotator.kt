@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xslt.lang.highlighter
 
 import com.intellij.compat.lang.annotation.AnnotationHolder
-import com.intellij.compat.lang.annotation.Annotator
+import com.intellij.lang.annotation.Annotator
 import com.intellij.lang.annotation.HighlightSeverity
 import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.psi.PsiElement
@@ -25,7 +25,7 @@ import uk.co.reecedunn.intellij.plugin.core.psi.contextOfType
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.xslt.lang.ValueTemplate
 
-class ValueTemplateAnnotator : Annotator() {
+class ValueTemplateAnnotator : Annotator {
     private fun getHighlightType(element: PsiElement): TextAttributesKey? = when (element.elementType) {
         ValueTemplate.FileElementType -> XsltSyntaxHighlighterColors.XSLT_DIRECTIVE
         ValueTemplate.ESCAPED_CHARACTER -> XsltSyntaxHighlighterColors.ESCAPED_CHARACTER
@@ -35,7 +35,7 @@ class ValueTemplateAnnotator : Annotator() {
         else -> null
     }
 
-    override fun annotateElement(element: PsiElement, holder: AnnotationHolder) {
+    override fun annotate(element: PsiElement, holder: AnnotationHolder) {
         getHighlightType(element)?.let {
             holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(element).textAttributes(it).create()
         }

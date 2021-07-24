@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpath.lang.highlighter
 
 import com.intellij.compat.lang.annotation.AnnotationHolder
-import com.intellij.compat.lang.annotation.Annotator
+import com.intellij.lang.annotation.Annotator
 import com.intellij.lang.annotation.HighlightSeverity
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
@@ -31,7 +31,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.resources.XPathBundle
 import uk.co.reecedunn.intellij.plugin.xpm.lang.highlighter.XpmSemanticHighlighter
 
-open class QNameAnnotator : Annotator() {
+open class QNameAnnotator : Annotator {
     private fun checkQNameWhitespaceBefore(qname: XsQNameValue, separator: PsiElement, holder: AnnotationHolder) {
         val before = separator.prevSibling
         if (before.elementType === XPathTokenType.WHITE_SPACE || before is XPathComment) {
@@ -56,7 +56,7 @@ open class QNameAnnotator : Annotator() {
         }
     }
 
-    override fun annotateElement(element: PsiElement, holder: AnnotationHolder) {
+    override fun annotate(element: PsiElement, holder: AnnotationHolder) {
         if (element !is XsQNameValue) return
 
         val highlighter = XpmSemanticHighlighter.highlighter(element) ?: return

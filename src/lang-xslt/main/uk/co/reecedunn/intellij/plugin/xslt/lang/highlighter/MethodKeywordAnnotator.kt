@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xslt.lang.highlighter
 
 import com.intellij.compat.lang.annotation.AnnotationHolder
-import com.intellij.compat.lang.annotation.Annotator
+import com.intellij.lang.annotation.Annotator
 import com.intellij.lang.annotation.HighlightSeverity
 import com.intellij.openapi.editor.XmlHighlighterColors
 import com.intellij.psi.PsiElement
@@ -27,8 +27,8 @@ import uk.co.reecedunn.intellij.plugin.core.xml.attribute
 import uk.co.reecedunn.intellij.plugin.core.xml.schemaType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 
-class MethodKeywordAnnotator : Annotator() {
-    override fun annotateElement(element: PsiElement, holder: AnnotationHolder) {
+class MethodKeywordAnnotator : Annotator {
+    override fun annotate(element: PsiElement, holder: AnnotationHolder) {
         element.children().filterIsInstance<XsQNameValue>().forEach { qname ->
             if (qname.isLexicalQName && qname.namespace == null) {
                 val attr = element.contextOfType<XmlAttributeValue>(false)?.attribute ?: return
