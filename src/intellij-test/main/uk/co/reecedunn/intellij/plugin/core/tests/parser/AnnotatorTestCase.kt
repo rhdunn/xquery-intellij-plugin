@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2020 Reece H. Dunn
+ * Copyright (C) 2016-2021 Reece H. Dunn
  * Copyright 2000-2019 JetBrains s.r.o.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,7 +17,6 @@
 package uk.co.reecedunn.intellij.plugin.core.tests.parser
 
 import com.intellij.codeInsight.daemon.impl.AnnotationHolderImpl
-import com.intellij.compat.lang.annotation.runAnnotatorWithContext
 import com.intellij.lang.ASTNode
 import com.intellij.lang.ParserDefinition
 import com.intellij.lang.annotation.*
@@ -51,11 +50,12 @@ abstract class AnnotatorTestCase<File : PsiFile>(
 
     // endregion
 
+    @Suppress("UnstableApiUsage")
     private fun annotateTree(node: ASTNode, annotationHolder: AnnotationHolder, annotator: Annotator) {
         if (node is CompositeElement) {
-            annotationHolder.runAnnotatorWithContext(node.psi, annotator)
+            (annotationHolder as AnnotationHolderImpl).runAnnotatorWithContext(node.psi, annotator)
         } else if (node is LeafPsiElement) {
-            annotationHolder.runAnnotatorWithContext(node, annotator)
+            (annotationHolder as AnnotationHolderImpl).runAnnotatorWithContext(node, annotator)
         }
 
         for (child in node.getChildren(null)) {

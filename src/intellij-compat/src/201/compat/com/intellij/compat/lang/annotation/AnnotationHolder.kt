@@ -35,11 +35,3 @@ class AnnotationHolder(val holder: com.intellij.lang.annotation.AnnotationHolder
         return AnnotationBuilder(this, severity, null)
     }
 }
-
-@TestOnly
-fun com.intellij.lang.annotation.AnnotationHolder.runAnnotatorWithContext(
-    element: PsiElement,
-    annotator: com.intellij.lang.annotation.Annotator
-) {
-    return annotator.annotate(element, this)
-}
