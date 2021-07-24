@@ -64,7 +64,7 @@ abstract class ParserTestCase :
         addExplicitExtension(LanguageASTFactory.INSTANCE, XQuery, XQueryASTFactory())
         project.registerServiceInstance(ProjectRootManager::class.java, MockProjectRootsManager())
 
-        val manager = MockModuleManager(myProject)
+        val manager = MockModuleManager(project)
         registerModules(manager)
         project.registerServiceInstance(ModuleManager::class.java, manager)
 
