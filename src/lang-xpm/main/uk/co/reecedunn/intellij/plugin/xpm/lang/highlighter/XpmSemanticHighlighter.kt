@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.lang.highlighter
 
-import com.intellij.compat.lang.annotation.AnnotationHolder
+import com.intellij.lang.annotation.AnnotationHolder
 import com.intellij.compat.testFramework.registerExtension
 import com.intellij.compat.testFramework.registerExtensionPointBean
 import com.intellij.openapi.application.ApplicationManager

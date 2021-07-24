@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xslt.lang.highlighter
 
-import com.intellij.compat.lang.annotation.AnnotationHolder
+import com.intellij.lang.annotation.AnnotationHolder
 import com.intellij.lang.annotation.Annotator
 import com.intellij.lang.annotation.HighlightSeverity
 import com.intellij.openapi.editor.XmlHighlighterColors
