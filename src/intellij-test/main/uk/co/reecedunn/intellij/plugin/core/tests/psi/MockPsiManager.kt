@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2020 Reece H. Dunn
+ * Copyright (C) 2016-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,13 +33,12 @@ import java.io.IOException
 
 // NOTE: The IntelliJ version of MockPsiManager is final in IntelliJ 2020.2, so
 // it cannot be used as the base class.
-class MockPsiManager(project: Project) : PsiManagerEx() {
+class MockPsiManager(private val project: Project) : PsiManagerEx() {
     // region PsiManager
 
-    private val myProject = project
     private val myModificationTracker: PsiModificationTracker by lazy { PsiModificationTrackerImpl(project) }
 
-    override fun getProject(): Project = myProject
+    override fun getProject(): Project = project
 
     override fun findFile(file: VirtualFile): PsiFile? {
         try {
