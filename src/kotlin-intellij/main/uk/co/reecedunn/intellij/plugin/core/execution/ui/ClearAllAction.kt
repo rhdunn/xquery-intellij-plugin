@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.execution.ui
 
-import com.intellij.compat.execution.ExecutionBundle
+import com.intellij.execution.ExecutionBundle
 import com.intellij.execution.ui.ConsoleView
 import com.intellij.icons.AllIcons
 import com.intellij.openapi.actionSystem.AnActionEvent
