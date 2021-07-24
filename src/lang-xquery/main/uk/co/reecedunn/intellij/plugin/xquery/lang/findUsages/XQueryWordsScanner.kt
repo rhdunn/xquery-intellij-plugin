@@ -23,7 +23,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryLexer
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 class XQueryWordsScanner : XPathWordsScanner(XQueryLexer()) {
-    override fun processWordsEx(fileText: CharSequence, processor: Processor<in WordOccurrence>) {
+    override fun processWords(fileText: CharSequence, processor: Processor<in WordOccurrence>) {
         mLexer.start(fileText)
         while (mLexer.tokenType != null) {
             mRange.start(fileText, mLexer.tokenStart, mLexer.tokenEnd)

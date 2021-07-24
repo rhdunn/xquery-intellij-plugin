@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.lang.findUsages
 
-import com.intellij.compat.lang.cacheBuilder.WordsScanner
+import com.intellij.lang.cacheBuilder.WordsScanner
 import com.intellij.lang.cacheBuilder.WordOccurrence
 import com.intellij.lexer.Lexer
 import com.intellij.util.Processor
@@ -25,11 +25,11 @@ import uk.co.reecedunn.intellij.plugin.core.lexer.CodePointRangeImpl
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathLexer
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
-open class XPathWordsScanner(protected val mLexer: Lexer = XPathLexer()) : WordsScanner() {
+open class XPathWordsScanner(protected val mLexer: Lexer = XPathLexer()) : WordsScanner {
     protected val mOccurrence: WordOccurrence = WordOccurrence(null, 0, 0, null)
     protected val mRange: CodePointRange = CodePointRangeImpl()
 
-    override fun processWordsEx(fileText: CharSequence, processor: Processor<in WordOccurrence>) {
+    override fun processWords(fileText: CharSequence, processor: Processor<in WordOccurrence>) {
         mLexer.start(fileText)
         while (mLexer.tokenType != null) {
             mRange.start(fileText, mLexer.tokenStart, mLexer.tokenEnd)
