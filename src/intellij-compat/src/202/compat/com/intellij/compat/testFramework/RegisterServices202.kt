@@ -29,7 +29,7 @@ private class MockPomModelImpl(project: Project) : PomModelImpl(project) {
 }
 
 @Suppress("UnstableApiUsage")
-fun registerPomModel(project: MockProject) {
+fun registerPomModel(project: Project) {
     val pomModel = MockPomModelImpl(project)
     project.registerServiceInstance(PomModel::class.java, pomModel)
     TreeAspect(pomModel)

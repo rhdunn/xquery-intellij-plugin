@@ -69,7 +69,7 @@ abstract class ParserTestCase :
     @BeforeAll
     override fun setUp() {
         super.setUp()
-        registerPomModel(myProject)
+        registerPomModel(project)
         registerPsiModification()
         myProject.registerCodeStyleCachingService()
 
