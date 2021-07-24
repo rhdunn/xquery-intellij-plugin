@@ -15,9 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ide.navigationToolbar
 
-import com.intellij.compat.ide.navigationToolbar.StructureAwareNavBarModelExtension
 import com.intellij.navigation.ItemPresentation
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.core.ide.navigationToolbar.StructureAwareNavBarModelExtension
 import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationEx
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery

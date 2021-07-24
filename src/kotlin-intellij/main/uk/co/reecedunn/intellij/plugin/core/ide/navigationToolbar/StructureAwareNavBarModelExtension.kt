@@ -14,8 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.intellij.compat.ide.navigationToolbar
+package uk.co.reecedunn.intellij.plugin.core.ide.navigationToolbar
 
+import com.intellij.ide.navigationToolbar.AbstractNavBarModelExtension
 import com.intellij.ide.structureView.StructureViewModel
 import com.intellij.ide.structureView.StructureViewTreeElement
 import com.intellij.ide.structureView.TreeBasedStructureViewBuilder
