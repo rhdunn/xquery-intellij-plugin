@@ -63,10 +63,10 @@ abstract class InspectionTestCase :
     // endregion
 
     private val inspectionManager: InspectionManager
-        get() = InspectionManager.getInstance(myProject)
+        get() = InspectionManager.getInstance(project)
 
     protected val settings: XQueryProjectSettings
-        get() = XQueryProjectSettings.getInstance(myProject)
+        get() = XQueryProjectSettings.getInstance(project)
 
     @BeforeAll
     override fun setUp() {
