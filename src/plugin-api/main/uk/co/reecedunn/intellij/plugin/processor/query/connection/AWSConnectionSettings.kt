@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.processor.query.connection
 
-import com.google.compat.gson.JsonParser
+import com.google.gson.JsonParser
 import com.intellij.credentialStore.CredentialAttributes
 import com.intellij.credentialStore.Credentials
 import com.intellij.execution.configurations.GeneralCommandLine

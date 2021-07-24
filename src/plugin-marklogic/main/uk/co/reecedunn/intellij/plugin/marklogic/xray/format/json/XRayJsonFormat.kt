@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.xray.format.json
 
-import com.google.compat.gson.JsonParser
+import com.google.gson.JsonParser
 import com.intellij.json.JsonLanguage
 import com.intellij.lang.Language
 import uk.co.reecedunn.intellij.plugin.processor.query.QueryResult

@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.lexer
 
-import com.google.compat.gson.JsonParser
+import com.google.gson.JsonParser
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import java.io.InputStreamReader
 
