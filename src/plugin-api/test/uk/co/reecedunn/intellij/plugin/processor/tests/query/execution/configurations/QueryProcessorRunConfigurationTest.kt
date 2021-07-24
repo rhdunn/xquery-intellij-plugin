@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2020 Reece H. Dunn
+ * Copyright (C) 2019-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,14 +16,14 @@
 package uk.co.reecedunn.intellij.plugin.processor.tests.query.execution.configurations
 
 import com.intellij.execution.impl.serializeConfigurationInto
-import com.intellij.psi.PsiFile
+import com.intellij.openapi.extensions.PluginId
 import org.hamcrest.CoreMatchers.*
 import org.jdom.Element
 import org.jdom.output.XMLOutputter
 import org.junit.jupiter.api.*
 import uk.co.reecedunn.intellij.plugin.core.execution.configurations.RunConfigurationBase
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
+import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XPathSubset
 import uk.co.reecedunn.intellij.plugin.processor.query.execution.configurations.QueryProcessorDataSourceType
 import uk.co.reecedunn.intellij.plugin.processor.query.execution.configurations.QueryProcessorRunConfiguration
@@ -32,19 +32,9 @@ import uk.co.reecedunn.intellij.plugin.processor.query.execution.configurations.
 import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.lang.configuration.XPathConfigurationType
 
-// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("IntelliJ - Base Platform - Run Configuration - Query Processor Settings")
-private class QueryProcessorRunConfigurationTest : ParsingTestCase<PsiFile>(null) {
-    @BeforeAll
-    override fun setUp() {
-        super.setUp()
-    }
-
-    @AfterAll
-    override fun tearDown() {
-        super.tearDown()
-    }
+class QueryProcessorRunConfigurationTest : IdeaPlatformTestCase() {
+    override val pluginId: PluginId = PluginId.getId("QueryProcessorRunConfigurationTest")
 
     @Test
     @DisplayName("default values")
