@@ -86,7 +86,9 @@ private class PluginPsiTest : ParserTestCase() {
 
     fun parseResource(resource: String): XQueryModule = res.toPsiFile(resource, project)
 
-    override fun registerExtensions() {
+    override fun registerServicesAndExtensions() {
+        super.registerServicesAndExtensions()
+
         XpmNamespaceProvider.register(this, XQueryNamespaceProvider)
         XpmFunctionProvider.register(this, XQueryFunctionProvider)
     }

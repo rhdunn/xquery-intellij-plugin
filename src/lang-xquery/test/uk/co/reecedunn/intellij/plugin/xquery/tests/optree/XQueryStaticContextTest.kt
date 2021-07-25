@@ -54,7 +54,9 @@ private class XQueryStaticContextTest : ParserTestCase() {
         manager.addModule(ResourceVirtualFile.create(this::class.java.classLoader, "tests/module-xquery"))
     }
 
-    override fun registerExtensions() {
+    override fun registerServicesAndExtensions() {
+        super.registerServicesAndExtensions()
+
         XpmNamespaceProvider.register(this, XQueryNamespaceProvider)
         XpmVariableProvider.register(this, XQueryVariableProvider)
         XpmFunctionProvider.register(this, XQueryFunctionProvider)

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2020 Reece H. Dunn
+ * Copyright (C) 2019-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,7 +53,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 private class XQueryLookupElementTest : ParserTestCase() {
     override val pluginId: PluginId = PluginId.getId("XQueryLookupElementTest")
 
-    override fun registerExtensions() {
+    override fun registerServicesAndExtensions() {
+        super.registerServicesAndExtensions()
+
         val app = ApplicationManager.getApplication()
         app.registerExtensionPointBean(
             "com.intellij.documentWriteAccessGuard",

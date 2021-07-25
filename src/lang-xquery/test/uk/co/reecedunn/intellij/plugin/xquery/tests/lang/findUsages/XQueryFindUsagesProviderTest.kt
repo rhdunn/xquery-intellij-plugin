@@ -46,7 +46,9 @@ private class XQueryFindUsagesProviderTest : ParserTestCase() {
 
     val provider = XQueryFindUsagesProvider()
 
-    override fun registerExtensions() {
+    override fun registerServicesAndExtensions() {
+        super.registerServicesAndExtensions()
+
         XpmNamespaceProvider.register(this, XQueryNamespaceProvider)
         XpmVariableProvider.register(this, XQueryVariableProvider)
         XpmFunctionProvider.register(this, XQueryFunctionProvider)

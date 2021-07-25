@@ -40,7 +40,9 @@ private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
 
     val provider = XPathInlayParameterHintsProvider()
 
-    override fun registerExtensions() {
+    override fun registerServicesAndExtensions() {
+        super.registerServicesAndExtensions()
+
         XpmNamespaceProvider.register(this, XQueryNamespaceProvider)
         XpmFunctionProvider.register(this, XQueryFunctionProvider)
     }

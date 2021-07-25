@@ -44,7 +44,9 @@ private class XQueryParameterInfoHandlerTest : ParserTestCase() {
 
     val parameterInfoHandler = XPathParameterInfoHandler()
 
-    override fun registerExtensions() {
+    override fun registerServicesAndExtensions() {
+        super.registerServicesAndExtensions()
+
         XpmNamespaceProvider.register(this, XQueryNamespaceProvider)
         XpmFunctionProvider.register(this, XQueryFunctionProvider)
     }

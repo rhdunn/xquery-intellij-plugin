@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2020 Reece H. Dunn
+ * Copyright (C) 2018-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,9 +48,5 @@ abstract class ParserTestCase : ParsingTestCase<PsiFile>(null, XPathParserDefini
         app.registerExtensionPointBean(
             XpmFunctionProvider.EP_NAME, XpmFunctionProviderBean::class.java, pluginDisposable
         )
-
-        registerExtensions()
     }
-
-    open fun registerExtensions() {}
 }

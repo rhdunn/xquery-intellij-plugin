@@ -93,7 +93,9 @@ private class XQueryPsiTest : ParserTestCase() {
         manager.addModule(res.findFileByPath("tests/module-xquery")!!)
     }
 
-    override fun registerExtensions() {
+    override fun registerServicesAndExtensions() {
+        super.registerServicesAndExtensions()
+
         XpmNamespaceProvider.register(this, XQueryNamespaceProvider)
         XpmFunctionProvider.register(this, XQueryFunctionProvider)
     }

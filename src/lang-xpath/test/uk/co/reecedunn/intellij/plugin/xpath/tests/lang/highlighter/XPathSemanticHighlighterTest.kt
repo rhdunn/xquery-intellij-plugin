@@ -37,7 +37,9 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableProviderBe
 private class XPathSemanticHighlighterTest : AnnotatorTestCase() {
     override val pluginId: PluginId = PluginId.getId("XPathSemanticHighlighterTest")
 
-    override fun registerExtensions() {
+    override fun registerServicesAndExtensions() {
+        super.registerServicesAndExtensions()
+
         val app = ApplicationManager.getApplication()
         app.registerExtensionPointBean(
             XpmVariableProvider.EP_NAME, XpmVariableProviderBean::class.java, pluginDisposable

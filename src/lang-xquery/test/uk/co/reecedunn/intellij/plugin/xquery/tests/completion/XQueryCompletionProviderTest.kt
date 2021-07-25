@@ -43,7 +43,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 private class XQueryCompletionProviderTest : ParserTestCase() {
     override val pluginId: PluginId = PluginId.getId("XQueryCompletionProviderTest")
 
-    override fun registerExtensions() {
+    override fun registerServicesAndExtensions() {
+        super.registerServicesAndExtensions()
+
         XpmNamespaceProvider.register(this, XQueryNamespaceProvider)
         XpmVariableProvider.register(this, XQueryVariableProvider)
         XpmFunctionProvider.register(this, XQueryFunctionProvider)

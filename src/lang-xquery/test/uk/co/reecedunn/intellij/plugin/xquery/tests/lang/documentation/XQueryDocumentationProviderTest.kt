@@ -50,10 +50,6 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
 
     override val pluginId: PluginId = PluginId.getId("XQueryDocumentationProviderTest")
 
-    override fun registerExtensions() {
-        XpmNamespaceProvider.register(this, XQueryNamespaceProvider)
-    }
-
     private val documentationProvider = XQueryDocumentationProvider()
 
     override fun registerServicesAndExtensions() {
@@ -61,6 +57,7 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
 
         XQDocDocumentationSourceProvider.register(this, DocumentationSourceProvider)
 
+        XpmNamespaceProvider.register(this, XQueryNamespaceProvider)
         XpmVariableProvider.register(this, XQueryVariableProvider)
         XpmFunctionProvider.register(this, XQueryFunctionProvider)
     }

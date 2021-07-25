@@ -39,7 +39,9 @@ import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
 private class XPathLookupElementTest : ParserTestCase() {
     override val pluginId: PluginId = PluginId.getId("XPathLookupElementTest")
 
-    override fun registerExtensions() {
+    override fun registerServicesAndExtensions() {
+        super.registerServicesAndExtensions()
+
         val app = ApplicationManager.getApplication()
         app.registerExtensionPointBean(
             "com.intellij.documentWriteAccessGuard",

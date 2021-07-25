@@ -48,9 +48,5 @@ abstract class AnnotatorTestCase :
         app.registerExtensionPointBean(
             XpmNamespaceProvider.EP_NAME, XpmNamespaceProviderBean::class.java, pluginDisposable
         )
-
-        registerExtensions()
     }
-
-    open fun registerExtensions() {}
 }

@@ -38,7 +38,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.highlighter.XQuerySemanticHig
 private class XQuerySemanticHighlighterTest : AnnotatorTestCase() {
     override val pluginId: PluginId = PluginId.getId("XQuerySemanticHighlighterTest")
 
-    override fun registerExtensions() {
+    override fun registerServicesAndExtensions() {
+        super.registerServicesAndExtensions()
+
         val app = ApplicationManager.getApplication()
         app.registerServiceInstance(EditorColorsManager::class.java, MockEditorColorsManager())
 

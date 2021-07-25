@@ -27,8 +27,5 @@ abstract class AnnotatorTestCase : AnnotatorTestCase<XPath>("xqy", XPathParserDe
         addExplicitExtension(
             LanguageASTFactory.INSTANCE, uk.co.reecedunn.intellij.plugin.xpath.lang.XPath, XPathASTFactory()
         )
-        registerExtensions()
     }
-
-    open fun registerExtensions() {}
 }

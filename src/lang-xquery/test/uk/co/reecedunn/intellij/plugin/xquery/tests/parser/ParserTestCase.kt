@@ -82,11 +82,7 @@ abstract class ParserTestCase :
         app.registerExtensionPointBean(
             XpmFunctionDecorator.EP_NAME, XpmFunctionDecoratorBean::class.java, pluginDisposable
         )
-
-        registerExtensions()
     }
-
-    open fun registerExtensions() {}
 
     protected val settings: XQueryProjectSettings
         get() = XQueryProjectSettings.getInstance(project)
