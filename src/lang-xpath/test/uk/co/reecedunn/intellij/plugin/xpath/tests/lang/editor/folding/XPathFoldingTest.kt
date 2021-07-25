@@ -31,10 +31,9 @@ import uk.co.reecedunn.intellij.plugin.xpath.lang.editor.folding.XPathFoldingBui
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
 
-// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("IntelliJ - Custom Language Support - Code Folding - XPath")
-private class XPathFoldingTest : ParserTestCase() {
+class XPathFoldingTest : ParserTestCase() {
     override val pluginId: PluginId = PluginId.getId("XPathFoldingTest")
 
     private val res = ResourceVirtualFileSystem(this::class.java.classLoader)

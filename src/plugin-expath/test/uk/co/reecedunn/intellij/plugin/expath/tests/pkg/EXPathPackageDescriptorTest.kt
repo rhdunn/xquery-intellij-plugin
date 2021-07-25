@@ -33,10 +33,9 @@ import uk.co.reecedunn.intellij.plugin.expath.pkg.EXPathPackageResource
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import java.util.zip.ZipEntry
 
-// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("EXPath Packaging System 9 May 2012")
-private class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLParserDefinition()) {
+class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLParserDefinition()) {
     override val pluginId: PluginId = PluginId.getId("EXPathPackageDescriptorTest")
 
     private fun pkg(xml: String, files: Sequence<Pair<ZipEntry, ByteArray>> = sequenceOf()): EXPathPackage {

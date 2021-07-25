@@ -32,10 +32,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryFunctionProvider
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
-// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("UnstableApiUsage", "RedundantVisibilityModifier")
 @DisplayName("IntelliJ - Custom Language Support - Inlay Hints - XPath Parameter Hints Provider")
-private class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
+class XQueryInlayParameterHintsProviderTest : ParserTestCase() {
     override val pluginId: PluginId = PluginId.getId("XQueryInlayParameterHintsProviderTest")
 
     val provider = XPathInlayParameterHintsProvider()

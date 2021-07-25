@@ -42,10 +42,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryVariableProvider
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
-// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("IntelliJ - Custom Language Support - References and Resolve - XQuery")
-private class XQueryReferenceTest : ParserTestCase() {
+class XQueryReferenceTest : ParserTestCase() {
     override val pluginId: PluginId = PluginId.getId("XQueryReferenceTest")
 
     private val res = ResourceVirtualFileSystem(this::class.java.classLoader)

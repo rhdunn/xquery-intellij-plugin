@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,10 +29,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompElemConstruct
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
-// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("Reformat", "ClassName", "RedundantVisibilityModifier")
 @DisplayName("XQuery 3.1 - XDM Accessors")
-private class AccessorsTest : ParserTestCase() {
+class AccessorsTest : ParserTestCase() {
     override val pluginId: PluginId = PluginId.getId("AccessorsTest")
 
     @Nested

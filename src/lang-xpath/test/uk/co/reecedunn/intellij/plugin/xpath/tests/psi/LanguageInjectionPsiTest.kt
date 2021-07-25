@@ -27,10 +27,9 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathPragma
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
 
-// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("XQuery IntelliJ Plugin - Language Injection Host - XPath")
-private class LanguageInjectionPsiTest : ParserTestCase() {
+class LanguageInjectionPsiTest : ParserTestCase() {
     override val pluginId: PluginId = PluginId.getId("LanguageInjectionPsiTest")
 
     @Nested

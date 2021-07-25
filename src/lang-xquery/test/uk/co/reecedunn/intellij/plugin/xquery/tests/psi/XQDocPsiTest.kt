@@ -24,10 +24,9 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathComment
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
-// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("xqDoc - IntelliJ Program Structure Interface (PSI)")
-private class XQDocPsiTest : ParserTestCase() {
+class XQDocPsiTest : ParserTestCase() {
     override val pluginId: PluginId = PluginId.getId("XQDocPsiTest")
 
     @Nested

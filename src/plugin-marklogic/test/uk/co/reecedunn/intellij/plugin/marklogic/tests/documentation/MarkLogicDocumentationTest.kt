@@ -23,9 +23,8 @@ import uk.co.reecedunn.intellij.plugin.marklogic.documentation.MarkLogicProductD
 import uk.co.reecedunn.intellij.plugin.xpm.lang.documentation.XpmDocumentationSource
 import uk.co.reecedunn.intellij.plugin.xqdoc.documentation.XQDocDocumentationSourceProvider
 
-// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("IntelliJ - Custom Language Support - Documentation - MarkLogic Product Documentation")
-private class MarkLogicDocumentationTest {
+class MarkLogicDocumentationTest {
     @Test
     @DisplayName("MarkLogic 6.0")
     fun marklogic6() {

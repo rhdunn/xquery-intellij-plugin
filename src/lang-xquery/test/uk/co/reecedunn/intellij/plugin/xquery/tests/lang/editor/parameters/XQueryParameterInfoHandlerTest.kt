@@ -36,10 +36,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryFunctionProvider
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
-// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("RedundantVisibilityModifier", "Reformat")
 @DisplayName("IntelliJ - Custom Language Support - Parameter Info - XPath ParameterInfoHandler")
-private class XQueryParameterInfoHandlerTest : ParserTestCase() {
+class XQueryParameterInfoHandlerTest : ParserTestCase() {
     override val pluginId: PluginId = PluginId.getId("XQueryParameterInfoHandlerTest")
 
     val parameterInfoHandler = XPathParameterInfoHandler()

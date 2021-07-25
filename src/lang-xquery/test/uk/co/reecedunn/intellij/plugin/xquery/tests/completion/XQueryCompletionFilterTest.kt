@@ -25,10 +25,9 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.completion.filters.*
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
-// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("XQuery 3.1 - Code Completion - Completion Filters")
-private class XQueryCompletionFilterTest : ParserTestCase() {
+class XQueryCompletionFilterTest : ParserTestCase() {
     override val pluginId: PluginId = PluginId.getId("XQueryCompletionFilterTest")
 
     @Nested

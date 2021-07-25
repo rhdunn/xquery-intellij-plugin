@@ -37,10 +37,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarDecl
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
-// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("XQuery Update Facility 3.0 - Implementation Conformance Checks")
-private class UpdateFacilityConformanceTest : ParserTestCase() {
+class UpdateFacilityConformanceTest : ParserTestCase() {
     override val pluginId: PluginId = PluginId.getId("UpdateFacilityConformanceTest")
 
     private val res = ResourceVirtualFileSystem(this::class.java.classLoader)

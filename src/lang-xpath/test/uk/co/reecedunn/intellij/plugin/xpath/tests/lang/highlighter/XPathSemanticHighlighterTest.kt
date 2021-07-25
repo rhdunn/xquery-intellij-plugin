@@ -31,10 +31,9 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.highlighter.XpmSemanticHighlight
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableProviderBean
 
-// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("ClassName", "RedundantVisibilityModifier")
 @DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - XPath Semantic Highlighter")
-private class XPathSemanticHighlighterTest : AnnotatorTestCase() {
+class XPathSemanticHighlighterTest : AnnotatorTestCase() {
     override val pluginId: PluginId = PluginId.getId("XPathSemanticHighlighterTest")
 
     override fun registerServicesAndExtensions() {

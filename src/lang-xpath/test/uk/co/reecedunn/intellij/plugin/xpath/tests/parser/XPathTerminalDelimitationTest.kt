@@ -25,9 +25,8 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 
-// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("XPath 3.1 - (A.2.2) Terminal Delimitation")
-private class XPathTerminalDelimitationTest : ParserTestCase() {
+class XPathTerminalDelimitationTest : ParserTestCase() {
     override val pluginId: PluginId = PluginId.getId("XPathTerminalDelimitationTest")
 
     fun required(left: IElementType, right: IElementType) {

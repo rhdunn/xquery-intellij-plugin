@@ -27,10 +27,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.highlighter.xml.XQueryElemTag
 import uk.co.reecedunn.intellij.plugin.xquery.lang.highlighter.xml.XQueryElemTagRangesProvider.getElementTagRanges
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
-// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("IntelliJ - Custom Language Support - XQuery Element Tag Ranges Provider")
-private class XQueryElemTagRangesProviderTest : ParserTestCase() {
+class XQueryElemTagRangesProviderTest : ParserTestCase() {
     override val pluginId: PluginId = PluginId.getId("XQueryElemTagRangesProviderTest")
 
     @Nested

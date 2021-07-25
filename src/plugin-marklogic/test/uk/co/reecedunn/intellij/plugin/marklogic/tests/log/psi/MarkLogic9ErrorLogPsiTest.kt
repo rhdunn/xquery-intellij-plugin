@@ -27,10 +27,9 @@ import uk.co.reecedunn.intellij.plugin.marklogic.log.ast.error.MarkLogicErrorLog
 import uk.co.reecedunn.intellij.plugin.marklogic.log.lang.MarkLogicErrorLog.ParserDefinition
 import uk.co.reecedunn.intellij.plugin.marklogic.log.lexer.MarkLogicErrorLogTokenType
 
-// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("Reformat", "ClassName", "RedundantVisibilityModifier")
 @DisplayName("MarkLogic 8.0 ErrorLog")
-private class MarkLogic9ErrorLogPsiTest : ParsingTestCase<MarkLogicErrorLog>("log", ParserDefinition()) {
+class MarkLogic9ErrorLogPsiTest : ParsingTestCase<MarkLogicErrorLog>("log", ParserDefinition()) {
     override val pluginId: PluginId = PluginId.getId("MarkLogic9ErrorLogPsiTest")
 
     @Test

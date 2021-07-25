@@ -79,10 +79,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 import java.math.BigDecimal
 import java.math.BigInteger
 
-// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("Reformat", "ClassName", "RedundantVisibilityModifier")
 @DisplayName("XQuery 3.1 - IntelliJ Program Structure Interface (PSI)")
-private class XQueryPsiTest : ParserTestCase() {
+class XQueryPsiTest : ParserTestCase() {
     override val pluginId: PluginId = PluginId.getId("XQueryPsiTest")
 
     private val res = ResourceVirtualFileSystem(this::class.java.classLoader)

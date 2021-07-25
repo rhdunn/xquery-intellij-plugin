@@ -24,10 +24,9 @@ import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.lang.fileTypes.XQueryFileType
 
-// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("IntelliJ - Custom Language Support - Registering a File Type - XQuery")
-private class XQueryFileTypeTest : ParsingTestCase<PsiFile>(".xqy", XQuery) {
+class XQueryFileTypeTest : ParsingTestCase<PsiFile>(".xqy", XQuery) {
     override val pluginId: PluginId = PluginId.getId("XQueryFileTypeTest")
 
     @Test

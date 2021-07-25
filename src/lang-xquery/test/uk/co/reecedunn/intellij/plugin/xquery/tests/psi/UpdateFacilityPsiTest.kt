@@ -32,10 +32,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
-// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("ClassName", "RedundantVisibilityModifier")
 @DisplayName("XQuery Update Facility 3.0 - IntelliJ Program Structure Interface (PSI)")
-private class UpdateFacilityPsiTest : ParserTestCase() {
+class UpdateFacilityPsiTest : ParserTestCase() {
     override val pluginId: PluginId = PluginId.getId("UpdateFacilityPsiTest")
 
     @Nested

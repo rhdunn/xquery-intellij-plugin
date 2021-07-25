@@ -30,10 +30,9 @@ import uk.co.reecedunn.intellij.plugin.xpath.codeInspection.xpst.XPST0081
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 
-// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("XPath 3.1 - Error Conditions")
-private class XPathInspectionTest : InspectionTestCase() {
+class XPathInspectionTest : InspectionTestCase() {
     override val pluginId: PluginId = PluginId.getId("XPathInspectionTest")
 
     @Nested

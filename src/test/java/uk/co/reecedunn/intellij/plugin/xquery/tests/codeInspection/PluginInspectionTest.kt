@@ -2182,10 +2182,9 @@ private val HTML5_ENTITIES = listOf(
 
 // endregion
 
-// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("XQuery IntelliJ Plugin - Error and Warning Conditions")
-private class PluginInspectionTest : InspectionTestCase() {
+class PluginInspectionTest : InspectionTestCase() {
     override val pluginId: PluginId = PluginId.getId("PluginInspectionTest")
 
     @Nested

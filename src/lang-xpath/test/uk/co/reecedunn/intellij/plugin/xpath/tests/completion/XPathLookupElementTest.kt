@@ -33,10 +33,9 @@ import uk.co.reecedunn.intellij.plugin.xpath.completion.lookup.XPathKeywordLooku
 import uk.co.reecedunn.intellij.plugin.xpath.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
 
-// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("XPath 3.1 - Code Completion - Lookup Element")
-private class XPathLookupElementTest : ParserTestCase() {
+class XPathLookupElementTest : ParserTestCase() {
     override val pluginId: PluginId = PluginId.getId("XPathLookupElementTest")
 
     override fun registerServicesAndExtensions() {

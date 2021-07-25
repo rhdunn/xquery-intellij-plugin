@@ -28,10 +28,9 @@ import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xslt.ast.schema.XsltSchemaType
 import uk.co.reecedunn.intellij.plugin.xslt.lang.ValueTemplate
 
-// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("Reformat")
 @DisplayName("XSLT 3.0 - Schema Types - xsl:avt")
-private class XslAVTTest : ParserTestCase(ValueTemplate.ParserDefinition(), XPathParserDefinition()) {
+class XslAVTTest : ParserTestCase(ValueTemplate.ParserDefinition(), XPathParserDefinition()) {
     override val pluginId: PluginId = PluginId.getId("XslAVTTest")
 
     private val res = ResourceVirtualFileSystem(this::class.java.classLoader)

@@ -32,10 +32,9 @@ import uk.co.reecedunn.intellij.plugin.xpm.lang.highlighter.XpmSemanticHighlight
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 import uk.co.reecedunn.intellij.plugin.xquery.lang.highlighter.XQuerySemanticHighlighter
 
-// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("ClassName", "RedundantVisibilityModifier")
 @DisplayName("IntelliJ - Custom Language Support - Syntax Highlighting - XQuery Semantic Highlighter")
-private class XQuerySemanticHighlighterTest : AnnotatorTestCase() {
+class XQuerySemanticHighlighterTest : AnnotatorTestCase() {
     override val pluginId: PluginId = PluginId.getId("XQuerySemanticHighlighterTest")
 
     override fun registerServicesAndExtensions() {

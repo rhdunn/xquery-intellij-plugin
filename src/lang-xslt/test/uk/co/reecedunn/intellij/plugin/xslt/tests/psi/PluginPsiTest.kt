@@ -33,10 +33,9 @@ import uk.co.reecedunn.intellij.plugin.xslt.ast.xslt.XsltStylesheet
 import uk.co.reecedunn.intellij.plugin.xslt.ast.xslt.XsltTemplate
 import uk.co.reecedunn.intellij.plugin.xslt.tests.parser.ParserTestCase
 
-// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("XQuery IntelliJ Plugin - IntelliJ Program Structure Interface (PSI) - XSLT")
-private class PluginPsiTest : ParserTestCase(XMLParserDefinition()) {
+class PluginPsiTest : ParserTestCase(XMLParserDefinition()) {
     companion object {
         private const val EXSL_COMMON_NAMESPACE = "http://exslt.org/common"
         private const val SAXON_NAMESPACE = "http://saxon.sf.net/"

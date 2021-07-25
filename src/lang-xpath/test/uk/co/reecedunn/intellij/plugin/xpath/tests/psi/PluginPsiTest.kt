@@ -36,10 +36,9 @@ import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
 import uk.co.reecedunn.intellij.plugin.xpm.context.XpmUsageType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 
-// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("XQuery IntelliJ Plugin - IntelliJ Program Structure Interface (PSI) - XPath")
-private class PluginPsiTest : ParserTestCase() {
+class PluginPsiTest : ParserTestCase() {
     override val pluginId: PluginId = PluginId.getId("PluginPsiTest")
 
     @Nested

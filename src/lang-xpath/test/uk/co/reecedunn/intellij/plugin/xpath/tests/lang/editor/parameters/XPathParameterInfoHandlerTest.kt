@@ -29,10 +29,9 @@ import uk.co.reecedunn.intellij.plugin.xpath.lang.editor.parameters.XPathParamet
 import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
 
-// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("IntelliJ - Custom Language Support - Parameter Info - XPath ParameterInfoHandler")
-private class XPathParameterInfoHandlerTest : ParserTestCase() {
+class XPathParameterInfoHandlerTest : ParserTestCase() {
     override val pluginId: PluginId = PluginId.getId("XPathParameterInfoHandlerTest")
 
     private val parameterInfoHandler = XPathParameterInfoHandler()

@@ -47,10 +47,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryVariableProvider
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
-// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("ClassName", "RedundantVisibilityModifier")
 @DisplayName("XQuery 3.1 - Code Completion - Lookup Element")
-private class XQueryLookupElementTest : ParserTestCase() {
+class XQueryLookupElementTest : ParserTestCase() {
     override val pluginId: PluginId = PluginId.getId("XQueryLookupElementTest")
 
     override fun registerServicesAndExtensions() {

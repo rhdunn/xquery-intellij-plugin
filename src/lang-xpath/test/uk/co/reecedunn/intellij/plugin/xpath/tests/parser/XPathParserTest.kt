@@ -26,10 +26,9 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath
 
-// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("XPath 3.1 - Parser")
 @Suppress("ClassName", "Reformat", "RedundantVisibilityModifier")
-private class XPathParserTest : ParserTestCase() {
+class XPathParserTest : ParserTestCase() {
     override val pluginId: PluginId = PluginId.getId("XPathParserTest")
 
     private val res = ResourceVirtualFileSystem(this::class.java.classLoader)

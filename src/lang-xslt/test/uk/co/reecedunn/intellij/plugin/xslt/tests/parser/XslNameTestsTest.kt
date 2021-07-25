@@ -28,10 +28,9 @@ import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xslt.ast.schema.XsltSchemaType
 import uk.co.reecedunn.intellij.plugin.xslt.lang.NameTests
 
-// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("Reformat", "RedundantVisibilityModifier")
 @DisplayName("XSLT 3.0 - Schema Types - xsl:nametests")
-private class XslNameTestsTest : ParserTestCase(NameTests.ParserDefinition(), XPathParserDefinition()) {
+class XslNameTestsTest : ParserTestCase(NameTests.ParserDefinition(), XPathParserDefinition()) {
     override val pluginId: PluginId = PluginId.getId("XslNameTestsTest")
 
     private val res = ResourceVirtualFileSystem(this::class.java.classLoader)

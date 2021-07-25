@@ -32,10 +32,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.*
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
-// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("ClassName", "RedundantVisibilityModifier")
 @DisplayName("XQuery Scripting Extension 1.0 - IntelliJ Program Structure Interface (PSI)")
-private class ScriptingPsiTest : ParserTestCase() {
+class ScriptingPsiTest : ParserTestCase() {
     override val pluginId: PluginId = PluginId.getId("ScriptingPsiTest")
 
     @Nested

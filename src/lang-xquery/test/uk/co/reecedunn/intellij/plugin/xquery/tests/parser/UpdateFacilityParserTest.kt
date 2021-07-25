@@ -26,10 +26,9 @@ import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 
-// NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("RedundantVisibilityModifier", "Reformat")
 @DisplayName("XQuery Update Facility 3.0 - Parser")
-private class UpdateFacilityParserTest : ParserTestCase() {
+class UpdateFacilityParserTest : ParserTestCase() {
     override val pluginId: PluginId = PluginId.getId("UpdateFacilityParserTest")
 
     private val res = ResourceVirtualFileSystem(this::class.java.classLoader)
