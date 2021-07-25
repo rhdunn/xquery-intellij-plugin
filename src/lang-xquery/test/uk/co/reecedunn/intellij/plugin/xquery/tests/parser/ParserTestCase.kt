@@ -16,10 +16,12 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.parser
 
 import com.intellij.compat.testFramework.registerCodeStyleCachingService
+import com.intellij.compat.testFramework.registerExtensionPointBean
 import com.intellij.compat.testFramework.registerPomModel
 import com.intellij.compat.testFramework.registerServiceInstance
 import com.intellij.lang.LanguageASTFactory
 import com.intellij.openapi.Disposable
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.DefaultPluginDescriptor
 import com.intellij.openapi.extensions.PluginDescriptor
 import com.intellij.openapi.module.ModuleManager
@@ -95,7 +97,10 @@ abstract class ParserTestCase :
         ImportPathResolver.register(this, uk.co.reecedunn.intellij.plugin.saxon.model.BuiltInFunctions)
         ImportPathResolver.register(this, uk.co.reecedunn.intellij.plugin.w3.model.BuiltInFunctions)
 
-        registerExtensionPoint(XpmFunctionDecorator.EP_NAME, XpmFunctionDecoratorBean::class.java)
+        val app = ApplicationManager.getApplication()
+        app.registerExtensionPointBean(
+            XpmFunctionDecorator.EP_NAME, XpmFunctionDecoratorBean::class.java, pluginDisposable
+        )
 
         registerExtensions()
     }
