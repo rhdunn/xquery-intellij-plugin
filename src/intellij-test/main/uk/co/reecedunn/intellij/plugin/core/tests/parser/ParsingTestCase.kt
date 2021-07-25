@@ -129,8 +129,6 @@ abstract class ParsingTestCase<File : PsiFile>(
         project.registerServiceInstance(PsiDocumentManager::class.java, MockPsiDocumentManagerEx(project))
         project.registerServiceInstance(PsiFileFactory::class.java, mFileFactory!!)
         project.registerServiceInstance(StartupManager::class.java, StartupManagerImpl(project))
-        registerExtensionPoint("com.intellij.openapi.fileTypes.FileTypeFactory", "FILE_TYPE_FACTORY_EP")
-        registerExtensionPoint("com.intellij.lang.MetaLanguage", "EP_NAME")
 
         for (definition in mDefinitions) {
             addExplicitExtension(LanguageParserDefinitions.INSTANCE, definition.fileNodeType.language, definition)
