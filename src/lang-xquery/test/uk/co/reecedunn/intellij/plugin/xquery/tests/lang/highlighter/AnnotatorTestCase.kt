@@ -15,8 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.lang.highlighter
 
+import com.intellij.compat.testFramework.registerExtensionPointBean
 import com.intellij.compat.testFramework.registerServiceInstance
 import com.intellij.lang.LanguageASTFactory
+import com.intellij.openapi.application.ApplicationManager
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.TestInstance
@@ -47,7 +49,10 @@ abstract class AnnotatorTestCase :
 
         XpmVariableProvider.register(this, XQueryVariableProvider)
 
-        registerExtensionPoint(XpmNamespaceProvider.EP_NAME, XpmNamespaceProviderBean::class.java)
+        val app = ApplicationManager.getApplication()
+        app.registerExtensionPointBean(
+            XpmNamespaceProvider.EP_NAME, XpmNamespaceProviderBean::class.java, pluginDisposable
+        )
 
         registerExtensions()
     }
