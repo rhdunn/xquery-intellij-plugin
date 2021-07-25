@@ -19,7 +19,6 @@ package com.intellij.compat.testFramework
 import com.intellij.mock.MockApplication
 import com.intellij.mock.MockProjectEx
 import com.intellij.openapi.application.ApplicationManager
-import com.intellij.openapi.extensions.AreaInstance
 import com.intellij.openapi.extensions.ExtensionPoint
 import com.intellij.openapi.extensions.ExtensionPointName
 import com.intellij.openapi.extensions.ExtensionsArea
@@ -70,7 +69,7 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
     }
 
     @Suppress("UnstableApiUsage")
-    fun <T> registerExtensionPoint(
+    private fun <T> registerExtensionPoint(
         area: ExtensionsArea,
         extensionPointName: ExtensionPointName<T>,
         aClass: Class<out T>
@@ -89,7 +88,12 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
         }
     }
 
-    fun registerExtensionPoint(area: ExtensionsArea, epClassName: String, epField: String, aClass: Class<*>? = null) {
+    private fun registerExtensionPoint(
+        area: ExtensionsArea,
+        epClassName: String,
+        epField: String,
+        aClass: Class<*>? = null
+    ) {
         try {
             val epClass = Class.forName(epClassName)
             val epName = epClass.getDeclaredField(epField)
@@ -101,22 +105,6 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
         } catch (e: Exception) {
             // Don't register the extension point, as the associated class is not found.
         }
-    }
-
-    // IntelliJ >= 2019.3 deprecates Extensions#getArea
-    @Suppress("UnstableApiUsage", "SameParameterValue")
-    fun <T> registerExtensionPoint(
-        area: AreaInstance,
-        extensionPointName: ExtensionPointName<T>,
-        aClass: Class<out T>
-    ) {
-        registerExtensionPoint(area.extensionArea, extensionPointName, aClass)
-    }
-
-    // IntelliJ >= 2019.3 deprecates Extensions#getArea
-    @Suppress("UnstableApiUsage")
-    fun registerExtensionPoint(area: AreaInstance, epClassName: String, epField: String, aClass: Class<*>? = null) {
-        registerExtensionPoint(area.extensionArea, epClassName, epField, aClass)
     }
 
     // endregion
