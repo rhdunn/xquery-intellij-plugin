@@ -16,9 +16,11 @@
 package uk.co.reecedunn.intellij.plugin.xpath.tests.parser
 
 import com.intellij.compat.testFramework.registerCodeStyleCachingService
+import com.intellij.compat.testFramework.registerExtensionPointBean
 import com.intellij.compat.testFramework.registerPomModel
 import com.intellij.compat.testFramework.registerServiceInstance
 import com.intellij.lang.LanguageASTFactory
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.module.ModuleManager
 import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.psi.PsiFile
@@ -47,7 +49,10 @@ abstract class ParserTestCase : ParsingTestCase<PsiFile>(null, XPathParserDefini
         project.registerServiceInstance(ProjectRootManager::class.java, MockProjectRootsManager())
         project.registerServiceInstance(ModuleManager::class.java, MockModuleManager(project))
 
-        registerExtensionPoint(XpmFunctionProvider.EP_NAME, XpmFunctionProviderBean::class.java)
+        val app = ApplicationManager.getApplication()
+        app.registerExtensionPointBean(
+            XpmFunctionProvider.EP_NAME, XpmFunctionProviderBean::class.java, testRootDisposable
+        )
 
         registerExtensions()
     }
