@@ -18,6 +18,8 @@ package uk.co.reecedunn.intellij.plugin.xpath.tests.completion
 import com.intellij.codeInsight.lookup.AutoCompletionPolicy
 import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.codeInsight.lookup.LookupElementPresentation
+import com.intellij.compat.testFramework.registerExtensionPointBean
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.ui.JBColor
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
@@ -35,7 +37,12 @@ import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
 @DisplayName("XPath 3.1 - Code Completion - Lookup Element")
 private class XPathLookupElementTest : ParserTestCase() {
     override fun registerExtensions() {
-        registerExtensionPoint("com.intellij.openapi.editor.impl.DocumentWriteAccessGuard", "EP_NAME")
+        val app = ApplicationManager.getApplication()
+        app.registerExtensionPointBean(
+            "com.intellij.documentWriteAccessGuard",
+            "com.intellij.openapi.editor.impl.DocumentWriteAccessGuard",
+            testRootDisposable
+        )
     }
 
     @Nested

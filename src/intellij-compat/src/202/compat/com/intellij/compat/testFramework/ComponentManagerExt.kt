@@ -40,6 +40,20 @@ fun <T : Any> ComponentManager.registerExtensionPointBean(
 }
 
 @TestOnly
+fun ComponentManager.registerExtensionPointBean(
+    name: String,
+    className: String,
+    parentDisposable: Disposable
+) {
+    if (!extensionArea.hasExtensionPoint(name)) {
+        extensionArea.registerExtensionPoint(name, className, ExtensionPoint.Kind.BEAN_CLASS)
+        Disposer.register(parentDisposable, Disposable {
+            extensionArea.unregisterExtensionPoint(name)
+        })
+    }
+}
+
+@TestOnly
 fun <T : Any> ComponentManager.registerExtension(
     name: BaseExtensionPointName<*>,
     instance: T,
