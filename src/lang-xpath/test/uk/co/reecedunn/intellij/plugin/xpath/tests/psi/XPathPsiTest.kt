@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.tests.psi
 
+import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiNameIdentifierOwner
@@ -69,6 +70,8 @@ import java.math.BigInteger
 @Suppress("ClassName", "RedundantVisibilityModifier", "Reformat")
 @DisplayName("XPath 3.1 - IntelliJ Program Structure Interface (PSI)")
 private class XPathPsiTest : ParserTestCase() {
+    override val pluginId: PluginId = PluginId.getId("XPathPsiTest")
+
     @Nested
     @DisplayName("XPath 4.0 ED (2) Basics ; XPath 3.1 (2) Basics")
     internal inner class Basics {

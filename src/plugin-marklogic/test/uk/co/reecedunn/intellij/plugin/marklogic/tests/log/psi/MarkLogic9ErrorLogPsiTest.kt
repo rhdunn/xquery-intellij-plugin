@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.marklogic.tests.log.psi
 
+import com.intellij.openapi.extensions.PluginId
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
 import org.junit.jupiter.api.*
@@ -31,6 +32,8 @@ import uk.co.reecedunn.intellij.plugin.marklogic.log.lexer.MarkLogicErrorLogToke
 @DisplayName("MarkLogic 8.0 ErrorLog")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 private class MarkLogic9ErrorLogPsiTest : ParsingTestCase<MarkLogicErrorLog>("log", ParserDefinition()) {
+    override val pluginId: PluginId = PluginId.getId("MarkLogic9ErrorLogPsiTest")
+
     @BeforeAll
     override fun setUp() = super.setUp()
 

@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.expath.tests.pkg
 
 import com.intellij.lang.xml.XMLParserDefinition
+import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.xml.XmlFile
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
@@ -37,6 +38,8 @@ import java.util.zip.ZipEntry
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("EXPath Packaging System 9 May 2012")
 private class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLParserDefinition()) {
+    override val pluginId: PluginId = PluginId.getId("EXPathPackageDescriptorTest")
+
     @BeforeAll
     override fun setUp() {
         super.setUp()

@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.tests.parser
 
+import com.intellij.openapi.extensions.PluginId
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -29,6 +30,8 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPath
 @Suppress("ClassName", "Reformat", "RedundantVisibilityModifier")
 @DisplayName("XPath 3.1 with Full Text 3.0 - Parser")
 private class FullTextParserTest : ParserTestCase() {
+    override val pluginId: PluginId = PluginId.getId("FullTextParserTest")
+
     private val res = ResourceVirtualFileSystem(this::class.java.classLoader)
 
     fun parseResource(resource: String): XPath = res.toPsiFile(resource, project)

@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.tests.psi
 
+import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.PsiElement
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
@@ -39,6 +40,8 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("XQuery IntelliJ Plugin - IntelliJ Program Structure Interface (PSI) - XPath")
 private class PluginPsiTest : ParserTestCase() {
+    override val pluginId: PluginId = PluginId.getId("PluginPsiTest")
+
     @Nested
     @DisplayName("XQuery IntelliJ Plugin (2.1.2.2) Tuple Test")
     internal inner class RecordTest {

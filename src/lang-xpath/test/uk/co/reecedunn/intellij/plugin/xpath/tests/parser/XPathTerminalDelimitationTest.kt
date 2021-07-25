@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xpath.tests.parser
 
 import com.intellij.lang.ParserDefinition
+import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.tree.IElementType
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
@@ -27,6 +28,8 @@ import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @DisplayName("XPath 3.1 - (A.2.2) Terminal Delimitation")
 private class XPathTerminalDelimitationTest : ParserTestCase() {
+    override val pluginId: PluginId = PluginId.getId("XPathTerminalDelimitationTest")
+
     fun required(left: IElementType, right: IElementType) {
         assertThat(
             XPathParserDefinition.spaceRequirements(left, right),

@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.tests.completion
 
+import com.intellij.openapi.extensions.PluginId
 import com.intellij.util.ProcessingContext
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
@@ -28,6 +29,8 @@ import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("XPath 3.1 - Code Completion - Completion Filters")
 private class XPathCompletionFilterTest : ParserTestCase() {
+    override val pluginId: PluginId = PluginId.getId("XPathCompletionFilterTest")
+
     @Nested
     @DisplayName("XPath 3.1 EBNF (41) ForwardAxis ; XPath 3.1 EBNF (44) ReverseAxis")
     internal inner class ForwardOrReverseAxis {

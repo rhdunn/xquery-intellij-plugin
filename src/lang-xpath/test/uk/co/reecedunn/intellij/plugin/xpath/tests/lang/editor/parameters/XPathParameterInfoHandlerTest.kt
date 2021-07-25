@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.tests.lang.editor.parameters
 
+import com.intellij.openapi.extensions.PluginId
 import com.intellij.testFramework.utils.parameterInfo.MockUpdateParameterInfoContext
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
@@ -32,6 +33,8 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaratio
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("IntelliJ - Custom Language Support - Parameter Info - XPath ParameterInfoHandler")
 private class XPathParameterInfoHandlerTest : ParserTestCase() {
+    override val pluginId: PluginId = PluginId.getId("XPathParameterInfoHandlerTest")
+
     private val parameterInfoHandler = XPathParameterInfoHandler()
 
     @Nested

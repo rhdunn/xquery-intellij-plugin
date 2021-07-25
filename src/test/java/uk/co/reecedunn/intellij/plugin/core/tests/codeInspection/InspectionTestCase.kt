@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018, 2020 Reece H. Dunn
+ * Copyright (C) 2016-2018, 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,15 +21,11 @@ import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ex.InspectionManagerEx
 import com.intellij.compat.testFramework.registerServiceInstance
 import com.intellij.lang.LanguageASTFactory
-import com.intellij.openapi.Disposable
-import com.intellij.openapi.extensions.DefaultPluginDescriptor
-import com.intellij.openapi.extensions.PluginDescriptor
 import com.intellij.psi.SmartPointerManager
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.TestInstance
 import uk.co.reecedunn.intellij.plugin.basex.lang.BaseXSyntaxValidator
-import uk.co.reecedunn.intellij.plugin.core.extensions.PluginDescriptorProvider
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockSmartPointerManager
 import uk.co.reecedunn.intellij.plugin.marklogic.lang.MarkLogicSyntaxValidator
@@ -50,17 +46,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSett
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 abstract class InspectionTestCase :
-    ParsingTestCase<XQueryModule>("xqy", XQueryParserDefinition(), XPathParserDefinition()),
-    PluginDescriptorProvider {
-    // region PluginDescriptorProvider
-
-    override val pluginDescriptor: PluginDescriptor
-        get() = DefaultPluginDescriptor(pluginId, this::class.java.classLoader)
-
-    override val pluginDisposable: Disposable
-        get() = testRootDisposable
-
-    // endregion
+    ParsingTestCase<XQueryModule>("xqy", XQueryParserDefinition(), XPathParserDefinition()) {
 
     private val inspectionManager: InspectionManager
         get() = InspectionManager.getInstance(project)

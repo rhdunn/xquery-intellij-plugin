@@ -17,14 +17,10 @@ package uk.co.reecedunn.intellij.plugin.saxon.tests.lang
 
 import com.intellij.compat.testFramework.registerServiceInstance
 import com.intellij.lang.LanguageASTFactory
-import com.intellij.openapi.Disposable
-import com.intellij.openapi.extensions.DefaultPluginDescriptor
-import com.intellij.openapi.extensions.PluginDescriptor
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.PsiElement
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.*
-import uk.co.reecedunn.intellij.plugin.core.extensions.PluginDescriptorProvider
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.saxon.lang.*
@@ -46,8 +42,10 @@ import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSett
 @DisplayName("XQuery IntelliJ Plugin - Syntax Validation - Saxon")
 class SaxonSyntaxValidatorTest :
     ParsingTestCase<XQueryModule>("xqy", XQueryParserDefinition(), XPathParserDefinition()),
-    PluginDescriptorProvider,
     XpmDiagnostics {
+
+    override val pluginId: PluginId = PluginId.getId("SaxonSyntaxValidatorTest")
+
     // region ParsingTestCase
 
     @BeforeAll
@@ -64,17 +62,6 @@ class SaxonSyntaxValidatorTest :
     override fun tearDown() {
         super.tearDown()
     }
-
-    // endregion
-    // region PluginDescriptorProvider
-
-    override val pluginId: PluginId = PluginId.getId("SaxonSyntaxValidatorTest")
-
-    override val pluginDescriptor: PluginDescriptor
-        get() = DefaultPluginDescriptor(pluginId, this::class.java.classLoader)
-
-    override val pluginDisposable: Disposable
-        get() = testRootDisposable
 
     // endregion
     // region XpmDiagnostics

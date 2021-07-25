@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.lang.fileTypes
 
+import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.PsiFile
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.*
@@ -28,6 +29,8 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.fileTypes.XQueryFileType
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("IntelliJ - Custom Language Support - Registering a File Type - XQuery")
 private class XQueryFileTypeTest : ParsingTestCase<PsiFile>(".xqy", XQuery) {
+    override val pluginId: PluginId = PluginId.getId("XQueryFileTypeTest")
+
     @BeforeAll
     override fun setUp() {
         super.setUp()

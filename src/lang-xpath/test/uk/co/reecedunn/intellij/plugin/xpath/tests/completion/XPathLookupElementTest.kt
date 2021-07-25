@@ -20,6 +20,7 @@ import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.codeInsight.lookup.LookupElementPresentation
 import com.intellij.compat.testFramework.registerExtensionPointBean
 import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.extensions.PluginId
 import com.intellij.ui.JBColor
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
@@ -36,6 +37,8 @@ import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
 @Suppress("RedundantVisibilityModifier")
 @DisplayName("XPath 3.1 - Code Completion - Lookup Element")
 private class XPathLookupElementTest : ParserTestCase() {
+    override val pluginId: PluginId = PluginId.getId("XPathLookupElementTest")
+
     override fun registerExtensions() {
         val app = ApplicationManager.getApplication()
         app.registerExtensionPointBean(

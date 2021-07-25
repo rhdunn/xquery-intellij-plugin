@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.tests.psi
 
+import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.PsiElement
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
@@ -42,6 +43,8 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableBinding
 @Suppress("ClassName", "RedundantVisibilityModifier")
 @DisplayName("XPath 3.1 with Full Text 3.0 - IntelliJ Program Structure Interface (PSI)")
 private class FullTextPsiTest : ParserTestCase() {
+    override val pluginId: PluginId = PluginId.getId("FullTextPsiTest")
+
     @Nested
     @DisplayName("XQuery and XPath Full Text 3.0 (2.2) Full-Text Contains Expression")
     internal inner class FullTextContainsExpression {
