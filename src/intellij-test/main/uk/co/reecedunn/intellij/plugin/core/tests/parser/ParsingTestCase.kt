@@ -21,6 +21,7 @@ import com.intellij.codeInsight.completion.OffsetMap
 import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.compat.mock.MockFileDocumentManagerImpl
 import com.intellij.compat.testFramework.PlatformLiteFixture
+import com.intellij.compat.testFramework.registerExtensionPointBean
 import com.intellij.compat.testFramework.registerServiceInstance
 import com.intellij.compat.util.registry.initializeRegistryForTests
 import com.intellij.ide.startup.impl.StartupManagerImpl
@@ -152,10 +153,14 @@ abstract class ParsingTestCase<File : PsiFile>(
     protected fun registerPsiModification() {
         val app = ApplicationManager.getApplication()
 
-        registerExtensionPoint(FileIndentOptionsProvider.EP_NAME, FileIndentOptionsProvider::class.java)
-        registerExtensionPoint(FileTypeIndentOptionsProvider.EP_NAME, FileTypeIndentOptionsProvider::class.java)
+        app.registerExtensionPointBean(
+            FileIndentOptionsProvider.EP_NAME, FileIndentOptionsProvider::class.java, testRootDisposable
+        )
+        app.registerExtensionPointBean(
+            FileTypeIndentOptionsProvider.EP_NAME, FileTypeIndentOptionsProvider::class.java, testRootDisposable
+        )
 
-        registerExtensionPoint(TreeCopyHandler.EP_NAME, TreeCopyHandler::class.java)
+        app.registerExtensionPointBean(TreeCopyHandler.EP_NAME, TreeCopyHandler::class.java, testRootDisposable)
         app.registerServiceInstance(IndentHelper::class.java, IndentHelperImpl())
 
         registerCodeSettingsService()
@@ -178,22 +183,28 @@ abstract class ParsingTestCase<File : PsiFile>(
     }
 
     private fun registerCodeStyleSettingsManager() {
-        registerExtensionPoint(CodeStyleSettingsProvider.EXTENSION_POINT_NAME, CodeStyleSettingsProvider::class.java)
-        registerExtensionPoint(
-            LanguageCodeStyleSettingsProvider.EP_NAME, LanguageCodeStyleSettingsProvider::class.java
-        )
-        registerExtensionPoint(FileCodeStyleProvider.EP_NAME, FileCodeStyleProvider::class.java)
+        val app = ApplicationManager.getApplication()
 
-        ApplicationManager.getApplication().registerServiceInstance(
-            AppCodeStyleSettingsManager::class.java, AppCodeStyleSettingsManager()
+        app.registerExtensionPointBean(
+            CodeStyleSettingsProvider.EXTENSION_POINT_NAME, CodeStyleSettingsProvider::class.java, testRootDisposable
         )
+        app.registerExtensionPointBean(
+            LanguageCodeStyleSettingsProvider.EP_NAME, LanguageCodeStyleSettingsProvider::class.java, testRootDisposable
+        )
+        app.registerExtensionPointBean(
+            FileCodeStyleProvider.EP_NAME, FileCodeStyleProvider::class.java, testRootDisposable
+        )
+
+        app.registerServiceInstance(AppCodeStyleSettingsManager::class.java, AppCodeStyleSettingsManager())
         project.registerServiceInstance(
             ProjectCodeStyleSettingsManager::class.java,
             ProjectCodeStyleSettingsManager(project)
         )
 
         @Suppress("UnstableApiUsage")
-        registerExtensionPoint(CodeStyleSettingsModifier.EP_NAME, CodeStyleSettingsModifier::class.java)
+        app.registerExtensionPointBean(
+            CodeStyleSettingsModifier.EP_NAME, CodeStyleSettingsModifier::class.java, testRootDisposable
+        )
     }
 
     private fun configureFromParserDefinition(definition: ParserDefinition, extension: String?) {
