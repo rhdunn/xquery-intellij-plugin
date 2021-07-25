@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,20 +35,9 @@ import java.util.zip.ZipEntry
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("RedundantVisibilityModifier")
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("EXPath Packaging System 9 May 2012")
 private class EXPathPackageDescriptorTest : ParsingTestCase<XmlFile>(null, XMLParserDefinition()) {
     override val pluginId: PluginId = PluginId.getId("EXPathPackageDescriptorTest")
-
-    @BeforeAll
-    override fun setUp() {
-        super.setUp()
-    }
-
-    @AfterAll
-    override fun tearDown() {
-        super.tearDown()
-    }
 
     private fun pkg(xml: String, files: Sequence<Pair<ZipEntry, ByteArray>> = sequenceOf()): EXPathPackage {
         val zip = sequenceOf(

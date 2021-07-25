@@ -30,15 +30,8 @@ import uk.co.reecedunn.intellij.plugin.marklogic.log.lexer.MarkLogicErrorLogToke
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("Reformat", "ClassName", "RedundantVisibilityModifier")
 @DisplayName("MarkLogic 8.0 ErrorLog")
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 private class MarkLogic9ErrorLogPsiTest : ParsingTestCase<MarkLogicErrorLog>("log", ParserDefinition()) {
     override val pluginId: PluginId = PluginId.getId("MarkLogic9ErrorLogPsiTest")
-
-    @BeforeAll
-    override fun setUp() = super.setUp()
-
-    @AfterAll
-    override fun tearDown() = super.tearDown()
 
     @Test
     @DisplayName("Java exception")

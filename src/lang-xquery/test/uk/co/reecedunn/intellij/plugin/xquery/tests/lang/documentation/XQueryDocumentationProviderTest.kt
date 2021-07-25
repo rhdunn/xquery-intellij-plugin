@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2020 Reece H. Dunn
+ * Copyright (C) 2019-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,7 +42,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("RedundantVisibilityModifier")
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("IntelliJ - Custom Language Support - Documentation Provider - XQuery")
 private class XQueryDocumentationProviderTest : ParserTestCase() {
     companion object {
@@ -57,19 +56,13 @@ private class XQueryDocumentationProviderTest : ParserTestCase() {
 
     private val documentationProvider = XQueryDocumentationProvider()
 
-    @BeforeAll
-    override fun setUp() {
-        super.setUp()
+    override fun registerServicesAndExtensions() {
+        super.registerServicesAndExtensions()
 
         XQDocDocumentationSourceProvider.register(this, DocumentationSourceProvider)
 
         XpmVariableProvider.register(this, XQueryVariableProvider)
         XpmFunctionProvider.register(this, XQueryFunctionProvider)
-    }
-
-    @AfterAll
-    override fun tearDown() {
-        super.tearDown()
     }
 
     @Nested

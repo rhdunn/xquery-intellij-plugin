@@ -23,9 +23,6 @@ import com.intellij.lang.LanguageASTFactory
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.module.ModuleManager
 import com.intellij.openapi.roots.ProjectRootManager
-import org.junit.jupiter.api.AfterAll
-import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.TestInstance
 import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.roots.MockProjectRootsManager
@@ -48,15 +45,13 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
 import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSettings
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 abstract class ParserTestCase :
     ParsingTestCase<XQueryModule>("xqy", XQueryParserDefinition(), XPathParserDefinition()) {
 
     open fun registerModules(manager: MockModuleManager) {}
 
-    @BeforeAll
-    override fun setUp() {
-        super.setUp()
+    override fun registerServicesAndExtensions() {
+        super.registerServicesAndExtensions()
         registerPomModel(project)
         registerPsiModification()
         project.registerCodeStyleCachingService()
@@ -89,11 +84,6 @@ abstract class ParserTestCase :
         )
 
         registerExtensions()
-    }
-
-    @AfterAll
-    override fun tearDown() {
-        super.tearDown()
     }
 
     open fun registerExtensions() {}

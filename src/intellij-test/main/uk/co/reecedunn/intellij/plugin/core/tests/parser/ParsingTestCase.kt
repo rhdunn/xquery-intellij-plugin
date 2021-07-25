@@ -20,7 +20,6 @@ import com.intellij.codeInsight.completion.InsertionContext
 import com.intellij.codeInsight.completion.OffsetMap
 import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.compat.mock.MockFileDocumentManagerImpl
-import com.intellij.compat.testFramework.PlatformLiteFixture
 import com.intellij.compat.testFramework.registerExtensionPointBean
 import com.intellij.compat.testFramework.registerServiceInstance
 import com.intellij.compat.util.registry.initializeRegistryForTests
@@ -31,14 +30,11 @@ import com.intellij.lang.parameterInfo.CreateParameterInfoContext
 import com.intellij.lang.parameterInfo.UpdateParameterInfoContext
 import com.intellij.mock.MockFileTypeManager
 import com.intellij.mock.MockLanguageFileType
-import com.intellij.openapi.Disposable
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.command.CommandProcessor
 import com.intellij.openapi.command.impl.CoreCommandProcessor
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.EditorFactory
-import com.intellij.openapi.extensions.DefaultPluginDescriptor
-import com.intellij.openapi.extensions.PluginDescriptor
 import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.intellij.openapi.fileEditor.impl.FileDocumentManagerImpl
 import com.intellij.openapi.fileTypes.FileType
@@ -72,13 +68,13 @@ import com.intellij.testFramework.utils.parameterInfo.MockUpdateParameterInfoCon
 import com.intellij.util.CachedValuesManagerImpl
 import com.intellij.util.messages.MessageBus
 import org.jetbrains.annotations.NonNls
-import uk.co.reecedunn.intellij.plugin.core.extensions.PluginDescriptorProvider
 import uk.co.reecedunn.intellij.plugin.core.psi.document
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.editor.MockEditorFactoryEx
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parameterInfo.MockCreateParameterInfoContext
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockPsiDocumentManagerEx
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockPsiManager
+import uk.co.reecedunn.intellij.plugin.core.tests.testFramework.IdeaPlatformTestCase
 import uk.co.reecedunn.intellij.plugin.core.vfs.toPsiFile
 import java.nio.charset.StandardCharsets
 
@@ -88,17 +84,7 @@ import java.nio.charset.StandardCharsets
 abstract class ParsingTestCase<File : PsiFile>(
     private var mFileExt: String?,
     vararg definitions: ParserDefinition
-) : PlatformLiteFixture(), PluginDescriptorProvider {
-    // region PluginDescriptorProvider
-
-    override val pluginDescriptor: PluginDescriptor
-        get() = DefaultPluginDescriptor(pluginId, this::class.java.classLoader)
-
-    override val pluginDisposable: Disposable
-        get() = testRootDisposable
-
-    // endregion
-
+) : IdeaPlatformTestCase() {
     constructor(fileExt: String?, language: Language) : this(fileExt) {
         this.language = language
     }
@@ -111,8 +97,7 @@ abstract class ParsingTestCase<File : PsiFile>(
     private val mDefinitions: Array<out ParserDefinition> = definitions
 
     @Suppress("UnstableApiUsage")
-    override fun setUp() {
-        super.setUp()
+    override fun registerServicesAndExtensions() {
         initializeRegistryForTests()
 
         // IntelliJ ParsingTestCase setUp
@@ -166,13 +151,13 @@ abstract class ParsingTestCase<File : PsiFile>(
         val app = ApplicationManager.getApplication()
 
         app.registerExtensionPointBean(
-            FileIndentOptionsProvider.EP_NAME, FileIndentOptionsProvider::class.java, testRootDisposable
+            FileIndentOptionsProvider.EP_NAME, FileIndentOptionsProvider::class.java, pluginDisposable
         )
         app.registerExtensionPointBean(
-            FileTypeIndentOptionsProvider.EP_NAME, FileTypeIndentOptionsProvider::class.java, testRootDisposable
+            FileTypeIndentOptionsProvider.EP_NAME, FileTypeIndentOptionsProvider::class.java, pluginDisposable
         )
 
-        app.registerExtensionPointBean(TreeCopyHandler.EP_NAME, TreeCopyHandler::class.java, testRootDisposable)
+        app.registerExtensionPointBean(TreeCopyHandler.EP_NAME, TreeCopyHandler::class.java, pluginDisposable)
         app.registerServiceInstance(IndentHelper::class.java, IndentHelperImpl())
 
         registerCodeSettingsService()
@@ -198,13 +183,13 @@ abstract class ParsingTestCase<File : PsiFile>(
         val app = ApplicationManager.getApplication()
 
         app.registerExtensionPointBean(
-            CodeStyleSettingsProvider.EXTENSION_POINT_NAME, CodeStyleSettingsProvider::class.java, testRootDisposable
+            CodeStyleSettingsProvider.EXTENSION_POINT_NAME, CodeStyleSettingsProvider::class.java, pluginDisposable
         )
         app.registerExtensionPointBean(
-            LanguageCodeStyleSettingsProvider.EP_NAME, LanguageCodeStyleSettingsProvider::class.java, testRootDisposable
+            LanguageCodeStyleSettingsProvider.EP_NAME, LanguageCodeStyleSettingsProvider::class.java, pluginDisposable
         )
         app.registerExtensionPointBean(
-            FileCodeStyleProvider.EP_NAME, FileCodeStyleProvider::class.java, testRootDisposable
+            FileCodeStyleProvider.EP_NAME, FileCodeStyleProvider::class.java, pluginDisposable
         )
 
         app.registerServiceInstance(AppCodeStyleSettingsManager::class.java, AppCodeStyleSettingsManager())
@@ -215,7 +200,7 @@ abstract class ParsingTestCase<File : PsiFile>(
 
         @Suppress("UnstableApiUsage")
         app.registerExtensionPointBean(
-            CodeStyleSettingsModifier.EP_NAME, CodeStyleSettingsModifier::class.java, testRootDisposable
+            CodeStyleSettingsModifier.EP_NAME, CodeStyleSettingsModifier::class.java, pluginDisposable
         )
     }
 

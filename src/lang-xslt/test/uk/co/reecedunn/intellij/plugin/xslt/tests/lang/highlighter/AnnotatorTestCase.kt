@@ -28,9 +28,6 @@ import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.psi.PsiFile
 import com.intellij.psi.xml.StartTagEndTokenProvider
 import com.intellij.xml.XmlExtension
-import org.junit.jupiter.api.AfterAll
-import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.TestInstance
 import uk.co.reecedunn.intellij.plugin.core.tests.injecton.MockInjectedLanguageManager
 import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
 import uk.co.reecedunn.intellij.plugin.core.tests.roots.MockProjectRootsManager
@@ -38,13 +35,11 @@ import uk.co.reecedunn.intellij.plugin.xpm.psi.shadow.XpmShadowPsiElementFactory
 import uk.co.reecedunn.intellij.plugin.xslt.psi.impl.XsltShadowPsiElementFactory
 
 @Suppress("MemberVisibilityCanBePrivate", "SameParameterValue")
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 abstract class AnnotatorTestCase(vararg definitions: ParserDefinition) :
     uk.co.reecedunn.intellij.plugin.core.tests.parser.AnnotatorTestCase<PsiFile>(null, *definitions) {
 
-    @BeforeAll
-    override fun setUp() {
-        super.setUp()
+    override fun registerServicesAndExtensions() {
+        super.registerServicesAndExtensions()
         addExplicitExtension(LanguageASTFactory.INSTANCE, XMLLanguage.INSTANCE, XmlASTFactory())
 
         val app = ApplicationManager.getApplication()
@@ -58,10 +53,5 @@ abstract class AnnotatorTestCase(vararg definitions: ParserDefinition) :
         project.registerServiceInstance(InjectedLanguageManager::class.java, MockInjectedLanguageManager())
 
         XpmShadowPsiElementFactory.register(this, XsltShadowPsiElementFactory)
-    }
-
-    @AfterAll
-    override fun tearDown() {
-        super.tearDown()
     }
 }

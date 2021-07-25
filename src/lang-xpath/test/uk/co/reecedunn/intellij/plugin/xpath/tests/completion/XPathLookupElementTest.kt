@@ -44,7 +44,7 @@ private class XPathLookupElementTest : ParserTestCase() {
         app.registerExtensionPointBean(
             "com.intellij.documentWriteAccessGuard",
             "com.intellij.openapi.editor.impl.DocumentWriteAccessGuard",
-            testRootDisposable
+            pluginDisposable
         )
     }
 

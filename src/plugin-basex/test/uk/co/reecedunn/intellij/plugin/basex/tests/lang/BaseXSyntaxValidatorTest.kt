@@ -39,7 +39,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
 import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSettings
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("XQuery IntelliJ Plugin - Syntax Validation - BaseX")
 class BaseXSyntaxValidatorTest :
     ParsingTestCase<XQueryModule>("xqy", XQueryParserDefinition(), XPathParserDefinition()),
@@ -49,19 +48,13 @@ class BaseXSyntaxValidatorTest :
 
     // region ParsingTestCase
 
-    @BeforeAll
-    override fun setUp() {
-        super.setUp()
+    override fun registerServicesAndExtensions() {
+        super.registerServicesAndExtensions()
         project.registerServiceInstance(XQueryProjectSettings::class.java, XQueryProjectSettings())
         addExplicitExtension(LanguageASTFactory.INSTANCE, XPath, XPathASTFactory())
         addExplicitExtension(LanguageASTFactory.INSTANCE, XQuery, XQueryASTFactory())
 
         XpmSyntaxValidator.register(this, BaseXSyntaxValidator)
-    }
-
-    @AfterAll
-    override fun tearDown() {
-        super.tearDown()
     }
 
     // endregion

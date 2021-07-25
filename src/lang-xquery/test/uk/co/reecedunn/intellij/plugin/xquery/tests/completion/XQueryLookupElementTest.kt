@@ -58,7 +58,7 @@ private class XQueryLookupElementTest : ParserTestCase() {
         app.registerExtensionPointBean(
             "com.intellij.documentWriteAccessGuard",
             "com.intellij.openapi.editor.impl.DocumentWriteAccessGuard",
-            testRootDisposable
+            pluginDisposable
         )
 
         XpmNamespaceProvider.register(this, XQueryNamespaceProvider)

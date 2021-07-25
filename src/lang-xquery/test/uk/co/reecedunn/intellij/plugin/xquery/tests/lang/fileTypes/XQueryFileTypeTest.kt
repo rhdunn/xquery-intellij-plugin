@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2019 Reece H. Dunn
+ * Copyright (C) 2016-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,20 +26,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.fileTypes.XQueryFileType
 
 // NOTE: This class is private so the JUnit 4 test runner does not run the tests contained in it.
 @Suppress("RedundantVisibilityModifier")
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DisplayName("IntelliJ - Custom Language Support - Registering a File Type - XQuery")
 private class XQueryFileTypeTest : ParsingTestCase<PsiFile>(".xqy", XQuery) {
     override val pluginId: PluginId = PluginId.getId("XQueryFileTypeTest")
-
-    @BeforeAll
-    override fun setUp() {
-        super.setUp()
-    }
-
-    @AfterAll
-    override fun tearDown() {
-        super.tearDown()
-    }
 
     @Test
     @DisplayName("properties")

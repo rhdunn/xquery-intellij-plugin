@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2020 Reece H. Dunn
+ * Copyright (C) 2016-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,9 +19,6 @@ import com.intellij.compat.testFramework.registerExtensionPointBean
 import com.intellij.compat.testFramework.registerServiceInstance
 import com.intellij.lang.LanguageASTFactory
 import com.intellij.openapi.application.ApplicationManager
-import org.junit.jupiter.api.AfterAll
-import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.TestInstance
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.AnnotatorTestCase
 import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathASTFactory
@@ -36,13 +33,11 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
 import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSettings
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 abstract class AnnotatorTestCase :
     AnnotatorTestCase<XQueryModule>("xqy", XQueryParserDefinition(), XPathParserDefinition()) {
 
-    @BeforeAll
-    override fun setUp() {
-        super.setUp()
+    override fun registerServicesAndExtensions() {
+        super.registerServicesAndExtensions()
         project.registerServiceInstance(XQueryProjectSettings::class.java, XQueryProjectSettings())
         addExplicitExtension(LanguageASTFactory.INSTANCE, XPath, XPathASTFactory())
         addExplicitExtension(LanguageASTFactory.INSTANCE, XQuery, XQueryASTFactory())
@@ -55,11 +50,6 @@ abstract class AnnotatorTestCase :
         )
 
         registerExtensions()
-    }
-
-    @AfterAll
-    override fun tearDown() {
-        super.tearDown()
     }
 
     open fun registerExtensions() {}

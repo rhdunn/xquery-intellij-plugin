@@ -22,9 +22,6 @@ import com.intellij.codeInspection.ex.InspectionManagerEx
 import com.intellij.compat.testFramework.registerServiceInstance
 import com.intellij.lang.LanguageASTFactory
 import com.intellij.psi.SmartPointerManager
-import org.junit.jupiter.api.AfterAll
-import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.TestInstance
 import uk.co.reecedunn.intellij.plugin.basex.lang.BaseXSyntaxValidator
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockSmartPointerManager
@@ -44,7 +41,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryASTFactory
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryParserDefinition
 import uk.co.reecedunn.intellij.plugin.xquery.project.settings.XQueryProjectSettings
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 abstract class InspectionTestCase :
     ParsingTestCase<XQueryModule>("xqy", XQueryParserDefinition(), XPathParserDefinition()) {
 
@@ -54,9 +50,8 @@ abstract class InspectionTestCase :
     protected val settings: XQueryProjectSettings
         get() = XQueryProjectSettings.getInstance(project)
 
-    @BeforeAll
-    override fun setUp() {
-        super.setUp()
+    override fun registerServicesAndExtensions() {
+        super.registerServicesAndExtensions()
 
         project.registerServiceInstance(XQueryProjectSettings::class.java, XQueryProjectSettings())
         project.registerServiceInstance(SmartPointerManager::class.java, MockSmartPointerManager())
@@ -72,11 +67,6 @@ abstract class InspectionTestCase :
         XpmSyntaxValidator.register(this, XQuerySyntaxValidator)
 
         XpmNamespaceProvider.register(this, XQueryNamespaceProvider)
-    }
-
-    @AfterAll
-    override fun tearDown() {
-        super.tearDown()
     }
 
     fun inspect(file: XQueryModule, inspection: LocalInspectionTool): List<ProblemDescriptor>? {

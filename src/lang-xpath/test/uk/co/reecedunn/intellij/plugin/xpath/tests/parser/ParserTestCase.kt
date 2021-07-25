@@ -24,9 +24,6 @@ import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.module.ModuleManager
 import com.intellij.openapi.roots.ProjectRootManager
 import com.intellij.psi.PsiFile
-import org.junit.jupiter.api.AfterAll
-import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.TestInstance
 import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
 import uk.co.reecedunn.intellij.plugin.core.tests.parser.ParsingTestCase
 import uk.co.reecedunn.intellij.plugin.core.tests.roots.MockProjectRootsManager
@@ -36,11 +33,9 @@ import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionProviderBean
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 abstract class ParserTestCase : ParsingTestCase<PsiFile>(null, XPathParserDefinition()) {
-    @BeforeAll
-    override fun setUp() {
-        super.setUp()
+    override fun registerServicesAndExtensions() {
+        super.registerServicesAndExtensions()
         registerPomModel(project)
         registerPsiModification()
         project.registerCodeStyleCachingService()
@@ -51,15 +46,10 @@ abstract class ParserTestCase : ParsingTestCase<PsiFile>(null, XPathParserDefini
 
         val app = ApplicationManager.getApplication()
         app.registerExtensionPointBean(
-            XpmFunctionProvider.EP_NAME, XpmFunctionProviderBean::class.java, testRootDisposable
+            XpmFunctionProvider.EP_NAME, XpmFunctionProviderBean::class.java, pluginDisposable
         )
 
         registerExtensions()
-    }
-
-    @AfterAll
-    override fun tearDown() {
-        super.tearDown()
     }
 
     open fun registerExtensions() {}
