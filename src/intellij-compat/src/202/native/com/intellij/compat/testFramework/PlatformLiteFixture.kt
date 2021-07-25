@@ -18,14 +18,7 @@ package com.intellij.compat.testFramework
 
 import com.intellij.mock.MockApplication
 import com.intellij.mock.MockProjectEx
-import com.intellij.openapi.application.ApplicationManager
-import com.intellij.openapi.extensions.ExtensionPoint
-import com.intellij.openapi.extensions.ExtensionPointName
-import com.intellij.openapi.extensions.ExtensionsArea
-import com.intellij.openapi.extensions.impl.ExtensionsAreaImpl
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.util.Disposer
-import java.lang.reflect.Modifier
 
 abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase() {
     // region Project
@@ -54,56 +47,6 @@ abstract class PlatformLiteFixture : com.intellij.testFramework.UsefulTestCase()
             LOG.warn(e)
         } finally {
             clearFields(this)
-        }
-    }
-
-    // endregion
-    // region Registering Extension Points
-
-    fun <T> registerExtensionPoint(extensionPointName: ExtensionPointName<T>, aClass: Class<T>) {
-        registerExtensionPoint(ApplicationManager.getApplication().extensionArea, extensionPointName, aClass)
-    }
-
-    fun registerExtensionPoint(epClassName: String, epField: String, aClass: Class<*>? = null) {
-        registerExtensionPoint(ApplicationManager.getApplication().extensionArea, epClassName, epField, aClass)
-    }
-
-    @Suppress("UnstableApiUsage")
-    private fun <T> registerExtensionPoint(
-        area: ExtensionsArea,
-        extensionPointName: ExtensionPointName<T>,
-        aClass: Class<out T>
-    ) {
-        if (!area.hasExtensionPoint(extensionPointName)) {
-            val kind =
-                if (aClass.isInterface || aClass.modifiers and Modifier.ABSTRACT != 0)
-                    ExtensionPoint.Kind.INTERFACE
-                else
-                    ExtensionPoint.Kind.BEAN_CLASS
-            val impl = area as ExtensionsAreaImpl
-            impl.registerExtensionPoint(extensionPointName, aClass.name, kind, testRootDisposable)
-            Disposer.register(project, com.intellij.openapi.Disposable {
-                area.unregisterExtensionPoint(extensionPointName.name)
-            })
-        }
-    }
-
-    private fun registerExtensionPoint(
-        area: ExtensionsArea,
-        epClassName: String,
-        epField: String,
-        aClass: Class<*>? = null
-    ) {
-        try {
-            val epClass = Class.forName(epClassName)
-            val epName = epClass.getDeclaredField(epField)
-            val register = PlatformLiteFixture::class.java.getDeclaredMethod(
-                "registerExtensionPoint", ExtensionsArea::class.java, ExtensionPointName::class.java, Class::class.java
-            )
-            epName.isAccessible = true
-            register.invoke(this, area, epName.get(null), aClass ?: epClass)
-        } catch (e: Exception) {
-            // Don't register the extension point, as the associated class is not found.
         }
     }
 
