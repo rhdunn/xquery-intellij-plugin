@@ -207,41 +207,6 @@ class XQueryFoldingTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery 3.1 EBNF (36) EnclosedExpr ; XQuery 3.1 EBNF (102) ValidateExpr")
-    internal inner class ValidateExpr {
-        @Test
-        @DisplayName("single line")
-        fun singleLine() {
-            val file = parseResource("tests/folding/ValidateExpr/SingleLine.xq")
-
-            val descriptors = buildFoldRegions(file)
-            assertThat(descriptors, `is`(notNullValue()))
-            assertThat(descriptors.size, `is`(0))
-        }
-
-        @Test
-        @DisplayName("multiple lines")
-        fun multipleLines() {
-            val file = parseResource("tests/folding/ValidateExpr/MultiLine.xq")
-
-            val descriptors = buildFoldRegions(file)
-            assertThat(descriptors, `is`(notNullValue()))
-            assertThat(descriptors.size, `is`(1))
-
-            assertThat(descriptors[0].canBeRemovedWhenCollapsed(), `is`(false))
-            assertThat(descriptors[0].dependencies, `is`(notNullValue()))
-            assertThat(descriptors[0].dependencies.size, `is`(0))
-            assertThat(descriptors[0].group, `is`(nullValue()))
-            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.VALIDATE_EXPR))
-            assertThat(descriptors[0].range.startOffset, `is`(25))
-            assertThat(descriptors[0].range.endOffset, `is`(38))
-
-            assertThat(getPlaceholderText(descriptors[0]), `is`("{...}"))
-            assertThat(isCollapsedByDefault(descriptors[0]), `is`(false))
-        }
-    }
-
-    @Nested
     @DisplayName("XQuery 3.1 EBNF (36) EnclosedExpr ; XQuery 3.1 EBNF (135) OrderedExpr")
     internal inner class OrderedExpr {
         @Test
@@ -1259,6 +1224,41 @@ class XQueryFoldingTest : ParserTestCase() {
             assertThat(descriptors[0].element.elementType, `is`(XPathElementType.WITH_EXPR))
             assertThat(descriptors[0].range.startOffset, `is`(55))
             assertThat(descriptors[0].range.endOffset, `is`(68))
+
+            assertThat(getPlaceholderText(descriptors[0]), `is`("{...}"))
+            assertThat(isCollapsedByDefault(descriptors[0]), `is`(false))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.1 EBNF (102) ValidateExpr")
+    internal inner class ValidateExpr {
+        @Test
+        @DisplayName("single line")
+        fun singleLine() {
+            val file = parseResource("tests/folding/ValidateExpr/SingleLine.xq")
+
+            val descriptors = buildFoldRegions(file)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(0))
+        }
+
+        @Test
+        @DisplayName("multiple lines")
+        fun multipleLines() {
+            val file = parseResource("tests/folding/ValidateExpr/MultiLine.xq")
+
+            val descriptors = buildFoldRegions(file)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(1))
+
+            assertThat(descriptors[0].canBeRemovedWhenCollapsed(), `is`(false))
+            assertThat(descriptors[0].dependencies, `is`(notNullValue()))
+            assertThat(descriptors[0].dependencies.size, `is`(0))
+            assertThat(descriptors[0].group, `is`(nullValue()))
+            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.VALIDATE_EXPR))
+            assertThat(descriptors[0].range.startOffset, `is`(25))
+            assertThat(descriptors[0].range.endOffset, `is`(38))
 
             assertThat(getPlaceholderText(descriptors[0]), `is`("{...}"))
             assertThat(isCollapsedByDefault(descriptors[0]), `is`(false))
