@@ -79,6 +79,7 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
             else
                 "..."
         }
+        XQueryElementType.EXTENSION_EXPR -> "{...}"
         XQueryElementType.FUNCTION_DECL -> "{...}"
         XQueryElementType.ORDERED_EXPR -> "{...}"
         XQueryElementType.TRY_CATCH_EXPR -> "{...}"
@@ -105,6 +106,7 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
         is XQueryCompTextConstructor -> element
         is XQueryDirAttributeValue -> element
         is XQueryDirElemConstructor -> element
+        is XQueryExtensionExpr -> element
         is XQueryFunctionDecl -> element
         is XQueryOrderedExpr -> element
         is XQueryTryCatchExpr -> element
