@@ -82,6 +82,7 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
         XQueryElementType.EXTENSION_EXPR -> "{...}"
         XQueryElementType.FUNCTION_DECL -> "{...}"
         XQueryElementType.ORDERED_EXPR -> "{...}"
+        XQueryElementType.STRING_CONSTRUCTOR_INTERPOLATION -> "`{...}`"
         XQueryElementType.TRY_CATCH_EXPR -> "{...}"
         XQueryElementType.UNORDERED_EXPR -> "{...}"
         XQueryElementType.VALIDATE_EXPR -> "{...}"
@@ -119,6 +120,7 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
         is XPathComment -> element.textRange
         is XQueryDirCommentConstructor -> element.textRange
         is XQueryDirElemConstructor -> getDirElemConstructorFoldingRange(element)
+        is XQueryStringConstructorInterpolation -> element.textRange
         else -> null
     }
 
