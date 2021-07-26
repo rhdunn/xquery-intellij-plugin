@@ -83,6 +83,7 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
         XQueryElementType.ORDERED_EXPR -> "{...}"
         XQueryElementType.TRY_CATCH_EXPR -> "{...}"
         XQueryElementType.UNORDERED_EXPR -> "{...}"
+        XQueryElementType.VALIDATE_EXPR -> "{...}"
         else -> null
     }
 
@@ -108,6 +109,7 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
         is XQueryOrderedExpr -> element
         is XQueryTryCatchExpr -> element
         is XQueryUnorderedExpr -> element
+        is XQueryValidateExpr -> element
         else -> null
     }
 

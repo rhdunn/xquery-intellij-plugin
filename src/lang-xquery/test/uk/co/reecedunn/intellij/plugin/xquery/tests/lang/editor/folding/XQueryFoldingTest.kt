@@ -161,7 +161,7 @@ class XQueryFoldingTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery 3.1 EBNF (37) EnclosedExpr ; XQuery 3.1 EBNF (79) TryClause ; XQuery 3.1 EBNF (81) CatchClause")
+    @DisplayName("XQuery 3.1 EBNF (36) EnclosedExpr ; XQuery 3.1 EBNF (79) TryClause ; XQuery 3.1 EBNF (81) CatchClause")
     internal inner class TryCatchExpr {
         @Test
         @DisplayName("single line")
@@ -207,7 +207,42 @@ class XQueryFoldingTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery 3.1 EBNF (37) EnclosedExpr ; XQuery 3.1 EBNF (135) OrderedExpr")
+    @DisplayName("XQuery 3.1 EBNF (36) EnclosedExpr ; XQuery 3.1 EBNF (102) ValidateExpr")
+    internal inner class ValidateExpr {
+        @Test
+        @DisplayName("single line")
+        fun singleLine() {
+            val file = parseResource("tests/folding/ValidateExpr/SingleLine.xq")
+
+            val descriptors = buildFoldRegions(file)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(0))
+        }
+
+        @Test
+        @DisplayName("multiple lines")
+        fun multipleLines() {
+            val file = parseResource("tests/folding/ValidateExpr/MultiLine.xq")
+
+            val descriptors = buildFoldRegions(file)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(1))
+
+            assertThat(descriptors[0].canBeRemovedWhenCollapsed(), `is`(false))
+            assertThat(descriptors[0].dependencies, `is`(notNullValue()))
+            assertThat(descriptors[0].dependencies.size, `is`(0))
+            assertThat(descriptors[0].group, `is`(nullValue()))
+            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.VALIDATE_EXPR))
+            assertThat(descriptors[0].range.startOffset, `is`(25))
+            assertThat(descriptors[0].range.endOffset, `is`(38))
+
+            assertThat(getPlaceholderText(descriptors[0]), `is`("{...}"))
+            assertThat(isCollapsedByDefault(descriptors[0]), `is`(false))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.1 EBNF (36) EnclosedExpr ; XQuery 3.1 EBNF (135) OrderedExpr")
     internal inner class OrderedExpr {
         @Test
         @DisplayName("single line")
@@ -242,7 +277,7 @@ class XQueryFoldingTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery 3.1 EBNF (37) EnclosedExpr ; XQuery 3.1 EBNF (136) UnorderedExpr")
+    @DisplayName("XQuery 3.1 EBNF (36) EnclosedExpr ; XQuery 3.1 EBNF (136) UnorderedExpr")
     internal inner class UnorderedExpr {
         @Test
         @DisplayName("single line")
@@ -277,7 +312,7 @@ class XQueryFoldingTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery 3.1 EBNF (37) EnclosedExpr ; XQuery 3.1 EBNF (144) DirAttributeValue")
+    @DisplayName("XQuery 3.1 EBNF (36) EnclosedExpr ; XQuery 3.1 EBNF (144) DirAttributeValue")
     internal inner class DirAttributeValue {
         @Test
         @DisplayName("single expressions ; single line")
@@ -440,7 +475,7 @@ class XQueryFoldingTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery 3.1 EBNF (37) EnclosedExpr ; XQuery 3.1 EBNF (147) DirElemContent")
+    @DisplayName("XQuery 3.1 EBNF (36) EnclosedExpr ; XQuery 3.1 EBNF (147) DirElemContent")
     internal inner class DirElemContent {
         @Test
         @DisplayName("single expressions ; single line")
@@ -559,7 +594,7 @@ class XQueryFoldingTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery 3.1 EBNF (37) EnclosedExpr ; XQuery 3.1 EBNF (165) CompCommentConstructor")
+    @DisplayName("XQuery 3.1 EBNF (36) EnclosedExpr ; XQuery 3.1 EBNF (165) CompCommentConstructor")
     internal inner class CompCommentConstructor {
         @Test
         @DisplayName("single line")
@@ -594,7 +629,7 @@ class XQueryFoldingTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery 3.1 EBNF (37) EnclosedExpr ; XQuery 3.1 EBNF (156) CompDocConstructor")
+    @DisplayName("XQuery 3.1 EBNF (36) EnclosedExpr ; XQuery 3.1 EBNF (156) CompDocConstructor")
     internal inner class CompDocConstructor {
         @Test
         @DisplayName("single line")
@@ -629,7 +664,7 @@ class XQueryFoldingTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery 3.1 EBNF (37) EnclosedExpr ; XQuery 3.1 EBNF (157) CompElemConstructor")
+    @DisplayName("XQuery 3.1 EBNF (36) EnclosedExpr ; XQuery 3.1 EBNF (157) CompElemConstructor")
     internal inner class CompElemConstructor {
         @Test
         @DisplayName("EQName node name ; single line")
@@ -748,7 +783,7 @@ class XQueryFoldingTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery 3.1 EBNF (37) EnclosedExpr ; XQuery 3.1 EBNF (159) CompAttrConstructor")
+    @DisplayName("XQuery 3.1 EBNF (36) EnclosedExpr ; XQuery 3.1 EBNF (159) CompAttrConstructor")
     internal inner class CompAttrConstructor {
         @Test
         @DisplayName("EQName node name ; single line")
@@ -867,7 +902,7 @@ class XQueryFoldingTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery 3.1 EBNF (37) EnclosedExpr ; XQuery 3.1 EBNF (160) CompNamespaceConstructor")
+    @DisplayName("XQuery 3.1 EBNF (36) EnclosedExpr ; XQuery 3.1 EBNF (160) CompNamespaceConstructor")
     internal inner class CompNamespaceConstructor {
         @Test
         @DisplayName("NCName node name ; single line")
@@ -986,7 +1021,7 @@ class XQueryFoldingTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery 3.1 EBNF (37) EnclosedExpr ; XQuery 3.1 EBNF (164) CompTextConstructor")
+    @DisplayName("XQuery 3.1 EBNF (36) EnclosedExpr ; XQuery 3.1 EBNF (164) CompTextConstructor")
     internal inner class CompTextConstructor {
         @Test
         @DisplayName("single line")
@@ -1021,7 +1056,7 @@ class XQueryFoldingTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery 3.1 EBNF (37) EnclosedExpr ; XQuery 3.1 EBNF (166) CompPIConstructor")
+    @DisplayName("XQuery 3.1 EBNF (36) EnclosedExpr ; XQuery 3.1 EBNF (166) CompPIConstructor")
     internal inner class CompPIConstructor {
         @Test
         @DisplayName("EQName node name ; single line")
@@ -1140,7 +1175,7 @@ class XQueryFoldingTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery 3.1 EBNF (37) EnclosedExpr ; XQuery 3.1 EBNF (176) CurlyArrayConstructor")
+    @DisplayName("XQuery 3.1 EBNF (36) EnclosedExpr ; XQuery 3.1 EBNF (176) CurlyArrayConstructor")
     internal inner class CurlyArrayConstructor {
         @Test
         @DisplayName("single line")
@@ -1175,7 +1210,7 @@ class XQueryFoldingTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery 3.1 EBNF (37) EnclosedExpr ; XQuery 4.0 ED EBNF (43) WithExpr")
+    @DisplayName("XQuery 3.1 EBNF (36) EnclosedExpr ; XQuery 4.0 ED EBNF (43) WithExpr")
     internal inner class WithExpr {
         @Test
         @DisplayName("single line")
