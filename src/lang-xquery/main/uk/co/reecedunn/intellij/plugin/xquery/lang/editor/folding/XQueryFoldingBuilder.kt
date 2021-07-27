@@ -26,6 +26,7 @@ import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTWeight
+import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTWordsValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowInlineFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
@@ -60,6 +61,7 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
         XPathElementType.ARROW_INLINE_FUNCTION_CALL -> "{...}"
         XPathElementType.CURLY_ARRAY_CONSTRUCTOR -> "{...}"
         XPathElementType.FT_WEIGHT -> "{...}"
+        XPathElementType.FT_WORDS_VALUE -> "{...}"
         XPathElementType.INLINE_FUNCTION_EXPR -> "{...}"
         XPathElementType.MAP_CONSTRUCTOR -> "{...}"
         XPathElementType.WITH_EXPR -> "{...}"
@@ -95,6 +97,7 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
 
     private fun getEnclosedExprContainer(element: PsiElement): PsiElement? = when (element) {
         is FTWeight -> element
+        is FTWordsValue -> element
         is PluginArrowInlineFunctionCall -> element
         is XPathCurlyArrayConstructor -> element
         is XPathInlineFunctionExpr -> element
