@@ -1703,4 +1703,39 @@ class XQueryFoldingTest : ParserTestCase() {
             assertThat(isCollapsedByDefault(descriptors[0]), `is`(false))
         }
     }
+
+    @Nested
+    @DisplayName("XQuery 1.0 with Full Text EBNF (145) FTWeight")
+    internal inner class FTWeight {
+        @Test
+        @DisplayName("single line")
+        fun singleLine() {
+            val file = parseResource("tests/folding/FTWeight/SingleLine.xq")
+
+            val descriptors = buildFoldRegions(file)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(0))
+        }
+
+        @Test
+        @DisplayName("multiple lines")
+        fun multipleLines() {
+            val file = parseResource("tests/folding/FTWeight/MultiLine.xq")
+
+            val descriptors = buildFoldRegions(file)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(1))
+
+            assertThat(descriptors[0].canBeRemovedWhenCollapsed(), `is`(false))
+            assertThat(descriptors[0].dependencies, `is`(notNullValue()))
+            assertThat(descriptors[0].dependencies.size, `is`(0))
+            assertThat(descriptors[0].group, `is`(nullValue()))
+            assertThat(descriptors[0].element.elementType, `is`(XPathElementType.FT_WEIGHT))
+            assertThat(descriptors[0].range.startOffset, `is`(35))
+            assertThat(descriptors[0].range.endOffset, `is`(44))
+
+            assertThat(getPlaceholderText(descriptors[0]), `is`("{...}"))
+            assertThat(isCollapsedByDefault(descriptors[0]), `is`(false))
+        }
+    }
 }

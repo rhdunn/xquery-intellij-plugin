@@ -25,6 +25,7 @@ import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
+import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTWeight
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowInlineFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
@@ -58,6 +59,7 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
     override fun getPlaceholderText(node: ASTNode, textRange: TextRange): String? = when (node.elementType) {
         XPathElementType.ARROW_INLINE_FUNCTION_CALL -> "{...}"
         XPathElementType.CURLY_ARRAY_CONSTRUCTOR -> "{...}"
+        XPathElementType.FT_WEIGHT -> "{...}"
         XPathElementType.INLINE_FUNCTION_EXPR -> "{...}"
         XPathElementType.MAP_CONSTRUCTOR -> "{...}"
         XPathElementType.WITH_EXPR -> "{...}"
@@ -92,6 +94,7 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
     override fun isCollapsedByDefault(node: ASTNode): Boolean = false
 
     private fun getEnclosedExprContainer(element: PsiElement): PsiElement? = when (element) {
+        is FTWeight -> element
         is PluginArrowInlineFunctionCall -> element
         is XPathCurlyArrayConstructor -> element
         is XPathInlineFunctionExpr -> element
