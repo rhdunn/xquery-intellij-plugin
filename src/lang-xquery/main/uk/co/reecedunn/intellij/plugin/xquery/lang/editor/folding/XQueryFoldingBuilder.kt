@@ -25,6 +25,7 @@ import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
+import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTExtensionSelection
 import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTWeight
 import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTWordsValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowInlineFunctionCall
@@ -60,6 +61,7 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
     override fun getPlaceholderText(node: ASTNode, textRange: TextRange): String? = when (node.elementType) {
         XPathElementType.ARROW_INLINE_FUNCTION_CALL -> "{...}"
         XPathElementType.CURLY_ARRAY_CONSTRUCTOR -> "{...}"
+        XPathElementType.FT_EXTENSION_SELECTION -> "{...}"
         XPathElementType.FT_WEIGHT -> "{...}"
         XPathElementType.FT_WORDS_VALUE -> "{...}"
         XPathElementType.INLINE_FUNCTION_EXPR -> "{...}"
@@ -96,6 +98,7 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
     override fun isCollapsedByDefault(node: ASTNode): Boolean = false
 
     private fun getEnclosedExprContainer(element: PsiElement): PsiElement? = when (element) {
+        is FTExtensionSelection -> element
         is FTWeight -> element
         is FTWordsValue -> element
         is PluginArrowInlineFunctionCall -> element
