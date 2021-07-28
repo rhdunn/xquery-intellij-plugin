@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xpm.optree.expression
 
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.IElementType
-import uk.co.reecedunn.intellij.plugin.core.psi.elementType
+import com.intellij.psi.util.elementType
 
 val XpmExpression.elementType: IElementType?
     get() = (this as? PsiElement)?.elementType

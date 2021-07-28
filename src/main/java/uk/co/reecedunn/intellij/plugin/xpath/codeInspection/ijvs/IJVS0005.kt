@@ -20,9 +20,9 @@ import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
 import com.intellij.codeInspection.ProblemHighlightType
 import com.intellij.psi.PsiFile
+import com.intellij.psi.util.elementType
 import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.codeInspection.Inspection
-import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.intellij.lang.ScriptingSpec

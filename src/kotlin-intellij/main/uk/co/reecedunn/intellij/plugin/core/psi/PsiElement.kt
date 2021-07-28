@@ -31,16 +31,6 @@ fun PsiElement.resourcePath(): String {
     return file.path.replace('\\', '/')
 }
 
-// The equivalent of this is available in IntelliJ 2019.3 which cannot be used due to
-// support for older IntelliJ versions.
-val PsiElement?.elementType: IElementType?
-    get() = when (this) {
-        null -> null
-        is StubBasedPsiElement<*> -> this.elementType
-        is PsiFile -> this.fileElementType
-        else -> node?.elementType
-    }
-
 inline fun <reified T : PsiElement> PsiElement.contextOfType(strict: Boolean = true): T? {
     return PsiTreeUtil.getContextOfType(this, T::class.java, strict)
 }

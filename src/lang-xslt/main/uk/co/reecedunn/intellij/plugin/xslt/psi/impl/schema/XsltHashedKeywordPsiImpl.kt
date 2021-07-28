@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xslt.psi.impl.schema
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.tree.IElementType
-import uk.co.reecedunn.intellij.plugin.core.psi.elementType
+import com.intellij.psi.util.elementType
 import uk.co.reecedunn.intellij.plugin.xslt.ast.schema.XsltHashedKeyword
 
 class XsltHashedKeywordPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XsltHashedKeyword {

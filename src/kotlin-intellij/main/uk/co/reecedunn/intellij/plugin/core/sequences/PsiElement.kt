@@ -19,7 +19,7 @@ import com.intellij.psi.PsiDirectory
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.TokenSet
-import uk.co.reecedunn.intellij.plugin.core.psi.elementType
+import com.intellij.psi.util.elementType
 import java.util.*
 
 private class PsiElementTreeIterator(node: PsiElement?) : Iterator<PsiElement> {

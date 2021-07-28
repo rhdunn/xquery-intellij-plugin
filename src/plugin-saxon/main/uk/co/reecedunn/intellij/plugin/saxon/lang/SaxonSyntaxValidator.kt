@@ -16,7 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.saxon.lang
 
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.core.psi.elementType
+import com.intellij.psi.util.elementType
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginContextItemFunctionExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginLambdaFunctionExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginParamRef
