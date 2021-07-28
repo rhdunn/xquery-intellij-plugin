@@ -1,1 +1,1 @@
-declare function fn:true ( ) { "true" } ;
+declare function fn:true() { "true" };

@@ -32,7 +32,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lang.editor.folding.XQueryFoldingB
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
-@Suppress("RedundantVisibilityModifier")
+@Suppress("RedundantVisibilityModifier", "ClassName")
 @DisplayName("IntelliJ - Custom Language Support - Code Folding - XQuery")
 class XQueryFoldingTest : ParserTestCase() {
     override val pluginId: PluginId = PluginId.getId("XQueryFoldingTest")
@@ -1845,7 +1845,42 @@ class XQueryFoldingTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery Scripting Extension 1.0 EBNF (153) BlockExpr")
+    @DisplayName("XQuery Scripting Extension 1.0 EBNF (154) Block ; XQuery Scripting Extension 1.0 EBNF (26) FunctionDecl")
+    internal inner class FunctionDecl_Scripting {
+        @Test
+        @DisplayName("single line")
+        fun singleLine() {
+            val file = parseResource("tests/folding/FunctionDecl/SingleLine_Block.xq")
+
+            val descriptors = buildFoldRegions(file)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(0))
+        }
+
+        @Test
+        @DisplayName("multiple lines")
+        fun multipleLines() {
+            val file = parseResource("tests/folding/FunctionDecl/MultiLine_Block.xq")
+
+            val descriptors = buildFoldRegions(file)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(1))
+
+            assertThat(descriptors[0].canBeRemovedWhenCollapsed(), `is`(false))
+            assertThat(descriptors[0].dependencies, `is`(notNullValue()))
+            assertThat(descriptors[0].dependencies.size, `is`(0))
+            assertThat(descriptors[0].group, `is`(nullValue()))
+            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.BLOCK))
+            assertThat(descriptors[0].range.startOffset, `is`(38))
+            assertThat(descriptors[0].range.endOffset, `is`(50))
+
+            assertThat(getPlaceholderText(descriptors[0]), `is`("{...}"))
+            assertThat(isCollapsedByDefault(descriptors[0]), `is`(false))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery Scripting Extension 1.0 EBNF (154) Block ; XQuery Scripting Extension 1.0 EBNF (153) BlockExpr")
     internal inner class BlockExpr {
         @Test
         @DisplayName("single line")
@@ -1880,7 +1915,7 @@ class XQueryFoldingTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery Scripting Extension 1.0 EBNF (160) WhileExpr")
+    @DisplayName("XQuery Scripting Extension 1.0 EBNF (161) WhileBody ; XQuery Scripting Extension 1.0 EBNF (160) WhileExpr")
     internal inner class WhileExpr {
         @Test
         @DisplayName("single line")
