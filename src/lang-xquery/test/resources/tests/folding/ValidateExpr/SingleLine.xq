@@ -1,1 +1,1 @@
-validate type xs:boolean { /test }
+block { 1234 }
