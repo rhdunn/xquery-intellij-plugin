@@ -25,17 +25,14 @@ import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.psi.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
-import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTExtensionSelection
-import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTWeight
-import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTWordsValue
-import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowInlineFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.enclosedExpressionBlocks
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirTextConstructor
-import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.UpdateFacilityTransformWithExpr
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirCommentConstructor
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryStringConstructorInterpolation
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQDocCommentLineExtractor
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
@@ -60,25 +57,8 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
     override fun getPlaceholderText(node: ASTNode): String? = null
 
     override fun getPlaceholderText(node: ASTNode, textRange: TextRange): String? = when (node.elementType) {
-        XPathElementType.ARROW_INLINE_FUNCTION_CALL -> "{...}"
-        XPathElementType.CURLY_ARRAY_CONSTRUCTOR -> "{...}"
-        XPathElementType.FT_EXTENSION_SELECTION -> "{...}"
-        XPathElementType.FT_WEIGHT -> "{...}"
-        XPathElementType.FT_WORDS_VALUE -> "{...}"
-        XPathElementType.INLINE_FUNCTION_EXPR -> "{...}"
-        XPathElementType.MAP_CONSTRUCTOR -> "{...}"
-        XPathElementType.WITH_EXPR -> "{...}"
-        XQueryElementType.CATCH_CLAUSE -> "{...}"
         XQueryElementType.COMMENT -> getCommentPlaceholderText(node.text)
-        XQueryElementType.COMP_ATTR_CONSTRUCTOR -> "{...}"
-        XQueryElementType.COMP_COMMENT_CONSTRUCTOR -> "{...}"
-        XQueryElementType.COMP_DOC_CONSTRUCTOR -> "{...}"
-        XQueryElementType.COMP_ELEM_CONSTRUCTOR -> "{...}"
-        XQueryElementType.COMP_NAMESPACE_CONSTRUCTOR -> "{...}"
-        XQueryElementType.COMP_PI_CONSTRUCTOR -> "{...}"
-        XQueryElementType.COMP_TEXT_CONSTRUCTOR -> "{...}"
         XQueryElementType.DIR_COMMENT_CONSTRUCTOR -> getDirCommentConstructorPlaceholderTest(node.psi)
-        XQueryElementType.DIR_ATTRIBUTE_VALUE -> "{...}"
         XQueryElementType.DIR_ELEM_CONSTRUCTOR -> {
             val child = node.findLeafElementAt(textRange.startOffset - node.startOffset)
             if (child?.elementType === XPathTokenType.BLOCK_OPEN)
@@ -86,45 +66,15 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
             else
                 "..."
         }
-        XQueryElementType.EXTENSION_EXPR -> "{...}"
-        XQueryElementType.FUNCTION_DECL -> "{...}"
-        XQueryElementType.ORDERED_EXPR -> "{...}"
         XQueryElementType.STRING_CONSTRUCTOR_INTERPOLATION -> "`{...}`"
-        XQueryElementType.TRANSFORM_WITH_EXPR -> "{...}"
-        XQueryElementType.TRY_CATCH_EXPR -> "{...}"
-        XQueryElementType.UNORDERED_EXPR -> "{...}"
-        XQueryElementType.VALIDATE_EXPR -> "{...}"
+        in ENCLOSED_EXPR_CONTAINER -> "{...}"
         else -> null
     }
 
     override fun isCollapsedByDefault(node: ASTNode): Boolean = false
 
-    private fun getEnclosedExprContainer(element: PsiElement): PsiElement? = when (element) {
-        is FTExtensionSelection -> element
-        is FTWeight -> element
-        is FTWordsValue -> element
-        is PluginArrowInlineFunctionCall -> element
-        is UpdateFacilityTransformWithExpr -> element
-        is XPathCurlyArrayConstructor -> element
-        is XPathInlineFunctionExpr -> element
-        is XPathMapConstructor -> element
-        is XPathWithExpr -> element
-        is XQueryCatchClause -> element
-        is XQueryCompAttrConstructor -> element
-        is XQueryCompCommentConstructor -> element
-        is XQueryCompDocConstructor -> element
-        is XQueryCompElemConstructor -> element
-        is XQueryCompNamespaceConstructor -> element
-        is XQueryCompPIConstructor -> element
-        is XQueryCompTextConstructor -> element
-        is XQueryDirAttributeValue -> element
-        is XQueryDirElemConstructor -> element
-        is XQueryExtensionExpr -> element
-        is XQueryFunctionDecl -> element
-        is XQueryOrderedExpr -> element
-        is XQueryTryCatchExpr -> element
-        is XQueryUnorderedExpr -> element
-        is XQueryValidateExpr -> element
+    private fun getEnclosedExprContainer(element: PsiElement): PsiElement? = when (element.elementType) {
+        in ENCLOSED_EXPR_CONTAINER -> element
         else -> null
     }
 
@@ -228,5 +178,33 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
         }
 
         private val CLOSE_TAG = TokenSet.create(XQueryTokenType.END_XML_TAG, XQueryTokenType.SELF_CLOSING_XML_TAG)
+
+        private val ENCLOSED_EXPR_CONTAINER = TokenSet.create(
+            XPathElementType.ARROW_INLINE_FUNCTION_CALL,
+            XPathElementType.CURLY_ARRAY_CONSTRUCTOR,
+            XPathElementType.FT_EXTENSION_SELECTION,
+            XPathElementType.FT_WEIGHT,
+            XPathElementType.FT_WORDS_VALUE,
+            XPathElementType.INLINE_FUNCTION_EXPR,
+            XPathElementType.MAP_CONSTRUCTOR,
+            XPathElementType.WITH_EXPR,
+            XQueryElementType.CATCH_CLAUSE,
+            XQueryElementType.COMP_ATTR_CONSTRUCTOR,
+            XQueryElementType.COMP_COMMENT_CONSTRUCTOR,
+            XQueryElementType.COMP_DOC_CONSTRUCTOR,
+            XQueryElementType.COMP_ELEM_CONSTRUCTOR,
+            XQueryElementType.COMP_NAMESPACE_CONSTRUCTOR,
+            XQueryElementType.COMP_PI_CONSTRUCTOR,
+            XQueryElementType.COMP_TEXT_CONSTRUCTOR,
+            XQueryElementType.DIR_ATTRIBUTE_VALUE,
+            XQueryElementType.DIR_ELEM_CONSTRUCTOR,
+            XQueryElementType.EXTENSION_EXPR,
+            XQueryElementType.FUNCTION_DECL,
+            XQueryElementType.ORDERED_EXPR,
+            XQueryElementType.TRANSFORM_WITH_EXPR,
+            XQueryElementType.TRY_CATCH_EXPR,
+            XQueryElementType.UNORDERED_EXPR,
+            XQueryElementType.VALIDATE_EXPR
+        )
     }
 }
