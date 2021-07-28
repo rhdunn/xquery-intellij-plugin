@@ -34,6 +34,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.enclosedExpressionBlocks
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirTextConstructor
+import uk.co.reecedunn.intellij.plugin.xquery.ast.update.facility.UpdateFacilityTransformWithExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQDocCommentLineExtractor
@@ -89,6 +90,7 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
         XQueryElementType.FUNCTION_DECL -> "{...}"
         XQueryElementType.ORDERED_EXPR -> "{...}"
         XQueryElementType.STRING_CONSTRUCTOR_INTERPOLATION -> "`{...}`"
+        XQueryElementType.TRANSFORM_WITH_EXPR -> "{...}"
         XQueryElementType.TRY_CATCH_EXPR -> "{...}"
         XQueryElementType.UNORDERED_EXPR -> "{...}"
         XQueryElementType.VALIDATE_EXPR -> "{...}"
@@ -102,6 +104,7 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
         is FTWeight -> element
         is FTWordsValue -> element
         is PluginArrowInlineFunctionCall -> element
+        is UpdateFacilityTransformWithExpr -> element
         is XPathCurlyArrayConstructor -> element
         is XPathInlineFunctionExpr -> element
         is XPathMapConstructor -> element

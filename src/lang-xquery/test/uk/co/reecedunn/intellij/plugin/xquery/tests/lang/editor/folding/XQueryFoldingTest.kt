@@ -1808,4 +1808,39 @@ class XQueryFoldingTest : ParserTestCase() {
             assertThat(isCollapsedByDefault(descriptors[0]), `is`(false))
         }
     }
+
+    @Nested
+    @DisplayName("XQuery Update Facility 3.0 EBNF (97) TransformWithExpr")
+    internal inner class TransformWithExpr {
+        @Test
+        @DisplayName("single line")
+        fun singleLine() {
+            val file = parseResource("tests/folding/TransformWithExpr/SingleLine.xq")
+
+            val descriptors = buildFoldRegions(file)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(0))
+        }
+
+        @Test
+        @DisplayName("multiple lines")
+        fun multipleLines() {
+            val file = parseResource("tests/folding/TransformWithExpr/MultiLine.xq")
+
+            val descriptors = buildFoldRegions(file)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(1))
+
+            assertThat(descriptors[0].canBeRemovedWhenCollapsed(), `is`(false))
+            assertThat(descriptors[0].dependencies, `is`(notNullValue()))
+            assertThat(descriptors[0].dependencies.size, `is`(0))
+            assertThat(descriptors[0].group, `is`(nullValue()))
+            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.TRANSFORM_WITH_EXPR))
+            assertThat(descriptors[0].range.startOffset, `is`(18))
+            assertThat(descriptors[0].range.endOffset, `is`(49))
+
+            assertThat(getPlaceholderText(descriptors[0]), `is`("{...}"))
+            assertThat(isCollapsedByDefault(descriptors[0]), `is`(false))
+        }
+    }
 }
