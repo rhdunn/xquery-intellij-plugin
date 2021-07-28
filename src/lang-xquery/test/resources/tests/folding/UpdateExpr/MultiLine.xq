@@ -1,0 +1,3 @@
+//item update {
+    delete node .
+}

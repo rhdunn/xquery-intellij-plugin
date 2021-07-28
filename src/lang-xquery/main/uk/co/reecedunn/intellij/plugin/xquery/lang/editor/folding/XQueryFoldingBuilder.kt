@@ -205,6 +205,7 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
             XQueryElementType.TRANSFORM_WITH_EXPR,
             XQueryElementType.TRY_CATCH_EXPR,
             XQueryElementType.UNORDERED_EXPR,
+            XQueryElementType.UPDATE_EXPR,
             XQueryElementType.VALIDATE_EXPR,
             XQueryElementType.WHILE_BODY
         )
