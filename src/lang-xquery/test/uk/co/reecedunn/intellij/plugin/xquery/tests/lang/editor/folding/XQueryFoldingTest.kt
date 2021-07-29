@@ -2053,4 +2053,39 @@ class XQueryFoldingTest : ParserTestCase() {
             assertThat(isCollapsedByDefault(descriptors[0]), `is`(false))
         }
     }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin XQuery EBNF (58) NullConstructor")
+    internal inner class NullConstructor {
+        @Test
+        @DisplayName("single line")
+        fun singleLine() {
+            val file = parseResource("tests/folding/NullConstructor/SingleLine.xq")
+
+            val descriptors = buildFoldRegions(file)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(0))
+        }
+
+        @Test
+        @DisplayName("multiple lines")
+        fun multipleLines() {
+            val file = parseResource("tests/folding/NullConstructor/MultiLine.xq")
+
+            val descriptors = buildFoldRegions(file)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(1))
+
+            assertThat(descriptors[0].canBeRemovedWhenCollapsed(), `is`(false))
+            assertThat(descriptors[0].dependencies, `is`(notNullValue()))
+            assertThat(descriptors[0].dependencies.size, `is`(0))
+            assertThat(descriptors[0].group, `is`(nullValue()))
+            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.NULL_CONSTRUCTOR))
+            assertThat(descriptors[0].range.startOffset, `is`(10))
+            assertThat(descriptors[0].range.endOffset, `is`(22))
+
+            assertThat(getPlaceholderText(descriptors[0]), `is`("{...}"))
+            assertThat(isCollapsedByDefault(descriptors[0]), `is`(false))
+        }
+    }
 }
