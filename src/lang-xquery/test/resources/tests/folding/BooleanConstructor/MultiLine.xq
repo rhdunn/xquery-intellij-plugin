@@ -1,0 +1,3 @@
+boolean-node {
+    "true"
+}

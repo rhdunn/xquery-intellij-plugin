@@ -190,6 +190,7 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
             XPathElementType.WITH_EXPR,
             XQueryElementType.BINARY_CONSTRUCTOR,
             XQueryElementType.BLOCK,
+            XQueryElementType.BOOLEAN_CONSTRUCTOR,
             XQueryElementType.CATCH_CLAUSE,
             XQueryElementType.COMP_ATTR_CONSTRUCTOR,
             XQueryElementType.COMP_COMMENT_CONSTRUCTOR,
