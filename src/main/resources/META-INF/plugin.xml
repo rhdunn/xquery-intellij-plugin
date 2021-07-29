@@ -71,6 +71,10 @@
   ]]></description>
 
   <change-notes><![CDATA[
+    <p>IntelliJ Integration:</p>
+    <ol>
+      <li>Add paired brace matching for Saxon context item and lambda functions.</li>
+    </ol>
   ]]></change-notes>
 
   <idea-version since-build="161"/>

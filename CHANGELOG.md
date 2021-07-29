@@ -2,6 +2,10 @@
 
 ## 1.10.0 - (In Development)
 
+IntelliJ Integration:
+
+1. Add paired brace matching for Saxon context item and lambda functions.
+
 ## 2021
 
 *  [1.9.1 - 2021-07-23](docs/_posts/2021-07-23-release-1.9.1.md)

@@ -54,7 +54,11 @@ class XQueryPairedBraceMatcher : PairedBraceMatcher {
             // (# ... #)
             BracePair(XPathTokenType.PRAGMA_BEGIN, XPathTokenType.PRAGMA_END, false),
             // `{ ... }`
-            BracePair(XQueryTokenType.STRING_INTERPOLATION_OPEN, XQueryTokenType.STRING_INTERPOLATION_CLOSE, true)
+            BracePair(XQueryTokenType.STRING_INTERPOLATION_OPEN, XQueryTokenType.STRING_INTERPOLATION_CLOSE, true),
+            // .{ ... }
+            BracePair(XPathTokenType.CONTEXT_FUNCTION, XPathTokenType.BLOCK_CLOSE, true),
+            // _{ ... }
+            BracePair(XPathTokenType.LAMBDA_FUNCTION, XPathTokenType.BLOCK_CLOSE, true)
         )
     }
 }
