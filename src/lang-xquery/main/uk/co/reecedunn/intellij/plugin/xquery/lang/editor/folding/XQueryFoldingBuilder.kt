@@ -204,6 +204,7 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
             XQueryElementType.EXTENSION_EXPR,
             XQueryElementType.FUNCTION_DECL,
             XQueryElementType.NULL_CONSTRUCTOR,
+            XQueryElementType.NUMBER_CONSTRUCTOR,
             XQueryElementType.ORDERED_EXPR,
             XQueryElementType.TRANSFORM_WITH_EXPR,
             XQueryElementType.TRY_CATCH_EXPR,
