@@ -2,9 +2,15 @@
 
 ## 1.10.0 - (In Development)
 
-IntelliJ Integration:
+Paired Brace Matching:
 
 1. Add paired brace matching for Saxon context item and lambda functions.
+2. Add paired brace matching for XPath expressions.
+
+Code Folding:
+
+1. Add code folding for XQuery string interpolations.
+2. Add code folding for Full Text, Updating, Scripting, and vendor extension expressions containg braces (`{...}`).
 
 ## 2021
 

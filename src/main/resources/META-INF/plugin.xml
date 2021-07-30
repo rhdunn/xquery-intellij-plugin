@@ -71,9 +71,18 @@
   ]]></description>
 
   <change-notes><![CDATA[
-    <p>IntelliJ Integration:</p>
+    <p>Paired Brace Matching:</p>
     <ol>
       <li>Add paired brace matching for Saxon context item and lambda functions.</li>
+      <li>Add paired brace matching for XPath expressions.</li>
+    </ol>
+    <p>Code Folding:</p>
+    <ol>
+      <li>Add code folding for XQuery string interpolations.</li>
+      <li>
+        Add code folding for Full Text, Updating, Scripting, and vendor extension expressions containg braces
+        (<code>{...}</code>).
+      </li>
     </ol>
   ]]></change-notes>
 
