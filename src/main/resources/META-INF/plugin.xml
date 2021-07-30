@@ -71,10 +71,11 @@
   ]]></description>
 
   <change-notes><![CDATA[
-    <p>Paired Brace Matching:</p>
+    <p>IntelliJ Integration:</p>
     <ol>
       <li>Add paired brace matching for Saxon context item and lambda functions.</li>
       <li>Add paired brace matching for XPath expressions.</li>
+      <li>Add code commenting support for XPath.</li>
     </ol>
     <p>Code Folding:</p>
     <ol>

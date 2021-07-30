@@ -2,10 +2,11 @@
 
 ## 1.10.0 - (In Development)
 
-Paired Brace Matching:
+IntelliJ Integration:
 
 1. Add paired brace matching for Saxon context item and lambda functions.
 2. Add paired brace matching for XPath expressions.
+3. Add code commenting support for XPath.
 
 Code Folding:
 

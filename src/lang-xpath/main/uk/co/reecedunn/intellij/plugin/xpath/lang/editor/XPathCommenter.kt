@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.lang.editor
+package uk.co.reecedunn.intellij.plugin.xpath.lang.editor
 
 import com.intellij.lang.Commenter
 
-class XQueryCommenter : Commenter {
+class XPathCommenter : Commenter {
     override fun getLineCommentPrefix(): String? = null
 
     override fun getBlockCommentPrefix(): String = "(:"
