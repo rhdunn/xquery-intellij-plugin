@@ -25,6 +25,7 @@ import com.intellij.psi.tree.TokenSet
 import com.intellij.psi.util.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
+import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginContextItemFunctionExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
@@ -57,6 +58,7 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
     override fun getPlaceholderText(node: ASTNode): String? = null
 
     override fun getPlaceholderText(node: ASTNode, textRange: TextRange): String? = when (node.elementType) {
+        XPathElementType.CONTEXT_ITEM_FUNCTION_EXPR -> ".{...}"
         XQueryElementType.COMMENT -> getCommentPlaceholderText(node.text)
         XQueryElementType.DIR_COMMENT_CONSTRUCTOR -> getDirCommentConstructorPlaceholderTest(node.psi)
         XQueryElementType.DIR_ELEM_CONSTRUCTOR -> {
@@ -79,6 +81,7 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
     }
 
     private fun getSingleFoldingRange(element: PsiElement): TextRange? = when (element) {
+        is PluginContextItemFunctionExpr -> element.textRange
         is XPathComment -> element.textRange
         is XQueryDirCommentConstructor -> element.textRange
         is XQueryDirElemConstructor -> getDirElemConstructorFoldingRange(element)

@@ -2123,4 +2123,39 @@ class XQueryFoldingTest : ParserTestCase() {
             assertThat(isCollapsedByDefault(descriptors[0]), `is`(false))
         }
     }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin XQuery EBNF (81) ContextItemFunctionExpr")
+    internal inner class ContextItemFunctionExpr {
+        @Test
+        @DisplayName("single line")
+        fun singleLine() {
+            val file = parseResource("tests/folding/ContextItemFunctionExpr/SingleLine.xq")
+
+            val descriptors = buildFoldRegions(file)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(0))
+        }
+
+        @Test
+        @DisplayName("multiple lines")
+        fun multipleLines() {
+            val file = parseResource("tests/folding/ContextItemFunctionExpr/MultiLine.xq")
+
+            val descriptors = buildFoldRegions(file)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(1))
+
+            assertThat(descriptors[0].canBeRemovedWhenCollapsed(), `is`(false))
+            assertThat(descriptors[0].dependencies, `is`(notNullValue()))
+            assertThat(descriptors[0].dependencies.size, `is`(0))
+            assertThat(descriptors[0].group, `is`(nullValue()))
+            assertThat(descriptors[0].element.elementType, `is`(XPathElementType.CONTEXT_ITEM_FUNCTION_EXPR))
+            assertThat(descriptors[0].range.startOffset, `is`(0))
+            assertThat(descriptors[0].range.endOffset, `is`(14))
+
+            assertThat(getPlaceholderText(descriptors[0]), `is`(".{...}"))
+            assertThat(isCollapsedByDefault(descriptors[0]), `is`(false))
+        }
+    }
 }
