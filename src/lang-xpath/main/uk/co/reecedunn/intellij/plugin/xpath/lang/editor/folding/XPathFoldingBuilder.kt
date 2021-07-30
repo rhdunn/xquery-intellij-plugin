@@ -69,6 +69,7 @@ class XPathFoldingBuilder : FoldingBuilderEx() {
             XPathElementType.CURLY_ARRAY_CONSTRUCTOR,
             XPathElementType.FT_EXTENSION_SELECTION,
             XPathElementType.FT_WEIGHT,
+            XPathElementType.FT_WORDS_VALUE,
             XPathElementType.INLINE_FUNCTION_EXPR,
             XPathElementType.MAP_CONSTRUCTOR,
             XPathElementType.WITH_EXPR
