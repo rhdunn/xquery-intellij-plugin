@@ -21,8 +21,9 @@ import com.intellij.lang.folding.FoldingDescriptor
 import com.intellij.openapi.editor.Document
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
+import com.intellij.psi.tree.TokenSet
+import com.intellij.psi.util.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
-import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowInlineFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.enclosedExpressionBlocks
@@ -45,28 +46,30 @@ class XPathFoldingBuilder : FoldingBuilderEx() {
     }
 
     override fun getPlaceholderText(node: ASTNode): String? = when (node.elementType) {
-        XPathElementType.ARROW_INLINE_FUNCTION_CALL -> "{...}"
         XPathElementType.COMMENT -> "(:...:)"
-        XPathElementType.CURLY_ARRAY_CONSTRUCTOR -> "{...}"
-        XPathElementType.INLINE_FUNCTION_EXPR -> "{...}"
-        XPathElementType.MAP_CONSTRUCTOR -> "{...}"
-        XPathElementType.WITH_EXPR -> "{...}"
+        in ENCLOSED_EXPR_CONTAINER -> "{...}"
         else -> null
     }
 
     override fun isCollapsedByDefault(node: ASTNode): Boolean = false
 
-    private fun getEnclosedExprContainer(element: PsiElement): PsiElement? = when (element) {
-        is PluginArrowInlineFunctionCall -> element
-        is XPathCurlyArrayConstructor -> element
-        is XPathInlineFunctionExpr -> element
-        is XPathMapConstructor -> element
-        is XPathWithExpr -> element
+    private fun getEnclosedExprContainer(element: PsiElement): PsiElement? = when (element.elementType) {
+        in ENCLOSED_EXPR_CONTAINER -> element
         else -> null
     }
 
     private fun getSingleFoldingRange(element: PsiElement): TextRange? = when (element) {
         is XPathComment -> element.textRange
         else -> null
+    }
+
+    companion object {
+        private val ENCLOSED_EXPR_CONTAINER = TokenSet.create(
+            XPathElementType.ARROW_INLINE_FUNCTION_CALL,
+            XPathElementType.CURLY_ARRAY_CONSTRUCTOR,
+            XPathElementType.INLINE_FUNCTION_EXPR,
+            XPathElementType.MAP_CONSTRUCTOR,
+            XPathElementType.WITH_EXPR
+        )
     }
 }
