@@ -25,6 +25,7 @@ import com.intellij.psi.tree.TokenSet
 import com.intellij.psi.util.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginContextItemFunctionExpr
+import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginLambdaFunctionExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.*
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.enclosedExpressionBlocks
@@ -49,6 +50,7 @@ class XPathFoldingBuilder : FoldingBuilderEx() {
     override fun getPlaceholderText(node: ASTNode): String? = when (node.elementType) {
         XPathElementType.COMMENT -> "(:...:)"
         XPathElementType.CONTEXT_ITEM_FUNCTION_EXPR -> ".{...}"
+        XPathElementType.LAMBDA_FUNCTION_EXPR -> "_{...}"
         in ENCLOSED_EXPR_CONTAINER -> "{...}"
         else -> null
     }
@@ -62,6 +64,7 @@ class XPathFoldingBuilder : FoldingBuilderEx() {
 
     private fun getSingleFoldingRange(element: PsiElement): TextRange? = when (element) {
         is PluginContextItemFunctionExpr -> element.textRange
+        is PluginLambdaFunctionExpr -> element.textRange
         is XPathComment -> element.textRange
         else -> null
     }

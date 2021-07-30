@@ -466,4 +466,39 @@ class XPathFoldingTest : ParserTestCase() {
             assertThat(isCollapsedByDefault(descriptors[0]), `is`(false))
         }
     }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin XPath EBNF (35) LambdaFunctionExpr")
+    internal inner class LambdaFunctionExpr {
+        @Test
+        @DisplayName("single line")
+        fun singleLine() {
+            val file = parseResource("tests/folding/LambdaFunctionExpr/SingleLine.xq")
+
+            val descriptors = buildFoldRegions(file)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(0))
+        }
+
+        @Test
+        @DisplayName("multiple lines")
+        fun multipleLines() {
+            val file = parseResource("tests/folding/LambdaFunctionExpr/MultiLine.xq")
+
+            val descriptors = buildFoldRegions(file)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(1))
+
+            assertThat(descriptors[0].canBeRemovedWhenCollapsed(), `is`(false))
+            assertThat(descriptors[0].dependencies, `is`(notNullValue()))
+            assertThat(descriptors[0].dependencies.size, `is`(0))
+            assertThat(descriptors[0].group, `is`(nullValue()))
+            assertThat(descriptors[0].element.elementType, `is`(XPathElementType.LAMBDA_FUNCTION_EXPR))
+            assertThat(descriptors[0].range.startOffset, `is`(0))
+            assertThat(descriptors[0].range.endOffset, `is`(15))
+
+            assertThat(getPlaceholderText(descriptors[0]), `is`("_{...}"))
+            assertThat(isCollapsedByDefault(descriptors[0]), `is`(false))
+        }
+    }
 }
