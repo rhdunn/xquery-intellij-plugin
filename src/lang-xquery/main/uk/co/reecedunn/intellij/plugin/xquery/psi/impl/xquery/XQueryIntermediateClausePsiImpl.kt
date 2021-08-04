@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2018, 2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,6 @@ import com.intellij.psi.util.elementType
 import uk.co.reecedunn.intellij.plugin.intellij.lang.Version
 import uk.co.reecedunn.intellij.plugin.intellij.lang.VersionConformance
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryInitialClause
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryIntermediateClause
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 
@@ -39,8 +38,7 @@ class XQueryIntermediateClausePsiImpl(node: ASTNode) :
                 return XQUERY30
             }
 
-            val prevElement = prevSibling
-            val prev = if (prevElement is XQueryInitialClause) null else prevElement.firstChild.elementType
+            val prev = prevSibling.firstChild.elementType
             if (prev === XQueryElementType.WHERE_CLAUSE) {
                 return if (current === XQueryElementType.ORDER_BY_CLAUSE) XQUERY10 else XQUERY30
             } else if (prev === XQueryElementType.ORDER_BY_CLAUSE) {

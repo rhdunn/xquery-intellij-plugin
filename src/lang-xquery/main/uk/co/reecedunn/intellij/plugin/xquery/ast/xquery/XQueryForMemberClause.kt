@@ -20,4 +20,4 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathSimpleForClause
 /**
  * An XQuery 4.0 ED `ForMemberClause` node in the XQuery AST.
  */
-interface XQueryForMemberClause : XQueryInitialClause, XPathSimpleForClause
+interface XQueryForMemberClause : XPathSimpleForClause
