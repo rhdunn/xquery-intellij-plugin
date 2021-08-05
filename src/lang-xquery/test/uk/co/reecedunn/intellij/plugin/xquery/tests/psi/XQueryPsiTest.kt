@@ -6644,13 +6644,6 @@ class XQueryPsiTest : ParserTestCase() {
                         assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
                         assertThat(qname.localName!!.data, `is`("z"))
                     }
-
-                    @Test
-                    @DisplayName("missing VarName")
-                    fun testCountClause_MissingVarName() {
-                        val expr = parse<XQueryCountClause>("for \$x in \$y count \$")[0] as XpmVariableBinding
-                        assertThat(expr.variableName, `is`(nullValue()))
-                    }
                 }
             }
 

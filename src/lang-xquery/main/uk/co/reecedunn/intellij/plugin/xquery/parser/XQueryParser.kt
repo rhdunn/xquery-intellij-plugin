@@ -2038,9 +2038,10 @@ class XQueryParser : XPathParser() {
             parseWhiteSpaceAndCommentTokens(builder)
             if (parseEQNameOrWildcard(builder, XPathElementType.VAR_REF, false) == null && !haveErrors) {
                 builder.error(XQueryBundle.message("parser.error.expected-qname"))
+                marker.drop()
+            } else {
+                marker.done(XQueryElementType.COUNT_CLAUSE)
             }
-
-            marker.done(XQueryElementType.COUNT_CLAUSE)
             return true
         }
         return false
