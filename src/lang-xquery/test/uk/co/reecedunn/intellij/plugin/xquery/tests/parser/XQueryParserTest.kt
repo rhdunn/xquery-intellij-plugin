@@ -6966,7 +6966,7 @@ class XQueryParserTest : ParserTestCase() {
         }
 
         @Test
-        @DisplayName("count clause")
+        @DisplayName("count clause; compact whitespace")
         fun countClause_CompactWhitespace() {
             val expected = loadResource("tests/parser/xquery-3.0/CountClause_CompactWhitespace.txt")
             val actual = parseResource("tests/parser/xquery-3.0/CountClause_CompactWhitespace.xq")

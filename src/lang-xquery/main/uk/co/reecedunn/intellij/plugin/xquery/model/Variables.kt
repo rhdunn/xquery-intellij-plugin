@@ -210,6 +210,7 @@ fun PsiElement.xqueryInScopeVariables(): Sequence<XpmVariableDefinition> {
                         sequenceOf(node as XpmVariableBinding)
                 }
                 is XQueryIntermediateClause -> node.intermediateClauseVariables(context)
+                is XQueryCountClause -> sequenceOf(node as XpmVariableBinding)
                 is XQueryCaseClause, is PluginDefaultCaseClause -> {
                     // Only the `case`/`default` clause variable of the return expression is in scope.
                     if (!context.visitedTypeswitch) {

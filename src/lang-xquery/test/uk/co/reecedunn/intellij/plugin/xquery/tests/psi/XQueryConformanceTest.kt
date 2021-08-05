@@ -503,28 +503,6 @@ class XQueryConformanceTest : ParserTestCase() {
     }
 
     // endregion
-    // region IntermediateClause (CountClause)
-
-    @Test
-    fun testCountClause() {
-        val file = parseResource("tests/parser/xquery-3.0/CountClause.xq")
-
-        val flworExprPsi = file.descendants().filterIsInstance<XQueryFLWORExpr>().first()
-        // prev == null
-        assertThat(flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().first().firstChild,
-                instanceOf<PsiElement>(XQueryCountClause::class.java))
-
-        val intermediateClausePsi = flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().first()
-        val versioned = intermediateClausePsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`(XQuerySpec.REC_3_0_20140408))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XQueryTokenType.K_COUNT))
-    }
-
-    // endregion
     // region IntermediateClause (GroupByClause)
 
     @Test
