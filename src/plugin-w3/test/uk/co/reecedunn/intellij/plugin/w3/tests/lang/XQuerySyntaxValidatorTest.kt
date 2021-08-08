@@ -328,6 +328,31 @@ class XQuerySyntaxValidatorTest :
     }
 
     @Nested
+    @DisplayName("XQuery 3.0 EBNF (59) CountClause")
+    internal inner class CountClause {
+        @Test
+        @DisplayName("XQuery < 3.0")
+        fun notSupported() {
+            val file = parse<XQueryModule>("for \$x in () count \$x return ()")[0]
+            validator.configuration = XQUERY_1_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(
+                report.toString(),
+                `is`("E XPST0003(13:18): XQuery version string '1.0' does not support XQuery 3.0 constructs.")
+            )
+        }
+
+        @Test
+        @DisplayName("XQuery >= 3.0")
+        fun supported() {
+            val file = parse<XQueryModule>("for \$x in () count \$x return ()")[0]
+            validator.configuration = XQUERY_3_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.0 EBNF (71) SwitchExpr")
     internal inner class SwitchExpr {
         @Test

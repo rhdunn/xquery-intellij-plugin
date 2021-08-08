@@ -133,6 +133,7 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
             }
         }
         is XQueryContextItemDecl -> reporter.requires(element, XQUERY_3_0)
+        is XQueryCountClause -> reporter.requires(element, XQUERY_3_0)
         is XQueryDefaultNamespaceDecl -> when (element.conformanceElement.elementType) {
             XPathTokenType.K_TYPE -> reporter.requires(element, XQUERY_4_0)
             else -> {
