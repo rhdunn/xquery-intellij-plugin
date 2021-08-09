@@ -2080,9 +2080,10 @@ class XQueryParser : XPathParser() {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!parseGroupingSpecList(builder) && !haveErrors) {
                 builder.error(XPathBundle.message("parser.error.expected", "GroupingSpecList"))
+                marker.drop()
+            } else {
+                marker.done(XQueryElementType.GROUP_BY_CLAUSE)
             }
-
-            marker.done(XQueryElementType.GROUP_BY_CLAUSE)
             return true
         }
         return false
