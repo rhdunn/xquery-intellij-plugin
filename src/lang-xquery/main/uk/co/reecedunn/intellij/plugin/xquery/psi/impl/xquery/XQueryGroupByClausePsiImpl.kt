@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2018, 2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,13 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryGroupByClause
 
-class XQueryGroupByClausePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryGroupByClause
+class XQueryGroupByClausePsiImpl(node: ASTNode) :
+    ASTWrapperPsiElement(node), XQueryGroupByClause, XpmSyntaxValidationElement {
+
+    override val conformanceElement: PsiElement
+        get() = firstChild
+}

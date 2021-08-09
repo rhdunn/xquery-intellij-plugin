@@ -154,6 +154,7 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
             else -> {
             }
         }
+        is XQueryGroupByClause -> reporter.requires(element, XQUERY_3_0)
         is XQueryItemTypeDecl -> when (element.conformanceElement.elementType) {
             XQueryTokenType.K_ITEM_TYPE -> reporter.requires(element, XQUERY_4_0)
             else -> {
