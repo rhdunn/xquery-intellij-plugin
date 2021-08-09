@@ -24,12 +24,11 @@ XQueryModuleImpl[FILE(0:29)]
                PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BY(21:23)]('by')
                PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
-               XQueryGroupingSpecListImpl[XQUERY_GROUPING_SPEC_LIST(24:29)]
-                  XQueryGroupingSpecImpl[XQUERY_GROUPING_SPEC(24:28)]
-                     LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(24:25)]('$')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
-                     XPathNCNameImpl[XPATH_NCNAME(26:28)]
-                        XmlNCNameImpl[XPATH_NCNAME_TOKEN(26:27)]('x')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
-                  LeafPsiElement[XPATH_COMMA_TOKEN(28:29)](',')
-                  PsiErrorElementImpl[ERROR_ELEMENT(29:29)]('XPST0003: Expected 'GroupingSpec'.')
+               XQueryGroupingSpecImpl[XQUERY_GROUPING_SPEC(24:28)]
+                  LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(24:25)]('$')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
+                  XPathNCNameImpl[XPATH_NCNAME(26:28)]
+                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(26:27)]('x')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
+               LeafPsiElement[XPATH_COMMA_TOKEN(28:29)](',')
+               PsiErrorElementImpl[ERROR_ELEMENT(29:29)]('XPST0003: Expected 'GroupingSpec'.')

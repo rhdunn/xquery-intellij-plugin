@@ -2090,7 +2090,6 @@ class XQueryParser : XPathParser() {
     }
 
     private fun parseGroupingSpecList(builder: PsiBuilder): Boolean {
-        val marker = builder.mark()
         if (parseGroupingSpec(builder)) {
             parseWhiteSpaceAndCommentTokens(builder)
             while (builder.matchTokenType(XPathTokenType.COMMA)) {
@@ -2101,11 +2100,8 @@ class XQueryParser : XPathParser() {
 
                 parseWhiteSpaceAndCommentTokens(builder)
             }
-
-            marker.done(XQueryElementType.GROUPING_SPEC_LIST)
             return true
         }
-        marker.drop()
         return false
     }
 

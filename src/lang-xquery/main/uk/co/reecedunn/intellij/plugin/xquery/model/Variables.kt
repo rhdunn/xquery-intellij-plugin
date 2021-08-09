@@ -137,8 +137,7 @@ private fun PsiElement.groupByClauseVariables(context: InScopeVariableContext): 
         context.visitedFlworClauseAsIntermediateClause = false
         emptySequence()
     } else {
-        children().filterIsInstance<XQueryGroupingSpecList>().firstOrNull()?.flworClauseVariables(context)
-            ?: emptySequence()
+        flworClauseVariables(context)
     }
 }
 

@@ -406,12 +406,6 @@ object XQueryElementType {
         XQuery
     )
 
-    val GROUPING_SPEC_LIST: IElementType = ICompositeElementType(
-        "XQUERY_GROUPING_SPEC_LIST",
-        XQueryGroupingSpecListPsiImpl::class.java,
-        XQuery
-    )
-
     val GROUPING_SPEC: IElementType = ICompositeElementType(
         "XQUERY_GROUPING_SPEC",
         XQueryGroupingSpecPsiImpl::class.java,

@@ -24,16 +24,15 @@ XQueryModuleImpl[FILE(0:48)]
                PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BY(21:23)]('by')
                PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
-               XQueryGroupingSpecListImpl[XQUERY_GROUPING_SPEC_LIST(24:38)]
-                  XQueryGroupingSpecImpl[XQUERY_GROUPING_SPEC(24:38)]
-                     LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(24:25)]('$')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
-                     XPathNCNameImpl[XPATH_NCNAME(26:28)]
-                        XmlNCNameImpl[XPATH_NCNAME_TOKEN(26:27)]('x')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
-                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_COLLATION(28:37)]('collation')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
-                     PsiErrorElementImpl[ERROR_ELEMENT(38:38)]('XPST0003: Missing expression.')
+               XQueryGroupingSpecImpl[XQUERY_GROUPING_SPEC(24:38)]
+                  LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(24:25)]('$')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
+                  XPathNCNameImpl[XPATH_NCNAME(26:28)]
+                     XmlNCNameImpl[XPATH_NCNAME_TOKEN(26:27)]('x')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
+                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_COLLATION(28:37)]('collation')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
+                  PsiErrorElementImpl[ERROR_ELEMENT(38:38)]('XPST0003: Missing expression.')
             XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_RETURN(38:44)]('return')
             PsiWhiteSpaceImpl[WHITE_SPACE(44:45)](' ')
             XPathVarRefImpl[XPATH_VAR_REF(45:48)]
