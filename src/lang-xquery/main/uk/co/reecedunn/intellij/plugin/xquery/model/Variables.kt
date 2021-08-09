@@ -116,11 +116,6 @@ private fun PsiElement.windowClauseVariables(context: InScopeVariableContext): S
     ).filterNotNull().flatten()
 }
 
-private fun PsiElement.groupByClauseVariables(context: InScopeVariableContext): Sequence<XpmVariableBinding> {
-    return children().filterIsInstance<XQueryGroupingSpecList>().firstOrNull()?.flworClauseVariables(context)
-        ?: emptySequence()
-}
-
 private fun PsiElement.intermediateClauseVariables(context: InScopeVariableContext): Sequence<XpmVariableBinding> {
     return children().flatMap { node ->
         when (node) {
@@ -130,16 +125,20 @@ private fun PsiElement.intermediateClauseVariables(context: InScopeVariableConte
                     emptySequence()
                 } else
                     node.flworClauseVariables(context)
-            is XQueryGroupByClause ->
-                if (context.visitedFlworClauseAsIntermediateClause) {
-                    context.visitedFlworClauseAsIntermediateClause = false
-                    emptySequence()
-                } else
-                    node.groupByClauseVariables(context)
             is XQueryWindowClause -> node.windowClauseVariables(context)
             is XpmVariableBinding -> sequenceOf(node as XpmVariableBinding)
             else -> emptySequence()
         }
+    }
+}
+
+private fun PsiElement.groupByClauseVariables(context: InScopeVariableContext): Sequence<XpmVariableBinding> {
+    return if (context.visitedFlworClauseAsIntermediateClause) {
+        context.visitedFlworClauseAsIntermediateClause = false
+        emptySequence()
+    } else {
+        children().filterIsInstance<XQueryGroupingSpecList>().firstOrNull()?.flworClauseVariables(context)
+            ?: emptySequence()
     }
 }
 
@@ -211,6 +210,7 @@ fun PsiElement.xqueryInScopeVariables(): Sequence<XpmVariableDefinition> {
                 }
                 is XQueryIntermediateClause -> node.intermediateClauseVariables(context)
                 is XQueryCountClause -> sequenceOf(node as XpmVariableBinding)
+                is XQueryGroupByClause -> node.groupByClauseVariables(context)
                 is XQueryCaseClause, is PluginDefaultCaseClause -> {
                     // Only the `case`/`default` clause variable of the return expression is in scope.
                     if (!context.visitedTypeswitch) {

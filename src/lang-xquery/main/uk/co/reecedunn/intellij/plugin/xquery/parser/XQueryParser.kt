@@ -1553,14 +1553,13 @@ class XQueryParser : XPathParser() {
         if (
             parseInitialClause(builder) ||
             parseWhereClause(builder) ||
-            parseOrderByClause(builder) ||
-            parseGroupByClause(builder)
+            parseOrderByClause(builder)
         ) {
             marker.done(XQueryElementType.INTERMEDIATE_CLAUSE)
             return true
         }
         marker.drop()
-        return parseCountClause(builder)
+        return parseCountClause(builder) || parseGroupByClause(builder)
     }
 
     // endregion

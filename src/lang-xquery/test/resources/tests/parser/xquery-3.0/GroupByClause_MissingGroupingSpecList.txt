@@ -19,9 +19,8 @@ XQueryModuleImpl[FILE(0:23)]
                      XPathNCNameImpl[XPATH_NCNAME(13:15)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(13:14)]('y')
                         PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
-            XQueryIntermediateClauseImpl[XQUERY_INTERMEDIATE_CLAUSE(15:23)]
-               XQueryGroupByClauseImpl[XQUERY_GROUP_BY_CLAUSE(15:23)]
-                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_GROUP(15:20)]('group')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
-                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BY(21:23)]('by')
-                  PsiErrorElementImpl[ERROR_ELEMENT(23:23)]('XPST0003: Expected 'GroupingSpecList'.')
+            XQueryGroupByClauseImpl[XQUERY_GROUP_BY_CLAUSE(15:23)]
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_GROUP(15:20)]('group')
+               PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BY(21:23)]('by')
+               PsiErrorElementImpl[ERROR_ELEMENT(23:23)]('XPST0003: Expected 'GroupingSpecList'.')

@@ -15,17 +15,16 @@ XQueryModuleImpl[FILE(0:30)]
                      XPathNCNameImpl[XPATH_NCNAME(9:11)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(9:10)]('y')
                         PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
-            XQueryIntermediateClauseImpl[XQUERY_INTERMEDIATE_CLAUSE(11:22)]
-               XQueryGroupByClauseImpl[XQUERY_GROUP_BY_CLAUSE(11:22)]
-                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_GROUP(11:16)]('group')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
-                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BY(17:19)]('by')
-                  XQueryGroupingSpecListImpl[XQUERY_GROUPING_SPEC_LIST(19:22)]
-                     XQueryGroupingSpecImpl[XQUERY_GROUPING_SPEC(19:22)]
-                        LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(19:20)]('$')
-                        XPathNCNameImpl[XPATH_NCNAME(20:22)]
-                           XmlNCNameImpl[XPATH_NCNAME_TOKEN(20:21)]('x')
-                           PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
+            XQueryGroupByClauseImpl[XQUERY_GROUP_BY_CLAUSE(11:22)]
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_GROUP(11:16)]('group')
+               PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BY(17:19)]('by')
+               XQueryGroupingSpecListImpl[XQUERY_GROUPING_SPEC_LIST(19:22)]
+                  XQueryGroupingSpecImpl[XQUERY_GROUPING_SPEC(19:22)]
+                     LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(19:20)]('$')
+                     XPathNCNameImpl[XPATH_NCNAME(20:22)]
+                        XmlNCNameImpl[XPATH_NCNAME_TOKEN(20:21)]('x')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
             XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_RETURN(22:28)]('return')
             XPathVarRefImpl[XPATH_VAR_REF(28:30)]
                LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(28:29)]('$')
