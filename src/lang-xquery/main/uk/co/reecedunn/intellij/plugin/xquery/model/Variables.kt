@@ -21,7 +21,6 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.reverse
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQuantifierBinding
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
-import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmParameter
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableBinding
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableDefinition
@@ -44,13 +43,21 @@ private class InScopeVariableContext {
     var visitedBlockVarDecl = false
     var visitedBlockDecls = false
     var visitingFuntionDeclaration = false
+
+    var variables: ArrayList<XpmVariableDefinition> = ArrayList()
+
+    fun add(variable: XpmVariableDefinition) {
+        if (variable.variableName != null) {
+            variables.add(variable)
+        }
+    }
 }
 
 // ForBinding, ForMemberBinding, LetBinding, GroupingSpec
 private fun PsiElement.flworBindingVariables(
     node: PsiElement,
     context: InScopeVariableContext
-): Sequence<XpmVariableBinding> {
+) {
     if (
         node is XQueryForBinding ||
         node is XQueryForMemberBinding ||
@@ -60,113 +67,107 @@ private fun PsiElement.flworBindingVariables(
         context.visitedFlworClause = true
         if (context.visitedFlworBinding) {
             context.visitedFlworBinding = false
-            return emptySequence()
+            return
         }
     }
 
-    val pos = children().filterIsInstance<XpmVariableBinding>().firstOrNull()
-    return if (pos != null)
-        sequenceOf(this as XpmVariableBinding, pos)
-    else
-        sequenceOf(this as XpmVariableBinding)
+    context.add(this as XpmVariableBinding)
+    children().filterIsInstance<XpmVariableBinding>().firstOrNull()?.let { pos -> context.add(pos) }
 }
 
 // ForClause, ForMemberClause, LetClause, GroupingSpecList
-private fun PsiElement.flworClauseVariables(context: InScopeVariableContext): Sequence<XpmVariableBinding> {
-    return if (context.visitedFlworClause) {
+private fun PsiElement.flworClauseVariables(context: InScopeVariableContext) {
+    if (context.visitedFlworClause) {
         context.visitedFlworClause = false
-        emptySequence()
     } else {
-        children().flatMap { binding ->
+        children().forEach { binding ->
             when (binding) {
                 is XQueryForBinding, is XQueryForMemberBinding, is XQueryLetBinding, is XQueryGroupingSpec -> {
                     binding.flworBindingVariables(this, context)
                 }
-                else -> emptySequence()
+                else -> {
+                }
             }
         }
     }
 }
 
-private fun PsiElement.windowConditionVariables(context: InScopeVariableContext): Sequence<XpmVariableBinding> {
+private fun PsiElement.windowConditionVariables(context: InScopeVariableContext) {
     if (context.visitedFlworWindowConditions) {
-        return emptySequence()
+        return
     }
-    return children().filterIsInstance<XQueryWindowVars>().firstOrNull()
-        ?.children()?.filterIsInstance<XpmVariableBinding>() ?: emptySequence()
+    children().filterIsInstance<XQueryWindowVars>().firstOrNull()
+        ?.children()?.filterIsInstance<XpmVariableBinding>()
+        ?.forEach { binding -> context.add(binding) }
 }
 
 // WindowClause + (SlidingWindowClause | TumblingWindowClause)
-private fun PsiElement.windowClauseVariables(context: InScopeVariableContext): Sequence<XpmVariableBinding> {
+private fun PsiElement.windowClauseVariables(context: InScopeVariableContext) {
     val node = children().map { e ->
         when (e) {
             is XQuerySlidingWindowClause, is XQueryTumblingWindowClause -> e
             else -> null
         }
-    }.filterNotNull().firstOrNull() ?: return emptySequence()
+    }.filterNotNull().firstOrNull() ?: return
 
-    return sequenceOf(
-        if (context.visitedFlworBinding) emptySequence() else sequenceOf(node as XpmVariableBinding),
-        node.children().filterIsInstance<XQueryWindowStartCondition>().flatMap { e ->
-            e.windowConditionVariables(context)
-        },
-        node.children().filterIsInstance<XQueryWindowEndCondition>().flatMap { e ->
-            e.windowConditionVariables(context)
-        }
-    ).flatten()
+    if (!context.visitedFlworBinding) {
+        context.add(node as XpmVariableBinding)
+    }
+    node.children().filterIsInstance<XQueryWindowStartCondition>().forEach { e ->
+        e.windowConditionVariables(context)
+    }
+    node.children().filterIsInstance<XQueryWindowEndCondition>().forEach { e ->
+        e.windowConditionVariables(context)
+    }
 }
 
-private fun PsiElement.groupByClauseVariables(context: InScopeVariableContext): Sequence<XpmVariableBinding> {
-    return if (context.visitedFlworClauseAsIntermediateClause) {
+private fun PsiElement.groupByClauseVariables(context: InScopeVariableContext) {
+    if (context.visitedFlworClauseAsIntermediateClause) {
         context.visitedFlworClauseAsIntermediateClause = false
-        emptySequence()
     } else {
         flworClauseVariables(context)
     }
 }
 
-private fun PsiElement.blockVarDeclEntry(context: InScopeVariableContext): Sequence<XpmVariableDeclaration> {
+private fun PsiElement.blockVarDeclEntry(context: InScopeVariableContext) {
     return if (context.visitedBlockVarDeclEntry) {
         context.visitedBlockVarDeclEntry = false
-        emptySequence()
-    } else
-        sequenceOf(this as XpmVariableDeclaration)
-}
-
-private fun PsiElement.parameters(context: InScopeVariableContext): Sequence<XpmParameter> {
-    return if (context.visitingFuntionDeclaration) {
-        context.visitingFuntionDeclaration = false
-        (this as XpmFunctionDeclaration).parameters.asSequence()
-    } else
-        emptySequence()
-}
-
-private fun PsiElement.blockVarDecl(context: InScopeVariableContext): Sequence<XpmVariableDeclaration> {
-    return if (context.visitedBlockVarDecl) {
-        context.visitedBlockVarDecl = false
-        emptySequence()
     } else {
-        return children().filterIsInstance<PluginBlockVarDeclEntry>().flatMap { entry ->
+        context.add(this as XpmVariableDefinition)
+    }
+}
+
+private fun PsiElement.parameters(context: InScopeVariableContext) {
+    if (context.visitingFuntionDeclaration) {
+        context.visitingFuntionDeclaration = false
+        (this as XpmFunctionDeclaration).parameters.forEach { parameter -> context.add(parameter) }
+    }
+}
+
+private fun PsiElement.blockVarDecl(context: InScopeVariableContext) {
+    if (context.visitedBlockVarDecl) {
+        context.visitedBlockVarDecl = false
+    } else {
+        children().filterIsInstance<PluginBlockVarDeclEntry>().forEach { entry ->
             entry.blockVarDeclEntry(context)
         }
     }
 }
 
-private fun PsiElement.blockDecls(context: InScopeVariableContext): Sequence<XpmVariableDeclaration> {
-    return if (context.visitedBlockDecls) {
+private fun PsiElement.blockDecls(context: InScopeVariableContext) {
+    if (context.visitedBlockDecls) {
         context.visitedBlockDecls = false
-        emptySequence()
     } else {
-        return children().filterIsInstance<ScriptingBlockVarDecl>().flatMap { entry ->
+        children().filterIsInstance<ScriptingBlockVarDecl>().forEach { entry ->
             entry.blockVarDecl(context)
         }
     }
 }
 
-private fun XQueryProlog.varDecls(): Sequence<XpmVariableDeclaration?> {
-    return importedPrologs().flatMap { prolog ->
-        prolog.annotatedDeclarations<XpmVariableDeclaration>()
-    }.filter { variable -> variable.variableName != null }
+private fun XQueryProlog.varDecls(context: InScopeVariableContext) {
+    importedPrologs().forEach { prolog ->
+        prolog.annotatedDeclarations<XpmVariableDeclaration>().forEach { declaration -> context.add(declaration) }
+    }
 }
 
 // endregion
@@ -174,70 +175,64 @@ private fun XQueryProlog.varDecls(): Sequence<XpmVariableDeclaration?> {
 
 fun PsiElement.xqueryInScopeVariables(): Sequence<XpmVariableDefinition> {
     val context = InScopeVariableContext()
-    return reverse(walkTree())
-        .flatMap { node ->
-            when (node) {
-                is XQueryProlog -> node.varDecls().filterNotNull()
-                is XQueryForClause, is XQueryForMemberClause, is XQueryLetClause -> node.flworClauseVariables(context)
+    reverse(walkTree()).forEach { node ->
+        when (node) {
+            is XQueryProlog -> node.varDecls(context)
+            is XQueryForClause, is XQueryForMemberClause, is XQueryLetClause -> node.flworClauseVariables(context)
+            is XQueryForBinding, is XQueryForMemberBinding, is XQueryLetBinding, is XQueryGroupingSpec -> {
+                node.flworBindingVariables(node, context)
+            }
+            is XQueryWindowClause -> node.windowClauseVariables(context)
+            is XQueryWindowStartCondition, is XQueryWindowEndCondition -> node.windowConditionVariables(context)
+            is XPathQuantifierBinding -> {
+                if (context.visitedQuantifiedBinding) {
+                    context.visitedQuantifiedBinding = false
+                } else {
+                    context.add(node as XpmVariableBinding)
+                }
+            }
+            is XQueryCountClause -> context.add(node as XpmVariableBinding)
+            is XQueryGroupByClause -> node.groupByClauseVariables(context)
+            is XQueryCaseClause, is PluginDefaultCaseClause -> {
+                // Only the `case`/`default` clause variable of the return expression is in scope.
+                if (!context.visitedTypeswitch) {
+                    context.visitedTypeswitch = true
+                    context.add(node as XpmVariableBinding)
+                }
+            }
+            is XQueryTypeswitchExpr -> {
+                context.visitedTypeswitch = false // Reset the visited logic now the `typeswitch` has been resolved.
+            }
+            is XpmFunctionDeclaration -> node.parameters(context)
+            is PluginBlockVarDeclEntry -> node.blockVarDeclEntry(context)
+            is ScriptingBlockVarDecl -> node.blockVarDecl(context)
+            is ScriptingBlockDecls -> node.blockDecls(context)
+            else -> when (node.parent) {
                 is XQueryForBinding, is XQueryForMemberBinding, is XQueryLetBinding, is XQueryGroupingSpec -> {
-                    node.flworBindingVariables(node, context)
+                    context.visitedFlworBinding = true
                 }
-                is XQueryWindowClause -> node.windowClauseVariables(context)
-                is XQueryWindowStartCondition, is XQueryWindowEndCondition -> node.windowConditionVariables(context)
+                is XQuerySlidingWindowClause, is XQueryTumblingWindowClause -> {
+                    // 'in' expression: don't include window conditions
+                    context.visitedFlworWindowConditions = true
+                    context.visitedFlworBinding = true
+                }
                 is XPathQuantifierBinding -> {
-                    if (context.visitedQuantifiedBinding) {
-                        context.visitedQuantifiedBinding = false
-                        emptySequence()
-                    } else
-                        sequenceOf(node as XpmVariableBinding)
+                    context.visitedQuantifiedBinding = true
                 }
-                is XQueryCountClause -> sequenceOf(node as XpmVariableBinding)
-                is XQueryGroupByClause -> node.groupByClauseVariables(context)
-                is XQueryCaseClause, is PluginDefaultCaseClause -> {
-                    // Only the `case`/`default` clause variable of the return expression is in scope.
-                    if (!context.visitedTypeswitch) {
-                        context.visitedTypeswitch = true
-                        sequenceOf(node as XpmVariableBinding)
-                    } else
-                        emptySequence()
+                is PluginBlockVarDeclEntry -> {
+                    context.visitedBlockVarDeclEntry = true
+                    context.visitedBlockVarDecl = true
+                    context.visitedBlockDecls = true
                 }
-                is XQueryTypeswitchExpr -> {
-                    context.visitedTypeswitch = false // Reset the visited logic now the `typeswitch` has been resolved.
-                    emptySequence()
+                is XpmFunctionDeclaration -> {
+                    context.visitingFuntionDeclaration = true
                 }
-                is XpmFunctionDeclaration -> node.parameters(context)
-                is PluginBlockVarDeclEntry -> node.blockVarDeclEntry(context)
-                is ScriptingBlockVarDecl -> node.blockVarDecl(context)
-                is ScriptingBlockDecls -> node.blockDecls(context)
                 else -> {
-                    when (node.parent) {
-                        is XQueryForBinding, is XQueryForMemberBinding, is XQueryLetBinding, is XQueryGroupingSpec -> {
-                            context.visitedFlworBinding = true
-                        }
-                        is XQuerySlidingWindowClause, is XQueryTumblingWindowClause -> {
-                            // 'in' expression: don't include window conditions
-                            context.visitedFlworWindowConditions = true
-                            context.visitedFlworBinding = true
-                        }
-                        is XPathQuantifierBinding -> {
-                            context.visitedQuantifiedBinding = true
-                        }
-                        is PluginBlockVarDeclEntry -> {
-                            context.visitedBlockVarDeclEntry = true
-                            context.visitedBlockVarDecl = true
-                            context.visitedBlockDecls = true
-                        }
-                        is XpmFunctionDeclaration -> {
-                            context.visitingFuntionDeclaration = true
-                        }
-                        else -> {
-                        }
-                    }
-                    emptySequence()
                 }
             }
         }
-        .filter { variable -> variable.variableName != null }
+    }
+    return context.variables.asSequence()
 }
 
 // endregion
