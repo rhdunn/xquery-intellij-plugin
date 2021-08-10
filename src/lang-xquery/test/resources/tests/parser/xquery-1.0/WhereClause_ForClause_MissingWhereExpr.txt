@@ -19,7 +19,6 @@ XQueryModuleImpl[FILE(0:20)]
                      XPathNCNameImpl[XPATH_NCNAME(13:15)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(13:14)]('y')
                         PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
-            XQueryIntermediateClauseImpl[XQUERY_INTERMEDIATE_CLAUSE(15:20)]
-               XQueryWhereClauseImpl[XQUERY_WHERE_CLAUSE(15:20)]
-                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_WHERE(15:20)]('where')
-                  PsiErrorElementImpl[ERROR_ELEMENT(20:20)]('XPST0003: Missing expression.')
+            XQueryWhereClauseImpl[XQUERY_WHERE_CLAUSE(15:20)]
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_WHERE(15:20)]('where')
+               PsiErrorElementImpl[ERROR_ELEMENT(20:20)]('XPST0003: Missing expression.')

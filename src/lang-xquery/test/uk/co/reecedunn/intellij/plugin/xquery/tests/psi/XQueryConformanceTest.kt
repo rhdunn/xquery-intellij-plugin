@@ -166,26 +166,6 @@ class XQueryConformanceTest : ParserTestCase() {
         assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.K_FOR))
     }
 
-    @Test
-    fun testForClause_AfterWhereIntermediateClause() {
-        val file = parseResource("tests/parser/xquery-3.0/IntermediateClause_WhereFor.xq")
-
-        val flworExprPsi = file.descendants().filterIsInstance<XQueryFLWORExpr>().first()
-        assertThat(flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().first().firstChild,
-                instanceOf<PsiElement>(XQueryWhereClause::class.java))
-        assertThat(flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().toList()[1].firstChild,
-                instanceOf<PsiElement>(XQueryForClause::class.java))
-
-        val intermediateClausePsi = flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().toList()[1]
-        val versioned = intermediateClausePsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`(XQuerySpec.REC_3_0_20140408))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.K_FOR))
-    }
-
     // endregion
     // region IntermediateClause (LetClause)
 
@@ -243,105 +223,6 @@ class XQueryConformanceTest : ParserTestCase() {
 
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.K_LET))
-    }
-
-    @Test
-    fun testLetClause_AfterWhereIntermediateClause() {
-        val file = parseResource("tests/parser/xquery-3.0/IntermediateClause_ForWhereLet.xq")
-
-        val flworExprPsi = file.descendants().filterIsInstance<XQueryFLWORExpr>().first()
-        assertThat(flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().toList()[1].firstChild,
-                instanceOf<PsiElement>(XQueryWhereClause::class.java))
-        assertThat(flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().toList()[2].firstChild,
-                instanceOf<PsiElement>(XQueryLetClause::class.java))
-
-        val intermediateClausePsi = flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().toList()[2]
-        val versioned = intermediateClausePsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`(XQuerySpec.REC_3_0_20140408))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.K_LET))
-    }
-
-    // endregion
-    // region IntermediateClause (WhereClause)
-
-    @Test
-    fun testWhereClause_FirstIntermediateClause() {
-        val file = parseResource("tests/parser/xquery-1.0/WhereClause_ForClause.xq")
-
-        val flworExprPsi = file.descendants().filterIsInstance<XQueryFLWORExpr>().first()
-        // prev == null
-        assertThat(flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().first().firstChild,
-                instanceOf<PsiElement>(XQueryWhereClause::class.java))
-
-        val intermediateClausePsi = flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().first()
-        val versioned = intermediateClausePsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XQueryTokenType.K_WHERE))
-    }
-
-    @Test
-    fun testWhereClause_AfterForIntermediateClause() {
-        val file = parseResource("tests/parser/xquery-3.0/IntermediateClause_ForWhereLet.xq")
-
-        val flworExprPsi = file.descendants().filterIsInstance<XQueryFLWORExpr>().first()
-        assertThat(flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().first().firstChild,
-                instanceOf<PsiElement>(XQueryForClause::class.java))
-        assertThat(flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().toList()[1].firstChild,
-                instanceOf<PsiElement>(XQueryWhereClause::class.java))
-
-        val intermediateClausePsi = flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().toList()[1]
-        val versioned = intermediateClausePsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XQueryTokenType.K_WHERE))
-    }
-
-    @Test
-    fun testWhereClause_AfterLetIntermediateClause() {
-        val file = parseResource("tests/parser/xquery-1.0/FLWORExpr_ClauseOrdering.xq")
-
-        val flworExprPsi = file.descendants().filterIsInstance<XQueryFLWORExpr>().first()
-        assertThat(flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().toList()[2].firstChild,
-                instanceOf<PsiElement>(XQueryLetClause::class.java))
-        assertThat(flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().toList()[3].firstChild,
-                instanceOf<PsiElement>(XQueryWhereClause::class.java))
-
-        val intermediateClausePsi = flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().toList()[3]
-        val versioned = intermediateClausePsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XQueryTokenType.K_WHERE))
-    }
-
-    @Test
-    fun testWhereClause_AfterWhereIntermediateClause() {
-        val file = parseResource("tests/parser/xquery-3.0/WhereClause_Multiple.xq")
-
-        val flworExprPsi = file.descendants().filterIsInstance<XQueryFLWORExpr>().first()
-        assertThat(flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().first().firstChild,
-                instanceOf<PsiElement>(XQueryWhereClause::class.java))
-        assertThat(flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().toList()[1].firstChild,
-                instanceOf<PsiElement>(XQueryWhereClause::class.java))
-
-        val intermediateClausePsi = flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().toList()[1]
-        val versioned = intermediateClausePsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(1))
-        assertThat(versioned.requiresConformance[0], `is`(XQuerySpec.REC_3_0_20140408))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XQueryTokenType.K_WHERE))
     }
 
     // endregion

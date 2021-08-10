@@ -33,20 +33,19 @@ XQueryModuleImpl[FILE(0:120)]
                         XPathNCNameImpl[XPATH_NCNAME(24:26)]
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(24:25)]('x')
                            PsiWhiteSpaceImpl[WHITE_SPACE(25:26)]('\n')
-            XQueryIntermediateClauseImpl[XQUERY_INTERMEDIATE_CLAUSE(26:40)]
-               XQueryWhereClauseImpl[XQUERY_WHERE_CLAUSE(26:40)]
-                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_WHERE(26:31)]('where')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
-                  XPathComparisonExprImpl[XPATH_COMPARISON_EXPR(32:40)]
-                     XPathVarRefImpl[XPATH_VAR_REF(32:35)]
-                        LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(32:33)]('$')
-                        XPathNCNameImpl[XPATH_NCNAME(33:35)]
-                           XmlNCNameImpl[XPATH_NCNAME_TOKEN(33:34)]('a')
-                           PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
-                     XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_GT(35:37)]('gt')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
-                     XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(38:39)]('0')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(39:40)]('\n')
+            XQueryWhereClauseImpl[XQUERY_WHERE_CLAUSE(26:40)]
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_WHERE(26:31)]('where')
+               PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
+               XPathComparisonExprImpl[XPATH_COMPARISON_EXPR(32:40)]
+                  XPathVarRefImpl[XPATH_VAR_REF(32:35)]
+                     LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(32:33)]('$')
+                     XPathNCNameImpl[XPATH_NCNAME(33:35)]
+                        XmlNCNameImpl[XPATH_NCNAME_TOKEN(33:34)]('a')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
+                  XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_GT(35:37)]('gt')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(37:38)](' ')
+                  XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(38:39)]('0')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(39:40)]('\n')
             XQueryOrderByClauseImpl[XQUERY_ORDER_BY_CLAUSE(40:52)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ORDER(40:45)]('order')
                PsiWhiteSpaceImpl[WHITE_SPACE(45:46)](' ')
@@ -93,20 +92,19 @@ XQueryModuleImpl[FILE(0:120)]
                            XPathNCNameImpl[XPATH_NCNAME(83:85)]
                               XmlNCNameImpl[XPATH_NCNAME_TOKEN(83:84)]('v')
                               PsiWhiteSpaceImpl[WHITE_SPACE(84:85)]('\n')
-               XQueryIntermediateClauseImpl[XQUERY_INTERMEDIATE_CLAUSE(85:99)]
-                  XQueryWhereClauseImpl[XQUERY_WHERE_CLAUSE(85:99)]
-                     XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_WHERE(85:90)]('where')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(90:91)](' ')
-                     XPathComparisonExprImpl[XPATH_COMPARISON_EXPR(91:99)]
-                        XPathVarRefImpl[XPATH_VAR_REF(91:94)]
-                           LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(91:92)]('$')
-                           XPathNCNameImpl[XPATH_NCNAME(92:94)]
-                              XmlNCNameImpl[XPATH_NCNAME_TOKEN(92:93)]('b')
-                              PsiWhiteSpaceImpl[WHITE_SPACE(93:94)](' ')
-                        XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_GT(94:96)]('gt')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(96:97)](' ')
-                        XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(97:98)]('0')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(98:99)]('\n')
+               XQueryWhereClauseImpl[XQUERY_WHERE_CLAUSE(85:99)]
+                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_WHERE(85:90)]('where')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(90:91)](' ')
+                  XPathComparisonExprImpl[XPATH_COMPARISON_EXPR(91:99)]
+                     XPathVarRefImpl[XPATH_VAR_REF(91:94)]
+                        LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(91:92)]('$')
+                        XPathNCNameImpl[XPATH_NCNAME(92:94)]
+                           XmlNCNameImpl[XPATH_NCNAME_TOKEN(92:93)]('b')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(93:94)](' ')
+                     XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_GT(94:96)]('gt')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(96:97)](' ')
+                     XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(97:98)]('0')
+                     PsiWhiteSpaceImpl[WHITE_SPACE(98:99)]('\n')
                XQueryOrderByClauseImpl[XQUERY_ORDER_BY_CLAUSE(99:111)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ORDER(99:104)]('order')
                   PsiWhiteSpaceImpl[WHITE_SPACE(104:105)](' ')
