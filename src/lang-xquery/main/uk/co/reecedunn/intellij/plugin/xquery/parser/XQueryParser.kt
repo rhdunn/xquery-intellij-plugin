@@ -1550,12 +1550,13 @@ class XQueryParser : XPathParser() {
 
     private fun parseIntermediateClause(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
-        if (parseInitialClause(builder)) {
+        if (parseForOrWindowClause(builder) != null) {
             marker.done(XQueryElementType.INTERMEDIATE_CLAUSE)
             return true
         }
         marker.drop()
-        return parseWhereClause(builder) ||
+        return parseLetClause(builder) ||
+                parseWhereClause(builder) ||
                 parseOrderByClause(builder) ||
                 parseCountClause(builder) ||
                 parseGroupByClause(builder)
