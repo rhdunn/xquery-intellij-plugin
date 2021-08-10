@@ -2217,7 +2217,6 @@ class XQueryParser : XPathParser() {
     }
 
     private fun parseOrderSpecList(builder: PsiBuilder): Boolean {
-        val marker = builder.mark()
         if (parseOrderSpec(builder)) {
             parseWhiteSpaceAndCommentTokens(builder)
             while (builder.matchTokenType(XPathTokenType.COMMA)) {
@@ -2228,11 +2227,8 @@ class XQueryParser : XPathParser() {
 
                 parseWhiteSpaceAndCommentTokens(builder)
             }
-
-            marker.done(XQueryElementType.ORDER_SPEC_LIST)
             return true
         }
-        marker.drop()
         return false
     }
 

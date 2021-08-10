@@ -247,12 +247,6 @@ object XQueryElementType {
         XQuery
     )
 
-    val ORDER_SPEC_LIST: IElementType = ICompositeElementType(
-        "XQUERY_ORDER_SPEC_LIST",
-        XQueryOrderSpecListPsiImpl::class.java,
-        XQuery
-    )
-
     val POSITIONAL_VAR: IElementType = ICompositeElementType(
         "XQUERY_POSITIONAL_VAR",
         XQueryPositionalVarPsiImpl::class.java,
