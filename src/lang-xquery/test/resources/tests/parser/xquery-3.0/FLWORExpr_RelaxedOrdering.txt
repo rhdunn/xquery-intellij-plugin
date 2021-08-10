@@ -33,20 +33,19 @@ XQueryModuleImpl[FILE(0:61)]
                         XPathNCNameImpl[XPATH_NCNAME(24:26)]
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(24:25)]('x')
                            PsiWhiteSpaceImpl[WHITE_SPACE(25:26)]('\n')
-            XQueryIntermediateClauseImpl[XQUERY_INTERMEDIATE_CLAUSE(26:38)]
-               XQueryOrderByClauseImpl[XQUERY_ORDER_BY_CLAUSE(26:38)]
-                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ORDER(26:31)]('order')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
-                  XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BY(32:34)]('by')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
-                  XQueryOrderSpecListImpl[XQUERY_ORDER_SPEC_LIST(35:38)]
-                     XQueryOrderSpecImpl[XQUERY_ORDER_SPEC(35:38)]
-                        XPathVarRefImpl[XPATH_VAR_REF(35:38)]
-                           LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(35:36)]('$')
-                           XPathNCNameImpl[XPATH_NCNAME(36:38)]
-                              XmlNCNameImpl[XPATH_NCNAME_TOKEN(36:37)]('a')
-                              PsiWhiteSpaceImpl[WHITE_SPACE(37:38)]('\n')
-                        XQueryOrderModifierImpl[XQUERY_ORDER_MODIFIER(38:38)]
+            XQueryOrderByClauseImpl[XQUERY_ORDER_BY_CLAUSE(26:38)]
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ORDER(26:31)]('order')
+               PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
+               XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BY(32:34)]('by')
+               PsiWhiteSpaceImpl[WHITE_SPACE(34:35)](' ')
+               XQueryOrderSpecListImpl[XQUERY_ORDER_SPEC_LIST(35:38)]
+                  XQueryOrderSpecImpl[XQUERY_ORDER_SPEC(35:38)]
+                     XPathVarRefImpl[XPATH_VAR_REF(35:38)]
+                        LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(35:36)]('$')
+                        XPathNCNameImpl[XPATH_NCNAME(36:38)]
+                           XmlNCNameImpl[XPATH_NCNAME_TOKEN(36:37)]('a')
+                           PsiWhiteSpaceImpl[WHITE_SPACE(37:38)]('\n')
+                     XQueryOrderModifierImpl[XQUERY_ORDER_MODIFIER(38:38)]
             XQueryIntermediateClauseImpl[XQUERY_INTERMEDIATE_CLAUSE(38:52)]
                XQueryWhereClauseImpl[XQUERY_WHERE_CLAUSE(38:52)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_WHERE(38:43)]('where')

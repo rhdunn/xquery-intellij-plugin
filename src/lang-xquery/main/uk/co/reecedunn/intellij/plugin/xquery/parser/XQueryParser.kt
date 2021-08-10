@@ -1552,14 +1552,13 @@ class XQueryParser : XPathParser() {
         val marker = builder.mark()
         if (
             parseInitialClause(builder) ||
-            parseWhereClause(builder) ||
-            parseOrderByClause(builder)
+            parseWhereClause(builder)
         ) {
             marker.done(XQueryElementType.INTERMEDIATE_CLAUSE)
             return true
         }
         marker.drop()
-        return parseCountClause(builder) || parseGroupByClause(builder)
+        return parseOrderByClause(builder) || parseCountClause(builder) || parseGroupByClause(builder)
     }
 
     // endregion
