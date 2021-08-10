@@ -113,23 +113,7 @@ private fun PsiElement.windowClauseVariables(context: InScopeVariableContext): S
         node.children().filterIsInstance<XQueryWindowEndCondition>().flatMap { e ->
             e.windowConditionVariables(context)
         }
-    ).filterNotNull().flatten()
-}
-
-private fun PsiElement.intermediateClauseVariables(context: InScopeVariableContext): Sequence<XpmVariableBinding> {
-    return children().flatMap { node ->
-        when (node) {
-            is XQueryForClause, is XQueryForMemberClause, is XQueryLetClause ->
-                if (context.visitedFlworClauseAsIntermediateClause) {
-                    context.visitedFlworClauseAsIntermediateClause = false
-                    emptySequence()
-                } else
-                    node.flworClauseVariables(context)
-            is XQueryWindowClause -> node.windowClauseVariables(context)
-            is XpmVariableBinding -> sequenceOf(node as XpmVariableBinding)
-            else -> emptySequence()
-        }
-    }
+    ).flatten()
 }
 
 private fun PsiElement.groupByClauseVariables(context: InScopeVariableContext): Sequence<XpmVariableBinding> {
@@ -207,7 +191,6 @@ fun PsiElement.xqueryInScopeVariables(): Sequence<XpmVariableDefinition> {
                     } else
                         sequenceOf(node as XpmVariableBinding)
                 }
-                is XQueryIntermediateClause -> node.intermediateClauseVariables(context)
                 is XQueryCountClause -> sequenceOf(node as XpmVariableBinding)
                 is XQueryGroupByClause -> node.groupByClauseVariables(context)
                 is XQueryCaseClause, is PluginDefaultCaseClause -> {
@@ -230,19 +213,11 @@ fun PsiElement.xqueryInScopeVariables(): Sequence<XpmVariableDefinition> {
                     when (node.parent) {
                         is XQueryForBinding, is XQueryForMemberBinding, is XQueryLetBinding, is XQueryGroupingSpec -> {
                             context.visitedFlworBinding = true
-                            if (node.parent.parent.parent is XQueryIntermediateClause) {
-                                // The parent of the ForClause/ForMemberClause/LetClause.
-                                context.visitedFlworClauseAsIntermediateClause = true
-                            }
                         }
                         is XQuerySlidingWindowClause, is XQueryTumblingWindowClause -> {
                             // 'in' expression: don't include window conditions
                             context.visitedFlworWindowConditions = true
                             context.visitedFlworBinding = true
-                            if (node.parent.parent.parent is XQueryIntermediateClause) {
-                                // The parent of the ForClause/ForMemberClause/LetClause.
-                                context.visitedFlworClauseAsIntermediateClause = true
-                            }
                         }
                         is XPathQuantifierBinding -> {
                             context.visitedQuantifiedBinding = true

@@ -1548,18 +1548,13 @@ class XQueryParser : XPathParser() {
         return parseForOrWindowClause(builder) != null || parseLetClause(builder)
     }
 
-    private fun parseIntermediateClause(builder: PsiBuilder): Boolean {
-        val marker = builder.mark()
-        if (parseForOrWindowClause(builder) != null) {
-            marker.done(XQueryElementType.INTERMEDIATE_CLAUSE)
-            return true
-        }
-        marker.drop()
-        return parseLetClause(builder) ||
-                parseWhereClause(builder) ||
-                parseOrderByClause(builder) ||
-                parseCountClause(builder) ||
-                parseGroupByClause(builder)
+    private fun parseIntermediateClause(builder: PsiBuilder): Boolean = when {
+        parseInitialClause(builder) -> true
+        parseWhereClause(builder) -> true
+        parseOrderByClause(builder) -> true
+        parseCountClause(builder) -> true
+        parseGroupByClause(builder) -> true
+        else -> false
     }
 
     // endregion

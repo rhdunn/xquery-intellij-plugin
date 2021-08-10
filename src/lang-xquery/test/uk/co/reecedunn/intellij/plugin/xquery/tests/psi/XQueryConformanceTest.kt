@@ -16,13 +16,11 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 
 import com.intellij.openapi.extensions.PluginId
-import com.intellij.psi.PsiElement
 import com.intellij.psi.util.elementType
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
@@ -105,46 +103,6 @@ class XQueryConformanceTest : ParserTestCase() {
         assertThat(versioned.conformanceElement, `is`(notNullValue()))
         assertThat(versioned.conformanceElement.elementType, `is`(XQueryElementType.DF_PROPERTY_NAME))
         assertThat(versioned.conformanceElement.firstChild.elementType, `is`(XQueryTokenType.K_EXPONENT_SEPARATOR))
-    }
-
-    // endregion
-    // region IntermediateClause (ForClause)
-
-    @Test
-    fun testForClause_FirstIntermediateClause() {
-        val file = parseResource("tests/parser/xquery-1.0/ForClause_Multiple.xq")
-
-        val flworExprPsi = file.descendants().filterIsInstance<XQueryFLWORExpr>().first()
-        // prev == null
-        assertThat(flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().first().firstChild,
-                instanceOf<PsiElement>(XQueryForClause::class.java))
-
-        val intermediateClausePsi = flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().first()
-        val versioned = intermediateClausePsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.K_FOR))
-    }
-
-    @Test
-    fun testForClause_AfterForIntermediateClause() {
-        val file = parseResource("tests/parser/xquery-1.0/ForClause_Multiple.xq")
-
-        val flworExprPsi = file.descendants().filterIsInstance<XQueryFLWORExpr>().first()
-        assertThat(flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().first().firstChild,
-                instanceOf<PsiElement>(XQueryForClause::class.java))
-        assertThat(flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().toList()[1].firstChild,
-                instanceOf<PsiElement>(XQueryForClause::class.java))
-
-        val intermediateClausePsi = flworExprPsi.children().filterIsInstance<XQueryIntermediateClause>().toList()[1]
-        val versioned = intermediateClausePsi as VersionConformance
-
-        assertThat(versioned.requiresConformance.size, `is`(0))
-
-        assertThat(versioned.conformanceElement, `is`(notNullValue()))
-        assertThat(versioned.conformanceElement.elementType, `is`(XPathTokenType.K_FOR))
     }
 
     // endregion
