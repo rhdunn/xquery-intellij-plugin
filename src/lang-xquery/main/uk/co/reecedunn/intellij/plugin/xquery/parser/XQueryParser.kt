@@ -2183,9 +2183,10 @@ class XQueryParser : XPathParser() {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!parseOrderSpecList(builder) && !haveErrors) {
                 builder.error(XPathBundle.message("parser.error.expected", "OrderSpecList"))
+                marker.drop()
+            } else {
+                marker.done(XQueryElementType.ORDER_BY_CLAUSE)
             }
-
-            marker.done(XQueryElementType.ORDER_BY_CLAUSE)
             return true
         } else if (builder.matchTokenType(XQueryTokenType.K_STABLE)) {
             var haveErrors = false
@@ -2205,9 +2206,10 @@ class XQueryParser : XPathParser() {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!parseOrderSpecList(builder) && !haveErrors) {
                 builder.error(XPathBundle.message("parser.error.expected", "OrderSpecList"))
+                marker.drop()
+            } else {
+                marker.done(XQueryElementType.ORDER_BY_CLAUSE)
             }
-
-            marker.done(XQueryElementType.ORDER_BY_CLAUSE)
             return true
         }
         marker.drop()
