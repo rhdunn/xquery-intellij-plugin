@@ -2054,9 +2054,10 @@ class XQueryParser : XPathParser() {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!parseExprSingle(builder)) {
                 builder.error(XPathBundle.message("parser.error.expected-expression"))
+                marker.drop()
+            } else {
+                marker.done(XQueryElementType.WHERE_CLAUSE)
             }
-
-            marker.done(XQueryElementType.WHERE_CLAUSE)
             return true
         }
         return false
