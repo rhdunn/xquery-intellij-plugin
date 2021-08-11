@@ -276,6 +276,74 @@ class XQuerySyntaxValidatorTest :
     }
 
     @Nested
+    @DisplayName("XQuery 3.0 EBNF (58) LetClause")
+    internal inner class LetClause {
+        @Test
+        @DisplayName("after 'for'")
+        fun afterFor() {
+            val file = parse<XQueryModule>("for \$x in () let \$y := () return ()")[0]
+            validator.configuration = XQUERY_1_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("after 'let'")
+        fun afterLet() {
+            val file = parse<XQueryModule>("let \$x := () let \$y := () return ()")[0]
+            validator.configuration = XQUERY_1_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("after 'where'; XQuery < 3.0")
+        fun afterWhere_notSupported() {
+            val file = parse<XQueryModule>("let \$x := () where true() let \$y := () return ()")[0]
+            validator.configuration = XQUERY_1_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(
+                report.toString(),
+                `is`(
+                    "E XPST0003(26:29): XQuery version string '1.0' does not support XQuery 3.0 relaxed FLWOR ordering constructs."
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("after 'where'; XQuery >= 3.0")
+        fun afterWhere_supported() {
+            val file = parse<XQueryModule>("let \$x := () where true() let \$y := () return ()")[0]
+            validator.configuration = XQUERY_3_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("after 'order by'; XQuery < 3.0")
+        fun afterOrderBy_notSupported() {
+            val file = parse<XQueryModule>("let \$x := () order by \$x let \$y := () return ()")[0]
+            validator.configuration = XQUERY_1_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(
+                report.toString(),
+                `is`(
+                    "E XPST0003(25:28): XQuery version string '1.0' does not support XQuery 3.0 relaxed FLWOR ordering constructs."
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("after 'order by'; XQuery >= 3.0")
+        fun afterOrderBy_supported() {
+            val file = parse<XQueryModule>("let \$x := () order by \$x let \$y := () return ()")[0]
+            validator.configuration = XQUERY_3_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.0 EBNF (51) TumblingWindowClause")
     internal inner class TumblingWindowClause {
         @Test

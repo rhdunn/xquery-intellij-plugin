@@ -163,6 +163,7 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
             else -> {
             }
         }
+        is XQueryLetClause -> flworClause(element, reporter)
         is XQueryOrderByClause -> flworClause(element, reporter)
         is XQueryOrderedExpr -> when (element.conformanceElement.elementType) {
             XPathTokenType.BLOCK_OPEN -> reporter.requires(element, XQUERY_3_1)
