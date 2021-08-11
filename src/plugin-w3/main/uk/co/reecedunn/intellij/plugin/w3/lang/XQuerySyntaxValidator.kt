@@ -202,14 +202,17 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
             else -> {
             }
         }
+        is XQueryWhereClause -> flworClause(element, reporter)
         else -> {
         }
     }
 
-    private fun flworClause(element: XQueryOrderByClause, reporter: XpmSyntaxErrorReporter) {
-        if (reverse(element.siblings()).any { it is XQueryOrderByClause }) {
+    private fun flworClause(element: XpmSyntaxValidationElement, reporter: XpmSyntaxErrorReporter) {
+        if (reverse(element.siblings()).any {
+                (it is XQueryWhereClause && element !is XQueryOrderByClause) || it is XQueryOrderByClause
+            }) {
             val message = PluginW3Bundle.message("conformance.relaxed-flwor-ordering")
-            reporter.requires(element as XpmSyntaxValidationElement, XQUERY_3_0, message)
+            reporter.requires(element, XQUERY_3_0, message)
         }
     }
 
