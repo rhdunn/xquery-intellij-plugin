@@ -378,6 +378,60 @@ class XQuerySyntaxValidatorTest :
     }
 
     @Nested
+    @DisplayName("XQuery 3.0 EBNF (65) OrderByClause")
+    internal inner class OrderByClause {
+        @Test
+        @DisplayName("after 'for'")
+        fun afterFor() {
+            val file = parse<XQueryModule>("for \$x in () for \$y in () order by \$x return ()")[0]
+            validator.configuration = XQUERY_1_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("after 'let'")
+        fun afterLet() {
+            val file = parse<XQueryModule>("let \$x := () let \$y := () order by \$x return ()")[0]
+            validator.configuration = XQUERY_1_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("after 'where'")
+        fun afterWhere() {
+            val file = parse<XQueryModule>("for \$x in () where true() order by \$x return ()")[0]
+            validator.configuration = XQUERY_1_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+
+        @Test
+        @DisplayName("after 'order by'; XQuery < 3.0")
+        fun afterOrderBy_notSupported() {
+            val file = parse<XQueryModule>("for \$x in () order by \$x order by \$x return ()")[0]
+            validator.configuration = XQUERY_1_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(
+                report.toString(),
+                `is`(
+                    "E XPST0003(25:30): XQuery version string '1.0' does not support XQuery 3.0 relaxed FLWOR ordering constructs."
+                )
+            )
+        }
+
+        @Test
+        @DisplayName("after 'order by'; XQuery >= 3.0")
+        fun afterOrderBy_supported() {
+            val file = parse<XQueryModule>("for \$x in () order by \$x order by \$x return ()")[0]
+            validator.configuration = XQUERY_3_0
+            validator.validate(file, this@XQuerySyntaxValidatorTest)
+            assertThat(report.toString(), `is`(""))
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.0 EBNF (71) SwitchExpr")
     internal inner class SwitchExpr {
         @Test

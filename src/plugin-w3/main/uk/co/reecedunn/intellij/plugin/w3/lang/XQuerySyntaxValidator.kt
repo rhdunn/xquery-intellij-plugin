@@ -17,6 +17,9 @@ package uk.co.reecedunn.intellij.plugin.w3.lang
 
 import com.intellij.psi.PsiElement
 import com.intellij.psi.util.elementType
+import uk.co.reecedunn.intellij.plugin.core.sequences.reverse
+import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
+import uk.co.reecedunn.intellij.plugin.w3.resources.PluginW3Bundle
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginArrowInlineFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginDynamicFunctionCall
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginPostfixLookup
@@ -160,6 +163,7 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
             else -> {
             }
         }
+        is XQueryOrderByClause -> flworClause(element, reporter)
         is XQueryOrderedExpr -> when (element.conformanceElement.elementType) {
             XPathTokenType.BLOCK_OPEN -> reporter.requires(element, XQUERY_3_1)
             else -> {
@@ -199,6 +203,13 @@ object XQuerySyntaxValidator : XpmSyntaxValidator {
             }
         }
         else -> {
+        }
+    }
+
+    private fun flworClause(element: XQueryOrderByClause, reporter: XpmSyntaxErrorReporter) {
+        if (reverse(element.siblings()).any { it is XQueryOrderByClause }) {
+            val message = PluginW3Bundle.message("conformance.relaxed-flwor-ordering")
+            reporter.requires(element as XpmSyntaxValidationElement, XQUERY_3_0, message)
         }
     }
 
