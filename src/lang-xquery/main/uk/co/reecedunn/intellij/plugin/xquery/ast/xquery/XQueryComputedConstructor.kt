@@ -15,6 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
+
 /**
  * An XQuery 1.0 `ComputedConstructor` node in the XQuery AST.
  *
@@ -23,4 +25,4 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
  * `ComputedConstructor` nodes are stored as instances of the child nodes
  * instead of as distinct nodes themselves.
  */
-interface XQueryComputedConstructor : XQueryNodeConstructor
+interface XQueryComputedConstructor : XQueryNodeConstructor, XpmExpression
