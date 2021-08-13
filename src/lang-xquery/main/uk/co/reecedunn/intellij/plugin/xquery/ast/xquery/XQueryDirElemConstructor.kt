@@ -20,4 +20,4 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
 /**
  * An XQuery 1.0 `DirElemConstructor` node in the XQuery AST.
  */
-interface XQueryDirElemConstructor : XQueryDirectConstructor, XQueryDirAttributeList, XdmElementNode
+interface XQueryDirElemConstructor : XQueryDirectConstructor, XdmElementNode
