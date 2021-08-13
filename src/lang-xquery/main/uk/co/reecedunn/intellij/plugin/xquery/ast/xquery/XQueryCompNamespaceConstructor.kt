@@ -15,7 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmNamespaceNode
+
 /**
  * An XQuery 3.0 `CompNamespaceConstructor` node in the XQuery AST.
  */
-interface XQueryCompNamespaceConstructor : XQueryComputedConstructor
+interface XQueryCompNamespaceConstructor : XQueryComputedConstructor, XdmNamespaceNode
