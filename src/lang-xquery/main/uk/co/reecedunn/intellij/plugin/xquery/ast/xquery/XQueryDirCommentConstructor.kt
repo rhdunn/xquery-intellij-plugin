@@ -15,7 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmCommentNode
+
 /**
  * An XQuery 1.0 `DirCommentConstructor` node in the XQuery AST.
  */
-interface XQueryDirCommentConstructor : XQueryDirectConstructor
+interface XQueryDirCommentConstructor : XQueryDirectConstructor, XdmCommentNode
