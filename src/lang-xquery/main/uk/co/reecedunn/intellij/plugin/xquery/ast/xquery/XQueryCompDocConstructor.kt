@@ -15,7 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.ast.xquery
 
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmDocumentNode
+
 /**
  * An XQuery 1.0 `CompDocConstructor` node in the XQuery AST.
  */
-interface XQueryCompDocConstructor : XQueryComputedConstructor
+interface XQueryCompDocConstructor : XQueryComputedConstructor, XdmDocumentNode
