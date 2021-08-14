@@ -54,13 +54,9 @@ object MarkLogicErrorLog : Language("MLErrorLog") {
 
         override fun getStringLiteralElements(): TokenSet = TokenSet.EMPTY
 
-        override fun createElement(node: ASTNode): PsiElement {
-            val type = node.elementType
-            if (type is IASTWrapperElementType) {
-                return type.createPsiElement(node)
-            }
-
-            throw AssertionError("Alien element type [$type]. Can't create PsiElement for that.")
+        override fun createElement(node: ASTNode): PsiElement = when (val type = node.elementType) {
+            is IASTWrapperElementType -> type.createPsiElement(node)
+            else -> throw AssertionError("Alien element type [$type]. Can't create PsiElement for that.")
         }
 
         override fun createFile(viewProvider: FileViewProvider): PsiFile = MarkLogicErrorLogPsiImpl(viewProvider)
