@@ -25,7 +25,7 @@ import org.jetbrains.annotations.NonNls
 import java.lang.reflect.Constructor
 import java.lang.reflect.InvocationTargetException
 
-class ICompositeElementType(@NonNls debugName: String, psiClass: Class<*>, language: Language) :
+class IASTWrapperElementType(@NonNls debugName: String, psiClass: Class<*>, language: Language) :
     IElementType(debugName, language) {
 
     private var mPsiConstructor: Constructor<*>? = null

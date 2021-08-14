@@ -25,7 +25,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.psi.tree.IFileElementType
 import com.intellij.psi.tree.TokenSet
-import uk.co.reecedunn.intellij.plugin.core.parser.ICompositeElementType
+import uk.co.reecedunn.intellij.plugin.core.parser.IASTWrapperElementType
 import uk.co.reecedunn.intellij.plugin.marklogic.log.lexer.MarkLogicErrorLogLexer
 import uk.co.reecedunn.intellij.plugin.marklogic.log.parser.MarkLogicErrorLogElementType
 import uk.co.reecedunn.intellij.plugin.marklogic.log.parser.MarkLogicErrorLogParser
@@ -56,7 +56,7 @@ object MarkLogicErrorLog : Language("MLErrorLog") {
 
         override fun createElement(node: ASTNode): PsiElement {
             val type = node.elementType
-            if (type is ICompositeElementType) {
+            if (type is IASTWrapperElementType) {
                 return type.createPsiElement(node)
             }
 
