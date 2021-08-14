@@ -892,7 +892,7 @@ class XQueryFoldingTest : ParserTestCase() {
             assertThat(descriptors[0].dependencies, `is`(notNullValue()))
             assertThat(descriptors[0].dependencies.size, `is`(0))
             assertThat(descriptors[0].group, `is`(nullValue()))
-            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.COMP_NAMESPACE_CONSTRUCTOR))
+            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.ENCLOSED_URI_EXPR))
             assertThat(descriptors[0].range.startOffset, `is`(15))
             assertThat(descriptors[0].range.endOffset, `is`(28))
 
@@ -944,7 +944,7 @@ class XQueryFoldingTest : ParserTestCase() {
             assertThat(descriptors[0].dependencies, `is`(notNullValue()))
             assertThat(descriptors[0].dependencies.size, `is`(0))
             assertThat(descriptors[0].group, `is`(nullValue()))
-            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.COMP_NAMESPACE_CONSTRUCTOR))
+            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.ENCLOSED_URI_EXPR))
             assertThat(descriptors[0].range.startOffset, `is`(21))
             assertThat(descriptors[0].range.endOffset, `is`(34))
 
@@ -976,7 +976,7 @@ class XQueryFoldingTest : ParserTestCase() {
             assertThat(descriptors[1].dependencies, `is`(notNullValue()))
             assertThat(descriptors[1].dependencies.size, `is`(0))
             assertThat(descriptors[1].group, `is`(nullValue()))
-            assertThat(descriptors[1].element.elementType, `is`(XQueryElementType.COMP_NAMESPACE_CONSTRUCTOR))
+            assertThat(descriptors[1].element.elementType, `is`(XQueryElementType.ENCLOSED_URI_EXPR))
             assertThat(descriptors[1].range.startOffset, `is`(23))
             assertThat(descriptors[1].range.endOffset, `is`(36))
 
