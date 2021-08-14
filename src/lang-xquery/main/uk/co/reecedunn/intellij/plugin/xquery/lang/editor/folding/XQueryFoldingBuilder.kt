@@ -199,6 +199,7 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
             XQueryElementType.BOOLEAN_CONSTRUCTOR,
             XQueryElementType.CATCH_CLAUSE,
             XQueryElementType.COMP_ATTR_CONSTRUCTOR,
+            XQueryElementType.ENCLOSED_ATTR_VALUE_EXPR,
             XQueryElementType.COMP_COMMENT_CONSTRUCTOR,
             XQueryElementType.COMP_DOC_CONSTRUCTOR,
             XQueryElementType.COMP_ELEM_CONSTRUCTOR,

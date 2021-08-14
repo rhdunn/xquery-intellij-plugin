@@ -804,6 +804,12 @@ object XQueryElementType {
         XPath
     )
 
+    val ENCLOSED_ATTR_VALUE_EXPR: IElementType = ICompositeElementType(
+        "XQUERY_ENCLOSED_ATTR_VALUE_EXPR",
+        PluginEnclosedAttrValueExprPsiImpl::class.java,
+        XQuery
+    )
+
     val FT_FUZZY_OPTION: IElementType = ICompositeElementType(
         "XQUERY_FT_FUZZY_OPTION",
         PluginFTFuzzyOptionPsiImpl::class.java,

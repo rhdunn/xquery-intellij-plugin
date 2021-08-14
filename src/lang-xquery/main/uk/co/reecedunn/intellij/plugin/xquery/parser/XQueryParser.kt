@@ -4088,7 +4088,11 @@ class XQueryParser : XPathParser() {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseEnclosedExprOrBlock(builder, null, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)) {
+            if (
+                !parseEnclosedExprOrBlock(
+                    builder, XQueryElementType.ENCLOSED_ATTR_VALUE_EXPR, BlockOpen.REQUIRED, BlockExpr.OPTIONAL
+                )
+            ) {
                 if (name is IKeywordOrNCNameType) {
                     // This may be a continuation keyword from another expression (e.g. 'return' from a FLWORExpr).
                     marker.rollbackTo()
