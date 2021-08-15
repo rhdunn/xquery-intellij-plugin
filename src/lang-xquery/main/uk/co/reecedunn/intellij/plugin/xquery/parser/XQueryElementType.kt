@@ -126,10 +126,6 @@ object XQueryElementType {
         XQueryFunctionDeclPsiImpl(node)
     }
 
-    val IMPORT: IElementType = IASTWrapperElementType("XQUERY_IMPORT", XQuery) { node ->
-        XQueryImportPsiImpl(node)
-    }
-
     val LIBRARY_MODULE: IElementType = IASTWrapperElementType("XQUERY_LIBRARY_MODULE", XQuery) { node ->
         XQueryLibraryModulePsiImpl(node)
     }

@@ -25,12 +25,6 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
  * from the `Import` node in the grammar, the `Import`
  * nodes are stored as instances of the child nodes instead of as distinct
  * nodes themselves.
- *
- * In the case of an invalid `Import` declaration that has an
- * `import` keyword that does not form a `SchemaImport`
- * nor `ModuleImport`, an `Import` node is used directly.
- * This is because there is not enough information to know what type of import
- * declaration this is.
  */
 interface XQueryImport : PsiElement {
     val locationUris: Sequence<XsAnyUriValue>

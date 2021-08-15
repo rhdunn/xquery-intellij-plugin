@@ -789,7 +789,7 @@ class XQueryParser : XPathParser() {
                 parseModuleImport(builder) -> marker.done(XQueryElementType.MODULE_IMPORT)
                 else -> {
                     builder.error(XPathBundle.message("parser.error.expected-keyword", "schema, stylesheet, module"))
-                    marker.done(XQueryElementType.IMPORT)
+                    marker.drop()
                     return PrologDeclState.UNKNOWN_STATEMENT
                 }
             }
