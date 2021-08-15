@@ -9,9 +9,9 @@ XQueryModuleImpl[FILE(0:55)]
             PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
             XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FUNCTION(19:27)]('function')
             PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
-            XPathNCNameImpl[XPATH_NCNAME(28:30)]
+            XPathNCNameImpl[XPATH_NCNAME(28:29)]
                XmlNCNameImpl[XPATH_NCNAME_TOKEN(28:29)]('f')
-               PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
+            PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
             LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(30:31)]('(')
             PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
             LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(32:33)](')')
@@ -25,9 +25,9 @@ XQueryModuleImpl[FILE(0:55)]
                      PsiWhiteSpaceImpl[WHITE_SPACE(43:44)](' ')
                      PluginBlockVarDeclEntryImpl[XQUERY_BLOCK_VAR_DECL_ENTRY(44:46)]
                         PsiErrorElementImpl[ERROR_ELEMENT(44:44)]('XPST0003: Expected '$'.')
-                        XPathNCNameImpl[XPATH_NCNAME(44:46)]
+                        XPathNCNameImpl[XPATH_NCNAME(44:45)]
                            XmlNCNameImpl[XPATH_NCNAME_TOKEN(44:45)]('x')
-                           PsiWhiteSpaceImpl[WHITE_SPACE(45:46)](' ')
+                        PsiWhiteSpaceImpl[WHITE_SPACE(45:46)](' ')
                   LeafPsiElement[XQUERY_SEPARATOR_TOKEN(46:47)](';')
                   PsiWhiteSpaceImpl[WHITE_SPACE(47:48)](' ')
                ScriptingBlockBodyImpl[XQUERY_BLOCK_BODY(48:52)]

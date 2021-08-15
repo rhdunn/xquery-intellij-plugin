@@ -6,9 +6,9 @@ XPathImpl[FILE(0:21)]
       PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
       XPathParamImpl[XPATH_PARAM(11:14)]
          LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(11:12)]('$')
-         XPathNCNameImpl[XPATH_NCNAME(12:14)]
+         XPathNCNameImpl[XPATH_NCNAME(12:13)]
             XmlNCNameImpl[XPATH_NCNAME_TOKEN(12:13)]('a')
-            PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
+         PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
       LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(14:15)](')')
       PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
       LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(16:17)]('{')

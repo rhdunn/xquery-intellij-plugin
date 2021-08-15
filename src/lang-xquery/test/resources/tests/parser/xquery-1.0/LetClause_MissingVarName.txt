@@ -11,12 +11,12 @@ XQueryModuleImpl[FILE(0:23)]
                   PsiErrorElementImpl[ERROR_ELEMENT(6:6)]('XPST0003: Missing qualified name or braced URI qualified name.')
                   LeafPsiElement[XPATH_ASSIGN_EQUAL_TOKEN(6:8)](':=')
                   PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
-                  XPathVarRefImpl[XPATH_VAR_REF(9:13)]
+                  XPathVarRefImpl[XPATH_VAR_REF(9:12)]
                      LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(9:10)]('$')
                      PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
-                     XPathNCNameImpl[XPATH_NCNAME(11:13)]
+                     XPathNCNameImpl[XPATH_NCNAME(11:12)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(11:12)]('y')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
             XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_RETURN(13:19)]('return')
             PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
             XPathVarRefImpl[XPATH_VAR_REF(20:23)]

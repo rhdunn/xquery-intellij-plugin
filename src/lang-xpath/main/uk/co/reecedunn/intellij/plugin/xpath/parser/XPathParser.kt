@@ -4164,7 +4164,9 @@ open class XPathParser : PsiParser {
         val prefix = parseQNameNCName(builder, QNamePart.Prefix, type, false)
         if (prefix != null) {
             // NOTE: Whitespace in QNames is reported by QNameAnnotator so the prefix can be correctly styled.
+            val nameMarker = builder.mark()
             if (parseWhiteSpaceAndCommentTokens(builder) && endQNameOnSpace) {
+                nameMarker.drop()
                 return if (type === XPathElementType.WILDCARD && prefix === XPathTokenType.STAR) {
                     marker.done(XPathElementType.WILDCARD)
                     XPathElementType.WILDCARD
@@ -4174,7 +4176,6 @@ open class XPathParser : PsiParser {
                 }
             }
 
-            val nameMarker = builder.mark()
             if (parseQNameSeparator(builder, type)) {
                 // NOTE: Whitespace in QNames is reported by QNameAnnotator so the prefix can be correctly styled.
                 if (parseWhiteSpaceAndCommentTokens(builder) && endQNameOnSpace) {
@@ -4209,7 +4210,7 @@ open class XPathParser : PsiParser {
             } else if (
                 (type === XPathElementType.WILDCARD || isElementOrAttributeName) && prefix == XPathTokenType.STAR
             ) {
-                nameMarker.drop()
+                nameMarker.rollbackTo()
                 if (isElementOrAttributeName) {
                     // Don't create a PSI element for `*` only wildcards for ElementNameOrWildcard and
                     // AttribNameOrWildcard symbols. This is so that `element()` has the same PSI tree
@@ -4220,7 +4221,7 @@ open class XPathParser : PsiParser {
                 }
                 return XPathElementType.WILDCARD
             } else {
-                nameMarker.drop()
+                nameMarker.rollbackTo()
                 marker.done(XPathElementType.NCNAME)
                 return prefix
             }

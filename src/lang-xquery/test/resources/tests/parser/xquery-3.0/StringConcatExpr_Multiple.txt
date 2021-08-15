@@ -3,17 +3,17 @@ XQueryModuleImpl[FILE(0:11)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:11)]
          XPathStringConcatExprImpl[XPATH_STRING_CONCAT_EXPR(0:11)]
             XPathPathExprImpl[XPATH_PATH_EXPR(0:2)]
-               XPathNameTestImpl[XPATH_NAME_TEST(0:2)]
-                  XPathNCNameImpl[XPATH_NCNAME(0:2)]
+               XPathNameTestImpl[XPATH_NAME_TEST(0:1)]
+                  XPathNCNameImpl[XPATH_NCNAME(0:1)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:1)]('a')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+               PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
             LeafPsiElement[XPATH_CONCATENATION(2:4)]('||')
             PsiWhiteSpaceImpl[WHITE_SPACE(4:5)](' ')
             XPathPathExprImpl[XPATH_PATH_EXPR(5:7)]
-               XPathNameTestImpl[XPATH_NAME_TEST(5:7)]
-                  XPathNCNameImpl[XPATH_NCNAME(5:7)]
+               XPathNameTestImpl[XPATH_NAME_TEST(5:6)]
+                  XPathNCNameImpl[XPATH_NCNAME(5:6)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(5:6)]('b')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
+               PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
             LeafPsiElement[XPATH_CONCATENATION(7:9)]('||')
             PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
             XPathPathExprImpl[XPATH_PATH_EXPR(10:11)]

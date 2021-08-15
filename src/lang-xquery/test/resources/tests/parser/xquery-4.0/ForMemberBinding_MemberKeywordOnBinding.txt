@@ -10,9 +10,9 @@ XQueryModuleImpl[FILE(0:52)]
                XQueryForMemberBindingImpl[XQUERY_FOR_MEMBER_BINDING(11:23)]
                   LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(11:12)]('$')
                   PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
-                  XPathNCNameImpl[XPATH_NCNAME(13:16)]
+                  XPathNCNameImpl[XPATH_NCNAME(13:15)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(13:15)]('m1')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_IN(16:18)]('in')
                   PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
                   XPathSquareArrayConstructorImpl[XPATH_SQUARE_ARRAY_CONSTRUCTOR(19:22)]
@@ -28,9 +28,9 @@ XQueryModuleImpl[FILE(0:52)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
                   LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(32:33)]('$')
                   PsiWhiteSpaceImpl[WHITE_SPACE(33:34)](' ')
-                  XPathNCNameImpl[XPATH_NCNAME(34:37)]
+                  XPathNCNameImpl[XPATH_NCNAME(34:36)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(34:36)]('m2')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(36:37)](' ')
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_IN(37:39)]('in')
                   PsiWhiteSpaceImpl[WHITE_SPACE(39:40)](' ')
                   XPathSquareArrayConstructorImpl[XPATH_SQUARE_ARRAY_CONSTRUCTOR(40:43)]

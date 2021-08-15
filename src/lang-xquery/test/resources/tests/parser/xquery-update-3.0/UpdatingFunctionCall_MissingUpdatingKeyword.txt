@@ -5,12 +5,12 @@ XQueryModuleImpl[FILE(0:17)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_INVOKE(0:6)]('invoke')
             PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
             PsiErrorElementImpl[ERROR_ELEMENT(7:7)]('XPST0003: Expected keyword: updating.')
-            XPathVarRefImpl[XPATH_VAR_REF(7:14)]
+            XPathVarRefImpl[XPATH_VAR_REF(7:13)]
                LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(7:8)]('$')
                PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
-               XPathNCNameImpl[XPATH_NCNAME(9:14)]
+               XPathNCNameImpl[XPATH_NCNAME(9:13)]
                   XmlNCNameImpl[XPATH_NCNAME_TOKEN(9:13)]('test')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
+            PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
             LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(14:15)]('(')
             PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
             LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(16:17)](')')

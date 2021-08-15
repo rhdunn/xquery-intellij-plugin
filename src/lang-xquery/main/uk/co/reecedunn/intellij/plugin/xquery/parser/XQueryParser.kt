@@ -736,6 +736,7 @@ class XQueryParser : XPathParser() {
                 }
             }
 
+            parseWhiteSpaceAndCommentTokens(builder)
             while (parseDFPropertyName(builder)) {
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (!builder.matchTokenType(XPathTokenType.EQUAL) && !haveErrors) {

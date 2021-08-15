@@ -15,10 +15,10 @@ XQueryModuleImpl[FILE(0:28)]
             LeafPsiElement[XPATH_COMMA_TOKEN(3:4)](',')
             XPathMultiplicativeExprImpl[XPATH_MULTIPLICATIVE_EXPR(4:11)]
                XPathPathExprImpl[XPATH_PATH_EXPR(4:6)]
-                  XPathNameTestImpl[XPATH_NAME_TEST(4:6)]
-                     XPathNCNameImpl[XPATH_NCNAME(4:6)]
+                  XPathNameTestImpl[XPATH_NAME_TEST(4:5)]
+                     XPathNCNameImpl[XPATH_NCNAME(4:5)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(4:5)]('a')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_DIV(6:9)]('div')
                PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
                XPathPathExprImpl[XPATH_PATH_EXPR(10:11)]
@@ -28,10 +28,10 @@ XQueryModuleImpl[FILE(0:28)]
             LeafPsiElement[XPATH_COMMA_TOKEN(11:12)](',')
             XPathMultiplicativeExprImpl[XPATH_MULTIPLICATIVE_EXPR(12:20)]
                XPathPathExprImpl[XPATH_PATH_EXPR(12:14)]
-                  XPathNameTestImpl[XPATH_NAME_TEST(12:14)]
-                     XPathNCNameImpl[XPATH_NCNAME(12:14)]
+                  XPathNameTestImpl[XPATH_NAME_TEST(12:13)]
+                     XPathNCNameImpl[XPATH_NCNAME(12:13)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(12:13)]('a')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_IDIV(14:18)]('idiv')
                PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
                XPathPathExprImpl[XPATH_PATH_EXPR(19:20)]
@@ -41,10 +41,10 @@ XQueryModuleImpl[FILE(0:28)]
             LeafPsiElement[XPATH_COMMA_TOKEN(20:21)](',')
             XPathMultiplicativeExprImpl[XPATH_MULTIPLICATIVE_EXPR(21:28)]
                XPathPathExprImpl[XPATH_PATH_EXPR(21:23)]
-                  XPathNameTestImpl[XPATH_NAME_TEST(21:23)]
-                     XPathNCNameImpl[XPATH_NCNAME(21:23)]
+                  XPathNameTestImpl[XPATH_NAME_TEST(21:22)]
+                     XPathNCNameImpl[XPATH_NCNAME(21:22)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(21:22)]('a')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(22:23)](' ')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(22:23)](' ')
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_MOD(23:26)]('mod')
                PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
                XPathPathExprImpl[XPATH_PATH_EXPR(27:28)]

@@ -5,9 +5,9 @@ XQueryModuleImpl[FILE(0:130)]
          PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
          XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_NAMESPACE(7:16)]('namespace')
          PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
-         XPathNCNameImpl[XPATH_NCNAME(17:22)]
+         XPathNCNameImpl[XPATH_NCNAME(17:21)]
             XmlNCNameImpl[XPATH_NCNAME_TOKEN(17:21)]('test')
-            PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
+         PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
          LeafPsiElement[XPATH_EQUAL_TOKEN(22:23)]('=')
          PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
          XQueryUriLiteralImpl[XQUERY_URI_LITERAL(24:53)]
@@ -23,9 +23,9 @@ XQueryModuleImpl[FILE(0:130)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VARIABLE(63:71)]('variable')
             PsiWhiteSpaceImpl[WHITE_SPACE(71:72)](' ')
             LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(72:73)]('$')
-            XPathNCNameImpl[XPATH_NCNAME(73:75)]
+            XPathNCNameImpl[XPATH_NCNAME(73:74)]
                XmlNCNameImpl[XPATH_NCNAME_TOKEN(73:74)]('x')
-               PsiWhiteSpaceImpl[WHITE_SPACE(74:75)](' ')
+            PsiWhiteSpaceImpl[WHITE_SPACE(74:75)](' ')
             LeafPsiElement[XPATH_ASSIGN_EQUAL_TOKEN(75:77)](':=')
             PsiWhiteSpaceImpl[WHITE_SPACE(77:78)](' ')
             PsiErrorElementImpl[ERROR_ELEMENT(78:78)]('XPST0003: Missing expression.')
@@ -49,9 +49,9 @@ XQueryModuleImpl[FILE(0:130)]
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VARIABLE(112:120)]('variable')
             PsiWhiteSpaceImpl[WHITE_SPACE(120:121)](' ')
             LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(121:122)]('$')
-            XPathNCNameImpl[XPATH_NCNAME(122:124)]
+            XPathNCNameImpl[XPATH_NCNAME(122:123)]
                XmlNCNameImpl[XPATH_NCNAME_TOKEN(122:123)]('y')
-               PsiWhiteSpaceImpl[WHITE_SPACE(123:124)](' ')
+            PsiWhiteSpaceImpl[WHITE_SPACE(123:124)](' ')
             LeafPsiElement[XPATH_ASSIGN_EQUAL_TOKEN(124:126)](':=')
             PsiWhiteSpaceImpl[WHITE_SPACE(126:127)](' ')
             XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(127:128)]('3')

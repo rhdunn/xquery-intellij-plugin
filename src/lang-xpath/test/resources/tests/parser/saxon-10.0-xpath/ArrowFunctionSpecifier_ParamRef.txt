@@ -8,12 +8,12 @@ XPathImpl[FILE(0:17)]
       LeafPsiElement[XPATH_ARROW_TOKEN(4:6)]('=>')
       PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
       PluginArrowDynamicFunctionCallImpl[XPATH_ARROW_DYNAMIC_FUNCTION_CALL(7:17)]
-         PluginParamRefImpl[XPATH_PARAM_REF(7:14)]
+         PluginParamRefImpl[XPATH_PARAM_REF(7:13)]
             LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(7:8)]('$')
             PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
-            XPathNCNameImpl[XPATH_NCNAME(9:14)]
+            XPathNCNameImpl[XPATH_NCNAME(9:13)]
                XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(9:13)]('1234')
-               PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
+         PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
          XPathArgumentListImpl[XPATH_ARGUMENT_LIST(14:17)]
             LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(14:15)]('(')
             PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')

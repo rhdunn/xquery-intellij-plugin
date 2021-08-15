@@ -6,9 +6,9 @@ XQueryModuleImpl[FILE(0:51)]
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_VARIABLE(8:16)]('variable')
             LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(16:17)]('$')
-            XPathNCNameImpl[XPATH_NCNAME(17:21)]
+            XPathNCNameImpl[XPATH_NCNAME(17:20)]
                XmlNCNameImpl[XPATH_NCNAME_TOKEN(17:20)]('one')
-               PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
+            PsiWhiteSpaceImpl[WHITE_SPACE(20:21)](' ')
             XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_AS(21:23)]('as')
             PsiWhiteSpaceImpl[WHITE_SPACE(23:24)](' ')
             PluginNamedMapNodeTestImpl[XQUERY_NAMED_MAP_NODE_TEST(24:42)]

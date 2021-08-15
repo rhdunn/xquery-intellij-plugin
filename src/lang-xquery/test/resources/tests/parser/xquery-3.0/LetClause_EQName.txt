@@ -17,12 +17,12 @@ XQueryModuleImpl[FILE(0:59)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(41:42)](' ')
                   LeafPsiElement[XPATH_ASSIGN_EQUAL_TOKEN(42:44)](':=')
                   PsiWhiteSpaceImpl[WHITE_SPACE(44:45)](' ')
-                  XPathVarRefImpl[XPATH_VAR_REF(45:49)]
+                  XPathVarRefImpl[XPATH_VAR_REF(45:48)]
                      LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(45:46)]('$')
                      PsiWhiteSpaceImpl[WHITE_SPACE(46:47)](' ')
-                     XPathNCNameImpl[XPATH_NCNAME(47:49)]
+                     XPathNCNameImpl[XPATH_NCNAME(47:48)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(47:48)]('y')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(48:49)](' ')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(48:49)](' ')
             XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_RETURN(49:55)]('return')
             PsiWhiteSpaceImpl[WHITE_SPACE(55:56)](' ')
             XPathVarRefImpl[XPATH_VAR_REF(56:59)]

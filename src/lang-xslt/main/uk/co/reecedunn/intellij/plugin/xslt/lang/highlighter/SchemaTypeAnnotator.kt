@@ -20,11 +20,13 @@ import com.intellij.lang.annotation.Annotator
 import com.intellij.lang.annotation.HighlightSeverity
 import com.intellij.openapi.editor.XmlHighlighterColors
 import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiErrorElement
 import com.intellij.psi.PsiFile
 import com.intellij.psi.PsiWhiteSpace
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.schema.ISchemaListType
 import uk.co.reecedunn.intellij.plugin.xdm.schema.ISchemaType
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathComment
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathSequenceType
@@ -82,12 +84,14 @@ class SchemaTypeAnnotator(val schemaType: ISchemaType? = null) : Annotator {
         XsltSchemaTypes.XslPrefixes, XsltSchemaTypes.XslTokens -> when (element) {
             is XPathNCName -> true
             is PsiWhiteSpace -> true
+            is PsiErrorElement -> true
             else -> false
         }
         XsltSchemaTypes.XslPrefix, XsltSchemaTypes.XslPrefixList, XsltSchemaTypes.XslPrefixOrDefault -> when (element) {
             is XsltHashedKeyword -> element.keyword === XPathTokenType.K_DEFAULT
             is XPathNCName -> true
             is PsiWhiteSpace -> true
+            is PsiErrorElement -> true
             else -> false
         }
         XsltSchemaTypes.XslPrefixListOrAll -> when (element) {
@@ -98,12 +102,14 @@ class SchemaTypeAnnotator(val schemaType: ISchemaType? = null) : Annotator {
             }
             is XPathNCName -> true
             is PsiWhiteSpace -> true
+            is PsiErrorElement -> true
             else -> false
         }
         XsltSchemaTypes.XslMethod, XsltSchemaTypes.XslQName, XsltSchemaTypes.XslQNames -> when (element) {
             is XPathNCName -> true
             is XPathQName -> true
             is PsiWhiteSpace -> true
+            is PsiErrorElement -> true
             else -> false
         }
         XsltSchemaTypes.XslSequenceType -> true
@@ -124,7 +130,7 @@ class SchemaTypeAnnotator(val schemaType: ISchemaType? = null) : Annotator {
             }
 
             if (accept(schemaType, child)) {
-                if (child !is PsiWhiteSpace) {
+                if (child !is PsiWhiteSpace && child !is PsiErrorElement) {
                     itemCount += 1
                     if (itemCount > 1 && schemaType !is ISchemaListType) {
                         val message = XsltBundle.message("schema.validation.multiple-items", schemaType.type)

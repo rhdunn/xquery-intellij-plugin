@@ -6020,7 +6020,7 @@ class XQueryPsiTest : ParserTestCase() {
                     fun ncname() {
                         val expr = parse<XQueryForBinding>("for \$x at \$y in \$z return \$w")[0] as XpmCollectionBinding
                         assertThat(expr.variableType?.typeName, `is`(nullValue()))
-                        assertThat(expr.bindingExpression?.text, `is`("\$z "))
+                        assertThat(expr.bindingExpression?.text, `is`("\$z"))
 
                         val qname = expr.variableName!!
                         assertThat(qname.prefix, `is`(nullValue()))
@@ -6065,7 +6065,7 @@ class XQueryPsiTest : ParserTestCase() {
                         val expr = parse<XQueryForBinding>("for \$ \$y return \$w")[0] as XpmCollectionBinding
                         assertThat(expr.variableName, `is`(nullValue()))
                         assertThat(expr.variableType?.typeName, `is`(nullValue()))
-                        assertThat(expr.bindingExpression?.text, `is`("\$y "))
+                        assertThat(expr.bindingExpression?.text, `is`("\$y"))
                     }
 
                     @Test
@@ -6075,7 +6075,7 @@ class XQueryPsiTest : ParserTestCase() {
                             "for \$x as  node ( (: :) ) ? at \$y in \$z return \$w"
                         )[0] as XpmCollectionBinding
                         assertThat(expr.variableType?.typeName, `is`("node()?"))
-                        assertThat(expr.bindingExpression?.text, `is`("\$z "))
+                        assertThat(expr.bindingExpression?.text, `is`("\$z"))
 
                         val qname = expr.variableName!!
                         assertThat(qname.prefix, `is`(nullValue()))
@@ -6094,7 +6094,7 @@ class XQueryPsiTest : ParserTestCase() {
                             "for member \$x at \$y in \$z return \$w"
                         )[0] as XpmCollectionBinding
                         assertThat(expr.variableType?.typeName, `is`(nullValue()))
-                        assertThat(expr.bindingExpression?.text, `is`("\$z "))
+                        assertThat(expr.bindingExpression?.text, `is`("\$z"))
 
                         val qname = expr.variableName!!
                         assertThat(qname.prefix, `is`(nullValue()))
@@ -6142,7 +6142,7 @@ class XQueryPsiTest : ParserTestCase() {
                         )[0] as XpmCollectionBinding
                         assertThat(expr.variableName, `is`(nullValue()))
                         assertThat(expr.variableType?.typeName, `is`(nullValue()))
-                        assertThat(expr.bindingExpression?.text, `is`("\$y "))
+                        assertThat(expr.bindingExpression?.text, `is`("\$y"))
                     }
 
                     @Test
@@ -6152,7 +6152,7 @@ class XQueryPsiTest : ParserTestCase() {
                             "for member \$x as  node ( (: :) ) ? at \$y in \$z return \$w"
                         )[0] as XpmCollectionBinding
                         assertThat(expr.variableType?.typeName, `is`("node()?"))
-                        assertThat(expr.bindingExpression?.text, `is`("\$z "))
+                        assertThat(expr.bindingExpression?.text, `is`("\$z"))
 
                         val qname = expr.variableName!!
                         assertThat(qname.prefix, `is`(nullValue()))
@@ -6248,7 +6248,7 @@ class XQueryPsiTest : ParserTestCase() {
                             "for tumbling window \$x in \$y return \$z"
                         )[0] as XpmCollectionBinding
                         assertThat(expr.variableType?.typeName, `is`(nullValue()))
-                        assertThat(expr.bindingExpression?.text, `is`("\$y "))
+                        assertThat(expr.bindingExpression?.text, `is`("\$y"))
 
                         val qname = expr.variableName!!
                         assertThat(qname.prefix, `is`(nullValue()))
@@ -6295,7 +6295,7 @@ class XQueryPsiTest : ParserTestCase() {
                         )[0] as XpmCollectionBinding
                         assertThat(expr.variableName, `is`(nullValue()))
                         assertThat(expr.variableType?.typeName, `is`(nullValue()))
-                        assertThat(expr.bindingExpression?.text, `is`("\$y "))
+                        assertThat(expr.bindingExpression?.text, `is`("\$y"))
                     }
 
                     @Test
@@ -6305,7 +6305,7 @@ class XQueryPsiTest : ParserTestCase() {
                             "for tumbling window \$x  as  node ( (: :) ? in \$y return \$z"
                         )[0] as XpmCollectionBinding
                         assertThat(expr.variableType?.typeName, `is`("node()?"))
-                        assertThat(expr.bindingExpression?.text, `is`("\$y "))
+                        assertThat(expr.bindingExpression?.text, `is`("\$y"))
 
                         val qname = expr.variableName!!
                         assertThat(qname.prefix, `is`(nullValue()))
@@ -6324,7 +6324,7 @@ class XQueryPsiTest : ParserTestCase() {
                             "for sliding window \$x in \$y return \$z"
                         )[0] as XpmCollectionBinding
                         assertThat(expr.variableType?.typeName, `is`(nullValue()))
-                        assertThat(expr.bindingExpression?.text, `is`("\$y "))
+                        assertThat(expr.bindingExpression?.text, `is`("\$y"))
 
                         val qname = expr.variableName!!
                         assertThat(qname.prefix, `is`(nullValue()))
@@ -6371,7 +6371,7 @@ class XQueryPsiTest : ParserTestCase() {
                         )[0] as XpmCollectionBinding
                         assertThat(expr.variableName, `is`(nullValue()))
                         assertThat(expr.variableType?.typeName, `is`(nullValue()))
-                        assertThat(expr.bindingExpression?.text, `is`("\$y "))
+                        assertThat(expr.bindingExpression?.text, `is`("\$y"))
                     }
 
                     @Test
@@ -6381,7 +6381,7 @@ class XQueryPsiTest : ParserTestCase() {
                             "for sliding window \$x  as  node ( (: :) ) ? in \$y return \$z"
                         )[0] as XpmCollectionBinding
                         assertThat(expr.variableType?.typeName, `is`("node()?"))
-                        assertThat(expr.bindingExpression?.text, `is`("\$y "))
+                        assertThat(expr.bindingExpression?.text, `is`("\$y"))
 
                         val qname = expr.variableName!!
                         assertThat(qname.prefix, `is`(nullValue()))
@@ -6885,7 +6885,7 @@ class XQueryPsiTest : ParserTestCase() {
                 fun ncname() {
                     val expr = parse<XPathQuantifierBinding>("some \$x in \$y satisfies \$z")[0] as XpmCollectionBinding
                     assertThat(expr.variableType?.typeName, `is`(nullValue()))
-                    assertThat(expr.bindingExpression?.text, `is`("\$y "))
+                    assertThat(expr.bindingExpression?.text, `is`("\$y"))
 
                     val qname = expr.variableName!!
                     assertThat(qname.prefix, `is`(nullValue()))
@@ -6935,7 +6935,7 @@ class XQueryPsiTest : ParserTestCase() {
                 fun withType() {
                     val expr = parse<XPathQuantifierBinding>("some \$x  as  node ( (: :) ) ? in \$y satisfies \$z")[0] as XpmCollectionBinding
                     assertThat(expr.variableType?.typeName, `is`("node()?"))
-                    assertThat(expr.bindingExpression?.text, `is`("\$y "))
+                    assertThat(expr.bindingExpression?.text, `is`("\$y"))
 
                     val qname = expr.variableName!!
                     assertThat(qname.prefix, `is`(nullValue()))

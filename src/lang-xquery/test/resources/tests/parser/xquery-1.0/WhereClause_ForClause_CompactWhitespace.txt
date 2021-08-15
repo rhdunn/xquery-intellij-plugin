@@ -6,23 +6,23 @@ XQueryModuleImpl[FILE(0:33)]
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FOR(0:3)]('for')
                XQueryForBindingImpl[XQUERY_FOR_BINDING(3:11)]
                   LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(3:4)]('$')
-                  XPathNCNameImpl[XPATH_NCNAME(4:6)]
+                  XPathNCNameImpl[XPATH_NCNAME(4:5)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(4:5)]('x')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_IN(6:8)]('in')
-                  XPathVarRefImpl[XPATH_VAR_REF(8:11)]
+                  XPathVarRefImpl[XPATH_VAR_REF(8:10)]
                      LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(8:9)]('$')
-                     XPathNCNameImpl[XPATH_NCNAME(9:11)]
+                     XPathNCNameImpl[XPATH_NCNAME(9:10)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(9:10)]('y')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
             XQueryWhereClauseImpl[XQUERY_WHERE_CLAUSE(11:25)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_WHERE(11:16)]('where')
                XPathComparisonExprImpl[XPATH_COMPARISON_EXPR(16:25)]
-                  XPathVarRefImpl[XPATH_VAR_REF(16:19)]
+                  XPathVarRefImpl[XPATH_VAR_REF(16:18)]
                      LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(16:17)]('$')
-                     XPathNCNameImpl[XPATH_NCNAME(17:19)]
+                     XPathNCNameImpl[XPATH_NCNAME(17:18)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(17:18)]('y')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_LT(19:21)]('lt')
                   PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
                   XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(22:24)]('10')

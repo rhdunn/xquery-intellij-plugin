@@ -6,16 +6,16 @@ XPathImpl[FILE(0:22)]
          XPathSimpleLetBindingImpl[XPATH_SIMPLE_LET_BINDING(4:12)]
             LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(4:5)]('$')
             PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
-            XPathNCNameImpl[XPATH_NCNAME(6:8)]
+            XPathNCNameImpl[XPATH_NCNAME(6:7)]
                XmlNCNameImpl[XPATH_NCNAME_TOKEN(6:7)]('x')
-               PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+            PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('XPST0003: Expected ':='.')
-            XPathVarRefImpl[XPATH_VAR_REF(8:12)]
+            XPathVarRefImpl[XPATH_VAR_REF(8:11)]
                LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(8:9)]('$')
                PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
-               XPathNCNameImpl[XPATH_NCNAME(10:12)]
+               XPathNCNameImpl[XPATH_NCNAME(10:11)]
                   XmlNCNameImpl[XPATH_NCNAME_TOKEN(10:11)]('y')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
+            PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
       XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_RETURN(12:18)]('return')
       PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
       XPathVarRefImpl[XPATH_VAR_REF(19:22)]

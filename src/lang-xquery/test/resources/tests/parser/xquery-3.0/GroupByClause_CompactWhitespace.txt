@@ -6,24 +6,24 @@ XQueryModuleImpl[FILE(0:30)]
                XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_FOR(0:3)]('for')
                XQueryForBindingImpl[XQUERY_FOR_BINDING(3:11)]
                   LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(3:4)]('$')
-                  XPathNCNameImpl[XPATH_NCNAME(4:6)]
+                  XPathNCNameImpl[XPATH_NCNAME(4:5)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(4:5)]('x')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_IN(6:8)]('in')
-                  XPathVarRefImpl[XPATH_VAR_REF(8:11)]
+                  XPathVarRefImpl[XPATH_VAR_REF(8:10)]
                      LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(8:9)]('$')
-                     XPathNCNameImpl[XPATH_NCNAME(9:11)]
+                     XPathNCNameImpl[XPATH_NCNAME(9:10)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(9:10)]('y')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
             XQueryGroupByClauseImpl[XQUERY_GROUP_BY_CLAUSE(11:22)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_GROUP(11:16)]('group')
                PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BY(17:19)]('by')
                XQueryGroupingSpecImpl[XQUERY_GROUPING_SPEC(19:22)]
                   LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(19:20)]('$')
-                  XPathNCNameImpl[XPATH_NCNAME(20:22)]
+                  XPathNCNameImpl[XPATH_NCNAME(20:21)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(20:21)]('x')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
             XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_RETURN(22:28)]('return')
             XPathVarRefImpl[XPATH_VAR_REF(28:30)]
                LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(28:29)]('$')

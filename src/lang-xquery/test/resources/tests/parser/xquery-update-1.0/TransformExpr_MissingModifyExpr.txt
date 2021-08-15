@@ -7,16 +7,16 @@ XQueryModuleImpl[FILE(0:22)]
             PluginCopyModifyExprBindingImpl[XQUERY_COPY_MODIFY_EXPR_BINDING(5:16)]
                LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(5:6)]('$')
                PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
-               XPathNCNameImpl[XPATH_NCNAME(7:9)]
+               XPathNCNameImpl[XPATH_NCNAME(7:8)]
                   XmlNCNameImpl[XPATH_NCNAME_TOKEN(7:8)]('x')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
+               PsiWhiteSpaceImpl[WHITE_SPACE(8:9)](' ')
                LeafPsiElement[XPATH_ASSIGN_EQUAL_TOKEN(9:11)](':=')
                PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
-               XPathVarRefImpl[XPATH_VAR_REF(12:16)]
+               XPathVarRefImpl[XPATH_VAR_REF(12:15)]
                   LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(12:13)]('$')
                   PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
-                  XPathNCNameImpl[XPATH_NCNAME(14:16)]
+                  XPathNCNameImpl[XPATH_NCNAME(14:15)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(14:15)]('y')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
+               PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_MODIFY(16:22)]('modify')
             PsiErrorElementImpl[ERROR_ELEMENT(22:22)]('XPST0003: Missing expression.')

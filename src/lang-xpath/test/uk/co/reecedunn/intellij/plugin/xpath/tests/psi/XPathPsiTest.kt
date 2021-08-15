@@ -4879,7 +4879,7 @@ class XPathPsiTest : ParserTestCase() {
                         "some \$x in \$y satisfies \$z"
                     )[0] as XpmCollectionBinding
                     assertThat(expr.variableType?.typeName, `is`(nullValue()))
-                    assertThat(expr.bindingExpression?.text, `is`("\$y "))
+                    assertThat(expr.bindingExpression?.text, `is`("\$y"))
 
                     val qname = expr.variableName!!
                     assertThat(qname.prefix, `is`(nullValue()))

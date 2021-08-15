@@ -15,9 +15,9 @@ XQueryModuleImpl[FILE(0:37)]
             PsiWhiteSpaceImpl[WHITE_SPACE(26:27)](' ')
             XPathParamImpl[XPATH_PARAM(27:36)]
                PsiErrorElementImpl[ERROR_ELEMENT(27:27)]('XPST0003: Expected '$'.')
-               XPathNCNameImpl[XPATH_NCNAME(27:36)]
+               XPathNCNameImpl[XPATH_NCNAME(27:35)]
                   XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_EXTERNAL(27:35)]('external')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
+               PsiWhiteSpaceImpl[WHITE_SPACE(35:36)](' ')
             PsiErrorElementImpl[ERROR_ELEMENT(36:36)]('XPST0003: Expected ')'.')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(36:37)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(37:37)]('XPST0003: Missing query body.')

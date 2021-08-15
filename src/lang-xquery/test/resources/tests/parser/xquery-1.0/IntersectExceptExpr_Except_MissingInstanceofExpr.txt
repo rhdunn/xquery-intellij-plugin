@@ -2,9 +2,9 @@ XQueryModuleImpl[FILE(0:8)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:8)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:8)]
          XPathPathExprImpl[XPATH_PATH_EXPR(0:2)]
-            XPathNameTestImpl[XPATH_NAME_TEST(0:2)]
-               XPathNCNameImpl[XPATH_NCNAME(0:2)]
+            XPathNameTestImpl[XPATH_NAME_TEST(0:1)]
+               XPathNCNameImpl[XPATH_NCNAME(0:1)]
                   XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:1)]('a')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+            PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
          XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_EXCEPT(2:8)]('except')
          PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('XPST0003: Expected 'InstanceofExpr'.')

@@ -2,11 +2,11 @@ XQueryModuleImpl[FILE(0:41)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:41)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:41)]
          UpdateFacilityTransformWithExprImpl[XQUERY_TRANSFORM_WITH_EXPR(0:41)]
-            XPathVarRefImpl[XPATH_VAR_REF(0:3)]
+            XPathVarRefImpl[XPATH_VAR_REF(0:2)]
                LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(0:1)]('$')
-               XPathNCNameImpl[XPATH_NCNAME(1:3)]
+               XPathNCNameImpl[XPATH_NCNAME(1:2)]
                   XmlNCNameImpl[XPATH_NCNAME_TOKEN(1:2)]('x')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
+            PsiWhiteSpaceImpl[WHITE_SPACE(2:3)](' ')
             XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_TRANSFORM(3:12)]('transform')
             PsiWhiteSpaceImpl[WHITE_SPACE(12:13)](' ')
             XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_WITH(13:17)]('with')

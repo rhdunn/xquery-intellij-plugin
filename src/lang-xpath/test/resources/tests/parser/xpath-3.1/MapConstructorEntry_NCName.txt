@@ -13,8 +13,8 @@ XPathImpl[FILE(0:15)]
          LeafPsiElement[XPATH_QNAME_SEPARATOR_TOKEN(8:9)](':')
          PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
          XPathPathExprImpl[XPATH_PATH_EXPR(10:14)]
-            XPathNameTestImpl[XPATH_NAME_TEST(10:14)]
-               XPathNCNameImpl[XPATH_NCNAME(10:14)]
+            XPathNameTestImpl[XPATH_NAME_TEST(10:13)]
+               XPathNCNameImpl[XPATH_NCNAME(10:13)]
                   XmlNCNameImpl[XPATH_NCNAME_TOKEN(10:13)]('one')
-                  PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
+            PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
       LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(14:15)]('}')

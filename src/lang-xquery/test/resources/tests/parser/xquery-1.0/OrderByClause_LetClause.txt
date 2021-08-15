@@ -9,29 +9,29 @@ XQueryModuleImpl[FILE(0:42)]
                XQueryLetBindingImpl[XQUERY_LET_BINDING(8:19)]
                   LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(8:9)]('$')
                   PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
-                  XPathNCNameImpl[XPATH_NCNAME(10:12)]
+                  XPathNCNameImpl[XPATH_NCNAME(10:11)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(10:11)]('x')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
                   LeafPsiElement[XPATH_ASSIGN_EQUAL_TOKEN(12:14)](':=')
                   PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
-                  XPathVarRefImpl[XPATH_VAR_REF(15:19)]
+                  XPathVarRefImpl[XPATH_VAR_REF(15:18)]
                      LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(15:16)]('$')
                      PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
-                     XPathNCNameImpl[XPATH_NCNAME(17:19)]
+                     XPathNCNameImpl[XPATH_NCNAME(17:18)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(17:18)]('y')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
             XQueryOrderByClauseImpl[XQUERY_ORDER_BY_CLAUSE(19:32)]
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_ORDER(19:24)]('order')
                PsiWhiteSpaceImpl[WHITE_SPACE(24:25)](' ')
                XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_BY(25:27)]('by')
                PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
                XQueryOrderSpecImpl[XQUERY_ORDER_SPEC(28:32)]
-                  XPathVarRefImpl[XPATH_VAR_REF(28:32)]
+                  XPathVarRefImpl[XPATH_VAR_REF(28:31)]
                      LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(28:29)]('$')
                      PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
-                     XPathNCNameImpl[XPATH_NCNAME(30:32)]
+                     XPathNCNameImpl[XPATH_NCNAME(30:31)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(30:31)]('x')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(31:32)](' ')
                   XQueryOrderModifierImpl[XQUERY_ORDER_MODIFIER(32:32)]
             XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_RETURN(32:38)]('return')
             PsiWhiteSpaceImpl[WHITE_SPACE(38:39)](' ')

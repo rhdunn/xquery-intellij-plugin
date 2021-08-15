@@ -3,15 +3,15 @@ XQueryModuleImpl[FILE(0:19)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:19)]
          XPathPathExprImpl[XPATH_PATH_EXPR(0:19)]
             PluginFilterStepImpl[XPATH_FILTER_STEP(0:19)]
-               XPathReverseStepImpl[XPATH_REVERSE_STEP(0:14)]
+               XPathReverseStepImpl[XPATH_REVERSE_STEP(0:13)]
                   XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_PARENT(0:6)]('parent')
                   PsiWhiteSpaceImpl[WHITE_SPACE(6:7)](' ')
                   LeafPsiElement[XPATH_AXIS_SEPARATOR_TOKEN(7:9)]('::')
                   PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
-                  XPathNameTestImpl[XPATH_NAME_TEST(10:14)]
-                     XPathNCNameImpl[XPATH_NCNAME(10:14)]
+                  XPathNameTestImpl[XPATH_NAME_TEST(10:13)]
+                     XPathNCNameImpl[XPATH_NCNAME(10:13)]
                         XmlNCNameImpl[XPATH_NCNAME_TOKEN(10:13)]('two')
-                        PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
+               PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
                LeafPsiElement[XPATH_SQUARE_OPEN_TOKEN(14:15)]('[')
                PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
                XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(16:17)]('3')

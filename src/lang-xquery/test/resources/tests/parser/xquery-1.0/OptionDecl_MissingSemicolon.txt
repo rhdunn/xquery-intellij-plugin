@@ -6,9 +6,9 @@ XQueryModuleImpl[FILE(0:31)]
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_OPTION(8:14)]('option')
             PsiWhiteSpaceImpl[WHITE_SPACE(14:15)](' ')
-            XPathNCNameImpl[XPATH_NCNAME(15:20)]
+            XPathNCNameImpl[XPATH_NCNAME(15:19)]
                XmlNCNameImpl[XPATH_NCNAME_TOKEN(15:19)]('test')
-               PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
+            PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
             XPathStringLiteralImpl[XPATH_STRING_LITERAL(20:31)]
                LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(20:21)]('"')
                XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(21:30)]('Test Case')

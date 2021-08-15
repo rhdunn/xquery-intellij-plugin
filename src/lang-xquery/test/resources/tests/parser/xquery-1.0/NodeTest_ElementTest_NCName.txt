@@ -8,7 +8,7 @@ XQueryModuleImpl[FILE(0:23)]
                   PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
                   LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(8:9)]('(')
                   PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
-                  XPathNCNameImpl[XPATH_NCNAME(10:22)]
+                  XPathNCNameImpl[XPATH_NCNAME(10:21)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(10:21)]('lorem-ipsum')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(21:22)](' ')
                   LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(22:23)](')')

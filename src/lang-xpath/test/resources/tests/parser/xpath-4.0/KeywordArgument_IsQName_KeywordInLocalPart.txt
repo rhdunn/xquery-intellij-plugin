@@ -1,8 +1,8 @@
 XPathImpl[FILE(0:11)]
    XPathFunctionCallImpl[XPATH_FUNCTION_CALL(0:11)]
-      XPathNCNameImpl[XPATH_NCNAME(0:2)]
+      XPathNCNameImpl[XPATH_NCNAME(0:1)]
          XmlNCNameImpl[XPATH_NCNAME_TOKEN(0:1)]('f')
-         PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+      PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
       XPathArgumentListImpl[XPATH_ARGUMENT_LIST(2:11)]
          LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(2:3)]('(')
          PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')

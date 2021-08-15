@@ -8,9 +8,9 @@ XQueryModuleImpl[FILE(0:53)]
                XQueryLetBindingImpl[XQUERY_LET_BINDING(4:23)]
                   LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(4:5)]('$')
                   PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
-                  XPathNCNameImpl[XPATH_NCNAME(6:8)]
+                  XPathNCNameImpl[XPATH_NCNAME(6:7)]
                      XmlNCNameImpl[XPATH_NCNAME_TOKEN(6:7)]('x')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+                  PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
                   LeafPsiElement[XPATH_ASSIGN_EQUAL_TOKEN(8:10)](':=')
                   PsiWhiteSpaceImpl[WHITE_SPACE(10:11)](' ')
                   XPathNamedFunctionRefImpl[XPATH_NAMED_FUNCTION_REF(11:22)]
@@ -26,17 +26,17 @@ XQueryModuleImpl[FILE(0:53)]
             XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_RETURN(23:29)]('return')
             PsiWhiteSpaceImpl[WHITE_SPACE(29:30)](' ')
             XPathPathExprImpl[XPATH_PATH_EXPR(30:48)]
-               XPathNameTestImpl[XPATH_NAME_TEST(30:48)]
-                  XPathNCNameImpl[XPATH_NCNAME(30:48)]
+               XPathNameTestImpl[XPATH_NAME_TEST(30:47)]
+                  XPathNCNameImpl[XPATH_NCNAME(30:47)]
                      XmlNCNameImpl[XPATH_KEYWORD_OR_NCNAME_NON_DETERMINISTIC(30:47)]('non-deterministic')
-                     PsiWhiteSpaceImpl[WHITE_SPACE(47:48)](' ')
+               PsiWhiteSpaceImpl[WHITE_SPACE(47:48)](' ')
    PsiErrorElementImpl[ERROR_ELEMENT(48:48)]('XPST0003: Expected end of file.')
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(48:53)]
       XQueryQueryBodyImpl[XQUERY_QUERY_BODY(48:53)]
          XPathFunctionCallImpl[XPATH_FUNCTION_CALL(48:53)]
-            XPathNCNameImpl[XPATH_NCNAME(48:50)]
+            XPathNCNameImpl[XPATH_NCNAME(48:49)]
                XmlNCNameImpl[XPATH_NCNAME_TOKEN(48:49)]('x')
-               PsiWhiteSpaceImpl[WHITE_SPACE(49:50)](' ')
+            PsiWhiteSpaceImpl[WHITE_SPACE(49:50)](' ')
             XPathArgumentListImpl[XPATH_ARGUMENT_LIST(50:53)]
                LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(50:51)]('(')
                PsiWhiteSpaceImpl[WHITE_SPACE(51:52)](' ')
