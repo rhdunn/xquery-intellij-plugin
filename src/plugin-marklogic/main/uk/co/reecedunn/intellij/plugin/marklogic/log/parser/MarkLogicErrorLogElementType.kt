@@ -24,9 +24,7 @@ import uk.co.reecedunn.intellij.plugin.marklogic.log.psi.impl.error.MarkLogicErr
 object MarkLogicErrorLogElementType {
     val ERROR_LOG: IFileElementType = IFileElementType(MarkLogicErrorLog)
 
-    val LOG_LINE: IElementType = IASTWrapperElementType(
-        "MARK_LOGIC_ERROR_LOG_LINE",
-        MarkLogicErrorLogLinePsiImpl::class.java,
-        MarkLogicErrorLog
-    )
+    val LOG_LINE: IElementType = IASTWrapperElementType("MARK_LOGIC_ERROR_LOG_LINE", MarkLogicErrorLog) { node ->
+        MarkLogicErrorLogLinePsiImpl(node)
+    }
 }
