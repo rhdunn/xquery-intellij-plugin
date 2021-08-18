@@ -29,7 +29,6 @@ import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyUriValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathBracedURILiteral
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathURIQualifiedName
-import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.XmlNCNameImpl
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.reference.XPathBracedURILiteralReference
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.reference.XPathFunctionNameReference
@@ -37,11 +36,11 @@ import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.reference.XPathVariableNam
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionReference
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableReference
 
-open class XPathURIQualifiedNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathURIQualifiedName {
+class XPathURIQualifiedNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathURIQualifiedName {
     // region XsQNameValue
 
-    override val namespace: XsAnyUriValue?
-        get() = findChildByType<PsiElement>(XPathElementType.BRACED_URI_LITERAL) as XsAnyUriValue
+    override val namespace: XsAnyUriValue
+        get() = children().find { it is XPathBracedURILiteral } as XsAnyUriValue
 
     override val prefix: XsNCNameValue? = null
 

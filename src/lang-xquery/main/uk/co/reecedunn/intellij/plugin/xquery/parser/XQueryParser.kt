@@ -5170,7 +5170,6 @@ class XQueryParser : XPathParser() {
     // endregion
     // region Lexical Structure :: Terminal Symbols :: EQName
 
-    override val URI_QUALIFIED_NAME: IElementType = XQueryElementType.URI_QUALIFIED_NAME
     override val BRACED_URI_LITERAL: IElementType = XQueryElementType.BRACED_URI_LITERAL
 
     override fun parseBracedURILiteral(builder: PsiBuilder): Boolean {

@@ -323,10 +323,6 @@ object XQueryElementType {
         XQueryTumblingWindowClausePsiImpl(node)
     }
 
-    val URI_QUALIFIED_NAME: IElementType = IASTWrapperElementType("XQUERY_URI_QUALIFIED_NAME", XQuery) { node ->
-        XQueryURIQualifiedNamePsiImpl(node)
-    }
-
     val WINDOW_CLAUSE: IElementType = IASTWrapperElementType("XQUERY_WINDOW_CLAUSE", XQuery) { node ->
         XQueryWindowClausePsiImpl(node)
     }
