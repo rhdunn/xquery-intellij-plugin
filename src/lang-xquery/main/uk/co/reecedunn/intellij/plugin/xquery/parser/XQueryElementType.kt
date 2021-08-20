@@ -196,10 +196,6 @@ object XQueryElementType {
         XQueryTypeswitchExprPsiImpl(node)
     }
 
-    val UNKNOWN_DECL: IElementType = IASTWrapperElementType("XQUERY_UNKNOWN_DECL", XQuery) { node ->
-        XQueryUnknownDeclPsiImpl(node)
-    }
-
     val UNORDERED_EXPR: IElementType = IASTWrapperElementType("XQUERY_UNORDERED_EXPR", XQuery) { node ->
         XQueryUnorderedExprPsiImpl(node)
     }

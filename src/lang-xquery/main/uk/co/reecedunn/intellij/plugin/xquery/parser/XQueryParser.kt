@@ -367,7 +367,7 @@ class XQueryParser : XPathParser() {
                         )
                     )
                     parseUnknownDecl(builder)
-                    marker.done(XQueryElementType.UNKNOWN_DECL)
+                    marker.drop()
                     return PrologDeclState.UNKNOWN_STATEMENT
                 }
             }
@@ -396,7 +396,7 @@ class XQueryParser : XPathParser() {
                         XPathBundle.message("parser.error.expected-keyword", "collation, element, function, type, order")
                     )
                     parseUnknownDecl(builder)
-                    marker.done(XQueryElementType.UNKNOWN_DECL)
+                    marker.drop()
                 }
             }
             return true
@@ -1024,7 +1024,7 @@ class XQueryParser : XPathParser() {
             haveAnnotations -> {
                 builder.error(XPathBundle.message("parser.error.expected-keyword", "function, item-type, variable"))
                 parseUnknownDecl(builder)
-                marker.done(XQueryElementType.UNKNOWN_DECL)
+                marker.drop()
                 true
             }
             else -> false
@@ -1141,7 +1141,7 @@ class XQueryParser : XPathParser() {
                 builder.error(XPathBundle.message("parser.error.expected", "("))
                 parseStringLiteral(builder)
                 parseWhiteSpaceAndCommentTokens(builder)
-                marker.done(XQueryElementType.UNKNOWN_DECL)
+                marker.drop()
                 return true
             } else if (!parseFunctionSignature(builder)) {
                 haveErrors = true

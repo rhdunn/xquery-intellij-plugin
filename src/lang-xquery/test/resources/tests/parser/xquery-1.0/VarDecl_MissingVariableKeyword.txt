@@ -1,17 +1,16 @@
 XQueryModuleImpl[FILE(0:20)]
    XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:20)]
       XQueryPrologImpl[XQUERY_PROLOG(0:20)]
-         XQueryUnknownDeclImpl[XQUERY_UNKNOWN_DECL(0:19)]
-            XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
-            PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
-            PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('XPST0003: Expected keyword: base-uri, boundary-space, construction, context, copy-namespaces, decimal-format, default, ft-option, function, namespace, option, ordering, revalidation, type, variable.')
-            LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(8:9)]('$')
-            PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
-            XmlNCNameImpl[XPATH_NCNAME_TOKEN(10:13)]('one')
-            PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
-            LeafPsiElement[XPATH_ASSIGN_EQUAL_TOKEN(14:16)](':=')
-            PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
-            XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(17:18)]('1')
-            PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
+         XmlNCNameImpl[XQUERY_KEYWORD_OR_NCNAME_DECLARE(0:7)]('declare')
+         PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+         PsiErrorElementImpl[ERROR_ELEMENT(8:8)]('XPST0003: Expected keyword: base-uri, boundary-space, construction, context, copy-namespaces, decimal-format, default, ft-option, function, namespace, option, ordering, revalidation, type, variable.')
+         LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(8:9)]('$')
+         PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
+         XmlNCNameImpl[XPATH_NCNAME_TOKEN(10:13)]('one')
+         PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
+         LeafPsiElement[XPATH_ASSIGN_EQUAL_TOKEN(14:16)](':=')
+         PsiWhiteSpaceImpl[WHITE_SPACE(16:17)](' ')
+         XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(17:18)]('1')
+         PsiWhiteSpaceImpl[WHITE_SPACE(18:19)](' ')
          LeafPsiElement[XQUERY_SEPARATOR_TOKEN(19:20)](';')
       PsiErrorElementImpl[ERROR_ELEMENT(20:20)]('XPST0003: Missing query body.')
