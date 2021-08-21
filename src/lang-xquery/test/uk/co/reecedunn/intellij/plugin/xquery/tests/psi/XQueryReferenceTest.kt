@@ -40,7 +40,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryVariableProvider
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
-@Suppress("RedundantVisibilityModifier")
+@Suppress("RedundantVisibilityModifier", "ReplaceNotNullAssertionWithElvisReturn")
 @DisplayName("IntelliJ - Custom Language Support - References and Resolve - XQuery")
 class XQueryReferenceTest : ParserTestCase() {
     override val pluginId: PluginId = PluginId.getId("XQueryReferenceTest")
@@ -159,7 +159,7 @@ class XQueryReferenceTest : ParserTestCase() {
             assertThat(refs[0].variants.size, `is`(0))
 
             val resolved = refs[0].resolve()!!
-            assertThat(resolved, `is`(instanceOf<PsiElement>(XQueryModule::class.java)))
+            assertThat(resolved, `is`(instanceOf(XQueryModule::class.java)))
         }
 
         @Test
@@ -181,9 +181,9 @@ class XQueryReferenceTest : ParserTestCase() {
             assertThat(ref.variants.size, `is`(0))
 
             var resolved: PsiElement = ref.resolve()!!
-            assertThat(resolved, `is`(instanceOf<PsiElement>(XmlNCNameImpl::class.java)))
+            assertThat(resolved, `is`(instanceOf(XmlNCNameImpl::class.java)))
             assertThat(resolved.text, `is`("xs"))
-            assertThat(resolved.parent.parent, `is`(instanceOf<PsiElement>(XQueryNamespaceDecl::class.java)))
+            assertThat(resolved.parent.parent, `is`(instanceOf(XQueryNamespaceDecl::class.java)))
 
             val refs = eqname.references
             assertThat(refs.size, `is`(1))
@@ -195,9 +195,9 @@ class XQueryReferenceTest : ParserTestCase() {
             assertThat(refs[0].variants.size, `is`(0))
 
             resolved = refs[0].resolve()!!
-            assertThat(resolved, `is`(instanceOf<PsiElement>(XmlNCNameImpl::class.java)))
+            assertThat(resolved, `is`(instanceOf(XmlNCNameImpl::class.java)))
             assertThat(resolved.text, `is`("xs"))
-            assertThat(resolved.parent.parent, `is`(instanceOf<PsiElement>(XQueryNamespaceDecl::class.java)))
+            assertThat(resolved.parent.parent, `is`(instanceOf(XQueryNamespaceDecl::class.java)))
         }
 
         @Test
@@ -242,7 +242,7 @@ class XQueryReferenceTest : ParserTestCase() {
             assertThat(ref.variants.size, `is`(0))
 
             var resolved: PsiElement = ref.resolve()!!
-            assertThat(resolved, `is`(instanceOf<PsiElement>(XPathNCName::class.java)))
+            assertThat(resolved, `is`(instanceOf(XPathNCName::class.java)))
             assertThat(resolved, `is`(varDecl.variableName?.element))
 
             val refs = varRef.variableName?.element?.references!!
@@ -255,7 +255,7 @@ class XQueryReferenceTest : ParserTestCase() {
             assertThat(refs[0].variants.size, `is`(0))
 
             resolved = refs[0].resolve()!!
-            assertThat(resolved, `is`(instanceOf<PsiElement>(XPathNCName::class.java)))
+            assertThat(resolved, `is`(instanceOf(XPathNCName::class.java)))
             assertThat(resolved, `is`(varDecl.variableName?.element))
         }
 
@@ -280,7 +280,7 @@ class XQueryReferenceTest : ParserTestCase() {
             assertThat(ref.variants.size, `is`(0))
 
             var resolved: PsiElement = ref.resolve()!!
-            assertThat(resolved, `is`(instanceOf<PsiElement>(XPathNCName::class.java)))
+            assertThat(resolved, `is`(instanceOf(XPathNCName::class.java)))
             assertThat(resolved, `is`(varDecl.variableName?.element))
 
             val refs = varRef.variableName?.element?.references!!
@@ -293,7 +293,7 @@ class XQueryReferenceTest : ParserTestCase() {
             assertThat(refs[0].variants.size, `is`(0))
 
             resolved = refs[0].resolve()!!
-            assertThat(resolved, `is`(instanceOf<PsiElement>(XPathNCName::class.java)))
+            assertThat(resolved, `is`(instanceOf(XPathNCName::class.java)))
             assertThat(resolved, `is`(varDecl.variableName?.element))
         }
 
@@ -319,7 +319,7 @@ class XQueryReferenceTest : ParserTestCase() {
             assertThat(ref.variants.size, `is`(0))
 
             var resolved: PsiElement = ref.resolve()!!
-            assertThat(resolved, `is`(instanceOf<PsiElement>(XPathNCName::class.java)))
+            assertThat(resolved, `is`(instanceOf(XPathNCName::class.java)))
             assertThat(resolved, `is`(varDecl.variableName?.element))
 
             val refs = varRef.variableName?.element?.references!!
@@ -332,7 +332,7 @@ class XQueryReferenceTest : ParserTestCase() {
             assertThat(refs[0].variants.size, `is`(0))
 
             resolved = refs[0].resolve()!!
-            assertThat(resolved, `is`(instanceOf<PsiElement>(XPathNCName::class.java)))
+            assertThat(resolved, `is`(instanceOf(XPathNCName::class.java)))
             assertThat(resolved, `is`(varDecl.variableName?.element))
         }
 
@@ -357,7 +357,7 @@ class XQueryReferenceTest : ParserTestCase() {
             assertThat(ref.variants.size, `is`(0))
 
             var resolved: PsiElement = ref.resolve()!!
-            assertThat(resolved, `is`(instanceOf<PsiElement>(XPathNCName::class.java)))
+            assertThat(resolved, `is`(instanceOf(XPathNCName::class.java)))
             assertThat(resolved, `is`(varDecl.variableName?.element))
 
             val refs = varRef.variableName?.element?.references!!
@@ -370,7 +370,7 @@ class XQueryReferenceTest : ParserTestCase() {
             assertThat(refs[0].variants.size, `is`(0))
 
             resolved = refs[0].resolve()!!
-            assertThat(resolved, `is`(instanceOf<PsiElement>(XPathNCName::class.java)))
+            assertThat(resolved, `is`(instanceOf(XPathNCName::class.java)))
             assertThat(resolved, `is`(varDecl.variableName?.element))
         }
 
@@ -395,7 +395,7 @@ class XQueryReferenceTest : ParserTestCase() {
             assertThat(ref.variants.size, `is`(0))
 
             var resolved: PsiElement = ref.resolve()!!
-            assertThat(resolved, `is`(instanceOf<PsiElement>(XPathNCName::class.java)))
+            assertThat(resolved, `is`(instanceOf(XPathNCName::class.java)))
             assertThat(resolved, `is`(varDecl.variableName?.element))
 
             val refs = varRef.variableName?.element?.references!!
@@ -408,7 +408,7 @@ class XQueryReferenceTest : ParserTestCase() {
             assertThat(refs[0].variants.size, `is`(0))
 
             resolved = refs[0].resolve()!!
-            assertThat(resolved, `is`(instanceOf<PsiElement>(XPathNCName::class.java)))
+            assertThat(resolved, `is`(instanceOf(XPathNCName::class.java)))
             assertThat(resolved, `is`(varDecl.variableName?.element))
         }
 
@@ -433,7 +433,7 @@ class XQueryReferenceTest : ParserTestCase() {
             assertThat(ref.variants.size, `is`(0))
 
             var resolved: PsiElement = ref.resolve()!!
-            assertThat(resolved, `is`(instanceOf<PsiElement>(XPathNCName::class.java)))
+            assertThat(resolved, `is`(instanceOf(XPathNCName::class.java)))
             assertThat(resolved, `is`(varDecl.variableName?.element))
 
             val refs = varRef.variableName?.element?.references!!
@@ -446,7 +446,7 @@ class XQueryReferenceTest : ParserTestCase() {
             assertThat(refs[0].variants.size, `is`(0))
 
             resolved = refs[0].resolve()!!
-            assertThat(resolved, `is`(instanceOf<PsiElement>(XPathNCName::class.java)))
+            assertThat(resolved, `is`(instanceOf(XPathNCName::class.java)))
             assertThat(resolved, `is`(varDecl.variableName?.element))
         }
 
@@ -471,7 +471,7 @@ class XQueryReferenceTest : ParserTestCase() {
             assertThat(ref.variants.size, `is`(0))
 
             var resolved: PsiElement = ref.resolve()!!
-            assertThat(resolved, `is`(instanceOf<PsiElement>(XPathNCName::class.java)))
+            assertThat(resolved, `is`(instanceOf(XPathNCName::class.java)))
             assertThat(resolved, `is`(varDecl.variableName?.element))
 
             val refs = varRef.variableName?.element?.references!!
@@ -484,7 +484,7 @@ class XQueryReferenceTest : ParserTestCase() {
             assertThat(refs[0].variants.size, `is`(0))
 
             resolved = refs[0].resolve()!!
-            assertThat(resolved, `is`(instanceOf<PsiElement>(XPathNCName::class.java)))
+            assertThat(resolved, `is`(instanceOf(XPathNCName::class.java)))
             assertThat(resolved, `is`(varDecl.variableName?.element))
         }
 
@@ -509,7 +509,7 @@ class XQueryReferenceTest : ParserTestCase() {
             assertThat(ref.variants.size, `is`(0))
 
             var resolved: PsiElement = ref.resolve()!!
-            assertThat(resolved, `is`(instanceOf<PsiElement>(XPathNCName::class.java)))
+            assertThat(resolved, `is`(instanceOf(XPathNCName::class.java)))
             assertThat(resolved, `is`(varDecl.variableName?.element))
 
             val refs = varRef.variableName?.element?.references!!
@@ -522,7 +522,7 @@ class XQueryReferenceTest : ParserTestCase() {
             assertThat(refs[0].variants.size, `is`(0))
 
             resolved = refs[0].resolve()!!
-            assertThat(resolved, `is`(instanceOf<PsiElement>(XPathNCName::class.java)))
+            assertThat(resolved, `is`(instanceOf(XPathNCName::class.java)))
             assertThat(resolved, `is`(varDecl.variableName?.element))
         }
     }
