@@ -21,7 +21,6 @@ import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
@@ -36,7 +35,6 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableDefinition
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableReference
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModuleImport
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryNamespaceDecl
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryVariableProvider
@@ -68,15 +66,10 @@ class XQueryReferenceTest : ParserTestCase() {
             @DisplayName("http uri")
             fun httpUri() {
                 val file = parseResource("tests/resolve-xquery/files/ModuleImport_URILiteral_SameDirectory.xq")
+                val uriLiteral = file.walkTree().filterIsInstance<XPathUriLiteral>().first()
 
-                val moduleImportPsi = file.descendants().filterIsInstance<XQueryModuleImport>().first()
-                assertThat(moduleImportPsi, `is`(notNullValue()))
-
-                val uriLiterals = moduleImportPsi.walkTree().filterIsInstance<XPathUriLiteral>().toList()
-                assertThat(uriLiterals.size, `is`(2))
-
-                val ref = uriLiterals.first().reference!!
-                assertThat(ref.element, `is`(sameInstance(uriLiterals.first())))
+                val ref = uriLiteral.reference!!
+                assertThat(ref.element, `is`(sameInstance(uriLiteral)))
                 assertThat(ref.canonicalText, `is`("http://example.com/test"))
                 assertThat(ref.rangeInElement.startOffset, `is`(1))
                 assertThat(ref.rangeInElement.endOffset, `is`(24))
@@ -90,15 +83,10 @@ class XQueryReferenceTest : ParserTestCase() {
             @DisplayName("file uri; same directory")
             fun sameDirectory() {
                 val file = parseResource("tests/resolve-xquery/files/ModuleImport_URILiteral_SameDirectory.xq")
+                val uriLiteral = file.walkTree().filterIsInstance<XPathUriLiteral>().last()
 
-                val moduleImportPsi = file.descendants().filterIsInstance<XQueryModuleImport>().first()
-                assertThat(moduleImportPsi, `is`(notNullValue()))
-
-                val uriLiterals = moduleImportPsi.walkTree().filterIsInstance<XPathUriLiteral>().toList()
-                assertThat(uriLiterals.size, `is`(2))
-
-                val ref = uriLiterals.last().reference!!
-                assertThat(ref.element, `is`(sameInstance(uriLiterals.last())))
+                val ref = uriLiteral.reference!!
+                assertThat(ref.element, `is`(sameInstance(uriLiteral)))
                 assertThat(ref.canonicalText, `is`("test.xq"))
                 assertThat(ref.rangeInElement.startOffset, `is`(1))
                 assertThat(ref.rangeInElement.endOffset, `is`(8))
@@ -114,15 +102,10 @@ class XQueryReferenceTest : ParserTestCase() {
             @DisplayName("file uri; parent directory")
             fun parentDirectory() {
                 val file = parseResource("tests/resolve-xquery/files/ModuleImport_URILiteral_ParentDirectory.xq")
+                val uriLiteral = file.walkTree().filterIsInstance<XPathUriLiteral>().last()
 
-                val moduleImportPsi = file.descendants().filterIsInstance<XQueryModuleImport>().first()
-                assertThat(moduleImportPsi, `is`(notNullValue()))
-
-                val uriLiterals = moduleImportPsi.walkTree().filterIsInstance<XPathUriLiteral>().toList()
-                assertThat(uriLiterals.size, `is`(2))
-
-                val ref = uriLiterals.last().reference!!
-                assertThat(ref.element, `is`(sameInstance(uriLiterals.last())))
+                val ref = uriLiteral.reference!!
+                assertThat(ref.element, `is`(sameInstance(uriLiteral)))
                 assertThat(ref.canonicalText, `is`("namespaces/ModuleDecl.xq"))
                 assertThat(ref.rangeInElement.startOffset, `is`(1))
                 assertThat(ref.rangeInElement.endOffset, `is`(25))
@@ -136,18 +119,16 @@ class XQueryReferenceTest : ParserTestCase() {
             @DisplayName("empty uri")
             fun emptyUri() {
                 val file = parseResource("tests/resolve-xquery/files/ModuleImport_URILiteral_Empty.xq")
-                val uriLiterals = file.walkTree().filterIsInstance<XPathUriLiteral>().toList()
-                assertThat(uriLiterals.size, `is`(2))
-                assertThat(uriLiterals.last().reference, `is`(nullValue()))
+                val uriLiteral = file.walkTree().filterIsInstance<XPathUriLiteral>().last()
+                assertThat(uriLiteral.reference, `is`(nullValue()))
             }
 
             @Test
             @DisplayName("incomplete uri")
             fun incompleteUri() {
                 val file = parseResource("tests/resolve-xquery/files/ModuleImport_URILiteral_Incomplete.xq")
-                val uriLiterals = file.walkTree().filterIsInstance<XPathUriLiteral>().toList()
-                assertThat(uriLiterals.size, `is`(2))
-                assertThat(uriLiterals.last().reference, `is`(nullValue()))
+                val uriLiteral = file.walkTree().filterIsInstance<XPathUriLiteral>().last()
+                assertThat(uriLiteral.reference, `is`(nullValue()))
             }
         }
     }
