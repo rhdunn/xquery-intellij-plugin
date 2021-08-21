@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
+package uk.co.reecedunn.intellij.plugin.xquery.tests.psi.intellij
 
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.PsiElement
@@ -41,9 +41,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryVariableProvider
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 @Suppress("RedundantVisibilityModifier", "ReplaceNotNullAssertionWithElvisReturn")
-@DisplayName("IntelliJ - Custom Language Support - References and Resolve - XQuery")
-class XQueryReferenceTest : ParserTestCase() {
-    override val pluginId: PluginId = PluginId.getId("XQueryReferenceTest")
+@DisplayName("IntelliJ Program Structure Interface (PSI) - PsiReference - XQuery")
+class PsiReferenceTest : ParserTestCase() {
+    override val pluginId: PluginId = PluginId.getId("PsiReferenceTest")
 
     private val res = ResourceVirtualFileSystem(this::class.java.classLoader)
 
