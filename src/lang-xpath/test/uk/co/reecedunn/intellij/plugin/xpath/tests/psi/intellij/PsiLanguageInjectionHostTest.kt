@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xpath.tests.psi
+package uk.co.reecedunn.intellij.plugin.xpath.tests.psi.intellij
 
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.openapi.util.TextRange
@@ -28,9 +28,9 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.tests.parser.ParserTestCase
 
 @Suppress("RedundantVisibilityModifier")
-@DisplayName("XQuery IntelliJ Plugin - Language Injection Host - XPath")
-class LanguageInjectionPsiTest : ParserTestCase() {
-    override val pluginId: PluginId = PluginId.getId("LanguageInjectionPsiTest")
+@DisplayName("IntelliJ Program Structure Interface (PSI) - PsiLanguageInjectionHost - XPath")
+class PsiLanguageInjectionHostTest : ParserTestCase() {
+    override val pluginId: PluginId = PluginId.getId("PsiLanguageInjectionHostTest")
 
     @Nested
     @DisplayName("relevant text range")
