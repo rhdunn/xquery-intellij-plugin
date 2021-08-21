@@ -19,6 +19,7 @@ import com.intellij.ide.projectView.PresentationData
 import com.intellij.ide.projectView.ViewSettings
 import com.intellij.ide.projectView.impl.nodes.AbstractPsiBasedNode
 import com.intellij.ide.util.treeView.AbstractTreeNode
+import com.intellij.navigation.NavigationItem
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationEx
 import uk.co.reecedunn.intellij.plugin.xquery.ide.structureView.XQueryStructureViewElement
@@ -27,7 +28,7 @@ class XQueryLeafNode(node: XQueryStructureViewElement, viewSettings: ViewSetting
     AbstractPsiBasedNode<XQueryStructureViewElement>(node.project, node, viewSettings) {
 
     override fun updateImpl(data: PresentationData) {
-        val presentation = value.presentation!!
+        val presentation = (value as NavigationItem).presentation!!
         data.presentableText = when (presentation) {
             is ItemPresentationEx -> presentation.getPresentableText(ItemPresentationEx.Type.StructureView)
             else -> presentation.presentableText

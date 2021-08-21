@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,10 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.xdebugger.breakpoints
 
+import com.intellij.navigation.NavigationItem
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.TextRange
 import com.intellij.openapi.vfs.VirtualFile
-import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiElement
 import com.intellij.xdebugger.XSourcePosition
 import com.intellij.xdebugger.breakpoints.XLineBreakpoint
@@ -87,7 +87,7 @@ class XQueryExpressionBreakpointType :
         }
 
         override fun getIcon(): Icon {
-            return (element as? NavigatablePsiElement)?.presentation?.getIcon(false) ?: XPathIcons.Nodes.Expr
+            return (element as? NavigationItem)?.presentation?.getIcon(false) ?: XPathIcons.Nodes.Expr
         }
     }
 

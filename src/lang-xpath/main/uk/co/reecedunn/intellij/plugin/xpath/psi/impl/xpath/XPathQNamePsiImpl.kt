@@ -18,7 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
-import com.intellij.psi.NavigatablePsiElement
+import com.intellij.navigation.NavigationItem
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
 import org.jetbrains.annotations.NonNls
@@ -109,7 +109,7 @@ class XPathQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathQName 
     // endregion
     // region NavigationItem
 
-    override fun getPresentation(): ItemPresentation? = (parent as NavigatablePsiElement).presentation
+    override fun getPresentation(): ItemPresentation? = (parent as NavigationItem).presentation
 
     // endregion
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Reece H. Dunn
+ * Copyright (C) 2019, 2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,6 @@
 package uk.co.reecedunn.intellij.plugin.xquery.ide.structureView
 
 import com.intellij.ide.util.treeView.smartTree.SortableTreeElement
-import com.intellij.psi.NavigatablePsiElement
+import com.intellij.psi.PsiElement
 
-interface XQueryStructureViewElement : NavigatablePsiElement, SortableTreeElement
+interface XQueryStructureViewElement : PsiElement, SortableTreeElement

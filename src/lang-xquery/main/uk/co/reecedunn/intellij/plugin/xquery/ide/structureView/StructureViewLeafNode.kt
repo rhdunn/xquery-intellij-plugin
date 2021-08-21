@@ -19,6 +19,7 @@ import com.intellij.ide.structureView.StructureViewTreeElement
 import com.intellij.ide.structureView.impl.common.PsiTreeElementBase
 import com.intellij.ide.util.treeView.smartTree.SortableTreeElement
 import com.intellij.navigation.ItemPresentation
+import com.intellij.navigation.NavigationItem
 import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationEx
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmAccessLevel
 import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmAnnotated
@@ -38,7 +39,7 @@ class StructureViewLeafNode(leaf: XQueryStructureViewElement) :
     // endregion
     // region ItemPresentation
 
-    override fun getPresentableText(): String? = when (val presentation = element?.presentation) {
+    override fun getPresentableText(): String? = when (val presentation = (element as? NavigationItem)?.presentation) {
         is ItemPresentationEx -> presentation.getPresentableText(ItemPresentationEx.Type.StructureView)
         else -> presentation?.presentableText
     }

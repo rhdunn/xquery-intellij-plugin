@@ -15,8 +15,8 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.tests.psi
 
+import com.intellij.navigation.NavigationItem
 import com.intellij.openapi.extensions.PluginId
-import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiNameIdentifierOwner
 import com.intellij.psi.util.elementType
@@ -2796,7 +2796,7 @@ class XPathPsiTest : ParserTestCase() {
                         assertThat(qname.namespace, `is`(nullValue()))
                         assertThat(qname.localName!!.data, `is`("x"))
 
-                        val presentation = (expr as NavigatablePsiElement).presentation!!
+                        val presentation = (expr as NavigationItem).presentation!!
                         assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.Param)))
                         assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.Param)))
                         assertThat(presentation.presentableText, `is`("\$x"))
@@ -2815,7 +2815,7 @@ class XPathPsiTest : ParserTestCase() {
                         assertThat(qname.prefix!!.data, `is`("a"))
                         assertThat(qname.localName!!.data, `is`("x"))
 
-                        val presentation = (expr as NavigatablePsiElement).presentation!!
+                        val presentation = (expr as NavigationItem).presentation!!
                         assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.Param)))
                         assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.Param)))
                         assertThat(presentation.presentableText, `is`("\$a:x"))
@@ -2834,7 +2834,7 @@ class XPathPsiTest : ParserTestCase() {
                         assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
                         assertThat(qname.localName!!.data, `is`("x"))
 
-                        val presentation = (expr as NavigatablePsiElement).presentation!!
+                        val presentation = (expr as NavigationItem).presentation!!
                         assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.Param)))
                         assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.Param)))
                         assertThat(presentation.presentableText, `is`("\$Q{http://www.example.com}x"))
@@ -2849,7 +2849,7 @@ class XPathPsiTest : ParserTestCase() {
                         assertThat(expr.variableType?.typeName, `is`(nullValue()))
                         assertThat(expr.defaultExpression, `is`(nullValue()))
 
-                        val presentation = (expr as NavigatablePsiElement).presentation!!
+                        val presentation = (expr as NavigationItem).presentation!!
                         assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.Param)))
                         assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.Param)))
                         assertThat(presentation.presentableText, `is`(nullValue()))
@@ -2868,7 +2868,7 @@ class XPathPsiTest : ParserTestCase() {
                         assertThat(qname.namespace, `is`(nullValue()))
                         assertThat(qname.localName!!.data, `is`("x"))
 
-                        val presentation = (expr as NavigatablePsiElement).presentation!!
+                        val presentation = (expr as NavigationItem).presentation!!
                         assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.Param)))
                         assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.Param)))
                         assertThat(presentation.presentableText, `is`("\$x as element()"))

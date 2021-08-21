@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.lang.documentation
 
 import com.intellij.lang.documentation.AbstractDocumentationProvider
+import com.intellij.navigation.NavigationItem
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationEx
 import uk.co.reecedunn.intellij.plugin.core.psi.resourcePath
@@ -53,7 +54,7 @@ class XQueryDocumentationProvider : AbstractDocumentationProvider() {
 
         fun getElementPresentationText(element: PsiElement?): String? = when (val parent = element?.parent) {
             is XQueryFunctionDecl -> {
-                val sig = when (val presentation = parent.presentation) {
+                val sig = when (val presentation = (parent as NavigationItem).presentation) {
                     is ItemPresentationEx -> presentation.getPresentableText(ItemPresentationEx.Type.StructureView)
                     else -> null
                 }
@@ -68,7 +69,7 @@ class XQueryDocumentationProvider : AbstractDocumentationProvider() {
                     "function $params as ${returnType.typeName}"
             }
             is XQueryVarDecl -> {
-                val sig = parent.presentation?.presentableText
+                val sig = (parent as NavigationItem).presentation?.presentableText
                 "declare variable \$$sig"
             }
             is XPathNCName -> (parent.parent as? XpmNamespaceDeclaration)?.let { decl ->

@@ -16,8 +16,8 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 
 import com.intellij.navigation.ItemPresentation
+import com.intellij.navigation.NavigationItem
 import com.intellij.openapi.extensions.PluginId
-import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiElement
 import com.intellij.psi.util.elementType
 import org.hamcrest.CoreMatchers.*
@@ -1995,7 +1995,7 @@ class PluginPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("test"))
 
-                val presentation = expr.presentation!!
+                val presentation = (expr as NavigationItem).presentation!!
                 assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.TypeDecl)))
                 assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.TypeDecl)))
                 assertThat(presentation.presentableText, `is`("test"))
@@ -2012,7 +2012,7 @@ class PluginPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("test"))
 
-                val presentation = expr.presentation!!
+                val presentation = (expr as NavigationItem).presentation!!
                 assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.TypeDecl)))
                 assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.TypeDecl)))
                 assertThat(presentation.presentableText, `is`("test"))
@@ -2216,7 +2216,7 @@ class PluginPsiTest : ParserTestCase() {
                 assertThat(qname.localName!!.data, `is`("test"))
                 assertThat(qname.element, sameInstance(qname as PsiElement))
 
-                val presentation = (decl as NavigatablePsiElement).presentation!! as ItemPresentationEx
+                val presentation = (decl as NavigationItem).presentation!! as ItemPresentationEx
                 assertThat(presentation.getIcon(false), `is`(sameInstance(XPathIcons.Nodes.FunctionDecl)))
                 assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.FunctionDecl)))
                 assertThat(presentation.getPresentableText(ItemPresentationEx.Type.Default), `is`("test"))

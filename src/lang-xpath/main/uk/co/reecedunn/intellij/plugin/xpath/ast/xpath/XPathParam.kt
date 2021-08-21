@@ -15,10 +15,10 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpath.ast.xpath
 
-import com.intellij.psi.NavigatablePsiElement
+import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmParameter
 
 /**
  * An XPath 3.0 and XQuery 1.0 `Param` node in the XQuery AST.
  */
-interface XPathParam : NavigatablePsiElement, XpmParameter
+interface XPathParam : PsiElement, XpmParameter

@@ -17,8 +17,8 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
+import com.intellij.navigation.NavigationItem
 import com.intellij.openapi.util.Key
-import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiElement
 import com.intellij.psi.tree.TokenSet
 import com.intellij.psi.util.elementType
@@ -130,7 +130,7 @@ class XQueryFunctionDeclPsiImpl(node: ASTNode) :
     override val paramListPresentableText: String
         get() = computeUserDataIfAbsent(PARAM_LIST_PRESENTABLE_TEXT) {
             val params = parameters.mapNotNull { param ->
-                (param as NavigatablePsiElement).presentation?.presentableText
+                (param as NavigationItem).presentation?.presentableText
             }.joinToString()
             if (variadicType === XpmVariadic.Ellipsis) "($params ...)" else "($params)"
         }
