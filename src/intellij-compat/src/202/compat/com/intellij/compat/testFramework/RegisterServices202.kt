@@ -15,8 +15,6 @@
  */
 package com.intellij.compat.testFramework
 
-import com.intellij.mock.MockProject
-import com.intellij.mock.MockProjectEx
 import com.intellij.openapi.project.Project
 import com.intellij.pom.PomModel
 import com.intellij.pom.PomTransaction
@@ -25,6 +23,7 @@ import com.intellij.pom.tree.TreeAspect
 
 private class MockPomModelImpl(project: Project) : PomModelImpl(project) {
     override fun runTransaction(transaction: PomTransaction) {
+        transaction.run()
     }
 }
 

@@ -20,6 +20,7 @@ import com.intellij.navigation.NavigationItem
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiNameIdentifierOwner
+import com.intellij.psi.impl.DebugUtil
 import com.intellij.psi.util.elementType
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
@@ -223,6 +224,7 @@ class XQueryPsiTest : ParserTestCase() {
             @DisplayName("PsiNameIdentifierOwner")
             fun psiNameIdentifierOwner() {
                 val name = parse<XPathURIQualifiedName>("(: :) Q{http://www.example.com}test")[0] as PsiNameIdentifierOwner
+                val file = name.containingFile
 
                 assertThat(name.name, `is`("test"))
                 assertThat(name.textOffset, `is`(31))
@@ -230,10 +232,14 @@ class XQueryPsiTest : ParserTestCase() {
                 assertThat(name.nameIdentifier, `is`(instanceOf(XmlNCNameImpl::class.java)))
                 assertThat(name.nameIdentifier?.text, `is`("test"))
 
-                val renamed = name.setName("lorem-ipsum")
-                assertThat(renamed, `is`(instanceOf(XPathURIQualifiedName::class.java)))
-                assertThat(renamed.text, `is`("Q{http://www.example.com}lorem-ipsum"))
-                assertThat((renamed as PsiNameIdentifierOwner).name, `is`("lorem-ipsum"))
+                DebugUtil.performPsiModification<Throwable>("rename") {
+                    val renamed = name.setName("lorem-ipsum")
+                    assertThat(renamed, `is`(instanceOf(XPathURIQualifiedName::class.java)))
+                    assertThat(renamed.text, `is`("Q{http://www.example.com}lorem-ipsum"))
+                    assertThat((renamed as PsiNameIdentifierOwner).name, `is`("lorem-ipsum"))
+                }
+
+                assertThat(file.text, `is`("(: :) Q{http://www.example.com}lorem-ipsum"))
             }
 
             @Test
@@ -417,6 +423,7 @@ class XQueryPsiTest : ParserTestCase() {
             @DisplayName("PsiNameIdentifierOwner")
             fun psiNameIdentifierOwner() {
                 val name = parse<XPathQName>("(: :) a:test")[0] as PsiNameIdentifierOwner
+                val file = name.containingFile
 
                 assertThat(name.name, `is`("test"))
                 assertThat(name.textOffset, `is`(8))
@@ -424,10 +431,14 @@ class XQueryPsiTest : ParserTestCase() {
                 assertThat(name.nameIdentifier, `is`(instanceOf(XmlNCNameImpl::class.java)))
                 assertThat(name.nameIdentifier?.text, `is`("test"))
 
-                val renamed = name.setName("lorem-ipsum")
-                assertThat(renamed, `is`(instanceOf(XPathQName::class.java)))
-                assertThat(renamed.text, `is`("a:lorem-ipsum"))
-                assertThat((renamed as PsiNameIdentifierOwner).name, `is`("lorem-ipsum"))
+                DebugUtil.performPsiModification<Throwable>("rename") {
+                    val renamed = name.setName("lorem-ipsum")
+                    assertThat(renamed, `is`(instanceOf(XPathQName::class.java)))
+                    assertThat(renamed.text, `is`("a:lorem-ipsum"))
+                    assertThat((renamed as PsiNameIdentifierOwner).name, `is`("lorem-ipsum"))
+                }
+
+                assertThat(file.text, `is`("(: :) a:lorem-ipsum"))
             }
 
             @Test
@@ -511,6 +522,7 @@ class XQueryPsiTest : ParserTestCase() {
             @DisplayName("PsiNameIdentifierOwner")
             fun psiNameIdentifierOwner() {
                 val name = parse<XPathNCName>("(: :) test")[0] as PsiNameIdentifierOwner
+                val file = name.containingFile
 
                 assertThat(name.name, `is`("test"))
                 assertThat(name.textOffset, `is`(6))
@@ -518,10 +530,14 @@ class XQueryPsiTest : ParserTestCase() {
                 assertThat(name.nameIdentifier, `is`(instanceOf(XmlNCNameImpl::class.java)))
                 assertThat(name.nameIdentifier?.text, `is`("test"))
 
-                val renamed = name.setName("lorem-ipsum")
-                assertThat(renamed, `is`(instanceOf(XPathNCName::class.java)))
-                assertThat(renamed.text, `is`("lorem-ipsum"))
-                assertThat((renamed as PsiNameIdentifierOwner).name, `is`("lorem-ipsum"))
+                DebugUtil.performPsiModification<Throwable>("rename") {
+                    val renamed = name.setName("lorem-ipsum")
+                    assertThat(renamed, `is`(instanceOf(XPathNCName::class.java)))
+                    assertThat(renamed.text, `is`("lorem-ipsum"))
+                    assertThat((renamed as PsiNameIdentifierOwner).name, `is`("lorem-ipsum"))
+                }
+
+                assertThat(file.text, `is`("(: :) lorem-ipsum"))
             }
 
             @Test
@@ -3141,10 +3157,14 @@ class XQueryPsiTest : ParserTestCase() {
                         val ref = (expr.functionName as PsiElement).reference!!
                         assertThat(ref, `is`(instanceOf(XPathFunctionNameReference::class.java)))
 
-                        val renamed = ref.handleElementRename("lorem-ipsum")
-                        assertThat(renamed, `is`(instanceOf(XPathNCName::class.java)))
-                        assertThat(renamed.text, `is`("lorem-ipsum"))
-                        assertThat((renamed as PsiNameIdentifierOwner).name, `is`("lorem-ipsum"))
+                        DebugUtil.performPsiModification<Throwable>("rename") {
+                            val renamed = ref.handleElementRename("lorem-ipsum")
+                            assertThat(renamed, `is`(instanceOf(XPathNCName::class.java)))
+                            assertThat(renamed.text, `is`("lorem-ipsum"))
+                            assertThat((renamed as PsiNameIdentifierOwner).name, `is`("lorem-ipsum"))
+                        }
+
+                        assertThat((expr.functionName as PsiElement).text, `is`("lorem-ipsum"))
                     }
                 }
 
@@ -3688,10 +3708,14 @@ class XQueryPsiTest : ParserTestCase() {
                         val ref = (expr.functionName as PsiElement).reference!!
                         assertThat(ref, `is`(instanceOf(XPathFunctionNameReference::class.java)))
 
-                        val renamed = ref.handleElementRename("lorem-ipsum")
-                        assertThat(renamed, `is`(instanceOf(XPathNCName::class.java)))
-                        assertThat(renamed.text, `is`("lorem-ipsum"))
-                        assertThat((renamed as PsiNameIdentifierOwner).name, `is`("lorem-ipsum"))
+                        DebugUtil.performPsiModification<Throwable>("rename") {
+                            val renamed = ref.handleElementRename("lorem-ipsum")
+                            assertThat(renamed, `is`(instanceOf(XPathNCName::class.java)))
+                            assertThat(renamed.text, `is`("lorem-ipsum"))
+                            assertThat((renamed as PsiNameIdentifierOwner).name, `is`("lorem-ipsum"))
+                        }
+
+                        assertThat((expr.functionName as PsiElement).text, `is`("lorem-ipsum"))
                     }
                 }
             }
@@ -7482,10 +7506,14 @@ class XQueryPsiTest : ParserTestCase() {
                     val ref = (expr.functionName as PsiElement).reference!!
                     assertThat(ref, `is`(instanceOf(XPathFunctionNameReference::class.java)))
 
-                    val renamed = ref.handleElementRename("lorem-ipsum")
-                    assertThat(renamed, `is`(instanceOf(XPathNCName::class.java)))
-                    assertThat(renamed.text, `is`("lorem-ipsum"))
-                    assertThat((renamed as PsiNameIdentifierOwner).name, `is`("lorem-ipsum"))
+                    DebugUtil.performPsiModification<Throwable>("rename") {
+                        val renamed = ref.handleElementRename("lorem-ipsum")
+                        assertThat(renamed, `is`(instanceOf(XPathNCName::class.java)))
+                        assertThat(renamed.text, `is`("lorem-ipsum"))
+                        assertThat((renamed as PsiNameIdentifierOwner).name, `is`("lorem-ipsum"))
+                    }
+
+                    assertThat((expr.functionName as PsiElement).text, `is`("lorem-ipsum"))
                 }
             }
 
