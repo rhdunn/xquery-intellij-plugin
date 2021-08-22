@@ -45,6 +45,8 @@ class XQueryDirAttributeValuePsiImpl(node: ASTNode) :
                     out.append(quote)
                     out.append(quote)
                 }
+                '{' -> out.append("{{")
+                '}' -> out.append("}}")
                 '&' -> out.append("&amp;")
                 '<' -> out.append("&lt;")
                 '>' -> out.append("&gt;")

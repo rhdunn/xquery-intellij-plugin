@@ -1197,11 +1197,11 @@ class PsiLanguageInjectionHostTest : ParserTestCase() {
                 val file = host.containingFile
 
                 DebugUtil.performPsiModification<Throwable>("update text") {
-                    val updated = host.updateText("a'b\"c&d <e> f")
-                    assertThat(updated.text, `is`("'a''b\"c&amp;d &lt;e&gt; f'"))
+                    val updated = host.updateText("a'b\"c&d <e> {f} g")
+                    assertThat(updated.text, `is`("'a''b\"c&amp;d &lt;e&gt; {{f}} g'"))
                 }
 
-                assertThat(file.text, `is`("<a b='a''b\"c&amp;d &lt;e&gt; f'/>"))
+                assertThat(file.text, `is`("<a b='a''b\"c&amp;d &lt;e&gt; {{f}} g'/>"))
             }
 
             @Test
@@ -1211,11 +1211,11 @@ class PsiLanguageInjectionHostTest : ParserTestCase() {
                 val file = host.containingFile
 
                 DebugUtil.performPsiModification<Throwable>("update text") {
-                    val updated = host.updateText("a'b\"c&d <e> f")
-                    assertThat(updated.text, `is`("\"a'b\"\"c&amp;d &lt;e&gt; f\""))
+                    val updated = host.updateText("a'b\"c&d <e> {f} g")
+                    assertThat(updated.text, `is`("\"a'b\"\"c&amp;d &lt;e&gt; {{f}} g\""))
                 }
 
-                assertThat(file.text, `is`("<a b=\"a'b\"\"c&amp;d &lt;e&gt; f\"/>"))
+                assertThat(file.text, `is`("<a b=\"a'b\"\"c&amp;d &lt;e&gt; {{f}} g\"/>"))
             }
         }
 
