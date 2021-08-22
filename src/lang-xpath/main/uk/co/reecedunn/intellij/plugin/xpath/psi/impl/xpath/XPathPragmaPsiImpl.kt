@@ -34,8 +34,8 @@ class XPathPragmaPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathPragm
     override fun isValidHost(): Boolean = children().any { it.elementType === XPathTokenType.PRAGMA_CONTENTS }
 
     override fun updateText(text: String): PsiLanguageInjectionHost {
-        val before = this.text.substring(0, relevantTextRange.startOffset + 1)
-        val updated = createElement<XPathPragma>("$before$text#)") ?: return this
+        val before = this.text.substring(0, relevantTextRange.startOffset)
+        val updated = createElement<XPathPragma>("() contains text $before$text#)") ?: return this
         return replace(updated) as PsiLanguageInjectionHost
     }
 

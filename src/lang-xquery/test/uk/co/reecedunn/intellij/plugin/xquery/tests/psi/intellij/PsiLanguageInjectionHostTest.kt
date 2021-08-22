@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.tests.psi.intellij
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiLanguageInjectionHost
+import com.intellij.psi.impl.DebugUtil
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -1138,6 +1139,24 @@ class PsiLanguageInjectionHostTest : ParserTestCase() {
                     assertThat(escaper.getOffsetInHost(2, range), `is`(-1))
                 }
             }
+        }
+    }
+
+    @Nested
+    @DisplayName("update text")
+    internal inner class UpdateText {
+        @Test
+        @DisplayName("XQuery 3.1 EBNF (105) Pragma")
+        fun pragma() {
+            val host = parse<XPathPragma>("2 contains text (# pragma test#)")[0] as PsiLanguageInjectionHost
+            val file = host.containingFile
+
+            DebugUtil.performPsiModification<Throwable>("update text") {
+                val updated = host.updateText("lorem ipsum")
+                assertThat(updated.text, `is`("(# pragma lorem ipsum#)"))
+            }
+
+            assertThat(file.text, `is`("2 contains text (# pragma lorem ipsum#)"))
         }
     }
 }
