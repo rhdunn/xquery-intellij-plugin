@@ -1159,6 +1159,20 @@ class PsiLanguageInjectionHostTest : ParserTestCase() {
             assertThat(file.text, `is`("2 contains text (# pragma lorem ipsum#)"))
         }
 
+        @Test
+        @DisplayName("XQuery 1.0 EBNF (107) CDataSection")
+        fun cdataSection() {
+            val host = parse<XQueryCDataSection>("<![CDATA[test]]>")[0] as PsiLanguageInjectionHost
+            val file = host.containingFile
+
+            DebugUtil.performPsiModification<Throwable>("update text") {
+                val updated = host.updateText("lorem ipsum")
+                assertThat(updated.text, `is`("<![CDATA[lorem ipsum]]>"))
+            }
+
+            assertThat(file.text, `is`("<![CDATA[lorem ipsum]]>"))
+        }
+
         @Nested
         @DisplayName("XQuery 3.1 EBNF (222) StringLiteral")
         internal inner class StringLiteral {
