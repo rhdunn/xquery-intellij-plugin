@@ -2031,8 +2031,10 @@ class XQueryParser : XPathParser() {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (parseEQNameOrWildcard(builder, XPathElementType.VAR_REF, false) == null && !haveErrors) {
-                builder.error(XQueryBundle.message("parser.error.expected-qname"))
+            if (parseEQNameOrWildcard(builder, XPathElementType.VAR_REF, false) == null) {
+                if (!haveErrors) {
+                    builder.error(XQueryBundle.message("parser.error.expected-qname"))
+                }
                 marker.drop()
             } else {
                 marker.done(XQueryElementType.COUNT_CLAUSE)
@@ -2075,8 +2077,10 @@ class XQueryParser : XPathParser() {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseGroupingSpecList(builder) && !haveErrors) {
-                builder.error(XPathBundle.message("parser.error.expected", "GroupingSpecList"))
+            if (!parseGroupingSpecList(builder)) {
+                if (!haveErrors) {
+                    builder.error(XPathBundle.message("parser.error.expected", "GroupingSpecList"))
+                }
                 marker.drop()
             } else {
                 marker.done(XQueryElementType.GROUP_BY_CLAUSE)
@@ -2179,8 +2183,10 @@ class XQueryParser : XPathParser() {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseOrderSpecList(builder) && !haveErrors) {
-                builder.error(XPathBundle.message("parser.error.expected", "OrderSpecList"))
+            if (!parseOrderSpecList(builder)) {
+                if (!haveErrors) {
+                    builder.error(XPathBundle.message("parser.error.expected", "OrderSpecList"))
+                }
                 marker.drop()
             } else {
                 marker.done(XQueryElementType.ORDER_BY_CLAUSE)
@@ -2202,8 +2208,10 @@ class XQueryParser : XPathParser() {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseOrderSpecList(builder) && !haveErrors) {
-                builder.error(XPathBundle.message("parser.error.expected", "OrderSpecList"))
+            if (!parseOrderSpecList(builder)) {
+                if (!haveErrors) {
+                    builder.error(XPathBundle.message("parser.error.expected", "OrderSpecList"))
+                }
                 marker.drop()
             } else {
                 marker.done(XQueryElementType.ORDER_BY_CLAUSE)
