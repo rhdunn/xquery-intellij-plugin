@@ -1158,5 +1158,51 @@ class PsiLanguageInjectionHostTest : ParserTestCase() {
 
             assertThat(file.text, `is`("2 contains text (# pragma lorem ipsum#)"))
         }
+
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (222) StringLiteral")
+        internal inner class StringLiteral {
+            @Test
+            @DisplayName("string literal content")
+            fun stringLiteralContent() {
+                val host = parse<XPathStringLiteral>("\"test\"")[0] as PsiLanguageInjectionHost
+                val file = host.containingFile
+
+                DebugUtil.performPsiModification<Throwable>("update text") {
+                    val updated = host.updateText("lorem ipsum")
+                    assertThat(updated.text, `is`("\"lorem ipsum\""))
+                }
+
+                assertThat(file.text, `is`("\"lorem ipsum\""))
+            }
+
+            @Test
+            @DisplayName("apos string escaping")
+            fun aposStringEscaping() {
+                val host = parse<XPathStringLiteral>("'test'")[0] as PsiLanguageInjectionHost
+                val file = host.containingFile
+
+                DebugUtil.performPsiModification<Throwable>("update text") {
+                    val updated = host.updateText("a'b\"c&d e")
+                    assertThat(updated.text, `is`("'a''b\"c&amp;d e'"))
+                }
+
+                assertThat(file.text, `is`("'a''b\"c&amp;d e'"))
+            }
+
+            @Test
+            @DisplayName("apos string escaping")
+            fun quotStringEscaping() {
+                val host = parse<XPathStringLiteral>("\"test\"")[0] as PsiLanguageInjectionHost
+                val file = host.containingFile
+
+                DebugUtil.performPsiModification<Throwable>("update text") {
+                    val updated = host.updateText("a'b\"c&d e")
+                    assertThat(updated.text, `is`("\"a'b\"\"c&amp;d e\""))
+                }
+
+                assertThat(file.text, `is`("\"a'b\"\"c&amp;d e\""))
+            }
+        }
     }
 }
