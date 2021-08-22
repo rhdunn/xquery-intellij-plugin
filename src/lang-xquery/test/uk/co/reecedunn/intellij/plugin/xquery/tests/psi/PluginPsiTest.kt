@@ -1234,32 +1234,6 @@ class PluginPsiTest : ParserTestCase() {
             }
 
             @Test
-            @DisplayName("namespace prefix, missing DirAttributeValue")
-            fun namespacePrefixMissingDirAttributeValue() {
-                val expr = parse<PluginDirAttribute>("<a xmlns:b=>")[0] as XpmNamespaceDeclaration
-
-                assertThat(expr.namespacePrefix!!.data, `is`("b"))
-                assertThat(expr.namespaceUri, `is`(nullValue()))
-
-                assertThat(expr.accepts(XdmNamespaceType.DefaultElement), `is`(false))
-                assertThat(expr.accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
-                assertThat(expr.accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
-                assertThat(expr.accepts(XdmNamespaceType.DefaultType), `is`(false))
-                assertThat(expr.accepts(XdmNamespaceType.None), `is`(false))
-                assertThat(expr.accepts(XdmNamespaceType.Prefixed), `is`(true))
-                assertThat(expr.accepts(XdmNamespaceType.Undefined), `is`(false))
-                assertThat(expr.accepts(XdmNamespaceType.XQuery), `is`(false))
-
-                val node = expr as XdmAttributeNode
-                assertThat(node.nodeName?.prefix?.data, `is`("xmlns"))
-                assertThat(node.nodeName?.localName?.data, `is`("b"))
-                assertThat(node.nodeName?.namespace, `is`(nullValue()))
-                assertThat(node.nodeName?.isLexicalQName, `is`(true))
-
-                assertThat(node.typedValue, `is`(nullValue()))
-            }
-
-            @Test
             @DisplayName("default element/type namespace")
             fun defaultElementTypeNamespace() {
                 val expr = parse<PluginDirAttribute>(

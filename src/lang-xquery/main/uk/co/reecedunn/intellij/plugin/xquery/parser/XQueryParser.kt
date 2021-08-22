@@ -3813,11 +3813,14 @@ class XQueryParser : XPathParser() {
             }
 
             builder.matchTokenType(XQueryTokenType.XML_WHITE_SPACE)
-            if (!parseDirAttributeValue(builder) && !haveErrors) {
-                builder.error(XQueryBundle.message("parser.error.expected-attribute-string"))
+            if (!parseDirAttributeValue(builder)) {
+                if (!haveErrors) {
+                    builder.error(XQueryBundle.message("parser.error.expected-attribute-string"))
+                }
+                marker.drop()
+            } else {
+                marker.done(XQueryElementType.DIR_ATTRIBUTE)
             }
-
-            marker.done(XQueryElementType.DIR_ATTRIBUTE)
             return true
         }
         marker.drop()
