@@ -1220,6 +1220,38 @@ class PsiLanguageInjectionHostTest : ParserTestCase() {
         }
 
         @Nested
+        @DisplayName("XQuery 3.1 EBNF (147) DirElemContent ; XQuery IntelliJ Plugin XQuery EBNF (123) DirTextConstructor")
+        internal inner class DirTextConstructor {
+            @Test
+            @DisplayName("string literal content")
+            fun stringLiteralContent() {
+                val host = parse<PluginDirTextConstructor>("<a>test</a>")[0] as PsiLanguageInjectionHost
+                val file = host.containingFile
+
+                DebugUtil.performPsiModification<Throwable>("update text") {
+                    val updated = host.updateText("lorem ipsum")
+                    assertThat(updated.text, `is`("lorem ipsum"))
+                }
+
+                assertThat(file.text, `is`("<a>lorem ipsum</a>"))
+            }
+
+            @Test
+            @DisplayName("string escaping")
+            fun stringEscaping() {
+                val host = parse<PluginDirTextConstructor>("<a>test</a>")[0] as PsiLanguageInjectionHost
+                val file = host.containingFile
+
+                DebugUtil.performPsiModification<Throwable>("update text") {
+                    val updated = host.updateText("a'b\"c&d <e> {f} g")
+                    assertThat(updated.text, `is`("a'b\"c&amp;d &lt;e&gt; {{f}} g"))
+                }
+
+                assertThat(file.text, `is`("<a>a'b\"c&amp;d &lt;e&gt; {{f}} g</a>"))
+            }
+        }
+
+        @Nested
         @DisplayName("XQuery 3.1 EBNF (222) StringLiteral")
         internal inner class StringLiteral {
             @Test
