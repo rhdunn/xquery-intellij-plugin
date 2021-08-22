@@ -57,7 +57,7 @@ class XQueryDirAttributeValuePsiImpl(node: ASTNode) :
     override fun isValidHost(): Boolean = children().none { it is XpmExpression }
 
     override fun updateText(text: String): PsiLanguageInjectionHost {
-        val quote = text[0]
+        val quote = this.text[0]
         val updated = createElement<XQueryDirAttributeValue>(
             "<a updated=$quote${encoded(text, quote)}$quote/>"
         ) ?: return this
