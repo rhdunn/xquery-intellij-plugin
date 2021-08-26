@@ -22,8 +22,6 @@ import com.intellij.psi.LiteralTextEscaper
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiLanguageInjectionHost
 import com.intellij.psi.util.elementType
-import uk.co.reecedunn.intellij.plugin.core.lang.injection.LiteralTextEscaperImpl
-import uk.co.reecedunn.intellij.plugin.core.lang.injection.LiteralTextHost
 import uk.co.reecedunn.intellij.plugin.core.lang.injection.PsiElementTextDecoder
 import uk.co.reecedunn.intellij.plugin.core.psi.createElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
@@ -34,8 +32,43 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeValue
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 class XQueryDirAttributeValuePsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), XQueryDirAttributeValue, LiteralTextHost, XpmSyntaxValidationElement {
+    ASTWrapperPsiElement(node),
+    XQueryDirAttributeValue,
+    XpmSyntaxValidationElement {
     // region PsiLanguageInjectionHost
+
+    private class LiteralTextEscaperImpl(host: XQueryDirAttributeValuePsiImpl) :
+        LiteralTextEscaper<XQueryDirAttributeValuePsiImpl>(host) {
+
+        private var decoded: Array<Int>? = null
+
+        override fun decode(rangeInsideHost: TextRange, outChars: StringBuilder): Boolean {
+            var currentOffset = 0
+            val offsets = ArrayList<Int>()
+            myHost.children().forEach { child ->
+                if (child is PsiElementTextDecoder) {
+                    child.decode(currentOffset, rangeInsideHost, outChars, offsets)
+                }
+                currentOffset += child.textLength
+            }
+            offsets.add(rangeInsideHost.endOffset)
+            decoded = offsets.toTypedArray()
+            return true
+        }
+
+        override fun getOffsetInHost(offsetInDecoded: Int, rangeInsideHost: TextRange): Int = when {
+            offsetInDecoded < 0 -> -1
+            offsetInDecoded >= decoded!!.size -> -1
+            else -> decoded!![offsetInDecoded]
+        }
+
+        override fun getRelevantTextRange(): TextRange = when {
+            myHost.isClosed -> TextRange(1, myHost.textLength - 1)
+            else -> TextRange(1, myHost.textLength)
+        }
+
+        override fun isOneLine(): Boolean = false
+    }
 
     private fun encoded(text: String, quote: Char): String {
         val out = StringBuilder()
@@ -70,26 +103,8 @@ class XQueryDirAttributeValuePsiImpl(node: ASTNode) :
         return LiteralTextEscaperImpl(this)
     }
 
-    // endregion
-    // region LiteralTextHost
-
     private val isClosed
         get() = children().find { it.elementType == XQueryTokenType.XML_ATTRIBUTE_VALUE_END } != null
-
-    override val isOneLine: Boolean = false
-
-    override val relevantTextRange: TextRange
-        get() = when {
-            isClosed -> TextRange(1, textLength - 1)
-            else -> TextRange(1, textLength)
-        }
-
-    override val decoded: String
-        get() {
-            val decoded = StringBuilder()
-            children().filterIsInstance<PsiElementTextDecoder>().forEach { decoder -> decoder.decode(decoded) }
-            return decoded.toString()
-        }
 
     // endregion
     // region XpmSyntaxValidationElement
