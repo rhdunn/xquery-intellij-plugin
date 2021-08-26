@@ -20,16 +20,43 @@ import com.intellij.lang.ASTNode
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.LiteralTextEscaper
 import com.intellij.psi.PsiLanguageInjectionHost
-import uk.co.reecedunn.intellij.plugin.core.lang.injection.LiteralTextEscaperImpl
-import uk.co.reecedunn.intellij.plugin.core.lang.injection.LiteralTextHost
 import uk.co.reecedunn.intellij.plugin.core.lang.injection.PsiElementTextDecoder
 import uk.co.reecedunn.intellij.plugin.core.psi.createElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirTextConstructor
 
-class PluginDirTextConstructorPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), PluginDirTextConstructor, LiteralTextHost {
+class PluginDirTextConstructorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginDirTextConstructor {
     // region PsiLanguageInjectionHost
+
+    private class LiteralTextEscaperImpl(host: PluginDirTextConstructorPsiImpl) :
+        LiteralTextEscaper<PluginDirTextConstructorPsiImpl>(host) {
+
+        private var decoded: Array<Int>? = null
+
+        override fun decode(rangeInsideHost: TextRange, outChars: StringBuilder): Boolean {
+            var currentOffset = 0
+            val offsets = ArrayList<Int>()
+            myHost.children().forEach { child ->
+                if (child is PsiElementTextDecoder) {
+                    child.decode(currentOffset, rangeInsideHost, outChars, offsets)
+                }
+                currentOffset += child.textLength
+            }
+            offsets.add(rangeInsideHost.endOffset)
+            decoded = offsets.toTypedArray()
+            return true
+        }
+
+        override fun getOffsetInHost(offsetInDecoded: Int, rangeInsideHost: TextRange): Int = when {
+            offsetInDecoded < 0 -> -1
+            offsetInDecoded >= decoded!!.size -> -1
+            else -> decoded!![offsetInDecoded]
+        }
+
+        override fun getRelevantTextRange(): TextRange = TextRange(0, myHost.textLength)
+
+        override fun isOneLine(): Boolean = false
+    }
 
     private fun encoded(text: String): String {
         val out = StringBuilder()
@@ -56,21 +83,6 @@ class PluginDirTextConstructorPsiImpl(node: ASTNode) :
     override fun createLiteralTextEscaper(): LiteralTextEscaper<out PsiLanguageInjectionHost> {
         return LiteralTextEscaperImpl(this)
     }
-
-    // endregion
-    // region LiteralTextHost
-
-    override val isOneLine: Boolean = false
-
-    override val relevantTextRange: TextRange
-        get() = TextRange(0, textLength)
-
-    override val decoded: String
-        get() {
-            val decoded = StringBuilder()
-            children().filterIsInstance<PsiElementTextDecoder>().forEach { decoder -> decoder.decode(decoded) }
-            return decoded.toString()
-        }
 
     // endregion
 }
