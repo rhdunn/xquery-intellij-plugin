@@ -21,15 +21,38 @@ import com.intellij.openapi.util.TextRange
 import com.intellij.psi.LiteralTextEscaper
 import com.intellij.psi.PsiLanguageInjectionHost
 import com.intellij.psi.util.elementType
-import uk.co.reecedunn.intellij.plugin.core.lang.injection.LiteralTextEscaperImpl
-import uk.co.reecedunn.intellij.plugin.core.lang.injection.LiteralTextHost
 import uk.co.reecedunn.intellij.plugin.core.psi.createElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCDataSection
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
-class XQueryCDataSectionPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryCDataSection, LiteralTextHost {
+class XQueryCDataSectionPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryCDataSection {
     // region PsiLanguageInjectionHost
+
+    private class LiteralTextEscaperImpl(host: XQueryCDataSectionPsiImpl) :
+        LiteralTextEscaper<XQueryCDataSectionPsiImpl>(host) {
+
+        private var decoded: Array<Int>? = null
+
+        override fun decode(rangeInsideHost: TextRange, outChars: StringBuilder): Boolean {
+            outChars.append(rangeInsideHost.subSequence(myHost.text))
+            decoded = Array(rangeInsideHost.length + 1) { it + rangeInsideHost.startOffset }
+            return true
+        }
+
+        override fun getOffsetInHost(offsetInDecoded: Int, rangeInsideHost: TextRange): Int = when {
+            offsetInDecoded < 0 -> -1
+            offsetInDecoded >= decoded!!.size -> -1
+            else -> decoded!![offsetInDecoded]
+        }
+
+        override fun getRelevantTextRange(): TextRange = when {
+            myHost.isClosed -> TextRange(9, myHost.textLength - 3)
+            else -> TextRange(9, myHost.textLength)
+        }
+
+        override fun isOneLine(): Boolean = false
+    }
 
     override fun isValidHost(): Boolean = true
 
@@ -39,31 +62,11 @@ class XQueryCDataSectionPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
     }
 
     override fun createLiteralTextEscaper(): LiteralTextEscaper<out PsiLanguageInjectionHost> {
-        return object : LiteralTextEscaperImpl<XQueryCDataSectionPsiImpl>(this) {
-            override fun decode(rangeInsideHost: TextRange, outChars: StringBuilder): Boolean {
-                outChars.append(rangeInsideHost.subSequence(text))
-                decoded = Array(rangeInsideHost.length + 1) { it + rangeInsideHost.startOffset }
-                return true
-            }
-        }
+        return LiteralTextEscaperImpl(this)
     }
-
-    // endregion
-    // region LiteralTextHost
 
     private val isClosed
         get() = children().find { it.elementType == XQueryTokenType.CDATA_SECTION_END_TAG } != null
-
-    override val isOneLine: Boolean = false
-
-    override val relevantTextRange: TextRange
-        get() = when {
-            isClosed -> TextRange(9, textLength - 3)
-            else -> TextRange(9, textLength)
-        }
-
-    override val decoded: String
-        get() = relevantTextRange.substring(text)
 
     // endregion
 }
