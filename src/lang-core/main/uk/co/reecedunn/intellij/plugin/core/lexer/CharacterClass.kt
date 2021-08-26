@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016, 2020 Reece H. Dunn
+ * Copyright (C) 2016, 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,8 +20,14 @@ object CharacterClass {
     const val END_OF_BUFFER: Int = -1
     const val WHITESPACE: Int = -2
     const val DIGIT: Int = -3
+
+    // XML 1.0 5ed (4) NameStartChar
     const val NAME_START_CHAR: Int = -4 // Excluding ':'
+
+    // XML 1.0 5ed (4a) NameChar
     const val NAME_CHAR: Int = -5 // Excluding NameStartChar, '-', '.' and Digit
+
+    // XML 1.0 5ed (2) Char
     const val CHAR: Int = -6
 
     const val DOT: Int = 1
@@ -100,7 +106,6 @@ object CharacterClass {
         /* 7x */ NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, NSC, CBO, VTB, CBC, TLD, INV
     )
 
-    // TODO: Classify any non-conforming XML Char value as INVALID, like with xdm.model.XmlChar.
     fun getCharClass(c: Int): Int {
         if (c < mCharacterClasses.size) { // 0x0000-0x0079
             return if (c == CodePointRange.END_OF_BUFFER) END_OF_BUFFER else mCharacterClasses[c]
