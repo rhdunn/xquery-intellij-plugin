@@ -22,8 +22,6 @@ import com.intellij.psi.LiteralTextEscaper
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiLanguageInjectionHost
 import com.intellij.psi.util.elementType
-import uk.co.reecedunn.intellij.plugin.core.lang.injection.LiteralTextEscaperImpl
-import uk.co.reecedunn.intellij.plugin.core.lang.injection.LiteralTextHost
 import uk.co.reecedunn.intellij.plugin.core.lang.injection.PsiElementTextDecoder
 import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
 import uk.co.reecedunn.intellij.plugin.core.psi.createElement
@@ -31,8 +29,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 
-class XPathStringLiteralPsiImpl(node: ASTNode) :
-    ASTWrapperPsiElement(node), LiteralTextHost, XPathStringLiteral {
+class XPathStringLiteralPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathStringLiteral {
     companion object {
         private val DATA = Key.create<String>("DATA")
     }
@@ -45,6 +42,39 @@ class XPathStringLiteralPsiImpl(node: ASTNode) :
 
     // endregion
     // region PsiLanguageInjectionHost
+
+    private class LiteralTextEscaperImpl(host: XPathStringLiteralPsiImpl) :
+        LiteralTextEscaper<XPathStringLiteralPsiImpl>(host) {
+
+        private var decoded: Array<Int>? = null
+
+        override fun decode(rangeInsideHost: TextRange, outChars: StringBuilder): Boolean {
+            var currentOffset = 0
+            val offsets = ArrayList<Int>()
+            myHost.children().forEach { child ->
+                if (child is PsiElementTextDecoder) {
+                    child.decode(currentOffset, rangeInsideHost, outChars, offsets)
+                }
+                currentOffset += child.textLength
+            }
+            offsets.add(rangeInsideHost.endOffset)
+            decoded = offsets.toTypedArray()
+            return true
+        }
+
+        override fun getOffsetInHost(offsetInDecoded: Int, rangeInsideHost: TextRange): Int = when {
+            offsetInDecoded < 0 -> -1
+            offsetInDecoded >= decoded!!.size -> -1
+            else -> decoded!![offsetInDecoded]
+        }
+
+        override fun getRelevantTextRange(): TextRange = when {
+            myHost.isClosed -> TextRange(1, myHost.textLength - 1)
+            else -> TextRange(1, myHost.textLength)
+        }
+
+        override fun isOneLine(): Boolean = false
+    }
 
     private fun encoded(text: String, quote: Char): String {
         val out = StringBuilder()
@@ -73,22 +103,8 @@ class XPathStringLiteralPsiImpl(node: ASTNode) :
         return LiteralTextEscaperImpl(this)
     }
 
-    // endregion
-    // region LiteralTextHost
-
     private val isClosed
         get() = children().find { it.elementType == XPathTokenType.STRING_LITERAL_END } != null
-
-    override val isOneLine: Boolean = false
-
-    override val relevantTextRange: TextRange
-        get() = when {
-            isClosed -> TextRange(1, textLength - 1)
-            else -> TextRange(1, textLength)
-        }
-
-    override val decoded: String
-        get() = data
 
     // endregion
     // region XpmExpression
