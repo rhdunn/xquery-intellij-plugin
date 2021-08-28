@@ -81,9 +81,13 @@
     <ol>
       <li>Add code folding for XQuery string interpolations.</li>
       <li>
-        Add code folding for Full Text, Updating, Scripting, and vendor extension expressions containg braces
+        Add code folding for Full Text, Updating, Scripting, and vendor extension expressions containing braces
         (<code>{...}</code>).
       </li>
+    </ol>
+    <p>References and Resolving:</p>
+    <ol>
+      <li>Fix resolving elements to <code>xmlns</code> nodes where the namespace URI is not also bound to a prefix.</li>
     </ol>
   ]]></change-notes>
 

@@ -85,10 +85,19 @@ private fun Sequence<XpmNamespaceDeclaration>.expandNCName(ncname: XsQNameValue)
                 seenDefaultNamespace = decl
             }
 
-            ncname.element!!.staticallyKnownNamespaces().filter { ns ->
-                ns.namespaceUri?.data == decl.namespaceUri?.data
-            }.map { ns ->
-                XsQName(ns.namespaceUri, null, ncname.localName, false, ncname.element)
+            // The namespace may also be bound to a prefix such as 'fn', so use that to pick up imported definitions.
+            val hasNamedDecl =
+                ncname.element!!.staticallyKnownNamespaces()
+                    .filter { ns -> ns.namespaceUri?.data == decl.namespaceUri?.data }
+                    .map { ns ->
+                        XsQName(ns.namespaceUri, null, ncname.localName, false, ncname.element)
+                    }
+            when {
+                hasNamedDecl.any() -> hasNamedDecl
+                isDefaultNamespace -> sequenceOf()
+                else -> sequenceOf(
+                    XsQName(decl.namespaceUri, null, ncname.localName, false, ncname.element)
+                )
             }
         } else {
             sequenceOf()

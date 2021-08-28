@@ -11,7 +11,11 @@ IntelliJ Integration:
 Code Folding:
 
 1. Add code folding for XQuery string interpolations.
-2. Add code folding for Full Text, Updating, Scripting, and vendor extension expressions containg braces (`{...}`).
+2. Add code folding for Full Text, Updating, Scripting, and vendor extension expressions containing braces (`{...}`).
+
+References and Resolving:
+
+1. Fix resolving elements to `xmlns` nodes where the namespace URI is not also bound to a prefix.
 
 ## 2021
 
