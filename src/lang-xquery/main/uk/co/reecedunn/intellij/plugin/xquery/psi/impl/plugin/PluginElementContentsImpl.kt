@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
+package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin
 
 import com.intellij.psi.tree.IElementType
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath.XPathStringLiteralContentsImpl
 
-class XQueryDirElemContentsImpl(type: IElementType, text: CharSequence) :
+class PluginElementContentsImpl(type: IElementType, text: CharSequence) :
     XPathStringLiteralContentsImpl(type, text)

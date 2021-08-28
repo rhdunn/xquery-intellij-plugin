@@ -29,7 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.XQueryDirWhiteSpaceImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryCharRefImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryDirAttributeValueContentsImpl
-import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryDirElemContentsImpl
+import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.PluginElementContentsImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery.XQueryPredefinedEntityRefImpl
 
 class XQueryASTFactory : ASTFactory() {
@@ -40,7 +40,7 @@ class XQueryASTFactory : ASTFactory() {
         XQueryTokenType.PREDEFINED_ENTITY_REFERENCE -> XQueryPredefinedEntityRefImpl(type, text)
         XQueryTokenType.XML_ATTRIBUTE_NCNAME -> XmlNCNameImpl(type, text)
         XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS -> XQueryDirAttributeValueContentsImpl(type, text)
-        XQueryTokenType.XML_ELEMENT_CONTENTS -> XQueryDirElemContentsImpl(type, text)
+        XQueryTokenType.XML_ELEMENT_CONTENTS -> PluginElementContentsImpl(type, text)
         XQueryTokenType.XML_ESCAPED_CHARACTER -> XPathEscapeCharacterImpl(type, text)
         XQueryTokenType.XML_CHARACTER_REFERENCE -> XQueryCharRefImpl(type, text)
         XQueryTokenType.XML_COMMENT -> PsiCommentImpl(type, text)

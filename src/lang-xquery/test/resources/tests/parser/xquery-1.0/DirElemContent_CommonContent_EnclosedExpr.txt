@@ -7,14 +7,14 @@ XQueryModuleImpl[FILE(0:14)]
                XmlNCNameImpl[XQUERY_XML_TAG_NCNAME_TOKEN(1:2)]('a')
             LeafPsiElement[XQUERY_END_XML_TAG_TOKEN(2:3)]('>')
             PluginDirTextConstructorImpl[XQUERY_DIR_TEXT_CONSTRUCTOR(3:4)]
-               XQueryDirElemContentsImpl[XQUERY_XML_ELEMENT_CONTENTS_TOKEN(3:4)]('1')
+               PluginElementContentsImpl[XQUERY_XML_ELEMENT_CONTENTS_TOKEN(3:4)]('1')
             LeafPsiElement[XPATH_BLOCK_OPEN_TOKEN(4:5)]('{')
             PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
             XPathIntegerLiteralImpl[XPATH_INTEGER_LITERAL_TOKEN(6:7)]('2')
             PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
             LeafPsiElement[XPATH_BLOCK_CLOSE_TOKEN(8:9)]('}')
             PluginDirTextConstructorImpl[XQUERY_DIR_TEXT_CONSTRUCTOR(9:10)]
-               XQueryDirElemContentsImpl[XQUERY_XML_ELEMENT_CONTENTS_TOKEN(9:10)]('3')
+               PluginElementContentsImpl[XQUERY_XML_ELEMENT_CONTENTS_TOKEN(9:10)]('3')
             LeafPsiElement[XQUERY_CLOSE_XML_TAG_TOKEN(10:12)]('</')
             XPathNCNameImpl[XPATH_NCNAME(12:13)]
                XmlNCNameImpl[XQUERY_XML_TAG_NCNAME_TOKEN(12:13)]('a')

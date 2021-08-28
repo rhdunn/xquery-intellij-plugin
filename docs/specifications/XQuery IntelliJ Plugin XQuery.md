@@ -1230,7 +1230,7 @@ These changes include support for:
 | \[120\]  | `PositionalArguments`          | ::= | `Argument ("," Argument)*`          |                       |
 | \[121\]  | `ForMemberBinding`             | ::= | `"$" VarName TypeDeclaration? PositionalVar? "in" ExprSingle` | |
 | \[122\]  | `DirElemContent`               | ::= | `DirectConstructor \| CDataSection \| EnclosedExpr \| DirTextConstructor` | |
-| \[123\]  | `DirTextConstructor`           | ::= | `ElementContentChar \| PredefinedEntityRef \| CharRef \| "{{" \| "}}"` | |
+| \[123\]  | `DirTextConstructor`           | ::= | `ElementContents \| PredefinedEntityRef \| CharRef \| "{{" \| "}}"` | |
 | \[124\]  | `PathExpr`                     | ::= | `("/" RelativePathExpr?) \| (AbbrevDescendantOrSelfStep RelativePathExpr) \| RelativePathExpr` | /\* xgc: leading-lone-slash \*/ |
 | \[125\]  | `RelativePathExpr`             | ::= | `StepExpr (("/" \| AbbrevDescendantOrSelfStep) StepExpr)*` | |
 | \[126\]  | `AbbrevDescendantOrSelfStep`   | ::= | `"//"`                              |                       |
@@ -1263,6 +1263,7 @@ These changes include support for:
 | \[153\]  | `CopyModifyExprBinding`        | ::= | `"$" VarName ":=" ExprSingle`       |                       |
 | \[154\]  | `CompAttrConstructor`          | ::= | `"attribute" (EQName | ("{" Expr "}")) EnclosedAttrValueExpr` | |
 | \[155\]  | `EnclosedAttrValueExpr`        | ::= | `EnclosedExpr`                      |                       |
+| \[156\]  | `ElementContents`              | ::= | `ElementContentChar*`               |                       |
 
 ### A.2 Reserved Function Names
 
