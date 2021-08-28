@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018-2020 Reece H. Dunn
+ * Copyright (C) 2018-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,9 @@
  */
 package uk.co.reecedunn.intellij.plugin.core.psi
 
+import com.intellij.lang.ASTNode
 import com.intellij.psi.*
+import com.intellij.psi.impl.source.tree.LeafElement
 import com.intellij.psi.tree.IElementType
 import com.intellij.psi.util.PsiTreeUtil
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestorsAndSelf
@@ -41,3 +43,46 @@ fun <T> PsiElement.createElement(text: String, `class`: Class<T>): T? {
 }
 
 inline fun <reified T> PsiElement.createElement(text: String): T? = createElement(text, T::class.java)
+
+fun PsiElement.contains(type: IElementType): Boolean = node.findChildByType(type) != null
+
+private fun prettyPrintASTNode(prettyPrinted: StringBuilder, node: ASTNode, depth: Int) {
+    for (i in 0 until depth) {
+        prettyPrinted.append("   ")
+    }
+
+    val names = node.psi.javaClass.name.split("\\.".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+    prettyPrinted.append(names[names.size - 1].replace("PsiImpl", "Impl"))
+
+    prettyPrinted.append('[')
+    prettyPrinted.append(node.elementType)
+    prettyPrinted.append('(')
+    prettyPrinted.append(node.textRange.startOffset)
+    prettyPrinted.append(':')
+    prettyPrinted.append(node.textRange.endOffset)
+    prettyPrinted.append(')')
+    prettyPrinted.append(']')
+    if (node is LeafElement || node is PsiErrorElement) {
+        prettyPrinted.append('(')
+        prettyPrinted.append('\'')
+        if (node is PsiErrorElement) {
+            val error = node as PsiErrorElement
+            prettyPrinted.append(error.errorDescription)
+        } else {
+            prettyPrinted.append(node.text.replace("\n", "\\n"))
+        }
+        prettyPrinted.append('\'')
+        prettyPrinted.append(')')
+    }
+    prettyPrinted.append('\n')
+
+    for (child in node.getChildren(null)) {
+        prettyPrintASTNode(prettyPrinted, child, depth + 1)
+    }
+}
+
+fun PsiElement.toPsiTreeString(): String {
+    val prettyPrinted = StringBuilder()
+    prettyPrintASTNode(prettyPrinted, node, 0)
+    return prettyPrinted.toString()
+}
