@@ -1551,7 +1551,7 @@ open class XPathParser : PsiParser {
                         // Keep PostfixExpr if there is a dynamic function call.
                         havePostfixExpr = true
                     }
-                    parseLookup(builder, null) -> {
+                    parseLookup(builder, null) != null -> {
                         parseWhiteSpaceAndCommentTokens(builder)
 
                         marker.done(XPathElementType.POSTFIX_LOOKUP)
@@ -1635,7 +1635,7 @@ open class XPathParser : PsiParser {
             parseMapConstructor(builder) ||
             parseArrayConstructor(builder) ||
             parseContextItemExpr(builder) ||
-            parseLookup(builder, XPathElementType.UNARY_LOOKUP)
+            parseLookup(builder, XPathElementType.UNARY_LOOKUP) != null
         )
     }
 
@@ -1736,28 +1736,22 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    private fun parseLookup(builder: PsiBuilder, type: IElementType?): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.OPTIONAL)
-        if (marker != null) {
+    private fun parseLookup(builder: PsiBuilder, type: IElementType?): IElementType? {
+        return builder.matchTokenTypeWithMarker(XPathTokenType.OPTIONAL) { marker ->
             parseWhiteSpaceAndCommentTokens(builder)
-            if (parseKeySpecifier(builder) == null) {
-                if (type === XPathElementType.UNARY_LOOKUP) {
+            when {
+                parseKeySpecifier(builder) == null -> when (type) {
                     // NOTE: This conflicts with '?' used as an ArgumentPlaceholder, so don't match '?' only as UnaryLookup.
-                    marker.rollbackTo()
-                } else {
-                    builder.error(XPathBundle.message("parser.error.expected", "KeySpecifier"))
-                    marker.drop()
+                    XPathElementType.UNARY_LOOKUP -> marker.rollbackToAndReturn()
+                    else -> {
+                        builder.error(XPathBundle.message("parser.error.expected", "KeySpecifier"))
+                        marker.dropAndReturn()
+                    }
                 }
-                return false
+                type != null -> marker.doneAndReturn(type)
+                else -> marker.dropAndReturn(XPathElementType.POSTFIX_LOOKUP)
             }
-
-            if (type != null)
-                marker.done(type)
-            else
-                marker.drop()
-            return true
         }
-        return false
     }
 
     private fun parseKeySpecifier(builder: PsiBuilder): IElementType? = when {
