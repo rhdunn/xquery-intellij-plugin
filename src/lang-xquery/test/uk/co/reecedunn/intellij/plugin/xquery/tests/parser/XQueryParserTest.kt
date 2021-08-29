@@ -9717,6 +9717,14 @@ class XQueryParserTest : ParserTestCase() {
             val actual = parseResource("tests/parser/xquery-4.0/Lookup_VarRef.xq")
             assertThat(actual.toPsiTreeString(), `is`(expected))
         }
+
+        @Test
+        @DisplayName("key specifier; VarRef; missing VarName")
+        fun varRef_missingVarName() {
+            val expected = loadResource("tests/parser/xquery-4.0/Lookup_VarRef_MissingVarName.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/Lookup_VarRef_MissingVarName.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
     }
 
     @Nested
@@ -9983,6 +9991,14 @@ class XQueryParserTest : ParserTestCase() {
         fun varRef() {
             val expected = loadResource("tests/parser/xquery-4.0/UnaryLookup_VarRef.txt")
             val actual = parseResource("tests/parser/xquery-4.0/UnaryLookup_VarRef.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("key specifier; VarRef; missing VarName")
+        fun varRef_missingVarName() {
+            val expected = loadResource("tests/parser/xquery-4.0/UnaryLookup_VarRef_MissingVarName.txt")
+            val actual = parseResource("tests/parser/xquery-4.0/UnaryLookup_VarRef_MissingVarName.xq")
             assertThat(actual.toPsiTreeString(), `is`(expected))
         }
     }
