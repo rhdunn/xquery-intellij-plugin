@@ -1552,15 +1552,22 @@ open class XPathParser : PsiParser {
                     havePostfixExpr = true
                     continue
                 }
-                if (parseLookup(builder, null) != null) {
-                    parseWhiteSpaceAndCommentTokens(builder)
+                when (parseLookup(builder, null)) {
+                    null -> {
+                    }
+                    TokenType.ERROR_ELEMENT -> {
+                        parseWhiteSpaceAndCommentTokens(builder)
+                        continue
+                    }
+                    else -> {
+                        parseWhiteSpaceAndCommentTokens(builder)
+                        marker.done(XPathElementType.POSTFIX_LOOKUP)
+                        marker = marker.precede()
 
-                    marker.done(XPathElementType.POSTFIX_LOOKUP)
-                    marker = marker.precede()
-
-                    // Keep PostfixExpr if there is a postfix lookup.
-                    havePostfixExpr = true
-                    continue
+                        // Keep PostfixExpr if there is a postfix lookup.
+                        havePostfixExpr = true
+                        continue
+                    }
                 }
                 if (havePostfixExpr) {
                     marker.drop()
