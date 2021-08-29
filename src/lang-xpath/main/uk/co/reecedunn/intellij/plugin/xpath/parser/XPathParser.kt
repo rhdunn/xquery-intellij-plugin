@@ -4078,7 +4078,6 @@ open class XPathParser : PsiParser {
     // endregion
     // region Lexical Structure :: Terminal Symbols :: EQName
 
-    val URI_QUALIFIED_NAME: IElementType = XPathElementType.URI_QUALIFIED_NAME
     open val BRACED_URI_LITERAL: IElementType = XPathElementType.BRACED_URI_LITERAL
 
     fun parseEQNameOrWildcard(
@@ -4112,8 +4111,8 @@ open class XPathParser : PsiParser {
                 marker.done(XPathElementType.WILDCARD)
                 XPathElementType.WILDCARD
             } else {
-                marker.done(URI_QUALIFIED_NAME)
-                URI_QUALIFIED_NAME
+                marker.done(XPathElementType.URI_QUALIFIED_NAME)
+                XPathElementType.URI_QUALIFIED_NAME
             }
         }
         marker.drop()
