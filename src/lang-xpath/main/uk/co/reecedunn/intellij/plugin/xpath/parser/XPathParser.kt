@@ -1532,53 +1532,52 @@ open class XPathParser : PsiParser {
 
             var havePostfixExpr = false
             while (true) {
-                when {
-                    parsePredicate(builder) -> {
-                        parseWhiteSpaceAndCommentTokens(builder)
+                if (parsePredicate(builder)) {
+                    parseWhiteSpaceAndCommentTokens(builder)
 
-                        marker.done(XPathElementType.FILTER_EXPR)
-                        marker = marker.precede()
+                    marker.done(XPathElementType.FILTER_EXPR)
+                    marker = marker.precede()
 
-                        // Keep PostfixExpr if there is a filter expression.
-                        havePostfixExpr = true
-                    }
-                    parsePositionalArgumentList(builder) -> {
-                        parseWhiteSpaceAndCommentTokens(builder)
-
-                        marker.done(XPathElementType.DYNAMIC_FUNCTION_CALL)
-                        marker = marker.precede()
-
-                        // Keep PostfixExpr if there is a dynamic function call.
-                        havePostfixExpr = true
-                    }
-                    parseLookup(builder, null) != null -> {
-                        parseWhiteSpaceAndCommentTokens(builder)
-
-                        marker.done(XPathElementType.POSTFIX_LOOKUP)
-                        marker = marker.precede()
-
-                        // Keep PostfixExpr if there is a postfix lookup.
-                        havePostfixExpr = true
-                    }
-                    havePostfixExpr -> {
-                        marker.drop()
-                        return true
-                    }
-                    type === XPathElementType.PATH_EXPR -> {
-                        // Keep PostfixExpr if the PrimaryExpr is in a non-initial StepExpr.
-                        marker.done(XPathElementType.POSTFIX_EXPR)
-                        return true
-                    }
-                    XPathTokenType.RELATIVE_PATH_EXPR_TOKENS.contains(builder.tokenType) -> {
-                        // Keep PostfixExpr if a StepExpr follows the PrimaryExpr (i.e. this is the first step).
-                        marker.done(XPathElementType.POSTFIX_EXPR)
-                        return true
-                    }
-                    else -> {
-                        marker.drop()
-                        return true
-                    }
+                    // Keep PostfixExpr if there is a filter expression.
+                    havePostfixExpr = true
+                    continue
                 }
+                if (parsePositionalArgumentList(builder)) {
+                    parseWhiteSpaceAndCommentTokens(builder)
+
+                    marker.done(XPathElementType.DYNAMIC_FUNCTION_CALL)
+                    marker = marker.precede()
+
+                    // Keep PostfixExpr if there is a dynamic function call.
+                    havePostfixExpr = true
+                    continue
+                }
+                if (parseLookup(builder, null) != null) {
+                    parseWhiteSpaceAndCommentTokens(builder)
+
+                    marker.done(XPathElementType.POSTFIX_LOOKUP)
+                    marker = marker.precede()
+
+                    // Keep PostfixExpr if there is a postfix lookup.
+                    havePostfixExpr = true
+                    continue
+                }
+                if (havePostfixExpr) {
+                    marker.drop()
+                    return true
+                }
+                if (type === XPathElementType.PATH_EXPR) {
+                    // Keep PostfixExpr if the PrimaryExpr is in a non-initial StepExpr.
+                    marker.done(XPathElementType.POSTFIX_EXPR)
+                    return true
+                }
+                if (XPathTokenType.RELATIVE_PATH_EXPR_TOKENS.contains(builder.tokenType)) {
+                    // Keep PostfixExpr if a StepExpr follows the PrimaryExpr (i.e. this is the first step).
+                    marker.done(XPathElementType.POSTFIX_EXPR)
+                    return true
+                }
+                marker.drop()
+                return true
             }
         }
         marker.drop()
