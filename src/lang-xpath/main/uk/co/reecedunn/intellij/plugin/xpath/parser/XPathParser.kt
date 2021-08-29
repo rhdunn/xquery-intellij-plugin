@@ -1731,7 +1731,7 @@ open class XPathParser : PsiParser {
                 whitespace.drop()
             }
 
-            if (parseContextItemFunctionExpr(builder, marker)) {
+            if (parseContextItemFunctionExpr(builder, marker) != null) {
                 // NOTE: marker is consumed by parseContextItemFunctionExpr.
             } else {
                 marker.drop()
@@ -1912,7 +1912,7 @@ open class XPathParser : PsiParser {
         return (
             parseNamedFunctionRef(builder) != null ||
             parseInlineFunctionExpr(builder) != null ||
-            parseContextItemFunctionExpr(builder, null) ||
+            parseContextItemFunctionExpr(builder, null) != null ||
             parseLambdaFunctionExpr(builder)
         )
     }
@@ -1963,7 +1963,7 @@ open class XPathParser : PsiParser {
         return marker.dropAndReturn()
     }
 
-    private fun parseContextItemFunctionExpr(builder: PsiBuilder, contextItem: PsiBuilder.Marker?): Boolean {
+    private fun parseContextItemFunctionExpr(builder: PsiBuilder, contextItem: PsiBuilder.Marker?): IElementType? {
         val marker = contextItem ?: builder.mark()
         if (contextItem != null || builder.matchTokenType(XPathTokenType.K_FN)) {
             parseWhiteSpaceAndCommentTokens(builder)
@@ -1971,17 +1971,13 @@ open class XPathParser : PsiParser {
                 if (marker !== contextItem) {
                     marker.rollbackTo()
                 }
-                return false
+                return null
             }
-
-            marker.done(XPathElementType.CONTEXT_ITEM_FUNCTION_EXPR)
-            return true
+            return marker.doneAndReturn(XPathElementType.CONTEXT_ITEM_FUNCTION_EXPR)
         } else if (parseEnclosedExprOrBlock(builder, null, BlockOpen.CONTEXT_FUNCTION, BlockExpr.REQUIRED)) {
-            marker.done(XPathElementType.CONTEXT_ITEM_FUNCTION_EXPR)
-            return true
+            return marker.doneAndReturn(XPathElementType.CONTEXT_ITEM_FUNCTION_EXPR)
         }
-        marker.drop()
-        return false
+        return marker.dropAndReturn()
     }
 
     private fun parseLambdaFunctionExpr(builder: PsiBuilder): Boolean {
