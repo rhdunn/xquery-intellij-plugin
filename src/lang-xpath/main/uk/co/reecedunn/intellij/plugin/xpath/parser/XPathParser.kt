@@ -1636,7 +1636,7 @@ open class XPathParser : PsiParser {
             parseLiteral(builder) != null ||
             parseVarOrParamRef(builder, type) != null ||
             parseParenthesizedExpr(builder) != null ||
-            parseFunctionItemExpr(builder) ||
+            parseFunctionItemExpr(builder) != null ||
             parseFunctionCall(builder) ||
             parseMapConstructor(builder) ||
             parseArrayConstructor(builder) ||
@@ -1907,14 +1907,13 @@ open class XPathParser : PsiParser {
     // endregion
     // region Grammar :: Expr :: TernaryConditionalExpr :: PrimaryExpr :: FunctionItemExpr
 
-    @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
-    private fun parseFunctionItemExpr(builder: PsiBuilder): Boolean {
-        return (
-            parseNamedFunctionRef(builder) != null ||
-            parseInlineFunctionExpr(builder) != null ||
-            parseContextItemFunctionExpr(builder, null) != null ||
-            parseLambdaFunctionExpr(builder) != null
-        )
+    private fun parseFunctionItemExpr(builder: PsiBuilder): IElementType? {
+        var ret: IElementType? = null
+        ret = ret ?: parseNamedFunctionRef(builder)
+        ret = ret ?: parseInlineFunctionExpr(builder)
+        ret = ret ?: parseContextItemFunctionExpr(builder, null)
+        ret = ret ?: parseLambdaFunctionExpr(builder)
+        return ret
     }
 
     private fun parseNamedFunctionRef(builder: PsiBuilder): IElementType? {
