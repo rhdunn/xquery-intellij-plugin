@@ -22,6 +22,7 @@ import com.intellij.psi.TokenType
 import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.lang.*
+import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.INCNameType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
@@ -32,13 +33,9 @@ import uk.co.reecedunn.intellij.plugin.xpath.resources.XPathBundle
  */
 @Suppress("PropertyName", "PrivatePropertyName")
 open class XPathParser : PsiParser {
-    // region XPath/XQuery Element Types
-    //
-    // These element types have different PSI implementations in XPath and XQuery.
-
-    open val EXPR: IElementType = XPathElementType.EXPR
-
-    // endregion
+    companion object {
+        private val KEY_SPECIFIER = IElementType("XPATH_KEY_SPECIFIER", XPath)
+    }
     // region PsiParser
 
     override fun parse(root: IElementType, builder: PsiBuilder): ASTNode {
@@ -155,6 +152,8 @@ open class XPathParser : PsiParser {
 
     // endregion
     // region Grammar :: Expr
+
+    open val EXPR: IElementType = XPathElementType.EXPR
 
     open fun parseExpr(builder: PsiBuilder, type: IElementType?, functionDeclRecovery: Boolean = false): Boolean {
         val marker = builder.mark()
@@ -1741,7 +1740,7 @@ open class XPathParser : PsiParser {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.OPTIONAL)
         if (marker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseKeySpecifier(builder)) {
+            if (parseKeySpecifier(builder) == null) {
                 if (type === XPathElementType.UNARY_LOOKUP) {
                     // NOTE: This conflicts with '?' used as an ArgumentPlaceholder, so don't match '?' only as UnaryLookup.
                     marker.rollbackTo()
@@ -1761,13 +1760,17 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    private fun parseKeySpecifier(builder: PsiBuilder): Boolean = when {
-        builder.matchTokenType(XPathTokenType.STAR) -> true
-        builder.matchTokenType(XPathTokenType.INTEGER_LITERAL) -> true
-        this.parseEQNameOrWildcard(builder, XPathElementType.NCNAME, false) != null -> true
-        parseStringLiteral(builder) -> true
-        parseParenthesizedExpr(builder) -> true
-        else -> parseVarOrParamRef(builder, null) != null
+    private fun parseKeySpecifier(builder: PsiBuilder): IElementType? = when {
+        builder.matchTokenType(XPathTokenType.STAR) -> KEY_SPECIFIER
+        builder.matchTokenType(XPathTokenType.INTEGER_LITERAL) -> KEY_SPECIFIER
+        this.parseEQNameOrWildcard(builder, XPathElementType.NCNAME, false) != null -> KEY_SPECIFIER
+        parseStringLiteral(builder) -> KEY_SPECIFIER
+        parseParenthesizedExpr(builder) -> KEY_SPECIFIER
+        else -> when (parseVarOrParamRef(builder, null)) {
+            null -> null
+            TokenType.ERROR_ELEMENT -> TokenType.ERROR_ELEMENT
+            else -> KEY_SPECIFIER
+        }
     }
 
     // endregion

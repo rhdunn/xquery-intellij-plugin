@@ -53,13 +53,6 @@ import uk.co.reecedunn.intellij.plugin.xquery.resources.XQueryBundle
  */
 @Suppress("FunctionName")
 class XQueryParser : XPathParser() {
-    // region XPath/XQuery Element Types
-    //
-    // These element types have different PSI implementations in XPath and XQuery.
-
-    override val EXPR: IElementType = XQueryElementType.CONCAT_EXPR
-
-    // endregion
     // region Grammar
 
     override fun parse(builder: PsiBuilder, isFirst: Boolean): Boolean = parseTransactions(builder, isFirst)
@@ -1364,6 +1357,8 @@ class XQueryParser : XPathParser() {
 
     // endregion
     // region Grammar :: Expr
+
+    override val EXPR: IElementType = XQueryElementType.CONCAT_EXPR
 
     enum class HaveConcatExpr {
         None,
