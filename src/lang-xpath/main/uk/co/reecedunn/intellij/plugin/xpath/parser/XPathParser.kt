@@ -1200,7 +1200,7 @@ open class XPathParser : PsiParser {
         val elementType = when {
             this.parseEQNameOrWildcard(builder, XPathElementType.QNAME, false) != null ->
                 XPathElementType.ARROW_FUNCTION_CALL
-            parseVarOrParamRef(builder, null) -> XPathElementType.ARROW_DYNAMIC_FUNCTION_CALL
+            parseVarOrParamRef(builder, null) != null -> XPathElementType.ARROW_DYNAMIC_FUNCTION_CALL
             parseParenthesizedExpr(builder) -> XPathElementType.ARROW_DYNAMIC_FUNCTION_CALL
             builder.tokenType === XPathTokenType.BLOCK_OPEN -> {
                 if (targetType === XPathTokenType.ARROW) {
@@ -1629,7 +1629,7 @@ open class XPathParser : PsiParser {
     open fun parsePrimaryExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         return (
             parseLiteral(builder) ||
-            parseVarOrParamRef(builder, type) ||
+            parseVarOrParamRef(builder, type) != null ||
             parseParenthesizedExpr(builder) ||
             parseFunctionItemExpr(builder) ||
             parseFunctionCall(builder) ||
@@ -1678,9 +1678,8 @@ open class XPathParser : PsiParser {
         return true
     }
 
-    fun parseVarOrParamRef(builder: PsiBuilder, type: IElementType?): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.VARIABLE_INDICATOR)
-        if (marker != null) {
+    fun parseVarOrParamRef(builder: PsiBuilder, type: IElementType?): IElementType? {
+        return builder.matchTokenTypeWithMarker(XPathTokenType.VARIABLE_INDICATOR) { marker ->
             parseWhiteSpaceAndCommentTokens(builder)
             val eqnameType = this.parseEQNameOrWildcard(
                 builder, XPathElementType.VAR_REF,
@@ -1689,14 +1688,12 @@ open class XPathParser : PsiParser {
             when (eqnameType) {
                 null -> {
                     builder.error(XPathBundle.message("parser.error.expected-eqname"))
-                    marker.drop()
+                    marker.dropAndReturn(TokenType.ERROR_ELEMENT)
                 }
-                XPathElementType.PARAM_REF -> marker.done(XPathElementType.PARAM_REF)
-                else -> marker.done(XPathElementType.VAR_REF)
+                XPathElementType.PARAM_REF -> marker.doneAndReturn(XPathElementType.PARAM_REF)
+                else -> marker.doneAndReturn(XPathElementType.VAR_REF)
             }
-            return true
         }
-        return false
     }
 
     private fun parseParenthesizedExpr(builder: PsiBuilder): Boolean {
@@ -1769,9 +1766,8 @@ open class XPathParser : PsiParser {
         builder.matchTokenType(XPathTokenType.INTEGER_LITERAL) -> true
         this.parseEQNameOrWildcard(builder, XPathElementType.NCNAME, false) != null -> true
         parseStringLiteral(builder) -> true
-        parseVarOrParamRef(builder, null) -> true
         parseParenthesizedExpr(builder) -> true
-        else -> false
+        else -> parseVarOrParamRef(builder, null) != null
     }
 
     // endregion
