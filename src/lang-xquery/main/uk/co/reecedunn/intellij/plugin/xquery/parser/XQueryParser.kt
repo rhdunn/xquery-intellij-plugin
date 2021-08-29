@@ -18,6 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.parser
 import com.intellij.lang.PsiBuilder
 import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.TokenSet
+import uk.co.reecedunn.intellij.plugin.core.lang.doneAndReturn
 import uk.co.reecedunn.intellij.plugin.core.lang.errorOnTokenType
 import uk.co.reecedunn.intellij.plugin.core.lang.matchTokenType
 import uk.co.reecedunn.intellij.plugin.core.lang.matchTokenTypeWithMarker
@@ -1567,14 +1568,9 @@ class XQueryParser : XPathParser() {
             parseWhiteSpaceAndCommentTokens(builder)
             val forClauseType = parseForClause(builder)
             return when {
-                forClauseType != null -> {
-                    marker.done(forClauseType)
-                    forClauseType
-                }
-                parseTumblingWindowClause(builder) || parseSlidingWindowClause(builder) -> {
-                    marker.done(XQueryElementType.WINDOW_CLAUSE)
-                    XQueryElementType.WINDOW_CLAUSE
-                }
+                forClauseType != null -> marker.doneAndReturn(forClauseType)
+                parseTumblingWindowClause(builder) -> marker.doneAndReturn(XQueryElementType.WINDOW_CLAUSE)
+                parseSlidingWindowClause(builder) -> marker.doneAndReturn(XQueryElementType.WINDOW_CLAUSE)
                 else -> {
                     marker.rollbackTo()
                     null

@@ -21,6 +21,7 @@ import com.intellij.lang.PsiParser
 import com.intellij.psi.TokenType
 import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.TokenSet
+import uk.co.reecedunn.intellij.plugin.core.lang.doneAndReturn
 import uk.co.reecedunn.intellij.plugin.core.lang.errorOnTokenType
 import uk.co.reecedunn.intellij.plugin.core.lang.matchTokenType
 import uk.co.reecedunn.intellij.plugin.core.lang.matchTokenTypeWithMarker
@@ -342,10 +343,7 @@ open class XPathParser : PsiParser {
         if (marker != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             return when {
-                parseSimpleForClause(builder) -> {
-                    marker.done(XPathElementType.SIMPLE_FOR_CLAUSE)
-                    XPathElementType.SIMPLE_FOR_CLAUSE
-                }
+                parseSimpleForClause(builder) -> marker.doneAndReturn(XPathElementType.SIMPLE_FOR_CLAUSE)
                 else -> {
                     marker.rollbackTo()
                     null
@@ -1520,16 +1518,13 @@ open class XPathParser : PsiParser {
                     XPathElementType.AXIS_STEP
                 } else {
                     parseNCName(builder) // QName written with '::' instead of ':'.
-
-                    marker.done(XPathElementType.NAME_TEST)
-                    XPathElementType.NAME_TEST
+                    marker.doneAndReturn(XPathElementType.NAME_TEST)
                 }
             } else if (isElementOrAttributeTest) {
                 marker.drop()
                 return XPathElementType.NAME_TEST
             } else {
-                marker.done(XPathElementType.NAME_TEST)
-                return XPathElementType.NAME_TEST
+                return marker.doneAndReturn(XPathElementType.NAME_TEST)
             }
         }
         marker.drop()
@@ -1898,10 +1893,7 @@ open class XPathParser : PsiParser {
         }
 
         return when {
-            keywordArgument != null -> {
-                keywordArgument.done(XPathElementType.KEYWORD_ARGUMENT)
-                return XPathElementType.KEYWORD_ARGUMENT
-            }
+            keywordArgument != null -> keywordArgument.doneAndReturn(XPathElementType.KEYWORD_ARGUMENT)
             prevArgumentType === XPathElementType.KEYWORD_ARGUMENT -> XPathElementType.KEYWORD_ARGUMENT
             else -> argumentType
         }
@@ -4108,11 +4100,9 @@ open class XPathParser : PsiParser {
         if (parseBracedURILiteral(builder)) {
             val localName = parseQNameNCName(builder, QNamePart.URIQualifiedLiteralLocalName, type, false)
             return if (type === XPathElementType.WILDCARD && localName === XPathTokenType.STAR) {
-                marker.done(XPathElementType.WILDCARD)
-                XPathElementType.WILDCARD
+                marker.doneAndReturn(XPathElementType.WILDCARD)
             } else {
-                marker.done(XPathElementType.URI_QUALIFIED_NAME)
-                XPathElementType.URI_QUALIFIED_NAME
+                marker.doneAndReturn(XPathElementType.URI_QUALIFIED_NAME)
             }
         }
         marker.drop()
@@ -4180,8 +4170,7 @@ open class XPathParser : PsiParser {
                 if (parseWhiteSpaceAndCommentTokens(builder) && endQNameOnSpace) {
                     nameMarker.rollbackTo()
                     return if (type === XPathElementType.WILDCARD && prefix === XPathTokenType.STAR) {
-                        marker.done(XPathElementType.WILDCARD)
-                        XPathElementType.WILDCARD
+                        marker.doneAndReturn(XPathElementType.WILDCARD)
                     } else {
                         marker.done(XPathElementType.NCNAME)
                         prefix

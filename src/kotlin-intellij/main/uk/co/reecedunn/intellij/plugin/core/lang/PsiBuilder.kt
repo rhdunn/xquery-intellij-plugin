@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018 Reece H. Dunn
+ * Copyright (C) 2016-2019, 2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -71,4 +71,9 @@ fun PsiBuilder.errorOnTokenType(type: TokenSet, message: String): Boolean {
         return true
     }
     return false
+}
+
+fun PsiBuilder.Marker.doneAndReturn(type: IElementType): IElementType {
+    done(type)
+    return type
 }
