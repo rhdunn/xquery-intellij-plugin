@@ -1640,7 +1640,7 @@ open class XPathParser : PsiParser {
             parseFunctionCall(builder) ||
             parseMapConstructor(builder) ||
             parseArrayConstructor(builder) ||
-            parseContextItemExpr(builder) ||
+            parseContextItemExpr(builder) != null ||
             parseLookup(builder, XPathElementType.UNARY_LOOKUP) != null
         )
     }
@@ -1720,9 +1720,8 @@ open class XPathParser : PsiParser {
         }
     }
 
-    private fun parseContextItemExpr(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.DOT)
-        if (marker != null) {
+    private fun parseContextItemExpr(builder: PsiBuilder): IElementType? {
+        return builder.matchTokenTypeWithMarker(XPathTokenType.DOT) { marker ->
             val whitespace = builder.mark()
             val haveWhitespace = parseWhiteSpaceAndCommentTokens(builder)
             if (builder.tokenType === XPathTokenType.BLOCK_OPEN && haveWhitespace) {
@@ -1731,14 +1730,11 @@ open class XPathParser : PsiParser {
                 whitespace.drop()
             }
 
-            if (parseContextItemFunctionExpr(builder, marker) != null) {
-                // NOTE: marker is consumed by parseContextItemFunctionExpr.
-            } else {
-                marker.drop()
+            when (val ret = parseContextItemFunctionExpr(builder, marker)) {
+                null -> marker.dropAndReturn(XPathTokenType.DOT)
+                else -> ret // NOTE: marker is consumed by parseContextItemFunctionExpr.
             }
-            return true
         }
-        return false
     }
 
     private fun parseLookup(builder: PsiBuilder, type: IElementType?): IElementType? {
