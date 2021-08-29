@@ -474,6 +474,27 @@ class XQueryFoldingTest : ParserTestCase() {
         }
 
         @Test
+        @DisplayName("single expressions ; multiple lines ; whitespace in element")
+        fun single_multipleLines_whitespaceInElement() {
+            val file = parseResource("tests/folding/DirElemContent/Single_MultiLine_WhitespaceInElement.xq")
+
+            val descriptors = buildFoldRegions(file)
+            assertThat(descriptors, `is`(notNullValue()))
+            assertThat(descriptors.size, `is`(1))
+
+            assertThat(descriptors[0].canBeRemovedWhenCollapsed(), `is`(false))
+            assertThat(descriptors[0].dependencies, `is`(notNullValue()))
+            assertThat(descriptors[0].dependencies.size, `is`(0))
+            assertThat(descriptors[0].group, `is`(nullValue()))
+            assertThat(descriptors[0].element.elementType, `is`(XQueryElementType.DIR_ELEM_CONSTRUCTOR))
+            assertThat(descriptors[0].range.startOffset, `is`(8))
+            assertThat(descriptors[0].range.endOffset, `is`(21))
+
+            assertThat(getPlaceholderText(descriptors[0]), `is`("{...}"))
+            assertThat(isCollapsedByDefault(descriptors[0]), `is`(false))
+        }
+
+        @Test
         @DisplayName("multiple expressions ; single line")
         fun multiple_singleLine() {
             val file = parseResource("tests/folding/DirElemContent/Multiple_SingleLine.xq")

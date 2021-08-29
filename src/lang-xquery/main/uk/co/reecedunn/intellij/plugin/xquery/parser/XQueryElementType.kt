@@ -18,7 +18,9 @@ package uk.co.reecedunn.intellij.plugin.xquery.parser
 import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.IFileElementType
 import uk.co.reecedunn.intellij.plugin.core.psi.IASTWrapperElementType
+import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath
+import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
 import uk.co.reecedunn.intellij.plugin.xquery.lang.XQuery
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.full.text.FTOptionDeclPsiImpl
 import uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin.*
@@ -651,6 +653,11 @@ object XQueryElementType {
     val USING_DECL: IElementType = IASTWrapperElementType("XQUERY_USING_DECL", XQuery) { node ->
         PluginUsingDeclPsiImpl(node)
     }
+
+    // endregion
+    // region Token Sets
+
+    val XML_NAME = TokenSet.create(XPathElementType.NCNAME, XPathElementType.QNAME)
 
     // endregion
 }

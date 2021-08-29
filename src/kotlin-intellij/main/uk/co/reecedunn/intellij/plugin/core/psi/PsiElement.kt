@@ -86,3 +86,8 @@ fun PsiElement.toPsiTreeString(): String {
     prettyPrintASTNode(prettyPrinted, node, 0)
     return prettyPrinted.toString()
 }
+
+fun PsiElement.nextSiblingIfSelf(predicate: (PsiElement) -> Boolean): PsiElement = when {
+    predicate(this) -> nextSibling ?: this
+    else -> this
+}

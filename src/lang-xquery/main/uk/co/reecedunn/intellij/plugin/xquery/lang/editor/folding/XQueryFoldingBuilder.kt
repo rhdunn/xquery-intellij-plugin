@@ -21,8 +21,10 @@ import com.intellij.lang.folding.FoldingDescriptor
 import com.intellij.openapi.editor.Document
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
+import com.intellij.psi.TokenType
 import com.intellij.psi.tree.TokenSet
 import com.intellij.psi.util.elementType
+import uk.co.reecedunn.intellij.plugin.core.psi.nextSiblingIfSelf
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginContextItemFunctionExpr
@@ -119,23 +121,16 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
     }
 
     private fun getDirElemConstructorFoldingRange(element: PsiElement): TextRange? {
-        var start: PsiElement? = element.firstChild
-        if (start!!.elementType === XQueryTokenType.OPEN_XML_TAG)
-            start = start!!.nextSibling
-        if (start!!.elementType === XQueryTokenType.XML_WHITE_SPACE)
-            start = start!!.nextSibling
-        if (
-            start!!.elementType === XPathElementType.NCNAME ||
-            start!!.elementType === XPathElementType.QNAME
-        )
-            start = start!!.nextSibling
-        if (start?.elementType === XQueryTokenType.XML_WHITE_SPACE)
-            start = start.nextSibling
+        var start: PsiElement = element.firstChild
+        start = start.nextSiblingIfSelf { it.elementType === XQueryTokenType.OPEN_XML_TAG }
+        start = start.nextSiblingIfSelf { it.elementType === TokenType.ERROR_ELEMENT } // whitespace
+        start = start.nextSiblingIfSelf { it.elementType in XQueryElementType.XML_NAME }
+        start = start.nextSiblingIfSelf { it.elementType === XQueryTokenType.XML_WHITE_SPACE }
 
         val dirAttributeList = parseDirAttributeList(start)
         val hasMultiLineAttributes = dirAttributeList.first
         if (!hasMultiLineAttributes) {
-            start = dirAttributeList.second
+            start = dirAttributeList.second ?: return null
         }
 
         val end = element.lastChild
@@ -150,7 +145,6 @@ class XQueryFoldingBuilder : FoldingBuilderEx() {
             }
 
         return when {
-            start == null -> null
             !hasMultiLineText(element) && !hasMultiLineAttributes -> null
             else -> TextRange(start.textRange.startOffset, endOffset)
         }
