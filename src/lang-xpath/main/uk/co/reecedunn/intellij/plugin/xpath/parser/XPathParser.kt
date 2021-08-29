@@ -1739,8 +1739,9 @@ open class XPathParser : PsiParser {
     private fun parseLookup(builder: PsiBuilder, type: IElementType?): IElementType? {
         return builder.matchTokenTypeWithMarker(XPathTokenType.OPTIONAL) { marker ->
             parseWhiteSpaceAndCommentTokens(builder)
+            val keySpecifier = parseKeySpecifier(builder)
             when {
-                parseKeySpecifier(builder) == null -> when (type) {
+                keySpecifier == null -> when (type) {
                     // NOTE: This conflicts with '?' used as an ArgumentPlaceholder, so don't match '?' only as UnaryLookup.
                     XPathElementType.UNARY_LOOKUP -> marker.rollbackToAndReturn()
                     else -> {
@@ -1748,6 +1749,7 @@ open class XPathParser : PsiParser {
                         marker.dropAndReturn()
                     }
                 }
+                keySpecifier === TokenType.ERROR_ELEMENT -> marker.dropAndReturn(keySpecifier)
                 type != null -> marker.doneAndReturn(type)
                 else -> marker.dropAndReturn(XPathElementType.POSTFIX_LOOKUP)
             }
