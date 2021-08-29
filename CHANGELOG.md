@@ -13,6 +13,10 @@ Code Folding:
 1. Add code folding for XQuery string interpolations.
 2. Add code folding for Full Text, Updating, Scripting, and vendor extension expressions containing braces (`{...}`).
 
+Syntax Highlighting:
+
+1. Highlight `=` in XML attributes as attribute values to match IntelliJ's highlighting behaviour.
+
 References and Resolving:
 
 1. Fix resolving elements to `xmlns` nodes where the namespace URI is not also bound to a prefix.

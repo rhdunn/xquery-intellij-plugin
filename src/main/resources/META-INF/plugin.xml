@@ -85,6 +85,10 @@
         (<code>{...}</code>).
       </li>
     </ol>
+    <p>Syntax Highlighting:</p>
+    <ol>
+      <il>Highlight <code>=</code> in XML attributes as attribute values to match IntelliJ's highlighting behaviour.</li>
+    </ol>
     <p>References and Resolving:</p>
     <ol>
       <li>Fix resolving elements to <code>xmlns</code> nodes where the namespace URI is not also bound to a prefix.</li>

@@ -184,7 +184,7 @@ object XQuerySyntaxHighlighter : SyntaxHighlighterBase() {
         XQueryTokenType.XML_WHITE_SPACE to XML_TAG_KEYS,
         XQueryTokenType.XML_TAG_NCNAME to XML_TAG_NAME_KEYS,
         XQueryTokenType.XML_TAG_QNAME_SEPARATOR to XML_TAG_NAME_KEYS,
-        XQueryTokenType.XML_EQUAL to XML_ATTRIBUTE_NAME_KEYS,
+        XQueryTokenType.XML_EQUAL to XML_ATTRIBUTE_VALUE_KEYS,
         XQueryTokenType.XML_ATTRIBUTE_NCNAME to XML_ATTRIBUTE_NAME_KEYS,
         XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR to XML_ATTRIBUTE_NAME_KEYS,
         XQueryTokenType.XML_ATTRIBUTE_VALUE_START to XML_ATTRIBUTE_VALUE_KEYS,

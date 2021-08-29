@@ -892,16 +892,16 @@ class XQuerySyntaxHighlighterTest {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR).size, `is`(2))
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR)[0], `is`(XQuerySyntaxHighlighterColors.XML_TAG))
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR)[1], `is`(XQuerySyntaxHighlighterColors.XML_ATTRIBUTE_NAME))
-
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_EQUAL).size, `is`(2))
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_EQUAL)[0], `is`(XQuerySyntaxHighlighterColors.XML_TAG))
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_EQUAL)[1], `is`(XQuerySyntaxHighlighterColors.XML_ATTRIBUTE_NAME))
     }
 
     @Test
     @DisplayName("xml attribute value")
     fun testTokenHighlights_XmlAttributeValue() {
         val highlighter = XQuerySyntaxHighlighter
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_EQUAL).size, `is`(2))
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_EQUAL)[0], `is`(XQuerySyntaxHighlighterColors.XML_TAG))
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_EQUAL)[1], `is`(XQuerySyntaxHighlighterColors.XML_ATTRIBUTE_VALUE))
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_ATTRIBUTE_VALUE_START).size, `is`(2))
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_ATTRIBUTE_VALUE_START)[0], `is`(XQuerySyntaxHighlighterColors.XML_TAG))
