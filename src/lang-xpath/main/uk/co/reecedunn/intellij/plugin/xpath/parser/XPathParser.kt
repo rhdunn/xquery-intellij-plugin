@@ -274,7 +274,7 @@ open class XPathParser : PsiParser {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseStringLiteral(builder, URI_LITERAL)) {
+            if (parseStringLiteral(builder, URI_LITERAL) == null) {
                 builder.error(XPathBundle.message("parser.error.expected", "URILiteral"))
                 marker.drop()
             } else {
@@ -1655,7 +1655,7 @@ open class XPathParser : PsiParser {
             }
             return true
         }
-        return parseStringLiteral(builder)
+        return parseStringLiteral(builder) != null
     }
 
     private fun parseNumericLiteral(builder: PsiBuilder): IElementType? {
@@ -1767,7 +1767,7 @@ open class XPathParser : PsiParser {
         builder.matchTokenType(XPathTokenType.STAR) -> KEY_SPECIFIER
         builder.matchTokenType(XPathTokenType.INTEGER_LITERAL) -> KEY_SPECIFIER
         this.parseEQNameOrWildcard(builder, XPathElementType.NCNAME, false) != null -> KEY_SPECIFIER
-        parseStringLiteral(builder) -> KEY_SPECIFIER
+        parseStringLiteral(builder) != null -> KEY_SPECIFIER
         parseParenthesizedExpr(builder) -> KEY_SPECIFIER
         else -> when (parseVarOrParamRef(builder, null)) {
             null -> null
@@ -2426,7 +2426,7 @@ open class XPathParser : PsiParser {
 
     private fun parseFTWordsValue(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
-        if (parseStringLiteral(builder)) {
+        if (parseStringLiteral(builder) != null) {
             marker.done(XPathElementType.FT_WORDS_VALUE)
             return true
         } else if (builder.matchTokenType(XPathTokenType.BLOCK_OPEN)) {
@@ -2929,7 +2929,7 @@ open class XPathParser : PsiParser {
             var haveError = false
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseStringLiteral(builder, URI_LITERAL)) {
+            if (parseStringLiteral(builder, URI_LITERAL) == null) {
                 builder.error(XPathBundle.message("parser.error.expected", "URILiteral"))
                 haveError = true
             }
@@ -2937,7 +2937,7 @@ open class XPathParser : PsiParser {
             parseWhiteSpaceAndCommentTokens(builder)
             if (builder.matchTokenType(XPathTokenType.K_RELATIONSHIP)) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseStringLiteral(builder) && !haveError) {
+                if (parseStringLiteral(builder) == null && !haveError) {
                     builder.error(XPathBundle.message("parser.error.expected", "StringLiteral"))
                     haveError = true
                 }
@@ -2984,7 +2984,7 @@ open class XPathParser : PsiParser {
             builder.advanceLexer()
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseStringLiteral(builder, URI_LITERAL)) {
+            if (parseStringLiteral(builder, URI_LITERAL) == null) {
                 builder.error(XPathBundle.message("parser.error.expected", "URILiteral"))
             }
 
@@ -2997,7 +2997,7 @@ open class XPathParser : PsiParser {
             var haveError = false
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseStringLiteral(builder)) {
+            if (parseStringLiteral(builder) == null) {
                 builder.error(XPathBundle.message("parser.error.expected", "StringLiteral"))
                 haveError = true
             }
@@ -3005,7 +3005,7 @@ open class XPathParser : PsiParser {
             parseWhiteSpaceAndCommentTokens(builder)
             while (builder.matchTokenType(XPathTokenType.COMMA)) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseStringLiteral(builder) && !haveError) {
+                if (parseStringLiteral(builder) == null && !haveError) {
                     builder.error(XPathBundle.message("parser.error.expected", "StringLiteral"))
                     haveError = true
                 }
@@ -3041,7 +3041,7 @@ open class XPathParser : PsiParser {
     fun parseFTLanguageOption(builder: PsiBuilder, marker: PsiBuilder.Marker): Boolean {
         if (builder.matchTokenType(XPathTokenType.K_LANGUAGE)) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseStringLiteral(builder)) {
+            if (parseStringLiteral(builder) == null) {
                 builder.error(XPathBundle.message("parser.error.expected", "StringLiteral"))
             }
 
@@ -3070,7 +3070,7 @@ open class XPathParser : PsiParser {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseStringLiteral(builder) && !haveErrors) {
+            if (parseStringLiteral(builder) == null && !haveErrors) {
                 builder.error(XPathBundle.message("parser.error.expected", "StringLiteral"))
             }
 
@@ -3448,7 +3448,7 @@ open class XPathParser : PsiParser {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseStringLiteral(builder)) {
+            if (parseStringLiteral(builder) == null) {
                 builder.error(XPathBundle.message("parser.error.expected", "StringLiteral"))
                 haveError = true
             }
@@ -3456,7 +3456,7 @@ open class XPathParser : PsiParser {
             parseWhiteSpaceAndCommentTokens(builder)
             while (builder.matchTokenType(XPathTokenType.COMMA)) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseStringLiteral(builder) && !haveError) {
+                if (parseStringLiteral(builder) == null && !haveError) {
                     builder.error(XPathBundle.message("parser.error.expected", "StringLiteral"))
                     haveError = true
                 }
@@ -3675,7 +3675,9 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    private fun parseFieldName(builder: PsiBuilder): Boolean = parseNCName(builder) || parseStringLiteral(builder)
+    private fun parseFieldName(builder: PsiBuilder): Boolean {
+        return parseNCName(builder) || parseStringLiteral(builder) != null
+    }
 
     private fun parseSelfReference(builder: PsiBuilder): Boolean {
         val marker = builder.matchTokenTypeWithMarker(XPathTokenType.PARENT_SELECTOR)
@@ -3828,7 +3830,7 @@ open class XPathParser : PsiParser {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            parseQNameOrWildcard(builder, XPathElementType.NCNAME) != null || parseStringLiteral(builder)
+            parseQNameOrWildcard(builder, XPathElementType.NCNAME) != null || parseStringLiteral(builder) != null
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_CLOSE)) {
@@ -3997,26 +3999,25 @@ open class XPathParser : PsiParser {
 
     open val COMMENT: IElementType = XPathElementType.COMMENT
 
-    fun parseStringLiteral(builder: PsiBuilder): Boolean = parseStringLiteral(builder, XPathElementType.STRING_LITERAL)
+    fun parseStringLiteral(builder: PsiBuilder): IElementType? {
+        return parseStringLiteral(builder, XPathElementType.STRING_LITERAL)
+    }
 
-    open fun parseStringLiteral(builder: PsiBuilder, type: IElementType): Boolean {
+    open fun parseStringLiteral(builder: PsiBuilder, type: IElementType): IElementType? {
         val stringMarker = builder.matchTokenTypeWithMarker(XPathTokenType.STRING_LITERAL_START)
-        while (stringMarker != null) {
-            return if (
-                builder.matchTokenType(XPathTokenType.STRING_LITERAL_CONTENTS) ||
-                builder.matchTokenType(XPathTokenType.ESCAPED_CHARACTER)
-            ) {
-                continue
-            } else if (builder.matchTokenType(XPathTokenType.STRING_LITERAL_END)) {
-                stringMarker.done(type)
-                true
-            } else {
-                stringMarker.done(type)
-                builder.error(XPathBundle.message("parser.error.incomplete-string"))
-                true
+        tokens@while (stringMarker != null) {
+            return when {
+                builder.matchTokenType(XPathTokenType.STRING_LITERAL_CONTENTS) -> continue@tokens
+                builder.matchTokenType(XPathTokenType.ESCAPED_CHARACTER) -> continue@tokens
+                builder.matchTokenType(XPathTokenType.STRING_LITERAL_END) -> stringMarker.doneAndReturn(type)
+                else -> {
+                    stringMarker.done(type)
+                    builder.error(XPathBundle.message("parser.error.incomplete-string"))
+                    type
+                }
             }
         }
-        return false
+        return null
     }
 
     open fun parseComment(builder: PsiBuilder): Boolean {
