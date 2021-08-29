@@ -1200,7 +1200,7 @@ open class XPathParser : PsiParser {
             this.parseEQNameOrWildcard(builder, XPathElementType.QNAME, false) != null ->
                 XPathElementType.ARROW_FUNCTION_CALL
             parseVarOrParamRef(builder, null) != null -> XPathElementType.ARROW_DYNAMIC_FUNCTION_CALL
-            parseParenthesizedExpr(builder) -> XPathElementType.ARROW_DYNAMIC_FUNCTION_CALL
+            parseParenthesizedExpr(builder) != null -> XPathElementType.ARROW_DYNAMIC_FUNCTION_CALL
             builder.tokenType === XPathTokenType.BLOCK_OPEN -> {
                 if (targetType === XPathTokenType.ARROW) {
                     builder.error(XPathBundle.message("parser.error.enclosed-expr-on-fat-arrow-target"))
@@ -1635,7 +1635,7 @@ open class XPathParser : PsiParser {
         return (
             parseLiteral(builder) != null ||
             parseVarOrParamRef(builder, type) != null ||
-            parseParenthesizedExpr(builder) ||
+            parseParenthesizedExpr(builder) != null ||
             parseFunctionItemExpr(builder) ||
             parseFunctionCall(builder) ||
             parseMapConstructor(builder) ||
@@ -1703,9 +1703,8 @@ open class XPathParser : PsiParser {
         }
     }
 
-    private fun parseParenthesizedExpr(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.PARENTHESIS_OPEN)
-        if (marker != null) {
+    private fun parseParenthesizedExpr(builder: PsiBuilder): IElementType? {
+        return builder.matchTokenTypeWithMarker(XPathTokenType.PARENTHESIS_OPEN) { marker ->
             parseWhiteSpaceAndCommentTokens(builder)
             val haveExpr = parseExpr(builder, EXPR)
 
@@ -1714,13 +1713,11 @@ open class XPathParser : PsiParser {
                 builder.error(XPathBundle.message("parser.error.expected", ")"))
             }
 
-            if (haveExpr)
-                marker.drop()
-            else
-                marker.done(XPathElementType.EMPTY_EXPR)
-            return true
+            when {
+                haveExpr -> marker.dropAndReturn(XPathElementType.EXPR)
+                else -> marker.doneAndReturn(XPathElementType.EMPTY_EXPR)
+            }
         }
-        return false
     }
 
     private fun parseContextItemExpr(builder: PsiBuilder): Boolean {
@@ -1769,7 +1766,7 @@ open class XPathParser : PsiParser {
         builder.matchTokenType(XPathTokenType.INTEGER_LITERAL) -> KEY_SPECIFIER
         this.parseEQNameOrWildcard(builder, XPathElementType.NCNAME, false) != null -> KEY_SPECIFIER
         parseStringLiteral(builder) != null -> KEY_SPECIFIER
-        parseParenthesizedExpr(builder) -> KEY_SPECIFIER
+        parseParenthesizedExpr(builder) != null -> KEY_SPECIFIER
         else -> when (parseVarOrParamRef(builder, null)) {
             null -> null
             TokenType.ERROR_ELEMENT -> TokenType.ERROR_ELEMENT
