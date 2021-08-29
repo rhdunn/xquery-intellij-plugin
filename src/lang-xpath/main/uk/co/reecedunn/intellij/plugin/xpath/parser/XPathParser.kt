@@ -1646,7 +1646,7 @@ open class XPathParser : PsiParser {
     }
 
     fun parseLiteral(builder: PsiBuilder): Boolean {
-        if (parseNumericLiteral(builder)) {
+        if (parseNumericLiteral(builder) != null) {
             if (
                 builder.tokenType is IKeywordOrNCNameType ||
                 builder.tokenType === XPathTokenType.BRACED_URI_LITERAL_START
@@ -1658,29 +1658,30 @@ open class XPathParser : PsiParser {
         return parseStringLiteral(builder)
     }
 
-    private fun parseNumericLiteral(builder: PsiBuilder): Boolean {
-        when {
+    private fun parseNumericLiteral(builder: PsiBuilder): IElementType? {
+        val ret = when {
             builder.matchTokenType(XPathTokenType.INTEGER_LITERAL) -> {
                 builder.errorOnTokenType(
                     XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT,
                     XPathBundle.message("parser.error.incomplete-double-exponent")
                 )
+                XPathTokenType.INTEGER_LITERAL
             }
-            builder.matchTokenType(XPathTokenType.DOUBLE_LITERAL) -> {
-            }
+            builder.matchTokenType(XPathTokenType.DOUBLE_LITERAL) -> XPathTokenType.DOUBLE_LITERAL
             builder.matchTokenType(XPathTokenType.DECIMAL_LITERAL) -> {
                 builder.errorOnTokenType(
                     XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT,
                     XPathBundle.message("parser.error.incomplete-double-exponent")
                 )
+                XPathTokenType.DECIMAL_LITERAL
             }
-            else -> return false
+            else -> return null
         }
         builder.errorOnTokenType(
             XPathTokenType.NCNAME,
             XPathBundle.message("parser.error.ncname-following-number")
         )
-        return true
+        return ret
     }
 
     fun parseVarOrParamRef(builder: PsiBuilder, type: IElementType?): IElementType? {
