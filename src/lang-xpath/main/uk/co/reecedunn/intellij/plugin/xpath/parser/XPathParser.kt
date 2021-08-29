@@ -1913,7 +1913,7 @@ open class XPathParser : PsiParser {
             parseNamedFunctionRef(builder) != null ||
             parseInlineFunctionExpr(builder) != null ||
             parseContextItemFunctionExpr(builder, null) != null ||
-            parseLambdaFunctionExpr(builder)
+            parseLambdaFunctionExpr(builder) != null
         )
     }
 
@@ -1980,23 +1980,18 @@ open class XPathParser : PsiParser {
         return marker.dropAndReturn()
     }
 
-    private fun parseLambdaFunctionExpr(builder: PsiBuilder): Boolean {
+    private fun parseLambdaFunctionExpr(builder: PsiBuilder): IElementType? {
         val marker = builder.mark()
         if (builder.matchTokenType(XPathTokenType.K__)) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!parseEnclosedExprOrBlock(builder, null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)) {
-                marker.rollbackTo()
-                return false
+                return marker.rollbackToAndReturn()
             }
-
-            marker.done(XPathElementType.LAMBDA_FUNCTION_EXPR)
-            return true
+            return marker.doneAndReturn(XPathElementType.LAMBDA_FUNCTION_EXPR)
         } else if (parseEnclosedExprOrBlock(builder, null, BlockOpen.LAMBDA_FUNCTION, BlockExpr.REQUIRED)) {
-            marker.done(XPathElementType.LAMBDA_FUNCTION_EXPR)
-            return true
+            return marker.doneAndReturn(XPathElementType.LAMBDA_FUNCTION_EXPR)
         }
-        marker.drop()
-        return false
+        return marker.dropAndReturn()
     }
 
     fun parseFunctionSignature(builder: PsiBuilder, required: Boolean = true): Boolean {
