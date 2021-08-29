@@ -1911,7 +1911,7 @@ open class XPathParser : PsiParser {
     private fun parseFunctionItemExpr(builder: PsiBuilder): Boolean {
         return (
             parseNamedFunctionRef(builder) != null ||
-            parseInlineFunctionExpr(builder) ||
+            parseInlineFunctionExpr(builder) != null ||
             parseContextItemFunctionExpr(builder, null) ||
             parseLambdaFunctionExpr(builder)
         )
@@ -1935,7 +1935,7 @@ open class XPathParser : PsiParser {
         return marker.dropAndReturn()
     }
 
-    open fun parseInlineFunctionExpr(builder: PsiBuilder): Boolean {
+    open fun parseInlineFunctionExpr(builder: PsiBuilder): IElementType? {
         val marker = builder.mark()
         val token = builder.tokenType
         if (builder.matchTokenType(XPathTokenType.INLINE_FUNCTION_TOKENS)) {
@@ -1945,8 +1945,7 @@ open class XPathParser : PsiParser {
                 if (builder.tokenType === XPathTokenType.BLOCK_OPEN) {
                     //
                 } else {
-                    marker.rollbackTo()
-                    return false
+                    return marker.rollbackToAndReturn()
                 }
             }
 
@@ -1959,11 +1958,9 @@ open class XPathParser : PsiParser {
                 builder.matchTokenType(XPathTokenType.BLOCK_CLOSE)
             }
 
-            marker.done(XPathElementType.INLINE_FUNCTION_EXPR)
-            return true
+            return marker.doneAndReturn(XPathElementType.INLINE_FUNCTION_EXPR)
         }
-        marker.drop()
-        return false
+        return marker.dropAndReturn()
     }
 
     private fun parseContextItemFunctionExpr(builder: PsiBuilder, contextItem: PsiBuilder.Marker?): Boolean {

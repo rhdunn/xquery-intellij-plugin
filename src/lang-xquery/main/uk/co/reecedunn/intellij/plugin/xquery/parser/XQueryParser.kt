@@ -3602,7 +3602,7 @@ class XQueryParser : XPathParser() {
     // endregion
     // region Grammar :: Expr :: TernaryConditionalExpr :: PrimaryExpr :: FunctionItemExpr
 
-    override fun parseInlineFunctionExpr(builder: PsiBuilder): Boolean {
+    override fun parseInlineFunctionExpr(builder: PsiBuilder): IElementType? {
         val marker = builder.mark()
 
         var haveAnnotations = false
@@ -3621,8 +3621,7 @@ class XQueryParser : XPathParser() {
                 if (builder.tokenType === XPathTokenType.BLOCK_OPEN) {
                     //
                 } else if (!haveAnnotations) {
-                    marker.rollbackTo()
-                    return false
+                    return marker.rollbackToAndReturn()
                 } else {
                     haveErrors = true
                 }
@@ -3637,17 +3636,13 @@ class XQueryParser : XPathParser() {
                 builder.matchTokenType(XPathTokenType.BLOCK_CLOSE)
             }
 
-            marker.done(XPathElementType.INLINE_FUNCTION_EXPR)
-            return true
+            return marker.doneAndReturn(XPathElementType.INLINE_FUNCTION_EXPR)
         } else if (haveAnnotations) {
             builder.error(XPathBundle.message("parser.error.expected-either", "function", "->"))
 
-            marker.drop()
-            return true
+            return marker.dropAndReturn(XPathElementType.INLINE_FUNCTION_EXPR)
         }
-
-        marker.drop()
-        return false
+        return marker.dropAndReturn()
     }
 
     // endregion
