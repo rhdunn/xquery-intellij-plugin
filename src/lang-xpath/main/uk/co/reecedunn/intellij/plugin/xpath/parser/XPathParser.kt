@@ -1910,20 +1910,19 @@ open class XPathParser : PsiParser {
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
     private fun parseFunctionItemExpr(builder: PsiBuilder): Boolean {
         return (
-            parseNamedFunctionRef(builder) ||
+            parseNamedFunctionRef(builder) != null ||
             parseInlineFunctionExpr(builder) ||
             parseContextItemFunctionExpr(builder, null) ||
             parseLambdaFunctionExpr(builder)
         )
     }
 
-    private fun parseNamedFunctionRef(builder: PsiBuilder): Boolean {
+    private fun parseNamedFunctionRef(builder: PsiBuilder): IElementType? {
         val marker = builder.mark()
         if (this.parseEQNameOrWildcard(builder, XPathElementType.QNAME, false) != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.FUNCTION_REF_OPERATOR)) {
-                marker.rollbackTo()
-                return false
+                return marker.rollbackToAndReturn()
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
@@ -1931,12 +1930,9 @@ open class XPathParser : PsiParser {
                 builder.error(XPathBundle.message("parser.error.expected", "IntegerLiteral"))
             }
 
-            marker.done(XPathElementType.NAMED_FUNCTION_REF)
-            return true
+            return marker.doneAndReturn(XPathElementType.NAMED_FUNCTION_REF)
         }
-
-        marker.drop()
-        return false
+        return marker.dropAndReturn()
     }
 
     open fun parseInlineFunctionExpr(builder: PsiBuilder): Boolean {
