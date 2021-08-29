@@ -1633,7 +1633,7 @@ open class XPathParser : PsiParser {
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
     open fun parsePrimaryExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         return (
-            parseLiteral(builder) ||
+            parseLiteral(builder) != null ||
             parseVarOrParamRef(builder, type) != null ||
             parseParenthesizedExpr(builder) ||
             parseFunctionItemExpr(builder) ||
@@ -1645,17 +1645,18 @@ open class XPathParser : PsiParser {
         )
     }
 
-    fun parseLiteral(builder: PsiBuilder): Boolean {
-        if (parseNumericLiteral(builder) != null) {
+    fun parseLiteral(builder: PsiBuilder): IElementType? {
+        val numericLiteral = parseNumericLiteral(builder)
+        if (numericLiteral != null) {
             if (
                 builder.tokenType is IKeywordOrNCNameType ||
                 builder.tokenType === XPathTokenType.BRACED_URI_LITERAL_START
             ) {
                 builder.error(XPathBundle.message("parser.error.consecutive-non-delimiting-terminals"))
             }
-            return true
+            return numericLiteral
         }
-        return parseStringLiteral(builder) != null
+        return parseStringLiteral(builder)
     }
 
     private fun parseNumericLiteral(builder: PsiBuilder): IElementType? {

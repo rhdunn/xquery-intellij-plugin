@@ -1037,7 +1037,7 @@ class XQueryParser : XPathParser() {
             if (builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
                 do {
                     parseWhiteSpaceAndCommentTokens(builder)
-                    if (!parseLiteral(builder) && !haveErrors) {
+                    if (parseLiteral(builder) == null && !haveErrors) {
                         builder.error(XPathBundle.message("parser.error.expected", "Literal"))
                         haveErrors = true
                     }
