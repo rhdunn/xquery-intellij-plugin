@@ -21,10 +21,7 @@ import com.intellij.lang.PsiParser
 import com.intellij.psi.TokenType
 import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.TokenSet
-import uk.co.reecedunn.intellij.plugin.core.lang.doneAndReturn
-import uk.co.reecedunn.intellij.plugin.core.lang.errorOnTokenType
-import uk.co.reecedunn.intellij.plugin.core.lang.matchTokenType
-import uk.co.reecedunn.intellij.plugin.core.lang.matchTokenTypeWithMarker
+import uk.co.reecedunn.intellij.plugin.core.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.INCNameType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
@@ -344,10 +341,7 @@ open class XPathParser : PsiParser {
             parseWhiteSpaceAndCommentTokens(builder)
             return when {
                 parseSimpleForClause(builder) -> marker.doneAndReturn(XPathElementType.SIMPLE_FOR_CLAUSE)
-                else -> {
-                    marker.rollbackTo()
-                    null
-                }
+                else -> marker.rollbackToAndReturn()
             }
         }
         return null
@@ -1498,8 +1492,7 @@ open class XPathParser : PsiParser {
                 nextTokenType === XPathTokenType.PARENTHESIS_OPEN ||
                 nextTokenType === XPathTokenType.FUNCTION_REF_OPERATOR
             ) {
-                marker.rollbackTo()
-                return null
+                return marker.rollbackToAndReturn()
             } else if (
                 builder.errorOnTokenType(
                     XPathTokenType.AXIS_SEPARATOR,

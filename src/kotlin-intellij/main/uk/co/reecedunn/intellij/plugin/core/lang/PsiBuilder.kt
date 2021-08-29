@@ -77,3 +77,8 @@ fun PsiBuilder.Marker.doneAndReturn(type: IElementType): IElementType {
     done(type)
     return type
 }
+
+fun PsiBuilder.Marker.rollbackToAndReturn(type: IElementType? = null): IElementType? {
+    rollbackTo()
+    return type
+}

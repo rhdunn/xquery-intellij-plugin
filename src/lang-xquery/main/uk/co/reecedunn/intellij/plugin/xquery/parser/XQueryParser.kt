@@ -18,10 +18,7 @@ package uk.co.reecedunn.intellij.plugin.xquery.parser
 import com.intellij.lang.PsiBuilder
 import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.TokenSet
-import uk.co.reecedunn.intellij.plugin.core.lang.doneAndReturn
-import uk.co.reecedunn.intellij.plugin.core.lang.errorOnTokenType
-import uk.co.reecedunn.intellij.plugin.core.lang.matchTokenType
-import uk.co.reecedunn.intellij.plugin.core.lang.matchTokenTypeWithMarker
+import uk.co.reecedunn.intellij.plugin.core.lang.*
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.IKeywordOrNCNameType
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.parser.XPathElementType
@@ -1571,10 +1568,7 @@ class XQueryParser : XPathParser() {
                 forClauseType != null -> marker.doneAndReturn(forClauseType)
                 parseTumblingWindowClause(builder) -> marker.doneAndReturn(XQueryElementType.WINDOW_CLAUSE)
                 parseSlidingWindowClause(builder) -> marker.doneAndReturn(XQueryElementType.WINDOW_CLAUSE)
-                else -> {
-                    marker.rollbackTo()
-                    null
-                }
+                else -> marker.rollbackToAndReturn()
             }
         }
         return null
