@@ -1520,8 +1520,7 @@ open class XPathParser : PsiParser {
                 return marker.doneAndReturn(XPathElementType.NAME_TEST)
             }
         }
-        marker.drop()
-        return null
+        return marker.dropAndReturn()
     }
 
     // endregion
@@ -4084,8 +4083,7 @@ open class XPathParser : PsiParser {
             }
             return eqnameType
         }
-        marker.drop()
-        return null
+        return marker.dropAndReturn()
     }
 
     private fun parseURIQualifiedNameOrWildcard(builder: PsiBuilder, type: IElementType): IElementType? {
@@ -4098,8 +4096,7 @@ open class XPathParser : PsiParser {
                 marker.doneAndReturn(XPathElementType.URI_QUALIFIED_NAME)
             }
         }
-        marker.drop()
-        return null
+        return marker.dropAndReturn()
     }
 
     open fun parseBracedURILiteral(builder: PsiBuilder): Boolean {
