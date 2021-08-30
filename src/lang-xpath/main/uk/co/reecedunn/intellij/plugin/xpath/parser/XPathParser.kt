@@ -809,7 +809,7 @@ open class XPathParser : PsiParser {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseUnionExpr(builder, XPathElementType.FT_IGNORE_OPTION) && !haveError) {
+            if (parseUnionExpr(builder, XPathElementType.FT_IGNORE_OPTION) == null && !haveError) {
                 builder.error(XPathBundle.message("parser.error.expected", "UnionExpr"))
             }
 
@@ -915,12 +915,12 @@ open class XPathParser : PsiParser {
 
     private fun parseOtherwiseExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
-        if (parseUnionExpr(builder, type)) {
+        if (parseUnionExpr(builder, type) != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             var haveOtherwiseExpr = false
             while (builder.matchTokenType(XPathTokenType.K_OTHERWISE)) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseUnionExpr(builder, type)) {
+                if (parseUnionExpr(builder, type) == null) {
                     builder.error(XPathBundle.message("parser.error.expected", "OtherwiseExpr"))
                 } else {
                     haveOtherwiseExpr = true
@@ -937,28 +937,28 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    private fun parseUnionExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    private fun parseUnionExpr(builder: PsiBuilder, type: IElementType?): IElementType? {
         val marker = builder.mark()
-        if (parseIntersectExceptExpr(builder, type) != null) {
+        val haveIntersectExceptExpr = parseIntersectExceptExpr(builder, type)
+        if (haveIntersectExceptExpr != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             var haveUnionExpr = false
             while (builder.matchTokenType(XPathTokenType.UNION_EXPR_TOKENS)) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (parseIntersectExceptExpr(builder, type) == null) {
-                    builder.error(XPathBundle.message("parser.error.expected", "IntersectExceptExpr"))
-                } else {
-                    haveUnionExpr = true
+                when (parseIntersectExceptExpr(builder, type)) {
+                    null -> builder.error(XPathBundle.message("parser.error.expected", "IntersectExceptExpr"))
+                    TokenType.ERROR_ELEMENT -> {
+                    }
+                    else -> haveUnionExpr = true
                 }
             }
 
-            if (haveUnionExpr)
-                marker.done(XPathElementType.UNION_EXPR)
-            else
-                marker.drop()
-            return true
+            return when (haveUnionExpr) {
+                true -> marker.doneAndReturn(XPathElementType.UNION_EXPR)
+                else -> marker.dropAndReturn(haveIntersectExceptExpr)
+            }
         }
-        marker.drop()
-        return false
+        return marker.dropAndReturn()
     }
 
     private fun parseIntersectExceptExpr(builder: PsiBuilder, type: IElementType?): IElementType? {
