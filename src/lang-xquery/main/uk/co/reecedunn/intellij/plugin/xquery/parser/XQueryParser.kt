@@ -3438,7 +3438,7 @@ class XQueryParser : XPathParser() {
             super.parsePrimaryExpr(builder, type) ||
             parseNonDeterministicFunctionCall(builder) ||
             parseOrderedExpr(builder) ||
-            parseUnorderedExpr(builder) ||
+            parseUnorderedExpr(builder) != null ||
             parseBinaryConstructor(builder) != null ||
             parseBooleanConstructor(builder) != null ||
             parseNodeConstructor(builder) != null ||
@@ -3463,19 +3463,15 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseUnorderedExpr(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XQueryTokenType.K_UNORDERED)
-        if (marker != null) {
+    private fun parseUnorderedExpr(builder: PsiBuilder): IElementType? {
+        return builder.matchTokenTypeWithMarker(XQueryTokenType.K_UNORDERED) { marker ->
             parseWhiteSpaceAndCommentTokens(builder)
             if (!parseEnclosedExprOrBlock(builder, null, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)) {
-                marker.rollbackTo()
-                return false
+                marker.rollbackToAndReturn()
+            } else {
+                marker.doneAndReturn(XQueryElementType.UNORDERED_EXPR)
             }
-
-            marker.done(XQueryElementType.UNORDERED_EXPR)
-            return true
         }
-        return false
     }
 
     private fun parseNonDeterministicFunctionCall(builder: PsiBuilder): Boolean {
