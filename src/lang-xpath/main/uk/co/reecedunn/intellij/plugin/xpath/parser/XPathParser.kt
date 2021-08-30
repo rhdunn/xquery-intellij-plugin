@@ -1128,28 +1128,27 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    private fun parseUnaryExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    private fun parseUnaryExpr(builder: PsiBuilder, type: IElementType?): IElementType? {
         val marker = builder.mark()
         var matched = false
         while (builder.matchTokenType(XPathTokenType.UNARY_EXPR_TOKENS)) {
             parseWhiteSpaceAndCommentTokens(builder)
             matched = true
         }
-        if (matched) {
-            if (parseValueExpr(builder, null) != null) {
-                marker.done(XPathElementType.UNARY_EXPR)
-                return true
-            } else if (matched) {
-                builder.error(XPathBundle.message("parser.error.expected", "ValueExpr"))
-                marker.done(XPathElementType.UNARY_EXPR)
-                return true
+        return when (matched) {
+            true -> {
+                val haveValueExpr = parseValueExpr(builder, null)
+                when {
+                    haveValueExpr === TokenType.ERROR_ELEMENT -> marker.dropAndReturn(haveValueExpr)
+                    haveValueExpr != null -> marker.doneAndReturn(XPathElementType.UNARY_EXPR)
+                    else -> {
+                        builder.error(XPathBundle.message("parser.error.expected", "ValueExpr"))
+                        marker.doneAndReturn(XPathElementType.UNARY_EXPR)
+                    }
+                }
             }
-        } else if (parseValueExpr(builder, type) != null) {
-            marker.drop()
-            return true
+            else -> marker.dropAndReturn(parseValueExpr(builder, type))
         }
-        marker.drop()
-        return false
     }
 
     fun parseGeneralComp(builder: PsiBuilder): Boolean = builder.matchTokenType(XPathTokenType.GENERAL_COMP_TOKENS)
@@ -1163,7 +1162,7 @@ open class XPathParser : PsiParser {
 
     fun parseArrowExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
-        if (parseUnaryExpr(builder, type)) {
+        if (parseUnaryExpr(builder, type) != null) {
             var haveErrors = false
             var haveArrowExpr = false
 
