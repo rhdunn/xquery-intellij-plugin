@@ -3423,10 +3423,8 @@ class XQueryParser : XPathParser() {
     // endregion
     // region Grammar :: Expr :: TernaryConditionalExpr :: StepExpr
 
-    override fun parseStepExpr(builder: PsiBuilder, type: IElementType?): ParsedStepExpr = when {
-        parsePostfixExpr(builder, type) != null -> ParsedStepExpr.Expression
-        parseAxisStep(builder, type) != null -> ParsedStepExpr.Step
-        else -> ParsedStepExpr.None
+    override fun parseStepExpr(builder: PsiBuilder, type: IElementType?): IElementType? {
+        return parsePostfixExpr(builder, type) ?: parseAxisStep(builder, type)
     }
 
     // endregion

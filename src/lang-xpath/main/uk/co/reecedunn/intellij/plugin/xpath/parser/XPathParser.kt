@@ -1285,12 +1285,12 @@ open class XPathParser : PsiParser {
     ): Boolean {
         val step = parseStepExpr(builder, type)
         return when {
-            step !== ParsedStepExpr.None -> {
+            step != null -> {
                 parseWhiteSpaceAndCommentTokens(builder)
-                var haveRelativePathExpr = step === ParsedStepExpr.Step
+                var haveRelativePathExpr = step === XPathElementType.AXIS_STEP
                 while (builder.matchTokenType(XPathTokenType.RELATIVE_PATH_EXPR_TOKENS)) {
                     parseWhiteSpaceAndCommentTokens(builder)
-                    if (parseStepExpr(builder, XPathElementType.PATH_EXPR) === ParsedStepExpr.None) {
+                    if (parseStepExpr(builder, XPathElementType.PATH_EXPR) == null) {
                         builder.error(XPathBundle.message("parser.error.expected", "StepExpr"))
                     } else {
                         haveRelativePathExpr = true
@@ -1344,16 +1344,8 @@ open class XPathParser : PsiParser {
     // endregion
     // region Grammar :: Expr :: TernaryConditionalExpr :: StepExpr
 
-    enum class ParsedStepExpr {
-        Step,
-        Expression,
-        None
-    }
-
-    open fun parseStepExpr(builder: PsiBuilder, type: IElementType?): ParsedStepExpr = when {
-        parseAxisStep(builder, type) != null -> ParsedStepExpr.Step
-        parsePostfixExpr(builder, type) != null -> ParsedStepExpr.Expression
-        else -> ParsedStepExpr.None
+    open fun parseStepExpr(builder: PsiBuilder, type: IElementType?): IElementType? {
+        return parseAxisStep(builder, type) ?: parsePostfixExpr(builder, type)
     }
 
     fun parseAxisStep(builder: PsiBuilder, type: IElementType?): IElementType? {
