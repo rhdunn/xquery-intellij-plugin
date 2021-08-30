@@ -1232,14 +1232,14 @@ open class XPathParser : PsiParser {
 
     fun parseSimpleMapExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
-        if (parsePathExpr(builder, type)) {
+        if (parsePathExpr(builder, type) != null) {
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens(builder)
             var haveSimpleMapExpr = false
             while (builder.matchTokenType(XPathTokenType.MAP_OPERATOR)) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (!parsePathExpr(builder, null) && !haveErrors) {
+                if (parsePathExpr(builder, null) == null && !haveErrors) {
                     builder.error(XPathBundle.message("parser.error.expected", "PathExpr"))
                     haveErrors = true
                 } else {
@@ -1258,22 +1258,22 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    private fun parsePathExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    private fun parsePathExpr(builder: PsiBuilder, type: IElementType?): IElementType? {
         val marker = builder.mark()
         return when {
             builder.matchTokenType(XPathTokenType.DIRECT_DESCENDANTS_PATH) -> {
                 parseWhiteSpaceAndCommentTokens(builder)
                 parseRelativePathExpr(builder, null, marker, XPathTokenType.DIRECT_DESCENDANTS_PATH)
-                true
+                XPathElementType.PATH_EXPR
             }
             builder.matchTokenType(XPathTokenType.ALL_DESCENDANTS_PATH) -> {
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (parseRelativePathExpr(builder, null, marker, XPathTokenType.ALL_DESCENDANTS_PATH) == null) {
                     builder.error(XPathBundle.message("parser.error.expected", "RelativePathExpr"))
                 }
-                true
+                XPathElementType.PATH_EXPR
             }
-            else -> parseRelativePathExpr(builder, type, marker, null) != null
+            else -> parseRelativePathExpr(builder, type, marker, null)
         }
     }
 
