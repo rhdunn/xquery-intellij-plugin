@@ -741,7 +741,7 @@ open class XPathParser : PsiParser {
             parseWhiteSpaceAndCommentTokens(builder)
             if (parseGeneralComp(builder) || parseValueComp(builder) || parseNodeComp(builder)) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseStringConcatExpr(builder, type)) {
+                if (parseStringConcatExpr(builder, type) == null) {
                     builder.error(XPathBundle.message("parser.error.expected", "StringConcatExpr"))
                 }
                 marker.done(XPathElementType.COMPARISON_EXPR)
@@ -768,7 +768,7 @@ open class XPathParser : PsiParser {
 
     fun parseFTContainsExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
-        if (parseStringConcatExpr(builder, type)) {
+        if (parseStringConcatExpr(builder, type) != null) {
             parseWhiteSpaceAndCommentTokens(builder)
 
             if (builder.matchTokenType(XPathTokenType.K_CONTAINS)) {
@@ -819,29 +819,29 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    private fun parseStringConcatExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    private fun parseStringConcatExpr(builder: PsiBuilder, type: IElementType?): IElementType? {
         val marker = builder.mark()
-        if (parseRangeExpr(builder, type) != null) {
+        val haveRangeExpr = parseRangeExpr(builder, type)
+        if (haveRangeExpr != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             var haveStringConcatExpr = false
             while (builder.matchTokenType(XPathTokenType.CONCATENATION)) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (parseRangeExpr(builder, type) == null) {
-                    builder.error(XPathBundle.message("parser.error.expected", "RangeExpr"))
-                } else {
-                    haveStringConcatExpr = true
+                when (parseRangeExpr(builder, type)) {
+                    null -> builder.error(XPathBundle.message("parser.error.expected", "RangeExpr"))
+                    TokenType.ERROR_ELEMENT -> {
+                    }
+                    else  -> haveStringConcatExpr = true
                 }
                 parseWhiteSpaceAndCommentTokens(builder)
             }
 
-            if (haveStringConcatExpr)
-                marker.done(XPathElementType.STRING_CONCAT_EXPR)
-            else
-                marker.drop()
-            return true
+            return when (haveStringConcatExpr) {
+                true -> marker.doneAndReturn(XPathElementType.STRING_CONCAT_EXPR)
+                else -> marker.dropAndReturn(haveRangeExpr)
+            }
         }
-        marker.drop()
-        return false
+        return marker.dropAndReturn()
     }
 
     private fun parseRangeExpr(builder: PsiBuilder, type: IElementType?): IElementType? {
