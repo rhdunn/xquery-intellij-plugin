@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.parser
 
 import com.intellij.lang.PsiBuilder
+import com.intellij.psi.TokenType
 import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.TokenSet
 import uk.co.reecedunn.intellij.plugin.core.lang.*
@@ -3708,7 +3709,7 @@ class XQueryParser : XPathParser() {
             parseDirElemConstructor(builder, depth) ||
             parseDirCommentConstructor(builder) ||
             parseDirPIConstructor(builder) ||
-            parseCDataSection(builder, null)
+            parseCDataSection(builder, null) != null
         )
     }
 
@@ -3903,7 +3904,7 @@ class XQueryParser : XPathParser() {
             if (
                 parseDirTextConstructor(builder) ||
                 parseEnclosedExprOrBlock(builder, null, BlockOpen.REQUIRED, BlockExpr.OPTIONAL) ||
-                parseCDataSection(builder, XQueryElementType.DIR_ELEM_CONSTRUCTOR) ||
+                parseCDataSection(builder, XQueryElementType.DIR_ELEM_CONSTRUCTOR) != null ||
                 parseDirectConstructor(builder, depth)
             ) {
                 matched = true
@@ -3945,7 +3946,7 @@ class XQueryParser : XPathParser() {
         }
     }
 
-    private fun parseCDataSection(builder: PsiBuilder, context: IElementType?): Boolean {
+    private fun parseCDataSection(builder: PsiBuilder, context: IElementType?): IElementType? {
         val marker = builder.mark()
         val errorMarker = builder.mark()
         if (builder.matchTokenType(XQueryTokenType.CDATA_SECTION_START_TAG)) {
@@ -3963,15 +3964,18 @@ class XQueryParser : XPathParser() {
                 marker.done(XQueryElementType.CDATA_SECTION)
                 builder.error(XQueryBundle.message("parser.error.incomplete-cdata-section"))
             }
-            return true
+            return XQueryElementType.CDATA_SECTION
         }
-
         errorMarker.drop()
         marker.drop()
-        return builder.errorOnTokenType(
-            XQueryTokenType.CDATA_SECTION_END_TAG,
-            XQueryBundle.message("parser.error.end-of-cdata-section-without-start")
-        )
+
+        return when {
+            builder.errorOnTokenType(
+                XQueryTokenType.CDATA_SECTION_END_TAG,
+                XQueryBundle.message("parser.error.end-of-cdata-section-without-start")
+            ) -> TokenType.ERROR_ELEMENT
+            else -> null
+        }
     }
 
     // endregion
