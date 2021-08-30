@@ -3270,7 +3270,7 @@ class XQueryParser : XPathParser() {
 
     override fun parseTreatExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
-        if (parseCastableExpr(builder, type)) {
+        if (parseCastableExpr(builder, type) != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             when {
                 builder.matchTokenType(XPathTokenType.K_TREAT) -> {
