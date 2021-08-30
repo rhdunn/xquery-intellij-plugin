@@ -3369,7 +3369,7 @@ class XQueryParser : XPathParser() {
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
     override fun parseValueExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         return (
-            parseExtensionExpr(builder) ||
+            parseExtensionExpr(builder) != null ||
             parseValidateExpr(builder) != null ||
             parseSimpleMapExpr(builder, type) != null
         )
@@ -3399,7 +3399,7 @@ class XQueryParser : XPathParser() {
         }
     }
 
-    private fun parseExtensionExpr(builder: PsiBuilder): Boolean {
+    private fun parseExtensionExpr(builder: PsiBuilder): IElementType? {
         val marker = builder.mark()
         var matched = false
         while (parsePragma(builder)) {
@@ -3409,11 +3409,9 @@ class XQueryParser : XPathParser() {
         if (matched) {
             parseWhiteSpaceAndCommentTokens(builder)
             parseEnclosedExprOrBlock(builder, null, BlockOpen.OPTIONAL, BlockExpr.OPTIONAL)
-            marker.done(XQueryElementType.EXTENSION_EXPR)
-            return true
+            return marker.doneAndReturn(XQueryElementType.EXTENSION_EXPR)
         }
-        marker.drop()
-        return false
+        return marker.dropAndReturn()
     }
 
     // endregion
