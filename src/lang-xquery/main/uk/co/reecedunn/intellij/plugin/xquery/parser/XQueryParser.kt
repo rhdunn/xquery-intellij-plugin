@@ -3441,7 +3441,7 @@ class XQueryParser : XPathParser() {
             parseUnorderedExpr(builder) ||
             parseBinaryConstructor(builder) ||
             parseBooleanConstructor(builder) ||
-            parseNodeConstructor(builder) ||
+            parseNodeConstructor(builder) != null ||
             parseNullConstructor(builder) != null ||
             parseNumberConstructor(builder) != null ||
             parseStringConstructor(builder) != null
@@ -3669,8 +3669,8 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseNodeConstructor(builder: PsiBuilder): Boolean {
-        return parseDirectConstructor(builder, 0) || parseComputedConstructor(builder) != null
+    private fun parseNodeConstructor(builder: PsiBuilder): IElementType? {
+        return parseDirectConstructor(builder, 0) ?: parseComputedConstructor(builder)
     }
 
     private fun parseNullConstructor(builder: PsiBuilder): IElementType? {
@@ -3703,14 +3703,13 @@ class XQueryParser : XPathParser() {
     // endregion
     // region Grammar :: Expr :: TernaryConditionalExpr :: PrimaryExpr :: NodeConstructor :: DirectConstructor
 
-    @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
-    private fun parseDirectConstructor(builder: PsiBuilder, depth: Int): Boolean {
-        return (
-            parseDirElemConstructor(builder, depth) != null ||
-            parseDirCommentConstructor(builder) != null ||
-            parseDirPIConstructor(builder) != null ||
-            parseCDataSection(builder, null) != null
-        )
+    private fun parseDirectConstructor(builder: PsiBuilder, depth: Int): IElementType? {
+        var ret: IElementType? = null
+        ret = ret ?: parseDirElemConstructor(builder, depth)
+        ret = ret ?: parseDirCommentConstructor(builder)
+        ret = ret ?: parseDirPIConstructor(builder)
+        ret = ret ?: parseCDataSection(builder, null)
+        return ret
     }
 
     private fun parseDirElemConstructor(builder: PsiBuilder, depth: Int): IElementType? {
@@ -3900,7 +3899,7 @@ class XQueryParser : XPathParser() {
                 parseDirTextConstructor(builder) ||
                 parseEnclosedExprOrBlock(builder, null, BlockOpen.REQUIRED, BlockExpr.OPTIONAL) ||
                 parseCDataSection(builder, XQueryElementType.DIR_ELEM_CONSTRUCTOR) != null ||
-                parseDirectConstructor(builder, depth)
+                parseDirectConstructor(builder, depth) != null
             ) {
                 matched = true
             } else {
