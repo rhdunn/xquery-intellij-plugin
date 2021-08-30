@@ -3237,11 +3237,11 @@ class XQueryParser : XPathParser() {
 
     override fun parseComparisonExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
-        if (parseFTContainsExpr(builder, type)) {
+        if (parseFTContainsExpr(builder, type) != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (parseGeneralComp(builder) || parseValueComp(builder) || parseNodeComp(builder)) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseFTContainsExpr(builder, type)) {
+                if (parseFTContainsExpr(builder, type) == null) {
                     builder.error(XPathBundle.message("parser.error.expected", "FTContainsExpr"))
                     marker.drop()
                 } else {
@@ -3259,7 +3259,7 @@ class XQueryParser : XPathParser() {
             )
         ) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseFTContainsExpr(builder, type)) {
+            if (parseFTContainsExpr(builder, type) == null) {
                 builder.error(XPathBundle.message("parser.error.expected", "FTContainsExpr"))
             }
 

@@ -737,11 +737,11 @@ open class XPathParser : PsiParser {
 
     open fun parseComparisonExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
-        if (parseFTContainsExpr(builder, type)) {
+        if (parseFTContainsExpr(builder, type) != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (parseGeneralComp(builder) || parseValueComp(builder) || parseNodeComp(builder)) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseFTContainsExpr(builder, type)) {
+                if (parseFTContainsExpr(builder, type) == null) {
                     builder.error(XPathBundle.message("parser.error.expected", "FTContainsExpr"))
                     marker.drop()
                 } else {
@@ -757,7 +757,7 @@ open class XPathParser : PsiParser {
             )
         ) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseFTContainsExpr(builder, type)) {
+            if (parseFTContainsExpr(builder, type) == null) {
                 builder.error(XPathBundle.message("parser.error.expected", "StringConcatExpr"))
             }
 
@@ -768,12 +768,13 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    fun parseFTContainsExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    fun parseFTContainsExpr(builder: PsiBuilder, type: IElementType?): IElementType? {
         val marker = builder.mark()
-        if (parseStringConcatExpr(builder, type) != null) {
+        val haveStringConcatExpr = parseStringConcatExpr(builder, type)
+        if (haveStringConcatExpr != null) {
             parseWhiteSpaceAndCommentTokens(builder)
 
-            if (builder.matchTokenType(XPathTokenType.K_CONTAINS)) {
+            return if (builder.matchTokenType(XPathTokenType.K_CONTAINS)) {
                 var haveError = false
 
                 parseWhiteSpaceAndCommentTokens(builder)
@@ -789,14 +790,12 @@ open class XPathParser : PsiParser {
 
                 parseWhiteSpaceAndCommentTokens(builder)
                 parseFTIgnoreOption(builder)
-                marker.done(XPathElementType.FT_CONTAINS_EXPR)
+                marker.doneAndReturn(XPathElementType.FT_CONTAINS_EXPR)
             } else {
-                marker.drop()
+                return marker.dropAndReturn(haveStringConcatExpr)
             }
-            return true
         }
-        marker.drop()
-        return false
+        return marker.dropAndReturn()
     }
 
     private fun parseFTIgnoreOption(builder: PsiBuilder): Boolean {
