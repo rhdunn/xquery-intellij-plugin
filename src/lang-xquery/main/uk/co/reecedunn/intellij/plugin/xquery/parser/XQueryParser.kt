@@ -3436,7 +3436,7 @@ class XQueryParser : XPathParser() {
     override fun parsePrimaryExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         return (
             super.parsePrimaryExpr(builder, type) ||
-            parseNonDeterministicFunctionCall(builder) ||
+            parseNonDeterministicFunctionCall(builder) != null ||
             parseOrderedExpr(builder) != null ||
             parseUnorderedExpr(builder) != null ||
             parseBinaryConstructor(builder) != null ||
@@ -3470,13 +3470,11 @@ class XQueryParser : XPathParser() {
         }
     }
 
-    private fun parseNonDeterministicFunctionCall(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XQueryTokenType.K_NON_DETERMINISTIC)
-        if (marker != null) {
+    private fun parseNonDeterministicFunctionCall(builder: PsiBuilder): IElementType? {
+        return builder.matchTokenTypeWithMarker(XQueryTokenType.K_NON_DETERMINISTIC) { marker ->
             parseWhiteSpaceAndCommentTokens(builder)
             if (builder.tokenType != XPathTokenType.VARIABLE_INDICATOR) {
-                marker.rollbackTo()
-                return false
+                return@matchTokenTypeWithMarker marker.rollbackToAndReturn()
             }
 
             if (parseVarOrParamRef(builder, null) == null) {
@@ -3490,9 +3488,8 @@ class XQueryParser : XPathParser() {
             } else {
                 marker.done(XQueryElementType.NON_DETERMINISTIC_FUNCTION_CALL)
             }
-            return true
+            XQueryElementType.NON_DETERMINISTIC_FUNCTION_CALL
         }
-        return false
     }
 
     private fun parseStringConstructor(builder: PsiBuilder): IElementType? {
