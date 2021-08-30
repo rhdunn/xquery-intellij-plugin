@@ -1488,7 +1488,7 @@ class XQueryParser : XPathParser() {
             parseAssignmentExpr(builder) ||
             parseExitExpr(builder) ||
             parseWhileExpr(builder) ||
-            parseTernaryConditionalExpr(builder, parentType)
+            parseTernaryConditionalExpr(builder, parentType) != null
         )
     }
 
@@ -3133,13 +3133,14 @@ class XQueryParser : XPathParser() {
     // endregion
     // region Grammar :: Expr :: TernaryConditionalExpr
 
-    override fun parseTernaryConditionalExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    override fun parseTernaryConditionalExpr(builder: PsiBuilder, type: IElementType?): IElementType? {
         val marker = builder.mark()
-        if (parseElvisExpr(builder, type) != null) {
+        val haveElvisExpr = parseElvisExpr(builder, type)
+        if (haveElvisExpr != null) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (builder.matchTokenType(XPathTokenType.TERNARY_IF)) {
+            return if (builder.matchTokenType(XPathTokenType.TERNARY_IF)) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseTernaryConditionalExpr(builder, null)) {
+                if (parseTernaryConditionalExpr(builder, null) == null) {
                     builder.error(XPathBundle.message("parser.error.expected-either", "TernaryConditionalExpr", "ElvisExpr"))
                 }
 
@@ -3149,18 +3150,16 @@ class XQueryParser : XPathParser() {
                 }
 
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseTernaryConditionalExpr(builder, null)) {
+                if (parseTernaryConditionalExpr(builder, null) == null) {
                     builder.error(XPathBundle.message("parser.error.expected-either", "TernaryConditionalExpr", "ElvisExpr"))
                 }
 
-                marker.done(XPathElementType.TERNARY_CONDITIONAL_EXPR)
+                marker.doneAndReturn(XPathElementType.TERNARY_CONDITIONAL_EXPR)
             } else {
-                marker.drop()
+                marker.dropAndReturn(haveElvisExpr)
             }
-            return true
         }
-        marker.drop()
-        return false
+        return marker.dropAndReturn()
     }
 
     private fun parseElvisExpr(builder: PsiBuilder, type: IElementType?): IElementType? {
