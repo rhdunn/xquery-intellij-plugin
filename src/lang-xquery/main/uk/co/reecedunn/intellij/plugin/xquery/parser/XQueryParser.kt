@@ -3184,28 +3184,28 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    override fun parseAndExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    override fun parseAndExpr(builder: PsiBuilder, type: IElementType?): IElementType? {
         val marker = builder.mark()
-        if (parseUpdateExpr(builder, type) != null) {
+        val haveUpdateExpr = parseUpdateExpr(builder, type)
+        if (haveUpdateExpr != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             var haveAndExpr = false
             while (builder.matchTokenType(XPathTokenType.AND_EXPR_TOKENS)) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (parseComparisonExpr(builder, type) == null) {
-                    builder.error(XPathBundle.message("parser.error.expected", "ComparisonExpr"))
-                } else {
-                    haveAndExpr = true
+                when (parseComparisonExpr(builder, type)) {
+                    null -> builder.error(XPathBundle.message("parser.error.expected", "ComparisonExpr"))
+                    TokenType.ERROR_ELEMENT -> {
+                    }
+                    else -> haveAndExpr = true
                 }
             }
 
-            if (haveAndExpr)
-                marker.done(XPathElementType.AND_EXPR)
-            else
-                marker.drop()
-            return true
+            return when (haveAndExpr) {
+                true -> marker.doneAndReturn(XPathElementType.AND_EXPR)
+                else -> marker.dropAndReturn(haveUpdateExpr)
+            }
         }
-        marker.drop()
-        return false
+        return marker.dropAndReturn()
     }
 
     private fun parseUpdateExpr(builder: PsiBuilder, type: IElementType?): IElementType? {

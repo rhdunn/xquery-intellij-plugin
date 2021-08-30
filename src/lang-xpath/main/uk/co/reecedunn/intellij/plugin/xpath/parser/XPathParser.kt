@@ -689,12 +689,12 @@ open class XPathParser : PsiParser {
 
     fun parseOrExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
-        if (parseAndExpr(builder, type)) {
+        if (parseAndExpr(builder, type) != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             var haveOrExpr = false
             while (builder.matchTokenType(XPathTokenType.OR_EXPR_TOKENS)) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseAndExpr(builder, type)) {
+                if (parseAndExpr(builder, type) == null) {
                     builder.error(XPathBundle.message("parser.error.expected", "AndExpr"))
                 } else {
                     haveOrExpr = true
@@ -711,28 +711,28 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    open fun parseAndExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    open fun parseAndExpr(builder: PsiBuilder, type: IElementType?): IElementType? {
         val marker = builder.mark()
-        if (parseComparisonExpr(builder, type) != null) {
+        val haveComparisonExpr = parseComparisonExpr(builder, type)
+        if (haveComparisonExpr != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             var haveAndExpr = false
             while (builder.matchTokenType(XPathTokenType.AND_EXPR_TOKENS)) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (parseComparisonExpr(builder, type) == null) {
-                    builder.error(XPathBundle.message("parser.error.expected", "ComparisonExpr"))
-                } else {
-                    haveAndExpr = true
+                when (parseComparisonExpr(builder, type)) {
+                    null -> builder.error(XPathBundle.message("parser.error.expected", "ComparisonExpr"))
+                    TokenType.ERROR_ELEMENT -> {
+                    }
+                    else -> haveAndExpr = true
                 }
             }
 
-            if (haveAndExpr)
-                marker.done(XPathElementType.AND_EXPR)
-            else
-                marker.drop()
-            return true
+            return when (haveAndExpr) {
+                true -> marker.doneAndReturn(XPathElementType.AND_EXPR)
+                else -> marker.dropAndReturn(haveComparisonExpr)
+            }
         }
-        marker.drop()
-        return false
+        return marker.dropAndReturn()
     }
 
     open fun parseComparisonExpr(builder: PsiBuilder, type: IElementType?): IElementType? {
