@@ -3980,7 +3980,7 @@ class XQueryParser : XPathParser() {
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
     private fun parseComputedConstructor(builder: PsiBuilder): Boolean {
         return (
-            parseCompDocConstructor(builder) ||
+            parseCompDocConstructor(builder) != null ||
             parseCompElemConstructor(builder) != null ||
             parseCompAttrConstructor(builder) != null ||
             parseCompNamespaceConstructor(builder) != null ||
@@ -3990,19 +3990,15 @@ class XQueryParser : XPathParser() {
         )
     }
 
-    private fun parseCompDocConstructor(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XQueryTokenType.K_DOCUMENT)
-        if (marker != null) {
+    private fun parseCompDocConstructor(builder: PsiBuilder): IElementType? {
+        return builder.matchTokenTypeWithMarker(XQueryTokenType.K_DOCUMENT) { marker ->
             parseWhiteSpaceAndCommentTokens(builder)
             if (!parseEnclosedExprOrBlock(builder, null, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)) {
-                marker.rollbackTo()
-                return false
+                marker.rollbackToAndReturn()
+            } else {
+                marker.doneAndReturn(XQueryElementType.COMP_DOC_CONSTRUCTOR)
             }
-
-            marker.done(XQueryElementType.COMP_DOC_CONSTRUCTOR)
-            return true
         }
-        return false
     }
 
     private fun parseCompElemConstructor(builder: PsiBuilder): IElementType? {
