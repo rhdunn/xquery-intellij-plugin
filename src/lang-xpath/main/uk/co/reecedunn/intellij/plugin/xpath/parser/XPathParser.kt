@@ -988,7 +988,7 @@ open class XPathParser : PsiParser {
 
     private fun parseInstanceofExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
-        if (parseTreatExpr(builder, type)) {
+        if (parseTreatExpr(builder, type) != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             when {
                 builder.matchTokenType(XPathTokenType.K_INSTANCE) -> {
@@ -1026,11 +1026,12 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    open fun parseTreatExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    open fun parseTreatExpr(builder: PsiBuilder, type: IElementType?): IElementType? {
         val marker = builder.mark()
-        if (parseCastableExpr(builder, type) != null) {
+        val haveCastableExpr = parseCastableExpr(builder, type)
+        if (haveCastableExpr != null) {
             parseWhiteSpaceAndCommentTokens(builder)
-            when {
+            return when {
                 builder.matchTokenType(XPathTokenType.K_TREAT) -> {
                     var haveErrors = false
 
@@ -1045,9 +1046,9 @@ open class XPathParser : PsiParser {
                         if (!haveErrors) {
                             builder.error(XPathBundle.message("parser.error.expected", "SequenceType"))
                         }
-                        marker.drop()
+                        marker.dropAndReturn(haveCastableExpr)
                     } else {
-                        marker.done(XPathElementType.TREAT_EXPR)
+                        marker.doneAndReturn(XPathElementType.TREAT_EXPR)
                     }
                 }
                 builder.tokenType === XPathTokenType.K_AS -> {
@@ -1056,14 +1057,12 @@ open class XPathParser : PsiParser {
 
                     parseWhiteSpaceAndCommentTokens(builder)
                     parseSequenceType(builder)
-                    marker.drop()
+                    marker.dropAndReturn(haveCastableExpr)
                 }
-                else -> marker.drop()
+                else -> marker.dropAndReturn(haveCastableExpr)
             }
-            return true
         }
-        marker.drop()
-        return false
+        return marker.dropAndReturn()
     }
 
     fun parseCastableExpr(builder: PsiBuilder, type: IElementType?): IElementType? {
