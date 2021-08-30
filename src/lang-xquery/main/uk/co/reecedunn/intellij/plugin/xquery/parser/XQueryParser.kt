@@ -3371,7 +3371,7 @@ class XQueryParser : XPathParser() {
         return (
             parseExtensionExpr(builder) ||
             parseValidateExpr(builder) ||
-            parseSimpleMapExpr(builder, type)
+            parseSimpleMapExpr(builder, type) != null
         )
     }
 

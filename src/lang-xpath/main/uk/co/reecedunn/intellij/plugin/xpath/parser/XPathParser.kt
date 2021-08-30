@@ -1228,34 +1228,38 @@ open class XPathParser : PsiParser {
     // endregion
     // region Grammar :: Expr :: TernaryConditionalExpr :: ValueExpr
 
-    open fun parseValueExpr(builder: PsiBuilder, type: IElementType?): Boolean = parseSimpleMapExpr(builder, type)
+    open fun parseValueExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+        return parseSimpleMapExpr(builder, type) != null
+    }
 
-    fun parseSimpleMapExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    fun parseSimpleMapExpr(builder: PsiBuilder, type: IElementType?): IElementType? {
         val marker = builder.mark()
-        if (parsePathExpr(builder, type) != null) {
+        val havePathExpr = parsePathExpr(builder, type)
+        if (havePathExpr != null) {
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens(builder)
             var haveSimpleMapExpr = false
             while (builder.matchTokenType(XPathTokenType.MAP_OPERATOR)) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (parsePathExpr(builder, null) == null && !haveErrors) {
-                    builder.error(XPathBundle.message("parser.error.expected", "PathExpr"))
-                    haveErrors = true
-                } else {
-                    haveSimpleMapExpr = true
+                when (parsePathExpr(builder, null)) {
+                    null -> if (!haveErrors) {
+                        builder.error(XPathBundle.message("parser.error.expected", "PathExpr"))
+                        haveErrors = true
+                    }
+                    TokenType.ERROR_ELEMENT -> {
+                    }
+                    else -> haveSimpleMapExpr = true
                 }
                 parseWhiteSpaceAndCommentTokens(builder)
             }
 
-            if (haveSimpleMapExpr)
-                marker.done(XPathElementType.SIMPLE_MAP_EXPR)
+            return if (haveSimpleMapExpr)
+                marker.doneAndReturn(XPathElementType.SIMPLE_MAP_EXPR)
             else
-                marker.drop()
-            return true
+                marker.dropAndReturn(havePathExpr)
         }
-        marker.drop()
-        return false
+        return marker.dropAndReturn()
     }
 
     private fun parsePathExpr(builder: PsiBuilder, type: IElementType?): IElementType? {
