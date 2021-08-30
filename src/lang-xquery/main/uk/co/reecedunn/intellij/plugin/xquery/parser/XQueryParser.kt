@@ -3312,7 +3312,7 @@ class XQueryParser : XPathParser() {
 
     override fun parseCastExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
-        if (parseTransformWithExpr(builder, type)) {
+        if (parseTransformWithExpr(builder, type) != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (builder.matchTokenType(XPathTokenType.K_CAST)) {
                 var haveErrors = false
@@ -3341,10 +3341,11 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseTransformWithExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    private fun parseTransformWithExpr(builder: PsiBuilder, type: IElementType?): IElementType? {
         val marker = builder.mark()
-        if (parseArrowExpr(builder, type) != null) {
-            if (builder.matchTokenType(XQueryTokenType.K_TRANSFORM)) {
+        val haveArrowExpr = parseArrowExpr(builder, type)
+        return when {
+            haveArrowExpr != null && builder.matchTokenType(XQueryTokenType.K_TRANSFORM) -> {
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (!builder.matchTokenType(XPathTokenType.K_WITH)) {
                     builder.error(XPathBundle.message("parser.error.expected-keyword", "with"))
@@ -3353,14 +3354,10 @@ class XQueryParser : XPathParser() {
                 parseWhiteSpaceAndCommentTokens(builder)
                 parseEnclosedExprOrBlock(builder, null, BlockOpen.OPTIONAL, BlockExpr.OPTIONAL)
 
-                marker.done(XQueryElementType.TRANSFORM_WITH_EXPR)
-            } else {
-                marker.drop()
+                marker.doneAndReturn(XQueryElementType.TRANSFORM_WITH_EXPR)
             }
-            return true
+            else -> marker.dropAndReturn(haveArrowExpr)
         }
-        marker.drop()
-        return false
     }
 
     // endregion
