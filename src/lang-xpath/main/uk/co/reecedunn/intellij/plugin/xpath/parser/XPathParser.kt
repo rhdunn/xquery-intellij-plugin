@@ -1639,7 +1639,7 @@ open class XPathParser : PsiParser {
             parseFunctionItemExpr(builder) != null ||
             parseFunctionCall(builder) ||
             parseMapConstructor(builder) ||
-            parseArrayConstructor(builder) ||
+            parseArrayConstructor(builder) != null ||
             parseContextItemExpr(builder) != null ||
             parseLookup(builder, XPathElementType.UNARY_LOOKUP) != null
         )
@@ -2120,8 +2120,8 @@ open class XPathParser : PsiParser {
     // endregion
     // region Grammar :: Expr :: TernaryConditionalExpr :: PrimaryExpr :: ArrayConstructor
 
-    private fun parseArrayConstructor(builder: PsiBuilder): Boolean {
-        return parseSquareArrayConstructor(builder) != null || parseCurlyArrayConstructor(builder) != null
+    private fun parseArrayConstructor(builder: PsiBuilder): IElementType? {
+        return parseSquareArrayConstructor(builder) ?: parseCurlyArrayConstructor(builder)
     }
 
     private fun parseSquareArrayConstructor(builder: PsiBuilder): IElementType? {
