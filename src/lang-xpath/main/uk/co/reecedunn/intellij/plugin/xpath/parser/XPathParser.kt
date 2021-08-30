@@ -1638,7 +1638,7 @@ open class XPathParser : PsiParser {
             parseParenthesizedExpr(builder) != null ||
             parseFunctionItemExpr(builder) != null ||
             parseFunctionCall(builder) ||
-            parseMapConstructor(builder) ||
+            parseMapConstructor(builder) != null ||
             parseArrayConstructor(builder) != null ||
             parseContextItemExpr(builder) != null ||
             parseLookup(builder, XPathElementType.UNARY_LOOKUP) != null
@@ -2055,19 +2055,13 @@ open class XPathParser : PsiParser {
     // endregion
     // region Grammar :: Expr :: TernaryConditionalExpr :: PrimaryExpr :: MapConstructor
 
-    private fun parseMapConstructor(builder: PsiBuilder): Boolean {
-        var marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_MAP)
-        if (marker == null) {
-            marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_OBJECT_NODE)
-        }
-
-        if (marker != null) {
+    private fun parseMapConstructor(builder: PsiBuilder): IElementType? {
+        return builder.matchTokenTypeWithMarker(XPathTokenType.MAP_CONSTRUCTOR_TOKENS) { marker ->
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.BLOCK_OPEN)) {
-                marker.rollbackTo()
-                return false
+                return@matchTokenTypeWithMarker marker.rollbackToAndReturn()
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
@@ -2088,10 +2082,8 @@ open class XPathParser : PsiParser {
                 builder.error(XPathBundle.message("parser.error.expected", "}"))
             }
 
-            marker.done(XPathElementType.MAP_CONSTRUCTOR)
-            return true
+            marker.doneAndReturn(XPathElementType.MAP_CONSTRUCTOR)
         }
-        return false
     }
 
     private fun parseMapConstructorEntry(builder: PsiBuilder): Boolean {

@@ -322,6 +322,8 @@ object XPathTokenType {
         PARTIAL_DOUBLE_LITERAL_EXPONENT
     )
 
+    val MAP_CONSTRUCTOR_TOKENS: TokenSet = TokenSet.create(K_MAP, K_OBJECT_NODE)
+
     val MAP_ENTRY_SEPARATOR_TOKENS: TokenSet = TokenSet.create(QNAME_SEPARATOR, ASSIGN_EQUAL)
 
     val MULTIPLICATIVE_EXPR_TOKENS: TokenSet = TokenSet.create(STAR, K_DIV, K_IDIV, K_MOD)
