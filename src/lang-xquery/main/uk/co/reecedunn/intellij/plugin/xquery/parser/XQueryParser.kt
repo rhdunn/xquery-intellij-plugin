@@ -3366,13 +3366,12 @@ class XQueryParser : XPathParser() {
     // endregion
     // region Grammar :: Expr :: TernaryConditionalExpr :: ValueExpr
 
-    @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
-    override fun parseValueExpr(builder: PsiBuilder, type: IElementType?): Boolean {
-        return (
-            parseExtensionExpr(builder) != null ||
-            parseValidateExpr(builder) != null ||
-            parseSimpleMapExpr(builder, type) != null
-        )
+    override fun parseValueExpr(builder: PsiBuilder, type: IElementType?): IElementType? {
+        var ret: IElementType? = null
+        ret = ret ?: parseExtensionExpr(builder)
+        ret = ret ?: parseValidateExpr(builder)
+        ret = ret ?: parseSimpleMapExpr(builder, type)
+        return ret
     }
 
     private fun parseValidateExpr(builder: PsiBuilder): IElementType? {

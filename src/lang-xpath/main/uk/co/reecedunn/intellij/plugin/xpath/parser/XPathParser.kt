@@ -1136,7 +1136,7 @@ open class XPathParser : PsiParser {
             matched = true
         }
         if (matched) {
-            if (parseValueExpr(builder, null)) {
+            if (parseValueExpr(builder, null) != null) {
                 marker.done(XPathElementType.UNARY_EXPR)
                 return true
             } else if (matched) {
@@ -1144,7 +1144,7 @@ open class XPathParser : PsiParser {
                 marker.done(XPathElementType.UNARY_EXPR)
                 return true
             }
-        } else if (parseValueExpr(builder, type)) {
+        } else if (parseValueExpr(builder, type) != null) {
             marker.drop()
             return true
         }
@@ -1228,8 +1228,8 @@ open class XPathParser : PsiParser {
     // endregion
     // region Grammar :: Expr :: TernaryConditionalExpr :: ValueExpr
 
-    open fun parseValueExpr(builder: PsiBuilder, type: IElementType?): Boolean {
-        return parseSimpleMapExpr(builder, type) != null
+    open fun parseValueExpr(builder: PsiBuilder, type: IElementType?): IElementType? {
+        return parseSimpleMapExpr(builder, type)
     }
 
     fun parseSimpleMapExpr(builder: PsiBuilder, type: IElementType?): IElementType? {
