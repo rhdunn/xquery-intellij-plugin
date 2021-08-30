@@ -891,12 +891,12 @@ open class XPathParser : PsiParser {
 
     private fun parseMultiplicativeExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
-        if (parseOtherwiseExpr(builder, type)) {
+        if (parseOtherwiseExpr(builder, type) != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             var haveMultiplicativeExpr = false
             while (builder.matchTokenType(XPathTokenType.MULTIPLICATIVE_EXPR_TOKENS)) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseOtherwiseExpr(builder, type)) {
+                if (parseOtherwiseExpr(builder, type) == null) {
                     builder.error(XPathBundle.message("parser.error.expected", "OtherwiseExpr"))
                 } else {
                     haveMultiplicativeExpr = true
@@ -913,28 +913,28 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    private fun parseOtherwiseExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    private fun parseOtherwiseExpr(builder: PsiBuilder, type: IElementType?): IElementType? {
         val marker = builder.mark()
-        if (parseUnionExpr(builder, type) != null) {
+        val haveUnionExpr = parseUnionExpr(builder, type)
+        if (haveUnionExpr != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             var haveOtherwiseExpr = false
             while (builder.matchTokenType(XPathTokenType.K_OTHERWISE)) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (parseUnionExpr(builder, type) == null) {
-                    builder.error(XPathBundle.message("parser.error.expected", "OtherwiseExpr"))
-                } else {
-                    haveOtherwiseExpr = true
+                when (parseUnionExpr(builder, type)) {
+                    null -> builder.error(XPathBundle.message("parser.error.expected", "OtherwiseExpr"))
+                    TokenType.ERROR_ELEMENT -> {
+                    }
+                    else -> haveOtherwiseExpr = true
                 }
             }
 
-            if (haveOtherwiseExpr)
-                marker.done(XPathElementType.OTHERWISE_EXPR)
-            else
-                marker.drop()
-            return true
+            return when (haveOtherwiseExpr) {
+                true -> marker.doneAndReturn(XPathElementType.OTHERWISE_EXPR)
+                else -> marker.dropAndReturn(haveUnionExpr)
+            }
         }
-        marker.drop()
-        return false
+        return marker.dropAndReturn()
     }
 
     private fun parseUnionExpr(builder: PsiBuilder, type: IElementType?): IElementType? {
