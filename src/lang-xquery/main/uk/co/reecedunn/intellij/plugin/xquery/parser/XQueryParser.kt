@@ -3439,7 +3439,7 @@ class XQueryParser : XPathParser() {
             parseNonDeterministicFunctionCall(builder) ||
             parseOrderedExpr(builder) ||
             parseUnorderedExpr(builder) ||
-            parseBinaryConstructor(builder) ||
+            parseBinaryConstructor(builder) != null ||
             parseBooleanConstructor(builder) != null ||
             parseNodeConstructor(builder) != null ||
             parseNullConstructor(builder) != null ||
@@ -3641,18 +3641,15 @@ class XQueryParser : XPathParser() {
     // endregion
     // region Grammar :: Expr :: TernaryConditionalExpr :: PrimaryExpr :: Constructors
 
-    private fun parseBinaryConstructor(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XQueryTokenType.K_BINARY)
-        if (marker != null) {
+    private fun parseBinaryConstructor(builder: PsiBuilder): IElementType? {
+        return builder.matchTokenTypeWithMarker(XQueryTokenType.K_BINARY) { marker ->
             parseWhiteSpaceAndCommentTokens(builder)
             if (!parseEnclosedExprOrBlock(builder, null, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)) {
-                marker.rollbackTo()
-                return false
+                marker.rollbackToAndReturn()
+            } else {
+                marker.doneAndReturn(XQueryElementType.BINARY_CONSTRUCTOR)
             }
-            marker.done(XQueryElementType.BINARY_CONSTRUCTOR)
-            return true
         }
-        return false
     }
 
     private fun parseBooleanConstructor(builder: PsiBuilder): IElementType? {
