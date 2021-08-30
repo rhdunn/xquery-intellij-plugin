@@ -3343,7 +3343,7 @@ class XQueryParser : XPathParser() {
 
     private fun parseTransformWithExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
-        if (parseArrowExpr(builder, type)) {
+        if (parseArrowExpr(builder, type) != null) {
             if (builder.matchTokenType(XQueryTokenType.K_TRANSFORM)) {
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (!builder.matchTokenType(XPathTokenType.K_WITH)) {

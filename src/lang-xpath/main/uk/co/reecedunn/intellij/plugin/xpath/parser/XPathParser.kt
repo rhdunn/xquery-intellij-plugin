@@ -1099,7 +1099,7 @@ open class XPathParser : PsiParser {
 
     open fun parseCastExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
-        if (parseArrowExpr(builder, type)) {
+        if (parseArrowExpr(builder, type) != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (builder.matchTokenType(XPathTokenType.K_CAST)) {
                 var haveErrors = false
@@ -1160,9 +1160,10 @@ open class XPathParser : PsiParser {
     // endregion
     // region Grammar :: Expr :: TernaryConditionalExpr :: ArrowExpr
 
-    fun parseArrowExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    fun parseArrowExpr(builder: PsiBuilder, type: IElementType?): IElementType? {
         val marker = builder.mark()
-        if (parseUnaryExpr(builder, type) != null) {
+        val haveUnaryExpr = parseUnaryExpr(builder, type)
+        if (haveUnaryExpr != null) {
             var haveErrors = false
             var haveArrowExpr = false
 
@@ -1183,14 +1184,12 @@ open class XPathParser : PsiParser {
                 targetType = builder.tokenType
             }
 
-            if (haveArrowExpr)
-                marker.done(XPathElementType.ARROW_EXPR)
-            else
-                marker.drop()
-            return true
+            return when (haveArrowExpr) {
+                true -> marker.doneAndReturn(XPathElementType.ARROW_EXPR)
+                else -> marker.dropAndReturn(haveUnaryExpr)
+            }
         }
-        marker.drop()
-        return false
+        return marker.dropAndReturn()
     }
 
     private fun parseArrowFunctionCall(builder: PsiBuilder, targetType: IElementType?): Boolean {
