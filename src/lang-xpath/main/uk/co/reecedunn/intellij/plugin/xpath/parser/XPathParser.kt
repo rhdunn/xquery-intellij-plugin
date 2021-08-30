@@ -846,11 +846,11 @@ open class XPathParser : PsiParser {
 
     private fun parseRangeExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
-        if (parseAdditiveExpr(builder, type)) {
+        if (parseAdditiveExpr(builder, type) != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (builder.matchTokenType(XPathTokenType.K_TO)) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseAdditiveExpr(builder, type)) {
+                if (parseAdditiveExpr(builder, type) == null) {
                     builder.error(XPathBundle.message("parser.error.expected", "AdditiveExpr"))
                     marker.drop()
                 } else {
@@ -865,28 +865,28 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    private fun parseAdditiveExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    private fun parseAdditiveExpr(builder: PsiBuilder, type: IElementType?): IElementType? {
         val marker = builder.mark()
-        if (parseMultiplicativeExpr(builder, type) != null) {
+        val haveMultiplicativeExpr = parseMultiplicativeExpr(builder, type)
+        if (haveMultiplicativeExpr != null) {
             parseWhiteSpaceAndCommentTokens(builder)
-            var haveAdditativeExpr = false
+            var haveAdditiveExpr = false
             while (builder.matchTokenType(XPathTokenType.ADDITIVE_EXPR_TOKENS)) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (parseMultiplicativeExpr(builder, type) == null) {
-                    builder.error(XPathBundle.message("parser.error.expected", "MultiplicativeExpr"))
-                } else {
-                    haveAdditativeExpr = true
+                when (parseMultiplicativeExpr(builder, type)) {
+                    null -> builder.error(XPathBundle.message("parser.error.expected", "MultiplicativeExpr"))
+                    TokenType.ERROR_ELEMENT -> {
+                    }
+                    else -> haveAdditiveExpr = true
                 }
             }
 
-            if (haveAdditativeExpr)
-                marker.done(XPathElementType.ADDITIVE_EXPR)
-            else
-                marker.drop()
-            return true
+            return when (haveAdditiveExpr) {
+                true -> marker.doneAndReturn(XPathElementType.ADDITIVE_EXPR)
+                else -> marker.dropAndReturn(haveMultiplicativeExpr)
+            }
         }
-        marker.drop()
-        return false
+        return marker.dropAndReturn()
     }
 
     private fun parseMultiplicativeExpr(builder: PsiBuilder, type: IElementType?): IElementType? {
@@ -2447,7 +2447,7 @@ open class XPathParser : PsiParser {
                         builder.error(XPathBundle.message("parser.error.expected", "IntegerLiteral"))
                     }
                 } else {
-                    if (!parseAdditiveExpr(builder, type)) {
+                    if (parseAdditiveExpr(builder, type) == null) {
                         builder.error(XPathBundle.message("parser.error.expected", "AdditiveExpr"))
                     }
                 }
@@ -2473,7 +2473,7 @@ open class XPathParser : PsiParser {
                         builder.error(XPathBundle.message("parser.error.expected", "IntegerLiteral"))
                     }
                 } else {
-                    if (!parseAdditiveExpr(builder, type) && !haveError) {
+                    if (parseAdditiveExpr(builder, type) == null && !haveError) {
                         builder.error(XPathBundle.message("parser.error.expected", "AdditiveExpr"))
                     }
                 }
@@ -2494,7 +2494,7 @@ open class XPathParser : PsiParser {
                         haveError = true
                     }
                 } else {
-                    if (!parseAdditiveExpr(builder, type)) {
+                    if (parseAdditiveExpr(builder, type) == null) {
                         builder.error(XPathBundle.message("parser.error.expected", "AdditiveExpr"))
                         haveError = true
                     }
@@ -2512,7 +2512,7 @@ open class XPathParser : PsiParser {
                         builder.error(XPathBundle.message("parser.error.expected", "IntegerLiteral"))
                     }
                 } else {
-                    if (!parseAdditiveExpr(builder, type) && !haveError) {
+                    if (parseAdditiveExpr(builder, type) == null && !haveError) {
                         builder.error(XPathBundle.message("parser.error.expected", "AdditiveExpr"))
                     }
                 }
@@ -2581,7 +2581,7 @@ open class XPathParser : PsiParser {
             var haveError = false
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseAdditiveExpr(builder, XPathElementType.FT_WINDOW)) {
+            if (parseAdditiveExpr(builder, XPathElementType.FT_WINDOW) == null) {
                 builder.error(XPathBundle.message("parser.error.expected", "AdditiveExpr"))
                 haveError = true
             }
