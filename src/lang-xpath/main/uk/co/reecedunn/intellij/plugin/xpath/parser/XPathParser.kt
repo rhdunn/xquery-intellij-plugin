@@ -963,12 +963,12 @@ open class XPathParser : PsiParser {
 
     private fun parseIntersectExceptExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
-        if (parseInstanceofExpr(builder, type)) {
+        if (parseInstanceofExpr(builder, type) != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             var haveIntersectExceptExpr = false
             while (builder.matchTokenType(XPathTokenType.INTERSECT_EXCEPT_EXPR_TOKENS)) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseInstanceofExpr(builder, type)) {
+                if (parseInstanceofExpr(builder, type) == null) {
                     builder.error(XPathBundle.message("parser.error.expected", "InstanceofExpr"))
                 } else {
                     haveIntersectExceptExpr = true
@@ -986,11 +986,12 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    private fun parseInstanceofExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    private fun parseInstanceofExpr(builder: PsiBuilder, type: IElementType?): IElementType? {
         val marker = builder.mark()
-        if (parseTreatExpr(builder, type) != null) {
+        val haveTreatExpr = parseTreatExpr(builder, type)
+        if (haveTreatExpr != null) {
             parseWhiteSpaceAndCommentTokens(builder)
-            when {
+            return when {
                 builder.matchTokenType(XPathTokenType.K_INSTANCE) -> {
                     var haveErrors = false
 
@@ -1005,9 +1006,9 @@ open class XPathParser : PsiParser {
                         if (!haveErrors) {
                             builder.error(XPathBundle.message("parser.error.expected", "SequenceType"))
                         }
-                        marker.drop()
+                        marker.dropAndReturn(haveTreatExpr)
                     } else {
-                        marker.done(XPathElementType.INSTANCEOF_EXPR)
+                        marker.doneAndReturn(XPathElementType.INSTANCEOF_EXPR)
                     }
                 }
                 builder.tokenType === XPathTokenType.K_OF -> {
@@ -1016,14 +1017,12 @@ open class XPathParser : PsiParser {
 
                     parseWhiteSpaceAndCommentTokens(builder)
                     parseSequenceType(builder)
-                    marker.drop()
+                    marker.dropAndReturn(haveTreatExpr)
                 }
-                else -> marker.drop()
+                else -> marker.dropAndReturn(haveTreatExpr)
             }
-            return true
         }
-        marker.drop()
-        return false
+        return marker.dropAndReturn(haveTreatExpr)
     }
 
     open fun parseTreatExpr(builder: PsiBuilder, type: IElementType?): IElementType? {
