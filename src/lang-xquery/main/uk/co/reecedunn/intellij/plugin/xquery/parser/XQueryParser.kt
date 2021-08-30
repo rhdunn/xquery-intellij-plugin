@@ -3706,14 +3706,14 @@ class XQueryParser : XPathParser() {
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
     private fun parseDirectConstructor(builder: PsiBuilder, depth: Int): Boolean {
         return (
-            parseDirElemConstructor(builder, depth) ||
+            parseDirElemConstructor(builder, depth) != null ||
             parseDirCommentConstructor(builder) != null ||
             parseDirPIConstructor(builder) != null ||
             parseCDataSection(builder, null) != null
         )
     }
 
-    private fun parseDirElemConstructor(builder: PsiBuilder, depth: Int): Boolean {
+    private fun parseDirElemConstructor(builder: PsiBuilder, depth: Int): IElementType? {
         val marker = builder.mark()
         if (builder.matchTokenType(XQueryTokenType.OPEN_XML_TAG)) {
             builder.errorOnTokenType(
@@ -3746,8 +3746,7 @@ class XQueryParser : XPathParser() {
                 }
             }
 
-            marker.done(XQueryElementType.DIR_ELEM_CONSTRUCTOR)
-            return true
+            return marker.doneAndReturn(XQueryElementType.DIR_ELEM_CONSTRUCTOR)
         } else if (depth == 0 && builder.tokenType === XQueryTokenType.CLOSE_XML_TAG) {
             builder.error(XQueryBundle.message("parser.error.unexpected-closing-tag"))
             builder.matchTokenType(XQueryTokenType.CLOSE_XML_TAG)
@@ -3755,12 +3754,9 @@ class XQueryParser : XPathParser() {
             builder.matchTokenType(XPathTokenType.WHITE_SPACE)
             builder.matchTokenType(XPathTokenType.GREATER_THAN)
 
-            marker.done(XQueryElementType.DIR_ELEM_CONSTRUCTOR)
-            return true
+            return marker.doneAndReturn(XQueryElementType.DIR_ELEM_CONSTRUCTOR)
         }
-
-        marker.drop()
-        return false
+        return marker.dropAndReturn()
     }
 
     private fun parseDirAttributeList(builder: PsiBuilder): Boolean {
