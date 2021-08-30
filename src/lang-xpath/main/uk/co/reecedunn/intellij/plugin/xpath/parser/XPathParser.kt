@@ -821,12 +821,12 @@ open class XPathParser : PsiParser {
 
     private fun parseStringConcatExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
-        if (parseRangeExpr(builder, type)) {
+        if (parseRangeExpr(builder, type) != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             var haveStringConcatExpr = false
             while (builder.matchTokenType(XPathTokenType.CONCATENATION)) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseRangeExpr(builder, type)) {
+                if (parseRangeExpr(builder, type) == null) {
                     builder.error(XPathBundle.message("parser.error.expected", "RangeExpr"))
                 } else {
                     haveStringConcatExpr = true
@@ -844,25 +844,26 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    private fun parseRangeExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    private fun parseRangeExpr(builder: PsiBuilder, type: IElementType?): IElementType? {
         val marker = builder.mark()
-        if (parseAdditiveExpr(builder, type) != null) {
+        val haveAdditiveExpr = parseAdditiveExpr(builder, type)
+        if (haveAdditiveExpr != null) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (builder.matchTokenType(XPathTokenType.K_TO)) {
+            return if (builder.matchTokenType(XPathTokenType.K_TO)) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (parseAdditiveExpr(builder, type) == null) {
-                    builder.error(XPathBundle.message("parser.error.expected", "AdditiveExpr"))
-                    marker.drop()
-                } else {
-                    marker.done(XPathElementType.RANGE_EXPR)
+                when (parseAdditiveExpr(builder, type)) {
+                    null -> {
+                        builder.error(XPathBundle.message("parser.error.expected", "AdditiveExpr"))
+                        marker.dropAndReturn(haveAdditiveExpr)
+                    }
+                    TokenType.ERROR_ELEMENT -> marker.dropAndReturn(haveAdditiveExpr)
+                    else -> marker.doneAndReturn(XPathElementType.RANGE_EXPR)
                 }
             } else {
-                marker.drop()
+                marker.dropAndReturn(haveAdditiveExpr)
             }
-            return true
         }
-        marker.drop()
-        return false
+        return marker.dropAndReturn()
     }
 
     private fun parseAdditiveExpr(builder: PsiBuilder, type: IElementType?): IElementType? {
