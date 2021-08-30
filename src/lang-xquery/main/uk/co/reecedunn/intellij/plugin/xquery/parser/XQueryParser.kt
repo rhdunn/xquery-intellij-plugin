@@ -3370,14 +3370,13 @@ class XQueryParser : XPathParser() {
     override fun parseValueExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         return (
             parseExtensionExpr(builder) ||
-            parseValidateExpr(builder) ||
+            parseValidateExpr(builder) != null ||
             parseSimpleMapExpr(builder, type) != null
         )
     }
 
-    private fun parseValidateExpr(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XQueryTokenType.K_VALIDATE)
-        if (marker != null) {
+    private fun parseValidateExpr(builder: PsiBuilder): IElementType? {
+        return builder.matchTokenTypeWithMarker(XQueryTokenType.K_VALIDATE) { marker ->
             parseWhiteSpaceAndCommentTokens(builder)
             var blockOpen = BlockOpen.REQUIRED
             if (builder.matchTokenType(XQueryTokenType.VALIDATION_MODE_TOKENS)) {
@@ -3393,14 +3392,11 @@ class XQueryParser : XPathParser() {
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!parseEnclosedExprOrBlock(builder, null, blockOpen, BlockExpr.REQUIRED)) {
-                marker.rollbackTo()
-                return false
+                marker.rollbackToAndReturn()
+            } else {
+                marker.doneAndReturn(XQueryElementType.VALIDATE_EXPR)
             }
-
-            marker.done(XQueryElementType.VALIDATE_EXPR)
-            return true
         }
-        return false
     }
 
     private fun parseExtensionExpr(builder: PsiBuilder): Boolean {
