@@ -3549,7 +3549,7 @@ class XQueryParser : XPathParser() {
     // endregion
     // region Grammar :: Expr :: TernaryConditionalExpr :: PrimaryExpr :: FunctionCall
 
-    override fun parseFunctionCall(builder: PsiBuilder): Boolean {
+    override fun parseFunctionCall(builder: PsiBuilder): IElementType? {
         if (builder.tokenType is IKeywordOrNCNameType) {
             val type = builder.tokenType as IKeywordOrNCNameType?
             when (type!!.keywordType) {
@@ -3557,7 +3557,7 @@ class XQueryParser : XPathParser() {
                 IKeywordOrNCNameType.KeywordType.SCRIPTING10_RESERVED_FUNCTION_NAME -> {
                 }
                 IKeywordOrNCNameType.KeywordType.RESERVED_FUNCTION_NAME,
-                IKeywordOrNCNameType.KeywordType.XQUERY30_RESERVED_FUNCTION_NAME -> return false
+                IKeywordOrNCNameType.KeywordType.XQUERY30_RESERVED_FUNCTION_NAME -> return null
                 IKeywordOrNCNameType.KeywordType.MARKLOGIC60_RESERVED_FUNCTION_NAME,
                 IKeywordOrNCNameType.KeywordType.MARKLOGIC70_RESERVED_FUNCTION_NAME,
                 IKeywordOrNCNameType.KeywordType.MARKLOGIC80_RESERVED_FUNCTION_NAME -> {
@@ -3575,7 +3575,7 @@ class XQueryParser : XPathParser() {
 
                     // If this is a valid MarkLogic Schema/JSON KindTest, return false here to parse it as a KindTest.
                     if (status == ParseStatus.MATCHED) {
-                        return false
+                        return null
                     }
                 }
             }
@@ -3587,16 +3587,11 @@ class XQueryParser : XPathParser() {
         if (parseEQNameOrWildcard(builder, XPathElementType.QNAME, false) != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!parseArgumentList(builder)) {
-                marker.rollbackTo()
-                return false
+                return marker.rollbackToAndReturn()
             }
-
-            marker.done(XPathElementType.FUNCTION_CALL)
-            return true
+            return marker.doneAndReturn(XPathElementType.FUNCTION_CALL)
         }
-
-        marker.drop()
-        return false
+        return marker.dropAndReturn()
     }
 
     // endregion

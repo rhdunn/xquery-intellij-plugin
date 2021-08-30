@@ -1637,7 +1637,7 @@ open class XPathParser : PsiParser {
             parseVarOrParamRef(builder, type) != null ||
             parseParenthesizedExpr(builder) != null ||
             parseFunctionItemExpr(builder) != null ||
-            parseFunctionCall(builder) ||
+            parseFunctionCall(builder) != null ||
             parseMapConstructor(builder) != null ||
             parseArrayConstructor(builder) != null ||
             parseContextItemExpr(builder) != null ||
@@ -1773,19 +1773,16 @@ open class XPathParser : PsiParser {
     // endregion
     // region Grammar :: Expr :: TernaryConditionalExpr :: PrimaryExpr :: FunctionCall
 
-    open fun parseFunctionCall(builder: PsiBuilder): Boolean {
+    open fun parseFunctionCall(builder: PsiBuilder): IElementType? {
         val marker = builder.mark()
         if (this.parseEQNameOrWildcard(builder, XPathElementType.QNAME, false) != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!parseArgumentList(builder)) {
-                marker.rollbackTo()
-                return false
+                return marker.rollbackToAndReturn()
             }
-            marker.done(XPathElementType.FUNCTION_CALL)
-            return true
+            return marker.doneAndReturn(XPathElementType.FUNCTION_CALL)
         }
-        marker.drop()
-        return false
+        return marker.dropAndReturn()
     }
 
     fun parseArgumentList(builder: PsiBuilder, type: IElementType = XPathElementType.ARGUMENT_LIST): Boolean {
