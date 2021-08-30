@@ -62,6 +62,15 @@ fun PsiBuilder.matchTokenTypeWithMarker(
     return null
 }
 
+fun PsiBuilder.matchTokenTypeWithMarker(
+    type: TokenSet,
+    processor: (PsiBuilder.Marker) -> IElementType?
+): IElementType? {
+    val marker = matchTokenTypeWithMarker(type)
+    if (marker != null) return processor(marker)
+    return null
+}
+
 fun PsiBuilder.errorOnTokenType(type: IElementType, message: String): Boolean {
     if (tokenType === type) {
         val errorMarker = mark()

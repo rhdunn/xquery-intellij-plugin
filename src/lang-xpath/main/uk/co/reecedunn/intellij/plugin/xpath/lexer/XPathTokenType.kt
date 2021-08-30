@@ -243,9 +243,7 @@ object XPathTokenType {
 
     val ARROW_TARGET_TOKENS: TokenSet = TokenSet.create(ARROW, THIN_ARROW)
 
-    val COMMENT_TOKENS: TokenSet = TokenSet.create(
-        COMMENT
-    )
+    val COMMENT_TOKENS: TokenSet = TokenSet.create(COMMENT)
 
     val COMP_SYMBOL_TOKENS: TokenSet = TokenSet.create(
         EQUAL,
@@ -263,6 +261,8 @@ object XPathTokenType {
         K_IS, NODE_BEFORE, NODE_AFTER, // NodeComp
         K_EQ, K_NE, K_LT, K_LE, K_GT, K_GE // ValueComp
     )
+
+    val CURLY_ARRAY_CONSTRUCTOR_TOKENS: TokenSet = TokenSet.create(K_ARRAY, K_ARRAY_NODE)
 
     val FORWARD_AXIS_TOKENS: TokenSet = TokenSet.create(
         K_ATTRIBUTE,
