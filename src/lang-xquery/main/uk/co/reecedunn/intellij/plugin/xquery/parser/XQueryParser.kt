@@ -3440,7 +3440,7 @@ class XQueryParser : XPathParser() {
             parseOrderedExpr(builder) ||
             parseUnorderedExpr(builder) ||
             parseBinaryConstructor(builder) ||
-            parseBooleanConstructor(builder) ||
+            parseBooleanConstructor(builder) != null ||
             parseNodeConstructor(builder) != null ||
             parseNullConstructor(builder) != null ||
             parseNumberConstructor(builder) != null ||
@@ -3655,18 +3655,15 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseBooleanConstructor(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_BOOLEAN_NODE)
-        if (marker != null) {
+    private fun parseBooleanConstructor(builder: PsiBuilder): IElementType? {
+        return builder.matchTokenTypeWithMarker(XPathTokenType.K_BOOLEAN_NODE) { marker ->
             parseWhiteSpaceAndCommentTokens(builder)
             if (!parseEnclosedExprOrBlock(builder, null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)) {
-                marker.rollbackTo()
-                return false
+                marker.rollbackToAndReturn()
+            } else {
+                marker.doneAndReturn(XQueryElementType.BOOLEAN_CONSTRUCTOR)
             }
-            marker.done(XQueryElementType.BOOLEAN_CONSTRUCTOR)
-            return true
         }
-        return false
     }
 
     private fun parseNodeConstructor(builder: PsiBuilder): IElementType? {
