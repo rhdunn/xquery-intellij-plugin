@@ -3982,7 +3982,7 @@ class XQueryParser : XPathParser() {
         return (
             parseCompDocConstructor(builder) ||
             parseCompElemConstructor(builder) ||
-            parseCompAttrConstructor(builder) ||
+            parseCompAttrConstructor(builder) != null ||
             parseCompNamespaceConstructor(builder) != null ||
             parseCompTextConstructor(builder) != null ||
             parseCompCommentConstructor(builder) != null ||
@@ -4043,13 +4043,11 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseCompAttrConstructor(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_ATTRIBUTE)
-        if (marker != null) {
+    private fun parseCompAttrConstructor(builder: PsiBuilder): IElementType? {
+        return builder.matchTokenTypeWithMarker(XPathTokenType.K_ATTRIBUTE) { marker ->
             parseWhiteSpaceAndCommentTokens(builder)
             if (parseQNameSeparator(builder, null)) { // QName
-                marker.rollbackTo()
-                return false
+                return@matchTokenTypeWithMarker marker.rollbackToAndReturn()
             }
 
             val name = parseEQNameOrWildcard(builder, XPathElementType.QNAME, false)
@@ -4059,8 +4057,7 @@ class XQueryParser : XPathParser() {
                     parseStringLiteral(builder)
                     errorMarker.error(XQueryBundle.message("parser.error.expected-qname-or-braced-expression"))
                 } else {
-                    marker.rollbackTo()
-                    return false
+                    return@matchTokenTypeWithMarker marker.rollbackToAndReturn()
                 }
             }
 
@@ -4072,17 +4069,14 @@ class XQueryParser : XPathParser() {
             ) {
                 if (name is IKeywordOrNCNameType) {
                     // This may be a continuation keyword from another expression (e.g. 'return' from a FLWORExpr).
-                    marker.rollbackTo()
-                    return false
+                    return@matchTokenTypeWithMarker marker.rollbackToAndReturn()
                 } else {
                     builder.error(XQueryBundle.message("parser.error.expected-enclosed-expression"))
                 }
             }
 
-            marker.done(XQueryElementType.COMP_ATTR_CONSTRUCTOR)
-            return true
+            marker.doneAndReturn(XQueryElementType.COMP_ATTR_CONSTRUCTOR)
         }
-        return false
     }
 
     private fun parseCompNamespaceConstructor(builder: PsiBuilder): IElementType? {
