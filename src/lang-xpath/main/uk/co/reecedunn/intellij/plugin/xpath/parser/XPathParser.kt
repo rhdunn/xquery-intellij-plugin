@@ -1352,7 +1352,7 @@ open class XPathParser : PsiParser {
 
     open fun parseStepExpr(builder: PsiBuilder, type: IElementType?): ParsedStepExpr = when {
         parseAxisStep(builder, type) -> ParsedStepExpr.Step
-        parsePostfixExpr(builder, type) -> ParsedStepExpr.Expression
+        parsePostfixExpr(builder, type) != null -> ParsedStepExpr.Expression
         else -> ParsedStepExpr.None
     }
 
@@ -1525,13 +1525,14 @@ open class XPathParser : PsiParser {
     // endregion
     // region Grammar :: Expr :: TernaryConditionalExpr :: PostfixExpr
 
-    fun parsePostfixExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    fun parsePostfixExpr(builder: PsiBuilder, type: IElementType?): IElementType? {
         var marker = builder.mark()
-        if (parsePrimaryExpr(builder, type) != null) {
+        val havePrimaryExpr = parsePrimaryExpr(builder, type)
+        if (havePrimaryExpr != null) {
             parseWhiteSpaceAndCommentTokens(builder)
 
             var havePostfixExpr = false
-            while (true) {
+            postfix@while (true) {
                 if (parsePredicate(builder)) {
                     parseWhiteSpaceAndCommentTokens(builder)
 
@@ -1540,7 +1541,7 @@ open class XPathParser : PsiParser {
 
                     // Keep PostfixExpr if there is a filter expression.
                     havePostfixExpr = true
-                    continue
+                    continue@postfix
                 }
                 if (parsePositionalArgumentList(builder)) {
                     parseWhiteSpaceAndCommentTokens(builder)
@@ -1550,14 +1551,14 @@ open class XPathParser : PsiParser {
 
                     // Keep PostfixExpr if there is a dynamic function call.
                     havePostfixExpr = true
-                    continue
+                    continue@postfix
                 }
                 when (parseLookup(builder, null)) {
                     null -> {
                     }
                     TokenType.ERROR_ELEMENT -> {
                         parseWhiteSpaceAndCommentTokens(builder)
-                        continue
+                        continue@postfix
                     }
                     else -> {
                         parseWhiteSpaceAndCommentTokens(builder)
@@ -1566,29 +1567,25 @@ open class XPathParser : PsiParser {
 
                         // Keep PostfixExpr if there is a postfix lookup.
                         havePostfixExpr = true
-                        continue
+                        continue@postfix
                     }
                 }
                 if (havePostfixExpr) {
                     marker.drop()
-                    return true
+                    return XPathElementType.POSTFIX_EXPR
                 }
                 if (type === XPathElementType.PATH_EXPR) {
                     // Keep PostfixExpr if the PrimaryExpr is in a non-initial StepExpr.
-                    marker.done(XPathElementType.POSTFIX_EXPR)
-                    return true
+                    return marker.doneAndReturn(XPathElementType.POSTFIX_EXPR)
                 }
                 if (XPathTokenType.RELATIVE_PATH_EXPR_TOKENS.contains(builder.tokenType)) {
                     // Keep PostfixExpr if a StepExpr follows the PrimaryExpr (i.e. this is the first step).
-                    marker.done(XPathElementType.POSTFIX_EXPR)
-                    return true
+                    return marker.doneAndReturn(XPathElementType.POSTFIX_EXPR)
                 }
-                marker.drop()
-                return true
+                return marker.dropAndReturn(havePrimaryExpr)
             }
         }
-        marker.drop()
-        return false
+        return marker.dropAndReturn()
     }
 
     private fun parsePredicateList(builder: PsiBuilder, marker: PsiBuilder.Marker, recover: Boolean): Boolean {
