@@ -3986,7 +3986,7 @@ class XQueryParser : XPathParser() {
             parseCompNamespaceConstructor(builder) ||
             parseCompTextConstructor(builder) ||
             parseCompCommentConstructor(builder) ||
-            parseCompPIConstructor(builder)
+            parseCompPIConstructor(builder) != null
         )
     }
 
@@ -4160,13 +4160,11 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseCompPIConstructor(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_PROCESSING_INSTRUCTION)
-        if (marker != null) {
+    private fun parseCompPIConstructor(builder: PsiBuilder): IElementType? {
+        return builder.matchTokenTypeWithMarker(XPathTokenType.K_PROCESSING_INSTRUCTION) { marker ->
             parseWhiteSpaceAndCommentTokens(builder)
             if (parseQNameSeparator(builder, null)) { // QName
-                marker.rollbackTo()
-                return false
+                return@matchTokenTypeWithMarker marker.rollbackToAndReturn()
             }
 
             val name = parseQNameOrWildcard(builder, XPathElementType.NCNAME, false)
@@ -4176,8 +4174,7 @@ class XQueryParser : XPathParser() {
                     parseStringLiteral(builder)
                     errorMarker.error(XQueryBundle.message("parser.error.expected-identifier-or-braced-expression"))
                 } else {
-                    marker.rollbackTo()
-                    return false
+                    return@matchTokenTypeWithMarker marker.rollbackToAndReturn()
                 }
             }
 
@@ -4185,17 +4182,14 @@ class XQueryParser : XPathParser() {
             if (!parseEnclosedExprOrBlock(builder, null, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)) {
                 if (name is IKeywordOrNCNameType) {
                     // This may be a continuation keyword from another expression (e.g. 'return' from a FLWORExpr).
-                    marker.rollbackTo()
-                    return false
+                    return@matchTokenTypeWithMarker marker.rollbackToAndReturn()
                 } else {
                     builder.error(XQueryBundle.message("parser.error.expected-enclosed-expression"))
                 }
             }
 
-            marker.done(XQueryElementType.COMP_PI_CONSTRUCTOR)
-            return true
+            marker.doneAndReturn(XQueryElementType.COMP_PI_CONSTRUCTOR)
         }
-        return false
     }
 
     // endregion
