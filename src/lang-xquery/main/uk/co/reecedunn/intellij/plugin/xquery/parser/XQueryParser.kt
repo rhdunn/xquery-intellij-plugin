@@ -3135,7 +3135,7 @@ class XQueryParser : XPathParser() {
 
     override fun parseTernaryConditionalExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
-        if (parseElvisExpr(builder, type)) {
+        if (parseElvisExpr(builder, type) != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (builder.matchTokenType(XPathTokenType.TERNARY_IF)) {
                 parseWhiteSpaceAndCommentTokens(builder)
@@ -3163,25 +3163,26 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseElvisExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    private fun parseElvisExpr(builder: PsiBuilder, type: IElementType?): IElementType? {
         val marker = builder.mark()
-        if (parseOrExpr(builder, type) != null) {
+        val haveOrExpr = parseOrExpr(builder, type)
+        if (haveOrExpr != null) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (builder.matchTokenType(XPathTokenType.ELVIS)) {
+            return if (builder.matchTokenType(XPathTokenType.ELVIS)) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (parseOrExpr(builder, null) == null) {
-                    builder.error(XPathBundle.message("parser.error.expected", "OrExpr"))
-                    marker.drop()
-                } else {
-                    marker.done(XQueryElementType.ELVIS_EXPR)
+                when (parseOrExpr(builder, null)) {
+                    null -> {
+                        builder.error(XPathBundle.message("parser.error.expected", "OrExpr"))
+                        marker.dropAndReturn(haveOrExpr)
+                    }
+                    TokenType.ERROR_ELEMENT -> marker.dropAndReturn(haveOrExpr)
+                    else -> marker.doneAndReturn(XQueryElementType.ELVIS_EXPR)
                 }
             } else {
-                marker.drop()
+                marker.dropAndReturn(haveOrExpr)
             }
-            return true
         }
-        marker.drop()
-        return false
+        return marker.dropAndReturn()
     }
 
     override fun parseAndExpr(builder: PsiBuilder, type: IElementType?): IElementType? {
