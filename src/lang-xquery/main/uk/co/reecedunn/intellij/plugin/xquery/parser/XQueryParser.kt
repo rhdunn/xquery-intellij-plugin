@@ -3432,20 +3432,19 @@ class XQueryParser : XPathParser() {
     // endregion
     // region Grammar :: Expr :: TernaryConditionalExpr :: PrimaryExpr
 
-    @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
-    override fun parsePrimaryExpr(builder: PsiBuilder, type: IElementType?): Boolean {
-        return (
-            super.parsePrimaryExpr(builder, type) ||
-            parseNonDeterministicFunctionCall(builder) != null ||
-            parseOrderedExpr(builder) != null ||
-            parseUnorderedExpr(builder) != null ||
-            parseBinaryConstructor(builder) != null ||
-            parseBooleanConstructor(builder) != null ||
-            parseNodeConstructor(builder) != null ||
-            parseNullConstructor(builder) != null ||
-            parseNumberConstructor(builder) != null ||
-            parseStringConstructor(builder) != null
-        )
+    override fun parsePrimaryExpr(builder: PsiBuilder, type: IElementType?): IElementType? {
+        var ret: IElementType? = null
+        ret = ret ?: super.parsePrimaryExpr(builder, type)
+        ret = ret ?: parseNonDeterministicFunctionCall(builder)
+        ret = ret ?: parseOrderedExpr(builder)
+        ret = ret ?: parseUnorderedExpr(builder)
+        ret = ret ?: parseBinaryConstructor(builder)
+        ret = ret ?: parseBooleanConstructor(builder)
+        ret = ret ?: parseNodeConstructor(builder)
+        ret = ret ?: parseNullConstructor(builder)
+        ret = ret ?: parseNumberConstructor(builder)
+        ret = ret ?: parseStringConstructor(builder)
+        return ret
     }
 
     private fun parseOrderedExpr(builder: PsiBuilder): IElementType? {
@@ -4219,13 +4218,13 @@ class XQueryParser : XPathParser() {
                 haveErrors = true
 
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (!parsePrimaryExpr(builder, null)) { // AbbrevForwardStep
+                if (parsePrimaryExpr(builder, null) == null) { // AbbrevForwardStep
                     marker.rollbackTo()
                     return false
                 }
             } else {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (!parsePrimaryExpr(builder, null)) {
+                if (parsePrimaryExpr(builder, null) == null) {
                     builder.error(XPathBundle.message("parser.error.expected", "PrimaryExpr"))
                     haveErrors = true
                 }

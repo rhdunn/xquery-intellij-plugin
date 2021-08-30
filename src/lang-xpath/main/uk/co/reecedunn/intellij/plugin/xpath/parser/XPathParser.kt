@@ -1527,7 +1527,7 @@ open class XPathParser : PsiParser {
 
     fun parsePostfixExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         var marker = builder.mark()
-        if (parsePrimaryExpr(builder, type)) {
+        if (parsePrimaryExpr(builder, type) != null) {
             parseWhiteSpaceAndCommentTokens(builder)
 
             var havePostfixExpr = false
@@ -1630,19 +1630,18 @@ open class XPathParser : PsiParser {
     // endregion
     // region Grammar :: Expr :: TernaryConditionalExpr :: PrimaryExpr
 
-    @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
-    open fun parsePrimaryExpr(builder: PsiBuilder, type: IElementType?): Boolean {
-        return (
-            parseLiteral(builder) != null ||
-            parseVarOrParamRef(builder, type) != null ||
-            parseParenthesizedExpr(builder) != null ||
-            parseFunctionItemExpr(builder) != null ||
-            parseFunctionCall(builder) != null ||
-            parseMapConstructor(builder) != null ||
-            parseArrayConstructor(builder) != null ||
-            parseContextItemExpr(builder) != null ||
-            parseLookup(builder, XPathElementType.UNARY_LOOKUP) != null
-        )
+    open fun parsePrimaryExpr(builder: PsiBuilder, type: IElementType?): IElementType? {
+        var ret: IElementType? = null
+        ret = ret ?: parseLiteral(builder)
+        ret = ret ?: parseVarOrParamRef(builder, type)
+        ret = ret ?: parseParenthesizedExpr(builder)
+        ret = ret ?: parseFunctionItemExpr(builder)
+        ret = ret ?: parseFunctionCall(builder)
+        ret = ret ?: parseMapConstructor(builder)
+        ret = ret ?: parseArrayConstructor(builder)
+        ret = ret ?: parseContextItemExpr(builder)
+        ret = ret ?: parseLookup(builder, XPathElementType.UNARY_LOOKUP)
+        return ret
     }
 
     fun parseLiteral(builder: PsiBuilder): IElementType? {
