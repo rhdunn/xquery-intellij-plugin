@@ -3441,7 +3441,7 @@ class XQueryParser : XPathParser() {
             parseBinaryConstructor(builder) ||
             parseBooleanConstructor(builder) ||
             parseNodeConstructor(builder) ||
-            parseNullConstructor(builder) ||
+            parseNullConstructor(builder) != null ||
             parseNumberConstructor(builder) != null ||
             parseStringConstructor(builder) != null
         )
@@ -3672,13 +3672,11 @@ class XQueryParser : XPathParser() {
         return parseDirectConstructor(builder, 0) || parseComputedConstructor(builder)
     }
 
-    private fun parseNullConstructor(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_NULL_NODE)
-        if (marker != null) {
+    private fun parseNullConstructor(builder: PsiBuilder): IElementType? {
+        return builder.matchTokenTypeWithMarker(XPathTokenType.K_NULL_NODE) { marker ->
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.BLOCK_OPEN)) {
-                marker.rollbackTo()
-                return false
+                return@matchTokenTypeWithMarker marker.rollbackToAndReturn()
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
@@ -3686,10 +3684,8 @@ class XQueryParser : XPathParser() {
                 builder.error(XPathBundle.message("parser.error.expected", "}"))
             }
 
-            marker.done(XQueryElementType.NULL_CONSTRUCTOR)
-            return true
+            marker.doneAndReturn(XQueryElementType.NULL_CONSTRUCTOR)
         }
-        return false
     }
 
     private fun parseNumberConstructor(builder: PsiBuilder): IElementType? {
