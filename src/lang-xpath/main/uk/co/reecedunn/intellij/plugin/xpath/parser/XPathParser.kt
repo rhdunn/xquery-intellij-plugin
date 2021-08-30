@@ -867,12 +867,12 @@ open class XPathParser : PsiParser {
 
     private fun parseAdditiveExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
-        if (parseMultiplicativeExpr(builder, type)) {
+        if (parseMultiplicativeExpr(builder, type) != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             var haveAdditativeExpr = false
             while (builder.matchTokenType(XPathTokenType.ADDITIVE_EXPR_TOKENS)) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseMultiplicativeExpr(builder, type)) {
+                if (parseMultiplicativeExpr(builder, type) == null) {
                     builder.error(XPathBundle.message("parser.error.expected", "MultiplicativeExpr"))
                 } else {
                     haveAdditativeExpr = true
@@ -889,28 +889,28 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    private fun parseMultiplicativeExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    private fun parseMultiplicativeExpr(builder: PsiBuilder, type: IElementType?): IElementType? {
         val marker = builder.mark()
-        if (parseOtherwiseExpr(builder, type) != null) {
+        val haveOtherwiseExpr = parseOtherwiseExpr(builder, type)
+        if (haveOtherwiseExpr != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             var haveMultiplicativeExpr = false
             while (builder.matchTokenType(XPathTokenType.MULTIPLICATIVE_EXPR_TOKENS)) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (parseOtherwiseExpr(builder, type) == null) {
-                    builder.error(XPathBundle.message("parser.error.expected", "OtherwiseExpr"))
-                } else {
-                    haveMultiplicativeExpr = true
+                when (parseOtherwiseExpr(builder, type)) {
+                    null -> builder.error(XPathBundle.message("parser.error.expected", "OtherwiseExpr"))
+                    TokenType.ERROR_ELEMENT -> {
+                    }
+                    else -> haveMultiplicativeExpr = true
                 }
             }
 
-            if (haveMultiplicativeExpr)
-                marker.done(XPathElementType.MULTIPLICATIVE_EXPR)
-            else
-                marker.drop()
-            return true
+            return when (haveMultiplicativeExpr) {
+                true -> marker.doneAndReturn(XPathElementType.MULTIPLICATIVE_EXPR)
+                else -> marker.dropAndReturn(haveOtherwiseExpr)
+            }
         }
-        marker.drop()
-        return false
+        return marker.dropAndReturn()
     }
 
     private fun parseOtherwiseExpr(builder: PsiBuilder, type: IElementType?): IElementType? {
