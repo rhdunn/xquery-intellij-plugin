@@ -1268,12 +1268,12 @@ open class XPathParser : PsiParser {
             }
             builder.matchTokenType(XPathTokenType.ALL_DESCENDANTS_PATH) -> {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseRelativePathExpr(builder, null, marker, XPathTokenType.ALL_DESCENDANTS_PATH)) {
+                if (parseRelativePathExpr(builder, null, marker, XPathTokenType.ALL_DESCENDANTS_PATH) == null) {
                     builder.error(XPathBundle.message("parser.error.expected", "RelativePathExpr"))
                 }
                 true
             }
-            else -> parseRelativePathExpr(builder, type, marker, null)
+            else -> parseRelativePathExpr(builder, type, marker, null) != null
         }
     }
 
@@ -1282,7 +1282,7 @@ open class XPathParser : PsiParser {
         type: IElementType?,
         marker: PsiBuilder.Marker,
         pathExprStartToken: IElementType?
-    ): Boolean {
+    ): IElementType? {
         val step = parseStepExpr(builder, type)
         return when {
             step != null -> {
@@ -1299,19 +1299,14 @@ open class XPathParser : PsiParser {
                 }
 
                 if (haveRelativePathExpr || pathExprStartToken != null)
-                    marker.done(XPathElementType.PATH_EXPR)
+                    marker.doneAndReturn(XPathElementType.PATH_EXPR)
                 else
-                    marker.drop()
-                true
+                    marker.dropAndReturn(step)
             }
             pathExprStartToken === XPathTokenType.DIRECT_DESCENDANTS_PATH -> {
-                marker.done(XPathElementType.PATH_EXPR)
-                true
+                marker.doneAndReturn(XPathElementType.PATH_EXPR)
             }
-            else -> {
-                marker.drop()
-                false
-            }
+            else -> marker.dropAndReturn()
         }
     }
 
