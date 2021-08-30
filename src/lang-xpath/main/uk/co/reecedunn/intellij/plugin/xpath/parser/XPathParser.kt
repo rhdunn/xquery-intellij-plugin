@@ -1351,21 +1351,19 @@ open class XPathParser : PsiParser {
     }
 
     open fun parseStepExpr(builder: PsiBuilder, type: IElementType?): ParsedStepExpr = when {
-        parseAxisStep(builder, type) -> ParsedStepExpr.Step
+        parseAxisStep(builder, type) != null -> ParsedStepExpr.Step
         parsePostfixExpr(builder, type) != null -> ParsedStepExpr.Expression
         else -> ParsedStepExpr.None
     }
 
-    fun parseAxisStep(builder: PsiBuilder, type: IElementType?): Boolean {
+    fun parseAxisStep(builder: PsiBuilder, type: IElementType?): IElementType? {
         val marker = builder.mark()
         if (parseReverseStep(builder) || parseForwardStep(builder, type)) {
             parseWhiteSpaceAndCommentTokens(builder)
             parsePredicateList(builder, marker, recover = false)
-            return true
+            return XPathElementType.AXIS_STEP
         }
-
-        marker.drop()
-        return false
+        return marker.dropAndReturn()
     }
 
     private fun parseForwardStep(builder: PsiBuilder, type: IElementType?): Boolean {

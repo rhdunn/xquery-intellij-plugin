@@ -3425,7 +3425,7 @@ class XQueryParser : XPathParser() {
 
     override fun parseStepExpr(builder: PsiBuilder, type: IElementType?): ParsedStepExpr = when {
         parsePostfixExpr(builder, type) != null -> ParsedStepExpr.Expression
-        parseAxisStep(builder, type) -> ParsedStepExpr.Step
+        parseAxisStep(builder, type) != null -> ParsedStepExpr.Step
         else -> ParsedStepExpr.None
     }
 
