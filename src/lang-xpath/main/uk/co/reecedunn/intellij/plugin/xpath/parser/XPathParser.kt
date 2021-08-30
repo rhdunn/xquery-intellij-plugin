@@ -1068,7 +1068,7 @@ open class XPathParser : PsiParser {
 
     fun parseCastableExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
-        if (parseCastExpr(builder, type)) {
+        if (parseCastExpr(builder, type) != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (builder.matchTokenType(XPathTokenType.K_CASTABLE)) {
                 var haveErrors = false
@@ -1097,11 +1097,12 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    open fun parseCastExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    open fun parseCastExpr(builder: PsiBuilder, type: IElementType?): IElementType? {
         val marker = builder.mark()
-        if (parseArrowExpr(builder, type) != null) {
+        val haveArrowExpr = parseArrowExpr(builder, type)
+        if (haveArrowExpr != null) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (builder.matchTokenType(XPathTokenType.K_CAST)) {
+            return if (builder.matchTokenType(XPathTokenType.K_CAST)) {
                 var haveErrors = false
 
                 parseWhiteSpaceAndCommentTokens(builder)
@@ -1115,17 +1116,15 @@ open class XPathParser : PsiParser {
                     if (!haveErrors) {
                         builder.error(XPathBundle.message("parser.error.expected", "SingleType"))
                     }
-                    marker.drop()
+                    marker.dropAndReturn(haveArrowExpr)
                 } else {
-                    marker.done(XPathElementType.CAST_EXPR)
+                    marker.doneAndReturn(XPathElementType.CAST_EXPR)
                 }
             } else {
-                marker.drop()
+                marker.dropAndReturn(haveArrowExpr)
             }
-            return true
         }
-        marker.drop()
-        return false
+        return marker.dropAndReturn()
     }
 
     private fun parseUnaryExpr(builder: PsiBuilder, type: IElementType?): IElementType? {

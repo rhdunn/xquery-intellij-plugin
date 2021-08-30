@@ -3310,11 +3310,12 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    override fun parseCastExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    override fun parseCastExpr(builder: PsiBuilder, type: IElementType?): IElementType? {
         val marker = builder.mark()
-        if (parseTransformWithExpr(builder, type) != null) {
+        val haveTransformWithExpr = parseTransformWithExpr(builder, type)
+        if (haveTransformWithExpr != null) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (builder.matchTokenType(XPathTokenType.K_CAST)) {
+            return if (builder.matchTokenType(XPathTokenType.K_CAST)) {
                 var haveErrors = false
 
                 parseWhiteSpaceAndCommentTokens(builder)
@@ -3328,17 +3329,15 @@ class XQueryParser : XPathParser() {
                     if (!haveErrors) {
                         builder.error(XPathBundle.message("parser.error.expected", "SingleType"))
                     }
-                    marker.drop()
+                    marker.dropAndReturn(haveTransformWithExpr)
                 } else {
-                    marker.done(XPathElementType.CAST_EXPR)
+                    marker.doneAndReturn(XPathElementType.CAST_EXPR)
                 }
             } else {
-                marker.drop()
+                marker.dropAndReturn(haveTransformWithExpr)
             }
-            return true
         }
-        marker.drop()
-        return false
+        return marker.dropAndReturn()
     }
 
     private fun parseTransformWithExpr(builder: PsiBuilder, type: IElementType?): IElementType? {
