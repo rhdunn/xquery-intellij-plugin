@@ -3984,7 +3984,7 @@ class XQueryParser : XPathParser() {
             parseCompElemConstructor(builder) ||
             parseCompAttrConstructor(builder) ||
             parseCompNamespaceConstructor(builder) ||
-            parseCompTextConstructor(builder) ||
+            parseCompTextConstructor(builder) != null ||
             parseCompCommentConstructor(builder) != null ||
             parseCompPIConstructor(builder) != null
         )
@@ -4130,19 +4130,15 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseCompTextConstructor(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_TEXT)
-        if (marker != null) {
+    private fun parseCompTextConstructor(builder: PsiBuilder): IElementType? {
+        return builder.matchTokenTypeWithMarker(XPathTokenType.K_TEXT) { marker ->
             parseWhiteSpaceAndCommentTokens(builder)
             if (!parseEnclosedExprOrBlock(builder, null, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)) {
-                marker.rollbackTo()
-                return false
+                marker.rollbackToAndReturn()
+            } else {
+                marker.doneAndReturn(XQueryElementType.COMP_TEXT_CONSTRUCTOR)
             }
-
-            marker.done(XQueryElementType.COMP_TEXT_CONSTRUCTOR)
-            return true
         }
-        return false
     }
 
     private fun parseCompCommentConstructor(builder: PsiBuilder): IElementType? {
