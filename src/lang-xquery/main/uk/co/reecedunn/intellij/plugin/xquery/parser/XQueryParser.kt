@@ -3442,7 +3442,7 @@ class XQueryParser : XPathParser() {
             parseBooleanConstructor(builder) ||
             parseNodeConstructor(builder) ||
             parseNullConstructor(builder) ||
-            parseNumberConstructor(builder) ||
+            parseNumberConstructor(builder) != null ||
             parseStringConstructor(builder) != null
         )
     }
@@ -3692,18 +3692,15 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseNumberConstructor(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_NUMBER_NODE)
-        if (marker != null) {
+    private fun parseNumberConstructor(builder: PsiBuilder): IElementType? {
+        return builder.matchTokenTypeWithMarker(XPathTokenType.K_NUMBER_NODE) { marker ->
             parseWhiteSpaceAndCommentTokens(builder)
             if (!parseEnclosedExprOrBlock(builder, null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)) {
-                marker.rollbackTo()
-                return false
+                marker.rollbackToAndReturn()
+            } else {
+                marker.doneAndReturn(XQueryElementType.NUMBER_CONSTRUCTOR)
             }
-            marker.done(XQueryElementType.NUMBER_CONSTRUCTOR)
-            return true
         }
-        return false
     }
 
     // endregion
