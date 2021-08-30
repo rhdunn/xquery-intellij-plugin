@@ -3707,7 +3707,7 @@ class XQueryParser : XPathParser() {
     private fun parseDirectConstructor(builder: PsiBuilder, depth: Int): Boolean {
         return (
             parseDirElemConstructor(builder, depth) ||
-            parseDirCommentConstructor(builder) ||
+            parseDirCommentConstructor(builder) != null ||
             parseDirPIConstructor(builder) != null ||
             parseCDataSection(builder, null) != null
         )
@@ -3838,7 +3838,7 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseDirCommentConstructor(builder: PsiBuilder): Boolean {
+    private fun parseDirCommentConstructor(builder: PsiBuilder): IElementType? {
         val marker = builder.matchTokenTypeWithMarker(XQueryTokenType.XML_COMMENT_START_TAG)
         if (marker != null) {
             // NOTE: XQueryTokenType.XML_COMMENT is omitted by the PsiBuilder.
@@ -3849,13 +3849,16 @@ class XQueryParser : XPathParser() {
                 marker.done(XQueryElementType.DIR_COMMENT_CONSTRUCTOR)
                 builder.error(XQueryBundle.message("parser.error.incomplete-xml-comment"))
             }
-            return true
+            return XQueryElementType.DIR_COMMENT_CONSTRUCTOR
         }
 
-        return builder.errorOnTokenType(
-            XQueryTokenType.XML_COMMENT_END_TAG,
-            XPathBundle.message("parser.error.end-of-comment-without-start", "<!--")
-        )
+        return when {
+            builder.errorOnTokenType(
+                XQueryTokenType.XML_COMMENT_END_TAG,
+                XPathBundle.message("parser.error.end-of-comment-without-start", "<!--")
+            ) -> TokenType.ERROR_ELEMENT
+            else -> null
+        }
     }
 
     private fun parseDirPIConstructor(builder: PsiBuilder): IElementType? {
