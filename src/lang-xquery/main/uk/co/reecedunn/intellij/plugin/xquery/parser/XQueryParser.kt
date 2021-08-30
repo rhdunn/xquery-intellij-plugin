@@ -3708,7 +3708,7 @@ class XQueryParser : XPathParser() {
         return (
             parseDirElemConstructor(builder, depth) ||
             parseDirCommentConstructor(builder) ||
-            parseDirPIConstructor(builder) ||
+            parseDirPIConstructor(builder) != null ||
             parseCDataSection(builder, null) != null
         )
     }
@@ -3858,9 +3858,8 @@ class XQueryParser : XPathParser() {
         )
     }
 
-    private fun parseDirPIConstructor(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN)
-        if (marker != null) {
+    private fun parseDirPIConstructor(builder: PsiBuilder): IElementType? {
+        return builder.matchTokenTypeWithMarker(XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN) { marker ->
             var haveErrors = false
 
             if (builder.matchTokenType(XPathTokenType.WHITE_SPACE)) {
@@ -3891,11 +3890,8 @@ class XQueryParser : XPathParser() {
                 builder.error(XPathBundle.message("parser.error.expected", "?>"))
             }
 
-            marker.done(XQueryElementType.DIR_PI_CONSTRUCTOR)
-            return true
+            marker.doneAndReturn(XQueryElementType.DIR_PI_CONSTRUCTOR)
         }
-
-        return false
     }
 
     private fun parseDirElemContent(builder: PsiBuilder, depth: Int): Boolean {
