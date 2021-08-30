@@ -713,12 +713,12 @@ open class XPathParser : PsiParser {
 
     open fun parseAndExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
-        if (parseComparisonExpr(builder, type)) {
+        if (parseComparisonExpr(builder, type) != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             var haveAndExpr = false
             while (builder.matchTokenType(XPathTokenType.AND_EXPR_TOKENS)) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseComparisonExpr(builder, type)) {
+                if (parseComparisonExpr(builder, type) == null) {
                     builder.error(XPathBundle.message("parser.error.expected", "ComparisonExpr"))
                 } else {
                     haveAndExpr = true
@@ -735,37 +735,37 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    open fun parseComparisonExpr(builder: PsiBuilder, type: IElementType?): Boolean {
+    open fun parseComparisonExpr(builder: PsiBuilder, type: IElementType?): IElementType? {
         val marker = builder.mark()
-        if (parseFTContainsExpr(builder, type) != null) {
+        var haveFTContainsExpr = parseFTContainsExpr(builder, type)
+        if (haveFTContainsExpr != null) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (parseGeneralComp(builder) || parseValueComp(builder) || parseNodeComp(builder)) {
+            return if (parseGeneralComp(builder) || parseValueComp(builder) || parseNodeComp(builder)) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (parseFTContainsExpr(builder, type) == null) {
-                    builder.error(XPathBundle.message("parser.error.expected", "FTContainsExpr"))
-                    marker.drop()
-                } else {
-                    marker.done(XPathElementType.COMPARISON_EXPR)
+                when (parseFTContainsExpr(builder, type)) {
+                    null -> {
+                        builder.error(XPathBundle.message("parser.error.expected", "FTContainsExpr"))
+                        marker.dropAndReturn(haveFTContainsExpr)
+                    }
+                    TokenType.ERROR_ELEMENT -> marker.dropAndReturn(haveFTContainsExpr)
+                    else -> marker.doneAndReturn(XPathElementType.COMPARISON_EXPR)
                 }
             } else {
-                marker.drop()
+                marker.dropAndReturn(haveFTContainsExpr)
             }
-            return true
         } else if (
             builder.errorOnTokenType(
                 XPathTokenType.COMP_SYMBOL_TOKENS, XPathBundle.message("parser.error.comparison-no-lhs")
             )
         ) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (parseFTContainsExpr(builder, type) == null) {
+            haveFTContainsExpr = parseFTContainsExpr(builder, type)
+            if (haveFTContainsExpr == null) {
                 builder.error(XPathBundle.message("parser.error.expected", "StringConcatExpr"))
             }
-
-            marker.done(XPathElementType.COMPARISON_EXPR)
-            return true
+            return marker.dropAndReturn(haveFTContainsExpr)
         }
-        marker.drop()
-        return false
+        return marker.dropAndReturn()
     }
 
     fun parseFTContainsExpr(builder: PsiBuilder, type: IElementType?): IElementType? {
