@@ -741,8 +741,8 @@ open class XPathParser : PsiParser {
             parseWhiteSpaceAndCommentTokens(builder)
             if (parseGeneralComp(builder) || parseValueComp(builder) || parseNodeComp(builder)) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (parseStringConcatExpr(builder, type) == null) {
-                    builder.error(XPathBundle.message("parser.error.expected", "StringConcatExpr"))
+                if (!parseFTContainsExpr(builder, type)) {
+                    builder.error(XPathBundle.message("parser.error.expected", "FTContainsExpr"))
                     marker.drop()
                 } else {
                     marker.done(XPathElementType.COMPARISON_EXPR)

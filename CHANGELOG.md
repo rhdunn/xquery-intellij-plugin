@@ -21,6 +21,10 @@ References and Resolving:
 
 1. Fix resolving elements to `xmlns` nodes where the namespace URI is not also bound to a prefix.
 
+XPath and XQuery:
+
+1. Fix parsing `FTContainsExpr` in the RHS of a `ComparisonExpr` in XPath expressions.
+
 ## 2021
 
 *  [1.9.1 - 2021-07-23](docs/_posts/2021-07-23-release-1.9.1.md)
