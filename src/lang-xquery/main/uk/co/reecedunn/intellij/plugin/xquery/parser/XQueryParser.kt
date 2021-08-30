@@ -3443,7 +3443,7 @@ class XQueryParser : XPathParser() {
             parseNodeConstructor(builder) ||
             parseNullConstructor(builder) ||
             parseNumberConstructor(builder) ||
-            parseStringConstructor(builder)
+            parseStringConstructor(builder) != null
         )
     }
 
@@ -3502,19 +3502,16 @@ class XQueryParser : XPathParser() {
         return false
     }
 
-    private fun parseStringConstructor(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XQueryTokenType.STRING_CONSTRUCTOR_START)
-        if (marker != null) {
+    private fun parseStringConstructor(builder: PsiBuilder): IElementType? {
+        return builder.matchTokenTypeWithMarker(XQueryTokenType.STRING_CONSTRUCTOR_START) { marker ->
             parseStringConstructorContent(builder)
 
             if (!builder.matchTokenType(XQueryTokenType.STRING_CONSTRUCTOR_END)) {
                 builder.error(XQueryBundle.message("parser.error.incomplete-string-constructor"))
             }
 
-            marker.done(XQueryElementType.STRING_CONSTRUCTOR)
-            return true
+            marker.doneAndReturn(XQueryElementType.STRING_CONSTRUCTOR)
         }
-        return false
     }
 
     private fun parseStringConstructorContent(builder: PsiBuilder): Boolean {
