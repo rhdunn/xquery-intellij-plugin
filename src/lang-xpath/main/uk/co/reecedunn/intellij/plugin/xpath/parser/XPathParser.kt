@@ -2121,12 +2121,11 @@ open class XPathParser : PsiParser {
     // region Grammar :: Expr :: TernaryConditionalExpr :: PrimaryExpr :: ArrayConstructor
 
     private fun parseArrayConstructor(builder: PsiBuilder): Boolean {
-        return parseSquareArrayConstructor(builder) || parseCurlyArrayConstructor(builder) != null
+        return parseSquareArrayConstructor(builder) != null || parseCurlyArrayConstructor(builder) != null
     }
 
-    private fun parseSquareArrayConstructor(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.SQUARE_OPEN)
-        if (marker != null) {
+    private fun parseSquareArrayConstructor(builder: PsiBuilder): IElementType? {
+        return builder.matchTokenTypeWithMarker(XPathTokenType.SQUARE_OPEN) { marker ->
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens(builder)
@@ -2148,10 +2147,8 @@ open class XPathParser : PsiParser {
                 builder.error(XPathBundle.message("parser.error.expected", "]"))
             }
 
-            marker.done(XPathElementType.SQUARE_ARRAY_CONSTRUCTOR)
-            return true
+            marker.doneAndReturn(XPathElementType.SQUARE_ARRAY_CONSTRUCTOR)
         }
-        return false
     }
 
     private fun parseCurlyArrayConstructor(builder: PsiBuilder): IElementType? {
