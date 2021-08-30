@@ -3669,7 +3669,7 @@ class XQueryParser : XPathParser() {
     }
 
     private fun parseNodeConstructor(builder: PsiBuilder): Boolean {
-        return parseDirectConstructor(builder, 0) || parseComputedConstructor(builder)
+        return parseDirectConstructor(builder, 0) || parseComputedConstructor(builder) != null
     }
 
     private fun parseNullConstructor(builder: PsiBuilder): IElementType? {
@@ -3977,17 +3977,16 @@ class XQueryParser : XPathParser() {
     // endregion
     // region Grammar :: Expr :: TernaryConditionalExpr :: PrimaryExpr :: NodeConstructor :: ComputedConstructor
 
-    @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
-    private fun parseComputedConstructor(builder: PsiBuilder): Boolean {
-        return (
-            parseCompDocConstructor(builder) != null ||
-            parseCompElemConstructor(builder) != null ||
-            parseCompAttrConstructor(builder) != null ||
-            parseCompNamespaceConstructor(builder) != null ||
-            parseCompTextConstructor(builder) != null ||
-            parseCompCommentConstructor(builder) != null ||
-            parseCompPIConstructor(builder) != null
-        )
+    private fun parseComputedConstructor(builder: PsiBuilder): IElementType? {
+        var ret: IElementType? = null
+        ret = ret ?: parseCompDocConstructor(builder)
+        ret = ret ?: parseCompElemConstructor(builder)
+        ret = ret ?: parseCompAttrConstructor(builder)
+        ret = ret ?: parseCompNamespaceConstructor(builder)
+        ret = ret ?: parseCompTextConstructor(builder)
+        ret = ret ?: parseCompCommentConstructor(builder)
+        ret = ret ?: parseCompPIConstructor(builder)
+        return ret
     }
 
     private fun parseCompDocConstructor(builder: PsiBuilder): IElementType? {
