@@ -3243,8 +3243,10 @@ class XQueryParser : XPathParser() {
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (!parseFTContainsExpr(builder, type)) {
                     builder.error(XPathBundle.message("parser.error.expected", "FTContainsExpr"))
+                    marker.drop()
+                } else {
+                    marker.done(XPathElementType.COMPARISON_EXPR)
                 }
-                marker.done(XPathElementType.COMPARISON_EXPR)
             } else {
                 marker.drop()
             }

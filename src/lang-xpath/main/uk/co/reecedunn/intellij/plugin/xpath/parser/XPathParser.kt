@@ -743,8 +743,10 @@ open class XPathParser : PsiParser {
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (parseStringConcatExpr(builder, type) == null) {
                     builder.error(XPathBundle.message("parser.error.expected", "StringConcatExpr"))
+                    marker.drop()
+                } else {
+                    marker.done(XPathElementType.COMPARISON_EXPR)
                 }
-                marker.done(XPathElementType.COMPARISON_EXPR)
             } else {
                 marker.drop()
             }
