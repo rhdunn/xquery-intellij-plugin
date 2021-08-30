@@ -3165,11 +3165,11 @@ class XQueryParser : XPathParser() {
 
     private fun parseElvisExpr(builder: PsiBuilder, type: IElementType?): Boolean {
         val marker = builder.mark()
-        if (parseOrExpr(builder, type)) {
+        if (parseOrExpr(builder, type) != null) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (builder.matchTokenType(XPathTokenType.ELVIS)) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseOrExpr(builder, null)) {
+                if (parseOrExpr(builder, null) == null) {
                     builder.error(XPathBundle.message("parser.error.expected", "OrExpr"))
                     marker.drop()
                 } else {
