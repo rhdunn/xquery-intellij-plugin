@@ -1476,7 +1476,7 @@ class XQueryParser : XPathParser() {
             parseQuantifiedExpr(builder) ||
             parseSwitchExpr(builder) ||
             parseTypeswitchExpr(builder) ||
-            parseIfExpr(builder) ||
+            parseIfExpr(builder) != null ||
             parseTryCatchExpr(builder) ||
             parseInsertExpr(builder) ||
             parseDeleteExpr(builder) ||
@@ -2530,15 +2530,13 @@ class XQueryParser : XPathParser() {
     // endregion
     // region Grammar :: Expr :: IfExpr
 
-    override fun parseIfExpr(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_IF)
-        if (marker != null) {
+    override fun parseIfExpr(builder: PsiBuilder): IElementType? {
+        return builder.matchTokenTypeWithMarker(XPathTokenType.K_IF) { marker ->
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
-                marker.rollbackTo()
-                return false
+                return@matchTokenTypeWithMarker marker.rollbackToAndReturn()
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
@@ -2573,10 +2571,8 @@ class XQueryParser : XPathParser() {
                 }
             }
 
-            marker.done(XPathElementType.IF_EXPR)
-            return true
+            marker.doneAndReturn(XPathElementType.IF_EXPR)
         }
-        return false
     }
 
     // endregion

@@ -209,7 +209,7 @@ open class XPathParser : PsiParser {
             parseForExpr(builder) ||
             parseLetExpr(builder) ||
             parseQuantifiedExpr(builder) ||
-            parseIfExpr(builder) ||
+            parseIfExpr(builder) != null ||
             parseTernaryConditionalExpr(builder, parentType) != null
         )
     }
@@ -602,15 +602,13 @@ open class XPathParser : PsiParser {
     // endregion
     // region Grammar :: Expr :: IfExpr
 
-    open fun parseIfExpr(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_IF)
-        if (marker != null) {
+    open fun parseIfExpr(builder: PsiBuilder): IElementType? {
+        return builder.matchTokenTypeWithMarker(XPathTokenType.K_IF) { marker ->
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
-                marker.rollbackTo()
-                return false
+                return@matchTokenTypeWithMarker marker.rollbackToAndReturn()
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
@@ -648,10 +646,8 @@ open class XPathParser : PsiParser {
                 builder.error(XPathBundle.message("parser.error.expected-expression"))
             }
 
-            marker.done(XPathElementType.IF_EXPR)
-            return true
+            marker.doneAndReturn(XPathElementType.IF_EXPR)
         }
-        return false
     }
 
     // endregion
