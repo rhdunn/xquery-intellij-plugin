@@ -1481,7 +1481,7 @@ class XQueryParser : XPathParser() {
             parseInsertExpr(builder) ||
             parseDeleteExpr(builder) ||
             parseRenameExpr(builder) != null ||
-            parseReplaceExpr(builder) ||
+            parseReplaceExpr(builder) != null ||
             parseCopyModifyExpr(builder) != null ||
             parseUpdatingFunctionCall(builder) != null ||
             parseBlockExpr(builder) != null ||
@@ -2810,9 +2810,8 @@ class XQueryParser : XPathParser() {
     // endregion
     // region Grammar :: Expr :: ReplaceExpr
 
-    private fun parseReplaceExpr(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XQueryTokenType.K_REPLACE)
-        if (marker != null) {
+    private fun parseReplaceExpr(builder: PsiBuilder): IElementType? {
+        return builder.matchTokenTypeWithMarker(XQueryTokenType.K_REPLACE) { marker ->
             var haveErrors = false
             var haveValueOf = false
 
@@ -2829,8 +2828,7 @@ class XQueryParser : XPathParser() {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.K_NODE)) {
                 if (!haveValueOf) {
-                    marker.rollbackTo()
-                    return false
+                    return@matchTokenTypeWithMarker marker.rollbackToAndReturn()
                 }
                 if (!haveErrors) {
                     builder.error(XPathBundle.message("parser.error.expected-keyword", "node"))
@@ -2855,10 +2853,8 @@ class XQueryParser : XPathParser() {
                 builder.error(XPathBundle.message("parser.error.expected-expression"))
             }
 
-            marker.done(XQueryElementType.REPLACE_EXPR)
-            return true
+            marker.doneAndReturn(XQueryElementType.REPLACE_EXPR)
         }
-        return false
     }
 
     // endregion
