@@ -1473,7 +1473,7 @@ class XQueryParser : XPathParser() {
         return (
             parseWithExpr(builder) ||
             parseFLWORExpr(builder) ||
-            parseQuantifiedExpr(builder) ||
+            parseQuantifiedExpr(builder) != null ||
             parseSwitchExpr(builder) ||
             parseTypeswitchExpr(builder) ||
             parseIfExpr(builder) != null ||

@@ -208,7 +208,7 @@ open class XPathParser : PsiParser {
             parseWithExpr(builder) ||
             parseForExpr(builder) ||
             parseLetExpr(builder) ||
-            parseQuantifiedExpr(builder) ||
+            parseQuantifiedExpr(builder) != null ||
             parseIfExpr(builder) != null ||
             parseTernaryConditionalExpr(builder, parentType) != null
         )
@@ -522,13 +522,11 @@ open class XPathParser : PsiParser {
     // endregion
     // region Grammar :: Expr :: QuantifiedExpr
 
-    fun parseQuantifiedExpr(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.QUANTIFIED_EXPR_QUALIFIER_TOKENS)
-        if (marker != null) {
+    fun parseQuantifiedExpr(builder: PsiBuilder): IElementType? {
+        return builder.matchTokenTypeWithMarker(XPathTokenType.QUANTIFIED_EXPR_QUALIFIER_TOKENS) { marker ->
             parseWhiteSpaceAndCommentTokens(builder)
             if (parseQNameSeparator(builder, null)) { // QName
-                marker.rollbackTo()
-                return false
+                return@matchTokenTypeWithMarker marker.rollbackToAndReturn()
             }
 
             val hasBinding = parseQuantifierBinding(builder, true)
@@ -548,8 +546,7 @@ open class XPathParser : PsiParser {
                     builder.error(XPathBundle.message("parser.error.expected-keyword", "satisfies"))
                     haveErrors = true
                 } else { // NCName
-                    marker.rollbackTo()
-                    return false
+                    return@matchTokenTypeWithMarker marker.rollbackToAndReturn()
                 }
             }
 
@@ -558,10 +555,8 @@ open class XPathParser : PsiParser {
                 builder.error(XPathBundle.message("parser.error.expected-expression"))
             }
 
-            marker.done(XPathElementType.QUANTIFIED_EXPR)
-            return true
+            marker.doneAndReturn(XPathElementType.QUANTIFIED_EXPR)
         }
-        return false
     }
 
     open fun parseQuantifierBinding(builder: PsiBuilder, isFirst: Boolean): Boolean {
