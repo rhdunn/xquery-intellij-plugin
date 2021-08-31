@@ -1384,7 +1384,7 @@ class XQueryParser : XPathParser() {
         val marker = builder.mark()
         var haveConcatExpr: HaveConcatExpr = HaveConcatExpr.None
         while (true) {
-            if (!parseConcatExpr(builder)) {
+            if (parseConcatExpr(builder) == null) {
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (
                     functionDeclRecovery || !builder.errorOnTokenType(
@@ -1460,8 +1460,8 @@ class XQueryParser : XPathParser() {
         }
     }
 
-    private fun parseConcatExpr(builder: PsiBuilder): Boolean {
-        return super.parseExpr(builder, XQueryElementType.CONCAT_EXPR, false) != null
+    private fun parseConcatExpr(builder: PsiBuilder): IElementType? {
+        return super.parseExpr(builder, XQueryElementType.CONCAT_EXPR, false)
     }
 
     override fun parseExprSingleImpl(builder: PsiBuilder, parentType: IElementType?): IElementType? {
