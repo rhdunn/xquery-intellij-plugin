@@ -309,9 +309,12 @@ open class XPathParser : PsiParser {
                 return marker.rollbackToAndReturn()
             }
 
-            return when (builder.tokenType !== XPathTokenType.PARENTHESIS_OPEN && parseExprSingle(builder) != null) {
-                true -> marker.dropAndReturn(TokenType.ERROR_ELEMENT)
-                else -> marker.rollbackToAndReturn()
+            return when {
+                builder.tokenType === XPathTokenType.PARENTHESIS_OPEN -> marker.rollbackToAndReturn()
+                else -> when (val haveExprSingle = parseExprSingle(builder)) {
+                    null -> marker.rollbackToAndReturn()
+                    else -> marker.dropAndReturn(haveExprSingle)
+                }
             }
         }
         return marker.dropAndReturn()
