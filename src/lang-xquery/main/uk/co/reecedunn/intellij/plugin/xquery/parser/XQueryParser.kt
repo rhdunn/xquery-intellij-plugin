@@ -1484,7 +1484,7 @@ class XQueryParser : XPathParser() {
             parseReplaceExpr(builder) ||
             parseCopyModifyExpr(builder) ||
             parseUpdatingFunctionCall(builder) ||
-            parseBlockExpr(builder) ||
+            parseBlockExpr(builder) != null ||
             parseAssignmentExpr(builder) != null ||
             parseExitExpr(builder) != null ||
             parseWhileExpr(builder) != null ||
@@ -2998,18 +2998,15 @@ class XQueryParser : XPathParser() {
     // endregion
     // region Grammar :: Expr :: BlockExpr
 
-    private fun parseBlockExpr(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XQueryTokenType.K_BLOCK)
-        if (marker != null) {
+    private fun parseBlockExpr(builder: PsiBuilder): IElementType? {
+        return builder.matchTokenTypeWithMarker(XQueryTokenType.K_BLOCK) { marker ->
             parseWhiteSpaceAndCommentTokens(builder)
             if (!parseEnclosedExprOrBlock(builder, XQueryElementType.BLOCK, BlockOpen.REQUIRED, BlockExpr.REQUIRED)) {
-                marker.rollbackTo()
-                return false
+                marker.rollbackToAndReturn()
+            } else {
+                marker.doneAndReturn(XQueryElementType.BLOCK_EXPR)
             }
-            marker.done(XQueryElementType.BLOCK_EXPR)
-            return true
         }
-        return false
     }
 
     // endregion
