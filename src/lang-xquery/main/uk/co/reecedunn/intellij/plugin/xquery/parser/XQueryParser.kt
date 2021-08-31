@@ -1487,7 +1487,7 @@ class XQueryParser : XPathParser() {
             parseBlockExpr(builder) ||
             parseAssignmentExpr(builder) ||
             parseExitExpr(builder) ||
-            parseWhileExpr(builder) ||
+            parseWhileExpr(builder) != null ||
             parseTernaryConditionalExpr(builder, parentType) != null
         )
     }
@@ -3087,15 +3087,13 @@ class XQueryParser : XPathParser() {
     // endregion
     // region Grammar :: Expr :: WhileExpr
 
-    private fun parseWhileExpr(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XQueryTokenType.K_WHILE)
-        if (marker != null) {
+    private fun parseWhileExpr(builder: PsiBuilder): IElementType? {
+        return builder.matchTokenTypeWithMarker(XQueryTokenType.K_WHILE) { marker ->
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
-                marker.rollbackTo()
-                return false
+                return@matchTokenTypeWithMarker marker.rollbackToAndReturn()
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
@@ -3116,14 +3114,11 @@ class XQueryParser : XPathParser() {
                 )
             ) {
                 // FunctionCall construct. Check for reserved function name in the FunctionCall PSI class.
-                marker.rollbackTo()
-                return false
+                marker.rollbackToAndReturn()
+            } else {
+                marker.doneAndReturn(XQueryElementType.WHILE_EXPR)
             }
-
-            marker.done(XQueryElementType.WHILE_EXPR)
-            return true
         }
-        return false
     }
 
     // endregion
