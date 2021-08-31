@@ -1480,7 +1480,7 @@ class XQueryParser : XPathParser() {
             parseTryCatchExpr(builder) ||
             parseInsertExpr(builder) ||
             parseDeleteExpr(builder) ||
-            parseRenameExpr(builder) ||
+            parseRenameExpr(builder) != null ||
             parseReplaceExpr(builder) ||
             parseCopyModifyExpr(builder) != null ||
             parseUpdatingFunctionCall(builder) != null ||
@@ -2864,15 +2864,13 @@ class XQueryParser : XPathParser() {
     // endregion
     // region Grammar :: Expr :: RenameExpr
 
-    private fun parseRenameExpr(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XQueryTokenType.K_RENAME)
-        if (marker != null) {
+    private fun parseRenameExpr(builder: PsiBuilder): IElementType? {
+        return builder.matchTokenTypeWithMarker(XQueryTokenType.K_RENAME) { marker ->
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.K_NODE)) {
-                marker.rollbackTo()
-                return false
+                return@matchTokenTypeWithMarker marker.rollbackToAndReturn()
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
@@ -2892,10 +2890,8 @@ class XQueryParser : XPathParser() {
                 builder.error(XPathBundle.message("parser.error.expected-expression"))
             }
 
-            marker.done(XQueryElementType.RENAME_EXPR)
-            return true
+            marker.doneAndReturn(XQueryElementType.RENAME_EXPR)
         }
-        return false
     }
 
     private fun parseNewNameExpr(builder: PsiBuilder): Boolean {
