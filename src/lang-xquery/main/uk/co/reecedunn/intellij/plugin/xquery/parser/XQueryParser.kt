@@ -1479,7 +1479,7 @@ class XQueryParser : XPathParser() {
             parseIfExpr(builder) != null ||
             parseTryCatchExpr(builder) ||
             parseInsertExpr(builder) ||
-            parseDeleteExpr(builder) ||
+            parseDeleteExpr(builder) != null ||
             parseRenameExpr(builder) != null ||
             parseReplaceExpr(builder) != null ||
             parseCopyModifyExpr(builder) != null ||
@@ -2787,13 +2787,11 @@ class XQueryParser : XPathParser() {
     // endregion
     // region Grammar :: Expr :: DeleteExpr
 
-    private fun parseDeleteExpr(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XQueryTokenType.K_DELETE)
-        if (marker != null) {
+    private fun parseDeleteExpr(builder: PsiBuilder): IElementType? {
+        return builder.matchTokenTypeWithMarker(XQueryTokenType.K_DELETE) { marker ->
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XQueryTokenType.INSERT_DELETE_NODE_TOKENS)) {
-                marker.rollbackTo()
-                return false
+                return@matchTokenTypeWithMarker marker.rollbackToAndReturn()
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
@@ -2801,10 +2799,8 @@ class XQueryParser : XPathParser() {
                 builder.error(XPathBundle.message("parser.error.expected-expression"))
             }
 
-            marker.done(XQueryElementType.DELETE_EXPR)
-            return true
+            marker.doneAndReturn(XQueryElementType.DELETE_EXPR)
         }
-        return false
     }
 
     // endregion
