@@ -157,14 +157,14 @@ open class XPathParser : PsiParser {
 
     open fun parseExpr(builder: PsiBuilder, type: IElementType?, functionDeclRecovery: Boolean = false): Boolean {
         val marker = builder.mark()
-        if (parseExprSingle(builder)) {
+        if (parseExprSingle(builder) != null) {
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens(builder)
             var multipleExprSingles = false
             while (builder.matchTokenType(XPathTokenType.COMMA)) {
                 parseWhiteSpaceAndCommentTokens(builder)
-                if (!parseExprSingle(builder)) {
+                if (parseExprSingle(builder) == null) {
                     if (!haveErrors) {
                         builder.error(XPathBundle.message("parser.error.expected-expression"))
                         haveErrors = true
@@ -185,33 +185,30 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    fun parseExprSingle(builder: PsiBuilder): Boolean = parseExprSingleImpl(builder, null)
+    fun parseExprSingle(builder: PsiBuilder): IElementType? = parseExprSingleImpl(builder, null)
 
-    fun parseExprSingle(builder: PsiBuilder, type: IElementType?, parentType: IElementType? = null): Boolean {
+    fun parseExprSingle(builder: PsiBuilder, type: IElementType?, parentType: IElementType? = null): IElementType? {
         if (type == null) {
             return parseExprSingleImpl(builder, parentType)
         }
 
         val marker = builder.mark()
-        if (parseExprSingleImpl(builder, parentType)) {
-            marker.done(type)
-            return true
+        return when (parseExprSingleImpl(builder, parentType)) {
+            null -> marker.dropAndReturn()
+            TokenType.ERROR_ELEMENT -> marker.dropAndReturn(TokenType.ERROR_ELEMENT)
+            else -> marker.doneAndReturn(type)
         }
-
-        marker.drop()
-        return false
     }
 
-    @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
-    open fun parseExprSingleImpl(builder: PsiBuilder, parentType: IElementType?): Boolean {
-        return (
-            parseWithExpr(builder) != null ||
-            parseForExpr(builder) != null ||
-            parseLetExpr(builder) != null ||
-            parseQuantifiedExpr(builder) != null ||
-            parseIfExpr(builder) != null ||
-            parseTernaryConditionalExpr(builder, parentType) != null
-        )
+    open fun parseExprSingleImpl(builder: PsiBuilder, parentType: IElementType?): IElementType? {
+        var ret: IElementType? = null
+        ret = ret ?: parseWithExpr(builder)
+        ret = ret ?: parseForExpr(builder)
+        ret = ret ?: parseLetExpr(builder)
+        ret = ret ?: parseQuantifiedExpr(builder)
+        ret = ret ?: parseIfExpr(builder)
+        ret = ret ?: parseTernaryConditionalExpr(builder, parentType)
+        return ret
     }
 
     // endregion
@@ -285,7 +282,7 @@ open class XPathParser : PsiParser {
     fun parseReturnClause(builder: PsiBuilder): Boolean {
         if (builder.matchTokenType(XPathTokenType.K_RETURN)) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseExprSingle(builder)) {
+            if (parseExprSingle(builder) == null) {
                 builder.error(XPathBundle.message("parser.error.expected-expression"))
             }
             return true
@@ -313,7 +310,7 @@ open class XPathParser : PsiParser {
                 return marker.rollbackToAndReturn()
             }
 
-            return when (builder.tokenType !== XPathTokenType.PARENTHESIS_OPEN && parseExprSingle(builder)) {
+            return when (builder.tokenType !== XPathTokenType.PARENTHESIS_OPEN && parseExprSingle(builder) != null) {
                 true -> marker.dropAndReturn(TokenType.ERROR_ELEMENT)
                 else -> marker.rollbackToAndReturn()
             }
@@ -389,7 +386,7 @@ open class XPathParser : PsiParser {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseExprSingle(builder) && !haveErrors) {
+            if (parseExprSingle(builder) == null && !haveErrors) {
                 builder.error(XPathBundle.message("parser.error.expected-expression"))
             }
 
@@ -493,7 +490,7 @@ open class XPathParser : PsiParser {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseExprSingle(builder) && !haveErrors) {
+            if (parseExprSingle(builder) == null && !haveErrors) {
                 builder.error(XPathBundle.message("parser.error.expected-expression"))
             }
 
@@ -536,7 +533,7 @@ open class XPathParser : PsiParser {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseExprSingle(builder) && !haveErrors) {
+            if (parseExprSingle(builder) == null && !haveErrors) {
                 builder.error(XPathBundle.message("parser.error.expected-expression"))
             }
 
@@ -568,7 +565,7 @@ open class XPathParser : PsiParser {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseExprSingle(builder) && !haveErrors) {
+            if (parseExprSingle(builder) == null && !haveErrors) {
                 builder.error(XPathBundle.message("parser.error.expected-expression"))
             }
 
@@ -610,7 +607,7 @@ open class XPathParser : PsiParser {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseExprSingle(builder) && !haveErrors) {
+            if (parseExprSingle(builder) == null && !haveErrors) {
                 builder.error(XPathBundle.message("parser.error.expected-expression"))
                 haveErrors = true
             }
@@ -622,7 +619,7 @@ open class XPathParser : PsiParser {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseExprSingle(builder) && !haveErrors) {
+            if (parseExprSingle(builder) == null && !haveErrors) {
                 builder.error(XPathBundle.message("parser.error.expected-expression"))
             }
 
@@ -1824,7 +1821,7 @@ open class XPathParser : PsiParser {
         }
 
         val argumentType = when {
-            parseExprSingle(builder) -> XPathElementType.ARGUMENT
+            parseExprSingle(builder) != null -> XPathElementType.ARGUMENT
             parseArgumentPlaceholder(builder, keywordArgument != null) -> XPathElementType.ARGUMENT_PLACEHOLDER
             keywordArgument != null -> {
                 builder.error(XPathBundle.message("parser.error.keyword-argument-expr-single-or-qname"))
@@ -2041,7 +2038,7 @@ open class XPathParser : PsiParser {
 
     private fun parseMapConstructorEntry(builder: PsiBuilder): Boolean {
         val marker = builder.mark()
-        if (parseExprSingle(builder, null, XPathElementType.MAP_CONSTRUCTOR_ENTRY)) {
+        if (parseExprSingle(builder, null, XPathElementType.MAP_CONSTRUCTOR_ENTRY) != null) {
             var haveError = false
 
             parseWhiteSpaceAndCommentTokens(builder)
@@ -2051,7 +2048,7 @@ open class XPathParser : PsiParser {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseExprSingle(builder) && !haveError) {
+            if (parseExprSingle(builder) == null && !haveError) {
                 builder.error(XPathBundle.message("parser.error.expected-expression"))
             }
 
@@ -2074,11 +2071,11 @@ open class XPathParser : PsiParser {
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (parseExprSingle(builder)) {
+            if (parseExprSingle(builder) != null) {
                 parseWhiteSpaceAndCommentTokens(builder)
                 while (builder.matchTokenType(XPathTokenType.COMMA)) {
                     parseWhiteSpaceAndCommentTokens(builder)
-                    if (!parseExprSingle(builder) && !haveErrors) {
+                    if (parseExprSingle(builder) == null && !haveErrors) {
                         builder.error(XPathBundle.message("parser.error.expected-expression"))
                         haveErrors = true
                     }
