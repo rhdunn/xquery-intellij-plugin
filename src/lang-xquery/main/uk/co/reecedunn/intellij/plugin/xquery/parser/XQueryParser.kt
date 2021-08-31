@@ -1478,7 +1478,7 @@ class XQueryParser : XPathParser() {
             parseTypeswitchExpr(builder) ||
             parseIfExpr(builder) != null ||
             parseTryCatchExpr(builder) ||
-            parseInsertExpr(builder) ||
+            parseInsertExpr(builder) != null ||
             parseDeleteExpr(builder) != null ||
             parseRenameExpr(builder) != null ||
             parseReplaceExpr(builder) != null ||
@@ -2688,15 +2688,13 @@ class XQueryParser : XPathParser() {
     // endregion
     // region Grammar :: Expr :: InsertExpr
 
-    private fun parseInsertExpr(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XQueryTokenType.K_INSERT)
-        if (marker != null) {
+    private fun parseInsertExpr(builder: PsiBuilder): IElementType? {
+        return builder.matchTokenTypeWithMarker(XQueryTokenType.K_INSERT) { marker ->
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XQueryTokenType.INSERT_DELETE_NODE_TOKENS)) {
-                marker.rollbackTo()
-                return false
+                return@matchTokenTypeWithMarker marker.rollbackToAndReturn()
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
@@ -2716,10 +2714,8 @@ class XQueryParser : XPathParser() {
                 builder.error(XPathBundle.message("parser.error.expected-expression"))
             }
 
-            marker.done(XQueryElementType.INSERT_EXPR)
-            return true
+            marker.doneAndReturn(XQueryElementType.INSERT_EXPR)
         }
-        return false
     }
 
     private fun parseSourceExpr(builder: PsiBuilder): Boolean {
