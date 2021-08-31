@@ -24,6 +24,7 @@ References and Resolving:
 XPath and XQuery:
 
 1. Fix parsing `FTContainsExpr` in the RHS of a `ComparisonExpr` in XPath expressions.
+2. Improve the error message when a `return` is used without a `ForExpr` or `LetExpr` in XPath expressions.
 
 ## 2021
 

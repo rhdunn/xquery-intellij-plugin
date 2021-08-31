@@ -96,6 +96,10 @@
     <p>XPath and XQuery:</p>
     <ol>
       <li>Fix parsing <code>FTContainsExpr</code> in the RHS of a <code>ComparisonExpr</code> in XPath expressions.</li>
+      <li>
+        Improve the error message when a <code>return</code> is used without a <code>ForExpr</code>
+        or <code>LetExpr</code> in XPath expressions.
+      </li>
     </ol>
   ]]></change-notes>
 
