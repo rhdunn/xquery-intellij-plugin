@@ -1477,7 +1477,7 @@ class XQueryParser : XPathParser() {
             parseSwitchExpr(builder) ||
             parseTypeswitchExpr(builder) ||
             parseIfExpr(builder) != null ||
-            parseTryCatchExpr(builder) ||
+            parseTryCatchExpr(builder) != null ||
             parseInsertExpr(builder) != null ||
             parseDeleteExpr(builder) != null ||
             parseRenameExpr(builder) != null ||
@@ -2584,7 +2584,7 @@ class XQueryParser : XPathParser() {
         MARK_LOGIC
     }
 
-    private fun parseTryCatchExpr(builder: PsiBuilder): Boolean {
+    private fun parseTryCatchExpr(builder: PsiBuilder): IElementType? {
         val marker = builder.mark()
         if (parseTryClause(builder)) {
             var type = CatchClauseType.NONE
@@ -2597,8 +2597,7 @@ class XQueryParser : XPathParser() {
                         builder.error(XPathBundle.message("parser.error.expected", "CatchClause"))
                     }
 
-                    marker.done(XQueryElementType.TRY_CATCH_EXPR)
-                    return true
+                    return marker.doneAndReturn(XQueryElementType.TRY_CATCH_EXPR)
                 } else if (type != CatchClauseType.MARK_LOGIC) {
                     type = nextType
                 }
@@ -2606,8 +2605,7 @@ class XQueryParser : XPathParser() {
                 parseWhiteSpaceAndCommentTokens(builder)
             }
         }
-        marker.drop()
-        return false
+        return marker.dropAndReturn()
     }
 
     private fun parseTryClause(builder: PsiBuilder): Boolean {
