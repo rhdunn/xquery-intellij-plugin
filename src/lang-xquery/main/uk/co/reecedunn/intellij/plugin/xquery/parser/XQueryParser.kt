@@ -1485,7 +1485,7 @@ class XQueryParser : XPathParser() {
             parseCopyModifyExpr(builder) ||
             parseUpdatingFunctionCall(builder) ||
             parseBlockExpr(builder) ||
-            parseAssignmentExpr(builder) ||
+            parseAssignmentExpr(builder) != null ||
             parseExitExpr(builder) != null ||
             parseWhileExpr(builder) != null ||
             parseTernaryConditionalExpr(builder, parentType) != null
@@ -3015,9 +3015,8 @@ class XQueryParser : XPathParser() {
     // endregion
     // region Grammar :: Expr :: AssignmentExpr
 
-    private fun parseAssignmentExpr(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.VARIABLE_INDICATOR)
-        if (marker != null) {
+    private fun parseAssignmentExpr(builder: PsiBuilder): IElementType? {
+        return builder.matchTokenTypeWithMarker(XPathTokenType.VARIABLE_INDICATOR) { marker ->
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens(builder)
@@ -3029,8 +3028,7 @@ class XQueryParser : XPathParser() {
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.ASSIGN_EQUAL)) {
                 // VarRef construct -- handle in the OrExpr parser for the correct AST.
-                marker.rollbackTo()
-                return false
+                return@matchTokenTypeWithMarker marker.rollbackToAndReturn()
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
@@ -3038,10 +3036,8 @@ class XQueryParser : XPathParser() {
                 builder.error(XPathBundle.message("parser.error.expected-expression"))
             }
 
-            marker.done(XQueryElementType.ASSIGNMENT_EXPR)
-            return true
+            marker.doneAndReturn(XQueryElementType.ASSIGNMENT_EXPR)
         }
-        return false
     }
 
     // endregion
