@@ -207,7 +207,7 @@ open class XPathParser : PsiParser {
         return (
             parseWithExpr(builder) ||
             parseForExpr(builder) ||
-            parseLetExpr(builder) ||
+            parseLetExpr(builder) != null ||
             parseQuantifiedExpr(builder) != null ||
             parseIfExpr(builder) != null ||
             parseTernaryConditionalExpr(builder, parentType) != null
@@ -438,7 +438,7 @@ open class XPathParser : PsiParser {
     // endregion
     // region Grammar :: Expr :: LetExpr
 
-    private fun parseLetExpr(builder: PsiBuilder): Boolean {
+    private fun parseLetExpr(builder: PsiBuilder): IElementType? {
         val marker = builder.mark()
         if (parseSimpleLetClause(builder)) {
             parseWhiteSpaceAndCommentTokens(builder)
@@ -448,11 +448,9 @@ open class XPathParser : PsiParser {
                 parseExprSingle(builder)
             }
 
-            marker.done(XPathElementType.LET_EXPR)
-            return true
+            return marker.doneAndReturn(XPathElementType.LET_EXPR)
         }
-        marker.drop()
-        return false
+        return marker.dropAndReturn()
     }
 
     private fun parseSimpleLetClause(builder: PsiBuilder): Boolean {
