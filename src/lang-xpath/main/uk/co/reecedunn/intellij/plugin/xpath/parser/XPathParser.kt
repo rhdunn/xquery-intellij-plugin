@@ -206,7 +206,7 @@ open class XPathParser : PsiParser {
     open fun parseExprSingleImpl(builder: PsiBuilder, parentType: IElementType?): Boolean {
         return (
             parseWithExpr(builder) ||
-            parseForExpr(builder) ||
+            parseForExpr(builder) != null ||
             parseLetExpr(builder) != null ||
             parseQuantifiedExpr(builder) != null ||
             parseIfExpr(builder) != null ||
@@ -300,7 +300,7 @@ open class XPathParser : PsiParser {
         return false
     }
 
-    private fun parseForExpr(builder: PsiBuilder): Boolean {
+    private fun parseForExpr(builder: PsiBuilder): IElementType? {
         val marker = builder.mark()
         val match = parseForOrWindowClause(builder)
         if (match != null) {
@@ -311,27 +311,21 @@ open class XPathParser : PsiParser {
                 parseExprSingle(builder)
             }
 
-            marker.done(XPathElementType.FOR_EXPR)
-            return true
+            return marker.doneAndReturn(XPathElementType.FOR_EXPR)
         } else if (
             builder.errorOnTokenType(XPathTokenType.K_RETURN, XPathBundle.message("parser.error.return-without-flwor"))
         ) {
             parseWhiteSpaceAndCommentTokens(builder)
             if (parseQNameSeparator(builder, null)) { // QName
-                marker.rollbackTo()
-                return false
+                return marker.rollbackToAndReturn()
             }
 
-            return if (builder.tokenType !== XPathTokenType.PARENTHESIS_OPEN && parseExprSingle(builder)) {
-                marker.drop()
-                true
-            } else {
-                marker.rollbackTo()
-                false
+            return when (builder.tokenType !== XPathTokenType.PARENTHESIS_OPEN && parseExprSingle(builder)) {
+                true -> marker.dropAndReturn(TokenType.ERROR_ELEMENT)
+                else -> marker.rollbackToAndReturn()
             }
         }
-        marker.drop()
-        return false
+        return marker.dropAndReturn()
     }
 
     open fun parseForOrWindowClause(builder: PsiBuilder): IElementType? {
