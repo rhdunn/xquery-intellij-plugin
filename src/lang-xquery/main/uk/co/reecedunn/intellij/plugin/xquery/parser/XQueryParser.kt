@@ -1365,7 +1365,7 @@ class XQueryParser : XPathParser() {
         val marker = builder.mark()
         val haveApplyExpr = parseApplyExpr(builder, type!!, functionDeclRecovery)
         return when {
-            haveApplyExpr == null -> marker.dropAndReturn(haveApplyExpr)
+            haveApplyExpr == null || haveApplyExpr === TokenType.ERROR_ELEMENT -> marker.dropAndReturn(haveApplyExpr)
             type !== EXPR -> marker.doneAndReturn(type)
             else -> marker.dropAndReturn(haveApplyExpr)
         }
