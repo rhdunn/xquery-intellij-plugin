@@ -1,0 +1,37 @@
+XPathImpl[FILE(0:35)]
+   XPathComparisonExprImpl[XPATH_COMPARISON_EXPR(0:35)]
+      XPathSimpleMapExprImpl[XPATH_SIMPLE_MAP_EXPR(0:26)]
+         XPathVarRefImpl[XPATH_VAR_REF(0:3)]
+            LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(0:1)]('$')
+            PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+            XPathNCNameImpl[XPATH_NCNAME(2:3)]
+               XmlNCNameImpl[XPATH_NCNAME_TOKEN(2:3)]('m')
+         PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
+         LeafPsiElement[XPATH_MAP_OPERATOR_TOKEN(4:5)]('!')
+         PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
+         LeafPsiElement[XPATH_OPTIONAL_TOKEN(6:7)]('?')
+         PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+         LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(8:9)]('(')
+         PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
+         LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(10:11)]('$')
+         PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
+         PsiErrorElementImpl[ERROR_ELEMENT(12:12)]('XPST0003: Missing qualified name or braced URI qualified name.')
+         LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(12:13)](')')
+         PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
+         LeafPsiElement[XPATH_MAP_OPERATOR_TOKEN(14:15)]('!')
+         PsiWhiteSpaceImpl[WHITE_SPACE(15:16)](' ')
+         XPathUnaryLookupImpl[XPATH_UNARY_LOOKUP(16:25)]
+            LeafPsiElement[XPATH_OPTIONAL_TOKEN(16:17)]('?')
+            PsiWhiteSpaceImpl[WHITE_SPACE(17:18)](' ')
+            XPathVarRefImpl[XPATH_VAR_REF(18:25)]
+               LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(18:19)]('$')
+               PsiWhiteSpaceImpl[WHITE_SPACE(19:20)](' ')
+               XPathNCNameImpl[XPATH_NCNAME(20:25)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(20:25)]('lorem')
+         PsiWhiteSpaceImpl[WHITE_SPACE(25:26)](' ')
+      LeafPsiElement[XPATH_EQUAL_TOKEN(26:27)]('=')
+      PsiWhiteSpaceImpl[WHITE_SPACE(27:28)](' ')
+      XPathStringLiteralImpl[XPATH_STRING_LITERAL(28:35)]
+         LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(28:29)]('"')
+         XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(29:34)]('ipsum')
+         LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(34:35)]('"')

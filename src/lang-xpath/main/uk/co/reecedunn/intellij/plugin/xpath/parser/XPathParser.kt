@@ -1717,8 +1717,7 @@ open class XPathParser : PsiParser {
         builder.matchTokenType(XPathTokenType.INTEGER_LITERAL) -> KEY_SPECIFIER
         this.parseEQNameOrWildcard(builder, XPathElementType.NCNAME, false) != null -> KEY_SPECIFIER
         parseStringLiteral(builder) != null -> KEY_SPECIFIER
-        parseParenthesizedExpr(builder) != null -> KEY_SPECIFIER
-        else -> when (parseVarOrParamRef(builder, null)) {
+        else -> when (parseParenthesizedExpr(builder) ?: parseVarOrParamRef(builder, null)) {
             null -> null
             TokenType.ERROR_ELEMENT -> TokenType.ERROR_ELEMENT
             else -> KEY_SPECIFIER

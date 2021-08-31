@@ -1,0 +1,25 @@
+XQueryModuleImpl[FILE(0:21)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:21)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:21)]
+         XPathComparisonExprImpl[XPATH_COMPARISON_EXPR(0:21)]
+            XPathVarRefImpl[XPATH_VAR_REF(0:3)]
+               LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(0:1)]('$')
+               PsiWhiteSpaceImpl[WHITE_SPACE(1:2)](' ')
+               XPathNCNameImpl[XPATH_NCNAME(2:3)]
+                  XmlNCNameImpl[XPATH_NCNAME_TOKEN(2:3)]('m')
+            PsiWhiteSpaceImpl[WHITE_SPACE(3:4)](' ')
+            LeafPsiElement[XPATH_OPTIONAL_TOKEN(4:5)]('?')
+            PsiWhiteSpaceImpl[WHITE_SPACE(5:6)](' ')
+            LeafPsiElement[XPATH_PARENTHESIS_OPEN_TOKEN(6:7)]('(')
+            PsiWhiteSpaceImpl[WHITE_SPACE(7:8)](' ')
+            LeafPsiElement[XPATH_VARIABLE_INDICATOR_TOKEN(8:9)]('$')
+            PsiWhiteSpaceImpl[WHITE_SPACE(9:10)](' ')
+            PsiErrorElementImpl[ERROR_ELEMENT(10:10)]('XPST0003: Missing qualified name or braced URI qualified name.')
+            LeafPsiElement[XPATH_PARENTHESIS_CLOSE_TOKEN(10:11)](')')
+            PsiWhiteSpaceImpl[WHITE_SPACE(11:12)](' ')
+            LeafPsiElement[XPATH_EQUAL_TOKEN(12:13)]('=')
+            PsiWhiteSpaceImpl[WHITE_SPACE(13:14)](' ')
+            XPathStringLiteralImpl[XPATH_STRING_LITERAL(14:21)]
+               LeafPsiElement[XPATH_STRING_LITERAL_START_TOKEN(14:15)]('"')
+               XPathStringLiteralContentsImpl[XPATH_STRING_LITERAL_CONTENTS_TOKEN(15:20)]('ipsum')
+               LeafPsiElement[XPATH_STRING_LITERAL_END_TOKEN(20:21)]('"')

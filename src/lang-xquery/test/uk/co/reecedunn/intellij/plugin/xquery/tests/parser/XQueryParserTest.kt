@@ -8608,7 +8608,7 @@ class XQueryParserTest : ParserTestCase() {
     internal inner class PostfixExpr_Lookup {
         @Test
         @DisplayName("key specifier; NCName")
-        fun keySpecifier_ncname() {
+        fun ncname() {
             val expected = loadResource("tests/parser/xquery-3.1/Lookup_NCName.txt")
             val actual = parseResource("tests/parser/xquery-3.1/Lookup_NCName.xq")
             assertThat(actual.toPsiTreeString(), `is`(expected))
@@ -8616,7 +8616,7 @@ class XQueryParserTest : ParserTestCase() {
 
         @Test
         @DisplayName("key specifier; IntegerLiteral")
-        fun keySpecifier_IntegerLiteral() {
+        fun integerLiteral() {
             val expected = loadResource("tests/parser/xquery-3.1/Lookup_IntegerLiteral.txt")
             val actual = parseResource("tests/parser/xquery-3.1/Lookup_IntegerLiteral.xq")
             assertThat(actual.toPsiTreeString(), `is`(expected))
@@ -8624,15 +8624,31 @@ class XQueryParserTest : ParserTestCase() {
 
         @Test
         @DisplayName("key specifier; ParenthesizedExpr")
-        fun keySpecifier_ParenthesizedExpr() {
+        fun parenthesizedExpr() {
             val expected = loadResource("tests/parser/xquery-3.1/Lookup_ParenthesizedExpr.txt")
             val actual = parseResource("tests/parser/xquery-3.1/Lookup_ParenthesizedExpr.xq")
             assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
+        @DisplayName("key specifier; ParenthesizedExpr; missing VarName")
+        fun parenthesizedExpr_missingVarName() {
+            val expected = loadResource("tests/parser/xquery-3.1/Lookup_ParenthesizedExpr_MissingVarName.txt")
+            val actual = parseResource("tests/parser/xquery-3.1/Lookup_ParenthesizedExpr_MissingVarName.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("key specifier; ParenthesizedExpr; missing VarName; multiple")
+        fun parenthesizedExpr_missingVarName_multiple() {
+            val expected = loadResource("tests/parser/xquery-3.1/Lookup_ParenthesizedExpr_MissingVarName_Multiple.txt")
+            val actual = parseResource("tests/parser/xquery-3.1/Lookup_ParenthesizedExpr_MissingVarName_Multiple.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
         @DisplayName("key specifier; wildcard")
-        fun keySpecifier_Wildcard() {
+        fun wildcard() {
             val expected = loadResource("tests/parser/xquery-3.1/Lookup_Wildcard.txt")
             val actual = parseResource("tests/parser/xquery-3.1/Lookup_Wildcard.xq")
             assertThat(actual.toPsiTreeString(), `is`(expected))
@@ -8996,7 +9012,7 @@ class XQueryParserTest : ParserTestCase() {
     internal inner class UnaryLookup {
         @Test
         @DisplayName("key specifier; NCName")
-        fun keySpecifier_ncname() {
+        fun ncname() {
             val expected = loadResource("tests/parser/xquery-3.1/UnaryLookup_NCName.txt")
             val actual = parseResource("tests/parser/xquery-3.1/UnaryLookup_NCName.xq")
             assertThat(actual.toPsiTreeString(), `is`(expected))
@@ -9004,7 +9020,7 @@ class XQueryParserTest : ParserTestCase() {
 
         @Test
         @DisplayName("key specifier; IntegerLiteral")
-        fun keySpecifier_IntegerLiteral() {
+        fun integerLiteral() {
             val expected = loadResource("tests/parser/xquery-3.1/UnaryLookup_IntegerLiteral.txt")
             val actual = parseResource("tests/parser/xquery-3.1/UnaryLookup_IntegerLiteral.xq")
             assertThat(actual.toPsiTreeString(), `is`(expected))
@@ -9012,15 +9028,31 @@ class XQueryParserTest : ParserTestCase() {
 
         @Test
         @DisplayName("key specifier; ParenthesizedExpr")
-        fun keySpecifier_ParenthesizedExpr() {
+        fun parenthesizedExpr() {
             val expected = loadResource("tests/parser/xquery-3.1/UnaryLookup_ParenthesizedExpr.txt")
             val actual = parseResource("tests/parser/xquery-3.1/UnaryLookup_ParenthesizedExpr.xq")
             assertThat(actual.toPsiTreeString(), `is`(expected))
         }
 
         @Test
+        @DisplayName("key specifier; ParenthesizedExpr; missing VarName")
+        fun parenthesizedExpr_missingVarName() {
+            val expected = loadResource("tests/parser/xquery-3.1/UnaryLookup_ParenthesizedExpr_MissingVarName.txt")
+            val actual = parseResource("tests/parser/xquery-3.1/UnaryLookup_ParenthesizedExpr_MissingVarName.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
+        @DisplayName("key specifier; ParenthesizedExpr; missing VarName; multiple")
+        fun parenthesizedExpr_missingVarName_multiple() {
+            val expected = loadResource("tests/parser/xquery-3.1/UnaryLookup_ParenthesizedExpr_MissingVarName_Multiple.txt")
+            val actual = parseResource("tests/parser/xquery-3.1/UnaryLookup_ParenthesizedExpr_MissingVarName_Multiple.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
+
+        @Test
         @DisplayName("key specifier; wildcard")
-        fun keySpecifier_Wildcard() {
+        fun wildcard() {
             val expected = loadResource("tests/parser/xquery-3.1/UnaryLookup_Wildcard.txt")
             val actual = parseResource("tests/parser/xquery-3.1/UnaryLookup_Wildcard.xq")
             assertThat(actual.toPsiTreeString(), `is`(expected))
