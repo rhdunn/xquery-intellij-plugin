@@ -1486,7 +1486,7 @@ class XQueryParser : XPathParser() {
             parseUpdatingFunctionCall(builder) ||
             parseBlockExpr(builder) ||
             parseAssignmentExpr(builder) ||
-            parseExitExpr(builder) ||
+            parseExitExpr(builder) != null ||
             parseWhileExpr(builder) != null ||
             parseTernaryConditionalExpr(builder, parentType) != null
         )
@@ -3047,22 +3047,19 @@ class XQueryParser : XPathParser() {
     // endregion
     // region Grammar :: Expr :: ExitExpr
 
-    private fun parseExitExpr(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XQueryTokenType.K_EXIT)
-        if (marker != null) {
+    private fun parseExitExpr(builder: PsiBuilder): IElementType? {
+        return builder.matchTokenTypeWithMarker(XQueryTokenType.K_EXIT) { marker ->
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (parseQNameSeparator(builder, null)) { // QName
-                marker.rollbackTo()
-                return false
+                return@matchTokenTypeWithMarker marker.rollbackToAndReturn()
             }
 
             if (!builder.matchTokenType(XQueryTokenType.K_RETURNING)) {
                 if (builder.tokenType === XPathTokenType.PARENTHESIS_OPEN) {
                     // FunctionCall construct
-                    marker.rollbackTo()
-                    return false
+                    return@matchTokenTypeWithMarker marker.rollbackToAndReturn()
                 }
                 builder.error(XPathBundle.message("parser.error.expected-keyword", "returning"))
                 haveErrors = true
@@ -3072,16 +3069,13 @@ class XQueryParser : XPathParser() {
             if (!parseExprSingle(builder)) {
                 if (haveErrors) {
                     // AbbrevForwardStep construct
-                    marker.rollbackTo()
-                    return false
+                    return@matchTokenTypeWithMarker marker.rollbackToAndReturn()
                 }
                 builder.error(XPathBundle.message("parser.error.expected-expression"))
             }
 
-            marker.done(XQueryElementType.EXIT_EXPR)
-            return true
+            marker.doneAndReturn(XQueryElementType.EXIT_EXPR)
         }
-        return false
     }
 
     // endregion
