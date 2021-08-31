@@ -1483,7 +1483,7 @@ class XQueryParser : XPathParser() {
             parseRenameExpr(builder) ||
             parseReplaceExpr(builder) ||
             parseCopyModifyExpr(builder) ||
-            parseUpdatingFunctionCall(builder) ||
+            parseUpdatingFunctionCall(builder) != null ||
             parseBlockExpr(builder) != null ||
             parseAssignmentExpr(builder) != null ||
             parseExitExpr(builder) != null ||
@@ -4167,16 +4167,14 @@ class XQueryParser : XPathParser() {
     // endregion
     // region Grammar :: Expr :: UpdatingFunctionCall
 
-    private fun parseUpdatingFunctionCall(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XQueryTokenType.K_INVOKE)
-        if (marker != null) {
+    private fun parseUpdatingFunctionCall(builder: PsiBuilder): IElementType? {
+        return builder.matchTokenTypeWithMarker(XQueryTokenType.K_INVOKE) { marker ->
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XQueryTokenType.K_UPDATING)) {
                 if (builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) { // FunctionCall
-                    marker.rollbackTo()
-                    return false
+                    return@matchTokenTypeWithMarker marker.rollbackToAndReturn()
                 }
 
                 builder.error(XPathBundle.message("parser.error.expected-keyword", "updating"))
@@ -4184,8 +4182,7 @@ class XQueryParser : XPathParser() {
 
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (parsePrimaryExpr(builder, null) == null) { // AbbrevForwardStep
-                    marker.rollbackTo()
-                    return false
+                    return@matchTokenTypeWithMarker marker.rollbackToAndReturn()
                 }
             } else {
                 parseWhiteSpaceAndCommentTokens(builder)
@@ -4219,10 +4216,8 @@ class XQueryParser : XPathParser() {
                 builder.error(XPathBundle.message("parser.error.expected", ")"))
             }
 
-            marker.done(XQueryElementType.UPDATING_FUNCTION_CALL)
-            return true
+            marker.doneAndReturn(XQueryElementType.UPDATING_FUNCTION_CALL)
         }
-        return false
     }
 
     // endregion
