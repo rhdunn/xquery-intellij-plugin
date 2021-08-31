@@ -1482,7 +1482,7 @@ class XQueryParser : XPathParser() {
             parseDeleteExpr(builder) ||
             parseRenameExpr(builder) ||
             parseReplaceExpr(builder) ||
-            parseCopyModifyExpr(builder) ||
+            parseCopyModifyExpr(builder) != null ||
             parseUpdatingFunctionCall(builder) != null ||
             parseBlockExpr(builder) != null ||
             parseAssignmentExpr(builder) != null ||
@@ -2911,16 +2911,14 @@ class XQueryParser : XPathParser() {
     // endregion
     // region Grammar :: Expr :: CopyModifyExpr (TransformExpr)
 
-    private fun parseCopyModifyExpr(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XQueryTokenType.K_COPY)
-        if (marker != null) {
+    private fun parseCopyModifyExpr(builder: PsiBuilder): IElementType? {
+        return builder.matchTokenTypeWithMarker(XQueryTokenType.K_COPY) { marker ->
             var haveErrors = false
             var isFirst = true
             do {
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (!parseCopyModifyExprBinding(builder, isFirst) && isFirst) {
-                    marker.rollbackTo()
-                    return false
+                    return@matchTokenTypeWithMarker marker.rollbackToAndReturn()
                 }
 
                 isFirst = false
@@ -2950,10 +2948,8 @@ class XQueryParser : XPathParser() {
                 builder.error(XPathBundle.message("parser.error.expected-expression"))
             }
 
-            marker.done(XQueryElementType.COPY_MODIFY_EXPR)
-            return true
+            marker.doneAndReturn(XQueryElementType.COPY_MODIFY_EXPR)
         }
-        return false
     }
 
     private fun parseCopyModifyExprBinding(builder: PsiBuilder, isFirst: Boolean): Boolean {
