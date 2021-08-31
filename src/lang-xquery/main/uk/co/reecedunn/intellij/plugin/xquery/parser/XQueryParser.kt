@@ -1474,7 +1474,7 @@ class XQueryParser : XPathParser() {
             parseWithExpr(builder) != null ||
             parseFLWORExpr(builder) ||
             parseQuantifiedExpr(builder) != null ||
-            parseSwitchExpr(builder) ||
+            parseSwitchExpr(builder) != null ||
             parseTypeswitchExpr(builder) != null ||
             parseIfExpr(builder) != null ||
             parseTryCatchExpr(builder) != null ||
@@ -2308,15 +2308,13 @@ class XQueryParser : XPathParser() {
     // endregion
     // region Grammar :: Expr :: SwitchExpr
 
-    private fun parseSwitchExpr(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XQueryTokenType.K_SWITCH)
-        if (marker != null) {
+    private fun parseSwitchExpr(builder: PsiBuilder): IElementType? {
+        return builder.matchTokenTypeWithMarker(XQueryTokenType.K_SWITCH) { marker ->
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens(builder)
             if (!builder.matchTokenType(XPathTokenType.PARENTHESIS_OPEN)) {
-                marker.rollbackTo()
-                return false
+                return@matchTokenTypeWithMarker marker.rollbackToAndReturn()
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
@@ -2358,10 +2356,8 @@ class XQueryParser : XPathParser() {
                 builder.error(XPathBundle.message("parser.error.expected-expression"))
             }
 
-            marker.done(XQueryElementType.SWITCH_EXPR)
-            return true
+            marker.doneAndReturn(XQueryElementType.SWITCH_EXPR)
         }
-        return false
     }
 
     private fun parseSwitchCaseClause(builder: PsiBuilder): Boolean {
