@@ -1670,7 +1670,7 @@ open class XPathParser : PsiParser {
 
             when (haveExpr) {
                 null -> marker.doneAndReturn(XPathElementType.EMPTY_EXPR)
-                else -> marker.dropAndReturn(XPathElementType.EXPR)
+                else -> marker.dropAndReturn(haveExpr)
             }
         }
     }
