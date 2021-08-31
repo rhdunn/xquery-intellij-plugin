@@ -205,7 +205,7 @@ open class XPathParser : PsiParser {
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
     open fun parseExprSingleImpl(builder: PsiBuilder, parentType: IElementType?): Boolean {
         return (
-            parseWithExpr(builder) ||
+            parseWithExpr(builder) != null ||
             parseForExpr(builder) != null ||
             parseLetExpr(builder) != null ||
             parseQuantifiedExpr(builder) != null ||
@@ -217,9 +217,8 @@ open class XPathParser : PsiParser {
     // endregion
     // region Grammar :: Expr :: WithExpr
 
-    fun parseWithExpr(builder: PsiBuilder): Boolean {
-        val marker = builder.matchTokenTypeWithMarker(XPathTokenType.K_WITH)
-        if (marker != null) {
+    fun parseWithExpr(builder: PsiBuilder): IElementType? {
+        return builder.matchTokenTypeWithMarker(XPathTokenType.K_WITH) { marker ->
             parseWhiteSpaceAndCommentTokens(builder)
             val haveNamespaceDeclaration = parseNamespaceDeclaration(builder)
             if (haveNamespaceDeclaration) {
@@ -244,24 +243,18 @@ open class XPathParser : PsiParser {
                 builder.tokenType === XPathTokenType.BLOCK_OPEN -> {
                     parseEnclosedExprOrBlock(builder, null, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)
 
-                    if (!haveNamespaceDeclaration)
-                        marker.drop()
-                    else
-                        marker.done(XPathElementType.WITH_EXPR)
-                    return true
+                    when (!haveNamespaceDeclaration) {
+                        true -> marker.dropAndReturn(XPathElementType.WITH_EXPR)
+                        else -> marker.doneAndReturn(XPathElementType.WITH_EXPR)
+                    }
                 }
                 haveNamespaceDeclaration -> {
                     builder.error(XPathBundle.message("parser.error.expected-either", ",", "EnclosedExpr"))
-
-                    marker.done(XPathElementType.WITH_EXPR)
-                    return true
+                    marker.doneAndReturn(XPathElementType.WITH_EXPR)
                 }
-                else -> {
-                    marker.rollbackTo()
-                }
+                else -> marker.rollbackToAndReturn()
             }
         }
-        return false
     }
 
     private fun parseNamespaceDeclaration(builder: PsiBuilder): Boolean {

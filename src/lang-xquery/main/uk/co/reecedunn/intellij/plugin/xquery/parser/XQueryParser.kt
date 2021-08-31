@@ -1471,7 +1471,7 @@ class XQueryParser : XPathParser() {
     @Suppress("Reformat") // Kotlin formatter bug: https://youtrack.jetbrains.com/issue/KT-22518
     override fun parseExprSingleImpl(builder: PsiBuilder, parentType: IElementType?): Boolean {
         return (
-            parseWithExpr(builder) ||
+            parseWithExpr(builder) != null ||
             parseFLWORExpr(builder) ||
             parseQuantifiedExpr(builder) != null ||
             parseSwitchExpr(builder) ||
