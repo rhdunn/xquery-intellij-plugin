@@ -85,7 +85,7 @@ object XPathSyntaxHighlighterColors {
     )
 
     val PROCESSING_INSTRUCTION: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
-        "XPATH_PROCESSING_INSTRUCTION", IDENTIFIER
+        "XPATH_PROCESSING_INSTRUCTION", ATTRIBUTE
     )
 
     val TYPE: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
