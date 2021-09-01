@@ -3754,7 +3754,7 @@ class XQueryParser : XPathParser() {
         return builder.matchTokenTypeWithMarker(XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN) { marker ->
             var haveErrors = false
 
-            if (builder.matchTokenType(XPathTokenType.WHITE_SPACE)) {
+            if (builder.matchTokenType(XQueryTokenType.XML_WHITE_SPACE)) {
                 builder.error(XQueryBundle.message("parser.error.unexpected-whitespace"))
                 haveErrors = true
             }
@@ -3764,7 +3764,7 @@ class XQueryParser : XPathParser() {
                 haveErrors = true
             }
 
-            builder.matchTokenType(XPathTokenType.WHITE_SPACE)
+            builder.matchTokenType(XQueryTokenType.XML_WHITE_SPACE)
             if (!builder.matchTokenType(XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS) && !haveErrors) {
                 builder.error(XQueryBundle.message("parser.error.expected-pi-contents"))
                 haveErrors = true
@@ -3772,7 +3772,7 @@ class XQueryParser : XPathParser() {
 
             while (
                 builder.matchTokenType(XPathTokenType.BAD_CHARACTER) ||
-                builder.matchTokenType(XPathTokenType.NCNAME) ||
+                builder.matchTokenType(XQueryTokenType.XML_TAG_NCNAME) ||
                 builder.matchTokenType(XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS)
             ) {
                 //

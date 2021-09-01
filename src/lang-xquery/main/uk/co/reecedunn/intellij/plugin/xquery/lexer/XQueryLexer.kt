@@ -854,7 +854,7 @@ class XQueryLexer : XPathLexer() {
                 mTokenRange.match()
                 while (CharacterClass.getCharClass(mTokenRange.codePoint) == CharacterClass.WHITESPACE)
                     mTokenRange.match()
-                mType = XPathTokenType.WHITE_SPACE
+                mType = XQueryTokenType.XML_WHITE_SPACE
                 popState()
                 pushState(if (state == STATE_PROCESSING_INSTRUCTION) STATE_PROCESSING_INSTRUCTION_CONTENTS else STATE_PROCESSING_INSTRUCTION_CONTENTS_ELEM_CONTENT)
             }
@@ -871,7 +871,7 @@ class XQueryLexer : XPathLexer() {
                     mTokenRange.match()
                     cc = CharacterClass.getCharClass(mTokenRange.codePoint)
                 }
-                mType = XPathTokenType.NCNAME
+                mType = XQueryTokenType.XML_TAG_NCNAME
             }
             CharacterClass.QUESTION_MARK -> {
                 mTokenRange.match()
