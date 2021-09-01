@@ -76,22 +76,29 @@ object XPathSyntaxHighlighter : SyntaxHighlighterBase() {
     // region Keys
 
     private val KEYS = mapOf(
+        // Attribute (Semantic)
+        XPathTokenType.ATTRIBUTE_SELECTOR to ATTRIBUTE_KEYS,
+        // Bad Character
+        XPathTokenType.BAD_CHARACTER to BAD_CHARACTER_KEYS,
+        // Comment
+        XPathTokenType.COMMENT_START_TAG to COMMENT_KEYS,
+        XPathTokenType.COMMENT to COMMENT_KEYS,
+        XPathTokenType.COMMENT_END_TAG to COMMENT_KEYS,
+        // Escaped Character
+        XPathTokenType.ESCAPED_CHARACTER to ESCAPED_CHARACTER_KEYS,
+        // Identifier
+        XPathTokenType.NCNAME to IDENTIFIER_KEYS,
+        // Number
         XPathTokenType.INTEGER_LITERAL to NUMBER_KEYS,
         XPathTokenType.DECIMAL_LITERAL to NUMBER_KEYS,
         XPathTokenType.DOUBLE_LITERAL to NUMBER_KEYS,
         XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT to NUMBER_KEYS,
+        // String
         XPathTokenType.STRING_LITERAL_START to STRING_KEYS,
         XPathTokenType.STRING_LITERAL_CONTENTS to STRING_KEYS,
         XPathTokenType.STRING_LITERAL_END to STRING_KEYS,
         XPathTokenType.BRACED_URI_LITERAL_START to STRING_KEYS,
-        XPathTokenType.BRACED_URI_LITERAL_END to STRING_KEYS,
-        XPathTokenType.ESCAPED_CHARACTER to ESCAPED_CHARACTER_KEYS,
-        XPathTokenType.COMMENT_START_TAG to COMMENT_KEYS,
-        XPathTokenType.COMMENT to COMMENT_KEYS,
-        XPathTokenType.COMMENT_END_TAG to COMMENT_KEYS,
-        XPathTokenType.NCNAME to IDENTIFIER_KEYS,
-        XPathTokenType.ATTRIBUTE_SELECTOR to ATTRIBUTE_KEYS,
-        XPathTokenType.BAD_CHARACTER to BAD_CHARACTER_KEYS
+        XPathTokenType.BRACED_URI_LITERAL_END to STRING_KEYS
     )
 
     // endregion

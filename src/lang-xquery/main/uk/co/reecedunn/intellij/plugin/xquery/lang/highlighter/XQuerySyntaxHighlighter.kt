@@ -141,26 +141,18 @@ object XQuerySyntaxHighlighter : SyntaxHighlighterBase() {
     // region Keys
 
     private val KEYS = mapOf(
-        XPathTokenType.INTEGER_LITERAL to NUMBER_KEYS,
-        XPathTokenType.DECIMAL_LITERAL to NUMBER_KEYS,
-        XPathTokenType.DOUBLE_LITERAL to NUMBER_KEYS,
-        XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT to NUMBER_KEYS,
-        XPathTokenType.STRING_LITERAL_START to STRING_KEYS,
-        XPathTokenType.STRING_LITERAL_CONTENTS to STRING_KEYS,
-        XPathTokenType.STRING_LITERAL_END to STRING_KEYS,
-        XQueryTokenType.STRING_CONSTRUCTOR_START to STRING_KEYS,
-        XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS to STRING_KEYS,
-        XQueryTokenType.STRING_CONSTRUCTOR_END to STRING_KEYS,
-        XPathTokenType.BRACED_URI_LITERAL_START to STRING_KEYS,
-        XPathTokenType.BRACED_URI_LITERAL_END to STRING_KEYS,
-        XPathTokenType.ESCAPED_CHARACTER to ESCAPED_CHARACTER_KEYS,
-        XQueryTokenType.PREDEFINED_ENTITY_REFERENCE to ENTITY_REFERENCE_KEYS,
-        XQueryTokenType.PARTIAL_ENTITY_REFERENCE to ENTITY_REFERENCE_KEYS,
-        XQueryTokenType.EMPTY_ENTITY_REFERENCE to ENTITY_REFERENCE_KEYS,
-        XQueryTokenType.CHARACTER_REFERENCE to ENTITY_REFERENCE_KEYS,
+        // Annotation (Semantic)
+        XQueryTokenType.ANNOTATION_INDICATOR to ANNOTATION_KEYS,
+        XQueryTokenType.K_PRIVATE to ANNOTATION_KEYS,
+        XQueryTokenType.K_PUBLIC to ANNOTATION_KEYS,
+        XQueryTokenType.K_SIMPLE to ANNOTATION_KEYS,
+        XQueryTokenType.K_SEQUENTIAL to ANNOTATION_KEYS,
+        XQueryTokenType.K_UPDATING to ANNOTATION_KEYS,
+        // Attribute (Semantic)
         XPathTokenType.ATTRIBUTE_SELECTOR to ATTRIBUTE_KEYS,
+        // Bad Character
         XPathTokenType.BAD_CHARACTER to BAD_CHARACTER_KEYS,
-        XPathTokenType.NCNAME to IDENTIFIER_KEYS,
+        // Comment
         XPathTokenType.COMMENT_START_TAG to COMMENT_KEYS,
         XPathTokenType.COMMENT to COMMENT_KEYS,
         XPathTokenType.COMMENT_END_TAG to COMMENT_KEYS,
@@ -171,42 +163,54 @@ object XQuerySyntaxHighlighter : SyntaxHighlighterBase() {
         XQDocTokenType.CONTENTS to COMMENT_KEYS,
         XQDocTokenType.TRIM to COMMENT_KEYS,
         XQDocTokenType.XML_ELEMENT_CONTENTS to COMMENT_KEYS,
-        XQueryTokenType.ANNOTATION_INDICATOR to ANNOTATION_KEYS,
-        XQueryTokenType.K_PRIVATE to ANNOTATION_KEYS,
-        XQueryTokenType.K_PUBLIC to ANNOTATION_KEYS,
-        XQueryTokenType.K_SIMPLE to ANNOTATION_KEYS,
-        XQueryTokenType.K_SEQUENTIAL to ANNOTATION_KEYS,
-        XQueryTokenType.K_UPDATING to ANNOTATION_KEYS,
-        XQueryTokenType.OPEN_XML_TAG to XML_TAG_KEYS,
-        XQueryTokenType.END_XML_TAG to XML_TAG_KEYS,
-        XQueryTokenType.CLOSE_XML_TAG to XML_TAG_KEYS,
-        XQueryTokenType.SELF_CLOSING_XML_TAG to XML_TAG_KEYS,
-        XQueryTokenType.XML_WHITE_SPACE to XML_TAG_KEYS,
-        XQueryTokenType.XML_TAG_NCNAME to XML_TAG_NAME_KEYS,
-        XQueryTokenType.XML_TAG_QNAME_SEPARATOR to XML_TAG_NAME_KEYS,
-        XQueryTokenType.XML_EQUAL to XML_ATTRIBUTE_VALUE_KEYS,
+        // Entity Reference
+        XQueryTokenType.PREDEFINED_ENTITY_REFERENCE to ENTITY_REFERENCE_KEYS,
+        XQueryTokenType.PARTIAL_ENTITY_REFERENCE to ENTITY_REFERENCE_KEYS,
+        XQueryTokenType.EMPTY_ENTITY_REFERENCE to ENTITY_REFERENCE_KEYS,
+        XQueryTokenType.CHARACTER_REFERENCE to ENTITY_REFERENCE_KEYS,
+        // Escaped Character
+        XPathTokenType.ESCAPED_CHARACTER to ESCAPED_CHARACTER_KEYS,
+        // Identifier
+        XPathTokenType.NCNAME to IDENTIFIER_KEYS,
+        // Number
+        XPathTokenType.INTEGER_LITERAL to NUMBER_KEYS,
+        XPathTokenType.DECIMAL_LITERAL to NUMBER_KEYS,
+        XPathTokenType.DOUBLE_LITERAL to NUMBER_KEYS,
+        XPathTokenType.PARTIAL_DOUBLE_LITERAL_EXPONENT to NUMBER_KEYS,
+        // String
+        XPathTokenType.STRING_LITERAL_START to STRING_KEYS,
+        XPathTokenType.STRING_LITERAL_CONTENTS to STRING_KEYS,
+        XPathTokenType.STRING_LITERAL_END to STRING_KEYS,
+        XQueryTokenType.STRING_CONSTRUCTOR_START to STRING_KEYS,
+        XQueryTokenType.STRING_CONSTRUCTOR_CONTENTS to STRING_KEYS,
+        XQueryTokenType.STRING_CONSTRUCTOR_END to STRING_KEYS,
+        XPathTokenType.BRACED_URI_LITERAL_START to STRING_KEYS,
+        XPathTokenType.BRACED_URI_LITERAL_END to STRING_KEYS,
+        // XML Attribute Name
         XQueryTokenType.XML_ATTRIBUTE_NCNAME to XML_ATTRIBUTE_NAME_KEYS,
         XQueryTokenType.XML_ATTRIBUTE_QNAME_SEPARATOR to XML_ATTRIBUTE_NAME_KEYS,
+        // XML Attribute Value
+        XQueryTokenType.XML_EQUAL to XML_ATTRIBUTE_VALUE_KEYS,
         XQueryTokenType.XML_ATTRIBUTE_VALUE_START to XML_ATTRIBUTE_VALUE_KEYS,
         XQueryTokenType.XML_ATTRIBUTE_VALUE_CONTENTS to XML_ATTRIBUTE_VALUE_KEYS,
         XQueryTokenType.XML_PARTIAL_ENTITY_REFERENCE to XML_ATTRIBUTE_VALUE_KEYS,
         XQueryTokenType.XML_EMPTY_ENTITY_REFERENCE to XML_ATTRIBUTE_VALUE_KEYS,
         XQueryTokenType.XML_ATTRIBUTE_VALUE_END to XML_ATTRIBUTE_VALUE_KEYS,
-        XQueryTokenType.XML_ESCAPED_CHARACTER to XML_ESCAPED_CHARACTER_KEYS,
+        // XML Entity Reference
         XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE to XML_ENTITY_REFERENCE_KEYS,
         XQueryTokenType.XML_CHARACTER_REFERENCE to XML_ENTITY_REFERENCE_KEYS,
-        XQDocTokenType.TAG_MARKER to XQDOC_TAG_KEYS,
-        XQDocTokenType.TAG to XQDOC_TAG_KEYS,
-        XQDocTokenType.T_AUTHOR to XQDOC_TAG_KEYS,
-        XQDocTokenType.T_DEPRECATED to XQDOC_TAG_KEYS,
-        XQDocTokenType.T_ERROR to XQDOC_TAG_KEYS,
-        XQDocTokenType.T_PARAM to XQDOC_TAG_KEYS,
-        XQDocTokenType.T_RETURN to XQDOC_TAG_KEYS,
-        XQDocTokenType.T_SEE to XQDOC_TAG_KEYS,
-        XQDocTokenType.T_SINCE to XQDOC_TAG_KEYS,
-        XQDocTokenType.T_VERSION to XQDOC_TAG_KEYS,
-        XQDocTokenType.VARIABLE_INDICATOR to XQDOC_TAG_VALUE_KEYS,
-        XQDocTokenType.NCNAME to XQDOC_TAG_VALUE_KEYS,
+        // XML Escaped Character
+        XQueryTokenType.XML_ESCAPED_CHARACTER to XML_ESCAPED_CHARACTER_KEYS,
+        // XML Tag
+        XQueryTokenType.OPEN_XML_TAG to XML_TAG_KEYS,
+        XQueryTokenType.END_XML_TAG to XML_TAG_KEYS,
+        XQueryTokenType.CLOSE_XML_TAG to XML_TAG_KEYS,
+        XQueryTokenType.SELF_CLOSING_XML_TAG to XML_TAG_KEYS,
+        XQueryTokenType.XML_WHITE_SPACE to XML_TAG_KEYS,
+        // XML Tag Name
+        XQueryTokenType.XML_TAG_NCNAME to XML_TAG_NAME_KEYS,
+        XQueryTokenType.XML_TAG_QNAME_SEPARATOR to XML_TAG_NAME_KEYS,
+        // XQDoc Markup
         XQDocTokenType.OPEN_XML_TAG to XQDOC_MARKUP_KEYS,
         XQDocTokenType.END_XML_TAG to XQDOC_MARKUP_KEYS,
         XQDocTokenType.CLOSE_XML_TAG to XQDOC_MARKUP_KEYS,
@@ -220,7 +224,21 @@ object XQuerySyntaxHighlighter : SyntaxHighlighterBase() {
         XQDocTokenType.PARTIAL_ENTITY_REFERENCE to XQDOC_MARKUP_KEYS,
         XQDocTokenType.EMPTY_ENTITY_REFERENCE to XQDOC_MARKUP_KEYS,
         XQDocTokenType.CHARACTER_REFERENCE to XQDOC_MARKUP_KEYS,
-        XQDocTokenType.INVALID to XQDOC_MARKUP_KEYS
+        XQDocTokenType.INVALID to XQDOC_MARKUP_KEYS,
+        // XQDoc Tag
+        XQDocTokenType.TAG_MARKER to XQDOC_TAG_KEYS,
+        XQDocTokenType.TAG to XQDOC_TAG_KEYS,
+        XQDocTokenType.T_AUTHOR to XQDOC_TAG_KEYS,
+        XQDocTokenType.T_DEPRECATED to XQDOC_TAG_KEYS,
+        XQDocTokenType.T_ERROR to XQDOC_TAG_KEYS,
+        XQDocTokenType.T_PARAM to XQDOC_TAG_KEYS,
+        XQDocTokenType.T_RETURN to XQDOC_TAG_KEYS,
+        XQDocTokenType.T_SEE to XQDOC_TAG_KEYS,
+        XQDocTokenType.T_SINCE to XQDOC_TAG_KEYS,
+        XQDocTokenType.T_VERSION to XQDOC_TAG_KEYS,
+        // XQDoc Tag Value
+        XQDocTokenType.VARIABLE_INDICATOR to XQDOC_TAG_VALUE_KEYS,
+        XQDocTokenType.NCNAME to XQDOC_TAG_VALUE_KEYS
     )
 
     // endregion
