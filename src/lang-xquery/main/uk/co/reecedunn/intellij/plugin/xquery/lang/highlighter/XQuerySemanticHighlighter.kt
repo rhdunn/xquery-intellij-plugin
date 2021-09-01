@@ -28,6 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.context.XpmUsageType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.highlighter.XpmSemanticHighlighter
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirPIConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 
 object XQuerySemanticHighlighter : XpmSemanticHighlighter {
@@ -84,7 +85,7 @@ object XQuerySemanticHighlighter : XpmSemanticHighlighter {
             .create()
 
         val parent = element.parent.parent
-        if (parent is PluginDirAttribute || parent is XQueryDirElemConstructor) {
+        if (parent is PluginDirAttribute || parent is XQueryDirElemConstructor || parent is XQueryDirPIConstructor) {
             // Workaround IDEA-234709 -- XML_TAG is overriding the text colour of textAttributes.
             if (!EditorColorsManager.getInstance().isDarkEditor) {
                 holder.newSilentAnnotation(HighlightSeverity.INFORMATION).range(element)

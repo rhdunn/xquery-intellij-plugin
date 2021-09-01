@@ -156,6 +156,7 @@ class XQueryModuleImpl(provider: FileViewProvider) :
             XQueryElementType.DECIMAL_FORMAT_DECL to XpmUsageType.DecimalFormat,
             XQueryElementType.DEFAULT_CASE_CLAUSE to XpmUsageType.Variable,
             XQueryElementType.DIR_ELEM_CONSTRUCTOR to XpmUsageType.Element,
+            XQueryElementType.DIR_PI_CONSTRUCTOR to XpmUsageType.ProcessingInstruction,
             XPathElementType.ELEMENT_TEST to XpmUsageType.Element,
             XPathElementType.FIELD_DECLARATION to XpmUsageType.MapKey,
             XQueryElementType.FOR_BINDING to XpmUsageType.Variable,

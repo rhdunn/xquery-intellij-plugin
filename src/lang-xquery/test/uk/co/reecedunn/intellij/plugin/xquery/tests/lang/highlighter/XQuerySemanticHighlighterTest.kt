@@ -1027,6 +1027,20 @@ class XQuerySemanticHighlighterTest : AnnotatorTestCase() {
     @DisplayName("Usage Type: Processing Instruction")
     internal inner class UsageType_ProcessingInstruction {
         @Test
+        @DisplayName("XQuery 3.1 EBNF (151) DirPIConstructor")
+        fun dirPIConstructor() {
+            val file = parse<XQueryModule>("<?test lorem ipsum?>")[0]
+            val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
+            assertThat(
+                annotations, `is`(
+                    """
+                    INFORMATION (2:6) ERASED/DEFAULT + XQUERY_XML_TAG + XQUERY_PROCESSING_INSTRUCTION
+                    """.trimIndent()
+                )
+            )
+        }
+
+        @Test
         @DisplayName("XQuery 3.1 EBNF (166) CompPIConstructor")
         fun compPIConstructor() {
             val file = parse<XQueryModule>("processing-instruction test {}")[0]
