@@ -922,6 +922,10 @@ class XQuerySyntaxHighlighterTest {
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_EMPTY_ENTITY_REFERENCE).size, `is`(2))
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_EMPTY_ENTITY_REFERENCE)[0], `is`(XQuerySyntaxHighlighterColors.XML_TAG))
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_EMPTY_ENTITY_REFERENCE)[1], `is`(XQuerySyntaxHighlighterColors.XML_ATTRIBUTE_VALUE))
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS).size, `is`(2))
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS)[0], `is`(XQuerySyntaxHighlighterColors.XML_TAG))
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS)[1], `is`(XQuerySyntaxHighlighterColors.XML_ATTRIBUTE_VALUE))
     }
 
     @Test
@@ -965,7 +969,6 @@ class XQuerySyntaxHighlighterTest {
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.PROCESSING_INSTRUCTION_END).size, `is`(0))
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS).size, `is`(0))
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_ELEMENT_CONTENTS).size, `is`(0))
 
