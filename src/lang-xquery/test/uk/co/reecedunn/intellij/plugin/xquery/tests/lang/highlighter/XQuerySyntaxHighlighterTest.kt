@@ -885,11 +885,11 @@ class XQuerySyntaxHighlighterTest {
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_TAG_NCNAME).size, `is`(2))
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_TAG_NCNAME)[0], `is`(XQuerySyntaxHighlighterColors.XML_TAG))
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_TAG_NCNAME)[1], `is`(XQuerySyntaxHighlighterColors.XML_TAG_NAME))
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_TAG_NCNAME)[1], `is`(XQuerySyntaxHighlighterColors.ELEMENT))
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_TAG_QNAME_SEPARATOR).size, `is`(2))
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_TAG_QNAME_SEPARATOR)[0], `is`(XQuerySyntaxHighlighterColors.XML_TAG))
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_TAG_QNAME_SEPARATOR)[1], `is`(XQuerySyntaxHighlighterColors.XML_TAG_NAME))
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_TAG_QNAME_SEPARATOR)[1], `is`(XQuerySyntaxHighlighterColors.ELEMENT))
     }
 
     @Test

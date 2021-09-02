@@ -89,10 +89,6 @@ object XQuerySyntaxHighlighterColors {
         "XQUERY_XML_TAG", XmlHighlighterColors.XML_TAG
     )
 
-    val XML_TAG_NAME: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
-        "XQUERY_XML_TAG_NAME", XmlHighlighterColors.XML_TAG_NAME
-    )
-
     // endregion
     // region Semantic Highlighting (Usage and Reference Types)
 
@@ -184,7 +180,6 @@ object XQuerySyntaxHighlighterColors {
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xml.escaped.character"), XML_ESCAPED_CHARACTER),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xml.pi.tag"), XML_PI_TAG),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xml.tag"), XML_TAG),
-        AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xml.tag.name"), XML_TAG_NAME),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xqdoc.markup"), XQDOC_MARKUP),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xqdoc.tag"), XQDOC_TAG),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xqdoc.tag-value"), XQDOC_TAG_VALUE)
