@@ -90,7 +90,7 @@ object XQuerySyntaxHighlighter : SyntaxHighlighterBase() {
 
     private val XML_ATTRIBUTE_NAME_KEYS = pack(
         XQuerySyntaxHighlighterColors.XML_TAG,
-        XQuerySyntaxHighlighterColors.XML_ATTRIBUTE_NAME
+        XQuerySyntaxHighlighterColors.ATTRIBUTE
     )
 
     private val XML_ATTRIBUTE_VALUE_KEYS = pack(

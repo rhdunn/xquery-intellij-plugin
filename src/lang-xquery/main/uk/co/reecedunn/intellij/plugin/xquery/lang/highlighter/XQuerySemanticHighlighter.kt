@@ -64,7 +64,7 @@ object XQuerySemanticHighlighter : XpmSemanticHighlighter {
             ret.size == 1 -> ret[0]
             else -> when (ret[1]) {
                 XQuerySyntaxHighlighterColors.XML_TAG_NAME -> XQuerySyntaxHighlighterColors.ELEMENT
-                XQuerySyntaxHighlighterColors.XML_ATTRIBUTE_NAME -> XQuerySyntaxHighlighterColors.ATTRIBUTE
+                XQuerySyntaxHighlighterColors.ATTRIBUTE -> XQuerySyntaxHighlighterColors.ATTRIBUTE
                 else -> ret[1]
             }
         }

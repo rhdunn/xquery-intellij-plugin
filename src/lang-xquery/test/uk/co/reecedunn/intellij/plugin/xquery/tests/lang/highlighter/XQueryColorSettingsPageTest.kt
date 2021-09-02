@@ -86,7 +86,6 @@ class XQueryColorSettingsPageTest {
         assertThat(keys.contains(XQuerySyntaxHighlighterColors.NUMBER), `is`(true))
         assertThat(keys.contains(XQuerySyntaxHighlighterColors.PROCESSING_INSTRUCTION), `is`(true))
         assertThat(keys.contains(XQuerySyntaxHighlighterColors.STRING), `is`(true))
-        assertThat(keys.contains(XQuerySyntaxHighlighterColors.XML_ATTRIBUTE_NAME), `is`(true))
         assertThat(keys.contains(XQuerySyntaxHighlighterColors.XML_ATTRIBUTE_VALUE), `is`(true))
         assertThat(keys.contains(XQuerySyntaxHighlighterColors.XML_ENTITY_REFERENCE), `is`(true))
         assertThat(keys.contains(XQuerySyntaxHighlighterColors.XML_ESCAPED_CHARACTER), `is`(true))
@@ -96,7 +95,7 @@ class XQueryColorSettingsPageTest {
         assertThat(keys.contains(XQuerySyntaxHighlighterColors.XQDOC_MARKUP), `is`(true))
         assertThat(keys.contains(XQuerySyntaxHighlighterColors.XQDOC_TAG), `is`(true))
         assertThat(keys.contains(XQuerySyntaxHighlighterColors.XQDOC_TAG_VALUE), `is`(true))
-        assertThat(keys.size, `is`(21)) // No other matching highlight colours
+        assertThat(keys.size, `is`(20)) // No other matching highlight colours
     }
 
     @Test

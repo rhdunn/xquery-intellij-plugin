@@ -73,10 +73,6 @@ object XQuerySyntaxHighlighterColors {
         "XQUERY_XML_PI_TAG", XmlHighlighterColors.XML_PROLOGUE
     )
 
-    val XML_ATTRIBUTE_NAME: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
-        "XQUERY_XML_ATTRIBUTE_NAME", XmlHighlighterColors.XML_ATTRIBUTE_NAME
-    )
-
     val XML_ATTRIBUTE_VALUE: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XQUERY_XML_ATTRIBUTE_VALUE", XmlHighlighterColors.XML_ATTRIBUTE_VALUE
     )
@@ -183,7 +179,6 @@ object XQuerySyntaxHighlighterColors {
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.string"), STRING),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.type"), TYPE),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.variable"), VARIABLE),
-        AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xml.attribute.name"), XML_ATTRIBUTE_NAME),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xml.attribute.value"), XML_ATTRIBUTE_VALUE),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xml.entity.reference"), XML_ENTITY_REFERENCE),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xml.escaped.character"), XML_ESCAPED_CHARACTER),
