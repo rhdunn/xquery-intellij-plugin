@@ -3772,7 +3772,7 @@ class XQueryParser : XPathParser() {
 
             while (
                 builder.matchTokenType(XPathTokenType.BAD_CHARACTER) ||
-                builder.matchTokenType(XQueryTokenType.XML_TAG_NCNAME) ||
+                builder.matchTokenType(XQueryTokenType.XML_PI_TARGET_NCNAME) ||
                 builder.matchTokenType(XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS)
             ) {
                 //

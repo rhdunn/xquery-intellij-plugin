@@ -110,6 +110,11 @@ object XQuerySyntaxHighlighter : SyntaxHighlighterBase() {
 
     private val XML_PI_TAG_KEYS = pack(XQuerySyntaxHighlighterColors.XML_PI_TAG)
 
+    private val XML_PI_TARGET_KEYS = pack(
+        XQuerySyntaxHighlighterColors.XML_TAG,
+        XQuerySyntaxHighlighterColors.PROCESSING_INSTRUCTION
+    )
+
     private val XML_TAG_KEYS = pack(XQuerySyntaxHighlighterColors.XML_TAG)
 
     private val XML_TAG_NAME_KEYS = pack(
@@ -207,6 +212,8 @@ object XQuerySyntaxHighlighter : SyntaxHighlighterBase() {
         // XML Processing Instruction Tag
         XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN to XML_PI_TAG_KEYS,
         XQueryTokenType.PROCESSING_INSTRUCTION_END to XML_PI_TAG_KEYS,
+        // XML Processing Instruction Target
+        XQueryTokenType.XML_PI_TARGET_NCNAME to XML_PI_TARGET_KEYS,
         // XML Tag
         XQueryTokenType.OPEN_XML_TAG to XML_TAG_KEYS,
         XQueryTokenType.END_XML_TAG to XML_TAG_KEYS,

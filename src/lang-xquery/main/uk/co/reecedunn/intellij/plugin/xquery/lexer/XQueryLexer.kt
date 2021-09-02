@@ -871,7 +871,7 @@ class XQueryLexer : XPathLexer() {
                     mTokenRange.match()
                     cc = CharacterClass.getCharClass(mTokenRange.codePoint)
                 }
-                mType = XQueryTokenType.XML_TAG_NCNAME
+                mType = XQueryTokenType.XML_PI_TARGET_NCNAME
             }
             CharacterClass.QUESTION_MARK -> {
                 mTokenRange.match()

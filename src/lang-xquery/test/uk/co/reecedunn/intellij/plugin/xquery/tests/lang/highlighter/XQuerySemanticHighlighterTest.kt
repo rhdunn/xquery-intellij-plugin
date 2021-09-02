@@ -1031,13 +1031,7 @@ class XQuerySemanticHighlighterTest : AnnotatorTestCase() {
         fun dirPIConstructor() {
             val file = parse<XQueryModule>("<?test lorem ipsum?>")[0]
             val annotations = annotateTree(file, QNameAnnotator()).prettyPrint()
-            assertThat(
-                annotations, `is`(
-                    """
-                    INFORMATION (2:6) ERASED/DEFAULT + XQUERY_XML_TAG + XQUERY_PROCESSING_INSTRUCTION
-                    """.trimIndent()
-                )
-            )
+            assertThat(annotations, `is`(""))
         }
 
         @Test

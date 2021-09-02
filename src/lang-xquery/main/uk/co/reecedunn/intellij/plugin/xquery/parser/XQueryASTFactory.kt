@@ -44,6 +44,7 @@ class XQueryASTFactory : ASTFactory() {
         XQueryTokenType.XML_ESCAPED_CHARACTER -> XPathEscapeCharacterImpl(type, text)
         XQueryTokenType.XML_CHARACTER_REFERENCE -> XQueryCharRefImpl(type, text)
         XQueryTokenType.XML_COMMENT -> PsiCommentImpl(type, text)
+        XQueryTokenType.XML_PI_TARGET_NCNAME -> XmlNCNameImpl(type, text)
         XQueryTokenType.XML_PREDEFINED_ENTITY_REFERENCE -> XQueryPredefinedEntityRefImpl(type, text)
         XQueryTokenType.XML_TAG_NCNAME -> XmlNCNameImpl(type, text)
         XQueryTokenType.XML_WHITE_SPACE -> XQueryDirWhiteSpaceImpl(text)

@@ -1509,7 +1509,7 @@ class XQueryLexerTest : LexerTestCase() {
                 state(17)
                 token("<?", XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN)
                 state(23)
-                token("for", XQueryTokenType.XML_TAG_NCNAME)
+                token("for", XQueryTokenType.XML_PI_TARGET_NCNAME)
                 token("  ", XQueryTokenType.XML_WHITE_SPACE)
                 state(24)
                 token("6^gkgw~*?g", XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS)
@@ -1531,7 +1531,7 @@ class XQueryLexerTest : LexerTestCase() {
                 state(17)
                 token("<?", XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN)
                 state(23)
-                token("for", XQueryTokenType.XML_TAG_NCNAME)
+                token("for", XQueryTokenType.XML_PI_TARGET_NCNAME)
                 token("?>", XQueryTokenType.PROCESSING_INSTRUCTION_END)
                 state(17)
                 token("</", XQueryTokenType.CLOSE_XML_TAG)
@@ -1566,7 +1566,7 @@ class XQueryLexerTest : LexerTestCase() {
                 state(17)
                 token("<?", XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN)
                 state(23)
-                token("a", XQueryTokenType.XML_TAG_NCNAME)
+                token("a", XQueryTokenType.XML_PI_TARGET_NCNAME)
                 token(" ", XQueryTokenType.XML_WHITE_SPACE)
                 state(24)
                 token("?", XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS)
@@ -1578,7 +1578,7 @@ class XQueryLexerTest : LexerTestCase() {
             tokenize("<?a ", 0, 4, 17) {
                 token("<?", XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN)
                 state(23)
-                token("a", XQueryTokenType.XML_TAG_NCNAME)
+                token("a", XQueryTokenType.XML_PI_TARGET_NCNAME)
                 token(" ", XQueryTokenType.XML_WHITE_SPACE)
                 state(24)
             }
@@ -2001,7 +2001,7 @@ class XQueryLexerTest : LexerTestCase() {
         tokenize("<?for  6^gkgw~*?g?>") {
             token("<?", XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN)
             state(21)
-            token("for", XQueryTokenType.XML_TAG_NCNAME)
+            token("for", XQueryTokenType.XML_PI_TARGET_NCNAME)
             token("  ", XQueryTokenType.XML_WHITE_SPACE)
             state(22)
             token("6^gkgw~*?g", XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS)
@@ -2012,7 +2012,7 @@ class XQueryLexerTest : LexerTestCase() {
         tokenize("<?for?>") {
             token("<?", XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN)
             state(21)
-            token("for", XQueryTokenType.XML_TAG_NCNAME)
+            token("for", XQueryTokenType.XML_PI_TARGET_NCNAME)
             token("?>", XQueryTokenType.PROCESSING_INSTRUCTION_END)
             state(0)
         }
@@ -2030,7 +2030,7 @@ class XQueryLexerTest : LexerTestCase() {
         tokenize("<?a ?") {
             token("<?", XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN)
             state(21)
-            token("a", XQueryTokenType.XML_TAG_NCNAME)
+            token("a", XQueryTokenType.XML_PI_TARGET_NCNAME)
             token(" ", XQueryTokenType.XML_WHITE_SPACE)
             state(22)
             token("?", XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS)
@@ -2042,7 +2042,7 @@ class XQueryLexerTest : LexerTestCase() {
         tokenize("<?a ") {
             token("<?", XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN)
             state(21)
-            token("a", XQueryTokenType.XML_TAG_NCNAME)
+            token("a", XQueryTokenType.XML_PI_TARGET_NCNAME)
             token(" ", XQueryTokenType.XML_WHITE_SPACE)
             state(22)
         }
