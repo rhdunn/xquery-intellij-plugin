@@ -64,8 +64,13 @@ object XQuerySyntaxHighlighterColors {
     val XQDOC_TAG: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XQUERY_XQDOC_TAG", DefaultLanguageHighlighterColors.DOC_COMMENT_TAG
     )
+
     val XQDOC_TAG_VALUE: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "XQUERY_XQDOC_TAG_VALUE", DefaultLanguageHighlighterColors.DOC_COMMENT_TAG_VALUE
+    )
+
+    val XML_PI_TAG: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
+        "XQUERY_XML_PI_TAG", XmlHighlighterColors.XML_PROLOGUE
     )
 
     val XML_ATTRIBUTE_NAME: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
@@ -182,6 +187,7 @@ object XQuerySyntaxHighlighterColors {
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xml.attribute.value"), XML_ATTRIBUTE_VALUE),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xml.entity.reference"), XML_ENTITY_REFERENCE),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xml.escaped.character"), XML_ESCAPED_CHARACTER),
+        AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xml.pi.tag"), XML_PI_TAG),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xml.tag"), XML_TAG),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xml.tag.name"), XML_TAG_NAME),
         AttributesDescriptor(XQueryBundle.message("xquery.settings.colors.xqdoc.markup"), XQDOC_MARKUP),

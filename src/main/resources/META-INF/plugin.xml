@@ -88,7 +88,7 @@
     <p>Syntax and Semantic Highlighting:</p>
     <ol>
       <il>Highlight <code>=</code> in XML attributes as attribute values to match IntelliJ's highlighting behaviour.</li>
-      <li>Highlight direct processing instruction node (<code>&lt;?xml ...?&gt;</code>) names as processing instructions.</li>
+      <li>Highlight direct processing instruction node (<code>&lt;?xml ...?&gt;</code>) tokens.</li>
     </ol>
     <p>References and Resolving:</p>
     <ol>

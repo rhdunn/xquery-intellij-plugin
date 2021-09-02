@@ -23,6 +23,9 @@ let $items := (
     1 instance of processing-instruction(test),
     (# ext Lorem Ipsum #) { }
 )
-return <test comment="One "" Two &quot; Three">Lorem ipsum.</test>
+return (
+    <?xml-stylesheet type="text/xsl" href="test.xsl"?>,
+    <test comment="One "" Two &quot; Three">Lorem ipsum.</test>
+)
 
 \^

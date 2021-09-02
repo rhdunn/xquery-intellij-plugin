@@ -108,6 +108,8 @@ object XQuerySyntaxHighlighter : SyntaxHighlighterBase() {
         XQuerySyntaxHighlighterColors.XML_ESCAPED_CHARACTER
     )
 
+    private val XML_PI_TAG_KEYS = pack(XQuerySyntaxHighlighterColors.XML_PI_TAG)
+
     private val XML_TAG_KEYS = pack(XQuerySyntaxHighlighterColors.XML_TAG)
 
     private val XML_TAG_NAME_KEYS = pack(
@@ -202,6 +204,9 @@ object XQuerySyntaxHighlighter : SyntaxHighlighterBase() {
         XQueryTokenType.XML_CHARACTER_REFERENCE to XML_ENTITY_REFERENCE_KEYS,
         // XML Escaped Character
         XQueryTokenType.XML_ESCAPED_CHARACTER to XML_ESCAPED_CHARACTER_KEYS,
+        // XML Processing Instruction Tag
+        XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN to XML_PI_TAG_KEYS,
+        XQueryTokenType.PROCESSING_INSTRUCTION_END to XML_PI_TAG_KEYS,
         // XML Tag
         XQueryTokenType.OPEN_XML_TAG to XML_TAG_KEYS,
         XQueryTokenType.END_XML_TAG to XML_TAG_KEYS,

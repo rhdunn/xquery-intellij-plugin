@@ -16,7 +16,7 @@ Code Folding:
 Syntax and Semantic Highlighting:
 
 1. Highlight `=` in XML attributes as attribute values to match IntelliJ's highlighting behaviour.
-2. Highlight direct processing instruction node (`<?xml ...?>`) names as processing instructions.
+2. Highlight direct processing instruction node (`<?xml ...?>`) tokens.
 
 References and Resolving:
 

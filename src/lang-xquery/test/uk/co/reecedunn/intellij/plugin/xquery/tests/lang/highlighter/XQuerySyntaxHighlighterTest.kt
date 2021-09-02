@@ -846,6 +846,18 @@ class XQuerySyntaxHighlighterTest {
     }
 
     @Test
+    @DisplayName("xml processing instruction tag")
+    fun testTokenHighlights_XmlPITag() {
+        val highlighter = XQuerySyntaxHighlighter
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN)[0], `is`(XQuerySyntaxHighlighterColors.XML_PI_TAG))
+
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.PROCESSING_INSTRUCTION_END).size, `is`(1))
+        assertThat(highlighter.getTokenHighlights(XQueryTokenType.PROCESSING_INSTRUCTION_END)[0], `is`(XQuerySyntaxHighlighterColors.XML_PI_TAG))
+    }
+
+    @Test
     @DisplayName("xml tag")
     fun testTokenHighlights_XmlTag() {
         val highlighter = XQuerySyntaxHighlighter
@@ -966,9 +978,6 @@ class XQuerySyntaxHighlighterTest {
         assertThat(highlighter.getTokenHighlights(XPathTokenType.PRAGMA_BEGIN).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.PRAGMA_CONTENTS).size, `is`(0))
         assertThat(highlighter.getTokenHighlights(XPathTokenType.PRAGMA_END).size, `is`(0))
-
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN).size, `is`(0))
-        assertThat(highlighter.getTokenHighlights(XQueryTokenType.PROCESSING_INSTRUCTION_END).size, `is`(0))
 
         assertThat(highlighter.getTokenHighlights(XQueryTokenType.XML_ELEMENT_CONTENTS).size, `is`(0))
 
