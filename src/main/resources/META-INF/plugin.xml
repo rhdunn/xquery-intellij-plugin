@@ -105,6 +105,7 @@
         Don't generate an error when parsing <code>?$</code> and <code>?($)</code>, where the
         <code>VarName</code> is missing.
       </li>
+      <li>Improve the error message when a <code>QName</code> is used in a <code>DirPIConstructor</code>.</li>
     </ol>
   ]]></change-notes>
 

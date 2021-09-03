@@ -1,0 +1,13 @@
+XQueryModuleImpl[FILE(0:30)]
+   XQueryMainModuleImpl[XQUERY_MAIN_MODULE(0:30)]
+      XQueryQueryBodyImpl[XQUERY_QUERY_BODY(0:30)]
+         XQueryDirPIConstructorImpl[XQUERY_DIR_PI_CONSTRUCTOR(0:30)]
+            LeafPsiElement[XQUERY_PROCESSING_INSTRUCTION_BEGIN_TOKEN(0:2)]('<?')
+            XPathQNameImpl[XPATH_QNAME(2:13)]
+               XmlNCNameImpl[XQUERY_XML_PI_TARGET_NCNAME_TOKEN(2:7)]('lorem')
+               PsiErrorElementImpl[ERROR_ELEMENT(7:8)]('XPST0003: Expected an identifier not a qualified name.')
+                  LeafPsiElement[XQUERY_XML_TAG_QNAME_SEPARATOR_TOKEN(7:8)](':')
+               XmlNCNameImpl[XQUERY_XML_PI_TARGET_NCNAME_TOKEN(8:13)]('ipsum')
+            XQueryDirWhiteSpaceImpl[XQUERY_XML_WHITE_SPACE_TOKEN(13:14)](' ')
+            LeafPsiElement[XQUERY_PROCESSING_INSTRUCTION_CONTENTS_TOKEN(14:28)]('dolor sed emit')
+            LeafPsiElement[XQUERY_PROCESSING_INSTRUCTION_END_TOKEN(28:30)]('?>')

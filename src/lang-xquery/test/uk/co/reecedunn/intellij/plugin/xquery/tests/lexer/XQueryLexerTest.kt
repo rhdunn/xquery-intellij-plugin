@@ -1562,6 +1562,30 @@ class XQueryLexerTest : LexerTestCase() {
                 state(0)
             }
 
+            tokenize("<a><?lorem:ipsum dolor sed emit?></a>") {
+                state(0x60000000 or 30)
+                token("<", XQueryTokenType.OPEN_XML_TAG)
+                state(0x60000000 or 11)
+                token("a", XQueryTokenType.XML_TAG_NCNAME)
+                token(">", XQueryTokenType.END_XML_TAG)
+                state(17)
+                token("<?", XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN)
+                state(23)
+                token("lorem", XQueryTokenType.XML_PI_TARGET_NCNAME)
+                token(":", XQueryTokenType.XML_TAG_QNAME_SEPARATOR)
+                token("ipsum", XQueryTokenType.XML_PI_TARGET_NCNAME)
+                token(" ", XQueryTokenType.XML_WHITE_SPACE)
+                state(24)
+                token("dolor sed emit", XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS)
+                token("?>", XQueryTokenType.PROCESSING_INSTRUCTION_END)
+                state(17)
+                token("</", XQueryTokenType.CLOSE_XML_TAG)
+                state(12)
+                token("a", XQueryTokenType.XML_TAG_NCNAME)
+                token(">", XQueryTokenType.END_XML_TAG)
+                state(0)
+            }
+
             tokenize("<?a ?", 0, 5, 17) {
                 state(17)
                 token("<?", XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN)
@@ -2045,6 +2069,19 @@ class XQueryLexerTest : LexerTestCase() {
             token("a", XQueryTokenType.XML_PI_TARGET_NCNAME)
             token(" ", XQueryTokenType.XML_WHITE_SPACE)
             state(22)
+        }
+
+        tokenize("<?lorem:ipsum dolor sed emit?>") {
+            token("<?", XQueryTokenType.PROCESSING_INSTRUCTION_BEGIN)
+            state(21)
+            token("lorem", XQueryTokenType.XML_PI_TARGET_NCNAME)
+            token(":", XQueryTokenType.XML_TAG_QNAME_SEPARATOR)
+            token("ipsum", XQueryTokenType.XML_PI_TARGET_NCNAME)
+            token(" ", XQueryTokenType.XML_WHITE_SPACE)
+            state(22)
+            token("dolor sed emit", XQueryTokenType.PROCESSING_INSTRUCTION_CONTENTS)
+            token("?>", XQueryTokenType.PROCESSING_INSTRUCTION_END)
+            state(0)
         }
     }
 

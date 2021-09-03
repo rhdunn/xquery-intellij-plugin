@@ -5340,6 +5340,14 @@ class XQueryParserTest : ParserTestCase() {
             val actual = parseResource("tests/parser/xquery-1.0/DirPIConstructor_MissingEndTag.xq")
             assertThat(actual.toPsiTreeString(), `is`(expected))
         }
+
+        @Test
+        @DisplayName("QName PITarget")
+        fun qnamePITarget() {
+            val expected = loadResource("tests/parser/xquery-1.0/DirPIConstructor_QNamePITarget.txt")
+            val actual = parseResource("tests/parser/xquery-1.0/DirPIConstructor_QNamePITarget.xq")
+            assertThat(actual.toPsiTreeString(), `is`(expected))
+        }
     }
 
     @Nested

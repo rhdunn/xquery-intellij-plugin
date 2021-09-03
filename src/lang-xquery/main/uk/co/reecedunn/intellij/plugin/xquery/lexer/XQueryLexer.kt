@@ -873,6 +873,10 @@ class XQueryLexer : XPathLexer() {
                 }
                 mType = XQueryTokenType.XML_PI_TARGET_NCNAME
             }
+            CharacterClass.COLON -> {
+                mTokenRange.match()
+                mType = XQueryTokenType.XML_TAG_QNAME_SEPARATOR
+            }
             CharacterClass.QUESTION_MARK -> {
                 mTokenRange.match()
                 if (mTokenRange.codePoint == '>'.toInt()) {

@@ -27,6 +27,7 @@ XPath and XQuery:
 1. Fix parsing `FTContainsExpr` in the RHS of a `ComparisonExpr` in XPath expressions.
 2. Improve the error message when a `return` is used without a `ForExpr` or `LetExpr` in XPath expressions.
 3. Don't generate an error when parsing `?$` and `?($)`, where the `VarName` is missing.
+4. Improve the error message when a `QName` is used in a `DirPIConstructor`.
 
 ## 2021
 
