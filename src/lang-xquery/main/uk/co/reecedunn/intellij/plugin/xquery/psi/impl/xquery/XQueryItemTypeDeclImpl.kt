@@ -20,7 +20,7 @@ import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.util.Key
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
+import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
@@ -72,7 +72,7 @@ class XQueryItemTypeDeclPsiImpl(node: ASTNode) :
     override fun getLocationString(): String? = null
 
     override fun getPresentableText(): String? = computeUserDataIfAbsent(PRESENTABLE_TEXT) {
-        Optional.ofNullable(typeName?.let { op_qname_presentation(it) })
+        Optional.ofNullable(typeName?.let { qname_presentation(it) })
     }.orElse(null)
 
     // endregion

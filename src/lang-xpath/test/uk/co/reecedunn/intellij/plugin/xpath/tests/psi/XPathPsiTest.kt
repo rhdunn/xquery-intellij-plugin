@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
+import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.*
@@ -996,7 +996,7 @@ class XPathPsiTest : ParserTestCase() {
             @DisplayName("XPath 4.0 ED EBNF (109) ElementTest ; XPath 4.0 ED EBNF (55) NameTest")
             fun elementTest_nameTest() {
                 val test = parse<XPathElementTest>("() instance of element ( *:test )")[0]
-                assertThat(op_qname_presentation(test.nodeName!!), `is`("*:test"))
+                assertThat(qname_presentation(test.nodeName!!), `is`("*:test"))
                 assertThat(test.nodeType, `is`(nullValue()))
 
                 val type = test as XdmItemType
@@ -1198,7 +1198,7 @@ class XPathPsiTest : ParserTestCase() {
             @DisplayName("XPath 4.0 ED EBNF (109) AttributeTest ; XPath 4.0 ED EBNF (55) NameTest")
             fun attributeTest_nameTest() {
                 val test = parse<XPathAttributeTest>("() instance of attribute ( *:test )")[0]
-                assertThat(op_qname_presentation(test.nodeName!!), `is`("*:test"))
+                assertThat(qname_presentation(test.nodeName!!), `is`("*:test"))
                 assertThat(test.nodeType, `is`(nullValue()))
 
                 val type = test as XdmItemType
@@ -2938,8 +2938,8 @@ class XPathPsiTest : ParserTestCase() {
                         assertThat(decl.functionBody, sameInstance(XpmEmptyExpression))
 
                         assertThat(decl.parameters.size, `is`(2))
-                        assertThat(op_qname_presentation(decl.parameters[0].variableName!!), `is`("one"))
-                        assertThat(op_qname_presentation(decl.parameters[1].variableName!!), `is`("two"))
+                        assertThat(qname_presentation(decl.parameters[0].variableName!!), `is`("one"))
+                        assertThat(qname_presentation(decl.parameters[1].variableName!!), `is`("two"))
 
                         val expr = decl as XpmExpression
                         assertThat(expr.expressionElement, `is`(nullValue()))
@@ -2956,8 +2956,8 @@ class XPathPsiTest : ParserTestCase() {
                         assertThat(decl.functionBody, sameInstance(XpmEmptyExpression))
 
                         assertThat(decl.parameters.size, `is`(2))
-                        assertThat(op_qname_presentation(decl.parameters[0].variableName!!), `is`("one"))
-                        assertThat(op_qname_presentation(decl.parameters[1].variableName!!), `is`("two"))
+                        assertThat(qname_presentation(decl.parameters[0].variableName!!), `is`("one"))
+                        assertThat(qname_presentation(decl.parameters[1].variableName!!), `is`("two"))
 
                         val expr = decl as XpmExpression
                         assertThat(expr.expressionElement, `is`(nullValue()))
@@ -3127,7 +3127,7 @@ class XPathPsiTest : ParserTestCase() {
                     assertThat(f.positionalArguments[0].text, `is`("1"))
 
                     val ref = f.functionReference
-                    assertThat(op_qname_presentation(ref?.functionName!!), `is`("fn:abs"))
+                    assertThat(qname_presentation(ref?.functionName!!), `is`("fn:abs"))
                     assertThat(ref.positionalArity, `is`(1))
                 }
 
@@ -3142,7 +3142,7 @@ class XPathPsiTest : ParserTestCase() {
                         assertThat(f.positionalArguments[0].text, `is`("1"))
 
                         val ref = f.functionReference
-                        assertThat(op_qname_presentation(ref?.functionName!!), `is`("fn:abs"))
+                        assertThat(qname_presentation(ref?.functionName!!), `is`("fn:abs"))
                         assertThat(ref.positionalArity, `is`(1))
                     }
 
@@ -4319,7 +4319,7 @@ class XPathPsiTest : ParserTestCase() {
                     val bindings = expr.bindings.toList()
                     assertThat(bindings.size, `is`(1))
 
-                    assertThat(op_qname_presentation(bindings[0].variableName!!), `is`("x"))
+                    assertThat(qname_presentation(bindings[0].variableName!!), `is`("x"))
                     assertThat(bindings[0].bindingExpression?.text, `is`("1, 2, 3"))
                     assertThat(bindings[0].bindingCollectionType, `is`(XpmBindingCollectionType.SequenceItem))
                 }
@@ -4334,11 +4334,11 @@ class XPathPsiTest : ParserTestCase() {
                     val bindings = expr.bindings.toList()
                     assertThat(bindings.size, `is`(2))
 
-                    assertThat(op_qname_presentation(bindings[0].variableName!!), `is`("x"))
+                    assertThat(qname_presentation(bindings[0].variableName!!), `is`("x"))
                     assertThat(bindings[0].bindingExpression?.text, `is`("1, 2, 3"))
                     assertThat(bindings[0].bindingCollectionType, `is`(XpmBindingCollectionType.SequenceItem))
 
-                    assertThat(op_qname_presentation(bindings[1].variableName!!), `is`("y"))
+                    assertThat(qname_presentation(bindings[1].variableName!!), `is`("y"))
                     assertThat(bindings[1].bindingExpression?.text, `is`("4, 5, 6"))
                     assertThat(bindings[1].bindingCollectionType, `is`(XpmBindingCollectionType.SequenceItem))
                 }
@@ -4355,7 +4355,7 @@ class XPathPsiTest : ParserTestCase() {
                     val bindings = expr.bindings.toList()
                     assertThat(bindings.size, `is`(1))
 
-                    assertThat(op_qname_presentation(bindings[0].variableName!!), `is`("x"))
+                    assertThat(qname_presentation(bindings[0].variableName!!), `is`("x"))
                     assertThat(bindings[0].bindingExpression?.text, `is`("1, 2, 3"))
                     assertThat(bindings[0].bindingCollectionType, `is`(XpmBindingCollectionType.ArrayMember))
                 }
@@ -4370,11 +4370,11 @@ class XPathPsiTest : ParserTestCase() {
                     val bindings = expr.bindings.toList()
                     assertThat(bindings.size, `is`(2))
 
-                    assertThat(op_qname_presentation(bindings[0].variableName!!), `is`("x"))
+                    assertThat(qname_presentation(bindings[0].variableName!!), `is`("x"))
                     assertThat(bindings[0].bindingExpression?.text, `is`("1, 2, 3"))
                     assertThat(bindings[0].bindingCollectionType, `is`(XpmBindingCollectionType.ArrayMember))
 
-                    assertThat(op_qname_presentation(bindings[1].variableName!!), `is`("y"))
+                    assertThat(qname_presentation(bindings[1].variableName!!), `is`("y"))
                     assertThat(bindings[1].bindingExpression?.text, `is`("4, 5, 6"))
                     assertThat(bindings[1].bindingCollectionType, `is`(XpmBindingCollectionType.ArrayMember))
                 }
@@ -4478,7 +4478,7 @@ class XPathPsiTest : ParserTestCase() {
                     val bindings = expr.bindings.toList()
                     assertThat(bindings.size, `is`(1))
 
-                    assertThat(op_qname_presentation(bindings[0].variableName!!), `is`("x"))
+                    assertThat(qname_presentation(bindings[0].variableName!!), `is`("x"))
                     assertThat(bindings[0].variableExpression?.text, `is`("1, 2, 3"))
                 }
 
@@ -4492,10 +4492,10 @@ class XPathPsiTest : ParserTestCase() {
                     val bindings = expr.bindings.toList()
                     assertThat(bindings.size, `is`(2))
 
-                    assertThat(op_qname_presentation(bindings[0].variableName!!), `is`("x"))
+                    assertThat(qname_presentation(bindings[0].variableName!!), `is`("x"))
                     assertThat(bindings[0].variableExpression?.text, `is`("1, 2, 3"))
 
-                    assertThat(op_qname_presentation(bindings[1].variableName!!), `is`("y"))
+                    assertThat(qname_presentation(bindings[1].variableName!!), `is`("y"))
                     assertThat(bindings[1].variableExpression?.text, `is`("4, 5, 6"))
                 }
             }
@@ -5030,7 +5030,7 @@ class XPathPsiTest : ParserTestCase() {
                     @DisplayName("item type")
                     fun itemType() {
                         val test = parse<XPathSimpleTypeName>("() cast as xs:string")[0]
-                        assertThat(op_qname_presentation(test.type), `is`("xs:string"))
+                        assertThat(qname_presentation(test.type), `is`("xs:string"))
 
                         val type = test as XdmItemType
                         assertThat(type.typeName, `is`("xs:string"))

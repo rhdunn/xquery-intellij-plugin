@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
-import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
+import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathFunctionCall
@@ -2119,7 +2119,7 @@ class XQueryStaticContextTest : ParserTestCase() {
         fun variables(query: String, expected: List<String>) {
             val ctx = parse<XPathFunctionCall>(query)[0]
             val variables = ctx.inScopeVariables().mapNotNull { variable ->
-                variable.variableName?.let { name -> op_qname_presentation(name) }
+                variable.variableName?.let { name -> qname_presentation(name) }
             }.toList()
             assertThat(variables, `is`(expected))
         }

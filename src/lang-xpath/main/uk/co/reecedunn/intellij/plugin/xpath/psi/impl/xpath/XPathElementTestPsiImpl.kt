@@ -20,7 +20,7 @@ import com.intellij.openapi.util.Key
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
+import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
@@ -71,8 +71,8 @@ class XPathElementTestPsiImpl(node: ASTNode) :
                 name == null -> {
                     type?.let { "element(*,${type.typeName})" } ?: "element()"
                 }
-                type == null -> "element(${op_qname_presentation(name)})"
-                else -> "element(${op_qname_presentation(name)},${type.typeName})"
+                type == null -> "element(${qname_presentation(name)})"
+                else -> "element(${qname_presentation(name)},${type.typeName})"
             }
         }
 

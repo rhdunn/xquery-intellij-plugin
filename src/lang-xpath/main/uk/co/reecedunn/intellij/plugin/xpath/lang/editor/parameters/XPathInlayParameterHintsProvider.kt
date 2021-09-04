@@ -19,7 +19,7 @@ import com.intellij.codeInsight.hints.HintInfo
 import com.intellij.codeInsight.hints.InlayInfo
 import com.intellij.codeInsight.hints.InlayParameterHintsProvider
 import com.intellij.psi.PsiElement
-import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
+import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAttributeNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsNCNameValue
@@ -50,7 +50,7 @@ class XPathInlayParameterHintsProvider : InlayParameterHintsProvider {
                 expr.parent is XPathKeywordArgument -> null // keyword argument
                 index == 0 && element is XpmArrowFunctionCall -> null // Arrow function call context argument.
                 getName(expr)?.data == binding.variableName?.localName?.data -> null
-                else -> op_qname_presentation(binding.variableName!!)?.let { name ->
+                else -> qname_presentation(binding.variableName!!)?.let { name ->
                     InlayInfo(name, expr.let { it.parenthesizedExprTextOffset ?: it.textOffset }, false)
                 }
             }
@@ -62,7 +62,7 @@ class XPathInlayParameterHintsProvider : InlayParameterHintsProvider {
     override fun getHintInfo(element: PsiElement): HintInfo.MethodInfo? {
         val (decl, bindings) = (element as? XpmFunctionCall)?.resolve ?: return null
         val functionName = decl.functionName?.expand()?.firstOrNull()
-        val eqname = functionName?.let { op_qname_presentation(it, true) } ?: return null
+        val eqname = functionName?.let { qname_presentation(it, true) } ?: return null
         val params = bindings.mapNotNull { it.variableName?.localName?.data }
         return XPathMethodInfo(eqname, functionName.localName!!.data, params)
     }

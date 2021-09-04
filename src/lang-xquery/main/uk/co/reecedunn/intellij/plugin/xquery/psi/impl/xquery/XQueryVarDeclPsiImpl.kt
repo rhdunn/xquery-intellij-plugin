@@ -23,7 +23,7 @@ import com.intellij.psi.util.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.reverse
 import uk.co.reecedunn.intellij.plugin.core.sequences.siblings
-import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
+import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.filterNotWhitespace
@@ -100,9 +100,9 @@ class XQueryVarDeclPsiImpl(node: ASTNode) :
         variableName?.let { name ->
             val type = variableType
             if (type == null)
-                Optional.ofNullable(op_qname_presentation(name))
+                Optional.ofNullable(qname_presentation(name))
             else
-                Optional.of("${op_qname_presentation(name)} as ${type.typeName}")
+                Optional.of("${qname_presentation(name)} as ${type.typeName}")
         } ?: Optional.empty()
     }.orElse(null)
 
@@ -110,7 +110,7 @@ class XQueryVarDeclPsiImpl(node: ASTNode) :
     // region SortableTreeElement
 
     override fun getAlphaSortKey(): String = computeUserDataIfAbsent(ALPHA_SORT_KEY) {
-        variableName?.let { op_qname_presentation(it) } ?: ""
+        variableName?.let { qname_presentation(it) } ?: ""
     }
 
     // endregion

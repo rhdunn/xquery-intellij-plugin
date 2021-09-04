@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.lang.parameterInfo.MockCreateParameterInfoContext
-import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
+import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_presentation
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathArgumentList
 import uk.co.reecedunn.intellij.plugin.xpath.lang.editor.parameters.XPathParameterInfoHandler
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
@@ -70,7 +70,7 @@ class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 val items = context.itemsToShow!!.map { it as XpmFunctionDeclaration }
                 assertThat(items.size, `is`(1))
 
-                assertThat(op_qname_presentation(items[0].functionName!!), `is`("fn:abs"))
+                assertThat(qname_presentation(items[0].functionName!!), `is`("fn:abs"))
                 assertThat(items[0].declaredArity, `is`(1))
 
                 val hint = context as MockCreateParameterInfoContext
@@ -93,7 +93,7 @@ class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 val items = context.itemsToShow!!.map { it as XpmFunctionDeclaration }
                 assertThat(items.size, `is`(1))
 
-                assertThat(op_qname_presentation(items[0].functionName!!), `is`("fn:abs"))
+                assertThat(qname_presentation(items[0].functionName!!), `is`("fn:abs"))
                 assertThat(items[0].declaredArity, `is`(1))
 
                 val hint = context as MockCreateParameterInfoContext
@@ -116,7 +116,7 @@ class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 val items = context.itemsToShow!!.map { it as XpmFunctionDeclaration }
                 assertThat(items.size, `is`(1))
 
-                assertThat(op_qname_presentation(items[0].functionName!!), `is`("fn:abs"))
+                assertThat(qname_presentation(items[0].functionName!!), `is`("fn:abs"))
                 assertThat(items[0].declaredArity, `is`(1))
 
                 val hint = context as MockCreateParameterInfoContext
@@ -139,10 +139,10 @@ class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 val items = context.itemsToShow!!.map { it as XpmFunctionDeclaration }
                 assertThat(items.size, `is`(2))
 
-                assertThat(op_qname_presentation(items[0].functionName!!), `is`("fn:string"))
+                assertThat(qname_presentation(items[0].functionName!!), `is`("fn:string"))
                 assertThat(items[0].declaredArity, `is`(0))
 
-                assertThat(op_qname_presentation(items[1].functionName!!), `is`("fn:string"))
+                assertThat(qname_presentation(items[1].functionName!!), `is`("fn:string"))
                 assertThat(items[1].declaredArity, `is`(1))
 
                 val hint = context as MockCreateParameterInfoContext
@@ -171,7 +171,7 @@ class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 val items = context.itemsToShow!!.map { it as XpmFunctionDeclaration }
                 assertThat(items.size, `is`(1))
 
-                assertThat(op_qname_presentation(items[0].functionName!!), `is`("f"))
+                assertThat(qname_presentation(items[0].functionName!!), `is`("f"))
                 assertThat(items[0].declaredArity, `is`(1))
 
                 val hint = context as MockCreateParameterInfoContext
@@ -218,7 +218,7 @@ class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 val items = context.itemsToShow!!.map { it as XpmFunctionDeclaration }
                 assertThat(items.size, `is`(1))
 
-                assertThat(op_qname_presentation(items[0].functionName!!), `is`("fn:abs"))
+                assertThat(qname_presentation(items[0].functionName!!), `is`("fn:abs"))
                 assertThat(items[0].declaredArity, `is`(1))
 
                 val hint = context as MockCreateParameterInfoContext
@@ -265,7 +265,7 @@ class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 val items = context.itemsToShow!!.map { it as XpmFunctionDeclaration }
                 assertThat(items.size, `is`(1))
 
-                assertThat(op_qname_presentation(items[0].functionName!!), `is`("fn:abs"))
+                assertThat(qname_presentation(items[0].functionName!!), `is`("fn:abs"))
                 assertThat(items[0].declaredArity, `is`(1))
 
                 val hint = context as MockCreateParameterInfoContext
@@ -288,7 +288,7 @@ class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 val items = context.itemsToShow!!.map { it as XpmFunctionDeclaration }
                 assertThat(items.size, `is`(1))
 
-                assertThat(op_qname_presentation(items[0].functionName!!), `is`("fn:abs"))
+                assertThat(qname_presentation(items[0].functionName!!), `is`("fn:abs"))
                 assertThat(items[0].declaredArity, `is`(1))
 
                 val hint = context as MockCreateParameterInfoContext
@@ -311,7 +311,7 @@ class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 val items = context.itemsToShow!!.map { it as XpmFunctionDeclaration }
                 assertThat(items.size, `is`(1))
 
-                assertThat(op_qname_presentation(items[0].functionName!!), `is`("fn:abs"))
+                assertThat(qname_presentation(items[0].functionName!!), `is`("fn:abs"))
                 assertThat(items[0].declaredArity, `is`(1))
 
                 val hint = context as MockCreateParameterInfoContext
@@ -334,7 +334,7 @@ class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 val items = context.itemsToShow!!.map { it as XpmFunctionDeclaration }
                 assertThat(items.size, `is`(1))
 
-                assertThat(op_qname_presentation(items[0].functionName!!), `is`("fn:abs"))
+                assertThat(qname_presentation(items[0].functionName!!), `is`("fn:abs"))
                 assertThat(items[0].declaredArity, `is`(1))
 
                 val hint = context as MockCreateParameterInfoContext
@@ -357,10 +357,10 @@ class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 val items = context.itemsToShow!!.map { it as XpmFunctionDeclaration }
                 assertThat(items.size, `is`(2))
 
-                assertThat(op_qname_presentation(items[0].functionName!!), `is`("fn:adjust-date-to-timezone"))
+                assertThat(qname_presentation(items[0].functionName!!), `is`("fn:adjust-date-to-timezone"))
                 assertThat(items[0].declaredArity, `is`(1))
 
-                assertThat(op_qname_presentation(items[1].functionName!!), `is`("fn:adjust-date-to-timezone"))
+                assertThat(qname_presentation(items[1].functionName!!), `is`("fn:adjust-date-to-timezone"))
                 assertThat(items[1].declaredArity, `is`(2))
 
                 val hint = context as MockCreateParameterInfoContext
@@ -389,7 +389,7 @@ class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 val items = context.itemsToShow!!.map { it as XpmFunctionDeclaration }
                 assertThat(items.size, `is`(1))
 
-                assertThat(op_qname_presentation(items[0].functionName!!), `is`("f"))
+                assertThat(qname_presentation(items[0].functionName!!), `is`("f"))
                 assertThat(items[0].declaredArity, `is`(1))
 
                 val hint = context as MockCreateParameterInfoContext
@@ -412,7 +412,7 @@ class XQueryParameterInfoHandlerTest : ParserTestCase() {
                 val items = context.itemsToShow!!.map { it as XpmFunctionDeclaration }
                 assertThat(items.size, `is`(1))
 
-                assertThat(op_qname_presentation(items[0].functionName!!), `is`("fn:string"))
+                assertThat(qname_presentation(items[0].functionName!!), `is`("fn:string"))
                 assertThat(items[0].declaredArity, `is`(1))
 
                 val hint = context as MockCreateParameterInfoContext

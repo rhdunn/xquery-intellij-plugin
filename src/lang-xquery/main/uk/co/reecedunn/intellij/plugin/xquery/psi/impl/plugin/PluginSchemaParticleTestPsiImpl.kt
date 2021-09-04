@@ -20,7 +20,7 @@ import com.intellij.openapi.util.Key
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
+import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSchemaParticle
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
@@ -50,7 +50,7 @@ class PluginSchemaParticleTestPsiImpl(node: ASTNode) :
 
     override val typeName: String
         get() = computeUserDataIfAbsent(TYPE_NAME) {
-            nodeName?.let { "schema-particle(${op_qname_presentation(it)})" } ?: "schema-particle()"
+            nodeName?.let { "schema-particle(${qname_presentation(it)})" } ?: "schema-particle()"
         }
 
     override val itemType: XdmItemType

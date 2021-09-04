@@ -22,7 +22,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
+import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsUntypedAtomicValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompElemConstructor
@@ -53,10 +53,10 @@ class XQueryXmlTest : ParserTestCase() {
                 val element = parse<XQueryDirElemConstructor>("<a one='1' two='2'/>")[0] as XdmElementNode
                 val attributes = element.attributes.toList()
 
-                assertThat(op_qname_presentation(attributes[0].nodeName!!), `is`("one"))
+                assertThat(qname_presentation(attributes[0].nodeName!!), `is`("one"))
                 assertThat((attributes[0].typedValue as? XsUntypedAtomicValue)?.data, `is`("1"))
 
-                assertThat(op_qname_presentation(attributes[1].nodeName!!), `is`("two"))
+                assertThat(qname_presentation(attributes[1].nodeName!!), `is`("two"))
                 assertThat((attributes[1].typedValue as? XsUntypedAtomicValue)?.data, `is`("2"))
 
                 assertThat(attributes.size, `is`(2))
@@ -68,7 +68,7 @@ class XQueryXmlTest : ParserTestCase() {
                 val element = parse<XQueryDirElemConstructor>("<a>{attribute one{'1'}}</a>")[0] as XdmElementNode
                 val attributes = element.attributes.toList()
 
-                assertThat(op_qname_presentation(attributes[0].nodeName!!), `is`("one"))
+                assertThat(qname_presentation(attributes[0].nodeName!!), `is`("one"))
                 assertThat(attributes[0].typedValue, `is`(nullValue()))
 
                 assertThat(attributes.size, `is`(1))
@@ -82,10 +82,10 @@ class XQueryXmlTest : ParserTestCase() {
                 )[0] as XdmElementNode
                 val attributes = element.attributes.toList()
 
-                assertThat(op_qname_presentation(attributes[0].nodeName!!), `is`("one"))
+                assertThat(qname_presentation(attributes[0].nodeName!!), `is`("one"))
                 assertThat(attributes[0].typedValue, `is`(nullValue()))
 
-                assertThat(op_qname_presentation(attributes[1].nodeName!!), `is`("two"))
+                assertThat(qname_presentation(attributes[1].nodeName!!), `is`("two"))
                 assertThat(attributes[1].typedValue, `is`(nullValue()))
 
                 assertThat(attributes.size, `is`(2))
@@ -99,16 +99,16 @@ class XQueryXmlTest : ParserTestCase() {
                 )[0] as XdmElementNode
                 val attributes = element.attributes.toList()
 
-                assertThat(op_qname_presentation(attributes[0].nodeName!!), `is`("one"))
+                assertThat(qname_presentation(attributes[0].nodeName!!), `is`("one"))
                 assertThat((attributes[0].typedValue as? XsUntypedAtomicValue)?.data, `is`("1"))
 
-                assertThat(op_qname_presentation(attributes[1].nodeName!!), `is`("two"))
+                assertThat(qname_presentation(attributes[1].nodeName!!), `is`("two"))
                 assertThat((attributes[1].typedValue as? XsUntypedAtomicValue)?.data, `is`("2"))
 
-                assertThat(op_qname_presentation(attributes[2].nodeName!!), `is`("three"))
+                assertThat(qname_presentation(attributes[2].nodeName!!), `is`("three"))
                 assertThat(attributes[2].typedValue, `is`(nullValue()))
 
-                assertThat(op_qname_presentation(attributes[3].nodeName!!), `is`("four"))
+                assertThat(qname_presentation(attributes[3].nodeName!!), `is`("four"))
                 assertThat(attributes[3].typedValue, `is`(nullValue()))
 
                 assertThat(attributes.size, `is`(4))
@@ -131,7 +131,7 @@ class XQueryXmlTest : ParserTestCase() {
                 val element = parse<XQueryCompElemConstructor>("element a { attribute one{'1'} }")[0] as XdmElementNode
                 val attributes = element.attributes.toList()
 
-                assertThat(op_qname_presentation(attributes[0].nodeName!!), `is`("one"))
+                assertThat(qname_presentation(attributes[0].nodeName!!), `is`("one"))
                 assertThat(attributes[0].typedValue, `is`(nullValue()))
 
                 assertThat(attributes.size, `is`(1))
@@ -145,10 +145,10 @@ class XQueryXmlTest : ParserTestCase() {
                 )[0] as XdmElementNode
                 val attributes = element.attributes.toList()
 
-                assertThat(op_qname_presentation(attributes[0].nodeName!!), `is`("one"))
+                assertThat(qname_presentation(attributes[0].nodeName!!), `is`("one"))
                 assertThat(attributes[0].typedValue, `is`(nullValue()))
 
-                assertThat(op_qname_presentation(attributes[1].nodeName!!), `is`("two"))
+                assertThat(qname_presentation(attributes[1].nodeName!!), `is`("two"))
                 assertThat(attributes[1].typedValue, `is`(nullValue()))
 
                 assertThat(attributes.size, `is`(2))

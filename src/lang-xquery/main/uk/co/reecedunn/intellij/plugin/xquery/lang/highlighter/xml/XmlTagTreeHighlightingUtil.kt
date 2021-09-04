@@ -23,7 +23,7 @@ import com.intellij.openapi.editor.colors.EditorColorsManager
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.util.ui.UIUtil.makeTransparent
-import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
+import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
@@ -47,7 +47,7 @@ fun getBaseColors(): Array<Color?> {
 fun containsTagsWithSameName(elements: Array<out PsiElement?>): Boolean {
     val names: MutableSet<String> = HashSet()
     return elements.asSequence().filterIsInstance<XQueryDirElemConstructor>().any { element ->
-        val name = (element as XdmElementNode).nodeName?.let { op_qname_presentation(it) }
+        val name = (element as XdmElementNode).nodeName?.let { qname_presentation(it) }
         name != null && !names.add(name)
     }
 }

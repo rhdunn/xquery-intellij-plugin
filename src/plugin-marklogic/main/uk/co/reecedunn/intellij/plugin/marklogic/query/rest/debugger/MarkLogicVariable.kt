@@ -23,7 +23,7 @@ import com.intellij.xdebugger.frame.presentation.XValuePresentation
 import uk.co.reecedunn.intellij.plugin.core.xml.XmlElement
 import uk.co.reecedunn.intellij.plugin.processor.debug.frame.QueryResultsValue
 import uk.co.reecedunn.intellij.plugin.processor.debug.frame.presentation.QueryValuePresentation
-import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
+import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
@@ -36,7 +36,7 @@ class MarkLogicVariable private constructor(
     val variableName: XsQNameValue,
     var value: Any?,
     private val evaluator: XDebuggerEvaluator?
-) : XNamedValue("\$${op_qname_presentation(variableName)!!}") {
+) : XNamedValue("\$${qname_presentation(variableName)!!}") {
 
     override fun computePresentation(node: XValueNode, place: XValuePlace) {
         val presentation = createPresentation(value as? String)

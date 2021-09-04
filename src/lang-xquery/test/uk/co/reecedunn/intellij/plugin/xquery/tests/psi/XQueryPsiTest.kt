@@ -35,7 +35,7 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
-import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
+import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.*
@@ -765,7 +765,7 @@ class XQueryPsiTest : ParserTestCase() {
                 @DisplayName("item type")
                 fun itemType() {
                     val test = parse<XPathAtomicOrUnionType>("() instance of xs:string")[0]
-                    assertThat(op_qname_presentation(test.type), `is`("xs:string"))
+                    assertThat(qname_presentation(test.type), `is`("xs:string"))
 
                     val type = test as XdmItemType
                     assertThat(type.typeName, `is`("xs:string"))
@@ -1306,7 +1306,7 @@ class XQueryPsiTest : ParserTestCase() {
             @DisplayName("XQuery 4.0 ED EBNF (215) ElementTest ; XQuery 4.0 ED EBNF (128) NameTest")
             fun elementTest_nameTest() {
                 val test = parse<XPathElementTest>("() instance of element ( *:test )")[0]
-                assertThat(op_qname_presentation(test.nodeName!!), `is`("*:test"))
+                assertThat(qname_presentation(test.nodeName!!), `is`("*:test"))
                 assertThat(test.nodeType, `is`(nullValue()))
 
                 val type = test as XdmItemType
@@ -1540,7 +1540,7 @@ class XQueryPsiTest : ParserTestCase() {
             @DisplayName("XQuery 4.0 ED EBNF (109) AttributeTest ; XQuery 4.0 ED EBNF (55) NameTest")
             fun attributeTest_nameTest() {
                 val test = parse<XPathAttributeTest>("() instance of attribute ( *:test )")[0]
-                assertThat(op_qname_presentation(test.nodeName!!), `is`("*:test"))
+                assertThat(qname_presentation(test.nodeName!!), `is`("*:test"))
                 assertThat(test.nodeType, `is`(nullValue()))
 
                 val type = test as XdmItemType
@@ -1658,7 +1658,7 @@ class XQueryPsiTest : ParserTestCase() {
 
                     val annotations = test.annotations.toList()
                     assertThat(annotations.size, `is`(1))
-                    assertThat(op_qname_presentation(annotations[0].name!!), `is`("test"))
+                    assertThat(qname_presentation(annotations[0].name!!), `is`("test"))
 
                     val type = test as XdmItemType
                     assertThat(type.typeName, `is`("%test function(*)"))
@@ -1678,8 +1678,8 @@ class XQueryPsiTest : ParserTestCase() {
 
                     val annotations = test.annotations.toList()
                     assertThat(annotations.size, `is`(2))
-                    assertThat(op_qname_presentation(annotations[0].name!!), `is`("one"))
-                    assertThat(op_qname_presentation(annotations[1].name!!), `is`("two"))
+                    assertThat(qname_presentation(annotations[0].name!!), `is`("one"))
+                    assertThat(qname_presentation(annotations[1].name!!), `is`("two"))
 
                     val type = test as XdmItemType
                     assertThat(type.typeName, `is`("%one %two function(xs:long) as xs:long"))
@@ -1698,7 +1698,7 @@ class XQueryPsiTest : ParserTestCase() {
                     val annotations = test.annotations.toList()
                     assertThat(annotations.size, `is`(2))
                     assertThat(annotations[0].name, `is`(nullValue()))
-                    assertThat(op_qname_presentation(annotations[1].name!!), `is`("two"))
+                    assertThat(qname_presentation(annotations[1].name!!), `is`("two"))
 
                     val type = test as XdmItemType
                     assertThat(type.typeName, `is`("%two function(xs:long) as xs:long"))
@@ -3188,16 +3188,16 @@ class XQueryPsiTest : ParserTestCase() {
                         val f = parse<XPathFunctionCall>("math:pow(2, 8)")[0]
                         val (decl, bindings) = f.resolve!!
 
-                        assertThat(op_qname_presentation(decl.functionName!!), `is`("math:pow"))
+                        assertThat(qname_presentation(decl.functionName!!), `is`("math:pow"))
                         assertThat(bindings.size, `is`(2))
 
                         var arg = bindings[0]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("x"))
+                        assertThat(qname_presentation(arg.variableName!!), `is`("x"))
                         assertThat(arg.variableType?.typeName, `is`("xs:double?"))
                         assertThat(arg.variableExpression, sameInstance(f.positionalArguments[0]))
 
                         arg = bindings[1]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("y"))
+                        assertThat(qname_presentation(arg.variableName!!), `is`("y"))
                         assertThat(arg.variableType?.typeName, `is`("xs:numeric"))
                         assertThat(arg.variableExpression, sameInstance(f.positionalArguments[1]))
                     }
@@ -3208,16 +3208,16 @@ class XQueryPsiTest : ParserTestCase() {
                         val f = parse<XPathFunctionCall>("math:pow(2, y: 8)")[0]
                         val (decl, bindings) = f.resolve!!
 
-                        assertThat(op_qname_presentation(decl.functionName!!), `is`("math:pow"))
+                        assertThat(qname_presentation(decl.functionName!!), `is`("math:pow"))
                         assertThat(bindings.size, `is`(2))
 
                         var arg = bindings[0]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("x"))
+                        assertThat(qname_presentation(arg.variableName!!), `is`("x"))
                         assertThat(arg.variableType?.typeName, `is`("xs:double?"))
                         assertThat(arg.variableExpression, sameInstance(f.positionalArguments[0]))
 
                         arg = bindings[1]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("y"))
+                        assertThat(qname_presentation(arg.variableName!!), `is`("y"))
                         assertThat(arg.variableType?.typeName, `is`("xs:numeric"))
                         assertThat(arg.variableExpression, sameInstance(f.keywordArguments[0].valueExpression))
                     }
@@ -3228,16 +3228,16 @@ class XQueryPsiTest : ParserTestCase() {
                         val f = parse<XPathFunctionCall>("math:pow(y: 2, x: 8)")[0]
                         val (decl, bindings) = f.resolve!!
 
-                        assertThat(op_qname_presentation(decl.functionName!!), `is`("math:pow"))
+                        assertThat(qname_presentation(decl.functionName!!), `is`("math:pow"))
                         assertThat(bindings.size, `is`(2))
 
                         var arg = bindings[0]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("x"))
+                        assertThat(qname_presentation(arg.variableName!!), `is`("x"))
                         assertThat(arg.variableType?.typeName, `is`("xs:double?"))
                         assertThat(arg.variableExpression, sameInstance(f.keywordArguments[1].valueExpression))
 
                         arg = bindings[1]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("y"))
+                        assertThat(qname_presentation(arg.variableName!!), `is`("y"))
                         assertThat(arg.variableType?.typeName, `is`("xs:numeric"))
                         assertThat(arg.variableExpression, sameInstance(f.keywordArguments[0].valueExpression))
                     }
@@ -3248,16 +3248,16 @@ class XQueryPsiTest : ParserTestCase() {
                         val f = parse<XPathFunctionCall>("math:pow(y: 2, z: 8)")[0]
                         val (decl, bindings) = f.resolve!!
 
-                        assertThat(op_qname_presentation(decl.functionName!!), `is`("math:pow"))
+                        assertThat(qname_presentation(decl.functionName!!), `is`("math:pow"))
                         assertThat(bindings.size, `is`(2))
 
                         var arg = bindings[0]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("x"))
+                        assertThat(qname_presentation(arg.variableName!!), `is`("x"))
                         assertThat(arg.variableType?.typeName, `is`("xs:double?"))
                         assertThat(arg.variableExpression, sameInstance(XpmMissingArgument))
 
                         arg = bindings[1]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("y"))
+                        assertThat(qname_presentation(arg.variableName!!), `is`("y"))
                         assertThat(arg.variableType?.typeName, `is`("xs:numeric"))
                         assertThat(arg.variableExpression, sameInstance(f.keywordArguments[0].valueExpression))
                     }
@@ -3268,7 +3268,7 @@ class XQueryPsiTest : ParserTestCase() {
                         val f = parse<XPathFunctionCall>("fn:true()")[0]
                         val (decl, bindings) = f.resolve!!
 
-                        assertThat(op_qname_presentation(decl.functionName!!), `is`("fn:true"))
+                        assertThat(qname_presentation(decl.functionName!!), `is`("fn:true"))
                         assertThat(bindings.size, `is`(0))
                     }
                 }
@@ -3282,31 +3282,31 @@ class XQueryPsiTest : ParserTestCase() {
                         val f = parse<PluginArrowFunctionCall>("\$x => format-date(1, 2, 3,  4)")[0]
                         val (decl, bindings) = f.resolve!!
 
-                        assertThat(op_qname_presentation(decl.functionName!!), `is`("fn:format-date"))
+                        assertThat(qname_presentation(decl.functionName!!), `is`("fn:format-date"))
                         assertThat(bindings.size, `is`(5))
 
                         var arg = bindings[0]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("value"))
+                        assertThat(qname_presentation(arg.variableName!!), `is`("value"))
                         assertThat(arg.variableType?.typeName, `is`("xs:date?"))
                         assertThat(arg.variableExpression, sameInstance(f.sourceExpression))
 
                         arg = bindings[1]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("picture"))
+                        assertThat(qname_presentation(arg.variableName!!), `is`("picture"))
                         assertThat(arg.variableType?.typeName, `is`("xs:string"))
                         assertThat(arg.variableExpression, sameInstance(f.positionalArguments[0]))
 
                         arg = bindings[2]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("language"))
+                        assertThat(qname_presentation(arg.variableName!!), `is`("language"))
                         assertThat(arg.variableType?.typeName, `is`("xs:string?"))
                         assertThat(arg.variableExpression, sameInstance(f.positionalArguments[1]))
 
                         arg = bindings[3]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("calendar"))
+                        assertThat(qname_presentation(arg.variableName!!), `is`("calendar"))
                         assertThat(arg.variableType?.typeName, `is`("xs:string?"))
                         assertThat(arg.variableExpression, sameInstance(f.positionalArguments[2]))
 
                         arg = bindings[4]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("place"))
+                        assertThat(qname_presentation(arg.variableName!!), `is`("place"))
                         assertThat(arg.variableType?.typeName, `is`("xs:string?"))
                         assertThat(arg.variableExpression, sameInstance(f.positionalArguments[3]))
                     }
@@ -3319,31 +3319,31 @@ class XQueryPsiTest : ParserTestCase() {
                         )[0]
                         val (decl, bindings) = f.resolve!!
 
-                        assertThat(op_qname_presentation(decl.functionName!!), `is`("fn:format-date"))
+                        assertThat(qname_presentation(decl.functionName!!), `is`("fn:format-date"))
                         assertThat(bindings.size, `is`(5))
 
                         var arg = bindings[0]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("value"))
+                        assertThat(qname_presentation(arg.variableName!!), `is`("value"))
                         assertThat(arg.variableType?.typeName, `is`("xs:date?"))
                         assertThat(arg.variableExpression, sameInstance(f.sourceExpression))
 
                         arg = bindings[1]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("picture"))
+                        assertThat(qname_presentation(arg.variableName!!), `is`("picture"))
                         assertThat(arg.variableType?.typeName, `is`("xs:string"))
                         assertThat(arg.variableExpression, sameInstance(f.positionalArguments[0]))
 
                         arg = bindings[2]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("language"))
+                        assertThat(qname_presentation(arg.variableName!!), `is`("language"))
                         assertThat(arg.variableType?.typeName, `is`("xs:string?"))
                         assertThat(arg.variableExpression, sameInstance(f.positionalArguments[1]))
 
                         arg = bindings[3]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("calendar"))
+                        assertThat(qname_presentation(arg.variableName!!), `is`("calendar"))
                         assertThat(arg.variableType?.typeName, `is`("xs:string?"))
                         assertThat(arg.variableExpression, sameInstance(f.keywordArguments[1].valueExpression))
 
                         arg = bindings[4]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("place"))
+                        assertThat(qname_presentation(arg.variableName!!), `is`("place"))
                         assertThat(arg.variableType?.typeName, `is`("xs:string?"))
                         assertThat(arg.variableExpression, sameInstance(f.keywordArguments[0].valueExpression))
                     }
@@ -3356,31 +3356,31 @@ class XQueryPsiTest : ParserTestCase() {
                         )[0]
                         val (decl, bindings) = f.resolve!!
 
-                        assertThat(op_qname_presentation(decl.functionName!!), `is`("fn:format-date"))
+                        assertThat(qname_presentation(decl.functionName!!), `is`("fn:format-date"))
                         assertThat(bindings.size, `is`(5))
 
                         var arg = bindings[0]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("value"))
+                        assertThat(qname_presentation(arg.variableName!!), `is`("value"))
                         assertThat(arg.variableType?.typeName, `is`("xs:date?"))
                         assertThat(arg.variableExpression, sameInstance(f.sourceExpression))
 
                         arg = bindings[1]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("picture"))
+                        assertThat(qname_presentation(arg.variableName!!), `is`("picture"))
                         assertThat(arg.variableType?.typeName, `is`("xs:string"))
                         assertThat(arg.variableExpression, sameInstance(f.keywordArguments[2].valueExpression))
 
                         arg = bindings[2]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("language"))
+                        assertThat(qname_presentation(arg.variableName!!), `is`("language"))
                         assertThat(arg.variableType?.typeName, `is`("xs:string?"))
                         assertThat(arg.variableExpression, sameInstance(f.keywordArguments[1].valueExpression))
 
                         arg = bindings[3]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("calendar"))
+                        assertThat(qname_presentation(arg.variableName!!), `is`("calendar"))
                         assertThat(arg.variableType?.typeName, `is`("xs:string?"))
                         assertThat(arg.variableExpression, sameInstance(f.keywordArguments[0].valueExpression))
 
                         arg = bindings[4]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("place"))
+                        assertThat(qname_presentation(arg.variableName!!), `is`("place"))
                         assertThat(arg.variableType?.typeName, `is`("xs:string?"))
                         assertThat(arg.variableExpression, sameInstance(f.keywordArguments[3].valueExpression))
                     }
@@ -3393,31 +3393,31 @@ class XQueryPsiTest : ParserTestCase() {
                         )[0]
                         val (decl, bindings) = f.resolve!!
 
-                        assertThat(op_qname_presentation(decl.functionName!!), `is`("fn:format-date"))
+                        assertThat(qname_presentation(decl.functionName!!), `is`("fn:format-date"))
                         assertThat(bindings.size, `is`(5))
 
                         var arg = bindings[0]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("value"))
+                        assertThat(qname_presentation(arg.variableName!!), `is`("value"))
                         assertThat(arg.variableType?.typeName, `is`("xs:date?"))
                         assertThat(arg.variableExpression, sameInstance(f.sourceExpression))
 
                         arg = bindings[1]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("picture"))
+                        assertThat(qname_presentation(arg.variableName!!), `is`("picture"))
                         assertThat(arg.variableType?.typeName, `is`("xs:string"))
                         assertThat(arg.variableExpression, sameInstance(f.keywordArguments[2].valueExpression))
 
                         arg = bindings[2]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("language"))
+                        assertThat(qname_presentation(arg.variableName!!), `is`("language"))
                         assertThat(arg.variableType?.typeName, `is`("xs:string?"))
                         assertThat(arg.variableExpression, sameInstance(f.keywordArguments[1].valueExpression))
 
                         arg = bindings[3]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("calendar"))
+                        assertThat(qname_presentation(arg.variableName!!), `is`("calendar"))
                         assertThat(arg.variableType?.typeName, `is`("xs:string?"))
                         assertThat(arg.variableExpression, sameInstance(XpmMissingArgument))
 
                         arg = bindings[4]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("place"))
+                        assertThat(qname_presentation(arg.variableName!!), `is`("place"))
                         assertThat(arg.variableType?.typeName, `is`("xs:string?"))
                         assertThat(arg.variableExpression, sameInstance(f.keywordArguments[3].valueExpression))
                     }
@@ -3428,11 +3428,11 @@ class XQueryPsiTest : ParserTestCase() {
                         val f = parse<PluginArrowFunctionCall>("\$x => upper-case()")[0]
                         val (decl, bindings) = f.resolve!!
 
-                        assertThat(op_qname_presentation(decl.functionName!!), `is`("fn:upper-case"))
+                        assertThat(qname_presentation(decl.functionName!!), `is`("fn:upper-case"))
                         assertThat(bindings.size, `is`(1))
 
                         val arg = bindings[0]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("value"))
+                        assertThat(qname_presentation(arg.variableName!!), `is`("value"))
                         assertThat(arg.variableType?.typeName, `is`("xs:string?"))
                         assertThat(arg.variableExpression, sameInstance(f.sourceExpression))
                     }
@@ -3443,11 +3443,11 @@ class XQueryPsiTest : ParserTestCase() {
                         val f = parse<PluginArrowFunctionCall>("\$x => upper-case() => string-to-codepoints()")[1]
                         val (decl, bindings) = f.resolve!!
 
-                        assertThat(op_qname_presentation(decl.functionName!!), `is`("fn:string-to-codepoints"))
+                        assertThat(qname_presentation(decl.functionName!!), `is`("fn:string-to-codepoints"))
                         assertThat(bindings.size, `is`(1))
 
                         val arg = bindings[0]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("value"))
+                        assertThat(qname_presentation(arg.variableName!!), `is`("value"))
                         assertThat(arg.variableType?.typeName, `is`("xs:string?"))
                         assertThat(arg.variableExpression, sameInstance(f.sourceExpression))
                     }
@@ -3462,21 +3462,21 @@ class XQueryPsiTest : ParserTestCase() {
                         val f = parse<XPathFunctionCall>("fn:concat(2, 4)")[0]
                         val (decl, bindings) = f.resolve!!
 
-                        assertThat(op_qname_presentation(decl.functionName!!), `is`("fn:concat"))
+                        assertThat(qname_presentation(decl.functionName!!), `is`("fn:concat"))
                         assertThat(bindings.size, `is`(3))
 
                         var arg = bindings[0]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("value1"))
+                        assertThat(qname_presentation(arg.variableName!!), `is`("value1"))
                         assertThat(arg.variableType?.typeName, `is`("xs:anyAtomicType?"))
                         assertThat(arg.variableExpression, sameInstance(f.positionalArguments[0]))
 
                         arg = bindings[1]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("value2"))
+                        assertThat(qname_presentation(arg.variableName!!), `is`("value2"))
                         assertThat(arg.variableType?.typeName, `is`("xs:anyAtomicType?"))
                         assertThat(arg.variableExpression, sameInstance(f.positionalArguments[1]))
 
                         arg = bindings[2]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("values"))
+                        assertThat(qname_presentation(arg.variableName!!), `is`("values"))
                         assertThat(arg.variableType?.typeName, `is`("xs:anyAtomicType?"))
                         assertThat(arg.variableExpression, sameInstance(XpmEmptyExpression))
                     }
@@ -3487,21 +3487,21 @@ class XQueryPsiTest : ParserTestCase() {
                         val f = parse<XPathFunctionCall>("fn:concat(2, 4, 6)")[0]
                         val (decl, bindings) = f.resolve!!
 
-                        assertThat(op_qname_presentation(decl.functionName!!), `is`("fn:concat"))
+                        assertThat(qname_presentation(decl.functionName!!), `is`("fn:concat"))
                         assertThat(bindings.size, `is`(3))
 
                         var arg = bindings[0]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("value1"))
+                        assertThat(qname_presentation(arg.variableName!!), `is`("value1"))
                         assertThat(arg.variableType?.typeName, `is`("xs:anyAtomicType?"))
                         assertThat(arg.variableExpression, sameInstance(f.positionalArguments[0]))
 
                         arg = bindings[1]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("value2"))
+                        assertThat(qname_presentation(arg.variableName!!), `is`("value2"))
                         assertThat(arg.variableType?.typeName, `is`("xs:anyAtomicType?"))
                         assertThat(arg.variableExpression, sameInstance(f.positionalArguments[1]))
 
                         arg = bindings[2]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("values"))
+                        assertThat(qname_presentation(arg.variableName!!), `is`("values"))
                         assertThat(arg.variableType?.typeName, `is`("xs:anyAtomicType?"))
                         assertThat(arg.variableExpression, sameInstance(f.positionalArguments[2]))
                     }
@@ -3512,21 +3512,21 @@ class XQueryPsiTest : ParserTestCase() {
                         val f = parse<XPathFunctionCall>("fn:concat(2, 4, 6, 8)")[0]
                         val (decl, bindings) = f.resolve!!
 
-                        assertThat(op_qname_presentation(decl.functionName!!), `is`("fn:concat"))
+                        assertThat(qname_presentation(decl.functionName!!), `is`("fn:concat"))
                         assertThat(bindings.size, `is`(3))
 
                         var arg = bindings[0]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("value1"))
+                        assertThat(qname_presentation(arg.variableName!!), `is`("value1"))
                         assertThat(arg.variableType?.typeName, `is`("xs:anyAtomicType?"))
                         assertThat(arg.variableExpression, sameInstance(f.positionalArguments[0]))
 
                         arg = bindings[1]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("value2"))
+                        assertThat(qname_presentation(arg.variableName!!), `is`("value2"))
                         assertThat(arg.variableType?.typeName, `is`("xs:anyAtomicType?"))
                         assertThat(arg.variableExpression, sameInstance(f.positionalArguments[1]))
 
                         arg = bindings[2]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("values"))
+                        assertThat(qname_presentation(arg.variableName!!), `is`("values"))
                         assertThat(arg.variableType?.typeName, `is`("xs:anyAtomicType?"))
 
                         val rest = (arg.variableExpression as XpmConcatenatingExpression).expressions.toList()
@@ -3549,16 +3549,16 @@ class XQueryPsiTest : ParserTestCase() {
                         val f = parse<PluginDynamicFunctionCall>("math:pow#2(2, 8)")[0]
                         val (decl, bindings) = f.resolve!!
 
-                        assertThat(op_qname_presentation(decl.functionName!!), `is`("math:pow"))
+                        assertThat(qname_presentation(decl.functionName!!), `is`("math:pow"))
                         assertThat(bindings.size, `is`(2))
 
                         var arg = bindings[0]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("x"))
+                        assertThat(qname_presentation(arg.variableName!!), `is`("x"))
                         assertThat(arg.variableType?.typeName, `is`("xs:double?"))
                         assertThat(arg.variableExpression, sameInstance(f.positionalArguments[0]))
 
                         arg = bindings[1]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("y"))
+                        assertThat(qname_presentation(arg.variableName!!), `is`("y"))
                         assertThat(arg.variableType?.typeName, `is`("xs:numeric"))
                         assertThat(arg.variableExpression, sameInstance(f.positionalArguments[1]))
                     }
@@ -3569,7 +3569,7 @@ class XQueryPsiTest : ParserTestCase() {
                         val f = parse<PluginDynamicFunctionCall>("fn:true#0()")[0]
                         val (decl, bindings) = f.resolve!!
 
-                        assertThat(op_qname_presentation(decl.functionName!!), `is`("fn:true"))
+                        assertThat(qname_presentation(decl.functionName!!), `is`("fn:true"))
                         assertThat(bindings.size, `is`(0))
                     }
                 }
@@ -3583,16 +3583,16 @@ class XQueryPsiTest : ParserTestCase() {
                         val f = parse<PluginArrowDynamicFunctionCall>("2 => (math:pow#2)(8)")[0]
                         val (decl, bindings) = f.resolve!!
 
-                        assertThat(op_qname_presentation(decl.functionName!!), `is`("math:pow"))
+                        assertThat(qname_presentation(decl.functionName!!), `is`("math:pow"))
                         assertThat(bindings.size, `is`(2))
 
                         var arg = bindings[0]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("x"))
+                        assertThat(qname_presentation(arg.variableName!!), `is`("x"))
                         assertThat(arg.variableType?.typeName, `is`("xs:double?"))
                         assertThat(arg.variableExpression, sameInstance(f.sourceExpression))
 
                         arg = bindings[1]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("y"))
+                        assertThat(qname_presentation(arg.variableName!!), `is`("y"))
                         assertThat(arg.variableType?.typeName, `is`("xs:numeric"))
                         assertThat(arg.variableExpression, sameInstance(f.positionalArguments[0]))
                     }
@@ -3603,11 +3603,11 @@ class XQueryPsiTest : ParserTestCase() {
                         val f = parse<PluginArrowDynamicFunctionCall>("2 => (fn:abs#1)()")[0]
                         val (decl, bindings) = f.resolve!!
 
-                        assertThat(op_qname_presentation(decl.functionName!!), `is`("fn:abs"))
+                        assertThat(qname_presentation(decl.functionName!!), `is`("fn:abs"))
                         assertThat(bindings.size, `is`(1))
 
                         val arg = bindings[0]
-                        assertThat(op_qname_presentation(arg.variableName!!), `is`("value"))
+                        assertThat(qname_presentation(arg.variableName!!), `is`("value"))
                         assertThat(arg.variableType?.typeName, `is`("xs:numeric?"))
                         assertThat(arg.variableExpression, sameInstance(f.sourceExpression))
                     }
@@ -3748,8 +3748,8 @@ class XQueryPsiTest : ParserTestCase() {
                         assertThat(decl.functionBody, sameInstance(XpmEmptyExpression))
 
                         assertThat(decl.parameters.size, `is`(2))
-                        assertThat(op_qname_presentation(decl.parameters[0].variableName!!), `is`("one"))
-                        assertThat(op_qname_presentation(decl.parameters[1].variableName!!), `is`("two"))
+                        assertThat(qname_presentation(decl.parameters[0].variableName!!), `is`("one"))
+                        assertThat(qname_presentation(decl.parameters[1].variableName!!), `is`("two"))
 
                         val expr = decl as XpmExpression
                         assertThat(expr.expressionElement, `is`(nullValue()))
@@ -3766,8 +3766,8 @@ class XQueryPsiTest : ParserTestCase() {
                         assertThat(decl.functionBody, sameInstance(XpmEmptyExpression))
 
                         assertThat(decl.parameters.size, `is`(2))
-                        assertThat(op_qname_presentation(decl.parameters[0].variableName!!), `is`("one"))
-                        assertThat(op_qname_presentation(decl.parameters[1].variableName!!), `is`("two"))
+                        assertThat(qname_presentation(decl.parameters[0].variableName!!), `is`("one"))
+                        assertThat(qname_presentation(decl.parameters[1].variableName!!), `is`("two"))
 
                         val expr = decl as XpmExpression
                         assertThat(expr.expressionElement, `is`(nullValue()))
@@ -3937,7 +3937,7 @@ class XQueryPsiTest : ParserTestCase() {
                     assertThat(f.positionalArguments[0].text, `is`("1"))
 
                     val ref = f.functionReference
-                    assertThat(op_qname_presentation(ref?.functionName!!), `is`("fn:abs"))
+                    assertThat(qname_presentation(ref?.functionName!!), `is`("fn:abs"))
                     assertThat(ref.positionalArity, `is`(1))
                 }
 
@@ -3952,7 +3952,7 @@ class XQueryPsiTest : ParserTestCase() {
                         assertThat(f.positionalArguments[0].text, `is`("1"))
 
                         val ref = f.functionReference
-                        assertThat(op_qname_presentation(ref?.functionName!!), `is`("fn:abs"))
+                        assertThat(qname_presentation(ref?.functionName!!), `is`("fn:abs"))
                         assertThat(ref.positionalArity, `is`(1))
                     }
 
@@ -5579,7 +5579,7 @@ class XQueryPsiTest : ParserTestCase() {
                         val attr = parse<XQueryCompAttrConstructor>(
                             "attribute test { \"lorem-ipsum\" }"
                         )[0] as XdmAttributeNode
-                        assertThat(op_qname_presentation(attr.nodeName!!), `is`("test"))
+                        assertThat(qname_presentation(attr.nodeName!!), `is`("test"))
                         assertThat(attr.typedValue, `is`(nullValue()))
 
                         val expr = attr as XpmExpression
@@ -5592,7 +5592,7 @@ class XQueryPsiTest : ParserTestCase() {
                         val attr = parse<XQueryCompAttrConstructor>(
                             "attribute test { 1 + 2 }"
                         )[0] as XdmAttributeNode
-                        assertThat(op_qname_presentation(attr.nodeName!!), `is`("test"))
+                        assertThat(qname_presentation(attr.nodeName!!), `is`("test"))
                         assertThat(attr.typedValue, `is`(nullValue()))
 
                         val expr = attr as XpmExpression
@@ -7059,7 +7059,7 @@ class XQueryPsiTest : ParserTestCase() {
 
                     val errorList = expr.errorList.toList()
                     assertThat(errorList.size, `is`(1))
-                    assertThat(op_qname_presentation(errorList[0]), `is`("*:*"))
+                    assertThat(qname_presentation(errorList[0]), `is`("*:*"))
                 }
 
                 @Test
@@ -7071,7 +7071,7 @@ class XQueryPsiTest : ParserTestCase() {
 
                     val errorList = expr.errorList.toList()
                     assertThat(errorList.size, `is`(1))
-                    assertThat(op_qname_presentation(errorList[0]), `is`("err:XPTY0004"))
+                    assertThat(qname_presentation(errorList[0]), `is`("err:XPTY0004"))
                 }
 
                 @Test
@@ -7083,7 +7083,7 @@ class XQueryPsiTest : ParserTestCase() {
 
                     val errorList = expr.errorList.toList()
                     assertThat(errorList.size, `is`(1))
-                    assertThat(op_qname_presentation(errorList[0]), `is`("err:XPTY0004"))
+                    assertThat(qname_presentation(errorList[0]), `is`("err:XPTY0004"))
                 }
 
                 @Test
@@ -7097,8 +7097,8 @@ class XQueryPsiTest : ParserTestCase() {
 
                     val errorList = expr.errorList.toList()
                     assertThat(errorList.size, `is`(2))
-                    assertThat(op_qname_presentation(errorList[0]), `is`("err:XPTY0004"))
-                    assertThat(op_qname_presentation(errorList[1]), `is`("err:XPTY0005"))
+                    assertThat(qname_presentation(errorList[0]), `is`("err:XPTY0004"))
+                    assertThat(qname_presentation(errorList[1]), `is`("err:XPTY0005"))
                 }
             }
         }
@@ -7296,7 +7296,7 @@ class XQueryPsiTest : ParserTestCase() {
                     @DisplayName("item type")
                     fun itemType() {
                         val test = parse<XPathSimpleTypeName>("() cast as xs:string")[0]
-                        assertThat(op_qname_presentation(test.type), `is`("xs:string"))
+                        assertThat(qname_presentation(test.type), `is`("xs:string"))
 
                         val type = test as XdmItemType
                         assertThat(type.typeName, `is`("xs:string"))
@@ -8940,7 +8940,7 @@ class XQueryPsiTest : ParserTestCase() {
                 @DisplayName("name only")
                 fun nameOnly() {
                     val annotation = parse<XQueryAnnotation>("declare % private function f() {};")[0] as XdmAnnotation
-                    assertThat(op_qname_presentation(annotation.name!!), `is`("private"))
+                    assertThat(qname_presentation(annotation.name!!), `is`("private"))
 
                     val values = annotation.values.toList()
                     assertThat(values.size, `is`(0))
@@ -8970,7 +8970,7 @@ class XQueryPsiTest : ParserTestCase() {
                 @DisplayName("values")
                 fun values() {
                     val annotation = parse<XQueryAnnotation>("declare % test ( 1 , 2.3 , 4e3 , 'lorem ipsum' ) function f() {};")[0] as XdmAnnotation
-                    assertThat(op_qname_presentation(annotation.name!!), `is`("test"))
+                    assertThat(qname_presentation(annotation.name!!), `is`("test"))
 
                     val values = annotation.values.toList()
                     assertThat(values.size, `is`(4))
@@ -9005,7 +9005,7 @@ class XQueryPsiTest : ParserTestCase() {
 
                     val annotations = decl.annotations.toList()
                     assertThat(annotations.size, `is`(1))
-                    assertThat(op_qname_presentation(annotations[0].name!!), `is`("private"))
+                    assertThat(qname_presentation(annotations[0].name!!), `is`("private"))
                 }
 
                 @Test
@@ -9015,8 +9015,8 @@ class XQueryPsiTest : ParserTestCase() {
 
                     val annotations = decl.annotations.toList()
                     assertThat(annotations.size, `is`(2))
-                    assertThat(op_qname_presentation(annotations[0].name!!), `is`("public"))
-                    assertThat(op_qname_presentation(annotations[1].name!!), `is`("private"))
+                    assertThat(qname_presentation(annotations[0].name!!), `is`("public"))
+                    assertThat(qname_presentation(annotations[1].name!!), `is`("private"))
                 }
 
                 @Test
@@ -9055,7 +9055,7 @@ class XQueryPsiTest : ParserTestCase() {
 
                     val annotations = decl.annotations.toList()
                     assertThat(annotations.size, `is`(1))
-                    assertThat(op_qname_presentation(annotations[0].name!!), `is`("private"))
+                    assertThat(qname_presentation(annotations[0].name!!), `is`("private"))
                 }
 
                 @Test
@@ -9065,8 +9065,8 @@ class XQueryPsiTest : ParserTestCase() {
 
                     val annotations = decl.annotations.toList()
                     assertThat(annotations.size, `is`(2))
-                    assertThat(op_qname_presentation(annotations[0].name!!), `is`("public"))
-                    assertThat(op_qname_presentation(annotations[1].name!!), `is`("private"))
+                    assertThat(qname_presentation(annotations[0].name!!), `is`("public"))
+                    assertThat(qname_presentation(annotations[1].name!!), `is`("private"))
                 }
 
                 @Test
@@ -9105,7 +9105,7 @@ class XQueryPsiTest : ParserTestCase() {
 
                     val annotations = expr.annotations.toList()
                     assertThat(annotations.size, `is`(1))
-                    assertThat(op_qname_presentation(annotations[0].name!!), `is`("private"))
+                    assertThat(qname_presentation(annotations[0].name!!), `is`("private"))
                 }
 
                 @Test
@@ -9115,8 +9115,8 @@ class XQueryPsiTest : ParserTestCase() {
 
                     val annotations = expr.annotations.toList()
                     assertThat(annotations.size, `is`(2))
-                    assertThat(op_qname_presentation(annotations[0].name!!), `is`("public"))
-                    assertThat(op_qname_presentation(annotations[1].name!!), `is`("private"))
+                    assertThat(qname_presentation(annotations[0].name!!), `is`("public"))
+                    assertThat(qname_presentation(annotations[1].name!!), `is`("private"))
                 }
 
                 @Test
@@ -9154,7 +9154,7 @@ class XQueryPsiTest : ParserTestCase() {
 
                     val annotations = test.annotations.toList()
                     assertThat(annotations.size, `is`(1))
-                    assertThat(op_qname_presentation(annotations[0].name!!), `is`("private"))
+                    assertThat(qname_presentation(annotations[0].name!!), `is`("private"))
                 }
 
                 @Test
@@ -9164,8 +9164,8 @@ class XQueryPsiTest : ParserTestCase() {
 
                     val annotations = test.annotations.toList()
                     assertThat(annotations.size, `is`(2))
-                    assertThat(op_qname_presentation(annotations[0].name!!), `is`("public"))
-                    assertThat(op_qname_presentation(annotations[1].name!!), `is`("private"))
+                    assertThat(qname_presentation(annotations[0].name!!), `is`("public"))
+                    assertThat(qname_presentation(annotations[1].name!!), `is`("private"))
                 }
 
                 @Test
@@ -9203,7 +9203,7 @@ class XQueryPsiTest : ParserTestCase() {
 
                     val annotations = test.annotations.toList()
                     assertThat(annotations.size, `is`(1))
-                    assertThat(op_qname_presentation(annotations[0].name!!), `is`("private"))
+                    assertThat(qname_presentation(annotations[0].name!!), `is`("private"))
                 }
 
                 @Test
@@ -9213,8 +9213,8 @@ class XQueryPsiTest : ParserTestCase() {
 
                     val annotations = test.annotations.toList()
                     assertThat(annotations.size, `is`(2))
-                    assertThat(op_qname_presentation(annotations[0].name!!), `is`("public"))
-                    assertThat(op_qname_presentation(annotations[1].name!!), `is`("private"))
+                    assertThat(qname_presentation(annotations[0].name!!), `is`("public"))
+                    assertThat(qname_presentation(annotations[1].name!!), `is`("private"))
                 }
 
                 @Test
@@ -9253,7 +9253,7 @@ class XQueryPsiTest : ParserTestCase() {
 
                     val annotations = decl.annotations.toList()
                     assertThat(annotations.size, `is`(1))
-                    assertThat(op_qname_presentation(annotations[0].name!!), `is`("private"))
+                    assertThat(qname_presentation(annotations[0].name!!), `is`("private"))
                 }
 
                 @Test
@@ -9263,8 +9263,8 @@ class XQueryPsiTest : ParserTestCase() {
 
                     val annotations = decl.annotations.toList()
                     assertThat(annotations.size, `is`(2))
-                    assertThat(op_qname_presentation(annotations[0].name!!), `is`("public"))
-                    assertThat(op_qname_presentation(annotations[1].name!!), `is`("private"))
+                    assertThat(qname_presentation(annotations[0].name!!), `is`("public"))
+                    assertThat(qname_presentation(annotations[1].name!!), `is`("private"))
                 }
 
                 @Test
@@ -9503,8 +9503,8 @@ class XQueryPsiTest : ParserTestCase() {
                     assertThat(decl.functionBody, `is`(nullValue()))
 
                     assertThat(decl.parameters.size, `is`(2))
-                    assertThat(op_qname_presentation(decl.parameters[0].variableName!!), `is`("one"))
-                    assertThat(op_qname_presentation(decl.parameters[1].variableName!!), `is`("two"))
+                    assertThat(qname_presentation(decl.parameters[0].variableName!!), `is`("one"))
+                    assertThat(qname_presentation(decl.parameters[1].variableName!!), `is`("two"))
 
                     val qname = decl.functionName!!
                     assertThat(qname.prefix, `is`(nullValue()))
@@ -9530,8 +9530,8 @@ class XQueryPsiTest : ParserTestCase() {
                     assertThat(decl.functionBody, `is`(nullValue()))
 
                     assertThat(decl.parameters.size, `is`(2))
-                    assertThat(op_qname_presentation(decl.parameters[0].variableName!!), `is`("one"))
-                    assertThat(op_qname_presentation(decl.parameters[1].variableName!!), `is`("two"))
+                    assertThat(qname_presentation(decl.parameters[0].variableName!!), `is`("one"))
+                    assertThat(qname_presentation(decl.parameters[1].variableName!!), `is`("two"))
 
                     val qname = decl.functionName!!
                     assertThat(qname.prefix, `is`(nullValue()))

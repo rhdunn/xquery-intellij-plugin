@@ -19,7 +19,7 @@ import com.intellij.lang.ASTNode
 import com.intellij.openapi.util.Key
 import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
+import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAttributeNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
@@ -48,7 +48,7 @@ class XPathSchemaAttributeTestPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node
     override val typeName: String
         get() = computeUserDataIfAbsent(TYPE_NAME) {
             nodeName?.let {
-                "schema-attribute(${op_qname_presentation(it)})"
+                "schema-attribute(${qname_presentation(it)})"
             } ?: "schema-attribute(<unknown>)"
         }
 

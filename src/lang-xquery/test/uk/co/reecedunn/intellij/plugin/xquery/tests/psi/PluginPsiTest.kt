@@ -30,7 +30,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
-import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
+import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xpath.ast.plugin.PluginContextItemFunctionExpr
@@ -2059,7 +2059,7 @@ class PluginPsiTest : ParserTestCase() {
                 val annotation = parse<PluginCompatibilityAnnotation>(
                     "declare private function f() {};"
                 )[0] as XdmAnnotation
-                assertThat(op_qname_presentation(annotation.name!!), `is`("private"))
+                assertThat(qname_presentation(annotation.name!!), `is`("private"))
 
                 val values = annotation.values.toList()
                 assertThat(values.size, `is`(0))
@@ -2076,7 +2076,7 @@ class PluginPsiTest : ParserTestCase() {
                 val annotation = parse<PluginCompatibilityAnnotation>(
                     "declare updating function f() {};"
                 )[0] as XdmAnnotation
-                assertThat(op_qname_presentation(annotation.name!!), `is`("updating"))
+                assertThat(qname_presentation(annotation.name!!), `is`("updating"))
 
                 val values = annotation.values.toList()
                 assertThat(values.size, `is`(0))
@@ -2093,7 +2093,7 @@ class PluginPsiTest : ParserTestCase() {
                 val annotation = parse<PluginCompatibilityAnnotation>(
                     "declare sequential function f() {};"
                 )[0] as XdmAnnotation
-                assertThat(op_qname_presentation(annotation.name!!), `is`("sequential"))
+                assertThat(qname_presentation(annotation.name!!), `is`("sequential"))
 
                 val values = annotation.values.toList()
                 assertThat(values.size, `is`(0))
@@ -2182,8 +2182,8 @@ class PluginPsiTest : ParserTestCase() {
                 assertThat(decl.returnType, `is`(nullValue()))
 
                 assertThat(decl.parameters.size, `is`(2))
-                assertThat(op_qname_presentation(decl.parameters[0].variableName!!), `is`("one"))
-                assertThat(op_qname_presentation(decl.parameters[1].variableName!!), `is`("two"))
+                assertThat(qname_presentation(decl.parameters[0].variableName!!), `is`("one"))
+                assertThat(qname_presentation(decl.parameters[1].variableName!!), `is`("two"))
 
                 val qname = decl.functionName!!
                 assertThat(qname.prefix, `is`(nullValue()))

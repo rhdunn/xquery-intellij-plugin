@@ -25,7 +25,7 @@ import com.intellij.util.SmartList
 import uk.co.reecedunn.intellij.plugin.core.codeInspection.Inspection
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryPluginBundle
-import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
+import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 
@@ -42,8 +42,8 @@ class XQST0118 : Inspection("xqst/XQST0118.md", XQST0118::class.java.classLoader
             if (openTag.prefix?.data != closeTag.prefix?.data || openTag.localName?.data != closeTag.localName?.data) {
                 val description = XQueryPluginBundle.message(
                     "inspection.XQST0118.mismatched-dir-elem-tag-name.message",
-                    op_qname_presentation(closeTag)!!,
-                    op_qname_presentation(openTag)!!
+                    qname_presentation(closeTag)!!,
+                    qname_presentation(openTag)!!
                 )
                 val context = closeTag as PsiElement
                 descriptors.add(

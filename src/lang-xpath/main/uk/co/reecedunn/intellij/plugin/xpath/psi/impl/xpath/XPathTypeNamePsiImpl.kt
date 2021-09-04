@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
-import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
+import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmItemType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
@@ -34,7 +34,7 @@ open class XPathTypeNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPa
     // region XdmSequenceType
 
     override val typeName: String
-        get() = op_qname_presentation(type) ?: ""
+        get() = qname_presentation(type) ?: ""
 
     override val itemType: XdmItemType
         get() = this

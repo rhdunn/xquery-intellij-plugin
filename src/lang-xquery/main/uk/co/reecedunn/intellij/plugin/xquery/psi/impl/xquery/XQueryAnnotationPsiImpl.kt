@@ -21,7 +21,7 @@ import com.intellij.openapi.util.Key
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
+import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsAnyAtomicType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNumericLiteral
@@ -80,9 +80,9 @@ class XQueryAnnotationPsiImpl(node: ASTNode) :
         val values = values.joinToString { (it as PsiElement).text }
         name?.let {
             if (values.isEmpty())
-                Optional.of("%${op_qname_presentation(it)}")
+                Optional.of("%${qname_presentation(it)}")
             else
-                Optional.of("%${op_qname_presentation(it)}($values)")
+                Optional.of("%${qname_presentation(it)}($values)")
         } ?: Optional.empty()
     }.orElse(null)
 

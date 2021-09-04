@@ -20,7 +20,7 @@ import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.util.Key
 import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
-import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
+import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
@@ -71,9 +71,9 @@ class XPathParamPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathParam,
         variableName?.let { name ->
             val type = variableType
             if (type == null)
-                Optional.of("\$${op_qname_presentation(name)}")
+                Optional.of("\$${qname_presentation(name)}")
             else
-                Optional.of("\$${op_qname_presentation(name)} as ${type.typeName}")
+                Optional.of("\$${qname_presentation(name)} as ${type.typeName}")
         } ?: Optional.empty()
     }.orElse(null)
 

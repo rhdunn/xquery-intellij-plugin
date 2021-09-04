@@ -20,7 +20,7 @@ import com.intellij.navigation.NavigationItem
 import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationEx
 import uk.co.reecedunn.intellij.plugin.core.psi.resourcePath
-import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_presentation
+import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
@@ -77,7 +77,7 @@ class XQueryDocumentationProvider : AbstractDocumentationProvider() {
             }
             is XdmElementNode -> {
                 val dynamic = XQueryBundle.message("element.dynamic")
-                "element ${parent.nodeName?.let { op_qname_presentation(it) } ?: dynamic} {...}"
+                "element ${parent.nodeName?.let { qname_presentation(it) } ?: dynamic} {...}"
             }
             else -> (element as? XQueryModule)?.let {
                 when (val module = it.mainOrLibraryModule) {
