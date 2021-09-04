@@ -29,7 +29,7 @@ import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.SaxonErrorListener
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.SaxonQueryResultIterator
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding.*
 import uk.co.reecedunn.intellij.plugin.saxon.query.s9api.check
-import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_parse
+import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_parse
 import uk.co.reecedunn.intellij.plugin.xdm.types.impl.values.XsDuration
 import uk.co.reecedunn.intellij.plugin.xpm.module.path.XpmModuleUri
 
@@ -78,7 +78,7 @@ internal class SaxonXQueryRunner(
     private var context: XdmItem? = null
 
     override fun bindVariable(name: String, value: Any?, type: String?) = check(query, processor.classLoader) {
-        val qname = op_qname_parse(name, SAXON_NAMESPACES).toQName(processor.classLoader)
+        val qname = qname_parse(name, SAXON_NAMESPACES).toQName(processor.classLoader)
         evaluator.setExternalVariable(qname, XdmValue.newInstance(value, type ?: "xs:string", processor))
     }
 

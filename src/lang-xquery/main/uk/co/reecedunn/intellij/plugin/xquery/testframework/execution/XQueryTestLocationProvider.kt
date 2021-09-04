@@ -24,7 +24,7 @@ import com.intellij.psi.PsiFile
 import com.intellij.psi.search.GlobalSearchScope
 import com.intellij.util.io.URLUtil.SCHEME_SEPARATOR
 import uk.co.reecedunn.intellij.plugin.processor.test.TestLocationProvider
-import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_parse
+import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_parse
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
@@ -44,7 +44,7 @@ object XQueryTestLocationProvider : SMTestLocator, TestLocationProvider {
         val module = getModule(project, parts[0])
         return when (parts.size) {
             0, 1 -> module?.let { mutableListOf<Location<PsiElement>>(PsiLocation(it)) } ?: mutableListOf()
-            else -> getFunctions(module, op_qname_parse(parts[1], mapOf())).mapNotNullTo(mutableListOf()) {
+            else -> getFunctions(module, qname_parse(parts[1], mapOf())).mapNotNullTo(mutableListOf()) {
                 @Suppress("UNCHECKED_CAST")
                 PsiLocation(it.functionName?.element) as Location<PsiElement>
             }

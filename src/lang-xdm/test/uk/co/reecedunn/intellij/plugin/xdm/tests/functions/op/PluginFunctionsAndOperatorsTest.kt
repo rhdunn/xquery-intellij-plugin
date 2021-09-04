@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.UndeclaredNamespacePrefixException
-import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_parse
+import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_parse
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
 
@@ -35,7 +35,7 @@ class PluginFunctionsAndOperatorsTest {
         @Test
         @DisplayName("URIQualifiedName")
         fun uriQualifiedName() {
-            val qname = op_qname_parse("Q{http://www.example.co.uk}test", mapOf())
+            val qname = qname_parse("Q{http://www.example.co.uk}test", mapOf())
             assertThat(qname.namespace!!.data, `is`("http://www.example.co.uk"))
             assertThat(qname.namespace!!.context, `is`(XdmUriContext.Namespace))
             assertThat(qname.namespace!!.moduleTypes, `is`(sameInstance(XdmModuleType.NONE)))
@@ -47,7 +47,7 @@ class PluginFunctionsAndOperatorsTest {
         @Test
         @DisplayName("Clark Notation")
         fun clarkNotation() {
-            val qname = op_qname_parse("{http://www.example.co.uk}test", mapOf())
+            val qname = qname_parse("{http://www.example.co.uk}test", mapOf())
             assertThat(qname.namespace!!.data, `is`("http://www.example.co.uk"))
             assertThat(qname.namespace!!.context, `is`(XdmUriContext.Namespace))
             assertThat(qname.namespace!!.moduleTypes, `is`(sameInstance(XdmModuleType.NONE)))
@@ -59,7 +59,7 @@ class PluginFunctionsAndOperatorsTest {
         @Test
         @DisplayName("QName")
         fun qname() {
-            val qname = op_qname_parse("xs:string", mapOf("xs" to "http://www.w3.org/2001/XMLSchema"))
+            val qname = qname_parse("xs:string", mapOf("xs" to "http://www.w3.org/2001/XMLSchema"))
             assertThat(qname.namespace!!.data, `is`("http://www.w3.org/2001/XMLSchema"))
             assertThat(qname.namespace!!.context, `is`(XdmUriContext.Namespace))
             assertThat(qname.namespace!!.moduleTypes, `is`(sameInstance(XdmModuleType.NONE)))
@@ -72,7 +72,7 @@ class PluginFunctionsAndOperatorsTest {
         @DisplayName("QName; undeclared namespace")
         fun qname_undeclaredNamespace() {
             val e = assertThrows(UndeclaredNamespacePrefixException::class.java) {
-                op_qname_parse("xs:string", mapOf())
+                qname_parse("xs:string", mapOf())
             }
             assertThat(e.message, `is`("XPST0081: Undeclared namespace prefix: xs"))
         }
@@ -80,7 +80,7 @@ class PluginFunctionsAndOperatorsTest {
         @Test
         @DisplayName("NCName")
         fun ncname() {
-            val qname = op_qname_parse("string", mapOf("xs" to "http://www.w3.org/2001/XMLSchema"))
+            val qname = qname_parse("string", mapOf("xs" to "http://www.w3.org/2001/XMLSchema"))
             assertThat(qname.namespace!!.data, `is`(""))
             assertThat(qname.namespace!!.context, `is`(XdmUriContext.Namespace))
             assertThat(qname.namespace!!.moduleTypes, `is`(sameInstance(XdmModuleType.NONE)))

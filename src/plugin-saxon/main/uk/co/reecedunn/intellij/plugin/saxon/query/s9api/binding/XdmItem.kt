@@ -15,14 +15,14 @@
  */
 package uk.co.reecedunn.intellij.plugin.saxon.query.s9api.binding
 
-import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_parse
+import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_parse
 
 open class XdmItem(saxonObject: Any, saxonClass: Class<*>) : XdmValue(saxonObject, saxonClass) {
     companion object {
         fun newInstance(value: Any?, type: String, processor: Processor): XdmItem {
             val classLoader = processor.classLoader
             return when (type) {
-                "xs:QName" -> XdmAtomicValue(op_qname_parse(value as String, SAXON_NAMESPACES).toQName(classLoader))
+                "xs:QName" -> XdmAtomicValue(qname_parse(value as String, SAXON_NAMESPACES).toQName(classLoader))
                 "xs:numeric" -> XdmNumeric.newInstance(value as String, classLoader)
                 "comment()" -> XdmNode.newInstance(value, processor)
                 "document-node()" -> XdmNode.newInstance(value, processor)

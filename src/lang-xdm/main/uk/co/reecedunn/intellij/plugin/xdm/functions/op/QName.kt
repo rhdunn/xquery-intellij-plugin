@@ -49,7 +49,7 @@ fun qname_equal(arg1: XsQNameValue, arg2: XsQNameValue): Boolean {
 private fun anyURI(uri: String): XsAnyUriValue = XsAnyUri(uri, XdmUriContext.Namespace, XdmModuleType.NONE)
 
 @Suppress("FunctionName")
-fun op_qname_parse(qname: String, namespaces: Map<String, String>): XsQNameValue = when {
+fun qname_parse(qname: String, namespaces: Map<String, String>): XsQNameValue = when {
     qname.startsWith("Q{") /* URIQualifiedName */ -> {
         val ns = anyURI(qname.substringBefore('}').substring(2))
         val localName = XsNCName(qname.substringAfter('}'))
