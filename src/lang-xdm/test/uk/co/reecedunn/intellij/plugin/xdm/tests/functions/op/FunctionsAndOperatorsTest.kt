@@ -21,7 +21,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
-import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_equal
+import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_equal
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpm.context.expand
 
@@ -38,12 +38,12 @@ class FunctionsAndOperatorsTest : ParserTestCase() {
         fun ncname() {
             val qnames = parse<XsQNameValue>("test test testing")
 
-            assertThat(op_qname_equal(qnames[0], qnames[1]), `is`(true))
-            assertThat(op_qname_equal(qnames[1], qnames[0]), `is`(true))
+            assertThat(qname_equal(qnames[0], qnames[1]), `is`(true))
+            assertThat(qname_equal(qnames[1], qnames[0]), `is`(true))
 
             // local name differs
-            assertThat(op_qname_equal(qnames[0], qnames[2]), `is`(false))
-            assertThat(op_qname_equal(qnames[2], qnames[0]), `is`(false))
+            assertThat(qname_equal(qnames[0], qnames[2]), `is`(false))
+            assertThat(qname_equal(qnames[2], qnames[0]), `is`(false))
         }
 
         @Test
@@ -51,7 +51,7 @@ class FunctionsAndOperatorsTest : ParserTestCase() {
         fun ncnameAndQname() {
             val qnames = parse<XsQNameValue>("string xs:string")
 
-            assertThat(op_qname_equal(qnames[0], qnames[1]), `is`(false))
+            assertThat(qname_equal(qnames[0], qnames[1]), `is`(false))
         }
 
         @Test
@@ -59,7 +59,7 @@ class FunctionsAndOperatorsTest : ParserTestCase() {
         fun ncnameAndUriQualifiedName() {
             val qnames = parse<XsQNameValue>("string Q{http://www.w3.org/2001/XMLSchema}string")
 
-            assertThat(op_qname_equal(qnames[0], qnames[1]), `is`(false))
+            assertThat(qname_equal(qnames[0], qnames[1]), `is`(false))
         }
 
         @Test
@@ -67,16 +67,16 @@ class FunctionsAndOperatorsTest : ParserTestCase() {
         fun qname() {
             val qnames = parse<XsQNameValue>("xs:string xs:string xs:integer fn:string")
 
-            assertThat(op_qname_equal(qnames[0], qnames[1]), `is`(true))
-            assertThat(op_qname_equal(qnames[1], qnames[0]), `is`(true))
+            assertThat(qname_equal(qnames[0], qnames[1]), `is`(true))
+            assertThat(qname_equal(qnames[1], qnames[0]), `is`(true))
 
             // local name differs
-            assertThat(op_qname_equal(qnames[0], qnames[2]), `is`(false))
-            assertThat(op_qname_equal(qnames[2], qnames[0]), `is`(false))
+            assertThat(qname_equal(qnames[0], qnames[2]), `is`(false))
+            assertThat(qname_equal(qnames[2], qnames[0]), `is`(false))
 
             // prefix differs
-            assertThat(op_qname_equal(qnames[0], qnames[3]), `is`(false))
-            assertThat(op_qname_equal(qnames[3], qnames[0]), `is`(false))
+            assertThat(qname_equal(qnames[0], qnames[3]), `is`(false))
+            assertThat(qname_equal(qnames[3], qnames[0]), `is`(false))
         }
 
         @Test
@@ -84,7 +84,7 @@ class FunctionsAndOperatorsTest : ParserTestCase() {
         fun qnameAndNcname() {
             val qnames = parse<XsQNameValue>("xs:string string")
 
-            assertThat(op_qname_equal(qnames[0], qnames[1]), `is`(false))
+            assertThat(qname_equal(qnames[0], qnames[1]), `is`(false))
         }
 
         @Test
@@ -92,7 +92,7 @@ class FunctionsAndOperatorsTest : ParserTestCase() {
         fun qnameAndUriQualifiedName() {
             val qnames = parse<XsQNameValue>("xs:string Q{http://www.w3.org/2001/XMLSchema}string")
 
-            assertThat(op_qname_equal(qnames[0], qnames[1]), `is`(false))
+            assertThat(qname_equal(qnames[0], qnames[1]), `is`(false))
         }
 
         @Test
@@ -107,16 +107,16 @@ class FunctionsAndOperatorsTest : ParserTestCase() {
                 """
             )
 
-            assertThat(op_qname_equal(qnames[0], qnames[1]), `is`(true))
-            assertThat(op_qname_equal(qnames[1], qnames[0]), `is`(true))
+            assertThat(qname_equal(qnames[0], qnames[1]), `is`(true))
+            assertThat(qname_equal(qnames[1], qnames[0]), `is`(true))
 
             // local name differs
-            assertThat(op_qname_equal(qnames[0], qnames[2]), `is`(false))
-            assertThat(op_qname_equal(qnames[2], qnames[0]), `is`(false))
+            assertThat(qname_equal(qnames[0], qnames[2]), `is`(false))
+            assertThat(qname_equal(qnames[2], qnames[0]), `is`(false))
 
             // namespace differs
-            assertThat(op_qname_equal(qnames[0], qnames[3]), `is`(false))
-            assertThat(op_qname_equal(qnames[3], qnames[0]), `is`(false))
+            assertThat(qname_equal(qnames[0], qnames[3]), `is`(false))
+            assertThat(qname_equal(qnames[3], qnames[0]), `is`(false))
         }
 
         @Test
@@ -124,7 +124,7 @@ class FunctionsAndOperatorsTest : ParserTestCase() {
         fun uriQualifiedNameAndQName() {
             val qnames = parse<XsQNameValue>("Q{http://www.w3.org/2001/XMLSchema}string xs:string")
 
-            assertThat(op_qname_equal(qnames[0], qnames[1]), `is`(false))
+            assertThat(qname_equal(qnames[0], qnames[1]), `is`(false))
         }
 
         @Test
@@ -132,7 +132,7 @@ class FunctionsAndOperatorsTest : ParserTestCase() {
         fun uriQualifiedNameAndNcname() {
             val qnames = parse<XsQNameValue>("Q{http://www.w3.org/2001/XMLSchema}string string")
 
-            assertThat(op_qname_equal(qnames[0], qnames[1]), `is`(false))
+            assertThat(qname_equal(qnames[0], qnames[1]), `is`(false))
         }
 
         @Nested
@@ -144,12 +144,12 @@ class FunctionsAndOperatorsTest : ParserTestCase() {
                 val qnames = parse<XsQNameValue>("test test testing")
                 val expanded = qnames.map { qname -> qname.expand().first() }
 
-                assertThat(op_qname_equal(expanded[0], expanded[1]), `is`(true))
-                assertThat(op_qname_equal(expanded[1], expanded[0]), `is`(true))
+                assertThat(qname_equal(expanded[0], expanded[1]), `is`(true))
+                assertThat(qname_equal(expanded[1], expanded[0]), `is`(true))
 
                 // local name differs
-                assertThat(op_qname_equal(expanded[0], expanded[2]), `is`(false))
-                assertThat(op_qname_equal(expanded[2], expanded[0]), `is`(false))
+                assertThat(qname_equal(expanded[0], expanded[2]), `is`(false))
+                assertThat(qname_equal(expanded[2], expanded[0]), `is`(false))
             }
 
             @Test
@@ -165,8 +165,8 @@ class FunctionsAndOperatorsTest : ParserTestCase() {
                 )
                 val expanded = qnames.map { qname -> qname.expand().first() }
 
-                assertThat(op_qname_equal(expanded[0], expanded[1]), `is`(false))
-                assertThat(op_qname_equal(expanded[0], expanded[2]), `is`(true))
+                assertThat(qname_equal(expanded[0], expanded[1]), `is`(false))
+                assertThat(qname_equal(expanded[0], expanded[2]), `is`(true))
             }
 
             @Test
@@ -175,8 +175,8 @@ class FunctionsAndOperatorsTest : ParserTestCase() {
                 val qnames = parse<XsQNameValue>("string Q{http://www.w3.org/2001/XMLSchema}string Q{}string")
                 val expanded = qnames.map { qname -> qname.expand().first() }
 
-                assertThat(op_qname_equal(expanded[0], expanded[1]), `is`(false))
-                assertThat(op_qname_equal(expanded[0], expanded[2]), `is`(true))
+                assertThat(qname_equal(expanded[0], expanded[1]), `is`(false))
+                assertThat(qname_equal(expanded[0], expanded[2]), `is`(true))
             }
 
             @Test
@@ -185,16 +185,16 @@ class FunctionsAndOperatorsTest : ParserTestCase() {
                 val qnames = parse<XsQNameValue>("xs:string xs:string xs:integer fn:string")
                 val expanded = qnames.map { qname -> qname.expand().first() }
 
-                assertThat(op_qname_equal(expanded[0], expanded[1]), `is`(true))
-                assertThat(op_qname_equal(expanded[1], expanded[0]), `is`(true))
+                assertThat(qname_equal(expanded[0], expanded[1]), `is`(true))
+                assertThat(qname_equal(expanded[1], expanded[0]), `is`(true))
 
                 // local name differs
-                assertThat(op_qname_equal(expanded[0], expanded[2]), `is`(false))
-                assertThat(op_qname_equal(expanded[2], expanded[0]), `is`(false))
+                assertThat(qname_equal(expanded[0], expanded[2]), `is`(false))
+                assertThat(qname_equal(expanded[2], expanded[0]), `is`(false))
 
                 // prefix differs
-                assertThat(op_qname_equal(expanded[0], expanded[3]), `is`(false))
-                assertThat(op_qname_equal(expanded[3], expanded[0]), `is`(false))
+                assertThat(qname_equal(expanded[0], expanded[3]), `is`(false))
+                assertThat(qname_equal(expanded[3], expanded[0]), `is`(false))
             }
 
             @Test
@@ -210,8 +210,8 @@ class FunctionsAndOperatorsTest : ParserTestCase() {
                 )
                 val expanded = qnames.map { qname -> qname.expand().first() }
 
-                assertThat(op_qname_equal(expanded[1], expanded[0]), `is`(false))
-                assertThat(op_qname_equal(expanded[2], expanded[0]), `is`(true))
+                assertThat(qname_equal(expanded[1], expanded[0]), `is`(false))
+                assertThat(qname_equal(expanded[2], expanded[0]), `is`(true))
             }
 
             @Test
@@ -220,8 +220,8 @@ class FunctionsAndOperatorsTest : ParserTestCase() {
                 val qnames = parse<XsQNameValue>("xs:string Q{http://www.w3.org/2001/XMLSchema}string Q{}string")
                 val expanded = qnames.map { qname -> qname.expand().first() }
 
-                assertThat(op_qname_equal(expanded[0], expanded[1]), `is`(true))
-                assertThat(op_qname_equal(expanded[0], expanded[2]), `is`(false))
+                assertThat(qname_equal(expanded[0], expanded[1]), `is`(true))
+                assertThat(qname_equal(expanded[0], expanded[2]), `is`(false))
             }
 
             @Test
@@ -237,16 +237,16 @@ class FunctionsAndOperatorsTest : ParserTestCase() {
                 )
                 val expanded = qnames.map { qname -> qname.expand().first() }
 
-                assertThat(op_qname_equal(expanded[0], expanded[1]), `is`(true))
-                assertThat(op_qname_equal(expanded[1], expanded[0]), `is`(true))
+                assertThat(qname_equal(expanded[0], expanded[1]), `is`(true))
+                assertThat(qname_equal(expanded[1], expanded[0]), `is`(true))
 
                 // local name differs
-                assertThat(op_qname_equal(expanded[0], expanded[2]), `is`(false))
-                assertThat(op_qname_equal(expanded[2], expanded[0]), `is`(false))
+                assertThat(qname_equal(expanded[0], expanded[2]), `is`(false))
+                assertThat(qname_equal(expanded[2], expanded[0]), `is`(false))
 
                 // namespace differs
-                assertThat(op_qname_equal(expanded[0], expanded[3]), `is`(false))
-                assertThat(op_qname_equal(expanded[3], expanded[0]), `is`(false))
+                assertThat(qname_equal(expanded[0], expanded[3]), `is`(false))
+                assertThat(qname_equal(expanded[3], expanded[0]), `is`(false))
             }
 
             @Test
@@ -255,8 +255,8 @@ class FunctionsAndOperatorsTest : ParserTestCase() {
                 val qnames = parse<XsQNameValue>("Q{http://www.w3.org/2001/XMLSchema}string Q{}string xs:string")
                 val expanded = qnames.map { qname -> qname.expand().first() }
 
-                assertThat(op_qname_equal(expanded[0], expanded[2]), `is`(true))
-                assertThat(op_qname_equal(expanded[1], expanded[2]), `is`(false))
+                assertThat(qname_equal(expanded[0], expanded[2]), `is`(true))
+                assertThat(qname_equal(expanded[1], expanded[2]), `is`(false))
             }
 
             @Test
@@ -265,8 +265,8 @@ class FunctionsAndOperatorsTest : ParserTestCase() {
                 val qnames = parse<XsQNameValue>("Q{http://www.w3.org/2001/XMLSchema}string Q{}string string")
                 val expanded = qnames.map { qname -> qname.expand().first() }
 
-                assertThat(op_qname_equal(expanded[0], expanded[2]), `is`(false))
-                assertThat(op_qname_equal(expanded[1], expanded[2]), `is`(true))
+                assertThat(qname_equal(expanded[0], expanded[2]), `is`(false))
+                assertThat(qname_equal(expanded[1], expanded[2]), `is`(true))
             }
         }
     }

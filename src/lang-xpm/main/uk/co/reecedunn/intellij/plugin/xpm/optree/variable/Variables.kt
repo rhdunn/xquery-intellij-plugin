@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xpm.optree.variable
 
-import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_equal
+import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_equal
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpm.context.expand
@@ -35,7 +35,7 @@ val XsQNameValue.variableDefinition: XpmVariableDefinition?
             if (qname.localName?.data == localName?.data) {
                 // ... then check the expanded QName namespace.
                 val expanded = expand().firstOrNull()
-                expanded != null && qname.expand().firstOrNull()?.let { op_qname_equal(it, expanded) } == true
+                expanded != null && qname.expand().firstOrNull()?.let { qname_equal(it, expanded) } == true
                 //true
             } else {
                 false

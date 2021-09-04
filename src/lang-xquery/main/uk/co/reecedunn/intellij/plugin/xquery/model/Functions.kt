@@ -15,7 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.model
 
-import uk.co.reecedunn.intellij.plugin.xdm.functions.op.op_qname_equal
+import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_equal
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpm.context.expand
 import uk.co.reecedunn.intellij.plugin.xpm.optree.function.XpmFunctionDeclaration
@@ -29,7 +29,7 @@ fun XQueryProlog.staticallyKnownFunctions(name: XsQNameValue): Sequence<XpmFunct
         // local-name first ...
         if (functionName?.let { it.localName?.data == name.localName?.data } == true) {
             // ... then check the expanded QName namespace.
-            functionName.expand().find { op_qname_equal(it, name) } != null
+            functionName.expand().find { qname_equal(it, name) } != null
         } else {
             false
         }

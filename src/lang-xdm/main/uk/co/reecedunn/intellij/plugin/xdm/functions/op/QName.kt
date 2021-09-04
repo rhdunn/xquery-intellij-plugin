@@ -29,7 +29,7 @@ class UndeclaredNamespacePrefixException(prefix: String) :
 // region XPath and XQuery Functions and Operators 3.1 (10.2.1) op:QName-equal
 
 @Suppress("FunctionName")
-fun op_qname_equal(arg1: XsQNameValue, arg2: XsQNameValue): Boolean {
+fun qname_equal(arg1: XsQNameValue, arg2: XsQNameValue): Boolean {
     if (arg1.localName?.data?.equals(arg2.localName?.data) == true) {
         return when {
             arg1.isLexicalQName && arg2.isLexicalQName -> {
