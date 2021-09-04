@@ -26,7 +26,7 @@ import uk.co.reecedunn.intellij.plugin.core.codeInspection.Inspection
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.intellij.resources.XQueryPluginBundle
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_presentation
-import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
 
 class XQST0118 : Inspection("xqst/XQST0118.md", XQST0118::class.java.classLoader) {
@@ -34,7 +34,7 @@ class XQST0118 : Inspection("xqst/XQST0118.md", XQST0118::class.java.classLoader
         if (file !is XQueryModule) return null
 
         val descriptors = SmartList<ProblemDescriptor>()
-        file.walkTree().filterIsInstance<XdmElementNode>().forEach { elem ->
+        file.walkTree().filterIsInstance<XQueryDirElemConstructor>().forEach { elem ->
             val openTag = elem.nodeName
             val closeTag = elem.closingTag
             if (openTag?.localName == null || closeTag?.localName == null) return@forEach

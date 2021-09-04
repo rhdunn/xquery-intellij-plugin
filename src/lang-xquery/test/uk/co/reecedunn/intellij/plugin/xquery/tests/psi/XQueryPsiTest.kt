@@ -5129,7 +5129,7 @@ class XQueryPsiTest : ParserTestCase() {
                     @Test
                     @DisplayName("open and close tags")
                     fun openAndCloseTags() {
-                        val element = parse<XQueryDirElemConstructor>("<a:b></a:b>")[0] as XdmElementNode
+                        val element = parse<XQueryDirElemConstructor>("<a:b></a:b>")[0]
 
                         val open = element.nodeName!!
                         assertThat(open.prefix!!.data, `is`("a"))
@@ -5148,7 +5148,7 @@ class XQueryPsiTest : ParserTestCase() {
                     @Test
                     @DisplayName("self-closing")
                     fun selfClosing() {
-                        val element = parse<XQueryDirElemConstructor>("<h:br/>")[0] as XdmElementNode
+                        val element = parse<XQueryDirElemConstructor>("<h:br/>")[0]
 
                         val open = element.nodeName!!
                         assertThat(open.prefix!!.data, `is`("h"))
@@ -5165,7 +5165,7 @@ class XQueryPsiTest : ParserTestCase() {
                     @Test
                     @DisplayName("error recovery: missing close tag")
                     fun missingClosingTag() {
-                        val element = parse<XQueryDirElemConstructor>("<a:b>")[0] as XdmElementNode
+                        val element = parse<XQueryDirElemConstructor>("<a:b>")[0]
 
                         val open = element.nodeName!!
                         assertThat(open.prefix!!.data, `is`("a"))
@@ -5182,7 +5182,7 @@ class XQueryPsiTest : ParserTestCase() {
                     @Test
                     @DisplayName("error recovery: incomplete open tag")
                     fun incompleteOpenTag() {
-                        val element = parse<XQueryDirElemConstructor>("<a:></a:b>")[0] as XdmElementNode
+                        val element = parse<XQueryDirElemConstructor>("<a:></a:b>")[0]
 
                         val open = element.nodeName!!
                         assertThat(open.prefix!!.data, `is`("a"))
@@ -5201,7 +5201,7 @@ class XQueryPsiTest : ParserTestCase() {
                     @Test
                     @DisplayName("error recovery: incomplete close tag")
                     fun incompleteCloseTag() {
-                        val element = parse<XQueryDirElemConstructor>("<a:b></a:>")[0] as XdmElementNode
+                        val element = parse<XQueryDirElemConstructor>("<a:b></a:>")[0]
 
                         val open = element.nodeName!!
                         assertThat(open.prefix!!.data, `is`("a"))
@@ -5220,7 +5220,7 @@ class XQueryPsiTest : ParserTestCase() {
                     @Test
                     @DisplayName("error recovery: partial close tag only")
                     fun partialCloseTagOnly() {
-                        val element = parse<XQueryDirElemConstructor>("</<test>")[0] as XdmElementNode
+                        val element = parse<XQueryDirElemConstructor>("</<test>")[0]
 
                         val open = element.nodeName
                         assertThat(open, `is`(nullValue()))
@@ -5236,7 +5236,7 @@ class XQueryPsiTest : ParserTestCase() {
                     @Test
                     @DisplayName("error recovery: close tag only")
                     fun soloCloseTag() {
-                        val element = parse<XQueryDirElemConstructor>("</a:b>")[0] as XdmElementNode
+                        val element = parse<XQueryDirElemConstructor>("</a:b>")[0]
 
                         val open = element.nodeName!!
                         assertThat(open.prefix!!.data, `is`("a"))
@@ -5485,13 +5485,11 @@ class XQueryPsiTest : ParserTestCase() {
                     @Test
                     @DisplayName("nodeName as an EQName")
                     fun nodeNameEQName() {
-                        val element = parse<XQueryCompElemConstructor>("element a:b {}")[0] as XdmElementNode
+                        val element = parse<XQueryCompElemConstructor>("element a:b {}")[0]
 
                         val name = element.nodeName!!
                         assertThat(name.prefix!!.data, `is`("a"))
                         assertThat(name.localName!!.data, `is`("b"))
-
-                        assertThat(element.closingTag, `is`(sameInstance(element.nodeName)))
 
                         val expr = element as XpmExpression
                         assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.COMP_ELEM_CONSTRUCTOR))
@@ -5501,11 +5499,8 @@ class XQueryPsiTest : ParserTestCase() {
                     @Test
                     @DisplayName("nodeName is an expression")
                     fun nodeNameExpr() {
-                        val element = parse<XQueryCompElemConstructor>(
-                            "element { \"a:\" || \"b\" } {}"
-                        )[0] as XdmElementNode
+                        val element = parse<XQueryCompElemConstructor>("element { \"a:\" || \"b\" } {}")[0]
                         assertThat(element.nodeName, `is`(nullValue()))
-                        assertThat(element.closingTag, `is`(nullValue()))
 
                         val expr = element as XpmExpression
                         assertThat(expr.expressionElement.elementType, `is`(XQueryElementType.COMP_ELEM_CONSTRUCTOR))

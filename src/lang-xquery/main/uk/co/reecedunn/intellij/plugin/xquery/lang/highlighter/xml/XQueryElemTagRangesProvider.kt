@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,15 +23,13 @@ import com.intellij.psi.TokenType
 import com.intellij.psi.tree.TokenSet
 import com.intellij.psi.util.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.ancestors
-import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
 
 object XQueryElemTagRangesProvider {
     fun getElementTagRanges(element: XQueryDirElemConstructor): Pair<TextRange?, TextRange?> {
-        val node = element as XdmElementNode
-        val open = node.nodeName as? PsiElement
-        val close = node.closingTag as? PsiElement
+        val open = element.nodeName as? PsiElement
+        val close = element.closingTag as? PsiElement
         return if (open === close)
             getTagRange(open) to null
         else

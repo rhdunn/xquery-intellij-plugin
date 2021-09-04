@@ -59,8 +59,6 @@ interface XdmElementNode : XdmNode {
     val attributes: Sequence<XdmAttributeNode>
 
     val nodeName: XsQNameValue?
-
-    val closingTag: XsQNameValue?
 }
 
 object XdmElementItem : XdmItemType {

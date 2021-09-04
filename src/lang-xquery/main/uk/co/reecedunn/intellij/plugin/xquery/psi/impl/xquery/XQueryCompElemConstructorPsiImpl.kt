@@ -39,8 +39,5 @@ class XQueryCompElemConstructorPsiImpl(node: ASTNode) : ASTWrapperPsiElement(nod
     override val nodeName: XsQNameValue?
         get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
 
-    override val closingTag: XsQNameValue?
-        get() = nodeName
-
     // endregion
 }
