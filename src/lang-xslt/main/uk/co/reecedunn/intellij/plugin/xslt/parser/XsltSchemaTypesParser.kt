@@ -95,7 +95,7 @@ class XsltSchemaTypesParser(
             builder.matchTokenType(ValueTemplate.ESCAPED_CHARACTER) ||
             builder.errorOnTokenType(
                 XPathTokenType.BLOCK_CLOSE,
-                XsltBundle.message("parser.error.mismatched-exclosed-expr")
+                XsltBundle.message("parser.error.mismatched-enclosed-expr")
             ) ||
             parseEnclosedExprOrBlock(builder, null, BlockOpen.REQUIRED, BlockExpr.REQUIRED)
         ) {

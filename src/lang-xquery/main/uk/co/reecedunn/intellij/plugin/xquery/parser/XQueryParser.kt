@@ -3714,7 +3714,7 @@ class XQueryParser : XPathParser() {
             } else if (
                 parseEnclosedExprOrBlock(builder, null, BlockOpen.REQUIRED, BlockExpr.OPTIONAL) ||
                 builder.errorOnTokenType(
-                    XPathTokenType.BLOCK_CLOSE, XQueryBundle.message("parser.error.mismatched-exclosed-expr")
+                    XPathTokenType.BLOCK_CLOSE, XQueryBundle.message("parser.error.mismatched-enclosed-expr")
                 )
             ) {
                 continue
@@ -3813,7 +3813,7 @@ class XQueryParser : XPathParser() {
                 builder.matchTokenType(XQueryTokenType.CHARACTER_REFERENCE) ||
                 builder.matchTokenType(XPathTokenType.ESCAPED_CHARACTER) ||
                 builder.errorOnTokenType(
-                    XPathTokenType.BLOCK_CLOSE, XQueryBundle.message("parser.error.mismatched-exclosed-expr")
+                    XPathTokenType.BLOCK_CLOSE, XQueryBundle.message("parser.error.mismatched-enclosed-expr")
                 ) ||
                 builder.errorOnTokenType(
                     XQueryTokenType.EMPTY_ENTITY_REFERENCE, XQueryBundle.message("parser.error.empty-entity")
