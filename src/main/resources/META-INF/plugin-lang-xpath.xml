@@ -4,6 +4,7 @@
     <lang.parserDefinition language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.parser.XPathParserDefinition"/>
 
     <lang.namesValidator language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.lang.refactoring.XPathNamesValidator"/>
+    <lang.refactoringSupport language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.lang.refactoring.XPathRefactoringSupportProvider"/>
 
     <lang.findUsagesProvider language="XMLPath" implementationClass="uk.co.reecedunn.intellij.plugin.xpath.lang.findUsages.XPathFindUsagesProvider"/>
 
