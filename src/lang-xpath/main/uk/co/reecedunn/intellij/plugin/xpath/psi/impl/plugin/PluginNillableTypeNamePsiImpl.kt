@@ -31,7 +31,8 @@ class PluginNillableTypeNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node),
 
     override val lowerBound: Int = 0
 
-    override val upperBound: Int? = itemType.upperBound
+    override val upperBound: Int?
+        get() = itemType.upperBound
 
     // endregion
 }
