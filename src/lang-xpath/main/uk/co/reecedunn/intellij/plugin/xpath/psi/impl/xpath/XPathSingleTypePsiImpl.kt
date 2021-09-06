@@ -37,7 +37,8 @@ class XPathSingleTypePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathS
     // endregion
     // region XdmItemType
 
-    override val typeClass: Class<*> = itemType.typeClass
+    override val typeClass: Class<*>
+        get() = itemType.typeClass
 
     // endregion
 }
