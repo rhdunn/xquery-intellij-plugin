@@ -51,7 +51,8 @@ class XQueryCDataSectionPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQu
     // endregion
     // region LiteralTextHost
 
-    private val isClosed = children().find { it.elementType == XQueryTokenType.CDATA_SECTION_END_TAG } != null
+    private val isClosed
+        get() = children().find { it.elementType == XQueryTokenType.CDATA_SECTION_END_TAG } != null
 
     override val isOneLine: Boolean = false
 
