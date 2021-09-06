@@ -75,7 +75,7 @@ open class XPathParser : PsiParser {
     }
 
     open fun parse(builder: PsiBuilder, isFirst: Boolean): Boolean {
-        if (parseExpr(builder, null)) {
+        if (parseExpr(builder, null) != null) {
             return true
         }
         if (isFirst) {
@@ -147,7 +147,7 @@ open class XPathParser : PsiParser {
     }
 
     open fun parseEnclosedExprOrBlockExpr(builder: PsiBuilder, type: IElementType?): Boolean {
-        return parseExpr(builder, EXPR)
+        return parseExpr(builder, EXPR) != null
     }
 
     // endregion
@@ -155,9 +155,10 @@ open class XPathParser : PsiParser {
 
     open val EXPR: IElementType = XPathElementType.EXPR
 
-    open fun parseExpr(builder: PsiBuilder, type: IElementType?, functionDeclRecovery: Boolean = false): Boolean {
+    open fun parseExpr(builder: PsiBuilder, type: IElementType?, functionDeclRecovery: Boolean = false): IElementType? {
         val marker = builder.mark()
-        if (parseExprSingle(builder) != null) {
+        val haveExprSingle = parseExprSingle(builder)
+        if (haveExprSingle != null) {
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens(builder)
@@ -175,14 +176,12 @@ open class XPathParser : PsiParser {
                 parseWhiteSpaceAndCommentTokens(builder)
             }
 
-            if (type == null || !multipleExprSingles)
-                marker.drop()
-            else
-                marker.done(type)
-            return true
+            return when (type == null || !multipleExprSingles) {
+                true -> marker.dropAndReturn(haveExprSingle)
+                else -> marker.doneAndReturn(type)
+            }
         }
-        marker.drop()
-        return false
+        return marker.dropAndReturn()
     }
 
     fun parseExprSingle(builder: PsiBuilder): IElementType? = parseExprSingleImpl(builder, null)
@@ -589,7 +588,7 @@ open class XPathParser : PsiParser {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseExpr(builder, EXPR)) {
+            if (parseExpr(builder, EXPR) == null) {
                 builder.error(XPathBundle.message("parser.error.expected-expression"))
                 haveErrors = true
             }
@@ -1567,7 +1566,7 @@ open class XPathParser : PsiParser {
             var haveErrors = false
             parseWhiteSpaceAndCommentTokens(builder)
 
-            if (!parseExpr(builder, EXPR)) {
+            if (parseExpr(builder, EXPR) == null) {
                 builder.error(XPathBundle.message("parser.error.expected-expression"))
                 haveErrors = true
             }
@@ -1666,9 +1665,9 @@ open class XPathParser : PsiParser {
                 builder.error(XPathBundle.message("parser.error.expected", ")"))
             }
 
-            when {
-                haveExpr -> marker.dropAndReturn(XPathElementType.EXPR)
-                else -> marker.doneAndReturn(XPathElementType.EMPTY_EXPR)
+            when (haveExpr) {
+                null -> marker.doneAndReturn(XPathElementType.EMPTY_EXPR)
+                else -> marker.dropAndReturn(XPathElementType.EXPR)
             }
         }
     }
@@ -2342,7 +2341,7 @@ open class XPathParser : PsiParser {
             var haveErrors = false
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseExpr(builder, EXPR)) {
+            if (parseExpr(builder, EXPR) == null) {
                 builder.error(XPathBundle.message("parser.error.expected-expression"))
                 haveErrors = true
             }
@@ -2510,7 +2509,7 @@ open class XPathParser : PsiParser {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseExpr(builder, EXPR) && !haveError) {
+            if (parseExpr(builder, EXPR) == null && !haveError) {
                 builder.error(XPathBundle.message("parser.error.expected-expression"))
                 haveError = true
             }

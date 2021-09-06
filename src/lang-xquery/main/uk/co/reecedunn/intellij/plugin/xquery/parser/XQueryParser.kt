@@ -191,7 +191,7 @@ class XQueryParser : XPathParser() {
     private fun parseMainModule(builder: PsiBuilder): Boolean {
         if (parseProlog(builder, false)) {
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseExpr(builder, XQueryElementType.QUERY_BODY)) {
+            if (parseExpr(builder, XQueryElementType.QUERY_BODY) == null) {
                 builder.error(XQueryBundle.message("parser.error.expected-query-body"))
             }
             if (builder.tokenType != null && builder.tokenType != XQueryTokenType.SEPARATOR) {
@@ -199,14 +199,14 @@ class XQueryParser : XPathParser() {
                 // Keep any unknown expressions in the MainModule to keep the Prolog context.
                 while (
                     builder.tokenType != XQueryTokenType.SEPARATOR &&
-                    parseExpr(builder, XQueryElementType.QUERY_BODY)
+                    parseExpr(builder, XQueryElementType.QUERY_BODY) != null
                 ) {
                     //
                 }
             }
             return true
         }
-        return parseExpr(builder, XQueryElementType.QUERY_BODY)
+        return parseExpr(builder, XQueryElementType.QUERY_BODY) != null
     }
 
     private fun parseLibraryModule(builder: PsiBuilder): Boolean {
@@ -1256,7 +1256,7 @@ class XQueryParser : XPathParser() {
         }
 
         parseWhiteSpaceAndCommentTokens(builder)
-        return parseExpr(builder, exprType)
+        return parseExpr(builder, exprType) != null
     }
 
     private fun parseBlockDecls(builder: PsiBuilder): Boolean {
@@ -1367,20 +1367,16 @@ class XQueryParser : XPathParser() {
         Multiple
     }
 
-    override fun parseExpr(builder: PsiBuilder, type: IElementType?, functionDeclRecovery: Boolean): Boolean {
+    override fun parseExpr(builder: PsiBuilder, type: IElementType?, functionDeclRecovery: Boolean): IElementType? {
         val marker = builder.mark()
         return when (parseApplyExpr(builder, type!!, functionDeclRecovery)) {
             HaveConcatExpr.Multiple, HaveConcatExpr.Single -> {
                 if (type !== EXPR)
-                    marker.done(type)
+                    marker.doneAndReturn(type)
                 else
-                    marker.drop()
-                true
+                    marker.dropAndReturn(EXPR)
             }
-            HaveConcatExpr.None -> {
-                marker.drop()
-                false
-            }
+            HaveConcatExpr.None -> marker.dropAndReturn()
         }
     }
 
@@ -1465,7 +1461,7 @@ class XQueryParser : XPathParser() {
     }
 
     private fun parseConcatExpr(builder: PsiBuilder): Boolean {
-        return super.parseExpr(builder, XQueryElementType.CONCAT_EXPR, false)
+        return super.parseExpr(builder, XQueryElementType.CONCAT_EXPR, false) != null
     }
 
     override fun parseExprSingleImpl(builder: PsiBuilder, parentType: IElementType?): IElementType? {
@@ -2311,7 +2307,7 @@ class XQueryParser : XPathParser() {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseExpr(builder, EXPR)) {
+            if (parseExpr(builder, EXPR) == null) {
                 builder.error(XPathBundle.message("parser.error.expected-expression"))
                 haveErrors = true
             }
@@ -2411,7 +2407,7 @@ class XQueryParser : XPathParser() {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseExpr(builder, EXPR)) {
+            if (parseExpr(builder, EXPR) == null) {
                 builder.error(XPathBundle.message("parser.error.expected-expression"))
                 haveErrors = true
             }
@@ -2525,7 +2521,7 @@ class XQueryParser : XPathParser() {
             }
 
             parseWhiteSpaceAndCommentTokens(builder)
-            if (!parseExpr(builder, EXPR)) {
+            if (parseExpr(builder, EXPR) == null) {
                 builder.error(XPathBundle.message("parser.error.expected-expression"))
                 haveErrors = true
             }
@@ -3159,7 +3155,7 @@ class XQueryParser : XPathParser() {
                 if (builder.tokenType === XPathTokenType.BLOCK_OPEN) {
                     haveUpdateExpr = true
                     parseEnclosedExprOrBlock(builder, null, BlockOpen.REQUIRED, BlockExpr.OPTIONAL)
-                } else if (!parseExpr(builder, EXPR)) {
+                } else if (parseExpr(builder, EXPR) == null) {
                     builder.error(XPathBundle.message("parser.error.expected-expression"))
                 } else {
                     haveUpdateExpr = true
