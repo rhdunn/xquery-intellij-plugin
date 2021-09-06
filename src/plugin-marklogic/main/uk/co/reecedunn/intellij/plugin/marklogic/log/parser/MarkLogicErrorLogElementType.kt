@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.marklogic.log.parser
 
 import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.IFileElementType
-import uk.co.reecedunn.intellij.plugin.core.parser.IASTWrapperElementType
+import uk.co.reecedunn.intellij.plugin.core.psi.IASTWrapperElementType
 import uk.co.reecedunn.intellij.plugin.marklogic.log.lang.MarkLogicErrorLog
 import uk.co.reecedunn.intellij.plugin.marklogic.log.psi.impl.error.MarkLogicErrorLogLinePsiImpl
 

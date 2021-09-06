@@ -25,7 +25,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.psi.tree.IFileElementType
 import com.intellij.psi.tree.TokenSet
-import uk.co.reecedunn.intellij.plugin.core.parser.IASTWrapperElementType
+import uk.co.reecedunn.intellij.plugin.core.psi.IASTWrapperElementType
 import uk.co.reecedunn.intellij.plugin.marklogic.log.lexer.MarkLogicErrorLogLexer
 import uk.co.reecedunn.intellij.plugin.marklogic.log.parser.MarkLogicErrorLogElementType
 import uk.co.reecedunn.intellij.plugin.marklogic.log.parser.MarkLogicErrorLogParser

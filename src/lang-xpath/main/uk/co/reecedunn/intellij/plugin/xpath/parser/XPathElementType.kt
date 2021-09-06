@@ -17,7 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.parser
 
 import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.IFileElementType
-import uk.co.reecedunn.intellij.plugin.core.parser.IASTWrapperElementType
+import uk.co.reecedunn.intellij.plugin.core.psi.IASTWrapperElementType
 import uk.co.reecedunn.intellij.plugin.xpath.lang.XPath
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.full.text.*
 import uk.co.reecedunn.intellij.plugin.xpath.psi.impl.plugin.*
