@@ -71,7 +71,8 @@ class XQueryDirAttributeValuePsiImpl(node: ASTNode) :
     // endregion
     // region LiteralTextHost
 
-    private val isClosed = children().find { it.elementType == XQueryTokenType.XML_ATTRIBUTE_VALUE_END } != null
+    private val isClosed
+        get() = children().find { it.elementType == XQueryTokenType.XML_ATTRIBUTE_VALUE_END } != null
 
     override val isOneLine: Boolean = false
 
