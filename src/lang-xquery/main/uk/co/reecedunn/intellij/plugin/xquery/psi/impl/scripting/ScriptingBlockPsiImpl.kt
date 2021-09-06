@@ -19,4 +19,4 @@ import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.ScriptingBlock
 
-open class ScriptingBlockPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), ScriptingBlock
+class ScriptingBlockPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), ScriptingBlock
