@@ -76,7 +76,8 @@ class XPathStringLiteralPsiImpl(node: ASTNode) :
     // endregion
     // region LiteralTextHost
 
-    private val isClosed = children().find { it.elementType == XPathTokenType.STRING_LITERAL_END } != null
+    private val isClosed
+        get() = children().find { it.elementType == XPathTokenType.STRING_LITERAL_END } != null
 
     override val isOneLine: Boolean = false
 
