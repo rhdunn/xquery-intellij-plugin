@@ -31,7 +31,8 @@ class XPathSingleTypePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathS
 
     override val lowerBound: Int = 0
 
-    override val upperBound: Int? = itemType.upperBound
+    override val upperBound: Int?
+        get() = itemType.upperBound
 
     // endregion
     // region XdmItemType
