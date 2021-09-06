@@ -1361,41 +1361,33 @@ class XQueryParser : XPathParser() {
 
     override val EXPR: IElementType = XQueryElementType.CONCAT_EXPR
 
-    enum class HaveConcatExpr {
-        None,
-        Single,
-        Multiple
-    }
-
     override fun parseExpr(builder: PsiBuilder, type: IElementType?, functionDeclRecovery: Boolean): IElementType? {
         val marker = builder.mark()
-        return when (parseApplyExpr(builder, type!!, functionDeclRecovery)) {
-            HaveConcatExpr.Multiple, HaveConcatExpr.Single -> {
-                if (type !== EXPR)
-                    marker.doneAndReturn(type)
-                else
-                    marker.dropAndReturn(EXPR)
-            }
-            HaveConcatExpr.None -> marker.dropAndReturn()
+        val haveApplyExpr = parseApplyExpr(builder, type!!, functionDeclRecovery)
+        return when {
+            haveApplyExpr == null -> marker.dropAndReturn(haveApplyExpr)
+            type !== EXPR -> marker.doneAndReturn(type)
+            else -> marker.dropAndReturn(haveApplyExpr)
         }
     }
 
-    private fun parseApplyExpr(builder: PsiBuilder, type: IElementType, functionDeclRecovery: Boolean): HaveConcatExpr {
+    private fun parseApplyExpr(builder: PsiBuilder, type: IElementType, functionDeclRecovery: Boolean): IElementType? {
         val marker = builder.mark()
-        var haveConcatExpr: HaveConcatExpr = HaveConcatExpr.None
+        var haveApplyExpr: IElementType? = null
         while (true) {
-            if (parseConcatExpr(builder) == null) {
+            val haveConcatExpr = parseConcatExpr(builder)
+            if (haveConcatExpr == null) {
                 parseWhiteSpaceAndCommentTokens(builder)
                 if (
                     functionDeclRecovery || !builder.errorOnTokenType(
                         XQueryTokenType.SEPARATOR, XQueryBundle.message("parser.error.expected-query-statement", ";")
                     )
                 ) {
-                    if (haveConcatExpr != HaveConcatExpr.None)
-                        marker.done(XQueryElementType.APPLY_EXPR)
-                    else
-                        marker.drop()
-                    return haveConcatExpr
+                    return when (haveApplyExpr) {
+                        null -> marker.dropAndReturn()
+                        TokenType.ERROR_ELEMENT -> marker.dropAndReturn(TokenType.ERROR_ELEMENT)
+                        else -> marker.doneAndReturn(XQueryElementType.APPLY_EXPR)
+                    }
                 } else {
                     // Semicolon without a query body -- continue parsing.
                     parseWhiteSpaceAndCommentTokens(builder)
@@ -1410,11 +1402,10 @@ class XQueryParser : XPathParser() {
                 TransactionType.WITH_PROLOG -> {
                     // MarkLogic transaction containing a Prolog/Module statement.
                     transactionMarker.rollbackTo()
-                    if (haveConcatExpr === HaveConcatExpr.Multiple)
-                        marker.done(XQueryElementType.APPLY_EXPR)
-                    else
-                        marker.drop()
-                    return HaveConcatExpr.Multiple
+                    return when (haveApplyExpr) {
+                        XQueryElementType.APPLY_EXPR -> marker.doneAndReturn(XQueryElementType.APPLY_EXPR)
+                        else -> marker.dropAndReturn(XQueryElementType.APPLY_EXPR)
+                    }
                 }
                 TransactionType.WITHOUT_PROLOG -> {
                     if (type !== XQueryElementType.QUERY_BODY) {
@@ -1429,7 +1420,7 @@ class XQueryParser : XPathParser() {
                 }
                 TransactionType.NONE -> {
                     transactionMarker.rollbackTo()
-                    if (haveConcatExpr !== HaveConcatExpr.None) {
+                    if (haveApplyExpr !== null) {
                         if (type !== XQueryElementType.QUERY_BODY) {
                             // Scripting Extension: The semicolon is required to end a ConcatExpr.
                             builder.error(XPathBundle.message("parser.error.expected", ";"))
@@ -1440,22 +1431,16 @@ class XQueryParser : XPathParser() {
                             marker2.done(XQueryElementType.TRANSACTION_SEPARATOR)
                         }
                     }
-                    return when (haveConcatExpr) {
-                        HaveConcatExpr.None -> {
-                            marker.drop()
-                            HaveConcatExpr.Single
-                        }
-                        else -> {
-                            marker.done(XQueryElementType.APPLY_EXPR)
-                            HaveConcatExpr.Multiple
-                        }
+                    return when (haveApplyExpr) {
+                        null -> marker.dropAndReturn(haveConcatExpr)
+                        else -> marker.doneAndReturn(XQueryElementType.APPLY_EXPR)
                     }
                 }
             }
 
-            haveConcatExpr = when (haveConcatExpr) {
-                HaveConcatExpr.None -> HaveConcatExpr.Single
-                else -> HaveConcatExpr.Multiple
+            haveApplyExpr = when (haveApplyExpr) {
+                null -> haveConcatExpr
+                else -> XQueryElementType.APPLY_EXPR
             }
         }
     }
@@ -5059,3 +5044,4 @@ class XQueryParser : XPathParser() {
 
     // endregion
 }
+
