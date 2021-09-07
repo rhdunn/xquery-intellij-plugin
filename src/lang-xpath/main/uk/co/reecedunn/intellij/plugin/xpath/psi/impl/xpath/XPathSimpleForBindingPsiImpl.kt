@@ -28,12 +28,10 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.flwor.XpmBindingCollectionType
-import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmCollectionBinding
 
 class XPathSimpleForBindingPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XPathSimpleForBinding,
-    XpmCollectionBinding,
     XpmSyntaxValidationElement {
     // region XpmVariableBinding
 
