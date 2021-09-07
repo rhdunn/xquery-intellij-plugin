@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2020 Reece H. Dunn
+ * Copyright (C) 2019-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 
 import com.intellij.openapi.extensions.PluginId
+import com.intellij.psi.search.LocalSearchScope
 import com.intellij.psi.util.elementType
 import org.hamcrest.CoreMatchers
 import org.hamcrest.CoreMatchers.`is`
@@ -26,6 +27,7 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmUriContext
+import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTContainsExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTScoreVar
 import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTStopWords
@@ -33,6 +35,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTThesaurusID
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableBinding
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryFLWORExpr
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 @Suppress("ClassName", "RedundantVisibilityModifier")
@@ -70,6 +73,10 @@ class FullTextPsiTest : ParserTestCase() {
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("y"))
+
+                val localScope = expr.variableName?.element?.useScope as LocalSearchScope
+                assertThat(localScope.scope.size, `is`(1))
+                assertThat(localScope.scope[0], `is`(CoreMatchers.instanceOf(XQueryFLWORExpr::class.java)))
             }
 
             @Test
@@ -83,6 +90,10 @@ class FullTextPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix!!.data, `is`("a"))
                 assertThat(qname.localName!!.data, `is`("y"))
+
+                val localScope = expr.variableName?.element?.useScope as LocalSearchScope
+                assertThat(localScope.scope.size, `is`(1))
+                assertThat(localScope.scope[0], `is`(CoreMatchers.instanceOf(XQueryFLWORExpr::class.java)))
             }
 
             @Test
@@ -96,6 +107,10 @@ class FullTextPsiTest : ParserTestCase() {
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
                 assertThat(qname.localName!!.data, `is`("y"))
+
+                val localScope = expr.variableName?.element?.useScope as LocalSearchScope
+                assertThat(localScope.scope.size, `is`(1))
+                assertThat(localScope.scope[0], `is`(CoreMatchers.instanceOf(XQueryFLWORExpr::class.java)))
             }
 
             @Test

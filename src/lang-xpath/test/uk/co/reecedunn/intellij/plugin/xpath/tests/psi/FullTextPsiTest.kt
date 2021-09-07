@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2020 Reece H. Dunn
+ * Copyright (C) 2019-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@ package uk.co.reecedunn.intellij.plugin.xpath.tests.psi
 
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.PsiElement
+import com.intellij.psi.search.LocalSearchScope
 import com.intellij.psi.util.elementType
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
@@ -31,6 +32,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTContainsExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTScoreVar
 import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTStopWords
 import uk.co.reecedunn.intellij.plugin.xpath.ast.full.text.FTThesaurusID
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathForExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.model.getUsageType
@@ -74,6 +76,10 @@ class FullTextPsiTest : ParserTestCase() {
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("y"))
+
+                val localScope = expr.variableName?.element?.useScope as LocalSearchScope
+                assertThat(localScope.scope.size, `is`(1))
+                assertThat(localScope.scope[0], `is`(instanceOf(XPathForExpr::class.java)))
             }
 
             @Test
@@ -87,6 +93,10 @@ class FullTextPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix!!.data, `is`("a"))
                 assertThat(qname.localName!!.data, `is`("y"))
+
+                val localScope = expr.variableName?.element?.useScope as LocalSearchScope
+                assertThat(localScope.scope.size, `is`(1))
+                assertThat(localScope.scope[0], `is`(instanceOf(XPathForExpr::class.java)))
             }
 
             @Test
@@ -100,6 +110,10 @@ class FullTextPsiTest : ParserTestCase() {
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
                 assertThat(qname.localName!!.data, `is`("y"))
+
+                val localScope = expr.variableName?.element?.useScope as LocalSearchScope
+                assertThat(localScope.scope.size, `is`(1))
+                assertThat(localScope.scope[0], `is`(instanceOf(XPathForExpr::class.java)))
             }
 
             @Test
