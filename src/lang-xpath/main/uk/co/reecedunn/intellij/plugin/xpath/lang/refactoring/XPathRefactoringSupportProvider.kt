@@ -17,13 +17,14 @@ package uk.co.reecedunn.intellij.plugin.xpath.lang.refactoring
 
 import com.intellij.lang.refactoring.RefactoringSupportProvider
 import com.intellij.psi.PsiElement
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableDefinition
 
 class XPathRefactoringSupportProvider : RefactoringSupportProvider() {
     /**
      * Determines whether VariableInplaceRenameHandler should be used.
      */
     override fun isInplaceRenameAvailable(element: PsiElement, context: PsiElement?): Boolean {
-        return false
+        return element.parent is XpmVariableDefinition
     }
 
     /**
