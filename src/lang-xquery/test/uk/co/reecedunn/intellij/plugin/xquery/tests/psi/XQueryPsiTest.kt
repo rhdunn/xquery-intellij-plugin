@@ -6252,6 +6252,10 @@ class XQueryPsiTest : ParserTestCase() {
                         assertThat(qname.prefix, `is`(nullValue()))
                         assertThat(qname.namespace, `is`(nullValue()))
                         assertThat(qname.localName!!.data, `is`("x"))
+
+                        val localScope = expr.variableName?.element?.useScope as LocalSearchScope
+                        assertThat(localScope.scope.size, `is`(1))
+                        assertThat(localScope.scope[0], `is`(instanceOf(XQueryFLWORExpr::class.java)))
                     }
 
                     @Test
@@ -6265,6 +6269,10 @@ class XQueryPsiTest : ParserTestCase() {
                         assertThat(qname.namespace, `is`(nullValue()))
                         assertThat(qname.prefix!!.data, `is`("a"))
                         assertThat(qname.localName!!.data, `is`("x"))
+
+                        val localScope = expr.variableName?.element?.useScope as LocalSearchScope
+                        assertThat(localScope.scope.size, `is`(1))
+                        assertThat(localScope.scope[0], `is`(instanceOf(XQueryFLWORExpr::class.java)))
                     }
 
                     @Test
@@ -6280,6 +6288,10 @@ class XQueryPsiTest : ParserTestCase() {
                         assertThat(qname.prefix, `is`(nullValue()))
                         assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
                         assertThat(qname.localName!!.data, `is`("x"))
+
+                        val localScope = expr.variableName?.element?.useScope as LocalSearchScope
+                        assertThat(localScope.scope.size, `is`(1))
+                        assertThat(localScope.scope[0], `is`(instanceOf(XQueryFLWORExpr::class.java)))
                     }
 
                     @Test
