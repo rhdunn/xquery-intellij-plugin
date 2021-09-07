@@ -21,6 +21,7 @@ import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiNameIdentifierOwner
 import com.intellij.psi.impl.DebugUtil
+import com.intellij.psi.search.LocalSearchScope
 import com.intellij.psi.util.elementType
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
@@ -9736,6 +9737,10 @@ class XQueryPsiTest : ParserTestCase() {
                     assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.Param)))
                     assertThat(presentation.presentableText, `is`("\$x"))
                     assertThat(presentation.locationString, `is`(nullValue()))
+
+                    val localScope = expr.variableName?.element?.useScope as LocalSearchScope
+                    assertThat(localScope.scope.size, `is`(1))
+                    assertThat(localScope.scope[0], `is`(instanceOf(XPathInlineFunctionExpr::class.java)))
                 }
 
                 @Test
@@ -9755,6 +9760,10 @@ class XQueryPsiTest : ParserTestCase() {
                     assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.Param)))
                     assertThat(presentation.presentableText, `is`("\$a:x"))
                     assertThat(presentation.locationString, `is`(nullValue()))
+
+                    val localScope = expr.variableName?.element?.useScope as LocalSearchScope
+                    assertThat(localScope.scope.size, `is`(1))
+                    assertThat(localScope.scope[0], `is`(instanceOf(XPathInlineFunctionExpr::class.java)))
                 }
 
                 @Test
@@ -9774,6 +9783,10 @@ class XQueryPsiTest : ParserTestCase() {
                     assertThat(presentation.getIcon(true), `is`(sameInstance(XPathIcons.Nodes.Param)))
                     assertThat(presentation.presentableText, `is`("\$Q{http://www.example.com}x"))
                     assertThat(presentation.locationString, `is`(nullValue()))
+
+                    val localScope = expr.variableName?.element?.useScope as LocalSearchScope
+                    assertThat(localScope.scope.size, `is`(1))
+                    assertThat(localScope.scope[0], `is`(instanceOf(XPathInlineFunctionExpr::class.java)))
                 }
 
                 @Test

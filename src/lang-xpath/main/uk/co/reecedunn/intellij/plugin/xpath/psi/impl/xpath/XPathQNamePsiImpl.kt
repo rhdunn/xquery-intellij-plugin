@@ -21,6 +21,7 @@ import com.intellij.navigation.ItemPresentation
 import com.intellij.navigation.NavigationItem
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReference
+import com.intellij.psi.search.SearchScope
 import org.jetbrains.annotations.NonNls
 import uk.co.reecedunn.intellij.plugin.core.psi.createElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
@@ -51,6 +52,8 @@ class XPathQNamePsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathQName 
 
     // endregion
     // region PsiElement
+
+    override fun getUseScope(): SearchScope = parent.useScope
 
     override fun getReference(): PsiReference? {
         val references = references

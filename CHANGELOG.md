@@ -22,6 +22,10 @@ References and Resolving:
 
 1. Fix resolving elements to `xmlns` nodes where the namespace URI is not also bound to a prefix.
 
+Refactoring:
+
+1. Support in-place rename refactoring for parameters.
+
 XPath and XQuery:
 
 1. Fix parsing `FTContainsExpr` in the RHS of a `ComparisonExpr` in XPath expressions.

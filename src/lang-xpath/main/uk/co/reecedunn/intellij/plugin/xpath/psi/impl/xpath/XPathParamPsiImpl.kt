@@ -19,6 +19,8 @@ import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.util.Key
 import uk.co.reecedunn.intellij.plugin.core.psi.ASTWrapperPsiElement
+import com.intellij.psi.search.LocalSearchScope
+import com.intellij.psi.search.SearchScope
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
@@ -40,6 +42,8 @@ class XPathParamPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathParam,
         super.subtreeChanged()
         clearUserData(PRESENTABLE_TEXT)
     }
+
+    override fun getUseScope(): SearchScope = LocalSearchScope(parent)
 
     // endregion
     // region XpmVariableBinding

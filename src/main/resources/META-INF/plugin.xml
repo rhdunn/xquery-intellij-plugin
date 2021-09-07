@@ -94,6 +94,10 @@
     <ol>
       <li>Fix resolving elements to <code>xmlns</code> nodes where the namespace URI is not also bound to a prefix.</li>
     </ol>
+    <p>Refactoring:</p>
+    <ol>
+      <li>Support in-place rename refactoring for parameters.</li>
+    </ol>
     <p>XPath and XQuery:</p>
     <ol>
       <li>Fix parsing <code>FTContainsExpr</code> in the RHS of a <code>ComparisonExpr</code> in XPath expressions.</li>
