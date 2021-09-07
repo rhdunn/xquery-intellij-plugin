@@ -96,7 +96,7 @@
     </ol>
     <p>Refactoring:</p>
     <ol>
-      <li>Support in-place rename refactoring for parameters.</li>
+      <li>Support in-place rename refactoring for parameters and for bindings.</li>
     </ol>
     <p>XPath and XQuery:</p>
     <ol>
