@@ -18,6 +18,8 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import com.intellij.psi.search.LocalSearchScope
+import com.intellij.psi.search.SearchScope
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.filterIsElementType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
@@ -33,6 +35,11 @@ class XPathSimpleForBindingPsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node),
     XPathSimpleForBinding,
     XpmSyntaxValidationElement {
+    // region PsiElement
+
+    override fun getUseScope(): SearchScope = LocalSearchScope(parent.parent)
+
+    // endregion
     // region XpmVariableBinding
 
     override val variableName: XsQNameValue?
