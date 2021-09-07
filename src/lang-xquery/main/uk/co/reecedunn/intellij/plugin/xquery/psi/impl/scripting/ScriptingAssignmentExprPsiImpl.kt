@@ -34,7 +34,7 @@ class ScriptingAssignmentExprPsiImpl(node: ASTNode) :
         get() = findChildByType(XPathTokenType.ASSIGN_EQUAL)!!
 
     // endregion
-    // region XpmVariableBinding
+    // region XpmVariableReference
 
     override val variableName: XsQNameValue?
         get() = children().filterIsInstance<XsQNameValue>().firstOrNull()

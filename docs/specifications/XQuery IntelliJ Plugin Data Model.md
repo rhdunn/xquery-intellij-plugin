@@ -925,9 +925,10 @@ are defined for *variable definitions*:
 
 #### 5.5.1 Variable References
 
-| Symbol   | Interface              |
-|----------|------------------------|
-| `VarRef` | `XpmVariableReference` |
+| Symbol           | Interface              |
+|------------------|------------------------|
+| `VarRef`         | `XpmVariableReference` |
+| `AssignmentExpr` | `XpmVariableReference` |
 
 A *variable reference* is an expression that references a *variable definition*.
 

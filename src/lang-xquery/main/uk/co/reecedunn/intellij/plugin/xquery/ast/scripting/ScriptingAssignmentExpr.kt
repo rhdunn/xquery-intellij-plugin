@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2017, 2020 Reece H. Dunn
+ * Copyright (C) 2016-2017, 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,9 +17,9 @@ package uk.co.reecedunn.intellij.plugin.xquery.ast.scripting
 
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExprSingle
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
-import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableBinding
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableReference
 
 /**
  * An XQuery Scripting Extension 1.0 `AssignmentExpr` node in the XQuery AST.
  */
-interface ScriptingAssignmentExpr : XPathExprSingle, XpmExpression, XpmVariableBinding
+interface ScriptingAssignmentExpr : XPathExprSingle, XpmExpression, XpmVariableReference

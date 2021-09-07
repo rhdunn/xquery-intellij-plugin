@@ -27,7 +27,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmConcatenatingExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.text
-import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableBinding
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableReference
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.*
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
@@ -100,7 +100,7 @@ class ScriptingPsiTest : ParserTestCase() {
             @Test
             @DisplayName("NCName")
             fun ncname() {
-                val binding = parse<ScriptingAssignmentExpr>("\$x := \$y")[0] as XpmVariableBinding
+                val binding = parse<ScriptingAssignmentExpr>("\$x := \$y")[0] as XpmVariableReference
 
                 val qname = binding.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
@@ -115,7 +115,7 @@ class ScriptingPsiTest : ParserTestCase() {
             @Test
             @DisplayName("QName")
             fun qname() {
-                val binding = parse<ScriptingAssignmentExpr>("\$a:x := \$a:y")[0] as XpmVariableBinding
+                val binding = parse<ScriptingAssignmentExpr>("\$a:x := \$a:y")[0] as XpmVariableReference
 
                 val qname = binding.variableName!!
                 assertThat(qname.namespace, `is`(nullValue()))
@@ -132,7 +132,7 @@ class ScriptingPsiTest : ParserTestCase() {
             fun uriQualifiedName() {
                 val binding = parse<ScriptingAssignmentExpr>(
                     "\$Q{http://www.example.com}x := \$Q{http://www.example.com}y"
-                )[0] as XpmVariableBinding
+                )[0] as XpmVariableReference
 
                 val qname = binding.variableName!!
                 assertThat(qname.prefix, `is`(nullValue()))
