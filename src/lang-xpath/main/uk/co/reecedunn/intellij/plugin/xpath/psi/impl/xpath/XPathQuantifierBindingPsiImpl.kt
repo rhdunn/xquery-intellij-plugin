@@ -17,6 +17,8 @@ package uk.co.reecedunn.intellij.plugin.xpath.psi.impl.xpath
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.psi.search.LocalSearchScope
+import com.intellij.psi.search.SearchScope
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
@@ -25,6 +27,11 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQuantifierBinding
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 
 class XPathQuantifierBindingPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XPathQuantifierBinding {
+    // region PsiElement
+
+    override fun getUseScope(): SearchScope = LocalSearchScope(parent)
+
+    // endregion
     // region XpmVariableBinding
 
     override val variableName: XsQNameValue?
