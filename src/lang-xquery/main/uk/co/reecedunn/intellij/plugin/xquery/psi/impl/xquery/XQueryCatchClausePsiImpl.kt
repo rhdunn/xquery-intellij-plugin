@@ -18,6 +18,8 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
 import com.intellij.psi.PsiElement
+import com.intellij.psi.search.LocalSearchScope
+import com.intellij.psi.search.SearchScope
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
@@ -31,6 +33,11 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCatchClause
 
 class XQueryCatchClausePsiImpl(node: ASTNode) :
     ASTWrapperPsiElement(node), XQueryCatchClause, XpmSyntaxValidationElement {
+    // region PsiElement
+
+    override fun getUseScope(): SearchScope = LocalSearchScope(this)
+
+    // endregion
     // region XpmVariableBinding
 
     override val variableName: XsQNameValue?

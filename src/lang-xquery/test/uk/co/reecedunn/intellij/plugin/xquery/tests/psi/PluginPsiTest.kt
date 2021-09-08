@@ -19,13 +19,13 @@ import com.intellij.navigation.ItemPresentation
 import com.intellij.navigation.NavigationItem
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.PsiElement
+import com.intellij.psi.search.LocalSearchScope
 import com.intellij.psi.util.elementType
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.navigation.ItemPresentationEx
-import uk.co.reecedunn.intellij.plugin.core.psi.resourcePath
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
@@ -60,15 +60,9 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceDeclarat
 import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.path.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.path.XpmPathStep
-import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmAssignableVariable
-import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.*
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCatchClause
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryItemTypeDecl
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryModule
-import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQuerySequenceTypeUnion
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.lexer.XQueryTokenType
-import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
 import uk.co.reecedunn.intellij.plugin.xquery.model.getNamespaceType
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryFunctionProvider
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryNamespaceProvider
@@ -1466,6 +1460,10 @@ class PluginPsiTest : ParserTestCase() {
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("x"))
+
+                val localScope = expr.variableName?.element?.useScope as LocalSearchScope
+                assertThat(localScope.scope.size, `is`(1))
+                assertThat(localScope.scope[0], `is`(instanceOf(XQueryCatchClause::class.java)))
             }
 
             @Test
@@ -1479,6 +1477,10 @@ class PluginPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix!!.data, `is`("a"))
                 assertThat(qname.localName!!.data, `is`("x"))
+
+                val localScope = expr.variableName?.element?.useScope as LocalSearchScope
+                assertThat(localScope.scope.size, `is`(1))
+                assertThat(localScope.scope[0], `is`(instanceOf(XQueryCatchClause::class.java)))
             }
 
             @Test
@@ -1494,6 +1496,10 @@ class PluginPsiTest : ParserTestCase() {
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
                 assertThat(qname.localName!!.data, `is`("x"))
+
+                val localScope = expr.variableName?.element?.useScope as LocalSearchScope
+                assertThat(localScope.scope.size, `is`(1))
+                assertThat(localScope.scope[0], `is`(instanceOf(XQueryCatchClause::class.java)))
             }
 
             @Test
