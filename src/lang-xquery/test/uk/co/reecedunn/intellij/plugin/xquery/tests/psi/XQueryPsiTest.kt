@@ -7511,6 +7511,10 @@ class XQueryPsiTest : ParserTestCase() {
                         assertThat(qname.prefix, `is`(nullValue()))
                         assertThat(qname.namespace, `is`(nullValue()))
                         assertThat(qname.localName!!.data, `is`("y"))
+
+                        val localScope = expr.variableName?.element?.useScope as LocalSearchScope
+                        assertThat(localScope.scope.size, `is`(1))
+                        assertThat(localScope.scope[0], `is`(instanceOf(PluginDefaultCaseClause::class.java)))
                     }
 
                     @Test
@@ -7526,6 +7530,10 @@ class XQueryPsiTest : ParserTestCase() {
                         assertThat(qname.namespace, `is`(nullValue()))
                         assertThat(qname.prefix!!.data, `is`("a"))
                         assertThat(qname.localName!!.data, `is`("y"))
+
+                        val localScope = expr.variableName?.element?.useScope as LocalSearchScope
+                        assertThat(localScope.scope.size, `is`(1))
+                        assertThat(localScope.scope[0], `is`(instanceOf(PluginDefaultCaseClause::class.java)))
                     }
 
                     @Test
@@ -7533,10 +7541,10 @@ class XQueryPsiTest : ParserTestCase() {
                     fun uriQualifiedName() {
                         val expr = parse<PluginDefaultCaseClause>(
                             """
-                    typeswitch (${'$'}Q{http://www.example.com}x)
-                    default ${'$'}Q{http://www.example.com}y
-                    return ${'$'}Q{http://www.example.com}z
-                    """
+                            typeswitch (${'$'}Q{http://www.example.com}x)
+                            default ${'$'}Q{http://www.example.com}y
+                            return ${'$'}Q{http://www.example.com}z
+                            """
                         )[0] as XpmAssignableVariable
                         assertThat(expr.variableType?.typeName, `is`(nullValue()))
                         assertThat(expr.variableExpression?.text, `is`("\$Q{http://www.example.com}x"))
@@ -7545,6 +7553,10 @@ class XQueryPsiTest : ParserTestCase() {
                         assertThat(qname.prefix, `is`(nullValue()))
                         assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
                         assertThat(qname.localName!!.data, `is`("y"))
+
+                        val localScope = expr.variableName?.element?.useScope as LocalSearchScope
+                        assertThat(localScope.scope.size, `is`(1))
+                        assertThat(localScope.scope[0], `is`(instanceOf(PluginDefaultCaseClause::class.java)))
                     }
 
                     @Test
