@@ -24,7 +24,7 @@ References and Resolving:
 
 Refactoring:
 
-1. Support in-place rename refactoring for parameters, for/let bindings, and quantifier bindings.
+1. Support in-place rename refactoring for variables, except for private variable declarations.
 
 XPath and XQuery:
 

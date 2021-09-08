@@ -15,13 +15,18 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 
+import com.intellij.compat.testFramework.registerServiceInstance
+import com.intellij.mock.MockResolveScopeManager
 import com.intellij.navigation.ItemPresentation
 import com.intellij.navigation.NavigationItem
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiNameIdentifierOwner
 import com.intellij.psi.impl.DebugUtil
+import com.intellij.psi.impl.ResolveScopeManager
+import com.intellij.psi.search.GlobalSearchScope
 import com.intellij.psi.search.LocalSearchScope
+import com.intellij.psi.search.ProjectScopeBuilder
 import com.intellij.psi.util.elementType
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
@@ -34,6 +39,7 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.descendants
 import uk.co.reecedunn.intellij.plugin.core.sequences.walkTree
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.core.tests.module.MockModuleManager
+import uk.co.reecedunn.intellij.plugin.core.tests.psi.MockProjectScopeBuilder
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFileSystem
 import uk.co.reecedunn.intellij.plugin.intellij.lang.XQuerySpec
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_presentation
@@ -100,6 +106,9 @@ class XQueryPsiTest : ParserTestCase() {
 
         XpmNamespaceProvider.register(this, XQueryNamespaceProvider)
         XpmFunctionProvider.register(this, XQueryFunctionProvider)
+
+        project.registerServiceInstance(ProjectScopeBuilder::class.java, MockProjectScopeBuilder())
+        project.registerServiceInstance(ResolveScopeManager::class.java, MockResolveScopeManager(project))
     }
 
     @Nested
@@ -9447,6 +9456,12 @@ class XQueryPsiTest : ParserTestCase() {
             @Nested
             @DisplayName("XQuery 3.1 EBNF (28) VarDecl")
             internal inner class VarDecl {
+                fun useScope(element: XpmAnnotated): String = when (val scope = (element as PsiElement).useScope) {
+                    is LocalSearchScope -> "LocalSearchScope(${scope.scope.joinToString { it.javaClass.simpleName }})"
+                    is GlobalSearchScope -> "GlobalSearchScope"
+                    else -> scope.javaClass.simpleName
+                }
+
                 @Test
                 @DisplayName("no annotations")
                 fun none() {
@@ -9487,9 +9502,14 @@ class XQueryPsiTest : ParserTestCase() {
                         declare %private variable ${'$'}c := 3;
                         """.trimIndent()
                     )
+
                     assertThat(decls[0].accessLevel, `is`(XpmAccessLevel.Public))
                     assertThat(decls[1].accessLevel, `is`(XpmAccessLevel.Public))
                     assertThat(decls[2].accessLevel, `is`(XpmAccessLevel.Private))
+
+                    assertThat(useScope(decls[0]), `is`("GlobalSearchScope"))
+                    assertThat(useScope(decls[1]), `is`("GlobalSearchScope"))
+                    assertThat(useScope(decls[2]), `is`("LocalSearchScope(XQueryModuleImpl)"))
                 }
             }
 

@@ -96,7 +96,7 @@
     </ol>
     <p>Refactoring:</p>
     <ol>
-      <li>Support in-place rename refactoring for parameters, for/let bindings, and quantifier bindings.</li>
+      <li>Support in-place rename refactoring for variables, except for private variable declarations.</li>
     </ol>
     <p>XPath and XQuery:</p>
     <ol>

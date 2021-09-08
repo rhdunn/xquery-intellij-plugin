@@ -19,6 +19,8 @@ import com.intellij.lang.ASTNode
 import com.intellij.navigation.ItemPresentation
 import com.intellij.openapi.util.Key
 import com.intellij.psi.PsiElement
+import com.intellij.psi.search.LocalSearchScope
+import com.intellij.psi.search.SearchScope
 import com.intellij.psi.util.elementType
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.core.sequences.reverse
@@ -30,6 +32,7 @@ import uk.co.reecedunn.intellij.plugin.xpath.ast.filterNotWhitespace
 import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpath.resources.XPathIcons
 import uk.co.reecedunn.intellij.plugin.xpm.lang.validation.XpmSyntaxValidationElement
+import uk.co.reecedunn.intellij.plugin.xpm.optree.annotation.XpmAccessLevel
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginCompatibilityAnnotation
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryVarDecl
@@ -46,12 +49,17 @@ class XQueryVarDeclPsiImpl(node: ASTNode) :
         private val PRESENTABLE_TEXT = Key.create<Optional<String>>("PRESENTABLE_TEXT")
         private val ALPHA_SORT_KEY = Key.create<String>("ALPHA_SORT_KEY")
     }
-    // region ASTDelegatePsiElement
+    // region PsiElement
 
     override fun subtreeChanged() {
         super.subtreeChanged()
         clearUserData(PRESENTABLE_TEXT)
         clearUserData(ALPHA_SORT_KEY)
+    }
+
+    override fun getUseScope(): SearchScope = when (accessLevel) {
+        XpmAccessLevel.Private -> LocalSearchScope(containingFile)
+        else -> super.getUseScope()
     }
 
     // endregion
