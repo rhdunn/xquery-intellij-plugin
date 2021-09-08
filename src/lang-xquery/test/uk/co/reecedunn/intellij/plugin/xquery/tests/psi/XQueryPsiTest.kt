@@ -6244,18 +6244,22 @@ class XQueryPsiTest : ParserTestCase() {
             internal inner class PositionalVar {
                 @Test
                 @DisplayName("NCName")
-                fun testPositionalVar_NCName() {
+                fun ncname() {
                     val expr = parse<XQueryPositionalVar>("for \$x at \$y in \$z return \$w")[0] as XpmVariableBinding
 
                     val qname = expr.variableName!!
                     assertThat(qname.prefix, `is`(nullValue()))
                     assertThat(qname.namespace, `is`(nullValue()))
                     assertThat(qname.localName!!.data, `is`("y"))
+
+                    val localScope = expr.variableName?.element?.useScope as LocalSearchScope
+                    assertThat(localScope.scope.size, `is`(1))
+                    assertThat(localScope.scope[0], `is`(instanceOf(XQueryFLWORExpr::class.java)))
                 }
 
                 @Test
                 @DisplayName("QName")
-                fun testPositionalVar_QName() {
+                fun qname() {
                     val expr = parse<XQueryPositionalVar>(
                         "for \$a:x at \$a:y in \$a:z return \$a:w"
                     )[0] as XpmVariableBinding
@@ -6264,11 +6268,15 @@ class XQueryPsiTest : ParserTestCase() {
                     assertThat(qname.namespace, `is`(nullValue()))
                     assertThat(qname.prefix!!.data, `is`("a"))
                     assertThat(qname.localName!!.data, `is`("y"))
+
+                    val localScope = expr.variableName?.element?.useScope as LocalSearchScope
+                    assertThat(localScope.scope.size, `is`(1))
+                    assertThat(localScope.scope[0], `is`(instanceOf(XQueryFLWORExpr::class.java)))
                 }
 
                 @Test
                 @DisplayName("URIQualifiedName")
-                fun testPositionalVar_URIQualifiedName() {
+                fun uriQualifiedName() {
                     val expr = parse<XQueryPositionalVar>(
                         "for \$Q{http://www.example.com}x at \$Q{http://www.example.com}y in \$Q{http://www.example.com}z " +
                         "return \$Q{http://www.example.com}w"
@@ -6278,11 +6286,15 @@ class XQueryPsiTest : ParserTestCase() {
                     assertThat(qname.prefix, `is`(nullValue()))
                     assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
                     assertThat(qname.localName!!.data, `is`("y"))
+
+                    val localScope = expr.variableName?.element?.useScope as LocalSearchScope
+                    assertThat(localScope.scope.size, `is`(1))
+                    assertThat(localScope.scope[0], `is`(instanceOf(XQueryFLWORExpr::class.java)))
                 }
 
                 @Test
                 @DisplayName("missing VarName")
-                fun testPositionalVar_MissingVarName() {
+                fun missingVarName() {
                     val expr = parse<XQueryPositionalVar>("for \$x at \$ \$z return \$w")[0] as XpmVariableBinding
                     assertThat(expr.variableName, `is`(nullValue()))
                 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018, 2020 Reece H. Dunn
+ * Copyright (C) 2016-2018, 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,11 +17,22 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.psi.search.LocalSearchScope
+import com.intellij.psi.search.SearchScope
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryPositionalVar
 
 class XQueryPositionalVarPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryPositionalVar {
+    // region PsiElement
+
+    override fun getUseScope(): SearchScope = LocalSearchScope(parent.parent.parent)
+
+    // endregion
+    // region XpmVariableBinding
+
     override val variableName: XsQNameValue?
         get() = children().filterIsInstance<XsQNameValue>().firstOrNull()
+
+    // endregion
 }
