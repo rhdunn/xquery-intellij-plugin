@@ -6948,18 +6948,22 @@ class XQueryPsiTest : ParserTestCase() {
                 internal inner class CountClauseTest {
                     @Test
                     @DisplayName("NCName")
-                    fun testCountClause_NCName() {
+                    fun ncname() {
                         val expr = parse<XQueryCountClause>("for \$x in \$y count \$z return \$w")[0] as XpmVariableBinding
 
                         val qname = expr.variableName!!
                         assertThat(qname.prefix, `is`(nullValue()))
                         assertThat(qname.namespace, `is`(nullValue()))
                         assertThat(qname.localName!!.data, `is`("z"))
+
+                        val localScope = expr.variableName?.element?.useScope as LocalSearchScope
+                        assertThat(localScope.scope.size, `is`(1))
+                        assertThat(localScope.scope[0], `is`(instanceOf(XQueryFLWORExpr::class.java)))
                     }
 
                     @Test
                     @DisplayName("QName")
-                    fun testCountClause_QName() {
+                    fun qname() {
                         val expr = parse<XQueryCountClause>(
                             "for \$a:x in \$a:y count \$a:z return \$a:w"
                         )[0] as XpmVariableBinding
@@ -6968,11 +6972,15 @@ class XQueryPsiTest : ParserTestCase() {
                         assertThat(qname.namespace, `is`(nullValue()))
                         assertThat(qname.prefix!!.data, `is`("a"))
                         assertThat(qname.localName!!.data, `is`("z"))
+
+                        val localScope = expr.variableName?.element?.useScope as LocalSearchScope
+                        assertThat(localScope.scope.size, `is`(1))
+                        assertThat(localScope.scope[0], `is`(instanceOf(XQueryFLWORExpr::class.java)))
                     }
 
                     @Test
                     @DisplayName("URIQualifiedName")
-                    fun testCountClause_URIQualifiedName() {
+                    fun uriQualifiedName() {
                         val expr = parse<XQueryCountClause>(
                             "for \$Q{http://www.example.com}x in \$Q{http://www.example.com}y count \$Q{http://www.example.com}z " +
                             "return \$Q{http://www.example.com}w"
@@ -6982,6 +6990,10 @@ class XQueryPsiTest : ParserTestCase() {
                         assertThat(qname.prefix, `is`(nullValue()))
                         assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
                         assertThat(qname.localName!!.data, `is`("z"))
+
+                        val localScope = expr.variableName?.element?.useScope as LocalSearchScope
+                        assertThat(localScope.scope.size, `is`(1))
+                        assertThat(localScope.scope[0], `is`(instanceOf(XQueryFLWORExpr::class.java)))
                     }
                 }
             }
