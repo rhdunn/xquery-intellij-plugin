@@ -27,7 +27,9 @@ import uk.co.reecedunn.intellij.plugin.xpath.lexer.XPathTokenType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmConcatenatingExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.text
+import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableDeclaration
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmVariableReference
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginBlockVarDeclEntry
 import uk.co.reecedunn.intellij.plugin.xquery.ast.scripting.*
 import uk.co.reecedunn.intellij.plugin.xquery.parser.XQueryElementType
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
@@ -87,6 +89,99 @@ class ScriptingPsiTest : ParserTestCase() {
                 assertThat(exprs[0].text, `is`("1"))
                 assertThat(exprs[1].text, `is`("2 + 3"))
                 assertThat(exprs[2].text, `is`("4"))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery IntelliJ Plugin EBNF (9) BlockVarDecl")
+        internal inner class BlockVarDecl {
+            @Test
+            @DisplayName("multiple BlockVarDeclEntry nodes")
+            fun testBlockVarDeclEntry_Multiple() {
+                val decls = parse<PluginBlockVarDeclEntry>("block { declare \$x := 1, \$y := 2; 3 }")
+                assertThat(decls.size, `is`(2))
+
+                var qname = (decls[0] as XpmVariableDeclaration).variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("x"))
+
+                qname = (decls[1] as XpmVariableDeclaration).variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("y"))
+            }
+        }
+
+        @Nested
+        @DisplayName("XQuery Scripting Extensions 1.0 EBNF (156) BlockVarDecl")
+        internal inner class BlockVarDeclEntry {
+            @Test
+            @DisplayName("NCName")
+            fun ncname() {
+                val decl = parse<XpmVariableDeclaration>("block { declare \$x := \$y; 2 }")[0]
+                assertThat(decl.isExternal, `is`(false))
+                assertThat(decl.variableType?.typeName, `is`(nullValue()))
+                assertThat(decl.variableExpression?.text, `is`("\$y"))
+
+                val qname = decl.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.localName!!.data, `is`("x"))
+            }
+
+            @Test
+            @DisplayName("QName")
+            fun qname() {
+                val decl = parse<XpmVariableDeclaration>("block { declare \$a:x := \$a:y; 2 }")[0]
+                assertThat(decl.isExternal, `is`(false))
+                assertThat(decl.variableType?.typeName, `is`(nullValue()))
+                assertThat(decl.variableExpression?.text, `is`("\$a:y"))
+
+                val qname = decl.variableName!!
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("a"))
+                assertThat(qname.localName!!.data, `is`("x"))
+            }
+
+            @Test
+            @DisplayName("URIQualifiedName")
+            fun uriQualifiedName() {
+                val decl = parse<XpmVariableDeclaration>(
+                    "block { declare \$Q{http://www.example.com}x := \$Q{http://www.example.com}y; 2 }"
+                )[0]
+                assertThat(decl.isExternal, `is`(false))
+                assertThat(decl.variableType?.typeName, `is`(nullValue()))
+                assertThat(decl.variableExpression?.text, `is`("\$Q{http://www.example.com}y"))
+
+                val qname = decl.variableName!!
+                assertThat(qname.prefix, `is`(nullValue()))
+                assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+                assertThat(qname.localName!!.data, `is`("x"))
+            }
+
+            @Test
+            @DisplayName("missing VarName")
+            fun missingVarName() {
+                val decl = parse<XpmVariableDeclaration>("block { declare \$ := \$y; 2 }")[0]
+                assertThat(decl.isExternal, `is`(false))
+                assertThat(decl.variableType?.typeName, `is`(nullValue()))
+                assertThat(decl.variableExpression?.text, `is`("\$y"))
+                assertThat(decl.variableName, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("with type")
+            fun withType() {
+                val decl = parse<XpmVariableDeclaration>("block { declare \$a:x  as  node ( (::) )? := \$a:y; 2 }")[0]
+                assertThat(decl.isExternal, `is`(false))
+                assertThat(decl.variableType?.typeName, `is`("node()?"))
+                assertThat(decl.variableExpression?.text, `is`("\$a:y"))
+
+                val qname = decl.variableName!!
+                assertThat(qname.namespace, `is`(nullValue()))
+                assertThat(qname.prefix!!.data, `is`("a"))
+                assertThat(qname.localName!!.data, `is`("x"))
             }
         }
     }

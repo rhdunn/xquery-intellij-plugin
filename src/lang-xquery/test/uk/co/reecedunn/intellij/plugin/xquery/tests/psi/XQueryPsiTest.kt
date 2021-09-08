@@ -69,6 +69,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xpm.optree.path.XpmAxisType
 import uk.co.reecedunn.intellij.plugin.xpm.optree.path.XpmPathStep
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.*
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDefaultCaseClause
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.*
 import uk.co.reecedunn.intellij.plugin.xquery.model.XQueryPrologResolver
@@ -5378,6 +5379,235 @@ class XQueryPsiTest : ParserTestCase() {
                 }
 
                 @Nested
+                @DisplayName("XQuery IntelliJ Plugin EBNF (2) DirAttribute")
+                internal inner class DirAttribute {
+                    @Test
+                    @DisplayName("namespace prefix")
+                    fun namespacePrefix() {
+                        val expr = parse<PluginDirAttribute>(
+                            "<a xmlns:b='http://www.example.com'/>"
+                        )[0] as XpmNamespaceDeclaration
+
+                        assertThat(expr.namespacePrefix!!.data, `is`("b"))
+                        assertThat(expr.namespaceUri!!.data, `is`("http://www.example.com"))
+                        assertThat(expr.namespaceUri!!.context, `is`(XdmUriContext.NamespaceDeclaration))
+                        assertThat(expr.namespaceUri!!.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))
+
+                        assertThat(expr.accepts(XdmNamespaceType.DefaultElement), `is`(false))
+                        assertThat(expr.accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                        assertThat(expr.accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                        assertThat(expr.accepts(XdmNamespaceType.DefaultType), `is`(false))
+                        assertThat(expr.accepts(XdmNamespaceType.None), `is`(false))
+                        assertThat(expr.accepts(XdmNamespaceType.Prefixed), `is`(true))
+                        assertThat(expr.accepts(XdmNamespaceType.Undefined), `is`(false))
+                        assertThat(expr.accepts(XdmNamespaceType.XQuery), `is`(false))
+
+                        val node = expr as XdmAttributeNode
+                        assertThat(node.nodeName?.prefix?.data, `is`("xmlns"))
+                        assertThat(node.nodeName?.localName?.data, `is`("b"))
+                        assertThat(node.nodeName?.namespace, `is`(nullValue()))
+                        assertThat(node.nodeName?.isLexicalQName, `is`(true))
+
+                        val value = node.typedValue as XsAnyUriValue
+                        assertThat(value.data, `is`("http://www.example.com"))
+                        assertThat(value.context, `is`(XdmUriContext.NamespaceDeclaration))
+                        assertThat(value.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))
+                        assertThat(value.element, `is`(expr as PsiElement))
+                    }
+
+                    @Test
+                    @DisplayName("default element/type namespace")
+                    fun defaultElementTypeNamespace() {
+                        val expr = parse<PluginDirAttribute>(
+                            "<a xmlns='http://www.example.com'/>"
+                        )[0] as XpmNamespaceDeclaration
+
+                        assertThat(expr.namespacePrefix, `is`(nullValue()))
+                        assertThat(expr.namespaceUri!!.data, `is`("http://www.example.com"))
+                        assertThat(expr.namespaceUri!!.context, `is`(XdmUriContext.NamespaceDeclaration))
+                        assertThat(expr.namespaceUri!!.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))
+
+                        assertThat(expr.accepts(XdmNamespaceType.DefaultElement), `is`(true))
+                        assertThat(expr.accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                        assertThat(expr.accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                        assertThat(expr.accepts(XdmNamespaceType.DefaultType), `is`(true))
+                        assertThat(expr.accepts(XdmNamespaceType.None), `is`(false))
+                        assertThat(expr.accepts(XdmNamespaceType.Prefixed), `is`(false))
+                        assertThat(expr.accepts(XdmNamespaceType.Undefined), `is`(false))
+                        assertThat(expr.accepts(XdmNamespaceType.XQuery), `is`(false))
+
+                        val node = expr as XdmAttributeNode
+                        assertThat(node.nodeName?.prefix, `is`(nullValue()))
+                        assertThat(node.nodeName?.localName?.data, `is`("xmlns"))
+                        assertThat(node.nodeName?.namespace, `is`(nullValue()))
+                        assertThat(node.nodeName?.isLexicalQName, `is`(true))
+
+                        val value = node.typedValue as XsAnyUriValue
+                        assertThat(value.data, `is`("http://www.example.com"))
+                        assertThat(value.context, `is`(XdmUriContext.NamespaceDeclaration))
+                        assertThat(value.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))
+                        assertThat(value.element, `is`(expr as PsiElement))
+                    }
+
+                    @Test
+                    @DisplayName("xml:id")
+                    fun id() {
+                        val expr = parse<PluginDirAttribute>("<a xml:id='lorem-ipsum'/>")[0] as XpmNamespaceDeclaration
+                        assertThat(expr.namespacePrefix, `is`(nullValue()))
+                        assertThat(expr.namespaceUri, `is`(nullValue()))
+
+                        assertThat(expr.accepts(XdmNamespaceType.DefaultElement), `is`(false))
+                        assertThat(expr.accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                        assertThat(expr.accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                        assertThat(expr.accepts(XdmNamespaceType.DefaultType), `is`(false))
+                        assertThat(expr.accepts(XdmNamespaceType.None), `is`(false))
+                        assertThat(expr.accepts(XdmNamespaceType.Prefixed), `is`(false))
+                        assertThat(expr.accepts(XdmNamespaceType.Undefined), `is`(true))
+                        assertThat(expr.accepts(XdmNamespaceType.XQuery), `is`(false))
+
+                        val node = expr as XdmAttributeNode
+                        assertThat(node.nodeName?.prefix?.data, `is`("xml"))
+                        assertThat(node.nodeName?.localName?.data, `is`("id"))
+                        assertThat(node.nodeName?.namespace, `is`(nullValue()))
+                        assertThat(node.nodeName?.isLexicalQName, `is`(true))
+
+                        val value = node.typedValue as XsIDValue
+                        assertThat(value.data, `is`("lorem-ipsum"))
+                        assertThat(value.element, `is`(expr as PsiElement))
+                    }
+
+                    @Test
+                    @DisplayName("non-namespace declaration attribute")
+                    fun attribute() {
+                        val expr = parse<PluginDirAttribute>(
+                            "<a b='http://www.example.com'/>"
+                        )[0] as XpmNamespaceDeclaration
+
+                        assertThat(expr.namespacePrefix, `is`(nullValue()))
+                        assertThat(expr.namespaceUri, `is`(nullValue()))
+
+                        assertThat(expr.accepts(XdmNamespaceType.DefaultElement), `is`(false))
+                        assertThat(expr.accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                        assertThat(expr.accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                        assertThat(expr.accepts(XdmNamespaceType.DefaultType), `is`(false))
+                        assertThat(expr.accepts(XdmNamespaceType.None), `is`(false))
+                        assertThat(expr.accepts(XdmNamespaceType.Prefixed), `is`(false))
+                        assertThat(expr.accepts(XdmNamespaceType.Undefined), `is`(true))
+                        assertThat(expr.accepts(XdmNamespaceType.XQuery), `is`(false))
+
+                        val node = expr as XdmAttributeNode
+                        assertThat(node.nodeName?.prefix, `is`(nullValue()))
+                        assertThat(node.nodeName?.localName?.data, `is`("b"))
+                        assertThat(node.nodeName?.namespace, `is`(nullValue()))
+                        assertThat(node.nodeName?.isLexicalQName, `is`(true))
+
+                        val value = node.typedValue as XsUntypedAtomicValue
+                        assertThat(value.data, `is`("http://www.example.com"))
+                        assertThat(value.element, `is`(expr as PsiElement))
+                    }
+
+                    @Test
+                    @DisplayName("attribute with an xmlns local name and a prefix")
+                    fun attributeWithXmlnsLocalName() {
+                        val expr = parse<PluginDirAttribute>(
+                            "<a b:xmlns='http://www.example.com'/>"
+                        )[0] as XpmNamespaceDeclaration
+
+                        assertThat(expr.namespacePrefix, `is`(nullValue()))
+                        assertThat(expr.namespaceUri, `is`(nullValue()))
+
+                        assertThat(expr.accepts(XdmNamespaceType.DefaultElement), `is`(false))
+                        assertThat(expr.accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                        assertThat(expr.accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                        assertThat(expr.accepts(XdmNamespaceType.DefaultType), `is`(false))
+                        assertThat(expr.accepts(XdmNamespaceType.None), `is`(false))
+                        assertThat(expr.accepts(XdmNamespaceType.Prefixed), `is`(false))
+                        assertThat(expr.accepts(XdmNamespaceType.Undefined), `is`(true))
+                        assertThat(expr.accepts(XdmNamespaceType.XQuery), `is`(false))
+
+                        val node = expr as XdmAttributeNode
+                        assertThat(node.nodeName?.prefix?.data, `is`("b"))
+                        assertThat(node.nodeName?.localName?.data, `is`("xmlns"))
+                        assertThat(node.nodeName?.namespace, `is`(nullValue()))
+                        assertThat(node.nodeName?.isLexicalQName, `is`(true))
+
+                        val value = node.typedValue as XsUntypedAtomicValue
+                        assertThat(value.data, `is`("http://www.example.com"))
+                        assertThat(value.element, `is`(expr as PsiElement))
+                    }
+
+                    @Test
+                    @DisplayName("non-namespace declaration attribute; missing QName prefix")
+                    fun missingPrefix() {
+                        val expr = parse<PluginDirAttribute>(
+                            "<a one='http://www.example.com/one' :two='http://www.example.com/two'/>"
+                        )[1] as XpmNamespaceDeclaration
+
+                        assertThat(expr.namespacePrefix, `is`(nullValue()))
+                        assertThat(expr.namespaceUri, `is`(nullValue()))
+
+                        assertThat(expr.accepts(XdmNamespaceType.DefaultElement), `is`(false))
+                        assertThat(expr.accepts(XdmNamespaceType.DefaultFunctionDecl), `is`(false))
+                        assertThat(expr.accepts(XdmNamespaceType.DefaultFunctionRef), `is`(false))
+                        assertThat(expr.accepts(XdmNamespaceType.DefaultType), `is`(false))
+                        assertThat(expr.accepts(XdmNamespaceType.None), `is`(false))
+                        assertThat(expr.accepts(XdmNamespaceType.Prefixed), `is`(false))
+                        assertThat(expr.accepts(XdmNamespaceType.Undefined), `is`(false))
+                        assertThat(expr.accepts(XdmNamespaceType.XQuery), `is`(false))
+
+                        val node = expr as XdmAttributeNode
+                        assertThat(node.nodeName, `is`(nullValue()))
+                        assertThat(node.typedValue, `is`(nullValue()))
+                    }
+
+                    @Nested
+                    @DisplayName("resolve uri")
+                    internal inner class ResolveUri {
+                        @Test
+                        @DisplayName("empty")
+                        fun empty() {
+                            val file = parseResource("tests/resolve-xquery/files/DirAttributeList_Empty.xq")
+                            val psi = file.walkTree().filterIsInstance<PluginDirAttribute>().toList()[0]
+
+                            assertThat((psi as XQueryPrologResolver).prolog.count(), `is`(0))
+                        }
+
+                        @Test
+                        @DisplayName("same directory")
+                        fun sameDirectory() {
+                            val file = parseResource("tests/resolve-xquery/files/DirAttributeList_SameDirectory.xq")
+                            val psi = file.walkTree().filterIsInstance<PluginDirAttribute>().toList()[0]
+
+                            assertThat((psi as XQueryPrologResolver).prolog.count(), `is`(0))
+                        }
+
+                        @Test
+                        @DisplayName("http:// file matching")
+                        fun httpProtocol() {
+                            val file = parseResource("tests/resolve-xquery/files/DirAttributeList_HttpProtocol.xq")
+                            val psi = file.walkTree().filterIsInstance<PluginDirAttribute>().toList()[0]
+
+                            val prologs = (psi as XQueryPrologResolver).prolog.toList()
+                            assertThat(prologs.size, `is`(1))
+
+                            assertThat(
+                                prologs[0].resourcePath(),
+                                endsWith("/org/w3/www/2005/xpath-functions/array.xqy")
+                            )
+                        }
+
+                        @Test
+                        @DisplayName("http:// file missing")
+                        fun httpProtocolMissing() {
+                            val file = parseResource("tests/resolve-xquery/files/DirAttributeList_HttpProtocol_FileNotFound.xq")
+                            val psi = file.walkTree().filterIsInstance<PluginDirAttribute>().toList()[0]
+
+                            assertThat((psi as XQueryPrologResolver).prolog.count(), `is`(0))
+                        }
+                    }
+                }
+
+                @Nested
                 @DisplayName("XQuery 3.1 EBNF (144) DirAttributeValue")
                 internal inner class DirAttributeValue {
                     @Test
@@ -7262,6 +7492,70 @@ class XQueryPsiTest : ParserTestCase() {
                         assertThat(expr.variableName, `is`(nullValue()))
                         assertThat(expr.variableType?.typeName, `is`("xs:string"))
                         assertThat(expr.variableExpression?.text, `is`("2 + 3"))
+                    }
+                }
+
+                @Nested
+                @DisplayName("XQuery IntelliJ Plugin EBNF (6) DefaultCaseClause")
+                internal inner class DefaultCaseClause {
+                    @Test
+                    @DisplayName("NCName")
+                    fun ncname() {
+                        val expr = parse<PluginDefaultCaseClause>(
+                            "typeswitch (\$x) default \$y return \$z"
+                        )[0] as XpmAssignableVariable
+                        assertThat(expr.variableType?.typeName, `is`(nullValue()))
+                        assertThat(expr.variableExpression?.text, `is`("\$x"))
+
+                        val qname = expr.variableName!!
+                        assertThat(qname.prefix, `is`(nullValue()))
+                        assertThat(qname.namespace, `is`(nullValue()))
+                        assertThat(qname.localName!!.data, `is`("y"))
+                    }
+
+                    @Test
+                    @DisplayName("QName")
+                    fun qname() {
+                        val expr = parse<PluginDefaultCaseClause>(
+                            "typeswitch (\$a:x) default \$a:y return \$a:z"
+                        )[0] as XpmAssignableVariable
+                        assertThat(expr.variableType?.typeName, `is`(nullValue()))
+                        assertThat(expr.variableExpression?.text, `is`("\$a:x"))
+
+                        val qname = expr.variableName!!
+                        assertThat(qname.namespace, `is`(nullValue()))
+                        assertThat(qname.prefix!!.data, `is`("a"))
+                        assertThat(qname.localName!!.data, `is`("y"))
+                    }
+
+                    @Test
+                    @DisplayName("URIQualifiedName")
+                    fun uriQualifiedName() {
+                        val expr = parse<PluginDefaultCaseClause>(
+                            """
+                    typeswitch (${'$'}Q{http://www.example.com}x)
+                    default ${'$'}Q{http://www.example.com}y
+                    return ${'$'}Q{http://www.example.com}z
+                    """
+                        )[0] as XpmAssignableVariable
+                        assertThat(expr.variableType?.typeName, `is`(nullValue()))
+                        assertThat(expr.variableExpression?.text, `is`("\$Q{http://www.example.com}x"))
+
+                        val qname = expr.variableName!!
+                        assertThat(qname.prefix, `is`(nullValue()))
+                        assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
+                        assertThat(qname.localName!!.data, `is`("y"))
+                    }
+
+                    @Test
+                    @DisplayName("without VarName")
+                    fun withoutVarName() {
+                        val expr = parse<PluginDefaultCaseClause>(
+                            "typeswitch (\$x) default return \$z"
+                        )[0] as XpmAssignableVariable
+                        assertThat(expr.variableName, `is`(nullValue()))
+                        assertThat(expr.variableType?.typeName, `is`(nullValue()))
+                        assertThat(expr.variableExpression?.text, `is`("\$x"))
                     }
                 }
 
