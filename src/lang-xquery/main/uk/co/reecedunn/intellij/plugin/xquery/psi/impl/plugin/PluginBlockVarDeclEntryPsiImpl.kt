@@ -17,6 +17,8 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.plugin
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.psi.search.LocalSearchScope
+import com.intellij.psi.search.SearchScope
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAnnotation
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmSequenceType
@@ -26,6 +28,11 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginBlockVarDeclEntry
 
 class PluginBlockVarDeclEntryPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), PluginBlockVarDeclEntry {
+    // region PsiElement
+
+    override fun getUseScope(): SearchScope = LocalSearchScope(parent.parent.parent)
+
+    // endregion
     // region XpmAnnotatedDeclaration
 
     override val annotations: Sequence<XdmAnnotation> = emptySequence()
