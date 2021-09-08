@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,13 +16,14 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 
 import com.intellij.openapi.extensions.PluginId
+import com.intellij.psi.search.LocalSearchScope
 import com.intellij.psi.util.elementType
-import org.hamcrest.CoreMatchers.`is`
-import org.hamcrest.CoreMatchers.nullValue
+import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
+import uk.co.reecedunn.intellij.plugin.xdm.types.element
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.text
 import uk.co.reecedunn.intellij.plugin.xpm.optree.variable.XpmAssignableVariable
@@ -153,6 +154,10 @@ class UpdateFacilityPsiTest : ParserTestCase() {
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.localName!!.data, `is`("x"))
+
+                val localScope = expr.variableName?.element?.useScope as LocalSearchScope
+                assertThat(localScope.scope.size, `is`(1))
+                assertThat(localScope.scope[0], `is`(instanceOf(UpdateFacilityCopyModifyExpr::class.java)))
             }
 
             @Test
@@ -168,6 +173,10 @@ class UpdateFacilityPsiTest : ParserTestCase() {
                 assertThat(qname.namespace, `is`(nullValue()))
                 assertThat(qname.prefix!!.data, `is`("a"))
                 assertThat(qname.localName!!.data, `is`("x"))
+
+                val localScope = expr.variableName?.element?.useScope as LocalSearchScope
+                assertThat(localScope.scope.size, `is`(1))
+                assertThat(localScope.scope[0], `is`(instanceOf(UpdateFacilityCopyModifyExpr::class.java)))
             }
 
             @Test
@@ -187,6 +196,10 @@ class UpdateFacilityPsiTest : ParserTestCase() {
                 assertThat(qname.prefix, `is`(nullValue()))
                 assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
                 assertThat(qname.localName!!.data, `is`("x"))
+
+                val localScope = expr.variableName?.element?.useScope as LocalSearchScope
+                assertThat(localScope.scope.size, `is`(1))
+                assertThat(localScope.scope[0], `is`(instanceOf(UpdateFacilityCopyModifyExpr::class.java)))
             }
         }
     }
