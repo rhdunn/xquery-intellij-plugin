@@ -6886,7 +6886,7 @@ class XQueryPsiTest : ParserTestCase() {
                 internal inner class NextItem {
                     @Test
                     @DisplayName("NCName namespace resolution")
-                    fun ncname() {
+                    fun ncnameResolution() {
                         val qname = parse<XPathNCName>(
                             "for sliding window \$x in () start next \$test when () end when () return ()"
                         )[1] as XsQNameValue
@@ -6911,7 +6911,7 @@ class XQueryPsiTest : ParserTestCase() {
 
                     @Test
                     @DisplayName("NCName")
-                    fun testNextItem_NCName() {
+                    fun ncname() {
                         val expr = parse<XQueryNextItem>(
                             "for sliding window \$x in \$y start \$v next \$w when true() return \$z"
                         )[0] as XpmVariableBinding
@@ -6920,11 +6920,15 @@ class XQueryPsiTest : ParserTestCase() {
                         assertThat(qname.prefix, `is`(nullValue()))
                         assertThat(qname.namespace, `is`(nullValue()))
                         assertThat(qname.localName!!.data, `is`("w"))
+
+                        val localScope = expr.variableName?.element?.useScope as LocalSearchScope
+                        assertThat(localScope.scope.size, `is`(1))
+                        assertThat(localScope.scope[0], `is`(instanceOf(XQueryFLWORExpr::class.java)))
                     }
 
                     @Test
                     @DisplayName("QName")
-                    fun testNextItem_QName() {
+                    fun qname() {
                         val expr = parse<XQueryNextItem>(
                             "for sliding window \$a:x in \$a:y start \$a:v next \$a:w when true() return \$a:z"
                         )[0] as XpmVariableBinding
@@ -6933,11 +6937,15 @@ class XQueryPsiTest : ParserTestCase() {
                         assertThat(qname.namespace, `is`(nullValue()))
                         assertThat(qname.prefix!!.data, `is`("a"))
                         assertThat(qname.localName!!.data, `is`("w"))
+
+                        val localScope = expr.variableName?.element?.useScope as LocalSearchScope
+                        assertThat(localScope.scope.size, `is`(1))
+                        assertThat(localScope.scope[0], `is`(instanceOf(XQueryFLWORExpr::class.java)))
                     }
 
                     @Test
                     @DisplayName("URIQualifiedName")
-                    fun testNextItem_URIQualifiedName() {
+                    fun uriQualifiedName() {
                         val expr = parse<XQueryNextItem>(
                             "for sliding window \$Q{http://www.example.com}x in \$Q{http://www.example.com}y " +
                             "start \$Q{http://www.example.com}v next \$Q{http://www.example.com}w when true() " +
@@ -6948,6 +6956,10 @@ class XQueryPsiTest : ParserTestCase() {
                         assertThat(qname.prefix, `is`(nullValue()))
                         assertThat(qname.namespace!!.data, `is`("http://www.example.com"))
                         assertThat(qname.localName!!.data, `is`("w"))
+
+                        val localScope = expr.variableName?.element?.useScope as LocalSearchScope
+                        assertThat(localScope.scope.size, `is`(1))
+                        assertThat(localScope.scope[0], `is`(instanceOf(XQueryFLWORExpr::class.java)))
                     }
                 }
             }

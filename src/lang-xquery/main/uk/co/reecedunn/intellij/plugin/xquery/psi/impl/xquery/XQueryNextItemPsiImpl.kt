@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2018, 2020 Reece H. Dunn
+ * Copyright (C) 2016-2018, 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,12 +17,22 @@ package uk.co.reecedunn.intellij.plugin.xquery.psi.impl.xquery
 
 import com.intellij.extapi.psi.ASTWrapperPsiElement
 import com.intellij.lang.ASTNode
+import com.intellij.psi.search.SearchScope
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathEQName
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryNextItem
 
 class XQueryNextItemPsiImpl(node: ASTNode) : ASTWrapperPsiElement(node), XQueryNextItem {
+    // region PsiElement
+
+    override fun getUseScope(): SearchScope = parent.parent.parent.useScope
+
+    // endregion
+    // region XpmVariableBinding
+
     override val variableName: XsQNameValue?
         get() = children().filterIsInstance<XPathEQName>().firstOrNull()
+
+    // endregion
 }
