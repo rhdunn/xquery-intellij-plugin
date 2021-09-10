@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,9 +26,7 @@ import uk.co.reecedunn.intellij.plugin.core.psi.contextOfType
 import uk.co.reecedunn.intellij.plugin.core.xml.attribute
 
 class ModelTypeRegexLanguageInjection : MultiHostInjector {
-    override fun elementsToInjectIn(): MutableList<out Class<out PsiElement>> {
-        return mutableListOf(XmlAttributeValue::class.java)
-    }
+    override fun elementsToInjectIn(): MutableList<out Class<out PsiElement>> = ELEMENTS_TO_INJECT_IN
 
     override fun getLanguagesToInject(registrar: MultiHostRegistrar, context: PsiElement) {
         val attribute = context.contextOfType<XmlAttributeValue>(false)?.attribute ?: return
@@ -46,6 +44,9 @@ class ModelTypeRegexLanguageInjection : MultiHostInjector {
         return tag.namespace == Rewriter.NAMESPACE && MODEL_TYPE_LOCAL_NAMES.contains(tag.localName)
     }
 
-    @Suppress("PrivatePropertyName")
-    private val MODEL_TYPE_LOCAL_NAMES = setOf("match-header", "match-path", "match-string")
+    companion object {
+        private val MODEL_TYPE_LOCAL_NAMES = setOf("match-header", "match-path", "match-string")
+
+        private val ELEMENTS_TO_INJECT_IN = mutableListOf(XmlAttributeValue::class.java)
+    }
 }
