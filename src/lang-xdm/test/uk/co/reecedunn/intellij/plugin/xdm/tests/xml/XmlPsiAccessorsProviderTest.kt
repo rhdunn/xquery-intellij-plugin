@@ -74,6 +74,8 @@ class XmlPsiAccessorsProviderTest : ParsingTestCase<XmlFile>(null, XMLParserDefi
                 val node = parse<XmlTag>("<test/>")[0]
                 val (matched, accessors) = XmlAccessorsProvider.element(node)!!
 
+                assertThat(accessors.namespaceUri(matched), `is`(""))
+
                 assertThat(accessors.hasNodeName(matched, "", "test"), `is`(true))
                 assertThat(accessors.hasNodeName(matched, "", setOf("test")), `is`(true))
                 assertThat(accessors.hasNodeName(matched, "", setOf("tests", "test")), `is`(true))
@@ -91,6 +93,8 @@ class XmlPsiAccessorsProviderTest : ParsingTestCase<XmlFile>(null, XMLParserDefi
             fun qname() {
                 val node = parse<XmlTag>("<t:test xmlns:t='urn:test'/>")[0]
                 val (matched, accessors) = XmlAccessorsProvider.element(node)!!
+
+                assertThat(accessors.namespaceUri(matched), `is`("urn:test"))
 
                 assertThat(accessors.hasNodeName(matched, "", "test"), `is`(false))
                 assertThat(accessors.hasNodeName(matched, "", setOf("test")), `is`(false))
@@ -131,6 +135,8 @@ class XmlPsiAccessorsProviderTest : ParsingTestCase<XmlFile>(null, XMLParserDefi
                 val node = parse<XmlAttribute>("<a test='value'/>")[0]
                 val (matched, accessors) = XmlAccessorsProvider.attribute(node)!!
 
+                assertThat(accessors.namespaceUri(matched), `is`(""))
+
                 assertThat(accessors.hasNodeName(matched, "", "test"), `is`(true))
                 assertThat(accessors.hasNodeName(matched, "", setOf("test")), `is`(true))
                 assertThat(accessors.hasNodeName(matched, "", setOf("tests", "test")), `is`(true))
@@ -148,6 +154,8 @@ class XmlPsiAccessorsProviderTest : ParsingTestCase<XmlFile>(null, XMLParserDefi
             fun qname() {
                 val node = parse<XmlAttribute>("<a xmlns:t='urn:test' t:test='value'/>")[1]
                 val (matched, accessors) = XmlAccessorsProvider.attribute(node)!!
+
+                assertThat(accessors.namespaceUri(matched), `is`("urn:test"))
 
                 assertThat(accessors.hasNodeName(matched, "", "test"), `is`(false))
                 assertThat(accessors.hasNodeName(matched, "", setOf("test")), `is`(false))

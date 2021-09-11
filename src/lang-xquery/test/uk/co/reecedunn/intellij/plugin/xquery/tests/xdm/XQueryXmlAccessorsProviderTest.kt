@@ -70,6 +70,8 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
                 val node = parse<XQueryDirElemConstructor>("<test/>")[0]
                 val (matched, accessors) = XmlAccessorsProvider.element(node)!!
 
+                assertThat(accessors.namespaceUri(matched), `is`(""))
+
                 assertThat(accessors.hasNodeName(matched, "", "test"), `is`(true))
                 assertThat(accessors.hasNodeName(matched, "", setOf("test")), `is`(true))
                 assertThat(accessors.hasNodeName(matched, "", setOf("tests", "test")), `is`(true))
@@ -87,6 +89,8 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
             fun qname() {
                 val node = parse<XQueryDirElemConstructor>("<t:test xmlns:t='urn:test'/>")[0]
                 val (matched, accessors) = XmlAccessorsProvider.element(node)!!
+
+                assertThat(accessors.namespaceUri(matched), `is`("urn:test"))
 
                 assertThat(accessors.hasNodeName(matched, "", "test"), `is`(false))
                 assertThat(accessors.hasNodeName(matched, "", setOf("test")), `is`(false))
@@ -127,6 +131,8 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
                 val node = parse<PluginDirAttribute>("<a test='value'/>")[0]
                 val (matched, accessors) = XmlAccessorsProvider.attribute(node)!!
 
+                assertThat(accessors.namespaceUri(matched), `is`(""))
+
                 assertThat(accessors.hasNodeName(matched, "", "test"), `is`(true))
                 assertThat(accessors.hasNodeName(matched, "", setOf("test")), `is`(true))
                 assertThat(accessors.hasNodeName(matched, "", setOf("tests", "test")), `is`(true))
@@ -144,6 +150,8 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
             fun qname() {
                 val node = parse<PluginDirAttribute>("<a xmlns:t='urn:test' t:test='value'/>")[1]
                 val (matched, accessors) = XmlAccessorsProvider.attribute(node)!!
+
+                assertThat(accessors.namespaceUri(matched), `is`("urn:test"))
 
                 assertThat(accessors.hasNodeName(matched, "", "test"), `is`(false))
                 assertThat(accessors.hasNodeName(matched, "", setOf("test")), `is`(false))
@@ -211,6 +219,8 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
                 val node = parse<XQueryCompElemConstructor>("element test {}")[0]
                 val (matched, accessors) = XmlAccessorsProvider.element(node)!!
 
+                assertThat(accessors.namespaceUri(matched), `is`(""))
+
                 assertThat(accessors.hasNodeName(matched, "", "test"), `is`(true))
                 assertThat(accessors.hasNodeName(matched, "", setOf("test")), `is`(true))
                 assertThat(accessors.hasNodeName(matched, "", setOf("tests", "test")), `is`(true))
@@ -231,6 +241,8 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
                 )[0]
                 val (matched, accessors) = XmlAccessorsProvider.element(node)!!
 
+                assertThat(accessors.namespaceUri(matched), `is`("urn:test"))
+
                 assertThat(accessors.hasNodeName(matched, "", "test"), `is`(false))
                 assertThat(accessors.hasNodeName(matched, "", setOf("test")), `is`(false))
                 assertThat(accessors.hasNodeName(matched, "", setOf("tests", "test")), `is`(false))
@@ -248,6 +260,8 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
             fun uriQualifiedName() {
                 val node = parse<XQueryCompElemConstructor>("element Q{urn:test}test {}")[0]
                 val (matched, accessors) = XmlAccessorsProvider.element(node)!!
+
+                assertThat(accessors.namespaceUri(matched), `is`("urn:test"))
 
                 assertThat(accessors.hasNodeName(matched, "", "test"), `is`(false))
                 assertThat(accessors.hasNodeName(matched, "", setOf("test")), `is`(false))
@@ -288,6 +302,8 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
                 val node = parse<XQueryCompAttrConstructor>("element a { attribute test { 'value' } }")[0]
                 val (matched, accessors) = XmlAccessorsProvider.attribute(node)!!
 
+                assertThat(accessors.namespaceUri(matched), `is`(""))
+
                 assertThat(accessors.hasNodeName(matched, "", "test"), `is`(true))
                 assertThat(accessors.hasNodeName(matched, "", setOf("test")), `is`(true))
                 assertThat(accessors.hasNodeName(matched, "", setOf("tests", "test")), `is`(true))
@@ -308,6 +324,8 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
                 )[0]
                 val (matched, accessors) = XmlAccessorsProvider.attribute(node)!!
 
+                assertThat(accessors.namespaceUri(matched), `is`("urn:test"))
+
                 assertThat(accessors.hasNodeName(matched, "", "test"), `is`(false))
                 assertThat(accessors.hasNodeName(matched, "", setOf("test")), `is`(false))
                 assertThat(accessors.hasNodeName(matched, "", setOf("tests", "test")), `is`(false))
@@ -327,6 +345,8 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
                     "element a { attribute Q{urn:test}test { 'value' } }"
                 )[0]
                 val (matched, accessors) = XmlAccessorsProvider.attribute(node)!!
+
+                assertThat(accessors.namespaceUri(matched), `is`("urn:test"))
 
                 assertThat(accessors.hasNodeName(matched, "", "test"), `is`(false))
                 assertThat(accessors.hasNodeName(matched, "", setOf("test")), `is`(false))

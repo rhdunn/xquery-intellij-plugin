@@ -18,6 +18,8 @@ package uk.co.reecedunn.intellij.plugin.xdm.xml
 interface XmlAccessors {
     // region Accessors (5.10) node-name
 
+    fun namespaceUri(node: Any): String?
+
     fun hasNodeName(node: Any, namespaceUri: String, localName: String): Boolean
 
     fun hasNodeName(node: Any, namespaceUri: String, localName: Set<String>): Boolean

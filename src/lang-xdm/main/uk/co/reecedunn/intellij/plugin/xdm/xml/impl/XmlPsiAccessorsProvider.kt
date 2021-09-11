@@ -38,6 +38,12 @@ object XmlPsiAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
     // endregion
     // region Accessors (5.10) node-name
 
+    override fun namespaceUri(node: Any): String? = when (node) {
+        is XmlTag -> node.namespace
+        is XmlAttribute -> node.namespace
+        else -> null
+    }
+
     override fun hasNodeName(node: Any, namespaceUri: String, localName: String): Boolean = when (node) {
         is XmlTag -> node.namespace == namespaceUri && node.localName == localName
         is XmlAttribute -> node.namespace == namespaceUri && node.localName == localName

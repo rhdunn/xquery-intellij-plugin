@@ -63,10 +63,12 @@ object XQueryXmlAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
     // endregion
     // region Accessors (5.10) node-name
 
-    private fun namespaceUri(qname: XsQNameValue?): String? = when (qname) {
+    private fun namespaceUri(qname: XsQNameValue): String? = when (qname) {
         is XPathNCName, is XPathQName -> qname.expand().firstOrNull()?.namespace?.data
-        else -> qname?.namespace?.data // Don't need to expand a URIQualifiedName to get the namespace URI.
+        else -> qname.namespace?.data // Don't need to expand a URIQualifiedName to get the namespace URI.
     }
+
+    override fun namespaceUri(node: Any): String? = nodeName(node)?.let { namespaceUri(it) }
 
     private fun nodeName(node: Any): XsQNameValue? = when (node) {
         is XQueryCompAttrConstructor -> node.nodeName
@@ -77,13 +79,13 @@ object XQueryXmlAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
     }
 
     override fun hasNodeName(node: Any, namespaceUri: String, localName: String): Boolean {
-        val nodeName = nodeName(node)
-        return nodeName?.localName?.data == localName && namespaceUri(nodeName) == namespaceUri
+        val nodeName = nodeName(node) ?: return false
+        return nodeName.localName?.data == localName && namespaceUri(nodeName) == namespaceUri
     }
 
     override fun hasNodeName(node: Any, namespaceUri: String, localName: Set<String>): Boolean {
-        val nodeName = nodeName(node)
-        return localName.contains(nodeName?.localName?.data) && namespaceUri(nodeName) == namespaceUri
+        val nodeName = nodeName(node) ?: return false
+        return localName.contains(nodeName.localName?.data) && namespaceUri(nodeName) == namespaceUri
     }
 
     // endregion
