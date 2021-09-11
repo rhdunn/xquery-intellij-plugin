@@ -16,9 +16,11 @@
 package uk.co.reecedunn.intellij.plugin.xquery.xdm
 
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessors
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessorsProvider
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
+import uk.co.reecedunn.intellij.plugin.xpm.context.expand
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginEnclosedAttrValueExpr
@@ -49,12 +51,23 @@ object XQueryXmlAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
     // endregion
     // region Accessors (5.10) node-name
 
-    override fun hasNodeName(node: Any, namespaceUri: String, localName: String): Boolean = when (node) {
-        else -> false
+    private fun namespaceUri(qname: XsQNameValue?): String? {
+        return qname?.expand()?.firstOrNull()?.namespace?.data
     }
 
-    override fun hasNodeName(node: Any, namespaceUri: String, localName: Set<String>): Boolean = when (node) {
-        else -> false
+    private fun nodeName(node: Any): XsQNameValue? = when (node) {
+        is PluginDirAttribute -> node.nodeName
+        else -> null
+    }
+
+    override fun hasNodeName(node: Any, namespaceUri: String, localName: String): Boolean {
+        val nodeName = nodeName(node)
+        return nodeName?.localName?.data == localName && namespaceUri(nodeName) == namespaceUri
+    }
+
+    override fun hasNodeName(node: Any, namespaceUri: String, localName: Set<String>): Boolean {
+        val nodeName = nodeName(node)
+        return localName.contains(nodeName?.localName?.data) && namespaceUri(nodeName) == namespaceUri
     }
 
     // endregion

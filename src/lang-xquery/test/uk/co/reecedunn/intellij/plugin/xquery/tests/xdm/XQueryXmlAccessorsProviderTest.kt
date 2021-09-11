@@ -24,10 +24,12 @@ import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessorsProvider
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
+import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginEnclosedAttrValueExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompAttrConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeValue
+import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 import uk.co.reecedunn.intellij.plugin.xquery.xdm.XQueryXmlAccessorsProvider
 
@@ -37,6 +39,7 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
     override fun registerServicesAndExtensions() {
         super.registerServicesAndExtensions()
 
+        XpmNamespaceProvider.register(this, XQueryNamespaceProvider)
         XmlAccessorsProvider.register(this, XQueryXmlAccessorsProvider)
     }
 
@@ -54,6 +57,46 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
             assertThat(matched, `is`(sameInstance(node)))
 
             assertThat(accessors, `is`(sameInstance(XQueryXmlAccessorsProvider)))
+        }
+
+        @Nested
+        @DisplayName("Accessors (5.10) node-name")
+        inner class NodeName {
+            @Test
+            @DisplayName("NCName")
+            fun ncname() {
+                val node = parse<PluginDirAttribute>("<a test='value'/>")[0]
+                val (matched, accessors) = XmlAccessorsProvider.attribute(node)!!
+
+                assertThat(accessors.hasNodeName(matched, "", "test"), `is`(true))
+                assertThat(accessors.hasNodeName(matched, "", setOf("test")), `is`(true))
+                assertThat(accessors.hasNodeName(matched, "", setOf("tests", "test")), `is`(true))
+
+                assertThat(accessors.hasNodeName(matched, "", "tests"), `is`(false))
+                assertThat(accessors.hasNodeName(matched, "", setOf("tests")), `is`(false))
+
+                assertThat(accessors.hasNodeName(matched, "urn:test", "test"), `is`(false))
+                assertThat(accessors.hasNodeName(matched, "urn:test", setOf("test")), `is`(false))
+                assertThat(accessors.hasNodeName(matched, "urn:test", setOf("tests", "test")), `is`(false))
+            }
+
+            @Test
+            @DisplayName("QName")
+            fun qname() {
+                val node = parse<PluginDirAttribute>("<a xmlns:t='urn:test' t:test='value'/>")[1]
+                val (matched, accessors) = XmlAccessorsProvider.attribute(node)!!
+
+                assertThat(accessors.hasNodeName(matched, "", "test"), `is`(false))
+                assertThat(accessors.hasNodeName(matched, "", setOf("test")), `is`(false))
+                assertThat(accessors.hasNodeName(matched, "", setOf("tests", "test")), `is`(false))
+
+                assertThat(accessors.hasNodeName(matched, "", "tests"), `is`(false))
+                assertThat(accessors.hasNodeName(matched, "", setOf("tests")), `is`(false))
+
+                assertThat(accessors.hasNodeName(matched, "urn:test", "test"), `is`(true))
+                assertThat(accessors.hasNodeName(matched, "urn:test", setOf("test")), `is`(true))
+                assertThat(accessors.hasNodeName(matched, "urn:test", setOf("tests", "test")), `is`(true))
+            }
         }
     }
 
