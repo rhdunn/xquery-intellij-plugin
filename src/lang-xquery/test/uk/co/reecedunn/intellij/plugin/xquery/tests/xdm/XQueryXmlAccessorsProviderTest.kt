@@ -71,6 +71,7 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
                 val (matched, accessors) = XmlAccessorsProvider.element(node)!!
 
                 assertThat(accessors.namespaceUri(matched), `is`(""))
+                assertThat(accessors.localName(matched), `is`("test"))
 
                 assertThat(accessors.hasNodeName(matched, "", "test"), `is`(true))
                 assertThat(accessors.hasNodeName(matched, "", setOf("test")), `is`(true))
@@ -91,6 +92,7 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
                 val (matched, accessors) = XmlAccessorsProvider.element(node)!!
 
                 assertThat(accessors.namespaceUri(matched), `is`("urn:test"))
+                assertThat(accessors.localName(matched), `is`("test"))
 
                 assertThat(accessors.hasNodeName(matched, "", "test"), `is`(false))
                 assertThat(accessors.hasNodeName(matched, "", setOf("test")), `is`(false))
@@ -132,6 +134,7 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
                 val (matched, accessors) = XmlAccessorsProvider.attribute(node)!!
 
                 assertThat(accessors.namespaceUri(matched), `is`(""))
+                assertThat(accessors.localName(matched), `is`("test"))
 
                 assertThat(accessors.hasNodeName(matched, "", "test"), `is`(true))
                 assertThat(accessors.hasNodeName(matched, "", setOf("test")), `is`(true))
@@ -152,6 +155,7 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
                 val (matched, accessors) = XmlAccessorsProvider.attribute(node)!!
 
                 assertThat(accessors.namespaceUri(matched), `is`("urn:test"))
+                assertThat(accessors.localName(matched), `is`("test"))
 
                 assertThat(accessors.hasNodeName(matched, "", "test"), `is`(false))
                 assertThat(accessors.hasNodeName(matched, "", setOf("test")), `is`(false))
@@ -220,6 +224,7 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
                 val (matched, accessors) = XmlAccessorsProvider.element(node)!!
 
                 assertThat(accessors.namespaceUri(matched), `is`(""))
+                assertThat(accessors.localName(matched), `is`("test"))
 
                 assertThat(accessors.hasNodeName(matched, "", "test"), `is`(true))
                 assertThat(accessors.hasNodeName(matched, "", setOf("test")), `is`(true))
@@ -242,6 +247,7 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
                 val (matched, accessors) = XmlAccessorsProvider.element(node)!!
 
                 assertThat(accessors.namespaceUri(matched), `is`("urn:test"))
+                assertThat(accessors.localName(matched), `is`("test"))
 
                 assertThat(accessors.hasNodeName(matched, "", "test"), `is`(false))
                 assertThat(accessors.hasNodeName(matched, "", setOf("test")), `is`(false))
@@ -262,6 +268,7 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
                 val (matched, accessors) = XmlAccessorsProvider.element(node)!!
 
                 assertThat(accessors.namespaceUri(matched), `is`("urn:test"))
+                assertThat(accessors.localName(matched), `is`("test"))
 
                 assertThat(accessors.hasNodeName(matched, "", "test"), `is`(false))
                 assertThat(accessors.hasNodeName(matched, "", setOf("test")), `is`(false))
@@ -303,6 +310,7 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
                 val (matched, accessors) = XmlAccessorsProvider.attribute(node)!!
 
                 assertThat(accessors.namespaceUri(matched), `is`(""))
+                assertThat(accessors.localName(matched), `is`("test"))
 
                 assertThat(accessors.hasNodeName(matched, "", "test"), `is`(true))
                 assertThat(accessors.hasNodeName(matched, "", setOf("test")), `is`(true))
@@ -325,6 +333,7 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
                 val (matched, accessors) = XmlAccessorsProvider.attribute(node)!!
 
                 assertThat(accessors.namespaceUri(matched), `is`("urn:test"))
+                assertThat(accessors.localName(matched), `is`("test"))
 
                 assertThat(accessors.hasNodeName(matched, "", "test"), `is`(false))
                 assertThat(accessors.hasNodeName(matched, "", setOf("test")), `is`(false))
@@ -347,6 +356,7 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
                 val (matched, accessors) = XmlAccessorsProvider.attribute(node)!!
 
                 assertThat(accessors.namespaceUri(matched), `is`("urn:test"))
+                assertThat(accessors.localName(matched), `is`("test"))
 
                 assertThat(accessors.hasNodeName(matched, "", "test"), `is`(false))
                 assertThat(accessors.hasNodeName(matched, "", setOf("test")), `is`(false))

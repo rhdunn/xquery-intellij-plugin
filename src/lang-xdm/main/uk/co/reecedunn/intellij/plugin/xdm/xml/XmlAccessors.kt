@@ -20,6 +20,8 @@ interface XmlAccessors {
 
     fun namespaceUri(node: Any): String?
 
+    fun localName(node: Any): String?
+
     fun hasNodeName(node: Any, namespaceUri: String, localName: String): Boolean
 
     fun hasNodeName(node: Any, namespaceUri: String, localName: Set<String>): Boolean

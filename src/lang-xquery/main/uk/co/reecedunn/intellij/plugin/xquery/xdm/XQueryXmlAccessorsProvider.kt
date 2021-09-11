@@ -70,6 +70,8 @@ object XQueryXmlAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
 
     override fun namespaceUri(node: Any): String? = nodeName(node)?.let { namespaceUri(it) }
 
+    override fun localName(node: Any): String? = nodeName(node)?.localName?.data
+
     private fun nodeName(node: Any): XsQNameValue? = when (node) {
         is XQueryCompAttrConstructor -> node.nodeName
         is XQueryCompElemConstructor -> node.nodeName

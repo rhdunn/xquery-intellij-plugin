@@ -44,6 +44,12 @@ object XmlPsiAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
         else -> null
     }
 
+    override fun localName(node: Any): String? = when (node) {
+        is XmlTag -> node.localName
+        is XmlAttribute -> node.localName
+        else -> null
+    }
+
     override fun hasNodeName(node: Any, namespaceUri: String, localName: String): Boolean = when (node) {
         is XmlTag -> node.namespace == namespaceUri && node.localName == localName
         is XmlAttribute -> node.namespace == namespaceUri && node.localName == localName
