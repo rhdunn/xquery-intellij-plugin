@@ -43,4 +43,12 @@ object XmlPsiAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
     }
 
     // endregion
+    // region Accessors (5.11) parent
+
+    override fun parent(node: Any): Any? = when (node) {
+        is XmlAttribute -> node.parent
+        else -> null
+    }
+
+    // endregion
 }

@@ -25,6 +25,7 @@ import com.intellij.openapi.extensions.PluginId
 import com.intellij.psi.xml.XmlAttribute
 import com.intellij.psi.xml.XmlAttributeValue
 import com.intellij.psi.xml.XmlFile
+import com.intellij.psi.xml.XmlTag
 import com.intellij.xml.XmlExtension
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
@@ -102,6 +103,17 @@ class XmlPsiAccessorsProviderTest : ParsingTestCase<XmlFile>(null, XMLParserDefi
                 assertThat(accessors.hasNodeName(matched, "urn:test", setOf("test")), `is`(true))
                 assertThat(accessors.hasNodeName(matched, "urn:test", setOf("tests", "test")), `is`(true))
             }
+        }
+
+        @Test
+        @DisplayName("Accessors (5.11) parent")
+        fun parent() {
+            val node = parse<XmlAttribute>("<a test='value'/>")[0]
+            val (matched, accessors) = XmlAccessorsProvider.attribute(node)!!
+
+            val parent = accessors.parent(matched)
+            assertThat(parent, `is`(instanceOf(XmlTag::class.java)))
+            assertThat((parent as XmlTag).name, `is`("a"))
         }
     }
 

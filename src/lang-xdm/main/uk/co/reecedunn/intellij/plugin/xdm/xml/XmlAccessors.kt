@@ -23,4 +23,9 @@ interface XmlAccessors {
     fun hasNodeName(node: Any, namespaceUri: String, localName: Set<String>): Boolean
 
     // endregion
+    // region Accessors (5.11) parent
+
+    fun parent(node: Any): Any?
+
+    // endregion
 }

@@ -74,4 +74,11 @@ object XQueryXmlAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
         return localName.contains(nodeName?.localName?.data) && namespaceUri(nodeName) == namespaceUri
     }
     // endregion
+    // region Accessors (5.11) parent
+
+    override fun parent(node: Any): Any? = when (node) {
+        else -> null
+    }
+
+    // endregion
 }
