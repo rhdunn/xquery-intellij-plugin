@@ -31,6 +31,8 @@ interface XmlAccessorsProvider {
         private val providers: Sequence<XmlAccessorsProvider>
             get() = EP_NAME.extensionList.asSequence().map { it.getInstance() }
 
+        fun element(node: Any): Pair<Any, XmlAccessors>? = providers.mapNotNull { it.element(node) }.firstOrNull()
+
         fun attribute(node: Any): Pair<Any, XmlAccessors>? = providers.mapNotNull { it.attribute(node) }.firstOrNull()
 
         @TestOnly
@@ -46,6 +48,8 @@ interface XmlAccessorsProvider {
             app.registerExtension(EP_NAME, bean, plugin.pluginDisposable)
         }
     }
+
+    fun element(node: Any): Pair<Any, XmlAccessors>?
 
     fun attribute(node: Any): Pair<Any, XmlAccessors>?
 }

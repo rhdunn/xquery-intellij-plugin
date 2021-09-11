@@ -17,11 +17,17 @@ package uk.co.reecedunn.intellij.plugin.xdm.xml.impl
 
 import com.intellij.psi.xml.XmlAttribute
 import com.intellij.psi.xml.XmlAttributeValue
+import com.intellij.psi.xml.XmlTag
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessors
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessorsProvider
 
 object XmlPsiAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
     // region XmlAccessorsProvider
+
+    override fun element(node: Any): Pair<Any, XmlAccessors>? = when (node) {
+        is XmlTag -> node to this
+        else -> null
+    }
 
     override fun attribute(node: Any): Pair<Any, XmlAccessors>? = when (node) {
         is XmlAttributeValue -> node.parent to this

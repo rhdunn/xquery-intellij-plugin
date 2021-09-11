@@ -34,6 +34,10 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeValue
 object XQueryXmlAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
     // region XmlAccessorsProvider
 
+    override fun element(node: Any): Pair<Any, XmlAccessors>? = when (node) {
+        else -> null
+    }
+
     override fun attribute(node: Any): Pair<Any, XmlAccessors>? = when (node) {
         // computed attribute
         is PluginEnclosedAttrValueExpr -> node.parent to this

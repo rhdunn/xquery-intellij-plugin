@@ -50,6 +50,23 @@ class XmlPsiAccessorsProviderTest : ParsingTestCase<XmlFile>(null, XMLParserDefi
     }
 
     @Nested
+    @DisplayName("XmlTag")
+    inner class Element {
+        @Test
+        @DisplayName("providers")
+        fun providers() {
+            val node = parse<XmlTag>("<a test='value'/>")[0]
+            val (matched, accessors) = XmlAccessorsProvider.element(node)!!
+
+            assertThat(matched, `is`(instanceOf(XmlTag::class.java)))
+            assertThat((matched as XmlTag).name, `is`("a"))
+            assertThat(matched, `is`(sameInstance(node)))
+
+            assertThat(accessors, `is`(sameInstance(XmlPsiAccessorsProvider)))
+        }
+    }
+
+    @Nested
     @DisplayName("XmlAttribute")
     inner class Attribute {
         @Test
