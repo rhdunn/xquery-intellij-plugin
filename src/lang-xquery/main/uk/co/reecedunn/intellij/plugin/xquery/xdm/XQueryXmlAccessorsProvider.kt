@@ -70,6 +70,7 @@ object XQueryXmlAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
 
     private fun nodeName(node: Any): XsQNameValue? = when (node) {
         is XQueryCompAttrConstructor -> node.nodeName
+        is XQueryCompElemConstructor -> node.nodeName
         is XQueryDirElemConstructor -> node.nodeName
         is PluginDirAttribute -> node.nodeName
         else -> null
