@@ -28,6 +28,7 @@ import uk.co.reecedunn.intellij.plugin.xpm.optree.namespace.XpmNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginEnclosedAttrValueExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompAttrConstructor
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompElemConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeValue
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryNamespaceProvider
@@ -203,6 +204,88 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
                 assertThat(accessors.hasNodeName(matched, "urn:test", "test"), `is`(true))
                 assertThat(accessors.hasNodeName(matched, "urn:test", setOf("test")), `is`(true))
                 assertThat(accessors.hasNodeName(matched, "urn:test", setOf("tests", "test")), `is`(true))
+            }
+        }
+
+        @Nested
+        @DisplayName("Accessors (5.11) parent")
+        inner class Parent {
+            @Nested
+            @DisplayName("XQuery 3.1 EBNF (142) DirElemConstructor")
+            inner class DirElemConstructor {
+                @Test
+                @DisplayName("single item expression")
+                fun single() {
+                    val node = parse<XQueryCompAttrConstructor>("<a>{ attribute test { 'value' } }</a>")[0]
+                    val (matched, accessors) = XmlAccessorsProvider.attribute(node)!!
+
+                    val parent = accessors.parent(matched)
+                    assertThat(parent, `is`(instanceOf(XQueryDirElemConstructor::class.java)))
+                    assertThat(qname_presentation((parent as XQueryDirElemConstructor).nodeName!!), `is`("a"))
+                }
+
+                @Test
+                @DisplayName("multiple item expression")
+                fun multiple() {
+                    val node = parse<XQueryCompAttrConstructor>(
+                        "<a>{ attribute test { 'value' } , attribute attr { 'value' } }</a>"
+                    )[0]
+                    val (matched, accessors) = XmlAccessorsProvider.attribute(node)!!
+
+                    val parent = accessors.parent(matched)
+                    assertThat(parent, `is`(instanceOf(XQueryDirElemConstructor::class.java)))
+                    assertThat(qname_presentation((parent as XQueryDirElemConstructor).nodeName!!), `is`("a"))
+                }
+
+                @Test
+                @DisplayName("complex expression")
+                fun complex() {
+                    val node = parse<XQueryCompAttrConstructor>(
+                        "<a>{ if (true()) then attribute test { 'value' } else () }</a>"
+                    )[0]
+                    val (matched, accessors) = XmlAccessorsProvider.attribute(node)!!
+
+                    assertThat(accessors.parent(matched), `is`(nullValue()))
+                }
+            }
+
+            @Nested
+            @DisplayName("XQuery 3.1 EBNF (157) CompElemConstructor")
+            inner class CompElemConstructor {
+                @Test
+                @DisplayName("single item expression")
+                fun single() {
+                    val node = parse<XQueryCompAttrConstructor>("element a { attribute test { 'value' } }")[0]
+                    val (matched, accessors) = XmlAccessorsProvider.attribute(node)!!
+
+                    val parent = accessors.parent(matched)
+                    assertThat(parent, `is`(instanceOf(XQueryCompElemConstructor::class.java)))
+                    assertThat(qname_presentation((parent as XQueryCompElemConstructor).nodeName!!), `is`("a"))
+                }
+
+                @Test
+                @DisplayName("multiple item expression")
+                fun multiple() {
+                    val node = parse<XQueryCompAttrConstructor>(
+                        "element a { attribute test { 'value' } , attribute attr { 'value' } }"
+                    )[0]
+                    val (matched, accessors) = XmlAccessorsProvider.attribute(node)!!
+
+                    val parent = accessors.parent(matched)
+                    assertThat(parent, `is`(instanceOf(XQueryCompElemConstructor::class.java)))
+                    assertThat(qname_presentation((parent as XQueryCompElemConstructor).nodeName!!), `is`("a"))
+                }
+
+                @Test
+                @DisplayName("complex expression")
+                fun complex() {
+                    val node = parse<XQueryCompAttrConstructor>(
+                        "element a { if (true()) then attribute test { 'value' } else () }"
+                    )[0]
+                    val (matched, accessors) = XmlAccessorsProvider.attribute(node)!!
+
+                    assertThat(accessors.parent(matched), `is`(nullValue()))
+                }
             }
         }
     }

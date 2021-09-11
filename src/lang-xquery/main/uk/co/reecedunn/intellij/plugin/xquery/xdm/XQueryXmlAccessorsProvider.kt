@@ -16,9 +16,11 @@
 package uk.co.reecedunn.intellij.plugin.xquery.xdm
 
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessors
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessorsProvider
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathExpr
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
@@ -73,10 +75,16 @@ object XQueryXmlAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
         val nodeName = nodeName(node)
         return localName.contains(nodeName?.localName?.data) && namespaceUri(nodeName) == namespaceUri
     }
+
     // endregion
     // region Accessors (5.11) parent
 
     override fun parent(node: Any): Any? = when (node) {
+        is XQueryCompAttrConstructor -> when (val parent = node.parent) {
+            is XdmElementNode -> parent
+            is XPathExpr -> parent.parent as? XdmElementNode
+            else -> null
+        }
         is PluginDirAttribute -> node.parent
         else -> null
     }
