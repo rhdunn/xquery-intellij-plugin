@@ -5655,56 +5655,9 @@ class XQueryPsiTest : ParserTestCase() {
                 @DisplayName("XQuery 3.1 EBNF (159) CompAttrConstructor")
                 internal inner class CompAttrConstructor {
                     @Test
-                    @DisplayName("nodeName as an EQName")
-                    fun nodeNameEQName() {
-                        val attr = parse<XQueryCompAttrConstructor>("attribute a:b {}")[0] as XdmAttributeNode
-
-                        val name = attr.nodeName!!
-                        assertThat(name.prefix!!.data, `is`("a"))
-                        assertThat(name.localName!!.data, `is`("b"))
-
-                        assertThat(attr.typedValue, `is`(nullValue()))
-
-                        val expr = attr as XpmExpression
-                        assertThat(expr.expressionElement, `is`(nullValue()))
-                    }
-
-                    @Test
-                    @DisplayName("nodeName as an expression")
-                    fun nodeNameExpr() {
-                        val attr = parse<XQueryCompAttrConstructor>(
-                            "attribute { \"a:\" || \"b\" } {}"
-                        )[0] as XdmAttributeNode
-                        assertThat(attr.nodeName, `is`(nullValue()))
-                        assertThat(attr.typedValue, `is`(nullValue()))
-
-                        val expr = attr as XpmExpression
-                        assertThat(expr.expressionElement, `is`(nullValue()))
-                    }
-
-                    @Test
-                    @DisplayName("nodeValue as a StringLiteral")
-                    fun nodeValueStringLiteral() {
-                        val attr = parse<XQueryCompAttrConstructor>(
-                            "attribute test { \"lorem-ipsum\" }"
-                        )[0] as XdmAttributeNode
-                        assertThat(qname_presentation(attr.nodeName!!), `is`("test"))
-                        assertThat(attr.typedValue, `is`(nullValue()))
-
-                        val expr = attr as XpmExpression
-                        assertThat(expr.expressionElement, `is`(nullValue()))
-                    }
-
-                    @Test
-                    @DisplayName("nodeValue as an expression")
-                    fun nodeValueExpr() {
-                        val attr = parse<XQueryCompAttrConstructor>(
-                            "attribute test { 1 + 2 }"
-                        )[0] as XdmAttributeNode
-                        assertThat(qname_presentation(attr.nodeName!!), `is`("test"))
-                        assertThat(attr.typedValue, `is`(nullValue()))
-
-                        val expr = attr as XpmExpression
+                    @DisplayName("expression")
+                    fun expression() {
+                        val expr = parse<XQueryCompAttrConstructor>("attribute a:b {}")[0] as XpmExpression
                         assertThat(expr.expressionElement, `is`(nullValue()))
                     }
 

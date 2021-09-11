@@ -281,6 +281,29 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
                 assertThat(accessors.hasNodeName(matched, "urn:test", setOf("test")), `is`(true))
                 assertThat(accessors.hasNodeName(matched, "urn:test", setOf("tests", "test")), `is`(true))
             }
+
+            @Test
+            @DisplayName("expression")
+            fun expression() {
+                val node = parse<XQueryCompElemConstructor>(
+                    "element { if (true()) 'test' else () } {}"
+                )[0]
+                val (matched, accessors) = XmlAccessorsProvider.element(node)!!
+
+                assertThat(accessors.namespaceUri(matched), `is`(nullValue()))
+                assertThat(accessors.localName(matched), `is`(nullValue()))
+
+                assertThat(accessors.hasNodeName(matched, "", "test"), `is`(false))
+                assertThat(accessors.hasNodeName(matched, "", setOf("test")), `is`(false))
+                assertThat(accessors.hasNodeName(matched, "", setOf("tests", "test")), `is`(false))
+
+                assertThat(accessors.hasNodeName(matched, "", "tests"), `is`(false))
+                assertThat(accessors.hasNodeName(matched, "", setOf("tests")), `is`(false))
+
+                assertThat(accessors.hasNodeName(matched, "urn:test", "test"), `is`(false))
+                assertThat(accessors.hasNodeName(matched, "urn:test", setOf("test")), `is`(false))
+                assertThat(accessors.hasNodeName(matched, "urn:test", setOf("tests", "test")), `is`(false))
+            }
         }
     }
 
@@ -368,6 +391,29 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
                 assertThat(accessors.hasNodeName(matched, "urn:test", "test"), `is`(true))
                 assertThat(accessors.hasNodeName(matched, "urn:test", setOf("test")), `is`(true))
                 assertThat(accessors.hasNodeName(matched, "urn:test", setOf("tests", "test")), `is`(true))
+            }
+
+            @Test
+            @DisplayName("expression")
+            fun expression() {
+                val node = parse<XQueryCompAttrConstructor>(
+                    "element a { attribute { if (true()) 'test' else () } {} }"
+                )[0]
+                val (matched, accessors) = XmlAccessorsProvider.attribute(node)!!
+
+                assertThat(accessors.namespaceUri(matched), `is`(nullValue()))
+                assertThat(accessors.localName(matched), `is`(nullValue()))
+
+                assertThat(accessors.hasNodeName(matched, "", "test"), `is`(false))
+                assertThat(accessors.hasNodeName(matched, "", setOf("test")), `is`(false))
+                assertThat(accessors.hasNodeName(matched, "", setOf("tests", "test")), `is`(false))
+
+                assertThat(accessors.hasNodeName(matched, "", "tests"), `is`(false))
+                assertThat(accessors.hasNodeName(matched, "", setOf("tests")), `is`(false))
+
+                assertThat(accessors.hasNodeName(matched, "urn:test", "test"), `is`(false))
+                assertThat(accessors.hasNodeName(matched, "urn:test", setOf("test")), `is`(false))
+                assertThat(accessors.hasNodeName(matched, "urn:test", setOf("tests", "test")), `is`(false))
             }
         }
 

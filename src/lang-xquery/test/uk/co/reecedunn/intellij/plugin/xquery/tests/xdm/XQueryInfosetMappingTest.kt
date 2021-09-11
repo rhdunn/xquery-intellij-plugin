@@ -384,6 +384,16 @@ class XQueryInfosetMappingTest : ParserTestCase() {
                 assertThat(node.nodeName?.namespace?.data, `is`("urn:test"))
                 assertThat(node.nodeName?.isLexicalQName, `is`(false))
             }
+
+            @Test
+            @DisplayName("expression")
+            fun expression() {
+                val node = parse<XQueryCompElemConstructor>(
+                    "element { if (true()) 'test' else () } {}"
+                )[0] as XdmElementNode
+
+                assertThat(node.nodeName, `is`(nullValue()))
+            }
         }
     }
 
@@ -397,7 +407,7 @@ class XQueryInfosetMappingTest : ParserTestCase() {
             @DisplayName("NCName")
             fun ncname() {
                 val node = parse<XQueryCompAttrConstructor>(
-                    "element { attribute test { 'valid' } }"
+                    "element a { attribute test { 'valid' } }"
                 )[0] as XdmAttributeNode
 
                 assertThat(node.nodeName?.prefix, `is`(nullValue()))
@@ -430,6 +440,16 @@ class XQueryInfosetMappingTest : ParserTestCase() {
                 assertThat(node.nodeName?.localName?.data, `is`("test"))
                 assertThat(node.nodeName?.namespace?.data, `is`("urn:test"))
                 assertThat(node.nodeName?.isLexicalQName, `is`(false))
+            }
+
+            @Test
+            @DisplayName("expression")
+            fun expression() {
+                val node = parse<XQueryCompAttrConstructor>(
+                    "element a { attribute { if (true()) 'test' else () } {} }"
+                )[0] as XdmAttributeNode
+
+                assertThat(node.nodeName, `is`(nullValue()))
             }
         }
     }
