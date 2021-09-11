@@ -15,6 +15,37 @@
  */
 package uk.co.reecedunn.intellij.plugin.xdm.xml
 
+import com.intellij.compat.testFramework.registerExtension
+import com.intellij.compat.testFramework.registerExtensionPointBean
+import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.extensions.ExtensionPointName
+import org.jetbrains.annotations.TestOnly
+import uk.co.reecedunn.intellij.plugin.core.extensions.PluginDescriptorProvider
+
 interface XmlAccessorsProvider {
+    companion object {
+        val EP_NAME: ExtensionPointName<XmlAccessorsProviderBean> = ExtensionPointName.create(
+            "uk.co.reecedunn.intellij.xmlAccessors"
+        )
+
+        private val providers: Sequence<XmlAccessorsProvider>
+            get() = EP_NAME.extensionList.asSequence().map { it.getInstance() }
+
+        fun attribute(node: Any): Pair<Any, XmlAccessors>? = providers.mapNotNull { it.attribute(node) }.firstOrNull()
+
+        @TestOnly
+        @Suppress("UsePropertyAccessSyntax")
+        fun register(plugin: PluginDescriptorProvider, provider: XmlAccessorsProvider, fieldName: String = "INSTANCE") {
+            val bean = XmlAccessorsProviderBean()
+            bean.implementationClass = provider.javaClass.name
+            bean.fieldName = fieldName
+            bean.setPluginDescriptor(plugin.pluginDescriptor)
+
+            val app = ApplicationManager.getApplication()
+            app.registerExtensionPointBean(EP_NAME, XmlAccessorsProviderBean::class.java, plugin.pluginDisposable)
+            app.registerExtension(EP_NAME, bean, plugin.pluginDisposable)
+        }
+    }
+
     fun attribute(node: Any): Pair<Any, XmlAccessors>?
 }

@@ -1,0 +1,11 @@
+<idea-plugin>
+  <extensionPoints>
+    <!--suppress PluginXmlValidity -->
+    <extensionPoint qualifiedName="uk.co.reecedunn.intellij.xmlAccessors" beanClass="uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessorsProviderBean" dynamic="true">
+      <with attribute="implementationClass" implements="uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessorsProvider"/>
+    </extensionPoint>
+  </extensionPoints>
+
+  <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
+  </extensions>
+</idea-plugin>
