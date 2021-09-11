@@ -16,6 +16,8 @@
 package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
 
 import com.intellij.openapi.extensions.PluginId
+import com.intellij.psi.PsiElement
+import org.hamcrest.CoreMatchers
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.nullValue
 import org.junit.jupiter.api.DisplayName
@@ -23,9 +25,8 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_presentation
-import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAttributeNode
-import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
-import uk.co.reecedunn.intellij.plugin.xdm.types.XsUntypedAtomicValue
+import uk.co.reecedunn.intellij.plugin.xdm.module.path.XdmModuleType
+import uk.co.reecedunn.intellij.plugin.xdm.types.*
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompAttrConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompElemConstructor
@@ -171,6 +172,54 @@ class XQueryInfosetMappingTest : ParserTestCase() {
                 assertThat(node.nodeName?.localName?.data, `is`("test"))
                 assertThat(node.nodeName?.namespace, `is`(nullValue()))
                 assertThat(node.nodeName?.isLexicalQName, `is`(true))
+            }
+        }
+
+        @Nested
+        @DisplayName("Accessors (5.14) node-name")
+        internal inner class TypedValue {
+            @Test
+            @DisplayName("namespace prefix")
+            fun namespacePrefix() {
+                val node = parse<PluginDirAttribute>("<a xmlns:b='http://www.example.com'/>")[0] as XdmAttributeNode
+
+                val value = node.typedValue as XsAnyUriValue
+                assertThat(value.data, `is`("http://www.example.com"))
+                assertThat(value.context, `is`(XdmUriContext.NamespaceDeclaration))
+                assertThat(value.moduleTypes, `is`(CoreMatchers.sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))
+                assertThat(value.element, `is`(node as PsiElement))
+            }
+
+            @Test
+            @DisplayName("default element/type namespace")
+            fun defaultElementTypeNamespace() {
+                val node = parse<PluginDirAttribute>("<a xmlns='http://www.example.com'/>")[0] as XdmAttributeNode
+
+                val value = node.typedValue as XsAnyUriValue
+                assertThat(value.data, `is`("http://www.example.com"))
+                assertThat(value.context, `is`(XdmUriContext.NamespaceDeclaration))
+                assertThat(value.moduleTypes, `is`(CoreMatchers.sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))
+                assertThat(value.element, `is`(node as PsiElement))
+            }
+
+            @Test
+            @DisplayName("xml:id")
+            fun id() {
+                val node = parse<PluginDirAttribute>("<a xml:id='lorem-ipsum'/>")[0] as XdmAttributeNode
+
+                val value = node.typedValue as XsIDValue
+                assertThat(value.data, `is`("lorem-ipsum"))
+                assertThat(value.element, `is`(node as PsiElement))
+            }
+
+            @Test
+            @DisplayName("non-namespace declaration attribute")
+            fun attribute() {
+                val node = parse<PluginDirAttribute>("<a b='http://www.example.com'/>")[0] as XdmAttributeNode
+
+                val value = node.typedValue as XsUntypedAtomicValue
+                assertThat(value.data, `is`("http://www.example.com"))
+                assertThat(value.element, `is`(node as PsiElement))
             }
         }
     }

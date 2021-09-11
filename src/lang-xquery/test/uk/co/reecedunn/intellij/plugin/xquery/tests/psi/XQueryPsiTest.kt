@@ -5410,18 +5410,6 @@ class XQueryPsiTest : ParserTestCase() {
                         assertThat(expr.accepts(XdmNamespaceType.Prefixed), `is`(true))
                         assertThat(expr.accepts(XdmNamespaceType.Undefined), `is`(false))
                         assertThat(expr.accepts(XdmNamespaceType.XQuery), `is`(false))
-
-                        val node = expr as XdmAttributeNode
-                        assertThat(node.nodeName?.prefix?.data, `is`("xmlns"))
-                        assertThat(node.nodeName?.localName?.data, `is`("b"))
-                        assertThat(node.nodeName?.namespace, `is`(nullValue()))
-                        assertThat(node.nodeName?.isLexicalQName, `is`(true))
-
-                        val value = node.typedValue as XsAnyUriValue
-                        assertThat(value.data, `is`("http://www.example.com"))
-                        assertThat(value.context, `is`(XdmUriContext.NamespaceDeclaration))
-                        assertThat(value.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))
-                        assertThat(value.element, `is`(expr as PsiElement))
                     }
 
                     @Test
@@ -5444,18 +5432,6 @@ class XQueryPsiTest : ParserTestCase() {
                         assertThat(expr.accepts(XdmNamespaceType.Prefixed), `is`(false))
                         assertThat(expr.accepts(XdmNamespaceType.Undefined), `is`(false))
                         assertThat(expr.accepts(XdmNamespaceType.XQuery), `is`(false))
-
-                        val node = expr as XdmAttributeNode
-                        assertThat(node.nodeName?.prefix, `is`(nullValue()))
-                        assertThat(node.nodeName?.localName?.data, `is`("xmlns"))
-                        assertThat(node.nodeName?.namespace, `is`(nullValue()))
-                        assertThat(node.nodeName?.isLexicalQName, `is`(true))
-
-                        val value = node.typedValue as XsAnyUriValue
-                        assertThat(value.data, `is`("http://www.example.com"))
-                        assertThat(value.context, `is`(XdmUriContext.NamespaceDeclaration))
-                        assertThat(value.moduleTypes, `is`(sameInstance(XdmModuleType.MODULE_OR_SCHEMA)))
-                        assertThat(value.element, `is`(expr as PsiElement))
                     }
 
                     @Test
@@ -5473,16 +5449,6 @@ class XQueryPsiTest : ParserTestCase() {
                         assertThat(expr.accepts(XdmNamespaceType.Prefixed), `is`(false))
                         assertThat(expr.accepts(XdmNamespaceType.Undefined), `is`(true))
                         assertThat(expr.accepts(XdmNamespaceType.XQuery), `is`(false))
-
-                        val node = expr as XdmAttributeNode
-                        assertThat(node.nodeName?.prefix?.data, `is`("xml"))
-                        assertThat(node.nodeName?.localName?.data, `is`("id"))
-                        assertThat(node.nodeName?.namespace, `is`(nullValue()))
-                        assertThat(node.nodeName?.isLexicalQName, `is`(true))
-
-                        val value = node.typedValue as XsIDValue
-                        assertThat(value.data, `is`("lorem-ipsum"))
-                        assertThat(value.element, `is`(expr as PsiElement))
                     }
 
                     @Test
@@ -5503,16 +5469,6 @@ class XQueryPsiTest : ParserTestCase() {
                         assertThat(expr.accepts(XdmNamespaceType.Prefixed), `is`(false))
                         assertThat(expr.accepts(XdmNamespaceType.Undefined), `is`(true))
                         assertThat(expr.accepts(XdmNamespaceType.XQuery), `is`(false))
-
-                        val node = expr as XdmAttributeNode
-                        assertThat(node.nodeName?.prefix, `is`(nullValue()))
-                        assertThat(node.nodeName?.localName?.data, `is`("b"))
-                        assertThat(node.nodeName?.namespace, `is`(nullValue()))
-                        assertThat(node.nodeName?.isLexicalQName, `is`(true))
-
-                        val value = node.typedValue as XsUntypedAtomicValue
-                        assertThat(value.data, `is`("http://www.example.com"))
-                        assertThat(value.element, `is`(expr as PsiElement))
                     }
 
                     @Test
@@ -5533,16 +5489,6 @@ class XQueryPsiTest : ParserTestCase() {
                         assertThat(expr.accepts(XdmNamespaceType.Prefixed), `is`(false))
                         assertThat(expr.accepts(XdmNamespaceType.Undefined), `is`(true))
                         assertThat(expr.accepts(XdmNamespaceType.XQuery), `is`(false))
-
-                        val node = expr as XdmAttributeNode
-                        assertThat(node.nodeName?.prefix?.data, `is`("b"))
-                        assertThat(node.nodeName?.localName?.data, `is`("xmlns"))
-                        assertThat(node.nodeName?.namespace, `is`(nullValue()))
-                        assertThat(node.nodeName?.isLexicalQName, `is`(true))
-
-                        val value = node.typedValue as XsUntypedAtomicValue
-                        assertThat(value.data, `is`("http://www.example.com"))
-                        assertThat(value.element, `is`(expr as PsiElement))
                     }
 
                     @Test
@@ -5563,10 +5509,6 @@ class XQueryPsiTest : ParserTestCase() {
                         assertThat(expr.accepts(XdmNamespaceType.Prefixed), `is`(false))
                         assertThat(expr.accepts(XdmNamespaceType.Undefined), `is`(false))
                         assertThat(expr.accepts(XdmNamespaceType.XQuery), `is`(false))
-
-                        val node = expr as XdmAttributeNode
-                        assertThat(node.nodeName, `is`(nullValue()))
-                        assertThat(node.typedValue, `is`(nullValue()))
                     }
 
                     @Nested
