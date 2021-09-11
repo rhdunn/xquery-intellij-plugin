@@ -30,9 +30,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructo
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 @Suppress("Reformat", "ClassName", "RedundantVisibilityModifier")
-@DisplayName("XQuery 3.1 - Infoset Mapping and IntelliJ XML API")
-class XQueryXmlTest : ParserTestCase() {
-    override val pluginId: PluginId = PluginId.getId("XQueryXmlTest")
+@DisplayName("XQuery Data Model 3.1 (4) Infoset Mapping - XQuery Node Constructors")
+class XQueryInfosetMappingTest : ParserTestCase() {
+    override val pluginId: PluginId = PluginId.getId("XQueryInfosetMappingTest")
 
     @Nested
     @DisplayName("XQuery and XPath Data Model 3.1 (5.1) attributes Accessor")
