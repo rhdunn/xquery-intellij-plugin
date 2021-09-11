@@ -109,7 +109,7 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
     }
 
     @Nested
-    @DisplayName("XQuery IntelliJ Plugin EBNF (2) DirAttribute")
+    @DisplayName("XQuery 3.1 EBNF (143) DirAttributeList ; XQuery IntelliJ Plugin EBNF (2) DirAttribute")
     inner class DirAttribute {
         @Test
         @DisplayName("providers")
