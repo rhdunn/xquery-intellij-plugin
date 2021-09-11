@@ -19,6 +19,8 @@ import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessors
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessorsProvider
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathNCName
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathQName
 import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xpm.context.expand
 import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
@@ -51,11 +53,13 @@ object XQueryXmlAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
     // endregion
     // region Accessors (5.10) node-name
 
-    private fun namespaceUri(qname: XsQNameValue?): String? {
-        return qname?.expand()?.firstOrNull()?.namespace?.data
+    private fun namespaceUri(qname: XsQNameValue?): String? = when (qname) {
+        is XPathNCName, is XPathQName -> qname.expand().firstOrNull()?.namespace?.data
+        else -> qname?.namespace?.data // Don't need to expand a URIQualifiedName to get the namespace URI.
     }
 
     private fun nodeName(node: Any): XsQNameValue? = when (node) {
+        is XQueryCompAttrConstructor -> node.nodeName
         is PluginDirAttribute -> node.nodeName
         else -> null
     }
@@ -69,6 +73,5 @@ object XQueryXmlAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
         val nodeName = nodeName(node)
         return localName.contains(nodeName?.localName?.data) && namespaceUri(nodeName) == namespaceUri
     }
-
     // endregion
 }
