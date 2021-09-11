@@ -147,6 +147,23 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery 3.1 EBNF (157) CompElemConstructor")
+    inner class CompElemConstructor {
+        @Test
+        @DisplayName("providers")
+        fun providers() {
+            val node = parse<XQueryCompElemConstructor>("element a { attribute test { 'value' } }")[0]
+            val (matched, accessors) = XmlAccessorsProvider.element(node)!!
+
+            assertThat(matched, `is`(instanceOf(XQueryCompElemConstructor::class.java)))
+            assertThat(qname_presentation((matched as XQueryCompElemConstructor).nodeName!!), `is`("a"))
+            assertThat(matched, `is`(sameInstance(node)))
+
+            assertThat(accessors, `is`(sameInstance(XQueryXmlAccessorsProvider)))
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.1 EBNF (159) CompAttrConstructor")
     inner class CompAttrConstructor {
         @Test
