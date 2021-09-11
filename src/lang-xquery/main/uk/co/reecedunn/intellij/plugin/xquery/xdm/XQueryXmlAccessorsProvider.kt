@@ -47,4 +47,15 @@ object XQueryXmlAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
     }
 
     // endregion
+    // region Accessors (5.10) node-name
+
+    override fun hasNodeName(node: Any, namespaceUri: String, localName: String): Boolean = when (node) {
+        else -> false
+    }
+
+    override fun hasNodeName(node: Any, namespaceUri: String, localName: Set<String>): Boolean = when (node) {
+        else -> false
+    }
+
+    // endregion
 }
