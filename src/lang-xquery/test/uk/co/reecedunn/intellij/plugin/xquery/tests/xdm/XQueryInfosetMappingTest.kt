@@ -35,11 +35,11 @@ class XQueryInfosetMappingTest : ParserTestCase() {
     override val pluginId: PluginId = PluginId.getId("XQueryInfosetMappingTest")
 
     @Nested
-    @DisplayName("XQuery and XPath Data Model 3.1 (5.1) attributes Accessor")
-    internal inner class AttributesAccessor {
+    @DisplayName("XQuery 3.1 EBNF (142) DirElemConstructor")
+    internal inner class DirElemConstructor {
         @Nested
-        @DisplayName("XQuery 3.1 EBNF (142) DirElemConstructor")
-        internal inner class DirElemConstructor {
+        @DisplayName("Accessors (5.1) attributes")
+        internal inner class Attributes {
             @Test
             @DisplayName("without attributes")
             fun withoutAttributes() {
@@ -114,10 +114,14 @@ class XQueryInfosetMappingTest : ParserTestCase() {
                 assertThat(attributes.size, `is`(4))
             }
         }
+    }
 
+    @Nested
+    @DisplayName("XQuery 3.1 EBNF (157) CompElemConstructor")
+    internal inner class CompElemConstructor {
         @Nested
-        @DisplayName("XQuery 3.1 EBNF (157) CompElemConstructor")
-        internal inner class CompElemConstructor {
+        @DisplayName("Accessors (5.1) attributes")
+        internal inner class Attributes {
             @Test
             @DisplayName("without attributes")
             fun withoutAttributes() {
