@@ -23,7 +23,10 @@ import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_presentation
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessorsProvider
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginEnclosedAttrValueExpr
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompAttrConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeValue
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 import uk.co.reecedunn.intellij.plugin.xquery.xdm.XQueryXmlAccessorsProvider
@@ -67,6 +70,75 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
             assertThat(qname_presentation((matched as PluginDirAttribute).nodeName!!), `is`("test"))
 
             assertThat(accessors, `is`(sameInstance(XQueryXmlAccessorsProvider)))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.1 EBNF (159) CompAttrConstructor")
+    inner class CompAttrConstructor {
+        @Test
+        @DisplayName("providers")
+        fun providers() {
+            val node = parse<XQueryCompAttrConstructor>("element a { attribute test { 'value' } }")[0]
+            val (matched, accessors) = XmlAccessorsProvider.attribute(node)!!
+
+            assertThat(matched, `is`(instanceOf(XQueryCompAttrConstructor::class.java)))
+            assertThat(qname_presentation((matched as XQueryCompAttrConstructor).nodeName!!), `is`("test"))
+            assertThat(matched, `is`(sameInstance(node)))
+
+            assertThat(accessors, `is`(sameInstance(XQueryXmlAccessorsProvider)))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery IntelliJ Plugin EBNF (2) EnclosedAttrValueExpr")
+    inner class EnclosedAttrValueExpr {
+        @Test
+        @DisplayName("providers")
+        fun providers() {
+            val node = parse<PluginEnclosedAttrValueExpr>("element a { attribute test { 'value' } }")[0]
+            val (matched, accessors) = XmlAccessorsProvider.attribute(node)!!
+
+            assertThat(matched, `is`(instanceOf(XQueryCompAttrConstructor::class.java)))
+            assertThat(qname_presentation((matched as XQueryCompAttrConstructor).nodeName!!), `is`("test"))
+
+            assertThat(accessors, `is`(sameInstance(XQueryXmlAccessorsProvider)))
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.1 EBNF (222) StringLiteral")
+    inner class StringLiteral {
+        @Nested
+        @DisplayName("XQuery 3.1 EBNF (159) CompAttrConstructor")
+        inner class CompAttrConstructor {
+            @Test
+            @DisplayName("providers ; single StringLiteral")
+            fun providersForSingleStringLiteral() {
+                val node = parse<XPathStringLiteral>("element a { attribute test { 'value' } }")[0]
+                val (matched, accessors) = XmlAccessorsProvider.attribute(node)!!
+
+                assertThat(matched, `is`(instanceOf(XQueryCompAttrConstructor::class.java)))
+                assertThat(qname_presentation((matched as XQueryCompAttrConstructor).nodeName!!), `is`("test"))
+
+                assertThat(accessors, `is`(sameInstance(XQueryXmlAccessorsProvider)))
+            }
+
+            @Test
+            @DisplayName("providers ; multiple StringLiterals")
+            fun providersForMultipleStringLiterals() {
+                val node = parse<XPathStringLiteral>("element a { attribute test { 'one', 'two' } }")[0]
+                val provider = XmlAccessorsProvider.attribute(node)
+                assertThat(provider, `is`(nullValue()))
+            }
+
+            @Test
+            @DisplayName("providers ; complex expression")
+            fun providersForComplexExpression() {
+                val node = parse<XPathStringLiteral>("element a { attribute test { 'one' || 'two' } }")[0]
+                val provider = XmlAccessorsProvider.attribute(node)
+                assertThat(provider, `is`(nullValue()))
+            }
         }
     }
 }

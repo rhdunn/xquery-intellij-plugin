@@ -15,17 +15,34 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.xdm
 
+import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessors
 import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessorsProvider
+import uk.co.reecedunn.intellij.plugin.xpath.ast.xpath.XPathStringLiteral
+import uk.co.reecedunn.intellij.plugin.xpm.optree.expression.XpmExpression
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginEnclosedAttrValueExpr
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompAttrConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeValue
 
 object XQueryXmlAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
     // region XmlAccessorsProvider
 
     override fun attribute(node: Any): Pair<Any, XmlAccessors>? = when (node) {
+        // computed attribute
+        is PluginEnclosedAttrValueExpr -> node.parent to this
+        is XQueryCompAttrConstructor -> node to this
+        is XPathStringLiteral -> {
+            val parent = node.parent
+            when (parent.children().count { it is XpmExpression }) {
+                1 -> attribute(parent) // single StringLiteral constructor value
+                else -> null
+            }
+        }
+        // direct attribute
         is XQueryDirAttributeValue -> node.parent to this
         is PluginDirAttribute -> node to this
+        // other
         else -> null
     }
 
