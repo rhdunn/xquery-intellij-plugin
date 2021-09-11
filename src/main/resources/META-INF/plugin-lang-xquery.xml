@@ -60,5 +60,7 @@
     <functionProvider implementationClass="uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryFunctionProvider" fieldName="INSTANCE"/>
 
     <variableProvider implementationClass="uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryCatchClauseVariableProvider" fieldName="INSTANCE"/>
+
+    <xmlAccessors implementationClass="uk.co.reecedunn.intellij.plugin.xquery.xdm.XQueryXmlAccessorsProvider" fieldName="INSTANCE"/>
   </extensions>
 </idea-plugin>
