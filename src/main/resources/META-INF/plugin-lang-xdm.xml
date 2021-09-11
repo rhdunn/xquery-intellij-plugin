@@ -7,5 +7,6 @@
   </extensionPoints>
 
   <extensions defaultExtensionNs="uk.co.reecedunn.intellij">
+    <xmlAccessors implementationClass="uk.co.reecedunn.intellij.plugin.xdm.xml.impl.XmlPsiAccessorsProvider" fieldName="INSTANCE"/>
   </extensions>
 </idea-plugin>

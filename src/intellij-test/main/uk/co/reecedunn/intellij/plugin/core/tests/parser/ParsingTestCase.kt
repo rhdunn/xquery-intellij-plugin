@@ -245,12 +245,12 @@ abstract class ParsingTestCase<File : PsiFile>(
     @Suppress("UNCHECKED_CAST")
     fun parseText(text: String): File = createVirtualFile("testcase.xqy", text).toPsiFile(project) as File
 
-    protected inline fun <reified T> parse(xquery: String): List<T> {
-        return parseText(xquery).walkTree().filterIsInstance<T>().toList()
+    protected inline fun <reified T> parse(text: String): List<T> {
+        return parseText(text).walkTree().filterIsInstance<T>().toList()
     }
 
-    protected inline fun <reified T> parse(vararg xquery: String): List<T> {
-        return parseText(xquery.joinToString("\n")).walkTree().filterIsInstance<T>().toList()
+    protected inline fun <reified T> parse(vararg text: String): List<T> {
+        return parseText(text.joinToString("\n")).walkTree().filterIsInstance<T>().toList()
     }
 
     @Suppress("MemberVisibilityCanBePrivate")
