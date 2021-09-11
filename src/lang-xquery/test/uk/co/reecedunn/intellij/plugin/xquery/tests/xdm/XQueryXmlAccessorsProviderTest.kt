@@ -60,6 +60,46 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
 
             assertThat(accessors, `is`(sameInstance(XQueryXmlAccessorsProvider)))
         }
+
+        @Nested
+        @DisplayName("Accessors (5.10) node-name")
+        inner class NodeName {
+            @Test
+            @DisplayName("NCName")
+            fun ncname() {
+                val node = parse<XQueryDirElemConstructor>("<test/>")[0]
+                val (matched, accessors) = XmlAccessorsProvider.element(node)!!
+
+                assertThat(accessors.hasNodeName(matched, "", "test"), `is`(true))
+                assertThat(accessors.hasNodeName(matched, "", setOf("test")), `is`(true))
+                assertThat(accessors.hasNodeName(matched, "", setOf("tests", "test")), `is`(true))
+
+                assertThat(accessors.hasNodeName(matched, "", "tests"), `is`(false))
+                assertThat(accessors.hasNodeName(matched, "", setOf("tests")), `is`(false))
+
+                assertThat(accessors.hasNodeName(matched, "urn:test", "test"), `is`(false))
+                assertThat(accessors.hasNodeName(matched, "urn:test", setOf("test")), `is`(false))
+                assertThat(accessors.hasNodeName(matched, "urn:test", setOf("tests", "test")), `is`(false))
+            }
+
+            @Test
+            @DisplayName("QName")
+            fun qname() {
+                val node = parse<XQueryDirElemConstructor>("<t:test xmlns:t='urn:test'/>")[0]
+                val (matched, accessors) = XmlAccessorsProvider.element(node)!!
+
+                assertThat(accessors.hasNodeName(matched, "", "test"), `is`(false))
+                assertThat(accessors.hasNodeName(matched, "", setOf("test")), `is`(false))
+                assertThat(accessors.hasNodeName(matched, "", setOf("tests", "test")), `is`(false))
+
+                assertThat(accessors.hasNodeName(matched, "", "tests"), `is`(false))
+                assertThat(accessors.hasNodeName(matched, "", setOf("tests")), `is`(false))
+
+                assertThat(accessors.hasNodeName(matched, "urn:test", "test"), `is`(true))
+                assertThat(accessors.hasNodeName(matched, "urn:test", setOf("test")), `is`(true))
+                assertThat(accessors.hasNodeName(matched, "urn:test", setOf("tests", "test")), `is`(true))
+            }
+        }
     }
 
     @Nested
