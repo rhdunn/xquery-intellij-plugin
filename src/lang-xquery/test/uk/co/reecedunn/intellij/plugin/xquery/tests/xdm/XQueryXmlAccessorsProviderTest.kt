@@ -46,6 +46,23 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery 3.1 EBNF (142) DirElemConstructor")
+    inner class DirElemConstructor {
+        @Test
+        @DisplayName("providers")
+        fun providers() {
+            val node = parse<XQueryDirElemConstructor>("<a test='value'/>")[0]
+            val (matched, accessors) = XmlAccessorsProvider.element(node)!!
+
+            assertThat(matched, `is`(instanceOf(XQueryDirElemConstructor::class.java)))
+            assertThat(qname_presentation((matched as XQueryDirElemConstructor).nodeName!!), `is`("a"))
+            assertThat(matched, `is`(sameInstance(node)))
+
+            assertThat(accessors, `is`(sameInstance(XQueryXmlAccessorsProvider)))
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery IntelliJ Plugin EBNF (2) DirAttribute")
     inner class DirAttribute {
         @Test

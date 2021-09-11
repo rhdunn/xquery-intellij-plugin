@@ -30,11 +30,13 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginEnclosedAttrValueExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompAttrConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeValue
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 
 object XQueryXmlAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
     // region XmlAccessorsProvider
 
     override fun element(node: Any): Pair<Any, XmlAccessors>? = when (node) {
+        is XQueryDirElemConstructor -> node to this
         else -> null
     }
 
