@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.co.reecedunn.intellij.plugin.xquery.tests.psi
+package uk.co.reecedunn.intellij.plugin.xquery.tests.xdm
 
 import com.intellij.openapi.extensions.PluginId
 import org.hamcrest.CoreMatchers.`is`
@@ -30,9 +30,9 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructo
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 
 @Suppress("Reformat", "ClassName", "RedundantVisibilityModifier")
-@DisplayName("XQuery 3.1 - Infoset Mapping and IntelliJ XML API")
-class XQueryXmlTest : ParserTestCase() {
-    override val pluginId: PluginId = PluginId.getId("XQueryXmlTest")
+@DisplayName("XQuery 3.1 - Infoset Mapping for Direct and Constructed Nodes")
+class XQueryInfosetMappingTest : ParserTestCase() {
+    override val pluginId: PluginId = PluginId.getId("XQueryInfosetMappingTest")
 
     @Nested
     @DisplayName("XQuery and XPath Data Model 3.1 (5.1) attributes Accessor")
