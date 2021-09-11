@@ -41,6 +41,9 @@ class XmlPsiAccessorsProviderTest : ParsingTestCase<XmlFile>(null, XMLParserDefi
         addExplicitExtension(LanguageASTFactory.INSTANCE, XMLLanguage.INSTANCE, XmlASTFactory())
 
         val app = ApplicationManager.getApplication()
+        app.registerExtensionPointBean(
+            StartTagEndTokenProvider.EP_NAME, StartTagEndTokenProvider::class.java, pluginDisposable
+        )
         app.registerExtensionPointBean(XmlExtension.EP_NAME, XmlExtension::class.java, pluginDisposable)
         app.registerExtensionPointBean(
             XmlFileNSInfoProvider.EP_NAME, XmlFileNSInfoProvider::class.java, pluginDisposable
