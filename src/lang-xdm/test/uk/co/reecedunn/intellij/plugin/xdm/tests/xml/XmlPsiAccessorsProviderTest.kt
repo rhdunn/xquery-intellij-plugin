@@ -22,10 +22,7 @@ import com.intellij.lang.xml.XMLParserDefinition
 import com.intellij.lang.xml.XmlASTFactory
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.extensions.PluginId
-import com.intellij.psi.xml.XmlAttribute
-import com.intellij.psi.xml.XmlAttributeValue
-import com.intellij.psi.xml.XmlFile
-import com.intellij.psi.xml.XmlTag
+import com.intellij.psi.xml.*
 import com.intellij.xml.XmlExtension
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
@@ -45,6 +42,9 @@ class XmlPsiAccessorsProviderTest : ParsingTestCase<XmlFile>(null, XMLParserDefi
 
         val app = ApplicationManager.getApplication()
         app.registerExtensionPointBean(XmlExtension.EP_NAME, XmlExtension::class.java, pluginDisposable)
+        app.registerExtensionPointBean(
+            XmlFileNSInfoProvider.EP_NAME, XmlFileNSInfoProvider::class.java, pluginDisposable
+        )
 
         XmlAccessorsProvider.register(this, XmlPsiAccessorsProvider)
     }
@@ -63,6 +63,46 @@ class XmlPsiAccessorsProviderTest : ParsingTestCase<XmlFile>(null, XMLParserDefi
             assertThat(matched, `is`(sameInstance(node)))
 
             assertThat(accessors, `is`(sameInstance(XmlPsiAccessorsProvider)))
+        }
+
+        @Nested
+        @DisplayName("Accessors (5.10) node-name")
+        inner class NodeName {
+            @Test
+            @DisplayName("NCName")
+            fun ncname() {
+                val node = parse<XmlTag>("<test/>")[0]
+                val (matched, accessors) = XmlAccessorsProvider.element(node)!!
+
+                assertThat(accessors.hasNodeName(matched, "", "test"), `is`(true))
+                assertThat(accessors.hasNodeName(matched, "", setOf("test")), `is`(true))
+                assertThat(accessors.hasNodeName(matched, "", setOf("tests", "test")), `is`(true))
+
+                assertThat(accessors.hasNodeName(matched, "", "tests"), `is`(false))
+                assertThat(accessors.hasNodeName(matched, "", setOf("tests")), `is`(false))
+
+                assertThat(accessors.hasNodeName(matched, "urn:test", "test"), `is`(false))
+                assertThat(accessors.hasNodeName(matched, "urn:test", setOf("test")), `is`(false))
+                assertThat(accessors.hasNodeName(matched, "urn:test", setOf("tests", "test")), `is`(false))
+            }
+
+            @Test
+            @DisplayName("QName")
+            fun qname() {
+                val node = parse<XmlTag>("<t:test xmlns:t='urn:test'/>")[0]
+                val (matched, accessors) = XmlAccessorsProvider.element(node)!!
+
+                assertThat(accessors.hasNodeName(matched, "", "test"), `is`(false))
+                assertThat(accessors.hasNodeName(matched, "", setOf("test")), `is`(false))
+                assertThat(accessors.hasNodeName(matched, "", setOf("tests", "test")), `is`(false))
+
+                assertThat(accessors.hasNodeName(matched, "", "tests"), `is`(false))
+                assertThat(accessors.hasNodeName(matched, "", setOf("tests")), `is`(false))
+
+                assertThat(accessors.hasNodeName(matched, "urn:test", "test"), `is`(true))
+                assertThat(accessors.hasNodeName(matched, "urn:test", setOf("test")), `is`(true))
+                assertThat(accessors.hasNodeName(matched, "urn:test", setOf("tests", "test")), `is`(true))
+            }
         }
     }
 

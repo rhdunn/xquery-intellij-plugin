@@ -39,11 +39,13 @@ object XmlPsiAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
     // region Accessors (5.10) node-name
 
     override fun hasNodeName(node: Any, namespaceUri: String, localName: String): Boolean = when (node) {
+        is XmlTag -> node.namespace == namespaceUri && node.localName == localName
         is XmlAttribute -> node.namespace == namespaceUri && node.localName == localName
         else -> false
     }
 
     override fun hasNodeName(node: Any, namespaceUri: String, localName: Set<String>): Boolean = when (node) {
+        is XmlTag -> node.namespace == namespaceUri && localName.contains(node.localName)
         is XmlAttribute -> node.namespace == namespaceUri && localName.contains(node.localName)
         else -> false
     }
