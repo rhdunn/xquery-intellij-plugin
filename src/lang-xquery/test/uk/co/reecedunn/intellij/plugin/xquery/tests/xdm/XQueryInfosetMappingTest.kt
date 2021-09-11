@@ -114,6 +114,32 @@ class XQueryInfosetMappingTest : ParserTestCase() {
                 assertThat(attributes.size, `is`(4))
             }
         }
+
+        @Nested
+        @DisplayName("Accessors (5.10) node-name")
+        internal inner class NodeName {
+            @Test
+            @DisplayName("NCName")
+            fun ncname() {
+                val node = parse<XQueryDirElemConstructor>("<test/>")[0] as XdmElementNode
+
+                assertThat(node.nodeName?.prefix, `is`(nullValue()))
+                assertThat(node.nodeName?.localName?.data, `is`("test"))
+                assertThat(node.nodeName?.namespace, `is`(nullValue()))
+                assertThat(node.nodeName?.isLexicalQName, `is`(true))
+            }
+
+            @Test
+            @DisplayName("QName")
+            fun qname() {
+                val node = parse<XQueryDirElemConstructor>("<t:test xmlns:t='urn:test'/>")[0] as XdmElementNode
+
+                assertThat(node.nodeName?.prefix?.data, `is`("t"))
+                assertThat(node.nodeName?.localName?.data, `is`("test"))
+                assertThat(node.nodeName?.namespace, `is`(nullValue()))
+                assertThat(node.nodeName?.isLexicalQName, `is`(true))
+            }
+        }
     }
 
     @Nested
@@ -156,6 +182,45 @@ class XQueryInfosetMappingTest : ParserTestCase() {
                 assertThat(attributes[1].typedValue, `is`(nullValue()))
 
                 assertThat(attributes.size, `is`(2))
+            }
+        }
+
+        @Nested
+        @DisplayName("Accessors (5.10) node-name")
+        internal inner class NodeName {
+            @Test
+            @DisplayName("NCName")
+            fun ncname() {
+                val node = parse<XQueryCompElemConstructor>("element test {}")[0] as XdmElementNode
+
+                assertThat(node.nodeName?.prefix, `is`(nullValue()))
+                assertThat(node.nodeName?.localName?.data, `is`("test"))
+                assertThat(node.nodeName?.namespace, `is`(nullValue()))
+                assertThat(node.nodeName?.isLexicalQName, `is`(true))
+            }
+
+            @Test
+            @DisplayName("QName")
+            fun qname() {
+                val node = parse<XQueryCompElemConstructor>(
+                    "declare namespace t = 'urn:test'; element t:test {}"
+                )[0] as XdmElementNode
+
+                assertThat(node.nodeName?.prefix?.data, `is`("t"))
+                assertThat(node.nodeName?.localName?.data, `is`("test"))
+                assertThat(node.nodeName?.namespace, `is`(nullValue()))
+                assertThat(node.nodeName?.isLexicalQName, `is`(true))
+            }
+
+            @Test
+            @DisplayName("URIQualifiedName")
+            fun uriQualifiedName() {
+                val node = parse<XQueryCompElemConstructor>("element Q{urn:test}test {}")[0] as XdmElementNode
+
+                assertThat(node.nodeName?.prefix, `is`(nullValue()))
+                assertThat(node.nodeName?.localName?.data, `is`("test"))
+                assertThat(node.nodeName?.namespace?.data, `is`("urn:test"))
+                assertThat(node.nodeName?.isLexicalQName, `is`(false))
             }
         }
     }
