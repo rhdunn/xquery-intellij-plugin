@@ -23,8 +23,11 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.reecedunn.intellij.plugin.core.tests.assertion.assertThat
 import uk.co.reecedunn.intellij.plugin.xdm.functions.op.qname_presentation
+import uk.co.reecedunn.intellij.plugin.xdm.types.XdmAttributeNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsUntypedAtomicValue
+import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompAttrConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompElemConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
@@ -143,6 +146,36 @@ class XQueryInfosetMappingTest : ParserTestCase() {
     }
 
     @Nested
+    @DisplayName("XQuery 3.1 EBNF (143) DirAttributeList ; XQuery IntelliJ Plugin EBNF (2) DirAttribute")
+    inner class DirAttribute {
+        @Nested
+        @DisplayName("Accessors (5.10) node-name")
+        internal inner class NodeName {
+            @Test
+            @DisplayName("NCName")
+            fun ncname() {
+                val node = parse<PluginDirAttribute>("<a test='value'/>")[0] as XdmAttributeNode
+
+                assertThat(node.nodeName?.prefix, `is`(nullValue()))
+                assertThat(node.nodeName?.localName?.data, `is`("test"))
+                assertThat(node.nodeName?.namespace, `is`(nullValue()))
+                assertThat(node.nodeName?.isLexicalQName, `is`(true))
+            }
+
+            @Test
+            @DisplayName("QName")
+            fun qname() {
+                val node = parse<PluginDirAttribute>("<a xmlns:t='urn:test' t:test='value'/>")[1] as XdmAttributeNode
+
+                assertThat(node.nodeName?.prefix?.data, `is`("t"))
+                assertThat(node.nodeName?.localName?.data, `is`("test"))
+                assertThat(node.nodeName?.namespace, `is`(nullValue()))
+                assertThat(node.nodeName?.isLexicalQName, `is`(true))
+            }
+        }
+    }
+
+    @Nested
     @DisplayName("XQuery 3.1 EBNF (157) CompElemConstructor")
     internal inner class CompElemConstructor {
         @Nested
@@ -216,6 +249,53 @@ class XQueryInfosetMappingTest : ParserTestCase() {
             @DisplayName("URIQualifiedName")
             fun uriQualifiedName() {
                 val node = parse<XQueryCompElemConstructor>("element Q{urn:test}test {}")[0] as XdmElementNode
+
+                assertThat(node.nodeName?.prefix, `is`(nullValue()))
+                assertThat(node.nodeName?.localName?.data, `is`("test"))
+                assertThat(node.nodeName?.namespace?.data, `is`("urn:test"))
+                assertThat(node.nodeName?.isLexicalQName, `is`(false))
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("XQuery 3.1 EBNF (159) CompAttrConstructor")
+    inner class CompAttrConstructor {
+        @Nested
+        @DisplayName("Accessors (5.10) node-name")
+        internal inner class NodeName {
+            @Test
+            @DisplayName("NCName")
+            fun ncname() {
+                val node = parse<XQueryCompAttrConstructor>(
+                    "element { attribute test { 'valid' } }"
+                )[0] as XdmAttributeNode
+
+                assertThat(node.nodeName?.prefix, `is`(nullValue()))
+                assertThat(node.nodeName?.localName?.data, `is`("test"))
+                assertThat(node.nodeName?.namespace, `is`(nullValue()))
+                assertThat(node.nodeName?.isLexicalQName, `is`(true))
+            }
+
+            @Test
+            @DisplayName("QName")
+            fun qname() {
+                val node = parse<XQueryCompAttrConstructor>(
+                    "declare namespace t = 'urn:test'; element a { attribute t:test { 'value' } }"
+                )[0] as XdmAttributeNode
+
+                assertThat(node.nodeName?.prefix?.data, `is`("t"))
+                assertThat(node.nodeName?.localName?.data, `is`("test"))
+                assertThat(node.nodeName?.namespace, `is`(nullValue()))
+                assertThat(node.nodeName?.isLexicalQName, `is`(true))
+            }
+
+            @Test
+            @DisplayName("URIQualifiedName")
+            fun uriQualifiedName() {
+                val node = parse<XQueryCompAttrConstructor>(
+                    "element a { attribute Q{urn:test}test { 'value' } }"
+                )[0] as XdmAttributeNode
 
                 assertThat(node.nodeName?.prefix, `is`(nullValue()))
                 assertThat(node.nodeName?.localName?.data, `is`("test"))
