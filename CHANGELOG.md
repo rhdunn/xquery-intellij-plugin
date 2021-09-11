@@ -33,6 +33,10 @@ XPath and XQuery:
 3. Don't generate an error when parsing `?$` and `?($)`, where the `VarName` is missing.
 4. Improve the error message when a `QName` is used in a `DirPIConstructor`.
 
+MarkLogic Rewriter XML Integration:
+
+1. Use the regular expression language for `matches` attributes in XQuery direct and computed XML.
+
 ## 2021
 
 *  [1.9.1 - 2021-07-23](docs/_posts/2021-07-23-release-1.9.1.md)
