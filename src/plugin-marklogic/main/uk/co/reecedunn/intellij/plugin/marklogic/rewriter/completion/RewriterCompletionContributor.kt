@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Reece H. Dunn
+ * Copyright (C) 2020-2021 Reece H. Dunn
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,32 +21,30 @@ import com.intellij.codeInsight.completion.CompletionResultSet
 import com.intellij.codeInsight.lookup.LookupElement
 import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.lang.Language
-import com.intellij.psi.xml.XmlAttributeValue
 import uk.co.reecedunn.intellij.plugin.core.completion.schemaListCompletions
-import uk.co.reecedunn.intellij.plugin.core.psi.contextOfType
 import uk.co.reecedunn.intellij.plugin.core.vfs.ResourceVirtualFile
 import uk.co.reecedunn.intellij.plugin.core.vfs.decode
-import uk.co.reecedunn.intellij.plugin.core.xml.attribute
 import uk.co.reecedunn.intellij.plugin.marklogic.rewriter.lang.Rewriter
+import uk.co.reecedunn.intellij.plugin.xdm.xml.XmlAccessorsProvider
 
 class RewriterCompletionContributor : CompletionContributor() {
     override fun fillCompletionVariants(parameters: CompletionParameters, result: CompletionResultSet) {
-        val attribute = parameters.position.contextOfType<XmlAttributeValue>(false)?.attribute ?: return
+        val (attribute, accessors) = XmlAccessorsProvider.attribute(parameters.position) ?: return
 
-        val element = attribute.parent
-        if (element.namespace != Rewriter.NAMESPACE) return
+        val element = accessors.parent(attribute) ?: return
+        if (accessors.namespaceUri(element) != Rewriter.NAMESPACE) return
 
-        when (attribute.localName) {
-            "all-of" -> when (element.localName) {
+        when (accessors.localName(attribute)) {
+            "all-of" -> when (accessors.localName(element)) {
                 "match-execute-privilege" -> result.addAllElements(EXECUTE_PRIVILEGE)
             }
-            "any-of" -> when (element.localName) {
+            "any-of" -> when (accessors.localName(element)) {
                 "match-accept" -> result.addAllElements(MIMETYPE)
                 "match-content-type" -> result.addAllElements(MIMETYPE)
                 "match-execute-privilege" -> result.addAllElements(EXECUTE_PRIVILEGE)
                 "match-method" -> result.addAllElements(parameters.schemaListCompletions(HTTP_METHOD))
             }
-            "name" -> when (element.localName) {
+            "name" -> when (accessors.localName(element)) {
                 "match-header" -> result.addAllElements(HTTP_HEADER)
             }
         }

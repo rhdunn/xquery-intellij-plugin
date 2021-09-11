@@ -36,6 +36,8 @@ XPath and XQuery:
 MarkLogic Rewriter XML Integration:
 
 1. Use the regular expression language for `matches` attributes in XQuery direct and computed XML.
+2. Add code completion for `match-accept`, `match-content-type`, `match-execute-privilege`, `match-header`,
+   and `match-method` XQuery direct XML elements.
 
 ## 2021
 

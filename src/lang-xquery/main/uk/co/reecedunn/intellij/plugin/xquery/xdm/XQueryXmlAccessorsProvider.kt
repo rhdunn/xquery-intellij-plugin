@@ -15,6 +15,7 @@
  */
 package uk.co.reecedunn.intellij.plugin.xquery.xdm
 
+import com.intellij.psi.PsiElement
 import uk.co.reecedunn.intellij.plugin.core.sequences.children
 import uk.co.reecedunn.intellij.plugin.xdm.types.XdmElementNode
 import uk.co.reecedunn.intellij.plugin.xdm.types.XsQNameValue
@@ -57,6 +58,7 @@ object XQueryXmlAccessorsProvider : XmlAccessorsProvider, XmlAccessors {
         is XQueryDirAttributeValue -> node.parent to this
         is PluginDirAttribute -> node to this
         // other
+        is PsiElement -> node.context?.let { attribute(it) }
         else -> null
     }
 
