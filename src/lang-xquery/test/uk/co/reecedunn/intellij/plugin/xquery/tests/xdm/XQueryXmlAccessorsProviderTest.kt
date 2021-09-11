@@ -29,6 +29,7 @@ import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginDirAttribute
 import uk.co.reecedunn.intellij.plugin.xquery.ast.plugin.PluginEnclosedAttrValueExpr
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryCompAttrConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirAttributeValue
+import uk.co.reecedunn.intellij.plugin.xquery.ast.xquery.XQueryDirElemConstructor
 import uk.co.reecedunn.intellij.plugin.xquery.optree.XQueryNamespaceProvider
 import uk.co.reecedunn.intellij.plugin.xquery.tests.parser.ParserTestCase
 import uk.co.reecedunn.intellij.plugin.xquery.xdm.XQueryXmlAccessorsProvider
@@ -97,6 +98,17 @@ class XQueryXmlAccessorsProviderTest : ParserTestCase() {
                 assertThat(accessors.hasNodeName(matched, "urn:test", setOf("test")), `is`(true))
                 assertThat(accessors.hasNodeName(matched, "urn:test", setOf("tests", "test")), `is`(true))
             }
+        }
+
+        @Test
+        @DisplayName("Accessors (5.11) parent")
+        fun parent() {
+            val node = parse<PluginDirAttribute>("<a test='value'/>")[0]
+            val (matched, accessors) = XmlAccessorsProvider.attribute(node)!!
+
+            val parent = accessors.parent(matched)
+            assertThat(parent, `is`(instanceOf(XQueryDirElemConstructor::class.java)))
+            assertThat(qname_presentation((parent as XQueryDirElemConstructor).nodeName!!), `is`("a"))
         }
     }
 
